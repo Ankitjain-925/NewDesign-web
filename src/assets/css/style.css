@@ -1,0 +1,4126 @@
+@import url('https://fonts.googleapis.com/css?family=Muli:200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800&display=swap');
+
+body{ margin: 0; padding: 0; font-family: Muli; color: #000808; font-weight:400; }
+h1,h2,h3,h4,h5,h6,h7,p{ margin:0; padding:0; font-size: inherit; font-weight: inherit; }
+.mt-10{ margin-top: 10px !important; }
+.mt-20{ margin-top: 20px !important; }
+.mt-30{ margin-top: 30px !important; }
+.mt-40{ margin-top: 40px !important; }
+.mt-50{ margin-top: 50px !important; }
+.mt-100{ margin-top: 100px !important; }
+.pt-40{ padding-top: 40px !important; }
+.mb-20{ margin-bottom: 20px !important; }
+.mb-40{ margin-bottom: 40px !important; }
+.height-100{ height: 100px !important; }
+.height-200{ height: 200px !important; }
+.clear{ clear: both }
+
+::-webkit-scrollbar{
+    width: 10px;
+}
+::-webkit-scrollbar-track{
+    background: #7A7A7A;
+}
+::-webkit-scrollbar-thumb{
+    background: #00ABAF;
+}
+::-webkit-scrollbar-thumb:hover{
+    background: #BFEAEB;
+}
+
+/* Home page css */
+.homeBg {
+    min-height: 100vh;
+}
+.homeBgIner {
+    background: #f7f7f7;
+    min-height: 100vh; 
+}
+.MenuLeftUpr {
+    background: #fff;
+    min-height: 100vh;
+    border-right: 2px solid #ececec;
+}
+.webLogo {
+    text-align: center;
+    margin-top: 32px;
+    margin-bottom: 70px;
+}
+.menuItems ul {
+    padding-left: 0px;
+}
+.menuItems ul li {
+    list-style-type: none;
+    text-align: center;
+    margin-bottom: 30px;
+}
+.menuItems ul li a img {
+    width: 46px;
+}
+.menuItems ul li a {
+    /* display: inline-block; */
+    cursor: pointer;
+    text-decoration: none;
+}
+.menuItems ul li a span {
+    display: block;
+    color: #7F8383;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 16px;
+    margin-top: 12px;
+}
+.descpCntntLft a {
+    color: #000808;
+    font-family: Muli;
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 24px;
+    text-align: center;
+    display: block;
+    border-radius: 12px;
+    background-color: #FFFFFF;
+    box-shadow: 0 1px 8px 0 rgba(0,8,8,0.04);
+    padding: 15px 0px 18px;
+}
+.descpCntntLft a span {
+    color: #7F8383;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 12px;
+    text-align: center;
+    display: block;
+    margin-top: 12px;
+}
+.descpInerRght {
+    margin-left: 36px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    /* min-height: 683px; */
+    border-radius: 12px;
+    background-color: #FFFFFF;
+    box-shadow: 0 1px 8px 0 rgba(0,8,8,0.04);
+    border-left: 4px solid #EE5253;
+}
+.icd_num label {
+    color: #000808;
+    font-family: Muli;
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 26px;
+    display: block;
+    margin-bottom: 6px;
+}
+.icd_num a {
+    color: #7F8383;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 12px;
+    cursor: pointer;
+}
+.diagnosNote img {
+    width: 23px;
+    cursor: pointer;
+}
+.diagnosAwrd img {
+    width: 14px;
+    cursor: pointer;
+}
+.diagnosBus img {
+    width: 16px;
+    cursor: pointer;
+}
+.diagnosNote span {
+    color: #EE5253;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 12px;
+    margin-left: 8px;
+}
+.diagnosImg a {
+    padding-right: 12px;
+}
+.descpCntntMain {
+    padding-left: 70px;
+    margin-bottom: 45px;
+}
+.addSpc {
+    padding-left: 32px;
+    padding-right: 32px;
+}
+.icd_num {
+    margin-top: 18px;
+}
+.vsblSec {
+    text-align: right;
+}
+.vsblEye img {
+    width: 14px;
+    cursor: pointer;
+}
+.vsblEye {
+    color: #7F8383;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 12px;
+}
+a.vsblTime img {
+    width: 12px;
+    cursor: pointer;
+}
+a.vsblDots img {
+    width: 34px;
+    cursor: pointer;
+}
+a.vsblTime {
+    margin-left: 5px;
+    margin-right: 18px;
+}
+.vsblEye span {
+    vertical-align: middle;
+}
+/* End home page css */
+
+.markCntntImg span, .markMDCntntImg span {
+    color: #7F8383;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 12px;
+    margin-left: 10px;
+}
+.markCntntImg img {
+    width: 16px;
+    height: 16px;
+}
+.markMDCntntImg img {
+    width: 13px;
+    height: 13px;
+}
+.markCntntMain {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    border-top: 1px solid #f2f2f2;
+    border-bottom: 1px solid #f2f2f2;
+    margin-top: 16px;
+}
+.detailLbl label {
+    color: #404646;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 12px;
+    margin-bottom: 0px;
+}
+.detailLbl {
+    border-radius: 8px;
+    background-color: #F2F2F2;
+    padding: 5px 14px;
+    margin-bottom: 16px;
+}
+.detailCntnt p {
+    color: #404646;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 20px;
+}
+.detailMark {
+    margin-top: 16px;
+}
+.detailLbl a img {
+    width: 15px;
+}
+.detailLbl {
+    position: relative;
+}
+.detailLbl a {
+    position: absolute;
+    right: 14px;
+    top: 4px;
+}
+.imgsFile a img {
+    width: 100%;
+}
+.imgsFile a {
+    display: inline-block;
+    cursor: pointer;
+    margin-right: 25px;
+    width: 120px;
+    vertical-align: top;
+}
+.imgsFile label {
+    color: #7F8383;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 17px;
+    text-align: center;
+    display: block;
+    word-break: break-all;
+    margin-top: 8px;
+    margin-bottom: 0px;
+}
+.diagnoBy label {
+    color: #7F8383;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 18px;
+    margin-bottom: 0px;
+}
+.diagnoBy span {
+    color: #000808;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 18px;
+}
+.detailMark span.Collapsible__trigger {
+    border-radius: 8px;
+    background-color: #F2F2F2;
+    padding: 8px 14px;
+    margin-bottom: 16px;
+    display: block;
+    color: #404646;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 20px;
+    position: relative;
+    cursor: pointer;
+}
+.detailMark .is-closed::after{
+    content: "";
+    width: 18px;
+    height: 18px;
+    position: absolute;
+    top: 9px;
+    right: 16px;
+    background-size: contain;
+    background: url("../images/downarrow1.jpg") no-repeat center center;
+    cursor: pointer;
+}
+.detailMark .is-open::after{
+    content: "";
+    width: 18px;
+    height: 18px;
+    position: absolute;
+    top: 9px;
+    right: 16px;
+    background-size: contain;
+    background: url("../images/uparrow1.jpg") no-repeat center center; 
+    cursor: pointer;
+}
+.detailMark .Collapsible__contentInner {
+    padding-left: 4px;
+    padding-right: 4px;
+}
+.diagnoBy {
+    margin-bottom: 5px !important;
+}
+.diryInerRght {
+    margin-left: 36px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    border-radius: 12px;
+    background-color: #FFFFFF;
+    box-shadow: 0 1px 8px 0 rgba(0,8,8,0.04);
+    border-left: 4px solid #EE5253;
+}
+.diryImg a {
+    padding-right: 12px;
+}
+.diryNote img {
+    width: 23px;
+    cursor: pointer;
+}
+.diryNote span {
+    color: #EE5253;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 12px;
+    margin-left: 8px;
+}
+.hideSec {
+    text-align: right;
+}
+.hideEye {
+    color: #7F8383;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 12px;
+}
+.hideEye img {
+    width: 14px;
+    cursor: pointer;
+}
+.hideEye span {
+    vertical-align: middle;
+}
+a.hideDots img {
+    width: 34px;
+    cursor: pointer;
+    margin-left: 18px;
+}
+.diryNotes_hedng label {
+    color: #000808;
+    font-family: Muli;
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 26px;
+    display: block;
+    margin-bottom: 6px;
+}
+.diryCntntMain {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    border-top: 1px solid #f2f2f2;
+    border-bottom: 1px solid #f2f2f2;
+    margin-top: 16px;
+}
+.diryCntntImg img {
+    width: 16px;
+    height: 16px;
+}
+.diryCntntImg span, .diryMDCntntImg span {
+    color: #7F8383;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 12px;
+    margin-left: 10px;
+}
+.diryMark {
+    margin-top: 16px;
+}
+.diryNotes_hedng {
+    margin-top: 18px;
+}
+.diryCntntSec p {
+    color: #404646;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 20px;
+    margin-bottom: 8px;
+}
+.diryCntntSec h3 {
+    color: #000808;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 20px;
+    margin-bottom: 10px;
+    margin-top: 14px;
+}
+.diryCntntSec ul li a {
+    color: #404646;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 20px;
+}
+.diryCntntSec ul {
+    padding-left: 27px;
+    margin-bottom: 0px;
+}
+.diryCntntSec ul li {
+    padding-left: 9px;
+}
+.blodPrsurImg a {
+    padding-right: 12px;
+}
+.blodPrsurNote img {
+    width: 23px;
+    cursor: pointer;
+}
+.blodPrsurNote span {
+    color: #00B0DB;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 12px;
+    margin-left: 8px;
+}
+.bp_vsblSec {
+    text-align: right;
+}
+.bp_vsblEye {
+    color: #7F8383;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 12px;
+}
+.bp_vsblEye img {
+    width: 14px;
+    cursor: pointer;
+}
+.bp_vsblEye span {
+    vertical-align: middle;
+}
+.bp_vsblDots img {
+    width: 34px;
+    cursor: pointer;
+    margin-left: 18px;
+}
+.bp_hg {
+    margin-top: 18px;
+}
+.bp_hg label {
+    color: #000808;
+    font-family: Muli;
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 26px;
+    display: block;
+    margin-bottom: 6px;
+}
+.bp_hg p {
+    color: #7F8383;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 12px;
+}
+.bp_hg label span {
+    font-size: 16px;
+}
+.bpJohnMain {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    border-top: 1px solid #f2f2f2;
+    border-bottom: 1px solid #f2f2f2;
+    margin-top: 16px;
+}
+.bpJohnImg img {
+    width: 16px;
+    height: 16px;
+}
+.bpJohnImg span {
+    color: #7F8383;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 12px;
+    margin-left: 10px;
+}
+.bloodPreBy label {
+    color: #7F8383;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 18px;
+    margin-bottom: 0px;
+}
+.bloodPreBy span {
+    color: #000808;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 18px;
+}
+.bp_graph img {
+    width: 100%;
+}
+.bp_graph {
+    margin-top: 24px;
+}
+.bp_graph a {
+    color: #00ABAF;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 12px;
+    cursor: pointer;
+}
+.bp_graph {
+    text-align: center;
+}
+.descpInerBlue {
+    border-left: 4px solid #00B0DB;
+}
+.menuActv img {
+    border-radius: 9px;
+    box-shadow: 0 8px 24px 0 rgba(0,171,175,0.32);
+}
+.profileDescp{
+    border-radius: 12px;
+    background-color: #FFFFFF;
+    box-shadow: 0 1px 8px 0 rgba(0,8,8,0.04);
+}
+.profilePic img {
+    height: 104px;
+    width: 104px;
+    border-radius: 12px;
+    box-shadow: 0 24px 40px 0 rgba(0,8,8,0.08);
+    margin-top: -34px;
+}
+.profilePic {
+    display: block;
+    text-align: center;
+}
+.profileDescp {
+    margin-top: 80px;
+}
+.profileDescp, .drVisit, .comeAppoint, .persBlodMesur{
+    margin-bottom: 32px;
+}
+.profileName{
+    text-align: center;
+}
+.profileName label {
+    color: #000808;
+    font-family: Muli;
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 20px;
+    text-align: center;
+    margin-top: 16px;
+    margin-bottom: 12px;
+}
+.profileName p {
+    color: #7F8383;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 14px;
+    text-align: center;
+}
+.profileBtn a {
+    border-radius: 8px;
+    background-color: #E1F7F7;
+    color: #00ABAF !important;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 16px;
+    text-align: center;
+    padding: 9px 22px;
+    display: inline-block;
+    cursor: pointer;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.prfilHghtLft label, .prfilHghtRght label {
+    color: #00B0DB;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 12px;
+}
+.prfilHghtLft p, .prfilHghtRght p {
+    color: #000808;
+    font-family: Muli;
+    font-size: 24px;
+    font-weight: bold;
+    letter-spacing: 0;
+}
+.prfilHghtLft p span, .prfilHghtRght p span {
+    font-size: 14px;
+    margin-left: 5px;
+}
+.prfilHght {
+    display: flex;
+    border-top: 1px solid #f2f2f2;
+}
+.prfilHghtLft, .prfilHghtRght{
+    width: 50%;
+    padding: 14px 0px;
+    padding-left: 18%;
+}
+.prfilHghtLft {
+    border-right: 1px solid #f2f2f2;
+}
+.drVisit, .comeAppoint, .lstDocs, .persBlodMesur {
+    border-radius: 12px;
+    background-color: #FFFFFF;
+    box-shadow: 0 1px 8px 0 rgba(0,8,8,0.04);
+    padding: 30px 28px;
+}
+.drVisitImg img {
+    width: 100%;
+    border-radius: 6px;
+}
+.drVisitData label {
+    color: #404646;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 12px;
+    margin-bottom: 10px;
+}
+.drVisitData p {
+    color: #7F8383;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 12px;
+}
+.drVisitData {
+    padding-left: 12px;
+}
+.drVisit .MuiGrid-container {
+    margin-bottom: 20px;
+}
+.drVisit .MuiGrid-container:last-child {
+    margin-bottom: 0px;
+}
+.drVisit h3 {
+    color: #000808;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 14px;
+    margin-bottom: 30px;
+}
+.upcomView label {
+    color: #000808;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 14px;
+}
+.upcomView a {
+    color: #00ABAF;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 12px;
+    margin-left: 14px;
+}
+.allViewDots img {
+    width: 30px;
+    cursor: pointer;
+}
+.allViewDots {
+    text-align: right;
+}
+.oficVisit label {
+    color: #7F8383;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 12px;
+    margin-bottom: 0px;
+    margin-right: 30px;
+}
+.oficVisit a {
+    color: #7F8383;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 12px;
+}
+.oficVisit img {
+    width: 16px;
+    vertical-align: middle;
+    margin-right: 4px;
+}
+.neuroSection h3 {
+    color: #000808;
+    font-family: Muli;
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: 0;
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+.neuroSection a {
+    color: #7F8383;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 12px;
+}
+.neuroSection img {
+    width: 16px;
+    vertical-align: middle;
+    margin-right: 8px;
+    border-radius: 10px;
+}
+.oficVisit {
+    margin-top: 12px;
+}
+.lstView label {
+    color: #000808;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 14px;
+}
+.lstView a {
+    color: #00ABAF;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 12px;
+    margin-left: 14px;
+}
+.lstViewDots {
+    text-align: right;
+}
+.lstViewDots img {
+    width: 30px;
+    cursor: pointer;
+}
+.presSec h4 {
+    color: #00B0DB;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 12px;
+}
+.metroPro h5 {
+    color: #000808;
+    font-family: Muli;
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: 0;
+    margin-top: 8px;
+    margin-bottom: 4px;
+}
+.metroPrOpen {
+    text-align: right;
+}
+.metroPrOpen a{
+    color: #00ABAF;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 15px;
+}
+.metroDoctor img {
+    width: 16px;
+    vertical-align: middle;
+    margin-right: 8px;
+    border-radius: 10px;
+}
+.metroDoctor a {
+    color: #7F8383;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 12px;
+}
+a.presSecAncr {
+    display: block;
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin-left: -14px;
+    margin-right: -14px;
+    cursor: pointer;
+}
+a.presSecAncr:hover {
+    background-color: #FAFAFA;
+}
+.presSec {
+    margin-top: 10px;
+}
+.journalAdd h1 {
+    color: #000808;
+    font-family: Muli;
+    font-size: 28px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 40px;
+}
+.AddEntrynw {
+    text-align: right;
+}
+.AddEntrynw a {
+    color: #FFFFFF !important;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 16px;
+    text-align: center;
+    border-radius: 8px;
+    background-color: #00ABAF;
+    min-width: 175px;
+    display: inline-block;
+    padding: 16px 8px;
+    cursor: pointer;
+}
+.journalAdd {
+    margin-top: 45px;
+    margin-bottom: 45px;
+}
+
+/* -------------- */
+
+.conPainImg a {
+    padding-right: 12px;
+}
+.conPainNote img {
+    width: 23px;
+    cursor: pointer;
+}
+.conPainNote span {
+    color: #EE5253;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 12px;
+    margin-left: 8px;
+}
+.conPainImg a {
+    padding-right: 12px;
+}
+.conPainAwrd img {
+    width: 14px;
+    cursor: pointer;
+}
+.conPainSec {
+    text-align: right;
+}
+.conPainEye {
+    color: #7F8383;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 12px;
+    margin-right: 18px;
+}
+.conPainEye img {
+    width: 14px;
+    cursor: pointer;
+}
+.conPainEye span {
+    vertical-align: middle;
+}
+a.conPainTime {
+    margin-left: 5px;
+    margin-right: 18px;
+}
+a.conPainTime img {
+    width: 12px;
+    cursor: pointer;
+}
+.conPainDots img {
+    width: 34px;
+    cursor: pointer;
+}
+.conPain_num {
+    margin-top: 18px;
+}
+.conPain_num label {
+    color: #000808;
+    font-family: Muli;
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 26px;
+    display: block;
+    margin-bottom: 6px;
+}
+.conPain_num p {
+    color: #7F8383;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 12px;
+}
+.conPain_Cntnt {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    border-top: 1px solid #f2f2f2;
+    border-bottom: 1px solid #f2f2f2;
+    margin-top: 16px;
+}
+.conPain_Img img {
+    width: 16px;
+    height: 16px;
+}
+.conPain_Img span, .conPain_MDCImg span {
+    color: #7F8383;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 12px;
+    margin-left: 10px;
+}
+.conPain_MDCImg img {
+    width: 13px;
+    height: 13px;
+}
+.painTypeBy label {
+    color: #7F8383;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 18px;
+    margin-bottom: 0px;
+}
+.painTypeBy span {
+    color: #000808;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 18px;
+}
+.painTypeCntnt p {
+    color: #404646;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 20px;
+}
+.conPainGraph {
+    margin-top: 18px;
+}
+.conPainArea label {
+    color: #7F8383;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 18px;
+    margin-bottom: 14px;
+}
+.conPainLft img {
+    width: 45px;
+    margin-right: 22px;
+}
+.painIntencty label, .condIntencty label{
+    color: #7F8383;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 18px;
+    margin-bottom: 0px;
+}
+.painIntencty a, .condIntencty a {
+    color: #404646;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 18px;
+    display: block;
+    margin-top: 14px;
+    margin-bottom: 5px;
+}
+.painIntencty img, .condIntencty img {
+    width: 24px;
+    margin-right: 15px;
+}
+.painIntencty {
+    margin-bottom: 5px;
+}
+
+/* range pain Slide */
+
+.painIntencty input[type=range] {
+    height: 20px;
+    -webkit-appearance: none;
+    margin: 0px;
+    width: 100%;
+  }
+  .painIntencty input[type=range]:focus {
+    outline: none;
+  }
+  .painIntencty input[type=range]::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 4px;
+    cursor: pointer;
+    animate: 0.2s;
+    box-shadow: 0px 0px 0px #000000;
+    background: linear-gradient(90deg, #12C238 0%, #72CA2E 18.92%, #FECA57 38.89%, #EEAA52 58.81%, #EE5253 78.46%, #EE5253 100%);
+    border-radius: 2px;
+    border: 0px solid #000000;
+  }
+  .painIntencty input[type=range]::-webkit-slider-thumb {
+    box-shadow: 0px 0px 0px #000000;
+    border: 2px solid #FFFFFF;
+    height: 12px;
+    width: 12px;
+    border-radius: 25px;
+    background: #000000;
+    cursor: pointer;
+    -webkit-appearance: none;
+    margin-top: -5px;
+  }
+  .painIntencty input[type=range]:focus::-webkit-slider-runnable-track {
+    background: linear-gradient(90deg, #12C238 0%, #72CA2E 18.92%, #FECA57 38.89%, #EEAA52 58.81%, #EE5253 78.46%, #EE5253 100%);
+  }
+  .painIntencty input[type=range]::-moz-range-track {
+    width: 100%;
+    height: 4px;
+    cursor: pointer;
+    animate: 0.2s;
+    box-shadow: 0px 0px 0px #000000;
+    background: linear-gradient(90deg, #12C238 0%, #72CA2E 18.92%, #FECA57 38.89%, #EEAA52 58.81%, #EE5253 78.46%, #EE5253 100%);
+    border-radius: 2px;
+    border: 0px solid #000000;
+  }
+  .painIntencty input[type=range]::-moz-range-thumb {
+    box-shadow: 0px 0px 0px #000000;
+    border: 2px solid #FFFFFF;
+    height: 12px;
+    width: 12px;
+    border-radius: 25px;
+    background: #000000;
+    cursor: pointer;
+  }
+  .painIntencty input[type=range]::-ms-track {
+    width: 100%;
+    height: 4px;
+    cursor: pointer;
+    animate: 0.2s;
+    background: transparent;
+    border-color: transparent;
+    color: transparent;
+  }
+  .painIntencty input[type=range]::-ms-fill-lower {
+    background: linear-gradient(90deg, #12C238 0%, #72CA2E 18.92%, #FECA57 38.89%, #EEAA52 58.81%, #EE5253 78.46%, #EE5253 100%);
+    border: 0px solid #000000;
+    border-radius: 4px;
+    box-shadow: 0px 0px 0px #000000;
+  }
+  .painIntencty input[type=range]::-ms-fill-upper {
+    background: linear-gradient(90deg, #12C238 0%, #72CA2E 18.92%, #FECA57 38.89%, #EEAA52 58.81%, #EE5253 78.46%, #EE5253 100%);
+    border: 0px solid #000000;
+    border-radius: 4px;
+    box-shadow: 0px 0px 0px #000000;
+  }
+  .painIntencty input[type=range]::-ms-thumb {
+    margin-top: 1px;
+    box-shadow: 0px 0px 0px #000000;
+    border: 2px solid #FFFFFF;
+    height: 12px;
+    width: 12px;
+    border-radius: 25px;
+    background: #000000;
+    cursor: pointer;
+  }
+  .painIntencty input[type=range]:focus::-ms-fill-lower {
+    background: linear-gradient(90deg, #12C238 0%, #72CA2E 18.92%, #FECA57 38.89%, #EEAA52 58.81%, #EE5253 78.46%, #EE5253 100%);
+  }
+  .painIntencty input[type=range]:focus::-ms-fill-upper {
+    background: linear-gradient(90deg, #12C238 0%, #72CA2E 18.92%, #FECA57 38.89%, #EEAA52 58.81%, #EE5253 78.46%, #EE5253 100%);
+  }
+
+  .condIntencty input[type=range] {
+    height: 20px;
+    -webkit-appearance: none;
+    margin: 0px;
+    width: 100%;
+  }
+  .condIntencty input[type=range]:focus {
+    outline: none;
+  }
+  .condIntencty input[type=range]::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 4px;
+    cursor: pointer;
+    animate: 0.2s;
+    box-shadow: 0px 0px 0px #000000;
+    background: linear-gradient(270deg, #12C238 0%, #72CA2E 18.92%, #FECA57 38.89%, #EEAA52 58.81%, #EE5253 78.46%, #EE5253 100%);
+    border-radius: 2px;
+    border: 0px solid #000000;
+  }
+  .condIntencty input[type=range]::-webkit-slider-thumb {
+    box-shadow: 0px 0px 0px #000000;
+    border: 2px solid #FFFFFF;
+    height: 12px;
+    width: 12px;
+    border-radius: 25px;
+    background: #000000;
+    cursor: pointer;
+    -webkit-appearance: none;
+    margin-top: -5px;
+  }
+  .condIntencty input[type=range]:focus::-webkit-slider-runnable-track {
+    background: linear-gradient(270deg, #12C238 0%, #72CA2E 18.92%, #FECA57 38.89%, #EEAA52 58.81%, #EE5253 78.46%, #EE5253 100%);
+  }
+  .condIntencty input[type=range]::-moz-range-track {
+    width: 100%;
+    height: 4px;
+    cursor: pointer;
+    animate: 0.2s;
+    box-shadow: 0px 0px 0px #000000;
+    background: linear-gradient(270deg, #12C238 0%, #72CA2E 18.92%, #FECA57 38.89%, #EEAA52 58.81%, #EE5253 78.46%, #EE5253 100%);
+    border-radius: 2px;
+    border: 0px solid #000000;
+  }
+  .condIntencty input[type=range]::-moz-range-thumb {
+    box-shadow: 0px 0px 0px #000000;
+    border: 2px solid #FFFFFF;
+    height: 12px;
+    width: 12px;
+    border-radius: 25px;
+    background: #000000;
+    cursor: pointer;
+  }
+  .condIntencty input[type=range]::-ms-track {
+    width: 100%;
+    height: 4px;
+    cursor: pointer;
+    animate: 0.2s;
+    background: transparent;
+    border-color: transparent;
+    color: transparent;
+  }
+  .condIntencty input[type=range]::-ms-fill-lower {
+    background: linear-gradient(270deg, #12C238 0%, #72CA2E 18.92%, #FECA57 38.89%, #EEAA52 58.81%, #EE5253 78.46%, #EE5253 100%);
+    border: 0px solid #000000;
+    border-radius: 4px;
+    box-shadow: 0px 0px 0px #000000;
+  }
+  .condIntencty input[type=range]::-ms-fill-upper {
+    background: linear-gradient(270deg, #12C238 0%, #72CA2E 18.92%, #FECA57 38.89%, #EEAA52 58.81%, #EE5253 78.46%, #EE5253 100%);
+    border: 0px solid #000000;
+    border-radius: 4px;
+    box-shadow: 0px 0px 0px #000000;
+  }
+  .condIntencty input[type=range]::-ms-thumb {
+    margin-top: 1px;
+    box-shadow: 0px 0px 0px #000000;
+    border: 2px solid #FFFFFF;
+    height: 12px;
+    width: 12px;
+    border-radius: 25px;
+    background: #000000;
+    cursor: pointer;
+  }
+  .condIntencty input[type=range]:focus::-ms-fill-lower {
+    background: linear-gradient(270deg, #12C238 0%, #72CA2E 18.92%, #FECA57 38.89%, #EEAA52 58.81%, #EE5253 78.46%, #EE5253 100%);
+  }
+  .condIntencty input[type=range]:focus::-ms-fill-upper {
+    background: linear-gradient(270deg, #12C238 0%, #72CA2E 18.92%, #FECA57 38.89%, #EEAA52 58.81%, #EE5253 78.46%, #EE5253 100%);
+  }
+
+.persBlodImg {
+  text-align: right;
+}
+.persBlodImg img {
+    width: 30px;
+    cursor: pointer;
+}
+.persBlod label {
+    color: #00B0DB;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 12px;
+}
+.presureData h3 {
+    color: #000808;
+    font-family: Muli;
+    font-size: 24px;
+    font-weight: bold;
+    letter-spacing: 0;
+    margin-bottom: 0px;
+}
+.presureData h3 span {
+    font-size: 14px;
+}
+.presureData p {
+    color: #7F8383;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 12px;
+    margin-top: 14px;
+}
+.presureData {
+    margin-top: 5px;
+}
+.Personal_dash a {
+    color: #00ABAF !important;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 12px;
+}
+.Personal_dash img {
+    width: 16px;
+    margin-right: 10px;
+    vertical-align: sub;
+}
+.Personal_dash {
+    text-align: center;
+    margin-bottom: 26px;
+}
+.presureDataGrph img {
+    width: 100%;
+}
+.presureDataGrph {
+    margin-left: -28px;
+    margin-right: -28px;
+}
+.srchFilter{
+    margin-bottom: 45px;
+    border-radius: 12px;
+    background-color: #FFFFFF;
+    box-shadow: 0 1px 8px 0 rgba(0,8,8,0.04);
+    padding: 22px 20px 8px;
+}
+.allTimeSel .css-yk16xz-control{
+    border-radius: 8px !important;
+    background-color: #F2F2F2 !important;
+    border-color: transparent !important;
+    font-family: Muli !important;
+}
+.allTimeSel span{
+    width: 0px !important;
+}
+.typeSel .css-yk16xz-control{
+    border-radius: 8px !important;
+    background-color: #E1F7F7 !important;
+    color: #00ABAF !important;
+    border-color: transparent !important;
+    font-family: Muli !important;
+}
+.typeSel .css-1wa3eu0-placeholder{
+    color: #00ABAF !important;
+}
+.typeSel span{
+    width: 0px !important;
+}
+.typeSel .css-6q0nyr-Svg{
+    color: #00ABAF !important;
+}
+.comonSel {
+    padding-right: 12px !important;
+    font-size: 12px !important;
+}
+.clear_filterLft a {
+    color: #00ABAF;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 12px;
+    cursor: pointer;
+}
+.clear_filterRght img {
+    height: 32px;
+    width: 32px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+.clear_filterUpr {
+    display: flex;
+    align-items: center;
+}
+.clear_filterLft, .clear_filterRght {
+    width: 50%;
+}
+.clear_filterRght {
+    text-align: right;
+}
+.sortBySec {
+    border-top: 1px solid #F2F2F2;
+    margin-top: 20px;
+    margin-left: -20px;
+    margin-right: -20px;
+    padding-top: 5px;
+    padding-left: 20px;
+    padding-right: 20px;
+    text-align: right;
+}
+.sortBySec label {
+    color: #404646;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 12px;
+    margin-bottom: 0px;
+}
+.entrTimeBY {
+    width: 75px;
+    border-radius: 8px;
+    background-color: #E1F7F7;
+    outline: none;
+    border: none;
+    display: inline-block;
+    color: #00ABAF;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 12px;
+    text-align: center;
+    padding: 5px 3px;
+    margin: 0px 10px;
+}
+.entrTimeBY::-webkit-input-placeholder {
+    color: #00ABAF;
+  }
+.entrTimeBY::-moz-placeholder {
+    color: #00ABAF;
+  }
+.entrTimeBY:-ms-input-placeholder {
+    color: #00ABAF;
+  }
+.entrTimeBY:-moz-placeholder { 
+    color: #00ABAF;
+  }
+.diagTimeBY {
+    width: 90px;
+    color: #7F8383;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 12px;
+    border: none;
+    outline: none;
+}
+@media (min-width: 960px){
+.faclity_all{
+    max-width: 19% !important;
+    flex-basis: 19% !important;
+  }
+  .clear_filter {
+    flex-grow: 0;
+    max-width: 27.666667% !important;
+    flex-basis: 27.666667% !important;
+  }
+}
+
+/* Start tool tip css */
+.timeIconClas, .icdtxtClas, .yesInfoClas{
+    opacity: initial !important;
+    border-radius: 8px;
+    background-color: #FFFFFF;
+    box-shadow: 0 8px 24px 0 rgba(0,8,8,0.08);
+}
+.timeIconClas label {
+    color: #000808;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 14px;
+    text-align: center;
+    display: block;
+}
+.timeIconClas p{
+  color: #7F8383;
+  font-family: Muli;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 12px;
+  text-align: center;
+}
+.icdtxtClas h4 {
+    color: #000808;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 14px;
+    margin-bottom: 0px;
+}
+.yesInfo img {
+    width: 16px;
+    margin-left: 6px;
+    cursor: pointer;
+}
+.yesInfoClas h4{
+    color: #000808;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 14px;
+    margin-bottom: 10px;
+}
+.yesInfoClas p{
+    color: #7F8383;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 12px;
+}
+.moreMenuList {
+    display: none;
+    min-width: 192px;
+    position: absolute;
+    left: 48px;
+    top: -11px;
+    border: 1px solid #F2F2F2;
+    border-radius: 8px;
+    background-color: #FFFFFF;
+    box-shadow: 0 8px 16px 0 rgba(0,8,8,0.08);
+    z-index: 999;
+    padding: 8px 15px;
+}
+.moreMenu:hover .moreMenuList {
+    display: block;
+}
+.moreMenuList li a {
+    color: #404646;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 14px;
+    text-align: left;
+}
+.moreMenuList ul li {
+    margin-bottom: 1px !important;
+    text-align: left;
+}
+a.moreMenu {
+    position: relative;
+}
+.moreMenuList li a img {
+    width: 10px !important;
+    margin-right: 10px;
+    border-radius: 1px;
+}
+.moreMenuList li a:hover {
+    color: #000808 !important;
+}
+
+.profilMenuList {
+    display: none;
+    min-width: 192px;
+    position: absolute;
+    left: 48px;
+    top: -11px;
+    border: 1px solid #F2F2F2;
+    border-radius: 8px;
+    background-color: #FFFFFF;
+    box-shadow: 0 8px 16px 0 rgba(0,8,8,0.08);
+    z-index: 999;
+    padding: 8px 15px;
+}
+.profilMenu:hover .profilMenuList {
+    display: block;
+}
+.profilMenuList li a {
+    color: #404646;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 14px;
+    text-align: left;
+}
+.profilMenuList ul li {
+    margin-bottom: 1px !important;
+    text-align: left;
+}
+a.profilMenu {
+    position: relative;
+}
+.profilMenuList li a img {
+    width: 10px !important;
+    margin-right: 10px;
+    border-radius: 1px;
+}
+.profilMenuList li a:hover {
+    color: #000808 !important;
+}
+.profilMenuList ul li:last-child {
+    border-top: 1px solid #F2F2F2;
+    margin-top: 10px;
+    padding-top: 2px;
+}
+/* End of tool tip css */
+
+.webItems svg{
+    border: 1px solid #f2f2f2;
+    padding: 10px 5px;
+    width: 46px;
+    height: 46px;
+    border-radius: 10px;
+}
+
+/* Start inbox page css */
+.chatContact {
+    /* width: 90%; */
+    padding: 18px 15px 12px 15px;
+    min-height: 150vh;
+    background-color: #FFFFFF;
+    box-shadow: 1px 0 0 0 rgba(20,20,20,0.1);
+}
+.chatContact h1 {
+    color: #000808;
+    font-family: Muli;
+    font-size: 22px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 26px;
+    margin-bottom: 16px;
+}
+.contactSrch input {
+    border-radius: 8px;
+    background-color: #F2F2F2;
+    color: #BFC1C1;
+    font-family: Muli;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 0;
+    border: none;
+    padding: 5px 12px 5px 30px;
+    width: 100%;
+    outline: none;
+}
+.contactSrch img {
+    position: absolute;
+    left: 6px;
+    top: 8px;
+}
+.contactSrch {
+    position: relative;
+    margin-bottom: 28px;
+}
+.contactListing label {
+    color: #BFC1C1;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 20px;
+    display: block;
+    margin-top: 20px;
+    margin-bottom: 15px;
+}
+.contactListing a {
+    display: flex;
+    margin-bottom: 10px;
+}
+.contactListing img {
+    height: 28px;
+    width: 28px;
+    vertical-align: middle;
+    margin-right: 10px;
+}
+.contactListing a span {
+    color: #000808;
+    font-family: Muli;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 22px;
+    display: block;
+    width: 80%;
+    border-bottom: 1px solid #f5f5f5;
+    padding-top: 4px;
+    padding-bottom: 10px;
+}
+ .contactSrch input::-webkit-input-placeholder { 
+    color: #bfc1c1;
+  }
+  .contactSrch input::-moz-placeholder { 
+    color: #bfc1c1;
+  }
+  .contactSrch input:-ms-input-placeholder { 
+    color: #bfc1c1;
+  }
+  .contactSrch input:-moz-placeholder { 
+    color: #bfc1c1;
+  }
+  .chatMenu {
+    display: flex;
+    margin-top: 145px;
+    margin-bottom: 55px;
+  }
+  .chatMenu div {
+    width: 25%;
+    text-align: center;
+  }
+  .chatMenu img {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+.strt_msgs {
+    text-align: center;
+}
+.strt_msgs label {
+    color: #BFC1C1;
+    font-family: Muli;
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 28px;
+    text-align: center;
+    margin-bottom: 0px;
+}
+/* End of inbox page css */
+
+/* mobile css */
+@media (max-width: 959px){
+    .menuItems ul li {
+        display: inline-block !important;
+        width: 25% !important;
+    }   
+    .MenuLeftUpr {
+        min-height: auto;
+        border-right: none !important;
+        border-bottom: 2px solid #ececec;
+        margin-bottom: 68px !important;
+    }
+    .menuItems ul li:last-child {
+        margin-top: 0px !important;
+    }
+    .coursesTab {
+        padding: 12px 20px 20px 20px !important;
+    }
+    .alowLocAces {
+        width: 96% !important;
+    }
+    .locat_srvc img {
+        bottom: 18px !important;
+    }
+    .srchKm:after {
+        bottom: 18px !important;
+    }
+}
+@media (max-width: 599px){ 
+    .chatContact {
+        width: 100% !important;
+        box-shadow: none !important;
+    }
+    .descpCntntMain {
+        padding-left: 0px !important;
+    }
+    .comonSel {
+        margin-bottom: 10px !important;
+        padding-right: 0px !important;
+    }
+    .chatSend {
+        margin-left: 0px !important;
+    }
+    .chatRply {
+        margin-right: 0px !important;
+    }
+    .onlineListing, .chatContact {
+        min-height: auto !important;
+    }
+    .chatMenu {
+        margin-top: 80px !important;
+        margin-bottom: 50px !important;
+    }
+    .chatclient {
+        min-height: auto !important;
+        padding-bottom: 130px !important;
+    }
+    .onlineCoursesList {
+        padding-left: 0px !important;
+    }
+    .fancyBoxCntnt {
+        width: 96% !important;
+    }
+    .fancyBoxCncl {
+        width: 96% !important;
+    }
+    .qrBoxCntnt{
+        width: 96% !important;
+    }
+    .trstBoxCntnt {
+        width: 96% !important;
+    }
+    .profilePkg {
+        margin-left: 0px !important;
+        margin-top: 0px !important;
+    }
+    .insrnceTbl {
+        overflow-x: auto;
+    }
+    .infoSub {
+        margin-top: 35px;
+    }
+}
+.menuItems ul li ul li {
+    display: block !important;
+    width: 100% !important;
+}
+.chatContactTxt h2 {
+    color: #000808;
+    font-family: Muli;
+    font-size: 22px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 26px;
+    margin-bottom: 0px;
+}
+.chatIconEdit{
+    text-align: right;
+}
+.chatIconEdit img {
+    height: 18px;
+}
+.chatContactTxt {
+    margin-bottom: 22px;
+}
+.chatClnt {
+    display: flex;
+    width: 100%;
+    align-items: center;
+}
+.chatClntLft {
+    width: 15%;
+}
+.chatClntMid{
+    width: 60%;  
+}
+.chatClntRght {
+    width: 25%;
+}
+.chatClntLft img {
+    width: 34px;
+    border-radius: 20px;
+}
+.chatClntMid a {
+    color: #000808;
+    font-family: Muli;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 22px;
+}
+.chatClntMid p {
+    color: #7F8383;
+    font-family: Muli;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 16px;
+}
+.chatClntRght a img {
+    height: 10px;
+    margin-right: 4px;
+}
+.chatClntRght span {
+    color: #7F8383;
+    font-family: Muli;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 7px;
+}
+.chatClntRght {
+    text-align: right;
+}
+.chatClntRght p img {
+    width: 16px;
+}
+.chatClntRght p {
+    line-height: 12px;
+}
+.chatClntBrder {
+    text-align: right;
+}
+.chatBrderIner {
+    letter-spacing: 0;
+    line-height: 22px;
+    display: inline-block;
+    width: 85%;
+    border-bottom: 1px solid #f5f5f5;
+    padding-top: 4px;
+}
+.chatClntMid p img {
+    width: 16px;
+}
+.onlineListing {
+    min-height: 100vh;
+}
+.menuItems ul li:last-child {
+    margin-bottom: 0px !important;
+    margin-top: 145px;
+}
+.chatclient {
+    padding: 12px 20px;
+    position: relative;
+    min-height: 150vh;
+}
+.chatclientRght {
+    text-align: right;
+}
+.chatclientRght img {
+    width: 22px;
+}
+.chatclientRght a {
+    margin-right: 22px;
+    cursor: pointer;
+}
+.chatclientRght a:last-child {
+    margin-right: 0px !important;
+}
+.chatSendUpr {
+    text-align: right;
+    margin-bottom: 10px;
+}
+.chatSend {
+    border-radius: 12px;
+    background-color: #00ABAF;
+    color: #FFFFFF;
+    font-family: Muli;
+    font-size: 15px;
+    letter-spacing: 0;
+    line-height: 20px;
+    display: inline-block;
+    padding: 12px 12px;
+    margin-left: 50%;
+}
+.onlineData {
+    margin-bottom: 32px;
+}
+.chatRplyUpr {
+    text-align: left;
+    margin-bottom: 10px;
+}
+.chatRply {
+    border-radius: 12px;
+    background-color: rgba(248,248,248,0.92);
+    display: inline-block;
+    margin-right: 50%;
+    padding: 12px 12px;
+    color: #000808;
+    font-family: Muli;
+    font-size: 15px;
+    letter-spacing: 0;
+    line-height: 20px;
+}
+.chatRplyUpr span {
+    color: #7F8383;
+    font-family: Muli;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 12px;
+    margin-left: 5px;
+}
+.chatSendUpr span {
+    color: #7F8383;
+    font-family: Muli;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 12px;
+    margin-right: 5px;
+}
+.chatclientLft img {
+    border-radius: 18px;
+}
+.addMsgs textarea {
+    border-radius: 12px;
+    background-color: #F2F2F2;
+    color: #7F8383;
+    font-family: Muli;
+    font-size: 15px;
+    letter-spacing: 0;
+    line-height: 22px;
+    width: 100%;
+    outline: none;
+    border: none;
+    padding: 12px 10px;
+    resize: none;
+}
+.addMsgsIcons img {
+    width: 24px;
+    cursor: pointer;
+}
+.addMsgsUpr {
+    position: absolute;
+    left: 12px;
+    bottom: 0;
+    right: 12px;
+    width: 97%;
+}
+.courseList {
+    border-radius: 12px;
+    background-color: #FFFFFF;
+    box-shadow: 0 1px 8px 0 rgba(0,8,8,0.04);
+}
+.courseListLbl label {
+    color: #000808;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 14px;
+    margin-bottom: 0px;
+}
+.courseListLbl {
+    border-bottom: 1px solid #F2F2F2;
+    padding: 20px 20px 15px 20px;
+}
+.courseListInr {
+    padding: 15px 20px;
+}
+.courseListPara p {
+    color: #7F8383;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 18px;
+}
+.courseListTime a {
+    color: #404646;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 14px;
+    margin-bottom: 10px;
+    display: block;
+}
+.courseListTime div:last-child a {
+    margin-bottom: 0px !important;
+}
+.courseListTime {
+    margin: 12px 0px 5px;
+}
+.courseListTime img {
+    margin-right: 10px;
+    vertical-align: bottom;
+}
+.courseStar span {
+    color: #404646;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 14px;
+    cursor: pointer;
+}
+.courseStar span a {
+    color: #BFC1C1;
+    margin-left: 5px;
+}
+.courseStar a {
+    margin-right: 7px;
+}
+.coursePrice label {
+    color: #000808;
+    font-family: Muli;
+    font-size: 16px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 16px;
+    margin-bottom: 0px;
+}
+.coursePrice {
+    margin-top: 15px;
+}
+.onlineCoursesList {
+    padding-left: 70px;
+    background: #f7f7f7;
+    min-height: 150vh;
+    padding-top: 45px;
+}
+.nwCoursName h3 {
+    color: #000808;
+    font-family: Muli;
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 32px;
+    margin-bottom: 25px;
+}
+.nwCoursCrt a {
+    border-radius: 8px;
+    background-color: #00ABAF;
+    display: block;
+    color: #FFFFFF !important;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 16px;
+    text-align: center;
+    padding: 12px 10px;
+    cursor: pointer;
+}
+.newCourseCntnt {
+    width: 100% !important;
+}
+.add_wishList {
+    padding: 5px 20px 20px;
+}
+.nwCoursCrtRght {
+    text-align: right;
+}
+.nwCoursCrtRght img {
+    width: 16px;
+}
+.fillWish {
+    text-align: right;
+}
+.fillWish img {
+    width: 16px;
+}
+.onlineCoursesList .MuiAppBar-colorPrimary {
+    color: #fff;
+    background-color: #fff;
+    box-shadow: none;
+}
+.onlineTabs button {
+    color: #7F8383 !important;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 12px;
+    outline: none !important;
+    text-transform: capitalize;
+}
+.onlineTabs button.Mui-selected {
+    color: #00ABAF !important;
+}
+.onlineTabs .MuiTabs-indicator{
+    background-color: #00ABAF;
+}
+.coursesTab {
+    padding: 12px 20px 0px 20px;
+    border-radius: 12px;
+    background-color: #FFFFFF;
+    box-shadow: 0 1px 8px 0 rgba(0,8,8,0.04);
+}
+.onlinLft h4 {
+    color: #000808;
+    font-family: Muli;
+    font-size: 28px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 40px;
+}
+.onlinRght {
+    text-align: right;
+}
+.onlinRght img {
+    width: 18px;
+    cursor: pointer;
+}
+.onlinRght a:first-child img {
+    margin-right: 22px;
+}
+.onlinRght a:last-child img {
+    width: 20px;
+}
+.onlinCours {
+    margin-bottom: 28px;
+}
+.topicAll .css-yk16xz-control {
+    border-radius: 8px !important;
+    background-color: #F2F2F2 !important;
+    border-color: transparent !important;
+    font-family: Muli !important;
+}
+.topicAll .css-g1d714-ValueContainer{
+    color: #404646;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 12px;
+}
+.topicAll span.css-1okebmr-indicatorSeparator {
+    background-color: transparent;
+}
+.topicSrch img {
+    width: 37px;
+}
+.strtLrn label {
+    color: #00ABAF;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 14px;
+    margin-bottom: 0px;
+    cursor: pointer;
+}
+.strtLrn {
+    margin-top: 12px;
+}
+.fancyBoxCntnt {
+    width: 420px;
+    background: #fff;
+    margin: 0 auto;
+    border: none;
+    outline: none;
+    border-radius: 12px;
+    background-color: #FFFFFF;
+    box-shadow: 0 24px 32px 0 rgba(0,8,8,0.08);
+    margin-top: 35px;
+}
+.rateCourse label {
+    color: #000808;
+    font-family: Muli;
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 32px;
+    margin-bottom: 2px;
+}
+.rateCourse p {
+    color: #7F8383;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: 18px;
+}
+.rateCourse {
+    padding: 12px 24px 18px 24px;
+    border-bottom: 1px solid #F2F2F2;
+}
+.rateStars p {
+    color: #404646;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 18px;
+    margin-bottom: 15px;
+}
+.rateStars {
+    text-align: center;
+    padding: 32px 24px 18px;
+}
+.rateStars img {
+    height: 35px;
+    margin: 0px 2px;
+}
+.shrtMsg label {
+    color: #404646;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 12px;
+}
+.shrtMsg {
+    padding: 12px 24px 24px 24px;
+}
+.shrtMsg textarea {
+    resize: none;
+    height: 116px;
+    width: 100%;
+    border: 1px solid #BFC1C1;
+    border-radius: 4px;
+    background-color: #FFFFFF;
+    outline: none;
+    padding: 8px;
+}
+.handleCloseBtn img {
+    width: 26px;
+    cursor: pointer;
+}
+.handleCloseBtn {
+    text-align: right;
+    margin-bottom: 4px;
+}
+.shrtMsg input {
+    border-radius: 8px;
+    background-color: #00ABAF;
+    border: none;
+    outline: none;
+    color: #FFFFFF;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 16px;
+    text-align: center;
+    width: 100%;
+    padding: 12px 12px;
+    margin-top: 10px;
+}
+.wishListCntnt {
+    overflow-y: scroll;
+    width: 338px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: #FFFFFF;
+    box-shadow: 0 1px 8px 0 rgba(0,8,8,0.04);
+    border: none;
+    outline: none;
+    padding: 22px 24px 22px;
+}
+.wshLstHai {
+    width: 100%;
+    display: flex;
+    margin-bottom: 28px;
+}
+.wshLstHaiLft, .wshLstHaiRght{
+    width: 50%;
+}
+.wshLstHaiRght img {
+    width: 24px;
+    cursor: pointer;
+}
+.wshLstHaiLft label {
+    color: #000808;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 14px;
+    margin-bottom: 0px;
+}
+.wshLstHaiRght {
+    text-align: right;
+}
+
+.wshCorList {
+    border-radius: 12px;
+    background-color: #FAFAFA;
+    margin-bottom: 24px;
+}
+.wshCorListLbl {
+    border-bottom: 1px solid #F2F2F2;
+    padding: 20px 20px 15px 20px;
+}
+.wshCorListLbl label {
+    color: #000808;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 14px;
+    margin-bottom: 0px;
+}
+.wshCorListInr {
+    padding: 15px 20px;
+}
+.wshCorListPara p {
+    color: #7F8383;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 18px;
+}
+.wshCorListTime {
+    margin: 12px 0px 5px;
+}
+.wshCorListTime a {
+    color: #404646;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 14px;
+    margin-bottom: 10px;
+    display: block;
+}
+.wshCorListTime img {
+    margin-right: 10px;
+    vertical-align: bottom;
+}
+.wshCorStar a {
+    margin-right: 7px;
+}
+.wshCorStar span {
+    color: #404646;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 14px;
+    cursor: pointer;
+}
+.wshCorStar span a {
+    color: #BFC1C1;
+    margin-left: 5px;
+}
+.wshCorPrice {
+    margin-top: 15px;
+}
+.wshCorPrice label {
+    color: #000808;
+    font-family: Muli;
+    font-size: 16px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 16px;
+    margin-bottom: 0px;
+}
+.nwWshCrt a {
+    border-radius: 8px;
+    background-color: #00ABAF;
+    display: block;
+    color: #FFFFFF !important;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 16px;
+    text-align: center;
+    padding: 12px 10px;
+    cursor: pointer;
+}
+.nwWshCrtRght {
+    text-align: right;
+}
+.nwWshCrtRght img {
+    width: 16px;
+}
+.nwWshCrtUpr {
+    margin-top: 15px;
+}
+
+/* cart fancy model */
+.crtListCntnt {
+    overflow-y: scroll;
+    width: 338px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: #FFFFFF;
+    box-shadow: 0 1px 8px 0 rgba(0,8,8,0.04);
+    border: none;
+    outline: none;
+    padding: 22px 24px 22px;
+}
+.crtLstHai {
+    width: 100%;
+    display: flex;
+    margin-bottom: 28px;
+}
+.crtLstHaiLft, .crtLstHaiRght {
+    width: 50%;
+}
+.crtLstHaiLft label {
+    color: #000808;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 14px;
+    margin-bottom: 0px;
+}
+.crtLstHaiRght {
+    text-align: right;
+}
+.crtLstHaiRght img {
+    width: 24px;
+    cursor: pointer;
+}
+.crtCorList {
+    border-radius: 12px;
+    background-color: #FAFAFA;
+    margin-bottom: 24px;
+}
+.crtCorListLbl {
+    border-bottom: 1px solid #F2F2F2;
+    padding: 20px 20px 15px 20px;
+}
+.crtCorListLbl label {
+    color: #000808;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 14px;
+    margin-bottom: 0px;
+}
+.crtCorListInr {
+    padding: 15px 20px;
+}
+.crtCorListPara p {
+    color: #7F8383;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 18px;
+}
+.crtCorListTime {
+    margin: 12px 0px 5px;
+}
+.crtCorListTime a {
+    color: #404646;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 14px;
+    margin-bottom: 10px;
+    display: block;
+}
+.crtCorListTime img {
+    margin-right: 10px;
+    vertical-align: bottom;
+}
+.crtCorStar a {
+    margin-right: 7px;
+}
+.crtCorStar span {
+    color: #404646;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 14px;
+    cursor: pointer;
+}
+.crtCorStar span a {
+    color: #BFC1C1;
+    margin-left: 5px;
+}
+.crtCorPrice label {
+    color: #000808;
+    font-family: Muli;
+    font-size: 16px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 16px;
+    margin-bottom: 0px;
+}
+.crtCorRmv a {
+    color: #00ABAF !important;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 12px;
+    cursor: pointer;
+}
+.crtCorRmv {
+    text-align: right;
+}
+.crtCorStar {
+    margin-bottom: 18px;
+}
+.crtChekOut input{
+    border-radius: 8px;
+    background-color: #00ABAF;
+    color: #FFFFFF;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 16px;
+    text-align: center;
+    outline: none;
+    border: none;
+    width: 100%;
+    cursor: pointer;
+    padding: 13px 5px;
+}
+/* Add dashboard css */
+.dashBoxCntnt {
+    width: 420px;
+    background: #fff;
+    margin: 0 auto;
+    border: none;
+    outline: none;
+    border-radius: 12px;
+    background-color: #FFFFFF;
+    box-shadow: 0 24px 32px 0 rgba(0,8,8,0.08);
+    margin-top: 35px;
+}
+.dashCourse {
+    padding: 12px 24px 18px 24px;
+    border-bottom: 1px solid #F2F2F2;
+}
+.dashCloseBtn {
+    text-align: right;
+    margin-bottom: 4px;
+}
+.dashCloseBtn img {
+    width: 26px;
+    cursor: pointer;
+}
+.dashCourse label {
+    color: #000808;
+    font-family: Muli;
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 32px;
+    margin-bottom: 2px;
+}
+.dashCourse p {
+    color: #7F8383;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: 18px;
+}
+.dragDashRght {
+    text-align: right;
+}
+.dragDash {
+    padding: 18px 24px 10px 24px;
+}
+.dragDashLft a {
+    color: #404646;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 18px;
+}
+.dragDashLft img {
+    vertical-align: text-top;
+    margin-right: 5px;
+}
+.dragDashMain {
+    margin-bottom: 12px;
+}
+.moreCards {
+    padding: 0px 24px 18px 24px;
+}
+.moreCards h3 {
+    color: #7F8383;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 12px;
+    margin-bottom: 18px;
+}
+.moreCards a {
+    color: #404646;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 18px;
+    margin-bottom: 18px;
+    display: block;
+}
+.moreCards img {
+    vertical-align: text-top;
+    margin-right: 5px;
+}
+.apointUpcom {
+    background-color: #FFFFFF;
+    box-shadow: 0 1px 8px 0 rgba(0,8,8,0.04);
+    min-height: 150vh;
+    padding: 28px 24px;
+}
+.apointUpcom h4 {
+    color: #000808;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 14px;
+    margin-bottom: 22px;
+}
+.officeVst {
+    border-radius: 12px;
+    background-color: #FAFAFA;
+    padding: 12px 12px;
+    margin-bottom: 18px;
+}
+.officeVstLft label {
+    color: #7F8383;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 12px;
+}
+.officeVstRght a {
+    color: #7F8383;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 12px;
+    position: relative;
+    display: block;
+}
+.officeVstRght img {
+    vertical-align: sub;
+}
+
+.officeVstRght {
+    text-align: right;
+}
+.showSubject h3 {
+    color: #000808;
+    font-family: Muli;
+    font-size: 18px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 24px;
+}
+.showSubject a {
+    color: #7F8383;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 12px;
+}
+.showSubject img {
+    height: 16px;
+    width: 16px;
+    border-radius: 10px;
+    margin-right: 8px;
+    vertical-align: middle;
+}
+.showSubject h3 {
+    color: #000808;
+    font-family: Muli;
+    font-size: 18px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 24px;
+    margin: 2px 0px;
+}
+.showDetail img {
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+.cancelAppoint a {
+    color: #000808;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 14px;
+    border-radius: 8px;
+    background-color: #FAFAFA;
+    padding: 8px 12px;
+}
+.cancelAppoint img {
+    width: 16px;
+    height: 16px;
+    margin-right: 5px;
+}
+.cancelAppoint {
+    display: none;
+    position: absolute;
+    right: 0px;
+    top: 32px;
+    border: 1px solid #F2F2F2;
+    border-radius: 8px;
+    background-color: #FFFFFF;
+    box-shadow: 0 8px 16px 0 rgba(0,8,8,0.08);
+    padding: 10px 10px;
+    min-width: 206px;
+    text-align: center;
+}
+.showDetail:hover .cancelAppoint {
+    display: block !important;
+}
+.pendConfirm p {
+    color: #7F8383;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 18px;
+}
+.pendConfirm img {
+    vertical-align: sub;
+    margin-right: 8px;
+}
+.pendConfirm {
+    margin-bottom: 6px;
+}
+.shwAppoints a {
+    color: #00ABAF;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 12px;
+    cursor: pointer;
+}
+.shwAppoints {
+    margin-top: 35px;
+}
+.apointAdd {
+    margin-top: 45px;
+    margin-bottom: 45px;
+}
+.apointAdd h1 {
+    color: #000808;
+    font-family: Muli;
+    font-size: 28px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 40px;
+}
+.arng_addEntrynw {
+    text-align: right;
+}
+.arng_addEntrynw a {
+    color: #FFFFFF !important;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 16px;
+    text-align: center;
+    border-radius: 8px;
+    background-color: #00ABAF;
+    min-width: 175px;
+    display: inline-block;
+    padding: 16px 18px;
+    cursor: pointer;
+}
+.appointArang {
+    padding: 0px 36px;
+}
+.getCalapoint .react-calendar{
+    width: 100% !important;
+}
+.todaySrchRght {
+    text-align: right;
+}
+.todaySrchRght img {
+    width: 32px;
+    border-radius: 9px;
+    cursor: pointer;
+}
+.todaySrch {
+    border-radius: 12px;
+    background-color: #FFFFFF;
+    box-shadow: 0 1px 8px 0 rgba(0,8,8,0.04);
+    padding: 12px 12px;
+    margin-bottom: 26px;
+}
+.todaySrchLft label {
+    margin-bottom: 0px !important;
+    border-radius: 8px;
+    background-color: #F2F2F2;
+    padding: 10px 15px;
+    color: #404646;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 12px;
+    cursor: pointer;
+}
+.crntMonth {
+    color: #404646;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 14px;
+}
+.todayMnth {
+    display: flex;
+    align-items: center;
+}
+.movMnth img {
+    height: 14px;
+    margin: 0px 10px;
+    cursor: pointer;
+}
+.movMnth {
+    margin: 0px 12px;
+}
+.syncRght {
+    color: #00ABAF !important;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 12px;
+    margin-right: 24px;
+    cursor: pointer;
+}
+.fancyBoxCncl {
+    width: 420px;
+    background: #fff;
+    margin: 0 auto;
+    border: none;
+    outline: none;
+    border-radius: 12px;
+    background-color: #FFFFFF;
+    box-shadow: 0 24px 32px 0 rgba(0,8,8,0.08);
+    margin-top: 35px;
+}
+.cnclCourse {
+    padding: 12px 24px 18px 24px;
+    border-bottom: 1px solid #F2F2F2;
+}
+.handleCnclBtn {
+    text-align: right;
+    margin-bottom: 4px;
+}
+.handleCnclBtn img {
+    width: 26px;
+    cursor: pointer;
+}
+.cnclCourse label {
+    color: #000808;
+    font-family: Muli;
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 32px;
+    margin-bottom: 2px;
+}
+.cnclCourse p {
+    color: #7F8383;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: 18px;
+}
+.apointMsg {
+    padding: 12px 24px 24px 24px;
+}
+.apointMsg label {
+    color: #404646;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 12px;
+}
+.apointMsg textarea {
+    resize: none;
+    height: 116px;
+    width: 100%;
+    border: 1px solid #BFC1C1;
+    border-radius: 4px;
+    background-color: #FFFFFF;
+    outline: none;
+    padding: 8px;
+}
+.apointMsg input {
+    border-radius: 8px;
+    background-color: #7fd5d7;
+    border: none;
+    outline: none;
+    color: #FFFFFF;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 16px;
+    text-align: center;
+    width: 100%;
+    padding: 14px 12px;
+    margin-top: 10px;
+}
+.alowLocAces {
+    width: 945px;
+    min-height: 380px;
+    background: #fff;
+    margin: 0 auto;
+    border: none;
+    outline: none;
+    border-radius: 12px;
+    background-color: #FFFFFF;
+    box-shadow: 0 24px 32px 0 rgba(0,8,8,0.08);
+    margin-top: 35px;
+    padding: 0px 2px 6px 2px;
+}
+.allowAccessList img {
+    height: 40px;
+}
+.allowAccessList h1 {
+    color: #000808;
+    font-family: Muli;
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 32px;
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+.allowAccessList p {
+    color: #7F8383;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: 18px;
+}
+.allowAccessList {
+    text-align: center;
+    padding: 42px 0px;
+}
+.accessCourse {
+    padding: 12px 24px 18px 24px;
+    border-bottom: 1px solid #F2F2F2;
+}
+.handleAccessBtn {
+    text-align: right;
+    margin-bottom: 4px;
+}
+.handleAccessBtn img {
+    width: 26px;
+    cursor: pointer;
+}
+.sel_specialty span {
+    background-color: transparent;
+}
+.srchAccessLoc label {
+    color: #404646;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 12px;
+    margin-bottom: 8px;
+}
+.sel_specialty {
+    width: 100%;
+    border: 1px solid #BFC1C1;
+    border-radius: 4px;
+    background-color: #FFFFFF;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 18px;
+}
+.sel_specialty div {
+   border: none !important;
+}
+.locat_srvc input {
+    width: 100%;
+    border: 1px solid #BFC1C1;
+    border-radius: 4px;
+    background-color: #FFFFFF;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 18px;
+    min-height: 40px;
+    padding: 0px 14px;
+    outline: none;
+}
+.srchKm input {
+    position: relative;
+    border: 1px solid #BFC1C1;
+    width: 100%;
+    border-radius: 4px;
+    background-color: #FFFFFF;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 18px;
+    min-height: 40px;
+    padding: 0px 28px 0px 10px;
+    outline: none;
+}
+.srchKm {
+    position: relative;
+}
+.srchKm:after {
+    z-index: 999;
+    content: "KM";
+    position: absolute;
+    right: 16px;
+    bottom: 30px;
+    color: #BFC1C1;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 18px;
+}
+.apointType span {
+    color: #404646;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 14px;
+}
+.apointType input{
+    color: #00ABAF !important;
+}
+.apointType span.MuiIconButton-label{
+    color: #00ABAF !important;
+}
+.locat_srvc img {
+    position: absolute;
+    bottom: 29px;
+    right: 16px;
+}
+.locat_srvc {
+    position: relative;
+}
+/* Allow Location Content */
+.allowAvailList {
+    padding: 22px 24px 22px 24px;
+    overflow-y: scroll;
+    height: 392px;
+}
+.allowAvailList::-webkit-scrollbar{
+    width: 6px;
+}
+.allowAvailList::-webkit-scrollbar-track{
+    background: #fff;
+}
+.allowAvailList::-webkit-scrollbar-thumb{
+    background: #BFC1C1;
+}
+.allowAvailList::-webkit-scrollbar-thumb:hover{
+    background: #fff;
+}
+.showSpcial p {
+    color: #7F8383;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: 16px;
+    margin-top: 9px;
+}
+.showSpcial img {
+    height: 14px;
+    margin-right: 8px;
+}
+.spclistDr img {
+    height: 52px;
+    width: 52px;
+    border-radius: 8px;
+    margin-right: 12px;
+}
+.spclistDr a {
+    color: #404646;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 18px;
+}
+.nuroDr label {
+    color: #000808;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 14px;
+    margin-bottom: 2px;
+}
+.nuroDr p {
+    color: #7F8383;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 14px;
+}
+.nuroDr {
+    margin-top: 12px;
+}
+.srvcTags {
+    display: flex;
+    margin-bottom: 18px;
+}
+.srvcTags a {
+    color: #7F8383;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 12px;
+    display: inline-block;
+    border-radius: 8px;
+    background-color: #F2F2F2;
+    text-align: center;
+    padding: 6px 10px;
+    margin: 0px 4px;
+    cursor: pointer;
+}
+.srvcTagsLoc a {
+    display: block;
+    color: #404646;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0;
+    margin-bottom: 12px;
+    line-height: 16px;
+}
+.srvcTagsLoc img {
+    margin-right: 8px;
+    vertical-align: middle;
+}
+.srvcTags a:first-child {
+    color: #00ABAF;
+    background-color: #E1F7F7;
+}
+.avlablDates h3 {
+    color: #404646;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 14px;
+    margin-bottom: 18px;
+    margin-top: 8px;
+}
+.avlablDates a {
+    color: #00ABAF;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 12px;
+    display: block;
+    margin-bottom: 10px;
+    position: relative;
+}
+.addClnder img {
+    width: 12px;
+}
+.avlablDates img {
+    margin-right: 7px;
+    vertical-align: middle;
+}
+.avlablDates a::after{
+    content: "";
+    height: 10px;
+    width: 18px;
+    background: url("../images/rightArrow.png") no-repeat center center;
+    position: absolute;
+    right: 70px;
+    top: 0px;
+}
+.srvcTagsCntnt {
+    padding: 0px 25px;
+}
+.allowAvailListIner {
+    border-bottom: 1px solid #F2F2F2;
+    padding-bottom: 14px;
+    margin-bottom: 24px;
+}
+.profileInfo h1 {
+    color: #000808;
+    font-family: Muli;
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 32px;
+}
+.profileInfo p {
+    color: #7F8383;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: 18px;
+}
+.profilePkg {
+    border-radius: 12px;
+    background-color: #FFFFFF;
+    box-shadow: 0 1px 8px 0 rgba(0,8,8,0.04);
+    margin-left: 70px;
+    margin-top: 41px;
+}
+.profileId {
+    border-radius: 12px;
+    background-color: #FAFAFA;
+}
+.profileId label {
+    margin-bottom: 0px;
+}
+.profileId {
+    border-radius: 12px;
+    background-color: #FAFAFA;
+    padding: 10px 15px;
+    margin: 18px 0px;
+}
+.profileIdLft label {
+    color: #7F8383;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 18px;
+    margin-right: 12px;
+}
+.profileIdLft span {
+    color: #000808;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 18px;
+    margin-right: 14px;
+}
+.profileIdLft a {
+    margin-right: 15px;
+}
+.profileIdRght a {
+    color: #00ABAF;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 12px;
+    cursor: pointer;
+}
+.profileIdRght {
+    text-align: right;
+}
+.profileInfoIner label {
+    color: #404646;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 12px;
+}
+.profileInfoIner input {
+    border: 1px solid #BFC1C1;
+    border-radius: 4px;
+    background-color: #FFFFFF;
+    padding: 7px 4px;
+    outline: none;
+    width: 100%;
+    color: #000808;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 18px;
+}
+.clear{
+    clear: both;
+}
+.profileInfoIner {
+    margin-bottom: 10px;
+}
+.mr_sel .css-yk16xz-control {
+    height: 36px !important;
+    min-height: initial;
+}
+span.css-1okebmr-indicatorSeparator {
+    background-color: transparent;
+}
+.mr_sel .css-yk16xz-control div {
+    outline: 1px !important;
+    border: none !important;
+    min-height: initial !important;
+}
+@media (min-width: 960px){
+.titleDegre .MuiGrid-grid-md-4 {
+    max-width: 37.333333%;
+    flex-basis: 37.333333%;
+ }
+}
+.profileInfoDate .react-date-picker__wrapper {
+    border: 1px solid #BFC1C1;
+    border-radius: 4px;
+    background-color: #FFFFFF;
+    padding: 3px 4px;
+    outline: none;
+    width: 100%;
+    color: #000808;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 18px;
+}
+.profileInfoDate {
+    margin-bottom: 10px;
+}
+.profileInfoDate label {
+    color: #404646;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 12px;
+}
+.profileInfoDate button {
+    outline: none !important;
+}
+.profileInfoDate a {
+    border-radius: 8px;
+    background-color: #F2F2F2;
+    color: #7F8383;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 14px;
+    text-align: center;
+    padding: 10px 12px;
+    margin-right: 8px;
+    cursor: pointer;
+    width: 26%;
+    display: inline-block;
+}
+/* .profileInfoDate a:first-child {
+    background-color: #00ABAF;
+    color: #FFFFFF;
+} */
+.cntryDrop .css-yk16xz-control {
+    height: 36px !important;
+    min-height: initial;
+}
+.profileInfoIner input {
+    min-height: initial !important;
+    width: 100% !important;
+    height: initial !important;
+    line-height: initial !important;
+}
+.profileInfoIner .form-control:focus {
+    box-shadow: none !important;
+}
+.insrnceTbl h3 {
+    color: #000808;
+    font-family: Muli;
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 32px;
+}
+.insrnceTbl .table th {
+    border-top: none;
+    width: 25%;
+    color: #7F8383;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 12px;
+    border-bottom: 2px solid #f3f3f3;
+}
+.insrnceTbl .table th:last-child {
+    width: 35%;
+    text-align: right;
+}
+.table td:last-child {
+    text-align: right;
+}
+.insrnceTbl img {
+    height: 24px;
+    cursor: pointer;
+}
+.insrnceTbl .table td {
+    color: #000808;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 18px;
+    border-top: 1px solid #f1f1f1;
+}
+.insrnceTbl {
+    margin-top: 32px;
+}
+.infoSub input {
+    border-radius: 8px;
+    background-color: #00ABAF;
+    border: none;
+    color: #FFFFFF;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 16px;
+    text-align: center;
+    width: 100%;
+    padding: 13px 12px;
+    outline: none;
+}
+.profileIdLft img {
+    cursor: pointer;
+}
+.profileTabs {
+    background-color: #fff !important;
+}
+.profileTabsUpr {
+    box-shadow: none !important;
+}
+.profileTabs button span {
+    color: #7F8383;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 12px;
+    text-transform: initial !important;
+}
+button.Mui-selected span {
+    color: #00ABAF;
+}
+.profileTabs span.MuiTabs-indicator {
+    background-color: #00ABAF !important;
+    height: 4px;
+}
+button.aboutTabsIner {
+    min-width: initial !important;
+    outline: none !important;
+}
+.qrBoxCntnt {
+    width: 420px;
+    background: #fff;
+    margin: 0 auto;
+    border: none;
+    outline: none;
+    border-radius: 12px;
+    background-color: #FFFFFF;
+    -webkit-box-shadow: 0 24px 32px 0 rgba(0,8,8,0.08);
+    box-shadow: 0 24px 32px 0 rgba(0,8,8,0.08);
+    margin-top: 35px;
+}
+.qrCourse {
+    padding: 18px 30px 12px 30px;
+    border-bottom: 1px solid #F2F2F2;
+}
+.qrCloseBtn {
+    text-align: right;
+    margin-bottom: 4px;
+}
+.qrCloseBtn img {
+    width: 26px;
+    cursor: pointer;
+}
+.qrCourse label {
+    color: #000808;
+    font-family: Muli;
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 32px;
+    margin-bottom: 2px;
+}
+.qrCourse p {
+    color: #7F8383;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: 18px;
+}
+.qrCourseImg {
+    text-align: center;
+    padding: 34px 30px 28px 30px;
+}
+.qrCourseImg img {
+    height: 159px;
+}
+.qrCourseImg input {
+    outline: none;
+    border-radius: 8px;
+    background-color: #00ABAF;
+    border: none;
+    width: 100%;
+    color: #FFFFFF;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 16px;
+    text-align: center;
+    padding: 16px 0px;
+    cursor: pointer;
+    margin-top: 40px;
+}
+.editBoxCntnt {
+    width: 420px;
+    background: #fff;
+    margin: 0 auto;
+    border: none;
+    outline: none;
+    border-radius: 12px;
+    background-color: #FFFFFF;
+    box-shadow: 0 24px 32px 0 rgba(0,8,8,0.08);
+    margin-top: 35px;
+}
+.editCourse {
+    padding: 18px 30px 12px 30px;
+    border-bottom: 1px solid #F2F2F2;
+}
+.editCloseBtn {
+    text-align: right;
+    margin-bottom: 4px;
+}
+.editCloseBtn img {
+    width: 26px;
+    cursor: pointer;
+}
+.editCourse label {
+    color: #000808;
+    font-family: Muli;
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 32px;
+    margin-bottom: 2px;
+}
+.editCourse p {
+    color: #7F8383;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 18px;
+}
+.editPinform {
+    padding: 18px 30px 20px 30px;
+}
+.editPinform label {
+    color: #404646;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 12px;
+}
+.editPinform input {
+    border: 1px solid #BFC1C1;
+    border-radius: 4px;
+    background-color: #FFFFFF;
+    width: 100%;
+    padding: 6px 12px;
+    outline: none;
+}
+.editPinform p {
+    color: #EE5253;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: 12px;
+    margin-top: 6px;
+}
+.editField {
+    margin-bottom: 8px;
+}
+.editPinform input[type="submit"] {
+    border-radius: 8px;
+    background-color: #00ABAF;
+    color: #FFFFFF;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 16px;
+    text-align: center;
+    padding: 13px 0px;
+    outline: none !important;
+    margin-top: 12px;
+}
+.profilePkgIner1 {
+    padding: 22px 28px 0px 28px;
+    border-bottom: 1px solid #F2F2F2;
+}
+.profilePkgIner2 {
+    padding: 22px 28px;
+}
+.profileInfoDate .react-date-picker {
+    display: block !important;
+}
+.chngPasswrd h2 {
+    color: #000808;
+    font-family: Muli;
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 32px;
+}
+.chngPasswrd p {
+    color: #7F8383;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: 18px;
+}
+.genPass label {
+    color: #404646;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 12px;
+}
+.genPass input[type="password"] {
+    border: 1px solid #BFC1C1;
+    border-radius: 4px;
+    background-color: #FFFFFF;
+    width: 100%;
+    padding: 7px 4px;
+    outline: none;
+    color: #000808;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 18px;
+}
+.genPass input[type="submit"] {
+    border-radius: 8px;
+    background-color: #00ABAF;
+    border: none;
+    color: #FFFFFF;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 16px;
+    text-align: center;
+    width: 100%;
+    padding: 13px 12px;
+    outline: none;
+    margin-top: 10px;
+}
+.chngPasswrd {
+    margin-bottom: 22px;
+}
+.genPassInr {
+    margin-bottom: 10px;
+}
+.factorAuth h3 {
+    color: #000808;
+    font-family: Muli;
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 32px;
+}
+.factorAuth p {
+    color: #7F8383;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: 18px;
+}
+.factorAuth {
+    margin-top: 50px;
+    margin-bottom: 30px;
+}
+.factorAuthEnbl h4 {
+    color: #404646;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 14px;
+    margin-bottom: 21px;
+}
+.factorAuthEnbl input[type="submit"] {
+    border-radius: 8px;
+    background-color: #00ABAF;
+    border: none;
+    color: #FFFFFF;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 16px;
+    text-align: center;
+    width: 100%;
+    padding: 13px 12px;
+    outline: none;
+    margin-top: 0px;
+}
+.twofactorAuth {
+    margin-bottom: 132px;
+}
+
+/* my doctors css */
+
+.fmlyDoc h3 {
+    color: #000808;
+    font-family: Muli;
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 32px;
+}
+.fmlyDoc p {
+    color: #7F8383;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: 18px;
+}
+.mkFmlyDoc {
+    border-radius: 12px;
+    background-color: #FAFAFA;
+    padding: 15px 15px;
+}
+.mkFmlyDoc p {
+    color: #7F8383;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 18px;
+}
+.addDocUpr {
+    margin-top: 24px;
+}
+.addFmlyDoc a {
+    border-radius: 8px;
+    background-color: #00ABAF;
+    width: 100%;
+    display: block;
+    color: #FFFFFF !important;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 16px;
+    text-align: center;
+    padding: 15px 15px;
+    cursor: pointer;
+}
+.docTabCntnt {
+    margin-bottom: 52px;
+}
+
+.doctrstCntnt {
+    margin-bottom: 52px;
+}
+.trstfmlyDoc h3 {
+    color: #000808;
+    font-family: Muli;
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 32px;
+}
+.trstfmlyDoc p {
+    color: #7F8383;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: 18px;
+}
+.trstaddDocUpr {
+    border-radius: 12px;
+    background-color: #FAFAFA;
+    padding: 15px 15px;
+    margin-bottom: 20px;
+}
+.trstmkFmlyDoc p {
+    color: #7F8383;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 18px;
+}
+.trstaddFmlyDoc a {
+    color: #00ABAF;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 12px;
+    cursor: pointer;
+}
+.trstaddFmlyDoc {
+    text-align: right;
+}
+.trstmkFmlyDoc img {
+    width: 16px;
+    border-radius: 12px;
+    margin-right: 10px;
+}
+.trstmkFmlyDoc label {
+    color: #000808;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 18px;
+    margin-bottom: 0px;
+}
+.trstfmlyDoc {
+    margin-bottom: 24px;
+}
+.addTrstDoc a {
+    border-radius: 8px;
+    background-color: #00ABAF;
+    width: 100%;
+    display: block;
+    color: #FFFFFF !important;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 16px;
+    text-align: center;
+    padding: 15px 15px;
+    cursor: pointer;
+}
+.recfmlyDoc {
+    margin-bottom: 24px;
+}
+.recfmlyDoc h3 {
+    color: #000808;
+    font-family: Muli;
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 32px;
+}
+.recfmlyDoc p {
+    color: #7F8383;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: 18px;
+}
+.recaddDocUpr {
+    border-radius: 12px;
+    background-color: #FAFAFA;
+    padding: 15px 15px;
+    margin-bottom: 20px;
+}
+.recmkFmlyDoc img {
+    width: 16px;
+    border-radius: 12px;
+    margin-right: 10px;
+}
+.recmkFmlyDoc label {
+    color: #000808;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 18px;
+    margin-bottom: 0px;
+}
+.recmkFmlyDoc p {
+    color: #7F8383;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 18px;
+}
+.recaddFmlyDoc {
+    text-align: right;
+}
+.recaddFmlyDoc a {
+    color: #00ABAF;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 12px;
+    cursor: pointer;
+}
+.rectrstCntnt {
+    margin-top: 40px;
+}
+
+.trstBoxCntnt {
+    width: 420px;
+    background: #fff;
+    margin: 0 auto;
+    border: none;
+    outline: none;
+    border-radius: 12px;
+    background-color: #FFFFFF;
+    box-shadow: 0 24px 32px 0 rgba(0,8,8,0.08);
+    margin-top: 35px;
+}
+.trstCourse {
+    padding: 12px 24px 18px 24px;
+    border-bottom: 1px solid #F2F2F2;
+}
+.trstCloseBtn {
+    text-align: right;
+    margin-bottom: 4px;
+}
+.trstCloseBtn img {
+    width: 26px;
+    cursor: pointer;
+}
+.trstCourse label {
+    color: #000808;
+    font-family: Muli;
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 32px;
+    margin-bottom: 2px;
+}
+.findDoctor label {
+    color: #404646;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 12px;
+}
+.findDoctor input[type="text"] {
+    border: 1px solid #BFC1C1;
+    border-radius: 4px;
+    background-color: #FFFFFF;
+    width: 100%;
+    padding: 8px 12px;
+    outline: none;
+}
+.findDoctor {
+    padding: 20px 24px 24px 24px;
+}
+.findDoctor input[type="submit"] {
+    border-radius: 8px;
+    background-color: #00ABAF;
+    color: #FFFFFF;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 16px;
+    text-align: center;
+    padding: 13px 10px;
+    outline: none;
+    margin-top: 20px;
+    width: 100%;
+    border: none;
+}
+
+/*Added By ankita*/
+/* For Profile Page */
+.profilMenuList ul li:last-child {
+    margin-top: 10px !important;
+}
+.Mobile_extra{
+    padding-left: 14% !important; 
+}
+.SelectedGender{
+    background-color: #00ABAF !important;
+    color: #FFFFFF !important;
+}
+.profileInfoIner .flag-select {
+    height: 33PX;
+}
+.profileInfoIner .flag-select__btn:after {
+    margin-top: 4%;
+}
+.profileInfoIner span.flag-select__option.flag-select__option--placeholder .flag-select__option__icon {
+    top: 0px !important;
+}
+/* End Profile Page */
+/* Not Found Page */
+.NotFound h1{
+    color: #000808;
+    font-family: Muli;
+    font-size: 28px;
+    font-weight: bold;
+    text-align: center;
+    letter-spacing: 0;
+    line-height: 40px;
+}
+
+.NotFoundContent {
+    border-radius: 12px;
+    background-color: #FFFFFF;
+    box-shadow: 0 1px 8px 0 rgba(0,8,8,0.04);
+    padding: 12px 12px;
+    margin-bottom: 26px;
+    margin-top: 40px;
+}
+.OopsContent{
+    font-weight: 800;
+    padding-bottom: 10px;
+}
+.BackHomeBtn
+{
+    color: #fff!important;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0;
+    line-height: 16px;
+    text-align: center;
+    border-radius: 8px;
+    background-color: #00abaf;
+    display: inline-block;
+    padding: 13px 15px;
+    cursor: pointer;
+    margin-top: 30px;
+}
+/* Not Found Page End */
+/*Stop the outline comes from Comet Chat*/
+input:focus {
+    outline: unset !important;
+  }
+/*Ended By Ankita*/
