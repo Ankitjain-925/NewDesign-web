@@ -1,11 +1,4 @@
 /* global google */
-// import * as translationEN from '../../../translations/en';
-// import * as translationDE from '../../../translations/de';
-// import * as translationSP from '../../../translations/sp';
-// import * as translationPT from '../../../translations/pt';
-// import * as translationRS from '../../../translations/rs';
-// import * as translationNL from '../../../translations/nl';
-// import * as translationCH from '../../../translations/ch';
 import React from "react";
 class Autocomplete extends React.Component {
   constructor(props) {

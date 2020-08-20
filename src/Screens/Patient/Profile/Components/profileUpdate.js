@@ -7,11 +7,9 @@ import DatePicker from 'react-date-picker';
 // import PhoneInput from 'react-phone-input-2';
 // import 'react-phone-input-2/lib/style.css';
 import ReactFlagsSelect from 'react-flags-select';
-import { Redirect, Route } from 'react-router-dom';
 import sitedata from '../../../../sitedata';
 import axios from 'axios';
 import { withRouter } from "react-router-dom";
-import ReactDOM from 'react-dom';
 import { connect } from "react-redux";
 import { LoginReducerAim } from './../../../Login/actions';
 import npmCountryList from 'react-select-country-list'
@@ -27,6 +25,8 @@ import * as ThailandC from '../../../Components/insuranceCompanies/thailand.json
 import Autocomplete from '../Autocomplete.js';
 import { LanguageFetchReducer } from './../../../actions';
 import Modal from '@material-ui/core/Modal';
+import Loader from './../../../Components/Loader/index';
+
 var datas = [];
 var insurances = [];
 
@@ -90,10 +90,14 @@ class Index extends Component {
             fax: '',
             updateIns: -1,
             error3: false,
+            succUpdate: false,
             copied: false,
             value: 0,
             qrOpen: false,
-            chngPinOpen: false
+            chngPinOpen: false,
+            ChangedPIN: false,
+            DuplicateAlies: false,
+            toSmall: false,
         };
         // new Timer(this.logOutClick.bind(this)) 
     }
@@ -136,6 +140,7 @@ class Index extends Component {
 
     // Copy the Profile id and PIN
     copyText = (copyT) => {
+        this.setState({ copied: false })
         var copyText = document.getElementById(copyT);
         var textArea = document.createElement("textarea");
         textArea.value = copyText.textContent;
@@ -146,7 +151,7 @@ class Index extends Component {
         this.setState({ copied: true })
         setTimeout(() => {
             this.setState({ copied: false })
-        }, 3000)
+        }, 5000)
     }
 
     //For update the mobile number
@@ -305,7 +310,7 @@ class Index extends Component {
     changeLangClick(languageType) {
         this.props.LanguageFetchReducer(languageType);
     }
-    
+
     //For change the language and the Speciality
     handleChange_multi = (event, name) => {
         const state = this.state.UpDataDetails;
@@ -391,49 +396,48 @@ class Index extends Component {
         this.setState({ regisError2: "" })
         const user_token = this.props.stateLoginValueAim.token;
         this.setState({ insuranceDetails: { insurance: '', insurance_number: '', insurance_country: '' } })
-        if (this.state.passwordDetails.password == this.state.passwordDetails.confirm_password) {
-            this.setState({ error3: false })
-            var parent_id = this.state.UpDataDetails.parent_id ? this.state.UpDataDetails.parent_id : '0';
-            axios.put(sitedata.data.path + '/UserProfile/Users/update', {
-                type: 'patient',
-                pin: this.state.UpDataDetails.pin,
-                first_name: this.state.UpDataDetails.first_name,
-                last_name: this.state.UpDataDetails.last_name,
-                nick_name: this.state.UpDataDetails.nick_name,
-                title: this.state.UpDataDetails.title,
-                birthday: this.state.UpDataDetails.birthday,
-                language: this.state.UpDataDetails.language,
-                speciality: this.state.speciality_multi,
-                phone: this.state.UpDataDetails.phone,
-                mobile: this.state.UpDataDetails.mobile,
-                fax: this.state.UpDataDetails.fax,
-                website: this.state.UpDataDetails.website,
-                email: this.state.UpDataDetails.email,
-                password: this.state.UpDataDetails.password,
-                sex: this.state.UpDataDetails.sex,
-                street: this.state.UpDataDetails.street,
-                city: this.state.city,
-                area: this.state.area,
-                address: this.state.UpDataDetails.address,
-                emergency_contact_name: this.state.UpDataDetails.emergency_contact_name,
-                emergency_email: this.state.UpDataDetails.emergency_email,
-                emergency_number: this.state.UpDataDetails.emergency_number,
-                family_doc: this.state.UpDataDetails.family_doc,
-                insurance: datas,
-                is2fa: this.state.UpDataDetails.is2fa,
-                country: this.state.UpDataDetails.country,
-                pastal_code: this.state.UpDataDetails.pastal_code,
-
-            }, {
-                headers: {
-                    'token': user_token,
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                }
-            })
-                .then((responce) => {
-                    this.setState({ regisError2: responce.data.message, insuranceDetails: { insurance: '', insurance_number: '', insurance_country: '' } })
+        var parent_id = this.state.UpDataDetails.parent_id ? this.state.UpDataDetails.parent_id : '0';
+        axios.put(sitedata.data.path + '/UserProfile/Users/update', {
+            type: 'patient',
+            pin: this.state.UpDataDetails.pin,
+            first_name: this.state.UpDataDetails.first_name,
+            last_name: this.state.UpDataDetails.last_name,
+            nick_name: this.state.UpDataDetails.nick_name,
+            title: this.state.UpDataDetails.title,
+            birthday: this.state.UpDataDetails.birthday,
+            language: this.state.UpDataDetails.language,
+            speciality: this.state.speciality_multi,
+            phone: this.state.UpDataDetails.phone,
+            mobile: this.state.UpDataDetails.mobile,
+            fax: this.state.UpDataDetails.fax,
+            website: this.state.UpDataDetails.website,
+            email: this.state.UpDataDetails.email,
+            password: this.state.UpDataDetails.password,
+            sex: this.state.UpDataDetails.sex,
+            street: this.state.UpDataDetails.street,
+            city: this.state.city,
+            area: this.state.area,
+            address: this.state.UpDataDetails.address,
+            emergency_contact_name: this.state.UpDataDetails.emergency_contact_name,
+            emergency_email: this.state.UpDataDetails.emergency_email,
+            emergency_number: this.state.UpDataDetails.emergency_number,
+            family_doc: this.state.UpDataDetails.family_doc,
+            insurance: datas,
+            is2fa: this.state.UpDataDetails.is2fa,
+            country: this.state.UpDataDetails.country,
+            pastal_code: this.state.UpDataDetails.pastal_code,
+        }, {
+            headers: {
+                'token': user_token,
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        })
+            .then((responce) => {
+                if (responce.data.hassuccessed) {
+                    this.setState({ succUpdate: true, insuranceDetails: { insurance: '', insurance_number: '', insurance_country: '' } })
                     this.setState({ loaderImage: false });
+                    setTimeout(() => { this.setState({ succUpdate: false }) }, 5000)
                     this.getUserData();
                     axios.put('https://api-us.cometchat.io/v2.0/users/' + this.state.profile_id.toLowerCase(), {
                         name: this.state.UpDataDetails.first_name + ' ' + this.state.UpDataDetails.last_name
@@ -448,13 +452,64 @@ class Index extends Component {
                         })
                         .then((res) => {
                         })
+                }
+                else {
+                    this.setState({ error3: true })
+                    setTimeout(() => { this.setState({ error3: false }) }, 5000)
+                }
+            })
+    }
 
-                })
-        } else {
-            this.setState({ error3: true })
-            this.setState({ loaderImage: false });
+    //Chnage Id Pin by here
+    ChangeIDPIN = () => {
+        if (!this.state.DuplicateAlies) {
+            this.setState({ loaderImage: true });
+            const user_token = this.props.stateLoginValueAim.token;
+            axios.put(sitedata.data.path + '/UserProfile/Users/update', {
+                pin: this.state.UpDataDetails.pin,
+                alies_id: this.state.UpDataDetails.alies_id,
+            }, {
+                headers: {
+                    'token': user_token,
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                }
+            }).then((responce) => {
+                if (responce.data.hassuccessed) {
+                    this.setState({ ChangedPIN: true })
+                    setTimeout(() => { this.setState({ ChangedPIN: false }) }, 5000)
+                }
+                this.setState({ loaderImage: false });
+                this.getUserData();
+            })
         }
     }
+
+    // Check the Alies is duplicate or not
+    changeAlies = (e) => {
+        const state = this.state.UpDataDetails;
+        state[e.target.name] = e.target.value;
+        this.setState({ UpDataDetails: state });
+        if (e.target.value.length > 5 && e.target.value !== '') {
+            this.setState({ loaderImage: true, toSmall: false });
+            const user_token = this.props.stateLoginValueAim.token;
+            axios.get(sitedata.data.path + '/UserProfile/checkAlies?alies_id=' + e.target.value, {
+                headers: {
+                    'token': user_token,
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                }
+            }).then((responce) => {
+                if (responce.data.hassuccessed) { this.setState({ DuplicateAlies: true }) }
+                else { this.setState({ DuplicateAlies: false }) }
+                this.setState({ loaderImage: false });
+            })
+        }
+        else {
+            this.setState({ toSmall: true })
+        }
+    }
+
 
     //For update the insurance
     updatesinsurances = (keys, e) => {
@@ -633,10 +688,12 @@ class Index extends Component {
 
         return (
             <div>
-
+                {this.state.loaderImage && <Loader />}
                 <Grid className="profileMy">
                     <Grid className="profileInfo">
                         {this.state.copied && <div className="success_message">Information is Copied</div>}
+                        {this.state.succUpdate && <div className="success_message">Profile is updated</div>}
+                        {this.state.error3 && <div className="err_message">Profile is not updated. Can not reach to server</div>}
                         <h1>Profile information</h1>
                         <p>This is your profile information, which is accessible to your trusted Doctors and those
                         you share your Profile ID nad PIN with.</p>
@@ -649,12 +706,12 @@ class Index extends Component {
                             <Grid className="profileIdLft">
                                 <Grid container direction="row" alignItems="center" spacing={1}>
                                     <Grid item xs={12} md={7}>
-                                        <label>Profile ID</label><span id="profile_id">{this.state.UpDataDetails.alies_id}</span>
+                                        <label>Profile ID</label><span id="profile_id">{this.state.UpDataDetails.alies_id && this.state.UpDataDetails.alies_id}</span>
                                         <a><img src={require('../../../../assets/images/copycopy.svg')} onClick={() => this.copyText('profile_id')} alt="" title="" /></a>
                                         <a><img src={require('../../../../assets/images/qr-code.svg')} onClick={this.handleQrOpen} alt="" title="" /></a>
                                     </Grid>
                                     <Grid item xs={12} md={5}>
-                                        <label>PIN</label><span id="profile_pin">{this.state.UpDataDetails.pin}</span>
+                                        <label>PIN</label><span id="profile_pin">{this.state.UpDataDetails.pin && this.state.UpDataDetails.pin}</span>
                                         <a><img src={require('../../../../assets/images/copycopy.svg')} onClick={() => this.copyText('profile_pin')} alt="" title="" /></a>
                                     </Grid>
                                 </Grid>
@@ -703,16 +760,18 @@ class Index extends Component {
                                 </Grid>
                                 <Grid className="editPinform">
                                     <Grid className="editField">
+                                        {this.state.ChangedPIN && <div className="success_message">Profile ID and PIN is changed</div>}
                                         <label>Profile ID</label>
-                                        <Grid><input type="text" /></Grid>
-                                        <p>This Profile ID is already taken. Please try a different ID</p>
+                                        <Grid><input type="text" name="alies_id" onChange={this.changeAlies} value={this.state.UpDataDetails.alies_id} /></Grid>
+                                        {this.state.DuplicateAlies && <p>This Profile ID is already taken. Please try a different ID</p>}
+                                        {this.state.toSmall && <p>Profile id must be greater then 5 characters</p>}
                                     </Grid>
                                     <Grid className="editField">
                                         <label>PIN</label>
-                                        <Grid><input type="text" /></Grid>
+                                        <Grid><input type="text" name="pin" onChange={this.updateEntryState} value={this.state.UpDataDetails.pin} /></Grid>
                                     </Grid>
                                     <Grid>
-                                        <input type="submit" value="Save changes" />
+                                        <input type="submit" onClick={this.ChangeIDPIN} value="Save changes" />
                                     </Grid>
                                 </Grid>
                             </Grid>
@@ -752,11 +811,11 @@ class Index extends Component {
                                     </Grid>
                                     <Grid item xs={12} md={4}>
                                         <label>First name</label>
-                                        <Grid><input type="text" name="first_name" value={this.state.UpDataDetails.first_name ? this.state.UpDataDetails.first_name : ''} onChange={this.updateEntryState} /></Grid>
+                                        <Grid><input type="text" name="first_name" value={this.state.UpDataDetails.first_name} onChange={this.updateEntryState} /></Grid>
                                     </Grid>
                                     <Grid item xs={12} md={4}>
                                         <label>Last name</label>
-                                        <Grid><input type="text" name="last_name" onChange={this.updateEntryState} value={this.state.UpDataDetails.last_name ? this.state.UpDataDetails.last_name : ''} /></Grid>
+                                        <Grid><input type="text" name="last_name" onChange={this.updateEntryState} value={this.state.UpDataDetails.last_name} /></Grid>
                                     </Grid>
                                 </Grid>
                             </Grid>
@@ -879,6 +938,7 @@ class Index extends Component {
                                             <Select
                                                 value={this.state.name_multi}
                                                 name="languages"
+                                                closeMenuOnSelect={false}
                                                 onChange={(e) => { this.handleChange_multi(e, 'languages') }}
                                                 options={this.state.languageData}
                                                 placeholder=""

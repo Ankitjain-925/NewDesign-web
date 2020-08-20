@@ -19,10 +19,10 @@ class Index extends Component {
             contact_partner: {},
             loaderImage: false,
         };
-        this.logOutClick = this.logOutClick.bind(this);
     }
+    
+    //For logout the User
     logOutClick = () => {
-        console.log('heresss')
         let email = "";
         let password = "";
         this.props.LoginReducerAim(email, password);
@@ -37,39 +37,45 @@ class Index extends Component {
                 </Grid>
                 <Grid className="menuItems">
                     <ul>
-                        <li>
+                        <li className={this.props.currentPage==='journal' ? "menuActv" : ""}>
                             <a>
-                                <img src={require('../../../../assets/images/inactiveJournal.jpg')} alt="" title="" />
+                            {this.props.currentPage==='journal' ? <img src={require('../../../../assets/images/menu1.png')} alt="" title="" />
+                                :<img src={require('../../../../assets/images/inactiveJournal.jpg')} alt="" title="" />}
                                 <span>Journal</span>
                             </a>
                         </li>
-                        <li className="menuActv">
+                        <li className={this.props.currentPage==='chat' ? "menuActv" : ""}>
                             <a>
-                                <img src={require('../../../../assets/images/chatVideoActive.png')} alt="" title="" />
+                            {this.props.currentPage==='chat' ? <img src={require('../../../../assets/images/chatVideoActive.png')} alt="" title="" />
+                                : <img src={require('../../../../assets/images/chatVideo.jpg')} alt="" title="" />}
                                 <span>Chat & <br /> Videocalls</span>
                             </a>
                         </li>
-                        <li>
+                        <li className={this.props.currentPage==='appointment' ? "menuActv" : ""}>
                             <a>
-                                <img src={require('../../../../assets/images/calenderIcon.jpg')} alt="" title="" />
+                            {this.props.currentPage==='appointment' ? <img src={require('../../../../assets/images/appointActive.png')} alt="" title="" />
+                                : <img src={require('../../../../assets/images/calenderIcon.jpg')} alt="" title="" />}
                                 <span>Appointments</span>
                             </a>
                         </li>
-                        <li>
+                        <li className={this.props.currentPage==='documents' ? "menuActv" : ""}>
                             <a>
-                                <img src={require('../../../../assets/images/apoint.jpg')} alt="" title="" />
+                            {this.props.currentPage==='documents' ? <img src={require('../../../../assets/images/apoint.jpg')} alt="" title="" />
+                                : <img src={require('../../../../assets/images/apoint.jpg')} alt="" title="" />}
                                 <span>My Documents</span>
                             </a>
                         </li>
-                        <li>
+                        <li className={this.props.currentPage==='tracker' ? "menuActv" : ""}>
                             <a>
-                                <img src={require('../../../../assets/images/tracker.jpg')} alt="" title="" />
+                            {this.props.currentPage==='tracker' ?  <img src={require('../../../../assets/images/tracker.jpg')} alt="" title="" />
+                                : <img src={require('../../../../assets/images/tracker.jpg')} alt="" title="" />}
                                 <span>Trackers & <br /> Self Data</span>
                             </a>
                         </li>
-                        <li>
+                        <li className={this.props.currentPage==='more' ? "menuActv" : ""}>
                             <a className="moreMenu">
-                                <img src={require('../../../../assets/images/moreicon.jpg')} alt="" title="" />
+                            {this.props.currentPage==='more' ? <img src={require('../../../../assets/images/moreActive.png')} alt="" title="" /> 
+                                : <img src={require('../../../../assets/images/moreicon.jpg')} alt="" title="" />}
                                 <span>More</span>
 
                                 <div className="moreMenuList">
@@ -85,9 +91,10 @@ class Index extends Component {
                             </a>
 
                         </li>
-                        <li>
+                        <li  className={this.props.currentPage==='profile' ? "menuActv" : ""}>
                             <a className="profilMenu">
-                                <img src={require('../../../../assets/images/useru.jpg')} alt="" title="" />
+                            { this.props.currentPage==='profile' ?   <img src={require('../../../../assets/images/profileActv.png')} alt="" title="" />
+                            :<img src={require('../../../../assets/images/useru.jpg')} alt="" title="" />}
                                 <span>My Profile</span>
 
                                 <div className="profilMenuList">
@@ -98,7 +105,6 @@ class Index extends Component {
                                         <li onClick={this.logOutClick}><a><img src={require('../../../../assets/images/menudocs.jpg')} alt="" title="" />Log out</a></li>
                                     </ul>
                                 </div>
-
                             </a>
                         </li>
                     </ul>

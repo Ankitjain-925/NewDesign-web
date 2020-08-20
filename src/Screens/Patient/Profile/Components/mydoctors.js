@@ -1,487 +1,108 @@
-/*global google*/
-
 import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
-import Select from 'react-select';
-import DatePicker from 'react-date-picker';
-// import PhoneInput from 'react-phone-input-2';
-// import 'react-phone-input-2/lib/style.css';
-import ReactFlagsSelect from 'react-flags-select';
-import { Redirect, Route } from 'react-router-dom';
 import sitedata from '../../../../sitedata';
-import axios from 'axios';
 import { withRouter } from "react-router-dom";
-import ReactDOM from 'react-dom';
 import { connect } from "react-redux";
 import { LoginReducerAim } from './../../../Login/actions';
-import npmCountryList from 'react-select-country-list'
-import { Table } from 'reactstrap';
-import * as AustraliaC from '../../../Components/insuranceCompanies/australia.json';
-import * as AustriaC from '../../../Components/insuranceCompanies/austria.json';
-import * as NetherlandC from '../../../Components/insuranceCompanies/dutch.json';
-import * as GermanC from '../../../Components/insuranceCompanies/german.json';
-import * as PhillipinesC from '../../../Components/insuranceCompanies/phillippines.json';
-import * as SwitzerlandC from '../../../Components/insuranceCompanies/switzerland.json';
-import * as AmericaC from '../../../Components/insuranceCompanies/us.json';
-import * as ThailandC from '../../../Components/insuranceCompanies/thailand.json';
-import Autocomplete from '../Autocomplete.js';
+import axios from 'axios';
 import { LanguageFetchReducer } from './../../../actions';
 import Modal from '@material-ui/core/Modal';
-var datas = [];
-var insurances = [];
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
+import Select from 'react-select';
+import Loader from './../../../Components/Loader/index';
+
+var doctorArray = [];
 
 class Index extends Component {
     constructor(props) {
         super(props);
-        this.autocompleteInput = React.createRef();
-        this.city = null;
-        this.handlePlaceChanged = this.handlePlaceChanged.bind(this);
         this.state = {
-            selectedOption: null,
-            openDash: false,
-            date: new Date(),
-            age: '',
-            name: 'hai',
-            labelWidth: 0,
-            name_multi: [],
-            age: '',
-            name: 'hai',
-            labelWidth: '',
-            gender: '',
-            language: [],
-            userDetails: [],
-            weoffer: [],
-            language: [],
-            speciality: [],
-            uploadedimage: '',
-            file: '',
-            imagePreviewUrl: '',
-            genderdata: [],
-            languageData: [],
-            specialityData: [],
-            addressDetails: [],
-            title_degreeData: [],
-            subspeciality: [],
-            UpDataDetails: [],
-            speciality_multi: [],
-            insurance_count: 1,
-            insuranceDetails: {},
-            insurancefull: [],
-            UpDataDetailsdicard: [],
-            speciality_multidiscard: [],
-            name_multidiscard: [],
-            passwordDetails: [],
+            shown: true,
             loaderImage: false,
-            regisError1: '',
-            regisError2: "",
-            city: '',
-            area: '',
-            allDocData: {},
-            insuranceArray: {},
-            moreone: false,
-            profile_id: '',
-            selectCountry: [],
-            flag_fax: 'DE',
-            flag_phone: 'DE',
-            flag_mobile: 'DE',
-            flag_emergency_number: 'DE',
-            mobile: '',
-            phone: '',
-            fax: '',
-            updateIns: -1,
-            error3: false,
-            copied: false,
-            value: 0,
-            qrOpen: false,
-            chngPinOpen: false
+            allDocData: [],
+            allDocData1: [],
+            favDoc: [],
+            items: [],
+            users: [],
+            filteredUsers: [],
+            q: '',
+            selectedUser: '',
+            doctorId: [],
+            myfavDoctors: [],
+            selectedprofile: '',
+            reccomend: [],
+            images: [],
+            Reccimages: [],
+            openTrust: false,
+            SelectUser : false,
+            already : false,
+            succset : false,
+            recAdd : false,
+            already1 : false,
+            removes : false,
+            family_doc : [],
+            family_doc1 : [],
+            PassDone : false,
+            family_doc_list : [],
         };
         // new Timer(this.logOutClick.bind(this)) 
     }
 
-    // On change the Birthday
-    onChange = (date) => {
-        const state = this.state.UpDataDetails;
-        state['birthday'] = date
-        this.setState({ UpDataDetails: state })
-    }
+    //Open Dialog to add the Trusted Doctor
+    handleOpenTrust = () => {
+        this.setState({ openTrust: true });
+    };
+    handleCloseTrust = () => {
+        this.setState({ openTrust: false });
+    };
 
-    // fancybox open
-    handleOpenDash = () => {
-        this.setState({ openDash: true });
-    };
-    handleCloseDash = () => {
-        this.setState({ openDash: false });
-    };
 
     componentDidMount() {
         // new LogOut(this.props.stateLoginValueAim.token, this.props.stateLoginValueAim.user._id, this.logOutClick.bind(this))
-        // $("#clickIcon").click(function () {
-        //     $("input[id='my_file']").click();
-        //   });
-        // this.setState({
-        //     labelWidth: ReactDOM.findDOMNode(this.InputLabelRef).offsetWidth,
-        // });
-        this.getMetadata();
-        this.getUserData();
         this.alldoctor();
-        var npmCountry = npmCountryList().getData()
-        this.setState({ selectCountry: npmCountry })
-        /*---location---*/
-        this.city = new google.maps.places.Autocomplete(
-            this.autocompleteInput.current,
-            { types: ["geocode"] }
-        );
-        this.city.addListener("place_changed", this.handlePlaceChanged);
+        this.alldocs();
     }
 
-    // Copy the Profile id and PIN
-    copyText = (copyT) => {
-        var copyText = document.getElementById(copyT);
-        var textArea = document.createElement("textarea");
-        textArea.value = copyText.textContent;
-        document.body.appendChild(textArea);
-        textArea.select();
-        document.execCommand("Copy");
-        textArea.remove();
-        this.setState({ copied: true })
-        setTimeout(() => {
-            this.setState({ copied: false })
-        }, 3000)
+    //For Filter the Doctor
+    componentWillReceiveProps(nextProps) {
+        this.setState({ users: nextProps.users, filteredUsers: nextProps.users }, () => this.filterList());
     }
 
-    //For update the mobile number
-    updateMOBILE = (str) => {
-        if (!str || str === 'undefined' || str === null || str === '') {
-            return str;
-        }
-        else {
-            var mob = str && str.split("-")
-            return mob.pop()
-
-        }
-    }
-
-    // fOR update the flag of mobile
-    updateFLAG = (str) => {
-        var mob = str && str.split("-")
-        if (mob && mob.length > 0) {
-            if (mob[0] && mob[0].length == 2) {
-                return mob[0]
-            }
-            else { return 'DE' }
-        }
-    }
-
-    //Update the states
-    updateEntryState1 = (e) => {
-        const state = this.state.UpDataDetails;
-        if (e.target.name === 'mobile') {
-            state[e.target.name] = this.state.flag_mobile + '-' + e.target.value;
-            this.setState({ mobile: e.target.value });
-        }
-        if (e.target.name === 'fax') {
-            state[e.target.name] = this.state.flag_fax + '-' + e.target.value;
-            this.setState({ fax: e.target.value });
-        }
-        if (e.target.name === 'phone') {
-            state[e.target.name] = this.state.flag_phone + '-' + e.target.value;
-            this.setState({ phone: e.target.value });
-        }
-        if (e.target.name === 'emergency_number') {
-            state[e.target.name] = this.state.flag_emergency_number + '-' + e.target.value;
-            this.setState({ phone: e.target.value });
-        }
-        this.setState({ UpDataDetails: state });
-    }
-
-    //For open QR code
-    handleQrOpen = () => {
-        this.setState({ qrOpen: true });
-    };
-    handleQrClose = () => {
-        this.setState({ qrOpen: false });
-    };
-
-    //for open the Change profile Dialog
-    handlePinOpen = () => {
-        this.setState({ chngPinOpen: true });
-    };
-    handlePinClose = () => {
-        this.setState({ chngPinOpen: false });
-    };
-
-    //For change the title of user
-    onSelectDegree(event) {
-        this.setState({ title: event });
-        const state = this.state.UpDataDetails;
-        state["title"] = event && (Array.prototype.map.call(event, s => s.label).toString()).split(/[,]+/).join(',  ')
-        this.setState({ UpDataDetails: state });
-    }
-
-    //For update the flags 
-    updateFlags = (e, name) => {
-        const state = this.state.UpDataDetails;
-        if (name === 'flag_mobile') {
-            state['mobile'] = e + '-' + this.state.mobile;
-            this.setState({ flag_mobile: e });
-        }
-        if (name === 'flag_fax') {
-            state['fax'] = e + '-' + this.state.fax;
-            this.setState({ flag_fax: e });
-        }
-
-        if (name === 'flag_phone') {
-            state['phone'] = e + '-' + this.state.phone;
-            this.setState({ flag_phone: e });
-        }
-        if (name === 'flag_emergency_number') {
-            state['emergency_number'] = e + '-' + this.state.phone;
-            this.setState({ flag_emergency_number: e });
-        }
-
-        this.setState({ UpDataDetails: state });
-    }
-
-    //For chnaging the Place of city.
-    handlePlaceChanged() {
-        const place = this.city.getPlace();
-        this.setState({ city: place.formatted_address })
-        this.setState({
-            area: {
-                type: "Point",
-                coordinates: [place.geometry.location.lng(), place.geometry.location.lat()]
-            }
-        })
-    }
-
-    //For getting the dropdowns from the database
-    getMetadata() {
-        axios.get(sitedata.data.path + '/UserProfile/Metadata')
-            .then((responce) => {
-                if (responce && responce.data && responce.data.length > 0) {
-                    var Gender = [], Languages = [], Speciality = [], Titles = [];
-                    {
-                        responce.data[0].gender && responce.data[0].gender.length > 0 && responce.data[0].gender.map(
-                            (item) => { Gender.push({ label: item.title, value: item.value }) })
-                    }
-                    {
-                        responce.data[0].languages && responce.data[0].languages.length > 0 && responce.data[0].languages.map(
-                            (item) => { Languages.push({ label: item.title, value: item.value }) })
-                    }
-                    {
-                        responce.data[0].speciality && responce.data[0].speciality.length > 0 && responce.data[0].speciality.map(
-                            (item) => { Speciality.push({ label: item.title, value: item.value }) })
-                    }
-                    {
-                        responce.data[0].title_degreeData && responce.data[0].title_degreeData.length > 0 && responce.data[0].title_degreeData.map(
-                            (item) => { Titles.push({ label: item.title, value: item.value }) })
-                    }
-                    this.setState({
-                        genderdata: Gender,
-                        languageData: Languages,
-                        specialityData: Speciality,
-                        title_degreeData: Titles
-                    });
-                }
-            })
-
-    }
-
-    //Getting Doctor to add as Family doctor
-    alldoctor() {
+    //Get the all doctor 
+    alldocs = () => {
         const user_token = this.props.stateLoginValueAim.token;
-        axios.get(sitedata.data.path + '/UserProfile/DoctorUsers', {
+        axios.get(sitedata.data.path + '/UserProfile/DoctorUsersChat', {
             headers: {
                 'token': user_token,
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             }
-        })
-            .then((response) => {
-                this.setState({ allDocData: response.data.data })
-            })
-    }
-
-    changeLangClick(languageType) {
-        this.props.LanguageFetchReducer(languageType);
-    }
-
-    //For change the language and the Speciality
-    handleChange_multi = (event, name) => {
-        const state = this.state.UpDataDetails;
-        if (name == "languages") {
-            this.setState({ name_multi: event });
-            state['language'] = event && (Array.prototype.map.call(event, s => s.value))
-
-        }
-        if (name == "speciality") {
-            this.setState({ speciality_multi: event });
-        }
-        this.setState({ UpDataDetails: state })
-    };
-
-    handleChange1 = (e) => {
-        const state = this.state.userDetails
-        state[e.target.name] = e.target.value;
-        this.setState({ userDetails: state });
-    }
-
-    //For checkbox to offer things
-    handleweoffer = (e) => {
-        const state = this.state.weoffer
-        state[e.target.name] = e.target.value;
-        this.setState({ weoffer: state });
-    }
-
-    logOutClick() {
-        let email = "";
-        let password = "";
-        this.props.LoginReducerAim(email, password);
-        let languageType = 'en';
-        this.props.LanguageFetchReducer(languageType);
-    }
-
-    // For add the insurance
-    addmore_insurance() {
-        datas.push(this.state.insuranceDetails)
-        this.setState({ insurance_count: this.state.insurance_count + 1, insurancefull: datas })
-        this.setState({ insuranceDetails: { insurance: '', insurance_type: '', insurance_number: '' } })
-        this.setState({ moreone: true })
-    }
-    // selectCountry = (event) => {
-    //     const state = this.state.CreateKYC;
-    //     state['country'] = event.target.value;
-    //     this.setState({ CreateKYC: state });
-    //     this.setState({ selectedCountry: event.target.value })
-    // }
-
-
-    changePassword = (e) => {
-        const state1 = this.state.UpDataDetails, state = this.state.passwordDetails;
-        state[e.target.name] = e.target.value;
-        state1[e.target.name] = e.target.value;
-        this.setState({ UpDataDetails: state1, passwordDetails: state });
-
-    }
-
-    //Save the User profile
-    saveUserData = () => {
-        if (this.state.insuranceDetails.insurance !== "" && this.state.insuranceDetails.insurance_number !== ""
-            && this.state.insuranceDetails.insurance_country !== "") {
-            if (datas.some(data => data.insurance === this.state.insuranceDetails.insurance)) { }
-            else {
-                datas.push(this.state.insuranceDetails)
-                this.setState({ insurancefull: datas })
-            }
-        }
-        if (this.state.flag_emergency_number && this.state.flag_emergency_number === '' && this.state.flag_emergency_number === 'undefined') {
-            this.setState({ flag_emergency_number: 'DE' })
-        }
-        if (this.state.flag_mobile && this.state.flag_mobile === '' && this.state.flag_mobile === 'undefined') {
-            this.setState({ flag_mobile: 'DE' })
-        }
-        if (this.state.flag_phone && this.state.flag_phone === '' && this.state.flag_phone === 'undefined') {
-            this.setState({ flag_phone: 'DE' })
-        }
-        if (this.state.flag_fax && this.state.flag_fax === '' && this.state.flag_fax === 'undefined') {
-            this.setState({ flag_fax: 'DE' })
-        }
-        this.setState({ loaderImage: true });
-        this.setState({ regisError1: "" })
-        this.setState({ regisError2: "" })
-        const user_token = this.props.stateLoginValueAim.token;
-        this.setState({ insuranceDetails: { insurance: '', insurance_number: '', insurance_country: '' } })
-        if (this.state.passwordDetails.password == this.state.passwordDetails.confirm_password) {
-            this.setState({ error3: false })
-            var parent_id = this.state.UpDataDetails.parent_id ? this.state.UpDataDetails.parent_id : '0';
-            axios.put(sitedata.data.path + '/UserProfile/Users/update', {
-                type: 'patient',
-                pin: this.state.UpDataDetails.pin,
-                first_name: this.state.UpDataDetails.first_name,
-                last_name: this.state.UpDataDetails.last_name,
-                nick_name: this.state.UpDataDetails.nick_name,
-                title: this.state.UpDataDetails.title,
-                birthday: this.state.UpDataDetails.birthday,
-                language: this.state.UpDataDetails.language,
-                speciality: this.state.speciality_multi,
-                phone: this.state.UpDataDetails.phone,
-                mobile: this.state.UpDataDetails.mobile,
-                fax: this.state.UpDataDetails.fax,
-                website: this.state.UpDataDetails.website,
-                email: this.state.UpDataDetails.email,
-                password: this.state.UpDataDetails.password,
-                sex: this.state.UpDataDetails.sex,
-                street: this.state.UpDataDetails.street,
-                city: this.state.city,
-                area: this.state.area,
-                address: this.state.UpDataDetails.address,
-                emergency_contact_name: this.state.UpDataDetails.emergency_contact_name,
-                emergency_email: this.state.UpDataDetails.emergency_email,
-                emergency_number: this.state.UpDataDetails.emergency_number,
-                family_doc: this.state.UpDataDetails.family_doc,
-                insurance: datas,
-                is2fa: this.state.UpDataDetails.is2fa,
-                country: this.state.UpDataDetails.country,
-                pastal_code: this.state.UpDataDetails.pastal_code,
-
-            }, {
-                headers: {
-                    'token': user_token,
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                }
-            })
-                .then((responce) => {
-                    this.setState({ regisError2: responce.data.message, insuranceDetails: { insurance: '', insurance_number: '', insurance_country: '' } })
-                    this.setState({ loaderImage: false });
-                    this.getUserData();
-                    axios.put('https://api-us.cometchat.io/v2.0/users/' + this.state.profile_id.toLowerCase(), {
-                        name: this.state.UpDataDetails.first_name + ' ' + this.state.UpDataDetails.last_name
-                    },
-                        {
-                            headers: {
-                                'appId': '15733dce3a73034',
-                                'apiKey': '2f6b4a6b99868d7af0a2964d5f292abbb68e05a7',
-                                'Accept': 'application/json',
-                                'Content-Type': 'application/json'
+        }).then((response) => {
+            var images = [], Reccimages = [];
+            response.data.data && response.data.data.length > 0 && response.data.data.map((datas) => {
+                var find = datas && datas.image && datas.image
+                if (find) {
+                    var find1 = find.split('.com/')[1]
+                    axios.get(sitedata.data.path + '/aws/sign_s3?find=' + find1,)
+                        .then((response2) => {
+                            if (response2.data.hassuccessed) {
+                                images.push({ image: find, new_image: response2.data.data })
+                                this.setState({ images: images })
                             }
                         })
-                        .then((res) => {
-                        })
-
-                })
-        } else {
-            this.setState({ error3: true })
-            this.setState({ loaderImage: false });
-        }
+                }
+            })
+            this.setState({ allDocData1: response.data.data })
+            this.getUserData();
+        })
     }
 
-    //For update the insurance
-    updatesinsurances = (keys, e) => {
-        if (e.target.name === 'insurance') {
-            datas[keys].insurance = e.target.value;
-            const q = e.target.value.toLowerCase();
-            this.setState({ q }, () => this.filterList(datas[keys].insurance_country));
-            this.setState({ updateIns: keys })
-        }
-        if (e.target.name === 'insurance_number') {
-            datas[keys].insurance_number = e.target.value;
-        }
-        if (e.target.name === 'insurance_country') {
-            datas[keys].insurance_country = e.target.value;
-        }
-        this.setState({ insurancefull: datas })
-    }
-
-    //For removing the insurance 
-    removeInsurance = (keys, e) => {
-        datas.splice(keys, 1);
-        this.setState({ insurancefull: datas })
-    }
-
-    //For getting User Data
-    getUserData() {
+    //Get the current User Data
+    getUserData= ()=> {
         this.setState({ loaderImage: true });
+        var myfavDoctors = [];
+        var reccomend = [];
         let user_token = this.props.stateLoginValueAim.token
         let user_id = this.props.stateLoginValueAim.user._id
         axios.get(sitedata.data.path + '/UserProfile/Users/' + user_id, {
@@ -491,172 +112,363 @@ class Index extends Component {
                 'Content-Type': 'application/json'
             }
         }).then((response) => {
-            var title, titlefromD = response.data.data.title;
-            var language = [], languagefromD = response.data.data.language;
-            if (languagefromD && languagefromD.length > 0) {
-                languagefromD.map((item) => {
-                    language.push({ value: item, label: item.replace(/_/g, " ") });
+            var myFilterData =[];
+            if (response.data.data.family_doc && response.data.data.family_doc.length > 0) {
+                response.data.data.family_doc.map((item) => {
+                    myFilterData = this.state.family_doc_list && this.state.family_doc_list.length>0 && this.state.family_doc_list.filter((ind) =>
+                    ind.value === item);
                 })
-
             }
-
-            if (titlefromD && titlefromD !== "") {
-                title = response.data.data.title.split(", ");
-            }
-            else {
-                title = [];
-            }
-
-            if (response.data.data.mobile && response.data.data.mobile !== '') {
-                let mob = response.data.data.mobile.split("-");
-                if (mob && mob.length > 0) {
-                    this.setState({ flag_mobile: mob[0] })
+            this.setState({family_doc : myFilterData, family_doc1 : response.data.data.family_doc})
+            if (response.data.data.fav_doctor) {
+                for (let i = 0; i < response.data.data.fav_doctor.length; i++) {
+                    if (response.data.data.fav_doctor[i].doctor) {
+                        var datas = this.state.allDocData1 && this.state.allDocData1.length > 0 && this.state.allDocData1.filter(data => data.profile_id === response.data.data.fav_doctor[i].doctor)
+                        if(datas && datas.length>0)
+                        {
+                            if(response.data.data.fav_doctor[i].type && response.data.data.fav_doctor[i].type === 'recommended'){
+                                reccomend.push(datas[0])
+                            }
+                            else{
+                                myfavDoctors.push(datas[0])
+                            }   
+                        } 
+                        this.setState({ loaderImage: false });
+                    }
                 }
-            }
-            if (response.data.data.phone && response.data.data.phone !== '') {
-                let pho = response.data.data.phone.split("-");
-                if (pho && pho.length > 0) {
-                    this.setState({ flag_phone: pho[0] })
+              
+                if (response.data.data.fav_doctor.length == 0) {
+                    this.setState({ loaderImage: false });
                 }
+                this.setState({ myfavDoctors: myfavDoctors, reccomend : reccomend })
             }
-            if (response.data.data.fax && response.data.data.fax !== '') {
-                let fx = response.data.data.fax.split("-");
-                if (fx && fx.length > 0) {
-                    this.setState({ flag_fax: fx[0] })
-                }
-            }
-            if (response.data.data.emergency_number && response.data.data.emergency_number !== '') {
-                let fen = response.data.data.emergency_number.split("-");
-                if (fen && fen.length > 0) {
-                    this.setState({ flag_emergency_number: fen[0] })
-                }
-            }
-            this.setState({ UpDataDetails: response.data.data, city: response.data.data.city, area: response.data.data.area, profile_id: response.data.data.profile_id });
-            this.setState({ speciality_multi: this.state.UpDataDetails.speciality })
-            this.setState({ name_multi: language, title: title })
-            this.setState({
-                insurancefull: this.state.UpDataDetails.insurance,
-                insuranceDetails: { insurance: '', insurance_number: '', insurance_type: '' }
-            })
-            datas = this.state.UpDataDetails.insurance;
-
-            this.setState({ loaderImage: false });
         }).catch((error) => {
             this.setState({ loaderImage: false });
         });
     }
 
-    //Update the State
-    updateEntryState = (e) => {
-        const state = this.state.UpDataDetails;
-        state[e.target.name] = e.target.value;
-        this.setState({ UpDataDetails: state });
-    }
-
-    //For updating gender and country
-    EntryValueName = (value, name) => {
-        const state = this.state.UpDataDetails;
-        state[name] = value;
-        this.setState({ UpDataDetails: state });
-    }
-
-    //Calling when city is updated
-    updateEntryCity = (place) => {
-        this.setState({ city: place.formatted_address })
+    //User list will be show/hide
+    toggle=()=>{
         this.setState({
-            area: {
-                type: "Point",
-                coordinates: [place.geometry.location.lng(), place.geometry.location.lat()]
+            shown: !this.state.shown
+        });
+    }
+
+    //Change the UserList
+    onChange=(event) =>{
+        const q = event.target.value.toLowerCase();
+        this.setState({ q }, () => this.filterList());
+    }
+
+    //Filter the list according to type
+    filterList=()=>{
+        let users = this.state.users;
+        let q = this.state.q;
+        users =  users && users.length > 0 && users.filter(function (user) {
+            return (user.name.toLowerCase().indexOf(q) != -1 || user.alies_id.toLowerCase().indexOf(q) != -1);
+            // return  // returns true or false
+        });
+        this.setState({ filteredUsers: users });
+        if (this.state.q == '') {
+            this.setState({ filteredUsers: [] });
+        }
+    }
+
+    //Get All doctors
+    alldoctor=()=>{
+        var FamilyList=[];
+        const user_token = this.props.stateLoginValueAim.token;
+        axios.get(sitedata.data.path + '/UserProfile/DoctorUsers',{
+            headers: {
+                'token': user_token,
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        }).then((response) => {
+            this.setState({ allDocData : response.data.data })
+            for(let i=0;i<this.state.allDocData.length;i++){
+                var name = '';
+                if(this.state.allDocData[i].first_name && this.state.allDocData[i].last_name)
+                {
+                    name = this.state.allDocData[i].first_name +' '+ this.state.allDocData[i].last_name 
+                }
+                else if(this.state.allDocData[i].first_name)
+                {
+                    name = this.state.allDocData[i].first_name
+                } 
+                doctorArray.push({
+                   name :    name,
+                   id   :    this.state.allDocData[i]._id,
+                   profile_id : this.state.allDocData[i].profile_id,
+                   alies_id : this.state.allDocData[i].alies_id
+                })
+                FamilyList.push({value : this.state.allDocData[i]._id, label: name})
+            }
+            this.setState({users : doctorArray, family_doc_list : FamilyList})
+        })
+    }
+
+    //For remove the doctor in the trusted Doctor
+    removeDoctor=(doctor)=>{
+        // var Delete_Document, click_on_YES_document;
+        // if (this.props.stateLanguageType === 'de') {
+        //     Delete_Document = translationDE.text.Delete_Document;
+        //     click_on_YES_document = translationDE.text.click_on_YES_document;
+        // } else {
+        //     Delete_Document = translationEN.text.Delete_Document;
+        //     click_on_YES_document = translationEN.text.click_on_YES_document;
+        // }
+        confirmAlert({
+            title: "Remove Doctor",
+            message: "Are you sure to remove the Doctor from the Trusted Doctor",
+            buttons: [{
+                label: 'YES',
+                onClick: () => this.deleteClickDoctor(doctor)
+            }, {
+                label: 'NO',
+            }]
+        })
+    }
+
+    //For Add the Doctor
+    addDoctor=()=> {
+        this.setState({already: false, SelectUser: false})
+        if ((this.state.doctorId.doctor_id === '' || !this.state.doctorId.doctor_id) && (this.state.selectedUser === '')) {
+            this.setState({ SelectUser: true})
+        } else {
+            var doctor_id
+            if (this.state.doctorId.doctor_id != '' && this.state.selectedUser != '' && this.state.doctorId.doctor_id != undefined) {
+                doctor_id = this.state.doctorId.doctor_id
+                // profile_id= this.state.selectedprofile
+            } else {
+                if (this.state.doctorId.doctor_id != '' && this.state.doctorId.doctor_id != undefined) {
+                    doctor_id = this.state.doctorId.doctor_id
+                    // profile_id= this.state.selectedprofile
+                }
+                if (this.state.selectedUser != '' && this.state.selectedUser != undefined) {
+                    doctor_id = this.state.selectedUser
+                    // profile_id= this.state.selectedprofile
+                }
+            }
+            const user_token = this.props.stateLoginValueAim.token;
+            if (doctor_id != '' && doctor_id != undefined) {
+                axios.put(sitedata.data.path + '/UserProfile/AddFavDoc', {
+                    doctor: doctor_id,
+                    profile_id: this.state.selectedprofile,
+                }, {
+                    headers: {
+                        'token': user_token,
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    }
+                }).then((responce) => {
+                        this.setState({ loaderImage: false, q: '', filteredUsers: []})
+                        if (responce.data.hassuccessed == true) {
+                            this.setState({ succset : true });
+                            setTimeout(()=>{this.setState({succset : false})}, 5000)
+                            axios.post(sitedata.data.path + '/UserProfile/AddtoPatientList/' + doctor_id, {
+                                profile_id: this.props.stateLoginValueAim.user.profile_id
+                            }, {
+                                headers: {
+                                    'token': user_token,
+                                    'Accept': 'application/json',
+                                    'Content-Type': 'application/json'
+                                }
+                            }).then((responce) => { })
+                            this.setState({ selectedUser: '', })
+                            this.getUserData();
+                        } else {
+                            this.setState({ selectedUser: '' })
+                            this.setState({ already: true })
+                            this.getUserData();
+                        }
+                    })
+            }
+        }
+    }
+
+    //For add/edit family doctor
+    AddFmilyDoc=()=>{
+        axios.put(sitedata.data.path + '/UserProfile/Users/update', {
+            family_doc: this.state.family_doc1
+        }, {
+            headers: {
+                'token': this.props.stateLoginValueAim.token,
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        }).then((responce) => {
+            this.setState({PassDone : true})
+            setTimeout(()=>{ this.setState({PassDone: false}) }, 5000)
+        })   
+    }
+    
+    //Send doctor reccomendation to trusted doctor 
+    UpdateDoc=(id)=>{
+        this.setState({recAdd: false, already1 : false})
+        const user_token = this.props.stateLoginValueAim.token;
+        axios.put(sitedata.data.path + '/UserProfile/AddRecDoc', {
+            doctor: id,
+            profile_id: id,
+        }, {
+            headers: {
+                'token': user_token,
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        }).then((responce) => {
+            this.setState({ loaderImage: false, q: '', filteredUsers: [] });
+            if (responce.data.hassuccessed == true) {
+                this.setState({recAdd: true})
+                setTimeout(()=>{this.setState({recAdd : false})}, 5000)
+                axios.post(sitedata.data.path + '/UserProfile/AddtoPatientList/' + id, {
+                    profile_id: this.props.stateLoginValueAim.user.profile_id
+                }, {
+                    headers: {
+                        'token': user_token,
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    }
+                }).then((responce) => { })
+                this.setState({ selectedUser: '', })
+                this.getUserData();
+            } else {
+                this.setState({already1: true})
+                this.setState({ selectedUser: '' })
+                this.getUserData();
             }
         })
-        const state = this.state.UpDataDetails;
-        state["city"] = place.formatted_address;
-        this.setState({ UpDataDetails: state });
     }
 
-    // For update full insurance
-    updateInsurancee = (e) => {
-        if (e.target.name === "insurance") {
-            const q = e.target.value.toLowerCase();
-            this.setState({ q }, () => this.filterList(this.state.insuranceDetails.insurance_country));
-            this.setState({ updateIns: -2 })
-        }
-        const state = this.state.insuranceDetails;
-        state[e.target.name] = e.target.value;
-        this.setState({ insuranceDetails: state });
-    }
-
-    //For insurance Countries getting the list
-    filterList(selectedCountry) {
-        let iCompany;
-        switch (selectedCountry) {
-            case "AU":
-                iCompany = AustraliaC.australia
-                break;
-            case "AT":
-                iCompany = AustriaC.austria
-                break;
-            case "US":
-                iCompany = AmericaC.us
-                break;
-            case "NL":
-                iCompany = NetherlandC.dutch
-                break;
-            case "DE":
-                iCompany = GermanC.german
-                break;
-            case "PH":
-                iCompany = PhillipinesC.phillippines
-                break;
-            case "CH":
-                iCompany = SwitzerlandC.switzerland
-                break;
-            case "TH":
-                iCompany = ThailandC.thailand
-                break;
-        }
-        let q = this.state.q;
-        iCompany = iCompany && iCompany.length > 0 && iCompany.filter(function (company) {
-            const companyLower = company.toLowerCase()
-            return companyLower.indexOf(q) != -1;
-        })
-        this.setState({ filteredCompany: iCompany });
-        if (this.state.q == '') {
-            this.setState({ filteredCompany: [] });
+    toggle(position) {
+        if (this.state.active === position) {
+            this.setState({ active: null })
+        } else {
+            this.setState({ active: position })
         }
     }
 
+    myColor(position) {
+        if (this.state.active === position) {
+            return "#00a891";
+        }
+        return "";
+    }
+
+    color(position) {
+        if (this.state.active === position) {
+            return "white";
+        }
+        return "";
+    }
+ 
+    //For geting the Images of the doctors
+    getImage = (image) => {
+        const myFilterData = this.state.images && this.state.images.length > 0 && this.state.images.filter((value, key) =>
+            value.image === image);
+        if (myFilterData && myFilterData.length > 0) {
+            return myFilterData[0].new_image;
+        }
+    }
+
+    //After confirm User delete from My doctor
+    deleteClickDoctor=(doctor) =>{
+        this.setState({ loaderImage: true });
+        const user_token = this.props.stateLoginValueAim.token;
+        axios.delete(sitedata.data.path + '/UserProfile/favDocs/' + doctor + '/' + this.props.stateLoginValueAim.user.profile_id, {
+            headers: {
+                'token': user_token,
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        }).then((response) => {
+            this.setState({ loaderImage: false, removes: true });
+            setTimeout(()=>{this.setState({removes: false})},5000)
+            this.getUserData();
+        }).catch((error) => {
+            this.setState({ loaderImage: false });
+        });
+    }
+
+    // On Select Family Docotor
+    onSelectFamilyDoc(event) {
+        var family_doc = [event.value];
+        this.setState({ family_doc: event, family_doc1 : family_doc}); 
+    }
 
     render() {
-        const { stateLoginValueAim, Doctorsetget } = this.props;
-        const { value } = this.state;
+        const userList = this.state.filteredUsers && this.state.filteredUsers.map(user => {
+            return (
+                <li key={user.id} style={{ background: this.myColor(user.id), color: this.color(user.id) }} className="list-group-item" value={user.profile_id}
+                    onClick={() => { this.setState({ q: user.name, selectedUser: user.profile_id, selectedprofile: user.profile_id }); this.toggle(user.id); this.setState({ filteredUsers: [] }) }}
+                >{user.name} ( {user.profile_id} )</li>
+            )
+        });
+        var shown = {
+            display: this.state.shown ? "none" : "block",
+            width: '100%'
+        };
 
         return (
             <div>
                 <Grid className="docTabCntnt">
+                    {this.state.loaderImage && <Loader />}
                     <Grid className="fmlyDoc">
                         <h3>Family Doctor</h3>
                         <p>Visible on Emergency Data information. Has access to Journal.</p>
                     </Grid>
+                    {this.state.PassDone && <div className="success_message">Doctor is successFully added</div>}
                     <Grid className="addDocUpr">
                         <Grid container direction="row" alignItems="center" spacing={2}>
                             <Grid item xs={12} md={9}>
-                                <Grid className="mkFmlyDoc"><p>Please make sure to add your Family Doctor</p></Grid>
+                            <Select
+                                value={this.state.family_doc}
+                                onChange={(e) => this.onSelectFamilyDoc(e)}
+                                options={this.state.family_doc_list}
+                                placeholder="Please make sure to add your Family Doctor"
+                                name="title"
+                                isSearchable={false}
+                                className="mkFmlyDoc"
+                            />
+                                {/* <Grid ><p></p></Grid> */}
                             </Grid>
                             <Grid item xs={12} md={3}>
-                                <Grid className="addFmlyDoc"><a>+ Add a family doctor</a></Grid>
+                                <Grid className="addFmlyDoc"><a onClick={this.AddFmilyDoc}>+ Add a family doctor</a></Grid>
                             </Grid>
                         </Grid>
                     </Grid>
                 </Grid>
 
                 <Grid className="doctrstCntnt">
+                  
                     <Grid className="trstfmlyDoc">
                         <h3>Trusted Doctors</h3>
                         <p>These Doctors have access to your Journal. You can add as many Trusted Doctors as you want.</p>
                     </Grid>
+                    {this.state.recAdd && <div className="success_message">Doctor is successFully added</div>}
+                    {this.state.already1 && <div className="err_message">The Doctor is already exist in your list</div>}
+                    {this.state.removes && <div className="success_message">Doctor is removed from your Trusted list</div>}
+                    {this.state.myfavDoctors && this.state.myfavDoctors.length > 0 && this.state.myfavDoctors.map((index, i) => (
+                        <Grid className="trstaddDocUpr">
+                            <Grid container direction="row" alignItems="center" spacing={2}>
+                                <Grid item xs={12} md={9}>
+                                    <Grid className="trstmkFmlyDoc">
+                                        <Grid container direction="row" alignItems="center">
+                                            <Grid item xs={12} md={4}>
+                                                {index.image ? <a><img src={this.getImage(index.image)} alt="" title="" /> </a>
+                                                    : <a><img src={require('../../../../assets/images/chatPerson.jpg')} alt="" title="" /> </a>}<label>{index.first_name && index.first_name} {index.last_name && index.last_name}</label></Grid>
+                                            <Grid item xs={12} md={8}><p>{index.alies_id && index.alies_id}</p></Grid>
+                                        </Grid>
+                                    </Grid>
+                                </Grid>
+                                <Grid item xs={12} md={3}>
+                                    <Grid className="trstaddFmlyDoc"><a onClick={() => { this.removeDoctor(index.profile_id) }}>Remove</a></Grid>
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                    ))}
 
-                    <Grid className="trstaddDocUpr">
+                    {/* <Grid className="trstaddDocUpr">
                         <Grid container direction="row" alignItems="center" spacing={2}>
                             <Grid item xs={12} md={9}>
                                 <Grid className="trstmkFmlyDoc">
@@ -670,23 +482,7 @@ class Index extends Component {
                                 <Grid className="trstaddFmlyDoc"><a>Remove</a></Grid>
                             </Grid>
                         </Grid>
-                    </Grid>
-
-                    <Grid className="trstaddDocUpr">
-                        <Grid container direction="row" alignItems="center" spacing={2}>
-                            <Grid item xs={12} md={9}>
-                                <Grid className="trstmkFmlyDoc">
-                                    <Grid container direction="row" alignItems="center">
-                                        <Grid item xs={12} md={4}><a><img src={require('../../../../assets/images/dr1.jpg')} alt="" title="" /></a><label>Mark Anderson M.D.</label></Grid>
-                                        <Grid item xs={12} md={8}><p>D_lnTSgFWtN</p></Grid>
-                                    </Grid>
-                                </Grid>
-                            </Grid>
-                            <Grid item xs={12} md={3}>
-                                <Grid className="trstaddFmlyDoc"><a>Remove</a></Grid>
-                            </Grid>
-                        </Grid>
-                    </Grid>
+                    </Grid> */}
                     <Grid container direction="row" alignItems="center" spacing={2}>
                         <Grid item xs={12} md={9}></Grid>
                         <Grid item xs={12} md={3}>
@@ -701,6 +497,9 @@ class Index extends Component {
                         className="trstBoxModel">
                         <Grid className="trstBoxCntnt">
                             <Grid className="trstCourse">
+                            {this.state.succset && <div className="success_message">Doctor is successFully added</div>}
+                            {this.state.SelectUser && <div className="err_message">Please select the Doctor</div>}
+                            {this.state.already && <div className="err_message">The Doctor is already exist in your list</div>}
                                 <Grid className="trstCloseBtn">
                                     <a onClick={this.handleCloseTrust}>
                                         <img src={require('../../../../assets/images/closefancy.png')} alt="" title="" />
@@ -710,8 +509,12 @@ class Index extends Component {
                             </Grid>
                             <Grid className="findDoctor">
                                 <Grid><label>Find a Doctor</label></Grid>
-                                <Grid><input type="text" placeholder="Search by name or ID" /></Grid>
-                                <Grid><input type="submit" value="Add to Trusted Doctors" /></Grid>
+                                <Grid><input type="text" placeholder="Search by name or ID" value={this.state.q} onChange={this.onChange}/>
+                                <ul className="list-group" style={{ height: userList != '' ? '150px' : '' }}>
+                                    {userList}
+                                </ul>
+                                </Grid>
+                                <Grid><input type="submit" value="Add to Trusted Doctors" onClick={() => this.addDoctor()}/></Grid>
                             </Grid>
                         </Grid>
                     </Modal>
@@ -722,85 +525,27 @@ class Index extends Component {
                             <h3>Recommended Doctors</h3>
                             <p>Doctors who are part of the Aimedis platform.</p>
                         </Grid>
-
-                        <Grid className="recaddDocUpr">
-                            <Grid container direction="row" alignItems="center" spacing={2}>
-                                <Grid item xs={12} md={9}>
-                                    <Grid className="recmkFmlyDoc">
-                                        <Grid container direction="row" alignItems="center">
-                                            <Grid item xs={12} md={4}><a><img src={require('../../../../assets/images/dr1.jpg')} alt="" title="" /></a><label>Mark Anderson M.D.</label></Grid>
-                                            <Grid item xs={12} md={8}><p>D_lnTSgFWtN</p></Grid>
+                        {this.state.reccomend && this.state.reccomend.length > 0 && this.state.reccomend.map((index, i) => (
+                            <Grid className="recaddDocUpr">
+                                <Grid container direction="row" alignItems="center" spacing={2}>
+                                    <Grid item xs={12} md={9}>
+                                        <Grid className="recmkFmlyDoc">
+                                            <Grid container direction="row" alignItems="center">
+                                                <Grid item xs={12} md={4}>
+                                                    {index.image ? <a><img src={this.getImage(index.image)} alt="" title="" /> </a>
+                                                        : <a><img src={require('../../../../assets/images/chatPerson.jpg')} alt="" title="" /> </a>}
+                                                    <label>{index.first_name && index.first_name} {index.last_name && index.last_name}</label></Grid>
+                                                <Grid item xs={12} md={8}><p>{index.alies_id}</p></Grid>
+                                            </Grid>
                                         </Grid>
                                     </Grid>
-                                </Grid>
-                                <Grid item xs={12} md={3}>
-                                    <Grid className="recaddFmlyDoc"><a>+ Add as a trusted doctor</a> <a>Remove</a></Grid>
-                                </Grid>
-                            </Grid>
-                        </Grid>
-                        <Grid className="recaddDocUpr">
-                            <Grid container direction="row" alignItems="center" spacing={2}>
-                                <Grid item xs={12} md={9}>
-                                    <Grid className="recmkFmlyDoc">
-                                        <Grid container direction="row" alignItems="center">
-                                            <Grid item xs={12} md={4}><a><img src={require('../../../../assets/images/dr1.jpg')} alt="" title="" /></a><label>Mark Anderson M.D.</label></Grid>
-                                            <Grid item xs={12} md={8}><p>D_lnTSgFWtN</p></Grid>
-                                        </Grid>
+                                    <Grid item xs={12} md={3}>
+                                        <Grid className="recaddFmlyDoc"><a onClick={() => { this.UpdateDoc(index.profile_id) }}>+ Add as a trusted doctor</a></Grid>
                                     </Grid>
                                 </Grid>
-                                <Grid item xs={12} md={3}>
-                                    <Grid className="recaddFmlyDoc"><a>+ Add as a trusted doctor</a>  <a>Remove</a></Grid>
-                                </Grid>
                             </Grid>
-                        </Grid>
-                        <Grid className="recaddDocUpr">
-                            <Grid container direction="row" alignItems="center" spacing={2}>
-                                <Grid item xs={12} md={9}>
-                                    <Grid className="recmkFmlyDoc">
-                                        <Grid container direction="row" alignItems="center">
-                                            <Grid item xs={12} md={4}><a><img src={require('../../../../assets/images/dr1.jpg')} alt="" title="" /></a><label>Mark Anderson M.D.</label></Grid>
-                                            <Grid item xs={12} md={8}><p>D_lnTSgFWtN</p></Grid>
-                                        </Grid>
-                                    </Grid>
-                                </Grid>
-                                <Grid item xs={12} md={3}>
-                                    <Grid className="recaddFmlyDoc"><a>+ Add as a trusted doctor</a> <a>Remove</a></Grid>
-                                </Grid>
-                            </Grid>
-                        </Grid>
-                        <Grid className="recaddDocUpr">
-                            <Grid container direction="row" alignItems="center" spacing={2}>
-                                <Grid item xs={12} md={9}>
-                                    <Grid className="recmkFmlyDoc">
-                                        <Grid container direction="row" alignItems="center">
-                                            <Grid item xs={12} md={4}><a><img src={require('../../../../assets/images/dr1.jpg')} alt="" title="" /></a><label>Mark Anderson M.D.</label></Grid>
-                                            <Grid item xs={12} md={8}><p>D_lnTSgFWtN</p></Grid>
-                                        </Grid>
-                                    </Grid>
-                                </Grid>
-                                <Grid item xs={12} md={3}>
-                                    <Grid className="recaddFmlyDoc"><a>+ Add as a trusted doctor</a> <a>Remove</a></Grid>
-                                </Grid>
-                            </Grid>
-                        </Grid>
-                        <Grid className="recaddDocUpr">
-                            <Grid container direction="row" alignItems="center" spacing={2}>
-                                <Grid item xs={12} md={9}>
-                                    <Grid className="recmkFmlyDoc">
-                                        <Grid container direction="row" alignItems="center">
-                                            <Grid item xs={12} md={4}><a><img src={require('../../../../assets/images/dr1.jpg')} alt="" title="" /></a><label>Mark Anderson M.D.</label></Grid>
-                                            <Grid item xs={12} md={8}><p>D_lnTSgFWtN</p></Grid>
-                                        </Grid>
-                                    </Grid>
-                                </Grid>
-                                <Grid item xs={12} md={3}>
-                                    <Grid className="recaddFmlyDoc"><a>+ Add as a trusted doctor</a> <a>Remove</a></Grid>
-                                </Grid>
-                            </Grid>
-                        </Grid>
-
+                        ))}
                     </Grid>
-
                 </Grid>
             </div>
         );

@@ -64,7 +64,7 @@ class Index extends Component {
       BtnSubmit=() =>{
         let password_valid, auth_error, pass_change;
         let password = this.state.inputPass;
-        if(this.state.userDetails.password.match(letter) && this.state.userDetails.password.match(number) && this.state.userDetails.password.match(specialchar))
+        if(this.state.inputPass.match(letter) && this.state.inputPass.match(number) && this.state.inputPass.match(specialchar))
         {
       this.setState({
           passError: false,

@@ -484,13 +484,11 @@ class Index extends Component {
                         <Grid className="regHead">
                             <Grid container direction="row" justify="center">
                                 <Grid item xs={6} sm={6} className="LogoForms">
-                                    <a><img src={require('../../assets/images/logo_new.png')} alt="" title="" /></a>
+                                    <a href={sitedata.data.live_site}><img src={require('../../assets/images/logo_new.png')} alt="" title="" /></a>
                                 </Grid>
                                 <Grid item xs={6} sm={6}>
                                     <Grid className="regSelectTop">
-
                                           <Grid className="changeLang">
-                                            
                                             <UncontrolledDropdown nav inNavbar>
                                                 <DropdownToggle nav caret>
                                                 {this.state.dropDownValue}

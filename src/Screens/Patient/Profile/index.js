@@ -20,6 +20,10 @@ import Typography from '@material-ui/core/Typography';
 import ProfileSection from './Components/profileUpdate';
 import SecuritySection from './Components/security';
 import DoctorSection from './Components/mydoctors';
+import OrganSection from './Components/orgnaDonar';
+import ManagementSection from './Components/rightManagement';
+import KycSection from './Components/kyc';
+import DateTimeSection from './Components/DateTime';
 
 function TabContainer(props) {
     return (
@@ -55,14 +59,18 @@ class Index extends Component {
         this.setState({ value });
     };
 
-    changePassword = (e) => {
-        const state1 = this.state.UpDataDetails, state = this.state.passwordDetails;
-        state[e.target.name] = e.target.value;
-        state1[e.target.name] = e.target.value;
-        this.setState({ UpDataDetails: state1, passwordDetails: state });
+    //   //For getting the dropdowns from the database
+    //   getMetadata() {
+    //     axios.get(sitedata.data.path + '/UserProfile/Metadata')
+    //         .then((responce) => {
+    //             if (responce && responce.data && responce.data.length > 0) {
+                    
+    //             }
+    //         })
 
-    }
+    // }
 
+    //Get the current User Data
     getUserData() {
         this.setState({ loaderImage: true });
         let user_token = this.props.stateLoginValueAim.token
@@ -79,6 +87,7 @@ class Index extends Component {
             this.setState({ loaderImage: false });
         });
     }
+
     render() {
         const { stateLoginValueAim, Doctorsetget } = this.props;
         const { value } = this.state;
@@ -92,7 +101,7 @@ class Index extends Component {
                         <Grid item xs={12} md={12}>
                             <Grid container direction="row">
                                 {/* Website Menu */}
-                                <LeftMenu />
+                                <LeftMenu currentPage ="profile"/>
 
                                 {/* Website Mid Content */}
                                 <Grid item xs={12} md={8}>
@@ -117,30 +126,42 @@ class Index extends Component {
                                                 <ProfileSection />
                                             </TabContainer>}
                                             {/* End of MyProfile */}
-
+                                            
+                                            {/* Start of Security */}
                                             {value === 1 && <TabContainer>
                                                 <SecuritySection user_token = {this.props.stateLoginValueAim.token} LoggedInUser={this.state.LoggedInUser} getUserData = {this.getUserData} />
                                             </TabContainer>}
+                                            {/* End of Security */}
 
+                                            {/* Start of MyDoctor */}
                                             {value === 2 && <TabContainer>
                                                 <DoctorSection />
                                             </TabContainer>}
+                                            {/* End of MyDoctor */}
 
+                                             {/* Start of Organ Donor  */}
                                             {value === 3 && <TabContainer>
-                                                Organ Donor
+                                                <OrganSection />
                                             </TabContainer>}
+                                            {/* End of Organ Donor */}
 
+                                            {/* Start of Right Management */}
                                             {value === 4 && <TabContainer>
-                                                Rights Management
+                                                <ManagementSection />
                                             </TabContainer>}
+                                            {/* End of Right Management */}
 
+                                            {/* Start of KYC */}
                                             {value === 5 && <TabContainer>
-                                                KYC
+                                                <KycSection />
                                             </TabContainer>}
+                                            {/* End of KYC */}
 
+                                            {/* Start of DateTime */}
                                             {value === 6 && <TabContainer>
-                                                Date & Time
+                                                <DateTimeSection user_token = {this.props.stateLoginValueAim.token} LoggedInUser={this.state.LoggedInUser} getUserData = {this.getUserData}/>
                                             </TabContainer>}
+                                            {/* End of DateTime */}
                                         </Grid>
                                         {/* End of Tabs */}
                                     </Grid>

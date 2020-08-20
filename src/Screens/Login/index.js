@@ -13,7 +13,7 @@ import * as translationDE from '../../translations/de';
 import * as translationES from '../../translations/es';
 import * as translationCH from '../../translations/ch';
 import * as translationPT from '../../translations/pt';
-
+import queryString from 'query-string';
 const path = sitedata.data.path + '/UserProfile';
 
 
@@ -44,26 +44,49 @@ class Index extends Component {
         this.props.LanguageFetchReducer(languageType);
     }
 
-    componentDidMount = () => {
-         this.logoutUser();
-        if (this.props.stateLanguageType !== 'English') {
-            this.setState({ dropDownValue: this.props.stateLanguageType })
-        }
-    }
+    // componentDidMount = () => {
+    //      this.logoutUser();
+    //     if (this.props.stateLanguageType !== 'English') {
+    //         this.setState({ dropDownValue: this.props.stateLanguageType })
+    //     }
+    // }
+    componentDidMount = () =>{
+        this.logoutUser();
+        // this.movedashboard();
+        this.unsetCategory();
+      
+        let url = this.props.location.search;
+        let params = queryString.parse(url);
+         this.setState({logintoken : params.token})
+        setTimeout(()=>{ 
+          this.logoutUser(); }, 5000);
+      }
+      
+      logoutUser= ()=> {
+          this.props.authy(false);
+          let languageType = 'en';
+          this.props.LanguageFetchReducer(languageType);
+      }
+      unsetCategory()
+      {
+        let category ="all";
+        // this.props.filterate(category);
+      }
+      
     register = () => {
         this.props.history.push('/register');
     }
     forgotPassword = () => {
         this.props.history.push('/forgot-password');
     }
-    logoutUser = () => {
-        let email = "";
-        let password = "";
-        this.props.LoginReducerAim(email, password);
-        this.props.authy(false);
-        let languageType = 'en';
-        this.props.LanguageFetchReducer(languageType);
-    }
+    // logoutUser = () => {
+    //     let email = "";
+    //     let password = "";
+    //     this.props.LoginReducerAim(email, password);
+    //     this.props.authy(false);
+    //     let languageType = 'en';
+    //     this.props.LanguageFetchReducer(languageType);
+    // }
     handleChange = (input, value) => {
         this.setState({
             [input]: value
@@ -237,7 +260,7 @@ class Index extends Component {
                 return (<Redirect to={'/patient'} />);
             }
             else {
-                return (<Redirect to={'/patient/kyc'} />);
+                return (<Redirect to={'/patient'} />);
             }
         }
         if (stateLoginValueAim.token !== 450 && stateLoginValueAim.user.type === 'doctor' && this.props.verifyCode.code) {
@@ -248,7 +271,6 @@ class Index extends Component {
                 return (<Redirect to={'/doctor/kyc'} />);
             }
         }
-        console.log('this.props.verifyCode.code', this.props.verifyCode.code)
         if (stateLoginValueAim.token !== 450 && stateLoginValueAim.user.type === 'pharmacy' && this.props.verifyCode.code) {
             if (stateLoginValueAim.kyc) {
                 return (<Redirect to={'/pharmacy/emergencyaccess'} />);
