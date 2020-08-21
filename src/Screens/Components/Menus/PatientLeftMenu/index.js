@@ -29,6 +29,20 @@ class Index extends Component {
         let languageType = 'en';
         this.props.LanguageFetchReducer(languageType);
     }
+    //For My Profile link
+    ProfileLink = ()=>{
+        this.props.history.push('/patient');
+    }
+    //For Emergency Access link
+    EmergencyLink = ()=>{
+        this.props.history.push('/patient/emergency');
+    }
+    //For Second opinion link
+    SecondLink = ()=>{
+        console.log('Here')
+        this.props.history.push('/patient/second-opinion');
+    }
+    
     render() {
         return (
             <Grid item xs={12} md={1} className="MenuLeftUpr">
@@ -80,8 +94,8 @@ class Index extends Component {
 
                                 <div className="moreMenuList">
                                     <ul>
-                                        <li><a><img src={require('../../../../assets/images/menudocs.jpg')} alt="" title="" />Second Opinion</a></li>
-                                        <li><a><img src={require('../../../../assets/images/menudocs.jpg')} alt="" title="" />Emergency Patient Data</a></li>
+                                        <li><a onClick={this.SecondLink}><img src={require('../../../../assets/images/menudocs.jpg')} alt="" title="" />Second Opinion</a></li>
+                                        <li><a onClick={this.EmergencyLink}><img src={require('../../../../assets/images/menudocs.jpg')} alt="" title="" />Emergency Patient Data</a></li>
                                         <li><a><img src={require('../../../../assets/images/menudocs.jpg')} alt="" title="" />Aimedis Online Courses</a></li>
                                         <li><a><img src={require('../../../../assets/images/menudocs.jpg')} alt="" title="" />Extra Services</a></li>
                                         <li><a><img src={require('../../../../assets/images/menudocs.jpg')} alt="" title="" />Journal Archive</a></li>
@@ -91,15 +105,14 @@ class Index extends Component {
                             </a>
 
                         </li>
-                        <li  className={this.props.currentPage==='profile' ? "menuActv" : ""}>
+                        <li className={this.props.currentPage==='profile' ? "menuActv" : ""}>
                             <a className="profilMenu">
                             { this.props.currentPage==='profile' ?   <img src={require('../../../../assets/images/profileActv.png')} alt="" title="" />
                             :<img src={require('../../../../assets/images/useru.jpg')} alt="" title="" />}
                                 <span>My Profile</span>
-
                                 <div className="profilMenuList">
                                     <ul>
-                                        <li><a><img src={require('../../../../assets/images/menudocs.jpg')} alt="" title="" />Profile Settings</a></li>
+                                        <li><a onClick={this.ProfileLink}><img src={require('../../../../assets/images/menudocs.jpg')} alt="" title="" />Profile Settings</a></li>
                                         <li><a><img src={require('../../../../assets/images/menudocs.jpg')} alt="" title="" />Language</a></li>
                                         <li><a><img src={require('../../../../assets/images/menudocs.jpg')} alt="" title="" />Dark Mode</a></li>
                                         <li onClick={this.logOutClick}><a><img src={require('../../../../assets/images/menudocs.jpg')} alt="" title="" />Log out</a></li>

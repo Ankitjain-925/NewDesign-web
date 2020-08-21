@@ -399,7 +399,7 @@ class Index extends Component {
     render() {
         const userList = this.state.filteredUsers && this.state.filteredUsers.map(user => {
             return (
-                <li key={user.id} style={{ background: this.myColor(user.id), color: this.color(user.id) }} className="list-group-item" value={user.profile_id}
+                <li key={user.id} style={{ background: this.myColor(user.id), color: this.color(user.id) }} value={user.profile_id}
                     onClick={() => { this.setState({ q: user.name, selectedUser: user.profile_id, selectedprofile: user.profile_id }); this.toggle(user.id); this.setState({ filteredUsers: [] }) }}
                 >{user.name} ( {user.profile_id} )</li>
             )
@@ -510,7 +510,7 @@ class Index extends Component {
                             <Grid className="findDoctor">
                                 <Grid><label>Find a Doctor</label></Grid>
                                 <Grid><input type="text" placeholder="Search by name or ID" value={this.state.q} onChange={this.onChange}/>
-                                <ul className="list-group" style={{ height: userList != '' ? '150px' : '' }}>
+                                <ul className="insuranceHint" style={{ height: userList != '' ? '150px' : '' }}>
                                     {userList}
                                 </ul>
                                 </Grid>
