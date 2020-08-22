@@ -252,6 +252,7 @@ class Index extends Component {
             }
             const user_token = this.props.stateLoginValueAim.token;
             if (doctor_id != '' && doctor_id != undefined) {
+                this.setState({loaderImage: true})
                 axios.put(sitedata.data.path + '/UserProfile/AddFavDoc', {
                     doctor: doctor_id,
                     profile_id: this.state.selectedprofile,
@@ -289,23 +290,29 @@ class Index extends Component {
 
     //For add/edit family doctor
     AddFmilyDoc=()=>{
-        axios.put(sitedata.data.path + '/UserProfile/Users/update', {
-            family_doc: this.state.family_doc1
-        }, {
-            headers: {
-                'token': this.props.stateLoginValueAim.token,
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            }
-        }).then((responce) => {
-            this.setState({PassDone : true})
-            setTimeout(()=>{ this.setState({PassDone: false}) }, 5000)
-        })   
+        if(this.state.family_doc1 && this.state.family_doc1.length>0)
+        {
+            this.setState({Nodoc : false, loaderImage : true })
+            axios.put(sitedata.data.path + '/UserProfile/Users/update', {
+                family_doc: this.state.family_doc1
+            }, {
+                headers: {
+                    'token': this.props.stateLoginValueAim.token,
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                }
+            }).then((responce) => {
+                this.setState({PassDone : true, loaderImage : false })
+                setTimeout(()=>{ this.setState({PassDone: false}) }, 5000)
+            }) 
+        } else {
+            this.setState({Nodoc : true})
+        }  
     }
     
     //Send doctor reccomendation to trusted doctor 
     UpdateDoc=(id)=>{
-        this.setState({recAdd: false, already1 : false})
+        this.setState({recAdd: false, already1 : false, loaderImage: true})
         const user_token = this.props.stateLoginValueAim.token;
         axios.put(sitedata.data.path + '/UserProfile/AddRecDoc', {
             doctor: id,
@@ -418,6 +425,8 @@ class Index extends Component {
                         <p>Visible on Emergency Data information. Has access to Journal.</p>
                     </Grid>
                     {this.state.PassDone && <div className="success_message">Doctor is successFully added</div>}
+                    {this.state.Nodoc && <div className="err_message">Please select family doctor</div>}
+                    
                     <Grid className="addDocUpr">
                         <Grid container direction="row" alignItems="center" spacing={2}>
                             <Grid item xs={12} md={9}>

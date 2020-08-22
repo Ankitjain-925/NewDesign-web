@@ -1810,6 +1810,18 @@ a.profilMenu {
         width: 96% !important;
         margin-top: 14px !important;
     }
+    .emrgncyDataUpr {
+        padding-left: 0px !important;
+        padding-top: 0px !important;
+        padding: 30px 24px !important;
+    }
+    .docCntctMain {
+        min-height: 152px !important;
+    }
+    .extraSrvcUpr {
+        padding: 12px 22px !important;
+        padding-top: 50px !important;
+    }
 }
 .menuItems ul li ul li {
     display: block !important;
@@ -3830,7 +3842,7 @@ button.aboutTabsIner {
 .mkFmlyDoc {
     border-radius: 12px;
     background-color: #FAFAFA;
-    padding: 15px 15px;
+    padding: 7px 7px;
 }
 .mkFmlyDoc p {
     color: #7F8383;
@@ -4927,7 +4939,7 @@ span.revwGren {
 .emrgncyDataUpr {
     padding-left: 70px;
     background: #f7f7f7;
-    min-height: 150vh;
+    min-height: 160vh;
     padding-top: 45px;
 }
 .emrgncyData h1 {
@@ -4947,9 +4959,6 @@ span.revwGren {
     letter-spacing: 0;
     line-height: 32px;
     margin-bottom: 20px;
-}
-.healthStatus .MuiGrid-container {
-    width: 100% !important;
 }
 .medicalNotify {
     border-radius: 12px;
@@ -4990,6 +4999,235 @@ span.revwGren {
     line-height: 14px;
     margin-bottom: 8px;
     display: block;
+}
+.otherInfo h2 {
+    color: #000808;
+    font-family: Muli;
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 32px;
+    margin-bottom: 20px;
+}
+.otherInfo {
+    margin-top: 52px;
+}
+.docCntctLft label {
+    color: #00B0DB;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 14px;
+    margin-bottom: 0px;
+}
+.docCntctRght {
+    text-align: right;
+}
+.docCntctRght a {
+    border: 1px solid #F2F2F2;
+    border-radius: 8px;
+    background-color: #FFFFFF;
+    padding: 5px 9px 8px;
+    cursor: pointer;
+}
+.docCntctMain {
+    border-radius: 12px;
+    background-color: #FFFFFF;
+    box-shadow: 0 8px 16px 0 rgba(0,8,8,0.08);
+    min-height: 342px;
+}
+.docCntct {
+    border-bottom: 1px solid #F2F2F2;
+    padding: 20px 18px;
+}
+.docInfoName img {
+    width: 16px;
+}
+.docInfoName span {
+    color: #000808;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 18px;
+}
+.docInfo img {
+    margin-right: 6px;
+}
+.docInfo {
+    padding: 20px 18px;
+    border-bottom: 1px solid #F2F2F2;
+}
+.docInfo a {
+    color: #404646;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 14px;
+    margin-bottom: 13px;
+    display: block;
+}
+.docInfo div:last-child a {
+    margin-bottom: 0px !important;
+}
+.neuroDises label {
+    color: #000808;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 14px;
+    margin-bottom: 4px;
+}
+.neuroDises p {
+    color: #7F8383;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 14px;
+}
+.neuroDises {
+    padding: 15px 18px 20px;
+}
+.neuroGen {
+    margin-bottom: 10px;
+}
+.jlyMorr label {
+    color: #000808;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 14px;
+}
+.jlyMorr p {
+    color: #7F8383;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 14px;
+}
+.jlyMorr {
+    padding: 20px 18px 0px;
+}
+.docInfoBrdr {
+    border: none !important;
+}
+.extraSrvcUpr {
+    padding-left: 70px;
+    background: #f7f7f7;
+    min-height: 160vh;
+    padding-top: 45px;
+}
+.extraSrvc h1 {
+    color: #000808;
+    font-family: Muli;
+    font-size: 28px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 40px;
+    margin-bottom: 28px;
+}
+.actvMain h2 {
+    color: #000808;
+    font-family: Muli;
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 32px;
+    margin-bottom: 16px;
+}
+.docArundUpr{
+    border-radius: 12px;
+    background-color: #FFFFFF;
+    box-shadow: 0 8px 16px 0 rgba(0,8,8,0.08);
+}
+/* .docArund {
+    border-bottom: 1px solid #F2F2F2;
+} */
+.docArund label {
+    color: #404646;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 14px;
+}
+.docArund p {
+    color: #7F8383;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: 20px;
+}
+.docArund img {
+    margin-bottom: 10px;
+}
+.acvtTogle {
+    text-align: right;
+}
+.srvcActiv p {
+    color: #7F8383;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 12px;
+}
+.docArund {
+    text-align: center;
+    padding: 22px 18px 28px;
+}
+.srvcActiv {
+    padding: 15px 18px 15px;
+    border-top: 1px solid #F2F2F2;
+}
+.acvtTogle label {
+    margin-bottom: 0px;
+}
+.acvtTogle .react-toggle-thumb {
+    width: 16px;
+    height: 16px;
+}
+.acvtTogle .react-toggle-track {
+    width: 33px;
+    height: 18px;
+}
+.srvcActiv p span {
+    color: #404646;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 12px;
+    margin-left: 10px;
+}
+.srvcActiv .react-toggle--checked .react-toggle-thumb {
+    left: 15px !important;
+    border-color: #00ABAF !important;
+}
+.react-toggle--checked .react-toggle-track{
+    background-color: #00ABAF;
+}
+.react-toggle--checked:hover:not(.react-toggle--disabled) .react-toggle-track{
+    background-color: #00ABAF;
+}
+.srvcActiv .react-toggle:active:not(.react-toggle--disabled) .react-toggle-thumb{
+    box-shadow: none !important;
+}
+.actvMain .MuiGrid-container {
+    width: 100% !important;
+}
+.actvMain {
+    margin-bottom: 52px;
+}
+.dataSrvcImg img {
+    height: 32px;
 }
 
 /*Added By ankita*/

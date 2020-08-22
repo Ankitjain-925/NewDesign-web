@@ -39,8 +39,11 @@ class Index extends Component {
     }
     //For Second opinion link
     SecondLink = ()=>{
-        console.log('Here')
         this.props.history.push('/patient/second-opinion');
+    }
+    //For Extra service link
+    ExtraLink = ()=>{
+        this.props.history.push('/patient/extra-services');
     }
     
     render() {
@@ -97,7 +100,7 @@ class Index extends Component {
                                         <li><a onClick={this.SecondLink}><img src={require('../../../../assets/images/menudocs.jpg')} alt="" title="" />Second Opinion</a></li>
                                         <li><a onClick={this.EmergencyLink}><img src={require('../../../../assets/images/menudocs.jpg')} alt="" title="" />Emergency Patient Data</a></li>
                                         <li><a><img src={require('../../../../assets/images/menudocs.jpg')} alt="" title="" />Aimedis Online Courses</a></li>
-                                        <li><a><img src={require('../../../../assets/images/menudocs.jpg')} alt="" title="" />Extra Services</a></li>
+                                        <li><a onClick={this.ExtraLink}><img src={require('../../../../assets/images/menudocs.jpg')} alt="" title="" />Extra Services</a></li>
                                         <li><a><img src={require('../../../../assets/images/menudocs.jpg')} alt="" title="" />Journal Archive</a></li>
                                         <li><a><img src={require('../../../../assets/images/menudocs.jpg')} alt="" title="" />Blockchain Access Log</a></li>
                                     </ul>

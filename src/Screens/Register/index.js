@@ -120,7 +120,9 @@ class Index extends Component {
                         country_code: country_code,
                         mobile: this.state.userDetails.mobile,
                         is2fa: this.state.userDetails.is2fa,
-                        lan : this.props.stateLanguageType
+                        lan : this.props.stateLanguageType,
+                        first_name : this.state.userDetails.first_name,
+                        last_name : this.state.userDetails.last_name,
                     })
                     .then((responce)=>{
                     this.setState({loaderImage : false})
@@ -191,7 +193,9 @@ class Index extends Component {
                             country_code:   country_code,
                             mobile: this.state.userDetails.mobile,
                             is2fa: this.state.userDetails.is2fa,
-                            lan : this.props.stateLanguageType
+                            lan : this.props.stateLanguageType,
+                            first_name : this.state.userDetails.first_name,
+                            last_name : this.state.userDetails.last_name,
                         })
                         .then((responce)=>{
                         this.setState({loaderImage : false})
@@ -224,7 +228,9 @@ class Index extends Component {
                             country_code: country_code,
                             mobile: this.state.userDetails.mobile,
                             is2fa: this.state.userDetails.is2fa,
-                            lan : this.props.stateLanguageType
+                            lan : this.props.stateLanguageType,
+                            first_name : this.state.userDetails.first_name,
+                            last_name : this.state.userDetails.last_name,
                         })
                         .then((responce)=>{
                         this.setState({loaderImage : false})
@@ -309,12 +315,7 @@ class Index extends Component {
                         loaderImage   : false,fileupods: true 
                     });
                     setTimeout(
-                        function() {
-                            this.setState({fileupods: false});
-                        }
-                        .bind(this),
-                        3000
-                    )
+                        function() {  this.setState({fileupods: false}); } .bind(this), 3000  )
                     var returnData = response.data.data.returnData;
                     var signedRequest = returnData.signedRequest;
                     var url = returnData.url;

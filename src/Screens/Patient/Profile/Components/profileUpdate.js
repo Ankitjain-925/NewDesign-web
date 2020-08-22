@@ -219,7 +219,7 @@ class Index extends Component {
     onSelectDegree(event) {
         this.setState({ title: event });
         const state = this.state.UpDataDetails;
-        state["title"] = event && (Array.prototype.map.call(event, s => s.label).toString()).split(/[,]+/).join(',  ')
+        state["title"] = event.label
         this.setState({ UpDataDetails: state });
     }
 
@@ -360,14 +360,6 @@ class Index extends Component {
     //     this.setState({ selectedCountry: event.target.value })
     // }
 
-
-    changePassword = (e) => {
-        const state1 = this.state.UpDataDetails, state = this.state.passwordDetails;
-        state[e.target.name] = e.target.value;
-        state1[e.target.name] = e.target.value;
-        this.setState({ UpDataDetails: state1, passwordDetails: state });
-
-    }
 
     //Save the User profile
     saveUserData = () => {
@@ -546,7 +538,7 @@ class Index extends Component {
                 'Content-Type': 'application/json'
             }
         }).then((response) => {
-            var title, titlefromD = response.data.data.title;
+            var title = {},  titlefromD = response.data.data.title;
             var language = [], languagefromD = response.data.data.language;
             if (languagefromD && languagefromD.length > 0) {
                 languagefromD.map((item) => {
@@ -556,10 +548,9 @@ class Index extends Component {
             }
 
             if (titlefromD && titlefromD !== "") {
-                title = response.data.data.title.split(", ");
-            }
-            else {
-                title = [];
+                
+             title = {label : titlefromD, value : titlefromD}
+
             }
 
             if (response.data.data.mobile && response.data.data.mobile !== '') {
@@ -688,6 +679,8 @@ class Index extends Component {
 
         return (
             <div>
+                {console.log('this.state.UpDataDetails.title',this.state.UpDataDetails.title)}
+                {console.log('title_degreeData', this.state.title_degreeData)}
                 {this.state.loaderImage && <Loader />}
                 <Grid className="profileMy">
                     <Grid className="profileInfo">
@@ -806,6 +799,7 @@ class Index extends Component {
                                                 name="title"
                                                 isSearchable={false}
                                                 className="mr_sel"
+                                                
                                             />
                                         </Grid>
                                     </Grid>

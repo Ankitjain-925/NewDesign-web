@@ -30,6 +30,7 @@ class Index extends Component {
             phone : '',
             include_some : [],
             exclude_some : [],
+            PassDone : false,
         };
         // new Timer(this.logOutClick.bind(this)) 
     }
@@ -104,6 +105,7 @@ class Index extends Component {
                 phone: this.state.OptionData.phone,
                 city: this.state.OptionData.city,
                 address: this.state.OptionData.address,
+                postal_code : this.state.OptionData.postal_code,
             }
         }
         const user_token = this.props.stateLoginValueAim.token;
@@ -119,7 +121,8 @@ class Index extends Component {
             }
         })
             .then((responce) => {
-                this.setState({ loaderImage: false });
+                this.setState({PassDone : true, loaderImage : false})
+                setTimeout(()=>{ this.setState({PassDone: false}) }, 5000)
             })
     }
 
@@ -154,7 +157,14 @@ class Index extends Component {
                     this.setState({ OptionData: { free_remarks: response.data.data.organ_donor[0].free_remarks } })
                 }
                 if (response.data.data.organ_donor[0].selectedOption == "yes_to_all" && response.data.data.organ_donor[0].OptionData ) {
-                    this.setState({ OptionData: { yes_to_all: response.data.data.organ_donor[0].OptionData } })
+                    this.setState({ OptionData: { yes_to_all: response.data.data.organ_donor[0].OptionData } },
+                        ()=>{
+                            if (response.data.data.organ_donor[0].free_remarks) {
+                                var state = this.state.OptionData;
+                                state['free_remarks'] = response.data.data.organ_donor[0].free_remarks
+                                this.setState({ OptionData: state } )
+                            }
+                        })
                 }
                 if (response.data.data.organ_donor[0].selectedOption == "exclude_some" && response.data.data.organ_donor[0].OptionData ) {
                     let title, titlefromD = response.data.data.organ_donor[0].OptionData, titles =[];
@@ -167,7 +177,14 @@ class Index extends Component {
                     title.map((item) => {
                         titles.push({ value: item, label: item });
                     })
-                    this.setState({ exclude_some : titles }) 
+                    this.setState({ exclude_some : titles, OptionData: { exclude_some: response.data.data.organ_donor[0].OptionData } },
+                        ()=>{
+                            if (response.data.data.organ_donor[0].free_remarks) {
+                                var state = this.state.OptionData;
+                                state['free_remarks'] = response.data.data.organ_donor[0].free_remarks
+                                this.setState({ OptionData: state } )
+                            }
+                        })
                 }
                 if (response.data.data.organ_donor[0].selectedOption == "include_some" && response.data.data.organ_donor[0].OptionData ) { 
                     let title1, titlefromD1 = response.data.data.organ_donor[0].OptionData, titles1 =[];
@@ -180,14 +197,28 @@ class Index extends Component {
                     title1.map((item) => {
                         titles1.push({ value: item, label: item });
                     })
-                    this.setState({ include_some: titles1 }) 
+                    this.setState({include_some: titles1 , OptionData: { include_some: response.data.data.organ_donor[0].OptionData } },
+                        ()=>{
+                            if (response.data.data.organ_donor[0].free_remarks) {
+                                var state = this.state.OptionData;
+                                state['free_remarks'] = response.data.data.organ_donor[0].free_remarks
+                                this.setState({ OptionData: state } )
+                            }
+                        })
                 }
                 if (response.data.data.organ_donor[0].selectedOption == "decided_by_following" && response.data.data.organ_donor[0].OptionData ) {
                     let pho = response.data.data.organ_donor[0].OptionData.phone.split("-");
                     if (pho && pho.length > 0) {
                         this.setState({ flag_phone: pho[0] })
                     }
-                    this.setState({ OptionData: response.data.data.organ_donor[0].OptionData })
+                    this.setState({ OptionData: response.data.data.organ_donor[0].OptionData },
+                        ()=>{
+                            if (response.data.data.organ_donor[0].free_remarks) {
+                                var state = this.state.OptionData;
+                                state['free_remarks'] = response.data.data.organ_donor[0].free_remarks
+                                this.setState({ OptionData: state } )
+                            }
+                        })
                 }
             }
         }).catch((error) => {
@@ -211,10 +242,12 @@ class Index extends Component {
             <div>
                 {this.state.loaderImage && <Loader />}
                 <Grid>
+                    {this.state.PassDone && <div className="success_message">The Format is updated</div>}
                     <Grid className="secureChain">
                         <h4>Blockchain secured organ donor pass</h4>
                         <p>Here you can easily select to be an organ donor or not at anytime.</p>
                     </Grid>
+                   
                     <Grid className="organDeclare">
                         <h5>In case an organ / tissue of mine is considered to be transplanted after my death, I herewith declare: </h5>
                         <Grid><FormControlLabel value="yes_to_all" name="my_choice" checked={this.state.selectedOption === 'yes_to_all'} onChange={this.handleOptionChange.bind(this)} control={<Radio />} label="Yes, I herewith agree with a transplantation of one or more organ / tissues of mine after doctors have pronounced me dead" /></Grid>
@@ -231,6 +264,7 @@ class Index extends Component {
                                 isSearchable={false}
                                 className=""
                                 isMulti={true}
+                                closeMenuOnSelect={false}
                             />
                         </Grid>
                     </Grid>                     
@@ -247,6 +281,7 @@ class Index extends Component {
                                 isSearchable={false}
                                 className=""
                                 isMulti={true}
+                                closeMenuOnSelect={false}
                             />
                         </Grid>
                     </Grid>

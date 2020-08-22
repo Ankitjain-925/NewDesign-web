@@ -12,6 +12,7 @@ import PatientChat from './../../Screens/Patient/Chat/index';
 import PatientProfile from './../../Screens/Patient/Profile/index';
 import PatientSecond from "./../../Screens/Patient/More/secondopinion";
 import PatientEmergency from "./../../Screens/Patient/More/EmergencyPatientData";
+import PatientExtra from "./../../Screens/Patient/More/ExtraServices";
 
 
 class Routermain extends Component {
@@ -29,6 +30,7 @@ class Routermain extends Component {
             <Router exact path="/patient/chat" render={(props) => <PatientChat {...props}/>} />
             <Route exact path="/patient/second-opinion" render={(props) => <PatientSecond {...props}/>} />
             <Route exact path="/patient/emergency" render={(props) => <PatientEmergency {...props}/>} />
+            <Route exact path="/patient/extra-services" render={(props) => <PatientExtra {...props}/>} />
             <Route path='*' exact={true} render={(props) => <NotFound {...props} />} />
             {/* End By Ankita */}
           </Switch>

@@ -11,7 +11,7 @@ class Index extends Component {
         this.state = {
             Current_state : this.props.LoggedInUser,
             Format : {},
-            dates : [{label: "18/07/2020", value : "18/07/2020" }, {label : "07/18/2020", value : "07/18/2020"},{label : "2020/18/07", value : "2020/18/07"}],
+            dates : [{label: "DD/MM/YYYY", value : "DD/MM/YYYY" }, {label : "MM/DD/YYYY", value : "MM/DD/YYYY"},{label : "YYYY/DD/MM", value : "YYYY/DD/MM"}],
             times : [{label : "11:10 PM" , value : "11:10 PM"}, {label : "13:10", value : "13:10"}],
             loaderImage : false,
             PassDone : false,

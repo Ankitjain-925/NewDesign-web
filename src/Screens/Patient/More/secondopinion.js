@@ -49,9 +49,7 @@ class Index extends Component {
                                 {/* End of Website Menu */}
 
                                 <Grid item xs={12} md={8}>
-
                                     <Grid className="scndOpinion">
-
                                         <Grid container direction="row" className="ScndOpinLbl">
                                             <Grid item xs={12} md={6}><label>Second Opinions</label></Grid>
                                             <Grid item xs={12} md={6} className="ScndOpinRght">
@@ -163,11 +161,8 @@ class Index extends Component {
                                                             <input type="submit" value="Save entry" />
                                                         </Grid>
                                                     </Grid>
-
                                                 </Grid>
-
                                             </Grid>
-
                                         </Modal>
                                         {/* End of Model setup */}
 
