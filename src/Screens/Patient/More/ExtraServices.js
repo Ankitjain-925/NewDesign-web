@@ -8,6 +8,7 @@ import { LoginReducerAim } from './../../Login/actions';
 import LeftMenu from './../../Components/Menus/PatientLeftMenu/index';
 import { LanguageFetchReducer } from './../../actions';
 import Loader from './../../Components/Loader/index';
+import {Redirect, Route} from 'react-router-dom';
 import sitedata from '../../../sitedata';
 import "react-toggle/style.css";
 
@@ -23,15 +24,16 @@ class Index extends Component {
             secondActive : false,
             activated : false,
             deactivated : false,
+            error3 : false
         };
         // new Timer(this.logOutClick.bind(this))
       }
     
     componentDidMount(){
-        // new LogOut(this.props.stateLoginValueAim.token, this.props.stateLoginValueAim.user._id, this.logOutClick.bind(this))
         this.getUserData();
     }
 
+    //Not need yet this for the payment
     fromDollarToCent = (amount) => {return parseInt(amount * 100);}
     fromEuroToCent = (amount) => { return parseInt(amount * 100);}
     successPayment = (data) => {
@@ -40,7 +42,10 @@ class Index extends Component {
         this.getUserData()
     };
 
+    //If error comes from the API
     errorPayment = (data) => {
+        this.setState({error3: true})
+        setTimeout(()=>{this.setState({error3: false})}, 5000)
         this.getUserData();
     };
 
@@ -59,7 +64,10 @@ class Index extends Component {
     //     .then(this.successPayment)
     //     .catch(this.errorPayment);
     // };
+
+    //Other API with no payment setting for Activate services
     onToken = ( description) =>{
+        this.setState({loaderImage: true, activated: false, deactivated: false})
         const user_token = this.props.stateLoginValueAim.token;
         axios.put(sitedata.data.path+'/UserProfile/Bookservice',{
             description
@@ -72,8 +80,9 @@ class Index extends Component {
         .catch(this.errorPayment);
     };
 
+    //For deactivate the services
     Deactivate =(desc)=>{
-        this.setState({loaderImage: true})
+        this.setState({loaderImage: true, activated: false, deactivated: false})
         axios.delete(sitedata.data.path+'/UserProfile/Bookservice/'+desc,
         {headers:{
             'token': this.props.stateLoginValueAim.token,
@@ -83,18 +92,24 @@ class Index extends Component {
             if(responce.data.hassuccessed)
             {
                 if(desc === "Doc Around The Clock"){
-                    this.setState({firstActive : false,deactivated: true})
+                    this.setState({firstActive : false, deactivated: true})
                 }
                 if(desc === "Data services"){
-                    this.setState({secondActive :  false,deactivated: true})
+                    this.setState({secondActive :  false, deactivated: true})
                 }
                 setTimeout(()=>{this.setState({deactivated : false})}, 5000)
+            }
+            else
+            {
+                this.setState({error3: true})
+                setTimeout(()=>{this.setState({error3: false})}, 5000)
             }
             this.setState({loaderImage: false})
             this.getUserData();
         })
     }
 
+    //Get the current user data
     getUserData(){
         this.setState({ loaderImage: true });
         let user_token = this.props.stateLoginValueAim.token
@@ -121,6 +136,10 @@ class Index extends Component {
         });
     }
     render() {
+        const { stateLoginValueAim, Doctorsetget } = this.props;
+        if (stateLoginValueAim.user === 'undefined' || stateLoginValueAim.token === 450 || stateLoginValueAim.token === 'undefined' || stateLoginValueAim.user.type !== 'patient') {
+            return (<Redirect to={'/'} />);
+        }
         return (
             <Grid className="homeBg">
                 {this.state.loaderImage && <Loader />}
@@ -142,7 +161,10 @@ class Index extends Component {
                                             </Grid>
                                         </Grid>
                                     </Grid>
-
+                                    {this.state.activated && <div className="success_message">Service is activated</div>}
+                                    {this.state.deactivated && <div className="success_message">Service is deactivated</div>}
+                                    {this.state.error3 && <div className="err_message">Service is not updated. Can not reach to server</div>}
+                                    
                                     <Grid className="actvMain">
                                         <h2>Activated</h2>
                                         <Grid container direction="row" spacing="3">

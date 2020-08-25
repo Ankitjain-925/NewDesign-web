@@ -210,14 +210,6 @@ class Index extends Component {
 
     //For remove the doctor in the trusted Doctor
     removeDoctor=(doctor)=>{
-        // var Delete_Document, click_on_YES_document;
-        // if (this.props.stateLanguageType === 'de') {
-        //     Delete_Document = translationDE.text.Delete_Document;
-        //     click_on_YES_document = translationDE.text.click_on_YES_document;
-        // } else {
-        //     Delete_Document = translationEN.text.Delete_Document;
-        //     click_on_YES_document = translationEN.text.click_on_YES_document;
-        // }
         confirmAlert({
             title: "Remove Doctor",
             message: "Are you sure to remove the Doctor from the Trusted Doctor",

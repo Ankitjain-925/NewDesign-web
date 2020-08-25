@@ -146,11 +146,9 @@ class Index extends Component {
             contact_partner: {},
             loaderImage: false,
         };
-        // new Timer(this.logOutClick.bind(this))
     }
   
     componentDidMount() {
-        // new LogOut(this.props.stateLoginValueAim.token, this.props.stateLoginValueAim.user._id, this.logOutClick.bind(this))
         this.allemergencyrecord();
     }
   
@@ -167,8 +165,7 @@ class Index extends Component {
             })
             .then((response) => {
                 this.setState({
-                    diagnosisdata: response.data.diagnosisdata, mediacationdata:
-                        response.data.medicationdata, allergydata: response.data.allergydata,
+                    diagnosisdata: response.data.diagnosisdata, mediacationdata: response.data.medicationdata, allergydata: response.data.allergydata,
                     family_doc: response.data.doctor, loaderImage: false, donar: response.data.donardata,
                     contact_partner: response.data.contact_partner
                 })
@@ -212,7 +209,9 @@ class Index extends Component {
                                                                 <label>Medications</label>
                                                             </Grid>
                                                             <Grid className="medicalDesp">
-                                                                <p>No medications</p>
+                                                            {this.state.mediacationdata && this.state.mediacationdata.length > 0 ? this.state.mediacationdata.map((item, index) => (
+                                                             <p><a>{item.substance}</a></p>
+                                                            )) : <p>No medications</p>}
                                                             </Grid>
                                                         </Grid>
                                                     </Grid>
@@ -222,8 +221,9 @@ class Index extends Component {
                                                                 <label>Allergies</label>
                                                             </Grid>
                                                             <Grid className="medicalDesp">
-                                                                <p><a>Strawberries</a></p>
-                                                                <p><a>Peanuts</a></p>
+                                                            {this.state.allergydata && this.state.allergydata.length > 0 ? this.state.allergydata.map((item, index) => (
+                                                             <p><a>{item.diagnosis}</a></p>
+                                                            )) : <p>No Allegies</p>}
                                                             </Grid>
                                                         </Grid>
                                                     </Grid>
@@ -233,7 +233,9 @@ class Index extends Component {
                                                                 <label>Diagnoses</label>
                                                             </Grid>
                                                             <Grid className="medicalDesp">
-                                                                <p><a>Depression</a></p>
+                                                            {this.state.diagnosisdata && this.state.diagnosisdata.length > 0 ? this.state.diagnosisdata.map((item, index) => (
+                                                             <p><a>{item.diagnosis}</a></p>
+                                                            )) : <p>No diagnosis</p>}
                                                             </Grid>
                                                         </Grid>
                                                     </Grid>
@@ -258,22 +260,24 @@ class Index extends Component {
                                                                     </Grid>
                                                                 </Grid>
                                                             </Grid>
-                                                            <Grid className="docInfo">
-                                                                <Grid className="docInfoName"><a><img src={require('../../../assets//images/person1.jpg')} alt="" title="" /><span>Mark Anderson M.D.</span></a></Grid>
-                                                                <Grid><a><img src={require('../../../assets//images/phone.svg')} alt="" title="" />01731508000</a></Grid>
-                                                                <Grid><a><img src={require('../../../assets//images/email.svg')} alt="" title="" />doctor1@aimedis.com</a></Grid>
-                                                                <Grid><a><img src={require('../../../assets//images/language.svg')} alt="" title="" />English, Dutch, French, German</a></Grid>
-                                                            </Grid>
-                                                            <Grid className="neuroDises">
-                                                                <Grid className="neuroGen">
-                                                                    <Grid><label>NEUROLOGY</label></Grid>
-                                                                    <p>Neurodegerenative diseases</p>
+                                                            
+                                                            {this.state.family_doc && this.state.family_doc.length > 0 ? this.state.family_doc.map((item, index) =>(
+                                                            <div>
+                                                                <Grid className="docInfo"> 
+                                                                    <Grid className="docInfoName"><a><img src={require('../../../assets//images/person1.jpg')} alt="" title="" /><span>Mark Anderson M.D.</span></a></Grid>
+                                                                    <Grid><a><img src={require('../../../assets//images/phone.svg')} alt="" title="" />{item.mobile}</a></Grid>
+                                                                    <Grid><a><img src={require('../../../assets//images/email.svg')} alt="" title="" />{item.email}</a></Grid>
+                                                                    <Grid><a><img src={require('../../../assets//images/language.svg')} alt="" title="" />{item.language && item.language.join(', ')}</a></Grid>
+                                                                    
                                                                 </Grid>
-                                                                <Grid>
-                                                                    <Grid><label>INTERNAL MEDICINE</label></Grid>
-                                                                    <p>Gastroenterology</p>
+                                                                <Grid className="neuroDises">
+                                                                    <Grid className="neuroGen">
+                                                                        <Grid><label>{item.speciality && item.speciality.join(', ')}</label></Grid>
+                                                                        <p>{item.subspeciality && item.subspeciality.join(', ')}</p>
+                                                                    </Grid>
                                                                 </Grid>
-                                                            </Grid>
+                                                            </div>))
+                                                            : <p>No Family Doctor</p>}
                                                         </Grid>
                                                     </Grid>
 
@@ -289,15 +293,19 @@ class Index extends Component {
                                                                     </Grid>
                                                                 </Grid>
                                                             </Grid>
-                                                            <Grid className="jlyMorr">
-                                                                <Grid><label>July Morrison</label></Grid>
-                                                                <p>Wife</p>
-                                                            </Grid>
-                                                            <Grid className="docInfo docInfoBrdr">
-                                                                <Grid><a><img src={require('../../../assets//images/phone.svg')} alt="" title="" />01731508000</a></Grid>
-                                                                <Grid><a><img src={require('../../../assets//images/email.svg')} alt="" title="" />july@gmail.com</a></Grid>
-                                                            </Grid>
-
+                                                            {this.state.contact_partner  &&
+                                                            <div> 
+                                                                <Grid className="jlyMorr">
+                                                                    <Grid><label>{this.state.contact_partner.name && this.state.contact_partner.name}</label></Grid>
+                                                                    <p>{this.state.contact_partner.relation && this.state.contact_partner.relation}</p>
+                                                                </Grid>
+                                                                <Grid className="docInfo docInfoBrdr">
+                                                                    <Grid><a><img src={require('../../../assets//images/phone.svg')} alt="" title="" />{this.state.contact_partner.number && this.state.contact_partner.number}</a></Grid>
+                                                                    <Grid><a><img src={require('../../../assets//images/email.svg')} alt="" title="" />{this.state.contact_partner.email && this.state.contact_partner.email}</a></Grid>
+                                                                </Grid>
+                                                            </div>
+                                                            }
+                                                            {!this.state.contact_partner  && <p>No Family Doctor</p>}
                                                         </Grid>
                                                     </Grid>
 
@@ -314,7 +322,24 @@ class Index extends Component {
                                                                 </Grid>
                                                             </Grid>
                                                             <Grid className="jlyMorr">
-                                                                <Grid><label>Not an organ donor</label></Grid>
+                                                            {this.state.donar && this.state.donar.status !=='Nothing' ?
+                                                                <div>
+                                                                    <Grid><label>{this.state.donar.status}</label></Grid>
+                                                                    {this.state.donar.options && this.state.donar.options !=='' && 
+                                                                    <span>
+                                                                {typeof this.state.donar.options === 'object' ? 
+                                                                    <Grid className="docInfo"> 
+                                                                        <Grid className="docInfoName"><a><img src={require('../../../assets//images/person1.jpg')} alt="" title="" /><span>{this.state.donar.options.first_name &&  this.state.donar.options.first_name} {this.state.donar.options.last_name && this.state.donar.options.last_name}</span></a></Grid>
+                                                                        <Grid><a><img src={require('../../../assets//images/phone.svg')} alt="" title="" />{this.state.donar.options.phone && this.state.donar.options.phone}</a></Grid>
+                                                                        <Grid><a><img src={require('../../../assets//images/language.svg')} alt="" title="" />{this.state.donar.options.city && this.state.donar.options.city}, {this.state.donar.options.address && this.state.donar.options.address},  {this.state.donar.options.postal_code && this.state.donar.options.postal_code}</a></Grid>
+                                                                        {/* <Grid><a><img src={require('../../../assets//images/language.svg')} alt="" title="" />{item.language && item.language.join(', ')}</a></Grid> */}
+                                                                    </Grid>
+                                                                    :
+                                                                    this.state.donar.options && <p>  {this.state.donar.options} </p>}   
+                                                                    </span>
+                                                                }<br/> 
+                                                                {this.state.donar.remarks && <p>{this.state.donar.remarks}</p>}
+                                                                </div>:  <Grid><label>Not an organ donor</label></Grid>}
                                                             </Grid>
                                                         </Grid>
                                                     </Grid>

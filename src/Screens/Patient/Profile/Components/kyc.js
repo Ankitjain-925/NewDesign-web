@@ -188,9 +188,7 @@ class Index extends Component {
                 else {
                     this.setState({ fileattach2: response.data.data.returnData.url + '&bucket=' + this.props.stateLoginValueAim.user.bucket })
                 }
-                this.setState({
-                    loaderImage: false, fileupods: true
-                });
+                this.setState({ fileupods: true });
                 setTimeout(() => { this.setState({ fileupods: false }) }, 3000);
                 var returnData = response.data.data.returnData;
                 var signedRequest = returnData.signedRequest;
@@ -203,7 +201,7 @@ class Index extends Component {
                     }
                 };
                 axios.put('https://cors-anywhere.herokuapp.com/' + signedRequest, file, options)
-                    .then(result => { })
+                    .then(result => { this.setState({loaderImage   : false})})
                     .catch(error => { })
                 }).catch(error => {
                     console.log(JSON.stringify(error));
@@ -321,7 +319,6 @@ class Index extends Component {
 
                             <Grid className="kycForms">
                                 <Grid><label>Country</label></Grid>
-                                {console.log('this.state.CreateKYC', this.state.CreateKYC)}
                                 {this.state.CreateKYC && this.state.CreateKYC.country &&
                                     <Grid>
                                         <Select

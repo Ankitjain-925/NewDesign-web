@@ -1822,6 +1822,26 @@ a.profilMenu {
         padding: 12px 22px !important;
         padding-top: 50px !important;
     }
+    .docsOpinion {
+        margin-left: 0px !important;
+        margin-top: 0px !important;
+        padding: 12px 12px !important;
+    }
+    .docsOpinRght {
+        text-align: left !important;
+    }
+    .docsOpinLbl a {
+        margin-top: 12px;
+    }
+    .nwPresCntnt {
+        width: 96% !important;
+    }
+    .presSrch {
+        margin-bottom: 14px !important;
+    }
+    .presPkgIner2 {
+        min-height: auto !important;
+    }
 }
 .menuItems ul li ul li {
     display: block !important;
@@ -4496,7 +4516,6 @@ button.aboutTabsIner {
 .licensProof {
     margin-top: 40px;
 }
-
 .datTimFrmt h5 {
     color: #000808;
     font-family: Muli;
@@ -4565,7 +4584,6 @@ button.aboutTabsIner {
 }
 
 /* loader css */
-
 body {
     position: relative;
 }
@@ -4662,13 +4680,13 @@ body {
     width: 15px;
     cursor: pointer;
 }
-span.revwYelow, span.revwGry, span.revwGren {
+span.revwYelow, span.revwGry, span.revwGren, span.revwRed {
     width: 10px;
     height: 10px;
     display: inline-block;
     background-color: #FECA57;
     vertical-align: initial;
-    border-radius: 14px;
+    border-radius: 45px;
     margin-right: 10px;
 }
 span.revwYelow{
@@ -4679,6 +4697,9 @@ span.revwGry{
 }
 span.revwGren {
     background-color: #1DD1A1;
+}
+span.revwRed{
+    background-color: red;
 }
 
 /* second option model */
@@ -4782,7 +4803,6 @@ span.revwGren {
     letter-spacing: 0;
     line-height: 12px;
 }
-
 .recevPrescpChk span {
     color: #404646;
     font-family: Muli;
@@ -4826,14 +4846,9 @@ span.revwGren {
     padding: 8px 10px;
     min-height: 135px;
 }
-.opinBoxCntntIner {
-    overflow-y: scroll;
-    height: 560px;
-}
 .splestQues, .recevPrescp, .yrProfes, .attchForms{
     margin-bottom: 18px;
 }
-
 .attchForms label {
     color: #404646;
     font-family: Muli;
@@ -5229,8 +5244,484 @@ span.revwGren {
 .dataSrvcImg img {
     height: 32px;
 }
+.docsOpinion {
+    margin-left: 70px;
+    margin-top: 41px;
+}
+.docsOpinLbl {
+    margin-bottom: 30px;
+}
+.docsOpinion label {
+    color: #000808;
+    font-family: Muli;
+    font-size: 28px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 40px;
+    margin-bottom: 0px;
+}
+.docsOpinRght {
+    text-align: right;
+}
+.docsOpinLbl a {
+    border-radius: 8px;
+    background-color: #00ABAF;
+    color: #FFFFFF !important;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 16px;
+    text-align: center;
+    padding: 12px 20px;
+    display: inline-block;
+    cursor: pointer;
+}
+.presPkgIner1 {
+    border-bottom: 1px solid #F2F2F2;
+}
+.presTabs {
+    background-color: #fff !important;
+}
+.presTabs button span {
+    color: #7F8383;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 12px;
+    text-transform: initial !important;
+}
+button.presTabsIner {
+    min-width: initial !important;
+    outline: none !important;
+}
+.presTabs span.MuiTabs-indicator {
+    background-color: #00ABAF !important;
+    height: 4px;
+}
+.presPkgIner2 {
+    padding: 22px 0px;
+    min-height: 150vh;
+}
+.presPkgIner1 header.presTabsUpr {
+    padding: 12px 18px 0px 18px;
+    border-radius: 12px;
+    background-color: #FFFFFF;
+    box-shadow: 0 1px 8px 0 rgba(0,8,8,0.04);
+}
+.presSrch {
+    text-align: right;
+}
+.presSrch a {
+    border-radius: 8px;
+    background-color: #F2F2F2;
+    padding: 5px 7px;
+    margin-top: 3px;
+    display: inline-block;
+    cursor: pointer;
+}
+.presOpinionIner {
+    border-radius: 12px;
+    background-color: #FFFFFF;
+    box-shadow: 0 1px 8px 0 rgba(0,8,8,0.04);
+    min-height: 150vh;
+}
+.presOpinionIner thead th {
+    padding: 16px 25px;
+    color: #7F8383;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 12px;
+}
+.presOpinionIner tbody tr {
+    border-bottom: 1px solid #F2F2F2;
+}
+.presOpinionIner td.pivoted {
+    padding: 14px 25px;
+    color: #000808;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 18px;
+}
+.presOpinionIner tr .presImg img {
+    width: 16px;
+    border-radius: 12px;
+    vertical-align: middle;
+    margin-right: 10px;
+}
+.presOpinionIner td.presEditDot img {
+    height: 24px;
+    width: 24px;
+    cursor: pointer;
+}
+td.presEditDot {
+    min-width: 200px;
+    text-align: right;
+}
+.totalOutOff a {
+    color: #7F8383;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 12px;
+}
+a.prevpag {
+    color: #7F8383;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 12px;
+}
+/* a.frstpag {
+    color: #404646;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 12px;
+} */
+a.nxtpag {
+    color: #00ABAF !important;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 12px;
+}
+.prevNxtpag a {
+    color: #7F8383;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 12px;
+    margin: 0px 4px;
+    cursor: pointer;
+}
+.prevNxtpag {
+    text-align: right;
+}
+.tablePagNum {
+    margin-top: 132px;
+    padding: 20px 22px;
+}
+.nwPresCntnt {
+    padding: 1px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    width: 420px;
+    background: #fff;
+    margin: 0 auto;
+    border: none;
+    outline: none;
+    border-radius: 12px;
+    background-color: #FFFFFF;
+    -webkit-box-shadow: 0 24px 32px 0 rgba(0,8,8,0.08);
+    box-shadow: 0 24px 32px 0 rgba(0,8,8,0.08);
+    margin-top: 35px;
+}
+.nwPresCourse {
+    padding: 12px 24px 18px 24px;
+    border-bottom: 1px solid #F2F2F2;
+}
+.nwPresCloseBtn {
+    text-align: right;
+    margin-bottom: 4px;
+}
+.nwPresCloseBtn img {
+    width: 26px;
+    cursor: pointer;
+}
+.nwPresCourse label {
+    color: #000808;
+    font-family: Muli;
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 32px;
+    margin-bottom: 2px;
+}
+.docHlthMain {
+    padding: 22px 24px 22px 24px;
+}
+.docHlth h2 {
+    color: #000808;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 14px;
+    margin-bottom: 8px;
+}
+.docHlthChk span {
+    color: #404646;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 14px;
+}
+.docHlth p {
+    color: #7F8383;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: 18px;
+    margin-bottom: 12px;
+}
+.drstndrdQues {
+    margin-top: 32px;
+}
+.drstndrdQues h3 {
+    color: #000808;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 14px;
+    margin-bottom: 12px;
+}
+.drsplestQues, .ishelpUpr {
+    margin-bottom: 18px;
+}
+.drsplestQues label {
+    color: #404646;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 12px;
+}
+.drsplestQues .css-yk16xz-control {
+    border: 1px solid #BFC1C1;
+    border-radius: 4px;
+    background-color: #FFFFFF;
+}
+.ishelpLbl label {
+    color: #404646;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 12px;
+}
+.ishelpChk label {
+    margin-bottom: 0px;
+}
+.ishelpChk span {
+    color: #404646;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 14px;
+}
+.ishelpChk span.MuiIconButton-label {
+    color: #00ABAF !important;
+}
+.ishelpChk label:last-child {
+    margin-right: 0px;
+}
+.medicnSub label {
+    color: #404646;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 12px;
+}
+.medicnSub h4 {
+    color: #000808;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 14px;
+    margin-bottom: 10px;
+}
+.medicnSub input[type="text"] {
+    border: 1px solid #BFC1C1;
+    border-radius: 4px;
+    background-color: #FFFFFF;
+    width: 100%;
+    padding: 6px 12px;
+    outline: none;
+}
+.medicnSub .css-yk16xz-control {
+    border: 1px solid #BFC1C1;
+    border-radius: 4px;
+    background-color: #FFFFFF;
+    width: 100%;
+}
+.medicnSub {
+    margin-bottom: 12px;
+}
+.nwPresCntntIner {
+    height: 564px;
+    overflow-y: scroll;
+}
+.doseMg {
+    position: relative;
+}
+.doseMg span {
+    position: absolute;
+    right: 10px;
+    top: 11px;
+    color: #BFC1C1;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 18px;
+    text-align: right;
+}
+.medicnSub textarea {
+    min-height: 116px;
+    width: 100%;
+    border: 1px solid #BFC1C1;
+    border-radius: 4px;
+    background-color: #FFFFFF;
+    resize: none;
+    padding: 8px 12px;
+    outline: none;
+}
+.infoShwHidBrdr2 {
+    border-top: 1px solid #dedede;
+    margin-bottom: 14px;
+}
+.infoShwHidIner2 {
+    padding: 5px 24px 22px 24px;
+}
+.infoShwHidMain2 {
+    background-color: #F2F2F2;
+    padding: 8px 15px;
+    border-radius: 4px;
+}
+.infoShwHid2 {
+    color: #7F8383;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 18px;
+}
+.editShwHid2 {
+    text-align: right;
+}
+.editShwHid2 a {
+    color: #00ABAF;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 18px;
+    cursor: pointer;
+}
+.infoShwSave2 input {
+    border-radius: 8px;
+    background-color: #00ABAF;
+    width: 100%;
+    color: #FFFFFF;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 16px;
+    text-align: center;
+    border: none;
+    padding: 12px 8px;
+    margin-top: 22px;
+    margin-bottom: 2px;
+    outline: none;
+}
+.cntryLiv p{
+    color: #404646;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 15px;
+    margin-bottom: 0px !important;
+}
+.cntryLiv p{
+    background-color: #FFFFFF;
+}
+.drsplestQues input[type="text"] {
+    border: 1px solid #BFC1C1;
+    border-radius: 4px;
+    background-color: #FFFFFF;
+    width: 100%;
+    padding: 6px 12px;
+    outline: none;
+}
+.sncWhen a{
+    color: #7F8383;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 14px;
+    border-radius: 8px;
+    background-color: #F2F2F2;
+    display: inline-block;
+    padding: 6px 8px;
+    margin-right: 4px;
+    margin-bottom: 8px;
+    cursor: pointer;
+}
+.noDevices h1 {
+    color: #000808;
+    font-family: Muli;
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 32px;
+}
+.noDevices p {
+    color: #7F8383;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: 18px;
+    margin-top: 10px;
+    margin-bottom: 24px;
+}
+.noDevices h3 a {
+    color: #00ABAF;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 12px;
+}
+.noDevices {
+    text-align: center;
+    margin-top: 10%;
+    margin-bottom: 10%;
+}
+
 
 /*Added By ankita*/
+/*For Documents*/
+a.activePageDocutmet {
+    color: #000 !important;
+    font-weight: 700 !important;
+}
+.current_since_when
+{
+    color: #fff !important;
+    background-color: #00ABAF !important;
+}
+/*End Documents*/
 /*For Organ Donor*/
 .OrganMobile .flag-select {
     height: 37px;

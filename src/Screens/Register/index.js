@@ -11,6 +11,7 @@ import sitedata from '../../sitedata';
 import ReactFlagsSelect from 'react-flags-select';
 import 'react-flags-select/css/react-flags-select.css';
 import 'react-flags-select/scss/react-flags-select.scss';
+import Loader from './../Components/Loader/index';
 import '../../assets/css/style_log.css'
 import {
     NavLink,
@@ -75,16 +76,15 @@ class Index extends Component {
         this.props.history.push('/');
       }
     saveUserData(){
-        this.setState({ regisError  : '' })
-        this.setState({ regisError1 : '' })
-        this.setState({ regisError2 : '' })
-        this.setState({ regisError3 : '' })
-        this.setState({ regisError0 : '' })
-        this.setState({ error_msg   : '' })
+        this.setState({ regisError  : '',  regisError1 : '', regisError2 : '', regisError3 : '', regisError0 : '', error_msg   : '' })
 
         if(!this.validateEmail(this.state.userDetails.email))
         {
             this.setState({regisError0 : "email is not valid"})
+        }
+        if(!this.state.userDetails.first_name || !this.state.userDetails.last_name || this.state.userDetails.first_name === '' || this.state.userDetails.last_name === '' )
+        {
+            this.setState({regisError0 : 'Please fill the full name of user'})
         }
         if(this.state.selectedOption == ''){
             this.setState({regisError0 : "Please select user type"})
@@ -92,12 +92,14 @@ class Index extends Component {
         if(this.state.userDetails.mobile == ''){
             this.setState({regisError0 : "Please fill mobile number"})
         }
-        if(!this.state.userDetails.password.match(letter) || !this.state.userDetails.password.match(number) || !this.state.userDetails.password.match(specialchar)) 
+        if(!this.state.userDetails.password || !this.state.userDetails.password.match(letter) || !this.state.userDetails.password.match(number) || !this.state.userDetails.password.match(specialchar)) 
         {
             this.setState({regisError0 : "Password is not valid"})
         } 
         if(this.state.selectedOption =='patient'){
             if(this.validateEmail(this.state.userDetails.email))
+            {
+            if(this.state.userDetails.first_name && this.state.userDetails.last_name && this.state.userDetails.first_name !== '' && this.state.userDetails.last_name !== '' )
             {
             if(this.state.userDetails.password.match(letter) && this.state.userDetails.password.match(number) && this.state.userDetails.password.match(specialchar))  
             {
@@ -164,11 +166,18 @@ class Index extends Component {
                 this.setState({regisError0 : "Password is not valid"})
             }
         }
+        else
+        {
+            this.setState({regisError0 : 'Please fill the full name of user'})
+        }
+        }
         else {  this.setState({regisError0 : "Email is not valid"}) }
         }
         if(this.state.selectedOption =='pharmacy' || this.state.selectedOption =='nurse' || this.state.selectedOption =='doctor'){
             if(this.validateEmail(this.state.userDetails.email))
             {
+                if(this.state.userDetails.first_name && this.state.userDetails.last_name && this.state.userDetails.first_name !== '' && this.state.userDetails.last_name !== '' )
+                {
                 if(this.state.userDetails.password.match(letter) && this.state.userDetails.password.match(number) && this.state.userDetails.password.match(specialchar))  
                 {
             if(this.state.userDetails.terms_and_conditions && this.state.userDetails.license_of_practice){
@@ -272,6 +281,12 @@ class Index extends Component {
         }else{
             this.setState({regisError0 : "Password is not valid"})
         }
+    }
+    else
+    {
+        this.setState({regisError0 : 'Please fill the full name of user'})
+    }
+
         }else { this.setState({regisError0 : "Email is not valid"}) }
         }
     } 
@@ -312,7 +327,7 @@ class Index extends Component {
                   .then(response => {
                     this.setState({
                         uploadLicence : response.data.data.returnData, 
-                        loaderImage   : false,fileupods: true 
+                       fileupods: true 
                     });
                     setTimeout(
                         function() {  this.setState({fileupods: false}); } .bind(this), 3000  )
@@ -325,9 +340,9 @@ class Index extends Component {
                         'Content-Type': fileType
                       }
                     };
-                    axios.put(signedRequest,file,options)
+                    axios.put('https://cors-anywhere.herokuapp.com/'+ signedRequest,file,options)
                     .then(result => {
-                      this.setState({success: true});
+                      this.setState({success: true,  loaderImage   : false});
                     })
                     .catch(error => {
                       console.log("ERROR " + JSON.stringify(error));
@@ -480,6 +495,7 @@ class Index extends Component {
 
         return (
             <Grid>
+                {this.state.loaderImage && <Loader />}
                 <Grid container direction="row" justify="center" alignItems="center">
                     <Grid item xs={11} md={10}>
                         <Grid className="regHead">
@@ -531,6 +547,7 @@ class Index extends Component {
                                 {this.state.regisError3 }
                                 {this.state.regisError0 }
                                 {this.state.error_msg   }
+                                {this.state.namevald}
                             </div>
                             <div className="success_message">
                                 {this.state.registerMessage }
@@ -635,7 +652,6 @@ class Index extends Component {
                             }
                             <Grid className="registerRow accountTyp">
                                  <Grid><label>{Register_Accounttype}</label></Grid>
-
                                  <Grid className="acPatient">
                                     <Grid container direction="row" justify="center" alignItems="center">
                                         <Grid item xs={11} sm={6} md={6}>  
@@ -656,8 +672,6 @@ class Index extends Component {
                                                 </DropdownMenu>
                                             </UncontrolledDropdown>
                                          </Grid>  
-
-                                            
                                         </Grid>
                                     </Grid>
                                  </Grid>

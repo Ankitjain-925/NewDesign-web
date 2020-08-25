@@ -14,6 +14,7 @@ import {
     DropdownItem
 } from 'reactstrap';
 import sitedata from '../../sitedata';
+import Loader from './../Components/Loader/index';
 const path = sitedata.data.path + '/UserProfile';
 
 class Index extends Component {
@@ -34,6 +35,7 @@ class Index extends Component {
             loggedIn: false,
             loginError2 : false,
             loginError9 : false,
+            loaderImage: false
         };
       
     }
@@ -57,10 +59,11 @@ class Index extends Component {
         else
         {
             let userEmail = this.state.inputEmail;
-            this.setState({ emailValid: true })  
+            this.setState({ emailValid: true,  loaderImage: true })  
             axios.post(path+'/forgotPassword?email=' + userEmail,{ lan : this.props.stateLanguageType, passFrom : 'landing' }
             )
            .then((response) =>{
+               this.setState({loaderImage : false})
              if(response.data.status === 450){
                this.setState({
                  createHospitalError: true,
@@ -101,6 +104,7 @@ class Index extends Component {
         }
         return (
             <Grid>
+                {this.state.loaderImage && <Loader />}
                 <Grid container direction="row" justify="center" alignItems="center">
                     <Grid item xs={11} md={10}>
                         <Grid className="regHead">

@@ -14,6 +14,7 @@ import * as translationES from '../../translations/es';
 import * as translationCH from '../../translations/ch';
 import * as translationPT from '../../translations/pt';
 import queryString from 'query-string';
+import Loader from './../Components/Loader/index';
 const path = sitedata.data.path + '/UserProfile';
 
 
@@ -305,6 +306,7 @@ class Index extends Component {
         else {
             return (
                 <Grid>
+                      {this.state.loaderImage && <Loader />}
                     <Grid container direction="row" justify="center" alignItems="center">
                         <Grid item xs={11} md={10}>
                             <Grid className="regHead">

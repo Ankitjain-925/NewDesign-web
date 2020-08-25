@@ -32,7 +32,6 @@ class Index extends Component {
 
     handleSpecialist = specialistOption => {
         this.setState({ specialistOption });
-        //console.log(`Option selected:`, specialistOption);
     };
 
     render() {

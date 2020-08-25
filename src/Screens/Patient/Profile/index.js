@@ -44,14 +44,16 @@ class Index extends Component {
             openDash: false,
             date: new Date(),
             value: 0,
-            LoggedInUser: {}
+            LoggedInUser: {},
+            times: [],
+            tissue : [],
+            dates : [], 
         };
-        // new Timer(this.logOutClick.bind(this)) 
     }
 
     componentDidMount() {
-        // new LogOut(this.props.stateLoginValueAim.token, this.props.stateLoginValueAim.user._id, this.logOutClick.bind(this))
         this.getUserData();
+        this.getMetadata();
     }
 
     // For change the Tabs
@@ -60,15 +62,32 @@ class Index extends Component {
     };
 
     //   //For getting the dropdowns from the database
-    //   getMetadata() {
-    //     axios.get(sitedata.data.path + '/UserProfile/Metadata')
-    //         .then((responce) => {
-    //             if (responce && responce.data && responce.data.length > 0) {
-                    
-    //             }
-    //         })
+      getMetadata() {
+        axios.get(sitedata.data.path + '/UserProfile/Metadata')
+            .then((responce) => {
+                if (responce && responce.data && responce.data.length > 0) {
+                    var tissue = [], dates = [], times = [];
+                    {
+                        responce.data[0].tissue && responce.data[0].tissue.length > 0 && responce.data[0].tissue.map(
+                            (item) => { tissue.push({ label: item.title, value: item.value }) })
+                    }
+                    {
+                        responce.data[0].dates && responce.data[0].dates.length > 0 && responce.data[0].dates.map(
+                            (item) => { dates.push({ label: item.title, value: item.value }) })
+                    }
+                    {
+                        responce.data[0].times && responce.data[0].times.length > 0 && responce.data[0].times.map(
+                            (item) => { times.push({ label: item.title, value: item.value }) })
+                    }
+                    this.setState({
+                        tissue: tissue,
+                        dates: dates,
+                        times: times,
+                    });
+                }
+            })
 
-    // }
+    }
 
     //Get the current User Data
     getUserData() {
@@ -141,7 +160,7 @@ class Index extends Component {
 
                                              {/* Start of Organ Donor  */}
                                             {value === 3 && <TabContainer>
-                                                <OrganSection />
+                                                <OrganSection tissue = {this.state.tissue && this.state.tissue}/>
                                             </TabContainer>}
                                             {/* End of Organ Donor */}
 
@@ -159,7 +178,7 @@ class Index extends Component {
 
                                             {/* Start of DateTime */}
                                             {value === 6 && <TabContainer>
-                                                <DateTimeSection user_token = {this.props.stateLoginValueAim.token} LoggedInUser={this.state.LoggedInUser} getUserData = {this.getUserData}/>
+                                                <DateTimeSection times={this.state.times && this.state.times} dates= {this.state.dates && this.state.dates} user_token = {this.props.stateLoginValueAim.token} LoggedInUser={this.state.LoggedInUser} getUserData = {this.getUserData}/>
                                             </TabContainer>}
                                             {/* End of DateTime */}
                                         </Grid>

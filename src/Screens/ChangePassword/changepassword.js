@@ -7,6 +7,7 @@ import { LoginReducerAim } from '../Login/actions';
 import Grid from '@material-ui/core/Grid';
 import {authy} from '../Login/authy.js';
 import queryString from 'query-string';
+import Loader from './../Components/Loader/index';
 import {
     NavLink,
     UncontrolledDropdown,
@@ -44,7 +45,8 @@ class Index extends Component {
             loggedIn: false,
             loginError2 : false,
             loginError9 : false,
-            regisError0 : ''
+            regisError0 : '',
+            loaderImage: false
         };
       
     }
@@ -73,7 +75,8 @@ class Index extends Component {
          });
          const values = queryString.parse(this.props.location.search);
          const user_token = values.token;
-         if(user_token){    
+         if(user_token){
+             this.setState({ loaderImage: true})    
           axios.put(path+'/setpassword?password='+password,{},
               {headers:{
                   'token': user_token,
@@ -102,8 +105,9 @@ class Index extends Component {
                           errorMsg : 'Authentication required.',
                       });
                   }
+                  this.setState({ loaderImage: false})    
               }).catch((error) => {
-             
+                this.setState({ loaderImage: false})    
               this.setState({
                   passError: true,
                   errorMsg : 'Authentication required.',
@@ -186,6 +190,7 @@ class Index extends Component {
 
         return (
             <Grid>
+                {this.state.loaderImage && <Loader />}
                 <Grid container direction="row" justify="center" alignItems="center">
                     <Grid item xs={11} md={10}>
                         <Grid className="regHead">

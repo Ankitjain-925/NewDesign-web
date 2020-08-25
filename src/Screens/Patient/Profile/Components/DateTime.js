@@ -11,18 +11,37 @@ class Index extends Component {
         this.state = {
             Current_state : this.props.LoggedInUser,
             Format : {},
-            dates : [{label: "DD/MM/YYYY", value : "DD/MM/YYYY" }, {label : "MM/DD/YYYY", value : "MM/DD/YYYY"},{label : "YYYY/DD/MM", value : "YYYY/DD/MM"}],
-            times : [{label : "11:10 PM" , value : "11:10 PM"}, {label : "13:10", value : "13:10"}],
+            dates : this.props.dates,
+            times : this.props.times,
             loaderImage : false,
             PassDone : false,
-            dateF : {label : this.props.LoggedInUser.date_format, value : this.props.LoggedInUser.date_format},
-            timeF : {label : this.props.LoggedInUser.time_format, value : this.props.LoggedInUser.time_format},
+            dateF : {},
+            timeF : {},
         };
         // new Timer(this.logOutClick.bind(this)) 
     }
 
     componentDidMount = ()=>{
+        this.getSetting()
+    }
 
+    //For getting the existing settings
+    getSetting =()=>{
+        this.setState({ loaderImage : true})
+        axios.get(sitedata.data.path + '/UserProfile/updateSetting',
+            {
+            headers: {
+                'token': this.props.user_token,
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        }).then((responce) => {
+            if(responce.data.hassuccessed && responce.data.data)
+            {
+                this.setState({timeF : {label : responce.data.data.time_format, value :  responce.data.data.time_format}, dateF : {label : responce.data.data.date_format, value :  responce.data.data.date_format},})
+            }
+            this.setState({ loaderImage : false})  
+        })   
     }
 
     //For Change Format State
@@ -37,9 +56,11 @@ class Index extends Component {
     //For Set Format
     SetFormat=()=>{
         this.setState({ loaderImage: true})
-        axios.put(sitedata.data.path + '/UserProfile/Users/update', {
+        axios.put(sitedata.data.path + '/UserProfile/updateSetting', {
             date_format: this.state.Format.date_format,
             time_format: this.state.Format.time_format,
+            user_id: this.props.LoggedInUser._id,
+            user_profile_id : this.props.LoggedInUser.profile_id,   
         }, {
             headers: {
                 'token': this.props.user_token,

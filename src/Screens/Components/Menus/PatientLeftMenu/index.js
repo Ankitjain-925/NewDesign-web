@@ -6,6 +6,8 @@ import { LoginReducerAim } from '../../../Login/actions';
 // import { filterate } from '../../Doctor/filteraction';
 import { withRouter } from "react-router-dom";
 import { LanguageFetchReducer } from '../../../actions';
+import LogOut from './../../LogOut/index';
+import Timer from './../../TimeLogOut/index';
 
 class Index extends Component {
     constructor(props) {
@@ -19,8 +21,14 @@ class Index extends Component {
             contact_partner: {},
             loaderImage: false,
         };
+        new Timer(this.logOutClick.bind(this)) 
     }
-    
+
+    //For loggedout if logged in user is deleted 
+    componentDidMount(){
+        new LogOut(this.props.stateLoginValueAim.token, this.props.stateLoginValueAim.user._id, this.logOutClick.bind(this))
+    }
+
     //For logout the User
     logOutClick = () => {
         let email = "";
@@ -29,6 +37,7 @@ class Index extends Component {
         let languageType = 'en';
         this.props.LanguageFetchReducer(languageType);
     }
+
     //For My Profile link
     ProfileLink = ()=>{
         this.props.history.push('/patient');
@@ -45,7 +54,10 @@ class Index extends Component {
     ExtraLink = ()=>{
         this.props.history.push('/patient/extra-services');
     }
-    
+    //For Document link
+    DocumentLink = ()=>{
+        this.props.history.push('/patient/documents');    
+    }
     render() {
         return (
             <Grid item xs={12} md={1} className="MenuLeftUpr">
@@ -76,8 +88,8 @@ class Index extends Component {
                             </a>
                         </li>
                         <li className={this.props.currentPage==='documents' ? "menuActv" : ""}>
-                            <a>
-                            {this.props.currentPage==='documents' ? <img src={require('../../../../assets/images/apoint.jpg')} alt="" title="" />
+                            <a onClick={this.DocumentLink}>
+                            {this.props.currentPage==='documents' ? <img src={require('../../../../assets/images/activeDocs.png')} alt="" title="" />
                                 : <img src={require('../../../../assets/images/apoint.jpg')} alt="" title="" />}
                                 <span>My Documents</span>
                             </a>

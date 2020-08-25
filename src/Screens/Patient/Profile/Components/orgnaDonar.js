@@ -17,10 +17,7 @@ class Index extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            tissue: [{label : 'Heart', value : 'Heart'}, {label : 'Lungs', value : 'Lungs'},
-            {label : 'Liver', value : 'Liver'}, {label : 'Kidney', value : 'Kidney'}, 
-            {label : 'Cornea', value : 'Cornea'}, {label : 'Skin', value : 'Skin'},
-            {label : 'Pancreas', value : 'Pancreas'}, {label : 'Bone Marrow', value : 'Bone Marrow'}],
+            tissue: this.props.tissue,
             loaderImage: false,
             selectedOption: "",
             UpDataDetails: [],

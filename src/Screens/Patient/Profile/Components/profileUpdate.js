@@ -98,6 +98,7 @@ class Index extends Component {
             ChangedPIN: false,
             DuplicateAlies: false,
             toSmall: false,
+            phonevalidate : false,
         };
         // new Timer(this.logOutClick.bind(this)) 
     }
@@ -243,7 +244,6 @@ class Index extends Component {
             state['emergency_number'] = e + '-' + this.state.phone;
             this.setState({ flag_emergency_number: e });
         }
-
         this.setState({ UpDataDetails: state });
     }
 
@@ -383,7 +383,7 @@ class Index extends Component {
         if (this.state.flag_fax && this.state.flag_fax === '' && this.state.flag_fax === 'undefined') {
             this.setState({ flag_fax: 'DE' })
         }
-        this.setState({ loaderImage: true });
+        this.setState({ loaderImage: true, phonevalidate : false });
         this.setState({ regisError1: "" })
         this.setState({ regisError2: "" })
         const user_token = this.props.stateLoginValueAim.token;
@@ -446,6 +446,11 @@ class Index extends Component {
                         })
                 }
                 else {
+                    this.setState({ loaderImage: false });
+                    if(responce.data.message ==='Phone is not verified')
+                    {
+                        this.setState({phonevalidate : true})
+                    }
                     this.setState({ error3: true })
                     setTimeout(() => { this.setState({ error3: false }) }, 5000)
                 }
@@ -679,14 +684,13 @@ class Index extends Component {
 
         return (
             <div>
-                {console.log('this.state.UpDataDetails.title',this.state.UpDataDetails.title)}
-                {console.log('title_degreeData', this.state.title_degreeData)}
                 {this.state.loaderImage && <Loader />}
                 <Grid className="profileMy">
                     <Grid className="profileInfo">
                         {this.state.copied && <div className="success_message">Information is Copied</div>}
                         {this.state.succUpdate && <div className="success_message">Profile is updated</div>}
                         {this.state.error3 && <div className="err_message">Profile is not updated. Can not reach to server</div>}
+                        {this.state.phonevalidate && <div className="err_message">Mobile number is not valid</div>}
                         <h1>Profile information</h1>
                         <p>This is your profile information, which is accessible to your trusted Doctors and those
                         you share your Profile ID nad PIN with.</p>

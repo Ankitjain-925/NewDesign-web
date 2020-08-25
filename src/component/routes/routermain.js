@@ -3,17 +3,17 @@ import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 
 // Added By Ankita
-import Register from './../../Screens/Register';
-import Login from './../../Screens/Login';
-import ForgotPass from './../../Screens/ChangePassword'; 
-import ChangePass from './../../Screens/ChangePassword/changepassword';
-import NotFound from './../../Screens/Components/NotFound';
-import PatientChat from './../../Screens/Patient/Chat/index';
-import PatientProfile from './../../Screens/Patient/Profile/index';
+import Register from "./../../Screens/Register";
+import Login from "./../../Screens/Login";
+import ForgotPass from "./../../Screens/ChangePassword"; 
+import ChangePass from "./../../Screens/ChangePassword/changepassword";
+import NotFound from "./../../Screens/Components/NotFound";
+import PatientChat from "./../../Screens/Patient/Chat/index";
+import PatientProfile from "./../../Screens/Patient/Profile/index";
 import PatientSecond from "./../../Screens/Patient/More/secondopinion";
 import PatientEmergency from "./../../Screens/Patient/More/EmergencyPatientData";
 import PatientExtra from "./../../Screens/Patient/More/ExtraServices";
-
+import PatientDocument from "./../../Screens/Patient/MyDocuments/index";
 
 class Routermain extends Component {
   render() {
@@ -31,6 +31,7 @@ class Routermain extends Component {
             <Route exact path="/patient/second-opinion" render={(props) => <PatientSecond {...props}/>} />
             <Route exact path="/patient/emergency" render={(props) => <PatientEmergency {...props}/>} />
             <Route exact path="/patient/extra-services" render={(props) => <PatientExtra {...props}/>} />
+            <Route exact path="/patient/documents" render={(props) => <PatientDocument {...props} />} />
             <Route path='*' exact={true} render={(props) => <NotFound {...props} />} />
             {/* End By Ankita */}
           </Switch>
