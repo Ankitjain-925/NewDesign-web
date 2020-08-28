@@ -49,6 +49,7 @@ class Index extends Component {
         
       }
     
+      //send the email on email id for the reset password
       BtnSubmit=() =>{
          
           var email_not_exist,email_exist;
@@ -90,9 +91,7 @@ class Index extends Component {
                )
                
               }
-           }).catch((error) => {
-             console.log(error);
-           });
+           }).catch((error) => { });
         }
       }
    

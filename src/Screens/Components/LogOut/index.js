@@ -1,5 +1,4 @@
 import axios from 'axios';
-import React from 'react';
 import sitedata from './../../../sitedata';
 export default class index  {
     constructor(user_token,user_id, logOutClick) {

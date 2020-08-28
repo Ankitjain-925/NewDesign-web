@@ -26,7 +26,8 @@ import * as translationDE from '../../translations/de';
 import * as translationES from '../../translations/es';
 import * as translationCH from '../../translations/ch';
 import * as translationPT from '../../translations/pt';
-
+import contry from './../Components/countryBucket/countries.json';
+//Values for the validate Password
 var letter = /([a-zA-Z])+([ -~])*/, number = /\d+/, specialchar = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/; 
 
 class Index extends Component {
@@ -56,6 +57,7 @@ class Index extends Component {
           hidden: true,
           hidden_confirm: true,
           fileupods: false,
+          FilesUp : []
          
         };
     
@@ -64,238 +66,160 @@ class Index extends Component {
         this.changeValue = this.changeValue.bind(this);
       }
     
-      handlePasswordChange(e) {
-        this.setState({ password: e.target.value });
-      }
-      
-      validateEmail=(elementValue)=>{      
-        var emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-        return emailPattern.test(elementValue); 
-      } 
-      login = ()=>{
-        this.props.history.push('/');
-      }
+    handlePasswordChange(e) {
+    this.setState({ password: e.target.value });
+    }
+    
+    //For validate the email is correct or not
+    validateEmail=(elementValue)=>{      
+    var emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    return emailPattern.test(elementValue); 
+    } 
+
+    //For login link
+    login = ()=>{
+    this.props.history.push('/');
+    }
+
+    //For save data of user
     saveUserData(){
         this.setState({ regisError  : '',  regisError1 : '', regisError2 : '', regisError3 : '', regisError0 : '', error_msg   : '' })
-
-        if(!this.validateEmail(this.state.userDetails.email))
+        if(this.state.userDetails.first_name && this.state.userDetails.last_name && this.state.userDetails.first_name !== '' && this.state.userDetails.last_name !== '' )
         {
-            this.setState({regisError0 : "email is not valid"})
-        }
-        if(!this.state.userDetails.first_name || !this.state.userDetails.last_name || this.state.userDetails.first_name === '' || this.state.userDetails.last_name === '' )
-        {
-            this.setState({regisError0 : 'Please fill the full name of user'})
-        }
-        if(this.state.selectedOption == ''){
-            this.setState({regisError0 : "Please select user type"})
-        }
-        if(this.state.userDetails.mobile == ''){
-            this.setState({regisError0 : "Please fill mobile number"})
-        }
-        if(!this.state.userDetails.password || !this.state.userDetails.password.match(letter) || !this.state.userDetails.password.match(number) || !this.state.userDetails.password.match(specialchar)) 
-        {
-            this.setState({regisError0 : "Password is not valid"})
-        } 
-        if(this.state.selectedOption =='patient'){
-            if(this.validateEmail(this.state.userDetails.email))
-            {
-            if(this.state.userDetails.first_name && this.state.userDetails.last_name && this.state.userDetails.first_name !== '' && this.state.userDetails.last_name !== '' )
-            {
-            if(this.state.userDetails.password.match(letter) && this.state.userDetails.password.match(number) && this.state.userDetails.password.match(specialchar))  
-            {
-            if(this.state.userDetails.terms_and_conditions){
-                if(this.state.selectedOption != ''){
-                    if(this.state.userDetails.mobile && this.state.userDetails.mobile !== ''){
-                    this.setState({loaderImage: true})
-                    if(this.state.userDetails.country_code)
+            if(this.validateEmail(this.state.userDetails.email)){
+                if(this.state.userDetails && this.state.userDetails.password && this.state.userDetails.password.match(letter) && this.state.userDetails.password.match(number) && this.state.userDetails.password.match(specialchar))  
+                {
+                    if(this.state.userDetails.mobile && this.state.userDetails.mobile !== '')
                     {
-                        var country_code = this.state.userDetails.country_code
-                    }
-                    else
-                    {
-                        var country_code = 'de'
-                    }
-                    axios.post(sitedata.data.path+'/UserProfile/AddUser/',{
-                        type        :   this.state.selectedOption,
-                        email       :   this.state.userDetails.email,
-                        password    :   this.state.userDetails.password,
-                        country_code: country_code,
-                        mobile: this.state.userDetails.mobile,
-                        is2fa: this.state.userDetails.is2fa,
-                        lan : this.props.stateLanguageType,
-                        first_name : this.state.userDetails.first_name,
-                        last_name : this.state.userDetails.last_name,
-                    })
-                    .then((responce)=>{
-                    this.setState({loaderImage : false})
-                    if (responce.data.hassuccessed === true){
-                        axios.post('https://api-us.cometchat.io/v2.0/users',{
-                            uid        :   responce.data.data.profile_id,
-                            name       :   responce.data.data.profile_id
-                        },
+                        if(this.state.selectedOption !== '')
                         {
-                            headers: {
-                                'appId': '15733dce3a73034',
-                                'apiKey':'2f6b4a6b99868d7af0a2964d5f292abbb68e05a7',
-                                'Accept': 'application/json',
-                                'Content-Type': 'application/json'
-                            }
-                        })
-                        .then((res)=>{ })
-                        
-                            this.setState({ successfull : true })
-                            this.setState({ registerMessage : "You are registered successfully, Please check your email for verification."})
-                        }else{
-                            this.setState({ successfull : false })
-                            this.setState({ error_msg : responce.data.message})
-                        }
-                    })
-                    .catch(err => {
-                        console.log(err);
-                    })
-                }
-                else{
-                    this.setState({regisError0 : "Mobile number is compulsory"})
-                }}else{
-                    this.setState({regisError0 : "Please select user type"})
-                }
-            }else{
-                this.setState({regisError0 : "Please agree to our terms and conditions"})
-            }
-            }else{
-                this.setState({regisError0 : "Password is not valid"})
-            }
-        }
-        else
-        {
-            this.setState({regisError0 : 'Please fill the full name of user'})
-        }
-        }
-        else {  this.setState({regisError0 : "Email is not valid"}) }
-        }
-        if(this.state.selectedOption =='pharmacy' || this.state.selectedOption =='nurse' || this.state.selectedOption =='doctor'){
-            if(this.validateEmail(this.state.userDetails.email))
-            {
-                if(this.state.userDetails.first_name && this.state.userDetails.last_name && this.state.userDetails.first_name !== '' && this.state.userDetails.last_name !== '' )
-                {
-                if(this.state.userDetails.password.match(letter) && this.state.userDetails.password.match(number) && this.state.userDetails.password.match(specialchar))  
-                {
-            if(this.state.userDetails.terms_and_conditions && this.state.userDetails.license_of_practice){
-                if(this.state.selectedOption != ''){
-                    if(this.state.userDetails.mobile && this.state.userDetails.mobile !== ''){
-                    this.setState({loaderImage: true})
-                    if(this.state.userDetails.country_code)
-                    {
-                        var country_code = this.state.userDetails.country_code
-                    }
-                    else
-                    {
-                        var country_code = 'de'
-                    }
-                    if(this.state.selectedOption =='doctor' ){
-                        axios.post(sitedata.data.path+'/UserProfile/AddUser/',{
-                            type        :   this.state.selectedOption,
-                            email       :   this.state.userDetails.email,
-                            password    :   this.state.userDetails.password,
-                            licence     :   this.state.uploadLicence,
-                            licence_detail : this.state.userDetails.upload_licence,
-                            country_code:   country_code,
-                            mobile: this.state.userDetails.mobile,
-                            is2fa: this.state.userDetails.is2fa,
-                            lan : this.props.stateLanguageType,
-                            first_name : this.state.userDetails.first_name,
-                            last_name : this.state.userDetails.last_name,
-                        })
-                        .then((responce)=>{
-                        this.setState({loaderImage : false})
-                        if (responce.data.hassuccessed === true){
-                            axios.post('https://api-us.cometchat.io/v2.0/users',{
-                                uid        :   responce.data.data.profile_id,
-                                name       :   responce.data.data.profile_id
-                            },
-                            {
-                                headers: {
-                                    'appId': '15733dce3a73034',
-                                    'apiKey':'2f6b4a6b99868d7af0a2964d5f292abbb68e05a7',
-                                    'Accept': 'application/json',
-                                    'Content-Type': 'application/json'
-                                }
-                            })
-                            .then((res)=>{})
-                                this.setState({ successfull : true })
-                                this.setState({ registerMessage : "You are registered successfully, Please check your email for verification."})
-                            }else{
-                                this.setState({ successfull : false })
-                                this.setState({ error_msg : responce.data.message})
-                            }
-                        }) 
-                    }else{
-                        axios.post(sitedata.data.path+'/UserProfile/AddUser/',{
-                            type        :   this.state.selectedOption,
-                            email       :   this.state.userDetails.email,
-                            password    :   this.state.userDetails.password,
-                            country_code: country_code,
-                            mobile: this.state.userDetails.mobile,
-                            is2fa: this.state.userDetails.is2fa,
-                            lan : this.props.stateLanguageType,
-                            first_name : this.state.userDetails.first_name,
-                            last_name : this.state.userDetails.last_name,
-                        })
-                        .then((responce)=>{
-                        this.setState({loaderImage : false})
-                        if (responce.data.hassuccessed === true){
-                            
-                            if(this.state.selectedOption =='nurse')
-                            {
-                                axios.post('https://api-us.cometchat.io/v2.0/users',{
-                                    uid        :   responce.data.data.profile_id,
-                                    name       :   responce.data.data.profile_id
-                                },
+                            if(this.state.userDetails.terms_and_conditions){
+                                if(this.state.selectedOption =='patient')
                                 {
-                                    headers: {
-                                        'appId': '15733dce3a73034',
-                                        'apiKey':'2f6b4a6b99868d7af0a2964d5f292abbb68e05a7',
-                                        'Accept': 'application/json',
-                                        'Content-Type': 'application/json'
+                                    this.setState({loaderImage: true})
+                                    if(this.state.userDetails.country_code)
+                                    {
+                                        var country_code = this.state.userDetails.country_code
                                     }
-                                })
-                                .then((res)=>{ })
+                                    else
+                                    {
+                                        var country_code = 'de'
+                                    }
+                                    var getBucket = contry && contry.length>0 && contry.filter((value, key) =>
+                                    value.code === country_code.toUpperCase());
+                                    axios.post(sitedata.data.path+'/UserProfile/AddUser/',{
+                                        type : this.state.selectedOption,
+                                        email : this.state.userDetails.email,
+                                        password : this.state.userDetails.password,
+                                        country_code: country_code,
+                                        mobile: this.state.userDetails.mobile,
+                                        is2fa: this.state.userDetails.is2fa,
+                                        lan : this.props.stateLanguageType,
+                                        first_name : this.state.userDetails.first_name,
+                                        last_name : this.state.userDetails.last_name,
+                                        bucket : getBucket[0].bucket
+                                    })
+                                    .then((responce)=>{
+                                    this.setState({loaderImage : false})
+                                    if (responce.data.hassuccessed === true){
+                                        axios.post('https://api-us.cometchat.io/v2.0/users',{
+                                            uid        :   responce.data.data.profile_id,
+                                            name       :   responce.data.data.profile_id
+                                        },
+                                        {
+                                            headers: {
+                                                'appId': '15733dce3a73034',
+                                                'apiKey':'2f6b4a6b99868d7af0a2964d5f292abbb68e05a7',
+                                                'Accept': 'application/json',
+                                                'Content-Type': 'application/json'
+                                            }
+                                        })
+                                        .then((res)=>{ })
+                                        
+                                            this.setState({ successfull : true })
+                                            this.setState({ registerMessage : "You are registered successfully, Please check your email for verification."})
+                                        }else{
+                                            this.setState({ successfull : false })
+                                            this.setState({ error_msg : responce.data.message})
+                                        }
+                                    })
+                                    .catch(err => { })
+                                }
+                                if(this.state.selectedOption =='pharmacy' || this.state.selectedOption =='nurse' || this.state.selectedOption =='doctor')
+                                {
+                                    this.setState({loaderImage: true})
+                                    if(this.state.userDetails.country_code)
+                                    {
+                                        var country_code = this.state.userDetails.country_code
+                                    }
+                                    else
+                                    {
+                                        var country_code = 'de'
+                                    }
+                                    var getBucket = contry && contry.length>0 && contry.filter((value, key) =>
+                                    value.code === country_code.toUpperCase());
+                                    if(this.state.selectedOption =='doctor' ) 
+                                    {
+                                       this.saveDoctor(country_code);
+                                    }
+                                    else {
+                                        axios.post(sitedata.data.path+'/UserProfile/AddUser/',{
+                                            type  : this.state.selectedOption,
+                                            email  :  this.state.userDetails.email,
+                                            password  : this.state.userDetails.password,
+                                            country_code: country_code,
+                                            mobile: this.state.userDetails.mobile,
+                                            is2fa: this.state.userDetails.is2fa,
+                                            lan : this.props.stateLanguageType,
+                                            first_name : this.state.userDetails.first_name,
+                                            last_name : this.state.userDetails.last_name,
+                                            bucket : getBucket[0].bucket
+                                        })
+                                        .then((responce)=>{
+                                        this.setState({loaderImage : false})
+                                        if (responce.data.hassuccessed === true){
+                                            
+                                            if(this.state.selectedOption =='nurse')
+                                            {
+                                                axios.post('https://api-us.cometchat.io/v2.0/users',{
+                                                    uid        :   responce.data.data.profile_id,
+                                                    name       :   responce.data.data.profile_id
+                                                },
+                                                {
+                                                    headers: {
+                                                        'appId': '15733dce3a73034',
+                                                        'apiKey':'2f6b4a6b99868d7af0a2964d5f292abbb68e05a7',
+                                                        'Accept': 'application/json',
+                                                        'Content-Type': 'application/json'
+                                                    }
+                                                })
+                                                .then((res)=>{ })
+                                            }
+                                            
+                                                this.setState({ successfull : true })
+                                                this.setState({ registerMessage : "You are registered successfully, Please check your email for verification."})
+                                            }else{
+                                                this.setState({ successfull : false })
+                                                this.setState({ error_msg : responce.data.message})
+                                            }
+                                        }) 
+                                    }
+                                }
                             }
-                            
-                                this.setState({ successfull : true })
-                                this.setState({ registerMessage : "You are registered successfully, Please check your email for verification."})
-                            }else{
-                                this.setState({ successfull : false })
-                                this.setState({ error_msg : responce.data.message})
-                            }
-                        }) 
+                            else { this.setState({regisError0 : "Please agree to our terms and conditions"}) }
+                        }
+                        else { this.setState({regisError0 : "Please select user type"}) }
                     }
-                }else{
-                    this.setState({regisError0 : "Mobile number is compulsory"})
-                }}else{
-                    this.setState({regisError0 : "Please select user type"})
-                } 
-            }else{
-                this.setState({regisError0 : "Please agree to our terms and conditions"})
+                    else{ this.setState({regisError0 : "Please fill mobile number"}) }
+                }
+                else{ this.setState({regisError0 : "Password is not valid"}) }
             }
-        }else{
-            this.setState({regisError0 : "Password is not valid"})
+            else{ this.setState({regisError0 : "E-mail is not valid"}) }
         }
-    }
-    else
-    {
-        this.setState({regisError0 : 'Please fill the full name of user'})
-    }
-
-        }else { this.setState({regisError0 : "Email is not valid"}) }
-        }
+        else{ this.setState({regisError0 : 'Please fill the full name of user'}) }
     } 
-    handleOptionChange(changeEvent) {
-        this.setState({
-            selectedOption: changeEvent.target.value
-        });
-    }
 
+    //For the set state of the Registration
     handleChange = (e) => {
         const state = this.state.userDetails
         if (e.target.name === 'terms_and_conditions' || e.target.name === 'license_of_practice', e.target.name === 'is2fa' ){
@@ -305,73 +229,105 @@ class Index extends Component {
         {
             state[e.target.name] = e.target.value;
         }
-        this.setState({ userDetails: state });
-        
+        this.setState({ userDetails: state }); 
     }
+
+    //For upload the Doctor Liscence
     UploadFile(event) {
-        this.setState({ loaderImage: true });
+        this.setState({FilesUp : event.target.files})
+    }
+
+    //For save the doctor
+    saveDoctor = (country_code)=>{
         this.setState({ isfileuploadmulti: true })
-        event.preventDefault();
-        const data = new FormData()
-        for(var i =0 ; i<event.target.files.length; i++)
+        var getBucket = contry && contry.length>0 && contry.filter((value, key) =>
+        value.code === country_code.toUpperCase());
+       
+        for(var i =0 ; i<this.state.FilesUp.length; i++)
         {
-            var file = event.target.files[i];
-            let fileParts = event.target.files[i].name.split('.');
+            var file = this.state.FilesUp[i];
+            let fileParts = this.state.FilesUp[i].name.split('.');
             let fileName = fileParts[0];
             let fileType = fileParts[1];
             axios.post(sitedata.data.path  + '/aws/sign_s3',{
-                    fileName : fileName,
-                    fileType : fileType,
-                    folders: 'registration/'
-                  })
-                  .then(response => {
-                    this.setState({
-                        uploadLicence : response.data.data.returnData, 
-                       fileupods: true 
-                    });
-                    setTimeout(
-                        function() {  this.setState({fileupods: false}); } .bind(this), 3000  )
-                    var returnData = response.data.data.returnData;
-                    var signedRequest = returnData.signedRequest;
-                    var url = returnData.url;
-                   // Put the fileType in the headers for the upload
-                    var options = {
-                      headers: {
-                        'Content-Type': fileType
-                      }
-                    };
-                    axios.put('https://cors-anywhere.herokuapp.com/'+ signedRequest,file,options)
-                    .then(result => {
-                      this.setState({success: true,  loaderImage   : false});
-                    })
-                    .catch(error => {
-                      console.log("ERROR " + JSON.stringify(error));
-                    })
-                  })
-                  .catch(error => {
-                    console.log(JSON.stringify(error));
-                  })
+                fileName : fileName,
+                fileType : fileType,
+                folders: 'registration/',
+                bucket : getBucket[0].bucket
+            }).then(response => {
+                this.setState({  uploadLicence : response.data.data.returnData, fileupods: true });
+                setTimeout(()=> {  this.setState({fileupods: false}); }, 3000 )
+                var returnData = response.data.data.returnData;
+                var signedRequest = returnData.signedRequest;
+                var url = returnData.url;
+                // Put the fileType in the headers for the upload
+                var options = { headers: { 'Content-Type': fileType } };
+                axios.put('https://cors-anywhere.herokuapp.com/'+ signedRequest,file,options)
+                .then(result => { this.setState({success: true,  loaderImage   : false}); })
+                .catch(error => { })
+            }).catch(error => { })
         }
+        axios.post(sitedata.data.path+'/UserProfile/AddUser/',{
+            type        :   this.state.selectedOption,
+            email       :   this.state.userDetails.email,
+            password    :   this.state.userDetails.password,
+            licence     :   this.state.uploadLicence,
+            licence_detail : this.state.userDetails.upload_licence,
+            country_code:   country_code,
+            mobile: this.state.userDetails.mobile,
+            is2fa: this.state.userDetails.is2fa,
+            lan : this.props.stateLanguageType,
+            first_name : this.state.userDetails.first_name,
+            last_name : this.state.userDetails.last_name,
+            bucket : getBucket[0].bucket
+        })
+        .then((responce)=>{
+        this.setState({loaderImage : false, FilesUp : []})
+        if (responce.data.hassuccessed === true){
+            axios.post('https://api-us.cometchat.io/v2.0/users',{
+                uid        :   responce.data.data.profile_id,
+                name       :   responce.data.data.profile_id
+            },
+            {
+                headers: {
+                    'appId': '15733dce3a73034',
+                    'apiKey':'2f6b4a6b99868d7af0a2964d5f292abbb68e05a7',
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then((res)=>{})
+                this.setState({ successfull : true })
+                this.setState({ registerMessage : "You are registered successfully, Please check your email for verification."})
+            }else{
+                this.setState({ successfull : false })
+                this.setState({ error_msg : responce.data.message})
+            }
+        }) 
     }
+    
+    //For select the country code Flag
     onSelectFlag=(countryCode)=>{
         const state = this.state.userDetails
         state['country_code'] = countryCode.toLowerCase();
         this.setState({ userDetails: state }); 
     }
-      toggleShow() {
-        this.setState({ hidden: !this.state.hidden });
-      }
+
+    //For show or hide the Password
+    toggleShow() {
+    this.setState({ hidden: !this.state.hidden });
+    }
+
+    changeValue(languageType) {
+    this.setState({dropDownValue: languageType});
+    this.props.LanguageFetchReducer(languageType);
+    }
     
-      changeValue(languageType) {
-        this.setState({dropDownValue: languageType});
-        this.props.LanguageFetchReducer(languageType);
-      }
-    
-      componentDidMount() {
-        if(this.props.stateLanguageType !=='English') {
-            this.setState({dropDownValue : this.props.stateLanguageType})
-          }
-      }
+    componentDidMount() {
+    if(this.props.stateLanguageType !=='English') {
+        this.setState({dropDownValue : this.props.stateLanguageType})
+        }
+    }
 
     render() {
 
@@ -525,7 +481,6 @@ class Index extends Component {
                                                     <DropdownItem><NavLink>Swahili</NavLink></DropdownItem>
                                                 </DropdownMenu>
                                             </UncontrolledDropdown>
-
                                          </Grid>   
                                       
                                     </Grid>
@@ -554,7 +509,7 @@ class Index extends Component {
                             </div>
                             {this.state.fileupods && <div className="success_message">File is uploaded</div>}
                             <Grid className="registerRow">
-                                <Grid><label>{Register_Name}</label></Grid> 
+                                <Grid><label>First Name</label></Grid> 
                                 <Grid><input type="text" name = "first_name" onChange = {this.handleChange} /></Grid>
                             </Grid> 
 
@@ -647,7 +602,6 @@ class Index extends Component {
                                 <Grid item xs={12} sm={12} className="common_name_v2_reg">
                                     <label for="UploadDocument"> Click here to upload your license  <img src={require('../../assets/images/links.png')}  alt=""  title="" className="link_docs" /></label>
                                     <input type="file" style={{ display: 'none' }} id="UploadDocument" name="UploadDocument" onChange={this.UploadFile} onChange={(e) => this.UploadFile(e)} multiple />
-                                   
                                 </Grid>
                             }
                             <Grid className="registerRow accountTyp">
@@ -675,7 +629,6 @@ class Index extends Component {
                                         </Grid>
                                     </Grid>
                                  </Grid>
-                                 
                             </Grid>
 
                             <Grid className="registerRow">

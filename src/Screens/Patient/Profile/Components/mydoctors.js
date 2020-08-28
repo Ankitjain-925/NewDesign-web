@@ -11,6 +11,7 @@ import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
 import Select from 'react-select';
 import Loader from './../../../Components/Loader/index';
+import { getImage } from './../../../Components/BasicMethod/index';
 
 var doctorArray = [];
 
@@ -362,13 +363,13 @@ class Index extends Component {
     }
  
     //For geting the Images of the doctors
-    getImage = (image) => {
-        const myFilterData = this.state.images && this.state.images.length > 0 && this.state.images.filter((value, key) =>
-            value.image === image);
-        if (myFilterData && myFilterData.length > 0) {
-            return myFilterData[0].new_image;
-        }
-    }
+    // getImage = (image) => {
+    //     const myFilterData = this.state.images && this.state.images.length > 0 && this.state.images.filter((value, key) =>
+    //         value.image === image);
+    //     if (myFilterData && myFilterData.length > 0) {
+    //         return myFilterData[0].new_image;
+    //     }
+    // }
 
     //After confirm User delete from My doctor
     deleteClickDoctor=(doctor) =>{
@@ -456,7 +457,7 @@ class Index extends Component {
                                     <Grid className="trstmkFmlyDoc">
                                         <Grid container direction="row" alignItems="center">
                                             <Grid item xs={12} md={4}>
-                                                {index.image ? <a><img src={this.getImage(index.image)} alt="" title="" /> </a>
+                                                {index.image ? <a><img src={getImage(index.image, this.state.images)} alt="" title="" /> </a>
                                                     : <a><img src={require('../../../../assets/images/chatPerson.jpg')} alt="" title="" /> </a>}<label>{index.first_name && index.first_name} {index.last_name && index.last_name}</label></Grid>
                                             <Grid item xs={12} md={8}><p>{index.alies_id && index.alies_id}</p></Grid>
                                         </Grid>
@@ -533,7 +534,7 @@ class Index extends Component {
                                         <Grid className="recmkFmlyDoc">
                                             <Grid container direction="row" alignItems="center">
                                                 <Grid item xs={12} md={4}>
-                                                    {index.image ? <a><img src={this.getImage(index.image)} alt="" title="" /> </a>
+                                                    {index.image ? <a><img src={getImage(index.image, this.state.images)} alt="" title="" /> </a>
                                                         : <a><img src={require('../../../../assets/images/chatPerson.jpg')} alt="" title="" /> </a>}
                                                     <label>{index.first_name && index.first_name} {index.last_name && index.last_name}</label></Grid>
                                                 <Grid item xs={12} md={8}><p>{index.alies_id}</p></Grid>

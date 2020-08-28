@@ -1842,6 +1842,14 @@ a.profilMenu {
     .presPkgIner2 {
         min-height: auto !important;
     }
+    .mainLogoAdd {
+        margin-top: 12px !important;
+    }
+}
+@media (max-width: 992px){ 
+    .srvcBoxCntnt {
+        width: 98% !important;
+    }
 }
 .menuItems ul li ul li {
     display: block !important;
@@ -4591,9 +4599,10 @@ body {
     position: absolute;
     left: 10%;
     right: 10%;
-    top: 15%;
+    top: 30%;
     text-align: center;
     margin: 0 auto;
+    width: 400px;
 }
 .dataLoader {
     position: fixed;
@@ -4602,7 +4611,7 @@ body {
     min-height: 100vh;
     left: 0;
     top: 0;
-    z-index: 9;
+    z-index: 9999;
 }
 /* End of loader css */
 
@@ -4746,9 +4755,9 @@ span.revwRed{
     letter-spacing: 0;
     line-height: 14px;
 }
-.shrHlthChk span.MuiIconButton-label {
+/* .shrHlthChk span.MuiIconButton-label {
     color: #BFC1C1 !important;
-}
+} */
 .shrHlthMain {
     padding: 22px 24px 22px 24px;
 }
@@ -5705,13 +5714,376 @@ a.nxtpag {
 }
 .noDevices {
     text-align: center;
-    margin-top: 10%;
+    margin-top: 5%;
     margin-bottom: 10%;
 }
 
+/* trackers self data model */
+.srvcBoxCntnt {
+    width: 984px;
+    background: #fff;
+    margin: 0 auto;
+    border: none;
+    outline: none;
+    border-radius: 12px;
+    background-color: #FFFFFF;
+    -webkit-box-shadow: 0 24px 32px 0 rgba(0,8,8,0.08);
+    box-shadow: 0 24px 32px 0 rgba(0,8,8,0.08);
+    margin-top: 35px;
+}
+.srvcCourse {
+    padding: 22px 26px 35px 26px;
+}
+.srvcCloseBtn {
+    text-align: right;
+    margin-bottom: 4px;
+}
+.srvcCloseBtn img {
+    width: 26px;
+    cursor: pointer;
+}
+.srvcCourse label {
+    color: #000808;
+    font-family: Muli;
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 32px;
+    margin-bottom: 2px;
+}
+.srchSrvc input {
+    border: 1px solid #BFC1C1;
+    border-radius: 4px;
+    background-color: #FFFFFF;
+    width: 100%;
+    outline: none;
+    padding: 7px 12px;
+}
+.srchSrvc input::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+    color: #BFC1C1;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 18px;
+  }
+  .srchSrvc input::-moz-placeholder { /* Firefox 19+ */
+    color: #BFC1C1;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 18px;
+  }
+  .srchSrvc input:-ms-input-placeholder { /* IE 10+ */
+    color: #BFC1C1;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 18px;
+  }
+  .srchSrvc input:-moz-placeholder { /* Firefox 18- */
+    color: #BFC1C1;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 18px;
+  }
+  .srchSrvc {
+    position: relative;
+  }
+  .srchSrvc img {
+    position: absolute;
+    top: 9px;
+    right: 12px;
+}
+.srchSrvc {
+    margin: 12px 0px 35px 0px;
+}
+.mainLogo1 img {
+    height: 24px;
+}
+.fitBitSection {
+    text-align: center;
+    border-radius: 12px;
+    background-color: #F2F2F2;
+    padding: 22px 16px;
+    margin-bottom: 11px;
+    cursor: pointer;
+}
+.fitBitSection:hover {
+    background-color: #FFFFFF;
+    box-shadow: 0 8px 16px 0 rgba(0,8,8,0.08);
+}
+.mainLogoAdd img {
+    margin-right: 8px;
+    vertical-align: text-bottom;
+}
+.mainLogoAdd a {
+    color: #7F8383;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 12px;
+}
+.mainLogoAdd {
+    margin-top: 36px;
+}
+.mainLogo2 img {
+    height: 15px;
+}
+img.addBlue {
+    display: none;
+}
+.mainLogoAdd:hover img.addBlue {
+    display: initial !important;
+}
+.mainLogoAdd:hover img.addGray {
+    display: none;
+}
+.mainLogoAdd a {
+    cursor: pointer;
+}
+.mainLogo3 img {
+    height: 25px;
+}
+.trckSection {
+    text-align: center;
+    margin-bottom: 15px;
+    cursor: pointer;
+    border-radius: 12px;
+    background-color: #FFFFFF;
+    box-shadow: 0 8px 16px 0 rgba(0,8,8,0.08);
+}
+.trckLogo img {
+    height: 24px;
+}
+.trckDots img {
+    height: 24px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.trckDots {
+    text-align: right;
+    margin-bottom: 20px;
+}
+.trckCntnt label {
+    color: #404646;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 14px;
+    text-align: center;
+    display: block;
+    margin-bottom: 12px;
+}
+.trckCntnt p {
+    color: #7F8383;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 12px;
+    text-align: center;
+}
+.trckCntnt {
+    margin-top: 21px;
+    margin-bottom: 12px;
+}
+.trackView a {
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 12px;
+    color: #ffffff !important;
+}
+.trckSecIner {
+    padding: 22px 16px 0px 16px;
+}
+.trackView {
+    padding: 8px 4px;
+    border-radius: 0 0 12px 12px;
+}
+.trackView:hover {
+    background-color: #00ABAF;
+}
+.selfData {
+    margin-top: 14px;
+}
+.scndOption label {
+    color: #7F8383;
+    font-family: Muli;
+    font-size: 16px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 20px;
+}
+/* .scndOptionIner {
+    min-height: 52px;
+    border-radius: 12px;
+    background-color: #FFFFFF;
+    box-shadow: 0 1px 8px 0 rgba(0,8,8,0.04);
+    padding: 14px 20px;
+} */
+img.openScnd {
+    height: 24px;
+    width: 24px;
+    cursor: pointer;
+}
+.scndOptionIner ul li a {
+    color: #404646;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 14px;
+    list-style-type: none;
+    cursor: pointer;
+    padding: 8px 12px;
+}
+.scndOptionIner ul li a:hover {
+    border-radius: 8px;
+    background-color: #FAFAFA;
+    color: #000808;
+}
+.scndOptionIner ul li{
+    list-style-type: none;
+    margin-bottom: 7px;
+}
+.scndOptionIner ul li a img {
+    margin-right: 10px;
+}
+.scndOptionIner ul {
+    display: none;
+    border: 1px solid #F2F2F2;
+    border-radius: 8px;
+    background-color: #FFFFFF;
+    box-shadow: 0 8px 16px 0 rgba(0,8,8,0.08);
+    padding-left: 0px;
+    margin-bottom: 0px;
+    padding: 12px 16px;
+    position: absolute;
+    top: 32px;
+    right: 0;
+    text-align: left;
+    z-index: 111;
+}
+a.openScndhrf:hover ul {
+    display: block !important;
+}
+a.openScndhrf {
+    display: block;
+    position: relative;
+    text-align: right;
+}
+.scndOptionIner ul li:last-child {
+    margin-bottom: 0px !important;
+}
+.custmComponent {
+    width: 328px;
+    margin-left: 4%;
+    margin-top: 32px;
+}
+.scndOption {
+    margin-bottom: 32px;
+}
+
+.datBoxCntnt {
+    width: 100%;
+    background: #fff;
+    margin: 0 auto;
+    border: none;
+    outline: none;
+    border-radius: 12px;
+    background-color: #FFFFFF;
+    box-shadow: 0 24px 32px 0 rgba(0,8,8,0.08);
+    margin-top: 0px;
+}
+.datCloseBtn {
+    text-align: right;
+    margin-bottom: 4px;
+}
+.datCloseBtn img {
+    width: 26px;
+    cursor: pointer;
+}
+.expndLogo img {
+    width: 90px;
+}
+.datCourse {
+    background-color: #F7F7F7;
+    min-height: 123px;
+    padding: 15px 40px 30px 40px;
+}
+.expndLogo a {
+    border-right: 2px solid #D9DADA;
+    margin-right: 30px;
+    padding-right: 22px;
+    min-height: 30px;
+    display: inline-block;
+}
+.expndLogo a:last-child {
+    border-right: none !important;
+}
+.fitBitVersaUpr {
+    display: flex;
+    margin-top: 30px;
+}
+.fitBitVersaActv {
+    background-color: #FFFFFF !important;
+    box-shadow: 0 8px 16px 0 rgba(0,8,8,0.08);
+    border-bottom: 2px solid #00ABAF;
+}
+.fitBitVersa {
+    background-color: #F2F2F2;
+    padding: 15px 16px;
+    border-radius: 12px;
+    margin-right: 22px;
+}
+.fitBitVersa label {
+    margin-bottom: 10px;
+    color: #404646;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 14px;
+}
+.fitBitVersa p {
+    color: #7F8383;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 12px;
+}
 
 /*Added By ankita*/
-/*For Documents*/
+/* For Second Opinion*/
+.opinBoxCntntIner {
+    height: 564px;
+    overflow-y: scroll;
+}
+.click_document
+{
+    cursor: pointer;
+}
+/*For Documents*/ 
+h4.Inquirypaddingtop {
+    padding-top: 25px;
+}
+.scndOptionIner ul {
+    margin-top: -8px !important;
+}
+.scndOptionIner ul li a img {
+    height: 15px !important;
+    width: auto !important;
+}
 a.activePageDocutmet {
     color: #000 !important;
     font-weight: 700 !important;

@@ -63,6 +63,7 @@ class Index extends Component {
         this.props.history.push('/');
       }
     
+      //On send the Change Password
       BtnSubmit=() =>{
         let password_valid, auth_error, pass_change;
         let password = this.state.inputPass;

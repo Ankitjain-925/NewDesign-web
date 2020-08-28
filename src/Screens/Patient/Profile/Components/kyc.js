@@ -50,7 +50,6 @@ class Index extends Component {
         var npmCountry = npmCountryList().getData()
         this.setState({ selectCountry: npmCountry })
         this.getKYC();
-        // console.log("444", npmCountry)
     }
 
     //Get the Exist KYC
@@ -89,7 +88,7 @@ class Index extends Component {
             else {
                 this.setState({ CreateKYC: { number: '', authority: '', country: 'US', attachment: [] }, selectedCountry: 'US', })
             }
-        }).catch(err => { console.log("ERROR", err) })
+        }).catch(err => { })
     }
 
     //set the state of authority
@@ -195,17 +194,11 @@ class Index extends Component {
                 var url = returnData.url;
 
                 // Put the fileType in the headers for the upload
-                var options = {
-                    headers: {
-                        'Content-Type': fileType
-                    }
-                };
+                var options = {  headers: {  'Content-Type': fileType  }  };
                 axios.put('https://cors-anywhere.herokuapp.com/' + signedRequest, file, options)
                     .then(result => { this.setState({loaderImage   : false})})
                     .catch(error => { })
-                }).catch(error => {
-                    console.log(JSON.stringify(error));
-                })
+                }).catch(error => { })
             }
         }
         else { this.setState({ err_pdf: true, err_document: false, err1: false }) }
@@ -388,7 +381,7 @@ class Index extends Component {
                                     {value.type === 'UploadID' &&
                                     <Grid>
                                         <Grid className="kycForms sprtImg">
-                                            <Grid><label>Upload a photo of your ID Card222</label></Grid>
+                                            <Grid><label>Upload a photo of your ID Card</label></Grid>
                                             <Grid><label className="attached_file">Attached Document - <a>{this.state.KYC_ID}</a></label></Grid>
                                             <Grid className="browsInput">
                                                 <a><img src={require('../../../../assets/images/upload-file.svg')} alt="" title="" /></a>
@@ -397,7 +390,7 @@ class Index extends Component {
                                             <p>Supported file types: .jpg, .png, .pdf</p>
                                         </Grid>
                                         <Grid className="kycForms sprtImg">
-                                            <Grid><label>Upload a photo of your ID Card222</label></Grid>
+                                            <Grid><label>Upload a photo of your ID Card</label></Grid>
                                             <Grid className="browsInput">
                                                 <a><img src={require('../../../../assets/images/upload-file.svg')} alt="" title="" /></a>
                                                 <a>Browse <input type="file" name="UploadLicense" onChange={this.AttachKyc}/></a> or drag here
@@ -408,16 +401,16 @@ class Index extends Component {
                                     {value.type === 'UploadLicense' &&
                                     <Grid>
                                         <Grid className="kycForms sprtImg">
-                                            <Grid><label>Upload a photo of your ID Card3333</label></Grid>
+                                            <Grid><label>Upload a photo of your ID Card</label></Grid>
                                             <Grid className="browsInput">
                                                 <a><img src={require('../../../../assets/images/upload-file.svg')} alt="" title="" /></a>
                                                 <a>Browse <input type="file" name="UploadID" onChange={this.AttachKyc}/></a> or drag here
                                             </Grid>
                                             <p>Supported file types: .jpg, .png, .pdf</p>
                                         </Grid>
-                                    
+
                                         <Grid className="kycForms sprtImg">
-                                            <Grid><label>Upload a photo of your ID Card3333</label></Grid>
+                                            <Grid><label>Upload a photo of your ID Card</label></Grid>
                                             <Grid><label className="attached_file">Attached Document - <a>{this.state.KYC_LICENSE}</a></label></Grid>
                                             <Grid className="browsInput">
                                                 <a><img src={require('../../../../assets/images/upload-file.svg')} alt="" title="" /></a>
@@ -431,7 +424,7 @@ class Index extends Component {
                                 :
                                 <Grid>
                                     <Grid className="kycForms sprtImg">
-                                        <Grid><label>Upload a photo of your ID Card555</label></Grid>
+                                        <Grid><label>Upload a photo of your ID Card</label></Grid>
                                         <Grid className="browsInput">
                                             <a><img src={require('../../../../assets/images/upload-file.svg')} alt="" title="" /></a>
                                             <a>Browse <input type="file" name="UploadID" onChange={this.AttachKyc}/></a> or drag here
@@ -440,7 +433,7 @@ class Index extends Component {
                                     </Grid>
 
                                     <Grid className="kycForms sprtImg">
-                                        <Grid><label>Upload a photo of your ID Card555</label></Grid>
+                                        <Grid><label>Upload a photo of your ID Card</label></Grid>
                                         <Grid className="browsInput">
                                             <a><img src={require('../../../../assets/images/upload-file.svg')} alt="" title="" /></a>
                                             <a>Browse <input type="file" name="UploadLicense" onChange={this.AttachKyc}/></a> or drag here

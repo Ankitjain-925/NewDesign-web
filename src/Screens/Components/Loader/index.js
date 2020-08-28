@@ -4,7 +4,7 @@ class Loader extends Component {
     render() {
         return (
             <Grid className="dataLoader"> 
-                <img src={require('../../../assets/images/spinner.gif')} alt="" title="" />
+                <img src={require('../../../assets/images/LoaderAim.gif')} alt="" title="" />
             </Grid>
         );
     }

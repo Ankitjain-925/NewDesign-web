@@ -74,9 +74,12 @@ class Index extends Component {
         // this.props.filterate(category);
       }
       
+    //Link for the register
     register = () => {
         this.props.history.push('/register');
     }
+
+    //Link for the forgot Password
     forgotPassword = () => {
         this.props.history.push('/forgot-password');
     }
@@ -93,16 +96,13 @@ class Index extends Component {
             [input]: value
         })
     }
-
-    handleweoffer = (e) => {
-        const state = this.state.weoffer
-        state[e.target.name] = e.target.checked;
-        this.setState({ weoffer: state });
-    }
+    //For validate the email
     validateEmail = (elementValue) => {
         var emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
         return emailPattern.test(elementValue);
     }
+
+    //Send email and Password to login
     BtnSubmit = () => {
         this.setState({ loginError: false, loginError2: false, loginError9: false })
         if (this.state.inputPass && this.state.inputPass !== '') {
@@ -162,6 +162,8 @@ class Index extends Component {
             this.setState({ loginError9: true })
         }
     }
+
+    //For verify the code of Authy
     Verifycode = () => {
         this.setState({ loaderImage: true })
         axios.post(path + '/verifyLogin', { mob_token: this.state.mob_token, authyId: this.props.stateLoginValueAim.user.authyId },

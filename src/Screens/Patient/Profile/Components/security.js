@@ -15,6 +15,7 @@ class Index extends Component {
            PassDone : false,
            notmatch : false,
            loaderImage : false,
+           fillall : false,
         };
     }
 
@@ -23,37 +24,42 @@ class Index extends Component {
         const state = this.state.Password;
         state[e.target.name] = e.target.value;
         this.setState({ Password: state }, ()=>{ 
-            if(this.state.Current_state.password !== this.state.Password.current_pass ) { this.setState({notmatch : true}) }
-            else { this.setState({notmatch : false}
-            )} 
+            if(this.state.Current_state.password !== this.state.Password.current_pass ) { this.setState({notmatch : true, fillall : false}) }
+            else { this.setState({notmatch : false, fillall : false}) } 
         });
     }
 
     //For Change Password
     ChangePassword=()=>{
-        if(!this.state.notmatch)
+        if(this.state.Password.new_pass && this.state.Password.new_pass !=='' && this.state.Password.current_pass && this.state.Password.current_pass !=='' )
         {
-            if(this.state.Password.new_pass !=='' && this.state.Password.new_pass === this.state.Password.new_pass_comfirm)
+            if(!this.state.notmatch)
             {
-                this.setState({notmatchCon : false, loaderImage: true})
-                axios.put(sitedata.data.path + '/UserProfile/Users/update', {
-                    password: this.state.Password.new_pass,
-                }, {
-                    headers: {
-                        'token': this.props.user_token,
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json'
-                    }
-                }).then((responce) => {
-                    this.setState({PassDone : true, loaderImage : false})
-                    setTimeout(()=>{ this.setState({PassDone: false}) }, 5000)
-                })
-            }
-            else
-            {
-                this.setState({notmatchCon : true})
-            }
-        }   
+                if(this.state.Password.new_pass !=='' && this.state.Password.new_pass === this.state.Password.new_pass_comfirm)
+                {
+                    this.setState({notmatchCon : false, loaderImage: true, fillall : false})
+                    axios.put(sitedata.data.path + '/UserProfile/Users/update', {
+                        password: this.state.Password.new_pass,
+                    }, {
+                        headers: {
+                            'token': this.props.user_token,
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        }
+                    }).then((responce) => {
+                        this.setState({PassDone : true, loaderImage : false})
+                        setTimeout(()=>{ this.setState({PassDone: false}) }, 5000)
+                    })
+                }
+                else
+                {
+                    this.setState({notmatchCon : true, fillall : false})
+                }
+            }   
+        }
+        else {
+            this.setState({fillall : true})
+        }
     }
 
     // for Enable/Disable 2fa
@@ -82,6 +88,7 @@ class Index extends Component {
                 {this.state.PassDone && <div className="success_message">Password is changed</div>}
                 {this.state.notmatchCon && <div className="err_message">New password and confirmed password is not same</div>}
                 {this.state.notmatch && <div className="err_message">Current password is not matching</div>}
+                {this.state.fillall && <div className="err_message">Please fill the fields</div>}
                 {this.state.is2faDone && <div className="success_message">2- Factor authentication {this.state.is2fa ? 'enabled' : 'disabled'}</div>}
                 <Grid container direction="row" alignItems="center" spacing={2}>
                     <Grid item xs={12} md={5}>

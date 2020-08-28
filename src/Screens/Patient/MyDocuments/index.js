@@ -25,6 +25,7 @@ import Loader from './../../Components/Loader/index';
 import { Redirect, Route } from 'react-router-dom';
 import SickList from './Components/sickcertificate';
 import PrecriptionList from './Components/prescription';
+import { AddFavDoc, ConsoleCustom } from './../../Components/BasicMethod/index';
 
 const specialistOptions = [
     { value: 'Specialist1', label: 'Specialist1' },
@@ -67,7 +68,15 @@ class Index extends Component {
             docProfile1: false,
             AddSickCertificate: {},
             selectedSdoc : {},
-            selectedPdoc : {}
+            selectedPdoc : {},
+            AllSick : [],
+            newItemp : {},
+            newItems : {},
+            share_to_doctor: false,
+            share_to_doctor1: false,
+            found1 : false,
+            found : false,
+            selectedSub : {}
         };
     }
 
@@ -89,7 +98,6 @@ class Index extends Component {
 
     handleSpecialist = specialistOption => {
         this.setState({ specialistOption });
-        //console.log(`Option selected:`, specialistOption);
     };
 
     //For change the Tab
@@ -117,7 +125,7 @@ class Index extends Component {
     patientinfo() {
         var user_id = this.props.stateLoginValueAim.user._id;
         var user_token = this.props.stateLoginValueAim.token;
-        axios.get(sitedata.data.path + '/rightinfo/patient',
+        axios.get(sitedata.data.path + '/UserProfile/Users/' + user_id, 
         {
             headers: {
                 'token': user_token,
@@ -136,19 +144,19 @@ class Index extends Component {
             var user_token = this.props.stateLoginValueAim.token;
             data.patient_id = this.props.stateLoginValueAim.user._id;
             data.patient_email = this.props.stateLoginValueAim.user.email;
-            data.first_name = this.state.personalinfo.info.first_name;
-            data.last_name = this.state.personalinfo.info.last_name;
+            data.first_name = this.state.personalinfo.first_name;
+            data.last_name = this.state.personalinfo.last_name;
             data.email = this.props.stateLoginValueAim.user.email;
-            data.birthday = this.state.personalinfo.info.birthday;
-            data.profile_image = this.state.personalinfo.info.image;
+            data.birthday = this.state.personalinfo.birthday;
+            data.profile_image = this.state.personalinfo.image;
             data.patient_profile_id = this.props.stateLoginValueAim.user.profile_id;
             data.patient_info = {
                 patient_id: this.props.stateLoginValueAim.user.profile_id,
-                first_name: this.state.personalinfo.info.first_name,
-                last_name: this.state.personalinfo.info.last_name,
+                first_name: this.state.personalinfo.first_name,
+                last_name: this.state.personalinfo.last_name,
                 email: this.props.stateLoginValueAim.user.email,
-                birthday: this.state.personalinfo.info.birthday,
-                profile_image: this.state.personalinfo.info.image,
+                birthday: this.state.personalinfo.birthday,
+                profile_image: this.state.personalinfo.image,
                 bucket: this.props.stateLoginValueAim.user.bucket,
             };
             data.status = "free";
@@ -165,9 +173,13 @@ class Index extends Component {
             data.send_on = new Date();
             this.setState({ loaderImage: true })
             axios.post(sitedata.data.path + '/UserProfile/SickCertificate', data).then((response) => {
-                this.setState({ docProfile: false, AddSickCertificate: {}, loaderImage: false, successfullsent1: true })
+                if(this.state.share_to_doctor1)
+                {
+                    AddFavDoc(this.state.docProfile1.profile_id, this.state.docProfile1.profile_id, this.props.stateLoginValueAim.token,  this.props.stateLoginValueAim.user.profile_id);
+                }
+                this.setState({ newItems : data, docProfile: false, AddSickCertificate: {}, loaderImage: false, successfullsent1: true })
             })
-            setTimeout(() => { this.setState({ successfullsent1: false }); }, 5000);
+            setTimeout(() => { this.setState({ successfullsent1: false, addSick : false });  }, 5000);
         }
         else {
             this.setState({ error1: true });
@@ -183,20 +195,20 @@ class Index extends Component {
             this.setState({ error: false });
             var user_token = this.props.stateLoginValueAim.token;
             data.status = "free";
-            data.first_name = this.state.personalinfo.info.first_name;
-            data.last_name = this.state.personalinfo.info.last_name;
-            data.birthday = this.state.personalinfo.info.birthday;
-            data.profile_image = this.state.personalinfo.info.image;
+            data.first_name = this.state.personalinfo.first_name;
+            data.last_name = this.state.personalinfo.last_name;
+            data.birthday = this.state.personalinfo.birthday;
+            data.profile_image = this.state.personalinfo.image;
             data.patient_id = this.props.stateLoginValueAim.user._id;
             data.patient_profile_id = this.props.stateLoginValueAim.user.profile_id;
             data.patient_email = this.props.stateLoginValueAim.user.email;
             data.patient_info = {
                 patient_id: this.props.stateLoginValueAim.user.profile_id,
-                first_name: this.state.personalinfo.info.first_name,
-                last_name: this.state.personalinfo.info.last_name,
+                first_name: this.state.personalinfo.first_name,
+                last_name: this.state.personalinfo.last_name,
                 email: this.props.stateLoginValueAim.user.email,
-                birthday: this.state.personalinfo.info.birthday,
-                profile_image: this.state.personalinfo.info.image,
+                birthday: this.state.personalinfo.birthday,
+                profile_image: this.state.personalinfo.image,
                 bucket: this.props.stateLoginValueAim.user.bucket
             };
             data.view_status = "free";
@@ -212,16 +224,21 @@ class Index extends Component {
             data.send_on = new Date();
             this.setState({ loaderImage: true })
             axios.post(sitedata.data.path + '/UserProfile/Prescription', data) .then((response) => {
-                this.setState({ docProfile: false, AddPrescription: {}, loaderImage: false, successfullsent: true })
+                if(this.state.share_to_doctor)
+                {
+                    AddFavDoc(this.state.docProfile.profile_id, this.state.docProfile.profile_id, this.props.stateLoginValueAim.token, this.props.stateLoginValueAim.user.profile_id);
+                }
+                this.setState({ newItemp : data, docProfile: false, AddPrescription: {}, loaderImage: false, successfullsent: true })
             })
-            setTimeout(() => { this.setState({ successfullsent: false }); }, 5000);
+            setTimeout(() => { this.setState({ successfullsent: false, addInqry : false}); }, 5000);
         }
         else {
             this.setState({ error: true });
             setTimeout(() => { this.setState({ error: false }) }, 5000);
         }
     }
-
+     
+    //Add doctor for Prescription
     AddDoctor = (e, name) => {
         const state = this.state.AddPrescription;
         state[name] = e.value;
@@ -234,19 +251,18 @@ class Index extends Component {
                         'Content-Type': 'application/json'
                     }
                 }).then((response) => {
-                    this.setState({ docProfile: response.data.data })
+                    const found = this.state.personalinfo.fav_doctor && this.state.personalinfo.fav_doctor.length>0 && this.state.personalinfo.fav_doctor.some(el => el.doctor === response.data.data.profile_id);
+                    this.setState({ docProfile: response.data.data, found : found })
                 })
             }
         })
     }
     //Add Sick Cerificate Doctor
     AddDocotor = (e, name) => {
-        console.log('HereDoc', e)
         const state = this.state.AddSickCertificate;
         state[name] = e.value;
         this.setState({ AddSickCertificate: state, selectedSdoc : e }, () => {
             if (this.state.AddSickCertificate.doctor_id) {
-                console.log('this.state.AddSickCertificate.doctor_id11', this.state.AddSickCertificate.doctor_id)
                 let doctor_id = this.state.AddSickCertificate.doctor_id
                 axios.get(sitedata.data.path + '/UserProfile/DoctorProfile/' + doctor_id, {
                     headers: {
@@ -254,7 +270,8 @@ class Index extends Component {
                         'Content-Type': 'application/json'
                     }
                 }).then((response) => {
-                    this.setState({ docProfile1: response.data.data })
+                    const found = this.state.personalinfo.fav_doctor && this.state.personalinfo.fav_doctor.length>0 && this.state.personalinfo.fav_doctor.some(el => el.doctor === response.data.data.profile_id);
+                    this.setState({ docProfile1: response.data.data, found1 : found })
                 })
             }
         })
@@ -271,6 +288,13 @@ class Index extends Component {
         const state = this.state.AddSickCertificate;
         state[name] = value;
         this.setState({ AddSickCertificate: state })
+    }
+
+    //For set the Name by Event like since_when for Sick certificate
+    eventnameSetP = (name, value) =>{
+        const state = this.state.AddPrescription;
+        state[name] = value.value;
+        this.setState({ AddPrescription: state, selectedSub : value })
     }
 
     // Add the Prescription State
@@ -296,7 +320,15 @@ class Index extends Component {
             {
                 var data = [];
                 response.data.data.map((item)=>{
-                    var name = `${item.first_name && item.first_name} ${item.last_name && item.last_name}`;
+                    var name = '';
+                if(item.first_name && item.last_name)
+                {
+                    name = item.first_name +' '+ item.last_name 
+                }
+                else if(item.first_name)
+                {
+                    name = item.first_name
+                } 
                     data.push({value : item._id, label : name});
                 })
                 this.setState({ Pdoctors: data })
@@ -318,7 +350,15 @@ class Index extends Component {
             {
                 var data = [];
                 response.data.data.map((item)=>{
-                    var name = `${item.first_name && item.first_name} ${item.last_name && item.last_name}`;
+                    var name = '';
+                    if(item.first_name && item.last_name)
+                    {
+                        name = item.first_name +' '+ item.last_name 
+                    }
+                    else if(item.first_name)
+                    {
+                        name = item.first_name
+                    } 
                     data.push({value : item._id, label : name});
                 })
                 this.setState({ Sdoctors: data })
@@ -336,7 +376,6 @@ class Index extends Component {
         return (
             <Grid className="homeBg">
                 {this.state.loaderImage && <Loader />}
-                {console.log("this.state.AddSickCertificate", this.state.AddSickCertificate)}
                 <Grid className="homeBgIner">
                     <Grid container direction="row" justify="center">
                         <Grid item xs={12} md={12}>
@@ -377,7 +416,7 @@ class Index extends Component {
                                                     {this.state.successfullsent1 && <div className="success_message">Request sent Sucessfully</div>}
                                                     {this.state.error1 && <div className="err_message">For Sick certificate request Doctor is required</div>}
                                                     <Grid className="docHlthMain">
-                                                        <Grid className="docHlth">
+                                                        {!this.state.found1 && <Grid className="docHlth">
                                                             <h2>Share health status</h2>
                                                             <Grid className="docHlthChk">
                                                                 <FormControlLabel
@@ -386,7 +425,7 @@ class Index extends Component {
                                                                             value="checkedB"
                                                                             color="#00ABAF"
                                                                             name="share_to_doctor"
-                                                                            checked={this.state.share_to_doctor === true && this.state.share_to_doctor} onChange={(e)=>{this.setState({share_to_doctor : e.target.checked})}}
+                                                                            checked={this.state.share_to_doctor1 === true && this.state.share_to_doctor1} onChange={(e)=>{this.setState({share_to_doctor1 : e.target.checked})}}
                                                                         />
                                                                     }
                                                                     label="Share journal health status with Doctor"
@@ -405,7 +444,7 @@ class Index extends Component {
                                                                     <p>- Health issues (Diabetes, Hypertension ...)</p>
                                                                 </ReactTooltip>
                                                             </p>
-                                                        </Grid>
+                                                        </Grid>}
                                                         <Grid className="drstndrdQues">
                                                             <h3>Doctor and standard questions</h3>
                                                             <Grid className="drsplestQues">
@@ -523,7 +562,7 @@ class Index extends Component {
                                                     {this.state.error && <div className="err_message">For Precription request Doctor is required</div>}
                                                     <Grid className="docHlthMain">
 
-                                                        <Grid className="docHlth">
+                                                    {!this.state.found && <Grid className="docHlth">
                                                             <h2>Share health status</h2>
                                                             <Grid className="docHlthChk">
                                                                 <FormControlLabel
@@ -531,6 +570,7 @@ class Index extends Component {
                                                                         <Checkbox
                                                                             value="checkedB"
                                                                             color="#00ABAF"
+                                                                            checked={this.state.share_to_doctor === true && this.state.share_to_doctor} onChange={(e)=>{this.setState({share_to_doctor : e.target.checked})}}
                                                                         />
                                                                     }
                                                                     label="Share journal health status with Doctor"
@@ -550,7 +590,7 @@ class Index extends Component {
                                                                     <p>- Health issues (Diabetes, Hypertension ...)</p>
                                                                 </ReactTooltip>
                                                             </p>
-                                                        </Grid>
+                                                        </Grid>}
 
                                                         <Grid className="drstndrdQues">
                                                             <h3>Doctor and standard questions</h3>
@@ -558,9 +598,9 @@ class Index extends Component {
                                                                 <Grid><label>Doctor (Aimedis & Private)</label></Grid>
                                                                 <Grid>
                                                                     <Select
-                                                                        value={specialistOption}
-                                                                        onChange={this.handleSpecialist}
-                                                                        options={specialistOptions}
+                                                                        value={this.state.selectedPdoc}
+                                                                        onChange={(e)=>this.AddDoctor(e, 'doctor_id')}
+                                                                        options={this.state.Pdoctors}
                                                                         placeholder="Select"
                                                                         isSearchable={false}
                                                                         isMulti={false}
@@ -572,25 +612,16 @@ class Index extends Component {
                                                         <Grid className="ishelpUpr">
                                                             <Grid className="ishelpLbl"><label>Is this a follow-up prescription?</label></Grid>
                                                             <Grid className="ishelpChk">
-                                                                <FormControlLabel
-                                                                    control={
-                                                                        <Checkbox value="checkedB" color="#00ABAF" />
-                                                                    }
-                                                                    label="Yes"
-                                                                />
-                                                                <FormControlLabel
-                                                                    control={
-                                                                        <Checkbox value="checkedB" color="#00ABAF"
-                                                                        />
-                                                                    }
-                                                                    label="No"
-                                                                />
+                                                                <FormControlLabel  control={<Radio />} name="follow_up_prescription" value="yes" color="#00ABAF" checked={this.state.AddPrescription.follow_up_prescription === 'yes'} onChange={this.AddState} label="Yes"  />
+                                                                <FormControlLabel control={ <Radio />} name="follow_up_prescription" color="#00ABAF" value="no" checked={this.state.AddPrescription.follow_up_prescription === 'no'} onChange={this.AddState} label="No"/>
                                                             </Grid>
                                                             <Grid className="ishelpLbl">
                                                                 <label>How would you like to receive the prescription?</label>
                                                             </Grid>
                                                             <Grid className="ishelpChk">
-                                                                <FormControlLabel
+                                                                <FormControlLabel  control={<Radio />} name="prescription_type" value="online" color="#00ABAF" checked={this.state.AddPrescription.prescription_type === 'online'} onChange={this.AddState} label="Online"  />
+                                                                <FormControlLabel control={ <Radio />} name="prescription_type" color="#00ABAF" value="offline" checked={this.state.AddPrescription.prescription_type === 'offline'} onChange={this.AddState} label="Home address mailbox"/>
+                                                                {/* <FormControlLabel
                                                                     control={
                                                                         <Checkbox value="checkedB" color="#00ABAF" />
                                                                     }
@@ -602,7 +633,7 @@ class Index extends Component {
                                                                         />
                                                                     }
                                                                     label="Home address mailbox"
-                                                                />
+                                                                /> */}
                                                             </Grid>
                                                         </Grid>
 
@@ -611,8 +642,8 @@ class Index extends Component {
                                                             <Grid><label>Medicine / Substance</label></Grid>
                                                             <Grid>
                                                                 <Select
-                                                                    value={specialistOption}
-                                                                    onChange={this.handleSpecialist}
+                                                                    value={this.state.selectedSub}
+                                                                    onChange={(e)=>this.eventnameSetP('medication', e)}
                                                                     options={specialistOptions}
                                                                     placeholder="Select"
                                                                     isSearchable={false}
@@ -623,34 +654,34 @@ class Index extends Component {
 
                                                         <Grid className="medicnSub">
                                                             <Grid><label>Dose</label></Grid>
-                                                            <Grid className="doseMg"><input type="text" />
+                                                            <Grid className="doseMg"><input type="text" name="dose" value={this.state.AddPrescription.dose} onChange={this.AddState}/>
                                                                 <span>mg</span>
                                                             </Grid>
                                                         </Grid>
 
                                                         <Grid className="medicnSub">
                                                             <Grid><label>Trade name</label></Grid>
-                                                            <Grid><input type="text" /></Grid>
+                                                            <Grid><input type="text" name= "trade_name" value={this.state.AddPrescription.trade_name} onChange={this.AddState}/></Grid>
                                                         </Grid>
 
                                                         <Grid className="medicnSub">
                                                             <Grid><label>ATC code if applicable</label></Grid>
-                                                            <Grid><input type="text" /></Grid>
+                                                            <Grid><input type="text" name="atc_code" value={this.state.AddPrescription.atc_code} onChange={this.AddState}/></Grid>
                                                         </Grid>
 
                                                         <Grid className="medicnSub">
                                                             <Grid><label>Manufacturer</label></Grid>
-                                                            <Grid><input type="text" /></Grid>
+                                                            <Grid><input type="text" name="manufacturer" value={this.state.AddPrescription.manufacturer} onChange={this.AddState}/></Grid>
                                                         </Grid>
 
                                                         <Grid className="medicnSub">
                                                             <Grid><label>Pack size</label></Grid>
-                                                            <Grid><input type="text" /></Grid>
+                                                            <Grid><input type="text" name="pack_size" value={this.state.AddPrescription.pack_size} onChange={this.AddState}/></Grid>
                                                         </Grid>
 
                                                         <Grid className="medicnSub">
                                                             <Grid><label>Annotations / details / questions</label></Grid>
-                                                            <Grid><textarea></textarea></Grid>
+                                                            <Grid><textarea name="annotations" value={this.state.AddPrescription.annotations} onChange={this.AddState}></textarea></Grid>
                                                         </Grid>
 
                                                     </Grid>
@@ -700,11 +731,11 @@ class Index extends Component {
                                         <Grid className="presPkgIner2">
 
                                             {value === 0 && <TabContainer>
-                                                <PrecriptionList />
+                                                <PrecriptionList newItem= {this.state.newItemp} />
                                             </TabContainer>}
 
                                             {value === 1 && <TabContainer>
-                                                <SickList />
+                                                <SickList newItem= {this.state.newItems} />
                                             </TabContainer>}
                                         </Grid>
 
