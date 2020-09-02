@@ -77,7 +77,7 @@ class Index extends Component {
         if(prevProps.newItem !== this.props.newItem){
             this.getSick();
         }
-   }
+    }
      // Add the Sick Certificate State
      AddSickState = (e) => {
         const state = this.state.AddSickCertificate;
@@ -120,7 +120,7 @@ class Index extends Component {
             }
         }).then((response) => {
             this.setState({successfullsent1 : true})
-            setTimeout(()=>{this.setState({successfullsent1 : false})},5000)
+            setTimeout(()=>{this.setState({successfullsent1 : false, addSick : false})},2000)
             this.getSick();
         }).catch((error) => {
         })

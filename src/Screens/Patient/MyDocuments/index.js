@@ -177,9 +177,9 @@ class Index extends Component {
                 {
                     AddFavDoc(this.state.docProfile1.profile_id, this.state.docProfile1.profile_id, this.props.stateLoginValueAim.token,  this.props.stateLoginValueAim.user.profile_id);
                 }
-                this.setState({ newItems : data, docProfile: false, AddSickCertificate: {}, loaderImage: false, successfullsent1: true })
+                this.setState({ newItems : data, docProfile: false, AddSickCertificate: {}, selectedSdoc : {}, loaderImage: false, successfullsent1: true })
             })
-            setTimeout(() => { this.setState({ successfullsent1: false, addSick : false });  }, 5000);
+            setTimeout(() => { this.setState({ successfullsent1: false, addSick : false });  }, 2000);
         }
         else {
             this.setState({ error1: true });
@@ -228,9 +228,9 @@ class Index extends Component {
                 {
                     AddFavDoc(this.state.docProfile.profile_id, this.state.docProfile.profile_id, this.props.stateLoginValueAim.token, this.props.stateLoginValueAim.user.profile_id);
                 }
-                this.setState({ newItemp : data, docProfile: false, AddPrescription: {}, loaderImage: false, successfullsent: true })
+                this.setState({ newItemp : data, docProfile: false, AddPrescription: {}, selectedSub : {}, selectedPdoc : {}, loaderImage: false, successfullsent: true })
             })
-            setTimeout(() => { this.setState({ successfullsent: false, addInqry : false}); }, 5000);
+            setTimeout(() => { this.setState({ successfullsent: false, addInqry : false}); }, 2000);
         }
         else {
             this.setState({ error: true });

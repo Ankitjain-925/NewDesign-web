@@ -13,6 +13,7 @@ import Radio from '@material-ui/core/Radio';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
+import FileUploader from './../../../Components/FileUploader/index';
 import Loader from '../../../Components/Loader/index';
 import { getDate, getImage, GetUrlImage } from '../../../Components/BasicMethod/index'
 
@@ -57,7 +58,7 @@ class Index extends Component {
         state[e.target.name] = e.target.value;
         this.setState({ AddSecond: state })
     }
-    // Open and Close Prescription Edit Form
+    // Open and Close Second Opinion Edit Form
     handleaddInqry = (data) => {
         this.setState({ addInqry: true, showInquiry: false, AddSecond: data });
     };
@@ -66,13 +67,6 @@ class Index extends Component {
     };
 
 
-    //open and close Prescription Details
-    handleshowSick = (data) => {
-        this.setState({ showInquiry: true, addInqry: false, AddSecond: data });
-    };
-    handleCloseShowSick = () => {
-        this.setState({ showInquiry: false });
-    };
     //on adding new data
     componentDidUpdate = (prevProps) => {
         if (prevProps.newItem !== this.props.newItem) {
@@ -97,16 +91,14 @@ class Index extends Component {
     }
 
     //For upload File related the second Opinion
-    UploadFile = (event) => {
-        if (event.target.files && event.target.files[0] && (event.target.files[0].type === "application/pdf" || event.target.files[0].type === "image/jpeg" || event.target.files[0].type === "image/png")) {
-            this.setState({ isfileuploadmulti: true,  loaderImage: true })
-            event.preventDefault();
+    fileUpload = (event) => {
+        if (event &&  event[0] && (event[0].type === "application/pdf" || event[0].type === "image/jpeg" || event[0].type === "image/png")) {
+            this.setState({ isfileuploadmulti: true,  loaderImage: true, err_pdf: false })
             var fileattach = [];
-            const data = new FormData()
-            for(var i =0 ; i<event.target.files.length; i++)
+            for(var i =0 ; i<event.length; i++)
             {
-                var file = event.target.files[i];
-                let fileParts = event.target.files[i].name.split('.');
+                var file = event[i];
+                let fileParts = event[i].name.split('.');
                 let fileName = fileParts[0];
                 let fileType = fileParts[1];
                 axios.post(sitedata.data.path  + '/aws/sign_s3',{
@@ -171,7 +163,7 @@ class Index extends Component {
             }
             }).then((response) => {
                 this.setState({successfullsent : true , fileattach: {}})
-                setTimeout(()=>{this.setState({successfullsent : false})},5000)
+                setTimeout(()=>{this.setState({successfullsent : false, addInqry : false})},2000)
                 this.getPrescription();
             }).catch((error) => {
         })
@@ -303,11 +295,12 @@ class Index extends Component {
                                             <a>{items.filename && (items.filename.split('second_opinion/')[1]).split("&bucket=")[0]}</a>
                                         ))}
                                         </label>
-                                        <Grid className="attchbrowsInput">
+                                        <FileUploader name="UploadDocument" fileUpload={this.fileUpload} />
+                                        {/* <Grid className="attchbrowsInput">
                                             <a><img src={require('../../../../assets/images/upload-file.svg')} alt="" title="" /></a>
                                             <a>Browse <input type="file" id="UploadDocument" name="UploadDocument" onChange={(e) => this.UploadFile(e)} /></a> or drag here
-                                        </Grid>
-                                        <p>Supported file types: .jpg, .png, .pdf</p>
+                                        </Grid> */}
+                                        {/* <p>Supported file types: .jpg, .png, .pdf</p> */}
                                     </Grid>
                                 </Grid>
                             </Grid>
