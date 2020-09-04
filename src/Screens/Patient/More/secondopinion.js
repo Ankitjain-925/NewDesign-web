@@ -14,6 +14,7 @@ import axios from 'axios';
 import ListingSecond from './Components/ListingSecond';
 import Loader from '../../Components/Loader/index';
 import LeftMenu from './../../Components/Menus/PatientLeftMenu/index';
+import FileUploader from './../../Components/FileUploader/index';
 import { AddFavDoc, ConsoleCustom } from './../../Components/BasicMethod/index';
 
 const specialistOptions = [
@@ -25,7 +26,7 @@ class Index extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            addSecond: false,
+            addSec: false,
             specialistOption: null,
             successfullsent: false,
             Pdoctors: [],
@@ -109,9 +110,9 @@ class Index extends Component {
                 {
                     AddFavDoc(this.state.docProfile.profile_id, this.state.docProfile.profile_id, this.props.stateLoginValueAim.token,  this.props.stateLoginValueAim.user.profile_id);
                 }
-                this.setState({fileattach:{}, newItemp : data, docProfile : false, UpDataDetails: {}, loaderImage: false, successfullsent : true  })     
+                this.setState({fileattach:{}, selectedPdoc: {}, newItemp : data, docProfile : false, AddSecond : {}, loaderImage: false, successfullsent : true  })     
             })
-            setTimeout(() => { this.setState({successfullsent : false , addSecond: false}); } ,  5000 );
+            setTimeout(() => { this.setState({successfullsent : false , addSec: false}); } ,  2000 );
         }
         else {
             this.setState({ error: true });
@@ -122,10 +123,10 @@ class Index extends Component {
 
     // fancybox open
     handleaddSecond = () => {
-        this.setState({ addSecond: true });
+        this.setState({ addSec: true });
     };
     handleCloseDash = () => {
-        this.setState({ addSecond: false });
+        this.setState({ addSec: false });
     };
 
     // Add the Prescription State
@@ -187,16 +188,14 @@ class Index extends Component {
     }
 
     //For upload File related the second Opinion
-    UploadFile = (event) => {
-        if (event.target.files && event.target.files[0] && (event.target.files[0].type === "application/pdf" || event.target.files[0].type === "image/jpeg" || event.target.files[0].type === "image/png")) {
-            this.setState({ isfileuploadmulti: true,  loaderImage: true })
-            event.preventDefault();
+    fileUpload = (event) => {
+        if (event && event[0] && (event[0].type === "application/pdf" || event[0].type === "image/jpeg" || event[0].type === "image/png")) {
+            this.setState({ isfileuploadmulti: true,  loaderImage: true, err_pdf: false})
             var fileattach = [];
-            const data = new FormData()
-            for(var i =0 ; i<event.target.files.length; i++)
+            for(var i =0 ; i<event.length; i++)
             {
-                var file = event.target.files[i];
-                let fileParts = event.target.files[i].name.split('.');
+                var file = event[i];
+                let fileParts = event[i].name.split('.');
                 let fileName = fileParts[0];
                 let fileType = fileParts[1];
                 axios.post(sitedata.data.path  + '/aws/sign_s3',{
@@ -248,7 +247,7 @@ class Index extends Component {
 
                                         {/* Model setup */}
                                         <Modal
-                                            open={this.state.addSecond}
+                                            open={this.state.addSec}
                                             onClose={this.handleCloseDash}
                                             className="opinBoxModel">
                                             <Grid className="opinBoxCntnt">
@@ -303,25 +302,26 @@ class Index extends Component {
                                                             <Grid className="recevPrescp">
                                                                 <Grid className="recevPrescpLbl"><label>How would you like to receive the Second Opinion?</label></Grid>
                                                                 <Grid className="recevPrescpChk">
-                                                                    <FormControlLabel  control={<Radio />} name="online_offline" value="online" color="#00ABAF" checked={this.state.AddSecond.online_offline === 'online'} onChange={this.AddState} label="Online"  />
-                                                                    <FormControlLabel control={ <Radio />} name="online_offline" color="#00ABAF" value="offline" checked={this.state.AddSecond.online_offline === 'offline'} onChange={this.AddState} label="Home address mailbox"/>
+                                                                    <FormControlLabel  control={<Radio />} name="online_offline" value="online" color="#00ABAF" checked={this.state.AddSecond && this.state.AddSecond.online_offline === 'online'} onChange={this.AddState} label="Online"  />
+                                                                    <FormControlLabel control={ <Radio />} name="online_offline" color="#00ABAF" value="offline" checked={this.state.AddSecond && this.state.AddSecond.online_offline === 'offline'} onChange={this.AddState} label="Home address mailbox"/>
                                                                 </Grid>
                                                             </Grid>
                                                             <Grid className="yrProfes">
                                                                 <Grid><label>Your profession</label></Grid>
-                                                                <Grid><input type="text" name="professions" value={this.state.AddSecond.professions} onChange={this.AddState}/></Grid>
+                                                                <Grid><input type="text" name="professions" value={this.state.AddSecond && this.state.AddSecond.professions && this.state.AddSecond.professions} onChange={this.AddState}/></Grid>
                                                             </Grid>
                                                             <Grid className="yrProfes">
                                                                 <Grid><label>Annotations / details / questions</label></Grid>
-                                                                <Grid><textarea name="details" value={this.state.AddSecond.details} onChange={this.AddState}></textarea></Grid>
+                                                                <Grid><textarea name="details" value={this.state.AddSecond && this.state.AddSecond.details && this.state.AddSecond.details} onChange={this.AddState}></textarea></Grid>
                                                             </Grid>
                                                             <Grid className="attchForms attchImg">
                                                                 <Grid><label>Attachments</label></Grid>
-                                                                <Grid className="attchbrowsInput">
+                                                                <FileUploader name="UploadDocument" fileUpload={this.fileUpload} />
+                                                                {/* <Grid className="attchbrowsInput">
                                                                     <a><img src={require('../../../assets/images/upload-file.svg')} alt="" title="" /></a>
                                                                     <a>Browse <input type="file" id="UploadDocument" name="UploadDocument" onChange={(e) => this.UploadFile(e)} /></a> or drag here
                                                                 </Grid>
-                                                                <p>Supported file types: .jpg, .png, .pdf</p>
+                                                                <p>Supported file types: .jpg, .png, .pdf</p> */}
                                                             </Grid>
                                                         </Grid>
                                                     </Grid>

@@ -17,7 +17,7 @@ import * as PhillipinesC from '../../../Components/insuranceCompanies/phillippin
 import * as SwitzerlandC from '../../../Components/insuranceCompanies/switzerland.json';
 import * as AmericaC from '../../../Components/insuranceCompanies/us.json';
 import * as ThailandC from '../../../Components/insuranceCompanies/thailand.json';
-
+import FileUploader from './../../../Components/FileUploader/index';
 import Checkbox from '@material-ui/core/Checkbox'
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 
@@ -41,6 +41,7 @@ class Index extends Component {
             selectedOption: null,
             selectedCountry: null,
             CurrentCountry: {},
+            allField : false,
         };
         // new Timer(this.logOutClick.bind(this)) 
     }
@@ -163,16 +164,14 @@ class Index extends Component {
     }
 
     //Attach the documents
-    AttachKyc = (event)=> {
-        if (event.target.files[0].type === "application/pdf" || event.target.files[0].type === "image/jpeg" || event.target.files[0].type === "image/png") {
+    fileUpload = (event, filed_name)=> {
+        if (event[0].type === "application/pdf" || event[0].type === "image/jpeg" || event[0].type === "image/png") {
             this.setState({ loaderImage: true,err_pdf: false, err_document: false, err1: false, isfileuploadmulti: true })
-            event.preventDefault();
-            var namefield = event.target.name;
-            const data = new FormData()
-            for (var i = 0; i < event.target.files.length; i++) {
-                var file = event.target.files[i];
+            var namefield = filed_name;
+            for (var i = 0; i < event.length; i++) {
+                var file = event[i];
                 let profile_id = this.props.stateLoginValueAim.user.profile_id
-                let fileParts = event.target.files[i].name.split('.');
+                let fileParts = event[i].name.split('.');
                 let fileName = fileParts[0];
                 let fileType = fileParts[1];
                 axios.post(sitedata.data.path + '/aws/sign_s3', {
@@ -206,12 +205,12 @@ class Index extends Component {
 
     //Save KYC Data 
     saveKYC = () => {
+
         var data = this.state.CreateKYC;
         var user_id = this.props.stateLoginValueAim.user._id;
         var user_token = this.props.stateLoginValueAim.token;
         // if (this.state.fileattach1 && this.state.fileattach2) {
         data.user_id = user_id;
-        this.setState({ err_document: false });
         var attachment = this.state.CreateKYC.attachment;
         if (this.state.fileattach1) {
             var index = attachment.map((e) => { return e.type; }).indexOf('UploadID')
@@ -232,45 +231,52 @@ class Index extends Component {
             }
         }
         data.attachment = attachment;
-        if (this.state.agree) {
-            this.setState({ loaderImage: true })
-            if (data._id) {
-                axios.put(sitedata.data.path + '/User/updateKyc/' + data._id, data,
-                    {
-                        headers: {
-                            'token': user_token,
-                            'Accept': 'application/json',
-                            'Content-Type': 'application/json'
-                        }
-                    })
-                    .then((response) => {
-                        if (response.data.hassuccessed) {
-                            this.setState({ success: true, err1: false, agree: false, CreateKYC: {}, fileattach1: false, fileattach2: false, loaderImage: false })
-                            setTimeout(() => { this.setState({ success: false }); }, 3000);
-                        }
-                        this.getKYC();
-                    })
-            }
-            else {
-                axios.post(sitedata.data.path + '/User/Addkyc', data,
-                {
-                    headers: {
-                        'token': user_token,
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json'
+        if(this.state.CreateKYC && this.state.CreateKYC.country && this.state.CreateKYC.country !=='' && this.state.CreateKYC.number !== '' && this.state.CreateKYC.number && this.state.CreateKYC.authority && this.state.CreateKYC.authority !== '')
+        {
+            if( data.attachment &&  data.attachment.length>0 )
+            {
+                if (this.state.agree) {
+                    this.setState({ loaderImage: true, err_document : false, allField : false })
+                    if (data._id) {
+                        axios.put(sitedata.data.path + '/User/updateKyc/' + data._id, data,
+                            {
+                                headers: {
+                                    'token': user_token,
+                                    'Accept': 'application/json',
+                                    'Content-Type': 'application/json'
+                                }
+                            })
+                            .then((response) => {
+                                if (response.data.hassuccessed) {
+                                    this.setState({ success: true, err1: false, agree: false, CreateKYC: {}, fileattach1: false, fileattach2: false, loaderImage: false })
+                                    setTimeout(() => { this.setState({ success: false }); }, 3000);
+                                }
+                                this.getKYC();
+                            })
                     }
-                }).then((response) => {
-                    if (response.data.hassuccessed) {
-                        this.setState({ success: true, err1: false, agree: false, CreateKYC: {}, fileattach1: false, fileattach2: false, loaderImage: false })
-                        setTimeout(() => { this.setState({ success: false }) }, 3000);
+                    else {
+                        axios.post(sitedata.data.path + '/User/Addkyc', data,
+                        {
+                            headers: {
+                                'token': user_token,
+                                'Accept': 'application/json',
+                                'Content-Type': 'application/json'
+                            }
+                        }).then((response) => {
+                            if (response.data.hassuccessed) {
+                                this.setState({ success: true, err1: false, agree: false, CreateKYC: {}, fileattach1: false, fileattach2: false, loaderImage: false })
+                                setTimeout(() => { this.setState({ success: false }) }, 3000);
+                            }
+                            this.getKYC();
+                        })
                     }
-                    this.getKYC();
-                })
+                }
+                else { this.setState({ err1: true, err_document : false, allField : false}) }
             }
+            else { this.setState({ err_document: true, err1: false, allField : false})}
         }
-        else {
-            this.setState({ err1: true })
-        }
+        else { this.setState({ allField : true })}
+        
     }
 
     //For updating and country
@@ -304,6 +310,7 @@ class Index extends Component {
                     </Grid>
                     {this.state.err_pdf && <div className="err_message">Please upload PDF, PNG and JPEG file</div>}
                     {this.state.err_document && <div className="err_message">Please Upload Documents</div>}
+                    {this.state.allField && <div className="err_message">Please fill the all fields</div>}
                     {this.state.err1 && <div className="err_message">Please accept the Terms and Policy</div>}
                     {this.state.success && <div className="success_message">KYC is updated successfully</div>}
                     {this.state.fileupods && <div className="success_message">File is uploaded successfully</div>}
@@ -346,7 +353,7 @@ class Index extends Component {
                             <Grid className="kycForms">
                                 <Grid><label>Insurance Number</label></Grid>
                                 <Grid><input type="text" name="number" value={this.state.CreateKYC.number} onChange={this.newEntryState1} /></Grid>
-                            </Grid>
+                            </Grid> 
 
                             {this.state.CreateKYC && this.state.CreateKYC.attachment && this.state.CreateKYC.attachment.length > 0 && this.state.CreateKYC.attachment.length == 2 ?
                                 this.state.CreateKYC.attachment.map((value, index) => (
@@ -355,22 +362,19 @@ class Index extends Component {
                                     <Grid className="kycForms sprtImg">
                                         <Grid><label>Upload a photo of your ID Card</label></Grid>
                                         <Grid><label className="attached_file">Attached Document - <a>{this.state.KYC_ID}</a></label></Grid>
-                                        <Grid className="browsInput">
+                                        <FileUploader name="UploadID" fileUpload={this.fileUpload} />
+                                        {/* <Grid className="browsInput">
                                             <a><img src={require('../../../../assets/images/upload-file.svg')} alt="" title="" /></a>
                                             <a>Browse <input type="file" name="UploadID" onChange={this.AttachKyc}/></a> or drag here
                                         </Grid>
-                                        <p>Supported file types: .jpg, .png, .pdf</p>
+                                        <p>Supported file types: .jpg, .png, .pdf</p> */}
                                     </Grid>}
 
                                     {value.type === 'UploadLicense' &&
                                     <Grid className="kycForms sprtImg">
                                         <Grid><label>Upload a photo of your ID Card</label></Grid>
                                         <Grid><label className="attached_file">Attached Document - <a>{this.state.KYC_LICENSE}</a></label></Grid>
-                                        <Grid className="browsInput">
-                                            <a><img src={require('../../../../assets/images/upload-file.svg')} alt="" title="" /></a>
-                                            <a>Browse <input type="file" name="UploadLicense" onChange={this.AttachKyc}/></a> or drag here
-                                        </Grid>
-                                        <p>Supported file types: .jpg, .png, .pdf</p>
+                                        <FileUploader name="UploadLicense" fileUpload={this.fileUpload} />
                                     </Grid>}
                                 </Grid>
                                 ))
@@ -383,40 +387,24 @@ class Index extends Component {
                                         <Grid className="kycForms sprtImg">
                                             <Grid><label>Upload a photo of your ID Card</label></Grid>
                                             <Grid><label className="attached_file">Attached Document - <a>{this.state.KYC_ID}</a></label></Grid>
-                                            <Grid className="browsInput">
-                                                <a><img src={require('../../../../assets/images/upload-file.svg')} alt="" title="" /></a>
-                                                <a>Browse <input type="file" name="UploadID" onChange={this.AttachKyc}/></a> or drag here
-                                            </Grid>
-                                            <p>Supported file types: .jpg, .png, .pdf</p>
+                                            <FileUploader name="UploadID" fileUpload={this.fileUpload} />
                                         </Grid>
                                         <Grid className="kycForms sprtImg">
                                             <Grid><label>Upload a photo of your ID Card</label></Grid>
-                                            <Grid className="browsInput">
-                                                <a><img src={require('../../../../assets/images/upload-file.svg')} alt="" title="" /></a>
-                                                <a>Browse <input type="file" name="UploadLicense" onChange={this.AttachKyc}/></a> or drag here
-                                            </Grid>
-                                            <p>Supported file types: .jpg, .png, .pdf</p>
+                                            <FileUploader name="UploadLicense" fileUpload={this.fileUpload} />
                                         </Grid>
                                     </Grid>}
                                     {value.type === 'UploadLicense' &&
                                     <Grid>
                                         <Grid className="kycForms sprtImg">
                                             <Grid><label>Upload a photo of your ID Card</label></Grid>
-                                            <Grid className="browsInput">
-                                                <a><img src={require('../../../../assets/images/upload-file.svg')} alt="" title="" /></a>
-                                                <a>Browse <input type="file" name="UploadID" onChange={this.AttachKyc}/></a> or drag here
-                                            </Grid>
-                                            <p>Supported file types: .jpg, .png, .pdf</p>
+                                            <FileUploader name="UploadID" fileUpload={this.fileUpload} />
                                         </Grid>
 
                                         <Grid className="kycForms sprtImg">
                                             <Grid><label>Upload a photo of your ID Card</label></Grid>
                                             <Grid><label className="attached_file">Attached Document - <a>{this.state.KYC_LICENSE}</a></label></Grid>
-                                            <Grid className="browsInput">
-                                                <a><img src={require('../../../../assets/images/upload-file.svg')} alt="" title="" /></a>
-                                                <a>Browse <input type="file" name="UploadLicense" onChange={this.AttachKyc}/></a> or drag here
-                                            </Grid>
-                                            <p>Supported file types: .jpg, .png, .pdf</p>
+                                            <FileUploader name="UploadLicense" fileUpload={this.fileUpload} />
                                         </Grid>
                                     </Grid>}
                                 </Grid>
@@ -425,20 +413,12 @@ class Index extends Component {
                                 <Grid>
                                     <Grid className="kycForms sprtImg">
                                         <Grid><label>Upload a photo of your ID Card</label></Grid>
-                                        <Grid className="browsInput">
-                                            <a><img src={require('../../../../assets/images/upload-file.svg')} alt="" title="" /></a>
-                                            <a>Browse <input type="file" name="UploadID" onChange={this.AttachKyc}/></a> or drag here
-                                        </Grid>
-                                        <p>Supported file types: .jpg, .png, .pdf</p>
+                                        <FileUploader name="UploadID" fileUpload={this.fileUpload} />
                                     </Grid>
 
                                     <Grid className="kycForms sprtImg">
                                         <Grid><label>Upload a photo of your ID Card</label></Grid>
-                                        <Grid className="browsInput">
-                                            <a><img src={require('../../../../assets/images/upload-file.svg')} alt="" title="" /></a>
-                                            <a>Browse <input type="file" name="UploadLicense" onChange={this.AttachKyc}/></a> or drag here
-                                        </Grid>
-                                        <p>Supported file types: .jpg, .png, .pdf</p>
+                                        <FileUploader name="UploadLicense" fileUpload={this.fileUpload} />
                                     </Grid>
                                 </Grid>
                                 }

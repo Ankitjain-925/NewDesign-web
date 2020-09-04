@@ -118,8 +118,13 @@ class Index extends Component {
             }
         })
             .then((responce) => {
+                if(this.props.comesFrom)
+                {
+                    this.props.EditOrganDonar();
+                }
                 this.setState({PassDone : true, loaderImage : false})
                 setTimeout(()=>{ this.setState({PassDone: false}) }, 5000)
+                
             })
     }
 
@@ -291,15 +296,15 @@ class Index extends Component {
 
                     <Grid>
                         <Grid container direction="row" alignItems="center" spacing={2}>
-                            <Grid item xs={12} md={6}>
+                            <Grid item xs={12} md={this.props.comesFrom ? 12 : 6}>
                                 <Grid container direction="row" alignItems="center" spacing={2} className="donarForm">
-                                    <Grid item xs={12} md={6}>
+                                    <Grid item xs={12} md={this.props.comesFrom ? 12 : 6}>
                                         <Grid>
                                             <Grid><label>First name</label></Grid>
                                             <Grid><input type="text" name="first_name" onChange={this.updateEntryState} value={this.state.OptionData && this.state.OptionData.first_name}/></Grid>
                                         </Grid>
                                     </Grid>
-                                    <Grid item xs={12} md={6}>
+                                    <Grid item xs={12} md={this.props.comesFrom ? 12 : 6}>
                                         <Grid>
                                             <Grid><label>Last name</label></Grid>
                                             <Grid><input type="text"  name="last_name" onChange={this.updateEntryState} value={this.state.OptionData && this.state.OptionData.last_name}/></Grid>

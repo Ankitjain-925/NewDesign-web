@@ -25,6 +25,7 @@ import * as ThailandC from '../../../Components/insuranceCompanies/thailand.json
 import Autocomplete from '../Autocomplete.js';
 import { LanguageFetchReducer } from './../../../actions';
 import Modal from '@material-ui/core/Modal';
+import QRCode from 'qrcode.react';
 import Loader from './../../../Components/Loader/index';
 
 var datas = [];
@@ -444,14 +445,13 @@ class Index extends Component {
                             'Content-Type': 'application/json'
                         }
                     })
-                    .then((res) => {
-                        console.log("Response", res)
-                    })
+                    .then((res) => { })
             }
             else {
                 this.setState({ loaderImage: false });
-                if (responce.data.message === 'Phone is not verified') {
-                    this.setState({ phonevalidate: true })
+                if(responce.data.message ==='Phone is not verified')
+                {
+                    this.setState({phonevalidate : true})
                 }
                 this.setState({ error3: true })
                 setTimeout(() => { this.setState({ error3: false }) }, 5000)
@@ -597,10 +597,7 @@ class Index extends Component {
             this.setState({ UpDataDetails: response.data.data, city: response.data.data.city, area: response.data.data.area, profile_id: response.data.data.profile_id });
             this.setState({ speciality_multi: this.state.UpDataDetails.speciality })
             this.setState({ name_multi: language, title: title })
-            this.setState({
-                insurancefull: this.state.UpDataDetails.insurance,
-                insuranceDetails: { insurance: '', insurance_number: '', insurance_type: '' }
-            })
+            this.setState({ insurancefull: this.state.UpDataDetails.insurance, insuranceDetails: { insurance: '', insurance_number: '', insurance_type: '' }  })
             datas = this.state.UpDataDetails.insurance;
             this.setState({ loaderImage: false });
         }).catch((error) => {
@@ -807,8 +804,9 @@ class Index extends Component {
                                     <Grid><label>Profile QR code</label></Grid>
                                 </Grid>
                                 <Grid className="qrCourseImg">
-                                    <Grid><img src={require('../../../../assets/images/qrimg.jpg')} alt="" title="" /></Grid>
-                                    <Grid><input type="submit" value="Done" /></Grid>
+                                    {/* <Grid><img src={require('../../../../assets/images/qrimg.jpg')} alt="" title="" /></Grid> */}
+                                    <Grid> <QRCode value={this.state.UpDataDetails.profile_id} /> </Grid>
+                                    <Grid><input type="submit" value="Done" onClick={this.handleQrClose} /></Grid>
                                 </Grid>
                             </Grid>
                         </Modal>

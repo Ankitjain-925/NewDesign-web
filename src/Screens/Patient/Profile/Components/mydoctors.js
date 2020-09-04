@@ -295,8 +295,13 @@ class Index extends Component {
                     'Content-Type': 'application/json'
                 }
             }).then((responce) => {
+                if(this.props.comesFrom)
+                {
+                    this.props.EditFamilyDoc();
+                }
                 this.setState({PassDone : true, loaderImage : false })
                 setTimeout(()=>{ this.setState({PassDone: false}) }, 5000)
+                
             }) 
         } else {
             this.setState({Nodoc : true})
@@ -410,7 +415,7 @@ class Index extends Component {
         };
 
         return (
-            <div>
+            <div className={this.props.comesFrom && 'paddingSides'}>
                 <Grid className="docTabCntnt">
                     {this.state.loaderImage && <Loader />}
                     <Grid className="fmlyDoc">
@@ -422,7 +427,7 @@ class Index extends Component {
                     
                     <Grid className="addDocUpr">
                         <Grid container direction="row" alignItems="center" spacing={2}>
-                            <Grid item xs={12} md={9}>
+                            <Grid item xs={12} md={this.props.comesFrom ? 12 : 9}>
                             <Select
                                 value={this.state.family_doc}
                                 onChange={(e) => this.onSelectFamilyDoc(e)}
@@ -434,13 +439,13 @@ class Index extends Component {
                             />
                                 {/* <Grid ><p></p></Grid> */}
                             </Grid>
-                            <Grid item xs={12} md={3}>
+                            <Grid item xs={12} md={this.props.comesFrom ? 12 : 3}>
                                 <Grid className="addFmlyDoc"><a onClick={this.AddFmilyDoc}>+ Add a family doctor</a></Grid>
                             </Grid>
                         </Grid>
                     </Grid>
                 </Grid>
-
+                {!this.props.comesFrom &&
                 <Grid className="doctrstCntnt">
                   
                     <Grid className="trstfmlyDoc">
@@ -548,7 +553,7 @@ class Index extends Component {
                             </Grid>
                         ))}
                     </Grid>
-                </Grid>
+                </Grid>}
             </div>
         );
     }

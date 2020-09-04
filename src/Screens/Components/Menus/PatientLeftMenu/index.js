@@ -58,9 +58,17 @@ class Index extends Component {
     DocumentLink = ()=>{
         this.props.history.push('/patient/documents');    
     }
+    //For online Course
+    OnlineCourse = ()=>{
+        this.props.history.push('/patient/online-course');    
+    }
+    //For Tracker / Withings
+    Tracker = ()=>{
+        this.props.history.push('/patient/tracker');    
+    }
     render() {
         return (
-            <Grid item xs={12} md={1} className="MenuLeftUpr">
+            <Grid item xs={12} md={1} className="MenuLeftUpr ">
                 <Grid className="webLogo">
                     <a href="/"><img src={require('../../../../assets/images/logo_new.png')} alt="" title="" /></a>
                 </Grid>
@@ -95,8 +103,8 @@ class Index extends Component {
                             </a>
                         </li>
                         <li className={this.props.currentPage==='tracker' ? "menuActv" : ""}>
-                            <a>
-                            {this.props.currentPage==='tracker' ?  <img src={require('../../../../assets/images/tracker.jpg')} alt="" title="" />
+                            <a onClick={this.Tracker}>
+                            {this.props.currentPage==='tracker' ?  <img src={require('../../../../assets/images/track.png')} alt="" title="" />
                                 : <img src={require('../../../../assets/images/tracker.jpg')} alt="" title="" />}
                                 <span>Trackers & <br /> Self Data</span>
                             </a>
@@ -111,7 +119,7 @@ class Index extends Component {
                                     <ul>
                                         <li><a onClick={this.SecondLink}><img src={require('../../../../assets/images/menudocs.jpg')} alt="" title="" />Second Opinion</a></li>
                                         <li><a onClick={this.EmergencyLink}><img src={require('../../../../assets/images/menudocs.jpg')} alt="" title="" />Emergency Patient Data</a></li>
-                                        <li><a><img src={require('../../../../assets/images/menudocs.jpg')} alt="" title="" />Aimedis Online Courses</a></li>
+                                        <li><a onClick={this.OnlineCourse}><img src={require('../../../../assets/images/menudocs.jpg')} alt="" title="" />Aimedis Online Courses</a></li>
                                         <li><a onClick={this.ExtraLink}><img src={require('../../../../assets/images/menudocs.jpg')} alt="" title="" />Extra Services</a></li>
                                         <li><a><img src={require('../../../../assets/images/menudocs.jpg')} alt="" title="" />Journal Archive</a></li>
                                         <li><a><img src={require('../../../../assets/images/menudocs.jpg')} alt="" title="" />Blockchain Access Log</a></li>

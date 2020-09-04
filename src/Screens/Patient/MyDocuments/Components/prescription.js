@@ -131,7 +131,7 @@ class Index extends Component {
             }
         }).then((response) => {
             this.setState({ successfullsent: true })
-            setTimeout(() => { this.setState({ successfullsent: false }) }, 5000)
+            setTimeout(() => { this.setState({ successfullsent: false, addInqry: false }) }, 2000)
             this.getPrescription();
         }).catch((error) => {
         })
