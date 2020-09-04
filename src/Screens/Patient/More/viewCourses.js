@@ -6,31 +6,26 @@ import { LanguageFetchReducer } from '../../actions';
 import { LoginReducerAim } from '../../Login/actions';
 import Loader from '../../Components/Loader/index';
 import LeftMenu from './../../Components/Menus/PatientLeftMenu/index';
-import CourseSection from './../../Components/OnlineCourses/index.js';
+import ViewCourse from './../../Components/OnlineCourses/Components/ListandViewCourse';
 
 class Index extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            addSec: false,
-            specialistOption: null,
-            successfullsent: false,
-            Pdoctors: [],
-            error: false,
-            docProfile: false,
-            loaderImage: false,
-            selectedPdoc : {},
-            share_to_doctor : false,
-            AddSecond: {},
-            err_pdf : false,
-            personalinfo : {},
-            found: false,
-            newItemp : {},
+           Course: {}
         };
     }
 
-    componentDidMount(){
-
+    componentDidMount()
+    {
+        if(this.props.location && this.props.location.state !== 'undefined' && this.props.location.state && this.props.location.state.course_id)
+        {
+            this.setState({Course : this.props.location.state})
+        }   
+        else
+        {
+            this.props.history.push(`/${this.props.stateLoginValueAim.user.type}/online-course`);
+        }
     }
 
     render() {
@@ -46,7 +41,7 @@ class Index extends Component {
                                 <LeftMenu currentPage ="more"/>
                                 {/* End of Website Menu */}
                                 <Grid item xs={12} md={11}>
-                                    <CourseSection />
+                                    <ViewCourse Course={this.state.Course}/>
                                 </Grid>
                             </Grid>
                         </Grid>

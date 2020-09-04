@@ -9,7 +9,6 @@ import { LoginReducerAim } from '../../../Login/actions';
 import { withRouter } from "react-router-dom";
 import { LanguageFetchReducer } from '../../../actions';
 import sitedata from '../../../../sitedata';
-import { ConsoleCustom } from '../../BasicMethod';
 import Rating from '../../Rating'
 import Loader from './../../../Components/Loader/index.js'
 
@@ -38,7 +37,7 @@ class Index extends Component {
             iserr : false,
             MyRating : [],
             MyCourse2 : [],
-            
+            SelectOne : {},
         };
     }
 
@@ -58,6 +57,14 @@ class Index extends Component {
         const state = this.state.ratings;
         state[e.target.name] = e.target.value;
         this.setState({ratings: state})
+    }
+
+    //Go to the view Courses
+    viewCourses=(item)=>{
+        this.props.history.push({
+            pathname: `/${this.props.stateLoginValueAim.user.type}/view-course`,
+            state : item
+        });
     }
 
     //Get My ratings
@@ -249,7 +256,7 @@ class Index extends Component {
                                         <a><img src={require('../../../../assets/images/vote-star-empty.svg')} alt="" title="" /></a> */}
                                     <span onClick={()=> this.handleOpenFancy(item.course_id)}>{item && this.your_rating(item.course_id) ? 'Your rating' : 'Leave a rating'}</span> 
                                 </Grid>
-                                <Grid className="strtLrn"><label>{item && this.your_rating(item.course_id) ? 'Continue watching' : 'Start learning'}</label></Grid>
+                                <Grid className="strtLrn"><label onClick={()=>this.viewCourses(item)}>{item && this.your_rating(item.course_id) ? 'Continue watching' : 'Start learning'}</label></Grid>
                             </Grid>
                         </Grid>
                     </Grid>

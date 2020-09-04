@@ -22,11 +22,6 @@ function TabContainer(props) {
 TabContainer.propTypes = {
     children: PropTypes.node.isRequired,
 };
-const options = [
-    { value: 'data1', label: 'Data1' },
-    { value: 'data2', label: 'Data2' },
-    { value: 'data3', label: 'Data3' },
-];
 
 class Index extends Component {
     constructor(props) {

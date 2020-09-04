@@ -15,6 +15,8 @@ import PatientEmergency from "./../../Screens/Patient/More/EmergencyPatientData"
 import PatientExtra from "./../../Screens/Patient/More/ExtraServices";
 import PatientDocument from "./../../Screens/Patient/MyDocuments/index";
 import PatientOnline from "./../../Screens/Patient/More/OnineCoure";
+import PaitnetViewCourses from "./../../Screens/Patient/More/viewCourses";
+import PatientTracker from "./../../Screens/Patient/Tracker/tracker";
 
 class Routermain extends Component {
   render() {
@@ -34,6 +36,8 @@ class Routermain extends Component {
             <Route exact path="/patient/extra-services" render={(props) => <PatientExtra {...props}/>} />
             <Route exact path="/patient/documents" render={(props) => <PatientDocument {...props} />} />
             <Route exact path="/patient/online-course" render={(props) => <PatientOnline {...props}/>} />
+            <Route exact path="/patient/view-course" render={(props) => <PaitnetViewCourses {...props}/>} />
+            <Route exact path="/patient/tracker" render={(props) => <PatientTracker {...props}/>} />
             <Route path='*' exact={true} render={(props) => <NotFound {...props} />} />
             {/* End By Ankita */}
           </Switch>

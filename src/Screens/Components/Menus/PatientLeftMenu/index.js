@@ -62,6 +62,10 @@ class Index extends Component {
     OnlineCourse = ()=>{
         this.props.history.push('/patient/online-course');    
     }
+    //For Tracker / Withings
+    Tracker = ()=>{
+        this.props.history.push('/patient/tracker');    
+    }
     render() {
         return (
             <Grid item xs={12} md={1} className="MenuLeftUpr ">
@@ -99,8 +103,8 @@ class Index extends Component {
                             </a>
                         </li>
                         <li className={this.props.currentPage==='tracker' ? "menuActv" : ""}>
-                            <a>
-                            {this.props.currentPage==='tracker' ?  <img src={require('../../../../assets/images/tracker.jpg')} alt="" title="" />
+                            <a onClick={this.Tracker}>
+                            {this.props.currentPage==='tracker' ?  <img src={require('../../../../assets/images/track.png')} alt="" title="" />
                                 : <img src={require('../../../../assets/images/tracker.jpg')} alt="" title="" />}
                                 <span>Trackers & <br /> Self Data</span>
                             </a>

@@ -19,6 +19,7 @@ import Modal from '@material-ui/core/Modal';
 // import { filterate } from '../../Doctor/filteraction';
 import { withRouter } from "react-router-dom";
 import { ConsoleCustom } from './../BasicMethod/index';
+import Rating from '../Rating'
 import { LanguageFetchReducer } from '../../actions';
 
 import StripeCheckout from 'react-stripe-checkout';
@@ -67,7 +68,6 @@ class Index extends Component {
     };
     handleChangeSelect = selectedOption => {
         this.setState({ selectedOption });
-       ConsoleCustom(`Option selected:`, selectedOption);
     };
 
     componentDidMount() {
@@ -166,13 +166,11 @@ class Index extends Component {
         var GetAllCart = this.state.AllCart;
         let user_token = this.props.stateLoginValueAim.token
         if(comeFrom == 'all'){
-           ConsoleCustom('data._id', data._id)
             data.courseId = data._id;
             delete data.isActive;
             delete data.permission;
         }
         else {
-           ConsoleCustom('data.courseId', data.courseId)
             data.courseId = data.courseId;
             delete data.isActive;
             delete data.permission;
@@ -209,7 +207,6 @@ class Index extends Component {
     //For remove the Cart
     RemoveCart=(data)=>{
         let user_token = this.props.stateLoginValueAim.token
-        ConsoleCustom('sdf', data)
         this.setState({loaderImage: true})
         axios.delete(sitedata.data.path + '/lms/removeCart/'+data.user_id+'/'+data.courseId, 
         {
@@ -246,7 +243,6 @@ class Index extends Component {
                     ()=>{
                         var sum = 0;
                         this.state.AllCart.forEach(element => {
-                           ConsoleCustom('elementPrice',element.price)
                             sum = element.price + sum
                         });
                         this.setState({ amount: sum });
@@ -387,12 +383,13 @@ class Index extends Component {
                                                 {/* <Grid><a><img src={require('../../../assets/images/time.svg')} alt="" title="" />1.5 h</a></Grid> */}
                                             </Grid>
                                             <Grid className="wshCorStar">
-                                                <a><img src={require('../../../assets/images/vote-star-filled.svg')} alt="" title="" /></a>
-                                                <a><img src={require('../../../assets/images/vote-star-filled.svg')} alt="" title="" /></a>
-                                                <a><img src={require('../../../assets/images/vote-star-filled.svg')} alt="" title="" /></a>
-                                                <a><img src={require('../../../assets/images/vote-star-filled.svg')} alt="" title="" /></a>
-                                                <a><img src={require('../../../assets/images/vote-star-half.svg')} alt="" title="" /></a>
-                                                <span>4.5<a>(38)</a></span>
+                                            <Rating size="20" rating={item.courseContent && item.courseContent.average} />
+                                    {/* <a><img src={require('../../../../assets/images/vote-star-filled.svg')} alt="" title="" /></a>
+                                    <a><img src={require('../../../../assets/images/vote-star-filled.svg')} alt="" title="" /></a>
+                                    <a><img src={require('../../../../assets/images/vote-star-filled.svg')} alt="" title="" /></a>
+                                    <a><img src={require('../../../../assets/images/vote-star-filled.svg')} alt="" title="" /></a>
+                                    <a><img src={require('../../../../assets/images/vote-star-half.svg')} alt="" title="" /></a> */}
+                                    <span>{item.courseContent && item.courseContent.average}<a>({item.courseContent && item.courseContent.count})</a></span>
                                             </Grid>
                                             <Grid className="wshCorPrice"><label>{item.price} €</label></Grid>
                                             <Grid className="nwWshCrtUpr">
@@ -417,7 +414,6 @@ class Index extends Component {
 
 
                         {/* online cart design */}
-                        {ConsoleCustom('Amount', this.state.amount)}
                         <div className="fancyBoxMain">
                             <Modal
                                 open={this.state.openCart}
@@ -444,12 +440,13 @@ class Index extends Component {
                                                 <Grid><a><img src={require('../../../assets/images/lectures.svg')} alt="" title="" />{item.attachment.length} lectures</a></Grid>
                                             </Grid>
                                             <Grid className="crtCorStar">
-                                                <a><img src={require('../../../assets/images/vote-star-filled.svg')} alt="" title="" /></a>
-                                                <a><img src={require('../../../assets/images/vote-star-filled.svg')} alt="" title="" /></a>
-                                                <a><img src={require('../../../assets/images/vote-star-filled.svg')} alt="" title="" /></a>
-                                                <a><img src={require('../../../assets/images/vote-star-filled.svg')} alt="" title="" /></a>
-                                                <a><img src={require('../../../assets/images/vote-star-half.svg')} alt="" title="" /></a>
-                                                <span>4.5<a>(38)</a></span>
+                                            <Rating size="20" rating={item.courseContent && item.courseContent.average} />
+                                    {/* <a><img src={require('../../../../assets/images/vote-star-filled.svg')} alt="" title="" /></a>
+                                    <a><img src={require('../../../../assets/images/vote-star-filled.svg')} alt="" title="" /></a>
+                                    <a><img src={require('../../../../assets/images/vote-star-filled.svg')} alt="" title="" /></a>
+                                    <a><img src={require('../../../../assets/images/vote-star-filled.svg')} alt="" title="" /></a>
+                                    <a><img src={require('../../../../assets/images/vote-star-half.svg')} alt="" title="" /></a> */}
+                                    <span>{item.courseContent && item.courseContent.average}<a>({item.courseContent && item.courseContent.count})</a></span>
                                             </Grid>
                                             <Grid container direction="row" alignItems="center">
                                                 <Grid item xs={6} md={6}>
@@ -551,7 +548,7 @@ class Index extends Component {
                         </TabContainer>}
 
                         {value === 1 && <TabContainer>
-                            <MyCourses AllCart={this.state.this.state.AllCart} SelectedLanguage={this.state.SelectedLanguage} SelectedTopic={this.state.SelectedTopic}/>
+                            <MyCourses AllCart={this.state.AllCart} SelectedLanguage={this.state.SelectedLanguage} SelectedTopic={this.state.SelectedTopic}/>
                         </TabContainer>}
                         {/* End of Website Right Content */}
                     </Grid>
