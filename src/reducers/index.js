@@ -7,6 +7,7 @@ import filterate from './Filterthis'
 import authy from './auth';
 import EmergencySet from './EmergencySet';
 import cometreducer from './cometreducer';
+import Settings from './setting'
 
 const allReducers = combineReducers({
     //signupReducer: signupReducer,
@@ -18,8 +19,8 @@ const allReducers = combineReducers({
     filterate       : filterate ,
     authy: authy,
     cometreducer: cometreducer,
-    EmergencySet : EmergencySet
-
+    EmergencySet : EmergencySet,
+    Settings : Settings,
 });
 
 export default (allReducers);

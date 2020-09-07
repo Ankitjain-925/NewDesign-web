@@ -4,6 +4,11 @@ import sitedata from '../../../../sitedata';
 import axios from 'axios';
 import Loader from './../../../Components/Loader/index';
 import Select from 'react-select';
+import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
+import { LoginReducerAim } from './../../../Login/actions';
+import { Settings } from './../../../Login/setting';
+import { LanguageFetchReducer } from './../../../actions';
 
 class Index extends Component {
     constructor(props) {
@@ -69,6 +74,7 @@ class Index extends Component {
             }
         }).then((responce) => {
             this.setState({PassDone : true, loaderImage : false})
+            this.props.Settings(this.props.user_token);
             setTimeout(()=>{ this.setState({PassDone: false}) }, 5000)
         })   
     }
@@ -129,4 +135,19 @@ class Index extends Component {
     }
 }
 
-export default Index;
+const mapStateToProps = (state) => {
+    const { stateLoginValueAim, loadingaIndicatoranswerdetail } = state.LoginReducerAim;
+    const { stateLanguageType } = state.LanguageReducer;
+    const {settings} = state.Settings;
+    // const { Doctorsetget } = state.Doctorset;
+    // const { catfil } = state.filterate;
+    return {
+        stateLanguageType,
+        stateLoginValueAim,
+        loadingaIndicatoranswerdetail,
+        settings,
+        //   Doctorsetget,
+        //   catfil
+    }
+};
+export default withRouter(connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer, Settings })(Index));

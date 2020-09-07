@@ -5,6 +5,7 @@ import Typography from '@material-ui/core/Typography';
 import axios from 'axios';
 import { connect } from "react-redux";
 import { LoginReducerAim } from '../../../Login/actions';
+import { Settings } from '../../../Login/setting';
 import { withRouter } from "react-router-dom";
 import { LanguageFetchReducer } from '../../../actions';
 import sitedata, { data } from '../../../../sitedata';
@@ -33,6 +34,7 @@ class Index extends Component {
             newCourse1 : [],
             loaderImage : false,
             addedWish : false,
+            Allwishlist : [],
         };
     }
 
@@ -88,6 +90,7 @@ class Index extends Component {
              this.setState({addedWish : true, loaderImage: false})
                 setTimeout(()=>{ this.setState({addedWish : false}) }, 3000)
                 this.props.getAllwishlist();
+                this.getAllList();
         }).catch(err => { })
     } 
  
@@ -99,6 +102,14 @@ class Index extends Component {
         this.setState({ openFancy: false });
     };
 
+    //For Remove the Wishlist 
+    removeWishlist = (item)=>{
+        var Reuslt = this.state.Allwishlist.filter(Wish => Wish.courseId === item._id)
+        if(Reuslt && Reuslt.length>0)
+        {
+            this.props.removeWishlist(Reuslt[0])
+        }
+    }
     //on getting filter and filter Accordingly
     componentDidUpdate = (prevProps) => {
         if (prevProps.SelectedLanguage !== this.props.SelectedLanguage || prevProps.SelectedTopic !== this.props.SelectedTopic) {
@@ -125,6 +136,10 @@ class Index extends Component {
                 this.setState({allCourse : myFilterData, newCourse : myFilterData1})   
            }
         }
+        if (prevProps.Allwishlist !== this.props.Allwishlist)
+        {
+            this.setState({Allwishlist :this.props.Allwishlist})
+        }
     }
 
     render() {
@@ -142,7 +157,7 @@ class Index extends Component {
                 <Grid container direction="row" spacing={4} className="newCourseCntnt">
                 {this.state.newCourse && this.state.newCourse.length>0 && this.state.newCourse.map((item, index)=>(
                     <Grid item xs={12} md={4}>
-                        <Grid className="courseList">
+                                               <Grid className={this.state.Allwishlist.some(Wish => Wish.courseId === item._id) ? "courseList cardAddedWish" : "courseList"}>
                             <Grid className="courseListLbl"><label>{item.courseTitle}</label></Grid>
                             <Grid className="courseListInr">
                                 <Grid className="courseListPara">
@@ -159,7 +174,7 @@ class Index extends Component {
                                     <a><img src={require('../../../../assets/images/vote-star-filled.svg')} alt="" title="" /></a>
                                     <a><img src={require('../../../../assets/images/vote-star-filled.svg')} alt="" title="" /></a>
                                     <a><img src={require('../../../../assets/images/vote-star-half.svg')} alt="" title="" /></a> */}
-                                    <span>{item.courseContent && item.courseContent.average}<a>({item.courseContent && item.courseContent.count})</a></span>
+                                    <span>{item.courseContent && item.courseContent.average}{item.courseContent && <a>( {item.courseContent.count})</a>}</span>
                                 </Grid>
                                 <Grid className="coursePrice"><label>{item.price} €</label></Grid>
                             </Grid>
@@ -168,8 +183,12 @@ class Index extends Component {
                                     <Grid item xs={12} md={9}>
                                         <Grid className="nwCoursCrt"><a onClick={()=>this.props.AddtoCard(item, 'all')}>Add to cart</a></Grid>
                                     </Grid>
+                                    
                                     <Grid item xs={12} md={3}>
-                                        <Grid className="nwCoursCrtRght"><a onClick={()=>this.AddtoWishtlist(item)}><img src={require('../../../../assets/images/wishlist.png')} alt="" title="" /></a></Grid>
+                                        <Grid className="nwCoursCrtRght">
+                                            {this.state.Allwishlist.some(Wish => Wish.courseId === item._id) ? <a onClick={()=>{this.removeWishlist(item)}}><img src={require('../../../../assets/images/fillWish.png')} alt="" title="" /></a>
+                                            : <a onClick={()=>this.AddtoWishtlist(item)}><img src={require('../../../../assets/images/wishlist.png')} alt="" title="" /></a>}
+                                        </Grid>
                                     </Grid>
                                 </Grid>
                             </Grid>
@@ -223,7 +242,7 @@ class Index extends Component {
                 <Grid container direction="row" spacing={4} className="newCourseCntnt">
                 {this.state.allCourse && this.state.allCourse.length>0 && this.state.allCourse.map((item, index)=>(
                     <Grid item xs={12} md={4}>
-                        <Grid className="courseList">
+                        <Grid className={this.state.Allwishlist.some(Wish => Wish.courseId === item._id) ? "courseList cardAddedWish" : "courseList"}>
                             <Grid className="courseListLbl"><label>{item.courseTitle}</label></Grid>
                             <Grid className="courseListInr">
                                 <Grid className="courseListPara">
@@ -240,7 +259,7 @@ class Index extends Component {
                                     <a><img src={require('../../../../assets/images/vote-star-filled.svg')} alt="" title="" /></a>
                                     <a><img src={require('../../../../assets/images/vote-star-filled.svg')} alt="" title="" /></a>
                                     <a><img src={require('../../../../assets/images/vote-star-half.svg')} alt="" title="" /></a> */}
-                                    <span>{item.courseContent && item.courseContent.average}<a>({item.courseContent && item.courseContent.count})</a></span>
+                                    <span>{item.courseContent && item.courseContent.average}<a>{item.courseContent && <a>( {item.courseContent.count})</a>}</a></span>
                                 </Grid>
                                 <Grid className="coursePrice"><label>{item.price} €</label></Grid>
                             </Grid>
@@ -250,7 +269,10 @@ class Index extends Component {
                                         <Grid className="nwCoursCrt"><a onClick={()=>this.props.AddtoCard(item, 'all')}>Add to cart</a></Grid>
                                     </Grid>
                                     <Grid item xs={12} md={3}>
-                                        <Grid className="nwCoursCrtRght"><a><img onClick={()=>this.AddtoWishtlist(item)} src={require('../../../../assets/images/wishlist.png')} alt="" title="" /></a></Grid>
+                                        <Grid className="nwCoursCrtRght">
+                                            {this.state.Allwishlist.some(Wish => Wish.courseId === item._id)  ? <a onClick={()=>{this.removeWishlist(item)}}><img src={require('../../../../assets/images/fillWish.png')} alt="" title="" /></a> 
+                                            : <a><img onClick={()=>this.AddtoWishtlist(item)} src={require('../../../../assets/images/wishlist.png')} alt="" title="" /></a>}
+                                        </Grid>
                                     </Grid>
                                 </Grid>
                             </Grid>
@@ -324,14 +346,16 @@ class Index extends Component {
 const mapStateToProps = (state) => {
     const { stateLoginValueAim, loadingaIndicatoranswerdetail } = state.LoginReducerAim;
     const { stateLanguageType } = state.LanguageReducer;
+    const {settings} = state.Settings;
     // const { Doctorsetget } = state.Doctorset;
     // const { catfil } = state.filterate;
     return {
         stateLanguageType,
         stateLoginValueAim,
         loadingaIndicatoranswerdetail,
+        settings,
         //   Doctorsetget,
         //   catfil
     }
 };
-export default withRouter(connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer })(Index));
+export default withRouter(connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer, Settings })(Index));

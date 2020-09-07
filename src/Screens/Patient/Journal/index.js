@@ -2,48 +2,46 @@ import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import { LanguageFetchReducer } from '../../actions';
-import { LoginReducerAim } from '../../Login/actions';
-import { Settings } from '../../Login/setting';
-import Loader from '../../Components/Loader/index';
+import { LoginReducerAim } from './../../Login/actions';
+import { Settings } from './../../Login/setting';
 import LeftMenu from './../../Components/Menus/PatientLeftMenu/index';
-import ViewCourse from './../../Components/OnlineCourses/Components/ListandViewCourse';
+import { LanguageFetchReducer } from './../../actions';
+
+const options = [
+    { value: 'data1', label: 'Data1' },
+    { value: 'data2', label: 'Data2' },
+    { value: 'data3', label: 'Data3' },
+];
 
 class Index extends Component {
     constructor(props) {
         super(props);
         this.state = {
-           Course: {}
+           
         };
     }
 
-    componentDidMount()
-    {
-        if(this.props.location && this.props.location.state !== 'undefined' && this.props.location.state && this.props.location.state.course_id)
-        {
-            this.setState({Course : this.props.location.state})
-        }   
-        else
-        {
-            this.props.history.push(`/${this.props.stateLoginValueAim.user.type}/online-course`);
-        }
-    }
+ 
 
     render() {
-        const { specialistOption } = this.state;
+        const { selectedOption } = this.state;
         return (
             <Grid className="homeBg">
-                {this.state.loaderImage && <Loader />}
                 <Grid className="homeBgIner">
                     <Grid container direction="row" justify="center">
                         <Grid item xs={12} md={12}>
                             <Grid container direction="row">
+
                                 {/* Website Menu */}
-                                <LeftMenu currentPage ="more"/>
+                                <LeftMenu currentPage ="journal"/>
                                 {/* End of Website Menu */}
-                                <Grid item xs={12} md={11}>
-                                    <ViewCourse Course={this.state.Course}/>
+
+                                {/* Website Mid Content */}
+                                <Grid item xs={12} md={8}>
+
                                 </Grid>
+                                {/* End of Website Right Content */}
+
                             </Grid>
                         </Grid>
                     </Grid>

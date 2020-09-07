@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
 import LeftMenu from './../../Components/Menus/PatientLeftMenu/index';
 import { LoginReducerAim } from './../../Login/actions';
+import { Settings } from './../../Login/setting';
 import { connect } from "react-redux";
 import { Redirect, Route } from 'react-router-dom';
 // import { Doctorset } from '../../Doctor/actions';
@@ -216,14 +217,16 @@ switch (this.props.stateLanguageType) {
 const mapStateToProps = (state) => {
     const { stateLoginValueAim, loadingaIndicatoranswerdetail } = state.LoginReducerAim;
     const { stateLanguageType } = state.LanguageReducer;
+    const {settings} = state.Settings;
     // const { Doctorsetget } = state.Doctorset;
     // const { catfil } = state.filterate;
     return {
         stateLanguageType,
         stateLoginValueAim,
         loadingaIndicatoranswerdetail,
+        settings,
         //   Doctorsetget,
         //   catfil
     }
 };
-export default withRouter(connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer })(index));
+export default withRouter(connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer, Settings })(index));
