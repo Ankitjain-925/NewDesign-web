@@ -347,6 +347,7 @@ class Index extends Component {
 
     //Save the User profile
     saveUserData = () => {
+        console.log("insuranceDetails", this.state.insuranceDetails)
         if (this.state.insuranceDetails.insurance !== "" && this.state.insuranceDetails.insurance_number !== ""
             && this.state.insuranceDetails.insurance_country !== "") {
             if (datas.some(data => data.insurance === this.state.insuranceDetails.insurance)) { }
@@ -742,7 +743,6 @@ class Index extends Component {
                 >{company}</li>
             )
         });
-
         return (
             <div>
                 {this.state.loaderImage && <Loader />}
