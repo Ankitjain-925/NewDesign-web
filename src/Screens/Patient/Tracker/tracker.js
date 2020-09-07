@@ -8,6 +8,26 @@ import Typography from '@material-ui/core/Typography';
 import PropTypes from 'prop-types';
 import Modal from '@material-ui/core/Modal';
 import LeftMenu from './../../Components/Menus/PatientLeftMenu/index';
+import axios from "axios"
+
+const withingsMeasureType = {
+    Weight: 1,
+    Height: 4,
+    FatFreeMass: 5,
+    FatRatio: 6,
+    FatMassWeight: 8,
+    DiastolicBloodPressure: 9,
+    SystolicBloodPressure: 10,
+    HeartPulse: 11,
+    Temperature: 12,
+    SP02: 54,
+    BodyTemperature: 71,
+    SkinTemperature: 73,
+    MuscleMass: 76,
+    Hydration: 77,
+    BoneMass: 88,
+    PulseWaveVelocity: 91,
+};
 
 function TabContainer(props) {
     return (
@@ -26,8 +46,50 @@ class Index extends Component {
         this.state = {
             value: 0,
             openSrvc: false,
-            vData: false
+            vData: false,
+            fitbitloggedIn: false,
+            withingsloggedIn: false,
+            apidata: []
         };
+    }
+
+    componentDidMount() {
+        if (window.location.hash) {
+            let fitbitToken = window.location.hash.slice(1).split("&")[0].replace("access_token=", "")
+            localStorage.setItem('token', JSON.stringify(fitbitToken))
+            this.setState({ fitbitloggedIn: true, withingsloggedIn: false })
+            this.fetchFitbitData("devices.json", fitbitToken, "device")
+            this.fetchFitbitData("profile.json", fitbitToken, "user")
+            this.fetchFitbitData('activities.json', fitbitToken, 'lifetimeStats')
+            this.fetchFitbitData('badges.json', fitbitToken, 'badges')
+            this.fetchFitbitData('activities/steps/date/today/1m.json', fitbitToken, 'steps')
+            this.fetchFitbitData('activities/distance/date/today/1m.json', fitbitToken, 'distance')
+
+        }
+    }
+    // fetch fitbit data from call back url
+    fetchFitbitData(url, fitbitToken, stateKey) {
+        axios({
+            method: 'get',
+            url: 'https://api.fitbit.com/1/user/-/' + url,
+            headers: { 'Authorization': 'Bearer ' + fitbitToken },
+            mode: 'cors'
+        })
+            .then(response => {
+                const state = this.state.apidata;
+                state[stateKey] = response.data;
+                this.setState({ apidata: state });
+            })
+            .catch(error => console.log("Eroro", error))
+    }
+
+    //Logout user
+    tracker() {
+        this.props.history.push('/patient/tracker')
+    }
+    logoutfromall = () => {
+        this.setState({ fitbitloggedIn: false, loggedin: false, withingsloggedIn: false })
+        this.tracker();
     }
 
     handleChangeTabs = (event, value) => {
@@ -50,7 +112,7 @@ class Index extends Component {
     };
 
     render() {
-        const { value } = this.state;
+        const { value, fitbitloggedIn, apidata } = this.state;
         return (
             <Grid className="homeBg">
                 <Grid className="homeBgIner">
@@ -58,7 +120,7 @@ class Index extends Component {
                         <Grid item xs={12} md={12}>
                             <Grid container direction="row">
 
-                                <LeftMenu currentPage ="tracker"/>
+                                <LeftMenu currentPage="tracker" />
                                 {/* End of Website Menu */}
 
                                 <Grid item xs={12} md={9}>
@@ -69,6 +131,17 @@ class Index extends Component {
                                                 <a onClick={this.handleOpenSrvc}>+ Connect</a>
                                             </Grid>
                                         </Grid>
+                                        <Grid item sm={4}>
+
+                                            {/* <a href="https://www.fitbit.com/oauth2/authorize?response_type=code&client_id=22BRQT&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fpatient%2Ftracker&scope=activity%20heartrate%20location%20nutrition%20profile%20settings%20sleep%20social%20weight&expires_in=604800">
+                                                <img src={require('../../../assets/images/fitbit.png')} style={{ maxWidth: "50px" }} alt="" />
+                                            </a> */}
+
+                                            {/* {this.state.fitbitloggedIn &&
+                                                <img onClick={this.logoutfromall} style={{ maxWidth: "50px" }} src={require('../../../assets/images/logouttracker.png')} alt="" />
+                                            } */}
+                                        </Grid>
+
 
                                         {/* Model setup */}
                                         <Modal
@@ -172,19 +245,41 @@ class Index extends Component {
 
                                                 {/* Trackers & Devices Design */}
                                                 <Grid className="selfData">
-                                                    <Grid container direction="row" spacing={3}>
+                                                    <Grid container spacing={3}>
                                                         <Grid item xs={12} md={3}>
-                                                            <Grid className="trckSection">
-                                                                <Grid className="trckSecIner">
-                                                                    <Grid className="trckDots"><img src={require('../../../assets/images/threedots.jpg')} alt="" title="" /></Grid>
-                                                                    <Grid className="trckLogo"><img src={require('../../../assets/images/fitbit.png')} alt="" title="" /></Grid>
-                                                                    <Grid className="trckCntnt">
-                                                                        <Grid><label>Klemen’s Fitbit 1</label></Grid>
-                                                                        <p>Fitbit Versa 2</p>
+                                                            {!fitbitloggedIn &&
+                                                                <Grid className="trckSection">
+                                                                    <Grid className="trckSecIner" >
+                                                                        <Grid item sm={4}>
+                                                                            < a href="https://www.fitbit.com/oauth2/authorize?response_type=token&client_id=22BNVH&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fpatient%2Ftracker&scope=activity%20heartrate%20location%20nutrition%20profile%20settings%20sleep%20social%20weight&expires_in=604800">
+                                                                                <img style={{ maxHeight: "150px" }} title="Loggin via Fitbit!" src={require('../../../assets/images/fitbit.png')} style={{ maxWidth: "100px" }} alt="" />
+                                                                            </a>
+                                                                        </Grid>
                                                                     </Grid>
                                                                 </Grid>
-                                                                <Grid className="trackView"><a onClick={this.handleOpenvData}>View data</a></Grid>
-                                                            </Grid>
+                                                            }
+
+                                                            {fitbitloggedIn && apidata && apidata.device && apidata.device.map(devicedata => (
+                                                                <Grid className="trckSection">
+                                                                    <Grid className="trckSecIner">
+                                                                        <Grid className="trckDots presEditDot scndOptionIner">
+                                                                            <a className="openScndhrf"><img src={require('../../../assets/images/threedots.jpg')} alt="" title="" />
+                                                                            <ul>
+                                                                                <li><a onClick={this.handleOpenvData} className="trackView" >View Details</a></li>
+                                                                                <li><a onClick={this.logoutfromall} className="trackView" >Logout</a></li>
+                                                                            </ul>
+                                                                        </a></Grid>
+                                                                        <Grid className="trckLogo"><img src={require('../../../assets/images/fitbit.png')} alt="" title="" /></Grid>
+                                                                        <Grid className="trckCntnt">
+                                                                            <Grid><label>Klemen’s Fitbit 1</label></Grid>
+                                                                            <p>{devicedata.deviceVersion}</p>
+                                                                        </Grid>
+                                                                    </Grid>
+                                                                    <Grid className="trackView"><a onClick={this.handleOpenvData}>View data</a></Grid>
+                                                                </Grid>
+                                                            ))}
+
+
 
                                                             {/* Model setup */}
                                                             <Modal
@@ -241,9 +336,37 @@ class Index extends Component {
                                                                         <Grid className="disCnctContent">
                                                                             <Grid container direction="row" justify="center" alignItems="center">
                                                                                 <Grid item xs={12} md={8}>
-                                                                                    <p>This view will depend on what the API serves from a specific tracking device. 
-                                                                                    It is good to have a  similar/same view as the dashboard fitbit owners see in the 
-                                                                                    original app.</p>    
+                                                                                    {/* <p>This view will depend on what the API serves from a specific tracking device.
+                                                                                    It is good to have a  similar/same view as the dashboard fitbit owners see in the
+                                                                                    original app.</p> */}
+                                                                                    <Grid className="trckSection">
+                                                                                        <Grid className="trckSecIner" >
+                                                                                            {this.state.fitbitloggedIn && <div>
+                                                                                                {this.state.apidata && this.state.apidata.lifetimeStats &&
+                                                                                                    <div>
+                                                                                                        <h4>Distance</h4>
+                                                                                                        <p>Total: {this.state.apidata.lifetimeStats.lifetime && this.state.apidata.lifetimeStats.lifetime.total && this.state.apidata.lifetimeStats.lifetime.total.distance && this.state.apidata.lifetimeStats.lifetime.total.distance}</p>
+                                                                                                        <p>Best: {this.state.apidata.lifetimeStats.best && this.state.apidata.lifetimeStats.best.total && this.state.apidata.lifetimeStats.best.total.distance && this.state.apidata.lifetimeStats.best.total.distance.value && this.state.apidata.lifetimeStats.best.total.distance && this.state.apidata.lifetimeStats.best.total.distance.value} on {this.state.apidata.lifetimeStats.best && this.state.apidata.lifetimeStats.best.total && this.state.apidata.lifetimeStats.best.total.distance && this.state.apidata.lifetimeStats.best.total.distance.date && this.state.apidata.lifetimeStats.best.total.distance.date}</p>
+                                                                                                        <h4>Steps</h4>
+                                                                                                        <p>Total: {this.state.apidata.lifetimeStats.lifetime && this.state.apidata.lifetimeStats.lifetime.total && this.state.apidata.lifetimeStats.lifetime.total.steps && this.state.apidata.lifetimeStats.lifetime.total.steps}</p>
+                                                                                                        <p>Best: {this.state.apidata.lifetimeStats.best && this.state.apidata.lifetimeStats.best.total && this.state.apidata.lifetimeStats.best.total.steps.value && this.state.apidata.lifetimeStats.best.total.steps.value} on {this.state.apidata.lifetimeStats.best && this.state.apidata.lifetimeStats.best.total && this.state.apidata.lifetimeStats.best.total.steps && this.state.apidata.lifetimeStats.best.total.steps.date && this.state.apidata.lifetimeStats.best.total.steps && this.state.apidata.lifetimeStats.best.total.steps.date}</p>
+                                                                                                    </div>}
+                                                                                                {this.state.apidata && this.state.apidata.badges &&
+                                                                                                    <h4>Badges</h4>}
+                                                                                                {this.state.apidata && this.state.apidata.badges && this.state.apidata.badges.badges && this.state.apidata.badges.badges.length > 0 && this.state.apidata.badges.badges.map((badge, i) => {
+                                                                                                    return (
+                                                                                                        <div key={i}>
+                                                                                                            <h5>{badge.shortName}</h5>
+                                                                                                            <p><img src={badge.image100px} alt="" /></p>
+                                                                                                            <p>{badge.description}</p>
+                                                                                                            <p>Earned {badge.timesAchieved} times</p>
+                                                                                                            <p>Last on {badge.dateTime}</p>
+                                                                                                        </div>
+                                                                                                    )
+                                                                                                })}
+                                                                                            </div>}
+                                                                                        </Grid>
+                                                                                    </Grid>
                                                                                 </Grid>
                                                                             </Grid>
                                                                         </Grid>
@@ -255,7 +378,7 @@ class Index extends Component {
                                                             {/* End of Model setup */}
                                                         </Grid>
 
-                                                        <Grid item xs={12} md={3}>
+                                                        {/* <Grid item xs={12} md={3}>
                                                             <Grid className="trckSection">
                                                                 <Grid className="trckSecIner">
                                                                     <Grid className="trckDots"><img src={require('../../../assets/images/threedots.jpg')} alt="" title="" /></Grid>
@@ -362,7 +485,7 @@ class Index extends Component {
                                                                 </Grid>
                                                                 <Grid className="trackView"><a>View data</a></Grid>
                                                             </Grid>
-                                                        </Grid>
+                                                        </Grid> */}
                                                     </Grid>
 
                                                 </Grid>
@@ -384,7 +507,7 @@ class Index extends Component {
                         </Grid>
                     </Grid>
                 </Grid>
-            </Grid>
+            </Grid >
         );
     }
 }

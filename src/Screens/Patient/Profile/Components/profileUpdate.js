@@ -430,7 +430,7 @@ class Index extends Component {
             }
         }).then((responce) => {
             if (responce.data.hassuccessed) {
-                this.setState({editInsuranceOpen:false, addInsuranceOpen:false, succUpdate: true, insuranceDetails: { insurance: '', insurance_number: '', insurance_country: '' } })
+                this.setState({ editInsuranceOpen: false, addInsuranceOpen: false, succUpdate: true, insuranceDetails: { insurance: '', insurance_number: '', insurance_country: '' } })
                 this.setState({ loaderImage: false });
                 setTimeout(() => { this.setState({ succUpdate: false }) }, 5000)
                 this.getUserData();
@@ -449,9 +449,8 @@ class Index extends Component {
             }
             else {
                 this.setState({ loaderImage: false });
-                if(responce.data.message ==='Phone is not verified')
-                {
-                    this.setState({phonevalidate : true})
+                if (responce.data.message === 'Phone is not verified') {
+                    this.setState({ phonevalidate: true })
                 }
                 this.setState({ error3: true })
                 setTimeout(() => { this.setState({ error3: false }) }, 5000)
@@ -516,9 +515,9 @@ class Index extends Component {
 
     //For update the insurance
 
-    updatesinsurancesCountry(keys, e){
-            datas[keys].insurance_country = e.value;
-            this.setState({ insurancefull: datas })
+    updatesinsurancesCountry(keys, e) {
+        datas[keys].insurance_country = e.value;
+        this.setState({ insurancefull: datas })
     }
     updatesinsurances = (keys, e) => {
         if (e.target.name === 'insurance') {
@@ -597,7 +596,7 @@ class Index extends Component {
             this.setState({ UpDataDetails: response.data.data, city: response.data.data.city, area: response.data.data.area, profile_id: response.data.data.profile_id });
             this.setState({ speciality_multi: this.state.UpDataDetails.speciality })
             this.setState({ name_multi: language, title: title })
-            this.setState({ insurancefull: this.state.UpDataDetails.insurance, insuranceDetails: { insurance: '', insurance_number: '', insurance_type: '' }  })
+            this.setState({ insurancefull: this.state.UpDataDetails.insurance, insuranceDetails: { insurance: '', insurance_number: '', insurance_type: '' } })
             datas = this.state.UpDataDetails.insurance;
             this.setState({ loaderImage: false });
         }).catch((error) => {
@@ -721,29 +720,29 @@ class Index extends Component {
         }
     }
 
-    filterCountry(i){
-        let countryList= this.state.selectCountry
+    filterCountry(i) {
+        let countryList = this.state.selectCountry
         let name
-        name= countryList.filter(value=>{
-            if(value.value== i){
+        name = countryList.filter(value => {
+            if (value.value == i) {
                 return value.label
             }
         })
         return name[0].label
     }
-    
-    filterCountry1(i){
-        let countryList= this.state.selectCountry
+
+    filterCountry1(i) {
+        let countryList = this.state.selectCountry
         let name
-        name= countryList.filter(value=>{
-            if(value.value== i){
+        name = countryList.filter(value => {
+            if (value.value == i) {
                 return value.label
             }
         })
         return name[0]
     }
-        
-    
+
+
 
 
     render() {
@@ -756,7 +755,7 @@ class Index extends Component {
                 >{company}</li>
             )
         });
-        
+
         return (
             <div>
                 {this.state.loaderImage && <Loader />}
@@ -1068,7 +1067,7 @@ class Index extends Component {
                                 </Grid>
                                 <Grid className="editField">
                                     <label>Insurance Company</label>
-                                    <Grid><input type="text" name="insurance" value={(insuranceDetails && insuranceDetails.insurance )&& insuranceDetails.insurance} onChange={this.insuranceForm} /></Grid>
+                                    <Grid><input type="text" name="insurance" value={(insuranceDetails && insuranceDetails.insurance) && insuranceDetails.insurance} onChange={this.insuranceForm} /></Grid>
                                     <ul className="insuranceHint" style={{ height: companyList && companyList.length > 0 ? '150px' : '' }}>
                                         {companyList}
                                     </ul>
@@ -1100,13 +1099,15 @@ class Index extends Component {
                                     <td>{this.filterCountry(insu.insurance_country)}</td>
                                     <td>{insu.insurance}</td>
                                     <td>{insu.insurance_number}</td>
-                                    <td className="presEditDot scndOptionIner"><a className="openScndhrf">
-                                        <img src={require('../../../../assets/images/moreicon.jpg')} alt="" title="" className="openScnd" />
-                                        <ul>
-                                            <li><a onClick={() => this.editKYCopen(insu, i)}><img src={require('../../../../assets/images/edit.svg')} alt="" title="" />Edit</a></li>
-                                            <li><a onClick={() => this.removeInsurance(i, insu)} ><img src={require('../../../../assets/images/closefancy.png')} alt="" title="" />Delete</a></li>
-                                        </ul>
-                                    </a></td>
+                                    <td className="presEditDot scndOptionIner">
+                                        <a className="openScndhrf">
+                                            <img src={require('../../../../assets/images/moreicon.jpg')} alt="" title="" className="openScnd" />
+                                            <ul>
+                                                <li><a onClick={() => this.editKYCopen(insu, i)}><img src={require('../../../../assets/images/edit.svg')} alt="" title="" />Edit</a></li>
+                                                <li><a onClick={() => this.removeInsurance(i, insu)} ><img src={require('../../../../assets/images/closefancy.png')} alt="" title="" />Delete</a></li>
+                                            </ul>
+                                        </a>
+                                    </td>
                                 </tr>
                             ))}
                         </tbody>
