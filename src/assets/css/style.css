@@ -60,7 +60,6 @@ h1,h2,h3,h4,h5,h6,h7,p{ margin:0; padding:0; font-size: inherit; font-weight: in
     border-radius: 8px;
     background-color: #FFFFFF;
 }
-
 .menuItems ul li a {
     /* display: inline-block; */
     cursor: pointer;
@@ -1887,6 +1886,35 @@ a.profilMenu {
     }
     .presurLabl h1 {
         margin-bottom: 18px;
+    }
+    .presBoxCntnt {
+        width: 96% !important;
+    }
+    .paraBoxCntnt {
+        width: 96% !important;
+    }
+    .docAddPatient a {
+        margin: 10px 0px !important;
+        display: inline-block !important;
+    }
+    .docOpinion {
+        padding: 0px 10px !important;
+        margin-left: 0px !important;
+        margin-top: 8px !important;
+    }
+    .findpatientReq {
+        position: initial !important;
+        margin-bottom: 20px !important;
+    }
+    .findpatientReq a {
+        display: inline-block !important;
+        margin-bottom: 8px !important;
+    }
+    .docAddPatient {
+        text-align: initial !important;
+    }
+    .infoBoxCntnt {
+        width: 96% !important;
     }
 }
 @media (max-width: 992px){ 
@@ -4656,7 +4684,6 @@ body {
     top: 0;
     z-index: 9999;
 }
-
 /* End of loader css */
 
 .scndOpinion {
@@ -8290,9 +8317,602 @@ td.phrImg p {
     color: #BFC1C1;
 }
 
+/* ------------------ */
+.presBoxCntnt {
+    /* height: 1137px; */
+    width: 762px;
+    background: #fff;
+    margin: 0 auto;
+    border: none;
+    outline: none;
+    border-radius: 12px;
+    background-color: #FFFFFF;
+    -webkit-box-shadow: 0 24px 32px 0 rgba(0,8,8,0.08);
+    box-shadow: 0 24px 32px 0 rgba(0,8,8,0.08);
+    margin-top: 35px;
+}
+.presCourse {
+    padding: 12px 24px 18px 24px;
+    border-bottom: 1px solid #F2F2F2;
+}
+.presCloseBtn {
+    text-align: right;
+    margin-bottom: 4px;
+}
+.presCloseBtn img {
+    width: 26px;
+    cursor: pointer;
+}
+.presCourse p {
+    color: #7F8383;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: 18px;
+}
+.presCourse label {
+    color: #000808;
+    font-family: Muli;
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 32px;
+    margin-bottom: 2px;
+}
+.medicInqUpr {
+    padding: 24px 24px 24px 24px;
+}
+.medicInqUpr h2 {
+    color: #000808;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 14px;
+    margin-bottom: 20px;
+}
+.medicInq {
+    display: flex;
+    margin-bottom: 5px;
+}
+.medicInqLeft {
+    width: 30%;
+}
+.medicInqRght{
+    width: 70%;
+}
+.medicInq span {
+    color: #404646;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 12px;
+}
+.medicInq label {
+    color: #000808;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 14px;
+    margin-bottom: 0px !important;
+}
+.prescripList img {
+    width: 100%;
+    box-shadow: 10px 10px 5px -9px rgba(0,0,0,0.75);
+}
+.medicInqUpr {
+    height: 482px;
+    overflow-y: scroll;
+    margin-right: 1px;
+}
+.prescripList {
+    margin-top: 25px;
+}
+.prescripList input {
+    color: #FFFFFF;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 16px;
+    text-align: center;
+    border-radius: 8px;
+    background-color: #00ABAF;
+    outline: none;
+    border: none;
+    width: 100%;
+    padding: 14px 10px;
+    display: block;
+    margin-top: 30px;
+    margin-bottom: 10px;
+}
+.openParamadic {
+    margin-top: 62px;
+    margin-left: 62px;
+}
+.openParamadic a {
+    cursor: pointer;
+}
+.paraBoxCntnt {
+    width: 420px;
+    background: #fff;
+    margin: 0 auto;
+    border: none;
+    outline: none;
+    border-radius: 12px;
+    background-color: #FFFFFF;
+    box-shadow: 0 24px 32px 0 rgba(0,8,8,0.08);
+    margin-top: 35px;
+}
+.paraCourse {
+    padding: 12px 24px 18px 24px;
+    border-bottom: 1px solid #F2F2F2;
+}
+.paraCloseBtn {
+    text-align: right;
+    margin-bottom: 4px;
+}
+.paraCourse label {
+    color: #000808;
+    font-family: Muli;
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 32px;
+    margin-bottom: 2px;
+}
+.paraCourse p {
+    color: #7F8383;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: 18px;
+}
+.paraCloseBtn img {
+    height: 24px;
+    width: 24px;
+    cursor: pointer;
+}
+.imptNotic h2 {
+    text-align: center;
+    color: #976901;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 14px;
+    margin-bottom: 20px;
+}
+.imptNotic {
+    padding: 24px 24px 24px 24px;
+}
+.imptNotic img {
+    vertical-align: text-top;
+    margin-right: 8px;
+}
+.trigerAction ul li {
+    color: #976901;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 18px;
+    position: relative;
+    list-style-type: none;
+    margin-bottom: 4px;
+}
+.trigerAction {
+    border-radius: 8px;
+    background-color: #FECA57;
+    padding: 16px 20px;
+}
+.trigerAction label {
+    color: #976901;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 12px;
+    margin-bottom: 14px;
+}
+.trigerAction ul li::before{
+    content: '\2022';
+    color: #976901;
+    position: absolute;
+    left: -27px;
+    top: 0;
+}
+.paraPatient label {
+    color: #404646;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 12px;
+}
+.paraPatient input {
+    border: 1px solid #BFC1C1;
+    border-radius: 4px;
+    background-color: #FFFFFF;
+    width: 100%;
+    padding: 6px 8px;
+}
+.paraPatient {
+    margin-top: 28px;
+}
+.hereConfirm .MuiFormControlLabel-label {
+    color: #404646;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 20px;
+}
+.hereConfirm {
+    margin: 14px 0px 8px;
+}
+.paramSub input {
+    border-radius: 8px;
+    background-color: #00ABAF;
+    outline: none;
+    border: none;
+    width: 100%;
+    color: #FFFFFF;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 16px;
+    text-align: center;
+    padding: 12px 10px;
+}
+a.menuActv img {
+    background-color: #00ABAF !important;
+}
+
+/* -------------- */
+.docOpinion {
+    margin-left: 70px;
+    margin-top: 41px;
+}
+.docOpinLbl {
+    margin-bottom: 30px;
+}
+.docOpinLbl label {
+    color: #000808;
+    font-family: Muli;
+    font-size: 28px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 40px;
+    margin-bottom: 0px;
+}
+.docAddPatient a {
+    cursor: pointer;
+    color: #FFFFFF !important;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 16px;
+    text-align: center;
+    border-radius: 8px;
+    background-color: #00ABAF;
+    padding: 12px 18px;
+}
+.docAddPatient {
+    text-align: right;
+}
+.docAddUpr {
+    margin-bottom: 20px;
+}
+.findpatient input {
+    border: none;
+    border-radius: 12px;
+    background-color: #FFFFFF;
+    box-shadow: 0 1px 8px 0 rgba(0,8,8,0.04);
+    width: 100%;
+    outline: none;
+    padding: 17px 14px;
+    margin-bottom: 28px;
+    font-size: 16px;
+    font-family: Muli;
+}
+.findpatient input::-webkit-input-placeholder { 
+    color: #BFC1C1;
+  }
+.findpatient input::-moz-placeholder { 
+    color: #BFC1C1;
+}
+.findpatient input:-ms-input-placeholder { 
+    color: #BFC1C1;
+}
+.findpatient input:-moz-placeholder { 
+    color: #BFC1C1;
+}
+.findpatientReq a:first-child {
+    margin-right: 12px;
+}
+.findpatientReq a {
+    border: 1px solid #F2F2F2;
+    border-radius: 8px;
+    background-color: #FFFFFF;
+    color: #00ABAF !important;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 12px;
+    padding: 10px 16px;
+    cursor: pointer;
+}
+.findpatientReq {
+    position: absolute;
+    right: 12px;
+    top: 16px;
+}
+.findpatient {
+    position: relative;
+}
+.docOpinionIner {
+    border-radius: 12px;
+    background-color: #FFFFFF;
+    -webkit-box-shadow: 0 1px 8px 0 rgba(0,8,8,0.04);
+    box-shadow: 0 1px 8px 0 rgba(0,8,8,0.04);
+    min-height: 150vh;
+}
+.docOpinionIner thead {
+    border-bottom: 1px solid #D9DADA;
+}
+.docOpinionIner thead th {
+    padding: 16px 25px;
+    color: #7F8383;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 12px;
+}
+.docOpinionIner tbody tr {
+    border-bottom: 1px solid #F2F2F2;
+}
+.docOpinionIner td.pivoted {
+    padding: 14px 25px;
+    color: #000808;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 18px;
+}
+.docOpinionIner tr .docphrImg img {
+    width: 16px;
+    border-radius: 12px;
+    vertical-align: middle;
+    margin-right: 10px;
+}
+.docEditDot img {
+    height: 26px;
+    width: 26px;
+    cursor: pointer;
+}
+.docPatPag {
+    padding: 14px 25px;
+}
+.docPatPagRght {
+    text-align: right;
+}
+.docPatPagLft p {
+    color: #7F8383;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 12px;
+    padding-top: 8px;
+}
+.docPatPagRght a {
+    color: #7F8383;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 12px;
+    margin-left: 10px;
+    cursor: pointer;
+}
+.infoBoxCntnt {
+    width: 420px;
+    background: #fff;
+    margin: 0 auto;
+    border: none;
+    outline: none;
+    border-radius: 12px;
+    background-color: #FFFFFF;
+    box-shadow: 0 24px 32px 0 rgba(0,8,8,0.08);
+    margin-top: 35px;
+}
+.infoCourse {
+    padding: 12px 24px 18px 24px;
+    border-bottom: 1px solid #F2F2F2;
+}
+.infoCloseBtn {
+    text-align: right;
+    margin-bottom: 4px;
+}
+.infoCloseBtn img {
+    width: 26px;
+    cursor: pointer;
+}
+.userDetailLft img {
+    height: 56px;
+    width: 56px;
+    border-radius: 30px;
+}
+.userDetail {
+    display: flex;
+}
+.userDetailRght label {
+    color: #000808;
+    font-family: Muli;
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 32px;
+    margin-bottom: 0px;
+}
+.userDetailRght span {
+    color: #000808;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 18px;
+}
+.userDetailRght p {
+    color: #000808;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 18px;
+}
+.userDetailRght p a {
+    color: #7F8383 !important;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 18px;
+}
+.userDetailRght {
+    padding-left: 18px;
+}
+.userAdres {
+    display: flex;
+    margin-bottom: 8px;
+}
+.userAdres p {
+    color: #404646;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 23px;
+}
+.userAdresInfo {
+    padding: 12px 24px 18px 24px;
+}
+.userAdres .MuiGrid-root {
+    min-width: 24px;
+}
+.insureMe label {
+    color: #000808;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 18px;
+}
+.insureMe p {
+    color: #404646;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 14px;
+}
+.insureMe {
+    margin: 24px 0px 24px;
+}
+.openJournal input {
+    border-radius: 8px;
+    background-color: #00ABAF;
+    outline: none;
+    border: none;
+    width: 100%;
+    color: #FFFFFF;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 16px;
+    text-align: center;
+    padding: 14px 8px;
+}
+.openJourMenu img {
+    height: 50px;
+    width: 50px;
+    cursor: pointer;
+}
+.openJourMenu {
+    text-align: right;
+}
+.openJourMenu a ul {
+    display: none;
+    margin-bottom: 0px;
+    width: 178px;
+    text-align: left;
+    border: 1px solid #F2F2F2;
+    border-radius: 8px;
+    background-color: #FFFFFF;
+    box-shadow: 0 8px 16px 0 rgba(0,8,8,0.08);
+    padding: 14px 18px;
+    position: absolute;
+    right: 0;
+}
+.openJourMenu a ul li {
+    list-style-type: none;
+    color: #404646;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 14px;
+    margin: 10px 0px;
+}
+.openJourMenu a ul li img {
+    height: 16px;
+    width: 16px;
+    margin-right: 10px;
+}
+.openJourMenu a {
+    position: relative;
+}
+.openJourMenu a:hover ul {
+    display: block !important;
+}
+.openJourMenu a ul li a {
+    cursor: pointer;
+    text-decoration: none;
+}
+
 
 /*Added By ankita*/
 /*For LMS*/
+button.CutomStripeButton {
+    background: #00ABAF !important;
+    color: #fff !important;
+    padding: 5px 20px !important;
+    border-radius: 5px !important;
+}
+button.CutomStripeButton span {
+    background: #00ABAF !important;
+    text-shadow: none !important;
+    box-shadow: none !important;
+    border-radius: 0px !important;
+}
+.cardAddedWish
+{
+    border: 1px solid #00ABAF;
+}
+.courseListInr {
+    min-height: 200px;
+}
 .frameView
 {
     border: none !important;

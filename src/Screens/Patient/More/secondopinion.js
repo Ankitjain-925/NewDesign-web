@@ -9,6 +9,7 @@ import Select from 'react-select';
 import sitedata, { data } from '../../../sitedata';
 import { LanguageFetchReducer } from '../../actions';
 import { LoginReducerAim } from '../../Login/actions';
+import { Settings } from '../../Login/setting';
 import Radio from '@material-ui/core/Radio';
 import axios from 'axios';
 import ListingSecond from './Components/ListingSecond';
@@ -33,17 +34,17 @@ class Index extends Component {
             error: false,
             docProfile: false,
             loaderImage: false,
-            selectedPdoc : {},
-            share_to_doctor : false,
+            selectedPdoc: {},
+            share_to_doctor: false,
             AddSecond: {},
-            err_pdf : false,
-            personalinfo : {},
+            err_pdf: false,
+            personalinfo: {},
             found: false,
-            newItemp : {},
+            newItemp: {},
         };
     }
 
-    componentDidMount(){
+    componentDidMount() {
         this.alldoctor();
         this.patientinfo();
     }
@@ -52,16 +53,16 @@ class Index extends Component {
     patientinfo() {
         var user_id = this.props.stateLoginValueAim.user._id;
         var user_token = this.props.stateLoginValueAim.token;
-        axios.get(sitedata.data.path + '/UserProfile/Users/' + user_id, 
-        {
-            headers: {
-                'token': user_token,
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            }
-        }).then((response) => {
-            this.setState({ personalinfo: response.data.data, loaderImage: false })
-        })
+        axios.get(sitedata.data.path + '/UserProfile/Users/' + user_id,
+            {
+                headers: {
+                    'token': user_token,
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                }
+            }).then((response) => {
+                this.setState({ personalinfo: response.data.data, loaderImage: false })
+            })
     }
 
 
@@ -74,28 +75,29 @@ class Index extends Component {
             this.setState({ loaderImage: true });
             const user_token = this.props.stateLoginValueAim.token;
             var data = this.state.AddSecond;
-            if(this.state.fileattach)
-            {
+            if (this.state.fileattach) {
                 data.documents = this.state.fileattach;
             }
-            data.patient_info = {patient_id : this.props.stateLoginValueAim.user.profile_id,
+            data.patient_info = {
+                patient_id: this.props.stateLoginValueAim.user.profile_id,
                 first_name: this.props.stateLoginValueAim.user.first_name,
-                last_name : this.props.stateLoginValueAim.user.last_name, 
-                email: this.props.stateLoginValueAim.user.email,   
-                birthday: this.props.stateLoginValueAim.user.birthday, 
+                last_name: this.props.stateLoginValueAim.user.last_name,
+                email: this.props.stateLoginValueAim.user.email,
+                birthday: this.props.stateLoginValueAim.user.birthday,
                 profile_image: this.props.stateLoginValueAim.user.image
             };
             data.status = "free";
-            data.view_status= "free";  
+            data.view_status = "free";
             data.lan = this.props.stateLanguageType;
-            data.docProfile = {patient_id : this.state.docProfile.profile_id,
+            data.docProfile = {
+                patient_id: this.state.docProfile.profile_id,
                 first_name: this.state.docProfile.first_name,
-                last_name : this.state.docProfile.last_name, 
-                email: this.state.docProfile.email,   
-                birthday: this.state.docProfile.birthday, 
+                last_name: this.state.docProfile.last_name,
+                email: this.state.docProfile.email,
+                birthday: this.state.docProfile.birthday,
                 profile_image: this.state.docProfile.image
             };
-            data.send_on = new Date();  
+            data.send_on = new Date();
             data.patient_id = this.props.stateLoginValueAim.user._id;
             data.patient_email = this.props.stateLoginValueAim.user.email;
             data.first_name = this.state.personalinfo.first_name;
@@ -105,14 +107,13 @@ class Index extends Component {
             data.profile_image = this.state.personalinfo.image;
             data.patient_profile_id = this.props.stateLoginValueAim.user.profile_id;
             axios.post(sitedata.data.path + '/UserProfile/second_opinion', data)
-            .then((responce) => {
-                if(this.state.share_to_doctor)
-                {
-                    AddFavDoc(this.state.docProfile.profile_id, this.state.docProfile.profile_id, this.props.stateLoginValueAim.token,  this.props.stateLoginValueAim.user.profile_id);
-                }
-                this.setState({fileattach:{}, selectedPdoc: {}, newItemp : data, docProfile : false, AddSecond : {}, loaderImage: false, successfullsent : true  })     
-            })
-            setTimeout(() => { this.setState({successfullsent : false , addSec: false}); } ,  2000 );
+                .then((responce) => {
+                    if (this.state.share_to_doctor) {
+                        AddFavDoc(this.state.docProfile.profile_id, this.state.docProfile.profile_id, this.props.stateLoginValueAim.token, this.props.stateLoginValueAim.user.profile_id);
+                    }
+                    this.setState({ fileattach: {}, selectedPdoc: {}, newItemp: data, docProfile: false, AddSecond: {}, loaderImage: false, successfullsent: true, addSec: false })
+                })
+            setTimeout(() => { this.setState({ successfullsent: false }); }, 5000);
         }
         else {
             this.setState({ error: true });
@@ -138,40 +139,37 @@ class Index extends Component {
     //All doctors of the Pres
     alldoctor() {
         var user_token = this.props.stateLoginValueAim.token;
-        axios.get(sitedata.data.path + '/UserProfile/DoctorUsers', 
-        {
-            headers: {
-                'token': user_token,
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-
-            }
-        }).then((response) => {
-            if(response.data.data && response.data.data.length>0)
+        axios.get(sitedata.data.path + '/UserProfile/DoctorUsers',
             {
-                var data = [];
-                response.data.data.map((item)=>{
-                    var name = '';
-                    if(item.first_name && item.last_name)
-                    {
-                        name = item.first_name +' '+ item.last_name 
-                    }
-                    else if(item.first_name)
-                    {
-                        name = item.first_name
-                    } 
-                    data.push({value : item._id, label : name});
-                })
-                this.setState({ Pdoctors: data })
-            }
-        })
+                headers: {
+                    'token': user_token,
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+
+                }
+            }).then((response) => {
+                if (response.data.data && response.data.data.length > 0) {
+                    var data = [];
+                    response.data.data.map((item) => {
+                        var name = '';
+                        if (item.first_name && item.last_name) {
+                            name = item.first_name + ' ' + item.last_name
+                        }
+                        else if (item.first_name) {
+                            name = item.first_name
+                        }
+                        data.push({ value: item._id, label: name });
+                    })
+                    this.setState({ Pdoctors: data })
+                }
+            })
     }
-   
+
     //Add doctor for Second Opinion
     AddDoctor = (e, name) => {
         const state = this.state.AddSecond;
         state[name] = e.value;
-        this.setState({ AddSecond: state, selectedPdoc : e }, () => {
+        this.setState({ AddSecond: state, selectedPdoc: e }, () => {
             if (this.state.AddSecond.doctor_id) {
                 let doctor_id = this.state.AddSecond.doctor_id
                 axios.get(sitedata.data.path + '/UserProfile/DoctorProfile/' + doctor_id, {
@@ -180,8 +178,8 @@ class Index extends Component {
                         'Content-Type': 'application/json'
                     }
                 }).then((response) => {
-                    const found = this.state.personalinfo.fav_doctor && this.state.personalinfo.fav_doctor.length>0 && this.state.personalinfo.fav_doctor.some(el => el.doctor === response.data.data.profile_id);
-                    this.setState({ docProfile: response.data.data, found : found })
+                    const found = this.state.personalinfo.fav_doctor && this.state.personalinfo.fav_doctor.length > 0 && this.state.personalinfo.fav_doctor.some(el => el.doctor === response.data.data.profile_id);
+                    this.setState({ docProfile: response.data.data, found: found })
                 })
             }
         })
@@ -190,42 +188,42 @@ class Index extends Component {
     //For upload File related the second Opinion
     fileUpload = (event) => {
         if (event && event[0] && (event[0].type === "application/pdf" || event[0].type === "image/jpeg" || event[0].type === "image/png")) {
-            this.setState({ isfileuploadmulti: true,  loaderImage: true, err_pdf: false})
+            this.setState({ isfileuploadmulti: true, loaderImage: true, err_pdf: false })
             var fileattach = [];
-            for(var i =0 ; i<event.length; i++)
-            {
+            for (var i = 0; i < event.length; i++) {
                 var file = event[i];
                 let fileParts = event[i].name.split('.');
                 let fileName = fileParts[0];
                 let fileType = fileParts[1];
-                axios.post(sitedata.data.path  + '/aws/sign_s3',{
-                    fileName : fileName,
-                    fileType : fileType,
-                    folders: this.props.stateLoginValueAim.user.profile_id+'/second_opinion/',
-                    bucket: this.props.stateLoginValueAim.user.bucket 
+                axios.post(sitedata.data.path + '/aws/sign_s3', {
+                    fileName: fileName,
+                    fileType: fileType,
+                    folders: this.props.stateLoginValueAim.user.profile_id + '/second_opinion/',
+                    bucket: this.props.stateLoginValueAim.user.bucket
                 }).then(response => {
-                    fileattach.push({filename : response.data.data.returnData.url+'&bucket='+this.props.stateLoginValueAim.user.bucket})
-                    this.setState({fileupods: true });
-                    setTimeout(()=> { this.setState({fileupods: false}); },5000);
+                    fileattach.push({ filename: response.data.data.returnData.url + '&bucket=' + this.props.stateLoginValueAim.user.bucket })
+                    this.setState({ fileupods: true });
+                    setTimeout(() => { this.setState({ fileupods: false }); }, 5000);
                     var returnData = response.data.data.returnData;
                     var signedRequest = returnData.signedRequest;
                     var url = returnData.url;
                     // Put the fileType in the headers for the upload
-                    var options = {  headers: { 'Content-Type': fileType } };
-                    axios.put('https://cors-anywhere.herokuapp.com/'+signedRequest,file,options)
-                    .then(result => {
-                        this.setState({success: true, loaderImage: false, fileattach : fileattach});
-                    }).catch(error => {})
-                }).catch(error => {})     
+                    var options = { headers: { 'Content-Type': fileType } };
+                    axios.put('https://cors-anywhere.herokuapp.com/' + signedRequest, file, options)
+                        .then(result => {
+                            this.setState({ success: true, loaderImage: false, fileattach: fileattach });
+                        }).catch(error => { })
+                }).catch(error => { })
             }
         }
-        else {this.setState({err_pdf: true})}
+        else { this.setState({ err_pdf: true }) }
     }
 
 
     render() {
         const { specialistOption } = this.state;
         return (
+
             <Grid className="homeBg">
                 {this.state.loaderImage && <Loader />}
                 <Grid className="homeBgIner">
@@ -233,7 +231,7 @@ class Index extends Component {
                         <Grid item xs={12} md={12}>
                             <Grid container direction="row">
                                 {/* Website Menu */}
-                                <LeftMenu currentPage ="more"/>
+                                <LeftMenu currentPage="more" />
                                 {/* End of Website Menu */}
 
                                 <Grid item xs={12} md={9}>
@@ -262,7 +260,6 @@ class Index extends Component {
                                                         <Grid><label>Second Opinion</label></Grid>
                                                     </Grid>
                                                     {this.state.err_pdf && <div className="err_message">Please upload PDF, PNG and JPEG file</div>}
-                                                    {this.state.successfullsent && <div className="success_message">Request sent Sucessfully</div>}
                                                     {this.state.error && <div className="err_message">For Second Opinion request Doctor is required</div>}
                                                     <Grid className="shrHlthMain">
                                                         {!this.state.found && <Grid className="shrHlth">
@@ -274,7 +271,7 @@ class Index extends Component {
                                                                             value="checkedB"
                                                                             color="#00ABAF"
                                                                             name="share_to_doctor"
-                                                                            checked={this.state.share_to_doctor === true && this.state.share_to_doctor} onChange={(e)=>{this.setState({share_to_doctor : e.target.checked})}}
+                                                                            checked={this.state.share_to_doctor === true && this.state.share_to_doctor} onChange={(e) => { this.setState({ share_to_doctor: e.target.checked }) }}
                                                                         />
                                                                     }
                                                                     label="Share journal health status with Doctor"
@@ -291,7 +288,7 @@ class Index extends Component {
                                                                 <Grid>
                                                                     <Select
                                                                         value={this.state.selectedPdoc}
-                                                                        onChange={(e)=>this.AddDoctor(e, 'doctor_id')}
+                                                                        onChange={(e) => this.AddDoctor(e, 'doctor_id')}
                                                                         options={this.state.Pdoctors}
                                                                         placeholder="Select"
                                                                         isSearchable={false}
@@ -302,13 +299,13 @@ class Index extends Component {
                                                             <Grid className="recevPrescp">
                                                                 <Grid className="recevPrescpLbl"><label>How would you like to receive the Second Opinion?</label></Grid>
                                                                 <Grid className="recevPrescpChk">
-                                                                    <FormControlLabel  control={<Radio />} name="online_offline" value="online" color="#00ABAF" checked={this.state.AddSecond && this.state.AddSecond.online_offline === 'online'} onChange={this.AddState} label="Online"  />
-                                                                    <FormControlLabel control={ <Radio />} name="online_offline" color="#00ABAF" value="offline" checked={this.state.AddSecond && this.state.AddSecond.online_offline === 'offline'} onChange={this.AddState} label="Home address mailbox"/>
+                                                                    <FormControlLabel control={<Radio />} name="online_offline" value="online" color="#00ABAF" checked={this.state.AddSecond && this.state.AddSecond.online_offline === 'online'} onChange={this.AddState} label="Online" />
+                                                                    <FormControlLabel control={<Radio />} name="online_offline" color="#00ABAF" value="offline" checked={this.state.AddSecond && this.state.AddSecond.online_offline === 'offline'} onChange={this.AddState} label="Home address mailbox" />
                                                                 </Grid>
                                                             </Grid>
                                                             <Grid className="yrProfes">
                                                                 <Grid><label>Your profession</label></Grid>
-                                                                <Grid><input type="text" name="professions" value={this.state.AddSecond && this.state.AddSecond.professions && this.state.AddSecond.professions} onChange={this.AddState}/></Grid>
+                                                                <Grid><input type="text" name="professions" value={this.state.AddSecond && this.state.AddSecond.professions && this.state.AddSecond.professions} onChange={this.AddState} /></Grid>
                                                             </Grid>
                                                             <Grid className="yrProfes">
                                                                 <Grid><label>Annotations / details / questions</label></Grid>
@@ -348,8 +345,8 @@ class Index extends Component {
                                             </Grid>
                                         </Modal>
                                         {/* End of Model setup */}
-
-                                        <ListingSecond newItem= {this.state.newItemp}/>
+                                        {this.state.successfullsent && <div className="success_message">Request sent Sucessfully</div>}
+                                        <ListingSecond newItem={this.state.newItemp} />
 
                                     </Grid>
 
@@ -360,20 +357,23 @@ class Index extends Component {
                     </Grid>
                 </Grid>
             </Grid>
+
         );
     }
 }
 const mapStateToProps = (state) => {
     const { stateLoginValueAim, loadingaIndicatoranswerdetail } = state.LoginReducerAim;
     const { stateLanguageType } = state.LanguageReducer;
+    const {settings} = state.Settings;
     // const { Doctorsetget } = state.Doctorset;
     // const { catfil } = state.filterate;
     return {
         stateLanguageType,
         stateLoginValueAim,
         loadingaIndicatoranswerdetail,
+        settings,
         //   Doctorsetget,
         //   catfil
     }
 };
-export default withRouter(connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer })(Index));
+export default withRouter(connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer, Settings })(Index));

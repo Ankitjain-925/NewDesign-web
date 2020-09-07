@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
 import { connect } from "react-redux";
 import { LoginReducerAim } from '../../../Login/actions';
+import { Settings } from '../../../Login/setting';
 // import { Doctorset } from '../../Doctor/actions';
 // import { filterate } from '../../Doctor/filteraction';
 import { withRouter } from "react-router-dom";
@@ -66,6 +67,10 @@ class Index extends Component {
     Tracker = ()=>{
         this.props.history.push('/patient/tracker');    
     }
+    //For Timeline / Journal
+    Journal = ()=>{
+        this.props.history.push('/patient/journal');    
+    }
     render() {
         return (
             <Grid item xs={12} md={1} className="MenuLeftUpr ">
@@ -75,7 +80,7 @@ class Index extends Component {
                 <Grid className="menuItems">
                     <ul>
                         <li className={this.props.currentPage==='journal' ? "menuActv" : ""}>
-                            <a>
+                            <a onClick={this.Journal}>
                             {this.props.currentPage==='journal' ? <img src={require('../../../../assets/images/menu1.png')} alt="" title="" />
                                 :<img src={require('../../../../assets/images/inactiveJournal.jpg')} alt="" title="" />}
                                 <span>Journal</span>
@@ -152,14 +157,16 @@ class Index extends Component {
 const mapStateToProps = (state) => {
     const { stateLoginValueAim, loadingaIndicatoranswerdetail } = state.LoginReducerAim;
     const { stateLanguageType } = state.LanguageReducer;
+    const {settings} = state.Settings;
     // const { Doctorsetget } = state.Doctorset;
     // const { catfil } = state.filterate;
     return {
         stateLanguageType,
         stateLoginValueAim,
         loadingaIndicatoranswerdetail,
+        settings,
         //   Doctorsetget,
         //   catfil
     }
 };
-export default withRouter(connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer })(Index));
+export default withRouter(connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer, Settings })(Index));

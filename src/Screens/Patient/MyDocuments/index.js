@@ -17,6 +17,7 @@ import { withRouter } from "react-router-dom";
 import Radio from '@material-ui/core/Radio';
 import { connect } from "react-redux";
 import { LoginReducerAim } from './../../Login/actions';
+import { Settings } from './../../Login/setting';
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
 import LeftMenu from './../../Components/Menus/PatientLeftMenu/index';
@@ -177,9 +178,9 @@ class Index extends Component {
                 {
                     AddFavDoc(this.state.docProfile1.profile_id, this.state.docProfile1.profile_id, this.props.stateLoginValueAim.token,  this.props.stateLoginValueAim.user.profile_id);
                 }
-                this.setState({ newItems : data, docProfile: false, AddSickCertificate: {}, selectedSdoc : {}, loaderImage: false, successfullsent1: true })
+                this.setState({ newItems : data, docProfile: false, AddSickCertificate: {}, selectedSdoc : {}, loaderImage: false, successfullsent1: true, addSick : false })
             })
-            setTimeout(() => { this.setState({ successfullsent1: false, addSick : false });  }, 2000);
+            setTimeout(() => { this.setState({ successfullsent1: false });  }, 5000);
         }
         else {
             this.setState({ error1: true });
@@ -228,9 +229,9 @@ class Index extends Component {
                 {
                     AddFavDoc(this.state.docProfile.profile_id, this.state.docProfile.profile_id, this.props.stateLoginValueAim.token, this.props.stateLoginValueAim.user.profile_id);
                 }
-                this.setState({ newItemp : data, docProfile: false, AddPrescription: {}, selectedSub : {}, selectedPdoc : {}, loaderImage: false, successfullsent: true })
+                this.setState({ newItemp : data, docProfile: false, addInqry : false, AddPrescription: {}, selectedSub : {}, selectedPdoc : {}, loaderImage: false, successfullsent: true })
             })
-            setTimeout(() => { this.setState({ successfullsent: false, addInqry : false}); }, 2000);
+            setTimeout(() => { this.setState({ successfullsent: false }); }, 5000);
         }
         else {
             this.setState({ error: true });
@@ -413,7 +414,6 @@ class Index extends Component {
                                                         <p>New inquiry</p>
                                                         <Grid><label>Sick Certificate</label></Grid>
                                                     </Grid>
-                                                    {this.state.successfullsent1 && <div className="success_message">Request sent Sucessfully</div>}
                                                     {this.state.error1 && <div className="err_message">For Sick certificate request Doctor is required</div>}
                                                     <Grid className="docHlthMain">
                                                         {!this.state.found1 && <Grid className="docHlth">
@@ -558,7 +558,6 @@ class Index extends Component {
                                                         <p>New inquiry</p>
                                                         <Grid><label>Prescription</label></Grid>
                                                     </Grid>
-                                                    {this.state.successfullsent && <div className="success_message">Request sent Sucessfully</div>}
                                                     {this.state.error && <div className="err_message">For Precription request Doctor is required</div>}
                                                     <Grid className="docHlthMain">
 
@@ -731,10 +730,12 @@ class Index extends Component {
                                         <Grid className="presPkgIner2">
 
                                             {value === 0 && <TabContainer>
+                                                {this.state.successfullsent && <div className="success_message">Request sent Sucessfully</div>}
                                                 <PrecriptionList newItem= {this.state.newItemp} />
                                             </TabContainer>}
 
                                             {value === 1 && <TabContainer>
+                                                {this.state.successfullsent1 && <div className="success_message">Request sent Sucessfully</div>}
                                                 <SickList newItem= {this.state.newItems} />
                                             </TabContainer>}
                                         </Grid>
@@ -754,14 +755,16 @@ class Index extends Component {
 const mapStateToProps = (state) => {
     const { stateLoginValueAim, loadingaIndicatoranswerdetail } = state.LoginReducerAim;
     const { stateLanguageType } = state.LanguageReducer;
+    const {settings} = state.Settings;
     // const { Doctorsetget } = state.Doctorset;
     // const { catfil } = state.filterate;
     return {
         stateLanguageType,
         stateLoginValueAim,
         loadingaIndicatoranswerdetail,
+        settings,
         //   Doctorsetget,
         //   catfil
     }
 };
-export default withRouter(connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer })(Index));
+export default withRouter(connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer, Settings })(Index));

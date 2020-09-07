@@ -4,6 +4,7 @@ import { Redirect, Route } from 'react-router-dom';
 import axios from "axios";
 import { connect } from "react-redux";
 import { LoginReducerAim } from './actions';
+import { Settings } from './setting';
 import Grid from '@material-ui/core/Grid';
 import { authy } from './authy.js';
 import { NavLink, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
@@ -65,6 +66,7 @@ class Index extends Component {
       
       logoutUser= ()=> {
           this.props.authy(false);
+          this.props.Settings('');
           let languageType = 'en';
           this.props.LanguageFetchReducer(languageType);
       }
@@ -120,6 +122,7 @@ class Index extends Component {
                             if (this.props.stateLoginValueAim.token !== 450 && this.props.stateLoginValueAim.user !== 'undefined' && this.props.stateLoginValueAim.user !== null) {
                                 if (!this.props.stateLoginValueAim.user.is2fa) {
                                     this.props.authy(true);
+                                    this.props.Settings(this.props.stateLoginValueAim.token);
                                 }
                                 this.setState({ anotherlogin: true })
                             }
@@ -139,7 +142,7 @@ class Index extends Component {
                         function () {
                             this.setState({ myLogin: true });
                             this.setState({ loaderImage: false })
-
+                            this.props.Settings(this.props.stateLoginValueAim.token);
                             if (this.props.stateLoginValueAim && this.props.stateLoginValueAim.user && !this.props.stateLoginValueAim.user.is2fa) {  
                                 this.props.authy(true);
                             }
@@ -176,7 +179,6 @@ class Index extends Component {
             .then((response) => {
                 this.setState({ loaderImage: false })
                 if (response.data.hassuccessed === true) {
-
                     this.props.authy(true);
                 }
                 else {
@@ -427,14 +429,16 @@ const mapStateToProps = (state) => {
     const { stateLoginValueAim, loadingaIndicatoranswerdetail } = state.LoginReducerAim;
     const { stateLanguageType } = state.LanguageReducer;
     const { verifyCode } = state.authy;
+    const { settings } = state.Settings;
     return {
         stateLanguageType,
         stateLoginValueAim,
         loadingaIndicatoranswerdetail,
-        verifyCode
+        verifyCode,
+        settings
     }
 };
 
-export default connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer, authy })(Index)
+export default connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer, authy, Settings })(Index)
 
 // export default Index;

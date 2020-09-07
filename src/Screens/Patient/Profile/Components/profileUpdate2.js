@@ -1,5 +1,5 @@
 /*global google*/
-import TextField from '@material-ui/core/TextField';
+
 import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
 import Select from 'react-select';
@@ -26,6 +26,7 @@ import * as ThailandC from '../../../Components/insuranceCompanies/thailand.json
 import Autocomplete from '../Autocomplete.js';
 import { LanguageFetchReducer } from './../../../actions';
 import Modal from '@material-ui/core/Modal';
+import QRCode from 'qrcode.react';
 import Loader from './../../../Components/Loader/index';
 
 var datas = [];
@@ -37,7 +38,6 @@ class Index extends Component {
         this.autocompleteInput = React.createRef();
         this.city = null;
         this.handlePlaceChanged = this.handlePlaceChanged.bind(this);
-        this.filterList = this.filterList.bind(this)
         this.state = {
             selectedOption: null,
             openDash: false,
@@ -101,14 +101,6 @@ class Index extends Component {
             DuplicateAlies: false,
             toSmall: false,
             phonevalidate: false,
-            addInsuranceOpen: false,
-            editInsuranceOpen: false,
-            editInsuData: {},
-            insurnanceAdded: false,
-            selectedCountry: '',
-            q: '',
-            filteredCompany: [],
-            editIndex: null,
         };
         // new Timer(this.logOutClick.bind(this)) 
     }
@@ -119,6 +111,14 @@ class Index extends Component {
         state['birthday'] = date
         this.setState({ UpDataDetails: state })
     }
+
+    // fancybox open
+    handleOpenDash = () => {
+        this.setState({ openDash: true });
+    };
+    handleCloseDash = () => {
+        this.setState({ openDash: false });
+    };
 
     componentDidMount() {
         // new LogOut(this.props.stateLoginValueAim.token, this.props.stateLoginValueAim.user._id, this.logOutClick.bind(this))
@@ -214,8 +214,8 @@ class Index extends Component {
     handlePinOpen = () => {
         this.setState({ chngPinOpen: true });
     };
-    handlePinClose = (key) => {
-        this.setState({ [key]: false });
+    handlePinClose = () => {
+        this.setState({ chngPinOpen: false });
     };
 
     //For change the title of user
@@ -309,6 +309,10 @@ class Index extends Component {
             })
     }
 
+    changeLangClick(languageType) {
+        this.props.LanguageFetchReducer(languageType);
+    }
+
     //For change the language and the Speciality
     handleChange_multi = (event, name) => {
         const state = this.state.UpDataDetails;
@@ -323,7 +327,6 @@ class Index extends Component {
         this.setState({ UpDataDetails: state })
     };
 
-    //For update the state of the Profile
     handleChange1 = (e) => {
         const state = this.state.userDetails
         state[e.target.name] = e.target.value;
@@ -337,6 +340,14 @@ class Index extends Component {
         this.setState({ weoffer: state });
     }
 
+    logOutClick() {
+        let email = "";
+        let password = "";
+        this.props.LoginReducerAim(email, password);
+        let languageType = 'en';
+        this.props.LanguageFetchReducer(languageType);
+    }
+
     // For add the insurance
     addmore_insurance() {
         datas.push(this.state.insuranceDetails)
@@ -344,10 +355,16 @@ class Index extends Component {
         this.setState({ insuranceDetails: { insurance: '', insurance_type: '', insurance_number: '' } })
         this.setState({ moreone: true })
     }
+    // selectCountry = (event) => {
+    //     const state = this.state.CreateKYC;
+    //     state['country'] = event.target.value;
+    //     this.setState({ CreateKYC: state });
+    //     this.setState({ selectedCountry: event.target.value })
+    // }
+
 
     //Save the User profile
     saveUserData = () => {
-        console.log("insuranceDetails", this.state.insuranceDetails)
         if (this.state.insuranceDetails.insurance !== "" && this.state.insuranceDetails.insurance_number !== ""
             && this.state.insuranceDetails.insurance_country !== "") {
             if (datas.some(data => data.insurance === this.state.insuranceDetails.insurance)) { }
@@ -411,7 +428,7 @@ class Index extends Component {
             }
         }).then((responce) => {
             if (responce.data.hassuccessed) {
-                this.setState({ editInsuranceOpen: false, addInsuranceOpen: false, succUpdate: true, insuranceDetails: { insurance: '', insurance_number: '', insurance_country: '' } })
+                this.setState({ succUpdate: true, insuranceDetails: { insurance: '', insurance_number: '', insurance_country: '' } })
                 this.setState({ loaderImage: false });
                 setTimeout(() => { this.setState({ succUpdate: false }) }, 5000)
                 this.getUserData();
@@ -489,19 +506,8 @@ class Index extends Component {
         }
     }
 
-    //For open the Insurance Edit popup
-    editKYCopen(event, i) {
-        this.setState({ editInsuranceOpen: true, insuranceDetails: event, editIndex: i })
-    }
 
-
-    //For update the insurance country
-    updatesinsurancesCountry(keys, e) {
-        datas[keys].insurance_country = e.value;
-        this.setState({ insurancefull: datas })
-    }
-
-    //Update Insurance
+    //For update the insurance
     updatesinsurances = (keys, e) => {
         if (e.target.name === 'insurance') {
             datas[keys].insurance = e.target.value;
@@ -512,9 +518,9 @@ class Index extends Component {
         if (e.target.name === 'insurance_number') {
             datas[keys].insurance_number = e.target.value;
         }
-        // if (e.target.name === 'insurance_country') {
-        //     datas[keys].insurance_country = e.target.value;
-        // }
+        if (e.target.name === 'insurance_country') {
+            datas[keys].insurance_country = e.target.value;
+        }
         this.setState({ insurancefull: datas })
     }
 
@@ -578,12 +584,8 @@ class Index extends Component {
             this.setState({ UpDataDetails: response.data.data, city: response.data.data.city, area: response.data.data.area, profile_id: response.data.data.profile_id });
             this.setState({ speciality_multi: this.state.UpDataDetails.speciality })
             this.setState({ name_multi: language, title: title })
-            this.setState({
-                insurancefull: this.state.UpDataDetails.insurance,
-                insuranceDetails: { insurance: '', insurance_number: '', insurance_type: '' }
-            })
+            this.setState({ insurancefull: this.state.UpDataDetails.insurance, insuranceDetails: { insurance: '', insurance_number: '', insurance_type: '' } })
             datas = this.state.UpDataDetails.insurance;
-
             this.setState({ loaderImage: false });
         }).catch((error) => {
             this.setState({ loaderImage: false });
@@ -630,35 +632,10 @@ class Index extends Component {
         this.setState({ insuranceDetails: state });
     }
 
-
-    // For Add more insurance model
-    handleAddInsurance = () => {
-        this.setState({ addInsuranceOpen: true });
-    }
-
-    //To add Insurance
-    insuranceForm = (e) => {
-        const state = this.state.insuranceDetails;
-        if (e.target.name == 'insurance') {
-            const q = e.target.value.toLowerCase();
-            this.setState({ q }, () => this.filterList());
-        }
-        state[e.target.name] = e.target.value;
-        this.setState({ insuranceDetails: state });
-    }
-
-
-    selectCountry = (event) => {
-        const state = this.state.insuranceDetails;
-        state['insurance_country'] = event.value;
-        this.setState({ insuranceDetails: state });
-        this.setState({ selectedCountry: event })
-    }
-
     //For insurance Countries getting the list
-    filterList() {
+    filterList(selectedCountry) {
         let iCompany;
-        switch (this.state.selectedCountry.value) {
+        switch (selectedCountry) {
             case "AU":
                 iCompany = AustraliaC.australia
                 break;
@@ -695,54 +672,11 @@ class Index extends Component {
         }
     }
 
-    toggle = (event) => {
-        const state = this.state.insuranceDetails;
-        state['insurance'] = event;
-        this.setState({ insuranceDetails: state });
-        if (this.state.active === event) {
-            this.setState({ active: null })
-        } else {
-            this.setState({ active: event })
-        }
-    }
-
-    //For filter the country for add insuance
-    filterCountry = (i) => {
-        let countryList = this.state.selectCountry
-        let name
-        name = countryList.filter(value => {
-            if (value.value == i) {
-                return value.label
-            }
-        })
-        return name[0].label
-    }
-
-    //For filter the country for add insuances
-    filterCountry1 = (i) => {
-        let countryList = this.state.selectCountry
-        let name
-        name = countryList.filter(value => {
-            if (value.value == i) {
-                return value.label
-            }
-        })
-        return name[0]
-    }
-
-
-
 
     render() {
         const { stateLoginValueAim, Doctorsetget } = this.props;
-        const { value, editInsuData, insurancefull, editIndex, insuranceDetails } = this.state;
-        const companyList = this.state.filteredCompany && this.state.filteredCompany.map(company => {
-            return (
-                <li className="list-group-item" value={company}
-                    onClick={() => { this.setState({ q: company }); this.toggle(company); this.setState({ filteredCompany: [] }) }}
-                >{company}</li>
-            )
-        });
+        const { value } = this.state;
+
         return (
             <div>
                 {this.state.loaderImage && <Loader />}
@@ -790,8 +724,9 @@ class Index extends Component {
                                     <Grid><label>Profile QR code</label></Grid>
                                 </Grid>
                                 <Grid className="qrCourseImg">
-                                    <Grid><img src={require('../../../../assets/images/qrimg.jpg')} alt="" title="" /></Grid>
-                                    <Grid><input type="submit" value="Done" /></Grid>
+                                    {/* <Grid><img src={require('../../../../assets/images/qrimg.jpg')} alt="" title="" /></Grid> */}
+                                    <Grid> <QRCode value={this.state.UpDataDetails.profile_id} /> </Grid>
+                                    <Grid><input type="submit" value="Done" onClick={this.handleQrClose} /></Grid>
                                 </Grid>
                             </Grid>
                         </Modal>
@@ -804,12 +739,12 @@ class Index extends Component {
                         {/* Change ID and Pin */}
                         <Modal
                             open={this.state.chngPinOpen}
-                            onClose={() => this.handlePinClose("chngPinOpen")}
+                            onClose={this.handlePinClose}
                             className="editBoxModel">
                             <Grid className="editBoxCntnt">
                                 <Grid className="editCourse">
                                     <Grid className="editCloseBtn">
-                                        <a onClick={() => this.handlePinClose("chngPinOpen")}>
+                                        <a onClick={this.handlePinClose}>
                                             <img src={require('../../../../assets/images/closefancy.png')} alt="" title="" />
                                         </a>
                                     </Grid>
@@ -1019,57 +954,6 @@ class Index extends Component {
 
                 <Grid className="insrnceTbl">
                     <Grid><h3>Insurance</h3></Grid>
-                    <Grid className="profileIdRght">
-                        <a onClick={this.handleAddInsurance}>Add more Insurance</a>
-                    </Grid>
-                    {/* Add more insurance model Open */}
-                    <Modal
-                        open={this.state.addInsuranceOpen}
-                        onClose={() => this.handlePinClose("addInsuranceOpen")}
-                        className="editBoxModel">
-                        <Grid className="editBoxCntnt">
-                            <Grid className="editCourse">
-                                <Grid className="editCloseBtn">
-                                    <a onClick={() => this.handlePinClose("addInsuranceOpen")}>
-                                        <img src={require('../../../../assets/images/closefancy.png')} alt="" title="" />
-                                    </a>
-                                </Grid>
-                                <Grid><label>Add More Insurance</label></Grid>
-                            </Grid>
-                            <Grid className="editPinform">
-                                <Grid className="editField">
-                                    {this.state.insurnanceAdded && <div className="success_message">Insuranse added Successfully.</div>}
-                                    <label>Country of insurance</label>
-                                    <Grid>
-                                        <Select
-                                            onChange={this.selectCountry}
-                                            options={this.state.selectCountry}
-                                            placeholder=""
-                                            isSearchable={false}
-                                            name="insurance_country"
-                                            className="cntryDrop"
-                                        />
-                                    </Grid>
-                                </Grid>
-                                <Grid className="editField">
-                                    <label>Insurance Company</label>
-                                    <Grid><input type="text" name="insurance" value={(insuranceDetails && insuranceDetails.insurance) && insuranceDetails.insurance} onChange={this.insuranceForm} /></Grid>
-                                    <ul className="insuranceHint" style={{ height: companyList && companyList.length > 0 ? '150px' : '' }}>
-                                        {companyList}
-                                    </ul>
-                                </Grid>
-
-                                <Grid className="editField">
-                                    <label>Insurance Number</label>
-                                    <Grid><input type="text" name="insurance_number" onChange={(e) => this.insuranceForm(e)} /></Grid>
-                                </Grid>
-                                <Grid>
-                                    <input type="submit" onClick={this.saveUserData} value="Save changes" />
-                                </Grid>
-                            </Grid>
-                        </Grid>
-                    </Modal>
-                    {/* Add more insurance model Close */}
                     <Table>
                         <thead>
                             <tr>
@@ -1080,73 +964,20 @@ class Index extends Component {
                             </tr>
                         </thead>
                         <tbody>
-                            {insurancefull && insurancefull.length > 0 && insurancefull.map((insu, i) => (
-                                <tr>
-                                    <td>{this.filterCountry(insu.insurance_country)}</td>
-                                    <td>{insu.insurance}</td>
-                                    <td>{insu.insurance_number}</td>
-                                    <td className="presEditDot scndOptionIner">
-                                        <a className="openScndhrf">
-                                            <img src={require('../../../../assets/images/moreicon.jpg')} alt="" title="" className="openScnd" />
-                                            <ul>
-                                                <li><a onClick={() => this.editKYCopen(insu, i)}><img src={require('../../../../assets/images/edit.svg')} alt="" title="" />Edit</a></li>
-                                                <li><a onClick={() => this.removeInsurance(i, insu)} ><img src={require('../../../../assets/images/closefancy.png')} alt="" title="" />Delete</a></li>
-                                            </ul>
-                                        </a>
-                                    </td>
-                                </tr>
-                            ))}
+                            <tr>
+                                <td>Germany</td>
+                                <td>Insure Me GmbH</td>
+                                <td>89212318416514</td>
+                                <td><img src={require('../../../../assets/images/moreicon.jpg')} alt="" title="" /></td>
+                            </tr>
+                            <tr>
+                                <td>Germany</td>
+                                <td>Insure Me GmbH</td>
+                                <td>89212318416514</td>
+                                <td><img src={require('../../../../assets/images/moreicon.jpg')} alt="" title="" /></td>
+                            </tr>
                         </tbody>
                     </Table>
-                    {/* Edit insurance model OPen */}
-                    <Modal
-                        open={this.state.editInsuranceOpen}
-                        onClose={() => this.handlePinClose("editInsuranceOpen")}
-                        className="editBoxModel">
-                        <Grid className="editBoxCntnt">
-                            <Grid className="editCourse">
-                                <Grid className="editCloseBtn">
-                                    <a onClick={() => this.handlePinClose("editInsuranceOpen")}>
-                                        <img src={require('../../../../assets/images/closefancy.png')} alt="" title="" />
-                                    </a>
-                                </Grid>
-                                <Grid><label>Edit Insurance</label></Grid>
-                            </Grid>
-                            <Grid className="editPinform">
-                                <Grid className="editField">
-                                    {this.state.insurnanceAdded && <div className="success_message">Insuranse added Successfully.</div>}
-                                    <label>Country of insurance</label>
-                                    <Grid>
-                                        <Select
-                                            value={datas[editIndex] && datas[editIndex].insurance_country ? this.filterCountry1(datas[editIndex] && datas[editIndex].insurance_country) : ''}
-                                            onChange={(event) => this.updatesinsurancesCountry(editIndex, event)}
-                                            options={this.state.selectCountry}
-                                            placeholder=""
-                                            isSearchable={false}
-                                            name="insurance_country"
-                                            className="cntryDrop"
-                                        />
-                                    </Grid>
-                                </Grid>
-                                <Grid className="editField">
-                                    <label>Insurance Company</label>
-                                    <Grid><input type="text" value={datas[editIndex] && datas[editIndex].insurance ? datas[editIndex] && datas[editIndex].insurance : ''} name="insurance" onChange={(event) => this.updatesinsurances(editIndex, event)} /></Grid>
-                                    <ul className="insuranceHint" style={{ height: companyList && companyList.length > 0 ? '150px' : '' }}>
-                                        {companyList}
-                                    </ul>
-                                </Grid>
-
-                                <Grid className="editField">
-                                    <label>Insurance Number</label>
-                                    <Grid><input type="text" value={datas[editIndex] && datas[editIndex].insurance_number ? datas[editIndex] && datas[editIndex].insurance_number : ''} name="insurance_number" onChange={(event) => this.updatesinsurances(editIndex, event)} /></Grid>
-                                </Grid>
-                                <Grid>
-                                    <input type="submit" onClick={this.saveUserData} value="Save changes" />
-                                </Grid>
-                            </Grid>
-                        </Grid>
-                    </Modal>
-                    {/* Edit insurance Model close */}
                 </Grid>
 
                 <Grid className="infoSub">

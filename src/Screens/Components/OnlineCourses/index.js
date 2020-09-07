@@ -12,6 +12,7 @@ import MyCourses from './Components/myCourse';
 import AllCourses from './Components/allCourses';
 import { connect } from "react-redux";
 import { LoginReducerAim } from '../../Login/actions';
+import { Settings } from '../../Login/setting';
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
 import Modal from '@material-ui/core/Modal';
@@ -117,6 +118,19 @@ class Index extends Component {
             }).catch(err => {})
     }
 
+    //For remove wishlist
+    removeWishlist = (event) => {
+        var user_token = this.props.stateLoginValueAim.token;
+        axios.delete(sitedata.data.path + "/admin/removeWishlist/" + event._id, {
+            headers: {
+                'token': user_token,
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        }).then(res => {
+            this.getAllwishlist();
+        }).catch(err => { })
+    }
     //Get current User Information 
     patientinfo() {
         var user_id = this.props.stateLoginValueAim.user._id;
@@ -258,6 +272,7 @@ class Index extends Component {
     render() {
         const { value } = this.state;
         const { selectedOption } = this.state;
+        //Success payment alert after payment is success
         const successPayment = data => {
             confirmAlert({
                 message: "Payment successfully",
@@ -271,7 +286,7 @@ class Index extends Component {
             axios.post(sitedata.data.path + '/lms_stripeCheckout/saveData',
             {
                 user_id: this.props.stateLoginValueAim.user._id,
-                userName: this.props.stateLoginValueAim.user.first_name + this.props.stateLoginValueAim.user.last_name,
+                userName:  this.props.stateLoginValueAim.user.first_name + this.props.stateLoginValueAim.user.last_name,
                 userType: this.props.stateLoginValueAim.user.type,
                 paymentData: data,
                 orderlist: this.state.cartData
@@ -291,6 +306,7 @@ class Index extends Component {
             })
         };
 
+        //Alert of the Error payment
         const errorPayment = data => {
             confirmAlert({
                 message: "Payment Error",
@@ -334,6 +350,7 @@ class Index extends Component {
                 currency={CURRENCY}
                 stripeKey={STRIPE_PUBLISHABLE}
                 label="Pay with stripe"
+                className="CutomStripeButton"
             />
         return (
             <Grid className="onlineCoursesList">
@@ -398,7 +415,7 @@ class Index extends Component {
                                                         <Grid className="nwWshCrt" onClick={()=>this.AddtoCard(item)}><a>Add to cart</a></Grid>
                                                     </Grid>
                                                     <Grid item xs={12} md={3}>
-                                                        <Grid className="nwWshCrtRght"><a><img src={require('../../../assets/images/fillWish.png')} alt="" title="" /></a></Grid>
+                                                        <Grid className="nwWshCrtRght"><a onClick={()=>{this.removeWishlist(item)}}><img src={require('../../../assets/images/fillWish.png')} alt="" title="" /></a></Grid>
                                                     </Grid>
                                                 </Grid>
                                             </Grid>
@@ -495,7 +512,7 @@ class Index extends Component {
 
                                     <Grid className="crtChekOut">
                                         {/* <input type="submit" value="Checkout" /> */}
-                                        <Checkout />
+                                        {this.state.AllCart && this.state.AllCart.length>0 && <Checkout />}
                                     </Grid>
                                 </div>
                             </Modal>
@@ -544,7 +561,7 @@ class Index extends Component {
                         </Grid>
 
                         {value === 0 && <TabContainer>
-                             <AllCourses AddtoCard={this.AddtoCard} getAllwishlist={this.getAllwishlist} SelectedLanguage={this.state.SelectedLanguage} SelectedTopic={this.state.SelectedTopic} />
+                             <AllCourses removeWishlist={this.removeWishlist} Allwishlist={this.state.Allwishlist} AddtoCard={this.AddtoCard} getAllwishlist={this.getAllwishlist} SelectedLanguage={this.state.SelectedLanguage} SelectedTopic={this.state.SelectedTopic} />
                         </TabContainer>}
 
                         {value === 1 && <TabContainer>
@@ -560,14 +577,16 @@ class Index extends Component {
 const mapStateToProps = (state) => {
     const { stateLoginValueAim, loadingaIndicatoranswerdetail } = state.LoginReducerAim;
     const { stateLanguageType } = state.LanguageReducer;
+    const {settings} = state.Settings;
     // const { Doctorsetget } = state.Doctorset;
     // const { catfil } = state.filterate;
     return {
         stateLanguageType,
         stateLoginValueAim,
         loadingaIndicatoranswerdetail,
+        settings,
         //   Doctorsetget,
         //   catfil
     }
 };
-export default withRouter(connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer })(Index));
+export default withRouter(connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer, Settings })(Index));

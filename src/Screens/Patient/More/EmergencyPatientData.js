@@ -3,6 +3,7 @@ import Grid from '@material-ui/core/Grid';
 import LeftMenu from './../../Components/Menus/PatientLeftMenu/index';
 import sitedata from '../../../sitedata';
 import { LoginReducerAim } from './../../Login/actions';
+import { Settings } from './../../Login/setting';
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { LanguageFetchReducer } from './../../actions';
@@ -61,14 +62,16 @@ class Index extends Component {
 const mapStateToProps = (state) => {
     const { stateLoginValueAim, loadingaIndicatoranswerdetail } = state.LoginReducerAim;
     const { stateLanguageType } = state.LanguageReducer;
+    const {settings} = state.Settings;
     // const { Doctorsetget } = state.Doctorset;
     // const { catfil } = state.filterate;
     return {
         stateLanguageType,
         stateLoginValueAim,
         loadingaIndicatoranswerdetail,
+        settings,
         //   Doctorsetget,
         //   catfil
     }
 };
-export default withRouter(connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer })(Index));
+export default withRouter(connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer, Settings })(Index));

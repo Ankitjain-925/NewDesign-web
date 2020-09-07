@@ -4,6 +4,7 @@ import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { LanguageFetchReducer } from '../../actions';
 import { LoginReducerAim } from '../../Login/actions';
+import { Settings } from '../../Login/setting';
 import Loader from '../../Components/Loader/index';
 import LeftMenu from './../../Components/Menus/PatientLeftMenu/index';
 import CourseSection from './../../Components/OnlineCourses/index.js';
@@ -59,14 +60,16 @@ class Index extends Component {
 const mapStateToProps = (state) => {
     const { stateLoginValueAim, loadingaIndicatoranswerdetail } = state.LoginReducerAim;
     const { stateLanguageType } = state.LanguageReducer;
+    const {settings} = state.Settings;
     // const { Doctorsetget } = state.Doctorset;
     // const { catfil } = state.filterate;
     return {
         stateLanguageType,
         stateLoginValueAim,
         loadingaIndicatoranswerdetail,
+        settings,
         //   Doctorsetget,
         //   catfil
     }
 };
-export default withRouter(connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer })(Index));
+export default withRouter(connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer, Settings })(Index));

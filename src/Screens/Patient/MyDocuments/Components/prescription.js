@@ -4,6 +4,7 @@ import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { LoginReducerAim } from './../../../Login/actions';
+import { Settings } from './../../../Login/setting';
 import axios from 'axios';
 import Select from 'react-select';
 import { LanguageFetchReducer } from './../../../actions';
@@ -130,8 +131,8 @@ class Index extends Component {
                 'Content-Type': 'application/json'
             }
         }).then((response) => {
-            this.setState({ successfullsent: true })
-            setTimeout(() => { this.setState({ successfullsent: false, addInqry: false }) }, 2000)
+            this.setState({ successfullsent: true , addInqry: false })
+            setTimeout(() => { this.setState({ successfullsent: false,  }) }, 5000)
             this.getPrescription();
         }).catch((error) => {
         })
@@ -180,137 +181,138 @@ class Index extends Component {
 
     render() {
         return (
-            <Grid className="presOpinionIner">
-                {this.state.loaderImage && <Loader />}
-                <Table>
-                    <Thead>
-                        <Tr>
-                            <Th>Medicine</Th>
-                            <Th>Sent on</Th>
-                            <Th>Doctor</Th>
-                            <Th>Status</Th>
-                        </Tr>
-                    </Thead>
-                    <Tbody>
-                        {this.state.currentList && this.state.currentList.length > 0 && this.state.currentList.map((data, index) => (
+            <div>
+                {this.state.successfullsent && <div className="success_message">Request updated Sucessfully</div>}
+                <Grid className="presOpinionIner">
+                    {this.state.loaderImage && <Loader />}
+                    <Table>
+                        <Thead>
                             <Tr>
-                                <Td>{data.medication ? data.medication : 'Not mentioned'}</Td>
-                                <Td>{data.send_on ? getDate(data.send_on) : 'Not mentioned'}</Td>
-                                <Td className="presImg"><img src={data.docProfile && data.docProfile.profile_image ? getImage(data.docProfile.profile_image, this.state.images) : require('../../../../assets/images/dr1.jpg')} alt="" title="" />{data.docProfile && data.docProfile.first_name && data.docProfile.first_name} {data.docProfile && data.docProfile.last_name && data.docProfile.last_name}</Td>
-                                {data.status === 'pending' && <Td><span className="revwYelow"></span>Pending </Td>}
-                                {data.status === 'accept' && <Td><span className="revwGren"></span>Answered </Td>}
-                                {data.status === 'remove' && <Td><span className="revwRed"></span> Rejected</Td>}
-                                {data.status === 'cancel' && <Td><span className="revwRed"></span> Cancelled</Td>}
-                                {data.status === 'free' && <Td><span className="revwGry"></span> Sent request</Td>}
-                                <Td className="presEditDot scndOptionIner">
-                                    <a className="openScndhrf">
-                                        <img src={require('../../../../assets/images/threedots.jpg')} alt="" title="" className="openScnd" />
-                                        <ul>
-                                            <li><a onClick={() => { this.handleshowSick(data) }}><img src={require('../../../../assets/images/details.svg')} alt="" title="" />See details</a></li>
-                                            {data.status !== 'accept' && <li><a onClick={() => { this.handleaddInqry(data) }}><img src={require('../../../../assets/images/edit.svg')} alt="" title="" />Modify</a></li>}
-                                            {data.status === 'remove' && <li><a onClick={() => { this.updatePrescription('free', data._id) }}><img src={require('../../../../assets/images/plus.png')} alt="" title="" />Inquiry again</a></li>}
-                                            {data.status !== 'cancel' && <li><a onClick={() => { this.updatePrescription('cancel', data._id) }}><img src={require('../../../../assets/images/cancel-request.svg')} alt="" title="" />Cancel request</a></li>}
-                                        </ul>
-                                    </a>
-                                </Td>
+                                <Th>Medicine</Th>
+                                <Th>Sent on</Th>
+                                <Th>Doctor</Th>
+                                <Th>Status</Th>
                             </Tr>
-                        ))}
-                    </Tbody>
-                </Table>
-                {/* Model setup for Prescription*/}
-                <Modal
-                    open={this.state.addInqry}
-                    onClose={this.handleCloseInqry}
-                    className="nwPresModel">
-                    <Grid className="nwPresCntnt">
-                        <Grid className="nwPresCntntIner">
-                            <Grid className="nwPresCourse">
-                                <Grid className="nwPresCloseBtn">
-                                    <a onClick={this.handleCloseInqry}>
-                                        <img src={require('../../../../assets/images/closefancy.png')} alt="" title="" />
-                                    </a>
-                                </Grid>
-                                <p>Edit inquiry</p>
-                                <Grid><label>Prescription</label></Grid>
-                            </Grid>
-                            {this.state.successfullsent && <div className="success_message">Request updated Sucessfully</div>}
-                            <Grid className="docHlthMain">
-                                <Grid className="drstndrdQues">
-                                    <h3>Doctor and standard questions</h3>
-                                    <Grid className="drsplestQues">
-                                        <Grid><label>Doctor (Aimedis & Private)</label></Grid>
-                                        <Grid><h3>{this.state.AddPrescription && this.state.AddPrescription.docProfile && this.state.AddPrescription.docProfile.first_name && this.state.AddPrescription.docProfile.first_name} {this.state.AddPrescription && this.state.AddPrescription.docProfile && this.state.AddPrescription.docProfile.last_name && this.state.AddPrescription.docProfile.last_name}</h3></Grid>
+                        </Thead>
+                        <Tbody>
+                            {this.state.currentList && this.state.currentList.length > 0 && this.state.currentList.map((data, index) => (
+                                <Tr>
+                                    <Td>{data.medication ? data.medication : 'Not mentioned'}</Td>
+                                    <Td>{data.send_on ? getDate(data.send_on, this.props.settings.setting.date_format) : 'Not mentioned'}</Td>
+                                    <Td className="presImg"><img src={data.docProfile && data.docProfile.profile_image ? getImage(data.docProfile.profile_image, this.state.images) : require('../../../../assets/images/dr1.jpg')} alt="" title="" />{data.docProfile && data.docProfile.first_name && data.docProfile.first_name} {data.docProfile && data.docProfile.last_name && data.docProfile.last_name}</Td>
+                                    {data.status === 'pending' && <Td><span className="revwYelow"></span>Pending </Td>}
+                                    {data.status === 'accept' && <Td><span className="revwGren"></span>Answered </Td>}
+                                    {data.status === 'remove' && <Td><span className="revwRed"></span> Rejected</Td>}
+                                    {data.status === 'cancel' && <Td><span className="revwRed"></span> Cancelled</Td>}
+                                    {data.status === 'free' && <Td><span className="revwGry"></span> Sent request</Td>}
+                                    <Td className="presEditDot scndOptionIner">
+                                        <a className="openScndhrf">
+                                            <img src={require('../../../../assets/images/threedots.jpg')} alt="" title="" className="openScnd" />
+                                            <ul>
+                                                <li><a onClick={() => { this.handleshowSick(data) }}><img src={require('../../../../assets/images/details.svg')} alt="" title="" />See details</a></li>
+                                                {data.status !== 'accept' && <li><a onClick={() => { this.handleaddInqry(data) }}><img src={require('../../../../assets/images/edit.svg')} alt="" title="" />Modify</a></li>}
+                                                {data.status === 'remove' && <li><a onClick={() => { this.updatePrescription('free', data._id) }}><img src={require('../../../../assets/images/plus.png')} alt="" title="" />Inquiry again</a></li>}
+                                                {data.status !== 'cancel' && <li><a onClick={() => { this.updatePrescription('cancel', data._id) }}><img src={require('../../../../assets/images/cancel-request.svg')} alt="" title="" />Cancel request</a></li>}
+                                            </ul>
+                                        </a>
+                                    </Td>
+                                </Tr>
+                            ))}
+                        </Tbody>
+                    </Table>
+                    {/* Model setup for Prescription*/}
+                    <Modal
+                        open={this.state.addInqry}
+                        onClose={this.handleCloseInqry}
+                        className="nwPresModel">
+                        <Grid className="nwPresCntnt">
+                            <Grid className="nwPresCntntIner">
+                                <Grid className="nwPresCourse">
+                                    <Grid className="nwPresCloseBtn">
+                                        <a onClick={this.handleCloseInqry}>
+                                            <img src={require('../../../../assets/images/closefancy.png')} alt="" title="" />
+                                        </a>
                                     </Grid>
+                                    <p>Edit inquiry</p>
+                                    <Grid><label>Prescription</label></Grid>
                                 </Grid>
-
-
-                                <Grid className="ishelpUpr">
-                                    <Grid className="ishelpLbl"><label>Is this a follow-up prescription?</label></Grid>
-                                    <Grid className="ishelpChk">
-                                        <FormControlLabel control={<Radio />} name="follow_up_prescription" value="yes" color="#00ABAF" checked={this.state.AddPrescription.follow_up_prescription === 'yes'} onChange={this.AddState} label="Yes" />
-                                        <FormControlLabel control={<Radio />} name="follow_up_prescription" color="#00ABAF" value="no" checked={this.state.AddPrescription.follow_up_prescription === 'no'} onChange={this.AddState} label="No" />
+                                <Grid className="docHlthMain">
+                                    <Grid className="drstndrdQues">
+                                        <h3>Doctor and standard questions</h3>
+                                        <Grid className="drsplestQues">
+                                            <Grid><label>Doctor (Aimedis & Private)</label></Grid>
+                                            <Grid><h3>{this.state.AddPrescription && this.state.AddPrescription.docProfile && this.state.AddPrescription.docProfile.first_name && this.state.AddPrescription.docProfile.first_name} {this.state.AddPrescription && this.state.AddPrescription.docProfile && this.state.AddPrescription.docProfile.last_name && this.state.AddPrescription.docProfile.last_name}</h3></Grid>
+                                        </Grid>
                                     </Grid>
-                                    <Grid className="ishelpLbl">
-                                        <label>How would you like to receive the prescription?</label>
+
+
+                                    <Grid className="ishelpUpr">
+                                        <Grid className="ishelpLbl"><label>Is this a follow-up prescription?</label></Grid>
+                                        <Grid className="ishelpChk">
+                                            <FormControlLabel control={<Radio />} name="follow_up_prescription" value="yes" color="#00ABAF" checked={this.state.AddPrescription.follow_up_prescription === 'yes'} onChange={this.AddState} label="Yes" />
+                                            <FormControlLabel control={<Radio />} name="follow_up_prescription" color="#00ABAF" value="no" checked={this.state.AddPrescription.follow_up_prescription === 'no'} onChange={this.AddState} label="No" />
+                                        </Grid>
+                                        <Grid className="ishelpLbl">
+                                            <label>How would you like to receive the prescription?</label>
+                                        </Grid>
+                                        <Grid className="ishelpChk">
+                                            <FormControlLabel control={<Radio />} name="prescription_type" value="online" color="#00ABAF" checked={this.state.AddPrescription.prescription_type === 'online'} onChange={this.AddState} label="Online" />
+                                            <FormControlLabel control={<Radio />} name="prescription_type" color="#00ABAF" value="offline" checked={this.state.AddPrescription.prescription_type === 'offline'} onChange={this.AddState} label="Home address mailbox" />
+                                        </Grid>
                                     </Grid>
-                                    <Grid className="ishelpChk">
-                                        <FormControlLabel control={<Radio />} name="prescription_type" value="online" color="#00ABAF" checked={this.state.AddPrescription.prescription_type === 'online'} onChange={this.AddState} label="Online" />
-                                        <FormControlLabel control={<Radio />} name="prescription_type" color="#00ABAF" value="offline" checked={this.state.AddPrescription.prescription_type === 'offline'} onChange={this.AddState} label="Home address mailbox" />
+
+                                    <Grid className="medicnSub">
+                                        <h4>Medicine inquiry</h4>
+                                        <Grid><label>Medicine / Substance</label></Grid>
+                                        <Grid>
+                                            <Select
+                                                value={this.state.selectedSub}
+                                                onChange={(e) => this.eventnameSetP('medication', e)}
+                                                options={specialistOptions}
+                                                placeholder="Select"
+                                                isSearchable={false}
+                                                isMulti={false}
+                                            />
+                                        </Grid>
                                     </Grid>
-                                </Grid>
 
-                                <Grid className="medicnSub">
-                                    <h4>Medicine inquiry</h4>
-                                    <Grid><label>Medicine / Substance</label></Grid>
-                                    <Grid>
-                                        <Select
-                                            value={this.state.selectedSub}
-                                            onChange={(e) => this.eventnameSetP('medication', e)}
-                                            options={specialistOptions}
-                                            placeholder="Select"
-                                            isSearchable={false}
-                                            isMulti={false}
-                                        />
+                                    <Grid className="medicnSub">
+                                        <Grid><label>Dose</label></Grid>
+                                        <Grid className="doseMg"><input type="text" name="dose" value={this.state.AddPrescription.dose} onChange={this.AddState} />
+                                            <span>mg</span>
+                                        </Grid>
                                     </Grid>
-                                </Grid>
 
-                                <Grid className="medicnSub">
-                                    <Grid><label>Dose</label></Grid>
-                                    <Grid className="doseMg"><input type="text" name="dose" value={this.state.AddPrescription.dose} onChange={this.AddState} />
-                                        <span>mg</span>
+                                    <Grid className="medicnSub">
+                                        <Grid><label>Trade name</label></Grid>
+                                        <Grid><input type="text" name="trade_name" value={this.state.AddPrescription.trade_name} onChange={this.AddState} /></Grid>
                                     </Grid>
+
+                                    <Grid className="medicnSub">
+                                        <Grid><label>ATC code if applicable</label></Grid>
+                                        <Grid><input type="text" name="atc_code" value={this.state.AddPrescription.atc_code} onChange={this.AddState} /></Grid>
+                                    </Grid>
+
+                                    <Grid className="medicnSub">
+                                        <Grid><label>Manufacturer</label></Grid>
+                                        <Grid><input type="text" name="manufacturer" value={this.state.AddPrescription.manufacturer} onChange={this.AddState} /></Grid>
+                                    </Grid>
+
+                                    <Grid className="medicnSub">
+                                        <Grid><label>Pack size</label></Grid>
+                                        <Grid><input type="text" name="pack_size" value={this.state.AddPrescription.pack_size} onChange={this.AddState} /></Grid>
+                                    </Grid>
+
+                                    <Grid className="medicnSub">
+                                        <Grid><label>Annotations / details / questions</label></Grid>
+                                        <Grid><textarea name="annotations" value={this.state.AddPrescription.annotations} onChange={this.AddState}></textarea></Grid>
+                                    </Grid>
+
                                 </Grid>
 
-                                <Grid className="medicnSub">
-                                    <Grid><label>Trade name</label></Grid>
-                                    <Grid><input type="text" name="trade_name" value={this.state.AddPrescription.trade_name} onChange={this.AddState} /></Grid>
-                                </Grid>
-
-                                <Grid className="medicnSub">
-                                    <Grid><label>ATC code if applicable</label></Grid>
-                                    <Grid><input type="text" name="atc_code" value={this.state.AddPrescription.atc_code} onChange={this.AddState} /></Grid>
-                                </Grid>
-
-                                <Grid className="medicnSub">
-                                    <Grid><label>Manufacturer</label></Grid>
-                                    <Grid><input type="text" name="manufacturer" value={this.state.AddPrescription.manufacturer} onChange={this.AddState} /></Grid>
-                                </Grid>
-
-                                <Grid className="medicnSub">
-                                    <Grid><label>Pack size</label></Grid>
-                                    <Grid><input type="text" name="pack_size" value={this.state.AddPrescription.pack_size} onChange={this.AddState} /></Grid>
-                                </Grid>
-
-                                <Grid className="medicnSub">
-                                    <Grid><label>Annotations / details / questions</label></Grid>
-                                    <Grid><textarea name="annotations" value={this.state.AddPrescription.annotations} onChange={this.AddState}></textarea></Grid>
-                                </Grid>
-
-                            </Grid>
-
-                            <Grid className="infoShwHidBrdr2"></Grid>
-                            <Grid className="infoShwHidIner2">
-                                {/* <Grid className="infoShwHidMain2">
+                                <Grid className="infoShwHidBrdr2"></Grid>
+                                <Grid className="infoShwHidIner2">
+                                    {/* <Grid className="infoShwHidMain2">
                                     <Grid container direction="row" justify="center" alignItems="center">
                                         <Grid item xs={6} md={6}>
                                             <Grid className="infoShwHid2">
@@ -322,89 +324,89 @@ class Index extends Component {
                                         </Grid>
                                     </Grid>
                                 </Grid> */}
-                                <Grid className="infoShwSave2">
-                                    <input type="submit" onClick={this.SubmitPrescription} value="Edit entry" />
+                                    <Grid className="infoShwSave2">
+                                        <input type="submit" onClick={this.SubmitPrescription} value="Edit entry" />
+                                    </Grid>
                                 </Grid>
                             </Grid>
                         </Grid>
-                    </Grid>
-                </Modal>
+                    </Modal>
 
 
-                <Modal
-                    open={this.state.showInquiry}
-                    onClose={this.handleCloseShowSick}
-                    className="nwPresModel">
-                    <Grid className="nwPresCntnt">
-                        <Grid className="nwPresCntntIner">
-                            <Grid className="nwPresCourse">
-                                <Grid className="nwPresCloseBtn">
-                                    <a onClick={this.handleCloseShowSick}>
-                                        <img src={require('../../../../assets/images/closefancy.png')} alt="" title="" />
-                                    </a>
+                    <Modal
+                        open={this.state.showInquiry}
+                        onClose={this.handleCloseShowSick}
+                        className="nwPresModel">
+                        <Grid className="nwPresCntnt">
+                            <Grid className="nwPresCntntIner">
+                                <Grid className="nwPresCourse">
+                                    <Grid className="nwPresCloseBtn">
+                                        <a onClick={this.handleCloseShowSick}>
+                                            <img src={require('../../../../assets/images/closefancy.png')} alt="" title="" />
+                                        </a>
+                                    </Grid>
+                                    <p>Edit inquiry</p>
+                                    <Grid><label>Prescription</label></Grid>
                                 </Grid>
-                                <p>Edit inquiry</p>
-                                <Grid><label>Prescription</label></Grid>
-                            </Grid>
-                            <Grid className="docHlthMain">
-                                <Grid className="drstndrdQues">
-                                    <h3>Doctor and standard questions</h3>
-                                    <Grid className="drsplestQues">
-                                        <Grid><label>Doctor (Aimedis & Private)</label></Grid>
-                                        <Grid><h3>{this.state.AddPrescription && this.state.AddPrescription.docProfile && this.state.AddPrescription.docProfile.first_name && this.state.AddPrescription.docProfile.first_name} {this.state.AddPrescription && this.state.AddPrescription.docProfile && this.state.AddPrescription.docProfile.last_name && this.state.AddPrescription.docProfile.last_name}</h3></Grid>
+                                <Grid className="docHlthMain">
+                                    <Grid className="drstndrdQues">
+                                        <h3>Doctor and standard questions</h3>
+                                        <Grid className="drsplestQues">
+                                            <Grid><label>Doctor (Aimedis & Private)</label></Grid>
+                                            <Grid><h3>{this.state.AddPrescription && this.state.AddPrescription.docProfile && this.state.AddPrescription.docProfile.first_name && this.state.AddPrescription.docProfile.first_name} {this.state.AddPrescription && this.state.AddPrescription.docProfile && this.state.AddPrescription.docProfile.last_name && this.state.AddPrescription.docProfile.last_name}</h3></Grid>
+                                        </Grid>
+                                    </Grid>
+
+
+                                    <Grid className="ishelpUpr">
+                                        <Grid className="ishelpLbl"><label>Is this a follow-up prescription?</label></Grid>
+                                        <Grid><h3>{this.state.AddPrescription && this.state.AddPrescription.follow_up_prescription && this.state.AddPrescription.follow_up_prescription}</h3></Grid>
+
+                                        <Grid className="ishelpLbl"> <label>How would you like to receive the prescription?</label> </Grid>
+                                        <Grid><h3>{this.state.AddPrescription && this.state.AddPrescription.prescription_type && this.state.AddPrescription.prescription_type}</h3></Grid>
+
+                                        <Grid className="medicnSub"> <h4 className="Inquirypaddingtop">Medicine inquiry</h4>
+
+                                            <Grid><label>Medicine / Substance</label></Grid>
+                                            <Grid><h3>{this.state.AddPrescription && this.state.AddPrescription.medication && this.state.AddPrescription.medication}</h3></Grid>
+
+                                        </Grid>
+
+                                        <Grid className="medicnSub">
+                                            <Grid><label>Dose</label></Grid>
+                                            <Grid><h3>{this.state.AddPrescription && this.state.AddPrescription.dose && this.state.AddPrescription.dose}</h3><span>mg</span></Grid>
+                                        </Grid>
+
+                                        <Grid className="medicnSub">
+                                            <Grid><label>Trade name</label></Grid>
+                                            <Grid><h3>{this.state.AddPrescription && this.state.AddPrescription.trade_name && this.state.AddPrescription.trade_name}</h3></Grid>
+                                        </Grid>
+
+                                        <Grid className="medicnSub">
+                                            <Grid><label>ATC code if applicable</label></Grid>
+                                            <Grid><h3>{this.state.AddPrescription && this.state.AddPrescription.atc_code && this.state.AddPrescription.atc_code}</h3></Grid>
+                                        </Grid>
+
+                                        <Grid className="medicnSub">
+                                            <Grid><label>Manufacturer</label></Grid>
+                                            <Grid><h3>{this.state.AddPrescription && this.state.AddPrescription.manufacturer && this.state.AddPrescription.manufacturer}</h3></Grid>
+                                        </Grid>
+
+                                        <Grid className="medicnSub">
+                                            <Grid><label>Pack size</label></Grid>
+                                            <Grid><h3>{this.state.AddPrescription && this.state.AddPrescription.pack_size && this.state.AddPrescription.pack_size}</h3></Grid>
+                                        </Grid>
+
+                                        <Grid className="medicnSub">
+                                            <Grid><label>Annotations / details / questions</label></Grid>
+                                            <Grid><h3>{this.state.AddPrescription && this.state.AddPrescription.annotations && this.state.AddPrescription.annotations}</h3></Grid>
+                                        </Grid>
                                     </Grid>
                                 </Grid>
 
-
-                                <Grid className="ishelpUpr">
-                                    <Grid className="ishelpLbl"><label>Is this a follow-up prescription?</label></Grid>
-                                    <Grid><h3>{this.state.AddPrescription && this.state.AddPrescription.follow_up_prescription && this.state.AddPrescription.follow_up_prescription}</h3></Grid>
-
-                                    <Grid className="ishelpLbl"> <label>How would you like to receive the prescription?</label> </Grid>
-                                    <Grid><h3>{this.state.AddPrescription && this.state.AddPrescription.prescription_type && this.state.AddPrescription.prescription_type}</h3></Grid>
-
-                                    <Grid className="medicnSub"> <h4 className="Inquirypaddingtop">Medicine inquiry</h4>
-
-                                        <Grid><label>Medicine / Substance</label></Grid>
-                                        <Grid><h3>{this.state.AddPrescription && this.state.AddPrescription.medication && this.state.AddPrescription.medication}</h3></Grid>
-
-                                    </Grid>
-
-                                    <Grid className="medicnSub">
-                                        <Grid><label>Dose</label></Grid>
-                                        <Grid><h3>{this.state.AddPrescription && this.state.AddPrescription.dose && this.state.AddPrescription.dose}</h3><span>mg</span></Grid>
-                                    </Grid>
-
-                                    <Grid className="medicnSub">
-                                        <Grid><label>Trade name</label></Grid>
-                                        <Grid><h3>{this.state.AddPrescription && this.state.AddPrescription.trade_name && this.state.AddPrescription.trade_name}</h3></Grid>
-                                    </Grid>
-
-                                    <Grid className="medicnSub">
-                                        <Grid><label>ATC code if applicable</label></Grid>
-                                        <Grid><h3>{this.state.AddPrescription && this.state.AddPrescription.atc_code && this.state.AddPrescription.atc_code}</h3></Grid>
-                                    </Grid>
-
-                                    <Grid className="medicnSub">
-                                        <Grid><label>Manufacturer</label></Grid>
-                                        <Grid><h3>{this.state.AddPrescription && this.state.AddPrescription.manufacturer && this.state.AddPrescription.manufacturer}</h3></Grid>
-                                    </Grid>
-
-                                    <Grid className="medicnSub">
-                                        <Grid><label>Pack size</label></Grid>
-                                        <Grid><h3>{this.state.AddPrescription && this.state.AddPrescription.pack_size && this.state.AddPrescription.pack_size}</h3></Grid>
-                                    </Grid>
-
-                                    <Grid className="medicnSub">
-                                        <Grid><label>Annotations / details / questions</label></Grid>
-                                        <Grid><h3>{this.state.AddPrescription && this.state.AddPrescription.annotations && this.state.AddPrescription.annotations}</h3></Grid>
-                                    </Grid>
-                                </Grid>
-                            </Grid>
-
-                            <Grid className="infoShwHidBrdr2"></Grid>
-                            <Grid className="infoShwHidIner2">
-                                {/* <Grid className="infoShwHidMain2">
+                                <Grid className="infoShwHidBrdr2"></Grid>
+                                <Grid className="infoShwHidIner2">
+                                    {/* <Grid className="infoShwHidMain2">
                                         <Grid container direction="row" justify="center" alignItems="center">
                                             <Grid item xs={6} md={6}>
                                                 <Grid className="infoShwHid2">
@@ -416,49 +418,52 @@ class Index extends Component {
                                             </Grid>
                                         </Grid>
                                     </Grid> */}
-                                <Grid className="infoShwSave2">
-                                    <input type="submit" onClick={this.handleCloseShowSick} value="Cancel details" />
+                                    <Grid className="infoShwSave2">
+                                        <input type="submit" onClick={this.handleCloseShowSick} value="Cancel details" />
+                                    </Grid>
                                 </Grid>
                             </Grid>
                         </Grid>
-                    </Grid>
-                </Modal>
-                {/* End of Model setup */}
+                    </Modal>
+                    {/* End of Model setup */}
 
-                <Grid className="tablePagNum">
-                    <Grid container direction="row">
-                        <Grid item xs={12} md={6}>
-                            <Grid className="totalOutOff">
-                                <a>{this.state.currentPage} of {this.state.totalPage}</a>
+                    <Grid className="tablePagNum">
+                        <Grid container direction="row">
+                            <Grid item xs={12} md={6}>
+                                <Grid className="totalOutOff">
+                                    <a>{this.state.currentPage} of {this.state.totalPage}</a>
+                                </Grid>
+                            </Grid>
+                            <Grid item xs={12} md={6}>
+                                {this.state.totalPage > 1 && <Grid className="prevNxtpag">
+                                    {this.state.currentPage != 1 && <a className="prevpag" onClick={() => { this.onChangePage(this.state.currentPage - 1) }}>Previous</a>}
+                                    {this.state.pages && this.state.pages.length > 0 && this.state.pages.map((item, index) => (
+                                        <a className={this.state.currentPage == item && "activePageDocutmet"} onClick={() => { this.onChangePage(item) }}>{item}</a>
+                                    ))}
+                                    {this.state.currentPage != this.state.totalPage && <a className="nxtpag" onClick={() => { this.onChangePage(this.state.currentPage + 1) }}>Next</a>}
+                                </Grid>}
                             </Grid>
                         </Grid>
-                        <Grid item xs={12} md={6}>
-                            {this.state.totalPage > 1 && <Grid className="prevNxtpag">
-                                {this.state.currentPage != 1 && <a className="prevpag" onClick={() => { this.onChangePage(this.state.currentPage - 1) }}>Previous</a>}
-                                {this.state.pages && this.state.pages.length > 0 && this.state.pages.map((item, index) => (
-                                    <a className={this.state.currentPage == item && "activePageDocutmet"} onClick={() => { this.onChangePage(item) }}>{item}</a>
-                                ))}
-                                {this.state.currentPage != this.state.totalPage && <a className="nxtpag" onClick={() => { this.onChangePage(this.state.currentPage + 1) }}>Next</a>}
-                            </Grid>}
-                        </Grid>
                     </Grid>
-                </Grid>
 
-            </Grid>
+                </Grid>
+            </div>
         );
     }
 }
 const mapStateToProps = (state) => {
     const { stateLoginValueAim, loadingaIndicatoranswerdetail } = state.LoginReducerAim;
     const { stateLanguageType } = state.LanguageReducer;
+    const {settings} = state.Settings;
     // const { Doctorsetget } = state.Doctorset;
     // const { catfil } = state.filterate;
     return {
         stateLanguageType,
         stateLoginValueAim,
         loadingaIndicatoranswerdetail,
+        settings,
         //   Doctorsetget,
         //   catfil
     }
 };
-export default withRouter(connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer })(Index));
+export default withRouter(connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer, Settings })(Index));

@@ -6,16 +6,17 @@ export function ConsoleCustom (msg, value){
     console.log(msg , value)
 }
 //Get Date in dd/mm/yyyy format
-export function getDate (date){
+export function getDate (date, dateFormat){
     var d = new Date(date);
     var monthNames = ["01", "02", "03", "04", "05", "06",
-        "07", "08", "09", "10", "11", "12"
-    ],
+        "07", "08", "09", "10", "11", "12"],
         month = monthNames[d.getMonth()],
         day = d.getDate(),
         year = d.getFullYear()
     if (day.length < 2) day = '0' + day;
-    return day + '/' + month + '/' + year;
+    if(dateFormat === 'YYYY/DD/MM') { return year + ' / ' + day + ' / ' + month; }
+    else if(dateFormat === '/DD/MM/YYYY') {  return day + ' / ' + month + ' / ' + year; }
+    else { return month + ' / ' + day + ' / ' + year;}
 }
 
 //get image url of S3 from the multiple images
