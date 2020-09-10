@@ -1087,15 +1087,13 @@ class Index extends Component {
                                     <td>{this.filterCountry(insu.insurance_country)}</td>
                                     <td>{insu.insurance}</td>
                                     <td>{insu.insurance_number}</td>
-                                    <td className="presEditDot scndOptionIner">
-                                        <a className="openScndhrf">
-                                            <img src={require('../../../../assets/images/moreicon.jpg')} alt="" title="" className="openScnd" />
-                                            <ul>
-                                                <li><a onClick={() => this.editKYCopen(insu, i)}><img src={require('../../../../assets/images/edit.svg')} alt="" title="" />Edit</a></li>
-                                                <li><a onClick={() => this.removeInsurance(i, insu)} ><img src={require('../../../../assets/images/closefancy.png')} alt="" title="" />Delete</a></li>
-                                            </ul>
-                                        </a>
-                                    </td>
+                                    <td className="presEditDot scndOptionIner"><a className="openScndhrf">
+                                        <img src={require('../../../../assets/images/moreicon.jpg')} alt="" title="" className="openScnd" />
+                                        <ul>
+                                            <li><a onClick={() => this.editKYCopen(insu, i)}><img src={require('../../../../assets/images/edit.svg')} alt="" title="" />Edit</a></li>
+                                            <li><a onClick={() => this.removeInsurance(i, insu)} ><img src={require('../../../../assets/images/closefancy.png')} alt="" title="" />Delete</a></li>
+                                        </ul>
+                                    </a></td>
                                 </tr>
                             ))}
                         </tbody>

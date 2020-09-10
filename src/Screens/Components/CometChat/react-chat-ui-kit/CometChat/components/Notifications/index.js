@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { CometChat } from "@cometchat-pro/chat";
-import * as actions from '../../../../../../store/action';
+import * as actions from '../../../../../../../store/action';
 import { CometChatManager } from "../../util/controller";
 import CallScreen from "../CallScreen";
 import CancelIcon from '@material-ui/icons/Cancel';

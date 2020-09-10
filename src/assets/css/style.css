@@ -5932,14 +5932,9 @@ img.addBlue {
     border-radius: 12px;
     background-color: #FFFFFF;
     box-shadow: 0 8px 16px 0 rgba(0,8,8,0.08);
-    direction: "row";
 }
 .trckLogo img {
     height: 24px;
-}
-.trckLogo1 img{
-    height:"auto";
-    min-width: 160px
 }
 .trckDots img {
     height: 24px;
@@ -5984,9 +5979,6 @@ img.addBlue {
 }
 .trckSecIner {
     padding: 22px 16px 0px 16px;
-}
-.trckSecIner1 {
-    padding: 10px 12px 0px 16px;
 }
 .trackView {
     padding: 8px 4px;
@@ -6205,8 +6197,6 @@ a.openScndhrf {
     background-color: #F2F2F2;
     min-height: 232px;
     padding: 10% 12px;
-    height: 300px;
-    overflow: auto;
 }
 .archvDel ul li {
     list-style-type: none;
@@ -9483,4 +9473,3 @@ input:focus {
 }
 /* For family Doctor End*/
 /*Ended By Ankita*/
-

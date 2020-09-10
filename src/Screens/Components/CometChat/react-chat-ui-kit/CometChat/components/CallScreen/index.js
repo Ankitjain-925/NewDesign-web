@@ -279,7 +279,7 @@ class CallScreen extends React.PureComponent {
             <Grid className="inCallAdd">
               <a onClick={this.acceptCall}>
                 <img
-                  src={require("../../../../../../../assets/images/rcvCall.png")}
+                  src={require("../../../../../../../assets//images/rcvCall.png")}
                   alt=""
                   title=""
                 />
@@ -288,7 +288,7 @@ class CallScreen extends React.PureComponent {
                 onClick={() => this.rejectCall(CometChat.CALL_STATUS.REJECTED)}
               >
                 <img
-                  src={require("../../../../../../../assets/images/closeCall.png")}
+                  src={require("../../../../../../../assets//images/closeCall.png")}
                   alt=""
                   title=""
                 />

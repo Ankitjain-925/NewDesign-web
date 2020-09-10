@@ -42,7 +42,7 @@ class PointPain extends Component {
     componentDidUpdate = (prevProps) => {
         if (prevProps.user !== this.props.user) {
             this.setState({user: this.props.user},
-                this.SetImage(this.props.user.image))
+               this.SetImage(this.props.user.image))
         }
         if(prevProps.personalinfo !== this.props.personalinfo)
         {

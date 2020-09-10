@@ -8,7 +8,6 @@ import Login from "./../../Screens/Login";
 import ForgotPass from "./../../Screens/ChangePassword"; 
 import ChangePass from "./../../Screens/ChangePassword/changepassword";
 import NotFound from "./../../Screens/Components/NotFound";
-import PatientChat from "./../../Screens/Patient/Chat/index";
 import PatientProfile from "./../../Screens/Patient/Profile/index";
 import PatientSecond from "./../../Screens/Patient/More/secondopinion";
 import PatientEmergency from "./../../Screens/Patient/More/EmergencyPatientData";
@@ -18,6 +17,7 @@ import PatientOnline from "./../../Screens/Patient/More/OnineCoure";
 import PaitnetViewCourses from "./../../Screens/Patient/More/viewCourses";
 import PatientTracker from "./../../Screens/Patient/Tracker/tracker";
 import PatientTimeLine from "./../../Screens/Patient/Journal/index";
+import PatientChats from "./../../Screens/Patient/Chat/index"
 import PatientTimeLine1 from "./../../Screens/ViewTimelineComponent/index.js";
 
 class Routermain extends Component {
@@ -32,7 +32,6 @@ class Routermain extends Component {
             <Route exact path="/forgot-password" render={(props) => <ForgotPass  {...props} />} />
             <Route exact path="/change-password" render={(props) => <ChangePass  {...props} />} />
             <Route exact path="/patient" render={(props) => <PatientProfile  {...props} />} />
-            <Router exact path="/patient/chat" render={(props) => <PatientChat {...props}/>} />
             <Route exact path="/patient/second-opinion" render={(props) => <PatientSecond {...props}/>} />
             <Route exact path="/patient/emergency" render={(props) => <PatientEmergency {...props}/>} />
             <Route exact path="/patient/extra-services" render={(props) => <PatientExtra {...props}/>} />
@@ -42,6 +41,8 @@ class Routermain extends Component {
             <Route exact path="/patient/tracker" render={(props) => <PatientTracker {...props}/>} />
             <Route exact path="/patient/journal" render={(props) => <PatientTimeLine {...props}/>} />
             <Route exact path="/patient/Timelinecomponents" render={(props) => <PatientTimeLine1 {...props}/>} />
+            <Route exact path="/patient/chats" render={(props) => <PatientChats {...props}/>} />
+            
             <Route path='*' exact={true} render={(props) => <NotFound {...props} />} />
             {/* End By Ankita */}
           </Switch>
