@@ -66,7 +66,6 @@ class Index extends Component {
       
       logoutUser= ()=> {
           this.props.authy(false);
-          this.props.Settings('');
           let languageType = 'en';
           this.props.LanguageFetchReducer(languageType);
       }
@@ -122,7 +121,6 @@ class Index extends Component {
                             if (this.props.stateLoginValueAim.token !== 450 && this.props.stateLoginValueAim.user !== 'undefined' && this.props.stateLoginValueAim.user !== null) {
                                 if (!this.props.stateLoginValueAim.user.is2fa) {
                                     this.props.authy(true);
-                                    this.props.Settings(this.props.stateLoginValueAim.token);
                                 }
                                 this.setState({ anotherlogin: true })
                             }
@@ -142,7 +140,6 @@ class Index extends Component {
                         function () {
                             this.setState({ myLogin: true });
                             this.setState({ loaderImage: false })
-                            this.props.Settings(this.props.stateLoginValueAim.token);
                             if (this.props.stateLoginValueAim && this.props.stateLoginValueAim.user && !this.props.stateLoginValueAim.user.is2fa) {  
                                 this.props.authy(true);
                             }

@@ -85,7 +85,6 @@ class Index extends Component {
                         <Grid className="lessonTitle">
                             <h4>{this.state.CurrentAttach && this.state.CurrentAttach.title}</h4>
                             <Grid className="lessonTitleVdo">
-                                {ConsoleCustom('filename', this.state.CurrentAttach.new_image)}
                                 {/* <img src={require('../../../../assets/images/vdo.jpg')} alt="" title="" /> */}
                                 <Iframeview new_image={this.state.CurrentAttach.new_image} type={this.state.CurrentAttach.type} comesFrom="LMS"/>
                             </Grid>

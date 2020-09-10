@@ -27,6 +27,7 @@ import Autocomplete from '../Autocomplete.js';
 import { LanguageFetchReducer } from './../../../actions';
 import Modal from '@material-ui/core/Modal';
 import Loader from './../../../Components/Loader/index';
+import DateFormat from './../../../Components/DateFormat/index'
 
 var datas = [];
 var insurances = [];
@@ -347,7 +348,6 @@ class Index extends Component {
 
     //Save the User profile
     saveUserData = () => {
-        console.log("insuranceDetails", this.state.insuranceDetails)
         if (this.state.insuranceDetails.insurance !== "" && this.state.insuranceDetails.insurance_number !== ""
             && this.state.insuranceDetails.insurance_country !== "") {
             if (datas.some(data => data.insurance === this.state.insuranceDetails.insurance)) { }
@@ -743,6 +743,7 @@ class Index extends Component {
                 >{company}</li>
             )
         });
+
         return (
             <div>
                 {this.state.loaderImage && <Loader />}
@@ -884,11 +885,12 @@ class Index extends Component {
                                     <Grid item xs={12} md={4}>
                                         <label>Date of birth</label>
                                         <Grid>
-                                            <DatePicker
+                                            {/* <DatePicker
                                                 name="birthday"
                                                 value={this.state.UpDataDetails.birthday ? new Date(this.state.UpDataDetails.birthday) : new Date()}
                                                 onChange={this.onChange}
-                                            />
+                                            /> */}
+                                            <DateFormat name="birthday" value={this.state.UpDataDetails.birthday ? new Date(this.state.UpDataDetails.birthday) : new Date()}  onChange={this.onChange} date_format={this.props.settings.setting.date_format} onChange={this.onChange}/>
                                         </Grid>
                                     </Grid>
                                     <Grid item xs={12} md={8}>
