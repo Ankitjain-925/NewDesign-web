@@ -1,17 +1,21 @@
 import React, { Component } from 'react';
-
+import {  DatePicker  } from 'antd';
+import moment from 'moment';
+import 'antd/dist/antd.css'; // or 'antd/dist/antd.less'
 const dateFormatList = ['DD/MM/YYYY', 'MM/DD/YYYY', 'YYYY/DD/MM'];
 
 class Date extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            is24: this.props.date_format
+            is24: this.props.date_format,
+            value : this.props.value || new Date(),
         };
     }
 
-    //On Time Change 
+    //On Time Change s
     onDateChange = (date, i) => {
+        this.setState({ value: date });
         this.props.onChange(date);
     };
 
@@ -21,9 +25,9 @@ class Date extends Component {
     render() {
         return (
             <div>
-                {this.state.is24 === 'DD/MM/YYYY' && <DatePicker onChange={this.onDateChange} defaultValue={moment('25/12/2020', dateFormatList[0])} format={'25/12/2015'} />}
-                {this.state.is24 === 'YYYY/DD/MM' && <DatePicker onChange={this.onDateChange} defaultValue={moment('2020/25/12', dateFormatList[2])} format={'2020/25/12'} />}
-                {this.state.is24 === 'YYYY/DD/MM' && <DatePicker onChange={this.onDateChange} defaultValue={moment('12/25/2020', dateFormatList[1])} format={'12/25/2020'} />}
+                {this.state.is24 === 'DD/MM/YYYY' && <DatePicker name={this.props.name} onChange={this.onDateChange} value={this.state.value ? moment(this.state.value, dateFormatList[0]) : ''}  format={dateFormatList[0]} />}
+                {this.state.is24 === 'YYYY/DD/MM' && <DatePicker name={this.props.name} onChange={this.onDateChange} value={this.state.value ? moment(this.state.value, dateFormatList[2]) : ''}  format={dateFormatList[2]} />}
+                {this.state.is24 === 'MM/DD/YYYY' && <DatePicker name={this.props.name} onChange={this.onDateChange} value={this.state.value ? moment(this.state.value, dateFormatList[1]) : ''} format={dateFormatList[1]} />}
             </div>
         )
     }

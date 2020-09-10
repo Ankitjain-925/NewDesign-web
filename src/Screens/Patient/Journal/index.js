@@ -1,30 +1,282 @@
 import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
+import Modal from '@material-ui/core/Modal';
+import Checkbox from '@material-ui/core/Checkbox';
+import { Editor } from 'react-draft-wysiwyg';
+import sitedata, { data } from '../../../sitedata';
+import axios from 'axios';
+import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+import Radio from '@material-ui/core/Radio';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import DatePicker from 'react-date-picker';
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { LoginReducerAim } from './../../Login/actions';
 import { Settings } from './../../Login/setting';
 import LeftMenu from './../../Components/Menus/PatientLeftMenu/index';
 import { LanguageFetchReducer } from './../../actions';
-
-const options = [
-    { value: 'data1', label: 'Data1' },
-    { value: 'data2', label: 'Data2' },
-    { value: 'data3', label: 'Data3' },
-];
+import AddEntry from './../../Components/AddEntry/index';
+import PersonalizedData from './../../Components/TimelineComponent/PersonalizedData/index';
+import FilterSec from './../../Components/TimelineComponent/Filter/index';
+import EmptyData from './../../Components/TimelineComponent/EmptyData/index';
+import ProfileSection from './../../Components/TimelineComponent/ProfileSection/index';
 
 class Index extends Component {
     constructor(props) {
         super(props);
         this.state = {
-           
+            openDash: false,
+            openEntry: false,
+            addInqryNw: false,
+            addInqrySw: false,
+            current_select: 'diagnosis',
+            updateOne: 0,
+            updateTrack: {},
+            cur_one :{},
+            personalinfo: {},
+            personalised_card :[],
+            Alltemprature :[],
+            AllATC_code: [],
+            Allpain_type: [], 
+            Allpain_quality: [],
+            Pressuresituation: [], 
+            Allsituation: [],
+            Allsmoking_status: [], 
+            Allreminder: [],
+            AllreminderV : [], 
+            AllSpecialty: [], 
+            Allsubstance1: [],
+            Allrelation: [], 
+            Allgender: [], 
+            AllL_P: [], 
+            Alltime_taken: [], 
+            added_data: [],
         };
     }
 
- 
+    //Select type for the new Entry
+    SelectOption = (value) => {
+        this.setState({ current_select: value }, () => {
+            this.handleaddInqryNw();
+        })
+    }
+
+    // Open Personalized Data
+    handleOpenDash = () => {
+        this.setState({ openDash: true });
+    };
+    // Close Personalized Data
+    handleCloseDash = () => {
+        this.setState({ openDash: false });
+    };
+
+    //Open for the Add entry
+    handleOpenEntry = () => {
+        this.setState({ openEntry: true });
+    };
+    //Close for the Add entry
+    handleCloseEntry = () => {
+        this.setState({ openEntry: false });
+    };
+
+    //Open ADD/EDIT popup 
+    handleaddInqryNw = () => {
+        this.setState({ addInqryNw: true });
+    };
+    //Close ADD/EDIT popup 
+    handleCloseInqryNw = () => {
+        this.setState({ addInqryNw: false });
+    };
+
+    // handleaddInqrySw = () => {
+    //     this.setState({ addInqrySw: true });
+    // };
+    // handleCloseInqrySw = () => {
+    //     this.setState({ addInqrySw: false });
+    // };
+    componentDidMount() {
+        // this.currentinfo();
+         this.getGender();
+         this.cur_one();
+         this.rightInfo();
+        // this.getTrack();
+         this.getMetadata();
+         this.getPesonalized();
+    }
+
+    //Get All information Related to Metadata
+    getMetadata() {
+        var user_token = this.props.stateLoginValueAim.token;
+        axios.get(sitedata.data.path + '/UserProfile/Metadata',
+            {
+                headers: {
+                    'token': user_token,
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                }
+            }).then((response) => {
+                this.setState({ allMetadata: response.data[0] })
+                if (this.state.allMetadata) {
+                    var Alltemprature = [], personalised_card=[], AllATC_code = [], Alltime_taken = [], Allpain_type = [], Allpain_quality = [],Pressuresituation=[], Allsituation = [],
+                        Allsmoking_status = [], Allreminder = [], AllreminderV =[{label: "Yearly", value: "yearly" }] , Allrelation = [], AllL_Pt = [], AllSpecialty = [], Allsubstance = [], Allgender = []
+                        // var personalised_card = this.state.allMetadata && this.state.allMetadata.personalised_card; 
+                        this.state.allMetadata && this.state.allMetadata.personalised_card && this.state.allMetadata.personalised_card.map((item, index) => (
+                            personalised_card.push({id: index,  label: item.label, value: item.value })
+                        ))
+                        this.state.allMetadata && this.state.allMetadata.time_taken && this.state.allMetadata.time_taken.map((item, index) => (
+                            Alltime_taken.push({ label: item.title, value: item.value })
+                        ))
+                        this.state.allMetadata && this.state.allMetadata.Temprature && this.state.allMetadata.Temprature.map((item, index) => (
+                            Alltemprature.push({ label: item.title, value: item.value })
+                        ))
+                        this.state.allMetadata && this.state.allMetadata.ATC_code && this.state.allMetadata.ATC_code.map((item, index) => (
+                            AllATC_code.push({ label: item.title, value: item.value })
+                        ))
+                        this.state.allMetadata && this.state.allMetadata.pain_type && this.state.allMetadata.pain_type.map((item, index) => (
+                            Allpain_type.push({ label: item.title, value: item.value })
+                        ))
+                        this.state.allMetadata && this.state.allMetadata.pain_quality && this.state.allMetadata.pain_quality.map((item, index) => (
+                            Allpain_quality.push({ label: item.title, value: item.value })
+                        ))
+                        this.state.allMetadata && this.state.allMetadata.situation && this.state.allMetadata.situation.map((item, index) => (
+                            Allsituation.push({ label: item.title, value: item.value })
+                        ))
+                        this.state.allMetadata && this.state.allMetadata.situation_pressure && this.state.allMetadata.situation_pressure.map((item, index) => (
+                            Pressuresituation.push({ label: item.title, value: item.value })
+                        ))
+                        this.state.allMetadata && this.state.allMetadata.smoking_status && this.state.allMetadata.smoking_status.map((item, index) => (
+                            Allsmoking_status.push({ label: item.title, value: item.value })
+                        ))
+                        this.state.allMetadata && this.state.allMetadata.reminder && this.state.allMetadata.reminder.map((item, index) => (
+                            Allreminder.push({ label: item.title, value: item.value }),
+                            AllreminderV.push({ label: item.title, value: item.value })
+                        ))
+                        this.state.allMetadata && this.state.allMetadata.relation && this.state.allMetadata.relation.map((item, index) => (
+                            Allrelation.push({ label: item.title, value: item.value })
+                        ))
+                        this.state.allMetadata && this.state.allMetadata.speciality && this.state.allMetadata.speciality.map((item, index) => (
+                            AllSpecialty.push({ label: item.title, value: item.value })
+                        ))
+                        this.state.allMetadata && this.state.allMetadata.substance && this.state.allMetadata.substance.map((item, index) => (
+                            Allsubstance.push({ label: item.title, value: item.value })
+                        ))
+                        this.state.allMetadata && this.state.allMetadata.gender && this.state.allMetadata.gender.map((item, index) => (
+                            Allgender.push({ label: item.title, value: item.value })
+                        ))
+                    
+                    function mySorter(a, b) {
+                        var x = a.value.toLowerCase();
+                        var y = b.value.toLowerCase();
+                        return ((x < y) ? -1 : ((x > y) ? 1 : 0));
+                    }
+
+                    Alltime_taken.sort(mySorter);
+
+                    this.setState({
+                        Alltemprature: Alltemprature,
+                        AllATC_code: AllATC_code, Allpain_type: Allpain_type, Allpain_quality: Allpain_quality,Pressuresituation: Pressuresituation, Allsituation: Allsituation,
+                        Allsmoking_status: Allsmoking_status, Allreminder: Allreminder, AllreminderV : AllreminderV, AllSpecialty: AllSpecialty, Allsubstance1: Allsubstance,
+                        Allrelation: Allrelation, Allgender: Allgender, Alltime_taken: Alltime_taken, personalised_card: personalised_card,
+                        // AllL_P: AllL_Ps.AllL_Ps, 
+                    })
+                }
+            })
+    }
+
+
+    //For getting the existing settings
+    getPesonalized =()=>{
+        this.setState({ loaderImage : true})
+        axios.get(sitedata.data.path + '/UserProfile/updateSetting',
+            {
+            headers: {
+                'token': this.props.stateLoginValueAim.token,
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        }).then((responce) => {
+            if(responce.data.hassuccessed && responce.data.data && responce.data.data.personalized && responce.data.data.personalized.length>0)
+            { this.setState({added_data : responce.data.data.personalized}) }
+            else{ this.setState({added_data : [] }) }
+            this.setState({ loaderImage : false})  
+        })   
+    }
+
+    //For Set Format
+    SetPesonalized=(data)=>{
+        this.setState({ loaderImage: true})
+        axios.put(sitedata.data.path + '/UserProfile/updateSetting', {
+            personalized:data,
+            user_id: this.props.stateLoginValueAim.user._id,
+        }, {
+            headers: {
+                'token': this.props.stateLoginValueAim.token,
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        }).then((responce) => {
+            this.setState({loaderImage : false})
+            this.getPesonalized();
+        })   
+    }
+
+    //Get the RIGHT INFO 
+    rightInfo(){
+        var user_token = this.props.stateLoginValueAim.token;
+        axios.get(sitedata.data.path + '/rightinfo/patient', {
+            headers: {
+            'token': user_token,
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+            }
+        })
+        .then((response) => {
+           this.setState({personalinfo: response.data.data})
+        })  
+    }
+
+    //Get the Current User Profile
+    cur_one=()=>{
+        var user_token = this.props.stateLoginValueAim.token;
+        let user_id = this.props.stateLoginValueAim.user._id;
+        axios.get(sitedata.data.path + '/UserProfile/Users/'+user_id, 
+            {
+                headers: {
+                    'token': user_token,
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then((response) => {
+                this.setState({ cur_one: response.data.data })
+            })
+    }
+
+    //Move to Profile section
+    MoveProfile=()=>{
+        this.props.history.push('/patient/')
+    }
+
+    //For getting the information of the Patient Gender
+    getGender() {
+        var user_token = this.props.stateLoginValueAim.token;
+        var user_id = this.props.stateLoginValueAim.user._id;
+        axios.get(sitedata.data.path + '/User/Get_patient_gender/' + user_id,
+            {
+                headers: {
+                    'token': user_token,
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then((response) => {
+                if (response.data.hassuccessed === true) {
+                    this.setState({ patient_gender: response.data.data })
+                }
+            });
+    }
 
     render() {
-        const { selectedOption } = this.state;
         return (
             <Grid className="homeBg">
                 <Grid className="homeBgIner">
@@ -33,12 +285,341 @@ class Index extends Component {
                             <Grid container direction="row">
 
                                 {/* Website Menu */}
-                                <LeftMenu currentPage ="journal"/>
+                                <LeftMenu currentPage="journal" />
                                 {/* End of Website Menu */}
 
                                 {/* Website Mid Content */}
                                 <Grid item xs={12} md={8}>
+                                    {/* Start of Depression Section */}
+                                    <Grid className="descpCntntMain">
+                                        <Grid className="journalAdd">
+                                            <Grid container direction="row">
+                                                <Grid item xs={11} md={11}>
+                                                    <Grid container direction="row">
+                                                        <Grid item xs={6} md={6}>
+                                                            <h1>Journal</h1>
+                                                        </Grid>
+                                                        <Grid item xs={6} md={6}>
+                                                            <Grid className="AddEntrynw">
+                                                                <a onClick={this.handleOpenEntry}>+ Add new entry</a>
+                                                            </Grid>
+                                                        </Grid>
+                                                    </Grid>
+                                                </Grid>
+                                            </Grid>
+                                        </Grid>
 
+                                        {/* Model setup */}
+                                        <PersonalizedData SetPersonalized={this.SetPesonalized} added_data={this.state.added_data} personalised_card={this.state.personalised_card} openDash={this.state.openDash} onChange={this.UpdatePersonalized} handleCloseDash={this.handleCloseDash} />
+                                        {/* End of Model setup */}
+
+                                        {/* For the filter section */}
+                                        <FilterSec />
+
+                                        {/* For Empty Entry */}
+                                        <EmptyData />
+                                    </Grid>
+                                </Grid>
+                                {/* End of Website Mid Content */}
+
+
+
+                                {/* Website Right Content */}
+                                <Grid item xs={12} md={3}>
+                                    <ProfileSection personalinfo={this.state.personalinfo} user={this.state.cur_one} user_token={this.props.stateLoginValueAim.token} getData={this.cur_one} MoveProfile={this.MoveProfile}/>
+                                        {/* Model setup */}
+                                        <Modal
+                                            open={this.state.addInqryNw}
+                                            onClose={this.handleCloseInqryNw}
+                                            className="nwDiaModel">
+                                            <Grid className="nwDiaCntnt">
+                                                <Grid className="nwDiaCntntIner">
+                                                    <Grid className="nwDiaCourse">
+                                                        <Grid className="nwDiaCloseBtn">
+                                                            <a onClick={this.handleCloseInqryNw}>
+                                                                <img src={require('../../../assets/images/closefancy.png')} alt="" title="" />
+                                                            </a>
+                                                        </Grid>
+                                                        {this.state.updateTrack._id && this.state.updateOne !== this.state.updateTrack._id ?
+                                                            <div>
+                                                                <p>New entry</p>
+                                                                <Grid className="nwDiaSel">
+                                                                    <select onChange={(e) => this.SelectOption(e.target.value)} value={this.state.current_select}>
+                                                                        <option value="blood_pressure">Blood Pressure</option>
+                                                                        <option value="blood_sugar">Blood Sugar</option>
+                                                                        <option value="condition_pain">Condition and Pain</option>
+                                                                        <option value="covid_19">Covid-19 Diary</option>
+                                                                        <option value="diagnosis" selected={true}>Diagnosis</option>
+                                                                        <option value="diary">Diary</option>
+                                                                        <option value="doctor_visit">Doctor Visit</option>
+                                                                        <option value="family_anamnesis">Family Anamnesis</option>
+                                                                        <option value="file_upload">Files Upload</option>
+                                                                        <option value="hospitalization">Hospital Visit</option>
+                                                                        <option value="laboratory_result">Laboratory Result</option>
+                                                                        <option value="marcumar_pass">Marcumar pass</option>
+                                                                        <option value="medication" >Medication</option>
+                                                                        <option value="smoking_status">Smoking Status</option>
+                                                                        <option value="vaccination">Vaccination</option>
+                                                                        <option value="weight_bmi">Weight & BMI</option>
+                                                                    </select>
+                                                                </Grid>
+                                                            </div> :
+                                                            <div>
+                                                                <p>Edit entry</p>
+                                                                <Grid className="nwDiaSel">
+                                                                    <select disabled onChange={(e) => this.SelectOption(e.target.value)} value={this.state.current_select}>
+                                                                        <option value="blood_pressure">Blood Pressure</option>
+                                                                        <option value="blood_sugar">Blood Sugar</option>
+                                                                        <option value="condition_pain">Condition and Pain</option>
+                                                                        <option value="covid_19">Covid-19 Diary</option>
+                                                                        <option value="diagnosis" selected={true}>Diagnosis</option>
+                                                                        <option value="diary">Diary</option>
+                                                                        <option value="doctor_visit">Doctor Visit</option>
+                                                                        <option value="family_anamnesis">Family Anamnesis</option>
+                                                                        <option value="file_upload">Files Upload</option>
+                                                                        <option value="hospitalization">Hospital Visit</option>
+                                                                        <option value="laboratory_result">Laboratory Result</option>
+                                                                        <option value="marcumar_pass">Marcumar pass</option>
+                                                                        <option value="medication" >Medication</option>
+                                                                        <option value="smoking_status">Smoking Status</option>
+                                                                        <option value="vaccination">Vaccination</option>
+                                                                        <option value="weight_bmi">Weight & BMI</option>
+                                                                    </select>
+                                                                </Grid>
+                                                            </div>}
+                                                    </Grid>
+                                                    <Grid>
+                                                        {this.state.current_select === 'blood_pressure' && 'Blood Pressure'}
+                                                        {this.state.current_select === 'blood_sugar' && 'Blood Sugar'}
+                                                        {this.state.current_select === 'condition_pain' && 'Condition & Pain'}
+                                                        {this.state.current_select === 'covid_19' && 'Covid 19 Diary'}
+                                                        {this.state.current_select === 'diagnosis' && 'Dianosis'}
+                                                        {this.state.current_select === 'diary' && 'Diary'}
+                                                        {this.state.current_select === 'doctor_visit' && 'Doctor Visit'}
+                                                        {this.state.current_select === 'family_anamnesis' && 'Family Anamnesis'}
+                                                        {this.state.current_select === 'file_upload' && 'Files Upload'}
+                                                        {this.state.current_select === 'hospitalization' && 'Hospital Visit'}
+                                                        {this.state.current_select === 'laboratory_result' && 'Laboratory Result'}
+                                                        {this.state.current_select === 'marcumar_pass' && 'Marcumar Pass'}
+                                                        {this.state.current_select === 'medication' && 'Medication'}
+                                                        {this.state.current_select === 'smoking_status' && 'Smoking Status'}
+                                                        {this.state.current_select === 'vaccination' && 'Vaccination'}
+                                                        {this.state.current_select === 'weight_bmi' && 'Weight and BMI'}
+                                                    </Grid>
+                                                </Grid>
+                                            </Grid>
+                                        </Modal>
+                                        {/* End of Model setup */}
+
+                                    
+
+                                    {/* Model setup */}
+                                    <AddEntry openEntry={this.state.openEntry} value="diagnosis" onChange={this.SelectOption} handleCloseEntry={this.handleCloseEntry} />
+                                    {/* End of Model setup */}
+
+
+
+                                    <Grid className="Personal_dash">
+                                        <a onClick={this.handleOpenDash}>
+                                            <img src={require('../../../assets/images/bpupr.png')} alt="" title="" />
+                                            Personalize dashboard
+                                        </a>
+                                    </Grid>
+
+                                    {/* Model setup */}
+                                    <Modal
+                                        open={this.state.addInqrySw}
+                                        onClose={this.handleCloseInqrySw}
+                                        className="nwDiaModel">
+                                        <Grid className="nwDiaCntnt">
+                                            <Grid className="nwDiaCntntIner">
+                                                <Grid className="nwDiaCourse">
+                                                    <Grid className="nwDiaCloseBtn">
+                                                        <a onClick={this.handleCloseInqrySw}>
+                                                            <img src={require('../../../assets/images/closefancy.png')} alt="" title="" />
+                                                        </a>
+                                                    </Grid>
+                                                    <p>New entry</p>
+                                                    <Grid className="nwDiaSel">
+                                                        <select>
+                                                            <option>Diagnosis</option>
+                                                            <option>Diagnosis</option>
+                                                            <option>Diagnosis</option>
+                                                        </select>
+                                                    </Grid>
+                                                </Grid>
+                                                <Grid className="cnfrmDiaMain">
+                                                    <Grid className="cnfrmDiaUpr">
+                                                        <Grid container direction="row">
+                                                            <Grid item xs={12} md={8} className="cnfrmDiaLft">
+                                                                <FormControlLabel
+                                                                    control={
+                                                                        <Checkbox
+                                                                            value="checkedB"
+                                                                            color="#00ABAF"
+                                                                        />
+                                                                    }
+                                                                    label="Confirm diagnosis"
+                                                                />
+                                                            </Grid>
+                                                            <Grid item xs={12} md={4} className="cnfrmDiaRght">
+                                                                <img src={require('../../../assets/images/plusgreen.jpg')} alt="" title="" />
+                                                            </Grid>
+                                                        </Grid>
+                                                        <Grid container direction="row">
+                                                            <Grid item xs={12} md={8} className="cnfrmDiaLft">
+                                                                <FormControlLabel
+                                                                    control={
+                                                                        <Checkbox
+                                                                            value="checkedB"
+                                                                            color="#00ABAF"
+                                                                        />
+                                                                    }
+                                                                    label="Emergency diagnosis"
+                                                                />
+                                                            </Grid>
+                                                            <Grid item xs={12} md={4} className="cnfrmDiaRght">
+                                                                <img src={require('../../../assets/images/plusvan.jpg')} alt="" title="" />
+                                                            </Grid>
+                                                        </Grid>
+                                                    </Grid>
+                                                    <Grid className="fillDia">
+                                                        <Grid><label>Enter diagnosis</label></Grid>
+                                                        <Grid><input type="text" /></Grid>
+                                                    </Grid>
+                                                    <Grid className="diaCD">
+                                                        <Grid><label>Select an ICD catalogue and search for code</label></Grid>
+                                                        <Grid><a className="diaCDActv">ICD-10</a> <a>ICD-11</a></Grid>
+                                                        <Grid><a className="diaCDActv">ICD-10 WHO</a> <a>ICD-10 CM</a> <a>ICD-10 GM</a></Grid>
+                                                    </Grid>
+
+                                                    <Grid className="plasB50">
+                                                        <Grid className="plasB50Lft"><span>B50.0</span></Grid>
+                                                        <Grid className="plasB50Rght">
+                                                            <p>Plasmodium falciparum malaria with cerebral complications</p>
+                                                        </Grid>
+                                                    </Grid>
+
+                                                    {/* <Grid className="srchDia">
+                                                        <Grid className="srchdoseMg">
+                                                            <input type="text" placeholder="Enter code or search by keywords" />
+                                                            <span><img src={require('../../../assets/images/search-entries.svg')} alt="" title="" /></span>
+                                                        </Grid>
+                                                    </Grid> */}
+
+                                                    <Grid className="travelDia">
+                                                        <Grid>
+                                                            <FormControlLabel
+                                                                control={
+                                                                    <Checkbox
+                                                                        value="checkedB"
+                                                                        color="#00ABAF"
+                                                                    />
+                                                                }
+                                                                label="Alergy"
+                                                            />
+                                                        </Grid>
+                                                        <Grid>
+                                                            <FormControlLabel
+                                                                control={
+                                                                    <Checkbox
+                                                                        value="checkedB"
+                                                                        color="#00ABAF"
+                                                                    />
+                                                                }
+                                                                label="Travel diagnosis"
+                                                            />
+                                                        </Grid>
+                                                    </Grid>
+                                                    <Grid className="fillDia">
+                                                        <Grid><label>Date of diagnose</label></Grid>
+                                                        <Grid><input type="text" /></Grid>
+                                                    </Grid>
+                                                    <Grid className="fillDia">
+                                                        <Grid><label>Diagnosed by</label></Grid>
+                                                        <Grid><input type="text" /></Grid>
+                                                    </Grid>
+
+                                                    <Grid className="notEditor"><label>Notes</label></Grid>
+                                                    <Grid className="fill_editor">
+                                                        <Editor
+                                                            //editorState={this.state.editorState}
+                                                            toolbarClassName="toolbarClassName"
+                                                            wrapperClassName="wrapperClassName"
+                                                            editorClassName="editorClassName"
+                                                        //onEditorStateChange={this.onEditorStateChange}
+                                                        />
+                                                    </Grid>
+                                                    <Grid className="attchForms attchImg">
+                                                        <Grid><label>Attachments</label></Grid>
+                                                        <Grid className="attchInput">
+                                                            <a><img src={require('../../../assets/images/upload-file.svg')} alt="" title="" /></a>
+                                                            <a>Browse <input type="file" /></a> or drag here
+                                                                </Grid>
+                                                        <p>Supported file types: .jpg, .png, .pdf</p>
+                                                    </Grid>
+
+                                                    <Grid>
+                                                        <Grid className="uploadImgs">
+                                                            <Grid className="uploadImgsLft"><img src={require('../../../assets/images/agedman.png')} alt="" title="" /></Grid>
+                                                            <Grid className="uploadImgsMid"><p>IMG_23_6_2020_09_18.jpg</p></Grid>
+                                                            <Grid className="uploadImgsRght"><img src={require('../../../assets/images/remove-1.svg')} alt="" title="" /></Grid>
+                                                        </Grid>
+                                                        <Grid className="uploadImgs">
+                                                            <Grid className="uploadImgsLft"><img src={require('../../../assets/images/agedman.png')} alt="" title="" /></Grid>
+                                                            <Grid className="uploadImgsMid"><p>IMG_23_6_2020_09_18.jpg</p></Grid>
+                                                            <Grid className="uploadImgsRght"><img src={require('../../../assets/images/remove-1.svg')} alt="" title="" /></Grid>
+                                                        </Grid>
+                                                    </Grid>
+
+
+                                                </Grid>
+
+                                                <Grid className="infoShwHidMain3upr">
+
+                                                    <Grid className="shwAfterUpr">
+                                                        <Grid className="shwAfter">
+                                                            <Grid container direction="row" justifyContent="center" alignItems="center">
+                                                                <Grid item xs={12} md={8} className="shwAfterLft">
+                                                                    <p>Show after: <span>16/07/2020</span></p>
+                                                                </Grid>
+                                                                <Grid item xs={12} md={4} className="shwAfterRght">
+                                                                    <a>Done</a>
+                                                                </Grid>
+                                                            </Grid>
+                                                        </Grid>
+
+                                                        <Grid className="showThis">
+
+                                                            <Grid className="showThisBtns">
+                                                                <a className="showThisBtnsActv">Show this entry</a> <a>Hide this entry</a>
+                                                            </Grid>
+                                                            <Grid className="alwaysDate">
+                                                                <Grid><FormControlLabel value="yes" control={<Radio />} label="Always" /></Grid>
+                                                                <Grid><FormControlLabel value="yes" control={<Radio />} label="After specific date" /></Grid>
+                                                            </Grid>
+
+                                                            <Grid className="afterDate">
+                                                                <DatePicker />
+                                                            </Grid>
+
+                                                            <Grid className="alwaysDate">
+                                                                <Grid><FormControlLabel value="yes" control={<Radio />} label="Always" /></Grid>
+                                                            </Grid>
+
+                                                        </Grid>
+
+                                                    </Grid>
+
+                                                    <Grid className="infoShwSave3">
+                                                        <input type="submit" value="Save entry" />
+                                                    </Grid>
+                                                </Grid>
+
+                                            </Grid>
+                                        </Grid>
+                                    </Modal>
+                                    {/* End of Model setup */}
                                 </Grid>
                                 {/* End of Website Right Content */}
 

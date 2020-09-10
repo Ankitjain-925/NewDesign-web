@@ -18,7 +18,7 @@ import PatientOnline from "./../../Screens/Patient/More/OnineCoure";
 import PaitnetViewCourses from "./../../Screens/Patient/More/viewCourses";
 import PatientTracker from "./../../Screens/Patient/Tracker/tracker";
 import PatientTimeLine from "./../../Screens/Patient/Journal/index";
-import PatientTimeLine1 from "./../../Screens/Patient/Journal/bysir";
+import PatientTimeLine1 from "./../../Screens/ViewTimelineComponent/index.js";
 
 class Routermain extends Component {
   render() {
@@ -41,7 +41,7 @@ class Routermain extends Component {
             <Route exact path="/patient/view-course" render={(props) => <PaitnetViewCourses {...props}/>} />
             <Route exact path="/patient/tracker" render={(props) => <PatientTracker {...props}/>} />
             <Route exact path="/patient/journal" render={(props) => <PatientTimeLine {...props}/>} />
-            <Route exact path="/patient/bySir" render={(props) => <PatientTimeLine1 {...props}/>} />
+            <Route exact path="/patient/Timelinecomponents" render={(props) => <PatientTimeLine1 {...props}/>} />
             <Route path='*' exact={true} render={(props) => <NotFound {...props} />} />
             {/* End By Ankita */}
           </Switch>
