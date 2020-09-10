@@ -55,14 +55,13 @@ class Index extends Component {
             vData: false,
             fitbitloggedIn: false,
             withingsloggedIn: false,
+            garminloggedIn: false,
             apidata: []
         };
     }
 
+
     componentDidMount() {
-        if (this.state.withingsloggedIn) {
-            this.logoutfromall()
-        }
         if (window.location.hash) {
             let fitbitToken = window.location.hash.slice(1).split("&")[0].replace("access_token=", "")
             localStorage.setItem('fitbit_token', JSON.stringify(fitbitToken))
@@ -553,7 +552,7 @@ class Index extends Component {
     };
 
     render() {
-        const { value, fitbitloggedIn, apidata, withingsloggedIn, Devices_id, deviceid } = this.state;
+        const { value, fitbitloggedIn, apidata, withingsloggedIn, garminloggedIn, Devices_id, deviceid } = this.state;
         return (
             <Grid className="homeBg">
                 <Grid className="homeBgIner">
@@ -729,7 +728,7 @@ class Index extends Component {
                                                                 <Grid className="trckSection">
                                                                     <Grid className="trckSecIner1" >
                                                                         <Grid className="trckLogo1" style={{ minHeight: "140px" }} >
-                                                                            <div style={{ minHeight: "30px" }}></div>
+                                                                            <div style={{ minHeight: "40px" }}></div>
                                                                             < a href="https://account.withings.com/oauth2_user/authorize2?response_type=code&client_id=198370b3fcf82d7ed5968266d053f376291849d5691751e9987e1d71ae867c92&scope=user.info,user.metrics,user.activity,user.sleepevents&redirect_uri=http://localhost:3000/patient/tracker&state=up">
                                                                                 <img style={{ minWidth: "120px", height: "80px", }} title="Loggin via Withings!" src={require('../../../assets/images/logo-withings.png')} style={{ maxWidth: "100px" }} alt="" />
                                                                             </a>
@@ -763,8 +762,6 @@ class Index extends Component {
                                                         </Grid>
                                                     </Grid>
                                                 </Grid>
-
-
 
 
                                                 {/* Model setup */}

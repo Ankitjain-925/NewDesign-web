@@ -5935,7 +5935,7 @@ img.addBlue {
 }
 .trckLogo1 img{
     height:"auto";
-    min-width: 160px
+    min-width: 70%
 }
 .trckDots img {
     height: 24px;
