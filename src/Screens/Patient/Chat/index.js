@@ -101,7 +101,7 @@ class index extends React.Component {
                         {/* Website Mid Content */}
                         <Grid item xs={12} md={11}>
                             {/* Inbox page Content */}
-                            <Grid container direction="row" justify="center" alignItems="center">
+                            <Grid container style={{fontSize: "16px"}} direction="row" justify="left" alignItems="center">
                                 <CometChat lan= {this.props.stateLanguageType} Uid={this.props.stateLoginValueAim.user.profile_id} Userlist={this.state.doctorArray && this.state.doctorArray}  sizeList = {this.state.sizeList && this.state.sizeList}/> 
                             </Grid>
                         </Grid>

@@ -36,7 +36,7 @@ function Userview(props) {
   return ((
     // console.log('csfsdf', props.Userlist, props.user.uid),
     // props.Userlist && props.Userlist.includes(props.user.uid) ?
-    <div className="contact-listitem">
+    <div className="contact-listitem" >
       <div className="contact-thumbnail-wrap">
         <Avatar
           image={_image}

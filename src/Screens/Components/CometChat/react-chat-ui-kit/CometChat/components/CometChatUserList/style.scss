@@ -44,18 +44,19 @@
         }
 
         .search-btn{
-            width:14px;
-            height:14px;
+            width:12px;
+            height:12px;
             display:block;
             position:absolute;
             left:9px;top:9px;
+            border-width: 0px;
             background:url(./resources/search-grey-icon.svg) center center no-repeat;
         }
     }
 }
 
 .chat-contact-list-ext-wrap {
-    padding:16px;
+    padding:2px;
     height: calc(100vh - 125px);
     overflow-y:auto;
 

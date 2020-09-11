@@ -1,6 +1,6 @@
 import React from "react";
 import "./style.scss";
-
+import "../../../../../../../assets/css/style.css"
 import { CometChat } from "@cometchat-pro/chat";
 
 import { CometChatManager } from "../../util/controller";

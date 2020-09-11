@@ -13,7 +13,7 @@
         img {
             display:inline-block;
             overflow:hidden;
-            width:36px;
+            width:32px;
         }
     }
 
@@ -22,19 +22,23 @@
         flex: 1 1;
         margin: 0 0 0 12px;
         padding: 3px;
+        padding-top: 0px;
         width: calc(100% - 50px);
         border-bottom: 1px solid $light-background-border;
 
         .contact-listitem-name {
-            font-size: 1.5rem;
+            font-size: 1.0rem;
             font-weight:600;
+            font-family: Muli;
+            color: #353333;
             letter-spacing:-.1px;
             display:block;
             max-width: 100%;
             overflow:hidden;
             text-overflow:ellipsis;
             white-space:nowrap;
-            margin-bottom: 12px;
+            margin-bottom: 5px;
+            margin-top: 5px;
         }
     }
 }
