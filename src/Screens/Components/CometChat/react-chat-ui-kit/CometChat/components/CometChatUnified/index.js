@@ -8,16 +8,16 @@ import CometChatUserDetail from "../CometChatUserDetail";
 import CometChatGroupDetail from "../CometChatGroupDetail";
 import MessageThread from "../MessageThread";
 import CallScreen from "../CallScreen";
-import * as translationEN from "../../../../../../../translations/en.json";
-import * as translationDE from "../../../../../../../translations/de.json";
-import * as translationSP from "../../../../../../../translations/sp.json";
-import * as translationPT from "../../../../../../../translations/pt.json";
-import * as translationRS from "../../../../../../../translations/rs.json";
-import * as translationNL from "../../../../../../../translations/nl.json";
-import * as translationCH from "../../../../../../../translations/ch.json";
-import * as translationSW from "../../../../../../../translations/sw.json";
+import * as translationEN from "../../../../../.../../../../translations/en.json";
+import * as translationDE from "../../../../../.../../../../translations/de.json";
+import * as translationSP from "../../../../../.../../../../translations/sp.json";
+import * as translationPT from "../../../../../.../../../../translations/pt.json";
+import * as translationRS from "../../../../../.../../../../translations/rs.json";
+import * as translationNL from "../../../../../.../../../../translations/nl.json";
+import * as translationCH from "../../../../../.../../../../translations/ch.json";
+import * as translationSW from "../../../../../.../../../../translations/sw.json";
 
-class CometChatUnified extends React.Component {y 
+class CometChatUnified extends React.Component {
   constructor(props) {
     super(props);
     this.leftPanelRef = React.createRef();
@@ -344,11 +344,13 @@ class CometChatUnified extends React.Component {y
       <div class="outer CreatChatOuter">
         <div class="middle CreatChatMid">
           <div className="inner CreatChatInner">
-            {/* <img
+            <img
+            style={{marginLeft:"35%", marginTop:"20%", maxHeight:"150px"}}
               src="https://aimedis.io/assets/images/LogoSymbolTransparentAimedis.png"
               alt="Aimedis Logo"
               title="Aimedis Logo"
-            /> */}
+            /><br/>
+            <p style={{color:"#95A5A6", marginLeft:"30%", fontFamily:"sans-serif", fontWeight:"bold"}}>Select a chat to start messaging</p>
             <CallScreen
               className="callscreen"
               item={this.state.item}

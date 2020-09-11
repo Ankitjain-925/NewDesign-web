@@ -55,7 +55,8 @@
 
       img {
         max-height:100%;
-        display:inline-block;
+        float: center !important;
+        // display:inline-block;
         border-radius:50%;
         overflow:hidden;
         box-shadow:rgba(20,20,20,0.3) 0 19px 38px,rgba(20,20,20,0.3) 0 2px 7px;

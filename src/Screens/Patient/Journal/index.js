@@ -20,6 +20,7 @@ import PersonalizedData from './../../Components/TimelineComponent/PersonalizedD
 import FilterSec from './../../Components/TimelineComponent/Filter/index';
 import EmptyData from './../../Components/TimelineComponent/EmptyData/index';
 import ProfileSection from './../../Components/TimelineComponent/ProfileSection/index';
+import RightManage from './../../Components/TimelineComponent/RightMenuManage/index';
 
 class Index extends Component {
     constructor(props) {
@@ -620,6 +621,9 @@ class Index extends Component {
                                         </Grid>
                                     </Modal>
                                     {/* End of Model setup */}
+
+                                    <RightManage added_data={this.state.added_data} personalinfo={{}}/>
+
                                 </Grid>
                                 {/* End of Website Right Content */}
 

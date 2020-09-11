@@ -8,7 +8,7 @@ const avatar = (props) => {
   const cornerRadius = props.cornerRadius || '50%';
   const image = props.image;
 
-  const getStyle = () => ({borderWidth:borderWidth, borderStyle:'solid',borderColor:borderColor ,'borderRadius': cornerRadius})
+  const getStyle = () => ({borderWidth:borderWidth, borderStyle:'solid',borderColor:borderColor ,'borderRadius': cornerRadius, float:"left"})
 
   return (
     <img src={image} alt="Avatar" style={getStyle()} />

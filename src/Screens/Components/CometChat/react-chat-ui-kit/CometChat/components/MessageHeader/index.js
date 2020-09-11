@@ -175,7 +175,7 @@ class MessageHeader extends React.Component {
         <div className="cc1-chat-win-con-opt-wrap">
           {audioCallBtn}
           {videoCallBtn}
-          {/* {viewDetailBtn} */}
+          {viewDetailBtn}
         </div>
       </div>
     );

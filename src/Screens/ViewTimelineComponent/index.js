@@ -69,7 +69,6 @@ class Index extends Component {
     }
 
     render() {
-        const { selectedOption } = this.state;
         return (
             <Grid className="homeBg">
                 <Grid className="homeBgIner">

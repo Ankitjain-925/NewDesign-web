@@ -18,13 +18,14 @@
             .cc1-chat-win-sndr-msg-wrap {
                 display:inline-block;
                 border-radius:12px;
-                background-color:rgba(51,153,255,0.92);
+                background-color:rgb(0,171,175);
                 color:#fff;
                 padding:8px 12px;
                 float: right;
 
                 .chat-txt-msg {
-                    font-size:15px;
+                    font-size:inherit;
+                    font-weight: inherit;
                     margin:0;
                     letter-spacing:-.1px;
                     line-height:20px;

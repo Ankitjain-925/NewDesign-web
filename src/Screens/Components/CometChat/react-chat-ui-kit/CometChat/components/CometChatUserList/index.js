@@ -112,6 +112,7 @@ class CometChatUserList extends React.PureComponent {
   };
 
   handleClick = (user) => {
+    this.setState({selectedUser:user.uid})
     if (!this.props.onItemClick) return;
 
     this.props.onItemClick(user, "user");
@@ -223,7 +224,7 @@ class CometChatUserList extends React.PureComponent {
       if (chr !== currentLetter) {
         currentLetter = chr;
         return (
-          <div id={key} onClick={() => this.handleClick(user)} key={key}>
+          <div style={{background: this.state.selectedUser==user.uid ?"#F2F2F2": "#fff"}} id={key} onClick={() => this.handleClick(user)} key={key}>
             <UserView
               Userlist={this.props.Userlist}
               key={user.uid}
@@ -234,7 +235,7 @@ class CometChatUserList extends React.PureComponent {
         );
       } else {
         return (
-          <div id={key} onClick={() => this.handleClick(user)} key={key}>
+          <div style={{background: this.state.selectedUser==user.uid ?"#F2F2F2": "#fff"}} id={key} onClick={() => this.handleClick(user)} key={key}>
             <UserView
               Userlist={this.props.Userlist}
               key={user.uid}

@@ -34,7 +34,7 @@
 }
 
 .ccl-left-panel-srch-wrap {
-    padding:0 16px 18px;
+    padding:0 3px 18px;
 
     .ccl-left-panel-srch-inpt-wrap {
         position:relative;
@@ -49,16 +49,17 @@
             letter-spacing:-.1px;
             line-height:20px;
             padding:6px 8px 6px 30px;
+            font-size: 1.0rem !important;
             @include font-15;
             color: $secondary;
         }
 
         .search-btn {
-            width:14px;
-            height:14px;
+            width:17px;
+            height:18px;
             display:block;
             position:absolute;
-            left:9px;
+            left:8px;
             top:9px;
             background:url(./resources/search-grey-icon.svg) center center no-repeat;
         }
