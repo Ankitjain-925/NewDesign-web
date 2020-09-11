@@ -1,10 +1,5 @@
 import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
-import { confirmAlert } from 'react-confirm-alert'; // Import
-import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
-import sitedata from '../../../../sitedata';
-import axios from 'axios';
-import { ConsoleCustom } from './../../BasicMethod/index';
 
 class RightManage extends Component {
     constructor(props) {
@@ -18,9 +13,7 @@ class RightManage extends Component {
     componentDidMount = () => {
 
     }
-
-
-
+    
     //On change the User Data
     componentDidUpdate = (prevProps) => {
         if (prevProps.added_data !== this.props.added_data) {
@@ -36,7 +29,7 @@ class RightManage extends Component {
             <div>
                 {this.state.added_data && this.state.added_data.length > 0 && this.state.added_data.map((item) => (
                     <div>
-                        {item ===' ' && 
+                        {item ==='graph_blood_pressure' && 
                         <Grid className="persBlodMesur">
                             <Grid container direction="row" alignItems="center">
                                 <Grid item xs={6} md={6} className="lstView">
@@ -60,11 +53,12 @@ class RightManage extends Component {
                                 </div> :
                                 <Grid className="noBpData">
                                     <p>No data available</p>
-                                    <h3>+ add new entry</h3>
+                                    <h3 onClick={()=>this.props.SelectOption('blood_pressure')}>+ add new entry</h3>
                                 </Grid>}
                         </Grid>
                          }
 
+                        {item ==='graph_weight_bmi' && 
                         <Grid className="persBlodMesur">
                             <Grid container direction="row" alignItems="center">
                                 <Grid item xs={6} md={6} className="lstView">
@@ -88,10 +82,11 @@ class RightManage extends Component {
                                 </div> :
                                 <Grid className="noBpData">
                                     <p>No data available</p>
-                                    <h3>+ add new entry</h3>
+                                    <h3 onClick={()=>this.props.SelectOption('weight_bmi')}>+ add new entry</h3>
                                 </Grid>}
                         </Grid>
-
+                        }
+                        {item ==='graph_heart_rate' && 
                         <Grid className="persBlodMesur">
                             <Grid container direction="row" alignItems="center">
                                 <Grid item xs={6} md={6} className="lstView">
@@ -115,10 +110,11 @@ class RightManage extends Component {
                                 </div> :
                                 <Grid className="noBpData">
                                     <p>No data available</p>
-                                    <h3>+ add new entry</h3>
+                                    <h3 onClick={()=>this.props.SelectOption('blood_pressure')}>+ add new entry</h3>
                                 </Grid>}
                         </Grid>
-
+                        }
+                        {item ==='creatnine' && 
                         <Grid className="persBlodMesur">
                             <Grid container direction="row" alignItems="center">
                                 <Grid item xs={6} md={6} className="lstView">
@@ -142,10 +138,11 @@ class RightManage extends Component {
                                 </div> :
                                 <Grid className="noBpData">
                                     <p>No data available</p>
-                                    <h3>+ add new entry</h3>
+                                    <h3 onClick={()=>this.props.SelectOption('laboratory_result')}>+ add new entry</h3>
                                 </Grid>}
                         </Grid>
-
+                        }
+                        {item ==='graph_blood_sugar' && 
                         <Grid className="persBlodMesur">
                             <Grid container direction="row" alignItems="center">
                                 <Grid item xs={6} md={6} className="lstView">
@@ -169,12 +166,11 @@ class RightManage extends Component {
                                 </div> :
                                 <Grid className="noBpData">
                                     <p>No data available</p>
-                                    <h3>+ add new entry</h3>
+                                    <h3 onClick={()=>this.props.SelectOption('blood_sugar')}>+ add new entry</h3>
                                 </Grid>}
                         </Grid>
-
-
-
+                        }
+                        {item ==='last_doctor_visit' && 
                         <Grid className="drVisit">
                             <h3>Last doctor visits</h3>
                             {this.state.personalinfo && this.state.personalinfo.weight_bmi ?
@@ -210,10 +206,11 @@ class RightManage extends Component {
                                 </div>
                                 : <Grid className="noBpData">
                                     <p>No data available</p>
-                                    <h3>+ add new entry</h3>
+                                    <h3 onClick={()=>this.props.SelectOption('doctor_visit')}>+ add new entry</h3>
                                 </Grid>}
                         </Grid>
-
+                        }
+                        {item ==='upcomming_appointments' && 
                         <Grid className="comeAppoint">
                             <Grid container direction="row" alignItems="center">
                                 <Grid item xs={10} md={10}>
@@ -239,10 +236,11 @@ class RightManage extends Component {
                                 </div> :
                                 <Grid className="noBpData">
                                     <p>No data available</p>
-                                    <h3>+ add new entry</h3>
+                                    <h3 onClick={()=>this.props.MoveAppoint()}>+ add new entry</h3>
                                 </Grid>}
                         </Grid>
-
+                        }
+                        {item ==='last_documents' && 
                         <Grid className="lstDocs">
                             <Grid container direction="row" alignItems="center">
                                 <Grid item xs={10} md={10}>
@@ -270,12 +268,12 @@ class RightManage extends Component {
                                             </Grid>
                                             <Grid className="metroDoctor">
                                                 <a><img src={require('../../../../assets/images/dr1.jpg')} alt="" title="" />
-                                    Mark Anderson M.D. (Doctor)</a>
+                                                Mark Anderson M.D. (Doctor)</a>
                                             </Grid>
                                         </div> :
                                         <Grid className="noBpData">
                                             <p>No data available</p>
-                                            <h3>+ add new entry</h3>
+                                            <h3 onClick={()=>this.props.MoveDocument()}>+ add new entry</h3>
                                         </Grid>}
                                 </a>
 
@@ -289,16 +287,17 @@ class RightManage extends Component {
                                             </Grid>
                                             <Grid className="metroDoctor">
                                                 <a><img src={require('../../../../assets/images/dr1.jpg')} alt="" title="" />
-                                    Mark Anderson M.D. (Doctor)</a>
+                                                Mark Anderson M.D. (Doctor)</a>
                                             </Grid>
                                         </div> :
                                         <Grid className="noBpData">
                                             <p>No data available</p>
-                                            <h3>+ add new entry</h3>
+                                            <h3 onClick={()=>this.props.MoveDocument()}>+ add new entry</h3>
                                         </Grid>}
                                 </a>
                             </Grid>
                         </Grid>
+                        }
                     </div>
                 ))}
             </div>

@@ -256,7 +256,7 @@ class CometChatUserList extends React.PureComponent {
           {/* <h4 className="ccl-left-panel-head-ttl">Contacts</h4> */}
         </div>
         <div className="ccl-left-panel-srch-wrap">
-          <div className="ccl-left-panel-srch-inpt-wrap">
+          <div className="ccl-left-panel-srch-inpt-wrap ">
             <input
               type="text"
               autoComplete="off"
@@ -265,7 +265,7 @@ class CometChatUserList extends React.PureComponent {
               placeholder="Search"
               onChange={this.searchUsers}
             />
-            <input id="searchButton" type="button" className="search-btn" />
+            <input id="searchButton" type="button" className="search-btn " />
           </div>
         </div>
         <div

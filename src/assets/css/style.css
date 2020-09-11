@@ -1618,7 +1618,7 @@ a.profilMenu {
 /* Start inbox page css */
 .chatContact {
     /* width: 90%; */
-    padding: 18px 15px 12px 15px;
+    padding: 18px 15px 12px 15px !important;
     min-height: 150vh;
     background-color: #FFFFFF;
     box-shadow: 1px 0 0 0 rgba(20,20,20,0.1);
@@ -7955,7 +7955,6 @@ a.painAreasTxt {
     line-height: 12px;
 }
 .painAreas a {
-    width: 33.3%;
     display: inline-block;
     text-align: center;
 }
@@ -9262,6 +9261,22 @@ input.rejectBtn {
 
 /*Added By ankita*/
 /*Components */
+/* for margin between timeline */
+.timelineGap{
+    margin-bottom: 40px;
+}
+
+/* Point Person*/
+a.painAreasTxt {
+    position: absolute;
+    top: 50%;
+    left: 12%;
+}
+/* For eidtor */
+.rdw-editor-wrapper {
+    background: #fff;
+}
+/* For TimeTaken */
 .prfilHghtLft, .prfilHghtRght{
     padding-left: 0% !important;
 }
@@ -9272,6 +9287,7 @@ input.rejectBtn {
 .minus_span_medication {
     color: #e11616 !important;
 }
+/* for Antd */
 .profileInfoDate .ant-picker:hover, .profileInfoDate .ant-picker-focused {
     border-color: #BFC1C1;
     border-right-width: 1px !important;

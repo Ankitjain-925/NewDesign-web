@@ -1,41 +1,59 @@
-import React, { Component } from 'react';
-import Grid from '@material-ui/core/Grid';
-import { Editor } from 'react-draft-wysiwyg';
+import React from "react";
+import { Editor } from "react-draft-wysiwyg";
+import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+import { convertFromRaw, EditorState } from "draft-js";
 
-class NotesEditor extends Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            value: this.props.value || '',
-            label : this.props.label,
-        };
+var content = {
+  entityMap: {},
+  blocks: [
+    {
+      key: "637gr",
+      text: "Enter the content Here",
+      type: "unstyled",
+      depth: 0,
+      inlineStyleRanges: [],
+      entityRanges: [],
+      data: {}
     }
+  ]
+};
 
-    //On Editor Change 
-    onEditorStateChange = (editorState) => {
-        this.setState({ value : editorState});
-        this.props.onChange(editorState);
+export default class NotesEditor extends React.Component {
+  constructor(props) {
+    super(props);
+    const contentState = convertFromRaw(content);
+    const editorState = EditorState.createWithContent(contentState);
+    this.state = {
+      contentState,
+      editorState
     };
+  }
 
-    componentDidMount = () => {
+  //On change State of editor in json
+  onContentStateChange = contentState => {
+    this.setState({ contentState });
+    this.props.onChange(contentState);
+  };
 
-    }
-    render() {
-        return (
-            <div>
-                <Grid className="notEditor"><label>{this.state.label}</label></Grid>
-                <Grid className="fill_editor">
-                    <Editor
-                        editorState={this.state.value}
-                        toolbarClassName="toolbarClassName"
-                        wrapperClassName="wrapperClassName"
-                        editorClassName="editorClassName"
-                        onEditorStateChange={this.onEditorStateChange}
-                    />
-                </Grid>
-            </div>
-        )
-    }
+  //On change editor status
+  onEditorStateChange = editorState => {
+    this.setState({editorState });
+  };
+
+  componentDidUpdate = (prevProps) => {
+ 
 }
-
-export default NotesEditor;
+  render() {
+    const { editorState } = this.state;
+    return (
+      <div className="App">
+        <Editor
+          editorClassName={"report-editor"}
+          editorState={editorState}
+          onEditorStateChange={this.onEditorStateChange}
+          onContentStateChange={this.onContentStateChange}
+        />
+      </div>
+    );
+  }
+}

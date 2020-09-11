@@ -1,69 +1,99 @@
 import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
+import $ from "jquery";
 
 
 class PointPain extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            label: this.props.label,
-            value: this.props.value,
-            date_format: this.props.date_format
+            painPoint : this.props.painPoint,
+            isView : this.props.isView,
+            label : this.props.label,
         };
     }
 
-    //On open edit
-    Edit = () => {
-        this.setState({ edit: true })
-    }
-    // On change the time of any index
-    onEditDone = () => {
-        var Data = this.state.value;
-        this.setState({edit: false})
-        this.props.onChange(Data);
-    };
-
-    //On Change according component
-    updateEntryState1 = (value, name) => {
-        const state = this.state.value;
-        state[name] = value;
-        this.setState({ value: state });
+    //For remove the points 
+    removedata= ()=>{ 
+        this.props.onChange([])
     }
 
-    //On Change according component
-    updateEntryState = (e) => {
-        const state = this.state.value;
-        if (e.target.name === 'public') {
-            if (e.target.checked) {
-                state['public'] = 'always';
-                state['publicdatetime'] = null;
-            }
-            else {
-                state['public'] = '';
-            }
+    //Get the points in %
+    getPoints = (val, type) =>{
+        let _value = parseInt(val);
+        if (type == 'x') {
+          let x = `${(_value / 100) * 100}%`;
+          return x;
+        } else {
+          let y = `${(_value / 150) * 100}%`;
+          return y;
+        }
+    }
+
+    //For set the canvas and image 
+    componentDidMount = () => {
+        var canvas = $('#'+this.props.id)[0];
+        // get reference to canvas context
+        var context = canvas.getContext('2d');
+        context.canvas.width = 100;
+        context.canvas.height = 150;
+        // create an empty image
+        var img = new Image();
+        // after loading...
+        img.onload = function() {
+            // draw the image onto the canvas
+            context.drawImage(img, 0, 0, 100, 150);
+        }
+        if(this.props.gender === 'female')
+        {
+           img.src= require('../../../assets/images/persionPainEqual.svg');
         }
         else
         {
-            state[e.target.name] = e.target.value;
+            img.src= require('../../../assets/images/persionPainEqual.svg');  
         }
-        this.setState({ value: state });
     }
 
-    componentDidMount = () => {
-
+    //on adding new data
+    componentDidUpdate = (prevProps) => {
+        if (prevProps.painPoint !== this.props.painPoint) {
+            this.setState({ painPoint: this.props.painPoint })
+        }
     }
+
+    //On add and Update points
+    updatedemo=(e)=>{
+        if(!this.state.isView)
+        {
+            var newclick= this.state.painPoint;
+            var container = document.querySelector("#V"+this.props.id);
+            var xPosition = e.clientX - container.getBoundingClientRect().left;
+            var yPosition = e.clientY - container.getBoundingClientRect().top-4;
+            newclick.push({x: this.getPoints(xPosition, 'x'), y: this.getPoints(yPosition, 'y') })
+            this.props.onChange(newclick)      
+        }
+    }
+
     render() {
         return (
-            <div>
-                <Grid className="rrSysto">
-                    <Grid><label>{this.state.label}</label></Grid>
-                    <Grid className="painAreas">
-                        <a className="painAreasimg"><img src={require('../../assets/images/pat22.png')} alt="" title="" /></a>
-                        <a className="painAreasimg"><img src={require('../../assets/images/patient-back.svg')} alt="" title="" /></a>
-                        <a className="painAreasTxt"><img src={require('../../assets/images/eraser.svg')} alt="" title="" />Clear points</a>
-                    </Grid>
+            <Grid className="rrSysto">
+                <Grid><label>{this.state.label}</label></Grid>
+                <Grid className="painAreas">
+                    <a id={"V"+this.props.id} className="painAreasimg" style={{position:'relative'}}>
+                        <canvas id={this.props.id}  className="canvases" onClick={(e)=>{this.updatedemo(e)}}></canvas>
+                        <div className="mycode">
+                            {this.state.painPoint && this.state.painPoint.length>0 && this.state.painPoint.map((item, index) => (
+                                <div className="marker" style={{ position: 'absolute',  width: '6px', height: '6px', background: 'red', borderRadius: '50%', top: item.y,
+                                left: item.x}} data-testy={item.y} data-testx={item.x}>   
+                                </div> 
+                            ))}
+                        </div>   
+                        {/* <img src={require('../../../assets/images/persionPainEqual.svg')} alt="" title="" /> */}
+                    </a>
+                    {/* <a className="painAreasimg"><img src={require('../../../assets/images/patient-back.svg')} alt="" title="" /></a> */}
+                    {!this.state.isView && <a className="painAreasTxt" onClick={this.removedata}><img src={require('../../../assets/images/eraser.svg')} alt="" title="" />Clear points</a>}
                 </Grid>
-            </div>
+            </Grid>
         )
     }
 }

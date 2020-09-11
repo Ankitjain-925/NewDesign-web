@@ -60,7 +60,6 @@ class ShowHide extends Component {
     render() {
         return (
             <div>
-                {console.log(this.state.value)}
                 {!this.state.edit && <Grid className="rrShwHidMain">
                     <Grid container direction="row" justify="center" alignItems="center">
                         <Grid item xs={6} md={6}>

@@ -890,7 +890,7 @@ class Index extends Component {
                                                 value={this.state.UpDataDetails.birthday ? new Date(this.state.UpDataDetails.birthday) : new Date()}
                                                 onChange={this.onChange}
                                             /> */}
-                                            <DateFormat name="birthday" value={this.state.UpDataDetails.birthday ? new Date(this.state.UpDataDetails.birthday) : new Date()}  onChange={this.onChange} date_format={this.props.settings.setting.date_format} onChange={this.onChange}/>
+                                            <DateFormat name="birthday" value={this.state.UpDataDetails.birthday ? new Date(this.state.UpDataDetails.birthday) : new Date()}  onChange={this.onChange} date_format={this.props.settings.setting && this.props.settings.setting.date_format} onChange={this.onChange}/>
                                         </Grid>
                                     </Grid>
                                     <Grid item xs={12} md={8}>
