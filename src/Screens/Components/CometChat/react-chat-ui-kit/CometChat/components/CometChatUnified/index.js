@@ -19,7 +19,7 @@ import * as translationSW from "../../../../../.../../../../translations/sw.json
 
 class CometChatUnified extends React.Component {
   constructor(props) {
-    super(props);
+   super(props);
     this.leftPanelRef = React.createRef();
     this.rightPanelRef = React.createRef();
   }

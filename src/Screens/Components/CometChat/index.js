@@ -26,7 +26,6 @@ class App extends React.Component {
     
     return (
       <div>
-        {console.log('HERE34')}
         <PrivateRoute Userlist={this.props.Userlist} Uid={this.props.Uid} lan={this.props.lan} />
       </div>
     );

@@ -20,9 +20,11 @@ import PersonalizedData from './../../Components/TimelineComponent/PersonalizedD
 import FilterSec from './../../Components/TimelineComponent/Filter/index';
 import ProfileSection from './../../Components/TimelineComponent/ProfileSection/index';
 import RightManage from './../../Components/TimelineComponent/RightMenuManage/index';
-import {ConsoleCustom } from './../../Components/BasicMethod/index';
+import { ConsoleCustom } from './../../Components/BasicMethod/index';
 import ViewTimeline from './../../Components/TimelineComponent/ViewTimeline/index';
-import Loader from './../../Components/Loader/index.js'
+import Loader from './../../Components/Loader/index.js';
+import BPFields from './../../Components/TimelineComponent/BPFields/index';
+import moment from 'moment';
 
 class Index extends Component {
     constructor(props) {
@@ -54,7 +56,7 @@ class Index extends Component {
             AllL_P: [],
             Alltime_taken: [],
             added_data: [],
-            allTrack : [],
+            allTrack: [],
         };
     }
 
@@ -108,110 +110,196 @@ class Index extends Component {
         this.getPesonalized();
     }
 
-     //Upload file Multi
-     FileAttachMulti= (event) =>{
+    //Upload file MultiFiles
+    FileAttachMulti = (event) => {
         // this.setState({file:})
         this.setState({ isfileuploadmulti: true })
         event.preventDefault();
         var user_id = this.props.stateLoginValueAim.user._id;
         var user_token = this.props.stateLoginValueAim.token;
         const data = new FormData()
-        if(event.target.files[0].type==="application/x-zip-compressed"){
+        if (event.target.files[0].type === "application/x-zip-compressed") {
             this.setState({ file_type: true, isless_one: false, isless_one: false })
-            
-        }else{
-        if (event.target.files.length < 1) {
-            this.setState({ isless_one: true, ismore_five: false, file_type: false })
-           
-        }
-        if (event.target.files.length > 5) {
-            this.setState({ ismore_five: true, isless_one: false, file_type: false })
-            
-        }
-        else {
-            var Fileadd= [];
-            this.setState({ ismore_five: false, isless_one: false, file_type: false })
-           
-           
-            for(var i =0 ; i<event.target.files.length; i++)
-            {
-                let file = event.target.files[i];
-                let fileParts = file.name.split('.');
-                let fileName = fileParts[0];
-                let fileType = fileParts[1];
-                axios.post(sitedata.data.path  + '/aws/sign_s3',{
-                        fileName : fileName,
-                        fileType : fileType,
-                        folders: this.props.stateLoginValueAim.user.profile_id+'/Trackrecord/',
+        } else {
+            if (event.target.files.length < 1) {
+                this.setState({ isless_one: true, ismore_five: false, file_type: false })
+            }
+            if (event.target.files.length > 5) {
+                this.setState({ ismore_five: true, isless_one: false, file_type: false })
+            }
+            else {
+                var Fileadd = [];
+                this.setState({ ismore_five: false, isless_one: false, file_type: false })
+                for (var i = 0; i < event.target.files.length; i++) {
+                    let file = event.target.files[i];
+                    let fileParts = file.name.split('.');
+                    let fileName = fileParts[0];
+                    let fileType = fileParts[1];
+                    axios.post(sitedata.data.path + '/aws/sign_s3', {
+                        fileName: fileName,
+                        fileType: fileType,
+                        folders: this.props.stateLoginValueAim.user.profile_id + '/Trackrecord/',
                         bucket: this.props.stateLoginValueAim.user.bucket
-                      })
-                      .then(response => {
-                          Fileadd.push({filename : response.data.data.returnData.url+'&bucket='+this.props.stateLoginValueAim.user.bucket, filetype: fileType})
-                        this.setState({
-                            loaderImage   : false
-                        });
-                        setTimeout(
-                            function() {
-                                this.setState({fileupods: false});
-                            }
-                            .bind(this),
-                            3000
-                        );
+                    }).then(response => {
+                        Fileadd.push({ filename: response.data.data.returnData.url + '&bucket=' + this.props.stateLoginValueAim.user.bucket, filetype: fileType })
+                        setTimeout(() => { this.setState({ fileupods: false });},3000);
                         let returnData = response.data.data.returnData;
                         let signedRequest = returnData.signedRequest;
                         let url = returnData.url;
-                       // Put the fileType in the headers for the upload
+                        // Put the fileType in the headers for the upload
                         var options = {
-                          headers: {
-                            'Content-Type': fileType
-                          }
+                            headers: {
+                                'Content-Type': fileType
+                            }
                         };
-                        axios.put('https://cors-anywhere.herokuapp.com/'+signedRequest,file,options)
-                        .then(result => {
-                      
-                          this.setState({success: true});
-                        })
-                        .catch(error => {
-                          console.log("ERROR " + JSON.stringify(error));
-                        })
-                      })
-                      .catch(error => {
-                        console.log(JSON.stringify(error));
-                      })
-                      this.setState({
-                        fileattach : Fileadd, 
-                        loaderImage   : false,fileupods: true 
-                    });
+                        axios.put('https://cors-anywhere.herokuapp.com/' + signedRequest, file, options)
+                            .then(result => { })
+                            .catch(error => { })
+                    })
+                    .catch(error => { })
+                    this.setState({ fileattach: Fileadd, loaderImage: false, fileupods: true });
                 }
-                
-            // for (var i = 0; i < event.target.files.length; i++) {
-            //     data.append('UploadTrackImageMulti', event.target.files[i])
-            // }
-            // this.setState({ loaderImage: true })
-            // axios.post(path + '/AddTrack/TrackUploadImageMulti', data, {
-            //     headers: {
-            //         'token': user_token,
-            //         'Content-Type': 'multipart/form-data',
-            //     }
-            // }).then((response) => {
-            //         this.setState({
-            //             fileattach: response.data.data, loaderImage: false
-            //         });
-            //     })
-            }     
-        } 
+            }
+        }
         setTimeout(
-            function() {
+            function () {
                 this.setState({ file_type: false, isless_one: false, ismore_five: false });
             }
-            .bind(this),
+                .bind(this),
             2000
         );
     }
-    
-    AddTrack = () => {
 
+    //For getting full data of hide Show
+    GetHideShow=(data)=>{
+        const state = this.state.updateTrack;
+        Object.entries(data).map(([k,v])=>{
+            if(k==='publicdatetime') {
+                if(v !== null)
+                {
+                    state['public'] = moment(v).utc();
+                }
+            }
+            state[k] = v
+        })
+        this.setState({ updateTrack: state });
     }
+
+    //For update the Track state 
+    updateEntryState1 = (value, name) => {
+        const state = this.state.updateTrack;
+        state[name] = value;
+        this.setState({ updateTrack: state });
+    }
+
+    //For update the Track state
+    updateEntryState = (e) => {
+        const state = this.state.updateTrack;
+        state[e.target.name] = e.target.value;
+        this.setState({ updateTrack: state });
+    }
+
+    //For adding the Track entry
+    AddTrack = () => {
+        this.setState({ loaderImage: true })
+        var data = this.state.updateTrack;
+        var user_id = this.props.stateLoginValueAim.user._id;
+        var user_token = this.props.stateLoginValueAim.token;
+        if (this.state.isfileupload) {
+            data.attachfile = this.state.fileattach
+        }
+        else if (this.state.isfileuploadmulti) {
+            data.attachfile = this.state.fileattach
+        }
+        data.type = this.state.current_select;
+        data.created_on = this.formatDate();
+        data.created_at = this.timeNow();
+        data.created_by = this.props.stateLoginValueAim.user._id;
+        data.datetime_on = new Date();
+        if (this.state.current_select === 'blood_pressure' || this.state.current_select === 'weight_bmi' || this.state.current_select === 'blood_sugar' || this.state.current_select === 'marcumar_pass' || this.state.current_select === 'laboratory_result') {
+            if (data.date_measured && data.date_measured !== '') {
+                data.created_on = data.date_measured;
+                data.datetime_on = new Date(data.date_measured);
+            }
+            else {
+                data.created_on = this.formatDate();
+            }
+            if (data.time_measured && data.time_measured !== '') {
+                data.created_at = data.time_measured;
+            }
+            else {
+                data.created_at = this.timeNow();
+            }
+        }
+        else if (this.state.current_select === 'diagnosis') {
+            if (data.diagnosed_on && data.diagnosed_on !== '') {
+                data.created_on = data.diagnosed_on;
+                data.datetime_on = new Date(data.diagnosed_on);
+            }
+            else {
+                data.created_on = this.formatDate();
+            }
+        }
+        else if (this.state.current_select === 'doctor_visit') {
+            if (data.date_doctor_visit && data.date_doctor_visits !== '') {
+                data.created_on = data.date_doctor_visit;
+                data.datetime_on = new Date(data.date_doctor_visit);
+            }
+            else {
+                data.created_on = this.formatDate();
+            }
+        }
+        else if (this.state.current_select === 'hospitalization') {
+            if (data.first_visit_date && data.first_visit_date !== '') {
+                data.created_on = data.first_visit_date;
+                data.datetime_on = new Date(data.first_visit_date);
+            }
+            else {
+                data.created_on = this.formatDate();
+            }
+        }
+        else if (this.state.current_select === 'vaccination') {
+            if (data.data_of_vaccination && data.data_of_vaccination !== '') {
+                data.created_on = data.data_of_vaccination;
+                data.datetime_on = new Date(data.data_of_vaccination);
+            }
+            else {
+                data.created_on = this.formatDate();
+            }
+        }
+        var track_id = this.state.updateTrack.track_id;
+        if(this.state.updateTrack && this.state.updateTrack.track_id && this.state.updateTrack.track_id !=='' && this.state.updateTrack.track_id!=='undefined'){
+            axios.put(sitedata.data.path + '/User/AddTrack/' + user_id + '/' + track_id, { data },
+            {
+                headers: {
+                    'token': user_token,
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                }
+            }).then((response) => {
+                this.setState({ ismore_five: false, isless_one: false, updateTrack: {}, updateOne: '', visibleupdate: 0, isfileupload: false, isfileuploadmulti: false, loaderImage: false })
+                this.getTrack();
+            })
+        }
+        else {
+            axios.put(sitedata.data.path + '/User/AddTrack/' + user_id, { data },
+            {
+                headers: {
+                    'token': user_token,
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then((response) => {
+                this.setState({
+                    updateTrack: {}, isfileupload: false, isfileuploadmulti: false, fileattach: {}, current_select: 'diagnosis', Addmore: true, newElement: false,
+                    loaderImage: false, ismore_five: false, isless_one: false
+                })
+            })
+        } 
+    }
+
+    //For get the Track
     getTrack = () => {
         var user_id = this.props.stateLoginValueAim.user._id;
         var user_token = this.props.stateLoginValueAim.token;
@@ -277,114 +365,104 @@ class Index extends Component {
                 //                     }})
                 //         .then(response6 => {})
                 //  })
-
                 this.setState({ allTrack: response.data.data, loaderImage: false })
             }
-            else {
-                this.setState({ allTrack: [], loaderImage: false })
-            }
-
+            else { this.setState({ allTrack: [], loaderImage: false })  }
         })
     }
 
-    UpdateTrack = () => {
-
-    }
     //Get All information Related to Metadata
     getMetadata() {
         var user_token = this.props.stateLoginValueAim.token;
         axios.get(sitedata.data.path + '/UserProfile/Metadata',
-            {
-                headers: {
-                    'token': user_token,
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
+        {
+            headers: {
+                'token': user_token,
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        }).then((response) => {
+            this.setState({ allMetadata: response.data[0] })
+            if (this.state.allMetadata) {
+                var Alltemprature = [], personalised_card = [], AllATC_code = [], Alltime_taken = [], Allpain_type = [], Allpain_quality = [], Pressuresituation = [], Allsituation = [],
+                    Allsmoking_status = [], Allreminder = [], AllreminderV = [{ label: "Yearly", value: "yearly" }], Allrelation = [], AllL_Pt = [], AllSpecialty = [], Allsubstance = [], Allgender = []
+                // var personalised_card = this.state.allMetadata && this.state.allMetadata.personalised_card; 
+                this.state.allMetadata && this.state.allMetadata.personalised_card && this.state.allMetadata.personalised_card.map((item, index) => (
+                    personalised_card.push({ id: index, label: item.label, value: item.value })
+                ))
+                this.state.allMetadata && this.state.allMetadata.time_taken && this.state.allMetadata.time_taken.map((item, index) => (
+                    Alltime_taken.push({ label: item.title, value: item.value })
+                ))
+                this.state.allMetadata && this.state.allMetadata.Temprature && this.state.allMetadata.Temprature.map((item, index) => (
+                    Alltemprature.push({ label: item.title, value: item.value })
+                ))
+                this.state.allMetadata && this.state.allMetadata.ATC_code && this.state.allMetadata.ATC_code.map((item, index) => (
+                    AllATC_code.push({ label: item.title, value: item.value })
+                ))
+                this.state.allMetadata && this.state.allMetadata.pain_type && this.state.allMetadata.pain_type.map((item, index) => (
+                    Allpain_type.push({ label: item.title, value: item.value })
+                ))
+                this.state.allMetadata && this.state.allMetadata.pain_quality && this.state.allMetadata.pain_quality.map((item, index) => (
+                    Allpain_quality.push({ label: item.title, value: item.value })
+                ))
+                this.state.allMetadata && this.state.allMetadata.situation && this.state.allMetadata.situation.map((item, index) => (
+                    Allsituation.push({ label: item.title, value: item.value })
+                ))
+                this.state.allMetadata && this.state.allMetadata.situation_pressure && this.state.allMetadata.situation_pressure.map((item, index) => (
+                    Pressuresituation.push({ label: item.title, value: item.value })
+                ))
+                this.state.allMetadata && this.state.allMetadata.smoking_status && this.state.allMetadata.smoking_status.map((item, index) => (
+                    Allsmoking_status.push({ label: item.title, value: item.value })
+                ))
+                this.state.allMetadata && this.state.allMetadata.reminder && this.state.allMetadata.reminder.map((item, index) => (
+                    Allreminder.push({ label: item.title, value: item.value }),
+                    AllreminderV.push({ label: item.title, value: item.value })
+                ))
+                this.state.allMetadata && this.state.allMetadata.relation && this.state.allMetadata.relation.map((item, index) => (
+                    Allrelation.push({ label: item.title, value: item.value })
+                ))
+                this.state.allMetadata && this.state.allMetadata.speciality && this.state.allMetadata.speciality.map((item, index) => (
+                    AllSpecialty.push({ label: item.title, value: item.value })
+                ))
+                this.state.allMetadata && this.state.allMetadata.substance && this.state.allMetadata.substance.map((item, index) => (
+                    Allsubstance.push({ label: item.title, value: item.value })
+                ))
+                this.state.allMetadata && this.state.allMetadata.gender && this.state.allMetadata.gender.map((item, index) => (
+                    Allgender.push({ label: item.title, value: item.value })
+                ))
+
+                function mySorter(a, b) {
+                    var x = a.value.toLowerCase();
+                    var y = b.value.toLowerCase();
+                    return ((x < y) ? -1 : ((x > y) ? 1 : 0));
                 }
-            }).then((response) => {
-                this.setState({ allMetadata: response.data[0] })
-                if (this.state.allMetadata) {
-                    var Alltemprature = [], personalised_card = [], AllATC_code = [], Alltime_taken = [], Allpain_type = [], Allpain_quality = [], Pressuresituation = [], Allsituation = [],
-                        Allsmoking_status = [], Allreminder = [], AllreminderV = [{ label: "Yearly", value: "yearly" }], Allrelation = [], AllL_Pt = [], AllSpecialty = [], Allsubstance = [], Allgender = []
-                    // var personalised_card = this.state.allMetadata && this.state.allMetadata.personalised_card; 
-                    this.state.allMetadata && this.state.allMetadata.personalised_card && this.state.allMetadata.personalised_card.map((item, index) => (
-                        personalised_card.push({ id: index, label: item.label, value: item.value })
-                    ))
-                    this.state.allMetadata && this.state.allMetadata.time_taken && this.state.allMetadata.time_taken.map((item, index) => (
-                        Alltime_taken.push({ label: item.title, value: item.value })
-                    ))
-                    this.state.allMetadata && this.state.allMetadata.Temprature && this.state.allMetadata.Temprature.map((item, index) => (
-                        Alltemprature.push({ label: item.title, value: item.value })
-                    ))
-                    this.state.allMetadata && this.state.allMetadata.ATC_code && this.state.allMetadata.ATC_code.map((item, index) => (
-                        AllATC_code.push({ label: item.title, value: item.value })
-                    ))
-                    this.state.allMetadata && this.state.allMetadata.pain_type && this.state.allMetadata.pain_type.map((item, index) => (
-                        Allpain_type.push({ label: item.title, value: item.value })
-                    ))
-                    this.state.allMetadata && this.state.allMetadata.pain_quality && this.state.allMetadata.pain_quality.map((item, index) => (
-                        Allpain_quality.push({ label: item.title, value: item.value })
-                    ))
-                    this.state.allMetadata && this.state.allMetadata.situation && this.state.allMetadata.situation.map((item, index) => (
-                        Allsituation.push({ label: item.title, value: item.value })
-                    ))
-                    this.state.allMetadata && this.state.allMetadata.situation_pressure && this.state.allMetadata.situation_pressure.map((item, index) => (
-                        Pressuresituation.push({ label: item.title, value: item.value })
-                    ))
-                    this.state.allMetadata && this.state.allMetadata.smoking_status && this.state.allMetadata.smoking_status.map((item, index) => (
-                        Allsmoking_status.push({ label: item.title, value: item.value })
-                    ))
-                    this.state.allMetadata && this.state.allMetadata.reminder && this.state.allMetadata.reminder.map((item, index) => (
-                        Allreminder.push({ label: item.title, value: item.value }),
-                        AllreminderV.push({ label: item.title, value: item.value })
-                    ))
-                    this.state.allMetadata && this.state.allMetadata.relation && this.state.allMetadata.relation.map((item, index) => (
-                        Allrelation.push({ label: item.title, value: item.value })
-                    ))
-                    this.state.allMetadata && this.state.allMetadata.speciality && this.state.allMetadata.speciality.map((item, index) => (
-                        AllSpecialty.push({ label: item.title, value: item.value })
-                    ))
-                    this.state.allMetadata && this.state.allMetadata.substance && this.state.allMetadata.substance.map((item, index) => (
-                        Allsubstance.push({ label: item.title, value: item.value })
-                    ))
-                    this.state.allMetadata && this.state.allMetadata.gender && this.state.allMetadata.gender.map((item, index) => (
-                        Allgender.push({ label: item.title, value: item.value })
-                    ))
-
-                    function mySorter(a, b) {
-                        var x = a.value.toLowerCase();
-                        var y = b.value.toLowerCase();
-                        return ((x < y) ? -1 : ((x > y) ? 1 : 0));
-                    }
-
-                    Alltime_taken.sort(mySorter);
-
-                    this.setState({
-                        Alltemprature: Alltemprature,
-                        AllATC_code: AllATC_code, Allpain_type: Allpain_type, Allpain_quality: Allpain_quality, Pressuresituation: Pressuresituation, Allsituation: Allsituation,
-                        Allsmoking_status: Allsmoking_status, Allreminder: Allreminder, AllreminderV: AllreminderV, AllSpecialty: AllSpecialty, Allsubstance1: Allsubstance,
-                        Allrelation: Allrelation, Allgender: Allgender, Alltime_taken: Alltime_taken, personalised_card: personalised_card,
-                        // AllL_P: AllL_Ps.AllL_Ps, 
-                    })
-                }
-            })
+                Alltime_taken.sort(mySorter);
+                this.setState({
+                    Alltemprature: Alltemprature,
+                    AllATC_code: AllATC_code, Allpain_type: Allpain_type, Allpain_quality: Allpain_quality, Pressuresituation: Pressuresituation, Allsituation: Allsituation,
+                    Allsmoking_status: Allsmoking_status, Allreminder: Allreminder, AllreminderV: AllreminderV, AllSpecialty: AllSpecialty, Allsubstance1: Allsubstance,
+                    Allrelation: Allrelation, Allgender: Allgender, Alltime_taken: Alltime_taken, personalised_card: personalised_card,
+                    // AllL_P: AllL_Ps.AllL_Ps, 
+                })
+            }
+        })
     }
-
-
+    
     //For getting the existing settings
     getPesonalized = () => {
         this.setState({ loaderImage: true })
         axios.get(sitedata.data.path + '/UserProfile/updateSetting',
-            {
-                headers: {
-                    'token': this.props.stateLoginValueAim.token,
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                }
-            }).then((responce) => {
-                if (responce.data.hassuccessed && responce.data.data && responce.data.data.personalized && responce.data.data.personalized.length > 0) { this.setState({ added_data: responce.data.data.personalized }) }
-                else { this.setState({ added_data: [] }) }
-                this.setState({ loaderImage: false })
-            })
+        {
+            headers: {
+                'token': this.props.stateLoginValueAim.token,
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        }).then((responce) => {
+            if (responce.data.hassuccessed && responce.data.data && responce.data.data.personalized && responce.data.data.personalized.length > 0) { this.setState({ added_data: responce.data.data.personalized }) }
+            else { this.setState({ added_data: [] }) }
+            this.setState({ loaderImage: false })
+        })
     }
 
     //For Set Format
@@ -415,9 +493,9 @@ class Index extends Component {
                 'Content-Type': 'application/json'
             }
         })
-            .then((response) => {
-                this.setState({ personalinfo: response.data.data })
-            })
+        .then((response) => {
+            this.setState({ personalinfo: response.data.data })
+        })
     }
 
     //Get the Current User Profile
@@ -425,16 +503,16 @@ class Index extends Component {
         var user_token = this.props.stateLoginValueAim.token;
         let user_id = this.props.stateLoginValueAim.user._id;
         axios.get(sitedata.data.path + '/UserProfile/Users/' + user_id,
-            {
-                headers: {
-                    'token': user_token,
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                }
-            })
-            .then((response) => {
-                this.setState({ cur_one: response.data.data })
-            })
+        {
+            headers: {
+                'token': user_token,
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        })
+        .then((response) => {
+            this.setState({ cur_one: response.data.data })
+        })
     }
 
     //Move to Profile page
@@ -454,24 +532,24 @@ class Index extends Component {
         var user_token = this.props.stateLoginValueAim.token;
         var user_id = this.props.stateLoginValueAim.user._id;
         axios.get(sitedata.data.path + '/User/Get_patient_gender/' + user_id,
-            {
-                headers: {
-                    'token': user_token,
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                }
-            })
-            .then((response) => {
-                if (response.data.hassuccessed === true) {
-                    this.setState({ patient_gender: response.data.data })
-                }
-            });
+        {
+            headers: {
+                'token': user_token,
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        })
+        .then((response) => {
+            if (response.data.hassuccessed === true) {
+                this.setState({ patient_gender: response.data.data })
+            }
+        });
     }
 
     render() {
         return (
             <Grid className="homeBg">
-                 {this.state.loaderImage && <Loader />}
+                {this.state.loaderImage && <Loader />}
                 <Grid className="homeBgIner">
                     <Grid container direction="row" justify="center">
                         <Grid item xs={12} md={12}>
@@ -511,8 +589,8 @@ class Index extends Component {
 
                                         {/* For Empty Entry */}
 
-                                        <ViewTimeline allTrack={this.state.allTrack} from="patient" loggedinUser={this.state.cur_one}/>
-                                
+                                        <ViewTimeline allTrack={this.state.allTrack} from="patient" loggedinUser={this.state.cur_one} />
+
                                     </Grid>
                                 </Grid>
                                 {/* End of Website Mid Content */}
@@ -584,7 +662,7 @@ class Index extends Component {
                                                         </div>}
                                                 </Grid>
                                                 <Grid>
-                                                    {this.state.current_select === 'blood_pressure' && 'Blood Pressure'}
+                                                    {this.state.current_select === 'blood_pressure' && <BPFields AddTrack={this.AddTrack} date_format={this.props.settings.setting.date_format}  time_format={this.props.settings.setting.time_format} updateEntryState={this.updateEntryState} updateEntryState1={this.updateEntryState1} updateTrack={this.state.updateTrack}/>}
                                                     {this.state.current_select === 'blood_sugar' && 'Blood Sugar'}
                                                     {this.state.current_select === 'condition_pain' && 'Condition & Pain'}
                                                     {this.state.current_select === 'covid_19' && 'Covid 19 Diary'}

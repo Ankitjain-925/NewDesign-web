@@ -18,7 +18,7 @@ import { getDate, getImage } from './../../../Components/BasicMethod/index';
 
 class Index extends Component {
     constructor(props) {
-        super(props);
+       super(props);
         this.state = {
             currentList: [],
             currentPage: this.props.page,

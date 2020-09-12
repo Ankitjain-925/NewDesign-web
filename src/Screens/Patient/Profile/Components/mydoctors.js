@@ -18,7 +18,7 @@ var doctorArray = [];
 
 class Index extends Component {
     constructor(props) {
-        super(props);
+       super(props);
         this.state = {
             shown: true,
             loaderImage: false,

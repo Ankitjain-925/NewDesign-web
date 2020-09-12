@@ -10,7 +10,7 @@ import "./style.scss";
 class CometChatCreateGroup extends React.Component {
 
     constructor(props) {
-        super(props);
+       super(props);
 
         this.state = {
             error: null,

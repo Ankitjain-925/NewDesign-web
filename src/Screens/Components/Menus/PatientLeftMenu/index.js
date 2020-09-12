@@ -73,6 +73,14 @@ class Index extends Component {
     Journal = ()=>{
         this.props.history.push('/patient/journal');    
     }
+    //For chat
+    Chats = ()=>{
+        this.props.history.push('/patient/chats');    
+    }
+    //For block chain Access 
+    BlockChain = ()=>{
+        this.props.history.push('/patient/blockchain');    
+    }
     render() {
         return (
             <Grid item xs={12} md={1} className="MenuLeftUpr ">
@@ -89,7 +97,7 @@ class Index extends Component {
                             </a>
                         </li>
                         <li className={this.props.currentPage==='chat' ? "menuActv" : ""}>
-                            <a>
+                            <a onClick={this.Chats}>
                             {this.props.currentPage==='chat' ? <img src={require('../../../../assets/images/chatVideoActive.png')} alt="" title="" />
                                 : <img src={require('../../../../assets/images/chatVideo.jpg')} alt="" title="" />}
                                 <span>Chat & <br /> Videocalls</span>
@@ -129,7 +137,7 @@ class Index extends Component {
                                         <li><a onClick={this.OnlineCourse}><img src={require('../../../../assets/images/menudocs.jpg')} alt="" title="" />Aimedis Online Courses</a></li>
                                         <li><a onClick={this.ExtraLink}><img src={require('../../../../assets/images/menudocs.jpg')} alt="" title="" />Extra Services</a></li>
                                         <li><a><img src={require('../../../../assets/images/menudocs.jpg')} alt="" title="" />Journal Archive</a></li>
-                                        <li><a><img src={require('../../../../assets/images/menudocs.jpg')} alt="" title="" />Blockchain Access Log</a></li>
+                                        <li><a onClick={this.BlockChain}><img src={require('../../../../assets/images/menudocs.jpg')} alt="" title="" />Blockchain Access Log</a></li>
                                     </ul>
                                 </div>
                             </a>

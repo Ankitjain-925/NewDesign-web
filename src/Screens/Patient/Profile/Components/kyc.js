@@ -24,7 +24,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 class Index extends Component {
     constructor(props) {
-        super(props);
+       super(props);
         this.state = {
             loaderImage: false,
             fileattach1: false,

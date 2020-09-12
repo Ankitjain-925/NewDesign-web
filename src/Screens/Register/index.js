@@ -33,7 +33,7 @@ var letter = /([a-zA-Z])+([ -~])*/, number = /\d+/, specialchar = /[ `!@#$%^&*()
 class Index extends Component {
 
     constructor(props) {
-        super(props);
+       super(props);
     
         this.state = {
           hidden: true,

@@ -19,7 +19,7 @@ class CometChatAddMembers extends React.Component {
     static contextType = GroupDetailContext;
 
     constructor(props) {
-        super(props);
+       super(props);
         this.state = {
             userlist: [],
             membersToAdd: []

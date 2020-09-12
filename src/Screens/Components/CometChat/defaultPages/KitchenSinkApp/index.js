@@ -15,7 +15,7 @@ import * as actions from '../../../../store/action';
 class KitchenSinkApp extends React.PureComponent {
 
   constructor(props) {
-    super(props);
+   super(props);
 
     this.myRef = React.createRef();
   }

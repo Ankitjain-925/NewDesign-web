@@ -4,7 +4,7 @@ import  ReactStars from "react-rating-stars-component";
 
 class Index extends Component {
     constructor(props) {
-        super(props);
+       super(props);
         this.state = {
            
         };

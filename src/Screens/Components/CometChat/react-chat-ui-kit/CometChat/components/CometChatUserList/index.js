@@ -12,7 +12,7 @@ class CometChatUserList extends React.PureComponent {
   friendsOnly = false;
 
   constructor(props) {
-    super(props);
+   super(props);
     this.state = {
       userlist: [],
       preUserList: [],

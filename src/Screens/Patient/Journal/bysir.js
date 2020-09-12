@@ -20,7 +20,7 @@ const options = [
 
 class Index extends Component {
     constructor(props) {
-        super(props);
+       super(props);
         this.state = {
             selectedOption: null,
             openDash: false,

@@ -20,7 +20,7 @@ var content = {
 
 export default class NotesEditor extends React.Component {
   constructor(props) {
-    super(props);
+   super(props);
     const contentState = convertFromRaw(content);
     const editorState = EditorState.createWithContent(contentState);
     this.state = {

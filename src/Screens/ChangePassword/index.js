@@ -19,7 +19,7 @@ const path = sitedata.data.path + '/UserProfile';
 
 class Index extends Component {
     constructor(props) {
-        super(props);
+       super(props);
         this.state = {
             hidden: true,
             password: "",

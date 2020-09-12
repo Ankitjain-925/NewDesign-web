@@ -11,7 +11,7 @@ import ViewCourse from './../../Components/OnlineCourses/Components/ListandViewC
 
 class Index extends Component {
     constructor(props) {
-        super(props);
+       super(props);
         this.state = {
            Course: {}
         };
