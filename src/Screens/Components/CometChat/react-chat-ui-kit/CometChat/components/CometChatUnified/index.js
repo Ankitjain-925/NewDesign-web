@@ -1,5 +1,6 @@
 import React from "react";
 import "./style.scss";
+import "../../../../../../../assets/css/style.css"
 import { CometChat } from "@cometchat-pro/chat";
 import { CometChatManager } from "../../util/controller";
 import NavBar from "./NavBar";
@@ -345,12 +346,12 @@ class CometChatUnified extends React.Component {
         <div class="middle CreatChatMid">
           <div className="inner CreatChatInner">
             <img
-            style={{marginLeft:"35%", marginTop:"20%", maxHeight:"150px"}}
+              className='chatScreenImg'
               src="https://aimedis.io/assets/images/LogoSymbolTransparentAimedis.png"
               alt="Aimedis Logo"
               title="Aimedis Logo"
             /><br/>
-            <p style={{color:"#95A5A6", marginLeft:"30%", fontFamily:"sans-serif", fontWeight:"bold"}}>Select a chat to start messaging</p>
+            <p className="chatScreenText">Select a chat to start messaging</p>
             <CallScreen
               className="callscreen"
               item={this.state.item}
