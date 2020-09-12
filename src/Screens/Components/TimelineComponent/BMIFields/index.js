@@ -35,13 +35,10 @@ class Index extends Component {
             <div>
                 <Grid className="cnfrmDiaMain">
                     <Grid className="fillDia">
-                        <MMHG name="rr_systolic" Unit="mmHg" label="RR Systolic" onChange={(e)=> this.props.updateEntryState(e)} value={this.state.updateTrack.rr_systolic}/>    
+                        <MMHG name="weight" Unit="kg" label="Weight" onChange={(e)=> this.props.updateEntryState(e)} value={this.state.updateTrack.blood_sugar}/>    
                     </Grid>
                     <Grid className="fillDia">
-                        <MMHG name="rr_diastolic" Unit="mmHg" label="RR Diastolic" onChange={(e)=> this.props.updateEntryState(e)} value={this.state.updateTrack.rr_systolic}/>    
-                    </Grid>
-                    <Grid className="fillDia">
-                        <MMHG name="heart_frequncy" Unit="b/min" label="Heart Rate" onChange={(e)=> this.props.updateEntryState(e)} value={this.state.updateTrack.rr_systolic}/>    
+                        <MMHG name="height" Unit="cm" label="Height" onChange={(e)=> this.props.updateEntryState(e)} value={this.state.updateTrack.Hba1c}/>    
                     </Grid>
                     <Grid className="fillDia">
                         <Grid className="rrSysto">
@@ -56,10 +53,6 @@ class Index extends Component {
                             
                         </Grid>
                     </Grid>
-                    <Grid className="fillDia">
-                        <SelectByTwo name="situation" label="Feelings" options={this.state.options} onChange={(e)=> this.props.updateEntryState1(e, 'situation')} value={this.state.updateTrack.feelings}/>    
-                    </Grid>
-                  
                     <Grid className="attchForms attchImg">
                         <Grid><label>Attachments</label></Grid>
                         <FileUploader name="UploadTrackImageMulti" fileUpload={this.FileAttachMulti} />

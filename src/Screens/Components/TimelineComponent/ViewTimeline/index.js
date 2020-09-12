@@ -47,8 +47,12 @@ class Index extends Component {
                 {this.state.allTrack && this.state.allTrack.length > 0 ?
                    this.state.allTrack.map((item, index) => (
                             <div className="timelineGap">
-                                {item.type === 'blood_pressure' && <BPView data={item} />}
-                                {item.type === 'blood_sugar' && <BSView data={item} />}
+                                {item.type === 'blood_pressure' && <BPView data={item} date_format={this.props.date_format} time_format={this.props.time_format}/>}
+                                {item.type === 'blood_sugar' && <BSView data={item} date_format={this.props.date_format} time_format={this.props.time_format}/>}
+                                {item.type === 'weight_bmi' && <WBMIView data={item} date_format={this.props.date_format} time_format={this.props.time_format}/>}
+                                {item.type === 'marcumar_pass' && <MPView data={item} date_format={this.props.date_format} time_format={this.props.time_format}/>}
+                                {item.type === 'smoking_status' && <SSView data={item} date_format={this.props.date_format} time_format={this.props.time_format}/>}
+                                {/* {item.type === 'blood_sugar' && <BSView data={item} />}
                                 {item.type === 'condition_pain' && <CPView data={item} />}
                                 {item.type === 'covid_19' && <CovidView data={item} />}
                                 {item.type === 'diagnosis' && <DianosisView data={item} />}
@@ -62,12 +66,12 @@ class Index extends Component {
                                 {item.type === 'medication' && <MedicationView data={item} />}
                                 {item.type === 'smoking_status' && <SSView data={item} />}
                                 {item.type === 'vaccination' && <VaccinationView data={item} />}
-                                {item.type === 'weight_bmi' && <WBMIView data={item} />}
+                                {item.type === 'weight_bmi' && <WBMIView data={item} />} */}
 
                                 {/* {item.type === 'anamnesis' && <AnamnesisView data={item} />} */}
-                                {item.type === 'prescription' && <PrescriptionView data={item} />}
+                                {/* {item.type === 'prescription' && <PrescriptionView data={item} />}
                                 {item.type === 'second_opinion' && <SOView data={item} />}
-                                {item.type === 'sick_certificate' && <SCView data={item} />}
+                                {item.type === 'sick_certificate' && <SCView data={item} />} */}
 
                             </div>
                         ))

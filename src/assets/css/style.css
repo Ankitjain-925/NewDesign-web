@@ -10051,6 +10051,9 @@ img.editPendata {
 
 /*Added By ankita*/
 /*Components */
+.ant-picker-dropdown {
+    z-index: 999999 !important;
+}
 /* for margin between timeline */
 .timelineGap{
     margin-bottom: 40px;

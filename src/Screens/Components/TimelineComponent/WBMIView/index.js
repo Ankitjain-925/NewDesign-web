@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
 import Collapsible from 'react-collapsible';
-import ReactTooltip from "react-tooltip"
+import ReactTooltip from "react-tooltip";
+import { getDate, newdate, getTime } from './../../BasicMethod/index';
 
 class Index extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            value: this.props.data || {},
+            item: this.props.data || {},
+            date_format: this.props.date_format,
+            time_foramt: this.props.time_format
         };
     }
 
@@ -16,58 +19,49 @@ class Index extends Component {
     }
 
     render() {
+        var item = this.state.item;
         return (
             <Grid container direction="row" className="descpCntnt">
                 <Grid item xs={1} md={1} className="descpCntntLft">
-                    <a>21 <span>May</span></a>
+                    {newdate(item.created_on)}
                 </Grid>
                 <Grid item xs={11} md={10} className="descpCntntRght">
-                    <Grid className="descpInerRght">
+                    <Grid className="descpInerRght descpInerBlue">
 
                         <Grid container direction="row" className="addSpc">
                             <Grid item xs={12} md={6}>
-                                <Grid className="diagnosImg">
-                                    <a className="diagnosNote"><img src={require('../../../../assets/images/condition-diagnosis-family-anamnesis-diary.svg')} alt="" title="" /><span>Diagnosis</span> </a>
-                                    <a className="diagnosAwrd"><img src={require('../../../../assets/images/confirmed-diagnosis.svg')} alt="" title="" /></a>
-                                    <a className="diagnosBus"><img src={require('../../../../assets/images/emergency-diagnosis.svg')} alt="" title="" /></a>
+                                <Grid className="blodPrsurImg">
+                                    <a className="blodPrsurNote"><img src={require('../../../../assets/images/weight-bmi.svg')} alt="" title="" />
+                                        <span>Weight & BMI</span>
+                                    </a>
                                 </Grid>
                             </Grid>
                             <Grid item xs={12} md={6}>
-                                <Grid className="vsblSec">
-                                    <a className="vsblEye"><img src={require('../../../../assets/images/eye2.png')} alt="" title="" /> <span>Visible</span> </a>
-                                    <a className="vsblTime" data-tip data-for="timeIconTip">
+                                <Grid className="bp_vsblSec">
+                                    <a className="bp_vsblEye"><img src={require('../../../../assets/images/eye2.png')} alt="" title="" /> <span>Visible</span> </a>
+                                    <a className="vsblTime" data-tip data-for={item.track_id + 'visibility'}>
                                         <img src={require('../../../../assets/images/clock.svg')} alt="" title="" />
                                     </a>
-                                    <ReactTooltip className="timeIconClas" id="timeIconTip" place="top" effect="solid" backgroundColor="#ffffff">
-                                        <label>Visible until</label>
-                                        <p>12/08/2020</p>
+                                    <ReactTooltip className="timeIconClas" id={item.track_id + 'visibility'} place="top" effect="solid" backgroundColor="#ffffff">
+                                        {item.visible==='show' ? <label>Show until</label> :  <label>Hide until</label> }
+                                        {item.public === 'always' ? <p> Always </p> : <p>{getDate(item.public, this.state.date_format)}</p> }
                                     </ReactTooltip>
-                                    <a className="vsblDots"><img src={require('../../../../assets/images/nav-more.svg')} alt="" title="" /></a>
+                                    <a className="bp_vsblDots"><img src={require('../../../../assets/images/nav-more.svg')} alt="" title="" /></a>
                                 </Grid>
                             </Grid>
                             <Grid className="clear"></Grid>
                         </Grid>
 
-                        <Grid className="icd_num addSpc">
-                            <label>Depression</label>
-                            <a data-tip data-for="icdtxtTip">ICD: F32.0</a>
-                            <ReactTooltip className="icdtxtClas" id="icdtxtTip" place="top" effect="solid" backgroundColor="#ffffff">
-                                <h4>Mild depressive episode</h4>
-                            </ReactTooltip>
+                        <Grid className="bp_hg addSpc">
+                            <label>{item.weight && item.height && (item.weight / (item.height * item.height) * 10000).toFixed(2)} <span>BMI</span></label>
+                            {/* <p>Normal</p> */}
                         </Grid>
 
-                        <Grid container direction="row" className="addSpc markCntntMain">
-                            <Grid item xs={12} md={5}>
-                                <Grid className="markCntntImg">
+                        <Grid container direction="row" className="addSpc bpJohnMain">
+                            <Grid item xs={12} md={12}>
+                                <Grid className="bpJohnImg">
                                     <a><img src={require('../../../../assets/images/person1.jpg')} alt="" title="" />
-                                        <span>Mark Anderson M.D. (Doctor)</span>
-                                    </a>
-                                </Grid>
-                            </Grid>
-                            <Grid item xs={12} md={7}>
-                                <Grid className="markMDCntntImg">
-                                    <a><img src={require('../../../../assets/images/hLogo.jpg')} alt="" title="" />
-                                        <span>Illinois Masonic Medical Center</span>
+                                        <span>{item.created_by_temp}</span>
                                     </a>
                                 </Grid>
                             </Grid>
@@ -78,72 +72,40 @@ class Index extends Component {
                             <Collapsible trigger="Details" open="true">
                                 <Grid className="detailCntnt">
                                     <Grid container direction="row">
-                                        <Grid item xs={12} md={6} className="diagnoBy">
+                                        <Grid item xs={12} md={6} className="bloodPreBy">
                                             <Grid container direction="row">
-                                                <Grid item xs={5} md={5}><label>Diagnosed by</label></Grid>
-                                                <Grid item xs={7} md={7}><span>Mark Anderson M.D.</span></Grid>
+                                                <Grid item xs={5} md={5}><label>Height</label></Grid>
+                                                <Grid item xs={7} md={7}><span>{item.height && item.height}</span></Grid>
                                                 <Grid className="clear"></Grid>
                                             </Grid>
                                         </Grid>
-                                        <Grid item xs={12} md={6} className="diagnoBy">
+                                        <Grid item xs={12} md={6} className="bloodPreBy">
                                             <Grid container direction="row">
-                                                <Grid item xs={5} md={5}><label>Allergy</label></Grid>
-                                                <Grid item xs={7} md={7}><span>No</span></Grid>
+                                                <Grid item xs={5} md={5}><label>Weight</label></Grid>
+                                                <Grid item xs={7} md={7}><span>{item.weight && item.weight}</span></Grid>
                                                 <Grid className="clear"></Grid>
                                             </Grid>
                                         </Grid>
-                                        <Grid item xs={12} md={6} className="diagnoBy">
+                                        <Grid item xs={12} md={6} className="bloodPreBy">
                                             <Grid container direction="row">
-                                                <Grid item xs={5} md={5}><label>Diagnosed on</label></Grid>
-                                                <Grid item xs={7} md={7}><span>20/05/2020</span></Grid>
+                                                <Grid item xs={5} md={5}><label>BMI</label></Grid>
+                                                <Grid item xs={7} md={7}><span>{item.weight && item.height && (item.weight / (item.height * item.height) * 10000).toFixed(2)} </span></Grid>
                                                 <Grid className="clear"></Grid>
                                             </Grid>
                                         </Grid>
-                                        <Grid item xs={12} md={6} className="diagnoBy">
+                                        <Grid item xs={12} md={6} className="bloodPreBy">
                                             <Grid container direction="row">
-                                                <Grid item xs={5} md={5}><label>Travel Diagnosis</label></Grid>
-                                                <Grid item xs={7} md={7}>
-                                                    <span>Yes</span>
-                                                    <a className="yesInfo" data-tip data-for="yesInfoTip">
-                                                        <img src={require('../../../../assets/images/yesinfo.jpg')} alt="" title="" />
-                                                    </a>
-                                                    <ReactTooltip className="yesInfoClas" id="yesInfoTip" place="top" effect="solid" backgroundColor="#ffffff">
-                                                        <h4>Traveled to Africa</h4>
-                                                        <p>06/02/2020 - 26/02/2020</p>
-                                                    </ReactTooltip>
-                                                </Grid>
+                                                <Grid item xs={5} md={5}><label>Date & Time</label></Grid>
+                                                <Grid item xs={7} md={7}><span>{item.date_measured && getDate(item.date_measured , this.state.date_format)} {item.time_measured && ', ' + getTime(new Date(item.time_measured) , this.state.time_foramt)}</span></Grid>
                                                 <Grid className="clear"></Grid>
                                             </Grid>
                                         </Grid>
                                         <Grid className="clear"></Grid>
                                     </Grid>
+                                   
                                 </Grid>
                             </Collapsible>
                         </Grid>
-
-                        <Grid className="addSpc detailMark">
-                            <Collapsible trigger="Notes" open="true">
-                                <Grid className="detailCntnt">
-                                    <p>
-                                        Multiple lesions again suggest chronic demyelination. Mild atrophy greatest in the
-                                        frontal region may be associated with multiple sclerosis. Findings appear stable when
-                                        compared with the prior study. There is no abnormal enhancement.
-                                </p>
-                                </Grid>
-                            </Collapsible>
-                        </Grid>
-
-                        <Grid className="addSpc detailMark">
-                            <Collapsible trigger="Images & Files" open="true">
-                                <Grid className="imgsFile">
-                                    <a><img src={require('../../../../assets/images/agedman.png')} alt="" title="" />
-                                        <label>IMG_23_6_2020_09_18.jpg</label></a>
-                                    <a><img src={require('../../../../assets/images/pdfimg.png')} alt="" title="" />
-                                        <label>No_name_file.pdf</label></a>
-                                </Grid>
-                            </Collapsible>
-                        </Grid>
-
                     </Grid>
                 </Grid>
             </Grid>
@@ -152,4 +114,3 @@ class Index extends Component {
 }
 
 export default Index;
-

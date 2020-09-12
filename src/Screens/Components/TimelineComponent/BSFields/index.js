@@ -35,13 +35,10 @@ class Index extends Component {
             <div>
                 <Grid className="cnfrmDiaMain">
                     <Grid className="fillDia">
-                        <MMHG name="rr_systolic" Unit="mmHg" label="RR Systolic" onChange={(e)=> this.props.updateEntryState(e)} value={this.state.updateTrack.rr_systolic}/>    
+                        <MMHG name="blood_sugar" Unit="mg/dl" label="Blood Sugar" onChange={(e)=> this.props.updateEntryState(e)} value={this.state.updateTrack.blood_sugar}/>    
                     </Grid>
                     <Grid className="fillDia">
-                        <MMHG name="rr_diastolic" Unit="mmHg" label="RR Diastolic" onChange={(e)=> this.props.updateEntryState(e)} value={this.state.updateTrack.rr_systolic}/>    
-                    </Grid>
-                    <Grid className="fillDia">
-                        <MMHG name="heart_frequncy" Unit="b/min" label="Heart Rate" onChange={(e)=> this.props.updateEntryState(e)} value={this.state.updateTrack.rr_systolic}/>    
+                        <MMHG name="Hba1c" Unit="%" label="HBA1C" onChange={(e)=> this.props.updateEntryState(e)} value={this.state.updateTrack.Hba1c}/>    
                     </Grid>
                     <Grid className="fillDia">
                         <Grid className="rrSysto">
@@ -57,7 +54,7 @@ class Index extends Component {
                         </Grid>
                     </Grid>
                     <Grid className="fillDia">
-                        <SelectByTwo name="situation" label="Feelings" options={this.state.options} onChange={(e)=> this.props.updateEntryState1(e, 'situation')} value={this.state.updateTrack.feelings}/>    
+                        <SelectByTwo name="situation" label="Situation" options={this.state.options} onChange={(e)=> this.props.updateEntryState1(e, 'situation')} value={this.state.updateTrack.feelings}/>    
                     </Grid>
                   
                     <Grid className="attchForms attchImg">

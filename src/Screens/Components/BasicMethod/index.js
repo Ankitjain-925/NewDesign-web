@@ -1,5 +1,6 @@
 import axios from 'axios';
 import sitedata from '../../../sitedata';
+import React, { Component } from 'react';
 
 //Custom Console So comment only One console works on whole website
 export function ConsoleCustom (msg, value){
@@ -17,6 +18,37 @@ export function getDate (date, dateFormat){
     if(dateFormat === 'YYYY/DD/MM') { return year + ' / ' + day + ' / ' + month; }
     else if(dateFormat === '/DD/MM/YYYY') {  return day + ' / ' + month + ' / ' + year; }
     else { return month + ' / ' + day + ' / ' + year;}
+}
+
+//New Date for Timeline 
+export function newdate (date){
+    var d = new Date(date);
+    var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+        "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+        month = monthNames[d.getMonth()],
+        day = d.getDate();
+    if (day.length < 2) day = '0' + day;
+    return  <a>{day} <span>{month}</span></a>;  
+}
+
+//For getting the time 
+export function getTime (date, timeFormat){
+    if(timeFormat ==='12')
+    {   
+        var hours = date.getHours();
+        var minutes = date.getMinutes();
+        var ampm = hours >= 12 ? 'pm' : 'am';
+        hours = hours % 12;
+        hours = hours ? hours : 12; // the hour '0' should be '12'
+        minutes = minutes < 10 ? '0'+minutes : minutes;
+        var strTime = hours + ':' + minutes + ' ' + ampm;
+        return strTime;
+    }
+    else {
+        var h = (date.getHours() < 10 ? '0' : '') + date.getHours();
+        var m = (date.getMinutes() < 10 ? '0' : '') + date.getMinutes();
+        return h + ':' + m;
+    }   
 }
 
 //get image url of S3 from the multiple images

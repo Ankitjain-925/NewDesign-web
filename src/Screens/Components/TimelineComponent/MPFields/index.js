@@ -35,13 +35,16 @@ class Index extends Component {
             <div>
                 <Grid className="cnfrmDiaMain">
                     <Grid className="fillDia">
-                        <MMHG name="rr_systolic" Unit="mmHg" label="RR Systolic" onChange={(e)=> this.props.updateEntryState(e)} value={this.state.updateTrack.rr_systolic}/>    
+                        <MMHG name="quick_value" Unit="mg/dl" label="Quick Value" onChange={(e)=> this.props.updateEntryState(e)} value={this.state.updateTrack.quick_value}/>    
                     </Grid>
                     <Grid className="fillDia">
-                        <MMHG name="rr_diastolic" Unit="mmHg" label="RR Diastolic" onChange={(e)=> this.props.updateEntryState(e)} value={this.state.updateTrack.rr_systolic}/>    
+                        <MMHG name="INR"  label="INR" onChange={(e)=> this.props.updateEntryState(e)} value={this.state.updateTrack.INR}/>    
                     </Grid>
                     <Grid className="fillDia">
-                        <MMHG name="heart_frequncy" Unit="b/min" label="Heart Rate" onChange={(e)=> this.props.updateEntryState(e)} value={this.state.updateTrack.rr_systolic}/>    
+                        <MMHG name="upper_limit"  label="Upper Limit" onChange={(e)=> this.props.updateEntryState(e)} value={this.state.updateTrack.upper_limit}/>    
+                    </Grid>
+                    <Grid className="fillDia">
+                        <MMHG name="lower_limit"  label="Lower Limit" onChange={(e)=> this.props.updateEntryState(e)} value={this.state.updateTrack.lower_limit}/>    
                     </Grid>
                     <Grid className="fillDia">
                         <Grid className="rrSysto">
@@ -57,9 +60,8 @@ class Index extends Component {
                         </Grid>
                     </Grid>
                     <Grid className="fillDia">
-                        <SelectByTwo name="situation" label="Feelings" options={this.state.options} onChange={(e)=> this.props.updateEntryState1(e, 'situation')} value={this.state.updateTrack.feelings}/>    
+                        <MMHG name="pills_taken"  label="Pills Taken" onChange={(e)=> this.props.updateEntryState(e)} value={this.state.updateTrack.pills_taken}/>    
                     </Grid>
-                  
                     <Grid className="attchForms attchImg">
                         <Grid><label>Attachments</label></Grid>
                         <FileUploader name="UploadTrackImageMulti" fileUpload={this.FileAttachMulti} />

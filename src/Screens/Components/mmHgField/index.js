@@ -27,7 +27,7 @@ class MMHG extends Component {
                 <Grid><label>{this.state.label}</label></Grid>
                 <Grid className="rrInput">
                     <input type="text" onChange={this.onDataChange} name={this.state.name} value={this.state.value}/>
-                    <span>{this.state.Unit}</span>
+                    {this.state.Unit && <span>{this.state.Unit}</span>}
                 </Grid>
             </Grid> 
         )

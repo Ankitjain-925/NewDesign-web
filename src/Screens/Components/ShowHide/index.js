@@ -31,6 +31,10 @@ class ShowHide extends Component {
     //On Change according component
     updateEntryState1 = (value, name) => {
         const state = this.state.value;
+        if(name==='publicdatetime')
+        {
+            state['public'] = value;
+        }
         state[name] = value;
         this.setState({ value: state });
     }
@@ -63,8 +67,13 @@ class ShowHide extends Component {
                 {!this.state.edit && <Grid className="rrShwHidMain">
                     <Grid container direction="row" justify="center" alignItems="center">
                         <Grid item xs={6} md={6}>
-                            <Grid className="rrShwHid">
-                                <a>Show or Hide <img src={require('../../../assets/images/Info.svg')} alt="" title="" /></a>
+                            <Grid className="infoShwHid3">
+                                <a className="visibleAllShw">Show or Hide <img src={require('../../../assets/images/Info.svg')} alt="" title="" />
+                                <Grid className="visibleAll">
+                                    All entries are by default visible to professionals you give
+                                    access to your profile. You can edit these settings additionally
+                                    on each entry or set a general rule in your <a>profile settings</a>
+                                </Grid></a>
                             </Grid>
                         </Grid>
                         <Grid item xs={6} md={6} className="rreditShwHid">
