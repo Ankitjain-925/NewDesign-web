@@ -15,7 +15,7 @@ class CometChatBanMembers extends React.Component {
     static contextType = GroupDetailContext;
 
     constructor(props) {
-        super(props);
+       super(props);
         this.state = {
             membersToBan: [],
             membersToUnBan: []

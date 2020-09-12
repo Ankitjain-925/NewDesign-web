@@ -6,7 +6,7 @@ import Loader from './../../../Components/Loader/index';
 
 class Index extends Component {
     constructor(props) {
-        super(props);
+       super(props);
         this.state = {
            Current_state : this.props.LoggedInUser,
            Password: {},

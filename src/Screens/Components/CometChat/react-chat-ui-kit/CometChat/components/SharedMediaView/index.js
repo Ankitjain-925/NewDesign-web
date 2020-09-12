@@ -11,7 +11,7 @@ import "./style.scss";
 class SharedMediaView extends React.Component {
 
     constructor(props) {
-        super(props);
+       super(props);
 
         this.state = {
             messagetype: "image",

@@ -34,7 +34,7 @@ var insurances = [];
 
 class Index extends Component {
     constructor(props) {
-        super(props);
+       super(props);
         this.autocompleteInput = React.createRef();
         this.city = null;
         this.handlePlaceChanged = this.handlePlaceChanged.bind(this);

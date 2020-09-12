@@ -19,6 +19,7 @@ import PatientTracker from "./../../Screens/Patient/Tracker/tracker";
 import PatientTimeLine from "./../../Screens/Patient/Journal/index";
 import PatientChats from "./../../Screens/Patient/Chat/index"
 import PatientTimeLine1 from "./../../Screens/ViewTimelineComponent/index.js";
+import PatientBlockchain from "./../../Screens/Patient/More/blockchain.js";
 
 class Routermain extends Component {
   render() {
@@ -42,6 +43,7 @@ class Routermain extends Component {
             <Route exact path="/patient/journal" render={(props) => <PatientTimeLine {...props}/>} />
             <Route exact path="/patient/Timelinecomponents" render={(props) => <PatientTimeLine1 {...props}/>} />
             <Route exact path="/patient/chats" render={(props) => <PatientChats {...props}/>} />
+            <Route exact path="/patient/blockchain" render={(props) => <PatientBlockchain {...props}/>} />
             
             <Route path='*' exact={true} render={(props) => <NotFound {...props} />} />
             {/* End By Ankita */}

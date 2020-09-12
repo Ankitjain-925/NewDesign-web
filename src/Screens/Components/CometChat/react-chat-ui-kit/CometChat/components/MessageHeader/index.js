@@ -15,7 +15,7 @@ import "./style.scss";
 class MessageHeader extends React.Component {
 
   constructor(props) {
-    super(props);
+   super(props);
 
     this.state = {
       status: null,

@@ -11,7 +11,7 @@ import CourseSection from './../../Components/OnlineCourses/index.js';
 
 class Index extends Component {
     constructor(props) {
-        super(props);
+       super(props);
         this.state = {
             addSec: false,
             specialistOption: null,

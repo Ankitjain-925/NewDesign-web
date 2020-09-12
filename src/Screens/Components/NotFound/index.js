@@ -5,7 +5,7 @@ import 'react-calendar/dist/Calendar.css';
 
 class Index extends Component {
     constructor(props) {
-        super(props);
+       super(props);
         this.state = {
             selectedOption: null,
             openDash: false,

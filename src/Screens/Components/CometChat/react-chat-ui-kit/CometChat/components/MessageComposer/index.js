@@ -11,7 +11,7 @@ import sendBlue from "./resources/send-blue-icon.svg";
 class MessageComposer extends React.PureComponent {
 
   constructor(props) {
-    super(props);
+   super(props);
   
 		this.imageUploaderRef = React.createRef();
 		this.fileUploaderRef = React.createRef();

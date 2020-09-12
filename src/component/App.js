@@ -4,7 +4,7 @@ import Routermain from "./routes/routermain";
 class App extends Component {
   constructor(props) {
     let tempname = window.location.search;
-    super(props);
+   super(props);
     this.state = {
       load: false,
       tempname: tempname,

@@ -4,7 +4,7 @@ import Grid from '@material-ui/core/Grid';
 import { Input } from '@material-ui/core';
 class Loader extends Component {
     constructor(props) {
-        super(props);
+       super(props);
         this.state = {};
     }
     render() {

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
 import Modal from '@material-ui/core/Modal';
 import RLDD from 'react-list-drag-and-drop/lib/RLDD';
-import { ConsoleCustom } from '../../BasicMethod';
 
 var data = [];
 
@@ -32,7 +31,7 @@ class PersonalizedData extends Component {
             this.setState({ openDash: this.props.openDash })
         }
         if (prevProps.personalised_card !== this.props.personalised_card || prevProps.added_data !== this.props.added_data) {
-            console.log('ddsfsd', this.props.added_data)
+            data = this.props.added_data;
             this.setState({ personalised_card: this.props.personalised_card },
               ()=> this.Filterate(this.props.added_data))
         }
@@ -43,8 +42,13 @@ class PersonalizedData extends Component {
         data = added_data;
         var Added=[], NotAdded = [];
         this.state.personalised_card &&  this.state.personalised_card.length>0 && this.state.personalised_card.map((item)=>{
-            if(added_data.indexOf(item.value) !== -1){ Added.push(item) }
-            else{ NotAdded.push(item) }
+            if(added_data.indexOf(item.value) === -1){ NotAdded.push(item) }
+        })
+        added_data && added_data.length>0 && added_data.map((item)=>{
+            if(this.state.personalised_card.findIndex(x => x.value ===item) !== -1)
+            {
+                Added.push(this.state.personalised_card[this.state.personalised_card.findIndex(x => x.value ===item)])
+            }
         })
         this.setState({added_card : Added, not_added_card : NotAdded })
     }
@@ -66,12 +70,12 @@ class PersonalizedData extends Component {
 
     //On Adding or moving Data
     handleRLDDChange = (newItems)=> {
-        data=[];
+        this.setState({ added_card: newItems });
+        var NewData=[];
         newItems && newItems.length>0 && newItems.map((item)=>{
-            data.push(item.value);
-        })
-        this.setState({ added_card: newItems },
-          () => this.props.SetPersonalized(data));  
+            NewData.push(item.value);
+        });
+        this.props.SetPersonalized(NewData) 
     }
 
     componentDidMount = () => {
@@ -85,6 +89,7 @@ class PersonalizedData extends Component {
                 onClose={this.handleCloseDash}
                 className="dashBoxModel">
                 <Grid className="dashBoxCntnt">
+
                     <Grid className="dashCourse">
                         <Grid className="dashCloseBtn">
                             <a onClick={this.handleCloseDash}>
@@ -94,7 +99,6 @@ class PersonalizedData extends Component {
                         <Grid><label>Personalize dashboard</label></Grid>
                         <p>Personalize your dashboard by adding or removing cards. Drag to reorder.</p>
                     </Grid>
-                    {ConsoleCustom('ddfdf', data)}
                     <Grid className="dragDash">
                         <RLDD
                             items={this.state.added_card}
@@ -112,16 +116,6 @@ class PersonalizedData extends Component {
                             }}
                             onChange={this.handleRLDDChange}
                         />
-                        {/* {this.state.personalised_card && this.state.personalised_card.length>0 && this.state.personalised_card.map((item)=>(
-                        <Grid container direction="row" alignItems="center" justify="center" className="dragDashMain">
-                            <Grid item xs={8} md={8} className="dragDashLft">
-                                <Grid><a><img src={require('../../../../assets/images/remove-2.svg')} alt="" title="" /> Graph - Blood Pressure</a></Grid>
-                            </Grid>
-                            <Grid item xs={4} md={4} className="dragDashRght">
-                                <a><img src={require('../../../../assets/images/drag.svg')} alt="" title="" /></a>
-                            </Grid>
-                        </Grid>
-                        ))} */}
                     </Grid>
                     <Grid className="moreCards">
                         <h3>Add more cards</h3>
@@ -129,12 +123,6 @@ class PersonalizedData extends Component {
                         {this.state.not_added_card && this.state.not_added_card.length>0 && this.state.not_added_card.map((item)=>(
                             <Grid><a><img onClick={()=>this.Add(item.value)} src={require('../../../../assets/images/add.svg')} alt="" title="" />{item.label}</a></Grid>
                         ))}
-                       
-                        {/* <Grid><a><img src={require('../../../../assets/images/add.svg')} alt="" title="" /> Graph - Heart Rate</a></Grid>
-                        <Grid><a><img src={require('../../../../assets/images/add.svg')} alt="" title="" /> Graph - Weight & BMI</a></Grid>
-                        <Grid><a><img src={require('../../../../assets/images/add.svg')} alt="" title="" /> Creatinine</a></Grid>
-                        <Grid><a><img src={require('../../../../assets/images/add.svg')} alt="" title="" /> Upcoming appointment</a></Grid>
-                        <Grid><a><img src={require('../../../../assets/images/add.svg')} alt="" title="" /> Last documents</a></Grid> */}
                     </Grid>
                 </Grid>
             </Modal>

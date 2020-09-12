@@ -17,7 +17,7 @@ class CometChatGroupList extends React.Component {
 
   constructor(props) {
 
-    super(props);
+   super(props);
     this.state = {
       grouplist: [],
       createGroup: false,

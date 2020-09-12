@@ -13,7 +13,7 @@ class CometChatConversationList extends React.Component {
 
   constructor(props) {
 
-    super(props);
+   super(props);
     this.state = {
       conversationlist: [],
       onItemClick: null,

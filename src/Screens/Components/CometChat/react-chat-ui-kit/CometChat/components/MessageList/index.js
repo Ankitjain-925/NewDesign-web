@@ -28,7 +28,7 @@ class MessageList extends React.PureComponent {
 
   constructor(props) {
 
-    super(props);
+   super(props);
     this.state = {
       onItemClick: null,
       loading: false

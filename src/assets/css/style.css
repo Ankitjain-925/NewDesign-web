@@ -65,7 +65,6 @@ h1,h2,h3,h4,h5,h6,h7,p{ margin:0; padding:0; font-size: inherit; font-weight: in
     cursor: pointer;
     text-decoration: none;
 }
-
 .menuItems ul li a span {
     display: block;
     color: #7F8383;
@@ -247,6 +246,7 @@ a.vsblTime {
 }
 .detailMark {
     margin-top: 16px;
+    position: relative;
 }
 .detailLbl a img {
     width: 15px;
@@ -1792,18 +1792,6 @@ a.profilMenu {
     .onlineCoursesList {
         padding-left: 0px !important;
     }
-    .fancyBoxCntnt {
-        width: 96% !important;
-    }
-    .fancyBoxCncl {
-        width: 96% !important;
-    }
-    .qrBoxCntnt{
-        width: 96% !important;
-    }
-    .trstBoxCntnt {
-        width: 96% !important;
-    }
     .profilePkg {
         margin-left: 0px !important;
         margin-top: 0px !important;
@@ -1888,12 +1876,6 @@ a.profilMenu {
     .presurLabl h1 {
         margin-bottom: 18px;
     }
-    .presBoxCntnt {
-        width: 96% !important;
-    }
-    .paraBoxCntnt {
-        width: 96% !important;
-    }
     .docAddPatient a {
         margin: 10px 0px !important;
         display: inline-block !important;
@@ -1914,10 +1896,9 @@ a.profilMenu {
     .docAddPatient {
         text-align: initial !important;
     }
-    .infoBoxCntnt {
-        width: 96% !important;
-    }
-    .dataBoxCntnt {
+    .infoBoxCntnt, .dataBoxCntnt, .prespBoxCntnt, .presBoxCntnt, 
+    .paraBoxCntnt, .fancyBoxCntnt, .fancyBoxCncl, .qrBoxCntnt, .trstBoxCntnt,
+    .invtBoxCntnt {
         width: 96% !important;
     }
 }
@@ -5936,10 +5917,6 @@ img.addBlue {
 .trckLogo img {
     height: 24px;
 }
-.trckLogo1 img{
-    height:"auto";
-    min-width: 70%
-}
 .trckDots img {
     height: 24px;
     border-radius: 5px;
@@ -7959,7 +7936,6 @@ a.painAreasTxt {
     line-height: 12px;
 }
 .painAreas a {
-    width: 33.3%;
     display: inline-block;
     text-align: center;
 }
@@ -9262,10 +9238,835 @@ input.rejectBtn {
     margin-top: 10px;
     margin-bottom: 0px !important;
 }
+.rejectBoxCntnt {
+    width: 420px;
+    background: #fff;
+    margin: 0 auto;
+    border: none;
+    outline: none;
+    border-radius: 12px;
+    background-color: #FFFFFF;
+    box-shadow: 0 24px 32px 0 rgba(0,8,8,0.08);
+    margin-top: 35px;
+    padding-bottom: 8px;
+}
+.rejectCourse {
+    padding: 12px 24px 18px 24px;
+    border-bottom: 1px solid #F2F2F2;
+}
+.rejectCloseBtn {
+    text-align: right;
+    margin-bottom: 4px;
+}
+.rejectCloseBtn img {
+    width: 26px;
+    cursor: pointer;
+}
+.rejectCourse p {
+    color: #7F8383;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: 18px;
+}
+.rejectCourse label {
+    color: #000808;
+    font-family: Muli;
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 32px;
+    margin-bottom: 2px;
+}
+.shrtRejctMsg {
+    padding: 18px 24px 24px 24px;
+}
+.shrtRejctMsg label {
+    color: #404646;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 12px;
+}
+.shrtRejctMsg textarea {
+    resize: none;
+    height: 116px;
+    width: 100%;
+    border: 1px solid #BFC1C1;
+    border-radius: 4px;
+    background-color: #FFFFFF;
+    outline: none;
+    padding: 8px;
+}
+.shrtRejctMsg input {
+    border-radius: 8px;
+    background-color: #00ABAF;
+    border: none;
+    outline: none;
+    color: #FFFFFF;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 16px;
+    text-align: center;
+    width: 100%;
+    padding: 14px 12px;
+    margin-top: 10px;
+}
+.blockChainLog {
+    margin-top: 35px;
+    padding-left: 45px;
+}
+.blochChainDtl {
+    padding: 8px 14px;
+}
+.blochChainDtl span.Collapsible__trigger {
+    border-radius: 8px;
+    background-color: #F2F2F2;
+    padding: 8px 14px;
+    margin-bottom: 16px;
+    display: block;
+    color: #404646;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 20px;
+    position: relative;
+    cursor: pointer;
+}
+.blochChainIner div {
+    width: 33.3%;
+}
+.blochChainIner {
+    display: flex;
+    position: absolute;
+    left: 0;
+    width: 100%;
+    right: 0;
+    min-height: 28px;
+    background: #ffffff;
+    padding: 6px 12px 2px;
+}
+.blochChainIner span.Collapsible__trigger {
+    border-radius: 8px;
+    background-color: #F2F2F2;
+    padding: 8px 14px;
+    margin-bottom: 16px;
+    display: block;
+    color: #404646;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 20px;
+    position: relative;
+    cursor: pointer;
+    min-height: 32px;
+    opacity: 0;
+}
+.blockChainLog h1{
+  color: #000808;
+  font-family: Muli;
+  font-size: 28px;
+  font-weight: bold;
+  letter-spacing: 0;
+  line-height: 40px;
+}
+.blockChainDtail {
+    margin-top: 16px;
+    position: relative;
+}
+.blockChainDtail {
+    border-radius: 12px;
+    background-color: #FFFFFF;
+    box-shadow: 0 1px 8px 0 rgba(0,8,8,0.04);
+    min-height: 435px;
+}
+.blockChainDtail span.Collapsible__trigger {
+    border-radius: 8px;
+    background-color: #F2F2F2;
+    padding: 14px 14px;
+    margin-bottom: 0px;
+    display: block;
+    color: #404646;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 20px;
+    position: relative;
+    cursor: pointer;
+    min-height: 40px;
+    opacity: 0;
+}
+.blockChainBrdr{
+    border-bottom: 1px solid #F2F2F2;
+}
+.blockChainUpr .Collapsible {
+    padding: 0px 12px 0px;
+}
+.blockChainUpr .Collapsible__contentInner {
+    margin-bottom: 12px;
+}
+.subsDetails span {
+    color: #7F8383;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 18px;
+}
+.blochChainHead label {
+    margin-bottom: 0px !important;
+    color: #7F8383;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 12px;
+}
+.blochChainHead {
+    display: flex;
+    border-bottom: 1px solid #dfdfdf;
+    padding: 12px 12px;
+}
+.blochChainHead label{
+    margin-bottom: 0px !important;
+}
+.blochChainHead div {
+    width: 33.333%;
+}
+.blockChainUpr {
+    position: relative;
+}
+img.cstmDown {
+    width: 16px !important;
+    height: 10px !important;
+    display: block;
+    position: absolute;
+    top: 14px;
+    right: 18px;
+}
+.officArng {
+    margin-bottom: 22px;
+}
+.officArng h2 {
+    color: #000808;
+    font-family: Muli;
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 32px;
+}
+.officArng p {
+    color: #7F8383;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: 18px;
+}
+.officInfo {
+    margin-bottom: 14px !important;
+}
+.officInfo label{
+    color: #404646;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 12px;
+}
+.officInfo h2 {
+    color: #000808;
+    font-family: Muli;
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 32px;
+}
+.officInfo p {
+    color: #7F8383;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: 18px;  
+}
+.latstInfoEditor {
+    border: 1px solid #BFC1C1;
+    border-radius: 4px;
+    background-color: #FFFFFF;
+}
+.latstInfo label{
+  color: #404646;
+  font-family: Muli;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 12px;
+}
+.latstInfoBtn input {
+    margin-top: 32px;
+    color: #FFFFFF;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 16px;
+    text-align: center;
+    border-radius: 8px;
+    background-color: #00ABAF;
+    outline: none;
+    border: none;
+    width: 100%;
+    padding: 12px 10px;
+    display: block;
+}
+.srvcApointTab {
+    margin-bottom: 52px;
+}
+.srvcInst h3 {
+    color: #000808;
+    font-family: Muli;
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 32px;
+}
+.srvcInst p {
+    color: #7F8383;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: 18px;
+}
+.chatVoice {
+    display: flex;
+}
+.chatVoice label {
+    color: #000808;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 14px;
+}
+.chatVoice p {
+    color: #7F8383;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: 18px;
+}
+.chatVoice img {
+    margin-right: 10px;
+    width: 24px;
+}
+.instBrdr {
+    border-bottom: 1px solid #F2F2F2;
+    padding-bottom: 25px;
+    margin-bottom: 25px;
+}
+.prescSick {
+    display: flex;
+}
+.prescSick img {
+    margin-right: 10px;
+    width: 16px;
+}
+.prescSick label {
+    color: #000808;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 14px;
+}
+.prescSick p {
+    color: #7F8383;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: 18px;
+}
+.onlinSickCer span {
+    color: #404646;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 14px;
+    padding: 2px;
+}
+.onlinSickContn span.MuiIconButton-label {
+    color: #00ABAF !important;
+}
+.onlinSickContn label {
+    margin-bottom: 0px !important;
+    margin-right: 0px !important;
+}
+.onlinSickCer {
+    padding-left: 30px;
+    margin-top: 12px;
+}
+
+.enableTogle {
+    text-align: right;
+}
+.enableTogle label {
+    margin-bottom: 0px;
+}
+.enableTogle .react-toggle--checked .react-toggle-track {
+    background-color: #00ABAF;
+}
+.enableTogle .react-toggle-track {
+    width: 35px;
+    height: 18px;
+}
+.enableTogle .react-toggle-thumb {
+    width: 16px;
+    height: 16px;
+}
+.enableTogle .react-toggle--checked .react-toggle-thumb {
+    left: 19px;
+}
+.apointSchdule label{
+  color: #000808;
+  font-family: Muli;
+  font-size: 20px;
+  font-weight: bold;
+  letter-spacing: 0;
+  line-height: 32px;
+}
+.apointSchdule p{
+    color: #7F8383;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: 18px;
+}
+span.holdyPeriod {
+    color: #000808;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 12px;
+    vertical-align: text-top;
+    margin-left: 12px;
+}
+.enblDate span {
+    border-radius: 8px;
+    background-color: #E1F7F7;
+    color: #00ABAF;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 12px;
+    padding: 9px 12px;
+    display: inline-block;
+}
+.enblDate img {
+    height: 16px;
+    width: 16px;
+    vertical-align: bottom;
+    margin-left: 10px;
+}
+
+
+.prescSickVdo {
+    display: -ms-flexbox;
+    display: flex;
+}
+.prescSickVdo img {
+    margin-right: 10px;
+    width: 16px;
+}
+.prescSickVdo label {
+    color: #000808;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 14px;
+}
+.prescSickVdo p {
+    color: #7F8383;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: 18px;
+}
+.onlinSickVdo {
+    padding-left: 30px;
+    margin-top: 12px;
+    position: relative;
+}
+.onlinSickVdo label {
+    margin-bottom: 0px !important;
+    margin-right: 0px !important;
+}
+.onlinSickVdo span {
+    color: #404646;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 14px;
+    padding: 2px;
+}
+img.vdoCalNow {
+    position: absolute;
+    left: 52px;
+    top: 8px;
+}
+.onlinSickVdo span.MuiTypography-root.MuiFormControlLabel-label.MuiTypography-body1 {
+    margin-left: 21px;
+}
+
+.wrkHour label {
+    color: #000808;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 12px;
+    margin-bottom: 12px;
+}
+.wrkHour a {
+    justify-content: center;
+    color: #404646;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 16px;
+    height: 34px;
+    width: 34px;
+    border: 1px solid #F2F2F2;
+    border-radius: 8px;
+    background-color: #FFFFFF;
+    display: inline-block;
+    margin-right: 8px;
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+}
+.wrkHour a:hover {
+    background-color: #00ABAF;
+    color: #FFFFFF !important;
+}
+.daySchedule input {
+    width: 63px;
+    color: #000808;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 18px;
+    text-align: center;
+    border: 1px solid #BFC1C1;
+    border-radius: 4px;
+    background-color: #FFFFFF;
+    padding: 6px 12px;
+    outline: none;
+}
+.daySchedule {
+    display: flex;
+    margin-bottom: 12px;
+}
+.daySchedule label {
+    color: #404646;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 14px;
+    margin-bottom: 0px;
+    margin-right: 24px;
+    min-width: 85px;
+}
+.daySchedule span {
+    color: #000808;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 18px;
+    text-align: center;
+    margin: 0px 8px;
+}
+.wrkHour {
+    margin-bottom: 25px;
+}
+.setSchedule {
+    display: flex;
+}
+.setSchedule div:first-child {
+    width: 40%;
+}
+.setSchedule div:last-child {
+    width: 60%;
+}
+
+.setSchedule input {
+    min-width: 43px;
+    color: #000808;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 18px;
+    text-align: center;
+    border: 1px solid #BFC1C1;
+    border-radius: 4px;
+    background-color: #FFFFFF;
+    padding: 6px 12px;
+    display: inline-block;
+    width: 110px;
+    outline: none;
+}
+
+.setSchedule label {
+    color: #000808;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 12px;
+    margin-bottom: 0px;
+}
+.setScheduleUpr {
+    margin-bottom: 12px;
+}
+.setSchedule span {
+    color: #000808;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 18px;
+    text-align: center;
+    margin: 0px 8px;
+}
+.apontBook label {
+    color: #000808;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 12px;
+    margin-bottom: 15px;
+}
+.apontBook p {
+    color: #404646;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 12px;
+    margin-bottom: 12px;
+}
+.apontBook input {
+    color: #000808;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 18px;
+    text-align: center;
+    width: 50px;
+    border: 1px solid #BFC1C1;
+    border-radius: 4px;
+    background-color: #FFFFFF;
+    padding: 5px 0px;
+    margin: 0px 8px;
+    outline: none;
+}
+.apontBook p span {
+    min-width: 65px;
+    display: inline-block;
+}
+.daySchedule p {
+    color: #7F8383;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 12px;
+    margin-left: 12px;
+    margin-top: 8px;
+}
+.daySchedule p img {
+    vertical-align: sub;
+    margin-right: 4px;
+    cursor: pointer;
+}
+.officVisit {
+    padding-left: 0px !important;
+}
+.officVisit img.vdoCalNow {
+    left: 21px !important;
+}
+img.mngDates {
+    width: 15px;
+}
+img.editPendata {
+    width: 14px;
+    margin-left: 12px;
+    cursor: pointer;
+}
+.savChngsBtn input {
+    color: #FFFFFF;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 16px;
+    border-radius: 8px;
+    background-color: #00ABAF;
+    width: 356px;
+    outline: none;
+    border: none;
+    padding: 15px 8px;
+}
+
+.invtBoxCntnt {
+    width: 420px;
+    background: #fff;
+    margin: 0 auto;
+    border: none;
+    outline: none;
+    border-radius: 12px;
+    background-color: #FFFFFF;
+    box-shadow: 0 24px 32px 0 rgba(0,8,8,0.08);
+    margin-top: 35px;
+}
+.invtCourse {
+    padding: 12px 24px 18px 24px;
+    border-bottom: 1px solid #F2F2F2;
+}
+.invtCloseBtn {
+    text-align: right;
+    margin-bottom: 4px;
+}
+.invtCloseBtn img {
+    width: 26px;
+    cursor: pointer;
+}
+.invtCourse label {
+    color: #000808;
+    font-family: Muli;
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 32px;
+    margin-bottom: 2px;
+}
+.invtCourse p {
+    color: #7F8383;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: 18px;
+}
+.invitLinkUpr {
+    padding: 18px 24px 24px 24px;
+}
+.invitLinkInfo label {
+    color: #404646;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 12px;
+}
+.invitLinkInfo .css-2b097c-container {
+    border: 1px solid #BFC1C1 !important;
+    border-radius: 4px;
+    background-color: #FFFFFF;
+    color: #404646;
+    font-family: Muli;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 12px;
+    box-shadow: none !important;
+    outline: none !important;
+}
+.invitLinkInfo .css-yk16xz-control {
+    border: none !important;
+}
+.invitLinkArea label {
+    color: #404646;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 12px;
+}
+.invitLinkArea textarea {
+    border: 1px solid #BFC1C1;
+    border-radius: 4px;
+    background-color: #FFFFFF;
+    width: 100%;
+    min-height: 128px;
+    resize: none;
+    outline: none;
+    padding: 10px 10px;
+}
+.invitLinkSub input {
+    padding: 15px 10px;
+    width: 100%;
+    border-radius: 8px;
+    background-color: #00ABAF;
+    outline: none;
+    border: none;
+    color: #FFFFFF;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 16px;
+    text-align: center;
+}
+.invitLinkInfo {
+    margin-bottom: 12px;
+}
+.invitLinkArea {
+    margin-bottom: 15px;
+}
 
 
 /*Added By ankita*/
 /*Components */
+/* for margin between timeline */
+.timelineGap{
+    margin-bottom: 40px;
+}
+
+/* Point Person*/
+a.painAreasTxt {
+    position: absolute;
+    top: 50%;
+    left: 12%;
+}
+/* For eidtor */
+.rdw-editor-wrapper {
+    background: #fff;
+}
+/* For TimeTaken */
 .prfilHghtLft, .prfilHghtRght{
     padding-left: 0% !important;
 }
@@ -9276,6 +10077,7 @@ input.rejectBtn {
 .minus_span_medication {
     color: #e11616 !important;
 }
+/* for Antd */
 .profileInfoDate .ant-picker:hover, .profileInfoDate .ant-picker-focused {
     border-color: #BFC1C1;
     border-right-width: 1px !important;
@@ -9466,6 +10268,7 @@ ul.insuranceHint li {
 /*KYC Pages end*/
 
 /*Stop the outline comes from Comet Chat*/
+
 input:focus {
     outline: unset !important;
   }

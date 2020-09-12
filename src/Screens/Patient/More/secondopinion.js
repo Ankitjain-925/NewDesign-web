@@ -25,7 +25,7 @@ const specialistOptions = [
 
 class Index extends Component {
     constructor(props) {
-        super(props);
+       super(props);
         this.state = {
             addSec: false,
             specialistOption: null,

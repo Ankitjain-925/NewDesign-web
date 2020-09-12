@@ -15,7 +15,7 @@ import Grid from "@material-ui/core/Grid";
 
 class CallScreen extends React.PureComponent {
   constructor(props) {
-    super(props);
+   super(props);
 
     this.state = {
       showCallScreen: false,
