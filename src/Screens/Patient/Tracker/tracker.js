@@ -34,7 +34,6 @@ const withingsMeasureType = {
     BoneMass: 88,
     PulseWaveVelocity: 91,
 };
-
 function TabContainer(props) {
     return (
         <Typography component="div" className="tabsCntnts">
@@ -82,6 +81,7 @@ class Index extends Component {
             localStorage.removeItem("fitbit_token")
             this.setState({ fitbitloggedIn: false, loggedin: false, withingsloggedIn: true, code: code })
             this.getDevice(code);
+            this.getUser(code)
             // this.getMeassure(code);
         }
     }
@@ -131,6 +131,19 @@ class Index extends Component {
 
 
     //GET WITHINGS DEVICES & DATA
+
+    getUser = (code)=>{
+        axios.post("https://wbsapi.withings.net/v2/user",
+        {
+            headers: {
+                Authorization: "Bearer " + code,
+                Accept: "application/json",
+                "Content-Type": "application/json",
+            },
+        }).then(res=>{
+            console.log("YUYUYUYU USER", res)
+        })
+    }
     getDevice = (code) => {
         axios.get("https://wbsapi.withings.net/v2/user?action=getdevice",
             {
@@ -142,6 +155,7 @@ class Index extends Component {
             }
         )
             .then((res) => {
+                console.log("getDevice", res)
                 if (res.data && res.data.body && res.data.body.devices) {
                     this.setState({ Devices_id: res.data.body.devices })
                 }
@@ -170,6 +184,7 @@ class Index extends Component {
                 } else if (this.state.optionsGraph && this.state.optionsGraph.length > 0) {
                     messureData = this.state.getMeassure
                 }
+                console.log("messureData response.data", response)
                 var labels = [], value = [], options = [];
                 messureData.measuregrps &&
                     messureData.measuregrps.length > 0 &&
@@ -541,18 +556,22 @@ class Index extends Component {
         this.setState({ openSrvc: false });
     };
 
-    handleOpenvData = (deviceid) => {
+    handleOpenvData = (device) => {
         if (this.state.withingsloggedIn) {
-            this.getMeassure(this.state.code, deviceid.deviceid)
-        }
+            this.getMeassure(this.state.code, device.deviceid)
+            this.setState({withingsDevice: device})
+        }else(
+            this.setState({fitbitDevice: device})
+        )
         this.setState({ vData: true, });
     };
     handleClosevData = () => {
         this.setState({ vData: false });
     };
 
+
     render() {
-        const { value, fitbitloggedIn, apidata, withingsloggedIn, garminloggedIn, Devices_id, deviceid } = this.state;
+        const {fitbitDevice, withingsDevice, value, fitbitloggedIn, apidata, withingsloggedIn, garminloggedIn, Devices_id, deviceid } = this.state;
         return (
             <Grid className="homeBg">
                 <Grid className="homeBgIner">
@@ -607,7 +626,8 @@ class Index extends Component {
                                                             <Grid className="fitBitSection">
                                                                 <Grid className="mainLogo1"><img src={require('../../../assets/images/fitbit.png')} alt="" title="" /></Grid>
                                                                 <Grid className="mainLogoAdd">
-                                                                    <a><img src={require('../../../assets/images/add.svg')} alt="" title="" className="addBlue" />
+                                                                    <a href="https://www.fitbit.com/oauth2/authorize?response_type=token&client_id=22BNVH&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fpatient%2Ftracker&scope=activity%20heartrate%20location%20nutrition%20profile%20settings%20sleep%20social%20weight&expires_in=604800">
+                                                                        <img src={require('../../../assets/images/add.svg')} alt="" title="" className="addBlue" />
                                                                         <img src={require('../../../assets/images/addgrey.svg')} alt="" title="" className="addGray" />Connect</a>
                                                                 </Grid>
                                                             </Grid>
@@ -616,12 +636,13 @@ class Index extends Component {
                                                             <Grid className="fitBitSection">
                                                                 <Grid className="mainLogo2"><img src={require('../../../assets/images/within.png')} alt="" title="" /></Grid>
                                                                 <Grid className="mainLogoAdd">
-                                                                    <a><img src={require('../../../assets/images/add.svg')} alt="" title="" className="addBlue" />
+                                                                    <a href="https://account.withings.com/oauth2_user/authorize2?response_type=code&client_id=198370b3fcf82d7ed5968266d053f376291849d5691751e9987e1d71ae867c92&scope=user.info,user.metrics,user.activity,user.sleepevents&redirect_uri=http://localhost:3000/patient/tracker&state=up">
+                                                                        <img src={require('../../../assets/images/add.svg')} alt="" title="" className="addBlue" />
                                                                         <img src={require('../../../assets/images/addgrey.svg')} alt="" title="" className="addGray" />Connect</a>
                                                                 </Grid>
                                                             </Grid>
                                                         </Grid>
-                                                        <Grid item xs={12} md={3}>
+                                                        {/* <Grid item xs={12} md={3}>
                                                             <Grid className="fitBitSection">
                                                                 <Grid className="mainLogo3"><img src={require('../../../assets/images/x23.png')} alt="" title="" /></Grid>
                                                                 <Grid className="mainLogoAdd">
@@ -629,8 +650,8 @@ class Index extends Component {
                                                                         <img src={require('../../../assets/images/addgrey.svg')} alt="" title="" className="addGray" />Connect</a>
                                                                 </Grid>
                                                             </Grid>
-                                                        </Grid>
-                                                        <Grid item xs={12} md={3}>
+                                                        </Grid> */}
+                                                        {/* <Grid item xs={12} md={3}>
                                                             <Grid className="fitBitSection">
                                                                 <Grid className="mainLogo1"><img src={require('../../../assets/images/fitbit.png')} alt="" title="" /></Grid>
                                                                 <Grid className="mainLogoAdd">
@@ -638,10 +659,10 @@ class Index extends Component {
                                                                         <img src={require('../../../assets/images/addgrey.svg')} alt="" title="" className="addGray" />Connect</a>
                                                                 </Grid>
                                                             </Grid>
-                                                        </Grid>
+                                                        </Grid> */}
                                                     </Grid>
 
-                                                    <Grid container direction="row" spacing={3}>
+                                                    {/* <Grid container direction="row" spacing={3}>
                                                         <Grid item xs={12} md={3}>
                                                             <Grid className="fitBitSection">
                                                                 <Grid className="mainLogo1"><img src={require('../../../assets/images/fitbit.png')} alt="" title="" /></Grid>
@@ -651,7 +672,7 @@ class Index extends Component {
                                                                 </Grid>
                                                             </Grid>
                                                         </Grid>
-                                                    </Grid>
+                                                    </Grid> */}
 
                                                 </Grid>
                                             </Grid>
@@ -711,11 +732,11 @@ class Index extends Component {
                                                                             </a></Grid>
                                                                         <Grid className="trckLogo"><img src={require('../../../assets/images/fitbit.png')} alt="" title="" /></Grid>
                                                                         <Grid className="trckCntnt">
-                                                                            <Grid><label>Klemen’s Fitbit 1</label></Grid>
+                                                                            <Grid><label>{apidata.user && apidata.user.user && apidata.user.user.displayName && apidata.user.user.displayName}</label></Grid>
                                                                             <p>{devicedata.deviceVersion}</p>
                                                                         </Grid>
                                                                     </Grid>
-                                                                    <Grid className="trackView"><a onClick={this.handleOpenvData}>View data</a></Grid>
+                                                                    <Grid className="trackView"><a onClick={()=>this.handleOpenvData(devicedata)}>View data</a></Grid>
                                                                 </Grid>
                                                             ))}
                                                         </Grid>
@@ -726,11 +747,11 @@ class Index extends Component {
                                                         <Grid item xs={12} md={3}>
                                                             {!withingsloggedIn &&
                                                                 <Grid className="trckSection">
-                                                                    <Grid className="trckSecIner1" >
+                                                                    <Grid className="trckSecIner" >
                                                                         <Grid className="trckLogo1" style={{ minHeight: "140px" }} >
-                                                                            <div style={{ minHeight: "40px" }}></div>
+                                                                            <div style={{ minHeight: "35px" }}></div>
                                                                             < a href="https://account.withings.com/oauth2_user/authorize2?response_type=code&client_id=198370b3fcf82d7ed5968266d053f376291849d5691751e9987e1d71ae867c92&scope=user.info,user.metrics,user.activity,user.sleepevents&redirect_uri=http://localhost:3000/patient/tracker&state=up">
-                                                                                <img style={{ minWidth: "120px", height: "80px", }} title="Loggin via Withings!" src={require('../../../assets/images/logo-withings.png')} style={{ maxWidth: "100px" }} alt="" />
+                                                                                <img title="Loggin via Withings!" src={require('../../../assets/images/logo-withings.png')} alt="" />
                                                                             </a>
                                                                         </Grid>
                                                                     </Grid>
@@ -747,9 +768,9 @@ class Index extends Component {
                                                                                 </ul>
                                                                             </a>
                                                                         </Grid>
-                                                                        <Grid className="trckLogo"><img style={{ height: "80px", minWidth: "100px" }} src={require('../../../assets/images/logo-withings.png')} alt="" title="" /></Grid>
+                                                                        <Grid className="trckLogo"><img style={{ minHeight: "40px" }} src={require('../../../assets/images/logo-withings.png')} alt="" title="" /></Grid>
                                                                         <Grid className="trckCntnt">
-                                                                            <Grid><label>Klemen’s Fitbit {i + 1}</label></Grid>
+                                                                            <Grid><label>Withings User {i + 1}</label></Grid>
                                                                             <p>{devices.model}</p>
                                                                         </Grid>
                                                                     </Grid>
@@ -804,11 +825,11 @@ class Index extends Component {
                                                                 <Grid className="disCnct">
                                                                     <Grid className="disCnctLft">
                                                                         <Grid>
-                                                                            <label>{fitbitloggedIn ? "Klemen’s Fitbit 1" : withingsloggedIn ? "Withings Devices" : ""}
+                                                                            <label>{fitbitloggedIn ? apidata.user && apidata.user.user && apidata.user.user.displayName && apidata.user.user.displayName : withingsloggedIn ? "Withings Devices" : ""}
                                                                                 <a><img src={require('../../../assets/images/editBlue.png')} alt="" title="" /></a>
                                                                             </label>
                                                                         </Grid>
-                                                                        <p>{fitbitloggedIn ? "Klemen’s Fitbit Device Model" : withingsloggedIn ? "Withings Devices Model" : ""}</p>
+                                                                        <p>{fitbitloggedIn ? fitbitDevice && fitbitDevice.deviceVersion : withingsloggedIn ? withingsDevice && withingsDevice.model : ""}</p>
                                                                     </Grid>
                                                                     <Grid className="disCnctRght">
                                                                         <a>Disconnect device</a>

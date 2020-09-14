@@ -12,6 +12,7 @@ import Loader from './../../../Components/Loader/index';
 import Radio from '@material-ui/core/Radio';
 import ReactFlagsSelect from 'react-flags-select';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import * as translationEN from '../../../../translations/en_json_proofread_13072020.json';
 
 
 class Index extends Component {
@@ -241,22 +242,57 @@ class Index extends Component {
     }
 
     render() {
+
+        let translate;
+        switch (this.props.stateLanguageType) {
+            case "en":
+                translate = translationEN.text
+                break;
+            // case "de":
+            //     translate = translationDE.text
+            //     break;
+            // case "pt":
+            //     translate = translationPT.text
+            //     break;
+            // case "sp":
+            //     translate = translationSP.text
+            //     break;
+            // case "rs":
+            //     translate = translationRS.text
+            //     break;
+            // case "nl":
+            //     translate = translationNL.text
+            //     break;
+            // case "ch":
+            //     translate = translationCH.text
+            //     break;
+            // case "sw":
+            //     translate = translationSW.text
+            //     break;
+            case "default":
+                translate = translationEN.text
+        }
+        let {free_text, format_updated, profile, information, ID, pin, QR_code, done, Change, edit_id_pin, edit, and, is, changed, profile_id_taken, profile_id_greater_then_5,
+            save_change, email, title, degree, first, last, name, dob, gender, street, add, city, postal_code, country, home_telephone, phone, country_code, Delete,
+            mobile_number, number, mobile, Languages, spoken, insurance, yes_shall_not_decided_by_person,  company, of, organ_transplant_declaration, blockchain_secure_organ_donar_Pass, 
+            easily_select_donar, organ_tissue, dont_allow_transplantation } = translate;
+
         return (
             <div>
                 {this.state.loaderImage && <Loader />}
                 <Grid>
-                    {this.state.PassDone && <div className="success_message">The Format is updated</div>}
+                    {this.state.PassDone && <div className="success_message">{format_updated}</div>}
                     <Grid className="secureChain">
-                        <h4>Blockchain secured organ donor pass</h4>
-                        <p>Here you can easily select to be an organ donor or not at anytime.</p>
+                        <h4>{blockchain_secure_organ_donar_Pass}</h4>
+                        <p>{easily_select_donar}</p>
                     </Grid>
                    
                     <Grid className="organDeclare">
-                        <h5>In case an organ / tissue of mine is considered to be transplanted after my death, I herewith declare: </h5>
+                        <h5>{organ_transplant_declaration}</h5>
                         <Grid><FormControlLabel value="yes_to_all" name="my_choice" checked={this.state.selectedOption === 'yes_to_all'} onChange={this.handleOptionChange.bind(this)} control={<Radio />} label="Yes, I herewith agree with a transplantation of one or more organ / tissues of mine after doctors have pronounced me dead" /></Grid>
                         <Grid><FormControlLabel value="exclude_some" name="my_choice" checked={this.state.selectedOption === 'exclude_some'} onChange={this.handleOptionChange.bind(this)} control={<Radio />} label="Yes, I allow this except for following organ / tissues:" /></Grid>
                         <Grid item xs={12} md={5} className="donarLang">
-                        <label>Organ / Tissues</label>
+                        <label>{organ_tissue}</label>
                         <Grid>
                             <Select
                                 name="exclude_some"
@@ -273,7 +309,7 @@ class Index extends Component {
                     </Grid>                     
                         <Grid><FormControlLabel value="yes" value="include_some" name="my_choice" checked={this.state.selectedOption === 'include_some'} onChange={this.handleOptionChange.bind(this)} control={<Radio />} label="Yes, I allow this only for following organ / tissues:" /></Grid>
                         <Grid item xs={12} md={5} className="donarLang">
-                        <label>Organ / Tissues</label>
+                        <label>{organ_tissue}</label>
                         <Grid>
                             <Select
                                 name="include_some"
@@ -291,8 +327,8 @@ class Index extends Component {
                     </Grid>
                     
                     <Grid className="organDecide">
-                        <Grid><FormControlLabel value="yes" value="not_allowed" name="my_choice" checked={this.state.selectedOption === 'not_allowed'} onChange={this.handleOptionChange.bind(this)} control={<Radio />} label="No, I DO NOT allow a transplantation of any of my organs or tissues" /></Grid>
-                        <Grid><FormControlLabel value="yes" value="decided_by_following" color="primary" name="my_choice" checked={this.state.selectedOption === 'decided_by_following'} onChange={this.handleOptionChange.bind(this)} control={<Radio />} label="Yes or No shall be decided by the following person:" /></Grid>
+                        <Grid><FormControlLabel value="yes" value="not_allowed" name="my_choice" checked={this.state.selectedOption === 'not_allowed'} onChange={this.handleOptionChange.bind(this)} control={<Radio />} label={dont_allow_transplantation} /></Grid>
+                        <Grid><FormControlLabel value="yes" value="decided_by_following" color="primary" name="my_choice" checked={this.state.selectedOption === 'decided_by_following'} onChange={this.handleOptionChange.bind(this)} control={<Radio />} label={yes_shall_not_decided_by_person} /></Grid>
                     </Grid>
 
                     <Grid>
@@ -301,13 +337,13 @@ class Index extends Component {
                                 <Grid container direction="row" alignItems="center" spacing={2} className="donarForm">
                                     <Grid item xs={12} md={this.props.comesFrom ? 12 : 6}>
                                         <Grid>
-                                            <Grid><label>First name</label></Grid>
+                                            <Grid><label>{first} {name}</label></Grid>
                                             <Grid><input type="text" name="first_name" onChange={this.updateEntryState} value={this.state.OptionData && this.state.OptionData.first_name}/></Grid>
                                         </Grid>
                                     </Grid>
                                     <Grid item xs={12} md={this.props.comesFrom ? 12 : 6}>
                                         <Grid>
-                                            <Grid><label>Last name</label></Grid>
+                                            <Grid><label>{last} {name}</label></Grid>
                                             <Grid><input type="text"  name="last_name" onChange={this.updateEntryState} value={this.state.OptionData && this.state.OptionData.last_name}/></Grid>
                                         </Grid>
                                     </Grid>
@@ -315,7 +351,7 @@ class Index extends Component {
                                 <Grid container direction="row" alignItems="center" spacing={2} className="donarForm">
                                     <Grid item xs={12} md={12}>
                                         <Grid>
-                                            <Grid><label>Street address</label></Grid>
+                                            <Grid><label>{street} {add} </label></Grid>
                                             <Grid><input type="text" name="address" onChange={this.updateEntryState} value={this.state.OptionData && this.state.OptionData.address}/></Grid>
                                         </Grid>
                                     </Grid>
@@ -323,13 +359,13 @@ class Index extends Component {
                                 <Grid container direction="row" alignItems="center" spacing={2} className="donarForm">
                                     <Grid item xs={12} md={7}>
                                         <Grid>
-                                            <Grid><label>City</label></Grid>
+                                            <Grid><label>{city}</label></Grid>
                                             <Grid><input type="text" name="city" onChange={this.updateEntryState} value={this.state.OptionData && this.state.OptionData.city}/></Grid>
                                         </Grid>
                                     </Grid>
                                     <Grid item xs={12} md={5}>
                                         <Grid>
-                                            <Grid><label>Postal code</label></Grid>
+                                            <Grid><label>{postal_code}</label></Grid>
                                             <Grid><input type="text" name="postal_code" onChange={this.updateEntryState} value={this.state.OptionData && this.state.OptionData.postal_code}/></Grid>
                                         </Grid>
                                     </Grid>
@@ -337,13 +373,13 @@ class Index extends Component {
                                 <Grid container direction="row" alignItems="center" spacing={2} className="donarForm">
                                     <Grid item xs={12} md={12}>
                                         <Grid className="OrganMobile">
-                                            <Grid><label>Mobile phone number</label></Grid>
+                                            <Grid><label>{mobile_number}</label></Grid>
                                             <Grid>
                                             {this.updateFLAG(this.state.OptionData.phone) && this.updateFLAG(this.state.OptionData.phone) !== '' &&
-                                                <ReactFlagsSelect placeholder="Country Code" onSelect={(e) => { this.updateFlags(e, 'flag_phone') }} name="flag_phone" showSelectedLabel={false} defaultCountry={this.updateFLAG(this.state.OptionData.phone)} />}
+                                                <ReactFlagsSelect placeholder={country_code} onSelect={(e) => { this.updateFlags(e, 'flag_phone') }} name="flag_phone" showSelectedLabel={false} defaultCountry={this.updateFLAG(this.state.OptionData.phone)} />}
                                             <input type="text"
                                                 className="Mobile_extra"
-                                                placeholder="phone"
+                                                placeholder={phone}
                                                 name="phone"
                                                 onChange={this.updateEntryState1}
                                                 value={this.state.OptionData.phone && this.updateMOBILE(this.state.OptionData.phone)}
@@ -355,14 +391,14 @@ class Index extends Component {
                                 <Grid container direction="row" alignItems="center" spacing={2} className="donarForm">
                                     <Grid item xs={12} md={12}>
                                         <Grid>
-                                            <Grid><label>Free Text</label></Grid>
+                                            <Grid><label>{free_text}</label></Grid>
                                             <input type="text" name="free_remarks" onChange={this.updateEntryState} value={this.state.OptionData && this.state.OptionData.free_remarks} />
                                         </Grid>
                                     </Grid>
                                 </Grid>
                                 <Grid container direction="row" alignItems="center" spacing={2} className="donarFormSubmit">
                                     <Grid item xs={12} md={12}>
-                                        <Grid><input type="submit" onClick={this.saveUserData} value="Save changes" /></Grid>
+                                        <Grid><input type="submit" onClick={this.saveUserData} value={save_change} /></Grid>
                                     </Grid>
                                 </Grid>
                             </Grid>
