@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 
-// Added By Ankita
+// Added By Ankita Patient Component
 import Register from "./../../Screens/Register";
 import Login from "./../../Screens/Login";
 import ForgotPass from "./../../Screens/ChangePassword"; 
@@ -20,6 +20,9 @@ import PatientTimeLine from "./../../Screens/Patient/Journal/index";
 import PatientChats from "./../../Screens/Patient/Chat/index"
 import PatientTimeLine1 from "./../../Screens/ViewTimelineComponent/index.js";
 import PatientBlockchain from "./../../Screens/Patient/More/blockchain.js";
+
+//Doctor Component
+import DoctorService from "./../../Screens/Doctor/Services/index.js"
 
 class Routermain extends Component {
   render() {
@@ -44,9 +47,13 @@ class Routermain extends Component {
             <Route exact path="/patient/Timelinecomponents" render={(props) => <PatientTimeLine1 {...props}/>} />
             <Route exact path="/patient/chats" render={(props) => <PatientChats {...props}/>} />
             <Route exact path="/patient/blockchain" render={(props) => <PatientBlockchain {...props}/>} />
-            
+            {/* Doctor Router Start*/}
+            <Route exact path="/doctor" render={(props) => <DoctorService {...props}/>} />
+            <Route exact path="/doctor/patient" render={(props) => <DoctorService {...props}/>} />
+            {/* Doctor Router End*/}
             <Route path='*' exact={true} render={(props) => <NotFound {...props} />} />
             {/* End By Ankita */}
+            
           </Switch>
         </Grid>
       </Router>
