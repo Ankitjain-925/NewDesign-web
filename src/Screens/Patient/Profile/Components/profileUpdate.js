@@ -28,13 +28,14 @@ import { LanguageFetchReducer } from './../../../actions';
 import Modal from '@material-ui/core/Modal';
 import Loader from './../../../Components/Loader/index';
 import DateFormat from './../../../Components/DateFormat/index'
+import * as translationEN from '../../../../translations/en_json_proofread_13072020.json';
 
 var datas = [];
 var insurances = [];
 
 class Index extends Component {
     constructor(props) {
-       super(props);
+        super(props);
         this.autocompleteInput = React.createRef();
         this.city = null;
         this.handlePlaceChanged = this.handlePlaceChanged.bind(this);
@@ -733,6 +734,7 @@ class Index extends Component {
 
 
 
+
     render() {
         const { stateLoginValueAim, Doctorsetget } = this.props;
         const { value, editInsuData, insurancefull, editIndex, insuranceDetails } = this.state;
@@ -744,18 +746,51 @@ class Index extends Component {
             )
         });
 
+        let translate;
+        switch (this.props.stateLanguageType) {
+            case "en":
+                translate = translationEN.text
+                break;
+            // case "de":
+            //     translate = translationDE.text
+            //     break;
+            // case "pt":
+            //     translate = translationPT.text
+            //     break;
+            // case "sp":
+            //     translate = translationSP.text
+            //     break;
+            // case "rs":
+            //     translate = translationRS.text
+            //     break;
+            // case "nl":
+            //     translate = translationNL.text
+            //     break;
+            // case "ch":
+            //     translate = translationCH.text
+            //     break;
+            // case "sw":
+            //     translate = translationSW.text
+            //     break;
+            case "default":
+                translate = translationEN.text
+        }
+        let { profile_info, profile, information, ID, pin, QR_code, done, Change, edit_id_pin, edit, and, is, changed, profile_id_taken, profile_id_greater_then_5,
+            save_change, email, title, degree, first, last, name, dob, gender, street, add, city, postal_code, country, home_telephone, phone, country_code, Delete,
+            mobile_number, number, mobile, Languages, spoken, insurance, add_more,  company, of, info_copied, profile_updated, profile_not_updated, mobile_number_not_valid, insurance_added } = translate;
+
+
         return (
             <div>
                 {this.state.loaderImage && <Loader />}
                 <Grid className="profileMy">
                     <Grid className="profileInfo">
-                        {this.state.copied && <div className="success_message">Information is Copied</div>}
-                        {this.state.succUpdate && <div className="success_message">Profile is updated</div>}
-                        {this.state.error3 && <div className="err_message">Profile is not updated. Can not reach to server</div>}
-                        {this.state.phonevalidate && <div className="err_message">Mobile number is not valid</div>}
-                        <h1>Profile information</h1>
-                        <p>This is your profile information, which is accessible to your trusted Doctors and those
-                        you share your Profile ID nad PIN with.</p>
+                        {this.state.copied && <div className="success_message">{info_copied}</div>}
+                        {this.state.succUpdate && <div className="success_message">{profile_updated}</div>}
+                        {this.state.error3 && <div className="err_message">{profile_not_updated}</div>}
+                        {this.state.phonevalidate && <div className="err_message">{mobile_number_not_valid}</div>}
+                        <h1>{profile} {information}</h1>
+                        <p>{profile_info}</p>
                     </Grid>
                 </Grid>
 
@@ -765,12 +800,12 @@ class Index extends Component {
                             <Grid className="profileIdLft">
                                 <Grid container direction="row" alignItems="center" spacing={1}>
                                     <Grid item xs={12} md={7}>
-                                        <label>Profile ID</label><span id="profile_id">{this.state.UpDataDetails.alies_id && this.state.UpDataDetails.alies_id}</span>
+                                        <label>{profile} {ID}</label><span id="profile_id">{this.state.UpDataDetails.alies_id && this.state.UpDataDetails.alies_id}</span>
                                         <a><img src={require('../../../../assets/images/copycopy.svg')} onClick={() => this.copyText('profile_id')} alt="" title="" /></a>
                                         <a><img src={require('../../../../assets/images/qr-code.svg')} onClick={this.handleQrOpen} alt="" title="" /></a>
                                     </Grid>
                                     <Grid item xs={12} md={5}>
-                                        <label>PIN</label><span id="profile_pin">{this.state.UpDataDetails.pin && this.state.UpDataDetails.pin}</span>
+                                        <label>{pin}</label><span id="profile_pin">{this.state.UpDataDetails.pin && this.state.UpDataDetails.pin}</span>
                                         <a><img src={require('../../../../assets/images/copycopy.svg')} onClick={() => this.copyText('profile_pin')} alt="" title="" /></a>
                                     </Grid>
                                 </Grid>
@@ -788,18 +823,18 @@ class Index extends Component {
                                             <img src={require('../../../../assets/images/closefancy.png')} alt="" title="" />
                                         </a>
                                     </Grid>
-                                    <Grid><label>Profile QR code</label></Grid>
+                                    <Grid><label>{profile} {QR_code}</label></Grid>
                                 </Grid>
                                 <Grid className="qrCourseImg">
                                     <Grid><img src={require('../../../../assets/images/qrimg.jpg')} alt="" title="" /></Grid>
-                                    <Grid><input type="submit" value="Done" /></Grid>
+                                    <Grid><input type="submit" value={done} /></Grid>
                                 </Grid>
                             </Grid>
                         </Modal>
                         {/* End of QR Model setup */}
                         <Grid item xs={12} md={4}>
                             <Grid className="profileIdRght">
-                                <a onClick={this.handlePinOpen}>Change ID / PIN</a>
+                                <a onClick={this.handlePinOpen}>{Change} {ID} / {pin}</a>
                             </Grid>
                         </Grid>
                         {/* Change ID and Pin */}
@@ -814,23 +849,23 @@ class Index extends Component {
                                             <img src={require('../../../../assets/images/closefancy.png')} alt="" title="" />
                                         </a>
                                     </Grid>
-                                    <Grid><label>Edit ID and PIN</label></Grid>
-                                    <p>You can change your ID and PIN as many times as you want.</p>
+                                    <Grid><label>{edit} {ID} {and} {pin}</label></Grid>
+                                    <p>{edit_id_pin}</p>
                                 </Grid>
                                 <Grid className="editPinform">
                                     <Grid className="editField">
-                                        {this.state.ChangedPIN && <div className="success_message">Profile ID and PIN is changed</div>}
-                                        <label>Profile ID</label>
+                                        {this.state.ChangedPIN && <div className="success_message">{profile} {ID} {and} {pin} {is} {changed}</div>}
+                                        <label>{profile} {ID}</label>
                                         <Grid><input type="text" name="alies_id" onChange={this.changeAlies} value={this.state.UpDataDetails.alies_id} /></Grid>
-                                        {this.state.DuplicateAlies && <p>This Profile ID is already taken. Please try a different ID</p>}
-                                        {this.state.toSmall && <p>Profile id must be greater then 5 characters</p>}
+                                        {this.state.DuplicateAlies && <p>{profile_id_taken}</p>}
+                                        {this.state.toSmall && <p>{profile_id_greater_then_5}</p>}
                                     </Grid>
                                     <Grid className="editField">
-                                        <label>PIN</label>
+                                        <label>{pin}</label>
                                         <Grid><input type="text" name="pin" onChange={this.updateEntryState} value={this.state.UpDataDetails.pin} /></Grid>
                                     </Grid>
                                     <Grid>
-                                        <input type="submit" onClick={this.ChangeIDPIN} value="Save changes" />
+                                        <input type="submit" onClick={this.ChangeIDPIN} value={save_change} />
                                     </Grid>
                                 </Grid>
                             </Grid>
@@ -846,7 +881,7 @@ class Index extends Component {
                             <Grid className="profileInfoIner">
                                 <Grid container direction="row" alignItems="center" spacing={2}>
                                     <Grid item xs={12} md={12}>
-                                        <label>Email address</label>
+                                        <label>{email} {add}</label>
                                         <Grid><input name="email" type="text" onChange={this.updateEntryState} value={this.state.UpDataDetails.email} disabled /></Grid>
                                     </Grid>
                                 </Grid>
@@ -855,7 +890,7 @@ class Index extends Component {
                             <Grid className="profileInfoIner titleDegre">
                                 <Grid container direction="row" alignItems="center" spacing={2}>
                                     <Grid item xs={12} md={3}>
-                                        <label>Title / Degree</label>
+                                        <label>{title} / {degree}</label>
                                         <Grid>
                                             <Select
                                                 value={this.state.title}
@@ -870,11 +905,11 @@ class Index extends Component {
                                         </Grid>
                                     </Grid>
                                     <Grid item xs={12} md={4}>
-                                        <label>First name</label>
+                                        <label>{first} {name}</label>
                                         <Grid><input type="text" name="first_name" value={this.state.UpDataDetails.first_name} onChange={this.updateEntryState} /></Grid>
                                     </Grid>
                                     <Grid item xs={12} md={4}>
-                                        <label>Last name</label>
+                                        <label>{last} {name}</label>
                                         <Grid><input type="text" name="last_name" onChange={this.updateEntryState} value={this.state.UpDataDetails.last_name} /></Grid>
                                     </Grid>
                                 </Grid>
@@ -883,18 +918,18 @@ class Index extends Component {
                             <Grid className="profileInfoDate">
                                 <Grid container direction="row" alignItems="center" spacing={2}>
                                     <Grid item xs={12} md={4}>
-                                        <label>Date of birth</label>
+                                        <label>{dob}</label>
                                         <Grid>
                                             {/* <DatePicker
                                                 name="birthday"
                                                 value={this.state.UpDataDetails.birthday ? new Date(this.state.UpDataDetails.birthday) : new Date()}
                                                 onChange={this.onChange}
                                             /> */}
-                                            <DateFormat name="birthday" value={this.state.UpDataDetails.birthday ? new Date(this.state.UpDataDetails.birthday) : new Date()}  onChange={this.onChange} date_format={this.props.settings.setting && this.props.settings.setting.date_format} onChange={this.onChange}/>
+                                            <DateFormat name="birthday" value={this.state.UpDataDetails.birthday ? new Date(this.state.UpDataDetails.birthday) : new Date()} onChange={this.onChange} date_format={this.props.settings.setting && this.props.settings.setting.date_format} onChange={this.onChange} />
                                         </Grid>
                                     </Grid>
                                     <Grid item xs={12} md={8}>
-                                        <label>Gender</label>
+                                        <label>{gender}</label>
                                         <Grid>
                                             <a onClick={() => this.EntryValueName('male', 'sex')} className={this.state.UpDataDetails.sex && this.state.UpDataDetails.sex === 'male' && "SelectedGender"}>Male</a>
                                             <a onClick={() => this.EntryValueName('female', 'sex')} className={this.state.UpDataDetails.sex && this.state.UpDataDetails.sex === 'female' && "SelectedGender"}>Female</a>
@@ -907,7 +942,7 @@ class Index extends Component {
                             <Grid className="profileInfoIner">
                                 <Grid container direction="row" alignItems="center" spacing={2}>
                                     <Grid item xs={12} md={8}>
-                                        <label>Street address</label>
+                                        <label>{street} {add}</label>
                                         <Grid><input type="text" name="address" onChange={this.updateEntryState} value={this.state.UpDataDetails.address ? this.state.UpDataDetails.address : ''} /></Grid>
                                     </Grid>
                                 </Grid>
@@ -916,12 +951,12 @@ class Index extends Component {
                             <Grid className="profileInfoIner">
                                 <Grid container direction="row" alignItems="center" spacing={2}>
                                     <Grid item xs={12} md={8}>
-                                        <label>City</label>
+                                        <label>{city}</label>
                                         <Grid>
                                             <Autocomplete value={this.state.city} stateLanguageType={this.props.stateLanguageType} onPlaceChanged={this.updateEntryCity.bind(this)} />                                        </Grid>
                                     </Grid>
                                     <Grid item xs={12} md={4}>
-                                        <label>Postal code</label>
+                                        <label>{postal_code}</label>
                                         <Grid><input type="text" name="pastal_code" onChange={this.updateEntryState} value={this.state.UpDataDetails.pastal_code ? this.state.UpDataDetails.pastal_code : ''} /></Grid>
                                     </Grid>
                                 </Grid>
@@ -930,7 +965,7 @@ class Index extends Component {
                             <Grid className="profileInfoIner">
                                 <Grid container direction="row" alignItems="center" spacing={2}>
                                     <Grid item xs={12} md={8}>
-                                        <label>Country</label>
+                                        <label>{country}</label>
                                         <Grid>
                                             <Select
                                                 value={this.state.UpDataDetails.country}
@@ -951,13 +986,13 @@ class Index extends Component {
                             <Grid className="profileInfoIner">
                                 <Grid container direction="row" alignItems="center" spacing={2}>
                                     <Grid item xs={12} md={8}>
-                                        <label>Home telephone number</label>
+                                        <label>{home_telephone}</label>
                                         <Grid>
                                             {this.updateFLAG(this.state.UpDataDetails.phone) && this.updateFLAG(this.state.UpDataDetails.phone) !== '' &&
-                                                <ReactFlagsSelect placeholder="Country Code" onSelect={(e) => { this.updateFlags(e, 'flag_phone') }} name="flag_phone" showSelectedLabel={false} defaultCountry={this.updateFLAG(this.state.UpDataDetails.phone)} />}
+                                                <ReactFlagsSelect placeholder={country_code} onSelect={(e) => { this.updateFlags(e, 'flag_phone') }} name="flag_phone" showSelectedLabel={false} defaultCountry={this.updateFLAG(this.state.UpDataDetails.phone)} />}
                                             <input type="text"
                                                 className="Mobile_extra"
-                                                placeholder="phone"
+                                                placeholder={phone}
                                                 name="phone"
                                                 onChange={this.updateEntryState1}
                                                 value={this.state.UpDataDetails.phone && this.updateMOBILE(this.state.UpDataDetails.phone)}
@@ -972,13 +1007,13 @@ class Index extends Component {
                             <Grid className="profileInfoIner">
                                 <Grid container direction="row" alignItems="center" spacing={2}>
                                     <Grid item xs={12} md={8}>
-                                        <label>Mobile phone number</label>
+                                        <label>{mobile_number}</label>
                                         <Grid>
                                             {this.updateFLAG(this.state.UpDataDetails.mobile) && this.updateFLAG(this.state.UpDataDetails.mobile) !== '' &&
                                                 <ReactFlagsSelect placeholder="Country Code" onSelect={(e) => { this.updateFlags(e, 'flag_mobile') }} name="flag_mobile" showSelectedLabel={false} defaultCountry={this.updateFLAG(this.state.UpDataDetails.mobile)} />}
                                             <input type="text"
                                                 className="Mobile_extra"
-                                                placeholder="mobile"
+                                                placeholder={mobile}
                                                 name="mobile"
                                                 type="text"
                                                 onChange={this.updateEntryState1}
@@ -994,7 +1029,7 @@ class Index extends Component {
                             <Grid className="profileInfoIner">
                                 <Grid container direction="row" alignItems="center" spacing={2}>
                                     <Grid item xs={12} md={8}>
-                                        <label>Languages spoken</label>
+                                        <label>{Languages} {spoken}</label>
                                         <Grid>
                                             <Select
                                                 value={this.state.name_multi}
@@ -1020,9 +1055,9 @@ class Index extends Component {
                 </Grid>
 
                 <Grid className="insrnceTbl">
-                    <Grid><h3>Insurance</h3></Grid>
+                    <Grid><h3>{insurance}</h3></Grid>
                     <Grid className="profileIdRght">
-                        <a onClick={this.handleAddInsurance}>Add more Insurance</a>
+                        <a onClick={this.handleAddInsurance}>{add_more} {insurance}</a>
                     </Grid>
                     {/* Add more insurance model Open */}
                     <Modal
@@ -1036,12 +1071,12 @@ class Index extends Component {
                                         <img src={require('../../../../assets/images/closefancy.png')} alt="" title="" />
                                     </a>
                                 </Grid>
-                                <Grid><label>Add More Insurance</label></Grid>
+                                <Grid><label>{add_more} {insurance}</label></Grid>
                             </Grid>
                             <Grid className="editPinform">
                                 <Grid className="editField">
-                                    {this.state.insurnanceAdded && <div className="success_message">Insuranse added Successfully.</div>}
-                                    <label>Country of insurance</label>
+                                    {this.state.insurnanceAdded && <div className="success_message">{insurance_added}</div>}
+                                    <label>{country} {of} {insurance}</label>
                                     <Grid>
                                         <Select
                                             onChange={this.selectCountry}
@@ -1054,7 +1089,7 @@ class Index extends Component {
                                     </Grid>
                                 </Grid>
                                 <Grid className="editField">
-                                    <label>Insurance Company</label>
+                                    <label>{insurance} {company}</label>
                                     <Grid><input type="text" name="insurance" value={(insuranceDetails && insuranceDetails.insurance) && insuranceDetails.insurance} onChange={this.insuranceForm} /></Grid>
                                     <ul className="insuranceHint" style={{ height: companyList && companyList.length > 0 ? '150px' : '' }}>
                                         {companyList}
@@ -1062,11 +1097,11 @@ class Index extends Component {
                                 </Grid>
 
                                 <Grid className="editField">
-                                    <label>Insurance Number</label>
+                                    <label>{insurance} {number}</label>
                                     <Grid><input type="text" name="insurance_number" onChange={(e) => this.insuranceForm(e)} /></Grid>
                                 </Grid>
                                 <Grid>
-                                    <input type="submit" onClick={this.saveUserData} value="Save changes" />
+                                    <input type="submit" onClick={this.saveUserData} value={save_change} />
                                 </Grid>
                             </Grid>
                         </Grid>
@@ -1075,9 +1110,9 @@ class Index extends Component {
                     <Table>
                         <thead>
                             <tr>
-                                <th>Country of insurance</th>
-                                <th>Insurance Company</th>
-                                <th>Insurance Number</th>
+                                <th>{country} {of} {insurance}</th>
+                                <th>{insurance} {company}</th>
+                                <th>{insurance} {number}</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -1090,8 +1125,8 @@ class Index extends Component {
                                     <td className="presEditDot scndOptionIner"><a className="openScndhrf">
                                         <img src={require('../../../../assets/images/moreicon.jpg')} alt="" title="" className="openScnd" />
                                         <ul>
-                                            <li><a onClick={() => this.editKYCopen(insu, i)}><img src={require('../../../../assets/images/edit.svg')} alt="" title="" />Edit</a></li>
-                                            <li><a onClick={() => this.removeInsurance(i, insu)} ><img src={require('../../../../assets/images/closefancy.png')} alt="" title="" />Delete</a></li>
+                                            <li><a onClick={() => this.editKYCopen(insu, i)}><img src={require('../../../../assets/images/edit.svg')} alt="" title="" />{edit}</a></li>
+                                            <li><a onClick={() => this.removeInsurance(i, insu)} ><img src={require('../../../../assets/images/closefancy.png')} alt="" title="" />{Delete}</a></li>
                                         </ul>
                                     </a></td>
                                 </tr>
@@ -1110,12 +1145,12 @@ class Index extends Component {
                                         <img src={require('../../../../assets/images/closefancy.png')} alt="" title="" />
                                     </a>
                                 </Grid>
-                                <Grid><label>Edit Insurance</label></Grid>
+                                <Grid><label>{edit} {insurance}</label></Grid>
                             </Grid>
                             <Grid className="editPinform">
                                 <Grid className="editField">
-                                    {this.state.insurnanceAdded && <div className="success_message">Insuranse added Successfully.</div>}
-                                    <label>Country of insurance</label>
+                                    {this.state.insurnanceAdded && <div className="success_message">{insurance_added}</div>}
+                                    <label>{country} {of} {insurance}</label>
                                     <Grid>
                                         <Select
                                             value={datas[editIndex] && datas[editIndex].insurance_country ? this.filterCountry1(datas[editIndex] && datas[editIndex].insurance_country) : ''}
@@ -1129,7 +1164,7 @@ class Index extends Component {
                                     </Grid>
                                 </Grid>
                                 <Grid className="editField">
-                                    <label>Insurance Company</label>
+                                    <label>{insurance} {company}</label>
                                     <Grid><input type="text" value={datas[editIndex] && datas[editIndex].insurance ? datas[editIndex] && datas[editIndex].insurance : ''} name="insurance" onChange={(event) => this.updatesinsurances(editIndex, event)} /></Grid>
                                     <ul className="insuranceHint" style={{ height: companyList && companyList.length > 0 ? '150px' : '' }}>
                                         {companyList}
@@ -1137,11 +1172,11 @@ class Index extends Component {
                                 </Grid>
 
                                 <Grid className="editField">
-                                    <label>Insurance Number</label>
+                                    <label>{insurance} {number}</label>
                                     <Grid><input type="text" value={datas[editIndex] && datas[editIndex].insurance_number ? datas[editIndex] && datas[editIndex].insurance_number : ''} name="insurance_number" onChange={(event) => this.updatesinsurances(editIndex, event)} /></Grid>
                                 </Grid>
                                 <Grid>
-                                    <input type="submit" onClick={this.saveUserData} value="Save changes" />
+                                    <input type="submit" onClick={this.saveUserData} value={save_change} />
                                 </Grid>
                             </Grid>
                         </Grid>
@@ -1152,7 +1187,7 @@ class Index extends Component {
                 <Grid className="infoSub">
                     <Grid container direction="row" alignItems="center" spacing={2}>
                         <Grid item xs={12} md={5}>
-                            <Grid><input type="submit" onClick={this.saveUserData} value="Save changes" /></Grid>
+                            <Grid><input type="submit" onClick={this.saveUserData} value={save_change} /></Grid>
                         </Grid>
                         <Grid item xs={12} md={7}></Grid>
                         <Grid className="clear"></Grid>
