@@ -339,9 +339,8 @@ class Index extends Component {
 
 
     render() {
-        const { specialistOption } = this.state;
-        const { value, profileDetail } = this.state;
-        const { stateLoginValueAim, Doctorsetget } = this.props;
+        const { profileDetail } = this.state;
+        const { stateLoginValueAim , stateLanguageType} = this.props;
         if (stateLoginValueAim.user === 'undefined' || stateLoginValueAim.token === 450 || stateLoginValueAim.token === 'undefined' || stateLoginValueAim.user.type !== 'doctor') {
             return (<Redirect to={'/'} />);
         }
@@ -574,12 +573,12 @@ class Index extends Component {
                                                                 </Grid>
 
                                                                 <Grid className="registerRow">
-                                                                    <Grid><label>{translate('Register_email', this.state.stateLanguageType)}</label></Grid>
+                                                                    <Grid><label>{translate('Register_email', stateLanguageType)}</label></Grid>
                                                                     <Grid><input type="text" name="email" onChange={this.handleChange} /></Grid>
                                                                 </Grid>
 
                                                                 <Grid className="registerRow passInstMain">
-                                                                    <Grid><label>{translate('Register_Password', this.state.stateLanguageType)}</label></Grid>
+                                                                    <Grid><label>{translate('Register_Password', stateLanguageType)}</label></Grid>
                                                                     <Grid className="registerPass">
                                                                         <input
                                                                             type={this.state.hidden ? "password" : "text"}
@@ -600,21 +599,21 @@ class Index extends Component {
                                                                     {this.state.userDetails && this.state.userDetails.password ?
                                                                         <div className="passInst">
                                                                             <div className="passInstIner">
-                                                                                <p>{translate('Register_Passwordshould', this.state.stateLanguageType)}</p>
+                                                                                <p>{translate('Register_Passwordshould', stateLanguageType)}</p>
                                                                                 <img src={require('../../../assets/images/passArrow.png')} alt="" title="" className="passArow" />
                                                                                 <ul>
-                                                                                    <li>{this.state.userDetails && this.state.userDetails.password && this.state.userDetails.password.length > 8 && <a><img src={require('../../../assets/images/CheckCircle.svg')} alt="" title="" />{translate('Register_characters', this.state.stateLanguageType)}</a>}
-                                                                                        {this.state.userDetails && this.state.userDetails.password && this.state.userDetails.password.length <= 8 && <a><img src={require('../../../assets/images/CloseCircle.svg')} alt="" title="" />{translate('Register_characters', this.state.stateLanguageType)}</a>}
+                                                                                    <li>{this.state.userDetails && this.state.userDetails.password && this.state.userDetails.password.length > 8 && <a><img src={require('../../../assets/images/CheckCircle.svg')} alt="" title="" />{translate('Register_characters', stateLanguageType)}</a>}
+                                                                                        {this.state.userDetails && this.state.userDetails.password && this.state.userDetails.password.length <= 8 && <a><img src={require('../../../assets/images/CloseCircle.svg')} alt="" title="" />{translate('Register_characters', stateLanguageType)}</a>}
                                                                                     </li>
-                                                                                    <li>{this.state.userDetails && this.state.userDetails.password && !this.state.userDetails.password.match(letter) && <a><img src={require('../../../assets/images/CloseCircle.svg')} alt="" title="" />{translate('Register_letter', this.state.stateLanguageType)}</a>}
-                                                                                        {this.state.userDetails && this.state.userDetails.password && this.state.userDetails.password.match(letter) && <a><img src={require('../../../assets/images/CheckCircle.svg')} alt="" title="" />{translate('Register_letter', this.state.stateLanguageType)}</a>}
+                                                                                    <li>{this.state.userDetails && this.state.userDetails.password && !this.state.userDetails.password.match(letter) && <a><img src={require('../../../assets/images/CloseCircle.svg')} alt="" title="" />{translate('Register_letter', stateLanguageType)}</a>}
+                                                                                        {this.state.userDetails && this.state.userDetails.password && this.state.userDetails.password.match(letter) && <a><img src={require('../../../assets/images/CheckCircle.svg')} alt="" title="" />{translate('Register_letter', stateLanguageType)}</a>}
                                                                                     </li>
-                                                                                    <li>{this.state.userDetails && this.state.userDetails.password && !this.state.userDetails.password.match(number) && <a><img src={require('../../../assets/images/CloseCircle.svg')} alt="" title="" />{translate('Register_number', this.state.stateLanguageType)}</a>}
-                                                                                        {this.state.userDetails && this.state.userDetails.password && this.state.userDetails.password.match(number) && <a><img src={require('../../../assets/images/CheckCircle.svg')} alt="" title="" />{translate('Register_number', this.state.stateLanguageType)}</a>}
+                                                                                    <li>{this.state.userDetails && this.state.userDetails.password && !this.state.userDetails.password.match(number) && <a><img src={require('../../../assets/images/CloseCircle.svg')} alt="" title="" />{translate('Register_number', stateLanguageType)}</a>}
+                                                                                        {this.state.userDetails && this.state.userDetails.password && this.state.userDetails.password.match(number) && <a><img src={require('../../../assets/images/CheckCircle.svg')} alt="" title="" />{translate('Register_number', stateLanguageType)}</a>}
                                                                                     </li>
                                                                                     <li>
-                                                                                        {this.state.userDetails && this.state.userDetails.password && !this.state.userDetails.password.match(specialchar) && <a><img src={require('../../../assets/images/CloseCircle.svg')} alt="" title="" />{translate('Register_special', this.state.stateLanguageType)}</a>}
-                                                                                        {this.state.userDetails && this.state.userDetails.password && this.state.userDetails.password.match(specialchar) && <a><img src={require('../../../assets/images/CheckCircle.svg')} alt="" title="" />{translate('Register_special', this.state.stateLanguageType)}</a>}
+                                                                                        {this.state.userDetails && this.state.userDetails.password && !this.state.userDetails.password.match(specialchar) && <a><img src={require('../../../assets/images/CloseCircle.svg')} alt="" title="" />{translate('Register_special', stateLanguageType)}</a>}
+                                                                                        {this.state.userDetails && this.state.userDetails.password && this.state.userDetails.password.match(specialchar) && <a><img src={require('../../../assets/images/CheckCircle.svg')} alt="" title="" />{translate('Register_special', stateLanguageType)}</a>}
                                                                                     </li>
                                                                                 </ul>
                                                                             </div>
