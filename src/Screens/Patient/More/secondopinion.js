@@ -17,6 +17,7 @@ import Loader from '../../Components/Loader/index';
 import LeftMenu from './../../Components/Menus/PatientLeftMenu/index';
 import FileUploader from './../../Components/FileUploader/index';
 import { AddFavDoc, ConsoleCustom } from './../../Components/BasicMethod/index';
+import * as translationEN from "../../../translations/en_json_proofread_13072020.json"
 
 const specialistOptions = [
     { value: 'Specialist1', label: 'Specialist1' },
@@ -25,7 +26,7 @@ const specialistOptions = [
 
 class Index extends Component {
     constructor(props) {
-       super(props);
+        super(props);
         this.state = {
             addSec: false,
             specialistOption: null,
@@ -222,6 +223,38 @@ class Index extends Component {
 
     render() {
         const { specialistOption } = this.state;
+        let translate;
+        switch (this.props.stateLanguageType) {
+            case "en":
+                translate = translationEN.text
+                break;
+            // case "de":
+            //     translate = translationDE.text
+            //     break;
+            // case "pt":
+            //     translate = translationPT.text
+            //     break;
+            // case "sp":
+            //     translate = translationSP.text
+            //     break;
+            // case "rs":
+            //     translate = translationRS.text
+            //     break;
+            // case "nl":
+            //     translate = translationNL.text
+            //     break;
+            // case "ch":
+            //     translate = translationCH.text
+            //     break;
+            // case "sw":
+            //     translate = translationSW.text
+            //     break;
+            case "default":
+                translate = translationEN.text
+        }
+        let { secnd_openion, New, inquiry, plz_upload_png_jpg, doc_require_for_second_openion, share_health_status,
+            see_list_shared_info, share_health_status_info_from_journal, specilist_and_secnd_openion, ur_profesion,
+            Annotations, details, questions, attachments, rqst_sent_succefully, how_wuld_u_like_rcv_scnd_openion } = translate;
         return (
 
             <Grid className="homeBg">
@@ -237,9 +270,9 @@ class Index extends Component {
                                 <Grid item xs={12} md={9}>
                                     <Grid className="scndOpinion">
                                         <Grid container direction="row" className="ScndOpinLbl">
-                                            <Grid item xs={12} md={6}><label>Second Opinions</label></Grid>
+                                            <Grid item xs={12} md={6}><label>{secnd_openion}</label></Grid>
                                             <Grid item xs={12} md={6} className="ScndOpinRght">
-                                                <a onClick={this.handleaddSecond}>+ New Second Opinion</a>
+                                                <a onClick={this.handleaddSecond}>+ {New} {secnd_openion}</a>
                                             </Grid>
                                         </Grid>
 
@@ -256,14 +289,14 @@ class Index extends Component {
                                                                 <img src={require('../../../assets/images/closefancy.png')} alt="" title="" />
                                                             </a>
                                                         </Grid>
-                                                        <p>New inquiry</p>
-                                                        <Grid><label>Second Opinion</label></Grid>
+                                                        <p>{New} {inquiry}</p>
+                                                        <Grid><label>{secnd_openion}</label></Grid>
                                                     </Grid>
-                                                    {this.state.err_pdf && <div className="err_message">Please upload PDF, PNG and JPEG file</div>}
-                                                    {this.state.error && <div className="err_message">For Second Opinion request Doctor is required</div>}
+                                                    {this.state.err_pdf && <div className="err_message">{plz_upload_png_jpg}</div>}
+                                                    {this.state.error && <div className="err_message">{doc_require_for_second_openion}</div>}
                                                     <Grid className="shrHlthMain">
                                                         {!this.state.found && <Grid className="shrHlth">
-                                                            <h2>Share health status</h2>
+                                                            <h2>{share_health_status}</h2>
                                                             <Grid className="shrHlthChk">
                                                                 <FormControlLabel
                                                                     control={
@@ -277,12 +310,11 @@ class Index extends Component {
                                                                     label="Share journal health status with Doctor"
                                                                 />
                                                             </Grid>
-                                                            <p>This will share your health status info from your journal,
-                                                               as this is needed for the doctor to be able to approve your prescription request.</p>
-                                                            <p>See list of shared information <a><img src={require('../../../assets/images/Info.svg')} alt="" title="" /></a></p>
+                                                            <p>{share_health_status_info_from_journal}</p>
+                                                            <p>{see_list_shared_info}<a><img src={require('../../../assets/images/Info.svg')} alt="" title="" /></a></p>
                                                         </Grid>}
                                                         <Grid className="stndrdQues">
-                                                            <h3>Specialist and standard questions</h3>
+                                                            <h3>{specilist_and_secnd_openion}</h3>
                                                             <Grid className="splestQues">
                                                                 <Grid><label>Specialist</label></Grid>
                                                                 <Grid>
@@ -297,22 +329,22 @@ class Index extends Component {
                                                                 </Grid>
                                                             </Grid>
                                                             <Grid className="recevPrescp">
-                                                                <Grid className="recevPrescpLbl"><label>How would you like to receive the Second Opinion?</label></Grid>
+                                                                <Grid className="recevPrescpLbl"><label>{how_wuld_u_like_rcv_scnd_openion}?</label></Grid>
                                                                 <Grid className="recevPrescpChk">
                                                                     <FormControlLabel control={<Radio />} name="online_offline" value="online" color="#00ABAF" checked={this.state.AddSecond && this.state.AddSecond.online_offline === 'online'} onChange={this.AddState} label="Online" />
                                                                     <FormControlLabel control={<Radio />} name="online_offline" color="#00ABAF" value="offline" checked={this.state.AddSecond && this.state.AddSecond.online_offline === 'offline'} onChange={this.AddState} label="Home address mailbox" />
                                                                 </Grid>
                                                             </Grid>
                                                             <Grid className="yrProfes">
-                                                                <Grid><label>Your profession</label></Grid>
+                                                                <Grid><label>{ur_profesion}</label></Grid>
                                                                 <Grid><input type="text" name="professions" value={this.state.AddSecond && this.state.AddSecond.professions && this.state.AddSecond.professions} onChange={this.AddState} /></Grid>
                                                             </Grid>
                                                             <Grid className="yrProfes">
-                                                                <Grid><label>Annotations / details / questions</label></Grid>
+                                                                <Grid><label>{Annotations} / {details} / {questions}</label></Grid>
                                                                 <Grid><textarea name="details" value={this.state.AddSecond && this.state.AddSecond.details && this.state.AddSecond.details} onChange={this.AddState}></textarea></Grid>
                                                             </Grid>
                                                             <Grid className="attchForms attchImg">
-                                                                <Grid><label>Attachments</label></Grid>
+                                                                <Grid><label>{attachments}</label></Grid>
                                                                 <FileUploader name="UploadDocument" fileUpload={this.fileUpload} />
                                                                 {/* <Grid className="attchbrowsInput">
                                                                     <a><img src={require('../../../assets/images/upload-file.svg')} alt="" title="" /></a>
@@ -345,7 +377,7 @@ class Index extends Component {
                                             </Grid>
                                         </Modal>
                                         {/* End of Model setup */}
-                                        {this.state.successfullsent && <div className="success_message">Request sent Sucessfully</div>}
+                                        {this.state.successfullsent && <div className="success_message">{rqst_sent_succefully}</div>}
                                         <ListingSecond newItem={this.state.newItemp} />
 
                                     </Grid>
@@ -364,7 +396,7 @@ class Index extends Component {
 const mapStateToProps = (state) => {
     const { stateLoginValueAim, loadingaIndicatoranswerdetail } = state.LoginReducerAim;
     const { stateLanguageType } = state.LanguageReducer;
-    const {settings} = state.Settings;
+    const { settings } = state.Settings;
     // const { Doctorsetget } = state.Doctorset;
     // const { catfil } = state.filterate;
     return {
