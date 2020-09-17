@@ -885,6 +885,22 @@
 		"session": "Session",
 		"no_device_connctd":"No devices connected",
 		"ur_connected_device_appear":"Your connected devices will appear here",
-		"connct_a_device":"Connect a device"
+		"connct_a_device":"Connect a device",
+		"blockchain_access_log":"Blockchain Access Log",
+		"log_type":"Log type",
+		"created_by":"Created by",
+		"time_created":"Time created",
+		"ur_emergancy_data":"Your Emergency Data",
+		"extra":"Extra",
+		"srvc":"Service",
+		"activated":"Activated",
+		"deactivated":"deactivated",
+		"srvc_not_updt_cannt_reach_srvr":"Service is not updated. Can not reach to server",
+		"doc_around_clock":"Doc Around the Clock",
+		"cntct_aimedis_medi_team_24_7":"Contact the Aimedis medical team 24 / 7 for questions",
+		"data_srvcs":"Data Services",
+		"stay_upto_date_orgnize_data":"Stay up to date and let Aimedis organize your medical data",
+		"available":"Available",
+		"activate":"Activate"
 	}
 }
