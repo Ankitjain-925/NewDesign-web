@@ -8853,8 +8853,8 @@ a.menuActv img {
     padding: 14px 8px;
 }
 .openJourMenu img {
-    height: 50px;
-    width: 50px;
+    height: 25px;
+    width: 25px;
     cursor: pointer;
 }
 .openJourMenu {
@@ -8863,7 +8863,7 @@ a.menuActv img {
 .openJourMenu a ul {
     display: none;
     margin-bottom: 0px;
-    width: 178px;
+    width: 198px;
     text-align: left;
     border: 1px solid #F2F2F2;
     border-radius: 8px;
@@ -10328,4 +10328,11 @@ input:focus {
      left: 0px !important;
      right: 0px !important;
    }
+  }
+
+  .patietnRegister {
+    max-height: calc(100vh - 200px);
+    overflow: hidden;
+    overflow-y: auto;
+    position: relative;
   }

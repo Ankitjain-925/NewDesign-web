@@ -705,7 +705,9 @@
 		"Staff_addstaff": "+ add staff",
 		"want_to_register": "I want to register to the Aimedis health newsletter (optional).",
 		"I_agree_to_our": "By clicking the box I agree to our terms of use and accept the data collection, data processing and the use of my personal data. More in our privacy policy.",
-		"Staff_SENDREC": "SEND RECRUITMENT FORM"
+		"Staff_SENDREC": "SEND RECRUITMENT FORM",
+
+		"Mnotvalids" : "Mobile number is not valid"
 	
 	}
 

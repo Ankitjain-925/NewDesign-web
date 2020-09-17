@@ -705,7 +705,9 @@
 		"Staff_addstaff":"+添加员工",
 		"want_to_register":"我想注册Aimedis健康通讯（可选）。",
 		"I_agree_to_our":"通过点击方框，我同意我们的使用条款，并接受数据收集，数据处理和使用我的个人数据。 更多信息，请参阅我们的隐私政策。",
-		"Staff_SENDREC":"发送招聘表格"
+		"Staff_SENDREC":"发送招聘表格",
+
+		"Mnotvalids" : "手机号码无效"
 	}
 
 }

@@ -704,7 +704,9 @@
 		"Staff_addstaff": "+ add staff",
 		"want_to_register": "Ich möchte mich für den Aimedis-Gesundheitsnewsletter registrieren (optional).",
 		"I_agree_to_our": "Durch Klicken auf das Kästchen stimme ich unseren Nutzungsbedingungen zu und akzeptiere die Datenerfassung, Datenverarbeitung und die Verwendung meiner persönlichen Daten. Mehr in unserer Datenschutzerklärung.",
-		"Staff_SENDREC": "ABSENDEN"
+		"Staff_SENDREC": "ABSENDEN",
+
+		"Mnotvalids" : "Handynummer ist ungültig"
 	
 	}
 

@@ -705,7 +705,9 @@
 		"Staff_addstaff": "+ adicionar equipe",
 		"want_to_register": "Quero me registrar no boletim de saúde da Aimedis (opcional).",
 		"I_agree_to_our": "Ao clicar na caixa, concordo com nossos termos de uso e aceito a coleta de dados, o processamento de dados e o uso de meus dados pessoais. Mais em nossa política de privacidade.",
-		"Staff_SENDREC": "ENVIAR FORMULÁRIO DE RECRUTAMENTO"
+		"Staff_SENDREC": "ENVIAR FORMULÁRIO DE RECRUTAMENTO",
+
+		"Mnotvalids" : "O número do celular não é válido"
 	
 	}
 

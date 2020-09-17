@@ -495,7 +495,9 @@
 		"ICU_bed_finder_icu": "ICU kitanda finder!",
 		"free_one_click_away": "bure ICU kitanda ni moja tu click mbali!",
 		"patient_in acceptable_time": "Na hii Aimedis moduli unaweza kupata bure ICU vitanda katika sekunde na kuona ICU hali kivitendo katika muda halisi. Hii avoids muda mrefu, kuchoka na kwa ajili ya mgonjwa katika kukubalika inachukua muda kupata bure ICU kitanda wakati katika hali mbaya.",
-		"search_icu_bed_icu" : "tafuta kwa ajili ya kitanda icu"
+		"search_icu_bed_icu" : "tafuta kwa ajili ya kitanda icu",
+
+		"Mnotvalids" : "Nambari ya simu sio halali"
    
 	}
 

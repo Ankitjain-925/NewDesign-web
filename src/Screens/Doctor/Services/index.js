@@ -5,10 +5,6 @@ import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
 import Modal from '@material-ui/core/Modal';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
-import Select from 'react-select';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
-import AppBar from '@material-ui/core/AppBar';
 import Typography from '@material-ui/core/Typography';
 import PropTypes from 'prop-types';
 import ReactTooltip from "react-tooltip";
@@ -27,11 +23,11 @@ import Loader from './../../Components/Loader/index';
 import { Redirect, Route } from 'react-router-dom';
 import moment from 'moment';
 import translate from './../../Components/Translator/index.js';
+import ReactFlagsSelect from 'react-flags-select';
+import 'react-flags-select/css/react-flags-select.css';
+import 'react-flags-select/scss/react-flags-select.scss';
+import contry from './../../Components/countryBucket/countries.json';
 var letter = /([a-zA-Z])+([ -~])*/, number = /\d+/, specialchar = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
-const specialistOptions = [
-    { value: 'Specialist1', label: 'Specialist1' },
-    { value: 'Specialist2', label: 'Specialist2' },
-];
 
 function TabContainer(props) {
     return (
@@ -85,7 +81,11 @@ class Index extends Component {
             AddPrescription: {},
             profileDetail: {},
             successfullsent: false,
-            AskPatient: ''
+            AskPatient: '',
+            userDetails: {},
+            hidden: true,
+            Mnotvalid: false,
+            regisError: null
         };
     }
 
@@ -202,6 +202,94 @@ class Index extends Component {
             })
     }
 
+
+    //For save data of user
+    saveUserData() {
+        ;
+        const { userDetails } = this.state;
+        let user_token = this.props.stateLoginValueAim.token;
+        this.setState({ regisError: null })
+        if (userDetails.first_name && userDetails.last_name && userDetails.first_name !== '' && userDetails.last_name !== '') {
+            if (this.validateEmail(userDetails.email)) {
+                if (userDetails && userDetails.password && userDetails.password.match(letter) && userDetails.password.match(number) && userDetails.password.match(specialchar)) {
+                    if (userDetails.mobile && userDetails.mobile !== '') {
+                        this.setState({ loaderImage: true })
+                        if (userDetails.country_code) {
+                            var country_code = userDetails.country_code
+                        }
+                        else {
+                            var country_code = 'de'
+                        }
+
+                        axios.post(sitedata.data.path + '/UserProfile/AddUser/', {
+                            type: 'patient',
+                            email: userDetails.email,
+                            password: userDetails.password,
+                            country_code: country_code,
+                            mobile: userDetails.mobile,
+                            is2fa: userDetails.is2fa ? false : userDetails.is2fa,
+                            lan: this.props.stateLanguageType,
+                            first_name: userDetails.first_name,
+                            last_name: userDetails.last_name
+                        })
+                            .then((responce) => {
+                                this.setState({ loaderImage: false });
+                                if (responce.data.hassuccessed === true) {
+                                    this.setState({ openNew: false })
+                                    axios.post('https://api-us.cometchat.io/v2.0/users', {
+                                        uid: responce.data.data.profile_id,
+                                        name: responce.data.data.profile_id
+                                    },
+                                        {
+                                            headers: {
+                                                'appId': '15733dce3a73034',
+                                                'apiKey': '2f6b4a6b99868d7af0a2964d5f292abbb68e05a7',
+                                                'Accept': 'application/json',
+                                                'Content-Type': 'application/json'
+                                            }
+                                        })
+                                        .then((res) => { })
+                                    axios.post(sitedata.data.path + '/UserProfile/AddtoPatientList/' + this.props.stateLoginValueAim.user.profile_id, {
+                                        profile_id: responce.data.data.profile_id
+                                    }, {
+                                        headers: {
+                                            'token': user_token,
+                                            'Accept': 'application/json',
+                                            'Content-Type': 'application/json'
+                                        }
+                                    }).then((responce) => { })
+                                    this.setState({ successfull: true, alreadyerror: false, Mnotvalid: false, regisError: null })
+                                    setTimeout(
+                                        function () {
+                                            this.setState({ successfull: false });
+                                        }
+                                            .bind(this),
+                                        5000
+                                    );
+                                    this.getMypatientsData();
+                                }
+                                else if (responce.data.message === "Phone is not verified") {
+                                    this.setState({ successfull: false, Mnotvalid: true, alreadyerror: false })
+                                }
+                                else {
+                                    this.setState({ successfull: false, alreadyerror: true, Mnotvalid: false })
+
+                                }
+                            })
+                            .catch(err => { })
+
+
+
+                    }
+                    else { this.setState({ regisError: "Please fill mobile number" }) }
+                }
+                else { this.setState({ regisError: "Password is not valid" }) }
+            }
+            else { this.setState({ regisError: "E-mail is not valid" }) }
+        }
+        else { this.setState({ regisError: 'Please fill the full name of user' }) }
+    }
+
     // Open and Close Prescription Edit Form
     handleaddPatient = (data) => {
         this.setState({ addPatient: true, showPatient: false, profileDetail: data });
@@ -300,13 +388,36 @@ class Index extends Component {
 
     handleChange = (e) => {
         const state = this.state.userDetails
-        if (e.target.name === 'terms_and_conditions' || e.target.name === 'license_of_practice', e.target.name === 'is2fa') {
+        if (e.target.name === 'is2fa') {
             state[e.target.name] = e.target.checked;
         }
         else {
             state[e.target.name] = e.target.value;
         }
+        console.log("userDetails", state)
         this.setState({ userDetails: state });
+    }
+
+    //For select the country code Flag
+    onSelectFlag = (countryCode) => {
+        const state = this.state.userDetails
+        state['country_code'] = countryCode.toLowerCase();
+        this.setState({ userDetails: state });
+    }
+
+    //For show or hide the Password
+    toggleShow = () => {
+        this.setState({ hidden: !this.state.hidden });
+    }
+
+    handlePasswordChange(e) {
+        this.setState({ password: e.target.value });
+    }
+
+    //For validate the email is correct or not
+    validateEmail = (elementValue) => {
+        var emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+        return emailPattern.test(elementValue);
     }
 
     //Get Age 
@@ -321,7 +432,8 @@ class Index extends Component {
         return age;
     }
 
-    removePatient = () => {
+    removePatient = (patientData) => {
+        this.setState({profileDetail: patientData})
         this.handleCloseShowPatient();
         confirmAlert({
             title: "Remove Patient",
@@ -339,8 +451,8 @@ class Index extends Component {
 
 
     render() {
-        const { profileDetail } = this.state;
-        const { stateLoginValueAim , stateLanguageType} = this.props;
+        const { profileDetail, userDetails } = this.state;
+        const { stateLoginValueAim, stateLanguageType } = this.props;
         if (stateLoginValueAim.user === 'undefined' || stateLoginValueAim.token === 450 || stateLoginValueAim.token === 'undefined' || stateLoginValueAim.user.type !== 'doctor') {
             return (<Redirect to={'/'} />);
         }
@@ -392,9 +504,13 @@ class Index extends Component {
                                                             <Td style={{ textTransform: 'capitalize' }}>{data.sex ? data.sex : 'Not mentioned'}</Td>
                                                             <Td>{data.mobile ? data.mobile : 'Not mentioned'}</Td>
                                                             <Td>{data.alies_id ? data.alies_id : 'Not mentioned'}</Td>
-                                                            <Td className="presEditDot scndOptionIner">
-                                                                <a onClick={(e) => this.handleshowPatient(data)}>
-                                                                    <img src={require('../../../assets/images/threedots.jpg')} alt="" title="" className="openScnd" />
+                                                            <Td className="presEditDot scndOptionIner openJourMenu">
+                                                                <a><img src={require('../../../assets/images/threedots.jpg')} alt="" title="" className="openScnd" />
+                                                                    <ul>
+                                                                        <li><img src={require('../../../assets/images/journal1.svg')} alt="" title="" />Open Journal</li>
+                                                                        <li onClick={(e)=>this.handleshowPatient(data)}><img src={require('../../../assets/images/personal-info.svg')} alt="" title="" />Personal info</li>
+                                                                        <li onClick={this.removePatient(data)}><img src={require('../../../assets/images/del.png')} alt="" title="" />Remove patient</li>
+                                                                    </ul>
                                                                 </a>
                                                             </Td>
                                                         </Tr>
@@ -461,19 +577,8 @@ class Index extends Component {
                                                             </Grid>
                                                             <Grid className="openJournal">
                                                                 <Grid container direction="row" justifyContent="center" alignItems="center">
-                                                                    <Grid item xs={9} md={9}>
+                                                                    <Grid item xs={12} md={12}>
                                                                         <input type="submit" value="Open Journal" />
-                                                                    </Grid>
-                                                                    <Grid item xs={3} md={3}>
-                                                                        <Grid className="openJourMenu">
-                                                                            <a><img src={require('../../../assets/images/threedots.jpg')} alt="" title="" />
-                                                                                <ul>
-                                                                                    <li><a><img src={require('../../../assets/images/journal1.svg')} alt="" title="" />Open Journal</a></li>
-                                                                                    <li><a><img src={require('../../../assets/images/personal-info.svg')} alt="" title="" />Personal info</a></li>
-                                                                                    <li><a onClick={this.removePatient}><img src={require('../../../assets/images/del.png')} alt="" title="" />Remove patient</a></li>
-                                                                                </ul>
-                                                                            </a>
-                                                                        </Grid>
                                                                     </Grid>
                                                                 </Grid>
                                                             </Grid>
@@ -549,6 +654,7 @@ class Index extends Component {
                                             <Modal
                                                 open={this.state.openNew}
                                                 onClose={this.handleCloseNewPatient}
+                                                className="nwPresModel"
                                             >
                                                 <Grid className="dataBoxCntnt">
                                                     <Grid className="dataCourse">
@@ -560,80 +666,102 @@ class Index extends Component {
                                                         <Grid><label>New Patient</label></Grid>
                                                         <p>Add new patient in your list</p>
                                                     </Grid>
-                                                    
-                                                        <Grid className="registerForm">
-                                                                <Grid className="registerRow">
-                                                                    <Grid><label>First Name</label></Grid>
-                                                                    <Grid><input type="text" name="first_name" onChange={this.handleChange} /></Grid>
-                                                                </Grid>
 
-                                                                <Grid className="registerRow">
-                                                                    <Grid><label>Last Name</label></Grid>
-                                                                    <Grid><input type="text" name="last_name" onChange={this.handleChange} /></Grid>
-                                                                </Grid>
+                                                    <Grid className="dataBoxUpr patietnRegister">
+                                                        <Grid className="registerRow">
+                                                            <Grid><label>First Name</label></Grid>
+                                                            <Grid><input type="text" name="first_name" onChange={this.handleChange} /></Grid>
+                                                        </Grid>
 
-                                                                <Grid className="registerRow">
-                                                                    <Grid><label>{translate('Register_email', stateLanguageType)}</label></Grid>
-                                                                    <Grid><input type="text" name="email" onChange={this.handleChange} /></Grid>
-                                                                </Grid>
+                                                        <Grid className="registerRow">
+                                                            <Grid><label>Last Name</label></Grid>
+                                                            <Grid><input type="text" name="last_name" onChange={this.handleChange} /></Grid>
+                                                        </Grid>
 
-                                                                <Grid className="registerRow passInstMain">
-                                                                    <Grid><label>{translate('Register_Password', stateLanguageType)}</label></Grid>
-                                                                    <Grid className="registerPass">
-                                                                        <input
-                                                                            type={this.state.hidden ? "password" : "text"}
-                                                                            name="password"
-                                                                            onChange={this.handleChange}
-                                                                        />
-                                                                        {this.state.hidden &&
-                                                                            <a onClick={this.toggleShow}>
-                                                                                <img src={require('../../../assets/images/showeye.svg')} alt="" title="" />
-                                                                            </a>
-                                                                        }
-                                                                        {!(this.state.hidden) &&
-                                                                            <a onClick={this.toggleShow}>
-                                                                                <img src={require('../../../assets/images/hide.svg')} alt="" title="" />
-                                                                            </a>
-                                                                        }
-                                                                    </Grid>
-                                                                    {this.state.userDetails && this.state.userDetails.password ?
-                                                                        <div className="passInst">
-                                                                            <div className="passInstIner">
-                                                                                <p>{translate('Register_Passwordshould', stateLanguageType)}</p>
-                                                                                <img src={require('../../../assets/images/passArrow.png')} alt="" title="" className="passArow" />
-                                                                                <ul>
-                                                                                    <li>{this.state.userDetails && this.state.userDetails.password && this.state.userDetails.password.length > 8 && <a><img src={require('../../../assets/images/CheckCircle.svg')} alt="" title="" />{translate('Register_characters', stateLanguageType)}</a>}
-                                                                                        {this.state.userDetails && this.state.userDetails.password && this.state.userDetails.password.length <= 8 && <a><img src={require('../../../assets/images/CloseCircle.svg')} alt="" title="" />{translate('Register_characters', stateLanguageType)}</a>}
-                                                                                    </li>
-                                                                                    <li>{this.state.userDetails && this.state.userDetails.password && !this.state.userDetails.password.match(letter) && <a><img src={require('../../../assets/images/CloseCircle.svg')} alt="" title="" />{translate('Register_letter', stateLanguageType)}</a>}
-                                                                                        {this.state.userDetails && this.state.userDetails.password && this.state.userDetails.password.match(letter) && <a><img src={require('../../../assets/images/CheckCircle.svg')} alt="" title="" />{translate('Register_letter', stateLanguageType)}</a>}
-                                                                                    </li>
-                                                                                    <li>{this.state.userDetails && this.state.userDetails.password && !this.state.userDetails.password.match(number) && <a><img src={require('../../../assets/images/CloseCircle.svg')} alt="" title="" />{translate('Register_number', stateLanguageType)}</a>}
-                                                                                        {this.state.userDetails && this.state.userDetails.password && this.state.userDetails.password.match(number) && <a><img src={require('../../../assets/images/CheckCircle.svg')} alt="" title="" />{translate('Register_number', stateLanguageType)}</a>}
-                                                                                    </li>
-                                                                                    <li>
-                                                                                        {this.state.userDetails && this.state.userDetails.password && !this.state.userDetails.password.match(specialchar) && <a><img src={require('../../../assets/images/CloseCircle.svg')} alt="" title="" />{translate('Register_special', stateLanguageType)}</a>}
-                                                                                        {this.state.userDetails && this.state.userDetails.password && this.state.userDetails.password.match(specialchar) && <a><img src={require('../../../assets/images/CheckCircle.svg')} alt="" title="" />{translate('Register_special', stateLanguageType)}</a>}
-                                                                                    </li>
-                                                                                </ul>
-                                                                            </div>
-                                                                        </div>
-                                                                        : <div className="passInst">
-                                                                            <div className="passInstIner">
-                                                                                <p>Password should contain at least:</p>
-                                                                                <img src={require('../../../assets/images/passArrow.png')} alt="" title="" className="passArow" />
-                                                                                <ul>
-                                                                                    <li><a><img src={require('../../../assets/images/CloseCircle.svg')} alt="" title="" />8 characters</a></li>
-                                                                                    <li><a><img src={require('../../../assets/images/CloseCircle.svg')} alt="" title="" />1 letter</a></li>
-                                                                                    <li><a><img src={require('../../../assets/images/CloseCircle.svg')} alt="" title="" />1 number</a></li>
-                                                                                    <li><a><img src={require('../../../assets/images/CloseCircle.svg')} alt="" title="" />1 special character</a></li>
-                                                                                </ul>
-                                                                            </div>
-                                                                        </div>}
-                                                                </Grid>
+                                                        <Grid className="registerRow">
+                                                            <Grid><label>{translate('Register_email', stateLanguageType)}</label></Grid>
+                                                            <Grid><input type="text" name="email" onChange={this.handleChange} /></Grid>
+                                                        </Grid>
+
+                                                        <Grid className="registerRow passInstMain">
+                                                            <Grid><label>{translate('Register_Password', stateLanguageType)}</label></Grid>
+                                                            <Grid className="registerPass">
+                                                                <input
+                                                                    type={this.state.hidden ? "password" : "text"}
+                                                                    name="password"
+                                                                    onChange={this.handleChange}
+                                                                />
+                                                                {this.state.hidden &&
+                                                                    <a onClick={this.toggleShow}>
+                                                                        <img src={require('../../../assets/images/showeye.svg')} alt="" title="" />
+                                                                    </a>
+                                                                }
+                                                                {!(this.state.hidden) &&
+                                                                    <a onClick={this.toggleShow}>
+                                                                        <img src={require('../../../assets/images/hide.svg')} alt="" title="" />
+                                                                    </a>
+                                                                }
                                                             </Grid>
-                                                        
-                                                    
+                                                            {userDetails && userDetails.password ?
+                                                                <div className="passInst">
+                                                                    <div className="passInstIner">
+                                                                        <p>{translate('Register_Passwordshould', stateLanguageType)}</p>
+                                                                        <img src={require('../../../assets/images/passArrow.png')} alt="" title="" className="passArow" />
+                                                                        <ul>
+                                                                            <li>{userDetails && userDetails.password && userDetails.password.length > 8 && <a><img src={require('../../../assets/images/CheckCircle.svg')} alt="" title="" />{translate('Register_characters', stateLanguageType)}</a>}
+                                                                                {userDetails && userDetails.password && userDetails.password.length <= 8 && <a><img src={require('../../../assets/images/CloseCircle.svg')} alt="" title="" />{translate('Register_characters', stateLanguageType)}</a>}
+                                                                            </li>
+                                                                            <li>{userDetails && userDetails.password && !userDetails.password.match(letter) && <a><img src={require('../../../assets/images/CloseCircle.svg')} alt="" title="" />{translate('Register_letter', stateLanguageType)}</a>}
+                                                                                {userDetails && userDetails.password && userDetails.password.match(letter) && <a><img src={require('../../../assets/images/CheckCircle.svg')} alt="" title="" />{translate('Register_letter', stateLanguageType)}</a>}
+                                                                            </li>
+                                                                            <li>{userDetails && userDetails.password && !userDetails.password.match(number) && <a><img src={require('../../../assets/images/CloseCircle.svg')} alt="" title="" />{translate('Register_number', stateLanguageType)}</a>}
+                                                                                {userDetails && userDetails.password && userDetails.password.match(number) && <a><img src={require('../../../assets/images/CheckCircle.svg')} alt="" title="" />{translate('Register_number', stateLanguageType)}</a>}
+                                                                            </li>
+                                                                            <li>
+                                                                                {userDetails && userDetails.password && !userDetails.password.match(specialchar) && <a><img src={require('../../../assets/images/CloseCircle.svg')} alt="" title="" />{translate('Register_special', stateLanguageType)}</a>}
+                                                                                {userDetails && userDetails.password && userDetails.password.match(specialchar) && <a><img src={require('../../../assets/images/CheckCircle.svg')} alt="" title="" />{translate('Register_special', stateLanguageType)}</a>}
+                                                                            </li>
+                                                                        </ul>
+                                                                    </div>
+                                                                </div>
+                                                                : <div className="passInst">
+                                                                    <div className="passInstIner">
+                                                                        <p>Password should contain at least:</p>
+                                                                        <img src={require('../../../assets/images/passArrow.png')} alt="" title="" className="passArow" />
+                                                                        <ul>
+                                                                            <li><a><img src={require('../../../assets/images/CloseCircle.svg')} alt="" title="" />8 characters</a></li>
+                                                                            <li><a><img src={require('../../../assets/images/CloseCircle.svg')} alt="" title="" />1 letter</a></li>
+                                                                            <li><a><img src={require('../../../assets/images/CloseCircle.svg')} alt="" title="" />1 number</a></li>
+                                                                            <li><a><img src={require('../../../assets/images/CloseCircle.svg')} alt="" title="" />1 special character</a></li>
+                                                                        </ul>
+                                                                    </div>
+                                                                </div>}
+                                                        </Grid>
+                                                        <Grid className="registerRow regMobNum">
+                                                            <Grid><label>{translate('Register_Mobilenumber', stateLanguageType)}</label></Grid>
+                                                            <Grid>
+                                                                <ReactFlagsSelect placeholder="Country Code" name="country_code" onSelect={this.onSelectFlag} showSelectedLabel={false} defaultCountry="DE" />
+                                                                <input type="text" className="mobileReg" type="number" name="mobile" onChange={this.handleChange} />
+                                                            </Grid>
+                                                            <FormControlLabel className="regMob"
+                                                                control={<Checkbox value="checkedA" onChange={this.handleChange}
+                                                                    name="is2fa" />}
+                                                                label={translate('Register_activate_auth', stateLanguageType)}
+                                                            />
+                                                        </Grid>
+                                                        <div className="err_message">
+                                                            {this.state.regisError}
+                                                            {this.state.namevald}
+                                                            {this.state.Mnotvalid && translate('Mnotvalids', stateLanguageType)}
+                                                        </div>
+                                                        <Grid className="registerRow">
+                                                            <Grid className="regCrtAc">
+                                                                <input type="submit" value={translate('Register_CREATE', stateLanguageType)} onClick={this.saveUserData.bind(this)} />
+                                                            </Grid>
+                                                        </Grid>
+                                                    </Grid>
+
+
                                                 </Grid>
                                             </Modal>
                                             {/* End of Modal for New Patient Enter */}
