@@ -24,6 +24,7 @@ import PatientarchiveJournal from "./../../Screens/Patient/More/archiveJournal.j
 
 //Doctor Component
 import DoctorService from "./../../Screens/Doctor/Services/index.js"
+import MyDocument from "./../../Screens/Doctor/MyDocument/index.js"
 
 class Routermain extends Component {
   render() {
@@ -52,6 +53,7 @@ class Routermain extends Component {
             {/* Doctor Router Start*/}
             <Route exact path="/doctor" render={(props) => <DoctorService {...props}/>} />
             <Route exact path="/doctor/patient" render={(props) => <DoctorService {...props}/>} />
+            <Route exact path="/doctor/mydocument" render={(props) => <MyDocument {...props}/>} />
             {/* Doctor Router End*/}
             
             
