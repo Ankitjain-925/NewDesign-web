@@ -10,12 +10,17 @@ class Index extends Component {
         this.state = {
             item: this.props.data || {},
             date_format: this.props.date_format,
-            time_foramt: this.props.time_format
+            time_foramt: this.props.time_format,
+            archive : this.props.archive,
+            loggedinUser : this.props.loggedinUser
         };
     }
 
-    componentDidMount = () => {
-
+   
+  componentDidUpdate = (prevProps) => {
+        if (prevProps.data !== this.props.data || prevProps.loggedinUser !== this.props.loggedinUser) {
+            this.setState({   item: this.props.data, loggedinUser : this.props.loggedinUser})
+        }
     }
 
     render() {
@@ -37,7 +42,7 @@ class Index extends Component {
                                 </Grid>
                             </Grid>
                             <Grid item xs={12} md={6}>
-                                <Grid className="bp_vsblSec">
+                                <Grid className="bp_vsblSec scndOptionIner1">
                                     <a className="bp_vsblEye"><img src={require('../../../../assets/images/eye2.png')} alt="" title="" /> <span>Visible</span> </a>
                                     <a className="vsblTime" data-tip data-for={item.track_id + 'visibility'}>
                                         <img src={require('../../../../assets/images/clock.svg')} alt="" title="" />
@@ -46,7 +51,19 @@ class Index extends Component {
                                         {item.visible === 'show' ? <label>Show until</label> : <label>Hide until</label>}
                                         {item.public === 'always' ? <p> Always </p> : <p>{getDate(item.public, this.state.date_format)}</p>}
                                     </ReactTooltip>
-                                    <a className="bp_vsblDots"><img src={require('../../../../assets/images/nav-more.svg')} alt="" title="" /></a>
+                                         <a className="openScndhrf1">
+                                                <img src={require('../../../../assets/images/threedots.jpg')} alt="" title="" className="openScnd1" />
+                                                {!this.props.Archive ? <ul>
+                                                    <li><a onClick={(data) => this.props.ArchiveTrack(item)}><img src={require('../../../../assets/images/archive-1.svg')} alt="" title="" />Archive</a></li>
+                                                    {this.state.loggedinUser._id === item.created_by && <li><a onClick={()=>this.props.EidtOption(item.type, item)}><img src={require('../../../../assets/images/edit-1.svg')} alt="" title="" />Edit</a></li>}
+                                                    {this.state.loggedinUser._id !== item.created_by && <li><a onClick={()=>this.props.EidtOption(item.type, item, true)}><img src={require('../../../../assets/images/edit.svg')} alt="" title="" />Change Visibility</a></li>}
+                                                    <li><a onClick={(deleteKey)=>this.props.DeleteTrack(item.track_id)}><img src={require('../../../../assets/images/cancel-request.svg')} alt="" title="" />Delete</a></li>
+                                                </ul>:
+                                                <ul>
+                                                    <li><a onClick={(data) => this.props.ArchiveTrack(item)}><img src={require('../../../../assets/images/archive-1.svg')} alt="" title="" />De-Archive</a></li>
+                                                    <li><a onClick={(deleteKey)=>this.props.DeleteTrack(item.track_id)}><img src={require('../../../../assets/images/cancel-request.svg')} alt="" title="" />Delete</a></li>
+                                                </ul>}
+                                            </a>
                                 </Grid>
                             </Grid>
                             <Grid className="clear"></Grid>
@@ -75,21 +92,21 @@ class Index extends Component {
                                         <Grid item xs={12} md={6} className="bloodPreBy">
                                             <Grid container direction="row">
                                                 <Grid item xs={5} md={5}><label>Smoking Status</label></Grid>
-                                                <Grid item xs={7} md={7}><span>{item.smoking_status && item.smoking_status.labels}</span></Grid>
+                                                <Grid item xs={7} md={7}><span>{item.smoking_status && item.smoking_status.label}</span></Grid>
                                                 <Grid className="clear"></Grid>
                                             </Grid>
                                         </Grid>
                                         <Grid item xs={12} md={6} className="bloodPreBy">
                                             <Grid container direction="row">
                                                 <Grid item xs={5} md={5}><label>From When</label></Grid>
-                                                <Grid item xs={7} md={7}><span>{item.from_when && item.from_when}</span></Grid>
+                                                <Grid item xs={7} md={7}><span>{item.from_when && getDate(item.from_when, this.state.date_format)}</span></Grid>
                                                 <Grid className="clear"></Grid>
                                             </Grid>
                                         </Grid>
                                         <Grid item xs={12} md={6} className="bloodPreBy">
                                             <Grid container direction="row">
                                                 <Grid item xs={5} md={5}><label>Until When</label></Grid>
-                                                <Grid item xs={7} md={7}><span>{item.until_when && item.until_when} </span></Grid>
+                                                <Grid item xs={7} md={7}><span>{item.until_when && getDate(item.until_when, this.state.date_format)} </span></Grid>
                                                 <Grid className="clear"></Grid>
                                             </Grid>
                                         </Grid>
@@ -101,7 +118,7 @@ class Index extends Component {
                         <Grid className="addSpc detailMark">
                             <Collapsible trigger="Notes" open="true">
                                 <Grid className="detailCntnt">
-                                    {/* <p>{item.remarks}</p> */}
+                                    <p dangerouslySetInnerHTML={{__html: item.remarks}} />
                                 </Grid>
                             </Collapsible>
                         </Grid>

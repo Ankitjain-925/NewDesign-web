@@ -20,42 +20,53 @@ import AnamnesisView from '../AnamnesisView/index';
 import PrescriptionView from '../PrescriptionView/index';
 import SOView from '../SOView/index';
 import SCView from '../SCView/index';
-import EmptyData from '../EmptyData/index';
 
 class Index extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            allTrack: this.props.allTrack,
-            loggedinUser : this.props.loggedinUser,
+            Track: this.props.Track,
+            loggedinUser: this.props.loggedinUser,
+            patient_gender: this.props.patient_gender,
+            loggedinUser: this.props.loggedinUser,
+            Archive: this.props.Archive
         };
     }
 
     componentDidMount = () => {
 
     }
-     //on adding new data
+    //on adding new data
     componentDidUpdate = (prevProps) => {
-        if (prevProps.allTrack !== this.props.allTrack) {
-            this.setState({ allTrack: this.props.allTrack })
+        if (prevProps.Track !== this.props.Track) {
+            this.setState({ Track: this.props.Track,  Archive : this.props.Archive})
         }
     }
 
     render() {
-        return (
-            <div>
-                {this.state.allTrack && this.state.allTrack.length > 0 ?
-                   this.state.allTrack.map((item, index) => (
-                            <div className="timelineGap">
-                                {item.type === 'blood_pressure' && <BPView data={item} date_format={this.props.date_format} time_format={this.props.time_format}/>}
-                                {item.type === 'blood_sugar' && <BSView data={item} date_format={this.props.date_format} time_format={this.props.time_format}/>}
-                                {item.type === 'weight_bmi' && <WBMIView data={item} date_format={this.props.date_format} time_format={this.props.time_format}/>}
-                                {item.type === 'marcumar_pass' && <MPView data={item} date_format={this.props.date_format} time_format={this.props.time_format}/>}
-                                {item.type === 'smoking_status' && <SSView data={item} date_format={this.props.date_format} time_format={this.props.time_format}/>}
-                                {/* {item.type === 'blood_sugar' && <BSView data={item} />}
+        var item = this.state.Track;
+        return ( 
+            <div className="timelineGap">
+                {item.type === 'blood_pressure' && <BPView Archive={this.state.Archive} DeleteTrack={(deleteKey)=>this.props.DeleteTrack(deleteKey)} ArchiveTrack={(data) => this.props.ArchiveTrack(data)} EidtOption={(value, updateTrack, visibility)=>this.props.EidtOption(value, updateTrack, visibility)} data={item} loggedinUser={this.state.loggedinUser} date_format={this.props.date_format} time_format={this.props.time_format} />}
+                {item.type === 'blood_sugar' && <BSView Archive={this.state.Archive} DeleteTrack={(deleteKey)=>this.props.DeleteTrack(deleteKey)} ArchiveTrack={(data) => this.props.ArchiveTrack(data)} EidtOption={(value, updateTrack, visibility)=>this.props.EidtOption(value, updateTrack, visibility)} data={item} loggedinUser={this.state.loggedinUser}  date_format={this.props.date_format} time_format={this.props.time_format} />}
+                {item.type === 'weight_bmi' && <WBMIView Archive={this.state.Archive} DeleteTrack={(deleteKey)=>this.props.DeleteTrack(deleteKey)} ArchiveTrack={(data) => this.props.ArchiveTrack(data)} EidtOption={(value, updateTrack, visibility)=>this.props.EidtOption(value, updateTrack, visibility)} data={item} loggedinUser={this.state.loggedinUser} date_format={this.props.date_format} time_format={this.props.time_format} />}
+                {item.type === 'marcumar_pass' && <MPView Archive={this.state.Archive} DeleteTrack={(deleteKey)=>this.props.DeleteTrack(deleteKey)} ArchiveTrack={(data) => this.props.ArchiveTrack(data)} EidtOption={(value, updateTrack, visibility)=>this.props.EidtOption(value, updateTrack, visibility)} data={item} loggedinUser={this.state.loggedinUser} date_format={this.props.date_format} time_format={this.props.time_format} />}
+                {item.type === 'smoking_status' && <SSView Archive={this.state.Archive} DeleteTrack={(deleteKey)=>this.props.DeleteTrack(deleteKey)} ArchiveTrack={(data) => this.props.ArchiveTrack(data)} EidtOption={(value, updateTrack, visibility)=>this.props.EidtOption(value, updateTrack, visibility)} data={item} loggedinUser={this.state.loggedinUser} date_format={this.props.date_format} time_format={this.props.time_format} />}
+                {item.type === 'vaccination' && <VaccinationView Archive={this.state.Archive} DeleteTrack={(deleteKey)=>this.props.DeleteTrack(deleteKey)} ArchiveTrack={(data) => this.props.ArchiveTrack(data)} EidtOption={(value, updateTrack, visibility)=>this.props.EidtOption(value, updateTrack, visibility)} data={item} loggedinUser={this.state.loggedinUser} date_format={this.props.date_format} time_format={this.props.time_format} />}
+                {item.type === 'hospitalization' && <HVView Archive={this.state.Archive} DeleteTrack={(deleteKey)=>this.props.DeleteTrack(deleteKey)} ArchiveTrack={(data) => this.props.ArchiveTrack(data)} EidtOption={(value, updateTrack, visibility)=>this.props.EidtOption(value, updateTrack, visibility)} data={item} loggedinUser={this.state.loggedinUser} date_format={this.props.date_format} time_format={this.props.time_format} />}
+                {item.type === 'doctor_visit' && <DVView Archive={this.state.Archive} DeleteTrack={(deleteKey)=>this.props.DeleteTrack(deleteKey)} ArchiveTrack={(data) => this.props.ArchiveTrack(data)} EidtOption={(value, updateTrack, visibility)=>this.props.EidtOption(value, updateTrack, visibility)} data={item} loggedinUser={this.state.loggedinUser} date_format={this.props.date_format} time_format={this.props.time_format} />}
+                {item.type === 'condition_pain' && <CPView Archive={this.state.Archive} DeleteTrack={(deleteKey)=>this.props.DeleteTrack(deleteKey)} ArchiveTrack={(data) => this.props.ArchiveTrack(data)} EidtOption={(value, updateTrack, visibility)=>this.props.EidtOption(value, updateTrack, visibility)} data={item} loggedinUser={this.state.loggedinUser} date_format={this.props.date_format} time_format={this.props.time_format} gender={this.state.patient_gender} />}
+                {item.type === 'diary' && <DiaryView Archive={this.state.Archive} DeleteTrack={(deleteKey)=>this.props.DeleteTrack(deleteKey)} ArchiveTrack={(data) => this.props.ArchiveTrack(data)} data={item} EidtOption={(value, updateTrack, visibility)=>this.props.EidtOption(value, updateTrack, visibility)} loggedinUser={this.state.loggedinUser} date_format={this.props.date_format} time_format={this.props.time_format} />}
+                {item.type === 'medication' && <MedicationView Archive={this.state.Archive} DeleteTrack={(deleteKey)=>this.props.DeleteTrack(deleteKey)} ArchiveTrack={(data) => this.props.ArchiveTrack(data)} EidtOption={(value, updateTrack, visibility)=>this.props.EidtOption(value, updateTrack, visibility)} data={item} loggedinUser={this.state.loggedinUser} date_format={this.props.date_format} time_format={this.props.time_format} />}
+                {item.type === 'laboratory_result' && <LRView Archive={this.state.Archive} DeleteTrack={(deleteKey)=>this.props.DeleteTrack(deleteKey)} ArchiveTrack={(data) => this.props.ArchiveTrack(data)} EidtOption={(value, updateTrack, visibility)=>this.props.EidtOption(value, updateTrack, visibility)} data={item} loggedinUser={this.state.loggedinUser} date_format={this.props.date_format} time_format={this.props.time_format} />}
+                {item.type === 'file_upload' && <FUView Archive={this.state.Archive} DeleteTrack={(deleteKey)=>this.props.DeleteTrack(deleteKey)} ArchiveTrack={(data) => this.props.ArchiveTrack(data)} EidtOption={(value, updateTrack, visibility)=>this.props.EidtOption(value, updateTrack, visibility)} data={item} loggedinUser={this.state.loggedinUser} date_format={this.props.date_format} time_format={this.props.time_format} />}
+                {item.type === 'family_anamnesis' && <FAView Archive={this.state.Archive} DeleteTrack={(deleteKey)=>this.props.DeleteTrack(deleteKey)} ArchiveTrack={(data) => this.props.ArchiveTrack(data)} EidtOption={(value, updateTrack, visibility)=>this.props.EidtOption(value, updateTrack, visibility)} data={item} loggedinUser={this.state.loggedinUser} date_format={this.props.date_format} time_format={this.props.time_format} />}
+                {item.type === 'covid_19' && <CovidView Archive={this.state.Archive} DeleteTrack={(deleteKey)=>this.props.DeleteTrack(deleteKey)} ArchiveTrack={(data) => this.props.ArchiveTrack(data)} EidtOption={(value, updateTrack, visibility)=>this.props.EidtOption(value, updateTrack, visibility)} data={item} loggedinUser={this.state.loggedinUser} date_format={this.props.date_format} time_format={this.props.time_format} gender={this.state.patient_gender} />}
+                {item.type === 'diagnosis' && <DianosisView Archive={this.state.Archive} DeleteTrack={(deleteKey)=>this.props.DeleteTrack(deleteKey)} ArchiveTrack={(data) => this.props.ArchiveTrack(data)} EidtOption={(value, updateTrack, visibility)=>this.props.EidtOption(value, updateTrack, visibility)} data={item} loggedinUser={this.state.loggedinUser} date_format={this.props.date_format} time_format={this.props.time_format} gender={this.state.patient_gender} />}
+                {/* {item.type === 'blood_sugar' && <BSView data={item} />}
                                 {item.type === 'condition_pain' && <CPView data={item} />}
                                 {item.type === 'covid_19' && <CovidView data={item} />}
-                                {item.type === 'diagnosis' && <DianosisView data={item} />}
+                               
                                 {item.type === 'diary' && <DiaryView data={item} />}
                                 {item.type === 'doctor_visit' && <DVView data={item} />}
                                 {item.type === 'family_anamnesis' && <FAView data={item} />}
@@ -65,18 +76,16 @@ class Index extends Component {
                                 {item.type === 'marcumar_pass' && <MPView data={item} />}
                                 {item.type === 'medication' && <MedicationView data={item} />}
                                 {item.type === 'smoking_status' && <SSView data={item} />}
-                                {item.type === 'vaccination' && <VaccinationView data={item} />}
+                               
                                 {item.type === 'weight_bmi' && <WBMIView data={item} />} */}
 
-                                {/* {item.type === 'anamnesis' && <AnamnesisView data={item} />} */}
-                                {/* {item.type === 'prescription' && <PrescriptionView data={item} />}
+                {/* {item.type === 'anamnesis' && <AnamnesisView data={item} />} */}
+                {/* {item.type === 'prescription' && <PrescriptionView data={item} />}
                                 {item.type === 'second_opinion' && <SOView data={item} />}
                                 {item.type === 'sick_certificate' && <SCView data={item} />} */}
 
-                            </div>
-                        ))
-                    : <EmptyData />}
             </div>
+
         )
     }
 }

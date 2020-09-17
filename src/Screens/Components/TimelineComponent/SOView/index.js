@@ -7,12 +7,18 @@ class Index extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            value: this.props.data || {},
+            item: this.props.data || {},
+            date_format: this.props.date_format,
+            time_foramt: this.props.time_format,
+            archive : this.props.archive,
+            loggedinUser : this.props.loggedinUser
         };
     }
-
-    componentDidMount = () => {
-
+   
+  componentDidUpdate = (prevProps) => {
+        if (prevProps.data !== this.props.data || prevProps.loggedinUser !== this.props.loggedinUser) {
+            this.setState({   item: this.props.data, loggedinUser : this.props.loggedinUser})
+        }
     }
 
     render() {
