@@ -10,13 +10,18 @@ class Index extends Component {
         this.state = {
             item: this.props.data || {},
             date_format: this.props.date_format,
-            time_foramt: this.props.time_format
+            time_foramt: this.props.time_format,
+            archive : this.props.archive,
+            loggedinUser : this.props.loggedinUser
         };
     }
 
-    componentDidMount = () => {
-
+  componentDidUpdate = (prevProps) => {
+        if (prevProps.data !== this.props.data || prevProps.loggedinUser !== this.props.loggedinUser) {
+            this.setState({   item: this.props.data, loggedinUser : this.props.loggedinUser})
+        }
     }
+
 
     render() {
         var item = this.state.item;
@@ -37,7 +42,7 @@ class Index extends Component {
                                 </Grid>
                             </Grid>
                             <Grid item xs={12} md={6}>
-                                <Grid className="bp_vsblSec">
+                                <Grid className="bp_vsblSec scndOptionIner1">
                                     <a className="bp_vsblEye"><img src={require('../../../../assets/images/eye2.png')} alt="" title="" /> <span>Visible</span> </a>
                                     <a className="vsblTime" data-tip data-for={item.track_id + 'visibility'}>
                                         <img src={require('../../../../assets/images/clock.svg')} alt="" title="" />
@@ -46,7 +51,19 @@ class Index extends Component {
                                         {item.visible==='show' ? <label>Show until</label> :  <label>Hide until</label> }
                                         {item.public === 'always' ? <p>Always </p> : <p>{getDate(item.public, this.state.date_format)}</p> }
                                     </ReactTooltip>
-                                    <a className="bp_vsblDots"><img src={require('../../../../assets/images/nav-more.svg')} alt="" title="" /></a>
+                                         <a className="openScndhrf1">
+                                                <img src={require('../../../../assets/images/threedots.jpg')} alt="" title="" className="openScnd1" />
+                                                {!this.props.Archive ? <ul>
+                                                    <li><a onClick={(data) => this.props.ArchiveTrack(item)}><img src={require('../../../../assets/images/archive-1.svg')} alt="" title="" />Archive</a></li>
+                                                    {this.state.loggedinUser._id === item.created_by && <li><a onClick={()=>this.props.EidtOption(item.type, item)}><img src={require('../../../../assets/images/edit-1.svg')} alt="" title="" />Edit</a></li>}
+                                                    {this.state.loggedinUser._id !== item.created_by && <li><a onClick={()=>this.props.EidtOption(item.type, item, true)}><img src={require('../../../../assets/images/edit.svg')} alt="" title="" />Change Visibility</a></li>}
+                                                    <li><a onClick={(deleteKey)=>this.props.DeleteTrack(item.track_id)}><img src={require('../../../../assets/images/cancel-request.svg')} alt="" title="" />Delete</a></li>
+                                                </ul>:
+                                                <ul>
+                                                    <li><a onClick={(data) => this.props.ArchiveTrack(item)}><img src={require('../../../../assets/images/archive-1.svg')} alt="" title="" />De-Archive</a></li>
+                                                    <li><a onClick={(deleteKey)=>this.props.DeleteTrack(item.track_id)}><img src={require('../../../../assets/images/cancel-request.svg')} alt="" title="" />Delete</a></li>
+                                                </ul>}
+                                            </a>
                                 </Grid>
                             </Grid>
                             <Grid className="clear"></Grid>

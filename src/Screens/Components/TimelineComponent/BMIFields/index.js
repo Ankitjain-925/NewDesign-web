@@ -27,7 +27,6 @@ class Index extends Component {
         if (prevProps.updateTrack !== this.props.updateTrack) {
             this.setState({ updateTrack: this.props.updateTrack })
         }
-
     }
 
     render() {

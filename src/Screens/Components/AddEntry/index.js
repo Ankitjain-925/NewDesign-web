@@ -56,7 +56,7 @@ class PointPain extends Component {
                                     <Grid><a onClick={()=>this.handleChangeEntry('blood_sugar')}>{this.state.openBy !=='patient' ? <span>3</span>: <span>2</span> }Blood Sugar</a></Grid>
                                     <Grid><a onClick={()=>this.handleChangeEntry('condition_pain')}>{this.state.openBy !=='patient' ? <span>4</span>: <span>3</span> }Condition and Pain</a></Grid>
                                     <Grid><a onClick={()=>this.handleChangeEntry('covid_19')}>{this.state.openBy !=='patient' ? <span>5</span>: <span>4</span> }Covid-19 Diary</a></Grid>
-                                    <Grid><a onClick={()=>this.handleChangeEntry('dianosis')}>{this.state.openBy !=='patient' ? <span>6</span>: <span>5</span> }Diagnosis</a></Grid>
+                                    <Grid><a onClick={()=>this.handleChangeEntry('diagnosis')}>{this.state.openBy !=='patient' ? <span>6</span>: <span>5</span> }Diagnosis</a></Grid>
                                     <Grid><a onClick={()=>this.handleChangeEntry('diary')}>{this.state.openBy !=='patient' ? <span>7</span>: <span>6</span> } Diary</a></Grid>
                                     <Grid><a onClick={()=>this.handleChangeEntry('doctor_visit')}>{this.state.openBy !=='patient' ? <span>8</span>: <span>7</span> }Doctor visit</a></Grid>
                                     <Grid><a onClick={()=>this.handleChangeEntry('family_anamnesis')}>{this.state.openBy !=='patient' ? <span>9</span>: <span>8</span> }Family anamnesis</a></Grid>

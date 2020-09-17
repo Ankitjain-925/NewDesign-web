@@ -3,7 +3,6 @@ import Grid from '@material-ui/core/Grid';
 import MMHG from './../../mmHgField/index';
 import DateFormat from './../../DateFormat/index';
 import TimeFormat from './../../TimeFormat/index';
-import SelectByTwo from './../../SelectbyTwo/index';
 import FileUploader from './../../FileUploader/index';
 import ShowHide from './../../ShowHide/index';
 

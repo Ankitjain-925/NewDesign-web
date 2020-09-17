@@ -1,59 +1,27 @@
 import React from "react";
-import { Editor } from "react-draft-wysiwyg";
-import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
-import { convertFromRaw, EditorState } from "draft-js";
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css'; // ES6
 
-var content = {
-  entityMap: {},
-  blocks: [
-    {
-      key: "637gr",
-      text: "Enter the content Here",
-      type: "unstyled",
-      depth: 0,
-      inlineStyleRanges: [],
-      entityRanges: [],
-      data: {}
-    }
-  ]
-};
-
-export default class NotesEditor extends React.Component {
+class Editor extends React.Component {
   constructor(props) {
-    super(props);
-    const contentState = convertFromRaw(content);
-    const editorState = EditorState.createWithContent(contentState);
+    super(props)
     this.state = {
-      contentState,
-      editorState
-    };
+      value: this.props.value ? this.props.value : '',
+      name: this.props.name,
+    } // You can also pass a Quill Delta here
   }
 
-  //On change State of editor in json
-  onContentStateChange = contentState => {
-    this.setState({ contentState });
-    this.props.onChange(contentState);
-  };
+  handleChange = (value) => {
+    this.setState({ value: value })
+    this.props.onChange(value)
+  }
 
-  //On change editor status
-  onEditorStateChange = editorState => {
-    this.setState({editorState });
-  };
-
-  componentDidUpdate = (prevProps) => {
- 
-}
   render() {
-    const { editorState } = this.state;
     return (
-      <div className="App">
-        <Editor
-          editorClassName={"report-editor"}
-          editorState={editorState}
-          onEditorStateChange={this.onEditorStateChange}
-          onContentStateChange={this.onContentStateChange}
-        />
-      </div>
-    );
+      <ReactQuill name={this.state.name} value={this.state.value}
+        onChange={this.handleChange} />
+    )
   }
 }
+
+export default Editor;

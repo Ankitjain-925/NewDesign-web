@@ -270,37 +270,37 @@ class Index extends Component {
                 return (<Redirect to={'/doctor'} />);
             }
             else {
-                return (<Redirect to={'/doctor/kyc'} />);
+                return (<Redirect to={'/doctor'} />);
             }
         }
         if (stateLoginValueAim.token !== 450 && stateLoginValueAim.user.type === 'pharmacy' && this.props.verifyCode.code) {
             if (stateLoginValueAim.kyc) {
-                return (<Redirect to={'/pharmacy/emergencyaccess'} />);
+                return (<Redirect to={'/pharmacy'} />);
             }
             else {
-                return (<Redirect to={'/pharmacy/kyc'} />);
+                return (<Redirect to={'/pharmacy'} />);
             }
         }
         if (stateLoginValueAim.token !== 450 && stateLoginValueAim.user.type === 'paramedic' && this.props.verifyCode.code) {
-            return (<Redirect to={'/paramedic/emergencyaccess'} />);
+            return (<Redirect to={'/paramedic'} />);
         }
         if (stateLoginValueAim.token !== 450 && stateLoginValueAim.user.type === 'insurance' && this.props.verifyCode.code) {
-            return (<Redirect to={'/insurance/emergencyaccess'} />);
+            return (<Redirect to={'/insurance'} />);
         }
         if ((stateLoginValueAim.token !== 450 && stateLoginValueAim.user.type === 'nurse' && this.props.verifyCode.code)) {
             if (stateLoginValueAim.kyc) {
-                return (<Redirect to={'/nurse/emergencyaccess'} />);
+                return (<Redirect to={'/nurse'} />);
             }
             else {
-                return (<Redirect to={'/nurse/kyc'} />);
+                return (<Redirect to={'/nurse'} />);
             }
         }
         if ((stateLoginValueAim.token !== 450 && stateLoginValueAim.user.type === 'therapist' && this.props.verifyCode.code)) {
             if (stateLoginValueAim.kyc) {
-                return (<Redirect to={'/nurse/emergencyaccess'} />);
+                return (<Redirect to={'/nurse'} />);
             }
             else {
-                return (<Redirect to={'/nurse/kyc'} />);
+                return (<Redirect to={'/nurse'} />);
             }
         }
 

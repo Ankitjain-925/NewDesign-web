@@ -21,7 +21,7 @@ class Condition extends Component {
     }
     render() {
         return (
-            <div>s
+            <div>
                 <Grid className="condIntencty">
                     <Grid><label>Condition (How are you?)</label></Grid>
                     {this.state.Forview && <Grid>
