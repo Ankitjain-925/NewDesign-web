@@ -5917,6 +5917,10 @@ img.addBlue {
 .trckLogo img {
     height: 24px;
 }
+.trckLogo1 img {
+    height: auto;
+    max-width: 130px;
+}
 .trckDots img {
     height: 24px;
     border-radius: 5px;
@@ -6181,6 +6185,7 @@ a.openScndhrf {
     height: 400px;
     overflow: auto;
 }
+
 .archvDel ul li {
     list-style-type: none;
     margin: 3px 0px;
