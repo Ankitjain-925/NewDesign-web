@@ -62,7 +62,7 @@ class Index extends Component {
                 translate = translationEN.text
         }
         let { blood_pressure, selct_pain_area, situation, visible, pain_areas, Change, show, hide, until, archive, rr_systolic, attachments, time_measure, date_measure,
-            visibility, edit, Delete, condition_pain, RR_diastolic, pain_type, de_archive, view_fullscren, always, feeling, date, time }= translate
+            visibility, edit, Delete, condition_pain, RR_diastolic, pain_type, de_archive, pain_quality, always, feeling, date, time }= translate
         
         var item = this.state.item;
         return (
@@ -167,7 +167,7 @@ class Index extends Component {
                                                 </Grid>
                                                 <Grid item xs={12} md={6} className="painTypeBy">
                                                     <Grid container direction="row">
-                                                        <Grid item xs={5} md={5}><label>Pain quality</label></Grid>
+                                                        <Grid item xs={5} md={5}><label>{pain_quality}</label></Grid>
                                                         <Grid item xs={7} md={7}><span>{item.pain_quality && item.pain_quality.label}</span></Grid>
                                                         <Grid className="clear"></Grid>
                                                     </Grid>
