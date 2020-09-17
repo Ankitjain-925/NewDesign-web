@@ -14,7 +14,7 @@ import Collapsible from 'react-collapsible';
 import sitedata from '../../../sitedata';
 import "react-toggle/style.css";
 import { getDate, getImage } from './../../Components/BasicMethod/index'
-
+import * as translationEN from "../../../translations/en_json_proofread_13072020.json"
 class Index extends Component {
     constructor(props) {
         super(props)
@@ -74,6 +74,38 @@ class Index extends Component {
         if (stateLoginValueAim.user === 'undefined' || stateLoginValueAim.token === 450 || stateLoginValueAim.token === 'undefined' || stateLoginValueAim.user.type !== 'patient') {
             return (<Redirect to={'/'} />);
         }
+        let translate
+        switch (this.props.stateLanguageType) {
+            case "en":
+                translate = translationEN.text
+                break;
+            // case "de":
+            //     translate = translationDE.text
+            //     break;
+            // case "pt":
+            //     translate = translationPT.text
+            //     break;
+            // case "sp":
+            //     translate = translationSP.text
+            //     break;
+            // case "rs":
+            //     translate = translationRS.text
+            //     break;
+            // case "nl":
+            //     translate = translationNL.text
+            //     break;
+            // case "ch":
+            //     translate = translationCH.text
+            //     break;
+            // case "sw":
+            //     translate = translationSW.text
+            //     break;
+            case "default":
+                translate = translationEN.text
+        }
+        let { blockchain_access_log, created_by, log_type, time_created } = translate;
+
+
         return (
             <Grid className="homeBg">
                 {this.state.loaderImage && <Loader />}
@@ -89,14 +121,14 @@ class Index extends Component {
                                 {/* Website Mid Content */}
                                 <Grid item xs={12} md={8}>
                                     <Grid className="blockChainLog">
-                                        <h1>Blockchain Access Log</h1>
+                                        <h1>{blockchain_access_log}</h1>
                                         <Grid className="blockChainDtail">
 
                                             <Grid className="blockChainUpr">
                                                 <Grid className="blochChainHead">
-                                                    <Grid><label>Log type</label></Grid>
-                                                    <Grid><label>Created by</label></Grid>
-                                                    <Grid><label>Time created</label></Grid>
+                                                    <Grid><label>{log_type}</label></Grid>
+                                                    <Grid><label>{created_by}</label></Grid>
+                                                    <Grid><label>{time_created}</label></Grid>
                                                 </Grid>
 
                                                 {Object.entries(this.state.PatientFullData).map(([key, value]) => (
@@ -121,12 +153,12 @@ class Index extends Component {
                                                                                     : <div>
                                                                                         {Object.entries(v).map(([k1, v1]) => (
                                                                                             k1 !== '' && k1 !== 'track_id' && k1 !== 'created_by_temp2' && k1 !== 'review_by' &&
-                                                                                                k1 !== 'review_on' && k1 !== 'review_by_temp' && k1 !== 'emergency_by_temp' && k1 !== 'created_at' && k1 !== 'created_by'
-                                                                                                && k1 !== 'emergency_on' && k1 !== 'emergency_by' && k1 !== "created_by_temp" && k1 !== "datetime_on" && k1 !== "type"
-                                                                                                && typeof v1 === 'string' &&<Grid container direction="row">
-                                                                                                    <Grid item xs={12} md={5}><span>{k1.charAt(0).toUpperCase() + k1.slice(1).replace("_", " ")}</span></Grid>
-                                                                                                    <Grid item xs={12} md={7}><label>{v1}</label></Grid>
-                                                                                                </Grid>
+                                                                                            k1 !== 'review_on' && k1 !== 'review_by_temp' && k1 !== 'emergency_by_temp' && k1 !== 'created_at' && k1 !== 'created_by'
+                                                                                            && k1 !== 'emergency_on' && k1 !== 'emergency_by' && k1 !== "created_by_temp" && k1 !== "datetime_on" && k1 !== "type"
+                                                                                            && typeof v1 === 'string' && <Grid container direction="row">
+                                                                                                <Grid item xs={12} md={5}><span>{k1.charAt(0).toUpperCase() + k1.slice(1).replace("_", " ")}</span></Grid>
+                                                                                                <Grid item xs={12} md={7}><label>{v1}</label></Grid>
+                                                                                            </Grid>
                                                                                         ))}
                                                                                     </div>}
                                                                                 {/* <Grid container direction="row">

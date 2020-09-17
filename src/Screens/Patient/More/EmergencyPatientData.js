@@ -8,7 +8,7 @@ import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { LanguageFetchReducer } from './../../actions';
 import EmergencyCall from './../../Components/EmergencyPage/index'
-
+import * as translationEN from "../../../translations/en_json_proofread_13072020.json"
 const path = sitedata.data.path + '/emergency_record';
 
 
@@ -24,6 +24,38 @@ class Index extends Component {
     }
   
     render() {
+        let translate
+        switch (this.props.stateLanguageType) {
+            case "en":
+                translate = translationEN.text
+                break;
+            // case "de":
+            //     translate = translationDE.text
+            //     break;
+            // case "pt":
+            //     translate = translationPT.text
+            //     break;
+            // case "sp":
+            //     translate = translationSP.text
+            //     break;
+            // case "rs":
+            //     translate = translationRS.text
+            //     break;
+            // case "nl":
+            //     translate = translationNL.text
+            //     break;
+            // case "ch":
+            //     translate = translationCH.text
+            //     break;
+            // case "sw":
+            //     translate = translationSW.text
+            //     break;
+            case "default":
+                translate = translationEN.text
+        }
+        let { ur_emergancy_data } = translate;
+
+
         return (
             <Grid className="homeBg">
                 <Grid container direction="row" justify="center">
@@ -41,7 +73,7 @@ class Index extends Component {
                                     <Grid container direction="row">
                                         <Grid item xs={12} md={10}>
                                             <Grid className="emrgncyData">
-                                                <h1>Your Emergency Data</h1>
+                                                <h1>{ur_emergancy_data}</h1>
                                             </Grid>
                                         </Grid>
                                     </Grid>

@@ -9042,7 +9042,7 @@ a.menuActv img {
     font-weight: bold;
     letter-spacing: 0;
     line-height: 12px;
-    margin-top: 12px;
+    margin: 12px !important;
     text-align: right;
 }
 a.temp_c {
@@ -10058,6 +10058,71 @@ img.editPendata {
 
 /*Added By ankita*/
 /*Components */
+img.openScnd1 {
+    height: 32px;
+    width: 32px;
+    cursor: pointer;
+}
+.scndOptionIner1 ul li a {
+    color: #404646;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 14px;
+    list-style-type: none;
+    cursor: pointer;
+    padding: 8px 12px;
+}
+.scndOptionIner1 ul li a:hover {
+    border-radius: 8px;
+    background-color: #FAFAFA;
+    color: #000808;
+}
+.scndOptionIner1 ul li{
+    list-style-type: none;
+    margin-bottom: 7px;
+}
+.scndOptionIne1r ul li a img {
+    margin-right: 10px;
+}
+.scndOptionIner1 ul {
+    display: none;
+    border: 1px solid #F2F2F2;
+    border-radius: 8px;
+    background-color: #FFFFFF;
+    box-shadow: 0 8px 16px 0 rgba(0,8,8,0.08);
+    padding-left: 0px;
+    margin-bottom: 0px;
+    padding: 12px 16px;
+    position: absolute;
+    right: 0;
+    text-align: left;
+    z-index: 111;
+}
+a.openScndhrf1:hover ul {
+    display: block !important;
+    width: 200px !important;
+}
+a.openScndhrf1 {
+    position: relative;
+    text-align: right;
+}
+.scndOptionIner1 ul li:last-child {
+    margin-bottom: 0px !important;
+}
+.descpInerDarkBlue {
+    border-left: 4px solid #0076DB;
+}
+.darkBlue span{
+   color: #0076DB !important;
+}
+.purpleSpan span{
+    color:  #8C00DB !important;
+}
+.descpInerPurple {
+    border-left: 4px solid #8C00DB !important;
+}
 .ant-picker-dropdown {
     z-index: 999999 !important;
 }
@@ -10070,7 +10135,7 @@ img.editPendata {
 a.painAreasTxt {
     position: absolute;
     top: 50%;
-    left: 12%;
+    left: 50%;
 }
 /* For eidtor */
 .rdw-editor-wrapper {

@@ -15,10 +15,11 @@ import Radio from '@material-ui/core/Radio';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import sitedata from '../../../../sitedata';
 import { getDate, getImage } from './../../../Components/BasicMethod/index';
+import * as translationEN from '../../../../translations/en_json_proofread_13072020.json';
 
 class Index extends Component {
     constructor(props) {
-       super(props);
+        super(props);
         this.state = {
             currentList: [],
             currentPage: this.props.page,
@@ -172,20 +173,52 @@ class Index extends Component {
     }
 
     render() {
+        let translate;
+        switch (this.props.stateLanguageType) {
+            case "en":
+                translate = translationEN.text
+                break;
+            // case "de":
+            //     translate = translationDE.text
+            //     break;
+            // case "pt":
+            //     translate = translationPT.text
+            //     break;
+            // case "sp":
+            //     translate = translationSP.text
+            //     break;
+            // case "rs":
+            //     translate = translationRS.text
+            //     break;
+            // case "nl":
+            //     translate = translationNL.text
+            //     break;
+            // case "ch":
+            //     translate = translationCH.text
+            //     break;
+            // case "sw":
+            //     translate = translationSW.text
+            //     break;
+            case "default":
+                translate = translationEN.text
+        }
+        let { Case, srvc_Doctors, status, sent, on, which_symptoms_do_u_hav, days, since_when, prescription, how_u_feeling, Pending, request, edit, Rejected, Answered, Cancelled, see, sick_cert, my_doc, New, inquiry, again, modify, cancel,
+            doc_and_statnderd_ques, doc_aimedis_private, it_is_known_dieseas, r_u_tracking_medi, do_u_hv_allergies, what_ur_profession,Week_or_more,today, yesterday, ago, show,
+            how_long_do_u_unable_to_work, have_u_already_been_sick, Annotations, is_ur_temp_high_to_38, req_updated_successfully, details, questions } = translate
 
         return (
             <div>
-                {this.state.successfullsent1 && <div className="success_message">Request Updated Sucessfully</div>}
+                {this.state.successfullsent1 && <div className="success_message">{req_updated_successfully}</div>}
                 <Grid className="presOpinionIner">
                     {this.state.loaderImage && <Loader />}
 
                     <Table>
                         <Thead>
                             <Tr>
-                                <Th>Case</Th>
-                                <Th>Sent on</Th>
-                                <Th>Doctor</Th>
-                                <Th>Status</Th>
+                                <Th>{Case}</Th>
+                                <Th>{sent} {on}</Th>
+                                <Th>{srvc_Doctors}</Th>
+                                <Th>{status}</Th>
                             </Tr>
                         </Thead>
 
@@ -196,19 +229,19 @@ class Index extends Component {
                                     <Td>{data.send_on ? getDate(data.send_on, this.props.settings.setting.date_format) : 'Not mentioned'}</Td>
                                     {/* <Td className="presImg"><img src={require('../../../../assets/images/dr1.jpg')} alt="" title="" />{data.docProfile && data.docProfile.first_name && data.docProfile.first_name} {data.docProfile && data.docProfile.last_name && data.docProfile.last_name}</Td> */}
                                     <Td className="presImg"><img src={data.docProfile && data.docProfile.profile_image ? getImage(data.docProfile.profile_image, this.state.images) : require('../../../../assets/images/dr1.jpg')} alt="" title="" />{data.docProfile && data.docProfile.first_name && data.docProfile.first_name} {data.docProfile && data.docProfile.last_name && data.docProfile.last_name}</Td>
-                                    {data.status === 'pending' && <Td><span className="revwYelow"></span>Pending </Td>}
-                                    {data.status === 'accept' && <Td><span className="revwGren"></span>Answered </Td>}
-                                    {data.status === 'decline' && <Td><span className="revwRed"></span> Rejected</Td>}
-                                    {data.status === 'cancel' && <Td><span className="revwRed"></span> Cancelled</Td>}
-                                    {data.status === 'free' && <Td><span className="revwGry"></span> Sent request</Td>}
+                                    {data.status === 'pending' && <Td><span className="revwYelow"></span>{Pending} </Td>}
+                                    {data.status === 'accept' && <Td><span className="revwGren"></span>{Answered} </Td>}
+                                    {data.status === 'decline' && <Td><span className="revwRed"></span> {Rejected}</Td>}
+                                    {data.status === 'cancel' && <Td><span className="revwRed"></span> {Cancelled}</Td>}
+                                    {data.status === 'free' && <Td><span className="revwGry"></span> {sent} {request}</Td>}
                                     <Td className="presEditDot scndOptionIner">
                                         <a className="openScndhrf">
                                             <img src={require('../../../../assets/images/threedots.jpg')} alt="" title="" className="openScnd" />
                                             <ul>
-                                                <li><a onClick={() => { this.handleshowSick(data) }}><img src={require('../../../../assets/images/details.svg')} alt="" title="" />See details</a></li>
-                                                {data.status !== 'accept' && <li><a onClick={() => { this.handleaddSick(data) }}><img src={require('../../../../assets/images/edit.svg')} alt="" title="" />Modify</a></li>}
-                                                {data.status === 'decline' && <li><a onClick={() => { this.updateCertificate('free', data._id) }}><img src={require('../../../../assets/images/plus.png')} alt="" title="" />Inquiry again</a></li>}
-                                                {data.status !== 'cancel' && <li><a onClick={() => { this.updateCertificate('cancel', data._id) }}><img src={require('../../../../assets/images/cancel-request.svg')} alt="" title="" />Cancel request</a></li>}
+                                                <li><a onClick={() => { this.handleshowSick(data) }}><img src={require('../../../../assets/images/details.svg')} alt="" title="" />{see} {details}</a></li>
+                                                {data.status !== 'accept' && <li><a onClick={() => { this.handleaddSick(data) }}><img src={require('../../../../assets/images/edit.svg')} alt="" title="" />{modify}</a></li>}
+                                                {data.status === 'decline' && <li><a onClick={() => { this.updateCertificate('free', data._id) }}><img src={require('../../../../assets/images/plus.png')} alt="" title="" />{inquiry} {again}</a></li>}
+                                                {data.status !== 'cancel' && <li><a onClick={() => { this.updateCertificate('cancel', data._id) }}><img src={require('../../../../assets/images/cancel-request.svg')} alt="" title="" />{cancel} {request}</a></li>}
                                             </ul>
                                         </a>
                                     </Td>
@@ -229,71 +262,71 @@ class Index extends Component {
                                             <img src={require('../../../../assets/images/closefancy.png')} alt="" title="" />
                                         </a>
                                     </Grid>
-                                    <p>Edit inquiry</p>
-                                    <Grid><label>Sick Certificate</label></Grid>
+                                    <p>{edit} {inquiry}</p>
+                                    <Grid><label>{sick_cert}</label></Grid>
                                 </Grid>
                                 <Grid className="docHlthMain">
                                     <Grid className="drstndrdQues">
-                                        <h3>Doctor and standard questions</h3>
+                                        <h3>{doc_and_statnderd_ques}</h3>
                                         <Grid className="drsplestQues">
-                                            <Grid><label>Doctor (Aimedis & Private)</label></Grid>
+                                            <Grid><label>{doc_aimedis_private}</label></Grid>
                                             <Grid><h3>{this.state.AddSickCertificate && this.state.AddSickCertificate.docProfile && this.state.AddSickCertificate.docProfile.first_name && this.state.AddSickCertificate.docProfile.first_name} {this.state.AddSickCertificate && this.state.AddSickCertificate.docProfile && this.state.AddSickCertificate.docProfile.last_name && this.state.AddSickCertificate.docProfile.last_name}</h3></Grid>
                                         </Grid>
                                         <Grid className="drsplestQues">
-                                            <Grid><label>How are you feeling?</label></Grid>
+                                            <Grid><label>{how_u_feeling}?</label></Grid>
                                             <Grid>
                                                 <input type="text" name="how_are_you" value={this.state.AddSickCertificate.how_are_you} onChange={this.AddSickState} />
                                             </Grid>
                                         </Grid>
                                     </Grid>
                                     <Grid className="ishelpUpr">
-                                        <Grid className="ishelpLbl"><label>Is your temperature higher than 38 °C?</label></Grid>
+                                        <Grid className="ishelpLbl"><label>{is_ur_temp_high_to_38}?</label></Grid>
                                         <Grid className="ishelpChk">
                                             <FormControlLabel control={<Radio />} name="fever" value="yes" color="#00ABAF" checked={this.state.AddSickCertificate.fever === 'yes'} onChange={this.AddSickState} label="Yes" />
                                             <FormControlLabel control={<Radio />} name="fever" color="#00ABAF" value="no" checked={this.state.AddSickCertificate.fever === 'no'} onChange={this.AddSickState} label="No" />
                                         </Grid>
                                     </Grid>
                                     <Grid className="medicnSub">
-                                        <Grid><label>Which symptoms do you have?</label></Grid>
+                                        <Grid><label>{which_symptoms_do_u_hav}?</label></Grid>
                                         <Grid><input type="text" name="which_symptomps" value={this.state.AddSickCertificate.which_symptomps} onChange={this.AddSickState} /></Grid>
                                     </Grid>
                                     <Grid className="medicnSub sncWhen">
-                                        <Grid><label>Since when?</label></Grid>
+                                        <Grid><label>{since_when}?</label></Grid>
                                         <Grid>
-                                            <a className={this.state.AddSickCertificate.since_when === 'Today' && "current_since_when"} onClick={() => { this.eventnameSet('since_when', 'Today') }}>Today</a>
-                                            <a className={this.state.AddSickCertificate.since_when === 'Yesterday' && "current_since_when"} onClick={() => { this.eventnameSet('since_when', 'Yesterday') }}>Yesterday</a>
-                                            <a className={this.state.AddSickCertificate.since_when === '2 days ago' && "current_since_when"} onClick={() => { this.eventnameSet('since_when', '2 days ago') }}>2 days ago</a>
-                                            <a className={this.state.AddSickCertificate.since_when === '3-6 days ago' && "current_since_when"} onClick={() => { this.eventnameSet('since_when', '3-6 days ago') }}>3-6 days ago</a>
-                                            <a className={this.state.AddSickCertificate.since_when === 'Week or more' && "current_since_when"} onClick={() => { this.eventnameSet('since_when', 'Week or more') }}>Week or more</a></Grid>
+                                            <a className={this.state.AddSickCertificate.since_when === 'Today' && "current_since_when"} onClick={() => { this.eventnameSet('since_when', 'Today') }}>{today}</a>
+                                            <a className={this.state.AddSickCertificate.since_when === 'Yesterday' && "current_since_when"} onClick={() => { this.eventnameSet('since_when', 'Yesterday') }}>{yesterday}</a>
+                                            <a className={this.state.AddSickCertificate.since_when === '2 days ago' && "current_since_when"} onClick={() => { this.eventnameSet('since_when', '2 days ago') }}>2 {days} {ago}</a>
+                                            <a className={this.state.AddSickCertificate.since_when === '3-6 days ago' && "current_since_when"} onClick={() => { this.eventnameSet('since_when', '3-6 days ago') }}>3-6 {days} {ago}</a>
+                                            <a className={this.state.AddSickCertificate.since_when === 'Week or more' && "current_since_when"} onClick={() => { this.eventnameSet('since_when', 'Week or more') }}>{Week_or_more}</a></Grid>
                                     </Grid>
                                     <Grid className="medicnSub">
-                                        <Grid><label>Have you already been sick at home for the same problem?</label></Grid>
+                                        <Grid><label>{have_u_already_been_sick}?</label></Grid>
                                         <Grid><input type="text" name="same_problem_before" value={this.state.AddSickCertificate.same_problem_before} onChange={this.AddSickState} /></Grid>
                                     </Grid>
                                     <Grid className="medicnSub">
-                                        <Grid><label>How long do you think you will be unable to work?</label></Grid>
+                                        <Grid><label>{how_long_do_u_unable_to_work}?</label></Grid>
                                         <Grid className="doseMg"><input type="text" name="time_unable_work" value={this.state.AddSickCertificate.time_unable_work} onChange={this.AddSickState} />
-                                            <span>days</span>
+                                            <span>{days}</span>
                                         </Grid>
                                     </Grid>
                                     <Grid className="medicnSub">
-                                        <Grid><label>Is it a known disease?</label></Grid>
+                                        <Grid><label>{it_is_known_dieseas}?</label></Grid>
                                         <Grid><input type="text" name="known_diseases" value={this.state.AddSickCertificate.known_diseases} onChange={this.AddSickState} /></Grid>
                                     </Grid>
                                     <Grid className="medicnSub">
-                                        <Grid><label>Are you taking any medication?</label></Grid>
+                                        <Grid><label>{r_u_tracking_medi}?</label></Grid>
                                         <Grid><input type="text" name="medication" value={this.state.AddSickCertificate.medication} onChange={this.AddSickState} /></Grid>
                                     </Grid>
                                     <Grid className="medicnSub">
-                                        <Grid><label>Do you have any allergies?</label></Grid>
+                                        <Grid><label>{do_u_hv_allergies}?</label></Grid>
                                         <Grid><input type="text" name="allergies" value={this.state.AddSickCertificate.allergies} onChange={this.AddSickState} /></Grid>
                                     </Grid>
                                     <Grid className="medicnSub">
-                                        <Grid><label>What is your profession?</label></Grid>
+                                        <Grid><label>{what_ur_profession}?</label></Grid>
                                         <Grid><input type="text" name="professions" value={this.state.AddSickCertificate.professions} onChange={this.AddSickState} /></Grid>
                                     </Grid>
                                     <Grid className="medicnSub">
-                                        <Grid><label>Annotations / details / questions</label></Grid>
+                                        <Grid><label>{Annotations} / {details} / {questions}</label></Grid>
                                         <Grid><textarea name="annotations" value={this.state.AddSickCertificate.annotations} onChange={this.AddSickState}> </textarea></Grid>
                                     </Grid>
                                 </Grid>
@@ -333,59 +366,59 @@ class Index extends Component {
                                             <img src={require('../../../../assets/images/closefancy.png')} alt="" title="" />
                                         </a>
                                     </Grid>
-                                    <p>Show inquiry</p>
-                                    <Grid><label>Sick Certificate</label></Grid>
+                                    <p>{show} {inquiry}</p>
+                                    <Grid><label>{sick_cert}</label></Grid>
                                 </Grid>
                                 <Grid className="docHlthMain">
                                     <Grid className="drstndrdQues">
-                                        <h3>Doctor and standard questions</h3>
+                                        <h3>{doc_and_statnderd_ques}</h3>
                                         <Grid className="drsplestQues">
-                                            <Grid><label>Doctor (Aimedis & Private)</label></Grid>
+                                            <Grid><label>{doc_aimedis_private}</label></Grid>
                                             <Grid><h3>{this.state.AddSickCertificate && this.state.AddSickCertificate.docProfile && this.state.AddSickCertificate.docProfile.first_name && this.state.AddSickCertificate.docProfile.first_name} {this.state.AddSickCertificate && this.state.AddSickCertificate.docProfile && this.state.AddSickCertificate.docProfile.last_name && this.state.AddSickCertificate.docProfile.last_name}</h3></Grid>
                                         </Grid>
                                     </Grid>
                                     <Grid className="drsplestQues">
-                                        <Grid><label>How are you feeling?</label></Grid>
+                                        <Grid><label>{how_u_feeling}?</label></Grid>
                                         <Grid><h3>{this.state.AddSickCertificate && this.state.AddSickCertificate.how_are_you && this.state.AddSickCertificate.how_are_you}</h3></Grid>
                                     </Grid>
                                     <Grid className="drsplestQues">
-                                        <Grid className="ishelpLbl"><label>Is your temperature higher than 38 °C?</label></Grid>
+                                        <Grid className="ishelpLbl"><label>{is_ur_temp_high_to_38}?</label></Grid>
                                         <Grid><h3>{this.state.AddSickCertificate && this.state.AddSickCertificate.fever && this.state.AddSickCertificate.fever}</h3></Grid>
                                     </Grid>
                                     <Grid className="drsplestQues">
-                                        <Grid><label>Which symptoms do you have?</label></Grid>
+                                        <Grid><label>{which_symptoms_do_u_hav}?</label></Grid>
                                         <Grid><h3>{this.state.AddSickCertificate && this.state.AddSickCertificate.which_symptomps && this.state.AddSickCertificate.which_symptomps}</h3></Grid>
                                     </Grid>
                                     <Grid className="drsplestQues">
-                                        <Grid><label>Since when?</label></Grid>
+                                        <Grid><label>{since_when}?</label></Grid>
                                         <Grid><h3>{this.state.AddSickCertificate && this.state.AddSickCertificate.since_when && this.state.AddSickCertificate.since_when}</h3></Grid>
                                     </Grid>
                                     <Grid className="drsplestQues">
-                                        <Grid><label>Have you already been sick at home for the same problem?</label></Grid>
+                                        <Grid><label>{have_u_already_been_sick}?</label></Grid>
                                         <Grid><h3>{this.state.AddSickCertificate && this.state.AddSickCertificate.same_problem_before && this.state.AddSickCertificate.same_problem_before}</h3></Grid>
                                     </Grid>
                                     <Grid className="drsplestQues">
-                                        <Grid><label>How long do you think you will be unable to work?</label></Grid>
+                                        <Grid><label>{how_long_do_u_unable_to_work}?</label></Grid>
                                         <Grid><h3>{this.state.AddSickCertificate && this.state.AddSickCertificate.time_unable_work && this.state.AddSickCertificate.time_unable_work} days</h3></Grid>
                                     </Grid>
                                     <Grid className="drsplestQues">
-                                        <Grid><label>Is it a known disease?</label></Grid>
+                                        <Grid><label>{it_is_known_dieseas}?</label></Grid>
                                         <Grid><h3>{this.state.AddSickCertificate && this.state.AddSickCertificate.known_diseases && this.state.AddSickCertificate.known_diseases}</h3></Grid>
                                     </Grid>
                                     <Grid className="drsplestQues">
-                                        <Grid><label>Are you taking any medication?</label></Grid>
+                                        <Grid><label>{r_u_tracking_medi}?</label></Grid>
                                         <Grid><h3>{this.state.AddSickCertificate && this.state.AddSickCertificate.medication && this.state.AddSickCertificate.medication}</h3></Grid>
                                     </Grid>
                                     <Grid className="drsplestQues">
-                                        <Grid><label>Do you have any allergies?</label></Grid>
+                                        <Grid><label>{do_u_hv_allergies}?</label></Grid>
                                         <Grid><h3>{this.state.AddSickCertificate && this.state.AddSickCertificate.allergies && this.state.AddSickCertificate.allergies}</h3></Grid>
                                     </Grid>
                                     <Grid className="drsplestQues">
-                                        <Grid><label>What is your profession?</label></Grid>
+                                        <Grid><label>{what_ur_profession}?</label></Grid>
                                         <Grid><h3>{this.state.AddSickCertificate && this.state.AddSickCertificate.professions && this.state.AddSickCertificate.professions}</h3></Grid>
                                     </Grid>
                                     <Grid className="drsplestQues">
-                                        <Grid><label>Annotations / details / questions</label></Grid>
+                                        <Grid><label>{Annotations} / {details} / {questions}</label></Grid>
                                         <Grid><h3>{this.state.AddSickCertificate && this.state.AddSickCertificate.annotations && this.state.AddSickCertificate.annotations}</h3></Grid>
                                     </Grid>
                                 </Grid>
@@ -426,7 +459,7 @@ class Index extends Component {
 const mapStateToProps = (state) => {
     const { stateLoginValueAim, loadingaIndicatoranswerdetail } = state.LoginReducerAim;
     const { stateLanguageType } = state.LanguageReducer;
-    const {settings} = state.Settings;
+    const { settings } = state.Settings;
     // const { Doctorsetget } = state.Doctorset;
     // const { catfil } = state.filterate;
     return {

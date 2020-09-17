@@ -21,10 +21,11 @@ import * as ThailandC from '../../../Components/insuranceCompanies/thailand.json
 import FileUploader from './../../../Components/FileUploader/index';
 import Checkbox from '@material-ui/core/Checkbox'
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import * as translationEN from '../../../../translations/en_json_proofread_13072020.json';
 
 class Index extends Component {
     constructor(props) {
-       super(props);
+        super(props);
         this.state = {
             loaderImage: false,
             fileattach1: false,
@@ -42,7 +43,7 @@ class Index extends Component {
             selectedOption: null,
             selectedCountry: null,
             CurrentCountry: {},
-            allField : false,
+            allField: false,
         };
         // new Timer(this.logOutClick.bind(this)) 
     }
@@ -59,38 +60,38 @@ class Index extends Component {
         var user_id = this.props.stateLoginValueAim.user._id;
         var user_token = this.props.stateLoginValueAim.token;
         axios.get(sitedata.data.path + '/User/getKyc/' + user_id,
-        {
-            headers: {
-                'token': user_token,
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            }
-        }).then((response) => {
-            if (response.data.data) {
-                this.setState({ personalinfo: response.data.fulldata, loaderImage: false }, () => {
-                    if (this.state.personalinfo.attachment && this.state.personalinfo.attachment.length > 0) {
-                        var KYC_ID = this.state.personalinfo.attachment && this.state.personalinfo.attachment.length > 0 && this.state.personalinfo.attachment[0] && this.state.personalinfo.attachment[0].file && this.state.personalinfo.attachment[0].file
-                        if (KYC_ID) {
-                            KYC_ID = (KYC_ID.split('KYC/')[1]).split("&bucket=")[0]
-                            this.setState({ KYC_ID: KYC_ID })
-                        }
-                        var KYC_LICENSE = this.state.personalinfo.attachment && this.state.personalinfo.attachment.length > 0 && this.state.personalinfo.attachment[1] && this.state.personalinfo.attachment[1].file && this.state.personalinfo.attachment[1].file
-                        if (KYC_LICENSE) {
-                            KYC_LICENSE = (KYC_LICENSE.split('KYC/')[1]).split("&bucket=")[0]
-                            this.setState({ KYC_LICENSE: KYC_LICENSE })
-                        }
-                    }
-                })
-                this.setState({ CreateKYC: response.data.fulldata, selectedCountry: response.data.fulldata.country })
-                var getCountry = this.state.selectCountry && this.state.selectCountry.length > 0 && this.state.selectCountry.filter((item) => item.value === response.data.fulldata.country)
-                if (getCountry && getCountry.length > 0) {
-                    this.setState({ CurrentCountry: getCountry[0] })
+            {
+                headers: {
+                    'token': user_token,
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
                 }
-            }
-            else {
-                this.setState({ CreateKYC: { number: '', authority: '', country: 'US', attachment: [] }, selectedCountry: 'US', })
-            }
-        }).catch(err => { })
+            }).then((response) => {
+                if (response.data.data) {
+                    this.setState({ personalinfo: response.data.fulldata, loaderImage: false }, () => {
+                        if (this.state.personalinfo.attachment && this.state.personalinfo.attachment.length > 0) {
+                            var KYC_ID = this.state.personalinfo.attachment && this.state.personalinfo.attachment.length > 0 && this.state.personalinfo.attachment[0] && this.state.personalinfo.attachment[0].file && this.state.personalinfo.attachment[0].file
+                            if (KYC_ID) {
+                                KYC_ID = (KYC_ID.split('KYC/')[1]).split("&bucket=")[0]
+                                this.setState({ KYC_ID: KYC_ID })
+                            }
+                            var KYC_LICENSE = this.state.personalinfo.attachment && this.state.personalinfo.attachment.length > 0 && this.state.personalinfo.attachment[1] && this.state.personalinfo.attachment[1].file && this.state.personalinfo.attachment[1].file
+                            if (KYC_LICENSE) {
+                                KYC_LICENSE = (KYC_LICENSE.split('KYC/')[1]).split("&bucket=")[0]
+                                this.setState({ KYC_LICENSE: KYC_LICENSE })
+                            }
+                        }
+                    })
+                    this.setState({ CreateKYC: response.data.fulldata, selectedCountry: response.data.fulldata.country })
+                    var getCountry = this.state.selectCountry && this.state.selectCountry.length > 0 && this.state.selectCountry.filter((item) => item.value === response.data.fulldata.country)
+                    if (getCountry && getCountry.length > 0) {
+                        this.setState({ CurrentCountry: getCountry[0] })
+                    }
+                }
+                else {
+                    this.setState({ CreateKYC: { number: '', authority: '', country: 'US', attachment: [] }, selectedCountry: 'US', })
+                }
+            }).catch(err => { })
     }
 
     //set the state of authority
@@ -165,9 +166,9 @@ class Index extends Component {
     }
 
     //Attach the documents
-    fileUpload = (event, filed_name)=> {
+    fileUpload = (event, filed_name) => {
         if (event[0].type === "application/pdf" || event[0].type === "image/jpeg" || event[0].type === "image/png") {
-            this.setState({ loaderImage: true,err_pdf: false, err_document: false, err1: false, isfileuploadmulti: true })
+            this.setState({ loaderImage: true, err_pdf: false, err_document: false, err1: false, isfileuploadmulti: true })
             var namefield = filed_name;
             for (var i = 0; i < event.length; i++) {
                 var file = event[i];
@@ -181,23 +182,23 @@ class Index extends Component {
                     folders: `${profile_id}/KYC/`,
                     bucket: this.props.stateLoginValueAim.user.bucket
                 }).then(response => {
-                if (namefield === "UploadID") {
-                    this.setState({ fileattach1: response.data.data.returnData.url + '&bucket=' + this.props.stateLoginValueAim.user.bucket })
-                }
-                else {
-                    this.setState({ fileattach2: response.data.data.returnData.url + '&bucket=' + this.props.stateLoginValueAim.user.bucket })
-                }
-                this.setState({ fileupods: true });
-                setTimeout(() => { this.setState({ fileupods: false }) }, 3000);
-                var returnData = response.data.data.returnData;
-                var signedRequest = returnData.signedRequest;
-                var url = returnData.url;
+                    if (namefield === "UploadID") {
+                        this.setState({ fileattach1: response.data.data.returnData.url + '&bucket=' + this.props.stateLoginValueAim.user.bucket })
+                    }
+                    else {
+                        this.setState({ fileattach2: response.data.data.returnData.url + '&bucket=' + this.props.stateLoginValueAim.user.bucket })
+                    }
+                    this.setState({ fileupods: true });
+                    setTimeout(() => { this.setState({ fileupods: false }) }, 3000);
+                    var returnData = response.data.data.returnData;
+                    var signedRequest = returnData.signedRequest;
+                    var url = returnData.url;
 
-                // Put the fileType in the headers for the upload
-                var options = {  headers: {  'Content-Type': fileType  }  };
-                axios.put('https://cors-anywhere.herokuapp.com/' + signedRequest, file, options)
-                    .then(result => { this.setState({loaderImage   : false})})
-                    .catch(error => { })
+                    // Put the fileType in the headers for the upload
+                    var options = { headers: { 'Content-Type': fileType } };
+                    axios.put('https://cors-anywhere.herokuapp.com/' + signedRequest, file, options)
+                        .then(result => { this.setState({ loaderImage: false }) })
+                        .catch(error => { })
                 }).catch(error => { })
             }
         }
@@ -232,12 +233,10 @@ class Index extends Component {
             }
         }
         data.attachment = attachment;
-        if(this.state.CreateKYC && this.state.CreateKYC.country && this.state.CreateKYC.country !=='' && this.state.CreateKYC.number !== '' && this.state.CreateKYC.number && this.state.CreateKYC.authority && this.state.CreateKYC.authority !== '')
-        {
-            if( data.attachment &&  data.attachment.length>0 )
-            {
+        if (this.state.CreateKYC && this.state.CreateKYC.country && this.state.CreateKYC.country !== '' && this.state.CreateKYC.number !== '' && this.state.CreateKYC.number && this.state.CreateKYC.authority && this.state.CreateKYC.authority !== '') {
+            if (data.attachment && data.attachment.length > 0) {
                 if (this.state.agree) {
-                    this.setState({ loaderImage: true, err_document : false, allField : false })
+                    this.setState({ loaderImage: true, err_document: false, allField: false })
                     if (data._id) {
                         axios.put(sitedata.data.path + '/User/updateKyc/' + data._id, data,
                             {
@@ -257,27 +256,27 @@ class Index extends Component {
                     }
                     else {
                         axios.post(sitedata.data.path + '/User/Addkyc', data,
-                        {
-                            headers: {
-                                'token': user_token,
-                                'Accept': 'application/json',
-                                'Content-Type': 'application/json'
-                            }
-                        }).then((response) => {
-                            if (response.data.hassuccessed) {
-                                this.setState({ success: true, err1: false, agree: false, CreateKYC: {}, fileattach1: false, fileattach2: false, loaderImage: false })
-                                setTimeout(() => { this.setState({ success: false }) }, 3000);
-                            }
-                            this.getKYC();
-                        })
+                            {
+                                headers: {
+                                    'token': user_token,
+                                    'Accept': 'application/json',
+                                    'Content-Type': 'application/json'
+                                }
+                            }).then((response) => {
+                                if (response.data.hassuccessed) {
+                                    this.setState({ success: true, err1: false, agree: false, CreateKYC: {}, fileattach1: false, fileattach2: false, loaderImage: false })
+                                    setTimeout(() => { this.setState({ success: false }) }, 3000);
+                                }
+                                this.getKYC();
+                            })
                     }
                 }
-                else { this.setState({ err1: true, err_document : false, allField : false}) }
+                else { this.setState({ err1: true, err_document: false, allField: false }) }
             }
-            else { this.setState({ err_document: true, err1: false, allField : false})}
+            else { this.setState({ err_document: true, err1: false, allField: false }) }
         }
-        else { this.setState({ allField : true })}
-        
+        else { this.setState({ allField: true }) }
+
     }
 
     //For updating and country
@@ -301,25 +300,59 @@ class Index extends Component {
                 >{company}</li>
             )
         });
+
+        let translate;
+        switch (this.props.stateLanguageType) {
+            case "en":
+                translate = translationEN.text
+                break;
+            // case "de":
+            //     translate = translationDE.text
+            //     break;
+            // case "pt":
+            //     translate = translationPT.text
+            //     break;
+            // case "sp":
+            //     translate = translationSP.text
+            //     break;
+            // case "rs":
+            //     translate = translationRS.text
+            //     break;
+            // case "nl":
+            //     translate = translationNL.text
+            //     break;
+            // case "ch":
+            //     translate = translationCH.text
+            //     break;
+            // case "sw":
+            //     translate = translationSW.text
+            //     break;
+            case "default":
+                translate = translationEN.text
+        }
+        let { patient_id, kyc, enter_healthcare_and_upload_data, plz_upload_png_jpg, plz_uplod_doc, plz_fill_all_fields, plz_accept_term, is, save_change, by_clicking_accept_aimedis_term, upload_id_card, updated_success, file_uploaded, attached_doc, u_r_nvr_obligate_to_upload_doc, email, title, degree, first, last, name, dob, gender, street, add, city, postal_code, country, home_telephone, phone, country_code, Delete,
+            mobile_number, number, in_critical_enviroment_id, mobile, insurance, add_more, company, of} = translate;
+
+
         return (
             <div>
                 {this.state.loaderImage && <Loader />}
                 <Grid>
                     <Grid className="patientKyc">
-                        <h5>Patient ID / KYC</h5>
-                        <p>Please enter your healthcare insurance data and upload a copy of your ID and heathcare insurance card into your account</p>
+                        <h5>{patient_id} / {kyc}</h5>
+                        <p>{enter_healthcare_and_upload_data}</p>
                     </Grid>
-                    {this.state.err_pdf && <div className="err_message">Please upload PDF, PNG and JPEG file</div>}
-                    {this.state.err_document && <div className="err_message">Please Upload Documents</div>}
-                    {this.state.allField && <div className="err_message">Please fill the all fields</div>}
-                    {this.state.err1 && <div className="err_message">Please accept the Terms and Policy</div>}
-                    {this.state.success && <div className="success_message">KYC is updated successfully</div>}
-                    {this.state.fileupods && <div className="success_message">File is uploaded successfully</div>}
+                    {this.state.err_pdf && <div className="err_message">{plz_upload_png_jpg}</div>}
+                    {this.state.err_document && <div className="err_message">{plz_uplod_doc}</div>}
+                    {this.state.allField && <div className="err_message">{plz_fill_all_fields}</div>}
+                    {this.state.err1 && <div className="err_message">{plz_accept_term}</div>}
+                    {this.state.success && <div className="success_message">{kyc} {is} {updated_success}</div>}
+                    {this.state.fileupods && <div className="success_message">{file_uploaded}</div>}
                     <Grid container direction="row" alignItems="center">
                         <Grid item xs={12} md={4}>
 
                             <Grid className="kycForms">
-                                <Grid><label>Country</label></Grid>
+                                <Grid><label>{country}</label></Grid>
                                 {this.state.CreateKYC && this.state.CreateKYC.country &&
                                     <Grid>
                                         <Select
@@ -341,7 +374,7 @@ class Index extends Component {
                             </Grid>
 
                             <Grid className="kycForms">
-                                <Grid><label>Insurance Company</label></Grid>
+                                <Grid><label>{insurance} {company}</label></Grid>
                                 {this.state.CreateKYC && this.state.CreateKYC.country && this.state.CreateKYC.country !== "" &&
                                     <Grid>
                                         <input type="text" name="authority" value={this.state.CreateKYC.authority} onChange={this.newEntryState1} />
@@ -352,77 +385,77 @@ class Index extends Component {
                             </Grid>
 
                             <Grid className="kycForms">
-                                <Grid><label>Insurance Number</label></Grid>
+                                <Grid><label>{insurance} {number}</label></Grid>
                                 <Grid><input type="text" name="number" value={this.state.CreateKYC.number} onChange={this.newEntryState1} /></Grid>
-                            </Grid> 
+                            </Grid>
 
                             {this.state.CreateKYC && this.state.CreateKYC.attachment && this.state.CreateKYC.attachment.length > 0 && this.state.CreateKYC.attachment.length == 2 ?
                                 this.state.CreateKYC.attachment.map((value, index) => (
-                                <Grid>
-                                    {value.type === 'UploadID' &&
-                                    <Grid className="kycForms sprtImg">
-                                        <Grid><label>Upload a photo of your ID Card</label></Grid>
-                                        <Grid><label className="attached_file">Attached Document - <a>{this.state.KYC_ID}</a></label></Grid>
-                                        <FileUploader name="UploadID" fileUpload={this.fileUpload} />
-                                        {/* <Grid className="browsInput">
+                                    <Grid>
+                                        {value.type === 'UploadID' &&
+                                            <Grid className="kycForms sprtImg">
+                                                <Grid><label>{upload_id_card}</label></Grid>
+                                                <Grid><label className="attached_file">{attached_doc} - <a>{this.state.KYC_ID}</a></label></Grid>
+                                                <FileUploader name="UploadID" fileUpload={this.fileUpload} />
+                                                {/* <Grid className="browsInput">
                                             <a><img src={require('../../../../assets/images/upload-file.svg')} alt="" title="" /></a>
                                             <a>Browse <input type="file" name="UploadID" onChange={this.AttachKyc}/></a> or drag here
                                         </Grid>
                                         <p>Supported file types: .jpg, .png, .pdf</p> */}
-                                    </Grid>}
+                                            </Grid>}
 
-                                    {value.type === 'UploadLicense' &&
-                                    <Grid className="kycForms sprtImg">
-                                        <Grid><label>Upload a photo of your ID Card</label></Grid>
-                                        <Grid><label className="attached_file">Attached Document - <a>{this.state.KYC_LICENSE}</a></label></Grid>
-                                        <FileUploader name="UploadLicense" fileUpload={this.fileUpload} />
-                                    </Grid>}
-                                </Grid>
+                                        {value.type === 'UploadLicense' &&
+                                            <Grid className="kycForms sprtImg">
+                                                <Grid><label>{upload_id_card}</label></Grid>
+                                                <Grid><label className="attached_file">{attached_doc} - <a>{this.state.KYC_LICENSE}</a></label></Grid>
+                                                <FileUploader name="UploadLicense" fileUpload={this.fileUpload} />
+                                            </Grid>}
+                                    </Grid>
                                 ))
                                 :
                                 this.state.CreateKYC && this.state.CreateKYC.attachment && this.state.CreateKYC.attachment.length > 0 && this.state.CreateKYC.attachment.length == 1 ?
-                                this.state.CreateKYC.attachment.map((value, index) => (
-                                <Grid>
-                                    {value.type === 'UploadID' &&
+                                    this.state.CreateKYC.attachment.map((value, index) => (
+                                        <Grid>
+                                            {value.type === 'UploadID' &&
+                                                <Grid>
+                                                    <Grid className="kycForms sprtImg">
+                                                        <Grid><label>{upload_id_card}</label></Grid>
+                                                        <Grid><label className="attached_file">{attached_doc} - <a>{this.state.KYC_ID}</a></label></Grid>
+                                                        <FileUploader name="UploadID" fileUpload={this.fileUpload} />
+                                                    </Grid>
+                                                    <Grid className="kycForms sprtImg">
+                                                        <Grid><label>{upload_id_card}</label></Grid>
+                                                        <FileUploader name="UploadLicense" fileUpload={this.fileUpload} />
+                                                    </Grid>
+                                                </Grid>}
+                                            {value.type === 'UploadLicense' &&
+                                                <Grid>
+                                                    <Grid className="kycForms sprtImg">
+                                                        <Grid><label>{upload_id_card}</label></Grid>
+                                                        <FileUploader name="UploadID" fileUpload={this.fileUpload} />
+                                                    </Grid>
+
+                                                    <Grid className="kycForms sprtImg">
+                                                        <Grid><label>{upload_id_card}</label></Grid>
+                                                        <Grid><label className="attached_file">{attached_doc} - <a>{this.state.KYC_LICENSE}</a></label></Grid>
+                                                        <FileUploader name="UploadLicense" fileUpload={this.fileUpload} />
+                                                    </Grid>
+                                                </Grid>}
+                                        </Grid>
+                                    ))
+                                    :
                                     <Grid>
                                         <Grid className="kycForms sprtImg">
-                                            <Grid><label>Upload a photo of your ID Card</label></Grid>
-                                            <Grid><label className="attached_file">Attached Document - <a>{this.state.KYC_ID}</a></label></Grid>
-                                            <FileUploader name="UploadID" fileUpload={this.fileUpload} />
-                                        </Grid>
-                                        <Grid className="kycForms sprtImg">
-                                            <Grid><label>Upload a photo of your ID Card</label></Grid>
-                                            <FileUploader name="UploadLicense" fileUpload={this.fileUpload} />
-                                        </Grid>
-                                    </Grid>}
-                                    {value.type === 'UploadLicense' &&
-                                    <Grid>
-                                        <Grid className="kycForms sprtImg">
-                                            <Grid><label>Upload a photo of your ID Card</label></Grid>
+                                            <Grid><label>{upload_id_card}</label></Grid>
                                             <FileUploader name="UploadID" fileUpload={this.fileUpload} />
                                         </Grid>
 
                                         <Grid className="kycForms sprtImg">
-                                            <Grid><label>Upload a photo of your ID Card</label></Grid>
-                                            <Grid><label className="attached_file">Attached Document - <a>{this.state.KYC_LICENSE}</a></label></Grid>
+                                            <Grid><label>{upload_id_card}</label></Grid>
                                             <FileUploader name="UploadLicense" fileUpload={this.fileUpload} />
                                         </Grid>
-                                    </Grid>}
-                                </Grid>
-                                ))
-                                :
-                                <Grid>
-                                    <Grid className="kycForms sprtImg">
-                                        <Grid><label>Upload a photo of your ID Card</label></Grid>
-                                        <FileUploader name="UploadID" fileUpload={this.fileUpload} />
                                     </Grid>
-
-                                    <Grid className="kycForms sprtImg">
-                                        <Grid><label>Upload a photo of your ID Card</label></Grid>
-                                        <FileUploader name="UploadLicense" fileUpload={this.fileUpload} />
-                                    </Grid>
-                                </Grid>
-                                }
+                            }
                         </Grid>
                         <Grid className="clear"> </Grid>
                     </Grid>
@@ -436,19 +469,19 @@ class Index extends Component {
                                     checked={this.state.agree === true && this.state.agree} onChange={(e) => { this.setState({ agree: !this.state.agree }) }}
                                 />
                             }
-                            label="By clicking this you accept Aimeidis terms and its privacy policy"
+                            label={by_clicking_accept_aimedis_term}
                         />
                     </Grid>
 
                     <Grid container direction="row" alignItems="center">
                         <Grid item xs={12} md={4} className="kycSaveChng">
-                            <input type="submit" onClick={this.saveKYC} value="Save changes" />
+                            <input type="submit" onClick={this.saveKYC} value={save_change} />
                         </Grid>
                     </Grid>
 
                     <Grid className="licensProof">
-                        <p>You are never obligated to upload your license or any other proof of ID.</p>
-                        <p>In the critical environment it makes a unique identification and comparison to the existing helthcare data much easier, when you do. Also the deduction of healthcare services with your insurance company is much easier that way.</p>
+                        <p>{u_r_nvr_obligate_to_upload_doc}</p>
+                        <p>{in_critical_enviroment_id}</p>
                     </Grid>
 
                 </Grid>
@@ -459,7 +492,7 @@ class Index extends Component {
 const mapStateToProps = (state) => {
     const { stateLoginValueAim, loadingaIndicatoranswerdetail } = state.LoginReducerAim;
     const { stateLanguageType } = state.LanguageReducer;
-    const {settings} = state.Settings;
+    const { settings } = state.Settings;
     // const { Doctorsetget } = state.Doctorset;
     // const { catfil } = state.filterate;
     return {

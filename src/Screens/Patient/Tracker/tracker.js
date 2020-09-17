@@ -2,10 +2,15 @@ import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
 import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 import Tabs from '@material-ui/core/Tabs';
+import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
+import { LoginReducerAim } from './../../Login/actions';
+import { LanguageFetchReducer } from './../../actions';
 import Tab from '@material-ui/core/Tab';
 import AppBar from '@material-ui/core/AppBar';
 import Typography from '@material-ui/core/Typography';
 import PropTypes from 'prop-types';
+import { Settings } from './../../Login/setting';
 import Modal from '@material-ui/core/Modal';
 import LeftMenu from './../../Components/Menus/PatientLeftMenu/index';
 import axios from "axios"
@@ -14,7 +19,7 @@ import Battery30Icon from '@material-ui/icons/Battery30';
 import Battery60Icon from '@material-ui/icons/Battery60';
 import Battery90Icon from '@material-ui/icons/Battery90';
 import HighchartsReact from "highcharts-react-official";
-
+import * as translationEN from "../../../translations/en_json_proofread_13072020.json"
 
 const withingsMeasureType = {
     Weight: 1,
@@ -132,17 +137,17 @@ class Index extends Component {
 
     //GET WITHINGS DEVICES & DATA
 
-    getUser = (code)=>{
+    getUser = (code) => {
         axios.post("https://wbsapi.withings.net/v2/user",
-        {
-            headers: {
-                Authorization: "Bearer " + code,
-                Accept: "application/json",
-                "Content-Type": "application/json",
-            },
-        }).then(res=>{
-            console.log("YUYUYUYU USER", res)
-        })
+            {
+                headers: {
+                    Authorization: "Bearer " + code,
+                    Accept: "application/json",
+                    "Content-Type": "application/json",
+                },
+            }).then(res => {
+                console.log("YUYUYUYU USER", res)
+            })
     }
     getDevice = (code) => {
         axios.get("https://wbsapi.withings.net/v2/user?action=getdevice",
@@ -559,9 +564,9 @@ class Index extends Component {
     handleOpenvData = (device) => {
         if (this.state.withingsloggedIn) {
             this.getMeassure(this.state.code, device.deviceid)
-            this.setState({withingsDevice: device})
-        }else(
-            this.setState({fitbitDevice: device})
+            this.setState({ withingsDevice: device })
+        } else (
+            this.setState({ fitbitDevice: device })
         )
         this.setState({ vData: true, });
     };
@@ -571,7 +576,40 @@ class Index extends Component {
 
 
     render() {
-        const {fitbitDevice, withingsDevice, value, fitbitloggedIn, apidata, withingsloggedIn, garminloggedIn, Devices_id, deviceid } = this.state;
+        const { fitbitDevice, withingsDevice, value, fitbitloggedIn, apidata, withingsloggedIn, garminloggedIn, Devices_id, deviceid } = this.state;
+
+        let translate;
+        switch (this.props.stateLanguageType) {
+            case "en":
+                translate = translationEN.text
+                break;
+            // case "de":
+            //     translate = translationDE.text
+            //     break;
+            // case "pt":
+            //     translate = translationPT.text
+            //     break;
+            // case "sp":
+            //     translate = translationSP.text
+            //     break;
+            // case "rs":
+            //     translate = translationRS.text
+            //     break;
+            // case "nl":
+            //     translate = translationNL.text
+            //     break;
+            // case "ch":
+            //     translate = translationCH.text
+            //     break;
+            // case "sw":
+            //     translate = translationSW.text
+            //     break;
+            case "default":
+                translate = translationEN.text
+        }
+        let { trackers, self_data, connect, search_for_device_palce, devices, services, view_data,
+            view_details, logout, disconect_device, distance, total, best, steps, badges, earned, on, last,
+            model, type, timezone, session, ur_connected_device_appear, no_device_connctd, connct_a_device } = translate
         return (
             <Grid className="homeBg">
                 <Grid className="homeBgIner">
@@ -585,9 +623,9 @@ class Index extends Component {
                                 <Grid item xs={12} md={9}>
                                     <Grid className="docsOpinion">
                                         <Grid container direction="row" className="docsOpinLbl">
-                                            <Grid item xs={12} md={6}><label>Trackers & Self Data</label></Grid>
+                                            <Grid item xs={12} md={6}><label>{trackers} & {self_data}</label></Grid>
                                             <Grid item xs={12} md={6} className="docsOpinRght">
-                                                <a onClick={this.handleOpenSrvc}>+ Connect</a>
+                                                <a onClick={this.handleOpenSrvc}>+ {connect}</a>
                                             </Grid>
                                         </Grid>
                                         <Grid item sm={4}>
@@ -614,10 +652,10 @@ class Index extends Component {
                                                             <img src={require('../../../assets/images/closefancy.png')} alt="" title="" />
                                                         </a>
                                                     </Grid>
-                                                    <Grid><label>Connect Devices & Services</label></Grid>
+                                                    <Grid><label>{connect} {devices} & {services}</label></Grid>
 
                                                     <Grid className="srchSrvc">
-                                                        <input type="text" placeholder="Search for device or service name..." />
+                                                        <input type="text" placeholder={search_for_device_palce} />
                                                         <img src={require('../../../assets/images/InputField.svg')} alt="" title="" />
                                                     </Grid>
 
@@ -726,8 +764,8 @@ class Index extends Component {
                                                                         <Grid className="trckDots presEditDot scndOptionIner">
                                                                             <a className="openScndhrf"><img src={require('../../../assets/images/threedots.jpg')} alt="" title="" />
                                                                                 <ul>
-                                                                                    <li><a onClick={this.handleOpenvData} className="trackView" >View Details</a></li>
-                                                                                    <li><a onClick={this.logoutfromall} className="trackView" >Logout</a></li>
+                                                                                    <li><a onClick={this.handleOpenvData} className="trackView" >{view_details}</a></li>
+                                                                                    <li><a onClick={this.logoutfromall} className="trackView" >{logout}</a></li>
                                                                                 </ul>
                                                                             </a></Grid>
                                                                         <Grid className="trckLogo"><img src={require('../../../assets/images/fitbit.png')} alt="" title="" /></Grid>
@@ -736,7 +774,7 @@ class Index extends Component {
                                                                             <p>{devicedata.deviceVersion}</p>
                                                                         </Grid>
                                                                     </Grid>
-                                                                    <Grid className="trackView"><a onClick={()=>this.handleOpenvData(devicedata)}>View data</a></Grid>
+                                                                    <Grid className="trackView"><a onClick={() => this.handleOpenvData(devicedata)}>{view_data}</a></Grid>
                                                                 </Grid>
                                                             ))}
                                                         </Grid>
@@ -763,8 +801,8 @@ class Index extends Component {
                                                                         <Grid className="trckDots presEditDot scndOptionIner">
                                                                             <a className="openScndhrf"><img src={require('../../../assets/images/threedots.jpg')} alt="" title="" />
                                                                                 <ul>
-                                                                                    <li><a onClick={this.handleOpenvData} className="trackView" >View Details</a></li>
-                                                                                    <li><a onClick={this.logoutfromall} className="trackView" >Logout</a></li>
+                                                                                    <li><a onClick={this.handleOpenvData} className="trackView" >{view_details}</a></li>
+                                                                                    <li><a onClick={this.logoutfromall} className="trackView" >{logout}</a></li>
                                                                                 </ul>
                                                                             </a>
                                                                         </Grid>
@@ -775,7 +813,7 @@ class Index extends Component {
                                                                         </Grid>
                                                                     </Grid>
                                                                     <Grid className="trackView"><a onClick={() => this.handleOpenvData(devices)}>
-                                                                        View data
+                                                                        {view_data}
                                                                     </a></Grid>
                                                                 </Grid>
                                                             ))
@@ -832,7 +870,7 @@ class Index extends Component {
                                                                         <p>{fitbitloggedIn ? fitbitDevice && fitbitDevice.deviceVersion : withingsloggedIn ? withingsDevice && withingsDevice.model : ""}</p>
                                                                     </Grid>
                                                                     <Grid className="disCnctRght">
-                                                                        <a>Disconnect device</a>
+                                                                        <a>{disconect_device}</a>
                                                                     </Grid>
                                                                 </Grid>
                                                             </Grid>
@@ -848,23 +886,23 @@ class Index extends Component {
                                                                                 {this.state.fitbitloggedIn && <div>
                                                                                     {this.state.apidata && this.state.apidata.lifetimeStats &&
                                                                                         <div>
-                                                                                            <h4>Distance</h4>
-                                                                                            <p>Total: {this.state.apidata.lifetimeStats.lifetime && this.state.apidata.lifetimeStats.lifetime.total && this.state.apidata.lifetimeStats.lifetime.total.distance && this.state.apidata.lifetimeStats.lifetime.total.distance}</p>
-                                                                                            <p>Best: {this.state.apidata.lifetimeStats.best && this.state.apidata.lifetimeStats.best.total && this.state.apidata.lifetimeStats.best.total.distance && this.state.apidata.lifetimeStats.best.total.distance.value && this.state.apidata.lifetimeStats.best.total.distance && this.state.apidata.lifetimeStats.best.total.distance.value} on {this.state.apidata.lifetimeStats.best && this.state.apidata.lifetimeStats.best.total && this.state.apidata.lifetimeStats.best.total.distance && this.state.apidata.lifetimeStats.best.total.distance.date && this.state.apidata.lifetimeStats.best.total.distance.date}</p>
-                                                                                            <h4>Steps</h4>
-                                                                                            <p>Total: {this.state.apidata.lifetimeStats.lifetime && this.state.apidata.lifetimeStats.lifetime.total && this.state.apidata.lifetimeStats.lifetime.total.steps && this.state.apidata.lifetimeStats.lifetime.total.steps}</p>
-                                                                                            <p>Best: {this.state.apidata.lifetimeStats.best && this.state.apidata.lifetimeStats.best.total && this.state.apidata.lifetimeStats.best.total.steps.value && this.state.apidata.lifetimeStats.best.total.steps.value} on {this.state.apidata.lifetimeStats.best && this.state.apidata.lifetimeStats.best.total && this.state.apidata.lifetimeStats.best.total.steps && this.state.apidata.lifetimeStats.best.total.steps.date && this.state.apidata.lifetimeStats.best.total.steps && this.state.apidata.lifetimeStats.best.total.steps.date}</p>
+                                                                                            <h4>{distance}</h4>
+                                                                                            <p>{total}: {this.state.apidata.lifetimeStats.lifetime && this.state.apidata.lifetimeStats.lifetime.total && this.state.apidata.lifetimeStats.lifetime.total.distance && this.state.apidata.lifetimeStats.lifetime.total.distance}</p>
+                                                                                            <p>{best}: {this.state.apidata.lifetimeStats.best && this.state.apidata.lifetimeStats.best.total && this.state.apidata.lifetimeStats.best.total.distance && this.state.apidata.lifetimeStats.best.total.distance.value && this.state.apidata.lifetimeStats.best.total.distance && this.state.apidata.lifetimeStats.best.total.distance.value} on {this.state.apidata.lifetimeStats.best && this.state.apidata.lifetimeStats.best.total && this.state.apidata.lifetimeStats.best.total.distance && this.state.apidata.lifetimeStats.best.total.distance.date && this.state.apidata.lifetimeStats.best.total.distance.date}</p>
+                                                                                            <h4>{steps}</h4>
+                                                                                            <p>{total}: {this.state.apidata.lifetimeStats.lifetime && this.state.apidata.lifetimeStats.lifetime.total && this.state.apidata.lifetimeStats.lifetime.total.steps && this.state.apidata.lifetimeStats.lifetime.total.steps}</p>
+                                                                                            <p>{best}: {this.state.apidata.lifetimeStats.best && this.state.apidata.lifetimeStats.best.total && this.state.apidata.lifetimeStats.best.total.steps.value && this.state.apidata.lifetimeStats.best.total.steps.value} on {this.state.apidata.lifetimeStats.best && this.state.apidata.lifetimeStats.best.total && this.state.apidata.lifetimeStats.best.total.steps && this.state.apidata.lifetimeStats.best.total.steps.date && this.state.apidata.lifetimeStats.best.total.steps && this.state.apidata.lifetimeStats.best.total.steps.date}</p>
                                                                                         </div>}
                                                                                     {this.state.apidata && this.state.apidata.badges &&
-                                                                                        <h4>Badges</h4>}
+                                                                                        <h4>{badges}</h4>}
                                                                                     {this.state.apidata && this.state.apidata.badges && this.state.apidata.badges.badges && this.state.apidata.badges.badges.length > 0 && this.state.apidata.badges.badges.map((badge, i) => {
                                                                                         return (
                                                                                             <div key={i}>
                                                                                                 <h5>{badge.shortName}</h5>
                                                                                                 <p><img src={badge.image100px} alt="" /></p>
                                                                                                 <p>{badge.description}</p>
-                                                                                                <p>Earned {badge.timesAchieved} times</p>
-                                                                                                <p>Last on {badge.dateTime}</p>
+                                                                                                <p>{earned} {badge.timesAchieved} times</p>
+                                                                                                <p>{last} {on} {badge.dateTime}</p>
                                                                                             </div>
                                                                                         )
                                                                                     })}
@@ -873,13 +911,13 @@ class Index extends Component {
                                                                                     <div>
                                                                                         {deviceid &&
                                                                                             <div className="CardView">
-                                                                                                <h2>Devices</h2>
+                                                                                                <h2>{devices}</h2>
                                                                                                 <Grid container className="CardItem">
                                                                                                     <Grid item sm={10}>
-                                                                                                        <label>Model : </label> <span>{deviceid.model}</span>
-                                                                                                        <label>Type : </label> <span>{deviceid.type}</span>
-                                                                                                        <label>Timezone : </label> <span>{deviceid.timezone}</span>
-                                                                                                        <label>Last Session : </label> <span> {new Date(
+                                                                                                        <label>{model} : </label> <span>{deviceid.model}</span>
+                                                                                                        <label>{type} : </label> <span>{deviceid.type}</span>
+                                                                                                        <label>{timezone} : </label> <span>{deviceid.timezone}</span>
+                                                                                                        <label>{last} {session} : </label> <span> {new Date(
                                                                                                             deviceid.last_session_date * 1000
                                                                                                         ).toString()}</span>
                                                                                                     </Grid>
@@ -929,7 +967,7 @@ class Index extends Component {
                                                                         <p>Fitbit Versa 2</p>
                                                                     </Grid>
                                                                 </Grid>
-                                                                <Grid className="trackView"><a>View data</a></Grid>
+                                                                <Grid className="trackView"><a>{view_data}</a></Grid>
                                                             </Grid>
                                                         </Grid>
                                                         <Grid item xs={12} md={3}>
@@ -942,61 +980,7 @@ class Index extends Component {
                                                                         <p>Fitbit Versa 2</p>
                                                                     </Grid>
                                                                 </Grid>
-                                                                <Grid className="trackView"><a>View data</a></Grid>
-                                                            </Grid>
-                                                        </Grid>
-                                                    </Grid>
-                                                    <Grid container direction="row" spacing={3}>
-                                                        <Grid item xs={12} md={3}>
-                                                            <Grid className="trckSection">
-                                                                <Grid className="trckSecIner">
-                                                                    <Grid className="trckDots"><img src={require('../../../assets/images/threedots.jpg')} alt="" title="" /></Grid>
-                                                                    <Grid className="trckLogo"><img src={require('../../../assets/images/fitbit.png')} alt="" title="" /></Grid>
-                                                                    <Grid className="trckCntnt">
-                                                                        <Grid><label>Klemen’s Fitbit 1</label></Grid>
-                                                                        <p>Fitbit Versa 2</p>
-                                                                    </Grid>
-                                                                </Grid>
-                                                                <Grid className="trackView"><a>View data</a></Grid>
-                                                            </Grid>
-                                                        </Grid>
-                                                        <Grid item xs={12} md={3}>
-                                                            <Grid className="trckSection">
-                                                                <Grid className="trckSecIner">
-                                                                    <Grid className="trckDots"><img src={require('../../../assets/images/threedots.jpg')} alt="" title="" /></Grid>
-                                                                    <Grid className="trckLogo"><img src={require('../../../assets/images/fitbit.png')} alt="" title="" /></Grid>
-                                                                    <Grid className="trckCntnt">
-                                                                        <Grid><label>Klemen’s Fitbit 1</label></Grid>
-                                                                        <p>Fitbit Versa 2</p>
-                                                                    </Grid>
-                                                                </Grid>
-                                                                <Grid className="trackView"><a>View data</a></Grid>
-                                                            </Grid>
-                                                        </Grid>
-                                                        <Grid item xs={12} md={3}>
-                                                            <Grid className="trckSection">
-                                                                <Grid className="trckSecIner">
-                                                                    <Grid className="trckDots"><img src={require('../../../assets/images/threedots.jpg')} alt="" title="" /></Grid>
-                                                                    <Grid className="trckLogo"><img src={require('../../../assets/images/fitbit.png')} alt="" title="" /></Grid>
-                                                                    <Grid className="trckCntnt">
-                                                                        <Grid><label>Klemen’s Fitbit 1</label></Grid>
-                                                                        <p>Fitbit Versa 2</p>
-                                                                    </Grid>
-                                                                </Grid>
-                                                                <Grid className="trackView"><a>View data</a></Grid>
-                                                            </Grid>
-                                                        </Grid>
-                                                        <Grid item xs={12} md={3}>
-                                                            <Grid className="trckSection">
-                                                                <Grid className="trckSecIner">
-                                                                    <Grid className="trckDots"><img src={require('../../../assets/images/threedots.jpg')} alt="" title="" /></Grid>
-                                                                    <Grid className="trckLogo"><img src={require('../../../assets/images/fitbit.png')} alt="" title="" /></Grid>
-                                                                    <Grid className="trckCntnt">
-                                                                        <Grid><label>Klemen’s Fitbit 1</label></Grid>
-                                                                        <p>Fitbit Versa 2</p>
-                                                                    </Grid>
-                                                                </Grid>
-                                                                <Grid className="trackView"><a>View data</a></Grid>
+                                                                <Grid className="trackView"><a>{view_data}</a></Grid>
                                                             </Grid>
                                                         </Grid>
                                                     </Grid>
@@ -1011,7 +995,61 @@ class Index extends Component {
                                                                         <p>Fitbit Versa 2</p>
                                                                     </Grid>
                                                                 </Grid>
-                                                                <Grid className="trackView"><a>View data</a></Grid>
+                                                                <Grid className="trackView"><a>{view_data}</a></Grid>
+                                                            </Grid>
+                                                        </Grid>
+                                                        <Grid item xs={12} md={3}>
+                                                            <Grid className="trckSection">
+                                                                <Grid className="trckSecIner">
+                                                                    <Grid className="trckDots"><img src={require('../../../assets/images/threedots.jpg')} alt="" title="" /></Grid>
+                                                                    <Grid className="trckLogo"><img src={require('../../../assets/images/fitbit.png')} alt="" title="" /></Grid>
+                                                                    <Grid className="trckCntnt">
+                                                                        <Grid><label>Klemen’s Fitbit 1</label></Grid>
+                                                                        <p>Fitbit Versa 2</p>
+                                                                    </Grid>
+                                                                </Grid>
+                                                                <Grid className="trackView"><a>{view_data}</a></Grid>
+                                                            </Grid>
+                                                        </Grid>
+                                                        <Grid item xs={12} md={3}>
+                                                            <Grid className="trckSection">
+                                                                <Grid className="trckSecIner">
+                                                                    <Grid className="trckDots"><img src={require('../../../assets/images/threedots.jpg')} alt="" title="" /></Grid>
+                                                                    <Grid className="trckLogo"><img src={require('../../../assets/images/fitbit.png')} alt="" title="" /></Grid>
+                                                                    <Grid className="trckCntnt">
+                                                                        <Grid><label>Klemen’s Fitbit 1</label></Grid>
+                                                                        <p>Fitbit Versa 2</p>
+                                                                    </Grid>
+                                                                </Grid>
+                                                                <Grid className="trackView"><a>{view_data}</a></Grid>
+                                                            </Grid>
+                                                        </Grid>
+                                                        <Grid item xs={12} md={3}>
+                                                            <Grid className="trckSection">
+                                                                <Grid className="trckSecIner">
+                                                                    <Grid className="trckDots"><img src={require('../../../assets/images/threedots.jpg')} alt="" title="" /></Grid>
+                                                                    <Grid className="trckLogo"><img src={require('../../../assets/images/fitbit.png')} alt="" title="" /></Grid>
+                                                                    <Grid className="trckCntnt">
+                                                                        <Grid><label>Klemen’s Fitbit 1</label></Grid>
+                                                                        <p>Fitbit Versa 2</p>
+                                                                    </Grid>
+                                                                </Grid>
+                                                                <Grid className="trackView"><a>{view_data}</a></Grid>
+                                                            </Grid>
+                                                        </Grid>
+                                                    </Grid>
+                                                    <Grid container direction="row" spacing={3}>
+                                                        <Grid item xs={12} md={3}>
+                                                            <Grid className="trckSection">
+                                                                <Grid className="trckSecIner">
+                                                                    <Grid className="trckDots"><img src={require('../../../assets/images/threedots.jpg')} alt="" title="" /></Grid>
+                                                                    <Grid className="trckLogo"><img src={require('../../../assets/images/fitbit.png')} alt="" title="" /></Grid>
+                                                                    <Grid className="trckCntnt">
+                                                                        <Grid><label>Klemen’s Fitbit 1</label></Grid>
+                                                                        <p>Fitbit Versa 2</p>
+                                                                    </Grid>
+                                                                </Grid>
+                                                                <Grid className="trackView"><a>{view_data}</a></Grid>
                                                             </Grid>
                                                         </Grid> */}
 
@@ -1020,9 +1058,9 @@ class Index extends Component {
 
                                             {value === 1 && <TabContainer>
                                                 <Grid className="noDevices">
-                                                    <h1>No devices connected</h1>
-                                                    <p>Your connected devices will appear here</p>
-                                                    <h3><a>Connect a device</a></h3>
+                                                    <h1>{no_device_connctd}</h1>
+                                                    <p>{ur_connected_device_appear}</p>
+                                                    <h3><a>{connct_a_device}</a></h3>
                                                 </Grid>
                                             </TabContainer>}
 
@@ -1037,4 +1075,19 @@ class Index extends Component {
         );
     }
 }
-export default Index
+const mapStateToProps = (state) => {
+    const { stateLoginValueAim, loadingaIndicatoranswerdetail } = state.LoginReducerAim;
+    const { stateLanguageType } = state.LanguageReducer;
+    const { settings } = state.Settings;
+    // const { Doctorsetget } = state.Doctorset;
+    // const { catfil } = state.filterate;
+    return {
+        stateLanguageType,
+        stateLoginValueAim,
+        loadingaIndicatoranswerdetail,
+        settings,
+        //   Doctorsetget,
+        //   catfil
+    }
+};
+export default withRouter(connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer, Settings })(Index));

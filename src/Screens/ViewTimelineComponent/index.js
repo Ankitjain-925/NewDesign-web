@@ -200,7 +200,7 @@ class Index extends Component {
                                     
                                     {/* <NotesEditor name="remarks" label="Notes"  onChange={(e)=> this.updateEntryState1(e, 'remarks')} />     */}
                                 
-                                    <NotesEditor name="remarks" label="Notes"  onChange={(e)=> this.updateEntryState1(e, 'remarks')} /> 
+                                    <NotesEditor name="remarks" label="Notes" value={this.state.updateTrack.remarks} onChange={(e)=> this.updateEntryState1(e, 'remarks')} value={this.state.updateTrack.remarks}/> 
 
                                     <SelectByTwo name="visible" label="Visible" options={[{label : 'Show this entry', value: 'show'}, {label: 'Hide this entry', value : 'hide'}]} onChange={(e)=> this.updateEntryState1(e, 'visible')} value={this.state.updateTrack.visible}/>    
                                     <SelectByTwo name="feeling" label="Feelings" options={[{label : 'Relaxed', value: 'relaxed'}, {label: 'Stressed', value : 'stressed'}]} onChange={(e)=> this.updateEntryState1(e, 'feelings')} value={this.state.updateTrack.feelings}/>    

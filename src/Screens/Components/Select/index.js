@@ -10,6 +10,8 @@ class SelectField extends Component {
             label : this.props.label,
             name : this.props.name,
             option : this.props.option,  
+            isMulti : this.props.isMulti,
+            closeMenuOnSelect : this.props.closeMenuOnSelect,
         };
     }
 
@@ -34,6 +36,7 @@ class SelectField extends Component {
                     onChange={(e) => this.onSelectChange(e, this.state.name)}
                     isSearchable={false}
                     isMulti={this.state.isMulti}
+                    closeMenuOnSelect={this.state.closeMenuOnSelect}
                 />
             </Grid>
         )

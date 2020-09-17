@@ -9,6 +9,7 @@ import { connect } from "react-redux";
 import { LoginReducerAim } from './../../../Login/actions';
 import { Settings } from './../../../Login/setting';
 import { LanguageFetchReducer } from './../../../actions';
+import * as translationEN from '../../../../translations/en_json_proofread_13072020.json';
 
 class Index extends Component {
     constructor(props) {
@@ -80,21 +81,51 @@ class Index extends Component {
     }
 
     render() {
+        let translate;
+        switch (this.props.stateLanguageType) {
+            case "en":
+                translate = translationEN.text
+                break;
+            // case "de":
+            //     translate = translationDE.text
+            //     break;
+            // case "pt":
+            //     translate = translationPT.text
+            //     break;
+            // case "sp":
+            //     translate = translationSP.text
+            //     break;
+            // case "rs":
+            //     translate = translationRS.text
+            //     break;
+            // case "nl":
+            //     translate = translationNL.text
+            //     break;
+            // case "ch":
+            //     translate = translationCH.text
+            //     break;
+            // case "sw":
+            //     translate = translationSW.text
+            //     break;
+            case "default":
+                translate = translationEN.text
+        }
+        let {date, time, format, set_the_default, the, is, updated,save_change }=translate
 
         return (
             <div>
                  {this.state.loaderImage && <Loader />}
-                 {this.state.PassDone && <div className="success_message">The Format is updated</div>}
+                 {this.state.PassDone && <div className="success_message">{the} {format} {is} {updated}</div>}
                 <Grid>
                     <Grid className="datTimFrmt">
-                        <h5>Date & Time format</h5>
-                        <p>Set the default date & time format</p>
+                        <h5>{date} & {time} {format}</h5>
+                        <p>{set_the_default} {date} & {time} {format}</p>
                     </Grid>
 
                     <Grid container direction="row" alignItems="center">
                         <Grid item xs={12} md={4}>
                             <Grid className="dateFormat">
-                                <Grid><label>Date format</label></Grid>
+                                <Grid><label>{date} {format}</label></Grid>
                                 <Grid>
                                     <Select
                                         value={this.state.dateF}
@@ -108,7 +139,7 @@ class Index extends Component {
                                 </Grid>
                             </Grid>
                             <Grid className="timeFormat">
-                                <Grid><label>Time format</label></Grid>
+                                <Grid><label>{time} {format}</label></Grid>
                                 <Grid>
                                     <Select
                                         value={this.state.timeF}
@@ -123,7 +154,7 @@ class Index extends Component {
                             </Grid>
 
                             <Grid className="timDatSubmit">
-                                <input type="submit" onClick={this.SetFormat} value="Save changes" />
+                                <input type="submit" onClick={this.SetFormat} value={save_change} />
                             </Grid>
 
                         </Grid>

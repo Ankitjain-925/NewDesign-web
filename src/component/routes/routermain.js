@@ -20,6 +20,7 @@ import PatientTimeLine from "./../../Screens/Patient/Journal/index";
 import PatientChats from "./../../Screens/Patient/Chat/index"
 import PatientTimeLine1 from "./../../Screens/ViewTimelineComponent/index.js";
 import PatientBlockchain from "./../../Screens/Patient/More/blockchain.js";
+import PatientarchiveJournal from "./../../Screens/Patient/More/archiveJournal.js"
 
 //Doctor Component
 import DoctorService from "./../../Screens/Doctor/Services/index.js"
@@ -38,7 +39,7 @@ class Routermain extends Component {
             <Route exact path="/patient" render={(props) => <PatientProfile  {...props} />} />
             <Route exact path="/patient/second-opinion" render={(props) => <PatientSecond {...props}/>} />
             <Route exact path="/patient/emergency" render={(props) => <PatientEmergency {...props}/>} />
-            <Route exact path="/patient/extra-services" render={(props) => <PatientExtra {...props}/>} />
+            <Route exact path="/patient/extra-services" rensder={(props) => <PatientExtra {...props}/>} />
             <Route exact path="/patient/documents" render={(props) => <PatientDocument {...props} />} />
             <Route exact path="/patient/online-course" render={(props) => <PatientOnline {...props}/>} />
             <Route exact path="/patient/view-course" render={(props) => <PaitnetViewCourses {...props}/>} />
@@ -47,10 +48,13 @@ class Routermain extends Component {
             <Route exact path="/patient/Timelinecomponents" render={(props) => <PatientTimeLine1 {...props}/>} />
             <Route exact path="/patient/chats" render={(props) => <PatientChats {...props}/>} />
             <Route exact path="/patient/blockchain" render={(props) => <PatientBlockchain {...props}/>} />
+            <Route exact path="/patient/archiveJournal" render={(props) => <PatientarchiveJournal {...props}/>} />
             {/* Doctor Router Start*/}
             <Route exact path="/doctor" render={(props) => <DoctorService {...props}/>} />
             <Route exact path="/doctor/patient" render={(props) => <DoctorService {...props}/>} />
             {/* Doctor Router End*/}
+            
+            
             <Route path='*' exact={true} render={(props) => <NotFound {...props} />} />
             {/* End By Ankita */}
             

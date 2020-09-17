@@ -16,6 +16,7 @@ import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
 import Loader from './../../../Components/Loader/index';
 import { getDate, getImage } from './../../../Components/BasicMethod/index'
+import * as translationEN from '../../../../translations/en_json_proofread_13072020.json';
 
 const specialistOptions = [
     { value: 'Specialist1', label: 'Specialist1' },
@@ -24,7 +25,7 @@ const specialistOptions = [
 
 class Index extends Component {
     constructor(props) {
-       super(props);
+        super(props);
         this.state = {
             currentList: [],
             currentPage: 1,
@@ -131,8 +132,8 @@ class Index extends Component {
                 'Content-Type': 'application/json'
             }
         }).then((response) => {
-            this.setState({ successfullsent: true , addInqry: false })
-            setTimeout(() => { this.setState({ successfullsent: false,  }) }, 5000)
+            this.setState({ successfullsent: true, addInqry: false })
+            setTimeout(() => { this.setState({ successfullsent: false, }) }, 5000)
             this.getPrescription();
         }).catch((error) => {
         })
@@ -180,18 +181,50 @@ class Index extends Component {
     }
 
     render() {
+        let translate;
+        switch (this.props.stateLanguageType) {
+            case "en":
+                translate = translationEN.text
+                break;
+            // case "de":
+            //     translate = translationDE.text
+            //     break;
+            // case "pt":
+            //     translate = translationPT.text
+            //     break;
+            // case "sp":
+            //     translate = translationSP.text
+            //     break;
+            // case "rs":
+            //     translate = translationRS.text
+            //     break;
+            // case "nl":
+            //     translate = translationNL.text
+            //     break;
+            // case "ch":
+            //     translate = translationCH.text
+            //     break;
+            // case "sw":
+            //     translate = translationSW.text
+            //     break;
+            case "default":
+                translate = translationEN.text
+        }
+        let {srvc_Doctors, status, sent, on, prescription, Pending, request, edit, Rejected, Answered, Cancelled, req_updated_successfully, sick_cert, my_doc, New, inquiry,
+            doc_and_statnderd_ques, doc_aimedis_private, Annotations, details, questions, is_this_follow_pres, how_u_like_rcv_pres, Medicine, Substance, Dose, mg, trade_name, atc_if_applicable, manufacturer, pack_size, } = translate
+
         return (
             <div>
-                {this.state.successfullsent && <div className="success_message">Request updated Sucessfully</div>}
+                {this.state.successfullsent && <div className="success_message">{req_updated_successfully}</div>}
                 <Grid className="presOpinionIner">
                     {this.state.loaderImage && <Loader />}
                     <Table>
                         <Thead>
                             <Tr>
-                                <Th>Medicine</Th>
-                                <Th>Sent on</Th>
-                                <Th>Doctor</Th>
-                                <Th>Status</Th>
+                                <Th>{Medicine}</Th>
+                                <Th>{sent} {on}</Th>
+                                <Th>{srvc_Doctors}</Th>
+                                <Th>{status}</Th>
                             </Tr>
                         </Thead>
                         <Tbody>
@@ -200,11 +233,11 @@ class Index extends Component {
                                     <Td>{data.medication ? data.medication : 'Not mentioned'}</Td>
                                     <Td>{data.send_on ? getDate(data.send_on, this.props.settings.setting.date_format) : 'Not mentioned'}</Td>
                                     <Td className="presImg"><img src={data.docProfile && data.docProfile.profile_image ? getImage(data.docProfile.profile_image, this.state.images) : require('../../../../assets/images/dr1.jpg')} alt="" title="" />{data.docProfile && data.docProfile.first_name && data.docProfile.first_name} {data.docProfile && data.docProfile.last_name && data.docProfile.last_name}</Td>
-                                    {data.status === 'pending' && <Td><span className="revwYelow"></span>Pending </Td>}
-                                    {data.status === 'accept' && <Td><span className="revwGren"></span>Answered </Td>}
-                                    {data.status === 'remove' && <Td><span className="revwRed"></span> Rejected</Td>}
-                                    {data.status === 'cancel' && <Td><span className="revwRed"></span> Cancelled</Td>}
-                                    {data.status === 'free' && <Td><span className="revwGry"></span> Sent request</Td>}
+                                    {data.status === 'pending' && <Td><span className="revwYelow"></span>{Pending} </Td>}
+                                    {data.status === 'accept' && <Td><span className="revwGren"></span>{Answered} </Td>}
+                                    {data.status === 'remove' && <Td><span className="revwRed"></span> {Rejected}</Td>}
+                                    {data.status === 'cancel' && <Td><span className="revwRed"></span> {Cancelled}</Td>}
+                                    {data.status === 'free' && <Td><span className="revwGry"></span> {sent} {request}</Td>}
                                     <Td className="presEditDot scndOptionIner">
                                         <a className="openScndhrf">
                                             <img src={require('../../../../assets/images/threedots.jpg')} alt="" title="" className="openScnd" />
@@ -233,27 +266,27 @@ class Index extends Component {
                                             <img src={require('../../../../assets/images/closefancy.png')} alt="" title="" />
                                         </a>
                                     </Grid>
-                                    <p>Edit inquiry</p>
-                                    <Grid><label>Prescription</label></Grid>
+                                    <p>{edit} {inquiry}</p>
+                                    <Grid><label>{prescription}</label></Grid>
                                 </Grid>
                                 <Grid className="docHlthMain">
                                     <Grid className="drstndrdQues">
-                                        <h3>Doctor and standard questions</h3>
+                                        <h3>{doc_and_statnderd_ques}</h3>
                                         <Grid className="drsplestQues">
-                                            <Grid><label>Doctor (Aimedis & Private)</label></Grid>
+                                            <Grid><label>{doc_aimedis_private}</label></Grid>
                                             <Grid><h3>{this.state.AddPrescription && this.state.AddPrescription.docProfile && this.state.AddPrescription.docProfile.first_name && this.state.AddPrescription.docProfile.first_name} {this.state.AddPrescription && this.state.AddPrescription.docProfile && this.state.AddPrescription.docProfile.last_name && this.state.AddPrescription.docProfile.last_name}</h3></Grid>
                                         </Grid>
                                     </Grid>
 
 
                                     <Grid className="ishelpUpr">
-                                        <Grid className="ishelpLbl"><label>Is this a follow-up prescription?</label></Grid>
+                            <Grid className="ishelpLbl"><label>{is_this_follow_pres}?</label></Grid>
                                         <Grid className="ishelpChk">
                                             <FormControlLabel control={<Radio />} name="follow_up_prescription" value="yes" color="#00ABAF" checked={this.state.AddPrescription.follow_up_prescription === 'yes'} onChange={this.AddState} label="Yes" />
                                             <FormControlLabel control={<Radio />} name="follow_up_prescription" color="#00ABAF" value="no" checked={this.state.AddPrescription.follow_up_prescription === 'no'} onChange={this.AddState} label="No" />
                                         </Grid>
                                         <Grid className="ishelpLbl">
-                                            <label>How would you like to receive the prescription?</label>
+                            <label>{how_u_like_rcv_pres}?</label>
                                         </Grid>
                                         <Grid className="ishelpChk">
                                             <FormControlLabel control={<Radio />} name="prescription_type" value="online" color="#00ABAF" checked={this.state.AddPrescription.prescription_type === 'online'} onChange={this.AddState} label="Online" />
@@ -262,8 +295,8 @@ class Index extends Component {
                                     </Grid>
 
                                     <Grid className="medicnSub">
-                                        <h4>Medicine inquiry</h4>
-                                        <Grid><label>Medicine / Substance</label></Grid>
+                            <h4>{Medicine} {inquiry}</h4>
+                                        <Grid><label>{Medicine} / {Substance}</label></Grid>
                                         <Grid>
                                             <Select
                                                 value={this.state.selectedSub}
@@ -277,34 +310,34 @@ class Index extends Component {
                                     </Grid>
 
                                     <Grid className="medicnSub">
-                                        <Grid><label>Dose</label></Grid>
+                                        <Grid><label>{Dose}</label></Grid>
                                         <Grid className="doseMg"><input type="text" name="dose" value={this.state.AddPrescription.dose} onChange={this.AddState} />
-                                            <span>mg</span>
+                                            <span>{mg}</span>
                                         </Grid>
                                     </Grid>
 
                                     <Grid className="medicnSub">
-                                        <Grid><label>Trade name</label></Grid>
+                                        <Grid><label>{trade_name}</label></Grid>
                                         <Grid><input type="text" name="trade_name" value={this.state.AddPrescription.trade_name} onChange={this.AddState} /></Grid>
                                     </Grid>
 
                                     <Grid className="medicnSub">
-                                        <Grid><label>ATC code if applicable</label></Grid>
+                                        <Grid><label>{atc_if_applicable}</label></Grid>
                                         <Grid><input type="text" name="atc_code" value={this.state.AddPrescription.atc_code} onChange={this.AddState} /></Grid>
                                     </Grid>
 
                                     <Grid className="medicnSub">
-                                        <Grid><label>Manufacturer</label></Grid>
+                                        <Grid><label>{manufacturer}</label></Grid>
                                         <Grid><input type="text" name="manufacturer" value={this.state.AddPrescription.manufacturer} onChange={this.AddState} /></Grid>
                                     </Grid>
 
                                     <Grid className="medicnSub">
-                                        <Grid><label>Pack size</label></Grid>
+                                        <Grid><label>{pack_size}</label></Grid>
                                         <Grid><input type="text" name="pack_size" value={this.state.AddPrescription.pack_size} onChange={this.AddState} /></Grid>
                                     </Grid>
 
                                     <Grid className="medicnSub">
-                                        <Grid><label>Annotations / details / questions</label></Grid>
+                                        <Grid><label>{Annotations} / {details} / {questions}</label></Grid>
                                         <Grid><textarea name="annotations" value={this.state.AddPrescription.annotations} onChange={this.AddState}></textarea></Grid>
                                     </Grid>
 
@@ -345,60 +378,60 @@ class Index extends Component {
                                             <img src={require('../../../../assets/images/closefancy.png')} alt="" title="" />
                                         </a>
                                     </Grid>
-                                    <p>Edit inquiry</p>
-                                    <Grid><label>Prescription</label></Grid>
+                                    <p>{edit} {inquiry}</p>
+                                    <Grid><label>{prescription}</label></Grid>
                                 </Grid>
                                 <Grid className="docHlthMain">
                                     <Grid className="drstndrdQues">
-                                        <h3>Doctor and standard questions</h3>
+                                        <h3>{doc_and_statnderd_ques}</h3>
                                         <Grid className="drsplestQues">
-                                            <Grid><label>Doctor (Aimedis & Private)</label></Grid>
+                                            <Grid><label>{doc_aimedis_private}</label></Grid>
                                             <Grid><h3>{this.state.AddPrescription && this.state.AddPrescription.docProfile && this.state.AddPrescription.docProfile.first_name && this.state.AddPrescription.docProfile.first_name} {this.state.AddPrescription && this.state.AddPrescription.docProfile && this.state.AddPrescription.docProfile.last_name && this.state.AddPrescription.docProfile.last_name}</h3></Grid>
                                         </Grid>
                                     </Grid>
 
 
                                     <Grid className="ishelpUpr">
-                                        <Grid className="ishelpLbl"><label>Is this a follow-up prescription?</label></Grid>
+                                        <Grid className="ishelpLbl"><label>{is_this_follow_pres}?</label></Grid>
                                         <Grid><h3>{this.state.AddPrescription && this.state.AddPrescription.follow_up_prescription && this.state.AddPrescription.follow_up_prescription}</h3></Grid>
 
-                                        <Grid className="ishelpLbl"> <label>How would you like to receive the prescription?</label> </Grid>
+                                        <Grid className="ishelpLbl"> <label>{how_u_like_rcv_pres}?</label> </Grid>
                                         <Grid><h3>{this.state.AddPrescription && this.state.AddPrescription.prescription_type && this.state.AddPrescription.prescription_type}</h3></Grid>
 
-                                        <Grid className="medicnSub"> <h4 className="Inquirypaddingtop">Medicine inquiry</h4>
+                                        <Grid className="medicnSub"> <h4 className="Inquirypaddingtop">{Medicine} {inquiry}</h4>
 
-                                            <Grid><label>Medicine / Substance</label></Grid>
+                                            <Grid><label>{Medicine} / {Substance}</label></Grid>
                                             <Grid><h3>{this.state.AddPrescription && this.state.AddPrescription.medication && this.state.AddPrescription.medication}</h3></Grid>
 
                                         </Grid>
 
                                         <Grid className="medicnSub">
-                                            <Grid><label>Dose</label></Grid>
+                                            <Grid><label>{Dose}</label></Grid>
                                             <Grid><h3>{this.state.AddPrescription && this.state.AddPrescription.dose && this.state.AddPrescription.dose}</h3><span>mg</span></Grid>
                                         </Grid>
 
                                         <Grid className="medicnSub">
-                                            <Grid><label>Trade name</label></Grid>
+                                            <Grid><label>{trade_name}</label></Grid>
                                             <Grid><h3>{this.state.AddPrescription && this.state.AddPrescription.trade_name && this.state.AddPrescription.trade_name}</h3></Grid>
                                         </Grid>
 
                                         <Grid className="medicnSub">
-                                            <Grid><label>ATC code if applicable</label></Grid>
+                                            <Grid><label>{atc_if_applicable}</label></Grid>
                                             <Grid><h3>{this.state.AddPrescription && this.state.AddPrescription.atc_code && this.state.AddPrescription.atc_code}</h3></Grid>
                                         </Grid>
 
                                         <Grid className="medicnSub">
-                                            <Grid><label>Manufacturer</label></Grid>
+                                            <Grid><label>{manufacturer}</label></Grid>
                                             <Grid><h3>{this.state.AddPrescription && this.state.AddPrescription.manufacturer && this.state.AddPrescription.manufacturer}</h3></Grid>
                                         </Grid>
 
                                         <Grid className="medicnSub">
-                                            <Grid><label>Pack size</label></Grid>
+                                            <Grid><label>{pack_size}</label></Grid>
                                             <Grid><h3>{this.state.AddPrescription && this.state.AddPrescription.pack_size && this.state.AddPrescription.pack_size}</h3></Grid>
                                         </Grid>
 
                                         <Grid className="medicnSub">
-                                            <Grid><label>Annotations / details / questions</label></Grid>
+                                            <Grid><label>{Annotations} / {details} / {questions}</label></Grid>
                                             <Grid><h3>{this.state.AddPrescription && this.state.AddPrescription.annotations && this.state.AddPrescription.annotations}</h3></Grid>
                                         </Grid>
                                     </Grid>
@@ -454,7 +487,7 @@ class Index extends Component {
 const mapStateToProps = (state) => {
     const { stateLoginValueAim, loadingaIndicatoranswerdetail } = state.LoginReducerAim;
     const { stateLanguageType } = state.LanguageReducer;
-    const {settings} = state.Settings;
+    const { settings } = state.Settings;
     // const { Doctorsetget } = state.Doctorset;
     // const { catfil } = state.filterate;
     return {
