@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
 import Collapsible from 'react-collapsible';
+import FileViews from './../FileViews/index';
 import ReactTooltip from "react-tooltip"
 
 class Index extends Component {
@@ -10,14 +11,21 @@ class Index extends Component {
             item: this.props.data || {},
             date_format: this.props.date_format,
             time_foramt: this.props.time_format,
-            archive : this.props.archive,
-            loggedinUser : this.props.loggedinUser
+            archive: this.props.archive,
+            loggedinUser: this.props.loggedinUser,
+            images: this.props.images,
         };
     }
 
-  componentDidUpdate = (prevProps) => {
+    componentDidUpdate = (prevProps) => {
         if (prevProps.data !== this.props.data || prevProps.loggedinUser !== this.props.loggedinUser) {
-            this.setState({   item: this.props.data, loggedinUser : this.props.loggedinUser})
+            this.setState({
+                item: this.props.data, loggedinUser: this.props.loggedinUser,
+            })
+        }
+        if(prevProps.images !== this.props.images)
+        {
+            this.setState({ images: this.props.images})
         }
     }
 
@@ -139,16 +147,11 @@ class Index extends Component {
                             </Collapsible>
                         </Grid>
 
-                        <Grid className="addSpc detailMark">
+                        {/* <Grid className="addSpc detailMark">
                             <Collapsible trigger="Images & Files" open="true">
-                                <Grid className="imgsFile">
-                                    <a><img src={require('../../../../assets/images/agedman.png')} alt="" title="" />
-                                        <label>IMG_23_6_2020_09_18.jpg</label></a>
-                                    <a><img src={require('../../../../assets/images/pdfimg.png')} alt="" title="" />
-                                        <label>No_name_file.pdf</label></a>
-                                </Grid>
+                                <FileViews images={this.state.images} attachfile={item.attachfile} />
                             </Collapsible>
-                        </Grid>
+                        </Grid> */}
 
                     </Grid>
                 </Grid>

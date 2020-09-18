@@ -19,7 +19,7 @@ class Time extends Component {
     };
 
     componentDidMount = () => {
-
+        this.props.onChange(this.props.value);
     }
     render() {
         return (

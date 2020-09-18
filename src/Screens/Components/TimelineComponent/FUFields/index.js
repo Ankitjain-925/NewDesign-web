@@ -34,7 +34,7 @@ class Index extends Component {
                 <Grid className="cnfrmDiaMain">
                     <Grid className="attchForms attchImg">
                         <Grid><label>Attachments</label></Grid>
-                        <FileUploader name="UploadTrackImageMulti" fileUpload={this.FileAttachMulti} />
+                      <FileUploader name="UploadTrackImageMulti" isMulti="true" fileUpload={this.props.FileAttachMulti} />
                     </Grid>
                     <Grid className="fillDia">
                         <MMHG name="file_content" label="File Content" onChange={(e)=> this.props.updateEntryState(e)} value={this.state.updateTrack.file_content}/>    
