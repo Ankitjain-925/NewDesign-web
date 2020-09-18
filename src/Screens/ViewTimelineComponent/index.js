@@ -220,7 +220,7 @@ class Index extends Component {
                                     <PainPoint id="New_id1" gender="male" painPoint={this.state.updateTrack && this.state.updateTrack.painPoint ? this.state.updateTrack.painPoint : []} onChange={(e)=> this.updateEntryState1(e, 'painPoint')}/>
                                     
                                     
-                                    <FileUploader name="UploadTrackImageMulti" fileUpload={this.FileAttachMulti} />
+                                  <FileUploader name="UploadTrackImageMulti" isMulti="true" fileUpload={this.props.FileAttachMulti} />
 
                                 </Grid>
                                 {/* End of Website Right Content */}

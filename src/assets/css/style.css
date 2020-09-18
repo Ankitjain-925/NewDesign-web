@@ -57,8 +57,10 @@ h1,h2,h3,h4,h5,h6,h7,p{ margin:0; padding:0; font-size: inherit; font-weight: in
 }
 .menuItems ul li a img {
     width: 42px;
+    border: 1px solid #F2F2F2;
     border-radius: 8px;
     background-color: #FFFFFF;
+    padding: 8px 8px;
 }
 .menuItems ul li a {
     /* display: inline-block; */
@@ -925,9 +927,6 @@ a.presSecAncr:hover {
     letter-spacing: 0;
     line-height: 12px;
     margin-left: 8px;
-}
-.conPainImg a {
-    padding-right: 12px;
 }
 .conPainAwrd img {
     width: 14px;
@@ -1898,8 +1897,18 @@ a.profilMenu {
     }
     .infoBoxCntnt, .dataBoxCntnt, .prespBoxCntnt, .presBoxCntnt, 
     .paraBoxCntnt, .fancyBoxCntnt, .fancyBoxCncl, .qrBoxCntnt, .trstBoxCntnt,
-    .invtBoxCntnt {
+    .invtBoxCntnt, .apontBoxCntnt, .apontBoxCntnt, .keyBoxCntnt, .dashBoxCntnt,
+    .fltrModelCntnt {
         width: 96% !important;
+    }
+    .apointUpcom {
+        min-height: auto !important;
+    }
+    .apointAdd h1 {
+        margin-bottom: 18px !important;
+    }
+    .apointAdd h1, .arng_addEntrynw {
+        text-align: center !important;
     }
 }
 @media (max-width: 992px){ 
@@ -3532,10 +3541,10 @@ span.css-1okebmr-indicatorSeparator {
     width: 26%;
     display: inline-block;
 }
-/* .profileInfoDate a:first-child {
+.profileInfoDate a:first-child {
     background-color: #00ABAF;
     color: #FFFFFF;
-} */
+}
 .cntryDrop .css-yk16xz-control {
     height: 36px !important;
     min-height: initial;
@@ -3926,7 +3935,7 @@ button.aboutTabsIner {
 .mkFmlyDoc {
     border-radius: 12px;
     background-color: #FAFAFA;
-    padding: 7px 7px;
+    padding: 15px 15px;
 }
 .mkFmlyDoc p {
     color: #7F8383;
@@ -4652,11 +4661,10 @@ body {
     position: relative;
 }
 .dataLoader img {
-    width : 400px;
     position: absolute;
     left: 10%;
     right: 10%;
-    top: 26%;
+    top: 15%;
     text-align: center;
     margin: 0 auto;
 }
@@ -4667,7 +4675,7 @@ body {
     min-height: 100vh;
     left: 0;
     top: 0;
-    z-index: 9999;
+    z-index: 9;
 }
 /* End of loader css */
 
@@ -4811,9 +4819,9 @@ span.revwRed{
     letter-spacing: 0;
     line-height: 14px;
 }
-/* .shrHlthChk span.MuiIconButton-label {
+.shrHlthChk span.MuiIconButton-label {
     color: #BFC1C1 !important;
-} */
+}
 .shrHlthMain {
     padding: 22px 24px 22px 24px;
 }
@@ -5444,14 +5452,14 @@ a.prevpag {
     letter-spacing: 0;
     line-height: 12px;
 }
-/* a.frstpag {
+a.frstpag {
     color: #404646;
     font-family: Muli;
     font-size: 12px;
     font-weight: 600;
     letter-spacing: 0;
     line-height: 12px;
-} */
+}
 a.nxtpag {
     color: #00ABAF !important;
     font-family: Muli;
@@ -5917,10 +5925,6 @@ img.addBlue {
 .trckLogo img {
     height: 24px;
 }
-.trckLogo1 img {
-    height: auto;
-    max-width: 130px;
-}
 .trckDots img {
     height: 24px;
     border-radius: 5px;
@@ -5983,13 +5987,13 @@ img.addBlue {
     letter-spacing: 0;
     line-height: 20px;
 }
-/* .scndOptionIner {
+.scndOptionIner {
     min-height: 52px;
     border-radius: 12px;
     background-color: #FFFFFF;
     box-shadow: 0 1px 8px 0 rgba(0,8,8,0.04);
     padding: 14px 20px;
-} */
+}
 img.openScnd {
     height: 32px;
     width: 32px;
@@ -6182,10 +6186,7 @@ a.openScndhrf {
     background-color: #F2F2F2;
     min-height: 232px;
     padding: 10% 12px;
-    height: 400px;
-    overflow: auto;
 }
-
 .archvDel ul li {
     list-style-type: none;
     margin: 3px 0px;
@@ -7943,6 +7944,7 @@ a.painAreasTxt {
     line-height: 12px;
 }
 .painAreas a {
+    width: 33.3%;
     display: inline-block;
     text-align: center;
 }
@@ -8853,8 +8855,8 @@ a.menuActv img {
     padding: 14px 8px;
 }
 .openJourMenu img {
-    height: 25px;
-    width: 25px;
+    height: 50px;
+    width: 50px;
     cursor: pointer;
 }
 .openJourMenu {
@@ -8863,7 +8865,7 @@ a.menuActv img {
 .openJourMenu a ul {
     display: none;
     margin-bottom: 0px;
-    width: 198px;
+    width: 178px;
     text-align: left;
     border: 1px solid #F2F2F2;
     border-radius: 8px;
@@ -9042,7 +9044,7 @@ a.menuActv img {
     font-weight: bold;
     letter-spacing: 0;
     line-height: 12px;
-    margin: 12px !important;
+    margin-top: 12px;
     text-align: right;
 }
 a.temp_c {
@@ -9689,8 +9691,6 @@ span.holdyPeriod {
     vertical-align: bottom;
     margin-left: 10px;
 }
-
-
 .prescSickVdo {
     display: -ms-flexbox;
     display: flex;
@@ -9741,7 +9741,6 @@ img.vdoCalNow {
 .onlinSickVdo span.MuiTypography-root.MuiFormControlLabel-label.MuiTypography-body1 {
     margin-left: 21px;
 }
-
 .wrkHour label {
     color: #000808;
     font-family: Muli;
@@ -9826,7 +9825,6 @@ img.vdoCalNow {
 .setSchedule div:last-child {
     width: 60%;
 }
-
 .setSchedule input {
     min-width: 43px;
     color: #000808;
@@ -9844,7 +9842,6 @@ img.vdoCalNow {
     width: 110px;
     outline: none;
 }
-
 .setSchedule label {
     color: #000808;
     font-family: Muli;
@@ -9948,7 +9945,6 @@ img.editPendata {
     border: none;
     padding: 15px 8px;
 }
-
 .invtBoxCntnt {
     width: 420px;
     background: #fff;
@@ -10054,6 +10050,1503 @@ img.editPendata {
 .invitLinkArea {
     margin-bottom: 15px;
 }
+.phamraLink a {
+    color: #00ABAF !important;
+    font-size: 16px;
+    font-weight: 600;
+    margin-top: 28px;
+    display: inline-block;
+    cursor: pointer;
+    font-family: Muli;
+    text-decoration: underline;
+}
+.phrmBoxCntnt {
+    width: 420px;
+    background: #fff;
+    margin: 0 auto;
+    border: none;
+    outline: none;
+    border-radius: 12px;
+    background-color: #FFFFFF;
+    box-shadow: 0 24px 32px 0 rgba(0,8,8,0.08);
+    margin-top: 35px;
+}
+.phrmCourse {
+    padding: 12px 24px 18px 24px;
+    border-bottom: 1px solid #F2F2F2;
+}
+.phrmCloseBtn {
+    text-align: right;
+    margin-bottom: 4px;
+}
+.phrmCloseBtn img {
+    width: 26px;
+    cursor: pointer;
+}
+.phrmCourse label {
+    color: #000808;
+    font-family: Muli;
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 32px;
+    margin-bottom: 2px;
+}
+.phrmCourse p {
+    color: #7F8383;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: 18px;
+}
+.phrmLinkUpr {
+    height: 418px;
+    overflow-y: scroll;
+    padding: 18px 24px 24px 24px;
+    margin-right: 1px;
+}
+.upScanForms {
+    margin-bottom: 14px;
+}
+.upScanForms label {
+    color: #404646;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 12px;
+}
+.upScanInput a {
+    color: #00ABAF !important;
+    margin: 0px 4px;
+}
+.upScanInput input[type="file"] {
+    opacity: 0;
+    position: absolute;
+    left: 0;
+    top: 45px;
+    z-index: 999;
+}
+.upScanImg p {
+    color: #7F8383;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 12px;
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 0px !important;
+}
+.upScanInput {
+    border: 2px dashed #BFC1C1;
+    border-radius: 4px;
+    background-color: #FFFFFF;
+    text-align: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -ms-flex-align: center;
+    align-items: center;
+    min-height: 120px;
+    display: flex;
+    color: #7F8383;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 18px;
+}
+.scanInputs label {
+    color: #404646;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 12px;
+}
+.scanInputs input {
+    border: 1px solid #BFC1C1;
+    border-radius: 4px;
+    background-color: #FFFFFF;
+    width: 100%;
+    padding: 6px 8px;
+    outline: none;
+}
+.scanInputPhrm {
+    position: relative;
+}
+.scanInputPhrm img {
+    position: absolute;
+    right: 8px;
+    top: 8px;
+}
+.scanInputs input::-webkit-input-placeholder {
+    color: #BFC1C1;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 18px;
+}
+.scanInputs input::-moz-placeholder { 
+    color: #BFC1C1;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 18px;
+}
+.scanInputs input:-ms-input-placeholder { 
+    color: #BFC1C1;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 18px;
+}
+.scanInputs input:-moz-placeholder { 
+    color: #BFC1C1;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 18px;
+}
+.scanInputs {
+    margin-bottom: 14px;
+}
+.scanInputKm span {
+    color: #BFC1C1;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 18px;
+    position: absolute;
+    right: 10px;
+    top: 9px;
+}
+.scanInputKm {
+    position: relative;
+}
+.scanInputs textarea {
+    border: 1px solid #BFC1C1;
+    border-radius: 4px;
+    background-color: #FFFFFF;
+    width: 100%;
+    min-height: 130px;
+    padding: 6px 8px;
+    outline: none;
+    resize: none;
+}
+.jurnlTatent label span {
+    color: #404646;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 14px;
+}
+.jurnlTatent svg.MuiSvgIcon-root {
+    color: #00ABAF;
+}
+.jurnlTatent label {
+    margin-right: 0px !important;
+    margin-bottom: 0px !important;
+}
+.scanInputsSub input {
+    color: #FFFFFF;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 16px;
+    text-align: center;
+    border-radius: 8px;
+    background-color: #00ABAF;
+    outline: none;
+    border: none;
+    width: 100%;
+    padding: 14px 10px;
+}
+.shrtMsgOpt{
+    margin-bottom: 0px !important;
+}
+.scanInputsSub {
+    margin-top: 12px;
+}
+.apontBoxCntnt {
+    width: 420px;
+    background: #fff;
+    margin: 0 auto;
+    border: none;
+    outline: none;
+    border-radius: 12px;
+    background-color: #FFFFFF;
+    box-shadow: 0 24px 32px 0 rgba(0,8,8,0.08);
+    margin-top: 35px;
+}
+.apontCourse {
+    padding: 12px 24px 18px 24px;
+    border-bottom: 1px solid #F2F2F2;
+}
+.apontCloseBtn {
+    text-align: right;
+    margin-bottom: 4px;
+}
+.apontCloseBtn img {
+    width: 26px;
+    cursor: pointer;
+}
+.apontCourse label {
+    color: #000808;
+    font-family: Muli;
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 32px;
+    margin-bottom: 2px;
+}
+.apontCourse p {
+    color: #7F8383;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: 18px;
+}
+.apontDragCntnt {
+    padding: 18px 24px 24px 24px;
+}
+.apontDragCntnt label {
+    color: #404646;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 12px;
+}
+.apontDragCntnt textarea {
+    border: 1px solid #BFC1C1;
+    border-radius: 4px;
+    background-color: #FFFFFF;
+    width: 100%;
+    padding: 6px 8px;
+    outline: none;
+    min-height: 116px;
+    resize: none;
+}
+.apontDragCntnt input[type="submit"] {
+    margin-top: 14px;
+    color: #FFFFFF;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 16px;
+    text-align: center;
+    border-radius: 8px;
+    background-color: #00ABAF;
+    width: 100%;
+    outline: none;
+    padding: 15px 12px;
+    border: none;
+}
+.backBp img {
+    width: 12px;
+    vertical-align: middle;
+}
+.backBp a {
+    color: #7F8383;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 14px;
+}
+.backBp img {
+    width: 12px;
+    vertical-align: middle;
+    margin-right: 8px;
+}
+.bpHead h1 {
+    color: #000808;
+    font-family: Muli;
+    font-size: 28px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 40px;
+}
+.bpContain {
+    margin-top: 32px;
+}
+.backBp {
+    margin-bottom: 24px;
+}
+.bpGraphShw img {
+    width: 100%;
+}
+.bpGraphShw {
+    margin-top: 45px;
+    margin-bottom: 65px;
+}
+.meetBoxCntnt {
+    width: 420px;
+    background: #fff;
+    margin: 0 auto;
+    border: none;
+    outline: none;
+    border-radius: 12px;
+    background-color: #FFFFFF;
+    box-shadow: 0 24px 32px 0 rgba(0,8,8,0.08);
+    margin-top: 35px;
+}
+.meetCourse {
+    padding: 12px 24px 18px 24px;
+}
+.meetCloseBtn {
+    text-align: right;
+    margin-bottom: 4px;
+}
+.meetCloseBtn img {
+    width: 26px;
+    cursor: pointer;
+}
+.meetCloseBtn a:first-child {
+    margin-right: 10px;
+    display: inline-block;
+}
+.meetVdo {
+    display: flex;
+    margin-top: 18px;
+}
+.meetVdoLft, .meetVdoRght {
+    width: 50%;
+}
+.meetVdoRght {
+    text-align: right;
+}
+.meetVdoLft span {
+    color: #7F8383;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 12px;
+    margin-left: 6px;
+}
+.meetVdoRght p {
+    color: #7F8383;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 12px;
+}
+.meetDetail h1 {
+    color: #000808;
+    font-family: Muli;
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 32px;
+    margin-top: 6px;
+    margin-bottom: 15px;
+}
+.meetDetail span {
+    color: #7F8383;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 12px;
+    display: block;
+}
+.meetDetail p {
+    color: #404646;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 20px;
+    margin-top: 10px;
+}
+.apointReason {
+    padding: 12px 24px 20px 24px;
+}
+.reasonInput label {
+    color: #404646;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 12px;
+}
+.reasonInput input {
+    border: 1px solid #BFC1C1;
+    border-radius: 4px;
+    background-color: #FFFFFF;
+    width: 100%;
+    padding: 8px 10px;
+    outline: none !important;
+}
+.reasonInputImg img {
+    position: absolute;
+    right: 12px;
+    top: 10px;
+    cursor: pointer;
+}
+.reasonInputImg {
+    position: relative;
+}
+.reasonInput input::-webkit-input-placeholder { 
+    color: #BFC1C1;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 18px;
+  }
+.reasonInput input::-moz-placeholder { 
+    color: #BFC1C1;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 18px;
+  }
+.reasonInput input:-ms-input-placeholder { 
+    color: #BFC1C1;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 18px;
+  }
+.reasonInput input:-moz-placeholder { 
+    color: pink;
+  }
+  .reasonInput {
+    margin-bottom: 8px;
+  }
+  .addTimes input {
+    border: 1px solid #BFC1C1;
+    border-radius: 4px;
+    background-color: #FFFFFF;
+    width: 100%;
+    padding: 12px 5px;
+    outline: none;
+    color: #000808;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 18px;
+    text-align: center;
+}
+.addBirth .react-date-picker__wrapper {
+    padding: 8px 5px;
+    border: 1px solid #BFC1C1;
+    border-radius: 4px;
+    background-color: #FFFFFF;
+    color: #000808;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 18px;
+}
+.addTimesHypn span {
+    color: #000808;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 18px;
+    text-align: center;
+}
+.addTimesHypn {
+    text-align: center;
+    margin: 4px 0px;
+}
+.addTimesHypn {
+    margin: 8px 0px !important;
+}
+.addBirth label {
+    color: #404646;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 12px;
+}
+.acptVdoCals label {
+    margin-right: 0px;
+    margin-bottom: 0px;
+}
+span.acptTxt {
+    color: #404646;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 14px;
+}
+span.acptTxt img {
+    margin-right: 8px;
+}
+.cstmCalc img {
+    width: 13px;
+}
+.acptVdoCals .MuiIconButton-root {
+    color: #00abaf !important;
+    padding: 5px !important;
+}
+.acptVdoCalsUpr {
+    margin-top: 20px;
+    margin-left: 4px;
+}
+.calcSub input[type="submit"] {
+    border-radius: 8px;
+    background-color: #00ABAF;
+    outline: none;
+    border: none;
+    color: #FFFFFF;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 16px;
+    text-align: center;
+    padding: 12px 20px;
+    cursor: pointer;
+}
+.calcSub input[type="reset"] {
+    color: #7F8383;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 0;
+    border: none;
+    text-align: center;
+    padding: 10px 15px;
+    border-radius: 8px;
+    line-height: 16px;
+    background: transparent;
+    margin-left: 12px;
+    outline: none;
+}
+.calcSub {
+    margin-top: 28px;
+}
+.todayAddons{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+.todayAddons select{
+    border-radius: 8px;
+    background-color: #F2F2F2;
+    border: none;
+    padding: 8px 9px;
+    margin-left: 12px;
+    outline: none !important;
+    color: #404646;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 12px;
+    margin-right: 30px;
+}
+a.calViewnw img {
+    width: 17px;
+    border-radius: initial !important;
+}
+a.barViewnw img {
+    width: 15px;
+    border-radius: initial !important;
+}
+a.calViewnw {
+    border-radius: 8px;
+    background-color: #E1F7F7;
+    padding: 4px 8px;
+    margin-left: 24px;
+}
+a.barViewnw {
+    border-radius: 8px;
+    padding: 3px 8px;
+    border: 1px solid #dfdfdf;
+    margin-left: 10px;
+}
+.getCalBnr img {
+    width: 100%;
+}
+.newReqInfo img {
+    height: 16px;
+    width: 16px;
+    border-radius: 12px;
+    margin-right: 12px;
+}
+.newReqInfo a {
+    color: #404646;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 12px;
+}
+.newRequest {
+    border-top: 4px solid #FECA57;
+    padding: 5px 12px 10px;
+    border-radius: 12px;
+    background-color: #FFFFFF;
+    box-shadow: 0 1px 8px 0 rgba(0,8,8,0.04);
+    margin-right: 28px;
+}
+.newRequestUpr {
+    display: flex;
+}
+.newReqInfo label {
+    color: #404646;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 12px;
+    margin-bottom: 0px;
+    margin-right: 20px;
+}
+.newRequestMain h4 {
+    color: #000808;
+    font-family: Muli;
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 32px;
+    margin-bottom: 20px;
+}
+.newRequestMain {
+    margin-bottom: 32px;
+}
+
+.slotBoxCntnt {
+    position: relative;
+    width: 420px;
+    background: #fff;
+    margin: 0 auto;
+    border: none;
+    outline: none;
+    border-radius: 12px;
+    background-color: #FFFFFF;
+    box-shadow: 0 24px 32px 0 rgba(0,8,8,0.08);
+    margin-top: 35px;
+}
+.slotCourse {
+    padding: 16px 24px 18px 24px;
+}
+.slotCloseBtn {
+    text-align: right;
+    margin-bottom: 4px;
+}
+.slotCloseBtn img {
+    width: 26px;
+    cursor: pointer;
+}
+.jmInfo a {
+    color: #404646;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 14px;
+}
+.jmInfo img {
+    height: 24px;
+    width: 24px;
+    border-radius: 12px;
+    margin-right: 12px;
+}
+.jmInfoVdo {
+    text-align: right;
+}
+.jmInfoVdo a {
+    color: #7F8383;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 12px;
+}
+.jmInfoVdo img {
+    margin-right: 5px;
+}
+.augDate label {
+    color: #404646;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 14px;
+    margin-right: 14px;
+    margin-bottom: 0px;
+}
+.augDate span {
+    color: #404646;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 14px;
+}
+.augDate {
+    margin-top: 25px;
+    margin-bottom: 15px;
+}
+.detailQues label {
+    color: #7F8383;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 12px;
+}
+.detailQues p {
+    color: #404646;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 20px;
+}
+.detailQuesSub input {
+    color: #FFFFFF;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 16px;
+    text-align: center;
+    border-radius: 8px;
+    background-color: #00ABAF;
+    outline: none;
+    border: none;
+    width: 90%;
+    padding: 14px 5px;
+}
+.detailQuesSub {
+    border-top: 1px solid #F2F2F2;
+    text-align: center;
+    border-bottom: 1px solid #F2F2F2;
+    padding: 20px 0px 28px;
+}
+.detailQuesSub {
+    position: relative;
+}
+.detailQuesSub span {
+    color: #7F8383;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 14px;
+    margin: 0 auto;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -6px;
+    text-align: center;
+    width: 23px;
+    background: #fff;
+}
+.slotTimDat {
+    padding: 20px 24px 20px 24px;
+}
+
+.addBirthSlot label {
+    color: #404646;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 12px;
+}
+.addBirthSlot .react-date-picker__wrapper {
+    padding: 8px 5px;
+    border: 1px solid #BFC1C1;
+    border-radius: 4px;
+    background-color: #FFFFFF;
+    color: #000808;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 18px;
+}
+.addTimesSlot input {
+    border: 1px solid #BFC1C1;
+    border-radius: 4px;
+    background-color: #FFFFFF;
+    width: 100%;
+    padding: 12px 5px;
+    outline: none;
+    color: #000808;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 18px;
+    text-align: center;
+}
+.addTimesHypnSlot span {
+    color: #000808;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 18px;
+    text-align: center;
+}
+.addTimesHypnSlot {
+    margin: 7px 0px;
+    text-align: center;
+}
+.SuggNwTim {
+    text-align: center;
+}
+.SuggNwTim input {
+    border-radius: 8px;
+    background-color: #E1F7F7;
+    border: none;
+    outline: none;
+    color: #00ABAF;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 16px;
+    text-align: center;
+    width: 100%;
+    padding: 12px 10px;
+    margin-top: 22px;
+    margin-bottom: 8px;
+}
+.timSltCal p {
+    color: #976901;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 12px;
+}
+.timSltCal {
+    border-radius: 12px 12px 0 0;
+    background-color: #FECA57;
+    text-align: center;
+    padding: 6px 2px 6px;
+}
+.timSltCal img {
+    margin-right: 6px;
+    vertical-align: text-top;
+}
+a.clsSltCal img {
+    cursor: pointer;
+    width: 18px;
+    border-radius: 21px;
+}
+a.clsSltCal{
+    position: absolute;
+    right: -6px;
+    top: -12px;
+}
+
+.comonSelnw {
+    font-size: 12px !important;
+    min-width: 107px;
+    text-align: center;
+    margin-left: 12px;
+}
+.allTimeSelnw .css-yk16xz-control {
+    border-radius: 8px !important;
+    background-color: #F2F2F2 !important;
+    border-color: transparent !important;
+    font-family: Muli !important;
+    height: 32px !important;
+    min-height: auto;
+}
+.allTimeSelnw span {
+    width: 0px !important;
+}
+a.patntListCstm1 {
+    color: #7F8383;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 14px;
+    cursor: pointer;
+}
+a.patntListCstm1 img {
+    height: 17px;
+    vertical-align: text-top;
+    margin-right: 12px;
+}
+a.patntListCstm2 img {
+    width: 24px;
+    border-radius: 12px;
+    margin-right: 10px;
+}
+a.patntListCstm2 {
+    border-radius: 12px;
+    background-color: #FFFFFF;
+    box-shadow: 0 1px 8px 0 rgba(0,8,8,0.04);
+    color: #404646;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 12px;
+    display: inline-block;
+    padding: 12px 12px;
+    margin-left: 32px;
+}
+.patntListUpr {
+    margin: 60px 10px 25px;
+}
+.patntJamsNw a {
+    color: #FFFFFF !important;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 16px;
+    text-align: center;
+    border-radius: 8px;
+    background-color: #00ABAF;
+    min-width: 175px;
+    display: inline-block;
+    padding: 16px 8px;
+    cursor: pointer;
+}
+.patntJamsNw {
+    text-align: right;
+}
+.todayMnthClone .todaySrchLft {
+    margin-right: 14px;
+}
+.schdulTim {
+    display: flex;
+    margin-bottom: 32px;
+}
+.schdulTimLeft {
+    border-radius: 12px;
+    background-color: #FFFFFF;
+    box-shadow: 0 1px 8px 0 rgba(0,8,8,0.04);
+    text-align: center;
+    width: 5%;
+    padding: 10px 4px;
+    max-height: 108px;
+}
+.schdulTimRght {
+    margin-left: 3%;
+    width: 52%;
+    border-radius: 12px;
+    background-color: #FFFFFF;
+    box-shadow: 0 1px 8px 0 rgba(0,8,8,0.04);
+    padding: 16px 16px;
+}
+.schdulTimLeft label{
+    color: #7F8383;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 16px;
+    text-align: center;
+    margin-bottom: 15px;
+}
+.schdulTimLeft p{
+    color: #000808;
+    font-family: Muli;
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 24px;
+    text-align: center;
+}
+.schdulTimLeft span{
+    color: #7F8383;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 16px;
+    text-align: center;
+}
+.schdulTimCntnt {
+    border-radius: 6px;
+    background-color: #FAFAFA;
+    padding: 5px 12px;
+    margin-bottom: 15px;
+}
+.schdulTimCntnt label {
+    color: #BFC1C1;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 14px;
+    margin-bottom: 0px;
+}
+.schdulTimCntnt p {
+    color: #BFC1C1;
+    font-family: Muli;
+    font-size: 12px;
+    letter-spacing: 0;
+    line-height: 12px;
+}
+.schdulTimAltr {
+    background-color: #00ABAF;
+}
+.schdulTimAltr label, .schdulTimAltr p  {
+    color: #fff !important;
+}
+.schdulTimAltr label {
+    border-bottom: 1px solid #EE5253;
+    width: 100%;
+}
+.schdulTimDoted {
+    border: 1px dashed #D9DADA;
+    border-radius: 6px;
+    background-color: #FFFFFF;
+    padding: 8px 12px;
+    margin-bottom: 15px;
+}
+.schdulTimDoted p {
+    color: #BFC1C1;
+    font-family: Muli;
+    font-size: 12px;
+    letter-spacing: 0;
+    line-height: 12px;
+}
+.noApints label {
+    color: #BFC1C1;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 18px;
+    text-align: center;
+}
+.noApints {
+    padding: 40px 12px;
+    text-align: center;
+}
+.keybordShrt a {
+    color: #00acb4;
+    font-family: Muli;
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 12px;
+    margin-left: 8px;
+    margin-top: 52px;
+    display: inline-block;
+    cursor: pointer;
+}
+.keyBoxCntnt {
+    width: 455px;
+    background: #fff;
+    margin: 0 auto;
+    border: none;
+    outline: none;
+    border-radius: 12px;
+    background-color: #FFFFFF;
+    box-shadow: 0 24px 32px 0 rgba(0,8,8,0.08);
+    margin-top: 35px;
+}
+.keyCourse {
+    padding: 20px 24px 18px 24px;
+    border-bottom: 1px solid #F2F2F2;
+}
+.keyCloseBtn {
+    text-align: right;
+    margin-bottom: 4px;
+}
+.keyCloseBtn img {
+    width: 26px;
+    cursor: pointer;
+}
+.keyCourse label {
+    color: #000808;
+    font-family: Muli;
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 32px;
+    margin-bottom: 2px;
+}
+.keyCourse p {
+    color: #7F8383;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: 18px;
+}
+.dragKeys {
+    padding: 18px 24px 10px 24px;
+}
+.keysN {
+    display: flex;
+    align-items: center;
+    margin-bottom: 18px;
+}
+.keysN label {
+    color: #404646;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 18px;
+    margin-bottom: 0px;
+}
+.keysN p {
+    color: #7F8383;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 14px;
+}
+.keysNLft span {
+    color: #404646;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 18px;
+    text-align: center;
+    border: 1px solid #F2F2F2;
+    border-radius: 8px;
+    background-color: #FFFFFF;
+    width: 34px;
+    min-height: 34px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+.keysNRght {
+    padding-left: 14px;
+}
+.getCalBnr {
+    margin-bottom: 42px;
+}
+.MenuMobRght {
+    text-align: right;
+}
+.MenuMobLeft {
+    text-align: left;
+}
+.MenuMob {
+    background: #fff;
+    padding: 12px 12px;
+}
+.MenuMob {
+    display: none;
+}
+.filterMob {
+    padding: 0px 14px;
+    position: relative;
+    margin-bottom: 32px;
+}
+.filterMob input {
+    border-radius: 12px;
+    background-color: #FFFFFF;
+    box-shadow: 0 1px 8px 0 rgba(0,8,8,0.04);
+    outline: none;
+    border: none;
+    width: 100%;
+    padding: 14px 12px 14px 44px;
+}
+img.fltrMobIcon {
+    position: absolute;
+    height: 20px;
+    width: 20px;
+    top: 16px;
+    left: 25px;
+}
+
+.filterMob input::-webkit-input-placeholder {
+    color: #000808;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 16px;
+  }
+.filterMob input::-moz-placeholder {
+    color: #000808;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 16px;
+  }
+.filterMob input:-ms-input-placeholder {
+    color: #000808;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 16px;
+  }
+.filterMob input:-moz-placeholder { 
+    color: #000808;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 16px;
+  }
+
+span.srchMobIcon {
+    border-left: 2px solid #F2F2F2;
+    display: inline-block;
+    position: absolute;
+    right: 25px;
+    top: 0px;
+    padding-left: 12px;
+    min-height: 100%;
+    bottom: 0px;
+}
+span.srchMobIcon img {
+    margin-top: 9px;
+    border-radius: 8px;
+    background-color: #F2F2F2;
+    padding: 8px 8px 6px;
+}
+.filterMob {
+    display: none;
+}
+
+/* responsive css */
+@media (max-width: 959px){ 
+ .descpCntntLft a {
+    width: 130px;
+    margin: 0 auto;
+    margin-bottom: 18px;
+  }
+  .descpInerRght {
+    margin-left: 0px !important;
+  }
+  .descpCntntMain {
+    padding-left: 0px;
+  }
+  .MenuLeftUpr, .srchFilter {
+    display: none;
+  }
+  .MenuMob, .filterMob {
+    display: block !important;
+  }
+}
+@media (max-width: 599px){ 
+ .descpInerRght {
+   margin-left: 0px;
+  }
+  .descpCntntLft a span {
+    display: inline-block;
+    margin-top: -2px;
+    vertical-align: middle;
+    margin-left: 10px;
+  }
+  .AddEntrynw {
+    text-align: center;
+  }
+  .journalAdd h1 {
+    text-align: center;
+    margin-bottom: 24px;
+  }
+  .diagnosImg a {
+    padding-right: 5px;
+  }
+  .conPainImg a {
+    padding-right: 0px;
+  }
+  .conPainNote span {
+    margin-left: 4px;
+  }
+  .conPainAwrd {
+    padding-right: 0px;
+ }
+}
+
+.fltrModelCntnt {
+    width: 420px;
+    background: #fff;
+    margin: 0 auto;
+    border: none;
+    outline: none;
+    border-radius: 12px;
+    background-color: #FFFFFF;
+    box-shadow: 0 24px 32px 0 rgba(0,8,8,0.08);
+    margin-top: 35px;
+}
+.fltrModelCourse {
+    padding: 18px 20px 18px 20px;
+    border-bottom: 1px solid #F2F2F2;
+}
+.dragfltrModel {
+    padding: 18px 24px 18px 24px;
+}
+.fltrHdngLft a {
+    color: #000808;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 16px;
+}
+.fltrHdngRght a {
+    color: #00ABAF;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 12px;
+}
+.fltrHdngRght {
+    text-align: right;
+}
+.fltrHdngLft img {
+    height: 20px;
+    width: 20px;
+    margin-right: 12px;
+}
+.allTimeSelMob {
+    margin-bottom: 16px;
+}
+.allTimeSelMob .css-yk16xz-control {
+    border-radius: 8px !important;
+    background-color: #F2F2F2 !important;
+    border-color: transparent !important;
+    font-family: Muli !important;
+}
+.allTypSelMob .css-yk16xz-control {
+    background-color: #E1F7F7 !important;
+}
+.allTypSelMob .css-1wa3eu0-placeholder, .allTypSelMob .css-1uccc91-singleValue {
+    color: #00ABAF !important;
+}
+.srtByMob span {
+    color: #404646;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 12px;
+}
+a.srtEvrTim {
+    color: #00ABAF;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 12px;
+    border-radius: 8px;
+    background-color: #E1F7F7;
+    padding: 8px 12px;
+    display: inline-block;
+    margin: 0px 12px;
+}
+.srtByMob {
+    border-top: 1px solid #F2F2F2;
+    border-bottom: 1px solid #F2F2F2;
+    text-align: center;
+    padding: 18px 5px;
+}
+a.srtDiaTim {
+    color: #7F8383;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 12px;
+}
+.aplyFltrMob input {
+    border-radius: 8px;
+    background-color: #00ABAF;
+    outline: none;
+    border: none;
+    width: 100%;
+    color: #FFFFFF;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 16px;
+    text-align: center;
+    padding: 18px 5px;
+    display: block;
+}
+.aplyFltrMob {
+    padding: 19px 18px;
+}
+
+/* Hemburger menu style css */
+html, body {
+  margin: 0;
+}
+#App {
+  height: 100vh;
+}
+#page-wrap {
+  text-align: center;
+  overflow: auto;
+}
+.bm-item {
+  display: inline-block;
+  text-decoration: none;
+  margin-bottom: 10px;
+  color: #d1d1d1;
+  transition: color 0.2s;
+}
+.bm-item:hover {
+  color: white;
+}
+.bm-burger-button {
+  position: fixed;
+  width: 36px;
+  height: 30px;
+  left: 36px;
+  top: 36px;
+}
+.bm-burger-bars {
+  background: #373a47;
+}
+.bm-cross-button {
+  height: 24px;
+  width: 24px;
+}
+.bm-cross {
+  background: #bdc3c7;
+}
+.bm-menu {
+  background: #373a47;
+  padding: 2.5em 1.5em 0;
+  font-size: 1.15em;
+}
+.bm-morph-shape {
+  fill: #373a47;
+}
+.bm-item-list {
+  color: #b8b7ad;
+}
+.bm-overlay {
+  background: rgba(0, 0, 0, 0.3);
+}
+/* End of Hemburger menu style css */
 
 
 /*Added By ankita*/

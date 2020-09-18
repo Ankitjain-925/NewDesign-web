@@ -25,7 +25,6 @@ import RightManage from './../../Components/TimelineComponent/RightMenuManage/in
 import { ConsoleCustom, getTime, getDate } from './../../Components/BasicMethod/index';
 import ViewTimeline from './../../Components/TimelineComponent/ViewTimeline/index';
 import Loader from './../../Components/Loader/index.js';
-import * as translationEN from "../../../translations/en_json_proofread_13072020.json"
 
 class Index extends Component {
     constructor(props) {
@@ -184,37 +183,6 @@ class Index extends Component {
         if (stateLoginValueAim.user === 'undefined' || stateLoginValueAim.token === 450 || stateLoginValueAim.token === 'undefined' || stateLoginValueAim.user.type !== 'patient') {
             return (<Redirect to={'/'} />);
         }
-        let translate;
-        switch (this.props.stateLanguageType) {
-            case "en":
-                translate = translationEN.text
-                break;
-            // case "de":
-            //     translate = translationDE.text
-            //     break;
-            // case "pt":
-            //     translate = translationPT.text
-            //     break;
-            // case "sp":
-            //     translate = translationSP.text
-            //     break;
-            // case "rs":
-            //     translate = translationRS.text
-            //     break;
-            // case "nl":
-            //     translate = translationNL.text
-            //     break;
-            // case "ch":
-            //     translate = translationCH.text
-            //     break;
-            // case "sw":
-            //     translate = translationSW.text
-            //     break;
-            case "default":
-                translate = translationEN.text
-        }
-        let { archive_journal } = translate;
-      
         return (
             <Grid className="homeBg">
                 {this.state.loaderImage && <Loader />}
@@ -235,7 +203,7 @@ class Index extends Component {
                                                 <Grid item xs={11} md={11}>
                                                     <Grid container direction="row">
                                                         <Grid item xs={6} md={6}>
-                                                            <h1>{archive_journal}</h1>
+                                                            <h1>Archive Journal</h1>
                                                         </Grid>
                                                         <Grid item xs={6} md={6}></Grid>
                                                     </Grid>
