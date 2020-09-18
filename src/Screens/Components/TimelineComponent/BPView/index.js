@@ -143,7 +143,7 @@ class Index extends Component {
                                         </Grid>
                                         <Grid item xs={12} md={6} className="bloodPreBy">
                                             <Grid container direction="row">
-                                                <Grid item xs={5} md={5}><label>{{RR_diastolic}}</label></Grid>
+                                                <Grid item xs={5} md={5}><label>{RR_diastolic}</label></Grid>
                                                 <Grid item xs={7} md={7}><span>{item.rr_diastolic && item.rr_diastolic}</span></Grid>
                                                 <Grid className="clear"></Grid>
                                             </Grid>
