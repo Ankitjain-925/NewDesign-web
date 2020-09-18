@@ -57,6 +57,10 @@ class Index extends Component {
     ExtraLink = ()=>{
         this.props.history.push('/patient/extra-services');
     }
+    //For appointment link
+    AppointmentLink=()=>{
+        this.props.history.push('/patient/appointment')
+    }
     //For Document link
     DocumentLink = ()=>{
         this.props.history.push('/patient/documents');    
@@ -76,6 +80,10 @@ class Index extends Component {
     //For chat
     Chats = ()=>{
         this.props.history.push('/patient/chats');    
+    }
+    //for Journal Archive Link
+    JournalArchiveLink=()=>{
+        this.props.history.push('/patient/archiveJournal');
     }
     //For block chain Access 
     BlockChain = ()=>{
@@ -104,7 +112,7 @@ class Index extends Component {
                             </a>
                         </li>
                         <li className={this.props.currentPage==='appointment' ? "menuActv" : ""}>
-                            <a>
+                            <a onClick={this.AppointmentLink}>
                             {this.props.currentPage==='appointment' ? <img src={require('../../../../assets/images/appointActive.png')} alt="" title="" />
                                 : <img src={require('../../../../assets/images/calenderIcon.jpg')} alt="" title="" />}
                                 <span>Appointments</span>
@@ -136,7 +144,7 @@ class Index extends Component {
                                         <li><a onClick={this.EmergencyLink}><img src={require('../../../../assets/images/menudocs.jpg')} alt="" title="" />Emergency Patient Data</a></li>
                                         <li><a onClick={this.OnlineCourse}><img src={require('../../../../assets/images/menudocs.jpg')} alt="" title="" />Aimedis Online Courses</a></li>
                                         <li><a onClick={this.ExtraLink}><img src={require('../../../../assets/images/menudocs.jpg')} alt="" title="" />Extra Services</a></li>
-                                        <li><a><img src={require('../../../../assets/images/menudocs.jpg')} alt="" title="" />Journal Archive</a></li>
+                                        <li><a onClick={this.JournalArchiveLink}><img src={require('../../../../assets/images/menudocs.jpg')} alt="" title="" />Journal Archive</a></li>
                                         <li><a onClick={this.BlockChain}><img src={require('../../../../assets/images/menudocs.jpg')} alt="" title="" />Blockchain Access Log</a></li>
                                     </ul>
                                 </div>
