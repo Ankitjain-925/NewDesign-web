@@ -7,6 +7,12 @@ import PainPoint from './../../PointPain/index';
 import PainIntensity from './../../PainIntansity/index';
 import { getDate, newdate, getTime } from './../../BasicMethod/index';
 
+import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
+import { LoginReducerAim } from './../../../Login/actions';
+import { Settings } from './../../../Login/setting';
+import { LanguageFetchReducer } from './../../../actions';
+import * as translationEN from "../../../../translations/en_json_proofread_13072020.json"
 class Index extends Component {
     constructor(props) {
         super(props)
@@ -26,6 +32,38 @@ class Index extends Component {
     }
 
     render() {
+        let translate;
+        switch (this.props.stateLanguageType) {
+            case "en":
+                translate = translationEN.text
+                break;
+            // case "de":
+            //     translate = translationDE.text
+            //     break;
+            // case "pt":
+            //     translate = translationPT.text
+            //     break;
+            // case "sp":
+            //     translate = translationSP.text
+            //     break;
+            // case "rs":
+            //     translate = translationRS.text
+            //     break;
+            // case "nl":
+            //     translate = translationNL.text
+            //     break;
+            // case "ch":
+            //     translate = translationCH.text
+            //     break;
+            // case "sw":
+            //     translate = translationSW.text
+            //     break;
+            case "default":
+                translate = translationEN.text
+        }
+        let { blood_pressure, selct_pain_area, situation, visible, pain_areas, Change, show, hide, until, archive, rr_systolic, attachments, time_measure, date_measure,
+            visibility, edit, Delete, condition_pain, RR_diastolic, pain_type, de_archive, view_fullscren, always, feeling, date, time }= translate
+        
         var item = this.state.item;
         return (
             <Grid container direction="row" className="descpCntnt">
@@ -37,18 +75,18 @@ class Index extends Component {
                                 <Grid container direction="row" className="addSpc">
                                     <Grid item xs={12} md={6}>
                                         <Grid className="conPainImg">
-                                            <a className="conPainNote"><img src={require('../../../../assets/images/condition-diagnosis-family-anamnesis-diary.svg')} alt="" title="" /><span>Condition and Pain</span> </a>
+                                            <a className="conPainNote"><img src={require('../../../../assets/images/condition-diagnosis-family-anamnesis-diary.svg')} alt="" title="" /><span>{condition_pain}</span> </a>
                                         </Grid>
                                     </Grid>
                                     <Grid item xs={12} md={6}>
                                         <Grid className="bp_vsblSec scndOptionIner1">
-                                            <a className="bp_vsblEye"><img src={require('../../../../assets/images/eye2.png')} alt="" title="" /> <span>Visible</span> </a>
+                                            <a className="bp_vsblEye"><img src={require('../../../../assets/images/eye2.png')} alt="" title="" /> <span>{visible}</span> </a>
                                             <a className="vsblTime" data-tip data-for={item.track_id + 'visibility'}>
                                                 <img src={require('../../../../assets/images/clock.svg')} alt="" title="" />
                                             </a>
                                             <ReactTooltip className="timeIconClas" id={item.track_id + 'visibility'} place="top" effect="solid" backgroundColor="#ffffff">
-                                                {item.visible==='show' ? <label>Show until</label> :  <label>Hide until</label> }
-                                                {item.public === 'always' ? <p> Always </p> : <p>{getDate(item.public, this.state.date_format)}</p> }
+                                                {item.visible==='show' ? <label>{show} {until}</label> :  <label>{hide} {until}</label> }
+                                                {item.public === 'always' ? <p> {always} </p> : <p>{getDate(item.public, this.state.date_format)}</p> }
                                             </ReactTooltip>
                                             {/* <a className="bp_vsblDots"><img src={require('../../../../assets/images/nav-more.svg')} alt="" title="" />
                                             
@@ -57,13 +95,13 @@ class Index extends Component {
                                                 <img src={require('../../../../assets/images/threedots.jpg')} alt="" title="" className="openScnd1" />
                                                 {!this.props.Archive ? <ul>
                                                     <li><a onClick={(data) => this.props.ArchiveTrack(item)}><img src={require('../../../../assets/images/archive-1.svg')} alt="" title="" />Archive</a></li>
-                                                    {this.state.loggedinUser._id === item.created_by && <li><a onClick={()=>this.props.EidtOption(item.type, item)}><img src={require('../../../../assets/images/edit-1.svg')} alt="" title="" />Edit</a></li>}
-                                                    {this.state.loggedinUser._id !== item.created_by && <li><a onClick={()=>this.props.EidtOption(item.type, item, true)}><img src={require('../../../../assets/images/edit.svg')} alt="" title="" />Change Visibility</a></li>}
-                                                    <li><a onClick={(deleteKey)=>this.props.DeleteTrack(item.track_id)}><img src={require('../../../../assets/images/cancel-request.svg')} alt="" title="" />Delete</a></li>
+                                                    {this.state.loggedinUser._id === item.created_by && <li><a onClick={()=>this.props.EidtOption(item.type, item)}><img src={require('../../../../assets/images/edit-1.svg')} alt="" title="" />{edit}</a></li>}
+                                                    {this.state.loggedinUser._id !== item.created_by && <li><a onClick={()=>this.props.EidtOption(item.type, item, true)}><img src={require('../../../../assets/images/edit.svg')} alt="" title="" />{Change} {visibility}</a></li>}
+                                                    <li><a onClick={(deleteKey)=>this.props.DeleteTrack(item.track_id)}><img src={require('../../../../assets/images/cancel-request.svg')} alt="" title="" />{Delete}</a></li>
                                                 </ul>:
                                                 <ul>
-                                                    <li><a onClick={(data) => this.props.ArchiveTrack(item)}><img src={require('../../../../assets/images/archive-1.svg')} alt="" title="" />De-Archive</a></li>
-                                                    <li><a onClick={(deleteKey)=>this.props.DeleteTrack(item.track_id)}><img src={require('../../../../assets/images/cancel-request.svg')} alt="" title="" />Delete</a></li>
+                                                    <li><a onClick={(data) => this.props.ArchiveTrack(item)}><img src={require('../../../../assets/images/archive-1.svg')} alt="" title="" />{de_archive}</a></li>
+                                                    <li><a onClick={(deleteKey)=>this.props.DeleteTrack(item.track_id)}><img src={require('../../../../assets/images/cancel-request.svg')} alt="" title="" />{Delete}</a></li>
                                                 </ul>}
                                             </a>
                                             
@@ -98,7 +136,7 @@ class Index extends Component {
                                 <Grid container direction="row" className="addSpc conPainGraph">
                                     <Grid item xs={12} md={5}>
                                         <Grid className="conPainLft">
-                                            <Grid className="conPainArea"><label>Pain areas</label></Grid>
+                                            <Grid className="conPainArea"><label>{pain_areas}</label></Grid>
                                             <PainPoint id={item.track_id} gender={this.state.gender} painPoint={item.painPoint} isView={true} />
                                         </Grid>
                                     </Grid>
@@ -122,7 +160,7 @@ class Index extends Component {
                                             <Grid container direction="row">
                                                 <Grid item xs={12} md={6} className="painTypeBy">
                                                     <Grid container direction="row">
-                                                        <Grid item xs={5} md={5}><label>Pain type</label></Grid>
+                                                        <Grid item xs={5} md={5}><label>{pain_type}</label></Grid>
                                                         <Grid item xs={7} md={7}><span>{item.pain_type && item.pain_type.label}</span></Grid>
                                                         <Grid className="clear"></Grid>
                                                     </Grid>
@@ -153,4 +191,19 @@ class Index extends Component {
     }
 }
 
-export default Index;
+const mapStateToProps = (state) => {
+    const { stateLoginValueAim, loadingaIndicatoranswerdetail } = state.LoginReducerAim;
+    const { stateLanguageType } = state.LanguageReducer;
+    const { settings } = state.Settings;
+    // const { Doctorsetget } = state.Doctorset;
+    // const { catfil } = state.filterate;
+    return {
+        stateLanguageType,
+        stateLoginValueAim,
+        loadingaIndicatoranswerdetail,
+        settings,
+        //   Doctorsetget,
+        //   catfil
+    }
+};
+export default withRouter(connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer, Settings })(Index));
