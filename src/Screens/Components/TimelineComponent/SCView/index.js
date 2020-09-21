@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
 import Collapsible from 'react-collapsible';
-import FileViews from  './../FileViews/index';
 import ReactTooltip from "react-tooltip"
 
 class Index extends Component {

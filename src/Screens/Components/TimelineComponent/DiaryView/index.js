@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
 import Collapsible from 'react-collapsible';
-import FileViews from './../FileViews/index';
 import ReactTooltip from "react-tooltip";
 import { getDate, newdate, getTime } from './../../BasicMethod/index';
 
@@ -12,18 +11,14 @@ class Index extends Component {
             item: this.props.data || {},
             date_format: this.props.date_format,
             time_foramt: this.props.time_format,
-            archive: this.props.archive,
-            loggedinUser: this.props.loggedinUser,
-            images: this.props.images,
+            archive : this.props.archive,
+            loggedinUser : this.props.loggedinUser
         };
     }
 
-    componentDidUpdate = (prevProps) => {
+  componentDidUpdate = (prevProps) => {
         if (prevProps.data !== this.props.data || prevProps.loggedinUser !== this.props.loggedinUser) {
-            this.setState({
-                item: this.props.data, loggedinUser: this.props.loggedinUser,
-                images: this.props.images,
-            })
+            this.setState({   item: this.props.data, loggedinUser : this.props.loggedinUser})
         }
     }
 
@@ -52,23 +47,22 @@ class Index extends Component {
                                         <img src={require('../../../../assets/images/clock.svg')} alt="" title="" />
                                     </a>
                                     <ReactTooltip className="timeIconClas" id={item.track_id + 'visibility'} place="top" effect="solid" backgroundColor="#ffffff">
-                                        {item.visible === 'show' ? <label>Show until</label> : <label>Hide until</label>}
-                                        {item.public === 'always' ? <p> Always </p> : <p>{getDate(item.public, this.state.date_format)}</p>}
+                                        {item.visible==='show' ? <label>Show until</label> :  <label>Hide until</label> }
+                                        {item.public === 'always' ? <p> Always </p> : <p>{getDate(item.public, this.state.date_format)}</p> }
                                     </ReactTooltip>
-                                    <a className="openScndhrf1">
-                                        <img src={require('../../../../assets/images/threedots.jpg')} alt="" title="" className="openScnd1" />
-                                        {!this.props.Archive ? <ul>
-                                            <li><a onClick={(data) => this.props.ArchiveTrack(item)}><img src={require('../../../../assets/images/archive-1.svg')} alt="" title="" />Archive</a></li>
-                                            {this.state.loggedinUser._id === item.created_by && <li><a onClick={() => this.props.EidtOption(item.type, item)}><img src={require('../../../../assets/images/edit-1.svg')} alt="" title="" />Edit</a></li>}
-                                             {this.state.loggedinUser._id !== item.created_by && <li><a onClick={()=>this.props.EidtOption(item.type, item, true)}><img src={require('../../../../assets/images/edit.svg')} alt="" title="" />Change Visibility</a></li>}
-<li><a onClick={() => this.props.downloadTrack(item)}><img src={require('../../../../assets/images/download.svg')} alt="" title="" />Download</a></li>
-                                            <li><a onClick={(deleteKey) => this.props.DeleteTrack(item.track_id)}><img src={require('../../../../assets/images/cancel-request.svg')} alt="" title="" />Delete</a></li>
-                                        </ul> :
-                                            <ul>
-                                                <li><a onClick={(data) => this.props.ArchiveTrack(item)}><img src={require('../../../../assets/images/archive-1.svg')} alt="" title="" />De-Archive</a></li>
-                                                <li><a onClick={(deleteKey) => this.props.DeleteTrack(item.track_id)}><img src={require('../../../../assets/images/cancel-request.svg')} alt="" title="" />Delete</a></li>
-                                            </ul>}
-                                    </a>
+                                         <a className="openScndhrf1">
+                                                <img src={require('../../../../assets/images/threedots.jpg')} alt="" title="" className="openScnd1" />
+                                                {!this.props.Archive ? <ul>
+                                                    <li><a onClick={(data) => this.props.ArchiveTrack(item)}><img src={require('../../../../assets/images/archive-1.svg')} alt="" title="" />Archive</a></li>
+                                                    {this.state.loggedinUser._id === item.created_by && <li><a onClick={()=>this.props.EidtOption(item.type, item)}><img src={require('../../../../assets/images/edit-1.svg')} alt="" title="" />Edit</a></li>}
+                                                    {this.state.loggedinUser._id !== item.created_by && <li><a onClick={()=>this.props.EidtOption(item.type, item, true)}><img src={require('../../../../assets/images/edit.svg')} alt="" title="" />Change Visibility</a></li>}
+                                                    <li><a onClick={(deleteKey)=>this.props.DeleteTrack(item.track_id)}><img src={require('../../../../assets/images/cancel-request.svg')} alt="" title="" />Delete</a></li>
+                                                </ul>:
+                                                <ul>
+                                                    <li><a onClick={(data) => this.props.ArchiveTrack(item)}><img src={require('../../../../assets/images/archive-1.svg')} alt="" title="" />De-Archive</a></li>
+                                                    <li><a onClick={(deleteKey)=>this.props.DeleteTrack(item.track_id)}><img src={require('../../../../assets/images/cancel-request.svg')} alt="" title="" />Delete</a></li>
+                                                </ul>}
+                                            </a>
                                 </Grid>
                             </Grid>
                             <Grid className="clear"></Grid>
@@ -89,11 +83,11 @@ class Index extends Component {
                             </Grid>
                             <Grid className="clear"></Grid>
                         </Grid>
-
+                        
                         <Grid className="addSpc detailMark">
                             <Collapsible trigger="Notes" open="true">
                                 <Grid className="detailCntnt">
-                                    <p dangerouslySetInnerHTML={{ __html: item.free_text }} />
+                                    <p dangerouslySetInnerHTML={{__html: item.free_text}} />
                                 </Grid>
                             </Collapsible>
                         </Grid>

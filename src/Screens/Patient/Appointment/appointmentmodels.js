@@ -93,53 +93,53 @@ class Index extends Component {
                                 {/* Website Menu */}
                                 <Grid item xs={12} md={1} className="MenuLeftUpr">
                                     <Grid className="webLogo">
-                                        <a href="/"><img src={require('../../assets/images/logo_new.png')} alt="" title="" /></a>
+                                        <a href="/"><img src={require('../../../assets/images/logo_new.png')} alt="" title="" /></a>
                                     </Grid>
                                     <Grid className="menuItems">
                                         <ul>
                                             <li>
                                                 <a className="menuActv">
-                                                    <img src={require('../../assets/images/nav-journal.svg')} alt="" title="" />
+                                                    <img src={require('../../../assets/images/nav-journal.svg')} alt="" title="" />
                                                     <span>Journal</span>
                                                 </a>
                                             </li>
                                             <li>
                                                 <a href="/inbox">
-                                                    <img src={require('../../assets/images/nav-chat.svg')} alt="" title="" />
+                                                    <img src={require('../../../assets/images/nav-chat.svg')} alt="" title="" />
                                                     <span>Chat & <br /> Videocalls</span>
                                                 </a>
                                             </li>
                                             <li>
                                                 <a href="/appointment">
-                                                    <img src={require('../../assets/images/nav-appointments.svg')} alt="" title="" />
+                                                    <img src={require('../../../assets/images/nav-appointments.svg')} alt="" title="" />
                                                     <span>Appointments</span>
                                                 </a>
                                             </li>
                                             <li>
                                                 <a href="/mydocuments">
-                                                    <img src={require('../../assets/images/nav-my-documents-inquiries.svg')} alt="" title="" />
+                                                    <img src={require('../../../assets/images/nav-my-documents-inquiries.svg')} alt="" title="" />
                                                     <span>My Documents</span>
                                                 </a>
                                             </li>
                                             <li>
                                                 <a href="/trackerselfdata">
-                                                    <img src={require('../../assets/images/nav-trackers.svg')} alt="" title="" />
+                                                    <img src={require('../../../assets/images/nav-trackers.svg')} alt="" title="" />
                                                     <span>Trackers & <br /> Self Data</span>
                                                 </a>
                                             </li>
                                             <li>
                                                 <a className="moreMenu">
-                                                    <img src={require('../../assets/images/nav-more.svg')} alt="" title="" />
+                                                    <img src={require('../../../assets/images/nav-more.svg')} alt="" title="" />
                                                     <span>More</span>
 
                                                     <div className="moreMenuList">
                                                         <ul>
-                                                            <li><a href="/secondopinion"><img src={require('../../assets/images/menudocs.jpg')} alt="" title="" />Second Opinion</a></li>
-                                                            <li><a href="emergencypatientdata"><img src={require('../../assets/images/menudocs.jpg')} alt="" title="" />Emergency Patient Data</a></li>
-                                                            <li><a><img src={require('../../assets/images/menudocs.jpg')} alt="" title="" />Aimedis Online Courses</a></li>
-                                                            <li><a href="/extraservices"><img src={require('../../assets/images/menudocs.jpg')} alt="" title="" />Extra Services</a></li>
-                                                            <li><a href="/journalarchive"><img src={require('../../assets/images/menudocs.jpg')} alt="" title="" />Journal Archive</a></li>
-                                                            <li><a href="/blockchainaccesslog"><img src={require('../../assets/images/menudocs.jpg')} alt="" title="" />Blockchain Access Log</a></li>
+                                                            <li><a href="/secondopinion"><img src={require('../../../assets/images/menudocs.jpg')} alt="" title="" />Second Opinion</a></li>
+                                                            <li><a href="emergencypatientdata"><img src={require('../../../assets/images/menudocs.jpg')} alt="" title="" />Emergency Patient Data</a></li>
+                                                            <li><a><img src={require('../../../assets/images/menudocs.jpg')} alt="" title="" />Aimedis Online Courses</a></li>
+                                                            <li><a href="/extraservices"><img src={require('../../../assets/images/menudocs.jpg')} alt="" title="" />Extra Services</a></li>
+                                                            <li><a href="/journalarchive"><img src={require('../../../assets/images/menudocs.jpg')} alt="" title="" />Journal Archive</a></li>
+                                                            <li><a href="/blockchainaccesslog"><img src={require('../../../assets/images/menudocs.jpg')} alt="" title="" />Blockchain Access Log</a></li>
                                                         </ul>
                                                     </div>
                                                 </a>
@@ -147,15 +147,15 @@ class Index extends Component {
                                             </li>
                                             <li>
                                                 <a className="profilMenu" href="/myprofile">
-                                                    <img src={require('../../assets/images/nav-my-profile.svg')} alt="" title="" />
+                                                    <img src={require('../../../assets/images/nav-my-profile.svg')} alt="" title="" />
                                                     <span>My Profile</span>
 
                                                     <div className="profilMenuList">
                                                         <ul>
-                                                            <li><a><img src={require('../../assets/images/menudocs.jpg')} alt="" title="" />Profile Settings</a></li>
-                                                            <li><a><img src={require('../../assets/images/menudocs.jpg')} alt="" title="" />Language</a></li>
-                                                            <li><a><img src={require('../../assets/images/menudocs.jpg')} alt="" title="" />Dark Mode</a></li>
-                                                            <li><a><img src={require('../../assets/images/menudocs.jpg')} alt="" title="" />Log out</a></li>
+                                                            <li><a><img src={require('../../../assets/images/menudocs.jpg')} alt="" title="" />Profile Settings</a></li>
+                                                            <li><a><img src={require('../../../assets/images/menudocs.jpg')} alt="" title="" />Language</a></li>
+                                                            <li><a><img src={require('../../../assets/images/menudocs.jpg')} alt="" title="" />Dark Mode</a></li>
+                                                            <li><a><img src={require('../../../assets/images/menudocs.jpg')} alt="" title="" />Log out</a></li>
                                                         </ul>
                                                     </div>
 
@@ -174,13 +174,13 @@ class Index extends Component {
                                             <Grid container direction="row">
                                                 <Grid item xs={6} md={6} className="officeVstLft"><label>7 Aug, 09:00</label></Grid>
                                                 <Grid item xs={6} md={6} className="officeVstRght">
-                                                    <a><img src={require('../../assets/images/office-visit.svg')} alt="" title="" /> Office visit</a>
+                                                    <a><img src={require('../../../assets/images/office-visit.svg')} alt="" title="" /> Office visit</a>
                                                 </Grid>
                                             </Grid>
                                             <Grid className="showSubject">
                                                 <h3>Neurology</h3>
-                                                <Grid><a><img src={require('../../assets/images/dr1.jpg')} alt="" title="" />Mark Anderson M.D.</a></Grid>
-                                                <Grid><a><img src={require('../../assets/images/office-visit.svg')} alt="" title="" />Illinois Masonic Medical Center</a></Grid>
+                                                <Grid><a><img src={require('../../../assets/images/dr1.jpg')} alt="" title="" />Mark Anderson M.D.</a></Grid>
+                                                <Grid><a><img src={require('../../../assets/images/office-visit.svg')} alt="" title="" />Illinois Masonic Medical Center</a></Grid>
                                             </Grid>
                                         </Grid>
 
@@ -189,17 +189,17 @@ class Index extends Component {
                                                 <Grid item xs={6} md={6} className="officeVstLft"><label>7 Aug, 09:00</label></Grid>
                                                 <Grid item xs={6} md={6} className="officeVstRght">
                                                     <a className="showDetail">
-                                                        <img src={require('../../assets/images/threedots.jpg')} alt="" title="" />
+                                                        <img src={require('../../../assets/images/threedots.jpg')} alt="" title="" />
                                                         <Grid className="cancelAppoint">
-                                                            <a><img src={require('../../assets/images/cancelAppoint.jpg')} alt="" title="" />Cancel appointment</a>
+                                                            <a><img src={require('../../../assets/images/cancelAppoint.jpg')} alt="" title="" />Cancel appointment</a>
                                                         </Grid>
                                                     </a>
                                                 </Grid>
                                             </Grid>
                                             <Grid className="showSubject">
                                                 <h3>Dermatology</h3>
-                                                <Grid><a><img src={require('../../assets/images/dr1.jpg')} alt="" title="" />Mark Anderson M.D.</a></Grid>
-                                                <Grid><a><img src={require('../../assets/images/office-visit.svg')} alt="" title="" />Illinois Masonic Medical Center</a></Grid>
+                                                <Grid><a><img src={require('../../../assets/images/dr1.jpg')} alt="" title="" />Mark Anderson M.D.</a></Grid>
+                                                <Grid><a><img src={require('../../../assets/images/office-visit.svg')} alt="" title="" />Illinois Masonic Medical Center</a></Grid>
                                             </Grid>
                                         </Grid>
 
@@ -207,31 +207,31 @@ class Index extends Component {
                                             <Grid container direction="row">
                                                 <Grid item xs={6} md={6} className="officeVstLft"><label>9 Aug, 09:00</label></Grid>
                                                 <Grid item xs={6} md={6} className="officeVstRght">
-                                                    <a><img src={require('../../assets/images/video-call.svg')} alt="" title="" /> Video call</a>
+                                                    <a><img src={require('../../../assets/images/video-call.svg')} alt="" title="" /> Video call</a>
                                                 </Grid>
                                             </Grid>
                                             <Grid className="showSubject">
                                                 <h3>Dermatology</h3>
-                                                <Grid><a><img src={require('../../assets/images/dr1.jpg')} alt="" title="" />Mark Anderson M.D.</a></Grid>
-                                                <Grid><a><img src={require('../../assets/images/office-visit.svg')} alt="" title="" />Illinois Masonic Medical Center</a></Grid>
+                                                <Grid><a><img src={require('../../../assets/images/dr1.jpg')} alt="" title="" />Mark Anderson M.D.</a></Grid>
+                                                <Grid><a><img src={require('../../../assets/images/office-visit.svg')} alt="" title="" />Illinois Masonic Medical Center</a></Grid>
                                             </Grid>
                                         </Grid>
 
                                         <Grid className="officeVst">
                                             <Grid className="pendConfirm">
-                                                <p><img src={require('../../assets/images/yelowBullet.jpg')} alt="" title="" />
+                                                <p><img src={require('../../../assets/images/yelowBullet.jpg')} alt="" title="" />
                                                     Pending confirmation</p>
                                             </Grid>
                                             <Grid container direction="row">
                                                 <Grid item xs={6} md={6} className="officeVstLft"><label>7 Aug, 09:00</label></Grid>
                                                 <Grid item xs={6} md={6} className="officeVstRght">
-                                                    <a><img src={require('../../assets/images/office-visit.svg')} alt="" title="" /> Office visit</a>
+                                                    <a><img src={require('../../../assets/images/office-visit.svg')} alt="" title="" /> Office visit</a>
                                                 </Grid>
                                             </Grid>
                                             <Grid className="showSubject">
                                                 <h3>Dermatology</h3>
-                                                <Grid><a><img src={require('../../assets/images/dr1.jpg')} alt="" title="" />Mark Anderson M.D.</a></Grid>
-                                                <Grid><a><img src={require('../../assets/images/office-visit.svg')} alt="" title="" />Illinois Masonic Medical Center</a></Grid>
+                                                <Grid><a><img src={require('../../../assets/images/dr1.jpg')} alt="" title="" />Mark Anderson M.D.</a></Grid>
+                                                <Grid><a><img src={require('../../../assets/images/office-visit.svg')} alt="" title="" />Illinois Masonic Medical Center</a></Grid>
                                             </Grid>
                                         </Grid>
 
@@ -250,7 +250,7 @@ class Index extends Component {
                                                 <Grid className="apontCourse">
                                                     <Grid className="apontCloseBtn">
                                                         <a onClick={this.handleCloseCal}>
-                                                            <img src={require('../../assets/images/closefancy.png')} alt="" title="" />
+                                                            <img src={require('../../../assets/images/closefancy.png')} alt="" title="" />
                                                         </a>
                                                     </Grid>
                                                     <Grid><label>New appointment</label></Grid>
@@ -259,7 +259,7 @@ class Index extends Component {
                                                     <Grid className="reasonInput">
                                                         <Grid><label>Find patient</label></Grid>
                                                         <Grid className="reasonInputImg"><input type="text" placeholder="Enter patient name or ID" />
-                                                            <img src={require('../../assets/images/search-entries.svg')} alt="" title="" />
+                                                            <img src={require('../../../assets/images/search-entries.svg')} alt="" title="" />
                                                         </Grid>
                                                     </Grid>
                                                     <Grid className="reasonInput">
@@ -295,7 +295,7 @@ class Index extends Component {
                                                                     />
                                                                 }
                                                             />
-                                                            <span className="acptTxt"><img src={require('../../assets/images/video-call-copy.svg')} alt="" title="" />Video call</span>
+                                                            <span className="acptTxt"><img src={require('../../../assets/images/video-call-copy.svg')} alt="" title="" />Video call</span>
                                                         </Grid>
                                                         <Grid className="acptVdoCals">
                                                             <FormControlLabel
@@ -306,7 +306,7 @@ class Index extends Component {
                                                                     />
                                                                 }
                                                             />
-                                                            <span className="acptTxt"><img src={require('../../assets/images/ShapeCopy24.svg')} alt="" title="" />Office visit</span>
+                                                            <span className="acptTxt"><img src={require('../../../assets/images/ShapeCopy24.svg')} alt="" title="" />Office visit</span>
                                                         </Grid>
                                                         <Grid className="acptVdoCals">
                                                             <FormControlLabel
@@ -317,7 +317,7 @@ class Index extends Component {
                                                                     />
                                                                 }
                                                             />
-                                                            <span className="acptTxt cstmCalc"><img src={require('../../assets/images/cal.png')} alt="" title="" />Consultancy (custom calendar)</span>
+                                                            <span className="acptTxt cstmCalc"><img src={require('../../../assets/images/cal.png')} alt="" title="" />Consultancy (custom calendar)</span>
                                                         </Grid>
                                                     </Grid>
                                                     <Grid className="calcSub">
@@ -338,7 +338,7 @@ class Index extends Component {
                                                 <Grid className="apontCourse">
                                                     <Grid className="apontCloseBtn">
                                                         <a onClick={this.handleCloseApoint}>
-                                                            <img src={require('../../assets/images/closefancy.png')} alt="" title="" />
+                                                            <img src={require('../../../assets/images/closefancy.png')} alt="" title="" />
                                                         </a>
                                                     </Grid>
                                                     <Grid><label>Cancel appointment</label></Grid>
@@ -362,12 +362,12 @@ class Index extends Component {
                                             <Grid className="meetBoxCntnt">
                                                 <Grid className="meetCourse">
                                                     <Grid className="meetCloseBtn">
-                                                        <a><img src={require('../../assets/images/threedots.jpg')} alt="" title="" /></a>
-                                                        <a onClick={this.handleCloseMeet}><img src={require('../../assets/images/closefancy.png')} alt="" title="" /></a>
+                                                        <a><img src={require('../../../assets/images/threedots.jpg')} alt="" title="" /></a>
+                                                        <a onClick={this.handleCloseMeet}><img src={require('../../../assets/images/closefancy.png')} alt="" title="" /></a>
                                                     </Grid>
                                                     <Grid className="meetVdo">
                                                         <Grid className="meetVdoLft">
-                                                            <img src={require('../../assets/images/video-call.svg')} alt="" title="" />
+                                                            <img src={require('../../../assets/images/video-call.svg')} alt="" title="" />
                                                             <span>Video call</span>
                                                         </Grid>
                                                         <Grid className="meetVdoRght">
@@ -412,7 +412,7 @@ class Index extends Component {
                                                                     <div className="cnclCourse">
                                                                         <div className="handleCnclBtn">
                                                                             <a onClick={this.handleCloseFancy}>
-                                                                                <img src={require('../../assets/images/closefancy.png')} alt="" title="" />
+                                                                                <img src={require('../../../assets/images/closefancy.png')} alt="" title="" />
                                                                             </a>
                                                                         </div>
                                                                         <div><label>Cancel appointment</label></div>
@@ -440,8 +440,8 @@ class Index extends Component {
                                                         <Grid item xs={6} md={6} className="todayMnth">
                                                             <Grid className="todaySrchLft"><label>Today</label></Grid>
                                                             <Grid className="movMnth">
-                                                                <a><img src={require('../../assets/images/leftArow.jpg')} alt="" title="" /></a>
-                                                                <a><img src={require('../../assets/images/rightArow.jpg')} alt="" title="" /></a>
+                                                                <a><img src={require('../../../assets/images/leftArow.jpg')} alt="" title="" /></a>
+                                                                <a><img src={require('../../../assets/images/rightArow.jpg')} alt="" title="" /></a>
                                                             </Grid>
                                                             <Grid className="crntMonth">Augest 2020</Grid>
                                                         </Grid>
@@ -456,7 +456,7 @@ class Index extends Component {
                                                                         <div className="accessCourse">
                                                                             <div className="handleAccessBtn">
                                                                                 <a onClick={this.handleCloseAllowLoc}>
-                                                                                    <img src={require('../../assets/images/closefancy.png')} alt="" title="" />
+                                                                                    <img src={require('../../../assets/images/closefancy.png')} alt="" title="" />
                                                                                 </a>
                                                                             </div>
                                                                             <Grid container direction="row" spacing={2} className="srchAccessLoc">
@@ -473,7 +473,7 @@ class Index extends Component {
                                                                                 <Grid item xs={12} md={3} className="locat_srvc">
                                                                                     <Grid><label>Location of service</label></Grid>
                                                                                     <input type="text" placeholder="Search for city" />
-                                                                                    <img src={require('../../assets/images/search-entries.svg')} alt="" title="" />
+                                                                                    <img src={require('../../../assets/images/search-entries.svg')} alt="" title="" />
                                                                                 </Grid>
                                                                                 <Grid item xs={12} md={2} className="srchKm">
                                                                                     <Grid><label>Search within</label></Grid>
@@ -485,7 +485,7 @@ class Index extends Component {
                                                                                     <FormControlLabel control={<Checkbox name="Office" />} label="Office" />
                                                                                 </Grid>
                                                                             </Grid>
-                                                                            <div className="showSpcial"><p><img src={require('../../assets/images/location.png')} alt="" title="" />We are showing you specialists near “Düsseldorf, Germany” in 100km range</p></div>
+                                                                            <div className="showSpcial"><p><img src={require('../../../assets/images/location.png')} alt="" title="" />We are showing you specialists near “Düsseldorf, Germany” in 100km range</p></div>
                                                                         </div>
 
                                                                         {/* New Design */}
@@ -495,7 +495,7 @@ class Index extends Component {
                                                                                 <Grid container direction="row" spacing={1}>
                                                                                     <Grid item xs={12} md={3}>
                                                                                         <Grid className="spclistDr">
-                                                                                            <a><img src={require('../../assets/images/dr1.jpg')} alt="" title="" />
+                                                                                            <a><img src={require('../../../assets/images/dr1.jpg')} alt="" title="" />
                                                                                                 Mark Anderson M.D.
                                                                                       </a>
                                                                                         </Grid>
@@ -512,13 +512,13 @@ class Index extends Component {
                                                                                         <Grid className="srvcTagsCntnt">
                                                                                             <Grid className="srvcTags"> <a>Contact</a> <a>Services</a> <a>Latest info</a> </Grid>
                                                                                             <Grid className="srvcTagsLoc">
-                                                                                                <a><img src={require('../../assets/images/location-pin.svg')} alt="" title="" />
+                                                                                                <a><img src={require('../../../assets/images/location-pin.svg')} alt="" title="" />
                                                                                                     Sint Michaëlstraat 4, 5935 BL Steyl, Netherlands</a>
-                                                                                                <a><img src={require('../../assets/images/phone.svg')} alt="" title="" />
+                                                                                                <a><img src={require('../../../assets/images/phone.svg')} alt="" title="" />
                                                                                                     01731508000</a>
-                                                                                                <a><img src={require('../../assets/images/email.svg')} alt="" title="" />
+                                                                                                <a><img src={require('../../../assets/images/email.svg')} alt="" title="" />
                                                                                                     doctor1@aimedis.com</a>
-                                                                                                <a><img src={require('../../assets/images/language.svg')} alt="" title="" />
+                                                                                                <a><img src={require('../../../assets/images/language.svg')} alt="" title="" />
                                                                                                     English, Dutch, French, German, Arabic</a>
                                                                                             </Grid>
                                                                                         </Grid>
@@ -527,9 +527,9 @@ class Index extends Component {
                                                                                         <Grid className="avlablDates">
                                                                                             <h3>SEE AVAILABLE DATES FOR:</h3>
                                                                                             <Grid>
-                                                                                                <a><img src={require('../../assets/images/video-call-copy2.svg')} alt="" title="" />Video call</a>
-                                                                                                <a><img src={require('../../assets/images/ShapeCopy2.svg')} alt="" title="" />Office visit</a>
-                                                                                                <a className="addClnder"><img src={require('../../assets/images/cal.png')} alt="" title="" />Consultancy (custom calendar)</a>
+                                                                                                <a><img src={require('../../../assets/images/video-call-copy2.svg')} alt="" title="" />Video call</a>
+                                                                                                <a><img src={require('../../../assets/images/ShapeCopy2.svg')} alt="" title="" />Office visit</a>
+                                                                                                <a className="addClnder"><img src={require('../../../assets/images/cal.png')} alt="" title="" />Consultancy (custom calendar)</a>
                                                                                             </Grid>
                                                                                         </Grid>
                                                                                     </Grid>
@@ -540,7 +540,7 @@ class Index extends Component {
                                                                                 <Grid container direction="row" spacing={1}>
                                                                                     <Grid item xs={12} md={3}>
                                                                                         <Grid className="spclistDr">
-                                                                                            <a><img src={require('../../assets/images/dr1.jpg')} alt="" title="" />
+                                                                                            <a><img src={require('../../../assets/images/dr1.jpg')} alt="" title="" />
                                                                                                 Mark Anderson M.D.
                                                                                       </a>
                                                                                         </Grid>
@@ -557,13 +557,13 @@ class Index extends Component {
                                                                                         <Grid className="srvcTagsCntnt">
                                                                                             <Grid className="srvcTags"> <a>Contact</a> <a>Services</a> <a>Latest info</a> </Grid>
                                                                                             <Grid className="srvcTagsLoc">
-                                                                                                <a><img src={require('../../assets/images/location-pin.svg')} alt="" title="" />
+                                                                                                <a><img src={require('../../../assets/images/location-pin.svg')} alt="" title="" />
                                                                                                     Sint Michaëlstraat 4, 5935 BL Steyl, Netherlands</a>
-                                                                                                <a><img src={require('../../assets/images/phone.svg')} alt="" title="" />
+                                                                                                <a><img src={require('../../../assets/images/phone.svg')} alt="" title="" />
                                                                                                     01731508000</a>
-                                                                                                <a><img src={require('../../assets/images/email.svg')} alt="" title="" />
+                                                                                                <a><img src={require('../../../assets/images/email.svg')} alt="" title="" />
                                                                                                     doctor1@aimedis.com</a>
-                                                                                                <a><img src={require('../../assets/images/language.svg')} alt="" title="" />
+                                                                                                <a><img src={require('../../../assets/images/language.svg')} alt="" title="" />
                                                                                                     English, Dutch, French, German, Arabic</a>
                                                                                             </Grid>
                                                                                         </Grid>
@@ -572,9 +572,9 @@ class Index extends Component {
                                                                                         <Grid className="avlablDates">
                                                                                             <h3>SEE AVAILABLE DATES FOR:</h3>
                                                                                             <Grid>
-                                                                                                <a><img src={require('../../assets/images/video-call-copy2.svg')} alt="" title="" />Video call</a>
-                                                                                                <a><img src={require('../../assets/images/ShapeCopy2.svg')} alt="" title="" />Office visit</a>
-                                                                                                <a className="addClnder"><img src={require('../../assets/images/cal.png')} alt="" title="" />Consultancy (custom calendar)</a>
+                                                                                                <a><img src={require('../../../assets/images/video-call-copy2.svg')} alt="" title="" />Video call</a>
+                                                                                                <a><img src={require('../../../assets/images/ShapeCopy2.svg')} alt="" title="" />Office visit</a>
+                                                                                                <a className="addClnder"><img src={require('../../../assets/images/cal.png')} alt="" title="" />Consultancy (custom calendar)</a>
                                                                                             </Grid>
                                                                                         </Grid>
                                                                                     </Grid>
@@ -585,7 +585,7 @@ class Index extends Component {
                                                                                 <Grid container direction="row" spacing={1}>
                                                                                     <Grid item xs={12} md={3}>
                                                                                         <Grid className="spclistDr">
-                                                                                            <a><img src={require('../../assets/images/dr1.jpg')} alt="" title="" />
+                                                                                            <a><img src={require('../../../assets/images/dr1.jpg')} alt="" title="" />
                                                                                                 Mark Anderson M.D.
                                                                                       </a>
                                                                                         </Grid>
@@ -602,13 +602,13 @@ class Index extends Component {
                                                                                         <Grid className="srvcTagsCntnt">
                                                                                             <Grid className="srvcTags"> <a>Contact</a> <a>Services</a> <a>Latest info</a> </Grid>
                                                                                             <Grid className="srvcTagsLoc">
-                                                                                                <a><img src={require('../../assets/images/location-pin.svg')} alt="" title="" />
+                                                                                                <a><img src={require('../../../assets/images/location-pin.svg')} alt="" title="" />
                                                                                                     Sint Michaëlstraat 4, 5935 BL Steyl, Netherlands</a>
-                                                                                                <a><img src={require('../../assets/images/phone.svg')} alt="" title="" />
+                                                                                                <a><img src={require('../../../assets/images/phone.svg')} alt="" title="" />
                                                                                                     01731508000</a>
-                                                                                                <a><img src={require('../../assets/images/email.svg')} alt="" title="" />
+                                                                                                <a><img src={require('../../../assets/images/email.svg')} alt="" title="" />
                                                                                                     doctor1@aimedis.com</a>
-                                                                                                <a><img src={require('../../assets/images/language.svg')} alt="" title="" />
+                                                                                                <a><img src={require('../../../assets/images/language.svg')} alt="" title="" />
                                                                                                     English, Dutch, French, German, Arabic</a>
                                                                                             </Grid>
                                                                                         </Grid>
@@ -617,9 +617,9 @@ class Index extends Component {
                                                                                         <Grid className="avlablDates">
                                                                                             <h3>SEE AVAILABLE DATES FOR:</h3>
                                                                                             <Grid>
-                                                                                                <a><img src={require('../../assets/images/video-call-copy2.svg')} alt="" title="" />Video call</a>
-                                                                                                <a><img src={require('../../assets/images/ShapeCopy2.svg')} alt="" title="" />Office visit</a>
-                                                                                                <a className="addClnder"><img src={require('../../assets/images/cal.png')} alt="" title="" />Consultancy (custom calendar)</a>
+                                                                                                <a><img src={require('../../../assets/images/video-call-copy2.svg')} alt="" title="" />Video call</a>
+                                                                                                <a><img src={require('../../../assets/images/ShapeCopy2.svg')} alt="" title="" />Office visit</a>
+                                                                                                <a className="addClnder"><img src={require('../../../assets/images/cal.png')} alt="" title="" />Consultancy (custom calendar)</a>
                                                                                             </Grid>
                                                                                         </Grid>
                                                                                     </Grid>
@@ -630,7 +630,7 @@ class Index extends Component {
                                                                                 <Grid container direction="row" spacing={1}>
                                                                                     <Grid item xs={12} md={3}>
                                                                                         <Grid className="spclistDr">
-                                                                                            <a><img src={require('../../assets/images/dr1.jpg')} alt="" title="" />
+                                                                                            <a><img src={require('../../../assets/images/dr1.jpg')} alt="" title="" />
                                                                                                 Mark Anderson M.D.
                                                                                       </a>
                                                                                         </Grid>
@@ -647,13 +647,13 @@ class Index extends Component {
                                                                                         <Grid className="srvcTagsCntnt">
                                                                                             <Grid className="srvcTags"> <a>Contact</a> <a>Services</a> <a>Latest info</a> </Grid>
                                                                                             <Grid className="srvcTagsLoc">
-                                                                                                <a><img src={require('../../assets/images/location-pin.svg')} alt="" title="" />
+                                                                                                <a><img src={require('../../../assets/images/location-pin.svg')} alt="" title="" />
                                                                                                     Sint Michaëlstraat 4, 5935 BL Steyl, Netherlands</a>
-                                                                                                <a><img src={require('../../assets/images/phone.svg')} alt="" title="" />
+                                                                                                <a><img src={require('../../../assets/images/phone.svg')} alt="" title="" />
                                                                                                     01731508000</a>
-                                                                                                <a><img src={require('../../assets/images/email.svg')} alt="" title="" />
+                                                                                                <a><img src={require('../../../assets/images/email.svg')} alt="" title="" />
                                                                                                     doctor1@aimedis.com</a>
-                                                                                                <a><img src={require('../../assets/images/language.svg')} alt="" title="" />
+                                                                                                <a><img src={require('../../../assets/images/language.svg')} alt="" title="" />
                                                                                                     English, Dutch, French, German, Arabic</a>
                                                                                             </Grid>
                                                                                         </Grid>
@@ -662,9 +662,9 @@ class Index extends Component {
                                                                                         <Grid className="avlablDates">
                                                                                             <h3>SEE AVAILABLE DATES FOR:</h3>
                                                                                             <Grid>
-                                                                                                <a><img src={require('../../assets/images/video-call-copy2.svg')} alt="" title="" />Video call</a>
-                                                                                                <a><img src={require('../../assets/images/ShapeCopy2.svg')} alt="" title="" />Office visit</a>
-                                                                                                <a className="addClnder"><img src={require('../../assets/images/cal.png')} alt="" title="" />Consultancy (custom calendar)</a>
+                                                                                                <a><img src={require('../../../assets/images/video-call-copy2.svg')} alt="" title="" />Video call</a>
+                                                                                                <a><img src={require('../../../assets/images/ShapeCopy2.svg')} alt="" title="" />Office visit</a>
+                                                                                                <a className="addClnder"><img src={require('../../../assets/images/cal.png')} alt="" title="" />Consultancy (custom calendar)</a>
                                                                                             </Grid>
                                                                                         </Grid>
                                                                                     </Grid>
@@ -675,7 +675,7 @@ class Index extends Component {
                                                                                 <Grid container direction="row" spacing={1}>
                                                                                     <Grid item xs={12} md={3}>
                                                                                         <Grid className="spclistDr">
-                                                                                            <a><img src={require('../../assets/images/dr1.jpg')} alt="" title="" />
+                                                                                            <a><img src={require('../../../assets/images/dr1.jpg')} alt="" title="" />
                                                                                                 Mark Anderson M.D.
                                                                                       </a>
                                                                                         </Grid>
@@ -692,13 +692,13 @@ class Index extends Component {
                                                                                         <Grid className="srvcTagsCntnt">
                                                                                             <Grid className="srvcTags"> <a>Contact</a> <a>Services</a> <a>Latest info</a> </Grid>
                                                                                             <Grid className="srvcTagsLoc">
-                                                                                                <a><img src={require('../../assets/images/location-pin.svg')} alt="" title="" />
+                                                                                                <a><img src={require('../../../assets/images/location-pin.svg')} alt="" title="" />
                                                                                                     Sint Michaëlstraat 4, 5935 BL Steyl, Netherlands</a>
-                                                                                                <a><img src={require('../../assets/images/phone.svg')} alt="" title="" />
+                                                                                                <a><img src={require('../../../assets/images/phone.svg')} alt="" title="" />
                                                                                                     01731508000</a>
-                                                                                                <a><img src={require('../../assets/images/email.svg')} alt="" title="" />
+                                                                                                <a><img src={require('../../../assets/images/email.svg')} alt="" title="" />
                                                                                                     doctor1@aimedis.com</a>
-                                                                                                <a><img src={require('../../assets/images/language.svg')} alt="" title="" />
+                                                                                                <a><img src={require('../../../assets/images/language.svg')} alt="" title="" />
                                                                                                     English, Dutch, French, German, Arabic</a>
                                                                                             </Grid>
                                                                                         </Grid>
@@ -707,9 +707,9 @@ class Index extends Component {
                                                                                         <Grid className="avlablDates">
                                                                                             <h3>SEE AVAILABLE DATES FOR:</h3>
                                                                                             <Grid>
-                                                                                                <a><img src={require('../../assets/images/video-call-copy2.svg')} alt="" title="" />Video call</a>
-                                                                                                <a><img src={require('../../assets/images/ShapeCopy2.svg')} alt="" title="" />Office visit</a>
-                                                                                                <a className="addClnder"><img src={require('../../assets/images/cal.png')} alt="" title="" />Consultancy (custom calendar)</a>
+                                                                                                <a><img src={require('../../../assets/images/video-call-copy2.svg')} alt="" title="" />Video call</a>
+                                                                                                <a><img src={require('../../../assets/images/ShapeCopy2.svg')} alt="" title="" />Office visit</a>
+                                                                                                <a className="addClnder"><img src={require('../../../assets/images/cal.png')} alt="" title="" />Consultancy (custom calendar)</a>
                                                                                             </Grid>
                                                                                         </Grid>
                                                                                     </Grid>
@@ -720,7 +720,7 @@ class Index extends Component {
                                                                                 <Grid container direction="row" spacing={1}>
                                                                                     <Grid item xs={12} md={3}>
                                                                                         <Grid className="spclistDr">
-                                                                                            <a><img src={require('../../assets/images/dr1.jpg')} alt="" title="" />
+                                                                                            <a><img src={require('../../../assets/images/dr1.jpg')} alt="" title="" />
                                                                                                 Mark Anderson M.D.
                                                                                       </a>
                                                                                         </Grid>
@@ -737,13 +737,13 @@ class Index extends Component {
                                                                                         <Grid className="srvcTagsCntnt">
                                                                                             <Grid className="srvcTags"> <a>Contact</a> <a>Services</a> <a>Latest info</a> </Grid>
                                                                                             <Grid className="srvcTagsLoc">
-                                                                                                <a><img src={require('../../assets/images/location-pin.svg')} alt="" title="" />
+                                                                                                <a><img src={require('../../../assets/images/location-pin.svg')} alt="" title="" />
                                                                                                     Sint Michaëlstraat 4, 5935 BL Steyl, Netherlands</a>
-                                                                                                <a><img src={require('../../assets/images/phone.svg')} alt="" title="" />
+                                                                                                <a><img src={require('../../../assets/images/phone.svg')} alt="" title="" />
                                                                                                     01731508000</a>
-                                                                                                <a><img src={require('../../assets/images/email.svg')} alt="" title="" />
+                                                                                                <a><img src={require('../../../assets/images/email.svg')} alt="" title="" />
                                                                                                     doctor1@aimedis.com</a>
-                                                                                                <a><img src={require('../../assets/images/language.svg')} alt="" title="" />
+                                                                                                <a><img src={require('../../../assets/images/language.svg')} alt="" title="" />
                                                                                                     English, Dutch, French, German, Arabic</a>
                                                                                             </Grid>
                                                                                         </Grid>
@@ -752,9 +752,9 @@ class Index extends Component {
                                                                                         <Grid className="avlablDates">
                                                                                             <h3>SEE AVAILABLE DATES FOR:</h3>
                                                                                             <Grid>
-                                                                                                <a><img src={require('../../assets/images/video-call-copy2.svg')} alt="" title="" />Video call</a>
-                                                                                                <a><img src={require('../../assets/images/ShapeCopy2.svg')} alt="" title="" />Office visit</a>
-                                                                                                <a className="addClnder"><img src={require('../../assets/images/cal.png')} alt="" title="" />Consultancy (custom calendar)</a>
+                                                                                                <a><img src={require('../../../assets/images/video-call-copy2.svg')} alt="" title="" />Video call</a>
+                                                                                                <a><img src={require('../../../assets/images/ShapeCopy2.svg')} alt="" title="" />Office visit</a>
+                                                                                                <a className="addClnder"><img src={require('../../../assets/images/cal.png')} alt="" title="" />Consultancy (custom calendar)</a>
                                                                                             </Grid>
                                                                                         </Grid>
                                                                                     </Grid>
@@ -771,7 +771,7 @@ class Index extends Component {
 
 
                                                                 <a onClick={this.handleAllowAccess}>
-                                                                    <img src={require('../../assets/images/topicSrch.jpg')} alt="" title="" />
+                                                                    <img src={require('../../../assets/images/topicSrch.jpg')} alt="" title="" />
                                                                 </a>
                                                                 {/* Allow Location Access */}
                                                                 <Modal
@@ -781,7 +781,7 @@ class Index extends Component {
                                                                         <div className="accessCourse">
                                                                             <div className="handleAccessBtn">
                                                                                 <a onClick={this.handleCloseAllowAccess}>
-                                                                                    <img src={require('../../assets/images/closefancy.png')} alt="" title="" />
+                                                                                    <img src={require('../../../assets/images/closefancy.png')} alt="" title="" />
                                                                                 </a>
                                                                             </div>
                                                                             <Grid container direction="row" spacing={2} className="srchAccessLoc">
@@ -798,7 +798,7 @@ class Index extends Component {
                                                                                 <Grid item xs={12} md={3} className="locat_srvc">
                                                                                     <Grid><label>Location of service</label></Grid>
                                                                                     <input type="text" placeholder="Search for city" />
-                                                                                    <img src={require('../../assets/images/search-entries.svg')} alt="" title="" />
+                                                                                    <img src={require('../../../assets/images/search-entries.svg')} alt="" title="" />
                                                                                 </Grid>
                                                                                 <Grid item xs={12} md={2} className="srchKm">
                                                                                     <Grid><label>Search within</label></Grid>
@@ -812,7 +812,7 @@ class Index extends Component {
                                                                             </Grid>
                                                                         </div>
                                                                         <div className="allowAccessList">
-                                                                            <div><a><img src={require('../../assets/images/location.png')} alt="" title="" /></a></div>
+                                                                            <div><a><img src={require('../../../assets/images/location.png')} alt="" title="" /></a></div>
                                                                             <h1>Allow location access</h1>
                                                                             <p>This way we can instantly show you a list of specialists.</p>
                                                                         </div>

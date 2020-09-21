@@ -509,7 +509,7 @@ class Index extends Component {
                                                                     <ul>
                                                                         <li><img src={require('../../../assets/images/journal1.svg')} alt="" title="" />Open Journal</li>
                                                                         <li onClick={(e)=>this.handleshowPatient(data)}><img src={require('../../../assets/images/personal-info.svg')} alt="" title="" />Personal info</li>
-                                                                        <li onClick={(e)=>this.removePatient(data)}><img src={require('../../../assets/images/del.png')} alt="" title="" />Remove patient</li>
+                                                                        <li onClick={this.removePatient(data)}><img src={require('../../../assets/images/del.png')} alt="" title="" />Remove patient</li>
                                                                     </ul>
                                                                 </a>
                                                             </Td>

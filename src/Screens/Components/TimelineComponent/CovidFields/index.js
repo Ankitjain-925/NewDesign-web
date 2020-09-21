@@ -10,6 +10,12 @@ import PainPoint from '../../PointPain/index';
 import PainIntensity from '../../PainIntansity/index';
 import Condition from '../../Condition/index';
 
+import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
+import { LoginReducerAim } from './../../../Login/actions';
+import { Settings } from './../../../Login/setting';
+import { LanguageFetchReducer } from './../../../actions';
+import * as translationEN from "../../../../translations/en_json_proofread_13072020.json"
 
 class Index extends Component {
     constructor(props) {
@@ -37,36 +43,68 @@ class Index extends Component {
     }
 
     render() {
+
+        let translate;
+        switch (this.props.stateLanguageType) {
+            case "en":
+                translate = translationEN.text
+                break;
+            // case "de":
+            //     translate = translationDE.text
+            //     break;
+            // case "pt":
+            //     translate = translationPT.text
+            //     break;
+            // case "sp":
+            //     translate = translationSP.text
+            //     break;
+            // case "rs":
+            //     translate = translationRS.text
+            //     break;
+            // case "nl":
+            //     translate = translationNL.text
+            //     break;
+            // case "ch":
+            //     translate = translationCH.text
+            //     break;
+            // case "sw":
+            //     translate = translationSW.text
+            //     break;
+            case "default":
+                translate = translationEN.text
+        }
+        let { selct_pain_area, attachments } = translate
+
         return (
             <div>
                 <Grid className="cnfrmDiaMain">
                     <Grid className="fillDia">
-                        <Temprature name="temprature"  name="temprature" valueType = {this.state.updateTrack.temprature_type} value={this.state.updateTrack.temprature} Options={this.state.options2} onChange={(e)=> this.props.updateEntryState(e)} onChangeType={(e)=> this.props.updateEntryState1(e, 'temprature_type')} />
+                        <Temprature name="temprature" name="temprature" valueType={this.state.updateTrack.temprature_type} value={this.state.updateTrack.temprature} Options={this.state.options2} onChange={(e) => this.props.updateEntryState(e)} onChangeType={(e) => this.props.updateEntryState1(e, 'temprature_type')} />
                     </Grid>
                     <Grid className="fillDia">
-                        <MMHG name="saturaion" Unit="%" label="O2 Saturation" onChange={(e)=> this.props.updateEntryState(e)} value={this.state.updateTrack.blood_sugar}/>    
+                        <MMHG name="saturaion" Unit="%" label="O2 Saturation" onChange={(e) => this.props.updateEntryState(e)} value={this.state.updateTrack.blood_sugar} />
                     </Grid>
 
                     <Grid className="fillDia">
-                        <Grid><label>Select Pain areas</label></Grid>
+                        <Grid><label>{selct_pain_area}</label></Grid>
                         <PainPoint id="New_id1" gender={this.state.gender} painPoint={this.state.updateTrack && this.state.updateTrack.painPoint ? this.state.updateTrack.painPoint : []} onChange={(e) => this.props.updateEntryState1(e, 'painPoint')} />
                     </Grid>
                     <Grid className="fillDia">
-                        <PainIntensity name="pains" onChange={(e)=> this.props.updateEntryState(e)} value={this.state.updateTrack.pains}/>
+                        <PainIntensity name="pains" onChange={(e) => this.props.updateEntryState(e)} value={this.state.updateTrack.pains} />
                     </Grid>
                     <Grid className="fillDia">
-                        <Condition name="conditions"  onChange={(e)=> this.props.updateEntryState(e)} value={this.state.updateTrack.conditions}/>
+                        <Condition name="conditions" onChange={(e) => this.props.updateEntryState(e)} value={this.state.updateTrack.conditions} />
                     </Grid>
                     <Grid className="fillDia">
-                        <SelectField name="country" label="Where you are located" option={this.state.options} onChange={(e)=> this.props.updateEntryState1(e, 'country')} value={this.state.updateTrack.country} />    
+                        <SelectField name="country" label="Where you are located" option={this.state.options} onChange={(e) => this.props.updateEntryState1(e, 'country')} value={this.state.updateTrack.country} />
                     </Grid>
                     <Grid className="fillDia">
-                        <NotesEditor name="symptoms" label="Symptoms & Notes" onChange={(e) => this.props.updateEntryState1(e, 'symptoms')} value={this.state.updateTrack.symptoms}/>
+                        <NotesEditor name="symptoms" label="Symptoms & Notes" onChange={(e) => this.props.updateEntryState1(e, 'symptoms')} value={this.state.updateTrack.symptoms} />
                     </Grid>
 
                     <Grid className="attchForms attchImg">
-                        <Grid><label>Attachments</label></Grid>
-                      <FileUploader name="UploadTrackImageMulti" isMulti="true" fileUpload={this.props.FileAttachMulti} />
+                        <Grid><label>{attachments}</label></Grid>
+                        <FileUploader name="UploadTrackImageMulti" fileUpload={this.FileAttachMulti} />
                     </Grid>
 
                 </Grid>
@@ -83,5 +121,20 @@ class Index extends Component {
     }
 }
 
-export default Index;
+const mapStateToProps = (state) => {
+    const { stateLoginValueAim, loadingaIndicatoranswerdetail } = state.LoginReducerAim;
+    const { stateLanguageType } = state.LanguageReducer;
+    const { settings } = state.Settings;
+    // const { Doctorsetget } = state.Doctorset;
+    // const { catfil } = state.filterate;
+    return {
+        stateLanguageType,
+        stateLoginValueAim,
+        loadingaIndicatoranswerdetail,
+        settings,
+        //   Doctorsetget,
+        //   catfil
+    }
+};
+export default withRouter(connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer, Settings })(Index));
 

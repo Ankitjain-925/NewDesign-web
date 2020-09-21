@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
 import Collapsible from 'react-collapsible';
-import FileViews from './../FileViews/index';
 import ReactTooltip from "react-tooltip"
 
 class Index extends Component {
@@ -11,22 +10,14 @@ class Index extends Component {
             item: this.props.data || {},
             date_format: this.props.date_format,
             time_foramt: this.props.time_format,
-            archive: this.props.archive,
-            loggedinUser: this.props.loggedinUser,
-            images: this.props.images,
+            archive : this.props.archive,
+            loggedinUser : this.props.loggedinUser
         };
     }
-
-    componentDidUpdate = (prevProps) => {
+   
+  componentDidUpdate = (prevProps) => {
         if (prevProps.data !== this.props.data || prevProps.loggedinUser !== this.props.loggedinUser) {
-            this.setState({
-                item: this.props.data, loggedinUser: this.props.loggedinUser,
-                images: this.props.images,
-            })
-        }
-        if(prevProps.images !== this.props.images)
-        {
-            this.setState({ images: this.props.images})
+            this.setState({   item: this.props.data, loggedinUser : this.props.loggedinUser})
         }
     }
 

@@ -6,7 +6,12 @@ import TimeFormat from './../../TimeFormat/index';
 import SelectByTwo from './../../SelectbyTwo/index';
 import FileUploader from './../../FileUploader/index';
 import ShowHide from './../../ShowHide/index';
-
+import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
+import { LoginReducerAim } from './../../../Login/actions';
+import { Settings } from './../../../Login/setting';
+import { LanguageFetchReducer } from './../../../actions';
+import * as translationEN from "../../../../translations/en_json_proofread_13072020.json"
 class Index extends Component {
     constructor(props) {
         super(props);
@@ -30,6 +35,36 @@ class Index extends Component {
     }
 
     render() {
+        let translate;
+        switch (this.props.stateLanguageType) {
+            case "en":
+                translate = translationEN.text
+                break;
+            // case "de":
+            //     translate = translationDE.text
+            //     break;
+            // case "pt":
+            //     translate = translationPT.text
+            //     break;
+            // case "sp":
+            //     translate = translationSP.text
+            //     break;
+            // case "rs":
+            //     translate = translationRS.text
+            //     break;
+            // case "nl":
+            //     translate = translationNL.text
+            //     break;
+            // case "ch":
+            //     translate = translationCH.text
+            //     break;
+            // case "sw":
+            //     translate = translationSW.text
+            //     break;
+            case "default":
+                translate = translationEN.text
+        }
+        let { date_measure, time_measure, attachments }= translate
         return (
             <div>
                 <Grid className="cnfrmDiaMain">
@@ -41,20 +76,20 @@ class Index extends Component {
                     </Grid>
                     <Grid className="fillDia">
                         <Grid className="rrSysto">
-                            <Grid><label>Date Measured</label></Grid>
+                            <Grid><label>{date_measure}</label></Grid>
                             <DateFormat name="date_measured" value={this.state.updateTrack.date_measured ? new Date(this.state.updateTrack.date_measured) : new Date()} date_format={this.state.date_format} onChange={(e)=>this.props.updateEntryState1(e, 'date_measured')}/>
                         </Grid>   
                     </Grid>
                     <Grid className="fillDia">
                         <Grid className="rrSysto">
-                            <Grid><label>Time Measured</label></Grid>
+                            <Grid><label>{time_measure}</label></Grid>
                             <TimeFormat name="time_measured" value={this.state.updateTrack.time_measured ? new Date(this.state.updateTrack.time_measured) : new Date()} time_format={this.state.time_format} onChange={(e)=>this.props.updateEntryState1(e, 'time_measured')}/>
                             
                         </Grid>
                     </Grid>
                     <Grid className="attchForms attchImg">
-                        <Grid><label>Attachments</label></Grid>
-                      <FileUploader name="UploadTrackImageMulti" isMulti={true} fileUpload={this.props.FileAttachMulti} />
+                        <Grid><label>{attachments}</label></Grid>
+                        <FileUploader name="UploadTrackImageMulti" fileUpload={this.FileAttachMulti} />
                     </Grid>
                 </Grid>
 
@@ -70,5 +105,20 @@ class Index extends Component {
     }
 }
 
-export default Index;
+const mapStateToProps = (state) => {
+    const { stateLoginValueAim, loadingaIndicatoranswerdetail } = state.LoginReducerAim;
+    const { stateLanguageType } = state.LanguageReducer;
+    const { settings } = state.Settings;
+    // const { Doctorsetget } = state.Doctorset;
+    // const { catfil } = state.filterate;
+    return {
+        stateLanguageType,
+        stateLoginValueAim,
+        loadingaIndicatoranswerdetail,
+        settings,
+        //   Doctorsetget,
+        //   catfil
+    }
+};
+export default withRouter(connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer, Settings })(Index));
 

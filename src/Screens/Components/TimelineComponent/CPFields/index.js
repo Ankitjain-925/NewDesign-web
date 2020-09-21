@@ -9,7 +9,12 @@ import PainPoint from './../../PointPain/index';
 import SelectByTwo from './../../SelectbyTwo/index';
 import PainIntensity from './../../PainIntansity/index';
 import Condition  from './../../Condition/index';
-
+import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
+import { LoginReducerAim } from './../../../Login/actions';
+import { Settings } from './../../../Login/setting';
+import { LanguageFetchReducer } from './../../../actions';
+import * as translationEN from "../../../../translations/en_json_proofread_13072020.json"
 class Index extends Component {
     constructor(props) {
         super(props);
@@ -36,6 +41,38 @@ class Index extends Component {
     }
 
     render() {
+        let translate;
+        switch (this.props.stateLanguageType) {
+            case "en":
+                translate = translationEN.text
+                break;
+            // case "de":
+            //     translate = translationDE.text
+            //     break;
+            // case "pt":
+            //     translate = translationPT.text
+            //     break;
+            // case "sp":
+            //     translate = translationSP.text
+            //     break;
+            // case "rs":
+            //     translate = translationRS.text
+            //     break;
+            // case "nl":
+            //     translate = translationNL.text
+            //     break;
+            // case "ch":
+            //     translate = translationCH.text
+            //     break;
+            // case "sw":
+            //     translate = translationSW.text
+            //     break;
+            case "default":
+                translate = translationEN.text
+        }
+        let { blood_pressure, selct_pain_area, situation, visible, blood_sugar, Change, show, hide, until, archive, rr_systolic, attachments, time_measure, date_measure,
+            visibility, edit, Delete, RR_diastolic, de_archive, view_fullscren, always, feeling, date, time }= translate
+        
         return (
             <div>
                 {!this.props.visibility && <Grid className="cnfrmDiaMain">
@@ -46,7 +83,7 @@ class Index extends Component {
                         <NotesEditor name="remarks" label="Notes" onChange={(e) => this.props.updateEntryState1(e, 'remarks')} value={this.state.updateTrack.remarks}/>
                     </Grid>
                     <Grid className="fillDia">
-                        <Grid><label>Select Pain areas</label></Grid>
+                        <Grid><label>{selct_pain_area}</label></Grid>
                         <PainPoint id="New_id1" gender={this.state.gender} painPoint={this.state.updateTrack && this.state.updateTrack.painPoint ? this.state.updateTrack.painPoint : []} onChange={(e) => this.props.updateEntryState1(e, 'painPoint')} />
                     </Grid>
                     <Grid className="fillDia">
@@ -57,8 +94,8 @@ class Index extends Component {
                     </Grid>
 
                     <Grid className="attchForms attchImg">
-                        <Grid><label>Attachments</label></Grid>
-                      <FileUploader name="UploadTrackImageMulti" isMulti="true" fileUpload={this.props.FileAttachMulti} />
+                        <Grid><label>{attachments}</label></Grid>
+                        <FileUploader name="UploadTrackImageMulti" fileUpload={this.FileAttachMulti} />
                     </Grid>
                     <Grid className="fillDia">
                         <SelectByTwo name="pain_type" label="Pain Type" options={this.state.options2} onChange={(e) => this.props.updateEntryState1(e, 'pain_type')} value={this.state.updateTrack.pain_type} />
@@ -80,5 +117,20 @@ class Index extends Component {
     }
 }
 
-export default Index;
+const mapStateToProps = (state) => {
+    const { stateLoginValueAim, loadingaIndicatoranswerdetail } = state.LoginReducerAim;
+    const { stateLanguageType } = state.LanguageReducer;
+    const { settings } = state.Settings;
+    // const { Doctorsetget } = state.Doctorset;
+    // const { catfil } = state.filterate;
+    return {
+        stateLanguageType,
+        stateLoginValueAim,
+        loadingaIndicatoranswerdetail,
+        settings,
+        //   Doctorsetget,
+        //   catfil
+    }
+};
+export default withRouter(connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer, Settings })(Index));
 
