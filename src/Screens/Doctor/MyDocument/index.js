@@ -9,7 +9,18 @@ import Typography from '@material-ui/core/Typography';
 import PropTypes from 'prop-types';
 import Modal from '@material-ui/core/Modal';
 import LeftMenu from './../../Components/Menus/DoctorLeftMenu/index';
-
+import sitedata, { data } from '../../../sitedata';
+import axios from 'axios';
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
+import { LoginReducerAim } from './../../Login/actions';
+import { Settings } from './../../Login/setting';
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import { LanguageFetchReducer } from './../../actions';
+import PrecriptionList from './Components/prescription.js';
+import SickCertificateList from './Components/sickCertificate.js';
+import * as translationEN from '../../../translations/en_json_proofread_13072020.json';
+// import * as translationDE from '../../../translations/de_json_proofread_13072020.json';
 function TabContainer(props) {
     return (
         <Typography component="div" className="tabsCntnts">
@@ -29,7 +40,53 @@ class Index extends Component {
             openReject: false,
             specialistOption: null,
             value: 0,
+            MypatientsData: [],
+            prescData: {}
         };
+    }
+
+    componentDidMount() {
+        this.getUserData();
+        // this.getMyprescriptionssData()
+    }
+
+    getUserData() {
+        this.setState({ loaderImage: true });
+        let user_token = this.props.stateLoginValueAim.token
+        let user_id = this.props.stateLoginValueAim.user._id
+        axios.get(sitedata.data.path + '/UserProfile/Users/' + user_id, {
+            headers: {
+                'token': user_token,
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        }).then((response) => {
+            this.setState({ loaderImage: false });
+            this.setState({ myData: response.data.data })
+        }).catch((error) => {
+            this.setState({ loaderImage: false });
+        });
+    }
+
+    saveUserData(id){
+        this.setState({serverMsg : ""})
+        if(this.state.uploadedimage == ""){
+            this.setState({ serverMsg : "please upload documents"})
+        }else{
+            this.setState({ loaderImage: true });
+            const user_token = this.props.stateLoginValueAim.token;
+            axios.put(sitedata.data.path+'/UserProfile/UpdatePrescription/'+id, {
+                    docs : this.state.uploadedimage,
+                },{headers:{
+                    'token': user_token,
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                }})
+            .then((responce)=>{
+                this.setState({ serverMsg : responce.data.message})
+                this.setState({ loaderImage: false });
+            })
+        }
     }
 
     handleSpecialist = specialistOption => {
@@ -41,12 +98,7 @@ class Index extends Component {
         this.setState({ value });
     };
 
-    handleOpenPrescp = () => {
-        this.setState({ openPrescp: true });
-    };
-    handleClosePrescp = () => {
-        this.setState({ openPrescp: false });
-    };
+
 
     handleOpenReject = () => {
         this.setState({ openReject: true });
@@ -56,8 +108,39 @@ class Index extends Component {
     };
 
     render() {
-        const { specialistOption } = this.state;
+        const { specialistOption, prescData } = this.state;
         const { value } = this.state;
+        let translate;
+        switch (this.props.stateLanguageType) {
+            case "en":
+                translate = translationEN.text
+                break;
+            // case "de":
+            //     translate = translationDE.text
+            //     break;
+            // case "pt":
+            //     translate = translationPT.text
+            //     break;
+            // case "sp":
+            //     translate = translationSP.text
+            //     break;
+            // case "rs":
+            //     translate = translationRS.text
+            //     break;
+            // case "nl":
+            //     translate = translationNL.text
+            //     break;
+            // case "ch":
+            //     translate = translationCH.text
+            //     break;
+            // case "sw":
+            //     translate = translationSW.text
+            //     break;
+            case "default":
+                translate = translationEN.text
+        }
+        let { srvc_Doctors, status, sent, on, prescription, Pending, request, edit, Rejected, Answered, Cancelled, req_updated_successfully, sick_cert, my_doc, New, inquiry,
+            doc_and_statnderd_ques, doc_aimedis_private, Annotations, details, questions, is_this_follow_pres, how_u_like_rcv_pres, Medicine, Substance, Dose, mg, trade_name, atc_if_applicable, manufacturer, pack_size, } = translate
         return (
             <Grid className="homeBg">
                 <Grid className="homeBgIner">
@@ -98,306 +181,14 @@ class Index extends Component {
                                         <Grid className="presPkgIner2">
 
                                             {value === 0 && <TabContainer>
-
-                                                <Grid className="presOpinionIner">
-                                                    <Table>
-                                                        <Thead>
-                                                            <Tr>
-                                                                <Th>Medicine</Th>
-                                                                <Th>Received on</Th>
-                                                                <Th>Patient</Th>
-                                                                <Th>Status</Th>
-                                                            </Tr>
-                                                        </Thead>
-                                                        <Tbody>
-                                                            <Tr>
-                                                                <Td>Metoprolol</Td>
-                                                                <Td>16/03/2020</Td>
-                                                                <Td className="presImg"><img src={require('../../../assets/images/dr1.jpg')} alt="" title="" />Mark Anderson M.D.</Td>
-                                                                <Td><span className="revwYelow"></span>Pending</Td>
-                                                                <Td className="presEditDot">
-                                                                    <img src={require('../../../assets/images/threedots.jpg')} onClick={this.handleOpenPrescp} alt="" title="" />
-                                                                </Td>
-                                                            </Tr>
-
-                                                            {/* Model setup */}
-                                                            <Modal
-                                                                open={this.state.openPrescp}
-                                                                onClose={this.handleClosePrescp}
-                                                                className="prespBoxModel">
-                                                                <Grid className="prespBoxCntnt">
-                                                                    <Grid className="prespCourse">
-                                                                        <Grid className="prespCloseBtn">
-                                                                            <a onClick={this.handleClosePrescp}>
-                                                                                <img src={require('../../../assets/images/closefancy.png')} alt="" title="" />
-                                                                            </a>
-                                                                        </Grid>
-                                                                        <p>Prescription Inquiry</p>
-                                                                        <Grid><label>James Morrison</label></Grid>
-                                                                    </Grid>
-                                                                    <Grid className="detailPrescp">
-
-                                                                        <Grid className="stndQues">
-                                                                            <Grid><span>Standard questions</span></Grid>
-                                                                            <Grid>
-                                                                                <Grid><label>Is this a follow-up prescription?</label></Grid>
-                                                                                <p>Yes</p>
-                                                                                <Grid><label>How would you like to receive the prescription?</label></Grid>
-                                                                                <p>Online</p>
-                                                                                <Grid><label>Are you currently abroad?</label></Grid>
-                                                                                <p>No</p>
-                                                                            </Grid>
-                                                                        </Grid>
-
-                                                                        <Grid className="stndQues">
-                                                                            <Grid><span>Medicine inquiry</span></Grid>
-                                                                            <Grid>
-                                                                                <Grid><label>Medicine / Substance</label></Grid>
-                                                                                <p>Metropolol</p>
-                                                                                <Grid><label>Dose</label></Grid>
-                                                                                <p>32 mg</p>
-                                                                                <Grid><label>Trade name</label></Grid>
-                                                                                <p>Unknown</p>
-                                                                                <Grid><label>ATC code if applicable</label></Grid>
-                                                                                <p>/</p>
-                                                                                <Grid><label>Manufacturer</label></Grid>
-                                                                                <p>Medicine Company GmbH</p>
-                                                                                <Grid><label>Pack size</label></Grid>
-                                                                                <p>30</p>
-                                                                                <Grid><label>Annotations / details / questions</label></Grid>
-                                                                                <p>I need this because I can’t sleep at night..</p>
-                                                                            </Grid>
-                                                                        </Grid>
-
-                                                                        <Grid className="stndQues">
-                                                                            <Grid><span>Patients Health Status</span></Grid>
-                                                                            <Grid>
-                                                                                <Grid><label>Medications</label></Grid>
-                                                                                <p>No medications</p>
-                                                                                <Grid><label>Allergies</label></Grid>
-                                                                                <p>Strawberries <br /> Peanuts</p>
-                                                                                <Grid><label>Diagnoses</label></Grid>
-                                                                                <p>Depression</p>
-                                                                            </Grid>
-                                                                        </Grid>
-
-                                                                        <Grid className="scamUPForms scamUPImg">
-                                                                            <Grid><label>Upload scanned prescription</label></Grid>
-                                                                            <Grid className="scamUPInput">
-                                                                                <a><img src={require('../../../assets/images/upload-file.svg')} alt="" title="" /></a>
-                                                                                <a>Browse <input type="file" /></a> or drag here
-                                                                            </Grid>
-                                                                            <p>Supported file types: .jpg, .png, .pdf</p>
-                                                                        </Grid>
-
-                                                                        <Grid container direction="row">
-                                                                            <Grid item xs={6} md={6}>
-                                                                                <input type="button" value="Approve" className="approvBtn" />
-                                                                            </Grid>
-                                                                            <Grid item xs={6} md={6}>
-                                                                                <input type="button" value="Reject" onClick={this.handleOpenReject} className="rejectBtn" />
-                                                                            </Grid>
-                                                                        </Grid>
-
-                                                                    </Grid>
-                                                                </Grid>
-                                                            </Modal>
-                                                            {/* End of Model setup */}
-
-                                                            {/* Reject Model setup */}
-                                                            <Modal
-                                                                open={this.state.openReject}
-                                                                onClose={this.handleCloseReject}>
-                                                                <Grid className="rejectBoxCntnt">
-                                                                    <Grid className="rejectCourse">
-                                                                        <Grid className="rejectCloseBtn">
-                                                                            <a onClick={this.handleCloseReject}>
-                                                                                <img src={require('../../../assets/images/closefancy.png')} alt="" title="" />
-                                                                            </a>
-                                                                        </Grid>
-                                                                        <p onClick={this.handleCloseReject}>Back</p>
-                                                                        <Grid><label>James Morrison</label></Grid>
-                                                                    </Grid>
-                                                                    <Grid className="shrtRejctMsg">
-                                                                        <Grid><label>Short message</label></Grid>
-                                                                        <Grid><textarea></textarea></Grid>
-                                                                        <Grid><input type="submit" value="Reject" /></Grid>
-                                                                    </Grid>
-                                                                </Grid>
-                                                            </Modal>
-                                                            {/* End of Reject Model setup */}
-
-                                                            <Tr>
-                                                                <Td>Lekadol</Td>
-                                                                <Td>09/03/2020</Td>
-                                                                <Td className="presImg"><img src={require('../../../assets/images/dr1.jpg')} alt="" title="" />Mark Anderson M.D.</Td>
-                                                                <Td><span className="revwYelow"></span>Pending</Td>
-                                                                <Td className="presEditDot"><img src={require('../../../assets/images/threedots.jpg')} alt="" title="" /></Td>
-                                                            </Tr>
-                                                            <Tr>
-                                                                <Td>Lekadol</Td>
-                                                                <Td>09/03/2020</Td>
-                                                                <Td className="presImg"><img src={require('../../../assets/images/dr1.jpg')} alt="" title="" />Mark Anderson M.D.</Td>
-                                                                <Td><span className="revwGry"></span>Sent request</Td>
-                                                                <Td className="presEditDot"><img src={require('../../../assets/images/threedots.jpg')} alt="" title="" /></Td>
-                                                            </Tr>
-                                                            <Tr>
-                                                                <Td>Temperature and headaches</Td>
-                                                                <Td>16/03/2020</Td>
-                                                                <Td className="presImg"><img src={require('../../../assets/images/dr1.jpg')} alt="" title="" />Mark Anderson M.D.</Td>
-                                                                <Td><span className="revwGry"></span>Pending</Td>
-                                                                <Td className="presEditDot"><img src={require('../../../assets/images/threedots.jpg')} alt="" title="" /></Td>
-                                                            </Tr>
-                                                            <Tr>
-                                                                <Td>Temperature and headaches</Td>
-                                                                <Td>16/03/2020</Td>
-                                                                <Td className="presImg"><img src={require('../../../assets/images/dr1.jpg')} alt="" title="" />Mark Anderson M.D.</Td>
-                                                                <Td><span className="revwGren"></span>Answered</Td>
-                                                                <Td className="presEditDot"><img src={require('../../../assets/images/threedots.jpg')} alt="" title="" /></Td>
-                                                            </Tr>
-                                                            <Tr>
-                                                                <Td>Temperature and headaches</Td>
-                                                                <Td>16/03/2020</Td>
-                                                                <Td className="presImg"><img src={require('../../../assets/images/dr1.jpg')} alt="" title="" />Mark Anderson M.D.</Td>
-                                                                <Td><span className="revwGren"></span>Answered</Td>
-                                                                <Td className="presEditDot"><img src={require('../../../assets/images/threedots.jpg')} alt="" title="" /></Td>
-                                                            </Tr>
-                                                            <Tr>
-                                                                <Td>Lekadol</Td>
-                                                                <Td>09/03/2020</Td>
-                                                                <Td className="presImg"><img src={require('../../../assets/images/dr1.jpg')} alt="" title="" />Mark Anderson M.D.</Td>
-                                                                <Td><span className="revwGry"></span>Sent request</Td>
-                                                                <Td className="presEditDot"><img src={require('../../../assets/images/threedots.jpg')} alt="" title="" /></Td>
-                                                            </Tr>
-                                                            <Tr>
-                                                                <Td>Temperature and headaches</Td>
-                                                                <Td>16/03/2020</Td>
-                                                                <Td className="presImg"><img src={require('../../../assets/images/dr1.jpg')} alt="" title="" />Mark Anderson M.D.</Td>
-                                                                <Td><span className="revwGren"></span>Answered</Td>
-                                                                <Td className="presEditDot"><img src={require('../../../assets/images/threedots.jpg')} alt="" title="" /></Td>
-                                                            </Tr>
-                                                            <Tr>
-                                                                <Td>Temperature and headaches</Td>
-                                                                <Td>16/03/2020</Td>
-                                                                <Td className="presImg"><img src={require('../../../assets/images/dr1.jpg')} alt="" title="" />Mark Anderson M.D.</Td>
-                                                                <Td><span className="revwGren"></span>Answered</Td>
-                                                                <Td className="presEditDot"><img src={require('../../../assets/images/threedots.jpg')} alt="" title="" /></Td>
-                                                            </Tr>
-                                                            <Tr>
-                                                                <Td>Temperature and headaches</Td>
-                                                                <Td>16/03/2020</Td>
-                                                                <Td className="presImg"><img src={require('../../../assets/images/dr1.jpg')} alt="" title="" />Mark Anderson M.D.</Td>
-                                                                <Td><span className="revwGren"></span>Answered</Td>
-                                                                <Td className="presEditDot"><img src={require('../../../assets/images/threedots.jpg')} alt="" title="" /></Td>
-                                                            </Tr>
-                                                        </Tbody>
-                                                    </Table>
-
-                                                    <Grid className="tablePagNum">
-                                                        <Grid container direction="row">
-                                                            <Grid item xs={6} md={6}>
-                                                                <Grid className="totalOutOff">
-                                                                    <a>25 of 36</a>
-                                                                </Grid>
-                                                            </Grid>
-                                                            <Grid item xs={6} md={6}>
-                                                                <Grid className="prevNxtpag">
-                                                                    <a className="prevpag">Previous</a>
-                                                                    <a className="frstpag">1</a>
-                                                                    <a>2</a>
-                                                                    <a>3</a>
-                                                                    <a className="nxtpag">Next</a>
-                                                                </Grid>
-                                                            </Grid>
-                                                        </Grid>
-                                                    </Grid>
-
-                                                </Grid>
+                                                {this.state.successfullsent && <div className="success_message">Request sent Sucessfully</div>}
+                                                <PrecriptionList newItem={this.state.newItemp} />
                                             </TabContainer>}
 
                                             {value === 1 && <TabContainer>
-
-                                                <Grid className="presOpinionIner">
-                                                    <Table>
-                                                        <Thead>
-                                                            <Tr>
-                                                                <Th>Case</Th>
-                                                                <Th>Sent on</Th>
-                                                                <Th>Doctor</Th>
-                                                                <Th>Status</Th>
-                                                            </Tr>
-                                                        </Thead>
-
-                                                        <Tbody>
-                                                            <Tr>
-                                                                <Td>Temperature and headaches</Td>
-                                                                <Td>16/03/2020</Td>
-                                                                <Td className="presImg"><img src={require('../../../assets/images/dr1.jpg')} alt="" title="" />Mark Anderson M.D.</Td>
-                                                                <Td><span class="revwGry"></span>Sent request</Td>
-                                                                <Td className="presEditDot" onClick={this.handleaddSick}><img src={require('../../../assets/images/threedots.jpg')} alt="" title="" /></Td>
-                                                            </Tr>
-                                                            <Tr>
-                                                                <Td>Twisted ankle</Td>
-                                                                <Td>09/03/2020</Td>
-                                                                <Td className="presImg"><img src={require('../../../assets/images/dr1.jpg')} alt="" title="" />Mark Anderson M.D.</Td>
-                                                                <Td><span className="revwYelow"></span>Pending</Td>
-                                                                <Td className="presEditDot" onClick={this.handleaddSick}><img src={require('../../../assets/images/threedots.jpg')} alt="" title="" /></Td>
-                                                            </Tr>
-                                                            <Tr>
-                                                                <Td>Temperature and headaches</Td>
-                                                                <Td>16/03/2020</Td>
-                                                                <Td className="presImg"><img src={require('../../../assets/images/dr1.jpg')} alt="" title="" />Mark Anderson M.D.</Td>
-                                                                <Td><span class="revwGren"></span>Approved</Td>
-                                                                <Td className="presEditDot"><img src={require('../../../assets/images/threedots.jpg')} alt="" title="" /></Td>
-                                                            </Tr>
-                                                            <Tr>
-                                                                <Td>Twisted ankle</Td>
-                                                                <Td>09/03/2020</Td>
-                                                                <Td className="presImg"><img src={require('../../../assets/images/dr1.jpg')} alt="" title="" />Mark Anderson M.D.</Td>
-                                                                <Td><span class="revwGren"></span>Approved</Td>
-                                                                <Td className="presEditDot"><img src={require('../../../assets/images/threedots.jpg')} alt="" title="" /></Td>
-                                                            </Tr>
-                                                            <Tr>
-                                                                <Td>Temperature and headaches</Td>
-                                                                <Td>16/03/2020</Td>
-                                                                <Td className="presImg"><img src={require('../../../assets/images/dr1.jpg')} alt="" title="" />Mark Anderson M.D.</Td>
-                                                                <Td><span class="revwRed"></span>Rejected</Td>
-                                                                <Td className="presEditDot"><img src={require('../../../assets/images/threedots.jpg')} alt="" title="" /></Td>
-                                                            </Tr>
-                                                            <Tr>
-                                                                <Td>Twisted ankle</Td>
-                                                                <Td>09/03/2020</Td>
-                                                                <Td className="presImg"><img src={require('../../../assets/images/dr1.jpg')} alt="" title="" />Mark Anderson M.D.</Td>
-                                                                <Td><span class="revwGren"></span>Approved</Td>
-                                                                <Td className="presEditDot"><img src={require('../../../assets/images/threedots.jpg')} alt="" title="" /></Td>
-                                                            </Tr>
-                                                            <Tr>
-                                                                <Td>Temperature and headaches</Td>
-                                                                <Td>16/03/2020</Td>
-                                                                <Td className="presImg"><img src={require('../../../assets/images/dr1.jpg')} alt="" title="" />Mark Anderson M.D.</Td>
-                                                                <Td><span class="revwGren"></span>Approved</Td>
-                                                                <Td className="presEditDot"><img src={require('../../../assets/images/threedots.jpg')} alt="" title="" /></Td>
-                                                            </Tr>
-                                                            <Tr>
-                                                                <Td>Twisted ankle</Td>
-                                                                <Td>09/03/2020</Td>
-                                                                <Td className="presImg"><img src={require('../../../assets/images/dr1.jpg')} alt="" title="" />Mark Anderson M.D.</Td>
-                                                                <Td><span class="revwGren"></span>Approved</Td>
-                                                                <Td className="presEditDot"><img src={require('../../../assets/images/threedots.jpg')} alt="" title="" /></Td>
-                                                            </Tr>
-                                                        </Tbody>
-                                                    </Table>
-                                                    <Grid className="tablePagNum">
-                                                        <Grid container direction="row">
-                                                            <Grid item xs={12} md={12}>
-                                                                <Grid className="totalOutOff">
-                                                                    <a>8 of 8</a>
-                                                                </Grid>
-                                                            </Grid>
-                                                        </Grid>
-                                                    </Grid>
-                                                </Grid>
-                                            </TabContainer>}
+                                                {this.state.successfullsent1 && <div className="success_message">Request sent Sucessfully</div>}
+                                                <SickCertificateList  newItem={this.state.newItemp}/>
+                                                </TabContainer>}
 
                                             {value === 2 && <TabContainer>
 
@@ -414,4 +205,22 @@ class Index extends Component {
         );
     }
 }
-export default Index
+
+
+const mapStateToProps = (state) => {
+    const { stateLoginValueAim, loadingaIndicatoranswerdetail } = state.LoginReducerAim;
+    const { stateLanguageType } = state.LanguageReducer;
+    const { settings } = state.Settings;
+    console.log("stateLoginValueAim", stateLoginValueAim)
+    // const { Doctorsetget } = state.Doctorset;
+    // const { catfil } = state.filterate;
+    return {
+        stateLanguageType,
+        stateLoginValueAim,
+        loadingaIndicatoranswerdetail,
+        settings,
+        //   Doctorsetget,
+        //   catfil
+    }
+};
+export default withRouter(connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer, Settings })(Index));
