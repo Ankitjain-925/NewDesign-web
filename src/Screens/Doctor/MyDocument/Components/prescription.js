@@ -390,7 +390,7 @@ class Index extends Component {
                                         <p>Supported file types: .jpg, .png, .pdf</p>
                                     </Grid>}
 
-                                {(prescData.status !== 'accept' || prescData.status !== 'decline') && <Grid container direction="row">
+                                {(prescData.status !== 'accept' && prescData.status !== 'decline') && <Grid container direction="row">
                                     <Grid item xs={6} md={6}>
                                         <input type="button" value="Approve" onClick={() => this.updatePrescription(prescData.status, prescData._id)} className="approvBtn" />
                                     </Grid>
