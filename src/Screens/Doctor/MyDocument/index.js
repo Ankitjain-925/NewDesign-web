@@ -182,12 +182,12 @@ class Index extends Component {
 
                                             {value === 0 && <TabContainer>
                                                 {this.state.successfullsent && <div className="success_message">Request sent Sucessfully</div>}
-                                                <PrecriptionList newItem={this.state.newItemp} />
+                                                <PrecriptionList newItem={this.state.newItemp} myData ={ this.state.myData}/>
                                             </TabContainer>}
 
                                             {value === 1 && <TabContainer>
                                                 {this.state.successfullsent1 && <div className="success_message">Request sent Sucessfully</div>}
-                                                <SickCertificateList  newItem={this.state.newItemp}/>
+                                                <SickCertificateList  newItem={this.state.newItemp} myData ={ this.state.myData}/>
                                                 </TabContainer>}
 
                                             {value === 2 && <TabContainer>

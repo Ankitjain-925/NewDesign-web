@@ -39,7 +39,9 @@ class Index extends Component {
             specialistOption: null,
             value: 0,
             MypatientsData: [],
-            prescData: {}
+            prescData: {},
+            inqstatus: null,
+            message: ''
         };
     }
 
@@ -48,7 +50,7 @@ class Index extends Component {
         this.getMyprescriptionssData()
     }
 
-    
+
 
     getMyprescriptionssData() {
         let user_token = this.props.stateLoginValueAim.token
@@ -78,8 +80,35 @@ class Index extends Component {
 
 
                 this.setState({ MypatientsData: response.data.data });
-               
+
             }
+        }).catch((error) => {
+        });
+    }
+
+    updatePrescription = (status, id) => {
+        // let sata = status.charAt(0).toUpperCase() + status.slice(1)
+        this.setState({ inqstatus: status, selected_id: id })
+        this.handleOpenReject();
+    }
+
+    deleteClickPatient = (status, id) => {
+        let user_token = this.props.stateLoginValueAim.token
+        const { message } = this.state
+        axios.put(sitedata.data.path + '/UserProfile/GetPrescription/' + id, {
+            status: status,
+            doctor_name: this.props.myData.first_name + ' ' + this.props.myData.last_name,
+            type: "prescription",
+            short_msg: message
+
+        }, {
+            headers: {
+                'token': user_token,
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        }).then((response) => {
+            this.getMyprescriptionssData();
         }).catch((error) => {
         });
     }
@@ -204,8 +233,15 @@ class Index extends Component {
         this.setState({ openPrescp: false });
     };
 
+    handleOpenReject = () => {
+        this.setState({ openReject: true, });
+    };
+    handleCloseReject = () => {
+        this.setState({ openReject: false });
+    };
+
     render() {
-        const { specialistOption, prescData } = this.state;
+        const { specialistOption, prescData, inqstatus } = this.state;
         const { value } = this.state;
         let translate;
         switch (this.props.stateLanguageType) {
@@ -260,7 +296,7 @@ class Index extends Component {
                                     <Td className="presImg"><img src={data.patient_info && data.patient_info.profile_image ? getImage(data.patient_info.profile_image, this.state.images) : require('../../../../assets/images/dr1.jpg')} alt="" title="" />{data.patient_info && data.patient_info.first_name && data.patient_info.first_name} {data.patient_info && data.patient_info.last_name && data.patient_info.last_name}</Td>
                                     {data.status === 'pending' && <Td><span className="revwYelow"></span>{Pending} </Td>}
                                     {data.status === 'accept' && <Td><span className="revwGren"></span>{Answered} </Td>}
-                                    {data.status === 'remove' && <Td><span className="revwRed"></span> {Rejected}</Td>}
+                                    {data.status === 'decline' && <Td><span className="revwRed"></span> {Rejected}</Td>}
                                     {data.status === 'cancel' && <Td><span className="revwRed"></span> {Cancelled}</Td>}
                                     {data.status === 'free' && <Td><span className="revwGry"></span> {sent} {request}</Td>}
 
@@ -321,7 +357,7 @@ class Index extends Component {
                                         <Grid><label>Trade name</label></Grid>
                                         <p>{prescData.trade_name ? prescData.trade_name : 'Unknown'}</p>
                                         <Grid><label>ATC code if applicable</label></Grid>
-                                        <p>/</p>
+                                        <p>{prescData.atc_code ? prescData.atc_code : 'Unknown'}</p>
                                         <Grid><label>Manufacturer</label></Grid>
                                         <p>{prescData.manufacturer}</p>
                                         <Grid><label>Pack size</label></Grid>
@@ -335,31 +371,33 @@ class Index extends Component {
                                     <Grid><span>Patients Health Status</span></Grid>
                                     <Grid>
                                         <Grid><label>Medications</label></Grid>
-                                        <p>No medications</p>
+                                        <p>{prescData.medication ? prescData.medication : 'Unknown'}</p>
                                         <Grid><label>Allergies</label></Grid>
-                                        <p>Strawberries <br /> Peanuts</p>
+                                        <p>{prescData.allergies ? prescData.allergies : 'Unknown'}</p>
                                         <Grid><label>Diagnoses</label></Grid>
-                                        <p>Depression</p>
+                                        <p>{prescData.diagnosis ? prescData.diagnosis : 'Unknown'}</p>
                                     </Grid>
                                 </Grid>
 
-                                <Grid className="scamUPForms scamUPImg">
-                                    <Grid><label>Upload scanned prescription</label></Grid>
-                                    <Grid className="scamUPInput">
-                                        <a><img src={require('../../../../assets/images/upload-file.svg')} alt="" title="" /></a>
-                                        <a>Browse <input type="file" onChange={this.UploadFile} /></a> or drag here
+                                {data.status !== 'decline' &&
+                                    <Grid className="scamUPForms scamUPImg">
+
+                                        <Grid><label>{(data.status !== 'accept') ? 'Upload scanned' : 'Scanned'} prescription</label></Grid>
+                                        <Grid className="scamUPInput">
+                                            <a><img src={require('../../../../assets/images/upload-file.svg')} alt="" title="" /></a>
+                                            <a>Browse <input type="file" onChange={this.UploadFile} /></a> or drag here
                                                                             </Grid>
-                                    <p>Supported file types: .jpg, .png, .pdf</p>
-                                </Grid>
+                                        <p>Supported file types: .jpg, .png, .pdf</p>
+                                    </Grid>}
 
-                                <Grid container direction="row">
+                                {(data.status !== 'accept' || data.status !== 'decline') && <Grid container direction="row">
                                     <Grid item xs={6} md={6}>
-                                        <input type="button" value="Approve" className="approvBtn" />
+                                        <input type="button" value="Approve" onClick={() => this.updatePrescription(data.status, data._id)} className="approvBtn" />
                                     </Grid>
                                     <Grid item xs={6} md={6}>
-                                        <input type="button" value="Reject" onClick={this.handleOpenReject} className="rejectBtn" />
+                                        <input type="button" value="Reject" onClick={() => this.updatePrescription(data.status, data._id)} className="rejectBtn" />
                                     </Grid>
-                                </Grid>
+                                </Grid>}
 
                             </Grid>
                         </Grid>
@@ -378,12 +416,12 @@ class Index extends Component {
                                     </a>
                                 </Grid>
                                 <p onClick={this.handleCloseReject}>Back</p>
-                                <Grid><label>James Morrison</label></Grid>
+                                <Grid><label>{inqstatus} Inquiry</label></Grid>
                             </Grid>
                             <Grid className="shrtRejctMsg">
                                 <Grid><label>Short message</label></Grid>
-                                <Grid><textarea></textarea></Grid>
-                                <Grid><input type="submit" value="Reject" /></Grid>
+                                <Grid><textarea onChange={(e) => this.setState({ message: e.target.value })}></textarea></Grid>
+                                <Grid><input type="submit" value={inqstatus} onChange={() => this.deleteClickPatient(inqstatus, this.state.selected_id)} /></Grid>
                             </Grid>
                         </Grid>
                     </Modal>

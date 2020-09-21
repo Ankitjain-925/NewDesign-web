@@ -39,7 +39,9 @@ class Index extends Component {
             specialistOption: null,
             value: 0,
             MypatientsData: [],
-            prescData: {}
+            sickData: {},
+            inqstatus: null,
+            message:''
         };
     }
 
@@ -57,29 +59,26 @@ class Index extends Component {
                 'Content-Type': 'application/json'
             }
         }).then((response) => {
-            if(response.data.hassuccessed)
-            {
+            if (response.data.hassuccessed) {
                 var images = [];
-                response.data.data && response.data.data.length>0 && response.data.data.map((item)=>{
+                response.data.data && response.data.data.length > 0 && response.data.data.map((item) => {
                     var find = item && item.profile_image && item.profile_image
-                        if(find)
-                        {
-                            var find1 = find.split('.com/')[1]
-                            console.log('find', find)
-                            axios.get(sitedata.data.path + '/aws/sign_s3?find='+find1,)
+                    if (find) {
+                        var find1 = find.split('.com/')[1]
+                        console.log('find', find)
+                        axios.get(sitedata.data.path + '/aws/sign_s3?find=' + find1,)
                             .then((response2) => {
-                                if(response2.data.hassuccessed)
-                                {
+                                if (response2.data.hassuccessed) {
                                     item.new_image = response2.data.data
-                                    images.push({image : find, new_image: response2.data.data})
-                                    this.setState({images : images})
+                                    images.push({ image: find, new_image: response2.data.data })
+                                    this.setState({ images: images })
                                 }
                             })
-                        }
+                    }
                 })
                 console.log("response.data.data", response.data.data)
-                this.setState({ MypatientsData: response.data.data }); 
-                
+                this.setState({ MypatientsData: response.data.data });
+
             }
             this.setState({ loaderImage: false });
         }).catch((error) => {
@@ -87,14 +86,37 @@ class Index extends Component {
         });
     }
 
-    getImage =(image)=>{
-        const myFilterData = this.state.images && this.state.images.length>0 && this.state.images.filter((value, key) =>
-                value.image === image);
-        if(myFilterData && myFilterData.length>0)
-        {
+    updateCertificate = (status,id) => {
+        // let sata = status.charAt(0).toUpperCase() + status.slice(1)
+        this.setState({inqstatus: status, selected_id: id})
+        this.handleOpenReject();
+    }
+
+    updateCertificateDetails(status, id) {
+        let user_token = this.props.stateLoginValueAim.token
+        axios.put(sitedata.data.path + '/UserProfile/GetSickCertificate/' + id, {
+            status: status,
+            doctor_name: this.props.myData.first_name + ' ' + this.state.props.last_name,
+            type: "sick_certificate"
+        }, {
+            headers: {
+                'token': user_token,
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        }).then((response) => {
+            this.getMypatientsData();
+        }).catch((error) => {
+        });
+    }
+
+    getImage = (image) => {
+        const myFilterData = this.state.images && this.state.images.length > 0 && this.state.images.filter((value, key) =>
+            value.image === image);
+        if (myFilterData && myFilterData.length > 0) {
             return myFilterData[0].new_image;
         }
-    } 
+    }
 
     saveUserData(id) {
         this.setState({ serverMsg: "" })
@@ -233,14 +255,22 @@ class Index extends Component {
     }
 
     handleOpenPrescp = (data) => {
-        this.setState({ openPrescp: true, prescData: data });
+        this.setState({ openPrescp: true, sickData: data });
     };
     handleClosePrescp = () => {
         this.setState({ openPrescp: false });
     };
 
+
+    handleOpenReject = () => {
+        this.setState({ openReject: true });
+    };
+    handleCloseReject = () => {
+        this.setState({ openReject: false });
+    };
+
     render() {
-        const { specialistOption, prescData } = this.state;
+        const { inqstatus, sickData, MypatientsData } = this.state;
         const { value } = this.state;
         let translate;
         switch (this.props.stateLanguageType) {
@@ -271,8 +301,8 @@ class Index extends Component {
             case "default":
                 translate = translationEN.text
         }
-        let { srvc_Doctors, status, sent, on, prescription, Pending, request, edit, Rejected, Answered, Cancelled, req_updated_successfully, sick_cert, my_doc, New, inquiry,
-            doc_and_statnderd_ques, doc_aimedis_private, Annotations, details, questions, is_this_follow_pres, how_u_like_rcv_pres, Medicine, Substance, Dose, mg, trade_name, atc_if_applicable, manufacturer, pack_size, } = translate
+        let { srvc_Doctors, status, sent, on, what_ur_profession, Pending, request, edit, Rejected, Answered, Cancelled, req_updated_successfully, sick_cert, my_doc, New, inquiry,
+            doc_and_statnderd_ques, doc_aimedis_private, Annotations, details, questions, how_u_feeling, is_ur_temp_high_to_38, which_symptoms_do_u_hav, show, since_when, have_u_already_been_sick, how_long_do_u_unable_to_work, it_is_known_dieseas, r_u_tracking_medi, do_u_hv_allergies, } = translate
 
         return (
             <div>
@@ -283,21 +313,138 @@ class Index extends Component {
                             <Tr>
                                 <Th>Case</Th>
                                 <Th>Sent on</Th>
-                                <Th>Doctor</Th>
+                                <Th>Pateint</Th>
                                 <Th>Status</Th>
                             </Tr>
                         </Thead>
 
                         <Tbody>
-                            <Tr>
-                                <Td>Temperature and headaches</Td>
-                                <Td>16/03/2020</Td>
-                                <Td className="presImg"><img src={require('../../../../assets/images/dr1.jpg')} alt="" title="" />Mark Anderson M.D.</Td>
-                                <Td><span class="revwGry"></span>Sent request</Td>
-                                <Td className="presEditDot" onClick={this.handleaddSick}><img src={require('../../../../assets/images/threedots.jpg')} alt="" title="" /></Td>
-                            </Tr>
+                            {MypatientsData && MypatientsData.length > 0 && MypatientsData.map((data, index) => (
+                                <Tr>
+                                    <Td>{data.which_symptomps ? data.which_symptomps : 'Not mentioned'}</Td>
+                                    <Td>{data.send_on ? getDate(data.send_on, this.props.settings.setting ? this.props.settings.setting.date_format : 'DD/MM/YYYY') : 'Not mentioned'}</Td>
+                                    <Td className="presImg"><img src={data.patient_info && data.patient_info.profile_image ? getImage(data.patient_info.profile_image, this.state.images) : require('../../../../assets/images/dr1.jpg')} alt="" title="" />{data.patient_info && data.patient_info.first_name && data.patient_info.first_name} {data.patient_info && data.patient_info.last_name && data.patient_info.last_name}</Td>
+                                    {data.status === 'pending' && <Td><span className="revwYelow"></span>{Pending} </Td>}
+                                    {data.status === 'accept' && <Td><span className="revwGren"></span>{Answered} </Td>}
+                                    {data.status === 'decline' && <Td><span className="revwRed"></span> {Rejected}</Td>}
+                                    {data.status === 'cancel' && <Td><span className="revwRed"></span> {Cancelled}</Td>}
+                                    {data.status === 'free' && <Td><span className="revwGry"></span> {sent} {request}</Td>}
+                                    <Td className="presEditDot scndOptionIner">
+                                        <a className="openScndhrf">
+                                            <img src={require('../../../../assets/images/threedots.jpg')} alt="" title="" className="openScnd" />
+                                            <ul>
+                                                <li><a onClick={() => { this.handleOpenPrescp(data) }}><img src={require('../../../../assets/images/details.svg')} alt="" title="" />See Details</a></li>
+                                                {data.status !== 'decline' && <li onClick={() => { this.updateCertificate('accept', data._id) }}><a><img src={require('../../../../assets/images/edit.svg')} alt="" title="" />Accept</a></li>}
+                                                {data.status !== 'accept' && <li onClick={() => { this.updateCertificate('decline', data._id) }}><a><img src={require('../../../../assets/images/plus.png')} alt="" title="" />Decline</a></li>}
+                                                {data.status !== 'remove' && <li onClick={() => { this.updateCertificate('remove', data._id) }}><a><img src={require('../../../../assets/images/cancel-request.svg')} alt="" title="" />Remove</a></li>}
+                                            </ul>
+                                        </a>
+                                    </Td>
+                                </Tr>
+                            ))}
                         </Tbody>
                     </Table>
+                    {/* Model setup */}
+                    <Modal
+                        open={this.state.openPrescp}
+                        onClose={this.handleClosePrescp}
+                        className="prespBoxModel">
+                        <Grid className="nwPresCntnt">
+                            <Grid className="nwPresCntntIner">
+                                <Grid className="nwPresCourse">
+                                    <Grid className="nwPresCloseBtn">
+                                        <a onClick={this.handleClosePrescp}>
+                                            <img src={require('../../../../assets/images/closefancy.png')} alt="" title="" />
+                                        </a>
+                                    </Grid>
+                                    <p>{show} {inquiry}</p>
+                                    <Grid><label>{sick_cert}</label></Grid>
+                                </Grid>
+                                <Grid className="docHlthMain">
+                                    <Grid className="drstndrdQues">
+                                        <h3>{doc_and_statnderd_ques}</h3>
+                                        <Grid className="drsplestQues">
+                                            <Grid><label>{doc_aimedis_private}</label></Grid>
+                                            <Grid><h3>{sickData && sickData.docProfile && sickData.docProfile.first_name && sickData.docProfile.first_name} {sickData && sickData.docProfile && sickData.docProfile.last_name && sickData.docProfile.last_name}</h3></Grid>
+                                        </Grid>
+                                    </Grid>
+                                    <Grid className="drsplestQues">
+                                        <Grid><label>{how_u_feeling}?</label></Grid>
+                                        <Grid><h3>{sickData && sickData.how_are_you && sickData.how_are_you}</h3></Grid>
+                                    </Grid>
+                                    <Grid className="drsplestQues">
+                                        <Grid className="ishelpLbl"><label>{is_ur_temp_high_to_38}?</label></Grid>
+                                        <Grid><h3>{sickData && sickData.fever && sickData.fever}</h3></Grid>
+                                    </Grid>
+                                    <Grid className="drsplestQues">
+                                        <Grid><label>{which_symptoms_do_u_hav}?</label></Grid>
+                                        <Grid><h3>{sickData && sickData.which_symptomps && sickData.which_symptomps}</h3></Grid>
+                                    </Grid>
+                                    <Grid className="drsplestQues">
+                                        <Grid><label>{since_when}?</label></Grid>
+                                        <Grid><h3>{sickData && sickData.since_when && sickData.since_when}</h3></Grid>
+                                    </Grid>
+                                    <Grid className="drsplestQues">
+                                        <Grid><label>{have_u_already_been_sick}?</label></Grid>
+                                        <Grid><h3>{sickData && sickData.same_problem_before && sickData.same_problem_before}</h3></Grid>
+                                    </Grid>
+                                    <Grid className="drsplestQues">
+                                        <Grid><label>{how_long_do_u_unable_to_work}?</label></Grid>
+                                        <Grid><h3>{sickData && sickData.time_unable_work && sickData.time_unable_work} days</h3></Grid>
+                                    </Grid>
+                                    <Grid className="drsplestQues">
+                                        <Grid><label>{it_is_known_dieseas}?</label></Grid>
+                                        <Grid><h3>{sickData && sickData.known_diseases && sickData.known_diseases}</h3></Grid>
+                                    </Grid>
+                                    <Grid className="drsplestQues">
+                                        <Grid><label>{r_u_tracking_medi}?</label></Grid>
+                                        <Grid><h3>{sickData && sickData.medication && sickData.medication}</h3></Grid>
+                                    </Grid>
+                                    <Grid className="drsplestQues">
+                                        <Grid><label>{do_u_hv_allergies}?</label></Grid>
+                                        <Grid><h3>{sickData && sickData.allergies && sickData.allergies}</h3></Grid>
+                                    </Grid>
+                                    <Grid className="drsplestQues">
+                                        <Grid><label>{what_ur_profession}?</label></Grid>
+                                        <Grid><h3>{sickData && sickData.professions && sickData.professions}</h3></Grid>
+                                    </Grid>
+                                    <Grid className="drsplestQues">
+                                        <Grid><label>{Annotations} / {details} / {questions}</label></Grid>
+                                        <Grid><h3>{sickData && sickData.annotations && sickData.annotations}</h3></Grid>
+                                    </Grid>
+                                </Grid>
+                                <Grid className="infoShwHidBrdr2"></Grid>
+                                <Grid className="infoShwHidIner2">
+                                    <Grid className="infoShwSave2">
+                                        <input type="submit" onClick={this.handleClosePrescp} value="Close Details" />
+                                    </Grid>
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                    </Modal>
+                    {/* End of Model setup */}
+                    {/* Reject Model setup */}
+                    <Modal
+                        open={this.state.openReject}
+                        onClose={this.handleCloseReject}>
+                        <Grid className="rejectBoxCntnt">
+                            <Grid className="rejectCourse">
+                                <Grid className="rejectCloseBtn">
+                                    <a onClick={this.handleCloseReject}>
+                                        <img src={require('../../../../assets/images/closefancy.png')} alt="" title="" />
+                                    </a>
+                                </Grid>
+                                <p onClick={this.handleCloseReject}>Back</p>
+                                <Grid><label>{inqstatus} Inquiry</label></Grid>
+                            </Grid>
+                            <Grid className="shrtRejctMsg">
+                                <Grid><label>Short message</label></Grid>
+                                <Grid><textarea onChange={(e) => this.setState({ message: e.target.value })}></textarea></Grid>
+                                <Grid><input type="submit" value={inqstatus} onChange={() => this.updateCertificateDetails(inqstatus, this.state.selected_id)} /></Grid>
+                            </Grid>
+                        </Grid>
+                    </Modal>
+                    {/* End of Reject Model setup */}
                     <Grid className="tablePagNum">
                         <Grid container direction="row">
                             <Grid item xs={12} md={12}>
@@ -317,7 +464,6 @@ const mapStateToProps = (state) => {
     const { stateLoginValueAim, loadingaIndicatoranswerdetail } = state.LoginReducerAim;
     const { stateLanguageType } = state.LanguageReducer;
     const { settings } = state.Settings;
-    console.log("stateLoginValueAim", stateLoginValueAim)
     // const { Doctorsetget } = state.Doctorset;
     // const { catfil } = state.filterate;
     return {
