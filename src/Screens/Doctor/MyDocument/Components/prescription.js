@@ -379,10 +379,10 @@ class Index extends Component {
                                     </Grid>
                                 </Grid>
 
-                                {data.status !== 'decline' &&
+                                {prescData.status !== 'decline' &&
                                     <Grid className="scamUPForms scamUPImg">
 
-                                        <Grid><label>{(data.status !== 'accept') ? 'Upload scanned' : 'Scanned'} prescription</label></Grid>
+                                        <Grid><label>{(prescData.status !== 'accept') ? 'Upload scanned' : 'Scanned'} prescription</label></Grid>
                                         <Grid className="scamUPInput">
                                             <a><img src={require('../../../../assets/images/upload-file.svg')} alt="" title="" /></a>
                                             <a>Browse <input type="file" onChange={this.UploadFile} /></a> or drag here
@@ -390,12 +390,12 @@ class Index extends Component {
                                         <p>Supported file types: .jpg, .png, .pdf</p>
                                     </Grid>}
 
-                                {(data.status !== 'accept' || data.status !== 'decline') && <Grid container direction="row">
+                                {(prescData.status !== 'accept' || prescData.status !== 'decline') && <Grid container direction="row">
                                     <Grid item xs={6} md={6}>
-                                        <input type="button" value="Approve" onClick={() => this.updatePrescription(data.status, data._id)} className="approvBtn" />
+                                        <input type="button" value="Approve" onClick={() => this.updatePrescription(prescData.status, prescData._id)} className="approvBtn" />
                                     </Grid>
                                     <Grid item xs={6} md={6}>
-                                        <input type="button" value="Reject" onClick={() => this.updatePrescription(data.status, data._id)} className="rejectBtn" />
+                                        <input type="button" value="Reject" onClick={() => this.updatePrescription(prescData.status, prescData._id)} className="rejectBtn" />
                                     </Grid>
                                 </Grid>}
 
