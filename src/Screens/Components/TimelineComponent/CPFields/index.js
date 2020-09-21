@@ -11,8 +11,6 @@ import PainIntensity from './../../PainIntansity/index';
 import Condition  from './../../Condition/index';
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import { LoginReducerAim } from './../../../Login/actions';
-import { Settings } from './../../../Login/setting';
 import { LanguageFetchReducer } from './../../../actions';
 import * as translationEN from "../../../../translations/en_json_proofread_13072020.json"
 class Index extends Component {
@@ -118,19 +116,9 @@ class Index extends Component {
 }
 
 const mapStateToProps = (state) => {
-    const { stateLoginValueAim, loadingaIndicatoranswerdetail } = state.LoginReducerAim;
     const { stateLanguageType } = state.LanguageReducer;
-    const { settings } = state.Settings;
-    // const { Doctorsetget } = state.Doctorset;
-    // const { catfil } = state.filterate;
     return {
-        stateLanguageType,
-        stateLoginValueAim,
-        loadingaIndicatoranswerdetail,
-        settings,
-        //   Doctorsetget,
-        //   catfil
+        stateLanguageType
     }
 };
-export default withRouter(connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer, Settings })(Index));
-
+export default withRouter(connect(mapStateToProps, { LanguageFetchReducer })(Index));
