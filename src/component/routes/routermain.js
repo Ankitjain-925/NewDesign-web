@@ -25,6 +25,20 @@ import Appointment from "./../../Screens/Patient/Appointment/index";
 import appointmentmodels from "./../../Screens/Patient/Appointment/appointmentmodels";
 import appointmentcalenderweek from "./../../Screens/Patient/Appointment/appointmentcalenderweek";
 
+
+//Paramedic Component
+import ParamedicEmergency from "./../../Screens/Paramedic/EmergencySection";
+import ParamedicProfile from './../../Screens/Paramedic/Profile/index';
+import ParamedicOnline from './../../Screens/Paramedic/onlineCourse/index';
+import ParamedicChats from './../../Screens/Paramedic/Chat/index';
+
+//Insurance Component
+import InsuranceEmergency from "./../../Screens/Insurance/EmergencySection";
+import InsuranceProfile from './../../Screens/Insurance/Profile/index';
+import InsuranceOnline from './../../Screens/Insurance/onlineCourse/index';
+import InsuranceChats from './../../Screens/Insurance/Chat/index';
+
+import AGGrid from "./../../Screens/AGGrid/index"
 //Doctor Component
 import DoctorService from "./../../Screens/Doctor/Services/index.js"
 
@@ -47,14 +61,26 @@ class Routermain extends Component {
             <Route exact path="/patient/emergency" render={(props) => <PatientEmergency {...props} />} />
             <Route exact path="/patient/extra-services" rensder={(props) => <PatientExtra {...props} />} />
             <Route exact path="/patient/documents" render={(props) => <PatientDocument {...props} />} />
-            <Route exact path="/patient/online-course" render={(props) => <PatientOnline {...props} />} />
-            <Route exact path="/patient/view-course" render={(props) => <PaitnetViewCourses {...props} />} />
-            <Route exact path="/patient/tracker" render={(props) => <PatientTracker {...props} />} />
-            <Route exact path="/patient/journal" render={(props) => <PatientTimeLine {...props} />} />
-            <Route exact path="/patient/Timelinecomponents" render={(props) => <PatientTimeLine1 {...props} />} />
-            <Route exact path="/patient/chats" render={(props) => <PatientChats {...props} />} />
-            <Route exact path="/patient/blockchain" render={(props) => <PatientBlockchain {...props} />} />
-            <Route exact path="/patient/archiveJournal" render={(props) => <PatientarchiveJournal {...props} />} />
+            <Route exact path="/patient/online-course" render={(props) => <PatientOnline {...props}/>} />
+            <Route exact path="/patient/view-course" render={(props) => <PaitnetViewCourses {...props}/>} />
+            <Route exact path="/patient/tracker" render={(props) => <PatientTracker {...props}/>} />
+            <Route exact path="/patient/journal" render={(props) => <PatientTimeLine {...props}/>} />
+            <Route exact path="/patient/Timelinecomponents" render={(props) => <PatientTimeLine1 {...props}/>} />
+            <Route exact path="/patient/chats" render={(props) => <PatientChats {...props}/>} />
+            <Route exact path="/patient/blockchain" render={(props) => <PatientBlockchain {...props}/>} />
+            <Route exact path="/patient/archiveJournal" render={(props) => <PatientarchiveJournal {...props}/>} />
+
+            <Route exact path="/paramedic" render={(props) => <ParamedicEmergency {...props}/>} />
+            <Route exact path="/paramedic/profile" render={(props) => <ParamedicProfile {...props}/>} />
+            <Route exact path="/paramedic/chats" render={(props) => <ParamedicChats {...props}/>} />
+            <Route exact path="/paramedic/online-course" render={(props) => <ParamedicOnline {...props}/>} />
+
+            
+            <Route exact path="/insurance" render={(props) => <InsuranceEmergency {...props}/>} />
+            <Route exact path="/insurance/profile" render={(props) => <InsuranceProfile {...props}/>} />
+            <Route exact path="/insurance/chats" render={(props) => <InsuranceChats {...props}/>} />
+            <Route exact path="/insurance/online-course" render={(props) => <InsuranceOnline {...props}/>} />
+            
             {/* Doctor Router Start*/}
             <Route exact path="/doctor" render={(props) => <DoctorService {...props} />} />
             <Route exact path="/doctor/patient" render={(props) => <DoctorService {...props} />} />

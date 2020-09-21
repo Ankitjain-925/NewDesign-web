@@ -7946,6 +7946,7 @@ a.painAreasTxt {
     display: inline-block;
     text-align: center;
 }
+
 a.painAreasimg img {
     width: 50px;
 }
@@ -10057,7 +10058,32 @@ img.editPendata {
 
 
 /*Added By ankita*/
+/*Paramedic Section*/
+.ProfileImage{
+    width: 100%;
+}
 /*Components */
+.AnotherData{
+    text-align: right;  
+}
+.AnotherData a {
+    border-radius: 8px;
+    background-color: #00abaf;
+    color: #fff!important;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0;
+    line-height: 16px;
+    text-align: center;
+    padding: 12px 20px;
+    display: inline-block;
+    cursor: pointer;
+}
+.EmergencyOpenPopup{
+    margin-bottom: 20px;
+    font-weight: 600;
+}
 img.openScnd1 {
     height: 32px;
     width: 32px;
