@@ -57,10 +57,8 @@ h1,h2,h3,h4,h5,h6,h7,p{ margin:0; padding:0; font-size: inherit; font-weight: in
 }
 .menuItems ul li a img {
     width: 42px;
-    border: 1px solid #F2F2F2;
     border-radius: 8px;
     background-color: #FFFFFF;
-    padding: 8px 8px;
 }
 .menuItems ul li a {
     /* display: inline-block; */
@@ -3541,10 +3539,10 @@ span.css-1okebmr-indicatorSeparator {
     width: 26%;
     display: inline-block;
 }
-.profileInfoDate a:first-child {
+/* .profileInfoDate a:first-child {
     background-color: #00ABAF;
     color: #FFFFFF;
-}
+} */
 .cntryDrop .css-yk16xz-control {
     height: 36px !important;
     min-height: initial;
@@ -3935,7 +3933,7 @@ button.aboutTabsIner {
 .mkFmlyDoc {
     border-radius: 12px;
     background-color: #FAFAFA;
-    padding: 15px 15px;
+    padding: 7px 7px;
 }
 .mkFmlyDoc p {
     color: #7F8383;
@@ -4661,10 +4659,11 @@ body {
     position: relative;
 }
 .dataLoader img {
+    width : 400px;
     position: absolute;
     left: 10%;
     right: 10%;
-    top: 15%;
+    top: 26%;
     text-align: center;
     margin: 0 auto;
 }
@@ -4675,7 +4674,7 @@ body {
     min-height: 100vh;
     left: 0;
     top: 0;
-    z-index: 9;
+    z-index: 9999;
 }
 /* End of loader css */
 
@@ -4819,9 +4818,9 @@ span.revwRed{
     letter-spacing: 0;
     line-height: 14px;
 }
-.shrHlthChk span.MuiIconButton-label {
+/* .shrHlthChk span.MuiIconButton-label {
     color: #BFC1C1 !important;
-}
+} */
 .shrHlthMain {
     padding: 22px 24px 22px 24px;
 }
@@ -5452,14 +5451,14 @@ a.prevpag {
     letter-spacing: 0;
     line-height: 12px;
 }
-a.frstpag {
+/* a.frstpag {
     color: #404646;
     font-family: Muli;
     font-size: 12px;
     font-weight: 600;
     letter-spacing: 0;
     line-height: 12px;
-}
+} */
 a.nxtpag {
     color: #00ABAF !important;
     font-family: Muli;
@@ -5987,13 +5986,13 @@ img.addBlue {
     letter-spacing: 0;
     line-height: 20px;
 }
-.scndOptionIner {
+/* .scndOptionIner {
     min-height: 52px;
     border-radius: 12px;
     background-color: #FFFFFF;
     box-shadow: 0 1px 8px 0 rgba(0,8,8,0.04);
     padding: 14px 20px;
-}
+} */
 img.openScnd {
     height: 32px;
     width: 32px;
@@ -7944,10 +7943,10 @@ a.painAreasTxt {
     line-height: 12px;
 }
 .painAreas a {
-    width: 33.3%;
     display: inline-block;
     text-align: center;
 }
+
 a.painAreasimg img {
     width: 50px;
 }
@@ -9044,7 +9043,7 @@ a.menuActv img {
     font-weight: bold;
     letter-spacing: 0;
     line-height: 12px;
-    margin-top: 12px;
+    margin: 12px !important;
     text-align: right;
 }
 a.temp_c {
@@ -11550,7 +11549,32 @@ html, body {
 
 
 /*Added By ankita*/
+/*Paramedic Section*/
+.ProfileImage{
+    width: 100%;
+}
 /*Components */
+.AnotherData{
+    text-align: right;  
+}
+.AnotherData a {
+    border-radius: 8px;
+    background-color: #00abaf;
+    color: #fff!important;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0;
+    line-height: 16px;
+    text-align: center;
+    padding: 12px 20px;
+    display: inline-block;
+    cursor: pointer;
+}
+.EmergencyOpenPopup{
+    margin-bottom: 20px;
+    font-weight: 600;
+}
 img.openScnd1 {
     height: 32px;
     width: 32px;

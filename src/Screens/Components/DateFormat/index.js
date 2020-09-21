@@ -26,6 +26,7 @@ class Date extends Component {
     render() {
         return (
             <div>
+                {!this.state.is24 && <DatePicker name={this.props.name} onChange={this.onDateChange} value={this.state.value ? moment(this.state.value, dateFormatList[0]) : ''}  format={dateFormatList[0]} />}
                 {this.state.is24 === 'DD/MM/YYYY' && <DatePicker name={this.props.name} onChange={this.onDateChange} value={this.state.value ? moment(this.state.value, dateFormatList[0]) : ''}  format={dateFormatList[0]} />}
                 {this.state.is24 === 'YYYY/DD/MM' && <DatePicker name={this.props.name} onChange={this.onDateChange} value={this.state.value ? moment(this.state.value, dateFormatList[2]) : ''}  format={dateFormatList[2]} />}
                 {this.state.is24 === 'MM/DD/YYYY' && <DatePicker name={this.props.name} onChange={this.onDateChange} value={this.state.value ? moment(this.state.value, dateFormatList[1]) : ''} format={dateFormatList[1]} />}
