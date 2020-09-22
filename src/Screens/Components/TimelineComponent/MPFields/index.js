@@ -5,7 +5,10 @@ import DateFormat from './../../DateFormat/index';
 import TimeFormat from './../../TimeFormat/index';
 import FileUploader from './../../FileUploader/index';
 import ShowHide from './../../ShowHide/index';
-
+import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
+import { LanguageFetchReducer } from './../../../actions';
+import * as translationEN from "../../../../translations/en_json_proofread_13072020.json"
 class Index extends Component {
     constructor(props) {
         super(props);
@@ -30,39 +33,71 @@ class Index extends Component {
     }
 
     render() {
+        let translate;
+        switch (this.props.stateLanguageType) {
+            case "en":
+                translate = translationEN.text
+                break;
+            // case "de":
+            //     translate = translationDE.text
+            //     break;
+            // case "pt":
+            //     translate = translationPT.text
+            //     break;
+            // case "sp":
+            //     translate = translationSP.text
+            //     break;
+            // case "rs":
+            //     translate = translationRS.text
+            //     break;
+            // case "nl":
+            //     translate = translationNL.text
+            //     break;
+            // case "ch":
+            //     translate = translationCH.text
+            //     break;
+            // case "sw":
+            //     translate = translationSW.text
+            //     break;
+            case "default":
+                translate = translationEN.text
+        }
+        let { lab_result, upr_limit, unit, lwr_limit, INR, pill_taken, on, quik_value, prescribed, save_entry, on_demand, visible, to_be_consume, pain_areas, Change, show, hide, until, archive, rr_systolic, attachments, time_measure, date_measure,
+            medication, edit, Delete, enter_a_sbstnce, atc_code, trade_name, first_visit_day, pain_type, de_archive, ur_trade_name, always, feeling, date, time } = translate
+
         return (
             <div>
                 <Grid className="cnfrmDiaMain">
                     <Grid className="fillDia">
-                        <MMHG name="quick_value" Unit="mg/dl" label="Quick Value" onChange={(e)=> this.props.updateEntryState(e)} value={this.state.updateTrack.quick_value}/>    
+                        <MMHG name="quick_value" Unit="mg/dl" label={quik_value} onChange={(e)=> this.props.updateEntryState(e)} value={this.state.updateTrack.quick_value}/>    
                     </Grid>
                     <Grid className="fillDia">
-                        <MMHG name="INR"  label="INR" onChange={(e)=> this.props.updateEntryState(e)} value={this.state.updateTrack.INR}/>    
+                        <MMHG name="INR"  label={INR} onChange={(e)=> this.props.updateEntryState(e)} value={this.state.updateTrack.INR}/>    
                     </Grid>
                     <Grid className="fillDia">
-                        <MMHG name="upper_limit"  label="Upper Limit" onChange={(e)=> this.props.updateEntryState(e)} value={this.state.updateTrack.upper_limit}/>    
+                        <MMHG name="upper_limit"  label={upr_limit} onChange={(e)=> this.props.updateEntryState(e)} value={this.state.updateTrack.upper_limit}/>    
                     </Grid>
                     <Grid className="fillDia">
-                        <MMHG name="lower_limit"  label="Lower Limit" onChange={(e)=> this.props.updateEntryState(e)} value={this.state.updateTrack.lower_limit}/>    
+                        <MMHG name="lower_limit"  label={lwr_limit} onChange={(e)=> this.props.updateEntryState(e)} value={this.state.updateTrack.lower_limit}/>    
                     </Grid>
                     <Grid className="fillDia">
                         <Grid className="rrSysto">
-                            <Grid><label>Date Measured</label></Grid>
+                            <Grid><label>{date_measure}</label></Grid>
                             <DateFormat name="date_measured" value={this.state.updateTrack.date_measured ? new Date(this.state.updateTrack.date_measured) : new Date()} date_format={this.state.date_format} onChange={(e)=>this.props.updateEntryState1(e, 'date_measured')}/>
                         </Grid>   
                     </Grid>
                     <Grid className="fillDia">
                         <Grid className="rrSysto">
-                            <Grid><label>Time Measured</label></Grid>
+                            <Grid><label>{time_measure}</label></Grid>
                             <TimeFormat name="time_measured" value={this.state.updateTrack.time_measured ? new Date(this.state.updateTrack.time_measured) : new Date()} time_format={this.state.time_format} onChange={(e)=>this.props.updateEntryState1(e, 'time_measured')}/>
                             
                         </Grid>
                     </Grid>
                     <Grid className="fillDia">
-                        <MMHG name="pills_taken"  label="Pills Taken" onChange={(e)=> this.props.updateEntryState(e)} value={this.state.updateTrack.pills_taken}/>    
+                        <MMHG name="pills_taken"  label={pill_taken} onChange={(e)=> this.props.updateEntryState(e)} value={this.state.updateTrack.pills_taken}/>    
                     </Grid>
                     <Grid className="attchForms attchImg">
-                        <Grid><label>Attachments</label></Grid>
+                        <Grid><label>{attachments}</label></Grid>
                         <FileUploader name="UploadTrackImageMulti" fileUpload={this.FileAttachMulti} />
                     </Grid>
                 </Grid>
@@ -71,7 +106,7 @@ class Index extends Component {
                     
                 <ShowHide date_format= {this.state.date_format} value={this.state.updateTrack} onChange={(data) => this.props.GetHideShow(data)}/>
                     <Grid className="infoShwSave3">
-                        <input type="submit" value="Save entry" onClick={this.props.AddTrack}/>
+                        <input type="submit" value={save_entry} onClick={this.props.AddTrack}/>
                     </Grid>
                 </Grid>
             </div>
@@ -79,5 +114,11 @@ class Index extends Component {
     }
 }
 
-export default Index;
+const mapStateToProps = (state) => {
+    const { stateLanguageType } = state.LanguageReducer;
+    return {
+        stateLanguageType
+    }
+};
+export default withRouter(connect(mapStateToProps, { LanguageFetchReducer })(Index));
 

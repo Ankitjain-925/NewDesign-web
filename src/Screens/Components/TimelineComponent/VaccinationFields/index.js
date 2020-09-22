@@ -6,7 +6,10 @@ import TimeTaken from './../../TimeTaken/index';
 import NotesEditor from './../../Editor/index';
 import FileUploader from './../../FileUploader/index';
 import ShowHide from './../../ShowHide/index';
-
+import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
+import { LanguageFetchReducer } from './../../../actions';
+import * as translationEN from "../../../../translations/en_json_proofread_13072020.json"
 class Index extends Component {
     constructor(props) {
         super(props);
@@ -31,32 +34,64 @@ class Index extends Component {
     }
 
     render() {
+
+        let translate;
+        switch (this.props.stateLanguageType) {
+            case "en":
+                translate = translationEN.text
+                break;
+            // case "de":
+            //     translate = translationDE.text
+            //     break;
+            // case "pt":
+            //     translate = translationPT.text
+            //     break;
+            // case "sp":
+            //     translate = translationSP.text
+            //     break;
+            // case "rs":
+            //     translate = translationRS.text
+            //     break;
+            // case "nl":
+            //     translate = translationNL.text
+            //     break;
+            // case "ch":
+            //     translate = translationCH.text
+            //     break;
+            // case "sw":
+            //     translate = translationSW.text
+            //     break;
+            case "default":
+                translate = translationEN.text
+        }
+        let { vaccinated_by, vaccination, reminder_time_taken, save_entry, attachments, date_of_vaccination, trade_name, smoking_status, notes, visible, Change, archive, de_archive, visibility, edit, Delete, show, hide,
+            always  } = translate
         return (
             <div>
                 <Grid className="cnfrmDiaMain">
                     <Grid className="fillDia">
-                        <MMHG name="vaccination" label="Vaccination" onChange={(e)=> this.props.updateEntryState(e)} value={this.state.updateTrack.blood_sugar}/>    
+                        <MMHG name="vaccination" label={vaccination} onChange={(e)=> this.props.updateEntryState(e)} value={this.state.updateTrack.blood_sugar}/>    
                     </Grid>
                     <Grid className="fillDia">
-                        <MMHG name="trade_name"  label="Trade Name" onChange={(e)=> this.props.updateEntryState(e)} value={this.state.updateTrack.Hba1c}/>    
+                        <MMHG name="trade_name"  label={trade_name} onChange={(e)=> this.props.updateEntryState(e)} value={this.state.updateTrack.Hba1c}/>    
                     </Grid>
                     <Grid className="fillDia">
-                        <MMHG name="vaccinated_by"  label="Vccinated By" onChange={(e)=> this.props.updateEntryState(e)} value={this.state.updateTrack.Hba1c}/>    
+                        <MMHG name="vaccinated_by"  label={vaccinated_by} onChange={(e)=> this.props.updateEntryState(e)} value={this.state.updateTrack.Hba1c}/>    
                     </Grid>
                     <Grid className="fillDia">
                         <Grid className="rrSysto">
-                            <Grid><label>Date of Vaccination</label></Grid>
+                            <Grid><label>{date_of_vaccination}</label></Grid>
                             <DateFormat name="data_of_vaccination" value={this.state.updateTrack.date_measured ? new Date(this.state.updateTrack.date_measured) : new Date()} date_format={this.state.date_format} onChange={(e)=>this.props.updateEntryState1(e, 'data_of_vaccination')}/>
                         </Grid>   
                     </Grid>
                     <Grid className="fillDia">
-                        <TimeTaken name="reminder_time_taken" label="Reminder time taken" time_format={this.state.time_format} onChange={(e)=> this.props.updateEntryState1(e, 'reminder_time_taken')} timeArray={this.state.updateTrack.reminder_time_taken} />
+                        <TimeTaken name="reminder_time_taken" label={reminder_time_taken} time_format={this.state.time_format} onChange={(e)=> this.props.updateEntryState1(e, 'reminder_time_taken')} timeArray={this.state.updateTrack.reminder_time_taken} />
                     </Grid>
                     <Grid className="fillDia">
-                        <NotesEditor name="remarks" label="Notes"  onChange={(e)=> this.props.updateEntryState1(e, 'remarks')} value={this.state.updateTrack.remarks}/> 
+                        <NotesEditor name="remarks" label={notes}  onChange={(e)=> this.props.updateEntryState1(e, 'remarks')} value={this.state.updateTrack.remarks}/> 
                     </Grid>
                     <Grid className="attchForms attchImg">
-                        <Grid><label>Attachments</label></Grid>
+                        <Grid><label>{attachments}</label></Grid>
                         <FileUploader name="UploadTrackImageMulti" fileUpload={this.FileAttachMulti} />
                     </Grid>
                 </Grid>
@@ -64,7 +99,7 @@ class Index extends Component {
                     
                 <ShowHide date_format= {this.state.date_format} value={this.state.updateTrack} onChange={(data) => this.props.GetHideShow(data)}/>
                     <Grid className="infoShwSave3">
-                        <input type="submit" value="Save entry" onClick={this.props.AddTrack}/>
+                        <input type="submit" value={save_entry} onClick={this.props.AddTrack}/>
                     </Grid>
                 </Grid>
             </div>
@@ -72,5 +107,10 @@ class Index extends Component {
     }
 }
 
-export default Index;
-
+const mapStateToProps = (state) => {
+    const { stateLanguageType } = state.LanguageReducer;
+    return {
+        stateLanguageType
+    }
+};
+export default withRouter(connect(mapStateToProps, { LanguageFetchReducer })(Index));

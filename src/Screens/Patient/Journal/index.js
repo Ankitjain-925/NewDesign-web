@@ -692,7 +692,7 @@ class Index extends Component {
         }
         let { journal, add_new_entry, New, entry, edit, blood_pressure, doc_visit, blood_sugar, covid_diary, condition_pain, diagnosis, diary, weight_bmi,
             vaccination, marcumar_pass, smoking_status, hosp_visit, lab_result, file_uplod, family_anmnies, medication,
-            personalize_dashbrd } = translate;
+            personalize_dashbrd, date_of_dignose, diagnosed, by, notes, attachments, show_entry, hide_entry, done, suported_file_type, show_after, browse, or_drag_here } = translate;
         return (
             <Grid className="homeBg">
                 {this.state.loaderImage && <Loader />}
@@ -957,15 +957,15 @@ class Index extends Component {
                                                         </Grid>
                                                     </Grid>
                                                     <Grid className="fillDia">
-                                                        <Grid><label>Date of diagnose</label></Grid>
+                                                        <Grid><label>{date_of_dignose}</label></Grid>
                                                         <Grid><input type="text" /></Grid>
                                                     </Grid>
                                                     <Grid className="fillDia">
-                                                        <Grid><label>Diagnosed by</label></Grid>
+                                                        <Grid><label>{diagnosed} {by}</label></Grid>
                                                         <Grid><input type="text" /></Grid>
                                                     </Grid>
 
-                                                    <Grid className="notEditor"><label>Notes</label></Grid>
+                                                    <Grid className="notEditor"><label>{notes}</label></Grid>
                                                     <Grid className="fill_editor">
                                                         <Editor
                                                             //editorState={this.state.editorState}
@@ -976,12 +976,12 @@ class Index extends Component {
                                                         />
                                                     </Grid>
                                                     <Grid className="attchForms attchImg">
-                                                        <Grid><label>Attachments</label></Grid>
+                                                        <Grid><label>{attachments}</label></Grid>
                                                         <Grid className="attchInput">
                                                             <a><img src={require('../../../assets/images/upload-file.svg')} alt="" title="" /></a>
-                                                            <a>Browse <input type="file" /></a> or drag here
+                                                            <a>{browse} <input type="file" /></a> {or_drag_here}
                                                                 </Grid>
-                                                        <p>Supported file types: .jpg, .png, .pdf</p>
+                                                        <p>{suported_file_type}: .jpg, .png, .pdf</p>
                                                     </Grid>
 
                                                     <Grid>
@@ -1006,10 +1006,10 @@ class Index extends Component {
                                                         <Grid className="shwAfter">
                                                             <Grid container direction="row" justifyContent="center" alignItems="center">
                                                                 <Grid item xs={12} md={8} className="shwAfterLft">
-                                                                    <p>Show after: <span>16/07/2020</span></p>
+                                                                    <p>{show_after}: <span>16/07/2020</span></p>
                                                                 </Grid>
                                                                 <Grid item xs={12} md={4} className="shwAfterRght">
-                                                                    <a>Done</a>
+                                                                    <a>{done}</a>
                                                                 </Grid>
                                                             </Grid>
                                                         </Grid>
@@ -1017,7 +1017,7 @@ class Index extends Component {
                                                         <Grid className="showThis">
 
                                                             <Grid className="showThisBtns">
-                                                                <a className="showThisBtnsActv">Show this entry</a> <a>Hide this entry</a>
+                                                                <a className="showThisBtnsActv">{show_entry}</a> <a>{hide_entry}</a>
                                                             </Grid>
                                                             <Grid className="alwaysDate">
                                                                 <Grid><FormControlLabel value="yes" control={<Radio />} label="Always" /></Grid>
@@ -1063,15 +1063,11 @@ const mapStateToProps = (state) => {
     const { stateLoginValueAim, loadingaIndicatoranswerdetail } = state.LoginReducerAim;
     const { stateLanguageType } = state.LanguageReducer;
     const { settings } = state.Settings;
-    // const { Doctorsetget } = state.Doctorset;
-    // const { catfil } = state.filterate;
     return {
         stateLanguageType,
         stateLoginValueAim,
         loadingaIndicatoranswerdetail,
-        settings,
-        //   Doctorsetget,
-        //   catfil
+        settings
     }
 };
 export default withRouter(connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer, Settings })(Index));

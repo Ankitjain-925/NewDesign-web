@@ -11,6 +11,12 @@ import Radio from '@material-ui/core/Radio';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import DatePicker from 'react-date-picker';
 import LeftMenu from './../../Components/Menus/PatientLeftMenu/index';
+import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
+import { LoginReducerAim } from './../../Login/actions';
+import { Settings } from './../../Login/setting';
+import { LanguageFetchReducer } from './../../actions';
+import * as translationEN from "../../../translations/en_json_proofread_13072020.json"
 
 const options = [
     { value: 'data1', label: 'Data1' },
@@ -20,7 +26,7 @@ const options = [
 
 class Index extends Component {
     constructor(props) {
-       super(props);
+        super(props);
         this.state = {
             selectedOption: null,
             openDash: false,
@@ -62,6 +68,41 @@ class Index extends Component {
 
     render() {
         const { selectedOption } = this.state;
+
+        let translate;
+        switch (this.props.stateLanguageType) {
+            case "en":
+                translate = translationEN.text
+                break;
+            // case "de":
+            //     translate = translationDE.text
+            //     break;
+            // case "pt":
+            //     translate = translationPT.text
+            //     break;
+            // case "sp":
+            //     translate = translationSP.text
+            //     break;
+            // case "rs":
+            //     translate = translationRS.text
+            //     break;
+            // case "nl":
+            //     translate = translationNL.text
+            //     break;
+            // case "ch":
+            //     translate = translationCH.text
+            //     break;
+            // case "sw":
+            //     translate = translationSW.text
+            //     break;
+            case "default":
+                translate = translationEN.text
+        }
+        let { journal, add_new_entry, diagnosed, on,  New, entry, edit, blood_pressure, doc_visit, blood_sugar, covid_diary, condition_pain, diagnosis, diary, weight_bmi,
+            vaccination, marcumar_pass, smoking_status, hosp_visit, lab_result, file_uplod, family_anmnies, medication, prsnalize_a_dashbord_drag_recorder, add_more_cards,
+            personalize_dashbrd, by, notes, attachments, show_entry, hide_entry, done, suported_file_type, show_after, browse, or_drag_here,
+            sort_by, doc_all, all_time, facility_all, type_2, multiple_lesions_again_suggest, allergy, travel } = translate;
+
         return (
             <Grid className="homeBg">
                 <Grid className="homeBgIner">
@@ -70,7 +111,7 @@ class Index extends Component {
                             <Grid container direction="row">
 
                                 {/* Website Menu */}
-                                <LeftMenu currentPage ="journal"/>
+                                <LeftMenu currentPage="journal" />
                                 {/* End of Website Menu */}
 
                                 {/* Website Mid Content */}
@@ -84,11 +125,11 @@ class Index extends Component {
                                                 <Grid item xs={11} md={11}>
                                                     <Grid container direction="row">
                                                         <Grid item xs={6} md={6}>
-                                                            <h1>Journal</h1>
+                                                            <h1>{journal}</h1>
                                                         </Grid>
                                                         <Grid item xs={6} md={6}>
                                                             <Grid className="AddEntrynw">
-                                                                <a onClick={this.handleOpenDash}>+ Add new entry</a>
+                                                                <a onClick={this.handleOpenDash}>+ {add_new_entry}</a>
                                                             </Grid>
                                                         </Grid>
                                                     </Grid>
@@ -108,8 +149,8 @@ class Index extends Component {
                                                             <img src={require('../../../assets/images/closefancy.png')} alt="" title="" />
                                                         </a>
                                                     </Grid>
-                                                    <Grid><label>Personalize dashboard</label></Grid>
-                                                    <p>Personalize your dashboard by adding or removing cards. Drag to reorder.</p>
+                                                    <Grid><label>{personalize_dashbrd}</label></Grid>
+                                                    <p>{prsnalize_a_dashbord_drag_recorder}</p>
                                                 </Grid>
                                                 <Grid className="dragDash">
                                                     <Grid container direction="row" alignItems="center" justify="center" className="dragDashMain">
@@ -130,7 +171,7 @@ class Index extends Component {
                                                     </Grid>
                                                 </Grid>
                                                 <Grid className="moreCards">
-                                                    <h3>Add more cards</h3>
+                                                    <h3>{add_more_cards}</h3>
                                                     <Grid><a><img src={require('../../../assets/images/add.svg')} alt="" title="" /> Graph - Blood Sugar</a></Grid>
                                                     <Grid><a><img src={require('../../../assets/images/add.svg')} alt="" title="" /> Graph - Heart Rate</a></Grid>
                                                     <Grid><a><img src={require('../../../assets/images/add.svg')} alt="" title="" /> Graph - Weight & BMI</a></Grid>
@@ -151,7 +192,7 @@ class Index extends Component {
                                                                 value={selectedOption}
                                                                 onChange={this.handleChange}
                                                                 options={options}
-                                                                placeholder="All time"
+                                                                placeholder={all_time}
                                                                 className="allTimeSel comonSel"
                                                                 //isMulti= {true}
                                                                 isSearchable={false}
@@ -162,7 +203,7 @@ class Index extends Component {
                                                                 value={selectedOption}
                                                                 onChange={this.handleChange}
                                                                 options={options}
-                                                                placeholder="Type: (2)"
+                                                                placeholder={type_2}
                                                                 className="typeSel comonSel"
                                                             //isMulti= {true}
                                                             //isSearchable = {false}
@@ -173,7 +214,7 @@ class Index extends Component {
                                                                 value={selectedOption}
                                                                 onChange={this.handleChange}
                                                                 options={options}
-                                                                placeholder="Doctor: All"
+                                                                placeholder={doc_all}
                                                                 className="allTimeSel comonSel"
                                                             //isMulti= {true}
                                                             //isSearchable = {false}
@@ -184,7 +225,7 @@ class Index extends Component {
                                                                 value={selectedOption}
                                                                 onChange={this.handleChange}
                                                                 options={options}
-                                                                placeholder="Facility: All"
+                                                                placeholder={facility_all}
                                                                 className="allTimeSel comonSel"
                                                             //isMulti= {true}
                                                             //isSearchable = {false}
@@ -192,7 +233,7 @@ class Index extends Component {
                                                         </Grid>
                                                         <Grid item xs={12} md={2} className="clear_filter">
                                                             <Grid className="clear_filterUpr">
-                                                                <Grid className="clear_filterLft"><a>Clear filters</a></Grid>
+                                                                <Grid className="clear_filterLft"><a>{clear_filter}</a></Grid>
                                                                 <Grid className="clear_filterRght"><a><img src={require('../../../assets/images/clearSrch.jpg')} alt="" title="" /></a></Grid>
                                                             </Grid>
                                                         </Grid>
@@ -200,7 +241,7 @@ class Index extends Component {
                                                     </Grid>
 
                                                     <Grid className="sortBySec">
-                                                        <label>Sort by:</label>
+                                                        <label>{sort_by}:</label>
                                                         <input type="text" placeholder="Entry time" className="entrTimeBY" />
                                                         <input type="text" placeholder="Diagnosis time" className="diagTimeBY" />
                                                     </Grid>
@@ -231,7 +272,7 @@ class Index extends Component {
                                                                     <img src={require('../../../assets/images/clock.svg')} alt="" title="" />
                                                                 </a>
                                                                 <ReactTooltip className="timeIconClas" id="timeIconTip" place="top" effect="solid" backgroundColor="#ffffff">
-                                                                    <label>Visible until</label>
+                                                                    <label>{visible} {until}</label>
                                                                     <p>12/08/2020</p>
                                                                 </ReactTooltip>
                                                                 <a className="vsblDots"><img src={require('../../../assets/images/nav-more.svg')} alt="" title="" /></a>
@@ -241,10 +282,10 @@ class Index extends Component {
                                                     </Grid>
 
                                                     <Grid className="icd_num addSpc">
-                                                        <label>Depression</label>
+                                                        <label>{depression}</label>
                                                         <a data-tip data-for="icdtxtTip">ICD: F32.0</a>
                                                         <ReactTooltip className="icdtxtClas" id="icdtxtTip" place="top" effect="solid" backgroundColor="#ffffff">
-                                                            <h4>Mild depressive episode</h4>
+                                                            <h4>{mild_depresive_episode}</h4>
                                                         </ReactTooltip>
                                                     </Grid>
 
@@ -272,28 +313,28 @@ class Index extends Component {
                                                                 <Grid container direction="row">
                                                                     <Grid item xs={12} md={6} className="diagnoBy">
                                                                         <Grid container direction="row">
-                                                                            <Grid item xs={5} md={5}><label>Diagnosed by</label></Grid>
+                                                                            <Grid item xs={5} md={5}><label>{diagnosed} {by}</label></Grid>
                                                                             <Grid item xs={7} md={7}><span>Mark Anderson M.D.</span></Grid>
                                                                             <Grid className="clear"></Grid>
                                                                         </Grid>
                                                                     </Grid>
                                                                     <Grid item xs={12} md={6} className="diagnoBy">
                                                                         <Grid container direction="row">
-                                                                            <Grid item xs={5} md={5}><label>Allergy</label></Grid>
+                                                                            <Grid item xs={5} md={5}><label>{allergy}</label></Grid>
                                                                             <Grid item xs={7} md={7}><span>No</span></Grid>
                                                                             <Grid className="clear"></Grid>
                                                                         </Grid>
                                                                     </Grid>
                                                                     <Grid item xs={12} md={6} className="diagnoBy">
                                                                         <Grid container direction="row">
-                                                                            <Grid item xs={5} md={5}><label>Diagnosed on</label></Grid>
+                                                                            <Grid item xs={5} md={5}><label>{diagnosed} {on}</label></Grid>
                                                                             <Grid item xs={7} md={7}><span>20/05/2020</span></Grid>
                                                                             <Grid className="clear"></Grid>
                                                                         </Grid>
                                                                     </Grid>
                                                                     <Grid item xs={12} md={6} className="diagnoBy">
                                                                         <Grid container direction="row">
-                                                                            <Grid item xs={5} md={5}><label>Travel Diagnosis</label></Grid>
+                                                                            <Grid item xs={5} md={5}><label>{travel} {diagnosis}</label></Grid>
                                                                             <Grid item xs={7} md={7}>
                                                                                 <span>Yes</span>
                                                                                 <a className="yesInfo" data-tip data-for="yesInfoTip">
@@ -317,9 +358,7 @@ class Index extends Component {
                                                         <Collapsible trigger="Notes" open="true">
                                                             <Grid className="detailCntnt">
                                                                 <p>
-                                                                    Multiple lesions again suggest chronic demyelination. Mild atrophy greatest in the
-                                                                    frontal region may be associated with multiple sclerosis. Findings appear stable when
-                                                                    compared with the prior study. There is no abnormal enhancement.
+                                                                    {multiple_lesions_again_suggest}
                                                                 </p>
                                                             </Grid>
                                                         </Collapsible>
@@ -446,9 +485,7 @@ class Index extends Component {
                                                         <Collapsible trigger="Notes" open="true">
                                                             <Grid className="painTypeCntnt">
                                                                 <p>
-                                                                    Multiple lesions again suggest chronic demyelination. Mild atrophy greatest in the
-                                                                    frontal region may be associated with multiple sclerosis. Findings appear stable when
-                                                                    compared with the prior study. There is no abnormal enhancement.
+                                                                    {multiple_lesions_again_suggest}
                                                                 </p>
                                                             </Grid>
                                                         </Collapsible>
@@ -1190,4 +1227,15 @@ class Index extends Component {
         );
     }
 }
-export default Index
+const mapStateToProps = (state) => {
+    const { stateLoginValueAim, loadingaIndicatoranswerdetail } = state.LoginReducerAim;
+    const { stateLanguageType } = state.LanguageReducer;
+    const { settings } = state.Settings;
+    return {
+        stateLanguageType,
+        stateLoginValueAim,
+        loadingaIndicatoranswerdetail,
+        settings
+    }
+};
+export default withRouter(connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer, Settings })(Index));

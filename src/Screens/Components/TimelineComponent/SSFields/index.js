@@ -4,7 +4,10 @@ import NotesEditor from './../../Editor/index';
 import SelectField from './../../Select/index';
 import ShowHide from './../../ShowHide/index';
 import DateFormat from './../../DateFormat/index';
-
+import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
+import { LanguageFetchReducer } from './../../../actions';
+import * as translationEN from "../../../../translations/en_json_proofread_13072020.json"
 class Index extends Component {
     constructor(props) {
         super(props);
@@ -29,33 +32,65 @@ class Index extends Component {
     }
 
     render() {
+
+        let translate;
+        switch (this.props.stateLanguageType) {
+            case "en":
+                translate = translationEN.text
+                break;
+            // case "de":
+            //     translate = translationDE.text
+            //     break;
+            // case "pt":
+            //     translate = translationPT.text
+            //     break;
+            // case "sp":
+            //     translate = translationSP.text
+            //     break;
+            // case "rs":
+            //     translate = translationRS.text
+            //     break;
+            // case "nl":
+            //     translate = translationNL.text
+            //     break;
+            // case "ch":
+            //     translate = translationCH.text
+            //     break;
+            // case "sw":
+            //     translate = translationSW.text
+            //     break;
+            case "default":
+                translate = translationEN.text
+        }
+        let { from, when, until, smoking_status, notes, save_entry} = translate
+
         return (
             <div>
                 <Grid className="cnfrmDiaMain">
                     <Grid className="fillDia">
-                        <SelectField name="smoking_status" label="Smoking Status" option={this.state.options} onChange={(e)=> this.props.updateEntryState1(e, 'smoking_status')} value={this.state.updateTrack.smoking_status} />
+                        <SelectField name="smoking_status" label={smoking_status} option={this.state.options} onChange={(e)=> this.props.updateEntryState1(e, 'smoking_status')} value={this.state.updateTrack.smoking_status} />
                     </Grid>
                     {this.state.updateTrack && this.state.updateTrack.smoking_status && this.state.updateTrack.smoking_status.value !== 'Never_smoked'&& 
                     <div>
                         <Grid className="rrSysto">
-                            <Grid><label>From When</label></Grid>
+                            <Grid><label>{from} {when}</label></Grid>
                             <DateFormat name="from_when" value={this.state.updateTrack.from_when ? new Date(this.state.updateTrack.from_when) : new Date()} date_format={this.state.date_format} onChange={(e)=>this.props.updateEntryState1(e, 'from_when')}/>
                         </Grid> 
                         <Grid className="rrSysto">
-                            <Grid><label>Until When</label></Grid>
+                            <Grid><label>{until} {when}</label></Grid>
                             <DateFormat name="until_when" value={this.state.updateTrack.until_when ? new Date(this.state.updateTrack.until_when) : new Date()} date_format={this.state.date_format} onChange={(e)=>this.props.updateEntryState1(e, 'until_when')}/>
                         </Grid>
                     </div>   
                     }
                     <Grid className="fillDia">
-                        <NotesEditor name="remarks" label="Notes"  onChange={(e)=> this.props.updateEntryState1(e, 'remarks')} value={this.state.updateTrack.remarks}/> 
+                        <NotesEditor name="remarks" label={notes}  onChange={(e)=> this.props.updateEntryState1(e, 'remarks')} value={this.state.updateTrack.remarks}/> 
                     </Grid>
                 </Grid>
                 
                 <Grid className="infoShwHidMain3upr">
                 <ShowHide date_format= {this.state.date_format} value={this.state.updateTrack} onChange={(data) => this.props.GetHideShow(data)}/>
                     <Grid className="infoShwSave3">
-                        <input type="submit" value="Save entry" onClick={this.props.AddTrack}/>
+                        <input type="submit" value={save_entry} onClick={this.props.AddTrack}/>
                     </Grid>
                 </Grid>
             </div>
@@ -63,5 +98,10 @@ class Index extends Component {
     }
 }
 
-export default Index;
-
+const mapStateToProps = (state) => {
+    const { stateLanguageType } = state.LanguageReducer;
+    return {
+        stateLanguageType
+    }
+};
+export default withRouter(connect(mapStateToProps, { LanguageFetchReducer })(Index));
