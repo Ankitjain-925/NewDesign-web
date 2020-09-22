@@ -38,7 +38,14 @@ import InsuranceProfile from './../../Screens/Insurance/Profile/index';
 import InsuranceOnline from './../../Screens/Insurance/onlineCourse/index';
 import InsuranceChats from './../../Screens/Insurance/Chat/index';
 
-import AGGrid from "./../../Screens/AGGrid/index"
+
+//Nurse Component
+import NurseEmergency from "./../../Screens/Nurse/Emergency";
+import NurseProfile from './../../Screens/Nurse/Profile/index';
+import NurseOnline from './../../Screens/Nurse/onlineCourse/index'; 
+import NurseJournal from './../../Screens/Nurse/Journal/index';
+import NurseChats from './../../Screens/Nurse/Chat/index';
+
 //Doctor Component
 import DoctorService from "./../../Screens/Doctor/Services/index.js"
 
@@ -80,7 +87,16 @@ class Routermain extends Component {
             <Route exact path="/insurance/profile" render={(props) => <InsuranceProfile {...props}/>} />
             <Route exact path="/insurance/chats" render={(props) => <InsuranceChats {...props}/>} />
             <Route exact path="/insurance/online-course" render={(props) => <InsuranceOnline {...props}/>} />
-            
+
+
+            <Route exact path="/nurse" render={(props) => <NurseChats {...props}/>} />
+            <Route exact path="/nurse/profile" render={(props) => <NurseProfile {...props}/>} />
+            <Route exact path="/nurse/emergency" render={(props) => <NurseEmergency {...props}/>} />
+            <Route exact path="/nurse/journal" render={(props) => <NurseJournal {...props}/>} />
+
+            {/* <Route exact path="/nurse/online-course" render={(props) => <NurseOnline {...props}/>} />
+            */}
+
             {/* Doctor Router Start*/}
             <Route exact path="/doctor" render={(props) => <DoctorService {...props} />} />
             <Route exact path="/doctor/patient" render={(props) => <DoctorService {...props} />} />
