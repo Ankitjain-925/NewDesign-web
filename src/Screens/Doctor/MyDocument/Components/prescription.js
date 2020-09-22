@@ -77,9 +77,23 @@ class Index extends Component {
                             })
                     }
                 })
+                var totalPage = Math.ceil(response.data.data.length / 10);
+                this.setState({ AllPres: response.data.data, loaderImage: false, totalPage: totalPage, currentPage: 1 },
+                    () => {
+                        if (totalPage > 1) {
+                            var pages = [];
+                            for (var i = 1; i <= this.state.totalPage; i++) {
+                                pages.push(i)
+                            }
+                            this.setState({ MypatientsData: this.state.AllPres.slice(0, 10), pages: pages })
+                        }
+                        else {
+                            this.setState({ MypatientsData: this.state.AllPres })
+                        }
+                    })
 
 
-                this.setState({ MypatientsData: response.data.data });
+                // this.setState({ MypatientsData: response.data.data });
 
             }
         }).catch((error) => {
@@ -87,9 +101,25 @@ class Index extends Component {
     }
 
     updatePrescription = (status, id) => {
-        // let sata = status.charAt(0).toUpperCase() + status.slice(1)
-        this.setState({ inqstatus: status, selected_id: id })
+        this.setState({ inqstatus: status, selected_id: id, message : null })
         this.handleOpenReject();
+    }
+
+    removePrsecription = (status, id) =>{
+        this.setState({message : null});
+        confirmAlert({
+            title: 'Update the Inqury',
+            message: 'Are you sure  to remove this Inquiry?',
+            buttons: [
+                {
+                    label: 'YES',
+                    onClick: () => this.deleteClickPatient(status, id)
+                },
+                {
+                    label: 'NO',
+                }
+            ]
+        })
     }
 
     deleteClickPatient = (status, id) => {
@@ -113,6 +143,27 @@ class Index extends Component {
         });
     }
 
+    saveUserData(id){
+        this.setState({serverMsg : ""})
+        if(this.state.uploadedimage == ""){
+            this.setState({ serverMsg : "please upload documents"})
+        }else{
+            this.setState({ loaderImage: true });
+            const user_token = this.props.stateLoginValueAim.token;
+            axios.put(sitedata.data.path+'/UserProfile/UpdatePrescription/'+id, {
+                    docs : this.state.uploadedimage,
+                },{headers:{
+                    'token': user_token,
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                }})
+            .then((responce)=>{
+                this.setState({ serverMsg : responce.data.message})
+                this.setState({ loaderImage: false });
+            })
+        }
+    }
+
     UploadFile(event, patient_profile_id, bucket, id) {
         this.setState({ loaderImage: true });
         event.preventDefault();
@@ -132,7 +183,6 @@ class Index extends Component {
             let fileParts = event.target.files[i].name.split('.');
             let fileName = fileParts[0];
             let fileType = fileParts[1];
-            console.log('fileType', fileType)
             if (fileType === 'pdf' || fileType === 'jpeg' || fileType === 'png' || fileType === 'jpg' || fileType === 'svg') {
                 axios.post(sitedata.data.path + '/aws/sign_s3', {
                     fileName: fileName,
@@ -240,6 +290,12 @@ class Index extends Component {
         this.setState({ openReject: false });
     };
 
+    //For chnage the page
+    onChangePage = (pageNumber) => {
+        this.setState({ MypatientsData: this.state.AllPres.slice((pageNumber - 1) * 10, pageNumber * 10), currentPage: pageNumber })
+    }
+
+
     render() {
         const { specialistOption, prescData, inqstatus } = this.state;
         const { value } = this.state;
@@ -305,9 +361,9 @@ class Index extends Component {
                                             <img src={require('../../../../assets/images/threedots.jpg')} alt="" title="" className="openScnd" />
                                             <ul>
                                                 <li><a onClick={() => { this.handleOpenPrescp(data) }}><img src={require('../../../../assets/images/details.svg')} alt="" title="" />See Details</a></li>
-                                                {data.status !== 'decline' && <li onClick={() => { this.updatePrescription('accept', data._id) }}><a><img src={require('../../../../assets/images/edit.svg')} alt="" title="" />Accept</a></li>}
-                                                {data.status !== 'accept' && <li onClick={() => { this.updatePrescription('decline', data._id) }}><a><img src={require('../../../../assets/images/plus.png')} alt="" title="" />Decline</a></li>}
-                                                {data.status !== 'remove' && <li onClick={() => { this.updatePrescription('remove', data._id) }}><a><img src={require('../../../../assets/images/cancel-request.svg')} alt="" title="" />Remove</a></li>}
+                                                {data.status == 'free' && <li onClick={() => { this.handleOpenPrescp(data) }}><a><img src={require('../../../../assets/images/edit.svg')} alt="" title="" />Accept</a></li>}
+                                                {data.status == 'free' && <li onClick={() => { this.updatePrescription('decline', data._id) }}><a><img src={require('../../../../assets/images/plus.png')} alt="" title="" />Decline</a></li>}
+                                                {data.status !== 'remove' && <li onClick={() => { this.removePrsecription('remove', data._id) }}><a><img src={require('../../../../assets/images/cancel-request.svg')} alt="" title="" />Remove</a></li>}
                                             </ul>
                                         </a>
                                     </Td>
@@ -383,19 +439,21 @@ class Index extends Component {
                                     <Grid className="scamUPForms scamUPImg">
 
                                         <Grid><label>{(prescData.status !== 'accept') ? 'Upload scanned' : 'Scanned'} prescription</label></Grid>
-                                        <Grid className="scamUPInput">
+
+                                        {(prescData.status !== 'accept') && <Grid className="scamUPInput">
                                             <a><img src={require('../../../../assets/images/upload-file.svg')} alt="" title="" /></a>
                                             <a>Browse <input type="file" onChange={this.UploadFile} /></a> or drag here
-                                                                            </Grid>
-                                        <p>Supported file types: .jpg, .png, .pdf</p>
+                                                                            </Grid>}
+                                        {(prescData.status !== 'accept') && <p>Supported file types: .jpg, .png, .pdf</p>}
+                                        {(prescData.status === 'accept') && <img src={prescData.attachfile[0].filename} />}
                                     </Grid>}
 
                                 {(prescData.status !== 'accept' && prescData.status !== 'decline') && <Grid container direction="row">
                                     <Grid item xs={6} md={6}>
-                                        <input type="button" value="Approve" onClick={() => this.updatePrescription(prescData.status, prescData._id)} className="approvBtn" />
+                                        <input type="button" value="Approve" onClick={() => this.deleteClickPatient('accept', prescData._id)} className="approvBtn" />
                                     </Grid>
                                     <Grid item xs={6} md={6}>
-                                        <input type="button" value="Reject" onClick={() => this.updatePrescription(prescData.status, prescData._id)} className="rejectBtn" />
+                                        <input type="button" value="Reject" onClick={() => this.updatePrescription('decline', prescData._id)} className="rejectBtn" />
                                     </Grid>
                                 </Grid>}
 
@@ -429,23 +487,22 @@ class Index extends Component {
 
                     <Grid className="tablePagNum">
                         <Grid container direction="row">
-                            <Grid item xs={6} md={6}>
+                            <Grid item xs={12} md={6}>
                                 <Grid className="totalOutOff">
-                                    <a>25 of 36</a>
+                                    <a>{this.state.currentPage} of {this.state.totalPage}</a>
                                 </Grid>
                             </Grid>
-                            <Grid item xs={6} md={6}>
-                                <Grid className="prevNxtpag">
-                                    <a className="prevpag">Previous</a>
-                                    <a className="frstpag">1</a>
-                                    <a>2</a>
-                                    <a>3</a>
-                                    <a className="nxtpag">Next</a>
-                                </Grid>
+                            <Grid item xs={12} md={6}>
+                                {this.state.totalPage > 1 && <Grid className="prevNxtpag">
+                                    {this.state.currentPage != 1 && <a className="prevpag" onClick={() => { this.onChangePage(this.state.currentPage - 1) }}>Previous</a>}
+                                    {this.state.pages && this.state.pages.length > 0 && this.state.pages.map((item, index) => (
+                                        <a className={this.state.currentPage == item && "activePageDocutmet"} onClick={() => { this.onChangePage(item) }}>{item}</a>
+                                    ))}
+                                    {this.state.currentPage != this.state.totalPage && <a className="nxtpag" onClick={() => { this.onChangePage(this.state.currentPage + 1) }}>Next</a>}
+                                </Grid>}
                             </Grid>
                         </Grid>
                     </Grid>
-
                 </Grid>
 
             </div>

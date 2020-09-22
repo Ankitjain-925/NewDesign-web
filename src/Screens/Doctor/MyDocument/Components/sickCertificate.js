@@ -77,7 +77,21 @@ class Index extends Component {
                     }
                 })
                 console.log("response.data.data", response.data.data)
-                this.setState({ MypatientsData: response.data.data });
+                // this.setState({ MypatientsData: response.data.data });
+                var totalPage = Math.ceil(response.data.data.length / 10);
+                this.setState({ AllPres: response.data.data, loaderImage: false, totalPage: totalPage, currentPage: 1 },
+                    () => {
+                        if (totalPage > 1) {
+                            var pages = [];
+                            for (var i = 1; i <= this.state.totalPage; i++) {
+                                pages.push(i)
+                            }
+                            this.setState({ MypatientsData: this.state.AllPres.slice(0, 10), pages: pages })
+                        }
+                        else {
+                            this.setState({ MypatientsData: this.state.AllPres })
+                        }
+                    })
 
             }
             this.setState({ loaderImage: false });
@@ -254,6 +268,23 @@ class Index extends Component {
 
     }
 
+     removePrsecription = (status, id) =>{
+        this.setState({message : null});
+        confirmAlert({
+            title: 'Update the Inqury',
+            message: 'Are you sure  to remove this Inquiry?',
+            buttons: [
+                {
+                    label: 'YES',
+                    onClick: () => this.updateCertificateDetails(status, id)
+                },
+                {
+                    label: 'NO',
+                }
+            ]
+        })
+    }
+
     handleOpenPrescp = (data) => {
         this.setState({ openPrescp: true, sickData: data });
     };
@@ -268,6 +299,11 @@ class Index extends Component {
     handleCloseReject = () => {
         this.setState({ openReject: false });
     };
+
+    //For chnage the page
+    onChangePage = (pageNumber) => {
+        this.setState({ MypatientsData: this.state.AllPres.slice((pageNumber - 1) * 10, pageNumber * 10), currentPage: pageNumber })
+    }
 
     render() {
         const { inqstatus, sickData, MypatientsData } = this.state;
@@ -334,9 +370,9 @@ class Index extends Component {
                                             <img src={require('../../../../assets/images/threedots.jpg')} alt="" title="" className="openScnd" />
                                             <ul>
                                                 <li><a onClick={() => { this.handleOpenPrescp(data) }}><img src={require('../../../../assets/images/details.svg')} alt="" title="" />See Details</a></li>
-                                                {data.status !== 'decline' && <li onClick={() => { this.updateCertificate('accept', data._id) }}><a><img src={require('../../../../assets/images/edit.svg')} alt="" title="" />Accept</a></li>}
-                                                {data.status !== 'accept' && <li onClick={() => { this.updateCertificate('decline', data._id) }}><a><img src={require('../../../../assets/images/plus.png')} alt="" title="" />Decline</a></li>}
-                                                {data.status !== 'remove' && <li onClick={() => { this.updateCertificate('remove', data._id) }}><a><img src={require('../../../../assets/images/cancel-request.svg')} alt="" title="" />Remove</a></li>}
+                                                {data.status !== 'free' && <li onClick={() => { this.updateCertificate('accept', data._id) }}><a><img src={require('../../../../assets/images/edit.svg')} alt="" title="" />Accept</a></li>}
+                                                {data.status !== 'free' && <li onClick={() => { this.updateCertificate('decline', data._id) }}><a><img src={require('../../../../assets/images/plus.png')} alt="" title="" />Decline</a></li>}
+                                                {data.status !== 'remove' && <li onClick={() => { this.removePrsecription('remove', data._id) }}><a><img src={require('../../../../assets/images/cancel-request.svg')} alt="" title="" />Remove</a></li>}
                                             </ul>
                                         </a>
                                     </Td>
@@ -414,11 +450,27 @@ class Index extends Component {
                                     </Grid>
                                 </Grid>
                                 <Grid className="infoShwHidBrdr2"></Grid>
-                                <Grid className="infoShwHidIner2">
-                                    <Grid className="infoShwSave2">
-                                        <input type="submit" onClick={this.handleClosePrescp} value="Close Details" />
+                                {sickData.status !== 'decline' &&
+                                    <Grid className="scamUPForms scamUPImg">
+
+                                        <Grid><label>{(sickData.status !== 'accept') ? 'Upload scanned' : 'Scanned'} prescription</label></Grid>
+
+                                        {(sickData.status !== 'accept') && <Grid className="scamUPInput">
+                                            <a><img src={require('../../../../assets/images/upload-file.svg')} alt="" title="" /></a>
+                                            <a>Browse <input type="file" onChange={this.UploadFile} /></a> or drag here
+                                                                            </Grid>}
+                                        {(sickData.status !== 'accept') && <p>Supported file types: .jpg, .png, .pdf</p>}
+                                        {(sickData.status === 'accept') && <img src={sickData.attachfile[0].filename} />}
+                                    </Grid>}
+
+                                {(sickData.status !== 'accept' && sickData.status !== 'decline') && <Grid container direction="row">
+                                    <Grid item xs={6} md={6}>
+                                        <input type="button" value="Approve" onClick={() => this.deleteClickPatient('accept', sickData._id)} className="approvBtn" />
                                     </Grid>
-                                </Grid>
+                                    <Grid item xs={6} md={6}>
+                                        <input type="button" value="Reject" onClick={() => this.updateCertificate('decline', sickData._id)} className="rejectBtn" />
+                                    </Grid>
+                                </Grid>}
                             </Grid>
                         </Grid>
                     </Modal>
@@ -447,10 +499,19 @@ class Index extends Component {
                     {/* End of Reject Model setup */}
                     <Grid className="tablePagNum">
                         <Grid container direction="row">
-                            <Grid item xs={12} md={12}>
+                            <Grid item xs={12} md={6}>
                                 <Grid className="totalOutOff">
-                                    <a>8 of 8</a>
+                                    <a>{this.state.currentPage} of {this.state.totalPage}</a>
                                 </Grid>
+                            </Grid>
+                            <Grid item xs={12} md={6}>
+                                {this.state.totalPage > 1 && <Grid className="prevNxtpag">
+                                    {this.state.currentPage != 1 && <a className="prevpag" onClick={() => { this.onChangePage(this.state.currentPage - 1) }}>Previous</a>}
+                                    {this.state.pages && this.state.pages.length > 0 && this.state.pages.map((item, index) => (
+                                        <a className={this.state.currentPage == item && "activePageDocutmet"} onClick={() => { this.onChangePage(item) }}>{item}</a>
+                                    ))}
+                                    {this.state.currentPage != this.state.totalPage && <a className="nxtpag" onClick={() => { this.onChangePage(this.state.currentPage + 1) }}>Next</a>}
+                                </Grid>}
                             </Grid>
                         </Grid>
                     </Grid>
