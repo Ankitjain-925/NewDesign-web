@@ -2,7 +2,10 @@ import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
 import NotesEditor from './../../Editor/index';
 import ShowHide from './../../ShowHide/index';
-
+import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
+import { LanguageFetchReducer } from './../../../actions';
+import * as translationEN from "../../../../translations/en_json_proofread_13072020.json"
 class Index extends Component {
     constructor(props) {
         super(props);
@@ -27,6 +30,37 @@ class Index extends Component {
     }
 
     render() {
+        let translate;
+        switch (this.props.stateLanguageType) {
+            case "en":
+                translate = translationEN.text
+                break;
+            // case "de":
+            //     translate = translationDE.text
+            //     break;
+            // case "pt":
+            //     translate = translationPT.text
+            //     break;
+            // case "sp":
+            //     translate = translationSP.text
+            //     break;
+            // case "rs":
+            //     translate = translationRS.text
+            //     break;
+            // case "nl":
+            //     translate = translationNL.text
+            //     break;
+            // case "ch":
+            //     translate = translationCH.text
+            //     break;
+            // case "sw":
+            //     translate = translationSW.text
+            //     break;
+            case "default":
+                translate = translationEN.text
+        }
+        let {}= translate
+        
         return (
             <div>
                 <Grid className="cnfrmDiaMain">
@@ -46,5 +80,10 @@ class Index extends Component {
     }
 }
 
-export default Index;
-
+const mapStateToProps = (state) => {
+    const { stateLanguageType } = state.LanguageReducer;
+    return {
+        stateLanguageType
+    }
+};
+export default withRouter(connect(mapStateToProps, { LanguageFetchReducer })(Index));

@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
 import Select from 'react-select';
-
+import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
+import { LanguageFetchReducer } from './../../../actions';
+import * as translationEN from "../../../../translations/en_json_proofread_13072020.json"
 const options = [
     { value: 'data1', label: 'Data1' },
     { value: 'data2', label: 'Data2' },
@@ -37,6 +40,37 @@ class FilterSec extends Component {
 
     }
     render() {
+        let translate;
+        switch (this.props.stateLanguageType) {
+            case "en":
+                translate = translationEN.text
+                break;
+            // case "de":
+            //     translate = translationDE.text
+            //     break;
+            // case "pt":
+            //     translate = translationPT.text
+            //     break;
+            // case "sp":
+            //     translate = translationSP.text
+            //     break;
+            // case "rs":
+            //     translate = translationRS.text
+            //     break;
+            // case "nl":
+            //     translate = translationNL.text
+            //     break;
+            // case "ch":
+            //     translate = translationCH.text
+            //     break;
+            // case "sw":
+            //     translate = translationSW.text
+            //     break;
+            case "default":
+                translate = translationEN.text
+        }
+        let { all_time, doc_all, sort_by, type_2, facility_all, clear_filter, dig_time, entry_time, feeling, date, time,
+         } = translate
         return (
             <Grid container direction="row">
                 <Grid item xs={12} md={11}>
@@ -47,7 +81,7 @@ class FilterSec extends Component {
                                     value={this.state.selectedOption}
                                     onChange={this.handleChange}
                                     options={options}
-                                    placeholder="All time"
+                                    placeholder={all_time}
                                     className="allTimeSel comonSel"
                                     //isMulti= {true}
                                     isSearchable={false}
@@ -58,7 +92,7 @@ class FilterSec extends Component {
                                     value={this.state.selectedOption}
                                     onChange={this.handleChange}
                                     options={options}
-                                    placeholder="Type: (2)"
+                                    placeholder={type_2}
                                     className="typeSel comonSel"
                                 //isMulti= {true}
                                 //isSearchable = {false}
@@ -69,7 +103,7 @@ class FilterSec extends Component {
                                     value={this.state.selectedOption}
                                     onChange={this.handleChange}
                                     options={options}
-                                    placeholder="Doctor: All"
+                                    placeholder={doc_all}
                                     className="allTimeSel comonSel"
                                 //isMulti= {true}
                                 //isSearchable = {false}
@@ -80,7 +114,7 @@ class FilterSec extends Component {
                                     value={this.state.selectedOption}
                                     onChange={this.handleChange}
                                     options={options}
-                                    placeholder="Facility: All"
+                                    placeholder={facility_all}
                                     className="allTimeSel comonSel"
                                 //isMulti= {true}
                                 //isSearchable = {false}
@@ -88,7 +122,7 @@ class FilterSec extends Component {
                             </Grid>
                             <Grid item xs={12} md={2} className="clear_filter">
                                 <Grid className="clear_filterUpr">
-                                    <Grid className="clear_filterLft"><a>Clear filters</a></Grid>
+                                    <Grid className="clear_filterLft"><a>{clear_filter}</a></Grid>
                                     <Grid className="clear_filterRght"><a><img src={require('../../../../assets/images/clearSrch.jpg')} alt="" title="" /></a></Grid>
                                 </Grid>
                             </Grid>
@@ -96,9 +130,9 @@ class FilterSec extends Component {
                         </Grid>
 
                         <Grid className="sortBySec">
-                            <label>Sort by:</label>
-                            <input type="text" placeholder="Entry time" className="entrTimeBY" />
-                            <input type="text" placeholder="Diagnosis time" className="diagTimeBY" />
+                            <label>{sort_by}:</label>
+                            <input type="text" placeholder={entry_time} className="entrTimeBY" />
+                            <input type="text" placeholder={dig_time} className="diagTimeBY" />
                         </Grid>
 
                     </Grid>
@@ -108,4 +142,10 @@ class FilterSec extends Component {
     }
 }
 
-export default FilterSec;
+const mapStateToProps = (state) => {
+    const { stateLanguageType } = state.LanguageReducer;
+    return {
+        stateLanguageType
+    }
+};
+export default withRouter(connect(mapStateToProps, { LanguageFetchReducer })(FilterSec));
