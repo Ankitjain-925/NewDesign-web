@@ -93,6 +93,7 @@ class Index extends Component {
             toSmall: false,
             phonevalidate: false,
             image: false,
+            types : [{label: 'nurse', value : 'nurse'}, {label: 'therapist' , value: 'therapist'}],
         };
         // new Timer(this.logOutClick.bind(this)) 
     }
@@ -318,7 +319,7 @@ class Index extends Component {
         this.setState({ insuranceDetails: { insurance: '', insurance_number: '', insurance_country: '' } })
         var parent_id = this.state.UpDataDetails.parent_id ? this.state.UpDataDetails.parent_id : '0';
         axios.put(sitedata.data.path + '/UserProfile/Users/update', {
-            type: 'paramedic',
+            type: this.state.UpDataDetails.type,
             pin: this.state.UpDataDetails.pin,
             first_name: this.state.UpDataDetails.first_name,
             last_name: this.state.UpDataDetails.last_name,

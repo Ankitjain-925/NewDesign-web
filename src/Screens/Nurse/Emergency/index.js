@@ -159,7 +159,7 @@ class Index extends Component {
                                     <Grid className="emrgncyDataUpr">
                                          
                                          {/* call Emergency Section */}
-                                         <EmergencyCall byUser="paramedic" anotherPatient={this.anotherPatient}/>
+                                         <EmergencyCall byUser="nurse" anotherPatient={this.anotherPatient}/>
                                          
                                     </Grid>}
                                     {!this.state.openPara && this.props.Emergencysetget.p_id === null &&
@@ -206,7 +206,7 @@ class Index extends Component {
                                                 <h2>
                                                     <img src={require('../../../assets/images/important-notice.svg')} alt="" title="" />
                                                     IMPORTANT NOTICE
-                                                </h2>
+                                              </h2>
                                                 <Grid className="trigerAction">
                                                     <Grid><label>This will trigger the following actions:</label></Grid>
                                                     <ul>

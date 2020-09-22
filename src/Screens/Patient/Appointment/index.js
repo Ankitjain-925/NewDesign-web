@@ -24,6 +24,7 @@ const options = [
     { value: 'data3', label: 'Data3' },
 ];
 
+
 class Index extends Component {
     constructor(props) {
         super(props);
@@ -35,7 +36,8 @@ class Index extends Component {
             openAllowAccess: false,
             selectedOption: null,
             openAllowLoc: false,
-            openApoint: false
+            openApoint: false,
+            openFancyVdo: false,
         };
     }
     componentDidMount() {
@@ -60,6 +62,13 @@ class Index extends Component {
             )
         }
     }
+
+    handleOpenFancyVdo = () => {
+        this.setState({ openFancyVdo: true });
+    };
+    handleCloseFancyVdo = () => {
+        this.setState({ openFancyVdo: false });
+    };
 
     //For patient Info..
     patientinfo() {
@@ -272,7 +281,45 @@ class Index extends Component {
                                 </Grid>
                                  */}
                                 {/* End of Website Menu */}
+                                {/* Video Model */}
+                                <Modal
+                                    open={this.state.openFancyVdo}
+                                    onClose={this.handleCloseFancyVdo}>
+                                    <Grid className="slotBoxMain">
+                                        <Grid className="slotBoxCourse">
+                                            <a onClick={this.handleCloseFancyVdo} className="timSlotClose">
+                                                <img src={require('../../../assets/images/closefancy.png')} alt="" title="" />
+                                            </a>
+                                            <Grid className="selCalenderUpr">
+                                                <Grid className="selCalender"><Calendar onChange={this.onChange} value={this.state.date} /></Grid>
+                                                <Grid className="selTimeSlot">
+                                                    <Grid><label>Select time slot</label></Grid>
+                                                    <Grid className="selTimeAM">
+                                                        <Grid><span>AM</span></Grid>
+                                                        <Grid><a>09:00 - 09:30</a></Grid>
+                                                        <Grid><a>09:30 - 10:00</a></Grid>
+                                                        <Grid><a>10:00 - 10:30</a></Grid>
+                                                        <Grid><a>10:30 - 11:00</a></Grid>
+                                                    </Grid>
+                                                    <Grid className="selTimePM">
+                                                        <Grid><span>PM</span></Grid>
+                                                        <Grid><a>01:00 - 01:30</a></Grid>
+                                                        <Grid><a>01:30 - 02:00</a></Grid>
+                                                        <Grid><a>02:00 - 02:30</a></Grid>
+                                                        <Grid><a>02:30 - 03:00</a></Grid>
+                                                    </Grid>
+                                                </Grid>
+                                                <Grid className="delQues">
+                                                    <Grid><label>Details / Questions</label></Grid>
+                                                    <Grid><textarea></textarea></Grid>
+                                                    <Grid className="delQuesBook"><a>Book</a> <a>Cancel</a></Grid>
+                                                </Grid>
+                                            </Grid>
 
+                                        </Grid>
+                                    </Grid>
+                                </Modal>
+                                {/* End of Video Model */}
                                 <Grid item xs={12} md={3}>
                                     <Grid className="apointUpcom">
                                         <h4>Upcoming appointments</h4>
@@ -314,7 +361,7 @@ class Index extends Component {
                                             <Grid container direction="row">
                                                 <Grid item xs={6} md={6} className="officeVstLft"><label>9 Aug, 09:00</label></Grid>
                                                 <Grid item xs={6} md={6} className="officeVstRght">
-                                                    <a><img src={require('../../../assets/images/video-call.svg')} alt="" title="" /> Video call</a>
+                                                    <a onclick={this.handleOpenFancyVdo}><img src={require('../../../assets/images/video-call.svg')} alt="" title="" /> Video call</a>
                                                 </Grid>
                                             </Grid>
                                             <Grid className="showSubject">
@@ -516,7 +563,7 @@ class Index extends Component {
                                                                                         <Grid className="avlablDates">
                                                                                             <h3>SEE AVAILABLE DATES FOR:</h3>
                                                                                             <Grid>
-                                                                                                <a><img src={require('../../../assets/images/video-call-copy2.svg')} alt="" title="" />Video call</a>
+                                                                                                <a  onclick={this.handleOpenFancyVdo}><img src={require('../../../assets/images/video-call-copy2.svg')} alt="" title="" />Video call</a>
                                                                                                 <a><img src={require('../../../assets/images/ShapeCopy2.svg')} alt="" title="" />Office visit</a>
                                                                                                 <a className="addClnder"><img src={require('../../../assets/images/cal.png')} alt="" title="" />Consultancy (custom calendar)</a>
                                                                                             </Grid>
