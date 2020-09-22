@@ -12,7 +12,6 @@ import axios from 'axios';
 import OrganSection from './../../Patient/Profile/Components/orgnaDonar';
 import ReactFlagsSelect from 'react-flags-select';
 import DoctorSection from './../../Patient/Profile/Components/mydoctors';
-import { EmergencySet } from '../../Doctor/emergencyaction.js';
 
 const path = sitedata.data.path + '/emergency_record';
 
@@ -158,7 +157,7 @@ class Index extends Component {
             edit_contact: false,
             flag_emergency_number: 'DE',
             phone: '',
-            my_doc_image: '',
+            my_doc_image : '',
         };
     }
 
@@ -170,12 +169,7 @@ class Index extends Component {
 
     //Get current User Information
     patientinfo() {
-        if (this.props.byUser === 'patient') {
-            var user_id = this.props.stateLoginValueAim.user._id;
-        }
-        else {
-            var user_id = this.props.Emergencysetget.p_id;
-        }
+        var user_id = this.props.stateLoginValueAim.user._id;
         var user_token = this.props.stateLoginValueAim.token;
         axios.get(sitedata.data.path + '/UserProfile/Users/' + user_id,
             {
@@ -213,12 +207,7 @@ class Index extends Component {
 
     //Here is get all Emergency data
     allemergencyrecord() {
-        if (this.props.byUser === 'patient') {
-            var user_id = this.props.stateLoginValueAim.user._id;
-        }
-        else {
-            var user_id = this.props.Emergencysetget.p_id;
-        }
+        var user_id = this.props.stateLoginValueAim.user._id;
         var user_token = this.props.stateLoginValueAim.token;
         this.setState({ loaderImage: true })
         axios.get(path + '/' + user_id,
@@ -233,7 +222,7 @@ class Index extends Component {
                 this.setState({
                     diagnosisdata: response.data.diagnosisdata, mediacationdata: response.data.medicationdata, allergydata: response.data.allergydata,
                     family_doc: response.data.doctor, loaderImage: false, donar: response.data.donardata,
-                    contact_partner: response.data.contact_partner, my_doc_image: '',
+                    contact_partner: response.data.contact_partner,my_doc_image : '',
                 },
                     () => {
                         var state1 = this.state.contact_partner;
@@ -245,15 +234,16 @@ class Index extends Component {
                                 this.setState({ flag_emergency_number: fen[0] })
                             }
                         }
-                        if (this.state.family_doc && this.state.family_doc.length > 0 && this.state.family_doc[0] && this.state.family_doc[0].image) {
+                        if(this.state.family_doc && this.state.family_doc.length>0 && this.state.family_doc[0] && this.state.family_doc[0].image)
+                        {
                             if (this.state.family_doc[0].image) {
                                 var find1 = this.state.family_doc[0].image.split('.com/')[1]
                                 axios.get(sitedata.data.path + '/aws/sign_s3?find=' + find1,)
-                                    .then((response2) => {
-                                        if (response2.data.hassuccessed) {
-                                            this.setState({ my_doc_image: response2.data.data })
-                                        }
-                                    })
+                                .then((response2) => {
+                                    if (response2.data.hassuccessed) {
+                                        this.setState({ my_doc_image: response2.data.data })
+                                    }
+                                })
                             }
                         }
                     })
@@ -338,235 +328,215 @@ class Index extends Component {
     }
     render() {
         return (
-            <div>
+            <Grid container direction="row">
                 {this.state.loaderImage && <Loader />}
-                <Grid container direction="row">
-                    <Grid item xs={12} md={10}>
-                        <Grid container direction="row" className="emrgncyData">
-                            <Grid item xs={6} md={6}>
-                                {this.props.byUser === 'patient' && <h1>Your Emergency Data</h1>}
-                                {this.props.byUser !== 'patient' && <h1>Patient Emergency Data</h1>}
+                <Grid item xs={12} md={9}>
+
+                    {/* Health Status */}
+                    <Grid className="healthStatus">
+                        <h2>Health Status</h2>
+                        <Grid container direction="row" spacing={3}>
+                            <Grid item xs={12} md={4}>
+                                <Grid className="medicalNotify">
+                                    <Grid className="medicalLabl">
+                                        <label>Medications</label>
+                                    </Grid>
+                                    <Grid className="medicalDesp">
+                                        {this.state.mediacationdata && this.state.mediacationdata.length > 0 ? this.state.mediacationdata.map((item, index) => (
+                                            <p><a>{item.substance}</a></p>
+                                        )) : <p>No medications</p>}
+                                    </Grid>
+                                </Grid>
                             </Grid>
-                            <Grid item xs={6} md={6}>
-                                {this.props.byUser !== 'patient' && 
-                                <Grid className="AnotherData">
-                                    <a onClick={this.props.anotherPatient}>Get Another Patient Data</a>
-                                </Grid>}
+                            <Grid item xs={12} md={4}>
+                                <Grid className="medicalNotify">
+                                    <Grid className="medicalLabl">
+                                        <label>Allergies</label>
+                                    </Grid>
+                                    <Grid className="medicalDesp">
+                                        {this.state.allergydata && this.state.allergydata.length > 0 ? this.state.allergydata.map((item, index) => (
+                                            <p><a>{item.diagnosis}</a></p>
+                                        )) : <p>No Allegies</p>}
+                                    </Grid>
+                                </Grid>
+                            </Grid>
+                            <Grid item xs={12} md={4}>
+                                <Grid className="medicalNotify">
+                                    <Grid className="medicalLabl">
+                                        <label>Diagnoses</label>
+                                    </Grid>
+                                    <Grid className="medicalDesp">
+                                        {this.state.diagnosisdata && this.state.diagnosisdata.length > 0 ? this.state.diagnosisdata.map((item, index) => (
+                                            <p><a>{item.diagnosis}</a></p>
+                                        )) : <p>No diagnosis</p>}
+                                    </Grid>
+                                </Grid>
                             </Grid>
                         </Grid>
                     </Grid>
-                </Grid>
-                <Grid container direction="row">
-                    <Grid item xs={12} md={9}>
-                        {/* Health Status */}
-                        <Grid className="healthStatus">
-                            <h2>Health Status</h2>
-                            <Grid container direction="row" spacing={3}>
-                                <Grid item xs={12} md={4}>
-                                    <Grid className="medicalNotify">
-                                        <Grid className="medicalLabl">
-                                            <label>Medications</label>
-                                        </Grid>
-                                        <Grid className="medicalDesp">
-                                            {this.state.mediacationdata && this.state.mediacationdata.length > 0 ? this.state.mediacationdata.map((item, index) => (
-                                                <p><a>{item.substance}</a></p>
-                                            )) : <p>No medications</p>}
-                                        </Grid>
-                                    </Grid>
-                                </Grid>
-                                <Grid item xs={12} md={4}>
-                                    <Grid className="medicalNotify">
-                                        <Grid className="medicalLabl">
-                                            <label>Allergies</label>
-                                        </Grid>
-                                        <Grid className="medicalDesp">
-                                            {this.state.allergydata && this.state.allergydata.length > 0 ? this.state.allergydata.map((item, index) => (
-                                                <p><a>{item.diagnosis}</a></p>
-                                            )) : <p>No Allegies</p>}
+                    {/* End of Health Status */}
+
+                    {/* Contacts & Other info */}
+                    <Grid className="otherInfo">
+                        <h2>Contacts & Other info</h2>
+                        <Grid container direction="row" spacing={3}>
+
+                            <Grid item xs={12} md={4}>
+                                <Grid className="docCntctMain">
+                                    <Grid className="docCntct">
+                                        <Grid container direction="row">
+                                            <Grid item xs={6} md={7} className="docCntctLft">
+                                                <label>Family Doctor</label>
+                                            </Grid>
+                                            <Grid item xs={6} md={5} className="docCntctRght">
+                                                {this.props.byUser==='patient' && <a onClick={() => { this.setState({ EditFamily: true }) }}><img src={require('../../../assets/images/edit.svg')} alt="" title="" /></a>}
+                                            </Grid>
                                         </Grid>
                                     </Grid>
-                                </Grid>
-                                <Grid item xs={12} md={4}>
-                                    <Grid className="medicalNotify">
-                                        <Grid className="medicalLabl">
-                                            <label>Diagnoses</label>
-                                        </Grid>
-                                        <Grid className="medicalDesp">
-                                            {this.state.diagnosisdata && this.state.diagnosisdata.length > 0 ? this.state.diagnosisdata.map((item, index) => (
-                                                <p><a>{item.diagnosis}</a></p>
-                                            )) : <p>No diagnosis</p>}
-                                        </Grid>
-                                    </Grid>
+                                    {!this.state.EditFamily ? this.state.family_doc && this.state.family_doc.length > 0 ? this.state.family_doc.map((item, index) => (
+                                        <div>
+                                            <Grid className="docInfo">
+                                                <Grid className="docInfoName"><a><img src={this.state.my_doc_image} alt="" title="" /><span>{item.first_name && item.first_name} {item.last_name && item.last_name}</span></a></Grid>
+                                                <Grid><a><img src={require('../../../assets//images/phone.svg')} alt="" title="" />{item.mobile}</a></Grid>
+                                                <Grid><a><img src={require('../../../assets//images/email.svg')} alt="" title="" />{item.email}</a></Grid>
+                                                <Grid><a><img src={require('../../../assets//images/language.svg')} alt="" title="" />{item.language && item.language.join(', ')}</a></Grid>
+
+                                            </Grid>
+                                            <Grid className="neuroDises">
+                                                <Grid className="neuroGen">
+                                                    <Grid><label>{item.speciality && item.speciality.join(', ')}</label></Grid>
+                                                    <p>{item.subspeciality && item.subspeciality.join(', ')}</p>
+                                                </Grid>
+                                            </Grid>
+                                        </div>))
+                                        : <p>No Family Doctor</p>
+                                        : <DoctorSection className="paddingSides" EditFamilyDoc={this.EditFamilyDoc} comesFrom='emergency' />}
                                 </Grid>
                             </Grid>
-                        </Grid>
-                        {/* End of Health Status */}
 
-                        {/* Contacts & Other info */}
-                        <Grid className="otherInfo">
-                            <h2>Contacts & Other info</h2>
-                            <Grid container direction="row" spacing={3}>
-
-                                <Grid item xs={12} md={4}>
-                                    <Grid className="docCntctMain">
-                                        <Grid className="docCntct">
-                                            <Grid container direction="row">
-                                                <Grid item xs={6} md={7} className="docCntctLft">
-                                                    <label>Family Doctor</label>
-                                                </Grid>
-                                                <Grid item xs={6} md={5} className="docCntctRght">
-                                                    {this.props.byUser === 'patient' && <a onClick={() => { this.setState({ EditFamily: true }) }}><img src={require('../../../assets/images/edit.svg')} alt="" title="" /></a>}
-                                                </Grid>
+                            <Grid item xs={12} md={4}>
+                                <Grid className="docCntctMain">
+                                    <Grid className="docCntct">
+                                        <Grid container direction="row">
+                                            <Grid item xs={6} md={7} className="docCntctLft">
+                                                <label>Emergency Contact</label>
+                                            </Grid>
+                                            <Grid item xs={6} md={5} className="docCntctRght">
+                                            {this.props.byUser==='patient' && <a onClick={() => this.setState({ edit_contact: true, })}><img src={require('../../../assets/images/edit.svg')} alt="" title="" /></a>}
                                             </Grid>
                                         </Grid>
-                                        {!this.state.EditFamily ? this.state.family_doc && this.state.family_doc.length > 0 ? this.state.family_doc.map((item, index) => (
-                                            <div>
-                                                <Grid className="docInfo">
-                                                    <Grid className="docInfoName"><a><img src={this.state.my_doc_image} alt="" title="" /><span>{item.first_name && item.first_name} {item.last_name && item.last_name}</span></a></Grid>
-                                                    <Grid><a><img src={require('../../../assets//images/phone.svg')} alt="" title="" />{item.mobile}</a></Grid>
-                                                    <Grid><a><img src={require('../../../assets//images/email.svg')} alt="" title="" />{item.email}</a></Grid>
-                                                    <Grid><a><img src={require('../../../assets//images/language.svg')} alt="" title="" />{item.language && item.language.join(', ')}</a></Grid>
-
-                                                </Grid>
-                                                <Grid className="neuroDises">
-                                                    <Grid className="neuroGen">
-                                                        <Grid><label>{item.speciality && item.speciality.join(', ')}</label></Grid>
-                                                        <p>{item.subspeciality && item.subspeciality.join(', ')}</p>
-                                                    </Grid>
-                                                </Grid>
-                                            </div>))
-                                            : <p>No Family Doctor</p>
-                                            : <DoctorSection className="paddingSides" EditFamilyDoc={this.EditFamilyDoc} comesFrom='emergency' />}
                                     </Grid>
-                                </Grid>
-
-                                <Grid item xs={12} md={4}>
-                                    <Grid className="docCntctMain">
-                                        <Grid className="docCntct">
-                                            <Grid container direction="row">
-                                                <Grid item xs={6} md={7} className="docCntctLft">
-                                                    <label>Emergency Contact</label>
-                                                </Grid>
-                                                <Grid item xs={6} md={5} className="docCntctRght">
-                                                    {this.props.byUser === 'patient' && <a onClick={() => this.setState({ edit_contact: true, })}><img src={require('../../../assets/images/edit.svg')} alt="" title="" /></a>}
-                                                </Grid>
+                                    {this.state.contact_partner && !this.state.edit_contact &&
+                                        <div>
+                                            <Grid className="jlyMorr">
+                                                <Grid><label>{this.state.contact_partner.name && this.state.contact_partner.name}</label></Grid>
+                                                <p>{this.state.contact_partner.relation && this.state.contact_partner.relation}</p>
                                             </Grid>
+                                            <Grid className="docInfo docInfoBrdr">
+                                                <Grid><a><img src={require('../../../assets//images/phone.svg')} alt="" title="" />{this.state.contact_partner.number && this.state.contact_partner.number}</a></Grid>
+                                                <Grid><a><img src={require('../../../assets//images/email.svg')} alt="" title="" />{this.state.contact_partner.email && this.state.contact_partner.email}</a></Grid>
+                                            </Grid>
+                                        </div>
+                                    }
+                                    {!this.state.contact_partner && !this.state.edit_contact && <p>No Family Doctor</p>}
+                                    {this.state.edit_contact && <Grid className="emrgncyFrm">
+                                        <Grid className="emrgncyFrmInpt">
+                                            <Grid><label>Name</label></Grid>
+                                            <Grid><input type="text" name="name" value={this.state.contact_partner.name} onChange={this.contact_partnerState} /></Grid>
                                         </Grid>
-                                        {this.state.contact_partner && !this.state.edit_contact &&
-                                            <div>
-                                                <Grid className="jlyMorr">
-                                                    <Grid><label>{this.state.contact_partner.name && this.state.contact_partner.name}</label></Grid>
-                                                    <p>{this.state.contact_partner.relation && this.state.contact_partner.relation}</p>
-                                                </Grid>
-                                                <Grid className="docInfo docInfoBrdr">
-                                                    <Grid><a><img src={require('../../../assets//images/phone.svg')} alt="" title="" />{this.state.contact_partner.number && this.state.contact_partner.number}</a></Grid>
-                                                    <Grid><a><img src={require('../../../assets//images/email.svg')} alt="" title="" />{this.state.contact_partner.email && this.state.contact_partner.email}</a></Grid>
-                                                </Grid>
-                                            </div>
-                                        }
-                                        {!this.state.contact_partner && !this.state.edit_contact && <p>No Family Doctor</p>}
-                                        {this.state.edit_contact && <Grid className="emrgncyFrm">
-                                            <Grid className="emrgncyFrmInpt">
-                                                <Grid><label>Name</label></Grid>
-                                                <Grid><input type="text" name="name" value={this.state.contact_partner.name} onChange={this.contact_partnerState} /></Grid>
-                                            </Grid>
-                                            <Grid className="emrgncyFrmInpt">
-                                                <Grid><label>Relation</label></Grid>
-                                                <Grid><input name="relation" value={this.state.contact_partner.relation} onChange={this.contact_partnerState} /></Grid>
-                                            </Grid>
-                                            <Grid className="emrgncyFrmInpt">
-                                                <Grid><label>Telephone number</label></Grid>
-                                                <Grid>
-                                                    {/* <PhoneInput
+                                        <Grid className="emrgncyFrmInpt">
+                                            <Grid><label>Relation</label></Grid>
+                                            <Grid><input name="relation" value={this.state.contact_partner.relation} onChange={this.contact_partnerState} /></Grid>
+                                        </Grid>
+                                        <Grid className="emrgncyFrmInpt">
+                                            <Grid><label>Telephone number</label></Grid>
+                                            <Grid>
+                                                {/* <PhoneInput
                                                 country={'us'}
                                                 value={this.state.phone}
                                                 onChange={phone => this.setState({ phone })}
                                             /> */}
-                                                    {this.updateFLAG(this.state.contact_partner.number) && this.updateFLAG(this.state.contact_partner.number) !== '' &&
-                                                        <ReactFlagsSelect placeholder="Country Code" onSelect={(e) => { this.updateFlags(e, 'number') }} name="flag_phone" showSelectedLabel={false} defaultCountry={this.updateFLAG(this.state.contact_partner.number)} />}
-                                                    <input type="text"
-                                                        className="Mobile_extra Emergency_number"
-                                                        placeholder="phone"
-                                                        onChange={this.updateEntryState1}
-                                                        value={this.state.contact_partner.number && this.updateMOBILE(this.state.contact_partner.number)}
-                                                    />
-                                                </Grid>
-                                            </Grid>
-                                            <Grid className="emrgncyFrmInpt">
-                                                <Grid><label>Email address</label></Grid>
-                                                <Grid><input name="email" value={this.state.contact_partner.email} onChange={this.contact_partnerState} /></Grid>
-                                            </Grid>
-                                            <Grid className="emrgncyFrmSub">
-                                                <input type="submit" onClick={this.submitContact} />
-                                            </Grid>
-                                        </Grid>}
-                                    </Grid>
-                                </Grid>
-
-                                <Grid item xs={12} md={4}>
-                                    <Grid className="docCntctMain">
-                                        <Grid className="docCntct">
-                                            <Grid container direction="row">
-                                                <Grid item xs={6} md={7} className="docCntctLft">
-                                                    <label>Organ Donor Status</label>
-                                                </Grid>
-                                                <Grid item xs={6} md={5} className="docCntctRght">
-                                                    {this.props.byUser === 'patient' && <a onClick={() => { this.setState({ editDonar: true }) }}><img src={require('../../../assets//images/edit.svg')} alt="" title="" /></a>}
-                                                </Grid>
+                                                {this.updateFLAG(this.state.contact_partner.number) && this.updateFLAG(this.state.contact_partner.number) !== '' &&
+                                                    <ReactFlagsSelect placeholder="Country Code" onSelect={(e) => { this.updateFlags(e, 'number') }} name="flag_phone" showSelectedLabel={false} defaultCountry={this.updateFLAG(this.state.contact_partner.number)} />}
+                                                <input type="text"
+                                                    className="Mobile_extra Emergency_number"
+                                                    placeholder="phone"
+                                                    onChange={this.updateEntryState1}
+                                                    value={this.state.contact_partner.number && this.updateMOBILE(this.state.contact_partner.number)}
+                                                />
                                             </Grid>
                                         </Grid>
-                                        <Grid className="jlyMorr">
-                                            {!this.state.editDonar ?
-                                                this.state.donar && this.state.donar.status !== 'Nothing' ?
-                                                    <div>
-                                                        <Grid><label>{this.state.donar.status}</label></Grid>
-                                                        {this.state.donar.options && this.state.donar.options !== '' &&
-                                                            <span>
-                                                                {typeof this.state.donar.options === 'object' ?
-                                                                    <Grid className="docInfo">
-                                                                        <Grid className="docInfoName"><a><img src={require('../../../assets//images/person1.jpg')} alt="" title="" /><span>{this.state.donar.options.first_name && this.state.donar.options.first_name} {this.state.donar.options.last_name && this.state.donar.options.last_name}</span></a></Grid>
-                                                                        <Grid><a><img src={require('../../../assets//images/phone.svg')} alt="" title="" />{this.state.donar.options.phone && this.state.donar.options.phone}</a></Grid>
-                                                                        <Grid><a><img src={require('../../../assets//images/language.svg')} alt="" title="" />{this.state.donar.options.city && this.state.donar.options.city}, {this.state.donar.options.address && this.state.donar.options.address},  {this.state.donar.options.postal_code && this.state.donar.options.postal_code}</a></Grid>
-                                                                        {/* <Grid><a><img src={require('../../../assets//images/language.svg')} alt="" title="" />{item.language && item.language.join(', ')}</a></Grid> */}
-                                                                    </Grid>
-                                                                    :
-                                                                    this.state.donar.options && <p>  {this.state.donar.options} </p>}
-                                                            </span>
-                                                        }<br />
-                                                        {this.state.donar.remarks && <p>{this.state.donar.remarks}</p>}
-                                                    </div> : <Grid><label>Not an organ donor</label></Grid>
-                                                : <OrganSection EditOrganDonar={this.EditOrganDonar} tissue={this.state.tissue && this.state.tissue} comesFrom='emergency' />}
+                                        <Grid className="emrgncyFrmInpt">
+                                            <Grid><label>Email address</label></Grid>
+                                            <Grid><input name="email" value={this.state.contact_partner.email} onChange={this.contact_partnerState} /></Grid>
                                         </Grid>
-                                    </Grid>
+                                        <Grid className="emrgncyFrmSub">
+                                            <input type="submit" onClick={this.submitContact} />
+                                        </Grid>
+                                    </Grid>}
                                 </Grid>
-
-
                             </Grid>
+
+                            <Grid item xs={12} md={4}>
+                                <Grid className="docCntctMain">
+                                    <Grid className="docCntct">
+                                        <Grid container direction="row">
+                                            <Grid item xs={6} md={7} className="docCntctLft">
+                                                <label>Organ Donor Status</label>
+                                            </Grid>
+                                            <Grid item xs={6} md={5} className="docCntctRght">
+                                                {this.props.byUser==='patient' && <a onClick={() => { this.setState({ editDonar: true }) }}><img src={require('../../../assets//images/edit.svg')} alt="" title="" /></a>}
+                                            </Grid>
+                                        </Grid>
+                                    </Grid>
+                                    <Grid className="jlyMorr">
+                                        {!this.state.editDonar ?
+                                            this.state.donar && this.state.donar.status !== 'Nothing' ?
+                                                <div>
+                                                    <Grid><label>{this.state.donar.status}</label></Grid>
+                                                    {this.state.donar.options && this.state.donar.options !== '' &&
+                                                        <span>
+                                                            {typeof this.state.donar.options === 'object' ?
+                                                                <Grid className="docInfo">
+                                                                    <Grid className="docInfoName"><a><img src={require('../../../assets//images/person1.jpg')} alt="" title="" /><span>{this.state.donar.options.first_name && this.state.donar.options.first_name} {this.state.donar.options.last_name && this.state.donar.options.last_name}</span></a></Grid>
+                                                                    <Grid><a><img src={require('../../../assets//images/phone.svg')} alt="" title="" />{this.state.donar.options.phone && this.state.donar.options.phone}</a></Grid>
+                                                                    <Grid><a><img src={require('../../../assets//images/language.svg')} alt="" title="" />{this.state.donar.options.city && this.state.donar.options.city}, {this.state.donar.options.address && this.state.donar.options.address},  {this.state.donar.options.postal_code && this.state.donar.options.postal_code}</a></Grid>
+                                                                    {/* <Grid><a><img src={require('../../../assets//images/language.svg')} alt="" title="" />{item.language && item.language.join(', ')}</a></Grid> */}
+                                                                </Grid>
+                                                                :
+                                                                this.state.donar.options && <p>  {this.state.donar.options} </p>}
+                                                        </span>
+                                                    }<br />
+                                                    {this.state.donar.remarks && <p>{this.state.donar.remarks}</p>}
+                                                </div> : <Grid><label>Not an organ donor</label></Grid>
+                                            : <OrganSection EditOrganDonar={this.EditOrganDonar} tissue={this.state.tissue && this.state.tissue} comesFrom='emergency' />}
+                                    </Grid>
+                                </Grid>
+                            </Grid>
+
+
                         </Grid>
-                        {/* End of Contacts & Other info */}
-
                     </Grid>
-                </Grid>
-            </div>
+                    {/* End of Contacts & Other info */}
 
+                </Grid>
+            </Grid>
         );
     }
 }
 const mapStateToProps = (state) => {
     const { stateLoginValueAim, loadingaIndicatoranswerdetail } = state.LoginReducerAim;
     const { stateLanguageType } = state.LanguageReducer;
-    const { settings } = state.Settings;
+    const {settings} = state.Settings;
     // const { Doctorsetget } = state.Doctorset;
     // const { catfil } = state.filterate;
-    const { Emergencysetget } = state.EmergencySet;
     return {
         stateLanguageType,
         stateLoginValueAim,
         loadingaIndicatoranswerdetail,
         settings,
-        Emergencysetget,
         //   Doctorsetget,
         //   catfil
     }
 };
-export default withRouter(connect(mapStateToProps, { EmergencySet, LoginReducerAim, LanguageFetchReducer, Settings })(Index));
+export default withRouter(connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer, Settings })(Index));

@@ -102,7 +102,7 @@ class Index extends Component {
                     </Grid>
                     <Grid className="attchForms attchImg">
                         <Grid><label>{attachments}</label></Grid>
-                        <FileUploader name="UploadTrackImageMulti" fileUpload={this.FileAttachMulti} />
+                        <FileUploader name="UploadTrackImageMulti" isMulti={true} fileUpload={this.props.FileAttachMulti} />
                     </Grid>
                 </Grid>
 

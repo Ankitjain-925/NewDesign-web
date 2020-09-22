@@ -11,7 +11,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Typography from '@material-ui/core/Typography';
 import PropTypes from 'prop-types';
 import ReactTooltip from "react-tooltip";
-import sitedata from '../../../sitedata';
+import sitedata, { data } from '../../../sitedata';
 import axios from 'axios';
 import { withRouter } from "react-router-dom";
 import Radio from '@material-ui/core/Radio';

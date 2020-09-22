@@ -492,17 +492,14 @@ class Index extends Component {
 
     //For open the Insurance Edit popup
     editKYCopen(event, i) {
-        let selectedCountry= this.state.selectedCountry
-        selectedCountry= {value:event.insurance_country}
-        this.setState({ editInsuranceOpen: true, insuranceDetails: event, editIndex: i, selectedCountry:selectedCountry })
+        this.setState({ editInsuranceOpen: true, insuranceDetails: event, editIndex: i })
     }
 
 
     //For update the insurance country
-    updatesinsurancesCountry(keys, event) {
-        datas[keys].insurance=''
-        datas[keys].insurance_country = event.value;
-        this.setState({ insurancefull: datas, selectedCountry:event })
+    updatesinsurancesCountry(keys, e) {
+        datas[keys].insurance_country = e.value;
+        this.setState({ insurancefull: datas })
     }
 
     //Update Insurance
