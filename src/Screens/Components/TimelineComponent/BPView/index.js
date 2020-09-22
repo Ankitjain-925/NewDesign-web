@@ -4,8 +4,7 @@ import Collapsible from 'react-collapsible';
 import ReactTooltip from "react-tooltip";
 import FileViews from  './../FileViews/index';
 import { getDate, newdate, getTime } from './../../BasicMethod/index';
-import * as translationEN from "../../../../translations/en_json_proofread_13072020.json";
-
+import * as translationEN from "../../../../translations/en_json_proofread_13072020.json"
 class Index extends Component {
     constructor(props) {
         super(props)
@@ -32,38 +31,6 @@ class Index extends Component {
 
 
     render() {
-        let translate;
-        switch (this.props.stateLanguageType) {
-            case "en":
-                translate = translationEN.text
-                break;
-            // case "de":
-            //     translate = translationDE.text
-            //     break;
-            // case "pt":
-            //     translate = translationPT.text
-            //     break;
-            // case "sp":
-            //     translate = translationSP.text
-            //     break;
-            // case "rs":
-            //     translate = translationRS.text
-            //     break;
-            // case "nl":
-            //     translate = translationNL.text
-            //     break;
-            // case "ch":
-            //     translate = translationCH.text
-            //     break;
-            // case "sw":
-            //     translate = translationSW.text
-            //     break;
-            case "default":
-                translate = translationEN.text
-        }
-        let { blood_pressure, visible, show, hide, until, archive, rr_systolic, de_archive, Change, 
-            visibility, edit, Delete, RR_diastolic, heart_rate, view_fullscren, always, feeling, date, time }= translate
-        
         var item = this.state.item;
         return (
             <Grid container direction="row" className="descpCntnt">
@@ -187,11 +154,5 @@ class Index extends Component {
     }
 }
 
-const mapStateToProps = (state) => {
-    const { stateLanguageType } = state.LanguageReducer;
-    return {
-        stateLanguageType
-    }
-};
-export default withRouter(connect(mapStateToProps, { LanguageFetchReducer })(Index));
+export default Index;
 
