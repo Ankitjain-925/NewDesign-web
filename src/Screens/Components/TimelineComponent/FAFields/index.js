@@ -7,7 +7,10 @@ import SelectField from './../../Select/index';
 import FileUploader from './../../FileUploader/index';
 import ShowHide from './../../ShowHide/index';
 import NotesEditor from './../../Editor/index';
-
+import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
+import { LanguageFetchReducer } from './../../../actions';
+import * as translationEN from "../../../../translations/en_json_proofread_13072020.json"
 class Index extends Component {
     constructor(props) {
         super(props);
@@ -33,6 +36,37 @@ class Index extends Component {
     }
 
     render() {
+        let translate;
+        switch (this.props.stateLanguageType) {
+            case "en":
+                translate = translationEN.text
+                break;
+            // case "de":
+            //     translate = translationDE.text
+            //     break;
+            // case "pt":
+            //     translate = translationPT.text
+            //     break;
+            // case "sp":
+            //     translate = translationSP.text
+            //     break;
+            // case "rs":
+            //     translate = translationRS.text
+            //     break;
+            // case "nl":
+            //     translate = translationNL.text
+            //     break;
+            // case "ch":
+            //     translate = translationCH.text
+            //     break;
+            // case "sw":
+            //     translate = translationSW.text
+            //     break;
+            case "default":
+                translate = translationEN.text
+        }
+        let { date_of_dieses_patient, attachments, date_of_death, dob} = translate
+
         return (
             <div>
                 <Grid className="cnfrmDiaMain">
@@ -47,19 +81,19 @@ class Index extends Component {
                     </Grid>
                     <Grid className="fillDia">
                         <Grid className="rrSysto">
-                            <Grid><label>Date of disease onset (Patient)</label></Grid>
+                            <Grid><label>{date_of_dieses_patient}</label></Grid>
                             <DateFormat name="dod_onset" value={this.state.updateTrack.dod_onset ? new Date(this.state.updateTrack.dod_onset) : new Date()} date_format={this.state.date_format} onChange={(e)=>this.props.updateEntryState1(e, 'dod_onset')}/>
                         </Grid>   
                     </Grid>
                     <Grid className="fillDia">
                         <Grid className="rrSysto">
-                            <Grid><label>Date of Birth</label></Grid>
+                            <Grid><label>{dob}</label></Grid>
                             <DateFormat name="dob" value={this.state.updateTrack.dob ? new Date(this.state.updateTrack.dob) : new Date()} date_format={this.state.date_format} onChange={(e)=>this.props.updateEntryState1(e, 'dob')}/>
                         </Grid>   
                     </Grid>
                     <Grid className="fillDia">
                         <Grid className="rrSysto">
-                            <Grid><label>Date of Death (if applicable)</label></Grid>
+                            <Grid><label>{date_of_death}</label></Grid>
                             <DateFormat name="dod" value={this.state.updateTrack.dod ? new Date(this.state.updateTrack.dod) : new Date()} date_format={this.state.date_format} onChange={(e)=>this.props.updateEntryState1(e, 'dod')}/>
                         </Grid>   
                     </Grid>
@@ -67,8 +101,8 @@ class Index extends Component {
                         <NotesEditor name="remarks" label="Notes"  onChange={(e)=> this.props.updateEntryState1(e, 'remarks')} value={this.state.updateTrack.remarks}/> 
                     </Grid>
                     <Grid className="attchForms attchImg">
-                        <Grid><label>Attachments</label></Grid>
-                        <FileUploader name="UploadTrackImageMulti" fileUpload={this.FileAttachMulti} />
+                        <Grid><label>{attachments}</label></Grid>
+                        <FileUploader name="UploadTrackImageMulti" isMulti={true} fileUpload={this.props.FileAttachMulti} />
                     </Grid>
                 </Grid>
 
@@ -83,5 +117,10 @@ class Index extends Component {
     }
 }
 
-export default Index;
-
+const mapStateToProps = (state) => {
+    const { stateLanguageType } = state.LanguageReducer;
+    return {
+        stateLanguageType
+    }
+};
+export default withRouter(connect(mapStateToProps, { LanguageFetchReducer })(Index));

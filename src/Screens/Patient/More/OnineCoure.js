@@ -4,11 +4,12 @@ import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { LanguageFetchReducer } from '../../actions';
 import { LoginReducerAim } from '../../Login/actions';
+import { Redirect, Route } from 'react-router-dom';
 import { Settings } from '../../Login/setting';
 import Loader from '../../Components/Loader/index';
 import LeftMenu from './../../Components/Menus/PatientLeftMenu/index';
 import CourseSection from './../../Components/OnlineCourses/index.js';
-import * as translationEN from "../../../translations/en_json_proofread_13072020.json"
+
 class Index extends Component {
     constructor(props) {
        super(props);
@@ -35,38 +36,11 @@ class Index extends Component {
     }
 
     render() {
-        let translate;
-        switch (this.props.stateLanguageType) {
-            case "en":
-                translate = translationEN.text
-                break;
-            // case "de":
-            //     translate = translationDE.text
-            //     break;
-            // case "pt":
-            //     translate = translationPT.text
-            //     break;
-            // case "sp":
-            //     translate = translationSP.text
-            //     break;
-            // case "rs":
-            //     translate = translationRS.text
-            //     break;
-            // case "nl":
-            //     translate = translationNL.text
-            //     break;
-            // case "ch":
-            //     translate = translationCH.text
-            //     break;
-            // case "sw":
-            //     translate = translationSW.text
-            //     break;
-            case "default":
-                translate = translationEN.text
-        }
-        let { } = translate;
-
         const { specialistOption } = this.state;
+        const { stateLoginValueAim } = this.props;
+        if (stateLoginValueAim.user === 'undefined' || stateLoginValueAim.token === 450 || stateLoginValueAim.token === 'undefined' || stateLoginValueAim.user.type !== 'patient') {
+            return (<Redirect to={'/'} />);
+        }
         return (
             <Grid className="homeBg">
                 {this.state.loaderImage && <Loader />}

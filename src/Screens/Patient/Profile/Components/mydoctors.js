@@ -178,7 +178,7 @@ class Index extends Component {
 
     //Get All doctors
     alldoctor = () => {
-        var FamilyList = [];
+        var FamilyList = [];doctorArray=[];
         const user_token = this.props.stateLoginValueAim.token;
         axios.get(sitedata.data.path + '/UserProfile/DoctorUsers', {
             headers: {

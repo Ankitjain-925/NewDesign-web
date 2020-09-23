@@ -60,7 +60,7 @@ class Index extends Component {
         }
     }
 
-    //Uodate tghe State od Option Data (Name phone etc)
+    //Uodate tghe State of Option Data (Name phone etc)
     updateEntryState = (e) => {
         const state = this.state.OptionData;
         state[e.target.name] = e.target.value;

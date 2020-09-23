@@ -7,6 +7,7 @@ import { Settings } from './../../Login/setting';
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { LanguageFetchReducer } from './../../actions';
+import { Redirect, Route } from 'react-router-dom';
 import EmergencyCall from './../../Components/EmergencyPage/index'
 import * as translationEN from "../../../translations/en_json_proofread_13072020.json"
 const path = sitedata.data.path + '/emergency_record';
@@ -55,7 +56,10 @@ class Index extends Component {
         }
         let { ur_emergancy_data } = translate;
 
-
+        const { stateLoginValueAim } = this.props;
+        if (stateLoginValueAim.user === 'undefined' || stateLoginValueAim.token === 450 || stateLoginValueAim.token === 'undefined' || stateLoginValueAim.user.type !== 'patient') {
+            return (<Redirect to={'/'} />);
+        }
         return (
             <Grid className="homeBg">
                 <Grid container direction="row" justify="center">
@@ -69,14 +73,7 @@ class Index extends Component {
                             {/* Website Mid Content */}
                             <Grid item xs={12} md={11}>
                                 <Grid className="emrgncyDataUpr">
-
-                                    <Grid container direction="row">
-                                        <Grid item xs={12} md={10}>
-                                            <Grid className="emrgncyData">
-                                                <h1>{ur_emergancy_data}</h1>
-                                            </Grid>
-                                        </Grid>
-                                    </Grid>
+                                   
                                     {/* call Emergency Section */}
                                     <EmergencyCall byUser="patient"/>
 

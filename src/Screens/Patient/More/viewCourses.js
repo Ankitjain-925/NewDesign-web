@@ -31,6 +31,7 @@ class Index extends Component {
 
     render() {
         const { specialistOption } = this.state;
+        const { stateLoginValueAim } = this.props;
         return (
             <Grid className="homeBg">
                 {this.state.loaderImage && <Loader />}

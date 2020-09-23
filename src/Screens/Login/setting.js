@@ -23,7 +23,6 @@ export const Settings = (user_token) => {
             }
             else
             {
-                console.log('here24');
                 let tmp = {};
                 dispatch({ type: GET_SETTING_ERROR , payload :tmp});
             }

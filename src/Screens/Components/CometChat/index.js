@@ -19,7 +19,6 @@ class App extends React.Component {
 
   componentDidMount() {
     this.props.onLogin(this.props.Uid, COMETCHAT_CONSTANTS.AUTH_KEY);
-    // console.log('this.props.Uid', this.props.isLoggedIn)
   }
 
   render() {

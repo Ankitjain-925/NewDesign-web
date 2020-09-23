@@ -331,9 +331,28 @@ class Index extends Component {
             <Grid container direction="row">
                 {this.state.loaderImage && <Loader />}
                 <Grid item xs={12} md={9}>
-
+                
                     {/* Health Status */}
                     <Grid className="healthStatus">
+                    <Grid className="journalAdd">
+                        <Grid container direction="row">
+                            <Grid item xs={11} md={11}>
+                            
+                                <Grid container direction="row">
+                                    <Grid item xs={6} md={6}>
+                                        {this.props.byUser==='patient' ? <h1>Your Emergency Access</h1> : <h1>Patient Emergency Access</h1>}
+                                    </Grid>
+                                    <Grid item xs={6} md={6}>
+                                        <Grid className="AddEntrynw">
+                                        {this.props.byUser==='patient' ? '' :  <a onClick={this.props.anotherPatient}>Another patient's Data</a>}
+                                            
+                                        </Grid>
+                                    </Grid>
+                                </Grid>
+                                
+                            </Grid>
+                        </Grid>
+                    </Grid>
                         <h2>Health Status</h2>
                         <Grid container direction="row" spacing={3}>
                             <Grid item xs={12} md={4}>

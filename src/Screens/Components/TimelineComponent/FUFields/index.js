@@ -4,6 +4,10 @@ import MMHG from './../../mmHgField/index';
 import FileUploader from './../../FileUploader/index';
 import ShowHide from './../../ShowHide/index';
 import NotesEditor from './../../Editor/index';
+import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
+import { LanguageFetchReducer } from './../../../actions';
+import * as translationEN from "../../../../translations/en_json_proofread_13072020.json"
 
 class Index extends Component {
     constructor(props) {
@@ -29,12 +33,42 @@ class Index extends Component {
     }
 
     render() {
+        let translate;
+        switch (this.props.stateLanguageType) {
+            case "en":
+                translate = translationEN.text
+                break;
+            // case "de":
+            //     translate = translationDE.text
+            //     break;
+            // case "pt":
+            //     translate = translationPT.text
+            //     break;
+            // case "sp":
+            //     translate = translationSP.text
+            //     break;
+            // case "rs":
+            //     translate = translationRS.text
+            //     break;
+            // case "nl":
+            //     translate = translationNL.text
+            //     break;
+            // case "ch":
+            //     translate = translationCH.text
+            //     break;
+            // case "sw":
+            //     translate = translationSW.text
+            //     break;
+            case "default":
+                translate = translationEN.text
+        }
+        let { attachments} = translate
         return (
             <div>
                 <Grid className="cnfrmDiaMain">
                     <Grid className="attchForms attchImg">
-                        <Grid><label>Attachments</label></Grid>
-                        <FileUploader name="UploadTrackImageMulti" fileUpload={this.FileAttachMulti} />
+                        <Grid><label>{attachments}</label></Grid>
+                        <FileUploader name="UploadTrackImageMulti" isMulti={true} fileUpload={this.props.FileAttachMulti} />
                     </Grid>
                     <Grid className="fillDia">
                         <MMHG name="file_content" label="File Content" onChange={(e)=> this.props.updateEntryState(e)} value={this.state.updateTrack.file_content}/>    
@@ -56,5 +90,11 @@ class Index extends Component {
     }
 }
 
-export default Index;
+const mapStateToProps = (state) => {
+    const { stateLanguageType } = state.LanguageReducer;
+    return {
+        stateLanguageType
+    }
+};
+export default withRouter(connect(mapStateToProps, { LanguageFetchReducer })(Index));
 

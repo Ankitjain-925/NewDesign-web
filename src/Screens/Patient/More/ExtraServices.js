@@ -142,7 +142,7 @@ class Index extends Component {
         });
     }
     render() {
-        const { stateLoginValueAim, Doctorsetget } = this.props;
+        const { stateLoginValueAim } = this.props;
         if (stateLoginValueAim.user === 'undefined' || stateLoginValueAim.token === 450 || stateLoginValueAim.token === 'undefined' || stateLoginValueAim.user.type !== 'patient') {
             return (<Redirect to={'/'} />);
         }

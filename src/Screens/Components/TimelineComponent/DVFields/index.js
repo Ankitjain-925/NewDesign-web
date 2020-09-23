@@ -6,7 +6,10 @@ import SelectField from './../../Select/index';
 import FileUploader from './../../FileUploader/index';
 import NotesEditor from './../../Editor/index';
 import ShowHide from './../../ShowHide/index';
-
+import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
+import { LanguageFetchReducer } from './../../../actions';
+import * as translationEN from "../../../../translations/en_json_proofread_13072020.json"
 class Index extends Component {
     constructor(props) {
         super(props);
@@ -31,6 +34,37 @@ class Index extends Component {
     }
 
     render() {
+        let translate;
+        switch (this.props.stateLanguageType) {
+            case "en":
+                translate = translationEN.text
+                break;
+            // case "de":
+            //     translate = translationDE.text
+            //     break;
+            // case "pt":
+            //     translate = translationPT.text
+            //     break;
+            // case "sp":
+            //     translate = translationSP.text
+            //     break;
+            // case "rs":
+            //     translate = translationRS.text
+            //     break;
+            // case "nl":
+            //     translate = translationNL.text
+            //     break;
+            // case "ch":
+            //     translate = translationCH.text
+            //     break;
+            // case "sw":
+            //     translate = translationSW.text
+            //     break;
+            case "default":
+                translate = translationEN.text
+        }
+        let { date_doc_visit, attachments } = translate
+
         return (
             <div>
                 <Grid className="cnfrmDiaMain">
@@ -46,7 +80,7 @@ class Index extends Component {
                   
                     <Grid className="fillDia">
                         <Grid className="rrSysto">
-                            <Grid><label>Date Dcotor Visit</label></Grid>
+                            <Grid><label>{date_doc_visit}</label></Grid>
                             <DateFormat name="date_doctor_visit" value={this.state.updateTrack.date_doctor_visit ? new Date(this.state.updateTrack.date_doctor_visit) : new Date()} date_format={this.state.date_format} onChange={(e)=>this.props.updateEntryState1(e, 'date_doctor_visit')}/>
                         </Grid>   
                     </Grid>
@@ -54,8 +88,8 @@ class Index extends Component {
                         <NotesEditor name="remarks" label="Notes"  onChange={(e)=> this.props.updateEntryState1(e, 'remarks')} value={this.state.updateTrack.remarks}/> 
                     </Grid>
                     <Grid className="attchForms attchImg">
-                        <Grid><label>Attachments</label></Grid>
-                        <FileUploader name="UploadTrackImageMulti" fileUpload={this.FileAttachMulti} />
+                        <Grid><label>{attachments}</label></Grid>
+                        <FileUploader name="UploadTrackImageMulti" isMulti={true} fileUpload={this.props.FileAttachMulti} />
                     </Grid>
                     
                 </Grid>
@@ -71,5 +105,10 @@ class Index extends Component {
     }
 }
 
-export default Index;
-
+const mapStateToProps = (state) => {
+    const { stateLanguageType } = state.LanguageReducer;
+    return {
+        stateLanguageType
+    }
+};
+export default withRouter(connect(mapStateToProps, { LanguageFetchReducer })(Index));

@@ -375,6 +375,7 @@ class Index extends Component {
         const user_token = this.props.stateLoginValueAim.token;
         this.setState({ insuranceDetails: { insurance: '', insurance_number: '', insurance_country: '' } })
         var parent_id = this.state.UpDataDetails.parent_id ? this.state.UpDataDetails.parent_id : '0';
+       
         axios.put(sitedata.data.path + '/UserProfile/Users/update', {
             type: 'patient',
             pin: this.state.UpDataDetails.pin,
@@ -461,6 +462,7 @@ class Index extends Component {
                 }
                 this.setState({ loaderImage: false });
                 this.getUserData();
+                this.handlePinClose("chngPinOpen");
             })
         }
     }
@@ -492,17 +494,14 @@ class Index extends Component {
 
     //For open the Insurance Edit popup
     editKYCopen(event, i) {
-        let selectedCountry= this.state.selectedCountry
-        selectedCountry= {value:event.insurance_country}
-        this.setState({ editInsuranceOpen: true, insuranceDetails: event, editIndex: i, selectedCountry:selectedCountry })
+        this.setState({ editInsuranceOpen: true, insuranceDetails: event, editIndex: i })
     }
 
 
     //For update the insurance country
-    updatesinsurancesCountry(keys, event) {
-        datas[keys].insurance=''
-        datas[keys].insurance_country = event.value;
-        this.setState({ insurancefull: datas, selectedCountry:event })
+    updatesinsurancesCountry(keys, e) {
+        datas[keys].insurance_country = e.value;
+        this.setState({ insurancefull: datas })
     }
 
     //Update Insurance
@@ -792,11 +791,11 @@ class Index extends Component {
                         {this.state.succUpdate && <div className="success_message">{profile_updated}</div>}
                         {this.state.error3 && <div className="err_message">{profile_not_updated}</div>}
                         {this.state.phonevalidate && <div className="err_message">{mobile_number_not_valid}</div>}
+                        {this.state.ChangedPIN && <div className="success_message">{profile} {ID} {and} {pin} {is} {changed}</div>}
                         <h1>{profile} {information}</h1>
                         <p>{profile_info}</p>
                     </Grid>
                 </Grid>
-
                 <Grid className="profileId">
                     <Grid container direction="row" alignItems="center">
                         <Grid item xs={12} md={8}>
@@ -857,7 +856,6 @@ class Index extends Component {
                                 </Grid>
                                 <Grid className="editPinform">
                                     <Grid className="editField">
-                                        {this.state.ChangedPIN && <div className="success_message">{profile} {ID} {and} {pin} {is} {changed}</div>}
                                         <label>{profile} {ID}</label>
                                         <Grid><input type="text" name="alies_id" onChange={this.changeAlies} value={this.state.UpDataDetails.alies_id} /></Grid>
                                         {this.state.DuplicateAlies && <p>{profile_id_taken}</p>}
