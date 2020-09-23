@@ -41,7 +41,7 @@ class Index extends Component {
             MypatientsData: [],
             sickData: {},
             inqstatus: null,
-            message:''
+            message: ''
         };
     }
 
@@ -100,9 +100,9 @@ class Index extends Component {
         });
     }
 
-    updateCertificate = (status,id) => {
+    updateCertificate = (status, id) => {
         // let sata = status.charAt(0).toUpperCase() + status.slice(1)
-        this.setState({inqstatus: status, selected_id: id})
+        this.setState({ inqstatus: status, selected_id: id })
         this.handleOpenReject();
     }
 
@@ -209,7 +209,7 @@ class Index extends Component {
                                 'Content-Type': fileType
                             }
                         };
-                        axios.put(signedRequest, file1, options)
+                        axios.put('https://cors-anywhere.herokuapp.com/'+signedRequest, file1, options)
                             .then(result => {
                                 console.log("Response from s3")
                                 this.setState({ success: true });
@@ -268,8 +268,8 @@ class Index extends Component {
 
     }
 
-     removePrsecription = (status, id) =>{
-        this.setState({message : null});
+    removePrsecription = (status, id) => {
+        this.setState({ message: null });
         confirmAlert({
             title: 'Update the Inqury',
             message: 'Are you sure  to remove this Inquiry?',
@@ -306,8 +306,11 @@ class Index extends Component {
     }
 
     render() {
-        const { inqstatus, sickData, MypatientsData } = this.state;
-        const { value } = this.state;
+        const { inqstatus, sickData, MypatientsData, imagePreviewUrl } = this.state;
+        let $imagePreview       = null;
+        if(imagePreviewUrl) {
+            $imagePreview = (<img style={{ borderRadius: "10%", maxWidth: 350,marginBottom:10 }} src={ imagePreviewUrl } />);
+        }
         let translate;
         switch (this.props.stateLanguageType) {
             case "en":
@@ -455,15 +458,19 @@ class Index extends Component {
 
                                         <Grid><label>{(sickData.status !== 'accept') ? 'Upload scanned' : 'Scanned'} prescription</label></Grid>
 
-                                        {(sickData.status !== 'accept') && <Grid className="scamUPInput">
+                                        {(sickData.status !== 'accept'&& !$imagePreview) && <Grid className="scamUPInput">
                                             <a><img src={require('../../../../assets/images/upload-file.svg')} alt="" title="" /></a>
-                                            <a>Browse <input type="file" onChange={this.UploadFile} /></a> or drag here
+                                            <a>Browse <input type="file" onChange={(e)=>this.UploadFile(e, sickData.patient_profile_id, sickData.patient_info.bucket, sickData._id)} /></a> or drag here
                                                                             </Grid>}
-                                        {(sickData.status !== 'accept') && <p>Supported file types: .jpg, .png, .pdf</p>}
-                                        {(sickData.status === 'accept') && <img src={sickData.attachfile[0].filename} />}
+                                        {(sickData.status !== 'accept')&& !$imagePreview && <p>Supported file types: .jpg, .png, .pdf</p>}
+                                        {(sickData.status === 'accept')&& !$imagePreview && <img src={sickData.attachfile[0].filename} />}
+                                        {(sickData.status !== 'accept')  && $imagePreview}
+                                        {(sickData.attachfile && this.state.uploadedimage && sickData.status !== 'accept') && <Grid item xs={12} md={12}>
+                                            <input type="button" value="Send to patient's Timeline and Email" onClick={() => this.saveUserData(sickData._id)} className="approvBtn" />
+                                        </Grid>}
                                     </Grid>}
 
-                                {(sickData.status !== 'accept' && sickData.status !== 'decline') && <Grid container direction="row">
+                                {(sickData.status !== 'accept' && sickData.status !== 'decline'&& sickData.status !== 'pending') && <Grid container direction="row">
                                     <Grid item xs={6} md={6}>
                                         <input type="button" value="Approve" onClick={() => this.deleteClickPatient('accept', sickData._id)} className="approvBtn" />
                                     </Grid>

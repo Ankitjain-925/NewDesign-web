@@ -52,7 +52,7 @@ class Index extends Component {
 
 
 
-    getMyprescriptionssData() {
+    getMyprescriptionssData =()=> {
         let user_token = this.props.stateLoginValueAim.token
         axios.get(sitedata.data.path + '/UserProfile/GetPrescription/', {
             headers: {
@@ -138,12 +138,13 @@ class Index extends Component {
                 'Content-Type': 'application/json'
             }
         }).then((response) => {
+            this.setState({openPrescp: false, openReject: false})
             this.getMyprescriptionssData();
         }).catch((error) => {
         });
     }
 
-    saveUserData(id){
+    saveUserData = (id) =>{
         this.setState({serverMsg : ""})
         if(this.state.uploadedimage == ""){
             this.setState({ serverMsg : "please upload documents"})
@@ -158,18 +159,20 @@ class Index extends Component {
                     'Content-Type': 'application/json'
                 }})
             .then((responce)=>{
+                
                 this.setState({ serverMsg : responce.data.message})
                 this.setState({ loaderImage: false });
             })
         }
     }
 
-    UploadFile(event, patient_profile_id, bucket, id) {
+    UploadFile = (event, patient_profile_id, bucket, id) => {
         this.setState({ loaderImage: true });
         event.preventDefault();
         let reader = new FileReader();
         let file = event.target.files[0];
         reader.onloadend = () => {
+            console.log("reader.result", reader.result)
             this.setState({
                 file: file,
                 imagePreviewUrl: reader.result
@@ -217,7 +220,7 @@ class Index extends Component {
                                 'Content-Type': fileType
                             }
                         };
-                        axios.put(signedRequest, file1, options)
+                        axios.put('https://cors-anywhere.herokuapp.com/'+signedRequest, file1, options)
                             .then(result => {
                                 console.log("Response from s3")
                                 this.setState({ success: true });
@@ -327,6 +330,11 @@ class Index extends Component {
             //     break;
             case "default":
                 translate = translationEN.text
+        }
+        let {imagePreviewUrl}   = this.state;
+        let $imagePreview       = null;
+        if(imagePreviewUrl) {
+            $imagePreview = (<img style={{ borderRadius: "10%", maxWidth: 350,marginBottom:10 }} src={ imagePreviewUrl } />);
         }
         let { srvc_Doctors, status, sent, on, prescription, Pending, request, edit, Rejected, Answered, Cancelled, req_updated_successfully, sick_cert, my_doc, New, inquiry,
             doc_and_statnderd_ques, doc_aimedis_private, Annotations, details, questions, is_this_follow_pres, how_u_like_rcv_pres, Medicine, Substance, Dose, mg, trade_name, atc_if_applicable, manufacturer, pack_size, } = translate
@@ -440,15 +448,18 @@ class Index extends Component {
 
                                         <Grid><label>{(prescData.status !== 'accept') ? 'Upload scanned' : 'Scanned'} prescription</label></Grid>
 
-                                        {(prescData.status !== 'accept') && <Grid className="scamUPInput">
+                                        {(prescData.status !== 'accept' && !$imagePreview) && <Grid className="scamUPInput">
                                             <a><img src={require('../../../../assets/images/upload-file.svg')} alt="" title="" /></a>
-                                            <a>Browse <input type="file" onChange={this.UploadFile} /></a> or drag here
-                                                                            </Grid>}
-                                        {(prescData.status !== 'accept') && <p>Supported file types: .jpg, .png, .pdf</p>}
-                                        {(prescData.status === 'accept') && <img src={prescData.attachfile[0].filename} />}
+                                            <a>Browse <input type="file" onChange={(e)=>this.UploadFile(e, prescData.patient_profile_id, prescData.patient_info.bucket, prescData._id)} /></a> or drag here
+                                        </Grid>}
+                                        {(prescData.status !== 'accept')&& !$imagePreview && <p>Supported file types: .jpg, .png, .pdf</p>}
+                                        {(prescData.status !== 'accept')  && $imagePreview}
+                                        {(prescData.attachfile && this.state.uploadedimage && prescData.status !== 'accept') && <Grid item xs={12} md={12}>
+                                            <input type="button" value="Send to patient's Timeline and Email" onClick={() => this.saveUserData(prescData._id)} className="approvBtn" />
+                                        </Grid>}
                                     </Grid>}
 
-                                {(prescData.status !== 'accept' && prescData.status !== 'decline') && <Grid container direction="row">
+                                {(prescData.status !== 'accept' && prescData.status !== 'decline'  && prescData.status !== 'pending') && <Grid container direction="row">
                                     <Grid item xs={6} md={6}>
                                         <input type="button" value="Approve" onClick={() => this.deleteClickPatient('accept', prescData._id)} className="approvBtn" />
                                     </Grid>
