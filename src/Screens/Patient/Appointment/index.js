@@ -17,6 +17,8 @@ import Geocode from "react-geocode";
 import LeftMenu from "../../Components/Menus/PatientLeftMenu/index";
 import axios from "axios"
 import sitedata from "../../../sitedata"
+import Autocomplete from './Autocomplete';
+
 
 const options = [
     { value: 'data1', label: 'Data1' },
@@ -38,6 +40,7 @@ class Index extends Component {
             openAllowLoc: false,
             openApoint: false,
             openFancyVdo: false,
+            searchDetails: {}
         };
     }
     componentDidMount() {
@@ -63,8 +66,9 @@ class Index extends Component {
         }
     }
 
-    handleOpenFancyVdo = () => {
-        this.setState({ openFancyVdo: true });
+    handleOpenFancyVdo = (type, data) => {
+        console.log(type, data)
+        this.setState({ openFancyVdo: true, appointmentData: data });
     };
     handleCloseFancyVdo = () => {
         this.setState({ openFancyVdo: false });
@@ -82,6 +86,7 @@ class Index extends Component {
             }
         })
             .then((response) => {
+                console.log("patient data response", response)
                 this.setState({ personalinfo: response.data.data, loaderImage: false })
             })
     }
@@ -107,7 +112,7 @@ class Index extends Component {
     getlocation() {
         console.log("Get location response")
         let radius, Latitude, longitude
-        if (this.state.searchDetails.radius) {
+        if (this.state.searchDetails && this.state.searchDetails.radius) {
             radius = this.state.searchDetails.radius + '000'
         } else {
             radius = 20 + '000'
@@ -122,11 +127,12 @@ class Index extends Component {
             alert("please enter city")
         }
         // if (radius && Latitude && longitude) {
+        console.log("Latitude", Latitude, "longitude", longitude)
         axios.get(sitedata.data.path + '/UserProfile/getLocation/' + radius, {
             params: {
                 speciality: this.state.searchDetails.specialty,
-                longitude: longitude,
-                Latitude: Latitude
+                longitude: 77.45375779999999,
+                Latitude: 28.6691565
             }
         })
             .then((responce) => {
@@ -156,6 +162,28 @@ class Index extends Component {
             })
         // }
     }
+    // Search by City
+    showPlaceDetails(place) {
+        console.log("showPlaceDetails", place)
+        place = place.geometry.location
+        this.setState({ place });
+        this.setState({ mLatitude: place.lat() });
+        this.setState({ mlongitude: place.lng() });
+        Geocode.enableDebug();
+        Geocode.fromLatLng(this.state.mLatitude, this.state.mlongitude).then(
+            response => {
+                const address = response.results[0].formatted_address;
+                this.setState({ MycurrentLocationName: address })
+            },
+            error => {
+                console.error(error);
+            }
+        );
+    }
+
+    apointmentType(event) {
+        console.log("apointmentType", event.target.name)
+    }
 
     handleOpenApoint = () => {
         this.setState({ openApoint: true });
@@ -164,7 +192,10 @@ class Index extends Component {
         this.setState({ openApoint: false });
     };
     handleChangeSelect = selectedOption => {
-        this.setState({ selectedOption });
+        let searchDetails = this.state.searchDetails
+        searchDetails["specialty"] = selectedOption.value
+        console.log("selectedOption", selectedOption)
+        this.setState({ selectedOption: selectedOption, searchDetails: searchDetails });
     };
     handleAllowLoc = () => {
         this.getlocation()
@@ -194,10 +225,46 @@ class Index extends Component {
     handleCloseDash = () => {
         this.setState({ openDash: false });
     };
-    onChange = date => this.setState({ date })
+    onChange = (date) => {
+        let day_num = date.getDay()
+        let days
+        switch (day_num) {
+            case 1:
+                days = "monday"
+                break;
+            case 2:
+                days = "tuseday"
+                break;
+            case 3:
+                days = "wednesday"
+                break;
+            case 4:
+                days = "thursday"
+                break;
+            case 5:
+                days = "friday"
+                break;
+            case 6:
+                days = "saturday"
+                break;
+            case 0:
+                days = "sunday"
+                break;
+        }
+        let appointmentData = this.state.appointmentData
+        let appointDate
+        Object.entries(appointmentData).map(([key, value]) => {
+            if (key == days) {
+                appointDate = value
+            }
+        })
+        console.log("appointDate", appointDate)
+        this.setState({ appointDate })
+    }
 
     render() {
-        const { selectedOption, specialityData } = this.state;
+        console.log("ALL doctor", this.state.allDocData)
+        const { selectedOption, specialityData, allDocData, date } = this.state;
         return (
             <Grid className="homeBg">
                 <Grid className="homeBgIner">
@@ -291,10 +358,12 @@ class Index extends Component {
                                                 <img src={require('../../../assets/images/closefancy.png')} alt="" title="" />
                                             </a>
                                             <Grid className="selCalenderUpr">
-                                                <Grid className="selCalender"><Calendar onChange={this.onChange} value={this.state.date} /></Grid>
+                                                <Grid className="selCalender">
+                                                    <Calendar onChange={this.onChange} value={this.state.date} />
+                                                </Grid>
                                                 <Grid className="selTimeSlot">
                                                     <Grid><label>Select time slot</label></Grid>
-                                                    <Grid className="selTimeAM">
+                                                    <Grid className="selTimeAM">{console.log("apointment date", this.state)}
                                                         <Grid><span>AM</span></Grid>
                                                         <Grid><a>09:00 - 09:30</a></Grid>
                                                         <Grid><a>09:30 - 10:00</a></Grid>
@@ -361,7 +430,7 @@ class Index extends Component {
                                             <Grid container direction="row">
                                                 <Grid item xs={6} md={6} className="officeVstLft"><label>9 Aug, 09:00</label></Grid>
                                                 <Grid item xs={6} md={6} className="officeVstRght">
-                                                    <a onclick={this.handleOpenFancyVdo}><img src={require('../../../assets/images/video-call.svg')} alt="" title="" /> Video call</a>
+                                                    <a onClick={this.handleOpenFancyVdo}><img src={require('../../../assets/images/video-call.svg')} alt="" title="" /> Video call</a>
                                                 </Grid>
                                             </Grid>
                                             <Grid className="showSubject">
@@ -509,6 +578,7 @@ class Index extends Component {
                                                                                 <Grid item xs={12} md={3} className="locat_srvc">
                                                                                     <Grid><label>Location of service</label></Grid>
                                                                                     <input type="text" placeholder="Search for city" />
+                                                                                    {/* <Autocomplete onPlaceChanged={this.showPlaceDetails.bind(this)} /> */}
                                                                                     <img src={require('../../../assets/images/search-entries.svg')} alt="" title="" />
                                                                                 </Grid>
                                                                                 <Grid item xs={12} md={2} className="srchKm">
@@ -526,98 +596,62 @@ class Index extends Component {
 
                                                                         {/* New Design */}
                                                                         <div className="allowAvailList">
+                                                                            {allDocData && allDocData.length > 0 && allDocData.map(doc => (
+                                                                                <div className="allowAvailListIner">
+                                                                                    <Grid container direction="row" spacing={1}>
+                                                                                        <Grid item xs={12} md={3}>
+                                                                                            <Grid className="spclistDr">
+                                                                                                {doc.data.new_image
+                                                                                                    ? <img className="doctor_pic" src={doc.data.new_image} alt="" title="" />
+                                                                                                    : <img className="doctor_pic" src={require('../../../assets/images/avatar.png')} alt="" title="" />}
+                                                                                                <a>
+                                                                                                    {/* <img src={doc.data.image} alt="" title="" /> */}
+                                                                                                    {doc.data && doc.data.first_name && doc.data.first_name} {doc.data && doc.data.last_name && doc.data.last_name} ({doc.data && doc.data.title && doc.data.title})
+                                                                                                </a>
+                                                                                            </Grid>
+                                                                                            {doc.data && doc.data.speciality && doc.data.speciality.length > 0 && doc.data.speciality.map(spec => (
+                                                                                                <Grid className="nuroDr">
+                                                                                                    <label>{spec}</label>
+                                                                                                    <p>Neurodegerenative diseases</p>
+                                                                                                </Grid>
+                                                                                            ))}
 
-                                                                            <div className="allowAvailListIner">
-                                                                                <Grid container direction="row" spacing={1}>
-                                                                                    <Grid item xs={12} md={3}>
-                                                                                        <Grid className="spclistDr">
-                                                                                            <a><img src={require('../../../assets/images/dr1.jpg')} alt="" title="" />
-                                                                                                Mark Anderson M.D.
-                                                                                      </a>
+                                                                                            {/* <Grid className="nuroDr">
+                                                                                                <label>NEUROLOGY</label>
+                                                                                                <p>Neurodegerenative diseases</p>
+                                                                                            </Grid> */}
                                                                                         </Grid>
-                                                                                        <Grid className="nuroDr">
-                                                                                            <label>NEUROLOGY</label>
-                                                                                            <p>Neurodegerenative diseases</p>
+                                                                                        <Grid item xs={12} md={5}>
+                                                                                            <Grid className="srvcTagsCntnt">
+                                                                                                <Grid className="srvcTags"> <a>Contact</a> <a>Services</a> <a>Latest info</a> </Grid>
+                                                                                                <Grid className="srvcTagsLoc">
+                                                                                                    <a><img src={require('../../../assets/images/location-pin.svg')} alt="" title="" />
+                                                                                                        {doc.data && doc.data.city && doc.data.city}</a>
+                                                                                                    <a><img src={require('../../../assets/images/phone.svg')} alt="" title="" />
+                                                                                                        {doc.data && doc.data.mobile && doc.data.mobile}</a>
+                                                                                                    <a><img src={require('../../../assets/images/email.svg')} alt="" title="" />
+                                                                                                        {doc.data && doc.data.email && doc.data.email}</a>
+                                                                                                    <a><img src={require('../../../assets/images/language.svg')} alt="" title="" />
+                                                                                                        {doc.data && doc.data.language && doc.data.language.length > 0 && doc.data.language.join(", ")}</a>
+                                                                                                </Grid>
+                                                                                            </Grid>
                                                                                         </Grid>
-                                                                                        <Grid className="nuroDr">
-                                                                                            <label>NEUROLOGY</label>
-                                                                                            <p>Neurodegerenative diseases</p>
-                                                                                        </Grid>
-                                                                                    </Grid>
-                                                                                    <Grid item xs={12} md={5}>
-                                                                                        <Grid className="srvcTagsCntnt">
-                                                                                            <Grid className="srvcTags"> <a>Contact</a> <a>Services</a> <a>Latest info</a> </Grid>
-                                                                                            <Grid className="srvcTagsLoc">
-                                                                                                <a><img src={require('../../../assets/images/location-pin.svg')} alt="" title="" />
-                                                                                                    Sint Michaëlstraat 4, 5935 BL Steyl, Netherlands</a>
-                                                                                                <a><img src={require('../../../assets/images/phone.svg')} alt="" title="" />
-                                                                                                    01731508000</a>
-                                                                                                <a><img src={require('../../../assets/images/email.svg')} alt="" title="" />
-                                                                                                    doctor1@aimedis.com</a>
-                                                                                                <a><img src={require('../../../assets/images/language.svg')} alt="" title="" />
-                                                                                                    English, Dutch, French, German, Arabic</a>
+                                                                                        <Grid item xs={12} md={4}>
+                                                                                            <Grid className="avlablDates">
+                                                                                                <h3>SEE AVAILABLE DATES FOR:</h3>
+                                                                                                <Grid>
+                                                                                                    <a onClick={() => this.handleOpenFancyVdo("video call", doc.online_appointment[0])}><img src={require('../../../assets/images/video-call-copy2.svg')} alt="" title="" />Video call</a>
+                                                                                                    <a onClick={() => this.handleOpenFancyVdo("office visit", doc.appointments[0])}><img src={require('../../../assets/images/ShapeCopy2.svg')} alt="" title="" />Office visit</a>
+                                                                                                    <a onClick={() => this.handleOpenFancyVdo("consultancy", doc.practice_days[0])} className="addClnder"><img src={require('../../../assets/images/cal.png')} alt="" title="" />Consultancy (custom calendar)</a>
+                                                                                                </Grid>
                                                                                             </Grid>
                                                                                         </Grid>
                                                                                     </Grid>
-                                                                                    <Grid item xs={12} md={4}>
-                                                                                        <Grid className="avlablDates">
-                                                                                            <h3>SEE AVAILABLE DATES FOR:</h3>
-                                                                                            <Grid>
-                                                                                                <a  onclick={this.handleOpenFancyVdo}><img src={require('../../../assets/images/video-call-copy2.svg')} alt="" title="" />Video call</a>
-                                                                                                <a><img src={require('../../../assets/images/ShapeCopy2.svg')} alt="" title="" />Office visit</a>
-                                                                                                <a className="addClnder"><img src={require('../../../assets/images/cal.png')} alt="" title="" />Consultancy (custom calendar)</a>
-                                                                                            </Grid>
-                                                                                        </Grid>
-                                                                                    </Grid>
-                                                                                </Grid>
-                                                                            </div>
+                                                                                </div>
+                                                                            ))}
 
-                                                                            <div className="allowAvailListIner">
-                                                                                <Grid container direction="row" spacing={1}>
-                                                                                    <Grid item xs={12} md={3}>
-                                                                                        <Grid className="spclistDr">
-                                                                                            <a><img src={require('../../../assets/images/dr1.jpg')} alt="" title="" />
-                                                                                                Mark Anderson M.D.
-                                                                                      </a>
-                                                                                        </Grid>
-                                                                                        <Grid className="nuroDr">
-                                                                                            <label>NEUROLOGY</label>
-                                                                                            <p>Neurodegerenative diseases</p>
-                                                                                        </Grid>
-                                                                                        <Grid className="nuroDr">
-                                                                                            <label>NEUROLOGY</label>
-                                                                                            <p>Neurodegerenative diseases</p>
-                                                                                        </Grid>
-                                                                                    </Grid>
-                                                                                    <Grid item xs={12} md={5}>
-                                                                                        <Grid className="srvcTagsCntnt">
-                                                                                            <Grid className="srvcTags"> <a>Contact</a> <a>Services</a> <a>Latest info</a> </Grid>
-                                                                                            <Grid className="srvcTagsLoc">
-                                                                                                <a><img src={require('../../../assets/images/location-pin.svg')} alt="" title="" />
-                                                                                                    Sint Michaëlstraat 4, 5935 BL Steyl, Netherlands</a>
-                                                                                                <a><img src={require('../../../assets/images/phone.svg')} alt="" title="" />
-                                                                                                    01731508000</a>
-                                                                                                <a><img src={require('../../../assets/images/email.svg')} alt="" title="" />
-                                                                                                    doctor1@aimedis.com</a>
-                                                                                                <a><img src={require('../../../assets/images/language.svg')} alt="" title="" />
-                                                                                                    English, Dutch, French, German, Arabic</a>
-                                                                                            </Grid>
-                                                                                        </Grid>
-                                                                                    </Grid>
-                                                                                    <Grid item xs={12} md={4}>
-                                                                                        <Grid className="avlablDates">
-                                                                                            <h3>SEE AVAILABLE DATES FOR:</h3>
-                                                                                            <Grid>
-                                                                                                <a><img src={require('../../../assets/images/video-call-copy2.svg')} alt="" title="" />Video call</a>
-                                                                                                <a><img src={require('../../../assets/images/ShapeCopy2.svg')} alt="" title="" />Office visit</a>
-                                                                                                <a className="addClnder"><img src={require('../../../assets/images/cal.png')} alt="" title="" />Consultancy (custom calendar)</a>
-                                                                                            </Grid>
-                                                                                        </Grid>
-                                                                                    </Grid>
-                                                                                </Grid>
-                                                                            </div>
 
-                                                                            <div className="allowAvailListIner">
+                                                                            {/* <div className="allowAvailListIner">
                                                                                 <Grid container direction="row" spacing={1}>
                                                                                     <Grid item xs={12} md={3}>
                                                                                         <Grid className="spclistDr">
@@ -796,6 +830,51 @@ class Index extends Component {
                                                                                     </Grid>
                                                                                 </Grid>
                                                                             </div>
+
+                                                                            <div className="allowAvailListIner">
+                                                                                <Grid container direction="row" spacing={1}>
+                                                                                    <Grid item xs={12} md={3}>
+                                                                                        <Grid className="spclistDr">
+                                                                                            <a><img src={require('../../../assets/images/dr1.jpg')} alt="" title="" />
+                                                                                                Mark Anderson M.D.
+                                                                                      </a>
+                                                                                        </Grid>
+                                                                                        <Grid className="nuroDr">
+                                                                                            <label>NEUROLOGY</label>
+                                                                                            <p>Neurodegerenative diseases</p>
+                                                                                        </Grid>
+                                                                                        <Grid className="nuroDr">
+                                                                                            <label>NEUROLOGY</label>
+                                                                                            <p>Neurodegerenative diseases</p>
+                                                                                        </Grid>
+                                                                                    </Grid>
+                                                                                    <Grid item xs={12} md={5}>
+                                                                                        <Grid className="srvcTagsCntnt">
+                                                                                            <Grid className="srvcTags"> <a>Contact</a> <a>Services</a> <a>Latest info</a> </Grid>
+                                                                                            <Grid className="srvcTagsLoc">
+                                                                                                <a><img src={require('../../../assets/images/location-pin.svg')} alt="" title="" />
+                                                                                                    Sint Michaëlstraat 4, 5935 BL Steyl, Netherlands</a>
+                                                                                                <a><img src={require('../../../assets/images/phone.svg')} alt="" title="" />
+                                                                                                    01731508000</a>
+                                                                                                <a><img src={require('../../../assets/images/email.svg')} alt="" title="" />
+                                                                                                    doctor1@aimedis.com</a>
+                                                                                                <a><img src={require('../../../assets/images/language.svg')} alt="" title="" />
+                                                                                                    English, Dutch, French, German, Arabic</a>
+                                                                                            </Grid>
+                                                                                        </Grid>
+                                                                                    </Grid>
+                                                                                    <Grid item xs={12} md={4}>
+                                                                                        <Grid className="avlablDates">
+                                                                                            <h3>SEE AVAILABLE DATES FOR:</h3>
+                                                                                            <Grid>
+                                                                                                <a><img src={require('../../../assets/images/video-call-copy2.svg')} alt="" title="" />Video call</a>
+                                                                                                <a><img src={require('../../../assets/images/ShapeCopy2.svg')} alt="" title="" />Office visit</a>
+                                                                                                <a className="addClnder"><img src={require('../../../assets/images/cal.png')} alt="" title="" />Consultancy (custom calendar)</a>
+                                                                                            </Grid>
+                                                                                        </Grid>
+                                                                                    </Grid>
+                                                                                </Grid>
+                                                                            </div> */}
 
 
                                                                         </div>
@@ -822,7 +901,7 @@ class Index extends Component {
                                                                             </div>
                                                                             <Grid container direction="row" spacing={2} className="srchAccessLoc">
                                                                                 <Grid item xs={12} md={3}>
-                                                                                    <Grid><label>Specialty</label></Grid>
+                                                                                    <Grid><label>Speciadddlty</label></Grid>
                                                                                     <Select
                                                                                         value={selectedOption}
                                                                                         onChange={this.handleChangeSelect}
@@ -833,7 +912,8 @@ class Index extends Component {
                                                                                 </Grid>
                                                                                 <Grid item xs={12} md={3} className="locat_srvc">
                                                                                     <Grid><label>Location of service</label></Grid>
-                                                                                    <input type="text" placeholder="Search for city" />
+                                                                                    {/* <input type="text" placeholder="Search for city" onPlaceChanged={this.showPlaceDetails.bind(this)} /> */}
+                                                                                    <Autocomplete onPlaceChanged={this.showPlaceDetails.bind(this)} />
                                                                                     <img src={require('../../../assets/images/search-entries.svg')} alt="" title="" />
                                                                                 </Grid>
                                                                                 <Grid item xs={12} md={2} className="srchKm">
@@ -842,8 +922,8 @@ class Index extends Component {
                                                                                 </Grid>
                                                                                 <Grid item xs={12} md={4} className="apointType">
                                                                                     <Grid><label>Appointment type</label></Grid>
-                                                                                    <FormControlLabel control={<Checkbox name="Video" />} label="Video" />
-                                                                                    <FormControlLabel control={<Checkbox name="Office" />} label="Office" />
+                                                                                    <FormControlLabel control={<Checkbox name="Video" onChange={this.apointmentType} />} label="Video" />
+                                                                                    <FormControlLabel control={<Checkbox name="Office" onChange={this.apointmentType} />} label="Office" />
                                                                                 </Grid>
                                                                             </Grid>
                                                                         </div>
