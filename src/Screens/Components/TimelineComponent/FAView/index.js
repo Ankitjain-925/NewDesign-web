@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
 import Collapsible from 'react-collapsible';
+import FileViews from  './../FileViews/index';
 import ReactTooltip from "react-tooltip";
 import { getDate, newdate, getTime } from './../../BasicMethod/index';
-import { withRouter } from "react-router-dom";
-import { connect } from "react-redux";
-import { LanguageFetchReducer } from './../../../actions';
-import * as translationEN from "../../../../translations/en_json_proofread_13072020.json"
+
 class Index extends Component {
     constructor(props) {
         super(props)
@@ -14,49 +12,25 @@ class Index extends Component {
             item: this.props.data || {},
             date_format: this.props.date_format,
             time_foramt: this.props.time_format,
-            archive : this.props.archive,
-            loggedinUser : this.props.loggedinUser
+            archive: this.props.archive,
+            loggedinUser: this.props.loggedinUser,
+            images: this.props.images,
         };
     }
 
-  componentDidUpdate = (prevProps) => {
+    componentDidUpdate = (prevProps) => {
         if (prevProps.data !== this.props.data || prevProps.loggedinUser !== this.props.loggedinUser) {
-            this.setState({   item: this.props.data, loggedinUser : this.props.loggedinUser})
+            this.setState({
+                item: this.props.data, loggedinUser: this.props.loggedinUser,
+            })
+        }
+        if(prevProps.images !== this.props.images)
+        {
+            this.setState({ images: this.props.images})
         }
     }
 
     render() {
-        let translate;
-        switch (this.props.stateLanguageType) {
-            case "en":
-                translate = translationEN.text
-                break;
-            // case "de":
-            //     translate = translationDE.text
-            //     break;
-            // case "pt":
-            //     translate = translationPT.text
-            //     break;
-            // case "sp":
-            //     translate = translationSP.text
-            //     break;
-            // case "rs":
-            //     translate = translationRS.text
-            //     break;
-            // case "nl":
-            //     translate = translationNL.text
-            //     break;
-            // case "ch":
-            //     translate = translationCH.text
-            //     break;
-            // case "sw":
-            //     translate = translationSW.text
-            //     break;
-            case "default":
-                translate = translationEN.text
-        }
-        let { date_of_dieses_patient, disease_name, relation_of_relative, date_of_death, gender_of_relatives, family_anmnies, dob, visible, pain_areas, Change, show, hide, until, archive, rr_systolic, attachments, time_measure, date_measure,
-            visibility, edit, Delete, condition_pain, RR_diastolic, pain_type, de_archive, view_fullscren, always, feeling, date, time} = translate
         var item = this.state.item;
         return (
             <Grid container direction="row" className="descpCntnt">
@@ -70,33 +44,34 @@ class Index extends Component {
                             <Grid item xs={12} md={6}>
                                 <Grid className="blodPrsurImg">
                                     <a className="diryNote"><img src={require('../../../../assets/images/condition-diagnosis-family-anamnesis-diary.svg')} alt="" title="" />
-                                        <span>{family_anmnies}</span>
+                                        <span>Family Anamnesis</span>
                                     </a>
                                 </Grid>
                             </Grid>
                             <Grid item xs={12} md={6}>
                                 <Grid className="bp_vsblSec scndOptionIner1">
-                                    <a className="bp_vsblEye"><img src={require('../../../../assets/images/eye2.png')} alt="" title="" /> <span>{visible}</span> </a>
+                                    <a className="bp_vsblEye"><img src={require('../../../../assets/images/eye2.png')} alt="" title="" /> <span>Visible</span> </a>
                                     <a className="vsblTime" data-tip data-for={item.track_id + 'visibility'}>
                                         <img src={require('../../../../assets/images/clock.svg')} alt="" title="" />
                                     </a>
                                     <ReactTooltip className="timeIconClas" id={item.track_id + 'visibility'} place="top" effect="solid" backgroundColor="#ffffff">
-                                        {item.visible==='show' ? <label>{show} {until}</label> :  <label>{hide} {until}</label> }
-                                        {item.public === 'always' ? <p> {always} </p> : <p>{getDate(item.public, this.state.date_format)}</p> }
+                                        {item.visible === 'show' ? <label>Show until</label> : <label>Hide until</label>}
+                                        {item.public === 'always' ? <p> Always </p> : <p>{getDate(item.public, this.state.date_format)}</p>}
                                     </ReactTooltip>
-                                         <a className="openScndhrf1">
-                                                <img src={require('../../../../assets/images/threedots.jpg')} alt="" title="" className="openScnd1" />
-                                                {!this.props.Archive ? <ul>
-                                                    <li><a onClick={(data) => this.props.ArchiveTrack(item)}><img src={require('../../../../assets/images/archive-1.svg')} alt="" title="" />{archive}</a></li>
-                                                    {this.state.loggedinUser._id === item.created_by && <li><a onClick={()=>this.props.EidtOption(item.type, item)}><img src={require('../../../../assets/images/edit-1.svg')} alt="" title="" />{edit}</a></li>}
-                                                    {this.state.loggedinUser._id !== item.created_by && <li><a onClick={()=>this.props.EidtOption(item.type, item, true)}><img src={require('../../../../assets/images/edit.svg')} alt="" title="" />{Change} {visibility}</a></li>}
-                                                    <li><a onClick={(deleteKey)=>this.props.DeleteTrack(item.track_id)}><img src={require('../../../../assets/images/cancel-request.svg')} alt="" title="" />{Delete}</a></li>
-                                                </ul>:
-                                                <ul>
-                                                    <li><a onClick={(data) => this.props.ArchiveTrack(item)}><img src={require('../../../../assets/images/archive-1.svg')} alt="" title="" /> {de_archive}</a></li>
-                                                    <li><a onClick={(deleteKey)=>this.props.DeleteTrack(item.track_id)}><img src={require('../../../../assets/images/cancel-request.svg')} alt="" title="" />{Delete}</a></li>
-                                                </ul>}
-                                            </a>
+                                    <a className="openScndhrf1">
+                                        <img src={require('../../../../assets/images/threedots.jpg')} alt="" title="" className="openScnd1" />
+                                        {!this.props.Archive ? <ul>
+                                            <li><a onClick={(data) => this.props.ArchiveTrack(item)}><img src={require('../../../../assets/images/archive-1.svg')} alt="" title="" />Archive</a></li>
+                                            {this.state.loggedinUser._id === item.created_by && <li><a onClick={() => this.props.EidtOption(item.type, item)}><img src={require('../../../../assets/images/edit-1.svg')} alt="" title="" />Edit</a></li>}
+                                             {this.state.loggedinUser._id !== item.created_by && <li><a onClick={()=>this.props.EidtOption(item.type, item, true)}><img src={require('../../../../assets/images/edit.svg')} alt="" title="" />Change Visibility</a></li>}
+<li><a onClick={() => this.props.downloadTrack(item)}><img src={require('../../../../assets/images/download.svg')} alt="" title="" />Download</a></li>
+                                            <li><a onClick={(deleteKey) => this.props.DeleteTrack(item.track_id)}><img src={require('../../../../assets/images/cancel-request.svg')} alt="" title="" />Delete</a></li>
+                                        </ul> :
+                                            <ul>
+                                                <li><a onClick={(data) => this.props.ArchiveTrack(item)}><img src={require('../../../../assets/images/archive-1.svg')} alt="" title="" />De-Archive</a></li>
+                                                <li><a onClick={(deleteKey) => this.props.DeleteTrack(item.track_id)}><img src={require('../../../../assets/images/cancel-request.svg')} alt="" title="" />Delete</a></li>
+                                            </ul>}
+                                    </a>
                                 </Grid>
                             </Grid>
                             <Grid className="clear"></Grid>
@@ -123,56 +98,61 @@ class Index extends Component {
                                     <Grid container direction="row">
                                         <Grid item xs={12} md={6} className="bloodPreBy">
                                             <Grid container direction="row">
-                                                <Grid item xs={5} md={5}><label>{disease_name}</label></Grid>
+                                                <Grid item xs={5} md={5}><label>Disease Name</label></Grid>
                                                 <Grid item xs={7} md={7}><span>{item.disease_name && item.disease_name}</span></Grid>
                                                 <Grid className="clear"></Grid>
                                             </Grid>
                                         </Grid>
                                         <Grid item xs={12} md={6} className="bloodPreBy">
                                             <Grid container direction="row">
-                                                <Grid item xs={5} md={5}><label>{gender_of_relatives}</label></Grid>
+                                                <Grid item xs={5} md={5}><label>Gender of relative</label></Grid>
                                                 <Grid item xs={7} md={7}><span>{item.gender && item.gender.label}</span></Grid>
                                                 <Grid className="clear"></Grid>
                                             </Grid>
                                         </Grid>
                                         <Grid item xs={12} md={6} className="bloodPreBy">
                                             <Grid container direction="row">
-                                                <Grid item xs={5} md={5}><label>{relation_of_relative}</label></Grid>
+                                                <Grid item xs={5} md={5}><label>Relation with relative</label></Grid>
                                                 <Grid item xs={7} md={7}><span>{item.relation && item.relation.label}</span></Grid>
                                                 <Grid className="clear"></Grid>
                                             </Grid>
                                         </Grid>
                                         <Grid item xs={12} md={6} className="bloodPreBy">
                                             <Grid container direction="row">
-                                                <Grid item xs={5} md={5}><label>{date_of_dieses_patient}</label></Grid>
-                                                <Grid item xs={7} md={7}><span>{item.dod_onset && getDate(item.dod_onset , this.state.date_format)}</span></Grid>
+                                                <Grid item xs={5} md={5}><label>Date of disease onset (Patient)</label></Grid>
+                                                <Grid item xs={7} md={7}><span>{item.dod_onset && getDate(item.dod_onset, this.state.date_format)}</span></Grid>
                                                 <Grid className="clear"></Grid>
                                             </Grid>
                                         </Grid>
                                         <Grid item xs={12} md={6} className="bloodPreBy">
                                             <Grid container direction="row">
-                                                <Grid item xs={5} md={5}><label>{dob}</label></Grid>
-                                                <Grid item xs={7} md={7}><span>{item.dob && getDate(item.dob , this.state.date_format)}</span></Grid>
+                                                <Grid item xs={5} md={5}><label>Date of Birth</label></Grid>
+                                                <Grid item xs={7} md={7}><span>{item.dob && getDate(item.dob, this.state.date_format)}</span></Grid>
                                                 <Grid className="clear"></Grid>
                                             </Grid>
                                         </Grid>
                                         <Grid item xs={12} md={6} className="bloodPreBy">
                                             <Grid container direction="row">
-                                                <Grid item xs={5} md={5}><label>{date_of_death}</label></Grid>
-                                                <Grid item xs={7} md={7}><span>{item.dod && getDate(item.dod , this.state.date_format)}</span></Grid>
+                                                <Grid item xs={5} md={5}><label>Date of death (if applicable)</label></Grid>
+                                                <Grid item xs={7} md={7}><span>{item.dod && getDate(item.dod, this.state.date_format)}</span></Grid>
                                                 <Grid className="clear"></Grid>
                                             </Grid>
                                         </Grid>
-                                    </Grid>    
+                                    </Grid>
                                 </Grid>
                             </Collapsible>
                         </Grid>
-                        
+
                         <Grid className="addSpc detailMark">
                             <Collapsible trigger="Notes" open="true">
                                 <Grid className="detailCntnt">
-                                    <p dangerouslySetInnerHTML={{__html: item.remarks}} />
+                                    <p dangerouslySetInnerHTML={{ __html: item.remarks }} />
                                 </Grid>
+                            </Collapsible>
+                        </Grid>
+                        <Grid className="addSpc detailMark">
+                            <Collapsible trigger="Images & Files" open="true">
+                                <FileViews images={this.state.images} attachfile={item.attachfile} />
                             </Collapsible>
                         </Grid>
                     </Grid>
@@ -182,10 +162,4 @@ class Index extends Component {
     }
 }
 
-const mapStateToProps = (state) => {
-    const { stateLanguageType } = state.LanguageReducer;
-    return {
-        stateLanguageType
-    }
-};
-export default withRouter(connect(mapStateToProps, { LanguageFetchReducer })(Index));
+export default Index;

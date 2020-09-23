@@ -5,7 +5,7 @@ import Grid from '@material-ui/core/Grid';
 // Added By Ankita Patient Component
 import Register from "./../../Screens/Register";
 import Login from "./../../Screens/Login";
-import ForgotPass from "./../../Screens/ChangePassword";
+import ForgotPass from "./../../Screens/ChangePassword"; 
 import ChangePass from "./../../Screens/ChangePassword/changepassword";
 import NotFound from "./../../Screens/Components/NotFound";
 import PatientProfile from "./../../Screens/Patient/Profile/index";
@@ -20,10 +20,7 @@ import PatientTimeLine from "./../../Screens/Patient/Journal/index";
 import PatientChats from "./../../Screens/Patient/Chat/index"
 import PatientTimeLine1 from "./../../Screens/ViewTimelineComponent/index.js";
 import PatientBlockchain from "./../../Screens/Patient/More/blockchain.js";
-import PatientarchiveJournal from "./../../Screens/Patient/More/archiveJournal.js"
-import Appointment from "./../../Screens/Patient/Appointment/index";
-import appointmentmodels from "./../../Screens/Patient/Appointment/appointmentmodels";
-import appointmentcalenderweek from "./../../Screens/Patient/Appointment/appointmentcalenderweek";
+import PatientarchiveJournal from "./../../Screens/Patient/More/archiveJournal.js";
 
 
 //Paramedic Component
@@ -58,15 +55,12 @@ class Routermain extends Component {
             {/* Added by Ankita */}
             <Route exact path="/" render={(props) => <Login  {...props} />} />
             <Route exact path="/register" render={(props) => <Register  {...props} />} />
-            <Route exact path="/patient/appointment" component={Appointment} />
-            <Route exact path="/patient/appointmentmodels" component={appointmentmodels} />
-            <Route exact path="/patient/appointmentcalenderweek" component={appointmentcalenderweek} />
             <Route exact path="/forgot-password" render={(props) => <ForgotPass  {...props} />} />
             <Route exact path="/change-password" render={(props) => <ChangePass  {...props} />} />
             <Route exact path="/patient" render={(props) => <PatientProfile  {...props} />} />
-            <Route exact path="/patient/second-opinion" render={(props) => <PatientSecond {...props} />} />
-            <Route exact path="/patient/emergency" render={(props) => <PatientEmergency {...props} />} />
-            <Route exact path="/patient/extra-services" rensder={(props) => <PatientExtra {...props} />} />
+            <Route exact path="/patient/second-opinion" render={(props) => <PatientSecond {...props}/>} />
+            <Route exact path="/patient/emergency" render={(props) => <PatientEmergency {...props}/>} />
+            <Route exact path="/patient/extra-services" rensder={(props) => <PatientExtra {...props}/>} />
             <Route exact path="/patient/documents" render={(props) => <PatientDocument {...props} />} />
             <Route exact path="/patient/online-course" render={(props) => <PatientOnline {...props}/>} />
             <Route exact path="/patient/view-course" render={(props) => <PaitnetViewCourses {...props}/>} />
@@ -76,6 +70,7 @@ class Routermain extends Component {
             <Route exact path="/patient/chats" render={(props) => <PatientChats {...props}/>} />
             <Route exact path="/patient/blockchain" render={(props) => <PatientBlockchain {...props}/>} />
             <Route exact path="/patient/archiveJournal" render={(props) => <PatientarchiveJournal {...props}/>} />
+
 
             <Route exact path="/paramedic" render={(props) => <ParamedicEmergency {...props}/>} />
             <Route exact path="/paramedic/profile" render={(props) => <ParamedicProfile {...props}/>} />
@@ -94,18 +89,17 @@ class Routermain extends Component {
             <Route exact path="/nurse/emergency" render={(props) => <NurseEmergency {...props}/>} />
             <Route exact path="/nurse/journal" render={(props) => <NurseJournal {...props}/>} />
 
-            {/* <Route exact path="/nurse/online-course" render={(props) => <NurseOnline {...props}/>} />
-            */}
 
             {/* Doctor Router Start*/}
-            <Route exact path="/doctor" render={(props) => <DoctorService {...props} />} />
-            <Route exact path="/doctor/patient" render={(props) => <DoctorService {...props} />} />
+            <Route exact path="/doctor" render={(props) => <DoctorService {...props}/>} />
+            <Route exact path="/doctor/patient" render={(props) => <DoctorService {...props}/>} />
             {/* Doctor Router End*/}
+            
 
-
+            
             <Route path='*' exact={true} render={(props) => <NotFound {...props} />} />
             {/* End By Ankita */}
-
+            
           </Switch>
         </Grid>
       </Router>

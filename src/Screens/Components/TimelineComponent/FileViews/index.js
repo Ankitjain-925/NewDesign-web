@@ -10,7 +10,7 @@ class Index extends Component {
         };
     }
 
-    componentDidUpdate = (prevProps) => {
+  componentDidUpdate = (prevProps) => {
         if (prevProps.attachfile !== this.props.attachfile) {
             this.setState({attachfile: this.props.attachfile})
         }
@@ -18,12 +18,6 @@ class Index extends Component {
         {
             this.setState({ images: this.props.images})
         }
-    }
-
-    OpenDCM = (filename) =>{
-        var Files = GetUrlImage(filename)
-        let url = "/dcmView?input=" + encodeURIComponent(Files)
-        // window.open(url, '_blank');
     }
 
 
@@ -45,7 +39,7 @@ class Index extends Component {
                         {(file.filetype ==='doc'|| file.filetype ==='docx' || file.filetype ==='xml' || file.filetype ==='txt') && <img onClick={()=>GetUrlImage(file.filename)} src={require('../../../../assets/images/txt1.png')} alt="" title="" />}
                         {(file.filetype ==='xls'|| file.filetype ==='xlsx' || file.filetype ==='xml' ) && <img onClick={()=>GetUrlImage(file.filename)} src={require('../../../../assets/images/xls1.svg')} alt="" title="" />} 
                         {(file.filetype ==='csv') && <img onClick={()=>GetUrlImage(file.filename)} src={require('../../../../assets/images/csv1.png')} alt="" title="" />} 
-                        {(file.filetype ==='dcm') && <img onClick={()=>this.OpenDCM(file.filename)} src={require('../../../../assets/images/dcm1.png')} alt="" title="" />} 
+                        {(file.filetype ==='dcm') && <img onClick={()=>GetUrlImage(file.filename)} src={require('../../../../assets/images/dcm1.png')} alt="" title="" />} 
                         <label>{(file && file.filename && file.filename.split('Trackrecord/')[1]).split("&bucket=")[0]}</label></a>   
                 ))}
             </Grid>

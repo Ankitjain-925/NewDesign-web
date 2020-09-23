@@ -69,8 +69,17 @@ class Index extends Component {
                             {/* Website Mid Content */}
                             <Grid item xs={12} md={11}>
                                 <Grid className="emrgncyDataUpr">
+
+                                    <Grid container direction="row">
+                                        <Grid item xs={12} md={10}>
+                                            <Grid className="emrgncyData">
+                                                <h1>{ur_emergancy_data}</h1>
+                                            </Grid>
+                                        </Grid>
+                                    </Grid>
                                     {/* call Emergency Section */}
                                     <EmergencyCall byUser="patient"/>
+
                                 </Grid>
                             </Grid>
                             {/* End of Website Right Content */}
