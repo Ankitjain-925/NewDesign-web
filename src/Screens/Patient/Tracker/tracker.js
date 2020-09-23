@@ -545,7 +545,7 @@ class Index extends Component {
         if (this.state.withingsloggedIn) {
             localStorage.removeItem("withings_token")
         }
-        this.setState({ fitbitloggedIn: false, loggedin: false, withingsloggedIn: false })
+        this.setState({ fitbitloggedIn: false, loggedin: false, withingsloggedIn: false, vData:false })
         this.tracker();
     }
 
@@ -870,7 +870,7 @@ class Index extends Component {
                                                                         <p>{fitbitloggedIn ? fitbitDevice && fitbitDevice.deviceVersion : withingsloggedIn ? withingsDevice && withingsDevice.model : ""}</p>
                                                                     </Grid>
                                                                     <Grid className="disCnctRght">
-                                                                        <a>{disconect_device}</a>
+                                                                        <a onClick={this.logoutfromall} >{disconect_device}</a>
                                                                     </Grid>
                                                                 </Grid>
                                                             </Grid>
