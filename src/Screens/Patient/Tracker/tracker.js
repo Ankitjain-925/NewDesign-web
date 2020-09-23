@@ -11,6 +11,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Typography from '@material-ui/core/Typography';
 import PropTypes from 'prop-types';
 import { Settings } from './../../Login/setting';
+import { Redirect, Route } from 'react-router-dom';
 import Modal from '@material-ui/core/Modal';
 import LeftMenu from './../../Components/Menus/PatientLeftMenu/index';
 import axios from "axios"

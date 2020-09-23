@@ -7,6 +7,7 @@ import { Settings } from './../../Login/setting';
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { LanguageFetchReducer } from './../../actions';
+import { Redirect, Route } from 'react-router-dom';
 import EmergencyCall from './../../Components/EmergencyPage/index'
 import * as translationEN from "../../../translations/en_json_proofread_13072020.json"
 const path = sitedata.data.path + '/emergency_record';

@@ -12,6 +12,7 @@ import { LoginReducerAim } from '../../Login/actions';
 import { Settings } from '../../Login/setting';
 import Radio from '@material-ui/core/Radio';
 import axios from 'axios';
+import { Redirect, Route } from 'react-router-dom';
 import ListingSecond from './Components/ListingSecond';
 import Loader from '../../Components/Loader/index';
 import LeftMenu from './../../Components/Menus/PatientLeftMenu/index';
