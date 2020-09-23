@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import { LanguageFetchReducer } from '../../actions';
 import { LoginReducerAim } from '../../Login/actions';
 import { Settings } from '../../Login/setting';
+import { Redirect, Route } from 'react-router-dom';
 import Loader from '../../Components/Loader/index';
 import LeftMenu from './../../Components/Menus/NurseLeftMenu/index';
 import CourseSection from './../../Components/OnlineCourses/index.js';
@@ -36,6 +37,16 @@ class Index extends Component {
 
     render() {
         const { specialistOption } = this.state;
+        const { stateLoginValueAim, Doctorsetget } = this.props;
+        if (stateLoginValueAim.user === 'undefined' || stateLoginValueAim.token === 450 || stateLoginValueAim.token === 'undefined' ) {
+            if(stateLoginValueAim.user){
+            if(stateLoginValueAim.user.type === 'nurse' || stateLoginValueAim.user.type === 'therapist'){}
+            else
+            {return (<Redirect to={'/'} />);}   
+            }
+            else
+            {return (<Redirect to={'/'} />);}   
+        }
         return (
             <Grid className="homeBg">
                 {this.state.loaderImage && <Loader />}

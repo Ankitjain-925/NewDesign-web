@@ -55,7 +55,10 @@ class Index extends Component {
         }
         let { ur_emergancy_data } = translate;
 
-
+        const { stateLoginValueAim } = this.props;
+        if (stateLoginValueAim.user === 'undefined' || stateLoginValueAim.token === 450 || stateLoginValueAim.token === 'undefined' || stateLoginValueAim.user.type !== 'patient') {
+            return (<Redirect to={'/'} />);
+        }
         return (
             <Grid className="homeBg">
                 <Grid container direction="row" justify="center">
@@ -69,14 +72,7 @@ class Index extends Component {
                             {/* Website Mid Content */}
                             <Grid item xs={12} md={11}>
                                 <Grid className="emrgncyDataUpr">
-
-                                    <Grid container direction="row">
-                                        <Grid item xs={12} md={10}>
-                                            <Grid className="emrgncyData">
-                                                <h1>{ur_emergancy_data}</h1>
-                                            </Grid>
-                                        </Grid>
-                                    </Grid>
+                                   
                                     {/* call Emergency Section */}
                                     <EmergencyCall byUser="patient"/>
 

@@ -3,7 +3,7 @@ import Grid from '@material-ui/core/Grid';
 import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 import Modal from '@material-ui/core/Modal';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import LeftMenu from './../../Components/Menus/ParamedicLeftMenu/index';
+import LeftMenu from './../../Components/Menus/NurseLeftMenu/index';
 import Checkbox from '@material-ui/core/Checkbox';
 import Loader from './../../Components/Loader/index';
 import { EmergencySet } from '../../Doctor/emergencyaction.js';
@@ -141,6 +141,16 @@ class Index extends Component {
                 translate = translationEN.text
         }
         let { ur_emergancy_data } = translate;
+        const { stateLoginValueAim, Doctorsetget } = this.props;
+        if (stateLoginValueAim.user === 'undefined' || stateLoginValueAim.token === 450 || stateLoginValueAim.token === 'undefined' ) {
+            if(stateLoginValueAim.user){
+            if(stateLoginValueAim.user.type === 'nurse' || stateLoginValueAim.user.type === 'therapist'){}
+            else
+            {return (<Redirect to={'/'} />);}   
+            }
+            else
+            {return (<Redirect to={'/'} />);}   
+        }
         return (
             <Grid className="homeBg">
                 <Grid className="homeBgIner">
@@ -168,7 +178,7 @@ class Index extends Component {
                                         <Grid container direction="row">
                                             <Grid item xs={12} md={10}>
                                                 <Grid className="emrgncyData">
-                                                   <Grid className="EmergencyOpenPopup">For getting the Emergency Data od a patient Click on the Button</Grid>
+                                                   <Grid className="EmergencyOpenPopup">For getting the Emergency Data of a patient Click on the Button</Grid>
                                                     <Grid className="paramSub">
                                                         <input type="submit" onClick={this.openPopUp} value="View Emergency Data" />
                                                     </Grid>

@@ -222,6 +222,10 @@ class Index extends Component {
 
     render() {
         const { specialistOption } = this.state;
+        const { stateLoginValueAim } = this.props;
+        if (stateLoginValueAim.user === 'undefined' || stateLoginValueAim.token === 450 || stateLoginValueAim.token === 'undefined' || stateLoginValueAim.user.type !== 'patient') {
+            return (<Redirect to={'/'} />);
+        }
         return (
 
             <Grid className="homeBg">

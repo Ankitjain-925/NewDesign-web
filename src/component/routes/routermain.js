@@ -60,7 +60,7 @@ class Routermain extends Component {
             <Route exact path="/patient" render={(props) => <PatientProfile  {...props} />} />
             <Route exact path="/patient/second-opinion" render={(props) => <PatientSecond {...props}/>} />
             <Route exact path="/patient/emergency" render={(props) => <PatientEmergency {...props}/>} />
-            <Route exact path="/patient/extra-services" rensder={(props) => <PatientExtra {...props}/>} />
+            <Route exact path="/patient/extra-services" render={(props) => <PatientExtra {...props}/>} />
             <Route exact path="/patient/documents" render={(props) => <PatientDocument {...props} />} />
             <Route exact path="/patient/online-course" render={(props) => <PatientOnline {...props}/>} />
             <Route exact path="/patient/view-course" render={(props) => <PaitnetViewCourses {...props}/>} />

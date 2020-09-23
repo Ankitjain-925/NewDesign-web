@@ -22,10 +22,18 @@ class Date extends Component {
     componentDidMount = () => {
         this.props.onChange(this.props.value);
     }
+
+     //on adding new data
+     componentDidUpdate = (prevProps) => {
+        if (prevProps.value !== this.props.value) {
+            this.setState({ value: this.props.value })
+        }
+    }
     
     render() {
         return (
             <div>
+                {!this.state.is24 && <DatePicker name={this.props.name} onChange={this.onDateChange} value={this.state.value ? moment(this.state.value, dateFormatList[0]) : ''}  format={dateFormatList[0]} />}
                 {this.state.is24 === 'DD/MM/YYYY' && <DatePicker name={this.props.name} onChange={this.onDateChange} value={this.state.value ? moment(this.state.value, dateFormatList[0]) : ''}  format={dateFormatList[0]} />}
                 {this.state.is24 === 'YYYY/DD/MM' && <DatePicker name={this.props.name} onChange={this.onDateChange} value={this.state.value ? moment(this.state.value, dateFormatList[2]) : ''}  format={dateFormatList[2]} />}
                 {this.state.is24 === 'MM/DD/YYYY' && <DatePicker name={this.props.name} onChange={this.onDateChange} value={this.state.value ? moment(this.state.value, dateFormatList[1]) : ''} format={dateFormatList[1]} />}
