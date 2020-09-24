@@ -40,8 +40,15 @@ class Index extends Component {
             openAllowLoc: false,
             openApoint: false,
             openFancyVdo: false,
-            searchDetails: {}
+            searchDetails: {},
+            appointmentData: {},
+            successfull: false,
+            UpDataDetails: [],
+            video_call: true,
+            office_visit: true
         };
+        this.bookAppointment = this.bookAppointment.bind(this)
+        this.apointmentType = this.apointmentType.bind(this)
     }
     componentDidMount() {
         this.getGeoLocation()
@@ -66,12 +73,16 @@ class Index extends Component {
         }
     }
 
-    handleOpenFancyVdo = (type, data) => {
-        console.log(type, data)
-        this.setState({ openFancyVdo: true, appointmentData: data });
+    handleOpenFancyVdo = (i, type, data) => {
+        this.setState({ openFancyVdo: true, appointmentData: data, doc_select: i, appointType: type });
+        setTimeout(this.onChange, 3000)
+        // this.onChange()
     };
     handleCloseFancyVdo = () => {
-        this.setState({ openFancyVdo: false });
+        this.setState({ openFancyVdo: false, appointDate: [] });
+        Object.keys(this.state.allDocData).map((index, i) => {
+            console.log("ALL DOC data", index, i)
+        })
     };
 
     //For patient Info..
@@ -86,7 +97,6 @@ class Index extends Component {
             }
         })
             .then((response) => {
-                console.log("patient data response", response)
                 this.setState({ personalinfo: response.data.data, loaderImage: false })
             })
     }
@@ -108,6 +118,75 @@ class Index extends Component {
         // });
     }
 
+    // findAppointment
+    findAppointment = (tab, doc_select, apointType, apointDay, iA) => {
+        apointType = apointType.replace(/['"]+/g, '')
+        this.setState({
+            findDoc: tab, selectedDoc: this.state.allDocData[doc_select],
+            mypoint: {
+                start: this.state.allDocData[doc_select][apointType][0][apointDay][iA],
+                end: this.state.allDocData[doc_select][apointType][0][apointDay][iA + 1],
+                type: apointType
+            }
+        })
+    }
+
+
+    questionDetails = (e) => {
+        const state = this.state.UpDataDetails;
+        state[e.target.name] = e.target.value;
+        this.setState({ UpDataDetails: state });
+    }
+
+    bookAppointment() {
+        var insurance_no = this.state.personalinfo.insurance && this.state.personalinfo.insurance.length > 0 && this.state.personalinfo.insurance[0] && this.state.personalinfo.insurance[0].insurance_number ? this.state.personalinfo.insurance[0].insurance_number : '';
+        this.setState({ loaderImage: true });
+        const user_token = this.props.stateLoginValueAim.token;
+        axios.post(sitedata.data.path + '/User/appointment', {
+            patient: this.props.stateLoginValueAim.user._id,
+            doctor_id: this.state.selectedDoc.data._id,
+            insurance: this.state.personalinfo.insurance[0].insurance_number,
+            date: this.state.selectedDate,
+            start_time: this.state.mypoint.start,
+            end_time: this.state.mypoint.end,
+            appointment_type: this.state.mypoint.type,
+            insurance_number: insurance_no,
+            annotations: this.state.UpDataDetails.details,
+            status: 'free',
+            patient_info: {
+                patient_id: this.props.stateLoginValueAim.user.profile_id,
+                first_name: this.props.stateLoginValueAim.user.first_name,
+                last_name: this.props.stateLoginValueAim.user.last_name,
+                email: this.props.stateLoginValueAim.user.email,
+                birthday: this.props.stateLoginValueAim.user.birthday,
+                profile_image: this.props.stateLoginValueAim.user.image,
+                bucket: this.props.stateLoginValueAim.user.bucket,
+            },
+            lan: this.props.stateLanguageType,
+            docProfile: {
+                patient_id: this.state.selectedDoc.data.profile_id,
+                first_name: this.state.selectedDoc.data.first_name,
+                last_name: this.state.selectedDoc.data.last_name,
+                email: this.state.selectedDoc.data.email,
+                birthday: this.state.selectedDoc.data.birthday,
+                profile_image: this.state.selectedDoc.data.image
+            }
+        })
+            .then((responce) => {
+                this.setState({ loaderImage: false });
+                if (responce.data.hassuccessed === true) {
+                    this.setState({ successfull: true })
+                    setTimeout(
+                        function () {
+                            this.setState({ successfull: false, openFancyVdo: false });
+                        }
+                            .bind(this),
+                        5000
+                    );
+                }
+            })
+    }
+
     // find appointment by location or speciality
     getlocation() {
         console.log("Get location response")
@@ -127,7 +206,6 @@ class Index extends Component {
             alert("please enter city")
         }
         // if (radius && Latitude && longitude) {
-        console.log("Latitude", Latitude, "longitude", longitude)
         axios.get(sitedata.data.path + '/UserProfile/getLocation/' + radius, {
             params: {
                 speciality: this.state.searchDetails.specialty,
@@ -136,7 +214,6 @@ class Index extends Component {
             }
         })
             .then((responce) => {
-                console.log("Get location response", responce)
                 let markerArray = [];
                 let selectedListArray = [];
                 let NewArray = [];
@@ -156,7 +233,6 @@ class Index extends Component {
                     NewArray.push(item)
                 })
                 this.setState({ allDocData: NewArray })
-                // () => this.findAppointment('tab2'))
                 this.setState({ mapMarkers: markerArray });
                 this.setState({ selectedListArray: selectedListArray });
             })
@@ -164,7 +240,6 @@ class Index extends Component {
     }
     // Search by City
     showPlaceDetails(place) {
-        console.log("showPlaceDetails", place)
         place = place.geometry.location
         this.setState({ place });
         this.setState({ mLatitude: place.lat() });
@@ -182,7 +257,11 @@ class Index extends Component {
     }
 
     apointmentType(event) {
-        console.log("apointmentType", event.target.name)
+        if (event.target.name == "Video") {
+            this.setState({ video_call: this.state.video_call == true ? false : true })
+        } else if (event.target.name == "Office") {
+            this.setState({ office_visit: this.state.office_visit == true ? false : true })
+        }
     }
 
     handleOpenApoint = () => {
@@ -226,7 +305,14 @@ class Index extends Component {
         this.setState({ openDash: false });
     };
     onChange = (date) => {
-        let day_num = date.getDay()
+        let day_num
+        if (date !== undefined && date) {
+            day_num = date.getDay()
+        } else {
+            date = new Date()
+            day_num = date.getDay()
+        }
+        console.log("day_num", day_num)
         let days
         switch (day_num) {
             case 1:
@@ -258,13 +344,11 @@ class Index extends Component {
                 appointDate = value
             }
         })
-        console.log("appointDate", appointDate)
-        this.setState({ appointDate })
+        this.setState({ appointDate: appointDate, apointDay: days })
     }
 
     render() {
-        console.log("ALL doctor", this.state.allDocData)
-        const { selectedOption, specialityData, allDocData, date } = this.state;
+        const { selectedOption, specialityData, allDocData, date, doc_select, appointType, apointDay } = this.state;
         return (
             <Grid className="homeBg">
                 <Grid className="homeBgIner">
@@ -363,7 +447,21 @@ class Index extends Component {
                                                 </Grid>
                                                 <Grid className="selTimeSlot">
                                                     <Grid><label>Select time slot</label></Grid>
-                                                    <Grid className="selTimeAM">{console.log("apointment date", this.state)}
+                                                    <Grid className="selTimeAM">
+                                                        {this.state.appointDate && this.state.appointDate.length > 0 ? this.state.appointDate.map((data, iA) => {
+                                                            return (
+                                                                <Grid>
+                                                                    {this.state.appointDate[iA + 1] && this.state.appointDate[iA + 1] !== 'undefined' &&
+                                                                        <a onClick={() => { this.findAppointment('tab3', doc_select, appointType, apointDay, iA) }}>
+                                                                            {this.state.appointDate[iA] + ' - ' + this.state.appointDate[iA + 1]}
+                                                                        </a>}
+                                                                </Grid>
+                                                            );
+                                                        }) : this.state.appointDate !== undefined ?
+                                                                <Grid><span>Holiday!</span></Grid> : ''
+                                                        }
+                                                    </Grid>
+                                                    {/* <Grid className="selTimeAM">
                                                         <Grid><span>AM</span></Grid>
                                                         <Grid><a>09:00 - 09:30</a></Grid>
                                                         <Grid><a>09:30 - 10:00</a></Grid>
@@ -376,16 +474,19 @@ class Index extends Component {
                                                         <Grid><a>01:30 - 02:00</a></Grid>
                                                         <Grid><a>02:00 - 02:30</a></Grid>
                                                         <Grid><a>02:30 - 03:00</a></Grid>
-                                                    </Grid>
+                                                    </Grid> */}
                                                 </Grid>
                                                 <Grid className="delQues">
                                                     <Grid><label>Details / Questions</label></Grid>
-                                                    <Grid><textarea></textarea></Grid>
-                                                    <Grid className="delQuesBook"><a>Book</a> <a>Cancel</a></Grid>
+                                                    <Grid><textarea name="details" onClick={this.questionDetails}></textarea></Grid>
+                                                    <Grid className="delQuesBook">
+                                                        <a onClick={this.bookAppointment}>Book</a>
+                                                        <a onClick={() => { this.setState({ openFancyVdo: false }) }}>Cancel</a></Grid>
                                                 </Grid>
                                             </Grid>
 
                                         </Grid>
+                                        {this.state.successfull && <div className="success_message">Appointment booked successfully</div>}
                                     </Grid>
                                 </Modal>
                                 {/* End of Video Model */}
@@ -587,8 +688,8 @@ class Index extends Component {
                                                                                 </Grid>
                                                                                 <Grid item xs={12} md={4} className="apointType">
                                                                                     <Grid><label>Appointment type</label></Grid>
-                                                                                    <FormControlLabel control={<Checkbox name="Video" />} label="Video" />
-                                                                                    <FormControlLabel control={<Checkbox name="Office" />} label="Office" />
+                                                                                    <FormControlLabel control={this.state.video_call ? <Checkbox checked onClick={this.apointmentType} name="Video" /> : <Checkbox onClick={this.apointmentType} name="Video" />} label="Video" />
+                                                                                    <FormControlLabel control={this.state.office_visit ? <Checkbox checked name="Office" onClick={this.apointmentType} /> : <Checkbox name="Office" onClick={this.apointmentType} />} label="Office" />
                                                                                 </Grid>
                                                                             </Grid>
                                                                             <div className="showSpcial"><p><img src={require('../../../assets/images/location.png')} alt="" title="" />We are showing you specialists near “Düsseldorf, Germany” in 100km range</p></div>
@@ -596,7 +697,7 @@ class Index extends Component {
 
                                                                         {/* New Design */}
                                                                         <div className="allowAvailList">
-                                                                            {allDocData && allDocData.length > 0 && allDocData.map(doc => (
+                                                                            {allDocData && allDocData.length > 0 && allDocData.map((doc, i) => (
                                                                                 <div className="allowAvailListIner">
                                                                                     <Grid container direction="row" spacing={1}>
                                                                                         <Grid item xs={12} md={3}>
@@ -640,9 +741,13 @@ class Index extends Component {
                                                                                             <Grid className="avlablDates">
                                                                                                 <h3>SEE AVAILABLE DATES FOR:</h3>
                                                                                                 <Grid>
-                                                                                                    <a onClick={() => this.handleOpenFancyVdo("video call", doc.online_appointment[0])}><img src={require('../../../assets/images/video-call-copy2.svg')} alt="" title="" />Video call</a>
-                                                                                                    <a onClick={() => this.handleOpenFancyVdo("office visit", doc.appointments[0])}><img src={require('../../../assets/images/ShapeCopy2.svg')} alt="" title="" />Office visit</a>
-                                                                                                    <a onClick={() => this.handleOpenFancyVdo("consultancy", doc.practice_days[0])} className="addClnder"><img src={require('../../../assets/images/cal.png')} alt="" title="" />Consultancy (custom calendar)</a>
+                                                                                                    {this.state.video_call &&
+                                                                                                        <a onClick={() => this.handleOpenFancyVdo(i, "online_appointment", doc.online_appointment[0])}><img src={require('../../../assets/images/video-call-copy2.svg')} alt="" title="" />Video call</a>
+                                                                                                    }
+                                                                                                    {this.state.office_visit &&
+                                                                                                        <a onClick={() => this.handleOpenFancyVdo(i, "appointments", doc.appointments[0])}><img src={require('../../../assets/images/ShapeCopy2.svg')} alt="" title="" />Office visit</a>
+                                                                                                    }
+                                                                                                    <a onClick={() => this.handleOpenFancyVdo(i, "practice_days", doc.practice_days[0])} className="addClnder"><img src={require('../../../assets/images/cal.png')} alt="" title="" />Consultancy (custom calendar)</a>
                                                                                                 </Grid>
                                                                                             </Grid>
                                                                                         </Grid>
@@ -901,7 +1006,7 @@ class Index extends Component {
                                                                             </div>
                                                                             <Grid container direction="row" spacing={2} className="srchAccessLoc">
                                                                                 <Grid item xs={12} md={3}>
-                                                                                    <Grid><label>Speciadddlty</label></Grid>
+                                                                                    <Grid><label>Speciality</label></Grid>
                                                                                     <Select
                                                                                         value={selectedOption}
                                                                                         onChange={this.handleChangeSelect}
@@ -922,8 +1027,8 @@ class Index extends Component {
                                                                                 </Grid>
                                                                                 <Grid item xs={12} md={4} className="apointType">
                                                                                     <Grid><label>Appointment type</label></Grid>
-                                                                                    <FormControlLabel control={<Checkbox name="Video" onChange={this.apointmentType} />} label="Video" />
-                                                                                    <FormControlLabel control={<Checkbox name="Office" onChange={this.apointmentType} />} label="Office" />
+                                                                                    <FormControlLabel control={this.state.video_call ? <Checkbox checked onClick={this.apointmentType} name="Video" /> : <Checkbox onClick={this.apointmentType} name="Video" />} label="Video" />
+                                                                                    <FormControlLabel control={this.state.office_visit ? <Checkbox checked name="Office" onClick={this.apointmentType} /> : <Checkbox name="Office" onClick={this.apointmentType} />} label="Office" />
                                                                                 </Grid>
                                                                             </Grid>
                                                                         </div>
@@ -975,7 +1080,7 @@ class Index extends Component {
                         </Grid>
                     </Grid>
                 </Grid>
-            </Grid>
+            </Grid >
         );
     }
 }
