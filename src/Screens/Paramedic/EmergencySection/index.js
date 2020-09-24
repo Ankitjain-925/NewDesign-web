@@ -155,7 +155,7 @@ class Index extends Component {
                                 {/* End of Website Menu */}
 
                                 <Grid item xs={12} md={10}>
-                                    {this.props.Emergencysetget.p_id !==null && 
+                                    {this.props.Emergencysetget && this.props.Emergencysetget.p_id !== null && 
                                     <Grid className="emrgncyDataUpr">
                                          
                                          {/* call Emergency Section */}

@@ -37,12 +37,8 @@ class Index extends Component {
                         <FileUploader name="UploadTrackImageMulti"  isMulti="true" fileUpload={(event)=>{this.props.FileAttachMulti(event)}}/>
                     </Grid>
                     <Grid className="fillDia">
-                        <MMHG name="file_content" label="File Content" onChange={(e)=> this.props.updateEntryState(e)} value={this.state.updateTrack.file_content}/>    
+                        <NotesEditor name="explanation" label="Notes"  onChange={(e)=> this.props.updateEntryState1(e, 'explanation')} value={this.state.updateTrack.explanation}/> 
                     </Grid>
-                    <Grid className="fillDia">
-                        <NotesEditor name="remarks" label="Notes"  onChange={(e)=> this.props.updateEntryState1(e, 'remarks')} value={this.state.updateTrack.remarks}/> 
-                    </Grid>
-                  
                 </Grid>
 
                 <Grid className="infoShwHidMain3upr">

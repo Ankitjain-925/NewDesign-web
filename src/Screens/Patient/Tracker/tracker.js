@@ -764,23 +764,27 @@ class Index extends Component {
                                                                     </Grid>
                                                                 </Grid>
                                                             }
+                                                        </Grid>
+                                                        <Grid container spacing={3}>
                                                             {fitbitloggedIn && apidata && apidata.device && apidata.device.map(devicedata => (
-                                                                <Grid className="trckSection">
-                                                                    <Grid className="trckSecIner">
-                                                                        <Grid className="trckDots presEditDot scndOptionIner">
-                                                                            <a className="openScndhrf"><img src={require('../../../assets/images/threedots.jpg')} alt="" title="" />
-                                                                                <ul>
-                                                                                    <li><a onClick={this.handleOpenvData} className="trackView" >{view_details}</a></li>
-                                                                                    <li><a onClick={this.logoutfromall} className="trackView" >{logout}</a></li>
-                                                                                </ul>
-                                                                            </a></Grid>
-                                                                        <Grid className="trckLogo"><img src={require('../../../assets/images/fitbit.png')} alt="" title="" /></Grid>
-                                                                        <Grid className="trckCntnt">
-                                                                            <Grid><label>{apidata.user && apidata.user.user && apidata.user.user.displayName && apidata.user.user.displayName}</label></Grid>
-                                                                            <p>{devicedata.deviceVersion}</p>
+                                                                <Grid item xs={12} md={3}>
+                                                                    <Grid className="trckSection">
+                                                                        <Grid className="trckSecIner">
+                                                                            <Grid className="trckDots presEditDot scndOptionIner">
+                                                                                <a className="openScndhrf"><img src={require('../../../assets/images/threedots.jpg')} alt="" title="" />
+                                                                                    <ul>
+                                                                                        <li><a onClick={this.handleOpenvData} className="trackView" >{view_details}</a></li>
+                                                                                        <li><a onClick={this.logoutfromall} className="trackView" >{logout}</a></li>
+                                                                                    </ul>
+                                                                                </a></Grid>
+                                                                            <Grid className="trckLogo"><img src={require('../../../assets/images/fitbit.png')} alt="" title="" /></Grid>
+                                                                            <Grid className="trckCntnt">
+                                                                                <Grid><label>{apidata.user && apidata.user.user && apidata.user.user.displayName && apidata.user.user.displayName}</label></Grid>
+                                                                                <p>{devicedata.deviceVersion}</p>
+                                                                            </Grid>
                                                                         </Grid>
+                                                                        <Grid className="trackView"><a onClick={() => this.handleOpenvData(devicedata)}>{view_data}</a></Grid>
                                                                     </Grid>
-                                                                    <Grid className="trackView"><a onClick={() => this.handleOpenvData(devicedata)}>{view_data}</a></Grid>
                                                                 </Grid>
                                                             ))}
                                                         </Grid>
@@ -801,26 +805,30 @@ class Index extends Component {
                                                                     </Grid>
                                                                 </Grid>
                                                             }
+                                                        </Grid>
+                                                        <Grid container spacing={3}>
                                                             {withingsloggedIn && Devices_id && Devices_id.length > 0 && Devices_id.map((devices, i) => (
-                                                                <Grid className="trckSection">
-                                                                    <Grid className="trckSecIner">
-                                                                        <Grid className="trckDots presEditDot scndOptionIner">
-                                                                            <a className="openScndhrf"><img src={require('../../../assets/images/threedots.jpg')} alt="" title="" />
-                                                                                <ul>
-                                                                                    <li><a onClick={this.handleOpenvData} className="trackView" >{view_details}</a></li>
-                                                                                    <li><a onClick={this.logoutfromall} className="trackView" >{logout}</a></li>
-                                                                                </ul>
-                                                                            </a>
+                                                                <Grid item xs={12} md={3}>
+                                                                    <Grid className="trckSection">
+                                                                        <Grid className="trckSecIner">
+                                                                            <Grid className="trckDots presEditDot scndOptionIner">
+                                                                                <a className="openScndhrf"><img src={require('../../../assets/images/threedots.jpg')} alt="" title="" />
+                                                                                    <ul>
+                                                                                        <li><a onClick={this.handleOpenvData} className="trackView" >{view_details}</a></li>
+                                                                                        <li><a onClick={this.logoutfromall} className="trackView" >{logout}</a></li>
+                                                                                    </ul>
+                                                                                </a>
+                                                                            </Grid>
+                                                                            <Grid className="trckLogo"><img style={{ minHeight: "40px" }} src={require('../../../assets/images/logo-withings.png')} alt="" title="" /></Grid>
+                                                                            <Grid className="trckCntnt">
+                                                                                <Grid><label>Withings User {i + 1}</label></Grid>
+                                                                                <p>{devices.model}</p>
+                                                                            </Grid>
                                                                         </Grid>
-                                                                        <Grid className="trckLogo"><img style={{ minHeight: "40px" }} src={require('../../../assets/images/logo-withings.png')} alt="" title="" /></Grid>
-                                                                        <Grid className="trckCntnt">
-                                                                            <Grid><label>Withings User {i + 1}</label></Grid>
-                                                                            <p>{devices.model}</p>
-                                                                        </Grid>
+                                                                        <Grid className="trackView"><a onClick={() => this.handleOpenvData(devices)}>
+                                                                            {view_data}
+                                                                        </a></Grid>
                                                                     </Grid>
-                                                                    <Grid className="trackView"><a onClick={() => this.handleOpenvData(devices)}>
-                                                                        {view_data}
-                                                                    </a></Grid>
                                                                 </Grid>
                                                             ))
                                                             }

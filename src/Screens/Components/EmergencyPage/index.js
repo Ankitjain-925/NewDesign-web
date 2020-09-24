@@ -7,6 +7,7 @@ import { Settings } from './../../Login/setting';
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { LanguageFetchReducer } from './../../actions';
+import { EmergencySet } from '../../Doctor/emergencyaction';
 import { ConsoleCustom } from './../../Components/BasicMethod/index'
 import axios from 'axios';
 import OrganSection from './../../Patient/Profile/Components/orgnaDonar';
@@ -169,7 +170,12 @@ class Index extends Component {
 
     //Get current User Information
     patientinfo() {
-        var user_id = this.props.stateLoginValueAim.user._id;
+        if(this.props.byUser === 'patient'){
+            var user_id = this.props.stateLoginValueAim.user._id;
+        }
+        else{
+            var user_id = this.props.Emergencysetget.p_id;
+        }
         var user_token = this.props.stateLoginValueAim.token;
         axios.get(sitedata.data.path + '/UserProfile/Users/' + user_id,
             {
@@ -207,7 +213,12 @@ class Index extends Component {
 
     //Here is get all Emergency data
     allemergencyrecord() {
-        var user_id = this.props.stateLoginValueAim.user._id;
+        if(this.props.byUser === 'patient'){
+            var user_id = this.props.stateLoginValueAim.user._id;
+        }
+        else{
+            var user_id = this.props.Emergencysetget.p_id;
+        }
         var user_token = this.props.stateLoginValueAim.token;
         this.setState({ loaderImage: true })
         axios.get(path + '/' + user_id,
@@ -226,7 +237,7 @@ class Index extends Component {
                 },
                     () => {
                         var state1 = this.state.contact_partner;
-                        state1['relation'] = this.state.personalinfo.emergency_relation
+                        state1['relation'] = this.state.personalinfo && this.state.personalinfo.emergency_relation
                         this.setState({ contact_partner: state1 })
                         if (this.state.contact_partner.number && this.state.contact_partner.number !== '') {
                             let fen = this.state.contact_partner.number.split("-");
@@ -546,16 +557,18 @@ class Index extends Component {
 const mapStateToProps = (state) => {
     const { stateLoginValueAim, loadingaIndicatoranswerdetail } = state.LoginReducerAim;
     const { stateLanguageType } = state.LanguageReducer;
-    const {settings} = state.Settings;
+    const { settings } = state.Settings;
     // const { Doctorsetget } = state.Doctorset;
     // const { catfil } = state.filterate;
+    const { Emergencysetget }= state.EmergencySet;
     return {
         stateLanguageType,
         stateLoginValueAim,
         loadingaIndicatoranswerdetail,
         settings,
+        Emergencysetget,
         //   Doctorsetget,
         //   catfil
     }
 };
-export default withRouter(connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer, Settings })(Index));
+export default withRouter(connect(mapStateToProps, { EmergencySet, LoginReducerAim, LanguageFetchReducer, Settings })(Index));

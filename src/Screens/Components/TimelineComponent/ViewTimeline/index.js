@@ -28,7 +28,6 @@ class Index extends Component {
             Track: this.props.Track,
             loggedinUser: this.props.loggedinUser,
             patient_gender: this.props.patient_gender,
-            loggedinUser: this.props.loggedinUser,
             Archive: this.props.Archive,
             images: this.props.images
         };
@@ -45,6 +44,10 @@ class Index extends Component {
         if(prevProps.images !== this.props.images)
         {
             this.setState({images : this.props.images})
+        }
+        if(prevProps.loggedinUser !== this.props.loggedinUser)
+        {
+            this.setState({loggedinUser : this.props.loggedinUser})
         }
     }
 
@@ -68,6 +71,8 @@ class Index extends Component {
                 {item.type === 'family_anamnesis' && <FAView downloadTrack={(data)=>this.props.downloadTrack(data)} images={this.state.images} Archive={this.state.Archive} DeleteTrack={(deleteKey)=>this.props.DeleteTrack(deleteKey)} ArchiveTrack={(data) => this.props.ArchiveTrack(data)} EidtOption={(value, updateTrack, visibility)=>this.props.EidtOption(value, updateTrack, visibility)} data={item} loggedinUser={this.state.loggedinUser} date_format={this.props.date_format} time_format={this.props.time_format} />}
                 {item.type === 'covid_19' && <CovidView downloadTrack={(data)=>this.props.downloadTrack(data)} images={this.state.images} Archive={this.state.Archive} DeleteTrack={(deleteKey)=>this.props.DeleteTrack(deleteKey)} ArchiveTrack={(data) => this.props.ArchiveTrack(data)} EidtOption={(value, updateTrack, visibility)=>this.props.EidtOption(value, updateTrack, visibility)} data={item} loggedinUser={this.state.loggedinUser} date_format={this.props.date_format} time_format={this.props.time_format} gender={this.state.patient_gender} />}
                 {item.type === 'diagnosis' && <DianosisView downloadTrack={(data)=>this.props.downloadTrack(data)} images={this.state.images} Archive={this.state.Archive} DeleteTrack={(deleteKey)=>this.props.DeleteTrack(deleteKey)} ArchiveTrack={(data) => this.props.ArchiveTrack(data)} EidtOption={(value, updateTrack, visibility)=>this.props.EidtOption(value, updateTrack, visibility)} data={item} loggedinUser={this.state.loggedinUser} date_format={this.props.date_format} time_format={this.props.time_format} gender={this.state.patient_gender} />}
+                {item.type === 'second_opinion' && <SOView downloadTrack={(data)=>this.props.downloadTrack(data)} images={this.state.images} Archive={this.state.Archive} DeleteTrack={(deleteKey)=>this.props.DeleteTrack(deleteKey)} ArchiveTrack={(data) => this.props.ArchiveTrack(data)} EidtOption={(value, updateTrack, visibility)=>this.props.EidtOption(value, updateTrack, visibility)} data={item} loggedinUser={this.state.loggedinUser} date_format={this.props.date_format} time_format={this.props.time_format} gender={this.state.patient_gender}  />}
+                {item.type === 'prescription' && <PrescriptionView downloadTrack={(data)=>this.props.downloadTrack(data)} images={this.state.images} Archive={this.state.Archive} DeleteTrack={(deleteKey)=>this.props.DeleteTrack(deleteKey)} ArchiveTrack={(data) => this.props.ArchiveTrack(data)} EidtOption={(value, updateTrack, visibility)=>this.props.EidtOption(value, updateTrack, visibility)} data={item} loggedinUser={this.state.loggedinUser} date_format={this.props.date_format} time_format={this.props.time_format} gender={this.state.patient_gender}  />}
                 {/* {item.type === 'blood_sugar' && <BSView data={item} />}
                                 {item.type === 'condition_pain' && <CPView data={item} />}
                                 {item.type === 'covid_19' && <CovidView data={item} />}
@@ -86,7 +91,7 @@ class Index extends Component {
 
                 {/* {item.type === 'anamnesis' && <AnamnesisView data={item} />} */}
                 {/* {item.type === 'prescription' && <PrescriptionView data={item} />}
-                                {item.type === 'second_opinion' && <SOView data={item} />}
+                             
                                 {item.type === 'sick_certificate' && <SCView data={item} />} */}
 
             </div>
