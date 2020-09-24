@@ -168,7 +168,7 @@ class Index extends Component {
                                         <Grid container direction="row">
                                             <Grid item xs={12} md={10}>
                                                 <Grid className="emrgncyData">
-                                                   <Grid className="EmergencyOpenPopup">For getting the Emergency Data od a patient Click on the Button</Grid>
+                                                   <Grid className="EmergencyOpenPopup">For getting the Emergency Data of a patient Click on the Button</Grid>
                                                     <Grid className="paramSub">
                                                         <input type="submit" onClick={this.openPopUp} value="View Emergency Data" />
                                                     </Grid>

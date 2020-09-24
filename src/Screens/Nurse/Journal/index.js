@@ -12,6 +12,7 @@ import { connect } from "react-redux";
 import { LoginReducerAim } from './../../Login/actions';
 import { Doctorset } from '../../Doctor/actions';
 import { Settings } from './../../Login/setting';
+import { Redirect, Route } from 'react-router-dom';
 import LeftMenu from './../../Components/Menus/NurseLeftMenu/index';
 import { LanguageFetchReducer } from './../../actions';
 import AddEntry from './../../Components/AddEntry/index';
@@ -139,16 +140,13 @@ class Index extends Component {
                 'Content-Type': 'application/json'
             }
         })
-            .then((response) => {
-                this.setState({ loaderImage: false })
-                this.getTrack();
-            }).catch((error) => {
-
-            });
+        .then((response) => {
+            this.setState({ loaderImage: false })
+            this.getTrack();
+        }).catch((error) => {});
     }
     //Update Archive Track State
     updateArchiveTrack = (data) => {
-        console.log('data', data)
         data.archive = true;
         var user_id = this.props.Doctorsetget.p_id
         var user_token = this.props.stateLoginValueAim.token;
@@ -220,6 +218,10 @@ class Index extends Component {
         var npmCountry = npmCountryList().getData()
         this.setState({ selectCountry: npmCountry })
         this.getMetadata();
+        if(this.props.Doctorsetget && this.props.Doctorsetget.p_id)
+        {
+            this.GetInfoForPatient();
+        }
     }
 
     //Upload file MultiFiles
@@ -573,16 +575,16 @@ class Index extends Component {
     //Get the RIGHT INFO 
     rightInfo() {
         var user_token = this.props.stateLoginValueAim.token;
-        axios.get(sitedata.data.path + '/rightinfo/patient', {
+        axios.get(sitedata.data.path + '/rightinfo/patient/'+this.props.Doctorsetget.p_id,{
             headers: {
                 'token': user_token,
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             }
         })
-            .then((response) => {
-                this.setState({ personalinfo: response.data.data })
-            })
+        .then((response) => {
+            this.setState({ personalinfo: response.data.data })
+        })
     }
 
     //Get the Current User Profile
@@ -590,18 +592,18 @@ class Index extends Component {
         var user_token = this.props.stateLoginValueAim.token;
         let user_id = this.props.Doctorsetget.p_id;
         axios.get(sitedata.data.path + '/UserProfile/Users/' + user_id,
-            {
-                headers: {
-                    'token': user_token,
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                }
-            })
-            .then((response) => {
-                this.setState({ cur_one: response.data.data })
-            })
+        {
+            headers: {
+                'token': user_token,
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        })
+        .then((response) => {
+            this.setState({ cur_one: response.data.data })
+        })
     }
-
+    //To access the data of another Patient
     AnotherPatient = ()=>{
         var user_id = null;
         var pin = null;
@@ -654,8 +656,28 @@ class Index extends Component {
         this.cur_one();
         this.rightInfo();
         this.getTrack();
+        this.getPesonalized();
         this.handleCloseData();
     }
+
+    //For getting the existing settings
+    getPesonalized = () => {
+        this.setState({ loaderImage: true })
+        var user_id = this.props.Doctorsetget.p_id;
+        axios.get(sitedata.data.path + '/UserProfile/updateSetting/'+ user_id,
+        {
+            headers: {
+                'token': this.props.stateLoginValueAim.token,
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        }).then((responce) => {
+            if (responce.data.hassuccessed && responce.data.data && responce.data.data.personalized && responce.data.data.personalized.length > 0) { this.setState({ added_data: responce.data.data.personalized }) }
+            else { this.setState({ added_data: [] }) }
+            this.setState({ loaderImage: false })
+        })
+    }
+
     //for get the track data on the bases of pateint
     GetTrackData  = (e) => {
         const state = this.state.gettrackdatas;
@@ -718,6 +740,17 @@ class Index extends Component {
         let { journal, add_new_entry, New, entry, edit, blood_pressure, doc_visit, blood_sugar, covid_diary, condition_pain, diagnosis, diary, weight_bmi,
             vaccination, marcumar_pass, smoking_status, hosp_visit, lab_result, file_uplod, family_anmnies, medication,
             personalize_dashbrd } = translate;
+
+        const { stateLoginValueAim, Doctorsetget } = this.props;
+        if (stateLoginValueAim.user === 'undefined' || stateLoginValueAim.token === 450 || stateLoginValueAim.token === 'undefined' ) {
+            if(stateLoginValueAim.user){
+            if(stateLoginValueAim.user.type === 'nurse' || stateLoginValueAim.user.type === 'therapist'){}
+            else
+            {return (<Redirect to={'/'} />);}   
+            }
+            else
+            {return (<Redirect to={'/'} />);}   
+        }
         return (
             <Grid className="homeBg">
                 {this.state.loaderImage && <Loader />}
@@ -908,7 +941,7 @@ class Index extends Component {
                                     {/* End of Model setup */}
 
                                     {/* <RightManage added_data={this.state.added_data} MoveDocument={this.MoveDocument} MoveAppoint={this.MoveAppoint} SelectOption={this.SelectOption} personalinfo={{}} /> */}
-
+                                    <RightManage added_data={this.state.added_data} MoveDocument={this.MoveDocument} MoveAppoint={this.MoveAppoint} SelectOption={this.SelectOption} personalinfo={{}} />
                                 </Grid>}
                                 {/* End of Website Right Content */}
 

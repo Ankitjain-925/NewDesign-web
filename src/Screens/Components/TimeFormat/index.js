@@ -21,6 +21,12 @@ class Time extends Component {
     componentDidMount = () => {
         this.props.onChange(this.props.value);
     }
+     //on adding new data
+     componentDidUpdate = (prevProps) => {
+        if (prevProps.value !== this.props.value) {
+            this.setState({ value: this.props.value })
+        }
+    }
     render() {
         return (
             <div>

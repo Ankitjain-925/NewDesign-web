@@ -41,9 +41,13 @@ class Index extends Component {
         this.props.LanguageFetchReducer(languageType);
     }
 
-    //For Service
+    //For Patient
     Service = () => {
-        this.props.history.push('/doctor/service');
+        this.props.history.push('/doctor/patient');
+    }
+    //For My Document
+    MyDocument= () => {
+        this.props.history.push('/doctor/mydocument');
     }
 
     render() {
@@ -81,9 +85,9 @@ class Index extends Component {
                                     : <img src={require('../../../../assets/images/nav-appointments.svg')} alt="" title="" />}
                                 <span>Appointments</span>
                             </a>
-                        </li><li className={this.props.currentPage === 'myDocument' ? "menuActv" : ""}>
-                            <a onClick={this.Service}>
-                                {this.props.currentPage === 'myDocument' ? <img src={require('../../../../assets/images/nav-my-documents-inquiries.svg')} alt="" title="" />
+                        </li><li className={this.props.currentPage === 'mydocument' ? "menuActv" : ""}>
+                            <a onClick={this.MyDocument}>
+                                {this.props.currentPage === 'mydocument' ? <img src={require('../../../../assets/images/nav-my-documents-inquiries.svg')} alt="" title="" />
                                     : <img src={require('../../../../assets/images/nav-my-documents-inquiries.svg')} alt="" title="" />}
                                 <span>My Documents</span>
                             </a>

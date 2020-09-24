@@ -189,7 +189,6 @@ class Index extends Component {
 
     // find appointment by location or speciality
     getlocation() {
-        console.log("Get location response")
         let radius, Latitude, longitude
         if (this.state.searchDetails && this.state.searchDetails.radius) {
             radius = this.state.searchDetails.radius + '000'

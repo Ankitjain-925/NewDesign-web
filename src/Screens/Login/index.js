@@ -13,9 +13,12 @@ import * as translationEN from '../../translations/en';
 import * as translationDE from '../../translations/de';
 import * as translationES from '../../translations/es';
 import * as translationCH from '../../translations/ch';
+import { EmergencySet } from '../Doctor/emergencyaction.js';
+import { Doctorset } from '../Doctor/actions';
 import * as translationPT from '../../translations/pt';
 import queryString from 'query-string';
 import Loader from './../Components/Loader/index';
+import Emergency from '../Nurse/Emergency';
 const path = sitedata.data.path + '/UserProfile';
 
 
@@ -68,6 +71,14 @@ class Index extends Component {
           this.props.authy(false);
           let languageType = 'en';
           this.props.LanguageFetchReducer(languageType);
+          this.anotherPatient();
+      }
+      anotherPatient=()=>
+      {
+         var user_id = null;
+         var pin = null;
+         this.props.EmergencySet(user_id);
+         this.props.Doctorset(user_id, pin);
       }
       unsetCategory()
       {
@@ -427,15 +438,19 @@ const mapStateToProps = (state) => {
     const { stateLanguageType } = state.LanguageReducer;
     const { verifyCode } = state.authy;
     const { settings } = state.Settings;
+    const { Emergencysetget }= state.EmergencySet;
+    const { Doctorsetget } = state.Doctorset;
     return {
         stateLanguageType,
         stateLoginValueAim,
         loadingaIndicatoranswerdetail,
         verifyCode,
-        settings
+        settings,
+        Doctorsetget,
+        Emergencysetget
     }
 };
 
-export default connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer, authy, Settings })(Index)
+export default connect(mapStateToProps, { Doctorset,EmergencySet, LoginReducerAim, LanguageFetchReducer, authy, Settings })(Index)
 
 // export default Index;

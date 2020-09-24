@@ -64,7 +64,7 @@ class Index extends Component {
     getTrack = () => {
         var user_id = this.props.stateLoginValueAim.user._id;
         var user_token = this.props.stateLoginValueAim.token;
-        console.log('user_id', user_id, 'user_token', user_token)
+   
         this.setState({ loaderImage: true })
         axios.get(sitedata.data.path + '/User/ArchivedTrack/' + user_id,
         {
@@ -216,7 +216,6 @@ class Index extends Component {
 
                                     {/* For Empty Entry */}
                                     <div>
-                                        {console.log('allTrack', this.state.allTrack)}
                                     {this.state.allTrack && this.state.allTrack.length > 0 &&
                                         this.state.allTrack.map((item, index) => (
                                             <ViewTimeline Archive={true} DeleteTrack={(deleteKey)=>this.DeleteTrack(deleteKey)} ArchiveTrack={(data)=> this.ArchiveTrack(data)} EidtOption={(value, updateTrack, visibility)=>this.EidtOption(value, updateTrack, visibility)} date_format={this.props.settings.setting.date_format}  time_format={this.props.settings.setting.time_format} Track={item} from="patient" loggedinUser={this.state.cur_one} patient_gender={this.state.patient_gender} />

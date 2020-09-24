@@ -26,6 +26,7 @@ import translate from './../../Components/Translator/index.js';
 import ReactFlagsSelect from 'react-flags-select';
 import 'react-flags-select/css/react-flags-select.css';
 import 'react-flags-select/scss/react-flags-select.scss';
+import { getDate, getImage } from './../../Components/BasicMethod/index';
 import contry from './../../Components/countryBucket/countries.json';
 var letter = /([a-zA-Z])+([ -~])*/, number = /\d+/, specialchar = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
 
@@ -106,23 +107,26 @@ class Index extends Component {
         }).then((response) => {
             this.setState({ loaderImage: false });
             if (response.data.hassuccessed) {
-
-                response.data.data && response.data.data.length > 0 && response.data.data.map((item) => {
-                    var find = item && item.image && item.image
-                    if (find) {
-                        find = find.split('.com/')[1]
-
-                        axios.get(sitedata.data.path + '/aws/sign_s3?find=' + find,)
-                            .then((response2) => {
-                                if (response2.data.hassuccessed) {
-                                    item.new_image = response2.data.data
-
+                var images = []
+                response.data.data && response.data.data.length>0 && response.data.data.map((item)=>{
+                        var find = item && item.image && item.image
+                            if(find)
+                            {
+                                find = find.split('.com/')[1]
+                                console.log('find', find)
+                                axios.get(sitedata.data.path + '/aws/sign_s3?find='+find,)
+                                .then((response2) => {
+                                    if(response2.data.hassuccessed)
+                                    {
+                                        item.new_image = response2.data.data
+                                        
+                                    }
+                                })
                                 }
-                            })
-                    }
-                })
+                    })
+                
 
-                this.setState({ currentList: response.data.data });
+                this.setState({ MypatientsData: response.data.data });
             }
         }).catch((error) => {
             this.setState({ loaderImage: false });
@@ -447,7 +451,13 @@ class Index extends Component {
         })
     }
 
-
+    getImage = (image) => {
+        const myFilterData = this.state.images && this.state.images.length > 0 && this.state.images.filter((value, key) =>
+            value.image === image);
+        if (myFilterData && myFilterData.length > 0) {
+            return myFilterData[0].new_image;
+        }
+    }
 
 
     render() {
@@ -494,10 +504,15 @@ class Index extends Component {
                                                 </Thead>
                                                 <Tbody>
 
-                                                    {this.state.currentList && this.state.currentList.length > 0 && this.state.currentList.map((data, index) => (
+                                                    {this.state.MypatientsData && this.state.MypatientsData.length > 0 && this.state.MypatientsData.map((data, index) => (
                                                         <Tr>
                                                             <Td className="docphrImg">
-                                                                <img src={data.new_image} alt="" title="" />
+                                                                <img src={
+                                                                                        this.state.MypatientsData[index].new_image ?
+                                                                                        this.state.MypatientsData[index].new_image 
+                                                                                            :
+                                                                                            require('../../../assets/images/dr1.jpg')
+                                                                                    } alt="" title="" />
                                                                 {data.first_name ? data.first_name + " " + data.last_name : 'Not  mentioned'}
                                                             </Td>
                                                             <Td>{data.birthday ? this.getAge(data.birthday) : 'Not mentioned'}</Td>

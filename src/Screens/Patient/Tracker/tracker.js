@@ -11,6 +11,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Typography from '@material-ui/core/Typography';
 import PropTypes from 'prop-types';
 import { Settings } from './../../Login/setting';
+import { Redirect, Route } from 'react-router-dom';
 import Modal from '@material-ui/core/Modal';
 import LeftMenu from './../../Components/Menus/PatientLeftMenu/index';
 import axios from "axios"
@@ -610,6 +611,11 @@ class Index extends Component {
         let { trackers, self_data, connect, search_for_device_palce, devices, services, view_data,
             view_details, logout, disconect_device, distance, total, best, steps, badges, earned, on, last,
             model, type, timezone, session, ur_connected_device_appear, no_device_connctd, connct_a_device } = translate
+
+        const { stateLoginValueAim } = this.props;
+        if (stateLoginValueAim.user === 'undefined' || stateLoginValueAim.token === 450 || stateLoginValueAim.token === 'undefined' || stateLoginValueAim.user.type !== 'patient') {
+            return (<Redirect to={'/'} />);
+        }
         return (
             <Grid className="homeBg">
                 <Grid className="homeBgIner">
