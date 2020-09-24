@@ -17,7 +17,6 @@ class Loader extends Component {
                             <a><img src={require('../../../assets/images/upload-file.svg')} alt="" title="" /></a>
                             <a>Browse <input type="file" onChange={(e)=>this.props.fileUpload(e.target.files, this.props.name)} multiple={this.props.isMulti} /></a> or drag here
                         </Grid>
-                        {console.log('dsff', this.props.isMulti)}
                         <p>Supported file types: .jpg, .png, .pdf</p>
                     </div>
                 )}

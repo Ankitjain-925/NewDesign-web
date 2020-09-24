@@ -106,7 +106,7 @@ class Index extends Component {
                 state[stateKey] = response.data;
                 this.setState({ apidata: state });
             })
-            .catch(error => console.log("Eroro", error))
+            .catch(error =>{})
     }
 
     backDate = (backmonth = 3) => {
@@ -146,9 +146,7 @@ class Index extends Component {
                     Accept: "application/json",
                     "Content-Type": "application/json",
                 },
-            }).then(res => {
-                console.log("YUYUYUYU USER", res)
-            })
+            }).then(res => { })
     }
     getDevice = (code) => {
         axios.get("https://wbsapi.withings.net/v2/user?action=getdevice",
@@ -161,7 +159,6 @@ class Index extends Component {
             }
         )
             .then((res) => {
-                console.log("getDevice", res)
                 if (res.data && res.data.body && res.data.body.devices) {
                     this.setState({ Devices_id: res.data.body.devices })
                 }
@@ -174,7 +171,6 @@ class Index extends Component {
             SystolicBloodPressure = [], HeartPulse = [], Temperature = [], SP02 = [], BodyTemperature = [], FatFreeMassD = [],
             SkinTemperature = [], MuscleMass = [], Hydration = [], BoneMass = [], PulseWaveVelocity = [], SP02D = [],
             TemperatureD = [], HeartPulseD = [], WeightD = [], BoneMassD = [], HydrationD = [], DiastolicBloodPressureD = [];
-        console.log("getMeassure", deviceid)
         axios.get('https://wbsapi.withings.net/measure?action=getmeas&startdate=' + this.toTimestamp(this.backDate(6)) + '&enddate=' + this.toTimestamp(new Date()), {
             headers: {
                 'Authorization': 'Bearer ' + code,
@@ -190,7 +186,6 @@ class Index extends Component {
                 } else if (this.state.optionsGraph && this.state.optionsGraph.length > 0) {
                     messureData = this.state.getMeassure
                 }
-                console.log("messureData response.data", response)
                 var labels = [], value = [], options = [];
                 messureData.measuregrps &&
                     messureData.measuregrps.length > 0 &&

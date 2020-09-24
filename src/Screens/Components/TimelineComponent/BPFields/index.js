@@ -70,15 +70,15 @@ class Index extends Component {
 
         return (
             <div>
-                <Grid className="cnfrmDiaMain">
+                {!this.props.visibility && <Grid className="cnfrmDiaMain">
                     <Grid className="fillDia">
                         <MMHG name="rr_systolic" Unit="mmHg" label="RR Systolic" onChange={(e) => this.props.updateEntryState(e)} value={this.state.updateTrack.rr_systolic} />
                     </Grid>
                     <Grid className="fillDia">
-                        <MMHG name="rr_diastolic" Unit="mmHg" label="RR Diastolic" onChange={(e) => this.props.updateEntryState(e)} value={this.state.updateTrack.rr_systolic} />
+                        <MMHG name="rr_diastolic" Unit="mmHg" label="RR Diastolic" onChange={(e) => this.props.updateEntryState(e)} value={this.state.updateTrack.rr_diastolic} />
                     </Grid>
                     <Grid className="fillDia">
-                        <MMHG name="heart_frequncy" Unit="b/min" label="Heart Rate" onChange={(e) => this.props.updateEntryState(e)} value={this.state.updateTrack.rr_systolic} />
+                        <MMHG name="heart_frequncy" Unit="b/min" label="Heart Rate" onChange={(e) => this.props.updateEntryState(e)} value={this.state.updateTrack.heart_frequncy} />
                     </Grid>
                     <Grid className="fillDia">
                         <Grid className="rrSysto">
@@ -101,7 +101,7 @@ class Index extends Component {
                         <Grid><label>{attachments}</label></Grid>
                         <FileUploader name="UploadTrackImageMulti" isMulti={true} fileUpload={this.props.FileAttachMulti} />
                     </Grid>
-                </Grid>
+                </Grid>}
 
                 <Grid className="infoShwHidMain3upr">
 

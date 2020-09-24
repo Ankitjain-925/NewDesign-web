@@ -70,7 +70,7 @@ class Index extends Component {
         
         return (
             <div>
-                 <Grid className="cnfrmDiaMain">
+                 {!this.props.visibility && <Grid className="cnfrmDiaMain">
                     
                     {this.props.comesfrom !== 'patient' && 
                     <Grid className="cnfrmDiaUpr">
@@ -186,7 +186,7 @@ class Index extends Component {
                     <Grid className="fillDia">
                         <NotesEditor name="remarks" label="Notes"  onChange={(e)=> this.props.updateEntryState1(e, 'remarks')} value={this.state.updateTrack.remarks}/> 
                     </Grid>
-                </Grid>
+                </Grid>}
                 <Grid className="infoShwHidMain3upr">
                     
                 <ShowHide date_format= {this.state.date_format} value={this.state.updateTrack} onChange={(data) => this.props.GetHideShow(data)}/>

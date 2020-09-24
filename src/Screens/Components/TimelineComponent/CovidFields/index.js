@@ -75,7 +75,7 @@ class Index extends Component {
 
         return (
             <div>
-                <Grid className="cnfrmDiaMain">
+                {!this.props.visibility &&  <Grid className="cnfrmDiaMain">
                     <Grid className="fillDia">
                         <Temprature name="temprature" name="temprature" valueType={this.state.updateTrack.temprature_type} value={this.state.updateTrack.temprature} Options={this.state.options2} onChange={(e) => this.props.updateEntryState(e)} onChangeType={(e) => this.props.updateEntryState1(e, 'temprature_type')} />
                     </Grid>
@@ -105,7 +105,7 @@ class Index extends Component {
                         <FileUploader name="UploadTrackImageMulti" isMulti={true} fileUpload={this.props.FileAttachMulti} />
                     </Grid>
 
-                </Grid>
+                </Grid>}
 
                 <Grid className="infoShwHidMain3upr">
                     <ShowHide date_format={this.state.date_format} value={this.state.updateTrack} onChange={(data) => this.props.GetHideShow(data)} />
