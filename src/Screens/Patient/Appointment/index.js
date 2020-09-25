@@ -18,6 +18,7 @@ import LeftMenu from "../../Components/Menus/PatientLeftMenu/index";
 import axios from "axios"
 import sitedata from "../../../sitedata"
 import Autocomplete from './Autocomplete';
+import translationEN from '../../../translations/en_json_proofread_13072020.json'
 
 
 const options = [
@@ -40,8 +41,15 @@ class Index extends Component {
             openAllowLoc: false,
             openApoint: false,
             openFancyVdo: false,
-            searchDetails: {}
+            searchDetails: {},
+            appointmentData: {},
+            successfull: false,
+            UpDataDetails: [],
+            video_call: true,
+            office_visit: true
         };
+        this.bookAppointment = this.bookAppointment.bind(this)
+        this.apointmentType = this.apointmentType.bind(this)
     }
     componentDidMount() {
         this.getGeoLocation()
@@ -66,12 +74,16 @@ class Index extends Component {
         }
     }
 
-    handleOpenFancyVdo = (type, data) => {
-        console.log(type, data)
-        this.setState({ openFancyVdo: true, appointmentData: data });
+    handleOpenFancyVdo = (i, type, data) => {
+        this.setState({ openFancyVdo: true, appointmentData: data, doc_select: i, appointType: type });
+        setTimeout(this.onChange, 3000)
+        // this.onChange()
     };
     handleCloseFancyVdo = () => {
-        this.setState({ openFancyVdo: false });
+        this.setState({ openFancyVdo: false, appointDate: [] });
+        Object.keys(this.state.allDocData).map((index, i) => {
+        
+        })
     };
 
     //For patient Info..
@@ -86,7 +98,6 @@ class Index extends Component {
             }
         })
             .then((response) => {
-                console.log("patient data response", response)
                 this.setState({ personalinfo: response.data.data, loaderImage: false })
             })
     }
@@ -108,6 +119,75 @@ class Index extends Component {
         // });
     }
 
+    // findAppointment
+    findAppointment = (tab, doc_select, apointType, apointDay, iA) => {
+        apointType = apointType.replace(/['"]+/g, '')
+        this.setState({
+            findDoc: tab, selectedDoc: this.state.allDocData[doc_select],
+            mypoint: {
+                start: this.state.allDocData[doc_select][apointType][0][apointDay][iA],
+                end: this.state.allDocData[doc_select][apointType][0][apointDay][iA + 1],
+                type: apointType
+            }
+        })
+    }
+
+
+    questionDetails = (e) => {
+        const state = this.state.UpDataDetails;
+        state[e.target.name] = e.target.value;
+        this.setState({ UpDataDetails: state });
+    }
+
+    bookAppointment() {
+        var insurance_no = this.state.personalinfo.insurance && this.state.personalinfo.insurance.length > 0 && this.state.personalinfo.insurance[0] && this.state.personalinfo.insurance[0].insurance_number ? this.state.personalinfo.insurance[0].insurance_number : '';
+        this.setState({ loaderImage: true });
+        const user_token = this.props.stateLoginValueAim.token;
+        axios.post(sitedata.data.path + '/User/appointment', {
+            patient: this.props.stateLoginValueAim.user._id,
+            doctor_id: this.state.selectedDoc.data._id,
+            insurance: this.state.personalinfo.insurance[0].insurance_number,
+            date: this.state.selectedDate,
+            start_time: this.state.mypoint.start,
+            end_time: this.state.mypoint.end,
+            appointment_type: this.state.mypoint.type,
+            insurance_number: insurance_no,
+            annotations: this.state.UpDataDetails.details,
+            status: 'free',
+            patient_info: {
+                patient_id: this.props.stateLoginValueAim.user.profile_id,
+                first_name: this.props.stateLoginValueAim.user.first_name,
+                last_name: this.props.stateLoginValueAim.user.last_name,
+                email: this.props.stateLoginValueAim.user.email,
+                birthday: this.props.stateLoginValueAim.user.birthday,
+                profile_image: this.props.stateLoginValueAim.user.image,
+                bucket: this.props.stateLoginValueAim.user.bucket,
+            },
+            lan: this.props.stateLanguageType,
+            docProfile: {
+                patient_id: this.state.selectedDoc.data.profile_id,
+                first_name: this.state.selectedDoc.data.first_name,
+                last_name: this.state.selectedDoc.data.last_name,
+                email: this.state.selectedDoc.data.email,
+                birthday: this.state.selectedDoc.data.birthday,
+                profile_image: this.state.selectedDoc.data.image
+            }
+        })
+            .then((responce) => {
+                this.setState({ loaderImage: false });
+                if (responce.data.hassuccessed === true) {
+                    this.setState({ successfull: true })
+                    setTimeout(
+                        function () {
+                            this.setState({ successfull: false, openFancyVdo: false });
+                        }
+                            .bind(this),
+                        5000
+                    );
+                }
+            })
+    }
+
     // find appointment by location or speciality
     getlocation() {
         let radius, Latitude, longitude
@@ -126,7 +206,6 @@ class Index extends Component {
             alert("please enter city")
         }
         // if (radius && Latitude && longitude) {
-        console.log("Latitude", Latitude, "longitude", longitude)
         axios.get(sitedata.data.path + '/UserProfile/getLocation/' + radius, {
             params: {
                 speciality: this.state.searchDetails.specialty,
@@ -135,7 +214,6 @@ class Index extends Component {
             }
         })
             .then((responce) => {
-                console.log("Get location response", responce)
                 let markerArray = [];
                 let selectedListArray = [];
                 let NewArray = [];
@@ -155,7 +233,6 @@ class Index extends Component {
                     NewArray.push(item)
                 })
                 this.setState({ allDocData: NewArray })
-                // () => this.findAppointment('tab2'))
                 this.setState({ mapMarkers: markerArray });
                 this.setState({ selectedListArray: selectedListArray });
             })
@@ -163,7 +240,6 @@ class Index extends Component {
     }
     // Search by City
     showPlaceDetails(place) {
-        console.log("showPlaceDetails", place)
         place = place.geometry.location
         this.setState({ place });
         this.setState({ mLatitude: place.lat() });
@@ -181,7 +257,11 @@ class Index extends Component {
     }
 
     apointmentType(event) {
-        console.log("apointmentType", event.target.name)
+        if (event.target.name == "Video") {
+            this.setState({ video_call: this.state.video_call == true ? false : true })
+        } else if (event.target.name == "Office") {
+            this.setState({ office_visit: this.state.office_visit == true ? false : true })
+        }
     }
 
     handleOpenApoint = () => {
@@ -193,7 +273,6 @@ class Index extends Component {
     handleChangeSelect = selectedOption => {
         let searchDetails = this.state.searchDetails
         searchDetails["specialty"] = selectedOption.value
-        console.log("selectedOption", selectedOption)
         this.setState({ selectedOption: selectedOption, searchDetails: searchDetails });
     };
     handleAllowLoc = () => {
@@ -225,7 +304,18 @@ class Index extends Component {
         this.setState({ openDash: false });
     };
     onChange = (date) => {
-        let day_num = date.getDay()
+        let day_num
+        let Month, date1
+        if (date !== undefined && date) {
+            day_num = date.getDay()
+            Month = date.getMonth() + 1;
+            date1 = Month + '-' + date.getDate() + '-' + date.getFullYear()
+        } else {
+            date = new Date()
+            day_num = date.getDay()
+            Month = date.getMonth() + 1;
+            date1 = Month + '-' + date.getDate() + '-' + date.getFullYear()
+        }
         let days
         switch (day_num) {
             case 1:
@@ -257,13 +347,46 @@ class Index extends Component {
                 appointDate = value
             }
         })
-        console.log("appointDate", appointDate)
-        this.setState({ appointDate })
+        this.setState({ appointDate: appointDate, apointDay: days, selectedDate: date1 })
     }
 
     render() {
-        console.log("ALL doctor", this.state.allDocData)
-        const { selectedOption, specialityData, allDocData, date } = this.state;
+        const { selectedOption, specialityData, allDocData, date, doc_select, appointType, apointDay } = this.state;
+        let translate;
+        switch (this.props.stateLanguageType) {
+            case "en":
+                translate = translationEN.text
+                break;
+            // case "de":
+            //     translate = translationDE.text
+            //     break;
+            // case "pt":
+            //     translate = translationPT.text
+            //     break;
+            // case "sp":
+            //     translate = translationSP.text
+            //     break;
+            // case "rs":
+            //     translate = translationRS.text
+            //     break;
+            // case "nl":
+            //     translate = translationNL.text
+            //     break;
+            // case "ch":
+            //     translate = translationCH.text
+            //     break;
+            // case "sw":
+            //     translate = translationSW.text
+            //     break;
+            case "default":
+                translate = translationEN.text
+        }
+        let { slct_time_slot, holiday, Details, Questions, cancel, book, appointment_booked, upcming_apointment, office_visit, cancel_apointmnt, show_past_apointment,
+            plz_write_short_explnation, short_msg, appointments, appointment, arrng_apointmnt, today, sync_ur_calander, speciality, search_within, Video, Office, type,
+            Contact, Services, latest_info, see_avlbl_date, location_of_srvc, this_way_can_instntly_list_of_specility, find_apointment, consultancy_cstm_calnder, vdo_call, allow_location_access, profile_info, profile, information, ID, pin, QR_code, done, Change, edit_id_pin, edit, and, is, changed, profile_id_taken, profile_id_greater_then_5,
+        } = translate;
+
+
         return (
             <Grid className="homeBg">
                 <Grid className="homeBgIner">
@@ -293,7 +416,7 @@ class Index extends Component {
                                             <li>
                                                 <a href="/appointment">
                                                     <img src={require('../../../assets/images/nav-appointments.svg')} alt="" title="" />
-                                                    <span>Appointments</span>
+                                                    <span>{appointments}</span>
                                                 </a>
                                             </li>
                                             <li>
@@ -361,8 +484,22 @@ class Index extends Component {
                                                     <Calendar onChange={this.onChange} value={this.state.date} />
                                                 </Grid>
                                                 <Grid className="selTimeSlot">
-                                                    <Grid><label>Select time slot</label></Grid>
-                                                    <Grid className="selTimeAM">{console.log("apointment date", this.state)}
+                                                    <Grid><label>{slct_time_slot}</label></Grid>
+                                                    <Grid className="selTimeAM">
+                                                        {this.state.appointDate && this.state.appointDate.length > 0 ? this.state.appointDate.map((data, iA) => {
+                                                            return (
+                                                                <Grid>
+                                                                    {this.state.appointDate[iA + 1] && this.state.appointDate[iA + 1] !== 'undefined' &&
+                                                                        <a onClick={() => { this.findAppointment('tab3', doc_select, appointType, apointDay, iA) }}>
+                                                                            {this.state.appointDate[iA] + ' - ' + this.state.appointDate[iA + 1]}
+                                                                        </a>}
+                                                                </Grid>
+                                                            );
+                                                        }) : this.state.appointDate !== undefined ?
+                                                                <Grid><span>{holiday}!</span></Grid> : ''
+                                                        }
+                                                    </Grid>
+                                                    {/* <Grid className="selTimeAM">
                                                         <Grid><span>AM</span></Grid>
                                                         <Grid><a>09:00 - 09:30</a></Grid>
                                                         <Grid><a>09:30 - 10:00</a></Grid>
@@ -375,28 +512,31 @@ class Index extends Component {
                                                         <Grid><a>01:30 - 02:00</a></Grid>
                                                         <Grid><a>02:00 - 02:30</a></Grid>
                                                         <Grid><a>02:30 - 03:00</a></Grid>
-                                                    </Grid>
+                                                    </Grid> */}
                                                 </Grid>
                                                 <Grid className="delQues">
-                                                    <Grid><label>Details / Questions</label></Grid>
-                                                    <Grid><textarea></textarea></Grid>
-                                                    <Grid className="delQuesBook"><a>Book</a> <a>Cancel</a></Grid>
+                                                    <Grid><label>{Details} / {Questions}</label></Grid>
+                                                    <Grid><textarea name="details" onClick={this.questionDetails}></textarea></Grid>
+                                                    <Grid className="delQuesBook">
+                                                        <a onClick={this.bookAppointment}>{book}</a>
+                                                        <a onClick={() => { this.setState({ openFancyVdo: false }) }}>{cancel}</a></Grid>
                                                 </Grid>
                                             </Grid>
 
                                         </Grid>
+                                        {this.state.successfull && <div className="success_message">{appointment_booked}</div>}
                                     </Grid>
                                 </Modal>
                                 {/* End of Video Model */}
                                 <Grid item xs={12} md={3}>
                                     <Grid className="apointUpcom">
-                                        <h4>Upcoming appointments</h4>
+                                        <h4>{upcming_apointment}</h4>
 
                                         <Grid className="officeVst">
                                             <Grid container direction="row">
                                                 <Grid item xs={6} md={6} className="officeVstLft"><label>7 Aug, 09:00</label></Grid>
                                                 <Grid item xs={6} md={6} className="officeVstRght">
-                                                    <a><img src={require('../../../assets/images/office-visit.svg')} alt="" title="" /> Office visit</a>
+                                                    <a><img src={require('../../../assets/images/office-visit.svg')} alt="" title="" /> {office_visit}</a>
                                                 </Grid>
                                             </Grid>
                                             <Grid className="showSubject">
@@ -413,7 +553,7 @@ class Index extends Component {
                                                     <a className="showDetail">
                                                         <img src={require('../../../assets/images/threedots.jpg')} alt="" title="" />
                                                         <Grid className="cancelAppoint">
-                                                            <a><img src={require('../../../assets/images/cancelAppoint.jpg')} alt="" title="" />Cancel appointment</a>
+                                                            <a><img src={require('../../../assets/images/cancelAppoint.jpg')} alt="" title="" />{cancel_apointmnt}</a>
                                                         </Grid>
                                                     </a>
                                                 </Grid>
@@ -429,7 +569,7 @@ class Index extends Component {
                                             <Grid container direction="row">
                                                 <Grid item xs={6} md={6} className="officeVstLft"><label>9 Aug, 09:00</label></Grid>
                                                 <Grid item xs={6} md={6} className="officeVstRght">
-                                                    <a onClick={this.handleOpenFancyVdo}><img src={require('../../../assets/images/video-call.svg')} alt="" title="" /> Video call</a>
+                                                    <a onClick={this.handleOpenFancyVdo}><img src={require('../../../assets/images/video-call.svg')} alt="" title="" /> {vdo_call}</a>
                                                 </Grid>
                                             </Grid>
                                             <Grid className="showSubject">
@@ -447,7 +587,7 @@ class Index extends Component {
                                             <Grid container direction="row">
                                                 <Grid item xs={6} md={6} className="officeVstLft"><label>7 Aug, 09:00</label></Grid>
                                                 <Grid item xs={6} md={6} className="officeVstRght">
-                                                    <a><img src={require('../../../assets/images/office-visit.svg')} alt="" title="" /> Office visit</a>
+                                                    <a><img src={require('../../../assets/images/office-visit.svg')} alt="" title="" /> {office_visit}</a>
                                                 </Grid>
                                             </Grid>
                                             <Grid className="showSubject">
@@ -458,11 +598,11 @@ class Index extends Component {
                                         </Grid>
 
                                         <Grid className="shwAppoints">
-                                            <p><a>Show past appointments</a></p>
-                                            <p><a onClick={this.handleOpenApoint}>Cancel appointments</a></p>
+                                            <p><a>{show_past_apointment}</a></p>
+                                            <p><a onClick={this.handleOpenApoint}>{cancel_apointmnt}s</a></p>
                                         </Grid>
 
-                                        {/* Cancel appointment */}
+                                        {/* {cancel_apointmnt} */}
                                         <Modal
                                             open={this.state.openApoint}
                                             onClose={this.handleCloseApoint}>
@@ -473,19 +613,19 @@ class Index extends Component {
                                                             <img src={require('../../../assets/images/closefancy.png')} alt="" title="" />
                                                         </a>
                                                     </Grid>
-                                                    <Grid><label>Cancel appointment</label></Grid>
-                                                    <p>Please write a short explanation of why you have to cancel the appointment. Thank you.</p>
+                                                    <Grid><label>{cancel_apointmnt}</label></Grid>
+                                                    <p>{plz_write_short_explnation}</p>
                                                 </Grid>
                                                 <Grid className="apontDragCntnt">
                                                     <Grid>
-                                                        <Grid><label>Short message</label></Grid>
+                                                        <Grid><label>{short_msg}</label></Grid>
                                                         <Grid><textarea></textarea></Grid>
-                                                        <Grid><input type="submit" value="Cancel appointment" /></Grid>
+                                                        <Grid><input type="submit" value={cancel_apointmnt} /></Grid>
                                                     </Grid>
                                                 </Grid>
                                             </Grid>
                                         </Modal>
-                                        {/* End of Cancel appointment */}
+                                        {/* End of {cancel_apointmnt} */}
 
                                     </Grid>
                                 </Grid>
@@ -498,15 +638,15 @@ class Index extends Component {
                                                 <Grid item xs={12} md={12}>
                                                     <Grid container direction="row">
                                                         <Grid item xs={6} md={6}>
-                                                            <h1>Appointments</h1>
+                                                            <h1>{appointments}</h1>
                                                         </Grid>
                                                         <Grid item xs={6} md={6}>
                                                             <Grid className="arng_addEntrynw">
                                                                 {/* <a onClick={this.handleOpenFancy}>+ Arrange an appointment</a> */}
-                                                                <a onClick={this.handleAllowAccess}>+ Arrange an appointment</a>
+                                                                <a onClick={this.handleAllowAccess}>+ {arrng_apointmnt}</a>
                                                             </Grid>
 
-                                                            {/* Cancel appointment Model */}
+                                                            {/* {cancel_apointmnt} Model */}
                                                             <Modal
                                                                 open={this.state.openFancy}
                                                                 onClose={this.handleCloseFancy}
@@ -518,18 +658,17 @@ class Index extends Component {
                                                                                 <img src={require('../../../assets/images/closefancy.png')} alt="" title="" />
                                                                             </a>
                                                                         </div>
-                                                                        <div><label>Cancel appointment</label></div>
-                                                                        <p>Please write a short explanation of why you have to cancel
-                                                                           the appointment. Thank you.</p>
+                                                                        <div><label>{cancel_apointmnt}</label></div>
+                                                                        <p>{plz_write_short_explnation}</p>
                                                                     </div>
                                                                     <div className="apointMsg">
-                                                                        <div><label>Short message</label></div>
+                                                                        <div><label>{short_msg}</label></div>
                                                                         <div><textarea></textarea></div>
-                                                                        <div><input type="submit" value="Cancel appointment" /></div>
+                                                                        <div><input type="submit" value={cancel_apointmnt} /></div>
                                                                     </div>
                                                                 </div>
                                                             </Modal>
-                                                            {/* End of Cancel appointment Model */}
+                                                            {/* End of {cancel_apointmnt} Model */}
 
                                                         </Grid>
                                                     </Grid>
@@ -542,7 +681,7 @@ class Index extends Component {
                                                 <Grid item xs={12} md={12} alignItems="center" justify="center">
                                                     <Grid container direction="row">
                                                         <Grid item xs={6} md={6} className="todayMnth">
-                                                            <Grid className="todaySrchLft"><label>Today</label></Grid>
+                                                            <Grid className="todaySrchLft"><label>{today}</label></Grid>
                                                             <Grid className="movMnth">
                                                                 <a><img src={require('../../../assets/images/leftArow.jpg')} alt="" title="" /></a>
                                                                 <a><img src={require('../../../assets/images/rightArow.jpg')} alt="" title="" /></a>
@@ -551,7 +690,7 @@ class Index extends Component {
                                                         </Grid>
                                                         <Grid item xs={6} md={6}>
                                                             <Grid className="todaySrchRght">
-                                                                <a className="syncRght">Sync to your calendar</a>
+                                                                <a className="syncRght">{sync_ur_calander}</a>
                                                                 {/* Allow Location Access */}
                                                                 <Modal
                                                                     open={this.state.openAllowLoc}
@@ -565,7 +704,7 @@ class Index extends Component {
                                                                             </div>
                                                                             <Grid container direction="row" spacing={2} className="srchAccessLoc">
                                                                                 <Grid item xs={12} md={3}>
-                                                                                    <Grid><label>Specialty</label></Grid>
+                                                                                    <Grid><label>{speciality}</label></Grid>
                                                                                     <Select
                                                                                         value={selectedOption}
                                                                                         onChange={this.handleChangeSelect}
@@ -575,19 +714,19 @@ class Index extends Component {
                                                                                     />
                                                                                 </Grid>
                                                                                 <Grid item xs={12} md={3} className="locat_srvc">
-                                                                                    <Grid><label>Location of service</label></Grid>
+                                                                                    <Grid><label>{location_of_srvc}</label></Grid>
                                                                                     <input type="text" placeholder="Search for city" />
                                                                                     {/* <Autocomplete onPlaceChanged={this.showPlaceDetails.bind(this)} /> */}
                                                                                     <img src={require('../../../assets/images/search-entries.svg')} alt="" title="" />
                                                                                 </Grid>
                                                                                 <Grid item xs={12} md={2} className="srchKm">
-                                                                                    <Grid><label>Search within</label></Grid>
+                                                                                    <Grid><label>{search_within}</label></Grid>
                                                                                     <input type="text" />
                                                                                 </Grid>
                                                                                 <Grid item xs={12} md={4} className="apointType">
-                                                                                    <Grid><label>Appointment type</label></Grid>
-                                                                                    <FormControlLabel control={<Checkbox name="Video" />} label="Video" />
-                                                                                    <FormControlLabel control={<Checkbox name="Office" />} label="Office" />
+                                                                                    <Grid><label>{appointment} {type}</label></Grid>
+                                                                                    <FormControlLabel control={this.state.video_call ? <Checkbox checked onClick={this.apointmentType} name="Video" /> : <Checkbox onClick={this.apointmentType} name="Video" />} label={Video} />
+                                                                                    <FormControlLabel control={this.state.office_visit ? <Checkbox checked name="Office" onClick={this.apointmentType} /> : <Checkbox name="Office" onClick={this.apointmentType} />} label={Office} />
                                                                                 </Grid>
                                                                             </Grid>
                                                                             <div className="showSpcial"><p><img src={require('../../../assets/images/location.png')} alt="" title="" />We are showing you specialists near “Düsseldorf, Germany” in 100km range</p></div>
@@ -595,7 +734,7 @@ class Index extends Component {
 
                                                                         {/* New Design */}
                                                                         <div className="allowAvailList">
-                                                                            {allDocData && allDocData.length > 0 && allDocData.map(doc => (
+                                                                            {allDocData && allDocData.length > 0 && allDocData.map((doc, i) => (
                                                                                 <div className="allowAvailListIner">
                                                                                     <Grid container direction="row" spacing={1}>
                                                                                         <Grid item xs={12} md={3}>
@@ -622,7 +761,7 @@ class Index extends Component {
                                                                                         </Grid>
                                                                                         <Grid item xs={12} md={5}>
                                                                                             <Grid className="srvcTagsCntnt">
-                                                                                                <Grid className="srvcTags"> <a>Contact</a> <a>Services</a> <a>Latest info</a> </Grid>
+                                                                                                <Grid className="srvcTags"> <a>{Contact}</a> <a>{Services}</a> <a>{latest_info}</a> </Grid>
                                                                                                 <Grid className="srvcTagsLoc">
                                                                                                     <a><img src={require('../../../assets/images/location-pin.svg')} alt="" title="" />
                                                                                                         {doc.data && doc.data.city && doc.data.city}</a>
@@ -637,11 +776,15 @@ class Index extends Component {
                                                                                         </Grid>
                                                                                         <Grid item xs={12} md={4}>
                                                                                             <Grid className="avlablDates">
-                                                                                                <h3>SEE AVAILABLE DATES FOR:</h3>
+                                                                                                <h3>{see_avlbl_date}:</h3>
                                                                                                 <Grid>
-                                                                                                    <a onClick={() => this.handleOpenFancyVdo("video call", doc.online_appointment[0])}><img src={require('../../../assets/images/video-call-copy2.svg')} alt="" title="" />Video call</a>
-                                                                                                    <a onClick={() => this.handleOpenFancyVdo("office visit", doc.appointments[0])}><img src={require('../../../assets/images/ShapeCopy2.svg')} alt="" title="" />Office visit</a>
-                                                                                                    <a onClick={() => this.handleOpenFancyVdo("consultancy", doc.practice_days[0])} className="addClnder"><img src={require('../../../assets/images/cal.png')} alt="" title="" />Consultancy (custom calendar)</a>
+                                                                                                    {this.state.video_call &&
+                                                                                                        <a onClick={() => this.handleOpenFancyVdo(i, "online_appointment", doc.online_appointment[0])}><img src={require('../../../assets/images/video-call-copy2.svg')} alt="" title="" />{vdo_call}</a>
+                                                                                                    }
+                                                                                                    {this.state.office_visit &&
+                                                                                                        <a onClick={() => this.handleOpenFancyVdo(i, "appointments", doc.appointments[0])}><img src={require('../../../assets/images/ShapeCopy2.svg')} alt="" title="" />{office_visit}</a>
+                                                                                                    }
+                                                                                                    <a onClick={() => this.handleOpenFancyVdo(i, "practice_days", doc.practice_days[0])} className="addClnder"><img src={require('../../../assets/images/cal.png')} alt="" title="" />{consultancy_cstm_calnder}</a>
                                                                                                 </Grid>
                                                                                             </Grid>
                                                                                         </Grid>
@@ -686,9 +829,9 @@ class Index extends Component {
                                                                                         <Grid className="avlablDates">
                                                                                             <h3>SEE AVAILABLE DATES FOR:</h3>
                                                                                             <Grid>
-                                                                                                <a><img src={require('../../../assets/images/video-call-copy2.svg')} alt="" title="" />Video call</a>
-                                                                                                <a><img src={require('../../../assets/images/ShapeCopy2.svg')} alt="" title="" />Office visit</a>
-                                                                                                <a className="addClnder"><img src={require('../../../assets/images/cal.png')} alt="" title="" />Consultancy (custom calendar)</a>
+                                                                                                <a><img src={require('../../../assets/images/video-call-copy2.svg')} alt="" title="" />{vdo_call}</a>
+                                                                                                <a><img src={require('../../../assets/images/ShapeCopy2.svg')} alt="" title="" />{office_visit}</a>
+                                                                                                <a className="addClnder"><img src={require('../../../assets/images/cal.png')} alt="" title="" />{consultancy_cstm_calnder}</a>
                                                                                             </Grid>
                                                                                         </Grid>
                                                                                     </Grid>
@@ -731,9 +874,9 @@ class Index extends Component {
                                                                                         <Grid className="avlablDates">
                                                                                             <h3>SEE AVAILABLE DATES FOR:</h3>
                                                                                             <Grid>
-                                                                                                <a><img src={require('../../../assets/images/video-call-copy2.svg')} alt="" title="" />Video call</a>
-                                                                                                <a><img src={require('../../../assets/images/ShapeCopy2.svg')} alt="" title="" />Office visit</a>
-                                                                                                <a className="addClnder"><img src={require('../../../assets/images/cal.png')} alt="" title="" />Consultancy (custom calendar)</a>
+                                                                                                <a><img src={require('../../../assets/images/video-call-copy2.svg')} alt="" title="" />{vdo_call}</a>
+                                                                                                <a><img src={require('../../../assets/images/ShapeCopy2.svg')} alt="" title="" />{office_visit}</a>
+                                                                                                <a className="addClnder"><img src={require('../../../assets/images/cal.png')} alt="" title="" />{consultancy_cstm_calnder}</a>
                                                                                             </Grid>
                                                                                         </Grid>
                                                                                     </Grid>
@@ -776,9 +919,9 @@ class Index extends Component {
                                                                                         <Grid className="avlablDates">
                                                                                             <h3>SEE AVAILABLE DATES FOR:</h3>
                                                                                             <Grid>
-                                                                                                <a><img src={require('../../../assets/images/video-call-copy2.svg')} alt="" title="" />Video call</a>
-                                                                                                <a><img src={require('../../../assets/images/ShapeCopy2.svg')} alt="" title="" />Office visit</a>
-                                                                                                <a className="addClnder"><img src={require('../../../assets/images/cal.png')} alt="" title="" />Consultancy (custom calendar)</a>
+                                                                                                <a><img src={require('../../../assets/images/video-call-copy2.svg')} alt="" title="" />{vdo_call}</a>
+                                                                                                <a><img src={require('../../../assets/images/ShapeCopy2.svg')} alt="" title="" />{office_visit}</a>
+                                                                                                <a className="addClnder"><img src={require('../../../assets/images/cal.png')} alt="" title="" />{consultancy_cstm_calnder}</a>
                                                                                             </Grid>
                                                                                         </Grid>
                                                                                     </Grid>
@@ -821,9 +964,9 @@ class Index extends Component {
                                                                                         <Grid className="avlablDates">
                                                                                             <h3>SEE AVAILABLE DATES FOR:</h3>
                                                                                             <Grid>
-                                                                                                <a><img src={require('../../../assets/images/video-call-copy2.svg')} alt="" title="" />Video call</a>
-                                                                                                <a><img src={require('../../../assets/images/ShapeCopy2.svg')} alt="" title="" />Office visit</a>
-                                                                                                <a className="addClnder"><img src={require('../../../assets/images/cal.png')} alt="" title="" />Consultancy (custom calendar)</a>
+                                                                                                <a><img src={require('../../../assets/images/video-call-copy2.svg')} alt="" title="" />{vdo_call}</a>
+                                                                                                <a><img src={require('../../../assets/images/ShapeCopy2.svg')} alt="" title="" />{office_visit}</a>
+                                                                                                <a className="addClnder"><img src={require('../../../assets/images/cal.png')} alt="" title="" />{consultancy_cstm_calnder}</a>
                                                                                             </Grid>
                                                                                         </Grid>
                                                                                     </Grid>
@@ -866,9 +1009,9 @@ class Index extends Component {
                                                                                         <Grid className="avlablDates">
                                                                                             <h3>SEE AVAILABLE DATES FOR:</h3>
                                                                                             <Grid>
-                                                                                                <a><img src={require('../../../assets/images/video-call-copy2.svg')} alt="" title="" />Video call</a>
-                                                                                                <a><img src={require('../../../assets/images/ShapeCopy2.svg')} alt="" title="" />Office visit</a>
-                                                                                                <a className="addClnder"><img src={require('../../../assets/images/cal.png')} alt="" title="" />Consultancy (custom calendar)</a>
+                                                                                                <a><img src={require('../../../assets/images/video-call-copy2.svg')} alt="" title="" />{vdo_call}</a>
+                                                                                                <a><img src={require('../../../assets/images/ShapeCopy2.svg')} alt="" title="" />{office_visit}</a>
+                                                                                                <a className="addClnder"><img src={require('../../../assets/images/cal.png')} alt="" title="" />{consultancy_cstm_calnder}</a>
                                                                                             </Grid>
                                                                                         </Grid>
                                                                                     </Grid>
@@ -900,7 +1043,7 @@ class Index extends Component {
                                                                             </div>
                                                                             <Grid container direction="row" spacing={2} className="srchAccessLoc">
                                                                                 <Grid item xs={12} md={3}>
-                                                                                    <Grid><label>Speciadddlty</label></Grid>
+                                                                                    <Grid><label>{speciality}</label></Grid>
                                                                                     <Select
                                                                                         value={selectedOption}
                                                                                         onChange={this.handleChangeSelect}
@@ -910,29 +1053,29 @@ class Index extends Component {
                                                                                     />
                                                                                 </Grid>
                                                                                 <Grid item xs={12} md={3} className="locat_srvc">
-                                                                                    <Grid><label>Location of service</label></Grid>
+                                                                                    <Grid><label>{location_of_srvc}</label></Grid>
                                                                                     {/* <input type="text" placeholder="Search for city" onPlaceChanged={this.showPlaceDetails.bind(this)} /> */}
                                                                                     <Autocomplete onPlaceChanged={this.showPlaceDetails.bind(this)} />
                                                                                     <img src={require('../../../assets/images/search-entries.svg')} alt="" title="" />
                                                                                 </Grid>
                                                                                 <Grid item xs={12} md={2} className="srchKm">
-                                                                                    <Grid><label>Search within</label></Grid>
+                                                                                    <Grid><label>{search_within}</label></Grid>
                                                                                     <input type="text" />
                                                                                 </Grid>
                                                                                 <Grid item xs={12} md={4} className="apointType">
-                                                                                    <Grid><label>Appointment type</label></Grid>
-                                                                                    <FormControlLabel control={<Checkbox name="Video" onChange={this.apointmentType} />} label="Video" />
-                                                                                    <FormControlLabel control={<Checkbox name="Office" onChange={this.apointmentType} />} label="Office" />
+                                                                                    <Grid><label>{appointment} {type}</label></Grid>
+                                                                                    <FormControlLabel control={this.state.video_call ? <Checkbox checked onClick={this.apointmentType} name="Video" /> : <Checkbox onClick={this.apointmentType} name="Video" />} label="Video" />
+                                                                                    <FormControlLabel control={this.state.office_visit ? <Checkbox checked name="Office" onClick={this.apointmentType} /> : <Checkbox name="Office" onClick={this.apointmentType} />} label="Office" />
                                                                                 </Grid>
                                                                             </Grid>
                                                                         </div>
                                                                         <div className="allowAccessList">
                                                                             <div><a><img src={require('../../../assets/images/location.png')} alt="" title="" /></a></div>
-                                                                            <h1>Allow location access</h1>
-                                                                            <p>This way we can instantly show you a list of specialists.</p>
+                                                                            <h1>{allow_location_access}</h1>
+                                                                            <p>{this_way_can_instntly_list_of_specility}</p>
                                                                         </div>
                                                                         <div style={{ textAlign: "center" }} className="arng_addEntrynw">
-                                                                            <a onClick={this.handleAllowLoc}>Find Appointment</a>
+                                                                            <a onClick={this.handleAllowLoc}>{find_apointment}</a>
                                                                         </div>
                                                                         {/* {this.state.clat || this.state.mLatitude ?
                                                                             <div>
@@ -949,8 +1092,8 @@ class Index extends Component {
                                                                             </div>
                                                                             : <div className="allowAccessList">
                                                                                 <div><a><img src={require('../../../assets/images/location.png')} alt="" title="" /></a></div>
-                                                                                <h1>Allow location access</h1>
-                                                                                <p>This way we can instantly show you a list of specialists.</p>
+                                                                                <h1>{allow_location_access}</h1>
+                                                                                <p>{this_way_can_instntly_list_of_specility}</p>
                                                                             </div>} */}
                                                                     </div>
                                                                 </Modal>
@@ -974,7 +1117,7 @@ class Index extends Component {
                         </Grid>
                     </Grid>
                 </Grid>
-            </Grid>
+            </Grid >
         );
     }
 }

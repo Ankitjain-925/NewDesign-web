@@ -166,9 +166,7 @@ class Index extends Component {
             })
             .then((responce) => {
                 if (responce.data.hassuccessed) {
-                    console.log('dataProfile', responce.data.data)
                     var user_id = responce.data.data.profile_id;
-                    console.log('user_id', user_id)
                     axios.put(sitedata.data.path + '/UserProfile/AddFavTDoc/' + user_id, {
                     }, {
                         headers: {
@@ -408,7 +406,6 @@ class Index extends Component {
         else {
             state[e.target.name] = e.target.value;
         }
-        console.log("userDetails", state)
         this.setState({ userDetails: state });
     }
 

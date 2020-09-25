@@ -400,7 +400,7 @@ class Index extends Component {
         }
         let { sick_cert, my_doc, prescription, New, r_u_tracking_medi, inquiry, select, for_sick_cert_req_doc, share_health_status_info_from_journal, share_health_status, see_list_shared_info, share_ur_jounral_status,
             country_u_live, dieseases_etc, allergies, health_issue, doc_and_statnderd_ques, doc_aimedis_private, how_u_feeling, is_ur_temp_high_to_38, which_symptoms_do_u_hav, since_when,
-            have_u_already_been_sick, how_long_do_u_unable_to_work, days, it_is_known_dieseas, do_u_hv_allergies, ur_profession, Annotations, details, questions, for_pres_req_doc_require,
+            have_u_already_been_sick, how_long_do_u_unable_to_work, days, it_is_known_dieseas, do_u_hv_allergies, what_ur_profession, Annotations, details, questions, for_pres_req_doc_require,
             is_this_follow_pres, how_u_like_rcv_pres, Medicine, Substance, Dose, mg, trade_name, atc_if_applicable, manufacturer, pack_size,  } = translate
 
         return (
@@ -538,7 +538,7 @@ class Index extends Component {
                                                             <Grid><input type="text" name="allergies" value={this.state.AddSickCertificate.allergies} onChange={this.AddSickState} /></Grid>
                                                         </Grid>
                                                         <Grid className="medicnSub">
-                                                            <Grid><label>{ur_profession}?</label></Grid>
+                                                            <Grid><label>{what_ur_profession}?</label></Grid>
                                                             <Grid><input type="text" name="professions" value={this.state.AddSickCertificate.professions} onChange={this.AddSickState} /></Grid>
                                                         </Grid>
                                                         <Grid className="medicnSub">

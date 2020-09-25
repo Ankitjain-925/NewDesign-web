@@ -128,7 +128,7 @@
 		"Capabilities_content": "Capabilities page content",
 		"CAPABILITIES_heading": "CAPABILITIES",
 		"capab_The_Aimedis_Ecosystem": "The Aimedis Ecosystem",
-		"capab_Patients": "Patients",
+		"capab_Patients": "Patient",
 		"capab_Doctors": "Doctors",
 		"capab_Hospitals": "Hospitals",
 		"capab_Blockchain": "Blockchain",
@@ -226,6 +226,10 @@
 		"srvc_Aimedis_staffs": "Aimedis staffs",
 		"srvc_Doctors": "Doctors",
 		"srvc_Nurses": "Nurses",
+		"Doctor":"Doctor",
+		"Nurse":"Nurse",
+		"Professional":"Professional",
+		"Pharmacist":"Pharmacist",
 		"srvc_Scientists": "Scientists",
 		"srvc_Consultants": "Consultants",
 		"srvc_Executives": "Executives",
@@ -458,7 +462,6 @@
 		"Social_Media_Service": "Third-party Social Media Service",
 		"refers_any_website_any": "refers to any website or any social network website through which a user can log in or create an account to use the Service.",
 		"Facebook_Fan_Page": "Facebook Fan Page",
-		"public_profile_named": "is a public profile named Aimedis Facebook page specifically created by the Company on the Facebook social network, accessible from https://www.facebook.com/aimedisglobal",
 		"Personal_Data": "Personal Data",
 		"information_that_relates": "is any information that relates to an identified-or identifiable individual. For the purposes for GDPR, Personal Data means any information relating to you such as a name, an identification number, location data, online identifier or to one or more factors specific to the physical, physiological, genetic, mental, economic, cultural or social identity. For the purposes of the CCPA, Personal Data means any information that identifies, relates to, describes or is capable of being associated with, or could reasonably be linked, directly or indirectly, with you.",
 		"public_Cookies": "Cookies",
@@ -673,6 +676,7 @@
 		"Register_letter": "1 letter",
 		"Register_number": "1 number",
 		"Register_special": "1 special character",
+		"forget_password":"Forgot Password",
 
 		"recruitmentemp_content": "recruitment employees",
 		"Aimedis_Staff_Reg": "Aimedis Staff Register",
@@ -706,8 +710,11 @@
 		"want_to_register": "I want to register to the Aimedis health newsletter (optional).",
 		"I_agree_to_our": "By clicking the box I agree to our terms of use and accept the data collection, data processing and the use of my personal data. More in our privacy policy.",
 		"Staff_SENDREC": "SEND RECRUITMENT FORM",
-
-		"Mnotvalids" : "Mobile number is not valid"
+		"Mnotvalids" : "Mobile number is not valid",
+		"two_fac_auth":"2 Factor authentication",
+		"password_reset":"Password Reset",
+		"click_here_uplod_license":"Click here to upload your license",
+		"password_must_have_its_condition":"Password must be have Capital letter and numeric value and more than 6 character"
 	
 	}
 

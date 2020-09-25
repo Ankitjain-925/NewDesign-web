@@ -1,6 +1,7 @@
 import React from "react";
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css'; // ES6
+import Grid from '@material-ui/core/Grid';
 
 class Editor extends React.Component {
   constructor(props) {
@@ -8,6 +9,7 @@ class Editor extends React.Component {
     this.state = {
       value: this.props.value ? this.props.value : '',
       name: this.props.name,
+      label: this.props.label,
     } // You can also pass a Quill Delta here
   }
 
@@ -18,8 +20,11 @@ class Editor extends React.Component {
 
   render() {
     return (
-      <ReactQuill name={this.state.name} value={this.state.value}
-        onChange={this.handleChange} />
+      <Grid className="rrSysto">
+        <Grid><label>{this.state.label}</label></Grid>
+          <ReactQuill name={this.state.name} value={this.state.value}
+          onChange={this.handleChange} />
+      </Grid>
     )
   }
 }

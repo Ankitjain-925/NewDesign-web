@@ -65,7 +65,7 @@ class Index extends Component {
         let { date_measure, time_measure, attachments }= translate
         return (
             <div>
-                <Grid className="cnfrmDiaMain">
+                {!this.props.visibility && <Grid className="cnfrmDiaMain">
                     <Grid className="fillDia">
                         <MMHG name="weight" Unit="kg" label="Weight" onChange={(e)=> this.props.updateEntryState(e)} value={this.state.updateTrack.blood_sugar}/>    
                     </Grid>
@@ -89,7 +89,7 @@ class Index extends Component {
                         <Grid><label>{attachments}</label></Grid>
                         <FileUploader name="UploadTrackImageMulti" isMulti={true} fileUpload={this.props.FileAttachMulti} />
                     </Grid>
-                </Grid>
+                </Grid>}
 
                 <Grid className="infoShwHidMain3upr">
                     

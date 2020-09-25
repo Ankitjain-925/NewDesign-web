@@ -12121,3 +12121,14 @@ input:focus {
       color: #ffffff;
       background-color:#00abaf;
   }
+  .success_message
+  {
+    padding-bottom: 15px;
+    text-align: center;
+    color: #00abaf !important;
+    font-weight: 900;
+  }
+  .success_message.withclose {
+    padding-top: 3%;
+    font-weight: 500!important;
+  }

@@ -66,7 +66,7 @@ class Index extends Component {
 
         return (
             <div>
-                <Grid className="cnfrmDiaMain">
+                {!this.props.visibility && <Grid className="cnfrmDiaMain">
                     <Grid className="fillDia">
                         <SelectField name="smoking_status" label={smoking_status} option={this.state.options} onChange={(e)=> this.props.updateEntryState1(e, 'smoking_status')} value={this.state.updateTrack.smoking_status} />
                     </Grid>
@@ -85,7 +85,7 @@ class Index extends Component {
                     <Grid className="fillDia">
                         <NotesEditor name="remarks" label={notes}  onChange={(e)=> this.props.updateEntryState1(e, 'remarks')} value={this.state.updateTrack.remarks}/> 
                     </Grid>
-                </Grid>
+                </Grid>}
                 
                 <Grid className="infoShwHidMain3upr">
                 <ShowHide date_format= {this.state.date_format} value={this.state.updateTrack} onChange={(data) => this.props.GetHideShow(data)}/>
