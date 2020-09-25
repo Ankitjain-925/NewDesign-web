@@ -106,7 +106,7 @@ class Index extends Component {
                 state[stateKey] = response.data;
                 this.setState({ apidata: state });
             })
-            .catch(error => console.log("Eroro", error))
+            .catch(error =>{})
     }
 
     backDate = (backmonth = 3) => {
@@ -146,9 +146,7 @@ class Index extends Component {
                     Accept: "application/json",
                     "Content-Type": "application/json",
                 },
-            }).then(res => {
-                console.log("YUYUYUYU USER", res)
-            })
+            }).then(res => { })
     }
     getDevice = (code) => {
         axios.get("https://wbsapi.withings.net/v2/user?action=getdevice",
@@ -161,7 +159,6 @@ class Index extends Component {
             }
         )
             .then((res) => {
-                console.log("getDevice", res)
                 if (res.data && res.data.body && res.data.body.devices) {
                     this.setState({ Devices_id: res.data.body.devices })
                 }
@@ -174,7 +171,6 @@ class Index extends Component {
             SystolicBloodPressure = [], HeartPulse = [], Temperature = [], SP02 = [], BodyTemperature = [], FatFreeMassD = [],
             SkinTemperature = [], MuscleMass = [], Hydration = [], BoneMass = [], PulseWaveVelocity = [], SP02D = [],
             TemperatureD = [], HeartPulseD = [], WeightD = [], BoneMassD = [], HydrationD = [], DiastolicBloodPressureD = [];
-        console.log("getMeassure", deviceid)
         axios.get('https://wbsapi.withings.net/measure?action=getmeas&startdate=' + this.toTimestamp(this.backDate(6)) + '&enddate=' + this.toTimestamp(new Date()), {
             headers: {
                 'Authorization': 'Bearer ' + code,
@@ -190,7 +186,6 @@ class Index extends Component {
                 } else if (this.state.optionsGraph && this.state.optionsGraph.length > 0) {
                     messureData = this.state.getMeassure
                 }
-                console.log("messureData response.data", response)
                 var labels = [], value = [], options = [];
                 messureData.measuregrps &&
                     messureData.measuregrps.length > 0 &&
@@ -764,23 +759,27 @@ class Index extends Component {
                                                                     </Grid>
                                                                 </Grid>
                                                             }
+                                                        </Grid>
+                                                        <Grid container spacing={3}>
                                                             {fitbitloggedIn && apidata && apidata.device && apidata.device.map(devicedata => (
-                                                                <Grid className="trckSection">
-                                                                    <Grid className="trckSecIner">
-                                                                        <Grid className="trckDots presEditDot scndOptionIner">
-                                                                            <a className="openScndhrf"><img src={require('../../../assets/images/threedots.jpg')} alt="" title="" />
-                                                                                <ul>
-                                                                                    <li><a onClick={this.handleOpenvData} className="trackView" >{view_details}</a></li>
-                                                                                    <li><a onClick={this.logoutfromall} className="trackView" >{logout}</a></li>
-                                                                                </ul>
-                                                                            </a></Grid>
-                                                                        <Grid className="trckLogo"><img src={require('../../../assets/images/fitbit.png')} alt="" title="" /></Grid>
-                                                                        <Grid className="trckCntnt">
-                                                                            <Grid><label>{apidata.user && apidata.user.user && apidata.user.user.displayName && apidata.user.user.displayName}</label></Grid>
-                                                                            <p>{devicedata.deviceVersion}</p>
+                                                                <Grid item xs={12} md={3}>
+                                                                    <Grid className="trckSection">
+                                                                        <Grid className="trckSecIner">
+                                                                            <Grid className="trckDots presEditDot scndOptionIner">
+                                                                                <a className="openScndhrf"><img src={require('../../../assets/images/threedots.jpg')} alt="" title="" />
+                                                                                    <ul>
+                                                                                        <li><a onClick={this.handleOpenvData} className="trackView" >{view_details}</a></li>
+                                                                                        <li><a onClick={this.logoutfromall} className="trackView" >{logout}</a></li>
+                                                                                    </ul>
+                                                                                </a></Grid>
+                                                                            <Grid className="trckLogo"><img src={require('../../../assets/images/fitbit.png')} alt="" title="" /></Grid>
+                                                                            <Grid className="trckCntnt">
+                                                                                <Grid><label>{apidata.user && apidata.user.user && apidata.user.user.displayName && apidata.user.user.displayName}</label></Grid>
+                                                                                <p>{devicedata.deviceVersion}</p>
+                                                                            </Grid>
                                                                         </Grid>
+                                                                        <Grid className="trackView"><a onClick={() => this.handleOpenvData(devicedata)}>{view_data}</a></Grid>
                                                                     </Grid>
-                                                                    <Grid className="trackView"><a onClick={() => this.handleOpenvData(devicedata)}>{view_data}</a></Grid>
                                                                 </Grid>
                                                             ))}
                                                         </Grid>
@@ -801,26 +800,30 @@ class Index extends Component {
                                                                     </Grid>
                                                                 </Grid>
                                                             }
+                                                        </Grid>
+                                                        <Grid container spacing={3}>
                                                             {withingsloggedIn && Devices_id && Devices_id.length > 0 && Devices_id.map((devices, i) => (
-                                                                <Grid className="trckSection">
-                                                                    <Grid className="trckSecIner">
-                                                                        <Grid className="trckDots presEditDot scndOptionIner">
-                                                                            <a className="openScndhrf"><img src={require('../../../assets/images/threedots.jpg')} alt="" title="" />
-                                                                                <ul>
-                                                                                    <li><a onClick={this.handleOpenvData} className="trackView" >{view_details}</a></li>
-                                                                                    <li><a onClick={this.logoutfromall} className="trackView" >{logout}</a></li>
-                                                                                </ul>
-                                                                            </a>
+                                                                <Grid item xs={12} md={3}>
+                                                                    <Grid className="trckSection">
+                                                                        <Grid className="trckSecIner">
+                                                                            <Grid className="trckDots presEditDot scndOptionIner">
+                                                                                <a className="openScndhrf"><img src={require('../../../assets/images/threedots.jpg')} alt="" title="" />
+                                                                                    <ul>
+                                                                                        <li><a onClick={this.handleOpenvData} className="trackView" >{view_details}</a></li>
+                                                                                        <li><a onClick={this.logoutfromall} className="trackView" >{logout}</a></li>
+                                                                                    </ul>
+                                                                                </a>
+                                                                            </Grid>
+                                                                            <Grid className="trckLogo"><img style={{ minHeight: "40px" }} src={require('../../../assets/images/logo-withings.png')} alt="" title="" /></Grid>
+                                                                            <Grid className="trckCntnt">
+                                                                                <Grid><label>Withings User {i + 1}</label></Grid>
+                                                                                <p>{devices.model}</p>
+                                                                            </Grid>
                                                                         </Grid>
-                                                                        <Grid className="trckLogo"><img style={{ minHeight: "40px" }} src={require('../../../assets/images/logo-withings.png')} alt="" title="" /></Grid>
-                                                                        <Grid className="trckCntnt">
-                                                                            <Grid><label>Withings User {i + 1}</label></Grid>
-                                                                            <p>{devices.model}</p>
-                                                                        </Grid>
+                                                                        <Grid className="trackView"><a onClick={() => this.handleOpenvData(devices)}>
+                                                                            {view_data}
+                                                                        </a></Grid>
                                                                     </Grid>
-                                                                    <Grid className="trackView"><a onClick={() => this.handleOpenvData(devices)}>
-                                                                        {view_data}
-                                                                    </a></Grid>
                                                                 </Grid>
                                                             ))
                                                             }

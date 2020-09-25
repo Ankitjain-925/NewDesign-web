@@ -59,7 +59,6 @@ class PointPain extends Component {
     componentDidUpdate = (prevProps) => {
         if(prevProps.id !== this.props.id)
         {
-            console.log('I am here ', this.state.id)
             var canvas = $('#'+this.state.id)[0];
             // get reference to canvas context
             var context = canvas.getContext('2d');

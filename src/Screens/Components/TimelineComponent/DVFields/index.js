@@ -67,7 +67,7 @@ class Index extends Component {
 
         return (
             <div>
-                <Grid className="cnfrmDiaMain">
+                {!this.props.visibility && <Grid className="cnfrmDiaMain">
                     <Grid className="fillDia">
                         <MMHG name="doctor_name" label="Doctor Name" onChange={(e)=> this.props.updateEntryState(e)} value={this.state.updateTrack.doctor_name}/>    
                     </Grid>
@@ -92,7 +92,7 @@ class Index extends Component {
                         <FileUploader name="UploadTrackImageMulti" isMulti={true} fileUpload={this.props.FileAttachMulti} />
                     </Grid>
                     
-                </Grid>
+                </Grid>}
 
                 <Grid className="infoShwHidMain3upr">
                     <ShowHide date_format= {this.state.date_format} value={this.state.updateTrack} onChange={(data) => this.props.GetHideShow(data)}/>

@@ -82,7 +82,7 @@ class Index extends Component {
     handleCloseFancyVdo = () => {
         this.setState({ openFancyVdo: false, appointDate: [] });
         Object.keys(this.state.allDocData).map((index, i) => {
-            console.log("ALL DOC data", index, i)
+        
         })
     };
 
@@ -273,7 +273,6 @@ class Index extends Component {
     handleChangeSelect = selectedOption => {
         let searchDetails = this.state.searchDetails
         searchDetails["specialty"] = selectedOption.value
-        console.log("selectedOption", selectedOption)
         this.setState({ selectedOption: selectedOption, searchDetails: searchDetails });
     };
     handleAllowLoc = () => {
@@ -317,7 +316,6 @@ class Index extends Component {
             Month = date.getMonth() + 1;
             date1 = Month + '-' + date.getDate() + '-' + date.getFullYear()
         }
-        console.log("day_num", day_num)
         let days
         switch (day_num) {
             case 1:

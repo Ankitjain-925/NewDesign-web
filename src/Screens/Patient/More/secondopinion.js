@@ -141,29 +141,29 @@ class Index extends Component {
     alldoctor() {
         var user_token = this.props.stateLoginValueAim.token;
         axios.get(sitedata.data.path + '/UserProfile/DoctorUsers',
-            {
-                headers: {
-                    'token': user_token,
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json',
+        {
+            headers: {
+                'token': user_token,
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
 
-                }
-            }).then((response) => {
-                if (response.data.data && response.data.data.length > 0) {
-                    var data = [];
-                    response.data.data.map((item) => {
-                        var name = '';
-                        if (item.first_name && item.last_name) {
-                            name = item.first_name + ' ' + item.last_name
-                        }
-                        else if (item.first_name) {
-                            name = item.first_name
-                        }
-                        data.push({ value: item._id, label: name });
-                    })
-                    this.setState({ Pdoctors: data })
-                }
-            })
+            }
+        }).then((response) => {
+            if (response.data.data && response.data.data.length > 0) {
+                var data = [];
+                response.data.data.map((item) => {
+                    var name = '';
+                    if (item.first_name && item.last_name) {
+                        name = item.first_name + ' ' + item.last_name
+                    }
+                    else if (item.first_name) {
+                        name = item.first_name
+                    }
+                    data.push({ value: item._id, label: name });
+                })
+                this.setState({ Pdoctors: data })
+            }
+        })
     }
 
     //Add doctor for Second Opinion

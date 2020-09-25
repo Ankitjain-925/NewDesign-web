@@ -31,19 +31,12 @@ class Index extends Component {
     render() {
         return (
             <div>
-                <Grid className="cnfrmDiaMain">
+                {!this.props.visibility && <Grid className="cnfrmDiaMain">
                     <Grid className="attchForms attchImg">
                         <Grid><label>Attachments</label></Grid>
                         <FileUploader name="UploadTrackImageMulti"  isMulti="true" fileUpload={(event)=>{this.props.FileAttachMulti(event)}}/>
                     </Grid>
-                    <Grid className="fillDia">
-                        <MMHG name="file_content" label="File Content" onChange={(e)=> this.props.updateEntryState(e)} value={this.state.updateTrack.file_content}/>    
-                    </Grid>
-                    <Grid className="fillDia">
-                        <NotesEditor name="remarks" label="Notes"  onChange={(e)=> this.props.updateEntryState1(e, 'remarks')} value={this.state.updateTrack.remarks}/> 
-                    </Grid>
-                  
-                </Grid>
+                </Grid>}
 
                 <Grid className="infoShwHidMain3upr">
                     <ShowHide date_format= {this.state.date_format} value={this.state.updateTrack} onChange={(data) => this.props.GetHideShow(data)}/>
