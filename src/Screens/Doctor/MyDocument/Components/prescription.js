@@ -41,7 +41,8 @@ class Index extends Component {
             MypatientsData: [],
             prescData: {},
             inqstatus: null,
-            message: ''
+            message: '',
+            success: false
         };
     }
 
@@ -280,10 +281,10 @@ class Index extends Component {
     }
 
     handleOpenPrescp = (data) => {
-        this.setState({ openPrescp: true, prescData: data });
+        this.setState({ openPrescp: true, prescData: data, imagePreviewUrl:null });
     };
     handleClosePrescp = () => {
-        this.setState({ openPrescp: false });
+        this.setState({ openPrescp: false, imagePreviewUrl:null });
     };
 
     handleOpenReject = () => {
@@ -300,8 +301,7 @@ class Index extends Component {
 
 
     render() {
-        const { specialistOption, prescData, inqstatus } = this.state;
-        const { value } = this.state;
+        const { success, prescData, inqstatus } = this.state;
         let translate;
         switch (this.props.stateLanguageType) {
             case "en":
@@ -454,12 +454,12 @@ class Index extends Component {
                                         </Grid>}
                                         {(prescData.status !== 'accept')&& !$imagePreview && <p>Supported file types: .jpg, .png, .pdf</p>}
                                         {(prescData.status !== 'accept')  && $imagePreview}
-                                        {(prescData.attachfile && this.state.uploadedimage && prescData.status !== 'accept') && <Grid item xs={12} md={12}>
+                                        {(prescData.attachfile && success && prescData.status !== 'accept') && <Grid item xs={12} md={12}>
                                             <input type="button" value="Send to patient's Timeline and Email" onClick={() => this.saveUserData(prescData._id)} className="approvBtn" />
                                         </Grid>}
                                     </Grid>}
 
-                                {(prescData.status !== 'accept' && prescData.status !== 'decline'  && prescData.status !== 'pending') && <Grid container direction="row">
+                                {(prescData.status !== 'accept' && prescData.status !== 'decline') && <Grid container direction="row">
                                     <Grid item xs={6} md={6}>
                                         <input type="button" value="Approve" onClick={() => this.deleteClickPatient('accept', prescData._id)} className="approvBtn" />
                                     </Grid>
@@ -524,7 +524,6 @@ const mapStateToProps = (state) => {
     const { stateLoginValueAim, loadingaIndicatoranswerdetail } = state.LoginReducerAim;
     const { stateLanguageType } = state.LanguageReducer;
     const { settings } = state.Settings;
-    console.log("stateLoginValueAim", stateLoginValueAim)
     // const { Doctorsetget } = state.Doctorset;
     // const { catfil } = state.filterate;
     return {

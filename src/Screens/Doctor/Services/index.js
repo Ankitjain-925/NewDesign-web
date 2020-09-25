@@ -108,24 +108,37 @@ class Index extends Component {
             this.setState({ loaderImage: false });
             if (response.data.hassuccessed) {
                 var images = []
-                response.data.data && response.data.data.length>0 && response.data.data.map((item)=>{
-                        var find = item && item.image && item.image
-                            if(find)
-                            {
-                                find = find.split('.com/')[1]
-                                axios.get(sitedata.data.path + '/aws/sign_s3?find='+find,)
-                                .then((response2) => {
-                                    if(response2.data.hassuccessed)
-                                    {
-                                        item.new_image = response2.data.data
-                                        
-                                    }
-                                })
-                                }
-                    })
-                
+                response.data.data && response.data.data.length > 0 && response.data.data.map((item) => {
+                    var find = item && item.image && item.image
+                    if (find) {
+                        find = find.split('.com/')[1]
+                        console.log('find', find)
+                        axios.get(sitedata.data.path + '/aws/sign_s3?find=' + find,)
+                            .then((response2) => {
+                                if (response2.data.hassuccessed) {
+                                    item.new_image = response2.data.data
 
-                this.setState({ MypatientsData: response.data.data });
+                                }
+                            })
+                    }
+                })
+                var totalPage = Math.ceil(response.data.data.length / 10);
+                this.setState({ AllPres: response.data.data, loaderImage: false, totalPage: totalPage, currentPage: 1 },
+                    () => {
+                        if (totalPage > 1) {
+                            var pages = [];
+                            for (var i = 1; i <= this.state.totalPage; i++) {
+                                pages.push(i)
+                            }
+                            this.setState({ MypatientsData: this.state.AllPres.slice(0, 10), pages: pages })
+                        }
+                        else {
+                            this.setState({ MypatientsData: this.state.AllPres })
+                        }
+                    })
+
+
+                // this.setState({ MypatientsData: response.data.data });
             }
         }).catch((error) => {
             this.setState({ loaderImage: false });
@@ -329,10 +342,7 @@ class Index extends Component {
     handleCloseNewPatient = () => {
         this.setState({ openNew: false });
     };
-    //For chnage the page
-    onChangePage = (pageNumber) => {
-        this.setState({ currentList: this.state.AllPres.slice((pageNumber - 1) * 10, pageNumber * 10), currentPage: pageNumber })
-    }
+    
 
     // Add the Sick Certificate State
     AddSickState = (e) => {
@@ -366,7 +376,8 @@ class Index extends Component {
         const { profileDetail } = this.state;
         this.setState({ loaderImage: true });
         let user_token = this.props.stateLoginValueAim.token
-        axios.delete(sitedata.data.path + '/UserProfile/Users/' + profileDetail.patient_id, {
+        
+        axios.delete(sitedata.data.path + '/UserProfile/favPatients/' + profileDetail.patient_id+"/"+this.props.stateLoginValueAim.user.alies_id, {
             headers: {
                 'token': user_token,
                 'Accept': 'application/json',
@@ -433,7 +444,7 @@ class Index extends Component {
     }
 
     removePatient = (patientData) => {
-        this.setState({profileDetail: patientData})
+        this.setState({ profileDetail: patientData })
         this.handleCloseShowPatient();
         confirmAlert({
             title: "Remove Patient",
@@ -453,6 +464,25 @@ class Index extends Component {
         if (myFilterData && myFilterData.length > 0) {
             return myFilterData[0].new_image;
         }
+    }
+
+    //For chnage the page
+    onChangePage = (pageNumber) => {
+        const {searchWord} = this.state;
+        if(searchWord && searchWord !== '') {
+            let searchdta = this.state.AllPres.filter(e=>e.first_name.toLowerCase().indexOf(searchWord) > -1||e.last_name.toLowerCase().indexOf(searchWord) > -1||(e.first_name+" "+ e.last_name).toLowerCase().indexOf(searchWord) > -1) 
+            this.setState({ MypatientsData: searchdta.slice((pageNumber - 1) * 10, pageNumber * 10), currentPage: pageNumber })
+        }
+        else {
+            this.setState({ MypatientsData: this.state.AllPres.slice((pageNumber - 1) * 10, pageNumber * 10), currentPage: pageNumber })
+        }
+        
+    }
+
+
+    searchPatient = (value) => {
+        let searchdta = this.state.AllPres.filter(e=>e.first_name.toLowerCase().indexOf(value) > -1||e.last_name.toLowerCase().indexOf(value) > -1||(e.first_name+" "+ e.last_name).toLowerCase().indexOf(value) > -1)
+        this.setState({ MypatientsData: searchdta ,currentPage: 0, searchWord: value})
     }
 
 
@@ -481,7 +511,7 @@ class Index extends Component {
                                             <Grid item xs={12} md={6} className="docAddPatient"><a onClick={this.handleOpenNewPatient}>+ Add new patient</a></Grid>
                                         </Grid>
                                         <Grid className="findpatient">
-                                            <input type="text" placeholder="Find a patient…" />
+                                            <input type="text" onChange={(e) => this.searchPatient(e.target.value)} placeholder="Find a patient…" />
                                             <Grid className="findpatientReq">
                                                 <a onClick={this.handleOpenData}>Patient Data Access</a>
                                                 <a onClick={this.handleOpenReq}>Private Doctor Request</a>
@@ -504,11 +534,11 @@ class Index extends Component {
                                                         <Tr>
                                                             <Td className="docphrImg">
                                                                 <img src={
-                                                                                        this.state.MypatientsData[index].new_image ?
-                                                                                        this.state.MypatientsData[index].new_image 
-                                                                                            :
-                                                                                            require('../../../assets/images/dr1.jpg')
-                                                                                    } alt="" title="" />
+                                                                    this.state.MypatientsData[index].new_image ?
+                                                                        this.state.MypatientsData[index].new_image
+                                                                        :
+                                                                        require('../../../assets/images/dr1.jpg')
+                                                                } alt="" title="" />
                                                                 {data.first_name ? data.first_name + " " + data.last_name : 'Not  mentioned'}
                                                             </Td>
                                                             <Td>{data.birthday ? this.getAge(data.birthday) : 'Not mentioned'}</Td>
@@ -519,8 +549,8 @@ class Index extends Component {
                                                                 <a><img src={require('../../../assets/images/threedots.jpg')} alt="" title="" className="openScnd" />
                                                                     <ul>
                                                                         <li><img src={require('../../../assets/images/journal1.svg')} alt="" title="" />Open Journal</li>
-                                                                        <li onClick={(e)=>this.handleshowPatient(data)}><img src={require('../../../assets/images/personal-info.svg')} alt="" title="" />Personal info</li>
-                                                                        <li onClick={(e)=>this.removePatient(data)}><img src={require('../../../assets/images/del.png')} alt="" title="" />Remove patient</li>
+                                                                        <li onClick={(e) => this.handleshowPatient(data)}><img src={require('../../../assets/images/personal-info.svg')} alt="" title="" />Personal info</li>
+                                                                        <li onClick={(e) => this.removePatient(data)}><img src={require('../../../assets/images/del.png')} alt="" title="" />Remove patient</li>
                                                                     </ul>
                                                                 </a>
                                                             </Td>
