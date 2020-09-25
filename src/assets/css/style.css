@@ -12116,3 +12116,8 @@ input:focus {
     overflow-y: auto;
     position: relative;
   }
+
+  .wrkHour a.seleted-days {
+      color: #ffffff;
+      background-color:#00abaf;
+  }

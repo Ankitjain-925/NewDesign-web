@@ -470,7 +470,7 @@ class Index extends Component {
                                         </Grid>}
                                     </Grid>}
 
-                                {(sickData.status !== 'accept' && sickData.status !== 'decline'&& sickData.status !== 'pending') && <Grid container direction="row">
+                                {(sickData.status !== 'accept' && sickData.status !== 'decline') && <Grid container direction="row">
                                     <Grid item xs={6} md={6}>
                                         <input type="button" value="Approve" onClick={() => this.deleteClickPatient('accept', sickData._id)} className="approvBtn" />
                                     </Grid>

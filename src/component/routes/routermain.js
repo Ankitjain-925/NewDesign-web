@@ -44,8 +44,9 @@ import NurseJournal from './../../Screens/Nurse/Journal/index';
 import NurseChats from './../../Screens/Nurse/Chat/index';
 
 //Doctor Component
-import DoctorService from "./../../Screens/Doctor/Services/index.js"
-import MyDocument from "./../../Screens/Doctor/MyDocument/index.js"
+import DoctorService from "./../../Screens/Doctor/Services/index.js";
+import MyDocument from "./../../Screens/Doctor/MyDocument/index.js";
+import Myprofile from './../../Screens/Doctor/Profile/index.js';
 
 class Routermain extends Component {
   render() {
@@ -95,6 +96,7 @@ class Routermain extends Component {
             <Route exact path="/doctor" render={(props) => <DoctorService {...props}/>} />
             <Route exact path="/doctor/patient" render={(props) => <DoctorService {...props}/>} />
             <Route exact path="/doctor/mydocument" render={(props) => <MyDocument {...props}/>} />
+            <Route exact path="/doctor/profile" render={(props) => <Myprofile {...props}/>} />
             {/* Doctor Router End*/}
             
 

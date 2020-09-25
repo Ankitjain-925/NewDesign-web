@@ -378,7 +378,8 @@ class Index extends Component {
         const { profileDetail } = this.state;
         this.setState({ loaderImage: true });
         let user_token = this.props.stateLoginValueAim.token
-        axios.delete(sitedata.data.path + '/UserProfile/Users/' + profileDetail.patient_id, {
+        
+        axios.delete(sitedata.data.path + '/UserProfile/favPatients/' + profileDetail.patient_id+"/"+this.props.stateLoginValueAim.user.alies_id, {
             headers: {
                 'token': user_token,
                 'Accept': 'application/json',
