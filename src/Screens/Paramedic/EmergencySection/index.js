@@ -140,11 +140,14 @@ class Index extends Component {
             case "default":
                 translate = translationEN.text
         }
-        let { ur_emergancy_data } = translate;
+        let { ur_emergancy_data, view_emrgncy_data, for_geting_emrgancy_data_on_a_click, emrgncy_data_access, emrgancy_access_for_non_connected, patient_profile_not_crrect,
+            plz_accept_term_condition, imp_notice_b, this_will_trigger_following_action, send_email_to_patient_emrgancy, snd_sms_to_patient_emrgancy, snd_push_notification_to_patient_emrgancy,
+            patient_id, I_hrwith_cnfirm_that_i_need_access_patient } = translate;
+            
         const { stateLoginValueAim, Doctorsetget } = this.props;
         if (stateLoginValueAim.user === 'undefined' || stateLoginValueAim.token === 450 || stateLoginValueAim.token === 'undefined' || stateLoginValueAim.user.type !== 'paramedic' ) {
             return (<Redirect to={'/'} />);
-            }   
+            } 
         return (
             <Grid className="homeBg">
                 <Grid className="homeBgIner">
@@ -172,9 +175,9 @@ class Index extends Component {
                                         <Grid container direction="row">
                                             <Grid item xs={12} md={10}>
                                                 <Grid className="emrgncyData">
-                                                   <Grid className="EmergencyOpenPopup">For getting the Emergency Data of a patient Click on the Button</Grid>
+                                                   <Grid className="EmergencyOpenPopup">{for_geting_emrgancy_data_on_a_click}</Grid>
                                                     <Grid className="paramSub">
-                                                        <input type="submit" onClick={this.openPopUp} value="View Emergency Data" />
+                                                        <input type="submit" onClick={this.openPopUp} value={view_emrgncy_data} />
                                                     </Grid>
                                                 </Grid>
                                             </Grid>
@@ -200,28 +203,28 @@ class Index extends Component {
                                                     </a>
                                                 </Grid>
                                                
-                                                <Grid><label>Emergency Data Access</label></Grid>
-                                                <p>Emergency access for non-connected patient</p>
+                                                <Grid><label>{emrgncy_data_access}</label></Grid>
+                                                <p>{emrgancy_access_for_non_connected}</p>
                                             </Grid>
                                         
-                                                {this.state.error_msg && <div className="err_message">Patient Profile is not correct</div>}
-                                                {this.state.error_msg1 && <div className="err_message">Please Accept the term and condition</div>}
+                                                {this.state.error_msg && <div className="err_message">{patient_profile_not_crrect}</div>}
+                                                {this.state.error_msg1 && <div className="err_message">{plz_accept_term_condition}</div>}
                                             <Grid className="imptNotic">
                                                 <h2>
                                                     <img src={require('../../../assets/images/important-notice.svg')} alt="" title="" />
-                                                    IMPORTANT NOTICE
+                                                    {imp_notice_b}
                                                 </h2>
                                                 <Grid className="trigerAction">
-                                                    <Grid><label>This will trigger the following actions:</label></Grid>
+                                                    <Grid><label>{this_will_trigger_following_action}:</label></Grid>
                                                     <ul>
-                                                        <li>send email to patient and emergency contact</li>
-                                                        <li>send SMS to patient and emergency contact</li>
-                                                        <li>send push notification to patient and emergency contact</li>
+                                                        <li>{send_email_to_patient_emrgancy}</li>
+                                                        <li>{snd_sms_to_patient_emrgancy}</li>
+                                                        <li>{snd_push_notification_to_patient_emrgancy}</li>
                                                     </ul>
                                                 </Grid>
 
                                                 <Grid className="paraPatient">
-                                                    <Grid><label>Patient ID</label></Grid>
+                                                    <Grid><label>{patient_id}</label></Grid>
                                                     <Grid><input type="text" onChange={this.GetTrackData} name="patient_id" /></Grid>
                                                 </Grid>
 
@@ -236,12 +239,12 @@ class Index extends Component {
                                                                 onChange={(e)=>{this.setState({terms_condition : e.target.checked})}}
                                                             />
                                                         }
-                                                        label="I herewith confirm that I need to access the patient's data due to a medical emergency situation the patient will be informed about that"
+                                                        label={I_hrwith_cnfirm_that_i_need_access_patient}
                                                     />
                                                 </Grid>
 
                                                 <Grid className="paramSub">
-                                                    <input type="submit" onClick={this.getTrack} value="View Emergency Data" />
+                                                    <input type="submit" onClick={this.getTrack} value={view_emrgncy_data} />
                                                 </Grid>
 
                                             </Grid>

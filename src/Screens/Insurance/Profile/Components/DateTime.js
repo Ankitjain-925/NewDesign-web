@@ -110,7 +110,7 @@ class Index extends Component {
             case "default":
                 translate = translationEN.text
         }
-        let {date, time, format, set_the_default, the, is, updated,save_change }=translate
+        let {date, time, format, set_the_default, the, is, updated,save_change, time_format, date_format }=translate
 
         return (
             <div>
@@ -131,7 +131,7 @@ class Index extends Component {
                                         value={this.state.dateF}
                                         onChange={(e) => this.ChangeFormat(e, 'date_format')}
                                         options={this.state.dates}
-                                        placeholder="Date format"
+                                        placeholder={date_format}
                                         name="date_format"
                                         isSearchable={false}
                                         className="mr_sel"
@@ -145,7 +145,7 @@ class Index extends Component {
                                         value={this.state.timeF}
                                         onChange={(e) => this.ChangeFormat(e, 'time_format')}
                                         options={this.state.times}
-                                        placeholder="Time format"
+                                        placeholder={time_format}
                                         name="time_format"
                                         isSearchable={false}
                                         className="mr_sel"
