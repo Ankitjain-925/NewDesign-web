@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import { LanguageFetchReducer } from '../../actions';
 import { LoginReducerAim } from '../../Login/actions';
 import { Settings } from '../../Login/setting';
+import { Redirect, Route } from 'react-router-dom';
 import Loader from '../../Components/Loader/index';
 import LeftMenu from './../../Components/Menus/PatientLeftMenu/index';
 import ViewCourse from './../../Components/OnlineCourses/Components/ListandViewCourse';
@@ -32,6 +33,10 @@ class Index extends Component {
     render() {
         const { specialistOption } = this.state;
         const { stateLoginValueAim } = this.props;
+        if (stateLoginValueAim.user === 'undefined' || stateLoginValueAim.token === 450 || stateLoginValueAim.token === 'undefined') {
+            return (<Redirect to={'/'} />);
+            }            
+
         return (
             <Grid className="homeBg">
                 {this.state.loaderImage && <Loader />}

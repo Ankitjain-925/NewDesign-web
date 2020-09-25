@@ -141,6 +141,10 @@ class Index extends Component {
                 translate = translationEN.text
         }
         let { ur_emergancy_data } = translate;
+        const { stateLoginValueAim, Doctorsetget } = this.props;
+        if (stateLoginValueAim.user === 'undefined' || stateLoginValueAim.token === 450 || stateLoginValueAim.token === 'undefined' || stateLoginValueAim.user.type !== 'paramedic' ) {
+            return (<Redirect to={'/'} />);
+            }   
         return (
             <Grid className="homeBg">
                 <Grid className="homeBgIner">

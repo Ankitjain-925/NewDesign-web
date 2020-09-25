@@ -808,7 +808,7 @@ class Index extends Component {
                                                 </Grid>
                                             </Grid>
                                         </Grid>
-                                        {console.log('this.state.updateTrack',this.state.updateTrack)}
+                                        
                                         {/* For the filter section */}
                                         {this.props.Doctorsetget.p_id !== null && <FilterSec />}
 

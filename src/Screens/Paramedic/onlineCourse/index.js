@@ -3,6 +3,7 @@ import Grid from '@material-ui/core/Grid';
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { LanguageFetchReducer } from '../../actions';
+import { Redirect, Route } from 'react-router-dom';
 import { LoginReducerAim } from '../../Login/actions';
 import { Settings } from '../../Login/setting';
 import Loader from '../../Components/Loader/index';
@@ -36,6 +37,10 @@ class Index extends Component {
 
     render() {
         const { specialistOption } = this.state;
+        const { stateLoginValueAim, Doctorsetget } = this.props;
+        if (stateLoginValueAim.user === 'undefined' || stateLoginValueAim.token === 450 || stateLoginValueAim.token === 'undefined' || stateLoginValueAim.user.type !== 'paramedic' ) {
+            return (<Redirect to={'/'} />);
+            }   
         return (
             <Grid className="homeBg">
                 {this.state.loaderImage && <Loader />}
