@@ -209,65 +209,95 @@ class Index extends Component {
         const { stateLoginValueAim } = this.props;
         const { myLogin } = this.state;
 
-
-        let Log_into_Aimedis, login_Email_address, login_Password, login_Forgotpassword,
-            login_LOGIN_btn, login_an_account, login_Registerhere
-            ;
-
-        // de => German
-        if (this.props.stateLanguageType === 'German') {
-            Log_into_Aimedis = translationDE.text.Log_into_Aimedis;
-            login_Email_address = translationDE.text.login_Email_address;
-            login_Password = translationDE.text.login_Password;
-            login_Forgotpassword = translationDE.text.login_Forgotpassword;
-            login_LOGIN_btn = translationDE.text.login_LOGIN_btn;
-            login_an_account = translationDE.text.login_an_account;
-            login_Registerhere = translationDE.text.login_Registerhere;
+        let translate
+        switch (this.props.stateLanguageType) {
+            case "en":
+                translate = translationEN.text
+                break;
+            // case "de":
+            //     translate = translationDE.text
+            //     break;
+            // case "pt":
+            //     translate = translationPT.text
+            //     break;
+            // case "sp":
+            //     translate = translationSP.text
+            //     break;
+            // case "rs":
+            //     translate = translationRS.text
+            //     break;
+            // case "nl":
+            //     translate = translationNL.text
+            //     break;
+            // case "ch":
+            //     translate = translationCH.text
+            //     break;
+            // case "sw":
+            //     translate = translationSW.text
+            //     break;
+            case "default":
+                translate = translationEN.text
         }
 
-        // es => Spanish
-        if (this.props.stateLanguageType === 'Spanish') {
-            Log_into_Aimedis = translationES.text.Log_into_Aimedis;
-            login_Email_address = translationES.text.login_Email_address;
-            login_Password = translationES.text.login_Password;
-            login_Forgotpassword = translationES.text.login_Forgotpassword;
-            login_LOGIN_btn = translationES.text.login_LOGIN_btn;
-            login_an_account = translationES.text.login_an_account;
-            login_Registerhere = translationES.text.login_Registerhere;
-        }
 
-        // ch => Chinese
-        if (this.props.stateLanguageType === 'Chinese') {
-            Log_into_Aimedis = translationCH.text.Log_into_Aimedis;
-            login_Email_address = translationCH.text.login_Email_address;
-            login_Password = translationCH.text.login_Password;
-            login_Forgotpassword = translationCH.text.login_Forgotpassword;
-            login_LOGIN_btn = translationCH.text.login_LOGIN_btn;
-            login_an_account = translationCH.text.login_an_account;
-            login_Registerhere = translationCH.text.login_Registerhere;
-        }
+        let {Log_into_Aimedis, login_Email_address, login_Password, login_Forgotpassword,
+            login_LOGIN_btn, login_an_account, login_Registerhere, two_fac_auth} = translate;
 
-        // pt => Portuguese
-        else if (this.props.stateLanguageType === 'Portuguese') {
-            Log_into_Aimedis = translationPT.text.Log_into_Aimedis;
-            login_Email_address = translationPT.text.login_Email_address;
-            login_Password = translationPT.text.login_Password;
-            login_Forgotpassword = translationPT.text.login_Forgotpassword;
-            login_LOGIN_btn = translationPT.text.login_LOGIN_btn;
-            login_an_account = translationPT.text.login_an_account;
-            login_Registerhere = translationPT.text.login_Registerhere;
-        }
+        // // de => German
+        // if (this.props.stateLanguageType === 'German') {
+        //     Log_into_Aimedis = translationDE.text.Log_into_Aimedis;
+        //     login_Email_address = translationDE.text.login_Email_address;
+        //     login_Password = translationDE.text.login_Password;
+        //     login_Forgotpassword = translationDE.text.login_Forgotpassword;
+        //     login_LOGIN_btn = translationDE.text.login_LOGIN_btn;
+        //     login_an_account = translationDE.text.login_an_account;
+        //     login_Registerhere = translationDE.text.login_Registerhere;
+        // }
 
-        // en => English
-        else {
-            Log_into_Aimedis = translationEN.text.Log_into_Aimedis;
-            login_Email_address = translationEN.text.login_Email_address;
-            login_Password = translationEN.text.login_Password;
-            login_Forgotpassword = translationEN.text.login_Forgotpassword;
-            login_LOGIN_btn = translationEN.text.login_LOGIN_btn;
-            login_an_account = translationEN.text.login_an_account;
-            login_Registerhere = translationEN.text.login_Registerhere;
-        }
+        // // es => Spanish
+        // if (this.props.stateLanguageType === 'Spanish') {
+        //     Log_into_Aimedis = translationES.text.Log_into_Aimedis;
+        //     login_Email_address = translationES.text.login_Email_address;
+        //     login_Password = translationES.text.login_Password;
+        //     login_Forgotpassword = translationES.text.login_Forgotpassword;
+        //     login_LOGIN_btn = translationES.text.login_LOGIN_btn;
+        //     login_an_account = translationES.text.login_an_account;
+        //     login_Registerhere = translationES.text.login_Registerhere;
+        // }
+
+        // // ch => Chinese
+        // if (this.props.stateLanguageType === 'Chinese') {
+        //     Log_into_Aimedis = translationCH.text.Log_into_Aimedis;
+        //     login_Email_address = translationCH.text.login_Email_address;
+        //     login_Password = translationCH.text.login_Password;
+        //     login_Forgotpassword = translationCH.text.login_Forgotpassword;
+        //     login_LOGIN_btn = translationCH.text.login_LOGIN_btn;
+        //     login_an_account = translationCH.text.login_an_account;
+        //     login_Registerhere = translationCH.text.login_Registerhere;
+        // }
+
+        // // pt => Portuguese
+        // else if (this.props.stateLanguageType === 'Portuguese') {
+        //     Log_into_Aimedis = translationPT.text.Log_into_Aimedis;
+        //     login_Email_address = translationPT.text.login_Email_address;
+        //     login_Password = translationPT.text.login_Password;
+        //     login_Forgotpassword = translationPT.text.login_Forgotpassword;
+        //     login_LOGIN_btn = translationPT.text.login_LOGIN_btn;
+        //     login_an_account = translationPT.text.login_an_account;
+        //     login_Registerhere = translationPT.text.login_Registerhere;
+        // }
+
+        // // en => English
+        // else {
+        //     Log_into_Aimedis = translationEN.text.Log_into_Aimedis;
+        //     login_Email_address = translationEN.text.login_Email_address;
+        //     login_Password = translationEN.text.login_Password;
+        //     login_Forgotpassword = translationEN.text.login_Forgotpassword;
+        //     login_LOGIN_btn = translationEN.text.login_LOGIN_btn;
+        //     login_an_account = translationEN.text.login_an_account;
+        //     login_Registerhere = translationEN.text.login_Registerhere;
+        // }
+
         if (stateLoginValueAim.token !== 450 && stateLoginValueAim.user.type === 'patient' && this.props.verifyCode.code) {
             if (stateLoginValueAim.kyc) {
                 return (<Redirect to={'/patient'} />);
@@ -407,7 +437,7 @@ class Index extends Component {
                                         </Grid>
                                         {this.state.thisverify &&
                                             <Grid className="logRow">
-                                                <Grid><label>2 Factor authentication</label></Grid>
+                                                <Grid><label>{two_fac_auth}</label></Grid>
                                                 <Grid><input type="text"
                                                     value={this.state.mob_token} onChange={e => this.setState({ mob_token: e.target.value })} /></Grid>
                                             </Grid>

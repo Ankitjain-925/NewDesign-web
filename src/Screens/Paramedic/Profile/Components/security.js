@@ -114,7 +114,7 @@ class Index extends Component {
             case "default":
                 translate = translationEN.text
         }
-        let { Change, password, is, we_use_authy, supportive_text, Current, confirm_password, new_password, two_fac_auth, password_changed, new_and_confirm_pass_not_same, current_pass_not_match, plz_fill_fields,
+        let { Change, password, is, we_use_authy, change_password, supportive_text, Current, confirm_password, new_password, two_fac_auth, password_changed, new_and_confirm_pass_not_same, current_pass_not_match, plz_fill_fields,
             Disable, Enable } = translate;
 
         return (
@@ -145,7 +145,7 @@ class Index extends Component {
                                 <Grid><input type="password" name="new_pass_comfirm" onChange={this.ChangePass} /></Grid>
                             </Grid>
                             <Grid className="genPassInr">
-                                <Grid><input type="submit" value="Change password" onClick={this.ChangePassword} /></Grid>
+                                <Grid><input type="submit" value={change_password} onClick={this.ChangePassword} /></Grid>
                             </Grid>
                         </Grid>
                         <Grid className="twofactorAuth">
