@@ -7,6 +7,7 @@ import { connect } from "react-redux";
 import { LoginReducerAim } from './../../Login/actions';
 import { Settings } from './../../Login/setting';
 import LeftMenu from './../../Components/Menus/PatientLeftMenu/index';
+import LeftMenuMobile from './../../Components/Menus/PatientLeftMenu/mobile';
 import { LanguageFetchReducer } from './../../actions';
 import Loader from './../../Components/Loader/index';
 import { Redirect, Route } from 'react-router-dom';
@@ -115,7 +116,8 @@ class Index extends Component {
                             <Grid container direction="row">
 
                                 {/* Website Menu */}
-                                <LeftMenu currentPage="more" />
+                                <LeftMenu  isNotShow ={true} currentPage="more" />
+                                <LeftMenuMobile isNotShow ={true}  currentPage ="more"/>
                                 {/* End of Website Menu */}
 
                                 {/* Website Mid Content */}

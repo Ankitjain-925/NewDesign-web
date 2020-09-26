@@ -8,6 +8,7 @@ import { Settings } from '../../Login/setting';
 import { Redirect, Route } from 'react-router-dom';
 import Loader from '../../Components/Loader/index';
 import LeftMenu from './../../Components/Menus/PatientLeftMenu/index';
+import LeftMenuMobile from './../../Components/Menus/PatientLeftMenu/mobile';
 import ViewCourse from './../../Components/OnlineCourses/Components/ListandViewCourse';
 
 class Index extends Component {
@@ -45,7 +46,13 @@ class Index extends Component {
                         <Grid item xs={12} md={12}>
                             <Grid container direction="row">
                                 {/* Website Menu */}
-                                <LeftMenu currentPage ="more"/>
+                                {this.props.stateLoginValueAim && this.props.stateLoginValueAim.user && this.props.stateLoginValueAim.user.type==='patient' &&
+                                    <div>
+                                        <LeftMenu  isNotShow ={true} currentPage ="more"/>
+                                        <LeftMenuMobile isNotShow ={true}  currentPage ="more"/>
+                                    </div>
+                                }
+                                
                                 {/* End of Website Menu */}
                                 <Grid item xs={12} md={11}>
                                     <ViewCourse Course={this.state.Course}/>

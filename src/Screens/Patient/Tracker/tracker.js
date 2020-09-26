@@ -20,6 +20,7 @@ import Battery30Icon from '@material-ui/icons/Battery30';
 import Battery60Icon from '@material-ui/icons/Battery60';
 import Battery90Icon from '@material-ui/icons/Battery90';
 import HighchartsReact from "highcharts-react-official";
+import LeftMenuMobile from './../../Components/Menus/PatientLeftMenu/mobile';
 import * as translationEN from "../../../translations/en_json_proofread_13072020.json"
 
 const withingsMeasureType = {
@@ -618,7 +619,8 @@ class Index extends Component {
                         <Grid item xs={12} md={12}>
                             <Grid container direction="row">
 
-                                <LeftMenu currentPage="tracker" />
+                                <LeftMenu  isNotShow ={true} currentPage="tracker" />
+                                <LeftMenuMobile isNotShow ={true}  currentPage ="tracker"/>
                                 {/* End of Website Menu */}
 
                                 <Grid item xs={12} md={9}>
