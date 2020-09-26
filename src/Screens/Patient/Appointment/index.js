@@ -46,7 +46,8 @@ class Index extends Component {
             successfull: false,
             UpDataDetails: [],
             video_call: true,
-            office_visit: true
+            office_visit: true,
+            currentSelected: null
         };
         this.bookAppointment = this.bookAppointment.bind(this)
         this.apointmentType = this.apointmentType.bind(this)
@@ -55,7 +56,24 @@ class Index extends Component {
         this.getGeoLocation()
         this.patientinfo()
         this.getMetadata()
+        this.getUpcomingAppointment()
     }
+
+    getUpcomingAppointment() {
+        var user_token = this.props.stateLoginValueAim.token;
+        axios.get(sitedata.data.path + '/UserProfile/UpcomingAppintmentPat', {
+            headers: {
+                'token': user_token,
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        })
+            .then((response) => {
+                console.log("getUpcomingAppointment", response)
+                this.setState({ upcomingAppointment: response.data.data, loaderImage: false })
+            })
+    }
+
     getGeoLocation = () => {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(position => {
@@ -76,13 +94,13 @@ class Index extends Component {
 
     handleOpenFancyVdo = (i, type, data) => {
         this.setState({ openFancyVdo: true, appointmentData: data, doc_select: i, appointType: type });
-        setTimeout(this.onChange, 3000)
+        setTimeout(this.onChange, 5000)
         // this.onChange()
     };
     handleCloseFancyVdo = () => {
-        this.setState({ openFancyVdo: false, appointDate: [] });
+        this.setState({ openFancyVdo: false, appointDate: [], appointmentData: {}, currentSelected: null });
         Object.keys(this.state.allDocData).map((index, i) => {
-        
+
         })
     };
 
@@ -107,7 +125,7 @@ class Index extends Component {
         axios.get(sitedata.data.path + '/UserProfile/Metadata')
             .then((responce) => {
                 let specialityData = []
-                responce.data[0].speciality && responce.data[0].speciality.map(spec => {
+                responce.data[0] && responce.data[0].speciality && responce.data[0].speciality.map(spec => {
                     specialityData.push({ value: spec.value, label: spec.title })
                 })
                 this.setState({
@@ -123,10 +141,11 @@ class Index extends Component {
     findAppointment = (tab, doc_select, apointType, apointDay, iA) => {
         apointType = apointType.replace(/['"]+/g, '')
         this.setState({
+            currentSelected: iA,
             findDoc: tab, selectedDoc: this.state.allDocData[doc_select],
             mypoint: {
-                start: this.state.allDocData[doc_select][apointType][0][apointDay][iA],
-                end: this.state.allDocData[doc_select][apointType][0][apointDay][iA + 1],
+                start: this.state.allDocData[doc_select] && this.state.allDocData[doc_select][apointType][0] && this.state.allDocData[doc_select][apointType][0][apointDay][iA],
+                end: this.state.allDocData[doc_select] && this.state.allDocData[doc_select][apointType][0] && this.state.allDocData[doc_select][apointType][0][apointDay][iA + 1],
                 type: apointType
             }
         })
@@ -145,7 +164,7 @@ class Index extends Component {
         const user_token = this.props.stateLoginValueAim.token;
         axios.post(sitedata.data.path + '/User/appointment', {
             patient: this.props.stateLoginValueAim.user._id,
-            doctor_id: this.state.selectedDoc.data._id,
+            doctor_id: this.state.selectedDoc.data && this.state.selectedDoc.data._id,
             insurance: this.state.personalinfo.insurance[0].insurance_number,
             date: this.state.selectedDate,
             start_time: this.state.mypoint.start,
@@ -165,21 +184,22 @@ class Index extends Component {
             },
             lan: this.props.stateLanguageType,
             docProfile: {
-                patient_id: this.state.selectedDoc.data.profile_id,
-                first_name: this.state.selectedDoc.data.first_name,
-                last_name: this.state.selectedDoc.data.last_name,
-                email: this.state.selectedDoc.data.email,
-                birthday: this.state.selectedDoc.data.birthday,
-                profile_image: this.state.selectedDoc.data.image
+                patient_id: this.state.selectedDoc.data && this.state.selectedDoc.data.profile_id,
+                first_name: this.state.selectedDoc.data && this.state.selectedDoc.data.first_name,
+                last_name: this.state.selectedDoc.data && this.state.selectedDoc.data.last_name,
+                email: this.state.selectedDoc.data && this.state.selectedDoc.data.email,
+                birthday: this.state.selectedDoc.data && this.state.selectedDoc.data.birthday,
+                profile_image: this.state.selectedDoc.data && this.state.selectedDoc.data.image
             }
         })
             .then((responce) => {
                 this.setState({ loaderImage: false });
                 if (responce.data.hassuccessed === true) {
                     this.setState({ successfull: true })
+                    this.getUpcomingAppointment()
                     setTimeout(
                         function () {
-                            this.setState({ successfull: false, openFancyVdo: false });
+                            this.setState({ successfull: false, openFancyVdo: false, currentSelected: null });
                         }
                             .bind(this),
                         5000
@@ -342,12 +362,61 @@ class Index extends Component {
         }
         let appointmentData = this.state.appointmentData
         let appointDate
-        Object.entries(appointmentData).map(([key, value]) => {
-            if (key == days) {
-                appointDate = value
-            }
-        })
+        if (appointmentData) {
+            Object.entries(appointmentData).map(([key, value]) => {
+                if (key == days) {
+                    appointDate = value
+                }
+            })
+        }
         this.setState({ appointDate: appointDate, apointDay: days, selectedDate: date1 })
+    }
+
+    setAppointDate(date) {
+        date = new Date(date)
+        let m = date.getMonth() + 1
+        let month
+        switch (m) {
+            case 1:
+                month = "Jan"
+                break;
+            case 2:
+                month = "Feb"
+                break;
+            case 3:
+                month = "Mar"
+                break;
+            case 4:
+                month = "Apr"
+                break;
+            case 5:
+                month = "May"
+                break;
+            case 6:
+                month = "Jun"
+                break;
+            case 7:
+                month = "Jul"
+                break;
+            case 8:
+                month = "Aug"
+                break;
+            case 9:
+                month = "Sep"
+                break;
+            case 10:
+                month = "Oct"
+                break;
+            case 11:
+                month = "Nov"
+                break;
+            case 12:
+                month = "Dec"
+                break;
+        }
+        let day = date.getDate()
+        let returnDate = day + ' ' + month
+        return returnDate
     }
 
     render() {
@@ -483,14 +552,14 @@ class Index extends Component {
                                                 <Grid className="selCalender">
                                                     <Calendar onChange={this.onChange} value={this.state.date} />
                                                 </Grid>
-                                                <Grid className="selTimeSlot">
+                                                <Grid className="selTimeSlot" >
                                                     <Grid><label>{slct_time_slot}</label></Grid>
                                                     <Grid className="selTimeAM">
                                                         {this.state.appointDate && this.state.appointDate.length > 0 ? this.state.appointDate.map((data, iA) => {
                                                             return (
                                                                 <Grid>
                                                                     {this.state.appointDate[iA + 1] && this.state.appointDate[iA + 1] !== 'undefined' &&
-                                                                        <a onClick={() => { this.findAppointment('tab3', doc_select, appointType, apointDay, iA) }}>
+                                                                        <a className={this.state.currentSelected && this.state.currentSelected === iA ? 'current_selected' : ''} onClick={() => { this.findAppointment('tab3', doc_select, appointType, apointDay, iA) }}>
                                                                             {this.state.appointDate[iA] + ' - ' + this.state.appointDate[iA + 1]}
                                                                         </a>}
                                                                 </Grid>
@@ -532,7 +601,37 @@ class Index extends Component {
                                     <Grid className="apointUpcom">
                                         <h4>{upcming_apointment}</h4>
 
-                                        <Grid className="officeVst">
+                                        {this.state.upcomingAppointment && this.state.upcomingAppointment.length > 0 && this.state.upcomingAppointment.map(apoint => (
+                                            <Grid className="officeVst">
+                                                <Grid container direction="row">
+                                                    <Grid item xs={6} md={6} className="officeVstLft"><label>{apoint.Appointdate && this.setAppointDate(apoint.Appointdate)}, {apoint.start_time}</label></Grid>
+                                                    <Grid item xs={6} md={6} className="officeVstRght">
+                                                        {apoint.appointment_type == "appointments" ? <a><img src={require('../../../assets/images/office-visit.svg')} alt="" title="" /> {office_visit} </a> :
+                                                            apoint.appointment_type == "online_appointment" ? <a><img src={require('../../../assets/images/video-call.svg')} alt="" title="" /> {vdo_call} </a> :
+                                                                <a><img src={require('../../../assets/images/cal.png')} alt="" title="" />{consultancy_cstm_calnder} </a>}
+                                                    </Grid>
+                                                </Grid>
+                                                <Grid className="showSubject">
+                                                    <Grid container direction="row">
+                                                        <Grid item xs={6} md={6} className="officeVstLft">
+                                                            <h3>Diesese'Name</h3>
+                                                        </Grid>
+
+                                                        <Grid item xs={6} md={6} className="officeVstRght">
+                                                            <a className="showDetail">
+                                                                <img src={require('../../../assets/images/threedots.jpg')} alt="" title="" />
+                                                                <Grid className="cancelAppoint">
+                                                                    <a><img src={require('../../../assets/images/cancelAppoint.jpg')} alt="" title="" />{cancel_apointmnt}</a>
+                                                                </Grid>
+                                                            </a>
+                                                        </Grid>
+                                                    </Grid>
+                                                    <Grid><a><img src={require('../../../assets/images/dr1.jpg')} alt="" title="" />{apoint.docProfile && `${apoint.docProfile.first_name} ${apoint.docProfile.last_name}`}</a></Grid>
+                                                    <Grid><a><img src={require('../../../assets/images/office-visit.svg')} alt="" title="" />Illinois Masonic Medical Center</a></Grid>
+                                                </Grid>
+                                            </Grid>
+                                        ))}
+                                        {/* <Grid className="officeVst">
                                             <Grid container direction="row">
                                                 <Grid item xs={6} md={6} className="officeVstLft"><label>7 Aug, 09:00</label></Grid>
                                                 <Grid item xs={6} md={6} className="officeVstRght">
@@ -540,7 +639,7 @@ class Index extends Component {
                                                 </Grid>
                                             </Grid>
                                             <Grid className="showSubject">
-                                                <h3>Neurology</h3>
+                                                <h3>Neurologdsdssdy</h3>
                                                 <Grid><a><img src={require('../../../assets/images/dr1.jpg')} alt="" title="" />Mark Anderson M.D.</a></Grid>
                                                 <Grid><a><img src={require('../../../assets/images/office-visit.svg')} alt="" title="" />Illinois Masonic Medical Center</a></Grid>
                                             </Grid>
@@ -595,7 +694,7 @@ class Index extends Component {
                                                 <Grid><a><img src={require('../../../assets/images/dr1.jpg')} alt="" title="" />Mark Anderson M.D.</a></Grid>
                                                 <Grid><a><img src={require('../../../assets/images/office-visit.svg')} alt="" title="" />Illinois Masonic Medical Center</a></Grid>
                                             </Grid>
-                                        </Grid>
+                                        </Grid> */}
 
                                         <Grid className="shwAppoints">
                                             <p><a>{show_past_apointment}</a></p>
@@ -747,12 +846,10 @@ class Index extends Component {
                                                                                                     {doc.data && doc.data.first_name && doc.data.first_name} {doc.data && doc.data.last_name && doc.data.last_name} ({doc.data && doc.data.title && doc.data.title})
                                                                                                 </a>
                                                                                             </Grid>
-                                                                                            {doc.data && doc.data.speciality && doc.data.speciality.length > 0 && doc.data.speciality.map(spec => (
-                                                                                                <Grid className="nuroDr">
-                                                                                                    <label>{spec}</label>
-                                                                                                    <p>Neurodegerenative diseases</p>
-                                                                                                </Grid>
-                                                                                            ))}
+                                                                                            <Grid className="nuroDr">
+                                                                                                <label>{doc.data && doc.data.speciality && doc.data.speciality.length > 0 && doc.data.speciality.join(", ")}</label>
+                                                                                                <p>{doc.data && doc.data.subspeciality && doc.data.subspeciality.length > 0 && doc.data.subspeciality.join(", ")}</p>
+                                                                                            </Grid>
 
                                                                                             {/* <Grid className="nuroDr">
                                                                                                 <label>NEUROLOGY</label>
@@ -779,7 +876,7 @@ class Index extends Component {
                                                                                                 <h3>{see_avlbl_date}:</h3>
                                                                                                 <Grid>
                                                                                                     {this.state.video_call &&
-                                                                                                        <a onClick={() => this.handleOpenFancyVdo(i, "online_appointment", doc.online_appointment[0])}><img src={require('../../../assets/images/video-call-copy2.svg')} alt="" title="" />{vdo_call}</a>
+                                                                                                        <a onClick={() => this.handleOpenFancyVdo(i, "online_appointment", doc.appointments[0])}><img src={require('../../../assets/images/video-call-copy2.svg')} alt="" title="" />{vdo_call}</a>
                                                                                                     }
                                                                                                     {this.state.office_visit &&
                                                                                                         <a onClick={() => this.handleOpenFancyVdo(i, "appointments", doc.appointments[0])}><img src={require('../../../assets/images/ShapeCopy2.svg')} alt="" title="" />{office_visit}</a>

@@ -94,7 +94,7 @@ class Index extends Component {
     getUserData() {
         this.setState({ loaderImage: true });
         let user_token = this.props.stateLoginValueAim.token
-        let user_id = this.props.stateLoginValueAim.user._id
+        let user_id =  this.props.stateLoginValueAim && this.props.stateLoginValueAim.user && this.props.stateLoginValueAim.user._id
         axios.get(sitedata.data.path + '/UserProfile/Users/' + user_id, {
             headers: {
                 'token': user_token,

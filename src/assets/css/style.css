@@ -11710,6 +11710,10 @@ img.MenuImg {
     background-color: #00ABAF;
     color: #ffffff;
 }
+.current_selected {
+    background-color: #717777 !important ; 
+    color: #ffffff !important;
+}
 .selCalender .react-calendar {
     border: none !important;
 }
