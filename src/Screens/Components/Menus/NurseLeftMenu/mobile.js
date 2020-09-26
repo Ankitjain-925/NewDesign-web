@@ -9,6 +9,7 @@ import { withRouter } from "react-router-dom";
 import { LanguageFetchReducer } from '../../../actions';
 import LogOut from './../../LogOut/index';
 import Timer from './../../TimeLogOut/index';
+import { slide as Menu } from "react-burger-menu";
 import Notification from "../../../Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 
 class Index extends Component {
@@ -67,13 +68,14 @@ class Index extends Component {
     
     render() {
         return (
-            <Grid item xs={12} md={1} className="MenuLeftUpr ">
+            <Grid className="MenuMob">
                   {!this.props.isNotShow && <Notification />}
-                <Grid className="webLogo">
-                    <a href="/"><img src={require('../../../../assets/images/logo_new.png')} alt="" title="" /></a>
-                </Grid>
-                <Grid className="menuItems">
-                    <ul>
+            <Grid container direction="row" alignItems="center">
+                <Grid item xs={6} md={6} sm={6} className="MenuMobLeft">
+                    <a><img src={require('../../../../assets//images/navigation-drawer.svg')} alt="" title="" className="MenuImg" /></a>
+                    <Menu className="addCstmMenu">
+                        <Grid className="menuItems">
+                        <ul>
                         <li className={this.props.currentPage==='chat' ? "menuActv" : ""}>
                             <a onClick={this.Chats}>
                             {this.props.currentPage==='chat' ? <img src={require('../../../../assets/images/chatVideoActive.png')} alt="" title="" />
@@ -115,10 +117,16 @@ class Index extends Component {
                                     </ul>
                                 </div>
                             </a>
-                        </li> 
+                        </li>
                     </ul>
+                        </Grid>
+                    </Menu>
+                </Grid>
+                <Grid item xs={6} md={6} sm={6} className="MenuMobRght">
+                    <a href="/"><img src={require('../../../../assets//images/logo_new.png')} alt="" title="" /></a>
                 </Grid>
             </Grid>
+        </Grid>
         );
     }
 }

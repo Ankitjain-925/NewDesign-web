@@ -7,6 +7,7 @@ import { Settings } from '../../../Login/setting';
 // import { filterate } from '../../Doctor/filteraction';
 import { withRouter } from "react-router-dom";
 import { LanguageFetchReducer } from '../../../actions';
+import { slide as Menu } from "react-burger-menu";
 import LogOut from './../../LogOut/index';
 import Timer from './../../TimeLogOut/index';
 import Notification from "../../../Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
@@ -23,11 +24,11 @@ class Index extends Component {
             contact_partner: {},
             loaderImage: false,
         };
-        new Timer(this.logOutClick.bind(this)) 
+        new Timer(this.logOutClick.bind(this))
     }
 
     //For loggedout if logged in user is deleted 
-    componentDidMount(){
+    componentDidMount() {
         new LogOut(this.props.stateLoginValueAim.token, this.props.stateLoginValueAim.user._id, this.logOutClick.bind(this))
         this.props.Settings(this.props.stateLoginValueAim.token);
     }
@@ -41,32 +42,34 @@ class Index extends Component {
         let languageType = 'en';
         this.props.LanguageFetchReducer(languageType);
     }
-    //For Profile Course
+
+   //For Profile Course
     ProfileLink = ()=>{
-        this.props.history.push('/insurance/profile');    
+        this.props.history.push('/paramedic/profile');    
     }
     //For online Course
     OnlineCourse = ()=>{
-        this.props.history.push('/insurance/online-course');    
+        this.props.history.push('/paramedic/online-course');    
     }
     //For Emergency page
     Emergency = ()=>{
-        this.props.history.push('/insurance');    
+        this.props.history.push('/paramedic');    
     }
     //For Chat page
     Chats = ()=>{
-        this.props.history.push('/insurance/chats');  
+        this.props.history.push('/paramedic/chats');  
     }
- 
+
     render() {
         return (
-            <Grid item xs={12} md={1} className="MenuLeftUpr">
+            <Grid className="MenuMob">
                   {!this.props.isNotShow && <Notification />}
-                <Grid className="webLogo">
-                    <a href="/"><img src={require('../../../../assets/images/logo_new.png')} alt="" title="" /></a>
-                </Grid>
-                <Grid className="menuItems">
-                    <ul>
+            <Grid container direction="row" alignItems="center">
+                <Grid item xs={6} md={6} sm={6} className="MenuMobLeft">
+                    <a><img src={require('../../../../assets//images/navigation-drawer.svg')} alt="" title="" className="MenuImg" /></a>
+                    <Menu className="addCstmMenu">
+                        <Grid className="menuItems">
+                        <ul>
                         <li className={this.props.currentPage==='emergency' ? "menuActv" : ""}>
                             <a onClick={this.Emergency}>
                                 <img src={require('../../../../assets/images/para.png')} alt="" title="" />
@@ -102,15 +105,21 @@ class Index extends Component {
                             </a>
                         </li>
                     </ul>
+                        </Grid>
+                    </Menu>
+                </Grid>
+                <Grid item xs={6} md={6} sm={6} className="MenuMobRght">
+                    <a href="/"><img src={require('../../../../assets//images/logo_new.png')} alt="" title="" /></a>
                 </Grid>
             </Grid>
+        </Grid>
         );
     }
 }
 const mapStateToProps = (state) => {
     const { stateLoginValueAim, loadingaIndicatoranswerdetail } = state.LoginReducerAim;
     const { stateLanguageType } = state.LanguageReducer;
-    const {settings} = state.Settings;
+    const { settings } = state.Settings;
     // const { Doctorsetget } = state.Doctorset;
     // const { catfil } = state.filterate;
     return {

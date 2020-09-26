@@ -87,7 +87,7 @@ class Index extends Component {
                             <Grid container direction="row">
 
                                 {/* Website Menu */}
-                                <LeftMenu currentPage="journal" />
+                                <LeftMenu  isNotShow ={true} currentPage="journal" />
                                 {/* End of Website Menu */}
 
                                 {/* Website Mid Content */}

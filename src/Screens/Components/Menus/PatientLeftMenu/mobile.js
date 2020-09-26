@@ -7,6 +7,7 @@ import { Settings } from '../../../Login/setting';
 // import { filterate } from '../../Doctor/filteraction';
 import { withRouter } from "react-router-dom";
 import { LanguageFetchReducer } from '../../../actions';
+import { slide as Menu } from "react-burger-menu";
 import LogOut from './../../LogOut/index';
 import Timer from './../../TimeLogOut/index';
 import Notification from "../../../Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
@@ -92,13 +93,14 @@ class Index extends Component {
     }
     render() {
         return (
-            <Grid item xs={12} md={1} className="MenuLeftUpr ">
+            <Grid className="MenuMob">
                   {!this.props.isNotShow && <Notification />}
-                <Grid className="webLogo">
-                    <a href="/"><img src={require('../../../../assets/images/logo_new.png')} alt="" title="" /></a>
-                </Grid>
-                <Grid className="menuItems">
-                    <ul>
+            <Grid container direction="row" alignItems="center">
+                <Grid item xs={6} md={6} sm={6} className="MenuMobLeft">
+                    <a><img src={require('../../../../assets//images/navigation-drawer.svg')} alt="" title="" className="MenuImg" /></a>
+                    <Menu className="addCstmMenu">
+                        <Grid className="menuItems">
+                        <ul>
                         <li className={this.props.currentPage === 'journal' ? "menuActv" : ""}>
                             <a onClick={this.Journal}>
                                 {this.props.currentPage === 'journal' ? <img src={require('../../../../assets/images/menu1.png')} alt="" title="" />
@@ -169,8 +171,14 @@ class Index extends Component {
                             </a>
                         </li>
                     </ul>
+                        </Grid>
+                    </Menu>
+                </Grid>
+                <Grid item xs={6} md={6} sm={6} className="MenuMobRght">
+                    <a href="/"><img src={require('../../../../assets//images/logo_new.png')} alt="" title="" /></a>
                 </Grid>
             </Grid>
+        </Grid>
         );
     }
 }

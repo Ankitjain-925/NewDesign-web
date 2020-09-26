@@ -9,6 +9,7 @@ import { withRouter } from "react-router-dom";
 import { LanguageFetchReducer } from '../../../actions';
 import LogOut from './../../LogOut/index';
 import Timer from './../../TimeLogOut/index';
+import Notification from "../../../Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 
 class Index extends Component {
     constructor(props) {
@@ -60,6 +61,7 @@ class Index extends Component {
     render() {
         return (
             <Grid item xs={12} md={1} className="MenuLeftUpr">
+                  {!this.props.isNotShow && <Notification />}
                 <Grid className="webLogo">
                     <a href="/"><img src={require('../../../../assets/images/logo_new.png')} alt="" title="" /></a>
                 </Grid>

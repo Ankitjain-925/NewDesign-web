@@ -9,6 +9,7 @@ import Typography from '@material-ui/core/Typography';
 import PropTypes from 'prop-types';
 import Modal from '@material-ui/core/Modal';
 import LeftMenu from './../../Components/Menus/DoctorLeftMenu/index';
+import LeftMenuMobile from './../../Components/Menus/DoctorLeftMenu/mobile';
 import sitedata, { data } from '../../../sitedata';
 import axios from 'axios';
 import { connect } from "react-redux";
@@ -149,7 +150,8 @@ class Index extends Component {
                             <Grid container direction="row">
 
                                 {/* Website Menu */}
-                                <LeftMenu currentPage="documents" />
+                                <LeftMenu  isNotShow ={true} currentPage="documents" />
+                                <LeftMenuMobile isNotShow ={true}  currentPage="documents" />
                                 {/* End of Website Menu */}
 
                                 <Grid item xs={12} md={9}>

@@ -8,6 +8,7 @@ import { LoginReducerAim } from '../../Login/actions';
 import { Settings } from '../../Login/setting';
 import Loader from '../../Components/Loader/index';
 import LeftMenu from './../../Components/Menus/ParamedicLeftMenu/index';
+import LeftMenuMobile from './../../Components/Menus/ParamedicLeftMenu/mobile';
 import CourseSection from './../../Components/OnlineCourses/index.js';
 
 class Index extends Component {
@@ -49,7 +50,8 @@ class Index extends Component {
                         <Grid item xs={12} md={12}>
                             <Grid container direction="row">
                                 {/* Website Menu */}
-                                <LeftMenu currentPage ="course"/>
+                                <LeftMenu  isNotShow ={true} currentPage ="course"/>
+                                <LeftMenuMobile isNotShow ={true}  currentPage="course"/>
                                 {/* End of Website Menu */}
                                 <Grid item xs={12} md={11}>
                                     <CourseSection />

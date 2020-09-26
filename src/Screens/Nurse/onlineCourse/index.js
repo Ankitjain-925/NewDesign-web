@@ -7,6 +7,7 @@ import { LoginReducerAim } from '../../Login/actions';
 import { Settings } from '../../Login/setting';
 import { Redirect, Route } from 'react-router-dom';
 import Loader from '../../Components/Loader/index';
+import LeftMenuMobile from './../../Components/Menus/NurseLeftMenu/mobile';
 import LeftMenu from './../../Components/Menus/NurseLeftMenu/index';
 import CourseSection from './../../Components/OnlineCourses/index.js';
 
@@ -55,7 +56,8 @@ class Index extends Component {
                         <Grid item xs={12} md={12}>
                             <Grid container direction="row">
                                 {/* Website Menu */}
-                                <LeftMenu currentPage ="course"/>
+                                <LeftMenu  isNotShow ={true} currentPage ="course"/>
+                                <LeftMenuMobile isNotShow ={true}  currentPage ="course"/>
                                 {/* End of Website Menu */}
                                 <Grid item xs={12} md={11}>
                                     <CourseSection />

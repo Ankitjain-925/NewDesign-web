@@ -20,6 +20,7 @@ import Typography from '@material-ui/core/Typography';
 import "react-toggle/style.css";
 
 import LeftMenu from './../../Components/Menus/DoctorLeftMenu/index';
+import LeftMenuMobile from './../../Components/Menus/DoctorLeftMenu/mobile';
 import MyProfile from './Components/myProfile.js';
 import KYC from './Components/kyc.js';
 import Security from './Components/security.js';
@@ -150,7 +151,8 @@ class Index extends Component {
                         <Grid item xs={12} md={12}>
                             <Grid container direction="row">
                                 {/* Website Menu */}
-                                <LeftMenu currentPage="profile" />
+                                <LeftMenu  isNotShow ={true} currentPage="profile" />
+                                <LeftMenuMobile isNotShow ={true}  currentPage="profile" />
                                 {/* End of Website Menu */}
                                 {/* Website Mid Content */}
                                 <Grid item xs={12} md={9}>

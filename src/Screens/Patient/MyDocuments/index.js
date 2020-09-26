@@ -21,6 +21,7 @@ import { Settings } from './../../Login/setting';
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
 import LeftMenu from './../../Components/Menus/PatientLeftMenu/index';
+import LeftMenuMobile from './../../Components/Menus/PatientLeftMenu/mobile';
 import { LanguageFetchReducer } from './../../actions';
 import Loader from './../../Components/Loader/index';
 import { Redirect, Route } from 'react-router-dom';
@@ -412,7 +413,8 @@ class Index extends Component {
                             <Grid container direction="row">
 
                                 {/* Website Menu */}
-                                <LeftMenu currentPage="documents" />
+                                <LeftMenu  isNotShow ={true} currentPage="documents" />
+                                <LeftMenuMobile isNotShow ={true}  currentPage ="documents"/>
                                 {/* End of Website Menu */}
 
                                 <Grid item xs={12} md={9}>

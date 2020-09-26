@@ -4,6 +4,7 @@ import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 import Modal from '@material-ui/core/Modal';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import LeftMenu from './../../Components/Menus/ParamedicLeftMenu/index';
+import LeftMenuMobile from './../../Components/Menus/ParamedicLeftMenu/mobile';
 import Checkbox from '@material-ui/core/Checkbox';
 import Loader from './../../Components/Loader/index';
 import { EmergencySet } from '../../Doctor/emergencyaction.js';
@@ -157,8 +158,8 @@ class Index extends Component {
                             <Grid container direction="row">
 
                                 {/* Website Menu */}
-                               <LeftMenu currentPage ="emergency"/>
-
+                               <LeftMenu  isNotShow ={true} currentPage ="emergency"/>
+                               <LeftMenuMobile isNotShow ={true}  currentPage="emergency"/>
                                 {/* End of Website Menu */}
 
                                 <Grid item xs={12} md={10}>
