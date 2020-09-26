@@ -595,7 +595,7 @@ class Index extends Component {
                                                             </Grid>
                                                             <Grid className="userAdres">
                                                                 <Grid><img src={require('../../../assets/images/phone2.svg')} alt="" title="" /></Grid>
-                                                                <p>{profileDetail.phone}</p>
+                                                                <p>{profileDetail.mobile}</p>
                                                             </Grid>
                                                             <Grid className="userAdres">
                                                                 <Grid><img src={require('../../../assets/images/email11.svg')} alt="" title="" /></Grid>
@@ -607,14 +607,14 @@ class Index extends Component {
                                                             </Grid>
                                                             <Grid className="insureMe">
                                                                 <Grid><label>Insurance</label></Grid>
-                                                                <Grid container direction="row">
+                                                                {profileDetail.insurance && profileDetail.insurance.map((data,index)=>(<Grid container direction="row">
                                                                     <Grid item xs={5} md={5}>
-                                                                        <p>{profileDetail.insurance && profileDetail.insurance.length ? profileDetail.insurance[0].insurance : ''}</p>
+                                                                        <p>{data  ? data.insurance : ''}</p>
                                                                     </Grid>
                                                                     <Grid item xs={7} md={7}>
-                                                                        <p>{profileDetail.insurance && profileDetail.insurance.length ? profileDetail.insurance[0].insurance_number : ''}</p>
+                                                                        <p>{data ? data.insurance_number : ''}</p>
                                                                     </Grid>
-                                                                </Grid>
+                                                                </Grid>))}
                                                             </Grid>
                                                             <Grid className="openJournal">
                                                                 <Grid container direction="row" justifyContent="center" alignItems="center">

@@ -14,6 +14,7 @@ class Time extends Component {
 
     //On Time Change 
     onTimeChange = (time) => {
+        console.log("doc1@gmail.com", time)
         this.setState({ value: time });
         this.props.onChange(time);
     };
@@ -30,8 +31,8 @@ class Time extends Component {
     render() {
         return (
             <div>
-                {this.state.is24 === '24' ? <TimePicker name={this.props.name} value={this.state.value ? moment(this.state.value) : ''} onChange={(e) => { this.onTimeChange(e) }} format="HH:mm" />
-                    : <TimePicker name={this.props.name} value={this.state.value ? moment(this.state.value) : '' } use12Hours onChange={(e) => { this.onTimeChange(e) }} format="h:mm a" />}
+                {this.state.is24 === '24' ? <TimePicker name={this.props.name} value={this.state.value ? moment(this.state.value) : ''} onSelect={(e) => { this.onTimeChange(e) }} onChange={(e) => { this.onTimeChange(e) }} format="HH:mm" />
+                    : <TimePicker name={this.props.name} value={this.state.value ? moment(this.state.value) : '' } use12Hours onSelect={(e) => { this.onTimeChange(e) }} onChange={(e) => { this.onTimeChange(e) }} format="h:mm a" />}
             </div>
         )
     }
