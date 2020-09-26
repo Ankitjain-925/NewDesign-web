@@ -36,7 +36,7 @@ class Index extends Component {
         return (
             <Grid container direction="row" className="descpCntnt">
                 <Grid item xs={1} md={1} className="descpCntntLft">
-                    {newdate(item.created_on)}
+                    {newdate(item.datetime_on)}
                 </Grid>
                 <Grid item xs={11} md={10} className="descpCntntRght">
                     <Grid className="descpInerRght descpInerBlue">

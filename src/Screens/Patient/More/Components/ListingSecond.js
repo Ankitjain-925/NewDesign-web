@@ -67,7 +67,12 @@ class Index extends Component {
         this.setState({ addInqry: false, showInquiry: false });
     };
 
-
+    handleshowSick = (data) => {
+        this.setState({ addInqry: false, showInquiry: true, AddSecond: data });
+    };
+    handleCloseShowSick=()=>{
+        this.setState({ addInqry: false, showInquiry: false });
+    }
     //on adding new data
     componentDidUpdate = (prevProps) => {
         if (prevProps.newItem !== this.props.newItem) {

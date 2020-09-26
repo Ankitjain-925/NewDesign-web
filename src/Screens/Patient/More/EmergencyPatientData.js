@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
 import LeftMenu from './../../Components/Menus/PatientLeftMenu/index';
+import LeftMenuMobile from './../../Components/Menus/PatientLeftMenu/mobile';
 import sitedata from '../../../sitedata';
 import { LoginReducerAim } from './../../Login/actions';
 import { Settings } from './../../Login/setting';
@@ -63,11 +64,12 @@ class Index extends Component {
         return (
             <Grid className="homeBg">
                 <Grid container direction="row" justify="center">
-                    <Grid item xs={11} md={12}>
+                    <Grid item xs={12} md={12}>
                         <Grid container direction="row">
 
                             {/* Website Menu */}
-                            <LeftMenu currentPage ="more"/>
+                            <LeftMenu  isNotShow ={true} currentPage ="more"/>
+                            <LeftMenuMobile isNotShow ={true}  currentPage ="more"/>
                             {/* End of Website Menu */}
 
                             {/* Website Mid Content */}

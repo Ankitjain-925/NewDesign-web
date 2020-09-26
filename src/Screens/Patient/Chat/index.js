@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
 import LeftMenu from './../../Components/Menus/PatientLeftMenu/index';
+import LeftMenuMobile from './../../Components/Menus/PatientLeftMenu/mobile';
 import { LoginReducerAim } from './../../Login/actions';
 import { Settings } from './../../Login/setting';
 import { connect } from "react-redux";
@@ -95,9 +96,10 @@ class index extends React.Component {
         return(
             <Grid className="homeBg">
             <Grid container direction="row" justify="center">
-                <Grid item xs={11} md={12}>
+                <Grid item xs={12} md={12}>
                     <Grid container direction="row">
-                        <LeftMenu currentPage="chat"/>
+                        <LeftMenu  isNotShow ={true} currentPage="chat"/>
+                        <LeftMenuMobile isNotShow ={true}  currentPage ="chat"/>
                         {/* Website Mid Content */}
                         <Grid item xs={12} md={11}>
                             {/* Inbox page Content */}

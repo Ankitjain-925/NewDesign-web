@@ -12121,6 +12121,10 @@ input:focus {
     position: relative;
   }
 
+  .wrkHour a.seleted-days {
+      color: #ffffff;
+      background-color:#00abaf;
+  }
   .success_message
   {
     padding-bottom: 15px;

@@ -101,7 +101,7 @@ class Index extends Component {
         return (
             <Grid className="homeBg">
                 <Grid container direction="row" justify="center">
-                    <Grid item xs={11} md={12}>
+                    <Grid item xs={12} md={12}>
                         <Grid container direction="row">
 
                             {/* Website Menu */}

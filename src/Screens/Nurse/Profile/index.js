@@ -16,6 +16,7 @@ import { LanguageFetchReducer } from './../../actions';
 import PropTypes from 'prop-types';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
+import LeftMenuMobile from './../../Components/Menus/NurseLeftMenu/mobile';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import ProfileSection from './Components/profileUpdate';
@@ -124,8 +125,8 @@ class Index extends Component {
                         <Grid item xs={12} md={12}>
                             <Grid container direction="row">
                                 {/* Website Menu */}
-                                <LeftMenu currentPage ="profile"/>
-
+                                <LeftMenu  isNotShow ={true} currentPage ="profile"/>
+                                <LeftMenuMobile isNotShow ={true}  currentPage ="profile"/>
                                 {/* Website Mid Content */}
                                 <Grid item xs={12} md={8}>
                                     <Grid className="profilePkg ">

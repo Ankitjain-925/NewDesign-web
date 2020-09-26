@@ -15,8 +15,10 @@ import { connect } from "react-redux";
 import { Settings } from './../../Login/setting';
 import Geocode from "react-geocode";
 import LeftMenu from "../../Components/Menus/PatientLeftMenu/index";
-import axios from "axios"
-import sitedata from "../../../sitedata"
+import LeftMenuMobile from './../../Components/Menus/PatientLeftMenu/mobile';
+import axios from "axios";
+import sitedata from "../../../sitedata";
+import { Redirect, Route } from 'react-router-dom';
 import Autocomplete from './Autocomplete';
 import translationEN from '../../../translations/en_json_proofread_13072020.json'
 
@@ -454,7 +456,10 @@ class Index extends Component {
             plz_write_short_explnation, short_msg, appointments, appointment, arrng_apointmnt, today, sync_ur_calander, speciality, search_within, Video, Office, type,
             Contact, Services, latest_info, see_avlbl_date, location_of_srvc, this_way_can_instntly_list_of_specility, find_apointment, consultancy_cstm_calnder, vdo_call, allow_location_access, profile_info, profile, information, ID, pin, QR_code, done, Change, edit_id_pin, edit, and, is, changed, profile_id_taken, profile_id_greater_then_5,
         } = translate;
-
+        const { stateLoginValueAim } = this.props;
+        if (stateLoginValueAim.user === 'undefined' || stateLoginValueAim.token === 450 || stateLoginValueAim.token === 'undefined' || stateLoginValueAim.user.type !== 'patient') {
+            return (<Redirect to={'/'} />);
+        }
 
         return (
             <Grid className="homeBg">
@@ -462,7 +467,8 @@ class Index extends Component {
                     <Grid container direction="row" justify="center">
                         <Grid item xs={12} md={12}>
                             <Grid container direction="row">
-                                <LeftMenu />
+                                <LeftMenu  isNotShow ={true} currentPage ="appoint"/>
+                                <LeftMenuMobile isNotShow ={true}  currentPage ="appoint"/>
                                 {/* Website Menu */}
                                 {/* <Grid item xs={12} md={1} className="MenuLeftUpr">
                                     <Grid className="webLogo">

@@ -12,6 +12,7 @@ import { connect } from "react-redux";
 import { LoginReducerAim } from './../../Login/actions';
 import { Settings } from './../../Login/setting';
 import LeftMenu from './../../Components/Menus/InsuranceLeftMenu/index.js';
+import LeftMenuMobile from './../../Components/Menus/InsuranceLeftMenu/mobile';
 import { LanguageFetchReducer } from './../../actions';
 import PropTypes from 'prop-types';
 import AppBar from '@material-ui/core/AppBar';
@@ -117,8 +118,8 @@ class Index extends Component {
                         <Grid item xs={12} md={12}>
                             <Grid container direction="row">
                                 {/* Website Menu */}
-                                <LeftMenu currentPage ="profile"/>
-
+                                <LeftMenu  isNotShow ={true} currentPage ="profile"/>
+                                <LeftMenuMobile isNotShow ={true}  currentPage="profile"/>
                                 {/* Website Mid Content */}
                                 <Grid item xs={12} md={8}>
                                     <Grid className="profilePkg ">

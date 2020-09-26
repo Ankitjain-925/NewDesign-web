@@ -3,10 +3,12 @@ import Grid from '@material-ui/core/Grid';
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { LanguageFetchReducer } from '../../actions';
+import { Redirect, Route } from 'react-router-dom';
 import { LoginReducerAim } from '../../Login/actions';
 import { Settings } from '../../Login/setting';
 import Loader from '../../Components/Loader/index';
 import LeftMenu from './../../Components/Menus/ParamedicLeftMenu/index';
+import LeftMenuMobile from './../../Components/Menus/ParamedicLeftMenu/mobile';
 import CourseSection from './../../Components/OnlineCourses/index.js';
 
 class Index extends Component {
@@ -36,6 +38,10 @@ class Index extends Component {
 
     render() {
         const { specialistOption } = this.state;
+        const { stateLoginValueAim, Doctorsetget } = this.props;
+        if (stateLoginValueAim.user === 'undefined' || stateLoginValueAim.token === 450 || stateLoginValueAim.token === 'undefined' || stateLoginValueAim.user.type !== 'paramedic' ) {
+            return (<Redirect to={'/'} />);
+            }   
         return (
             <Grid className="homeBg">
                 {this.state.loaderImage && <Loader />}
@@ -44,7 +50,8 @@ class Index extends Component {
                         <Grid item xs={12} md={12}>
                             <Grid container direction="row">
                                 {/* Website Menu */}
-                                <LeftMenu currentPage ="course"/>
+                                <LeftMenu  isNotShow ={true} currentPage ="course"/>
+                                <LeftMenuMobile isNotShow ={true}  currentPage="course"/>
                                 {/* End of Website Menu */}
                                 <Grid item xs={12} md={11}>
                                     <CourseSection />

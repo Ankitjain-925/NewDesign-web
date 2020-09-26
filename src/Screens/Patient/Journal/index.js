@@ -11,10 +11,12 @@ import Radio from '@material-ui/core/Radio';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import DatePicker from 'react-date-picker';
 import { withRouter } from "react-router-dom";
+import { Redirect, Route } from 'react-router-dom';
 import { connect } from "react-redux";
 import { LoginReducerAim } from './../../Login/actions';
 import { Settings } from './../../Login/setting';
 import LeftMenu from './../../Components/Menus/PatientLeftMenu/index';
+import LeftMenuMobile from './../../Components/Menus/PatientLeftMenu/mobile';
 import { LanguageFetchReducer } from './../../actions';
 import AddEntry from './../../Components/AddEntry/index';
 import PersonalizedData from './../../Components/TimelineComponent/PersonalizedData/index';
@@ -316,57 +318,31 @@ class Index extends Component {
             data.attachfile = this.state.fileattach
         }
         data.type = this.state.current_select;
-       
+        data.created_on = new Date();
         data.datetime_on = new Date();
         if (this.state.current_select === 'blood_pressure' || this.state.current_select === 'weight_bmi' || this.state.current_select === 'blood_sugar' || this.state.current_select === 'marcumar_pass' || this.state.current_select === 'laboratory_result') {
             if (data.date_measured && data.date_measured !== '') {
-                data.created_on = data.date_measured;
                 data.datetime_on = new Date(data.date_measured);
-            }
-            else {
-                data.created_on = new Date()
-            }
-            if (data.time_measured && data.time_measured !== '') {
-                data.created_at = data.time_measured;
-            }
-            else {
-                data.created_at = new Date();
             }
         }
         else if (this.state.current_select === 'diagnosis') {
             if (data.diagnosed_on && data.diagnosed_on !== '') {
-                data.created_on = data.diagnosed_on;
                 data.datetime_on = new Date(data.diagnosed_on);
-            }
-            else {
-                data.created_on = new Date();
             }
         }
         else if (this.state.current_select === 'doctor_visit') {
             if (data.date_doctor_visit && data.date_doctor_visits !== '') {
-                data.created_on = data.date_doctor_visit;
                 data.datetime_on = new Date(data.date_doctor_visit);
-            }
-            else {
-                data.created_on = new Date();
             }
         }
         else if (this.state.current_select === 'hospitalization') {
             if (data.first_visit_date && data.first_visit_date !== '') {
-                data.created_on = data.first_visit_date;
                 data.datetime_on = new Date(data.first_visit_date);
-            }
-            else {
-                data.created_on = new Date();
             }
         }
         else if (this.state.current_select === 'vaccination') {
             if (data.data_of_vaccination && data.data_of_vaccination !== '') {
-                data.created_on = data.data_of_vaccination;
                 data.datetime_on = new Date(data.data_of_vaccination);
-            }
-            else {
-                data.created_on = new Date()
             }
         }
         var track_id = this.state.updateTrack.track_id;
@@ -385,8 +361,6 @@ class Index extends Component {
             })
         }
         else {
-            data.created_on = new Date()
-            data.created_at = getTime(new Date(), this.props.settings.setting.time_format);
             data.created_by = this.props.stateLoginValueAim.user._id;
             axios.put(sitedata.data.path + '/User/AddTrack/' + user_id, { data },
             {
@@ -706,6 +680,10 @@ class Index extends Component {
 
 
     render() {
+        const { stateLoginValueAim, Doctorsetget } = this.props;
+        if (stateLoginValueAim.user === 'undefined' || stateLoginValueAim.token === 450 || stateLoginValueAim.token === 'undefined' || stateLoginValueAim.user.type !== 'patient') {
+            return (<Redirect to={'/'} />);
+        }
         return (
             <Grid className="homeBg">
                 {this.state.loaderImage && <Loader />}
@@ -715,7 +693,8 @@ class Index extends Component {
                             <Grid container direction="row">
 
                                 {/* Website Menu */}
-                                <LeftMenu currentPage="journal" />
+                                <LeftMenu  isNotShow ={true} currentPage="journal" />
+                                <LeftMenuMobile isNotShow ={true}  currentPage ="journal"/>
                                 {/* End of Website Menu */}
 
                                 {/* Website Mid Content */}
