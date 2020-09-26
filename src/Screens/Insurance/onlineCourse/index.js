@@ -6,6 +6,7 @@ import { LanguageFetchReducer } from '../../actions';
 import { LoginReducerAim } from '../../Login/actions';
 import { Settings } from '../../Login/setting';
 import Loader from '../../Components/Loader/index';
+import { Redirect, Route } from 'react-router-dom';
 import LeftMenu from './../../Components/Menus/InsuranceLeftMenu/index';
 import CourseSection from './../../Components/OnlineCourses/index.js';
 
@@ -36,6 +37,11 @@ class Index extends Component {
 
     render() {
         const { specialistOption } = this.state;
+        const { stateLoginValueAim, Doctorsetget } = this.props;
+        if (stateLoginValueAim.user === 'undefined' || stateLoginValueAim.token === 450 || stateLoginValueAim.token === 'undefined' || stateLoginValueAim.user.type !== 'insurance' ) {
+            return (<Redirect to={'/'} />);
+            }            
+
         return (
             <Grid className="homeBg">
                 {this.state.loaderImage && <Loader />}

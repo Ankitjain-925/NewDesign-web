@@ -93,6 +93,12 @@ class Index extends Component {
                                 <span>Emergency Access</span>
                             </a>
                         </li>
+                        <li className={this.props.currentPage==='course' ? "menuActv" : ""}>
+                            <a onClick={this.OnlineCourse} >
+                                <img src={require('../../../../assets/images/nav-chat.svg')} alt="" title="" />
+                                <span>Aimedis Online Courses</span>
+                            </a>
+                        </li>
                         <li className={this.props.currentPage==='profile' ? "menuActv" : ""}>
                             <a className="profilMenu">
                             { this.props.currentPage==='profile' ?   <img src={require('../../../../assets/images/profileActv.png')} alt="" title="" />

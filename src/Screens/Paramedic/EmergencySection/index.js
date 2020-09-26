@@ -143,6 +143,11 @@ class Index extends Component {
         let { ur_emergancy_data, view_emrgncy_data, for_geting_emrgancy_data_on_a_click, emrgncy_data_access, emrgancy_access_for_non_connected, patient_profile_not_crrect,
             plz_accept_term_condition, imp_notice_b, this_will_trigger_following_action, send_email_to_patient_emrgancy, snd_sms_to_patient_emrgancy, snd_push_notification_to_patient_emrgancy,
             patient_id, I_hrwith_cnfirm_that_i_need_access_patient } = translate;
+            
+        const { stateLoginValueAim, Doctorsetget } = this.props;
+        if (stateLoginValueAim.user === 'undefined' || stateLoginValueAim.token === 450 || stateLoginValueAim.token === 'undefined' || stateLoginValueAim.user.type !== 'paramedic' ) {
+            return (<Redirect to={'/'} />);
+            } 
         return (
             <Grid className="homeBg">
                 <Grid className="homeBgIner">
