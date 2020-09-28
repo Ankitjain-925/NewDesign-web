@@ -9819,11 +9819,11 @@ img.vdoCalNow {
 .setSchedule {
     display: flex;
 }
-.setSchedule div:first-child {
+.setSchedule div.nameSchedule:first-child {
     width: 40%;
 }
-.setSchedule div:last-child {
-    width: 60%;
+.setSchedule div.nameSchedule:last-child {
+    width: 40%;
 }
 .setSchedule input {
     min-width: 43px;
@@ -11710,6 +11710,10 @@ img.MenuImg {
     background-color: #00ABAF;
     color: #ffffff;
 }
+.current_selected {
+    background-color: #717777 !important ; 
+    color: #ffffff !important;
+}
 .selCalender .react-calendar {
     border: none !important;
 }
@@ -12128,7 +12132,22 @@ input:focus {
     color: #00abaf !important;
     font-weight: 900;
   }
+
   .success_message.withclose {
     padding-top: 3%;
     font-weight: 500!important;
+  }
+
+  .appointment .ant-picker{
+    border: none;
+    outline: none;
+    padding: 0;
+    box-shadow: none;
+  }
+  .appointment .nameSchedule .ant-picker {
+      width: 70%;
+  }
+
+  .appointment .ant-picker-suffix{
+      display: none;
   }
