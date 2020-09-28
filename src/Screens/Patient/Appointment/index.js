@@ -21,7 +21,8 @@ import sitedata from "../../../sitedata";
 import { Redirect, Route } from 'react-router-dom';
 import Autocomplete from './Autocomplete';
 import translationEN from '../../../translations/en_json_proofread_13072020.json'
-
+import SPECIALITY from '../../../speciality'
+import SUBSPECIALITY from '../../../subspeciality'
 
 const options = [
     { value: 'data1', label: 'Data1' },
@@ -33,6 +34,7 @@ const options = [
 class Index extends Component {
     constructor(props) {
         super(props);
+        this.autocompleteInput = React.createRef();
         this.state = {
             selectedOption: null,
             openDash: false,
@@ -49,7 +51,9 @@ class Index extends Component {
             UpDataDetails: [],
             video_call: true,
             office_visit: true,
-            currentSelected: null
+            currentSelected: null,
+            searchCity: null,
+            pastappointment: false
         };
         this.bookAppointment = this.bookAppointment.bind(this)
         this.apointmentType = this.apointmentType.bind(this)
@@ -57,9 +61,11 @@ class Index extends Component {
     componentDidMount() {
         this.getGeoLocation()
         this.patientinfo()
-        this.getMetadata()
+        this.getSpecialities()
         this.getUpcomingAppointment()
+        this.getPastAppointment()
     }
+
 
     getUpcomingAppointment() {
         var user_token = this.props.stateLoginValueAim.token;
@@ -69,11 +75,22 @@ class Index extends Component {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             }
+        }).then((response) => {
+            this.setState({ upcomingAppointment: response.data.data, loaderImage: false })
         })
-            .then((response) => {
-                console.log("getUpcomingAppointment", response)
-                this.setState({ upcomingAppointment: response.data.data, loaderImage: false })
-            })
+    }
+
+    getPastAppointment = () => {
+        var user_token = this.props.stateLoginValueAim.token;
+        axios.get(sitedata.data.path + '/UserProfile/PastAppintmentPat', {
+            headers: {
+                'token': user_token,
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        }).then((response) => {
+            this.setState({ pastAppointment: response.data.data, loaderImage: false })
+        })
     }
 
     getGeoLocation = () => {
@@ -123,20 +140,32 @@ class Index extends Component {
     }
 
     // Get Speciality DATA
-    getMetadata() {
-        axios.get(sitedata.data.path + '/UserProfile/Metadata')
-            .then((responce) => {
-                let specialityData = []
-                responce.data[0] && responce.data[0].speciality && responce.data[0].speciality.map(spec => {
-                    specialityData.push({ value: spec.value, label: spec.title })
-                })
-                this.setState({
-                    specialityData: specialityData
-                });
-            })
-        // this.setState({
-        //     specialityData : speciality.speciality
-        // });
+    getSpecialities() {
+        let specialityData = [], subspecialityData = []
+        SPECIALITY.speciality && SPECIALITY.speciality.english && SPECIALITY.speciality.english.map(speciality => {
+            specialityData.push(speciality)
+        })
+        SUBSPECIALITY.subspeciality && SUBSPECIALITY.subspeciality.english && SUBSPECIALITY.subspeciality.english.map(subspeciality => {
+            subspecialityData.push(subspeciality)
+        })
+        this.setState({
+            specialityData: specialityData,
+            subspecialityData: subspecialityData
+        });
+        // axios.get(sitedata.data.path + '/UserProfile/Metadata')
+        //     .then((responce) => {
+        //         let specialityData = []
+        //         // specialityData.push(SPECIALITY.speciality.english)
+        //         responce.data[0] && responce.data[0].speciality && responce.data[0].speciality.map(spec => {
+        //             specialityData.push({ value: spec.value, label: spec.title })
+        //         })
+        //         this.setState({
+        //             specialityData: specialityData
+        //         });
+        //     })
+        // // this.setState({
+        // //     specialityData : speciality.speciality
+        // // });
     }
 
     // findAppointment
@@ -262,6 +291,7 @@ class Index extends Component {
     }
     // Search by City
     showPlaceDetails(place) {
+        console.log("place", place)
         place = place.geometry.location
         this.setState({ place });
         this.setState({ mLatitude: place.lat() });
@@ -286,11 +316,25 @@ class Index extends Component {
         }
     }
 
+    openPastApointment() {
+        window.scrollTo({
+            top: 0
+        })
+        this.setState({ pastappointment: this.state.pastappointment ? false : true })
+    }
+
     handleOpenApoint = () => {
         this.setState({ openApoint: true });
     };
     handleCloseApoint = () => {
         this.setState({ openApoint: false });
+    };
+    setRadius = event => {
+        let searchDetails = this.state.searchDetails
+        if (event.target.name == "range") {
+            searchDetails["radius"] = event.target.value
+        }
+        this.setState({ searchDetails: searchDetails });
     };
     handleChangeSelect = selectedOption => {
         let searchDetails = this.state.searchDetails
@@ -422,7 +466,7 @@ class Index extends Component {
     }
 
     render() {
-        const { selectedOption, specialityData, allDocData, date, doc_select, appointType, apointDay } = this.state;
+        const { pastappointment, selectedOption, specialityData, subspecialityData, allDocData, date, doc_select, appointType, apointDay } = this.state;
         let translate;
         switch (this.props.stateLanguageType) {
             case "en":
@@ -452,7 +496,7 @@ class Index extends Component {
             case "default":
                 translate = translationEN.text
         }
-        let { slct_time_slot, holiday, Details, Questions, cancel, book, appointment_booked, upcming_apointment, office_visit, cancel_apointmnt, show_past_apointment,
+        let { slct_time_slot, holiday, Details, past_apointment, Questions, cancel, book, appointment_booked, upcming_apointment, office_visit, cancel_apointmnt, hide_past_appointment, show_past_apointment,
             plz_write_short_explnation, short_msg, appointments, appointment, arrng_apointmnt, today, sync_ur_calander, speciality, search_within, Video, Office, type,
             Contact, Services, latest_info, see_avlbl_date, location_of_srvc, this_way_can_instntly_list_of_specility, find_apointment, consultancy_cstm_calnder, vdo_call, allow_location_access, profile_info, profile, information, ID, pin, QR_code, done, Change, edit_id_pin, edit, and, is, changed, profile_id_taken, profile_id_greater_then_5,
         } = translate;
@@ -467,8 +511,8 @@ class Index extends Component {
                     <Grid container direction="row" justify="center">
                         <Grid item xs={12} md={12}>
                             <Grid container direction="row">
-                                <LeftMenu  isNotShow ={true} currentPage ="appoint"/>
-                                <LeftMenuMobile isNotShow ={true}  currentPage ="appoint"/>
+                                <LeftMenu isNotShow={true} currentPage="appoint" />
+                                <LeftMenuMobile isNotShow={true} currentPage="appoint" />
                                 {/* Website Menu */}
                                 {/* <Grid item xs={12} md={1} className="MenuLeftUpr">
                                     <Grid className="webLogo">
@@ -604,40 +648,68 @@ class Index extends Component {
                                 </Modal>
                                 {/* End of Video Model */}
                                 <Grid item xs={12} md={3}>
-                                    <Grid className="apointUpcom">
-                                        <h4>{upcming_apointment}</h4>
-
-                                        {this.state.upcomingAppointment && this.state.upcomingAppointment.length > 0 && this.state.upcomingAppointment.map(apoint => (
-                                            <Grid className="officeVst">
-                                                <Grid container direction="row">
-                                                    <Grid item xs={6} md={6} className="officeVstLft"><label>{apoint.Appointdate && this.setAppointDate(apoint.Appointdate)}, {apoint.start_time}</label></Grid>
-                                                    <Grid item xs={6} md={6} className="officeVstRght">
-                                                        {apoint.appointment_type == "appointments" ? <a><img src={require('../../../assets/images/office-visit.svg')} alt="" title="" /> {office_visit} </a> :
-                                                            apoint.appointment_type == "online_appointment" ? <a><img src={require('../../../assets/images/video-call.svg')} alt="" title="" /> {vdo_call} </a> :
-                                                                <a><img src={require('../../../assets/images/cal.png')} alt="" title="" />{consultancy_cstm_calnder} </a>}
-                                                    </Grid>
-                                                </Grid>
-                                                <Grid className="showSubject">
+                                    {pastappointment && pastappointment == true ?
+                                        <Grid className="apointUpcom">
+                                            <h4>{past_apointment}</h4>
+                                            {this.state.pastAppointment && this.state.pastAppointment.length > 0 && this.state.pastAppointment.map(apoint => (
+                                                <Grid className="officeVst">
                                                     <Grid container direction="row">
-                                                        <Grid item xs={6} md={6} className="officeVstLft">
-                                                            <h3>Diesese'Name</h3>
-                                                        </Grid>
-
+                                                        <Grid item xs={6} md={6} className="officeVstLft"><label>{apoint.Appointdate && this.setAppointDate(apoint.Appointdate)}, {apoint.start_time}</label></Grid>
                                                         <Grid item xs={6} md={6} className="officeVstRght">
-                                                            <a className="showDetail">
-                                                                <img src={require('../../../assets/images/threedots.jpg')} alt="" title="" />
-                                                                <Grid className="cancelAppoint">
-                                                                    <a><img src={require('../../../assets/images/cancelAppoint.jpg')} alt="" title="" />{cancel_apointmnt}</a>
-                                                                </Grid>
-                                                            </a>
+                                                            {apoint.appointment_type == "appointments" ? <a><img src={require('../../../assets/images/office-visit.svg')} alt="" title="" /> {office_visit} </a> :
+                                                                apoint.appointment_type == "online_appointment" ? <a><img src={require('../../../assets/images/video-call.svg')} alt="" title="" /> {vdo_call} </a> :
+                                                                    <a><img src={require('../../../assets/images/cal.png')} alt="" title="" />{consultancy_cstm_calnder} </a>}
                                                         </Grid>
                                                     </Grid>
-                                                    <Grid><a><img src={require('../../../assets/images/dr1.jpg')} alt="" title="" />{apoint.docProfile && `${apoint.docProfile.first_name} ${apoint.docProfile.last_name}`}</a></Grid>
-                                                    <Grid><a><img src={require('../../../assets/images/office-visit.svg')} alt="" title="" />Illinois Masonic Medical Center</a></Grid>
+                                                    <Grid className="showSubject">
+                                                        <Grid container direction="row">
+                                                            <Grid item xs={6} md={6} className="officeVstLft">
+                                                                <h3>Diesese'Name</h3>
+                                                            </Grid>
+                                                        </Grid>
+                                                        <Grid><a><img src={require('../../../assets/images/dr1.jpg')} alt="" title="" />{apoint.docProfile && `${apoint.docProfile.first_name} ${apoint.docProfile.last_name}`}</a></Grid>
+                                                        <Grid><a><img src={require('../../../assets/images/office-visit.svg')} alt="" title="" />Illinois Masonic Medical Center</a></Grid>
+                                                    </Grid>
                                                 </Grid>
+                                            ))}
+                                            <Grid className="shwAppoints">
+                                                <p><a onClick={this.openPastApointment.bind(this)}>{hide_past_appointment}</a></p>
                                             </Grid>
-                                        ))}
-                                        {/* <Grid className="officeVst">
+                                        </Grid>
+                                        :
+                                        <Grid className="apointUpcom">
+                                            <h4>{upcming_apointment}</h4>
+                                            {this.state.upcomingAppointment && this.state.upcomingAppointment.length > 0 && this.state.upcomingAppointment.map(apoint => (
+                                                <Grid className="officeVst">
+                                                    <Grid container direction="row">
+                                                        <Grid item xs={6} md={6} className="officeVstLft"><label>{apoint.Appointdate && this.setAppointDate(apoint.Appointdate)}, {apoint.start_time}</label></Grid>
+                                                        <Grid item xs={6} md={6} className="officeVstRght">
+                                                            {apoint.appointment_type == "appointments" ? <a><img src={require('../../../assets/images/office-visit.svg')} alt="" title="" /> {office_visit} </a> :
+                                                                apoint.appointment_type == "online_appointment" ? <a><img src={require('../../../assets/images/video-call.svg')} alt="" title="" /> {vdo_call} </a> :
+                                                                    <a><img src={require('../../../assets/images/cal.png')} alt="" title="" />{consultancy_cstm_calnder} </a>}
+                                                        </Grid>
+                                                    </Grid>
+                                                    <Grid className="showSubject">
+                                                        <Grid container direction="row">
+                                                            <Grid item xs={6} md={6} className="officeVstLft">
+                                                                <h3>Diesese'Name</h3>
+                                                            </Grid>
+
+                                                            <Grid item xs={6} md={6} className="officeVstRght">
+                                                                <a className="showDetail">
+                                                                    <img src={require('../../../assets/images/threedots.jpg')} alt="" title="" />
+                                                                    <Grid className="cancelAppoint">
+                                                                        <a><img src={require('../../../assets/images/cancelAppoint.jpg')} alt="" title="" />{cancel_apointmnt}</a>
+                                                                    </Grid>
+                                                                </a>
+                                                            </Grid>
+                                                        </Grid>
+                                                        <Grid><a><img src={require('../../../assets/images/dr1.jpg')} alt="" title="" />{apoint.docProfile && `${apoint.docProfile.first_name} ${apoint.docProfile.last_name}`}</a></Grid>
+                                                        <Grid><a><img src={require('../../../assets/images/office-visit.svg')} alt="" title="" />Illinois Masonic Medical Center</a></Grid>
+                                                    </Grid>
+                                                </Grid>
+                                            ))}
+                                            {/* <Grid className="officeVst">
                                             <Grid container direction="row">
                                                 <Grid item xs={6} md={6} className="officeVstLft"><label>7 Aug, 09:00</label></Grid>
                                                 <Grid item xs={6} md={6} className="officeVstRght">
@@ -702,37 +774,38 @@ class Index extends Component {
                                             </Grid>
                                         </Grid> */}
 
-                                        <Grid className="shwAppoints">
-                                            <p><a>{show_past_apointment}</a></p>
-                                            <p><a onClick={this.handleOpenApoint}>{cancel_apointmnt}s</a></p>
-                                        </Grid>
-
-                                        {/* {cancel_apointmnt} */}
-                                        <Modal
-                                            open={this.state.openApoint}
-                                            onClose={this.handleCloseApoint}>
-                                            <Grid className="apontBoxCntnt">
-                                                <Grid className="apontCourse">
-                                                    <Grid className="apontCloseBtn">
-                                                        <a onClick={this.handleCloseApoint}>
-                                                            <img src={require('../../../assets/images/closefancy.png')} alt="" title="" />
-                                                        </a>
-                                                    </Grid>
-                                                    <Grid><label>{cancel_apointmnt}</label></Grid>
-                                                    <p>{plz_write_short_explnation}</p>
-                                                </Grid>
-                                                <Grid className="apontDragCntnt">
-                                                    <Grid>
-                                                        <Grid><label>{short_msg}</label></Grid>
-                                                        <Grid><textarea></textarea></Grid>
-                                                        <Grid><input type="submit" value={cancel_apointmnt} /></Grid>
-                                                    </Grid>
-                                                </Grid>
+                                            <Grid className="shwAppoints">
+                                                <p><a onClick={this.openPastApointment.bind(this)}>{show_past_apointment}</a></p>
+                                                <p><a onClick={this.handleOpenApoint}>{cancel_apointmnt}</a></p>
                                             </Grid>
-                                        </Modal>
-                                        {/* End of {cancel_apointmnt} */}
 
-                                    </Grid>
+                                            {/* {cancel_apointmnt} */}
+                                            <Modal
+                                                open={this.state.openApoint}
+                                                onClose={this.handleCloseApoint}>
+                                                <Grid className="apontBoxCntnt">
+                                                    <Grid className="apontCourse">
+                                                        <Grid className="apontCloseBtn">
+                                                            <a onClick={this.handleCloseApoint}>
+                                                                <img src={require('../../../assets/images/closefancy.png')} alt="" title="" />
+                                                            </a>
+                                                        </Grid>
+                                                        <Grid><label>{cancel_apointmnt}</label></Grid>
+                                                        <p>{plz_write_short_explnation}</p>
+                                                    </Grid>
+                                                    <Grid className="apontDragCntnt">
+                                                        <Grid>
+                                                            <Grid><label>{short_msg}</label></Grid>
+                                                            <Grid><textarea></textarea></Grid>
+                                                            <Grid><input type="submit" value={cancel_apointmnt} /></Grid>
+                                                        </Grid>
+                                                    </Grid>
+                                                </Grid>
+                                            </Modal>
+                                            {/* End of {cancel_apointmnt} */}
+
+                                        </Grid>
+                                    }
                                 </Grid>
 
                                 <Grid item xs={12} md={8}>
@@ -820,13 +893,13 @@ class Index extends Component {
                                                                                 </Grid>
                                                                                 <Grid item xs={12} md={3} className="locat_srvc">
                                                                                     <Grid><label>{location_of_srvc}</label></Grid>
-                                                                                    <input type="text" placeholder="Search for city" />
-                                                                                    {/* <Autocomplete onPlaceChanged={this.showPlaceDetails.bind(this)} /> */}
+                                                                                    {/* <input type="text" placeholder="Search for city" /> */}
+                                                                                    <Autocomplete onPlaceChanged={this.showPlaceDetails.bind(this)} />
                                                                                     <img src={require('../../../assets/images/search-entries.svg')} alt="" title="" />
                                                                                 </Grid>
                                                                                 <Grid item xs={12} md={2} className="srchKm">
                                                                                     <Grid><label>{search_within}</label></Grid>
-                                                                                    <input type="text" />
+                                                                                    <input type="text" name="range" value={this.state.searchDetails && this.state.searchDetails.radius ? this.state.searchDetails.radius :'' } onChange={this.setRadius} />
                                                                                 </Grid>
                                                                                 <Grid item xs={12} md={4} className="apointType">
                                                                                     <Grid><label>{appointment} {type}</label></Grid>
@@ -1163,7 +1236,7 @@ class Index extends Component {
                                                                                 </Grid>
                                                                                 <Grid item xs={12} md={2} className="srchKm">
                                                                                     <Grid><label>{search_within}</label></Grid>
-                                                                                    <input type="text" />
+                                                                                    <input type="text" name="range" onChange={this.setRadius} value={this.state.searchDetails && this.state.searchDetails.radius ? this.state.searchDetails.radius :'' } />
                                                                                 </Grid>
                                                                                 <Grid item xs={12} md={4} className="apointType">
                                                                                     <Grid><label>{appointment} {type}</label></Grid>
@@ -1228,8 +1301,8 @@ const mapStateToProps = (state) => {
     const { stateLoginValueAim, loadingaIndicatoranswerdetail } = state.LoginReducerAim;
     const { stateLanguageType } = state.LanguageReducer;
     const { settings } = state.Settings;
-    // const { Doctorsetget } = state.Doctorset;
-    // const { catfil } = state.filterate;
+    // const {Doctorsetget} = state.Doctorset;
+    // const {catfil} = state.filterate;
     return {
         stateLanguageType,
         stateLoginValueAim,
