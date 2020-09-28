@@ -152,20 +152,6 @@ class Index extends Component {
             specialityData: specialityData,
             subspecialityData: subspecialityData
         });
-        // axios.get(sitedata.data.path + '/UserProfile/Metadata')
-        //     .then((responce) => {
-        //         let specialityData = []
-        //         // specialityData.push(SPECIALITY.speciality.english)
-        //         responce.data[0] && responce.data[0].speciality && responce.data[0].speciality.map(spec => {
-        //             specialityData.push({ value: spec.value, label: spec.title })
-        //         })
-        //         this.setState({
-        //             specialityData: specialityData
-        //         });
-        //     })
-        // // this.setState({
-        // //     specialityData : speciality.speciality
-        // // });
     }
 
     // findAppointment
