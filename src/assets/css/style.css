@@ -12139,7 +12139,7 @@ input:focus {
   }
 
   .appointment .ant-picker{
-    border: none;
+    /* border: none; */
     outline: none;
     padding: 0;
     box-shadow: none;
