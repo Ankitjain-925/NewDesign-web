@@ -12,6 +12,7 @@ import { LanguageFetchReducer } from './../../../actions';
 import * as translationEN from '../../../../translations/en_json_proofread_13072020.json';
 
 import { Editor } from 'react-draft-wysiwyg';
+import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 const weOfferOptions = [
     { value: 'Service name', label: 'Service name' },
     { value: 'Service name', label: 'Service name' },

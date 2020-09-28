@@ -386,11 +386,8 @@ class Index extends Component {
         var parent_id = this.state.UpDataDetails.parent_id ? this.state.UpDataDetails.parent_id : '0';
 
         axios.put(sitedata.data.path + '/UserProfile/Users/update', {
-            type: 'patient',
-            pin: this.state.UpDataDetails.pin,
             first_name: this.state.UpDataDetails.first_name,
             last_name: this.state.UpDataDetails.last_name,
-            nick_name: this.state.UpDataDetails.nick_name,
             title: this.state.UpDataDetails.title,
             birthday: this.state.UpDataDetails.birthday,
             language: this.state.UpDataDetails.language,
@@ -399,20 +396,11 @@ class Index extends Component {
             phone: this.state.UpDataDetails.phone,
             mobile: this.state.UpDataDetails.mobile,
             fax: this.state.UpDataDetails.fax,
-            website: this.state.UpDataDetails.website,
-            email: this.state.UpDataDetails.email,
-            password: this.state.UpDataDetails.password,
             sex: this.state.UpDataDetails.sex,
             street: this.state.UpDataDetails.street,
             city: this.state.city,
             area: this.state.area,
             address: this.state.UpDataDetails.address,
-            emergency_contact_name: this.state.UpDataDetails.emergency_contact_name,
-            emergency_email: this.state.UpDataDetails.emergency_email,
-            emergency_number: this.state.UpDataDetails.emergency_number,
-            family_doc: this.state.UpDataDetails.family_doc,
-            insurance: datas,
-            is2fa: this.state.UpDataDetails.is2fa,
             country: this.state.UpDataDetails.country,
             pastal_code: this.state.UpDataDetails.pastal_code,
         }, {
