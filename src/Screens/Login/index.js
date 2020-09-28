@@ -72,6 +72,10 @@ class Index extends Component {
           let languageType = 'en';
           this.props.LanguageFetchReducer(languageType);
           this.anotherPatient();
+          this.Settings();
+      }
+      Settings=()=>{
+        this.props.Settings({});
       }
       anotherPatient=()=>
       {
