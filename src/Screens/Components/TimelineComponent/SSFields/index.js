@@ -70,7 +70,7 @@ class Index extends Component {
                     <Grid className="fillDia">
                         <SelectField name="smoking_status" label={smoking_status} option={this.state.options} onChange={(e)=> this.props.updateEntryState1(e, 'smoking_status')} value={this.state.updateTrack.smoking_status} />
                     </Grid>
-                    {this.state.updateTrack && this.state.updateTrack.smoking_status && this.state.updateTrack.smoking_status.value !== 'Never_smoked'&& 
+                    
                     <div>
                         <Grid className="rrSysto">
                             <Grid><label>{from} {when}</label></Grid>
@@ -81,7 +81,7 @@ class Index extends Component {
                             <DateFormat name="until_when" value={this.state.updateTrack.until_when ? new Date(this.state.updateTrack.until_when) : new Date()} date_format={this.state.date_format} onChange={(e)=>this.props.updateEntryState1(e, 'until_when')}/>
                         </Grid>
                     </div>   
-                    }
+                    
                     <Grid className="fillDia">
                         <NotesEditor name="remarks" label={notes}  onChange={(e)=> this.props.updateEntryState1(e, 'remarks')} value={this.state.updateTrack.remarks}/> 
                     </Grid>

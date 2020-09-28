@@ -70,13 +70,16 @@ class Index extends Component {
             <div>
                 {!this.props.visibility && <Grid className="cnfrmDiaMain">
                     <Grid className="fillDia">
-                        <MMHG name="vaccination" label={vaccination} onChange={(e)=> this.props.updateEntryState(e)} value={this.state.updateTrack.blood_sugar}/>    
+                        <MMHG name="vaccination" label={vaccination} onChange={(e)=> this.props.updateEntryState(e)} value={this.state.updateTrack.vaccination}/>    
                     </Grid>
                     <Grid className="fillDia">
-                        <MMHG name="trade_name"  label={trade_name} onChange={(e)=> this.props.updateEntryState(e)} value={this.state.updateTrack.Hba1c}/>    
+                        <MMHG name="trade_name"  label={trade_name} onChange={(e)=> this.props.updateEntryState(e)} value={this.state.updateTrack.trade_name}/>    
                     </Grid>
                     <Grid className="fillDia">
-                        <MMHG name="vaccinated_by"  label={vaccinated_by} onChange={(e)=> this.props.updateEntryState(e)} value={this.state.updateTrack.Hba1c}/>    
+                        <MMHG name="charge_number"  label="Charge Number" onChange={(e)=> this.props.updateEntryState(e)} value={this.state.updateTrack.charge_number}/>    
+                    </Grid>
+                    <Grid className="fillDia">
+                        <MMHG name="vaccinated_by"  label={vaccinated_by} onChange={(e)=> this.props.updateEntryState(e)} value={this.state.updateTrack.vaccinated_by}/>    
                     </Grid>
                     <Grid className="fillDia">
                         <Grid className="rrSysto">

@@ -123,7 +123,7 @@ class Index extends Component {
                                     </Grid>
 
                                     <Grid className="condIntencty">
-                                        <Condition name="feeling" onChange={(e) => this.props.updateEntryState(e)} value={item.feeling} />
+                                        <Condition name="feeling" Forview={true} onChange={(e) => this.props.updateEntryState(e)} value={item.feeling} />
                                     </Grid>
                                 </Grid>
                             </Grid>

@@ -120,7 +120,7 @@ class Index extends Component {
                                     </Grid>
 
                                     <Grid className="condIntencty">
-                                        <Condition name="conditions" onChange={(e) => this.props.updateEntryState(e)} value={item.conditions} />
+                                        <Condition name="conditions" Forview={true} onChange={(e) => this.props.updateEntryState(e)} value={item.conditions} />
                                     </Grid>
                                 </Grid>
                             </Grid>
