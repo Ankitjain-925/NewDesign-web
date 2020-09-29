@@ -11748,6 +11748,7 @@ a.timSlotClose {
 
 
 /*Added By ankita*/
+.lrlp {margin-top: 9px;}
 .nwDiaSel1 {
     margin-top: 4px;
     margin-left: -4px;
@@ -12151,7 +12152,7 @@ input:focus {
   }
 
   .appointment .ant-picker{
-    /* border: none; */
+    border: none;
     outline: none;
     padding: 0;
     box-shadow: none;

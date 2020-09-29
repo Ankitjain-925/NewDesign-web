@@ -34,6 +34,13 @@ class Index extends Component {
         }
 
     }
+    
+    updateEntryState1=(value, name)=>{
+        var state= this.state.updateTrack
+        state[name] = value;
+        this.setState({updateTrack: state})
+        this.props.updateEntryState1(value, name)
+    }
 
     render() {
         let translate;
@@ -130,7 +137,7 @@ class Index extends Component {
                                         value="checkedB"
                                         name="allergy" 
                                         checked={this.state.updateTrack.allergy === true}
-                                        onChange={(e)=> this.props.updateEntryState1(e.target.checked, 'allergy')}
+                                        onChange={(e)=> this.updateEntryState1(e.target.checked, 'allergy')}
                                         color="#00ABAF"
                                     />
                                 }
@@ -145,7 +152,7 @@ class Index extends Component {
                                         color="#00ABAF"
                                         name="travel_diagnosis" 
                                         checked={this.state.updateTrack.travel_diagnosis === true}
-                                        onChange={(e)=> this.props.updateEntryState1(e.target.checked, 'travel_diagnosis')}
+                                        onChange={(e)=> this.updateEntryState1(e.target.checked, 'travel_diagnosis')}
                                     />
                                 }
                                 label="Travel diagnosis"
@@ -160,20 +167,20 @@ class Index extends Component {
                         <Grid className="fillDia">
                             <Grid className="rrSysto">
                                 <Grid><label>{when} {to}</label></Grid>
-                                <DateFormat name="when_to" value={this.state.updateTrack.when_to ? new Date(this.state.updateTrack.when_to) : new Date()} date_format={this.state.date_format} onChange={(e)=>this.props.updateEntryState1(e, 'when_to')}/>
+                                <DateFormat name="when_to" value={this.state.updateTrack.when_to ? new Date(this.state.updateTrack.when_to) : new Date()} date_format={this.state.date_format} onChange={(e)=>this.updateEntryState1(e, 'when_to')}/>
                             </Grid>   
                         </Grid>
                         <Grid className="fillDia">
                             <Grid className="rrSysto">
                                 <Grid><label>{when} {until}</label></Grid>
-                                <DateFormat name="when_until" value={this.state.updateTrack.when_until ? new Date(this.state.updateTrack.when_until) : new Date()} date_format={this.state.date_format} onChange={(e)=>this.props.updateEntryState1(e, 'when_until')}/>
+                                <DateFormat name="when_until" value={this.state.updateTrack.when_until ? new Date(this.state.updateTrack.when_until) : new Date()} date_format={this.state.date_format} onChange={(e)=>this.updateEntryState1(e, 'when_until')}/>
                             </Grid>   
                         </Grid>
                     </div>}
                    <Grid className="fillDia">
                         <Grid className="rrSysto">
                             <Grid><label> {date} {of} {dignose}</label></Grid>
-                            <DateFormat name="diagnosed_on" value={this.state.updateTrack.diagnosed_on ? new Date(this.state.updateTrack.diagnosed_on) : new Date()} date_format={this.state.date_format} onChange={(e)=>this.props.updateEntryState1(e, 'diagnosed_on')}/>
+                            <DateFormat name="diagnosed_on" value={this.state.updateTrack.diagnosed_on ? new Date(this.state.updateTrack.diagnosed_on) : new Date()} date_format={this.state.date_format} onChange={(e)=>this.updateEntryState1(e, 'diagnosed_on')}/>
                         </Grid>   
                     </Grid>
                     <Grid className="fillDia">
@@ -184,7 +191,7 @@ class Index extends Component {
                         <FileUploader name="UploadTrackImageMulti" isMulti={true} fileUpload={this.props.FileAttachMulti} />
                     </Grid>
                     <Grid className="fillDia">
-                        <NotesEditor name="remarks" label="Notes"  onChange={(e)=> this.props.updateEntryState1(e, 'remarks')} value={this.state.updateTrack.remarks}/> 
+                        <NotesEditor name="remarks" label="Notes"  onChange={(e)=> this.updateEntryState1(e, 'remarks')} value={this.state.updateTrack.remarks}/> 
                     </Grid>
                 </Grid>}
                 <Grid className="infoShwHidMain3upr">

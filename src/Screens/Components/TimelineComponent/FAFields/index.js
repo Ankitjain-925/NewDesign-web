@@ -35,6 +35,13 @@ class Index extends Component {
 
     }
 
+    updateEntryState1=(value, name)=>{
+        var state= this.state.updateTrack
+        state[name] = value;
+        this.setState({updateTrack: state})
+        this.props.updateEntryState1(value, name)
+    }
+
     render() {
         let translate;
         switch (this.props.stateLanguageType) {
@@ -74,31 +81,31 @@ class Index extends Component {
                         <MMHG name="disease_name" label="Disease Name" onChange={(e)=> this.props.updateEntryState(e)} value={this.state.updateTrack.disease_name}/>    
                     </Grid>
                     <Grid className="fillDia">
-                        <SelectByTwo name="gender" label="Gender of Relative" options={this.state.options} onChange={(e)=> this.props.updateEntryState1(e, 'gender')} value={this.state.updateTrack.gender}/>    
+                        <SelectByTwo name="gender" label="Gender of Relative" options={this.state.options} onChange={(e)=> this.updateEntryState1(e, 'gender')} value={this.state.updateTrack.gender}/>    
                     </Grid>
                     <Grid className="fillDia">
-                        <SelectField name="relation" label="Relation with Relative" option={this.state.relativeList} onChange={(e)=> this.props.updateEntryState1(e, 'relation')} value={this.state.updateTrack.relation} />    
+                        <SelectField name="relation" label="Relation with Relative" option={this.state.relativeList} onChange={(e)=> this.updateEntryState1(e, 'relation')} value={this.state.updateTrack.relation} />    
                     </Grid>
                     <Grid className="fillDia">
                         <Grid className="rrSysto">
                             <Grid><label>{date_of_dieses_patient}</label></Grid>
-                            <DateFormat name="dod_onset" value={this.state.updateTrack.dod_onset ? new Date(this.state.updateTrack.dod_onset) : new Date()} date_format={this.state.date_format} onChange={(e)=>this.props.updateEntryState1(e, 'dod_onset')}/>
+                            <DateFormat name="dod_onset" value={this.state.updateTrack.dod_onset ? new Date(this.state.updateTrack.dod_onset) : new Date()} date_format={this.state.date_format} onChange={(e)=>this.updateEntryState1(e, 'dod_onset')}/>
                         </Grid>   
                     </Grid>
                     <Grid className="fillDia">
                         <Grid className="rrSysto">
                             <Grid><label>{dob}</label></Grid>
-                            <DateFormat name="dob" value={this.state.updateTrack.dob ? new Date(this.state.updateTrack.dob) : new Date()} date_format={this.state.date_format} onChange={(e)=>this.props.updateEntryState1(e, 'dob')}/>
+                            <DateFormat name="dob" value={this.state.updateTrack.dob ? new Date(this.state.updateTrack.dob) : new Date()} date_format={this.state.date_format} onChange={(e)=>this.updateEntryState1(e, 'dob')}/>
                         </Grid>   
                     </Grid>
                     <Grid className="fillDia">
                         <Grid className="rrSysto">
                             <Grid><label>{date_of_death}</label></Grid>
-                            <DateFormat name="dod" value={this.state.updateTrack.dod ? new Date(this.state.updateTrack.dod) : new Date()} date_format={this.state.date_format} onChange={(e)=>this.props.updateEntryState1(e, 'dod')}/>
+                            <DateFormat name="dod" value={this.state.updateTrack.dod ? new Date(this.state.updateTrack.dod) : new Date()} date_format={this.state.date_format} onChange={(e)=>this.updateEntryState1(e, 'dod')}/>
                         </Grid>   
                     </Grid>
                     <Grid className="fillDia">
-                        <NotesEditor name="remarks" label="Notes"  onChange={(e)=> this.props.updateEntryState1(e, 'remarks')} value={this.state.updateTrack.remarks}/> 
+                        <NotesEditor name="remarks" label="Notes"  onChange={(e)=> this.updateEntryState1(e, 'remarks')} value={this.state.updateTrack.remarks}/> 
                     </Grid>
                     <Grid className="attchForms attchImg">
                         <Grid><label>{attachments}</label></Grid>

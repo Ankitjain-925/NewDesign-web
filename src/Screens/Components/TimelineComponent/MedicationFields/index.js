@@ -38,6 +38,13 @@ class Index extends Component {
 
     }
 
+    updateEntryState1=(value, name)=>{
+        var state= this.state.updateTrack
+        state[name] = value;
+        this.setState({updateTrack: state})
+        this.props.updateEntryState1(value, name)
+    }
+    
     render() {
         let translate;
         switch (this.props.stateLanguageType) {
@@ -78,7 +85,7 @@ class Index extends Component {
                         <MMHG name="substance" label={enter_a_sbstnce} onChange={(e) => this.props.updateEntryState(e)} value={this.state.updateTrack.substance} />
                     </Grid>
                     <Grid className="fillDia">
-                        <SelectField name="ATC_code" label={atc_code} option={this.state.options} onChange={(e) => this.props.updateEntryState1(e, 'ATC_code')} value={this.state.updateTrack.ATC_code} />
+                        <SelectField name="ATC_code" label={atc_code} option={this.state.options} onChange={(e) => this.updateEntryState1(e, 'ATC_code')} value={this.state.updateTrack.ATC_code} />
                     </Grid>
                     <Grid className="fillDia">
                         <MMHG name="trade_name" label={ur_trade_name} onChange={(e) => this.props.updateEntryState(e)} value={this.state.updateTrack.trade_name} />
@@ -89,7 +96,7 @@ class Index extends Component {
                     <Grid className="fillDia">
                         <Grid className="rrSysto">
                             <Grid><label>{prescribed} {on} </label></Grid>
-                            <DateFormat name="prescribed_on" value={this.state.updateTrack.prescribed_on ? new Date(this.state.updateTrack.prescribed_on) : new Date()} date_format={this.state.date_format} onChange={(e) => this.props.updateEntryState1(e, 'prescribed_on')} />
+                            <DateFormat name="prescribed_on" value={this.state.updateTrack.prescribed_on ? new Date(this.state.updateTrack.prescribed_on) : new Date()} date_format={this.state.date_format} onChange={(e) => this.updateEntryState1(e, 'prescribed_on')} />
                         </Grid>
                     </Grid>
 
@@ -97,7 +104,7 @@ class Index extends Component {
                         <Grid className="fillDia">
                             <Grid className="rrSysto">
                                 <Grid><label>{specific_date}</label></Grid>
-                                <DateFormat name="until" value={this.state.updateTrack.until ? new Date(this.state.updateTrack.until) : new Date()} date_format={this.state.date_format} onChange={(e) => this.props.updateEntryState1(e, 'until')} />
+                                <DateFormat name="until" value={this.state.updateTrack.until ? new Date(this.state.updateTrack.until) : new Date()} date_format={this.state.date_format} onChange={(e) => this.updateEntryState1(e, 'until')} />
                             </Grid>
                         </Grid>
                     }
@@ -110,7 +117,7 @@ class Index extends Component {
                                     color="#00ABAF"
                                     name="lifelong"
                                     checked={this.state.updateTrack.lifelong === true}
-                                    onChange={(e) => this.props.updateEntryState1(e.target.checked, 'lifelong')}
+                                    onChange={(e) => this.updateEntryState1(e.target.checked, 'lifelong')}
                                 />
                             }
                             label="Lifelong"
@@ -125,7 +132,7 @@ class Index extends Component {
                                     color="#00ABAF"
                                     name="lifelong"
                                     checked={this.state.updateTrack.ondemand === true}
-                                    onChange={(e) => this.props.updateEntryState1(e.target.checked, 'ondemand')}
+                                    onChange={(e) => this.updateEntryState1(e.target.checked, 'ondemand')}
                                 />
                             }
                             label="On Demand"
@@ -133,20 +140,20 @@ class Index extends Component {
                     </Grid>
 
                     <Grid className="fillDia">
-                        <SelectField name="interval" isMulti={true} closeMenuOnSelect={false} label={interval} option={this.state.reminder} onChange={(e) => this.props.updateEntryState1(e, 'interval')} value={this.state.updateTrack.interval} />
+                        <SelectField name="interval" isMulti={true} closeMenuOnSelect={false} label={interval} option={this.state.reminder} onChange={(e) => this.updateEntryState1(e, 'interval')} value={this.state.updateTrack.interval} />
                     </Grid>
                     <Grid className="fillDia">
-                        <TimeTaken name="time_taken" label={to_be_consume} time_format={this.state.time_format} onChange={(e) => this.props.updateEntryState1(e, 'time_taken')} timeArray={this.state.updateTrack.time_taken} />
+                        <TimeTaken name="time_taken" label={to_be_consume} time_format={this.state.time_format} onChange={(e) => this.updateEntryState1(e, 'time_taken')} timeArray={this.state.updateTrack.time_taken} />
                     </Grid>
 
                     <Grid className="fillDia">
-                        <SelectField name="reminders" isMulti={true} closeMenuOnSelect={false} label={reminder} option={this.state.reminder} onChange={(e) => this.props.updateEntryState1(e, 'reminders')} value={this.state.updateTrack.reminders} />
+                        <SelectField name="reminders" isMulti={true} closeMenuOnSelect={false} label={reminder} option={this.state.reminder} onChange={(e) => this.updateEntryState1(e, 'reminders')} value={this.state.updateTrack.reminders} />
                     </Grid>
                     <Grid className="fillDia">
-                        <TimeTaken name="reminder_time_taken" label={reminder_time_taken} time_format={this.state.time_format} onChange={(e) => this.props.updateEntryState1(e, 'reminder_time_taken')} timeArray={this.state.updateTrack.reminder_time_taken} />
+                        <TimeTaken name="reminder_time_taken" label={reminder_time_taken} time_format={this.state.time_format} onChange={(e) => this.updateEntryState1(e, 'reminder_time_taken')} timeArray={this.state.updateTrack.reminder_time_taken} />
                     </Grid>
                     <Grid className="fillDia">
-                        <NotesEditor name="remarks" label={notes} onChange={(e) => this.props.updateEntryState1(e, 'remarks')} value={this.state.updateTrack.remarks} />
+                        <NotesEditor name="remarks" label={notes} onChange={(e) => this.updateEntryState1(e, 'remarks')} value={this.state.updateTrack.remarks} />
                     </Grid>
 
                     <Grid className="attchForms attchImg">

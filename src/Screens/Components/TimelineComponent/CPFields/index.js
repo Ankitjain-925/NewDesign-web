@@ -30,6 +30,12 @@ class Index extends Component {
 
     }
 
+    updateEntryState1=(value, name)=>{
+        var state= this.state.updateTrack
+        state[name] = value;
+        this.setState({updateTrack: state})
+        this.props.updateEntryState1(value, name)
+    }
     //on adding new data
     componentDidUpdate = (prevProps) => {
         if (prevProps.updateTrack !== this.props.updateTrack) {
@@ -78,11 +84,11 @@ class Index extends Component {
                         <MMHG name="problem" label="Problem" onChange={(e) => this.props.updateEntryState(e)} value={this.state.updateTrack.problem} />
                     </Grid>
                     <Grid className="fillDia">
-                        <NotesEditor name="remarks" label="Notes" onChange={(e) => this.props.updateEntryState1(e, 'remarks')} value={this.state.updateTrack.remarks}/>
+                        <NotesEditor name="remarks" label="Notes" onChange={(e) => this.updateEntryState1(e, 'remarks')} value={this.state.updateTrack.remarks}/>
                     </Grid>
                     <Grid className="fillDia">
                         <Grid><label>{selct_pain_area}</label></Grid>
-                        <PainPoint id="New_id1" gender={this.state.gender} painPoint={this.state.updateTrack && this.state.updateTrack.painPoint ? this.state.updateTrack.painPoint : []} onChange={(e) => this.props.updateEntryState1(e, 'painPoint')} />
+                        <PainPoint id="New_id1" gender={this.state.gender} painPoint={this.state.updateTrack && this.state.updateTrack.painPoint ? this.state.updateTrack.painPoint : []} onChange={(e) => this.updateEntryState1(e, 'painPoint')} />
                     </Grid>
                     <Grid className="fillDia">
                         <PainIntensity name="pain_intensity" onChange={(e)=> this.props.updateEntryState(e)} value={this.state.updateTrack.pain_intensity}/>
@@ -96,10 +102,10 @@ class Index extends Component {
                         <FileUploader name="UploadTrackImageMulti" isMulti={true} fileUpload={this.props.FileAttachMulti} />
                     </Grid>
                     <Grid className="fillDia">
-                        <SelectByTwo name="pain_type" label="Pain Type" options={this.state.options2} onChange={(e) => this.props.updateEntryState1(e, 'pain_type')} value={this.state.updateTrack.pain_type} />
+                        <SelectByTwo name="pain_type" label="Pain Type" options={this.state.options2} onChange={(e) => this.updateEntryState1(e, 'pain_type')} value={this.state.updateTrack.pain_type} />
                     </Grid>
                     <Grid className="fillDia">
-                        <SelectField name="pain_quality" label="Pain Quality" option={this.state.options} onChange={(e) => this.props.updateEntryState1(e, 'pain_quality')} value={this.state.updateTrack.pain_quality} />
+                        <SelectField name="pain_quality" label="Pain Quality" option={this.state.options} onChange={(e) => this.updateEntryState1(e, 'pain_quality')} value={this.state.updateTrack.pain_quality} />
                     </Grid>
                 </Grid>}
 

@@ -799,45 +799,26 @@ class Index extends Component {
                                                         </div> :
                                                         <div>
                                                             <p>Edit entry</p>
-                                                            
-                                                                <select disabled onChange={(e) => this.SelectOption(e.target.value)} value={this.state.current_select}>
-                                                                    <option value="blood_pressure">Blood Pressure</option>
-                                                                    <option value="blood_sugar">Blood Sugar</option>
-                                                                    <option value="condition_pain">Condition and Pain</option>
-                                                                    <option value="covid_19">Covid-19 Diary</option>
-                                                                    <option value="diagnosis">Diagnosis</option>
-                                                                    <option value="diary">Diary</option>
-                                                                    <option value="doctor_visit">Doctor Visit</option>
-                                                                    <option value="family_anamnesis">Family Anamnesis</option>
-                                                                    <option value="file_upload">Files Upload</option>
-                                                                    <option value="hospitalization">Hospital Visit</option>
-                                                                    <option value="laboratory_result">Laboratory Result</option>
-                                                                    <option value="marcumar_pass">Marcumar pass</option>
-                                                                    <option value="medication" >Medication</option>
-                                                                    <option value="smoking_status">Smoking Status</option>
-                                                                    <option value="vaccination">Vaccination</option>
-                                                                    <option value="weight_bmi">Weight & BMI</option>
-                                                                </select>
-                                                                {this.state.current_select === 'anamnesis' && <Grid className="nwDiaSel">Anamnesis</Grid>}
-                                                                {this.state.current_select === 'blood_pressure' && <Grid className="nwDiaSel">Blood Presssure</Grid>}
-                                                                {this.state.current_select === 'blood_sugar' && <Grid className="nwDiaSel">Blood Sugar</Grid>}
-                                                                {this.state.current_select === 'condition_pain' && <Grid className="nwDiaSel">Condition and Pain</Grid>}
-                                                                {this.state.current_select === 'covid_19' && <Grid className="nwDiaSel">Covid-19 Diary</Grid>}
-                                                                {this.state.current_select === 'diagnosis' && <Grid className="nwDiaSel">Diagnosis</Grid>}
-                                                                {this.state.current_select === 'diary' && <Grid className="nwDiaSel">Diary</Grid>}
-                                                                {this.state.current_select === 'doctor_visit' && <Grid className="nwDiaSel">Doctor Visit</Grid>}
-                                                                {this.state.current_select === 'family_anamnesis' && <Grid className="nwDiaSel">Family Anamnesis</Grid>}
-                                                                {this.state.current_select === 'file_upload' && <Grid className="nwDiaSel">Files Upload</Grid>}
-                                                                {this.state.current_select === 'hospitalization' && <Grid className="nwDiaSel">Hospital Visit</Grid>}
-                                                                {this.state.current_select === 'laboratory_result' && <Grid className="nwDiaSel">Laboratory Result</Grid>}
-                                                                {this.state.current_select === 'marcumar_pass' &&  <Grid className="nwDiaSel">Marcumar pass</Grid>}
-                                                                {this.state.current_select === 'medication' && <Grid className="nwDiaSel">Medication</Grid>}
-                                                                {this.state.current_select === 'prescription' && <Grid className="nwDiaSel">Prescription</Grid>}
-                                                                {this.state.current_select === 'second_opinion' && <Grid className="nwDiaSel">Second Opinion</Grid>}
-                                                                {this.state.current_select === 'sick_certificate' && <Grid className="nwDiaSel">Sick Certificate</Grid>}
-                                                                {this.state.current_select === 'smoking_status' &&  <Grid className="nwDiaSel">Somking Status</Grid>}
-                                                                {this.state.current_select === 'vaccination' && <Grid className="nwDiaSel">Vaccination</Grid>}
-                                                                {this.state.current_select === 'weight_bmi' && <Grid className="nwDiaSel">Weight & BMI</Grid>}
+                                                                {this.state.current_select === 'anamnesis' && <Grid className="nwDiaSel1">Anamnesis</Grid>}
+                                                                {this.state.current_select === 'blood_pressure' && <Grid className="nwDiaSel1">Blood Presssure</Grid>}
+                                                                {this.state.current_select === 'blood_sugar' && <Grid className="nwDiaSel1">Blood Sugar</Grid>}
+                                                                {this.state.current_select === 'condition_pain' && <Grid className="nwDiaSel1">Condition and Pain</Grid>}
+                                                                {this.state.current_select === 'covid_19' && <Grid className="nwDiaSel1">Covid-19 Diary</Grid>}
+                                                                {this.state.current_select === 'diagnosis' && <Grid className="nwDiaSel1">Diagnosis</Grid>}
+                                                                {this.state.current_select === 'diary' && <Grid className="nwDiaSel1">Diary</Grid>}
+                                                                {this.state.current_select === 'doctor_visit' && <Grid className="nwDiaSel1">Doctor Visit</Grid>}
+                                                                {this.state.current_select === 'family_anamnesis' && <Grid className="nwDiaSel1">Family Anamnesis</Grid>}
+                                                                {this.state.current_select === 'file_upload' && <Grid className="nwDiaSel1">Files Upload</Grid>}
+                                                                {this.state.current_select === 'hospitalization' && <Grid className="nwDiaSel1">Hospital Visit</Grid>}
+                                                                {this.state.current_select === 'laboratory_result' && <Grid className="nwDiaSel1">Laboratory Result</Grid>}
+                                                                {this.state.current_select === 'marcumar_pass' &&  <Grid className="nwDiaSel1">Marcumar pass</Grid>}
+                                                                {this.state.current_select === 'medication' && <Grid className="nwDiaSel1">Medication</Grid>}
+                                                                {this.state.current_select === 'prescription' && <Grid className="nwDiaSel1">Prescription</Grid>}
+                                                                {this.state.current_select === 'second_opinion' && <Grid className="nwDiaSel1">Second Opinion</Grid>}
+                                                                {this.state.current_select === 'sick_certificate' && <Grid className="nwDiaSel1">Sick Certificate</Grid>}
+                                                                {this.state.current_select === 'smoking_status' &&  <Grid className="nwDiaSel1">Somking Status</Grid>}
+                                                                {this.state.current_select === 'vaccination' && <Grid className="nwDiaSel1">Vaccination</Grid>}
+                                                                {this.state.current_select === 'weight_bmi' && <Grid className="nwDiaSel1">Weight & BMI</Grid>}
 
                                                         </div>}
                                                 </Grid>

@@ -26,6 +26,12 @@ class Index extends Component {
 
     }
 
+    updateEntryState1=(value, name)=>{
+        var state= this.state.updateTrack
+        state[name] = value;
+        this.setState({updateTrack: state})
+        this.props.updateEntryState1(value, name)
+    }
     //on adding new data
     componentDidUpdate = (prevProps) => {
         if (prevProps.updateTrack !== this.props.updateTrack) {
@@ -76,7 +82,7 @@ class Index extends Component {
                         <MMHG name="hospital_id" label={hosp_id} onChange={(e)=> this.props.updateEntryState(e)} value={this.state.updateTrack.Hba1c}/>    
                     </Grid>
                     <Grid className="fillDia">
-                        <SelectField name="specialty" label={speciality} option={this.state.options} onChange={(e)=> this.props.updateEntryState1(e, 'specialty')} value={this.state.updateTrack.specialty} />    
+                        <SelectField name="specialty" label={speciality} option={this.state.options} onChange={(e)=> this.updateEntryState1(e, 'specialty')} value={this.state.updateTrack.specialty} />    
                     </Grid>
                     <Grid className="fillDia">
                         <MMHG name="doctor_id" label={doc_id} onChange={(e)=> this.props.updateEntryState(e)} value={this.state.updateTrack.Hba1c}/>    
@@ -84,17 +90,17 @@ class Index extends Component {
                     <Grid className="fillDia">
                         <Grid className="rrSysto">
                             <Grid><label>{first_visit_day}</label></Grid>
-                            <DateFormat name="first_visit_date" value={this.state.updateTrack.first_visit_date ? new Date(this.state.updateTrack.first_visit_date) : new Date()} date_format={this.state.date_format} onChange={(e)=>this.props.updateEntryState1(e, 'first_visit_date')}/>
+                            <DateFormat name="first_visit_date" value={this.state.updateTrack.first_visit_date ? new Date(this.state.updateTrack.first_visit_date) : new Date()} date_format={this.state.date_format} onChange={(e)=>this.updateEntryState1(e, 'first_visit_date')}/>
                         </Grid>   
                     </Grid>
                     <Grid className="fillDia">
                         <Grid className="rrSysto">
                             <Grid><label>{last_visit_day}</label></Grid>
-                            <DateFormat name="last_visit_date" value={this.state.updateTrack.last_visit_date ? new Date(this.state.updateTrack.last_visit_date) : new Date()} date_format={this.state.date_format} onChange={(e)=>this.props.updateEntryState1(e, 'last_visit_date')}/>
+                            <DateFormat name="last_visit_date" value={this.state.updateTrack.last_visit_date ? new Date(this.state.updateTrack.last_visit_date) : new Date()} date_format={this.state.date_format} onChange={(e)=>this.updateEntryState1(e, 'last_visit_date')}/>
                         </Grid>   
                     </Grid>
                     <Grid className="fillDia">
-                        <NotesEditor name="remarks" label="Notes"  onChange={(e)=> this.props.updateEntryState1(e, 'remarks')} value={this.state.updateTrack.remarks}/> 
+                        <NotesEditor name="remarks" label="Notes"  onChange={(e)=> this.updateEntryState1(e, 'remarks')} value={this.state.updateTrack.remarks}/> 
                     </Grid>
                     <Grid className="attchForms attchImg">
                         <Grid><label>{attachments}</label></Grid>
