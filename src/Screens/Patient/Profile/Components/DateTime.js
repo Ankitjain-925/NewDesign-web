@@ -37,7 +37,7 @@ class Index extends Component {
         axios.get(sitedata.data.path + '/UserProfile/updateSetting',
             {
             headers: {
-                'token': this.props.user_token,
+                'token': this.props.stateLoginValueAim.token,
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             }
@@ -69,13 +69,13 @@ class Index extends Component {
             user_profile_id : this.props.LoggedInUser.profile_id,   
         }, {
             headers: {
-                'token': this.props.user_token,
+                'token': this.props.stateLoginValueAim.token,
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             }
         }).then((responce) => {
             this.setState({PassDone : true, loaderImage : false})
-            this.props.Settings(this.props.user_token);
+            this.props.Settings(this.props.stateLoginValueAim.token);
             setTimeout(()=>{ this.setState({PassDone: false}) }, 5000)
         })   
     }
