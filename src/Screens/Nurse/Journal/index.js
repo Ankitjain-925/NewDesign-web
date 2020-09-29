@@ -88,6 +88,7 @@ class Index extends Component {
             openData: false,
             gettrackdatas : {},
             Anamnesis: [],
+            images : [],
         };
     }
 
@@ -409,6 +410,33 @@ class Index extends Component {
                 if (response.data.hassuccessed === true) {
                     //This is for Aimedis Blockchain Section
                     this.rightInfo();
+                    var images = [];
+                    response.data.data && response.data.data.length > 0 && response.data.data.map((data1, index) => {
+                        var find2 =  data1 &&  data1.created_by_image
+                        if (find2) {
+                            var find3 = find2.split('.com/')[1]
+                            axios.get(sitedata.data.path + '/aws/sign_s3?find=' + find3,)
+                            .then((response2) => {
+                                if (response2.data.hassuccessed) {
+                                    images.push({ image: find2, new_image: response2.data.data })
+                                    this.setState({ images: images })
+                                }
+                            })
+                        }
+                        data1.attachfile && data1.attachfile.length > 0 && data1.attachfile.map((data, index) => {
+                        var find = data && data.filename && data.filename
+                        if (find) {
+                            var find1 = find.split('.com/')[1]
+                            axios.get(sitedata.data.path + '/aws/sign_s3?find=' + find1,)
+                            .then((response2) => {
+                                if (response2.data.hassuccessed) {
+                                    images.push({ image: find, new_image: response2.data.data })
+                                    this.setState({ images: images })
+                                }
+                            })
+                        }
+                      })
+                    })
                     axios.post(sitedata.data.path + '/blockchain/dataManager', {
                         path: "dataManager/getDetails/patient",
                         data: { "_selfId": this.props.stateLoginValueAim.user.profile_id, "_patientId": this.props.stateLoginValueAim.user.profile_id }
@@ -790,7 +818,7 @@ class Index extends Component {
                                         {this.props.Doctorsetget.p_id !== null && <div>
                                             {this.state.allTrack && this.state.allTrack.length > 0 ?
                                                 this.state.allTrack.map((item, index) => (
-                                                    <ViewTimeline comesfrom='nurse' DeleteTrack={(deleteKey) => this.DeleteTrack(deleteKey)} ArchiveTrack={(data) => this.ArchiveTrack(data)} EidtOption={(value, updateTrack, visibility) => this.EidtOption(value, updateTrack, visibility)} date_format={this.props.settings.setting.date_format} time_format={this.props.settings.setting.time_format} Track={item} from="patient" loggedinUser={this.state.cur_one} patient_gender={this.state.patient_gender} />
+                                                    <ViewTimeline comesfrom='nurse' images={this.state.images} DeleteTrack={(deleteKey) => this.DeleteTrack(deleteKey)} ArchiveTrack={(data) => this.ArchiveTrack(data)} EidtOption={(value, updateTrack, visibility) => this.EidtOption(value, updateTrack, visibility)} date_format={this.props.settings.setting.date_format} time_format={this.props.settings.setting.time_format} Track={item} from="patient" loggedinUser={this.state.cur_one} patient_gender={this.state.patient_gender} />
                                                 ))
                                                 : <EmptyData />}
                                         </div>}

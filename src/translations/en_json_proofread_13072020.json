@@ -919,6 +919,8 @@
 		"extra":"Extra",
 		"srvc":"Service",
 		"activated":"Activated",
+		"past_apointment":"Past Appointment",
+		"hide_past_appointment":"Hide Past Appointments",
 		"deactivated":"deactivated",
 		"srvc_not_updt_cannt_reach_srvr":"Service is not updated. Can not reach to server",
 		"doc_around_clock":"Doc Around the Clock",
