@@ -272,7 +272,6 @@ class Index extends Component {
 
     //For getting the dropdowns from the database
     getMetadata() {
-        console.log("subspeciality", subspeciality)
         axios.get(sitedata.data.path + '/UserProfile/Metadata')
             .then((responce) => {
                 if (responce && responce.data && responce.data.length > 0) {
@@ -293,6 +292,7 @@ class Index extends Component {
                         responce.data[0].title_degreeData && responce.data[0].title_degreeData.length > 0 && responce.data[0].title_degreeData.map(
                             (item) => { Titles.push({ label: item.title, value: item.value }) })
                     }
+                    
                     // responce.data[0].title_degreeData && responce.data[0].title_degreeData.length > 0 && responce.data[0].subspeciality.map(
                     //     (item) => { SubSpeciality.push({ label: item.title, value: item.value }) })
                     this.setState({
@@ -333,7 +333,6 @@ class Index extends Component {
         if (name == "speciality") {
             this.setState({ speciality_multi: event });
         }
-        console.log("name", name)
         if (name == "subspeciality") {
             this.setState({ subspeciality_multi: event });
         }
@@ -544,15 +543,22 @@ class Index extends Component {
                 'Content-Type': 'application/json'
             }
         }).then((response) => {
-            console.log("response", response)
+            console.log("response 12", response)
             var title = {}, titlefromD = response.data.data.title;
             var language = [], languagefromD = response.data.data.language;
+            var subspeciality_m = [], subspecialityfromD = response.data.data.subspeciality;
             if (languagefromD && languagefromD.length > 0) {
                 languagefromD.map((item) => {
                     language.push({ value: item, label: item.replace(/_/g, " ") });
                 })
 
             }
+            console.log("response 12",  subspecialityfromD)
+            if (subspecialityfromD && subspecialityfromD.length > 0) {
+                subspeciality_m = subspeciality.subspeciality.english.filter(ele=>subspecialityfromD.include(ele.value))
+            }
+            console.log("subspeciality_m", subspeciality_m)
+           
 
             if (titlefromD && titlefromD !== "") {
 
@@ -586,7 +592,7 @@ class Index extends Component {
             }
             
             this.setState({ UpDataDetails: response.data.data, city: response.data.data.city, area: response.data.data.area, profile_id: response.data.data.profile_id });
-            this.setState({ speciality_multi:  response.data.data.speciality, subspeciality_multi:  response.data.data.subspeciality })
+            this.setState({ speciality_multi:  response.data.data.speciality, subspeciality_multi:  subspeciality_m })
             console.log("response.data.data.subspeciality ", response.data.data.subspeciality )
             this.setState({ name_multi: language, title: title })
             this.setState({

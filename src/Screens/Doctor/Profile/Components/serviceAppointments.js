@@ -16,7 +16,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import TimeFormat from './../../../Components/TimeFormat/index';
 import { DatePicker } from 'antd';
 const { RangePicker } = DatePicker;
- const dateFormat = 'DD/MM/YYYY';
+const dateFormat = 'DD/MM/YYYY';
 class Index extends Component {
     constructor(props) {
         super(props);
@@ -67,33 +67,58 @@ class Index extends Component {
             this.setState({ loaderImage: false });
 
             this.setState({ paid_services: response.data.data.paid_services })
-            if (response.data.data.private_appointments[0]) {
-                if (response.data.data.private_appointments[0].holidays) {
-                    this.setState({ holidayAppointment: { holidays_start: response.data.data.private_appointments[0].holidays_start, holidays_end: response.data.data.private_appointments[0].holidays_end, holidays: response.data.data.private_appointments[0].holidays } })
-                }
-                this.setState({ UpDataDetails: response.data.data.private_appointments[0] });
-                this.setState({ StandardSetting: response.data.data.private_appointments[0] });
-                this.setState({ CustomName: response.data.data.private_appointments[0] });
-            }
-            if (response.data.data.days_for_practices[0]) {
-                if (response.data.data.private_appointments[0].holidays) {
-                    this.setState({ holidayAppointment: { holidays_start: response.data.data.days_for_practices[0].holidays_start, holidays_end: response.data.data.days_for_practices[0].holidays_end, holidays: response.data.data.days_for_practices[0].holidays } })
-                }
-                this.setState({ DaysforPractices: response.data.data.days_for_practices[0] })
-                this.setState({ PracticesSetting: response.data.data.days_for_practices[0] })
-            }
-            if (response.data.data.online_appointment[0]) {
-                if (response.data.data.online_appointment[0].holidays) {
-                    this.setState({ holidayAppointment: { holidays_start: response.data.data.online_appointment[0].holidays_start, holidays_end: response.data.data.online_appointment[0].holidays_end, holidays: response.data.data.online_appointment[0].holidays } })
-                }
-                this.setState({ onlineAppointments: response.data.data.online_appointment[0] })
-                this.setState({ OnlineSetting: response.data.data.online_appointment[0] })
-            }
-            if (response.data.data.we_offer) {
-                this.setState({ weoffer: response.data.data.we_offer })
-            }
-            let firstServiceData = this.state.paid_services.find(ele => ele.description === "videochat")
 
+            let privateAppointments = response.data.data.private_appointments[0];
+            if (privateAppointments) {
+                if (privateAppointments.holidays) {
+                    this.setState({
+                        holidayAppointment: {
+                            holidays_start: privateAppointments.holidays_start !== '' ? privateAppointments.holidays_start : new Date(),
+                            holidays_end: privateAppointments.holidays_end !== '' ? privateAppointments.holidays_end : new Date(),
+                            holidays: privateAppointments.holidays
+                        }
+                    })
+                }
+                this.setState({ UpDataDetails: privateAppointments, StandardSetting: privateAppointments, CustomName: privateAppointments });
+            }
+
+            let daysForPractices = response.data.data.days_for_practices[0];
+            if (daysForPractices) {
+                if (daysForPractices.holidays) {
+                    this.setState({
+                        holidayAppointment: {
+                            holidays_start: daysForPractices.holidays_start !== '' ? daysForPractices.holidays_start : new Date(),
+                            holidays_end: daysForPractices.holidays_end !== '' ? daysForPractices.holidays_end : new Date(),
+                            holidays: daysForPractices.holidays
+                        }
+                    })
+                }
+                this.setState({ DaysforPractices: daysForPractices, PracticesSetting: daysForPractices })
+            }
+
+            let onlineAppointment = response.data.data.online_appointment[0];
+            if (onlineAppointment) {
+                if (onlineAppointment.holidays) {
+                    this.setState({
+                        holidayAppointment: {
+                            holidays_start: onlineAppointment.holidays_start !== '' ? onlineAppointment.holidays_start : new Date(),
+                            holidays_end: onlineAppointment.holidays_end !== '' ? onlineAppointment.holidays_end : new Date(),
+                            holidays: onlineAppointment.holidays
+                        }
+                    })
+                }
+                this.setState({ onlineAppointments: onlineAppointment, OnlineSetting: onlineAppointment })
+            }
+
+            if (response.data.data.we_offer) {
+                let weOffer = response.data.data.we_offer;
+                if(weOffer.Offer_office_prescription== undefined){
+                    weOffer.Offer_office_prescription = false
+                }
+                this.setState({ weoffer: weOffer })
+            }
+
+            let firstServiceData = this.state.paid_services.find(ele => ele.description === "videochat")
             if (firstServiceData) this.setState({ firstServiceData: firstServiceData })
 
             let sencondSeviceData = this.state.paid_services.find(ele => ele.description === "prescription")
@@ -595,11 +620,24 @@ class Index extends Component {
 
     handleholiday = (statechange) => {
         let state = this.state[statechange];
-        state = !state['holidays'];
+
+        state['holidays'] = !state['holidays'];
         if (!state['holidays']) {
             state['holidays_start'] = ''
             state['holidays_end'] = ''
         }
+        else{
+            state['holidays_start'] = new Date()
+            state['holidays_end'] = new Date()
+        }
+
+        this.setState({ [statechange]: state });
+    }
+    handleholidayDate = (statechange, date) => {
+        let state = this.state[statechange];       
+        state['holidays_start'] = date[0].format()
+        state['holidays_end'] = date[1].format()
+        console.log("state", state)
         this.setState({ [statechange]: state });
     }
 
@@ -736,15 +774,16 @@ class Index extends Component {
                                             <span className="holdyPeriod">Holiday period between:</span>
                                         </label>
                                     </Grid>
-                                    <Grid className="enblDate">
+                                    {holidayAppointment && holidayAppointment.holidays && <Grid className="enblDate">
                                         <RangePicker
-                                            defaultValue={[moment('2015/01/01', this.props.settings.setting?this.props.settings.setting.dateFormat:dateFormat), moment('2015/01/01', this.props.settings.setting?this.props.settings.setting.dateFormat:dateFormat)]}
-                                            format={this.props.settings.setting?this.props.settings.setting.dateFormat:dateFormat}
+                                            onChange={(date) => this.handleholidayDate('holidayAppointment', date)}
+                                            defaultValue={[moment(holidayAppointment.holidays_start, this.props.settings.setting ? this.props.settings.setting.dateFormat : dateFormat), moment(holidayAppointment.holidays_end, this.props.settings.setting ? this.props.settings.setting.dateFormat : dateFormat)]}
+                                            format={this.props.settings.setting ? this.props.settings.setting.dateFormat : dateFormat}
                                         />
-                                        <span>27/06/2020 - 15/07/2020
+                                        {/* <span>27/06/2020 - 15/07/2020
                                                                            <img src={require('../../../../assets/images/calIcon.png')} alt="" title="" />
-                                        </span>
-                                    </Grid>
+                                        </span> */}
+                                    </Grid>}
                                 </Grid>
                             </Grid>
                         </Grid>
@@ -935,6 +974,8 @@ class Index extends Component {
                                             <Checkbox
                                                 value="checkedB"
                                                 color="#00ABAF"
+                                                checked={weoffer && weoffer.Offer_office_prescription ? true : false}
+                                                onChange={() => this.handleweoffer('Offer_office_prescription')}
                                             />
                                         }
                                         label="Office visit"
@@ -942,11 +983,11 @@ class Index extends Component {
                                     <img src={require('../../../../assets/images/editBlue.png')} className="editPendata" alt="" title="" />
                                 </Grid>
                             </Grid>
-                            <Grid item xs={12} md={6}>
+                            {/* <Grid item xs={12} md={6}>
                                 <Grid className="enableTogle">
                                     <label><Toggle icons={false} /></label>
                                 </Grid>
-                            </Grid>
+                            </Grid> */}
                         </Grid>
                         <Grid className="wrkHourUpr">
                             <Grid container direction="row">
@@ -1109,11 +1150,11 @@ class Index extends Component {
 
                                 </Grid>
                             </Grid>
-                            <Grid item xs={12} md={6}>
+                            {/* <Grid item xs={12} md={6}>
                                 <Grid className="enableTogle">
                                     <label><Toggle icons={false} /></label>
                                 </Grid>
-                            </Grid>
+                            </Grid> */}
                         </Grid>
                         <Grid className="wrkHourUpr">
                             <Grid container direction="row">
