@@ -5,12 +5,15 @@ import { LoginReducerAim } from '../../../Login/actions';
 import { Settings } from '../../../Login/setting';
 // import { Doctorset } from '../../Doctor/actions';
 // import { filterate } from '../../Doctor/filteraction';
+import Modal from '@material-ui/core/Modal';
 import { withRouter } from "react-router-dom";
 import { LanguageFetchReducer } from '../../../actions';
 import LogOut from './../../LogOut/index';
 import Timer from './../../TimeLogOut/index';
 import Notification from "../../../Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
-
+import sitedata from '../../../../sitedata';
+import axios from "axios"
+import Loader from './../../../Components/Loader/index';
 class Index extends Component {
     constructor(props) {
         super(props)
@@ -22,14 +25,74 @@ class Index extends Component {
             donar: {},
             contact_partner: {},
             loaderImage: false,
+            openFancyLanguage: false,
+            PassDone: false
         };
         new Timer(this.logOutClick.bind(this))
+        this.openLanguageModel = this.openLanguageModel.bind(this)
+        this.handleCloseFancyLanguage = this.handleCloseFancyLanguage.bind(this)
     }
 
     //For loggedout if logged in user is deleted 
     componentDidMount() {
+        this.getSetting()
         new LogOut(this.props.stateLoginValueAim.token, this.props.stateLoginValueAim.user._id, this.logOutClick.bind(this))
         this.props.Settings(this.props.stateLoginValueAim.token);
+    }
+
+    getSetting = () => {
+        this.setState({ loaderImage: true })
+        axios.get(sitedata.data.path + '/UserProfile/updateSetting',
+            {
+                headers: {
+                    'token': this.props.stateLoginValueAim.token,
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                }
+            }).then((responce) => {
+                console.log("getSetting responce", responce.data.data.language)
+                if (responce.data.hassuccessed && responce.data.data) {
+                    this.setState({ timeF: { label: responce.data.data.time_format, value: responce.data.data.time_format }, dateF: { label: responce.data.data.date_format, value: responce.data.data.date_format }, })
+                }
+                this.setState({ loaderImage: false, languageValue: responce.data.data.language })
+            })
+    }
+
+    openLanguageModel() {
+        this.setState({ openFancyLanguage: true })
+    }
+
+    handleCloseFancyLanguage() {
+        this.setState({ openFancyLanguage: false })
+    }
+
+    // Change Language function
+    changeLanguage = (e) => {
+        this.setState({ languageValue: e.target.value })
+    }
+
+    SetLanguage = () => {
+        this.setState({ loaderImage: true })
+        if (!this.state.languageValue) {
+            this.setState({ loaderImage: false, languageBlank: true })
+        } else {
+            this.setState({ languageBlank: false })
+            axios.put(sitedata.data.path + '/UserProfile/updateSetting', {
+                language: this.state.languageValue,
+                user_id: this.props.stateLoginValueAim.user._id,
+            }, {
+                headers: {
+                    'token': this.props.stateLoginValueAim.token,
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                }
+            }).then((responce) => {
+                console.log("SetFormat responce", responce)
+                this.setState({ PassDone: true, loaderImage: false })
+                this.props.Settings(this.props.stateLoginValueAim.token);
+                setTimeout(() => { this.setState({ PassDone: false, openFancyLanguage: false }) }, 5000)
+            })
+        }
     }
 
 
@@ -61,7 +124,7 @@ class Index extends Component {
         this.props.history.push('/patient/extra-services');
     }
     // For ournal Archive Link
-    JournalArchiveLink=()=>{
+    JournalArchiveLink = () => {
         this.props.history.push('/patient/archiveJournal');
     }
     //For Document link
@@ -92,10 +155,13 @@ class Index extends Component {
     BlockChain = () => {
         this.props.history.push('/patient/blockchain');
     }
+
+
     render() {
         return (
             <Grid item xs={12} md={1} className="MenuLeftUpr ">
-                  {!this.props.isNotShow && <Notification />}
+                {this.state.loaderImage && <Loader />}
+                {!this.props.isNotShow && <Notification />}
                 <Grid className="webLogo">
                     <a href="/"><img src={require('../../../../assets/images/logo_new.png')} alt="" title="" /></a>
                 </Grid>
@@ -163,7 +229,7 @@ class Index extends Component {
                                 <div className="profilMenuList">
                                     <ul>
                                         <li><a onClick={this.ProfileLink}><img src={require('../../../../assets/images/menudocs.jpg')} alt="" title="" />Profile Settings</a></li>
-                                        <li><a><img src={require('../../../../assets/images/menudocs.jpg')} alt="" title="" />Language</a></li>
+                                        <li><a onClick={this.openLanguageModel}><img src={require('../../../../assets/images/menudocs.jpg')} alt="" title="" />Language</a></li>
                                         <li><a><img src={require('../../../../assets/images/menudocs.jpg')} alt="" title="" />Dark Mode</a></li>
                                         <li onClick={this.logOutClick}><a><img src={require('../../../../assets/images/menudocs.jpg')} alt="" title="" />Log out</a></li>
                                     </ul>
@@ -172,7 +238,59 @@ class Index extends Component {
                         </li>
                     </ul>
                 </Grid>
-                
+                <Modal
+                    style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                    open={this.state.openFancyLanguage}
+                    onClose={this.handleCloseFancyLanguage}>
+                    <Grid className="LanguageBoxMain">
+                        <div className="languageHead">Select Language</div>
+                        <Grid className="languageBox">
+                            <Grid className="row">
+                                <Grid className="col-sm-6 col-xl-6">
+                                    <Grid>
+                                        <input value="en" onChange={this.changeLanguage} name="language" type="radio" checked={this.state.languageValue == "en" ? "checked" : ""} />
+                                        <label>English</label>
+                                    </Grid>
+                                    <Grid>
+                                        <input value="de" onChange={this.changeLanguage} name="language" type="radio" checked={this.state.languageValue == "de" ? "checked" : ""} />
+                                        <label>Germany</label>
+                                    </Grid>
+                                    <Grid>
+                                        <input value="rs" onChange={this.changeLanguage} name="language" type="radio" checked={this.state.languageValue == "rs" ? "checked" : ""} />
+                                        <label>Russian</label>
+                                    </Grid>
+                                    <Grid>
+                                        <input value="nl" onChange={this.changeLanguage} name="language" type="radio" checked={this.state.languageValue == "nl" ? "checked" : ""} />
+                                        <label>Dutch</label>
+                                    </Grid>
+                                </Grid>
+                                <Grid className="col-sm-6 col-xl-6">
+                                    <Grid>
+                                        <input value="sp" onChange={this.changeLanguage} name="language" type="radio" checked={this.state.languageValue == "sp" ? "checked" : ""} />
+                                        <label>Spanish</label>
+                                    </Grid>
+                                    <Grid>
+                                        <input value="pt" onChange={this.changeLanguage} name="language" type="radio" checked={this.state.languageValue == "pt" ? "checked" : ""} />
+                                        <label>Portuguese</label>
+                                    </Grid>
+                                    <Grid>
+                                        <input value="ch" onChange={this.changeLanguage} name="language" type="radio" checked={this.state.languageValue == "ch" ? "checked" : ""} />
+                                        <label>Chainese</label>
+                                    </Grid>
+                                    <Grid>
+                                        <input value="sw" onChange={this.changeLanguage} name="language" type="radio" checked={this.state.languageValue == "sw" ? "checked" : ""} />
+                                        <label>Swahili</label>
+                                    </Grid>
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                        <Grid>
+                            <input type="submit" value="Save changes" onClick={this.SetLanguage} />
+                        </Grid>
+                        {this.state.PassDone && <div className="success_message">Language is Updated!</div>}
+                        {this.state.languageBlank && <div className="lng_blank">Language is not selected.</div>}
+                    </Grid>
+                </Modal>
             </Grid>
         );
     }
@@ -181,8 +299,8 @@ const mapStateToProps = (state) => {
     const { stateLoginValueAim, loadingaIndicatoranswerdetail } = state.LoginReducerAim;
     const { stateLanguageType } = state.LanguageReducer;
     const { settings } = state.Settings;
-    // const { Doctorsetget } = state.Doctorset;
-    // const { catfil } = state.filterate;
+    // const {Doctorsetget} = state.Doctorset;
+    // const {catfil} = state.filterate;
     return {
         stateLanguageType,
         stateLoginValueAim,
