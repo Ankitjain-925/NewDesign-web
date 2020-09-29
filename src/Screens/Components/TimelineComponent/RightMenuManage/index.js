@@ -31,7 +31,6 @@ class RightManage extends Component {
             this.setState({ personalinfo: this.props.personalinfo },
                 ()=>{
                     var find = this.state.personalinfo && this.state.personalinfo.upcoming_appointment && this.state.personalinfo.upcoming_appointment.length>0 && this.state.personalinfo.upcoming_appointment[0] && this.state.personalinfo.upcoming_appointment[0].docProfile && this.state.personalinfo.upcoming_appointment[0].docProfile.profile_image
-                   console.log('find', find)
                     if(find)
                     {
                         var find1 = find.split('.com/')[1]

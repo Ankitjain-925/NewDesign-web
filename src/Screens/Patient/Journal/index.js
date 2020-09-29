@@ -799,7 +799,7 @@ class Index extends Component {
                                                         </div> :
                                                         <div>
                                                             <p>Edit entry</p>
-                                                            <Grid className="nwDiaSel">
+                                                            
                                                                 <select disabled onChange={(e) => this.SelectOption(e.target.value)} value={this.state.current_select}>
                                                                     <option value="blood_pressure">Blood Pressure</option>
                                                                     <option value="blood_sugar">Blood Sugar</option>
@@ -818,7 +818,27 @@ class Index extends Component {
                                                                     <option value="vaccination">Vaccination</option>
                                                                     <option value="weight_bmi">Weight & BMI</option>
                                                                 </select>
-                                                            </Grid>
+                                                                {this.state.current_select === 'anamnesis' && <Grid className="nwDiaSel">Anamnesis</Grid>}
+                                                                {this.state.current_select === 'blood_pressure' && <Grid className="nwDiaSel">Blood Presssure</Grid>}
+                                                                {this.state.current_select === 'blood_sugar' && <Grid className="nwDiaSel">Blood Sugar</Grid>}
+                                                                {this.state.current_select === 'condition_pain' && <Grid className="nwDiaSel">Condition and Pain</Grid>}
+                                                                {this.state.current_select === 'covid_19' && <Grid className="nwDiaSel">Covid-19 Diary</Grid>}
+                                                                {this.state.current_select === 'diagnosis' && <Grid className="nwDiaSel">Diagnosis</Grid>}
+                                                                {this.state.current_select === 'diary' && <Grid className="nwDiaSel">Diary</Grid>}
+                                                                {this.state.current_select === 'doctor_visit' && <Grid className="nwDiaSel">Doctor Visit</Grid>}
+                                                                {this.state.current_select === 'family_anamnesis' && <Grid className="nwDiaSel">Family Anamnesis</Grid>}
+                                                                {this.state.current_select === 'file_upload' && <Grid className="nwDiaSel">Files Upload</Grid>}
+                                                                {this.state.current_select === 'hospitalization' && <Grid className="nwDiaSel">Hospital Visit</Grid>}
+                                                                {this.state.current_select === 'laboratory_result' && <Grid className="nwDiaSel">Laboratory Result</Grid>}
+                                                                {this.state.current_select === 'marcumar_pass' &&  <Grid className="nwDiaSel">Marcumar pass</Grid>}
+                                                                {this.state.current_select === 'medication' && <Grid className="nwDiaSel">Medication</Grid>}
+                                                                {this.state.current_select === 'prescription' && <Grid className="nwDiaSel">Prescription</Grid>}
+                                                                {this.state.current_select === 'second_opinion' && <Grid className="nwDiaSel">Second Opinion</Grid>}
+                                                                {this.state.current_select === 'sick_certificate' && <Grid className="nwDiaSel">Sick Certificate</Grid>}
+                                                                {this.state.current_select === 'smoking_status' &&  <Grid className="nwDiaSel">Somking Status</Grid>}
+                                                                {this.state.current_select === 'vaccination' && <Grid className="nwDiaSel">Vaccination</Grid>}
+                                                                {this.state.current_select === 'weight_bmi' && <Grid className="nwDiaSel">Weight & BMI</Grid>}
+
                                                         </div>}
                                                 </Grid>
                                                 <Grid>
@@ -847,9 +867,7 @@ class Index extends Component {
                                         </Grid>
                                     </Modal>
                                     {/* End of Model setup */}
-
-
-
+                                    
                                     {/* Model setup */}
                                     <AddEntry new_entry={this.props.new_entry} openBy="patient" openEntry={this.state.openEntry} value="diagnosis" onChange={this.SelectOption} handleCloseEntry={this.handleCloseEntry} />
                                     {/* End of Model setup */}
