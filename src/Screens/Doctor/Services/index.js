@@ -113,7 +113,6 @@ class Index extends Component {
                     var find = item && item.image && item.image
                     if (find) {
                         find = find.split('.com/')[1]
-                        console.log('find', find)
                         axios.get(sitedata.data.path + '/aws/sign_s3?find=' + find,)
                             .then((response2) => {
                                 if (response2.data.hassuccessed) {
