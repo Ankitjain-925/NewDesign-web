@@ -2,9 +2,6 @@ import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
 import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
 import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
-import AppBar from '@material-ui/core/AppBar';
 import Typography from '@material-ui/core/Typography';
 import PropTypes from 'prop-types';
 import Modal from '@material-ui/core/Modal';
@@ -39,7 +36,7 @@ class Index extends Component {
             specialistOption: null,
             value: 0,
             MypatientsData: [],
-            sickData: {},
+            opinionData: {},
             inqstatus: null,
             message: ''
         };
@@ -52,7 +49,7 @@ class Index extends Component {
     getMypatientsData() {
         this.setState({ loaderImage: true });
         let user_token = this.props.stateLoginValueAim.token
-        axios.get(sitedata.data.path + '/UserProfile/GetSickCertificate/', {
+        axios.get(sitedata.data.path + '/UserProfile/GetSecondOpinion/', {
             headers: {
                 'token': user_token,
                 'Accept': 'application/json',
@@ -65,6 +62,7 @@ class Index extends Component {
                     var find = item && item.profile_image && item.profile_image
                     if (find) {
                         var find1 = find.split('.com/')[1]
+                        console.log('find', find)
                         axios.get(sitedata.data.path + '/aws/sign_s3?find=' + find1,)
                             .then((response2) => {
                                 if (response2.data.hassuccessed) {
@@ -208,7 +206,7 @@ class Index extends Component {
                                 'Content-Type': fileType
                             }
                         };
-                        axios.put('https://cors-anywhere.herokuapp.com/'+signedRequest, file1, options)
+                        axios.put('https://cors-anywhere.herokuapp.com/' + signedRequest, file1, options)
                             .then(result => {
                                 console.log("Response from s3")
                                 this.setState({ success: true });
@@ -285,7 +283,7 @@ class Index extends Component {
     }
 
     handleOpenPrescp = (data) => {
-        this.setState({ openPrescp: true, sickData: data });
+        this.setState({ openPrescp: true, opinionData: data });
     };
     handleClosePrescp = () => {
         this.setState({ openPrescp: false });
@@ -305,10 +303,10 @@ class Index extends Component {
     }
 
     render() {
-        const { inqstatus, sickData, MypatientsData, imagePreviewUrl } = this.state;
-        let $imagePreview       = null;
-        if(imagePreviewUrl) {
-            $imagePreview = (<img style={{ borderRadius: "10%", maxWidth: 350,marginBottom:10 }} src={ imagePreviewUrl } />);
+        const { inqstatus, opinionData, MypatientsData, imagePreviewUrl } = this.state;
+        let $imagePreview = null;
+        if (imagePreviewUrl) {
+            $imagePreview = (<img style={{ borderRadius: "10%", maxWidth: 350, marginBottom: 10 }} src={imagePreviewUrl} />);
         }
         let translate;
         switch (this.props.stateLanguageType) {
@@ -372,8 +370,8 @@ class Index extends Component {
                                             <img src={require('../../../../assets/images/threedots.jpg')} alt="" title="" className="openScnd" />
                                             <ul>
                                                 <li><a onClick={() => { this.handleOpenPrescp(data) }}><img src={require('../../../../assets/images/details.svg')} alt="" title="" />See Details</a></li>
-                                                {data.status === 'free' && <li onClick={() => { this.handleOpenPrescp('accept', data._id) }}><a><img src={require('../../../../assets/images/edit.svg')} alt="" title="" />Accept</a></li>}
-                                                {data.status === 'free' && <li onClick={() => { this.updateCertificate('decline', data._id) }}><a><img src={require('../../../../assets/images/plus.png')} alt="" title="" />Decline</a></li>}
+                                                {data.status == 'free' && <li onClick={() => { this.handleOpenPrescp('accept', data._id) }}><a><img src={require('../../../../assets/images/edit.svg')} alt="" title="" />Accept</a></li>}
+                                                {data.status == 'free' && <li onClick={() => { this.updateCertificate('decline', data._id) }}><a><img src={require('../../../../assets/images/plus.png')} alt="" title="" />Decline</a></li>}
                                                 {data.status !== 'remove' && <li onClick={() => { this.removePrsecription('remove', data._id) }}><a><img src={require('../../../../assets/images/cancel-request.svg')} alt="" title="" />Remove</a></li>}
                                             </ul>
                                         </a>
@@ -383,104 +381,72 @@ class Index extends Component {
                         </Tbody>
                     </Table>
                     {/* Model setup */}
-                    <Modal
+                    {/* <Modal
                         open={this.state.openPrescp}
                         onClose={this.handleClosePrescp}
-                        className="prespBoxModel">
-                        <Grid className="nwPresCntnt">
-                            <Grid className="nwPresCntntIner">
-                                <Grid className="nwPresCourse">
-                                    <Grid className="nwPresCloseBtn">
+                        className="opinBoxModel">
+                        <Grid className="opinBoxCntnt">
+                            <Grid className="opinBoxCntntIner">
+                                <Grid className="opinCourse">
+                                    <Grid className="opinCloseBtn">
                                         <a onClick={this.handleClosePrescp}>
                                             <img src={require('../../../../assets/images/closefancy.png')} alt="" title="" />
                                         </a>
                                     </Grid>
-                                    <p>{show} {inquiry}</p>
-                                    <Grid><label>{sick_cert}</label></Grid>
+                                    <p>Edit inquiry</p>
+                                    <Grid><label>Second Opinion</label></Grid>
                                 </Grid>
-                                <Grid className="docHlthMain">
-                                    <Grid className="drstndrdQues">
-                                        <h3>{doc_and_statnderd_ques}</h3>
-                                        <Grid className="drsplestQues">
-                                            <Grid><label>{doc_aimedis_private}</label></Grid>
-                                            <Grid><h3>{sickData && sickData.docProfile && sickData.docProfile.first_name && sickData.docProfile.first_name} {sickData && sickData.docProfile && sickData.docProfile.last_name && sickData.docProfile.last_name}</h3></Grid>
+                                {this.state.err_pdf && <div className="err_message">Please upload PDF, PNG and JPEG file</div>}
+                                <Grid className="shrHlthMain">
+                                    <Grid className="stndrdQues">
+                                        <h3>Specialist and standard questions</h3>
+                                        <Grid className="splestQues">
+                                            <Grid><label>Specialist</label></Grid>
+                                            <Grid><h3>{this.state.AddSecond && this.state.AddSecond.docProfile && this.state.AddSecond.docProfile.first_name && this.state.AddSecond.docProfile.first_name} {this.state.AddSecond && this.state.AddSecond.docProfile && this.state.AddSecond.docProfile.last_name && this.state.AddSecond.docProfile.last_name}</h3></Grid>
+                                        </Grid>
+                                        <Grid className="recevPrescp">
+                                            <Grid className="recevPrescpLbl"><label>How would you like to receive the Second Opinion?</label></Grid>
+                                            <Grid className="recevPrescpChk">
+                                                <FormControlLabel control={<Radio />} name="online_offline" value="online" color="#00ABAF" checked={this.state.AddSecond.online_offline === 'online'} onChange={this.AddState} label="Online" />
+                                                <FormControlLabel control={<Radio />} name="online_offline" color="#00ABAF" value="offline" checked={this.state.AddSecond.online_offline === 'offline'} onChange={this.AddState} label="Home address mailbox" />
+                                            </Grid>
+                                        </Grid>
+                                        <Grid className="yrProfes">
+                                            <Grid><label>Your profession</label></Grid>
+                                            <Grid><input type="text" name="professions" value={this.state.AddSecond.professions} onChange={this.AddState} /></Grid>
+                                        </Grid>
+                                        <Grid className="yrProfes">
+                                            <Grid><label>Annotations / details / questions</label></Grid>
+                                            <Grid><textarea name="details" value={this.state.AddSecond.details} onChange={this.AddState}></textarea></Grid>
+                                        </Grid>
+                                        <Grid className="attchForms attchImg">
+                                            <Grid><label>Attachments</label></Grid>
+                                            <label class="attached_file">Attached Document -
+                                        {this.state.AddSecond && this.state.AddSecond.documents && this.state.AddSecond.documents.map((items) => (
+                                                <a>{items.filename && (items.filename.split('second_opinion/')[1]).split("&bucket=")[0]}</a>
+                                            ))}
+                                            </label>
+                                            <FileUploader name="UploadDocument" fileUpload={this.fileUpload} />
+                                            {/* <Grid className="attchbrowsInput">
+                                            <a><img src={require('../../../../assets/images/upload-file.svg')} alt="" title="" /></a>
+                                            <a>Browse <input type="file" id="UploadDocument" name="UploadDocument" onChange={(e) => this.UploadFile(e)} /></a> or drag here
+                                        </Grid> */}
+                                            {/* <p>Supported file types: .jpg, .png, .pdf</p> 
                                         </Grid>
                                     </Grid>
-                                    <Grid className="drsplestQues">
-                                        <Grid><label>{how_u_feeling}?</label></Grid>
-                                        <Grid><h3>{sickData && sickData.how_are_you && sickData.how_are_you}</h3></Grid>
-                                    </Grid>
-                                    <Grid className="drsplestQues">
-                                        <Grid className="ishelpLbl"><label>{is_ur_temp_high_to_38}?</label></Grid>
-                                        <Grid><h3>{sickData && sickData.fever && sickData.fever}</h3></Grid>
-                                    </Grid>
-                                    <Grid className="drsplestQues">
-                                        <Grid><label>{which_symptoms_do_u_hav}?</label></Grid>
-                                        <Grid><h3>{sickData && sickData.which_symptomps && sickData.which_symptomps}</h3></Grid>
-                                    </Grid>
-                                    <Grid className="drsplestQues">
-                                        <Grid><label>{since_when}?</label></Grid>
-                                        <Grid><h3>{sickData && sickData.since_when && sickData.since_when}</h3></Grid>
-                                    </Grid>
-                                    <Grid className="drsplestQues">
-                                        <Grid><label>{have_u_already_been_sick}?</label></Grid>
-                                        <Grid><h3>{sickData && sickData.same_problem_before && sickData.same_problem_before}</h3></Grid>
-                                    </Grid>
-                                    <Grid className="drsplestQues">
-                                        <Grid><label>{how_long_do_u_unable_to_work}?</label></Grid>
-                                        <Grid><h3>{sickData && sickData.time_unable_work && sickData.time_unable_work} days</h3></Grid>
-                                    </Grid>
-                                    <Grid className="drsplestQues">
-                                        <Grid><label>{it_is_known_dieseas}?</label></Grid>
-                                        <Grid><h3>{sickData && sickData.known_diseases && sickData.known_diseases}</h3></Grid>
-                                    </Grid>
-                                    <Grid className="drsplestQues">
-                                        <Grid><label>{r_u_tracking_medi}?</label></Grid>
-                                        <Grid><h3>{sickData && sickData.medication && sickData.medication}</h3></Grid>
-                                    </Grid>
-                                    <Grid className="drsplestQues">
-                                        <Grid><label>{do_u_hv_allergies}?</label></Grid>
-                                        <Grid><h3>{sickData && sickData.allergies && sickData.allergies}</h3></Grid>
-                                    </Grid>
-                                    <Grid className="drsplestQues">
-                                        <Grid><label>{what_ur_profession}?</label></Grid>
-                                        <Grid><h3>{sickData && sickData.professions && sickData.professions}</h3></Grid>
-                                    </Grid>
-                                    <Grid className="drsplestQues">
-                                        <Grid><label>{Annotations} / {details} / {questions}</label></Grid>
-                                        <Grid><h3>{sickData && sickData.annotations && sickData.annotations}</h3></Grid>
+                                </Grid>
+
+                                <Grid className="infoShwHidBrdr"></Grid>
+                                <Grid className="infoShwHidIner">
+                                    <Grid className="infoShwSave">
+                                        {/* <input type="submit" onClick={this.SubmitPrescription} value="Edit entry" /> 
                                     </Grid>
                                 </Grid>
-                                <Grid className="infoShwHidBrdr2"></Grid>
-                                {sickData.status !== 'decline' &&
-                                    <Grid className="scamUPForms scamUPImg">
-
-                                        <Grid><label>{(sickData.status !== 'accept') ? 'Upload scanned' : 'Scanned'} prescription</label></Grid>
-
-                                        {(sickData.status !== 'accept'&& !$imagePreview) && <Grid className="scamUPInput">
-                                            <a><img src={require('../../../../assets/images/upload-file.svg')} alt="" title="" /></a>
-                                            <a>Browse <input type="file" onChange={(e)=>this.UploadFile(e, sickData.patient_profile_id, sickData.patient_info.bucket, sickData._id)} /></a> or drag here
-                                                                            </Grid>}
-                                        {(sickData.status !== 'accept')&& !$imagePreview && <p>Supported file types: .jpg, .png, .pdf</p>}
-                                        {(sickData.status === 'accept')&& !$imagePreview && <img src={sickData.attachfile[0].filename} />}
-                                        {(sickData.status !== 'accept')  && $imagePreview}
-                                        {(sickData.attachfile && this.state.uploadedimage && sickData.status !== 'accept') && <Grid item xs={12} md={12}>
-                                            <input type="button" value="Send to patient's Timeline and Email" onClick={() => this.saveUserData(sickData._id)} className="approvBtn" />
-                                        </Grid>}
-                                    </Grid>}
-
-                                {(sickData.status !== 'accept' && sickData.status !== 'decline') && <Grid container direction="row">
-                                    <Grid item xs={6} md={6}>
-                                        <input type="button" value="Approve" onClick={() => this.deleteClickPatient('accept', sickData._id)} className="approvBtn" />
-                                    </Grid>
-                                    <Grid item xs={6} md={6}>
-                                        <input type="button" value="Reject" onClick={() => this.updateCertificate('decline', sickData._id)} className="rejectBtn" />
-                                    </Grid>
-                                </Grid>}
                             </Grid>
                         </Grid>
-                    </Modal>
+                    </Modal> */}
                     {/* End of Model setup */}
+
                     {/* Reject Model setup */}
                     <Modal
                         open={this.state.openReject}

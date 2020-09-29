@@ -28,7 +28,8 @@ import * as translationEN from '../../../../translations/en_json_proofread_13072
 import DateFormat from './../../../Components/DateFormat/index'
 import Autocomplete from './../../../Components/Autocomplete/index.js';
 import Modal from '@material-ui/core/Modal';
-var QRCode = require('qrcode.react');
+import subspeciality from '../../../../subspeciality.js';
+import {QRCode} from 'qrcode.react';
 
 const options = [
     { value: 'Mr', label: 'Mr.' },
@@ -271,6 +272,7 @@ class Index extends Component {
 
     //For getting the dropdowns from the database
     getMetadata() {
+        console.log("subspeciality", subspeciality)
         axios.get(sitedata.data.path + '/UserProfile/Metadata')
             .then((responce) => {
                 if (responce && responce.data && responce.data.length > 0) {
@@ -291,14 +293,14 @@ class Index extends Component {
                         responce.data[0].title_degreeData && responce.data[0].title_degreeData.length > 0 && responce.data[0].title_degreeData.map(
                             (item) => { Titles.push({ label: item.title, value: item.value }) })
                     }
-                    responce.data[0].title_degreeData && responce.data[0].title_degreeData.length > 0 && responce.data[0].subspeciality.map(
-                        (item) => { SubSpeciality.push({ label: item.title, value: item.value }) })
+                    // responce.data[0].title_degreeData && responce.data[0].title_degreeData.length > 0 && responce.data[0].subspeciality.map(
+                    //     (item) => { SubSpeciality.push({ label: item.title, value: item.value }) })
                     this.setState({
                         genderdata: Gender,
                         languageData: Languages,
                         specialityData: Speciality,
                         title_degreeData: Titles,
-                        subspecialityData: SubSpeciality
+                        subspecialityData: subspeciality.subspeciality
                     });
                 }
             })
@@ -331,6 +333,10 @@ class Index extends Component {
         if (name == "speciality") {
             this.setState({ speciality_multi: event });
         }
+        console.log("name", name)
+        if (name == "subspeciality") {
+            this.setState({ subspeciality_multi: event });
+        }
         this.setState({ UpDataDetails: state })
     };
 
@@ -358,6 +364,7 @@ class Index extends Component {
 
     //Save the User profile
     saveUserData = () => {
+        const {UpDataDetails} = this.state;
         if (this.state.insuranceDetails.insurance !== "" && this.state.insuranceDetails.insurance_number !== ""
             && this.state.insuranceDetails.insurance_country !== "") {
             if (datas.some(data => data.insurance === this.state.insuranceDetails.insurance)) { }
@@ -383,26 +390,26 @@ class Index extends Component {
         this.setState({ regisError2: "" })
         const user_token = this.props.stateLoginValueAim.token;
         this.setState({ insuranceDetails: { insurance: '', insurance_number: '', insurance_country: '' } })
-        var parent_id = this.state.UpDataDetails.parent_id ? this.state.UpDataDetails.parent_id : '0';
+        var parent_id = UpDataDetails.parent_id ? UpDataDetails.parent_id : '0';
 
         axios.put(sitedata.data.path + '/UserProfile/Users/update', {
-            first_name: this.state.UpDataDetails.first_name,
-            last_name: this.state.UpDataDetails.last_name,
-            title: this.state.UpDataDetails.title,
-            birthday: this.state.UpDataDetails.birthday,
-            language: this.state.UpDataDetails.language,
+            first_name: UpDataDetails.first_name,
+            last_name: UpDataDetails.last_name,
+            title: UpDataDetails.title,
+            birthday: UpDataDetails.birthday,
+            language: UpDataDetails.language,
             speciality: this.state.speciality_multi,
             subspeciality: this.state.subspeciality_multi,
-            phone: this.state.UpDataDetails.phone,
-            mobile: this.state.UpDataDetails.mobile,
-            fax: this.state.UpDataDetails.fax,
-            sex: this.state.UpDataDetails.sex,
-            street: this.state.UpDataDetails.street,
+            phone: UpDataDetails.phone,
+            mobile: UpDataDetails.mobile,
+            fax: UpDataDetails.fax,
+            sex: UpDataDetails.sex,
+            street: UpDataDetails.street,
             city: this.state.city,
             area: this.state.area,
-            address: this.state.UpDataDetails.address,
-            country: this.state.UpDataDetails.country,
-            pastal_code: this.state.UpDataDetails.pastal_code,
+            address: UpDataDetails.address,
+            country: UpDataDetails.country,
+            pastal_code: UpDataDetails.pastal_code,
         }, {
             headers: {
                 'token': user_token,
@@ -416,7 +423,7 @@ class Index extends Component {
                 setTimeout(() => { this.setState({ succUpdate: false }) }, 5000)
                 this.getUserData();
                 axios.put('https://api-us.cometchat.io/v2.0/users/' + this.state.profile_id.toLowerCase(), {
-                    name: this.state.UpDataDetails.first_name + ' ' + this.state.UpDataDetails.last_name
+                    name: UpDataDetails.first_name + ' ' + UpDataDetails.last_name
                 },
                     {
                         headers: {
@@ -577,8 +584,10 @@ class Index extends Component {
                     this.setState({ flag_emergency_number: fen[0] })
                 }
             }
+            
             this.setState({ UpDataDetails: response.data.data, city: response.data.data.city, area: response.data.data.area, profile_id: response.data.data.profile_id });
-            this.setState({ speciality_multi: this.state.UpDataDetails.speciality, subspeciality_multi: this.state.UpDataDetails.subspeciality })
+            this.setState({ speciality_multi:  response.data.data.speciality, subspeciality_multi:  response.data.data.subspeciality })
+            console.log("response.data.data.subspeciality ", response.data.data.subspeciality )
             this.setState({ name_multi: language, title: title })
             this.setState({
                 insurancefull: this.state.UpDataDetails.insurance,
@@ -738,7 +747,7 @@ class Index extends Component {
 
     render() {
         const { stateLoginValueAim, Doctorsetget, selectedOption } = this.props;
-        const { value, editInsuData, insurancefull, editIndex, insuranceDetails } = this.state;
+        const { value, editInsuData, insurancefull, subspecialityData, UpDataDetails } = this.state;
         const companyList = this.state.filteredCompany && this.state.filteredCompany.map(company => {
             return (
                 <li className="list-group-item" value={company}
@@ -797,12 +806,12 @@ class Index extends Component {
                             <Grid className="profileIdLft">
                                 <Grid container direction="row" alignItems="center" spacing={1}>
                                     <Grid item xs={12} md={7}>
-                                        <label>{profile} {ID}</label><span id="profile_id">{this.state.UpDataDetails.alies_id && this.state.UpDataDetails.alies_id}</span>
+                                        <label>{profile} {ID}</label><span id="profile_id">{UpDataDetails.alies_id && UpDataDetails.alies_id}</span>
                                         <a><img src={require('../../../../assets/images/copycopy.svg')} alt="" onClick={() => this.copyText('profile_id')} title="" /></a>
                                         <a><img src={require('../../../../assets/images/qr-code.svg')} alt="" title="" onClick={this.handleQrOpen} /></a>
                                     </Grid>
                                     <Grid item xs={12} md={5}>
-                                        <label>PIN</label><span id="profile_pin">{this.state.UpDataDetails.pin && this.state.UpDataDetails.pin}</span>
+                                        <label>PIN</label><span id="profile_pin">{UpDataDetails.pin && UpDataDetails.pin}</span>
                                         <a><img src={require('../../../../assets/images/copycopy.svg')} onClick={() => this.copyText('profile_pin')} alt="" title="" /></a>
                                     </Grid>
                                 </Grid>
@@ -833,13 +842,13 @@ class Index extends Component {
                                 <Grid className="editField">
                                     {this.state.ChangedPIN && <div className="success_message">Profile ID and PIN is changed</div>}
                                     <label>Profile ID</label>
-                                    <Grid><input type="text" name="alies_id" onChange={this.changeAlies} value={this.state.UpDataDetails.alies_id} /></Grid>
+                                    <Grid><input type="text" name="alies_id" onChange={this.changeAlies} value={UpDataDetails.alies_id} /></Grid>
                                     {this.state.DuplicateAlies && <p>This Profile ID is already taken. Please try a different ID</p>}
                                     {this.state.toSmall && <p>Profile id must be greater then 5 characters</p>}
                                 </Grid>
                                 <Grid className="editField">
                                     <label>PIN</label>
-                                    <Grid><input type="text" name="pin" onChange={this.updateEntryState} value={this.state.UpDataDetails.pin} /></Grid>
+                                    <Grid><input type="text" name="pin" onChange={this.updateEntryState} value={UpDataDetails.pin} /></Grid>
                                 </Grid>
                                 <Grid>
                                     <input type="submit" onClick={this.ChangeIDPIN} value="Save changes" />
@@ -858,7 +867,7 @@ class Index extends Component {
                                 <Grid container direction="row" alignItems="center" spacing={2}>
                                     <Grid item xs={12} md={12}>
                                         <label>{email} {add}</label>
-                                        <Grid><input type="text" onChange={this.updateEntryState} value={this.state.UpDataDetails.email} disabled /></Grid>
+                                        <Grid><input type="text" onChange={this.updateEntryState} value={UpDataDetails.email} disabled /></Grid>
                                     </Grid>
                                 </Grid>
                             </Grid>
@@ -880,11 +889,11 @@ class Index extends Component {
                                     </Grid>
                                     <Grid item xs={12} md={4}>
                                         <label>{first} {name}</label>
-                                        <Grid><input type="text" name="first_name" value={this.state.UpDataDetails.first_name} onChange={this.updateEntryState} /></Grid>
+                                        <Grid><input type="text" name="first_name" value={UpDataDetails.first_name} onChange={this.updateEntryState} /></Grid>
                                     </Grid>
                                     <Grid item xs={12} md={4}>
                                         <label>{last} {name}</label>
-                                        <Grid><input type="text" name="last_name" onChange={this.updateEntryState} value={this.state.UpDataDetails.last_name} /></Grid>
+                                        <Grid><input type="text" name="last_name" onChange={this.updateEntryState} value={UpDataDetails.last_name} /></Grid>
                                     </Grid>
                                 </Grid>
                             </Grid>
@@ -894,15 +903,15 @@ class Index extends Component {
                                     <Grid item xs={12} md={4}>
                                         <label>{dob}</label>
                                         <Grid>
-                                            <DateFormat name="birthday" value={this.state.UpDataDetails.birthday ? new Date(this.state.UpDataDetails.birthday) : new Date()} onChange={this.onChange} date_format={this.props.settings.setting && this.props.settings.setting.date_format} onChange={this.onChange} />
+                                            <DateFormat name="birthday" value={UpDataDetails.birthday ? new Date(UpDataDetails.birthday) : new Date()} onChange={this.onChange} date_format={this.props.settings.setting && this.props.settings.setting.date_format} onChange={this.onChange} />
                                         </Grid>
                                     </Grid>
                                     <Grid item xs={12} md={8}>
                                         <label>{gender}</label>
                                         <Grid>
-                                            <a onClick={() => this.EntryValueName('male', 'sex')} className={this.state.UpDataDetails.sex && this.state.UpDataDetails.sex === 'male' && "SelectedGender"}>Male</a>
-                                            <a onClick={() => this.EntryValueName('female', 'sex')} className={this.state.UpDataDetails.sex && this.state.UpDataDetails.sex === 'female' && "SelectedGender"}>Female</a>
-                                            <a onClick={() => this.EntryValueName('other', 'sex')} className={this.state.UpDataDetails.sex && this.state.UpDataDetails.sex === 'other' && "SelectedGender"}> Other</a>
+                                            <a onClick={() => this.EntryValueName('male', 'sex')} className={UpDataDetails.sex && UpDataDetails.sex === 'male' && "SelectedGender"}>Male</a>
+                                            <a onClick={() => this.EntryValueName('female', 'sex')} className={UpDataDetails.sex && UpDataDetails.sex === 'female' && "SelectedGender"}>Female</a>
+                                            <a onClick={() => this.EntryValueName('other', 'sex')} className={UpDataDetails.sex && UpDataDetails.sex === 'other' && "SelectedGender"}> Other</a>
                                         </Grid>
                                     </Grid>
                                 </Grid>
@@ -912,7 +921,7 @@ class Index extends Component {
                                 <Grid container direction="row" alignItems="center" spacing={2}>
                                     <Grid item xs={12} md={8}>
                                         <label>{street} {add}</label>
-                                        <Grid><input type="text" name="address" onChange={this.updateEntryState} value={this.state.UpDataDetails.address ? this.state.UpDataDetails.address : ''} /></Grid>
+                                        <Grid><input type="text" name="address" onChange={this.updateEntryState} value={UpDataDetails.address ? UpDataDetails.address : ''} /></Grid>
                                     </Grid>
                                 </Grid>
                             </Grid>
@@ -926,7 +935,7 @@ class Index extends Component {
                                     </Grid>
                                     <Grid item xs={12} md={4}>
                                         <label>{postal_code}</label>
-                                        <Grid><input type="text" name="pastal_code" onChange={this.updateEntryState} value={this.state.UpDataDetails.pastal_code ? this.state.UpDataDetails.pastal_code : ''} /></Grid>
+                                        <Grid><input type="text" name="pastal_code" onChange={this.updateEntryState} value={UpDataDetails.pastal_code ? UpDataDetails.pastal_code : ''} /></Grid>
                                     </Grid>
                                 </Grid>
                             </Grid>
@@ -937,7 +946,7 @@ class Index extends Component {
                                         <label>{country}</label>
                                         <Grid>
                                             <Select
-                                                value={this.state.UpDataDetails.country}
+                                                value={UpDataDetails.country}
                                                 onChange={(e) => this.EntryValueName(e, 'country')}
                                                 options={this.state.selectCountry}
                                                 placeholder=""
@@ -956,14 +965,14 @@ class Index extends Component {
                                     <Grid item xs={12} md={8}>
                                         <label>{home_telephone}</label>
                                         <Grid>
-                                            {this.updateFLAG(this.state.UpDataDetails.phone) && this.updateFLAG(this.state.UpDataDetails.phone) !== '' &&
-                                                <ReactFlagsSelect placeholder={country_code} onSelect={(e) => { this.updateFlags(e, 'flag_phone') }} name="flag_phone" showSelectedLabel={false} defaultCountry={this.updateFLAG(this.state.UpDataDetails.phone)} />}
+                                            {this.updateFLAG(UpDataDetails.phone) && this.updateFLAG(UpDataDetails.phone) !== '' &&
+                                                <ReactFlagsSelect placeholder={country_code} onSelect={(e) => { this.updateFlags(e, 'flag_phone') }} name="flag_phone" showSelectedLabel={false} defaultCountry={this.updateFLAG(UpDataDetails.phone)} />}
                                             <input type="text"
                                                 className="Mobile_extra"
                                                 placeholder={phone}
                                                 name="phone"
                                                 onChange={this.updateEntryState1}
-                                                value={this.state.UpDataDetails.phone && this.updateMOBILE(this.state.UpDataDetails.phone)}
+                                                value={UpDataDetails.phone && this.updateMOBILE(UpDataDetails.phone)}
                                             />
                                         </Grid>
                                     </Grid>
@@ -977,15 +986,15 @@ class Index extends Component {
                                     <Grid item xs={12} md={8}>
                                         <label>{mobile_number}</label>
                                         <Grid>
-                                            {this.updateFLAG(this.state.UpDataDetails.mobile) && this.updateFLAG(this.state.UpDataDetails.mobile) !== '' &&
-                                                <ReactFlagsSelect placeholder="Country Code" onSelect={(e) => { this.updateFlags(e, 'flag_mobile') }} name="flag_mobile" showSelectedLabel={false} defaultCountry={this.updateFLAG(this.state.UpDataDetails.mobile)} />}
+                                            {this.updateFLAG(UpDataDetails.mobile) && this.updateFLAG(UpDataDetails.mobile) !== '' &&
+                                                <ReactFlagsSelect placeholder="Country Code" onSelect={(e) => { this.updateFlags(e, 'flag_mobile') }} name="flag_mobile" showSelectedLabel={false} defaultCountry={this.updateFLAG(UpDataDetails.mobile)} />}
                                             <input type="text"
                                                 className="Mobile_extra"
                                                 placeholder={mobile}
                                                 name="mobile"
                                                 type="text"
                                                 onChange={this.updateEntryState1}
-                                                value={this.state.UpDataDetails.mobile && this.updateMOBILE(this.state.UpDataDetails.mobile)}
+                                                value={UpDataDetails.mobile && this.updateMOBILE(UpDataDetails.mobile)}
                                             />
                                         </Grid>
                                     </Grid>
@@ -999,15 +1008,15 @@ class Index extends Component {
                                     <Grid item xs={12} md={8}>
                                         <label>Fax number</label>
                                         <Grid>
-                                            {this.updateFLAG(this.state.UpDataDetails.fax) && this.updateFLAG(this.state.UpDataDetails.fax) !== '' &&
-                                                <ReactFlagsSelect placeholder="Country Code" onSelect={(e) => { this.updateFlags(e, 'flag_fax') }} name="flag_fax" showSelectedLabel={false} defaultCountry={this.updateFLAG(this.state.UpDataDetails.fax)} />}
+                                            {this.updateFLAG(UpDataDetails.fax) && this.updateFLAG(UpDataDetails.fax) !== '' &&
+                                                <ReactFlagsSelect placeholder="Country Code" onSelect={(e) => { this.updateFlags(e, 'flag_fax') }} name="flag_fax" showSelectedLabel={false} defaultCountry={this.updateFLAG(UpDataDetails.fax)} />}
                                             <input type="text"
                                                 className="Mobile_extra"
                                                 placeholder='fax'
                                                 name="fax"
                                                 type="text"
                                                 onChange={this.updateEntryState1}
-                                                value={this.state.UpDataDetails.fax && this.updateMOBILE(this.state.UpDataDetails.fax)}
+                                                value={UpDataDetails.fax && this.updateMOBILE(UpDataDetails.fax)}
                                             />
                                         </Grid>
                                     </Grid>
@@ -1047,6 +1056,7 @@ class Index extends Component {
                                             <Select
                                                 value={this.state.speciality_multi}
                                                 name="speciality"
+                                                closeMenuOnSelect={false}
                                                 onChange={(e) => { this.handleChange_multi(e, 'speciality') }}
                                                 options={this.state.specialityData}
                                                 placeholder=""
@@ -1069,11 +1079,12 @@ class Index extends Component {
                                             <Select
                                                 value={this.state.subspeciality_multi}
                                                 name="subspeciality"
+                                                closeMenuOnSelect={false}
                                                 onChange={(e) => { this.handleChange_multi(e, 'subspeciality') }}
-                                                options={this.state.subspecialityData}
+                                                options={subspecialityData.english !==undefined?(this.props.stateLanguageType==='de'? subspecialityData.german: subspecialityData.english):[]}
                                                 placeholder=""
                                                 isSearchable={false}
-                                                className=""
+                                                className="profile-language"
                                                 isMulti={true}
                                             />
                                         </Grid>
@@ -1111,7 +1122,7 @@ class Index extends Component {
                             </Grid>
                             <Grid className="qrCourseImg">
                                 {/* <Grid><img src={require('../../../../assets/images/qrimg.jpg')} alt="" title="" /></Grid> */}
-                                <Grid> <QRCode value={this.state.UpDataDetails.profile_id} /> </Grid>
+                                <Grid> <QRCode value={UpDataDetails.profile_id} /> </Grid>
                                 <Grid><input type="submit" value="Done" onClick={this.handleQrClose} /></Grid>
                             </Grid>
                         </Grid>
