@@ -19,6 +19,12 @@ class Index extends Component {
     componentDidMount = () => {
 
     }
+    updateEntryState1=(value, name)=>{
+        var state= this.state.updateTrack
+        state[name] = value;
+        this.setState({updateTrack: state})
+        this.props.updateEntryState1(value, name)
+    }
 
     //on adding new data
     componentDidUpdate = (prevProps) => {
@@ -37,7 +43,7 @@ class Index extends Component {
                         <FileUploader name="UploadTrackImageMulti"  isMulti="true" fileUpload={(event)=>{this.props.FileAttachMulti(event)}}/>
                     </Grid>
                     <Grid className="fillDia">
-                        <NotesEditor name="explanation" label="Notes"  onChange={(e)=> this.props.updateEntryState1(e, 'explanation')} value={this.state.updateTrack.explanation}/> 
+                        <NotesEditor name="explanation" label="Notes"  onChange={(e)=> this.updateEntryState1(e, 'explanation')} value={this.state.updateTrack.explanation}/> 
                     </Grid>
                 </Grid>}
 

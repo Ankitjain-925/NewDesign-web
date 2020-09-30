@@ -155,8 +155,8 @@ class PointPain extends Component {
                         <Grid className="prfilHght">
                             <Grid className="prfilHghtLft">
                                 <label>BMI</label>
-                                {this.state.personalinfo && this.state.personalinfo.weight_bmi ? <p>{(this.state.personalinfo.weight_bmi.weight/(this.state.personalinfo.weight_bmi.height * this.state.personalinfo.weight_bmi.height)*10000).toFixed(2)}</p>:  <p>--</p>}
-                            </Grid>
+                                {this.state.personalinfo && this.state.personalinfo.weight_bmi ? <p>{(this.state.personalinfo.weight_bmi.weight/(this.state.personalinfo.weight_bmi.height * this.state.personalinfo.weight_bmi.height)*10000).toFixed(2) ==='NaN' ? '--' : (this.state.personalinfo.weight_bmi.weight/(this.state.personalinfo.weight_bmi.height * this.state.personalinfo.weight_bmi.height)*10000).toFixed(2)}</p>:  <p>--</p>}
+                            </Grid> 
                             <Grid className="prfilHghtRght">
                                 <label>Blood</label>
                                 <p>{this.state.personalinfo && this.state.personalinfo.weight_bmi && this.state.personalinfo.weight_bmi.blood_group ? this.state.personalinfo.weight_bmi.blood_group : '--'}</p>

@@ -799,26 +799,27 @@ class Index extends Component {
                                                         </div> :
                                                         <div>
                                                             <p>Edit entry</p>
-                                                            <Grid className="nwDiaSel">
-                                                                <select disabled onChange={(e) => this.SelectOption(e.target.value)} value={this.state.current_select}>
-                                                                    <option value="blood_pressure">Blood Pressure</option>
-                                                                    <option value="blood_sugar">Blood Sugar</option>
-                                                                    <option value="condition_pain">Condition and Pain</option>
-                                                                    <option value="covid_19">Covid-19 Diary</option>
-                                                                    <option value="diagnosis">Diagnosis</option>
-                                                                    <option value="diary">Diary</option>
-                                                                    <option value="doctor_visit">Doctor Visit</option>
-                                                                    <option value="family_anamnesis">Family Anamnesis</option>
-                                                                    <option value="file_upload">Files Upload</option>
-                                                                    <option value="hospitalization">Hospital Visit</option>
-                                                                    <option value="laboratory_result">Laboratory Result</option>
-                                                                    <option value="marcumar_pass">Marcumar pass</option>
-                                                                    <option value="medication" >Medication</option>
-                                                                    <option value="smoking_status">Smoking Status</option>
-                                                                    <option value="vaccination">Vaccination</option>
-                                                                    <option value="weight_bmi">Weight & BMI</option>
-                                                                </select>
-                                                            </Grid>
+                                                                {this.state.current_select === 'anamnesis' && <Grid className="nwDiaSel1">Anamnesis</Grid>}
+                                                                {this.state.current_select === 'blood_pressure' && <Grid className="nwDiaSel1">Blood Presssure</Grid>}
+                                                                {this.state.current_select === 'blood_sugar' && <Grid className="nwDiaSel1">Blood Sugar</Grid>}
+                                                                {this.state.current_select === 'condition_pain' && <Grid className="nwDiaSel1">Condition and Pain</Grid>}
+                                                                {this.state.current_select === 'covid_19' && <Grid className="nwDiaSel1">Covid-19 Diary</Grid>}
+                                                                {this.state.current_select === 'diagnosis' && <Grid className="nwDiaSel1">Diagnosis</Grid>}
+                                                                {this.state.current_select === 'diary' && <Grid className="nwDiaSel1">Diary</Grid>}
+                                                                {this.state.current_select === 'doctor_visit' && <Grid className="nwDiaSel1">Doctor Visit</Grid>}
+                                                                {this.state.current_select === 'family_anamnesis' && <Grid className="nwDiaSel1">Family Anamnesis</Grid>}
+                                                                {this.state.current_select === 'file_upload' && <Grid className="nwDiaSel1">Files Upload</Grid>}
+                                                                {this.state.current_select === 'hospitalization' && <Grid className="nwDiaSel1">Hospital Visit</Grid>}
+                                                                {this.state.current_select === 'laboratory_result' && <Grid className="nwDiaSel1">Laboratory Result</Grid>}
+                                                                {this.state.current_select === 'marcumar_pass' &&  <Grid className="nwDiaSel1">Marcumar pass</Grid>}
+                                                                {this.state.current_select === 'medication' && <Grid className="nwDiaSel1">Medication</Grid>}
+                                                                {this.state.current_select === 'prescription' && <Grid className="nwDiaSel1">Prescription</Grid>}
+                                                                {this.state.current_select === 'second_opinion' && <Grid className="nwDiaSel1">Second Opinion</Grid>}
+                                                                {this.state.current_select === 'sick_certificate' && <Grid className="nwDiaSel1">Sick Certificate</Grid>}
+                                                                {this.state.current_select === 'smoking_status' &&  <Grid className="nwDiaSel1">Somking Status</Grid>}
+                                                                {this.state.current_select === 'vaccination' && <Grid className="nwDiaSel1">Vaccination</Grid>}
+                                                                {this.state.current_select === 'weight_bmi' && <Grid className="nwDiaSel1">Weight & BMI</Grid>}
+
                                                         </div>}
                                                 </Grid>
                                                 <Grid>
@@ -827,8 +828,8 @@ class Index extends Component {
                                                     {this.state.current_select === 'blood_sugar' && <BSFields FileAttachMulti={this.FileAttachMulti} visibility={this.state.visibility} comesfrom='patient' GetHideShow={this.GetHideShow} options={this.state.Allsituation} AddTrack={this.AddTrack} date_format={this.props.settings.setting.date_format}  time_format={this.props.settings.setting.time_format} updateEntryState={this.updateEntryState} updateEntryState1={this.updateEntryState1} updateTrack={this.state.updateTrack}/>}
                                                     {this.state.current_select === 'condition_pain' && <CPFields FileAttachMulti={this.FileAttachMulti} visibility={this.state.visibility} comesfrom='patient' gender={this.state.patient_gender} GetHideShow={this.GetHideShow} options={this.state.Allpain_quality} options2={this.state.Allpain_type} AddTrack={this.AddTrack} date_format={this.props.settings.setting.date_format}  time_format={this.props.settings.setting.time_format} updateEntryState={this.updateEntryState} updateEntryState1={this.updateEntryState1} updateTrack={this.state.updateTrack} />}
                                                     {this.state.current_select === 'covid_19' && <CovidFields FileAttachMulti={this.FileAttachMulti} visibility={this.state.visibility} comesfrom='patient' gender={this.state.patient_gender} GetHideShow={this.GetHideShow} options={this.state.selectCountry} options2={this.state.Alltemprature} AddTrack={this.AddTrack} date_format={this.props.settings.setting.date_format}  time_format={this.props.settings.setting.time_format} updateEntryState={this.updateEntryState} updateEntryState1={this.updateEntryState1} updateTrack={this.state.updateTrack} />}
-                                                    {this.state.current_select === 'diagnosis' && <DiagnosisFields FileAttachMulti={this.FileAttachMulti} visibility={this.state.visibility} comesfrom='patient' gender={this.state.patient_gender} GetHideShow={this.GetHideShow} options={this.state.selectCountry} options2={this.state.Alltemprature} AddTrack={this.AddTrack} date_format={this.props.settings.setting.date_format}  time_format={this.props.settings.setting.time_format} updateEntryState={this.updateEntryState} updateEntryState1={this.updateEntryState1} updateTrack={this.state.updateTrack}/>}
-                                                    {this.state.current_select === 'diary' && <DiaryFields FileAttachMulti={this.FileAttachMulti} visibility={this.state.visibility} comesfrom='patient' GetHideShow={this.GetHideShow} AddTrack={this.AddTrack} date_format={this.props.settings.setting.date_format}  time_format={this.props.settings.setting.time_format} updateEntryState={this.updateEntryState} updateEntryState1={this.updateEntryState1} updateTrack={this.state.updateTrack} />}
+                                                    {this.state.current_select === 'diagnosis' && <DiagnosisFields FileAttachMulti={this.FileAttachMulti} visibility={this.state.visibility} comesfrom='patient' gender={this.state.patient_gender} GetHideShow={this.GetHideShow} options={this.state.selectCountry} options2={this.state.Alltemprature} AddTrack={this.AddTrack} date_format={this.props.settings.setting && this.props.settings.setting.date_format && this.props.settings.setting.date_format}  time_format={ this.props.settings.setting && this.props.settings.setting.time_format && this.props.settings.setting.time_format} updateEntryState={this.updateEntryState} updateEntryState1={this.updateEntryState1} updateTrack={this.state.updateTrack}/>}
+                                                    {this.state.current_select === 'diary' && <DiaryFields FileAttachMulti={this.FileAttachMulti} visibility={this.state.visibility} comesfrom='patient' GetHideShow={this.GetHideShow} AddTrack={this.AddTrack} date_format={this.props.settings.setting && this.props.settings.setting.date_format && this.props.settings.setting.date_format}  time_format={this.props.settings.setting.time_format} updateEntryState={this.updateEntryState} updateEntryState1={this.updateEntryState1} updateTrack={this.state.updateTrack} />}
                                                     {this.state.current_select === 'doctor_visit' && <DVFields FileAttachMulti={this.FileAttachMulti} visibility={this.state.visibility} comesfrom='patient' GetHideShow={this.GetHideShow} AddTrack={this.AddTrack} options={this.state.AllSpecialty} date_format={this.props.settings.setting.date_format}  time_format={this.props.settings.setting.time_format} updateEntryState={this.updateEntryState} updateEntryState1={this.updateEntryState1} updateTrack={this.state.updateTrack} />}
                                                     {this.state.current_select === 'family_anamnesis' && <FAFields FileAttachMulti={this.FileAttachMulti} visibility={this.state.visibility} comesfrom='patient' GetHideShow={this.GetHideShow} AddTrack={this.AddTrack} options={this.state.Allgender} relativeList={this.state.Allrelation} date_format={this.props.settings.setting.date_format}  time_format={this.props.settings.setting.time_format} updateEntryState={this.updateEntryState} updateEntryState1={this.updateEntryState1} updateTrack={this.state.updateTrack}/>}
                                                     {this.state.current_select === 'file_upload' && <FUFields FileAttachMulti={this.FileAttachMulti} visibility={this.state.visibility} comesfrom='patient' GetHideShow={this.GetHideShow} AddTrack={this.AddTrack} options={this.state.AllSpecialty} date_format={this.props.settings.setting.date_format}  time_format={this.props.settings.setting.time_format} updateEntryState={this.updateEntryState} updateEntryState1={this.updateEntryState1} updateTrack={this.state.updateTrack}/>}
@@ -847,9 +848,7 @@ class Index extends Component {
                                         </Grid>
                                     </Modal>
                                     {/* End of Model setup */}
-
-
-
+                                    
                                     {/* Model setup */}
                                     <AddEntry new_entry={this.props.new_entry} openBy="patient" openEntry={this.state.openEntry} value="diagnosis" onChange={this.SelectOption} handleCloseEntry={this.handleCloseEntry} />
                                     {/* End of Model setup */}

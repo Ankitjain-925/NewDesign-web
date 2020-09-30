@@ -347,7 +347,7 @@ class Index extends Component {
 
                                     <Grid className="recevPrescp">
                                         <Grid className="recevPrescpLbl"><label>How would you like to receive the Second Opinion?</label></Grid>
-                                        <Grid><h3>{this.state.AddSecond && this.state.AddSecond.online_offline && this.state.AddSecond.online_offline}</h3></Grid>
+                                        <Grid><h3>{this.state.AddSecond && this.state.AddSecond.online_offline && this.state.AddSecond.online_offline==='offline' ? 'Home address mailbox' : 'Online'}</h3></Grid>
                                     </Grid>
                                     <Grid className="yrProfes">
                                         <Grid><label>Your profession</label></Grid>

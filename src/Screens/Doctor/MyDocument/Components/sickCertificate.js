@@ -65,7 +65,6 @@ class Index extends Component {
                     var find = item && item.profile_image && item.profile_image
                     if (find) {
                         var find1 = find.split('.com/')[1]
-                        console.log('find', find)
                         axios.get(sitedata.data.path + '/aws/sign_s3?find=' + find1,)
                             .then((response2) => {
                                 if (response2.data.hassuccessed) {
@@ -373,8 +372,8 @@ class Index extends Component {
                                             <img src={require('../../../../assets/images/threedots.jpg')} alt="" title="" className="openScnd" />
                                             <ul>
                                                 <li><a onClick={() => { this.handleOpenPrescp(data) }}><img src={require('../../../../assets/images/details.svg')} alt="" title="" />See Details</a></li>
-                                                {data.status === 'free' && <li onClick={() => { this.handleOpenPrescp('accept', data._id) }}><a><img src={require('../../../../assets/images/edit.svg')} alt="" title="" />Accept</a></li>}
-                                                {data.status === 'free' && <li onClick={() => { this.updateCertificate('decline', data._id) }}><a><img src={require('../../../../assets/images/plus.png')} alt="" title="" />Decline</a></li>}
+                                                {data.status !== 'free' && <li onClick={() => { this.updateCertificate('accept', data._id) }}><a><img src={require('../../../../assets/images/edit.svg')} alt="" title="" />Accept</a></li>}
+                                                {data.status !== 'free' && <li onClick={() => { this.updateCertificate('decline', data._id) }}><a><img src={require('../../../../assets/images/plus.png')} alt="" title="" />Decline</a></li>}
                                                 {data.status !== 'remove' && <li onClick={() => { this.removePrsecription('remove', data._id) }}><a><img src={require('../../../../assets/images/cancel-request.svg')} alt="" title="" />Remove</a></li>}
                                             </ul>
                                         </a>

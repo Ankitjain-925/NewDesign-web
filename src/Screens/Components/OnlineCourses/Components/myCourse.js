@@ -151,8 +151,11 @@ class Index extends Component {
                 }
             }).then(res => {
                 if (res.data && res.data.hassuccessed) {
+                    this.handleCloseFancy();
                     this.setState({  loaderImage: false, successfull : true })
                     setTimeout(()=>{this.setState({ successfull : false })}, 5000 )
+                    this.getMyRating();
+                   
                 }
             }).catch(err => { })
         }
@@ -235,10 +238,12 @@ class Index extends Component {
                 <Grid className="nwCoursName">
                     <h3>My Courses</h3>
                 </Grid>
+                {this.state.successfull && <div className="success_message">Rating is sent successfully</div>}
                 <Grid container direction="row" spacing={3} className="newCourseCntnt">
                 {this.state.MyCourse && this.state.MyCourse.length>0 && this.state.MyCourse.map((item, index)=>(
                     <Grid item xs={12} md={4}>
                         <Grid className="courseList">
+                        {console.log('item.rating', item.rating)}
                             <Grid className="courseListLbl"><label>{item.courseTitle}</label></Grid>
                             <Grid className="courseListInr">
                                 <Grid className="courseListPara">
@@ -307,7 +312,6 @@ class Index extends Component {
                                     <div><label>Rate this course</label></div>
                                     <p>If you have specific comments about the course, please let us know by filling out the form.</p>
                                 </div>
-                                {this.state.successfull && <div className="success_message">Rating is sent successfully</div>}
                                 {this.state.iserr && <div className="err_message">Please give the rate</div>}
                                 <div className="rateStars">
                                     {this.state.ratings.rating >0 && this.state.ratings.rating <2 &&  <p>Poor</p>}

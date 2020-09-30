@@ -3,7 +3,7 @@ import Grid from '@material-ui/core/Grid';
 import Collapsible from 'react-collapsible';
 import FileViews from './../FileViews/index';
 import ReactTooltip from "react-tooltip";
-import { getDate, newdate, getTime } from './../../BasicMethod/index';
+import { getDate, newdate, getTime, getImage } from './../../BasicMethod/index';
 
 class Index extends Component {
     constructor(props) {
@@ -41,7 +41,7 @@ class Index extends Component {
                         <Grid container direction="row" className="addSpc">
                             <Grid item xs={12} md={6}>
                                 <Grid className="blodPrsurImg">
-                                    <a className="blodPrsurNote"><img src={require('../../../../assets/images/marcumar-pass.svg')} alt="" title="" />
+                                    <a className="blodPrsurNote"><img src={require('../../../../assets/images/smoking-status.svg')} alt="" title="" />
                                         <span>Smoking Status</span>
                                     </a>
                                 </Grid>
@@ -88,7 +88,8 @@ class Index extends Component {
                         <Grid container direction="row" className="addSpc bpJohnMain">
                             <Grid item xs={12} md={12}>
                                 <Grid className="bpJohnImg">
-                                    <a><img src={require('../../../../assets/images/person1.jpg')} alt="" title="" />
+                                    <a><img src={getImage(item.created_by_image, this.state.images)} alt="" title="" />
+
                                         <span>{item.created_by_temp}</span>
                                     </a>
                                 </Grid>

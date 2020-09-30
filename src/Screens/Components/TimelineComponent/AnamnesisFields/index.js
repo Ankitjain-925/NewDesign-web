@@ -32,19 +32,27 @@ class Index extends Component {
         }
     }
 
+    
+    updateEntryState1=(value, name)=>{
+        var state= this.state.updateTrack
+        state[name] = value;
+        this.setState({updateTrack: state})
+        this.props.updateEntryState1(value, name)
+    }
+
     render() {
         return (
             <div>
                 <Grid className="cnfrmDiaMain">
                     <Grid className="fillDia">
-                        <AnamnesisFinding  options= {this.state.options} name="anamesis" label="Field title"  onChange={(e) => this.props.updateEntryState1(e, 'anamesis')} findingArr={this.state.updateTrack.anamesis} />
+                        <AnamnesisFinding  options= {this.state.options} name="anamesis" label="Field title"  onChange={(e) => this.updateEntryState1(e, 'anamesis')} findingArr={this.state.updateTrack.anamesis} />
                     </Grid>
                     <Grid className="fillDia">
                         <Grid><label>Select Pain Area</label></Grid>
-                        <PainPoint id="New_id1" gender={this.state.gender} painPoint={this.state.updateTrack && this.state.updateTrack.painPoint ? this.state.updateTrack.painPoint : []} onChange={(e) => this.props.updateEntryState1(e, 'painPoint')} />
+                        <PainPoint id="New_id1" gender={this.state.gender} painPoint={this.state.updateTrack && this.state.updateTrack.painPoint ? this.state.updateTrack.painPoint : []} onChange={(e) => this.updateEntryState1(e, 'painPoint')} />
                     </Grid>
                     <Grid className="fillDia">
-                        <NotesEditor name="remarks" label="Body Scheme Notes"  onChange={(e)=> this.props.updateEntryState1(e, 'remarks')} value={this.state.updateTrack.remarks}/> 
+                        <NotesEditor name="remarks" label="Body Scheme Notes"  onChange={(e)=> this.updateEntryState1(e, 'remarks')} value={this.state.updateTrack.remarks}/> 
                     </Grid>
                     <Grid className="attchForms attchImg">
                         <Grid><label>Attachments</label></Grid>

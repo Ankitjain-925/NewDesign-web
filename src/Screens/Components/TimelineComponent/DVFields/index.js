@@ -25,6 +25,12 @@ class Index extends Component {
 
     }
 
+    updateEntryState1=(value, name)=>{
+        var state= this.state.updateTrack
+        state[name] = value;
+        this.setState({updateTrack: state})
+        this.props.updateEntryState1(value, name)
+    }
     //on adding new data
     componentDidUpdate = (prevProps) => {
         if (prevProps.updateTrack !== this.props.updateTrack) {
@@ -75,17 +81,17 @@ class Index extends Component {
                         <MMHG name="doctor_id" label="Doctor ID" onChange={(e)=> this.props.updateEntryState(e)} value={this.state.updateTrack.doctor_id}/>    
                     </Grid>
                     <Grid className="fillDia">
-                        <SelectField name="specialty" label="Speciality" option={this.state.options} onChange={(e)=> this.props.updateEntryState1(e, 'specialty')} value={this.state.updateTrack.specialty} />    
+                        <SelectField name="specialty" label="Speciality" option={this.state.options} onChange={(e)=> this.updateEntryState1(e, 'specialty')} value={this.state.updateTrack.specialty} />    
                     </Grid>
                   
                     <Grid className="fillDia">
                         <Grid className="rrSysto">
                             <Grid><label>{date_doc_visit}</label></Grid>
-                            <DateFormat name="date_doctor_visit" value={this.state.updateTrack.date_doctor_visit ? new Date(this.state.updateTrack.date_doctor_visit) : new Date()} date_format={this.state.date_format} onChange={(e)=>this.props.updateEntryState1(e, 'date_doctor_visit')}/>
+                            <DateFormat name="date_doctor_visit" value={this.state.updateTrack.date_doctor_visit ? new Date(this.state.updateTrack.date_doctor_visit) : new Date()} date_format={this.state.date_format} onChange={(e)=>this.updateEntryState1(e, 'date_doctor_visit')}/>
                         </Grid>   
                     </Grid>
                     <Grid className="fillDia">
-                        <NotesEditor name="remarks" label="Notes"  onChange={(e)=> this.props.updateEntryState1(e, 'remarks')} value={this.state.updateTrack.remarks}/> 
+                        <NotesEditor name="remarks" label="Notes"  onChange={(e)=> this.updateEntryState1(e, 'remarks')} value={this.state.updateTrack.remarks}/> 
                     </Grid>
                     <Grid className="attchForms attchImg">
                         <Grid><label>{attachments}</label></Grid>

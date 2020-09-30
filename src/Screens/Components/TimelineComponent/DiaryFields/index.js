@@ -21,6 +21,12 @@ class Index extends Component {
 
     }
 
+    updateEntryState1=(value, name)=>{
+        var state= this.state.updateTrack
+        state[name] = value;
+        this.setState({updateTrack: state})
+        this.props.updateEntryState1(value, name)
+    }
     //on adding new data
     componentDidUpdate = (prevProps) => {
         if (prevProps.updateTrack !== this.props.updateTrack) {
@@ -65,7 +71,7 @@ class Index extends Component {
             <div>
                 {!this.props.visibility && <Grid className="cnfrmDiaMain">
                     <Grid className="fillDia">
-                        <NotesEditor name="free_text" label="Notes"  onChange={(e)=> this.props.updateEntryState1(e, 'free_text')} value={this.state.updateTrack.free_text}/> 
+                        <NotesEditor name="free_text" label="Notes"  onChange={(e)=> this.updateEntryState1(e, 'free_text')} value={this.state.updateTrack.free_text}/> 
                     </Grid>
                 </Grid>}
                 <Grid className="infoShwHidMain3upr">
