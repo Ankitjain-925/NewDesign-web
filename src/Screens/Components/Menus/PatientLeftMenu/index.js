@@ -70,7 +70,7 @@ class Index extends Component {
     changeLanguage = (e) => {
         this.setState({ languageValue: e.target.value })
     }
-
+    //For set the language
     SetLanguage = () => {
         this.setState({ loaderImage: true })
         if (!this.state.languageValue) {
@@ -87,7 +87,6 @@ class Index extends Component {
                     'Content-Type': 'application/json'
                 }
             }).then((responce) => {
-                console.log("SetFormat responce", responce)
                 this.setState({ PassDone: true, loaderImage: false })
                 this.props.Settings(this.props.stateLoginValueAim.token);
                 setTimeout(() => { this.setState({ PassDone: false, openFancyLanguage: false }) }, 5000)
@@ -243,7 +242,17 @@ class Index extends Component {
                     open={this.state.openFancyLanguage}
                     onClose={this.handleCloseFancyLanguage}>
                     <Grid className="LanguageBoxMain">
-                        <div className="languageHead">Select Language</div>
+                        <Grid className="nwPresCourse">
+                            <Grid className="nwPresCloseBtn">
+                                <a onClick={this.handleCloseFancyLanguage}>
+                                    <img src={require('../../../../assets/images/closefancy.png')} alt="" title="" />
+                                </a>
+                            </Grid>
+                            <Grid><label>Select Language</label></Grid>
+                        </Grid>
+                        {this.state.PassDone && <div className="success_message">Language is Updated!</div>}
+                        {this.state.languageBlank && <div className="err_message">Language is not selected.</div>}
+                        <div className="languageHead"></div>
                         <Grid className="languageBox">
                             <Grid className="row">
                                 <Grid className="col-sm-6 col-xl-6">
@@ -284,11 +293,12 @@ class Index extends Component {
                                 </Grid>
                             </Grid>
                         </Grid>
-                        <Grid>
-                            <input type="submit" value="Save changes" onClick={this.SetLanguage} />
+                        <Grid className="infoShwHidBrdr2"></Grid>
+                        <Grid className="infoShwHidIner2">
+                            <Grid className="infoShwSave2">
+                                <input type="submit" value="Save changes" onClick={this.SetLanguage} />
+                            </Grid>
                         </Grid>
-                        {this.state.PassDone && <div className="success_message">Language is Updated!</div>}
-                        {this.state.languageBlank && <div className="lng_blank">Language is not selected.</div>}
                     </Grid>
                 </Modal>
             </Grid>
