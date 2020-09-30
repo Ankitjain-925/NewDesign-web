@@ -30,7 +30,12 @@ class Index extends Component {
         if (prevProps.updateTrack !== this.props.updateTrack) {
             this.setState({ updateTrack: this.props.updateTrack })
         }
-
+    }
+    updateEntryState1=(value, name)=>{
+        var state= this.state.updateTrack
+        state[name] = value;
+        this.setState({updateTrack: state})
+        this.props.updateEntryState1(value, name)
     }
 
     render() {
@@ -84,14 +89,14 @@ class Index extends Component {
                     <Grid className="fillDia">
                         <Grid className="rrSysto">
                             <Grid><label>{date_of_vaccination}</label></Grid>
-                            <DateFormat name="data_of_vaccination" value={this.state.updateTrack.date_measured ? new Date(this.state.updateTrack.date_measured) : new Date()} date_format={this.state.date_format} onChange={(e)=>this.props.updateEntryState1(e, 'data_of_vaccination')}/>
+                            <DateFormat name="data_of_vaccination" value={this.state.updateTrack.date_measured ? new Date(this.state.updateTrack.date_measured) : new Date()} date_format={this.state.date_format} onChange={(e)=>this.updateEntryState1(e, 'data_of_vaccination')}/>
                         </Grid>   
                     </Grid>
                     <Grid className="fillDia">
-                        <TimeTaken name="reminder_time_taken" label={reminder_time_taken} time_format={this.state.time_format} onChange={(e)=> this.props.updateEntryState1(e, 'reminder_time_taken')} timeArray={this.state.updateTrack.reminder_time_taken} />
+                        <TimeTaken name="reminder_time_taken" label={reminder_time_taken} time_format={this.state.time_format} onChange={(e)=> this.updateEntryState1(e, 'reminder_time_taken')} timeArray={this.state.updateTrack.reminder_time_taken} />
                     </Grid>
                     <Grid className="fillDia">
-                        <NotesEditor name="remarks" label={notes}  onChange={(e)=> this.props.updateEntryState1(e, 'remarks')} value={this.state.updateTrack.remarks}/> 
+                        <NotesEditor name="remarks" label={notes}  onChange={(e)=> this.updateEntryState1(e, 'remarks')} value={this.state.updateTrack.remarks}/> 
                     </Grid>
                     <Grid className="attchForms attchImg">
                         <Grid><label>{attachments}</label></Grid>

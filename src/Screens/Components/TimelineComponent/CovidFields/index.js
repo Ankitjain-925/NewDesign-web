@@ -40,6 +40,13 @@ class Index extends Component {
 
     }
 
+    updateEntryState1=(value, name)=>{
+        var state= this.state.updateTrack
+        state[name] = value;
+        this.setState({updateTrack: state})
+        this.props.updateEntryState1(value, name)
+    }
+    
     render() {
 
         let translate;
@@ -77,7 +84,7 @@ class Index extends Component {
             <div>
                 {!this.props.visibility &&  <Grid className="cnfrmDiaMain">
                     <Grid className="fillDia">
-                        <Temprature name="temprature" name="temprature" valueType={this.state.updateTrack.temprature_type} value={this.state.updateTrack.temprature} Options={this.state.options2} onChange={(e) => this.props.updateEntryState(e)} onChangeType={(e) => this.props.updateEntryState1(e, 'temprature_type')} />
+                        <Temprature name="temprature" name="temprature" valueType={this.state.updateTrack.temprature_type} value={this.state.updateTrack.temprature} Options={this.state.options2} onChange={(e) => this.props.updateEntryState(e)} onChangeType={(e) => this.updateEntryState1(e, 'temprature_type')} />
                     </Grid>
                     <Grid className="fillDia">
                         <MMHG name="saturaion" Unit="%" label="O2 Saturation" onChange={(e) => this.props.updateEntryState(e)} value={this.state.updateTrack.blood_sugar} />
@@ -85,7 +92,7 @@ class Index extends Component {
 
                     <Grid className="fillDia">
                         <Grid><label>{selct_pain_area}</label></Grid>
-                        <PainPoint id="New_id1" gender={this.state.gender} painPoint={this.state.updateTrack && this.state.updateTrack.painPoint ? this.state.updateTrack.painPoint : []} onChange={(e) => this.props.updateEntryState1(e, 'painPoint')} />
+                        <PainPoint id="New_id1" gender={this.state.gender} painPoint={this.state.updateTrack && this.state.updateTrack.painPoint ? this.state.updateTrack.painPoint : []} onChange={(e) => this.updateEntryState1(e, 'painPoint')} />
                     </Grid>
                     <Grid className="fillDia">
                         <PainIntensity name="pains" onChange={(e) => this.props.updateEntryState(e)} value={this.state.updateTrack.pains} />
@@ -94,10 +101,10 @@ class Index extends Component {
                         <Condition name="conditions" onChange={(e) => this.props.updateEntryState(e)} value={this.state.updateTrack.conditions} />
                     </Grid>
                     <Grid className="fillDia">
-                        <SelectField name="country" label="Where you are located" option={this.state.options} onChange={(e) => this.props.updateEntryState1(e, 'country')} value={this.state.updateTrack.country} />
+                        <SelectField name="country" label="Where you are located" option={this.state.options} onChange={(e) => this.updateEntryState1(e, 'country')} value={this.state.updateTrack.country} />
                     </Grid>
                     <Grid className="fillDia">
-                        <NotesEditor name="symptoms" label="Symptoms & Notes" onChange={(e) => this.props.updateEntryState1(e, 'symptoms')} value={this.state.updateTrack.symptoms} />
+                        <NotesEditor name="symptoms" label="Symptoms & Notes" onChange={(e) => this.updateEntryState1(e, 'symptoms')} value={this.state.updateTrack.symptoms} />
                     </Grid>
 
                     <Grid className="attchForms attchImg">

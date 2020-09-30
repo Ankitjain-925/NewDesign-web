@@ -11748,6 +11748,7 @@ a.timSlotClose {
 
 
 /*Added By ankita*/
+.lrlp {margin-top: 9px;}
 .nwDiaSel1 {
     margin-top: 4px;
     margin-left: -4px;
@@ -12137,21 +12138,9 @@ input:focus {
       color: #ffffff;
       background-color:#00abaf;
   }
-  .success_message
-  {
-    padding-bottom: 15px;
-    text-align: center;
-    color: #00abaf !important;
-    font-weight: 900;
-  }
-
-  .success_message.withclose {
-    padding-top: 3%;
-    font-weight: 500!important;
-  }
-
+  
   .appointment .ant-picker{
-    /* border: none; */
+    border: none;
     outline: none;
     padding: 0;
     box-shadow: none;
@@ -12181,22 +12170,6 @@ input:focus {
     box-shadow: 0 24px 32px 0 rgba(0,8,8,0.08);
     margin-top: 35px;
     position: absolute !important;
-}
-
-.LanguageBoxMain input[type="submit"] {
-    border-radius: 8px;
-    background-color: #00ABAF;
-    color: #FFFFFF;
-    font-family: Muli;
-    font-size: 14px;
-    font-weight: bold;
-    letter-spacing: 0;
-    line-height: 16px;
-    text-align: center;
-    padding: 13px 5px;
-    outline: none !important;
-    margin-left: 35%;
-    margin-bottom: 5px;
 }
 
 .LanguageBoxMain label{

@@ -31,6 +31,13 @@ class Index extends Component {
 
     }
 
+    updateEntryState1=(value, name)=>{
+        var state= this.state.updateTrack
+        state[name] = value;
+        this.setState({updateTrack: state})
+        this.props.updateEntryState1(value, name)
+    }
+
     render() {
 
         let translate;
@@ -68,22 +75,23 @@ class Index extends Component {
             <div>
                 {!this.props.visibility && <Grid className="cnfrmDiaMain">
                     <Grid className="fillDia">
-                        <SelectField name="smoking_status" label={smoking_status} option={this.state.options} onChange={(e)=> this.props.updateEntryState1(e, 'smoking_status')} value={this.state.updateTrack.smoking_status} />
+                        <SelectField name="smoking_status" label={smoking_status} option={this.state.options} onChange={(e)=> this.updateEntryState1(e, 'smoking_status')} value={this.state.updateTrack.smoking_status} />
                     </Grid>
-                    
+                    {(!this.state.updateTrack.smoking_status || (this.state.updateTrack.smoking_status && this.state.updateTrack.smoking_status.value !=='Never_smoked')) &&
                     <div>
                         <Grid className="rrSysto">
+                            {console.log('this.state.updateTrack', this.state.updateTrack)}
                             <Grid><label>{from} {when}</label></Grid>
-                            <DateFormat name="from_when" value={this.state.updateTrack.from_when ? new Date(this.state.updateTrack.from_when) : new Date()} date_format={this.state.date_format} onChange={(e)=>this.props.updateEntryState1(e, 'from_when')}/>
+                            <DateFormat name="from_when" value={this.state.updateTrack.from_when ? new Date(this.state.updateTrack.from_when) : new Date()} date_format={this.state.date_format} onChange={(e)=>this.updateEntryState1(e, 'from_when')}/>
                         </Grid> 
                         <Grid className="rrSysto">
                             <Grid><label>{until} {when}</label></Grid>
-                            <DateFormat name="until_when" value={this.state.updateTrack.until_when ? new Date(this.state.updateTrack.until_when) : new Date()} date_format={this.state.date_format} onChange={(e)=>this.props.updateEntryState1(e, 'until_when')}/>
+                            <DateFormat name="until_when" value={this.state.updateTrack.until_when ? new Date(this.state.updateTrack.until_when) : new Date()} date_format={this.state.date_format} onChange={(e)=>this.updateEntryState1(e, 'until_when')}/>
                         </Grid>
-                    </div>   
+                    </div>}   
                     
                     <Grid className="fillDia">
-                        <NotesEditor name="remarks" label={notes}  onChange={(e)=> this.props.updateEntryState1(e, 'remarks')} value={this.state.updateTrack.remarks}/> 
+                        <NotesEditor name="remarks" label={notes}  onChange={(e)=> this.updateEntryState1(e, 'remarks')} value={this.state.updateTrack.remarks}/> 
                     </Grid>
                 </Grid>}
                 

@@ -23,6 +23,12 @@ class Index extends Component {
         };
     }
 
+    updateEntryState1=(value, name)=>{
+        var state= this.state.updateTrack
+        state[name] = value;
+        this.setState({updateTrack: state})
+        this.props.updateEntryState1(value, name)
+    }
     componentDidMount = () => {
 
     }
@@ -75,7 +81,7 @@ class Index extends Component {
                         <MMHG name="value" label={enter_value} onChange={(e)=> this.props.updateEntryState(e)} value={this.state.updateTrack.value}/>    
                     </Grid>
                     <Grid className="fillDia">
-                        <SelectField name="unit" label={unit} option={this.state.lrpUnit} onChange={(e)=> this.props.updateEntryState1(e, 'unit')} value={this.state.updateTrack.unit} />    
+                        <SelectField name="unit" label={unit} option={this.state.lrpUnit} onChange={(e)=> this.updateEntryState1(e, 'unit')} value={this.state.updateTrack.unit} />    
                     </Grid>
                     <Grid className="fillDia">
                         <MMHG name="upper_limit" Unit= "mg/dl" label={upr_limit} onChange={(e)=> this.props.updateEntryState(e)} value={this.state.updateTrack.upper_limit}/>    
@@ -84,18 +90,18 @@ class Index extends Component {
                         <MMHG name="lower_limit" Unit= "mg/dl" label={lwr_limit}  onChange={(e)=> this.props.updateEntryState(e)} value={this.state.updateTrack.lower_limit} />    
                     </Grid>
                     <Grid className="fillDia">
-                        <SelectField name="lab_parameter" label={lab_parameter} option={this.state.lrpEnglish} onChange={(e)=> this.props.updateEntryState1(e, 'lab_parameter')} value={this.state.updateTrack.lab_parameter} />    
+                        <SelectField name="lab_parameter" label={lab_parameter} option={this.state.lrpEnglish} onChange={(e)=> this.updateEntryState1(e, 'lab_parameter')} value={this.state.updateTrack.lab_parameter} />    
                     </Grid>
                     <Grid className="fillDia">
                         <Grid className="rrSysto">
                             <Grid><label>{date_measure}</label></Grid>
-                            <DateFormat name="date_measured" value={this.state.updateTrack.date_measured ? new Date(this.state.updateTrack.date_measured) : new Date()} date_format={this.state.date_format} onChange={(e)=>this.props.updateEntryState1(e, 'date_measured')}/>
+                            <DateFormat name="date_measured" value={this.state.updateTrack.date_measured ? new Date(this.state.updateTrack.date_measured) : new Date()} date_format={this.state.date_format} onChange={(e)=>this.updateEntryState1(e, 'date_measured')}/>
                         </Grid>   
                     </Grid>
                     <Grid className="fillDia">
                         <Grid className="rrSysto">
                             <Grid><label>{time_measure}</label></Grid>
-                            <TimeFormat name="time_measured" value={this.state.updateTrack.time_measured ? new Date(this.state.updateTrack.time_measured) : new Date()} time_format={this.state.time_format} onChange={(e)=>this.props.updateEntryState1(e, 'time_measured')}/>
+                            <TimeFormat name="time_measured" value={this.state.updateTrack.time_measured ? new Date(this.state.updateTrack.time_measured) : new Date()} time_format={this.state.time_format} onChange={(e)=>this.updateEntryState1(e, 'time_measured')}/>
                         </Grid>
                     </Grid>
                     <Grid className="attchForms attchImg">

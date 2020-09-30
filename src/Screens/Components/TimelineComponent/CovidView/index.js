@@ -6,7 +6,8 @@ import FileViews from './../FileViews/index';
 import Condition from './../../Condition/index';
 import PainPoint from './../../PointPain/index';
 import PainIntensity from './../../PainIntansity/index';
-import { getDate, newdate, getTime } from './../../BasicMethod/index';
+import { getDate, newdate, getTime, getImage } from './../../BasicMethod/index';
+
 
 class Index extends Component {
     constructor(props) {
@@ -91,7 +92,8 @@ class Index extends Component {
                         <Grid container direction="row" className="addSpc conPain_Cntnt">
                             <Grid item xs={12} md={5}>
                                 <Grid className="conPain_Img">
-                                    <a><img src={require('../../../../assets/images/person1.jpg')} alt="" title="" />
+                                    <a><img src={getImage(item.created_by_image, this.state.images)} alt="" title="" />
+
                                         <span>{item.created_by_temp}</span>
                                     </a>
                                 </Grid>

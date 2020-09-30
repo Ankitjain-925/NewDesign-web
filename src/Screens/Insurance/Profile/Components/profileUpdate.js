@@ -450,20 +450,6 @@ class Index extends Component {
                 'Content-Type': 'application/json'
             }
         }).then((response) => {
-            var find =response.data && response.data.data &&response.data.data.image
-            if(find)
-            {
-                find = find.split('.com/')[1]
-        
-                axios.get(sitedata.data.path + '/aws/sign_s3?find='+find,)
-                .then((response) => {
-                    if(response.data.hassuccessed)
-                    {
-                        this.setState({image:response.data.data})
-                    }
-                })
-            }
-            
             var title = {}, titlefromD = response.data.data.title;
             var language = [], languagefromD = response.data.data.language;
             if (languagefromD && languagefromD.length > 0) {
@@ -509,12 +495,31 @@ class Index extends Component {
                 insuranceDetails: { insurance: '', insurance_number: '', insurance_type: '' }
             })
             datas = this.state.UpDataDetails.insurance;
-            this.setState({ loaderImage: false });
+            var find =response.data && response.data.data &&response.data.data.image
+            this.SettingImage(find);
         }).catch((error) => {
             this.setState({ loaderImage: false });
         });
     }
 
+    //For setting the image
+    SettingImage =(find)=> {
+        if(find)
+        {
+            find = find.split('.com/')[1]
+            axios.get(sitedata.data.path + '/aws/sign_s3?find='+find,)
+            .then((response) => {
+                if(response.data.hassuccessed)
+                {
+                    this.setState({image:response.data.data})
+setTimeout(()=> {
+        this.setState({ loaderImage: false });
+   }, 5000
+);
+                }
+            })
+        }
+    }
     //Update the State
     updateEntryState = (e) => {
         const state = this.state.UpDataDetails;
@@ -542,9 +547,8 @@ class Index extends Component {
         state["city"] = place.formatted_address;
         this.setState({ UpDataDetails: state });
     }
-  
-    //FOR UPLOADING THE IMAGE
-    saveUserData1(){
+      //FOR UPLOADING THE IMAGE
+      saveUserData1=()=>{
         this.setState({ loaderImage: true });
         const user_token = this.props.stateLoginValueAim.token;
         axios.put(sitedata.data.path+'/UserProfile/Users/updateImage', {
@@ -555,8 +559,8 @@ class Index extends Component {
                 'Content-Type': 'application/json'
             }})
             .then((responce)=>{
-                this.setState({ loaderImage: false });
-                this.getUserData();
+                var find1 =  this.state.uploadedimage;
+                this.SettingImage(find1);  
         })
     }
 

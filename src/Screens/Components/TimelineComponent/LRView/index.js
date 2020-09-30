@@ -3,7 +3,7 @@ import Grid from '@material-ui/core/Grid';
 import Collapsible from 'react-collapsible';
 import FileViews from './../FileViews/index';
 import ReactTooltip from "react-tooltip";
-import { getDate, newdate, getTime } from './../../BasicMethod/index';
+import { getDate, newdate, getTime, getImage } from './../../BasicMethod/index';
 
 class Index extends Component {
     constructor(props) {
@@ -89,7 +89,8 @@ class Index extends Component {
                         <Grid container direction="row" className="addSpc bpJohnMain">
                             <Grid item xs={12} md={12}>
                                 <Grid className="bpJohnImg">
-                                    <a><img src={require('../../../../assets/images/person1.jpg')} alt="" title="" />
+                                    <a><img src={getImage(item.created_by_image, this.state.images)} alt="" title="" />
+
                                         <span>{item.created_by_temp}</span>
                                     </a>
                                 </Grid>
@@ -125,7 +126,7 @@ class Index extends Component {
                                         <Grid item xs={12} md={6} className="bloodPreBy">
                                             <Grid container direction="row">
                                                 <Grid item xs={5} md={5}><label>Loboratory Parameter</label></Grid>
-                                                <Grid item xs={7} md={7}><span>{item.lab_parameter && item.lab_parameter.label}</span></Grid>
+                                                <Grid item xs={7} md={7} className="lrlp"><span>{item.lab_parameter && item.lab_parameter.label}</span></Grid>
                                                 <Grid className="clear"></Grid>
                                             </Grid>
                                         </Grid>
