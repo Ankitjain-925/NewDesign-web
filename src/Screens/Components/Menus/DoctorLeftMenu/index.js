@@ -17,6 +17,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import sitedata from '../../../../sitedata';
 import axios from 'axios';
+import PharamacyModal from './../../../Doctor/PharamacyInfo/index.js'
 
 const createOption = (label) => ({
     label,
@@ -39,8 +40,8 @@ class Index extends Component {
             openPharma: false,
             inputValue: '',
             value: [],
-            UpDataDetails:[],
-            invitation:{}
+            UpDataDetails: [],
+            invitation: {}
         };
         new Timer(this.logOutClick.bind(this))
     }
@@ -64,44 +65,44 @@ class Index extends Component {
             }
         }).then((response) => {
             this.setState({ loaderImage: false });
-            
-            this.setState({ UpDataDetails: response.data.data, city: response.data.data.city, area: response.data.data.area, profile_id : response.data.data.profile_id});
-            
-           
+
+            this.setState({ UpDataDetails: response.data.data, city: response.data.data.city, area: response.data.data.area, profile_id: response.data.data.profile_id });
+
+
         }).catch((error) => {
             this.setState({ loaderImage: false });
         });
     }
 
     sentmail = () => {
-        const {invitation} = this.state
-        console.log("invitation", invitation)
-            this.setState({ loaderImage: true, nv: false });
-            let user_token = this.props.stateLoginValueAim.token
-            // axios.post(sitedata.data.path + '/UserProfile/AskPatient1/' + this.state.invitation.emails, {
-            //     email: this.state.invitation.emails,
-            //     message: this.state.invitation.messages,
-            //     first_name: this.state.UpDataDetails.first_name ? this.state.UpDataDetails.first_name : '',
-            //     last_name: this.state.UpDataDetails.last_name ? this.state.UpDataDetails.last_name : '',
-            //     lan: this.props.stateLanguageType
-            // }, {
-            //     headers: {
-            //         'token': user_token,
-            //         'Accept': 'application/json',
-            //         'Content-Type': 'application/json'
-            //     }
-            // }).then((response) => {
-            //     this.setState({ loaderImage: false });
-            //     this.setState({ sentmessages: true });
-            //     setTimeout(
-            //         function () {
-            //             this.setState({ sentmessages: false });
-            //         }
-            //             .bind(this),
-            //         3000
-            //     );
-            // })
-        
+        const { invitation } = this.state
+
+        this.setState({ loaderImage: true, nv: false });
+        let user_token = this.props.stateLoginValueAim.token
+        axios.post(sitedata.data.path + '/UserProfile/AskPatient1/' + this.state.invitation.emails, {
+            email: this.state.invitation.emails,
+            message: this.state.invitation.messages,
+            first_name: this.state.UpDataDetails.first_name ? this.state.UpDataDetails.first_name : '',
+            last_name: this.state.UpDataDetails.last_name ? this.state.UpDataDetails.last_name : '',
+            lan: this.props.stateLanguageType
+        }, {
+            headers: {
+                'token': user_token,
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        }).then((response) => {
+            this.setState({ loaderImage: false });
+            this.setState({ sentmessages: true });
+            setTimeout(
+                function () {
+                    this.setState({ sentmessages: false });
+                }
+                    .bind(this),
+                3000
+            );
+        })
+
     }
 
     validateEmail = (elementValue) => {
@@ -116,18 +117,27 @@ class Index extends Component {
         this.setState({ openInvt: false });
     };
 
+    handleOpenPharma = () => {
+        this.setState({ openPharma: true });
+    };
+    handleClosePharma = () => {
+        this.setState({ openPharma: false });
+    };
+
     handleChange = (value, actionMeta) => {
         var state = this.state.invitation;
-        if(value){value.map(data=>{
-            if(state['emails'])state['emails'].push(data.value)
-            else state['emails'] = [data.value]
-        })}
-        else{
+        if (value) {
+            value.map(data => {
+                if (state['emails']) state['emails'].push(data.value)
+                else state['emails'] = [data.value]
+            })
+        }
+        else {
             state['emails'] = []
         }
         console.log("value", value)
         // if(state['emails']){state['emails'] = value}
-        
+
         this.setState({ value, invitation: state });
     };
 
@@ -149,14 +159,14 @@ class Index extends Component {
             case 'Tab':
                 if (this.validateEmail(inputValue)) {
                     var state = this.state.invitation;
-                    if(state['emails']){state['emails'] = [...state['emails'], ...[inputValue]]}
-                    else {state['emails'] = [inputValue]};
-                    
+                    if (state['emails']) { state['emails'] = [...state['emails'], ...[inputValue]] }
+                    else { state['emails'] = [inputValue] };
+
                     this.setState({
                         invitation: state,
                         nv: false,
                         inputValue: '',
-                        value: [...value,  createOption(inputValue)],
+                        value: [...value, createOption(inputValue)],
                     });
                 }
                 else {
@@ -165,14 +175,6 @@ class Index extends Component {
                 event.preventDefault();
         }
     };
-
-    handleOpenPharma = () => {
-        this.setState({ openPharma: true });
-    };
-    handleClosePharma = () => {
-        this.setState({ openPharma: false });
-    };
-
 
     //For logout the User
     logOutClick = () => {
@@ -189,7 +191,7 @@ class Index extends Component {
     }
     //For My Document
     MyDocument = () => {
-        this.props.history.push('/doctor/mydocument');
+        this.props.history.push('/doctor/inquiries');
     }
 
     //For My Profile
@@ -213,11 +215,11 @@ class Index extends Component {
                 </Grid>
                 <Grid className="menuItems">
                     <ul>
-                        <li className={this.props.currentPage === 'jounral' ? "menuActv" : ""}>
-                            <a onClick={this.Service}>
-                                {this.props.currentPage === 'jounral' ? <img src={require('../../../../assets/images/nav-journal.svg')} alt="" title="" />
-                                    : <img src={require('../../../../assets/images/nav-journal.svg')} alt="" title="" />}
-                                <span>Journal</span>
+                        <li className={this.props.currentPage === 'appointment' ? "menuActv" : ""}>
+                            <a onClick={this.Appointment}>
+                                {this.props.currentPage === 'appointment' ? <img src={require('../../../../assets/images/appointActive.png')} alt="" title="" />
+                                    : <img src={require('../../../../assets/images/nav-appointments.svg')} alt="" title="" />}
+                                <span>Appointments</span>
                             </a>
                         </li>
                         <li className={this.props.currentPage === 'chat' ? "menuActv" : ""}>
@@ -234,24 +236,18 @@ class Index extends Component {
                                 <span>Patients</span>
                             </a>
                         </li>
-                        <li className={this.props.currentPage === 'appointment' ? "menuActv" : ""}>
-                            <a onClick={this.Appointment}>
-                                {this.props.currentPage === 'appointment' ? <img src={require('../../../../assets/images/nav-appointments.svg')} alt="" title="" />
-                                    : <img src={require('../../../../assets/images/nav-appointments.svg')} alt="" title="" />}
-                                <span>Appointments</span>
-                            </a>
-                        </li><li className={this.props.currentPage === 'mydocument' ? "menuActv" : ""}>
+                        <li className={this.props.currentPage === 'inquiries' ? "menuActv" : ""}>
                             <a onClick={this.MyDocument}>
-                                {this.props.currentPage === 'mydocument' ? <img src={require('../../../../assets/images/nav-my-documents-inquiries.svg')} alt="" title="" />
+                                {this.props.currentPage === 'inquiries' ? <img src={require('../../../../assets/images/activeDocs.png')} alt="" title="" />
                                     : <img src={require('../../../../assets/images/nav-my-documents-inquiries.svg')} alt="" title="" />}
-                                <span>My Documents</span>
+                                <span>Inquiries</span>
                             </a>
                         </li>
                         <li className={this.props.currentPage === 'tracker' ? "menuActv" : ""}>
                             <a onClick={this.Service}>
                                 {this.props.currentPage === 'tracker' ? <img src={require('../../../../assets/images/nav-trackers.svg')} alt="" title="" />
                                     : <img src={require('../../../../assets/images/nav-trackers.svg')} alt="" title="" />}
-                                <span>Trackers & <br /> Self Data</span>
+                                <span>Emergency Access</span>
                             </a>
                         </li>
                         <li>
@@ -261,7 +257,7 @@ class Index extends Component {
                                 <div className="moreMenuList">
                                     <ul>
                                         <li><a onClick={this.handleOpenInvt}><img src={require('../../../../assets/images/menudocs.jpg')} alt="" title="" />Invite Doctors</a></li>
-                                        <li><a onClick={this.handleOpenPharma}><img src={require('../../../../assets/images/menudocs.jpg')} alt="" title="" />Pharmacy Prescription</a></li>
+                                        <li className="doctor-menu"><a onClick={this.handleOpenPharma}><img src={require('../../../../assets/images/menudocs.jpg')} alt="" title="" />Pharmacy Prescription</a></li>
                                     </ul>
                                 </div>
                             </a>
@@ -321,73 +317,14 @@ class Index extends Component {
                                 ></textarea></Grid>
                             </Grid>
                             <Grid className="invitLinkSub">
-                                <input type="submit" value="Send invites" onClick={this.sentmail}/>
+                                <input type="submit" value="Send invites" onClick={this.sentmail} />
                             </Grid>
                         </Grid>
                     </Grid>
                 </Modal>
                 {/* End of Model setup */}
                 {/* Pharmacy Prescription */}
-                <Modal
-                    open={this.state.openPharma}
-                    onClose={this.handleClosePharma}>
-                    <Grid className="phrmBoxCntnt">
-                        <Grid className="phrmCourse">
-                            <Grid className="phrmCloseBtn">
-                                <a onClick={this.handleClosePharma}>
-                                    <img src={require('../../../../assets/images/closefancy.png')} alt="" title="" />
-                                </a>
-                            </Grid>
-                            <Grid><label>Pharmacy Prescription</label></Grid>
-                            <p>Send prescriptions to pharmacies</p>
-                        </Grid>
-                        <Grid className="phrmLinkUpr">
-                            <Grid className="upScanForms upScanImg">
-                                <Grid><label>Upload scanned prescriptions</label></Grid>
-                                <Grid className="upScanInput">
-                                    <a><img src={require('../../../../assets/images/upload-file.svg')} alt="" title="" /></a>
-                                    <a>Browse <input type="file" /></a> or drag here
-                                                                        </Grid>
-                                <p>Supported file types: .jpg, .png, .pdf</p>
-                            </Grid>
-                            <Grid className="scanInputs">
-                                <Grid><label>Patient ID</label></Grid>
-                                <Grid><input type="text" /></Grid>
-                            </Grid>
-                            <Grid className="scanInputs">
-                                <Grid><label>Pharmacy</label></Grid>
-                                <Grid className="scanInputPhrm">
-                                    <input type="text" placeholder="Search Pharmacy by name or ID" />
-                                    <img src={require('../../../../assets/images/srchInputField.svg')} alt="" title="" />
-                                </Grid>
-                            </Grid>
-                            <Grid className="scanInputs">
-                                <Grid><label>Show Pharmacies within my radius of</label></Grid>
-                                <Grid className="scanInputKm">
-                                    <input type="text" /><span>km</span>
-                                </Grid>
-                            </Grid>
-                            <Grid className="scanInputs shrtMsgOpt">
-                                <Grid><label>Short message (optional)</label></Grid>
-                                <Grid><textarea></textarea></Grid>
-                            </Grid>
-                            <Grid className="jurnlTatent">
-                                <FormControlLabel
-                                    control={
-                                        <Checkbox
-                                            value="checkedB"
-                                            color="#00ABAF"
-                                        />
-                                    }
-                                    label="Add this to Patient Journal"
-                                />
-                            </Grid>
-                            <Grid className="scanInputsSub">
-                                <input type="submit" value="Send invites" />
-                            </Grid>
-                        </Grid>
-                    </Grid>
-                </Modal>
+                <PharamacyModal openPharma={this.state.openPharma} handleOpenPharma={this.handleOpenPharma} handleClosePharma={this.handleClosePharma} />
                 {/* End of Pharmacy Prescription */}
 
             </Grid>

@@ -13,6 +13,8 @@ import * as translationEN from '../../../../translations/en_json_proofread_13072
 
 import { Editor } from 'react-draft-wysiwyg';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+import { EditorState, convertToRaw } from 'draft-js';
+import draftToHtml from 'draftjs-to-html';
 const weOfferOptions = [
     { value: 'Service name', label: 'Service name' },
     { value: 'Service name', label: 'Service name' },
@@ -31,11 +33,14 @@ class Index extends Component {
             PassDone: false,
             dateF: {},
             timeF: {},
+            UpDataDetails:{},
+            editorState: EditorState.createEmpty()
         };
         // new Timer(this.logOutClick.bind(this)) 
     }
 
     componentDidMount = () => {
+        this.getUserData()
         this.getSetting()
     }
 
@@ -66,25 +71,101 @@ class Index extends Component {
         this.setState({ Format: state })
     }
 
-    //For Set Format
-    SetFormat = () => {
-        this.setState({ loaderImage: true })
-        axios.put(sitedata.data.path + '/UserProfile/updateSetting', {
-            date_format: this.state.Format.date_format,
-            time_format: this.state.Format.time_format,
-            user_id: this.props.LoggedInUser._id,
-            user_profile_id: this.props.LoggedInUser.profile_id,
-        }, {
+    getUserData() {
+        this.setState({ loaderImage: true, UpDataDetails: {} });
+        let user_token = this.props.stateLoginValueAim.token
+        let user_id = this.props.stateLoginValueAim.user._id
+        axios.get(sitedata.data.path + '/UserProfile/Users/' + user_id, {
             headers: {
-                'token': this.props.user_token,
+                'token': user_token,
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             }
-        }).then((responce) => {
-            this.setState({ PassDone: true, loaderImage: false })
-            this.props.Settings(this.props.user_token);
-            setTimeout(() => { this.setState({ PassDone: false }) }, 5000)
-        })
+        }).then((response) => {
+            this.setState({ loaderImage: false });
+            var title, titlefromD = response.data.data.title;
+            if( titlefromD && titlefromD !== "")
+            {
+                title = response.data.data.title.split(", ");
+            }
+            else
+            {
+                title = [];
+            }
+            if(response.data.data.mobile && response.data.data.mobile !== '')
+            {
+                let mob = response.data.data.mobile.split("-");
+                if(mob && mob.length>0)
+                {
+                    this.setState({flag_mobile : mob[0]})
+                }
+            }
+            if(response.data.data.phone && response.data.data.phone !== '')
+            {
+                let pho = response.data.data.phone.split("-");
+                if(pho && pho.length>0)
+                {
+                    this.setState({flag_phone : pho[0]})
+                }
+            }
+            if(response.data.data.fax && response.data.data.fax !== '')
+            {
+                let fx = response.data.data.fax.split("-");
+                if(fx && fx.length>0)
+                {
+                    this.setState({flag_fax : fx[0]})
+                }
+            }
+            this.setState({ UpDataDetails: response.data.data, city: response.data.data.city, area: response.data.data.area, profile_id : response.data.data.profile_id});
+            this.setState({ speciality_multi: this.state.UpDataDetails.speciality })
+            this.setState({ subspeciality_multi: this.state.UpDataDetails.subspeciality })
+            this.setState({ name_multi: this.state.UpDataDetails.language })
+            this.setState({ birthday: response.data.data.birthday, title : title })
+            
+            if (response.data.data.practice_image) {
+                var find = response.data.data && response.data.data.practice_image && response.data.data.practice_image
+                if(find)
+                {
+                    this.setState({uploadedimage : response.data.data.practice_image})
+                    find = find.split('.com/')[1]
+                    axios.get(sitedata.data.path + '/aws/sign_s3?find='+find,)
+                    .then((response) => {
+                        if(response.data.hassuccessed)
+                        {
+                            this.setState({uploadedimage1:response.data.data})
+                        }
+                    })
+                }
+                //  this.setState({ uploadedimage: response.data.data.image })
+            }
+            if (response.data.data.we_offer) {
+                this.setState({ weoffer: response.data.data.we_offer })
+            }
+        }).catch((error) => {
+            this.setState({ loaderImage: false });
+        });
+    }
+
+
+    updateEntryState = (e) => {
+        const state = this.state.UpDataDetails;
+        if (e.target.name === 'is2fa') {
+            state[e.target.name] = e.target.checked;
+        }
+        else {
+            state[e.target.name] = e.target.value;
+        }
+        this.setState({ UpDataDetails: state });
+    }
+        
+    onEditorStateChange = (editorState) => {
+        const state = this.state.UpDataDetails;
+        state['weoffer_text']= draftToHtml(convertToRaw(editorState.getCurrentContent()))
+        console.log("e", editorState)
+        this.setState({
+            editorState,
+            UpDataDetails:state
+          });
     }
 
     render() {
@@ -118,7 +199,7 @@ class Index extends Component {
                 translate = translationEN.text
         }
         let { date, time, format, set_the_default, the, is, updated, save_change } = translate
-        const { selectedOption } = this.state;
+        const { selectedOption, editorState } = this.state;
         return (
             <div>
                 {this.state.loaderImage && <Loader />}
@@ -149,9 +230,11 @@ class Index extends Component {
                             <label>Latest information</label>
                             <Grid className="latstInfoEditor">
                                 <Editor
+                                    editorState={editorState}
                                     toolbarClassName="toolbarClassName"
                                     wrapperClassName="wrapperClassName"
                                     editorClassName="editorClassName"
+                                    onEditorStateChange={this.onEditorStateChange}
                                 />
                             </Grid>
                         </Grid>

@@ -149,8 +149,8 @@ class Index extends Component {
                         <Grid item xs={12} md={12}>
                             <Grid container direction="row">
                                 {/* Website Menu */}
-                                <LeftMenu isNotShow={true} currentPage="documents" />
-                                <LeftMenuMobile isNotShow={true} currentPage="documents" />
+                                <LeftMenu isNotShow={true} currentPage="appointment" />
+                                <LeftMenuMobile isNotShow={true} currentPage="appointment" />
                                 {/* End of Website Menu */}
 
                                 <Grid item xs={12} md={11}>

@@ -12,11 +12,11 @@ import sitedata, { data } from '../../../../sitedata';
 import axios from 'axios';
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { LoginReducerAim } from './../../../Login/actions';
-import { Settings } from './../../../Login/setting';
+import { LoginReducerAim } from '../../../Login/actions';
+import { Settings } from '../../../Login/setting';
 import { confirmAlert } from 'react-confirm-alert'; // Import
-import { LanguageFetchReducer } from './../../../actions';
-import { getDate, getImage } from './../../../Components/BasicMethod/index';
+import { LanguageFetchReducer } from '../../../actions';
+import { getDate, getImage } from '../../../Components/BasicMethod/index';
 import * as translationEN from '../../../../translations/en_json_proofread_13072020.json';
 // import * as translationDE from '../../../translations/de_json_proofread_13072020.json';
 function TabContainer(props) {
