@@ -6,8 +6,16 @@ import { connect } from "react-redux";
 import { LoginReducerAim } from '../Login/actions';
 import Grid from '@material-ui/core/Grid';
 import { authy } from '../Login/authy.js';
-import * as translationEN from '../../translations/en_json_proofread_13072020.json';
+// import * as translationEN from '../../translations/en_json_proofread_13072020.json';
 
+import * as translationEN from '../../translations/en.json';
+import * as translationDE from '../../translations/de';
+import * as translationSP from '../../translations/sp.json';
+import * as translationCH from '../../translations/ch';
+import * as translationPT from '../../translations/pt';
+import * as translationRS from '../../translations/rs';
+import * as translationNL from '../../translations/nl';
+import * as translationSW from '../../translations/sw';
 import {
     NavLink,
     UncontrolledDropdown,
@@ -49,6 +57,11 @@ class Index extends Component {
     }
     componentDidMount = () => {
 
+    }
+    
+    changeValue(languageType, language) {
+        this.setState({ dropDownValue: language });
+        this.props.LanguageFetchReducer(languageType);
     }
 
     //send the email on email id for the reset password
@@ -108,31 +121,31 @@ class Index extends Component {
             case "en":
                 translate = translationEN.text
                 break;
-            // case "de":
-            //     translate = translationDE.text
-            //     break;
-            // case "pt":
-            //     translate = translationPT.text
-            //     break;
-            // case "sp":
-            //     translate = translationSP.text
-            //     break;
-            // case "rs":
-            //     translate = translationRS.text
-            //     break;
-            // case "nl":
-            //     translate = translationNL.text
-            //     break;
-            // case "ch":
-            //     translate = translationCH.text
-            //     break;
-            // case "sw":
-            //     translate = translationSW.text
-            //     break;
+            case "de":
+                translate = translationDE.text
+                break;
+            case "pt":
+                translate = translationPT.text
+                break;
+            case "sp":
+                translate = translationSP.text
+                break;
+            case "rs":
+                translate = translationRS.text
+                break;
+            case "nl":
+                translate = translationNL.text
+                break;
+            case "ch":
+                translate = translationCH.text
+                break;
+            case "sw":
+                translate = translationSW.text
+                break;
             case "default":
                 translate = translationEN.text
         }
-        let { email, forget_password, plz_enter_valid_email } = translate
+        let { Register_email, forget_password, plz_enter_valid_email } = translate
 
         return (
             <Grid>
@@ -152,13 +165,14 @@ class Index extends Component {
                                                     {this.state.dropDownValue}
                                                 </DropdownToggle>
                                                 <DropdownMenu className="changeLangIner">
-                                                    <DropdownItem><NavLink>Nederlands - NL</NavLink></DropdownItem>
-                                                    <DropdownItem><NavLink>German (Deutsch)</NavLink></DropdownItem>
-                                                    <DropdownItem><NavLink>Chinese</NavLink></DropdownItem>
-                                                    <DropdownItem><NavLink>Portuguese (Portugues)</NavLink></DropdownItem>
-                                                    <DropdownItem><NavLink>Spanish (Espanol)</NavLink></DropdownItem>
-                                                    <DropdownItem><NavLink>Russian</NavLink></DropdownItem>
-                                                    <DropdownItem><NavLink>Swahili</NavLink></DropdownItem>
+                                                    <DropdownItem onClick={() => { this.changeValue('en', "English") }}><NavLink>English</NavLink></DropdownItem>
+                                                    <DropdownItem onClick={() => { this.changeValue('de', "German") }}><NavLink>German</NavLink></DropdownItem>
+                                                    <DropdownItem onClick={() => { this.changeValue('ch', "Chinese") }}><NavLink>Chinese</NavLink></DropdownItem>
+                                                    <DropdownItem onClick={() => { this.changeValue('pt', "Portuguese") }}><NavLink>Portuguese</NavLink></DropdownItem>
+                                                    <DropdownItem onClick={() => { this.changeValue('sp', "Spanish") }}><NavLink>Spanish</NavLink></DropdownItem>
+                                                    <DropdownItem onClick={() => { this.changeValue('rs', "Russian") }}><NavLink>Russian</NavLink></DropdownItem>
+                                                    <DropdownItem onClick={() => { this.changeValue('sw', "Swahili") }}><NavLink>Swahili</NavLink></DropdownItem>
+                                                    <DropdownItem onClick={() => { this.changeValue('nl', "Dutch") }}><NavLink>Dutch</NavLink></DropdownItem>
                                                 </DropdownMenu>
                                             </UncontrolledDropdown>
                                         </Grid>
@@ -184,7 +198,7 @@ class Index extends Component {
                                     <div className="success_message">{this.state.successMsgText}</div>}
                                 {this.state.emailValid === false ? plz_enter_valid_email : ''}
                                 <Grid className="logRow">
-                                    <Grid><label>{email}</label></Grid>
+                                    <Grid><label>{Register_email}</label></Grid>
                                     <Grid><input type="text"
                                         value={this.state.inputEmail} onChange={e => this.handleChange('inputEmail', e.target.value)} /></Grid>
                                 </Grid>

@@ -17,11 +17,14 @@ import {
 } from 'reactstrap';
 import sitedata from '../../sitedata';
 
-import * as translationEN from '../../translations/en';
+import * as translationEN from '../../translations/en.json';
 import * as translationDE from '../../translations/de';
-import * as translationES from '../../translations/es';
+import * as translationSP from '../../translations/sp.json';
 import * as translationCH from '../../translations/ch';
 import * as translationPT from '../../translations/pt';
+import * as translationRS from '../../translations/rs';
+import * as translationNL from '../../translations/nl';
+import * as translationSW from '../../translations/sw';
 
 const path = sitedata.data.path + '/UserProfile';
 var letter = /([a-zA-Z])+([ -~])*/, number = /\d+/, specialchar = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
@@ -55,6 +58,11 @@ class Index extends Component {
             [input]: value,
             errorMsg: '',
         });
+    }
+
+    changeValue(languageType, language) {
+        this.setState({ dropDownValue: language });
+        this.props.LanguageFetchReducer(languageType);
     }
     componentDidMount = () => {
 
@@ -144,82 +152,34 @@ class Index extends Component {
             case "en":
                 translate = translationEN.text
                 break;
-            // case "de":
-            //     translate = translationDE.text
-            //     break;
-            // case "pt":
-            //     translate = translationPT.text
-            //     break;
-            // case "sp":
-            //     translate = translationSP.text
-            //     break;
-            // case "rs":
-            //     translate = translationRS.text
-            //     break;
-            // case "nl":
-            //     translate = translationNL.text
-            //     break;
-            // case "ch":
-            //     translate = translationCH.text
-            //     break;
-            // case "sw":
-            //     translate = translationSW.text
-            //     break;
+            case "de":
+                translate = translationDE.text
+                break;
+            case "pt":
+                translate = translationPT.text
+                break;
+            case "sp":
+                translate = translationSP.text
+                break;
+            case "rs":
+                translate = translationRS.text
+                break;
+            case "nl":
+                translate = translationNL.text
+                break;
+            case "ch":
+                translate = translationCH.text
+                break;
+            case "sw":
+                translate = translationSW.text
+                break;
             case "default":
                 translate = translationEN.text
         }
-        let { email, forget_password, password_reset, Register_Password, password_must_have_its_condition,
+        let { email, forget_password, password_reset, login_Password, password_must_have_its_condition,
             Register_characters, Register_letter, Register_number, Register_special, Register_Passwordshould,
-             } = translate
+        } = translate
 
-       
-
-        // // de => German
-        // if (this.props.stateLanguageType === 'German') {
-
-        //     Register_Passwordshould = translationDE.text.Register_Passwordshould;
-        //     Register_characters = translationDE.text.Register_characters;
-        //     Register_letter = translationDE.text.Register_letter;
-        //     Register_number = translationDE.text.Register_number;
-        //     Register_special = translationDE.text.Register_special;
-        // }
-
-        // // es => Spanish
-        // else if (this.props.stateLanguageType === 'Spanish') {
-        //     Register_Passwordshould = translationES.text.Register_Passwordshould;
-        //     Register_characters = translationES.text.Register_characters;
-        //     Register_letter = translationES.text.Register_letter;
-        //     Register_number = translationES.text.Register_number;
-        //     Register_special = translationES.text.Register_special;
-        // }
-
-        // // ch => Chinese
-        // else if (this.props.stateLanguageType === 'Chinese') {
-        //     Register_Passwordshould = translationCH.text.Register_Passwordshould;
-        //     Register_characters = translationCH.text.Register_characters;
-        //     Register_letter = translationCH.text.Register_letter;
-        //     Register_number = translationCH.text.Register_number;
-        //     Register_special = translationCH.text.Register_special;
-        // }
-
-        // // pt => Portuguese
-        // else if (this.props.stateLanguageType === 'Portuguese') {
-        //     Register_Passwordshould = translationPT.text.Register_Passwordshould;
-        //     Register_characters = translationPT.text.Register_characters;
-        //     Register_letter = translationPT.text.Register_letter;
-        //     Register_number = translationPT.text.Register_number;
-        //     Register_special = translationPT.text.Register_special;
-        // }
-
-        // // en => English
-        // else {
-        //     Register_Passwordshould = translationEN.text.Register_Passwordshould;
-        //     Register_characters = translationEN.text.Register_characters;
-        //     Register_letter = translationEN.text.Register_letter;
-        //     Register_number = translationEN.text.Register_number;
-        //     Register_special = translationEN.text.Register_special;
-
-        // }
 
         return (
             <Grid>
@@ -239,13 +199,14 @@ class Index extends Component {
                                                     {this.state.dropDownValue}
                                                 </DropdownToggle>
                                                 <DropdownMenu className="changeLangIner">
-                                                    <DropdownItem><NavLink>Nederlands - NL</NavLink></DropdownItem>
-                                                    <DropdownItem><NavLink>German (Deutsch)</NavLink></DropdownItem>
-                                                    <DropdownItem><NavLink>Chinese</NavLink></DropdownItem>
-                                                    <DropdownItem><NavLink>Portuguese (Portugues)</NavLink></DropdownItem>
-                                                    <DropdownItem><NavLink>Spanish (Espanol)</NavLink></DropdownItem>
-                                                    <DropdownItem><NavLink>Russian</NavLink></DropdownItem>
-                                                    <DropdownItem><NavLink>Swahili</NavLink></DropdownItem>
+                                                    <DropdownItem onClick={() => { this.changeValue('en', "English") }}><NavLink>English</NavLink></DropdownItem>
+                                                    <DropdownItem onClick={() => { this.changeValue('de', "German") }}><NavLink>German</NavLink></DropdownItem>
+                                                    <DropdownItem onClick={() => { this.changeValue('ch', "Chinese") }}><NavLink>Chinese</NavLink></DropdownItem>
+                                                    <DropdownItem onClick={() => { this.changeValue('pt', "Portuguese") }}><NavLink>Portuguese</NavLink></DropdownItem>
+                                                    <DropdownItem onClick={() => { this.changeValue('sp', "Spanish") }}><NavLink>Spanish</NavLink></DropdownItem>
+                                                    <DropdownItem onClick={() => { this.changeValue('rs', "Russian") }}><NavLink>Russian</NavLink></DropdownItem>
+                                                    <DropdownItem onClick={() => { this.changeValue('sw', "Swahili") }}><NavLink>Swahili</NavLink></DropdownItem>
+                                                    <DropdownItem onClick={() => { this.changeValue('nl', "Dutch") }}><NavLink>Dutch</NavLink></DropdownItem>
                                                 </DropdownMenu>
                                             </UncontrolledDropdown>
                                         </Grid>
@@ -273,7 +234,7 @@ class Index extends Component {
                                 {this.state.successMsg && this.state.successMsgText &&
                                     <div className="success_message">{this.state.successMsgText}</div>}
                                 <Grid className="registerRow passInstMain">
-                                    <Grid><label>{Register_Password}</label></Grid>
+                                    <Grid><label>{login_Password}</label></Grid>
                                     <Grid className="registerPass">
                                         <input
                                             type={this.state.hidden ? "password" : "text"}

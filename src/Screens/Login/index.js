@@ -9,13 +9,16 @@ import Grid from '@material-ui/core/Grid';
 import { authy } from './authy.js';
 import { NavLink, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 import sitedata from '../../sitedata';
-import * as translationEN from '../../translations/en';
+import * as translationEN from '../../translations/en.json';
 import * as translationDE from '../../translations/de';
-import * as translationES from '../../translations/es';
+import * as translationSP from '../../translations/sp.json';
 import * as translationCH from '../../translations/ch';
+import * as translationPT from '../../translations/pt';
+import * as translationRS from '../../translations/rs';
+import * as translationNL from '../../translations/nl';
+import * as translationSW from '../../translations/sw';
 import { EmergencySet } from '../Doctor/emergencyaction.js';
 import { Doctorset } from '../Doctor/actions';
-import * as translationPT from '../../translations/pt';
 import queryString from 'query-string';
 import Loader from './../Components/Loader/index';
 import Emergency from '../Nurse/Emergency';
@@ -24,7 +27,7 @@ const path = sitedata.data.path + '/UserProfile';
 
 class Index extends Component {
     constructor(props) {
-       super(props);
+        super(props);
         this.state = {
             hidden: true,
             password: "",
@@ -44,8 +47,8 @@ class Index extends Component {
         this.toggleShow = this.toggleShow.bind(this);
     }
 
-    changeValue(languageType) {
-        this.setState({ dropDownValue: languageType });
+    changeValue(languageType, language) {
+        this.setState({ dropDownValue: language });
         this.props.LanguageFetchReducer(languageType);
     }
 
@@ -55,41 +58,40 @@ class Index extends Component {
     //         this.setState({ dropDownValue: this.props.stateLanguageType })
     //     }
     // }
-    componentDidMount = () =>{
+    componentDidMount = () => {
         this.logoutUser();
         // this.movedashboard();
         this.unsetCategory();
-      
+
         let url = this.props.location.search;
         let params = queryString.parse(url);
-         this.setState({logintoken : params.token})
-        setTimeout(()=>{ 
-          this.logoutUser(); }, 5000);
-      }
-      
-      logoutUser= ()=> {
-          this.props.authy(false);
-          let languageType = 'en';
-          this.props.LanguageFetchReducer(languageType);
-          this.anotherPatient();
-          this.Settings();
-      }
-      Settings=()=>{
+        this.setState({ logintoken: params.token })
+        setTimeout(() => {
+            this.logoutUser();
+        }, 5000);
+    }
+
+    logoutUser = () => {
+        this.props.authy(false);
+        let languageType = 'en';
+        this.props.LanguageFetchReducer(languageType);
+        this.anotherPatient();
+        this.Settings();
+    }
+    Settings = () => {
         this.props.Settings({});
-      }
-      anotherPatient=()=>
-      {
-         var user_id = null;
-         var pin = null;
-         this.props.EmergencySet(user_id);
-         this.props.Doctorset(user_id, pin);
-      }
-      unsetCategory()
-      {
-        let category ="all";
+    }
+    anotherPatient = () => {
+        var user_id = null;
+        var pin = null;
+        this.props.EmergencySet(user_id);
+        this.props.Doctorset(user_id, pin);
+    }
+    unsetCategory() {
+        let category = "all";
         // this.props.filterate(category);
-      }
-      
+    }
+
     //Link for the register
     register = () => {
         this.props.history.push('/register');
@@ -155,7 +157,7 @@ class Index extends Component {
                         function () {
                             this.setState({ myLogin: true });
                             this.setState({ loaderImage: false })
-                            if (this.props.stateLoginValueAim && this.props.stateLoginValueAim.user && !this.props.stateLoginValueAim.user.is2fa) {  
+                            if (this.props.stateLoginValueAim && this.props.stateLoginValueAim.user && !this.props.stateLoginValueAim.user.is2fa) {
                                 this.props.authy(true);
                             }
                             else if (this.props.stateLoginValueAim.token === 450) {
@@ -218,90 +220,36 @@ class Index extends Component {
             case "en":
                 translate = translationEN.text
                 break;
-            // case "de":
-            //     translate = translationDE.text
-            //     break;
-            // case "pt":
-            //     translate = translationPT.text
-            //     break;
-            // case "sp":
-            //     translate = translationSP.text
-            //     break;
-            // case "rs":
-            //     translate = translationRS.text
-            //     break;
-            // case "nl":
-            //     translate = translationNL.text
-            //     break;
-            // case "ch":
-            //     translate = translationCH.text
-            //     break;
-            // case "sw":
-            //     translate = translationSW.text
-            //     break;
+            case "de":
+                translate = translationDE.text
+                break;
+            case "pt":
+                translate = translationPT.text
+                break;
+            case "sp":
+                translate = translationSP.text
+                break;
+            case "rs":
+                translate = translationRS.text
+                break;
+            case "nl":
+                translate = translationNL.text
+                break;
+            case "ch":
+                translate = translationCH.text
+                break;
+            case "sw":
+                translate = translationSW.text
+                break;
             case "default":
                 translate = translationEN.text
         }
 
 
-        let {Log_into_Aimedis, login_Email_address, login_Password, login_Forgotpassword,
-            login_LOGIN_btn, login_an_account, login_Registerhere, two_fac_auth} = translate;
+        let { Log_into, Register_email, login_Password, login_Forgotpassword,
+            login_LOGIN_btn, login_an_account, login_Registerhere, two_fac_auth } = translate;
 
-        // // de => German
-        // if (this.props.stateLanguageType === 'German') {
-        //     Log_into_Aimedis = translationDE.text.Log_into_Aimedis;
-        //     login_Email_address = translationDE.text.login_Email_address;
-        //     login_Password = translationDE.text.login_Password;
-        //     login_Forgotpassword = translationDE.text.login_Forgotpassword;
-        //     login_LOGIN_btn = translationDE.text.login_LOGIN_btn;
-        //     login_an_account = translationDE.text.login_an_account;
-        //     login_Registerhere = translationDE.text.login_Registerhere;
-        // }
-
-        // // es => Spanish
-        // if (this.props.stateLanguageType === 'Spanish') {
-        //     Log_into_Aimedis = translationES.text.Log_into_Aimedis;
-        //     login_Email_address = translationES.text.login_Email_address;
-        //     login_Password = translationES.text.login_Password;
-        //     login_Forgotpassword = translationES.text.login_Forgotpassword;
-        //     login_LOGIN_btn = translationES.text.login_LOGIN_btn;
-        //     login_an_account = translationES.text.login_an_account;
-        //     login_Registerhere = translationES.text.login_Registerhere;
-        // }
-
-        // // ch => Chinese
-        // if (this.props.stateLanguageType === 'Chinese') {
-        //     Log_into_Aimedis = translationCH.text.Log_into_Aimedis;
-        //     login_Email_address = translationCH.text.login_Email_address;
-        //     login_Password = translationCH.text.login_Password;
-        //     login_Forgotpassword = translationCH.text.login_Forgotpassword;
-        //     login_LOGIN_btn = translationCH.text.login_LOGIN_btn;
-        //     login_an_account = translationCH.text.login_an_account;
-        //     login_Registerhere = translationCH.text.login_Registerhere;
-        // }
-
-        // // pt => Portuguese
-        // else if (this.props.stateLanguageType === 'Portuguese') {
-        //     Log_into_Aimedis = translationPT.text.Log_into_Aimedis;
-        //     login_Email_address = translationPT.text.login_Email_address;
-        //     login_Password = translationPT.text.login_Password;
-        //     login_Forgotpassword = translationPT.text.login_Forgotpassword;
-        //     login_LOGIN_btn = translationPT.text.login_LOGIN_btn;
-        //     login_an_account = translationPT.text.login_an_account;
-        //     login_Registerhere = translationPT.text.login_Registerhere;
-        // }
-
-        // // en => English
-        // else {
-        //     Log_into_Aimedis = translationEN.text.Log_into_Aimedis;
-        //     login_Email_address = translationEN.text.login_Email_address;
-        //     login_Password = translationEN.text.login_Password;
-        //     login_Forgotpassword = translationEN.text.login_Forgotpassword;
-        //     login_LOGIN_btn = translationEN.text.login_LOGIN_btn;
-        //     login_an_account = translationEN.text.login_an_account;
-        //     login_Registerhere = translationEN.text.login_Registerhere;
-        // }
-
+       
         if (stateLoginValueAim.token !== 450 && stateLoginValueAim.user.type === 'patient' && this.props.verifyCode.code) {
             if (stateLoginValueAim.kyc) {
                 return (<Redirect to={'/patient'} />);
@@ -352,7 +300,7 @@ class Index extends Component {
         else {
             return (
                 <Grid>
-                      {this.state.loaderImage && <Loader />}
+                    {this.state.loaderImage && <Loader />}
                     <Grid container direction="row" justify="center" alignItems="center">
                         <Grid item xs={11} md={10}>
                             <Grid className="regHead">
@@ -373,13 +321,13 @@ class Index extends Component {
 
                                             */}
                                                     <DropdownMenu className="langInerFooter">
-                                                        <DropdownItem onClick={() => { this.changeValue('English') }}><NavLink>English</NavLink></DropdownItem>
-                                                        <DropdownItem onClick={() => { this.changeValue('German') }}><NavLink>German</NavLink></DropdownItem>
-                                                        <DropdownItem onClick={() => { this.changeValue('Chinese') }}><NavLink>Chinese</NavLink></DropdownItem>
-                                                        <DropdownItem><NavLink>Portuguese</NavLink></DropdownItem>
-                                                        <DropdownItem onClick={() => { this.changeValue('Spanish') }}><NavLink>Spanish</NavLink></DropdownItem>
-                                                        <DropdownItem><NavLink>Russian</NavLink></DropdownItem>
-                                                        <DropdownItem><NavLink>Swahili</NavLink></DropdownItem>
+                                                        <DropdownItem onClick={() => { this.changeValue('en', "English") }}><NavLink>English</NavLink></DropdownItem>
+                                                        <DropdownItem onClick={() => { this.changeValue('de', "German") }}><NavLink>German</NavLink></DropdownItem>
+                                                        <DropdownItem onClick={() => { this.changeValue('ch', "Chinese") }}><NavLink>Chinese</NavLink></DropdownItem>
+                                                        <DropdownItem onClick={() => { this.changeValue('pt', "Portuguese") }}><NavLink>Portuguese</NavLink></DropdownItem>
+                                                        <DropdownItem onClick={() => { this.changeValue('sp', "Spanish") }}><NavLink>Spanish</NavLink></DropdownItem>
+                                                        <DropdownItem onClick={() => { this.changeValue('rs', "Russian") }}><NavLink>Russian</NavLink></DropdownItem>
+                                                        <DropdownItem onClick={() => { this.changeValue('sw', "Swahili") }}><NavLink>Swahili</NavLink></DropdownItem>
                                                     </DropdownMenu>
                                                 </UncontrolledDropdown>
                                             </Grid>
@@ -395,7 +343,7 @@ class Index extends Component {
                         <Grid item xs={11} sm={7} md={7}>
 
                             <Grid className="logData">
-                                <h1>{Log_into_Aimedis}</h1>
+                                <h1>{Log_into} Aimedis V2</h1>
                             </Grid>
                             <Grid className="logFormMain">
                                 <Grid className="logForm">
@@ -411,7 +359,7 @@ class Index extends Component {
                                                             : false}
                                     </div>
                                     <Grid className="logRow">
-                                        <Grid><label>{login_Email_address}</label></Grid>
+                                        <Grid><label>{Register_email}</label></Grid>
                                         <Grid><input type="text"
                                             value={this.state.inputEmail} onChange={e => this.handleChange('inputEmail', e.target.value)} /></Grid>
                                     </Grid>
@@ -472,7 +420,7 @@ const mapStateToProps = (state) => {
     const { stateLanguageType } = state.LanguageReducer;
     const { verifyCode } = state.authy;
     const { settings } = state.Settings;
-    const { Emergencysetget }= state.EmergencySet;
+    const { Emergencysetget } = state.EmergencySet;
     const { Doctorsetget } = state.Doctorset;
     return {
         stateLanguageType,
@@ -485,6 +433,6 @@ const mapStateToProps = (state) => {
     }
 };
 
-export default connect(mapStateToProps, { Doctorset,EmergencySet, LoginReducerAim, LanguageFetchReducer, authy, Settings })(Index)
+export default connect(mapStateToProps, { Doctorset, EmergencySet, LoginReducerAim, LanguageFetchReducer, authy, Settings })(Index)
 
 // export default Index;
