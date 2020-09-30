@@ -553,13 +553,14 @@ class Index extends Component {
                 })
 
             }
-            console.log("response 12",  subspecialityfromD)
+            
             if (subspecialityfromD && subspecialityfromD.length > 0) {
-                subspeciality_m = subspeciality.subspeciality.english.filter(ele=>subspecialityfromD.include(ele.value))
-            }
-            console.log("subspeciality_m", subspeciality_m)
-           
+                subspecialityfromD.map((item) => {
+                    subspeciality_m.push({ value: item, label: item.replace(/_/g, " ") });
+                })
 
+            }
+           
             if (titlefromD && titlefromD !== "") {
 
                 title = { label: titlefromD, value: titlefromD }
