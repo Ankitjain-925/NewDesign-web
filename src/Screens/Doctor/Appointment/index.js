@@ -213,8 +213,6 @@ class Index extends Component {
                                                     endAccessor="end"
                                                     style={{ height: 500 }}
                                                     components={{
-                                                        day: { header: this.MyCustomHeader },
-                                                        week: { header: this.MyCustomHeader },
                                                         month: { header: this.MyCustomHeader },
                                                         event: this.EventComponent
                                                     }}
