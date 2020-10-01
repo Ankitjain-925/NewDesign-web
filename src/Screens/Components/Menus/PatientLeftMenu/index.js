@@ -50,11 +50,10 @@ class Index extends Component {
                     'Content-Type': 'application/json'
                 }
             }).then((responce) => {
-                console.log("getSetting responce", responce.data.data.language)
                 if (responce.data.hassuccessed && responce.data.data) {
                     this.setState({ timeF: { label: responce.data.data.time_format, value: responce.data.data.time_format }, dateF: { label: responce.data.data.date_format, value: responce.data.data.date_format }, })
                 }
-                this.setState({ loaderImage: false, languageValue: responce.data.data.language })
+                this.setState({ loaderImage: false, languageValue: responce.data.data && responce.data.data.language && responce.data.data.language })
             })
     }
 

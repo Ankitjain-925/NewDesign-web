@@ -21,6 +21,13 @@ import sitedata from "../../../sitedata";
 import { Redirect, Route } from 'react-router-dom';
 import Autocomplete from './Autocomplete';
 import translationEN from '../../../translations/en_json_proofread_13072020.json'
+import * as translationDE from '../../../translations/de';
+import * as translationSP from '../../../translations/sp.json';
+import * as translationCH from '../../../translations/ch';
+import * as translationPT from '../../../translations/pt';
+import * as translationRS from '../../../translations/rs';
+import * as translationNL from '../../../translations/nl';
+import * as translationSW from '../../../translations/sw';
 import SPECIALITY from '../../../speciality'
 import SUBSPECIALITY from '../../../subspeciality'
 
@@ -206,7 +213,9 @@ class Index extends Component {
                 last_name: this.state.selectedDoc.data && this.state.selectedDoc.data.last_name,
                 email: this.state.selectedDoc.data && this.state.selectedDoc.data.email,
                 birthday: this.state.selectedDoc.data && this.state.selectedDoc.data.birthday,
-                profile_image: this.state.selectedDoc.data && this.state.selectedDoc.data.image
+                profile_image: this.state.selectedDoc.data && this.state.selectedDoc.data.image,
+                speciality: this.state.selectedDoc.data && this.state.selectedDoc.data.speciality,
+                subspeciality: this.state.selectedDoc.data && this.state.selectedDoc.data.subspeciality
             }
         })
             .then((responce) => {
@@ -254,6 +263,7 @@ class Index extends Component {
                 let markerArray = [];
                 let selectedListArray = [];
                 let NewArray = [];
+                console.log("get all doctor", responce.data.data)
                 responce.data.data && responce.data.data.length > 0 && responce.data.data.map((item, index) => {
                     if (item.data && item.data.image) {
                         var find = item.data && item.data.image && item.data.image
@@ -458,27 +468,27 @@ class Index extends Component {
             case "en":
                 translate = translationEN.text
                 break;
-            // case "de":
-            //     translate = translationDE.text
-            //     break;
-            // case "pt":
-            //     translate = translationPT.text
-            //     break;
-            // case "sp":
-            //     translate = translationSP.text
-            //     break;
-            // case "rs":
-            //     translate = translationRS.text
-            //     break;
-            // case "nl":
-            //     translate = translationNL.text
-            //     break;
-            // case "ch":
-            //     translate = translationCH.text
-            //     break;
-            // case "sw":
-            //     translate = translationSW.text
-            //     break;
+            case "de":
+                translate = translationDE.text
+                break;
+            case "pt":
+                translate = translationPT.text
+                break;
+            case "sp":
+                translate = translationSP.text
+                break;
+            case "rs":
+                translate = translationRS.text
+                break;
+            case "nl":
+                translate = translationNL.text
+                break;
+            case "ch":
+                translate = translationCH.text
+                break;
+            case "sw":
+                translate = translationSW.text
+                break;
             case "default":
                 translate = translationEN.text
         }
@@ -649,8 +659,9 @@ class Index extends Component {
                                                     </Grid>
                                                     <Grid className="showSubject">
                                                         <Grid container direction="row">
-                                                            <Grid item xs={6} md={6} className="officeVstLft">
-                                                                <h3>Diesese'Name</h3>
+                                                            <Grid item xs={6} md={6} className="officeVstLft nuroDr">
+                                                                <h3>{apoint.docProfile && apoint.docProfile.speciality && apoint.docProfile.speciality.join(", ")}</h3>
+                                                                <p>{apoint.docProfile && apoint.docProfile.subspeciality && apoint.docProfile.subspeciality.join(", ")}</p>
                                                             </Grid>
                                                         </Grid>
                                                         <Grid><a><img src={require('../../../assets/images/dr1.jpg')} alt="" title="" />{apoint.docProfile && `${apoint.docProfile.first_name} ${apoint.docProfile.last_name}`}</a></Grid>
@@ -677,8 +688,9 @@ class Index extends Component {
                                                     </Grid>
                                                     <Grid className="showSubject">
                                                         <Grid container direction="row">
-                                                            <Grid item xs={6} md={6} className="officeVstLft">
-                                                                <h3>Diesese'Name</h3>
+                                                            <Grid item xs={6} md={6} className="officeVstLft nuroDr">
+                                                                <h3>{apoint.docProfile && apoint.docProfile.speciality && apoint.docProfile.speciality.join(", ")}</h3>
+                                                                <p>{apoint.docProfile && apoint.docProfile.subspeciality && apoint.docProfile.subspeciality.join(", ")}</p>
                                                             </Grid>
 
                                                             <Grid item xs={6} md={6} className="officeVstRght">
@@ -885,7 +897,7 @@ class Index extends Component {
                                                                                 </Grid>
                                                                                 <Grid item xs={12} md={2} className="srchKm">
                                                                                     <Grid><label>{search_within}</label></Grid>
-                                                                                    <input type="text" name="range" value={this.state.searchDetails && this.state.searchDetails.radius ? this.state.searchDetails.radius :'' } onChange={this.setRadius} />
+                                                                                    <input type="text" name="range" value={this.state.searchDetails && this.state.searchDetails.radius ? this.state.searchDetails.radius : ''} onChange={this.setRadius} />
                                                                                 </Grid>
                                                                                 <Grid item xs={12} md={4} className="apointType">
                                                                                     <Grid><label>{appointment} {type}</label></Grid>
@@ -1222,7 +1234,7 @@ class Index extends Component {
                                                                                 </Grid>
                                                                                 <Grid item xs={12} md={2} className="srchKm">
                                                                                     <Grid><label>{search_within}</label></Grid>
-                                                                                    <input type="text" name="range" onChange={this.setRadius} value={this.state.searchDetails && this.state.searchDetails.radius ? this.state.searchDetails.radius :'' } />
+                                                                                    <input type="text" name="range" onChange={this.setRadius} value={this.state.searchDetails && this.state.searchDetails.radius ? this.state.searchDetails.radius : ''} />
                                                                                 </Grid>
                                                                                 <Grid item xs={12} md={4} className="apointType">
                                                                                     <Grid><label>{appointment} {type}</label></Grid>
