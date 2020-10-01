@@ -53,11 +53,15 @@ class Index extends Component {
     }
     //For Timeline / Journal
     Journal = ()=>{
-        this.props.history.push('/pharmacy/journal');    
+        this.props.history.push('/pharmacy/prescriptions');    
     }
     //For chat
     Chats = ()=>{
         this.props.history.push('/pharmacy');    
+    }
+    //fOR Archive prescription 
+    ArchivePrescription=()=>{
+        this.props.history.push('/pharmacy/prescription-archive');    
     }
 
     //For Emergency
@@ -100,6 +104,20 @@ class Index extends Component {
                                 <img src={require('../../../../assets/images/nav-chat.svg')} alt="" title="" />
                                 <span>Aimedis Online Courses</span>
                             </a>
+                        </li>
+                        <li className={this.props.currentPage === 'more' ? "menuActv" : ""}>
+                            <a className="moreMenu">
+                                {this.props.currentPage === 'more' ? <img src={require('../../../../assets/images/moreActive.png')} alt="" title="" />
+                                    : <img src={require('../../../../assets/images/moreicon.jpg')} alt="" title="" />}
+                                <span>More</span>
+
+                                <div className="moreMenuList">
+                                    <ul>
+                                        <li><a onClick={this.ArchivePrescription}><img src={require('../../../../assets/images/menudocs.jpg')} alt="" title="" />Prescriptions Archive</a></li>
+                                    </ul>
+                                </div>
+                            </a>
+
                         </li>
                         <li className={this.props.currentPage==='profile' ? "menuActv" : ""}>
                             <a className="profilMenu">

@@ -45,27 +45,30 @@ class Index extends Component {
 
     //For My Profile link
     ProfileLink = ()=>{
-        this.props.history.push('/nurse/profile');
+        this.props.history.push('/pharmacy/profile');
     }
-   
+
     //For online Course
     OnlineCourse = ()=>{
-        this.props.history.push('/nurse/online-course');    
+        this.props.history.push('/pharmacy/online-course');    
     }
     //For Timeline / Journal
     Journal = ()=>{
-        this.props.history.push('/nurse/journal');    
+        this.props.history.push('/pharmacy/prescriptions');    
     }
     //For chat
     Chats = ()=>{
-        this.props.history.push('/nurse');    
+        this.props.history.push('/pharmacy');    
     }
-
+    //fOR Archive prescription 
+    ArchivePrescription=()=>{
+        this.props.history.push('/pharmacy/prescription-archive');    
+    }
     //For Emergency
     Emergency = ()=>{
-        this.props.history.push('/nurse/emergency');    
+        this.props.history.push('/pharmacy/emergency');    
     }
-    
+
     render() {
         return (
             <Grid className="MenuMob">
@@ -76,18 +79,18 @@ class Index extends Component {
                     <Menu className="addCstmMenu">
                         <Grid className="menuItems">
                         <ul>
+                        <li className={this.props.currentPage==='journal' ? "menuActv" : ""}>
+                            <a onClick={this.Journal}>
+                            {this.props.currentPage==='journal' ? <img src={require('../../../../assets/images/menu1.png')} alt="" title="" />
+                                :<img src={require('../../../../assets/images/inactiveJournal.jpg')} alt="" title="" />}
+                                <span>Prescriptions</span>
+                            </a>
+                        </li>
                         <li className={this.props.currentPage==='chat' ? "menuActv" : ""}>
                             <a onClick={this.Chats}>
                             {this.props.currentPage==='chat' ? <img src={require('../../../../assets/images/chatVideoActive.png')} alt="" title="" />
                                 : <img src={require('../../../../assets/images/chatVideo.jpg')} alt="" title="" />}
                                 <span>Chat & <br /> Videocalls</span>
-                            </a>
-                        </li>
-                        <li className={this.props.currentPage==='journal' ? "menuActv" : ""}>
-                            <a onClick={this.Journal}>
-                            {this.props.currentPage==='journal' ? <img src={require('../../../../assets/images/menu1.png')} alt="" title="" />
-                                :<img src={require('../../../../assets/images/inactiveJournal.jpg')} alt="" title="" />}
-                                <span>Patient Access Data</span>
                             </a>
                         </li>
                         <li className={this.props.currentPage==='emergency' ? "menuActv" : ""}>
@@ -103,6 +106,20 @@ class Index extends Component {
                                 <span>Aimedis Online Courses</span>
                             </a>
                         </li>
+                        <li className={this.props.currentPage === 'more' ? "menuActv" : ""}>
+                            <a className="moreMenu">
+                                {this.props.currentPage === 'more' ? <img src={require('../../../../assets/images/moreActive.png')} alt="" title="" />
+                                    : <img src={require('../../../../assets/images/moreicon.jpg')} alt="" title="" />}
+                                <span>More</span>
+
+                                <div className="moreMenuList">
+                                    <ul>
+                                        <li><a onClick={this.ArchivePrescription}><img src={require('../../../../assets/images/menudocs.jpg')} alt="" title="" />Prescriptions Archive</a></li>
+                                    </ul>
+                                </div>
+                            </a>
+
+                        </li>
                         <li className={this.props.currentPage==='profile' ? "menuActv" : ""}>
                             <a className="profilMenu">
                             { this.props.currentPage==='profile' ?   <img src={require('../../../../assets/images/profileActv.png')} alt="" title="" />
@@ -117,7 +134,7 @@ class Index extends Component {
                                     </ul>
                                 </div>
                             </a>
-                        </li>
+                        </li> 
                     </ul>
                         </Grid>
                     </Menu>

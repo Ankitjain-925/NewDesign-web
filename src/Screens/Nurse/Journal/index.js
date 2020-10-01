@@ -89,9 +89,14 @@ class Index extends Component {
             gettrackdatas : {},
             Anamnesis: [],
             images : [],
+            allTrack1: [],
         };
     }
 
+    //For clear the filter
+    ClearData=()=>{
+        this.setState({allTrack: allTrack1})
+    }
     //Modal Open on Archive the Journal
     ArchiveTrack = (data) => {
         confirmAlert({
@@ -492,9 +497,9 @@ class Index extends Component {
                                         .then(response6 => { })
                                 })
                         })
-                    this.setState({ allTrack: response.data.data, loaderImage: false })
+                    this.setState({ allTrack1 : response.data.data, allTrack: response.data.data, loaderImage: false })
                 }
-                else { this.setState({ allTrack: [], loaderImage: false }) }
+                else { this.setState({ allTrack1 : [], allTrack: [], loaderImage: false }) }
             })
     }
 
@@ -812,7 +817,7 @@ class Index extends Component {
                                         </Grid>
                                         
                                         {/* For the filter section */}
-                                        {this.props.Doctorsetget.p_id !== null && <FilterSec />}
+                                        {this.props.Doctorsetget.p_id !== null && <FilterSec onChange={this.FilterData} ClearData={this.ClearData} />}
 
                                         {/* For Empty Entry */}
                                         {this.props.Doctorsetget.p_id !== null && <div>

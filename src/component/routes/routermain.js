@@ -99,14 +99,14 @@ class Routermain extends Component {
             <Route exact path="/nurse" render={(props) => <NurseChats {...props} />} />
             <Route exact path="/nurse/profile" render={(props) => <NurseProfile {...props} />} />
             <Route exact path="/nurse/emergency" render={(props) => <NurseEmergency {...props} />} />
-            <Route exact path="/nurse/prescriptions" render={(props) => <NurseJournal {...props} />} />
+            <Route exact path="/nurse/journal" render={(props) => <NurseJournal {...props} />} />
             <Route exact path="/nurse/online-course" render={(props) => <NurseOnline {...props} />} />
             <Route exact path="/nurse/view-course" render={(props) => <PaitnetViewCourses {...props} />} />
 
             <Route exact path="/pharmacy" render={(props) => <PharmaChats {...props} />} />
             <Route exact path="/pharmacy/profile" render={(props) => <PharmaProfile {...props} />} />
             <Route exact path="/pharmacy/emergency" render={(props) => <PharmaEmergency {...props} />} />
-            <Route exact path="/pharmacy/journal" render={(props) => <PharmaPrescription {...props} />} />
+            <Route exact path="/pharmacy/prescriptions" render={(props) => <PharmaPrescription {...props} />} />
             <Route exact path="/pharmacy/online-course" render={(props) => <PharmaOnline {...props} />} />
             <Route exact path="/pharmacy/view-course" render={(props) => <PaitnetViewCourses {...props} />} />
             <Route exact path="/pharmacy/prescription-archive" render={(props) => <PharmaArchive {...props} />} />
