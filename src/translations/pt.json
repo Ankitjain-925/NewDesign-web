@@ -695,6 +695,7 @@
 		"page_not_found":"Página não encontrada",
 		"Oops":"Opa",
 		"page_temparary_unavailable":"A página que você está procurando pode ter sido removida e seu nome foi alterado ou está temporariamente indisponível.",
-		"go_to_home":"Ir para casa"
+		"go_to_home":"Ir para casa",
+		"slct_time_slot":"Selecione o horário"
 	}
 }

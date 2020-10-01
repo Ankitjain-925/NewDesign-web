@@ -694,6 +694,7 @@
 		"page_not_found":"找不到网页",
 		"Oops":"哎呀",
 		"page_temparary_unavailable":"如果您要查找的页面名称更改或暂时不可用，则可能已被删除。",
-		"go_to_home":"回家"
+		"go_to_home":"回家",
+		"slct_time_slot":"选择时间段"
 	}
 }

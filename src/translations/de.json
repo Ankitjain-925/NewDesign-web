@@ -694,6 +694,7 @@
 		"page_not_found":"Seite nicht gefunden",
 		"Oops":"Hoppla",
 		"page_temparary_unavailable":"Die Seite, nach der Sie suchen, wurde möglicherweise entfernt, wenn ihr Name geändert wurde oder sie vorübergehend nicht verfügbar ist.",
-		"go_to_home":"Zur Startseite"
+		"go_to_home":"Zur Startseite",
+		"slct_time_slot":"Zeitfenster auswählen"
 	}
 }

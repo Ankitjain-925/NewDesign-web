@@ -660,6 +660,7 @@
 		"password_reset":"Restablecimiento de contraseña",
 		"page_not_found":"Página no encontrada",
 		"page_temparary_unavailable":"Es posible que se haya eliminado la página que está buscando si se cambió el nombre o no está disponible temporalmente.",
-		"go_to_home":"Ir a casa"
+		"go_to_home":"Ir a casa",
+		"slct_time_slot":"Seleccionar franja horaria"
 	}
 }

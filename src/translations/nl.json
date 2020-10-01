@@ -660,6 +660,7 @@
 		"page_not_found":"Pagina niet gevonden",
 		"Oops":"Oeps",
 		"page_temparary_unavailable":"De pagina die u zoekt, is mogelijk verwijderd, de naam is gewijzigd of is tijdelijk niet beschikbaar.",
-		"go_to_home":"Ga naar huis"
+		"go_to_home":"Ga naar huis",
+		"slct_time_slot":"Selecteer een tijdvak"
 	}
 }
