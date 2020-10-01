@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import React, { Component, Children, useState } from 'react';
+// import { usePopper } from 'react-popper';
 import Grid from '@material-ui/core/Grid';
 import 'react-calendar/dist/Calendar.css';
 import 'react-big-calendar/lib/css/react-big-calendar.css'
@@ -15,12 +16,20 @@ import { LoginReducerAim } from './../../Login/actions';
 import { Settings } from './../../Login/setting';
 import { LanguageFetchReducer } from './../../actions';
 
+const CURRENT_DATE = moment().toDate();
 const localizer = momentLocalizer(moment)
 const options = [
     { value: 'data1', label: 'Data1' },
     { value: 'data2', label: 'Data2' },
     { value: 'data3', label: 'Data3' },
 ];
+
+// const [referenceElement, setReferenceElement] = useState(null);
+// const [popperElement, setPopperElement] = useState(null);
+// const [arrowElement, setArrowElement] = useState(null);
+// const { styles, attributes } = usePopper(referenceElement, popperElement, {
+//     modifiers: [{ name: 'arrow', options: { element: arrowElement } }],
+// });
 
 let MyOtherNestedComponent = () => <div>NESTED COMPONENT</div>
 class Index extends Component {
@@ -51,6 +60,7 @@ class Index extends Component {
             })
             .then((response) => {
                 if (response.data.hassuccessed) {
+                    let indexout = 0
                     response.data.data && response.data.data.length > 0 && response.data.data.map((data, index) => {
                         axios.get(sitedata.data.path + '/User/AppointOfDate/' + data._id,
                             {
@@ -88,12 +98,14 @@ class Index extends Component {
                                             da2.setHours('00');
                                             da2.setMinutes('00');
                                         }
-
-                                        finaldata.push({ id: index, title: d1.patient_info.first_name + " " + d1.patient_info.last_name, start: new Date(da1), end: new Date(da2) })
+                                        console.log("index", index)
+                                        this[`${indexout}_ref`] = React.createRef()
+                                        finaldata.push({ id: index, title: d1.patient_info.first_name + " " + d1.patient_info.last_name, start: new Date(da1), end: new Date(da2), indexout: indexout })
                                     })
                                 }
                             }).then(() => {
                                 console.log("finaldata", finaldata)
+                                indexout++;
                                 this.setState({
                                     myEventsList: finaldata,
                                 })
@@ -118,27 +130,33 @@ class Index extends Component {
     };
 
     EventComponent = (data) => {
-        console.log("data", data);
-
         return (
-            <div>
-                <p style={{ backgroundColor: 'none', fontSize: 10 }}> {data.event.title} </p>
-                <p style={{ backgroundColor: 'none', fontSize: 10 }}> {moment(data.event.start).format('hh:mm') + '-' + moment(data.event.end).format('hh:mm')} </p>
+            <div ref={this[data.indexout + "_ref"]} onClick={this.openPopup}>
+                <p style={{ backgroundColor: 'none', fontSize: 11, margin: 0, fontWeight: 700 }}> {data.event.title} </p>
+                <p style={{ backgroundColor: 'none', fontSize: 11, margin: 0 }}> {moment(data.event.start).format('hh:mm') + '-' + moment(data.event.end).format('hh:mm')} </p>
             </div>
 
         )
     }
 
-    
+    DateCellCompnent = ({ children, value }) => {
+        return React.cloneElement(Children.only(children), {
+            style: {
+                ...children.style,
+                // backgroundColor: value < CURRENT_DATE ? 'lightgreen' : 'lightblue',
+            },
+        })
+    }
+
 
     MyCustomHeader = ({ label }) => (
         <div>
-          CUSTOM HEADER:
-          <div>{label}</div>
-          <MyOtherNestedComponent />
+            CUSTOM HEADER:
+            <div>{label}</div>
+            <MyOtherNestedComponent />
         </div>
-      )
-      
+    )
+
 
     render() {
         const { selectedOption, myEventsList } = this.state;
@@ -211,12 +229,31 @@ class Index extends Component {
                                                     events={myEventsList}
                                                     startAccessor="start"
                                                     endAccessor="end"
-                                                    style={{ height: 500 }}
+                                                    popup
+                                                    popupOffset={{ x: 30, y: 20 }}
+                                                    style={{ minHeight: 900 }}
+                                                    // step={60}
+                                                    messages={{
+                                                        showMore: total => (
+                                                            <div
+                                                                style={{ cursor: 'pointer' }}
+                                                                onMouseOver={e => {
+                                                                    e.stopPropagation();
+                                                                    e.preventDefault();
+                                                                }}
+                                                            >{`+${total} more`}
+                                                            </div>
+                                                        ),
+                                                    }}
                                                     components={{
-                                                        month: { header: this.MyCustomHeader },
-                                                        event: this.EventComponent
+                                                        month: { event: this.EventComponent },
+                                                        dateCellWrapper: this.DateCellCompnent
                                                     }}
                                                 />
+                                                {/* <div ref={setPopperElement} style={styles.popper} {...attributes.popper}>
+                                                    Popper element
+                                                    <div ref={setArrowElement} style={styles.arrow} />
+                                                </div> */}
                                                 {/* <img src={require('../../../assets/images/uidoc.jpg')} alt="" title="" /> */}
                                             </Grid>
                                         </Grid>

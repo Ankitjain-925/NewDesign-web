@@ -11,10 +11,11 @@ import { Settings } from './../../../Login/setting';
 import { LanguageFetchReducer } from './../../../actions';
 import * as translationEN from '../../../../translations/en_json_proofread_13072020.json';
 
-import { Editor } from 'react-draft-wysiwyg';
-import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
-import { EditorState, convertToRaw } from 'draft-js';
-import draftToHtml from 'draftjs-to-html';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css'; // ES6
+
+
+
 const weOfferOptions = [
     { value: 'Service name', label: 'Service name' },
     { value: 'Service name', label: 'Service name' },
@@ -33,8 +34,7 @@ class Index extends Component {
             PassDone: false,
             dateF: {},
             timeF: {},
-            UpDataDetails:{},
-            editorState: EditorState.createEmpty()
+            UpDataDetails: {},
         };
         // new Timer(this.logOutClick.bind(this)) 
     }
@@ -62,14 +62,7 @@ class Index extends Component {
             })
     }
 
-    //For Change Format State
-    ChangeFormat = (event, name) => {
-        if (name == 'date_format') { this.setState({ dateF: event }) }
-        else { this.setState({ timeF: event }) }
-        const state = this.state.Format;
-        state[name] = event && event.value;
-        this.setState({ Format: state })
-    }
+
 
     getUserData() {
         this.setState({ loaderImage: true, UpDataDetails: {} });
@@ -83,89 +76,44 @@ class Index extends Component {
             }
         }).then((response) => {
             this.setState({ loaderImage: false });
-            var title, titlefromD = response.data.data.title;
-            if( titlefromD && titlefromD !== "")
-            {
-                title = response.data.data.title.split(", ");
-            }
-            else
-            {
-                title = [];
-            }
-            if(response.data.data.mobile && response.data.data.mobile !== '')
-            {
-                let mob = response.data.data.mobile.split("-");
-                if(mob && mob.length>0)
-                {
-                    this.setState({flag_mobile : mob[0]})
-                }
-            }
-            if(response.data.data.phone && response.data.data.phone !== '')
-            {
-                let pho = response.data.data.phone.split("-");
-                if(pho && pho.length>0)
-                {
-                    this.setState({flag_phone : pho[0]})
-                }
-            }
-            if(response.data.data.fax && response.data.data.fax !== '')
-            {
-                let fx = response.data.data.fax.split("-");
-                if(fx && fx.length>0)
-                {
-                    this.setState({flag_fax : fx[0]})
-                }
-            }
-            this.setState({ UpDataDetails: response.data.data, city: response.data.data.city, area: response.data.data.area, profile_id : response.data.data.profile_id});
-            this.setState({ speciality_multi: this.state.UpDataDetails.speciality })
-            this.setState({ subspeciality_multi: this.state.UpDataDetails.subspeciality })
-            this.setState({ name_multi: this.state.UpDataDetails.language })
-            this.setState({ birthday: response.data.data.birthday, title : title })
             
-            if (response.data.data.practice_image) {
-                var find = response.data.data && response.data.data.practice_image && response.data.data.practice_image
-                if(find)
-                {
-                    this.setState({uploadedimage : response.data.data.practice_image})
-                    find = find.split('.com/')[1]
-                    axios.get(sitedata.data.path + '/aws/sign_s3?find='+find,)
-                    .then((response) => {
-                        if(response.data.hassuccessed)
-                        {
-                            this.setState({uploadedimage1:response.data.data})
-                        }
-                    })
-                }
-                //  this.setState({ uploadedimage: response.data.data.image })
-            }
-            if (response.data.data.we_offer) {
-                this.setState({ weoffer: response.data.data.we_offer })
-            }
+            this.setState({ UpDataDetails: response.data.data, profile_id: response.data.data.profile_id });
         }).catch((error) => {
             this.setState({ loaderImage: false });
         });
     }
 
+    saveData = () => {
+        const {UpDataDetails} = this.state;
+        const user_token = this.props.stateLoginValueAim.token;
+        let updatedata = {
+            weoffer_text: UpDataDetails.weoffer_text,
+            latest_info: UpDataDetails.latest_info,         
+        }
+        axios.put(sitedata.data.path + '/UserProfile/Users/update', 
+        updatedata, {
+            headers: {
+                'token': user_token,
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        })
+        .then((responce) => {
 
-    updateEntryState = (e) => {
-        const state = this.state.UpDataDetails;
-        if (e.target.name === 'is2fa') {
-            state[e.target.name] = e.target.checked;
-        }
-        else {
-            state[e.target.name] = e.target.value;
-        }
-        this.setState({ UpDataDetails: state });
+        })
     }
-        
-    onEditorStateChange = (editorState) => {
-        const state = this.state.UpDataDetails;
-        state['weoffer_text']= draftToHtml(convertToRaw(editorState.getCurrentContent()))
-        console.log("e", editorState)
-        this.setState({
-            editorState,
-            UpDataDetails:state
-          });
+
+    handleChange = (event) => {
+        let state = this.state.UpDataDetails;
+        state['weoffer_text'] = event.target.value
+        this.setState({ UpDataDetails: state })
+    }
+
+    handlelatestChange = (value) => {
+        let state = this.state.UpDataDetails;
+        state['latest_info'] = value
+        this.setState({ UpDataDetails: state })
+
     }
 
     render() {
@@ -199,7 +147,7 @@ class Index extends Component {
                 translate = translationEN.text
         }
         let { date, time, format, set_the_default, the, is, updated, save_change } = translate
-        const { selectedOption, editorState } = this.state;
+        const { UpDataDetails } = this.state;
         return (
             <div>
                 {this.state.loaderImage && <Loader />}
@@ -212,35 +160,21 @@ class Index extends Component {
                             <p>This is what patients see when they are arranging an appointment</p>
                         </Grid>
 
-                        <Grid item className="officInfo">
+                        <Grid item className="officInfo profileInfoIner">
                             <label>We offer</label>
-                            <Grid>
-                                <Select
-                                    value={selectedOption}
-                                    onChange={this.handleChange}
-                                    options={weOfferOptions}
-                                    placeholder=""
-                                    isSearchable={false}
-                                    isMulti={true}
-                                />
-                            </Grid>
+                            <Grid><input type="text" name="weoffer_text" onChange={this.handleChange} value={this.state.UpDataDetails.weoffer_text ? this.state.UpDataDetails.weoffer_text : ''} /></Grid>
                         </Grid>
 
                         <Grid className="latstInfo">
                             <label>Latest information</label>
-                            <Grid className="latstInfoEditor">
-                                <Editor
-                                    editorState={editorState}
-                                    toolbarClassName="toolbarClassName"
-                                    wrapperClassName="wrapperClassName"
-                                    editorClassName="editorClassName"
-                                    onEditorStateChange={this.onEditorStateChange}
-                                />
+                            <Grid>
+                                <ReactQuill name="latest_info" value={this.state.UpDataDetails.latest_info?UpDataDetails.latest_info:''}
+                                    onChange={this.handlelatestChange} />
                             </Grid>
                         </Grid>
 
                         <Grid className="latstInfoBtn">
-                            <input type="submit" value="Save changes" />
+                            <input type="submit" value="Save changes" onClick={this.saveData}/>
                         </Grid>
 
                     </Grid>

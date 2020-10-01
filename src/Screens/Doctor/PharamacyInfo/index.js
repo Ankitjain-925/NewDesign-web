@@ -24,7 +24,8 @@ class Index extends Component {
             radius: '',
             name: '',
             searchLocation:[],
-            newEntry:{}
+            newEntry:{},
+            success: false
         };
 
     }
@@ -179,7 +180,7 @@ class Index extends Component {
                                 'Content-Type': fileType
                             }
                         };
-                        axios.put(signedRequest, file, options)
+                        axios.put('https://cors-anywhere.herokuapp.com/'+signedRequest, file, options)
                             .then(result => {
                                 console.log("Response from s3")
                                 this.setState({ success: true });

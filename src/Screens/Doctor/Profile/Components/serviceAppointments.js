@@ -629,17 +629,21 @@ class Index extends Component {
             state['holidays_start'] = new Date()
             state['holidays_end'] = new Date()
         }
-
         this.setState({ [statechange]: state });
     }
+    
     handleholidayDate = (statechange, date) => {
         let state = this.state[statechange];
         state['holidays_start'] = date[0].format()
         state['holidays_end'] = date[1].format()
-        console.log("state", state)
         this.setState({ [statechange]: state });
     }
 
+    onChangebook= (event, key, statechange) => {
+        let state = this.state[statechange];
+        state[key] = event.target.value
+        this.setState({ [statechange]: state });
+    }
 
     render() {
         let translate;
@@ -954,8 +958,8 @@ class Index extends Component {
                                     </Grid>
                                     <Grid className="apontBook">
                                         <Grid><label>Appointment can be booked:</label></Grid>
-                                        <Grid><p><span>Up to days,</span> <input type="text" value={onlineAppointments.appointment_days} /> before the day of appointment</p></Grid>
-                                        <Grid><p><span>Max,</span> <input type="text" value={onlineAppointments.appointment_hours} /> hours, before the time of appointment</p></Grid>
+                                        <Grid><p><span>Up to days,</span> <input type="text" onChange={(e) => this.onChangebook(e, 'appointment_days', 'onlineAppointments')} value={onlineAppointments.appointment_days} /> before the day of appointment</p></Grid>
+                                        <Grid><p><span>Max,</span> <input type="text" value={onlineAppointments.appointment_hours}  onChange={(e) => this.onChangebook(e, 'appointment_hours', 'onlineAppointments')}/> hours, before the time of appointment</p></Grid>
                                     </Grid>
                                 </Grid>
                             </Grid>
@@ -1122,8 +1126,8 @@ class Index extends Component {
                                     </Grid>
                                     <Grid className="apontBook">
                                         <Grid><label>Appointment can be booked:</label></Grid>
-                                        <Grid><p><span>Up to days,</span> <input type="text" value={UpDataDetails.appointment_days} /> before the day of appointment</p></Grid>
-                                        <Grid><p><span>Max,</span> <input type="text" value={UpDataDetails.appointment_hours} /> hours, before the time of appointment</p></Grid>
+                                        <Grid><p><span>Up to days,</span> <input type="text" onChange={(e) => this.onChangebook(e, 'appointment_days', 'UpDataDetails')} value={UpDataDetails.appointment_days} /> before the day of appointment</p></Grid>
+                                        <Grid><p><span>Max,</span> <input type="text" value={UpDataDetails.appointment_hours}  onChange={(e) => this.onChangebook(e, 'appointment_hours', 'UpDataDetails')}/> hours, before the time of appointment</p></Grid>
                                     </Grid>
                                 </Grid>
                             </Grid>
@@ -1289,8 +1293,8 @@ class Index extends Component {
                                     </Grid>
                                     <Grid className="apontBook">
                                         <Grid><label>Appointment can be booked:</label></Grid>
-                                        <Grid><p><span>Up to days,</span> <input type="text" value={DaysforPractices.appointment_days} /> before the day of appointment</p></Grid>
-                                        <Grid><p><span>Max,</span> <input type="text" value={DaysforPractices.appointment_hours} /> hours, before the time of appointment</p></Grid>
+                                        <Grid><p><span>Up to days,</span> <input type="text" onChange={(e) => this.onChangebook(e, 'appointment_days', 'DaysforPractices')} value={DaysforPractices.appointment_days} /> before the day of appointment</p></Grid>
+                                        <Grid><p><span>Max,</span> <input type="text" value={DaysforPractices.appointment_hours}  onChange={(e) => this.onChangebook(e, 'appointment_hours', 'DaysforPractices')}/> hours, before the time of appointment</p></Grid>
                                     </Grid>
                                 </Grid>
                             </Grid>

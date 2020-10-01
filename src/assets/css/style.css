@@ -12270,6 +12270,11 @@ input:focus {
     font-size: 15px;
     font-weight: 800;
    }
+
+   .rbc-event {
+    background-color: transparent!important;
+    color: black!important;
+   }
   
 
   

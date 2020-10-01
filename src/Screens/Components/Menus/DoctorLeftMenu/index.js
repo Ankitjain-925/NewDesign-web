@@ -10,19 +10,16 @@ import { LanguageFetchReducer } from '../../../actions';
 import LogOut from './../../LogOut/index';
 import Timer from './../../TimeLogOut/index';
 import Notification from "../../../Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
-import Select from 'react-select';
-import CreatableSelect from 'react-select/creatable';
+
 import Modal from '@material-ui/core/Modal';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import sitedata from '../../../../sitedata';
 import axios from 'axios';
-import PharamacyModal from './../../../Doctor/PharamacyInfo/index.js'
+import PharamacyModal from './../../../Doctor/PharamacyInfo/index.js';
+import DoctorInviteModal from './../../../Doctor/DoctorInvite/index.js'
 
-const createOption = (label) => ({
-    label,
-    value: label,
-});
+
 
 class Index extends Component {
     constructor(props) {
@@ -38,8 +35,7 @@ class Index extends Component {
             loaderImage: false,
             openInvt: false,
             openPharma: false,
-            inputValue: '',
-            value: [],
+            
             UpDataDetails: [],
             invitation: {}
         };
@@ -74,42 +70,6 @@ class Index extends Component {
         });
     }
 
-    sentmail = () => {
-        const { invitation } = this.state
-
-        this.setState({ loaderImage: true, nv: false });
-        let user_token = this.props.stateLoginValueAim.token
-        axios.post(sitedata.data.path + '/UserProfile/AskPatient1/' + this.state.invitation.emails, {
-            email: this.state.invitation.emails,
-            message: this.state.invitation.messages,
-            first_name: this.state.UpDataDetails.first_name ? this.state.UpDataDetails.first_name : '',
-            last_name: this.state.UpDataDetails.last_name ? this.state.UpDataDetails.last_name : '',
-            lan: this.props.stateLanguageType
-        }, {
-            headers: {
-                'token': user_token,
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            }
-        }).then((response) => {
-            this.setState({ loaderImage: false });
-            this.setState({ sentmessages: true });
-            setTimeout(
-                function () {
-                    this.setState({ sentmessages: false });
-                }
-                    .bind(this),
-                3000
-            );
-        })
-
-    }
-
-    validateEmail = (elementValue) => {
-        var emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-        return emailPattern.test(elementValue);
-    }
-
     handleOpenInvt = () => {
         this.setState({ openInvt: true });
     };
@@ -124,57 +84,7 @@ class Index extends Component {
         this.setState({ openPharma: false });
     };
 
-    handleChange = (value, actionMeta) => {
-        var state = this.state.invitation;
-        if (value) {
-            value.map(data => {
-                if (state['emails']) state['emails'].push(data.value)
-                else state['emails'] = [data.value]
-            })
-        }
-        else {
-            state['emails'] = []
-        }
-        console.log("value", value)
-        // if(state['emails']){state['emails'] = value}
-
-        this.setState({ value, invitation: state });
-    };
-
-    invitationState = (e) => {
-        var state = this.state.invitation;
-        state[e.target.name] = e.target.value;
-        this.setState({ invitation: state });
-    }
-
-    handleInputChange = (inputValue) => {
-        this.setState({ inputValue });
-    };
-
-    handleKeyDown = (event) => {
-        const { inputValue, value, invitation } = this.state;
-        if (!inputValue) return;
-        switch (event.key) {
-            case 'Enter':
-            case 'Tab':
-                if (this.validateEmail(inputValue)) {
-                    var state = this.state.invitation;
-                    if (state['emails']) { state['emails'] = [...state['emails'], ...[inputValue]] }
-                    else { state['emails'] = [inputValue] };
-
-                    this.setState({
-                        invitation: state,
-                        nv: false,
-                        inputValue: '',
-                        value: [...value, createOption(inputValue)],
-                    });
-                }
-                else {
-                    this.setState({ nv: true })
-                }
-                event.preventDefault();
-        }
-    };
+    
 
     //For logout the User
     logOutClick = () => {
@@ -279,49 +189,7 @@ class Index extends Component {
                     </ul>
                 </Grid>
                 {/* Model setup */}
-                <Modal
-                    open={this.state.openInvt}
-                    onClose={this.handleCloseInvt}>
-                    <Grid className="invtBoxCntnt">
-                        <Grid className="invtCourse">
-                            <Grid className="invtCloseBtn">
-                                <a onClick={this.handleCloseInvt}>
-                                    <img src={require('../../../../assets/images/closefancy.png')} alt="" title="" />
-                                </a>
-                            </Grid>
-                            <Grid><label>Invite Doctors to Aimedis</label></Grid>
-                            <p>You can enter multiple email addresses and add a personal message</p>
-                        </Grid>
-                        <Grid className="invitLinkUpr">
-                            <Grid className="invitLinkInfo">
-                                <Grid><label>Who would you like to invite?</label></Grid>
-                                <Grid>
-                                    <CreatableSelect
-                                        inputValue={inputValue}
-                                        isClearable
-                                        isMulti
-                                        menuIsOpen={false}
-                                        onChange={this.handleChange}
-                                        onInputChange={this.handleInputChange}
-                                        onKeyDown={this.handleKeyDown}
-                                        placeholder="Enter Emails..."
-                                        value={value}
-                                    />
-                                </Grid>
-                            </Grid>
-                            <Grid className="invitLinkArea">
-                                <Grid><label>Who would you like to invite?</label></Grid>
-                                <Grid><textarea
-                                    name="messages"
-                                    onChange={this.invitationState}
-                                ></textarea></Grid>
-                            </Grid>
-                            <Grid className="invitLinkSub">
-                                <input type="submit" value="Send invites" onClick={this.sentmail} />
-                            </Grid>
-                        </Grid>
-                    </Grid>
-                </Modal>
+                <DoctorInviteModal openInvt={this.state.openInvt} handleOpenInvt={this.handleOpenInvt} handleCloseInvt={this.handleCloseInvt} />
                 {/* End of Model setup */}
                 {/* Pharmacy Prescription */}
                 <PharamacyModal openPharma={this.state.openPharma} handleOpenPharma={this.handleOpenPharma} handleClosePharma={this.handleClosePharma} />
