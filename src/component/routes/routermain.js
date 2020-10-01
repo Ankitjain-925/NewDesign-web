@@ -43,6 +43,15 @@ import NurseOnline from './../../Screens/Nurse/onlineCourse/index';
 import NurseJournal from './../../Screens/Nurse/Journal/index';
 import NurseChats from './../../Screens/Nurse/Chat/index';
 
+
+//Pharmacy Component
+import PharmaEmergency from "./../../Screens/Pharmacy/Emergency";
+import PharmaProfile from './../../Screens/Pharmacy/Profile/index';
+import PharmaOnline from './../../Screens/Pharmacy/onlineCourse/index';
+import PharmaPrescription from './../../Screens/Pharmacy/Prescriptions/index';
+import PharmaChats from './../../Screens/Pharmacy/Chat/index';
+import PharmaArchive from './../../Screens/Pharmacy/Archive/index';
+
 //Doctor Component
 import DoctorService from "./../../Screens/Doctor/Services/index.js";
 import MyDocument from "./../../Screens/Doctor/Inquiries/index.js";
@@ -95,12 +104,13 @@ class Routermain extends Component {
             <Route exact path="/nurse/online-course" render={(props) => <NurseOnline {...props} />} />
             <Route exact path="/nurse/view-course" render={(props) => <PaitnetViewCourses {...props} />} />
 
-            <Route exact path="/pharmacy" render={(props) => <NurseChats {...props} />} />
-            <Route exact path="/pharmacy/profile" render={(props) => <NurseProfile {...props} />} />
-            <Route exact path="/pharmacy/emergency" render={(props) => <NurseEmergency {...props} />} />
-            <Route exact path="/pharmacy/journal" render={(props) => <NurseJournal {...props} />} />
-            <Route exact path="/pharmacy/online-course" render={(props) => <InsuranceOnline {...props} />} />
+            <Route exact path="/pharmacy" render={(props) => <PharmaChats {...props} />} />
+            <Route exact path="/pharmacy/profile" render={(props) => <PharmaProfile {...props} />} />
+            <Route exact path="/pharmacy/emergency" render={(props) => <PharmaEmergency {...props} />} />
+            <Route exact path="/pharmacy/prescriptions" render={(props) => <PharmaPrescription {...props} />} />
+            <Route exact path="/pharmacy/online-course" render={(props) => <PharmaOnline {...props} />} />
             <Route exact path="/pharmacy/view-course" render={(props) => <PaitnetViewCourses {...props} />} />
+            <Route exact path="/pharmacy/prescription-archive" render={(props) => <PharmaArchive {...props} />} />
 
 
             {/* Doctor Router Start*/}

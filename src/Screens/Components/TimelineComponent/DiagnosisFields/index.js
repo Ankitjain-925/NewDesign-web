@@ -141,7 +141,7 @@ class Index extends Component {
                                         color="#00ABAF"
                                     />
                                 }
-                                label="Alergy"
+                                label="Allergy"
                             />
                         </Grid>
                         <Grid>

@@ -21,11 +21,14 @@ import {
     DropdownItem
 } from 'reactstrap';
 
-import * as translationEN from '../../translations/en';
+import * as translationEN from '../../translations/en.json';
 import * as translationDE from '../../translations/de';
-import * as translationES from '../../translations/es';
+import * as translationSP from '../../translations/sp.json';
 import * as translationCH from '../../translations/ch';
 import * as translationPT from '../../translations/pt';
+import * as translationRS from '../../translations/rs';
+import * as translationNL from '../../translations/nl';
+import * as translationSW from '../../translations/sw';
 import contry from './../Components/countryBucket/countries.json';
 //Values for the validate Password
 var letter = /([a-zA-Z])+([ -~])*/, number = /\d+/, specialchar = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
@@ -304,15 +307,13 @@ class Index extends Component {
         this.setState({ hidden: !this.state.hidden });
     }
 
-    changeValue(languageType) {
-        this.setState({ dropDownValue: languageType });
+    changeValue(languageType, language) {
+        this.setState({ dropDownValue: language });
         this.props.LanguageFetchReducer(languageType);
     }
 
     componentDidMount() {
-        if (this.props.stateLanguageType !== 'English') {
-            this.setState({ dropDownValue: this.props.stateLanguageType })
-        }
+
     }
 
     render() {
@@ -322,147 +323,37 @@ class Index extends Component {
             case "en":
                 translate = translationEN.text
                 break;
-            // case "de":
-            //     translate = translationDE.text
-            //     break;
-            // case "pt":
-            //     translate = translationPT.text
-            //     break;
-            // case "sp":
-            //     translate = translationSP.text
-            //     break;
-            // case "rs":
-            //     translate = translationRS.text
-            //     break;
-            // case "nl":
-            //     translate = translationNL.text
-            //     break;
-            // case "ch":
-            //     translate = translationCH.text
-            //     break;
-            // case "sw":
-            //     translate = translationSW.text
-            //     break;
+            case "de":
+                translate = translationDE.text
+                break;
+            case "pt":
+                translate = translationPT.text
+                break;
+            case "sp":
+                translate = translationSP.text
+                break;
+            case "rs":
+                translate = translationRS.text
+                break;
+            case "nl":
+                translate = translationNL.text
+                break;
+            case "ch":
+                translate = translationCH.text
+                break;
+            case "sw":
+                translate = translationSW.text
+                break;
             case "default":
                 translate = translationEN.text
         }
 
-        let { Register_for_Aimedis, Register_Name, Register_email, Register_Password, recEmp_FirstName,recEmp_LastName,
+        let { Register_for_Aimedis, Register_Name, Register_email, login_Password, recEmp_FirstName, recEmp_LastName,
             Register_Mobilenumber, Register_activate_auth, Register_Accounttype, click_here_uplod_license, capab_Patients,
-            Register_want_register, Register_Clicking_box, Register_clickingbox, Professional, Doctor, Nurse, Pharmacist,
+            Register_want_register, Register_Clicking_box, Register_clickingbox, Professional, capab_Doctors, Nurse, Pharmacist,
             Register_CREATE, Register_havAC, Register_lohinher, Register_Passwordshould,
             Register_characters, Register_letter, Register_number, Register_special } = translate;
 
-        // de => German
-        //     if (this.props.stateLanguageType === 'German') {
-        //         Register_for_Aimedis = translationDE.text.Register_for_Aimedis;
-        //         Register_Name = translationDE.text.Register_Name;
-        //         Register_email = translationDE.text.Register_email;
-        //         Register_Password = translationDE.text.Register_Password;
-        //         Register_Mobilenumber = translationDE.text.Register_Mobilenumber;
-        //         Register_activate_auth = translationDE.text.Register_activate_auth;
-        //         Register_Accounttype = translationDE.text.Register_Accounttype;
-        //         Register_want_register = translationDE.text.Register_want_register;
-        //         Register_Clicking_box = translationDE.text.Register_Clicking_box;
-        //         Register_clickingbox = translationDE.text.Register_clickingbox;
-        //         Register_CREATE = translationDE.text.Register_CREATE;
-        //         Register_havAC = translationDE.text.Register_havAC;
-        //         Register_lohinher = translationDE.text.Register_lohinher;
-        //         Register_Passwordshould = translationDE.text.Register_Passwordshould;
-        //         Register_characters = translationDE.text.Register_characters;
-        //         Register_letter = translationDE.text.Register_letter;
-        //         Register_number = translationDE.text.Register_number;
-        //         Register_special = translationDE.text.Register_special;
-        //     }
-
-        //    // es => Spanish
-        //     else if (this.props.stateLanguageType === 'Spanish') {
-        //         Register_for_Aimedis = translationES.text.Register_for_Aimedis;
-        //         Register_Name = translationES.text.Register_Name;
-        //         Register_email = translationES.text.Register_email;
-        //         Register_Password = translationES.text.Register_Password;
-        //         Register_Mobilenumber = translationES.text.Register_Mobilenumber;
-        //         Register_activate_auth = translationES.text.Register_activate_auth;
-        //         Register_Accounttype = translationES.text.Register_Accounttype;
-        //         Register_want_register = translationES.text.Register_want_register;
-        //         Register_Clicking_box = translationES.text.Register_Clicking_box;
-        //         Register_clickingbox = translationES.text.Register_clickingbox;
-        //         Register_CREATE = translationES.text.Register_CREATE;
-        //         Register_havAC = translationES.text.Register_havAC;
-        //         Register_lohinher = translationES.text.Register_lohinher;
-        //         Register_Passwordshould = translationES.text.Register_Passwordshould;
-        //         Register_characters = translationES.text.Register_characters;
-        //         Register_letter = translationES.text.Register_letter;
-        //         Register_number = translationES.text.Register_number;
-        //         Register_special = translationES.text.Register_special;
-        //     }
-
-        //     // ch => Chinese
-        //     else if (this.props.stateLanguageType === 'Chinese') {
-        //         Register_for_Aimedis = translationCH.text.Register_for_Aimedis;
-        //         Register_Name = translationCH.text.Register_Name;
-        //         Register_email = translationCH.text.Register_email;
-        //         Register_Password = translationCH.text.Register_Password;
-        //         Register_Mobilenumber = translationCH.text.Register_Mobilenumber;
-        //         Register_activate_auth = translationCH.text.Register_activate_auth;
-        //         Register_Accounttype = translationCH.text.Register_Accounttype;
-        //         Register_want_register = translationCH.text.Register_want_register;
-        //         Register_Clicking_box = translationCH.text.Register_Clicking_box;
-        //         Register_clickingbox = translationCH.text.Register_clickingbox;
-        //         Register_CREATE = translationCH.text.Register_CREATE;
-        //         Register_havAC = translationCH.text.Register_havAC;
-        //         Register_lohinher = translationCH.text.Register_lohinher;
-        //         Register_Passwordshould = translationCH.text.Register_Passwordshould;
-        //         Register_characters = translationCH.text.Register_characters;
-        //         Register_letter = translationCH.text.Register_letter;
-        //         Register_number = translationCH.text.Register_number;
-        //         Register_special = translationCH.text.Register_special;
-        //     }
-
-        //      // pt => Portuguese
-        //     else if(this.props.stateLanguageType === 'Portuguese') {
-        //         Register_for_Aimedis = translationPT.text.Register_for_Aimedis;
-        //         Register_Name = translationPT.text.Register_Name;
-        //         Register_email = translationPT.text.Register_email;
-        //         Register_Password = translationPT.text.Register_Password;
-        //         Register_Mobilenumber = translationPT.text.Register_Mobilenumber;
-        //         Register_activate_auth = translationPT.text.Register_activate_auth;
-        //         Register_Accounttype = translationPT.text.Register_Accounttype;
-        //         Register_want_register = translationPT.text.Register_want_register;
-        //         Register_Clicking_box = translationPT.text.Register_Clicking_box;
-        //         Register_clickingbox = translationPT.text.Register_clickingbox;
-        //         Register_CREATE = translationPT.text.Register_CREATE;
-        //         Register_havAC = translationPT.text.Register_havAC;
-        //         Register_lohinher = translationPT.text.Register_lohinher;
-        //         Register_Passwordshould = translationPT.text.Register_Passwordshould;
-        //         Register_characters = translationPT.text.Register_characters;
-        //         Register_letter = translationPT.text.Register_letter;
-        //         Register_number = translationPT.text.Register_number;
-        //         Register_special = translationPT.text.Register_special;
-        //     }
-
-        //     // en => English
-        //     else {
-        //         Register_for_Aimedis = translationEN.text.Register_for_Aimedis;
-        //         Register_Name = translationEN.text.Register_Name;
-        //         Register_email = translationEN.text.Register_email;
-        //         Register_Password = translationEN.text.Register_Password;
-        //         Register_Mobilenumber = translationEN.text.Register_Mobilenumber;
-        //         Register_activate_auth = translationEN.text.Register_activate_auth;
-        //         Register_Accounttype = translationEN.text.Register_Accounttype;
-        //         Register_want_register = translationEN.text.Register_want_register;
-        //         Register_Clicking_box = translationEN.text.Register_Clicking_box;
-        //          Register_clickingbox = translationEN.text.Register_clickingbox;
-        //         Register_CREATE = translationEN.text.Register_CREATE;
-        //         Register_havAC = translationEN.text.Register_havAC;
-        //         Register_lohinher = translationEN.text.Register_lohinher;
-        //         Register_Passwordshould = translationEN.text.Register_Passwordshould;
-        //         Register_characters = translationEN.text.Register_characters;
-        //         Register_letter = translationEN.text.Register_letter;
-        //         Register_number = translationEN.text.Register_number;
-        //         Register_special = translationEN.text.Register_special;
-
-        //     }
 
         return (
             <Grid>
@@ -487,13 +378,13 @@ class Index extends Component {
 
                                                 */}
                                                 <DropdownMenu className="langInerFooter">
-                                                    <DropdownItem onClick={() => { this.changeValue('English') }}><NavLink>English</NavLink></DropdownItem>
-                                                    <DropdownItem onClick={() => { this.changeValue('German') }}><NavLink>German</NavLink></DropdownItem>
-                                                    <DropdownItem onClick={() => { this.changeValue('Chinese') }}><NavLink>Chinese</NavLink></DropdownItem>
-                                                    <DropdownItem onClick={() => { this.changeValue('Portuguese') }}><NavLink>Portuguese</NavLink></DropdownItem>
-                                                    <DropdownItem onClick={() => { this.changeValue('Spanish') }}><NavLink>Spanish</NavLink></DropdownItem>
-                                                    <DropdownItem><NavLink>Russian</NavLink></DropdownItem>
-                                                    <DropdownItem><NavLink>Swahili</NavLink></DropdownItem>
+                                                    <DropdownItem onClick={() => { this.changeValue('en', "English") }}><NavLink>English</NavLink></DropdownItem>
+                                                    <DropdownItem onClick={() => { this.changeValue('de', "German") }}><NavLink>German</NavLink></DropdownItem>
+                                                    <DropdownItem onClick={() => { this.changeValue('ch', "Chinese") }}><NavLink>Chinese</NavLink></DropdownItem>
+                                                    <DropdownItem onClick={() => { this.changeValue('pt', "Portuguese") }}><NavLink>Portuguese</NavLink></DropdownItem>
+                                                    <DropdownItem onClick={() => { this.changeValue('sp', "Spanish") }}><NavLink>Spanish</NavLink></DropdownItem>
+                                                    <DropdownItem onClick={() => { this.changeValue('rs', "Russian") }}><NavLink>Russian</NavLink></DropdownItem>
+                                                    <DropdownItem onClick={() => { this.changeValue('sw', "Swahili") }}><NavLink>Swahili</NavLink></DropdownItem>
                                                 </DropdownMenu>
                                             </UncontrolledDropdown>
                                         </Grid>
@@ -506,7 +397,7 @@ class Index extends Component {
                 </Grid>
                 <Grid container direction="row" justify="center" alignItems="center">
                     <Grid item xs={11} sm={10} md={7}>
-                        <Grid className="regData"><h1>{Register_for_Aimedis}</h1></Grid>
+                        <Grid className="regData"><h1>{Register_for_Aimedis} Aimedis V2</h1></Grid>
 
                         <Grid className="registerFormMain">
                             <Grid className="registerForm">
@@ -539,7 +430,7 @@ class Index extends Component {
                                 </Grid>
 
                                 <Grid className="registerRow passInstMain">
-                                    <Grid><label>{Register_Password}</label></Grid>
+                                    <Grid><label>{login_Password}</label></Grid>
                                     <Grid className="registerPass">
                                         <input
                                             type={this.state.hidden ? "password" : "text"}
@@ -581,7 +472,7 @@ class Index extends Component {
                                         </div>
                                         : <div className="passInst">
                                             <div className="passInstIner">
-                                                <p>Password should contain at least:</p>
+                                                <p>{Register_Passwordshould}</p>
                                                 <img src={require('../../assets/images/passArrow.png')} alt="" title="" className="passArow" />
                                                 <ul>
                                                     <li><a><img src={require('../../assets/images/CloseCircle.svg')} alt="" title="" />{Register_characters}</a></li>
@@ -635,7 +526,7 @@ class Index extends Component {
                                                         </DropdownToggle>
                                                         <DropdownMenu>
                                                             <DropdownItem onClick={() => { this.setState({ selectedOption: '' }) }}><NavLink>{Professional}</NavLink></DropdownItem>
-                                                            <DropdownItem onClick={() => { this.setState({ selectedOption: 'doctor' }) }}><NavLink>{Doctor}</NavLink></DropdownItem>
+                                                            <DropdownItem onClick={() => { this.setState({ selectedOption: 'doctor' }) }}><NavLink>{capab_Doctors}</NavLink></DropdownItem>
                                                             <DropdownItem onClick={() => { this.setState({ selectedOption: 'nurse' }) }}><NavLink>{Nurse}</NavLink></DropdownItem>
                                                             <DropdownItem onClick={() => { this.setState({ selectedOption: 'pharmacy' }) }}><NavLink>{Pharmacist}</NavLink></DropdownItem>
                                                         </DropdownMenu>
