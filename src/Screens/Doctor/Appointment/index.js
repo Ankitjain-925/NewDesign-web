@@ -15,7 +15,8 @@ import { connect } from "react-redux";
 import { LoginReducerAim } from './../../Login/actions';
 import { Settings } from './../../Login/setting';
 import { LanguageFetchReducer } from './../../actions';
-
+import TooltipTrigger from 'react-popper-tooltip';
+import 'react-popper-tooltip/dist/styles.css';
 const CURRENT_DATE = moment().toDate();
 const localizer = momentLocalizer(moment)
 const options = [
@@ -24,12 +25,15 @@ const options = [
     { value: 'data3', label: 'Data3' },
 ];
 
-// const [referenceElement, setReferenceElement] = useState(null);
-// const [popperElement, setPopperElement] = useState(null);
-// const [arrowElement, setArrowElement] = useState(null);
-// const { styles, attributes } = usePopper(referenceElement, popperElement, {
-//     modifiers: [{ name: 'arrow', options: { element: arrowElement } }],
-// });
+const modifiers = [
+    {
+        name: 'offset',
+        enabled: true,
+        options: {
+            offset: [0, 4],
+        },
+    },
+];
 
 let MyOtherNestedComponent = () => <div>NESTED COMPONENT</div>
 class Index extends Component {
@@ -38,7 +42,8 @@ class Index extends Component {
         this.state = {
             openSlot: false,
             selectedOption: null,
-            myEventsList: []
+            myEventsList: [],
+            DetialData:{}
         };
     }
 
@@ -100,7 +105,7 @@ class Index extends Component {
                                         }
                                         console.log("index", index)
                                         this[`${indexout}_ref`] = React.createRef()
-                                        finaldata.push({ id: index, title: d1.patient_info.first_name + " " + d1.patient_info.last_name, start: new Date(da1), end: new Date(da2), indexout: indexout })
+                                        finaldata.push({ id: index, title: d1.patient_info.first_name + " " + d1.patient_info.last_name, start: new Date(da1), end: new Date(da2), indexout: indexout, fulldata:[d1] })
                                     })
                                 }
                             }).then(() => {
@@ -131,11 +136,33 @@ class Index extends Component {
 
     EventComponent = (data) => {
         return (
-            <div ref={this[data.indexout + "_ref"]} onClick={this.openPopup}>
-                <p style={{ backgroundColor: 'none', fontSize: 11, margin: 0, fontWeight: 700 }}> {data.event.title} </p>
-                <p style={{ backgroundColor: 'none', fontSize: 11, margin: 0 }}> {moment(data.event.start).format('hh:mm') + '-' + moment(data.event.end).format('hh:mm')} </p>
-            </div>
-
+            <TooltipTrigger
+                placement="right"
+                trigger="click"
+                tooltip={datas=>this.Tooltip({
+                    getTooltipProps:datas.getTooltipProps,
+                    getArrowProps:datas.getArrowProps,
+                    tooltipRef:datas.tooltipRef,
+                    arrowRef:datas.arrowRef,
+                    placement:datas.placement,
+                    event: data.event
+                })}
+                modifiers={modifiers}
+            >
+                { ({
+                    getTriggerProps, triggerRef
+                }) =>
+                    <span {...getTriggerProps({
+                        ref: triggerRef,
+                        className: 'trigger'
+                        /* your props here */
+                    })}
+                        // onClick={() => this.CallEvents(data.event)}
+                    >
+                        <p style={{ backgroundColor: 'none', fontSize: 11, margin: 0, fontWeight: 700 }}> {data.event.title} </p>
+                        <p style={{ backgroundColor: 'none', fontSize: 11, margin: 0 }}> {moment(data.event.start).format('hh:mm') + '-' + moment(data.event.end).format('hh:mm')} </p>
+                    </span>}
+            </TooltipTrigger>
         )
     }
 
@@ -148,6 +175,29 @@ class Index extends Component {
         })
     }
 
+    CallEvents = (event) => {
+        console.log("event", event)
+        var user_token = this.props.stateLoginValueAim.token;
+        let Month = event.start.getMonth() + 1;
+        let date = Month + '-' + event.start.getDate() + '-' + event.start.getFullYear();
+        this.setState({ loaderImage: true })
+        axios.get(sitedata.data.path + '/User/AppointOfDate/' + date,
+            {
+                headers: {
+                    'token': user_token,
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then((response) => {
+                if (response.data.hassuccessed) {
+                    this.setState({ SelectDate: date, DetialData: response.data.data })
+                }
+                this.setState({ loaderImage: false })
+            })
+
+    }
+
 
     MyCustomHeader = ({ label }) => (
         <div>
@@ -157,6 +207,49 @@ class Index extends Component {
         </div>
     )
 
+
+    Tooltip = ({
+        getTooltipProps,
+        getArrowProps,
+        tooltipRef,
+        arrowRef,
+        placement,
+        event
+    }) =>{
+        console.log("tooltipRef", event)
+        return (
+            <div
+                {...getTooltipProps({
+                    ref: tooltipRef,
+                    className: 'tooltip-container'
+                })}
+            >
+                <div
+                    {...getArrowProps({
+                        ref: arrowRef,
+                        'data-placement': placement,
+                        className: 'tooltip-arrow'
+                    })}
+                />
+                
+                    {event && event.fulldata.length > 0 &&
+                        <div className="calendarevent">
+                            {event.fulldata && event.fulldata.length > 0 && event.fulldata.map((data) => (
+                                <div>
+                                    <p>{data.start_time && data.start_time} to {data.end_time && data.end_time}</p>
+                                    <p>{data.appointment_type && data.appointment_type.replace('_', ' ')}</p>
+                                    <p>{data.patient_info.first_name && data.patient_info.first_name}  {data.patient_info.last_name && data.patient_info.last_name}</p>
+                                    <p>{data.patient_info.patient_id && data.patient_info.patient_id}</p>
+                                    <p>{data.patient_info.email && data.patient_info.email}</p>
+                                    <p>{data.annotations && data.annotations}</p>
+                                </div>
+                            ))}
+                        </div>
+                    }
+        
+            </div>
+        );
+    }
 
     render() {
         const { selectedOption, myEventsList } = this.state;
@@ -232,7 +325,7 @@ class Index extends Component {
                                                     popup
                                                     popupOffset={{ x: 30, y: 20 }}
                                                     style={{ minHeight: 900 }}
-                                                    // step={60}
+                                                    step={60}
                                                     messages={{
                                                         showMore: total => (
                                                             <div
@@ -250,6 +343,7 @@ class Index extends Component {
                                                         dateCellWrapper: this.DateCellCompnent
                                                     }}
                                                 />
+
                                                 {/* <div ref={setPopperElement} style={styles.popper} {...attributes.popper}>
                                                     Popper element
                                                     <div ref={setArrowElement} style={styles.arrow} />

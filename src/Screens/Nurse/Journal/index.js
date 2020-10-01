@@ -95,7 +95,7 @@ class Index extends Component {
 
     //For clear the filter
     ClearData=()=>{
-        this.setState({allTrack: allTrack1})
+        this.setState({allTrack: []})
     }
     //Modal Open on Archive the Journal
     ArchiveTrack = (data) => {
