@@ -2951,7 +2951,7 @@ a.profilMenu {
     text-align: right;
 }
 .todaySrchRght img {
-    width: 32px;
+    width: 32px !important;
     border-radius: 9px;
     cursor: pointer;
 }
@@ -10666,11 +10666,11 @@ span.acptTxt img {
     margin-right: 30px;
 }
 a.calViewnw img {
-    width: 17px;
+    width: 17px !important;
     border-radius: initial !important;
 }
 a.barViewnw img {
-    width: 15px;
+    width: 15px!important;
     border-radius: initial !important;
 }
 a.calViewnw {
@@ -12250,4 +12250,6 @@ input:focus {
    }
   
 
-  
+   .getCalBnr .movMnth img {
+       width: auto!important;
+   }

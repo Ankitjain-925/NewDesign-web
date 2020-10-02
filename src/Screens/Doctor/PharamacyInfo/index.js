@@ -13,6 +13,8 @@ import Checkbox from '@material-ui/core/Checkbox';
 import sitedata from './../../../sitedata';
 import axios from 'axios';
 import Geocode from "react-geocode";
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import * as translationEN from '../../../translations/en_json_proofread_13072020.json';
 class Index extends Component {
     constructor(props) {
         super(props)
@@ -23,9 +25,10 @@ class Index extends Component {
             UpDataDetails: [],
             radius: '',
             name: '',
-            searchLocation:[],
-            newEntry:{},
-            success: false
+            searchLocation: [],
+            newEntry: {},
+            success: false,
+            imagePreviewUrl: null
         };
 
     }
@@ -100,10 +103,10 @@ class Index extends Component {
     findByName = (e) => {
         let newEntry = this.state.newEntry;
         console.log("newEntry", newEntry)
-        if(newEntry.pharmacy_id){
+        if (newEntry.pharmacy_id) {
             newEntry.pharmacy_id = ''
         }
-        this.setState({ name: e.target.value, searchLocation: [],newEntry: newEntry}, () => this.getName());
+        this.setState({ name: e.target.value, searchLocation: [], newEntry: newEntry }, () => this.getName());
     }
     getName = () => {
         var user_token = this.props.stateLoginValueAim.token;
@@ -133,14 +136,18 @@ class Index extends Component {
     }
 
     CertificateAttach = (event) => {
+        console.log("event", event)
         if (this.state.newEntry.patient_id) {
             // this.setState({file:})
             this.setState({ isfileupload: true, firstPatient_id: false })
             event.preventDefault();
+            // let file = event.target.files[0];
+
             var user_id = this.props.stateLoginValueAim.user._id;
             var user_token = this.props.stateLoginValueAim.token;
             const patient_id = this.state.newEntry.patient_id
             const data = new FormData()
+            let reader = new FileReader();
             data.append('uploadCertificate', event.target.files[0])
             this.setState({ loaderImage: true })
             for (var i = 0; i < event.target.files.length; i++) {
@@ -148,56 +155,115 @@ class Index extends Component {
                 let fileParts = event.target.files[i].name.split('.');
                 let fileName = fileParts[0];
                 let fileType = fileParts[1];
-                axios.post(sitedata.data.path + '/aws/sign_s3', {
-                    fileName: fileName,
-                    fileType: fileType,
-                    folders: `${patient_id}/Trackrecord/`,
-                    bucket: this.props.stateLoginValueAim.user.bucket
-                })
-                    .then(response => {
-                        var Filename = response.data.data.returnData.url + '&bucket=' + this.props.stateLoginValueAim.user.bucket;
-                        this.setState({
-                            loaderImage: false,
-                            filename: [{ filename: Filename, filetype: fileType }]
-                        });
+                if (fileType === 'pdf' || fileType === 'jpeg' || fileType === 'png' || fileType === 'jpg' || fileType === 'svg') {
+                    if (fileType !== 'pdf') {
+                        reader.onloadend = () => {
+                            console.log("reader.result", reader.result)
+                            this.setState({
+                                file: file,
+                                imagePreviewUrl: reader.result
+                            });
+                        }
+                        reader.readAsDataURL(file)
+                    }
+                    else {
 
-                        setTimeout(
-                            function () {
-                                this.setState({ fileupods: false });
-                            }
-                                .bind(this),
-                            3000
-                        );
-                        console.log('data', response)
-                        var returnData = response.data.data.returnData;
-                        var signedRequest = returnData.signedRequest;
-                        var url = returnData.url;
-                        console.log("Recieved a signed request " + signedRequest);
+                    }
+                    axios.post(sitedata.data.path + '/aws/sign_s3', {
+                        fileName: fileName,
+                        fileType: fileType,
+                        folders: `${patient_id}/Trackrecord/`,
+                        bucket: this.props.stateLoginValueAim.user.bucket
+                    })
+                        .then(response => {
+                            var Filename = response.data.data.returnData.url + '&bucket=' + this.props.stateLoginValueAim.user.bucket;
+                            this.setState({
+                                loaderImage: false,
+                                filename: [{ filename: Filename, filetype: fileType }]
+                            });
 
-                        // Put the fileType in the headers for the upload
-                        var options = {
-                            headers: {
-                                'Content-Type': fileType
-                            }
-                        };
-                        axios.put('https://cors-anywhere.herokuapp.com/'+signedRequest, file, options)
-                            .then(result => {
-                                console.log("Response from s3")
-                                this.setState({ success: true });
-                            })
-                            .catch(error => {
-                                console.log("ERROR " + JSON.stringify(error));
-                            })
+                            setTimeout(
+                                function () {
+                                    this.setState({ fileupods: false });
+                                }
+                                    .bind(this),
+                                3000
+                            );
+                            console.log('data', response)
+                            var returnData = response.data.data.returnData;
+                            var signedRequest = returnData.signedRequest;
+                            var url = returnData.url;
+                            console.log("Recieved a signed request " + signedRequest);
+
+                            // Put the fileType in the headers for the upload
+                            var options = {
+                                headers: {
+                                    'Content-Type': fileType
+                                }
+                            };
+                            axios.put('https://cors-anywhere.herokuapp.com/' + signedRequest, file, options)
+                                .then(result => {
+                                    console.log("Response from s3")
+                                    this.setState({ success: true });
+                                })
+                                .catch(error => {
+                                    console.log("ERROR " + JSON.stringify(error));
+                                })
+                        })
+                        .catch(error => {
+                            console.log(JSON.stringify(error));
+                        })
+                }
+                else {
+                    let translate;
+                    switch (this.props.stateLanguageType) {
+                        case "en":
+                            translate = translationEN.text
+                            break;
+                        // case "de":
+                        //     translate = translationDE.text
+                        //     break;
+                        // case "pt":
+                        //     translate = translationPT.text
+                        //     break;
+                        // case "sp":
+                        //     translate = translationSP.text
+                        //     break;
+                        // case "rs":
+                        //     translate = translationRS.text
+                        //     break;
+                        // case "nl":
+                        //     translate = translationNL.text
+                        //     break;
+                        // case "ch":
+                        //     translate = translationCH.text
+                        //     break;
+                        // case "sw":
+                        //     translate = translationSW.text
+                        //     break;
+                        case "default":
+                            translate = translationEN.text
+                    }
+                    let { UploadMust } = translate;
+                    this.setState({ loaderImage: false });
+                    confirmAlert({
+                        message: UploadMust,
+                        buttons: [
+                            {
+                                label: 'YES',
+                            },
+
+                        ]
                     })
-                    .catch(error => {
-                        console.log(JSON.stringify(error));
-                    })
+                }
             }
         }
         else {
             this.setState({
                 firstPatient_id: true
             })
+            event.target.files = []
+            return false
         }
     }
 
@@ -212,7 +278,7 @@ class Index extends Component {
                 }
             })
                 .then((response) => {
-                    let data = response.data.data.filter(dat=>dat.first_name)
+                    let data = response.data.data.filter(dat => dat.first_name)
                     this.setState({ searchName: data })
                 })
         }
@@ -222,7 +288,7 @@ class Index extends Component {
         console.log("item", item)
         const state = this.state.newEntry
         state['pharmacy_id'] = item.profile_id;
-        this.setState({ newEntry: state, radius: '', name: item.first_name, searchLocation: [], searchName: []});
+        this.setState({ newEntry: state, radius: '', name: item.first_name, searchLocation: [], searchName: [] });
     }
 
     getlocation = () => {
@@ -311,7 +377,12 @@ class Index extends Component {
 
     render() {
         const { openPharma } = this.props
-        const {searchLocation, searchName} = this.state
+        const { searchLocation, searchName } = this.state;
+        let { imagePreviewUrl } = this.state;
+        let $imagePreview = null;
+        if (imagePreviewUrl) {
+            $imagePreview = (<img style={{ borderRadius: "10%", maxWidth: 350, marginBottom: 10 }} src={imagePreviewUrl} />);
+        }
         return (
             <Grid item xs={12} md={1} className="MenuLeftUpr ">
 
@@ -332,11 +403,12 @@ class Index extends Component {
                         <Grid className="phrmLinkUpr">
                             <Grid className="upScanForms upScanImg">
                                 <Grid><label>Upload scanned prescriptions</label></Grid>
-                                <Grid className="upScanInput">
+                                {!$imagePreview && <Grid className="upScanInput">
                                     <a><img src={require('../../../assets/images/upload-file.svg')} alt="" title="" /></a>
                                     <a>Browse <input type="file" onChange={this.CertificateAttach} /></a> or drag here
-                                                                        </Grid>
-                                <p>Supported file types: .jpg, .png, .pdf</p>
+                                                                        </Grid>}
+                                {!$imagePreview && <p>Supported file types: .jpg, .png, .pdf</p>}
+                                {$imagePreview}
                                 <div className="filetitle">{this.state.isfileupload && (
                                     this.state.fileattach && this.state.fileattach.length > 0 && this.state.fileattach.map((ite, ind) => (
                                         ite.filename
@@ -345,16 +417,16 @@ class Index extends Component {
                             </Grid>
                             <Grid className="scanInputs">
                                 <Grid><label>Patient ID</label></Grid>
-                                <Grid><input type="text"  onChange={this.updateEntryState} value={this.state.newEntry && this.state.newEntry.patient_id && this.state.newEntry.patient_id} name="patient_id"/></Grid>
+                                <Grid><input type="text" onChange={this.updateEntryState} value={this.state.newEntry && this.state.newEntry.patient_id && this.state.newEntry.patient_id} name="patient_id" /></Grid>
                             </Grid>
                             <Grid className="scanInputs">
                                 <Grid><label>Pharmacy</label></Grid>
                                 <Grid className="scanInputPhrm dropdown-main">
-                                    <input type="text" placeholder="Search Pharmacy by name or ID"  onChange={this.findByName} value={this.state.newEntry.pharmacy_id?(this.state.name+"- "+ this.state.newEntry.pharmacy_id):this.state.name}/>
+                                    <input type="text" placeholder="Search Pharmacy by name or ID" onChange={this.findByName} value={this.state.newEntry.pharmacy_id ? (this.state.name + "- " + this.state.newEntry.pharmacy_id) : this.state.name} />
                                     <img src={require('../../../assets/images/srchInputField.svg')} alt="" title="" />
-                                    <div className={searchName&&searchName.length>0?"show-content dropdown-content":'dropdown-content'}>
-                                        {searchName.map(data=>(
-                                            <a onClick={()=>this.SetIds(data)}>{data.first_name+" "+data.last_name}</a>
+                                    <div className={searchName && searchName.length > 0 ? "show-content dropdown-content" : 'dropdown-content'}>
+                                        {searchName.map(data => (
+                                            <a onClick={() => this.SetIds(data)}>{data.first_name + " " + data.last_name}</a>
                                         ))}
                                     </div>
                                 </Grid>
@@ -366,9 +438,9 @@ class Index extends Component {
                                 <Grid><label>Show Pharmacies within my radius of</label></Grid>
                                 <Grid className="scanInputKm dropdown-main">
                                     <input type="text" value={this.state.radius} onChange={this.findByRadius} /><span>km</span>
-                                    <div className={searchLocation&&searchLocation.length>0?"show-content dropdown-content":'dropdown-content'}>
-                                        {searchLocation.map(data=>(
-                                            <a onClick={()=>this.SetIds(data)}>{data.first_name+" "+data.last_name}</a>
+                                    <div className={searchLocation && searchLocation.length > 0 ? "show-content dropdown-content" : 'dropdown-content'}>
+                                        {searchLocation.map(data => (
+                                            <a onClick={() => this.SetIds(data)}>{data.first_name + " " + data.last_name}</a>
                                         ))}
                                     </div>
                                 </Grid>
@@ -383,14 +455,14 @@ class Index extends Component {
                                         <Checkbox
                                             value="checkedB"
                                             color="#00ABAF"
-                                            checked = { this.state.addtopatientlist} onChange={(e)=>{this.setState({addtopatientlist: e.target.checked})}} value={this.state.newEntry.pharmacy_id} 
+                                            checked={this.state.addtopatientlist} onChange={(e) => { this.setState({ addtopatientlist: e.target.checked }) }} value={this.state.newEntry.pharmacy_id}
                                         />
                                     }
                                     label="Add this to Patient Journal"
                                 />
                             </Grid>
                             <Grid className="scanInputsSub">
-                                <input type="submit" value="Send invites" onClick={this.AddTrack}/>
+                                <input type="submit" value="Send invites" onClick={this.AddTrack} />
                             </Grid>
                         </Grid>
                     </Grid>

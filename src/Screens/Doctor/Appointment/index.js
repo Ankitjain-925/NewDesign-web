@@ -17,13 +17,14 @@ import { Settings } from './../../Login/setting';
 import { LanguageFetchReducer } from './../../actions';
 import TooltipTrigger from 'react-popper-tooltip';
 import 'react-popper-tooltip/dist/styles.css';
+import CalendarToolbar from "./../../Components/CalendarToolbar/index.js";
+import Modal from '@material-ui/core/Modal';
+import DatePicker from 'react-date-picker';
+import { getDate, getImage } from './../../Components/BasicMethod/index';
+
 const CURRENT_DATE = moment().toDate();
 const localizer = momentLocalizer(moment)
-const options = [
-    { value: 'data1', label: 'Data1' },
-    { value: 'data2', label: 'Data2' },
-    { value: 'data3', label: 'Data3' },
-];
+
 
 const modifiers = [
     {
@@ -43,12 +44,15 @@ class Index extends Component {
             openSlot: false,
             selectedOption: null,
             myEventsList: [],
-            DetialData:{}
+            DetialData: {},
+            newAppoinments: [],
+            appoinmentSelected: {}
         };
     }
 
     componentDidMount() {
         this.getEvent();
+        this.getAppoinment()
     }
 
     getEvent = () => {
@@ -105,7 +109,7 @@ class Index extends Component {
                                         }
                                         console.log("index", index)
                                         this[`${indexout}_ref`] = React.createRef()
-                                        finaldata.push({ id: index, title: d1.patient_info.first_name + " " + d1.patient_info.last_name, start: new Date(da1), end: new Date(da2), indexout: indexout, fulldata:[d1] })
+                                        finaldata.push({ id: index, title: d1.patient_info.first_name + " " + d1.patient_info.last_name, start: new Date(da1), end: new Date(da2), indexout: indexout, fulldata: [d1] })
                                     })
                                 }
                             }).then(() => {
@@ -124,11 +128,27 @@ class Index extends Component {
 
     }
 
+    getAppoinment = () => {
+        var user_token = this.props.stateLoginValueAim.token;
+        axios.get(sitedata.data.path + '/UserProfile/UpcomingAppintmentDoc',
+            {
+                headers: {
+                    'token': user_token,
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then((response) => {
+                console.log("response", response)
+                if (response && response.data.hassuccessed) this.setState({ newAppoinments: response.data.data })
+            })
+    }
+
     handleChange = selectedOption => {
         this.setState({ selectedOption });
     };
-    handleOpenSlot = () => {
-        this.setState({ openSlot: true });
+    handleOpenSlot = (data) => {
+        this.setState({ openSlot: true, appoinmentSelected: data });
     };
     handleCloseSlot = () => {
         this.setState({ openSlot: false });
@@ -139,12 +159,12 @@ class Index extends Component {
             <TooltipTrigger
                 placement="right"
                 trigger="click"
-                tooltip={datas=>this.Tooltip({
-                    getTooltipProps:datas.getTooltipProps,
-                    getArrowProps:datas.getArrowProps,
-                    tooltipRef:datas.tooltipRef,
-                    arrowRef:datas.arrowRef,
-                    placement:datas.placement,
+                tooltip={datas => this.Tooltip({
+                    getTooltipProps: datas.getTooltipProps,
+                    getArrowProps: datas.getArrowProps,
+                    tooltipRef: datas.tooltipRef,
+                    arrowRef: datas.arrowRef,
+                    placement: datas.placement,
                     event: data.event
                 })}
                 modifiers={modifiers}
@@ -157,7 +177,7 @@ class Index extends Component {
                         className: 'trigger'
                         /* your props here */
                     })}
-                        // onClick={() => this.CallEvents(data.event)}
+                    // onClick={() => this.CallEvents(data.event)}
                     >
                         <p style={{ backgroundColor: 'none', fontSize: 11, margin: 0, fontWeight: 700 }}> {data.event.title} </p>
                         <p style={{ backgroundColor: 'none', fontSize: 11, margin: 0 }}> {moment(data.event.start).format('hh:mm') + '-' + moment(data.event.end).format('hh:mm')} </p>
@@ -215,7 +235,7 @@ class Index extends Component {
         arrowRef,
         placement,
         event
-    }) =>{
+    }) => {
         console.log("tooltipRef", event)
         return (
             <div
@@ -231,28 +251,43 @@ class Index extends Component {
                         className: 'tooltip-arrow'
                     })}
                 />
-                
-                    {event && event.fulldata.length > 0 &&
-                        <div className="calendarevent">
-                            {event.fulldata && event.fulldata.length > 0 && event.fulldata.map((data) => (
-                                <div>
-                                    <p>{data.start_time && data.start_time} to {data.end_time && data.end_time}</p>
-                                    <p>{data.appointment_type && data.appointment_type.replace('_', ' ')}</p>
-                                    <p>{data.patient_info.first_name && data.patient_info.first_name}  {data.patient_info.last_name && data.patient_info.last_name}</p>
-                                    <p>{data.patient_info.patient_id && data.patient_info.patient_id}</p>
-                                    <p>{data.patient_info.email && data.patient_info.email}</p>
-                                    <p>{data.annotations && data.annotations}</p>
-                                </div>
-                            ))}
-                        </div>
-                    }
-        
+
+                {event && event.fulldata.length > 0 &&
+                    event.fulldata.map((data, index) => (
+                        <Grid className="meetBoxCntnt">
+                            <Grid className="meetCourse">
+                                <Grid className="meetCloseBtn">
+                                    <a><img src={require('../../../assets/images/threedots.jpg')} alt="" title="" /></a>
+                                    <a onClick={this.handleCloseMeet}><img src={require('../../../assets/images/closefancy.png')} alt="" title="" /></a>
+                                </Grid>
+                                <Grid className="meetVdo">
+                                    <Grid className="meetVdoLft">
+                                        {data.appointment_type == 'online_appointment' && <img src={require('../../../assets/images/video-call.svg')} alt="" title="" />}
+                                        {data.appointment_type == 'practice_appointment' && <img src={require('../../../assets/images/dates.png')} alt="" title="" />}
+                                        {data.appointment_type == 'private_appointment' && <img src={require('../../../assets/images/ShapeCopy21.svg')} alt="" title="" />}
+                                        <span>{data.appointment_type == 'practice_appointment' ? 'Consultancy Appointment' : (data.appointment_type == 'online_appointment' ? 'Video call' : 'Office visit')}</span>
+                                    </Grid>
+                                    <Grid className="meetVdoRght">
+                                        <p>{moment(data.date, 'MM-DD-YYYY').format('D MMM')}, {data.start_time}</p>
+                                    </Grid>
+                                </Grid>
+                                <Grid className="meetDetail">
+                                    <h1>{event.title}</h1>
+                                    <span>Details / Questions</span>
+                                    <p>Here we show the text the patient entered in the text field when arranging
+                                an appointment. Or the appointment title if the doctor was the one who entered it.</p>
+                                </Grid>
+                            </Grid>
+                        </Grid>
+
+                    ))}
+
             </div>
         );
     }
 
     render() {
-        const { selectedOption, myEventsList } = this.state;
+        const { appoinmentSelected, myEventsList, newAppoinments } = this.state;
         return (
             <Grid className="homeBg">
                 <Grid className="homeBgIner">
@@ -282,39 +317,94 @@ class Index extends Component {
                                                 </Grid>
                                             </Grid>
                                         </Grid>
-                                        <Grid className="todaySrch">
-                                            <Grid container direction="row">
-                                                <Grid item xs={12} md={12} alignItems="center" justify="center">
-                                                    <Grid container direction="row">
-                                                        <Grid item xs={6} md={6} className="todayMnth">
-                                                            <Grid className="todaySrchLft"><label>Today</label></Grid>
-                                                            <Grid className="movMnth">
-                                                                <a><img src={require('../../../assets/images/leftArow.jpg')} alt="" title="" /></a>
-                                                                <a><img src={require('../../../assets/images/rightArow.jpg')} alt="" title="" /></a>
-                                                            </Grid>
-                                                            <Grid className="crntMonth">Augest 2020</Grid>
+                                        {newAppoinments && newAppoinments.length>0 &&<Grid className="newRequestMain">
+                                            <h4>New Requests</h4>
+                                            <Grid className="newRequestUpr">
+                                                {newAppoinments && newAppoinments.map((data) => (
+                                                    <Grid className="newRequest" onClick={()=>this.handleOpenSlot(data)}>
+                                                        <Grid className="newReqInfo">
+                                                            <a><img src={data.patient_info && data.patient_info.profile_image ? getImage(data.patient_info.profile_image, this.state.images) : require('../../../assets/images/dr1.jpg')} alt="" title="" />{data.patient_info.first_name + ' ' + data.patient_info.last_name}</a>
                                                         </Grid>
-                                                        <Grid item xs={6} md={6}>
-                                                            <Grid className="todaySrchRght todayAddons">
-                                                                <a className="syncRght">Sync to your calendar</a>
-                                                                <a><img src={require('../../../assets/images/topicSrch.jpg')} alt="" title="" /></a>
-                                                                <Select
-                                                                    value={selectedOption}
-                                                                    onChange={this.handleChange}
-                                                                    options={options}
-                                                                    placeholder="Day"
-                                                                    className="allTimeSelnw comonSelnw"
-                                                                    //isMulti= {true}
-                                                                    isSearchable={false}
-                                                                />
-                                                                <a className="calViewnw"><img src={require('../../../assets/images/calendar-view.svg')} alt="" title="" /></a>
-                                                                <a className="barViewnw"><img src={require('../../../assets/images/bar.png')} alt="" title="" /></a>
+                                                        <Grid className="newReqInfo">
+                                                            <a>{data.appointment_type == 'online_appointment' && <img src={require('../../../assets/images/video-call.svg')} alt="" title="" />}
+                                                                {data.appointment_type == 'practice_appointment' && <img src={require('../../../assets/images/dates.png')} alt="" title="" />}
+                                                                {data.appointment_type == 'private_appointment' && <img src={require('../../../assets/images/ShapeCopy21.svg')} alt="" title="" />}
+
+                                                                <label>{moment(data.date, 'MM-DD-YYYY').format('MMMM DD, YYYY')}</label> <span>{data.start_time} - {data.end_time}</span></a>
+                                                        </Grid>
+                                                    </Grid>))}
+                                            </Grid>
+                                        </Grid>}
+
+                                        {/* Model setup */}
+                                        <Modal
+                                            open={this.state.openSlot}
+                                            onClose={this.handleCloseSlot}>
+                                            <Grid className="slotBoxCntnt">
+                                                <Grid className="timSltCal">
+                                                    <p><img src={require('../../../assets/images/important-info.svg')} alt="" title="" />
+                                                        Time slot is already booked on your calendar
+                                                  </p></Grid>
+                                                <Grid className="slotCourse">
+                                                    <a onClick={this.handleCloseSlot} className="clsSltCal">
+                                                        <img src={require('../../../assets/images/closefancy.png')} alt="" title="" />
+                                                    </a>
+                                                    <Grid container direction="row">
+                                                        <Grid item xs={6} md={6} alignItems="center" justify="center">
+                                                            <Grid className="jmInfo">
+                                                                <a><img src={appoinmentSelected.patient_info && appoinmentSelected.patient_info.profile_image ? getImage(appoinmentSelected.patient_info.profile_image, this.state.images) : require('../../../assets/images/dr1.jpg')} alt="" title="" />{appoinmentSelected.patient_info?(appoinmentSelected.patient_info.first_name + ' ' +  appoinmentSelected.patient_info.last_name):''}</a>
+                                                            </Grid>
+                                                        </Grid>
+                                                        <Grid item xs={6} md={6} alignItems="center" justify="center">
+                                                            <Grid className="jmInfoVdo">
+                                                                <a>{appoinmentSelected.appointment_type == 'online_appointment' && <img src={require('../../../assets/images/video-call.svg')} alt="" title="" />}
+                                                                    {appoinmentSelected.appointment_type == 'practice_appointment' && <img src={require('../../../assets/images/dates.png')} alt="" title="" />}
+                                                                    {appoinmentSelected.appointment_type == 'private_appointment' && <img src={require('../../../assets/images/ShapeCopy21.svg')} alt="" title="" />}
+                                                                    {appoinmentSelected.appointment_type == 'practice_appointment' ? 'Consultancy Appointment' : (appoinmentSelected.appointment_type == 'online_appointment' ? 'Video call' : 'Office visit')}</a>
                                                             </Grid>
                                                         </Grid>
                                                     </Grid>
+                                                    <Grid className="clear"></Grid>
+                                                    <Grid className="augDate">
+                                                        <p><label>{moment(appoinmentSelected.date, 'MM-DD-YYYY').format('MMMM DD, YYYY')}</label> <span>{appoinmentSelected.start_time} - {appoinmentSelected.end_time}</span></p>
+                                                    </Grid>
+                                                    <Grid className="detailQues">
+                                                        <label>Details / Questions</label>
+                                                        <p>I am feeling a stabbing pain in my left arm. And it’s not getting any better..</p>
+                                                    </Grid>
+                                                </Grid>
+                                                <Grid className="detailQuesSub">
+                                                    <input type="submit" value="Book appointment" />
+                                                    <span>or</span>
+                                                </Grid>
+                                                <Grid className="slotTimDat">
+                                                    <Grid container direction="row" className="addBirthSlot">
+                                                        <Grid item xs={6} md={6}>
+                                                            <Grid><label>Date of birth</label></Grid>
+                                                            <Grid>
+                                                                <DatePicker
+                                                                    onChange={this.onChange}
+                                                                    value={this.state.date}
+                                                                />
+                                                            </Grid>
+                                                        </Grid>
+                                                        <Grid item xs={6} md={6}>
+                                                            <Grid><label>Select a time</label></Grid>
+                                                            <Grid container direction="row" className="addTimesSlot">
+                                                                <Grid item xs={5} md={5}><input type="text" value="08:45" /></Grid>
+                                                                <Grid item xs={2} md={2} className="addTimesHypnSlot"><span>-</span></Grid>
+                                                                <Grid item xs={5} md={5}><input type="text" value="09:10" /></Grid>
+                                                            </Grid>
+                                                        </Grid>
+                                                    </Grid>
+                                                    <Grid className="SuggNwTim">
+                                                        <input type="submit" value="Suggest new time" />
+                                                    </Grid>
                                                 </Grid>
                                             </Grid>
-                                        </Grid>
+                                        </Modal>
+                                        {/* End of Model setup */}
+
                                         <Grid className="getCalapoint">
                                             <Grid className="getCalBnr">
                                                 <Calendar
@@ -325,6 +415,7 @@ class Index extends Component {
                                                     popup
                                                     popupOffset={{ x: 30, y: 20 }}
                                                     style={{ minHeight: 900 }}
+
                                                     step={60}
                                                     messages={{
                                                         showMore: total => (
@@ -340,7 +431,8 @@ class Index extends Component {
                                                     }}
                                                     components={{
                                                         month: { event: this.EventComponent },
-                                                        dateCellWrapper: this.DateCellCompnent
+                                                        dateCellWrapper: this.DateCellCompnent,
+                                                        toolbar: CalendarToolbar
                                                     }}
                                                 />
 
