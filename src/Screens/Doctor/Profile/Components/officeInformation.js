@@ -11,8 +11,11 @@ import { Settings } from './../../../Login/setting';
 import { LanguageFetchReducer } from './../../../actions';
 import * as translationEN from '../../../../translations/en_json_proofread_13072020.json';
 
-import { Editor } from 'react-draft-wysiwyg';
-import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css'; // ES6
+
+
+
 const weOfferOptions = [
     { value: 'Service name', label: 'Service name' },
     { value: 'Service name', label: 'Service name' },
@@ -29,13 +32,16 @@ class Index extends Component {
             times: this.props.times,
             loaderImage: false,
             PassDone: false,
+            PassFail: false,
             dateF: {},
             timeF: {},
+            UpDataDetails: {},
         };
         // new Timer(this.logOutClick.bind(this)) 
     }
 
     componentDidMount = () => {
+        this.getUserData()
         this.getSetting()
     }
 
@@ -57,34 +63,67 @@ class Index extends Component {
             })
     }
 
-    //For Change Format State
-    ChangeFormat = (event, name) => {
-        if (name == 'date_format') { this.setState({ dateF: event }) }
-        else { this.setState({ timeF: event }) }
-        const state = this.state.Format;
-        state[name] = event && event.value;
-        this.setState({ Format: state })
-    }
 
-    //For Set Format
-    SetFormat = () => {
-        this.setState({ loaderImage: true })
-        axios.put(sitedata.data.path + '/UserProfile/updateSetting', {
-            date_format: this.state.Format.date_format,
-            time_format: this.state.Format.time_format,
-            user_id: this.props.LoggedInUser._id,
-            user_profile_id: this.props.LoggedInUser.profile_id,
-        }, {
+
+    getUserData() {
+        this.setState({ loaderImage: true, UpDataDetails: {} });
+        let user_token = this.props.stateLoginValueAim.token
+        let user_id = this.props.stateLoginValueAim.user._id
+        axios.get(sitedata.data.path + '/UserProfile/Users/' + user_id, {
             headers: {
-                'token': this.props.user_token,
+                'token': user_token,
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             }
-        }).then((responce) => {
-            this.setState({ PassDone: true, loaderImage: false })
-            this.props.Settings(this.props.user_token);
-            setTimeout(() => { this.setState({ PassDone: false }) }, 5000)
+        }).then((response) => {
+            this.setState({ loaderImage: false });
+            
+            this.setState({ UpDataDetails: response.data.data, profile_id: response.data.data.profile_id });
+        }).catch((error) => {
+            this.setState({ loaderImage: false });
+        });
+    }
+
+    saveData = () => {
+        const {UpDataDetails} = this.state;
+        const user_token = this.props.stateLoginValueAim.token;
+        let updatedata = {
+            weoffer_text: UpDataDetails.weoffer_text,
+            latest_info: UpDataDetails.latest_info,         
+        }
+        axios.put(sitedata.data.path + '/UserProfile/Users/update', 
+        updatedata, {
+            headers: {
+                'token': user_token,
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
         })
+        .then((response) => {
+            console.log('responce', response)
+            if(response && response.data.hassuccessed){
+                this.setState({PassDone:true})
+            }
+            else{
+                this.setState({PassFail:true})
+            }
+            
+        })
+    }
+
+    handleChange = (event) => {
+        this.setState({PassDone:false, PassFail: false})
+        let state = this.state.UpDataDetails;
+        state['weoffer_text'] = event.target.value
+        this.setState({ UpDataDetails: state })
+    }
+
+    handlelatestChange = (value) => {
+        this.setState({PassDone:false, PassFail: false})
+        let state = this.state.UpDataDetails;
+        state['latest_info'] = value
+        this.setState({ UpDataDetails: state })
+
     }
 
     render() {
@@ -118,11 +157,12 @@ class Index extends Component {
                 translate = translationEN.text
         }
         let { date, time, format, set_the_default, the, is, updated, save_change } = translate
-        const { selectedOption } = this.state;
+        const { UpDataDetails } = this.state;
         return (
             <div>
                 {this.state.loaderImage && <Loader />}
-                {this.state.PassDone && <div className="success_message">{the} {format} {is} {updated}</div>}
+                {this.state.PassDone && <div className="success_message">The information is updated succesfully</div>}
+                {this.state.PassFail && <div className="err_message">The information is not updated succesfully</div>}
                 <Grid container direction="row" alignItems="center" spacing={2}>
                     <Grid item xs={12} md={6}>
 
@@ -131,33 +171,21 @@ class Index extends Component {
                             <p>This is what patients see when they are arranging an appointment</p>
                         </Grid>
 
-                        <Grid item className="officInfo">
+                        <Grid item className="officInfo profileInfoIner">
                             <label>We offer</label>
-                            <Grid>
-                                <Select
-                                    value={selectedOption}
-                                    onChange={this.handleChange}
-                                    options={weOfferOptions}
-                                    placeholder=""
-                                    isSearchable={false}
-                                    isMulti={true}
-                                />
-                            </Grid>
+                            <Grid><input type="text" name="weoffer_text" onChange={this.handleChange} value={this.state.UpDataDetails.weoffer_text ? this.state.UpDataDetails.weoffer_text : ''} /></Grid>
                         </Grid>
 
                         <Grid className="latstInfo">
                             <label>Latest information</label>
-                            <Grid className="latstInfoEditor">
-                                <Editor
-                                    toolbarClassName="toolbarClassName"
-                                    wrapperClassName="wrapperClassName"
-                                    editorClassName="editorClassName"
-                                />
+                            <Grid>
+                                <ReactQuill name="latest_info" value={this.state.UpDataDetails.latest_info?UpDataDetails.latest_info:''}
+                                    onChange={this.handlelatestChange} />
                             </Grid>
                         </Grid>
 
                         <Grid className="latstInfoBtn">
-                            <input type="submit" value="Save changes" />
+                            <input type="submit" value="Save changes" onClick={this.saveData}/>
                         </Grid>
 
                     </Grid>

@@ -2008,7 +2008,7 @@ a.profilMenu {
 .onlineListing {
     min-height: 100vh;
 }
-.menuItems ul li:last-child {
+.menuItems ul li:last-child:not(.doctor-menu) {
     margin-bottom: 0px !important;
     margin-top: 145px;
 }
@@ -2951,7 +2951,7 @@ a.profilMenu {
     text-align: right;
 }
 .todaySrchRght img {
-    width: 32px;
+    width: 32px !important;
     border-radius: 9px;
     cursor: pointer;
 }
@@ -10117,6 +10117,11 @@ img.editPendata {
     letter-spacing: 0;
     line-height: 12px;
 }
+
+.upScanInput {
+    position: relative;
+}
+
 .upScanInput a {
     color: #00ABAF !important;
     margin: 0px 4px;
@@ -10661,11 +10666,11 @@ span.acptTxt img {
     margin-right: 30px;
 }
 a.calViewnw img {
-    width: 17px;
+    width: 17px !important;
     border-radius: initial !important;
 }
 a.barViewnw img {
-    width: 15px;
+    width: 15px!important;
     border-radius: initial !important;
 }
 a.calViewnw {
@@ -12230,3 +12235,59 @@ input:focus {
     color: #862d2d !important;
     font-weight: 900;
   }
+
+  .dropbtn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+  }
+  
+  .dropdown-main {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+  }
+  
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+  }
+  
+  .dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+  }
+
+  .dropdown-content a:hover {background-color: #ddd;}
+  .show-content {
+    display: block;
+    width: 100%;
+    max-height: 150px;
+    overflow: hidden;
+    overflow-y: auto;
+   }
+
+   label.or-label {
+    width: 100%;
+    text-align: center;
+    font-size: 15px;
+    font-weight: 800;
+   }
+
+   .rbc-event {
+    background-color: transparent!important;
+    color: black!important;
+   }
+  
+
+   .getCalBnr .movMnth img {
+       width: auto!important;
+   }

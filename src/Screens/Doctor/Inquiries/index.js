@@ -8,16 +8,16 @@ import AppBar from '@material-ui/core/AppBar';
 import Typography from '@material-ui/core/Typography';
 import PropTypes from 'prop-types';
 import Modal from '@material-ui/core/Modal';
-import LeftMenu from './../../Components/Menus/DoctorLeftMenu/index';
-import LeftMenuMobile from './../../Components/Menus/DoctorLeftMenu/mobile';
+import LeftMenu from '../../Components/Menus/DoctorLeftMenu/index';
+import LeftMenuMobile from '../../Components/Menus/DoctorLeftMenu/mobile';
 import sitedata, { data } from '../../../sitedata';
 import axios from 'axios';
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { LoginReducerAim } from './../../Login/actions';
-import { Settings } from './../../Login/setting';
+import { LoginReducerAim } from '../../Login/actions';
+import { Settings } from '../../Login/setting';
 import { confirmAlert } from 'react-confirm-alert'; // Import
-import { LanguageFetchReducer } from './../../actions';
+import { LanguageFetchReducer } from '../../actions';
 import PrecriptionList from './Components/prescription.js';
 import SickCertificateList from './Components/sickCertificate.js';
 import * as translationEN from '../../../translations/en_json_proofread_13072020.json';
@@ -150,8 +150,8 @@ class Index extends Component {
                             <Grid container direction="row">
 
                                 {/* Website Menu */}
-                                <LeftMenu  isNotShow ={true} currentPage="documents" />
-                                <LeftMenuMobile isNotShow ={true}  currentPage="documents" />
+                                <LeftMenu  isNotShow ={true} currentPage="inquiries" />
+                                <LeftMenuMobile isNotShow ={true}  currentPage="inquiries" />
                                 {/* End of Website Menu */}
 
                                 <Grid item xs={12} md={9}>

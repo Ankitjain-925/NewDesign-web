@@ -54,8 +54,9 @@ import PharmaArchive from './../../Screens/Pharmacy/Archive/index';
 
 //Doctor Component
 import DoctorService from "./../../Screens/Doctor/Services/index.js";
-import MyDocument from "./../../Screens/Doctor/MyDocument/index.js";
+import MyDocument from "./../../Screens/Doctor/Inquiries/index.js";
 import Myprofile from './../../Screens/Doctor/Profile/index.js';
+import DoctorAppointment from './../../Screens/Doctor/Appointment/index.js'
 
 class Routermain extends Component {
   render() {
@@ -115,8 +116,9 @@ class Routermain extends Component {
             {/* Doctor Router Start*/}
             <Route exact path="/doctor" render={(props) => <DoctorService {...props}/>} />
             <Route exact path="/doctor/patient" render={(props) => <DoctorService {...props}/>} />
-            <Route exact path="/doctor/mydocument" render={(props) => <MyDocument {...props}/>} />
+            <Route exact path="/doctor/inquiries" render={(props) => <MyDocument {...props}/>} />
             <Route exact path="/doctor/profile" render={(props) => <Myprofile {...props}/>} />
+            <Route exact path="/doctor/appointment" render={(props) => <DoctorAppointment {...props}/>} />
             {/* Doctor Router End*/}
 
 
