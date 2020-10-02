@@ -28,7 +28,7 @@ class Index extends Component {
             searchLocation: [],
             newEntry: {},
             success: false,
-            imagePreviewUrl:null
+            imagePreviewUrl: null
         };
 
     }
@@ -136,12 +136,13 @@ class Index extends Component {
     }
 
     CertificateAttach = (event) => {
+        console.log("event", event)
         if (this.state.newEntry.patient_id) {
             // this.setState({file:})
             this.setState({ isfileupload: true, firstPatient_id: false })
             event.preventDefault();
             // let file = event.target.files[0];
-            
+
             var user_id = this.props.stateLoginValueAim.user._id;
             var user_token = this.props.stateLoginValueAim.token;
             const patient_id = this.state.newEntry.patient_id
@@ -155,7 +156,7 @@ class Index extends Component {
                 let fileName = fileParts[0];
                 let fileType = fileParts[1];
                 if (fileType === 'pdf' || fileType === 'jpeg' || fileType === 'png' || fileType === 'jpg' || fileType === 'svg') {
-                    if(fileType !== 'pdf') {
+                    if (fileType !== 'pdf') {
                         reader.onloadend = () => {
                             console.log("reader.result", reader.result)
                             this.setState({
@@ -165,7 +166,7 @@ class Index extends Component {
                         }
                         reader.readAsDataURL(file)
                     }
-                    else{
+                    else {
 
                     }
                     axios.post(sitedata.data.path + '/aws/sign_s3', {
@@ -261,6 +262,8 @@ class Index extends Component {
             this.setState({
                 firstPatient_id: true
             })
+            event.target.files = []
+            return false
         }
     }
 
@@ -375,10 +378,10 @@ class Index extends Component {
     render() {
         const { openPharma } = this.props
         const { searchLocation, searchName } = this.state;
-        let {imagePreviewUrl}   = this.state;
-        let $imagePreview       = null;
-        if(imagePreviewUrl) {
-            $imagePreview = (<img style={{ borderRadius: "10%", maxWidth: 350,marginBottom:10 }} src={ imagePreviewUrl } />);
+        let { imagePreviewUrl } = this.state;
+        let $imagePreview = null;
+        if (imagePreviewUrl) {
+            $imagePreview = (<img style={{ borderRadius: "10%", maxWidth: 350, marginBottom: 10 }} src={imagePreviewUrl} />);
         }
         return (
             <Grid item xs={12} md={1} className="MenuLeftUpr ">
@@ -400,11 +403,11 @@ class Index extends Component {
                         <Grid className="phrmLinkUpr">
                             <Grid className="upScanForms upScanImg">
                                 <Grid><label>Upload scanned prescriptions</label></Grid>
-                                <Grid className="upScanInput">
+                                {!$imagePreview && <Grid className="upScanInput">
                                     <a><img src={require('../../../assets/images/upload-file.svg')} alt="" title="" /></a>
                                     <a>Browse <input type="file" onChange={this.CertificateAttach} /></a> or drag here
-                                                                        </Grid>
-                                <p>Supported file types: .jpg, .png, .pdf</p>
+                                                                        </Grid>}
+                                {!$imagePreview && <p>Supported file types: .jpg, .png, .pdf</p>}
                                 {$imagePreview}
                                 <div className="filetitle">{this.state.isfileupload && (
                                     this.state.fileattach && this.state.fileattach.length > 0 && this.state.fileattach.map((ite, ind) => (
