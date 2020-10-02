@@ -143,8 +143,9 @@ class Index extends Component {
                                         <Grid className="clear"></Grid>
                                     </Grid>
                                     <Grid className="bp_graph">
-                                        <Grid><img src={require('../../../../assets/images/gp.png')} alt="" title="" /></Grid>
-                                        <Grid><a>View in fullscreen</a></Grid>
+                                        {/* <Grid><img src={require('../../../../assets/images/gp.png')} alt="" title="" /></Grid> */}
+                                        {/* {console.log('this.props', this.props)} */}
+                                        <Grid><a onClick={()=> this.props.OpenGraph('blood_pressure')}>Veiw Graph</a></Grid>
                                     </Grid>
                                 </Grid>
                             </Collapsible>

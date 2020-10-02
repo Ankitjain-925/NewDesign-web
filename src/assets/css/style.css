@@ -11748,7 +11748,45 @@ a.timSlotClose {
 
 
 /*Added By ankita*/
-
+/*image Preview*/
+.ViewImage img{
+    width: 60px;
+    margin-top: 29px;
+    margin-left:10px;
+}
+/*Graph CSS*/
+.presureDataGrph {
+    text-align: center !important;
+    color: #00ABAF!important;
+    font-weight: 600;
+}
+/* Filter Css*/
+.typeSel1{
+    border-radius: 8px !important;
+    background-color: #E1F7F7 !important;
+    border-color: transparent !important;
+    font-family: Muli !important;
+    width: 95% !important;
+    color: #00ABAF !important;
+    padding: 7px !important;
+}
+.allTimeSel1{
+    border-radius: 8px !important;
+    background-color: #F2F2F2 !important;
+    border-color: transparent !important;
+    font-family: Muli !important;
+    width: 95% !important;
+    padding: 7px !important;
+}
+.diagTimeBY {
+    padding: 5px 3px;
+    margin: 0px 10px;
+    width: 100px !important;
+    border-radius: 8px;
+}
+.entrTimeBY {
+    width: 100px !important;
+}
 .lrlp {margin-top: 9px;}
 .nwDiaSel1 {
     margin-top: 4px;

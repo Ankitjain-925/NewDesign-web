@@ -136,8 +136,8 @@ class Index extends Component {
                                         <Grid className="clear"></Grid>
                                     </Grid>
                                     <Grid className="bp_graph">
-                                        <Grid><img src={require('../../../../assets/images/gp.png')} alt="" title="" /></Grid>
-                                        <Grid><a>View in fullscreen</a></Grid>
+                                        {/* <Grid><img src={require('../../../../assets/images/gp.png')} alt="" title="" /></Grid> */}
+                                        <Grid><a onClick={()=> this.props.OpenGraph('blood_sugar')}>Veiw Graph</a></Grid>
                                     </Grid>
                                 </Grid>
                             </Collapsible>

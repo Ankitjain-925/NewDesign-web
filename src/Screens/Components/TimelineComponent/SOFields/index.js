@@ -40,7 +40,7 @@ class Index extends Component {
                 {!this.props.visibility && <Grid className="cnfrmDiaMain">
                     <Grid className="attchForms attchImg">
                         <Grid><label>Attachments</label></Grid>
-                        <FileUploader name="UploadTrackImageMulti"  isMulti="true" fileUpload={(event)=>{this.props.FileAttachMulti(event)}}/>
+                        <FileUploader name="UploadTrackImageMulti" comesFrom="journal" isMulti="true" fileUpload={(event)=>{this.props.FileAttachMulti(event)}}/>
                     </Grid>
                     <Grid className="fillDia">
                         <NotesEditor name="explanation" label="Notes"  onChange={(e)=> this.updateEntryState1(e, 'explanation')} value={this.state.updateTrack.explanation}/> 

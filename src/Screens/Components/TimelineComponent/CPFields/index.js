@@ -99,7 +99,7 @@ class Index extends Component {
 
                     <Grid className="attchForms attchImg">
                         <Grid><label>{attachments}</label></Grid>
-                        <FileUploader name="UploadTrackImageMulti" isMulti={true} fileUpload={this.props.FileAttachMulti} />
+                        <FileUploader name="UploadTrackImageMulti" comesFrom="journal"isMulti={true} fileUpload={this.props.FileAttachMulti} />
                     </Grid>
                     <Grid className="fillDia">
                         <SelectByTwo name="pain_type" label="Pain Type" options={this.state.options2} onChange={(e) => this.updateEntryState1(e, 'pain_type')} value={this.state.updateTrack.pain_type} />

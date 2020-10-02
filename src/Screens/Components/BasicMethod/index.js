@@ -59,7 +59,25 @@ export function getImage (image, images) {
         return myFilterData[0].new_image;
     }
 }
+//Sort the time taken
+export function mySorter(a, b) {
+    var x = a.value.toLowerCase();
+    var y = b.value.toLowerCase();
+    return ((x < y) ? -1 : ((x > y) ? 1 : 0));
+}
 
+//Sort by entry time
+export function SortByEntry(a, b) {
+    var x = a.created_on.toLowerCase();
+    var y = b.created_on.toLowerCase();
+    return ((x > y) ? -1 : ((x < y) ? 1 : 0));
+}
+//Sort by diagnose time
+export function SortByDiagnose(a, b) {
+    var x = a.datetime_on.toLowerCase();
+    var y = b.datetime_on.toLowerCase();
+    return ((x > y) ? -1 : ((x < y) ? 1 : 0));
+}
 
  //If Req to add doctor as favorite doctor
 export function AddFavDoc (doctor_id, profile_id,user_token, user_profile_id){

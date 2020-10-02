@@ -74,7 +74,7 @@ class Index extends Component {
                 {!this.props.visibility && <Grid className="cnfrmDiaMain">
                     <Grid className="attchForms attchImg">
                         <Grid><label>{attachments}</label></Grid>
-                        <FileUploader name="UploadTrackImageMulti" isMulti={true} fileUpload={this.props.FileAttachMulti} />
+                        <FileUploader name="UploadTrackImageMulti" comesFrom="journal"isMulti={true} fileUpload={this.props.FileAttachMulti} />
                     </Grid>
                     <Grid className="fillDia">
                         <MMHG name="file_content" label="File Content" onChange={(e)=> this.props.updateEntryState(e)} value={this.state.updateTrack.file_content}/>    
