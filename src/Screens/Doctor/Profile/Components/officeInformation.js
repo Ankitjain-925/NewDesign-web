@@ -32,6 +32,7 @@ class Index extends Component {
             times: this.props.times,
             loaderImage: false,
             PassDone: false,
+            PassFail: false,
             dateF: {},
             timeF: {},
             UpDataDetails: {},
@@ -98,18 +99,27 @@ class Index extends Component {
                 'Content-Type': 'application/json'
             }
         })
-        .then((responce) => {
-
+        .then((response) => {
+            console.log('responce', response)
+            if(response && response.data.hassuccessed){
+                this.setState({PassDone:true})
+            }
+            else{
+                this.setState({PassFail:true})
+            }
+            
         })
     }
 
     handleChange = (event) => {
+        this.setState({PassDone:false, PassFail: false})
         let state = this.state.UpDataDetails;
         state['weoffer_text'] = event.target.value
         this.setState({ UpDataDetails: state })
     }
 
     handlelatestChange = (value) => {
+        this.setState({PassDone:false, PassFail: false})
         let state = this.state.UpDataDetails;
         state['latest_info'] = value
         this.setState({ UpDataDetails: state })
@@ -151,7 +161,8 @@ class Index extends Component {
         return (
             <div>
                 {this.state.loaderImage && <Loader />}
-                {this.state.PassDone && <div className="success_message">{the} {format} {is} {updated}</div>}
+                {this.state.PassDone && <div className="success_message">The information is updated succesfully</div>}
+                {this.state.PassFail && <div className="err_message">The information is not updated succesfully</div>}
                 <Grid container direction="row" alignItems="center" spacing={2}>
                     <Grid item xs={12} md={6}>
 
