@@ -12253,3 +12253,7 @@ input:focus {
    .getCalBnr .movMnth img {
        width: auto!important;
    }
+
+   .margin-remove {
+       margin-top: 0px;
+   }

@@ -208,7 +208,7 @@ class Index extends Component {
                                 'Content-Type': fileType
                             }
                         };
-                        axios.put('https://cors-anywhere.herokuapp.com/'+signedRequest, file1, options)
+                        axios.put('https://cors-anywhere.herokuapp.com/' + signedRequest, file1, options)
                             .then(result => {
                                 console.log("Response from s3")
                                 this.setState({ success: true });
@@ -306,9 +306,9 @@ class Index extends Component {
 
     render() {
         const { inqstatus, sickData, MypatientsData, imagePreviewUrl } = this.state;
-        let $imagePreview       = null;
-        if(imagePreviewUrl) {
-            $imagePreview = (<img style={{ borderRadius: "10%", maxWidth: 350,marginBottom:10 }} src={ imagePreviewUrl } />);
+        let $imagePreview = null;
+        if (imagePreviewUrl) {
+            $imagePreview = (<img style={{ borderRadius: "10%", maxWidth: 350, marginBottom: 10 }} src={imagePreviewUrl} />);
         }
         let translate;
         switch (this.props.stateLanguageType) {
@@ -450,33 +450,34 @@ class Index extends Component {
                                         <Grid><label>{Annotations} / {details} / {questions}</label></Grid>
                                         <Grid><h3>{sickData && sickData.annotations && sickData.annotations}</h3></Grid>
                                     </Grid>
-                                </Grid>
-                                <Grid className="infoShwHidBrdr2"></Grid>
-                                {sickData.status !== 'decline' &&
-                                    <Grid className="scamUPForms scamUPImg">
+                                    <Grid className="infoShwHidBrdr2"></Grid>
+                                    {sickData.status !== 'decline' &&
+                                        <Grid className="scamUPForms scamUPImg">
 
-                                        <Grid><label>{(sickData.status !== 'accept') ? 'Upload scanned' : 'Scanned'} prescription</label></Grid>
+                                            <Grid><label>{(sickData.status !== 'accept') ? 'Upload scanned' : 'Scanned'} prescription</label></Grid>
 
-                                        {(sickData.status !== 'accept'&& !$imagePreview) && <Grid className="scamUPInput">
-                                            <a><img src={require('../../../../assets/images/upload-file.svg')} alt="" title="" /></a>
-                                            <a>Browse <input type="file" onChange={(e)=>this.UploadFile(e, sickData.patient_profile_id, sickData.patient_info.bucket, sickData._id)} /></a> or drag here
+                                            {(sickData.status !== 'accept' && !$imagePreview) && <Grid className="scamUPInput">
+                                                <a><img src={require('../../../../assets/images/upload-file.svg')} alt="" title="" /></a>
+                                                <a>Browse <input type="file" onChange={(e) => this.UploadFile(e, sickData.patient_profile_id, sickData.patient_info.bucket, sickData._id)} /></a> or drag here
                                                                             </Grid>}
-                                        {(sickData.status !== 'accept')&& !$imagePreview && <p>Supported file types: .jpg, .png, .pdf</p>}
-                                        {(sickData.status === 'accept')&& !$imagePreview && <img src={sickData.attachfile[0].filename} />}
-                                        {(sickData.status !== 'accept')  && $imagePreview}
-                                        {(sickData.attachfile && this.state.uploadedimage && sickData.status !== 'accept') && <Grid item xs={12} md={12}>
-                                            <input type="button" value="Send to patient's Timeline and Email" onClick={() => this.saveUserData(sickData._id)} className="approvBtn" />
+                                            {(sickData.status !== 'accept') && !$imagePreview && <p>Supported file types: .jpg, .png, .pdf</p>}
+                                            {(sickData.status === 'accept') && !$imagePreview && <img src={sickData.attachfile[0].filename} />}
+                                            {(sickData.status !== 'accept') && $imagePreview}
+                                            {(sickData.attachfile && this.state.uploadedimage && sickData.status !== 'accept') && <Grid item xs={12} md={12}>
+                                                <input type="button" value="Send to patient's Timeline and Email" onClick={() => this.saveUserData(sickData._id)} className="approvBtn" />
+                                            </Grid>}
                                         </Grid>}
-                                    </Grid>}
 
-                                {(sickData.status !== 'accept' && sickData.status !== 'decline') && <Grid container direction="row">
-                                    <Grid item xs={6} md={6}>
-                                        <input type="button" value="Approve" onClick={() => this.deleteClickPatient('accept', sickData._id)} className="approvBtn" />
-                                    </Grid>
-                                    <Grid item xs={6} md={6}>
-                                        <input type="button" value="Reject" onClick={() => this.updateCertificate('decline', sickData._id)} className="rejectBtn" />
-                                    </Grid>
-                                </Grid>}
+                                    {(sickData.status !== 'accept' && sickData.status !== 'decline') && <Grid container direction="row">
+                                        <Grid item xs={6} md={6}>
+                                            <input type="button" value="Approve" onClick={() => this.deleteClickPatient('accept', sickData._id)} className="approvBtn" />
+                                        </Grid>
+                                        <Grid item xs={6} md={6}>
+                                            <input type="button" value="Reject" onClick={() => this.updateCertificate('decline', sickData._id)} className="rejectBtn" />
+                                        </Grid>
+                                    </Grid>}
+                                </Grid>
+
                             </Grid>
                         </Grid>
                     </Modal>
