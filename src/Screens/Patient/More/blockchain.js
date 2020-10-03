@@ -107,8 +107,8 @@ class Index extends Component {
         let { blockchain_access_log, created_by, log_type, time_created } = translate;
 
 
-        return (
-            <Grid className="homeBg">
+        return ( 
+            <Grid className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode && this.props.settings.setting.mode==='dark' ? "homeBg homeBgDrk" : "homeBg"}>
                 {this.state.loaderImage && <Loader />}
                 <Grid className="homeBgIner">
                     <Grid container direction="row" justify="center">

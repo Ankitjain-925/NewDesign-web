@@ -34,7 +34,7 @@ class Index extends Component {
     render() {
         const { selectedOption } = this.state;
         return (
-            <Grid className="homeBg">
+            <Grid className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode && this.props.settings.setting.mode==='dark' ? "homeBg homeBgDrk" : "homeBg"}>
                 <Grid className="homeBgIner">
                     <Grid container direction="row" justify="center">
                         <Grid item xs={12} md={12}>

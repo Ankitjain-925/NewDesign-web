@@ -12,7 +12,9 @@ import LogOut from './../../LogOut/index';
 import Timer from './../../TimeLogOut/index';
 import Notification from "../../../Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 import sitedata from '../../../../sitedata';
-import axios from "axios"
+import axios from "axios";
+import Mode from './../../ThemeMode/index.js';
+import SetLanguage from './../../SetLanguage/index.js';
 import Loader from './../../../Components/Loader/index';
 class Index extends Component {
     constructor(props) {
@@ -26,18 +28,18 @@ class Index extends Component {
             contact_partner: {},
             loaderImage: false,
             openFancyLanguage: false,
-            PassDone: false
+            PassDone: false,
+            mode:'normal',
         };
         new Timer(this.logOutClick.bind(this))
-        this.openLanguageModel = this.openLanguageModel.bind(this)
-        this.handleCloseFancyLanguage = this.handleCloseFancyLanguage.bind(this)
     }
 
     //For loggedout if logged in user is deleted 
     componentDidMount() {
-        this.getSetting()
+        this.getSetting();
         new LogOut(this.props.stateLoginValueAim.token, this.props.stateLoginValueAim.user._id, this.logOutClick.bind(this))
         this.props.Settings(this.props.stateLoginValueAim.token);
+        
     }
 
     getSetting = () => {
@@ -53,46 +55,22 @@ class Index extends Component {
                 if (responce.data.hassuccessed && responce.data.data) {
                     this.setState({ timeF: { label: responce.data.data.time_format, value: responce.data.data.time_format }, dateF: { label: responce.data.data.date_format, value: responce.data.data.date_format }, })
                 }
-                this.setState({ loaderImage: false, languageValue: responce.data.data && responce.data.data.language && responce.data.data.language })
+                this.setState({ loaderImage: false, languageValue: responce.data.data && responce.data.data.language ? responce.data.data.language : 'en', mode : responce.data.data && responce.data.data.mode ? responce.data.data.mode : 'normal' },
+                ()=>{
+                    // this.props.LanguageFetchReducer(this.state.languageValue);
+                })
             })
     }
 
-    openLanguageModel() {
+    //For close the model
+    openLanguageModel=()=> {
         this.setState({ openFancyLanguage: true })
     }
 
-    handleCloseFancyLanguage() {
+    //For open Model 
+    handleCloseFancyLanguage=()=> {
         this.setState({ openFancyLanguage: false })
     }
-
-    // Change Language function
-    changeLanguage = (e) => {
-        this.setState({ languageValue: e.target.value })
-    }
-    //For set the language
-    SetLanguage = () => {
-        this.setState({ loaderImage: true })
-        if (!this.state.languageValue) {
-            this.setState({ loaderImage: false, languageBlank: true })
-        } else {
-            this.setState({ languageBlank: false })
-            axios.put(sitedata.data.path + '/UserProfile/updateSetting', {
-                language: this.state.languageValue,
-                user_id: this.props.stateLoginValueAim.user._id,
-            }, {
-                headers: {
-                    'token': this.props.stateLoginValueAim.token,
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                }
-            }).then((responce) => {
-                this.setState({ PassDone: true, loaderImage: false })
-                this.props.Settings(this.props.stateLoginValueAim.token);
-                setTimeout(() => { this.setState({ PassDone: false, openFancyLanguage: false }) }, 5000)
-            })
-        }
-    }
-
 
     //For logout the User
     logOutClick = () => {
@@ -157,7 +135,7 @@ class Index extends Component {
 
     render() {
         return (
-            <Grid item xs={12} md={1} className="MenuLeftUpr ">
+            <Grid item xs={12} md={1} className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode && this.props.settings.setting.mode==='dark' ? "MenuLeftUpr MenuLeftDrkUpr" : "MenuLeftUpr"}>
                 {this.state.loaderImage && <Loader />}
                 {!this.props.isNotShow && <Notification />}
                 <Grid className="webLogo">
@@ -167,43 +145,49 @@ class Index extends Component {
                     <ul>
                         <li className={this.props.currentPage === 'journal' ? "menuActv" : ""}>
                             <a onClick={this.Journal}>
-                                {this.props.currentPage === 'journal' ? <img src={require('../../../../assets/images/menu1.png')} alt="" title="" />
-                                    : <img src={require('../../../../assets/images/inactiveJournal.jpg')} alt="" title="" />}
+                                <img src={require('../../../../assets/images/nav-journal.svg')} alt="" title="" />
+                                {/* {this.props.currentPage === 'journal' ? <img src={require('../../../../assets/images/menu1.png')} alt="" title="" />
+                                    : <img src={require('../../../../assets/images/inactiveJournal.jpg')} alt="" title="" />} */}
                                 <span>Journal</span>
                             </a>
                         </li>
                         <li className={this.props.currentPage === 'chat' ? "menuActv" : ""}>
                             <a onClick={this.Chats}>
-                                {this.props.currentPage === 'chat' ? <img src={require('../../../../assets/images/chatVideoActive.png')} alt="" title="" />
-                                    : <img src={require('../../../../assets/images/chatVideo.jpg')} alt="" title="" />}
+                                <img src={require('../../../../assets/images/nav-chat.svg')} alt="" title="" />
+                                {/* {this.props.currentPage === 'chat' ? <img src={require('../../../../assets/images/chatVideoActive.png')} alt="" title="" />
+                                    : <img src={require('../../../../assets/images/chatVideo.jpg')} alt="" title="" />} */}
                                 <span>Chat & <br /> Videocalls</span>
                             </a>
                         </li>
                         <li className={this.props.currentPage === 'appointment' ? "menuActv" : ""}>
                             <a onClick={this.AppointmentLink}>
-                                {this.props.currentPage === 'appointment' ? <img src={require('../../../../assets/images/appointActive.png')} alt="" title="" />
-                                    : <img src={require('../../../../assets/images/calenderIcon.jpg')} alt="" title="" />}
+                                <img src={require('../../../../assets/images/nav-appointments.svg')} alt="" title="" />
+                                {/* {this.props.currentPage === 'appointment' ? <img src={require('../../../../assets/images/appointActive.png')} alt="" title="" />
+                                    : <img src={require('../../../../assets/images/calenderIcon.jpg')} alt="" title="" />} */}
                                 <span>Appointments</span>
                             </a>
                         </li>
                         <li className={this.props.currentPage === 'documents' ? "menuActv" : ""}>
                             <a onClick={this.DocumentLink}>
-                                {this.props.currentPage === 'documents' ? <img src={require('../../../../assets/images/activeDocs.png')} alt="" title="" />
-                                    : <img src={require('../../../../assets/images/apoint.jpg')} alt="" title="" />}
+                            <img src={require('../../../../assets/images/nav-my-documents-inquiries.svg')} alt="" title="" /> 
+                                {/* {this.props.currentPage === 'documents' ? <img src={require('../../../../assets/images/activeDocs.png')} alt="" title="" />
+                                    : <img src={require('../../../../assets/images/apoint.jpg')} alt="" title="" />} */}
                                 <span>My Documents</span>
                             </a>
                         </li>
                         <li className={this.props.currentPage === 'tracker' ? "menuActv" : ""}>
                             <a onClick={this.Tracker}>
-                                {this.props.currentPage === 'tracker' ? <img src={require('../../../../assets/images/track.png')} alt="" title="" />
-                                    : <img src={require('../../../../assets/images/tracker.jpg')} alt="" title="" />}
+                            <img src={require('../../../../assets/images/nav-trackers.svg')} alt="" title="" />
+                                {/* {this.props.currentPage === 'tracker' ? <img src={require('../../../../assets/images/track.png')} alt="" title="" />
+                                    : <img src={require('../../../../assets/images/tracker.jpg')} alt="" title="" />} */}
                                 <span>Trackers & <br /> Self Data</span>
                             </a>
                         </li>
                         <li className={this.props.currentPage === 'more' ? "menuActv" : ""}>
                             <a className="moreMenu">
-                                {this.props.currentPage === 'more' ? <img src={require('../../../../assets/images/moreActive.png')} alt="" title="" />
-                                    : <img src={require('../../../../assets/images/moreicon.jpg')} alt="" title="" />}
+                            <img src={require('../../../../assets/images/nav-more.svg')} alt="" title="" />
+                                {/* {this.props.currentPage === 'more' ? <img src={require('../../../../assets/images/moreActive.png')} alt="" title="" />
+                                    : <img src={require('../../../../assets/images/moreicon.jpg')} alt="" title="" />} */}
                                 <span>More</span>
 
                                 <div className="moreMenuList">
@@ -221,14 +205,15 @@ class Index extends Component {
                         </li>
                         <li className={this.props.currentPage === 'profile' ? "menuActv" : ""}>
                             <a className="profilMenu">
-                                {this.props.currentPage === 'profile' ? <img src={require('../../../../assets/images/profileActv.png')} alt="" title="" />
-                                    : <img src={require('../../../../assets/images/useru.jpg')} alt="" title="" />}
+                            <img src={require('../../../../assets/images/nav-my-profile.svg')} alt="" title="" />
+                                {/* {this.props.currentPage === 'profile' ? <img src={require('../../../../assets/images/profileActv.png')} alt="" title="" />
+                                    : <img src={require('../../../../assets/images/useru.jpg')} alt="" title="" />} */}
                                 <span>My Profile</span>
                                 <div className="profilMenuList">
                                     <ul>
                                         <li><a onClick={this.ProfileLink}><img src={require('../../../../assets/images/menudocs.jpg')} alt="" title="" />Profile Settings</a></li>
                                         <li><a onClick={this.openLanguageModel}><img src={require('../../../../assets/images/menudocs.jpg')} alt="" title="" />Language</a></li>
-                                        <li><a><img src={require('../../../../assets/images/menudocs.jpg')} alt="" title="" />Dark Mode</a></li>
+                                        <li><a><img src={require('../../../../assets/images/menudocs.jpg')} alt="" title="" />Dark Mode  <Mode mode={this.state.mode} name="mode" getSetting={this.getSetting} /></a></li>
                                         <li onClick={this.logOutClick}><a><img src={require('../../../../assets/images/menudocs.jpg')} alt="" title="" />Log out</a></li>
                                     </ul>
                                 </div>
@@ -236,70 +221,9 @@ class Index extends Component {
                         </li>
                     </ul>
                 </Grid>
-                <Modal
-                    style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
-                    open={this.state.openFancyLanguage}
-                    onClose={this.handleCloseFancyLanguage}>
-                    <Grid className="LanguageBoxMain">
-                        <Grid className="nwPresCourse">
-                            <Grid className="nwPresCloseBtn">
-                                <a onClick={this.handleCloseFancyLanguage}>
-                                    <img src={require('../../../../assets/images/closefancy.png')} alt="" title="" />
-                                </a>
-                            </Grid>
-                            <Grid><label>Select Language</label></Grid>
-                        </Grid>
-                        {this.state.PassDone && <div className="success_message">Language is Updated!</div>}
-                        {this.state.languageBlank && <div className="err_message">Language is not selected.</div>}
-                        <div className="languageHead"></div>
-                        <Grid className="languageBox">
-                            <Grid className="row">
-                                <Grid className="col-sm-6 col-xl-6">
-                                    <Grid>
-                                        <input value="en" onChange={this.changeLanguage} name="language" type="radio" checked={this.state.languageValue == "en" ? "checked" : ""} />
-                                        <label>English</label>
-                                    </Grid>
-                                    <Grid>
-                                        <input value="de" onChange={this.changeLanguage} name="language" type="radio" checked={this.state.languageValue == "de" ? "checked" : ""} />
-                                        <label>Germany</label>
-                                    </Grid>
-                                    <Grid>
-                                        <input value="rs" onChange={this.changeLanguage} name="language" type="radio" checked={this.state.languageValue == "rs" ? "checked" : ""} />
-                                        <label>Russian</label>
-                                    </Grid>
-                                    <Grid>
-                                        <input value="nl" onChange={this.changeLanguage} name="language" type="radio" checked={this.state.languageValue == "nl" ? "checked" : ""} />
-                                        <label>Dutch</label>
-                                    </Grid>
-                                </Grid>
-                                <Grid className="col-sm-6 col-xl-6">
-                                    <Grid>
-                                        <input value="sp" onChange={this.changeLanguage} name="language" type="radio" checked={this.state.languageValue == "sp" ? "checked" : ""} />
-                                        <label>Spanish</label>
-                                    </Grid>
-                                    <Grid>
-                                        <input value="pt" onChange={this.changeLanguage} name="language" type="radio" checked={this.state.languageValue == "pt" ? "checked" : ""} />
-                                        <label>Portuguese</label>
-                                    </Grid>
-                                    <Grid>
-                                        <input value="ch" onChange={this.changeLanguage} name="language" type="radio" checked={this.state.languageValue == "ch" ? "checked" : ""} />
-                                        <label>Chainese</label>
-                                    </Grid>
-                                    <Grid>
-                                        <input value="sw" onChange={this.changeLanguage} name="language" type="radio" checked={this.state.languageValue == "sw" ? "checked" : ""} />
-                                        <label>Swahili</label>
-                                    </Grid>
-                                </Grid>
-                            </Grid>
-                        </Grid>
-                        <Grid className="infoShwHidBrdr2"></Grid>
-                        <Grid className="infoShwHidIner2">
-                            <Grid className="infoShwSave2">
-                                <input type="submit" value="Save changes" onClick={this.SetLanguage} />
-                            </Grid>
-                        </Grid>
-                    </Grid>
-                </Modal>
+                {/* for Language update */}
+
+                <SetLanguage openFancyLanguage={this.state.openFancyLanguage} languageValue={this.state.languageValue} handleCloseFancyLanguage={this.handleCloseFancyLanguage} openLanguageModel={this.openLanguageModel}/>
             </Grid>
         );
     }

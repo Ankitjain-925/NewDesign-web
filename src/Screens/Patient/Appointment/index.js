@@ -502,7 +502,7 @@ class Index extends Component {
         }
 
         return (
-            <Grid className="homeBg">
+            <Grid className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode && this.props.settings.setting.mode==='dark' ? "homeBg homeBgDrk" : "homeBg"}>
                 <Grid className="homeBgIner">
                     <Grid container direction="row" justify="center">
                         <Grid item xs={12} md={12}>
@@ -859,8 +859,8 @@ class Index extends Component {
                                                         <Grid item xs={6} md={6} className="todayMnth">
                                                             <Grid className="todaySrchLft"><label>{today}</label></Grid>
                                                             <Grid className="movMnth">
-                                                                <a><img src={require('../../../assets/images/leftArow.jpg')} alt="" title="" /></a>
-                                                                <a><img src={require('../../../assets/images/rightArow.jpg')} alt="" title="" /></a>
+                                                                <a><img src={require('../../../assets/images/leftArow.png')} alt="" title="" /></a>
+                                                                <a><img src={require('../../../assets/images/rightArow.png')} alt="" title="" /></a>
                                                             </Grid>
                                                             <Grid className="crntMonth">Augest 2020</Grid>
                                                         </Grid>

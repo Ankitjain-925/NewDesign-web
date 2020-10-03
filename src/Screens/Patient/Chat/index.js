@@ -94,7 +94,7 @@ class index extends React.Component {
 
            
         return(
-            <Grid className="homeBg">
+            <Grid className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode && this.props.settings.setting.mode==='dark' ? "homeBg homeBgDrk" : "homeBg"}>
             <Grid container direction="row" justify="center">
                 <Grid item xs={12} md={12}>
                     <Grid container direction="row">

@@ -21,6 +21,7 @@ import CalendarToolbar from "./../../Components/CalendarToolbar/index.js";
 import Modal from '@material-ui/core/Modal';
 import DatePicker from 'react-date-picker';
 import { getDate, getImage } from './../../Components/BasicMethod/index';
+import { Redirect, Route } from 'react-router-dom';
 
 const CURRENT_DATE = moment().toDate();
 const localizer = momentLocalizer(moment)
@@ -288,8 +289,12 @@ class Index extends Component {
 
     render() {
         const { appoinmentSelected, myEventsList, newAppoinments } = this.state;
+        const { stateLoginValueAim, Doctorsetget } = this.props;
+        if (stateLoginValueAim.user === 'undefined' || stateLoginValueAim.token === 450 || stateLoginValueAim.token === 'undefined' || stateLoginValueAim.user.type !== 'doctor') {
+            return (<Redirect to={'/'} />);
+        }
         return (
-            <Grid className="homeBg">
+            <Grid className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode && this.props.settings.setting.mode==='dark' ? "homeBg homeBgDrk" : "homeBg"}>
                 <Grid className="homeBgIner">
                     <Grid container direction="row" justify="center">
                         <Grid item xs={12} md={12}>

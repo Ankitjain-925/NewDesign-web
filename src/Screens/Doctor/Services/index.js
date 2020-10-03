@@ -29,6 +29,9 @@ import 'react-flags-select/css/react-flags-select.css';
 import 'react-flags-select/scss/react-flags-select.scss';
 import { getDate, getImage } from './../../Components/BasicMethod/index';
 import contry from './../../Components/countryBucket/countries.json';
+
+import { Doctorset } from '../../Doctor/actions';
+
 var letter = /([a-zA-Z])+([ -~])*/, number = /\d+/, specialchar = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
 
 function TabContainer(props) {
@@ -87,8 +90,25 @@ class Index extends Component {
             userDetails: {},
             hidden: true,
             Mnotvalid: false,
-            regisError: null
+            regisError: null,
+            gettrackdatas: {},
         };
+    }
+
+     //for get the track data on the bases of pateint
+     GetTrackData  = (e) => {
+        const state = this.state.gettrackdatas;
+        state[e.target.name] = e.target.value;
+        this.setState({gettrackdatas : state});
+    }
+
+    //Go to journal direct
+    GotoJournal = (currentone) => {
+        console.log('currentone', currentone)
+        if (currentone && currentone._id) {
+            this.props.Doctorset(currentone._id, currentone.pin);
+            this.props.history.push('/doctor/journal');      
+        }
     }
 
     componentDidMount() {
@@ -466,6 +486,40 @@ class Index extends Component {
         }
     }
 
+     //For the GetTrack for the patient
+     setTrack=()=> {
+        var user_id = this.state.gettrackdatas.patient_id;
+        var pin= this.state.gettrackdatas.pin;
+        var user_token = this.props.stateLoginValueAim.token;
+        this.setState( {loaderImage: true})
+        if(user_id==="")
+        {
+            this.setState({error_msg : true,loaderImage: false})
+        }
+        else 
+        {
+            axios.get( sitedata.data.path + '/User/getUser/'+ user_id +'?pin='+pin+'&&comefrom=healthdata',
+            {
+                headers: {
+                'token': user_token,
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+                }
+            }).then((response) => {
+                if(response.data.hassuccessed === true)
+                {
+                    this.setState( {})              
+                    this.props.Doctorset(response.data.user_id, pin);
+                    this.props.history.push('/doctor/journal');
+                }
+                else
+                {
+                    this.setState({error_msg : true,loaderImage : false, })
+                }
+            }) 
+        }  
+    }
+
     //For chnage the page
     onChangePage = (pageNumber) => {
         const {searchWord} = this.state;
@@ -493,7 +547,7 @@ class Index extends Component {
             return (<Redirect to={'/'} />);
         }
         return (
-            <Grid className="homeBg">
+            <Grid className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode && this.props.settings.setting.mode==='dark' ? "homeBg homeBgDrk" : "homeBg"}>
                 {this.state.loaderImage && <Loader />}
                 <Grid className="homeBgIner">
                     <Grid container direction="row" justify="center">
@@ -549,7 +603,7 @@ class Index extends Component {
                                                             <Td className="presEditDot scndOptionIner openJourMenu">
                                                                 <a><img src={require('../../../assets/images/threedots.jpg')} alt="" title="" className="openScnd" />
                                                                     <ul>
-                                                                        <li><img src={require('../../../assets/images/journal1.svg')} alt="" title="" />Open Journal</li>
+                                                                        <li onClick={()=>{this.GotoJournal(data)}}><img src={require('../../../assets/images/journal1.svg')} alt="" title="" />Open Journal</li>
                                                                         <li onClick={(e) => this.handleshowPatient(data)}><img src={require('../../../assets/images/personal-info.svg')} alt="" title="" />Personal info</li>
                                                                         <li onClick={(e) => this.removePatient(data)}><img src={require('../../../assets/images/del.png')} alt="" title="" />Remove patient</li>
                                                                     </ul>
@@ -620,7 +674,7 @@ class Index extends Component {
                                                             <Grid className="openJournal">
                                                                 <Grid container direction="row" justifyContent="center" alignItems="center">
                                                                     <Grid item xs={12} md={12}>
-                                                                        <input type="submit" value="Open Journal" />
+                                                                        <input type="submit"  onClick={()=>{this.GotoJournal(profileDetail)}} value="Open Journal" />
                                                                     </Grid>
                                                                 </Grid>
                                                             </Grid>
@@ -630,38 +684,36 @@ class Index extends Component {
                                             </Modal>
                                             {/* End of Model setup */}
                                             {/* Model Patient Data Access */}
-                                            <Modal
-                                                open={this.state.openData}
-                                                onClose={this.handleCloseData}
-                                            >
-                                                <Grid className="dataBoxCntnt">
-                                                    <Grid className="dataCourse">
-                                                        <Grid className="dataCloseBtn">
-                                                            <a onClick={this.handleCloseData}>
-                                                                <img src={require('../../../assets/images/closefancy.png')} alt="" title="" />
-                                                            </a>
-                                                        </Grid>
-                                                        <Grid><label>Patient Data Access</label></Grid>
-                                                        <p>Healthdata access for non-connected patient</p>
+                                        <Modal  open={this.state.openData} onClose={this.handleCloseData} >
+                                            <Grid className="dataBoxCntnt">
+                                                <Grid className="dataCourse">
+                                                    <Grid className="dataCloseBtn">
+                                                        <a onClick={this.handleCloseData}>
+                                                            <img src={require('../../../assets/images/closefancy.png')} alt="" title="" />
+                                                        </a>
                                                     </Grid>
-                                                    <Grid className="dataBoxUpr">
-                                                        <Grid className="dataBoxInput">
-                                                            <Grid>
-                                                                <Grid><label>Patient ID</label></Grid>
-                                                                <Grid><input type="text" /></Grid>
-                                                            </Grid>
-                                                            <Grid>
-                                                                <Grid><label>PIN</label></Grid>
-                                                                <Grid><input type="text" /></Grid>
-                                                            </Grid>
+                                                    <Grid>{this.state.error_msg && <div className="err_message">ID or PIN is not correct</div>}</Grid>
+                                                    <Grid><label>Patient Data Access</label></Grid>
+                                                    <p>Healthdata access for non-connected patient</p>
+                                                </Grid>
+                                                <Grid className="dataBoxUpr">
+                                                    <Grid className="dataBoxInput">
+                                                        <Grid>
+                                                            <Grid><label>Patient ID</label></Grid>
+                                                            <Grid><input type="text" name="patient_id" placeholder="Enter Patient ID" id="login-name" onChange={this.GetTrackData}/></Grid>
                                                         </Grid>
-                                                        <Grid className="dataBoxSub">
-                                                            <input type="submit" value="View Data" />
+                                                        <Grid>
+                                                            <Grid><label>PIN</label></Grid>
+                                                            <Grid><input type="text" id="pin" name="pin" placeholder="Enter Pin" onChange={this.GetTrackData}/></Grid>
                                                         </Grid>
+                                                    </Grid>
+                                                    <Grid className="dataBoxSub">
+                                                        <input type="submit" value="View Data" onClick={this.setTrack}/>
                                                     </Grid>
                                                 </Grid>
-                                            </Modal>
-                                            {/* End of Model Patient Data Access */}
+                                            </Grid>
+                                        </Modal>
+                                                    {/* End of Model Patient Data Access */}
 
                                             {/* Model Private Doctor Request */}
                                             <Modal
@@ -841,15 +893,15 @@ const mapStateToProps = (state) => {
     const { stateLoginValueAim, loadingaIndicatoranswerdetail } = state.LoginReducerAim;
     const { stateLanguageType } = state.LanguageReducer;
     const { settings } = state.Settings;
-    // const { Doctorsetget } = state.Doctorset;
+    const { Doctorsetget } = state.Doctorset;
     // const { catfil } = state.filterate;
     return {
         stateLanguageType,
         stateLoginValueAim,
         loadingaIndicatoranswerdetail,
         settings,
-        //   Doctorsetget,
+        Doctorsetget,
         //   catfil
     }
 };
-export default withRouter(connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer, Settings })(Index));
+export default withRouter(connect(mapStateToProps, {Doctorset, LoginReducerAim, LanguageFetchReducer, Settings })(Index));

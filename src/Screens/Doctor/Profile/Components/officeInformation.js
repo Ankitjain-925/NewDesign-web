@@ -166,8 +166,8 @@ class Index extends Component {
                 <Grid container direction="row" alignItems="center" spacing={2}>
                     <Grid item xs={12} md={6}>
 
-                        <Grid className="officArng">
-                            <h2>Office information</h2>
+                        <Grid className="profileInfo">
+                            <h1>Office information</h1>
                             <p>This is what patients see when they are arranging an appointment</p>
                         </Grid>
 

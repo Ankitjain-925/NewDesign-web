@@ -613,7 +613,7 @@ class Index extends Component {
             return (<Redirect to={'/'} />);
         }
         return (
-            <Grid className="homeBg">
+            <Grid className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode && this.props.settings.setting.mode==='dark' ? "homeBg homeBgDrk" : "homeBg"}>
                 <Grid className="homeBgIner">
                     <Grid container direction="row" justify="center">
                         <Grid item xs={12} md={12}>
@@ -795,7 +795,7 @@ class Index extends Component {
                                                                     <Grid className="trckSecIner" >
                                                                         <Grid className="trckLogo1" style={{ minHeight: "140px" }} >
                                                                             <div style={{ minHeight: "35px" }}></div>
-                                                                            < a href="https://account.withings.com/oauth2_user/authorize2?response_type=code&client_id=198370b3fcf82d7ed5968266d053f376291849d5691751e9987e1d71ae867c92&scope=user.info,user.metrics,user.activity,user.sleepevents&redirect_uri=http://localhost:3000/patient/tracker&state=up">
+                                                                            < a className="withingsData" href="https://account.withings.com/oauth2_user/authorize2?response_type=code&client_id=198370b3fcf82d7ed5968266d053f376291849d5691751e9987e1d71ae867c92&scope=user.info,user.metrics,user.activity,user.sleepevents&redirect_uri=http://localhost:3000/patient/tracker&state=up">
                                                                                 <img title="Loggin via Withings!" src={require('../../../assets/images/logo-withings.png')} alt="" />
                                                                             </a>
                                                                         </Grid>

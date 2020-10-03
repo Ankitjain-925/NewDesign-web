@@ -58,7 +58,7 @@ class Index extends Component {
                                         {item.public === 'always' ? <p> Always </p> : <p>{getDate(item.public, this.state.date_format)}</p>}
                                     </ReactTooltip>
                                     <a className="openScndhrf1">
-                                        <img src={require('../../../../assets/images/threedots.jpg')} alt="" title="" className="openScnd1" />
+                                        <a className="vsblDots"><img src={require('../../../../assets/images/nav-more.svg')} alt="" title="" /></a>
                                         {!this.props.Archive ? <ul>
                                             <li><a onClick={(data) => this.props.ArchiveTrack(item)}><img src={require('../../../../assets/images/archive-1.svg')} alt="" title="" />Archive</a></li>
                                             {this.props.comesfrom === 'patient' &&  <li>

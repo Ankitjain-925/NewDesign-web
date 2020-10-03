@@ -383,6 +383,7 @@ class Index extends Component {
         if (imagePreviewUrl) {
             $imagePreview = (<img style={{ borderRadius: "10%", maxWidth: 350, marginBottom: 10 }} src={imagePreviewUrl} />);
         }
+        
         return (
             <Grid item xs={12} md={1} className="MenuLeftUpr ">
 
