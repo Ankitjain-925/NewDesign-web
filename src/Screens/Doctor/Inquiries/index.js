@@ -22,7 +22,6 @@ import PrecriptionList from './Components/prescription.js';
 import SickCertificateList from './Components/sickCertificate.js';
 import * as translationEN from '../../../translations/en_json_proofread_13072020.json';
 import { Redirect, Route } from 'react-router-dom';
-import SecondOpinion from './Components/secondOpinion';
 // import * as translationDE from '../../../translations/de_json_proofread_13072020.json';
 function TabContainer(props) {
     return (
@@ -199,9 +198,7 @@ class Index extends Component {
                                                 </TabContainer>}
 
                                             {value === 2 && <TabContainer>
-                                                {this.state.successfullsent1 && <div className="success_message">Request sent Sucessfully</div>}
-                                                <SecondOpinion  newItem={this.state.newItemp} myData ={ this.state.myData}/>
-                                                
+
                                             </TabContainer>}
 
                                         </Grid>

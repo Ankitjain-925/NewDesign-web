@@ -437,7 +437,7 @@ class Index extends Component {
 
                 {event && event.fulldata.length > 0 &&
                     event.fulldata.map((data, index) => (
-                        <Grid className="meetBoxCntnt margin-remove">
+                        <Grid className="meetBoxCntnt">
                             <Grid className="meetCourse">
                                 <Grid className="meetCloseBtn">
                                     <a><img src={require('../../../assets/images/threedots.jpg')} alt="" title="" /></a>
@@ -457,7 +457,8 @@ class Index extends Component {
                                 <Grid className="meetDetail">
                                     <h1>{event.title}</h1>
                                     <span>Details / Questions</span>
-                                    <p>{data.annotations}</p>
+                                    <p>Here we show the text the patient entered in the text field when arranging
+                                an appointment. Or the appointment title if the doctor was the one who entered it.</p>
                                 </Grid>
                             </Grid>
                         </Grid>
@@ -556,11 +557,11 @@ class Index extends Component {
                                                 </Grid>
                                             </Grid>
                                         </Grid>
-                                        {newAppoinments && newAppoinments.length > 0 && <Grid className="newRequestMain">
+                                        {newAppoinments && newAppoinments.length>0 &&<Grid className="newRequestMain">
                                             <h4>New Requests</h4>
                                             <Grid className="newRequestUpr">
                                                 {newAppoinments && newAppoinments.map((data) => (
-                                                    <Grid className="newRequest" onClick={() => this.handleOpenSlot(data)}>
+                                                    <Grid className="newRequest" onClick={()=>this.handleOpenSlot(data)}>
                                                         <Grid className="newReqInfo">
                                                             <a><img src={data.patient_info && data.patient_info.profile_image ? getImage(data.patient_info.profile_image, this.state.images) : require('../../../assets/images/dr1.jpg')} alt="" title="" />{data.patient_info.first_name + ' ' + data.patient_info.last_name}</a>
                                                         </Grid>
@@ -591,7 +592,7 @@ class Index extends Component {
                                                     <Grid container direction="row">
                                                         <Grid item xs={6} md={6} alignItems="center" justify="center">
                                                             <Grid className="jmInfo">
-                                                                <a><img src={appoinmentSelected.patient_info && appoinmentSelected.patient_info.profile_image ? getImage(appoinmentSelected.patient_info.profile_image, this.state.images) : require('../../../assets/images/dr1.jpg')} alt="" title="" />{appoinmentSelected.patient_info ? (appoinmentSelected.patient_info.first_name + ' ' + appoinmentSelected.patient_info.last_name) : ''}</a>
+                                                                <a><img src={appoinmentSelected.patient_info && appoinmentSelected.patient_info.profile_image ? getImage(appoinmentSelected.patient_info.profile_image, this.state.images) : require('../../../assets/images/dr1.jpg')} alt="" title="" />{appoinmentSelected.patient_info?(appoinmentSelected.patient_info.first_name + ' ' +  appoinmentSelected.patient_info.last_name):''}</a>
                                                             </Grid>
                                                         </Grid>
                                                         <Grid item xs={6} md={6} alignItems="center" justify="center">
@@ -609,7 +610,7 @@ class Index extends Component {
                                                     </Grid>
                                                     <Grid className="detailQues">
                                                         <label>Details / Questions</label>
-                                                        <p>{appoinmentSelected.annotations}</p>
+                                                        <p>I am feeling a stabbing pain in my left arm. And it’s not getting any better..</p>
                                                     </Grid>
                                                 </Grid>
                                                 <Grid className="detailQuesSub">

@@ -162,7 +162,7 @@ class Index extends Component {
                     </Grid>
                     {this.state.updateTrack.travel_diagnosis && <div>
                         <Grid className="fillDia">
-                                <MMHG name="travelled_to" label="Trevalled to" onChange={(e)=> this.props.updateEntryState(e)} value={this.state.updateTrack.travelled_to}/>    
+                                <MMHG name="travelled_to" label="Travelled to" onChange={(e)=> this.props.updateEntryState(e)} value={this.state.updateTrack.travelled_to}/>    
                         </Grid>
                         <Grid className="fillDia">
                             <Grid className="rrSysto">
