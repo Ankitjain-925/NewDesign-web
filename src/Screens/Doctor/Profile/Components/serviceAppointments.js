@@ -950,9 +950,9 @@ class Index extends Component {
                                         <Grid className="setSchedule appointment">
                                             <Grid className="nameSchedule"><label>Break time:</label></Grid>
                                             <Grid className="nameSchedule">
-                                                <TimeFormat name="time" value={onlineAppointments.breakslot_start ? this.getTime(onlineAppointments.breakslot_start) : new Date()} time_format={this.props.settings.setting.time_format} onChange={(e) => this.onChange(e, 'start', 'onlineAppointments', 'breakslot')} />
+                                                <TimeFormat name="time" value={onlineAppointments.breakslot_start ? this.getTime(onlineAppointments.breakslot_start) : new Date()} time_format={this.props.settings.setting?this.props.settings.setting.time_format:'24'} onChange={(e) => this.onChange(e, 'start', 'onlineAppointments', 'breakslot')} />
                                                 <span>-</span>
-                                                <TimeFormat name="time" value={onlineAppointments.breakslot_end ? this.getTime(onlineAppointments.breakslot_end) : new Date()} time_format={this.props.settings.setting.time_format} onChange={(e) => this.onChange(e, 'end', 'onlineAppointments', 'breakslot')} />
+                                                <TimeFormat name="time" value={onlineAppointments.breakslot_end ? this.getTime(onlineAppointments.breakslot_end) : new Date()} time_format={this.props.settings.setting?this.props.settings.setting.time_format:'24'} onChange={(e) => this.onChange(e, 'end', 'onlineAppointments', 'breakslot')} />
                                             </Grid>
                                         </Grid>
                                     </Grid>

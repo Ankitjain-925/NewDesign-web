@@ -3,7 +3,6 @@ import React, { Component, Children, useState } from 'react';
 import Grid from '@material-ui/core/Grid';
 import 'react-calendar/dist/Calendar.css';
 import 'react-big-calendar/lib/css/react-big-calendar.css'
-import Select from 'react-select';
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
 import LeftMenu from './../../Components/Menus/DoctorLeftMenu/index';
@@ -20,9 +19,19 @@ import 'react-popper-tooltip/dist/styles.css';
 import CalendarToolbar from "./../../Components/CalendarToolbar/index.js";
 import Modal from '@material-ui/core/Modal';
 import DatePicker from 'react-date-picker';
-import { getDate, getImage } from './../../Components/BasicMethod/index';
-import { Redirect, Route } from 'react-router-dom';
+import { getImage } from './../../Components/BasicMethod/index';
+import { Redirect } from 'react-router-dom';
+import { confirmAlert } from 'react-confirm-alert';
+import translationEN from '../../../translations/en_json_proofread_13072020.json'
+import * as translationDE from '../../../translations/de';
+import * as translationSP from '../../../translations/sp.json';
+import * as translationCH from '../../../translations/ch';
+import * as translationPT from '../../../translations/pt';
+import * as translationRS from '../../../translations/rs';
+import * as translationNL from '../../../translations/nl';
+import * as translationSW from '../../../translations/sw';
 
+const days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']
 const CURRENT_DATE = moment().toDate();
 const localizer = momentLocalizer(moment)
 
@@ -47,13 +56,92 @@ class Index extends Component {
             myEventsList: [],
             DetialData: {},
             newAppoinments: [],
-            appoinmentSelected: {}
+            appoinmentSelected: {},
+            appioinmentTimes: [],
+            clashtime: false,
+            UpDataDetails: {},
+            DaysforPractices: {},
+            onlineAppointments: {},
+            suggestTime:[],
+            current_selected:''
         };
     }
 
     componentDidMount() {
+        this.getUserData()
         this.getEvent();
         this.getAppoinment()
+    }
+
+    getUserData() {
+        this.setState({ loaderImage: true });
+        let user_token = this.props.stateLoginValueAim.token
+        let user_id = this.props.stateLoginValueAim.user._id
+        axios.get(sitedata.data.path + '/UserProfile/Users/' + user_id, {
+            headers: {
+                'token': user_token,
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        }).then((response) => {
+            this.setState({ loaderImage: false });
+            const types = ['private_appointments', 'days_for_practices', 'online_appointment']
+            types.map(opoinmentData => {
+
+                if (response.data.data[opoinmentData]) {
+                    let Appointments = response.data.data[opoinmentData][0];
+                    if (Appointments) {
+                        if (Appointments.holidays) {
+                            this.setState({
+                                holidayAppointment: {
+                                    holidays_start: Appointments.holidays_start !== '' ? Appointments.holidays_start : new Date(),
+                                    holidays_end: Appointments.holidays_end !== '' ? Appointments.holidays_end : new Date(),
+                                    holidays: Appointments.holidays
+                                }
+                            })
+                        }
+
+                        if (opoinmentData == types[0]) {
+                            let workingDays = []
+                            days.map(weekday => {
+                                if (Appointments[weekday + '_start'] && Appointments[weekday + '_start'] !== '') {
+                                    workingDays.push(weekday)
+                                }
+                            })
+                            this.setState({
+                                UpDataDetails: { workingDays: workingDays, duration_of_timeslots: Appointments.duration_of_timeslots, breakslot: { breakslot: Appointments.breakslot, breakslot_end: Appointments.breakslot_end, breakslot_start: Appointments.breakslot_start } }
+                            })
+                        }
+
+                        if (opoinmentData == types[1]) {
+                            let workingDays = []
+                            days.map(weekday => {
+                                if (Appointments[weekday + '_start'] && Appointments[weekday + '_start'] !== '') {
+                                    workingDays.push(weekday)
+                                }
+                            })
+                            this.setState({
+                                DaysforPractices: { workingDays: workingDays, duration_of_timeslots: Appointments.duration_of_timeslots, breakslot: { breakslot: Appointments.breakslot, breakslot_end: Appointments.breakslot_end, breakslot_start: Appointments.breakslot_start } }
+                            })
+                        }
+
+                        if (opoinmentData == types[2]) {
+                            let workingDays = []
+                            days.map(weekday => {
+                                if (Appointments[weekday + '_start'] && Appointments[weekday + '_start'] !== '') {
+                                    workingDays.push(weekday)
+                                }
+                            })
+                            this.setState({
+                                onlineAppointments: { workingDays: workingDays, duration_of_timeslots: Appointments.duration_of_timeslots, breakslot: { breakslot: Appointments.breakslot, breakslot_end: Appointments.breakslot_end, breakslot_start: Appointments.breakslot_start } }
+                            })
+                        }
+                    }
+                }
+            })
+
+
+        })
     }
 
     getEvent = () => {
@@ -71,6 +159,7 @@ class Index extends Component {
             .then((response) => {
                 if (response.data.hassuccessed) {
                     let indexout = 0
+                    let appioinmentTimes = []
                     response.data.data && response.data.data.length > 0 && response.data.data.map((data, index) => {
                         axios.get(sitedata.data.path + '/User/AppointOfDate/' + data._id,
                             {
@@ -81,43 +170,49 @@ class Index extends Component {
                                 }
                             })
                             .then((response) => {
+
                                 if (response.data.hassuccessed) {
 
                                     response.data.data && response.data.data.length > 0 && response.data.data.map((d1, index) => {
-                                        if (d1.start_time) {
-                                            var t1 = d1.start_time.split(":");
+                                        if (d1.status !== 'free') {
+                                            if (d1.start_time) {
+                                                var t1 = d1.start_time.split(":");
+                                            }
+                                            if (d1.end_time) {
+                                                var t2 = d1.end_time.split(":");
+                                            }
+                                            let da1 = new Date(data._id);
+                                            let da2 = new Date(data._id);
+                                            if (t1 && t1.length > 0) {
+                                                da1.setHours(t1[0]);
+                                                da1.setMinutes(t1[1]);
+                                            }
+                                            else {
+                                                da1.setHours('00');
+                                                da1.setMinutes('00');
+                                            }
+                                            if (t2 && t2.length > 0) {
+                                                da2.setHours(t2[0]);
+                                                da2.setMinutes(t2[1]);
+                                            }
+                                            else {
+                                                da2.setHours('00');
+                                                da2.setMinutes('00');
+                                            }
+                                            this[`${indexout}_ref`] = React.createRef();
+                                            appioinmentTimes.push({
+                                                start: new Date(da1).valueOf(),
+                                                end: new Date(da2).valueOf()
+                                            })
+                                            finaldata.push({ id: index, title: d1.patient_info.first_name + " " + d1.patient_info.last_name, start: new Date(da1), end: new Date(da2), indexout: indexout, fulldata: [d1] })
                                         }
-                                        if (d1.end_time) {
-                                            var t2 = d1.end_time.split(":");
-                                        }
-                                        let da1 = new Date(data._id);
-                                        let da2 = new Date(data._id);
-                                        if (t1 && t1.length > 0) {
-                                            da1.setHours(t1[0]);
-                                            da1.setMinutes(t1[1]);
-                                        }
-                                        else {
-                                            da1.setHours('00');
-                                            da1.setMinutes('00');
-                                        }
-                                        if (t2 && t2.length > 0) {
-                                            da2.setHours(t2[0]);
-                                            da2.setMinutes(t2[1]);
-                                        }
-                                        else {
-                                            da2.setHours('00');
-                                            da2.setMinutes('00');
-                                        }
-                                        console.log("index", index)
-                                        this[`${indexout}_ref`] = React.createRef()
-                                        finaldata.push({ id: index, title: d1.patient_info.first_name + " " + d1.patient_info.last_name, start: new Date(da1), end: new Date(da2), indexout: indexout, fulldata: [d1] })
                                     })
                                 }
                             }).then(() => {
-                                console.log("finaldata", finaldata)
                                 indexout++;
                                 this.setState({
                                     myEventsList: finaldata,
+                                    appioinmentTimes: appioinmentTimes
                                 })
                             })
                     })
@@ -141,18 +236,105 @@ class Index extends Component {
             })
             .then((response) => {
                 console.log("response", response)
-                if (response && response.data.hassuccessed) this.setState({ newAppoinments: response.data.data })
+                let newAppoint = []
+                response.data.data.map(d1 => {
+                    console.log("d1", d1)
+                    if (d1.start_time) {
+                        var t1 = d1.start_time.split(":");
+                    }
+                    if (d1.end_time) {
+                        var t2 = d1.end_time.split(":");
+                    }
+                    let da1 = new Date(moment(d1.date, 'MM-DD-YYYY').format('YYYY-MM-DD'));
+                    let da2 = new Date(moment(d1.date, 'MM-DD-YYYY').format('YYYY-MM-DD'));
+                    if (t1 && t1.length > 0) {
+                        da1.setHours(t1[0]);
+                        da1.setMinutes(t1[1]);
+                    }
+                    else {
+                        da1.setHours('00');
+                        da1.setMinutes('00');
+                    }
+                    if (t2 && t2.length > 0) {
+                        da2.setHours(t2[0]);
+                        da2.setMinutes(t2[1]);
+                    }
+                    else {
+                        da2.setHours('00');
+                        da2.setMinutes('00');
+                    }
+                    d1['starttimeValueof'] = new Date(da1).valueOf()
+                    d1['endtimeValueof'] = new Date(da2).valueOf()
+                    newAppoint.push(d1)
+                })
+
+                if (response && response.data.hassuccessed) this.setState({ newAppoinments: newAppoint })
             })
+    }
+
+    updateAppointment(status, id, data) {
+        this.setState({ openSlot: false })
+        var Delete_Document, click_on_YES_document;
+        // if (this.props.stateLanguageType === 'de') {
+        //     Delete_Document = translationDE.text.Delete_Document;
+        //     click_on_YES_document = translationDE.text.click_on_YES_document;
+        // }else {
+        //     Delete_Document = translationEN.text.Delete_Document;
+        //     click_on_YES_document = translationEN.text.click_on_YES_document;
+        // }
+        confirmAlert({
+            //title: Delete_Document,
+            message: 'Are you sure you want to book this appoinment?',
+            buttons: [
+                {
+                    label: 'YES',
+                    onClick: () => this.updateAppointmentDetails(status, id, data)
+                },
+                {
+                    label: 'NO',
+                }
+            ]
+        })
+    }
+
+    updateAppointmentDetails(status, id, data) {
+        let user_token = this.props.stateLoginValueAim.token
+        axios.put(sitedata.data.path + '/UserProfile/GetAppointment/' + id, {
+            status: status,
+            email: data.patient_info.email,
+            lan: this.props.stateLanguageType,
+            docProfile: {
+                first_name: this.props.stateLoginValueAim.user.first_name ? this.props.stateLoginValueAim.user.first_name : '',
+                last_name: this.props.stateLoginValueAim.user.last_name ? this.props.stateLoginValueAim.user.last_name : ''
+            }
+        }, {
+            headers: {
+                'token': user_token,
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        }).then((response) => {
+            this.getAppoinment();
+        }).catch((error) => {
+            console.log(error);
+        });
     }
 
     handleChange = selectedOption => {
         this.setState({ selectedOption });
     };
     handleOpenSlot = (data) => {
-        this.setState({ openSlot: true, appoinmentSelected: data });
+        const { appioinmentTimes } = this.state;
+        let clashtime = false;
+        appioinmentTimes.map(datatime => {
+            if ((datatime.start <= data.starttimeValueof && datatime.end >= data.starttimeValueof) || (datatime.start <= data.endtimeValueof && datatime.end >= data.endtimeValueof)) {
+                clashtime = true;
+            }
+        })
+        this.setState({ openSlot: true, appoinmentSelected: data, clashtime: clashtime, suggesteddate: new Date(), suggestTime:[] });
     };
     handleCloseSlot = () => {
-        this.setState({ openSlot: false });
+        this.setState({ openSlot: false, clashtime: false });
     };
 
     EventComponent = (data) => {
@@ -166,7 +348,7 @@ class Index extends Component {
                     tooltipRef: datas.tooltipRef,
                     arrowRef: datas.arrowRef,
                     placement: datas.placement,
-                    event: data.event
+                    event: data.event,
                 })}
                 modifiers={modifiers}
             >
@@ -181,7 +363,7 @@ class Index extends Component {
                     // onClick={() => this.CallEvents(data.event)}
                     >
                         <p style={{ backgroundColor: 'none', fontSize: 11, margin: 0, fontWeight: 700 }}> {data.event.title} </p>
-                        <p style={{ backgroundColor: 'none', fontSize: 11, margin: 0 }}> {moment(data.event.start).format('hh:mm') + '-' + moment(data.event.end).format('hh:mm')} </p>
+                        <p style={{ backgroundColor: 'none', fontSize: 11, margin: 0, lineHeight: '12px' }}> {moment(data.event.start).format('hh:mm') + '-' + moment(data.event.end).format('hh:mm')} </p>
                     </span>}
             </TooltipTrigger>
         )
@@ -237,12 +419,12 @@ class Index extends Component {
         placement,
         event
     }) => {
-        console.log("tooltipRef", event)
         return (
             <div
                 {...getTooltipProps({
                     ref: tooltipRef,
-                    className: 'tooltip-container'
+                    className: 'tooltip-container',
+                    closeOnReferenceHidden: false
                 })}
             >
                 <div
@@ -286,14 +468,67 @@ class Index extends Component {
         );
     }
 
+    onChange = (date) => {
+        this.setState({ suggesteddate: date })
+        const { appioinmentTimes, appoinmentSelected, onlineAppointments } = this.state;
+        let clashtime = false;
+        if(appoinmentSelected.appointment_type =='online_appointment'){
+            let weeknumber = moment(date).day();
+            if(onlineAppointments.workingDays.includes(days[weeknumber+1])){
+
+            }
+            else {
+                this.setState({suggestTime:[]})
+            }
+        }
+        appioinmentTimes.map(datatime => {
+            if ((datatime.start <= appoinmentSelected.starttimeValueof && datatime.end >= appoinmentSelected.starttimeValueof) || (datatime.start <= appoinmentSelected.endtimeValueof && datatime.end >= appoinmentSelected.endtimeValueof)) {
+                clashtime = true;
+            }
+        })
+        this.setState({ clashtime: clashtime, suggesteddate: new Date(),suggestTime:[] });
+    
+        console.log("date", date)
+    }
+
     render() {
-        const { appoinmentSelected, myEventsList, newAppoinments } = this.state;
+        const { appoinmentSelected, myEventsList, newAppoinments, clashtime } = this.state;
         const { stateLoginValueAim, Doctorsetget } = this.props;
+        let translate;
+        switch (this.props.stateLanguageType) {
+            case "en":
+                translate = translationEN.text
+                break;
+            case "de":
+                translate = translationDE.text
+                break;
+            case "pt":
+                translate = translationPT.text
+                break;
+            case "sp":
+                translate = translationSP.text
+                break;
+            case "rs":
+                translate = translationRS.text
+                break;
+            case "nl":
+                translate = translationNL.text
+                break;
+            case "ch":
+                translate = translationCH.text
+                break;
+            case "sw":
+                translate = translationSW.text
+                break;
+            case "default":
+                translate = translationEN.text
+        }
+        const {holiday} = translate
         if (stateLoginValueAim.user === 'undefined' || stateLoginValueAim.token === 450 || stateLoginValueAim.token === 'undefined' || stateLoginValueAim.user.type !== 'doctor') {
             return (<Redirect to={'/'} />);
         }
         return (
-            <Grid className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode && this.props.settings.setting.mode==='dark' ? "homeBg homeBgDrk" : "homeBg"}>
+            <Grid className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode && this.props.settings.setting.mode === 'dark' ? "homeBg homeBgDrk" : "homeBg"}>
                 <Grid className="homeBgIner">
                     <Grid container direction="row" justify="center">
                         <Grid item xs={12} md={12}>
@@ -345,10 +580,10 @@ class Index extends Component {
                                             open={this.state.openSlot}
                                             onClose={this.handleCloseSlot}>
                                             <Grid className="slotBoxCntnt">
-                                                <Grid className="timSltCal">
+                                                {clashtime && <Grid className="timSltCal">
                                                     <p><img src={require('../../../assets/images/important-info.svg')} alt="" title="" />
                                                         Time slot is already booked on your calendar
-                                                  </p></Grid>
+                                                  </p></Grid>}
                                                 <Grid className="slotCourse">
                                                     <a onClick={this.handleCloseSlot} className="clsSltCal">
                                                         <img src={require('../../../assets/images/closefancy.png')} alt="" title="" />
@@ -378,28 +613,36 @@ class Index extends Component {
                                                     </Grid>
                                                 </Grid>
                                                 <Grid className="detailQuesSub">
-                                                    <input type="submit" value="Book appointment" />
+                                                    <input type="submit" value="Book appointment" onClick={() => { this.updateAppointment('accept', appoinmentSelected._id, appoinmentSelected) }} />
                                                     <span>or</span>
                                                 </Grid>
                                                 <Grid className="slotTimDat">
                                                     <Grid container direction="row" className="addBirthSlot">
                                                         <Grid item xs={6} md={6}>
-                                                            <Grid><label>Date of birth</label></Grid>
+                                                            <Grid><label>Date of appoinments</label></Grid>
                                                             <Grid>
                                                                 <DatePicker
                                                                     onChange={this.onChange}
-                                                                    value={this.state.date}
+                                                                    value={this.state.suggesteddate}
                                                                 />
                                                             </Grid>
                                                         </Grid>
-                                                        <Grid item xs={6} md={6}>
+                                                        {this.state.suggesteddate && <Grid item xs={6} md={6}>
                                                             <Grid><label>Select a time</label></Grid>
-                                                            <Grid container direction="row" className="addTimesSlot">
-                                                                <Grid item xs={5} md={5}><input type="text" value="08:45" /></Grid>
-                                                                <Grid item xs={2} md={2} className="addTimesHypnSlot"><span>-</span></Grid>
-                                                                <Grid item xs={5} md={5}><input type="text" value="09:10" /></Grid>
+                                                            <Grid className="selTimeAM">
+                                                                {this.state.suggestTime && this.state.suggestTime.length > 0 ? this.state.suggestTime.map((data, iA) => {
+                                                                    return (
+                                                                        <Grid>
+                                                                                <a className={this.state.currentSelected && this.state.currentSelected === iA ? 'current_selected' : ''} >
+                                                                                    {data.start + ' - ' + data.end}
+                                                                                </a>
+                                                                        </Grid>
+                                                                    );
+                                                                }) : this.state.appointDate !== undefined ?
+                                                                        <Grid><span>{holiday}!</span></Grid> : ''
+                                                                }
                                                             </Grid>
-                                                        </Grid>
+                                                        </Grid>}
                                                     </Grid>
                                                     <Grid className="SuggNwTim">
                                                         <input type="submit" value="Suggest new time" />
@@ -417,11 +660,13 @@ class Index extends Component {
                                                     startAccessor="start"
                                                     endAccessor="end"
                                                     popup
-                                                    popupOffset={{ x: 30, y: 20 }}
+                                                    // popupOffset={{ x: 30, y: 20 }}
                                                     style={{ minHeight: 900 }}
 
                                                     step={60}
+                                                    onShowMore={(events, date) => console.log("events", events)}
                                                     messages={{
+
                                                         showMore: total => (
                                                             <div
                                                                 style={{ cursor: 'pointer' }}
