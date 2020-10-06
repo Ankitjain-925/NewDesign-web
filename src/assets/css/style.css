@@ -11176,6 +11176,9 @@ a.barViewnw {
     background-color: #FFFFFF;
     box-shadow: 0 24px 32px 0 rgba(0,8,8,0.08);
     margin-top: 35px;
+    height: 80vh;
+    overflow: hidden;
+    overflow-y: auto;
 }
 .slotCourse {
     padding: 16px 24px 18px 24px;
@@ -12159,7 +12162,7 @@ img.MenuImg {
     letter-spacing: 0;
     line-height: 12px;
 }
-.selTimeSlot a {
+.selTimeSlot a, .suggent-time a {
     border-radius: 8px;
     background-color: #F2F2F2;
     color: #7F8383;
@@ -12173,7 +12176,7 @@ img.MenuImg {
     margin-bottom: 5px;
     cursor: pointer;
 }
-.selTimeSlot a:hover {
+.selTimeSlot a:hover, .suggent-time a:hover , .suggent-time a.current_selected{
     background-color: #00ABAF;
     color: #ffffff;
 }
@@ -13467,4 +13470,17 @@ input:focus {
 
   .rbc-event {
     height: 30px;
+  }
+
+  .rbc-time-column {
+    height: 100%!important;
+    min-height: 900px!important;
+  }
+
+  .rbc-day-slot .rbc-event-label {
+    display: none;
+  }
+
+  .rbc-day-slot .rbc-event{
+    width: 50% !important;
   }

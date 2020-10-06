@@ -31,7 +31,8 @@ import * as translationRS from '../../../translations/rs';
 import * as translationNL from '../../../translations/nl';
 import * as translationSW from '../../../translations/sw';
 
-const days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']
+const days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
+const types = ['private_appointmentss', 'days_for_practices', 'online_appointment'];
 const CURRENT_DATE = moment().toDate();
 const localizer = momentLocalizer(moment)
 
@@ -62,8 +63,9 @@ class Index extends Component {
             UpDataDetails: {},
             DaysforPractices: {},
             onlineAppointments: {},
-            suggestTime:[],
-            current_selected:''
+            suggestTime: [],
+            current_selected: '',
+            currentSelected: -1
         };
     }
 
@@ -85,7 +87,7 @@ class Index extends Component {
             }
         }).then((response) => {
             this.setState({ loaderImage: false });
-            const types = ['private_appointments', 'days_for_practices', 'online_appointment']
+
             types.map(opoinmentData => {
 
                 if (response.data.data[opoinmentData]) {
@@ -105,7 +107,7 @@ class Index extends Component {
                             let workingDays = []
                             days.map(weekday => {
                                 if (Appointments[weekday + '_start'] && Appointments[weekday + '_start'] !== '') {
-                                    workingDays.push(weekday)
+                                    workingDays.push({ value: weekday, start: Appointments[weekday + '_start'], end: Appointments[weekday + '_end'] })
                                 }
                             })
                             this.setState({
@@ -117,7 +119,7 @@ class Index extends Component {
                             let workingDays = []
                             days.map(weekday => {
                                 if (Appointments[weekday + '_start'] && Appointments[weekday + '_start'] !== '') {
-                                    workingDays.push(weekday)
+                                    workingDays.push({ value: weekday, start: Appointments[weekday + '_start'], end: Appointments[weekday + '_end'] })
                                 }
                             })
                             this.setState({
@@ -129,7 +131,7 @@ class Index extends Component {
                             let workingDays = []
                             days.map(weekday => {
                                 if (Appointments[weekday + '_start'] && Appointments[weekday + '_start'] !== '') {
-                                    workingDays.push(weekday)
+                                    workingDays.push({ value: weekday, start: Appointments[weekday + '_start'], end: Appointments[weekday + '_end'] })
                                 }
                             })
                             this.setState({
@@ -320,18 +322,46 @@ class Index extends Component {
         });
     }
 
+    suggestingTime = () => {
+        const { currentSelected, appoinmentSelected, suggesteddate, suggestTime } = this.state;
+        let timeslot = suggestTime[currentSelected];
+        let user_token = this.props.stateLoginValueAim.token
+        axios.put(sitedata.data.path + '/UserProfile/SuggestTimeSlot', {
+            email: appoinmentSelected.patient_info.email,
+            lan: this.props.stateLanguageType,
+            _id: appoinmentSelected._id,
+            oldSchedule:  moment(appoinmentSelected.date).format('MM-DD-YYYY') + " " + appoinmentSelected.start_time + "-" + appoinmentSelected.end_time,
+            timeslot: moment(suggesteddate).format('MM-DD-YYYY') + " " + timeslot.start + "-" + timeslot.end,
+            docProfile: {
+                first_name: this.props.stateLoginValueAim.user.first_name ? this.props.stateLoginValueAim.user.first_name : '',
+                last_name: this.props.stateLoginValueAim.user.last_name ? this.props.stateLoginValueAim.user.last_name : ''
+            }
+        }, {
+            headers: {
+                'token': user_token,
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        }).then((response) => {
+            if(response.data.hassuccessed){
+                this.setState({openSlot:false, suggestTime:[], suggesteddate:new Date(), appoinmentSelected:{} })
+            }
+        })
+    }
+
     handleChange = selectedOption => {
         this.setState({ selectedOption });
     };
     handleOpenSlot = (data) => {
-        const { appioinmentTimes } = this.state;
+        const { appioinmentTimes, appoinmentSelected } = this.state;
         let clashtime = false;
         appioinmentTimes.map(datatime => {
             if ((datatime.start <= data.starttimeValueof && datatime.end >= data.starttimeValueof) || (datatime.start <= data.endtimeValueof && datatime.end >= data.endtimeValueof)) {
                 clashtime = true;
             }
         })
-        this.setState({ openSlot: true, appoinmentSelected: data, clashtime: clashtime, suggesteddate: new Date(), suggestTime:[] });
+        console.log("new Date(moment(data.date,'M-DD-YYYY').format())", new Date(moment(data.date,'M-DD-YYYY').format()))
+        this.setState({ openSlot: true, appoinmentSelected: data, clashtime: clashtime, suggesteddate: new Date(moment(data.date,'M-DD-YYYY').format()), suggestTime: [] });
     };
     handleCloseSlot = () => {
         this.setState({ openSlot: false, clashtime: false });
@@ -364,6 +394,38 @@ class Index extends Component {
                     >
                         <p style={{ backgroundColor: 'none', fontSize: 11, margin: 0, fontWeight: 700 }}> {data.event.title} </p>
                         <p style={{ backgroundColor: 'none', fontSize: 11, margin: 0, lineHeight: '12px' }}> {moment(data.event.start).format('hh:mm') + '-' + moment(data.event.end).format('hh:mm')} </p>
+                    </span>}
+            </TooltipTrigger>
+        )
+    }
+
+    EventDaysComponent = (data) => {
+        return (
+            <TooltipTrigger
+                placement="right"
+                trigger="click"
+                tooltip={datas => this.Tooltip({
+                    getTooltipProps: datas.getTooltipProps,
+                    getArrowProps: datas.getArrowProps,
+                    tooltipRef: datas.tooltipRef,
+                    arrowRef: datas.arrowRef,
+                    placement: datas.placement,
+                    event: data.event,
+                })}
+                modifiers={modifiers}
+            >
+                { ({
+                    getTriggerProps, triggerRef
+                }) =>
+                    <span {...getTriggerProps({
+                        ref: triggerRef,
+                        className: 'trigger'
+                        /* your props here */
+                    })}
+                    // onClick={() => this.CallEvents(data.event)}
+                    >
+                        <p style={{ backgroundColor: 'none', fontSize: 11, margin: 0, fontWeight: 700 }}> {data.event.title}:  {moment(data.event.start).format('hh:mm A') + '-' + moment(data.event.end).format('hh:mm A')}</p>
+                        {/* <p style={{ backgroundColor: 'none', fontSize: 11, margin: 0, lineHeight: '12px' }}> {moment(data.event.start).format('hh:mm') + '-' + moment(data.event.end).format('hh:mm')} </p> */}
                     </span>}
             </TooltipTrigger>
         )
@@ -446,9 +508,9 @@ class Index extends Component {
                                 <Grid className="meetVdo">
                                     <Grid className="meetVdoLft">
                                         {data.appointment_type == 'online_appointment' && <img src={require('../../../assets/images/video-call.svg')} alt="" title="" />}
-                                        {data.appointment_type == 'practice_appointment' && <img src={require('../../../assets/images/dates.png')} alt="" title="" />}
-                                        {data.appointment_type == 'private_appointment' && <img src={require('../../../assets/images/ShapeCopy21.svg')} alt="" title="" />}
-                                        <span>{data.appointment_type == 'practice_appointment' ? 'Consultancy Appointment' : (data.appointment_type == 'online_appointment' ? 'Video call' : 'Office visit')}</span>
+                                        {data.appointment_type == 'practice_days' && <img src={require('../../../assets/images/dates.png')} alt="" title="" />}
+                                        {data.appointment_type == 'private_appointments' && <img src={require('../../../assets/images/ShapeCopy21.svg')} alt="" title="" />}
+                                        <span>{data.appointment_type == 'practice_days' ? 'Consultancy Appointment' : (data.appointment_type == 'online_appointment' ? 'Video call' : 'Office visit')}</span>
                                     </Grid>
                                     <Grid className="meetVdoRght">
                                         <p>{moment(data.date, 'MM-DD-YYYY').format('D MMM')}, {data.start_time}</p>
@@ -457,8 +519,7 @@ class Index extends Component {
                                 <Grid className="meetDetail">
                                     <h1>{event.title}</h1>
                                     <span>Details / Questions</span>
-                                    <p>Here we show the text the patient entered in the text field when arranging
-                                an appointment. Or the appointment title if the doctor was the one who entered it.</p>
+                                    <p>{data.annotations}</p>
                                 </Grid>
                             </Grid>
                         </Grid>
@@ -470,26 +531,62 @@ class Index extends Component {
     }
 
     onChange = (date) => {
-        this.setState({ suggesteddate: date })
-        const { appioinmentTimes, appoinmentSelected, onlineAppointments } = this.state;
-        let clashtime = false;
-        if(appoinmentSelected.appointment_type =='online_appointment'){
-            let weeknumber = moment(date).day();
-            if(onlineAppointments.workingDays.includes(days[weeknumber+1])){
 
-            }
-            else {
-                this.setState({suggestTime:[]})
+        const { appioinmentTimes, appoinmentSelected, onlineAppointments, UpDataDetails, DaysforPractices } = this.state;
+        let temptimes = [];
+        let suggestTime = [];
+        let dateFormat = moment(date).format('DD/MM/YYYY');
+        let statemanger = 'onlineAppointments';
+        console.log("appoinmentSelected.appointment_type", appoinmentSelected.appointment_type)
+        if (appoinmentSelected.appointment_type == types[2]) {
+            statemanger = 'onlineAppointments'
+        }
+        else if (appoinmentSelected.appointment_type == types[0]) {
+            statemanger = 'UpDataDetails'
+        } else {
+            statemanger = 'DaysforPractices'
+        }
+        console.log("statemanger", statemanger)
+
+        let weeknumber = moment(date).day();
+        var appiInd = -1
+        if (this.state[statemanger].workingDays) appiInd = this.state[statemanger].workingDays.findIndex(person => person.value.includes(days[weeknumber - 1]))
+        if (appiInd !== -1) {
+            let start = this.state[statemanger].workingDays[appiInd].start;
+            let end = this.state[statemanger].workingDays[appiInd].end;
+            var time = moment(start, 'H:mm');
+            while (time.add(this.state[statemanger].duration_of_timeslots, 'minutes').valueOf() < moment(end, 'H:mm').valueOf()) {
+
+                var firsttime = moment(time, 'H:mm').add(-parseInt(this.state[statemanger].duration_of_timeslots) + 1, 'minutes');
+                var endtime = moment(firsttime, 'H:mm').add(this.state[statemanger].duration_of_timeslots, 'minutes');
+                let dataq = { start: firsttime.format('H:mm'), end: endtime.format('H:mm') }
+                temptimes.push(dataq)
             }
         }
-        appioinmentTimes.map(datatime => {
-            if ((datatime.start <= appoinmentSelected.starttimeValueof && datatime.end >= appoinmentSelected.starttimeValueof) || (datatime.start <= appoinmentSelected.endtimeValueof && datatime.end >= appoinmentSelected.endtimeValueof)) {
-                clashtime = true;
+        else {
+            //    suggestTime:[]
+        }
+
+        temptimes.map(tiems => {
+            let clashtime = false
+            appioinmentTimes.map(datatime => {
+                if ((datatime.start <= moment(dateFormat + ' ' + tiems.start, 'DD/MM/YYYY H:mm').valueOf() && datatime.end > moment(dateFormat + ' ' + tiems.start, 'DD/MM/YYYY H:mm').valueOf()) || (datatime.start < moment(dateFormat + ' ' + tiems.end, 'DD/MM/YYYY H:mm').valueOf() && datatime.end >= moment(dateFormat + ' ' + tiems.end, 'DD/MM/YYYY H:mm').valueOf())) {
+                    clashtime = true;
+                }
+
+            })
+            if (!clashtime) {
+                suggestTime.push(tiems)
             }
         })
-        this.setState({ clashtime: clashtime, suggesteddate: new Date(),suggestTime:[] });
-    
-        console.log("date", date)
+
+        this.setState({ suggesteddate: new Date(), suggestTime: suggestTime });
+        this.setState({ suggesteddate: date })
+    }
+
+    selectTimeSlot = (index) => {
+        console.log("index", index)
+        this.setState({ currentSelected: index })
     }
 
     render() {
@@ -524,7 +621,7 @@ class Index extends Component {
             case "default":
                 translate = translationEN.text
         }
-        const {holiday} = translate
+        const { holiday } = translate
         if (stateLoginValueAim.user === 'undefined' || stateLoginValueAim.token === 450 || stateLoginValueAim.token === 'undefined' || stateLoginValueAim.user.type !== 'doctor') {
             return (<Redirect to={'/'} />);
         }
@@ -557,18 +654,18 @@ class Index extends Component {
                                                 </Grid>
                                             </Grid>
                                         </Grid>
-                                        {newAppoinments && newAppoinments.length>0 &&<Grid className="newRequestMain">
+                                        {newAppoinments && newAppoinments.length > 0 && <Grid className="newRequestMain">
                                             <h4>New Requests</h4>
                                             <Grid className="newRequestUpr">
                                                 {newAppoinments && newAppoinments.map((data) => (
-                                                    <Grid className="newRequest" onClick={()=>this.handleOpenSlot(data)}>
+                                                    <Grid className="newRequest" onClick={() => this.handleOpenSlot(data)}>
                                                         <Grid className="newReqInfo">
                                                             <a><img src={data.patient_info && data.patient_info.profile_image ? getImage(data.patient_info.profile_image, this.state.images) : require('../../../assets/images/dr1.jpg')} alt="" title="" />{data.patient_info.first_name + ' ' + data.patient_info.last_name}</a>
                                                         </Grid>
                                                         <Grid className="newReqInfo">
                                                             <a>{data.appointment_type == 'online_appointment' && <img src={require('../../../assets/images/video-call.svg')} alt="" title="" />}
-                                                                {data.appointment_type == 'practice_appointment' && <img src={require('../../../assets/images/dates.png')} alt="" title="" />}
-                                                                {data.appointment_type == 'private_appointment' && <img src={require('../../../assets/images/ShapeCopy21.svg')} alt="" title="" />}
+                                                                {data.appointment_type == 'practice_days' && <img src={require('../../../assets/images/dates.png')} alt="" title="" />}
+                                                                {data.appointment_type == 'private_appointments' && <img src={require('../../../assets/images/ShapeCopy21.svg')} alt="" title="" />}
 
                                                                 <label>{moment(data.date, 'MM-DD-YYYY').format('MMMM DD, YYYY')}</label> <span>{data.start_time} - {data.end_time}</span></a>
                                                         </Grid>
@@ -592,15 +689,15 @@ class Index extends Component {
                                                     <Grid container direction="row">
                                                         <Grid item xs={6} md={6} alignItems="center" justify="center">
                                                             <Grid className="jmInfo">
-                                                                <a><img src={appoinmentSelected.patient_info && appoinmentSelected.patient_info.profile_image ? getImage(appoinmentSelected.patient_info.profile_image, this.state.images) : require('../../../assets/images/dr1.jpg')} alt="" title="" />{appoinmentSelected.patient_info?(appoinmentSelected.patient_info.first_name + ' ' +  appoinmentSelected.patient_info.last_name):''}</a>
+                                                                <a><img src={appoinmentSelected.patient_info && appoinmentSelected.patient_info.profile_image ? getImage(appoinmentSelected.patient_info.profile_image, this.state.images) : require('../../../assets/images/dr1.jpg')} alt="" title="" />{appoinmentSelected.patient_info ? (appoinmentSelected.patient_info.first_name + ' ' + appoinmentSelected.patient_info.last_name) : ''}</a>
                                                             </Grid>
                                                         </Grid>
                                                         <Grid item xs={6} md={6} alignItems="center" justify="center">
                                                             <Grid className="jmInfoVdo">
                                                                 <a>{appoinmentSelected.appointment_type == 'online_appointment' && <img src={require('../../../assets/images/video-call.svg')} alt="" title="" />}
-                                                                    {appoinmentSelected.appointment_type == 'practice_appointment' && <img src={require('../../../assets/images/dates.png')} alt="" title="" />}
-                                                                    {appoinmentSelected.appointment_type == 'private_appointment' && <img src={require('../../../assets/images/ShapeCopy21.svg')} alt="" title="" />}
-                                                                    {appoinmentSelected.appointment_type == 'practice_appointment' ? 'Consultancy Appointment' : (appoinmentSelected.appointment_type == 'online_appointment' ? 'Video call' : 'Office visit')}</a>
+                                                                    {appoinmentSelected.appointment_type == 'practice_days' && <img src={require('../../../assets/images/dates.png')} alt="" title="" />}
+                                                                    {appoinmentSelected.appointment_type == 'private_appointments' && <img src={require('../../../assets/images/ShapeCopy21.svg')} alt="" title="" />}
+                                                                    {appoinmentSelected.appointment_type == 'practice_days' ? 'Consultancy Appointment' : (appoinmentSelected.appointment_type == 'online_appointment' ? 'Video call' : 'Office visit')}</a>
                                                             </Grid>
                                                         </Grid>
                                                     </Grid>
@@ -610,7 +707,7 @@ class Index extends Component {
                                                     </Grid>
                                                     <Grid className="detailQues">
                                                         <label>Details / Questions</label>
-                                                        <p>I am feeling a stabbing pain in my left arm. And it’s not getting any better..</p>
+                                                        <p>{appoinmentSelected.annotations}</p>
                                                     </Grid>
                                                 </Grid>
                                                 <Grid className="detailQuesSub">
@@ -630,23 +727,23 @@ class Index extends Component {
                                                         </Grid>
                                                         {this.state.suggesteddate && <Grid item xs={6} md={6}>
                                                             <Grid><label>Select a time</label></Grid>
-                                                            <Grid className="selTimeAM">
+                                                            <Grid className="selTimeAM suggent-time">
                                                                 {this.state.suggestTime && this.state.suggestTime.length > 0 ? this.state.suggestTime.map((data, iA) => {
                                                                     return (
                                                                         <Grid>
-                                                                                <a className={this.state.currentSelected && this.state.currentSelected === iA ? 'current_selected' : ''} >
-                                                                                    {data.start + ' - ' + data.end}
-                                                                                </a>
+                                                                            <a onClick={(e) => this.selectTimeSlot(iA)} className={this.state.currentSelected !== undefined && this.state.currentSelected === iA ? 'current_selected' : ''} >
+                                                                                {moment(data.start, 'H:mm').format('hh:mm A') + ' - ' + moment(data.end, 'H:mm').format('hh:mm A')}
+                                                                            </a>
                                                                         </Grid>
                                                                     );
-                                                                }) : this.state.appointDate !== undefined ?
+                                                                }) : this.state.suggesteddate !== undefined ?
                                                                         <Grid><span>{holiday}!</span></Grid> : ''
                                                                 }
                                                             </Grid>
                                                         </Grid>}
                                                     </Grid>
-                                                    <Grid className="SuggNwTim">
-                                                        <input type="submit" value="Suggest new time" />
+                                                    <Grid className={this.state.currentSelected !== undefined && this.state.currentSelected !== -1 ? 'detailQuesSub' : 'SuggNwTim'}>
+                                                        <input type="submit" value="Suggest new time" onClick={() => this.suggestingTime()} />
                                                     </Grid>
                                                 </Grid>
                                             </Grid>
@@ -661,10 +758,7 @@ class Index extends Component {
                                                     startAccessor="start"
                                                     endAccessor="end"
                                                     popup
-                                                    // popupOffset={{ x: 30, y: 20 }}
                                                     style={{ minHeight: 900 }}
-
-                                                    step={60}
                                                     onShowMore={(events, date) => console.log("events", events)}
                                                     messages={{
 
@@ -681,6 +775,8 @@ class Index extends Component {
                                                     }}
                                                     components={{
                                                         month: { event: this.EventComponent },
+                                                        week: { event: this.EventComponent },
+                                                        day: { event: this.EventDaysComponent },
                                                         dateCellWrapper: this.DateCellCompnent,
                                                         toolbar: CalendarToolbar
                                                     }}
