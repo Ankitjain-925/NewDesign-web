@@ -406,8 +406,6 @@ class Index extends Component {
                                         <p>{prescData.follow_up_prescription == 'yes' ? 'Yes' : 'No'}</p>
                                         <Grid><label>{how_u_like_rcv_pres}</label></Grid>
                                         <p>{prescData.prescription_type}</p>
-                                        <Grid><label>Are you currently abroad?</label></Grid>
-                                        <p>No</p>
                                     </Grid>
                                 </Grid>
 
