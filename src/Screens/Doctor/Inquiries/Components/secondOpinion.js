@@ -15,6 +15,7 @@ import { confirmAlert } from 'react-confirm-alert'; // Import
 import { LanguageFetchReducer } from './../../../actions';
 import { getDate, getImage } from './../../../Components/BasicMethod/index';
 import * as translationEN from '../../../../translations/en_json_proofread_13072020.json';
+import FileUploader from './../../../Components/FileUploader/index';
 // import * as translationDE from '../../../translations/de_json_proofread_13072020.json';
 function TabContainer(props) {
     return (
@@ -381,7 +382,7 @@ class Index extends Component {
                         </Tbody>
                     </Table>
                     {/* Model setup */}
-                    {/* <Modal
+                    <Modal
                         open={this.state.openPrescp}
                         onClose={this.handleClosePrescp}
                         className="opinBoxModel">
@@ -402,36 +403,35 @@ class Index extends Component {
                                         <h3>Specialist and standard questions</h3>
                                         <Grid className="splestQues">
                                             <Grid><label>Specialist</label></Grid>
-                                            <Grid><h3>{this.state.AddSecond && this.state.AddSecond.docProfile && this.state.AddSecond.docProfile.first_name && this.state.AddSecond.docProfile.first_name} {this.state.AddSecond && this.state.AddSecond.docProfile && this.state.AddSecond.docProfile.last_name && this.state.AddSecond.docProfile.last_name}</h3></Grid>
+                                            <Grid><h3>{opinionData && opinionData.patient_info && opinionData.patient_info.first_name && opinionData.patient_info.first_name} {opinionData && opinionData.patient_info && opinionData.patient_info.last_name && opinionData.patient_info.last_name}</h3></Grid>
                                         </Grid>
                                         <Grid className="recevPrescp">
                                             <Grid className="recevPrescpLbl"><label>How would you like to receive the Second Opinion?</label></Grid>
                                             <Grid className="recevPrescpChk">
-                                                <FormControlLabel control={<Radio />} name="online_offline" value="online" color="#00ABAF" checked={this.state.AddSecond.online_offline === 'online'} onChange={this.AddState} label="Online" />
-                                                <FormControlLabel control={<Radio />} name="online_offline" color="#00ABAF" value="offline" checked={this.state.AddSecond.online_offline === 'offline'} onChange={this.AddState} label="Home address mailbox" />
+                                                {opinionData.online_offline === 'online' ? "Online" : "Home address mailbox"}
                                             </Grid>
                                         </Grid>
                                         <Grid className="yrProfes">
                                             <Grid><label>Your profession</label></Grid>
-                                            <Grid><input type="text" name="professions" value={this.state.AddSecond.professions} onChange={this.AddState} /></Grid>
+                                            <Grid>{opinionData.professions}</Grid>
                                         </Grid>
                                         <Grid className="yrProfes">
                                             <Grid><label>Annotations / details / questions</label></Grid>
-                                            <Grid><textarea name="details" value={this.state.AddSecond.details} onChange={this.AddState}></textarea></Grid>
+                                            <Grid>{opinionData.details}</Grid>
                                         </Grid>
                                         <Grid className="attchForms attchImg">
                                             <Grid><label>Attachments</label></Grid>
                                             <label class="attached_file">Attached Document -
-                                        {this.state.AddSecond && this.state.AddSecond.documents && this.state.AddSecond.documents.map((items) => (
+                                        {opinionData && opinionData.documents && opinionData.documents.map((items) => (
                                                 <a>{items.filename && (items.filename.split('second_opinion/')[1]).split("&bucket=")[0]}</a>
                                             ))}
                                             </label>
-                                            <FileUploader name="UploadDocument" fileUpload={this.fileUpload} />
+                                            <FileUploader name="UploadDocument" fileUpload={this.UploadFile} />
                                             {/* <Grid className="attchbrowsInput">
                                             <a><img src={require('../../../../assets/images/upload-file.svg')} alt="" title="" /></a>
                                             <a>Browse <input type="file" id="UploadDocument" name="UploadDocument" onChange={(e) => this.UploadFile(e)} /></a> or drag here
                                         </Grid> */}
-                                            {/* <p>Supported file types: .jpg, .png, .pdf</p> 
+                                            {/* <p>Supported file types: .jpg, .png, .pdf</p> */}
                                         </Grid>
                                     </Grid>
                                 </Grid>
@@ -439,12 +439,12 @@ class Index extends Component {
                                 <Grid className="infoShwHidBrdr"></Grid>
                                 <Grid className="infoShwHidIner">
                                     <Grid className="infoShwSave">
-                                        {/* <input type="submit" onClick={this.SubmitPrescription} value="Edit entry" /> 
+                                        {/* <input type="submit" onClick={this.submit} value="Edit entry" /> */}
                                     </Grid>
                                 </Grid>
                             </Grid>
                         </Grid>
-                    </Modal> */}
+                    </Modal>
                     {/* End of Model setup */}
 
                     {/* Reject Model setup */}

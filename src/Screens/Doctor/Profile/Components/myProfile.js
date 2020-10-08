@@ -29,7 +29,7 @@ import DateFormat from './../../../Components/DateFormat/index'
 import Autocomplete from './../../../Components/Autocomplete/index.js';
 import Modal from '@material-ui/core/Modal';
 import subspeciality from '../../../../subspeciality.js';
-import {QRCode} from 'qrcode.react';
+import QRCode from 'qrcode.react';
 
 const options = [
     { value: 'Mr', label: 'Mr.' },
@@ -792,7 +792,7 @@ class Index extends Component {
             case "default":
                 translate = translationEN.text
         }
-        let { profile_info, profile, information, ID, pin, QR_code, done, Change, edit_id_pin, edit, and, is, changed, profile_id_taken, profile_id_greater_then_5,
+        const { profile_info, profile, information, ID, pin, QR_code, done, Change, edit_id_pin, edit, and, is, changed, profile_id_taken, profile_id_greater_then_5,
             save_change, email, title, degree, first, last, name, dob, gender, street, add, city, postal_code, country, home_telephone, phone, country_code, Delete,
             mobile_number, number, mobile, Languages, spoken, insurance, add_more, company, of, info_copied, profile_updated, profile_not_updated, mobile_number_not_valid, insurance_added, speciality } = translate;
 
@@ -802,6 +802,11 @@ class Index extends Component {
 
                 <Grid className="profileMy">
                     <Grid className="profileInfo">
+                        {this.state.copied && <div className="success_message">{info_copied}</div>}
+                        {this.state.succUpdate && <div className="success_message">{profile_updated}</div>}
+                        {this.state.error3 && <div className="err_message">{profile_not_updated}</div>}
+                        {this.state.phonevalidate && <div className="err_message">{mobile_number_not_valid}</div>}
+                        {this.state.ChangedPIN && <div className="success_message">{profile} {ID} {and} {pin} {is} {changed}</div>}
                         <h1>Profile information</h1>
                         <p>This is your profile information.</p>
                     </Grid>
@@ -1129,7 +1134,7 @@ class Index extends Component {
                             </Grid>
                             <Grid className="qrCourseImg">
                                 {/* <Grid><img src={require('../../../../assets/images/qrimg.jpg')} alt="" title="" /></Grid> */}
-                                <Grid> <QRCode value={UpDataDetails.profile_id} /> </Grid>
+                                <Grid> <QRCode value={UpDataDetails.profile_id?''+UpDataDetails.profile_id:''} /> </Grid>
                                 <Grid><input type="submit" value="Done" onClick={this.handleQrClose} /></Grid>
                             </Grid>
                         </Grid>
