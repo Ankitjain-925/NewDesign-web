@@ -8,7 +8,7 @@ import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { LanguageFetchReducer } from './../../actions';
 import { EmergencySet } from '../../Doctor/emergencyaction';
-import { ConsoleCustom } from './../../Components/BasicMethod/index'
+import { ConsoleCustom, getSpec } from './../../Components/BasicMethod/index'
 import axios from 'axios';
 import OrganSection from './../../Patient/Profile/Components/orgnaDonar';
 import ReactFlagsSelect from 'react-flags-select';
@@ -104,7 +104,7 @@ class ComponentToPrint extends React.Component {
                             {item.first_name && <p>First Name : {item.first_name}</p>}
                             {item.last_name && <p>Last Name : {item.last_name}</p>}
                             {item.sex && <p>Gender : {item.sex}</p>}
-                            {item.speciality && <p>Speciality  : {item.speciality.join(', ')}</p>}
+                            {item.speciality && <p>Speciality  : {getSpec(item.speciality)}</p>}
                             {item.mobile && <p>Mobile : {item.mobile}</p>}
                             {item.email && <p>Email : {item.email}</p>}
                         </li>
@@ -434,8 +434,8 @@ class Index extends Component {
                                             </Grid>
                                             <Grid className="neuroDises">
                                                 <Grid className="neuroGen">
-                                                    <Grid><label>{item.speciality && item.speciality.join(', ')}</label></Grid>
-                                                    <p>{item.subspeciality && item.subspeciality.join(', ')}</p>
+                                                    <Grid><label>{item.speciality && getSpec(item.speciality)}</label></Grid>
+                                                    <p>{item.subspeciality && getSpec(item.subspeciality)}</p>
                                                 </Grid>
                                             </Grid>
                                         </div>))

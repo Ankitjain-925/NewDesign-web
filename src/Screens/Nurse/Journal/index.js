@@ -230,6 +230,7 @@ class Index extends Component {
         .then((response) => {
             this.setState({ loaderImage: false })
             this.getTrack();
+            this.rightInfo();
         }).catch((error) => {});
     }
     //Update Archive Track State

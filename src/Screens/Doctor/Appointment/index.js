@@ -40,7 +40,7 @@ const localizer = momentLocalizer(moment)
 const modifiers = [
     {
         name: 'offset',
-        enabled: true,
+        enabled: true, 
         options: {
             offset: [0, 4],
         },
@@ -523,7 +523,6 @@ class Index extends Component {
                                 </Grid>
                             </Grid>
                         </Grid>
-
                     ))}
 
             </div>

@@ -145,17 +145,17 @@ class PointPain extends Component {
                         <Grid className="prfilHght">
                             <Grid className="prfilHghtLft">
                                 <label>Weight</label>
-                                <p>{this.state.personalinfo && this.state.personalinfo.weight_bmi && this.state.personalinfo.weight_bmi.weight ? this.state.personalinfo.weight_bmi.weight : '--'}<span>kg</span></p>
+                                <p>{this.state.personalinfo && this.state.personalinfo.weight_bmi && this.state.personalinfo.weight_bmi.length>0 && this.state.personalinfo.weight_bmi[0].weight ? this.state.personalinfo.weight_bmi[0].weight : '--'}<span>kg</span></p>
                             </Grid>
                             <Grid className="prfilHghtRght">
                                 <label>Height</label>
-                                <p>{this.state.personalinfo && this.state.personalinfo.weight_bmi && this.state.personalinfo.weight_bmi.height ? this.state.personalinfo.weight_bmi.height : '--'}<span>cm</span></p>
+                                <p>{this.state.personalinfo && this.state.personalinfo.weight_bmi && this.state.personalinfo.weight_bmi.length>0 && this.state.personalinfo.weight_bmi[0].height ? this.state.personalinfo.weight_bmi[0].height : '--'}<span>cm</span></p>
                             </Grid>
                         </Grid>
                         <Grid className="prfilHght">
                             <Grid className="prfilHghtLft">
                                 <label>BMI</label>
-                                {this.state.personalinfo && this.state.personalinfo.weight_bmi ? <p>{(this.state.personalinfo.weight_bmi.weight/(this.state.personalinfo.weight_bmi.height * this.state.personalinfo.weight_bmi.height)*10000).toFixed(2) ==='NaN' ? '--' : (this.state.personalinfo.weight_bmi.weight/(this.state.personalinfo.weight_bmi.height * this.state.personalinfo.weight_bmi.height)*10000).toFixed(2)}</p>:  <p>--</p>}
+                                {this.state.personalinfo && this.state.personalinfo.weight_bmi  && this.state.personalinfo.weight_bmi.length>0 ? <p>{(this.state.personalinfo.weight_bmi[0].weight/(this.state.personalinfo.weight_bmi[0].height * this.state.personalinfo.weight_bmi[0].height)*10000).toFixed(2) ==='NaN' ? '--' : (this.state.personalinfo.weight_bmi[0].weight/(this.state.personalinfo.weight_bmi[0].height * this.state.personalinfo.weight_bmi[0].height)*10000).toFixed(2)}</p>:  <p>--</p>}
                             </Grid> 
                             <Grid className="prfilHghtRght">
                                 <label>Blood</label>
