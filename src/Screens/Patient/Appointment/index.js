@@ -1,25 +1,32 @@
-/*global google*/
-import React, { Component } from 'react';
+import React, { Component, Children, useState } from 'react';
 import Grid from '@material-ui/core/Grid';
-import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
+import 'react-big-calendar/lib/css/react-big-calendar.css'
 import Modal from '@material-ui/core/Modal';
 import Select from 'react-select';
+import Calendar2 from 'react-calendar';
+import 'react-calendar/dist/Calendar.css';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
+import { Calendar, momentLocalizer } from 'react-big-calendar';
+import moment from 'moment';
+import axios from 'axios';
+import Geocode from "react-geocode";
 import { GoogleApiWrapper, Map, Marker } from 'google-maps-react';
 import { withRouter } from "react-router-dom";
-import CometChat from '../../Components/CometChat';
-import { LanguageFetchReducer } from './../../actions';
-import { LoginReducerAim } from './../../Login/actions';
 import { connect } from "react-redux";
+import { LoginReducerAim } from './../../Login/actions';
 import { Settings } from './../../Login/setting';
-import Geocode from "react-geocode";
+import { LanguageFetchReducer } from './../../actions';
+import TooltipTrigger from 'react-popper-tooltip';
+import 'react-popper-tooltip/dist/styles.css';
+import CalendarToolbar from "./../../Components/CalendarToolbar/index.js";
+import DatePicker from 'react-date-picker';
+import { getDate, getImage, getSpec } from './../../Components/BasicMethod/index';
+import { Redirect, Route } from 'react-router-dom';
 import LeftMenu from "../../Components/Menus/PatientLeftMenu/index";
 import LeftMenuMobile from './../../Components/Menus/PatientLeftMenu/mobile';
-import axios from "axios";
 import sitedata from "../../../sitedata";
-import { Redirect, Route } from 'react-router-dom';
 import Autocomplete from './Autocomplete';
 import translationEN from '../../../translations/en_json_proofread_13072020.json'
 import * as translationDE from '../../../translations/de';
@@ -31,27 +38,34 @@ import * as translationNL from '../../../translations/nl';
 import * as translationSW from '../../../translations/sw';
 import SPECIALITY from '../../../speciality'
 import SUBSPECIALITY from '../../../subspeciality'
+import Loader from './../../Components/Loader/index';
 
-const options = [
-    { value: 'data1', label: 'Data1' },
-    { value: 'data2', label: 'Data2' },
-    { value: 'data3', label: 'Data3' },
+const CURRENT_DATE = moment().toDate();
+const localizer = momentLocalizer(moment)
+
+
+const modifiers = [
+    {
+        name: 'offset',
+        enabled: true,
+        options: {
+            offset: [0, 4],
+        },
+    },
 ];
 
-
+let MyOtherNestedComponent = () => <div>NESTED COMPONENT</div>
 class Index extends Component {
     constructor(props) {
         super(props);
-        this.autocompleteInput = React.createRef();
-        this.city = null;
-        this.handlePlaceChanged = this.handlePlaceChanged.bind(this);
         this.state = {
-            selectedOption: null,
+            myEventsList: [],
+            DetialData: {},
             openDash: false,
             date: new Date(),
             openFancy: false,
             openAllowAccess: false,
-            selectedOption: null,
+            selectedOption: {},
             openAllowLoc: false,
             openApoint: false,
             openFancyVdo: false,
@@ -63,32 +77,94 @@ class Index extends Component {
             office_visit: true,
             currentSelected: null,
             searchCity: null,
-            pastappointment: false
+            pastappointment: false,
+            show_id: false,
+            show_type: 'contact',
+            cancelappoint : {},
+            cancelsuccess: false,
+            message: '',
         };
-        this.bookAppointment = this.bookAppointment.bind(this)
-        this.apointmentType = this.apointmentType.bind(this)
     }
-     //For chnaging the Place of city.
-     handlePlaceChanged() {
-        const place = this.city.getPlace();
-        this.setState({ city: place.formatted_address })
-        this.setState({
-            area: {
-                type: "Point",
-                coordinates: [place.geometry.location.lng(), place.geometry.location.lat()]
-            }
-        })
-    }
+
     componentDidMount() {
-        this.getGeoLocation()
-        this.patientinfo()
-        this.getSpecialities()
-        this.getUpcomingAppointment()
-        this.getPastAppointment()    
+        this.getEvent();
+        this.patientinfo();
+        this.getSpecialities();
+        this.getUpcomingAppointment();
+        this.getPastAppointment();
     }
 
+    //Show event on the calendar 
+    getEvent = () => {
+        var finaldata = [];
+        var user_token = this.props.stateLoginValueAim.token;
+        this.setState({ loaderImage: true })
+        axios.get(sitedata.data.path + '/User/AppointmentByDate1',
+            {
+                headers: {
+                    'token': user_token,
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then((response) => {
+                if (response.data.hassuccessed) {
+                    let indexout = 0
+                    response.data.data && response.data.data.length > 0 && response.data.data.map((data, index) => {
+                        axios.get(sitedata.data.path + '/User/AppointOfDate1/' + data._id,
+                            {
+                                headers: {
+                                    'token': user_token,
+                                    'Accept': 'application/json',
+                                    'Content-Type': 'application/json'
+                                }
+                            })
+                            .then((response) => {
+                                if (response.data.hassuccessed) {
 
-    getUpcomingAppointment() {
+                                    response.data.data && response.data.data.length > 0 && response.data.data.map((d1, index) => {
+                                        if (d1.start_time) {
+                                            var t1 = d1.start_time.split(":");
+                                        }
+                                        if (d1.end_time) {
+                                            var t2 = d1.end_time.split(":");
+                                        }
+                                        let da1 = new Date(data._id);
+                                        let da2 = new Date(data._id);
+                                        if (t1 && t1.length > 0) {
+                                            da1.setHours(t1[0]);
+                                            da1.setMinutes(t1[1]);
+                                        }
+                                        else {
+                                            da1.setHours('00');
+                                            da1.setMinutes('00');
+                                        }
+                                        if (t2 && t2.length > 0) {
+                                            da2.setHours(t2[0]);
+                                            da2.setMinutes(t2[1]);
+                                        }
+                                        else {
+                                            da2.setHours('00');
+                                            da2.setMinutes('00');
+                                        }
+                                        this[`${indexout}_ref`] = React.createRef()
+                                        finaldata.push({ id: index, title: d1.docProfile.first_name + " " + d1.docProfile.last_name, start: new Date(da1), end: new Date(da2), indexout: indexout, fulldata: [d1] })
+                                    })
+                                }
+                            }).then(() => {
+                                indexout++;
+                                this.setState({ myEventsList: finaldata, })
+                            })
+                    })
+
+                }
+                this.setState({ loaderImage: false })
+
+            })
+
+    }
+
+getUpcomingAppointment() {
         var user_token = this.props.stateLoginValueAim.token;
         axios.get(sitedata.data.path + '/UserProfile/UpcomingAppintmentPat', {
             headers: {
@@ -97,7 +173,8 @@ class Index extends Component {
                 'Content-Type': 'application/json'
             }
         }).then((response) => {
-            this.setState({ upcomingAppointment: response.data.data, loaderImage: false })
+            var upcomingData= response.data.data && response.data.data.length>0 && response.data.data.filter((data)=>data.status!=='cancel' && data.status!=='remove')
+            this.setState({ upcomingAppointment: upcomingData, loaderImage: false })
         })
     }
 
@@ -117,8 +194,8 @@ class Index extends Component {
     getGeoLocation = () => {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(position => {
-                this.setState({ clat: position.coords.latitude })
-                this.setState({ clng: position.coords.longitude })
+                this.setState({ clat: parseFloat( position.coords.latitude) })
+                this.setState({ clng:  parseFloat(position.coords.longitude) })
                 Geocode.setApiKey("AIzaSyCNLBs_RtZoI4jdrZg_CjBp9hEM6SBIh-4");
                 Geocode.enableDebug();
                 Geocode.fromLatLng(position.coords.latitude, position.coords.longitude).then(response => {
@@ -196,7 +273,7 @@ class Index extends Component {
         this.setState({ UpDataDetails: state });
     }
 
-    bookAppointment() {
+    bookAppointment =() =>{
         var insurance_no = this.state.personalinfo.insurance && this.state.personalinfo.insurance.length > 0 && this.state.personalinfo.insurance[0] && this.state.personalinfo.insurance[0].insurance_number ? this.state.personalinfo.insurance[0].insurance_number : '';
         this.setState({ loaderImage: true });
         const user_token = this.props.stateLoginValueAim.token;
@@ -235,11 +312,11 @@ class Index extends Component {
             .then((responce) => {
                 this.setState({ loaderImage: false });
                 if (responce.data.hassuccessed === true) {
-                    this.setState({ successfull: true })
+                    this.setState({ successfull: true, openAllowAccess: false, openAllowLoc: false,  openFancyVdo: false, currentSelected: {}  })
                     this.getUpcomingAppointment()
                     setTimeout(
                         function () {
-                            this.setState({ successfull: false, openFancyVdo: false, currentSelected: null });
+                            this.setState({ successfull: false, });
                         }
                             .bind(this),
                         5000
@@ -263,21 +340,21 @@ class Index extends Component {
             Latitude = this.state.mLatitude
             longitude = this.state.mlongitude
         } else {
-            alert("please enter city")
+
         }
         // if (radius && Latitude && longitude) {
         axios.get(sitedata.data.path + '/UserProfile/getLocation/' + radius, {
             params: {
                 speciality: this.state.searchDetails.specialty,
-                longitude: 77.45375779999999,
-                Latitude: 28.6691565
+                longitude: longitude,
+                Latitude: Latitude
             }
         })
             .then((responce) => {
                 let markerArray = [];
                 let selectedListArray = [];
                 let NewArray = [];
-                console.log("get all doctor", responce.data.data)
+            
                 responce.data.data && responce.data.data.length > 0 && responce.data.data.map((item, index) => {
                     if (item.data && item.data.image) {
                         var find = item.data && item.data.image && item.data.image
@@ -301,11 +378,10 @@ class Index extends Component {
     }
     // Search by City
     showPlaceDetails=(place)=> {
-        console.log("place", place)
         place = place.geometry.location
         this.setState({ place });
-        this.setState({ mLatitude: place.lat() });
-        this.setState({ mlongitude: place.lng() });
+        this.setState({ mLatitude: parseFloat(place.lat()) });
+        this.setState({ mlongitude: parseFloat(place.lng()) });
         Geocode.enableDebug();
         Geocode.fromLatLng(this.state.mLatitude, this.state.mlongitude).then(
             response => {
@@ -318,7 +394,7 @@ class Index extends Component {
         );
     }
 
-    apointmentType(event) {
+    apointmentType=(event)=> {
         if (event.target.name == "Video") {
             this.setState({ video_call: this.state.video_call == true ? false : true })
         } else if (event.target.name == "Office") {
@@ -333,9 +409,28 @@ class Index extends Component {
         this.setState({ pastappointment: this.state.pastappointment ? false : true })
     }
 
-    handleOpenApoint = () => {
-        this.setState({ openApoint: true });
+    handleOpenApoint = (apoint) => {
+        this.setState({ openApoint: true, cancelappoint: apoint._id });
     };
+
+    // for cancel Appointment
+   CancelAppoint = ()=>{
+        let user_token = this.props.stateLoginValueAim.token
+        this.setState({ loaderImage: true });
+        axios.put(sitedata.data.path + '/UserProfile/GetAppointment/'+this.state.cancelappoint,{
+            status : 'cancel',
+            message : this.state.message,
+        }, {headers:{
+            'token': user_token,
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        }}).then((response) =>{
+            this.setState({cancelsuccess: true, loaderImage: false, openApoint: false})
+            setTimeout(()=>{ this.setState({cancelsuccess: false}) }, 5000)
+            this.getUpcomingAppointment();
+        }).catch((error) => {});
+    }
+
     handleCloseApoint = () => {
         this.setState({ openApoint: false });
     };
@@ -353,7 +448,14 @@ class Index extends Component {
     };
     handleAllowLoc = () => {
         this.getlocation()
-        this.setState({ openAllowLoc: true });
+        this.setState({ openAllowAccess: false, openAllowLoc: true, selectedOption: {} },
+            ()=>{
+                setTimeout(()=>{
+                    this.setState({show_type: 'contact'})
+                }, 2000)
+               
+            });
+        
     };
     handleCloseAllowLoc = () => {
         this.setState({ openAllowLoc: false });
@@ -365,13 +467,11 @@ class Index extends Component {
         this.setState({ openFancy: false });
     };
     handleAllowAccess = () => {
+        this.getGeoLocation();
         this.setState({ openAllowAccess: true });
     };
     handleCloseAllowAccess = () => {
         this.setState({ openAllowAccess: false });
-    };
-    handleChange = selectedOption => {
-        this.setState({ selectedOption });
     };
     handleOpenDash = () => {
         this.setState({ openDash: true });
@@ -475,7 +575,139 @@ class Index extends Component {
         return returnDate
     }
 
+    EventComponent = (data) => {
+        return (
+            <TooltipTrigger
+                placement="right"
+                trigger="click"
+                tooltip={datas => this.Tooltip({
+                    getTooltipProps: datas.getTooltipProps,
+                    getArrowProps: datas.getArrowProps,
+                    tooltipRef: datas.tooltipRef,
+                    arrowRef: datas.arrowRef,
+                    placement: datas.placement,
+                    event: data.event
+                })}
+                modifiers={modifiers}
+            >
+                { ({
+                    getTriggerProps, triggerRef
+                }) =>
+                    <span {...getTriggerProps({
+                        ref: triggerRef,
+                        className: 'trigger'
+                        /* your props here */
+                    })}
+                    // onClick={() => this.CallEvents(data.event)}
+                    >
+                        <p style={{ backgroundColor: 'none', fontSize: 11, margin: 0, fontWeight: 700 }}> {data.event.title} </p>
+                        <p style={{ backgroundColor: 'none', fontSize: 11, margin: 0 }}> {moment(data.event.start).format('hh:mm') + '-' + moment(data.event.end).format('hh:mm')} </p>
+                    </span>}
+            </TooltipTrigger>
+        )
+    }
+
+
+
+    DateCellCompnent = ({ children, value }) => {
+        return React.cloneElement(Children.only(children), {
+            style: {
+                ...children.style,
+                // backgroundColor: value < CURRENT_DATE ? 'lightgreen' : 'lightblue',
+            },
+        })
+    }
+
+    CallEvents = (event) => {
+        var user_token = this.props.stateLoginValueAim.token;
+        let Month = event.start.getMonth() + 1;
+        let date = Month + '-' + event.start.getDate() + '-' + event.start.getFullYear();
+        this.setState({ loaderImage: true })
+        axios.get(sitedata.data.path + '/User/AppointOfDate/' + date,
+            {
+                headers: {
+                    'token': user_token,
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then((response) => {
+                if (response.data.hassuccessed) {
+                    this.setState({ SelectDate: date, DetialData: response.data.data })
+                }
+                this.setState({ loaderImage: false })
+            })
+
+    }
+
+
+    MyCustomHeader = ({ label }) => (
+        <div>
+            CUSTOM HEADER:
+            <div>{label}</div>
+            <MyOtherNestedComponent />
+        </div>
+    )
+
+
+    Tooltip = ({
+        getTooltipProps,
+        getArrowProps,
+        tooltipRef,
+        arrowRef,
+        placement,
+        event
+    }) => {
+        return (
+            <div
+                {...getTooltipProps({
+                    ref: tooltipRef,
+                    className: 'tooltip-container'
+                })}
+            >
+                <div
+                    {...getArrowProps({
+                        ref: arrowRef,
+                        'data-placement': placement,
+                        className: 'tooltip-arrow'
+                    })}
+                />
+
+                {event && event.fulldata.length > 0 &&
+                    event.fulldata.map((data, index) => (
+                        <Grid className="meetBoxCntnt">
+                            <Grid className="meetCourse">
+                                <Grid className="meetCloseBtn">
+                                    {/* <a><img src={require('../../../assets/images/threedots.jpg')} alt="" title="" /></a> */}
+                                    {/* <a onClick={this.handleCloseMeet}><img src={require('../../../assets/images/closefancy.png')} alt="" title="" /></a> */}
+                                </Grid>
+                                <Grid className="meetVdo">
+                                    <Grid className="meetVdoLft">
+                                        {data.appointment_type == 'online_appointment' && <img src={require('../../../assets/images/video-call.svg')} alt="" title="" />}
+                                        {data.appointment_type == 'practice_appointment' && <img src={require('../../../assets/images/dates.png')} alt="" title="" />}
+                                        {data.appointment_type == 'private_appointment' && <img src={require('../../../assets/images/ShapeCopy21.svg')} alt="" title="" />}
+                                        <span>{data.appointment_type == 'practice_appointment' ? 'Consultancy Appointment' : (data.appointment_type == 'online_appointment' ? 'Video call' : 'Office visit')}</span>
+                                    </Grid>
+                                    <Grid className="meetVdoRght">
+                                        <p>{moment(data.date, 'MM-DD-YYYY').format('D MMM')}, {data.start_time}</p>
+                                    </Grid>
+                                </Grid>
+                                <Grid className="meetDetail">
+                                    <h1>{event.title}</h1>
+                                    <span>Details / Questions</span>
+                                    <p>{event.fulldata && event.fulldata.length>0 && event.fulldata[0].annotations}</p>
+                                </Grid>
+                            </Grid>
+                        </Grid>
+
+                    ))}
+
+            </div>
+        );
+    }
+
     render() {
+        const {  myEventsList } = this.state;
         const { pastappointment, selectedOption, specialityData, subspecialityData, allDocData, date, doc_select, appointType, apointDay } = this.state;
         let translate;
         switch (this.props.stateLanguageType) {
@@ -514,18 +746,20 @@ class Index extends Component {
         if (stateLoginValueAim.user === 'undefined' || stateLoginValueAim.token === 450 || stateLoginValueAim.token === 'undefined' || stateLoginValueAim.user.type !== 'patient') {
             return (<Redirect to={'/'} />);
         }
-
+        var myMarker = require('../../../assets/images/loc2.png');
+        var theirMarker = require('../../../assets/images/loc.png');
         return (
             <Grid className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode && this.props.settings.setting.mode==='dark' ? "homeBg homeBgDrk" : "homeBg"}>
-                <Grid className="homeBgIner">
-                <Autocomplete stateLanguageType={this.props.stateLanguageType} />
-                    <Grid container direction="row" justify="center">
-                        <Grid item xs={12} md={12}>
-                            <Grid container direction="row">
-                                <LeftMenu isNotShow={true} currentPage="appointment" />
-                                <LeftMenuMobile isNotShow={true} currentPage="appointment" />
-                                {/* Video Model */}
-                                <Modal
+            <Grid className="homeBgIner">
+            {this.state.loaderImage && <Loader />}
+                <Grid container direction="row" justify="center">
+                    <Grid item xs={12} md={12}>
+                        <Grid container direction="row">
+                            <LeftMenu isNotShow={true} currentPage="appointment" />
+                            <LeftMenuMobile isNotShow={true} currentPage="appointment" />
+                            {/* Video Model */}
+
+                            <Modal
                                     open={this.state.openFancyVdo}
                                     onClose={this.handleCloseFancyVdo}>
                                     <Grid className="slotBoxMain">
@@ -535,7 +769,7 @@ class Index extends Component {
                                             </a>
                                             <Grid className="selCalenderUpr">
                                                 <Grid className="selCalender">
-                                                    <Calendar onChange={this.onChange} value={this.state.date} />
+                                                    <Calendar2 onChange={this.onChange} value={this.state.date} />
                                                 </Grid>
                                                 <Grid className="selTimeSlot" >
                                                     <Grid><label>{slct_time_slot}</label></Grid>
@@ -565,81 +799,11 @@ class Index extends Component {
                                             </Grid>
 
                                         </Grid>
-                                        {this.state.successfull && <div className="success_message">{appointment_booked}</div>}
                                     </Grid>
                                 </Modal>
                                 {/* End of Video Model */}
-                                <Grid item xs={12} md={3}>
-                                    {pastappointment && pastappointment == true ?
-                                        <Grid className="apointUpcom">
-                                            <h4>{past_apointment}</h4>
-                                            {this.state.pastAppointment && this.state.pastAppointment.length > 0 && this.state.pastAppointment.map(apoint => (
-                                                <Grid className="officeVst">
-                                                    <Grid container direction="row">
-                                                        <Grid item xs={6} md={6} className="officeVstLft"><label>{apoint.Appointdate && this.setAppointDate(apoint.Appointdate)}, {apoint.start_time}</label></Grid>
-                                                        <Grid item xs={6} md={6} className="officeVstRght">
-                                                            {apoint.appointment_type == "appointments" ? <a><img src={require('../../../assets/images/office-visit.svg')} alt="" title="" /> {office_visit} </a> :
-                                                                apoint.appointment_type == "online_appointment" ? <a><img src={require('../../../assets/images/video-call.svg')} alt="" title="" /> {vdo_call} </a> :
-                                                                    <a><img src={require('../../../assets/images/cal.png')} alt="" title="" />{consultancy_cstm_calnder} </a>}
-                                                        </Grid>
-                                                    </Grid>
-                                                    <Grid className="showSubject">
-                                                        <Grid container direction="row">
-                                                            <Grid item xs={6} md={6} className="officeVstLft nuroDr">
-                                                                <h3>{apoint.docProfile && apoint.docProfile.speciality && apoint.docProfile.speciality.join(", ")}</h3>
-                                                                <p>{apoint.docProfile && apoint.docProfile.subspeciality && apoint.docProfile.subspeciality.join(", ")}</p>
-                                                            </Grid>
-                                                        </Grid>
-                                                        <Grid><a><img src={require('../../../assets/images/dr1.jpg')} alt="" title="" />{apoint.docProfile && `${apoint.docProfile.first_name} ${apoint.docProfile.last_name}`}</a></Grid>
-                                                        <Grid><a><img src={require('../../../assets/images/office-visit.svg')} alt="" title="" />Illinois Masonic Medical Center</a></Grid>
-                                                    </Grid>
-                                                </Grid>
-                                            ))}
-                                            <Grid className="shwAppoints">
-                                                <p><a onClick={this.openPastApointment.bind(this)}>{hide_past_appointment}</a></p>
-                                            </Grid>
-                                        </Grid>
-                                        :
-                                        <Grid className="apointUpcom">
-                                            <h4>{upcming_apointment}</h4>
-                                            {this.state.upcomingAppointment && this.state.upcomingAppointment.length > 0 && this.state.upcomingAppointment.map(apoint => (
-                                                <Grid className="officeVst">
-                                                    <Grid container direction="row">
-                                                        <Grid item xs={6} md={6} className="officeVstLft"><label>{apoint.Appointdate && this.setAppointDate(apoint.Appointdate)}, {apoint.start_time}</label></Grid>
-                                                        <Grid item xs={6} md={6} className="officeVstRght">
-                                                            {apoint.appointment_type == "appointments" ? <a><img src={require('../../../assets/images/office-visit.svg')} alt="" title="" /> {office_visit} </a> :
-                                                                apoint.appointment_type == "online_appointment" ? <a><img src={require('../../../assets/images/video-call.svg')} alt="" title="" /> {vdo_call} </a> :
-                                                                    <a><img src={require('../../../assets/images/cal.png')} alt="" title="" />{consultancy_cstm_calnder} </a>}
-                                                        </Grid>
-                                                    </Grid>
-                                                    <Grid className="showSubject">
-                                                        <Grid container direction="row">
-                                                            <Grid item xs={6} md={6} className="officeVstLft nuroDr">
-                                                                <h3>{apoint.docProfile && apoint.docProfile.speciality && apoint.docProfile.speciality.join(", ")}</h3>
-                                                                <p>{apoint.docProfile && apoint.docProfile.subspeciality && apoint.docProfile.subspeciality.join(", ")}</p>
-                                                            </Grid>
-
-                                                            <Grid item xs={6} md={6} className="officeVstRght">
-                                                                <a className="showDetail">
-                                                                    <img src={require('../../../assets/images/threedots.jpg')} alt="" title="" />
-                                                                    <Grid className="cancelAppoint">
-                                                                        <a><img src={require('../../../assets/images/cancelAppoint.jpg')} alt="" title="" />{cancel_apointmnt}</a>
-                                                                    </Grid>
-                                                                </a>
-                                                            </Grid>
-                                                        </Grid>
-                                                        <Grid><a><img src={require('../../../assets/images/dr1.jpg')} alt="" title="" />{apoint.docProfile && `${apoint.docProfile.first_name} ${apoint.docProfile.last_name}`}</a></Grid>
-                                                        <Grid><a><img src={require('../../../assets/images/office-visit.svg')} alt="" title="" />Illinois Masonic Medical Center</a></Grid>
-                                                    </Grid>
-                                                </Grid>
-                                            ))}
-                                            <Grid className="shwAppoints">
-                                                <p><a onClick={this.openPastApointment.bind(this)}>{show_past_apointment}</a></p>
-                                                <p><a onClick={this.handleOpenApoint}>{cancel_apointmnt}</a></p>
-                                            </Grid>
-
-                                            {/* {cancel_apointmnt} */}
-                                            <Modal
+{/* {cancel_apointmnt} */}
+<Modal
                                                 open={this.state.openApoint}
                                                 onClose={this.handleCloseApoint}>
                                                 <Grid className="apontBoxCntnt">
@@ -655,81 +819,16 @@ class Index extends Component {
                                                     <Grid className="apontDragCntnt">
                                                         <Grid>
                                                             <Grid><label>{short_msg}</label></Grid>
-                                                            <Grid><textarea></textarea></Grid>
-                                                            <Grid><input type="submit" value={cancel_apointmnt} /></Grid>
+                                                            <Grid><textarea name="message" onChange={(e)=>{this.setState({message: e.target.value})}}></textarea></Grid>
+                                                            <Grid><input type="submit" value={cancel_apointmnt} onClick={this.CancelAppoint}/></Grid>
                                                         </Grid>
                                                     </Grid>
                                                 </Grid>
                                             </Modal>
                                             {/* End of {cancel_apointmnt} */}
 
-                                        </Grid>
-                                    }
-                                </Grid>
-
-                                <Grid item xs={12} md={8}>
-                                    <Grid className="appointArang">
-
-                                        <Grid className="apointAdd">
-                                            <Grid container direction="row">
-                                                <Grid item xs={12} md={12}>
-                                                    <Grid container direction="row">
-                                                        <Grid item xs={6} md={6}>
-                                                            <h1>{appointments}</h1>
-                                                        </Grid>
-                                                        <Grid item xs={6} md={6}>
-                                                            <Grid className="arng_addEntrynw">
-                                                                {/* <a onClick={this.handleOpenFancy}>+ Arrange an appointment</a> */}
-                                                                <a onClick={this.handleAllowAccess}>+ {arrng_apointmnt}</a>
-                                                            </Grid>
-
-                                                            {/* {cancel_apointmnt} Model */}
-                                                            <Modal
-                                                                open={this.state.openFancy}
-                                                                onClose={this.handleCloseFancy}
-                                                                className="fancyBoxModel">
-                                                                <div className="fancyBoxCncl">
-                                                                    <div className="cnclCourse">
-                                                                        <div className="handleCnclBtn">
-                                                                            <a onClick={this.handleCloseFancy}>
-                                                                                <img src={require('../../../assets/images/closefancy.png')} alt="" title="" />
-                                                                            </a>
-                                                                        </div>
-                                                                        <div><label>{cancel_apointmnt}</label></div>
-                                                                        <p>{plz_write_short_explnation}</p>
-                                                                    </div>
-                                                                    <div className="apointMsg">
-                                                                        <div><label>{short_msg}</label></div>
-                                                                        <div><textarea></textarea></div>
-                                                                        <div><input type="submit" value={cancel_apointmnt} /></div>
-                                                                    </div>
-                                                                </div>
-                                                            </Modal>
-                                                            {/* End of {cancel_apointmnt} Model */}
-
-                                                        </Grid>
-                                                    </Grid>
-                                                </Grid>
-                                            </Grid>
-                                        </Grid>
-
-                                        <Grid className="todaySrch">
-                                            <Grid container direction="row">
-                                                <Grid item xs={12} md={12} alignItems="center" justify="center">
-                                                    <Grid container direction="row">
-                                                        <Grid item xs={6} md={6} className="todayMnth">
-                                                            <Grid className="todaySrchLft"><label>{today}</label></Grid>
-                                                            <Grid className="movMnth">
-                                                                <a><img src={require('../../../assets/images/leftArow.png')} alt="" title="" /></a>
-                                                                <a><img src={require('../../../assets/images/rightArow.png')} alt="" title="" /></a>
-                                                            </Grid>
-                                                            <Grid className="crntMonth">Augest 2020</Grid>
-                                                        </Grid>
-                                                        <Grid item xs={6} md={6}>
-                                                            <Grid className="todaySrchRght">
-                                                                <a className="syncRght">{sync_ur_calander}</a>
-                                                                {/* Allow Location Access */}
-                                                                <Modal
+                                             {/* Allow Location Access */}
+                                             <Modal
                                                                     open={this.state.openAllowLoc}
                                                                     onClose={this.handleCloseAllowLoc}>
                                                                     <div className="alowLocAces">
@@ -753,7 +852,7 @@ class Index extends Component {
                                                                                 <Grid item xs={12} md={3} className="locat_srvc">
                                                                                     <Grid><label>{location_of_srvc}</label></Grid>
                                                                                     {/* <input type="text" placeholder="Search for city" /> */}
-                                                                                    <Autocomplete stateLanguageType={this.props.stateLanguageType} />
+                                                                                    <Autocomplete onPlaceChanged={this.showPlaceDetails.bind(this)} />
                                                                                     <img src={require('../../../assets/images/search-entries.svg')} alt="" title="" />
                                                                                 </Grid>
                                                                                 <Grid item xs={12} md={2} className="srchKm">
@@ -766,9 +865,11 @@ class Index extends Component {
                                                                                     <FormControlLabel control={this.state.office_visit ? <Checkbox checked name="Office" onClick={this.apointmentType} /> : <Checkbox name="Office" onClick={this.apointmentType} />} label={Office} />
                                                                                 </Grid>
                                                                             </Grid>
-                                                                            <div className="showSpcial"><p><img src={require('../../../assets/images/location.png')} alt="" title="" />We are showing you specialists near “Düsseldorf, Germany” in 100km range</p></div>
+                                                                            <div className="showSpcial"><p><img src={require('../../../assets/images/location.png')} alt="" title="" />We are showing you specialists near “{this.state.MycurrentLocationName}” in {this.state.searchDetails.radius ? this.state.searchDetails.radius : '10'}km range</p></div>
                                                                         </div>
-
+                                                                        <div style={{ textAlign: "center" }} className="arng_addEntrynw">
+                                                                            <a onClick={this.handleAllowLoc}>{find_apointment}</a>
+                                                                        </div>
                                                                         {/* New Design */}
                                                                         <div className="allowAvailList">
                                                                             {allDocData && allDocData.length > 0 && allDocData.map((doc, i) => (
@@ -785,8 +886,8 @@ class Index extends Component {
                                                                                                 </a>
                                                                                             </Grid>
                                                                                             <Grid className="nuroDr">
-                                                                                                <label>{doc.data && doc.data.speciality && doc.data.speciality.length > 0 && doc.data.speciality.join(", ")}</label>
-                                                                                                <p>{doc.data && doc.data.subspeciality && doc.data.subspeciality.length > 0 && doc.data.subspeciality.join(", ")}</p>
+                                                                                                <label>{doc.data && doc.data.speciality && doc.data.speciality.length > 0 && getSpec(doc.data.speciality)}</label>
+                                                                                                <p>{doc.data && doc.data.subspeciality && doc.data.subspeciality.length > 0 && getSpec(doc.data.subspeciality)}</p>
                                                                                             </Grid>
 
                                                                                             {/* <Grid className="nuroDr">
@@ -796,8 +897,12 @@ class Index extends Component {
                                                                                         </Grid>
                                                                                         <Grid item xs={12} md={5}>
                                                                                             <Grid className="srvcTagsCntnt">
-                                                                                                <Grid className="srvcTags"> <a>{Contact}</a> <a>{Services}</a> <a>{latest_info}</a> </Grid>
-                                                                                                <Grid className="srvcTagsLoc">
+                                                                                                <Grid className="srvcTags"> 
+                                                                                                    <a className={this.state.show_type==='contact' && "currentTab"} onClick={()=>{this.setState({show_type: 'contact'})}}>{Contact}</a> 
+                                                                                                    <a className={this.state.show_type==='service' && "currentTab"} onClick={()=>{this.setState({show_type: 'service'})}}>{Services}</a> 
+                                                                                                    <a className={this.state.show_type==='information' && "currentTab"} onClick={()=>{this.setState({show_type: 'information'})}}>{latest_info}</a> 
+                                                                                                </Grid>
+                                                                                                {this.state.show_type === 'contact' && <Grid className="srvcTagsLoc">
                                                                                                     <a><img src={require('../../../assets/images/location-pin.svg')} alt="" title="" />
                                                                                                         {doc.data && doc.data.city && doc.data.city}</a>
                                                                                                     <a><img src={require('../../../assets/images/phone.svg')} alt="" title="" />
@@ -806,7 +911,13 @@ class Index extends Component {
                                                                                                         {doc.data && doc.data.email && doc.data.email}</a>
                                                                                                     <a><img src={require('../../../assets/images/language.svg')} alt="" title="" />
                                                                                                         {doc.data && doc.data.language && doc.data.language.length > 0 && doc.data.language.join(", ")}</a>
-                                                                                                </Grid>
+                                                                                                </Grid>}
+                                                                                                {this.state.show_type === 'service' && <Grid className="srvcTagsLoc">
+                                                                                                    <a>{doc.data && doc.data.weoffer_text && doc.data.weoffer_text}</a>
+                                                                                                </Grid>}
+                                                                                                {this.state.show_type === 'information' && <Grid className="srvcTagsLoc">
+                                                                                                    <a>{doc.data && doc.data.latest_info && <span dangerouslySetInnerHTML={{ __html: doc.data.latest_info }} />}</a>
+                                                                                                </Grid>} 
                                                                                             </Grid>
                                                                                         </Grid>
                                                                                         <Grid item xs={12} md={4}>
@@ -814,7 +925,7 @@ class Index extends Component {
                                                                                                 <h3>{see_avlbl_date}:</h3>
                                                                                                 <Grid>
                                                                                                     {this.state.video_call &&
-                                                                                                        <a onClick={() => this.handleOpenFancyVdo(i, "online_appointment", doc.appointments[0])}><img src={require('../../../assets/images/video-call-copy2.svg')} alt="" title="" />{vdo_call}</a>
+                                                                                                        <a onClick={() => this.handleOpenFancyVdo(i, "online_appointment", doc.online_appointment[0])}><img src={require('../../../assets/images/video-call-copy2.svg')} alt="" title="" />{vdo_call}</a>
                                                                                                     }
                                                                                                     {this.state.office_visit &&
                                                                                                         <a onClick={() => this.handleOpenFancyVdo(i, "appointments", doc.appointments[0])}><img src={require('../../../assets/images/ShapeCopy2.svg')} alt="" title="" />{office_visit}</a>
@@ -832,13 +943,128 @@ class Index extends Component {
                                                                     </div>
                                                                 </Modal>
                                                                 {/* End of Allow Location Access */}
+                                 <Grid item xs={12} md={3}>
+                                    {pastappointment && pastappointment == true ?
+                                        <Grid className="apointUpcom">
+                                            <h4>{past_apointment}</h4>
+                                            {this.state.pastAppointment && this.state.pastAppointment.length > 0 && this.state.pastAppointment.map(apoint => (
+                                                <Grid className="officeVst">
+                                                    <Grid container direction="row">
+                                                        <Grid item xs={6} md={6} className="officeVstLft"><label>{apoint.Appointdate && this.setAppointDate(apoint.Appointdate)}, {apoint.start_time}</label></Grid>
+                                                        <Grid item xs={6} md={6} className="officeVstRght">
+                                                            {apoint.appointment_type == "appointments" ? <a><img src={require('../../../assets/images/office-visit.svg')} alt="" title="" /> {office_visit} </a> :
+                                                                apoint.appointment_type == "online_appointment" ? <a><img src={require('../../../assets/images/video-call.svg')} alt="" title="" /> {vdo_call} </a> :
+                                                                    <a><img src={require('../../../assets/images/cal.png')} alt="" title="" />{consultancy_cstm_calnder} </a>}
+                                                        </Grid>
+                                                    </Grid>
+                                                    <Grid className="showSubject">
+                                                        <Grid container direction="row">
+                                                            <Grid item xs={6} md={6} className="officeVstLft nuroDr">
+                                                                <h3>{apoint.docProfile && apoint.docProfile.speciality && getSpec(apoint.docProfile.speciality)}</h3>
+                                                                <p>{apoint.docProfile && apoint.docProfile.subspeciality && getSpec(apoint.docProfile.subspeciality) }</p>
+                                                            </Grid>
+                                                        </Grid>
+                                                        <Grid><a><img src={require('../../../assets/images/dr1.jpg')} alt="" title="" />{apoint.docProfile && `${apoint.docProfile.first_name} ${apoint.docProfile.last_name}`}</a></Grid>
+                                                        {/* <Grid><a><img src={require('../../../assets/images/office-visit.svg')} alt="" title="" />Illinois Masonic Medical Center</a></Grid> */}
+                                                    </Grid>
+                                                </Grid>
+                                            ))}
+                                            <Grid className="shwAppoints">
+                                                <p><a onClick={this.openPastApointment.bind(this)}>{hide_past_appointment}</a></p>
+                                            </Grid>
+                                        </Grid>
+                                        :
+                                        <Grid className="apointUpcom">
+                                            <h4>{upcming_apointment}</h4>
+                                            {this.state.upcomingAppointment && this.state.upcomingAppointment.length > 0 && this.state.upcomingAppointment.map(apoint => (
+                                                <Grid className="officeVst">
+                                                    <Grid container direction="row">
+                                                        <Grid item xs={6} md={6} className="officeVstLft"><label>{apoint.Appointdate && this.setAppointDate(apoint.Appointdate)}, {apoint.start_time}</label></Grid>
+                                                        <Grid item xs={6} md={6} className="officeVstRght">
+                                                            {apoint.appointment_type == "appointments" ? <a><img src={require('../../../assets/images/office-visit.svg')} alt="" title="" /> {office_visit} </a> :
+                                                                apoint.appointment_type == "online_appointment" ? <a><img src={require('../../../assets/images/video-call.svg')} alt="" title="" /> {vdo_call} </a> :
+                                                                    <a><img src={require('../../../assets/images/cal.png')} alt="" title="" />{consultancy_cstm_calnder} </a>}
+                                                        </Grid>
+                                                    </Grid>
+                                                    <Grid className="showSubject">
+                                                        <Grid container direction="row">
+                                                            <Grid item xs={6} md={6} className="officeVstLft nuroDr">
+                                                                <h3>{apoint.docProfile && apoint.docProfile.speciality &&  getSpec(apoint.docProfile.speciality)}</h3>
+                                                                <p>{apoint.docProfile && apoint.docProfile.subspeciality &&  getSpec(apoint.docProfile.subspeciality)}</p>
+                                                            </Grid>
 
-
-                                                                <a>
-                                                                    <img src={require('../../../assets/images/topicSrch.jpg')} alt="" title="" />
+                                                            <Grid item xs={6} md={6} className="officeVstRght">
+                                                                <a className="showDetail">
+                                                                    {apoint.status === "free" && <img src={require('../../../assets/images/threedots.jpg')} alt="" title="" />}
+                                                                    <Grid className="cancelAppoint">
+                                                                        <a onClick={()=>{this.handleOpenApoint(apoint)}}><img src={require('../../../assets/images/cancelAppoint.jpg')} alt="" title="" />{cancel_apointmnt}</a>
+                                                                    </Grid>
                                                                 </a>
-                                                                {/* Allow Location Access */}
-                                                                <Modal
+                                                            </Grid>
+                                                        </Grid>
+                                                        <Grid><a><img src={require('../../../assets/images/dr1.jpg')} alt="" title="" />{apoint.docProfile && `${apoint.docProfile.first_name} ${apoint.docProfile.last_name}`}</a></Grid>
+                                                        {/* <Grid><a><img src={require('../../../assets/images/office-visit.svg')} alt="" title="" />Illinois Masonic Medical Center</a></Grid> */}
+                                                    </Grid>
+                                                </Grid>
+                                            ))}
+                                            <Grid className="shwAppoints">
+                                                <p><a onClick={this.openPastApointment.bind(this)}>{show_past_apointment}</a></p>
+                                                {/* <p><a onClick={}>{cancel_apointmnt}</a></p> */}
+                                            </Grid>
+
+                                            {/* {cancel_apointmnt} */}
+                                            {/* <Modal
+                                                open={this.state.openApoint}
+                                                onClose={this.handleCloseApoint}>
+                                                <Grid className="apontBoxCntnt">
+                                                    <Grid className="apontCourse">
+                                                        <Grid className="apontCloseBtn">
+                                                            <a onClick={this.handleCloseApoint}>
+                                                                <img src={require('../../../assets/images/closefancy.png')} alt="" title="" />
+                                                            </a>
+                                                        </Grid>
+                                                        <Grid><label>{cancel_apointmnt}</label></Grid>
+                                                        <p>{plz_write_short_explnation}</p>
+                                                    </Grid>
+                                                    <Grid className="apontDragCntnt">
+                                                        <Grid>
+                                                            <Grid><label>{short_msg}</label></Grid>
+                                                            <Grid><textarea name="message" onChange={(e)=>{this.setState({message: e.target.value})}}></textarea></Grid>
+                                                            <Grid><input type="submit" value={cancel_apointmnt} onClick={this.CancelAppoint}/></Grid>
+                                                        </Grid>
+                                                    </Grid>
+                                                </Grid>
+                                            </Modal> */}
+                                            {/* End of {cancel_apointmnt} */}
+
+                                        </Grid>
+                                    }
+                                </Grid>
+
+                                <Grid item xs={12} md={8}>
+                                    <Grid className="appointArang">
+                                        <Grid className="apointAdd">
+                                            <Grid container direction="row">
+                                                <Grid item xs={12} md={12}>
+                                                    <Grid container direction="row">
+                                                        <Grid item xs={6} md={6}>
+                                                            <h1>{appointments}</h1>
+                                                        </Grid>
+                                                        <Grid item xs={6} md={6}>
+                                                            <Grid className="arng_addEntrynw">
+                                                                {/* <a onClick={this.handleOpenFancy}>+ Arrange an appointment</a> */}
+                                                                <a onClick={this.handleAllowAccess}>+ {arrng_apointmnt}</a>
+                                                            </Grid>
+                                                            {this.state.successfull && <div className="success_message">{appointment_booked}</div>}
+                                                            {this.state.cancelsuccess && <div className="success_message">Appointment is canceled</div>}
+                                                          
+                                                        </Grid>
+                                                    </Grid>
+                                                </Grid>
+                                            </Grid>
+                                        </Grid>
+                           {/* Allow Location Access */}
+                           <Modal
                                                                     open={this.state.openAllowAccess}
                                                                     onClose={this.handleCloseAllowAccess}>
                                                                     <div className="alowLocAces">
@@ -877,10 +1103,35 @@ class Index extends Component {
                                                                                 </Grid>
                                                                             </Grid>
                                                                         </div>
+                                                                                                <div className="showSpcial"><p><img src={require('../../../assets/images/location.png')} alt="" title="" />I am here :  “{this.state.MycurrentLocationName}"</p></div>
                                                                         <div className="allowAccessList">
-                                                                            <div><a><img src={require('../../../assets/images/location.png')} alt="" title="" /></a></div>
+                                                                        
+                                                                        {this.state.clat || this.state.mLatitude ?
+                                                                                <Map
+                                                                                    className="MapStyle"
+                                                                                    google={this.props.google}
+                                                                                    center={this.state.mLatitude ? { lat: this.state.mLatitude, lng: this.state.mlongitude } : { lat: this.state.clat, lng: this.state.clng }}
+                                                                                    initialCenter={{
+                                                                                        lat: this.state.clat,
+                                                                                        lng: this.state.clan
+                                                                                    }}
+                                                                                    zoom={10}
+
+                                                                                >
+                                                                                    <Marker
+                                                                                        icon={{ url: myMarker, }}
+                                                                                        title={this.state.MycurrentLocationName} name={this.state.MycurrentLocationName}
+                                                                                        position={this.state.mLatitude ? { lat: this.state.mLatitude, lng: this.state.mlongitude } : { lat: this.state.clat, lng: this.state.clng }}
+                                                                                    />
+                                                                                </Map>
+                                                                        :   <div>
+                                                                                <div><a><img src={require('../../../assets/images/location.png')} alt="" title="" /></a></div>
+                                                                                <h1>{allow_location_access}</h1>
+                                                                                <p>{this_way_can_instntly_list_of_specility}</p>
+                                                                            </div>}
+                                                                            {/* <div><a><img src={require('../../../assets/images/location.png')} alt="" title="" /></a></div>
                                                                             <h1>{allow_location_access}</h1>
-                                                                            <p>{this_way_can_instntly_list_of_specility}</p>
+                                                                            <p>{this_way_can_instntly_list_of_specility}</p> */}
                                                                         </div>
                                                                         <div style={{ textAlign: "center" }} className="arng_addEntrynw">
                                                                             <a onClick={this.handleAllowLoc}>{find_apointment}</a>
@@ -889,26 +1140,53 @@ class Index extends Component {
                                                                     </div>
                                                                 </Modal>
                                                                 {/* End of Allow Location Access */}
-                                                            </Grid>
-                                                        </Grid>
-                                                    </Grid>
-                                                </Grid>
+                                        <Grid className="getCalapoint">
+                                            <Grid className="getCalBnr">
+                                                
+                                                {this.state.myEventsList && this.state.myEventsList.length>0 &&
+                                                <Calendar
+                                                    localizer={localizer}
+                                                    events={myEventsList}
+                                                    startAccessor="start"
+                                                    endAccessor="end"
+                                                    popup
+                                                    popupOffset={{ x: 30, y: 20 }}
+                                                    style={{ minHeight: 900 }}
+
+                                                    step={60}
+                                                    messages={{
+                                                        showMore: total => (
+                                                            <div
+                                                                style={{ cursor: 'pointer' }}
+                                                                onMouseOver={e => {
+                                                                    e.stopPropagation();
+                                                                    e.preventDefault();
+                                                                }}
+                                                            >{`+${total} more`}
+                                                            </div>
+                                                        ),
+                                                    }}
+                                                    components={{
+                                                        month: { event: this.EventComponent },
+                                                        dateCellWrapper: this.DateCellCompnent,
+                                                        toolbar: CalendarToolbar
+                                                    }}
+                                                />}
+
+                                                {/* <div ref={setPopperElement} style={styles.popper} {...attributes.popper}>
+                                                    Popper element
+                                                    <div ref={setArrowElement} style={styles.arrow} />
+                                                </div> */}
+                                                {/* <img src={require('../../../assets/images/uidoc.jpg')} alt="" title="" /> */}
                                             </Grid>
                                         </Grid>
-
-                                        <Grid className="getCalapoint">
-                                            <Calendar onChange={this.onChange} value={this.state.date} />
-                                        </Grid>
-
                                     </Grid>
-
                                 </Grid>
-
                             </Grid>
                         </Grid>
                     </Grid>
                 </Grid>
-            </Grid >
+            </Grid>
         );
     }
 }

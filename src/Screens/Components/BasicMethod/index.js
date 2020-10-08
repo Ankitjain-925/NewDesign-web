@@ -16,7 +16,7 @@ export function getDate (date, dateFormat){
         year = d.getFullYear()
     if (day.length < 2) day = '0' + day;
     if(dateFormat === 'YYYY/DD/MM') { return year + ' / ' + day + ' / ' + month; }
-    else if(dateFormat === '/DD/MM/YYYY') {  return day + ' / ' + month + ' / ' + year; }
+    else if(dateFormat === 'DD/MM/YYYY') {  return day + ' / ' + month + ' / ' + year; }
     else { return month + ' / ' + day + ' / ' + year;}
 }
 
@@ -119,3 +119,12 @@ export function GetUrlImage (find){
     }
 }
 
+//For getting doctor speciality
+export function getSpec (speciality){
+if(speciality){ 
+    return speciality.map((obj) => {
+        if (typeof obj == 'string') return obj;
+        else return obj.label;
+}).join(', ')
+}
+}

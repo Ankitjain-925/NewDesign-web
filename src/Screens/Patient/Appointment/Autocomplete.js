@@ -1,55 +1,38 @@
 /* global google */
 import React from "react";
-import Geocode from "react-geocode";
-
 class Autocomplete extends React.Component {
   constructor(props) {
    super(props);
-   this.state = {
-      city: '',
-   }
     this.autocompleteInput = React.createRef();
-    this.city = null;
+    this.searchCity = null;
     this.handlePlaceChanged = this.handlePlaceChanged.bind(this);
-
+    this.state ={
+      city: this.props.value
+    }
   }
 
   componentDidMount() {
-    this.city = new google.maps.places.Autocomplete(
+    this.searchCity = new google.maps.places.Autocomplete(
       this.autocompleteInput.current,
       { types: ["geocode"] }
     );
-    this.city.addListener("place_changed", this.handlePlaceChanged);
+    this.searchCity.addListener("place_changed", this.handlePlaceChanged);
   }
 
   handlePlaceChanged() {
-    const place = this.city.getPlace();
-      this.setState({ city: place.formatted_address })
-      this.setState({
-          area: {
-              type: "Point",
-              coordinates: [place.geometry.location.lng(), place.geometry.location.lat()]
-          }
-      })
+    const place = this.searchCity.getPlace();
+    this.props.onPlaceChanged(place);
   }
 
-     // Search by City
-     showPlaceDetails=(place)=> {
-      console.log("place", place)
-      place = place.geometry.location
-      this.setState({ mLatitude: place.lat() });
-      this.setState({ mlongitude: place.lng() });
-      Geocode.enableDebug();
-      Geocode.fromLatLng(this.state.mLatitude, this.state.mlongitude).then(
-          response => {
-              const address = response.results[0].formatted_address;
-              this.setState({ city: address })
-          },
-          error => {
-              console.error(error);
-          }
-      );
+  Onchange=(e)=>{
+    this.setState({city: e.target.value})
   }
+  
+  componentDidUpdate = (prevProps) => {
+    if (prevProps.value !== this.props.value) {
+       this.setState({city : this.props.value})
+    }
+}
 
   render() {
     let search_city = "search"
@@ -81,18 +64,17 @@ class Autocomplete extends React.Component {
     //   search_city=translationEN.text.search_city
     // }
     return (
-      <div>
       <input
         ref={this.autocompleteInput}
-        name="city"
+        id="searchCity"
+        name="searchCity"
         className="admin_textbox2"
         placeholder={search_city}
         value={this.state.city}
         type="text"
-        onPlaceChanged={this.showPlaceDetails} 
+        onChange={this.Onchange}
+       
       />
-      {console.log('city', this.state.city)}
-      </div>
     );
   }
 }

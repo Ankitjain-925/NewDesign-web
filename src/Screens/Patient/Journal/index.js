@@ -220,6 +220,7 @@ class Index extends Component {
             .then((response) => {
                 this.setState({ loaderImage: false })
                 this.getTrack();
+                this.rightInfo();
             }).catch((error) => {
 
             });
@@ -486,7 +487,7 @@ class Index extends Component {
         .then((response) => {
             if (response.data.hassuccessed === true) {
                 //This is for Aimedis Blockchain Section
-                    this.rightInfo();
+                this.rightInfo();
                     var images = [];
                     response.data.data && response.data.data.length > 0 && response.data.data.map((data1, index) => {
                         var find2 =  data1 &&  data1.created_by_image
@@ -834,8 +835,7 @@ class Index extends Component {
                                 </Grid>
                                 {/* End of Website Mid Content */}
 
-
-
+                                
                                 {/* Website Right Content */}
                                 <Grid item xs={12} md={3}>
                                     <ProfileSection personalinfo={this.state.personalinfo} user={this.state.cur_one} user_token={this.props.stateLoginValueAim.token} getData={this.cur_one} MoveProfile={this.MoveProfile} />

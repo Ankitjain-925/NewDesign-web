@@ -3384,10 +3384,10 @@ a.profilMenu {
     margin-right: 8px;
     vertical-align: middle;
 }
-.srvcTags a:first-child {
+/* .srvcTags a:first-child {
     color: #00ABAF;
     background-color: #E1F7F7;
-}
+} */
 .avlablDates h3 {
     color: #404646;
     font-family: Muli;
@@ -12895,6 +12895,23 @@ a.academy_ul ul li img {
 
 
 /*Added By ankita*/
+/* Appointment page */
+.srvcTags .currentTab {
+    color: #00ABAF;
+    background-color: #E1F7F7;
+}
+.current_selected{
+    background-color: #00ABAF !important;
+    color: #ffffff !important;
+}
+.pac-logo {
+    z-index: 9999999 !important;
+}
+.MapStyle {
+    position: relative !important;
+    width: 100% !important;
+    height: 300px !important;
+}
 /* for the tracker scroll */
 .disCnctContent {   
     overflow: auto !important;
@@ -12919,7 +12936,7 @@ a.academy_ul ul li img {
 }
 /*image Preview*/
 .ViewImage img{
-    width: 60px;
+    width: 060px;
     margin-top: 29px;
     margin-left:10px;
 }

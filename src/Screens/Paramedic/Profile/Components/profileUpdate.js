@@ -826,7 +826,7 @@ class Index extends Component {
                                     <Grid item xs={12} md={8}>
                                         <label>{city}</label>
                                         <Grid>
-                                            <Autocomplete value={this.state.city} stateLanguageType={this.props.stateLanguageType} onPlaceChanged={this.updateEntryCity.bind(this)} />                                        </Grid>
+                                            <Autocomplete onChange={this.OnChangeCity} value={this.state.city} stateLanguageType={this.props.stateLanguageType} onPlaceChanged={this.updateEntryCity.bind(this)} /></Grid>
                                     </Grid>
                                     <Grid item xs={12} md={4}>
                                         <label>{postal_code}</label>
