@@ -568,8 +568,8 @@ class Index extends Component {
 
 
     searchPatient = (value) => {
-        let searchdta = this.state.AllPres.filter(e => e.first_name.toLowerCase().indexOf(value) > -1 || e.last_name.toLowerCase().indexOf(value) > -1 || (e.first_name + " " + e.last_name).toLowerCase().indexOf(value) > -1)
-        this.setState({ MypatientsData: searchdta, currentPage: 0, searchWord: value })
+        let searchdta = this.state.AllPres.filter(e => e.first_name.toLowerCase().indexOf(value.toLowerCase()) > -1 || e.last_name.toLowerCase().indexOf(value.toLowerCase()) > -1 || (e.first_name + " " + e.last_name).toLowerCase().indexOf(value.toLowerCase()) > -1)
+        this.setState({ MypatientsData: searchdta, currentPage: 0, searchWord: value.toLowerCase() })
     }
 
 
