@@ -11176,9 +11176,6 @@ a.barViewnw {
     background-color: #FFFFFF;
     box-shadow: 0 24px 32px 0 rgba(0,8,8,0.08);
     margin-top: 35px;
-    height: 80vh;
-    overflow: hidden;
-    overflow-y: auto;
 }
 .slotCourse {
     padding: 16px 24px 18px 24px;
@@ -13483,4 +13480,10 @@ input:focus {
 
   .rbc-day-slot .rbc-event{
     width: 50% !important;
+  }
+
+  .scroll-hidden {
+    overflow: hidden;
+    height: 86%;
+    overflow-y: auto;
   }

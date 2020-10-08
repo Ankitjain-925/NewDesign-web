@@ -727,7 +727,7 @@ class Index extends Component {
                                                         </Grid>
                                                         {this.state.suggesteddate && <Grid item xs={6} md={6}>
                                                             <Grid><label>Select a time</label></Grid>
-                                                            <Grid className="selTimeAM suggent-time">
+                                                            <Grid className="selTimeAM suggent-time scroll-hidden">
                                                                 {this.state.suggestTime && this.state.suggestTime.length > 0 ? this.state.suggestTime.map((data, iA) => {
                                                                     return (
                                                                         <Grid>
