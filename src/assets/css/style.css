@@ -13487,3 +13487,47 @@ input:focus {
     height: 86%;
     overflow-y: auto;
   }
+
+  .custom-text {
+    margin-left: 40px;
+    /* font-family: Muli; */
+    min-width: 43px;
+    color: #000808;
+    font-family: Muli;
+    
+    text-align: center;
+    border: 1px solid #BFC1C1;
+    border-radius: 4px;
+    background-color: #FFFFFF;
+    padding: 6px 12px;
+    display: inline-block;
+    width: 110px;
+    outline: none;
+    margin-bottom: 5px;
+    font-size: 14px;
+    /* min-width: 30px; */
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 18px;
+  }
+
+  .officVisit button{
+    color: #404646;
+    font-size: 14px;
+    height: 34px;
+    width: 90px;
+    border: 1px solid #F2F2F2;
+    border-radius: 8px;
+    background-color: #FFFFFF;
+    margin-left: 8px;
+    align-items: center;
+    cursor: pointer;
+  }
+  .officVisit button.save {
+    color: #fff;
+    background-color: #00abaf;
+  }
+
+  .officVisit.display-cls{
+      display: flex;
+  }

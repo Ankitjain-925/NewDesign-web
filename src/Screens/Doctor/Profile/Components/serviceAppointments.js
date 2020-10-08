@@ -6,7 +6,7 @@ import { LanguageFetchReducer } from './../../../actions';
 import { Settings } from './../../../Login/setting';
 import { withRouter } from "react-router-dom";
 import moment from 'moment';
-import sitedata from '../../../../sitedata';
+import sitedata, { data } from '../../../../sitedata';
 import axios from 'axios';
 import Loader from './../../../Components/Loader/index';
 import * as translationEN from '../../../../translations/en_json_proofread_13072020.json';
@@ -35,7 +35,8 @@ class Index extends Component {
             sencondSeviceData: {},
             thirdServiceData: {},
             weoffer: {},
-            holidayAppointment: {}
+            holidayAppointment: {},
+            updateService:false
         };
     }
 
@@ -148,112 +149,56 @@ class Index extends Component {
 
         this.setState({ UpDataDetails: state });
     }
-    savePrivateData() {
-        if (this.state.UpDataDetails.duration_of_timeslots && this.state.UpDataDetails.duration_of_timeslots !== 0) {
-            let monday_start, monday_end, tuesday_start, tuesday_end, wednesday_start, wednesday_end, thursday_end, thursday_start,
-                friday_start, friday_end, saturday_start, saturday_end, sunday_start, sunday_end, breakslot_start, breakslot_end,
-                holidays_start, holidays_end
-            const user_token = this.props.stateLoginValueAim.token;
-            let doctor_id = this.props.stateLoginValueAim.user._id
-            if (this.state.StandardSetting.monday == true) {
-                monday_start = this.state.UpDataDetails.monday_start
-                monday_end = this.state.UpDataDetails.monday_end
-            } else {
-                monday_start = ''
-                monday_end = ''
-            }
-            if (this.state.StandardSetting.tuesday == true) {
-                tuesday_start = this.state.UpDataDetails.tuesday_start
-                tuesday_end = this.state.UpDataDetails.tuesday_end
-            } else {
-                tuesday_start = ''
-                tuesday_end = ''
-            }
-            if (this.state.StandardSetting.wednesday == true) {
-                wednesday_start = this.state.UpDataDetails.wednesday_start
-                wednesday_end = this.state.UpDataDetails.wednesday_end
-            } else {
-                wednesday_start = ''
-                wednesday_end = ''
-            }
-            if (this.state.StandardSetting.thursday == true) {
-                thursday_end = this.state.UpDataDetails.thursday_end
-                thursday_start = this.state.UpDataDetails.thursday_start
-            } else {
-                thursday_end = ''
-                thursday_start = ''
-            }
-            if (this.state.StandardSetting.friday == true) {
-                friday_start = this.state.UpDataDetails.friday_start
-                friday_end = this.state.UpDataDetails.friday_end
-            } else {
-                friday_start = ''
-                friday_end = ''
-            }
-            if (this.state.StandardSetting.saturday == true) {
-                saturday_start = this.state.UpDataDetails.saturday_start
-                saturday_end = this.state.UpDataDetails.saturday_end
-            } else {
-                saturday_start = ''
-                saturday_end = ''
-            }
-            if (this.state.StandardSetting.sunday == true) {
-                sunday_start = this.state.UpDataDetails.sunday_start
-                sunday_end = this.state.UpDataDetails.sunday_end
-            } else {
-                sunday_start = ''
-                sunday_end = ''
-            }
-            if (this.state.StandardSetting.breakslot == true) {
-                breakslot_start = this.state.UpDataDetails.breakslot_start
-                breakslot_end = this.state.UpDataDetails.breakslot_end
-            } else {
-                breakslot_start = ''
-                breakslot_end = ''
-            }
-            if (this.state.StandardSetting.holidays == true) {
-                holidays_start = this.state.UpDataDetails.holidays_start
-                holidays_end = this.state.UpDataDetails.holidays_end
-            } else {
-                holidays_start = ''
-                holidays_end = ''
-            }
+
+    saveAllData = () => {
+        const user_token = this.props.stateLoginValueAim.token;
+        let doctor_id = this.props.stateLoginValueAim.user._id;
+        let {firstServiceData, sencondSeviceData, thirdServiceData, weoffer, UpDataDetails, DaysforPractices, onlineAppointments, holidayAppointment } = this.state;
+        let dataSave = {};
+        this.setState({updateService: false, appoinmentError: false})
+        dataSave['paid_services'] =[];
+        if(UpDataDetails.duration_of_timeslots && UpDataDetails.duration_of_timeslots !== 0 && 
+            DaysforPractices.duration_of_timeslots && DaysforPractices.duration_of_timeslots !== 0 && 
+            onlineAppointments.duration_of_timeslots && onlineAppointments.duration_of_timeslots !== 0 )
+        {if(firstServiceData.created){
+            dataSave['paid_services'].push(firstServiceData)
+        }
+        if(sencondSeviceData.created){
+            dataSave['paid_services'].push(sencondSeviceData)
+        }
+        if(thirdServiceData.created){
+            dataSave['paid_services'].push(thirdServiceData)
+        }
+        dataSave['we_offer'] = weoffer;
+        dataSave['days_for_practices'] = DaysforPractices;
+        dataSave['online_appointment'] = onlineAppointments;
+        dataSave['private_appointments'] = UpDataDetails;
+       
+        if (holidayAppointment['holidays']) {
+            dataSave['days_for_practices']['holidays'] = holidayAppointment['holidays']
+            dataSave['days_for_practices']['holidays_start'] = moment(holidayAppointment['holidays_start']).format('YYYY-MM-DD')
+            dataSave['days_for_practices']['holidays_end'] = moment(holidayAppointment['holidays_end']).format('YYYY-MM-DD')
+            dataSave['online_appointment']['holidays'] = holidayAppointment['holidays']
+            dataSave['online_appointment']['holidays_start'] = moment(holidayAppointment['holidays_start']).format('YYYY-MM-DD')
+            dataSave['online_appointment']['holidays_end'] = moment(holidayAppointment['holidays_end']).format('YYYY-MM-DD')
+            dataSave['private_appointments']['holidays'] = holidayAppointment['holidays']
+            dataSave['private_appointments']['holidays_start'] = moment(holidayAppointment['holidays_start']).format('YYYY-MM-DD')
+            dataSave['private_appointments']['holidays_end'] = moment(holidayAppointment['holidays_end']).format('YYYY-MM-DD')
+        }
+        else {
+            dataSave['days_for_practices']['holidays'] = holidayAppointment['holidays']
+            dataSave['days_for_practices']['holidays_start'] = ''
+            dataSave['days_for_practices']['holidays_end'] =''
+            dataSave['online_appointment']['holidays'] = holidayAppointment['holidays']
+            dataSave['online_appointment']['holidays_start'] = ''
+            dataSave['online_appointment']['holidays_end'] = ''
+            dataSave['private_appointments']['holidays'] = holidayAppointment['holidays']
+            dataSave['private_appointments']['holidays_start'] = ''
+            dataSave['private_appointments']['holidays_end'] = ''
+        }
+
             this.setState({ loaderImage: true, PrivateErr: false });
-            axios.put(sitedata.data.path + '/UserProfile/private_appointments/' + doctor_id, {
-                type: 'private',
-                doctor_id: this.state.UpDataDetails.doctor_id,
-                monday_start: monday_start,
-                monday_end: monday_end,
-                tuesday_start: tuesday_start,
-                tuesday_end: tuesday_end,
-                wednesday_start: wednesday_start,
-                wednesday_end: wednesday_end,
-                thursday_start: thursday_start,
-                thursday_end: thursday_end,
-                friday_start: friday_start,
-                friday_end: friday_end,
-                saturday_start: saturday_start,
-                saturday_end: saturday_end,
-                sunday_start: sunday_start,
-                sunday_end: sunday_end,
-                breakslot_start: breakslot_start,
-                breakslot_end: breakslot_end,
-                appointment_days: this.state.UpDataDetails.appointment_days,
-                appointment_hours: this.state.UpDataDetails.appointment_hours,
-                duration_of_timeslots: this.state.UpDataDetails.duration_of_timeslots,
-                holidays_start: holidays_start,
-                holidays_end: holidays_end,
-                monday: this.state.StandardSetting.monday,
-                tuesday: this.state.StandardSetting.tuesday,
-                wednesday: this.state.StandardSetting.wednesday,
-                thursday: this.state.StandardSetting.thursday,
-                friday: this.state.StandardSetting.friday,
-                saturday: this.state.StandardSetting.saturday,
-                sunday: this.state.StandardSetting.sunday,
-                breakslot: this.state.StandardSetting.breakslot,
-                holidays: this.state.StandardSetting.holidays,
-                custom_text: this.state.CustomName.custom_text
-            }, {
+            axios.put(sitedata.data.path + '/UserProfile/Users/update', dataSave, {
                 headers: {
                     'token': user_token,
                     'Accept': 'application/json',
@@ -261,13 +206,134 @@ class Index extends Component {
                 }
             })
                 .then((responce) => {
-                    this.setState({ loaderImage: false });
+                    console.log("responce",responce)
+                    this.setState({ loaderImage: false, updateService: true });
+                    setTimeout(() => { this.setState({ updateService: false }) }, 5000)
                 })
+    }
+    else {
+        this.setState({ appoinmentError: true })
+    }
+       
+        // if (this.state.UpDataDetails.duration_of_timeslots && this.state.UpDataDetails.duration_of_timeslots !== 0) {
+        //     let monday_start, monday_end, tuesday_start, tuesday_end, wednesday_start, wednesday_end, thursday_end, thursday_start,
+        //         friday_start, friday_end, saturday_start, saturday_end, sunday_start, sunday_end, breakslot_start, breakslot_end,
+        //         holidays_start, holidays_end
+        //     const user_token = this.props.stateLoginValueAim.token;
+        //     let doctor_id = this.props.stateLoginValueAim.user._id
+        //     if (this.state.StandardSetting.monday == true) {
+        //         monday_start = this.state.UpDataDetails.monday_start
+        //         monday_end = this.state.UpDataDetails.monday_end
+        //     } else {
+        //         monday_start = ''
+        //         monday_end = ''
+        //     }
+        //     if (this.state.StandardSetting.tuesday == true) {
+        //         tuesday_start = this.state.UpDataDetails.tuesday_start
+        //         tuesday_end = this.state.UpDataDetails.tuesday_end
+        //     } else {
+        //         tuesday_start = ''
+        //         tuesday_end = ''
+        //     }
+        //     if (this.state.StandardSetting.wednesday == true) {
+        //         wednesday_start = this.state.UpDataDetails.wednesday_start
+        //         wednesday_end = this.state.UpDataDetails.wednesday_end
+        //     } else {
+        //         wednesday_start = ''
+        //         wednesday_end = ''
+        //     }
+        //     if (this.state.StandardSetting.thursday == true) {
+        //         thursday_end = this.state.UpDataDetails.thursday_end
+        //         thursday_start = this.state.UpDataDetails.thursday_start
+        //     } else {
+        //         thursday_end = ''
+        //         thursday_start = ''
+        //     }
+        //     if (this.state.StandardSetting.friday == true) {
+        //         friday_start = this.state.UpDataDetails.friday_start
+        //         friday_end = this.state.UpDataDetails.friday_end
+        //     } else {
+        //         friday_start = ''
+        //         friday_end = ''
+        //     }
+        //     if (this.state.StandardSetting.saturday == true) {
+        //         saturday_start = this.state.UpDataDetails.saturday_start
+        //         saturday_end = this.state.UpDataDetails.saturday_end
+        //     } else {
+        //         saturday_start = ''
+        //         saturday_end = ''
+        //     }
+        //     if (this.state.StandardSetting.sunday == true) {
+        //         sunday_start = this.state.UpDataDetails.sunday_start
+        //         sunday_end = this.state.UpDataDetails.sunday_end
+        //     } else {
+        //         sunday_start = ''
+        //         sunday_end = ''
+        //     }
+        //     if (this.state.StandardSetting.breakslot == true) {
+        //         breakslot_start = this.state.UpDataDetails.breakslot_start
+        //         breakslot_end = this.state.UpDataDetails.breakslot_end
+        //     } else {
+        //         breakslot_start = ''
+        //         breakslot_end = ''
+        //     }
+        //     if (this.state.StandardSetting.holidays == true) {
+        //         holidays_start = this.state.UpDataDetails.holidays_start
+        //         holidays_end = this.state.UpDataDetails.holidays_end
+        //     } else {
+        //         holidays_start = ''
+        //         holidays_end = ''
+        //     }
+        //     this.setState({ loaderImage: true, PrivateErr: false });
+        //     axios.put(sitedata.data.path + '/UserProfile/private_appointments/' + doctor_id, {
+        //         type: 'private',
+        //         doctor_id: this.state.UpDataDetails.doctor_id,
+        //         monday_start: monday_start,
+        //         monday_end: monday_end,
+        //         tuesday_start: tuesday_start,
+        //         tuesday_end: tuesday_end,
+        //         wednesday_start: wednesday_start,
+        //         wednesday_end: wednesday_end,
+        //         thursday_start: thursday_start,
+        //         thursday_end: thursday_end,
+        //         friday_start: friday_start,
+        //         friday_end: friday_end,
+        //         saturday_start: saturday_start,
+        //         saturday_end: saturday_end,
+        //         sunday_start: sunday_start,
+        //         sunday_end: sunday_end,
+        //         breakslot_start: breakslot_start,
+        //         breakslot_end: breakslot_end,
+        //         appointment_days: this.state.UpDataDetails.appointment_days,
+        //         appointment_hours: this.state.UpDataDetails.appointment_hours,
+        //         duration_of_timeslots: this.state.UpDataDetails.duration_of_timeslots,
+        //         holidays_start: holidays_start,
+        //         holidays_end: holidays_end,
+        //         monday: this.state.StandardSetting.monday,
+        //         tuesday: this.state.StandardSetting.tuesday,
+        //         wednesday: this.state.StandardSetting.wednesday,
+        //         thursday: this.state.StandardSetting.thursday,
+        //         friday: this.state.StandardSetting.friday,
+        //         saturday: this.state.StandardSetting.saturday,
+        //         sunday: this.state.StandardSetting.sunday,
+        //         breakslot: this.state.StandardSetting.breakslot,
+        //         holidays: this.state.StandardSetting.holidays,
+        //         custom_text: this.state.CustomName.custom_text
+        //     }, {
+        //         headers: {
+        //             'token': user_token,
+        //             'Accept': 'application/json',
+        //             'Content-Type': 'application/json'
+        //         }
+        //     })
+        //         .then((responce) => {
+        //             this.setState({ loaderImage: false });
+        //         })
 
-        }
-        else {
-            this.setState({ PrivateErr: true })
-        }
+        // }
+        // else {
+        //     this.setState({ PrivateErr: true })
+        // }
 
     }
 
@@ -645,9 +711,28 @@ class Index extends Component {
         this.setState({ [statechange]: state });
     }
 
+    changeCustomtext = (event) =>{
+        let {UpDataDetails} = this.state
+        UpDataDetails['custom_text'] = event.target.value
+        this.setState({TempText: UpDataDetails['custom_text']})
+    }
+
+    saveText = () =>{
+        let {UpDataDetails, TempText} = this.state
+        UpDataDetails['custom_text']= TempText
+        this.setState({UpDataDetails: UpDataDetails, changeText:false})
+    }
+
+    changeDuration =(event,stateChange) =>{
+        let data = this.state[stateChange];
+        data[event.target.name]= event.target.value;
+        this.setState({[stateChange]:data})
+        this.setState({ appoinmentError: false })
+    }
+
     render() {
         let translate;
-        const { onlineAppointments, UpDataDetails, DaysforPractices, weoffer, firstServiceData, sencondSeviceData, thirdServiceData, holidayAppointment } = this.state;
+        const { onlineAppointments, UpDataDetails, DaysforPractices, weoffer, firstServiceData, sencondSeviceData, thirdServiceData, holidayAppointment, changeText, appoinmentError } = this.state;
 
         switch (this.props.stateLanguageType) {
             case "en":
@@ -686,6 +771,8 @@ class Index extends Component {
                 <Grid className="srvcApointTab">
 
                     <Grid className="srvcInst instBrdr">
+                    {this.state.updateService && <div className="success_message">The Appointment and Services succefully updated</div>}
+                    {this.state.appoinmentError && <div className="err_message">Please Fill the break timeslot for all the appoinments</div>}
                         <h3>Services</h3>
                         <p>Instant activation and deactivation of services you offer</p>
                     </Grid>
@@ -942,7 +1029,7 @@ class Index extends Component {
                                         <Grid className="setSchedule">
                                             <Grid className="nameSchedule"><label>Set timeslot duration:</label></Grid>
                                             <Grid className="nameSchedule">
-                                                <input type="text" value={onlineAppointments.duration_of_timeslots + " minutes"} />
+                                                <input type="text" name="duration_of_timeslots" value={onlineAppointments.duration_of_timeslots}  onChange={(e)=>this.changeDuration(e,'onlineAppointments')}/> minutes
                                             </Grid>
                                         </Grid>
                                     </Grid>
@@ -970,9 +1057,9 @@ class Index extends Component {
                     <Grid className="instBrdr">
                         <Grid container direction="row">
                             <Grid item xs={12} md={6}>
-                                <Grid className="onlinSickVdo officVisit">
+                                <Grid className={changeText?'display-cls onlinSickVdo officVisit':'onlinSickVdo officVisit'}>
                                     <img src={require('../../../../assets/images/ShapeCopy21.svg')} className="vdoCalNow" alt="" title="" />
-                                    <FormControlLabel
+                                    {!changeText &&<FormControlLabel
                                         control={
                                             <Checkbox
                                                 value="checkedB"
@@ -981,9 +1068,12 @@ class Index extends Component {
                                                 onChange={() => this.handleweoffer('Offer_office_prescription')}
                                             />
                                         }
-                                        label="Office visit"
-                                    />
-                                    <img src={require('../../../../assets/images/editBlue.png')} className="editPendata" alt="" title="" />
+                                        label={UpDataDetails.custom_text?UpDataDetails.custom_text:''}
+                                    />}
+                                    {changeText &&<input type="text" value={UpDataDetails.custom_text}  onChange={this.changeCustomtext} className="custom-text"/>}
+                                    {!changeText &&<img src={require('../../../../assets/images/editBlue.png')} className="editPendata" alt="" title="" onClick={()=>this.setState({changeText: true, TempText: UpDataDetails['custom_text']})} />}
+                                    {changeText && <button className="save" onClick={this.saveText}> Save</button>}
+                                    {changeText && <button  onClick={()=>this.setState({changeText: false, TempText: ''})}>Cancel</button>}
                                 </Grid>
                             </Grid>
                             {/* <Grid item xs={12} md={6}>
@@ -1110,7 +1200,7 @@ class Index extends Component {
                                         <Grid className="setSchedule">
                                             <Grid className="nameSchedule"><label>Set timeslot duration:</label></Grid>
                                             <Grid className="nameSchedule">
-                                                <input type="text" value={UpDataDetails.duration_of_timeslots + " minutes"} />
+                                                <input type="text" name="duration_of_timeslots" value={UpDataDetails.duration_of_timeslots} onChange={(e)=>this.changeDuration(e,'UpDataDetails')}/> minutes
                                             </Grid>
                                         </Grid>
                                     </Grid>
@@ -1277,7 +1367,7 @@ class Index extends Component {
                                         <Grid className="setSchedule">
                                             <Grid className="nameSchedule"><label>Set timeslot duration:</label></Grid>
                                             <Grid className="nameSchedule">
-                                                <input type="text" value={DaysforPractices.duration_of_timeslots + " minutes"} />
+                                                <input type="text" name="duration_of_timeslots" value={DaysforPractices.duration_of_timeslots} onChange={(e)=>this.changeDuration(e,'DaysforPractices')}/> minutes
                                             </Grid>
                                         </Grid>
                                     </Grid>
@@ -1303,7 +1393,7 @@ class Index extends Component {
 
                     <Grid container direction="row">
                         <Grid item xs={12} md={6} className="savChngsBtn">
-                            <input type="submit" value="Save changes" />
+                            <input type="submit" value="Save changes" onClick={this.saveAllData}/>
                         </Grid>
                         <Grid item xs={12} md={6}> </Grid>
                     </Grid>
