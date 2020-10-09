@@ -16,6 +16,9 @@ const createOption = (label) => ({
     label,
     value: label,
 });
+const components = {
+    DropdownIndicator: null,
+  };
 
 class Index extends Component {
     constructor(props) {
@@ -142,7 +145,6 @@ class Index extends Component {
 
     handleKeyDown = (event) => {
         const { inputValue, value, invitation } = this.state;
-        console.log("value", value)
         if (!inputValue) return;
         switch (event.key) {
             case 'Enter':
@@ -204,6 +206,7 @@ class Index extends Component {
                                 <Grid><label>Who would you like to invite?</label></Grid>
                                 <Grid>
                                     <CreatableSelect
+                                        components={components}
                                         inputValue={inputValue}
                                         isClearable
                                         isMulti
