@@ -2067,7 +2067,7 @@ a.profilMenu {
 .onlineListing {
     min-height: 100vh;
 }
-.menuItems ul li:last-child {
+.menuItems ul li:last-child:not(.doctor-menu) {
     margin-bottom: 0px !important;
     margin-top: 145px;
 }
@@ -10546,6 +10546,9 @@ img.editPendata {
     font-weight: 600;
     letter-spacing: 0;
     line-height: 12px;
+}
+.upScanInput{
+    position: relative;
 }
 .upScanInput a {
     color: #00ABAF !important;
