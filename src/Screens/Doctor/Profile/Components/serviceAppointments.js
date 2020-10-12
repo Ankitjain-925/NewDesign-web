@@ -93,6 +93,7 @@ class Index extends Component {
                 duration_of_timeslot: 0
 
             }
+            var keysArray = Object.keys(apoinmentdata);
             let privateAppointments = response.data.data.private_appointments[0];
             if (privateAppointments) {
                 if (privateAppointments.holidays) {
@@ -104,6 +105,12 @@ class Index extends Component {
                         }
                     })
                 }
+
+                keysArray.map(key => {
+                    if (privateAppointments[key] == undefined) {
+                        privateAppointments[key] = apoinmentdata[key]
+                    }
+                })
                 this.setState({ UpDataDetails: privateAppointments, StandardSetting: privateAppointments, CustomName: privateAppointments });
             }
             else {
@@ -121,7 +128,14 @@ class Index extends Component {
                             holidays: daysForPractices.holidays
                         }
                     })
+
                 }
+                
+                keysArray.map(key => {
+                    if (daysForPractices[key] == undefined) {
+                        daysForPractices[key] = apoinmentdata[key]
+                    }
+                })
                 this.setState({ DaysforPractices: daysForPractices, PracticesSetting: daysForPractices })
             } else {
                 daysForPractices = apoinmentdata;
@@ -139,6 +153,13 @@ class Index extends Component {
                         }
                     })
                 }
+
+                keysArray.map(key => {
+                    if (onlineAppointment[key] == undefined) {
+                        onlineAppointment[key] = apoinmentdata[key]
+                    }
+                })
+                
                 this.setState({ onlineAppointments: onlineAppointment, OnlineSetting: onlineAppointment })
             } else {
                 onlineAppointment = apoinmentdata;

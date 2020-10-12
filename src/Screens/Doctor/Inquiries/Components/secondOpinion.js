@@ -39,7 +39,10 @@ class Index extends Component {
             MypatientsData: [],
             opinionData: {},
             inqstatus: null,
-            message: ''
+            message: '',
+            fileattach:[],
+            uploadedimage:'',
+            success:false
         };
     }
 
@@ -137,8 +140,8 @@ class Index extends Component {
         } else {
             this.setState({ loaderImage: true });
             const user_token = this.props.stateLoginValueAim.token;
-            axios.put(sitedata.data.path + '/UserProfile/UpdateSickCertificate/' + id, {
-                docs: this.state.uploadedimage,
+            axios.put(sitedata.data.path + '/UserProfile/UpdateSecondOpinion/' + id, {
+                attachfile: this.state.uploadedimage,
             }, {
                 headers: {
                     'token': user_token,
@@ -153,128 +156,80 @@ class Index extends Component {
         }
     }
 
-    UploadFile(event, patient_profile_id, bucket, id) {
+    UploadFile = (event)  =>{
+        let id = this.state.opinionData._id;
+        let bucket = this.state.opinionData.patient_info.bucket
+        let patient_profile_id = this.state.opinionData.patient_profile_id
         this.setState({ loaderImage: true });
-        event.preventDefault();
-        let reader = new FileReader();
-        let file = event.target.files[0];
-        reader.onloadend = () => {
-            this.setState({
-                file: file,
-                imagePreviewUrl: reader.result
-            });
-        }
         let user_token = this.props.stateLoginValueAim.token;
-        reader.readAsDataURL(file)
-        const data = new FormData()
-        for (var i = 0; i < event.target.files.length; i++) {
-            var file1 = event.target.files[i];
-            let fileParts = event.target.files[i].name.split('.');
-            let fileName = fileParts[0];
-            let fileType = fileParts[1];
-            console.log('fileType', fileType)
-            if (fileType === 'pdf' || fileType === 'jpeg' || fileType === 'png' || fileType === 'jpg' || fileType === 'svg') {
+        if (event && event[0] && (event[0].type === "application/pdf" || event[0].type === "image/jpeg" || event[0].type === "image/png")) {
+            this.setState({ isfileuploadmulti: true, loaderImage: true, err_pdf: false })
+            var fileattach = [];
+            for (var i = 0; i < event.length; i++) {
+                var file = event[i];
+                let fileParts = event[i].name.split('.');
+                let fileName = fileParts[0];
+                let fileType = fileParts[1];
                 axios.post(sitedata.data.path + '/aws/sign_s3', {
                     fileName: fileName,
                     fileType: fileType,
                     folders: patient_profile_id + '/Trackrecord/',
                     bucket: bucket
-                })
-                    .then(response => {
-                        var Filename = response.data.data.returnData.url + '&bucket=' + bucket;
-                        this.setState({
-                            loaderImage: false,
-                            uploadDataFile: id,
-                            uploadedimage: { filename: Filename, filetype: fileType }
-                        });
-
-                        setTimeout(
-                            function () {
-                                this.setState({ fileupods: false });
-                            }
-                                .bind(this),
-                            3000
-                        );
-                        console.log('data', response)
-                        var returnData = response.data.data.returnData;
-                        var signedRequest = returnData.signedRequest;
-                        var url = returnData.url;
-                        console.log("Recieved a signed request " + signedRequest);
-
-                        // Put the fileType in the headers for the upload
-                        var options = {
-                            headers: {
-                                'Content-Type': fileType
-                            }
-                        };
-                        axios.put('https://cors-anywhere.herokuapp.com/' + signedRequest, file1, options)
-                            .then(result => {
-                                console.log("Response from s3")
-                                this.setState({ success: true });
-                            })
-                            .catch(error => {
-                                console.log("ERROR " + JSON.stringify(error));
-                            })
-                    })
-                    .catch(error => {
-                        console.log(JSON.stringify(error));
-                    })
-            }
-            else {
-                let translate;
-                switch (this.props.stateLanguageType) {
-                    case "en":
-                        translate = translationEN.text
-                        break;
-                    // case "de":
-                    //     translate = translationDE.text
-                    //     break;
-                    // case "pt":
-                    //     translate = translationPT.text
-                    //     break;
-                    // case "sp":
-                    //     translate = translationSP.text
-                    //     break;
-                    // case "rs":
-                    //     translate = translationRS.text
-                    //     break;
-                    // case "nl":
-                    //     translate = translationNL.text
-                    //     break;
-                    // case "ch":
-                    //     translate = translationCH.text
-                    //     break;
-                    // case "sw":
-                    //     translate = translationSW.text
-                    //     break;
-                    case "default":
-                        translate = translationEN.text
-                }
-                let { UploadMust } = translate;
-                this.setState({ loaderImage: false });
-                confirmAlert({
-                    message: UploadMust,
-                    buttons: [
-                        {
-                            label: 'YES',
-                        },
-
-                    ]
-                })
+                }).then(response => {
+                    fileattach.push({ filename: response.data.data.returnData.url + '&bucket=' + bucket })
+                    this.setState({ fileupods: true });
+                    setTimeout(() => { this.setState({ fileupods: false }); }, 5000);
+                    var returnData = response.data.data.returnData;
+                    var signedRequest = returnData.signedRequest;
+                    var url = returnData.url;
+                    // Put the fileType in the headers for the upload
+                    var options = { headers: { 'Content-Type': fileType } };
+                    axios.put('https://cors-anywhere.herokuapp.com/' + signedRequest, file, options)
+                        .then(result => {
+                            this.setState({ success: true, loaderImage: false, uploadedimage: fileattach });
+                        }).catch(error => { })
+                }).catch(error => { })
             }
         }
 
     }
 
-    removePrsecription = (status, id) => {
-        this.setState({ message: null });
+    updatePrescription = (status, id) => {
+        this.setState({ inqstatus: status, selected_id: id, message : null })
+        this.handleOpenReject();
+    }
+
+    deleteClickPatient = (status, id) => {
+        let user_token = this.props.stateLoginValueAim.token
+        const { message } = this.state
+        axios.put(sitedata.data.path + '/UserProfile/GetSecondOpinion/' + id, {
+            status: status,
+            doctor_name: this.props.myData.first_name + ' ' + this.props.myData.last_name,
+            short_msg: message,
+            attachfile: this.state.uploadedimage,
+
+        }, {
+            headers: {
+                'token': user_token,
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        }).then((response) => {
+            this.setState({openPrescp: false, openReject: false})
+            this.getMypatientsData();
+        }).catch((error) => {
+        });
+    }
+
+    removePrsecription = (status, id) =>{
+        this.setState({message : null});
         confirmAlert({
             title: 'Update the Inqury',
             message: 'Are you sure  to remove this Inquiry?',
             buttons: [
                 {
                     label: 'YES',
-                    onClick: () => this.updateCertificateDetails(status, id)
+                    onClick: () => this.deleteClickPatient(status, id)
                 },
                 {
                     label: 'NO',
@@ -284,6 +239,7 @@ class Index extends Component {
     }
 
     handleOpenPrescp = (data) => {
+        console.log("data", data)
         this.setState({ openPrescp: true, opinionData: data });
     };
     handleClosePrescp = () => {
@@ -371,7 +327,7 @@ class Index extends Component {
                                             <img src={require('../../../../assets/images/threedots.jpg')} alt="" title="" className="openScnd" />
                                             <ul>
                                                 <li><a onClick={() => { this.handleOpenPrescp(data) }}><img src={require('../../../../assets/images/details.svg')} alt="" title="" />See Details</a></li>
-                                                {(data.status == 'free'||data.status === 'pending')  && <li onClick={() => { this.handleOpenPrescp('accept', data._id) }}><a><img src={require('../../../../assets/images/edit.svg')} alt="" title="" />Accept</a></li>}
+                                                {(data.status == 'free'||data.status === 'pending')  && <li onClick={() => { this.handleOpenPrescp(data) }}><a><img src={require('../../../../assets/images/edit.svg')} alt="" title="" />Accept</a></li>}
                                                 {(data.status == 'free'||data.status === 'pending')  && <li onClick={() => { this.updateCertificate('decline', data._id) }}><a><img src={require('../../../../assets/images/plus.png')} alt="" title="" />Reject</a></li>}
                                                 {data.status !== 'remove' && <li onClick={() => { this.removePrsecription('remove', data._id) }}><a><img src={require('../../../../assets/images/cancel-request.svg')} alt="" title="" />Remove</a></li>}
                                             </ul>
@@ -427,6 +383,9 @@ class Index extends Component {
                                             ))}
                                             </label>
                                             <FileUploader name="UploadDocument" fileUpload={this.UploadFile} />
+                                            {(this.state.success && opinionData.status !== 'accept') && <Grid item xs={12} md={12}>
+                                            <input type="button" value="Send to patient's Timeline and Email" onClick={() => this.saveUserData(opinionData._id)} className="approvBtn" />
+                                            </Grid>}
                                             {/* <Grid className="attchbrowsInput">
                                             <a><img src={require('../../../../assets/images/upload-file.svg')} alt="" title="" /></a>
                                             <a>Browse <input type="file" id="UploadDocument" name="UploadDocument" onChange={(e) => this.UploadFile(e)} /></a> or drag here
@@ -439,6 +398,14 @@ class Index extends Component {
                                 <Grid className="infoShwHidBrdr"></Grid>
                                 <Grid className="infoShwHidIner">
                                     <Grid className="infoShwSave">
+                                    {(opinionData.status !== 'accept' && opinionData.status !== 'decline') && <Grid container direction="row">
+                                    <Grid item xs={6} md={6}>
+                                        <input type="button" value="Approve" onClick={() => this.deleteClickPatient('accept', opinionData._id)} className="approvBtn" />
+                                    </Grid>
+                                    <Grid item xs={6} md={6}>
+                                        <input type="button" value="Reject" onClick={() => this.updatePrescription('decline', opinionData._id)} className="rejectBtn" />
+                                    </Grid>
+                                </Grid>}
                                         {/* <input type="submit" onClick={this.submit} value="Edit entry" /> */}
                                     </Grid>
                                 </Grid>
@@ -464,7 +431,7 @@ class Index extends Component {
                             <Grid className="shrtRejctMsg">
                                 <Grid><label>Short message</label></Grid>
                                 <Grid><textarea onChange={(e) => this.setState({ message: e.target.value })}></textarea></Grid>
-                                <Grid><input type="submit" value={inqstatus} onChange={() => this.updateCertificateDetails(inqstatus, this.state.selected_id)} /></Grid>
+                                <Grid><input type="submit" value={inqstatus} onChange={() => this.deleteClickPatient(inqstatus, this.state.selected_id)} /></Grid>
                             </Grid>
                         </Grid>
                     </Modal>

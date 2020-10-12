@@ -40,7 +40,7 @@ const localizer = momentLocalizer(moment)
 const modifiers = [
     {
         name: 'offset',
-        enabled: true, 
+        enabled: true,
         options: {
             offset: [0, 4],
         },
@@ -239,36 +239,38 @@ class Index extends Component {
             .then((response) => {
                 console.log("response", response)
                 let newAppoint = []
-                response.data.data.map(d1 => {
-                    console.log("d1", d1)
-                    if (d1.start_time) {
-                        var t1 = d1.start_time.split(":");
-                    }
-                    if (d1.end_time) {
-                        var t2 = d1.end_time.split(":");
-                    }
-                    let da1 = new Date(moment(d1.date, 'MM-DD-YYYY').format('YYYY-MM-DD'));
-                    let da2 = new Date(moment(d1.date, 'MM-DD-YYYY').format('YYYY-MM-DD'));
-                    if (t1 && t1.length > 0) {
-                        da1.setHours(t1[0]);
-                        da1.setMinutes(t1[1]);
-                    }
-                    else {
-                        da1.setHours('00');
-                        da1.setMinutes('00');
-                    }
-                    if (t2 && t2.length > 0) {
-                        da2.setHours(t2[0]);
-                        da2.setMinutes(t2[1]);
-                    }
-                    else {
-                        da2.setHours('00');
-                        da2.setMinutes('00');
-                    }
-                    d1['starttimeValueof'] = new Date(da1).valueOf()
-                    d1['endtimeValueof'] = new Date(da2).valueOf()
-                    newAppoint.push(d1)
-                })
+                if (response.data.hassuccessed) {
+                    response.data.data.map(d1 => {
+                        console.log("d1", d1)
+                        if (d1.start_time) {
+                            var t1 = d1.start_time.split(":");
+                        }
+                        if (d1.end_time) {
+                            var t2 = d1.end_time.split(":");
+                        }
+                        let da1 = new Date(moment(d1.date, 'MM-DD-YYYY').format('YYYY-MM-DD'));
+                        let da2 = new Date(moment(d1.date, 'MM-DD-YYYY').format('YYYY-MM-DD'));
+                        if (t1 && t1.length > 0) {
+                            da1.setHours(t1[0]);
+                            da1.setMinutes(t1[1]);
+                        }
+                        else {
+                            da1.setHours('00');
+                            da1.setMinutes('00');
+                        }
+                        if (t2 && t2.length > 0) {
+                            da2.setHours(t2[0]);
+                            da2.setMinutes(t2[1]);
+                        }
+                        else {
+                            da2.setHours('00');
+                            da2.setMinutes('00');
+                        }
+                        d1['starttimeValueof'] = new Date(da1).valueOf()
+                        d1['endtimeValueof'] = new Date(da2).valueOf()
+                        newAppoint.push(d1)
+                    })
+                }
 
                 if (response && response.data.hassuccessed) this.setState({ newAppoinments: newAppoint })
             })
@@ -330,7 +332,7 @@ class Index extends Component {
             email: appoinmentSelected.patient_info.email,
             lan: this.props.stateLanguageType,
             _id: appoinmentSelected._id,
-            oldSchedule:  moment(appoinmentSelected.date).format('MM-DD-YYYY') + " " + appoinmentSelected.start_time + "-" + appoinmentSelected.end_time,
+            oldSchedule: moment(appoinmentSelected.date).format('MM-DD-YYYY') + " " + appoinmentSelected.start_time + "-" + appoinmentSelected.end_time,
             timeslot: moment(suggesteddate).format('MM-DD-YYYY') + " " + timeslot.start + "-" + timeslot.end,
             docProfile: {
                 first_name: this.props.stateLoginValueAim.user.first_name ? this.props.stateLoginValueAim.user.first_name : '',
@@ -343,8 +345,8 @@ class Index extends Component {
                 'Content-Type': 'application/json'
             }
         }).then((response) => {
-            if(response.data.hassuccessed){
-                this.setState({openSlot:false, suggestTime:[], suggesteddate:new Date(), appoinmentSelected:{} })
+            if (response.data.hassuccessed) {
+                this.setState({ openSlot: false, suggestTime: [], suggesteddate: new Date(), appoinmentSelected: {} })
             }
         })
     }
@@ -355,7 +357,7 @@ class Index extends Component {
     handleOpenSlot = (data) => {
         const { appioinmentTimes, appoinmentSelected } = this.state;
         let temptimes = [];
-        let date = new Date(moment(data.date,'M-DD-YYYY').format())
+        let date = new Date(moment(data.date, 'M-DD-YYYY').format())
         let suggestTime = [];
         let dateFormat = moment(date).format('DD/MM/YYYY');
         let statemanger = 'onlineAppointments';
@@ -366,7 +368,7 @@ class Index extends Component {
                 clashtime = true;
             }
         })
-        
+
         console.log("appoinmentSelected.appointment_type", appoinmentSelected.appointment_type)
         if (appoinmentSelected.appointment_type == types[2]) {
             statemanger = 'onlineAppointments'
@@ -376,7 +378,7 @@ class Index extends Component {
         } else {
             statemanger = 'DaysforPractices'
         }
-        
+
         let weeknumber = moment(date).day();
         var appiInd = -1
         if (this.state[statemanger].workingDays) appiInd = this.state[statemanger].workingDays.findIndex(person => person.value.includes(days[weeknumber - 1]))
@@ -405,10 +407,10 @@ class Index extends Component {
                 suggestTime.push(tiems)
             }
         })
-        
+
         this.setState({ openSlot: true, appoinmentSelected: data, clashtime: clashtime, suggesteddate: date, suggestTime: suggestTime });
     };
-    
+
     handleCloseSlot = () => {
         this.setState({ openSlot: false, clashtime: false });
     };
@@ -591,7 +593,7 @@ class Index extends Component {
         } else {
             statemanger = 'DaysforPractices'
         }
-        
+
         let weeknumber = moment(date).day();
         var appiInd = -1
         if (this.state[statemanger].workingDays) appiInd = this.state[statemanger].workingDays.findIndex(person => person.value.includes(days[weeknumber - 1]))
