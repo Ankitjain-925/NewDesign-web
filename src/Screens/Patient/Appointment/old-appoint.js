@@ -263,7 +263,6 @@ class Index extends Component {
                 let markerArray = [];
                 let selectedListArray = [];
                 let NewArray = [];
-                console.log("get all doctor", responce.data.data)
                 responce.data.data && responce.data.data.length > 0 && responce.data.data.map((item, index) => {
                     if (item.data && item.data.image) {
                         var find = item.data && item.data.image && item.data.image
