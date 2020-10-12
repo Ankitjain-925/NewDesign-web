@@ -46,15 +46,7 @@ class Index extends Component {
         this.handlePlaceChanged = this.handlePlaceChanged.bind(this);
         this.filterList = this.filterList.bind(this)
         this.state = {
-            selectedOption: null,
-            openDash: false,
             date: new Date(),
-            age: '',
-            name: 'hai',
-            labelWidth: 0,
-            name_multi: [],
-            age: '',
-            name: 'hai',
             labelWidth: '',
             gender: '',
             language: [],
@@ -543,7 +535,7 @@ class Index extends Component {
                 'Content-Type': 'application/json'
             }
         }).then((response) => {
-            console.log("response 12", response)
+            
             var title = {}, titlefromD = response.data.data.title;
             var language = [], languagefromD = response.data.data.language;
             var subspeciality_m = [], subspecialityfromD = response.data.data.subspeciality;
@@ -556,11 +548,15 @@ class Index extends Component {
             
             if (subspecialityfromD && subspecialityfromD.length > 0) {
                 subspecialityfromD.map((item) => {
+                    if(typeof item==='string')
                     subspeciality_m.push({ value: item, label: item.replace(/_/g, " ") });
+                    else{
+                        subspeciality_m.push(item)  
+                    }
                 })
 
             }
-           
+            
             if (titlefromD && titlefromD !== "") {
 
                 title = { label: titlefromD, value: titlefromD }
@@ -594,7 +590,7 @@ class Index extends Component {
 
             this.setState({ UpDataDetails: response.data.data, city: response.data.data.city, area: response.data.data.area, profile_id: response.data.data.profile_id });
             this.setState({ speciality_multi:  response.data.data.speciality, subspeciality_multi:  subspeciality_m })
-            console.log("response.data.data.subspeciality ", response.data.data.subspeciality )
+            console.log("response.data.data.subspeciality :", response.data.data.subspeciality )
             this.setState({ name_multi: language, title: title })
             this.setState({
                 insurancefull: this.state.UpDataDetails.insurance,
@@ -878,7 +874,7 @@ class Index extends Component {
                             <Grid className="profileInfoIner">
                                 <Grid container direction="row" alignItems="center" spacing={2}>
                                     <Grid item xs={12} md={12}>
-                                        <label>{email} {add}</label>
+                                        <label>{email} {add} {UpDataDetails.email}</label>
                                         <Grid><input type="text" onChange={this.updateEntryState} value={UpDataDetails.email} disabled /></Grid>
                                     </Grid>
                                 </Grid>

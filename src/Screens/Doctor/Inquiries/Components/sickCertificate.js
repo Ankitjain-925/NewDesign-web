@@ -75,7 +75,6 @@ class Index extends Component {
                             })
                     }
                 })
-                console.log("response.data.data", response.data.data)
                 // this.setState({ MypatientsData: response.data.data });
                 var totalPage = Math.ceil(response.data.data.length / 10);
                 this.setState({ AllPres: response.data.data, loaderImage: false, totalPage: totalPage, currentPage: 1 },
@@ -109,7 +108,7 @@ class Index extends Component {
         let user_token = this.props.stateLoginValueAim.token
         axios.put(sitedata.data.path + '/UserProfile/GetSickCertificate/' + id, {
             status: status,
-            doctor_name: this.props.myData.first_name + ' ' + this.state.props.last_name,
+            doctor_name: this.props.myData.first_name + ' ' + this.props.myData.last_name,
             type: "sick_certificate"
         }, {
             headers: {
@@ -372,8 +371,8 @@ class Index extends Component {
                                             <img src={require('../../../../assets/images/threedots.jpg')} alt="" title="" className="openScnd" />
                                             <ul>
                                                 <li><a onClick={() => { this.handleOpenPrescp(data) }}><img src={require('../../../../assets/images/details.svg')} alt="" title="" />See Details</a></li>
-                                                {data.status !== 'free' && <li onClick={() => { this.updateCertificate('accept', data._id) }}><a><img src={require('../../../../assets/images/edit.svg')} alt="" title="" />Accept</a></li>}
-                                                {data.status !== 'free' && <li onClick={() => { this.updateCertificate('decline', data._id) }}><a><img src={require('../../../../assets/images/plus.png')} alt="" title="" />Decline</a></li>}
+                                                {(data.status == 'free'||data.status === 'pending')  && <li onClick={() => { this.updateCertificate('accept', data._id) }}><a><img src={require('../../../../assets/images/edit.svg')} alt="" title="" />Accept</a></li>}
+                                                {(data.status == 'free'||data.status === 'pending')  && <li onClick={() => { this.updateCertificate('decline', data._id) }}><a><img src={require('../../../../assets/images/plus.png')} alt="" title="" />Reject</a></li>}
                                                 {data.status !== 'remove' && <li onClick={() => { this.removePrsecription('remove', data._id) }}><a><img src={require('../../../../assets/images/cancel-request.svg')} alt="" title="" />Remove</a></li>}
                                             </ul>
                                         </a>
@@ -403,7 +402,7 @@ class Index extends Component {
                                         <h3>{doc_and_statnderd_ques}</h3>
                                         <Grid className="drsplestQues">
                                             <Grid><label>{doc_aimedis_private}</label></Grid>
-                                            <Grid><h3>{sickData && sickData.docProfile && sickData.docProfile.first_name && sickData.docProfile.first_name} {sickData && sickData.docProfile && sickData.docProfile.last_name && sickData.docProfile.last_name}</h3></Grid>
+                                            <Grid><h3>{sickData && sickData.patient_info && sickData.patient_info.first_name && sickData.patient_info.first_name} {sickData && sickData.patient_info && sickData.patient_info.last_name && sickData.patient_info.last_name}</h3></Grid>
                                         </Grid>
                                     </Grid>
                                     <Grid className="drsplestQues">

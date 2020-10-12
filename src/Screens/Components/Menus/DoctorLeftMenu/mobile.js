@@ -125,12 +125,32 @@ class Index extends Component {
     }
     //For My Document
     MyDocument = () => {
-        this.props.history.push('/doctor/mydocument');
+        this.props.history.push('/doctor/inquiries');
     }
 
     //For My Profile
     Myprofile = () => {
         this.props.history.push('/doctor/profile')
+    }
+
+    //For Chat
+    Chats = ()=>{
+        this.props.history.push('/doctor/chats')
+    }
+
+    //For Emergency
+    Emergency = ()=>{
+        this.props.history.push('/doctor/emergency')
+    }
+
+    //For Online Course
+    Online = ()=>{
+        this.props.history.push('/doctor/online-course')
+    }
+
+    //For Appointmet
+    Appointment = () => {
+        this.props.history.push('/doctor/appointment')
     }
 
     render() {
@@ -187,8 +207,8 @@ class Index extends Component {
                                 <div className="moreMenuList">
                                     <ul>  
                                         <li><a onClick={this.handleOpenInvt}><img src={require('../../../../assets/images/menudocs.jpg')} alt="" title="" />Invite Doctors</a></li>
-                                        <li className="doctor-menu"><a onClick={this.handleOpenPharma}><img src={require('../../../../assets/images/menudocs.jpg')} alt="" title="" />Pharmacy Prescription</a></li>
-                                        <li><a onClick={this.Online}><img src={require('../../../../assets/images/menudocs.jpg')} alt="" title="" />Aimedis Online Courses</a></li>
+                                        <li><a onClick={this.handleOpenPharma}><img src={require('../../../../assets/images/menudocs.jpg')} alt="" title="" />Pharmacy Prescription</a></li>
+                                        <li  className="doctor-menu"><a onClick={this.Online}><img src={require('../../../../assets/images/menudocs.jpg')} alt="" title="" />Aimedis Online Courses</a></li>
                                     </ul>
                                 </div>
                             </a>
