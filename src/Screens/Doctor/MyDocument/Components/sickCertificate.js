@@ -109,7 +109,7 @@ class Index extends Component {
         let user_token = this.props.stateLoginValueAim.token
         axios.put(sitedata.data.path + '/UserProfile/GetSickCertificate/' + id, {
             status: status,
-            doctor_name: this.props.myData.first_name + ' ' + this.state.props.last_name,
+            doctor_name: this.props.myData.first_name + ' ' + this.props.myData.last_name,
             type: "sick_certificate"
         }, {
             headers: {
