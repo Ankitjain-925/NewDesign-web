@@ -115,7 +115,7 @@ SetLanguage = () => {
                             </Grid>
                             <Grid>
                                 <input value="ch" onChange={this.changeLanguage} name="language" type="radio" checked={this.state.languageValue == "ch" ? "checked" : ""} />
-                                <label>Chainese</label>
+                                <label>Chinese</label>
                             </Grid>
                             <Grid>
                                 <input value="sw" onChange={this.changeLanguage} name="language" type="radio" checked={this.state.languageValue == "sw" ? "checked" : ""} />

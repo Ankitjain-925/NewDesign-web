@@ -123,19 +123,22 @@ class Index extends Component {
         FilterFromUserType = [...new Set(FilterFromUserType)];
         this.setState({allTrack : FilterFromUserType}) 
     }
-
-    //Filter according to date range
-    FilterFromTime=(Datas, time_range)=>{
-        if(time_range && time_range.length>0)
-        {
-            let start_date = new Date(time_range[0])
-            let end_date = new Date(time_range[1])
-            return Datas.filter((obj) => new Date(obj.datetime_on) >= start_date && new Date(obj.datetime_on) <= end_date);  
-        }
-        else {
-            return null;
-        }
+    
+  //Filter according to date range
+  FilterFromTime=(Datas, time_range)=>{
+    if(time_range && time_range.length>0)
+    {
+        let start_date = new Date(time_range[0])
+        let end_date = new Date(time_range[1])
+        start_date = start_date.setHours(0,0,0,0);
+        end_date = end_date.setDate(end_date.getDate() + 1)
+        end_date = new Date(end_date).setHours(0,0,0,0)
+        return Datas.filter((obj) => new Date(obj.datetime_on) >= start_date && new Date(obj.datetime_on) <= end_date);  
     }
+    else {
+        return null;
+    }
+}
 
     //Filter according to the type 
     FilerFromType=(Datas, type)=>{

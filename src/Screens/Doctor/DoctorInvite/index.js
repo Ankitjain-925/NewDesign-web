@@ -16,9 +16,6 @@ const createOption = (label) => ({
     label,
     value: label,
 });
-const components = {
-    DropdownIndicator: null,
-  };
 
 class Index extends Component {
     constructor(props) {
@@ -30,10 +27,6 @@ class Index extends Component {
             UpDataDetails: [],
             inputValue: '',
             value: [],
-            messageMissing: false,
-            emailMissing: false,
-            invitation: {},
-            success: false
         };
 
     }
@@ -71,41 +64,29 @@ class Index extends Component {
 
         this.setState({ loaderImage: true, nv: false });
         let user_token = this.props.stateLoginValueAim.token
-        if (invitation && this.state.invitation.emails && this.state.invitation.emails.length > 0 && this.state.invitation.messages && this.state.invitation.messages !== '') {
-            axios.post(sitedata.data.path + '/UserProfile/AskPatient1/' + this.state.invitation.emails, {
-                email: this.state.invitation.emails,
-                message: this.state.invitation.messages,
-                first_name: this.state.UpDataDetails.first_name ? this.state.UpDataDetails.first_name : '',
-                last_name: this.state.UpDataDetails.last_name ? this.state.UpDataDetails.last_name : '',
-                lan: this.props.stateLanguageType
-            }, {
-                headers: {
-                    'token': user_token,
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
+        axios.post(sitedata.data.path + '/UserProfile/AskPatient1/' + this.state.invitation.emails, {
+            email: this.state.invitation.emails,
+            message: this.state.invitation.messages,
+            first_name: this.state.UpDataDetails.first_name ? this.state.UpDataDetails.first_name : '',
+            last_name: this.state.UpDataDetails.last_name ? this.state.UpDataDetails.last_name : '',
+            lan: this.props.stateLanguageType
+        }, {
+            headers: {
+                'token': user_token,
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        }).then((response) => {
+            this.setState({ loaderImage: false });
+            this.setState({ sentmessages: true });
+            setTimeout(
+                function () {
+                    this.setState({ sentmessages: false });
                 }
-            }).then((response) => {
-                this.setState({ loaderImage: false });
-                this.setState({ sentmessages: true });
-                if (response.data.hassuccessed) {
-                    this.setState({ success: true })
-                }
-                setTimeout(
-                    function () {
-                        this.setState({ sentmessages: false, success: false });
-                        this.handleCloseInvt();
-                    }
-                        .bind(this),
-                    3000
-                );
-            })
-        }
-        else if (invitation && !this.state.invitation.emails || this.state.invitation.emails.length == 0) {
-            this.setState({ emailMissing: true })
-        }
-        else if (invitation && !this.state.invitation.messages || this.state.invitation.messages!=='') {
-            this.setState({ messageMissing: true })
-        }
+                    .bind(this),
+                3000
+            );
+        })
 
     }
 
@@ -115,11 +96,9 @@ class Index extends Component {
     }
 
     invitationState = (e) => {
-        if (e) {
-            var state = this.state.invitation;
-            state[e.target.name] = e.target.value;
-            this.setState({ invitation: state });
-        }
+        var state = this.state.invitation;
+        state[e.target.name] = e.target.value;
+        this.setState({ invitation: state });
     }
 
     handleChange = (value, actionMeta) => {
@@ -159,7 +138,6 @@ class Index extends Component {
                         nv: false,
                         inputValue: '',
                         value: [...value, createOption(inputValue)],
-                        emailMissing: false
                     });
                 }
                 else {
@@ -197,16 +175,12 @@ class Index extends Component {
                             </Grid>
                             <Grid><label>Invite Doctors to Aimedis</label></Grid>
                             <p>You can enter multiple email addresses and add a personal message</p>
-                            {this.state.emailMissing && <div className="err_message"> Enter email first</div>}
-                            {this.state.messageMissing && <div className="err_message"> Enter message</div>}
-                            {this.state.success && <div className="success_message">Invitation sent succefully</div>}
                         </Grid>
                         <Grid className="invitLinkUpr">
                             <Grid className="invitLinkInfo">
                                 <Grid><label>Who would you like to invite?</label></Grid>
                                 <Grid>
                                     <CreatableSelect
-                                        components={components}
                                         inputValue={inputValue}
                                         isClearable
                                         isMulti
@@ -214,7 +188,7 @@ class Index extends Component {
                                         onChange={this.handleChange}
                                         onInputChange={this.handleInputChange}
                                         onKeyDown={this.handleKeyDown}
-                                        placeholder="Type emails and press enter or tabs"
+                                        placeholder="Enter Emails..."
                                         value={value}
                                     />
                                 </Grid>

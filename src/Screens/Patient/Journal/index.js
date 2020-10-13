@@ -128,6 +128,9 @@ class Index extends Component {
         {
             let start_date = new Date(time_range[0])
             let end_date = new Date(time_range[1])
+            start_date = start_date.setHours(0,0,0,0);
+            end_date = end_date.setDate(end_date.getDate() + 1)
+            end_date = new Date(end_date).setHours(0,0,0,0)
             return Datas.filter((obj) => new Date(obj.datetime_on) >= start_date && new Date(obj.datetime_on) <= end_date);  
         }
         else {
@@ -780,7 +783,7 @@ class Index extends Component {
             return (<Redirect to={'/'} />);
         }
         return (
-            <Grid className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode && this.props.settings.setting.mode==='dark' ? "homeBg homeBgDrk" : "homeBg"}>
+        <Grid className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode && this.props.settings.setting.mode==='dark' ? "homeBg homeBgDrk" : "homeBg"}>
                 {this.state.loaderImage && <Loader />}
                 <Grid className="homeBgIner">
                     <Grid container direction="row" justify="center">

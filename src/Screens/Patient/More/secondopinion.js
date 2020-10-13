@@ -320,7 +320,7 @@ class Index extends Component {
                                                             </Grid>
                                                             <Grid className="attchForms attchImg">
                                                                 <Grid><label>Attachments</label></Grid>
-                                                                <FileUploader name="UploadDocument" fileUpload={this.fileUpload} />
+                                                                <FileUploader  comesFrom="journal" name="UploadDocument" fileUpload={this.fileUpload} />
                                                                 {/* <Grid className="attchbrowsInput">
                                                                     <a><img src={require('../../../assets/images/upload-file.svg')} alt="" title="" /></a>
                                                                     <a>Browse <input type="file" id="UploadDocument" name="UploadDocument" onChange={(e) => this.UploadFile(e)} /></a> or drag here

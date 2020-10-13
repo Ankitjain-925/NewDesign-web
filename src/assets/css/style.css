@@ -2067,7 +2067,7 @@ a.profilMenu {
 .onlineListing {
     min-height: 100vh;
 }
-.menuItems ul li:last-child:not(.doctor-menu) {
+.menuItems ul li:last-child {
     margin-bottom: 0px !important;
     margin-top: 145px;
 }
@@ -10547,9 +10547,6 @@ img.editPendata {
     letter-spacing: 0;
     line-height: 12px;
 }
-.upScanInput{
-    position: relative;
-}
 .upScanInput a {
     color: #00ABAF !important;
     margin: 0px 4px;
@@ -12898,6 +12895,9 @@ a.academy_ul ul li img {
 
 
 /*Added By ankita*/
+.RelativeatSecurity{
+    position: relative;
+}
 /* Appointment page */
 .srvcTags .currentTab {
     color: #00ABAF;

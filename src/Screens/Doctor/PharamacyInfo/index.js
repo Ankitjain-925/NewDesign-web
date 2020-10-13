@@ -28,9 +28,7 @@ class Index extends Component {
             searchLocation: [],
             newEntry: {},
             success: false,
-            isadded: false,
-            firstPatient_id: false,
-            imagePreviewUrl: null,
+            imagePreviewUrl: null
         };
 
     }
@@ -59,7 +57,6 @@ class Index extends Component {
             m = (d.getMinutes() < 10 ? '0' : '') + d.getMinutes();
         return h + ':' + m;
     }
-
     getGeoLocation = () => {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(position => {
@@ -111,7 +108,6 @@ class Index extends Component {
         }
         this.setState({ name: e.target.value, searchLocation: [], newEntry: newEntry }, () => this.getName());
     }
-
     getName = () => {
         var user_token = this.props.stateLoginValueAim.token;
         console.log("this.state.name", this.state.name)
@@ -262,10 +258,11 @@ class Index extends Component {
                 }
             }
         }
-        else if(event && event.target){
+        else {
             this.setState({
                 firstPatient_id: true
             })
+            event.target.files = []
             return false
         }
     }
@@ -401,9 +398,6 @@ class Index extends Component {
                                     <img src={require('../../../assets/images/closefancy.png')} alt="" title="" />
                                 </a>
                             </Grid>
-                            {this.state.firstPatient_id && <div className="err_message">Please enter the patient id first</div>}
-                            {this.state.isadded && <div className="success_message">Successfully added the information</div>}
-                            {this.state.compulsary && <div className="err_message">Please Enter all the field</div>}
                             <Grid><label>Pharmacy Prescription</label></Grid>
                             <p>Send prescriptions to pharmacies</p>
                         </Grid>

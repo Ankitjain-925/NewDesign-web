@@ -15,6 +15,7 @@ import { Settings } from './../../../Login/setting';
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
 import Autocomplete from '../Autocomplete.js';
+import npmCountryList from 'react-select-country-list';
 import FileUploader from './../../../Components/FileUploader/index';
 import { LanguageFetchReducer } from './../../../actions';
 import Modal from '@material-ui/core/Modal';
@@ -112,6 +113,9 @@ class Index extends Component {
             { types: ["geocode"] }
         );
         this.city.addListener("place_changed", this.handlePlaceChanged);
+
+        var npmCountry = npmCountryList().getData()
+        this.setState({ selectCountry: npmCountry })
     }
 
     // Copy the Profile id and PIN
