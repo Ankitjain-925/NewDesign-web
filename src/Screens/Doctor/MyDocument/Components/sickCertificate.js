@@ -386,7 +386,8 @@ class Index extends Component {
                     <Modal
                         open={this.state.openPrescp}
                         onClose={this.handleClosePrescp}
-                        className="prespBoxModel">
+                        className={this.props.settings.setting.mode === 'dark' ?"darkTheme prespBoxModel":"prespBoxModel"}
+                    >
                         <Grid className="nwPresCntnt">
                             <Grid className="nwPresCntntIner">
                                 <Grid className="nwPresCourse">
@@ -484,7 +485,8 @@ class Index extends Component {
                     {/* Reject Model setup */}
                     <Modal
                         open={this.state.openReject}
-                        onClose={this.handleCloseReject}>
+                        onClose={this.handleCloseReject}
+                        className={this.props.settings.setting.mode === 'dark' ?"darkTheme":""}>
                         <Grid className="rejectBoxCntnt">
                             <Grid className="rejectCourse">
                                 <Grid className="rejectCloseBtn">

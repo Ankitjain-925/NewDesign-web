@@ -53,7 +53,7 @@ class Index extends Component {
 
 
 
-    getMyprescriptionssData =()=> {
+    getMyprescriptionssData = () => {
         let user_token = this.props.stateLoginValueAim.token
         axios.get(sitedata.data.path + '/UserProfile/GetPrescription/', {
             headers: {
@@ -102,12 +102,12 @@ class Index extends Component {
     }
 
     updatePrescription = (status, id) => {
-        this.setState({ inqstatus: status, selected_id: id, message : null })
+        this.setState({ inqstatus: status, selected_id: id, message: null })
         this.handleOpenReject();
     }
 
-    removePrsecription = (status, id) =>{
-        this.setState({message : null});
+    removePrsecription = (status, id) => {
+        this.setState({ message: null });
         confirmAlert({
             title: 'Update the Inqury',
             message: 'Are you sure  to remove this Inquiry?',
@@ -119,7 +119,26 @@ class Index extends Component {
                 {
                     label: 'NO',
                 }
-            ]
+            ],
+            customUI: ({ onClose }) => {
+                return (
+                    <div className={this.props.settings.setting.mode === 'dark' ? "dark-confirm react-confirm-alert-body" : "react-confirm-alert-body"} >
+                        <h1>Update the Inqury?</h1>
+                        <p>Are you sure  to remove this Inquiry?</p>
+                        <div className="react-confirm-alert-button-group">
+                            <button onClick={onClose}>No</button>
+                            <button
+                                onClick={() => {
+                                    this.deleteClickPatient(status, id)
+                                    onClose();
+                                }}
+                            >
+                                Yes
+                            </button>
+                        </div>
+                    </div>
+                );
+            }
         })
     }
 
@@ -139,31 +158,33 @@ class Index extends Component {
                 'Content-Type': 'application/json'
             }
         }).then((response) => {
-            this.setState({openPrescp: false, openReject: false})
+            this.setState({ openPrescp: false, openReject: false })
             this.getMyprescriptionssData();
         }).catch((error) => {
         });
     }
 
-    saveUserData = (id) =>{
-        this.setState({serverMsg : ""})
-        if(this.state.uploadedimage == ""){
-            this.setState({ serverMsg : "please upload documents"})
-        }else{
+    saveUserData = (id) => {
+        this.setState({ serverMsg: "" })
+        if (this.state.uploadedimage == "") {
+            this.setState({ serverMsg: "please upload documents" })
+        } else {
             this.setState({ loaderImage: true });
             const user_token = this.props.stateLoginValueAim.token;
-            axios.put(sitedata.data.path+'/UserProfile/UpdatePrescription/'+id, {
-                    attachfile : this.state.uploadedimage,
-                },{headers:{
+            axios.put(sitedata.data.path + '/UserProfile/UpdatePrescription/' + id, {
+                attachfile: this.state.uploadedimage,
+            }, {
+                headers: {
                     'token': user_token,
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
-                }})
-            .then((responce)=>{
-                
-                this.setState({ serverMsg : responce.data.message})
-                this.setState({ loaderImage: false });
+                }
             })
+                .then((responce) => {
+
+                    this.setState({ serverMsg: responce.data.message })
+                    this.setState({ loaderImage: false });
+                })
         }
     }
 
@@ -221,7 +242,7 @@ class Index extends Component {
                                 'Content-Type': fileType
                             }
                         };
-                        axios.put('https://cors-anywhere.herokuapp.com/'+signedRequest, file1, options)
+                        axios.put('https://cors-anywhere.herokuapp.com/' + signedRequest, file1, options)
                             .then(result => {
                                 console.log("Response from s3")
                                 this.setState({ success: true });
@@ -281,10 +302,10 @@ class Index extends Component {
     }
 
     handleOpenPrescp = (data) => {
-        this.setState({ openPrescp: true, prescData: data, imagePreviewUrl:null });
+        this.setState({ openPrescp: true, prescData: data, imagePreviewUrl: null });
     };
     handleClosePrescp = () => {
-        this.setState({ openPrescp: false, imagePreviewUrl:null });
+        this.setState({ openPrescp: false, imagePreviewUrl: null });
     };
 
     handleOpenReject = () => {
@@ -331,10 +352,10 @@ class Index extends Component {
             case "default":
                 translate = translationEN.text
         }
-        let {imagePreviewUrl}   = this.state;
-        let $imagePreview       = null;
-        if(imagePreviewUrl) {
-            $imagePreview = (<img style={{ borderRadius: "10%", maxWidth: 350,marginBottom:10 }} src={ imagePreviewUrl } />);
+        let { imagePreviewUrl } = this.state;
+        let $imagePreview = null;
+        if (imagePreviewUrl) {
+            $imagePreview = (<img style={{ borderRadius: "10%", maxWidth: 350, marginBottom: 10 }} src={imagePreviewUrl} />);
         }
         let { srvc_Doctors, status, sent, on, prescription, Pending, request, edit, Rejected, Answered, Cancelled, req_updated_successfully, sick_cert, my_doc, New, inquiry,
             doc_and_statnderd_ques, doc_aimedis_private, Annotations, details, questions, is_this_follow_pres, how_u_like_rcv_pres, Medicine, Substance, Dose, mg, trade_name, atc_if_applicable, manufacturer, pack_size, } = translate
@@ -386,7 +407,8 @@ class Index extends Component {
                     <Modal
                         open={this.state.openPrescp}
                         onClose={this.handleClosePrescp}
-                        className="prespBoxModel">
+                        className={this.props.settings.setting.mode === 'dark' ? "darkTheme prespBoxModel" : "prespBoxModel"}
+                    >
                         <Grid className="prespBoxCntnt">
                             <Grid className="prespCourse">
                                 <Grid className="prespCloseBtn">
@@ -448,10 +470,10 @@ class Index extends Component {
 
                                         {(prescData.status !== 'accept' && !$imagePreview) && <Grid className="scamUPInput">
                                             <a><img src={require('../../../../assets/images/upload-file.svg')} alt="" title="" /></a>
-                                            <a>Browse <input type="file" onChange={(e)=>this.UploadFile(e, prescData.patient_profile_id, prescData.patient_info.bucket, prescData._id)} /></a> or drag here
+                                            <a>Browse <input type="file" onChange={(e) => this.UploadFile(e, prescData.patient_profile_id, prescData.patient_info.bucket, prescData._id)} /></a> or drag here
                                         </Grid>}
-                                        {(prescData.status !== 'accept')&& !$imagePreview && <p>Supported file types: .jpg, .png, .pdf</p>}
-                                        {(prescData.status !== 'accept')  && $imagePreview}
+                                        {(prescData.status !== 'accept') && !$imagePreview && <p>Supported file types: .jpg, .png, .pdf</p>}
+                                        {(prescData.status !== 'accept') && $imagePreview}
                                         {(prescData.attachfile && success && prescData.status !== 'accept') && <Grid item xs={12} md={12}>
                                             <input type="button" value="Send to patient's Timeline and Email" onClick={() => this.saveUserData(prescData._id)} className="approvBtn" />
                                         </Grid>}
@@ -474,7 +496,8 @@ class Index extends Component {
                     {/* Reject Model setup */}
                     <Modal
                         open={this.state.openReject}
-                        onClose={this.handleCloseReject}>
+                        onClose={this.handleCloseReject}
+                        className={this.props.settings.setting.mode === 'dark' ? "darkTheme " : ""}>
                         <Grid className="rejectBoxCntnt">
                             <Grid className="rejectCourse">
                                 <Grid className="rejectCloseBtn">

@@ -333,7 +333,7 @@ class Index extends Component {
                                             </ul>
                                         </a>
                                     </Td>
-                                </Tr>
+                                </Tr>   
                             ))}
                         </Tbody>
                     </Table>
@@ -341,7 +341,8 @@ class Index extends Component {
                     <Modal
                         open={this.state.openPrescp}
                         onClose={this.handleClosePrescp}
-                        className="opinBoxModel">
+                        className={this.props.settings.setting.mode === 'dark' ?"darkTheme opinBoxModel":"opinBoxModel"}
+                       >
                         <Grid className="opinBoxCntnt">
                             <Grid className="opinBoxCntntIner">
                                 <Grid className="opinCourse">
@@ -417,7 +418,8 @@ class Index extends Component {
                     {/* Reject Model setup */}
                     <Modal
                         open={this.state.openReject}
-                        onClose={this.handleCloseReject}>
+                        onClose={this.handleCloseReject}
+                        className={this.props.settings.setting.mode === 'dark' ?"darkTheme":""}>
                         <Grid className="rejectBoxCntnt">
                             <Grid className="rejectCourse">
                                 <Grid className="rejectCloseBtn">

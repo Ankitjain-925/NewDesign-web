@@ -390,7 +390,8 @@ class Index extends Component {
                 {/* Pharmacy Prescription */}
                 <Modal
                     open={openPharma}
-                    onClose={this.handleClosePharma}>
+                    onClose={this.handleClosePharma}
+                    className={this.props.settings.setting.mode === 'dark' ?"darkTheme":""}>
                     <Grid className="phrmBoxCntnt">
                         <Grid className="phrmCourse">
                             <Grid className="phrmCloseBtn">

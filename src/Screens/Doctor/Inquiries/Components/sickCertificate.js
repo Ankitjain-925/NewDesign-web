@@ -374,7 +374,7 @@ class Index extends Component {
                                                 <li><a onClick={() => { this.handleOpenPrescp(data) }}><img src={require('../../../../assets/images/details.svg')} alt="" title="" />See Details</a></li>
                                                 {(data.status == 'free' || data.status == 'pending') && <li onClick={() => { this.updateCertificate('accept', data._id) }}><a><img src={require('../../../../assets/images/edit.svg')} alt="" title="" />Approve</a></li>}
                                                 {(data.status == 'free' || data.status == 'pending') && <li onClick={() => { this.updateCertificate('decline', data._id) }}><a><img src={require('../../../../assets/images/plus.png')} alt="" title="" />Decline</a></li>}
-                                                {(data.status == 'free' || data.status == 'pending') && <li onClick={() => { this.removePrsecription('remove', data._id) }}><a><img src={require('../../../../assets/images/cancel-request.svg')} alt="" title="" />Remove</a></li>}
+                                                {(data.status !== 'remove') && <li onClick={() => { this.removePrsecription('remove', data._id) }}><a><img src={require('../../../../assets/images/cancel-request.svg')} alt="" title="" />Remove</a></li>}
                                             </ul>
                                         </a>
                                     </Td>
@@ -386,7 +386,8 @@ class Index extends Component {
                     <Modal
                         open={this.state.openPrescp}
                         onClose={this.handleClosePrescp}
-                        className="prespBoxModel">
+                        className={this.props.settings.setting.mode === 'dark' ?"darkTheme prespBoxModel":"prespBoxModel"}
+                        >
                         <Grid className="nwPresCntnt">
                             <Grid className="nwPresCntntIner">
                                 <Grid className="nwPresCourse">
@@ -484,7 +485,8 @@ class Index extends Component {
                     {/* Reject Model setup */}
                     <Modal
                         open={this.state.openReject}
-                        onClose={this.handleCloseReject}>
+                        onClose={this.handleCloseReject}
+                        className={this.props.settings.setting.mode === 'dark' ?"darkTheme":""}>
                         <Grid className="rejectBoxCntnt">
                             <Grid className="rejectCourse">
                                 <Grid className="rejectCloseBtn">

@@ -911,7 +911,7 @@ class Index extends Component {
                                 {/* End of Website Mid Content */}
 
                                  {/* Model Patient Data Access */}
-                                <Modal  open={this.state.openData} onClose={this.handleCloseData} >
+                                <Modal  open={this.state.openData} onClose={this.handleCloseData} className={this.props.settings.setting.mode === 'dark' ?"darkTheme":""}>
                                     <Grid className="dataBoxCntnt">
                                         <Grid className="dataCourse">
                                             <Grid className="dataCloseBtn">
@@ -950,7 +950,8 @@ class Index extends Component {
                                     <Modal
                                         open={this.state.addInqryNw}
                                         onClose={this.handleCloseInqryNw}
-                                        className="nwDiaModel">
+                                        className={this.props.settings.setting.mode === 'dark' ?"darkTheme nwDiaModel":"nwDiaModel"}
+                                        >
                                         <Grid className="nwDiaCntnt">
                                             <Grid className="nwDiaCntntIner">
                                                 <Grid className="nwDiaCourse">

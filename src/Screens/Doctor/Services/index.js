@@ -681,6 +681,7 @@ class Index extends Component {
                                             </Table>
                                             {/*Start of Patient detail Modal*/}
                                             <Modal
+                                                className={this.props.settings.setting.mode === 'dark' ?"darkTheme":""}
                                                 open={this.state.showPatient}
                                                 onClose={this.handleCloseShowPatient}
                                             >
@@ -755,7 +756,7 @@ class Index extends Component {
                                             </Modal>
                                             {/* End of Model setup */}
                                             {/* Model Patient Data Access */}
-                                            <Modal open={this.state.openData} onClose={this.handleCloseData} >
+                                            <Modal open={this.state.openData} onClose={this.handleCloseData} className={this.props.settings.setting.mode === 'dark' ?"darkTheme":""}>
                                                 <Grid className="dataBoxCntnt">
                                                     <Grid className="dataCourse">
                                                         <Grid className="dataCloseBtn">
@@ -789,7 +790,8 @@ class Index extends Component {
                                             {/* Model Private Doctor Request */}
                                             <Modal
                                                 open={this.state.openReq}
-                                                onClose={this.handleCloseReq}>
+                                                onClose={this.handleCloseReq}
+                                                className={this.props.settings.setting.mode === 'dark' ?"darkTheme":""}>
                                                 <Grid className="dataBoxCntnt">
                                                     <Grid className="dataCourse">
                                                         <Grid className="dataCloseBtn">
@@ -821,7 +823,8 @@ class Index extends Component {
                                             <Modal
                                                 open={this.state.openNew}
                                                 onClose={this.handleCloseNewPatient}
-                                                className="nwPresModel"
+                                                className={this.props.settings.setting.mode === 'dark' ?"darkTheme nwPresModel":"nwPresModel"}
+                                                 
                                             >
                                                 <Grid className="dataBoxCntnt">
                                                     <Grid className="dataCourse">
