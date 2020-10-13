@@ -17,6 +17,32 @@ import TimeFormat from './../../../Components/TimeFormat/index';
 import { DatePicker } from 'antd';
 const { RangePicker } = DatePicker;
 const dateFormat = 'DD/MM/YYYY';
+const apoinmentdata = {
+    type: 'private',
+    monday_start: '',
+    monday_end: '',
+    tuesday_start: '',
+    tuesday_end: '',
+    wednesday_start: '',
+    wednesday_end: '',
+    thursday_end: '',
+    thursday_start: '',
+    friday_start: '',
+    friday_end: '',
+    saturday_start: '',
+    saturday_end: '',
+    sunday_start: '',
+    sunday_end: '',
+    breakslot: false,
+    breakslot_start: '',
+    breakslot_end: '',
+    holidays: false,
+    holidays_start: '',
+    holidays_end: '',
+    custom_text: '',
+    duration_of_timeslot: 0
+
+}
 class Index extends Component {
     constructor(props) {
         super(props);
@@ -67,34 +93,10 @@ class Index extends Component {
         }).then((response) => {
             this.setState({ loaderImage: false });
             this.setState({ paid_services: response.data.data.paid_services })
-            let apoinmentdata = {
-                type: 'private',
-                monday_start: '',
-                monday_end: '',
-                tuesday_start: '',
-                tuesday_end: '',
-                wednesday_start: '',
-                wednesday_end: '',
-                thursday_end: '',
-                thursday_start: '',
-                friday_start: '',
-                friday_end: '',
-                saturday_start: '',
-                saturday_end: '',
-                sunday_start: '',
-                sunday_end: '',
-                breakslot: false,
-                breakslot_start: '',
-                breakslot_end: '',
-                holidays: false,
-                holidays_start: '',
-                holidays_end: '',
-                custom_text: '',
-                duration_of_timeslot: 0
-
-            }
+            
             var keysArray = Object.keys(apoinmentdata);
-            let privateAppointments = response.data.data.private_appointments[0];
+            let privateAppointments = null;
+            privateAppointments = response.data.data.private_appointments[0];
             if (privateAppointments) {
                 if (privateAppointments.holidays) {
                     this.setState({
@@ -114,11 +116,17 @@ class Index extends Component {
                 this.setState({ UpDataDetails: privateAppointments, StandardSetting: privateAppointments, CustomName: privateAppointments });
             }
             else {
-                privateAppointments = apoinmentdata;
+                privateAppointments = {}
+                keysArray.map(key => {
+                    if (privateAppointments[key] == undefined) {
+                        privateAppointments[key] = apoinmentdata[key]
+                    }
+                })
                 this.setState({ UpDataDetails: privateAppointments, StandardSetting: privateAppointments, CustomName: privateAppointments });
             }
 
-            let daysForPractices = response.data.data.days_for_practices[0];
+            let daysForPractices = null;
+            daysForPractices = response.data.data.days_for_practices[0];
             if (daysForPractices) {
                 if (daysForPractices.holidays) {
                     this.setState({
@@ -138,11 +146,17 @@ class Index extends Component {
                 })
                 this.setState({ DaysforPractices: daysForPractices, PracticesSetting: daysForPractices })
             } else {
-                daysForPractices = apoinmentdata;
+                daysForPractices ={}
+                keysArray.map(key => {
+                    if (daysForPractices[key] == undefined) {
+                        daysForPractices[key] = apoinmentdata[key]
+                    }
+                })
                 this.setState({ DaysforPractices: daysForPractices, PracticesSetting: daysForPractices })
             }
 
-            let onlineAppointment = response.data.data.online_appointment[0];
+            let onlineAppointment = null
+            onlineAppointment = response.data.data.online_appointment[0];
             if (onlineAppointment) {
                 if (onlineAppointment.holidays) {
                     this.setState({
@@ -162,7 +176,12 @@ class Index extends Component {
                 
                 this.setState({ onlineAppointments: onlineAppointment, OnlineSetting: onlineAppointment })
             } else {
-                onlineAppointment = apoinmentdata;
+                onlineAppointment ={}
+                keysArray.map(key => {
+                    if (onlineAppointment[key] == undefined) {
+                        onlineAppointment[key] = apoinmentdata[key]
+                    }
+                })
                 this.setState({ onlineAppointments: onlineAppointment, OnlineSetting: onlineAppointment })
             }
 
@@ -275,8 +294,11 @@ class Index extends Component {
                 dataSave['private_appointments']['holidays_start'] = ''
                 dataSave['private_appointments']['holidays_end'] = ''
             }
-
+            dataSave['days_for_practices'] =  [dataSave['days_for_practices']];
+            dataSave['online_appointment'] = [dataSave['online_appointment']];
+            dataSave['private_appointments'] = [dataSave['private_appointments']];
             this.setState({ loaderImage: true, PrivateErr: false });
+            // console.log("dataSave", dataSave)
             axios.put(sitedata.data.path + '/UserProfile/Users/update', dataSave, {
                 headers: {
                     'token': user_token,
@@ -291,6 +313,7 @@ class Index extends Component {
                 })
         }
         else {
+            console.log("onlineAppointments", onlineAppointments)
             this.setState({ appoinmentError: true })
         }
 
@@ -696,7 +719,7 @@ class Index extends Component {
     }
 
     selectWeek = (stateChange, key) => {
-        let changestate = this.state[stateChange]
+        let changestate = this.state[stateChange];
         if (changestate[key + '_start'] == '') {
             changestate[key + '_start'] = '00:00'
             changestate[key + '_end'] = '00:00'
@@ -706,14 +729,14 @@ class Index extends Component {
             changestate[key + '_start'] = ''
             changestate[key + '_end'] = ''
         }
+        console.log('changestate', changestate)
         this.setState({ [stateChange]:  changestate })
     }
 
     onChange = (event, belong, stateChange, key) => {
-        if (event && event.target) {
+        if (event) {
             let changestate = this.state[stateChange]
-            changestate[key + '_' + belong] = event.target.value
-
+            changestate[key + '_' + belong] = moment(event).format('HH:mm')
             this.setState({ [stateChange]: changestate })
         }
     }
