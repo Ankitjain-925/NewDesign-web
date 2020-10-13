@@ -794,7 +794,7 @@
 		"automatically_hidden_content": "A new item is automatically HIDDEN to Doctors & Nurses in case of a regular profile access (PIN & ID) & must manually be made VISIBLE by me (SHOW ALWAYS or SHOW UNTIL A SPECIFIED DATE.)",
 		"automatically_visible_content": "A new item is automatically VISIBLE to Doctors & Nurses in case of a regular profile access (PIN & ID) & must manually be made INVISIBLE by me (HIDE ALWAYS or HIDE UNTIL A SPECIFIED DATE.)",
 		"Opt_Out": "Opt-Out",
-		"Opt_In": "Opt-Out",
+		"Opt_In": "Opt-In",
 		"apply_right_management_for_all_items": "Apply a right managment setting of ALL Items",
 		"plz_mention_date_time": "Please mention the date-time for until",
 		"make_all_item_visible_now_untill": "Make all items VISIBLE now (Until changed) ",

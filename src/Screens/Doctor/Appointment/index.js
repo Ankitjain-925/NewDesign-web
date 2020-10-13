@@ -579,7 +579,7 @@ class Index extends Component {
 
     onChange = (date) => {
 
-        const { appioinmentTimes, appoinmentSelected } = this.state;
+        const { appioinmentTimes, appoinmentSelected, onlineAppointments, UpDataDetails, DaysforPractices } = this.state;
         let temptimes = [];
         let suggestTime = [];
         let dateFormat = moment(date).format('DD/MM/YYYY');
@@ -609,6 +609,9 @@ class Index extends Component {
                 temptimes.push(dataq)
             }
         }
+        else {
+            //    suggestTime:[]
+        }
 
         temptimes.map(tiems => {
             let clashtime = false
@@ -623,7 +626,8 @@ class Index extends Component {
             }
         })
 
-        this.setState({ suggesteddate: date, suggestTime: suggestTime });
+        this.setState({ suggesteddate: new Date(), suggestTime: suggestTime });
+        this.setState({ suggesteddate: date })
     }
 
     selectTimeSlot = (index) => {

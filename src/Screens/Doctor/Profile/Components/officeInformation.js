@@ -119,8 +119,9 @@ class Index extends Component {
     }
 
     handlelatestChange = (value) => {
+        this.setState({PassDone:false, PassFail: false})
         let state = this.state.UpDataDetails;
-        state['latest_info'] = value;
+        state['latest_info'] = value
         this.setState({ UpDataDetails: state })
 
     }
@@ -178,8 +179,8 @@ class Index extends Component {
                         <Grid className="latstInfo">
                             <label>Latest information</label>
                             <Grid>
-                                <ReactQuill name="latest_info" value={UpDataDetails.latest_info?UpDataDetails.latest_info:''}
-                                    onChange={(value)=>this.handlelatestChange(value)} />
+                                <ReactQuill name="latest_info" value={this.state.UpDataDetails.latest_info?UpDataDetails.latest_info:''}
+                                    onChange={this.handlelatestChange} />
                             </Grid>
                         </Grid>
 
