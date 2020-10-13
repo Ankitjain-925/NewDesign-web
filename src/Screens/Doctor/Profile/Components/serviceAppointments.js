@@ -714,7 +714,7 @@ class Index extends Component {
             let changestate = this.state[stateChange]
             changestate[key + '_' + belong] = event.target.value
 
-            this.setState({ changestate })
+            this.setState({ [stateChange]: changestate })
         }
     }
 
@@ -731,7 +731,7 @@ class Index extends Component {
                 data[days + "_end"] = end_time;
             }
         })
-        this.setState({ data })
+        this.setState({ [stateChange]: data })
     }
 
     getTime = (time) => {

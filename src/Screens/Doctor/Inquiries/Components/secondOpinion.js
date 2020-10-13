@@ -304,9 +304,9 @@ class Index extends Component {
                     <Table>
                         <Thead>
                             <Tr>
-                                <Th>Case</Th>
+                                <Th>About</Th>
                                 <Th>Sent on</Th>
-                                <Th>Pateint</Th>
+                                <Th>Patient</Th>
                                 <Th>Status</Th>
                             </Tr>
                         </Thead>
@@ -314,7 +314,7 @@ class Index extends Component {
                         <Tbody>
                             {MypatientsData && MypatientsData.length > 0 && MypatientsData.map((data, index) => (
                                 <Tr>
-                                    <Td>{data.which_symptomps ? data.which_symptomps : 'Not mentioned'}</Td>
+                                    <Td>{data.details ? data.details : 'Not mentioned'}</Td>
                                     <Td>{data.send_on ? getDate(data.send_on, this.props.settings.setting ? this.props.settings.setting.date_format : 'DD/MM/YYYY') : 'Not mentioned'}</Td>
                                     <Td className="presImg"><img src={data.patient_info && data.patient_info.profile_image ? getImage(data.patient_info.profile_image, this.state.images) : require('../../../../assets/images/dr1.jpg')} alt="" title="" />{data.patient_info && data.patient_info.first_name && data.patient_info.first_name} {data.patient_info && data.patient_info.last_name && data.patient_info.last_name}</Td>
                                     {data.status === 'pending' && <Td><span className="revwYelow"></span>{Pending} </Td>}
@@ -358,17 +358,17 @@ class Index extends Component {
                                     <Grid className="stndrdQues">
                                         <h3>Specialist and standard questions</h3>
                                         <Grid className="splestQues">
-                                            <Grid><label>Specialist</label></Grid>
+                                            <Grid><label>Patient</label></Grid>
                                             <Grid><h3>{opinionData && opinionData.patient_info && opinionData.patient_info.first_name && opinionData.patient_info.first_name} {opinionData && opinionData.patient_info && opinionData.patient_info.last_name && opinionData.patient_info.last_name}</h3></Grid>
                                         </Grid>
                                         <Grid className="recevPrescp">
-                                            <Grid className="recevPrescpLbl"><label>How would you like to receive the Second Opinion?</label></Grid>
+                                            <Grid className="recevPrescpLbl"><label>How would patient like to receive the Second Opinion?</label></Grid>
                                             <Grid className="recevPrescpChk">
                                                 {opinionData.online_offline === 'online' ? "Online" : "Home address mailbox"}
                                             </Grid>
                                         </Grid>
                                         <Grid className="yrProfes">
-                                            <Grid><label>Your profession</label></Grid>
+                                            <Grid><label>Patient profession</label></Grid>
                                             <Grid>{opinionData.professions}</Grid>
                                         </Grid>
                                         <Grid className="yrProfes">
