@@ -706,7 +706,7 @@ class Index extends Component {
             changestate[key + '_start'] = ''
             changestate[key + '_end'] = ''
         }
-        this.setState({ changestate })
+        this.setState({ [stateChange]:  changestate })
     }
 
     onChange = (event, belong, stateChange, key) => {
