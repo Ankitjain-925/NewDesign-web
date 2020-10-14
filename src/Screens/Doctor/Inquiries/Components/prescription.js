@@ -109,17 +109,6 @@ class Index extends Component {
     removePrsecription = (status, id) => {
         this.setState({ message: null });
         confirmAlert({
-            title: 'Update the Inqury',
-            message: 'Are you sure  to remove this Inquiry?',
-            buttons: [
-                {
-                    label: 'YES',
-                    onClick: () => this.deleteClickPatient(status, id)
-                },
-                {
-                    label: 'NO',
-                }
-            ],
             customUI: ({ onClose }) => {
                 return (
                     <div className={this.props.settings.setting.mode === 'dark' ? "dark-confirm react-confirm-alert-body" : "react-confirm-alert-body"} >

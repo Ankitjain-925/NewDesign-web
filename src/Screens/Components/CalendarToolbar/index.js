@@ -7,6 +7,8 @@ import { Calendar, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
 import sitedata from '../../../sitedata';
 import axios from 'axios';
+import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
+import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 const CURRENT_DATE = moment().toDate();
 const localizer = momentLocalizer(moment)
 const options = [
@@ -28,7 +30,6 @@ export default class CalendarToolbar extends Toolbar {
 	}
 
 	handleChange = (changedata) => {
-		console.log("changedata", this.view)
 		this.view(changedata.value)
 		this.setState({ selectedOption: changedata })
 	}
@@ -104,8 +105,8 @@ export default class CalendarToolbar extends Toolbar {
 								<Grid item xs={6} md={6} className="todayMnth">
 									<Grid className="todaySrchLft"><label onClick={() => this.navigate('TODAY')}>Today</label></Grid>
 									<Grid className="movMnth">
-										<a onClick={() => this.navigate('PREV')}><img src={require('../../../assets/images/leftArow.jpg')} alt="" title="" /></a>
-										<a onClick={() => this.navigate('NEXT')}><img src={require('../../../assets/images/rightArow.jpg')} alt="" title="" /></a>
+										<a onClick={() => this.navigate('PREV')}><NavigateBeforeIcon /></a>
+										<a onClick={() => this.navigate('NEXT')}><NavigateNextIcon/></a>
 									</Grid>
 									<Grid className="crntMonth">{this.props.label}</Grid>
 								</Grid>

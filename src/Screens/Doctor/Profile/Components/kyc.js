@@ -179,7 +179,7 @@ class Index extends Component {
             var namefield = filed_name;
             for (var i = 0; i < event.length; i++) {
                 var file = event[i];
-                let profile_id = this.props.staLoginValueAim.user.profile_id
+                let profile_id = this.props.stateLoginValueAim.user.profile_id
                 let fileParts = event[i].name.split('.');
                 let fileName = fileParts[0];
                 let fileType = fileParts[1];
