@@ -119,7 +119,6 @@ class Index extends Component {
     }
 
     handlelatestChange = (value) => {
-        this.setState({PassDone:false, PassFail: false})
         let state = this.state.UpDataDetails;
         state['latest_info'] = value
         this.setState({ UpDataDetails: state })
