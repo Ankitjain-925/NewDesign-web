@@ -176,7 +176,7 @@ class Index extends Component {
                     folders: patient_profile_id + '/Trackrecord/',
                     bucket: bucket
                 }).then(response => {
-                    fileattach.push({ filename: response.data.data.returnData.url + '&bucket=' + bucket })
+                    fileattach.push({ filename: response.data.data.returnData.url + '&bucket=' + bucket, filetype: fileType })
                     this.setState({ fileupods: true });
                     setTimeout(() => { this.setState({ fileupods: false }); }, 5000);
                     var returnData = response.data.data.returnData;

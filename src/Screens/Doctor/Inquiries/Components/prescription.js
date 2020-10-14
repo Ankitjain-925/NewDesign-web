@@ -291,7 +291,10 @@ class Index extends Component {
     }
 
     handleOpenPrescp = (data) => {
-        this.setState({ openPrescp: true, prescData: data, imagePreviewUrl: null });
+        let imagePreviewUrl = null
+        if(data.attachfile && data.attachfile.length>0) imagePreviewUrl = data.attachfile[0].filename;
+        console.log("imagePreviewUrl", imagePreviewUrl)
+        this.setState({ openPrescp: true, prescData: data, imagePreviewUrl: imagePreviewUrl });
     };
     handleClosePrescp = () => {
         this.setState({ openPrescp: false, imagePreviewUrl: null });
@@ -462,7 +465,7 @@ class Index extends Component {
                                             <a>Browse <input type="file" onChange={(e) => this.UploadFile(e, prescData.patient_profile_id, prescData.patient_info.bucket, prescData._id)} /></a> or drag here
                                         </Grid>}
                                         {(prescData.status !== 'accept') && !$imagePreview && <p>Supported file types: .jpg, .png, .pdf</p>}
-                                        {(prescData.status !== 'accept') && $imagePreview}
+                                        {$imagePreview}
                                         {(prescData.attachfile && success && prescData.status !== 'accept') && <Grid item xs={12} md={12}>
                                             <input type="button" value="Send to patient's Timeline and Email" onClick={() => this.saveUserData(prescData._id)} className="approvBtn" />
                                         </Grid>}
