@@ -868,7 +868,7 @@ class Index extends Component {
         }
         let { journal, add_new_entry, New, entry, edit, blood_pressure, doc_visit, blood_sugar, covid_diary, condition_pain, diagnosis, diary, weight_bmi,
             vaccination, marcumar_pass, smoking_status, hosp_visit, lab_result, file_uplod, family_anmnies, medication,
-            personalize_dashbrd } = translate;
+            personalize_dashbrd, online, patient_access_data, another_patient_data, get_patient_access_data, id_pin_not_correct, healthcare_access_for_non_conn_patient, patient_id, pin , enter_pin, view_data, prescription, secnd_openion, sick_cert, anamnesis, Prescription } = translate;
 
         const { stateLoginValueAim, Doctorsetget } = this.props;
         if (stateLoginValueAim.user === 'undefined' || stateLoginValueAim.token === 450 || stateLoginValueAim.token === 'undefined' || stateLoginValueAim.user.type !== 'doctor') {
@@ -902,11 +902,11 @@ class Index extends Component {
                                                 <Grid item xs={11} md={11}>
                                                     <Grid container direction="row">
                                                         <Grid item xs={6} md={6}>
-                                                            <h1>Patient Access Data</h1>
+                                                            <h1>{patient_access_data}</h1>
                                                         </Grid>
                                                         <Grid item xs={6} md={6}>
                                                             <Grid className="AddEntrynw">
-                                                                {this.props.Doctorsetget && this.props.Doctorsetget.p_id !== null ? <a onClick={this.AnotherPatient}>Another patient's Data</a> : <a onClick={this.handleOpenData}>Get Patient Access Data</a>}
+                                                                {this.props.Doctorsetget && this.props.Doctorsetget.p_id !== null ? <a onClick={this.AnotherPatient}>{another_patient_data}</a> : <a onClick={this.handleOpenData}>{get_patient_access_data}</a>}
                                                                 {this.props.Doctorsetget && this.props.Doctorsetget.p_id !== null && <a onClick={this.handleOpenEntry}>+ {add_new_entry}</a>}
                                                             </Grid>
                                                         </Grid>
@@ -941,23 +941,23 @@ class Index extends Component {
                                                     <img src={require('../../../assets/images/closefancy.png')} alt="" title="" />
                                                 </a>
                                             </Grid>
-                                            <Grid>{this.state.error_msg && <div className="err_message">ID or PIN is not correct</div>}</Grid>
-                                            <Grid><label>Patient Data Access</label></Grid>
-                                            <p>Healthdata access for non-connected patient</p>
+                                            <Grid>{this.state.error_msg && <div className="err_message">{id_pin_not_correct}</div>}</Grid>
+                                            <Grid><label>{patient_access_data}</label></Grid>
+                                            <p>{healthcare_access_for_non_conn_patient}</p>
                                         </Grid>
                                         <Grid className="dataBoxUpr">
                                             <Grid className="dataBoxInput">
                                                 <Grid>
-                                                    <Grid><label>Patient ID</label></Grid>
+                                                    <Grid><label>{patient_id}</label></Grid>
                                                     <Grid><input type="text" name="patient_id" placeholder="Enter Patient ID" id="login-name" onChange={this.GetTrackData}/></Grid>
                                                 </Grid>
                                                 <Grid>
-                                                    <Grid><label>PIN</label></Grid>
-                                                    <Grid><input type="text" id="pin" name="pin" placeholder="Enter Pin" onChange={this.GetTrackData}/></Grid>
+                                                    <Grid><label>{pin}</label></Grid>
+                                                    <Grid><input type="text" id="pin" name="pin" placeholder={enter_pin} onChange={this.GetTrackData}/></Grid>
                                                 </Grid>
                                             </Grid>
                                             <Grid className="dataBoxSub">
-                                                <input type="submit" value="View Data" onClick={this.setTrack}/>
+                                                <input type="submit" value={view_data} onClick={this.setTrack}/>
                                             </Grid>
                                         </Grid>
                                     </Grid>
@@ -1001,9 +1001,9 @@ class Index extends Component {
                                                                     <option value="laboratory_result">{lab_result}</option>
                                                                     <option value="marcumar_pass">{marcumar_pass}</option>
                                                                     <option value="medication" >{medication}</option>
-                                                                    <option value="prescription">Prescription</option>
-                                                                    <option value="second_opinion">Second Opinion</option>
-                                                                    <option value="sick_certificate">Sick Certificate</option>
+                                                                    <option value="prescription">{prescription}</option>
+                                                                    <option value="second_opinion">{secnd_openion}</option>
+                                                                    <option value="sick_certificate">{sick_cert}</option>
                                                                     <option value="smoking_status">{smoking_status}</option>
                                                                     <option value="vaccination">{vaccination}</option>
                                                                     <option value="weight_bmi">{weight_bmi}</option>
@@ -1014,7 +1014,7 @@ class Index extends Component {
                                                             <p>{edit} {entry}</p>
                                                             <Grid className="nwDiaSel">
                                                                 <select disabled onChange={(e) => this.SelectOption(e.target.value)} value={this.state.current_select}>
-                                                                    <option value="anamnesis">Anamnesis</option>
+                                                                    <option value="anamnesis">{anamnesis}</option>
                                                                     <option value="blood_pressure">{blood_pressure}</option>
                                                                     <option value="blood_sugar">{blood_sugar}</option>
                                                                     <option value="condition_pain">{condition_pain}</option>
@@ -1028,9 +1028,9 @@ class Index extends Component {
                                                                     <option value="laboratory_result">{lab_result}</option>
                                                                     <option value="marcumar_pass">{marcumar_pass}</option>
                                                                     <option value="medication" >{medication}</option>
-                                                                    <option value="prescription">Prescription</option>
-                                                                    <option value="second_opinion">Second Opinion</option>
-                                                                    <option value="sick_certificate">Sick Certificate</option>
+                                                                    <option value="prescription">{Prescription}</option>
+                                                                    <option value="second_opinion">{secnd_openion}</option>
+                                                                    <option value="sick_certificate">{sick_cert}</option>
                                                                     <option value="smoking_status">{smoking_status}</option>
                                                                     <option value="vaccination">{vaccination}</option>
                                                                     <option value="weight_bmi">{weight_bmi}</option>

@@ -244,12 +244,10 @@ class Index extends Component {
             case "default":
                 translate = translationEN.text
         }
-
-
         let { Log_into, Register_email, login_Password, login_Forgotpassword,
-            login_LOGIN_btn, login_an_account, login_Registerhere, two_fac_auth } = translate;
+            login_LOGIN_btn, login_an_account, login_Registerhere, two_fac_auth, code_not_verified, email_not_valid, password_cant_empty, user_not_exist, wrong_password, user_is_blocked } = translate;
 
-       
+
         if (stateLoginValueAim.token !== 450 && stateLoginValueAim.user.type === 'patient' && this.props.verifyCode.code) {
             if (stateLoginValueAim.kyc) {
                 return (<Redirect to={'/patient'} />);
@@ -349,13 +347,13 @@ class Index extends Component {
                                 <Grid className="logForm">
                                     <div className="err_message">
                                         {
-                                            this.state.loginError1 ? 'Code is not verified.' :
-                                                this.state.loginError2 ? 'Email is not valid' :
-                                                    this.state.loginError9 ? 'Password can not be empty' :
+                                            this.state.loginError1 ? code_not_verified :
+                                                this.state.loginError2 ? email_not_valid :
+                                                    this.state.loginError9 ? password_cant_empty :
                                                         this.state.loginError === false && stateLoginValueAim.token === 450 && myLogin && stateLoginValueAim.message ?
-                                                            stateLoginValueAim.message === "User does not exist" ? 'User does not exist' :
-                                                                stateLoginValueAim.message === "User is blocked" ? 'User is blocked' :
-                                                                    stateLoginValueAim.message === "Wrong password" ? 'Wrong password' : false
+                                                            stateLoginValueAim.message === "User does not exist" ? user_not_exist :
+                                                                stateLoginValueAim.message === "User is blocked" ? user_is_blocked :
+                                                                    stateLoginValueAim.message === "Wrong password" ? wrong_password : false
                                                             : false}
                                     </div>
                                     <Grid className="logRow">

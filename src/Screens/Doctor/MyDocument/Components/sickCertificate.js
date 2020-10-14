@@ -208,7 +208,7 @@ class Index extends Component {
                                 'Content-Type': fileType
                             }
                         };
-                        axios.put('https://cors-anywhere.herokuapp.com/'+signedRequest, file1, options)
+                        axios.put('https://cors-anywhere.herokuapp.com/' + signedRequest, file1, options)
                             .then(result => {
                                 console.log("Response from s3")
                                 this.setState({ success: true });
@@ -306,9 +306,9 @@ class Index extends Component {
 
     render() {
         const { inqstatus, sickData, MypatientsData, imagePreviewUrl } = this.state;
-        let $imagePreview       = null;
-        if(imagePreviewUrl) {
-            $imagePreview = (<img style={{ borderRadius: "10%", maxWidth: 350,marginBottom:10 }} src={ imagePreviewUrl } />);
+        let $imagePreview = null;
+        if (imagePreviewUrl) {
+            $imagePreview = (<img style={{ borderRadius: "10%", maxWidth: 350, marginBottom: 10 }} src={imagePreviewUrl} />);
         }
         let translate;
         switch (this.props.stateLanguageType) {
@@ -339,7 +339,7 @@ class Index extends Component {
             case "default":
                 translate = translationEN.text
         }
-        let { srvc_Doctors, status, sent, on, what_ur_profession, Pending, request, edit, Rejected, Answered, Cancelled, req_updated_successfully, sick_cert, my_doc, New, inquiry,
+        let { srvc_Doctors, status, sent, Case, sent_on, Patient, on, what_ur_profession, Pending, request, edit, Rejected, Answered, Cancelled, req_updated_successfully, sick_cert, my_doc, New, inquiry, back, inquiry, short_msg, next, previous,
             doc_and_statnderd_ques, doc_aimedis_private, Annotations, details, questions, how_u_feeling, is_ur_temp_high_to_38, which_symptoms_do_u_hav, show, since_when, have_u_already_been_sick, how_long_do_u_unable_to_work, it_is_known_dieseas, r_u_tracking_medi, do_u_hv_allergies, } = translate
 
         return (
@@ -349,10 +349,10 @@ class Index extends Component {
                     <Table>
                         <Thead>
                             <Tr>
-                                <Th>Case</Th>
-                                <Th>Sent on</Th>
-                                <Th>Pateint</Th>
-                                <Th>Status</Th>
+                                <Th>{Case}</Th>
+                                <Th>{sent_on}</Th>
+                                <Th>{Pateint}</Th>
+                                <Th>{status}</Th>
                             </Tr>
                         </Thead>
 
@@ -386,7 +386,7 @@ class Index extends Component {
                     <Modal
                         open={this.state.openPrescp}
                         onClose={this.handleClosePrescp}
-                        className={this.props.settings&&this.props.settings.setting && this.props.settings.setting.mode &&this.props.settings.setting.mode === 'dark' ?"darkTheme prespBoxModel":"prespBoxModel"}
+                        className={this.props.settings.setting.mode === 'dark' ? "darkTheme prespBoxModel" : "prespBoxModel"}
                     >
                         <Grid className="nwPresCntnt">
                             <Grid className="nwPresCntntIner">
@@ -458,13 +458,13 @@ class Index extends Component {
 
                                         <Grid><label>{(sickData.status !== 'accept') ? 'Upload scanned' : 'Scanned'} prescription</label></Grid>
 
-                                        {(sickData.status !== 'accept'&& !$imagePreview) && <Grid className="scamUPInput">
+                                        {(sickData.status !== 'accept' && !$imagePreview) && <Grid className="scamUPInput">
                                             <a><img src={require('../../../../assets/images/upload-file.svg')} alt="" title="" /></a>
-                                            <a>Browse <input type="file" onChange={(e)=>this.UploadFile(e, sickData.patient_profile_id, sickData.patient_info.bucket, sickData._id)} /></a> or drag here
+                                            <a>Browse <input type="file" onChange={(e) => this.UploadFile(e, sickData.patient_profile_id, sickData.patient_info.bucket, sickData._id)} /></a> or drag here
                                                                             </Grid>}
-                                        {(sickData.status !== 'accept')&& !$imagePreview && <p>Supported file types: .jpg, .png, .pdf</p>}
-                                        {(sickData.status === 'accept')&& !$imagePreview && <img src={sickData.attachfile[0].filename} />}
-                                        {(sickData.status !== 'accept')  && $imagePreview}
+                                        {(sickData.status !== 'accept') && !$imagePreview && <p>Supported file types: .jpg, .png, .pdf</p>}
+                                        {(sickData.status === 'accept') && !$imagePreview && <img src={sickData.attachfile[0].filename} />}
+                                        {(sickData.status !== 'accept') && $imagePreview}
                                         {(sickData.attachfile && this.state.uploadedimage && sickData.status !== 'accept') && <Grid item xs={12} md={12}>
                                             <input type="button" value="Send to patient's Timeline and Email" onClick={() => this.saveUserData(sickData._id)} className="approvBtn" />
                                         </Grid>}
@@ -486,7 +486,7 @@ class Index extends Component {
                     <Modal
                         open={this.state.openReject}
                         onClose={this.handleCloseReject}
-                        className={this.props.settings&&this.props.settings.setting && this.props.settings.setting.mode &&this.props.settings.setting.mode === 'dark' ?"darkTheme":""}>
+                        className={this.props.settings.setting.mode === 'dark' ? "darkTheme" : ""}>
                         <Grid className="rejectBoxCntnt">
                             <Grid className="rejectCourse">
                                 <Grid className="rejectCloseBtn">
@@ -494,11 +494,11 @@ class Index extends Component {
                                         <img src={require('../../../../assets/images/closefancy.png')} alt="" title="" />
                                     </a>
                                 </Grid>
-                                <p onClick={this.handleCloseReject}>Back</p>
-                                <Grid><label>{inqstatus} Inquiry</label></Grid>
+                                <p onClick={this.handleCloseReject}>{back}</p>
+                                <Grid><label>{inqstatus} {inquiry}</label></Grid>
                             </Grid>
                             <Grid className="shrtRejctMsg">
-                                <Grid><label>Short message</label></Grid>
+                                <Grid><label>{short_msg}</label></Grid>
                                 <Grid><textarea onChange={(e) => this.setState({ message: e.target.value })}></textarea></Grid>
                                 <Grid><input type="submit" value={inqstatus} onChange={() => this.updateCertificateDetails(inqstatus, this.state.selected_id)} /></Grid>
                             </Grid>
@@ -514,11 +514,11 @@ class Index extends Component {
                             </Grid>
                             <Grid item xs={12} md={6}>
                                 {this.state.totalPage > 1 && <Grid className="prevNxtpag">
-                                    {this.state.currentPage != 1 && <a className="prevpag" onClick={() => { this.onChangePage(this.state.currentPage - 1) }}>Previous</a>}
+                                    {this.state.currentPage != 1 && <a className="prevpag" onClick={() => { this.onChangePage(this.state.currentPage - 1) }}>{previous}</a>}
                                     {this.state.pages && this.state.pages.length > 0 && this.state.pages.map((item, index) => (
                                         <a className={this.state.currentPage == item && "activePageDocutmet"} onClick={() => { this.onChangePage(item) }}>{item}</a>
                                     ))}
-                                    {this.state.currentPage != this.state.totalPage && <a className="nxtpag" onClick={() => { this.onChangePage(this.state.currentPage + 1) }}>Next</a>}
+                                    {this.state.currentPage != this.state.totalPage && <a className="nxtpag" onClick={() => { this.onChangePage(this.state.currentPage + 1) }}>{next}</a>}
                                 </Grid>}
                             </Grid>
                         </Grid>

@@ -16,7 +16,7 @@ import { LanguageFetchReducer } from './../../../actions';
 import { getDate, getImage } from './../../../Components/BasicMethod/index';
 import * as translationEN from '../../../../translations/en_json_proofread_13072020.json';
 import FileUploader from './../../../Components/FileUploader/index';
-// import * as translationDE from '../../../translations/de_json_proofread_13072020.json';
+
 function TabContainer(props) {
     return (
         <Typography component="div" className="tabsCntnts">
@@ -176,7 +176,7 @@ class Index extends Component {
                     folders: patient_profile_id + '/Trackrecord/',
                     bucket: bucket
                 }).then(response => {
-                    fileattach.push({ filename: response.data.data.returnData.url + '&bucket=' + bucket })
+                    fileattach.push({ filename: response.data.data.returnData.url + '&bucket=' + bucket, filetype: fileType })
                     this.setState({ fileupods: true });
                     setTimeout(() => { this.setState({ fileupods: false }); }, 5000);
                     var returnData = response.data.data.returnData;
@@ -302,8 +302,9 @@ class Index extends Component {
             case "default":
                 translate = translationEN.text
         }
-        let { srvc_Doctors, status, sent, on, what_ur_profession, Pending, request, edit, Rejected, Answered, Cancelled, req_updated_successfully, sick_cert, my_doc, New, inquiry,
-            doc_and_statnderd_ques, doc_aimedis_private, Annotations, details, questions, how_u_feeling, is_ur_temp_high_to_38, which_symptoms_do_u_hav, show, since_when, have_u_already_been_sick, how_long_do_u_unable_to_work, it_is_known_dieseas, r_u_tracking_medi, do_u_hv_allergies, } = translate
+        let {srvc_Doctors, see_details, approve, decline, remove, prescription_inquiry, standerd_ques, questions, patient_health_status, sent, on, prescription, Pending, request, edit, Rejected, Answered, Cancelled, req_updated_successfully, sick_cert, my_doc, New, inquiry,
+            doc_and_statnderd_ques, doc_aimedis_private, Annotations, details, Patient, recved_on, status, home_add_mailbox, how_u_like_rcv_pres, Medicine, Substance, Dose, mg, trade_name, atc_if_applicable, manufacturer, pack_size,
+        Medications, allergies, dignoses, browse, or_drag_here, online,suported_file_type_jpg_png, snd_patient_timeline_email, next, reject, short_msg, previous, back, about, sent_on, secnd_openion, plz_upload_png_jpg, specilist_and_secnd_openion, how_would_patient_like_to_rcv_secon_openion, patient_profession, attachments, attached_doc } = translate
 
         return (
             <div>
@@ -312,10 +313,10 @@ class Index extends Component {
                     <Table>
                         <Thead>
                             <Tr>
-                                <Th>About</Th>
-                                <Th>Sent on</Th>
-                                <Th>Patient</Th>
-                                <Th>Status</Th>
+                                <Th>{about}</Th>
+                                <Th>{sent_on}</Th>
+                                <Th>{Patient}</Th>
+                                <Th>{status}</Th>
                             </Tr>
                         </Thead>
 
@@ -334,10 +335,10 @@ class Index extends Component {
                                         <a className="openScndhrf">
                                             <img src={require('../../../../assets/images/threedots.jpg')} alt="" title="" className="openScnd" />
                                             <ul>
-                                                <li><a onClick={() => { this.handleOpenPrescp(data) }}><img src={require('../../../../assets/images/details.svg')} alt="" title="" />See Details</a></li>
-                                                {(data.status == 'free'||data.status === 'pending')  && <li onClick={() => { this.handleOpenPrescp(data) }}><a><img src={require('../../../../assets/images/edit.svg')} alt="" title="" />Approve</a></li>}
-                                                {(data.status == 'free'||data.status === 'pending')  && <li onClick={() => { this.updateCertificate('decline', data._id) }}><a><img src={require('../../../../assets/images/plus.png')} alt="" title="" />Reject</a></li>}
-                                                {data.status !== 'remove' && <li onClick={() => { this.removePrsecription('remove', data._id) }}><a><img src={require('../../../../assets/images/cancel-request.svg')} alt="" title="" />Remove</a></li>}
+                                                <li><a onClick={() => { this.handleOpenPrescp(data) }}><img src={require('../../../../assets/images/details.svg')} alt="" title="" />{see_details}</a></li>
+                                                {(data.status == 'free'||data.status === 'pending')  && <li onClick={() => { this.handleOpenPrescp(data) }}><a><img src={require('../../../../assets/images/edit.svg')} alt="" title="" />{approve}</a></li>}
+                                                {(data.status == 'free'||data.status === 'pending')  && <li onClick={() => { this.updateCertificate('decline', data._id) }}><a><img src={require('../../../../assets/images/plus.png')} alt="" title="" />{reject}</a></li>}
+                                                {data.status !== 'remove' && <li onClick={() => { this.removePrsecription('remove', data._id) }}><a><img src={require('../../../../assets/images/cancel-request.svg')} alt="" title="" />{remove}</a></li>}
                                             </ul>
                                         </a>
                                     </Td>
@@ -359,41 +360,41 @@ class Index extends Component {
                                             <img src={require('../../../../assets/images/closefancy.png')} alt="" title="" />
                                         </a>
                                     </Grid>
-                                    <p>Edit inquiry</p>
-                                    <Grid><label>Second Opinion</label></Grid>
+                                    <p>{edit} {inquiry}</p>
+                                    <Grid><label>{secnd_openion}</label></Grid>
                                 </Grid>
-                                {this.state.err_pdf && <div className="err_message">Please upload PDF, PNG and JPEG file</div>}
+                                {this.state.err_pdf && <div className="err_message">{plz_upload_png_jpg}</div>}
                                 <Grid className="shrHlthMain">
                                     <Grid className="stndrdQues">
-                                        <h3>Specialist and standard questions</h3>
+                                        <h3>{specilist_and_secnd_openion}</h3>
                                         <Grid className="splestQues">
-                                            <Grid><label>Patient</label></Grid>
+                                            <Grid><label>{Patient}</label></Grid>
                                             <Grid><h3>{opinionData && opinionData.patient_info && opinionData.patient_info.first_name && opinionData.patient_info.first_name} {opinionData && opinionData.patient_info && opinionData.patient_info.last_name && opinionData.patient_info.last_name}</h3></Grid>
                                         </Grid>
                                         <Grid className="recevPrescp">
-                                            <Grid className="recevPrescpLbl"><label>How would patient like to receive the Second Opinion?</label></Grid>
+                                            <Grid className="recevPrescpLbl"><label>{how_would_patient_like_to_rcv_secon_openion}</label></Grid>
                                             <Grid className="recevPrescpChk">
-                                                {opinionData.online_offline === 'online' ? "Online" : "Home address mailbox"}
+                                                {opinionData.online_offline === 'online' ? online :home_add_mailbox}
                                             </Grid>
                                         </Grid>
                                         <Grid className="yrProfes">
-                                            <Grid><label>Patient profession</label></Grid>
+                                            <Grid><label>{patient_profession}</label></Grid>
                                             <Grid>{opinionData.professions}</Grid>
                                         </Grid>
                                         <Grid className="yrProfes">
-                                            <Grid><label>Annotations / details / questions</label></Grid>
+                                            <Grid><label>{Annotations} / {details} / {questions}</label></Grid>
                                             <Grid>{opinionData.details}</Grid>
                                         </Grid>
                                         <Grid className="attchForms attchImg">
-                                            <Grid><label>Attachments</label></Grid>
-                                            <label class="attached_file">Attached Document -
+                                            <Grid><label>{attachments}</label></Grid>
+                                            <label class="attached_file">{attached_doc} -
                                         {opinionData && opinionData.documents && opinionData.documents.map((items) => (
                                                 <a>{items.filename && (items.filename.split('second_opinion/')[1]).split("&bucket=")[0]}</a>
                                             ))}
                                             </label>
                                             <FileUploader name="UploadDocument" fileUpload={this.UploadFile} />
                                             {(this.state.success && opinionData.status !== 'accept') && <Grid item xs={12} md={12}>
-                                            <input type="button" value="Send to patient's Timeline and Email" onClick={() => this.saveUserData(opinionData._id)} className="approvBtn" />
+                                            <input type="button" value={snd_patient_timeline_email} onClick={() => this.saveUserData(opinionData._id)} className="approvBtn" />
                                             </Grid>}
                                             {/* <Grid className="attchbrowsInput">
                                             <a><img src={require('../../../../assets/images/upload-file.svg')} alt="" title="" /></a>
@@ -409,10 +410,10 @@ class Index extends Component {
                                     <Grid className="infoShwSave">
                                     {(opinionData.status !== 'accept' && opinionData.status !== 'decline') && <Grid container direction="row">
                                     <Grid item xs={6} md={6}>
-                                        <input type="button" value="Approve" onClick={() => this.deleteClickPatient('accept', opinionData._id)} className="approvBtn" />
+                                        <input type="button" value={approve} onClick={() => this.deleteClickPatient('accept', opinionData._id)} className="approvBtn" />
                                     </Grid>
                                     <Grid item xs={6} md={6}>
-                                        <input type="button" value="Reject" onClick={() => this.updatePrescription('decline', opinionData._id)} className="rejectBtn" />
+                                        <input type="button" value={reject} onClick={() => this.updatePrescription('decline', opinionData._id)} className="rejectBtn" />
                                     </Grid>
                                 </Grid>}
                                         {/* <input type="submit" onClick={this.submit} value="Edit entry" /> */}
@@ -435,11 +436,11 @@ class Index extends Component {
                                         <img src={require('../../../../assets/images/closefancy.png')} alt="" title="" />
                                     </a>
                                 </Grid>
-                                <p onClick={this.handleCloseReject}>Back</p>
-                                <Grid><label>{inqstatus} Inquiry</label></Grid>
+                                <p onClick={this.handleCloseReject}>{back}</p>
+                                <Grid><label>{inqstatus} {inquiry}</label></Grid>
                             </Grid>
                             <Grid className="shrtRejctMsg">
-                                <Grid><label>Short message</label></Grid>
+                                <Grid><label>{short_msg}</label></Grid>
                                 <Grid><textarea onChange={(e) => this.setState({ message: e.target.value })}></textarea></Grid>
                                 <Grid><input type="submit" value={inqstatus} onChange={() => this.deleteClickPatient(inqstatus, this.state.selected_id)} /></Grid>
                             </Grid>
@@ -455,11 +456,11 @@ class Index extends Component {
                             </Grid>
                             <Grid item xs={12} md={6}>
                                 {this.state.totalPage > 1 && <Grid className="prevNxtpag">
-                                    {this.state.currentPage != 1 && <a className="prevpag" onClick={() => { this.onChangePage(this.state.currentPage - 1) }}>Previous</a>}
+                                    {this.state.currentPage != 1 && <a className="prevpag" onClick={() => { this.onChangePage(this.state.currentPage - 1) }}>{previous}</a>}
                                     {this.state.pages && this.state.pages.length > 0 && this.state.pages.map((item, index) => (
                                         <a className={this.state.currentPage == item && "activePageDocutmet"} onClick={() => { this.onChangePage(item) }}>{item}</a>
                                     ))}
-                                    {this.state.currentPage != this.state.totalPage && <a className="nxtpag" onClick={() => { this.onChangePage(this.state.currentPage + 1) }}>Next</a>}
+                                    {this.state.currentPage != this.state.totalPage && <a className="nxtpag" onClick={() => { this.onChangePage(this.state.currentPage + 1) }}>{next}</a>}
                                 </Grid>}
                             </Grid>
                         </Grid>

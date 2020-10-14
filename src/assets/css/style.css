@@ -7279,7 +7279,8 @@ a.vsblDots, a.conPainDots, a.bp_vsblDots, a.hideDots {
 .homeBgDrk .emrgncyAccess p, .homeBgDrk .otpAccess h5, .homeBgDrk .spcifyKind h5,
 .homeBgDrk .datTimFrmt h5, .homeBgDrk .patientKyc h5, .homeBgDrk .onlinLft h4, 
 .homeBgDrk .nwCoursName h3, .homeBgDrk .profileName2 label, .homeBgDrk .lstdrVisitLft h3,
-.homeBgDrk .phrmOpinion label{
+.homeBgDrk .phrmOpinion label, .homeBgDrk .tabsCntnts h3, .homeBgDrk .tabsCntnts label,.homeBgDrk .onlinSickVdo span,
+.homeBgDrk .onlinSickCer span{
     color: #FAFAFA !important;
 }
 .homeBgDrk .profileInfo p, .homeBgDrk .chngPasswrd p,
@@ -7289,7 +7290,7 @@ a.vsblDots, a.conPainDots, a.bp_vsblDots, a.hideDots {
 .homeBgDrk .rghtMgnt p, .homeBgDrk .otpAccess p, .homeBgDrk .otpAccess span.MuiFormControlLabel-label,
 .homeBgDrk .spcifyKind span.MuiFormControlLabel-label, .homeBgDrk .emrgncyAccess span.MuiFormControlLabel-label,
 .homeBgDrk .datTimFrmt p, .patientKyc p, .homeBgDrk .licensProof p, .homeBgDrk .sprtImg p, .homeBgDrk .aceptTermsPlcy span,
-.homeBgDrk .prfilHghtLft2 p, .homeBgDrk .prfilHghtRght2 p {
+.homeBgDrk .prfilHghtLft2 p, .homeBgDrk .prfilHghtRght2 p , .homeBgDrk .apontBook p, .homeBgDrk .profileIdLft span{
     color: #BFC1C1 !important;
 }
 .homeBgDrk .profileTabs button span {
@@ -10265,7 +10266,7 @@ img.vdoCalNow {
     display: flex;
 }
 .setSchedule div:first-child {
-    width: 40%;
+    width: 60%;
 }
 .setSchedule div:last-child {
     width: 60%;
@@ -13701,4 +13702,7 @@ input:focus {
 .LanguageBoxMain {
     width: 94% !important;
   }
+}
+.homeBgDrk .profileId{
+    background-color: #606565;
 }

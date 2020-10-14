@@ -17,7 +17,7 @@ import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
 import FileUploader from './../../../Components/FileUploader/index';
 import Loader from '../../../Components/Loader/index';
 import { getDate, getImage, GetUrlImage } from '../../../Components/BasicMethod/index'
-
+import translationEN from "../../../../translations/en_json_proofread_13072020.json"
 const specialistOptions = [
     { value: 'Specialist1', label: 'Specialist1' },
     { value: 'Specialist2', label: 'Specialist2' },
@@ -25,7 +25,7 @@ const specialistOptions = [
 
 class Index extends Component {
     constructor(props) {
-       super(props);
+        super(props);
         this.state = {
             currentList: [],
             currentPage: 1,
@@ -70,7 +70,7 @@ class Index extends Component {
     handleshowSick = (data) => {
         this.setState({ addInqry: false, showInquiry: true, AddSecond: data });
     };
-    handleCloseShowSick=()=>{
+    handleCloseShowSick = () => {
         this.setState({ addInqry: false, showInquiry: false });
     }
     //on adding new data
@@ -224,18 +224,50 @@ class Index extends Component {
     }
 
     render() {
+        let translate
+        switch (this.props.stateLanguageType) {
+            case "en":
+                translate = translationEN.text
+                break;
+            // case "de":
+            //     translate = translationDE.text
+            //     break;
+            // case "pt":
+            //     translate = translationPT.text
+            //     break;
+            // case "sp":
+            //     translate = translationSP.text
+            //     break;
+            // case "rs":
+            //     translate = translationRS.text
+            //     break;
+            // case "nl":
+            //     translate = translationNL.text
+            //     break;
+            // case "ch":
+            //     translate = translationCH.text
+            //     break;
+            // case "sw":
+            //     translate = translationSW.text
+            //     break;
+            case "default":
+                translate = translationEN.text
+        }
+        let {req_updated_successfully, about, sent_on, srvc_Doctors, status, secnd_openion, New, inquiry, plz_upload_png_jpg, doc_require_for_second_openion, share_health_status, share_ur_jounral_status, share_health_status_info_from_journal, see_list_shared_info,
+             specilist_and_secnd_openion, specialist, how_wuld_u_like_rcv_scnd_openion, online, home_add_mailbox, ur_profesion, Annotations, questions, details, attachments, save_entry, rqst_sent_succefully, Pending, Answered, Rejected, Cancelled, sent, request, see_details, modify, cancel_reqst, edit, attached_doc, edit_entry, doc_and_statnderd_ques, doc_aimedis_private, cancel_details, previous, next } = translate
+
         return (
             <div>
-                {this.state.successfullsent && <div className="success_message">Request updated Sucessfully</div>}
+                {this.state.successfullsent && <div className="success_message">{req_updated_successfully}</div>}
                 <Grid className="scndOpinionIner">
                     {this.state.loaderImage && <Loader />}
                     <Table>
                         <Thead>
                             <Tr>
-                                <Th>About</Th>
-                                <Th>Sent on</Th>
-                                <Th>Doctor</Th>
-                                <Th>Status</Th>
+                                <Th>{about}</Th>
+                                <Th>{sent_on}</Th>
+                                <Th>{srvc_Doctors}</Th>
+                                <Th>{status}</Th>
                             </Tr>
                         </Thead>
                         <Tbody>
@@ -244,18 +276,18 @@ class Index extends Component {
                                     <Td>{data.details ? data.details : 'Not mentioned'}</Td>
                                     <Td>{data.send_on ? getDate(data.send_on, this.props.settings.setting.date_format) : 'Not mentioned'}</Td>
                                     <Td className="drImg"><img src={data.docProfile && data.docProfile.profile_image ? getImage(data.docProfile.profile_image, this.state.images) : require('../../../../assets/images/dr1.jpg')} alt="" title="" />{data.docProfile && data.docProfile.first_name && data.docProfile.first_name} {data.docProfile && data.docProfile.last_name && data.docProfile.last_name}</Td>
-                                    {data.status === 'pending' && <Td><span className="revwYelow"></span>Pending </Td>}
-                                    {data.status === 'accept' && <Td><span className="revwGren"></span>Answered </Td>}
-                                    {data.status === 'remove' && <Td><span className="revwRed"></span>Rejected</Td>}
-                                    {data.status === 'cancel' && <Td><span className="revwRed"></span>Cancelled</Td>}
-                                    {data.status === 'free' && <Td><span className="revwGry"></span>Sent request</Td>}
+                                    {data.status === 'pending' && <Td><span className="revwYelow"></span>{Pending} </Td>}
+                                    {data.status === 'accept' && <Td><span className="revwGren"></span>{Answered} </Td>}
+                                    {data.status === 'remove' && <Td><span className="revwRed"></span>{Rejected}</Td>}
+                                    {data.status === 'cancel' && <Td><span className="revwRed"></span>{Cancelled}</Td>}
+                                    {data.status === 'free' && <Td><span className="revwGry"></span>{sent} {request}</Td>}
                                     <Td className="presEditDot scndOptionIner">
                                         <a className="openScndhrf">
                                             <img src={require('../../../../assets/images/threedots.jpg')} alt="" title="" className="openScnd" />
                                             <ul>
-                                                <li><a onClick={() => { this.handleshowSick(data) }}><img src={require('../../../../assets/images/details.svg')} alt="" title="" />See details</a></li>
-                                                {data.status !== 'accept' && <li><a onClick={() => { this.handleaddInqry(data) }}><img src={require('../../../../assets/images/edit.svg')} alt="" title="" />Modify</a></li>}
-                                                {data.status !== 'cancel' && <li><a onClick={() => { this.updatePrescription('cancel', data._id) }}><img src={require('../../../../assets/images/cancel-request.svg')} alt="" title="" />Cancel request</a></li>}
+                                                <li><a onClick={() => { this.handleshowSick(data) }}><img src={require('../../../../assets/images/details.svg')} alt="" title="" />{see_details}</a></li>
+                                                {data.status !== 'accept' && <li><a onClick={() => { this.handleaddInqry(data) }}><img src={require('../../../../assets/images/edit.svg')} alt="" title="" />{modify}</a></li>}
+                                                {data.status !== 'cancel' && <li><a onClick={() => { this.updatePrescription('cancel', data._id) }}><img src={require('../../../../assets/images/cancel-request.svg')} alt="" title="" />{cancel_reqst}</a></li>}
                                             </ul>
                                         </a>
                                     </Td>
@@ -276,35 +308,35 @@ class Index extends Component {
                                             <img src={require('../../../../assets/images/closefancy.png')} alt="" title="" />
                                         </a>
                                     </Grid>
-                                    <p>Edit inquiry</p>
-                                    <Grid><label>Second Opinion</label></Grid>
+                                    <p>{edit} {inquiry}</p>
+                                    <Grid><label>{secnd_openion}</label></Grid>
                                 </Grid>
-                                {this.state.err_pdf && <div className="err_message">Please upload PDF, PNG and JPEG file</div>}
+                                {this.state.err_pdf && <div className="err_message">{plz_upload_png_jpg}</div>}
                                 <Grid className="shrHlthMain">
                                     <Grid className="stndrdQues">
-                                        <h3>Specialist and standard questions</h3>
+                                        <h3>{specilist_and_secnd_openion}</h3>
                                         <Grid className="splestQues">
-                                            <Grid><label>Specialist</label></Grid>
+                                            <Grid><label>{specialist}</label></Grid>
                                             <Grid><h3>{this.state.AddSecond && this.state.AddSecond.docProfile && this.state.AddSecond.docProfile.first_name && this.state.AddSecond.docProfile.first_name} {this.state.AddSecond && this.state.AddSecond.docProfile && this.state.AddSecond.docProfile.last_name && this.state.AddSecond.docProfile.last_name}</h3></Grid>
                                         </Grid>
                                         <Grid className="recevPrescp">
-                                            <Grid className="recevPrescpLbl"><label>How would you like to receive the Second Opinion?</label></Grid>
+                                            <Grid className="recevPrescpLbl"><label>{how_wuld_u_like_rcv_scnd_openion}?</label></Grid>
                                             <Grid className="recevPrescpChk">
-                                                <FormControlLabel control={<Radio />} name="online_offline" value="online" color="#00ABAF" checked={this.state.AddSecond.online_offline === 'online'} onChange={this.AddState} label="Online" />
-                                                <FormControlLabel control={<Radio />} name="online_offline" color="#00ABAF" value="offline" checked={this.state.AddSecond.online_offline === 'offline'} onChange={this.AddState} label="Home address mailbox" />
+                                                <FormControlLabel control={<Radio />} name="online_offline" value="online" color="#00ABAF" checked={this.state.AddSecond.online_offline === 'online'} onChange={this.AddState} label={online} />
+                                                <FormControlLabel control={<Radio />} name="online_offline" color="#00ABAF" value="offline" checked={this.state.AddSecond.online_offline === 'offline'} onChange={this.AddState} label={home_add_mailbox} />
                                             </Grid>
                                         </Grid>
                                         <Grid className="yrProfes">
-                                            <Grid><label>Your profession</label></Grid>
+                                            <Grid><label>{ur_profesion}</label></Grid>
                                             <Grid><input type="text" name="professions" value={this.state.AddSecond.professions} onChange={this.AddState} /></Grid>
                                         </Grid>
                                         <Grid className="yrProfes">
-                                            <Grid><label>Annotations / details / questions</label></Grid>
+                                            <Grid><label>{Annotations} / {details} / {questions}</label></Grid>
                                             <Grid><textarea name="details" value={this.state.AddSecond.details} onChange={this.AddState}></textarea></Grid>
                                         </Grid>
                                         <Grid className="attchForms attchImg">
-                                            <Grid><label>Attachments</label></Grid>
-                                            <label class="attached_file">Attached Document -
+                                            <Grid><label>{attachments}</label></Grid>
+                                            <label class="attached_file">{attached_doc} -
                                         {this.state.AddSecond && this.state.AddSecond.documents && this.state.AddSecond.documents.map((items) => (
                                                 <a>{items.filename && (items.filename.split('second_opinion/')[1]).split("&bucket=")[0]}</a>
                                             ))}
@@ -322,7 +354,7 @@ class Index extends Component {
                                 <Grid className="infoShwHidBrdr"></Grid>
                                 <Grid className="infoShwHidIner">
                                     <Grid className="infoShwSave">
-                                        <input type="submit" onClick={this.SubmitPrescription} value="Edit entry" />
+                                        <input type="submit" onClick={this.SubmitPrescription} value={edit_entry}  />
                                     </Grid>
                                 </Grid>
                             </Grid>
@@ -342,33 +374,33 @@ class Index extends Component {
                                             <img src={require('../../../../assets/images/closefancy.png')} alt="" title="" />
                                         </a>
                                     </Grid>
-                                    <p>Edit inquiry</p>
-                                    <Grid><label>Second Opinion</label></Grid>
+                                    <p>{edit} {inquiry}</p>
+                                    <Grid><label>{secnd_openion}</label></Grid>
                                 </Grid>
                                 <Grid className="docHlthMain">
                                     <Grid className="drstndrdQues">
-                                        <h3>Doctor and standard questions</h3>
+                                        <h3>{doc_and_statnderd_ques}</h3>
                                         <Grid className="drsplestQues">
-                                            <Grid><label>Doctor (Aimedis & Private)</label></Grid>
+                                            <Grid><label>{doc_aimedis_private}</label></Grid>
                                             <Grid><h3>{this.state.AddSecond && this.state.AddSecond.docProfile && this.state.AddSecond.docProfile.first_name && this.state.AddSecond.docProfile.first_name} {this.state.AddSecond && this.state.AddSecond.docProfile && this.state.AddSecond.docProfile.last_name && this.state.AddSecond.docProfile.last_name}</h3></Grid>
                                         </Grid>
                                     </Grid>
 
                                     <Grid className="recevPrescp">
-                                        <Grid className="recevPrescpLbl"><label>How would you like to receive the Second Opinion?</label></Grid>
-                                        <Grid><h3>{this.state.AddSecond && this.state.AddSecond.online_offline && this.state.AddSecond.online_offline==='offline' ? 'Home address mailbox' : 'Online'}</h3></Grid>
+                                        <Grid className="recevPrescpLbl"><label>{how_wuld_u_like_rcv_scnd_openion}?</label></Grid>
+                                        <Grid><h3>{this.state.AddSecond && this.state.AddSecond.online_offline && this.state.AddSecond.online_offline === 'offline' ? 'Home address mailbox' : 'Online'}</h3></Grid>
                                     </Grid>
                                     <Grid className="yrProfes">
-                                        <Grid><label>Your profession</label></Grid>
+                                        <Grid><label>{ur_profesion}</label></Grid>
                                         <Grid><h3>{this.state.AddSecond && this.state.AddSecond.professions && this.state.AddSecond.professions}</h3></Grid>
                                     </Grid>
                                     <Grid className="yrProfes">
-                                        <Grid><label>Annotations / details / questions</label></Grid>
+                                        <Grid><label>{Annotations} / {details} / {questions}</label></Grid>
                                         <Grid><h3>{this.state.AddSecond && this.state.AddSecond.details && this.state.AddSecond.details}</h3></Grid>
                                     </Grid>
                                     <Grid className="attchForms attchImg">
-                                        <Grid><label>Attachments</label></Grid>
-                                        <label class="attached_file">Attached Document -
+                                    <Grid><label>{attachments}</label></Grid>
+                                        <label class="attached_file">{attached_doc} -
                                     {this.state.AddSecond && this.state.AddSecond.documents && this.state.AddSecond.documents.map((items) => (
                                             <a className="click_document" onClick={() => { GetUrlImage(items.filename) }}>
                                                 {items.filename && (items.filename.split('second_opinion/')[1]).split("&bucket=")[0]}</a>
@@ -392,7 +424,7 @@ class Index extends Component {
                                     </Grid>
                                 </Grid> */}
                                     <Grid className="infoShwSave2">
-                                        <input type="submit" onClick={this.handleCloseShowSick} value="Cancel details" />
+                                        <input type="submit" onClick={this.handleCloseShowSick} value={cancel_details} />
                                     </Grid>
                                 </Grid>
                             </Grid>
@@ -409,11 +441,11 @@ class Index extends Component {
                             </Grid>
                             <Grid item xs={12} md={6}>
                                 {this.state.totalPage > 1 && <Grid className="prevNxtpag">
-                                    {this.state.currentPage != 1 && <a className="prevpag" onClick={() => { this.onChangePage(this.state.currentPage - 1) }}>Previous</a>}
+                                    {this.state.currentPage != 1 && <a className="prevpag" onClick={() => { this.onChangePage(this.state.currentPage - 1) }}>{previous}</a>}
                                     {this.state.pages && this.state.pages.length > 0 && this.state.pages.map((item, index) => (
                                         <a className={this.state.currentPage == item && "activePageDocutmet"} onClick={() => { this.onChangePage(item) }}>{item}</a>
                                     ))}
-                                    {this.state.currentPage != this.state.totalPage && <a className="nxtpag" onClick={() => { this.onChangePage(this.state.currentPage + 1) }}>Next</a>}
+                                    {this.state.currentPage != this.state.totalPage && <a className="nxtpag" onClick={() => { this.onChangePage(this.state.currentPage + 1) }}>{next}</a>}
                                 </Grid>}
                             </Grid>
                         </Grid>
@@ -426,7 +458,7 @@ class Index extends Component {
 const mapStateToProps = (state) => {
     const { stateLoginValueAim, loadingaIndicatoranswerdetail } = state.LoginReducerAim;
     const { stateLanguageType } = state.LanguageReducer;
-    const {settings} = state.Settings;
+    const { settings } = state.Settings;
     // const { Doctorsetget } = state.Doctorset;
     // const { catfil } = state.filterate;
     return {

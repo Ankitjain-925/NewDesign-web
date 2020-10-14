@@ -661,6 +661,13 @@
 		"Oops":"Oeps",
 		"page_temparary_unavailable":"De pagina die u zoekt, is mogelijk verwijderd, de naam is gewijzigd of is tijdelijk niet beschikbaar.",
 		"go_to_home":"Ga naar huis",
-		"slct_time_slot":"Selecteer een tijdvak"
+		"slct_time_slot":"Selecteer een tijdvak",
+		"code_not_verified":"Code is niet geverifieerd.",
+		"email_not_valid":"E-mail is niet geldig",
+		"password_cant_empty":"Wachtwoord mag niet leeg zijn",
+		"user_not_exist":"Gebruiker bestaat niet",
+		"user_is_blocked":"Gebruiker is geblokkeerd",
+		"wrong_password":"Verkeerd wachtwoord",
+		"login_LOGIN_btn": "Log in"
 	}
 }
