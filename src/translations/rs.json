@@ -667,6 +667,7 @@
     "password_cant_empty":"Пароль не может быть пустым",
     "user_not_exist":"Пользователь не существует",
     "user_is_blocked":"Пользователь заблокирован",
-    "wrong_password":"Неправильный пароль"
+    "wrong_password":"Неправильный пароль",
+    "login_LOGIN_btn":"авторизоваться"
   }
 }

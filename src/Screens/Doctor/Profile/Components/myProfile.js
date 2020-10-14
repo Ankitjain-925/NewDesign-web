@@ -788,9 +788,10 @@ class Index extends Component {
             case "default":
                 translate = translationEN.text
         }
-        const { profile_info, profile, information, ID, pin, QR_code, done, Change, edit_id_pin, edit, and, is, changed, profile_id_taken, profile_id_greater_then_5,
+        let { profile_info, profile, information, ID, pin, QR_code, done, Change, edit_id_pin, edit, and, is, changed, profile_id_taken, profile_id_greater_then_5,
             save_change, email, title, degree, first, last, name, dob, gender, street, add, city, postal_code, country, home_telephone, phone, country_code, Delete,
-            mobile_number, number, mobile, Languages, spoken, insurance, add_more, company, of, info_copied, profile_updated, profile_not_updated, mobile_number_not_valid, insurance_added, speciality } = translate;
+            mobile_number, number, mobile, Languages, spoken, insurance, add_more, company, of, info_copied, profile_updated, profile_not_updated, mobile_number_not_valid, insurance_added, speciality,
+        profile_information, this_is_ur_profile_info, change_id, edit_id_or_pin, profile_id_pin_changed, profile_id, fax_nmbr, sub_specilaity, profile_qr_code } = translate;
 
 
         return (
@@ -803,8 +804,8 @@ class Index extends Component {
                         {this.state.error3 && <div className="err_message">{profile_not_updated}</div>}
                         {this.state.phonevalidate && <div className="err_message">{mobile_number_not_valid}</div>}
                         {this.state.ChangedPIN && <div className="success_message">{profile} {ID} {and} {pin} {is} {changed}</div>}
-                        <h1>Profile information</h1>
-                        <p>This is your profile information.</p>
+                        <h1>{profile_information}</h1>
+                        <p>{this_is_ur_profile_info}</p>
                     </Grid>
                 </Grid>
 
@@ -819,7 +820,7 @@ class Index extends Component {
                                         <a><img src={require('../../../../assets/images/qr-code.svg')} alt="" title="" onClick={this.handleQrOpen} /></a>
                                     </Grid>
                                     <Grid item xs={12} md={5}>
-                                        <label>PIN</label><span id="profile_pin">{UpDataDetails.pin && UpDataDetails.pin}</span>
+                                        <label>{pin}</label><span id="profile_pin">{UpDataDetails.pin && UpDataDetails.pin}</span>
                                         <a><img src={require('../../../../assets/images/copycopy.svg')} onClick={() => this.copyText('profile_pin')} alt="" title="" /></a>
                                     </Grid>
                                 </Grid>
@@ -827,7 +828,7 @@ class Index extends Component {
                         </Grid>
                         <Grid item xs={12} md={4}>
                             <Grid className="profileIdRght">
-                                <a onClick={this.handlePinOpen}>Change ID</a>
+                                <a onClick={this.handlePinOpen}>{change_id}</a>
                             </Grid>
                         </Grid>
                     </Grid>
@@ -844,23 +845,23 @@ class Index extends Component {
                                         <img src={require('../../../../assets/images/closefancy.png')} alt="" title="" />
                                     </a>
                                 </Grid>
-                                <Grid><label>Edit ID and PIN</label></Grid>
-                                <p>You can change your ID and PIN as many times as you want.</p>
+                                <Grid><label>{edit_id_or_pin}</label></Grid>
+                                <p>{edit_id_pin}</p>
                             </Grid>
                             <Grid className="editPinform">
                                 <Grid className="editField">
-                                    {this.state.ChangedPIN && <div className="success_message">Profile ID and PIN is changed</div>}
-                                    <label>Profile ID</label>
+                                    {this.state.ChangedPIN && <div className="success_message">{profile_id_pin_changed}</div>}
+                                    <label>{profile_id}</label>
                                     <Grid><input type="text" name="alies_id" onChange={this.changeAlies} value={UpDataDetails.alies_id} /></Grid>
-                                    {this.state.DuplicateAlies && <p>This Profile ID is already taken. Please try a different ID</p>}
-                                    {this.state.toSmall && <p>Profile id must be greater then 5 characters</p>}
+                                    {this.state.DuplicateAlies && <p>{profile_id_taken}</p>}
+                                    {this.state.toSmall && <p>{profile_id_greater_then_5}</p>}
                                 </Grid>
                                 <Grid className="editField">
-                                    <label>PIN</label>
+                                    <label>{pin}</label>
                                     <Grid><input type="text" name="pin" onChange={this.updateEntryState} value={UpDataDetails.pin} /></Grid>
                                 </Grid>
                                 <Grid>
-                                    <input type="submit" onClick={this.ChangeIDPIN} value="Save changes" />
+                                    <input type="submit" onClick={this.ChangeIDPIN} value={save_change} />
                                 </Grid>
                             </Grid>
                         </Grid>
@@ -1015,13 +1016,13 @@ class Index extends Component {
                             <Grid className="profileInfoIner">
                                 <Grid container direction="row" alignItems="center" spacing={2}>
                                     <Grid item xs={12} md={8}>
-                                        <label>Fax number</label>
+                                        <label>{fax_nmbr}</label>
                                         <Grid>
                                             {this.updateFLAG(UpDataDetails.fax) && this.updateFLAG(UpDataDetails.fax) !== '' &&
-                                                <ReactFlagsSelect placeholder="Country Code" onSelect={(e) => { this.updateFlags(e, 'flag_fax') }} name="flag_fax" showSelectedLabel={false} defaultCountry={this.updateFLAG(UpDataDetails.fax)} />}
+                                                <ReactFlagsSelect placeholder={country_code} onSelect={(e) => { this.updateFlags(e, 'flag_fax') }} name="flag_fax" showSelectedLabel={false} defaultCountry={this.updateFLAG(UpDataDetails.fax)} />}
                                             <input type="text"
                                                 className="Mobile_extra"
-                                                placeholder='fax'
+                                                placeholder={fax_nmbr}
                                                 name="fax"
                                                 type="text"
                                                 onChange={this.updateEntryState1}
@@ -1083,7 +1084,7 @@ class Index extends Component {
                             <Grid className="profileInfoIner">
                                 <Grid container direction="row" alignItems="center" spacing={2}>
                                     <Grid item xs={12} md={8}>
-                                        <label>Sub-specialty</label>
+                                        <label>{sub_specilaity}</label>
                                         <Grid>
                                             <Select
                                                 value={this.state.subspeciality_multi}
@@ -1128,12 +1129,12 @@ class Index extends Component {
                                         <img src={require('../../../../assets/images/closefancy.png')} alt="" title="" />
                                     </a>
                                 </Grid>
-                                <Grid><label>Profile QR code</label></Grid>
+                                <Grid><label>{profile_qr_code}</label></Grid>
                             </Grid>
                             <Grid className="qrCourseImg">
                                 {/* <Grid><img src={require('../../../../assets/images/qrimg.jpg')} alt="" title="" /></Grid> */}
                                 <Grid> <QRCode value={UpDataDetails.profile_id?''+UpDataDetails.profile_id:''} /> </Grid>
-                                <Grid><input type="submit" value="Done" onClick={this.handleQrClose} /></Grid>
+                                <Grid><input type="submit" value={done} onClick={this.handleQrClose} /></Grid>
                             </Grid>
                         </Grid>
                     </Modal>

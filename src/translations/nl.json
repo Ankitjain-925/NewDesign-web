@@ -667,6 +667,7 @@
 		"password_cant_empty":"Wachtwoord mag niet leeg zijn",
 		"user_not_exist":"Gebruiker bestaat niet",
 		"user_is_blocked":"Gebruiker is geblokkeerd",
-		"wrong_password":"Verkeerd wachtwoord"
+		"wrong_password":"Verkeerd wachtwoord",
+		"login_LOGIN_btn": "Log in"
 	}
 }

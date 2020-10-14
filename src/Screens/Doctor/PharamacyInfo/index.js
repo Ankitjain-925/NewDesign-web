@@ -383,7 +383,38 @@ class Index extends Component {
         if (imagePreviewUrl) {
             $imagePreview = (<img style={{ borderRadius: "10%", maxWidth: 350, marginBottom: 10 }} src={imagePreviewUrl} />);
         }
-        
+
+        let translate;
+        switch (this.props.stateLanguageType) {
+            case "en":
+                translate = translationEN.text
+                break;
+            // case "de":
+            //     translate = translationDE.text
+            //     break;
+            // case "pt":
+            //     translate = translationPT.text
+            //     break;
+            // case "sp":
+            //     translate = translationSP.text
+            //     break;
+            // case "rs":
+            //     translate = translationRS.text
+            //     break;
+            // case "nl":
+            //     translate = translationNL.text
+            //     break;
+            // case "ch":
+            //     translate = translationCH.text
+            //     break;
+            // case "sw":
+            //     translate = translationSW.text
+            //     break;
+            case "default":
+                translate = translationEN.text
+        }
+        let { pharma_prescription, send_prescription_to_pharmacy, uplod_scanned_prescription, browse, or, or_drag_here, suported_file_type_jpg_png, patient_id, Pharmacy, search_pharmacy_by_name_id, show_pharmacy_within_radious, short_msg_optional, add_this_patient_journal,send_invite } = translate;
+
         return (
             <Grid item xs={12} md={1} className="MenuLeftUpr ">
 
@@ -391,7 +422,7 @@ class Index extends Component {
                 <Modal
                     open={openPharma}
                     onClose={this.handleClosePharma}
-                    className={this.props.settings.setting.mode === 'dark' ?"darkTheme":""}>
+                    className={this.props.settings.setting.mode === 'dark' ? "darkTheme" : ""}>
                     <Grid className="phrmBoxCntnt">
                         <Grid className="phrmCourse">
                             <Grid className="phrmCloseBtn">
@@ -399,17 +430,17 @@ class Index extends Component {
                                     <img src={require('../../../assets/images/closefancy.png')} alt="" title="" />
                                 </a>
                             </Grid>
-                            <Grid><label>Pharmacy Prescription</label></Grid>
-                            <p>Send prescriptions to pharmacies</p>
+                            <Grid><label>{pharma_prescription}</label></Grid>
+                            <p>{send_prescription_to_pharmacy}</p>
                         </Grid>
                         <Grid className="phrmLinkUpr">
                             <Grid className="upScanForms upScanImg">
-                                <Grid><label>Upload scanned prescriptions</label></Grid>
+                                <Grid><label>{uplod_scanned_prescription}</label></Grid>
                                 {!$imagePreview && <Grid className="upScanInput">
                                     <a><img src={require('../../../assets/images/upload-file.svg')} alt="" title="" /></a>
-                                    <a>Browse <input type="file" onChange={this.CertificateAttach} /></a> or drag here
+                                    <a>{browse} <input type="file" onChange={this.CertificateAttach} /></a> {or_drag_here}
                                                                         </Grid>}
-                                {!$imagePreview && <p>Supported file types: .jpg, .png, .pdf</p>}
+                                {!$imagePreview && <p>{suported_file_type_jpg_png}</p>}
                                 {$imagePreview}
                                 <div className="filetitle">{this.state.isfileupload && (
                                     this.state.fileattach && this.state.fileattach.length > 0 && this.state.fileattach.map((ite, ind) => (
@@ -418,13 +449,13 @@ class Index extends Component {
                                 }</div>
                             </Grid>
                             <Grid className="scanInputs">
-                                <Grid><label>Patient ID</label></Grid>
+                                <Grid><label>{patient_id}</label></Grid>
                                 <Grid><input type="text" onChange={this.updateEntryState} value={this.state.newEntry && this.state.newEntry.patient_id && this.state.newEntry.patient_id} name="patient_id" /></Grid>
                             </Grid>
                             <Grid className="scanInputs">
-                                <Grid><label>Pharmacy</label></Grid>
+                                <Grid><label>{Pharmacy}</label></Grid>
                                 <Grid className="scanInputPhrm dropdown-main">
-                                    <input type="text" placeholder="Search Pharmacy by name or ID" onChange={this.findByName} value={this.state.newEntry.pharmacy_id ? (this.state.name + "- " + this.state.newEntry.pharmacy_id) : this.state.name} />
+                                    <input type="text" placeholder={search_pharmacy_by_name_id} onChange={this.findByName} value={this.state.newEntry.pharmacy_id ? (this.state.name + "- " + this.state.newEntry.pharmacy_id) : this.state.name} />
                                     <img src={require('../../../assets/images/srchInputField.svg')} alt="" title="" />
                                     <div className={searchName && searchName.length > 0 ? "show-content dropdown-content" : 'dropdown-content'}>
                                         {searchName.map(data => (
@@ -434,10 +465,10 @@ class Index extends Component {
                                 </Grid>
                             </Grid>
                             <Grid className="scanInputs">
-                                <label className="or-label">or</label>
+                                <label className="or-label">{or}</label>
                             </Grid>
                             <Grid className="scanInputs">
-                                <Grid><label>Show Pharmacies within my radius of</label></Grid>
+                                <Grid><label>{show_pharmacy_within_radious}</label></Grid>
                                 <Grid className="scanInputKm dropdown-main">
                                     <input type="text" value={this.state.radius} onChange={this.findByRadius} /><span>km</span>
                                     <div className={searchLocation && searchLocation.length > 0 ? "show-content dropdown-content" : 'dropdown-content'}>
@@ -448,7 +479,7 @@ class Index extends Component {
                                 </Grid>
                             </Grid>
                             <Grid className="scanInputs shrtMsgOpt">
-                                <Grid><label>Short message (optional)</label></Grid>
+                                <Grid><label>{short_msg_optional}</label></Grid>
                                 <Grid><textarea onChange={this.updateEntryState} name="remark"></textarea></Grid>
                             </Grid>
                             <Grid className="jurnlTatent">
@@ -460,11 +491,11 @@ class Index extends Component {
                                             checked={this.state.addtopatientlist} onChange={(e) => { this.setState({ addtopatientlist: e.target.checked }) }} value={this.state.newEntry.pharmacy_id}
                                         />
                                     }
-                                    label="Add this to Patient Journal"
+                                    label={add_this_patient_journal}
                                 />
                             </Grid>
                             <Grid className="scanInputsSub">
-                                <input type="submit" value="Send invites" onClick={this.AddTrack} />
+                                <input type="submit" value={send_invite} onClick={this.AddTrack} />
                             </Grid>
                         </Grid>
                     </Grid>

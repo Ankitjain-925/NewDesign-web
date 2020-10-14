@@ -667,6 +667,7 @@
 		"password_cant_empty":"La contraseña no puede estar vacía",
 		"user_not_exist":"El usuario no existe",
 		"user_is_blocked":"El usuario está bloqueado",
-		"wrong_password":"Contraseña incorrecta"
+		"wrong_password":"Contraseña incorrecta",
+		"login_LOGIN_btn":"iniciar sesión"
 	}
 }

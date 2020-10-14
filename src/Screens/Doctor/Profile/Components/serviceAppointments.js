@@ -93,7 +93,7 @@ class Index extends Component {
         }).then((response) => {
             this.setState({ loaderImage: false });
             this.setState({ paid_services: response.data.data.paid_services })
-            
+
             var keysArray = Object.keys(apoinmentdata);
             let privateAppointments = null;
             privateAppointments = response.data.data.private_appointments[0];
@@ -138,7 +138,7 @@ class Index extends Component {
                     })
 
                 }
-                
+
                 keysArray.map(key => {
                     if (daysForPractices[key] == undefined) {
                         daysForPractices[key] = apoinmentdata[key]
@@ -146,7 +146,7 @@ class Index extends Component {
                 })
                 this.setState({ DaysforPractices: daysForPractices, PracticesSetting: daysForPractices })
             } else {
-                daysForPractices ={}
+                daysForPractices = {}
                 keysArray.map(key => {
                     if (daysForPractices[key] == undefined) {
                         daysForPractices[key] = apoinmentdata[key]
@@ -173,10 +173,10 @@ class Index extends Component {
                         onlineAppointment[key] = apoinmentdata[key]
                     }
                 })
-                
+
                 this.setState({ onlineAppointments: onlineAppointment, OnlineSetting: onlineAppointment })
             } else {
-                onlineAppointment ={}
+                onlineAppointment = {}
                 keysArray.map(key => {
                     if (onlineAppointment[key] == undefined) {
                         onlineAppointment[key] = apoinmentdata[key]
@@ -294,7 +294,7 @@ class Index extends Component {
                 dataSave['private_appointments']['holidays_start'] = ''
                 dataSave['private_appointments']['holidays_end'] = ''
             }
-            dataSave['days_for_practices'] =  [dataSave['days_for_practices']];
+            dataSave['days_for_practices'] = [dataSave['days_for_practices']];
             dataSave['online_appointment'] = [dataSave['online_appointment']];
             dataSave['private_appointments'] = [dataSave['private_appointments']];
             this.setState({ loaderImage: true, PrivateErr: false });
@@ -730,7 +730,7 @@ class Index extends Component {
             changestate[key + '_end'] = ''
         }
         console.log('changestate', changestate)
-        this.setState({ [stateChange]:  changestate })
+        this.setState({ [stateChange]: changestate })
     }
 
     onChange = (event, belong, stateChange, key) => {
@@ -864,8 +864,8 @@ class Index extends Component {
             case "default":
                 translate = translationEN.text
         }
-        let { Change, password, is, we_use_authy, supportive_text, Current, confirm_password, new_password, two_fac_auth, password_changed, new_and_confirm_pass_not_same, current_pass_not_match, plz_fill_fields,
-            Disable, Enable } = translate;
+        let { Change, password, is, we_use_authy, supportive_text, plz_fill_break_timeslot_for_aapointment, the_appointment_srvc_success_updated, Current, confirm_password, new_password, two_fac_auth, password_changed, new_and_confirm_pass_not_same, current_pass_not_match, plz_fill_fields,
+            Disable, Enable, Services, instant_activation_deactivation_offer_srvc, invite_patient_to_contact_online, copy_time_to_all, chat_vdocall, prescription_and_sick_cert, online_prescription, select_appointment_set_schedule, holiday_period_btw, appointment_system,issue_prescription_and_sickCert_online, onine_sick_cert, appointments, offer_practice_online_appointment, set_timeslot_duration, break_time, appointment_can_be_booked, up_to_days, before_day_of_appointment, Max, hourse_before_time_appointment, save_change } = translate;
 
         return (
             <div>
@@ -873,10 +873,10 @@ class Index extends Component {
                 <Grid className="srvcApointTab">
 
                     <Grid className="srvcInst instBrdr">
-                        {this.state.updateService && <div className="success_message">The Appointment and Services succefully updated</div>}
-                        {this.state.appoinmentError && <div className="err_message">Please Fill the break timeslot for all the appoinments</div>}
-                        <h3>Services</h3>
-                        <p>Instant activation and deactivation of services you offer</p>
+                        {this.state.updateService && <div className="success_message">{the_appointment_srvc_success_updated}</div>}
+                        {this.state.appoinmentError && <div className="err_message">{plz_fill_break_timeslot_for_aapointment}</div>}
+                        <h3>{Services}</h3>
+                        <p>{instant_activation_deactivation_offer_srvc}</p>
                     </Grid>
 
                     <Grid className="instBrdr">
@@ -885,8 +885,8 @@ class Index extends Component {
                                 <Grid className="chatVoice">
                                     <Grid><img src={require('../../../../assets/images/chat.png')} alt="" title="" /></Grid>
                                     <Grid>
-                                        <Grid><label>Chat & Videocalls</label></Grid>
-                                        <p>Invite your patients to contact you online</p>
+                                        <Grid><label>{chat_vdocall}</label></Grid>
+                                        <p>{invite_patient_to_contact_online}</p>
                                     </Grid>
                                 </Grid>
                             </Grid>
@@ -905,8 +905,8 @@ class Index extends Component {
                                     <Grid className="prescSick">
                                         <Grid><img src={require('../../../../assets/images/docs.png')} alt="" title="" /></Grid>
                                         <Grid>
-                                            <Grid><label>Prescriptions & Sick Certificates</label></Grid>
-                                            <p>Issue prescriptions & sick certificates online</p>
+                                            <Grid><label>{prescription_and_sick_cert}</label></Grid>
+                                            <p>{issue_prescription_and_sickCert_online}</p>
                                         </Grid>
                                     </Grid>
 
@@ -921,7 +921,7 @@ class Index extends Component {
                                                         onChange={() => this.handleweoffer('Offer_online_sick_certificates')}
                                                     />
                                                 }
-                                                label="Online Sick Certificates"
+                                                label={onine_sick_cert}
                                             />
                                         </Grid>
 
@@ -935,7 +935,7 @@ class Index extends Component {
                                                         onChange={() => this.handleweoffer('Offer_online_prescription')}
                                                     />
                                                 }
-                                                label="Online Prescriptions"
+                                                label={online_prescription}
                                             />
                                         </Grid>
                                     </Grid>
@@ -954,8 +954,8 @@ class Index extends Component {
                         <Grid container direction="row">
                             <Grid item xs={12} md={6}>
                                 <Grid className="apointSchdule">
-                                    <Grid><label>Appointments</label></Grid>
-                                    <p>Select appointment types and set your schedule</p>
+                                    <Grid><label>{appointments}</label></Grid>
+                                    <p>{select_appointment_set_schedule}</p>
                                 </Grid>
                             </Grid>
                             <Grid item xs={12} md={6}>
@@ -963,7 +963,7 @@ class Index extends Component {
                                     <Grid>
                                         <label>
                                             <Toggle icons={false} checked={holidayAppointment && holidayAppointment.holidays} onClick={(e) => { this.handleholiday('holidayAppointment') }} />
-                                            <span className="holdyPeriod">Holiday period between:</span>
+                                            <span className="holdyPeriod">{holiday_period_btw}</span>
                                         </label>
                                     </Grid>
                                     {holidayAppointment && holidayAppointment.holidays && <Grid className="enblDate">
@@ -987,8 +987,8 @@ class Index extends Component {
                                 <Grid className="prescSickVdo">
                                     <Grid><img src={require('../../../../assets/images/docs.png')} alt="" title="" /></Grid>
                                     <Grid>
-                                        <Grid><label>Appointment System</label></Grid>
-                                        <p>Offer practice and online appointment with Aimedis</p>
+                                        <Grid><label>{appointment_system}</label></Grid>
+                                        <p>{offer_practice_online_appointment} Aimedis</p>
                                     </Grid>
                                 </Grid>
                                 <Grid className="onlinSickVdo">
@@ -1038,7 +1038,7 @@ class Index extends Component {
                                             </Grid>
                                             <Grid>
                                                 <p onClick={() => this.copytoall('onlineAppointments', 'monday')}><img src={require('../../../../assets/images/docscopy.svg')} alt="" title="" />
-                                                                                    Copy time to all </p>
+                                                                                    {copy_time_to_all} </p>
                                             </Grid>
                                         </Grid>}
                                         {onlineAppointments.tuesday_end && onlineAppointments.tuesday_end !== '' && <Grid className="daySchedule">
@@ -1050,7 +1050,7 @@ class Index extends Component {
                                             </Grid>
                                             {onlineAppointments.monday_end == '' && <Grid>
                                                 <p onClick={() => this.copytoall('onlineAppointments', 'tuesday')}><img src={require('../../../../assets/images/docscopy.svg')} alt="" title="" />
-                                                                                    Copy time to all </p>
+                                                                                    {copy_time_to_all} </p>
                                             </Grid>}
 
                                         </Grid>}
@@ -1064,7 +1064,7 @@ class Index extends Component {
                                                 </Grid>
                                                 {onlineAppointments.monday_end == '' && onlineAppointments.tuesday_end == '' && <Grid>
                                                     <p onClick={() => this.copytoall('onlineAppointments', 'wednesday')}><img src={require('../../../../assets/images/docscopy.svg')} alt="" title="" />
-                                                                                    Copy time to all </p>
+                                                                                    {copy_time_to_all} </p>
                                                 </Grid>}
                                             </Grid>
                                         }
@@ -1078,7 +1078,7 @@ class Index extends Component {
                                                 </Grid>
                                                 {onlineAppointments.monday_end == '' && onlineAppointments.tuesday_end == '' && onlineAppointments.wednesday_end == '' && <Grid>
                                                     <p onClick={() => this.copytoall('onlineAppointments', 'thursday')}><img src={require('../../../../assets/images/docscopy.svg')} alt="" title="" />
-                                                                                    Copy time to all </p>
+                                                                                    {copy_time_to_all} </p>
                                                 </Grid>}
                                             </Grid>
                                         }
@@ -1092,7 +1092,7 @@ class Index extends Component {
                                                 </Grid>
                                                 {onlineAppointments.monday_end == '' && onlineAppointments.tuesday_end == '' && onlineAppointments.wednesday_end == '' && onlineAppointments.thursday_end == '' && <Grid>
                                                     <p onClick={() => this.copytoall('onlineAppointments', 'friday')}><img src={require('../../../../assets/images/docscopy.svg')} alt="" title="" />
-                                                                                    Copy time to all </p>
+                                                                                    {copy_time_to_all} </p>
                                                 </Grid>}
                                             </Grid>
                                         }
@@ -1106,7 +1106,7 @@ class Index extends Component {
                                                 </Grid>
                                                 {onlineAppointments.monday_end == '' && onlineAppointments.tuesday_end == '' && onlineAppointments.wednesday_end == '' && onlineAppointments.thursday_end == '' && onlineAppointments.friday_end == '' && <Grid>
                                                     <p onClick={() => this.copytoall('onlineAppointments', 'saturday')}><img src={require('../../../../assets/images/docscopy.svg')} alt="" title="" />
-                                                                                    Copy time to all </p>
+                                                                                    {copy_time_to_all} </p>
                                                 </Grid>}
                                             </Grid>
                                         }
@@ -1120,7 +1120,7 @@ class Index extends Component {
                                                 </Grid>
                                                 {onlineAppointments.monday_end == '' && onlineAppointments.tuesday_end == '' && onlineAppointments.wednesday_end == '' && onlineAppointments.thursday_end == '' && onlineAppointments.friday_end == '' && onlineAppointments.saturday_end == '' && <Grid>
                                                     <p onClick={() => this.copytoall('onlineAppointments', 'sunday')}><img src={require('../../../../assets/images/docscopy.svg')} alt="" title="" />
-                                                                                    Copy time to all </p>
+                                                                                    {copy_time_to_all} </p>
                                                 </Grid>}
                                             </Grid>
                                         }
@@ -1209,7 +1209,7 @@ class Index extends Component {
                                             </Grid>
                                             <Grid>
                                                 <p onClick={() => this.copytoall('UpDataDetails', 'monday')}><img src={require('../../../../assets/images/docscopy.svg')} alt="" title="" />
-                                                                                    Copy time to all </p>
+                                                                                    {copy_time_to_all} </p>
                                             </Grid>
                                         </Grid>}
                                         {UpDataDetails.tuesday_end && UpDataDetails.tuesday_end !== '' && <Grid className="daySchedule">
@@ -1221,7 +1221,7 @@ class Index extends Component {
                                             </Grid>
                                             {UpDataDetails.monday_end == '' && <Grid>
                                                 <p onClick={() => this.copytoall('UpDataDetails', 'tuesday')}><img src={require('../../../../assets/images/docscopy.svg')} alt="" title="" />
-                                                                                    Copy time to all </p>
+                                                                                    {copy_time_to_all} </p>
                                             </Grid>}
 
                                         </Grid>}
@@ -1235,7 +1235,7 @@ class Index extends Component {
                                                 </Grid>
                                                 {UpDataDetails.monday_end == '' && UpDataDetails.tuesday_end == '' && <Grid>
                                                     <p onClick={() => this.copytoall('UpDataDetails', 'wednesday')}><img src={require('../../../../assets/images/docscopy.svg')} alt="" title="" />
-                                                                                    Copy time to all </p>
+                                                                                    {copy_time_to_all} </p>
                                                 </Grid>}
                                             </Grid>
                                         }
@@ -1249,7 +1249,7 @@ class Index extends Component {
                                                 </Grid>
                                                 {UpDataDetails.monday_end == '' && UpDataDetails.tuesday_end == '' && UpDataDetails.wednesday_end == '' && <Grid>
                                                     <p onClick={() => this.copytoall('UpDataDetails', 'thursday')}><img src={require('../../../../assets/images/docscopy.svg')} alt="" title="" />
-                                                                                    Copy time to all </p>
+                                                                                    {copy_time_to_all} </p>
                                                 </Grid>}
                                             </Grid>
                                         }
@@ -1263,7 +1263,7 @@ class Index extends Component {
                                                 </Grid>
                                                 {UpDataDetails.monday_end == '' && UpDataDetails.tuesday_end == '' && UpDataDetails.wednesday_end == '' && UpDataDetails.thursday_end == '' && <Grid>
                                                     <p onClick={() => this.copytoall('UpDataDetails', 'friday')}><img src={require('../../../../assets/images/docscopy.svg')} alt="" title="" />
-                                                                                    Copy time to all </p>
+                                                                                    {copy_time_to_all} </p>
                                                 </Grid>}
                                             </Grid>
                                         }
@@ -1277,7 +1277,7 @@ class Index extends Component {
                                                 </Grid>
                                                 {UpDataDetails.monday_end == '' && UpDataDetails.tuesday_end == '' && UpDataDetails.wednesday_end == '' && UpDataDetails.thursday_end == '' && UpDataDetails.friday_end == '' && <Grid>
                                                     <p onClick={() => this.copytoall('UpDataDetails', 'saturday')}><img src={require('../../../../assets/images/docscopy.svg')} alt="" title="" />
-                                                                                    Copy time to all </p>
+                                                                                    {copy_time_to_all} </p>
                                                 </Grid>}
                                             </Grid>
                                         }
@@ -1291,7 +1291,7 @@ class Index extends Component {
                                                 </Grid>
                                                 {UpDataDetails.monday_end == '' && UpDataDetails.tuesday_end == '' && UpDataDetails.wednesday_end == '' && UpDataDetails.thursday_end == '' && UpDataDetails.friday_end == '' && UpDataDetails.saturday_end == '' && <Grid>
                                                     <p onClick={() => this.copytoall('UpDataDetails', 'sunday')}><img src={require('../../../../assets/images/docscopy.svg')} alt="" title="" />
-                                                                                    Copy time to all </p>
+                                                                                    {copy_time_to_all} </p>
                                                 </Grid>}
                                             </Grid>
                                         }
@@ -1388,7 +1388,7 @@ class Index extends Component {
                                             </Grid>
                                             {DaysforPractices.monday_end == '' && <Grid>
                                                 <p onClick={() => this.copytoall('DaysforPractices', 'tuesday')}><img src={require('../../../../assets/images/docscopy.svg')} alt="" title="" />
-                                                                                    Copy time to all </p>
+                                                                                    {copy_time_to_all} </p>
                                             </Grid>}
 
                                         </Grid>}
@@ -1402,7 +1402,7 @@ class Index extends Component {
                                                 </Grid>
                                                 {DaysforPractices.monday_end == '' && DaysforPractices.tuesday_end == '' && <Grid>
                                                     <p onClick={() => this.copytoall('DaysforPractices', 'wednesday')}><img src={require('../../../../assets/images/docscopy.svg')} alt="" title="" />
-                                                                                    Copy time to all </p>
+                                                                                    {copy_time_to_all} </p>
                                                 </Grid>}
                                             </Grid>
                                         }
@@ -1416,7 +1416,7 @@ class Index extends Component {
                                                 </Grid>
                                                 {DaysforPractices.monday_end == '' && DaysforPractices.tuesday_end == '' && DaysforPractices.wednesday_end == '' && <Grid>
                                                     <p onClick={() => this.copytoall('DaysforPractices', 'thursday')}><img src={require('../../../../assets/images/docscopy.svg')} alt="" title="" />
-                                                                                    Copy time to all </p>
+                                                                                    {copy_time_to_all} </p>
                                                 </Grid>}
                                             </Grid>
                                         }
@@ -1430,7 +1430,7 @@ class Index extends Component {
                                                 </Grid>
                                                 {DaysforPractices.monday_end == '' && DaysforPractices.tuesday_end == '' && DaysforPractices.wednesday_end == '' && DaysforPractices.thursday_end == '' && <Grid>
                                                     <p onClick={() => this.copytoall('DaysforPractices', 'friday')}><img src={require('../../../../assets/images/docscopy.svg')} alt="" title="" />
-                                                                                    Copy time to all </p>
+                                                                                    {copy_time_to_all} </p>
                                                 </Grid>}
                                             </Grid>
                                         }
@@ -1444,7 +1444,7 @@ class Index extends Component {
                                                 </Grid>
                                                 {DaysforPractices.monday_end == '' && DaysforPractices.tuesday_end == '' && DaysforPractices.wednesday_end == '' && DaysforPractices.thursday_end == '' && DaysforPractices.friday_end == '' && <Grid>
                                                     <p onClick={() => this.copytoall('DaysforPractices', 'saturday')}><img src={require('../../../../assets/images/docscopy.svg')} alt="" title="" />
-                                                                                    Copy time to all </p>
+                                                                                    {copy_time_to_all} </p>
                                                 </Grid>}
                                             </Grid>
                                         }
@@ -1458,7 +1458,7 @@ class Index extends Component {
                                                 </Grid>
                                                 {DaysforPractices.monday_end == '' && DaysforPractices.tuesday_end == '' && DaysforPractices.wednesday_end == '' && DaysforPractices.thursday_end == '' && DaysforPractices.friday_end == '' && DaysforPractices.saturday_end == '' && <Grid>
                                                     <p onClick={() => this.copytoall('DaysforPractices', 'sunday')}><img src={require('../../../../assets/images/docscopy.svg')} alt="" title="" />
-                                                                                    Copy time to all </p>
+                                                                                    {copy_time_to_all} </p>
                                                 </Grid>}
                                             </Grid>
                                         }
@@ -1467,7 +1467,7 @@ class Index extends Component {
                                 <Grid item xs={12} md={6}>
                                     <Grid className="setScheduleUpr">
                                         <Grid className="setSchedule">
-                                            <Grid className="nameSchedule"><label>Set timeslot duration:</label></Grid>
+                                            <Grid className="nameSchedule"><label>{set_timeslot_duration}</label></Grid>
                                             <Grid className="nameSchedule">
                                                 <input type="text" name="duration_of_timeslots" value={DaysforPractices.duration_of_timeslots} onChange={(e) => this.changeDuration(e, 'DaysforPractices')} /> minutes
                                             </Grid>
@@ -1475,7 +1475,7 @@ class Index extends Component {
                                     </Grid>
                                     <Grid className="setScheduleUpr">
                                         <Grid className="setSchedule appointment">
-                                            <Grid className="nameSchedule"><label>Break time:</label></Grid>
+                                            <Grid className="nameSchedule"><label>{break_time}</label></Grid>
                                             <Grid className="nameSchedule">
                                                 <TimeFormat name="time" value={DaysforPractices.breakslot_start ? this.getTime(DaysforPractices.breakslot_start) : new Date()} time_format={this.props.settings.setting ? this.props.settings.setting.time_format : '24'} onChange={(e) => this.onChange(e, 'start', 'DaysforPractices', 'breakslot')} />
                                                 <span>-</span>
@@ -1484,9 +1484,9 @@ class Index extends Component {
                                         </Grid>
                                     </Grid>
                                     <Grid className="apontBook">
-                                        <Grid><label>Appointment can be booked:</label></Grid>
-                                        <Grid><p><span>Up to days,</span> <input type="text" onChange={(e) => this.onChangebook(e, 'appointment_days', 'DaysforPractices')} value={DaysforPractices.appointment_days} /> before the day of appointment</p></Grid>
-                                        <Grid><p><span>Max,</span> <input type="text" value={DaysforPractices.appointment_hours} onChange={(e) => this.onChangebook(e, 'appointment_hours', 'DaysforPractices')} /> hours, before the time of appointment</p></Grid>
+                                        <Grid><label>{appointment_can_be_booked}</label></Grid>
+                                        <Grid><p><span>{up_to_days},</span> <input type="text" onChange={(e) => this.onChangebook(e, 'appointment_days', 'DaysforPractices')} value={DaysforPractices.appointment_days} />{before_day_of_appointment}</p></Grid>
+                                        <Grid><p><span>{Max},</span> <input type="text" value={DaysforPractices.appointment_hours} onChange={(e) => this.onChangebook(e, 'appointment_hours', 'DaysforPractices')} /> {hourse_before_time_appointment}</p></Grid>
                                     </Grid>
                                 </Grid>
                             </Grid>
@@ -1495,7 +1495,7 @@ class Index extends Component {
 
                     <Grid container direction="row">
                         <Grid item xs={12} md={6} className="savChngsBtn">
-                            <input type="submit" value="Save changes" onClick={this.saveAllData} />
+                            <input type="submit" value={save_change} onClick={this.saveAllData} />
                         </Grid>
                         <Grid item xs={12} md={6}> </Grid>
                     </Grid>

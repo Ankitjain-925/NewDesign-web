@@ -22,7 +22,7 @@ import DatePicker from 'react-date-picker';
 import { getImage } from './../../Components/BasicMethod/index';
 import { Redirect } from 'react-router-dom';
 import { confirmAlert } from 'react-confirm-alert';
-import translationEN from '../../../translations/en_json_proofread_13072020.json'
+import * as translationEN from '../../../translations/en_json_proofread_13072020.json'
 import * as translationDE from '../../../translations/de';
 import * as translationSP from '../../../translations/sp.json';
 import * as translationCH from '../../../translations/ch';
@@ -667,7 +667,9 @@ class Index extends Component {
             case "default":
                 translate = translationEN.text
         }
-        const { holiday } = translate
+        let { holiday, appointments, new_rqst, time_slot_alredy_booke_calender, office_visit, vdo_call, Details, Questions, or, slct_a_time, date_of_appointment } = translate
+
+
         if (stateLoginValueAim.user === 'undefined' || stateLoginValueAim.token === 450 || stateLoginValueAim.token === 'undefined' || stateLoginValueAim.user.type !== 'doctor') {
             return (<Redirect to={'/'} />);
         }
@@ -689,7 +691,7 @@ class Index extends Component {
                                                 <Grid item xs={12} md={12}>
                                                     <Grid container direction="row">
                                                         <Grid item xs={6} md={6}>
-                                                            <h1>Appointments</h1>
+                                                            <h1>{appointments}</h1>
                                                         </Grid>
                                                        
                                                     </Grid>
@@ -697,7 +699,7 @@ class Index extends Component {
                                             </Grid>
                                         </Grid>
                                         {newAppoinments && newAppoinments.length > 0 && <Grid className="newRequestMain">
-                                            <h4>New Requests</h4>
+                                            <h4>{new_rqst}</h4>
                                             <Grid className="newRequestUpr">
                                                 {newAppoinments && newAppoinments.map((data) => (
                                                     <Grid className="newRequest" onClick={() => this.handleOpenSlot(data)}>
@@ -724,7 +726,7 @@ class Index extends Component {
                                             <Grid className="slotBoxCntnt">
                                                 {clashtime && <Grid className="timSltCal">
                                                     <p><img src={require('../../../assets/images/important-info.svg')} alt="" title="" />
-                                                        Time slot is already booked on your calendar
+                                                        {time_slot_alredy_booke_calender}
                                                   </p></Grid>}
                                                 <Grid className="slotCourse">
                                                     <a onClick={this.handleCloseSlot} className="clsSltCal">
@@ -741,7 +743,7 @@ class Index extends Component {
                                                                 <a>{appoinmentSelected.appointment_type == 'online_appointment' && <img src={require('../../../assets/images/video-call.svg')} alt="" title="" />}
                                                                     {appoinmentSelected.appointment_type == 'practice_days' && <img src={require('../../../assets/images/dates.png')} alt="" title="" />}
                                                                     {appoinmentSelected.appointment_type == 'private_appointments' && <img src={require('../../../assets/images/ShapeCopy21.svg')} alt="" title="" />}
-                                                                    {appoinmentSelected.appointment_type == 'practice_days' ? 'Consultancy Appointment' : (appoinmentSelected.appointment_type == 'online_appointment' ? 'Video call' : 'Office visit')}</a>
+                                                                    {appoinmentSelected.appointment_type == 'practice_days' ? 'Consultancy Appointment' : (appoinmentSelected.appointment_type == 'online_appointment' ? vdo_call : office_visit)}</a>
                                                             </Grid>
                                                         </Grid>
                                                     </Grid>
@@ -750,18 +752,18 @@ class Index extends Component {
                                                         <p><label>{moment(appoinmentSelected.date, 'MM-DD-YYYY').format('MMMM DD, YYYY')}</label> <span>{appoinmentSelected.start_time} - {appoinmentSelected.end_time}</span></p>
                                                     </Grid>
                                                     <Grid className="detailQues">
-                                                        <label>Details / Questions</label>
+                                                        <label>{Details} / {Questions}</label>
                                                         <p>{appoinmentSelected.annotations}</p>
                                                     </Grid>
                                                 </Grid>
                                                 <Grid className="detailQuesSub">
                                                     <input type="submit" value="Book appointment" onClick={() => { this.updateAppointment('accept', appoinmentSelected._id, appoinmentSelected) }} />
-                                                    <span>or</span>
+                                                    <span>{or}</span>
                                                 </Grid>
                                                 <Grid className="slotTimDat">
                                                     <Grid container direction="row" className="addBirthSlot">
                                                         <Grid item xs={6} md={6}>
-                                                            <Grid><label>Date of appoinments</label></Grid>
+                                                            <Grid><label>{date_of_appointment}</label></Grid>
                                                             <Grid>
                                                                 <DatePicker
                                                                     onChange={this.onChange}
@@ -770,7 +772,7 @@ class Index extends Component {
                                                             </Grid>
                                                         </Grid>
                                                         {this.state.suggesteddate && <Grid item xs={6} md={6}>
-                                                            <Grid><label>Select a time</label></Grid>
+                                                            <Grid><label>{slct_a_time}</label></Grid>
                                                             <Grid className="selTimeAM suggent-time scroll-hidden">
                                                                 {this.state.suggestTime && this.state.suggestTime.length > 0 ? this.state.suggestTime.map((data, iA) => {
                                                                     return (

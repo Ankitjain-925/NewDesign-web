@@ -120,7 +120,7 @@ class Index extends Component {
             case "default":
                 translate = translationEN.text
         }
-        let { date, time, format, set_the_default, the, is, updated, save_change } = translate
+        let { date, time, format, set_the_default, the, is, updated, save_change, pharmacy_prescription_model, pharma_prescription, send_prescription_to_pharmacy, uplod_scanned_prescription, browse, or, or_drag_here, suported_file_type_jpg_png, patient_id, Pharmacy, search_pharmacy_by_name_id, show_pharmacy_within_radious, short_msg_optional, add_this_patient_journal,send_invite } = translate
         const { selectedOption } = this.state;
         return (
             <div>
@@ -173,7 +173,7 @@ class Index extends Component {
 
                     <Grid>
                         <Grid className="phamraLink">
-                            <a onClick={this.handleOpenPharma}>Pharmacy Prescription Model</a>
+                            <a onClick={this.handleOpenPharma}>{pharmacy_prescription_model}</a>
                         </Grid>
                         {/* Pharmacy Prescription */}
                         <Modal
@@ -187,37 +187,37 @@ class Index extends Component {
                                             <img src={require('../../../../assets/images/closefancy.png')} alt="" title="" />
                                         </a>
                                     </Grid>
-                                    <Grid><label>Pharmacy Prescription</label></Grid>
-                                    <p>Send prescriptions to pharmacies</p>
+                                    <Grid><label>{pharma_prescription}</label></Grid>
+                                    <p>{send_prescription_to_pharmacy}</p>
                                 </Grid>
                                 <Grid className="phrmLinkUpr">
                                     <Grid className="upScanForms upScanImg">
-                                        <Grid><label>Upload scanned prescriptions</label></Grid>
+                                        <Grid><label>{uplod_scanned_prescription}</label></Grid>
                                         <Grid className="upScanInput">
                                             <a><img src={require('../../../../assets/images/upload-file.svg')} alt="" title="" /></a>
-                                            <a>Browse <input type="file" /></a> or drag here
+                                            <a>{browse} <input type="file" /></a> {or_drag_here}
                     </Grid>
-                                        <p>Supported file types: .jpg, .png, .pdf</p>
+                                        <p>{suported_file_type_jpg_png}</p>
                                     </Grid>
                                     <Grid className="scanInputs">
-                                        <Grid><label>Patient ID</label></Grid>
+                                        <Grid><label>{patient_id}</label></Grid>
                                         <Grid><input type="text" /></Grid>
                                     </Grid>
                                     <Grid className="scanInputs">
-                                        <Grid><label>Pharmacy</label></Grid>
+                                        <Grid><label>{Pharmacy}</label></Grid>
                                         <Grid className="scanInputPhrm">
-                                            <input type="text" placeholder="Search Pharmacy by name or ID" />
+                                            <input type="text" placeholder={search_pharmacy_by_name_id} />
                                             <img src={require('../../../../assets/images/srchInputField.svg')} alt="" title="" />
                                         </Grid>
                                     </Grid>
                                     <Grid className="scanInputs">
-                                        <Grid><label>Show Pharmacies within my radius of</label></Grid>
+                                        <Grid><label>{show_pharmacy_within_radious}</label></Grid>
                                         <Grid className="scanInputKm">
                                             <input type="text" /><span>km</span>
                                         </Grid>
                                     </Grid>
                                     <Grid className="scanInputs shrtMsgOpt">
-                                        <Grid><label>Short message (optional)</label></Grid>
+                                        <Grid><label>{short_msg_optional}</label></Grid>
                                         <Grid><textarea></textarea></Grid>
                                     </Grid>
                                     <Grid className="jurnlTatent">
@@ -228,11 +228,11 @@ class Index extends Component {
                                                     color="#00ABAF"
                                                 />
                                             }
-                                            label="Add this to Patient Journal"
+                                            label={add_this_patient_journal}
                                         />
                                     </Grid>
                                     <Grid className="scanInputsSub">
-                                        <input type="submit" value="Send invites" />
+                                        <input type="submit" value={send_invite} />
                                     </Grid>
                                 </Grid>
                             </Grid>

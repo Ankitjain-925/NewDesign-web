@@ -522,7 +522,7 @@ class Index extends Component {
                                                 <Grid className={this.state.selectedOption === 'patient' ? "acType" : "acType ProfSelect"}>
                                                     <UncontrolledDropdown nav inNavbar >
                                                         <DropdownToggle nav caret>
-                                                            <a>{this.state.selectedOption === '' || this.state.selectedOption === 'patient' ? 'Professional' : this.state.selectedOption.charAt(0).toUpperCase() + this.state.selectedOption.slice(1)}</a>
+                                                            <a>{this.state.selectedOption === '' || this.state.selectedOption === 'patient' ? Professional : this.state.selectedOption.charAt(0).toUpperCase() + this.state.selectedOption.slice(1)}</a>
                                                         </DropdownToggle>
                                                         <DropdownMenu>
                                                             <DropdownItem onClick={() => { this.setState({ selectedOption: '' }) }}><NavLink>{Professional}</NavLink></DropdownItem>

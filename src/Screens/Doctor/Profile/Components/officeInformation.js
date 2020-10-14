@@ -155,28 +155,28 @@ class Index extends Component {
             case "default":
                 translate = translationEN.text
         }
-        let { date, time, format, set_the_default, the, is, updated, save_change } = translate
+        let {offc_info, this_is_what_patient_see_arrenging_appointment, we_offer, latest_info, date, time, format, set_the_default, the, is, updated, save_change , the_info_isnt_update_succ, the_info_update_succefully } = translate
         const { UpDataDetails } = this.state;
         return (
             <div>
                 {this.state.loaderImage && <Loader />}
-                {this.state.PassDone && <div className="success_message">The information is updated succesfully</div>}
-                {this.state.PassFail && <div className="err_message">The information is not updated succesfully</div>}
+                {this.state.PassDone && <div className="success_message">{the_info_update_succefully}</div>}
+                {this.state.PassFail && <div className="err_message">{the_info_isnt_update_succ}</div>}
                 <Grid container direction="row" alignItems="center" spacing={2}>
                     <Grid item xs={12} md={6}>
 
                         <Grid className="profileInfo">
-                            <h1>Office information</h1>
-                            <p>This is what patients see when they are arranging an appointment</p>
+                            <h1>{offc_info}</h1>
+                            <p>{this_is_what_patient_see_arrenging_appointment}</p>
                         </Grid>
 
                         <Grid item className="officInfo profileInfoIner">
-                            <label>We offer</label>
+                            <label>{we_offer}</label>
                             <Grid><input type="text" name="weoffer_text" onChange={this.handleChange} value={this.state.UpDataDetails.weoffer_text ? this.state.UpDataDetails.weoffer_text : ''} /></Grid>
                         </Grid>
 
                         <Grid className="latstInfo">
-                            <label>Latest information</label>
+                            <label>{latest_info}</label>
                             <Grid>
                                 <ReactQuill name="latest_info" value={this.state.UpDataDetails.latest_info?UpDataDetails.latest_info:''}
                                     onChange={this.handlelatestChange} />
@@ -184,7 +184,7 @@ class Index extends Component {
                         </Grid>
 
                         <Grid className="latstInfoBtn">
-                            <input type="submit" value="Save changes" onClick={this.saveData}/>
+                            <input type="submit" value={save_change} onClick={this.saveData}/>
                         </Grid>
 
                     </Grid>

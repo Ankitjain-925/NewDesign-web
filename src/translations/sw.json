@@ -524,6 +524,7 @@
 		"password_cant_empty":"Nenosiri haliwezi kuwa tupu",
 		"user_not_exist":"Mtumiaji hayupo",
 		"user_is_blocked":"Mtumiaji amezuiwa",
-		"wrong_password":"Nenosiri lisilo sahihi"
+		"wrong_password":"Nenosiri lisilo sahihi",
+		"login_LOGIN_btn":"Ingia"
 	}
 }
