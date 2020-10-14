@@ -28,7 +28,9 @@ class Index extends Component {
             searchLocation: [],
             newEntry: {},
             success: false,
-            imagePreviewUrl: null
+            isadded: false,
+            firstPatient_id: false,
+            imagePreviewUrl: null,
         };
 
     }
@@ -262,7 +264,7 @@ class Index extends Component {
             this.setState({
                 firstPatient_id: true
             })
-            event.target.files = []
+            // event.target.files = []
             return false
         }
     }
@@ -399,6 +401,9 @@ class Index extends Component {
                                     <img src={require('../../../assets/images/closefancy.png')} alt="" title="" />
                                 </a>
                             </Grid>
+                            {this.state.firstPatient_id && <div className="err_message">Please enter the patient id first</div>}
+                            {this.state.isadded && <div className="success_message">Successfully added the information</div>}
+                            {this.state.compulsary && <div className="err_message">Please Enter all the field</div>}
                             <Grid><label>Pharmacy Prescription</label></Grid>
                             <p>Send prescriptions to pharmacies</p>
                         </Grid>

@@ -26,6 +26,30 @@ class Index extends Component {
         };
     }
 
+    componentDidMount = () => {
+        this.getUserData()
+    
+    }
+
+    getUserData() {
+        this.setState({ loaderImage: true});
+        let user_token = this.props.stateLoginValueAim.token
+        let user_id = this.props.stateLoginValueAim.user._id
+        axios.get(sitedata.data.path + '/UserProfile/Users/' + user_id, {
+            headers: {
+                'token': user_token,
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        }).then((response) => {
+            this.setState({ loaderImage: false });
+            
+            this.setState({ Current_state: response.data.data, is2fa: response.data.data.is2fa });
+        }).catch((error) => {
+            this.setState({ loaderImage: false });
+        });
+    }
+
     //For Change Password State
     ChangePass = (e) => {
         const state = this.state.Password;

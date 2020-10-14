@@ -626,8 +626,8 @@ class Index extends Component {
             }
         })
 
-        this.setState({ suggesteddate: new Date(), suggestTime: suggestTime });
-        this.setState({ suggesteddate: date })
+        this.setState({ suggesteddate: date, suggestTime: suggestTime });
+        // this.setState({ suggesteddate: date })
     }
 
     selectTimeSlot = (index) => {

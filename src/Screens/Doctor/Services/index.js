@@ -765,6 +765,7 @@ class Index extends Component {
                                                             </a>
                                                         </Grid>
                                                         <Grid>{this.state.error_msg && <div className="err_message">ID or PIN is not correct</div>}</Grid>
+                                                        {/* <Grid>{this.state.error_msg && <div className="success_message">ID or PIN is not correct</div>}</Grid> */}
                                                         <Grid><label>Patient Data Access</label></Grid>
                                                         <p>Healthdata access for non-connected patient</p>
                                                     </Grid>
