@@ -191,7 +191,7 @@ class Index extends Component {
                                 'Content-Type': fileType
                             }
                         };
-                        axios.put('https://cors-anywhere.herokuapp.com/'+signedRequest, file1, options)
+                        axios.put('https://cors-anywhere.herokuapp.com/' + signedRequest, file1, options)
                             .then(result => {
                                 console.log("Response from s3")
                                 this.setState({ success: true });
@@ -276,26 +276,26 @@ class Index extends Component {
         this.setState({ message: null });
         confirmAlert({
             customUI: ({ onClose }) => {
-                 return (
-                     <div className={this.props.settings.setting.mode === 'dark' ? "dark-confirm react-confirm-alert-body" : "react-confirm-alert-body"} >
-                         <h1>Update the Inqury?</h1>
-                         <p>Are you sure  to remove this Inquiry?</p>
-                         <div className="react-confirm-alert-button-group">
-                             <button onClick={onClose}>No</button>
-                             <button
-                                 onClick={() => {
-                                     this.deleteClickPatient(status, id)
-                                     onClose();
-                                 }}
-                             >
-                                 Yes
+                return (
+                    <div className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode && this.props.settings.setting.mode === 'dark' ? "dark-confirm react-confirm-alert-body" : "react-confirm-alert-body"} >
+                        <h1>Update the Inqury?</h1>
+                        <p>Are you sure  to remove this Inquiry?</p>
+                        <div className="react-confirm-alert-button-group">
+                            <button onClick={onClose}>No</button>
+                            <button
+                                onClick={() => {
+                                    this.deleteClickPatient(status, id)
+                                    onClose();
+                                }}
+                            >
+                                Yes
                              </button>
-                         </div>
-                     </div>
-                 );
-             }
-         })
-     }
+                        </div>
+                    </div>
+                );
+            }
+        })
+    }
 
     handleOpenPrescp = (data) => {
         this.setState({ openPrescp: true, sickData: data });
@@ -319,9 +319,9 @@ class Index extends Component {
 
     render() {
         const { inqstatus, sickData, MypatientsData, imagePreviewUrl } = this.state;
-        let $imagePreview       = null;
-        if(imagePreviewUrl) {
-            $imagePreview = (<img style={{ borderRadius: "10%", maxWidth: 350,marginBottom:10 }} src={ imagePreviewUrl } />);
+        let $imagePreview = null;
+        if (imagePreviewUrl) {
+            $imagePreview = (<img style={{ borderRadius: "10%", maxWidth: 350, marginBottom: 10 }} src={imagePreviewUrl} />);
         }
         let translate;
         switch (this.props.stateLanguageType) {
@@ -399,8 +399,8 @@ class Index extends Component {
                     <Modal
                         open={this.state.openPrescp}
                         onClose={this.handleClosePrescp}
-                        className={this.props.settings.setting.mode === 'dark' ?"darkTheme prespBoxModel":"prespBoxModel"}
-                        >
+                        className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode && this.props.settings.setting.mode === 'dark' ? "darkTheme prespBoxModel" : "prespBoxModel"}
+                    >
                         <Grid className="nwPresCntnt">
                             <Grid className="nwPresCntntIner">
                                 <Grid className="nwPresCourse">
@@ -464,33 +464,34 @@ class Index extends Component {
                                         <Grid><label>{Annotations} / {details} / {questions}</label></Grid>
                                         <Grid><h3>{sickData && sickData.annotations && sickData.annotations}</h3></Grid>
                                     </Grid>
+                                    {sickData.status !== 'decline' &&
+                                        <Grid className="scamUPForms scamUPImg">
+
+                                            <Grid><label>{(sickData.status !== 'accept') ? 'Upload scanned' : 'Scanned'} prescription</label></Grid>
+
+                                            {(sickData.status !== 'accept' && !$imagePreview) && <Grid className="scamUPInput">
+                                                <a><img src={require('../../../../assets/images/upload-file.svg')} alt="" title="" /></a>
+                                                <a>Browse <input type="file" onChange={(e) => this.UploadFile(e, sickData.patient_profile_id, sickData.patient_info.bucket, sickData._id)} /></a> or drag here
+                                                                            </Grid>}
+                                            {(sickData.status !== 'accept') && !$imagePreview && <p>Supported file types: .jpg, .png, .pdf</p>}
+                                            {(sickData.status === 'accept') && !$imagePreview && <img src={sickData.attachfile[0].filename} />}
+                                            {(sickData.status !== 'accept') && $imagePreview}
+                                            {(sickData.attachfile && this.state.uploadedimage && sickData.status !== 'accept') && <Grid item xs={12} md={12}>
+                                                <input type="button" value="Send to patient's Timeline and Email" onClick={() => this.saveUserData(sickData._id)} className="approvBtn" />
+                                            </Grid>}
+                                        </Grid>}
+
+                                    {(sickData.status !== 'accept' && sickData.status !== 'decline') && <Grid container direction="row">
+                                        <Grid item xs={6} md={6}>
+                                            <input type="button" value="Approve" onClick={() => this.deleteClickPatient('accept', sickData._id)} className="approvBtn" />
+                                        </Grid>
+                                        <Grid item xs={6} md={6}>
+                                            <input type="button" value="Reject" onClick={() => this.updateCertificate('decline', sickData._id)} className="rejectBtn" />
+                                        </Grid>
+                                    </Grid>}
                                 </Grid>
                                 <Grid className="infoShwHidBrdr2"></Grid>
-                                {sickData.status !== 'decline' &&
-                                    <Grid className="scamUPForms scamUPImg">
 
-                                        <Grid><label>{(sickData.status !== 'accept') ? 'Upload scanned' : 'Scanned'} prescription</label></Grid>
-
-                                        {(sickData.status !== 'accept'&& !$imagePreview) && <Grid className="scamUPInput">
-                                            <a><img src={require('../../../../assets/images/upload-file.svg')} alt="" title="" /></a>
-                                            <a>Browse <input type="file" onChange={(e)=>this.UploadFile(e, sickData.patient_profile_id, sickData.patient_info.bucket, sickData._id)} /></a> or drag here
-                                                                            </Grid>}
-                                        {(sickData.status !== 'accept')&& !$imagePreview && <p>Supported file types: .jpg, .png, .pdf</p>}
-                                        {(sickData.status === 'accept')&& !$imagePreview && <img src={sickData.attachfile[0].filename} />}
-                                        {(sickData.status !== 'accept')  && $imagePreview}
-                                        {(sickData.attachfile && this.state.uploadedimage && sickData.status !== 'accept') && <Grid item xs={12} md={12}>
-                                            <input type="button" value="Send to patient's Timeline and Email" onClick={() => this.saveUserData(sickData._id)} className="approvBtn" />
-                                        </Grid>}
-                                    </Grid>}
-
-                                {(sickData.status !== 'accept' && sickData.status !== 'decline') && <Grid container direction="row">
-                                    <Grid item xs={6} md={6}>
-                                        <input type="button" value="Approve" onClick={() => this.deleteClickPatient('accept', sickData._id)} className="approvBtn" />
-                                    </Grid>
-                                    <Grid item xs={6} md={6}>
-                                        <input type="button" value="Reject" onClick={() => this.updateCertificate('decline', sickData._id)} className="rejectBtn" />
-                                    </Grid>
-                                </Grid>}
                             </Grid>
                         </Grid>
                     </Modal>
@@ -499,7 +500,7 @@ class Index extends Component {
                     <Modal
                         open={this.state.openReject}
                         onClose={this.handleCloseReject}
-                        className={this.props.settings.setting.mode === 'dark' ?"darkTheme":""}>
+                        className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode && this.props.settings.setting.mode === 'dark' ? "darkTheme" : ""}>
                         <Grid className="rejectBoxCntnt">
                             <Grid className="rejectCourse">
                                 <Grid className="rejectCloseBtn">

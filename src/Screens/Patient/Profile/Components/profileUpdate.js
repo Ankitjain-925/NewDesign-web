@@ -814,7 +814,7 @@ class Index extends Component {
                         <Modal
                             open={this.state.qrOpen}
                             onClose={this.handleQrClose}
-                            className="qrBoxModel">
+                            className={this.props.settings.setting.mode === 'dark' ?"darkTheme qrBoxModel":"qrBoxModel"}>
                             <Grid className="qrBoxCntnt">
                                 <Grid className="qrCourse">
                                     <Grid className="qrCloseBtn">
@@ -840,7 +840,8 @@ class Index extends Component {
                         <Modal
                             open={this.state.chngPinOpen}
                             onClose={() => this.handlePinClose("chngPinOpen")}
-                            className="editBoxModel">
+                            className={this.props.settings.setting.mode === 'dark' ?"darkTheme editBoxModel":"editBoxModel"}>
+                                
                             <Grid className="editBoxCntnt">
                                 <Grid className="editCourse">
                                     <Grid className="editCloseBtn">
@@ -1061,7 +1062,7 @@ class Index extends Component {
                     <Modal
                         open={this.state.addInsuranceOpen}
                         onClose={() => this.handlePinClose("addInsuranceOpen")}
-                        className="editBoxModel">
+                        className={this.props.settings.setting.mode === 'dark' ?"darkTheme editBoxModel":"editBoxModel"}>
                         <Grid className="editBoxCntnt">
                             <Grid className="editCourse">
                                 <Grid className="editCloseBtn">
@@ -1135,7 +1136,7 @@ class Index extends Component {
                     <Modal
                         open={this.state.editInsuranceOpen}
                         onClose={() => this.handlePinClose("editInsuranceOpen")}
-                        className="editBoxModel">
+                        className={this.props.settings.setting.mode === 'dark' ?"darkTheme editBoxModel":"editBoxModel"}>
                         <Grid className="editBoxCntnt">
                             <Grid className="editCourse">
                                 <Grid className="editCloseBtn">

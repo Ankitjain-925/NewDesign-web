@@ -301,7 +301,8 @@ class Index extends Component {
                         <Modal
                             open={this.state.openFancy}
                             onClose={this.handleCloseFancy}
-                            className="fancyBoxModel">
+                            // className="fancyBoxModel"
+                            className={this.props.settings.setting.mode === 'dark' ?"darkTheme":""}>
                             <div className="fancyBoxCntnt">
                                 <div className="rateCourse">
                                     <div className="handleCloseBtn">

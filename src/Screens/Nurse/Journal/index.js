@@ -178,22 +178,57 @@ class Index extends Component {
         this.setState({Sort : data})
     }
 
-    //Modal Open on Archive the Journal
-    ArchiveTrack = (data) => {
-        confirmAlert({
-            title: 'Archive item',
-            message: 'Do you really want to archive the item?',
-            buttons: [
-                {
-                    label: 'YES',
-                    onClick: () => this.updateArchiveTrack(data)
-                },
-                {
-                    label: 'NO',
-                }
-            ]
+  //Modal Open on Archive the Journal
+  ArchiveTrack=(data)=>{
+
+    confirmAlert({
+        customUI: ({ onClose }) => {
+        return (
+        <div className={this.props.settings.setting.mode === 'dark' ? "dark-confirm react-confirm-alert-body" : "react-confirm-alert-body"} >
+        <h1>Archive item</h1>
+        <p>Do you really want to archive the item?</p>
+        <div className="react-confirm-alert-button-group">
+        <button
+        onClick= {() => {this.updateArchiveTrack(data); onClose()}}
+        >
+        Yes
+        </button>
+        <button
+        onClick={() => {onClose();}}
+        >
+        No
+        </button>
+        </div>
+        </div>
+        );
+        }
         })
-    }
+}
+//Delete the perticular track confirmation box
+DeleteTrack=(deletekey)=> {
+    confirmAlert({
+        customUI: ({ onClose }) => {
+        return (
+        <div className={this.props.settings.setting.mode === 'dark' ? "dark-confirm react-confirm-alert-body" : "react-confirm-alert-body"} >
+        <h1>Delete item</h1>
+        <p>Do you really want to delete the item?</p>
+        <div className="react-confirm-alert-button-group">
+        <button
+        onClick= {() => {this.deleteClickTrack(deletekey); onClose()}}
+        >
+        Yes
+        </button>
+        <button
+        onClick={() => {onClose();}}
+        >
+        No
+        </button>
+        </div>
+        </div>
+        );
+        }
+        })
+}
     //Open patient data
     handleOpenData = () => {
         this.setState({ openData: true });
@@ -202,22 +237,6 @@ class Index extends Component {
         this.setState({ openData: false });
     };
     
-    //Delete the perticular track confirmation box
-    DeleteTrack = (deletekey) => {
-        confirmAlert({
-            title: 'Delete item',
-            message: 'Do you really want to delete the item?',
-            buttons: [
-                {
-                    label: 'YES',
-                    onClick: () => this.deleteClickTrack(deletekey)
-                },
-                {
-                    label: 'NO',
-                }
-            ]
-        })
-    }
     //Delete the track
     deleteClickTrack = (deletekey) => {
         var user_id = this.props.Doctorsetget.p_id
@@ -895,7 +914,7 @@ class Index extends Component {
                                         </Grid>
                                         
                                         {/* For the filter section */}
-                                        {this.props.Doctorsetget.p_id !== null && <FilterSec FilterData={this.FilterData} SortData={this.SortData} ClearData={this.ClearData} sortBy={this.state.Sort}/>}
+                                        {this.props.Doctorsetget.p_id !== null && <FilterSec settings={this.props.settings} FilterData={this.FilterData} SortData={this.SortData} ClearData={this.ClearData} sortBy={this.state.Sort}/>}
 
                                         {/* For Empty Entry */}
                                         {this.props.Doctorsetget.p_id !== null && <div>
@@ -912,7 +931,8 @@ class Index extends Component {
                                 {/* End of Website Mid Content */}
 
                                  {/* Model Patient Data Access */}
-                                <Modal  open={this.state.openData} onClose={this.handleCloseData} >
+                                <Modal  open={this.state.openData} onClose={this.handleCloseData} 
+                                className={this.props.settings.setting.mode === 'dark' ?"darkTheme":""}>
                                     <Grid className="dataBoxCntnt">
                                         <Grid className="dataCourse">
                                             <Grid className="dataCloseBtn">
@@ -946,12 +966,12 @@ class Index extends Component {
                             
                                 {/* Website Right Content */}
                                 {this.props.Doctorsetget.p_id !== null && <Grid item xs={12} md={3}>
-                                    <ProfileSection personalinfo={this.state.personalinfo} user={this.state.cur_one2} user_token={this.props.stateLoginValueAim.token} getData={this.cur_one2} />
+                                    <ProfileSection settings={this.props.settings} personalinfo={this.state.personalinfo} user={this.state.cur_one2} user_token={this.props.stateLoginValueAim.token} getData={this.cur_one2} />
                                     {/* Model setup */}
                                     <Modal
                                         open={this.state.addInqryNw}
                                         onClose={this.handleCloseInqryNw}
-                                        className="nwDiaModel">
+                                        className={this.props.settings.setting.mode === 'dark' ?"darkTheme nwDiaModel":"nwDiaModel"}>
                                         <Grid className="nwDiaCntnt">
                                             <Grid className="nwDiaCntntIner">
                                                 <Grid className="nwDiaCourse">
@@ -1046,7 +1066,7 @@ class Index extends Component {
 
 
                                     {/* Model setup */}
-                                    <AddEntry new_entry={this.props.new_entry} openBy="nurse" openEntry={this.state.openEntry} value="diagnosis" onChange={this.SelectOption} handleCloseEntry={this.handleCloseEntry} />
+                                    <AddEntry settings={this.props.settings} new_entry={this.props.new_entry} openBy="nurse" openEntry={this.state.openEntry} value="diagnosis" onChange={this.SelectOption} handleCloseEntry={this.handleCloseEntry} />
                                     {/* End of Model setup */}
 
                                     {/* <RightManage added_data={this.state.added_data} MoveDocument={this.MoveDocument} MoveAppoint={this.MoveAppoint} SelectOption={this.SelectOption} personalinfo={{}} /> */}

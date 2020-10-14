@@ -626,8 +626,8 @@ class Index extends Component {
             }
         })
 
-        this.setState({ suggesteddate: new Date(), suggestTime: suggestTime });
-        this.setState({ suggesteddate: date })
+        this.setState({ suggesteddate: date, suggestTime: suggestTime });
+        // this.setState({ suggesteddate: date })
     }
 
     selectTimeSlot = (index) => {
@@ -721,7 +721,7 @@ class Index extends Component {
                                         <Modal
                                             open={this.state.openSlot}
                                             onClose={this.handleCloseSlot}
-                                            className={this.props.settings.setting.mode === 'dark' ?"darkTheme":""}
+                                            className={this.props.settings&&this.props.settings.setting && this.props.settings.setting.mode &&this.props.settings.setting.mode === 'dark' ?"darkTheme":""}
                                             >
                                             <Grid className="slotBoxCntnt">
                                                 {clashtime && <Grid className="timSltCal">

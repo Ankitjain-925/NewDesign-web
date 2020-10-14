@@ -25,6 +25,10 @@ const createOption = (label) => ({
     value: label,
 });
 
+const components = {
+    DropdownIndicator: null,
+};
+
 class Index extends Component {
     constructor(props) {
         super(props)
@@ -35,6 +39,10 @@ class Index extends Component {
             UpDataDetails: [],
             inputValue: '',
             value: [],
+            messageMissing: false,
+            emailMissing: false,
+            invitation: {},
+            success: false
         };
 
     }
@@ -72,30 +80,39 @@ class Index extends Component {
 
         this.setState({ loaderImage: true, nv: false });
         let user_token = this.props.stateLoginValueAim.token
-        axios.post(sitedata.data.path + '/UserProfile/AskPatient1/' + this.state.invitation.emails, {
-            email: this.state.invitation.emails,
-            message: this.state.invitation.messages,
-            first_name: this.state.UpDataDetails.first_name ? this.state.UpDataDetails.first_name : '',
-            last_name: this.state.UpDataDetails.last_name ? this.state.UpDataDetails.last_name : '',
-            lan: this.props.stateLanguageType
-        }, {
-            headers: {
-                'token': user_token,
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            }
-        }).then((response) => {
-            this.setState({ loaderImage: false });
-            this.setState({ sentmessages: true });
-            setTimeout(
-                function () {
-                    this.setState({ sentmessages: false });
+        if (invitation && this.state.invitation.emails && this.state.invitation.emails.length > 0 && this.state.invitation.messages && this.state.invitation.messages !== '') {
+            axios.post(sitedata.data.path + '/UserProfile/AskPatient1/' + this.state.invitation.emails, {
+                email: this.state.invitation.emails,
+                message: this.state.invitation.messages,
+                first_name: this.state.UpDataDetails.first_name ? this.state.UpDataDetails.first_name : '',
+                last_name: this.state.UpDataDetails.last_name ? this.state.UpDataDetails.last_name : '',
+                lan: this.props.stateLanguageType
+            }, {
+                headers: {
+                    'token': user_token,
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
                 }
-                    .bind(this),
-                3000
-            );
-        })
-
+            }).then((response) => {
+                this.setState({ loaderImage: false });
+                if (response.data.hassuccessed) {
+                    this.setState({ sentmessages: true });
+                    setTimeout(
+                        function () {
+                            this.setState({ sentmessages: false });
+                        }
+                            .bind(this),
+                        3000
+                    );
+                }
+            })
+        }
+        else if (invitation && !this.state.invitation.emails || this.state.invitation.emails.length == 0) {
+            this.setState({ emailMissing: true })
+        }
+        else if (invitation && !this.state.invitation.messages || this.state.invitation.messages !== '') {
+            this.setState({ messageMissing: true })
+        }
     }
 
     validateEmail = (elementValue) => {
@@ -146,6 +163,7 @@ class Index extends Component {
                         nv: false,
                         inputValue: '',
                         value: [...value, createOption(inputValue)],
+                        emailMissing: false
                     });
                 }
                 else {
@@ -206,7 +224,7 @@ class Index extends Component {
                 <Modal
                     open={openInvt}
                     onClose={this.handleCloseInvt}
-                    className={this.props.settings.setting.mode === 'dark' ?"darkTheme":""}>
+                    className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode && this.props.settings.setting.mode === 'dark' ? "darkTheme" : ""}>
                     <Grid className="invtBoxCntnt">
                         <Grid className="invtCourse">
                             <Grid className="invtCloseBtn">
@@ -214,6 +232,9 @@ class Index extends Component {
                                     <img src={require('../../../assets/images/closefancy.png')} alt="" title="" />
                                 </a>
                             </Grid>
+                            {this.state.emailMissing && <div className="err_message"> Enter email first</div>}
+                            {this.state.messageMissing && <div className="err_message"> Enter message</div>}
+                            {this.state.success && <div className="success_message">Invitation sent succefully</div>}
                             <Grid><label>{invite_doc_to} Aimedis</label></Grid>
                             <p>{u_can_enter_mul_email}</p>
                         </Grid>
@@ -223,13 +244,14 @@ class Index extends Component {
                                 <Grid>
                                     <CreatableSelect
                                         inputValue={inputValue}
+                                        components={components}
                                         isClearable
                                         isMulti
                                         menuIsOpen={false}
                                         onChange={this.handleChange}
                                         onInputChange={this.handleInputChange}
                                         onKeyDown={this.handleKeyDown}
-                                        placeholder="Enter Emails..."
+                                        placeholder="Type emails and press enter or tabs"
                                         value={value}
                                     />
                                 </Grid>

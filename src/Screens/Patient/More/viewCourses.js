@@ -46,12 +46,8 @@ class Index extends Component {
                         <Grid item xs={12} md={12}>
                             <Grid container direction="row">
                                 {/* Website Menu */}
-                                {this.props.stateLoginValueAim && this.props.stateLoginValueAim.user && this.props.stateLoginValueAim.user.type==='patient' &&
-                                    <div>
-                                        <LeftMenu  isNotShow ={true} currentPage ="more"/>
-                                        <LeftMenuMobile isNotShow ={true}  currentPage ="more"/>
-                                    </div>
-                                }
+                                <LeftMenu  isNotShow ={true} currentPage ="more"/>
+                                <LeftMenuMobile isNotShow ={true}  currentPage ="more"/>
                                 
                                 {/* End of Website Menu */}
                                 <Grid item xs={12} md={11}>

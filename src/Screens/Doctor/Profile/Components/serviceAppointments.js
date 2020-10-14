@@ -40,7 +40,7 @@ const apoinmentdata = {
     holidays_start: '',
     holidays_end: '',
     custom_text: '',
-    duration_of_timeslot: 0
+    duration_of_timeslots: 0
 
 }
 class Index extends Component {
@@ -734,9 +734,21 @@ class Index extends Component {
     }
 
     onChange = (event, belong, stateChange, key) => {
+        console.log("event", event)
         if (event) {
             let changestate = this.state[stateChange]
             changestate[key + '_' + belong] = moment(event).format('HH:mm')
+            this.setState({ [stateChange]: changestate })
+        }
+        else if (key !== 'breakslot') {
+            let changestate = this.state[stateChange]
+            changestate[key + '_' + belong] = '00:00'
+            this.setState({ [stateChange]: changestate })
+        }
+        else {
+            let changestate = this.state[stateChange]
+            changestate[key + '_' + belong] = '';
+            console.log("changestate", changestate)
             this.setState({ [stateChange]: changestate })
         }
     }
@@ -758,10 +770,16 @@ class Index extends Component {
     }
 
     getTime = (time) => {
-        let date = new Date();
-        let splittime = time.split(":")
-        date.setHours(splittime[0], splittime[1])
-        return date
+        console.log("time", time)
+        if (time !== '') {
+            let date = new Date();
+            let splittime = time.split(":")
+            date.setHours(splittime[0], splittime[1])
+            return date
+        }
+        else {
+            return ''
+        }
     }
 
     //For checkbox to offer things
@@ -828,6 +846,7 @@ class Index extends Component {
     changeDuration = (event, stateChange) => {
         let data = this.state[stateChange];
         data[event.target.name] = event.target.value;
+        console.log('data: ', data)
         this.setState({ [stateChange]: data })
         this.setState({ appoinmentError: false })
     }
@@ -1139,9 +1158,9 @@ class Index extends Component {
                                         <Grid className="setSchedule appointment">
                                             <Grid className="nameSchedule"><label>Break time:</label></Grid>
                                             <Grid className="nameSchedule">
-                                                <TimeFormat name="time" value={onlineAppointments.breakslot_start ? this.getTime(onlineAppointments.breakslot_start) : new Date()} time_format={this.props.settings.setting ? this.props.settings.setting.time_format : '24'} onChange={(e) => this.onChange(e, 'start', 'onlineAppointments', 'breakslot')} />
+                                                <TimeFormat name="time" value={(onlineAppointments.breakslot_start||onlineAppointments.breakslot_start=='') ? this.getTime(onlineAppointments.breakslot_start) : new Date()} time_format={this.props.settings.setting ? this.props.settings.setting.time_format : '24'} onChange={(e) => this.onChange(e, 'start', 'onlineAppointments', 'breakslot')} />
                                                 <span>-</span>
-                                                <TimeFormat name="time" value={onlineAppointments.breakslot_end ? this.getTime(onlineAppointments.breakslot_end) : new Date()} time_format={this.props.settings.setting ? this.props.settings.setting.time_format : '24'} onChange={(e) => this.onChange(e, 'end', 'onlineAppointments', 'breakslot')} />
+                                                <TimeFormat name="time" value={onlineAppointments.breakslot_end ||onlineAppointments.breakslot_end==''? this.getTime(onlineAppointments.breakslot_end) : new Date()} time_format={this.props.settings.setting ? this.props.settings.setting.time_format : '24'} onChange={(e) => this.onChange(e, 'end', 'onlineAppointments', 'breakslot')} />
                                             </Grid>
                                         </Grid>
                                     </Grid>
@@ -1310,9 +1329,9 @@ class Index extends Component {
                                         <Grid className="setSchedule appointment">
                                             <Grid className="nameSchedule"><label>Break time:</label></Grid>
                                             <Grid className="nameSchedule">
-                                                <TimeFormat name="time" value={UpDataDetails.breakslot_start ? this.getTime(UpDataDetails.breakslot_start) : new Date()} time_format={this.props.settings.setting ? this.props.settings.setting.time_format : '24'} onChange={(e) => this.onChange(e, 'start', 'UpDataDetails', 'breakslot')} />
+                                                <TimeFormat name="time" value={UpDataDetails.breakslot_start || UpDataDetails.breakslot_start=='' ? this.getTime(UpDataDetails.breakslot_start) : new Date()} time_format={this.props.settings.setting ? this.props.settings.setting.time_format : '24'} onChange={(e) => this.onChange(e, 'start', 'UpDataDetails', 'breakslot')} />
                                                 <span>-</span>
-                                                <TimeFormat name="time" value={UpDataDetails.breakslot_end ? this.getTime(UpDataDetails.breakslot_end) : new Date()} time_format={this.props.settings.setting ? this.props.settings.setting.time_format : '24'} onChange={(e) => this.onChange(e, 'end', 'UpDataDetails', 'breakslot')} />
+                                                <TimeFormat name="time" value={UpDataDetails.breakslot_end || UpDataDetails.breakslot_end=='' ? this.getTime(UpDataDetails.breakslot_end) : new Date()} time_format={this.props.settings.setting ? this.props.settings.setting.time_format : '24'} onChange={(e) => this.onChange(e, 'end', 'UpDataDetails', 'breakslot')} />
                                             </Grid>
                                         </Grid>
                                     </Grid>
@@ -1477,9 +1496,9 @@ class Index extends Component {
                                         <Grid className="setSchedule appointment">
                                             <Grid className="nameSchedule"><label>{break_time}</label></Grid>
                                             <Grid className="nameSchedule">
-                                                <TimeFormat name="time" value={DaysforPractices.breakslot_start ? this.getTime(DaysforPractices.breakslot_start) : new Date()} time_format={this.props.settings.setting ? this.props.settings.setting.time_format : '24'} onChange={(e) => this.onChange(e, 'start', 'DaysforPractices', 'breakslot')} />
+                                                <TimeFormat name="time" value={DaysforPractices.breakslot_start || DaysforPractices.breakslot_start ==='' ? this.getTime(DaysforPractices.breakslot_start) : new Date()} time_format={this.props.settings.setting ? this.props.settings.setting.time_format : '24'} onChange={(e) => this.onChange(e, 'start', 'DaysforPractices', 'breakslot')} />
                                                 <span>-</span>
-                                                <TimeFormat name="time" value={DaysforPractices.breakslot_end ? this.getTime(DaysforPractices.breakslot_end) : new Date()} time_format={this.props.settings.setting ? this.props.settings.setting.time_format : '24'} onChange={(e) => this.onChange(e, 'end', 'DaysforPractices', 'breakslot')} />
+                                                <TimeFormat name="time" value={DaysforPractices.breakslot_end || DaysforPractices.breakslot_end ==='' ? this.getTime(DaysforPractices.breakslot_end) : new Date()} time_format={this.props.settings.setting ? this.props.settings.setting.time_format : '24'} onChange={(e) => this.onChange(e, 'end', 'DaysforPractices', 'breakslot')} />
                                             </Grid>
                                         </Grid>
                                     </Grid>

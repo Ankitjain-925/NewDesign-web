@@ -275,13 +275,22 @@ class Index extends Component {
         //Success payment alert after payment is success
         const successPayment = data => {
             confirmAlert({
-                message: "Payment successfully",
-                buttons: [
-                    {
-                        label: 'OK',
-                    }
-                ]
-            })
+                customUI: ({ onClose }) => {
+                return (
+                <div className={this.props.settings.setting.mode === 'dark' ? "dark-confirm react-confirm-alert-body" : "react-confirm-alert-body"} >
+                <h1>Payment successfully</h1>
+                <div className="react-confirm-alert-button-group">
+                <button
+                onClick={() => {onClose();}}
+                >
+                OK
+                </button>
+                </div>
+                </div>
+                );
+                }
+                })
+           
             let user_token = this.props.stateLoginValueAim.token
             axios.post(sitedata.data.path + '/lms_stripeCheckout/saveData',
             {
@@ -309,13 +318,21 @@ class Index extends Component {
         //Alert of the Error payment
         const errorPayment = data => {
             confirmAlert({
-                message: "Payment Error",
-                buttons: [
-                    {
-                        label: 'OK',
-                    }
-                ]
-            })
+                customUI: ({ onClose }) => {
+                return (
+                <div className={this.props.settings.setting.mode === 'dark' ? "dark-confirm react-confirm-alert-body" : "react-confirm-alert-body"} >
+                <h1>Payment error</h1>
+                <div className="react-confirm-alert-button-group">
+                <button
+                onClick={() => {onClose();}}
+                >
+                OK
+                </button>
+                </div>
+                </div>
+                );
+                }
+                })
         };
 
         //For convert EuroToCent
@@ -375,7 +392,8 @@ class Index extends Component {
                             <Modal
                                 open={this.state.openWish}
                                 onClose={this.handleCloseWish}
-                                className="wishListModel">
+                                className={this.props.settings.setting.mode === 'dark' ?"wishListModel darkTheme":"wishListModel"}
+                                >
                                 <div className="wishListCntnt">
 
                                     <div className="wshLstHai">
@@ -435,7 +453,7 @@ class Index extends Component {
                             <Modal
                                 open={this.state.openCart}
                                 onClose={this.handleCloseCart}
-                                className="crtListModel">
+                                className={this.props.settings.setting.mode === 'dark' ?"crtListModel darkTheme":"crtListModel"}>
                                 <div className="crtListCntnt">
                                     <div className="crtLstHai">
                                         <div className="crtLstHaiLft"><label>Cart</label></div>

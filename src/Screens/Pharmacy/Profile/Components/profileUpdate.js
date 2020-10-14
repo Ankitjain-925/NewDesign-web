@@ -474,6 +474,7 @@ setTimeout(()=> {
                 'Content-Type': 'application/json'
             }
         }).then((response) => {
+            this.setState({ loaderImage: false });
             var title = {}, titlefromD = response.data.data.title;
             var language = [], languagefromD = response.data.data.language;
             if (languagefromD && languagefromD.length > 0) {
@@ -566,6 +567,7 @@ setTimeout(()=> {
                 'Content-Type': 'application/json'
             }})
             .then((responce)=>{
+                this.setState({ loaderImage: false });
                 var find1 =  this.state.uploadedimage;
                 this.SettingImage(find1);  
         })
@@ -613,14 +615,22 @@ setTimeout(()=> {
             }).catch(error => {  })
         }
         else {
-            confirmAlert({
-                message: "Please Upload PNG and JPEG file",
-                buttons: [
-                    {
-                        label: 'OK',
-                    }
-                ]
-            })
+             confirmAlert({
+                customUI: ({ onClose }) => {
+                return (
+                <div className={this.props.settings.setting.mode === 'dark' ? "dark-confirm react-confirm-alert-body" : "react-confirm-alert-body"} >
+                <h1>Please Upload PNG and JPEG file</h1>
+                <div className="react-confirm-alert-button-group">
+                <button
+                onClick={() => {onClose();}}
+                >
+                OK
+                </button>
+                </div>
+                </div>
+                );
+                }
+                })
         }
     }
 
@@ -695,7 +705,7 @@ setTimeout(()=> {
                         <Modal
                             open={this.state.qrOpen}
                             onClose={this.handleQrClose}
-                            className="qrBoxModel">
+                            className={this.props.settings.setting.mode === 'dark' ?"darkTheme qrBoxModel":"qrBoxModel"}>
                             <Grid className="qrBoxCntnt">
                                 <Grid className="qrCourse">
                                     <Grid className="qrCloseBtn">
@@ -721,7 +731,7 @@ setTimeout(()=> {
                         <Modal
                             open={this.state.chngPinOpen}
                             onClose={() => this.handlePinClose("chngPinOpen")}
-                            className="editBoxModel">
+                            className={this.props.settings.setting.mode === 'dark' ?"darkTheme editBoxModel":"editBoxModel"}>
                             <Grid className="editBoxCntnt">
                                 <Grid className="editCourse">
                                     <Grid className="editCloseBtn">

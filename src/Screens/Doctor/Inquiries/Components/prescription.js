@@ -111,7 +111,7 @@ class Index extends Component {
         confirmAlert({
             customUI: ({ onClose }) => {
                 return (
-                    <div className={this.props.settings.setting.mode === 'dark' ? "dark-confirm react-confirm-alert-body" : "react-confirm-alert-body"} >
+                    <div className={this.props.settings&&this.props.settings.setting && this.props.settings.setting.mode &&this.props.settings.setting.mode === 'dark' ? "dark-confirm react-confirm-alert-body" : "react-confirm-alert-body"} >
                         <h1>Update the Inqury?</h1>
                         <p>Are you sure  to remove this Inquiry?</p>
                         <div className="react-confirm-alert-button-group">
@@ -291,7 +291,10 @@ class Index extends Component {
     }
 
     handleOpenPrescp = (data) => {
-        this.setState({ openPrescp: true, prescData: data, imagePreviewUrl: null });
+        let imagePreviewUrl = null
+        if(data.attachfile && data.attachfile.length>0) imagePreviewUrl = data.attachfile[0].filename;
+        console.log("imagePreviewUrl", imagePreviewUrl)
+        this.setState({ openPrescp: true, prescData: data, imagePreviewUrl: imagePreviewUrl });
     };
     handleClosePrescp = () => {
         this.setState({ openPrescp: false, imagePreviewUrl: null });
@@ -397,7 +400,7 @@ class Index extends Component {
                     <Modal
                         open={this.state.openPrescp}
                         onClose={this.handleClosePrescp}
-                        className={this.props.settings.setting.mode === 'dark' ? "darkTheme prespBoxModel" : "prespBoxModel"}
+                        className={this.props.settings&&this.props.settings.setting && this.props.settings.setting.mode &&this.props.settings.setting.mode === 'dark' ? "darkTheme prespBoxModel" : "prespBoxModel"}
                     >
                         <Grid className="prespBoxCntnt">
                             <Grid className="prespCourse">
@@ -463,7 +466,7 @@ class Index extends Component {
                                             <a>{browse} <input type="file" onChange={(e) => this.UploadFile(e, prescData.patient_profile_id, prescData.patient_info.bucket, prescData._id)} /></a> {or_drag_here}
                                         </Grid>}
                                         {(prescData.status !== 'accept') && !$imagePreview && <p>{suported_file_type_jpg_png}</p>}
-                                        {(prescData.status !== 'accept') && $imagePreview}
+                                        {$imagePreview}
                                         {(prescData.attachfile && success && prescData.status !== 'accept') && <Grid item xs={12} md={12}>
                                             <input type="button" value={snd_patient_timeline_email} onClick={() => this.saveUserData(prescData._id)} className="approvBtn" />
                                         </Grid>}
@@ -487,7 +490,7 @@ class Index extends Component {
                     <Modal
                         open={this.state.openReject}
                         onClose={this.handleCloseReject}
-                        className={this.props.settings.setting.mode === 'dark' ? "darkTheme " : ""}>
+                        className={this.props.settings&&this.props.settings.setting && this.props.settings.setting.mode &&this.props.settings.setting.mode === 'dark' ? "darkTheme " : ""}>
                         <Grid className="rejectBoxCntnt">
                             <Grid className="rejectCourse">
                                 <Grid className="rejectCloseBtn">

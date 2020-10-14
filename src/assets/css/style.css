@@ -7264,7 +7264,8 @@ a.vsblDots, a.conPainDots, a.bp_vsblDots, a.hideDots {
 .homeBgDrk .emrgncyAccess p, .homeBgDrk .otpAccess h5, .homeBgDrk .spcifyKind h5,
 .homeBgDrk .datTimFrmt h5, .homeBgDrk .patientKyc h5, .homeBgDrk .onlinLft h4, 
 .homeBgDrk .nwCoursName h3, .homeBgDrk .profileName2 label, .homeBgDrk .lstdrVisitLft h3,
-.homeBgDrk .phrmOpinion label{
+.homeBgDrk .phrmOpinion label, .homeBgDrk .tabsCntnts h3, .homeBgDrk .tabsCntnts label,.homeBgDrk .onlinSickVdo span,
+.homeBgDrk .onlinSickCer span{
     color: #FAFAFA !important;
 }
 .homeBgDrk .profileInfo p, .homeBgDrk .chngPasswrd p,
@@ -7274,7 +7275,7 @@ a.vsblDots, a.conPainDots, a.bp_vsblDots, a.hideDots {
 .homeBgDrk .rghtMgnt p, .homeBgDrk .otpAccess p, .homeBgDrk .otpAccess span.MuiFormControlLabel-label,
 .homeBgDrk .spcifyKind span.MuiFormControlLabel-label, .homeBgDrk .emrgncyAccess span.MuiFormControlLabel-label,
 .homeBgDrk .datTimFrmt p, .patientKyc p, .homeBgDrk .licensProof p, .homeBgDrk .sprtImg p, .homeBgDrk .aceptTermsPlcy span,
-.homeBgDrk .prfilHghtLft2 p, .homeBgDrk .prfilHghtRght2 p {
+.homeBgDrk .prfilHghtLft2 p, .homeBgDrk .prfilHghtRght2 p , .homeBgDrk .apontBook p, .homeBgDrk .profileIdLft span{
     color: #BFC1C1 !important;
 }
 .homeBgDrk .profileTabs button span {
@@ -10249,7 +10250,7 @@ img.vdoCalNow {
     display: flex;
 }
 .setSchedule div:first-child {
-    width: 40%;
+    width: 60%;
 }
 .setSchedule div:last-child {
     width: 60%;
@@ -12898,6 +12899,51 @@ a.academy_ul ul li img {
 
 
 /*Added By ankita*/
+.darkTheme .trigerAction{
+    background-color: #705a29 !important;
+}
+.darkTheme h3,.darkTheme h4,  .css-1uccc91-singleValue  {
+    color: #BFC1C1 !important;
+}
+.darkTheme .trigerAction ul li {
+    color: #D9DADA !important;
+}
+.quill {
+    background: #fff!important;
+}
+.darkTheme .dragDashLft a, .darkTheme .moreCards a,.darkTheme .stndrdQues h3,
+.darkTheme .shrHlth h2,.darkTheme .drstndrdQues h3{
+    color: #BFC1C1 !important;
+}
+.darkTheme.nwDiaModel select {
+    background: #404646!important;
+    color: #BFC1C1 !important;
+}
+.homeBgDrk .courseStar span {
+    color: #BFC1C1;
+}
+.darkTheme .wshCorListPara p {
+    color: #7F8383 !important;
+}
+.darkTheme .wshCorListLbl label {
+    color: #000808 !important;
+} 
+.darkTheme .crtCorListPara  p {
+    color: #7F8383 !important;
+}
+.darkTheme .crtCorListLbl label {
+    color: #000808 !important;
+} 
+.darkTheme .checkHelth span {
+    background-color: #333 ;
+}
+/*For popup*/
+.darkTheme .checkHelth a {
+    color: #D9DADA;
+}
+.darkTheme .checkHelthLbl a:hover {
+    color: #00ABAF;
+}
 .RelativeatSecurity{
     position: relative;
 }
@@ -13624,4 +13670,8 @@ input:focus {
 
 .homeBgDrk .ql-editor {
     color: #c0c0c0;
+}
+
+.homeBgDrk .profileId{
+    background-color: #606565;
 }

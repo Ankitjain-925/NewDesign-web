@@ -761,7 +761,8 @@ getUpcomingAppointment() {
 
                             <Modal
                                     open={this.state.openFancyVdo}
-                                    onClose={this.handleCloseFancyVdo}>
+                                    onClose={this.handleCloseFancyVdo}
+                                    className={this.props.settings.setting.mode === 'dark' ?"darkTheme editBoxModel":"editBoxModel"}>
                                     <Grid className="slotBoxMain">
                                         <Grid className="slotBoxCourse">
                                             <a onClick={this.handleCloseFancyVdo} className="timSlotClose">
@@ -805,7 +806,8 @@ getUpcomingAppointment() {
 {/* {cancel_apointmnt} */}
 <Modal
                                                 open={this.state.openApoint}
-                                                onClose={this.handleCloseApoint}>
+                                                onClose={this.handleCloseApoint}
+                                                className={this.props.settings.setting.mode === 'dark' ?"darkTheme editBoxModel":"editBoxModel"}>
                                                 <Grid className="apontBoxCntnt">
                                                     <Grid className="apontCourse">
                                                         <Grid className="apontCloseBtn">
@@ -830,7 +832,8 @@ getUpcomingAppointment() {
                                              {/* Allow Location Access */}
                                              <Modal
                                                                     open={this.state.openAllowLoc}
-                                                                    onClose={this.handleCloseAllowLoc}>
+                                                                    onClose={this.handleCloseAllowLoc}
+                                                                    className={this.props.settings.setting.mode === 'dark' ?"darkTheme editBoxModel":"editBoxModel"}>
                                                                     <div className="alowLocAces">
                                                                         <div className="accessCourse">
                                                                             <div className="handleAccessBtn">
@@ -1066,7 +1069,8 @@ getUpcomingAppointment() {
                            {/* Allow Location Access */}
                            <Modal
                                                                     open={this.state.openAllowAccess}
-                                                                    onClose={this.handleCloseAllowAccess}>
+                                                                    onClose={this.handleCloseAllowAccess}
+                                                                    className={this.props.settings.setting.mode === 'dark' ?"darkTheme editBoxModel":"editBoxModel"}>
                                                                     <div className="alowLocAces">
                                                                         <div className="accessCourse">
                                                                             <div className="handleAccessBtn">

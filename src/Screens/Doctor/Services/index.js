@@ -28,7 +28,7 @@ import ReactFlagsSelect from 'react-flags-select';
 import 'react-flags-select/css/react-flags-select.css';
 import 'react-flags-select/scss/react-flags-select.scss';
 import { getDate, getImage } from './../../Components/BasicMethod/index';
-import contry from './../../Components/countryBucket/countries.json';
+import npmCountryList from 'react-select-country-list'
 import * as translationEN from '../../../translations/en_json_proofread_13072020.json';
 
 import { Doctorset } from '../../Doctor/actions';
@@ -95,7 +95,8 @@ class Index extends Component {
             gettrackdatas: {},
             patDeleteErr: null,
             error_message_1:null,
-            sentmessages: true
+            sentmessages: true,
+            selectCountry:[]
         };
     }
 
@@ -116,6 +117,8 @@ class Index extends Component {
     }
 
     componentDidMount() {
+        var npmCountry = npmCountryList().getData()
+        this.setState({ selectCountry: npmCountry })
         this.getUserData()
         this.getMypatientsData();
     }
@@ -523,6 +526,18 @@ class Index extends Component {
         }
     }
 
+    //For filter the country for add insuance
+    filterCountry = (i) => {
+        let countryList = this.state.selectCountry
+        let name
+        name = countryList.filter(value => {
+            if (value.value == i) {
+                return value.label
+            }
+        })
+        return name[0].label
+    }
+
     //For the GetTrack for the patient
     setTrack = () => {
         var user_id = this.state.gettrackdatas.patient_id;
@@ -681,7 +696,7 @@ class Index extends Component {
                                             </Table>
                                             {/*Start of Patient detail Modal*/}
                                             <Modal
-                                                className={this.props.settings.setting.mode === 'dark' ?"darkTheme":""}
+                                                className={this.props.settings&&this.props.settings.setting && this.props.settings.setting.mode &&this.props.settings.setting.mode === 'dark' ?"darkTheme":""}
                                                 open={this.state.showPatient}
                                                 onClose={this.handleCloseShowPatient}
                                             >
@@ -735,10 +750,13 @@ class Index extends Component {
                                                             <Grid className="insureMe">
                                                                 <Grid><label>{insurance}</label></Grid>
                                                                 {profileDetail.insurance && profileDetail.insurance.map((data, index) => (<Grid container direction="row">
-                                                                    <Grid item xs={5} md={5}>
+                                                                    <Grid item xs={4} md={4}>
+                                                                        <p>{data ? this.filterCountry(data.insurance_country) : ''}</p>
+                                                                    </Grid>
+                                                                    <Grid item xs={4} md={4}>
                                                                         <p>{data ? data.insurance : ''}</p>
                                                                     </Grid>
-                                                                    <Grid item xs={7} md={7}>
+                                                                    <Grid item xs={4} md={4}>
                                                                         <p>{data ? data.insurance_number : ''}</p>
                                                                     </Grid>
                                                                 </Grid>))}
@@ -756,7 +774,7 @@ class Index extends Component {
                                             </Modal>
                                             {/* End of Model setup */}
                                             {/* Model Patient Data Access */}
-                                            <Modal open={this.state.openData} onClose={this.handleCloseData} className={this.props.settings.setting.mode === 'dark' ?"darkTheme":""}>
+                                            <Modal open={this.state.openData} onClose={this.handleCloseData} className={this.props.settings&&this.props.settings.setting && this.props.settings.setting.mode &&this.props.settings.setting.mode === 'dark' ?"darkTheme":""}>
                                                 <Grid className="dataBoxCntnt">
                                                     <Grid className="dataCourse">
                                                         <Grid className="dataCloseBtn">
@@ -791,7 +809,7 @@ class Index extends Component {
                                             <Modal
                                                 open={this.state.openReq}
                                                 onClose={this.handleCloseReq}
-                                                className={this.props.settings.setting.mode === 'dark' ?"darkTheme":""}>
+                                                className={this.props.settings&&this.props.settings.setting && this.props.settings.setting.mode &&this.props.settings.setting.mode === 'dark' ?"darkTheme":""}>
                                                 <Grid className="dataBoxCntnt">
                                                     <Grid className="dataCourse">
                                                         <Grid className="dataCloseBtn">
@@ -823,7 +841,7 @@ class Index extends Component {
                                             <Modal
                                                 open={this.state.openNew}
                                                 onClose={this.handleCloseNewPatient}
-                                                className={this.props.settings.setting.mode === 'dark' ?"darkTheme nwPresModel":"nwPresModel"}
+                                                className={this.props.settings&&this.props.settings.setting && this.props.settings.setting.mode &&this.props.settings.setting.mode === 'dark' ?"darkTheme nwPresModel":"nwPresModel"}
                                                  
                                             >
                                                 <Grid className="dataBoxCntnt">
