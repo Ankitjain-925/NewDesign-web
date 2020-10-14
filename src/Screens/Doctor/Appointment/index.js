@@ -440,8 +440,8 @@ class Index extends Component {
                     })}
                     // onClick={() => this.CallEvents(data.event)}
                     >
-                        <p style={{ backgroundColor: 'none', fontSize: 11, margin: 0, fontWeight: 700 }}> {data.event.title} </p>
-                        <p style={{ backgroundColor: 'none', fontSize: 11, margin: 0, lineHeight: '12px' }}> {moment(data.event.start).format('hh:mm') + '-' + moment(data.event.end).format('hh:mm')} </p>
+                        <p className="calendar-cont"> {data.event.title} </p>
+                        <p className="calendar-date"> {moment(data.event.start).format('hh:mm') + '-' + moment(data.event.end).format('hh:mm')} </p>
                     </span>}
             </TooltipTrigger>
         )
@@ -547,7 +547,7 @@ class Index extends Component {
 
                 {event && event.fulldata.length > 0 &&
                     event.fulldata.map((data, index) => (
-                        <Grid className="meetBoxCntnt margin-remove">
+                        <Grid  className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode && this.props.settings.setting.mode === 'dark' ? "darkTheme meetBoxCntnt margin-remove" : "meetBoxCntnt margin-remove"}>
                             <Grid className="meetCourse">
                                 <Grid className="meetCloseBtn">
                                     {/* <a><img src={require('../../../assets/images/threedots.jpg')} alt="" title="" /></a> */}
@@ -626,8 +626,8 @@ class Index extends Component {
             }
         })
 
-        this.setState({ suggesteddate: new Date(), suggestTime: suggestTime });
-        this.setState({ suggesteddate: date })
+        this.setState({ suggesteddate: date, suggestTime: suggestTime });
+        // this.setState({ suggesteddate: date })
     }
 
     selectTimeSlot = (index) => {
@@ -691,11 +691,7 @@ class Index extends Component {
                                                         <Grid item xs={6} md={6}>
                                                             <h1>Appointments</h1>
                                                         </Grid>
-                                                        <Grid item xs={6} md={6}>
-                                                            <Grid className="arng_addEntrynw">
-                                                                <a>+ Arrange an appointment</a>
-                                                            </Grid>
-                                                        </Grid>
+                                                       
                                                     </Grid>
                                                 </Grid>
                                             </Grid>
@@ -723,7 +719,7 @@ class Index extends Component {
                                         <Modal
                                             open={this.state.openSlot}
                                             onClose={this.handleCloseSlot}
-                                            className={this.props.settings.setting.mode === 'dark' ?"darkTheme":""}
+                                            className={this.props.settings&&this.props.settings.setting && this.props.settings.setting.mode &&this.props.settings.setting.mode === 'dark' ?"darkTheme":""}
                                             >
                                             <Grid className="slotBoxCntnt">
                                                 {clashtime && <Grid className="timSltCal">

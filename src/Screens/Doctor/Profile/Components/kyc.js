@@ -179,7 +179,7 @@ class Index extends Component {
             var namefield = filed_name;
             for (var i = 0; i < event.length; i++) {
                 var file = event[i];
-                let profile_id = this.props.staLoginValueAim.user.profile_id
+                let profile_id = this.props.stateLoginValueAim.user.profile_id
                 let fileParts = event[i].name.split('.');
                 let fileName = fileParts[0];
                 let fileType = fileParts[1];
@@ -375,11 +375,11 @@ class Index extends Component {
                             </Grid>
                             <Grid className="kycForms">
                                 <Grid><label>Responsible authority</label></Grid>
-                                <Grid><input type="text" value={this.state.personalinfo ? this.state.personalinfo.authority : ''} /></Grid>
+                                <Grid><input type="text" value={this.state.CreateKYC ? this.state.CreateKYC.authority : ''} name= "authority" value={this.state.CreateKYC ? this.state.CreateKYC.authority : ''} onChange={(e)=>this.newEntryState1(e)}/></Grid>
                             </Grid>
                             <Grid className="kycForms">
                                 <Grid><label>Registration / Doctor number</label></Grid>
-                                <Grid><input type="text" /></Grid>
+                                <Grid><input type="text" name= "number"  value={this.state.CreateKYC.number ? this.state.CreateKYC.number : ''}  onChange = {this.newEntryState1}/></Grid>
                             </Grid>
                             {this.state.CreateKYC && this.state.CreateKYC.attachment && this.state.CreateKYC.attachment.length > 0 && this.state.CreateKYC.attachment.length == 2 ?
                                 this.state.CreateKYC.attachment.map((value, index) => (

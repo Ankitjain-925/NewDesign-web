@@ -105,23 +105,6 @@ class Index extends Component {
         this.handleOpenReject();
     }
 
-    updateCertificateDetails(status, id) {
-        let user_token = this.props.stateLoginValueAim.token
-        axios.put(sitedata.data.path + '/UserProfile/GetSickCertificate/' + id, {
-            status: status,
-            doctor_name: this.props.myData.first_name + ' ' + this.state.props.last_name,
-            type: "sick_certificate"
-        }, {
-            headers: {
-                'token': user_token,
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            }
-        }).then((response) => {
-            this.getMypatientsData();
-        }).catch((error) => {
-        });
-    }
 
     getImage = (image) => {
         const myFilterData = this.state.images && this.state.images.length > 0 && this.state.images.filter((value, key) =>
@@ -267,22 +250,52 @@ class Index extends Component {
 
     }
 
+    deleteClickPatient = (status, id) => {
+        let user_token = this.props.stateLoginValueAim.token
+        const { message } = this.state
+        axios.put(sitedata.data.path + '/UserProfile/GetSickCertificate/' + id, {
+            status: status,
+            doctor_name: this.props.myData.first_name + ' ' + this.props.myData.last_name,
+            type: "sick_certificate",
+            short_msg: message
+
+        }, {
+            headers: {
+                'token': user_token,
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        }).then((response) => {
+            this.setState({ openPrescp: false, openReject: false })
+            this.getMypatientsData();
+        }).catch((error) => {
+        });
+    }
+
     removePrsecription = (status, id) => {
         this.setState({ message: null });
         confirmAlert({
-            title: 'Update the Inqury',
-            message: 'Are you sure  to remove this Inquiry?',
-            buttons: [
-                {
-                    label: 'YES',
-                    onClick: () => this.updateCertificateDetails(status, id)
-                },
-                {
-                    label: 'NO',
-                }
-            ]
-        })
-    }
+            customUI: ({ onClose }) => {
+                 return (
+                     <div className={this.props.settings&&this.props.settings.setting && this.props.settings.setting.mode &&this.props.settings.setting.mode === 'dark' ? "dark-confirm react-confirm-alert-body" : "react-confirm-alert-body"} >
+                         <h1>Update the Inqury?</h1>
+                         <p>Are you sure  to remove this Inquiry?</p>
+                         <div className="react-confirm-alert-button-group">
+                             <button onClick={onClose}>No</button>
+                             <button
+                                 onClick={() => {
+                                     this.deleteClickPatient(status, id)
+                                     onClose();
+                                 }}
+                             >
+                                 Yes
+                             </button>
+                         </div>
+                     </div>
+                 );
+             }
+         })
+     }
 
     handleOpenPrescp = (data) => {
         this.setState({ openPrescp: true, sickData: data });
@@ -386,7 +399,7 @@ class Index extends Component {
                     <Modal
                         open={this.state.openPrescp}
                         onClose={this.handleClosePrescp}
-                        className={this.props.settings.setting.mode === 'dark' ?"darkTheme prespBoxModel":"prespBoxModel"}
+                        className={this.props.settings&&this.props.settings.setting && this.props.settings.setting.mode &&this.props.settings.setting.mode === 'dark' ?"darkTheme prespBoxModel":"prespBoxModel"}
                         >
                         <Grid className="nwPresCntnt">
                             <Grid className="nwPresCntntIner">
@@ -486,7 +499,7 @@ class Index extends Component {
                     <Modal
                         open={this.state.openReject}
                         onClose={this.handleCloseReject}
-                        className={this.props.settings.setting.mode === 'dark' ?"darkTheme":""}>
+                        className={this.props.settings&&this.props.settings.setting && this.props.settings.setting.mode &&this.props.settings.setting.mode === 'dark' ?"darkTheme":""}>
                         <Grid className="rejectBoxCntnt">
                             <Grid className="rejectCourse">
                                 <Grid className="rejectCloseBtn">
@@ -500,7 +513,7 @@ class Index extends Component {
                             <Grid className="shrtRejctMsg">
                                 <Grid><label>Short message</label></Grid>
                                 <Grid><textarea onChange={(e) => this.setState({ message: e.target.value })}></textarea></Grid>
-                                <Grid><input type="submit" value={inqstatus} onChange={() => this.updateCertificateDetails(inqstatus, this.state.selected_id)} /></Grid>
+                                <Grid><input type="submit" value={inqstatus} onChange={() => this.deleteClickPatient(inqstatus, this.state.selected_id)} /></Grid>
                             </Grid>
                         </Grid>
                     </Modal>

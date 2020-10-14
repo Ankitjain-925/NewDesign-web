@@ -207,7 +207,7 @@ class Index extends Component {
             doctor_name: this.props.myData.first_name + ' ' + this.props.myData.last_name,
             short_msg: message,
             attachfile: this.state.uploadedimage,
-
+            type:'second_opinion'
         }, {
             headers: {
                 'token': user_token,
@@ -224,17 +224,25 @@ class Index extends Component {
     removePrsecription = (status, id) =>{
         this.setState({message : null});
         confirmAlert({
-            title: 'Update the Inqury',
-            message: 'Are you sure  to remove this Inquiry?',
-            buttons: [
-                {
-                    label: 'YES',
-                    onClick: () => this.deleteClickPatient(status, id)
-                },
-                {
-                    label: 'NO',
-                }
-            ]
+           customUI: ({ onClose }) => {
+                return (
+                    <div className={this.props.settings&&this.props.settings.setting && this.props.settings.setting.mode &&this.props.settings.setting.mode === 'dark' ? "dark-confirm react-confirm-alert-body" : "react-confirm-alert-body"} >
+                        <h1>Update the Inqury?</h1>
+                        <p>Are you sure  to remove this Inquiry?</p>
+                        <div className="react-confirm-alert-button-group">
+                            <button onClick={onClose}>No</button>
+                            <button
+                                onClick={() => {
+                                    this.deleteClickPatient(status, id)
+                                    onClose();
+                                }}
+                            >
+                                Yes
+                            </button>
+                        </div>
+                    </div>
+                );
+            }
         })
     }
 
@@ -341,7 +349,7 @@ class Index extends Component {
                     <Modal
                         open={this.state.openPrescp}
                         onClose={this.handleClosePrescp}
-                        className={this.props.settings.setting.mode === 'dark' ?"darkTheme opinBoxModel":"opinBoxModel"}
+                        className={this.props.settings&&this.props.settings.setting && this.props.settings.setting.mode &&this.props.settings.setting.mode === 'dark' ?"darkTheme opinBoxModel":"opinBoxModel"}
                        >
                         <Grid className="opinBoxCntnt">
                             <Grid className="opinBoxCntntIner">
@@ -419,7 +427,7 @@ class Index extends Component {
                     <Modal
                         open={this.state.openReject}
                         onClose={this.handleCloseReject}
-                        className={this.props.settings.setting.mode === 'dark' ?"darkTheme":""}>
+                        className={this.props.settings&&this.props.settings.setting && this.props.settings.setting.mode &&this.props.settings.setting.mode === 'dark' ?"darkTheme":""}>
                         <Grid className="rejectBoxCntnt">
                             <Grid className="rejectCourse">
                                 <Grid className="rejectCloseBtn">
