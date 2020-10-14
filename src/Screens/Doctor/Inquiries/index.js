@@ -8,19 +8,21 @@ import AppBar from '@material-ui/core/AppBar';
 import Typography from '@material-ui/core/Typography';
 import PropTypes from 'prop-types';
 import Modal from '@material-ui/core/Modal';
-import LeftMenu from './../../Components/Menus/DoctorLeftMenu/index';
-import LeftMenuMobile from './../../Components/Menus/DoctorLeftMenu/mobile';
+import LeftMenu from '../../Components/Menus/DoctorLeftMenu/index';
+import LeftMenuMobile from '../../Components/Menus/DoctorLeftMenu/mobile';
 import sitedata, { data } from '../../../sitedata';
 import axios from 'axios';
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { LoginReducerAim } from './../../Login/actions';
-import { Settings } from './../../Login/setting';
+import { LoginReducerAim } from '../../Login/actions';
+import { Settings } from '../../Login/setting';
 import { confirmAlert } from 'react-confirm-alert'; // Import
-import { LanguageFetchReducer } from './../../actions';
+import { LanguageFetchReducer } from '../../actions';
 import PrecriptionList from './Components/prescription.js';
 import SickCertificateList from './Components/sickCertificate.js';
 import * as translationEN from '../../../translations/en_json_proofread_13072020.json';
+import { Redirect, Route } from 'react-router-dom';
+import SecondOpinion from './Components/secondOpinion';
 // import * as translationDE from '../../../translations/de_json_proofread_13072020.json';
 function TabContainer(props) {
     return (
@@ -142,16 +144,20 @@ class Index extends Component {
         }
         let { srvc_Doctors, status, sent, on, prescription, Pending, request, edit, Rejected, Answered, Cancelled, req_updated_successfully, sick_cert, my_doc, New, inquiry,
             doc_and_statnderd_ques, doc_aimedis_private, Annotations, details, questions, is_this_follow_pres, how_u_like_rcv_pres, Medicine, Substance, Dose, mg, trade_name, atc_if_applicable, manufacturer, pack_size, } = translate
-        return (
-            <Grid className="homeBg">
+            const { stateLoginValueAim, Doctorsetget } = this.props;
+            if (stateLoginValueAim.user === 'undefined' || stateLoginValueAim.token === 450 || stateLoginValueAim.token === 'undefined' || stateLoginValueAim.user.type !== 'doctor') {
+                return (<Redirect to={'/'} />);
+            }
+            return (
+            <Grid className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode && this.props.settings.setting.mode==='dark' ? "homeBg homeBgDrk" : "homeBg"}>
                 <Grid className="homeBgIner">
                     <Grid container direction="row" justify="center">
                         <Grid item xs={12} md={12}>
                             <Grid container direction="row">
 
                                 {/* Website Menu */}
-                                <LeftMenu  isNotShow ={true} currentPage="documents" />
-                                <LeftMenuMobile isNotShow ={true}  currentPage="documents" />
+                                <LeftMenu  isNotShow ={true} currentPage="inquiries" />
+                                <LeftMenuMobile isNotShow ={true}  currentPage="inquiries" />
                                 {/* End of Website Menu */}
 
                                 <Grid item xs={12} md={9}>
@@ -193,7 +199,8 @@ class Index extends Component {
                                                 </TabContainer>}
 
                                             {value === 2 && <TabContainer>
-
+                                                {this.state.successfullsent1 && <div className="success_message">Request sent Sucessfully</div>}
+                                                <SecondOpinion  newItem={this.state.newItemp} myData ={ this.state.myData}/>
                                             </TabContainer>}
 
                                         </Grid>

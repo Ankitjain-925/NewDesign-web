@@ -29,6 +29,10 @@ import 'react-flags-select/css/react-flags-select.css';
 import 'react-flags-select/scss/react-flags-select.scss';
 import { getDate, getImage } from './../../Components/BasicMethod/index';
 import contry from './../../Components/countryBucket/countries.json';
+import * as translationEN from '../../../translations/en_json_proofread_13072020.json';
+
+import { Doctorset } from '../../Doctor/actions';
+
 var letter = /([a-zA-Z])+([ -~])*/, number = /\d+/, specialchar = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
 
 function TabContainer(props) {
@@ -87,12 +91,52 @@ class Index extends Component {
             userDetails: {},
             hidden: true,
             Mnotvalid: false,
-            regisError: null
+            regisError: null,
+            gettrackdatas: {},
+            patDeleteErr: null,
+            error_message_1:null,
+            sentmessages: true
         };
     }
 
+    //for get the track data on the bases of pateint
+    GetTrackData = (e) => {
+        const state = this.state.gettrackdatas;
+        state[e.target.name] = e.target.value;
+        this.setState({ gettrackdatas: state });
+    }
+
+    //Go to journal direct
+    GotoJournal = (currentone) => {
+        console.log('currentone', currentone)
+        if (currentone && currentone._id) {
+            this.props.Doctorset(currentone._id, currentone.pin);
+            this.props.history.push('/doctor/journal');
+        }
+    }
+
     componentDidMount() {
+        this.getUserData()
         this.getMypatientsData();
+    }
+
+    //Get my data
+    getUserData() {
+        this.setState({ loaderImage: true });
+        let user_token = this.props.stateLoginValueAim.token
+        let user_id = this.props.stateLoginValueAim.user._id
+        axios.get(sitedata.data.path + '/UserProfile/Users/' + user_id, {
+            headers: {
+                'token': user_token,
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        }).then((response) => {
+            this.setState({ loaderImage: false });
+            this.setState({ UpDataDetails: response.data.data });
+        }).catch((error) => {
+            this.setState({ loaderImage: false });
+        });
     }
 
     //Get patients 
@@ -205,12 +249,12 @@ class Index extends Component {
                                 })
                             }
                             else {
-                                this.setState({ loaderImage: false, error_message_1: responce.data.message })
+                                this.setState({ loaderImage: false, error_message_1: responce.data.msg? responce.data.msg: responce.data.message })
                             }
                         })
                 }
                 else {
-                    this.setState({ loaderImage: false, error_message_1: responce.data.message })
+                    this.setState({ loaderImage: false, error_message_1: responce.data.msg? responce.data.msg: responce.data.message })
                 }
 
             })
@@ -219,7 +263,6 @@ class Index extends Component {
 
     //For save data of user
     saveUserData() {
-        ;
         const { userDetails } = this.state;
         let user_token = this.props.stateLoginValueAim.token;
         this.setState({ regisError: null })
@@ -315,6 +358,7 @@ class Index extends Component {
 
     //open and close Prescription Details
     handleshowPatient = (data) => {
+        console.log("data", data)
         this.setState({ showPatient: true, addPatient: false, profileDetail: data });
     };
     handleCloseShowPatient = () => {
@@ -342,7 +386,7 @@ class Index extends Component {
     handleCloseNewPatient = () => {
         this.setState({ openNew: false });
     };
-    
+
 
     // Add the Sick Certificate State
     AddSickState = (e) => {
@@ -374,10 +418,11 @@ class Index extends Component {
     //Delete Patient
     deleteClickPatient = () => {
         const { profileDetail } = this.state;
+
         this.setState({ loaderImage: true });
         let user_token = this.props.stateLoginValueAim.token
-        
-        axios.delete(sitedata.data.path + '/UserProfile/favPatients/' + profileDetail.patient_id+"/"+this.props.stateLoginValueAim.user.alies_id, {
+
+        axios.delete(sitedata.data.path + '/UserProfile/favPatients/' + profileDetail.profile_id + "/" + this.props.stateLoginValueAim.user.alies_id, {
             headers: {
                 'token': user_token,
                 'Accept': 'application/json',
@@ -385,17 +430,29 @@ class Index extends Component {
             }
         })
             .then((response) => {
-                axios.delete('https://api-us.cometchat.io/v2.0/users/' + profileDetail.profile_id.toLowerCase(),
-                    {
-                        headers: {
-                            'appId': '15733dce3a73034',
-                            'apiKey': '44c13a774f7cf0a9809d0792dae638a9f74a6702',
-                            'Accept': 'application/json',
-                            'Content-Type': 'application/json'
-                        }
-                    })
-
-            }).catch((error) => { });
+                this.setState({ loaderImage: false });
+                console.log("response", response)
+                if (response.data.hassuccessed) {
+                    axios.delete('https://api-us.cometchat.io/v2.0/users/' + profileDetail.profile_id.toLowerCase(),
+                        {
+                            headers: {
+                                'appId': '15733dce3a73034',
+                                'apiKey': '44c13a774f7cf0a9809d0792dae638a9f74a6702',
+                                'Accept': 'application/json',
+                                'Content-Type': 'application/json'
+                            }
+                        })
+                        .then((response) => {
+                            this.getMypatientsData();
+                        })
+                }
+                else {
+                    this.setState({ patDeleteErr: 'Something happened Wrong, Patient delete unsuccessfull' })
+                    setTimeout(() => { this.setState({ patDeleteErr: null }); }, 3000)
+                }
+            }).catch((error) => {
+                this.setState({ loaderImage: false });
+            });
     }
 
     handleChange = (e) => {
@@ -466,34 +523,96 @@ class Index extends Component {
         }
     }
 
+    //For the GetTrack for the patient
+    setTrack = () => {
+        var user_id = this.state.gettrackdatas.patient_id;
+        var pin = this.state.gettrackdatas.pin;
+        var user_token = this.props.stateLoginValueAim.token;
+        this.setState({ loaderImage: true })
+        if (user_id === "") {
+            this.setState({ error_msg: true, loaderImage: false })
+        }
+        else {
+            axios.get(sitedata.data.path + '/User/getUser/' + user_id + '?pin=' + pin + '&&comefrom=healthdata',
+                {
+                    headers: {
+                        'token': user_token,
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    }
+                }).then((response) => {
+                    if (response.data.hassuccessed === true) {
+                        this.setState({})
+                        this.props.Doctorset(response.data.user_id, pin);
+                        this.props.history.push('/doctor/journal');
+                    }
+                    else {
+                        this.setState({ error_msg: true, loaderImage: false, })
+                    }
+                })
+        }
+    }
+
     //For chnage the page
     onChangePage = (pageNumber) => {
-        const {searchWord} = this.state;
-        if(searchWord && searchWord !== '') {
-            let searchdta = this.state.AllPres.filter(e=>e.first_name.toLowerCase().indexOf(searchWord) > -1||e.last_name.toLowerCase().indexOf(searchWord) > -1||(e.first_name+" "+ e.last_name).toLowerCase().indexOf(searchWord) > -1) 
+        const { searchWord } = this.state;
+        if (searchWord && searchWord !== '') {
+            let searchdta = this.state.AllPres.filter(e => e.first_name.toLowerCase().indexOf(searchWord) > -1 || e.last_name.toLowerCase().indexOf(searchWord) > -1 || (e.first_name + " " + e.last_name).toLowerCase().indexOf(searchWord) > -1)
             this.setState({ MypatientsData: searchdta.slice((pageNumber - 1) * 10, pageNumber * 10), currentPage: pageNumber })
         }
         else {
             this.setState({ MypatientsData: this.state.AllPres.slice((pageNumber - 1) * 10, pageNumber * 10), currentPage: pageNumber })
         }
-        
+
     }
 
 
     searchPatient = (value) => {
-        let searchdta = this.state.AllPres.filter(e=>e.first_name.toLowerCase().indexOf(value) > -1||e.last_name.toLowerCase().indexOf(value) > -1||(e.first_name+" "+ e.last_name).toLowerCase().indexOf(value) > -1)
-        this.setState({ MypatientsData: searchdta ,currentPage: 0, searchWord: value})
+        let searchdta = this.state.AllPres.filter(e => e.first_name.toLowerCase().indexOf(value.toLowerCase()) > -1 || e.last_name.toLowerCase().indexOf(value.toLowerCase()) > -1 || (e.first_name + " " + e.last_name).toLowerCase().indexOf(value.toLowerCase()) > -1)
+        this.setState({ MypatientsData: searchdta, currentPage: 0, searchWord: value.toLowerCase() })
     }
 
 
     render() {
         const { profileDetail, userDetails } = this.state;
         const { stateLoginValueAim, stateLanguageType } = this.props;
+        let translate;
+        switch (this.props.stateLanguageType) {
+            case "en":
+                translate = translationEN.text
+                break;
+            // case "de":
+            //     translate = translationDE.text
+            //     break;
+            // case "pt":
+            //     translate = translationPT.text
+            //     break;
+            // case "sp":
+            //     translate = translationSP.text
+            //     break;
+            // case "rs":
+            //     translate = translationRS.text
+            //     break;
+            // case "nl":
+            //     translate = translationNL.text
+            //     break;
+            // case "ch":
+            //     translate = translationCH.text
+            //     break;
+            // case "sw":
+            //     translate = translationSW.text
+            //     break;
+            case "default":
+                translate = translationEN.text
+        }
+        let { succ1, Register_email, Register_Password, Register_Passwordshould, Register_characters, Register_letter, Register_number, Register_special, Register_Mobilenumber, Register_activate_auth,
+            Mnotvalids, Register_CREATE, } = translate
+
         if (stateLoginValueAim.user === 'undefined' || stateLoginValueAim.token === 450 || stateLoginValueAim.token === 'undefined' || stateLoginValueAim.user.type !== 'doctor') {
             return (<Redirect to={'/'} />);
         }
         return (
-            <Grid className="homeBg">
+            <Grid className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode && this.props.settings.setting.mode === 'dark' ? "homeBg homeBgDrk" : "homeBg"}>
                 {this.state.loaderImage && <Loader />}
                 <Grid className="homeBgIner">
                     <Grid container direction="row" justify="center">
@@ -501,8 +620,8 @@ class Index extends Component {
                             <Grid container direction="row">
 
                                 {/* Website Menu */}
-                                <LeftMenu  isNotShow ={true} currentPage="documents" />
-                                <LeftMenuMobile isNotShow ={true}  currentPage="documents" />
+                                <LeftMenu isNotShow={true} currentPage="documents" />
+                                <LeftMenuMobile isNotShow={true} currentPage="documents" />
                                 {/* End of Website Menu */}
 
                                 <Grid item xs={12} md={9}>
@@ -519,6 +638,7 @@ class Index extends Component {
                                             </Grid>
                                         </Grid>
                                         <Grid className="docOpinionIner">
+                                            {this.state.patDeleteErr && <div className="err_message">{this.state.patDeleteErr}</div>}
                                             <Table>
                                                 <Thead>
                                                     <Tr>
@@ -549,7 +669,7 @@ class Index extends Component {
                                                             <Td className="presEditDot scndOptionIner openJourMenu">
                                                                 <a><img src={require('../../../assets/images/threedots.jpg')} alt="" title="" className="openScnd" />
                                                                     <ul>
-                                                                        <li><img src={require('../../../assets/images/journal1.svg')} alt="" title="" />Open Journal</li>
+                                                                        <li onClick={() => { this.GotoJournal(data) }}><img src={require('../../../assets/images/journal1.svg')} alt="" title="" />Open Journal</li>
                                                                         <li onClick={(e) => this.handleshowPatient(data)}><img src={require('../../../assets/images/personal-info.svg')} alt="" title="" />Personal info</li>
                                                                         <li onClick={(e) => this.removePatient(data)}><img src={require('../../../assets/images/del.png')} alt="" title="" />Remove patient</li>
                                                                     </ul>
@@ -561,6 +681,7 @@ class Index extends Component {
                                             </Table>
                                             {/*Start of Patient detail Modal*/}
                                             <Modal
+                                                className={this.props.settings.setting.mode === 'dark' ?"darkTheme":""}
                                                 open={this.state.showPatient}
                                                 onClose={this.handleCloseShowPatient}
                                             >
@@ -579,7 +700,7 @@ class Index extends Component {
                                                                     <Grid><span>{profileDetail.sex}</span></Grid>
                                                                     <Grid>
                                                                         <p>{`${moment(profileDetail.birthday).format('DD/MM/YYYY')}`}
-                                                                            <a>{`(${this.getAge(profileDetail.birthday)} years)`}</a>
+                                                                            {profileDetail.birthday && <a>{`(${this.getAge(profileDetail.birthday)} years)`}</a>}
                                                                         </p>
                                                                     </Grid>
                                                                 </Grid>
@@ -604,13 +725,18 @@ class Index extends Component {
                                                             </Grid>
                                                             <Grid className="userAdres">
                                                                 <Grid><img src={require('../../../assets/images/language11.svg')} alt="" title="" /></Grid>
-                                                                <p>{profileDetail.language}</p>
+                                                                <p>{profileDetail.language&&profileDetail.language.map((data,inde)=>
+                                                                    ((inde!==0)?
+                                                                        (', '+data)
+                                                                    :
+                                                                    (data))
+                                                                    )}</p>
                                                             </Grid>
                                                             <Grid className="insureMe">
                                                                 <Grid><label>Insurance</label></Grid>
-                                                                {profileDetail.insurance && profileDetail.insurance.map((data,index)=>(<Grid container direction="row">
+                                                                {profileDetail.insurance && profileDetail.insurance.map((data, index) => (<Grid container direction="row">
                                                                     <Grid item xs={5} md={5}>
-                                                                        <p>{data  ? data.insurance : ''}</p>
+                                                                        <p>{data ? data.insurance : ''}</p>
                                                                     </Grid>
                                                                     <Grid item xs={7} md={7}>
                                                                         <p>{data ? data.insurance_number : ''}</p>
@@ -620,7 +746,7 @@ class Index extends Component {
                                                             <Grid className="openJournal">
                                                                 <Grid container direction="row" justifyContent="center" alignItems="center">
                                                                     <Grid item xs={12} md={12}>
-                                                                        <input type="submit" value="Open Journal" />
+                                                                        <input type="submit" onClick={() => { this.GotoJournal(profileDetail) }} value="Open Journal" />
                                                                     </Grid>
                                                                 </Grid>
                                                             </Grid>
@@ -630,10 +756,7 @@ class Index extends Component {
                                             </Modal>
                                             {/* End of Model setup */}
                                             {/* Model Patient Data Access */}
-                                            <Modal
-                                                open={this.state.openData}
-                                                onClose={this.handleCloseData}
-                                            >
+                                            <Modal open={this.state.openData} onClose={this.handleCloseData} className={this.props.settings.setting.mode === 'dark' ?"darkTheme":""}>
                                                 <Grid className="dataBoxCntnt">
                                                     <Grid className="dataCourse">
                                                         <Grid className="dataCloseBtn">
@@ -641,6 +764,7 @@ class Index extends Component {
                                                                 <img src={require('../../../assets/images/closefancy.png')} alt="" title="" />
                                                             </a>
                                                         </Grid>
+                                                        <Grid>{this.state.error_msg && <div className="err_message">ID or PIN is not correct</div>}</Grid>
                                                         <Grid><label>Patient Data Access</label></Grid>
                                                         <p>Healthdata access for non-connected patient</p>
                                                     </Grid>
@@ -648,15 +772,15 @@ class Index extends Component {
                                                         <Grid className="dataBoxInput">
                                                             <Grid>
                                                                 <Grid><label>Patient ID</label></Grid>
-                                                                <Grid><input type="text" /></Grid>
+                                                                <Grid><input type="text" name="patient_id" placeholder="Enter Patient ID" id="login-name" onChange={this.GetTrackData} /></Grid>
                                                             </Grid>
                                                             <Grid>
                                                                 <Grid><label>PIN</label></Grid>
-                                                                <Grid><input type="text" /></Grid>
+                                                                <Grid><input type="text" id="pin" name="pin" placeholder="Enter Pin" onChange={this.GetTrackData} /></Grid>
                                                             </Grid>
                                                         </Grid>
                                                         <Grid className="dataBoxSub">
-                                                            <input type="submit" value="View Data" />
+                                                            <input type="submit" value="View Data" onClick={this.setTrack} />
                                                         </Grid>
                                                     </Grid>
                                                 </Grid>
@@ -666,7 +790,8 @@ class Index extends Component {
                                             {/* Model Private Doctor Request */}
                                             <Modal
                                                 open={this.state.openReq}
-                                                onClose={this.handleCloseReq}>
+                                                onClose={this.handleCloseReq}
+                                                className={this.props.settings.setting.mode === 'dark' ?"darkTheme":""}>
                                                 <Grid className="dataBoxCntnt">
                                                     <Grid className="dataCourse">
                                                         <Grid className="dataCloseBtn">
@@ -680,6 +805,8 @@ class Index extends Component {
                                                     <Grid className="dataBoxUpr">
                                                         <Grid className="dataBoxInput entrpatId">
                                                             {this.state.errorSentMsg && this.state.errorSentMsg != '' && <div className="err_message">{this.state.errorSentMsg}</div>}
+                                                            {this.state.error_message_1 && this.state.error_message_1 != '' && <div className="err_message">{this.state.error_message_1}</div>}
+                                                            {this.state.sentmessages && <div className="success_message">{succ1}</div>}
                                                             <Grid>
                                                                 <Grid><label>Email or ID</label></Grid>
                                                                 <Grid><input type="text" placeholder="Enter patients email or ID" onChange={(event) => this.setState({ AskPatient: event.target.value })} /></Grid>
@@ -696,7 +823,8 @@ class Index extends Component {
                                             <Modal
                                                 open={this.state.openNew}
                                                 onClose={this.handleCloseNewPatient}
-                                                className="nwPresModel"
+                                                className={this.props.settings.setting.mode === 'dark' ?"darkTheme nwPresModel":"nwPresModel"}
+                                                 
                                             >
                                                 <Grid className="dataBoxCntnt">
                                                     <Grid className="dataCourse">
@@ -721,12 +849,12 @@ class Index extends Component {
                                                         </Grid>
 
                                                         <Grid className="registerRow">
-                                                            <Grid><label>{translate('Register_email', stateLanguageType)}</label></Grid>
+                                                            <Grid><label>{Register_email}</label></Grid>
                                                             <Grid><input type="text" name="email" onChange={this.handleChange} /></Grid>
                                                         </Grid>
 
                                                         <Grid className="registerRow passInstMain">
-                                                            <Grid><label>{translate('Register_Password', stateLanguageType)}</label></Grid>
+                                                            <Grid><label>{Register_Password}</label></Grid>
                                                             <Grid className="registerPass">
                                                                 <input
                                                                     type={this.state.hidden ? "password" : "text"}
@@ -747,21 +875,21 @@ class Index extends Component {
                                                             {userDetails && userDetails.password ?
                                                                 <div className="passInst">
                                                                     <div className="passInstIner">
-                                                                        <p>{translate('Register_Passwordshould', stateLanguageType)}</p>
+                                                                        <p>{Register_Passwordshould}</p>
                                                                         <img src={require('../../../assets/images/passArrow.png')} alt="" title="" className="passArow" />
                                                                         <ul>
-                                                                            <li>{userDetails && userDetails.password && userDetails.password.length > 8 && <a><img src={require('../../../assets/images/CheckCircle.svg')} alt="" title="" />{translate('Register_characters', stateLanguageType)}</a>}
-                                                                                {userDetails && userDetails.password && userDetails.password.length <= 8 && <a><img src={require('../../../assets/images/CloseCircle.svg')} alt="" title="" />{translate('Register_characters', stateLanguageType)}</a>}
+                                                                            <li>{userDetails && userDetails.password && userDetails.password.length > 8 && <a><img src={require('../../../assets/images/CheckCircle.svg')} alt="" title="" />{Register_characters}</a>}
+                                                                                {userDetails && userDetails.password && userDetails.password.length <= 8 && <a><img src={require('../../../assets/images/CloseCircle.svg')} alt="" title="" />{Register_characters}</a>}
                                                                             </li>
-                                                                            <li>{userDetails && userDetails.password && !userDetails.password.match(letter) && <a><img src={require('../../../assets/images/CloseCircle.svg')} alt="" title="" />{translate('Register_letter', stateLanguageType)}</a>}
-                                                                                {userDetails && userDetails.password && userDetails.password.match(letter) && <a><img src={require('../../../assets/images/CheckCircle.svg')} alt="" title="" />{translate('Register_letter', stateLanguageType)}</a>}
+                                                                            <li>{userDetails && userDetails.password && !userDetails.password.match(letter) && <a><img src={require('../../../assets/images/CloseCircle.svg')} alt="" title="" />{Register_letter}</a>}
+                                                                                {userDetails && userDetails.password && userDetails.password.match(letter) && <a><img src={require('../../../assets/images/CheckCircle.svg')} alt="" title="" />{Register_letter}</a>}
                                                                             </li>
-                                                                            <li>{userDetails && userDetails.password && !userDetails.password.match(number) && <a><img src={require('../../../assets/images/CloseCircle.svg')} alt="" title="" />{translate('Register_number', stateLanguageType)}</a>}
-                                                                                {userDetails && userDetails.password && userDetails.password.match(number) && <a><img src={require('../../../assets/images/CheckCircle.svg')} alt="" title="" />{translate('Register_number', stateLanguageType)}</a>}
+                                                                            <li>{userDetails && userDetails.password && !userDetails.password.match(number) && <a><img src={require('../../../assets/images/CloseCircle.svg')} alt="" title="" />{Register_number}</a>}
+                                                                                {userDetails && userDetails.password && userDetails.password.match(number) && <a><img src={require('../../../assets/images/CheckCircle.svg')} alt="" title="" />{Register_number}</a>}
                                                                             </li>
                                                                             <li>
-                                                                                {userDetails && userDetails.password && !userDetails.password.match(specialchar) && <a><img src={require('../../../assets/images/CloseCircle.svg')} alt="" title="" />{translate('Register_special', stateLanguageType)}</a>}
-                                                                                {userDetails && userDetails.password && userDetails.password.match(specialchar) && <a><img src={require('../../../assets/images/CheckCircle.svg')} alt="" title="" />{translate('Register_special', stateLanguageType)}</a>}
+                                                                                {userDetails && userDetails.password && !userDetails.password.match(specialchar) && <a><img src={require('../../../assets/images/CloseCircle.svg')} alt="" title="" />{Register_special}</a>}
+                                                                                {userDetails && userDetails.password && userDetails.password.match(specialchar) && <a><img src={require('../../../assets/images/CheckCircle.svg')} alt="" title="" />{Register_special}</a>}
                                                                             </li>
                                                                         </ul>
                                                                     </div>
@@ -780,7 +908,7 @@ class Index extends Component {
                                                                 </div>}
                                                         </Grid>
                                                         <Grid className="registerRow regMobNum">
-                                                            <Grid><label>{translate('Register_Mobilenumber', stateLanguageType)}</label></Grid>
+                                                            <Grid><label>{Register_Mobilenumber}</label></Grid>
                                                             <Grid>
                                                                 <ReactFlagsSelect placeholder="Country Code" name="country_code" onSelect={this.onSelectFlag} showSelectedLabel={false} defaultCountry="DE" />
                                                                 <input type="text" className="mobileReg" type="number" name="mobile" onChange={this.handleChange} />
@@ -788,17 +916,17 @@ class Index extends Component {
                                                             <FormControlLabel className="regMob"
                                                                 control={<Checkbox value="checkedA" onChange={this.handleChange}
                                                                     name="is2fa" />}
-                                                                label={translate('Register_activate_auth', stateLanguageType)}
+                                                                label={Register_activate_auth}
                                                             />
                                                         </Grid>
                                                         <div className="err_message">
                                                             {this.state.regisError}
                                                             {this.state.namevald}
-                                                            {this.state.Mnotvalid && translate('Mnotvalids', stateLanguageType)}
+                                                            {this.state.Mnotvalid && Mnotvalids}
                                                         </div>
                                                         <Grid className="registerRow">
                                                             <Grid className="regCrtAc">
-                                                                <input type="submit" value={translate('Register_CREATE', stateLanguageType)} onClick={this.saveUserData.bind(this)} />
+                                                                <input type="submit" value={Register_CREATE} onClick={this.saveUserData.bind(this)} />
                                                             </Grid>
                                                         </Grid>
                                                     </Grid>
@@ -841,15 +969,15 @@ const mapStateToProps = (state) => {
     const { stateLoginValueAim, loadingaIndicatoranswerdetail } = state.LoginReducerAim;
     const { stateLanguageType } = state.LanguageReducer;
     const { settings } = state.Settings;
-    // const { Doctorsetget } = state.Doctorset;
+    const { Doctorsetget } = state.Doctorset;
     // const { catfil } = state.filterate;
     return {
         stateLanguageType,
         stateLoginValueAim,
         loadingaIndicatoranswerdetail,
         settings,
-        //   Doctorsetget,
+        Doctorsetget,
         //   catfil
     }
 };
-export default withRouter(connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer, Settings })(Index));
+export default withRouter(connect(mapStateToProps, { Doctorset, LoginReducerAim, LanguageFetchReducer, Settings })(Index));

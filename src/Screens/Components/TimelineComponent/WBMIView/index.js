@@ -61,7 +61,7 @@ class Index extends Component {
                                         {item.public === 'always' ? <p> Always </p> : <p>{getDate(item.public, this.state.date_format)}</p>}
                                     </ReactTooltip>
                                     <a className="openScndhrf1">
-                                        <img src={require('../../../../assets/images/threedots.jpg')} alt="" title="" className="openScnd1" />
+                                        <a className="vsblDots"><img src={require('../../../../assets/images/nav-more.svg')} alt="" title="" /></a>
                                         {!this.props.Archive ? <ul>
                                             <li><a onClick={(data) => this.props.ArchiveTrack(item)}><img src={require('../../../../assets/images/archive-1.svg')} alt="" title="" />Archive</a></li>
                                             {this.props.comesfrom === 'patient' &&  <li>
@@ -108,14 +108,14 @@ class Index extends Component {
                                         <Grid item xs={12} md={6} className="bloodPreBy">
                                             <Grid container direction="row">
                                                 <Grid item xs={5} md={5}><label>Height</label></Grid>
-                                                <Grid item xs={7} md={7}><span>{item.height && item.height}</span></Grid>
+                                                <Grid item xs={7} md={7}><span>{item.height && item.height + ' cm'}</span></Grid>
                                                 <Grid className="clear"></Grid>
                                             </Grid>
                                         </Grid>
                                         <Grid item xs={12} md={6} className="bloodPreBy">
                                             <Grid container direction="row">
                                                 <Grid item xs={5} md={5}><label>Weight</label></Grid>
-                                                <Grid item xs={7} md={7}><span>{item.weight && item.weight}</span></Grid>
+                                                <Grid item xs={7} md={7}><span>{item.weight && item.weight +' Kg'}</span></Grid>
                                                 <Grid className="clear"></Grid>
                                             </Grid>
                                         </Grid>
@@ -135,7 +135,10 @@ class Index extends Component {
                                         </Grid>
                                         <Grid className="clear"></Grid>
                                     </Grid>
-
+                                    <Grid className="bp_graph">
+                                        {/* <Grid><img src={require('../../../../assets/images/gp.png')} alt="" title="" /></Grid> */}
+                                        <Grid><a onClick={()=> this.props.OpenGraph('weight_bmi')}>Veiw Graph</a></Grid>
+                                    </Grid>
                                 </Grid>
                             </Collapsible>
                         </Grid>

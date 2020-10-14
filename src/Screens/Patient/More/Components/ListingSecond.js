@@ -332,7 +332,7 @@ class Index extends Component {
                                                 <a>{items.filename && (items.filename.split('second_opinion/')[1]).split("&bucket=")[0]}</a>
                                             ))}
                                             </label>
-                                            <FileUploader name="UploadDocument" fileUpload={this.fileUpload} />
+                                            <FileUploader name="UploadDocument"  comesFrom="journal" fileUpload={this.fileUpload} />
                                             {/* <Grid className="attchbrowsInput">
                                             <a><img src={require('../../../../assets/images/upload-file.svg')} alt="" title="" /></a>
                                             <a>Browse <input type="file" id="UploadDocument" name="UploadDocument" onChange={(e) => this.UploadFile(e)} /></a> or drag here

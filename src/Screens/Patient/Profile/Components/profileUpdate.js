@@ -734,9 +734,6 @@ class Index extends Component {
     }
 
 
-
-
-
     render() {
         const { stateLoginValueAim, Doctorsetget } = this.props;
         const { value, editInsuData, insurancefull, editIndex, insuranceDetails } = this.state;
@@ -1123,7 +1120,7 @@ class Index extends Component {
                                     <td>{this.filterCountry(insu.insurance_country)}</td>
                                     <td>{insu.insurance}</td>
                                     <td>{insu.insurance_number}</td>
-                                    <td className="presEditDot scndOptionIner"><a className="openScndhrf">
+                                    <td className="presEditDot scndOptionIner pivoted"><a className="openScndhrf">
                                         <img src={require('../../../../assets/images/moreicon.jpg')} alt="" title="" className="openScnd" />
                                         <ul>
                                             <li><a onClick={() => this.editKYCopen(insu, i)}><img src={require('../../../../assets/images/edit.svg')} alt="" title="" />{edit}</a></li>

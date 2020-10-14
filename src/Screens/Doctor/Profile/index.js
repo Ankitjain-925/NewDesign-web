@@ -28,7 +28,7 @@ import ServicesAppointment from './Components/serviceAppointments.js';
 import DateTime from './Components/dateTime.js';
 import OfficeInformation from './Components/officeInformation.js'
 
-
+import { Redirect, Route } from 'react-router-dom';
 
 
 function TabContainer(props) {
@@ -144,8 +144,12 @@ class Index extends Component {
     render() {
         const { selectedOption, selectedCountry } = this.state;
         const { value } = this.state;
+        const { stateLoginValueAim, Doctorsetget } = this.props;
+        if (stateLoginValueAim.user === 'undefined' || stateLoginValueAim.token === 450 || stateLoginValueAim.token === 'undefined' || stateLoginValueAim.user.type !== 'doctor') {
+            return (<Redirect to={'/'} />);
+        }
         return (
-            <Grid className="homeBg">
+            <Grid className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode && this.props.settings.setting.mode==='dark' ? "homeBg homeBgDrk" : "homeBg"}>
                 <Grid className="homeBgIner">
                     <Grid container direction="row" justify="center">
                         <Grid item xs={12} md={12}>

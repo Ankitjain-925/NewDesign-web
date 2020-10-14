@@ -6,7 +6,7 @@ import { LanguageFetchReducer } from './../../../actions';
 import { Settings } from './../../../Login/setting';
 import { withRouter } from "react-router-dom";
 import moment from 'moment';
-import sitedata from '../../../../sitedata';
+import sitedata, { data } from '../../../../sitedata';
 import axios from 'axios';
 import Loader from './../../../Components/Loader/index';
 import * as translationEN from '../../../../translations/en_json_proofread_13072020.json';
@@ -14,6 +14,35 @@ import Toggle from 'react-toggle';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import TimeFormat from './../../../Components/TimeFormat/index';
+import { DatePicker } from 'antd';
+const { RangePicker } = DatePicker;
+const dateFormat = 'DD/MM/YYYY';
+const apoinmentdata = {
+    type: 'private',
+    monday_start: '',
+    monday_end: '',
+    tuesday_start: '',
+    tuesday_end: '',
+    wednesday_start: '',
+    wednesday_end: '',
+    thursday_end: '',
+    thursday_start: '',
+    friday_start: '',
+    friday_end: '',
+    saturday_start: '',
+    saturday_end: '',
+    sunday_start: '',
+    sunday_end: '',
+    breakslot: false,
+    breakslot_start: '',
+    breakslot_end: '',
+    holidays: false,
+    holidays_start: '',
+    holidays_end: '',
+    custom_text: '',
+    duration_of_timeslot: 0
+
+}
 class Index extends Component {
     constructor(props) {
         super(props);
@@ -28,9 +57,12 @@ class Index extends Component {
             onlineAppointments: {},
             UpDataDetails: {},
             DaysforPractices: {},
-            firstServiceData: [],
-            secondServiceData: [],
-            thirdServiceData: []
+            firstServiceData: {},
+            sencondSeviceData: {},
+            thirdServiceData: {},
+            weoffer: {},
+            holidayAppointment: {},
+            updateService: false
         };
     }
 
@@ -60,23 +92,131 @@ class Index extends Component {
             }
         }).then((response) => {
             this.setState({ loaderImage: false });
-            console.log("response.data.data.private_appointments", response.data.data.private_appointments)
             this.setState({ paid_services: response.data.data.paid_services })
-            if (response.data.data.private_appointments[0]) {
-                this.setState({ UpDataDetails: response.data.data.private_appointments[0] });
-                this.setState({ StandardSetting: response.data.data.private_appointments[0] });
-                this.setState({ CustomName: response.data.data.private_appointments[0] });
-            }
-            if (response.data.data.days_for_practices[0]) {
-                this.setState({ DaysforPractices: response.data.data.days_for_practices[0] })
-                this.setState({ PracticesSetting: response.data.data.days_for_practices[0] })
-            }
-            if (response.data.data.online_appointment[0]) {
-                this.setState({ onlineAppointments: response.data.data.online_appointment[0] })
-                this.setState({ OnlineSetting: response.data.data.online_appointment[0] })
-            }
-            let firstServiceData = this.state.paid_services.find(ele => ele.description === "videochat")
+            
+            var keysArray = Object.keys(apoinmentdata);
+            let privateAppointments = null;
+            privateAppointments = response.data.data.private_appointments[0];
+            if (privateAppointments) {
+                if (privateAppointments.holidays) {
+                    this.setState({
+                        holidayAppointment: {
+                            holidays_start: privateAppointments.holidays_start !== '' ? privateAppointments.holidays_start : new Date(),
+                            holidays_end: privateAppointments.holidays_end !== '' ? privateAppointments.holidays_end : new Date(),
+                            holidays: privateAppointments.holidays
+                        }
+                    })
+                }
 
+                keysArray.map(key => {
+                    if (privateAppointments[key] == undefined) {
+                        privateAppointments[key] = apoinmentdata[key]
+                    }
+                })
+                this.setState({ UpDataDetails: privateAppointments, StandardSetting: privateAppointments, CustomName: privateAppointments });
+            }
+            else {
+                privateAppointments = {}
+                keysArray.map(key => {
+                    if (privateAppointments[key] == undefined) {
+                        privateAppointments[key] = apoinmentdata[key]
+                    }
+                })
+                this.setState({ UpDataDetails: privateAppointments, StandardSetting: privateAppointments, CustomName: privateAppointments });
+            }
+
+            let daysForPractices = null;
+            daysForPractices = response.data.data.days_for_practices[0];
+            if (daysForPractices) {
+                if (daysForPractices.holidays) {
+                    this.setState({
+                        holidayAppointment: {
+                            holidays_start: daysForPractices.holidays_start !== '' ? daysForPractices.holidays_start : new Date(),
+                            holidays_end: daysForPractices.holidays_end !== '' ? daysForPractices.holidays_end : new Date(),
+                            holidays: daysForPractices.holidays
+                        }
+                    })
+
+                }
+                
+                keysArray.map(key => {
+                    if (daysForPractices[key] == undefined) {
+                        daysForPractices[key] = apoinmentdata[key]
+                    }
+                })
+                this.setState({ DaysforPractices: daysForPractices, PracticesSetting: daysForPractices })
+            } else {
+                daysForPractices ={}
+                keysArray.map(key => {
+                    if (daysForPractices[key] == undefined) {
+                        daysForPractices[key] = apoinmentdata[key]
+                    }
+                })
+                this.setState({ DaysforPractices: daysForPractices, PracticesSetting: daysForPractices })
+            }
+
+            let onlineAppointment = null
+            onlineAppointment = response.data.data.online_appointment[0];
+            if (onlineAppointment) {
+                if (onlineAppointment.holidays) {
+                    this.setState({
+                        holidayAppointment: {
+                            holidays_start: onlineAppointment.holidays_start !== '' ? onlineAppointment.holidays_start : new Date(),
+                            holidays_end: onlineAppointment.holidays_end !== '' ? onlineAppointment.holidays_end : new Date(),
+                            holidays: onlineAppointment.holidays
+                        }
+                    })
+                }
+
+                keysArray.map(key => {
+                    if (onlineAppointment[key] == undefined) {
+                        onlineAppointment[key] = apoinmentdata[key]
+                    }
+                })
+                
+                this.setState({ onlineAppointments: onlineAppointment, OnlineSetting: onlineAppointment })
+            } else {
+                onlineAppointment ={}
+                keysArray.map(key => {
+                    if (onlineAppointment[key] == undefined) {
+                        onlineAppointment[key] = apoinmentdata[key]
+                    }
+                })
+                this.setState({ onlineAppointments: onlineAppointment, OnlineSetting: onlineAppointment })
+            }
+
+            if (response.data.data.we_offer) {
+                let weOffer = response.data.data.we_offer;
+                if (weOffer.Offer_office_prescription == undefined) {
+                    weOffer.Offer_office_prescription = false
+                }
+                if (weOffer.Offer_online_prescription == undefined) {
+                    weOffer.Offer_online_prescription = false
+                }
+                if (weOffer.Offer_online_sick_certificates == undefined) {
+                    weOffer.Offer_online_sick_certificates = false
+                }
+                if (weOffer.Offer_practice_appointment == undefined) {
+                    weOffer.Offer_practice_appointment = false
+                }
+                if (weOffer.Offre_online_appointments == undefined) {
+                    weOffer.Offre_online_appointments = false
+                }
+                this.setState({ weoffer: weOffer })
+            }
+            else {
+                this.setState({
+                    weoffer: {
+                        Offer_office_prescription: false,
+                        Offer_online_prescription: false,
+                        Offer_online_sick_certificates: false,
+                        Offer_practice_appointment: false,
+                        Offre_online_appointments: false
+                    }
+                })
+            }
+
+            let firstServiceData = this.state.paid_services.find(ele => ele.description === "videochat")
             if (firstServiceData) this.setState({ firstServiceData: firstServiceData })
 
             let sencondSeviceData = this.state.paid_services.find(ele => ele.description === "prescription")
@@ -107,112 +247,59 @@ class Index extends Component {
 
         this.setState({ UpDataDetails: state });
     }
-    savePrivateData() {
-        if (this.state.UpDataDetails.duration_of_timeslots && this.state.UpDataDetails.duration_of_timeslots !== 0) {
-            let monday_start, monday_end, tuesday_start, tuesday_end, wednesday_start, wednesday_end, thursday_end, thursday_start,
-                friday_start, friday_end, saturday_start, saturday_end, sunday_start, sunday_end, breakslot_start, breakslot_end,
-                holidays_start, holidays_end
-            const user_token = this.props.stateLoginValueAim.token;
-            let doctor_id = this.props.stateLoginValueAim.user._id
-            if (this.state.StandardSetting.monday == true) {
-                monday_start = this.state.UpDataDetails.monday_start
-                monday_end = this.state.UpDataDetails.monday_end
-            } else {
-                monday_start = ''
-                monday_end = ''
+
+    saveAllData = () => {
+        const user_token = this.props.stateLoginValueAim.token;
+        let doctor_id = this.props.stateLoginValueAim.user._id;
+        let { firstServiceData, sencondSeviceData, thirdServiceData, weoffer, UpDataDetails, DaysforPractices, onlineAppointments, holidayAppointment } = this.state;
+        let dataSave = {};
+        this.setState({ updateService: false, appoinmentError: false })
+        dataSave['paid_services'] = [];
+        if (UpDataDetails.duration_of_timeslots && UpDataDetails.duration_of_timeslots !== 0 &&
+            DaysforPractices.duration_of_timeslots && DaysforPractices.duration_of_timeslots !== 0 &&
+            onlineAppointments.duration_of_timeslots && onlineAppointments.duration_of_timeslots !== 0) {
+            if (firstServiceData.created) {
+                dataSave['paid_services'].push(firstServiceData)
             }
-            if (this.state.StandardSetting.tuesday == true) {
-                tuesday_start = this.state.UpDataDetails.tuesday_start
-                tuesday_end = this.state.UpDataDetails.tuesday_end
-            } else {
-                tuesday_start = ''
-                tuesday_end = ''
+            if (sencondSeviceData.created) {
+                dataSave['paid_services'].push(sencondSeviceData)
             }
-            if (this.state.StandardSetting.wednesday == true) {
-                wednesday_start = this.state.UpDataDetails.wednesday_start
-                wednesday_end = this.state.UpDataDetails.wednesday_end
-            } else {
-                wednesday_start = ''
-                wednesday_end = ''
+            if (thirdServiceData.created) {
+                dataSave['paid_services'].push(thirdServiceData)
             }
-            if (this.state.StandardSetting.thursday == true) {
-                thursday_end = this.state.UpDataDetails.thursday_end
-                thursday_start = this.state.UpDataDetails.thursday_start
-            } else {
-                thursday_end = ''
-                thursday_start = ''
+            dataSave['we_offer'] = weoffer;
+            dataSave['days_for_practices'] = DaysforPractices;
+            dataSave['online_appointment'] = onlineAppointments;
+            dataSave['private_appointments'] = UpDataDetails;
+
+            if (holidayAppointment['holidays']) {
+                dataSave['days_for_practices']['holidays'] = holidayAppointment['holidays']
+                dataSave['days_for_practices']['holidays_start'] = moment(holidayAppointment['holidays_start']).format('YYYY-MM-DD')
+                dataSave['days_for_practices']['holidays_end'] = moment(holidayAppointment['holidays_end']).format('YYYY-MM-DD')
+                dataSave['online_appointment']['holidays'] = holidayAppointment['holidays']
+                dataSave['online_appointment']['holidays_start'] = moment(holidayAppointment['holidays_start']).format('YYYY-MM-DD')
+                dataSave['online_appointment']['holidays_end'] = moment(holidayAppointment['holidays_end']).format('YYYY-MM-DD')
+                dataSave['private_appointments']['holidays'] = holidayAppointment['holidays']
+                dataSave['private_appointments']['holidays_start'] = moment(holidayAppointment['holidays_start']).format('YYYY-MM-DD')
+                dataSave['private_appointments']['holidays_end'] = moment(holidayAppointment['holidays_end']).format('YYYY-MM-DD')
             }
-            if (this.state.StandardSetting.friday == true) {
-                friday_start = this.state.UpDataDetails.friday_start
-                friday_end = this.state.UpDataDetails.friday_end
-            } else {
-                friday_start = ''
-                friday_end = ''
+            else {
+                dataSave['days_for_practices']['holidays'] = holidayAppointment['holidays']
+                dataSave['days_for_practices']['holidays_start'] = ''
+                dataSave['days_for_practices']['holidays_end'] = ''
+                dataSave['online_appointment']['holidays'] = holidayAppointment['holidays']
+                dataSave['online_appointment']['holidays_start'] = ''
+                dataSave['online_appointment']['holidays_end'] = ''
+                dataSave['private_appointments']['holidays'] = holidayAppointment['holidays']
+                dataSave['private_appointments']['holidays_start'] = ''
+                dataSave['private_appointments']['holidays_end'] = ''
             }
-            if (this.state.StandardSetting.saturday == true) {
-                saturday_start = this.state.UpDataDetails.saturday_start
-                saturday_end = this.state.UpDataDetails.saturday_end
-            } else {
-                saturday_start = ''
-                saturday_end = ''
-            }
-            if (this.state.StandardSetting.sunday == true) {
-                sunday_start = this.state.UpDataDetails.sunday_start
-                sunday_end = this.state.UpDataDetails.sunday_end
-            } else {
-                sunday_start = ''
-                sunday_end = ''
-            }
-            if (this.state.StandardSetting.breakslot == true) {
-                breakslot_start = this.state.UpDataDetails.breakslot_start
-                breakslot_end = this.state.UpDataDetails.breakslot_end
-            } else {
-                breakslot_start = ''
-                breakslot_end = ''
-            }
-            if (this.state.StandardSetting.holidays == true) {
-                holidays_start = this.state.UpDataDetails.holidays_start
-                holidays_end = this.state.UpDataDetails.holidays_end
-            } else {
-                holidays_start = ''
-                holidays_end = ''
-            }
+            dataSave['days_for_practices'] =  [dataSave['days_for_practices']];
+            dataSave['online_appointment'] = [dataSave['online_appointment']];
+            dataSave['private_appointments'] = [dataSave['private_appointments']];
             this.setState({ loaderImage: true, PrivateErr: false });
-            axios.put(sitedata.data.path + '/UserProfile/private_appointments/' + doctor_id, {
-                type: 'private',
-                doctor_id: this.state.UpDataDetails.doctor_id,
-                monday_start: monday_start,
-                monday_end: monday_end,
-                tuesday_start: tuesday_start,
-                tuesday_end: tuesday_end,
-                wednesday_start: wednesday_start,
-                wednesday_end: wednesday_end,
-                thursday_start: thursday_start,
-                thursday_end: thursday_end,
-                friday_start: friday_start,
-                friday_end: friday_end,
-                saturday_start: saturday_start,
-                saturday_end: saturday_end,
-                sunday_start: sunday_start,
-                sunday_end: sunday_end,
-                breakslot_start: breakslot_start,
-                breakslot_end: breakslot_end,
-                appointment_days: this.state.UpDataDetails.appointment_days,
-                appointment_hours: this.state.UpDataDetails.appointment_hours,
-                duration_of_timeslots: this.state.UpDataDetails.duration_of_timeslots,
-                holidays_start: holidays_start,
-                holidays_end: holidays_end,
-                monday: this.state.StandardSetting.monday,
-                tuesday: this.state.StandardSetting.tuesday,
-                wednesday: this.state.StandardSetting.wednesday,
-                thursday: this.state.StandardSetting.thursday,
-                friday: this.state.StandardSetting.friday,
-                saturday: this.state.StandardSetting.saturday,
-                sunday: this.state.StandardSetting.sunday,
-                breakslot: this.state.StandardSetting.breakslot,
-                holidays: this.state.StandardSetting.holidays,
-                custom_text: this.state.CustomName.custom_text
-            }, {
+            // console.log("dataSave", dataSave)
+            axios.put(sitedata.data.path + '/UserProfile/Users/update', dataSave, {
                 headers: {
                     'token': user_token,
                     'Accept': 'application/json',
@@ -220,13 +307,135 @@ class Index extends Component {
                 }
             })
                 .then((responce) => {
-                    this.setState({ loaderImage: false });
+                    console.log("responce", responce)
+                    this.setState({ loaderImage: false, updateService: true });
+                    setTimeout(() => { this.setState({ updateService: false }) }, 5000)
                 })
-
         }
         else {
-            this.setState({ PrivateErr: true })
+            console.log("onlineAppointments", onlineAppointments)
+            this.setState({ appoinmentError: true })
         }
+
+        // if (this.state.UpDataDetails.duration_of_timeslots && this.state.UpDataDetails.duration_of_timeslots !== 0) {
+        //     let monday_start, monday_end, tuesday_start, tuesday_end, wednesday_start, wednesday_end, thursday_end, thursday_start,
+        //         friday_start, friday_end, saturday_start, saturday_end, sunday_start, sunday_end, breakslot_start, breakslot_end,
+        //         holidays_start, holidays_end
+        //     const user_token = this.props.stateLoginValueAim.token;
+        //     let doctor_id = this.props.stateLoginValueAim.user._id
+        //     if (this.state.StandardSetting.monday == true) {
+        //         monday_start = this.state.UpDataDetails.monday_start
+        //         monday_end = this.state.UpDataDetails.monday_end
+        //     } else {
+        //         monday_start = ''
+        //         monday_end = ''
+        //     }
+        //     if (this.state.StandardSetting.tuesday == true) {
+        //         tuesday_start = this.state.UpDataDetails.tuesday_start
+        //         tuesday_end = this.state.UpDataDetails.tuesday_end
+        //     } else {
+        //         tuesday_start = ''
+        //         tuesday_end = ''
+        //     }
+        //     if (this.state.StandardSetting.wednesday == true) {
+        //         wednesday_start = this.state.UpDataDetails.wednesday_start
+        //         wednesday_end = this.state.UpDataDetails.wednesday_end
+        //     } else {
+        //         wednesday_start = ''
+        //         wednesday_end = ''
+        //     }
+        //     if (this.state.StandardSetting.thursday == true) {
+        //         thursday_end = this.state.UpDataDetails.thursday_end
+        //         thursday_start = this.state.UpDataDetails.thursday_start
+        //     } else {
+        //         thursday_end = ''
+        //         thursday_start = ''
+        //     }
+        //     if (this.state.StandardSetting.friday == true) {
+        //         friday_start = this.state.UpDataDetails.friday_start
+        //         friday_end = this.state.UpDataDetails.friday_end
+        //     } else {
+        //         friday_start = ''
+        //         friday_end = ''
+        //     }
+        //     if (this.state.StandardSetting.saturday == true) {
+        //         saturday_start = this.state.UpDataDetails.saturday_start
+        //         saturday_end = this.state.UpDataDetails.saturday_end
+        //     } else {
+        //         saturday_start = ''
+        //         saturday_end = ''
+        //     }
+        //     if (this.state.StandardSetting.sunday == true) {
+        //         sunday_start = this.state.UpDataDetails.sunday_start
+        //         sunday_end = this.state.UpDataDetails.sunday_end
+        //     } else {
+        //         sunday_start = ''
+        //         sunday_end = ''
+        //     }
+        //     if (this.state.StandardSetting.breakslot == true) {
+        //         breakslot_start = this.state.UpDataDetails.breakslot_start
+        //         breakslot_end = this.state.UpDataDetails.breakslot_end
+        //     } else {
+        //         breakslot_start = ''
+        //         breakslot_end = ''
+        //     }
+        //     if (this.state.StandardSetting.holidays == true) {
+        //         holidays_start = this.state.UpDataDetails.holidays_start
+        //         holidays_end = this.state.UpDataDetails.holidays_end
+        //     } else {
+        //         holidays_start = ''
+        //         holidays_end = ''
+        //     }
+        //     this.setState({ loaderImage: true, PrivateErr: false });
+        //     axios.put(sitedata.data.path + '/UserProfile/private_appointments/' + doctor_id, {
+        //         type: 'private',
+        //         doctor_id: this.state.UpDataDetails.doctor_id,
+        //         monday_start: monday_start,
+        //         monday_end: monday_end,
+        //         tuesday_start: tuesday_start,
+        //         tuesday_end: tuesday_end,
+        //         wednesday_start: wednesday_start,
+        //         wednesday_end: wednesday_end,
+        //         thursday_start: thursday_start,
+        //         thursday_end: thursday_end,
+        //         friday_start: friday_start,
+        //         friday_end: friday_end,
+        //         saturday_start: saturday_start,
+        //         saturday_end: saturday_end,
+        //         sunday_start: sunday_start,
+        //         sunday_end: sunday_end,
+        //         breakslot_start: breakslot_start,
+        //         breakslot_end: breakslot_end,
+        //         appointment_days: this.state.UpDataDetails.appointment_days,
+        //         appointment_hours: this.state.UpDataDetails.appointment_hours,
+        //         duration_of_timeslots: this.state.UpDataDetails.duration_of_timeslots,
+        //         holidays_start: holidays_start,
+        //         holidays_end: holidays_end,
+        //         monday: this.state.StandardSetting.monday,
+        //         tuesday: this.state.StandardSetting.tuesday,
+        //         wednesday: this.state.StandardSetting.wednesday,
+        //         thursday: this.state.StandardSetting.thursday,
+        //         friday: this.state.StandardSetting.friday,
+        //         saturday: this.state.StandardSetting.saturday,
+        //         sunday: this.state.StandardSetting.sunday,
+        //         breakslot: this.state.StandardSetting.breakslot,
+        //         holidays: this.state.StandardSetting.holidays,
+        //         custom_text: this.state.CustomName.custom_text
+        //     }, {
+        //         headers: {
+        //             'token': user_token,
+        //             'Accept': 'application/json',
+        //             'Content-Type': 'application/json'
+        //         }
+        //     })
+        //         .then((responce) => {
+        //             this.setState({ loaderImage: false });
+        //         })
+
+        // }
+        // else {
+        //     this.setState({ PrivateErr: true })
+        // }
 
     }
 
@@ -510,7 +719,7 @@ class Index extends Component {
     }
 
     selectWeek = (stateChange, key) => {
-        let changestate = this.state[stateChange]
+        let changestate = this.state[stateChange];
         if (changestate[key + '_start'] == '') {
             changestate[key + '_start'] = '00:00'
             changestate[key + '_end'] = '00:00'
@@ -520,33 +729,32 @@ class Index extends Component {
             changestate[key + '_start'] = ''
             changestate[key + '_end'] = ''
         }
-        this.setState({ changestate })
+        console.log('changestate', changestate)
+        this.setState({ [stateChange]:  changestate })
     }
 
     onChange = (event, belong, stateChange, key) => {
-        console.log("event", event)
-        if (event && event.target) {
+        if (event) {
             let changestate = this.state[stateChange]
-            changestate[key + '_' + belong] = event.target.value
-
-            this.setState({ changestate })
+            changestate[key + '_' + belong] = moment(event).format('HH:mm')
+            this.setState({ [stateChange]: changestate })
         }
     }
 
-    copytoall = (stateChange, key)=> {
-        let week = ['monday','tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']
+    copytoall = (stateChange, key) => {
+        let week = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']
         let data = this.state[stateChange];
-        let start_time = data[key+"_start"];
-        let end_time = data[key+"_end"];
-        week.map((days)=>{
-            if(data[days+"_start"]!==''){
-                data[days+"_start"] = start_time;
+        let start_time = data[key + "_start"];
+        let end_time = data[key + "_end"];
+        week.map((days) => {
+            if (data[days + "_start"] !== '') {
+                data[days + "_start"] = start_time;
             }
-            if(data[days+"_end"]!==''){
-                data[days+"_end"] = end_time;
+            if (data[days + "_end"] !== '') {
+                data[days + "_end"] = end_time;
             }
         })
-        this.setState({data})
+        this.setState({ [stateChange]: data })
     }
 
     getTime = (time) => {
@@ -556,10 +764,77 @@ class Index extends Component {
         return date
     }
 
+    //For checkbox to offer things
+    handleweoffer = (value) => {
+        console.log("this.state.weoffer", this.state.weoffer)
+        const state = this.state.weoffer
+        state[value] = !state[value];
+        this.setState({ weoffer: state });
+    }
+
+    handlepaidService = (e, statechange) => {
+        let state = this.state[statechange]
+        if (e.target.checked) {
+            state.description = statechange == 'firstServiceData' ? "videochat" : statechange == 'sencondSeviceData' ? 'prescription' : 'appointment';
+            state.created = moment(new Date()).format('MM/DD/YYYY')
+        }
+        else {
+            state = {};
+        }
+        console.log("state", state)
+        this.setState({ [statechange]: state });
+    }
+
+    handleholiday = (statechange) => {
+        let state = this.state[statechange];
+
+        state['holidays'] = !state['holidays'];
+        if (!state['holidays']) {
+            state['holidays_start'] = ''
+            state['holidays_end'] = ''
+        }
+        else {
+            state['holidays_start'] = new Date()
+            state['holidays_end'] = new Date()
+        }
+        this.setState({ [statechange]: state });
+    }
+
+    handleholidayDate = (statechange, date) => {
+        let state = this.state[statechange];
+        state['holidays_start'] = date[0].format()
+        state['holidays_end'] = date[1].format()
+        this.setState({ [statechange]: state });
+    }
+
+    onChangebook = (event, key, statechange) => {
+        let state = this.state[statechange];
+        state[key] = event.target.value
+        this.setState({ [statechange]: state });
+    }
+
+    changeCustomtext = (event) => {
+        let { UpDataDetails } = this.state
+        UpDataDetails['custom_text'] = event.target.value
+        this.setState({ TempText: UpDataDetails['custom_text'] })
+    }
+
+    saveText = () => {
+        let { UpDataDetails, TempText } = this.state
+        UpDataDetails['custom_text'] = TempText
+        this.setState({ UpDataDetails: UpDataDetails, changeText: false })
+    }
+
+    changeDuration = (event, stateChange) => {
+        let data = this.state[stateChange];
+        data[event.target.name] = event.target.value;
+        this.setState({ [stateChange]: data })
+        this.setState({ appoinmentError: false })
+    }
 
     render() {
         let translate;
-        const { onlineAppointments, UpDataDetails, DaysforPractices } = this.state;
+        const { onlineAppointments, UpDataDetails, DaysforPractices, weoffer, firstServiceData, sencondSeviceData, thirdServiceData, holidayAppointment, changeText, appoinmentError } = this.state;
 
         switch (this.props.stateLanguageType) {
             case "en":
@@ -598,6 +873,8 @@ class Index extends Component {
                 <Grid className="srvcApointTab">
 
                     <Grid className="srvcInst instBrdr">
+                        {this.state.updateService && <div className="success_message">The Appointment and Services succefully updated</div>}
+                        {this.state.appoinmentError && <div className="err_message">Please Fill the break timeslot for all the appoinments</div>}
                         <h3>Services</h3>
                         <p>Instant activation and deactivation of services you offer</p>
                     </Grid>
@@ -615,7 +892,7 @@ class Index extends Component {
                             </Grid>
                             <Grid item xs={12} md={6}>
                                 <Grid className="enableTogle">
-                                    <label><Toggle icons={false} /></label>
+                                    <label><Toggle icons={false} checked={firstServiceData && firstServiceData.description == 'videochat'} onClick={(e) => { this.handlepaidService(e, 'firstServiceData') }} /></label>
                                 </Grid>
                             </Grid>
                         </Grid>
@@ -640,17 +917,22 @@ class Index extends Component {
                                                     <Checkbox
                                                         value="checkedB"
                                                         color="#00ABAF"
+                                                        checked={weoffer && weoffer.Offer_online_sick_certificates ? true : false}
+                                                        onChange={() => this.handleweoffer('Offer_online_sick_certificates')}
                                                     />
                                                 }
                                                 label="Online Sick Certificates"
                                             />
                                         </Grid>
+
                                         <Grid className="onlinSickContn">
                                             <FormControlLabel
                                                 control={
                                                     <Checkbox
                                                         value="checkedB"
                                                         color="#00ABAF"
+                                                        checked={weoffer && weoffer.Offer_online_prescription ? true : false}
+                                                        onChange={() => this.handleweoffer('Offer_online_prescription')}
                                                     />
                                                 }
                                                 label="Online Prescriptions"
@@ -662,7 +944,7 @@ class Index extends Component {
                             </Grid>
                             <Grid item xs={12} md={6}>
                                 <Grid className="enableTogle">
-                                    <label><Toggle icons={false} /></label>
+                                    <label><Toggle icons={false} checked={sencondSeviceData && sencondSeviceData.description == 'prescription'} onClick={(e) => { this.handlepaidService(e, 'sencondSeviceData') }} /></label>
                                 </Grid>
                             </Grid>
                         </Grid>
@@ -680,15 +962,20 @@ class Index extends Component {
                                 <Grid className="enableTogle">
                                     <Grid>
                                         <label>
-                                            <Toggle icons={false} />
+                                            <Toggle icons={false} checked={holidayAppointment && holidayAppointment.holidays} onClick={(e) => { this.handleholiday('holidayAppointment') }} />
                                             <span className="holdyPeriod">Holiday period between:</span>
                                         </label>
                                     </Grid>
-                                    <Grid className="enblDate">
-                                        <span>27/06/2020 - 15/07/2020
+                                    {holidayAppointment && holidayAppointment.holidays && <Grid className="enblDate">
+                                        <RangePicker
+                                            onChange={(date) => this.handleholidayDate('holidayAppointment', date)}
+                                            defaultValue={[moment(holidayAppointment.holidays_start, this.props.settings.setting ? this.props.settings.setting.dateFormat : dateFormat), moment(holidayAppointment.holidays_end, this.props.settings.setting ? this.props.settings.setting.dateFormat : dateFormat)]}
+                                            format={this.props.settings.setting ? this.props.settings.setting.dateFormat : dateFormat}
+                                        />
+                                        {/* <span>27/06/2020 - 15/07/2020
                                                                            <img src={require('../../../../assets/images/calIcon.png')} alt="" title="" />
-                                        </span>
-                                    </Grid>
+                                        </span> */}
+                                    </Grid>}
                                 </Grid>
                             </Grid>
                         </Grid>
@@ -711,15 +998,18 @@ class Index extends Component {
                                             <Checkbox
                                                 value="checkedB"
                                                 color="#00ABAF"
+                                                checked={weoffer && weoffer.Offre_online_appointments ? true : false}
+                                                onChange={() => this.handleweoffer('Offre_online_appointments')}
                                             />
                                         }
-                                        label="Video call"
+                                        label={"Video call"}
                                     />
+
                                 </Grid>
                             </Grid>
                             <Grid item xs={12} md={6}>
                                 <Grid className="enableTogle">
-                                    <label><Toggle icons={false} /></label>
+                                    <label><Toggle icons={false} checked={thirdServiceData && thirdServiceData.description == 'appointment'} onClick={(e) => { this.handlepaidService(e, 'thirdServiceData') }} /></label>
                                 </Grid>
                             </Grid>
                         </Grid>
@@ -742,24 +1032,24 @@ class Index extends Component {
                                         {onlineAppointments.monday_end && onlineAppointments.monday_end !== '' && <Grid className="daySchedule">
                                             <Grid><label>Monday</label></Grid>
                                             <Grid>
-                                                <TimeFormat name="time" value={onlineAppointments.monday_start ? this.getTime(onlineAppointments.monday_start) : new Date()} time_format={this.props.settings.setting.time_format} onChange={(e) => this.onChange(e, 'start', 'onlineAppointments', 'monday')} />
+                                                <TimeFormat name="time" value={onlineAppointments.monday_start ? this.getTime(onlineAppointments.monday_start) : new Date()} time_format={this.props.settings.setting ? this.props.settings.setting.time_format : '24'} onChange={(e) => this.onChange(e, 'start', 'onlineAppointments', 'monday')} />
                                                 <span>-</span>
-                                                <TimeFormat name="time" value={onlineAppointments.monday_end ? this.getTime(onlineAppointments.monday_end) : new Date()} time_format={this.props.settings.setting.time_format} onChange={(e) => this.onChange(e, 'end', 'onlineAppointments', 'monday')} />
+                                                <TimeFormat name="time" value={onlineAppointments.monday_end ? this.getTime(onlineAppointments.monday_end) : new Date()} time_format={this.props.settings.setting ? this.props.settings.setting.time_format : '24'} onChange={(e) => this.onChange(e, 'end', 'onlineAppointments', 'monday')} />
                                             </Grid>
                                             <Grid>
-                                                <p onClick={()=>this.copytoall('onlineAppointments', 'monday')}><img src={require('../../../../assets/images/docscopy.svg')} alt="" title="" />
+                                                <p onClick={() => this.copytoall('onlineAppointments', 'monday')}><img src={require('../../../../assets/images/docscopy.svg')} alt="" title="" />
                                                                                     Copy time to all </p>
                                             </Grid>
                                         </Grid>}
                                         {onlineAppointments.tuesday_end && onlineAppointments.tuesday_end !== '' && <Grid className="daySchedule">
                                             <Grid><label>Tuesday</label></Grid>
                                             <Grid>
-                                                <TimeFormat name="time" value={onlineAppointments.tuesday_start ? this.getTime(onlineAppointments.tuesday_start) : new Date()} time_format={this.props.settings.setting.time_format} onChange={(e) => this.onChange(e, 'start', 'onlineAppointments', 'tuesday')} />
+                                                <TimeFormat name="time" value={onlineAppointments.tuesday_start ? this.getTime(onlineAppointments.tuesday_start) : new Date()} time_format={this.props.settings.setting ? this.props.settings.setting.time_format : '24'} onChange={(e) => this.onChange(e, 'start', 'onlineAppointments', 'tuesday')} />
                                                 <span>-</span>
-                                                <TimeFormat name="time" value={onlineAppointments.tuesday_end ? this.getTime(onlineAppointments.tuesday_end) : new Date()} time_format={this.props.settings.setting.time_format} onChange={(e) => this.onChange(e, 'end', 'onlineAppointments', 'tuesday')} />
+                                                <TimeFormat name="time" value={onlineAppointments.tuesday_end ? this.getTime(onlineAppointments.tuesday_end) : new Date()} time_format={this.props.settings.setting ? this.props.settings.setting.time_format : '24'} onChange={(e) => this.onChange(e, 'end', 'onlineAppointments', 'tuesday')} />
                                             </Grid>
                                             {onlineAppointments.monday_end == '' && <Grid>
-                                                <p onClick={()=>this.copytoall('onlineAppointments', 'tuesday')}><img src={require('../../../../assets/images/docscopy.svg')} alt="" title="" />
+                                                <p onClick={() => this.copytoall('onlineAppointments', 'tuesday')}><img src={require('../../../../assets/images/docscopy.svg')} alt="" title="" />
                                                                                     Copy time to all </p>
                                             </Grid>}
 
@@ -768,12 +1058,12 @@ class Index extends Component {
                                             <Grid className="daySchedule">
                                                 <Grid><label>Wednesday</label></Grid>
                                                 <Grid>
-                                                    <TimeFormat name="time" value={onlineAppointments.wednesday_start ? this.getTime(onlineAppointments.wednesday_start) : new Date()} time_format={this.props.settings.setting.time_format} onChange={(e) => this.onChange(e, 'start', 'onlineAppointments', 'wednesday')} />
+                                                    <TimeFormat name="time" value={onlineAppointments.wednesday_start ? this.getTime(onlineAppointments.wednesday_start) : new Date()} time_format={this.props.settings.setting ? this.props.settings.setting.time_format : '24'} onChange={(e) => this.onChange(e, 'start', 'onlineAppointments', 'wednesday')} />
                                                     <span>-</span>
-                                                    <TimeFormat name="time" value={onlineAppointments.wednesday_end ? this.getTime(onlineAppointments.wednesday_end) : new Date()} time_format={this.props.settings.setting.time_format} onChange={(e) => this.onChange(e, 'end', 'onlineAppointments', 'wednesday')} />
+                                                    <TimeFormat name="time" value={onlineAppointments.wednesday_end ? this.getTime(onlineAppointments.wednesday_end) : new Date()} time_format={this.props.settings.setting ? this.props.settings.setting.time_format : '24'} onChange={(e) => this.onChange(e, 'end', 'onlineAppointments', 'wednesday')} />
                                                 </Grid>
                                                 {onlineAppointments.monday_end == '' && onlineAppointments.tuesday_end == '' && <Grid>
-                                                    <p onClick={()=>this.copytoall('onlineAppointments', 'wednesday')}><img src={require('../../../../assets/images/docscopy.svg')} alt="" title="" />
+                                                    <p onClick={() => this.copytoall('onlineAppointments', 'wednesday')}><img src={require('../../../../assets/images/docscopy.svg')} alt="" title="" />
                                                                                     Copy time to all </p>
                                                 </Grid>}
                                             </Grid>
@@ -782,12 +1072,12 @@ class Index extends Component {
                                             <Grid className="daySchedule">
                                                 <Grid><label>Thursday</label></Grid>
                                                 <Grid>
-                                                    <TimeFormat name="time" value={onlineAppointments.thursday_start ? this.getTime(onlineAppointments.thursday_start) : new Date()} time_format={this.props.settings.setting.time_format} onChange={(e) => this.onChange(e, 'start', 'onlineAppointments', 'thursday')} />
+                                                    <TimeFormat name="time" value={onlineAppointments.thursday_start ? this.getTime(onlineAppointments.thursday_start) : new Date()} time_format={this.props.settings.setting ? this.props.settings.setting.time_format : '24'} onChange={(e) => this.onChange(e, 'start', 'onlineAppointments', 'thursday')} />
                                                     <span>-</span>
-                                                    <TimeFormat name="time" value={onlineAppointments.thursday_end ? this.getTime(onlineAppointments.thursday_end) : new Date()} time_format={this.props.settings.setting.time_format} onChange={(e) => this.onChange(e, 'end', 'onlineAppointments', 'thursday')} />
+                                                    <TimeFormat name="time" value={onlineAppointments.thursday_end ? this.getTime(onlineAppointments.thursday_end) : new Date()} time_format={this.props.settings.setting ? this.props.settings.setting.time_format : '24'} onChange={(e) => this.onChange(e, 'end', 'onlineAppointments', 'thursday')} />
                                                 </Grid>
                                                 {onlineAppointments.monday_end == '' && onlineAppointments.tuesday_end == '' && onlineAppointments.wednesday_end == '' && <Grid>
-                                                    <p onClick={()=>this.copytoall('onlineAppointments', 'thursday')}><img src={require('../../../../assets/images/docscopy.svg')} alt="" title="" />
+                                                    <p onClick={() => this.copytoall('onlineAppointments', 'thursday')}><img src={require('../../../../assets/images/docscopy.svg')} alt="" title="" />
                                                                                     Copy time to all </p>
                                                 </Grid>}
                                             </Grid>
@@ -796,12 +1086,12 @@ class Index extends Component {
                                             <Grid className="daySchedule">
                                                 <Grid><label>Friday</label></Grid>
                                                 <Grid>
-                                                    <TimeFormat name="time" value={onlineAppointments.friday_start ? this.getTime(onlineAppointments.friday_start) : new Date()} time_format={this.props.settings.setting.time_format} onChange={(e) => this.onChange(e, 'start', 'onlineAppointments', 'friday')} />
+                                                    <TimeFormat name="time" value={onlineAppointments.friday_start ? this.getTime(onlineAppointments.friday_start) : new Date()} time_format={this.props.settings.setting ? this.props.settings.setting.time_format : '24'} onChange={(e) => this.onChange(e, 'start', 'onlineAppointments', 'friday')} />
                                                     <span>-</span>
-                                                    <TimeFormat name="time" value={onlineAppointments.friday_end ? this.getTime(onlineAppointments.friday_end) : new Date()} time_format={this.props.settings.setting.time_format} onChange={(e) => this.onChange(e, 'end', 'onlineAppointments', 'friday')} />
+                                                    <TimeFormat name="time" value={onlineAppointments.friday_end ? this.getTime(onlineAppointments.friday_end) : new Date()} time_format={this.props.settings.setting ? this.props.settings.setting.time_format : '24'} onChange={(e) => this.onChange(e, 'end', 'onlineAppointments', 'friday')} />
                                                 </Grid>
                                                 {onlineAppointments.monday_end == '' && onlineAppointments.tuesday_end == '' && onlineAppointments.wednesday_end == '' && onlineAppointments.thursday_end == '' && <Grid>
-                                                    <p onClick={()=>this.copytoall('onlineAppointments', 'friday')}><img src={require('../../../../assets/images/docscopy.svg')} alt="" title="" />
+                                                    <p onClick={() => this.copytoall('onlineAppointments', 'friday')}><img src={require('../../../../assets/images/docscopy.svg')} alt="" title="" />
                                                                                     Copy time to all </p>
                                                 </Grid>}
                                             </Grid>
@@ -810,12 +1100,12 @@ class Index extends Component {
                                             <Grid className="daySchedule">
                                                 <Grid><label>Saturday</label></Grid>
                                                 <Grid>
-                                                    <TimeFormat name="time" value={onlineAppointments.saturday_start ? this.getTime(onlineAppointments.saturday_start) : new Date()} time_format={this.props.settings.setting.time_format} onChange={(e) => this.onChange(e, 'start', 'onlineAppointments', 'saturday')} />
+                                                    <TimeFormat name="time" value={onlineAppointments.saturday_start ? this.getTime(onlineAppointments.saturday_start) : new Date()} time_format={this.props.settings.setting ? this.props.settings.setting.time_format : '24'} onChange={(e) => this.onChange(e, 'start', 'onlineAppointments', 'saturday')} />
                                                     <span>-</span>
-                                                    <TimeFormat name="time" value={onlineAppointments.saturday_end ? this.getTime(onlineAppointments.saturday_end) : new Date()} time_format={this.props.settings.setting.time_format} onChange={(e) => this.onChange(e, 'end', 'onlineAppointments', 'saturday')} />
+                                                    <TimeFormat name="time" value={onlineAppointments.saturday_end ? this.getTime(onlineAppointments.saturday_end) : new Date()} time_format={this.props.settings.setting ? this.props.settings.setting.time_format : '24'} onChange={(e) => this.onChange(e, 'end', 'onlineAppointments', 'saturday')} />
                                                 </Grid>
                                                 {onlineAppointments.monday_end == '' && onlineAppointments.tuesday_end == '' && onlineAppointments.wednesday_end == '' && onlineAppointments.thursday_end == '' && onlineAppointments.friday_end == '' && <Grid>
-                                                    <p onClick={()=>this.copytoall('onlineAppointments', 'saturday')}><img src={require('../../../../assets/images/docscopy.svg')} alt="" title="" />
+                                                    <p onClick={() => this.copytoall('onlineAppointments', 'saturday')}><img src={require('../../../../assets/images/docscopy.svg')} alt="" title="" />
                                                                                     Copy time to all </p>
                                                 </Grid>}
                                             </Grid>
@@ -824,12 +1114,12 @@ class Index extends Component {
                                             <Grid className="daySchedule">
                                                 <Grid><label>Sunday</label></Grid>
                                                 <Grid>
-                                                    <TimeFormat name="time" value={onlineAppointments.sunday_start ? this.getTime(onlineAppointments.sunday_start) : new Date()} time_format={this.props.settings.setting.time_format} onChange={(e) => this.onChange(e, 'start', 'onlineAppointments', 'sunday')} />
+                                                    <TimeFormat name="time" value={onlineAppointments.sunday_start ? this.getTime(onlineAppointments.sunday_start) : new Date()} time_format={this.props.settings.setting ? this.props.settings.setting.time_format : '24'} onChange={(e) => this.onChange(e, 'start', 'onlineAppointments', 'sunday')} />
                                                     <span>-</span>
-                                                    <TimeFormat name="time" value={onlineAppointments.sunday_end ? this.getTime(onlineAppointments.sunday_end) : new Date()} time_format={this.props.settings.setting.time_format} onChange={(e) => this.onChange(e, 'end', 'onlineAppointments', 'sunday')} />
+                                                    <TimeFormat name="time" value={onlineAppointments.sunday_end ? this.getTime(onlineAppointments.sunday_end) : new Date()} time_format={this.props.settings.setting ? this.props.settings.setting.time_format : '24'} onChange={(e) => this.onChange(e, 'end', 'onlineAppointments', 'sunday')} />
                                                 </Grid>
                                                 {onlineAppointments.monday_end == '' && onlineAppointments.tuesday_end == '' && onlineAppointments.wednesday_end == '' && onlineAppointments.thursday_end == '' && onlineAppointments.friday_end == '' && onlineAppointments.saturday_end == '' && <Grid>
-                                                    <p onClick={()=>this.copytoall('onlineAppointments', 'sunday')}><img src={require('../../../../assets/images/docscopy.svg')} alt="" title="" />
+                                                    <p onClick={() => this.copytoall('onlineAppointments', 'sunday')}><img src={require('../../../../assets/images/docscopy.svg')} alt="" title="" />
                                                                                     Copy time to all </p>
                                                 </Grid>}
                                             </Grid>
@@ -840,8 +1130,8 @@ class Index extends Component {
                                     <Grid className="setScheduleUpr">
                                         <Grid className="setSchedule">
                                             <Grid className="nameSchedule"><label>Set timeslot duration:</label></Grid>
-                                            <Grid  className="nameSchedule">
-                                                <input type="text" value={onlineAppointments.duration_of_timeslots+" minutes"} />
+                                            <Grid className="nameSchedule">
+                                                <input type="text" name="duration_of_timeslots" value={onlineAppointments.duration_of_timeslots} onChange={(e) => this.changeDuration(e, 'onlineAppointments')} /> minutes
                                             </Grid>
                                         </Grid>
                                     </Grid>
@@ -849,16 +1139,16 @@ class Index extends Component {
                                         <Grid className="setSchedule appointment">
                                             <Grid className="nameSchedule"><label>Break time:</label></Grid>
                                             <Grid className="nameSchedule">
-                                                <TimeFormat name="time" value={onlineAppointments.breakslot_start ? this.getTime(onlineAppointments.breakslot_start) : new Date()} time_format={this.props.settings.setting.time_format} onChange={(e) => this.onChange(e, 'start', 'onlineAppointments', 'breakslot')} />
+                                                <TimeFormat name="time" value={onlineAppointments.breakslot_start ? this.getTime(onlineAppointments.breakslot_start) : new Date()} time_format={this.props.settings.setting ? this.props.settings.setting.time_format : '24'} onChange={(e) => this.onChange(e, 'start', 'onlineAppointments', 'breakslot')} />
                                                 <span>-</span>
-                                                <TimeFormat name="time" value={onlineAppointments.breakslot_end ? this.getTime(onlineAppointments.breakslot_end) : new Date()} time_format={this.props.settings.setting.time_format} onChange={(e) => this.onChange(e, 'end', 'onlineAppointments', 'breakslot')} />
+                                                <TimeFormat name="time" value={onlineAppointments.breakslot_end ? this.getTime(onlineAppointments.breakslot_end) : new Date()} time_format={this.props.settings.setting ? this.props.settings.setting.time_format : '24'} onChange={(e) => this.onChange(e, 'end', 'onlineAppointments', 'breakslot')} />
                                             </Grid>
                                         </Grid>
                                     </Grid>
                                     <Grid className="apontBook">
                                         <Grid><label>Appointment can be booked:</label></Grid>
-                                        <Grid><p><span>Up to days,</span> <input type="text" value={onlineAppointments.appointment_days} /> before the day of appointment</p></Grid>
-                                        <Grid><p><span>Max,</span> <input type="text" value={onlineAppointments.appointment_hours} /> hours, before the time of appointment</p></Grid>
+                                        <Grid><p><span>Up to days,</span> <input type="text" onChange={(e) => this.onChangebook(e, 'appointment_days', 'onlineAppointments')} value={onlineAppointments.appointment_days} /> before the day of appointment</p></Grid>
+                                        <Grid><p><span>Max,</span> <input type="text" value={onlineAppointments.appointment_hours} onChange={(e) => this.onChangebook(e, 'appointment_hours', 'onlineAppointments')} /> hours, before the time of appointment</p></Grid>
                                     </Grid>
                                 </Grid>
                             </Grid>
@@ -869,24 +1159,30 @@ class Index extends Component {
                     <Grid className="instBrdr">
                         <Grid container direction="row">
                             <Grid item xs={12} md={6}>
-                                <Grid className="onlinSickVdo officVisit">
+                                <Grid className={changeText ? 'display-cls onlinSickVdo officVisit' : 'onlinSickVdo officVisit'}>
                                     <img src={require('../../../../assets/images/ShapeCopy21.svg')} className="vdoCalNow" alt="" title="" />
-                                    <FormControlLabel
+                                    {!changeText && <FormControlLabel
                                         control={
                                             <Checkbox
                                                 value="checkedB"
                                                 color="#00ABAF"
+                                                checked={weoffer && weoffer.Offer_office_prescription ? true : false}
+                                                onChange={() => this.handleweoffer('Offer_office_prescription')}
                                             />
                                         }
-                                        label="Office visit"
-                                    />
+                                        label={UpDataDetails.custom_text ? UpDataDetails.custom_text : ''}
+                                    />}
+                                    {changeText && <input type="text" value={UpDataDetails.custom_text} onChange={this.changeCustomtext} className="custom-text" />}
+                                    {!changeText && <img src={require('../../../../assets/images/editBlue.png')} className="editPendata" alt="" title="" onClick={() => this.setState({ changeText: true, TempText: UpDataDetails['custom_text'] })} />}
+                                    {changeText && <button className="save" onClick={this.saveText}> Save</button>}
+                                    {changeText && <button onClick={() => this.setState({ changeText: false, TempText: '' })}>Cancel</button>}
                                 </Grid>
                             </Grid>
-                            <Grid item xs={12} md={6}>
+                            {/* <Grid item xs={12} md={6}>
                                 <Grid className="enableTogle">
                                     <label><Toggle icons={false} /></label>
                                 </Grid>
-                            </Grid>
+                            </Grid> */}
                         </Grid>
                         <Grid className="wrkHourUpr">
                             <Grid container direction="row">
@@ -907,24 +1203,24 @@ class Index extends Component {
                                         {UpDataDetails.monday_end && UpDataDetails.monday_end !== '' && <Grid className="daySchedule">
                                             <Grid><label>Monday</label></Grid>
                                             <Grid>
-                                                <TimeFormat name="time" value={UpDataDetails.monday_start ? this.getTime(UpDataDetails.monday_start) : new Date()} time_format={this.props.settings.setting.time_format} onChange={(e) => this.onChange(e, 'start', 'UpDataDetails', 'monday')} />
+                                                <TimeFormat name="time" value={UpDataDetails.monday_start ? this.getTime(UpDataDetails.monday_start) : new Date()} time_format={this.props.settings.setting ? this.props.settings.setting.time_format : '24'} onChange={(e) => this.onChange(e, 'start', 'UpDataDetails', 'monday')} />
                                                 <span>-</span>
-                                                <TimeFormat name="time" value={UpDataDetails.monday_end ? this.getTime(UpDataDetails.monday_end) : new Date()} time_format={this.props.settings.setting.time_format} onChange={(e) => this.onChange(e, 'end', 'UpDataDetails', 'monday')} />
+                                                <TimeFormat name="time" value={UpDataDetails.monday_end ? this.getTime(UpDataDetails.monday_end) : new Date()} time_format={this.props.settings.setting ? this.props.settings.setting.time_format : '24'} onChange={(e) => this.onChange(e, 'end', 'UpDataDetails', 'monday')} />
                                             </Grid>
                                             <Grid>
-                                                <p onClick={()=>this.copytoall('UpDataDetails', 'monday')}><img src={require('../../../../assets/images/docscopy.svg')} alt="" title="" />
+                                                <p onClick={() => this.copytoall('UpDataDetails', 'monday')}><img src={require('../../../../assets/images/docscopy.svg')} alt="" title="" />
                                                                                     Copy time to all </p>
                                             </Grid>
                                         </Grid>}
                                         {UpDataDetails.tuesday_end && UpDataDetails.tuesday_end !== '' && <Grid className="daySchedule">
                                             <Grid><label>Tuesday</label></Grid>
                                             <Grid>
-                                                <TimeFormat name="time" value={UpDataDetails.tuesday_start ? this.getTime(UpDataDetails.tuesday_start) : new Date()} time_format={this.props.settings.setting.time_format} onChange={(e) => this.onChange(e, 'start', 'UpDataDetails', 'tuesday')} />
+                                                <TimeFormat name="time" value={UpDataDetails.tuesday_start ? this.getTime(UpDataDetails.tuesday_start) : new Date()} time_format={this.props.settings.setting ? this.props.settings.setting.time_format : '24'} onChange={(e) => this.onChange(e, 'start', 'UpDataDetails', 'tuesday')} />
                                                 <span>-</span>
-                                                <TimeFormat name="time" value={UpDataDetails.tuesday_end ? this.getTime(UpDataDetails.tuesday_end) : new Date()} time_format={this.props.settings.setting.time_format} onChange={(e) => this.onChange(e, 'end', 'UpDataDetails', 'tuesday')} />
+                                                <TimeFormat name="time" value={UpDataDetails.tuesday_end ? this.getTime(UpDataDetails.tuesday_end) : new Date()} time_format={this.props.settings.setting ? this.props.settings.setting.time_format : '24'} onChange={(e) => this.onChange(e, 'end', 'UpDataDetails', 'tuesday')} />
                                             </Grid>
                                             {UpDataDetails.monday_end == '' && <Grid>
-                                                <p onClick={()=>this.copytoall('UpDataDetails', 'tuesday')}><img src={require('../../../../assets/images/docscopy.svg')} alt="" title="" />
+                                                <p onClick={() => this.copytoall('UpDataDetails', 'tuesday')}><img src={require('../../../../assets/images/docscopy.svg')} alt="" title="" />
                                                                                     Copy time to all </p>
                                             </Grid>}
 
@@ -933,12 +1229,12 @@ class Index extends Component {
                                             <Grid className="daySchedule">
                                                 <Grid><label>Wednesday</label></Grid>
                                                 <Grid>
-                                                    <TimeFormat name="time" value={UpDataDetails.wednesday_start ? this.getTime(UpDataDetails.wednesday_start) : new Date()} time_format={this.props.settings.setting.time_format} onChange={(e) => this.onChange(e, 'start', 'UpDataDetails', 'wednesday')} />
+                                                    <TimeFormat name="time" value={UpDataDetails.wednesday_start ? this.getTime(UpDataDetails.wednesday_start) : new Date()} time_format={this.props.settings.setting ? this.props.settings.setting.time_format : '24'} onChange={(e) => this.onChange(e, 'start', 'UpDataDetails', 'wednesday')} />
                                                     <span>-</span>
-                                                    <TimeFormat name="time" value={UpDataDetails.wednesday_end ? this.getTime(UpDataDetails.wednesday_end) : new Date()} time_format={this.props.settings.setting.time_format} onChange={(e) => this.onChange(e, 'end', 'UpDataDetails', 'wednesday')} />
+                                                    <TimeFormat name="time" value={UpDataDetails.wednesday_end ? this.getTime(UpDataDetails.wednesday_end) : new Date()} time_format={this.props.settings.setting ? this.props.settings.setting.time_format : '24'} onChange={(e) => this.onChange(e, 'end', 'UpDataDetails', 'wednesday')} />
                                                 </Grid>
                                                 {UpDataDetails.monday_end == '' && UpDataDetails.tuesday_end == '' && <Grid>
-                                                    <p onClick={()=>this.copytoall('UpDataDetails', 'wednesday')}><img src={require('../../../../assets/images/docscopy.svg')} alt="" title="" />
+                                                    <p onClick={() => this.copytoall('UpDataDetails', 'wednesday')}><img src={require('../../../../assets/images/docscopy.svg')} alt="" title="" />
                                                                                     Copy time to all </p>
                                                 </Grid>}
                                             </Grid>
@@ -947,12 +1243,12 @@ class Index extends Component {
                                             <Grid className="daySchedule">
                                                 <Grid><label>Thursday</label></Grid>
                                                 <Grid>
-                                                    <TimeFormat name="time" value={UpDataDetails.thursday_start ? this.getTime(UpDataDetails.thursday_start) : new Date()} time_format={this.props.settings.setting.time_format} onChange={(e) => this.onChange(e, 'start', 'UpDataDetails', 'thursday')} />
+                                                    <TimeFormat name="time" value={UpDataDetails.thursday_start ? this.getTime(UpDataDetails.thursday_start) : new Date()} time_format={this.props.settings.setting ? this.props.settings.setting.time_format : '24'} onChange={(e) => this.onChange(e, 'start', 'UpDataDetails', 'thursday')} />
                                                     <span>-</span>
-                                                    <TimeFormat name="time" value={UpDataDetails.thursday_end ? this.getTime(UpDataDetails.thursday_end) : new Date()} time_format={this.props.settings.setting.time_format} onChange={(e) => this.onChange(e, 'end', 'UpDataDetails', 'thursday')} />
+                                                    <TimeFormat name="time" value={UpDataDetails.thursday_end ? this.getTime(UpDataDetails.thursday_end) : new Date()} time_format={this.props.settings.setting ? this.props.settings.setting.time_format : '24'} onChange={(e) => this.onChange(e, 'end', 'UpDataDetails', 'thursday')} />
                                                 </Grid>
                                                 {UpDataDetails.monday_end == '' && UpDataDetails.tuesday_end == '' && UpDataDetails.wednesday_end == '' && <Grid>
-                                                    <p onClick={()=>this.copytoall('UpDataDetails', 'thursday')}><img src={require('../../../../assets/images/docscopy.svg')} alt="" title="" />
+                                                    <p onClick={() => this.copytoall('UpDataDetails', 'thursday')}><img src={require('../../../../assets/images/docscopy.svg')} alt="" title="" />
                                                                                     Copy time to all </p>
                                                 </Grid>}
                                             </Grid>
@@ -961,12 +1257,12 @@ class Index extends Component {
                                             <Grid className="daySchedule">
                                                 <Grid><label>Friday</label></Grid>
                                                 <Grid>
-                                                    <TimeFormat name="time" value={UpDataDetails.friday_start ? this.getTime(UpDataDetails.friday_start) : new Date()} time_format={this.props.settings.setting.time_format} onChange={(e) => this.onChange(e, 'start', 'UpDataDetails', 'friday')} />
+                                                    <TimeFormat name="time" value={UpDataDetails.friday_start ? this.getTime(UpDataDetails.friday_start) : new Date()} time_format={this.props.settings.setting ? this.props.settings.setting.time_format : '24'} onChange={(e) => this.onChange(e, 'start', 'UpDataDetails', 'friday')} />
                                                     <span>-</span>
-                                                    <TimeFormat name="time" value={UpDataDetails.friday_end ? this.getTime(UpDataDetails.friday_end) : new Date()} time_format={this.props.settings.setting.time_format} onChange={(e) => this.onChange(e, 'end', 'UpDataDetails', 'friday')} />
+                                                    <TimeFormat name="time" value={UpDataDetails.friday_end ? this.getTime(UpDataDetails.friday_end) : new Date()} time_format={this.props.settings.setting ? this.props.settings.setting.time_format : '24'} onChange={(e) => this.onChange(e, 'end', 'UpDataDetails', 'friday')} />
                                                 </Grid>
                                                 {UpDataDetails.monday_end == '' && UpDataDetails.tuesday_end == '' && UpDataDetails.wednesday_end == '' && UpDataDetails.thursday_end == '' && <Grid>
-                                                    <p onClick={()=>this.copytoall('UpDataDetails', 'friday')}><img src={require('../../../../assets/images/docscopy.svg')} alt="" title="" />
+                                                    <p onClick={() => this.copytoall('UpDataDetails', 'friday')}><img src={require('../../../../assets/images/docscopy.svg')} alt="" title="" />
                                                                                     Copy time to all </p>
                                                 </Grid>}
                                             </Grid>
@@ -975,12 +1271,12 @@ class Index extends Component {
                                             <Grid className="daySchedule">
                                                 <Grid><label>Saturday</label></Grid>
                                                 <Grid>
-                                                    <TimeFormat name="time" value={UpDataDetails.saturday_start ? this.getTime(UpDataDetails.saturday_start) : new Date()} time_format={this.props.settings.setting.time_format} onChange={(e) => this.onChange(e, 'start', 'UpDataDetails', 'saturday')} />
+                                                    <TimeFormat name="time" value={UpDataDetails.saturday_start ? this.getTime(UpDataDetails.saturday_start) : new Date()} time_format={this.props.settings.setting ? this.props.settings.setting.time_format : '24'} onChange={(e) => this.onChange(e, 'start', 'UpDataDetails', 'saturday')} />
                                                     <span>-</span>
-                                                    <TimeFormat name="time" value={UpDataDetails.saturday_end ? this.getTime(UpDataDetails.saturday_end) : new Date()} time_format={this.props.settings.setting.time_format} onChange={(e) => this.onChange(e, 'end', 'UpDataDetails', 'saturday')} />
+                                                    <TimeFormat name="time" value={UpDataDetails.saturday_end ? this.getTime(UpDataDetails.saturday_end) : new Date()} time_format={this.props.settings.setting ? this.props.settings.setting.time_format : '24'} onChange={(e) => this.onChange(e, 'end', 'UpDataDetails', 'saturday')} />
                                                 </Grid>
                                                 {UpDataDetails.monday_end == '' && UpDataDetails.tuesday_end == '' && UpDataDetails.wednesday_end == '' && UpDataDetails.thursday_end == '' && UpDataDetails.friday_end == '' && <Grid>
-                                                    <p onClick={()=>this.copytoall('UpDataDetails', 'saturday')}><img src={require('../../../../assets/images/docscopy.svg')} alt="" title="" />
+                                                    <p onClick={() => this.copytoall('UpDataDetails', 'saturday')}><img src={require('../../../../assets/images/docscopy.svg')} alt="" title="" />
                                                                                     Copy time to all </p>
                                                 </Grid>}
                                             </Grid>
@@ -989,12 +1285,12 @@ class Index extends Component {
                                             <Grid className="daySchedule">
                                                 <Grid><label>Sunday</label></Grid>
                                                 <Grid>
-                                                    <TimeFormat name="time" value={UpDataDetails.sunday_start ? this.getTime(UpDataDetails.sunday_start) : new Date()} time_format={this.props.settings.setting.time_format} onChange={(e) => this.onChange(e, 'start', 'UpDataDetails', 'sunday')} />
+                                                    <TimeFormat name="time" value={UpDataDetails.sunday_start ? this.getTime(UpDataDetails.sunday_start) : new Date()} time_format={this.props.settings.setting ? this.props.settings.setting.time_format : '24'} onChange={(e) => this.onChange(e, 'start', 'UpDataDetails', 'sunday')} />
                                                     <span>-</span>
-                                                    <TimeFormat name="time" value={UpDataDetails.sunday_end ? this.getTime(UpDataDetails.sunday_end) : new Date()} time_format={this.props.settings.setting.time_format} onChange={(e) => this.onChange(e, 'end', 'UpDataDetails', 'sunday')} />
+                                                    <TimeFormat name="time" value={UpDataDetails.sunday_end ? this.getTime(UpDataDetails.sunday_end) : new Date()} time_format={this.props.settings.setting ? this.props.settings.setting.time_format : '24'} onChange={(e) => this.onChange(e, 'end', 'UpDataDetails', 'sunday')} />
                                                 </Grid>
                                                 {UpDataDetails.monday_end == '' && UpDataDetails.tuesday_end == '' && UpDataDetails.wednesday_end == '' && UpDataDetails.thursday_end == '' && UpDataDetails.friday_end == '' && UpDataDetails.saturday_end == '' && <Grid>
-                                                    <p onClick={()=>this.copytoall('UpDataDetails', 'sunday')}><img src={require('../../../../assets/images/docscopy.svg')} alt="" title="" />
+                                                    <p onClick={() => this.copytoall('UpDataDetails', 'sunday')}><img src={require('../../../../assets/images/docscopy.svg')} alt="" title="" />
                                                                                     Copy time to all </p>
                                                 </Grid>}
                                             </Grid>
@@ -1006,7 +1302,7 @@ class Index extends Component {
                                         <Grid className="setSchedule">
                                             <Grid className="nameSchedule"><label>Set timeslot duration:</label></Grid>
                                             <Grid className="nameSchedule">
-                                                <input type="text" value={UpDataDetails.duration_of_timeslots+" minutes"} />
+                                                <input type="text" name="duration_of_timeslots" value={UpDataDetails.duration_of_timeslots} onChange={(e) => this.changeDuration(e, 'UpDataDetails')} /> minutes
                                             </Grid>
                                         </Grid>
                                     </Grid>
@@ -1014,16 +1310,16 @@ class Index extends Component {
                                         <Grid className="setSchedule appointment">
                                             <Grid className="nameSchedule"><label>Break time:</label></Grid>
                                             <Grid className="nameSchedule">
-                                                <TimeFormat name="time" value={UpDataDetails.breakslot_start ? this.getTime(UpDataDetails.breakslot_start) : new Date()} time_format={this.props.settings.setting.time_format} onChange={(e) => this.onChange(e, 'start', 'UpDataDetails', 'breakslot')} />
+                                                <TimeFormat name="time" value={UpDataDetails.breakslot_start ? this.getTime(UpDataDetails.breakslot_start) : new Date()} time_format={this.props.settings.setting ? this.props.settings.setting.time_format : '24'} onChange={(e) => this.onChange(e, 'start', 'UpDataDetails', 'breakslot')} />
                                                 <span>-</span>
-                                                <TimeFormat name="time" value={UpDataDetails.breakslot_end ? this.getTime(UpDataDetails.breakslot_end) : new Date()} time_format={this.props.settings.setting.time_format} onChange={(e) => this.onChange(e, 'end', 'UpDataDetails', 'breakslot')} />
+                                                <TimeFormat name="time" value={UpDataDetails.breakslot_end ? this.getTime(UpDataDetails.breakslot_end) : new Date()} time_format={this.props.settings.setting ? this.props.settings.setting.time_format : '24'} onChange={(e) => this.onChange(e, 'end', 'UpDataDetails', 'breakslot')} />
                                             </Grid>
                                         </Grid>
                                     </Grid>
                                     <Grid className="apontBook">
                                         <Grid><label>Appointment can be booked:</label></Grid>
-                                        <Grid><p><span>Up to days,</span> <input type="text" value={UpDataDetails.appointment_days} /> before the day of appointment</p></Grid>
-                                        <Grid><p><span>Max,</span> <input type="text" value={UpDataDetails.appointment_hours} /> hours, before the time of appointment</p></Grid>
+                                        <Grid><p><span>Up to days,</span> <input type="text" onChange={(e) => this.onChangebook(e, 'appointment_days', 'UpDataDetails')} value={UpDataDetails.appointment_days} /> before the day of appointment</p></Grid>
+                                        <Grid><p><span>Max,</span> <input type="text" value={UpDataDetails.appointment_hours} onChange={(e) => this.onChangebook(e, 'appointment_hours', 'UpDataDetails')} /> hours, before the time of appointment</p></Grid>
                                     </Grid>
                                 </Grid>
                             </Grid>
@@ -1040,18 +1336,20 @@ class Index extends Component {
                                             <Checkbox
                                                 value="checkedB"
                                                 color="#00ABAF"
+                                                checked={weoffer && weoffer.Offre_online_appointments ? true : false}
+                                                onChange={() => this.handleweoffer('Offre_online_appointments')}
                                             />
                                         }
                                         label="Consultancy (custom calendar)"
                                     />
-                                    <img src={require('../../../../assets/images/editBlue.png')} className="editPendata" alt="" title="" />
+
                                 </Grid>
                             </Grid>
-                            <Grid item xs={12} md={6}>
+                            {/* <Grid item xs={12} md={6}>
                                 <Grid className="enableTogle">
                                     <label><Toggle icons={false} /></label>
                                 </Grid>
-                            </Grid>
+                            </Grid> */}
                         </Grid>
                         <Grid className="wrkHourUpr">
                             <Grid container direction="row">
@@ -1072,24 +1370,24 @@ class Index extends Component {
                                         {DaysforPractices.monday_end && DaysforPractices.monday_end !== '' && <Grid className="daySchedule">
                                             <Grid><label>Monday</label></Grid>
                                             <Grid>
-                                                <TimeFormat name="time" value={DaysforPractices.monday_start ? this.getTime(DaysforPractices.monday_start) : new Date()} time_format={this.props.settings.setting.time_format} onChange={(e) => this.onChange(e, 'start', 'DaysforPractices', 'monday')} />
+                                                <TimeFormat name="time" value={DaysforPractices.monday_start ? this.getTime(DaysforPractices.monday_start) : new Date()} time_format={this.props.settings.setting ? this.props.settings.setting.time_format : '24'} onChange={(e) => this.onChange(e, 'start', 'DaysforPractices', 'monday')} />
                                                 <span>-</span>
-                                                <TimeFormat name="time" value={DaysforPractices.monday_end ? this.getTime(DaysforPractices.monday_end) : new Date()} time_format={this.props.settings.setting.time_format} onChange={(e) => this.onChange(e, 'end', 'DaysforPractices', 'monday')} />
+                                                <TimeFormat name="time" value={DaysforPractices.monday_end ? this.getTime(DaysforPractices.monday_end) : new Date()} time_format={this.props.settings.setting ? this.props.settings.setting.time_format : '24'} onChange={(e) => this.onChange(e, 'end', 'DaysforPractices', 'monday')} />
                                             </Grid>
                                             <Grid>
-                                                <p onClick={()=>this.copytoall('DaysforPractices', 'monday')}><img src={require('../../../../assets/images/docscopy.svg')} alt="" title="" />
+                                                <p onClick={() => this.copytoall('DaysforPractices', 'monday')}><img src={require('../../../../assets/images/docscopy.svg')} alt="" title="" />
                                                                                     Copys time to all </p>
                                             </Grid>
                                         </Grid>}
                                         {DaysforPractices.tuesday_end && DaysforPractices.tuesday_end !== '' && <Grid className="daySchedule">
                                             <Grid><label>Tuesday</label></Grid>
                                             <Grid>
-                                                <TimeFormat name="time" value={DaysforPractices.tuesday_start ? this.getTime(DaysforPractices.tuesday_start) : new Date()} time_format={this.props.settings.setting.time_format} onChange={(e) => this.onChange(e, 'start', 'DaysforPractices', 'tuesday')} />
+                                                <TimeFormat name="time" value={DaysforPractices.tuesday_start ? this.getTime(DaysforPractices.tuesday_start) : new Date()} time_format={this.props.settings.setting ? this.props.settings.setting.time_format : '24'} onChange={(e) => this.onChange(e, 'start', 'DaysforPractices', 'tuesday')} />
                                                 <span>-</span>
-                                                <TimeFormat name="time" value={DaysforPractices.tuesday_end ? this.getTime(DaysforPractices.tuesday_end) : new Date()} time_format={this.props.settings.setting.time_format} onChange={(e) => this.onChange(e, 'end', 'DaysforPractices', 'tuesday')} />
+                                                <TimeFormat name="time" value={DaysforPractices.tuesday_end ? this.getTime(DaysforPractices.tuesday_end) : new Date()} time_format={this.props.settings.setting ? this.props.settings.setting.time_format : '24'} onChange={(e) => this.onChange(e, 'end', 'DaysforPractices', 'tuesday')} />
                                             </Grid>
                                             {DaysforPractices.monday_end == '' && <Grid>
-                                                <p onClick={()=>this.copytoall('DaysforPractices', 'tuesday')}><img src={require('../../../../assets/images/docscopy.svg')} alt="" title="" />
+                                                <p onClick={() => this.copytoall('DaysforPractices', 'tuesday')}><img src={require('../../../../assets/images/docscopy.svg')} alt="" title="" />
                                                                                     Copy time to all </p>
                                             </Grid>}
 
@@ -1098,12 +1396,12 @@ class Index extends Component {
                                             <Grid className="daySchedule">
                                                 <Grid><label>Wednesday</label></Grid>
                                                 <Grid>
-                                                    <TimeFormat name="time" value={DaysforPractices.wednesday_start ? this.getTime(DaysforPractices.wednesday_start) : new Date()} time_format={this.props.settings.setting.time_format} onChange={(e) => this.onChange(e, 'start', 'DaysforPractices', 'wednesday')} />
+                                                    <TimeFormat name="time" value={DaysforPractices.wednesday_start ? this.getTime(DaysforPractices.wednesday_start) : new Date()} time_format={this.props.settings.setting ? this.props.settings.setting.time_format : '24'} onChange={(e) => this.onChange(e, 'start', 'DaysforPractices', 'wednesday')} />
                                                     <span>-</span>
-                                                    <TimeFormat name="time" value={DaysforPractices.wednesday_end ? this.getTime(DaysforPractices.wednesday_end) : new Date()} time_format={this.props.settings.setting.time_format} onChange={(e) => this.onChange(e, 'end', 'DaysforPractices', 'wednesday')} />
+                                                    <TimeFormat name="time" value={DaysforPractices.wednesday_end ? this.getTime(DaysforPractices.wednesday_end) : new Date()} time_format={this.props.settings.setting ? this.props.settings.setting.time_format : '24'} onChange={(e) => this.onChange(e, 'end', 'DaysforPractices', 'wednesday')} />
                                                 </Grid>
                                                 {DaysforPractices.monday_end == '' && DaysforPractices.tuesday_end == '' && <Grid>
-                                                    <p onClick={()=>this.copytoall('DaysforPractices', 'wednesday')}><img src={require('../../../../assets/images/docscopy.svg')} alt="" title="" />
+                                                    <p onClick={() => this.copytoall('DaysforPractices', 'wednesday')}><img src={require('../../../../assets/images/docscopy.svg')} alt="" title="" />
                                                                                     Copy time to all </p>
                                                 </Grid>}
                                             </Grid>
@@ -1112,12 +1410,12 @@ class Index extends Component {
                                             <Grid className="daySchedule">
                                                 <Grid><label>Thursday</label></Grid>
                                                 <Grid>
-                                                    <TimeFormat name="time" value={DaysforPractices.thursday_start ? this.getTime(DaysforPractices.thursday_start) : new Date()} time_format={this.props.settings.setting.time_format} onChange={(e) => this.onChange(e, 'start', 'DaysforPractices', 'thursday')} />
+                                                    <TimeFormat name="time" value={DaysforPractices.thursday_start ? this.getTime(DaysforPractices.thursday_start) : new Date()} time_format={this.props.settings.setting ? this.props.settings.setting.time_format : '24'} onChange={(e) => this.onChange(e, 'start', 'DaysforPractices', 'thursday')} />
                                                     <span>-</span>
-                                                    <TimeFormat name="time" value={DaysforPractices.thursday_end ? this.getTime(DaysforPractices.thursday_end) : new Date()} time_format={this.props.settings.setting.time_format} onChange={(e) => this.onChange(e, 'end', 'DaysforPractices', 'thursday')} />
+                                                    <TimeFormat name="time" value={DaysforPractices.thursday_end ? this.getTime(DaysforPractices.thursday_end) : new Date()} time_format={this.props.settings.setting ? this.props.settings.setting.time_format : '24'} onChange={(e) => this.onChange(e, 'end', 'DaysforPractices', 'thursday')} />
                                                 </Grid>
                                                 {DaysforPractices.monday_end == '' && DaysforPractices.tuesday_end == '' && DaysforPractices.wednesday_end == '' && <Grid>
-                                                    <p onClick={()=>this.copytoall('DaysforPractices', 'thursday')}><img src={require('../../../../assets/images/docscopy.svg')} alt="" title="" />
+                                                    <p onClick={() => this.copytoall('DaysforPractices', 'thursday')}><img src={require('../../../../assets/images/docscopy.svg')} alt="" title="" />
                                                                                     Copy time to all </p>
                                                 </Grid>}
                                             </Grid>
@@ -1126,12 +1424,12 @@ class Index extends Component {
                                             <Grid className="daySchedule">
                                                 <Grid><label>Friday</label></Grid>
                                                 <Grid>
-                                                    <TimeFormat name="time" value={DaysforPractices.friday_start ? this.getTime(DaysforPractices.friday_start) : new Date()} time_format={this.props.settings.setting.time_format} onChange={(e) => this.onChange(e, 'start', 'DaysforPractices', 'friday')} />
+                                                    <TimeFormat name="time" value={DaysforPractices.friday_start ? this.getTime(DaysforPractices.friday_start) : new Date()} time_format={this.props.settings.setting ? this.props.settings.setting.time_format : '24'} onChange={(e) => this.onChange(e, 'start', 'DaysforPractices', 'friday')} />
                                                     <span>-</span>
-                                                    <TimeFormat name="time" value={DaysforPractices.friday_end ? this.getTime(DaysforPractices.friday_end) : new Date()} time_format={this.props.settings.setting.time_format} onChange={(e) => this.onChange(e, 'end', 'DaysforPractices', 'friday')} />
+                                                    <TimeFormat name="time" value={DaysforPractices.friday_end ? this.getTime(DaysforPractices.friday_end) : new Date()} time_format={this.props.settings.setting ? this.props.settings.setting.time_format : '24'} onChange={(e) => this.onChange(e, 'end', 'DaysforPractices', 'friday')} />
                                                 </Grid>
                                                 {DaysforPractices.monday_end == '' && DaysforPractices.tuesday_end == '' && DaysforPractices.wednesday_end == '' && DaysforPractices.thursday_end == '' && <Grid>
-                                                    <p onClick={()=>this.copytoall('DaysforPractices', 'friday')}><img src={require('../../../../assets/images/docscopy.svg')} alt="" title="" />
+                                                    <p onClick={() => this.copytoall('DaysforPractices', 'friday')}><img src={require('../../../../assets/images/docscopy.svg')} alt="" title="" />
                                                                                     Copy time to all </p>
                                                 </Grid>}
                                             </Grid>
@@ -1140,12 +1438,12 @@ class Index extends Component {
                                             <Grid className="daySchedule">
                                                 <Grid><label>Saturday</label></Grid>
                                                 <Grid>
-                                                    <TimeFormat name="time" value={DaysforPractices.saturday_start ? this.getTime(DaysforPractices.saturday_start) : new Date()} time_format={this.props.settings.setting.time_format} onChange={(e) => this.onChange(e, 'start', 'DaysforPractices', 'saturday')} />
+                                                    <TimeFormat name="time" value={DaysforPractices.saturday_start ? this.getTime(DaysforPractices.saturday_start) : new Date()} time_format={this.props.settings.setting ? this.props.settings.setting.time_format : '24'} onChange={(e) => this.onChange(e, 'start', 'DaysforPractices', 'saturday')} />
                                                     <span>-</span>
-                                                    <TimeFormat name="time" value={DaysforPractices.saturday_end ? this.getTime(DaysforPractices.saturday_end) : new Date()} time_format={this.props.settings.setting.time_format} onChange={(e) => this.onChange(e, 'end', 'DaysforPractices', 'saturday')} />
+                                                    <TimeFormat name="time" value={DaysforPractices.saturday_end ? this.getTime(DaysforPractices.saturday_end) : new Date()} time_format={this.props.settings.setting ? this.props.settings.setting.time_format : '24'} onChange={(e) => this.onChange(e, 'end', 'DaysforPractices', 'saturday')} />
                                                 </Grid>
                                                 {DaysforPractices.monday_end == '' && DaysforPractices.tuesday_end == '' && DaysforPractices.wednesday_end == '' && DaysforPractices.thursday_end == '' && DaysforPractices.friday_end == '' && <Grid>
-                                                    <p onClick={()=>this.copytoall('DaysforPractices', 'saturday')}><img src={require('../../../../assets/images/docscopy.svg')} alt="" title="" />
+                                                    <p onClick={() => this.copytoall('DaysforPractices', 'saturday')}><img src={require('../../../../assets/images/docscopy.svg')} alt="" title="" />
                                                                                     Copy time to all </p>
                                                 </Grid>}
                                             </Grid>
@@ -1154,12 +1452,12 @@ class Index extends Component {
                                             <Grid className="daySchedule">
                                                 <Grid><label>Sunday</label></Grid>
                                                 <Grid>
-                                                    <TimeFormat name="time" value={DaysforPractices.sunday_start ? this.getTime(DaysforPractices.sunday_start) : new Date()} time_format={this.props.settings.setting.time_format} onChange={(e) => this.onChange(e, 'start', 'DaysforPractices', 'sunday')} />
+                                                    <TimeFormat name="time" value={DaysforPractices.sunday_start ? this.getTime(DaysforPractices.sunday_start) : new Date()} time_format={this.props.settings.setting ? this.props.settings.setting.time_format : '24'} onChange={(e) => this.onChange(e, 'start', 'DaysforPractices', 'sunday')} />
                                                     <span>-</span>
-                                                    <TimeFormat name="time" value={DaysforPractices.sunday_end ? this.getTime(DaysforPractices.sunday_end) : new Date()} time_format={this.props.settings.setting.time_format} onChange={(e) => this.onChange(e, 'end', 'DaysforPractices', 'sunday')} />
+                                                    <TimeFormat name="time" value={DaysforPractices.sunday_end ? this.getTime(DaysforPractices.sunday_end) : new Date()} time_format={this.props.settings.setting ? this.props.settings.setting.time_format : '24'} onChange={(e) => this.onChange(e, 'end', 'DaysforPractices', 'sunday')} />
                                                 </Grid>
                                                 {DaysforPractices.monday_end == '' && DaysforPractices.tuesday_end == '' && DaysforPractices.wednesday_end == '' && DaysforPractices.thursday_end == '' && DaysforPractices.friday_end == '' && DaysforPractices.saturday_end == '' && <Grid>
-                                                    <p onClick={()=>this.copytoall('DaysforPractices', 'sunday')}><img src={require('../../../../assets/images/docscopy.svg')} alt="" title="" />
+                                                    <p onClick={() => this.copytoall('DaysforPractices', 'sunday')}><img src={require('../../../../assets/images/docscopy.svg')} alt="" title="" />
                                                                                     Copy time to all </p>
                                                 </Grid>}
                                             </Grid>
@@ -1171,7 +1469,7 @@ class Index extends Component {
                                         <Grid className="setSchedule">
                                             <Grid className="nameSchedule"><label>Set timeslot duration:</label></Grid>
                                             <Grid className="nameSchedule">
-                                                <input type="text" value={DaysforPractices.duration_of_timeslots+" minutes"} />
+                                                <input type="text" name="duration_of_timeslots" value={DaysforPractices.duration_of_timeslots} onChange={(e) => this.changeDuration(e, 'DaysforPractices')} /> minutes
                                             </Grid>
                                         </Grid>
                                     </Grid>
@@ -1179,16 +1477,16 @@ class Index extends Component {
                                         <Grid className="setSchedule appointment">
                                             <Grid className="nameSchedule"><label>Break time:</label></Grid>
                                             <Grid className="nameSchedule">
-                                                <TimeFormat name="time" value={DaysforPractices.breakslot_start ? this.getTime(DaysforPractices.breakslot_start) : new Date()} time_format={this.props.settings.setting.time_format} onChange={(e) => this.onChange(e, 'start', 'DaysforPractices', 'breakslot')} />
+                                                <TimeFormat name="time" value={DaysforPractices.breakslot_start ? this.getTime(DaysforPractices.breakslot_start) : new Date()} time_format={this.props.settings.setting ? this.props.settings.setting.time_format : '24'} onChange={(e) => this.onChange(e, 'start', 'DaysforPractices', 'breakslot')} />
                                                 <span>-</span>
-                                                <TimeFormat name="time" value={DaysforPractices.breakslot_end ? this.getTime(DaysforPractices.breakslot_end) : new Date()} time_format={this.props.settings.setting.time_format} onChange={(e) => this.onChange(e, 'end', 'DaysforPractices', 'breakslot')} />
+                                                <TimeFormat name="time" value={DaysforPractices.breakslot_end ? this.getTime(DaysforPractices.breakslot_end) : new Date()} time_format={this.props.settings.setting ? this.props.settings.setting.time_format : '24'} onChange={(e) => this.onChange(e, 'end', 'DaysforPractices', 'breakslot')} />
                                             </Grid>
                                         </Grid>
                                     </Grid>
                                     <Grid className="apontBook">
                                         <Grid><label>Appointment can be booked:</label></Grid>
-                                        <Grid><p><span>Up to days,</span> <input type="text" value={DaysforPractices.appointment_days} /> before the day of appointment</p></Grid>
-                                        <Grid><p><span>Max,</span> <input type="text" value={DaysforPractices.appointment_hours} /> hours, before the time of appointment</p></Grid>
+                                        <Grid><p><span>Up to days,</span> <input type="text" onChange={(e) => this.onChangebook(e, 'appointment_days', 'DaysforPractices')} value={DaysforPractices.appointment_days} /> before the day of appointment</p></Grid>
+                                        <Grid><p><span>Max,</span> <input type="text" value={DaysforPractices.appointment_hours} onChange={(e) => this.onChangebook(e, 'appointment_hours', 'DaysforPractices')} /> hours, before the time of appointment</p></Grid>
                                     </Grid>
                                 </Grid>
                             </Grid>
@@ -1197,7 +1495,7 @@ class Index extends Component {
 
                     <Grid container direction="row">
                         <Grid item xs={12} md={6} className="savChngsBtn">
-                            <input type="submit" value="Save changes" />
+                            <input type="submit" value="Save changes" onClick={this.saveAllData} />
                         </Grid>
                         <Grid item xs={12} md={6}> </Grid>
                     </Grid>

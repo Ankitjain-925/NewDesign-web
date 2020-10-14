@@ -141,7 +141,7 @@ class Index extends Component {
                                         color="#00ABAF"
                                     />
                                 }
-                                label="Alergy"
+                                label="Allergy"
                             />
                         </Grid>
                         <Grid>
@@ -162,7 +162,7 @@ class Index extends Component {
                     </Grid>
                     {this.state.updateTrack.travel_diagnosis && <div>
                         <Grid className="fillDia">
-                                <MMHG name="travelled_to" label="Trevalled to" onChange={(e)=> this.props.updateEntryState(e)} value={this.state.updateTrack.travelled_to}/>    
+                                <MMHG name="travelled_to" label="Travelled to" onChange={(e)=> this.props.updateEntryState(e)} value={this.state.updateTrack.travelled_to}/>    
                         </Grid>
                         <Grid className="fillDia">
                             <Grid className="rrSysto">
@@ -188,7 +188,7 @@ class Index extends Component {
                     </Grid>
                     <Grid className="attchForms attchImg">
                         <Grid><label>{attachments}</label></Grid>
-                        <FileUploader name="UploadTrackImageMulti" isMulti={true} fileUpload={this.props.FileAttachMulti} />
+                        <FileUploader name="UploadTrackImageMulti" comesFrom="journal"isMulti={true} fileUpload={this.props.FileAttachMulti} />
                     </Grid>
                     <Grid className="fillDia">
                         <NotesEditor name="remarks" label="Notes"  onChange={(e)=> this.updateEntryState1(e, 'remarks')} value={this.state.updateTrack.remarks}/> 

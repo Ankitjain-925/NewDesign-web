@@ -16,7 +16,7 @@ export function getDate (date, dateFormat){
         year = d.getFullYear()
     if (day.length < 2) day = '0' + day;
     if(dateFormat === 'YYYY/DD/MM') { return year + ' / ' + day + ' / ' + month; }
-    else if(dateFormat === '/DD/MM/YYYY') {  return day + ' / ' + month + ' / ' + year; }
+    else if(dateFormat === 'DD/MM/YYYY') {  return day + ' / ' + month + ' / ' + year; }
     else { return month + ' / ' + day + ' / ' + year;}
 }
 
@@ -59,7 +59,25 @@ export function getImage (image, images) {
         return myFilterData[0].new_image;
     }
 }
+//Sort the time taken
+export function mySorter(a, b) {
+    var x = a.value.toLowerCase();
+    var y = b.value.toLowerCase();
+    return ((x < y) ? -1 : ((x > y) ? 1 : 0));
+}
 
+//Sort by entry time
+export function SortByEntry(a, b) {
+    var x = a.created_on.toLowerCase();
+    var y = b.created_on.toLowerCase();
+    return ((x > y) ? -1 : ((x < y) ? 1 : 0));
+}
+//Sort by diagnose time
+export function SortByDiagnose(a, b) {
+    var x = a.datetime_on.toLowerCase();
+    var y = b.datetime_on.toLowerCase();
+    return ((x > y) ? -1 : ((x < y) ? 1 : 0));
+}
 
  //If Req to add doctor as favorite doctor
 export function AddFavDoc (doctor_id, profile_id,user_token, user_profile_id){
@@ -101,3 +119,39 @@ export function GetUrlImage (find){
     }
 }
 
+//For getting doctor speciality
+export function getSpec (speciality){
+if(speciality){ 
+    return speciality.map((obj) => {
+        if (typeof obj == 'string') return obj;
+        else return obj.label;
+}).join(', ')
+}
+}
+
+export function getReminder(reminder, timeFormat){
+    if(reminder && reminder.length>0){
+        var data=[];
+        reminder.map((itm)=>{
+            var date = new Date(itm.value);
+            if(timeFormat ==='12')
+            {   
+                var hours = date.getHours();
+                var minutes = date.getMinutes();
+                var ampm = hours >= 12 ? 'pm' : 'am';
+                hours = hours % 12;
+                hours = hours ? hours : 12; // the hour '0' should be '12'
+                minutes = minutes < 10 ? '0'+minutes : minutes;
+                var strTime = hours + ':' + minutes + ' ' + ampm;
+                console.log('strTime', strTime)
+                data.push(strTime);
+            }
+            else {
+                var h = (date.getHours() < 10 ? '0' : '') + date.getHours();
+                var m = (date.getMinutes() < 10 ? '0' : '') + date.getMinutes();
+                data.push(h + ':' + m);
+            }   
+        })
+        return data.join(', ');
+    }
+}

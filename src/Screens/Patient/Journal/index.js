@@ -23,8 +23,9 @@ import PersonalizedData from './../../Components/TimelineComponent/PersonalizedD
 import FilterSec from './../../Components/TimelineComponent/Filter/index';
 import ProfileSection from './../../Components/TimelineComponent/ProfileSection/index';
 import RightManage from './../../Components/TimelineComponent/RightMenuManage/index';
-import { ConsoleCustom, getTime, getDate } from './../../Components/BasicMethod/index';
+import { mySorter, SortByEntry, SortByDiagnose, ConsoleCustom, getTime, getDate } from './../../Components/BasicMethod/index';
 import ViewTimeline from './../../Components/TimelineComponent/ViewTimeline/index';
+import GraphView from './../../Components/TimelineComponent/GraphView/index';
 import Loader from './../../Components/Loader/index.js';
 import BPFields from './../../Components/TimelineComponent/BPFields/index';
 import BSFields from './../../Components/TimelineComponent/BSFields/index';
@@ -52,6 +53,7 @@ import SOFields from "./../../Components/TimelineComponent/SOFields/index.js";
 import moment from 'moment';
 import translationEN from "../../../translations/en_json_proofread_13072020.json"
 
+var Datas = [];
 class Index extends Component {
     constructor(props) {
         super(props);
@@ -86,8 +88,90 @@ class Index extends Component {
             selectCountry: [],
             visibility: false,
             images: [],
-
+            allTrack1: [],
+            Sort: 'diagnosed_time',
+            isGraph: false,
+            current_Graph: ''
         };
+    }
+
+    //For Close the Graph 
+    CloseGraph = () => {
+        this.setState({ isGraph: false })
+    }
+
+    OpenGraph = (current_Graph) => {
+        this.setState({ current_Graph: current_Graph, isGraph: true })
+    }
+
+    //For clear the filter
+    ClearData = () => {
+        this.setState({ Sort: 'diagnosed_time', allTrack: this.state.allTrack1 },
+            this.SortData())
+    }
+
+    //For filter the Data
+    FilterData = (time_range, user_type, type, facility_type) => {
+        var Datas1 = this.state.allTrack1;
+        var FilterFromTime = time_range && time_range.length > 0 ? this.FilterFromTime(Datas1, time_range) : Datas1;
+        var FilerFromType = type && type.length > 0 ? this.FilerFromType(FilterFromTime, type) : FilterFromTime;
+        var FilterFromUserType = user_type && user_type.length > 0 ? this.FilterFromUserType(FilerFromType, user_type) : FilerFromType;
+        if (time_range === null && user_type === null && type === null) {
+            FilterFromUserType = this.state.allTrack1;
+        }
+        FilterFromUserType = [...new Set(FilterFromUserType)];
+        this.setState({ allTrack: FilterFromUserType })
+    }
+
+    //Filter according to date range
+    FilterFromTime = (Datas, time_range) => {
+        if (time_range && time_range.length > 0) {
+            let start_date = new Date(time_range[0])
+            let end_date = new Date(time_range[1])
+            start_date = start_date.setHours(0, 0, 0, 0);
+            end_date = end_date.setDate(end_date.getDate() + 1)
+            end_date = new Date(end_date).setHours(0, 0, 0, 0)
+            return Datas.filter((obj) => new Date(obj.datetime_on) >= start_date && new Date(obj.datetime_on) <= end_date);
+        }
+        else {
+            return null;
+        }
+    }
+
+    //Filter according to the type 
+    FilerFromType = (Datas, type) => {
+        var Datas1 = [];
+        if (type && type.length > 0) {
+            type.map((ob) => {
+                var dts = Datas.filter((obj) => obj.type === ob.value);
+                Datas1 = Datas1.concat(dts);
+            })
+            return Datas1;
+        }
+        else { return null; }
+    }
+
+    //Filter according to User type
+    FilterFromUserType = (Datas, user_type) => {
+        var Datas1 = [];
+        if (user_type && user_type.length > 0) {
+            user_type.map((ob) => {
+                var dts = Datas.filter((obj) => obj.created_by_temp.indexOf(ob.value) > -1);
+                Datas1 = Datas1.concat(dts);
+            })
+            return Datas1;
+        }
+        return null;
+    }
+
+    //For Sort the Data
+    SortData = (data) => {
+        if (data === 'entry_time') {
+            this.state.allTrack.sort(SortByEntry);
+        } else {
+            this.state.allTrack.sort(SortByDiagnose);
+        }
+        this.setState({ Sort: data })
     }
 
     //Modal Open on Archive the Journal
@@ -137,6 +221,7 @@ class Index extends Component {
             .then((response) => {
                 this.setState({ loaderImage: false })
                 this.getTrack();
+                this.rightInfo();
             }).catch((error) => {
 
             });
@@ -172,7 +257,6 @@ class Index extends Component {
 
     //For open Edit
     EidtOption = (value, updateTrack, visibility) => {
-        console.log('value', value, 'visibility', visibility)
         this.setState({ updateOne: updateTrack.track_id, visibility: visibility, current_select: value, updateTrack: updateTrack }, () => {
             this.handleaddInqryNw();
         })
@@ -449,47 +533,13 @@ class Index extends Component {
                                         response3.data['Weight'] = dataHeightWegiht[0].weight;
                                         response3.data['Height'] = dataHeightWegiht[0].height;
                                     }
-                                    response3.data['Track Record'] = response.data.data;
-                                    datas['_patientData'] = response3.data;
-                                    datas['_publicKey'] = response5.data.address;
-                                    datas['_patientId'] = this.props.stateLoginValueAim.user.profile_id;
-                                    axios.post(sitedata.data.path + '/blockchain/dataManager', {
-                                        path: "dataManager/update/patient",
-                                        data: datas
-                                    })
-                                        .then(response6 => { })
                                 })
+                                .then(response6 => { })
                         })
-                        .catch(err => {
-                            axios.post(sitedata.data.path + '/blockchain/dataManager', {
-                                path: "dataManager/generate/token/patient",
-                                data: { "_password": '123456' }
-                            })
-                                .then(response5 => {
-                                    axios.post(sitedata.data.path + '/blockchain/dataManager', {
-                                        path: "dataManager/add/patient",
-                                        data: {
-                                            "_patientId": this.props.stateLoginValueAim.user.profile_id,
-                                            "_publicKey": response5.data.address,
-                                            "_patientData": {
-                                                "email": this.props.stateLoginValueAim.user.email,
-                                                "First Name": this.props.stateLoginValueAim.user.first_name,
-                                                "Last Name": this.props.stateLoginValueAim.user.last_name,
-                                                "DOB": this.props.stateLoginValueAim.user.birthday,
-                                                "Sex": this.props.stateLoginValueAim.user.sex,
-                                                "Address": this.props.stateLoginValueAim.user.city,
-                                                "Contact Email": this.props.stateLoginValueAim.user.email,
-                                                "Language": this.props.stateLoginValueAim.user.language,
-                                                "Track Record": response.data.data
-                                            }
-                                        }
-                                    })
-                                        .then(response6 => { })
-                                })
-                        })
-                    this.setState({ allTrack: response.data.data, loaderImage: false })
+
+                    this.setState({ allTrack1: response.data.data, allTrack: response.data.data, loaderImage: false })
                 }
-                else { this.setState({ allTrack: [], loaderImage: false }) }
+                else { this.setState({ allTrack1: [], allTrack: [], loaderImage: false }) }
             })
     }
 
@@ -554,11 +604,6 @@ class Index extends Component {
                         Allgender.push({ label: item.title, value: item.value })
                     ))
 
-                    function mySorter(a, b) {
-                        var x = a.value.toLowerCase();
-                        var y = b.value.toLowerCase();
-                        return ((x < y) ? -1 : ((x > y) ? 1 : 0));
-                    }
                     Alltime_taken.sort(mySorter);
                     this.setState({
                         Alltemprature: Alltemprature,
@@ -735,181 +780,184 @@ class Index extends Component {
                 translate = translationEN.text
         }
         let { add_new_entry, new_entry, blood_pressure, blood_sugar, condition_pain, covid_diary,
-            personalize_dashbrd, diagnosis,diary, doc_visit, family_anmnies, file_uplod, hosp_visit, lab_result, marcumar_pass, secnd_openion, sick_cert, prescription, medication, smoking_status, vaccination, weight_bmi, edit, entry, anamnesis } = translate
+            personalize_dashbrd, diagnosis, diary, doc_visit, family_anmnies, file_uplod, hosp_visit, lab_result, marcumar_pass, secnd_openion, sick_cert, prescription, medication, smoking_status, vaccination, weight_bmi, edit, entry, anamnesis } = translate
 
         return (
-            <Grid className="homeBg">
+            <Grid className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode && this.props.settings.setting.mode === 'dark' ? "homeBg homeBgDrk" : "homeBg"}>
                 {this.state.loaderImage && <Loader />}
                 <Grid className="homeBgIner">
                     <Grid container direction="row" justify="center">
                         <Grid item xs={12} md={12}>
-                            <Grid container direction="row">
+                            {!this.state.isGraph &&
+                                <Grid container direction="row">
 
-                                {/* Website Menu */}
-                                <LeftMenu isNotShow={true} currentPage="journal" />
-                                <LeftMenuMobile isNotShow={true} currentPage="journal" />
-                                {/* End of Website Menu */}
+                                    {/* Website Menu */}
+                                    <LeftMenu isNotShow={true} currentPage="journal" />
+                                    <LeftMenuMobile isNotShow={true} currentPage="journal" />
+                                    {/* End of Website Menu */}
 
-                                {/* Website Mid Content */}
-                                <Grid item xs={12} md={8}>
-                                    {/* Start of Depression Section */}
-                                    <Grid className="descpCntntMain">
-                                        <Grid className="journalAdd">
-                                            <Grid container direction="row">
-                                                <Grid item xs={11} md={11}>
-                                                    <Grid container direction="row">
-                                                        <Grid item xs={6} md={6}>
-                                                            <h1>Journal</h1>
-                                                        </Grid>
-                                                        <Grid item xs={6} md={6}>
-                                                            <Grid className="AddEntrynw">
-                                                                <a onClick={this.handleOpenEntry}>+ {add_new_entry}</a>
+                                    {/* Website Mid Content */}
+                                    <Grid item xs={12} md={8}>
+                                        {/* Start of Depression Section */}
+                                        <Grid className="descpCntntMain">
+                                            <Grid className="journalAdd">
+                                                <Grid container direction="row">
+                                                    <Grid item xs={11} md={11}>
+                                                        <Grid container direction="row">
+                                                            <Grid item xs={6} md={6}>
+                                                                <h1>Journal</h1>
+                                                            </Grid>
+                                                            <Grid item xs={6} md={6}>
+                                                                <Grid className="AddEntrynw">
+                                                                    <a onClick={this.handleOpenEntry}>+ {add_new_entry}</a>
+                                                                </Grid>
                                                             </Grid>
                                                         </Grid>
                                                     </Grid>
                                                 </Grid>
                                             </Grid>
-                                        </Grid>
 
+                                            {/* Model setup */}
+                                            <PersonalizedData SetPersonalized={this.SetPesonalized} added_data={this.state.added_data} personalised_card={this.state.personalised_card} openDash={this.state.openDash} onChange={this.UpdatePersonalized} handleCloseDash={this.handleCloseDash} />
+                                            {/* End of Model setup */}
+
+                                            {/* For the filter section */}
+                                            <FilterSec FilterData={this.FilterData} SortData={this.SortData} ClearData={this.ClearData} sortBy={this.state.Sort} />
+
+                                            {/* For Empty Entry */}
+                                            <div>
+                                                {this.state.allTrack && this.state.allTrack.length > 0 ?
+                                                    this.state.allTrack.map((item, index) => (
+                                                        <ViewTimeline OpenGraph={this.OpenGraph} comesfrom='patient' downloadTrack={(data) => this.downloadTrack(data)} images={this.state.images} DeleteTrack={(deleteKey) => this.DeleteTrack(deleteKey)} ArchiveTrack={(data) => this.ArchiveTrack(data)} EidtOption={(value, updateTrack, visibility) => this.EidtOption(value, updateTrack, visibility)} date_format={this.props.settings.setting.date_format} time_format={this.props.settings.setting.time_format} Track={item} from="patient" loggedinUser={this.state.cur_one} patient_gender={this.state.patient_gender} />
+                                                    ))
+                                                    : <EmptyData />}
+                                            </div>
+                                            {/* <ViewTimeline date_format={this.props.settings.setting.date_format}  time_format={this.props.settings.setting.time_format} allTrack={this.state.allTrack} from="patient" loggedinUser={this.state.cur_one} patient_gender={this.state.patient_gender} /> */}
+
+                                        </Grid>
+                                    </Grid>
+                                    {/* End of Website Mid Content */}
+
+
+                                    {/* Website Right Content */}
+                                    <Grid item xs={12} md={3}>
+                                        <ProfileSection personalinfo={this.state.personalinfo} user={this.state.cur_one} user_token={this.props.stateLoginValueAim.token} getData={this.cur_one} MoveProfile={this.MoveProfile} />
                                         {/* Model setup */}
-                                        <PersonalizedData SetPersonalized={this.SetPesonalized} added_data={this.state.added_data} personalised_card={this.state.personalised_card} openDash={this.state.openDash} onChange={this.UpdatePersonalized} handleCloseDash={this.handleCloseDash} />
+                                        <Modal
+                                            open={this.state.addInqryNw}
+                                            onClose={this.handleCloseInqryNw}
+                                            className="nwDiaModel">
+                                            <Grid className="nwDiaCntnt">
+                                                <Grid className="nwDiaCntntIner">
+                                                    <Grid className="nwDiaCourse">
+                                                        <Grid className="nwDiaCloseBtn">
+                                                            <a onClick={this.handleCloseInqryNw}>
+                                                                <img src={require('../../../assets/images/closefancy.png')} alt="" title="" />
+                                                            </a>
+                                                        </Grid>
+
+                                                        {this.state.updateOne !== this.state.updateTrack.track_id ?
+                                                            <div>
+                                                                <p>{new_entry}</p>
+                                                                <Grid className="nwDiaSel">
+                                                                    <select onChange={(e) => this.SelectOption(e.target.value)} value={this.state.current_select}>
+                                                                        <option value="blood_pressure">{blood_pressure}</option>
+                                                                        <option value="blood_sugar">{blood_sugar}</option>
+                                                                        <option value="condition_pain">{condition_pain}</option>
+                                                                        <option value="covid_19">{covid_diary}</option>
+                                                                        <option value="diagnosis">{diagnosis}</option>
+                                                                        <option value="diary">{diary}</option>
+                                                                        <option value="doctor_visit">{doc_visit}</option>
+                                                                        <option value="family_anamnesis">{family_anmnies}</option>
+                                                                        <option value="file_upload">{file_uplod}</option>
+                                                                        <option value="hospitalization">{hosp_visit}</option>
+                                                                        <option value="laboratory_result">{lab_result}</option>
+                                                                        <option value="marcumar_pass">{marcumar_pass}</option>
+                                                                        <option value="medication" >{medication}</option>
+                                                                        <option value="smoking_status">{smoking_status}</option>
+                                                                        <option value="vaccination">{vaccination}</option>
+                                                                        <option value="weight_bmi">{weight_bmi}</option>
+                                                                    </select>
+                                                                </Grid>
+                                                            </div> :
+                                                            <div>
+                                                                <p>{edit} {entry}</p>
+                                                                {this.state.current_select === 'anamnesis' && <Grid className="nwDiaSel1">{anamnesis}</Grid>}
+                                                                {this.state.current_select === 'blood_pressure' && <Grid className="nwDiaSel1">{blood_pressure}</Grid>}
+                                                                {this.state.current_select === 'blood_sugar' && <Grid className="nwDiaSel1">{blood_sugar}</Grid>}
+                                                                {this.state.current_select === 'condition_pain' && <Grid className="nwDiaSel1">{condition_pain}</Grid>}
+                                                                {this.state.current_select === 'covid_19' && <Grid className="nwDiaSel1">{covid_diary}</Grid>}
+                                                                {this.state.current_select === 'diagnosis' && <Grid className="nwDiaSel1">{diagnosis}</Grid>}
+                                                                {this.state.current_select === 'diary' && <Grid className="nwDiaSel1">{diary}</Grid>}
+                                                                {this.state.current_select === 'doctor_visit' && <Grid className="nwDiaSel1">{doc_visit}</Grid>}
+                                                                {this.state.current_select === 'family_anamnesis' && <Grid className="nwDiaSel1">{family_anmnies}</Grid>}
+                                                                {this.state.current_select === 'file_upload' && <Grid className="nwDiaSel1">{file_uplod}</Grid>}
+                                                                {this.state.current_select === 'hospitalization' && <Grid className="nwDiaSel1">{hosp_visit}</Grid>}
+                                                                {this.state.current_select === 'laboratory_result' && <Grid className="nwDiaSel1">{lab_result}</Grid>}
+                                                                {this.state.current_select === 'marcumar_pass' && <Grid className="nwDiaSel1">{marcumar_pass}</Grid>}
+                                                                {this.state.current_select === 'medication' && <Grid className="nwDiaSel1">{medication}</Grid>}
+                                                                {this.state.current_select === 'prescription' && <Grid className="nwDiaSel1">{prescription}</Grid>}
+                                                                {this.state.current_select === 'second_opinion' && <Grid className="nwDiaSel1">{secnd_openion}</Grid>}
+                                                                {this.state.current_select === 'sick_certificate' && <Grid className="nwDiaSel1">{sick_cert}</Grid>}
+                                                                {this.state.current_select === 'smoking_status' && <Grid className="nwDiaSel1">{smoking_status}</Grid>}
+                                                                {this.state.current_select === 'vaccination' && <Grid className="nwDiaSel1">{vaccination}</Grid>}
+                                                                {this.state.current_select === 'weight_bmi' && <Grid className="nwDiaSel1">{weight_bmi}</Grid>}
+
+                                                            </div>}
+                                                    </Grid>
+                                                    <Grid>
+                                                        {this.state.current_select === 'anamnesis' && <AnamnesisFields FileAttachMulti={this.FileAttachMulti} visibility={this.state.visibility} comesfrom='patient' GetHideShow={this.GetHideShow} options={this.state.Pressuresituation} AddTrack={this.AddTrack} date_format={this.props.settings.setting.date_format} time_format={this.props.settings.setting.time_format} updateEntryState={this.updateEntryState} updateEntryState1={this.updateEntryState1} updateTrack={this.state.updateTrack} />}
+                                                        {this.state.current_select === 'blood_pressure' && <BPFields FileAttachMulti={this.FileAttachMulti} visibility={this.state.visibility} comesfrom='patient' GetHideShow={this.GetHideShow} options={this.state.Pressuresituation} AddTrack={this.AddTrack} date_format={this.props.settings.setting.date_format} time_format={this.props.settings.setting.time_format} updateEntryState={this.updateEntryState} updateEntryState1={this.updateEntryState1} updateTrack={this.state.updateTrack} />}
+                                                        {this.state.current_select === 'blood_sugar' && <BSFields FileAttachMulti={this.FileAttachMulti} visibility={this.state.visibility} comesfrom='patient' GetHideShow={this.GetHideShow} options={this.state.Allsituation} AddTrack={this.AddTrack} date_format={this.props.settings.setting.date_format} time_format={this.props.settings.setting.time_format} updateEntryState={this.updateEntryState} updateEntryState1={this.updateEntryState1} updateTrack={this.state.updateTrack} />}
+                                                        {this.state.current_select === 'condition_pain' && <CPFields FileAttachMulti={this.FileAttachMulti} visibility={this.state.visibility} comesfrom='patient' gender={this.state.patient_gender} GetHideShow={this.GetHideShow} options={this.state.Allpain_quality} options2={this.state.Allpain_type} AddTrack={this.AddTrack} date_format={this.props.settings.setting.date_format} time_format={this.props.settings.setting.time_format} updateEntryState={this.updateEntryState} updateEntryState1={this.updateEntryState1} updateTrack={this.state.updateTrack} />}
+                                                        {this.state.current_select === 'covid_19' && <CovidFields FileAttachMulti={this.FileAttachMulti} visibility={this.state.visibility} comesfrom='patient' gender={this.state.patient_gender} GetHideShow={this.GetHideShow} options={this.state.selectCountry} options2={this.state.Alltemprature} AddTrack={this.AddTrack} date_format={this.props.settings.setting.date_format} time_format={this.props.settings.setting.time_format} updateEntryState={this.updateEntryState} updateEntryState1={this.updateEntryState1} updateTrack={this.state.updateTrack} />}
+                                                        {this.state.current_select === 'diagnosis' && <DiagnosisFields FileAttachMulti={this.FileAttachMulti} visibility={this.state.visibility} comesfrom='patient' gender={this.state.patient_gender} GetHideShow={this.GetHideShow} options={this.state.selectCountry} options2={this.state.Alltemprature} AddTrack={this.AddTrack} date_format={this.props.settings.setting && this.props.settings.setting.date_format && this.props.settings.setting.date_format} time_format={this.props.settings.setting && this.props.settings.setting.time_format && this.props.settings.setting.time_format} updateEntryState={this.updateEntryState} updateEntryState1={this.updateEntryState1} updateTrack={this.state.updateTrack} />}
+                                                        {this.state.current_select === 'diary' && <DiaryFields FileAttachMulti={this.FileAttachMulti} visibility={this.state.visibility} comesfrom='patient' GetHideShow={this.GetHideShow} AddTrack={this.AddTrack} date_format={this.props.settings.setting && this.props.settings.setting.date_format && this.props.settings.setting.date_format} time_format={this.props.settings.setting.time_format} updateEntryState={this.updateEntryState} updateEntryState1={this.updateEntryState1} updateTrack={this.state.updateTrack} />}
+                                                        {this.state.current_select === 'doctor_visit' && <DVFields FileAttachMulti={this.FileAttachMulti} visibility={this.state.visibility} comesfrom='patient' GetHideShow={this.GetHideShow} AddTrack={this.AddTrack} options={this.state.AllSpecialty} date_format={this.props.settings.setting.date_format} time_format={this.props.settings.setting.time_format} updateEntryState={this.updateEntryState} updateEntryState1={this.updateEntryState1} updateTrack={this.state.updateTrack} />}
+                                                        {this.state.current_select === 'family_anamnesis' && <FAFields FileAttachMulti={this.FileAttachMulti} visibility={this.state.visibility} comesfrom='patient' GetHideShow={this.GetHideShow} AddTrack={this.AddTrack} options={this.state.Allgender} relativeList={this.state.Allrelation} date_format={this.props.settings.setting.date_format} time_format={this.props.settings.setting.time_format} updateEntryState={this.updateEntryState} updateEntryState1={this.updateEntryState1} updateTrack={this.state.updateTrack} />}
+                                                        {this.state.current_select === 'file_upload' && <FUFields FileAttachMulti={this.FileAttachMulti} visibility={this.state.visibility} comesfrom='patient' GetHideShow={this.GetHideShow} AddTrack={this.AddTrack} options={this.state.AllSpecialty} date_format={this.props.settings.setting.date_format} time_format={this.props.settings.setting.time_format} updateEntryState={this.updateEntryState} updateEntryState1={this.updateEntryState1} updateTrack={this.state.updateTrack} />}
+                                                        {this.state.current_select === 'hospitalization' && <HVFields FileAttachMulti={this.FileAttachMulti} visibility={this.state.visibility} comesfrom='patient' GetHideShow={this.GetHideShow} AddTrack={this.AddTrack} options={this.state.AllSpecialty} date_format={this.props.settings.setting.date_format} time_format={this.props.settings.setting.time_format} updateEntryState={this.updateEntryState} updateEntryState1={this.updateEntryState1} updateTrack={this.state.updateTrack} />}
+                                                        {this.state.current_select === 'laboratory_result' && <LRFields FileAttachMulti={this.FileAttachMulti} visibility={this.state.visibility} comesfrom='patient' lrpUnit={AllL_Ps.AllL_Ps.units} lrpEnglish={AllL_Ps.AllL_Ps.english} GetHideShow={this.GetHideShow} AddTrack={this.AddTrack} options={this.state.AllSpecialty} date_format={this.props.settings.setting.date_format} time_format={this.props.settings.setting.time_format} updateEntryState={this.updateEntryState} updateEntryState1={this.updateEntryState1} updateTrack={this.state.updateTrack} />}
+                                                        {this.state.current_select === 'marcumar_pass' && <MPFields FileAttachMulti={this.FileAttachMulti} visibility={this.state.visibility} comesfrom='patient' GetHideShow={this.GetHideShow} AddTrack={this.AddTrack} date_format={this.props.settings.setting.date_formats} time_format={this.props.settings.setting.time_format} updateEntryState={this.updateEntryState} updateEntryState1={this.updateEntryState1} updateTrack={this.state.updateTrack} />}
+                                                        {this.state.current_select === 'medication' && <MedicationFields FileAttachMulti={this.FileAttachMulti} visibility={this.state.visibility} comesfrom='patient' GetHideShow={this.GetHideShow} AddTrack={this.AddTrack} date_format={this.props.settings.setting.date_format} options={this.state.AllATC_code} reminders={this.state.Allreminder} time_format={this.props.settings.setting.time_format} updateEntryState={this.updateEntryState} updateEntryState1={this.updateEntryState1} updateTrack={this.state.updateTrack} />}
+                                                        {this.state.current_select === 'prescription' && <PFields FileAttachMulti={this.FileAttachMulti} visibility={this.state.visibility} comesfrom='patient' GetHideShow={this.GetHideShow} AddTrack={this.AddTrack} date_format={this.props.settings.setting.date_format} options={this.state.AllATC_code} reminders={this.state.Allreminder} time_format={this.props.settings.setting.time_format} updateEntryState={this.updateEntryState} updateEntryState1={this.updateEntryState1} updateTrack={this.state.updateTrack} />}
+                                                        {this.state.current_select === 'second_opinion' && <SOFields FileAttachMulti={this.FileAttachMulti} visibility={this.state.visibility} comesfrom='patient' GetHideShow={this.GetHideShow} AddTrack={this.AddTrack} date_format={this.props.settings.setting.date_format} options={this.state.AllATC_code} reminders={this.state.Allreminder} time_format={this.props.settings.setting.time_format} updateEntryState={this.updateEntryState} updateEntryState1={this.updateEntryState1} updateTrack={this.state.updateTrack} />}
+                                                        {this.state.current_select === 'sick_certificate' && <SCFields FileAttachMulti={this.FileAttachMulti} visibility={this.state.visibility} comesfrom='patient' GetHideShow={this.GetHideShow} AddTrack={this.AddTrack} date_format={this.props.settings.setting.date_format} options={this.state.AllATC_code} reminders={this.state.Allreminder} time_format={this.props.settings.setting.time_format} updateEntryState={this.updateEntryState} updateEntryState1={this.updateEntryState1} updateTrack={this.state.updateTrack} />}
+                                                        {this.state.current_select === 'smoking_status' && <SSFields FileAttachMulti={this.FileAttachMulti} visibility={this.state.visibility} comesfrom='patient' GetHideShow={this.GetHideShow} options={this.state.Allsmoking_status} AddTrack={this.AddTrack} date_format={this.props.settings.setting.date_format} time_format={this.props.settings.setting.time_format} updateEntryState={this.updateEntryState} updateEntryState1={this.updateEntryState1} updateTrack={this.state.updateTrack} />}
+                                                        {this.state.current_select === 'vaccination' && <VaccinationFields FileAttachMulti={this.FileAttachMulti} visibility={this.state.visibility} comesfrom='patient' GetHideShow={this.GetHideShow} options={this.state.AllreminderV} AddTrack={this.AddTrack} date_format={this.props.settings.setting.date_format} time_format={this.props.settings.setting.time_format} updateEntryState={this.updateEntryState} updateEntryState1={this.updateEntryState1} updateTrack={this.state.updateTrack} />}
+                                                        {this.state.current_select === 'weight_bmi' && <BMIFields FileAttachMulti={this.FileAttachMulti} visibility={this.state.visibility} comesfrom='patient' GetHideShow={this.GetHideShow} AddTrack={this.AddTrack} date_format={this.props.settings.setting.date_format} time_format={this.props.settings.setting.time_format} updateEntryState={this.updateEntryState} updateEntryState1={this.updateEntryState1} updateTrack={this.state.updateTrack} />}
+                                                    </Grid>
+                                                </Grid>
+                                            </Grid>
+                                        </Modal>
                                         {/* End of Model setup */}
 
-                                        {/* For the filter section */}
-                                        <FilterSec />
-
-                                        {/* For Empty Entry */}
-                                        <div>
-                                            {this.state.allTrack && this.state.allTrack.length > 0 ?
-                                                this.state.allTrack.map((item, index) => (
-                                                    <ViewTimeline comesfrom='patient' downloadTrack={(data) => this.downloadTrack(data)} images={this.state.images} DeleteTrack={(deleteKey) => this.DeleteTrack(deleteKey)} ArchiveTrack={(data) => this.ArchiveTrack(data)} EidtOption={(value, updateTrack, visibility) => this.EidtOption(value, updateTrack, visibility)} date_format={this.props.settings.setting.date_format} time_format={this.props.settings.setting.time_format} Track={item} from="patient" loggedinUser={this.state.cur_one} patient_gender={this.state.patient_gender} />
-                                                ))
-                                                : <EmptyData />}
-                                        </div>
-                                        {/* <ViewTimeline date_format={this.props.settings.setting.date_format}  time_format={this.props.settings.setting.time_format} allTrack={this.state.allTrack} from="patient" loggedinUser={this.state.cur_one} patient_gender={this.state.patient_gender} /> */}
-
-                                    </Grid>
-                                </Grid>
-                                {/* End of Website Mid Content */}
+                                        {/* Model setup */}
+                                        <AddEntry new_entry={this.props.new_entry} openBy="patient" openEntry={this.state.openEntry} value="diagnosis" onChange={this.SelectOption} handleCloseEntry={this.handleCloseEntry} />
+                                        {/* End of Model setup */}
 
 
 
-                                {/* Website Right Content */}
-                                <Grid item xs={12} md={3}>
-                                    <ProfileSection personalinfo={this.state.personalinfo} user={this.state.cur_one} user_token={this.props.stateLoginValueAim.token} getData={this.cur_one} MoveProfile={this.MoveProfile} />
-                                    {/* Model setup */}
-                                    <Modal
-                                        open={this.state.addInqryNw}
-                                        onClose={this.handleCloseInqryNw}
-                                        className="nwDiaModel">
-                                        <Grid className="nwDiaCntnt">
-                                            <Grid className="nwDiaCntntIner">
-                                                <Grid className="nwDiaCourse">
-                                                    <Grid className="nwDiaCloseBtn">
-                                                        <a onClick={this.handleCloseInqryNw}>
-                                                            <img src={require('../../../assets/images/closefancy.png')} alt="" title="" />
-                                                        </a>
-                                                    </Grid>
-                                                    
-                                                    {this.state.updateOne !== this.state.updateTrack.track_id ?
-                                                        <div>
-                                                            <p>{new_entry}</p>
-                                                            <Grid className="nwDiaSel">
-                                                                <select onChange={(e) => this.SelectOption(e.target.value)} value={this.state.current_select}>
-                                                                    <option value="blood_pressure">{blood_pressure}</option>
-                                                                    <option value="blood_sugar">{blood_sugar}</option>
-                                                                    <option value="condition_pain">{condition_pain}</option>
-                                                                    <option value="covid_19">{covid_diary}</option>
-                                                                    <option value="diagnosis">{diagnosis}</option>
-                                                                    <option value="diary">{diary}</option>
-                                                                    <option value="doctor_visit">{doc_visit}</option>
-                                                                    <option value="family_anamnesis">{family_anmnies}</option>
-                                                                    <option value="file_upload">{file_uplod}</option>
-                                                                    <option value="hospitalization">{hosp_visit}</option>
-                                                                    <option value="laboratory_result">{lab_result}</option>
-                                                                    <option value="marcumar_pass">{marcumar_pass}</option>
-                                                                    <option value="medication" >{medication}</option>
-                                                                    <option value="smoking_status">{smoking_status}</option>
-                                                                    <option value="vaccination">{vaccination}</option>
-                                                                    <option value="weight_bmi">{weight_bmi}</option>
-                                                                </select>
-                                                            </Grid>
-                                                        </div> :
-                                                        <div>
-                                                            <p>{edit} {entry}</p>
-                                                            {this.state.current_select === 'anamnesis' && <Grid className="nwDiaSel1">{anamnesis}</Grid>}
-                                                            {this.state.current_select === 'blood_pressure' && <Grid className="nwDiaSel1">{blood_pressure}</Grid>}
-                                                            {this.state.current_select === 'blood_sugar' && <Grid className="nwDiaSel1">{blood_sugar}</Grid>}
-                                                            {this.state.current_select === 'condition_pain' && <Grid className="nwDiaSel1">{condition_pain}</Grid>}
-                                                            {this.state.current_select === 'covid_19' && <Grid className="nwDiaSel1">{covid_diary}</Grid>}
-                                                            {this.state.current_select === 'diagnosis' && <Grid className="nwDiaSel1">{diagnosis}</Grid>}
-                                                            {this.state.current_select === 'diary' && <Grid className="nwDiaSel1">{diary}</Grid>}
-                                                            {this.state.current_select === 'doctor_visit' && <Grid className="nwDiaSel1">{doc_visit}</Grid>}
-                                                            {this.state.current_select === 'family_anamnesis' && <Grid className="nwDiaSel1">{family_anmnies}</Grid>}
-                                                            {this.state.current_select === 'file_upload' && <Grid className="nwDiaSel1">{file_uplod}</Grid>}
-                                                            {this.state.current_select === 'hospitalization' && <Grid className="nwDiaSel1">{hosp_visit}</Grid>}
-                                                            {this.state.current_select === 'laboratory_result' && <Grid className="nwDiaSel1">{lab_result}</Grid>}
-                                                            {this.state.current_select === 'marcumar_pass' && <Grid className="nwDiaSel1">{marcumar_pass}</Grid>}
-                                                            {this.state.current_select === 'medication' && <Grid className="nwDiaSel1">{medication}</Grid>}
-                                                            {this.state.current_select === 'prescription' && <Grid className="nwDiaSel1">{prescription}</Grid>}
-                                                            {this.state.current_select === 'second_opinion' && <Grid className="nwDiaSel1">{secnd_openion}</Grid>}
-                                                            {this.state.current_select === 'sick_certificate' && <Grid className="nwDiaSel1">{sick_cert}</Grid>}
-                                                            {this.state.current_select === 'smoking_status' && <Grid className="nwDiaSel1">{smoking_status}</Grid>}
-                                                            {this.state.current_select === 'vaccination' && <Grid className="nwDiaSel1">{vaccination}</Grid>}
-                                                            {this.state.current_select === 'weight_bmi' && <Grid className="nwDiaSel1">{weight_bmi}</Grid>}
-
-                                                        </div>}
-                                                </Grid>
-                                                <Grid>
-                                                    {this.state.current_select === 'anamnesis' && <AnamnesisFields FileAttachMulti={this.FileAttachMulti} visibility={this.state.visibility} comesfrom='patient' GetHideShow={this.GetHideShow} options={this.state.Pressuresituation} AddTrack={this.AddTrack} date_format={this.props.settings.setting.date_format} time_format={this.props.settings.setting.time_format} updateEntryState={this.updateEntryState} updateEntryState1={this.updateEntryState1} updateTrack={this.state.updateTrack} />}
-                                                    {this.state.current_select === 'blood_pressure' && <BPFields FileAttachMulti={this.FileAttachMulti} visibility={this.state.visibility} comesfrom='patient' GetHideShow={this.GetHideShow} options={this.state.Pressuresituation} AddTrack={this.AddTrack} date_format={this.props.settings.setting.date_format} time_format={this.props.settings.setting.time_format} updateEntryState={this.updateEntryState} updateEntryState1={this.updateEntryState1} updateTrack={this.state.updateTrack} />}
-                                                    {this.state.current_select === 'blood_sugar' && <BSFields FileAttachMulti={this.FileAttachMulti} visibility={this.state.visibility} comesfrom='patient' GetHideShow={this.GetHideShow} options={this.state.Allsituation} AddTrack={this.AddTrack} date_format={this.props.settings.setting.date_format} time_format={this.props.settings.setting.time_format} updateEntryState={this.updateEntryState} updateEntryState1={this.updateEntryState1} updateTrack={this.state.updateTrack} />}
-                                                    {this.state.current_select === 'condition_pain' && <CPFields FileAttachMulti={this.FileAttachMulti} visibility={this.state.visibility} comesfrom='patient' gender={this.state.patient_gender} GetHideShow={this.GetHideShow} options={this.state.Allpain_quality} options2={this.state.Allpain_type} AddTrack={this.AddTrack} date_format={this.props.settings.setting.date_format} time_format={this.props.settings.setting.time_format} updateEntryState={this.updateEntryState} updateEntryState1={this.updateEntryState1} updateTrack={this.state.updateTrack} />}
-                                                    {this.state.current_select === 'covid_19' && <CovidFields FileAttachMulti={this.FileAttachMulti} visibility={this.state.visibility} comesfrom='patient' gender={this.state.patient_gender} GetHideShow={this.GetHideShow} options={this.state.selectCountry} options2={this.state.Alltemprature} AddTrack={this.AddTrack} date_format={this.props.settings.setting.date_format} time_format={this.props.settings.setting.time_format} updateEntryState={this.updateEntryState} updateEntryState1={this.updateEntryState1} updateTrack={this.state.updateTrack} />}
-                                                    {this.state.current_select === 'diagnosis' && <DiagnosisFields FileAttachMulti={this.FileAttachMulti} visibility={this.state.visibility} comesfrom='patient' gender={this.state.patient_gender} GetHideShow={this.GetHideShow} options={this.state.selectCountry} options2={this.state.Alltemprature} AddTrack={this.AddTrack} date_format={this.props.settings.setting && this.props.settings.setting.date_format && this.props.settings.setting.date_format} time_format={this.props.settings.setting && this.props.settings.setting.time_format && this.props.settings.setting.time_format} updateEntryState={this.updateEntryState} updateEntryState1={this.updateEntryState1} updateTrack={this.state.updateTrack} />}
-                                                    {this.state.current_select === 'diary' && <DiaryFields FileAttachMulti={this.FileAttachMulti} visibility={this.state.visibility} comesfrom='patient' GetHideShow={this.GetHideShow} AddTrack={this.AddTrack} date_format={this.props.settings.setting && this.props.settings.setting.date_format && this.props.settings.setting.date_format} time_format={this.props.settings.setting.time_format} updateEntryState={this.updateEntryState} updateEntryState1={this.updateEntryState1} updateTrack={this.state.updateTrack} />}
-                                                    {this.state.current_select === 'doctor_visit' && <DVFields FileAttachMulti={this.FileAttachMulti} visibility={this.state.visibility} comesfrom='patient' GetHideShow={this.GetHideShow} AddTrack={this.AddTrack} options={this.state.AllSpecialty} date_format={this.props.settings.setting.date_format} time_format={this.props.settings.setting.time_format} updateEntryState={this.updateEntryState} updateEntryState1={this.updateEntryState1} updateTrack={this.state.updateTrack} />}
-                                                    {this.state.current_select === 'family_anamnesis' && <FAFields FileAttachMulti={this.FileAttachMulti} visibility={this.state.visibility} comesfrom='patient' GetHideShow={this.GetHideShow} AddTrack={this.AddTrack} options={this.state.Allgender} relativeList={this.state.Allrelation} date_format={this.props.settings.setting.date_format} time_format={this.props.settings.setting.time_format} updateEntryState={this.updateEntryState} updateEntryState1={this.updateEntryState1} updateTrack={this.state.updateTrack} />}
-                                                    {this.state.current_select === 'file_upload' && <FUFields FileAttachMulti={this.FileAttachMulti} visibility={this.state.visibility} comesfrom='patient' GetHideShow={this.GetHideShow} AddTrack={this.AddTrack} options={this.state.AllSpecialty} date_format={this.props.settings.setting.date_format} time_format={this.props.settings.setting.time_format} updateEntryState={this.updateEntryState} updateEntryState1={this.updateEntryState1} updateTrack={this.state.updateTrack} />}
-                                                    {this.state.current_select === 'hospitalization' && <HVFields FileAttachMulti={this.FileAttachMulti} visibility={this.state.visibility} comesfrom='patient' GetHideShow={this.GetHideShow} AddTrack={this.AddTrack} options={this.state.AllSpecialty} date_format={this.props.settings.setting.date_format} time_format={this.props.settings.setting.time_format} updateEntryState={this.updateEntryState} updateEntryState1={this.updateEntryState1} updateTrack={this.state.updateTrack} />}
-                                                    {this.state.current_select === 'laboratory_result' && <LRFields FileAttachMulti={this.FileAttachMulti} visibility={this.state.visibility} comesfrom='patient' lrpUnit={AllL_Ps.AllL_Ps.units} lrpEnglish={AllL_Ps.AllL_Ps.english} GetHideShow={this.GetHideShow} AddTrack={this.AddTrack} options={this.state.AllSpecialty} date_format={this.props.settings.setting.date_format} time_format={this.props.settings.setting.time_format} updateEntryState={this.updateEntryState} updateEntryState1={this.updateEntryState1} updateTrack={this.state.updateTrack} />}
-                                                    {this.state.current_select === 'marcumar_pass' && <MPFields FileAttachMulti={this.FileAttachMulti} visibility={this.state.visibility} comesfrom='patient' GetHideShow={this.GetHideShow} AddTrack={this.AddTrack} date_format={this.props.settings.setting.date_formats} time_format={this.props.settings.setting.time_format} updateEntryState={this.updateEntryState} updateEntryState1={this.updateEntryState1} updateTrack={this.state.updateTrack} />}
-                                                    {this.state.current_select === 'medication' && <MedicationFields FileAttachMulti={this.FileAttachMulti} visibility={this.state.visibility} comesfrom='patient' GetHideShow={this.GetHideShow} AddTrack={this.AddTrack} date_format={this.props.settings.setting.date_format} options={this.state.AllATC_code} reminders={this.state.Allreminder} time_format={this.props.settings.setting.time_format} updateEntryState={this.updateEntryState} updateEntryState1={this.updateEntryState1} updateTrack={this.state.updateTrack} />}
-                                                    {this.state.current_select === 'prescription' && <PFields FileAttachMulti={this.FileAttachMulti} visibility={this.state.visibility} comesfrom='patient' GetHideShow={this.GetHideShow} AddTrack={this.AddTrack} date_format={this.props.settings.setting.date_format} options={this.state.AllATC_code} reminders={this.state.Allreminder} time_format={this.props.settings.setting.time_format} updateEntryState={this.updateEntryState} updateEntryState1={this.updateEntryState1} updateTrack={this.state.updateTrack} />}
-                                                    {this.state.current_select === 'second_opinion' && <SOFields FileAttachMulti={this.FileAttachMulti} visibility={this.state.visibility} comesfrom='patient' GetHideShow={this.GetHideShow} AddTrack={this.AddTrack} date_format={this.props.settings.setting.date_format} options={this.state.AllATC_code} reminders={this.state.Allreminder} time_format={this.props.settings.setting.time_format} updateEntryState={this.updateEntryState} updateEntryState1={this.updateEntryState1} updateTrack={this.state.updateTrack} />}
-                                                    {this.state.current_select === 'sick_certificate' && <SCFields FileAttachMulti={this.FileAttachMulti} visibility={this.state.visibility} comesfrom='patient' GetHideShow={this.GetHideShow} AddTrack={this.AddTrack} date_format={this.props.settings.setting.date_format} options={this.state.AllATC_code} reminders={this.state.Allreminder} time_format={this.props.settings.setting.time_format} updateEntryState={this.updateEntryState} updateEntryState1={this.updateEntryState1} updateTrack={this.state.updateTrack} />}
-                                                    {this.state.current_select === 'smoking_status' && <SSFields FileAttachMulti={this.FileAttachMulti} visibility={this.state.visibility} comesfrom='patient' GetHideShow={this.GetHideShow} options={this.state.Allsmoking_status} AddTrack={this.AddTrack} date_format={this.props.settings.setting.date_format} time_format={this.props.settings.setting.time_format} updateEntryState={this.updateEntryState} updateEntryState1={this.updateEntryState1} updateTrack={this.state.updateTrack} />}
-                                                    {this.state.current_select === 'vaccination' && <VaccinationFields FileAttachMulti={this.FileAttachMulti} visibility={this.state.visibility} comesfrom='patient' GetHideShow={this.GetHideShow} options={this.state.AllreminderV} AddTrack={this.AddTrack} date_format={this.props.settings.setting.date_format} time_format={this.props.settings.setting.time_format} updateEntryState={this.updateEntryState} updateEntryState1={this.updateEntryState1} updateTrack={this.state.updateTrack} />}
-                                                    {this.state.current_select === 'weight_bmi' && <BMIFields FileAttachMulti={this.FileAttachMulti} visibility={this.state.visibility} comesfrom='patient' GetHideShow={this.GetHideShow} AddTrack={this.AddTrack} date_format={this.props.settings.setting.date_format} time_format={this.props.settings.setting.time_format} updateEntryState={this.updateEntryState} updateEntryState1={this.updateEntryState1} updateTrack={this.state.updateTrack} />}
-                                                </Grid>
-                                            </Grid>
+                                        <Grid className="Personal_dash">
+                                            <a onClick={this.handleOpenDash}>
+                                                <img src={require('../../../assets/images/bpupr.png')} alt="" title="" />
+                                                {personalize_dashbrd}
+                                            </a>
                                         </Grid>
-                                    </Modal>
-                                    {/* End of Model setup */}
 
-                                    {/* Model setup */}
-                                    <AddEntry new_entry={this.props.new_entry} openBy="patient" openEntry={this.state.openEntry} value="diagnosis" onChange={this.SelectOption} handleCloseEntry={this.handleCloseEntry} />
-                                    {/* End of Model setup */}
+                                        <RightManage OpenGraph={this.OpenGraph} date_format={this.props.settings.setting.date_format} time_format={this.props.settings.setting.time_format} from="patient" added_data={this.state.added_data} MoveDocument={this.MoveDocument} MoveAppoint={this.MoveAppoint} SelectOption={this.SelectOption} personalinfo={this.state.personalinfo} />
 
-
-
-                                    <Grid className="Personal_dash">
-                                        <a onClick={this.handleOpenDash}>
-                                            <img src={require('../../../assets/images/bpupr.png')} alt="" title="" />
-                                            {personalize_dashbrd}
-                                        </a>
                                     </Grid>
+                                    {/* End of Website Right Content */}
 
-                                    <RightManage date_format={this.props.settings.setting.date_format} time_format={this.props.settings.setting.time_format} from="patient" added_data={this.state.added_data} MoveDocument={this.MoveDocument} MoveAppoint={this.MoveAppoint} SelectOption={this.SelectOption} personalinfo={this.state.personalinfo} />
-
-                                </Grid>
-                                {/* End of Website Right Content */}
-
-                            </Grid>
+                                </Grid>}
+                            {this.state.isGraph &&
+                                <GraphView date_format={this.props.settings.setting.date_format} time_format={this.props.settings.setting.time_format} personalinfo={this.state.personalinfo} current_Graph={this.state.current_Graph} CloseGraph={this.CloseGraph} />
+                            }
                         </Grid>
                     </Grid>
                 </Grid>
-            </Grid>
+            </Grid >
         );
     }
 }

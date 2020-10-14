@@ -21,7 +21,7 @@ import PersonalizedData from './../../Components/TimelineComponent/PersonalizedD
 import FilterSec from './../../Components/TimelineComponent/Filter/index';
 import ProfileSection from './../../Components/TimelineComponent/ProfileSection/index';
 import RightManage from './../../Components/TimelineComponent/RightMenuManage/index';
-import { ConsoleCustom, getTime, getDate } from './../../Components/BasicMethod/index';
+import { SortByEntry,SortByDiagnose,ConsoleCustom, getTime, getDate, mySorter } from './../../Components/BasicMethod/index';
 import ViewTimeline from './../../Components/TimelineComponent/ViewTimeline/index';
 import Loader from './../../Components/Loader/index.js';
 import BPFields from './../../Components/TimelineComponent/BPFields/index';
@@ -44,6 +44,7 @@ import CovidFields from '../../Components/TimelineComponent/CovidFields/index';
 import EmptyData from './../../Components/TimelineComponent/EmptyData';
 import DiagnosisFields from './../../Components/TimelineComponent/DiagnosisFields/index';
 import moment from 'moment';
+import GraphView from './../../Components/TimelineComponent/GraphView/index';
 import * as translationEN from "../../../translations/en_json_proofread_13072020.json";
 import { FormatListBulleted } from '@material-ui/icons';
 import PFields from "./../../Components/TimelineComponent/PFields/index.js";
@@ -89,7 +90,92 @@ class Index extends Component {
             gettrackdatas : {},
             Anamnesis: [],
             images : [],
+            allTrack1: [],
+            Sort: 'diagnosed_time',
+            current_Graph: ''
         };
+    }
+
+    //For Close the Graph 
+    CloseGraph=()=>{
+        this.setState({isGraph : false})
+    }
+
+    OpenGraph=(current_Graph)=>{
+        this.setState({current_Graph : current_Graph, isGraph : true})
+    }
+
+    //For clear the filter
+    ClearData=()=>{
+        this.setState({Sort : 'diagnosed_time', allTrack: this.state.allTrack1},
+        this.SortData())
+    }
+
+    //For filter the Data
+    FilterData=(time_range, user_type, type, facility_type)=>{
+        var Datas1 = this.state.allTrack1;
+        var FilterFromTime = time_range && time_range.length>0 ? this.FilterFromTime(Datas1,time_range): Datas1;
+        var FilerFromType =  type && type.length> 0 ? this.FilerFromType(FilterFromTime, type): FilterFromTime;
+        var FilterFromUserType = user_type && user_type.length> 0 ? this.FilterFromUserType(FilerFromType, user_type) : FilerFromType;
+        if(time_range === null && user_type === null && type === null) {
+            FilterFromUserType = this.state.allTrack1;
+        } 
+        FilterFromUserType = [...new Set(FilterFromUserType)];
+        this.setState({allTrack : FilterFromUserType}) 
+    }
+
+  //Filter according to date range
+  FilterFromTime=(Datas, time_range)=>{
+    if(time_range && time_range.length>0)
+    {
+        let start_date = new Date(time_range[0])
+        let end_date = new Date(time_range[1])
+        start_date = start_date.setHours(0,0,0,0);
+        end_date = end_date.setDate(end_date.getDate() + 1)
+        end_date = new Date(end_date).setHours(0,0,0,0)
+        return Datas.filter((obj) => new Date(obj.datetime_on) >= start_date && new Date(obj.datetime_on) <= end_date);  
+    }
+    else {
+        return null;
+    }
+}
+
+    //Filter according to the type 
+    FilerFromType=(Datas, type)=>{
+        var Datas1=[];
+        if(type && type.length>0 ) 
+        {
+            type.map((ob)=>{
+                var dts = Datas.filter((obj) => obj.type === ob.value);
+                Datas1 = Datas1.concat(dts);
+            })
+            return Datas1;
+        }
+        else { return null; }
+    }
+    
+    //Filter according to User type
+    FilterFromUserType=(Datas, user_type)=>{
+        var Datas1 =[];
+        if(user_type && user_type.length>0 ) 
+        {
+            user_type.map((ob)=>{
+               var dts = Datas.filter((obj) => obj.created_by_temp.indexOf(ob.value)>-1);
+               Datas1 = Datas1.concat(dts);
+            })
+            return Datas1;
+        } 
+        return null;
+    }
+
+    //For Sort the Data
+    SortData=(data)=>{
+        if(data === 'entry_time'){
+            this.state.allTrack.sort(SortByEntry);
+        }else{
+            this.state.allTrack.sort(SortByDiagnose);
+        }
+        this.setState({Sort : data})
     }
 
     //Modal Open on Archive the Journal
@@ -147,6 +233,7 @@ class Index extends Component {
         .then((response) => {
             this.setState({ loaderImage: false })
             this.getTrack();
+            this.rightInfo();
         }).catch((error) => {});
     }
     //Update Archive Track State
@@ -492,9 +579,9 @@ class Index extends Component {
                                         .then(response6 => { })
                                 })
                         })
-                    this.setState({ allTrack: response.data.data, loaderImage: false })
+                    this.setState({ allTrack1 : response.data.data, allTrack: response.data.data, loaderImage: false })
                 }
-                else { this.setState({ allTrack: [], loaderImage: false }) }
+                else { this.setState({ allTrack1 : [], allTrack: [], loaderImage: false }) }
             })
     }
 
@@ -560,11 +647,6 @@ class Index extends Component {
                         Allgender.push({ label: item.title, value: item.value })
                     ))
 
-                    function mySorter(a, b) {
-                        var x = a.value.toLowerCase();
-                        var y = b.value.toLowerCase();
-                        return ((x < y) ? -1 : ((x > y) ? 1 : 0));
-                    }
                     Alltime_taken.sort(mySorter);
                     this.setState({
                         Alltemprature: Alltemprature, Anamnesis: Anamnesis,
@@ -777,11 +859,12 @@ class Index extends Component {
             {return (<Redirect to={'/'} />);}   
         }
         return (
-            <Grid className="homeBg">
+            <Grid className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode && this.props.settings.setting.mode==='dark' ? "homeBg homeBgDrk" : "homeBg"}>
                 {this.state.loaderImage && <Loader />}
                 <Grid className="homeBgIner">
                     <Grid container direction="row" justify="center">
                         <Grid item xs={12} md={12}>
+                            {!this.state.isGraph &&  
                             <Grid container direction="row">
 
                                 {/* Website Menu */}
@@ -812,13 +895,13 @@ class Index extends Component {
                                         </Grid>
                                         
                                         {/* For the filter section */}
-                                        {this.props.Doctorsetget.p_id !== null && <FilterSec />}
+                                        {this.props.Doctorsetget.p_id !== null && <FilterSec FilterData={this.FilterData} SortData={this.SortData} ClearData={this.ClearData} sortBy={this.state.Sort}/>}
 
                                         {/* For Empty Entry */}
                                         {this.props.Doctorsetget.p_id !== null && <div>
                                             {this.state.allTrack && this.state.allTrack.length > 0 ?
                                                 this.state.allTrack.map((item, index) => (
-                                                    <ViewTimeline comesfrom='nurse' images={this.state.images} DeleteTrack={(deleteKey) => this.DeleteTrack(deleteKey)} ArchiveTrack={(data) => this.ArchiveTrack(data)} EidtOption={(value, updateTrack, visibility) => this.EidtOption(value, updateTrack, visibility)} date_format={this.props.settings.setting.date_format} time_format={this.props.settings.setting.time_format} Track={item} from="patient" loggedinUser={this.state.cur_one} patient_gender={this.state.patient_gender} />
+                                                    <ViewTimeline OpenGraph={this.OpenGraph} comesfrom='nurse' images={this.state.images} DeleteTrack={(deleteKey) => this.DeleteTrack(deleteKey)} ArchiveTrack={(data) => this.ArchiveTrack(data)} EidtOption={(value, updateTrack, visibility) => this.EidtOption(value, updateTrack, visibility)} date_format={this.props.settings.setting.date_format} time_format={this.props.settings.setting.time_format} Track={item} from="patient" loggedinUser={this.state.cur_one} patient_gender={this.state.patient_gender} />
                                                 ))
                                                 : <EmptyData />}
                                         </div>}
@@ -967,11 +1050,14 @@ class Index extends Component {
                                     {/* End of Model setup */}
 
                                     {/* <RightManage added_data={this.state.added_data} MoveDocument={this.MoveDocument} MoveAppoint={this.MoveAppoint} SelectOption={this.SelectOption} personalinfo={{}} /> */}
-                                    <RightManage added_data={this.state.added_data} MoveDocument={this.MoveDocument} MoveAppoint={this.MoveAppoint} SelectOption={this.SelectOption} personalinfo={{}} />
+                                    <RightManage OpenGraph={this.OpenGraph} date_format={this.props.settings.setting.date_format}  time_format={this.props.settings.setting.time_format} from="patient"  added_data={this.state.added_data} MoveDocument={this.MoveDocument} MoveAppoint={this.MoveAppoint} SelectOption={this.SelectOption} personalinfo={this.state.personalinfo} />
                                 </Grid>}
                                 {/* End of Website Right Content */}
 
-                            </Grid>
+                            </Grid>}
+                            {this.state.isGraph && 
+                                <GraphView date_format={this.props.settings.setting.date_format}  time_format={this.props.settings.setting.time_format} personalinfo={this.state.personalinfo} current_Graph = {this.state.current_Graph} CloseGraph={this.CloseGraph} />
+                            }
                         </Grid>
                     </Grid>
                 </Grid>

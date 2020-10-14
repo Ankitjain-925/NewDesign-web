@@ -35,7 +35,8 @@ class PointPain extends Component {
             <Modal
                 open={this.state.openEntry}
                 onClose={this.handleCloseEntry}
-                className="entryBoxModel">
+                className={this.props.settings.setting.mode === 'dark' ?"darkTheme entryBoxModel":"entryBoxModel"}
+                >
                 <Grid className="entryBoxCntnt">
                     <Grid className="entryCourse">
                         <Grid className="entryCloseBtn">

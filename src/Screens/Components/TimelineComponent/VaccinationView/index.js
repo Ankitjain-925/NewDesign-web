@@ -3,7 +3,7 @@ import Grid from '@material-ui/core/Grid';
 import Collapsible from 'react-collapsible';
 import FileViews from  './../FileViews/index';
 import ReactTooltip from "react-tooltip";
-import { getDate, newdate, getTime, getImage } from './../../BasicMethod/index';
+import { getDate, newdate, getTime, getImage, getReminder } from './../../BasicMethod/index';
 
 
 class Index extends Component {
@@ -61,7 +61,7 @@ class Index extends Component {
                                         {item.public === 'always' ? <p> Always </p> : <p>{getDate(item.public, this.state.date_format)}</p>}
                                     </ReactTooltip>
                                     <a className="openScndhrf1">
-                                        <img src={require('../../../../assets/images/threedots.jpg')} alt="" title="" className="openScnd1" />
+                                        <a className="vsblDots"><img src={require('../../../../assets/images/nav-more.svg')} alt="" title="" /></a>
                                         {!this.props.Archive ? <ul>
                                             <li><a onClick={(data) => this.props.ArchiveTrack(item)}><img src={require('../../../../assets/images/archive-1.svg')} alt="" title="" />Archive</a></li>
                                             {this.props.comesfrom === 'patient' &&  <li>
@@ -121,6 +121,13 @@ class Index extends Component {
                                         </Grid>
                                         <Grid item xs={12} md={6} className="bloodPreBy">
                                             <Grid container direction="row">
+                                                <Grid item xs={5} md={5}><label>Charge Number</label></Grid>
+                                                <Grid item xs={7} md={7}><span>{item.charge_number && item.charge_number}</span></Grid>
+                                                <Grid className="clear"></Grid>
+                                            </Grid>
+                                        </Grid>
+                                        <Grid item xs={12} md={6} className="bloodPreBy">
+                                            <Grid container direction="row">
                                                 <Grid item xs={5} md={5}><label>Date of Vaccination</label></Grid>
                                                 <Grid item xs={7} md={7}><span>{item.data_of_vaccination && getDate(item.data_of_vaccination, this.state.date_format)} {item.time_measured && ', ' + getTime(new Date(item.time_measured), this.state.time_foramt)}</span></Grid>
                                                 <Grid className="clear"></Grid>
@@ -129,7 +136,7 @@ class Index extends Component {
                                         <Grid item xs={12} md={6} className="bloodPreBy">
                                             <Grid container direction="row">
                                                 <Grid item xs={5} md={5}><label>Reminder time taken</label></Grid>
-                                                <Grid item xs={7} md={7}><span>{item.reminder_time_taken && (Array.prototype.map.call(item.reminder_time_taken, s => s.label).toString()).split(/[,]+/).join(',  ')}  </span></Grid>
+                                                <Grid item xs={7} md={7}><span>{getReminder(item.reminder_time_taken,this.state.time_foramt)}</span></Grid>
                                                 <Grid className="clear"></Grid>
                                             </Grid>
                                         </Grid>

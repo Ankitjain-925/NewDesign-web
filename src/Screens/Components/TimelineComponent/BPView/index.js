@@ -61,7 +61,7 @@ class Index extends Component {
                                         {item.public === 'always' ? <p>Always </p> : <p>{getDate(item.public, this.state.date_format)}</p> }
                                     </ReactTooltip>
                                         <a className="openScndhrf1">
-                                            <img src={require('../../../../assets/images/threedots.jpg')} alt="" title="" className="openScnd1" />
+                                            <a className="vsblDots"><img src={require('../../../../assets/images/nav-more.svg')} alt="" title="" /></a>
                                             {!this.props.Archive ? <ul>
                                                 <li><a onClick={(data) => this.props.ArchiveTrack(item)}><img src={require('../../../../assets/images/archive-1.svg')} alt="" title="" />Archive</a></li>
                                                 {this.props.comesfrom === 'patient' &&  <li>
@@ -143,8 +143,9 @@ class Index extends Component {
                                         <Grid className="clear"></Grid>
                                     </Grid>
                                     <Grid className="bp_graph">
-                                        <Grid><img src={require('../../../../assets/images/gp.png')} alt="" title="" /></Grid>
-                                        <Grid><a>View in fullscreen</a></Grid>
+                                        {/* <Grid><img src={require('../../../../assets/images/gp.png')} alt="" title="" /></Grid> */}
+                                        {/* {console.log('this.props', this.props)} */}
+                                        <Grid><a onClick={()=> this.props.OpenGraph('blood_pressure')}>Veiw Graph</a></Grid>
                                     </Grid>
                                 </Grid>
                             </Collapsible>

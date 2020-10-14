@@ -262,7 +262,7 @@ class Index extends Component {
         let {secnd_openion, New, inquiry, plz_upload_png_jpg,doc_require_for_second_openion, share_health_status, share_ur_jounral_status, share_health_status_info_from_journal, see_list_shared_info, specilist_and_secnd_openion,specialist, how_wuld_u_like_rcv_scnd_openion, online, home_add_mailbox, ur_profesion, Annotations, questions, details, attachments, save_entry, rqst_sent_succefully}=translate
         return (
 
-            <Grid className="homeBg">
+            <Grid className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode && this.props.settings.setting.mode==='dark' ? "homeBg homeBgDrk" : "homeBg"}>
                 {this.state.loaderImage && <Loader />}
                 <Grid className="homeBgIner">
                     <Grid container direction="row" justify="center">
@@ -351,7 +351,7 @@ class Index extends Component {
                                                             </Grid>
                                                             <Grid className="attchForms attchImg">
                                                                 <Grid><label>{attachments}</label></Grid>
-                                                                <FileUploader name="UploadDocument" fileUpload={this.fileUpload} />
+                                                                <FileUploader  comesFrom="journal" name="UploadDocument" fileUpload={this.fileUpload} />
                                                                 {/* <Grid className="attchbrowsInput">
                                                                     <a><img src={require('../../../assets/images/upload-file.svg')} alt="" title="" /></a>
                                                                     <a>Browse <input type="file" id="UploadDocument" name="UploadDocument" onChange={(e) => this.UploadFile(e)} /></a> or drag here

@@ -71,6 +71,7 @@ class RightManage extends Component {
                                     </Grid>
                                     <Grid className="presureDataGrph">
                                         <img src={require('../../../../assets/images/lineGraph.png')} alt="" title="" />
+                                        <a onClick={()=> this.props.OpenGraph('blood_pressure')}>Veiw Graph</a>
                                     </Grid>
                                 </div> :
                                 <Grid className="noBpData">
@@ -100,6 +101,7 @@ class RightManage extends Component {
                                     </Grid>
                                     <Grid className="presureDataGrph">
                                         <img src={require('../../../../assets/images/lineGraph.png')} alt="" title="" />
+                                        <a onClick={()=> this.props.OpenGraph('weight_bmi')}>Veiw Graph</a>
                                     </Grid>
                                 </div> :
                                 <Grid className="noBpData">
@@ -128,6 +130,7 @@ class RightManage extends Component {
                                     </Grid>
                                     <Grid className="presureDataGrph">
                                         <img src={require('../../../../assets/images/lineGraph.png')} alt="" title="" />
+                                        <a onClick={()=> this.props.OpenGraph('heart_rate')}>Veiw Graph</a>
                                     </Grid>
                                 </div> :
                                 <Grid className="noBpData">
@@ -156,6 +159,7 @@ class RightManage extends Component {
                                     </Grid>
                                     <Grid className="presureDataGrph">
                                         <img src={require('../../../../assets/images/lineGraph.png')} alt="" title="" />
+                                        <a onClick={()=> this.props.OpenGraph('laboratory_result')}>Veiw Graph</a>
                                     </Grid>
                                 </div> :
                                 <Grid className="noBpData">
@@ -184,6 +188,7 @@ class RightManage extends Component {
                                     </Grid>
                                     <Grid className="presureDataGrph">
                                         <img src={require('../../../../assets/images/lineGraph.png')} alt="" title="" />
+                                        <a onClick={()=> this.props.OpenGraph('blood_sugar')}>Veiw Graph</a>
                                     </Grid>
                                 </div> :
                                 <Grid className="noBpData">

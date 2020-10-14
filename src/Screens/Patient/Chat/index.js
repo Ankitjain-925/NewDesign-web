@@ -13,7 +13,7 @@ import CometChat from '../../Components/CometChat';
 import { LanguageFetchReducer } from './../../actions';
 import axios from "axios";
 import sitedata from '../../../sitedata.js';
-// var doctorArray = [];
+// var doctorArray = ['admin'];
  
 class index extends React.Component {
     constructor(props) {
@@ -44,7 +44,7 @@ class index extends React.Component {
         // new LogOut(this.props.stateLoginValueAim.token, this.props.stateLoginValueAim.user._id, this.logOutClick.bind(this))
     }
     componentWillMount(){
-        var doctorArray = [];
+        var doctorArray = ['admin'];
         let user_token = this.props.stateLoginValueAim.token
         axios.get(sitedata.data.path + '/UserProfile/UserlistSize',{
             headers: {
@@ -94,7 +94,7 @@ class index extends React.Component {
 
            
         return(
-            <Grid className="homeBg">
+            <Grid className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode && this.props.settings.setting.mode==='dark' ? "homeBg homeBgDrk" : "homeBg"}>
             <Grid container direction="row" justify="center">
                 <Grid item xs={12} md={12}>
                     <Grid container direction="row">

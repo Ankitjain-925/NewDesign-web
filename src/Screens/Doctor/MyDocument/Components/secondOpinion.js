@@ -450,7 +450,8 @@ class Index extends Component {
                     {/* Reject Model setup */}
                     <Modal
                         open={this.state.openReject}
-                        onClose={this.handleCloseReject}>
+                        onClose={this.handleCloseReject}
+                        className={this.props.settings.setting.mode === 'dark' ?"darkTheme":" "}>
                         <Grid className="rejectBoxCntnt">
                             <Grid className="rejectCourse">
                                 <Grid className="rejectCloseBtn">

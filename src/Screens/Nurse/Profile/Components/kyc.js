@@ -396,7 +396,7 @@ class Index extends Component {
                                             <Grid className="kycForms sprtImg">
                                                 <Grid><label>{upload_id_card}</label></Grid>
                                                 <Grid><label className="attached_file">{attached_doc} - <a>{this.state.KYC_ID}</a></label></Grid>
-                                                <FileUploader name="UploadID" fileUpload={this.fileUpload} />
+                                                <FileUploader name="UploadID" comesFrom="kyc"fileUpload={this.fileUpload} />
                                                 {/* <Grid className="browsInput">
                                             <a><img src={require('../../../../assets/images/upload-file.svg')} alt="" title="" /></a>
                                             <a>Browse <input type="file" name="UploadID" onChange={this.AttachKyc}/></a> or drag here
@@ -421,7 +421,7 @@ class Index extends Component {
                                                     <Grid className="kycForms sprtImg">
                                                         <Grid><label>{upload_id_card}</label></Grid>
                                                         <Grid><label className="attached_file">{attached_doc} - <a>{this.state.KYC_ID}</a></label></Grid>
-                                                        <FileUploader name="UploadID" fileUpload={this.fileUpload} />
+                                                        <FileUploader name="UploadID" comesFrom="kyc"fileUpload={this.fileUpload} />
                                                     </Grid>
                                                     <Grid className="kycForms sprtImg">
                                                         <Grid><label>{upload_id_card}</label></Grid>
@@ -432,7 +432,7 @@ class Index extends Component {
                                                 <Grid>
                                                     <Grid className="kycForms sprtImg">
                                                         <Grid><label>{upload_id_card}</label></Grid>
-                                                        <FileUploader name="UploadID" fileUpload={this.fileUpload} />
+                                                        <FileUploader name="UploadID" comesFrom="kyc"fileUpload={this.fileUpload} />
                                                     </Grid>
 
                                                     <Grid className="kycForms sprtImg">
@@ -447,7 +447,7 @@ class Index extends Component {
                                     <Grid>
                                         <Grid className="kycForms sprtImg">
                                             <Grid><label>{upload_id_card}</label></Grid>
-                                            <FileUploader name="UploadID" fileUpload={this.fileUpload} />
+                                            <FileUploader name="UploadID" comesFrom="kyc"fileUpload={this.fileUpload} />
                                         </Grid>
 
                                         <Grid className="kycForms sprtImg">
