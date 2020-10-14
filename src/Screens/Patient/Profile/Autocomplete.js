@@ -6,6 +6,9 @@ class Autocomplete extends React.Component {
     this.autocompleteInput = React.createRef();
     this.searchCity = null;
     this.handlePlaceChanged = this.handlePlaceChanged.bind(this);
+    this.state ={
+      city: this.props.value
+    }
   }
 
   componentDidMount() {
@@ -21,7 +24,17 @@ class Autocomplete extends React.Component {
     this.props.onPlaceChanged(place);
   }
 
+  Onchange=(e)=>{
+    this.setState({city: e.target.value})
+  }
   
+  componentDidUpdate = (prevProps) => {
+    console.log(this.props.value, 'this.props.value')
+    if (prevProps.value !== this.props.value) {
+      console.log(this.props.value, 'this.props.value11')
+       this.setState({city : this.props.value})
+    }
+}
 
   render() {
     let search_city = "search"
@@ -53,16 +66,20 @@ class Autocomplete extends React.Component {
     //   search_city=translationEN.text.search_city
     // }
     return (
+      <div>
+      {console.log('this.state.value', this.state.city)}
       <input
         ref={this.autocompleteInput}
         id="searchCity"
         name="searchCity"
         className="admin_textbox2"
         placeholder={search_city}
-        value={this.props.value}
+        value={this.state.city}
         type="text"
+        onChange={this.Onchange}
        
       />
+      </div>
     );
   }
 }

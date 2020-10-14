@@ -58,7 +58,7 @@ class Index extends Component {
                                     </a>
                                     <ReactTooltip className="timeIconClas" id={item.track_id + 'visibility'} place="top" effect="solid" backgroundColor="#ffffff">
                                         {item.visible === 'show' ? <label>Show until</label> : <label>Hide until</label>}
-                                        {item.public === 'always' ? <p> Always </p> : <p>{getDate(item.public, this.state.date_format)}</p>}
+                                        {item.public === 'always' ? <p> Always </p> : item.public ? <p>{getDate(item.public, this.state.date_format)}</p>: <p>Not mentioned</p>}
                                     </ReactTooltip>
                                     <a className="openScndhrf1">
                                         <a className="vsblDots"><img src={require('../../../../assets/images/nav-more.svg')} alt="" title="" /></a>

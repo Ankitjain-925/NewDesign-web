@@ -98,6 +98,8 @@ class Index extends Component {
 
     //For Close the Graph 
     CloseGraph=()=>{
+        this.rightInfo();
+        this.getTrack();
         this.setState({isGraph : false})
     }
 

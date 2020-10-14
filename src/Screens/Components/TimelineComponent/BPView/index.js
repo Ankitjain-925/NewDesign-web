@@ -58,7 +58,7 @@ class Index extends Component {
                                     </a>
                                     <ReactTooltip className="timeIconClas" id={item.track_id + 'visibility'} place="top" effect="solid" backgroundColor="#ffffff">
                                         {item.visible==='show' ? <label>Show until</label> :  <label>Hide until</label> }
-                                        {item.public === 'always' ? <p>Always </p> : <p>{getDate(item.public, this.state.date_format)}</p> }
+                                        {item.public === 'always' ? <p> Always </p> : item.public ? <p>{getDate(item.public, this.state.date_format)}</p>: <p>Not mentioned</p>}
                                     </ReactTooltip>
                                         <a className="openScndhrf1">
                                             <a className="vsblDots"><img src={require('../../../../assets/images/nav-more.svg')} alt="" title="" /></a>
@@ -136,7 +136,7 @@ class Index extends Component {
                                         <Grid item xs={12} md={6} className="bloodPreBy">
                                             <Grid container direction="row">
                                                 <Grid item xs={5} md={5}><label>Heart Rate</label></Grid>
-                                                <Grid item xs={7} md={7}><span>123</span></Grid>
+                                                <Grid item xs={7} md={7}><span>{item.heart_frequncy && item.heart_frequncy}</span></Grid>
                                                 <Grid className="clear"></Grid>
                                             </Grid>
                                         </Grid>
