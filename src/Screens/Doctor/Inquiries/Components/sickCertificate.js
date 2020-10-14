@@ -277,7 +277,7 @@ class Index extends Component {
         confirmAlert({
             customUI: ({ onClose }) => {
                  return (
-                     <div className={this.props.settings.setting.mode === 'dark' ? "dark-confirm react-confirm-alert-body" : "react-confirm-alert-body"} >
+                     <div className={this.props.settings&&this.props.settings.setting && this.props.settings.setting.mode &&this.props.settings.setting.mode === 'dark' ? "dark-confirm react-confirm-alert-body" : "react-confirm-alert-body"} >
                          <h1>Update the Inqury?</h1>
                          <p>Are you sure  to remove this Inquiry?</p>
                          <div className="react-confirm-alert-button-group">
@@ -399,7 +399,7 @@ class Index extends Component {
                     <Modal
                         open={this.state.openPrescp}
                         onClose={this.handleClosePrescp}
-                        className={this.props.settings.setting.mode === 'dark' ?"darkTheme prespBoxModel":"prespBoxModel"}
+                        className={this.props.settings&&this.props.settings.setting && this.props.settings.setting.mode &&this.props.settings.setting.mode === 'dark' ?"darkTheme prespBoxModel":"prespBoxModel"}
                         >
                         <Grid className="nwPresCntnt">
                             <Grid className="nwPresCntntIner">
@@ -499,7 +499,7 @@ class Index extends Component {
                     <Modal
                         open={this.state.openReject}
                         onClose={this.handleCloseReject}
-                        className={this.props.settings.setting.mode === 'dark' ?"darkTheme":""}>
+                        className={this.props.settings&&this.props.settings.setting && this.props.settings.setting.mode &&this.props.settings.setting.mode === 'dark' ?"darkTheme":""}>
                         <Grid className="rejectBoxCntnt">
                             <Grid className="rejectCourse">
                                 <Grid className="rejectCloseBtn">

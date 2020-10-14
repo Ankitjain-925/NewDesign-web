@@ -166,7 +166,7 @@ class Index extends Component {
                 <Modal
                     open={openInvt}
                     onClose={this.handleCloseInvt}
-                    className={this.props.settings.setting.mode === 'dark' ?"darkTheme":""}>
+                    className={this.props.settings&&this.props.settings.setting && this.props.settings.setting.mode &&this.props.settings.setting.mode === 'dark' ?"darkTheme":""}>
                     <Grid className="invtBoxCntnt">
                         <Grid className="invtCourse">
                             <Grid className="invtCloseBtn">

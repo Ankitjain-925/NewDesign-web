@@ -719,7 +719,7 @@ class Index extends Component {
                                         <Modal
                                             open={this.state.openSlot}
                                             onClose={this.handleCloseSlot}
-                                            className={this.props.settings.setting.mode === 'dark' ?"darkTheme":""}
+                                            className={this.props.settings&&this.props.settings.setting && this.props.settings.setting.mode &&this.props.settings.setting.mode === 'dark' ?"darkTheme":""}
                                             >
                                             <Grid className="slotBoxCntnt">
                                                 {clashtime && <Grid className="timSltCal">
