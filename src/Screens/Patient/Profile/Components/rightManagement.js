@@ -11,6 +11,7 @@ import Radio from '@material-ui/core/Radio';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import TextField from '@material-ui/core/TextField';
 import Loader from './../../../Components/Loader/index';
+import DateFormat from './../../../Components/DateFormat/index'
 import * as translationEN from '../../../../translations/en_json_proofread_13072020.json';
 
 class Index extends Component {
@@ -141,6 +142,10 @@ class Index extends Component {
             this.setState({ loaderImage: false });
         });
     }
+      // On change the Date
+      onChange = (date) => {
+        this.setState({ opt_until: date })
+    }
 
 
     render() {
@@ -175,7 +180,7 @@ class Index extends Component {
         }
         let {right_management, setup_who_can_see_upload_data, emergancy_access_for_hospital_doc, specify_kind_of_right_management,
             automatically_visible_content, automatically_hidden_content, Opt_In, Opt_Out, apply_right_management_for_all_items,
-            plz_mention_date_time, make_all_item_visible_now_untill, make_all_item_visible_untill, save_change }=translate
+            plz_mention_date_time, make_all_item_visible_now_untill,make_all_item_hide_now_untill,make_all_item_hide_untill, make_all_item_visible_untill, save_change }=translate
 
         return (
             <div>
@@ -209,21 +214,24 @@ class Index extends Component {
                             <h5>{apply_right_management_for_all_items}</h5>
                             {this.state.iserr && <div className="err_message">{plz_mention_date_time}</div>}
                             <Grid><FormControlLabel onChange={(e) => { this.setState({ opt_set: e.target.value }) }}
-                                value='always' checked={this.state.opt_set === 'always'} control={<Radio />} label={make_all_item_visible_now_untill} /></Grid>
+                                value='always' checked={this.state.opt_set === 'always'} control={<Radio />} label={this.state.opt === 'out' ? make_all_item_visible_now_untill : make_all_item_hide_now_untill} /></Grid>
                             <Grid>
                                 <FormControlLabel onChange={(e) => { this.setState({ opt_set: e.target.value }) }}
-                                    value='until' checked={this.state.opt_set === 'until'} control={<Radio />} label={make_all_item_visible_untill} />
+                                    value='until' checked={this.state.opt_set === 'until'} control={<Radio />} label={this.state.opt === 'out'? make_all_item_visible_untill : make_all_item_hide_untill} />
                                 <Grid className="vsblAllTim">
                                     <Grid container direction="row" alignItems="center">
                                         <Grid item xs={12} md={8}>
-                                            <TextField
+                                        {console.log('sds',this.props.settings.setting.date_format)}
+                                        <DateFormat name="opt_until" value={this.state.opt_until? new Date(this.state.opt_until) : new Date()} onChange={this.onChange} date_format={this.props.settings.setting && this.props.settings.setting.date_format} onChange={this.onChange} />
+                                        {/* <DateFormat value={this.state.opt_until ? new Date(this.state.opt_until) : new Date()} onChange={this.onChange} date_format={this.props.settings.setting && this.props.settings.setting.date_format} name="opt_until" value={this.updateDatetime()} onChange={(date) => { this.setState({ opt_until: date }) }} /> */}
+                                            {/* <TextField
                                                 type="datetime-local"
                                                 defaultValue="2018-08-24T10:30"
                                                 name="opt_until" value={this.updateDatetime(this.state.opt_until)} onChange={(e) => { this.setState({ opt_until: e.target.value }) }}
                                                 InputLabelProps={{
                                                     shrink: true,
                                                 }}
-                                            />
+                                            /> */}
                                         </Grid>
                                     </Grid>
                                 </Grid>

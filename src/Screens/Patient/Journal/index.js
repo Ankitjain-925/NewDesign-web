@@ -178,35 +178,54 @@ class Index extends Component {
 
     //Modal Open on Archive the Journal
     ArchiveTrack=(data)=>{
+
         confirmAlert({
-            title: 'Archive item',
-            message: 'Do you really want to archive the item?',
-            buttons: [
-                {
-                    label: 'YES',
-                    onClick: () => this.updateArchiveTrack(data)
-                },
-                {
-                    label: 'NO',
-                }
-            ]
-        })
+            customUI: ({ onClose }) => {
+            return (
+            <div className={this.props.settings.setting.mode === 'dark' ? "dark-confirm react-confirm-alert-body" : "react-confirm-alert-body"} >
+            <h1>Archive item</h1>
+            <p>Do you really want to archive the item?</p>
+            <div className="react-confirm-alert-button-group">
+            <button
+            onClick= {() => {this.updateArchiveTrack(data); onClose()}}
+            >
+            Yes
+            </button>
+            <button
+            onClick={() => {onClose();}}
+            >
+            No
+            </button>
+            </div>
+            </div>
+            );
+            }
+            })
     }
     //Delete the perticular track confirmation box
     DeleteTrack=(deletekey)=> {
         confirmAlert({
-            title: 'Delete item',
-            message: 'Do you really want to delete the item?',
-            buttons: [
-                {
-                    label: 'YES',
-                    onClick: () => this.deleteClickTrack(deletekey)
-                },
-                {
-                    label: 'NO',
-                }
-            ]
-        })
+            customUI: ({ onClose }) => {
+            return (
+            <div className={this.props.settings.setting.mode === 'dark' ? "dark-confirm react-confirm-alert-body" : "react-confirm-alert-body"} >
+            <h1>Delete item</h1>
+            <p>Do you really want to delete the item?</p>
+            <div className="react-confirm-alert-button-group">
+            <button
+            onClick= {() => {this.deleteClickTrack(deletekey); onClose()}}
+            >
+            Yes
+            </button>
+            <button
+            onClick={() => {onClose();}}
+            >
+            No
+            </button>
+            </div>
+            </div>
+            );
+            }
+            })
     }
     //Delete the track
     deleteClickTrack=(deletekey)=> {
@@ -818,11 +837,11 @@ class Index extends Component {
                                         </Grid>
 
                                         {/* Model setup */}
-                                        <PersonalizedData SetPersonalized={this.SetPesonalized} added_data={this.state.added_data} personalised_card={this.state.personalised_card} openDash={this.state.openDash} onChange={this.UpdatePersonalized} handleCloseDash={this.handleCloseDash} />
+                                        <PersonalizedData settings={this.props.settings} SetPersonalized={this.SetPesonalized} added_data={this.state.added_data} personalised_card={this.state.personalised_card} openDash={this.state.openDash} onChange={this.UpdatePersonalized} handleCloseDash={this.handleCloseDash} />
                                         {/* End of Model setup */}
 
                                         {/* For the filter section */}
-                                        <FilterSec FilterData={this.FilterData} SortData={this.SortData} ClearData={this.ClearData} sortBy={this.state.Sort}/>
+                                        <FilterSec settings={this.props.settings} FilterData={this.FilterData} SortData={this.SortData} ClearData={this.ClearData} sortBy={this.state.Sort}/>
 
                                         {/* For Empty Entry */}
                                         <div>
@@ -841,12 +860,12 @@ class Index extends Component {
                                 
                                 {/* Website Right Content */}
                                 <Grid item xs={12} md={3}>
-                                    <ProfileSection personalinfo={this.state.personalinfo} user={this.state.cur_one} user_token={this.props.stateLoginValueAim.token} getData={this.cur_one} MoveProfile={this.MoveProfile} />
+                                    <ProfileSection settings={this.props.settings} personalinfo={this.state.personalinfo} user={this.state.cur_one} user_token={this.props.stateLoginValueAim.token} getData={this.cur_one} MoveProfile={this.MoveProfile} />
                                     {/* Model setup */}
                                     <Modal
                                         open={this.state.addInqryNw}
                                         onClose={this.handleCloseInqryNw}
-                                        className="nwDiaModel">
+                                        className={this.props.settings.setting.mode === 'dark' ?"darkTheme nwDiaModel":"nwDiaModel"}>
                                         <Grid className="nwDiaCntnt">
                                             <Grid className="nwDiaCntntIner">
                                                 <Grid className="nwDiaCourse">
@@ -932,7 +951,7 @@ class Index extends Component {
                                     {/* End of Model setup */}
                                     
                                     {/* Model setup */}
-                                    <AddEntry new_entry={this.props.new_entry} openBy="patient" openEntry={this.state.openEntry} value="diagnosis" onChange={this.SelectOption} handleCloseEntry={this.handleCloseEntry} />
+                                    <AddEntry settings={this.props.settings} new_entry={this.props.new_entry} openBy="patient" openEntry={this.state.openEntry} value="diagnosis" onChange={this.SelectOption} handleCloseEntry={this.handleCloseEntry} />
                                     {/* End of Model setup */}
 
                                    

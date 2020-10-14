@@ -211,15 +211,27 @@ class Index extends Component {
     //For remove the doctor in the trusted Doctor
     removeDoctor = (doctor) => {
         confirmAlert({
-            title: "Remove Doctor",
-            message: "Are you sure to remove the Doctor from the Trusted Doctor",
-            buttons: [{
-                label: 'YES',
-                onClick: () => this.deleteClickDoctor(doctor)
-            }, {
-                label: 'NO',
-            }]
-        })
+            customUI: ({ onClose }) => {
+            return (
+            <div className={this.props.settings.setting.mode === 'dark' ? "dark-confirm react-confirm-alert-body" : "react-confirm-alert-body"} >
+            <h1>Remove Doctor</h1>
+            <p>Are you sure to remove the Doctor from the Trusted Doctor</p>
+            <div className="react-confirm-alert-button-group">
+            <button
+            onClick= {() => {this.deleteClickDoctor(doctor); onClose()}}
+            >
+            Yes
+            </button>
+            <button
+            onClick={() => {onClose();}}
+            >
+            No
+            </button>
+            </div>
+            </div>
+            );
+            }
+            })
     }
 
     //For Add the Doctor
@@ -532,7 +544,7 @@ class Index extends Component {
                         <Modal
                             open={this.state.openTrust}
                             onClose={this.handleCloseTrust}
-                            className="trstBoxModel">
+                            className={this.props.settings.setting.mode === 'dark' ?"darkTheme trstBoxModel":"trstBoxModel"}>
                             <Grid className="trstBoxCntnt">
                                 <Grid className="trstCourse">
                                     {this.state.succset && <div className="success_message">{doc_added_succefully}</div>}

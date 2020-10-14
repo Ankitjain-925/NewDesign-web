@@ -173,7 +173,8 @@ class Index extends Component {
                                         {/* Model setup */}
                                         <Modal
                                             open={this.state.openSlot}
-                                            onClose={this.handleCloseSlot}>
+                                            onClose={this.handleCloseSlot}
+                                            className={this.props.settings.setting.mode === 'dark' ?"darkTheme editBoxModel":"editBoxModel"}>
                                             <Grid className="slotBoxCntnt">
                                                 <Grid className="timSltCal">
                                                     <p><img src={require('../../../assets/images/important-info.svg')} alt="" title="" />

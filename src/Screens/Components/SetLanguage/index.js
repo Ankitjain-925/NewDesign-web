@@ -71,6 +71,7 @@ SetLanguage = () => {
             <Modal
             style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
             open={this.state.openFancyLanguage}
+            className={this.props.settings.setting.mode === 'dark' ?"darkTheme":""}
             onClose={this.handleCloseFancyLanguage}>
             <Grid className="LanguageBoxMain">
                 <Grid className="nwPresCourse">

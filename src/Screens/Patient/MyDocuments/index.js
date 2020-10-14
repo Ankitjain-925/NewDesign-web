@@ -433,7 +433,7 @@ class Index extends Component {
                                         <Modal
                                             open={this.state.addSick}
                                             onClose={this.handleCloseSick}
-                                            className="nwPresModel">
+                                            className={this.props.settings.setting.mode === 'dark' ?"darkTheme nwPresModel":"nwPresModel"}>
                                             <Grid className="nwPresCntnt">
                                                 <Grid className="nwPresCntntIner">
                                                     <Grid className="nwPresCourse">
@@ -575,7 +575,7 @@ class Index extends Component {
                                         <Modal
                                             open={this.state.addInqry}
                                             onClose={this.handleCloseInqry}
-                                            className="nwPresModel">
+                                            className={this.props.settings.setting.mode === 'dark' ?"darkTheme nwPresModel":"nwPresModel"}>
                                             <Grid className="nwPresCntnt">
                                                 <Grid className="nwPresCntntIner">
 

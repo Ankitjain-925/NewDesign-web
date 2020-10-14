@@ -12898,6 +12898,51 @@ a.academy_ul ul li img {
 
 
 /*Added By ankita*/
+.darkTheme .trigerAction{
+    background-color: #705a29 !important;
+}
+.darkTheme h3,.darkTheme h4,  .css-1uccc91-singleValue  {
+    color: #BFC1C1 !important;
+}
+.darkTheme .trigerAction ul li {
+    color: #D9DADA !important;
+}
+.quill {
+    background: #fff!important;
+}
+.darkTheme .dragDashLft a, .darkTheme .moreCards a,.darkTheme .stndrdQues h3,
+.darkTheme .shrHlth h2,.darkTheme .drstndrdQues h3{
+    color: #BFC1C1 !important;
+}
+.darkTheme.nwDiaModel select {
+    background: #404646!important;
+    color: #BFC1C1 !important;
+}
+.homeBgDrk .courseStar span {
+    color: #BFC1C1;
+}
+.darkTheme .wshCorListPara p {
+    color: #7F8383 !important;
+}
+.darkTheme .wshCorListLbl label {
+    color: #000808 !important;
+} 
+.darkTheme .crtCorListPara  p {
+    color: #7F8383 !important;
+}
+.darkTheme .crtCorListLbl label {
+    color: #000808 !important;
+} 
+.darkTheme .checkHelth span {
+    background-color: #333 ;
+}
+/*For popup*/
+.darkTheme .checkHelth a {
+    color: #D9DADA;
+}
+.darkTheme .checkHelthLbl a:hover {
+    color: #00ABAF;
+}
 .RelativeatSecurity{
     position: relative;
 }

@@ -133,18 +133,27 @@ class Index extends Component {
     //Delete for the Prescriptions confirmation
     updatePrescription(status, id) {
         confirmAlert({
-            title: 'Update the Inqury',
-            message: 'Are you sure  to update this Inquiry?',
-            buttons: [
-                {
-                    label: 'YES',
-                    onClick: () => this.deleteClickPatient(status, id)
-                },
-                {
-                    label: 'NO',
-                }
-            ]
-        })
+            customUI: ({ onClose }) => {
+            return (
+            <div className={this.props.settings.setting.mode === 'dark' ? "dark-confirm react-confirm-alert-body" : "react-confirm-alert-body"} >
+            <h1>Update the Inqury</h1>
+            <p>Are you sure  to update this Inquiry?</p>
+            <div className="react-confirm-alert-button-group">
+            <button
+            onClick= {() => {this.deleteClickPatient(status, id); onClose()}}
+            >
+            Yes
+            </button>
+            <button
+            onClick={() => {onClose();}}
+            >
+            No
+            </button>
+            </div>
+            </div>
+            );
+            }
+            })
     }
 
     //For chnage the page
@@ -258,7 +267,7 @@ class Index extends Component {
                     <Modal
                         open={this.state.addInqry}
                         onClose={this.handleCloseInqry}
-                        className="opinBoxModel">
+                        className={this.props.settings.setting.mode === 'dark' ?"darkTheme opinBoxModel":"opinBoxModel"}>
                         <Grid className="opinBoxCntnt">
                             <Grid className="opinBoxCntntIner">
                                 <Grid className="opinCourse">
@@ -324,7 +333,7 @@ class Index extends Component {
                     <Modal
                         open={this.state.showInquiry}
                         onClose={this.handleCloseShowSick}
-                        className="nwPresModel">
+                        className={this.props.settings.setting.mode === 'dark' ?"darkTheme nwPresModel":"nwPresModel"}>
                         <Grid className="nwPresCntnt">
                             <Grid className="nwPresCntntIner">
                                 <Grid className="nwPresCourse">

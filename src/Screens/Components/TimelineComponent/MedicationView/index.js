@@ -156,7 +156,7 @@ class Index extends Component {
                                         <Grid item xs={12} md={6} className="bloodPreBy">
                                             <Grid container direction="row">
                                                 <Grid item xs={5} md={5}><label>Time Taken</label></Grid>
-                                                <Grid item xs={7} md={7}><span>{getReminder(item.time_taken,this.state.time_foramt)}</span></Grid>
+                                                <Grid item xs={7} md={7}><span>{getReminder(item.time_taken,this.state.time_foramt)} {item.interval && (Array.prototype.map.call(item.interval, s => s.label).toString()).split(/[,]+/).join(',  ')}</span></Grid>
                                                 <Grid className="clear"></Grid>
                                             </Grid>
                                         </Grid>
@@ -164,7 +164,7 @@ class Index extends Component {
                                         <Grid item xs={12} md={6} className="bloodPreBy">
                                             <Grid container direction="row">
                                                 <Grid item xs={5} md={5}><label>Reminder</label></Grid>
-                                                <Grid item xs={7} md={7}><span>{getReminder(item.reminder_time_taken,this.state.time_foramt)}</span></Grid>
+                                                <Grid item xs={7} md={7}><span>{getReminder(item.reminder_time_taken,this.state.time_foramt)} {item.reminders && (Array.prototype.map.call(item.reminders, s => s.label).toString()).split(/[,]+/).join(',  ')}</span></Grid>
                                                 <Grid className="clear"></Grid>
                                             </Grid>
                                         </Grid>

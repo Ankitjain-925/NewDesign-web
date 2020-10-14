@@ -254,7 +254,7 @@ class Index extends Component {
                                         <Modal
                                             open={this.state.addSec}
                                             onClose={this.handleCloseDash}
-                                            className="opinBoxModel">
+                                            className={this.props.settings.setting.mode === 'dark' ?"darkTheme opinBoxModel":"opinBoxModel"}>
                                             <Grid className="opinBoxCntnt">
                                                 <Grid className="opinBoxCntntIner">
                                                     <Grid className="opinCourse">

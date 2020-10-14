@@ -102,38 +102,58 @@ class Index extends Component {
         });
     }
     
-     //Modal Open on Archive the Journal
-     ArchiveTrack=(data)=>{
-        confirmAlert({
-            title: 'Archive item',
-            message: 'Do you really want to De - archive the item?',
-            buttons: [
-                {
-                    label: 'YES',
-                    onClick: () => this.updateArchiveTrack(data)
-                },
-                {
-                    label: 'NO',
-                }
-            ]
+    //Modal Open on Archive the Journal
+  ArchiveTrack=(data)=>{
+
+    confirmAlert({
+        customUI: ({ onClose }) => {
+        return (
+        <div className={this.props.settings.setting.mode === 'dark' ? "dark-confirm react-confirm-alert-body" : "react-confirm-alert-body"} >
+        <h1>Archive item</h1>
+        <p>Do you really want to De - archive the item?</p>
+        <div className="react-confirm-alert-button-group">
+        <button
+        onClick= {() => {this.updateArchiveTrack(data); onClose()}}
+        >
+        Yes
+        </button>
+        <button
+        onClick={() => {onClose();}}
+        >
+        No
+        </button>
+        </div>
+        </div>
+        );
+        }
         })
-    }
-    //Delete the perticular track confirmation box
-    DeleteTrack=(deletekey)=> {
-        confirmAlert({
-            title: 'Delete item',
-            message: 'Do you really want to delete the item?',
-            buttons: [
-                {
-                    label: 'YES',
-                    onClick: () => this.deleteClickTrack(deletekey)
-                },
-                {
-                    label: 'NO',
-                }
-            ]
+}
+//Delete the perticular track confirmation box
+DeleteTrack=(deletekey)=> {
+    confirmAlert({
+        customUI: ({ onClose }) => {
+        return (
+        <div className={this.props.settings.setting.mode === 'dark' ? "dark-confirm react-confirm-alert-body" : "react-confirm-alert-body"} >
+        <h1>Delete item</h1>
+        <p>Do you really want to delete the item?</p>
+        <div className="react-confirm-alert-button-group">
+        <button
+        onClick= {() => {this.deleteClickTrack(deletekey); onClose()}}
+        >
+        Yes
+        </button>
+        <button
+        onClick={() => {onClose();}}
+        >
+        No
+        </button>
+        </div>
+        </div>
+        );
+        }
         })
-    }
+}
+ 
     //Delete the track
     deleteClickTrack=(deletekey)=> {
         var user_id = this.props.stateLoginValueAim.user._id;
