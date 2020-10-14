@@ -814,6 +814,7 @@
 		"u_r_nvr_obligate_to_upload_doc": "You are never obligated to upload your license or any other proof of ID.",
 		"in_critical_enviroment_id": "In the critical environment it makes a unique identification and comparison to the existing helthcare data much easier, when you do. Also the deduction of healthcare services with your insurance company is much easier that way.",
 		"date": "Date",
+		"edit_entry":"Edit entry",
 		"heart_rate":"Heart Rate",
 		"time": "Time",
 		"format": "format",
@@ -874,6 +875,8 @@
 		"again": "again",
 		"modify": "Modify",
 		"see": "See",
+		"see_details":"See details",
+		"cancel_reqst":"Cancel request",
 		"cancel": "Cancel",
 		"what_ur_profession": "What is your profession",
 		"show": "Show",
@@ -932,6 +935,7 @@
 		"secnd_openion":"Second Opinion",
 		"emrgancy_patient_data":"Emergency Patient Data",
 		"online_course":"Online Courses",
+		"online":"Online",
 		"extra_srvc":"Extra Services",
 		"jrnl_archive":"Journal Archive",
 		"doc_require_for_second_openion":"For Second Opinion request Doctor is required",
@@ -943,6 +947,7 @@
 		"archive_journal":"Archive Journal",
 		"archive":"Archive",
 		"about":"About",
+		"sent_on":"Sent on",
 		"specialist":"Specialist",
 		"previous":"Previous",
 		"next":"Next",
@@ -950,6 +955,7 @@
 		"vdo_calls":"Videocalls",
 		"add_new_entry":"Add new entry",
 		"entry":"entry",
+		"anamnesis":"Anamnesis",
 		"blood_pressure":"Blood Pressure",
 		"blood_sugar":"Blood Sugar",
 		"condition_pain":"Condition and Pain",
@@ -1126,6 +1132,9 @@
 		"language_eng":"Language: English",
 		"what_diabetes":"What is Diabetes",
 		"add_to_cart":"Add to cart",
-		"here_u_see_diabetes":"Here you see what diabetes is, how it comes to diabetes and why a good treatment is so crucial."
-	}
+		"here_u_see_diabetes":"Here you see what diabetes is, how it comes to diabetes and why a good treatment is so crucial.",
+		"new_entry":"New entry",
+		"home_add_mailbox":"Home address mailbox",
+		"cancel_details":"Cancel details"
+		}
 }

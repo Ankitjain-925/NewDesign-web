@@ -518,6 +518,12 @@
 		"Oops": "Lo!",
 		"page_temparary_unavailable":"Ukurasa unaotafuta unaweza kuwa umeondoa baeen ikiwa jina lake limebadilishwa au halipatikani kwa muda.",
 		"go_to_home":"Nenda nyumbani",
-		"slct_time_slot":"Chagua muda uliopangwa"
+		"slct_time_slot":"Chagua muda uliopangwa",
+		"code_not_verified":"Nambari ya kuthibitisha haijathibitishwa.",
+		"email_not_valid":"Barua pepe sio halali",
+		"password_cant_empty":"Nenosiri haliwezi kuwa tupu",
+		"user_not_exist":"Mtumiaji hayupo",
+		"user_is_blocked":"Mtumiaji amezuiwa",
+		"wrong_password":"Nenosiri lisilo sahihi"
 	}
 }

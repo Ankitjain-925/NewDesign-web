@@ -661,6 +661,12 @@
 		"page_not_found":"Página no encontrada",
 		"page_temparary_unavailable":"Es posible que se haya eliminado la página que está buscando si se cambió el nombre o no está disponible temporalmente.",
 		"go_to_home":"Ir a casa",
-		"slct_time_slot":"Seleccionar franja horaria"
+		"slct_time_slot":"Seleccionar franja horaria",
+		"code_not_verified":"El código no está verificado.",
+		"email_not_valid":"El correo no es válido",
+		"password_cant_empty":"La contraseña no puede estar vacía",
+		"user_not_exist":"El usuario no existe",
+		"user_is_blocked":"El usuario está bloqueado",
+		"wrong_password":"Contraseña incorrecta"
 	}
 }

@@ -695,6 +695,12 @@
 		"Oops":"Hoppla",
 		"page_temparary_unavailable":"Die Seite, nach der Sie suchen, wurde möglicherweise entfernt, wenn ihr Name geändert wurde oder sie vorübergehend nicht verfügbar ist.",
 		"go_to_home":"Zur Startseite",
-		"slct_time_slot":"Zeitfenster auswählen"
+		"slct_time_slot":"Zeitfenster auswählen",
+		"code_not_verified":"Code wird nicht verifiziert.",
+		"email_not_valid":"Email ist ungültig",
+		"password_cant_empty":"Passwort kann nicht leer sein",
+		"user_not_exist":"Benutzer existiert nicht",
+		"user_is_blocked":"Benutzer ist gesperrt",
+		"wrong_password":"Falsches Passwort"
 	}
 }
