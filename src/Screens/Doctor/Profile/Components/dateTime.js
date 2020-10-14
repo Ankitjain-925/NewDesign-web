@@ -120,7 +120,7 @@ class Index extends Component {
             case "default":
                 translate = translationEN.text
         }
-        let { date, time, format, set_the_default, the, is, updated, save_change, pharmacy_prescription_model, pharma_prescription, send_prescription_to_pharmacy, uplod_scanned_prescription, browse, or, or_drag_here, suported_file_type_jpg_png, patient_id, Pharmacy, search_pharmacy_by_name_id, show_pharmacy_within_radious, short_msg_optional, add_this_patient_journal,send_invite } = translate
+        let { date, time, format, set_the_default, the, is, updated, save_change, pharmacy_prescription_model, pharma_prescription, send_prescription_to_pharmacy, uplod_scanned_prescription, browse, or, or_drag_here, suported_file_type_jpg_png, patient_id, Pharmacy, search_pharmacy_by_name_id, show_pharmacy_within_radious, short_msg_optional, add_this_patient_journal, send_invite } = translate
         const { selectedOption } = this.state;
         return (
             <div>
@@ -171,7 +171,6 @@ class Index extends Component {
                         </Grid>
                     </Grid>
 
-<<<<<<< HEAD
                     <Grid>
                         <Grid className="phamraLink">
                             <a onClick={this.handleOpenPharma}>{pharmacy_prescription_model}</a>
@@ -180,7 +179,7 @@ class Index extends Component {
                         <Modal
                             open={this.state.openPharma}
                             onClose={this.handleClosePharma}
-                            className={this.props.settings.setting.mode === 'dark' ?"darkTheme":""}>
+                            className={this.props.settings.setting.mode === 'dark' ? "darkTheme" : ""}>
                             <Grid className="phrmBoxCntnt">
                                 <Grid className="phrmCourse">
                                     <Grid className="phrmCloseBtn">
@@ -197,7 +196,7 @@ class Index extends Component {
                                         <Grid className="upScanInput">
                                             <a><img src={require('../../../../assets/images/upload-file.svg')} alt="" title="" /></a>
                                             <a>{browse} <input type="file" /></a> {or_drag_here}
-                    </Grid>
+                                        </Grid>
                                         <p>{suported_file_type_jpg_png}</p>
                                     </Grid>
                                     <Grid className="scanInputs">
@@ -241,8 +240,6 @@ class Index extends Component {
                         {/* End of Pharmacy Prescription */}
                     </Grid>
 
-=======
->>>>>>> a76971c34d813fd8d61f5de63faeb13483e80e1a
                 </Grid>
             </div>
         );
