@@ -669,7 +669,7 @@ class Index extends Component {
                                                                 <Grid className="mainLogoAdd">
                                                                     <a href="https://www.fitbit.com/oauth2/authorize?response_type=token&client_id=22BNVH&redirect_uri=https%3A%2F%2Faidoc.io%2Fpatient%2Ftracker&scope=activity%20heartrate%20location%20nutrition%20profile%20settings%20sleep%20social%20weight&expires_in=604800">
                                                                         <img src={require('../../../assets/images/add.svg')} alt="" title="" className="addBlue" />
-                                                                        <img src={require('../../../assets/images/addgrey.svg')} alt="" title="" className="addGray" />Connect</a>
+                                                                        <img src={require('../../../assets/images/addgrey.svg')} alt="" title="" className="addGray" />{connect}</a>
                                                                 </Grid>
                                                             </Grid>
                                                         </Grid>
@@ -679,7 +679,7 @@ class Index extends Component {
                                                                 <Grid className="mainLogoAdd">
                                                                     <a href="https://account.withings.com/oauth2_user/authorize2?response_type=code&client_id=198370b3fcf82d7ed5968266d053f376291849d5691751e9987e1d71ae867c92&scope=user.info,user.metrics,user.activity,user.sleepevents&redirect_uri=https://aidoc.io/patient/tracker&state=up">
                                                                         <img src={require('../../../assets/images/add.svg')} alt="" title="" className="addBlue" />
-                                                                        <img src={require('../../../assets/images/addgrey.svg')} alt="" title="" className="addGray" />Connect</a>
+                                                                        <img src={require('../../../assets/images/addgrey.svg')} alt="" title="" className="addGray" />{connect}</a>
                                                                 </Grid>
                                                             </Grid>
                                                         </Grid>
