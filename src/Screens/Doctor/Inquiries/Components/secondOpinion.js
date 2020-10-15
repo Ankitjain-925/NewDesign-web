@@ -16,6 +16,7 @@ import { LanguageFetchReducer } from './../../../actions';
 import { getDate, getImage } from './../../../Components/BasicMethod/index';
 import * as translationEN from '../../../../translations/en_json_proofread_13072020.json';
 import FileUploader from './../../../Components/FileUploader/index';
+import Loader from './../../../Components/Loader/index.js';
 
 function TabContainer(props) {
     return (
@@ -168,7 +169,7 @@ class Index extends Component {
         let id = this.state.opinionData._id;
         let bucket = this.state.opinionData.patient_info.bucket
         let patient_profile_id = this.state.opinionData.patient_profile_id
-        this.setState({ loaderImage: true });
+        
         let user_token = this.props.stateLoginValueAim.token;
         if (event && event[0] && (event[0].type === "application/pdf" || event[0].type === "image/jpeg" || event[0].type === "image/png")) {
             this.setState({ isfileuploadmulti: true, loaderImage: true, err_pdf: false })
@@ -195,8 +196,8 @@ class Index extends Component {
                     axios.put('https://cors-anywhere.herokuapp.com/' + signedRequest, file, options)
                         .then(result => {
                             this.setState({ success: true, loaderImage: false, uploadedimage: fileattach });
-                        }).catch(error => { })
-                }).catch(error => { })
+                        }).catch(error => { this.setState({ success: false, loaderImage: false}) })
+                }).catch(error => { this.setState({ success: false, loaderImage: false}) })
             }
         }
 
@@ -318,6 +319,7 @@ class Index extends Component {
             <div>
                 {this.state.successfullsent && <div className="success_message">{req_updated_successfully}</div>}
                 <Grid className="presOpinionIner">
+                {this.state.loaderImage && <Loader />}
                     <Table>
                         <Thead>
                             <Tr>
@@ -396,7 +398,7 @@ class Index extends Component {
                                         <Grid className="attchForms attchImg">
                                             <Grid><label>{attachments}</label></Grid>
                                             <label class="attached_file">{attached_doc} -
-                                            {opinionData && opinionData.documents && opinionData.documents.map((items) => (
+                                            {opinionData && opinionData.attachfile && opinionData.attachfile.map((items) => (
                                                 <a>{items.filename && (items.filename.split('Trackrecord/')[1]).split("&bucket=")[0]}</a>
                                             ))}
                                             </label>
