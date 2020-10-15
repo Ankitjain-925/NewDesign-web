@@ -40,9 +40,9 @@ class Index extends Component {
             opinionData: {},
             inqstatus: null,
             message: '',
-            fileattach:[],
-            uploadedimage:'',
-            success:false
+            fileattach: [],
+            uploadedimage: '',
+            success: false
         };
     }
 
@@ -134,7 +134,7 @@ class Index extends Component {
     }
 
     saveUserData(id) {
-        this.setState({ serverMsg: "" })
+        this.setState({ serverMsg: "" ,saveAttach: false})
         if (this.state.uploadedimage == "") {
             this.setState({ serverMsg: "please upload documents" })
         } else {
@@ -150,13 +150,21 @@ class Index extends Component {
                 }
             })
                 .then((responce) => {
-                    this.setState({ serverMsg: responce.data.message })
+                    this.setState({ serverMsg: responce.data.message?responce.data.message:responce.data.msg })
+                    if (responce.data.hassuccessed) this.setState({ saveAttach: true })
+                    setTimeout(
+                        function () {
+                            this.setState({ saveAttach: false, serverMsg: '' });
+                        }
+                            .bind(this),
+                        3000
+                    );
                     this.setState({ loaderImage: false });
                 })
         }
     }
 
-    UploadFile = (event)  =>{
+    UploadFile = (event) => {
         let id = this.state.opinionData._id;
         let bucket = this.state.opinionData.patient_info.bucket
         let patient_profile_id = this.state.opinionData.patient_profile_id
@@ -195,7 +203,7 @@ class Index extends Component {
     }
 
     updatePrescription = (status, id) => {
-        this.setState({ inqstatus: status, selected_id: id, message : null })
+        this.setState({ inqstatus: status, selected_id: id, message: null })
         this.handleOpenReject();
     }
 
@@ -207,7 +215,7 @@ class Index extends Component {
             doctor_name: this.props.myData.first_name + ' ' + this.props.myData.last_name,
             short_msg: message,
             attachfile: this.state.uploadedimage,
-            type:'second_opinion'
+            type: 'second_opinion'
         }, {
             headers: {
                 'token': user_token,
@@ -215,18 +223,18 @@ class Index extends Component {
                 'Content-Type': 'application/json'
             }
         }).then((response) => {
-            this.setState({openPrescp: false, openReject: false})
+            this.setState({ openPrescp: false, openReject: false })
             this.getMypatientsData();
         }).catch((error) => {
         });
     }
 
-    removePrsecription = (status, id) =>{
-        this.setState({message : null});
+    removePrsecription = (status, id) => {
+        this.setState({ message: null });
         confirmAlert({
-           customUI: ({ onClose }) => {
+            customUI: ({ onClose }) => {
                 return (
-                    <div className={this.props.settings&&this.props.settings.setting && this.props.settings.setting.mode &&this.props.settings.setting.mode === 'dark' ? "dark-confirm react-confirm-alert-body" : "react-confirm-alert-body"} >
+                    <div className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode && this.props.settings.setting.mode === 'dark' ? "dark-confirm react-confirm-alert-body" : "react-confirm-alert-body"} >
                         <h1>Update the Inqury?</h1>
                         <p>Are you sure  to remove this Inquiry?</p>
                         <div className="react-confirm-alert-button-group">
@@ -335,13 +343,13 @@ class Index extends Component {
                                             <img src={require('../../../../assets/images/threedots.jpg')} alt="" title="" className="openScnd" />
                                             <ul>
                                                 <li><a onClick={() => { this.handleOpenPrescp(data) }}><img src={require('../../../../assets/images/details.svg')} alt="" title="" />See Details</a></li>
-                                                {(data.status == 'free'||data.status === 'pending')  && <li onClick={() => { this.handleOpenPrescp(data) }}><a><img src={require('../../../../assets/images/edit.svg')} alt="" title="" />Approve</a></li>}
-                                                {(data.status == 'free'||data.status === 'pending')  && <li onClick={() => { this.updateCertificate('decline', data._id) }}><a><img src={require('../../../../assets/images/plus.png')} alt="" title="" />Reject</a></li>}
+                                                {(data.status == 'free' || data.status === 'pending') && <li onClick={() => { this.handleOpenPrescp(data) }}><a><img src={require('../../../../assets/images/edit.svg')} alt="" title="" />Approve</a></li>}
+                                                {(data.status == 'free' || data.status === 'pending') && <li onClick={() => { this.updateCertificate('decline', data._id) }}><a><img src={require('../../../../assets/images/plus.png')} alt="" title="" />Reject</a></li>}
                                                 {data.status !== 'remove' && <li onClick={() => { this.removePrsecription('remove', data._id) }}><a><img src={require('../../../../assets/images/cancel-request.svg')} alt="" title="" />Remove</a></li>}
                                             </ul>
                                         </a>
                                     </Td>
-                                </Tr>   
+                                </Tr>
                             ))}
                         </Tbody>
                     </Table>
@@ -349,8 +357,8 @@ class Index extends Component {
                     <Modal
                         open={this.state.openPrescp}
                         onClose={this.handleClosePrescp}
-                        className={this.props.settings&&this.props.settings.setting && this.props.settings.setting.mode &&this.props.settings.setting.mode === 'dark' ?"darkTheme opinBoxModel":"opinBoxModel"}
-                       >
+                        className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode && this.props.settings.setting.mode === 'dark' ? "darkTheme opinBoxModel" : "opinBoxModel"}
+                    >
                         <Grid className="opinBoxCntnt">
                             <Grid className="opinBoxCntntIner">
                                 <Grid className="opinCourse">
@@ -387,13 +395,13 @@ class Index extends Component {
                                         <Grid className="attchForms attchImg">
                                             <Grid><label>Attachments</label></Grid>
                                             <label class="attached_file">Attached Document -
-                                        {opinionData && opinionData.documents && opinionData.documents.map((items) => (
-                                                <a>{items.filename && (items.filename.split('second_opinion/')[1]).split("&bucket=")[0]}</a>
+                                            {opinionData && opinionData.documents && opinionData.documents.map((items) => (
+                                                <a>{items.filename && (items.filename.split('Trackrecord/')[1]).split("&bucket=")[0]}</a>
                                             ))}
                                             </label>
                                             <FileUploader name="UploadDocument" fileUpload={this.UploadFile} />
                                             {(this.state.success && opinionData.status !== 'accept') && <Grid item xs={12} md={12}>
-                                            <input type="button" value="Send to patient's Timeline and Email" onClick={() => this.saveUserData(opinionData._id)} className="approvBtn" />
+                                                <input type="button" value="Send to patient's Timeline and Email" onClick={() => this.saveUserData(opinionData._id)} className="approvBtn" />
                                             </Grid>}
                                             {/* <Grid className="attchbrowsInput">
                                             <a><img src={require('../../../../assets/images/upload-file.svg')} alt="" title="" /></a>
@@ -401,23 +409,24 @@ class Index extends Component {
                                         </Grid> */}
                                             {/* <p>Supported file types: .jpg, .png, .pdf</p> */}
                                         </Grid>
+                                        <Grid className="infoShwHidIner">
+                                            <Grid className="infoShwSave">
+                                                {(opinionData.status !== 'accept' && opinionData.status !== 'decline') && <Grid container direction="row">
+                                                    <Grid item xs={6} md={6}>
+                                                        <input type="button" value="Approve" onClick={() => this.deleteClickPatient('accept', opinionData._id)} className="approvBtn" />
+                                                    </Grid>
+                                                    <Grid item xs={6} md={6}>
+                                                        <input type="button" value="Reject" onClick={() => this.updatePrescription('decline', opinionData._id)} className="rejectBtn" />
+                                                    </Grid>
+                                                </Grid>}
+                                                {/* <input type="submit" onClick={this.submit} value="Edit entry" /> */}
+                                            </Grid>
+                                        </Grid>
                                     </Grid>
                                 </Grid>
 
                                 <Grid className="infoShwHidBrdr"></Grid>
-                                <Grid className="infoShwHidIner">
-                                    <Grid className="infoShwSave">
-                                    {(opinionData.status !== 'accept' && opinionData.status !== 'decline') && <Grid container direction="row">
-                                    <Grid item xs={6} md={6}>
-                                        <input type="button" value="Approve" onClick={() => this.deleteClickPatient('accept', opinionData._id)} className="approvBtn" />
-                                    </Grid>
-                                    <Grid item xs={6} md={6}>
-                                        <input type="button" value="Reject" onClick={() => this.updatePrescription('decline', opinionData._id)} className="rejectBtn" />
-                                    </Grid>
-                                </Grid>}
-                                        {/* <input type="submit" onClick={this.submit} value="Edit entry" /> */}
-                                    </Grid>
-                                </Grid>
+
                             </Grid>
                         </Grid>
                     </Modal>
@@ -427,7 +436,7 @@ class Index extends Component {
                     <Modal
                         open={this.state.openReject}
                         onClose={this.handleCloseReject}
-                        className={this.props.settings&&this.props.settings.setting && this.props.settings.setting.mode &&this.props.settings.setting.mode === 'dark' ?"darkTheme":""}>
+                        className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode && this.props.settings.setting.mode === 'dark' ? "darkTheme" : ""}>
                         <Grid className="rejectBoxCntnt">
                             <Grid className="rejectCourse">
                                 <Grid className="rejectCloseBtn">
@@ -441,7 +450,7 @@ class Index extends Component {
                             <Grid className="shrtRejctMsg">
                                 <Grid><label>Short message</label></Grid>
                                 <Grid><textarea onChange={(e) => this.setState({ message: e.target.value })}></textarea></Grid>
-                                <Grid><input type="submit" value={inqstatus} onChange={() => this.deleteClickPatient(inqstatus, this.state.selected_id)} /></Grid>
+                                <Grid><input type="button" value={inqstatus} onClick={() => this.deleteClickPatient(inqstatus, this.state.selected_id)} /></Grid>
                             </Grid>
                         </Grid>
                     </Modal>

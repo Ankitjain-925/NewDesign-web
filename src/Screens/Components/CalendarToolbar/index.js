@@ -15,7 +15,6 @@ const options = [
 	{ value: 'month', label: 'Month' },
 	{ value: 'week', label: 'Week' },
 	{ value: 'day', label: 'Day' },
-	{ value: 'agneda', label: 'Agneda' },
 ];
 export default class CalendarToolbar extends Toolbar {
 

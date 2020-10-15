@@ -125,7 +125,7 @@ class Index extends Component {
     }
     //For My Document
     MyDocument = () => {
-        this.props.history.push('/doctor/mydocument');
+        this.props.history.push('/doctor/inquiries');
     }
 
     //For My Profile
