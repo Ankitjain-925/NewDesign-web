@@ -24,7 +24,7 @@ class ShowHide extends Component {
     // On change the time of any index
     onEditDone = () => {
         var Data = this.state.value;
-        this.setState({edit: false})
+        this.setState({edit: false, value : {}})
         this.props.onChange(Data);
     };
 

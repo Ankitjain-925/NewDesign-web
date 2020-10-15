@@ -11,6 +11,14 @@ import Modal from '@material-ui/core/Modal';
 import sitedata from './../../../sitedata';
 import axios from 'axios';
 import CreatableSelect from 'react-select/creatable';
+import * as translationEN from '../../../translations/en_json_proofread_13072020.json'
+import * as translationDE from '../../../translations/de';
+import * as translationSP from '../../../translations/sp.json';
+import * as translationCH from '../../../translations/ch';
+import * as translationPT from '../../../translations/pt';
+import * as translationRS from '../../../translations/rs';
+import * as translationNL from '../../../translations/nl';
+import * as translationSW from '../../../translations/sw';
 
 const createOption = (label) => ({
     label,
@@ -179,6 +187,38 @@ class Index extends Component {
     render() {
         const { openInvt } = this.props
         const { inputValue, value } = this.state
+
+        let translate;
+        switch (this.props.stateLanguageType) {
+            case "en":
+                translate = translationEN.text
+                break;
+            case "de":
+                translate = translationDE.text
+                break;
+            case "pt":
+                translate = translationPT.text
+                break;
+            case "sp":
+                translate = translationSP.text
+                break;
+            case "rs":
+                translate = translationRS.text
+                break;
+            case "nl":
+                translate = translationNL.text
+                break;
+            case "ch":
+                translate = translationCH.text
+                break;
+            case "sw":
+                translate = translationSW.text
+                break;
+            case "default":
+                translate = translationEN.text
+        }
+        let { invite_doc_to, u_can_enter_mul_email, who_would_u_like_invite, new_rqst, time_slot_alredy_booke_calender, office_visit, vdo_call, Details, Questions, or, slct_a_time, date_of_appointment } = translate
+
         return (
             <Grid item xs={12} md={1} className="MenuLeftUpr ">
                 <Modal
@@ -195,12 +235,12 @@ class Index extends Component {
                             {this.state.emailMissing && <div className="err_message"> Enter email first</div>}
                             {this.state.messageMissing && <div className="err_message"> Enter message</div>}
                             {this.state.success && <div className="success_message">Invitation sent succefully</div>}
-                            <Grid><label>Invite Doctors to Aimedis</label></Grid>
-                            <p>You can enter multiple email addresses and add a personal message</p>
+                            <Grid><label>{invite_doc_to} Aimedis</label></Grid>
+                            <p>{u_can_enter_mul_email}</p>
                         </Grid>
                         <Grid className="invitLinkUpr">
                             <Grid className="invitLinkInfo">
-                                <Grid><label>Who would you like to invite?</label></Grid>
+                                <Grid><label>{who_would_u_like_invite}</label></Grid>
                                 <Grid>
                                     <CreatableSelect
                                         inputValue={inputValue}
@@ -217,7 +257,7 @@ class Index extends Component {
                                 </Grid>
                             </Grid>
                             <Grid className="invitLinkArea">
-                                <Grid><label>Who would you like to invite?</label></Grid>
+                                <Grid><label>{who_would_u_like_invite}</label></Grid>
                                 <Grid><textarea
                                     name="messages"
                                     onChange={this.invitationState}

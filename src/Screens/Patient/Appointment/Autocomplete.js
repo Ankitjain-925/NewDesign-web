@@ -21,6 +21,7 @@ class Autocomplete extends React.Component {
 
   handlePlaceChanged() {
     const place = this.searchCity.getPlace();
+    this.setState({ city: place.formatted_address })
     this.props.onPlaceChanged(place);
   }
 

@@ -12,11 +12,11 @@ import sitedata, { data } from '../../../../sitedata';
 import axios from 'axios';
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { LoginReducerAim } from '../../../Login/actions';
-import { Settings } from '../../../Login/setting';
+import { LoginReducerAim } from './../../../Login/actions';
+import { Settings } from './../../../Login/setting';
 import { confirmAlert } from 'react-confirm-alert'; // Import
-import { LanguageFetchReducer } from '../../../actions';
-import { getDate, getImage } from '../../../Components/BasicMethod/index';
+import { LanguageFetchReducer } from './../../../actions';
+import { getDate, getImage } from './../../../Components/BasicMethod/index';
 import * as translationEN from '../../../../translations/en_json_proofread_13072020.json';
 // import * as translationDE from '../../../translations/de_json_proofread_13072020.json';
 function TabContainer(props) {
@@ -39,23 +39,20 @@ class Index extends Component {
             specialistOption: null,
             value: 0,
             MypatientsData: [],
-            prescData: {},
+            sickData: {},
             inqstatus: null,
-            message: '',
-            success: false
+            message: ''
         };
     }
 
     componentDidMount() {
-        // this.getUserData();
-        this.getMyprescriptionssData()
+        this.getMypatientsData()
     }
 
-
-
-    getMyprescriptionssData = () => {
+    getMypatientsData() {
+        this.setState({ loaderImage: true });
         let user_token = this.props.stateLoginValueAim.token
-        axios.get(sitedata.data.path + '/UserProfile/GetPrescription/', {
+        axios.get(sitedata.data.path + '/UserProfile/GetSickCertificate/', {
             headers: {
                 'token': user_token,
                 'Accept': 'application/json',
@@ -78,6 +75,8 @@ class Index extends Component {
                             })
                     }
                 })
+                console.log("response.data.data", response.data.data)
+                // this.setState({ MypatientsData: response.data.data });
                 var totalPage = Math.ceil(response.data.data.length / 10);
                 this.setState({ AllPres: response.data.data, loaderImage: false, totalPage: totalPage, currentPage: 1 },
                     () => {
@@ -93,53 +92,25 @@ class Index extends Component {
                         }
                     })
 
-
-                // this.setState({ MypatientsData: response.data.data });
-
             }
+            this.setState({ loaderImage: false });
         }).catch((error) => {
+            this.setState({ loaderImage: false });
         });
     }
 
-    updatePrescription = (status, id) => {
-        this.setState({ inqstatus: status, selected_id: id, message: null })
+    updateCertificate = (status, id) => {
+        // let sata = status.charAt(0).toUpperCase() + status.slice(1)
+        this.setState({ inqstatus: status, selected_id: id })
         this.handleOpenReject();
     }
 
-    removePrsecription = (status, id) => {
-        this.setState({ message: null });
-        confirmAlert({
-            customUI: ({ onClose }) => {
-                return (
-                    <div className={this.props.settings&&this.props.settings.setting && this.props.settings.setting.mode &&this.props.settings.setting.mode === 'dark' ? "dark-confirm react-confirm-alert-body" : "react-confirm-alert-body"} >
-                        <h1>Update the Inqury?</h1>
-                        <p>Are you sure  to remove this Inquiry?</p>
-                        <div className="react-confirm-alert-button-group">
-                            <button onClick={onClose}>No</button>
-                            <button
-                                onClick={() => {
-                                    this.deleteClickPatient(status, id)
-                                    onClose();
-                                }}
-                            >
-                                Yes
-                            </button>
-                        </div>
-                    </div>
-                );
-            }
-        })
-    }
-
-    deleteClickPatient = (status, id) => {
+    updateCertificateDetails(status, id) {
         let user_token = this.props.stateLoginValueAim.token
-        const { message } = this.state
-        axios.put(sitedata.data.path + '/UserProfile/GetPrescription/' + id, {
+        axios.put(sitedata.data.path + '/UserProfile/GetSickCertificate/' + id, {
             status: status,
-            doctor_name: this.props.myData.first_name + ' ' + this.props.myData.last_name,
-            type: "prescription",
-            short_msg: message
-
+            doctor_name: this.props.myData.first_name + ' ' + this.state.props.last_name,
+            type: "sick_certificate"
         }, {
             headers: {
                 'token': user_token,
@@ -147,21 +118,28 @@ class Index extends Component {
                 'Content-Type': 'application/json'
             }
         }).then((response) => {
-            this.setState({ openPrescp: false, openReject: false })
-            this.getMyprescriptionssData();
+            this.getMypatientsData();
         }).catch((error) => {
         });
     }
 
-    saveUserData = (id) => {
-        this.setState({ serverMsg: "", saveAttach: false })
+    getImage = (image) => {
+        const myFilterData = this.state.images && this.state.images.length > 0 && this.state.images.filter((value, key) =>
+            value.image === image);
+        if (myFilterData && myFilterData.length > 0) {
+            return myFilterData[0].new_image;
+        }
+    }
+
+    saveUserData(id) {
+        this.setState({ serverMsg: "" })
         if (this.state.uploadedimage == "") {
             this.setState({ serverMsg: "please upload documents" })
         } else {
             this.setState({ loaderImage: true });
             const user_token = this.props.stateLoginValueAim.token;
-            axios.put(sitedata.data.path + '/UserProfile/UpdatePrescription/' + id, {
-                attachfile: this.state.uploadedimage,
+            axios.put(sitedata.data.path + '/UserProfile/UpdateSickCertificate/' + id, {
+                docs: this.state.uploadedimage,
             }, {
                 headers: {
                     'token': user_token,
@@ -170,28 +148,18 @@ class Index extends Component {
                 }
             })
                 .then((responce) => {
-
-                    this.setState({ serverMsg: responce.data.message?responce.data.message:responce.data.msg })
-                    if (responce.data.hassuccessed) this.setState({ saveAttach: true })
-                    setTimeout(
-                        function () {
-                            this.setState({ saveAttach: false, serverMsg: '' });
-                        }
-                            .bind(this),
-                        3000
-                    );
+                    this.setState({ serverMsg: responce.data.message })
                     this.setState({ loaderImage: false });
                 })
         }
     }
 
-    UploadFile = (event, patient_profile_id, bucket, id) => {
+    UploadFile(event, patient_profile_id, bucket, id) {
         this.setState({ loaderImage: true });
         event.preventDefault();
         let reader = new FileReader();
         let file = event.target.files[0];
         reader.onloadend = () => {
-            console.log("reader.result", reader.result)
             this.setState({
                 file: file,
                 imagePreviewUrl: reader.result
@@ -205,6 +173,7 @@ class Index extends Component {
             let fileParts = event.target.files[i].name.split('.');
             let fileName = fileParts[0];
             let fileType = fileParts[1];
+            console.log('fileType', fileType)
             if (fileType === 'pdf' || fileType === 'jpeg' || fileType === 'png' || fileType === 'jpg' || fileType === 'svg') {
                 axios.post(sitedata.data.path + '/aws/sign_s3', {
                     fileName: fileName,
@@ -298,17 +267,33 @@ class Index extends Component {
 
     }
 
+    removePrsecription = (status, id) => {
+        this.setState({ message: null });
+        confirmAlert({
+            title: 'Update the Inqury',
+            message: 'Are you sure  to remove this Inquiry?',
+            buttons: [
+                {
+                    label: 'YES',
+                    onClick: () => this.updateCertificateDetails(status, id)
+                },
+                {
+                    label: 'NO',
+                }
+            ]
+        })
+    }
+
     handleOpenPrescp = (data) => {
-        let imagePreviewUrl = null
-        if(data.status === 'accept'&&data.attachfile && data.attachfile.length>0) imagePreviewUrl = data.attachfile[0].filename;
-        this.setState({ openPrescp: true, prescData: data, imagePreviewUrl: imagePreviewUrl,saveAttach: false });
+        this.setState({ openPrescp: true, sickData: data });
     };
     handleClosePrescp = () => {
-        this.setState({ openPrescp: false, imagePreviewUrl: null, saveAttach: false });
+        this.setState({ openPrescp: false });
     };
 
+
     handleOpenReject = () => {
-        this.setState({ openReject: true, });
+        this.setState({ openReject: true });
     };
     handleCloseReject = () => {
         this.setState({ openReject: false });
@@ -319,9 +304,12 @@ class Index extends Component {
         this.setState({ MypatientsData: this.state.AllPres.slice((pageNumber - 1) * 10, pageNumber * 10), currentPage: pageNumber })
     }
 
-
     render() {
-        const { success, prescData, inqstatus } = this.state;
+        const { inqstatus, sickData, MypatientsData, imagePreviewUrl } = this.state;
+        let $imagePreview = null;
+        if (imagePreviewUrl) {
+            $imagePreview = (<img style={{ borderRadius: "10%", maxWidth: 350, marginBottom: 10 }} src={imagePreviewUrl} />);
+        }
         let translate;
         switch (this.props.stateLanguageType) {
             case "en":
@@ -351,14 +339,8 @@ class Index extends Component {
             case "default":
                 translate = translationEN.text
         }
-        let { imagePreviewUrl } = this.state;
-        let $imagePreview = null;
-        if (imagePreviewUrl) {
-            $imagePreview = (<img style={{ borderRadius: "10%", maxWidth: 350, marginBottom: 10 }} src={imagePreviewUrl} />);
-        }
-        let { srvc_Doctors, see_details, approve, decline, remove, prescription_inquiry, standerd_ques, questions, patient_health_status, sent, on, prescription, Pending, request, edit, Rejected, Answered, Cancelled, req_updated_successfully, sick_cert, my_doc, New, inquiry,
-            doc_and_statnderd_ques, doc_aimedis_private, Annotations, details, Patient, recved_on, status, is_this_follow_pres, how_u_like_rcv_pres, Medicine, Substance, Dose, mg, trade_name, atc_if_applicable, manufacturer, pack_size,
-        Medications, allergies, dignoses, browse, or_drag_here, suported_file_type_jpg_png, snd_patient_timeline_email, next, reject, short_msg, previous, back } = translate
+        let { srvc_Doctors, status, sent, Case, sent_on, Patient, on, what_ur_profession, Pending, request, edit, Rejected, Answered, Cancelled, req_updated_successfully, sick_cert, my_doc, New, inquiry, back, inquiry, short_msg, next, previous,
+            doc_and_statnderd_ques, doc_aimedis_private, Annotations, details, questions, how_u_feeling, is_ur_temp_high_to_38, which_symptoms_do_u_hav, show, since_when, have_u_already_been_sick, how_long_do_u_unable_to_work, it_is_known_dieseas, r_u_tracking_medi, do_u_hv_allergies, } = translate
 
         return (
             <div>
@@ -367,16 +349,17 @@ class Index extends Component {
                     <Table>
                         <Thead>
                             <Tr>
-                                <Th>{Medicine}</Th>
-                                <Th>{recved_on}</Th>
-                                <Th>{Patient}</Th>
+                                <Th>{Case}</Th>
+                                <Th>{sent_on}</Th>
+                                <Th>{Pateint}</Th>
                                 <Th>{status}</Th>
                             </Tr>
                         </Thead>
+
                         <Tbody>
-                            {this.state.MypatientsData && this.state.MypatientsData.length > 0 && this.state.MypatientsData.map((data, index) => (
+                            {MypatientsData && MypatientsData.length > 0 && MypatientsData.map((data, index) => (
                                 <Tr>
-                                    <Td>{data.medication ? data.medication : 'Not mentioned'}</Td>
+                                    <Td>{data.which_symptomps ? data.which_symptomps : 'Not mentioned'}</Td>
                                     <Td>{data.send_on ? getDate(data.send_on, this.props.settings.setting ? this.props.settings.setting.date_format : 'DD/MM/YYYY') : 'Not mentioned'}</Td>
                                     <Td className="presImg"><img src={data.patient_info && data.patient_info.profile_image ? getImage(data.patient_info.profile_image, this.state.images) : require('../../../../assets/images/dr1.jpg')} alt="" title="" />{data.patient_info && data.patient_info.first_name && data.patient_info.first_name} {data.patient_info && data.patient_info.last_name && data.patient_info.last_name}</Td>
                                     {data.status === 'pending' && <Td><span className="revwYelow"></span>{Pending} </Td>}
@@ -384,122 +367,126 @@ class Index extends Component {
                                     {data.status === 'decline' && <Td><span className="revwRed"></span> {Rejected}</Td>}
                                     {data.status === 'cancel' && <Td><span className="revwRed"></span> {Cancelled}</Td>}
                                     {data.status === 'free' && <Td><span className="revwGry"></span> {sent} {request}</Td>}
-
                                     <Td className="presEditDot scndOptionIner">
                                         <a className="openScndhrf">
                                             <img src={require('../../../../assets/images/threedots.jpg')} alt="" title="" className="openScnd" />
                                             <ul>
-                                                <li><a onClick={() => { this.handleOpenPrescp(data) }}><img src={require('../../../../assets/images/details.svg')} alt="" title="" />{see_details}</a></li>
-                                                {(data.status == 'free' || data.status == 'pending') && <li onClick={() => { this.handleOpenPrescp(data) }}><a><img src={require('../../../../assets/images/edit.svg')} alt="" title="" />{approve}</a></li>}
-                                                {(data.status == 'free' || data.status == 'pending') && <li onClick={() => { this.updatePrescription('decline', data._id) }}><a><img src={require('../../../../assets/images/plus.png')} alt="" title="" />{decline}</a></li>}
-                                                {data.status !== 'remove' && <li onClick={() => { this.removePrsecription('remove', data._id) }}><a><img src={require('../../../../assets/images/cancel-request.svg')} alt="" title="" />{remove}</a></li>}
+                                                <li><a onClick={() => { this.handleOpenPrescp(data) }}><img src={require('../../../../assets/images/details.svg')} alt="" title="" />See Details</a></li>
+                                                {data.status !== 'free' && <li onClick={() => { this.updateCertificate('accept', data._id) }}><a><img src={require('../../../../assets/images/edit.svg')} alt="" title="" />Accept</a></li>}
+                                                {data.status !== 'free' && <li onClick={() => { this.updateCertificate('decline', data._id) }}><a><img src={require('../../../../assets/images/plus.png')} alt="" title="" />Decline</a></li>}
+                                                {data.status !== 'remove' && <li onClick={() => { this.removePrsecription('remove', data._id) }}><a><img src={require('../../../../assets/images/cancel-request.svg')} alt="" title="" />Remove</a></li>}
                                             </ul>
                                         </a>
                                     </Td>
                                 </Tr>
                             ))}
-
-
-
                         </Tbody>
                     </Table>
                     {/* Model setup */}
                     <Modal
                         open={this.state.openPrescp}
                         onClose={this.handleClosePrescp}
-                        className={this.props.settings&&this.props.settings.setting && this.props.settings.setting.mode &&this.props.settings.setting.mode === 'dark' ? "darkTheme prespBoxModel" : "prespBoxModel"}
+                        className={this.props.settings.setting.mode === 'dark' ? "darkTheme prespBoxModel" : "prespBoxModel"}
                     >
-                        <Grid className="prespBoxCntnt">
-                            <Grid className="prespCourse">
-                                <Grid className="prespCloseBtn">
-                                    <a onClick={this.handleClosePrescp}>
-                                        <img src={require('../../../../assets/images/closefancy.png')} alt="" title="" />
-                                    </a>
-                                </Grid>
-                                <p>{prescription_inquiry}</p>
-                                <Grid><label>{data.patient_info && data.patient_info.first_name && data.patient_info.first_name} {data.patient_info && data.patient_info.last_name && data.patient_info.last_name}</label></Grid>
-                            </Grid>
-                            <Grid className="detailPrescp">
-
-                                <Grid className="stndQues">
-                                    <Grid><span>{standerd_ques}</span></Grid>
-                                    <Grid>
-                                        <Grid><label>{is_this_follow_pres}</label></Grid>
-                                        <p>{prescData.follow_up_prescription == 'yes' ? 'Yes' : 'No'}</p>
-                                        <Grid><label>{how_u_like_rcv_pres}</label></Grid>
-                                        <p>{prescData.prescription_type}</p>
+                        <Grid className="nwPresCntnt">
+                            <Grid className="nwPresCntntIner">
+                                <Grid className="nwPresCourse">
+                                    <Grid className="nwPresCloseBtn">
+                                        <a onClick={this.handleClosePrescp}>
+                                            <img src={require('../../../../assets/images/closefancy.png')} alt="" title="" />
+                                        </a>
                                     </Grid>
+                                    <p>{show} {inquiry}</p>
+                                    <Grid><label>{sick_cert}</label></Grid>
                                 </Grid>
-
-                                <Grid className="stndQues">
-                                    <Grid><span>{Medicine} {inquiry}</span></Grid>
-                                    <Grid>
-                                        <Grid><label>{Medicine} / {Substance}</label></Grid>
-                                        <p>{prescData.medication}</p>
-                                        <Grid><label>{Dose}</label></Grid>
-                                        <p>{prescData.dose} mg</p>
-                                        <Grid><label>{trade_name}</label></Grid>
-                                        <p>{prescData.trade_name ? prescData.trade_name : 'Unknown'}</p>
-                                        <Grid><label>{atc_if_applicable}</label></Grid>
-                                        <p>{prescData.atc_code ? prescData.atc_code : 'Unknown'}</p>
-                                        <Grid><label>{manufacturer}</label></Grid>
-                                        <p>{prescData.manufacturer}</p>
-                                        <Grid><label>{pack_size}</label></Grid>
-                                        <p>{prescData.pack_size}</p>
+                                <Grid className="docHlthMain">
+                                    <Grid className="drstndrdQues">
+                                        <h3>{doc_and_statnderd_ques}</h3>
+                                        <Grid className="drsplestQues">
+                                            <Grid><label>{doc_aimedis_private}</label></Grid>
+                                            <Grid><h3>{sickData && sickData.docProfile && sickData.docProfile.first_name && sickData.docProfile.first_name} {sickData && sickData.docProfile && sickData.docProfile.last_name && sickData.docProfile.last_name}</h3></Grid>
+                                        </Grid>
+                                    </Grid>
+                                    <Grid className="drsplestQues">
+                                        <Grid><label>{how_u_feeling}?</label></Grid>
+                                        <Grid><h3>{sickData && sickData.how_are_you && sickData.how_are_you}</h3></Grid>
+                                    </Grid>
+                                    <Grid className="drsplestQues">
+                                        <Grid className="ishelpLbl"><label>{is_ur_temp_high_to_38}?</label></Grid>
+                                        <Grid><h3>{sickData && sickData.fever && sickData.fever}</h3></Grid>
+                                    </Grid>
+                                    <Grid className="drsplestQues">
+                                        <Grid><label>{which_symptoms_do_u_hav}?</label></Grid>
+                                        <Grid><h3>{sickData && sickData.which_symptomps && sickData.which_symptomps}</h3></Grid>
+                                    </Grid>
+                                    <Grid className="drsplestQues">
+                                        <Grid><label>{since_when}?</label></Grid>
+                                        <Grid><h3>{sickData && sickData.since_when && sickData.since_when}</h3></Grid>
+                                    </Grid>
+                                    <Grid className="drsplestQues">
+                                        <Grid><label>{have_u_already_been_sick}?</label></Grid>
+                                        <Grid><h3>{sickData && sickData.same_problem_before && sickData.same_problem_before}</h3></Grid>
+                                    </Grid>
+                                    <Grid className="drsplestQues">
+                                        <Grid><label>{how_long_do_u_unable_to_work}?</label></Grid>
+                                        <Grid><h3>{sickData && sickData.time_unable_work && sickData.time_unable_work} days</h3></Grid>
+                                    </Grid>
+                                    <Grid className="drsplestQues">
+                                        <Grid><label>{it_is_known_dieseas}?</label></Grid>
+                                        <Grid><h3>{sickData && sickData.known_diseases && sickData.known_diseases}</h3></Grid>
+                                    </Grid>
+                                    <Grid className="drsplestQues">
+                                        <Grid><label>{r_u_tracking_medi}?</label></Grid>
+                                        <Grid><h3>{sickData && sickData.medication && sickData.medication}</h3></Grid>
+                                    </Grid>
+                                    <Grid className="drsplestQues">
+                                        <Grid><label>{do_u_hv_allergies}?</label></Grid>
+                                        <Grid><h3>{sickData && sickData.allergies && sickData.allergies}</h3></Grid>
+                                    </Grid>
+                                    <Grid className="drsplestQues">
+                                        <Grid><label>{what_ur_profession}?</label></Grid>
+                                        <Grid><h3>{sickData && sickData.professions && sickData.professions}</h3></Grid>
+                                    </Grid>
+                                    <Grid className="drsplestQues">
                                         <Grid><label>{Annotations} / {details} / {questions}</label></Grid>
-                                        <p>{prescData.annotations}</p>
+                                        <Grid><h3>{sickData && sickData.annotations && sickData.annotations}</h3></Grid>
                                     </Grid>
                                 </Grid>
-
-                                <Grid className="stndQues">
-                                    <Grid><span>{patient_health_status}</span></Grid>
-                                    <Grid>
-                                        <Grid><label>{Medications}</label></Grid>
-                                        <p>{prescData.medication ? prescData.medication : 'Unknown'}</p>
-                                        <Grid><label>{allergies}</label></Grid>
-                                        <p>{prescData.allergies ? prescData.allergies : 'Unknown'}</p>
-                                        <Grid><label>{dignoses}</label></Grid>
-                                        <p>{prescData.diagnosis ? prescData.diagnosis : 'Unknown'}</p>
-                                    </Grid>
-                                </Grid>
-
-                                {prescData.status !== 'decline' &&
+                                <Grid className="infoShwHidBrdr2"></Grid>
+                                {sickData.status !== 'decline' &&
                                     <Grid className="scamUPForms scamUPImg">
 
-                                        <Grid><label>{(prescData.status !== 'accept') ? 'Upload scanned' : 'Scanned'} {prescription}</label></Grid>
-                                        <div>{(prescData.attachfile && prescData.attachfile.length > 0 && (prescData.attachfile[0].filename.split('Trackrecord/')[1]).split("&bucket=")[0])}</div>
-                                        
+                                        <Grid><label>{(sickData.status !== 'accept') ? 'Upload scanned' : 'Scanned'} prescription</label></Grid>
 
-                                        {(prescData.status !== 'accept' && !$imagePreview) && <Grid className="scamUPInput">
+                                        {(sickData.status !== 'accept' && !$imagePreview) && <Grid className="scamUPInput">
                                             <a><img src={require('../../../../assets/images/upload-file.svg')} alt="" title="" /></a>
-                                            <a>{browse} <input type="file" onChange={(e) => this.UploadFile(e, prescData.patient_profile_id, prescData.patient_info.bucket, prescData._id)} /></a> {or_drag_here}
-                                        </Grid>}
-                                        {(prescData.status !== 'accept') && !$imagePreview && <p>{suported_file_type_jpg_png}</p>}
-                                        {$imagePreview}
-                                        {(prescData.attachfile && success && prescData.status !== 'accept') && <Grid item xs={12} md={12}>
-                                            <input type="button" value={snd_patient_timeline_email} onClick={() => this.saveUserData(prescData._id)} className="approvBtn" />
+                                            <a>Browse <input type="file" onChange={(e) => this.UploadFile(e, sickData.patient_profile_id, sickData.patient_info.bucket, sickData._id)} /></a> or drag here
+                                                                            </Grid>}
+                                        {(sickData.status !== 'accept') && !$imagePreview && <p>Supported file types: .jpg, .png, .pdf</p>}
+                                        {(sickData.status === 'accept') && !$imagePreview && <img src={sickData.attachfile[0].filename} />}
+                                        {(sickData.status !== 'accept') && $imagePreview}
+                                        {(sickData.attachfile && this.state.uploadedimage && sickData.status !== 'accept') && <Grid item xs={12} md={12}>
+                                            <input type="button" value="Send to patient's Timeline and Email" onClick={() => this.saveUserData(sickData._id)} className="approvBtn" />
                                         </Grid>}
                                     </Grid>}
-                                    {this.state.serverMsg && this.state.serverMsg !== '' && <div className={this.state.saveAttach ? 'success_message' : 'err_message'}>{this.state.serverMsg}</div>}
-                                {(prescData.status !== 'accept' && prescData.status !== 'decline') && <Grid container direction="row">
+
+                                {(sickData.status !== 'accept' && sickData.status !== 'decline') && <Grid container direction="row">
                                     <Grid item xs={6} md={6}>
-                                        <input type="button" value={approve} onClick={() => this.deleteClickPatient('accept', prescData._id)} className="approvBtn" />
+                                        <input type="button" value="Approve" onClick={() => this.deleteClickPatient('accept', sickData._id)} className="approvBtn" />
                                     </Grid>
                                     <Grid item xs={6} md={6}>
-                                        <input type="button" value={reject} onClick={() => this.updatePrescription('decline', prescData._id)} className="rejectBtn" />
+                                        <input type="button" value="Reject" onClick={() => this.updateCertificate('decline', sickData._id)} className="rejectBtn" />
                                     </Grid>
                                 </Grid>}
-
                             </Grid>
                         </Grid>
                     </Modal>
                     {/* End of Model setup */}
-
                     {/* Reject Model setup */}
                     <Modal
                         open={this.state.openReject}
                         onClose={this.handleCloseReject}
-                        className={this.props.settings&&this.props.settings.setting && this.props.settings.setting.mode &&this.props.settings.setting.mode === 'dark' ? "darkTheme " : ""}>
+                        className={this.props.settings.setting.mode === 'dark' ? "darkTheme" : ""}>
                         <Grid className="rejectBoxCntnt">
                             <Grid className="rejectCourse">
                                 <Grid className="rejectCloseBtn">
@@ -513,12 +500,11 @@ class Index extends Component {
                             <Grid className="shrtRejctMsg">
                                 <Grid><label>{short_msg}</label></Grid>
                                 <Grid><textarea onChange={(e) => this.setState({ message: e.target.value })}></textarea></Grid>
-                                <Grid><input type="button" value={inqstatus} onClick={() => this.deleteClickPatient(inqstatus, this.state.selected_id)} /></Grid>
+                                <Grid><input type="submit" value={inqstatus} onChange={() => this.updateCertificateDetails(inqstatus, this.state.selected_id)} /></Grid>
                             </Grid>
                         </Grid>
                     </Modal>
                     {/* End of Reject Model setup */}
-
                     <Grid className="tablePagNum">
                         <Grid container direction="row">
                             <Grid item xs={12} md={6}>

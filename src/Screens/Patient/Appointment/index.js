@@ -443,7 +443,7 @@ getUpcomingAppointment() {
     };
     handleChangeSelect = selectedOption => {
         let searchDetails = this.state.searchDetails
-        searchDetails["specialty"] = selectedOption.value
+        searchDetails["specialty"] = selectedOption.label
         this.setState({ selectedOption: selectedOption, searchDetails: searchDetails });
     };
     handleAllowLoc = () => {

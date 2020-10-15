@@ -697,6 +697,13 @@
 		"page_not_found":"Page Not Found",
 		"Oops":"Oops",
 		"page_temparary_unavailable":"The page you are looking for might have baeen removed had its name changed or its temporarily unavailable.",
-		"go_to_home":"Go to Home"
+		"go_to_home":"Go to Home",
+		"code_not_verified":"Code is not verified.",
+		"email_not_valid":"Email is not valid",
+		"password_cant_empty":"Password can not be empty",
+		"user_not_exist":"User does not exist",
+		"user_is_blocked":"User is blocked",
+		"wrong_password":"Wrong password",
+		"new_entry":"New entry"
 	}
 }

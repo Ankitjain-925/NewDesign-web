@@ -687,7 +687,7 @@
 		"Mnotvalids": "手机号码无效",
 		"Pharmacist":"药剂师",
 		"Nurse": "护士",
-		"Professional":"Mtaalamu",
+		"Professional":"专业的",
 		"forget_password":"忘记密码",
 		"plz_enter_valid_email":"请输入有效的电子邮件",
 		"password_reset":"重设密码",
@@ -695,6 +695,12 @@
 		"Oops":"哎呀",
 		"page_temparary_unavailable":"如果您要查找的页面名称更改或暂时不可用，则可能已被删除。",
 		"go_to_home":"回家",
-		"slct_time_slot":"选择时间段"
+		"slct_time_slot":"选择时间段",
+		"code_not_verified":"代码未验证。",
+		"email_not_valid":"电邮无效",
+		"password_cant_empty":"密码不能为空",
+		"user_not_exist":"用户不存在",
+		"user_is_blocked":"用户被阻止",
+		"wrong_password":"密码错误"
 	}
 }

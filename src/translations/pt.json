@@ -631,7 +631,7 @@
 		"login_Email_address": "Endereço de e-mail",
 		"login_Password": "Senha",
 		"login_Forgotpassword": "Esqueceu a senha?",
-		"login_LOGIN_btn": "LOGIN",
+		"login_LOGIN_btn": "Conecte-se",
 		"login_an_account": "Você não tem uma conta?",
 		"login_Registerhere": "Registre-se aqui",
 		"reg_content": "reg_content",
@@ -696,6 +696,12 @@
 		"Oops":"Opa",
 		"page_temparary_unavailable":"A página que você está procurando pode ter sido removida e seu nome foi alterado ou está temporariamente indisponível.",
 		"go_to_home":"Ir para casa",
-		"slct_time_slot":"Selecione o horário"
+		"slct_time_slot":"Selecione o horário",
+		"code_not_verified":"O código não foi verificado.",
+		"email_not_valid":"E-mail não é válido",
+		"password_cant_empty":"A senha não pode ficar em branco",
+		"user_not_exist":"Usuário não existe",
+		"user_is_blocked":"O usuário está bloqueado",
+		"wrong_password":"Senha incorreta"
 	}
 }

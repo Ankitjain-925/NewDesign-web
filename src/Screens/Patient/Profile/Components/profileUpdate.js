@@ -23,7 +23,7 @@ import * as PhillipinesC from '../../../Components/insuranceCompanies/phillippin
 import * as SwitzerlandC from '../../../Components/insuranceCompanies/switzerland.json';
 import * as AmericaC from '../../../Components/insuranceCompanies/us.json';
 import * as ThailandC from '../../../Components/insuranceCompanies/thailand.json';
-import Autocomplete from '../Autocomplete.js';
+import Autocomplete from '../../../Components/Autocomplete/index';
 import { LanguageFetchReducer } from './../../../actions';
 import Modal from '@material-ui/core/Modal';
 import Loader from './../../../Components/Loader/index';

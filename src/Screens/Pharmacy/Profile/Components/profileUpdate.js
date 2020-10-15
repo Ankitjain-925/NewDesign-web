@@ -15,7 +15,7 @@ import { LoginReducerAim } from './../../../Login/actions';
 import { Settings } from './../../../Login/setting';
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
-import Autocomplete from '../Autocomplete.js';
+import Autocomplete from '../../../Components/Autocomplete/index';
 import FileUploader from './../../../Components/FileUploader/index';
 import npmCountryList from 'react-select-country-list';
 import { LanguageFetchReducer } from './../../../actions';
