@@ -34,10 +34,10 @@ class Index extends Component {
         var item = this.state.item;
         return (
             <Grid container direction="row" className="descpCntnt">
-                <Grid item xs={1} md={1} className="descpCntntLft">
+                <Grid item xs={12} md={1} className="descpCntntLft">
                     {newdate(item.datetime_on)}
                 </Grid>
-                <Grid item xs={11} md={10} className="descpCntntRght">
+                <Grid item xs={12} md={10} className="descpCntntRght">
                     <Grid className="descpInerRght">
 
                         <Grid container direction="row" className="addSpc">

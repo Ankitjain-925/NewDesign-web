@@ -38,7 +38,7 @@ export const logout = () => {
 };
 
 export const auth = (uid, authKey) => {
-
+    console.log('I am here tooo', uid, authKey)
     return dispatch => {
 
         dispatch(authStart());

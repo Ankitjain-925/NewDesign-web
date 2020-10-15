@@ -8,7 +8,8 @@ import PrivateRoute from './PrivateRoute';
 
 import * as actions from './store/action';
 import { COMETCHAT_CONSTANTS } from './consts';
-import { CometChatUnified } from './react-chat-ui-kit/CometChat'; 
+import { CometChatUnified } from './react-chat-ui-kit/CometChat';
+import { CometChat } from '@cometchat-pro/chat'; 
 
 const history = createBrowserHistory();
 
@@ -18,14 +19,30 @@ class App extends React.Component {
   }
 
   componentDidMount() {
+    console.log('this.props.Uid', this.props.Uid)
+    CometChat.getLoggedinUser().then(user => {
+      if(user) {
+        console.log('hwwww')
+        this.setState({isLoggedin : true})
+        this.props.getLoggedinUser();
+      } else {
+        console.log('ttttt')
+        setTimeout(()=>{this.setState({isLoggedin : true})},3000)
+        this.props.onLogin(this.props.Uid, COMETCHAT_CONSTANTS.AUTH_KEY);
+      }
+
+  }).catch(error => {
     this.props.onLogin(this.props.Uid, COMETCHAT_CONSTANTS.AUTH_KEY);
+  });
+    
   }
 
   render() {
     
     return (
       <div>
-        <PrivateRoute Userlist={this.props.Userlist} Uid={this.props.Uid} lan={this.props.lan} />
+        {this.state.isLoggedin &&
+        <PrivateRoute Userlist={this.props.Userlist} Uid={this.props.Uid} lan={this.props.lan} />}
       </div>
     );
   }
@@ -41,7 +58,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onLogin: ( uid, authKey ) => dispatch( actions.auth( uid, authKey ) )
+    onLogin: ( uid, authKey ) => dispatch( actions.auth( uid, authKey ) ),
+    getLoggedinUser: () => dispatch(actions.authCheckState()),
   };
 };
 

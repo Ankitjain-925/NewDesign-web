@@ -121,7 +121,7 @@ class Index extends Component {
                                         <FilterSec />
 
                                         {/* <Grid container direction="row" className="descpCntnt">
-                                            <Grid item xs={1} md={1} className="descpCntntLft">
+                                            <Grid item xs={12} md={1} className="descpCntntLft">
                                                 <a>21 <span>May</span></a>
                                             </Grid>
                                             <Grid item xs={11} md={10} className="descpCntntRght">
@@ -258,7 +258,7 @@ class Index extends Component {
                                     {/* <Grid className="descpCntntMain">
 
                                         <Grid container direction="row" className="descpCntnt">
-                                            <Grid item xs={1} md={1} className="descpCntntLft">
+                                            <Grid item xs={12} md={1} className="descpCntntLft">
                                                 <a>21 <span>May</span></a>
                                             </Grid>
                                             <Grid item xs={11} md={10} className="descpCntntRght">
@@ -375,7 +375,7 @@ class Index extends Component {
                                     {/* Start of Blood Pressure Section */}
                                     {/* <Grid className="descpCntntMain">
                                         <Grid container direction="row" className="descpCntnt">
-                                            <Grid item xs={1} md={1} className="descpCntntLft">
+                                            <Grid item xs={12} md={1} className="descpCntntLft">
                                                 <a>21 <span>May</span></a>
                                             </Grid>
                                             <Grid item xs={11} md={10} className="descpCntntRght">
@@ -472,7 +472,7 @@ class Index extends Component {
                                     {/* Start of Diary Notes Section */}
                                     {/* <Grid className="descpCntntMain">
                                         <Grid container direction="row" className="descpCntnt">
-                                            <Grid item xs={1} md={1} className="descpCntntLft">
+                                            <Grid item xs={12} md={1} className="descpCntntLft">
                                                 <a>21 <span>May</span></a>
                                             </Grid>
                                             <Grid item xs={11} md={10} className="descpCntntRght">

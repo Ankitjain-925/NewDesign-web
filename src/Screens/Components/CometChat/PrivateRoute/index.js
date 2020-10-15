@@ -8,7 +8,7 @@ import { CometChatUnified } from "../react-chat-ui-kit/CometChat";
 
 class PrivateRoute extends React.Component {
   componentDidMount() {
-    this.props.getLoggedinUser();
+    // this.props.getLoggedinUser();
     let arr = this.props.Userlist;
   }
   render() {
