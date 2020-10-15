@@ -12940,7 +12940,7 @@ a.academy_ul ul li img {
     background: #fff!important;
 }
 .darkTheme .dragDashLft a, .darkTheme .moreCards a,.darkTheme .stndrdQues h3,
-.darkTheme .shrHlth h2,.darkTheme .drstndrdQues h3{
+.darkTheme .shrHlth h2,.darkTheme .drstndrdQues h3 {
     color: #BFC1C1 !important;
 }
 .darkTheme.nwDiaModel select {
@@ -13629,11 +13629,11 @@ input:focus {
       display: flex;
   }
 
-  .darkTheme > div:nth-child(3){
+  .darkTheme > div:nth-child(3), .homeBgDrk .tooltip-container {
       background-color: #404646!important;
   }
 
-  .darkTheme label, .darkTheme  span, .darkTheme  p{
+  .darkTheme label, .darkTheme span, .darkTheme p, .darkTheme h3, .darkTheme h1 {
       color: #D9DADA !important;
   }
 
@@ -13641,7 +13641,7 @@ input:focus {
     background-color: #404646!important;
   }
 
-  .dark-confirm h1, .dark-confirm  span, .dark-confirm  p{
+  .dark-confirm h1, .dark-confirm span, .dark-confirm p, .dark-confirm h3, .dark-confirm h1 {
     color: #D9DADA !important;
 }
 .homeBgDrk .rbc-date-cell,.homeBgDrk .calendar-cont,.homeBgDrk .calendar-date {
@@ -13686,7 +13686,7 @@ input:focus {
     border-radius:0px!important;
 }
 
-.darkTheme .react-date-picker__calendar .react-calendar {
+.darkTheme .react-date-picker__calendar .react-calendar, .darkTheme .detailQuesSub span{
     background-color: #464646!important;
 }
 

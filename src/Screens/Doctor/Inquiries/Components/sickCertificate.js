@@ -41,7 +41,8 @@ class Index extends Component {
             MypatientsData: [],
             sickData: {},
             inqstatus: null,
-            message: ''
+            message: '',
+            saveAttach: false
         };
     }
 
@@ -115,7 +116,7 @@ class Index extends Component {
     }
 
     saveUserData(id) {
-        this.setState({ serverMsg: "" })
+        this.setState({ serverMsg: "", saveAttach: false })
         if (this.state.uploadedimage == "") {
             this.setState({ serverMsg: "please upload documents" })
         } else {
@@ -131,7 +132,15 @@ class Index extends Component {
                 }
             })
                 .then((responce) => {
-                    this.setState({ serverMsg: responce.data.message })
+                    this.setState({ serverMsg: responce.data.message ? responce.data.message : responce.data.msg })
+                    if (responce.data.hassuccessed) this.setState({ saveAttach: true })
+                    setTimeout(
+                        function () {
+                            this.setState({ saveAttach: false, serverMsg: '' });
+                        }
+                            .bind(this),
+                        3000
+                    );
                     this.setState({ loaderImage: false });
                 })
         }
@@ -298,10 +307,10 @@ class Index extends Component {
     }
 
     handleOpenPrescp = (data) => {
-        this.setState({ openPrescp: true, sickData: data });
+        this.setState({ openPrescp: true, sickData: data, saveAttach: false });
     };
     handleClosePrescp = () => {
-        this.setState({ openPrescp: false });
+        this.setState({ openPrescp: false, saveAttach: false });
     };
 
 
@@ -385,7 +394,7 @@ class Index extends Component {
                                             <img src={require('../../../../assets/images/threedots.jpg')} alt="" title="" className="openScnd" />
                                             <ul>
                                                 <li><a onClick={() => { this.handleOpenPrescp(data) }}><img src={require('../../../../assets/images/details.svg')} alt="" title="" />See Details</a></li>
-                                                {(data.status == 'free' || data.status == 'pending') && <li onClick={() => { this.updateCertificate('accept', data._id) }}><a><img src={require('../../../../assets/images/edit.svg')} alt="" title="" />Approve</a></li>}
+                                                {(data.status == 'free' || data.status == 'pending') && <li onClick={() => { this.handleOpenPrescp(data) }}><a><img src={require('../../../../assets/images/edit.svg')} alt="" title="" />Approve</a></li>}
                                                 {(data.status == 'free' || data.status == 'pending') && <li onClick={() => { this.updateCertificate('decline', data._id) }}><a><img src={require('../../../../assets/images/plus.png')} alt="" title="" />Decline</a></li>}
                                                 {(data.status !== 'remove') && <li onClick={() => { this.removePrsecription('remove', data._id) }}><a><img src={require('../../../../assets/images/cancel-request.svg')} alt="" title="" />Remove</a></li>}
                                             </ul>
@@ -468,7 +477,7 @@ class Index extends Component {
                                         <Grid className="scamUPForms scamUPImg">
 
                                             <Grid><label>{(sickData.status !== 'accept') ? 'Upload scanned' : 'Scanned'} prescription</label></Grid>
-
+                                            <div>{(sickData.attachfile && sickData.attachfile.length > 0 && (sickData.attachfile[0].filename.split('Trackrecord/')[1]).split("&bucket=")[0])}</div>
                                             {(sickData.status !== 'accept' && !$imagePreview) && <Grid className="scamUPInput">
                                                 <a><img src={require('../../../../assets/images/upload-file.svg')} alt="" title="" /></a>
                                                 <a>Browse <input type="file" onChange={(e) => this.UploadFile(e, sickData.patient_profile_id, sickData.patient_info.bucket, sickData._id)} /></a> or drag here
@@ -480,8 +489,10 @@ class Index extends Component {
                                                 <input type="button" value="Send to patient's Timeline and Email" onClick={() => this.saveUserData(sickData._id)} className="approvBtn" />
                                             </Grid>}
                                         </Grid>}
-
+                                    {this.state.serverMsg && this.state.serverMsg !== '' && <div className={this.state.saveAttach ? 'success_message' : 'err_message'}>{this.state.serverMsg}</div>}
                                     {(sickData.status !== 'accept' && sickData.status !== 'decline') && <Grid container direction="row">
+                                        {/* {this.state.saveAttach && <div>Succesully sended to patient's Timeline and Email</div>} */}
+
                                         <Grid item xs={6} md={6}>
                                             <input type="button" value="Approve" onClick={() => this.deleteClickPatient('accept', sickData._id)} className="approvBtn" />
                                         </Grid>
@@ -514,7 +525,7 @@ class Index extends Component {
                             <Grid className="shrtRejctMsg">
                                 <Grid><label>Short message</label></Grid>
                                 <Grid><textarea onChange={(e) => this.setState({ message: e.target.value })}></textarea></Grid>
-                                <Grid><input type="submit" value={inqstatus} onChange={() => this.deleteClickPatient(inqstatus, this.state.selected_id)} /></Grid>
+                                <Grid><input type="button" value={inqstatus} onClick={() => this.deleteClickPatient(inqstatus, this.state.selected_id)} /></Grid>
                             </Grid>
                         </Grid>
                     </Modal>

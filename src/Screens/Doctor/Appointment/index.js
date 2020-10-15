@@ -326,7 +326,8 @@ class Index extends Component {
 
     suggestingTime = () => {
         const { currentSelected, appoinmentSelected, suggesteddate, suggestTime } = this.state;
-        let timeslot = suggestTime[currentSelected];
+        if(currentSelected!==-1){
+            let timeslot = suggestTime[currentSelected];
         let user_token = this.props.stateLoginValueAim.token
         axios.put(sitedata.data.path + '/UserProfile/SuggestTimeSlot', {
             email: appoinmentSelected.patient_info.email,
@@ -349,6 +350,7 @@ class Index extends Component {
                 this.setState({ openSlot: false, suggestTime: [], suggesteddate: new Date(), appoinmentSelected: {} })
             }
         })
+        }
     }
 
     handleChange = selectedOption => {
@@ -408,7 +410,7 @@ class Index extends Component {
             }
         })
 
-        this.setState({ openSlot: true, appoinmentSelected: data, clashtime: clashtime, suggesteddate: date, suggestTime: suggestTime });
+        this.setState({ openSlot: true, appoinmentSelected: data, clashtime: clashtime, suggesteddate: date, suggestTime: suggestTime, currentSelected: -1 });
     };
 
     handleCloseSlot = () => {
@@ -626,7 +628,7 @@ class Index extends Component {
             }
         })
 
-        this.setState({ suggesteddate: date, suggestTime: suggestTime });
+        this.setState({ suggesteddate: date, suggestTime: suggestTime , currentSelected: -1});
         // this.setState({ suggesteddate: date })
     }
 
