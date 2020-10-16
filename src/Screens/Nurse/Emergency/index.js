@@ -198,7 +198,7 @@ class Index extends Component {
                                     <Modal
                                         open={this.state.openPara}
                                         onClose={this.handleClosePara}
-                                        className={this.props.settings.setting.mode === 'dark' ?"darkTheme paraBoxModel":"paraBoxModel"}>
+                                        className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode === 'dark' ?"darkTheme paraBoxModel":"paraBoxModel"}>
                                         <Grid className="paraBoxCntnt">
                                             <Grid className="paraCourse">
                                                 <Grid className="paraCloseBtn">

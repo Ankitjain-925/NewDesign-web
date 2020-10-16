@@ -108,7 +108,7 @@ class Index extends Component {
     confirmAlert({
         customUI: ({ onClose }) => {
         return (
-        <div className={this.props.settings.setting.mode === 'dark' ? "dark-confirm react-confirm-alert-body" : "react-confirm-alert-body"} >
+        <div className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode === 'dark' ? "dark-confirm react-confirm-alert-body" : "react-confirm-alert-body"} >
         <h1>Archive item</h1>
         <p>Do you really want to De - archive the item?</p>
         <div className="react-confirm-alert-button-group">
@@ -133,7 +133,7 @@ DeleteTrack=(deletekey)=> {
     confirmAlert({
         customUI: ({ onClose }) => {
         return (
-        <div className={this.props.settings.setting.mode === 'dark' ? "dark-confirm react-confirm-alert-body" : "react-confirm-alert-body"} >
+        <div className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode === 'dark' ? "dark-confirm react-confirm-alert-body" : "react-confirm-alert-body"} >
         <h1>Delete item</h1>
         <p>Do you really want to delete the item?</p>
         <div className="react-confirm-alert-button-group">

@@ -14,7 +14,7 @@ import { LoginReducerAim } from './../../../Login/actions';
 import { Settings } from './../../../Login/setting';
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
-import Autocomplete from '../../../Components/Autocomplete/index';
+import Autocomplete from '../Autocomplete.js';
 import npmCountryList from 'react-select-country-list';
 import FileUploader from './../../../Components/FileUploader/index';
 import { LanguageFetchReducer } from './../../../actions';
@@ -700,7 +700,7 @@ setTimeout(()=> {
                         <Modal
                             open={this.state.qrOpen}
                             onClose={this.handleQrClose}
-                            className={this.props.settings.setting.mode === 'dark' ?"darkTheme qrBoxModel":"qrBoxModel"}>
+                            className="qrBoxModel">
                             <Grid className="qrBoxCntnt">
                                 <Grid className="qrCourse">
                                     <Grid className="qrCloseBtn">
@@ -726,7 +726,7 @@ setTimeout(()=> {
                         <Modal
                             open={this.state.chngPinOpen}
                             onClose={() => this.handlePinClose("chngPinOpen")}
-                            className={this.props.settings.setting.mode === 'dark' ?"darkTheme editBoxModel":"editBoxModel"}>
+                            className="editBoxModel">
                             <Grid className="editBoxCntnt">
                                 <Grid className="editCourse">
                                     <Grid className="editCloseBtn">
@@ -935,17 +935,14 @@ setTimeout(()=> {
                         </Grid>
                         <Grid className="kycForms sprtImg">
                             <Grid container direction="row" alignItems="center" spacing={2}>
-                                <Grid item xs={12} md={4}>
+                                <Grid item xs={12} md={6}>
                                     <FileUploader name="uploadImage" fileUpload={this.fileUpload} isMulti={false}/>
                                 </Grid>
-                                <Grid className="clear"></Grid>
-                                <Grid item xs={12} md={4}>
+                                <Grid item xs={12} md={6}>
                                     {this.state.image && this.state.image!=='' &&
                                         <img className="ProfileImage" onClick={()=>GetUrlImage(this.state.image)} src={this.state.image} alt="" title="" />
                                     }
                                 </Grid>
-                                <Grid className="clear"></Grid>
-                                <Grid item xs={12} md={4}></Grid>
                                 <Grid className="clear"></Grid>
                             </Grid>
                         </Grid>

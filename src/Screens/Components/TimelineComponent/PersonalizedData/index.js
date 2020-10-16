@@ -87,7 +87,7 @@ class PersonalizedData extends Component {
             <Modal
                 open={this.state.openDash}
                 onClose={this.handleCloseDash}
-                className={this.props.settings.setting.mode === 'dark' ?"darkTheme dashBoxModel":"dashBoxModel"}>
+                className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode === 'dark' ?"darkTheme dashBoxModel":"dashBoxModel"}>
                 <Grid className="dashBoxCntnt">
 
                     <Grid className="dashCourse">

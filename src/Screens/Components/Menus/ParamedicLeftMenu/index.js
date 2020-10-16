@@ -106,16 +106,16 @@ class Index extends Component {
                     <a href="/"><img src={require('../../../../assets/images/logo_new.png')} alt="" title="" /></a>
                 </Grid>
                 <Grid className="menuItems">
-                    <ul>
+                <ul>
                         <li className={this.props.currentPage === 'emergency' ? "menuActv" : ""}>
                             <a onClick={this.Emergency}>
-                                <img src={require('../../../../assets/images/para.png')} alt="" title="" />
+                                <img src={require('../../../../assets/images/ermerAccess.png')} alt="" title="" />
                                 <span>Emergency <br /> access</span>
                             </a>
                         </li>
                         <li className={this.props.currentPage === 'course' ? "menuActv" : ""}>
                             <a onClick={this.OnlineCourse} >
-                                <img src={require('../../../../assets/images/nav-chat.svg')} alt="" title="" />
+                                <img src={require('../../../../assets/images/onlineCourses.png')} alt="" title="" />
                                 <span>Aimedis Online Courses</span>
                             </a>
                         </li>

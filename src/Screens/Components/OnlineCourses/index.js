@@ -277,7 +277,7 @@ class Index extends Component {
             confirmAlert({
                 customUI: ({ onClose }) => {
                 return (
-                <div className={this.props.settings.setting.mode === 'dark' ? "dark-confirm react-confirm-alert-body" : "react-confirm-alert-body"} >
+                <div className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode === 'dark' ? "dark-confirm react-confirm-alert-body" : "react-confirm-alert-body"} >
                 <h1>Payment successfully</h1>
                 <div className="react-confirm-alert-button-group">
                 <button
@@ -320,7 +320,7 @@ class Index extends Component {
             confirmAlert({
                 customUI: ({ onClose }) => {
                 return (
-                <div className={this.props.settings.setting.mode === 'dark' ? "dark-confirm react-confirm-alert-body" : "react-confirm-alert-body"} >
+                <div className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode === 'dark' ? "dark-confirm react-confirm-alert-body" : "react-confirm-alert-body"} >
                 <h1>Payment error</h1>
                 <div className="react-confirm-alert-button-group">
                 <button
@@ -392,7 +392,7 @@ class Index extends Component {
                             <Modal
                                 open={this.state.openWish}
                                 onClose={this.handleCloseWish}
-                                className={this.props.settings.setting.mode === 'dark' ?"wishListModel darkTheme":"wishListModel"}
+                                className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode === 'dark' ?"wishListModel darkTheme":"wishListModel"}
                                 >
                                 <div className="wishListCntnt">
 
@@ -453,7 +453,7 @@ class Index extends Component {
                             <Modal
                                 open={this.state.openCart}
                                 onClose={this.handleCloseCart}
-                                className={this.props.settings.setting.mode === 'dark' ?"crtListModel darkTheme":"crtListModel"}>
+                                className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode === 'dark' ?"crtListModel darkTheme":"crtListModel"}>
                                 <div className="crtListCntnt">
                                     <div className="crtLstHai">
                                         <div className="crtLstHaiLft"><label>Cart</label></div>

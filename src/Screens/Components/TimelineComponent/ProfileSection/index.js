@@ -113,7 +113,7 @@ class PointPain extends Component {
             confirmAlert({
                 customUI: ({ onClose }) => {
                 return (
-                <div className={this.props.settings.setting.mode === 'dark' ? "dark-confirm react-confirm-alert-body" : "react-confirm-alert-body"} >
+                <div className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode === 'dark' ? "dark-confirm react-confirm-alert-body" : "react-confirm-alert-body"} >
                 <h1>Please Upload PNG and JPEG file</h1>
                 <div className="react-confirm-alert-button-group">
                 <button

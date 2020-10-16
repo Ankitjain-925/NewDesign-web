@@ -39,7 +39,7 @@ h1,h2,h3,h4,h5,h6,h7,p{ margin:0; padding:0; font-size: inherit; font-weight: in
 }
 .MenuLeftUpr {
     background: #fff;
-    min-height: 100vh;
+    /* min-height: 100vh; */
     border-right: 2px solid #ececec;
 }
 .webLogo {
@@ -1981,6 +1981,32 @@ a.profilMenu {
     .scndOptionIner ul {
         padding: 12px 8px !important;
         min-width: 182px !important;
+    }
+    
+    /* Tabs scrollbar for mobile */
+    .MuiTabs-fixed {
+        overflow-x: scroll !important;
+    }
+    .MuiTabs-fixed::-webkit-scrollbar{
+        height: 5px;
+    }
+    .MuiTabs-fixed::-webkit-scrollbar-track{
+        background: #fff;
+    }
+    .MuiTabs-fixed::-webkit-scrollbar-thumb{
+        background: #BFC1C1;
+    }
+    .MuiTabs-fixed::-webkit-scrollbar-thumb:hover{
+        background: #fff;
+    }
+    /* End tabs scrollbar for mobile */
+
+    .todayAddons {
+        display: block !important;
+    }
+    .syncRght {
+        display: block !important;
+        margin-bottom: 8px !important;
     }
 }
 @media (max-width: 992px){ 
@@ -7279,8 +7305,7 @@ a.vsblDots, a.conPainDots, a.bp_vsblDots, a.hideDots {
 .homeBgDrk .emrgncyAccess p, .homeBgDrk .otpAccess h5, .homeBgDrk .spcifyKind h5,
 .homeBgDrk .datTimFrmt h5, .homeBgDrk .patientKyc h5, .homeBgDrk .onlinLft h4, 
 .homeBgDrk .nwCoursName h3, .homeBgDrk .profileName2 label, .homeBgDrk .lstdrVisitLft h3,
-.homeBgDrk .phrmOpinion label, .homeBgDrk .tabsCntnts h3, .homeBgDrk .tabsCntnts label,.homeBgDrk .onlinSickVdo span,
-.homeBgDrk .onlinSickCer span{
+.homeBgDrk .phrmOpinion label, .homeBgDrk .srvcInst h3{
     color: #FAFAFA !important;
 }
 .homeBgDrk .profileInfo p, .homeBgDrk .chngPasswrd p,
@@ -7290,7 +7315,7 @@ a.vsblDots, a.conPainDots, a.bp_vsblDots, a.hideDots {
 .homeBgDrk .rghtMgnt p, .homeBgDrk .otpAccess p, .homeBgDrk .otpAccess span.MuiFormControlLabel-label,
 .homeBgDrk .spcifyKind span.MuiFormControlLabel-label, .homeBgDrk .emrgncyAccess span.MuiFormControlLabel-label,
 .homeBgDrk .datTimFrmt p, .patientKyc p, .homeBgDrk .licensProof p, .homeBgDrk .sprtImg p, .homeBgDrk .aceptTermsPlcy span,
-.homeBgDrk .prfilHghtLft2 p, .homeBgDrk .prfilHghtRght2 p , .homeBgDrk .apontBook p, .homeBgDrk .profileIdLft span{
+.homeBgDrk .prfilHghtLft2 p, .homeBgDrk .prfilHghtRght2 p {
     color: #BFC1C1 !important;
 }
 .homeBgDrk .profileTabs button span {
@@ -7312,7 +7337,7 @@ a.vsblDots, a.conPainDots, a.bp_vsblDots, a.hideDots {
 }
 .homeBgDrk .profileInfoIner label, .homeBgDrk .genPass label, 
 .homeBgDrk .dateFormat label, .homeBgDrk .timeFormat label, .homeBgDrk .donarForm label,
-.homeBgDrk .kycForms label {
+.homeBgDrk .kycForms label, .homeBgDrk .chatVoice label, .homeBgDrk .prescSick label {
     color: #FAFAFA !important;
 }
 .homeBgDrk .mr_sel .css-yk16xz-control div {
@@ -9143,6 +9168,7 @@ a.menuActv img {
 }
 .docOpinionIner tr .docphrImg img {
     width: 16px;
+    height: 16px;
     border-radius: 12px;
     vertical-align: middle;
     margin-right: 10px;
@@ -10266,7 +10292,7 @@ img.vdoCalNow {
     display: flex;
 }
 .setSchedule div:first-child {
-    width: 60%;
+    width: 40%;
 }
 .setSchedule div:last-child {
     width: 60%;
@@ -11808,7 +11834,9 @@ span.srchMobIcon img {
     text-align: left !important;
   }
   .menuItems ul li a span {
+    vertical-align: middle !important;
     display: inline-block !important;
+    margin-top: 0px !important;
   }
   .profilMenuList {
     min-width: 130px !important;
@@ -13705,4 +13733,24 @@ input:focus {
 }
 .homeBgDrk .profileId{
     background-color: #606565;
+}
+.scndOptionIner1 ul li img {
+    margin-right: 12px;
+    width: 18px;
+}
+td.docphrImg {
+    display: flex;
+    align-items: center;
+}
+
+.profilMenuList ul li .react-toggle-track {
+    width: 37px;
+    height: 18px;
+}
+.profilMenuList ul li .react-toggle-thumb {
+    width: 16px;
+    height: 16px;
+}
+.profilMenuList ul li .react-toggle--checked .react-toggle-thumb {
+    left: 20px;
 }

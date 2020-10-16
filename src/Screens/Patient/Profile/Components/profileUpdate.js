@@ -814,7 +814,7 @@ class Index extends Component {
                         <Modal
                             open={this.state.qrOpen}
                             onClose={this.handleQrClose}
-                            className={this.props.settings.setting.mode === 'dark' ?"darkTheme qrBoxModel":"qrBoxModel"}>
+                            className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode === 'dark' ?"darkTheme qrBoxModel":"qrBoxModel"}>
                             <Grid className="qrBoxCntnt">
                                 <Grid className="qrCourse">
                                     <Grid className="qrCloseBtn">
@@ -840,7 +840,7 @@ class Index extends Component {
                         <Modal
                             open={this.state.chngPinOpen}
                             onClose={() => this.handlePinClose("chngPinOpen")}
-                            className={this.props.settings.setting.mode === 'dark' ?"darkTheme editBoxModel":"editBoxModel"}>
+                            className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode === 'dark' ?"darkTheme editBoxModel":"editBoxModel"}>
                                 
                             <Grid className="editBoxCntnt">
                                 <Grid className="editCourse">
@@ -1062,7 +1062,7 @@ class Index extends Component {
                     <Modal
                         open={this.state.addInsuranceOpen}
                         onClose={() => this.handlePinClose("addInsuranceOpen")}
-                        className={this.props.settings.setting.mode === 'dark' ?"darkTheme editBoxModel":"editBoxModel"}>
+                        className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode === 'dark' ?"darkTheme editBoxModel":"editBoxModel"}>
                         <Grid className="editBoxCntnt">
                             <Grid className="editCourse">
                                 <Grid className="editCloseBtn">
@@ -1136,7 +1136,7 @@ class Index extends Component {
                     <Modal
                         open={this.state.editInsuranceOpen}
                         onClose={() => this.handlePinClose("editInsuranceOpen")}
-                        className={this.props.settings.setting.mode === 'dark' ?"darkTheme editBoxModel":"editBoxModel"}>
+                        className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode === 'dark' ?"darkTheme editBoxModel":"editBoxModel"}>
                         <Grid className="editBoxCntnt">
                             <Grid className="editCourse">
                                 <Grid className="editCloseBtn">

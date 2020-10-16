@@ -618,7 +618,7 @@ setTimeout(()=> {
              confirmAlert({
                 customUI: ({ onClose }) => {
                 return (
-                <div className={this.props.settings.setting.mode === 'dark' ? "dark-confirm react-confirm-alert-body" : "react-confirm-alert-body"} >
+                <div className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode === 'dark' ? "dark-confirm react-confirm-alert-body" : "react-confirm-alert-body"} >
                 <h1>Please Upload PNG and JPEG file</h1>
                 <div className="react-confirm-alert-button-group">
                 <button
@@ -705,7 +705,7 @@ setTimeout(()=> {
                         <Modal
                             open={this.state.qrOpen}
                             onClose={this.handleQrClose}
-                            className={this.props.settings.setting.mode === 'dark' ?"darkTheme qrBoxModel":"qrBoxModel"}>
+                            className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode === 'dark' ?"darkTheme qrBoxModel":"qrBoxModel"}>
                             <Grid className="qrBoxCntnt">
                                 <Grid className="qrCourse">
                                     <Grid className="qrCloseBtn">
@@ -731,7 +731,7 @@ setTimeout(()=> {
                         <Modal
                             open={this.state.chngPinOpen}
                             onClose={() => this.handlePinClose("chngPinOpen")}
-                            className={this.props.settings.setting.mode === 'dark' ?"darkTheme editBoxModel":"editBoxModel"}>
+                            className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode === 'dark' ?"darkTheme editBoxModel":"editBoxModel"}>
                             <Grid className="editBoxCntnt">
                                 <Grid className="editCourse">
                                     <Grid className="editCloseBtn">

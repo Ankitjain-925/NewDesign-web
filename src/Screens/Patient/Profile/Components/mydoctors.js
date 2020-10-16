@@ -213,7 +213,7 @@ class Index extends Component {
         confirmAlert({
             customUI: ({ onClose }) => {
             return (
-            <div className={this.props.settings.setting.mode === 'dark' ? "dark-confirm react-confirm-alert-body" : "react-confirm-alert-body"} >
+            <div className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode === 'dark' ? "dark-confirm react-confirm-alert-body" : "react-confirm-alert-body"} >
             <h1>Remove Doctor</h1>
             <p>Are you sure to remove the Doctor from the Trusted Doctor</p>
             <div className="react-confirm-alert-button-group">
@@ -544,7 +544,7 @@ class Index extends Component {
                         <Modal
                             open={this.state.openTrust}
                             onClose={this.handleCloseTrust}
-                            className={this.props.settings.setting.mode === 'dark' ?"darkTheme trstBoxModel":"trstBoxModel"}>
+                            className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode === 'dark' ?"darkTheme trstBoxModel":"trstBoxModel"}>
                             <Grid className="trstBoxCntnt">
                                 <Grid className="trstCourse">
                                     {this.state.succset && <div className="success_message">{doc_added_succefully}</div>}

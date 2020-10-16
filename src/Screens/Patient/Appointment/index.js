@@ -762,7 +762,7 @@ getUpcomingAppointment() {
                             <Modal
                                     open={this.state.openFancyVdo}
                                     onClose={this.handleCloseFancyVdo}
-                                    className={this.props.settings.setting.mode === 'dark' ?"darkTheme editBoxModel":"editBoxModel"}>
+                                    className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode === 'dark' ?"darkTheme editBoxModel":"editBoxModel"}>
                                     <Grid className="slotBoxMain">
                                         <Grid className="slotBoxCourse">
                                             <a onClick={this.handleCloseFancyVdo} className="timSlotClose">
@@ -807,7 +807,7 @@ getUpcomingAppointment() {
 <Modal
                                                 open={this.state.openApoint}
                                                 onClose={this.handleCloseApoint}
-                                                className={this.props.settings.setting.mode === 'dark' ?"darkTheme editBoxModel":"editBoxModel"}>
+                                                className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode === 'dark' ?"darkTheme editBoxModel":"editBoxModel"}>
                                                 <Grid className="apontBoxCntnt">
                                                     <Grid className="apontCourse">
                                                         <Grid className="apontCloseBtn">
@@ -833,7 +833,7 @@ getUpcomingAppointment() {
                                              <Modal
                                                                     open={this.state.openAllowLoc}
                                                                     onClose={this.handleCloseAllowLoc}
-                                                                    className={this.props.settings.setting.mode === 'dark' ?"darkTheme editBoxModel":"editBoxModel"}>
+                                                                    className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode === 'dark' ?"darkTheme editBoxModel":"editBoxModel"}>
                                                                     <div className="alowLocAces">
                                                                         <div className="accessCourse">
                                                                             <div className="handleAccessBtn">
@@ -1070,7 +1070,7 @@ getUpcomingAppointment() {
                            <Modal
                                                                     open={this.state.openAllowAccess}
                                                                     onClose={this.handleCloseAllowAccess}
-                                                                    className={this.props.settings.setting.mode === 'dark' ?"darkTheme editBoxModel":"editBoxModel"}>
+                                                                    className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode === 'dark' ?"darkTheme editBoxModel":"editBoxModel"}>
                                                                     <div className="alowLocAces">
                                                                         <div className="accessCourse">
                                                                             <div className="handleAccessBtn">

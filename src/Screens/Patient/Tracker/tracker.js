@@ -647,7 +647,7 @@ class Index extends Component {
                                         <Modal
                                             open={this.state.openSrvc}
                                             onClose={this.handleCloseSrvc}
-                                            className={this.props.settings.setting.mode === 'dark' ?"darkTheme srvcBoxModel":"srvcBoxModel"}>
+                                            className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode === 'dark' ?"darkTheme srvcBoxModel":"srvcBoxModel"}>
                                             <Grid className="srvcBoxCntnt">
                                                 <Grid className="srvcCourse">
                                                     <Grid className="srvcCloseBtn">
@@ -838,7 +838,7 @@ class Index extends Component {
                                                 <Modal
                                                     open={this.state.vData}
                                                     onClose={this.handleClosevData}
-                                                    className={this.props.settings.setting.mode === 'dark' ?"darkTheme datBoxModel":"datBoxModel"}>
+                                                    className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode === 'dark' ?"darkTheme datBoxModel":"datBoxModel"}>
                                                     <Grid className="datBoxCntnt">
 
                                                         <Grid className="datCourse">
