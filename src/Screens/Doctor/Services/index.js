@@ -377,10 +377,10 @@ class Index extends Component {
     };
 
     handleOpenReq = () => {
-        this.setState({ openReq: true });
+        this.setState({ openReq: true, error_message_1: '', errorSentMsg: '', sentmessages: false });
     };
     handleCloseReq = () => {
-        this.setState({ openReq: false });
+        this.setState({ openReq: false, error_message_1: '', errorSentMsg: '', sentmessages: false });
     };
 
     handleOpenNewPatient = () => {
@@ -827,7 +827,7 @@ class Index extends Component {
                                                             {this.state.sentmessages && <div className="success_message">{succ1}</div>}
                                                             <Grid>
                                                                 <Grid><label>{email_or_id}</label></Grid>
-                                                                <Grid><input type="text" placeholder={enter_patient_email_id} onChange={(event) => this.setState({ AskPatient: event.target.value })} /></Grid>
+                                                                <Grid><input type="text" placeholder={enter_patient_email_id} onChange={(event) => {this.setState({ AskPatient: event.target.value, errorSentMsg:'' });}} /></Grid>
                                                             </Grid>
                                                         </Grid>
                                                         <Grid className="dataBoxSub">

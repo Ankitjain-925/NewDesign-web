@@ -2,9 +2,7 @@ import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
 import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
 import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
-import AppBar from '@material-ui/core/AppBar';
+import Loader from './../../../Components/Loader/index.js';
 import Typography from '@material-ui/core/Typography';
 import PropTypes from 'prop-types';
 import Modal from '@material-ui/core/Modal';
@@ -147,7 +145,6 @@ class Index extends Component {
     }
 
     UploadFile(event, patient_profile_id, bucket, id) {
-        this.setState({ loaderImage: true });
         event.preventDefault();
         let reader = new FileReader();
         let file = event.target.files[0];
@@ -167,6 +164,7 @@ class Index extends Component {
             let fileType = fileParts[1];
             console.log('fileType', fileType)
             if (fileType === 'pdf' || fileType === 'jpeg' || fileType === 'png' || fileType === 'jpg' || fileType === 'svg') {
+                this.setState({loaderImage: true})
                 axios.post(sitedata.data.path + '/aws/sign_s3', {
                     fileName: fileName,
                     fileType: fileType,
@@ -176,7 +174,7 @@ class Index extends Component {
                     .then(response => {
                         var Filename = response.data.data.returnData.url + '&bucket=' + bucket;
                         this.setState({
-                            loaderImage: false,
+                            
                             uploadDataFile: id,
                             uploadedimage: { filename: Filename, filetype: fileType }
                         });
@@ -203,13 +201,15 @@ class Index extends Component {
                         axios.put('https://cors-anywhere.herokuapp.com/' + signedRequest, file1, options)
                             .then(result => {
                                 console.log("Response from s3")
-                                this.setState({ success: true });
+                                this.setState({ success: true,loaderImage: false });
                             })
                             .catch(error => {
+                                this.setState({ success: false,loaderImage: false });
                                 console.log("ERROR " + JSON.stringify(error));
                             })
                     })
                     .catch(error => {
+                        this.setState({ success: false,loaderImage: false });
                         console.log(JSON.stringify(error));
                     })
             }
@@ -362,12 +362,13 @@ class Index extends Component {
                 translate = translationEN.text
         }
         let { srvc_Doctors, status, sent, on, what_ur_profession, Pending, request, edit, Rejected, Answered, Cancelled, req_updated_successfully, sick_cert, my_doc, New, inquiry,
-            doc_and_statnderd_ques, doc_aimedis_private, Annotations, details, questions, how_u_feeling, is_ur_temp_high_to_38, which_symptoms_do_u_hav, show, since_when, have_u_already_been_sick, how_long_do_u_unable_to_work, it_is_known_dieseas, r_u_tracking_medi, do_u_hv_allergies, } = translate
+            doc_and_statnderd_ques, doc_aimedis_private, Annotations, details, questions, how_u_feeling, is_ur_temp_high_to_38, which_symptoms_do_u_hav, show, since_when, have_u_already_been_sick, how_long_do_u_unable_to_work, it_is_known_dieseas, r_u_tracking_medi, do_u_hv_allergies, attached_doc} = translate
 
         return (
             <div>
                 {this.state.successfullsent && <div className="success_message">{req_updated_successfully}</div>}
                 <Grid className="presOpinionIner">
+                {this.state.loaderImage && <Loader />}
                     <Table>
                         <Thead>
                             <Tr>
@@ -477,7 +478,11 @@ class Index extends Component {
                                         <Grid className="scamUPForms scamUPImg">
 
                                             <Grid><label>{(sickData.status !== 'accept') ? 'Upload scanned' : 'Scanned'} prescription</label></Grid>
-                                            <div>{(sickData.attachfile && sickData.attachfile.length > 0 && (sickData.attachfile[0].filename.split('Trackrecord/')[1]).split("&bucket=")[0])}</div>
+                                            <label class="attached_file">{attached_doc} -
+                                            {sickData && sickData.attachfile && sickData.attachfile.map((items) => (
+                                                <a>{items.filename && (items.filename.split('Trackrecord/')[1]).split("&bucket=")[0]}</a>
+                                            ))}
+                                            </label>
                                             {(sickData.status !== 'accept' && !$imagePreview) && <Grid className="scamUPInput">
                                                 <a><img src={require('../../../../assets/images/upload-file.svg')} alt="" title="" /></a>
                                                 <a>Browse <input type="file" onChange={(e) => this.UploadFile(e, sickData.patient_profile_id, sickData.patient_info.bucket, sickData._id)} /></a> or drag here

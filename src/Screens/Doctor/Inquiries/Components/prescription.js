@@ -2,9 +2,7 @@ import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
 import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
 import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
-import AppBar from '@material-ui/core/AppBar';
+import Loader from './../../../Components/Loader/index.js';
 import Typography from '@material-ui/core/Typography';
 import PropTypes from 'prop-types';
 import Modal from '@material-ui/core/Modal';
@@ -111,7 +109,7 @@ class Index extends Component {
         confirmAlert({
             customUI: ({ onClose }) => {
                 return (
-                    <div className={this.props.settings&&this.props.settings.setting && this.props.settings.setting.mode &&this.props.settings.setting.mode === 'dark' ? "dark-confirm react-confirm-alert-body" : "react-confirm-alert-body"} >
+                    <div className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode && this.props.settings.setting.mode === 'dark' ? "dark-confirm react-confirm-alert-body" : "react-confirm-alert-body"} >
                         <h1>Update the Inqury?</h1>
                         <p>Are you sure  to remove this Inquiry?</p>
                         <div className="react-confirm-alert-button-group">
@@ -171,7 +169,7 @@ class Index extends Component {
             })
                 .then((responce) => {
 
-                    this.setState({ serverMsg: responce.data.message?responce.data.message:responce.data.msg })
+                    this.setState({ serverMsg: responce.data.message ? responce.data.message : responce.data.msg })
                     if (responce.data.hassuccessed) this.setState({ saveAttach: true })
                     setTimeout(
                         function () {
@@ -300,8 +298,8 @@ class Index extends Component {
 
     handleOpenPrescp = (data) => {
         let imagePreviewUrl = null
-        if(data.status === 'accept'&&data.attachfile && data.attachfile.length>0) imagePreviewUrl = data.attachfile[0].filename;
-        this.setState({ openPrescp: true, prescData: data, imagePreviewUrl: imagePreviewUrl,saveAttach: false });
+        if (data.status === 'accept' && data.attachfile && data.attachfile.length > 0) imagePreviewUrl = data.attachfile[0].filename;
+        this.setState({ openPrescp: true, prescData: data, imagePreviewUrl: imagePreviewUrl, saveAttach: false });
     };
     handleClosePrescp = () => {
         this.setState({ openPrescp: false, imagePreviewUrl: null, saveAttach: false });
@@ -358,12 +356,13 @@ class Index extends Component {
         }
         let { srvc_Doctors, see_details, approve, decline, remove, prescription_inquiry, standerd_ques, questions, patient_health_status, sent, on, prescription, Pending, request, edit, Rejected, Answered, Cancelled, req_updated_successfully, sick_cert, my_doc, New, inquiry,
             doc_and_statnderd_ques, doc_aimedis_private, Annotations, details, Patient, recved_on, status, is_this_follow_pres, how_u_like_rcv_pres, Medicine, Substance, Dose, mg, trade_name, atc_if_applicable, manufacturer, pack_size,
-        Medications, allergies, dignoses, browse, or_drag_here, suported_file_type_jpg_png, snd_patient_timeline_email, next, reject, short_msg, previous, back } = translate
+            Medications, allergies, dignoses, browse, or_drag_here, suported_file_type_jpg_png, snd_patient_timeline_email, next, reject, short_msg, previous, back, attached_doc } = translate
 
         return (
             <div>
                 {this.state.successfullsent && <div className="success_message">{req_updated_successfully}</div>}
                 <Grid className="presOpinionIner">
+                {this.state.loaderImage && <Loader />}
                     <Table>
                         <Thead>
                             <Tr>
@@ -407,7 +406,7 @@ class Index extends Component {
                     <Modal
                         open={this.state.openPrescp}
                         onClose={this.handleClosePrescp}
-                        className={this.props.settings&&this.props.settings.setting && this.props.settings.setting.mode &&this.props.settings.setting.mode === 'dark' ? "darkTheme prespBoxModel" : "prespBoxModel"}
+                        className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode && this.props.settings.setting.mode === 'dark' ? "darkTheme prespBoxModel" : "prespBoxModel"}
                     >
                         <Grid className="prespBoxCntnt">
                             <Grid className="prespCourse">
@@ -467,8 +466,11 @@ class Index extends Component {
                                     <Grid className="scamUPForms scamUPImg">
 
                                         <Grid><label>{(prescData.status !== 'accept') ? 'Upload scanned' : 'Scanned'} {prescription}</label></Grid>
-                                        <div>{(prescData.attachfile && prescData.attachfile.length > 0 && (prescData.attachfile[0].filename.split('Trackrecord/')[1]).split("&bucket=")[0])}</div>
-                                        
+                                        <label class="attached_file">{attached_doc} -
+                                            {prescData && prescData.attachfile && prescData.attachfile.map((items) => (
+                                            <a>{items.filename && (items.filename.split('Trackrecord/')[1]).split("&bucket=")[0]}</a>
+                                        ))}
+                                        </label>
 
                                         {(prescData.status !== 'accept' && !$imagePreview) && <Grid className="scamUPInput">
                                             <a><img src={require('../../../../assets/images/upload-file.svg')} alt="" title="" /></a>
@@ -480,7 +482,7 @@ class Index extends Component {
                                             <input type="button" value={snd_patient_timeline_email} onClick={() => this.saveUserData(prescData._id)} className="approvBtn" />
                                         </Grid>}
                                     </Grid>}
-                                    {this.state.serverMsg && this.state.serverMsg !== '' && <div className={this.state.saveAttach ? 'success_message' : 'err_message'}>{this.state.serverMsg}</div>}
+                                {this.state.serverMsg && this.state.serverMsg !== '' && <div className={this.state.saveAttach ? 'success_message' : 'err_message'}>{this.state.serverMsg}</div>}
                                 {(prescData.status !== 'accept' && prescData.status !== 'decline') && <Grid container direction="row">
                                     <Grid item xs={6} md={6}>
                                         <input type="button" value={approve} onClick={() => this.deleteClickPatient('accept', prescData._id)} className="approvBtn" />
@@ -499,7 +501,7 @@ class Index extends Component {
                     <Modal
                         open={this.state.openReject}
                         onClose={this.handleCloseReject}
-                        className={this.props.settings&&this.props.settings.setting && this.props.settings.setting.mode &&this.props.settings.setting.mode === 'dark' ? "darkTheme " : ""}>
+                        className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode && this.props.settings.setting.mode === 'dark' ? "darkTheme " : ""}>
                         <Grid className="rejectBoxCntnt">
                             <Grid className="rejectCourse">
                                 <Grid className="rejectCloseBtn">

@@ -477,7 +477,7 @@ class Index extends Component {
                                 <Grid className="scanInputKm dropdown-main">
                                     <input type="text" value={this.state.radius} onChange={this.findByRadius} /><span>km</span>
                                     <div className={searchLocation && searchLocation.length > 0 ? "show-content dropdown-content" : 'dropdown-content'}>
-                                        {searchLocation.map(data => (
+                                        {searchLocation &&searchLocation.map(data => (
                                             <a onClick={() => this.SetIds(data)}>{data.first_name + " " + data.last_name}</a>
                                         ))}
                                     </div>
