@@ -60,7 +60,8 @@ class Index extends Component {
             hidden: true,
             hidden_confirm: true,
             fileupods: false,
-            FilesUp: []
+            FilesUp: [],
+            fileattach : [],
 
         };
 
@@ -223,8 +224,35 @@ class Index extends Component {
     }
 
     //For upload the Doctor Liscence
-    UploadFile(event) {
-        this.setState({ FilesUp: event.target.files })
+    UploadFile(e) {
+        this.setState({ FilesUp: e.target.files,  loaderImage: true});
+        setTimeout(() => { this.setState({loaderImage: false }); }, 3000)
+        var Preview = [];
+        for (var i = 0; i < e.target.files.length; i++) {
+            if(e.target.files[i].name.split('.').pop()==='mp4'){
+                Preview.push(require('../../assets/images/videoIcon.png'));
+            }
+            if(e.target.files[i].name.split('.').pop()==='pdf'){
+                Preview.push(require('../../assets/images/pdfimg.png'));
+            }
+            else if(e.target.files[i].name.split('.').pop() ==='doc'|| e.target.files[i].name.split('.').pop() ==='docx' || e.target.files[i].name.split('.').pop() ==='xml' || e.target.files[i].name.split('.').pop() ==='txt'){
+                Preview.push(require('../../assets/images/txt1.png'));
+            }
+            else if(e.target.files[i].name.split('.').pop() ==='xls'|| e.target.files[i].name.split('.').pop() ==='xlsx' || e.target.files[i].name.split('.').pop() ==='xml'){
+                Preview.push(require('../../assets/images/xls1.svg'));
+            }
+            else if(e.target.files[i].name.split('.').pop() ==='csv'){
+                Preview.push(require('../../assets/images/csv1.png'));
+            }
+            else if(e.target.files[i].name.split('.').pop() ==='dcm'){
+                Preview.push(require('../../assets/images/dcm1.png'));
+            }
+            else{
+                Preview.push(URL.createObjectURL(e.target.files[i]));
+            }
+        }
+            this.setState({fileattach : Preview})
+   
     }
 
     //For save the doctor
@@ -244,8 +272,8 @@ class Index extends Component {
                 folders: 'registration/',
                 bucket: getBucket[0].bucket
             }).then(response => {
-                this.setState({ uploadLicence: response.data.data.returnData, fileupods: true });
-                setTimeout(() => { this.setState({ fileupods: false }); }, 3000)
+                this.setState({ uploadLicence: response.data.data.returnData });
+
                 var returnData = response.data.data.returnData;
                 var signedRequest = returnData.signedRequest;
                 var url = returnData.url;
@@ -507,8 +535,16 @@ class Index extends Component {
                                 {this.state.selectedOption == 'doctor' &&
                                     <Grid item xs={12} sm={12} className="common_name_v2_reg">
                                         <label for="UploadDocument"> {click_here_uplod_license}  <img src={require('../../assets/images/links.png')} alt="" title="" className="link_docs" /></label>
-                                        <input type="file" style={{ display: 'none' }} id="UploadDocument" name="UploadDocument" onChange={this.UploadFile} onChange={(e) => this.UploadFile(e)} multiple />
+                                        <input type="file" style={{ display: 'none' }} id="UploadDocument" name="UploadDocument" onChange={(e) => this.UploadFile(e)} multiple />
+                                        <div>
+                                        {this.state.fileattach && this.state.fileattach.length>0 && this.state.fileattach.map((data)=>(
+                                                <span className="ViewImage">
+                                                    <img src={data}/>
+                                                </span>
+                                            ))}
+                                        </div>
                                     </Grid>
+
                                 }
                                 <Grid className="registerRow accountTyp">
                                     <Grid><label>{Register_Accounttype}</label></Grid>

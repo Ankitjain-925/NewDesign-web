@@ -669,14 +669,15 @@ class Index extends Component {
                                                             <h4>{Medicine} {inquiry}</h4>
                                                             <Grid><label>{Medicine} / {Substance}</label></Grid>
                                                             <Grid>
-                                                                <Select
+                                                            <input type="text" name="medication" value={this.state.AddPrescription.medication} onChange={this.AddState} />
+                                                                {/* <Select
                                                                     value={this.state.selectedSub}
                                                                     onChange={(e) => this.eventnameSetP('medication', e)}
                                                                     options={specialistOptions}
                                                                     placeholder={select}
                                                                     isSearchable={false}
                                                                     isMulti={false}
-                                                                />
+                                                                /> */}
                                                             </Grid>
                                                         </Grid>
 

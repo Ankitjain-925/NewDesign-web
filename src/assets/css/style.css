@@ -1378,8 +1378,11 @@ a.conPainTime img {
     display: flex;
     align-items: center;
 }
-.clear_filterLft, .clear_filterRght {
-    width: 50%;
+.clear_filterLft {
+    width: 70%;
+}
+.clear_filterRght {
+    width: 30%;
 }
 .clear_filterRght {
     text-align: right;
@@ -4033,7 +4036,6 @@ button.aboutTabsIner {
 .mkFmlyDoc {
     border-radius: 12px;
     background-color: #FAFAFA;
-    padding: 7px 7px;
 }
 .mkFmlyDoc p {
     color: #7F8383;
@@ -4298,7 +4300,7 @@ button.aboutTabsIner {
     font-size: 14px;
     font-weight: bold;
     letter-spacing: 0;
-    line-height: 14px;
+    line-height: 18px;
 }
 .organDeclare label {
     margin-right: 0px;
@@ -4310,7 +4312,7 @@ button.aboutTabsIner {
     font-size: 14px;
     font-weight: 600;
     letter-spacing: 0;
-    line-height: 16px;
+    line-height: 18px;
     margin-right: 0px;
 }
 .organDeclare {
@@ -4349,7 +4351,7 @@ button.aboutTabsIner {
     font-size: 14px;
     font-weight: 600;
     letter-spacing: 0;
-    line-height: 14px;
+    line-height: 18px;
     margin-right: 0px;
 }
 .organDecide span.MuiIconButton-label {
@@ -5203,7 +5205,7 @@ span.revwRed{
     font-size: 14px;
     font-weight: bold;
     letter-spacing: 0;
-    line-height: 14px;
+    line-height: 18px;
     margin-bottom: 0px;
 }
 .docCntctRght {
@@ -5253,7 +5255,7 @@ span.revwRed{
     letter-spacing: 0;
     line-height: 14px;
     margin-bottom: 13px;
-    display: block;
+    display: flex !important;
 }
 .docInfo div:last-child a {
     margin-bottom: 0px !important;
@@ -5264,7 +5266,7 @@ span.revwRed{
     font-size: 12px;
     font-weight: 600;
     letter-spacing: 0;
-    line-height: 14px;
+    line-height: 18px;
     margin-bottom: 4px;
 }
 .neuroDises p {
@@ -5273,7 +5275,7 @@ span.revwRed{
     font-size: 12px;
     font-weight: 600;
     letter-spacing: 0;
-    line-height: 14px;
+    line-height: 18px;
 }
 .neuroDises {
     padding: 15px 18px 20px;
@@ -5287,7 +5289,7 @@ span.revwRed{
     font-size: 14px;
     font-weight: 600;
     letter-spacing: 0;
-    line-height: 14px;
+    line-height: 18px;
 }
 .jlyMorr p {
     color: #7F8383;
@@ -5295,7 +5297,7 @@ span.revwRed{
     font-size: 14px;
     font-weight: 600;
     letter-spacing: 0;
-    line-height: 14px;
+    line-height: 18px;
 }
 .jlyMorr {
     padding: 20px 18px 0px;
@@ -7337,7 +7339,10 @@ a.vsblDots, a.conPainDots, a.bp_vsblDots, a.hideDots {
 }
 .homeBgDrk .profileInfoIner label, .homeBgDrk .genPass label, 
 .homeBgDrk .dateFormat label, .homeBgDrk .timeFormat label, .homeBgDrk .donarForm label,
-.homeBgDrk .kycForms label, .homeBgDrk .chatVoice label, .homeBgDrk .prescSick label {
+.homeBgDrk .kycForms label, .homeBgDrk .chatVoice label, .homeBgDrk .prescSick label, .homeBgDrk .prescSickVdo label,
+.homeBgDrk .wrkHour label, .homeBgDrk .setSchedule label, .homeBgDrk .apontBook label, .homeBgDrk span.holdyPeriod,
+.homeBgDrk .setSchedule div:last-child, .homeBgDrk .daySchedule label, .homeBgDrk .daySchedule span,
+.homeBgDrk .profileIdLft label, .homeBgDrk .setSchedule span {
     color: #FAFAFA !important;
 }
 .homeBgDrk .mr_sel .css-yk16xz-control div {
@@ -7360,7 +7365,8 @@ a.vsblDots, a.conPainDots, a.bp_vsblDots, a.hideDots {
     color: #BFC1C1 !important;
 }
 .homeBgDrk .organDeclare span.MuiIconButton-label, .homeBgDrk .organDecide span.MuiIconButton-label,
-.homeBgDrk .aceptTermsPlcy span.MuiIconButton-label {
+.homeBgDrk .aceptTermsPlcy span.MuiIconButton-label, .homeBgDrk .apointSchdule label, 
+.homeBgDrk .onlinSickVdo span, .homeBgDrk .profileIdLft span {
     color: #00ABAF !important;
 }
 .homeBgDrk .onlineCoursesList {
@@ -7506,6 +7512,16 @@ a.vsblDots, a.conPainDots, a.bp_vsblDots, a.hideDots {
 }
 .homeBgDrk .showSubject h3 {
     color: #D9DADA !important;
+}
+.homeBgDrk .onlinSickCer span {
+    color: #7F8383 !important;
+}
+.homeBgDrk .emrgncyFrmInpt input {
+    background: transparent !important;
+    color: #BFC1C1 !important;
+}
+.homeBgDrk .mkFmlyDoc .css-yk16xz-control {
+    background: transparent;
 }
 /* End of dark screen css */
 
@@ -9140,7 +9156,7 @@ a.menuActv img {
     background-color: #FFFFFF;
     -webkit-box-shadow: 0 1px 8px 0 rgba(0,8,8,0.04);
     box-shadow: 0 1px 8px 0 rgba(0,8,8,0.04);
-    min-height: 150vh;
+    min-height: 135vh;
 }
 .docOpinionIner thead {
     border-bottom: 1px solid #D9DADA;
@@ -9282,6 +9298,7 @@ a.menuActv img {
     font-weight: 600;
     letter-spacing: 0;
     line-height: 23px;
+    margin-bottom: 0px !important;
 }
 .userAdresInfo {
     padding: 12px 24px 18px 24px;
@@ -13288,6 +13305,7 @@ button.CutomStripeButton span {
 /* For emergency */
 input.Mobile_extra.Emergency_number {
     height: 45px !important;
+    padding-left: 52px !important;
 }
 /*For emergency End*/
 /* For Second Opinion*/
@@ -13336,7 +13354,7 @@ a.activePageDocutmet {
     margin-top: 10px !important;
 }
 .Mobile_extra{
-    padding-left: 16% !important; 
+    padding-left: 20% !important; 
 }
 .SelectedGender{
     background-color: #00ABAF !important;
@@ -13465,7 +13483,6 @@ input:focus {
      right: 0px !important;
    }
   }
-
   .patietnRegister {
     max-height: calc(100vh - 200px);
     overflow: hidden;
@@ -13742,7 +13759,6 @@ td.docphrImg {
     display: flex;
     align-items: center;
 }
-
 .profilMenuList ul li .react-toggle-track {
     width: 37px;
     height: 18px;
@@ -13754,3 +13770,20 @@ td.docphrImg {
 .profilMenuList ul li .react-toggle--checked .react-toggle-thumb {
     left: 20px;
 }
+.MuiGrid-root.donarLang {
+    width: 100% !important;
+    max-width: 100%;
+    margin: 12px 0px;
+}
+.typeSel.comonSel .css-g1d714-ValueContainer {
+    display: block !important;
+    width: 100% !important;
+    overflow: initial !important;
+}
+.insureMe .MuiGrid-grid-xs-4:nth-child(2) {
+  text-align: center;
+}
+.insureMe .MuiGrid-grid-xs-4:last-child {
+    text-align: right;
+}
+

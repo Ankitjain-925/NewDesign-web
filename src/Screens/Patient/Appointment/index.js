@@ -1050,10 +1050,10 @@ getUpcomingAppointment() {
                                             <Grid container direction="row">
                                                 <Grid item xs={12} md={12}>
                                                     <Grid container direction="row">
-                                                        <Grid item xs={6} md={6}>
+                                                        <Grid item xs={12} sm={6} md={6}>
                                                             <h1>{appointments}</h1>
                                                         </Grid>
-                                                        <Grid item xs={6} md={6}>
+                                                        <Grid item xs={12} sm={6} md={6}>
                                                             <Grid className="arng_addEntrynw">
                                                                 {/* <a onClick={this.handleOpenFancy}>+ Arrange an appointment</a> */}
                                                                 <a onClick={this.handleAllowAccess}>+ {arrng_apointmnt}</a>

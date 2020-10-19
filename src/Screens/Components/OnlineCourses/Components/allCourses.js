@@ -35,6 +35,7 @@ class Index extends Component {
             loaderImage : false,
             addedWish : false,
             Allwishlist : [],
+            cartAlready: this.props.cartAlready
         };
     }
 
@@ -112,6 +113,10 @@ class Index extends Component {
     }
     //on getting filter and filter Accordingly
     componentDidUpdate = (prevProps) => {
+        if (prevProps.cartAlready !== this.props.cartAlready)
+        {
+            this.setState({cartAlready :this.props.cartAlready})
+        }
         if (prevProps.SelectedLanguage !== this.props.SelectedLanguage || prevProps.SelectedTopic !== this.props.SelectedTopic) {
            if(this.props.SelectedLanguage.value === 'All' && this.props.SelectedTopic.value === 'All')
            {
@@ -150,6 +155,7 @@ class Index extends Component {
                   {this.state.loaderImage && <Loader />}
 
                   {this.state.addedWish && <div className="success_message">Wishlist added successfully</div>}
+                  {this.state.cartAlready &&<div className="err_message">Cart Already exist</div>}
                  <Grid className="nwCoursName">
                     <h3>New Courses</h3>
                 </Grid>

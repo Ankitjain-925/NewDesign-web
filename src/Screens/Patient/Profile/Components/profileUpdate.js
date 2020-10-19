@@ -1162,6 +1162,7 @@ class Index extends Component {
                                         />
                                     </Grid>
                                 </Grid>
+                               
                                 <Grid className="editField">
                                     <label>{insurance} {company}</label>
                                     <Grid><input type="text" value={datas[editIndex] && datas[editIndex].insurance ? datas[editIndex] && datas[editIndex].insurance : ''} name="insurance" onChange={(event) => this.updatesinsurances(editIndex, event)} /></Grid>

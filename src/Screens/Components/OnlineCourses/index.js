@@ -61,6 +61,7 @@ class Index extends Component {
             addedCart : false,
             removeTrue: false,
             amount : 0,
+            cartAlready : false,
 
         };
     }
@@ -178,44 +179,52 @@ class Index extends Component {
             data._id = data.courseId;
         }
         var GetAllCart = this.state.AllCart;
-        let user_token = this.props.stateLoginValueAim.token
-        if(comeFrom == 'all'){
-            data.courseId = data._id;
-            delete data.isActive;
-            delete data.permission;
-        }
-        else {
-            data.courseId = data.courseId;
-            delete data.isActive;
-            delete data.permission;
-            delete data.wishlistAddedDate;
-            delete data.createdAt;
-            delete data.createdBy;
-        }
-        data.user_id = this.props.stateLoginValueAim.user._id;
-        data.user_profile_id = this.props.stateLoginValueAim.user.profile_id;
-        data.userName = this.props.stateLoginValueAim.user.first_name + this.props.stateLoginValueAim.user.last_name;
-        data.userType = this.props.stateLoginValueAim.user.type;
-        data.email = this.props.stateLoginValueAim.user.email;
-        delete data._id;
-        GetAllCart.push(data);
-        this.setState({loaderImage: true})
-        axios.post(sitedata.data.path + '/lms/addtocart', 
-        {   
-            user_id : this.props.stateLoginValueAim.user._id,
-            cartList : GetAllCart
-        },
+        var GetCart = GetAllCart && GetAllCart.length>0 && GetAllCart.filter((itm)=>itm.courseId===data.courseId)
+        if(!GetCart)
         {
-            headers: {
-                'token': user_token,
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
+            let user_token = this.props.stateLoginValueAim.token
+            if(comeFrom == 'all'){
+                data.courseId = data._id;
+                delete data.isActive;
+                delete data.permission;
             }
-        }).then(res => {
-             this.setState({addedCart : true, loaderImage: false})
-                setTimeout(()=>{ this.setState({addedCart : false}) }, 3000)
-                this.getAllCart();
-        }).catch(err => { })
+            else {
+                data.courseId = data.courseId;
+                delete data.isActive;
+                delete data.permission;
+                delete data.wishlistAddedDate;
+                delete data.createdAt;
+                delete data.createdBy;
+            }
+            data.user_id = this.props.stateLoginValueAim.user._id;
+            data.user_profile_id = this.props.stateLoginValueAim.user.profile_id;
+            data.userName = this.props.stateLoginValueAim.user.first_name + this.props.stateLoginValueAim.user.last_name;
+            data.userType = this.props.stateLoginValueAim.user.type;
+            data.email = this.props.stateLoginValueAim.user.email;
+            delete data._id;
+            GetAllCart.push(data);
+            this.setState({loaderImage: true})
+            axios.post(sitedata.data.path + '/lms/addtocart', 
+            {   
+                user_id : this.props.stateLoginValueAim.user._id,
+                cartList : GetAllCart
+            },
+            {
+                headers: {
+                    'token': user_token,
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                }
+            }).then(res => {
+                this.setState({addedCart : true, loaderImage: false})
+                    setTimeout(()=>{ this.setState({addedCart : false}) }, 3000)
+                    this.getAllCart();
+            }).catch(err => { })
+        }
+        else{
+            this.setState({cartAlready: true})
+            setTimeout(()=>{this.setState({cartAlready: false})}, 3000)
+        }
     }
 
     //For remove the Cart
@@ -579,7 +588,7 @@ class Index extends Component {
                         </Grid>
 
                         {value === 0 && <TabContainer>
-                             <AllCourses removeWishlist={this.removeWishlist} Allwishlist={this.state.Allwishlist} AddtoCard={this.AddtoCard} getAllwishlist={this.getAllwishlist} SelectedLanguage={this.state.SelectedLanguage} SelectedTopic={this.state.SelectedTopic} />
+                             <AllCourses  cartAlready={this.state.cartAlready}  removeWishlist={this.removeWishlist} Allwishlist={this.state.Allwishlist} AddtoCard={this.AddtoCard} getAllwishlist={this.getAllwishlist} SelectedLanguage={this.state.SelectedLanguage} SelectedTopic={this.state.SelectedTopic} />
                         </TabContainer>}
 
                         {value === 1 && <TabContainer>
