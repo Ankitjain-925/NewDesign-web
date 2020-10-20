@@ -848,7 +848,7 @@ class Index extends Component {
                                             <div>
                                                 {this.state.allTrack && this.state.allTrack.length > 0 ?
                                                     this.state.allTrack.map((item, index) => (
-                                                        <ViewTimeline OpenGraph={this.OpenGraph} comesfrom='patient' downloadTrack={(data) => this.downloadTrack(data)} images={this.state.images} DeleteTrack={(deleteKey) => this.DeleteTrack(deleteKey)} ArchiveTrack={(data) => this.ArchiveTrack(data)} EidtOption={(value, updateTrack, visibility) => this.EidtOption(value, updateTrack, visibility)} date_format={this.props.settings.setting.date_format} time_format={this.props.settings.setting.time_format} Track={item} from="patient" loggedinUser={this.state.cur_one} patient_gender={this.state.patient_gender} />
+                                                        <ViewTimeline OpenGraph={this.OpenGraph} comesfrom='patient' downloadTrack={(data) => this.downloadTrack(data)} images={this.state.images} DeleteTrack={(deleteKey) => this.DeleteTrack(deleteKey)} ArchiveTrack={(data) => this.ArchiveTrack(data)} EidtOption={(value, updateTrack, visibility) => this.EidtOption(value, updateTrack, visibility)} date_format={this.props.settings && this.props.settings.setting && this.props.settings.setting.date_format} time_format={this.props.settings.setting.time_format} Track={item} from="patient" loggedinUser={this.state.cur_one} patient_gender={this.state.patient_gender} />
                                                     ))
                                                     : <EmptyData />}
                                             </div>
@@ -866,7 +866,7 @@ class Index extends Component {
                                         <Modal
                                             open={this.state.addInqryNw}
                                             onClose={this.handleCloseInqryNw}
-                                            className="nwDiaModel">
+                                            className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode === 'dark' ?"darkTheme":""}>
                                             <Grid className="nwDiaCntnt">
                                                 <Grid className="nwDiaCntntIner">
                                                     <Grid className="nwDiaCourse">
@@ -965,14 +965,14 @@ class Index extends Component {
                                             </a>
                                         </Grid>
 
-                                        <RightManage OpenGraph={this.OpenGraph} date_format={this.props.settings.setting.date_format} time_format={this.props.settings.setting.time_format} from="patient" added_data={this.state.added_data} MoveDocument={this.MoveDocument} MoveAppoint={this.MoveAppoint} SelectOption={this.SelectOption} personalinfo={this.state.personalinfo} />
+                                        <RightManage OpenGraph={this.OpenGraph} date_format={this.props.settings && this.props.settings.setting && this.props.settings.setting.date_format} time_format={this.props.settings && this.props.settings.setting && this.props.settings.setting.time_format} from="patient" added_data={this.state.added_data} MoveDocument={this.MoveDocument} MoveAppoint={this.MoveAppoint} SelectOption={this.SelectOption} personalinfo={this.state.personalinfo} />
 
                                     </Grid>
                                     {/* End of Website Right Content */}
 
                                 </Grid>}
                             {this.state.isGraph &&
-                                <GraphView date_format={this.props.settings.setting.date_format} time_format={this.props.settings.setting.time_format} personalinfo={this.state.personalinfo} current_Graph={this.state.current_Graph} CloseGraph={this.CloseGraph} />
+                                <GraphView date_format={this.props.settings && this.props.settings.setting && this.props.settings.setting.date_format} time_format={this.props.settings && this.props.settings.setting && this.props.settings.setting.time_format} personalinfo={this.state.personalinfo} current_Graph={this.state.current_Graph} CloseGraph={this.CloseGraph} />
                             }
                         </Grid>
                     </Grid>

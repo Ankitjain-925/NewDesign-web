@@ -238,13 +238,10 @@ class Index extends Component {
                                     this.setState({ loaderImage: false });
                                     if (response.data.hassuccessed) {
                                         this.setState({ sentmessages: true });
-                                        setTimeout(
-                                            function () {
-                                                this.setState({ sentmessages: false });
-                                            }
-                                                .bind(this),
-                                            3000
-                                        );
+                                        setTimeout(() =>{
+                                            this.setState({ sentmessages: false });
+                                            this.handleCloseReq();
+                                        },3000);
                                     }
                                     else {
                                         this.setState({ ne: true });
@@ -302,8 +299,8 @@ class Index extends Component {
                                     },
                                         {
                                             headers: {
-                                                'appId': '15733dce3a73034',
-                                                'apiKey': '2f6b4a6b99868d7af0a2964d5f292abbb68e05a7',
+                                                'appId': '220824e717b58ac',
+                                                'apiKey': 'fc177a4e50f38129dca144f6270b91bfc9444736',
                                                 'Accept': 'application/json',
                                                 'Content-Type': 'application/json'
                                             }
@@ -439,7 +436,7 @@ class Index extends Component {
                     axios.delete('https://api-us.cometchat.io/v2.0/users/' + profileDetail.profile_id.toLowerCase(),
                         {
                             headers: {
-                                'appId': '15733dce3a73034',
+                                'appId': '220824e717b58ac',
                                 'apiKey': '44c13a774f7cf0a9809d0792dae638a9f74a6702',
                                 'Accept': 'application/json',
                                 'Content-Type': 'application/json'
@@ -871,7 +868,7 @@ class Index extends Component {
                                                             <Grid><input type="text" name="email" onChange={this.handleChange} /></Grid>
                                                         </Grid>
 
-                                                        <Grid className="registerRow passInstMain">
+                                                        <Grid className="registerRow passInstMain rlativeDiv">
                                                             <Grid><label>{Register_Password}</label></Grid>
                                                             <Grid className="registerPass">
                                                                 <input
@@ -890,11 +887,12 @@ class Index extends Component {
                                                                     </a>
                                                                 }
                                                             </Grid>
+
                                                             {userDetails && userDetails.password ?
                                                                 <div className="passInst">
                                                                     <div className="passInstIner">
                                                                         <p>{Register_Passwordshould}</p>
-                                                                        <img src={require('../../../assets/images/passArrow.png')} alt="" title="" className="passArow" />
+                                                                        {/* <img src={require('../../../assets/images/passArrow.png')} alt="" title="" className="passArow" /> */}
                                                                         <ul>
                                                                             <li>{userDetails && userDetails.password && userDetails.password.length > 8 && <a><img src={require('../../../assets/images/CheckCircle.svg')} alt="" title="" />{Register_characters}</a>}
                                                                                 {userDetails && userDetails.password && userDetails.password.length <= 8 && <a><img src={require('../../../assets/images/CloseCircle.svg')} alt="" title="" />{Register_characters}</a>}

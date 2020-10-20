@@ -180,8 +180,12 @@ class Index extends Component {
         }
         var GetAllCart = this.state.AllCart;
         var GetCart = GetAllCart && GetAllCart.length>0 && GetAllCart.filter((itm)=>itm.courseId===data.courseId)
-        if(!GetCart)
-        {
+        if(GetCart && GetCart.length>0)
+        { 
+            this.setState({cartAlready: true})
+            setTimeout(()=>{this.setState({cartAlready: false})}, 3000)
+        }
+        else{
             let user_token = this.props.stateLoginValueAim.token
             if(comeFrom == 'all'){
                 data.courseId = data._id;
@@ -221,10 +225,7 @@ class Index extends Component {
                     this.getAllCart();
             }).catch(err => { })
         }
-        else{
-            this.setState({cartAlready: true})
-            setTimeout(()=>{this.setState({cartAlready: false})}, 3000)
-        }
+       
     }
 
     //For remove the Cart

@@ -297,7 +297,8 @@ class Index extends Component {
 
         else {
             return (
-                <Grid>
+                <Grid className="loginSiteUpr">
+                   <Grid className="loginSite"> 
                     {this.state.loaderImage && <Loader />}
                     <Grid container direction="row" justify="center" alignItems="center">
                         <Grid item xs={11} md={10}>
@@ -408,6 +409,7 @@ class Index extends Component {
                         </Grid>
                     </Grid>
                 </Grid>
+              </Grid>  
             );
         }
     }

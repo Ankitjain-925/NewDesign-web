@@ -125,8 +125,8 @@ class Index extends Component {
                                                 },
                                                     {
                                                         headers: {
-                                                            'appId': '15733dce3a73034',
-                                                            'apiKey': '2f6b4a6b99868d7af0a2964d5f292abbb68e05a7',
+                                                            'appId': '220824e717b58ac',
+                                                            'apiKey': 'fc177a4e50f38129dca144f6270b91bfc9444736',
                                                             'Accept': 'application/json',
                                                             'Content-Type': 'application/json'
                                                         }
@@ -300,15 +300,15 @@ class Index extends Component {
         })
             .then((responce) => {
                 this.setState({ loaderImage: false, FilesUp: [] })
-                if (responce.data.hassuccessed === true) {
+                if (responce.data.hassuccessed) {
                     axios.post('https://api-us.cometchat.io/v2.0/users', {
                         uid: responce.data.data.profile_id,
                         name: responce.data.data.profile_id
                     },
                         {
                             headers: {
-                                'appId': '15733dce3a73034',
-                                'apiKey': '2f6b4a6b99868d7af0a2964d5f292abbb68e05a7',
+                                'appId': '220824e717b58ac',
+                                'apiKey': 'fc177a4e50f38129dca144f6270b91bfc9444736',
                                 'Accept': 'application/json',
                                 'Content-Type': 'application/json'
                             }
@@ -384,7 +384,8 @@ class Index extends Component {
 
 
         return (
-            <Grid>
+            <Grid className="loginSiteUpr">
+              <Grid className="loginSite"> 
                 {this.state.loaderImage && <Loader />}
                 <Grid container direction="row" justify="center" alignItems="center">
                     <Grid item xs={11} md={10}>
@@ -614,6 +615,7 @@ class Index extends Component {
                 </Grid>
                 {/* <Grid className="regFooter"><Footer /></Grid>   */}
             </Grid>
+        </Grid>    
         );
     }
 }

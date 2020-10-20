@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useLayoutEffect } from 'react';
 import Grid from '@material-ui/core/Grid';
 import NotesEditor from './../../Editor/index';
 import ShowHide from './../../ShowHide/index';
@@ -7,9 +7,11 @@ import MMHG from './../../mmHgField/index';
 import DateFormat from './../../DateFormat/index';
 import FileUploader from './../../FileUploader/index';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-
+import axios from 'axios';
+import sitedata from '../../../../sitedata';
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
+import { LoginReducerAim } from './../../../Login/actions';
 import { LanguageFetchReducer } from './../../../actions';
 import * as translationEN from "../../../../translations/en_json_proofread_13072020.json"
 class Index extends Component {
@@ -20,27 +22,74 @@ class Index extends Component {
             date_format : this.props.date_format,
             time_format : this.props.time_format,
             options : this.props.options,
+            allDocData1 : [],
+            MyDocList : [],
         };
     }
 
     componentDidMount = () => {
-
+        this.getAllDoc();
     }
 
+    getAllDoc=()=>{
+        const user_token = this.props.stateLoginValueAim.token;
+        axios.get(sitedata.data.path + '/UserProfile/DoctorUsersChat', {
+            headers: {
+                'token': user_token,
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        }).then((response) => {
+            var images = [], Reccimages = [];
+            this.setState({ allDocData1: response.data.data })
+        })
+    }
     //on adding new data
     componentDidUpdate = (prevProps) => {
         if (prevProps.updateTrack !== this.props.updateTrack) {
             this.setState({ updateTrack: this.props.updateTrack })
         }
-
     }
-    
+
     updateEntryState1=(value, name)=>{
+        if(name === 'diagnosed_by')
+        {
+            this.search_user(value);
+        }
         var state= this.state.updateTrack
         state[name] = value;
         this.setState({updateTrack: state})
         this.props.updateEntryState1(value, name)
     }
+
+    updateEntryState2=(value, name)=>{
+        var User_name = '';
+        if(value.last_name){ User_name = value.first_name +' '+value.last_name; }
+        else{ User_name = value.first_name; }
+        var state= this.state.updateTrack
+        state[name] = User_name
+        this.setState({updateTrack: state,  MyDocList: [] })
+        this.props.updateEntryState1(User_name, name)
+    }
+    
+    search_user = (event)=> {
+        let serach_value = this.SearchUser(event, this.state.allDocData1)
+        this.setState({ MyDocList: serach_value })
+    }
+
+    SearchUser = (searchKey, searchInto) => {
+        return searchInto.filter(user => {
+            searchKey = searchKey.toLowerCase()
+            let name = `${user.first_name} ${user.last_name}`
+            name = name.toLowerCase().search(searchKey)
+            if (name > -1) {
+                return user
+            }
+            else {
+                return false
+            }
+        })
+    };
 
     render() {
         let translate;
@@ -74,8 +123,8 @@ class Index extends Component {
         }
         let {slct_ICD_serch_code, when, to , enter_code_serch_by_keyword,  dignose, of, until, archive, rr_systolic, attachments, time_measure, date_measure,
             date, time }= translate
-        
-        return (
+        let {MyDocList} = this.state;
+        return ( 
             <div>
                  {!this.props.visibility && <Grid className="cnfrmDiaMain">
                     
@@ -116,7 +165,7 @@ class Index extends Component {
                     </Grid>}
                         
                     <Grid className="fillDia">
-                        <MMHG name="diagnosis" label="Enter Diagnosis" onChange={(e)=> this.props.updateEntryState(e)} value={this.state.updateTrack.diagnosis}/>    
+                        <MMHG name="diagnosis" label="Enter Diagnosis" onChange={(e)=> this.props.updateEntryState(e)} value={this.state.updateTrack.diagnosis}/> 
                     </Grid>
                     <Grid className="diaCD">
                         <Grid><label>{slct_ICD_serch_code}</label></Grid>
@@ -184,18 +233,23 @@ class Index extends Component {
                         </Grid>   
                     </Grid>
                     <Grid className="fillDia">
-                        <MMHG name="diagnosed_by" label="Diagnosed by" onChange={(e)=> this.props.updateEntryState(e)} value={this.state.updateTrack.diagnosed_by}/>    
+                        <MMHG name="diagnosed_by" label="Diagnosed by" onChange={(e)=> this.updateEntryState1(e.target.value, 'diagnosed_by')} value={this.state.updateTrack.diagnosed_by}/>    
+                        {console.log('this.state.updateTrack.diagnosed_by', this.state.updateTrack.diagnosed_by)}
+                        <ul className="insuranceHint1" style={{display : MyDocList.length>0 ? 'block' : 'none'}}>
+                        {MyDocList && MyDocList.length>0 && MyDocList.map((t)=>(
+                            <li onClick={()=>this.updateEntryState2(t, 'diagnosed_by')} value={`${t.first_name} ${t.last_name}`}>{t.first_name && t.first_name} {t.last_name && t.last_name}</li>
+                        ))}
+                        </ul>
                     </Grid>
                     <Grid className="attchForms attchImg">
                         <Grid><label>{attachments}</label></Grid>
-                        <FileUploader name="UploadTrackImageMulti" comesFrom="journal"isMulti={true} fileUpload={this.props.FileAttachMulti} />
+                        <FileUploader name="UploadTrackImageMulti" comesFrom="journal" isMulti={true} fileUpload={this.props.FileAttachMulti} />
                     </Grid>
                     <Grid className="fillDia">
                         <NotesEditor name="remarks" label="Notes"  onChange={(e)=> this.updateEntryState1(e, 'remarks')} value={this.state.updateTrack.remarks}/> 
                     </Grid>
                 </Grid>}
                 <Grid className="infoShwHidMain3upr">
-                    
                 <ShowHide date_format= {this.state.date_format} value={this.state.updateTrack} onChange={(data) => this.props.GetHideShow(data)}/>
                     <Grid className="infoShwSave3">
                         <input type="submit" value="Save entry" onClick={this.props.AddTrack}/>
@@ -208,9 +262,12 @@ class Index extends Component {
 
 const mapStateToProps = (state) => {
     const { stateLanguageType } = state.LanguageReducer;
+    const { stateLoginValueAim, loadingaIndicatoranswerdetail } = state.LoginReducerAim;
    
     return {
         stateLanguageType,
+        stateLoginValueAim,
+        loadingaIndicatoranswerdetail,
     }
 };
 export default withRouter(connect(mapStateToProps, {  LanguageFetchReducer })(Index));

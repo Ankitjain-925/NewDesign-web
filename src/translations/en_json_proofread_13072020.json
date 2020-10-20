@@ -872,7 +872,7 @@
 		"Rejected": "Rejected",
 		"Answered": "Answered",
 		"Cancelled": "Cancelled",
-		"req_updated_successfully": "Request updated Sucessfully",
+		"req_updated_successfully": "Request updated Successfully",
 		"Case": "Case",
 		"again": "again",
 		"modify": "Modify",
@@ -945,7 +945,7 @@
 		"how_wuld_u_like_rcv_scnd_openion": "How would you like to receive the Second Opinion",
 		"ur_profesion": "Your profession",
 		"attachments": "Attachments",
-		"rqst_sent_succefully": "Request sent Sucessfully",
+		"rqst_sent_succefully": "Request sent Successfully",
 		"archive_journal": "Archive Journal",
 		"archive": "Archive",
 		"about": "About",
@@ -1228,6 +1228,7 @@
 		"enter_patient_email_id":"Enter patients email or ID",
 		"Ask":"Ask",
 		"new_patient":"New Patient",
-		"add_new_patient_in_list":"Add new patient in your list"
+		"add_new_patient_in_list":"Add new patient in your list",
+		"succ1" : "The mail is sent to the patient"
 	}
 }

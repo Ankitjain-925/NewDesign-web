@@ -350,15 +350,14 @@ class Index extends Component {
                     }
                 })
                 .then((response) => {
-                    console.log("response.....", response)
                     this.setState({
                         radius: '', name: '', addtopatientlist: false, isfileupload: false, fileattach: {}, loaderImage: false, newEntry: { patient_id: '', pharmacy_id: '' }, isadded: true
                     })
                     setTimeout(
-                        function () {
+                         () => {
                             this.setState({ isadded: false });
-                        }
-                            .bind(this),
+                            this.handleClosePharma();
+                        },
                         3000
                     );
 

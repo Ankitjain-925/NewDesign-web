@@ -1991,7 +1991,7 @@ a.profilMenu {
         overflow-x: scroll !important;
     }
     .MuiTabs-fixed::-webkit-scrollbar{
-        height: 5px;
+        height: 3px;
     }
     .MuiTabs-fixed::-webkit-scrollbar-track{
         background: #fff;
@@ -2010,6 +2010,27 @@ a.profilMenu {
     .syncRght {
         display: block !important;
         margin-bottom: 8px !important;
+    }
+    .mkFmlyDoc .css-g1d714-ValueContainer {
+        padding: 15px 6px !important;
+    }
+    .scndOpinionIner tbody tr {
+        border-bottom: 1px solid #000 !important;
+        margin-bottom: 10px !important;
+    }
+    .add_wishList {
+        display: block !important;
+    }
+    .lessonTitleVdo video.VideoPlay {
+        width: 100% !important;
+    }
+    .enableTogle {
+        text-align: left !important;
+        margin-top: 10px !important;
+    }
+    .alowLocAces {
+        height: 440px;
+        overflow-y: scroll;
     }
 }
 @media (max-width: 992px){ 
@@ -3356,6 +3377,7 @@ a.profilMenu {
     letter-spacing: 0;
     line-height: 16px;
     margin-top: 9px;
+    text-align: center;
 }
 .showSpcial img {
     height: 14px;
@@ -7522,6 +7544,24 @@ a.vsblDots, a.conPainDots, a.bp_vsblDots, a.hideDots {
 }
 .homeBgDrk .mkFmlyDoc .css-yk16xz-control {
     background: transparent;
+}
+
+.homeBgDrk .loginSite {
+    background: #192020;
+}
+.homeBgDrk .loginSite .logData h1, .homeBgDrk .loginSite .regData h1 {
+    color: #00ABAF !important;
+}
+.homeBgDrk .loginSite .logForm, .homeBgDrk .loginSite .registerForm {
+    background: #404646;
+    background-color: #404646;
+}
+.homeBgDrk .loginSite .logForm label, .homeBgDrk .loginSite p.regOnlog, .homeBgDrk .loginSite .registerForm label,
+.homeBgDrk .loginSite .regMob span, .homeBgDrk .loginSite .havAC p {
+    color: #BFC1C1 !important;
+}
+.homeBgDrk .loginSite .logFrgtpass label {
+    color: #00ABAF !important;
 }
 /* End of dark screen css */
 
@@ -11841,7 +11881,7 @@ span.srchMobIcon img {
   .descpCntntMain {
     padding-left: 0px;
   }
-  .MenuLeftUpr, .srchFilter {
+  .MenuLeftUpr {
     display: none;
   }
   .MenuMob, .filterMob {
@@ -12960,6 +13000,27 @@ a.academy_ul ul li img {
 
 
 /*Added By ankita*/
+.rlativeDiv .passInst {
+    position: relative!important;
+    top: 11px !important;
+    right: 0px !important;
+}
+ul.insuranceHint1 {
+    z-index: 9;
+    padding-left: 0px;
+    border-radius: 7px;
+    box-shadow: 0 0px 0px 0 rgba(0, 0, 0, 0.2), 0 0px 13px 0 rgba(0, 0, 0, 0.19);
+    overflow: auto;
+    background: #fff;
+    margin-top: 5px;
+    padding: 3px 0px;
+}
+ul.insuranceHint1 li {
+    padding: 8px 5px 8px 12px;
+}
+.rlativeDiv{
+    position : relative;
+}
 .darkTheme .painIntencty input[type=range] {
     background: #404646!important;
 }
@@ -13786,4 +13847,32 @@ td.docphrImg {
 .insureMe .MuiGrid-grid-xs-4:last-child {
     text-align: right;
 }
-
+.daySchedule .ant-picker, .nameSchedule .ant-picker {
+    margin-bottom: 0px !important;
+    width: 100% !important;
+    border: 1px solid #dfdfdf;
+    padding: 4px 2px 1px;
+}
+.daySchedule .ant-picker-clear {
+    position: absolute;
+    top: 36%;
+    right: -10px;
+}
+.nameSchedule .ant-picker-clear {
+    position: absolute;
+    top: 36%;
+    right: -43px;
+}
+.enableTogle .enblDate span {
+    padding: 0px !important;
+}
+label.attached_file a {
+    line-height: 18px;
+}
+.homeBgDrk .latestGrph rect.highcharts-background {
+    fill: #000 !important;
+}
+.srchFilter .css-yk16xz-control {
+    background-color: transparent !important;
+    background: transparent !important;
+}

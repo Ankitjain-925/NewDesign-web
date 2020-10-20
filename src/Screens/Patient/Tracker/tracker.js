@@ -110,7 +110,7 @@ class Index extends Component {
             .catch(error =>{})
     }
 
-    backDate = (backmonth = 3) => {
+    backDate = (backmonth = 6) => {
         let today = new Date(Date.now());
         let month, day, date, year;
         year = today.getFullYear();

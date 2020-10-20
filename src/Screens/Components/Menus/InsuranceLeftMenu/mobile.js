@@ -146,7 +146,7 @@ class Index extends Component {
                     </Menu>
                 </Grid>
                 <Grid item xs={6} md={6} sm={6} className="MenuMobRght">
-                    <a href="/"><img src={require('../../../../assets//images/logo_new.png')} alt="" title="" /></a>
+                    <a><img src={require('../../../../assets//images/logo_new.png')} alt="" title="" /></a>
                 </Grid>
             </Grid>
             {/* For set the language  */}

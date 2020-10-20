@@ -18,6 +18,12 @@ class MMHG extends Component {
         this.props.onChange(e);
     };
 
+    componentDidUpdate = (prevProps) => {
+        if (prevProps.value !== this.props.value) {
+            this.setState({ value: this.props.value })
+        }
+    }
+
     componentDidMount = () => {
 
     }

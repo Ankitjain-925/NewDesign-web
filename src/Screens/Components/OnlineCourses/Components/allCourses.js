@@ -186,11 +186,11 @@ class Index extends Component {
                             </Grid>
                             <Grid className="add_wishList">
                                 <Grid container direction="row" alignItems="center">
-                                    <Grid item xs={12} md={9}>
+                                    <Grid item xs={10} md={9}>
                                         <Grid className="nwCoursCrt"><a onClick={()=>this.props.AddtoCard(item, 'all')}>Add to cart</a></Grid>
                                     </Grid>
                                     
-                                    <Grid item xs={12} md={3}>
+                                    <Grid item xs={2} md={3}>
                                         <Grid className="nwCoursCrtRght">
                                             {this.state.Allwishlist.some(Wish => Wish.courseId === item._id) ? <a onClick={()=>{this.removeWishlist(item)}}><img src={require('../../../../assets/images/fillWish.png')} alt="" title="" /></a>
                                             : <a onClick={()=>this.AddtoWishtlist(item)}><img src={require('../../../../assets/images/wishlist.png')} alt="" title="" /></a>}
@@ -271,10 +271,10 @@ class Index extends Component {
                             </Grid>
                             <Grid className="add_wishList">
                                 <Grid container direction="row" alignItems="center">
-                                    <Grid item xs={12} md={9}>
+                                    <Grid item xs={10} md={9}>
                                         <Grid className="nwCoursCrt"><a onClick={()=>this.props.AddtoCard(item, 'all')}>Add to cart</a></Grid>
                                     </Grid>
-                                    <Grid item xs={12} md={3}>
+                                    <Grid item xs={2} md={3}>
                                         <Grid className="nwCoursCrtRght">
                                             {this.state.Allwishlist.some(Wish => Wish.courseId === item._id)  ? <a onClick={()=>{this.removeWishlist(item)}}><img src={require('../../../../assets/images/fillWish.png')} alt="" title="" /></a> 
                                             : <a><img onClick={()=>this.AddtoWishtlist(item)} src={require('../../../../assets/images/wishlist.png')} alt="" title="" /></a>}

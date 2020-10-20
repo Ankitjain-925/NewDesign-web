@@ -178,7 +178,7 @@ class Index extends Component {
                     </Menu>
                 </Grid>
                 <Grid item xs={6} md={6} sm={6} className="MenuMobRght">
-                    <a href="/"><img src={require('../../../../assets//images/logo_new.png')} alt="" title="" /></a>
+                    <a><img src={require('../../../../assets//images/logo_new.png')} alt="" title="" /></a>
                 </Grid>
             </Grid>
             <SetLanguage openFancyLanguage={this.state.openFancyLanguage} languageValue={this.state.languageValue} handleCloseFancyLanguage={this.handleCloseFancyLanguage} openLanguageModel={this.openLanguageModel}/>

@@ -233,14 +233,16 @@ class Index extends Component {
                     </Menu>
                 </Grid>
                 <Grid item xs={6} md={6} sm={6} className="MenuMobRght">
-                    <a href="/"><img src={require('../../../../assets//images/logo_new.png')} alt="" title="" /></a>
+                    <a><img src={require('../../../../assets//images/logo_new.png')} alt="" title="" /></a>
                 </Grid>
             </Grid>
               {/* Model setup */}
               <DoctorInviteModal openInvt={this.state.openInvt} handleOpenInvt={this.handleOpenInvt} handleCloseInvt={this.handleCloseInvt} />
                 {/* End of Model setup */}
                 {/* Pharmacy Prescription */}
+                {this.state.openPharma &&
                 <PharamacyModal openPharma={this.state.openPharma} handleOpenPharma={this.handleOpenPharma} handleClosePharma={this.handleClosePharma} />
+                }
                 {/* End of Pharmacy Prescription */}
                 {/* For set the language  */}
                 <SetLanguage openFancyLanguage={this.state.openFancyLanguage} languageValue={this.state.languageValue} handleCloseFancyLanguage={this.handleCloseFancyLanguage} openLanguageModel={this.openLanguageModel}/>

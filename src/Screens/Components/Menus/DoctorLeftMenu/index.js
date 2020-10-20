@@ -168,7 +168,7 @@ class Index extends Component {
             <Grid item xs={12} md={1} className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode && this.props.settings.setting.mode==='dark' ? "MenuLeftUpr MenuLeftDrkUpr" : "MenuLeftUpr"}>
                 {!this.props.isNotShow && <Notification />}
                 <Grid className="webLogo">
-                    <a href="/"><img src={require('../../../../assets/images/logo_new.png')} alt="" title="" /></a>
+                    <a><img src={require('../../../../assets/images/logo_new.png')} alt="" title="" /></a>
                 </Grid>
                 <Grid className="menuItems">
                     <ul>
@@ -244,7 +244,9 @@ class Index extends Component {
                 <DoctorInviteModal openInvt={this.state.openInvt} handleOpenInvt={this.handleOpenInvt} handleCloseInvt={this.handleCloseInvt} />
                 {/* End of Model setup */}
                 {/* Pharmacy Prescription */}
-                <PharamacyModal openPharma={this.state.openPharma} handleOpenPharma={this.handleOpenPharma} handleClosePharma={this.handleClosePharma} />
+                {this.state.openPharma &&
+                    <PharamacyModal openPharma={this.state.openPharma} handleOpenPharma={this.handleOpenPharma} handleClosePharma={this.handleClosePharma} />
+                }
                 {/* End of Pharmacy Prescription */}
                 {/* For set the language  */}
                 <SetLanguage openFancyLanguage={this.state.openFancyLanguage} languageValue={this.state.languageValue} handleCloseFancyLanguage={this.handleCloseFancyLanguage} openLanguageModel={this.openLanguageModel}/>

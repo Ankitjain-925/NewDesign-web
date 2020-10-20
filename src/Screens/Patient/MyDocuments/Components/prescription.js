@@ -307,14 +307,15 @@ class Index extends Component {
                             <h4>{Medicine} {inquiry}</h4>
                                         <Grid><label>{Medicine} / {Substance}</label></Grid>
                                         <Grid>
-                                            <Select
+                                        <input type="text" name="medication" value={this.state.AddPrescription.medication} onChange={this.AddState} />
+                                            {/* <Select
                                                 value={this.state.selectedSub}
                                                 onChange={(e) => this.eventnameSetP('medication', e)}
                                                 options={specialistOptions}
                                                 placeholder="Select"
                                                 isSearchable={false}
                                                 isMulti={false}
-                                            />
+                                            /> */}
                                         </Grid>
                                     </Grid>
 
@@ -461,7 +462,7 @@ class Index extends Component {
                                         </Grid>
                                     </Grid> */}
                                     <Grid className="infoShwSave2">
-                                        <input type="submit" onClick={this.handleCloseShowSick} value="Cancel details" />
+                                        <input type="submit" onClick={this.handleCloseShowSick} value="Close details" />
                                     </Grid>
                                 </Grid>
                             </Grid>

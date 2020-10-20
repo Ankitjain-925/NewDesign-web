@@ -43,7 +43,7 @@ class Index extends Component {
                                 {/* Website Menu */}
                                 <Grid item xs={12} md={1} className="MenuLeftUpr">
                                     <Grid className="webLogo">
-                                        <a href="/"><img src={require('../../assets/images/logo_new.png')} alt="" title="" /></a>
+                                        <a><img src={require('../../assets/images/logo_new.png')} alt="" title="" /></a>
                                     </Grid>
                                     <Grid className="menuItems">
                                         <ul>

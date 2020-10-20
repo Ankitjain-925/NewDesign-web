@@ -148,7 +148,8 @@ class Index extends Component {
         let { Register_email, forget_password, plz_enter_valid_email } = translate
 
         return (
-            <Grid>
+          <Grid className="loginSiteUpr">
+            <Grid className="loginSite"> 
                 {this.state.loaderImage && <Loader />}
                 <Grid container direction="row" justify="center" alignItems="center">
                     <Grid item xs={11} md={10}>
@@ -213,6 +214,7 @@ class Index extends Component {
                     </Grid>
                 </Grid>
             </Grid>
+          </Grid>   
         );
     }
 }

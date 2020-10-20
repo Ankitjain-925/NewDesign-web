@@ -189,17 +189,17 @@ class Index extends Component {
                                         <Grid className="presPkgIner2">
 
                                             {value === 0 && <TabContainer>
-                                                {this.state.successfullsent && <div className="success_message">Request sent Sucessfully</div>}
+                                                {this.state.successfullsent && <div className="success_message">Request sent Successfully</div>}
                                                 <PrecriptionList newItem={this.state.newItemp} myData ={ this.state.myData}/>
                                             </TabContainer>}
 
                                             {value === 1 && <TabContainer>
-                                                {this.state.successfullsent1 && <div className="success_message">Request sent Sucessfully</div>}
+                                                {this.state.successfullsent1 && <div className="success_message">Request sent Successfully</div>}
                                                 <SickCertificateList  newItem={this.state.newItemp} myData ={ this.state.myData}/>
                                                 </TabContainer>}
 
                                             {value === 2 && <TabContainer>
-                                                {this.state.successfullsent1 && <div className="success_message">Request sent Sucessfully</div>}
+                                                {this.state.successfullsent1 && <div className="success_message">Request sent Successfully</div>}
                                                 <SecondOpinion  newItem={this.state.newItemp} myData ={ this.state.myData}/>
                                             </TabContainer>}
 
