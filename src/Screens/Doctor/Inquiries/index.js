@@ -220,7 +220,6 @@ const mapStateToProps = (state) => {
     const { stateLoginValueAim, loadingaIndicatoranswerdetail } = state.LoginReducerAim;
     const { stateLanguageType } = state.LanguageReducer;
     const { settings } = state.Settings;
-    console.log("stateLoginValueAim", stateLoginValueAim)
     // const { Doctorsetget } = state.Doctorset;
     // const { catfil } = state.filterate;
     return {

@@ -590,7 +590,7 @@ class Index extends Component {
 
             this.setState({ UpDataDetails: response.data.data, city: response.data.data.city, area: response.data.data.area, profile_id: response.data.data.profile_id });
             this.setState({ speciality_multi:  response.data.data.speciality, subspeciality_multi:  subspeciality_m })
-            console.log("response.data.data.subspeciality :", response.data.data.subspeciality )
+
             this.setState({ name_multi: language, title: title })
             this.setState({
                 insurancefull: this.state.UpDataDetails.insurance,

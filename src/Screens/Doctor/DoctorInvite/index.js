@@ -137,7 +137,7 @@ class Index extends Component {
         else {
             state['emails'] = []
         }
-        console.log("value", value)
+
         // if(state['emails']){state['emails'] = value}
 
         this.setState({ value, invitation: state });

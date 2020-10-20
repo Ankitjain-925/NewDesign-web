@@ -100,7 +100,7 @@ class Index extends Component {
             }
         })
         .then((response) => {
-            console.log('responce', response)
+           
             if(response && response.data.hassuccessed){
                 this.setState({PassDone:true})
             }

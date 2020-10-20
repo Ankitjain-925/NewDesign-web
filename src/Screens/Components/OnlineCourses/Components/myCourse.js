@@ -243,7 +243,7 @@ class Index extends Component {
                 {this.state.MyCourse && this.state.MyCourse.length>0 && this.state.MyCourse.map((item, index)=>(
                     <Grid item xs={12} md={4}>
                         <Grid className="courseList">
-                        {console.log('item.rating', item.rating)}
+              
                             <Grid className="courseListLbl"><label>{item.courseTitle}</label></Grid>
                             <Grid className="courseListInr">
                                 <Grid className="courseListPara">

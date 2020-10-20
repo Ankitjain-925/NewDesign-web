@@ -221,7 +221,7 @@ class Index extends Component {
                                 <Grid className="vsblAllTim">
                                     <Grid container direction="row" alignItems="center">
                                         <Grid item xs={12} md={8}>
-                                        {console.log('sds',this.props.settings.setting.date_format)}
+                                        
                                         <DateFormat name="opt_until" value={this.state.opt_until? new Date(this.state.opt_until) : new Date()} onChange={this.onChange} date_format={this.props.settings.setting && this.props.settings.setting.date_format} onChange={this.onChange} />
                                         {/* <DateFormat value={this.state.opt_until ? new Date(this.state.opt_until) : new Date()} onChange={this.onChange} date_format={this.props.settings.setting && this.props.settings.setting.date_format} name="opt_until" value={this.updateDatetime()} onChange={(date) => { this.setState({ opt_until: date }) }} /> */}
                                             {/* <TextField

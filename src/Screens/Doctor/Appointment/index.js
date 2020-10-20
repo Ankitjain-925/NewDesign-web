@@ -237,11 +237,11 @@ class Index extends Component {
                 }
             })
             .then((response) => {
-                console.log("response", response)
+         
                 let newAppoint = []
                 if (response.data.hassuccessed) {
                     response.data.data.map(d1 => {
-                        console.log("d1", d1)
+                     
                         if (d1.start_time) {
                             var t1 = d1.start_time.split(":");
                         }
@@ -320,7 +320,7 @@ class Index extends Component {
         }).then((response) => {
             this.getAppoinment();
         }).catch((error) => {
-            console.log(error);
+     
         });
     }
 
@@ -371,7 +371,7 @@ class Index extends Component {
             }
         })
 
-        console.log("appoinmentSelected.appointment_type", appoinmentSelected.appointment_type)
+
         if (appoinmentSelected.appointment_type == types[2]) {
             statemanger = 'onlineAppointments'
         }
@@ -491,7 +491,7 @@ class Index extends Component {
     }
 
     CallEvents = (event) => {
-        console.log("event", event)
+
         var user_token = this.props.stateLoginValueAim.token;
         let Month = event.start.getMonth() + 1;
         let date = Month + '-' + event.start.getDate() + '-' + event.start.getFullYear();
@@ -586,7 +586,7 @@ class Index extends Component {
         let suggestTime = [];
         let dateFormat = moment(date).format('DD/MM/YYYY');
         let statemanger = 'onlineAppointments';
-        console.log("appoinmentSelected.appointment_type", appoinmentSelected.appointment_type)
+
         if (appoinmentSelected.appointment_type == types[2]) {
             statemanger = 'onlineAppointments'
         }
@@ -633,7 +633,7 @@ class Index extends Component {
     }
 
     selectTimeSlot = (index) => {
-        console.log("index", index)
+
         this.setState({ currentSelected: index })
     }
 

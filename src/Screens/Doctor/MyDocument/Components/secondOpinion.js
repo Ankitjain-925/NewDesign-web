@@ -62,7 +62,7 @@ class Index extends Component {
                     var find = item && item.profile_image && item.profile_image
                     if (find) {
                         var find1 = find.split('.com/')[1]
-                        console.log('find', find)
+                      
                         axios.get(sitedata.data.path + '/aws/sign_s3?find=' + find1,)
                             .then((response2) => {
                                 if (response2.data.hassuccessed) {
@@ -73,7 +73,7 @@ class Index extends Component {
                             })
                     }
                 })
-                console.log("response.data.data", response.data.data)
+               
                 // this.setState({ MypatientsData: response.data.data });
                 var totalPage = Math.ceil(response.data.data.length / 10);
                 this.setState({ AllPres: response.data.data, loaderImage: false, totalPage: totalPage, currentPage: 1 },
@@ -171,7 +171,7 @@ class Index extends Component {
             let fileParts = event.target.files[i].name.split('.');
             let fileName = fileParts[0];
             let fileType = fileParts[1];
-            console.log('fileType', fileType)
+
             if (fileType === 'pdf' || fileType === 'jpeg' || fileType === 'png' || fileType === 'jpg' || fileType === 'svg') {
                 axios.post(sitedata.data.path + '/aws/sign_s3', {
                     fileName: fileName,
@@ -194,12 +194,11 @@ class Index extends Component {
                                 .bind(this),
                             3000
                         );
-                        console.log('data', response)
+                  
                         var returnData = response.data.data.returnData;
                         var signedRequest = returnData.signedRequest;
                         var url = returnData.url;
-                        console.log("Recieved a signed request " + signedRequest);
-
+                       
                         // Put the fileType in the headers for the upload
                         var options = {
                             headers: {
@@ -208,15 +207,15 @@ class Index extends Component {
                         };
                         axios.put('https://cors-anywhere.herokuapp.com/' + signedRequest, file1, options)
                             .then(result => {
-                                console.log("Response from s3")
+
                                 this.setState({ success: true });
                             })
                             .catch(error => {
-                                console.log("ERROR " + JSON.stringify(error));
+
                             })
                     })
                     .catch(error => {
-                        console.log(JSON.stringify(error));
+                       
                     })
             }
             else {

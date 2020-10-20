@@ -72,7 +72,7 @@ class Index extends Component {
                 }
             }).then((response) => {
                 if (response.data.data) {
-                    console.log("response.data.data: ", response.data)
+
                     this.setState({ personalinfo: response.data.fulldata, loaderImage: false }, () => {
                         if (this.state.personalinfo.attachment && this.state.personalinfo.attachment.length > 0) {
                             var KYC_ID = this.state.personalinfo.attachment && this.state.personalinfo.attachment.length > 0 && this.state.personalinfo.attachment[0] && this.state.personalinfo.attachment[0].file && this.state.personalinfo.attachment[0].file

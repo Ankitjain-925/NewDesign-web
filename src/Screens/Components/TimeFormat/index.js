@@ -14,7 +14,7 @@ class Time extends Component {
 
     //On Time Change 
     onTimeChange = (time) => {
-        console.log("doc1@gmail.com", time)
+    
         this.setState({ value: time });
         this.props.onChange(time);
     };

@@ -74,7 +74,7 @@ class Index extends Component {
                             })
                     }
                 })
-                console.log("response.data.data", response.data.data)
+                
                 // this.setState({ MypatientsData: response.data.data });
                 var totalPage = Math.ceil(response.data.data.length / 10);
                 this.setState({ AllPres: response.data.data, loaderImage: false, totalPage: totalPage, currentPage: 1 },
@@ -162,7 +162,7 @@ class Index extends Component {
             let fileParts = event.target.files[i].name.split('.');
             let fileName = fileParts[0];
             let fileType = fileParts[1];
-            console.log('fileType', fileType)
+           
             if (fileType === 'pdf' || fileType === 'jpeg' || fileType === 'png' || fileType === 'jpg' || fileType === 'svg') {
                 this.setState({loaderImage: true})
                 axios.post(sitedata.data.path + '/aws/sign_s3', {
@@ -186,11 +186,11 @@ class Index extends Component {
                                 .bind(this),
                             3000
                         );
-                        console.log('data', response)
+
                         var returnData = response.data.data.returnData;
                         var signedRequest = returnData.signedRequest;
                         var url = returnData.url;
-                        console.log("Recieved a signed request " + signedRequest);
+                        
 
                         // Put the fileType in the headers for the upload
                         var options = {
@@ -200,17 +200,17 @@ class Index extends Component {
                         };
                         axios.put('https://cors-anywhere.herokuapp.com/' + signedRequest, file1, options)
                             .then(result => {
-                                console.log("Response from s3")
+
                                 this.setState({ success: true,loaderImage: false });
                             })
                             .catch(error => {
                                 this.setState({ success: false,loaderImage: false });
-                                console.log("ERROR " + JSON.stringify(error));
+                              
                             })
                     })
                     .catch(error => {
                         this.setState({ success: false,loaderImage: false });
-                        console.log(JSON.stringify(error));
+                      
                     })
             }
             else {

@@ -29,9 +29,9 @@ class Autocomplete extends React.Component {
   }
   
   componentDidUpdate = (prevProps) => {
-    console.log(this.props.value, 'this.props.value')
+
     if (prevProps.value !== this.props.value) {
-      console.log(this.props.value, 'this.props.value11')
+      
        this.setState({city : this.props.value})
     }
 }
@@ -67,7 +67,7 @@ class Autocomplete extends React.Component {
     // }
     return (
       <div>
-      {console.log('this.state.value', this.state.city)}
+     
       <input
         ref={this.autocompleteInput}
         id="searchCity"

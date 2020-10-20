@@ -42,7 +42,7 @@ class Index extends Component {
             this.setState({ updateTrack: this.props.updateTrack })
         }
         if (prevProps.addInqryNw !== this.props.addInqryNw) {
-            console.log('Here')
+      
             this.setState({addInqryNw : this.props.addInqryNw})
          }
     }

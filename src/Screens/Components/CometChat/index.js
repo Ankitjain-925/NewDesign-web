@@ -19,14 +19,11 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    console.log('this.props.Uid', this.props.Uid)
     CometChat.getLoggedinUser().then(user => {
       if(user) {
-        console.log('hwwww')
         this.setState({isLoggedin : true})
         this.props.getLoggedinUser();
       } else {
-        console.log('ttttt')
         setTimeout(()=>{this.setState({isLoggedin : true})},3000)
         this.props.onLogin(this.props.Uid, COMETCHAT_CONSTANTS.AUTH_KEY);
       }

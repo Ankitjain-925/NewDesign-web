@@ -286,7 +286,7 @@ class Index extends Component {
     }
     // Search by City
     showPlaceDetails(place) {
-        console.log("place", place)
+      
         place = place.geometry.location
         this.setState({ place });
         this.setState({ mLatitude: place.lat() });

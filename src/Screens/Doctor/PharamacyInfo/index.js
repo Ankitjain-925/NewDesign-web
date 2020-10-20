@@ -104,7 +104,7 @@ class Index extends Component {
     }
     findByName = (e) => {
         let newEntry = this.state.newEntry;
-        console.log("newEntry", newEntry)
+      
         if (newEntry.pharmacy_id) {
             newEntry.pharmacy_id = ''
         }
@@ -112,7 +112,7 @@ class Index extends Component {
     }
     getName = () => {
         var user_token = this.props.stateLoginValueAim.token;
-        console.log("this.state.name", this.state.name)
+       
         if (this.state.name && this.state.name !== '') {
             axios.get(sitedata.data.path + '/emergency_record/getPharmacy/search/' + this.state.name, {
                 headers: {
@@ -126,7 +126,7 @@ class Index extends Component {
                 })
         }
         else {
-            console.log("searchName")
+          
             this.setState({ searchName: [] })
         }
     }
@@ -138,7 +138,7 @@ class Index extends Component {
     }
 
     CertificateAttach = (event) => {
-        console.log("event", event)
+
         if (this.state.newEntry.patient_id) {
             // this.setState({file:})
             this.setState({ isfileupload: true, firstPatient_id: false })
@@ -160,7 +160,7 @@ class Index extends Component {
                 if (fileType === 'pdf' || fileType === 'jpeg' || fileType === 'png' || fileType === 'jpg' || fileType === 'svg') {
                     if (fileType !== 'pdf') {
                         reader.onloadend = () => {
-                            console.log("reader.result", reader.result)
+
                             this.setState({
                                 file: file,
                                 imagePreviewUrl: reader.result
@@ -191,11 +191,11 @@ class Index extends Component {
                                     .bind(this),
                                 3000
                             );
-                            console.log('data', response)
+
                             var returnData = response.data.data.returnData;
                             var signedRequest = returnData.signedRequest;
                             var url = returnData.url;
-                            console.log("Recieved a signed request " + signedRequest);
+                           
 
                             // Put the fileType in the headers for the upload
                             var options = {
@@ -205,15 +205,15 @@ class Index extends Component {
                             };
                             axios.put('https://cors-anywhere.herokuapp.com/' + signedRequest, file, options)
                                 .then(result => {
-                                    console.log("Response from s3")
+                                 
                                     this.setState({ success: true });
                                 })
                                 .catch(error => {
-                                    console.log("ERROR " + JSON.stringify(error));
+                                    
                                 })
                         })
                         .catch(error => {
-                            console.log(JSON.stringify(error));
+                          
                         })
                 }
                 else {
@@ -287,7 +287,7 @@ class Index extends Component {
     }
 
     SetIds = (item) => {
-        console.log("item", item)
+      
         const state = this.state.newEntry
         state['pharmacy_id'] = item.profile_id;
         this.setState({ newEntry: state, radius: '', name: item.first_name, searchLocation: [], searchName: [] });
@@ -335,7 +335,7 @@ class Index extends Component {
         data.patient_id = patient_id;
         data.remark = remark;
 
-        console.log("dataaaa", data)
+       
         if (!user_id || user_id === '' || !patient_id || patient_id === '' || !this.state.isfileupload) {
             this.setState({ compulsary: true })
         }

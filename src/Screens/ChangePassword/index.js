@@ -6,6 +6,7 @@ import { connect } from "react-redux";
 import { LoginReducerAim } from '../Login/actions';
 import Grid from '@material-ui/core/Grid';
 import { authy } from '../Login/authy.js';
+import Toggle from 'react-toggle';
 // import * as translationEN from '../../translations/en_json_proofread_13072020.json';
 
 import * as translationEN from '../../translations/en.json';
@@ -16,6 +17,7 @@ import * as translationPT from '../../translations/pt';
 import * as translationRS from '../../translations/rs';
 import * as translationNL from '../../translations/nl';
 import * as translationSW from '../../translations/sw';
+import { Settings } from '../Login/setting';
 import {
     NavLink,
     UncontrolledDropdown,
@@ -62,6 +64,14 @@ class Index extends Component {
     changeValue(languageType, language) {
         this.setState({ dropDownValue: language });
         this.props.LanguageFetchReducer(languageType);
+    }
+
+    //For set the language
+    SetMode = () => {
+        var mode = this.state.mode === 'normal'? 'dark' : 'normal';
+        this.setState({mode : mode},
+            ()=>{ this.props.Settings('loggedOut' , mode)}
+        )
     }
 
     //send the email on email id for the reset password
@@ -148,7 +158,7 @@ class Index extends Component {
         let { Register_email, forget_password, plz_enter_valid_email } = translate
 
         return (
-          <Grid className="loginSiteUpr">
+            <Grid className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode && this.props.settings.setting.mode==='dark' ? "loginSiteUpr homeBgDrk" : "loginSiteUpr"}>
             <Grid className="loginSite"> 
                 {this.state.loaderImage && <Loader />}
                 <Grid container direction="row" justify="center" alignItems="center">
@@ -161,6 +171,12 @@ class Index extends Component {
                                 <Grid item xs={6} sm={6}>
                                     <Grid className="regSelectTop">
                                         <Grid className="changeLang">
+                                        <div>
+                                                    <span className="ThemeModeSet1"> Dark Mode </span> 
+                                                    <span className="ThemeModeSet">
+                                                        <Toggle icons={false} checked={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode && this.props.settings.setting.mode==='dark'} name="mode" onClick={(e) => this.SetMode(e)} />   
+                                                    </span>
+                                                </div>
                                             <UncontrolledDropdown nav inNavbar>
                                                 <DropdownToggle nav caret>
                                                     {this.state.dropDownValue}
@@ -223,13 +239,15 @@ const mapStateToProps = (state) => {
     const { stateLoginValueAim, loadingaIndicatoranswerdetail } = state.LoginReducerAim;
     const { stateLanguageType } = state.LanguageReducer;
     const { verifyCode } = state.authy;
+    const { settings } = state.Settings;
     return {
         stateLanguageType,
         stateLoginValueAim,
         loadingaIndicatoranswerdetail,
+        settings,
         verifyCode
     }
 };
 
-export default connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer, authy })(Index)
+export default connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer, authy, Settings })(Index)
 // export default Index;

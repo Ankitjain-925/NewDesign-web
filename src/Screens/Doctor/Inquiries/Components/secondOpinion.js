@@ -67,7 +67,7 @@ class Index extends Component {
                     var find = item && item.profile_image && item.profile_image
                     if (find) {
                         var find1 = find.split('.com/')[1]
-                        console.log('find', find)
+
                         axios.get(sitedata.data.path + '/aws/sign_s3?find=' + find1,)
                             .then((response2) => {
                                 if (response2.data.hassuccessed) {
@@ -78,7 +78,7 @@ class Index extends Component {
                             })
                     }
                 })
-                console.log("response.data.data", response.data.data)
+               
                 // this.setState({ MypatientsData: response.data.data });
                 var totalPage = Math.ceil(response.data.data.length / 10);
                 this.setState({ AllPres: response.data.data, loaderImage: false, totalPage: totalPage, currentPage: 1 },
@@ -256,7 +256,7 @@ class Index extends Component {
     }
 
     handleOpenPrescp = (data) => {
-        console.log("data", data)
+       
         this.setState({ openPrescp: true, opinionData: data });
     };
     handleClosePrescp = () => {

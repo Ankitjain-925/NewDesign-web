@@ -234,7 +234,6 @@ class Index extends Component {
                     </Grid>
                     <Grid className="fillDia">
                         <MMHG name="diagnosed_by" label="Diagnosed by" onChange={(e)=> this.updateEntryState1(e.target.value, 'diagnosed_by')} value={this.state.updateTrack.diagnosed_by}/>    
-                        {console.log('this.state.updateTrack.diagnosed_by', this.state.updateTrack.diagnosed_by)}
                         <ul className="insuranceHint1" style={{display : MyDocList.length>0 ? 'block' : 'none'}}>
                         {MyDocList && MyDocList.length>0 && MyDocList.map((t)=>(
                             <li onClick={()=>this.updateEntryState2(t, 'diagnosed_by')} value={`${t.first_name} ${t.last_name}`}>{t.first_name && t.first_name} {t.last_name && t.last_name}</li>

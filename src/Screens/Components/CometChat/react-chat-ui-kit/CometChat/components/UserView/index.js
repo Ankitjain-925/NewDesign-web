@@ -26,7 +26,6 @@ function Userview(props) {
         .get("https://sys.aimedis.io/api/v2/aws/sign_s3?find=" + char)
         .then((response) => {
           if (response.data.hassuccessed) {
-            console.log(response.data.data);
             setImage(response.data.data);
             // user.setAvatar(response.data.data);
           }

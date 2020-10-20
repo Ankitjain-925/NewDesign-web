@@ -12,6 +12,8 @@ import ReactFlagsSelect from 'react-flags-select';
 import 'react-flags-select/css/react-flags-select.css';
 import 'react-flags-select/scss/react-flags-select.scss';
 import Loader from './../Components/Loader/index';
+import { Settings } from '../Login/setting';
+import Toggle from 'react-toggle';
 import '../../assets/css/style_log.css'
 import {
     NavLink,
@@ -343,6 +345,13 @@ class Index extends Component {
     componentDidMount() {
 
     }
+        //For set the language
+    SetMode = () => {
+        var mode = this.state.mode === 'normal'? 'dark' : 'normal';
+        this.setState({mode : mode},
+            ()=>{ this.props.Settings('loggedOut' , mode)}
+        )
+    }
 
     render() {
 
@@ -384,7 +393,7 @@ class Index extends Component {
 
 
         return (
-            <Grid className="loginSiteUpr">
+            <Grid className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode && this.props.settings.setting.mode==='dark' ? "loginSiteUpr homeBgDrk" : "loginSiteUpr"}>
               <Grid className="loginSite"> 
                 {this.state.loaderImage && <Loader />}
                 <Grid container direction="row" justify="center" alignItems="center">
@@ -397,6 +406,12 @@ class Index extends Component {
                                 <Grid item xs={6} sm={6}>
                                     <Grid className="regSelectTop">
                                         <Grid className="changeLang">
+                                        <div>
+                                                    <span className="ThemeModeSet1"> Dark Mode </span> 
+                                                    <span className="ThemeModeSet">
+                                                        <Toggle icons={false} checked={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode && this.props.settings.setting.mode==='dark'} name="mode" onClick={(e) => this.SetMode(e)} />   
+                                                    </span>
+                                                </div>
                                             <UncontrolledDropdown nav inNavbar>
                                                 <DropdownToggle nav caret>
                                                     {this.state.dropDownValue}
@@ -623,15 +638,14 @@ const mapStateToProps = (state) => {
 
     const { stateLoginValueAim, loadingaIndicatoranswerdetail } = state.LoginReducerAim;
     const { stateLanguageType } = state.LanguageReducer;
-
+    const { settings } = state.Settings;
     return {
         stateLanguageType,
         stateLoginValueAim,
         loadingaIndicatoranswerdetail,
-
+        settings
     }
 };
 
-
-export default connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer })(Index)
+export default connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer, Settings })(Index)
 // export default Index;

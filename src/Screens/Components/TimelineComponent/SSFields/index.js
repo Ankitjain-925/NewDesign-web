@@ -80,7 +80,6 @@ class Index extends Component {
                     {(!this.state.updateTrack.smoking_status || (this.state.updateTrack.smoking_status && this.state.updateTrack.smoking_status.value !=='Never_smoked')) &&
                     <div>
                         <Grid className="rrSysto">
-                            {console.log('this.state.updateTrack', this.state.updateTrack)}
                             <Grid><label>{from} {when}</label></Grid>
                             <DateFormat name="from_when" value={this.state.updateTrack.from_when ? new Date(this.state.updateTrack.from_when) : new Date()} date_format={this.state.date_format} onChange={(e)=>this.updateEntryState1(e, 'from_when')}/>
                         </Grid> 

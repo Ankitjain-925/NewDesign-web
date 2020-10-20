@@ -109,7 +109,7 @@ class Index extends Component {
 
     //Go to journal direct
     GotoJournal = (currentone) => {
-        console.log('currentone', currentone)
+
         if (currentone && currentone._id) {
             this.props.Doctorset(currentone._id, currentone.pin);
             this.props.history.push('/doctor/journal');
@@ -358,7 +358,7 @@ class Index extends Component {
 
     //open and close Prescription Details
     handleshowPatient = (data) => {
-        console.log("data", data)
+      
         this.setState({ showPatient: true, addPatient: false, profileDetail: data });
     };
     handleCloseShowPatient = () => {
@@ -431,7 +431,7 @@ class Index extends Component {
         })
             .then((response) => {
                 this.setState({ loaderImage: false });
-                console.log("response", response)
+              
                 if (response.data.hassuccessed) {
                     axios.delete('https://api-us.cometchat.io/v2.0/users/' + profileDetail.profile_id.toLowerCase(),
                         {

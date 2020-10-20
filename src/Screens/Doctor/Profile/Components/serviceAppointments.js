@@ -307,13 +307,13 @@ class Index extends Component {
                 }
             })
                 .then((responce) => {
-                    console.log("responce", responce)
+                 
                     this.setState({ loaderImage: false, updateService: true });
                     setTimeout(() => { this.setState({ updateService: false }) }, 5000)
                 })
         }
         else {
-            console.log("onlineAppointments", onlineAppointments)
+            
             this.setState({ appoinmentError: true })
         }
 
@@ -446,7 +446,7 @@ class Index extends Component {
         this.setState({ DaysforPractices: state });
     }
     onChangeDaysforPractices = (time, name) => {
-        console.log('dasd', time, name)
+      
         const state = this.state.DaysforPractices;
         // state[name] = moment(time).format("HH:mm");
         if (time === null) {
@@ -723,18 +723,18 @@ class Index extends Component {
         if (changestate[key + '_start'] == '') {
             changestate[key + '_start'] = '00:00'
             changestate[key + '_end'] = '00:00'
-            console.log("changestate[key + '_end']", new Date(changestate[key + '_end']))
+
         }
         else {
             changestate[key + '_start'] = ''
             changestate[key + '_end'] = ''
         }
-        console.log('changestate', changestate)
+     
         this.setState({ [stateChange]: changestate })
     }
 
     onChange = (event, belong, stateChange, key) => {
-        console.log("event", event)
+      
         if (event) {
             let changestate = this.state[stateChange]
             changestate[key + '_' + belong] = moment(event).format('HH:mm')
@@ -748,7 +748,7 @@ class Index extends Component {
         else {
             let changestate = this.state[stateChange]
             changestate[key + '_' + belong] = '';
-            console.log("changestate", changestate)
+       
             this.setState({ [stateChange]: changestate })
         }
     }
@@ -770,7 +770,7 @@ class Index extends Component {
     }
 
     getTime = (time) => {
-        console.log("time", time)
+      
         if (time !== '') {
             let date = new Date();
             let splittime = time.split(":")
@@ -784,7 +784,7 @@ class Index extends Component {
 
     //For checkbox to offer things
     handleweoffer = (value) => {
-        console.log("this.state.weoffer", this.state.weoffer)
+     
         const state = this.state.weoffer
         state[value] = !state[value];
         this.setState({ weoffer: state });
@@ -799,7 +799,7 @@ class Index extends Component {
         else {
             state = {};
         }
-        console.log("state", state)
+       
         this.setState({ [statechange]: state });
     }
 
@@ -846,7 +846,7 @@ class Index extends Component {
     changeDuration = (event, stateChange) => {
         let data = this.state[stateChange];
         data[event.target.name] = event.target.value;
-        console.log('data: ', data)
+       
         this.setState({ [stateChange]: data })
         this.setState({ appoinmentError: false })
     }

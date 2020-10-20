@@ -19,6 +19,7 @@ import * as translationNL from '../../translations/nl';
 import * as translationSW from '../../translations/sw';
 import { EmergencySet } from '../Doctor/emergencyaction.js';
 import { Doctorset } from '../Doctor/actions';
+import Toggle from 'react-toggle';
 import queryString from 'query-string';
 import Loader from './../Components/Loader/index';
 import Emergency from '../Nurse/Emergency';
@@ -43,6 +44,7 @@ class Index extends Component {
             loggedIn: false,
             loginError2: false,
             loginError9: false,
+            mode : 'normal'
         };
         this.toggleShow = this.toggleShow.bind(this);
     }
@@ -76,11 +78,10 @@ class Index extends Component {
         let languageType = 'en';
         this.props.LanguageFetchReducer(languageType);
         this.anotherPatient();
-        this.Settings();
     }
-    Settings = () => {
-        this.props.Settings({});
-    }
+    // Settings = () => {
+    //     this.props.Settings('loggedOut' , 'normal');
+    // }
     anotherPatient = () => {
         var user_id = null;
         var pin = null;
@@ -211,6 +212,14 @@ class Index extends Component {
             this.setState({ password: this.props.password });
         }
     }
+
+     //For set the language
+     SetMode = () => {
+        var mode = this.state.mode === 'normal'? 'dark' : 'normal';
+        this.setState({mode : mode},
+            ()=>{ this.props.Settings('loggedOut' , mode)}
+        )
+    }
     render() {
         const { stateLoginValueAim } = this.props;
         const { myLogin } = this.state;
@@ -297,7 +306,7 @@ class Index extends Component {
 
         else {
             return (
-                <Grid className="loginSiteUpr">
+                <Grid className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode && this.props.settings.setting.mode==='dark' ? "loginSiteUpr homeBgDrk" : "loginSiteUpr"}>
                    <Grid className="loginSite"> 
                     {this.state.loaderImage && <Loader />}
                     <Grid container direction="row" justify="center" alignItems="center">
@@ -310,6 +319,12 @@ class Index extends Component {
                                     <Grid item xs={6} sm={6}>
                                         <Grid className="regSelectTop">
                                             <Grid className="changeLang">
+                                                <div>
+                                                    <span className="ThemeModeSet1"> Dark Mode </span> 
+                                                    <span className="ThemeModeSet">
+                                                        <Toggle icons={false} checked={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode && this.props.settings.setting.mode==='dark'} name="mode" onClick={(e) => this.SetMode(e)} />   
+                                                    </span>
+                                                </div>
                                                 <UncontrolledDropdown nav inNavbar>
                                                     <DropdownToggle nav caret>
                                                         {this.state.dropDownValue}
