@@ -4,6 +4,7 @@ import Button from '@material-ui/core/Button';
 import { LanguageFetchReducer } from '../../actions';
 import { connect } from "react-redux";
 import { LoginReducerAim } from '../../Login/actions';
+import { Settings } from './../../Login/setting';
 import 'react-calendar/dist/Calendar.css';
 import * as translationEN from '../../../translations/en.json';
 import * as translationDE from '../../../translations/de';
@@ -72,7 +73,7 @@ class Index extends Component {
         }
         let { page_not_found, Oops, page_temparary_unavailable, go_to_home } = translate
         return (
-            <Grid className="homeBg">
+            <Grid className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode && this.props.settings.setting.mode==='dark' ? "homeBg homeBgDrk" : "homeBg"}>
                 <Grid className="homeBgIner">
                     <Grid container direction="row" justify="center">
                         <Grid item xs={6} md={6}>
@@ -97,10 +98,12 @@ class Index extends Component {
 const mapStateToProps = (state) => {
     const { stateLoginValueAim, loadingaIndicatoranswerdetail } = state.LoginReducerAim;
     const { stateLanguageType } = state.LanguageReducer;
+    const { settings } = state.Settings;
     return {
         stateLanguageType,
         stateLoginValueAim,
-        loadingaIndicatoranswerdetail
+        loadingaIndicatoranswerdetail,
+        settings,
     }
 };
-export default connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer })(Index)
+export default connect(mapStateToProps, { LoginReducerAim, Settings, LanguageFetchReducer })(Index)

@@ -406,7 +406,7 @@ class Index extends Component {
                                         <Grid><h3>{this.state.AddPrescription && this.state.AddPrescription.follow_up_prescription && this.state.AddPrescription.follow_up_prescription}</h3></Grid>
 
                                         <Grid className="ishelpLbl"> <label>{how_u_like_rcv_pres}?</label> </Grid>
-                                        <Grid><h3>{this.state.AddPrescription && this.state.AddPrescription.prescription_type && this.state.AddPrescription.prescription_type}</h3></Grid>
+                                        <Grid><h3>{this.state.AddPrescription && this.state.AddPrescription.prescription_type && this.state.AddPrescription.prescription_type==='offline'? 'Home address mailbox' : 'Online'}</h3></Grid>
 
                                         <Grid className="medicnSub"> <h4 className="Inquirypaddingtop">{Medicine} {inquiry}</h4>
 

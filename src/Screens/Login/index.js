@@ -44,7 +44,7 @@ class Index extends Component {
             loggedIn: false,
             loginError2: false,
             loginError9: false,
-            mode : 'normal'
+            mode : this.props.settings && this.props.settings.setting && this.props.settings.setting.mode ? this.props.settings.setting.mode : 'normal',
         };
         this.toggleShow = this.toggleShow.bind(this);
     }
@@ -322,7 +322,7 @@ class Index extends Component {
                                                 <div>
                                                     <span className="ThemeModeSet1"> Dark Mode </span> 
                                                     <span className="ThemeModeSet">
-                                                        <Toggle icons={false} checked={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode && this.props.settings.setting.mode==='dark'} name="mode" onClick={(e) => this.SetMode(e)} />   
+                                                        <Toggle icons={false} checked={this.state.mode==='dark'} name="mode" onClick={(e) => this.SetMode(e)} />   
                                                     </span>
                                                 </div>
                                                 <UncontrolledDropdown nav inNavbar>

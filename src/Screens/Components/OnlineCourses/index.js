@@ -47,6 +47,7 @@ const Language = [
 class Index extends Component {
     constructor(props) {
        super(props);
+       this.StripeClick = React.createRef();
         this.state = {
             value: 0,
             selectedOption: null,
@@ -279,6 +280,13 @@ class Index extends Component {
     //Using to convert the currency
     fromDollarToCent = (amount) => { return parseInt(amount * 100); }
 
+
+    onClicks=()=> {
+            this.handleCloseCart();
+            this.StripeClick.onClick();
+      }
+
+      
     render() {
         const { value } = this.state;
         const { selectedOption } = this.state;
@@ -365,9 +373,10 @@ class Index extends Component {
         const Checkout = (
             {
                 name = 'Aimedis',
-                description = 'Testing Stipe Payment',
+                description = 'Stripe Payment',
                 amount = this.state.amount }) =>
             <StripeCheckout
+                ref={ref => { this.StripeClick = ref; }} 
                 name={name}
                 image="https://aimedis.com/wp-content/uploads/2019/02/Aimedis-Logo-transparent-no-borders-25.10.2017-e1550053501852.png"
                 billingAddress
@@ -540,7 +549,7 @@ class Index extends Component {
 
                                     <Grid className="crtChekOut">
                                         {/* <input type="submit" value="Checkout" /> */}
-                                        {this.state.AllCart && this.state.AllCart.length>0 && <Checkout />}
+                                        {this.state.AllCart && this.state.AllCart.length>0 && <input type="button" value="Pay with stripe" onClick={this.onClicks} />}
                                     </Grid>
                                 </div>
                             </Modal>
@@ -598,6 +607,7 @@ class Index extends Component {
                         {/* End of Website Right Content */}
                     </Grid>
                 </Grid>
+                {this.state.AllCart && this.state.AllCart.length>0 && <Checkout />}
             </Grid >
         );
     }

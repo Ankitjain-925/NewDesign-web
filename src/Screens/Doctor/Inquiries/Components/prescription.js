@@ -425,7 +425,7 @@ class Index extends Component {
                                         <Grid><label>{is_this_follow_pres}</label></Grid>
                                         <p>{prescData.follow_up_prescription == 'yes' ? 'Yes' : 'No'}</p>
                                         <Grid><label>{how_u_like_rcv_pres}</label></Grid>
-                                        <p>{prescData.prescription_type}</p>
+                                        <p>{prescData.prescription_type && prescData.prescription_type==='offline'? 'Home address mailbox' : 'Online'}</p>
                                     </Grid>
                                 </Grid>
 
