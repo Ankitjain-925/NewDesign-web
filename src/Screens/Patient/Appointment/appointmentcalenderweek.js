@@ -45,7 +45,7 @@ class Index extends Component {
                                         <a><img src={require('../../../assets/images/navigation-drawer.svg')} alt="" title="" /></a>
                                     </Grid>
                                     <Grid item xs={6} md={6} sm={6} className="MenuMobRght">
-                                        <a href="/"><img src={require('../../../assets/images/logo_new.png')} alt="" title="" /></a>
+                                        <a href="/"><img src={require('../../../assets/images/LogoPNG.png')} alt="" title="" /></a>
                                     </Grid>
                                 </Grid>
                             </Grid>
@@ -56,7 +56,7 @@ class Index extends Component {
                                 <Grid className="MenuWeb">
                                     <Grid item xs={12} md={1} className="MenuLeftUpr">
                                         <Grid className="webLogo">
-                                            <a href="/"><img src={require('../../../assets/images/logo_new.png')} alt="" title="" /></a>
+                                            <a href="/"><img src={require('../../../assets/images/LogoPNG.png')} alt="" title="" /></a>
                                         </Grid>
                                         <Grid className="menuItems">
                                             <ul>

@@ -36,7 +36,7 @@ class Index extends Component {
     componentDidMount() {
         this.getSetting();
         new LogOut(this.props.stateLoginValueAim.token, this.props.stateLoginValueAim.user._id, this.logOutClick.bind(this))
-        this.props.Settings(this.props.stateLoginValueAim.token);
+
     }
 
     getSetting = () => {
@@ -50,7 +50,10 @@ class Index extends Component {
                 }
             }).then((responce) => {
                 if (responce.data.hassuccessed && responce.data.data) {
-                    this.setState({ timeF: { label: responce.data.data.time_format, value: responce.data.data.time_format }, dateF: { label: responce.data.data.date_format, value: responce.data.data.date_format }, })
+                    this.props.Settings(responce.data.data); 
+                }
+                else{
+                    this.props.Settings({user_id : this.props.stateLoginValueAim.user._id}); 
                 }
                 this.setState({ loaderImage: false, languageValue: responce.data.data && responce.data.data.language ? responce.data.data.language : 'en', mode : responce.data.data && responce.data.data.mode ? responce.data.data.mode : 'normal' },
                 ()=>{
@@ -178,7 +181,7 @@ class Index extends Component {
                     </Menu>
                 </Grid>
                 <Grid item xs={6} md={6} sm={6} className="MenuMobRght">
-                    <a><img src={require('../../../../assets//images/logo_new.png')} alt="" title="" /></a>
+                    <a><img src={require('../../../../assets//images/LogoPNG.png')} alt="" title="" /></a>
                 </Grid>
             </Grid>
             <SetLanguage openFancyLanguage={this.state.openFancyLanguage} languageValue={this.state.languageValue} handleCloseFancyLanguage={this.handleCloseFancyLanguage} openLanguageModel={this.openLanguageModel}/>

@@ -402,17 +402,17 @@ class Index extends Component {
                         <Grid className="regHead">
                             <Grid container direction="row" justify="center">
                                 <Grid item xs={6} sm={6} className="LogoForms">
-                                    <a href={sitedata.data.live_site}><img src={require('../../assets/images/logo_new.png')} alt="" title="" /></a>
+                                    <a href={sitedata.data.live_site}><img src={require('../../assets/images/LogoPNG.png')} alt="" title="" /></a>
                                 </Grid>
                                 <Grid item xs={6} sm={6}>
                                     <Grid className="regSelectTop">
                                         <Grid className="changeLang">
-                                        <div>
+                                        <li>
                                                     <span className="ThemeModeSet1"> Dark Mode </span> 
                                                     <span className="ThemeModeSet">
                                                         <Toggle icons={false} checked={this.state.mode==='dark'} name="mode" onClick={(e) => this.SetMode(e)} />   
                                                     </span>
-                                                </div>
+                                                </li>
                                             <UncontrolledDropdown nav inNavbar>
                                                 <DropdownToggle nav caret>
                                                     {this.state.dropDownValue}
@@ -442,7 +442,7 @@ class Index extends Component {
                 </Grid>
                 <Grid container direction="row" justify="center" alignItems="center">
                     <Grid item xs={11} sm={10} md={7}>
-                        <Grid className="regData"><h1>{Register_for_Aimedis} Aimedis V2</h1></Grid>
+                        <Grid className="regData"><h1>{Register_for_Aimedis} Aimedis</h1></Grid>
 
                         <Grid className="registerFormMain">
                             <Grid className="registerForm">

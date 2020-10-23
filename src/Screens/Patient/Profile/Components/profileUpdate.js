@@ -1165,7 +1165,7 @@ class Index extends Component {
                                
                                 <Grid className="editField">
                                     <label>{insurance} {company}</label>
-                                    <Grid><input type="text" value={datas[editIndex] && datas[editIndex].insurance ? datas[editIndex] && datas[editIndex].insurance : ''} name="insurance" onChange={(event) => this.updatesinsurances(editIndex, event)} /></Grid>
+                                    <Grid><input type="text" value={datas && datas[editIndex] && datas[editIndex].insurance ? datas[editIndex] && datas[editIndex].insurance : ''} name="insurance" onChange={(event) => this.updatesinsurances(editIndex, event)} /></Grid>
                                     <ul className="insuranceHint" style={{ height: companyList && companyList.length > 0 ? '150px' : '' }}>
                                         {companyList}
                                     </ul>
@@ -1173,7 +1173,7 @@ class Index extends Component {
 
                                 <Grid className="editField">
                                     <label>{insurance} {number}</label>
-                                    <Grid><input type="text" value={datas[editIndex] && datas[editIndex].insurance_number ? datas[editIndex] && datas[editIndex].insurance_number : ''} name="insurance_number" onChange={(event) => this.updatesinsurances(editIndex, event)} /></Grid>
+                                    <Grid><input type="text" value={datas && datas[editIndex] && datas[editIndex].insurance_number ? datas[editIndex] && datas[editIndex].insurance_number : ''} name="insurance_number" onChange={(event) => this.updatesinsurances(editIndex, event)} /></Grid>
                                 </Grid>
                                 <Grid>
                                     <input type="submit" onClick={this.saveUserData} value={save_change} />

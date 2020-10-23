@@ -99,7 +99,7 @@ const navbar = (props) => {
             className="ccl-left-panel-nav-listitem"
             onClick={() => props.actionGenerated("tabChanged", "contacts")}
           >
-            <span className={contactClassName} />
+            {/* <span className={contactClassName} /> */}
           </div>
           {/* <div className="ccl-left-panel-nav-listitem" onClick={() => props.actionGenerated('tabChanged', 'calls')}>
                 <span className={callClassName}></span>

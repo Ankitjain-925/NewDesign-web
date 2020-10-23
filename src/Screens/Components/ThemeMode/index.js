@@ -39,7 +39,6 @@ class Index extends Component {
                 }
             }).then((responce) => {
                 this.setState({ loaderImage: false })
-                this.props.Settings(this.props.stateLoginValueAim.token);
                 this.props.getSetting();
             }) 
         })

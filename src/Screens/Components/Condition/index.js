@@ -16,8 +16,10 @@ class Condition extends Component {
         this.props.onChange(e);
     };
 
-    componentDidMount = () => {
-      
+    componentDidUpdate = (prevProps) => {
+        if (prevProps.value !== this.props.value) {
+           this.setState({value : this.props.value})
+        }
     }
     render() {
         return (
@@ -33,6 +35,7 @@ class Condition extends Component {
                         {(this.state.value >= 0 && this.state.value<=10) && <a><img src={require('../../../assets/images/worst.svg')} alt="" title="" />{this.state.value}</a>}
                     </Grid>}
                     {this.state.Forview && <Grid> <input disabled name={this.props.name} value={this.state.value} type="range" onChange={this.onPainChange}/></Grid>}
+                    {!this.state.Forview && <Grid><a>{this.state.value}</a></Grid>}
                     {!this.state.Forview && <Grid> <input name={this.props.name} value={this.state.value} type="range" onChange={this.onPainChange}/></Grid>}
                 </Grid>
             </div>

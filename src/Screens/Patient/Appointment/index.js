@@ -286,7 +286,7 @@ getUpcomingAppointment() {
             end_time: this.state.mypoint.end,
             appointment_type: this.state.mypoint.type,
             insurance_number: insurance_no,
-            annotations: this.state.UpDataDetails.details,
+            annotations: this.state.UpDataDetails.annotations,
             status: 'free',
             patient_info: {
                 patient_id: this.props.stateLoginValueAim.user.profile_id,
@@ -601,8 +601,8 @@ getUpcomingAppointment() {
                     })}
                     // onClick={() => this.CallEvents(data.event)}
                     >
-                        <p style={{ backgroundColor: 'none', fontSize: 11, margin: 0, fontWeight: 700 }}> {data.event.title} </p>
-                        <p style={{ backgroundColor: 'none', fontSize: 11, margin: 0 }}> {moment(data.event.start).format('hh:mm') + '-' + moment(data.event.end).format('hh:mm')} </p>
+                        <p className="calendar-cont"> {data.event.title} </p>
+                        <p className="calendar-date"> {moment(data.event.start).format('hh:mm') + '-' + moment(data.event.end).format('hh:mm')} </p>
                     </span>}
             </TooltipTrigger>
         )
@@ -690,7 +690,7 @@ getUpcomingAppointment() {
                                         <span>{data.appointment_type == 'practice_appointment' ? 'Consultancy Appointment' : (data.appointment_type == 'online_appointment' ? 'Video call' : 'Office visit')}</span>
                                     </Grid>
                                     <Grid className="meetVdoRght">
-                                        <p>{moment(data.date, 'MM-DD-YYYY').format('D MMM')}, {data.start_time}</p>
+                                        <p>{moment(new Date(data.date), 'MM-DD-YYYY').format('D MMM')}, {data.start_time}</p>
                                     </Grid>
                                 </Grid>
                                 <Grid className="meetDetail">
@@ -798,7 +798,7 @@ getUpcomingAppointment() {
                                                 </Grid>
                                                 <Grid className="delQues">
                                                     <Grid><label>{Details} / {Questions}</label></Grid>
-                                                    <Grid><textarea name="details" onClick={this.questionDetails}></textarea></Grid>
+                                                    <Grid><textarea name="annotations" onClick={(e)=> {this.questionDetails(e)}}></textarea></Grid>
                                                     <Grid className="delQuesBook">
                                                         <a onClick={this.bookAppointment}>{book}</a>
                                                         <a onClick={() => { this.setState({ openFancyVdo: false }) }}>{cancel}</a></Grid>

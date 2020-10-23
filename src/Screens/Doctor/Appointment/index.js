@@ -563,7 +563,7 @@ class Index extends Component {
                                         <span>{data.appointment_type == 'practice_days' ? 'Consultancy Appointment' : (data.appointment_type == 'online_appointment' ? 'Video call' : 'Office visit')}</span>
                                     </Grid>
                                     <Grid className="meetVdoRght">
-                                        <p>{moment(data.date, 'MM-DD-YYYY').format('D MMM')}, {data.start_time}</p>
+                                        <p>{moment(new Date(data.date), 'MM-DD-YYYY').format('D MMM')}, {data.start_time}</p>
                                     </Grid>
                                 </Grid>
                                 <Grid className="meetDetail">

@@ -16,8 +16,10 @@ class Pain extends Component {
         this.props.onChange(e);
     };
 
-    componentDidMount = () => {
-
+    componentDidUpdate = (prevProps) => {
+        if (prevProps.value !== this.props.value) {
+           this.setState({value : this.props.value})
+        }
     }
     render() {
         return (
@@ -33,6 +35,7 @@ class Pain extends Component {
                         {(this.state.value > 90 && this.state.value <= 100) && <a><img src={require('../../../assets/images/worst.svg')} alt="" title="" />Worst Pain Possible ({this.state.value})</a>}
                     </Grid>}
                     {this.state.Forview && <Grid> <input disabled name={this.props.name} value={this.state.value} type="range" onChange={this.onPainChange} /></Grid>}
+                    {!this.state.Forview && <Grid><a>{this.state.value}</a></Grid>}
                     {!this.state.Forview && <Grid> <input name={this.props.name} value={this.state.value} type="range" onChange={this.onPainChange} /></Grid>}
                     {!this.state.Forview && <Grid className="painPointer"><a>No Pain</a> <a>Mild</a> <a>Moderate</a> <a>Severe</a>
                         <a>Very Severe</a> <a>Worst Pain Possible</a></Grid>}

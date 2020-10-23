@@ -326,7 +326,7 @@
 		"READ_SALE_AGREEMENT": "LEER ACUERDO DE VENTA",
 		"aimedisToken_SOCIAL_NETWORK": "RED SOCIAL",
 		"The_medical_social": "La red social médica AIMsocial",
-		"With_Aimedis_launch_AIMsocial": "Con Aimedis V2 lanzamos AIMsocial, la primera red médica social descentralizada e incentivada. AIMsocial revoluciona la forma en que los pacientes se comunican y apoyan su camino hacia la salud y el bienestar. Con el lanzamiento, el activo digital de AIM brindará a los pacientes y cuidadores la posibilidad de que se les pague por sus esfuerzos y trabajo dentro de la red, porque creemos que ayudar a los demás debe ser incentivado.",
+		"With_Aimedis_launch_AIMsocial": "Con Aimedis lanzamos AIMsocial, la primera red médica social descentralizada e incentivada. AIMsocial revoluciona la forma en que los pacientes se comunican y apoyan su camino hacia la salud y el bienestar. Con el lanzamiento, el activo digital de AIM brindará a los pacientes y cuidadores la posibilidad de que se les pague por sus esfuerzos y trabajo dentro de la red, porque creemos que ayudar a los demás debe ser incentivado.",
 		"CONTACT_US_FOR_MORE": "CONTÁCTENOS PARA MÁS",
 
 		"covid_page_content": "Página de contenido Covid",
@@ -646,7 +646,7 @@
 		"to_email_address": "to email address",
 
 		"Login_content": "Login_content",
-		"Log_into_Aimedis": "Log in to Aimedis V2",
+		"Log_into_Aimedis": "Log in to Aimedis",
 		"login_Email_address": "E-mail address",
 		"login_Password": "Password",
 		"login_Forgotpassword": "Forgot password?",
@@ -655,7 +655,7 @@
 		"login_Registerhere": "Register here",
 
 		"reg_content": "reg_content",
-		"Register_for_Aimedis": "Register for Aimedis V2",
+		"Register_for_Aimedis": "Register for Aimedis",
 		"Register_Name": "Name",
 		"Register_email": "E-mail address",
 		"Register_Password": "Password",

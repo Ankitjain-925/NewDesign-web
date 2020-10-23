@@ -167,17 +167,17 @@ class Index extends Component {
                         <Grid className="regHead">
                             <Grid container direction="row" justify="center">
                                 <Grid item xs={6} sm={6} className="LogoForms">
-                                    <a><img src={require('../../assets/images/logo_new.png')} alt="" title="" /></a>
+                                    <a><img src={require('../../assets/images/LogoPNG.png')} alt="" title="" /></a>
                                 </Grid>
                                 <Grid item xs={6} sm={6}>
                                     <Grid className="regSelectTop">
                                         <Grid className="changeLang">
-                                        <div>
+                                        <li>
                                                     <span className="ThemeModeSet1"> Dark Mode </span> 
                                                     <span className="ThemeModeSet">
                                                         <Toggle icons={false} checked={this.state.mode==='dark'} name="mode" onClick={(e) => this.SetMode(e)} />   
                                                     </span>
-                                                </div>
+                                                </li>
                                             <UncontrolledDropdown nav inNavbar>
                                                 <DropdownToggle nav caret>
                                                     {this.state.dropDownValue}

@@ -4793,7 +4793,6 @@ body {
 }
 .dataLoader {
     position: fixed;
-    background: #0000002e;
     width: 100%;
     min-height: 100vh;
     left: 0;
@@ -13000,6 +12999,28 @@ a.academy_ul ul li img {
 
 
 /*Added By ankita*/
+.darkTheme .painIntencty a, .darkTheme .condIntencty a{
+    color: #BFC1C1 !important;
+}
+.dataDarkLoader .dataLoader {
+    background: #000000c9 !important;
+}
+.dataLoader {
+    background: #0000002e;
+}
+.cc1-chat-win-inpt-ext-wrap {
+    width: 99% !important;
+}
+.changeLang li {
+    display: inline-flex;
+    margin-right: 15px;
+}
+.changeLang li span{
+    padding-right: 10px;
+}
+.webLogo img, .MenuMobRght img, .LogoForms img{
+    width: 50px!important;
+}
 button.CutomStripeButton{
     opacity: 0 !important;
 }

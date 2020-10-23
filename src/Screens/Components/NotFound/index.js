@@ -78,7 +78,7 @@ class Index extends Component {
                     <Grid container direction="row" justify="center">
                         <Grid item xs={6} md={6}>
                             <Grid className="webLogo">
-                                <a href="/"><img src={require('../../../assets/images/logo_new.png')} alt="" title="" /></a>
+                                <a href="/"><img src={require('../../../assets/images/LogoPNG.png')} alt="" title="" /></a>
                             </Grid>
                             <div className="NotFound"><h1>404 - {page_not_found}</h1></div>
                             <div className="NotFoundContent">

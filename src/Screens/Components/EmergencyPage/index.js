@@ -20,7 +20,7 @@ class ComponentToPrint extends React.Component {
     render() {
         return (
             <div>
-                <img style={{ height: '40px', width: 'auto', margin: '30px' }} src={require('../../../assets/images/logo_new.png')} />
+                <img style={{ height: '40px', width: 'auto', margin: '30px' }} src={require('../../../assets/images/LogoPNG.png')} />
                 <div style={{ textAlign: 'center' }}>
                     <div style={{ marginLeft: '200px', marginBottom: '20px', textAlign: 'left', fontSize: '24px', fontWeight: '900', textTransform: 'uppercase' }}>Aimedis Emergency Record</div>
                     <p style={{ marginLeft: '200px', textAlign: 'left', fontSize: '20px', fontWeight: '800' }}>{this.props.User.first_name && this.props.User.first_name} {this.props.User.last_name && this.props.User.last_name}</p>
