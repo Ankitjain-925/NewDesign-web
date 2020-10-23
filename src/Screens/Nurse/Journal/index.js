@@ -835,6 +835,37 @@ DeleteTrack=(deletekey)=> {
         });
     }
 
+         //This is for the Download the Track
+         downloadTrack = (data) => {
+            this.setState({ loaderImage: true })
+            axios.post(sitedata.data.path + '/UserProfile/downloadPdf',
+                {
+                    Dieseases: data, patientData: {
+                        name: this.state.cur_one2.first_name + " " + this.state.cur_one2.last_name,
+                        email: this.state.cur_one2.email,
+                        DOB: this.state.cur_one2.birthday,
+                        Mobile: this.state.cur_one2.mobile,
+                    },
+                },
+                { responseType: 'blob' }
+            ).then(res => {
+                this.setState({ loaderImage: false })
+                var data = new Blob([res.data]);
+                if (typeof window.navigator.msSaveBlob === 'function') {
+                    // If it is IE that support download blob directly.
+                    window.navigator.msSaveBlob(data, 'report.pdf');
+                } else {
+                    var blob = data;
+                    var link = document.createElement('a');
+                    link.href = window.URL.createObjectURL(blob);
+                    link.download = 'report.pdf';
+                    document.body.appendChild(link);
+                    link.click(); // create an <a> element and simulate the click operation.
+                }
+            }).catch(err => { })
+        }
+    
+
     render() {
         let translate;
         switch (this.props.stateLanguageType) {
@@ -922,7 +953,7 @@ DeleteTrack=(deletekey)=> {
                                         {this.props.Doctorsetget.p_id !== null && <div>
                                             {this.state.allTrack && this.state.allTrack.length > 0 ?
                                                 this.state.allTrack.map((item, index) => (
-                                                    <ViewTimeline OpenGraph={this.OpenGraph} comesfrom='nurse' images={this.state.images} DeleteTrack={(deleteKey) => this.DeleteTrack(deleteKey)} ArchiveTrack={(data) => this.ArchiveTrack(data)} EidtOption={(value, updateTrack, visibility) => this.EidtOption(value, updateTrack, visibility)} date_format={this.props.settings.setting.date_format} time_format={this.props.settings.setting.time_format} Track={item} from="patient" loggedinUser={this.state.cur_one} patient_gender={this.state.patient_gender} />
+                                                    <ViewTimeline downloadTrack={(data) => this.downloadTrack(data)} OpenGraph={this.OpenGraph} comesfrom='nurse' images={this.state.images} DeleteTrack={(deleteKey) => this.DeleteTrack(deleteKey)} ArchiveTrack={(data) => this.ArchiveTrack(data)} EidtOption={(value, updateTrack, visibility) => this.EidtOption(value, updateTrack, visibility)} date_format={this.props.settings.setting.date_format} time_format={this.props.settings.setting.time_format} Track={item} from="patient" loggedinUser={this.state.cur_one} patient_gender={this.state.patient_gender} />
                                                 ))
                                                 : <EmptyData />}
                                         </div>}

@@ -333,8 +333,8 @@ class Index extends Component {
             email: appoinmentSelected.patient_info.email,
             lan: this.props.stateLanguageType,
             _id: appoinmentSelected._id,
-            oldSchedule: moment(appoinmentSelected.date).format('MM-DD-YYYY') + " " + appoinmentSelected.start_time + "-" + appoinmentSelected.end_time,
-            timeslot: moment(suggesteddate).format('MM-DD-YYYY') + " " + timeslot.start + "-" + timeslot.end,
+            oldSchedule: moment(new Date(appoinmentSelected.date)).format('MM-DD-YYYY') + " " + appoinmentSelected.start_time + "-" + appoinmentSelected.end_time,
+            timeslot: moment(new Date(suggesteddate)).format('MM-DD-YYYY') + " " + timeslot.start + "-" + timeslot.end,
             docProfile: {
                 first_name: this.props.stateLoginValueAim.user.first_name ? this.props.stateLoginValueAim.user.first_name : '',
                 last_name: this.props.stateLoginValueAim.user.last_name ? this.props.stateLoginValueAim.user.last_name : ''
@@ -359,7 +359,7 @@ class Index extends Component {
     handleOpenSlot = (data) => {
         const { appioinmentTimes, appoinmentSelected } = this.state;
         let temptimes = [];
-        let date = new Date(moment(data.date, 'M-DD-YYYY').format())
+        let date = new Date(moment(new Date(data.date), 'M-DD-YYYY').format())
         let suggestTime = [];
         let dateFormat = moment(date).format('DD/MM/YYYY');
         let statemanger = 'onlineAppointments';
@@ -713,7 +713,7 @@ class Index extends Component {
                                                                 {data.appointment_type == 'practice_days' && <img src={require('../../../assets/images/dates.png')} alt="" title="" />}
                                                                 {data.appointment_type == 'private_appointments' && <img src={require('../../../assets/images/ShapeCopy21.svg')} alt="" title="" />}
 
-                                                                <label>{moment(data.date, 'MM-DD-YYYY').format('MMMM DD, YYYY')}</label> <span>{data.start_time} - {data.end_time}</span></a>
+                                                                <label>{moment(new Date(data.date), 'MM-DD-YYYY').format('MMMM DD, YYYY')}</label> <span>{data.start_time} - {data.end_time}</span></a>
                                                         </Grid>
                                                     </Grid>))}
                                             </Grid>
@@ -751,7 +751,7 @@ class Index extends Component {
                                                     </Grid>
                                                     <Grid className="clear"></Grid>
                                                     <Grid className="augDate">
-                                                        <p><label>{moment(appoinmentSelected.date, 'MM-DD-YYYY').format('MMMM DD, YYYY')}</label> <span>{appoinmentSelected.start_time} - {appoinmentSelected.end_time}</span></p>
+                                                        <p><label>{moment(new Date(appoinmentSelected.date), 'MM-DD-YYYY').format('MMMM DD, YYYY')}</label> <span>{appoinmentSelected.start_time} - {appoinmentSelected.end_time}</span></p>
                                                     </Grid>
                                                     <Grid className="detailQues">
                                                         <label>{Details} / {Questions}</label>

@@ -413,14 +413,14 @@ class Index extends Component {
                 this.setState({ loaderImage: false });
                 setTimeout(() => { this.setState({ succUpdate: false }) }, 5000)
                 this.getUserData();
-                axios.put('https://api-us.cometchat.io/v2.0/users/' + this.state.profile_id.toLowerCase(), {
+                axios.put('https://api-eu.cometchat.io/v2.0/users/' + this.state.profile_id.toLowerCase(), {
                     name: UpDataDetails.first_name + ' ' + UpDataDetails.last_name
                 },
                     {
                         headers: {
                             'appId': '220824e717b58ac',
                             'apiKey': 'fc177a4e50f38129dca144f6270b91bfc9444736',
-                            'Accept': 'application/json',
+                             'Accept': 'application/json',
                             'Content-Type': 'application/json'
                         }
                     })

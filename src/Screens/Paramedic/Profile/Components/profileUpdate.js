@@ -362,7 +362,7 @@ class Index extends Component {
                 this.setState({ loaderImage: false });
                 setTimeout(() => { this.setState({ succUpdate: false }) }, 5000)
                 this.getUserData();
-                axios.put('https://api-us.cometchat.io/v2.0/users/' + this.state.profile_id.toLowerCase(), {
+                axios.put('https://api-eu.cometchat.io/v2.0/users/' + this.state.profile_id.toLowerCase(), {
                     name: this.state.UpDataDetails.first_name + ' ' + this.state.UpDataDetails.last_name
                 },
                     {
@@ -454,7 +454,7 @@ class Index extends Component {
                 'Content-Type': 'application/json'
             }
         }).then((response) => {
-            
+            this.setState({ loaderImage: false });
             var title = {}, titlefromD = response.data.data.title;
             var language = [], languagefromD = response.data.data.language;
             if (languagefromD && languagefromD.length > 0) {
@@ -565,6 +565,7 @@ class Index extends Component {
                 'Content-Type': 'application/json'
             }})
             .then((responce)=>{
+                this.setState({ loaderImage: false });
                 var find1 =  this.state.uploadedimage;
                 this.SettingImage(find1);  
         })

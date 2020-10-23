@@ -281,7 +281,7 @@ getUpcomingAppointment() {
             patient: this.props.stateLoginValueAim.user._id,
             doctor_id: this.state.selectedDoc.data && this.state.selectedDoc.data._id,
             insurance: this.state.personalinfo.insurance[0].insurance_number,
-            date: this.state.selectedDate,
+            date: new Date(this.state.selectedDate),
             start_time: this.state.mypoint.start,
             end_time: this.state.mypoint.end,
             appointment_type: this.state.mypoint.type,
@@ -313,7 +313,8 @@ getUpcomingAppointment() {
                 this.setState({ loaderImage: false });
                 if (responce.data.hassuccessed === true) {
                     this.setState({ successfull: true, openAllowAccess: false, openAllowLoc: false,  openFancyVdo: false, currentSelected: {}  })
-                    this.getUpcomingAppointment()
+                    this.getUpcomingAppointment();
+                    this.getPastAppointment();
                     setTimeout(
                         function () {
                             this.setState({ successfull: false, });
@@ -778,7 +779,12 @@ getUpcomingAppointment() {
                                                         {this.state.appointDate && this.state.appointDate.length > 0 ? this.state.appointDate.map((data, iA) => {
                                                             return (
                                                                 <Grid>
-                                                                    {this.state.appointDate[iA + 1] && this.state.appointDate[iA + 1] !== 'undefined' &&
+                                                                    {this.state.appointDate[iA + 1] && this.state.appointDate[iA + 1] !== 'undefined' && iA === 0 ?
+                                                                       <a className={this.state.currentSelected === 0 && 'current_selected'} onClick={() => { this.findAppointment('tab3', doc_select, appointType, apointDay, iA) }}>
+                                                                            {this.state.appointDate[iA] + ' - ' + this.state.appointDate[iA + 1]}
+                                                                        </a>
+                                                                    :
+                                                                    this.state.appointDate[iA + 1] && this.state.appointDate[iA + 1] !== 'undefined' &&
                                                                         <a className={this.state.currentSelected && this.state.currentSelected === iA ? 'current_selected' : ''} onClick={() => { this.findAppointment('tab3', doc_select, appointType, apointDay, iA) }}>
                                                                             {this.state.appointDate[iA] + ' - ' + this.state.appointDate[iA + 1]}
                                                                         </a>}

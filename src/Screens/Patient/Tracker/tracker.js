@@ -343,7 +343,7 @@ class Index extends Component {
                 }
                 options.push({
                     title: {
-                        text: 'Temprature'
+                        text: 'Temperature'
                     },
                     xAxis: {
                         title: {
@@ -459,7 +459,7 @@ class Index extends Component {
 
                 options.push({
                     title: {
-                        text: 'Hight/ Weight'
+                        text: 'Height/ Weight'
                     },
                     xAxis: {
                         title: {

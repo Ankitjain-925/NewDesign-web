@@ -361,7 +361,7 @@ class Index extends Component {
                 this.setState({ loaderImage: false });
                 setTimeout(() => { this.setState({ succUpdate: false }) }, 5000)
                 this.getUserData();
-                axios.put('https://api-us.cometchat.io/v2.0/users/' + this.state.profile_id.toLowerCase(), {
+                axios.put('https://api-eu.cometchat.io/v2.0/users/' + this.state.profile_id.toLowerCase(), {
                     name: this.state.UpDataDetails.first_name + ' ' + this.state.UpDataDetails.last_name
                 },
                     {

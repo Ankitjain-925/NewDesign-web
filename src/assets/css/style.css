@@ -13076,7 +13076,7 @@ ul.insuranceHint1 li {
 .darkTheme .shrHlth h2,.darkTheme .drstndrdQues h3 {
     color: #BFC1C1 !important;
 }
-.darkTheme.nwDiaModel select {
+.darkTheme.nwDiaModel select, .darkTheme .nwDiaSel select  {
     background: #404646!important;
     color: #BFC1C1 !important;
 }

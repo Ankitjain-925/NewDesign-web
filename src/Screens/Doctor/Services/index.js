@@ -293,7 +293,7 @@ class Index extends Component {
                                 this.setState({ loaderImage: false });
                                 if (responce.data.hassuccessed === true) {
                                     this.setState({ openNew: false })
-                                    axios.post('https://api-us.cometchat.io/v2.0/users', {
+                                    axios.post('https://api-eu.cometchat.io/v2.0/users', {
                                         uid: responce.data.data.profile_id,
                                         name: responce.data.data.profile_id
                                     },
@@ -433,18 +433,18 @@ class Index extends Component {
                 this.setState({ loaderImage: false });
               
                 if (response.data.hassuccessed) {
-                    axios.delete('https://api-us.cometchat.io/v2.0/users/' + profileDetail.profile_id.toLowerCase(),
-                        {
-                            headers: {
-                                'appId': '220824e717b58ac',
-                                'apiKey': '44c13a774f7cf0a9809d0792dae638a9f74a6702',
-                                'Accept': 'application/json',
-                                'Content-Type': 'application/json'
-                            }
-                        })
-                        .then((response) => {
+                    // axios.delete('https://api-eu.cometchat.io/v2.0/users/' + profileDetail.profile_id.toLowerCase(),
+                    //     {
+                    //         headers: {
+                    //             'appId': '220824e717b58ac',
+                    //             'apiKey': '44c13a774f7cf0a9809d0792dae638a9f74a6702',
+                    //             'Accept': 'application/json',
+                    //             'Content-Type': 'application/json'
+                    //         }
+                    //     })
+                    //     .then((response) => {
                             this.getMypatientsData();
-                        })
+                        // })
                 }
                 else {
                     this.setState({ patDeleteErr: 'Something happened Wrong, Patient delete unsuccessfull' })
