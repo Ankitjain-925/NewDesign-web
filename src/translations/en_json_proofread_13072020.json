@@ -760,7 +760,7 @@
 		"Enable": "Enable",
 		"family_doc": "Family Doctor",
 		"visible_emergancy": "Visible on Emergency Data information. Has access to Journal.",
-		"doc_added_succefully": "Doctor is successFully added",
+		"doc_added_succefully": "Doctor is successfully added",
 		"select_family_doc": "Please select family doctor",
 		"make_sure_family_doc": "Please make sure to add your Family Doctor",
 		"add_a_family_doc": "Add a family doctor",

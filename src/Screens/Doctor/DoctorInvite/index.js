@@ -49,7 +49,7 @@ class Index extends Component {
 
     //For loggedout if logged in user is deleted 
     componentDidMount() {
-        this.props.Settings(this.props.stateLoginValueAim.token);
+        // this.props.Settings(this.props.stateLoginValueAim.token);
         this.getUserData();
     }
 

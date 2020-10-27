@@ -45,6 +45,10 @@ class Index extends Component {
             if(responce.data.hassuccessed && responce.data.data)
             {
                 this.setState({timeF : {label : responce.data.data.time_format, value :  responce.data.data.time_format}, dateF : {label : responce.data.data.date_format, value :  responce.data.data.date_format},})
+                this.props.Settings(responce.data.data); 
+            }
+            else{
+                this.props.Settings({user_id : this.props.stateLoginValueAim.user._id}); 
             }
             this.setState({ loaderImage : false})  
         })   
@@ -75,7 +79,7 @@ class Index extends Component {
             }
         }).then((responce) => {
             this.setState({PassDone : true, loaderImage : false})
-            this.props.Settings(this.props.user_token);
+            this.getSetting();
             setTimeout(()=>{ this.setState({PassDone: false}) }, 5000)
         })   
     }

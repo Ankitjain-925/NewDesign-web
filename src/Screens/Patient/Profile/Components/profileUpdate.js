@@ -111,6 +111,10 @@ class Index extends Component {
             q: '',
             filteredCompany: [],
             editIndex: null,
+            bloodgroup : [],
+            rhesusgroup: [],
+            bloods :{},
+            rhesus:{},
         };
         // new Timer(this.logOutClick.bind(this)) 
     }
@@ -133,6 +137,7 @@ class Index extends Component {
         this.getMetadata();
         this.getUserData();
         this.alldoctor();
+        this.firstLoginUpdate();
         var npmCountry = npmCountryList().getData()
         this.setState({ selectCountry: npmCountry })
         /*---location---*/
@@ -141,6 +146,19 @@ class Index extends Component {
             { types: ["geocode"] }
         );
         this.city.addListener("place_changed", this.handlePlaceChanged);
+    }
+
+    firstLoginUpdate=()=>{
+        const user_token = this.props.stateLoginValueAim.token;
+        axios.put(sitedata.data.path + '/UserProfile/Users/update', {
+        firstlogin : true,
+        }, {
+            headers: {
+                'token': user_token,
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        }).then((responce) => { })
     }
 
     // Copy the Profile id and PIN
@@ -228,6 +246,23 @@ class Index extends Component {
         this.setState({ UpDataDetails: state });
     }
 
+    //For change the title of user
+    onSelectBlood(event) {
+        this.setState({ bloods: event });
+        const state = this.state.UpDataDetails;
+        state["blood_group"] = event.label
+        this.setState({ UpDataDetails: state });
+    }
+
+    //For change the title of user
+    onSelectRshesus(event) {
+        this.setState({ rhesus: event });
+        const state = this.state.UpDataDetails;
+        state["rhesus"] = event.value
+        this.setState({ UpDataDetails: state });
+    }
+
+
     //For update the flags 
     updateFlags = (e, name) => {
         const state = this.state.UpDataDetails;
@@ -289,7 +324,9 @@ class Index extends Component {
                         genderdata: Gender,
                         languageData: Languages,
                         specialityData: Speciality,
-                        title_degreeData: Titles
+                        title_degreeData: Titles,
+                        bloodgroup: responce.data[0].bloodgroup,
+                        rhesusgroup: responce.data[0].rhesus 
                     });
                 }
             })
@@ -405,6 +442,8 @@ class Index extends Component {
             is2fa: this.state.UpDataDetails.is2fa,
             country: this.state.UpDataDetails.country,
             pastal_code: this.state.UpDataDetails.pastal_code,
+            blood_group: this.state.UpDataDetails.blood_group,
+            rhesus: this.state.UpDataDetails.rhesus,
         }, {
             headers: {
                 'token': user_token,
@@ -540,6 +579,8 @@ class Index extends Component {
             }
         }).then((response) => {
             var title = {}, titlefromD = response.data.data.title;
+            var bloodfromD = response.data.data.blood_group, rhesusfromD = response.data.data.rhesus, 
+            bloods = {}, rhesus = {};
             var language = [], languagefromD = response.data.data.language;
             if (languagefromD && languagefromD.length > 0) {
                 languagefromD.map((item) => {
@@ -548,10 +589,19 @@ class Index extends Component {
 
             }
 
+            if (bloodfromD && bloodfromD !== "") {
+                bloods = { label: bloodfromD, value: bloodfromD }
+            }
+            if (rhesusfromD && rhesusfromD !== "") {
+                if(rhesusfromD==='-'){
+                    rhesus = { label: 'Negative', value: rhesusfromD }
+                }else if(rhesusfromD==='+'){
+                    rhesus = { label: 'Positive', value: rhesusfromD }
+                }
+                
+            }
             if (titlefromD && titlefromD !== "") {
-
                 title = { label: titlefromD, value: titlefromD }
-
             }
 
             if (response.data.data.mobile && response.data.data.mobile !== '') {
@@ -580,7 +630,7 @@ class Index extends Component {
             }
             this.setState({ UpDataDetails: response.data.data, city: response.data.data.city, area: response.data.data.area, profile_id: response.data.data.profile_id });
             this.setState({ speciality_multi: this.state.UpDataDetails.speciality })
-            this.setState({ name_multi: language, title: title })
+            this.setState({ name_multi: language, title: title, rhesus: rhesus, bloods: bloods })
             this.setState({
                 insurancefull: this.state.UpDataDetails.insurance,
                 insuranceDetails: { insurance: '', insurance_number: '', insurance_type: '' }
@@ -1040,6 +1090,43 @@ class Index extends Component {
                                                 isSearchable={false}
                                                 className="profile-language"
                                                 isMulti={true}
+                                            />
+                                        </Grid>
+                                    </Grid>
+                                    <Grid item xs={12} md={4}></Grid>
+                                    <Grid className="clear"></Grid>
+                                </Grid>
+                            </Grid>
+                            <Grid className="profileInfoIner">
+                                <Grid container direction="row" alignItems="center" spacing={2}>
+                                    <Grid item xs={12} md={4}>
+                                        <label>Blood</label>
+                                        <Grid>
+                                            <Select
+                                                value={this.state.bloods}
+                                                name="bloodgroup"
+                                                closeMenuOnSelect={false}
+                                                onChange={(e) => { this.onSelectBlood(e, 'bloodgroup') }}
+                                                options={this.state.bloodgroup}
+                                                placeholder=""
+                                                isSearchable={false}
+                                                className="profile-language"
+                                            />
+                                        </Grid>
+                                    </Grid>
+                                  
+                                    <Grid item xs={12} md={4}>
+                                        <label>Rhesus</label>
+                                        <Grid>
+                                               <Select
+                                                value={this.state.rhesus}
+                                                name="rhesus"
+                                                closeMenuOnSelect={false}
+                                                onChange={(e) => { this.onSelectRshesus(e, 'rhesus') }}
+                                                options={this.state.rhesusgroup}
+                                                placeholder=""
+                                                isSearchable={false}
+                                                className="profile-language"
                                             />
                                         </Grid>
                                     </Grid>

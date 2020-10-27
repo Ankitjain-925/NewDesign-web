@@ -258,11 +258,21 @@ class Index extends Component {
 
 
         if (stateLoginValueAim.token !== 450 && stateLoginValueAim.user.type === 'patient' && this.props.verifyCode.code) {
-            if (stateLoginValueAim.kyc) {
-                return (<Redirect to={'/patient/journal'} />);
+            if(stateLoginValueAim.user.firstlogin){
+                if (stateLoginValueAim.kyc) {
+                    return (<Redirect to={'/patient/journal'} />);
+                }
+                else {
+                    return (<Redirect to={'/patient/journal'} />);
+                }
             }
-            else {
-                return (<Redirect to={'/patient/journal'} />);
+            else{
+                if (stateLoginValueAim.kyc) {
+                    return (<Redirect to={'/patient'} />);
+                }
+                else {
+                    return (<Redirect to={'/patient'} />);
+                }
             }
         }
         if (stateLoginValueAim.token !== 450 && stateLoginValueAim.user.type === 'doctor' && this.props.verifyCode.code) {

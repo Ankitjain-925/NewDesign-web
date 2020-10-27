@@ -47,11 +47,11 @@ class PointPain extends Component {
         }
         if(this.props.gender === 'female')
         {
-           img.src= require('../../../assets/images/persionPainEqual.svg');
+           img.src= require('../../../assets/images/FEMALE_BODY.svg');
         }
         else
         {
-            img.src= require('../../../assets/images/persionPainEqual.svg');  
+            img.src= require('../../../assets/images/MALE_BODY.svg');  
         }
     }
 
@@ -73,11 +73,11 @@ class PointPain extends Component {
             }
             if(this.props.gender === 'female')
             {
-               img.src= require('../../../assets/images/persionPainEqual.svg');
+               img.src= require('../../../assets/images/FEMALE_BODY.svg');
             }
             else
             {
-                img.src= require('../../../assets/images/persionPainEqual.svg');  
+                img.src= require('../../../assets/images/MALE_BODY.svg');  
             }
         }
         if (prevProps.painPoint !== this.props.painPoint) {

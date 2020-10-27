@@ -171,7 +171,9 @@ class PointPain extends Component {
                             </Grid> 
                             <Grid className="prfilHghtRght">
                                 <label>Blood</label>
-                                <p>{this.state.personalinfo && this.state.personalinfo.weight_bmi && this.state.personalinfo.weight_bmi.blood_group ? this.state.personalinfo.weight_bmi.blood_group : '--'}</p>
+                                <p>{this.state.user && this.state.user.blood_group && this.state.user.rhesus ? 
+                                this.state.user.blood_group+this.state.user.rhesus
+                                : '--'}</p>
                             </Grid>
                         </Grid>
                     </Grid>

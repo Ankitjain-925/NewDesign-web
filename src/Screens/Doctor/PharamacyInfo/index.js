@@ -37,7 +37,7 @@ class Index extends Component {
 
     //For loggedout if logged in user is deleted 
     componentDidMount() {
-        this.props.Settings(this.props.stateLoginValueAim.token);
+        // this.props.Settings(this.props.stateLoginValueAim.token);
         this.getUserData();
         this.getGeoLocation();
     }
@@ -423,7 +423,7 @@ class Index extends Component {
                 <Modal
                     open={openPharma}
                     onClose={this.handleClosePharma}
-                    className={this.props.settings&&this.props.settings.setting && this.props.settings.setting.mode &&this.props.settings.setting.mode === 'dark' ?"darkTheme":""}>
+                    className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode && this.props.settings.setting.mode === 'dark' ? "darkTheme" : ""}>
                     <Grid className="phrmBoxCntnt">
                         <Grid className="phrmCourse">
                             <Grid className="phrmCloseBtn">

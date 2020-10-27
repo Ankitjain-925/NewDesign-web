@@ -276,6 +276,7 @@ getUpcomingAppointment() {
     bookAppointment =() =>{
         var insurance_no = this.state.personalinfo.insurance && this.state.personalinfo.insurance.length > 0 && this.state.personalinfo.insurance[0] && this.state.personalinfo.insurance[0].insurance_number ? this.state.personalinfo.insurance[0].insurance_number : '';
         this.setState({ loaderImage: true });
+        console.log('this.state.selectedDate', new Date(this.state.selectedDate))
         const user_token = this.props.stateLoginValueAim.token;
         axios.post(sitedata.data.path + '/User/appointment', {
             patient: this.props.stateLoginValueAim.user._id,
@@ -529,53 +530,6 @@ getUpcomingAppointment() {
         this.setState({ appointDate: appointDate, apointDay: days, selectedDate: date1 })
     }
 
-    setAppointDate(date) {
-        date = new Date(date)
-        let m = date.getMonth() + 1
-        let month
-        switch (m) {
-            case 1:
-                month = "Jan"
-                break;
-            case 2:
-                month = "Feb"
-                break;
-            case 3:
-                month = "Mar"
-                break;
-            case 4:
-                month = "Apr"
-                break;
-            case 5:
-                month = "May"
-                break;
-            case 6:
-                month = "Jun"
-                break;
-            case 7:
-                month = "Jul"
-                break;
-            case 8:
-                month = "Aug"
-                break;
-            case 9:
-                month = "Sep"
-                break;
-            case 10:
-                month = "Oct"
-                break;
-            case 11:
-                month = "Nov"
-                break;
-            case 12:
-                month = "Dec"
-                break;
-        }
-        let day = date.getDate()
-        let returnDate = day + ' ' + month
-        return returnDate
-    }
-
     EventComponent = (data) => {
         return (
             <TooltipTrigger
@@ -798,7 +752,7 @@ getUpcomingAppointment() {
                                                 </Grid>
                                                 <Grid className="delQues">
                                                     <Grid><label>{Details} / {Questions}</label></Grid>
-                                                    <Grid><textarea name="annotations" onClick={(e)=> {this.questionDetails(e)}}></textarea></Grid>
+                                                    <Grid><textarea name="annotations" onChange={(e)=> {this.questionDetails(e)}}></textarea></Grid>
                                                     <Grid className="delQuesBook">
                                                         <a onClick={this.bookAppointment}>{book}</a>
                                                         <a onClick={() => { this.setState({ openFancyVdo: false }) }}>{cancel}</a></Grid>
@@ -959,7 +913,7 @@ getUpcomingAppointment() {
                                             {this.state.pastAppointment && this.state.pastAppointment.length > 0 && this.state.pastAppointment.map(apoint => (
                                                 <Grid className="officeVst">
                                                     <Grid container direction="row">
-                                                        <Grid item xs={6} md={6} className="officeVstLft"><label>{apoint.Appointdate && this.setAppointDate(apoint.Appointdate)}, {apoint.start_time}</label></Grid>
+                                                        <Grid item xs={6} md={6} className="officeVstLft"><label>{apoint.date && getDate(apoint.date, this.props.settings && this.props.settings.setting && this.props.settings.setting.date_format)}, {apoint.start_time}</label></Grid>
                                                         <Grid item xs={6} md={6} className="officeVstRght">
                                                             {apoint.appointment_type == "appointments" ? <a><img src={require('../../../assets/images/office-visit.svg')} alt="" title="" /> {office_visit} </a> :
                                                                 apoint.appointment_type == "online_appointment" ? <a><img src={require('../../../assets/images/video-call.svg')} alt="" title="" /> {vdo_call} </a> :
@@ -988,7 +942,7 @@ getUpcomingAppointment() {
                                             {this.state.upcomingAppointment && this.state.upcomingAppointment.length > 0 && this.state.upcomingAppointment.map(apoint => (
                                                 <Grid className="officeVst">
                                                     <Grid container direction="row">
-                                                        <Grid item xs={6} md={6} className="officeVstLft"><label>{apoint.Appointdate && this.setAppointDate(apoint.Appointdate)}, {apoint.start_time}</label></Grid>
+                                                        <Grid item xs={6} md={6} className="officeVstLft"><label>{apoint.date && getDate(apoint.date, this.props.settings && this.props.settings.setting && this.props.settings.setting.date_format)}, {apoint.start_time}</label></Grid>
                                                         <Grid item xs={6} md={6} className="officeVstRght">
                                                             {apoint.appointment_type == "appointments" ? <a><img src={require('../../../assets/images/office-visit.svg')} alt="" title="" /> {office_visit} </a> :
                                                                 apoint.appointment_type == "online_appointment" ? <a><img src={require('../../../assets/images/video-call.svg')} alt="" title="" /> {vdo_call} </a> :

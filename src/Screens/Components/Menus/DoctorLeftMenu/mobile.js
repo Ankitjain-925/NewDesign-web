@@ -248,7 +248,7 @@ class Index extends Component {
                 }
                 {/* End of Pharmacy Prescription */}
                 {/* For set the language  */}
-                <SetLanguage openFancyLanguage={this.state.openFancyLanguage} languageValue={this.state.languageValue} handleCloseFancyLanguage={this.handleCloseFancyLanguage} openLanguageModel={this.openLanguageModel}/>
+                <SetLanguage getSetting={this.getSetting} openFancyLanguage={this.state.openFancyLanguage} languageValue={this.state.languageValue} handleCloseFancyLanguage={this.handleCloseFancyLanguage} getSetting={this.getSetting} openLanguageModel={this.openLanguageModel}/>
         </Grid>
         );
     }

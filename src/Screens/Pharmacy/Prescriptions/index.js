@@ -311,7 +311,7 @@ class Index extends Component {
                                                                 {item.created_by_temp && item.created_by_temp}
                                                             </Td>
                                                             {item.status && item.status==='handled' ? <Td><span className="revwGren"></span>Handled </Td>
-                                                            : <Td><span className="revwYelow"></span>Pending </Td>}
+                                                            : <Td><span className="revwYelow"></span>Received from doctor </Td>}
                                                           <Td className="presEditDot scndOptionIner">
                                                             <a className="openScndhrf">
                                                                 <img src={require('../../../assets/images/threedots.jpg')} alt="" title="" className="openScnd" />

@@ -374,7 +374,7 @@ class Index extends Component {
                             <Tr>
                                 <Th>Case</Th>
                                 <Th>Sent on</Th>
-                                <Th>Pateint</Th>
+                                <Th>Patient</Th>
                                 <Th>Status</Th>
                             </Tr>
                         </Thead>

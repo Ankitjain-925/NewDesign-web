@@ -80,7 +80,7 @@ class Index extends Component {
             }
             else
             {
-                this.setState({ loaderImage: false, Allpre : [], Allpre1 : []})
+                this.setState({ loaderImage: false, Allpre : [], Allpre1 : [], loaderImage: false})
             }
         })
     }

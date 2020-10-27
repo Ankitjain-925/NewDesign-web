@@ -58,7 +58,7 @@ SetLanguage = () => {
             }
         }).then((responce) => {
             this.setState({ PassDone: true, loaderImage: false })
-            this.props.Settings(this.props.stateLoginValueAim.token);
+            this.props.getSetting();
             setTimeout(() => { this.setState({ PassDone: false, openFancyLanguage: false }) }, 5000)
         })
     }

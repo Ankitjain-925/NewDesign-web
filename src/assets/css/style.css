@@ -12999,7 +12999,7 @@ a.academy_ul ul li img {
 
 
 /*Added By ankita*/
-.darkTheme .painIntencty a, .darkTheme .condIntencty a{
+.darkTheme .painIntencty a, .darkTheme .condIntencty a,.homeBgDrk .rbc-label, .homeBgDrk input#chatSearch{
     color: #BFC1C1 !important;
 }
 .dataDarkLoader .dataLoader {

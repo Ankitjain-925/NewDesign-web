@@ -149,7 +149,7 @@ class Index extends Component {
                     <a><img src={require('../../../../assets//images/LogoPNG.png')} alt="" title="" /></a>
                 </Grid>
             </Grid>
-            <SetLanguage openFancyLanguage={this.state.openFancyLanguage} languageValue={this.state.languageValue} handleCloseFancyLanguage={this.handleCloseFancyLanguage} openLanguageModel={this.openLanguageModel}/>
+            <SetLanguage getSetting={this.getSetting} openFancyLanguage={this.state.openFancyLanguage} languageValue={this.state.languageValue} handleCloseFancyLanguage={this.handleCloseFancyLanguage} openLanguageModel={this.openLanguageModel}/>
         </Grid>
         );
     }

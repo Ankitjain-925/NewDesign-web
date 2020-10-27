@@ -19,10 +19,12 @@ class Index extends Component {
             Format : {},
             dates : this.props.dates,
             times : this.props.times,
+            timezones : this.props.timezones,
             loaderImage : false,
             PassDone : false,
             dateF : {},
             timeF : {},
+            timezone :{},
         };
         // new Timer(this.logOutClick.bind(this)) 
     }
@@ -44,7 +46,11 @@ class Index extends Component {
         }).then((responce) => {
             if(responce.data.hassuccessed && responce.data.data)
             {
-                this.setState({timeF : {label : responce.data.data.time_format, value :  responce.data.data.time_format}, dateF : {label : responce.data.data.date_format, value :  responce.data.data.date_format},})
+                this.setState({timezone : responce.data.data.timezone, timeF : {label : responce.data.data.time_format, value :  responce.data.data.time_format}, dateF : {label : responce.data.data.date_format, value :  responce.data.data.date_format},})
+                this.props.Settings(responce.data.data); 
+            }
+            else{
+                this.props.Settings({user_id : this.props.stateLoginValueAim.user._id}); 
             }
             this.setState({ loaderImage : false})  
         })   
@@ -52,10 +58,12 @@ class Index extends Component {
 
     //For Change Format State
     ChangeFormat=(event, name)=>{
-        if(name=='date_format') { this.setState({dateF : event}) }
+        if(name==='date_format') { this.setState({dateF : event}) }
+        else if(name==='timezone') { this.setState({timezone : event}) }
         else { this.setState({timeF : event}) }
         const state = this.state.Format;
-        state[name] = event && event.value;
+        if(name==='timezone') { state[name] = event }
+        else{ state[name] = event && event.value; }
         this.setState({Format : state})
     }
 
@@ -65,6 +73,7 @@ class Index extends Component {
         axios.put(sitedata.data.path + '/UserProfile/updateSetting', {
             date_format: this.state.Format.date_format,
             time_format: this.state.Format.time_format,
+            timezone :  this.state.Format.timezone,
             user_id: this.props.LoggedInUser._id,
             user_profile_id : this.props.LoggedInUser.profile_id,   
         }, {
@@ -75,7 +84,7 @@ class Index extends Component {
             }
         }).then((responce) => {
             this.setState({PassDone : true, loaderImage : false})
-            this.props.Settings(this.props.stateLoginValueAim.token);
+            this.getSetting();
             setTimeout(()=>{ this.setState({PassDone: false}) }, 5000)
         })   
     }
@@ -147,6 +156,21 @@ class Index extends Component {
                                         options={this.state.times}
                                         placeholder="Time format"
                                         name="time_format"
+                                        isSearchable={false}
+                                        className="mr_sel"
+                                    />
+                                </Grid>
+                            </Grid>
+
+                            <Grid className="timeFormat">
+                                <Grid><label>Timezone</label></Grid>
+                                <Grid>
+                                    <Select
+                                        value={this.state.timezone}
+                                        onChange={(e) => this.ChangeFormat(e, 'timezone')}
+                                        options={this.state.timezones}
+                                        placeholder="Time Zone"
+                                        name="timezone"
                                         isSearchable={false}
                                         className="mr_sel"
                                     />

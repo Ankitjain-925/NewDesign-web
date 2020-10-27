@@ -16,6 +16,7 @@ class Index extends Component {
             archive: this.props.archive,
             loggedinUser: this.props.loggedinUser,
             images: this.props.images,
+            gender: this.props.gender
         };
     }
 

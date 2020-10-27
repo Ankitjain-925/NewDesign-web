@@ -349,6 +349,7 @@ class Index extends Component {
             if (response.data.hassuccessed) {
                 this.setState({ openSlot: false, suggestTime: [], suggesteddate: new Date(), appoinmentSelected: {} })
             }
+            this.getAppoinment();
         })
         }
     }

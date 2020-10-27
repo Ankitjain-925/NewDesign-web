@@ -47,8 +47,8 @@ class Index extends Component {
     //For loggedout if logged in user is deleted 
     componentDidMount() {
         new LogOut(this.props.stateLoginValueAim.token, this.props.stateLoginValueAim.user._id, this.logOutClick.bind(this))
-        this.getUserData();
         this.getSetting();
+        this.getUserData();
     }
 
     getSetting = () => {
@@ -252,7 +252,7 @@ class Index extends Component {
                 }
                 {/* End of Pharmacy Prescription */}
                 {/* For set the language  */}
-                <SetLanguage openFancyLanguage={this.state.openFancyLanguage} languageValue={this.state.languageValue} handleCloseFancyLanguage={this.handleCloseFancyLanguage} openLanguageModel={this.openLanguageModel}/>
+                <SetLanguage getSetting={this.getSetting} openFancyLanguage={this.state.openFancyLanguage} languageValue={this.state.languageValue} handleCloseFancyLanguage={this.handleCloseFancyLanguage} openLanguageModel={this.openLanguageModel}/>
             </Grid>
         );
     }
