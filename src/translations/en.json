@@ -1,11 +1,5 @@
 {
 	"text": {
-	
-		"link_LinkedIn_profile": "link to LinkedIn profile (if there is one)",
-		"to_email_address": "to email address",
-		"Login_content": "Login_content",
-		"Log_into_Aimedis": "Log in to Aimedis",
-		"login_Email_address": "E-mail address",
 		"login_Password": "Password",
 		"login_Forgotpassword": "Forgot password?",
 		"login_LOGIN_btn": "LOG IN",
