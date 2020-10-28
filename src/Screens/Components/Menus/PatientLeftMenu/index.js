@@ -11,6 +11,7 @@ import { LanguageFetchReducer } from '../../../actions';
 import LogOut from './../../LogOut/index';
 import Timer from './../../TimeLogOut/index';
 import Notification from "../../../Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
+import DocSuggetion from "../../DocSuggetion/index.js";
 import sitedata from '../../../../sitedata';
 import axios from "axios";
 import Mode from './../../ThemeMode/index.js';
@@ -140,7 +141,8 @@ class Index extends Component {
         return (
             <Grid item xs={12} md={1} className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode && this.props.settings.setting.mode==='dark' ? "MenuLeftUpr MenuLeftDrkUpr" : "MenuLeftUpr"}>
                 {this.state.loaderImage && <Loader />}
-                {!this.props.isNotShow && <Notification />}
+                <Notification />
+                <DocSuggetion />
                 <Grid className="webLogo">
                     <a><img src={require('../../../../assets/images/LogoPNG.png')} alt="" title="" /></a>
                 </Grid>

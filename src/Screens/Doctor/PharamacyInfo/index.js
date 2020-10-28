@@ -499,7 +499,7 @@ class Index extends Component {
                                 />
                             </Grid>
                             <Grid className="scanInputsSub">
-                                <input type="submit" value={send_invite} onClick={this.AddTrack} />
+                                <input type="submit" value="Send Prescription" onClick={this.AddTrack} />
                             </Grid>
                         </Grid>
                     </Grid>

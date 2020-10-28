@@ -21,7 +21,8 @@ import PatientChats from "./../../Screens/Patient/Chat/index"
 import PatientTimeLine1 from "./../../Screens/ViewTimelineComponent/index.js";
 import PatientBlockchain from "./../../Screens/Patient/More/blockchain.js";
 import PatientarchiveJournal from "./../../Screens/Patient/More/archiveJournal.js";
-import Appointment from "../../Screens/Patient/Appointment/index"
+import Appointment from "../../Screens/Patient/Appointment/index";
+import RegSuccuss from "../../Screens/Components/RegSuccess/index";
 
 //Paramedic Component
 import ParamedicEmergency from "./../../Screens/Paramedic/EmergencySection";
@@ -133,7 +134,7 @@ class Routermain extends Component {
             <Route exact path="/doctor/journal" render={(props) => <DoctorJournal {...props} />} />
 
             {/* Doctor Router End*/}
-
+            <Route exact path="/register-successfull" render={(props)=><RegSuccuss {...props}/>} />
 
 
             <Route path='*' exact={true} render={(props) => <NotFound {...props} />} />

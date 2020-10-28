@@ -101,7 +101,7 @@ class Index extends Component {
     render() {
         return (
             <Grid  className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode && this.props.settings.setting.mode==='dark' ? "MenuMob MenuLeftDrkUpr" : "MenuMob"}>
-                  {!this.props.isNotShow && <Notification />}
+                  <Notification />
             <Grid container direction="row" alignItems="center">
                 <Grid item xs={6} md={6} sm={6} className="MenuMobLeft">
                     <a><img src={require('../../../../assets//images/navigation-drawer.svg')} alt="" title="" className="MenuImg" /></a>

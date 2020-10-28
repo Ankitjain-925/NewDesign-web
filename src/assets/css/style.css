@@ -12999,6 +12999,24 @@ a.academy_ul ul li img {
 
 
 /*Added By ankita*/
+.unread_msg_notify svg {
+    position: absolute;
+    right: 10px;
+    top: 5px;
+    }
+    .unread_msg_notify {
+      background: #00a891e0;
+      text-align: center;
+      width: 35%;
+      z-index: 9999;
+      position: fixed;
+      left: 0px;
+      padding: 5px;
+      top: 12px;
+      color: #fff;
+      font-weight: 600;
+    }
+
 .darkTheme .painIntencty a, .darkTheme .condIntencty a,.homeBgDrk .rbc-label, .homeBgDrk input#chatSearch{
     color: #BFC1C1 !important;
 }
@@ -13097,7 +13115,7 @@ ul.insuranceHint1 li {
 .darkTheme .shrHlth h2,.darkTheme .drstndrdQues h3 {
     color: #BFC1C1 !important;
 }
-.darkTheme.nwDiaModel select, .darkTheme .nwDiaSel select  {
+.darkTheme.nwDiaModel select, .darkTheme .nwDiaSel select,.darkTheme .nwDiaSel1  {
     background: #404646!important;
     color: #BFC1C1 !important;
 }

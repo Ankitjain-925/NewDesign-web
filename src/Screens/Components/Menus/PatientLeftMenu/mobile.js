@@ -13,6 +13,7 @@ import Timer from './../../TimeLogOut/index';
 import sitedata from "../../../../sitedata"
 import axios from "axios";
 import Mode from './../../ThemeMode/index.js';
+import DocSuggetion from "../../DocSuggetion/index.js";
 import SetLanguage from './../../SetLanguage/index.js';
 import Notification from "../../../Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 
@@ -131,7 +132,8 @@ class Index extends Component {
     render() {
         return (
             <Grid className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode && this.props.settings.setting.mode==='dark' ? "MenuMob MenuLeftDrkUpr" : "MenuMob"} >
-                  {!this.props.isNotShow && <Notification />}
+                  <Notification />
+                  <DocSuggetion />
             <Grid container direction="row" alignItems="center">
                 <Grid item xs={6} md={6} sm={6} className="MenuMobLeft">
                     <a><img src={require('../../../../assets//images/navigation-drawer.svg')} alt="" title="" className="MenuImg" /></a>

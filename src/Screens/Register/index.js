@@ -393,6 +393,9 @@ class Index extends Component {
             Register_characters, Register_letter, Register_number, Register_special } = translate;
 
 
+            if(this.state.successfull){
+                return (<Redirect to={'/register-successfull'} />); 
+            }
         return (
             <Grid className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode && this.props.settings.setting.mode==='dark' ? "loginSiteUpr homeBgDrk" : "loginSiteUpr"}>
               <Grid className="loginSite"> 
@@ -455,9 +458,9 @@ class Index extends Component {
                                     {this.state.error_msg}
                                     {this.state.namevald}
                                 </div>
-                                <div className="success_message">
+                                {/* <div className="success_message">
                                     {this.state.registerMessage}
-                                </div>
+                                </div> */}
                                 {this.state.fileupods && <div className="success_message">File is uploaded</div>}
                                 <Grid className="registerRow">
                                     <Grid><label>{recEmp_FirstName}</label></Grid>

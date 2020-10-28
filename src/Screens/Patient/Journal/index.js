@@ -538,7 +538,7 @@ class Index extends Component {
 
                     axios.post(sitedata.data.path + '/blockchain/dataManager', {
                         path: "dataManager/getDetails/patient",
-                        data: { "_selfId": this.props.stateLoginValueAim.user.profile_id, "_patientId": this.props.stateLoginValueAim.user.profile_id }
+                        data: { "_selfId":this.props.stateLoginValueAim && this.props.stateLoginValueAim.user && this.props.stateLoginValueAim.user.profile_id, "_patientId": this.props.stateLoginValueAim.user.profile_id }
                     })
                         .then(response3 => {
                             axios.post(sitedata.data.path + '/blockchain/dataManager', {
