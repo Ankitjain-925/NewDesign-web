@@ -13,7 +13,7 @@ import Condition from '../../Condition/index';
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { LanguageFetchReducer } from './../../../actions';
-import * as translationEN from "../../../../translations/en_json_proofread_13072020.json"
+import * as translationEN from "../../../../translations/en.json"
 
 class Index extends Component {
     constructor(props) {

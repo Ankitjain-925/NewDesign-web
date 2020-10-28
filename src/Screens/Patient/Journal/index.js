@@ -51,7 +51,7 @@ import AnamnesisFields from "./../../Components/TimelineComponent/AnamnesisField
 import SCFields from "./../../Components/TimelineComponent/SCFields/index.js";
 import SOFields from "./../../Components/TimelineComponent/SOFields/index.js";
 import moment from 'moment';
-import translationEN from "../../../translations/en_json_proofread_13072020.json"
+import translationEN from "../../../translations/en.json"
 
 var Datas = [];
 class Index extends Component {

@@ -22,7 +22,7 @@ import DatePicker from 'react-date-picker';
 import { getImage } from './../../Components/BasicMethod/index';
 import { Redirect } from 'react-router-dom';
 import { confirmAlert } from 'react-confirm-alert';
-import * as translationEN from '../../../translations/en_json_proofread_13072020.json'
+import * as translationEN from '../../../translations/en.json'
 import * as translationDE from '../../../translations/de';
 import * as translationSP from '../../../translations/sp.json';
 import * as translationCH from '../../../translations/ch';

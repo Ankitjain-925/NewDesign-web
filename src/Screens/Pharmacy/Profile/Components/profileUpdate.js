@@ -23,7 +23,7 @@ import Modal from '@material-ui/core/Modal';
 import Loader from './../../../Components/Loader/index';
 import DateFormat from './../../../Components/DateFormat/index';
 import { GetUrlImage } from './../../../Components/BasicMethod/index';
-import * as translationEN from '../../../../translations/en_json_proofread_13072020.json';
+import * as translationEN from '../../../../translations/en.json';
 
 var datas = [];
 var insurances = [];

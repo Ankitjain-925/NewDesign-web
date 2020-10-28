@@ -21,7 +21,7 @@ import Battery60Icon from '@material-ui/icons/Battery60';
 import Battery90Icon from '@material-ui/icons/Battery90';
 import HighchartsReact from "highcharts-react-official";
 import LeftMenuMobile from './../../Components/Menus/PatientLeftMenu/mobile';
-import * as translationEN from "../../../translations/en_json_proofread_13072020.json"
+import * as translationEN from "../../../translations/en.json"
 
 const withingsMeasureType = {
     Weight: 1,

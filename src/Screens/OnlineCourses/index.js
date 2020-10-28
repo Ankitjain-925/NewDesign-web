@@ -7,7 +7,7 @@ import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Select from 'react-select';
 import Modal from '@material-ui/core/Modal';
-import * as translationEN from '../../translations/en_json_proofread_13072020.json'
+import * as translationEN from '../../translations/en.json'
 function TabContainer(props) {
     return (
         <Typography component="div" style={{ paddingTop: 24 }}>

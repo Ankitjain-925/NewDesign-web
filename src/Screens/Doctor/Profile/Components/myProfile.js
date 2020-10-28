@@ -24,7 +24,7 @@ import * as SwitzerlandC from '../../../Components/insuranceCompanies/switzerlan
 import * as AmericaC from '../../../Components/insuranceCompanies/us.json';
 import * as ThailandC from '../../../Components/insuranceCompanies/thailand.json';
 import { LanguageFetchReducer } from './../../../actions';
-import * as translationEN from '../../../../translations/en_json_proofread_13072020.json';
+import * as translationEN from '../../../../translations/en.json';
 import DateFormat from './../../../Components/DateFormat/index'
 import Autocomplete from './../../../Components/Autocomplete/index.js';
 import Modal from '@material-ui/core/Modal';

@@ -12,7 +12,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import TextField from '@material-ui/core/TextField';
 import Loader from './../../../Components/Loader/index';
 import DateFormat from './../../../Components/DateFormat/index'
-import * as translationEN from '../../../../translations/en_json_proofread_13072020.json';
+import * as translationEN from '../../../../translations/en.json';
 
 class Index extends Component {
     constructor(props) {

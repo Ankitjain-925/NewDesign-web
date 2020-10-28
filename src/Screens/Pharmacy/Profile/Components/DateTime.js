@@ -9,7 +9,7 @@ import { connect } from "react-redux";
 import { LoginReducerAim } from './../../../Login/actions';
 import { Settings } from './../../../Login/setting';
 import { LanguageFetchReducer } from './../../../actions';
-import * as translationEN from '../../../../translations/en_json_proofread_13072020.json';
+import * as translationEN from '../../../../translations/en.json';
 
 class Index extends Component {
     constructor(props) {

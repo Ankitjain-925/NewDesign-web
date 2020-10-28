@@ -21,7 +21,7 @@ import * as ThailandC from '../../../Components/insuranceCompanies/thailand.json
 import FileUploader from './../../../Components/FileUploader/index';
 import Checkbox from '@material-ui/core/Checkbox'
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import * as translationEN from '../../../../translations/en_json_proofread_13072020.json';
+import * as translationEN from '../../../../translations/en.json';
 
 class Index extends Component {
     constructor(props) {

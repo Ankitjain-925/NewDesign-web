@@ -29,7 +29,7 @@ import 'react-flags-select/css/react-flags-select.css';
 import 'react-flags-select/scss/react-flags-select.scss';
 import { getDate, getImage } from './../../Components/BasicMethod/index';
 import npmCountryList from 'react-select-country-list'
-import * as translationEN from '../../../translations/en_json_proofread_13072020.json';
+import * as translationEN from '../../../translations/en.json';
 
 import { Doctorset } from '../../Doctor/actions';
 

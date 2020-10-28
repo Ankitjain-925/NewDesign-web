@@ -15,7 +15,7 @@ import Radio from '@material-ui/core/Radio';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import sitedata from '../../../../sitedata';
 import { getDate, getImage } from './../../../Components/BasicMethod/index';
-import * as translationEN from '../../../../translations/en_json_proofread_13072020.json';
+import * as translationEN from '../../../../translations/en.json';
 
 class Index extends Component {
     constructor(props) {

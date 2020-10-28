@@ -9,7 +9,7 @@ import { withRouter } from "react-router-dom";
 import sitedata from '../../../../sitedata';
 import axios from 'axios';
 import Loader from './../../../Components/Loader/index';
-import * as translationEN from '../../../../translations/en_json_proofread_13072020.json';
+import * as translationEN from '../../../../translations/en.json';
 
 class Index extends Component {
     constructor(props) {

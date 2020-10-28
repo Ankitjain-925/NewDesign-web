@@ -13,7 +13,7 @@ import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
 import Select from 'react-select';
 import Loader from './../../../Components/Loader/index';
 import { getImage } from './../../../Components/BasicMethod/index';
-import * as translationEN from '../../../../translations/en_json_proofread_13072020.json';
+import * as translationEN from '../../../../translations/en.json';
 
 var doctorArray = ['admin'];
 

@@ -12,7 +12,7 @@ import Loader from './../../../Components/Loader/index';
 import Radio from '@material-ui/core/Radio';
 import ReactFlagsSelect from 'react-flags-select';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import * as translationEN from '../../../../translations/en_json_proofread_13072020.json';
+import * as translationEN from '../../../../translations/en.json';
 
 
 class Index extends Component {

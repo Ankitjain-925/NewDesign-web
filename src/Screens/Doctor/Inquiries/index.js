@@ -20,7 +20,7 @@ import { confirmAlert } from 'react-confirm-alert'; // Import
 import { LanguageFetchReducer } from '../../actions';
 import PrecriptionList from './Components/prescription.js';
 import SickCertificateList from './Components/sickCertificate.js';
-import * as translationEN from '../../../translations/en_json_proofread_13072020.json';
+import * as translationEN from '../../../translations/en.json';
 import { Redirect, Route } from 'react-router-dom';
 import SecondOpinion from './Components/secondOpinion';
 // import * as translationDE from '../../../translations/de_json_proofread_13072020.json';

@@ -26,7 +26,7 @@ import RightManage from './../../Components/TimelineComponent/RightMenuManage/in
 import { ConsoleCustom, getTime, getDate } from './../../Components/BasicMethod/index';
 import ViewTimeline from './../../Components/TimelineComponent/ViewTimeline/index';
 import Loader from './../../Components/Loader/index.js';
-import translationEN from "../../../translations/en_json_proofread_13072020.json"
+import translationEN from "../../../translations/en.json"
 class Index extends Component {
     constructor(props) {
         super(props)

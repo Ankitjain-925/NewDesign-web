@@ -28,7 +28,7 @@ import LeftMenu from "../../Components/Menus/PatientLeftMenu/index";
 import LeftMenuMobile from './../../Components/Menus/PatientLeftMenu/mobile';
 import sitedata from "../../../sitedata";
 import Autocomplete from './Autocomplete';
-import translationEN from '../../../translations/en_json_proofread_13072020.json'
+import translationEN from '../../../translations/en.json'
 import * as translationDE from '../../../translations/de';
 import * as translationSP from '../../../translations/sp.json';
 import * as translationCH from '../../../translations/ch';

@@ -13,7 +13,7 @@ import Loader from './../../Components/Loader/index';
 import { Redirect, Route } from 'react-router-dom';
 import sitedata from '../../../sitedata';
 import "react-toggle/style.css";
-import * as translationEN from "../../../translations/en_json_proofread_13072020.json"
+import * as translationEN from "../../../translations/en.json"
 
 class Index extends Component {
     constructor(props) {

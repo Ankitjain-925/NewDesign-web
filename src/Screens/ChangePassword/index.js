@@ -7,7 +7,7 @@ import { LoginReducerAim } from '../Login/actions';
 import Grid from '@material-ui/core/Grid';
 import { authy } from '../Login/authy.js';
 import Toggle from 'react-toggle';
-// import * as translationEN from '../../translations/en_json_proofread_13072020.json';
+// import * as translationEN from '../../translations/en.json';
 
 import * as translationEN from '../../translations/en.json';
 import * as translationDE from '../../translations/de';

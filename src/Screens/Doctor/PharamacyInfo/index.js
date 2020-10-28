@@ -14,7 +14,7 @@ import sitedata from './../../../sitedata';
 import axios from 'axios';
 import Geocode from "react-geocode";
 import { confirmAlert } from 'react-confirm-alert'; // Import
-import * as translationEN from '../../../translations/en_json_proofread_13072020.json';
+import * as translationEN from '../../../translations/en.json';
 class Index extends Component {
     constructor(props) {
         super(props)

@@ -14,7 +14,7 @@ import { Settings } from './../../../Login/setting';
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import { LanguageFetchReducer } from './../../../actions';
 import { getDate, getImage } from './../../../Components/BasicMethod/index';
-import * as translationEN from '../../../../translations/en_json_proofread_13072020.json';
+import * as translationEN from '../../../../translations/en.json';
 import FileUploader from './../../../Components/FileUploader/index';
 import Loader from './../../../Components/Loader/index.js';
 

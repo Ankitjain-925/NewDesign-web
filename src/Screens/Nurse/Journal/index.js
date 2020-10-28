@@ -45,7 +45,7 @@ import EmptyData from './../../Components/TimelineComponent/EmptyData';
 import DiagnosisFields from './../../Components/TimelineComponent/DiagnosisFields/index';
 import moment from 'moment';
 import GraphView from './../../Components/TimelineComponent/GraphView/index';
-import * as translationEN from "../../../translations/en_json_proofread_13072020.json";
+import * as translationEN from "../../../translations/en.json";
 import { FormatListBulleted } from '@material-ui/icons';
 import PFields from "./../../Components/TimelineComponent/PFields/index.js";
 import AnamnesisFields from "./../../Components/TimelineComponent/AnamnesisFields/index.js";

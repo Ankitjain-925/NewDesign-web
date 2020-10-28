@@ -16,7 +16,7 @@ import { Redirect, Route } from 'react-router-dom';
 import { connect } from "react-redux";
 import { LoginReducerAim } from './../../Login/actions';
 import EmergencyCall from './../../Components/EmergencyPage/index';
-import * as translationEN from "../../../translations/en_json_proofread_13072020.json";
+import * as translationEN from "../../../translations/en.json";
 import { Settings } from './../../Login/setting';
 
 class Index extends Component {

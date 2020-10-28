@@ -19,7 +19,7 @@ import LeftMenu from './../../Components/Menus/PatientLeftMenu/index';
 import LeftMenuMobile from './../../Components/Menus/PatientLeftMenu/mobile';
 import FileUploader from './../../Components/FileUploader/index';
 import { AddFavDoc, ConsoleCustom } from './../../Components/BasicMethod/index';
-import translationEN from "../../../translations/en_json_proofread_13072020.json"
+import translationEN from "../../../translations/en.json"
 
 const specialistOptions = [
     { value: 'Specialist1', label: 'Specialist1' },

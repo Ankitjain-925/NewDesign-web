@@ -28,7 +28,7 @@ import { Redirect, Route } from 'react-router-dom';
 import SickList from './Components/sickcertificate';
 import PrecriptionList from './Components/prescription';
 import { AddFavDoc, ConsoleCustom } from './../../Components/BasicMethod/index';
-import * as translationEN from '../../../translations/en_json_proofread_13072020.json';
+import * as translationEN from '../../../translations/en.json';
 
 
 const specialistOptions = [

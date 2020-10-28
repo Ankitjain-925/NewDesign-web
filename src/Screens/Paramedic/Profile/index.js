@@ -22,7 +22,7 @@ import Typography from '@material-ui/core/Typography';
 import ProfileSection from './Components/profileUpdate';
 import SecuritySection from './Components/security';
 import DateTimeSection from './Components/DateTime';
-import * as translationEN from '../../../translations/en_json_proofread_13072020.json'
+import * as translationEN from '../../../translations/en.json'
 
 function TabContainer(props) {
     return (

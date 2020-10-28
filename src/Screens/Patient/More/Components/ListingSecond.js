@@ -17,7 +17,7 @@ import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
 import FileUploader from './../../../Components/FileUploader/index';
 import Loader from '../../../Components/Loader/index';
 import { getDate, getImage, GetUrlImage } from '../../../Components/BasicMethod/index'
-import translationEN from "../../../../translations/en_json_proofread_13072020.json"
+import translationEN from "../../../../translations/en.json"
 const specialistOptions = [
     { value: 'Specialist1', label: 'Specialist1' },
     { value: 'Specialist2', label: 'Specialist2' },

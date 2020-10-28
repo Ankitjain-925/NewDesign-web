@@ -11,7 +11,7 @@ import Modal from '@material-ui/core/Modal';
 import sitedata from './../../../sitedata';
 import axios from 'axios';
 import CreatableSelect from 'react-select/creatable';
-import * as translationEN from '../../../translations/en_json_proofread_13072020.json'
+import * as translationEN from '../../../translations/en.json'
 import * as translationDE from '../../../translations/de';
 import * as translationSP from '../../../translations/sp.json';
 import * as translationCH from '../../../translations/ch';

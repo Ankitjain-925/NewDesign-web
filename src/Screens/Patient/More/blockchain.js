@@ -15,7 +15,7 @@ import Collapsible from 'react-collapsible';
 import sitedata from '../../../sitedata';
 import "react-toggle/style.css";
 import { getDate, getImage } from './../../Components/BasicMethod/index'
-import * as translationEN from "../../../translations/en_json_proofread_13072020.json"
+import * as translationEN from "../../../translations/en.json"
 class Index extends Component {
     constructor(props) {
         super(props)

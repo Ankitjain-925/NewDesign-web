@@ -9,7 +9,7 @@ import { connect } from "react-redux";
 import { LoginReducerAim } from './../../../Login/actions';
 import { Settings } from './../../../Login/setting';
 import { LanguageFetchReducer } from './../../../actions';
-import * as translationEN from '../../../../translations/en_json_proofread_13072020.json';
+import * as translationEN from '../../../../translations/en.json';
 
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css'; // ES6
