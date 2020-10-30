@@ -6,6 +6,14 @@ import FileViews from  './../FileViews/index';
 import { getDate, newdate, getTime, getImage } from './../../BasicMethod/index';
 
 import * as translationEN from "../../../../translations/en.json"
+import * as translationDE from '../../../../translations/de.json';
+import * as translationPT from '../../../../translations/pt.json';
+import * as translationSP from '../../../../translations/sp.json';
+import * as translationRS from '../../../../translations/rs.json';
+import * as translationSW from '../../../../translations/sw.json';
+import * as translationCH from '../../../../translations/ch.json';
+import * as translationNL from '../../../../translations/en.json';
+
 class Index extends Component {
     constructor(props) {
         super(props)

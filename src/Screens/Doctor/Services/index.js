@@ -23,14 +23,20 @@ import { LanguageFetchReducer } from './../../actions';
 import Loader from './../../Components/Loader/index';
 import { Redirect, Route } from 'react-router-dom';
 import moment from 'moment';
-import translate from './../../Components/Translator/index.js';
+// import translate from './../../Components/Translator/index.js';
 import ReactFlagsSelect from 'react-flags-select';
 import 'react-flags-select/css/react-flags-select.css';
 import 'react-flags-select/scss/react-flags-select.scss';
 import { getDate, getImage } from './../../Components/BasicMethod/index';
 import npmCountryList from 'react-select-country-list'
 import * as translationEN from '../../../translations/en.json';
-
+import * as translationDE from '../../../translations/de.json';
+import * as translationPT from '../../../translations/pt.json';
+import * as translationSP from '../../../translations/sp.json';
+import * as translationRS from '../../../translations/rs.json';
+import * as translationSW from '../../../translations/sw.json';
+import * as translationCH from '../../../translations/ch.json';
+import * as translationNL from '../../../translations/en.json';
 import { Doctorset } from '../../Doctor/actions';
 
 var letter = /([a-zA-Z])+([ -~])*/, number = /\d+/, specialchar = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
@@ -593,27 +599,27 @@ class Index extends Component {
             case "en":
                 translate = translationEN.text
                 break;
-            // case "de":
-            //     translate = translationDE.text
-            //     break;
-            // case "pt":
-            //     translate = translationPT.text
-            //     break;
-            // case "sp":
-            //     translate = translationSP.text
-            //     break;
-            // case "rs":
-            //     translate = translationRS.text
-            //     break;
-            // case "nl":
-            //     translate = translationNL.text
-            //     break;
-            // case "ch":
-            //     translate = translationCH.text
-            //     break;
-            // case "sw":
-            //     translate = translationSW.text
-            //     break;
+            case "de":
+                translate = translationDE.text
+                break;
+            case "pt":
+                translate = translationPT.text
+                break;
+            case "sp":
+                translate = translationSP.text
+                break;
+            case "rs":
+                translate = translationRS.text
+                break;
+            case "nl":
+                translate = translationNL.text
+                break;
+            case "ch":
+                translate = translationCH.text
+                break;
+            case "sw":
+                translate = translationSW.text
+                break;
             case "default":
                 translate = translationEN.text
         }
@@ -737,7 +743,7 @@ class Index extends Component {
                                                             </Grid>
                                                             <Grid className="userAdres">
                                                                 <Grid><img src={require('../../../assets/images/language11.svg')} alt="" title="" /></Grid>
-                                                                <p>{profileDetail.language&&profileDetail.language.map((data,inde)=>
+                                                                <p>{profileDetail.language && profileDetail.language.map((data,inde)=>
                                                                     ((inde!==0)?
                                                                         (', '+data)
                                                                     :
@@ -912,7 +918,7 @@ class Index extends Component {
                                                                 </div>
                                                                 : <div className="passInst">
                                                                     <div className="passInstIner">
-                                                                        <p>Password should contain at least:</p>
+                                                                        <p>{Register_Passwordshould}</p>
                                                                         <img src={require('../../../assets/images/passArrow.png')} alt="" title="" className="passArow" />
                                                                         <ul>
                                                                             <li><a><img src={require('../../../assets/images/CloseCircle.svg')} alt="" title="" />{Register_characters}</a></li>

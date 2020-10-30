@@ -22,6 +22,13 @@ import Battery90Icon from '@material-ui/icons/Battery90';
 import HighchartsReact from "highcharts-react-official";
 import LeftMenuMobile from './../../Components/Menus/PatientLeftMenu/mobile';
 import * as translationEN from "../../../translations/en.json"
+import * as translationDE from '../../../translations/de.json';
+import * as translationPT from '../../../translations/pt.json';
+import * as translationSP from '../../../translations/sp.json';
+import * as translationRS from '../../../translations/rs.json';
+import * as translationSW from '../../../translations/sw.json';
+import * as translationCH from '../../../translations/ch.json';
+import * as translationNL from '../../../translations/en.json';
 
 const withingsMeasureType = {
     Weight: 1,
@@ -576,35 +583,35 @@ class Index extends Component {
         const { fitbitDevice, withingsDevice, value, fitbitloggedIn, apidata, withingsloggedIn, garminloggedIn, Devices_id, deviceid } = this.state;
 
         let translate;
-        switch (this.props.stateLanguageType) {
+      switch (this.props.stateLanguageType) {
             case "en":
                 translate = translationEN.text
                 break;
-            // case "de":
-            //     translate = translationDE.text
-            //     break;
-            // case "pt":
-            //     translate = translationPT.text
-            //     break;
-            // case "sp":
-            //     translate = translationSP.text
-            //     break;
-            // case "rs":
-            //     translate = translationRS.text
-            //     break;
-            // case "nl":
-            //     translate = translationNL.text
-            //     break;
-            // case "ch":
-            //     translate = translationCH.text
-            //     break;
-            // case "sw":
-            //     translate = translationSW.text
-            //     break;
+            case "de":
+                translate = translationDE.text
+                break;
+            case "pt":
+                translate = translationPT.text
+                break;
+            case "sp":
+                translate = translationSP.text
+                break;
+            case "rs":
+                translate = translationRS.text
+                break;
+            case "nl":
+                translate = translationNL.text
+                break;
+            case "ch":
+                translate = translationCH.text
+                break;
+            case "sw":
+                translate = translationSW.text
+                break;
             case "default":
                 translate = translationEN.text
         }
-        let { trackers, self_data, connect, search_for_device_palce, devices, services, view_data,
+        let { trackers, TrackersDevices, self_data, connect, search_for_device_palce, devices, services, view_data,
             view_details, logout, disconect_device, distance, total, best, steps, badges, earned, on, last,
             model, type, timezone, session, ur_connected_device_appear, no_device_connctd, connct_a_device } = translate
 
@@ -726,7 +733,7 @@ class Index extends Component {
                                                 <Grid container direction="row">
                                                     <Grid item xs={12} md={8}>
                                                         <Tabs value={value} onChange={this.handleChangeTabs} className="presTabs">
-                                                            <Tab label="Trackers & Devices" className="presTabsIner" />
+                                                            <Tab label={TrackersDevices} className="presTabsIner" />
                                                             {/* <Tab label="Self Data Services" className="presTabsIner" /> */}
                                                         </Tabs>
                                                     </Grid>

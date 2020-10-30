@@ -10,6 +10,14 @@ import sitedata from '../../../../sitedata';
 import axios from 'axios';
 import Loader from './../../../Components/Loader/index';
 import * as translationEN from '../../../../translations/en.json';
+import * as translationDE from '../../../../translations/de.json';
+import * as translationPT from '../../../../translations/pt.json';
+import * as translationSP from '../../../../translations/sp.json';
+import * as translationRS from '../../../../translations/rs.json';
+import * as translationSW from '../../../../translations/sw.json';
+import * as translationCH from '../../../../translations/ch.json';
+import * as translationNL from '../../../../translations/en.json';
+
 var letter = /([a-zA-Z])+([ -~])*/, number = /\d+/, specialchar = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/; 
 
 class Index extends Component {
@@ -93,42 +101,42 @@ class Index extends Component {
     }
     render() {
         let translate;
-        switch (this.props.stateLanguageType) {
+      switch (this.props.stateLanguageType) {
             case "en":
                 translate = translationEN.text
                 break;
-            // case "de":
-            //     translate = translationDE.text
-            //     break;
-            // case "pt":
-            //     translate = translationPT.text
-            //     break;
-            // case "sp":
-            //     translate = translationSP.text
-            //     break;
-            // case "rs":
-            //     translate = translationRS.text
-            //     break;
-            // case "nl":
-            //     translate = translationNL.text
-            //     break;
-            // case "ch":
-            //     translate = translationCH.text
-            //     break;
-            // case "sw":
-            //     translate = translationSW.text
-            //     break;
+            case "de":
+                translate = translationDE.text
+                break;
+            case "pt":
+                translate = translationPT.text
+                break;
+            case "sp":
+                translate = translationSP.text
+                break;
+            case "rs":
+                translate = translationRS.text
+                break;
+            case "nl":
+                translate = translationNL.text
+                break;
+            case "ch":
+                translate = translationCH.text
+                break;
+            case "sw":
+                translate = translationSW.text
+                break;
             case "default":
                 translate = translationEN.text
         }
         let { Change, password, is, we_use_authy, supportive_text, Current, confirm_password, new_password, two_fac_auth, password_changed, new_and_confirm_pass_not_same, current_pass_not_match, plz_fill_fields,Register_characters,
-            Disable, Enable, Register_Passwordshould, Register_letter, Register_number, Register_special } = translate;
+            Disable, Enable, Register_Passwordshould, change_password, Passwordisnotvalid, Register_letter, Register_number, Register_special } = translate;
 
         return (
             <div>
                 {this.state.loaderImage && <Loader />}
                 {this.state.PassDone && <div className="success_message">{password_changed}</div>}
-                {this.state.notVlidpass && <div className="err_message">Password is not valid</div>}
+                {this.state.notVlidpass && <div className="err_message">{Passwordisnotvalid}</div>}
                 {this.state.notmatchCon && <div className="err_message">{new_and_confirm_pass_not_same}</div>}
                 {this.state.notmatch && <div className="err_message">{current_pass_not_match}</div>}
                 {this.state.fillall && <div className="err_message">{plz_fill_fields}</div>}
@@ -188,7 +196,7 @@ class Index extends Component {
                                 <Grid><input type="password" name="new_pass_comfirm" onChange={this.ChangePass} /></Grid>
                             </Grid>
                             <Grid className="genPassInr">
-                                <Grid><input type="submit" value="Change password" onClick={this.ChangePassword} /></Grid>
+                                <Grid><input type="submit" value={change_password} onClick={this.ChangePassword} /></Grid>
                             </Grid>
                         </Grid>
                         <Grid className="twofactorAuth">

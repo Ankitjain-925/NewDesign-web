@@ -29,7 +29,13 @@ import SickList from './Components/sickcertificate';
 import PrecriptionList from './Components/prescription';
 import { AddFavDoc, ConsoleCustom } from './../../Components/BasicMethod/index';
 import * as translationEN from '../../../translations/en.json';
-
+import * as translationDE from '../../../translations/de.json';
+import * as translationPT from '../../../translations/pt.json';
+import * as translationSP from '../../../translations/sp.json';
+import * as translationRS from '../../../translations/rs.json';
+import * as translationSW from '../../../translations/sw.json';
+import * as translationCH from '../../../translations/ch.json';
+import * as translationNL from '../../../translations/en.json';
 
 const specialistOptions = [
     { value: 'Specialist1', label: 'Specialist1' },
@@ -371,35 +377,35 @@ class Index extends Component {
         }
 
         let translate;
-        switch (this.props.stateLanguageType) {
+      switch (this.props.stateLanguageType) {
             case "en":
                 translate = translationEN.text
                 break;
-            // case "de":
-            //     translate = translationDE.text
-            //     break;
-            // case "pt":
-            //     translate = translationPT.text
-            //     break;
-            // case "sp":
-            //     translate = translationSP.text
-            //     break;
-            // case "rs":
-            //     translate = translationRS.text
-            //     break;
-            // case "nl":
-            //     translate = translationNL.text
-            //     break;
-            // case "ch":
-            //     translate = translationCH.text
-            //     break;
-            // case "sw":
-            //     translate = translationSW.text
-            //     break;
+            case "de":
+                translate = translationDE.text
+                break;
+            case "pt":
+                translate = translationPT.text
+                break;
+            case "sp":
+                translate = translationSP.text
+                break;
+            case "rs":
+                translate = translationRS.text
+                break;
+            case "nl":
+                translate = translationNL.text
+                break;
+            case "ch":
+                translate = translationCH.text
+                break;
+            case "sw":
+                translate = translationSW.text
+                break;
             case "default":
                 translate = translationEN.text
         }
-        let { sick_cert, my_doc, prescription, New, r_u_tracking_medi, inquiry, select, for_sick_cert_req_doc, share_health_status_info_from_journal, share_health_status, see_list_shared_info, share_ur_jounral_status,
+        let { sick_cert,prescriptions, sickcsrtificates, my_doc, prescription, New, r_u_tracking_medi, inquiry, select, for_sick_cert_req_doc, share_health_status_info_from_journal, share_health_status, see_list_shared_info, share_ur_jounral_status,
             country_u_live, dieseases_etc, allergies, health_issue, doc_and_statnderd_ques, doc_aimedis_private, how_u_feeling, is_ur_temp_high_to_38, which_symptoms_do_u_hav, since_when,
             have_u_already_been_sick, how_long_do_u_unable_to_work, days, it_is_known_dieseas, do_u_hv_allergies, what_ur_profession, Annotations, details, questions, for_pres_req_doc_require,
             is_this_follow_pres, how_u_like_rcv_pres, Medicine, Substance, Dose, mg, trade_name, atc_if_applicable, manufacturer, pack_size,  } = translate
@@ -746,8 +752,8 @@ class Index extends Component {
                                                 <Grid container direction="row">
                                                     <Grid item xs={8} md={8}>
                                                         <Tabs value={value} onChange={this.handleChangeTabs} className="presTabs">
-                                                            <Tab label="Prescriptions" className="presTabsIner" />
-                                                            <Tab label="Sick Certificates" className="presTabsIner" />
+                                                            <Tab label={prescriptions} className="presTabsIner" />
+                                                            <Tab label={sickcsrtificates} className="presTabsIner" />
                                                         </Tabs>
                                                     </Grid>
                                                     <Grid item xs={4} md={4} className="presSrch">

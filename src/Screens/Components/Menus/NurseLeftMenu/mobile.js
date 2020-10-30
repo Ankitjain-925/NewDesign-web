@@ -64,7 +64,7 @@ class Index extends Component {
                 }
                 this.setState({ loaderImage: false, languageValue: responce.data.data && responce.data.data.language ? responce.data.data.language : 'en', mode : responce.data.data && responce.data.data.mode ? responce.data.data.mode : 'normal' },
                 ()=>{
-                    // this.props.LanguageFetchReducer(this.state.languageValue);
+                    this.props.LanguageFetchReducer(this.state.languageValue);
                 })
             })
     }

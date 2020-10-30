@@ -13,6 +13,13 @@ import TextField from '@material-ui/core/TextField';
 import Loader from './../../../Components/Loader/index';
 import DateFormat from './../../../Components/DateFormat/index'
 import * as translationEN from '../../../../translations/en.json';
+import * as translationDE from '../../../../translations/de.json';
+import * as translationPT from '../../../../translations/pt.json';
+import * as translationSP from '../../../../translations/sp.json';
+import * as translationRS from '../../../../translations/rs.json';
+import * as translationSW from '../../../../translations/sw.json';
+import * as translationCH from '../../../../translations/ch.json';
+import * as translationNL from '../../../../translations/en.json';
 
 class Index extends Component {
     constructor(props) {
@@ -150,37 +157,37 @@ class Index extends Component {
 
     render() {
         let translate;
-        switch (this.props.stateLanguageType) {
+      switch (this.props.stateLanguageType) {
             case "en":
                 translate = translationEN.text
                 break;
-            // case "de":
-            //     translate = translationDE.text
-            //     break;
-            // case "pt":
-            //     translate = translationPT.text
-            //     break;
-            // case "sp":
-            //     translate = translationSP.text
-            //     break;
-            // case "rs":
-            //     translate = translationRS.text
-            //     break;
-            // case "nl":
-            //     translate = translationNL.text
-            //     break;
-            // case "ch":
-            //     translate = translationCH.text
-            //     break;
-            // case "sw":
-            //     translate = translationSW.text
-            //     break;
+            case "de":
+                translate = translationDE.text
+                break;
+            case "pt":
+                translate = translationPT.text
+                break;
+            case "sp":
+                translate = translationSP.text
+                break;
+            case "rs":
+                translate = translationRS.text
+                break;
+            case "nl":
+                translate = translationNL.text
+                break;
+            case "ch":
+                translate = translationCH.text
+                break;
+            case "sw":
+                translate = translationSW.text
+                break;
             case "default":
                 translate = translationEN.text
         }
         let {right_management, setup_who_can_see_upload_data, emergancy_access_for_hospital_doc, specify_kind_of_right_management,
             automatically_visible_content, automatically_hidden_content, Opt_In, Opt_Out, apply_right_management_for_all_items,
-            plz_mention_date_time, make_all_item_visible_now_untill,make_all_item_hide_now_untill,make_all_item_hide_untill, make_all_item_visible_untill, save_change }=translate
+            Yes, No, plz_mention_date_time, make_all_item_visible_now_untill,make_all_item_hide_now_untill,make_all_item_hide_untill, make_all_item_visible_untill, save_change }=translate
 
         return (
             <div>
@@ -195,8 +202,8 @@ class Index extends Component {
                         <Grid className="emrgncyAccess">
                             <p>{emergancy_access_for_hospital_doc}</p>
                             <Grid>
-                                <FormControlLabel value="yes" name="emergency_access" checked={this.state.emergency_access === 'yes'} onChange={this.handleemergency_access.bind(this)} control={<Radio />} label="Yes" />
-                                <FormControlLabel value="no" name="emergency_access" checked={this.state.emergency_access === 'no'} onChange={this.handleemergency_access.bind(this)} control={<Radio />} label="No" />
+                                <FormControlLabel value="yes" name="emergency_access" checked={this.state.emergency_access === 'yes'} onChange={this.handleemergency_access.bind(this)} control={<Radio />} label={Yes} />
+                                <FormControlLabel value="no" name="emergency_access" checked={this.state.emergency_access === 'no'} onChange={this.handleemergency_access.bind(this)} control={<Radio />} label={No} />
                             </Grid>
                         </Grid>
 

@@ -13,6 +13,13 @@ import Radio from '@material-ui/core/Radio';
 import ReactFlagsSelect from 'react-flags-select';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import * as translationEN from '../../../../translations/en.json';
+import * as translationDE from '../../../../translations/de.json';
+import * as translationPT from '../../../../translations/pt.json';
+import * as translationSP from '../../../../translations/sp.json';
+import * as translationRS from '../../../../translations/rs.json';
+import * as translationSW from '../../../../translations/sw.json';
+import * as translationCH from '../../../../translations/ch.json';
+import * as translationNL from '../../../../translations/en.json';
 
 
 class Index extends Component {
@@ -244,37 +251,37 @@ class Index extends Component {
     render() {
 
         let translate;
-        switch (this.props.stateLanguageType) {
+      switch (this.props.stateLanguageType) {
             case "en":
                 translate = translationEN.text
                 break;
-            // case "de":
-            //     translate = translationDE.text
-            //     break;
-            // case "pt":
-            //     translate = translationPT.text
-            //     break;
-            // case "sp":
-            //     translate = translationSP.text
-            //     break;
-            // case "rs":
-            //     translate = translationRS.text
-            //     break;
-            // case "nl":
-            //     translate = translationNL.text
-            //     break;
-            // case "ch":
-            //     translate = translationCH.text
-            //     break;
-            // case "sw":
-            //     translate = translationSW.text
-            //     break;
+            case "de":
+                translate = translationDE.text
+                break;
+            case "pt":
+                translate = translationPT.text
+                break;
+            case "sp":
+                translate = translationSP.text
+                break;
+            case "rs":
+                translate = translationRS.text
+                break;
+            case "nl":
+                translate = translationNL.text
+                break;
+            case "ch":
+                translate = translationCH.text
+                break;
+            case "sw":
+                translate = translationSW.text
+                break;
             case "default":
                 translate = translationEN.text
         }
-        let {free_text, format_updated, profile, information, ID, pin, QR_code, done, Change, edit_id_pin, edit, and, is, changed, profile_id_taken, profile_id_greater_then_5,
+        let {free_text, format_updated, YesIherewithagreewitha, followingorgantissues, profile, information, ID, pin, QR_code, done, Change, edit_id_pin, edit, and, is, changed, profile_id_taken, profile_id_greater_then_5,
             save_change, email, title, degree, first, last, name, dob, gender, street, add, city, postal_code, country, home_telephone, phone, country_code, Delete,
-            mobile_number, number, mobile, Languages, spoken, insurance, yes_shall_not_decided_by_person,  company, of, organ_transplant_declaration, blockchain_secure_organ_donar_Pass, 
+            mobile_number, number, mobile, Languages, spoken, insurance,allowthisonlyforfollowing, yes_shall_not_decided_by_person,  company, of, organ_transplant_declaration, blockchain_secure_organ_donar_Pass, 
             easily_select_donar, organ_tissue, dont_allow_transplantation } = translate;
 
         return (
@@ -289,8 +296,8 @@ class Index extends Component {
                    
                     <Grid className="organDeclare">
                         <h5>{organ_transplant_declaration}</h5>
-                        <Grid><FormControlLabel value="yes_to_all" name="my_choice" checked={this.state.selectedOption === 'yes_to_all'} onChange={this.handleOptionChange.bind(this)} control={<Radio />} label="Yes, I herewith agree with a transplantation of one or more organ / tissues of mine after doctors have pronounced me dead" /></Grid>
-                        <Grid><FormControlLabel value="exclude_some" name="my_choice" checked={this.state.selectedOption === 'exclude_some'} onChange={this.handleOptionChange.bind(this)} control={<Radio />} label="Yes, I allow this except for following organ / tissues:" /></Grid>
+                        <Grid><FormControlLabel value="yes_to_all" name="my_choice" checked={this.state.selectedOption === 'yes_to_all'} onChange={this.handleOptionChange.bind(this)} control={<Radio />} label={YesIherewithagreewitha} /></Grid>
+                        <Grid><FormControlLabel value="exclude_some" name="my_choice" checked={this.state.selectedOption === 'exclude_some'} onChange={this.handleOptionChange.bind(this)} control={<Radio />} label={followingorgantissues} /></Grid>
                         <Grid item xs={12} md={5} className="donarLang">
                         <label>{organ_tissue}</label>
                         <Grid>
@@ -307,7 +314,7 @@ class Index extends Component {
                             />
                         </Grid>
                     </Grid>                     
-                        <Grid><FormControlLabel value="yes" value="include_some" name="my_choice" checked={this.state.selectedOption === 'include_some'} onChange={this.handleOptionChange.bind(this)} control={<Radio />} label="Yes, I allow this only for following organ / tissues:" /></Grid>
+                        <Grid><FormControlLabel value="yes" value="include_some" name="my_choice" checked={this.state.selectedOption === 'include_some'} onChange={this.handleOptionChange.bind(this)} control={<Radio />} label={allowthisonlyforfollowing} /></Grid>
                         <Grid item xs={12} md={5} className="donarLang">
                         <label>{organ_tissue}</label>
                         <Grid>

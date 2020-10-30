@@ -19,6 +19,15 @@ import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
 import { getDate, getTime, getImage } from './../../Components/BasicMethod/index';
 
+import * as translationEN from "../../../translations/en.json";
+import * as translationDE from '../../../translations/de.json';
+import * as translationPT from '../../../translations/pt.json';
+import * as translationSP from '../../../translations/sp.json';
+import * as translationRS from '../../../translations/rs.json';
+import * as translationSW from '../../../translations/sw.json';
+import * as translationCH from '../../../translations/ch.json';
+import * as translationNL from '../../../translations/en.json';
+
 class Index extends Component {
     constructor(props) {
         super(props);
@@ -232,6 +241,36 @@ class Index extends Component {
     }
 
     render() {
+        let translate
+        switch (this.props.stateLanguageType) {
+              case "en":
+                  translate = translationEN.text
+                  break;
+              case "de":
+                  translate = translationDE.text
+                  break;
+              case "pt":
+                  translate = translationPT.text
+                  break;
+              case "sp":
+                  translate = translationSP.text
+                  break;
+              case "rs":
+                  translate = translationRS.text
+                  break;
+              case "nl":
+                  translate = translationNL.text
+                  break;
+              case "ch":
+                  translate = translationCH.text
+                  break;
+              case "sw":
+                  translate = translationSW.text
+                  break;
+              case "default":
+                  translate = translationEN.text
+          }
+          let { Prescriptionisdeleted, PrescriptionisDearchived, recved_on, archive, fors, prescriptions,prescription, Patient, capab_Doctors } = translate;
         const { stateLoginValueAim, Doctorsetget } = this.props;
         if (stateLoginValueAim.user === 'undefined' || stateLoginValueAim.token === 450 || stateLoginValueAim.token === 'undefined' || stateLoginValueAim.user.type !== 'pharmacy' ) {
             return (<Redirect to={'/'} />);
@@ -252,21 +291,21 @@ class Index extends Component {
                                 <Grid item xs={12} md={10}>
                                     <Grid className="phrmOpinion">
                                         <Grid container direction="row" className="phrmOpinLbl">
-                                            <Grid item xs={12} md={12}><label>Archive Prescriptions</label></Grid>
+                                            <Grid item xs={12} md={12}><label>{archive} {prescriptions}</label></Grid>
                                         </Grid>
                                         <Grid className="patientSrch">
                                             <input type="text" placeholder="Search by Patient ID, Patient name, Doctor..."  value={this.state.search_value} onChange={this.searchData}/>
                                         </Grid>
-                                        {this.state.isArchived && <div className="success_message">Prescription is Dearchived</div>}
-                                        {this.state.isDeleted && <div className="success_message">Prescription is deleted</div>}
+                                        {this.state.isArchived && <div className="success_message">{PrescriptionisDearchived}</div>}
+                                        {this.state.isDeleted && <div className="success_message">{Prescriptionisdeleted}</div>}
                                         
                                         <Grid className="presOpinionIner">
                                             <Table>
                                                 <Thead>
                                                     <Tr>
-                                                        <Th>Received on</Th>
-                                                        <Th>Patient</Th>
-                                                        <Th>Doctor</Th>
+                                                        <Th>{recved_on}</Th>
+                                                        <Th>{Patient}</Th>
+                                                        <Th>{capab_Doctors}</Th>
                                                     </Tr>
                                                 </Thead>
                                                 <Tbody>
@@ -307,7 +346,7 @@ class Index extends Component {
                                                                         <img src={require('../../../assets/images/closefancy.png')} alt="" title="" />
                                                                     </a>
                                                                 </Grid>
-                                                                <p>Prescription for</p>
+                                                                <p>{prescription} {fors}</p>
                                                                 <Grid><label> {this.state.openDetail.patient_name && this.state.openDetail.patient_name}</label></Grid>
                                                             </Grid>
 

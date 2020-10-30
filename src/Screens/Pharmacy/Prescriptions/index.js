@@ -18,6 +18,14 @@ import { Settings } from './../../Login/setting';
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
 import { getDate, getTime, getImage } from './../../Components/BasicMethod/index';
+import * as translationEN from '../../../translations/en.json';
+import * as translationDE from '../../../translations/de.json';
+import * as translationPT from '../../../translations/pt.json';
+import * as translationSP from '../../../translations/sp.json';
+import * as translationRS from '../../../translations/rs.json';
+import * as translationSW from '../../../translations/sw.json';
+import * as translationCH from '../../../translations/ch.json';
+import * as translationNL from '../../../translations/en.json';
 
 class Index extends Component {
     constructor(props) {
@@ -262,6 +270,37 @@ class Index extends Component {
         if (stateLoginValueAim.user === 'undefined' || stateLoginValueAim.token === 450 || stateLoginValueAim.token === 'undefined' || stateLoginValueAim.user.type !== 'pharmacy' ) {
             return (<Redirect to={'/'} />);
         } 
+        let translate;
+        switch (this.props.stateLanguageType) {
+            case "en":
+                translate = translationEN.text
+                break;
+            case "de":
+                translate = translationDE.text
+                break;
+            case "pt":
+                translate = translationPT.text
+                break;
+            case "sp":
+                translate = translationSP.text
+                break;
+            case "rs":
+                translate = translationRS.text
+                break;
+            case "nl":
+                translate = translationNL.text
+                break;
+            case "ch":
+                translate = translationCH.text
+                break;
+            case "sw":
+                translate = translationSW.text
+                break;
+            case "default":
+                translate = translationEN.text
+        }
+        let { prescriptions, Prescriptionisarchived, Prescriptionisdeleted, Prescriptionishandedtopatient, recved_on, Patient, capab_Doctors, status } = translate
+
         return (
             <Grid className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode && this.props.settings.setting.mode==='dark' ? "homeBg homeBgDrk" : "homeBg"}>
                  {this.state.loaderImage && <Loader />}
@@ -278,23 +317,23 @@ class Index extends Component {
                                 <Grid item xs={12} md={10}>
                                     <Grid className="phrmOpinion">
                                         <Grid container direction="row" className="phrmOpinLbl">
-                                            <Grid item xs={12} md={12}><label>Prescriptions</label></Grid>
+                                            <Grid item xs={12} md={12}><label>{prescriptions}</label></Grid>
                                         </Grid>
                                         <Grid className="patientSrch">
                                             <input type="text" placeholder="Search by Patient ID, Patient name, Doctor..."  value={this.state.search_value} onChange={this.searchData}/>
                                         </Grid>
-                                        {this.state.isArchived && <div className="success_message">Prescription is archived</div>}
-                                        {this.state.ishandled && <div className="success_message">Prescription is handed to patient</div>}
-                                        {this.state.isDeleted && <div className="success_message">Prescription is deleted</div>}
+                                        {this.state.isArchived && <div className="success_message">{Prescriptionisarchived}</div>}
+                                        {this.state.ishandled && <div className="success_message">{Prescriptionishandedtopatient}</div>}
+                                        {this.state.isDeleted && <div className="success_message">{Prescriptionisdeleted}</div>}
                                         
                                         <Grid className="presOpinionIner">
                                             <Table>
                                                 <Thead>
                                                     <Tr>
-                                                        <Th>Received on</Th>
-                                                        <Th>Patient</Th>
-                                                        <Th>Doctor</Th>
-                                                        <Th>Status</Th>
+                                                        <Th>{recved_on}</Th>
+                                                        <Th>{Patient}</Th>
+                                                        <Th>{capab_Doctors}</Th>
+                                                        <Th>{status}</Th>
                                                     </Tr>
                                                 </Thead>
                                                 <Tbody>

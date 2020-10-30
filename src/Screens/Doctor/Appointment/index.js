@@ -532,6 +532,36 @@ class Index extends Component {
         placement,
         event
     }) => {
+        let translate;
+        switch (this.props.stateLanguageType) {
+            case "en":
+                translate = translationEN.text
+                break;
+            case "de":
+                translate = translationDE.text
+                break;
+            case "pt":
+                translate = translationPT.text
+                break;
+            case "sp":
+                translate = translationSP.text
+                break;
+            case "rs":
+                translate = translationRS.text
+                break;
+            case "nl":
+                translate = translationNL.text
+                break;
+            case "ch":
+                translate = translationCH.text
+                break;
+            case "sw":
+                translate = translationSW.text
+                break;
+            case "default":
+                translate = translationEN.text
+        }
+        let { DetailsQuestions } = translate
         return (
             <div
                 {...getTooltipProps({
@@ -569,7 +599,7 @@ class Index extends Component {
                                 </Grid>
                                 <Grid className="meetDetail">
                                     <h1>{event.title}</h1>
-                                    <span>Details / Questions</span>
+                                    <span>{DetailsQuestions}</span>
                                     <p>{data.annotations}</p>
                                 </Grid>
                             </Grid>

@@ -6115,9 +6115,10 @@ img.addBlue {
     padding: 14px 20px;
 } */
 img.openScnd {
-    height: 32px;
-    width: 32px;
+    height: 24px;
+    width: 24px;
     cursor: pointer;
+    border-radius: 5px;
 }
 .scndOptionIner ul li a {
     color: #404646;
@@ -13016,7 +13017,9 @@ a.academy_ul ul li img {
       color: #fff;
       font-weight: 600;
     }
-
+    .homeBgDrk .emrgncyFrmInpt label, .darkTheme .spclistDr a{
+        color: #BFC1C1 !important;
+    }
 .darkTheme .painIntencty a, .darkTheme .condIntencty a,.homeBgDrk .rbc-label, .homeBgDrk input#chatSearch{
     color: #BFC1C1 !important;
 }

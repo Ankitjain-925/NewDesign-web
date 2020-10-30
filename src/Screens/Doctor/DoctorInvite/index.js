@@ -217,7 +217,7 @@ class Index extends Component {
             case "default":
                 translate = translationEN.text
         }
-        let { invite_doc_to, u_can_enter_mul_email, who_would_u_like_invite, new_rqst, time_slot_alredy_booke_calender, office_visit, vdo_call, Details, Questions, or, slct_a_time, date_of_appointment } = translate
+        let { Invitationsuccessfully, Entermessage, Enteremailfirst, invite_doc_to, u_can_enter_mul_email, who_would_u_like_invite, new_rqst, time_slot_alredy_booke_calender, office_visit, vdo_call, Details, Questions, or, slct_a_time, date_of_appointment } = translate
 
         return (
             <Grid item xs={12} md={1} className="MenuLeftUpr ">
@@ -232,9 +232,9 @@ class Index extends Component {
                                     <img src={require('../../../assets/images/closefancy.png')} alt="" title="" />
                                 </a>
                             </Grid>
-                            {this.state.emailMissing && <div className="err_message"> Enter email first</div>}
-                            {this.state.messageMissing && <div className="err_message"> Enter message</div>}
-                            {this.state.success && <div className="success_message">Invitation sent succefully</div>}
+                            {this.state.emailMissing && <div className="err_message"> {Enteremailfirst}</div>}
+                            {this.state.messageMissing && <div className="err_message"> {Entermessage}</div>}
+                            {this.state.success && <div className="success_message">{Invitationsuccessfully}</div>}
                             <Grid><label>{invite_doc_to} Aimedis</label></Grid>
                             <p>{u_can_enter_mul_email}</p>
                         </Grid>

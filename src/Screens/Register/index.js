@@ -433,6 +433,7 @@ class Index extends Component {
                                                     <DropdownItem onClick={() => { this.changeValue('sp', "Spanish") }}><NavLink>Spanish</NavLink></DropdownItem>
                                                     <DropdownItem onClick={() => { this.changeValue('rs', "Russian") }}><NavLink>Russian</NavLink></DropdownItem>
                                                     <DropdownItem onClick={() => { this.changeValue('sw', "Swahili") }}><NavLink>Swahili</NavLink></DropdownItem>
+                                                    <DropdownItem onClick={() => { this.changeValue('nl', "Dutch") }}><NavLink>Dutch</NavLink></DropdownItem>
                                                 </DropdownMenu>
                                             </UncontrolledDropdown>
                                         </Grid>

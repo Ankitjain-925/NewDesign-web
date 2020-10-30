@@ -18,6 +18,13 @@ import { confirmAlert } from 'react-confirm-alert'; // Import
 import { LanguageFetchReducer } from './../../../actions';
 import { getDate, getImage } from './../../../Components/BasicMethod/index';
 import * as translationEN from '../../../../translations/en.json';
+import * as translationDE from '../../../../translations/de.json';
+import * as translationPT from '../../../../translations/pt.json';
+import * as translationSP from '../../../../translations/sp.json';
+import * as translationRS from '../../../../translations/rs.json';
+import * as translationSW from '../../../../translations/sw.json';
+import * as translationCH from '../../../../translations/ch.json';
+import * as translationNL from '../../../../translations/en.json';
 // import * as translationDE from '../../../translations/de_json_proofread_13072020.json';
 function TabContainer(props) {
     return (
@@ -227,27 +234,27 @@ class Index extends Component {
                     case "en":
                         translate = translationEN.text
                         break;
-                    // case "de":
-                    //     translate = translationDE.text
-                    //     break;
-                    // case "pt":
-                    //     translate = translationPT.text
-                    //     break;
-                    // case "sp":
-                    //     translate = translationSP.text
-                    //     break;
-                    // case "rs":
-                    //     translate = translationRS.text
-                    //     break;
-                    // case "nl":
-                    //     translate = translationNL.text
-                    //     break;
-                    // case "ch":
-                    //     translate = translationCH.text
-                    //     break;
-                    // case "sw":
-                    //     translate = translationSW.text
-                    //     break;
+                    case "de":
+                        translate = translationDE.text
+                        break;
+                    case "pt":
+                        translate = translationPT.text
+                        break;
+                    case "sp":
+                        translate = translationSP.text
+                        break;
+                    case "rs":
+                        translate = translationRS.text
+                        break;
+                    case "nl":
+                        translate = translationNL.text
+                        break;
+                    case "ch":
+                        translate = translationCH.text
+                        break;
+                    case "sw":
+                        translate = translationSW.text
+                        break;
                     case "default":
                         translate = translationEN.text
                 }
@@ -311,36 +318,36 @@ class Index extends Component {
             $imagePreview = (<img style={{ borderRadius: "10%", maxWidth: 350, marginBottom: 10 }} src={imagePreviewUrl} />);
         }
         let translate;
-        switch (this.props.stateLanguageType) {
+      switch (this.props.stateLanguageType) {
             case "en":
                 translate = translationEN.text
                 break;
-            // case "de":
-            //     translate = translationDE.text
-            //     break;
-            // case "pt":
-            //     translate = translationPT.text
-            //     break;
-            // case "sp":
-            //     translate = translationSP.text
-            //     break;
-            // case "rs":
-            //     translate = translationRS.text
-            //     break;
-            // case "nl":
-            //     translate = translationNL.text
-            //     break;
-            // case "ch":
-            //     translate = translationCH.text
-            //     break;
-            // case "sw":
-            //     translate = translationSW.text
-            //     break;
+            case "de":
+                translate = translationDE.text
+                break;
+            case "pt":
+                translate = translationPT.text
+                break;
+            case "sp":
+                translate = translationSP.text
+                break;
+            case "rs":
+                translate = translationRS.text
+                break;
+            case "nl":
+                translate = translationNL.text
+                break;
+            case "ch":
+                translate = translationCH.text
+                break;
+            case "sw":
+                translate = translationSW.text
+                break;
             case "default":
                 translate = translationEN.text
         }
-        let { srvc_Doctors, status, sent, Case, sent_on, Patient, on, what_ur_profession, Pending, request, edit, Rejected, Answered, Cancelled, req_updated_successfully, sick_cert, my_doc, New, inquiry, back, inquiry, short_msg, next, previous,
-            doc_and_statnderd_ques, doc_aimedis_private, Annotations, details, questions, how_u_feeling, is_ur_temp_high_to_38, which_symptoms_do_u_hav, show, since_when, have_u_already_been_sick, how_long_do_u_unable_to_work, it_is_known_dieseas, r_u_tracking_medi, do_u_hv_allergies, } = translate
+        let { see_details, accept, srvc_Doctors, status, sent, Case, sent_on, Patient, on, what_ur_profession, Pending, request, edit, Rejected, Answered, Cancelled, req_updated_successfully, sick_cert, my_doc, New, inquiry, back, inquiry, short_msg, next, previous,
+            doc_and_statnderd_ques, remove, doc_aimedis_private, Annotations, details, questions, how_u_feeling, is_ur_temp_high_to_38, which_symptoms_do_u_hav, show, since_when, have_u_already_been_sick, how_long_do_u_unable_to_work, it_is_known_dieseas, r_u_tracking_medi, do_u_hv_allergies, } = translate
 
         return (
             <div>
@@ -371,10 +378,10 @@ class Index extends Component {
                                         <a className="openScndhrf">
                                             <img src={require('../../../../assets/images/threedots.jpg')} alt="" title="" className="openScnd" />
                                             <ul>
-                                                <li><a onClick={() => { this.handleOpenPrescp(data) }}><img src={require('../../../../assets/images/details.svg')} alt="" title="" />See Details</a></li>
-                                                {data.status !== 'free' && <li onClick={() => { this.updateCertificate('accept', data._id) }}><a><img src={require('../../../../assets/images/edit.svg')} alt="" title="" />Accept</a></li>}
-                                                {data.status !== 'free' && <li onClick={() => { this.updateCertificate('decline', data._id) }}><a><img src={require('../../../../assets/images/plus.png')} alt="" title="" />Decline</a></li>}
-                                                {data.status !== 'remove' && <li onClick={() => { this.removePrsecription('remove', data._id) }}><a><img src={require('../../../../assets/images/cancel-request.svg')} alt="" title="" />Remove</a></li>}
+                                                <li><a onClick={() => { this.handleOpenPrescp(data) }}><img src={require('../../../../assets/images/details.svg')} alt="" title="" />{see_details}</a></li>
+                                                {data.status !== 'free' && <li onClick={() => { this.updateCertificate('accept', data._id) }}><a><img src={require('../../../../assets/images/edit.svg')} alt="" title="" />{accept}</a></li>}
+                                                {data.status !== 'free' && <li onClick={() => { this.updateCertificate('decline', data._id) }}><a><img src={require('../../../../assets/images/plus.png')} alt="" title="" />{decline}</a></li>}
+                                                {data.status !== 'remove' && <li onClick={() => { this.removePrsecription('remove', data._id) }}><a><img src={require('../../../../assets/images/cancel-request.svg')} alt="" title="" />{remove}</a></li>}
                                             </ul>
                                         </a>
                                     </Td>

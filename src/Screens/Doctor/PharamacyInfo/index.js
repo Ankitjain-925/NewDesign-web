@@ -15,6 +15,13 @@ import axios from 'axios';
 import Geocode from "react-geocode";
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import * as translationEN from '../../../translations/en.json';
+import * as translationDE from '../../../translations/de.json';
+import * as translationPT from '../../../translations/pt.json';
+import * as translationSP from '../../../translations/sp.json';
+import * as translationRS from '../../../translations/rs.json';
+import * as translationSW from '../../../translations/sw.json';
+import * as translationCH from '../../../translations/ch.json';
+import * as translationNL from '../../../translations/en.json';
 class Index extends Component {
     constructor(props) {
         super(props)
@@ -222,27 +229,27 @@ class Index extends Component {
                         case "en":
                             translate = translationEN.text
                             break;
-                        // case "de":
-                        //     translate = translationDE.text
-                        //     break;
-                        // case "pt":
-                        //     translate = translationPT.text
-                        //     break;
-                        // case "sp":
-                        //     translate = translationSP.text
-                        //     break;
-                        // case "rs":
-                        //     translate = translationRS.text
-                        //     break;
-                        // case "nl":
-                        //     translate = translationNL.text
-                        //     break;
-                        // case "ch":
-                        //     translate = translationCH.text
-                        //     break;
-                        // case "sw":
-                        //     translate = translationSW.text
-                        //     break;
+                        case "de":
+                            translate = translationDE.text
+                            break;
+                        case "pt":
+                            translate = translationPT.text
+                            break;
+                        case "sp":
+                            translate = translationSP.text
+                            break;
+                        case "rs":
+                            translate = translationRS.text
+                            break;
+                        case "nl":
+                            translate = translationNL.text
+                            break;
+                        case "ch":
+                            translate = translationCH.text
+                            break;
+                        case "sw":
+                            translate = translationSW.text
+                            break;
                         case "default":
                             translate = translationEN.text
                     }
@@ -386,35 +393,35 @@ class Index extends Component {
         }
 
         let translate;
-        switch (this.props.stateLanguageType) {
+      switch (this.props.stateLanguageType) {
             case "en":
                 translate = translationEN.text
                 break;
-            // case "de":
-            //     translate = translationDE.text
-            //     break;
-            // case "pt":
-            //     translate = translationPT.text
-            //     break;
-            // case "sp":
-            //     translate = translationSP.text
-            //     break;
-            // case "rs":
-            //     translate = translationRS.text
-            //     break;
-            // case "nl":
-            //     translate = translationNL.text
-            //     break;
-            // case "ch":
-            //     translate = translationCH.text
-            //     break;
-            // case "sw":
-            //     translate = translationSW.text
-            //     break;
+            case "de":
+                translate = translationDE.text
+                break;
+            case "pt":
+                translate = translationPT.text
+                break;
+            case "sp":
+                translate = translationSP.text
+                break;
+            case "rs":
+                translate = translationRS.text
+                break;
+            case "nl":
+                translate = translationNL.text
+                break;
+            case "ch":
+                translate = translationCH.text
+                break;
+            case "sw":
+                translate = translationSW.text
+                break;
             case "default":
                 translate = translationEN.text
         }
-        let { pharma_prescription, send_prescription_to_pharmacy, uplod_scanned_prescription, browse, or, or_drag_here, suported_file_type_jpg_png, patient_id, Pharmacy, search_pharmacy_by_name_id, show_pharmacy_within_radious, short_msg_optional, add_this_patient_journal,send_invite } = translate;
+        let { Successfullyaddedtheinformation, PleaseEnterallthefield, Pleaseenterthepatientidfirst, pharma_prescription, send_prescription_to_pharmacy, uplod_scanned_prescription, browse, or, or_drag_here, suported_file_type_jpg_png, patient_id, Pharmacy, search_pharmacy_by_name_id, show_pharmacy_within_radious, short_msg_optional, add_this_patient_journal,send_invite } = translate;
 
         return (
             <Grid item xs={12} md={1} className="MenuLeftUpr ">
@@ -431,9 +438,9 @@ class Index extends Component {
                                     <img src={require('../../../assets/images/closefancy.png')} alt="" title="" />
                                 </a>
                             </Grid>
-                            {this.state.firstPatient_id && <div className="err_message">Please enter the patient id first</div>}
-                            {this.state.isadded && <div className="success_message">Successfully added the information</div>}
-                            {this.state.compulsary && <div className="err_message">Please Enter all the field</div>}
+                            {this.state.firstPatient_id && <div className="err_message">{Pleaseenterthepatientidfirst}</div>}
+                            {this.state.isadded && <div className="success_message">{Successfullyaddedtheinformation}</div>}
+                            {this.state.compulsary && <div className="err_message">{PleaseEnterallthefield}</div>}
                             <Grid><label>{pharma_prescription}</label></Grid>
                             <p>{send_prescription_to_pharmacy}</p>
                         </Grid>

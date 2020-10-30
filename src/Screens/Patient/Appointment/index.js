@@ -613,6 +613,36 @@ getUpcomingAppointment() {
         placement,
         event
     }) => {
+        let translate;
+        switch (this.props.stateLanguageType) {
+            case "en":
+                translate = translationEN.text
+                break;
+            case "de":
+                translate = translationDE.text
+                break;
+            case "pt":
+                translate = translationPT.text
+                break;
+            case "sp":
+                translate = translationSP.text
+                break;
+            case "rs":
+                translate = translationRS.text
+                break;
+            case "nl":
+                translate = translationNL.text
+                break;
+            case "ch":
+                translate = translationCH.text
+                break;
+            case "sw":
+                translate = translationSW.text
+                break;
+            case "default":
+                translate = translationEN.text
+        }
+        let { DetailsQuestions } = translate;
         return (
             <div
                 {...getTooltipProps({
@@ -649,7 +679,7 @@ getUpcomingAppointment() {
                                 </Grid>
                                 <Grid className="meetDetail">
                                     <h1>{event.title}</h1>
-                                    <span>Details / Questions</span>
+                                    <span>{DetailsQuestions}</span>
                                     <p>{event.fulldata && event.fulldata.length>0 && event.fulldata[0].annotations}</p>
                                 </Grid>
                             </Grid>
@@ -693,7 +723,7 @@ getUpcomingAppointment() {
             case "default":
                 translate = translationEN.text
         }
-        let { slct_time_slot, holiday, Details, past_apointment, Questions, cancel, book, appointment_booked, upcming_apointment, office_visit, cancel_apointmnt, hide_past_appointment, show_past_apointment,
+        let { Appointmentiscanceled, slct_time_slot, holiday, Details, past_apointment, Questions, cancel, book, appointment_booked, upcming_apointment, office_visit, cancel_apointmnt, hide_past_appointment, show_past_apointment,
             plz_write_short_explnation, short_msg, appointments, appointment, arrng_apointmnt, today, sync_ur_calander, speciality, search_within, Video, Office, type,
             Contact, Services, latest_info, see_avlbl_date, location_of_srvc, this_way_can_instntly_list_of_specility, find_apointment, consultancy_cstm_calnder, vdo_call, allow_location_access, profile_info, profile, information, ID, pin, QR_code, done, Change, edit_id_pin, edit, and, is, changed, profile_id_taken, profile_id_greater_then_5,
         } = translate;
@@ -1019,7 +1049,7 @@ getUpcomingAppointment() {
                                                                 <a onClick={this.handleAllowAccess}>+ {arrng_apointmnt}</a>
                                                             </Grid>
                                                             {this.state.successfull && <div className="success_message">{appointment_booked}</div>}
-                                                            {this.state.cancelsuccess && <div className="success_message">Appointment is canceled</div>}
+                                                            {this.state.cancelsuccess && <div className="success_message">{Appointmentiscanceled}</div>}
                                                           
                                                         </Grid>
                                                     </Grid>

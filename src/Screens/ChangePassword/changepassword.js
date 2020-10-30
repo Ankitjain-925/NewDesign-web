@@ -216,7 +216,7 @@ class Index extends Component {
                                                 <DropdownToggle nav caret>
                                                     {this.state.dropDownValue}
                                                 </DropdownToggle>
-                                                <DropdownMenu className="changeLangIner">
+                                                <DropdownMenu className="langInerFooter">
                                                     <DropdownItem onClick={() => { this.changeValue('en', "English") }}><NavLink>English</NavLink></DropdownItem>
                                                     <DropdownItem onClick={() => { this.changeValue('de', "German") }}><NavLink>German</NavLink></DropdownItem>
                                                     <DropdownItem onClick={() => { this.changeValue('ch', "Chinese") }}><NavLink>Chinese</NavLink></DropdownItem>

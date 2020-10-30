@@ -21,6 +21,13 @@ import { LanguageFetchReducer } from '../../actions';
 import PrecriptionList from './Components/prescription.js';
 import SickCertificateList from './Components/sickCertificate.js';
 import * as translationEN from '../../../translations/en.json';
+import * as translationDE from '../../../translations/de.json';
+import * as translationPT from '../../../translations/pt.json';
+import * as translationSP from '../../../translations/sp.json';
+import * as translationRS from '../../../translations/rs.json';
+import * as translationSW from '../../../translations/sw.json';
+import * as translationCH from '../../../translations/ch.json';
+import * as translationNL from '../../../translations/en.json';
 import { Redirect, Route } from 'react-router-dom';
 import SecondOpinion from './Components/secondOpinion';
 // import * as translationDE from '../../../translations/de_json_proofread_13072020.json';
@@ -114,35 +121,35 @@ class Index extends Component {
         const { specialistOption, prescData } = this.state;
         const { value } = this.state;
         let translate;
-        switch (this.props.stateLanguageType) {
+      switch (this.props.stateLanguageType) {
             case "en":
                 translate = translationEN.text
                 break;
-            // case "de":
-            //     translate = translationDE.text
-            //     break;
-            // case "pt":
-            //     translate = translationPT.text
-            //     break;
-            // case "sp":
-            //     translate = translationSP.text
-            //     break;
-            // case "rs":
-            //     translate = translationRS.text
-            //     break;
-            // case "nl":
-            //     translate = translationNL.text
-            //     break;
-            // case "ch":
-            //     translate = translationCH.text
-            //     break;
-            // case "sw":
-            //     translate = translationSW.text
-            //     break;
+            case "de":
+                translate = translationDE.text
+                break;
+            case "pt":
+                translate = translationPT.text
+                break;
+            case "sp":
+                translate = translationSP.text
+                break;
+            case "rs":
+                translate = translationRS.text
+                break;
+            case "nl":
+                translate = translationNL.text
+                break;
+            case "ch":
+                translate = translationCH.text
+                break;
+            case "sw":
+                translate = translationSW.text
+                break;
             case "default":
                 translate = translationEN.text
         }
-        let { srvc_Doctors, status, sent, on, prescription, Pending, request, edit, Rejected, Answered, Cancelled, req_updated_successfully, sick_cert, my_doc, New, inquiry,
+        let { Inquiries, prescriptions,ScndOpinion,sickcsrtificates, srvc_Doctors, status, sent, on, prescription, Pending, request, edit, Rejected, Answered, Cancelled, req_updated_successfully, sick_cert, my_doc, New, inquiry,
             doc_and_statnderd_ques, doc_aimedis_private, Annotations, details, questions, is_this_follow_pres, how_u_like_rcv_pres, Medicine, Substance, Dose, mg, trade_name, atc_if_applicable, manufacturer, pack_size, } = translate
             const { stateLoginValueAim, Doctorsetget } = this.props;
             if (stateLoginValueAim.user === 'undefined' || stateLoginValueAim.token === 450 || stateLoginValueAim.token === 'undefined' || stateLoginValueAim.user.type !== 'doctor') {
@@ -165,7 +172,7 @@ class Index extends Component {
                                     <Grid className="docsOpinion">
 
                                         <Grid container direction="row" className="docsOpinLbl">
-                                            <Grid item xs={12} md={12}><label>Inquiries</label></Grid>
+                                            <Grid item xs={12} md={12}><label>{Inquiries}</label></Grid>
                                         </Grid>
 
                                         <Grid className="presPkgIner1">
@@ -174,9 +181,9 @@ class Index extends Component {
                                                 <Grid container direction="row">
                                                     <Grid item xs={12} md={8}>
                                                         <Tabs value={value} onChange={this.handleChangeTabs} className="presTabs">
-                                                            <Tab label="Prescriptions" className="presTabsIner" />
-                                                            <Tab label="Sick Certificates" className="presTabsIner" />
-                                                            <Tab label="Second Opinions" className="presTabsIner" />
+                                                            <Tab label={prescriptions} className="presTabsIner" />
+                                                            <Tab label={sickcsrtificates} className="presTabsIner" />
+                                                            <Tab label={ScndOpinion} className="presTabsIner" />
                                                         </Tabs>
                                                     </Grid>
                                                     <Grid item xs={12} md={4} className="presSrch">
