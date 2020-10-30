@@ -31,6 +31,8 @@ import * as translationSW from '../../../translations/sw';
 import SPECIALITY from '../../../speciality'
 import SUBSPECIALITY from '../../../subspeciality'
 
+import Notification from "../../Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
+
 const options = [
     { value: 'data1', label: 'Data1' },
     { value: 'data2', label: 'Data2' },
@@ -508,6 +510,7 @@ class Index extends Component {
                             <Grid container direction="row">
                                 <LeftMenu isNotShow={true} currentPage="appointment" />
                                 <LeftMenuMobile isNotShow={true} currentPage="appointment" />
+                                <Notification />
                                 {/* Video Model */}
                                 <Modal
                                     open={this.state.openFancyVdo}

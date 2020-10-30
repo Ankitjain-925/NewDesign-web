@@ -1,6 +1,17 @@
 import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
 import Modal from '@material-ui/core/Modal';
+import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
+import { LanguageFetchReducer } from '../../actions';
+import * as translationEN from "../../../translations/en.json"
+import * as translationDE from '../../../translations/de.json';
+import * as translationPT from '../../../translations/pt.json';
+import * as translationSP from '../../../translations/sp.json';
+import * as translationRS from '../../../translations/rs.json';
+import * as translationSW from '../../../translations/sw.json';
+import * as translationCH from '../../../translations/ch.json';
+import * as translationNL from '../../../translations/en.json';
 
 class PointPain extends Component {
     constructor(props) {
@@ -31,6 +42,37 @@ class PointPain extends Component {
 
     }
     render() {
+        let translate;
+        switch (this.props.stateLanguageType) {
+              case "en":
+                  translate = translationEN.text
+                  break;
+              case "de":
+                  translate = translationDE.text
+                  break;
+              case "pt":
+                  translate = translationPT.text
+                  break;
+              case "sp":
+                  translate = translationSP.text
+                  break;
+              case "rs":
+                  translate = translationRS.text
+                  break;
+              case "nl":
+                  translate = translationNL.text
+                  break;
+              case "ch":
+                  translate = translationCH.text
+                  break;
+              case "sw":
+                  translate = translationSW.text
+                  break;
+              case "default":
+                  translate = translationEN.text
+          }
+          let { anamnesis, blood_pressure,blood_sugar,condition_pain, covid_diary, diagnosis, diary, doc_visit,family_anmnies, file_uplod, hosp_visit,
+            lab_result, marcumar_pass, medication, prescription, secnd_openion, sick_cert, smoking_status, vaccination, weight_bmi } = translate;
         return (
             <Modal
                 open={this.state.openEntry}
@@ -52,21 +94,21 @@ class PointPain extends Component {
                         <Grid container direction="row">
                             <Grid item xs={12} sm={6} md={6}>
                                 <Grid className="checkHelthLbl">
-                                    {this.state.openBy !=='patient' && <Grid><a onClick={()=>this.handleChangeEntry('anamnesis')}><span>1</span>Anamnesis</a></Grid>}
-                                    <Grid><a onClick={()=>this.handleChangeEntry('blood_pressure')}>{this.state.openBy !=='patient' ? <span>2</span>: <span>1</span> }Blood Pressure</a></Grid>
-                                    <Grid><a onClick={()=>this.handleChangeEntry('blood_sugar')}>{this.state.openBy !=='patient' ? <span>3</span>: <span>2</span> }Blood Sugar</a></Grid>
-                                    <Grid><a onClick={()=>this.handleChangeEntry('condition_pain')}>{this.state.openBy !=='patient' ? <span>4</span>: <span>3</span> }Condition and Pain</a></Grid>
-                                    <Grid><a onClick={()=>this.handleChangeEntry('covid_19')}>{this.state.openBy !=='patient' ? <span>5</span>: <span>4</span> }Covid-19 Diary</a></Grid>
-                                    <Grid><a onClick={()=>this.handleChangeEntry('diagnosis')}>{this.state.openBy !=='patient' ? <span>6</span>: <span>5</span> }Diagnosis</a></Grid>
-                                    <Grid><a onClick={()=>this.handleChangeEntry('diary')}>{this.state.openBy !=='patient' ? <span>7</span>: <span>6</span> } Diary</a></Grid>
-                                    <Grid><a onClick={()=>this.handleChangeEntry('doctor_visit')}>{this.state.openBy !=='patient' ? <span>8</span>: <span>7</span> }Doctor visit</a></Grid>
-                                    <Grid><a onClick={()=>this.handleChangeEntry('family_anamnesis')}>{this.state.openBy !=='patient' ? <span>9</span>: <span>8</span> }Family anamnesis</a></Grid>
-                                    {this.state.openBy !=='patient' && <Grid><a onClick={()=>this.handleChangeEntry('file_upload')}>{this.state.openBy !=='patient' ? <span>10</span>: <span>9</span> }Files upload</a></Grid>}
+                                    {this.state.openBy !=='patient' && <Grid><a onClick={()=>this.handleChangeEntry('anamnesis')}><span>1</span>{anamnesis}</a></Grid>}
+                                    <Grid><a onClick={()=>this.handleChangeEntry('blood_pressure')}>{this.state.openBy !=='patient' ? <span>2</span>: <span>1</span> }{blood_pressure}</a></Grid>
+                                    <Grid><a onClick={()=>this.handleChangeEntry('blood_sugar')}>{this.state.openBy !=='patient' ? <span>3</span>: <span>2</span> }{blood_sugar}</a></Grid>
+                                    <Grid><a onClick={()=>this.handleChangeEntry('condition_pain')}>{this.state.openBy !=='patient' ? <span>4</span>: <span>3</span> }{condition_pain}</a></Grid>
+                                    <Grid><a onClick={()=>this.handleChangeEntry('covid_19')}>{this.state.openBy !=='patient' ? <span>5</span>: <span>4</span> }{covid_diary}</a></Grid>
+                                    <Grid><a onClick={()=>this.handleChangeEntry('diagnosis')}>{this.state.openBy !=='patient' ? <span>6</span>: <span>5</span> }{diagnosis}</a></Grid>
+                                    <Grid><a onClick={()=>this.handleChangeEntry('diary')}>{this.state.openBy !=='patient' ? <span>7</span>: <span>6</span> } {diary}</a></Grid>
+                                    <Grid><a onClick={()=>this.handleChangeEntry('doctor_visit')}>{this.state.openBy !=='patient' ? <span>8</span>: <span>7</span> }{doc_visit}</a></Grid>
+                                    <Grid><a onClick={()=>this.handleChangeEntry('family_anamnesis')}>{this.state.openBy !=='patient' ? <span>9</span>: <span>8</span> }{family_anmnies}</a></Grid>
+                                    {this.state.openBy !=='patient' && <Grid><a onClick={()=>this.handleChangeEntry('file_upload')}>{this.state.openBy !=='patient' ? <span>10</span>: <span>9</span> }{file_uplod}</a></Grid>}
                                 </Grid>
                             </Grid>
                             <Grid item xs={12} sm={6} md={6}>
                                 <Grid className="checkHelthLbl">
-                                    {this.state.openBy ==='patient' && <Grid><a onClick={()=>this.handleChangeEntry('file_upload')}>{this.state.openBy !=='patient' ? <span>10</span>: <span>9</span> }Files upload</a></Grid>}
+                                    {this.state.openBy ==='patient' && <Grid><a onClick={()=>this.handleChangeEntry('file_upload')}>{this.state.openBy !=='patient' ? <span>10</span>: <span>9</span> }{file_uplod}</a></Grid>}
                                     <Grid><a onClick={()=>this.handleChangeEntry('hospitalization')}>{this.state.openBy !=='patient' ? <span>11</span>: <span>10</span> }Hospital visit</a></Grid>
                                     <Grid><a onClick={()=>this.handleChangeEntry('laboratory_result')}>{this.state.openBy !=='patient' ? <span>12</span>: <span>11</span> }Laboratory result</a></Grid>
                                     <Grid><a onClick={()=>this.handleChangeEntry('marcumar_pass')}>{this.state.openBy !=='patient' ? <span>13</span>: <span>12</span> }Marcumar pass</a></Grid>
@@ -87,6 +129,12 @@ class PointPain extends Component {
     }
 }
 
-export default PointPain;
+const mapStateToProps = (state) => {
+    const { stateLanguageType } = state.LanguageReducer;
+    return {
+        stateLanguageType
+    }
+};
+export default withRouter(connect(mapStateToProps, { LanguageFetchReducer })(PointPain));
 
 

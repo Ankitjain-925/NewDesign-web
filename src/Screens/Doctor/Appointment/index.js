@@ -30,6 +30,7 @@ import * as translationPT from '../../../translations/pt';
 import * as translationRS from '../../../translations/rs';
 import * as translationNL from '../../../translations/nl';
 import * as translationSW from '../../../translations/sw';
+import Notification from "../../Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 
 const days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
 const types = ['private_appointmentss', 'days_for_practices', 'online_appointment'];
@@ -715,6 +716,7 @@ class Index extends Component {
                                 {/* Website Menu */}
                                 <LeftMenu isNotShow={true} currentPage="appointment" />
                                 <LeftMenuMobile isNotShow={true} currentPage="appointment" />
+                                <Notification />
                                 {/* End of Website Menu */}
 
                                 <Grid item xs={12} md={11}>

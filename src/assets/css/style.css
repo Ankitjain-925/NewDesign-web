@@ -13000,22 +13000,26 @@ a.academy_ul ul li img {
 
 
 /*Added By ankita*/
-.unread_msg_notify svg {
+.unread_msg_notify{
+    cursor: pointer;
+}
+.unread_msg_notify span {
     position: absolute;
-    right: 10px;
-    top: 5px;
-    }
+    right: 3px;
+    top: 3px;
+ }
     .unread_msg_notify {
-      background: #00a891e0;
-      text-align: center;
-      width: 35%;
-      z-index: 9999;
-      position: fixed;
-      left: 0px;
-      padding: 5px;
-      top: 12px;
-      color: #fff;
-      font-weight: 600;
+        background: #00abafb8;
+        text-align: center;
+        width: 40%;
+        z-index: 9999;
+        position: fixed;
+        padding: 5px;
+        top: 6px;
+        color: #fff;
+        font-weight: 600;
+        left: 32%;
+        border-radius: 10px;
     }
     .homeBgDrk .emrgncyFrmInpt label, .darkTheme .spclistDr a{
         color: #BFC1C1 !important;

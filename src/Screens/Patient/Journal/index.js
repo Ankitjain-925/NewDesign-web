@@ -51,6 +51,7 @@ import AnamnesisFields from "./../../Components/TimelineComponent/AnamnesisField
 import SCFields from "./../../Components/TimelineComponent/SCFields/index.js";
 import SOFields from "./../../Components/TimelineComponent/SOFields/index.js";
 import moment from 'moment';
+import Notification from "../../Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 import translationEN from "../../../translations/en.json"
 import * as translationDE from '../../../translations/de.json';
 import * as translationPT from '../../../translations/pt.json';
@@ -59,6 +60,7 @@ import * as translationRS from '../../../translations/rs.json';
 import * as translationSW from '../../../translations/sw.json';
 import * as translationCH from '../../../translations/ch.json';
 import * as translationNL from '../../../translations/en.json';
+
 
 var Datas = [];
 class Index extends Component {
@@ -812,6 +814,7 @@ class Index extends Component {
         return (
             <Grid className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode && this.props.settings.setting.mode === 'dark' ? "homeBg homeBgDrk" : "homeBg"}>
                 {this.state.loaderImage && <Loader />}
+                <Notification />
                 <Grid className="homeBgIner">
                     <Grid container direction="row" justify="center">
                         <Grid item xs={12} md={12}>
@@ -821,6 +824,7 @@ class Index extends Component {
                                     {/* Website Menu */}
                                     <LeftMenu isNotShow={true} currentPage="journal" />
                                     <LeftMenuMobile isNotShow={true} currentPage="journal" />
+
                                     {/* End of Website Menu */}
 
                                     {/* Website Mid Content */}

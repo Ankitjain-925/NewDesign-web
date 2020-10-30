@@ -30,6 +30,8 @@ import * as translationCH from '../../../translations/ch.json';
 import * as translationNL from '../../../translations/en.json';
 import { Redirect, Route } from 'react-router-dom';
 import SecondOpinion from './Components/secondOpinion';
+import Notification from "../../Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
+
 // import * as translationDE from '../../../translations/de_json_proofread_13072020.json';
 function TabContainer(props) {
     return (
@@ -165,6 +167,7 @@ class Index extends Component {
                                 {/* Website Menu */}
                                 <LeftMenu  isNotShow ={true} currentPage="inquiries" />
                                 <LeftMenuMobile isNotShow ={true}  currentPage="inquiries" />
+                                <Notification />
                                 {/* End of Website Menu */}
 
                                 <Grid item xs={12} md={9}>

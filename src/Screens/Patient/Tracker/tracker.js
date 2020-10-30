@@ -29,6 +29,7 @@ import * as translationRS from '../../../translations/rs.json';
 import * as translationSW from '../../../translations/sw.json';
 import * as translationCH from '../../../translations/ch.json';
 import * as translationNL from '../../../translations/en.json';
+import Notification from "../../Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 
 const withingsMeasureType = {
     Weight: 1,
@@ -628,6 +629,7 @@ class Index extends Component {
 
                                 <LeftMenu  isNotShow ={true} currentPage="tracker" />
                                 <LeftMenuMobile isNotShow ={true}  currentPage ="tracker"/>
+                                <Notification />
                                 {/* End of Website Menu */}
 
                                 <Grid item xs={12} md={9}>

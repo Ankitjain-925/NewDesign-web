@@ -38,6 +38,7 @@ import * as translationSW from '../../../translations/sw.json';
 import * as translationCH from '../../../translations/ch.json';
 import * as translationNL from '../../../translations/en.json';
 import { Doctorset } from '../../Doctor/actions';
+import Notification from "../../Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 
 var letter = /([a-zA-Z])+([ -~])*/, number = /\d+/, specialchar = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
 
@@ -640,6 +641,7 @@ class Index extends Component {
                                 {/* Website Menu */}
                                 <LeftMenu isNotShow={true} currentPage="documents" />
                                 <LeftMenuMobile isNotShow={true} currentPage="documents" />
+                                <Notification />
                                 {/* End of Website Menu */}
 
                                 <Grid item xs={12} md={9}>

@@ -26,6 +26,7 @@ import * as translationRS from '../../../translations/rs.json';
 import * as translationSW from '../../../translations/sw.json';
 import * as translationCH from '../../../translations/ch.json';
 import * as translationNL from '../../../translations/en.json';
+import Notification from "../../Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 
 class Index extends Component {
     constructor(props) {
@@ -312,6 +313,7 @@ class Index extends Component {
                                 {/* Website Menu */}
                                 <LeftMenu  isNotShow ={true} currentPage ="journal"/>
                                 <LeftMenuMobile isNotShow ={true}  currentPage ="journal"/>
+                                <Notification />
                                 {/* End of Website Menu */}
 
                                 <Grid item xs={12} md={10}>

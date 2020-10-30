@@ -6,6 +6,7 @@ import { CometChatManager } from "../../util/controller";
 import CallScreen from "../CallScreen";
 import CancelIcon from '@material-ui/icons/Cancel';
 import * as enums from '../../util/enums.js';
+import { withRouter } from "react-router-dom";
 // import { CometChatUnified } from '../react-chat-ui-kit/CometChat'; 
 var NewM = false
 class Notification extends React.Component {
@@ -166,6 +167,21 @@ class Notification extends React.Component {
         this.setState({ NewM : true, ShowTime1: true })
         setTimeout(() => { this.setState({  NewM : false, ShowTime1 : false})  }, 8000);
       }
+      
+      CloseNotification1=(e)=>{
+        e.preventDefault(); this.setState({ ShowTime : false})
+      }
+      CloseNotification=(e)=>{
+        e.preventDefault(); this.setState({ ShowTime1 : false, NewM : false})
+      }
+      redirectPage=()=> {
+        if(this.props.stateLoginValueAim.stateLoginValueAim.user.type === 'nurse' || this.props.stateLoginValueAim.stateLoginValueAim.user.type === 'pharmacy'){
+            this.props.history.push(`/${this.props.stateLoginValueAim.stateLoginValueAim.user.type}`)
+        }
+        else{
+            this.props.history.push(`/${this.props.stateLoginValueAim.stateLoginValueAim.user.type}/chats`)
+        } 
+    }
     render() {
      
         return (
@@ -176,12 +192,11 @@ class Notification extends React.Component {
                 actionGenerated={this.callScreenAction} 
                 outgoingCall={this.state.outgoingCall} />
                 {this.state.Unread > 0 && this.state.ShowTime===true &&
-                    <div className="unread_msg_notify">There are the {this.state.Unread} unread Messages in Chat. Please check this.<span><CancelIcon onClick={()=>this.setState({ ShowTime : false})}/></span></div>
+                    <div className="unread_msg_notify" onClick={()=>{this.redirectPage()}}>There are the {this.state.Unread} unread Messages in Chat. Please check this.<span><CancelIcon onClick={(e)=>{this.CloseNotification1(e)}}/></span></div>
                 }
-                 {this.state.NewM===true && this.state.ShowTime1===true &&
-                    <div className="unread_msg_notify">There are the New Message in Chat. Please check this.<span><CancelIcon onClick={()=>this.setState({ ShowTime1 : false, NewM : false})}/></span></div>
+                {this.state.NewM===true && this.state.ShowTime1===true &&
+                    <div className="unread_msg_notify" onClick={()=>{this.redirectPage()}}>There are the New Message in Chat. Please check this.<span><CancelIcon onClick={(e)=>{this.CloseNotification(e)}} /></span></div>
                 }
-                {/* <div className="unread_msg_notify">There are the unread Messages in Chat. Please check this. <span><CancelIcon onClick={()=>this.setState({ ShowTime : false})}/></span></div> */}
             </div>
         );
     }
@@ -192,6 +207,7 @@ const mapStateToProps = state => {
         isLoggedIn: state.isLoggedIn,
         loading: state.loading,
         error: state.error,
+        stateLoginValueAim: state.LoginReducerAim,
     };
 };
 const mapDispatchToProps = dispatch => {
@@ -200,6 +216,6 @@ const mapDispatchToProps = dispatch => {
     };
   };
   
-export default connect( mapStateToProps, mapDispatchToProps)(Notification);
+export default withRouter(connect( mapStateToProps, mapDispatchToProps)(Notification));
 
 

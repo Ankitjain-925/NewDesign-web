@@ -10,6 +10,7 @@ import { Redirect, Route } from 'react-router-dom';
 import LeftMenu from './../../Components/Menus/InsuranceLeftMenu/index';
 import LeftMenuMobile from './../../Components/Menus/InsuranceLeftMenu/mobile';
 import CourseSection from './../../Components/OnlineCourses/index.js';
+import Notification from "../../Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 
 class Index extends Component {
     constructor(props) {
@@ -53,6 +54,7 @@ class Index extends Component {
                                 {/* Website Menu */}
                                 <LeftMenu  isNotShow ={true} currentPage ="course"/>
                                 <LeftMenuMobile isNotShow ={true}  currentPage="course"/>
+                                <Notification />
                                 {/* End of Website Menu */}
                                 <Grid item xs={12} md={11}>
                                     <CourseSection />

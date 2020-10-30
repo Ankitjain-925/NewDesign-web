@@ -105,7 +105,7 @@ class Index extends Component {
     render() {
         return (
             <Grid item xs={12} md={1} className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode && this.props.settings.setting.mode==='dark' ? "MenuLeftUpr MenuLeftDrkUpr" : "MenuLeftUpr"}>
-                <Notification />
+                {/* <Notification /> */}
                 <Grid className="webLogo">
                     <a><img src={require('../../../../assets/images/LogoPNG.png')} alt="" title="" /></a>
                 </Grid>

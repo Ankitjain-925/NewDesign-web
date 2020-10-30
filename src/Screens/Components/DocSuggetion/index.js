@@ -6,7 +6,8 @@ import { withRouter } from "react-router-dom";
 import { LanguageFetchReducer } from '../../actions';
 import CancelIcon from '@material-ui/icons/Cancel';
 import sitedata from '../../../sitedata'
-import axios from 'axios';
+import axios from 'axios'
+
 // import { CometChatUnified } from '../react-chat-ui-kit/CometChat'; 
 var NewM = false
 class Index extends React.Component {
@@ -40,6 +41,10 @@ class Index extends React.Component {
             this.setState({ allDocData1: response.data.data })
             this.getUserData();
         })
+    }
+
+    redirectPage=()=> {
+        this.props.history.push(`/${this.props.stateLoginValueAim.user.type}`)  
     }
    
       //Get the current User Data
@@ -94,7 +99,7 @@ class Index extends React.Component {
         return (
             <div>
                 {this.state.docs && this.state.docs.length>0 && this.state.ShowTime===true &&
-                    <div className="unread_msg_notify">  {this.state.docs.join(', ')}
+                    <div className="unread_msg_notify" onClick={this.redirectPage}>  {this.state.docs.join(', ')}
                          has requested to become a trusted doctor<br/> 
                     Please check this for accept and remove.<span><CancelIcon onClick={()=>this.setState({ ShowTime : false})}/></span></div>
                 }

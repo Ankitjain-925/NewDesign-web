@@ -59,6 +59,7 @@ import PFields from "./../../Components/TimelineComponent/PFields/index.js";
 import AnamnesisFields from "./../../Components/TimelineComponent/AnamnesisFields/index.js";
 import SCFields from "./../../Components/TimelineComponent/SCFields/index.js";
 import SOFields from "./../../Components/TimelineComponent/SOFields/index.js";
+import Notification from "../../Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 
 class Index extends Component {
     constructor(props) {
@@ -904,7 +905,7 @@ DeleteTrack=(deletekey)=> {
             case "default":
                 translate = translationEN.text
         }
-        let { journal, add_new_entry, New, entry, edit, blood_pressure, doc_visit, blood_sugar, covid_diary, condition_pain, diagnosis, diary, weight_bmi,
+        let { journal,secnd_openion,sick_cert,prescription,anamnesis,patient_data_access,id_pin_not_correct,patient_id, pin, another_patient_data,healthcare_access_for_non_conn_patient, patient_access_data, add_new_entry, New, entry, edit, blood_pressure, doc_visit, blood_sugar, covid_diary, condition_pain, diagnosis, diary, weight_bmi,
             vaccination, marcumar_pass, smoking_status, hosp_visit, lab_result, file_uplod, family_anmnies, medication,
             personalize_dashbrd } = translate;
 
@@ -930,6 +931,7 @@ DeleteTrack=(deletekey)=> {
                                 {/* Website Menu */}
                                 <LeftMenu  isNotShow ={true} currentPage="journal" />
                                 <LeftMenuMobile isNotShow ={true}  currentPage ="journal"/>
+                                <Notification />
                                 {/* End of Website Menu */}
 
                                 {/* Website Mid Content */}
@@ -941,11 +943,11 @@ DeleteTrack=(deletekey)=> {
                                                 <Grid item xs={11} md={11}>
                                                     <Grid container direction="row">
                                                         <Grid item xs={6} md={6}>
-                                                            <h1>Patient Access Data</h1>
+                                                            <h1>{patient_access_data}</h1>
                                                         </Grid>
                                                         <Grid item xs={6} md={6}>
                                                             <Grid className="AddEntrynw">
-                                                                {this.props.Doctorsetget && this.props.Doctorsetget.p_id !== null ? <a onClick={this.AnotherPatient}>Another patient's Data</a> : <a onClick={this.handleOpenData}>Get Patient Access Data</a>}
+                                                                {this.props.Doctorsetget && this.props.Doctorsetget.p_id !== null ? <a onClick={this.AnotherPatient}>{another_patient_data}</a> : <a onClick={this.handleOpenData}>Get Patient Access Data</a>}
                                                                 {this.props.Doctorsetget && this.props.Doctorsetget.p_id !== null && <a onClick={this.handleOpenEntry}>+ {add_new_entry}</a>}
                                                             </Grid>
                                                         </Grid>
@@ -981,18 +983,18 @@ DeleteTrack=(deletekey)=> {
                                                     <img src={require('../../../assets/images/closefancy.png')} alt="" title="" />
                                                 </a>
                                             </Grid>
-                                            <Grid>{this.state.error_msg && <div className="err_message">ID or PIN is not correct</div>}</Grid>
-                                            <Grid><label>Patient Data Access</label></Grid>
-                                            <p>Healthdata access for non-connected patient</p>
+                                            <Grid>{this.state.error_msg && <div className="err_message">{id_pin_not_correct}</div>}</Grid>
+                                            <Grid><label>{patient_data_access}</label></Grid>
+                                            <p>{healthcare_access_for_non_conn_patient}</p>
                                         </Grid>
                                         <Grid className="dataBoxUpr">
                                             <Grid className="dataBoxInput">
                                                 <Grid>
-                                                    <Grid><label>Patient ID</label></Grid>
+                                                    <Grid><label>{patient_id}</label></Grid>
                                                     <Grid><input type="text" name="patient_id" placeholder="Enter Patient ID" id="login-name" onChange={this.GetTrackData}/></Grid>
                                                 </Grid>
                                                 <Grid>
-                                                    <Grid><label>PIN</label></Grid>
+                                                    <Grid><label>{pin}</label></Grid>
                                                     <Grid><input type="text" id="pin" name="pin" placeholder="Enter Pin" onChange={this.GetTrackData}/></Grid>
                                                 </Grid>
                                             </Grid>
@@ -1026,7 +1028,7 @@ DeleteTrack=(deletekey)=> {
                                                             <p>{New} {entry}</p>
                                                             <Grid className="nwDiaSel">
                                                                 <select onChange={(e) => this.SelectOption(e.target.value)} value={this.state.current_select}>
-                                                                    <option value="anamnesis">Anamnesis</option>
+                                                                    <option value="anamnesis">{anamnesis}</option>
                                                                     <option value="blood_pressure">{blood_pressure}</option>
                                                                     <option value="blood_sugar">{blood_sugar}</option>
                                                                     <option value="condition_pain">{condition_pain}</option>
@@ -1040,9 +1042,9 @@ DeleteTrack=(deletekey)=> {
                                                                     <option value="laboratory_result">{lab_result}</option>
                                                                     <option value="marcumar_pass">{marcumar_pass}</option>
                                                                     <option value="medication" >{medication}</option>
-                                                                    <option value="prescription">Prescription</option>
-                                                                    <option value="second_opinion">Second Opinion</option>
-                                                                    <option value="sick_certificate">Sick Certificate</option>
+                                                                    <option value="prescription">{prescription}</option>
+                                                                    <option value="second_opinion">{secnd_openion}</option>
+                                                                    <option value="sick_certificate">{sick_cert}</option>
                                                                     <option value="smoking_status">{smoking_status}</option>
                                                                     <option value="vaccination">{vaccination}</option>
                                                                     <option value="weight_bmi">{weight_bmi}</option>
@@ -1053,7 +1055,7 @@ DeleteTrack=(deletekey)=> {
                                                             <p>{edit} {entry}</p>
                                                             <Grid className="nwDiaSel">
                                                                 <select disabled onChange={(e) => this.SelectOption(e.target.value)} value={this.state.current_select}>
-                                                                    <option value="anamnesis">Anamnesis</option>
+                                                                    <option value="anamnesis">{anamnesis}</option>
                                                                     <option value="blood_pressure">{blood_pressure}</option>
                                                                     <option value="blood_sugar">{blood_sugar}</option>
                                                                     <option value="condition_pain">{condition_pain}</option>
@@ -1067,9 +1069,9 @@ DeleteTrack=(deletekey)=> {
                                                                     <option value="laboratory_result">{lab_result}</option>
                                                                     <option value="marcumar_pass">{marcumar_pass}</option>
                                                                     <option value="medication" >{medication}</option>
-                                                                    <option value="prescription">Prescription</option>
-                                                                    <option value="second_opinion">Second Opinion</option>
-                                                                    <option value="sick_certificate">Sick Certificate</option>
+                                                                    <option value="prescription">{prescription}</option>
+                                                                    <option value="second_opinion">{secnd_openion}</option>
+                                                                    <option value="sick_certificate">{sick_cert}</option>
                                                                     <option value="smoking_status">{smoking_status}</option>
                                                                     <option value="vaccination">{vaccination}</option>
                                                                     <option value="weight_bmi">{weight_bmi}</option>

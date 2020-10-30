@@ -132,7 +132,7 @@ class Index extends Component {
     render() {
         return (
             <Grid className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode && this.props.settings.setting.mode==='dark' ? "MenuMob MenuLeftDrkUpr" : "MenuMob"} >
-                  <Notification />
+                  {/* <Notification /> */}
                   <DocSuggetion />
             <Grid container direction="row" alignItems="center">
                 <Grid item xs={6} md={6} sm={6} className="MenuMobLeft">

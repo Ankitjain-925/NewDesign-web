@@ -646,6 +646,7 @@
 		"PrescriptionisDearchived" : "Prescription is Dearchived",
 		"Prescriptionisdeleted" : "Prescription is deleted",
 		"Prescriptionisarchived" : "Prescription is archived",
-		"Prescriptionishandedtopatient" : "Prescription is handed to patient"
+		"Prescriptionishandedtopatient" : "Prescription is handed to patient",
+		"Addcompany" :"Add another insurance company"
 	}
 }

@@ -22,6 +22,7 @@ import Typography from '@material-ui/core/Typography';
 import ProfileSection from './Components/profileUpdate';
 import SecuritySection from './Components/security';
 import DateTimeSection from './Components/DateTime';
+import Notification from "../../Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 
 function TabContainer(props) {
     return (
@@ -120,6 +121,7 @@ class Index extends Component {
                                 {/* Website Menu */}
                                 <LeftMenu  isNotShow ={true} currentPage ="profile"/>
                                 <LeftMenuMobile isNotShow ={true}  currentPage="profile"/>
+                                <Notification />
                                 {/* Website Mid Content */}
                                 <Grid item xs={12} md={8}>
                                     <Grid className="profilePkg ">

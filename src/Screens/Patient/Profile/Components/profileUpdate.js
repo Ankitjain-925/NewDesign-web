@@ -831,7 +831,7 @@ class Index extends Component {
             case "default":
                 translate = translationEN.text
         }
-        let {Rhesus, Blood, profile_info, profile, information, ID, pin, QR_code, done, Change, edit_id_pin, edit, and, is, changed, profile_id_taken, profile_id_greater_then_5,
+        let {Rhesus, Addcompany, Blood, profile_info, profile, information, ID, pin, QR_code, done, Change, edit_id_pin, edit, and, is, changed, profile_id_taken, profile_id_greater_then_5,
             save_change, email, title, degree, first, last, name, dob, gender, street, add, city, postal_code, country, home_telephone, phone, country_code, Delete,
             mobile_number, number, mobile, Languages, spoken, insurance, add_more, company, of, info_copied, profile_updated, profile_not_updated, mobile_number_not_valid, insurance_added } = translate;
 
@@ -1150,7 +1150,7 @@ class Index extends Component {
                 <Grid className="insrnceTbl">
                     <Grid><h3>{insurance}</h3></Grid>
                     <Grid className="profileIdRght">
-                        <a onClick={this.handleAddInsurance}>{add_more} {insurance}</a>
+                        <a onClick={this.handleAddInsurance}>{Addcompany}</a>
                     </Grid>
                     {/* Add more insurance model Open */}
                     <Modal

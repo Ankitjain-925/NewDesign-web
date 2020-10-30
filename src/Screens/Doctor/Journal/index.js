@@ -55,6 +55,7 @@ import * as translationCH from '../../../translations/ch.json';
 import * as translationNL from '../../../translations/en.json';
 
 import { FormatListBulleted } from '@material-ui/icons';
+import Notification from "../../Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 import PFields from "./../../Components/TimelineComponent/PFields/index.js";
 import AnamnesisFields from "./../../Components/TimelineComponent/AnamnesisFields/index.js";
 import SCFields from "./../../Components/TimelineComponent/SCFields/index.js";
@@ -929,6 +930,7 @@ class Index extends Component {
                                 {/* Website Menu */}
                                 <LeftMenu  isNotShow ={true} currentPage="journal" />
                                 <LeftMenuMobile isNotShow ={true}  currentPage ="journal"/>
+                                <Notification />
                                 {/* End of Website Menu */}
 
                                 {/* Website Mid Content */}

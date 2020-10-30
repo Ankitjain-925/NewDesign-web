@@ -39,6 +39,7 @@ import * as translationSW from '../../../translations/sw';
 import SPECIALITY from '../../../speciality'
 import SUBSPECIALITY from '../../../subspeciality'
 import Loader from './../../Components/Loader/index';
+import Notification from "../../Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 
 const CURRENT_DATE = moment().toDate();
 const localizer = momentLocalizer(moment)
@@ -742,6 +743,7 @@ getUpcomingAppointment() {
                         <Grid container direction="row">
                             <LeftMenu isNotShow={true} currentPage="appointment" />
                             <LeftMenuMobile isNotShow={true} currentPage="appointment" />
+                            <Notification />
                             {/* Video Model */}
 
                             <Modal

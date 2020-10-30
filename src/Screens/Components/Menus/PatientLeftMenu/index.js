@@ -17,6 +17,7 @@ import axios from "axios";
 import Mode from './../../ThemeMode/index.js';
 import SetLanguage from './../../SetLanguage/index.js';
 import Loader from './../../../Components/Loader/index';
+
 class Index extends Component {
     constructor(props) {
         super(props)
@@ -141,7 +142,7 @@ class Index extends Component {
         return (
             <Grid item xs={12} md={1} className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode && this.props.settings.setting.mode==='dark' ? "MenuLeftUpr MenuLeftDrkUpr" : "MenuLeftUpr"}>
                 {this.state.loaderImage && <Loader />}
-                <Notification />
+                {/* <Notification /> */}
                 <DocSuggetion />
                 <Grid className="webLogo">
                     <a><img src={require('../../../../assets/images/LogoPNG.png')} alt="" title="" /></a>

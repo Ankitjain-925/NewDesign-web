@@ -30,7 +30,7 @@ import * as translationRS from '../../../translations/rs.json';
 import * as translationSW from '../../../translations/sw.json';
 import * as translationCH from '../../../translations/ch.json';
 import * as translationNL from '../../../translations/en.json';
-
+import Notification from "../../Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 function TabContainer(props) {
     return (
         <Typography component="div" className="tabsCntnts">
@@ -158,6 +158,7 @@ class Index extends Component {
                                 {/* Website Menu */}
                                 <LeftMenu  isNotShow ={true} currentPage ="profile"/>
                                 <LeftMenuMobile isNotShow ={true}  currentPage="profile"/>
+                                <Notification />
                                 {/* Website Mid Content */}
                                 <Grid item xs={12} md={8}>
                                     <Grid className="profilePkg ">

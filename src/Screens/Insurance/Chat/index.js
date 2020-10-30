@@ -13,6 +13,8 @@ import CometChat from '../../Components/CometChat';
 import { LanguageFetchReducer } from './../../actions';
 import axios from "axios";
 import sitedata from '../../../sitedata.js';
+import Notification from "../../Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
+
 // var doctorArray = ['admin'];
  
 class index extends React.Component {
@@ -92,6 +94,7 @@ class index extends React.Component {
                     <Grid container direction="row">
                         <LeftMenu  isNotShow ={true} currentPage="chat"/>
                         <LeftMenuMobile isNotShow ={true}  currentPage="chat"/>
+                        {/* <Notification /> */}
                         {/* Website Mid Content */}
                         <Grid item xs={12} md={11}>
                             {/* Inbox page Content */}

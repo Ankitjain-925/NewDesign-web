@@ -27,7 +27,7 @@ import Security from './Components/security.js';
 import ServicesAppointment from './Components/serviceAppointments.js';
 import DateTime from './Components/dateTime.js';
 import OfficeInformation from './Components/officeInformation.js'
-
+import Notification from "../../Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 import { Redirect, Route } from 'react-router-dom';
 
 
@@ -157,6 +157,7 @@ class Index extends Component {
                                 {/* Website Menu */}
                                 <LeftMenu  isNotShow ={true} currentPage="profile" />
                                 <LeftMenuMobile isNotShow ={true}  currentPage="profile" />
+                                <Notification />
                                 {/* End of Website Menu */}
                                 {/* Website Mid Content */}
                                 <Grid item xs={12} md={9}>

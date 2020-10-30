@@ -10,6 +10,7 @@ import Loader from '../../Components/Loader/index';
 import LeftMenu from './../../Components/Menus/PatientLeftMenu/index';
 import LeftMenuMobile from './../../Components/Menus/PatientLeftMenu/mobile';
 import CourseSection from './../../Components/OnlineCourses/index.js';
+import Notification from "../../Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 
 class Index extends Component {
     constructor(props) {
@@ -52,6 +53,7 @@ class Index extends Component {
                                 {/* Website Menu */}
                                 <LeftMenu  isNotShow ={true} currentPage ="more"/>
                                 <LeftMenuMobile isNotShow ={true}  currentPage ="more"/>
+                                <Notification />
                                 {/* End of Website Menu */}
                                 <Grid item xs={12} md={11}>
                                     <CourseSection />
