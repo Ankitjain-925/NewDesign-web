@@ -71,7 +71,7 @@ class Index extends Component {
             case "default":
                 translate = translationEN.text
         }
-        let { page_not_found, Oops, page_temparary_unavailable, go_to_home } = translate
+        let { RegisteredSuccessfully, emailverification, Youregisteredsuccessfully, page_temparary_unavailable, go_to_home } = translate
         return (
             <Grid className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode && this.props.settings.setting.mode==='dark' ? "homeBg homeBgDrk" : "homeBg"}>
                 <Grid className="homeBgIner">
@@ -80,10 +80,10 @@ class Index extends Component {
                             <Grid className="webLogo">
                                 <a href="/"><img src={require('../../../assets/images/LogoPNG.png')} alt="" title="" /></a>
                             </Grid>
-                            <div className="NotFound"><h1>Registered Successfully</h1></div>
+                            <div className="NotFound"><h1>{RegisteredSuccessfully}</h1></div>
                             <div className="NotFoundContent">
-                                <div>You are registered successfully. </div>
-                                <div>Please check your email for verification.</div>
+                                <div>{Youregisteredsuccessfully}. </div>
+                                <div>{emailverification}.</div>
                                 <div onClick={this.redirectPage} className="BackHomeBtn">
                                     {go_to_home}
                                 </div>

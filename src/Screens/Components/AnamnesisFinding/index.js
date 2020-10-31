@@ -3,6 +3,17 @@ import Select from 'react-select';
 import 'antd/dist/antd.css'; // or 'antd/dist/antd.less'
 import Grid from '@material-ui/core/Grid';
 import NotesEditor from './../Editor/index';
+import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
+import { LanguageFetchReducer } from '../../actions';
+import * as translationEN from "../../../translations/en.json"
+import * as translationDE from '../../../translations/de.json';
+import * as translationPT from '../../../translations/pt.json';
+import * as translationSP from '../../../translations/sp.json';
+import * as translationRS from '../../../translations/rs.json';
+import * as translationSW from '../../../translations/sw.json';
+import * as translationCH from '../../../translations/ch.json';
+import * as translationNL from '../../../translations/en.json';
 
 class AnamnesisFinding extends Component {
   constructor(props) {
@@ -59,6 +70,36 @@ class AnamnesisFinding extends Component {
 
     }
   render() {
+    let translate;
+    switch (this.props.stateLanguageType) {
+          case "en":
+              translate = translationEN.text
+              break;
+          case "de":
+              translate = translationDE.text
+              break;
+          case "pt":
+              translate = translationPT.text
+              break;
+          case "sp":
+              translate = translationSP.text
+              break;
+          case "rs":
+              translate = translationRS.text
+              break;
+          case "nl":
+              translate = translationNL.text
+              break;
+          case "ch":
+              translate = translationCH.text
+              break;
+          case "sw":
+              translate = translationSW.text
+              break;
+          case "default":
+              translate = translationEN.text
+      }
+      let { addtextentry, BodySchemeNotes,  } = translate;
     return (
       <div>
         <Grid className="rrSysto">
@@ -73,7 +114,7 @@ class AnamnesisFinding extends Component {
                     className="mr_sel"
                 />
                 <NotesEditor name="notes" label=""  onChange={(e) => this.onFieldChangeNote(e, 0)}  /> 
-                <Grid className="consumeAt"><p onClick={this.onAddFiled}>+ add text entry</p></Grid>
+                <Grid className="consumeAt"><p onClick={this.onAddFiled}>+ {addtextentry}</p></Grid>
             </Grid>}
             
             {this.state.findingArr && this.state.findingArr.length > 0 &&
@@ -86,8 +127,8 @@ class AnamnesisFinding extends Component {
                         isSearchable={false}
                         className="mr_sel"
                     />
-                    <NotesEditor name="notes" label="Body Scheme Notes"  onChange={(e) => this.onFieldChangeNote(e, 0)}  /> 
-                    <Grid className="consumeAt"><p onClick={this.onAddFiled}>+ add text entry</p></Grid>
+                    <NotesEditor name="notes" label={BodySchemeNotes}  onChange={(e) => this.onFieldChangeNote(e, 0)}  /> 
+                    <Grid className="consumeAt"><p onClick={this.onAddFiled}>+ {addtextentry}</p></Grid>
                     </Grid>
                 : 
                 <Grid>
@@ -99,7 +140,7 @@ class AnamnesisFinding extends Component {
                         isSearchable={false}
                         className="mr_sel"
                     />
-                    <NotesEditor name="notes" label="Body Scheme Notes"  onChange={(e) => this.onFieldChangeNote(e, index)}  value={itm.notes}/> 
+                    <NotesEditor name="notes" label={BodySchemeNotes} onChange={(e) => this.onFieldChangeNote(e, index)}  value={itm.notes}/> 
                     <Grid className="consumeAt"><p onClick={() => { this.deleteField(index);}} className="minus_span_medication">- remove entry</p></Grid>
                 </Grid>
             ))}
@@ -111,4 +152,10 @@ class AnamnesisFinding extends Component {
   }
 }
 
-export default AnamnesisFinding;
+const mapStateToProps = (state) => {
+  const { stateLanguageType } = state.LanguageReducer;
+  return {
+      stateLanguageType
+  }
+};
+export default withRouter(connect(mapStateToProps, { LanguageFetchReducer })(AnamnesisFinding));

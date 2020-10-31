@@ -71,7 +71,7 @@ class PointPain extends Component {
               case "default":
                   translate = translationEN.text
           }
-          let { anamnesis, blood_pressure,blood_sugar,condition_pain, covid_diary, diagnosis, diary, doc_visit,family_anmnies, file_uplod, hosp_visit,
+          let { anamnesis, Selectentrytype, blood_pressure,blood_sugar,condition_pain, covid_diary, diagnosis, diary, doc_visit,family_anmnies, file_uplod, hosp_visit,
             lab_result, marcumar_pass, medication, prescription, secnd_openion, sick_cert, smoking_status, vaccination, weight_bmi } = translate;
         return (
             <Modal
@@ -86,7 +86,7 @@ class PointPain extends Component {
                                 <img src={require('../../../assets/images/closefancy.png')} alt="" title="" />
                             </a>
                         </Grid>
-                        <Grid><label>Select entry type</label></Grid>
+                        <Grid><label>{Selectentrytype}</label></Grid>
                         {/* <p>Click or input number on your keyboard</p> */}
                     </Grid>
 

@@ -13000,6 +13000,18 @@ a.academy_ul ul li img {
 
 
 /*Added By ankita*/
+.SetWidthPopup{
+    width: 600px !important;
+}
+.nameSchedule input {
+    border: none !important;
+}
+.daySchedule input{
+    border: none !important;
+}
+.homeBgDrk .apontBook p span, .homeBgDrk .apontBook p {
+    color: #fff;
+}
 .unread_msg_notify{
     cursor: pointer;
 }

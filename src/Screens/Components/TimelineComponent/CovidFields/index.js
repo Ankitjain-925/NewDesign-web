@@ -85,7 +85,7 @@ class Index extends Component {
             case "default":
                 translate = translationEN.text
         }
-        let { selct_pain_area, attachments } = translate
+        let { selct_pain_area, attachments, O2Saturation, Whereyouarelocated, symp_notes } = translate
 
         return (
             <div>
@@ -94,7 +94,7 @@ class Index extends Component {
                         <Temprature name="temprature" name="temprature" valueType={this.state.updateTrack.temprature_type} value={this.state.updateTrack.temprature} Options={this.state.options2} onChange={(e) => this.props.updateEntryState(e)} onChangeType={(e) => this.updateEntryState1(e, 'temprature_type')} />
                     </Grid>
                     <Grid className="fillDia">
-                        <MMHG name="saturaion" Unit="%" label="O2 Saturation" onChange={(e) => this.props.updateEntryState(e)} value={this.state.updateTrack.blood_sugar} />
+                        <MMHG name="saturaion" Unit="%" label={O2Saturation} onChange={(e) => this.props.updateEntryState(e)} value={this.state.updateTrack.blood_sugar} />
                     </Grid>
 
                     <Grid className="fillDia">
@@ -108,10 +108,10 @@ class Index extends Component {
                         <Condition name="conditions" onChange={(e) => this.props.updateEntryState(e)} value={this.state.updateTrack.conditions} />
                     </Grid>
                     <Grid className="fillDia">
-                        <SelectField name="country" label="Where you are located" option={this.state.options} onChange={(e) => this.updateEntryState1(e, 'country')} value={this.state.updateTrack.country} />
+                        <SelectField name="country" label={Whereyouarelocated} option={this.state.options} onChange={(e) => this.updateEntryState1(e, 'country')} value={this.state.updateTrack.country} />
                     </Grid>
                     <Grid className="fillDia">
-                        <NotesEditor name="symptoms" label="Symptoms & Notes" onChange={(e) => this.updateEntryState1(e, 'symptoms')} value={this.state.updateTrack.symptoms} />
+                        <NotesEditor name="symptoms" label={symp_notes} onChange={(e) => this.updateEntryState1(e, 'symptoms')} value={this.state.updateTrack.symptoms} />
                     </Grid>
 
                     <Grid className="attchForms attchImg">

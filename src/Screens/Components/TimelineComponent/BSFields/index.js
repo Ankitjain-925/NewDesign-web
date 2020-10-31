@@ -78,17 +78,16 @@ class Index extends Component {
             case "default":
                 translate = translationEN.text
         }
-        let { blood_pressure, visible, show, hide, until, archive, rr_systolic, attachments, time_measure, date_measure,
-            visibility, edit, Delete, RR_diastolic, heart_rate, view_fullscren, always, feeling, date, time }= translate
+        let { blood_sugar, Hba1c, situation, attachments, time_measure, date_measure, }= translate
         
         return (
             <div>
                 <Grid className="cnfrmDiaMain">
                     <Grid className="fillDia">
-                        <MMHG name="blood_sugar" Unit="mg/dl" label="Blood Sugar" onChange={(e)=> this.props.updateEntryState(e)} value={this.state.updateTrack.blood_sugar}/>    
+                        <MMHG name="blood_sugar" Unit="mg/dl" label={blood_sugar} onChange={(e)=> this.props.updateEntryState(e)} value={this.state.updateTrack.blood_sugar}/>    
                     </Grid>
                     <Grid className="fillDia">
-                        <MMHG name="Hba1c" Unit="%" label="HBA1C" onChange={(e)=> this.props.updateEntryState(e)} value={this.state.updateTrack.Hba1c}/>    
+                        <MMHG name="Hba1c" Unit="%" label={Hba1c} onChange={(e)=> this.props.updateEntryState(e)} value={this.state.updateTrack.Hba1c}/>    
                     </Grid>
                     <Grid className="fillDia">
                         <Grid className="rrSysto">
@@ -104,7 +103,7 @@ class Index extends Component {
                         </Grid>
                     </Grid>
                     <Grid className="fillDia">
-                        <SelectByTwo name="situation" label="Situation" options={this.state.options} onChange={(e)=> this.updateEntryState1(e, 'situation')} value={this.state.updateTrack.feelings}/>    
+                        <SelectByTwo name="situation" label={situation} options={this.state.options} onChange={(e)=> this.updateEntryState1(e, 'situation')} value={this.state.updateTrack.feelings}/>    
                     </Grid>
                   
                     <Grid className="attchForms attchImg">

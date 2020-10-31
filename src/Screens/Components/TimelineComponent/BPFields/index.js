@@ -85,13 +85,13 @@ class Index extends Component {
             <div>
                 {!this.props.visibility && <Grid className="cnfrmDiaMain">
                     <Grid className="fillDia">
-                        <MMHG name="rr_systolic" Unit="mmHg" label="RR Systolic" onChange={(e) => this.props.updateEntryState(e)} value={this.state.updateTrack.rr_systolic} />
+                        <MMHG name="rr_systolic" Unit="mmHg" label={rr_systolic} onChange={(e) => this.props.updateEntryState(e)} value={this.state.updateTrack.rr_systolic} />
                     </Grid>
                     <Grid className="fillDia">
-                        <MMHG name="rr_diastolic" Unit="mmHg" label="RR Diastolic" onChange={(e) => this.props.updateEntryState(e)} value={this.state.updateTrack.rr_diastolic} />
+                        <MMHG name="rr_diastolic" Unit="mmHg" label={RR_diastolic} onChange={(e) => this.props.updateEntryState(e)} value={this.state.updateTrack.rr_diastolic} />
                     </Grid>
                     <Grid className="fillDia">
-                        <MMHG name="heart_frequncy" Unit="b/min" label="Heart Rate" onChange={(e) => this.props.updateEntryState(e)} value={this.state.updateTrack.heart_frequncy} />
+                        <MMHG name="heart_frequncy" Unit="b/min" label={heart_rate} onChange={(e) => this.props.updateEntryState(e)} value={this.state.updateTrack.heart_frequncy} />
                     </Grid>
                     <Grid className="fillDia">
                         <Grid className="rrSysto">

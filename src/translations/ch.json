@@ -648,6 +648,27 @@
 		"Prescriptionisdeleted" : "处方被删除",
 		"Prescriptionisarchived" : "处方已存档",
 		"Prescriptionishandedtopatient" : "处方交给病人",
-		"Addcompany" :"Add another insurance company"
+		"Addcompany" :"Add another insurance company",
+		"Selectentrytype" : "Select entry type",
+		"addtextentry" : "add text entry",
+		"BodySchemeNotes" :"Body Scheme Notes",
+		"Conditions" : "Condition (How are you?)",
+		"requesteddoctor" : "has requested to become a trusted doctor",
+		"accpetRemove" : "Please check this for accept and remove.",
+		"pain" : "Pain",
+		"Mild" : "Mild", 
+		"Moderate" : "Moderate", 
+		"Servere" : "Severe",
+		"RegisteredSuccessfully" : "Registered Successfully",
+		"Youregisteredsuccessfully" :"You are registered successfully",
+		"emailverification" : "Please check your email for verification",
+		"Allentries" : "All entries are by default visible to professionals you give access to your profile. You can edit these settings additionally on each entry or set a general rule in your",
+		"SelectPainArea" :"Select Pain Area",
+		"Temperature" :"Temperature",
+		"Fieldtitle" :"Field title",
+		"Download" :"Download",
+		"VeiwGraph" :"Veiw Graph",
+		"O2Saturation": "O2 Saturation",
+		"Whereyouarelocated" :"Where you are located"
 	}
 }

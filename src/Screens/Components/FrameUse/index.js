@@ -8,7 +8,7 @@ class Index extends Component {
       return (
         <div>
           {this.props.type==='mp4' ?
-            <video className="VideoPlay" width={this.props && this.props.comesFrom === "LMS" ? 500 : 100} height={this.props && this.props.comesFrom ==="LMS" ? 300 : 100}  controls>
+            <video className="VideoPlay" width={this.props && this.props.comesFrom === "LMS" ? 700 : 100} height={this.props && this.props.comesFrom ==="LMS" ? 300 : 100}  controls>
               <source src={this.props.new_image} type="video/mp4" />
             </video>
           :

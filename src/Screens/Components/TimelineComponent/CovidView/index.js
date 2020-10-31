@@ -7,7 +7,17 @@ import Condition from './../../Condition/index';
 import PainPoint from './../../PointPain/index';
 import PainIntensity from './../../PainIntansity/index';
 import { getDate, newdate, getTime, getImage } from './../../BasicMethod/index';
-
+import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
+import { LanguageFetchReducer } from '../../../actions';
+import * as translationEN from "../../../../translations/en.json"
+import * as translationDE from '../../../../translations/de.json';
+import * as translationPT from '../../../../translations/pt.json';
+import * as translationSP from '../../../../translations/sp.json';
+import * as translationRS from '../../../../translations/rs.json';
+import * as translationSW from '../../../../translations/sw.json';
+import * as translationCH from '../../../../translations/ch.json';
+import * as translationNL from '../../../../translations/en.json';
 
 class Index extends Component {
     constructor(props) {
@@ -37,6 +47,39 @@ class Index extends Component {
 
 
     render() {
+        let translate;
+        switch (this.props.stateLanguageType) {
+              case "en":
+                  translate = translationEN.text
+                  break;
+              case "de":
+                  translate = translationDE.text
+                  break;
+              case "pt":
+                  translate = translationPT.text
+                  break;
+              case "sp":
+                  translate = translationSP.text
+                  break;
+              case "rs":
+                  translate = translationRS.text
+                  break;
+              case "nl":
+                  translate = translationNL.text
+                  break;
+              case "ch":
+                  translate = translationCH.text
+                  break;
+              case "sw":
+                  translate = translationSW.text
+                  break;
+              case "default":
+                  translate = translationEN.text
+          }
+          let { selct_pain_area, attachments, O2Saturation, Whereyouarelocated, symp_notes,
+            visible,feeling, show, date, time, hide, until, archive, temparture,
+         edit, Delete, RR_diastolic, heart_rate,always, Download,
+            Change, Location, visibility,de_archive,covid_diary, pain_areas, } = translate
         var item = this.state.item;
         return (
             <Grid container direction="row" className="descpCntnt">
@@ -48,36 +91,36 @@ class Index extends Component {
                         <Grid container direction="row" className="addSpc">
                             <Grid item xs={12} md={6}>
                                 <Grid className="conPainImg">
-                                    <a className="conPainNote"><img src={require('../../../../assets/images/covid-19.svg')} alt="" title="" /><span>Covid 19 Diary</span> </a>
+                                    <a className="conPainNote"><img src={require('../../../../assets/images/covid-19.svg')} alt="" title="" /><span>{covid_diary}</span> </a>
                                 </Grid>
                             </Grid>
                             <Grid item xs={12} md={6}>
                                 <Grid className="bp_vsblSec scndOptionIner1">
-                                    <a onClick={()=>this.props.EidtOption(item.type, item, true)} className="bp_vsblEye"><img src={require('../../../../assets/images/eye2.png')} alt="" title="" /> <span>Visible</span> </a>
+                                    <a onClick={()=>this.props.EidtOption(item.type, item, true)} className="bp_vsblEye"><img src={require('../../../../assets/images/eye2.png')} alt="" title="" /> <span>{visible}</span> </a>
                                     <a className="vsblTime" data-tip data-for={item.track_id + 'visibility'}>
                                         <img src={require('../../../../assets/images/clock.svg')} alt="" title="" />
                                     </a>
                                     <ReactTooltip className="timeIconClas" id={item.track_id + 'visibility'} place="top" effect="solid" backgroundColor="#ffffff">
-                                        {item.visible === 'show' ? <label>Show until</label> : <label>Hide until</label>}
-                                        {item.public === 'always' ? <p> Always </p> : item.public ? <p>{getDate(item.public, this.state.date_format)}</p>: <p>Not mentioned</p>}
+                                        <label>{show} {until}</label> : <label>{hide} {until}</label>
+                                        {item.public === 'always' ? <p> {always} </p> : <p>{getDate(item.public, this.state.date_format)}</p>}
                                     </ReactTooltip>
                                     <a className="openScndhrf1">
                                         <a className="vsblDots"><img src={require('../../../../assets/images/nav-more.svg')} alt="" title="" /></a>
                                         {!this.props.Archive ? <ul>
-                                            <li><a onClick={(data) => this.props.ArchiveTrack(item)}><img src={require('../../../../assets/images/archive-1.svg')} alt="" title="" />Archive</a></li>
+                                            <li><a onClick={(data) => this.props.ArchiveTrack(item)}><img src={require('../../../../assets/images/archive-1.svg')} alt="" title="" />{archive}</a></li>
                                             {this.props.comesfrom === 'patient' &&  <li>
                                                     {item.created_by === this.state.loggedinUser._id && ( !item.updated_by || item.updated_by ==="") ? 
-                                                    <a onClick={()=>this.props.EidtOption(item.type, item)}><img src={require('../../../../assets/images/edit-1.svg')} alt="" title="" />Edit</a>
-                                                    : <a onClick={()=>this.props.EidtOption(item.type, item, true)}><img src={require('../../../../assets/images/edit.svg')} alt="" title="" />Change Visibility</a>
+                                                    <a onClick={()=>this.props.EidtOption(item.type, item)}><img src={require('../../../../assets/images/edit-1.svg')} alt="" title="" />{edit}</a>
+                                                    : <a onClick={()=>this.props.EidtOption(item.type, item, true)}><img src={require('../../../../assets/images/edit.svg')} alt="" title="" />{Change} {visibility}</a>
                                                     }
                                                  </li>}
-                                                {this.props.comesfrom !== 'patient' && <li><a onClick={()=>this.props.EidtOption(item.type, item)}><img src={require('../../../../assets/images/edit-1.svg')} alt="" title="" />Edit</a></li>}
-                                                <li><a onClick={() => this.props.downloadTrack(item)}><img src={require('../../../../assets/images/download.svg')} alt="" title="" />Download</a></li>
-                                            <li><a onClick={(deleteKey) => this.props.DeleteTrack(item.track_id)}><img src={require('../../../../assets/images/cancel-request.svg')} alt="" title="" />Delete</a></li>
+                                                {this.props.comesfrom !== 'patient' && <li><a onClick={()=>this.props.EidtOption(item.type, item)}><img src={require('../../../../assets/images/edit-1.svg')} alt="" title="" />{edit}</a></li>}
+                                            <li><a onClick={() => this.props.downloadTrack(item)}><img src={require('../../../../assets/images/download.svg')} alt="" title="" />{Download}</a></li>
+                                            <li><a onClick={(deleteKey) => this.props.DeleteTrack(item.track_id)}><img src={require('../../../../assets/images/cancel-request.svg')} alt="" title="" />{Delete}</a></li>
                                         </ul> :
                                             <ul>
-                                                <li><a onClick={(data) => this.props.ArchiveTrack(item)}><img src={require('../../../../assets/images/archive-1.svg')} alt="" title="" />De-Archive</a></li>
-                                                <li><a onClick={(deleteKey) => this.props.DeleteTrack(item.track_id)}><img src={require('../../../../assets/images/cancel-request.svg')} alt="" title="" />Delete</a></li>
+                                                <li><a onClick={(data) => this.props.ArchiveTrack(item)}><img src={require('../../../../assets/images/archive-1.svg')} alt="" title="" />{de_archive}</a></li>
+                                                <li><a onClick={(deleteKey) => this.props.DeleteTrack(item.track_id)}><img src={require('../../../../assets/images/cancel-request.svg')} alt="" title="" />{Delete}</a></li>
                                             </ul>}
                                     </a>
                                 </Grid>
@@ -112,7 +155,7 @@ class Index extends Component {
                         <Grid container direction="row" className="addSpc conPainGraph">
                             <Grid item xs={12} md={5}>
                                 <Grid className="conPainLft">
-                                    <Grid className="conPainArea"><label>Pain areas</label></Grid>
+                                    <Grid className="conPainArea"><label>{pain_areas}</label></Grid>
                                     <PainPoint id={item.track_id} gender={this.state.gender} painPoint={item.painPoint} isView={true} />
                                 </Grid>
                             </Grid>
@@ -136,21 +179,21 @@ class Index extends Component {
                                     <Grid container direction="row">
                                         <Grid item xs={12} md={6} className="painTypeBy">
                                             <Grid container direction="row">
-                                                <Grid item xs={5} md={5}><label>Temparture</label></Grid>
+                                                <Grid item xs={5} md={5}><label>{temparture}</label></Grid>
                                                 <Grid item xs={7} md={7}><span>{item.temprature && item.temprature} {item.temprature_type && item.temprature_type.Collapsible}</span></Grid>
                                                 <Grid className="clear"></Grid>
                                             </Grid>
                                         </Grid>
                                         <Grid item xs={12} md={6} className="painTypeBy">
                                             <Grid container direction="row">
-                                                <Grid item xs={5} md={5}><label>O2 saturation</label></Grid>
+                                                <Grid item xs={5} md={5}><label>{O2Saturation}</label></Grid>
                                                 <Grid item xs={7} md={7}><span>{item.saturaion && item.saturaion}</span></Grid>
                                                 <Grid className="clear"></Grid>
                                             </Grid>
                                         </Grid>
                                         <Grid item xs={12} md={6} className="painTypeBy">
                                             <Grid container direction="row">
-                                                <Grid item xs={5} md={5}><label>Location</label></Grid>
+                                                <Grid item xs={5} md={5}><label>{Location}</label></Grid>
                                                 <Grid item xs={7} md={7}><span>{item.country && item.country.label}</span></Grid>
                                                 <Grid className="clear"></Grid>
                                             </Grid>
@@ -178,5 +221,10 @@ class Index extends Component {
         )
     }
 }
-
-export default Index;
+const mapStateToProps = (state) => {
+    const { stateLanguageType } = state.LanguageReducer;
+    return {
+        stateLanguageType
+    }
+};
+export default withRouter(connect(mapStateToProps, { LanguageFetchReducer })(Index));

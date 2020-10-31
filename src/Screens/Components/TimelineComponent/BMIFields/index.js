@@ -76,15 +76,15 @@ class Index extends Component {
             case "default":
                 translate = translationEN.text
         }
-        let { date_measure, time_measure, attachments }= translate
+        let { date_measure, time_measure, attachments, weight, height, }= translate
         return (
             <div>
                 {!this.props.visibility && <Grid className="cnfrmDiaMain">
                     <Grid className="fillDia">
-                        <MMHG name="weight" Unit="kg" label="Weight" onChange={(e)=> this.props.updateEntryState(e)} value={this.state.updateTrack.blood_sugar}/>    
+                        <MMHG name="weight" Unit="kg" label={weight} onChange={(e)=> this.props.updateEntryState(e)} value={this.state.updateTrack.blood_sugar}/>    
                     </Grid>
                     <Grid className="fillDia">
-                        <MMHG name="height" Unit="cm" label="Height" onChange={(e)=> this.props.updateEntryState(e)} value={this.state.updateTrack.Hba1c}/>    
+                        <MMHG name="height" Unit="cm" label={height} onChange={(e)=> this.props.updateEntryState(e)} value={this.state.updateTrack.Hba1c}/>    
                     </Grid>
                     <Grid className="fillDia">
                         <Grid className="rrSysto">

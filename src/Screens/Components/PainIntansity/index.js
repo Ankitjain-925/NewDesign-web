@@ -1,6 +1,16 @@
 import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
-
+import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
+import { LanguageFetchReducer } from '../../actions';
+import * as translationEN from "../../../translations/en.json"
+import * as translationDE from '../../../translations/de.json';
+import * as translationPT from '../../../translations/pt.json';
+import * as translationSP from '../../../translations/sp.json';
+import * as translationRS from '../../../translations/rs.json';
+import * as translationSW from '../../../translations/sw.json';
+import * as translationCH from '../../../translations/ch.json';
+import * as translationNL from '../../../translations/en.json';
 class Pain extends Component {
     constructor(props) {
         super(props)
@@ -10,7 +20,7 @@ class Pain extends Component {
         };
     }
 
-    //On Pain Change Change 
+    //On {pain} Change Change 
     onPainChange = (e) => {
         this.setState({ value: e.target.value });
         this.props.onChange(e);
@@ -22,27 +32,63 @@ class Pain extends Component {
         }
     }
     render() {
+        let translate;
+        switch (this.props.stateLanguageType) {
+              case "en":
+                  translate = translationEN.text
+                  break;
+              case "de":
+                  translate = translationDE.text
+                  break;
+              case "pt":
+                  translate = translationPT.text
+                  break;
+              case "sp":
+                  translate = translationSP.text
+                  break;
+              case "rs":
+                  translate = translationRS.text
+                  break;
+              case "nl":
+                  translate = translationNL.text
+                  break;
+              case "ch":
+                  translate = translationCH.text
+                  break;
+              case "sw":
+                  translate = translationSW.text
+                  break;
+              case "default":
+                  translate = translationEN.text
+          }
+          let { very_severy, no_pain, pain_intensity, warst_p_p, pain, Mild, Moderate, Servere} = translate;
         return (
             <div>
                 <Grid className="painIntencty">
-                    <Grid><label>Pain intensity</label></Grid>
+                    <Grid><label>{pain_intensity}</label></Grid>
                     {this.state.Forview && <Grid>
-                        {(this.state.value >= 0 && this.state.value <= 1) && <a><img src={require('../../../assets/images/nopain.svg')} alt="" title="" />No Pain ({this.state.value})</a>}
-                        {(this.state.value > 1 && this.state.value <= 3) && <a><img src={require('../../../assets/images/mild.svg')} alt="" title="" />Mild Pain ({this.state.value})</a>}
-                        {(this.state.value > 3 && this.state.value <= 5) && <a><img src={require('../../../assets/images/moderate.svg')} alt="" title="" />Moderate Pain ({this.state.value})</a>}
-                        {(this.state.value > 5 && this.state.value <= 7) && <a><img src={require('../../../assets/images/severe.svg')} alt="" title="" />Servere Pain ({this.state.value})</a>}
-                        {(this.state.value > 7 && this.state.value <= 9) && <a><img src={require('../../../assets/images/veryServere.svg')} alt="" title="" />Very Servere Pain ({this.state.value})</a>}
-                        {(this.state.value > 9 && this.state.value <= 10) && <a><img src={require('../../../assets/images/worst.svg')} alt="" title="" />Worst Pain Possible ({this.state.value})</a>}
+                        {(this.state.value >= 0 && this.state.value <= 1) && <a><img src={require('../../../assets/images/nopain.svg')} alt="" title="" />{no_pain} ({this.state.value})</a>}
+                        {(this.state.value > 1 && this.state.value <= 3) && <a><img src={require('../../../assets/images/mild.svg')} alt="" title="" />{Mild} {pain} ({this.state.value})</a>}
+                        {(this.state.value > 3 && this.state.value <= 5) && <a><img src={require('../../../assets/images/moderate.svg')} alt="" title="" />{Moderate} {pain} ({this.state.value})</a>}
+                        {(this.state.value > 5 && this.state.value <= 7) && <a><img src={require('../../../assets/images/severe.svg')} alt="" title="" />{Servere} {pain} ({this.state.value})</a>}
+                        {(this.state.value > 7 && this.state.value <= 9) && <a><img src={require('../../../assets/images/veryServere.svg')} alt="" title="" />{very_severy} {pain} ({this.state.value})</a>}
+                        {(this.state.value > 9 && this.state.value <= 10) && <a><img src={require('../../../assets/images/worst.svg')} alt="" title="" />{warst_p_p} ({this.state.value})</a>}
                     </Grid>}
                     {this.state.Forview && <Grid> <input disabled name={this.props.name} value={this.state.value} type="range" onChange={this.onPainChange} max="10"/></Grid>}
                     {!this.state.Forview && <Grid><a>{this.state.value}</a></Grid>}
                     {!this.state.Forview && <Grid> <input name={this.props.name} value={this.state.value} type="range" onChange={this.onPainChange} max="10"/></Grid>}
-                    {!this.state.Forview && <Grid className="painPointer"><a>No Pain</a> <a>Mild</a> <a>Moderate</a> <a>Severe</a>
-                        <a>Very Severe</a> <a>Worst Pain Possible</a></Grid>}
+                    {!this.state.Forview && <Grid className="painPointer"><a>{no_pain}</a> <a>{Mild}</a> <a>{Moderate}</a> <a>{Servere}</a>
+                        <a>{very_severy}</a> <a>{warst_p_p}</a></Grid>}
                 </Grid>
             </div>
         )
     }
 }
 
-export default Pain;
+const mapStateToProps = (state) => {
+    const { stateLanguageType } = state.LanguageReducer;
+    return {
+        stateLanguageType
+    }
+  };
+  export default withRouter(connect(mapStateToProps, { LanguageFetchReducer })(Pain));

@@ -185,7 +185,7 @@ class Index extends Component {
 
                     <Grid>
                         <Grid className="phamraLink">
-                            <a onClick={this.handleOpenPharma}>{pharmacy_prescription_model}</a>
+                            {/* <a onClick={this.handleOpenPharma}>{pharmacy_prescription_model}</a> */}
                         </Grid>
                         {/* Pharmacy Prescription */}
                         <Modal

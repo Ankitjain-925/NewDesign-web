@@ -2,6 +2,18 @@ import React, { Component } from 'react';
 import Dropzone from "react-dropzone";
 import Grid from '@material-ui/core/Grid';
 import { Input } from '@material-ui/core';
+import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
+import { LanguageFetchReducer } from '../../actions';
+import * as translationEN from "../../../translations/en.json"
+import * as translationDE from '../../../translations/de.json';
+import * as translationPT from '../../../translations/pt.json';
+import * as translationSP from '../../../translations/sp.json';
+import * as translationRS from '../../../translations/rs.json';
+import * as translationSW from '../../../translations/sw.json';
+import * as translationCH from '../../../translations/ch.json';
+import * as translationNL from '../../../translations/en.json';
+
 class Loader extends Component {
     constructor(props) {
        super(props);
@@ -42,6 +54,36 @@ class Loader extends Component {
     }
     
     render() {
+        let translate;
+    switch (this.props.stateLanguageType) {
+          case "en":
+              translate = translationEN.text
+              break;
+          case "de":
+              translate = translationDE.text
+              break;
+          case "pt":
+              translate = translationPT.text
+              break;
+          case "sp":
+              translate = translationSP.text
+              break;
+          case "rs":
+              translate = translationRS.text
+              break;
+          case "nl":
+              translate = translationNL.text
+              break;
+          case "ch":
+              translate = translationCH.text
+              break;
+          case "sw":
+              translate = translationSW.text
+              break;
+          case "default":
+              translate = translationEN.text
+      }
+      let { browse, suported_file_type_jpg_png, BodySchemeNotes,  } = translate;
         return (
             <div>
             <Dropzone onDrop={(e)=>this.UploadFiles(e)}>
@@ -50,9 +92,9 @@ class Loader extends Component {
                     <Input {...getInputProps()} />
                         <Grid className="browsInput">
                             <a><img src={require('../../../assets/images/upload-file.svg')} alt="" title="" /></a>
-                            <a>Browse <input type="file" onChange={(e)=>this.UploadFiles(e)} multiple={this.props.isMulti} /></a> or drag here
+                            <a>{browse} <input type="file" onChange={(e)=>this.UploadFiles(e)} multiple={this.props.isMulti} /></a> or drag here
                         </Grid>
-                        <p>Supported file types: .jpg, .png, .pdf</p>
+                        <p>{suported_file_type_jpg_png}</p>
                     </div>
                 )}
             </Dropzone>
@@ -65,7 +107,13 @@ class Loader extends Component {
         );
     }
 }
-export default Loader;
+const mapStateToProps = (state) => {
+    const { stateLanguageType } = state.LanguageReducer;
+    return {
+        stateLanguageType
+    }
+  };
+  export default withRouter(connect(mapStateToProps, { LanguageFetchReducer })(Loader));
 
 
 

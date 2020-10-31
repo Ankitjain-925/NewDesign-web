@@ -1,5 +1,16 @@
 import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
+import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
+import { LanguageFetchReducer } from '../../actions';
+import * as translationEN from "../../../translations/en.json"
+import * as translationDE from '../../../translations/de.json';
+import * as translationPT from '../../../translations/pt.json';
+import * as translationSP from '../../../translations/sp.json';
+import * as translationRS from '../../../translations/rs.json';
+import * as translationSW from '../../../translations/sw.json';
+import * as translationCH from '../../../translations/ch.json';
+import * as translationNL from '../../../translations/en.json';
 
 class Temprature extends Component {
     constructor(props) {
@@ -28,9 +39,39 @@ class Temprature extends Component {
 
     }
     render() {
+        let translate;
+        switch (this.props.stateLanguageType) {
+              case "en":
+                  translate = translationEN.text
+                  break;
+              case "de":
+                  translate = translationDE.text
+                  break;
+              case "pt":
+                  translate = translationPT.text
+                  break;
+              case "sp":
+                  translate = translationSP.text
+                  break;
+              case "rs":
+                  translate = translationRS.text
+                  break;
+              case "nl":
+                  translate = translationNL.text
+                  break;
+              case "ch":
+                  translate = translationCH.text
+                  break;
+              case "sw":
+                  translate = translationSW.text
+                  break;
+              case "default":
+                  translate = translationEN.text
+          }
+          let { Temperature,} = translate;
         return (
             <Grid className="rrSysto getTempUpr">
-            <Grid><label>Temperature</label></Grid>
+            <Grid><label>{Temperature}</label></Grid>
             <Grid className="getTempInput">
                 <input type="text" onChange={this.onDataChange} name={this.state.name} value={this.state.value}/>
                 <Grid className="getTemp">
@@ -44,5 +85,12 @@ class Temprature extends Component {
     }
 }
 
-export default Temprature;
+const mapStateToProps = (state) => {
+    const { stateLanguageType } = state.LanguageReducer;
+    return {
+        stateLanguageType
+    }
+  };
+  export default withRouter(connect(mapStateToProps, { LanguageFetchReducer })(Temprature));
+
 

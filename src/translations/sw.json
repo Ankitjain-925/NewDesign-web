@@ -645,7 +645,29 @@
 		"PrescriptionisDearchived" : "Dawa ni Mpendwa",
 		"Prescriptionisdeleted" : "Dawa imefutwa",
 		"Prescriptionisarchived" : "Dawa imehifadhiwa",
-		"Prescriptionishandedtopatient" : "Dawa hupewa mgonjwa"
+		"Prescriptionishandedtopatient" : "Dawa hupewa mgonjwa",
+		"Addcompany" :"Ongeza kampuni nyingine ya bima", 
+		"Selectentrytype" : "Chagua aina ya kuingia",
+		"addtextentry" : "ongeza kuingia kwa maandishi",
+		"BodySchemeNotes" :"Vidokezo vya Mpango wa Mwili",
+		"Conditions" : "Hali (Habari yako?)",
+		"requesteddoctor" : "ameomba kuwa daktari anayeaminika",
+		"accpetRemove" : "Tafadhali angalia hii kwa kukubali na uondoe.",
+		"pain" : "Maumivu",
+		"Mild" : "Mpole", 
+		"Moderate" : "Wastani", 
+		"Servere" : "Kali",
+		"RegisteredSuccessfully" : "Imesajiliwa kwa Ufanisi",
+		"Youregisteredsuccessfully" :"Umesajiliwa kwa mafanikio",
+		"emailverification" : "Tafadhali angalia barua pepe yako kwa uthibitisho",
+		"Allentries" : "Ingizo zote huonekana kwa chaguo-msingi kwa wataalamu unaowapa ufikiaji wa wasifu wako. Unaweza kuhariri mipangilio hii kwa kuongeza kwenye kila kiingilio au weka sheria ya jumla katika faili yako ya",
+		"SelectPainArea" :"Select Pain Area",
+		"Temperature" :"Temperature",
+		"Fieldtitle" :"Field title",
+		"Download" :"Download",
+		"VeiwGraph" :"Veiw Graph",
+		"O2Saturation": "O2 Saturation",
+		"Whereyouarelocated" :"Where you are located"
 		
 	}
 }

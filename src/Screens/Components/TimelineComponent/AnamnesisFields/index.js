@@ -5,6 +5,17 @@ import FileUploader from './../../FileUploader/index';
 import ShowHide from './../../ShowHide/index';
 import NotesEditor from './../../Editor/index';
 import PainPoint from '../../PointPain/index';
+import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
+import { LanguageFetchReducer } from '../../../actions';
+import * as translationEN from "../../../../translations/en.json"
+import * as translationDE from '../../../../translations/de.json';
+import * as translationPT from '../../../../translations/pt.json';
+import * as translationSP from '../../../../translations/sp.json';
+import * as translationRS from '../../../../translations/rs.json';
+import * as translationSW from '../../../../translations/sw.json';
+import * as translationCH from '../../../../translations/ch.json';
+import * as translationNL from '../../../../translations/en.json';
 
 class Index extends Component {
     constructor(props) {
@@ -41,21 +52,51 @@ class Index extends Component {
     }
 
     render() {
+        let translate;
+    switch (this.props.stateLanguageType) {
+          case "en":
+              translate = translationEN.text
+              break;
+          case "de":
+              translate = translationDE.text
+              break;
+          case "pt":
+              translate = translationPT.text
+              break;
+          case "sp":
+              translate = translationSP.text
+              break;
+          case "rs":
+              translate = translationRS.text
+              break;
+          case "nl":
+              translate = translationNL.text
+              break;
+          case "ch":
+              translate = translationCH.text
+              break;
+          case "sw":
+              translate = translationSW.text
+              break;
+          case "default":
+              translate = translationEN.text
+      }
+      let { SelectPainArea, attachments, Fieldtitle, BodySchemeNotes } = translate;
         return (
             <div>
                 <Grid className="cnfrmDiaMain">
                     <Grid className="fillDia">
-                        <AnamnesisFinding  options= {this.state.options} name="anamesis" label="Field title"  onChange={(e) => this.updateEntryState1(e, 'anamesis')} findingArr={this.state.updateTrack.anamesis} />
+                        <AnamnesisFinding  options= {this.state.options} name="anamesis" label={Fieldtitle}  onChange={(e) => this.updateEntryState1(e, 'anamesis')} findingArr={this.state.updateTrack.anamesis} />
                     </Grid>
                     <Grid className="fillDia">
-                        <Grid><label>Select Pain Area</label></Grid>
+                        <Grid><label>{SelectPainArea}</label></Grid>
                         <PainPoint id="New_id1" gender={this.state.gender} painPoint={this.state.updateTrack && this.state.updateTrack.painPoint ? this.state.updateTrack.painPoint : []} onChange={(e) => this.updateEntryState1(e, 'painPoint')} />
                     </Grid>
                     <Grid className="fillDia">
-                        <NotesEditor name="remarks" label="Body Scheme Notes"  onChange={(e)=> this.updateEntryState1(e, 'remarks')} value={this.state.updateTrack.remarks}/> 
+                        <NotesEditor name="remarks" label={BodySchemeNotes}  onChange={(e)=> this.updateEntryState1(e, 'remarks')} value={this.state.updateTrack.remarks}/> 
                     </Grid>
                     <Grid className="attchForms attchImg">
-                        <Grid><label>Attachments</label></Grid>
+                        <Grid><label>{attachments}</label></Grid>
                         <FileUploader name="UploadTrackImageMulti" comesFrom="journal" isMulti="true" fileUpload={(event)=>{this.props.FileAttachMulti(event)}}/>
                     </Grid>
                 </Grid>
@@ -71,5 +112,11 @@ class Index extends Component {
     }
 }
 
-export default Index;
+const mapStateToProps = (state) => {
+    const { stateLanguageType } = state.LanguageReducer;
+    return {
+        stateLanguageType
+    }
+  };
+  export default withRouter(connect(mapStateToProps, { LanguageFetchReducer })(Index));
 
