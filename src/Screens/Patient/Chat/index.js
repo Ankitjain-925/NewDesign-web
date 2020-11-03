@@ -66,11 +66,15 @@ class index extends React.Component {
             response.data.data && response.data.data.length>0 && response.data.data.map((data,index)=>{  
              if(data.email === 'doctor4@aimedis.com' || data.email === 'doctor5@aimedis.com' || data.email === 'doctor3@aimedis.com' || data.email === 'doctor6@aimedis.com' || data.email === 'doctor7@aimedis.com')
              {
-                doctorArray.push(data.profile_id.toLowerCase()) 
+                if(doctorArray.indexOf(data.profile_id.toLowerCase()) === -1){
+                    doctorArray.push(data.profile_id.toLowerCase()) 
+                }
              } 
-              if(data.paid_services && data.paid_services>0)
+             else if(data.paid_services && data.paid_services>0)
                 {
-                  doctorArray.push(data.profile_id.toLowerCase())
+                    if(doctorArray.indexOf(data.profile_id.toLowerCase()) === -1){
+                         doctorArray.push(data.profile_id.toLowerCase())
+                    }
                 }   
             })
         })
@@ -81,7 +85,9 @@ class index extends React.Component {
           'Content-Type': 'application/json'
           }}).then((response) =>{
             response.data.data && response.data.data.fav_doctor && response.data.data.fav_doctor.map((value, i)=>{
-                doctorArray.push(value.profile_id.toLowerCase())
+                if(doctorArray.indexOf(value.profile_id.toLowerCase()) === -1){
+                    doctorArray.push(value.profile_id.toLowerCase())
+                }
             })
         })
         this.setState({doctorArray : doctorArray})

@@ -865,7 +865,7 @@ class Index extends Component {
                                                 onChange={(e) => this.EntryValueName(e, 'country')}
                                                 options={this.state.selectCountry}
                                                 placeholder=""
-                                                isSearchable={false}
+                                                isSearchable={true}
                                                 name="country"
                                                 className="cntryDrop"
                                             />
@@ -931,7 +931,7 @@ class Index extends Component {
                                                 onChange={(e) => { this.handleChange_multi(e, 'languages') }}
                                                 options={this.state.languageData}
                                                 placeholder=""
-                                                isSearchable={false}
+                                                isSearchable={true}
                                                 className="profile-language"
                                                 isMulti={true}
                                             />

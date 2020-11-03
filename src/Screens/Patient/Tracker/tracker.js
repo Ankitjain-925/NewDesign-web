@@ -79,8 +79,8 @@ class Index extends Component {
         if (window.location.hash) {
             let fitbitToken = window.location.hash.slice(1).split("&")[0].replace("access_token=", "")
             localStorage.setItem('fitbit_token', JSON.stringify(fitbitToken))
-            localStorage.removeItem("withings_token")
-            this.setState({ fitbitloggedIn: true, withingsloggedIn: false })
+            // localStorage.removeItem("withings_token")
+            this.setState({ fitbitloggedIn: true})
             this.fetchFitbitData("devices.json", fitbitToken, "device")
             this.fetchFitbitData("profile.json", fitbitToken, "user")
             this.fetchFitbitData('activities.json', fitbitToken, 'lifetimeStats')
@@ -90,11 +90,11 @@ class Index extends Component {
 
         }
         if (decodeURIComponent(window.location.search.replace(new RegExp("^(?:.*[&\\?]" + encodeURIComponent("code").replace(/[\.\+\*]/g, "\\$&") + "(?:\\=([^&]*))?)?.*$", "i"), "$1")) && decodeURIComponent(window.location.search.replace(new RegExp("^(?:.*[&\\?]" + encodeURIComponent("state").replace(/[\.\+\*]/g, "\\$&") + "(?:\\=([^&]*))?)?.*$", "i"), "$1"))) {
-            this.setState({ fitbitloggedIn: false, withingsloggedIn: true })
+            // this.setState({ fitbitloggedIn: false, withingsloggedIn: true })
             var code = decodeURIComponent(window.location.search.replace(new RegExp("^(?:.*[&\\?]" + encodeURIComponent("code").replace(/[\.\+\*]/g, "\\$&") + "(?:\\=([^&]*))?)?.*$", "i"), "$1"));
-            localStorage.setItem("withings_token", JSON.stringify(code))
-            localStorage.removeItem("fitbit_token")
-            this.setState({ fitbitloggedIn: false, loggedin: false, withingsloggedIn: true, code: code })
+            localStorage.setItem("withings_token", JSON.astringify(code))
+            // localStorage.removeItem("fitbit_token")
+            this.setState({ withingsloggedIn: true, code: code })
             this.getDevice(code);
             this.getUser(code)
             // this.getMeassure(code);
@@ -543,11 +543,14 @@ class Index extends Component {
     tracker() {
         this.props.history.push('/patient/tracker')
     }
-    logoutfromall = () => {
-        if (this.state.fitbitloggedIn) {
+
+    logoutfromall = (comesfrom) => {
+        // localStorage.removeItem("fitbit_token")
+        // localStorage.removeItem("withings_token")
+        if (comesfrom ==='fitbit') {
             localStorage.removeItem("fitbit_token")
         }
-        if (this.state.withingsloggedIn) {
+        if (comesfrom ==='withing') {
             localStorage.removeItem("withings_token")
         }
         this.setState({ fitbitloggedIn: false, loggedin: false, withingsloggedIn: false, vData:false })
@@ -780,7 +783,7 @@ class Index extends Component {
                                                                                 <a className="openScndhrf"><img src={require('../../../assets/images/threedots.jpg')} alt="" title="" />
                                                                                     <ul>
                                                                                         <li><a onClick={this.handleOpenvData} className="trackView" >{view_details}</a></li>
-                                                                                        <li><a onClick={this.logoutfromall} className="trackView" >{logout}</a></li>
+                                                                                        <li><a onClick={()=>{this.logoutfromall('fitbit')}} className="trackView" >{logout}</a></li>
                                                                                     </ul>
                                                                                 </a></Grid>
                                                                             <Grid className="trckLogo"><img src={require('../../../assets/images/fitbit.png')} alt="" title="" /></Grid>
@@ -821,7 +824,7 @@ class Index extends Component {
                                                                                 <a className="openScndhrf"><img src={require('../../../assets/images/threedots.jpg')} alt="" title="" />
                                                                                     <ul>
                                                                                         <li><a onClick={this.handleOpenvData} className="trackView" >{view_details}</a></li>
-                                                                                        <li><a onClick={this.logoutfromall} className="trackView" >{logout}</a></li>
+                                                                                        <li><a onClick={()=>{this.logoutfromall('withing')}} className="trackView" >{logout}</a></li>
                                                                                     </ul>
                                                                                 </a>
                                                                             </Grid>
@@ -890,7 +893,7 @@ class Index extends Component {
                                                                         <p>{fitbitloggedIn ? fitbitDevice && fitbitDevice.deviceVersion : withingsloggedIn ? withingsDevice && withingsDevice.model : ""}</p>
                                                                     </Grid>
                                                                     <Grid className="disCnctRght">
-                                                                        <a onClick={this.logoutfromall} >{disconect_device}</a>
+                                                                        <a onClick={()=>{this.logoutfromall(fitbitloggedIn ? 'fitbit' : 'withing')}} >{disconect_device}</a>
                                                                     </Grid>
                                                                 </Grid>
                                                             </Grid>

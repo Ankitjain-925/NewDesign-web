@@ -47,6 +47,7 @@ class FilterSec extends Component {
             selectType : [],
             selectFacility : [],
             time_range:[],
+            isTest: false,
         };
     }
 
@@ -54,6 +55,18 @@ class FilterSec extends Component {
     OnChangeFilter=()=>{
         this.props.FilterData(this.state.time_range, this.state.selectUser, this.state.selectType, this.state.selectFacility)
     }
+
+    handleChange=(search)=>{
+        this.setState({searchText: search},
+        ()=>{
+            if(this.state.searchText ===''){
+                this.props.ClearData();
+            }
+            else {
+                    this.props.FilterText(this.state.searchText)
+                }
+            })
+        }
     //Change the state in change the data
     FilterAccordigly=(name, value)=>{
         if(name==='time_range'){ this.setState({time_range : value},()=>{ this.OnChangeFilter(); })}
@@ -75,12 +88,14 @@ class FilterSec extends Component {
     componentDidMount = () => {
 
     }
+
+
     render() {
         return (
             <Grid container direction="row">
                 <Grid item xs={12} md={11}>
                     <Grid className="srchFilter">
-                        <Grid container direction="row">
+                        {!this.state.isTest && <Grid container direction="row">
                             <Grid item xs={12} md={4}>
                                 <RangePicker 
                                     className={this.state.time_range && this.state.time_range.length>0 ? "typeSel1 comonSel" : "allTimeSel1 comonSel"}
@@ -122,7 +137,7 @@ class FilterSec extends Component {
                                     className={this.state.selectUser && this.state.selectUser.length>0 ? "typeSel comonSel" : "allTimeSel comonSel"}
                                     isMulti= {true}
                                     closeMenuOnSelect={false}
-                                //isSearchable = {false}s
+                                //isSearchable = {false}
                                 />
                             </Grid>
                             <Grid item xs={12} md={1} 
@@ -144,11 +159,27 @@ class FilterSec extends Component {
                             >
                                 <Grid className="clear_filterUpr">
                                     <Grid className="clear_filterLft"><a onClick={this.ClearData}>Clear filters</a></Grid>
-                                    <Grid className="clear_filterRght"><a><img src={require('../../../../assets/images/clearSrch.jpg')} alt="" title="" /></a></Grid>
+                                    <Grid className="clear_filterRght" onClick={()=>{this.setState({isTest: true})}}><a><img src={require('../../../../assets/images/clearSrch.jpg')} alt="" title="" /></a></Grid>
                                 </Grid>
                             </Grid>
                             <Grid className="clear"></Grid>
+                            
+                        </Grid>}
+                        {this.state.isTest && 
+                            <Grid container direction="row">
+                                <Grid item xs={12} md={11}>
+                                <input type="text" className="searchbyText"
+                                        value={this.state.searchText} onChange={e => this.handleChange(e.target.value)} />
+                                </Grid>
+                                <Grid item xs={12} md={1}>
+                                    <Grid className="clear_filterUpr">
+                                        <Grid className="clear_filterRght" onClick={()=>{this.setState({isTest: false});  this.props.ClearData();}}><a><img src={require('../../../../assets/images/closefancy.png')} alt="" title="" /></a></Grid>
+                                    </Grid>
+                                </Grid>
+                            <Grid className="clear"></Grid>
+                            
                         </Grid>
+                        }
 
                         <Grid className="sortBySec">
                             <label>Sort by:</label>

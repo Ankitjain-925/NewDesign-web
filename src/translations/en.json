@@ -666,10 +666,12 @@
 		"Temperature" :"Temperature",
 		"Fieldtitle" :"Field title",
 		"Download" :"Download",
-		"VeiwGraph" :"Veiw Graph",
+		"VeiwGraph" :"View Graph",
 		"O2Saturation": "O2 Saturation",
 		"Whereyouarelocated" :"Where you are located",
-
+		"DarkMode" : "Dark Mode",
+		"addentry" :"add entry",
+		"Problem" : "Problem",
 
 
 		"timeline" : "Timeline",
@@ -706,7 +708,6 @@
 		"condition_h_r_u":"Condition (How are you?)",
 		"how_are_you":"How are you?",
 		"Enter_Diagnosis" : "Enter Diagnosis",
-		"Problem":"Problem",
 		"select_dates":"Select dates",
         "hurts_a_lot":"Hurts a lot",
         "symp_notes":"Symptoms & notes",

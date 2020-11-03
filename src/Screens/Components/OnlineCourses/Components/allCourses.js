@@ -154,8 +154,8 @@ class Index extends Component {
             <div>
                   {this.state.loaderImage && <Loader />}
 
-                  {this.state.addedWish && <div className="success_message">Wishlist added successfully</div>}
-                  {this.state.cartAlready &&<div className="err_message">Cart Already exist</div>}
+                  {this.state.addedWish && <div className="success_message">Item successfully added to wishlist</div>}
+                  {this.state.cartAlready &&<div className="err_message">Item already present in cart</div>}
                  <Grid className="nwCoursName">
                     <h3>New Courses</h3>
                 </Grid>

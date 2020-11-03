@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
-import { getDate, getTime, GetUrlImage, getFirstLastName } from '../../BasicMethod';
+import { getDate, getTime, GetUrlImage, getSpec } from '../../BasicMethod';
 import axios from 'axios';
 import sitedata from '../../../../sitedata';
 
@@ -11,6 +11,7 @@ class RightManage extends Component {
         super(props)
         this.state = {
             personalinfo: this.props.personalinfo,
+            upcoming_appointment : this.props.upcoming_appointment,
             added_data: this.props.added_data,
             time_format : this.props.time_format,
             date_format : this.props.date_format,
@@ -44,6 +45,10 @@ class RightManage extends Component {
                 })
             
         }
+        if (prevProps.upcoming_appointment !== this.props.upcoming_appointment) {
+            this.setState({ upcoming_appointment: this.props.upcoming_appointment })
+            console.log('upcoming_appointment', this.props.upcoming_appointment)
+        }
     }
 
     render() {
@@ -71,7 +76,7 @@ class RightManage extends Component {
                                     </Grid>
                                     <Grid className="presureDataGrph">
                                         <img src={require('../../../../assets/images/lineGraph.png')} alt="" title="" />
-                                        <a onClick={()=> this.props.OpenGraph('blood_pressure')}>Veiw Graph</a>
+                                        <a onClick={()=> this.props.OpenGraph('blood_pressure')}>View Graph</a>
                                     </Grid>
                                 </div> :
                                 <Grid className="noBpData">
@@ -101,7 +106,7 @@ class RightManage extends Component {
                                     </Grid>
                                     <Grid className="presureDataGrph">
                                         <img src={require('../../../../assets/images/lineGraph.png')} alt="" title="" />
-                                        <a onClick={()=> this.props.OpenGraph('weight_bmi')}>Veiw Graph</a>
+                                        <a onClick={()=> this.props.OpenGraph('weight_bmi')}>View Graph</a>
                                     </Grid>
                                 </div> :
                                 <Grid className="noBpData">
@@ -130,7 +135,7 @@ class RightManage extends Component {
                                     </Grid>
                                     <Grid className="presureDataGrph">
                                         <img src={require('../../../../assets/images/lineGraph.png')} alt="" title="" />
-                                        <a onClick={()=> this.props.OpenGraph('heart_rate')}>Veiw Graph</a>
+                                        <a onClick={()=> this.props.OpenGraph('heart_rate')}>View Graph</a>
                                     </Grid>
                                 </div> :
                                 <Grid className="noBpData">
@@ -159,7 +164,7 @@ class RightManage extends Component {
                                     </Grid>
                                     <Grid className="presureDataGrph">
                                         <img src={require('../../../../assets/images/lineGraph.png')} alt="" title="" />
-                                        <a onClick={()=> this.props.OpenGraph('laboratory_result')}>Veiw Graph</a>
+                                        <a onClick={()=> this.props.OpenGraph('laboratory_result')}>View Graph</a>
                                     </Grid>
                                 </div> :
                                 <Grid className="noBpData">
@@ -188,7 +193,7 @@ class RightManage extends Component {
                                     </Grid>
                                     <Grid className="presureDataGrph">
                                         <img src={require('../../../../assets/images/lineGraph.png')} alt="" title="" />
-                                        <a onClick={()=> this.props.OpenGraph('blood_sugar')}>Veiw Graph</a>
+                                        <a onClick={()=> this.props.OpenGraph('blood_sugar')}>View Graph</a>
                                     </Grid>
                                 </div> :
                                 <Grid className="noBpData">
@@ -238,9 +243,10 @@ class RightManage extends Component {
                                 </Grid>
                                 <Grid className="clear"></Grid>
                             </Grid>
-                            {this.state.personalinfo && this.state.personalinfo.upcoming_appointment &&  this.state.personalinfo.upcoming_appointment.length>0 ?
+                            
+                            {this.state.upcoming_appointment && this.state.upcoming_appointment.length>0 ?
                                 <div>
-                                    {this.state.personalinfo.upcoming_appointment.map((data, index) => (
+                                    {this.state.upcoming_appointment.map((data, index) => (
                                         <div>
                                         <Grid className="oficVisit">
                                             <label>{getDate(data.date, this.state.date_format)}, {data.start_time && data.start_time}</label>
@@ -250,7 +256,8 @@ class RightManage extends Component {
                                             {data.appointment_type === 'practice_appointment' && 'consultancy Appointment'}</a>
                                         </Grid>
                                         <Grid className="neuroSection">
-                                            <h3>{data.annotations}</h3>
+                                            <h3>{data.docProfile && data.docProfile.speciality &&  getSpec(data.docProfile.speciality)}</h3>
+                                            <p>{data.docProfile && data.docProfile.subspeciality &&  getSpec(data.docProfile.subspeciality)}</p>
                                             <Grid><a><img src={this.state.doc_image} alt="" title="" />{data.docProfile && data.docProfile.first_name && data.docProfile.first_name} {data.docProfile && data.docProfile.last_name && data.docProfile.last_name} (Doctor)</a></Grid>
                                             {/* <Grid><a><img src={require('../../../../assets/images/h2Logo.jpg')} alt="" title="" />Illinois Masonic Medical Center</a></Grid> */}
                                         </Grid>

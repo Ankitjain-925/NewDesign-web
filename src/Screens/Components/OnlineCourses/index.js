@@ -296,7 +296,7 @@ class Index extends Component {
                 customUI: ({ onClose }) => {
                 return (
                 <div className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode === 'dark' ? "dark-confirm react-confirm-alert-body" : "react-confirm-alert-body"} >
-                <h1>Payment successfully</h1>
+                <h1>Payment successfully processed</h1>
                 <div className="react-confirm-alert-button-group">
                 <button
                 onClick={() => {onClose();}}
@@ -316,7 +316,7 @@ class Index extends Component {
                 userName:  this.props.stateLoginValueAim.user.first_name + this.props.stateLoginValueAim.user.last_name,
                 userType: this.props.stateLoginValueAim.user.type,
                 paymentData: data,
-                orderlist: this.state.cartData
+                orderlist: this.state.AllCart
 
             },
             {

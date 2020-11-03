@@ -66,16 +66,20 @@ class index extends React.Component {
             response.data.data && response.data.data.length>0 && response.data.data.map((data,index)=>{  
              if(data.email === 'doctor4@aimedis.com' || data.email === 'doctor5@aimedis.com' || data.email === 'doctor3@aimedis.com' || data.email === 'doctor6@aimedis.com' || data.email === 'doctor7@aimedis.com')
              {
+                if(doctorArray.indexOf(data.profile_id.toLowerCase()) === -1){
                 doctorArray.push(data.profile_id.toLowerCase()) 
+                }
              } 
               if(data.paid_services && data.paid_services>0)
                 {
-                  doctorArray.push(data.profile_id.toLowerCase())
+                    if(doctorArray.indexOf(data.profile_id.toLowerCase()) === -1){
+                        doctorArray.push(data.profile_id.toLowerCase())
+                    }
                 }   
             })
         })
         let user_id    = this.props.stateLoginValueAim.user._id
-      
+        
         this.setState({doctorArray : doctorArray})
     }
 

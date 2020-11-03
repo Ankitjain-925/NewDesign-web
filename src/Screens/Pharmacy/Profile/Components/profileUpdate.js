@@ -796,7 +796,6 @@ setTimeout(()=> {
                                                 name="title"
                                                 isSearchable={false}
                                                 className="mr_sel"
-
                                             />
                                         </Grid>
                                     </Grid>
@@ -868,7 +867,7 @@ setTimeout(()=> {
                                                 onChange={(e) => this.EntryValueName(e, 'country')}
                                                 options={this.state.selectCountry}
                                                 placeholder=""
-                                                isSearchable={false}
+                                                isSearchable={true}
                                                 name="country"
                                                 className="cntryDrop"
                                             />
@@ -934,7 +933,7 @@ setTimeout(()=> {
                                                 onChange={(e) => { this.handleChange_multi(e, 'languages') }}
                                                 options={this.state.languageData}
                                                 placeholder=""
-                                                isSearchable={false}
+                                                isSearchable={true}
                                                 className="profile-language"
                                                 isMulti={true}
                                             />

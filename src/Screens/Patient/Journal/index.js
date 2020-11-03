@@ -100,7 +100,8 @@ class Index extends Component {
             allTrack1: [],
             Sort: 'diagnosed_time',
             isGraph: false,
-            current_Graph: ''
+            current_Graph: '',
+            upcoming_appointment: []
         };
     }
 
@@ -121,6 +122,15 @@ class Index extends Component {
             this.SortData())
     }
 
+    FilterText = (search) =>{
+        var FilterFromSearch =  this.state.allTrack1.filter((obj) => {
+            if (Object.keys(obj).includes(search.toLowerCase()) || Object.values(obj).includes(search.toLowerCase())) {
+                return true;
+            }  else return false;
+            });
+        this.setState({ allTrack: FilterFromSearch })
+    }
+    
     //For filter the Data
     FilterData = (time_range, user_type, type, facility_type) => {
         var Datas1 = this.state.allTrack1;
@@ -330,12 +340,25 @@ class Index extends Component {
         // this.currentinfo();
         this.getGender();
         this.cur_one();
+        this.getUpcomingAppointment();
         this.rightInfo();
         this.getTrack();
         this.getMetadata();
         this.getPesonalized();
     }
-
+    getUpcomingAppointment() {
+        var user_token = this.props.stateLoginValueAim.token;
+        axios.get(sitedata.data.path + '/UserProfile/UpcomingAppintmentPat', {
+            headers: {
+                'token': user_token,
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        }).then((response) => {
+            var upcomingData= response.data.data && response.data.data.length>0 && response.data.data.filter((data)=>data.status!=='cancel' && data.status!=='remove')
+            this.setState({ upcoming_appointment: upcomingData })
+        })
+    }
     //Upload file MultiFiles
     FileAttachMulti = (event) => {
         // this.setState({file:})
@@ -691,6 +714,7 @@ class Index extends Component {
             }
         })
             .then((response) => {
+                console.log('response.data.data', response.data.data)
                 this.setState({ personalinfo: response.data.data })
             })
     }
@@ -853,7 +877,7 @@ class Index extends Component {
                                         {/* End of Model setup */}
 
                                         {/* For the filter section */}
-                                        <FilterSec settings={this.props.settings} FilterData={this.FilterData} SortData={this.SortData} ClearData={this.ClearData} sortBy={this.state.Sort}/>
+                                        <FilterSec FilterText={this.FilterText} settings={this.props.settings} FilterData={this.FilterData} SortData={this.SortData} ClearData={this.ClearData} sortBy={this.state.Sort}/>
 
                                             {/* For Empty Entry */}
                                             <div>
@@ -975,8 +999,8 @@ class Index extends Component {
                                                 {personalize_dashbrd}
                                             </a>
                                         </Grid>
-
-                                        <RightManage OpenGraph={this.OpenGraph} date_format={this.props.settings && this.props.settings.setting && this.props.settings.setting.date_format} time_format={this.props.settings && this.props.settings.setting && this.props.settings.setting.time_format} from="patient" added_data={this.state.added_data} MoveDocument={this.MoveDocument} MoveAppoint={this.MoveAppoint} SelectOption={this.SelectOption} personalinfo={this.state.personalinfo} />
+                                        
+                                        <RightManage upcoming_appointment={this.state.upcoming_appointment} OpenGraph={this.OpenGraph} date_format={this.props.settings && this.props.settings.setting && this.props.settings.setting.date_format} time_format={this.props.settings && this.props.settings.setting && this.props.settings.setting.time_format} from="patient" added_data={this.state.added_data} MoveDocument={this.MoveDocument} MoveAppoint={this.MoveAppoint} SelectOption={this.SelectOption} personalinfo={this.state.personalinfo} />
 
                                     </Grid>
                                     {/* End of Website Right Content */}

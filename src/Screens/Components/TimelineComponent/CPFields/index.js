@@ -82,14 +82,13 @@ class Index extends Component {
             case "default":
                 translate = translationEN.text
         }
-        let { blood_pressure, selct_pain_area, situation, visible, blood_sugar, Change, show, hide, until, archive, rr_systolic, attachments, time_measure, date_measure,
-            visibility, edit, Delete, RR_diastolic, de_archive, view_fullscren, always, feeling, date, time }= translate
+        let {  selct_pain_area, attachments, Problem, }= translate
         
         return (
             <div>
                 {!this.props.visibility && <Grid className="cnfrmDiaMain">
                     <Grid className="fillDia">
-                        <MMHG name="problem" label="Problem" onChange={(e) => this.props.updateEntryState(e)} value={this.state.updateTrack.problem} />
+                        <MMHG name="problem" label={Problem} onChange={(e) => this.props.updateEntryState(e)} value={this.state.updateTrack.problem} />
                     </Grid>
                     <Grid className="fillDia">
                         <NotesEditor name="remarks" label="Notes" onChange={(e) => this.updateEntryState1(e, 'remarks')} value={this.state.updateTrack.remarks}/>

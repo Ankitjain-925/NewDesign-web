@@ -36,7 +36,7 @@ import * as translationNL from '../../../../translations/en.json';
 import DateFormat from './../../../Components/DateFormat/index'
 import Autocomplete from './../../../Components/Autocomplete/index.js';
 import Modal from '@material-ui/core/Modal';
-import subspeciality from '../../../../subspeciality.js';
+import {subspeciality } from '../../../../subspeciality.js';
 import QRCode from 'qrcode.react';
 
 const options = [
@@ -148,6 +148,20 @@ class Index extends Component {
             { types: ["geocode"] }
         );
         this.city.addListener("place_changed", this.handlePlaceChanged);
+    }
+
+    //Compare the 
+    compare = (a, b)=>{
+        const bandA = a.label.toUpperCase();
+        const bandB = b.label.toUpperCase();
+      
+        let comparison = 0;
+        if (bandA > bandB) {
+          comparison = 1;
+        } else if (bandA < bandB) {
+          comparison = -1;
+        }
+        return comparison;
     }
 
     // Copy the Profile id and PIN
@@ -295,12 +309,13 @@ class Index extends Component {
                     
                     // responce.data[0].title_degreeData && responce.data[0].title_degreeData.length > 0 && responce.data[0].subspeciality.map(
                     //     (item) => { SubSpeciality.push({ label: item.title, value: item.value }) })
+
                     this.setState({
                         genderdata: Gender,
                         languageData: Languages,
-                        specialityData: Speciality,
+                        specialityData:  Array.from(new Set(Speciality)),
                         title_degreeData: Titles,
-                        subspecialityData: subspeciality.subspeciality
+                        subspecialityData: subspeciality
                     });
                 }
             })
@@ -968,7 +983,7 @@ class Index extends Component {
                                                 onChange={(e) => this.EntryValueName(e, 'country')}
                                                 options={this.state.selectCountry}
                                                 placeholder=""
-                                                isSearchable={false}
+                                                isSearchable={true}
                                                 className="cntryDrop"
                                             />
                                         </Grid>
@@ -1055,7 +1070,7 @@ class Index extends Component {
                                                 onChange={(e) => { this.handleChange_multi(e, 'languages') }}
                                                 options={this.state.languageData}
                                                 placeholder=""
-                                                isSearchable={false}
+                                                isSearchable={true}
                                                 className="profile-language"
                                                 isMulti={true}
                                             />
@@ -1078,7 +1093,7 @@ class Index extends Component {
                                                 onChange={(e) => { this.handleChange_multi(e, 'speciality') }}
                                                 options={this.state.specialityData}
                                                 placeholder=""
-                                                isSearchable={false}
+                                                isSearchable={true}
                                                 className="profile-language"
                                                 isMulti={true}
                                             />
@@ -1099,9 +1114,9 @@ class Index extends Component {
                                                 name="subspeciality"
                                                 closeMenuOnSelect={false}
                                                 onChange={(e) => { this.handleChange_multi(e, 'subspeciality') }}
-                                                options={subspecialityData.english !==undefined?(this.props.stateLanguageType==='de'? subspecialityData.german: subspecialityData.english):[]}
+                                                options={subspecialityData.english !==undefined?(this.props.stateLanguageType==='de'? Array.from(new Set(subspecialityData.german)).sort(this.compare) : Array.from(new Set(subspecialityData.english)).sort(this.compare) ):[]}
                                                 placeholder=""
-                                                isSearchable={false}
+                                                isSearchable={true}
                                                 className="profile-language"
                                                 isMulti={true}
                                             />

@@ -3,6 +3,17 @@ import {  TimePicker  } from 'antd';
 import moment from 'moment';
 import 'antd/dist/antd.css'; // or 'antd/dist/antd.less'
 import Grid from '@material-ui/core/Grid';
+import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
+import { LanguageFetchReducer } from '../../actions';
+import * as translationEN from "../../../translations/en.json"
+import * as translationDE from '../../../translations/de.json';
+import * as translationPT from '../../../translations/pt.json';
+import * as translationSP from '../../../translations/sp.json';
+import * as translationRS from '../../../translations/rs.json';
+import * as translationSW from '../../../translations/sw.json';
+import * as translationCH from '../../../translations/ch.json';
+import * as translationNL from '../../../translations/en.json';
 
 class TimeTaken extends Component {
   constructor(props) {
@@ -41,6 +52,36 @@ class TimeTaken extends Component {
 
   }
   render() {
+    let translate;
+    switch (this.props.stateLanguageType) {
+          case "en":
+              translate = translationEN.text
+              break;
+          case "de":
+              translate = translationDE.text
+              break;
+          case "pt":
+              translate = translationPT.text
+              break;
+          case "sp":
+              translate = translationSP.text
+              break;
+          case "rs":
+              translate = translationRS.text
+              break;
+          case "nl":
+              translate = translationNL.text
+              break;
+          case "ch":
+              translate = translationCH.text
+              break;
+          case "sw":
+              translate = translationSW.text
+              break;
+          case "default":
+              translate = translationEN.text
+      }
+      let { addentry, profilesettings,  } = translate;
     return (
       <div>
         <Grid className="rrSysto consumeAt">
@@ -49,7 +90,7 @@ class TimeTaken extends Component {
         {this.state.is24 === '24' ? <TimePicker className="Medicationtime" onChange={(e) => { this.onTimeChange(e, 0) }} format="HH:mm" />
             : <TimePicker className="Medicationtime" use12Hours onChange={(e) => { this.onTimeChange(e, 0) }} format="h:mm a" />}
         </Grid>
-        <p onClick={this.onAddFiled}>+ add entry</p>
+        <p onClick={this.onAddFiled}>+ {addentry}</p>
          </div>}
          
          {this.state.timeArr && this.state.timeArr.length > 0 &&
@@ -57,7 +98,7 @@ class TimeTaken extends Component {
             index == 0 ? <div>
               {this.state.is24 === '24' ? <TimePicker className="Medicationtime" onChange={(e) => { this.onTimeChange(e, 0) }} value={itm.value ? moment(itm.value, 'HH:mm') : ''} format="HH:mm" /> :
                 <TimePicker className="Medicationtime" use12Hours onChange={(e) => { this.onTimeChange(e, 0) }} format="h:mm a" value={itm.value ? moment(itm.value, 'h:mm a') : ''} />}
-                <p onClick={this.onAddFiled}>+ add entry</p>
+                <p onClick={this.onAddFiled}>+ {addentry}</p>
                 </div>
               : <div>
                 {this.state.is24 === '24' ? <TimePicker className="Medicationtime" onChange={(e) => { this.onTimeChange(e, index) }} value={itm.value ? moment(itm.value, 'HH:mm') : ''} format="HH:mm" /> :
@@ -71,4 +112,10 @@ class TimeTaken extends Component {
   }
 }
 
-export default TimeTaken;
+const mapStateToProps = (state) => {
+  const { stateLanguageType } = state.LanguageReducer;
+  return {
+      stateLanguageType
+  }
+};
+export default withRouter(connect(mapStateToProps, { LanguageFetchReducer })(TimeTaken));

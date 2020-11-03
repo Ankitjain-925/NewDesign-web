@@ -389,7 +389,7 @@ class Index extends Component {
         let { Register_for_Aimedis, Register_Name, Register_email, login_Password, recEmp_FirstName, recEmp_LastName,
             Register_Mobilenumber, Register_activate_auth, Register_Accounttype, click_here_uplod_license, capab_Patients,
             Register_want_register, Register_Clicking_box, Register_clickingbox, Professional, capab_Doctors, Nurse, Pharmacist,
-            Register_CREATE, Register_havAC, Register_lohinher, Register_Passwordshould,
+            Register_CREATE, Register_havAC, Register_lohinher, Register_Passwordshould,DarkMode, file_uploaded,
             Register_characters, Register_letter, Register_number, Register_special } = translate;
 
 
@@ -411,7 +411,7 @@ class Index extends Component {
                                     <Grid className="regSelectTop">
                                         <Grid className="changeLang">
                                         <li>
-                                                    <span className="ThemeModeSet1"> Dark Mode </span> 
+                                                    <span className="ThemeModeSet1"> {DarkMode} </span> 
                                                     <span className="ThemeModeSet">
                                                         <Toggle icons={false} checked={this.state.mode==='dark'} name="mode" onClick={(e) => this.SetMode(e)} />   
                                                     </span>
@@ -462,7 +462,7 @@ class Index extends Component {
                                 {/* <div className="success_message">
                                     {this.state.registerMessage}
                                 </div> */}
-                                {this.state.fileupods && <div className="success_message">File is uploaded</div>}
+                                {this.state.fileupods && <div className="success_message">{file_uploaded}</div>}
                                 <Grid className="registerRow">
                                     <Grid><label>{recEmp_FirstName}</label></Grid>
                                     <Grid><input type="text" name="first_name" onChange={this.handleChange} /></Grid>

@@ -101,7 +101,8 @@ class Index extends Component {
             images : [],
             allTrack1: [],
             Sort: 'diagnosed_time',
-            current_Graph: ''
+            current_Graph: '',
+            upcoming_appointment: []
         };
     }
 
@@ -122,6 +123,15 @@ class Index extends Component {
         this.SortData())
     }
 
+    FilterText = (search) =>{
+        var FilterFromSearch =  this.state.allTrack1.filter((obj) => {
+            if (Object.keys(obj).includes(search.toLowerCase()) || Object.values(obj).includes(search.toLowerCase())) {
+                return true;
+            }  else return false;
+            });
+        this.setState({ allTrack: FilterFromSearch })
+    }
+    
     //For filter the Data
     FilterData=(time_range, user_type, type, facility_type)=>{
         var Datas1 = this.state.allTrack1;
@@ -791,10 +801,26 @@ DeleteTrack=(deletekey)=> {
         this.getGender();
         this.cur_one();
         this.cur_one2();
+        this.getUpcomingAppointment();
         this.rightInfo();
         this.getTrack();
         this.getPesonalized();
         this.handleCloseData();
+    }
+
+    getUpcomingAppointment() {
+        var user_token = this.props.stateLoginValueAim.token;
+        var user_id = this.props.Doctorsetget.p_id;
+        axios.get(sitedata.data.path + '/UserProfile/UpcomingAppintmentPat/'+user_id, {
+            headers: {
+                'token': user_token,
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        }).then((response) => {
+            var upcomingData= response.data.data && response.data.data.length>0 && response.data.data.filter((data)=>data.status!=='cancel' && data.status!=='remove')
+            this.setState({ upcoming_appointment: upcomingData })
+        })
     }
 
     //For getting the existing settings
@@ -957,7 +983,7 @@ DeleteTrack=(deletekey)=> {
                                         </Grid>
                                         
                                         {/* For the filter section */}
-                                        {this.props.Doctorsetget.p_id !== null && <FilterSec settings={this.props.settings} FilterData={this.FilterData} SortData={this.SortData} ClearData={this.ClearData} sortBy={this.state.Sort}/>}
+                                        {this.props.Doctorsetget.p_id !== null && <FilterSec FilterText={this.FilterText} settings={this.props.settings} FilterData={this.FilterData} SortData={this.SortData} ClearData={this.ClearData} sortBy={this.state.Sort}/>}
 
                                         {/* For Empty Entry */}
                                         {this.props.Doctorsetget.p_id !== null && <div>
@@ -1113,7 +1139,7 @@ DeleteTrack=(deletekey)=> {
                                     {/* End of Model setup */}
 
                                     {/* <RightManage added_data={this.state.added_data} MoveDocument={this.MoveDocument} MoveAppoint={this.MoveAppoint} SelectOption={this.SelectOption} personalinfo={{}} /> */}
-                                    <RightManage OpenGraph={this.OpenGraph} date_format={this.props.settings.setting.date_format}  time_format={this.props.settings.setting.time_format} from="patient"  added_data={this.state.added_data} MoveDocument={this.MoveDocument} MoveAppoint={this.MoveAppoint} SelectOption={this.SelectOption} personalinfo={this.state.personalinfo} />
+                                    <RightManage upcoming_appointment={this.state.upcoming_appointment} OpenGraph={this.OpenGraph} date_format={this.props.settings.setting.date_format}  time_format={this.props.settings.setting.time_format} from="patient"  added_data={this.state.added_data} MoveDocument={this.MoveDocument} MoveAppoint={this.MoveAppoint} SelectOption={this.SelectOption} personalinfo={this.state.personalinfo} />
                                 </Grid>}
                                 {/* End of Website Right Content */}
 

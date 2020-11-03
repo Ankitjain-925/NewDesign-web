@@ -49,15 +49,15 @@ class index extends React.Component {
         var doctorArray = ['admin'];
         let user_token = this.props.stateLoginValueAim.token
         let user_id    = this.props.stateLoginValueAim.user._id
-        axios.get(sitedata.data.path + '/UserProfile/UserlistSize',{
-            headers: {
-                'token': user_token,
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            }
-        }).then((response) => {
-          this.setState({sizeList : response.data.data})
-        })
+        // axios.get(sitedata.data.path + '/UserProfile/UserlistSize',{
+        //     headers: {
+        //         'token': user_token,
+        //         'Accept': 'application/json',
+        //         'Content-Type': 'application/json'
+        //     }
+        // }).then((response) => {
+        //   this.setState({sizeList : response.data.data})
+        // })
         axios.get(sitedata.data.path + '/UserProfile/Users/'+user_id, {headers:{
           'token': user_token,
           'Accept': 'application/json',
@@ -72,7 +72,9 @@ class index extends React.Component {
                 }
             }).then((response) => {
                 response.data.data && response.data.data.length>0 && response.data.data.map((data,index)=>{  
-                    doctorArray.push(data.profile_id.toLowerCase())
+                    if(doctorArray.indexOf(data.profile_id.toLowerCase()) === -1){
+                        doctorArray.push(data.profile_id.toLowerCase())
+                    }
                  
               })
             })
@@ -84,8 +86,10 @@ class index extends React.Component {
                     'Content-Type': 'application/json'
                 }
             }).then((response) => {
-                response.data.data && response.data.data.length>0 && response.data.data.map((data,index)=>{   
-                    doctorArray.push(data.profile_id.toLowerCase())
+                response.data.data && response.data.data.length>0 && response.data.data.map((data,index)=>{ 
+                    if(doctorArray.indexOf(data.profile_id.toLowerCase()) === -1){  
+                        doctorArray.push(data.profile_id.toLowerCase())
+                    }
                 })
             })
             response.data.data && (response.data.data.paid_services && response.data.data.paid_services.length>0) || (response.data.data.email=== 'doctor4@aimedis.com' ||  response.data.data.email=== 'doctor5@aimedis.com' ||  response.data.data.email=== 'doctor3@aimedis.com' ||  response.data.data.email=== 'doctor6@aimedis.com' ||  response.data.data.email=== 'doctor7@aimedis.com') &&
@@ -96,8 +100,10 @@ class index extends React.Component {
                     'Content-Type': 'application/json'
                 }
             }).then((response) => {
-                response.data.data && response.data.data.length>0 && response.data.data.map((data,index)=>{   
-                    doctorArray.push(data.profile_id.toLowerCase())
+                response.data.data && response.data.data.length>0 && response.data.data.map((data,index)=>{
+                    if(doctorArray.indexOf(data.profile_id.toLowerCase()) === -1){   
+                        doctorArray.push(data.profile_id.toLowerCase())
+                    }
                 })
         })
         axios.get(sitedata.data.path + '/UserProfile/DoctorUsersChat',{
@@ -110,21 +116,22 @@ class index extends React.Component {
             response.data.data && response.data.data.length>0 && response.data.data.map((data,index)=>{  
              if(data.email === 'doctor4@aimedis.com' || data.email === 'doctor5@aimedis.com' || data.email === 'doctor3@aimedis.com' || data.email === 'doctor6@aimedis.com' || data.email === 'doctor7@aimedis.com')
              {
-                doctorArray.push(data.profile_id.toLowerCase()) 
+                if(doctorArray.indexOf(data.profile_id.toLowerCase()) === -1){
+                    doctorArray.push(data.profile_id.toLowerCase())
+                }
              } 
             })
         })
     })
-    axios.get(sitedata.data.path + '/UserProfile/getFvDoc', {headers:{
-        'token': user_token,
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-        }}).then((response) =>{
-            response.data.data && response.data.data.length>0 && response.data.data.map((data,index)=>{  
-             doctorArray.push(data.profile_id.toLowerCase())
-          })
-        })
-
+    // axios.get(sitedata.data.path + '/UserProfile/getFvDoc', {headers:{
+    //     'token': user_token,
+    //     'Accept': 'application/json',
+    //     'Content-Type': 'application/json'
+    //     }}).then((response) =>{
+    //         response.data.data && response.data.data.length>0 && response.data.data.map((data,index)=>{  
+    //          doctorArray.push(data.profile_id.toLowerCase())
+    //       })
+    //     })
         this.setState({doctorArray : doctorArray})
     }
 
