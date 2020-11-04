@@ -621,7 +621,7 @@
 		"Timezone" : "Timezone",
 		"YesIherewithagreewitha" : "Yes, I herewith agree with a transplantation of one or more organ / tissues of mine after doctors have pronounced me dead",
 		"followingorgantissues:" :"Yes, I allow this except for following organ / tissues:",
-		"Yes, I allowthisonlyforfollowing" : "Yes, I allow this only for following organ / tissues:",
+		"allowthisonlyforfollowing" : "Yes, I allow this only for following organ / tissues:",
 		"Yes" : "Yes",
 		"No" : "No",
 		"Blood" : "Blood",

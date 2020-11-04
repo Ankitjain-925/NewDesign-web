@@ -620,7 +620,7 @@
 		"Timezone" : "Saa za eneo",
 		"YesIherewithagreewitha" : "Ndio, nakubaliana na upandikizaji wa kiungo kimoja au zaidi ya tishu baada ya madaktari kunitangaza kuwa nimekufa",
 		"followingorgantissues:" :"Ndio, ninaruhusu hii isipokuwa kwa kufuata viungo / tishu:",
-		"Yes, I allowthisonlyforfollowing" : "Ndio, ninaruhusu hii tu kwa kufuata viungo / tishu:",
+		"allowthisonlyforfollowing" : "Ndio, ninaruhusu hii tu kwa kufuata viungo / tishu:",
 		"Yes" : "Ndio",
 		"No" : "Hapana",
 		"Blood" : "Damu",

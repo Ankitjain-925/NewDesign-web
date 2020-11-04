@@ -41,6 +41,7 @@ h1,h2,h3,h4,h5,h6,h7,p{ margin:0; padding:0; font-size: inherit; font-weight: in
     background: #fff;
     /* min-height: 100vh; */
     border-right: 2px solid #ececec;
+    min-height: 1065px;
 }
 .webLogo {
     text-align: center;
@@ -1804,6 +1805,9 @@ a.profilMenu {
         right: 0px !important;
         left: initial !important;
     }
+    .MenuLeftUpr {
+        min-height: auto !important;
+    }
 }
 @media (max-width: 599px){ 
     .chatContact {
@@ -2836,6 +2840,7 @@ a.profilMenu {
 .dashCloseBtn img {
     width: 26px;
     cursor: pointer;
+    border-radius: 7px;
 }
 .dashCourse label {
     color: #000808;
@@ -3257,6 +3262,7 @@ a.profilMenu {
 .handleAccessBtn img {
     width: 26px;
     cursor: pointer;
+    border-radius: 7px;
 }
 .sel_specialty span {
     background-color: transparent;
@@ -6372,6 +6378,7 @@ a.archvDel:hover ul {
 .entryCloseBtn img {
     width: 26px;
     cursor: pointer;
+    border-radius: 7px;
 }
 .entryCourse label {
     color: #000808;
@@ -6462,6 +6469,7 @@ a.archvDel:hover ul {
 .nwDiaCloseBtn img {
     width: 26px;
     cursor: pointer;
+    border-radius: 7px;
 }
 .nwDiaCourse p {
     color: #7F8383;
@@ -6787,6 +6795,7 @@ a.diaCDActv {
     font-weight: 600;
     letter-spacing: 0;
     line-height: 18px;
+    margin-bottom: 0px !important;
 }
 .shwAfterLft p span {
     color: #404646;
@@ -13969,4 +13978,62 @@ label.attached_file a {
 .srchFilter .css-yk16xz-control {
     background-color: transparent !important;
     background: transparent !important;
+}
+.homeBgDrk {
+    min-height: 100vh;
+}
+.darkTheme .rrSysto input[type="text"],
+.darkTheme .rrSysto .css-yk16xz-control,
+.relexStressRght a {
+    background-color: #404646 !important;
+    color: #BFC1C1 !important;
+}
+.darkTheme .rrShwHidMain{
+    background-color: #404646 !important; 
+    border: 1px solid #F2F2F2 !important; 
+}
+.darkTheme a.visibleAllShw{
+    color: #BFC1C1 !important; 
+}
+.darkTheme .browsInput{
+    background-color: #404646 !important;
+    color: #BFC1C1 !important;
+}
+.darkTheme .ql-toolbar.ql-snow {
+    background-color: #949494 !important;
+}
+.darkTheme .quill {
+    background-color: #404646 !important;
+    color: #BFC1C1 !important;
+}
+.darkTheme .rrSysto .ant-picker {
+    background-color: #404646 !important;
+    color: #BFC1C1 !important;
+}
+.darkTheme .rrSysto .ant-picker input, .darkTheme .jmInfo a {
+    color: #BFC1C1 !important;
+}
+.darkTheme .shwAfter {
+    background-color: #202323;
+}
+.darkTheme .visibleAll {
+    background-color: #404646 !important;
+}
+.darkTheme .afterDate .ant-picker {
+    background-color: #404646 !important;
+    color: #BFC1C1 !important;
+}
+.darkTheme .afterDate .ant-picker input {
+    color: #BFC1C1 !important;
+}
+.MenuLeftDrkUpr .profilMenuList, .MenuLeftDrkUpr .moreMenuList {
+    border: 1px solid #dfdfdf !important;
+    background-color: #404646 !important;
+}
+.MenuLeftDrkUpr .profilMenuList li a,
+.MenuLeftDrkUpr .moreMenuList li a {
+    color: #BFC1C1 !important;
+}
+.MenuLeftDrkUpr .profilMenuList li a:hover {
+    color: #BFC1C1 !important;
 }

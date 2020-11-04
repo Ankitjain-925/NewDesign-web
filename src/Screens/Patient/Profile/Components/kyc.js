@@ -19,7 +19,8 @@ import * as SwitzerlandC from '../../../Components/insuranceCompanies/switzerlan
 import * as AmericaC from '../../../Components/insuranceCompanies/us.json';
 import * as ThailandC from '../../../Components/insuranceCompanies/thailand.json';
 import FileUploader from './../../../Components/FileUploader/index';
-import Checkbox from '@material-ui/core/Checkbox'
+import Checkbox from '@material-ui/core/Checkbox';
+import { GetUrlImage } from './../../../Components/BasicMethod/index';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import * as translationEN from '../../../../translations/en.json';
 import * as translationDE from '../../../../translations/de.json';
@@ -79,11 +80,13 @@ class Index extends Component {
                         if (this.state.personalinfo.attachment && this.state.personalinfo.attachment.length > 0) {
                             var KYC_ID = this.state.personalinfo.attachment && this.state.personalinfo.attachment.length > 0 && this.state.personalinfo.attachment[0] && this.state.personalinfo.attachment[0].file && this.state.personalinfo.attachment[0].file
                             if (KYC_ID) {
+                                this.setState({KYC_i1 : KYC_ID })
                                 KYC_ID = (KYC_ID.split('KYC/')[1]).split("&bucket=")[0]
                                 this.setState({ KYC_ID: KYC_ID })
                             }
                             var KYC_LICENSE = this.state.personalinfo.attachment && this.state.personalinfo.attachment.length > 0 && this.state.personalinfo.attachment[1] && this.state.personalinfo.attachment[1].file && this.state.personalinfo.attachment[1].file
                             if (KYC_LICENSE) {
+                                this.setState({KYC_l1 : KYC_LICENSE })
                                 KYC_LICENSE = (KYC_LICENSE.split('KYC/')[1]).split("&bucket=")[0]
                                 this.setState({ KYC_LICENSE: KYC_LICENSE })
                             }
@@ -402,7 +405,7 @@ class Index extends Component {
                                         {value.type === 'UploadID' &&
                                             <Grid className="kycForms sprtImg">
                                                 <Grid><label>{upload_id_card}</label></Grid>
-                                                <Grid><label className="attached_file">{attached_doc} - <a>{this.state.KYC_ID}</a></label></Grid>
+                                                <Grid><label className="attached_file">{attached_doc} - <a onClick={()=>{GetUrlImage(this.state.KYC_i1)}}>{this.state.KYC_ID}</a></label></Grid>
                                                 <FileUploader name="UploadID" fileUpload={this.fileUpload} />
                                                 {/* <Grid className="browsInput">
                                             <a><img src={require('../../../../assets/images/upload-file.svg')} alt="" title="" /></a>
@@ -414,7 +417,7 @@ class Index extends Component {
                                         {value.type === 'UploadLicense' &&
                                             <Grid className="kycForms sprtImg">
                                                 <Grid><label>{upload_id_card}</label></Grid>
-                                                <Grid><label className="attached_file">{attached_doc} - <a>{this.state.KYC_LICENSE}</a></label></Grid>
+                                                <Grid><label className="attached_file">{attached_doc} - <a onClick={()=>{GetUrlImage(this.state.KYC_l1)}}>{this.state.KYC_LICENSE}</a></label></Grid>
                                                 <FileUploader name="UploadLicense" fileUpload={this.fileUpload} />
                                             </Grid>}
                                     </Grid>
@@ -427,7 +430,7 @@ class Index extends Component {
                                                 <Grid>
                                                     <Grid className="kycForms sprtImg">
                                                         <Grid><label>{upload_id_card}</label></Grid>
-                                                        <Grid><label className="attached_file">{attached_doc} - <a>{this.state.KYC_ID}</a></label></Grid>
+                                                        <Grid><label className="attached_file">{attached_doc} - <a onClick={()=>{GetUrlImage(this.state.KYC_i1)}}>{this.state.KYC_ID}</a></label></Grid>
                                                         <FileUploader name="UploadID" fileUpload={this.fileUpload} />
                                                     </Grid>
                                                     <Grid className="kycForms sprtImg">
@@ -444,7 +447,7 @@ class Index extends Component {
 
                                                     <Grid className="kycForms sprtImg">
                                                         <Grid><label>{upload_id_card}</label></Grid>
-                                                        <Grid><label className="attached_file">{attached_doc} - <a>{this.state.KYC_LICENSE}</a></label></Grid>
+                                                        <Grid><label className="attached_file">{attached_doc} - <a onClick={()=>{GetUrlImage(this.state.KYC_l1)}}>{this.state.KYC_LICENSE}</a></label></Grid>
                                                         <FileUploader name="UploadLicense" fileUpload={this.fileUpload} />
                                                     </Grid>
                                                 </Grid>}

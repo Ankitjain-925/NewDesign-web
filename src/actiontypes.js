@@ -25,4 +25,13 @@ export const GET_SETTING_REQUEST = 'GET_SETTING_REQUEST';
 export const GET_SETTING_SUCCESS = 'GET_SETTING_SUCCESS';
 export const GET_SETTING_ERROR = 'GET_SETTING_ERROR';
 
+export const GET_Withing_REQUEST = 'GET_Withing_REQUEST';
+export const GET_Withing_SUCCESS = 'GET_Withing_SUCCESS';
+export const GET_Withing_ERROR = 'GET_Withing_ERROR';
+
+export const GET_fitbit_REQUEST = 'GET_fitbit_REQUEST';
+export const GET_fitbit_SUCCESS = 'GET_fitbit_SUCCESS';
+export const GET_fitbit_ERROR = 'GET_fitbit_ERROR';
+
+
 export const SET_AUTH_REDIRECT_PATH = 'SET_AUTH_REDIRECT_PATH';

@@ -123,11 +123,24 @@ class Index extends Component {
         this.SortData())
     }
 
-    FilterText = (search) =>{
-        var FilterFromSearch =  this.state.allTrack1.filter((obj) => {
-            if (Object.keys(obj).includes(search.toLowerCase()) || Object.values(obj).includes(search.toLowerCase())) {
-                return true;
-            }  else return false;
+    isThisAvilabel = (object, text) => {
+        if (object && typeof object == 'object') {
+        if (object.type.replace('_', ' ') && object.type.replace('_', ' ').includes(text)) {
+        return true;
+        } else if (object.created_by_temp && object.created_by_temp.includes(text)) {
+        return true;
+        } else {
+        return JSON.stringify(object).toLowerCase().includes(text);
+        }
+        } else {
+        return false;
+        }
+        };
+
+    FilterText = (text) =>{
+            let track = this.state.allTrack1;
+            let FilterFromSearch = track.filter((obj) => {
+            return this.isThisAvilabel(obj, text && text.toLowerCase());
             });
         this.setState({ allTrack: FilterFromSearch })
     }

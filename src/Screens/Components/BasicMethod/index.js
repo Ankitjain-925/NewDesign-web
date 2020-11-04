@@ -107,6 +107,7 @@ export function AddFavDoc (doctor_id, profile_id,user_token, user_profile_id){
 
 //Get the link of the Image
 export function GetUrlImage (find){
+    console.log('find', find)
     if(find)
     {
         var find1 = find.split('.com/')[1]
@@ -153,4 +154,11 @@ export function getReminder(reminder, timeFormat){
         })
         return data.join(', ');
     }
+}
+
+//get desc date
+export function getDesc(a, b) {
+    var x = a.date;
+    var y = b.date;
+    return ((x < y) ? -1 : ((x > y) ? 1 : 0));
 }

@@ -622,7 +622,7 @@
 		"Timezone" : "时区",
 		"YesIherewithagreewitha" : "是的，我在医生宣布我死亡后同意接受我的一个或多个器官/组织的移植",
 		"followingorgantissues:" :"是的，我允许这样做，但以下器官/组织除外：",
-		"Yes, I allowthisonlyforfollowing" : "是的，我只允许以下器官/组织使用：",
+		"allowthisonlyforfollowing" : "是的，我只允许以下器官/组织使用：",
 		"Yes" : "是",
 		"No" : "没有",
 		"Blood" : "血液",

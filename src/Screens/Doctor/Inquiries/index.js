@@ -18,6 +18,7 @@ import { LoginReducerAim } from '../../Login/actions';
 import { Settings } from '../../Login/setting';
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import { LanguageFetchReducer } from '../../actions';
+import Loader from './../../Components/Loader/index';
 import PrecriptionList from './Components/prescription.js';
 import SickCertificateList from './Components/sickCertificate.js';
 import * as translationEN from '../../../translations/en.json';
@@ -160,6 +161,7 @@ class Index extends Component {
             return (
             <Grid className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode && this.props.settings.setting.mode==='dark' ? "homeBg homeBgDrk" : "homeBg"}>
                 <Grid className="homeBgIner">
+                {this.state.loaderImage && <Loader />}
                     <Grid container direction="row" justify="center">
                         <Grid item xs={12} md={12}>
                             <Grid container direction="row">

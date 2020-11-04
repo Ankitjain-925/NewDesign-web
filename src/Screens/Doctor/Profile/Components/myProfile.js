@@ -10,10 +10,14 @@ import ReactFlagsSelect from 'react-flags-select';
 import sitedata from '../../../../sitedata';
 import axios from 'axios';
 import { withRouter } from "react-router-dom";
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
 import { connect } from "react-redux";
 import { LoginReducerAim } from './../../../Login/actions';
 import { Settings } from './../../../Login/setting';
 import npmCountryList from 'react-select-country-list'
+import FileUploader from './../../../Components/FileUploader/index';
+import { GetUrlImage } from './../../../Components/BasicMethod/index';
 import { Table } from 'reactstrap';
 import * as AustraliaC from '../../../Components/insuranceCompanies/australia.json';
 import * as AustriaC from '../../../Components/insuranceCompanies/austria.json';
@@ -32,7 +36,7 @@ import * as translationRS from '../../../../translations/rs.json';
 import * as translationSW from '../../../../translations/sw.json';
 import * as translationCH from '../../../../translations/ch.json';
 import * as translationNL from '../../../../translations/en.json';
-
+import Loader from './../../../Components/Loader/index';
 import DateFormat from './../../../Components/DateFormat/index'
 import Autocomplete from './../../../Components/Autocomplete/index.js';
 import Modal from '@material-ui/core/Modal';
@@ -150,6 +154,103 @@ class Index extends Component {
         this.city.addListener("place_changed", this.handlePlaceChanged);
     }
 
+     //For upload the Profile pic
+     fileUpload = (event, filed_name) => {
+        if (event[0].type === "image/jpeg" || event[0].type === "image/png") {
+            this.setState({ loaderImage: true });
+            let reader = new FileReader();
+            let file = event[0];
+            reader.onloadend = () => {
+                this.setState({
+                    file: file,
+                    imagePreviewUrl1: reader.result
+                });
+            }
+            let user_token = this.props.stateLoginValueAim.token;
+            reader.readAsDataURL(file)
+            const data = new FormData()
+            let fileParts = event[0].name.split('.');
+            let fileName = fileParts[0];
+            let fileType = fileParts[1];
+            axios.post(sitedata.data.path + '/aws/sign_s3', {
+                fileName: fileName,
+                fileType: fileType,
+                folders: this.props.stateLoginValueAim.user.profile_id + '/',
+                bucket: this.props.stateLoginValueAim.user.bucket
+            }).then(response => {
+                var returnData = response.data.data.returnData;
+                var signedRequest = returnData.signedRequest;
+                var url = returnData.url;
+                // Put the fileType in the headers for the upload
+                var options = {
+                    headers: {
+                        'Content-Type': fileType
+                    }
+                };
+                axios.put('https://cors-anywhere.herokuapp.com/' + signedRequest, file, options)
+                .then(result => {
+                    this.setState({ uploadedimage: response.data.data.returnData.url + '&bucket=' + this.props.stateLoginValueAim.user.bucket, loaderImage: false },
+                        () => { this.saveUserData1() })
+                })
+                .catch(error => {  })
+            }).catch(error => {  })
+        }
+        else {
+            confirmAlert({
+                customUI: ({ onClose }) => {
+                return (
+                <div className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode === 'dark' ? "dark-confirm react-confirm-alert-body" : "react-confirm-alert-body"} >
+                <h1>Please Upload PNG and JPEG file</h1>
+                <div className="react-confirm-alert-button-group">
+                <button
+                onClick= {() => {onClose()}}
+                >
+                Ok
+                </button>
+                </div>
+                </div>
+                );
+                }
+                })
+        }
+    }
+
+    //FOR UPLOADING THE IMAGE
+    saveUserData1=()=>{
+        this.setState({ loaderImage: true });
+        const user_token = this.props.stateLoginValueAim.token;
+        axios.put(sitedata.data.path+'/UserProfile/Users/updateImage', {
+            image       :   this.state.uploadedimage,
+            },{headers:{
+                'token': user_token,
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }})
+            .then((responce)=>{
+                var find1 =  this.state.uploadedimage;
+                this.SettingImage(find1);  
+        })
+    }
+
+       //For setting the image
+       SettingImage= (find)=> {
+        if(find)
+        {
+            find = find.split('.com/')[1]
+    
+            axios.get(sitedata.data.path + '/aws/sign_s3?find='+find,)
+            .then((response) => {
+                if(response.data.hassuccessed)
+                {
+                    this.setState({image:response.data.data})
+setTimeout(()=> {
+        this.setState({ loaderImage: false });
+   }, 5000
+);
+                }
+            })
+        }
+    }
     //Compare the 
     compare = (a, b)=>{
         const bandA = a.label.toUpperCase();
@@ -819,7 +920,7 @@ class Index extends Component {
 
         return (
             <div>
-
+  {this.state.loaderImage && <Loader />}
                 <Grid className="profileMy">
                     <Grid className="profileInfo">
                         {this.state.copied && <div className="success_message">{info_copied}</div>}
@@ -1126,8 +1227,26 @@ class Index extends Component {
                                     <Grid className="clear"></Grid>
                                 </Grid>
                             </Grid>
-                        </Grid>
+                            
+                            <Grid className="kycForms sprtImg">
+                                <Grid container direction="row" alignItems="center" spacing={2}>
+                                    <Grid item xs={12} md={4}>
+                                        <FileUploader name="uploadImage" fileUpload={this.fileUpload} isMulti={false}/>
+                                    </Grid>
+                                    <Grid className="clear"></Grid>
+                                    <Grid item xs={12} md={4}>
+                                        {this.state.image && this.state.image!=='' &&
+                                            <img className="ProfileImage" onClick={()=>GetUrlImage(this.state.image)} src={this.state.image} alt="" title="" />
+                                        }
+                                    </Grid>
+                                    <Grid className="clear"></Grid>
+                                    <Grid item xs={12} md={4}></Grid>
+                                    <Grid className="clear"></Grid>
+                                </Grid>
+                            </Grid>
 
+                        </Grid>
+                    
                         <Grid className="infoSub">
                             <Grid container direction="row" alignItems="center" spacing={2}>
                                 <Grid item xs={12} md={8}>

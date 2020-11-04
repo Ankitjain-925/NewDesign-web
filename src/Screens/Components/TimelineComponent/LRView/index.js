@@ -82,7 +82,7 @@ class Index extends Component {
                         </Grid>
 
                         <Grid className="bp_hg addSpc">
-                            <label>{item.value && item.value} <span>{item.unit && item.unit.label}</span></label>
+                            <label><span>{item.lab_parameter &&  item.lab_parameter.label}</span> {item.value && item.value} <span>{item.unit && item.unit.label}</span></label>
                             {/* <p>Normal</p> */}
                         </Grid>
 

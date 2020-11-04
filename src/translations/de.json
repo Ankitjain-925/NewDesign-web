@@ -623,7 +623,7 @@
 		"Timezone" : "Zeitzone",
 		"YesIherewithagreewitha" : "Ja, ich stimme hiermit einer Transplantation eines oder mehrerer meiner Organe / Gewebe zu, nachdem Ärzte mich für tot erklärt haben",
 		"followingorgantissues:" :"Ja, ich erlaube dies mit Ausnahme der folgenden Organe / Gewebe",
-		"Yes, I allowthisonlyforfollowing" : "Ja, ich erlaube dies nur für folgende Organe / Gewebe:",
+		"allowthisonlyforfollowing" : "Ja, ich erlaube dies nur für folgende Organe / Gewebe:",
 		"Yes" : "Ja",
 		"No" : "Nein",
 		"Blood" : "Blut",

@@ -297,7 +297,7 @@ class Index extends Component {
                     <Grid className="organDeclare">
                         <h5>{organ_transplant_declaration}</h5>
                         <Grid><FormControlLabel value="yes_to_all" name="my_choice" checked={this.state.selectedOption === 'yes_to_all'} onChange={this.handleOptionChange.bind(this)} control={<Radio />} label={YesIherewithagreewitha} /></Grid>
-                        <Grid><FormControlLabel value="exclude_some" name="my_choice" checked={this.state.selectedOption === 'exclude_some'} onChange={this.handleOptionChange.bind(this)} control={<Radio />} label={followingorgantissues} /></Grid>
+                        <Grid><FormControlLabel value="exclude_some" name="my_choice" checked={this.state.selectedOption === 'exclude_some'} onChange={this.handleOptionChange.bind(this)} control={<Radio />} label="Yes, I allow this except for following organ / tissues:" /></Grid>
                         <Grid item xs={12} md={5} className="donarLang">
                         <label>{organ_tissue}</label>
                         <Grid>

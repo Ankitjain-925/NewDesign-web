@@ -10,6 +10,8 @@ import { withRouter } from "react-router-dom";
 import { LanguageFetchReducer } from '../../../actions';
 import LogOut from './../../LogOut/index';
 import Timer from './../../TimeLogOut/index';
+import { Fitbit } from '../../../Patient/Tracker/fitbit';
+import { Withings } from '../../../Patient/Tracker/withing.js';
 import Notification from "../../../Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 import DocSuggetion from "../../DocSuggetion/index.js";
 import sitedata from '../../../../sitedata';
@@ -85,7 +87,10 @@ class Index extends Component {
         let languageType = 'en';
         this.props.LanguageFetchReducer(languageType);
         localStorage.removeItem("token")
+        this.props.Fitbit({lifetimeStats : {}, device : [], distance: {}, steps :{}, user :{}, badges:{}})
+        this.props.Withings([])
         this.props.history.push('/')
+
     }
 
     //For My Profile link
@@ -238,15 +243,19 @@ const mapStateToProps = (state) => {
     const { stateLoginValueAim, loadingaIndicatoranswerdetail } = state.LoginReducerAim;
     const { stateLanguageType } = state.LanguageReducer;
     const { settings } = state.Settings;
-    // const {Doctorsetget} = state.Doctorset;
-    // const {catfil} = state.filterate;
+    const { fitbit } = state.Fitbit;
+    const { withing } = state.Withings;
+    // const { Doctorsetget } = state.Doctorset;
+    // const { catfil } = state.filterate;
     return {
         stateLanguageType,
         stateLoginValueAim,
         loadingaIndicatoranswerdetail,
         settings,
+        fitbit,
+        withing
         //   Doctorsetget,
         //   catfil
     }
 };
-export default withRouter(connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer, Settings })(Index));
+export default withRouter(connect(mapStateToProps, { Fitbit, Withings, LoginReducerAim, LanguageFetchReducer, Settings })(Index));
