@@ -3,7 +3,7 @@ import Grid from '@material-ui/core/Grid';
 import Collapsible from 'react-collapsible';
 import FileViews from  './../FileViews/index';
 import ReactTooltip from "react-tooltip";
-import { getDate, newdate, getTime, getImage, getReminder } from './../../BasicMethod/index';
+import { getDate, newdate, getTime, getImage } from './../../BasicMethod/index';
 
 
 class Index extends Component {
@@ -136,7 +136,23 @@ class Index extends Component {
                                         <Grid item xs={12} md={6} className="bloodPreBy">
                                             <Grid container direction="row">
                                                 <Grid item xs={5} md={5}><label>Reminder time taken</label></Grid>
-                                                <Grid item xs={7} md={7}><span>{getReminder(item.reminder_time_taken,this.state.time_foramt)}</span></Grid>
+                                                <Grid item xs={7} md={7}><span>{item.reminder_time_taken.map((obj, index) => {
+                                                                        if (
+                                                                            item.reminder_date_taken &&
+                                                                            item.reminder_date_taken.length > 0 && obj.value !==""
+                                                                        ) { 
+                                                                        return `${
+                                                                            getDate(
+                                                                                new Date(item.reminder_date_taken[index].title),
+                                                                            this.state.date_format,
+                                                                        )
+                                                                        } ${getTime(new Date(obj.value), this.state.time_format)}`;
+                                                                        } else if(obj.value !==""){
+                                                                        return getTime(new Date(obj.value), this.state.time_format);
+                                                                        }
+                                                                        })
+                                                                        .join(', ')}</span>
+                                                </Grid>
                                                 <Grid className="clear"></Grid>
                                             </Grid>
                                         </Grid>

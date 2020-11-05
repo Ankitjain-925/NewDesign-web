@@ -47,6 +47,7 @@ class Index extends Component {
             times: [],
             tissue : [],
             dates : [], 
+            timezones : [],
         };
     }
 
@@ -82,6 +83,7 @@ class Index extends Component {
                         tissue: tissue,
                         dates: dates,
                         times: times,
+                        timezones : responce.data[0].timezones 
                     });
                 }
             })
@@ -162,7 +164,7 @@ class Index extends Component {
 
                                             {/* Start of DateTime */}
                                             {value === 3 && <TabContainer>
-                                                <DateTimeSection times={this.state.times && this.state.times} dates= {this.state.dates && this.state.dates} user_token = {this.props.stateLoginValueAim.token} LoggedInUser={this.state.LoggedInUser} getUserData = {this.getUserData}/>
+                                                <DateTimeSection  timezones = {this.state.timezones} times={this.state.times && this.state.times} dates= {this.state.dates && this.state.dates} user_token = {this.props.stateLoginValueAim.token} LoggedInUser={this.state.LoggedInUser} getUserData = {this.getUserData}/>
                                             </TabContainer>}
                                             {/* End of DateTime */}
                                         </Grid>

@@ -99,6 +99,7 @@ class Index extends Component {
                     }
                 }
                 else {
+                    this.setState({ loaderImage: false})
                     this.setState({ CreateKYC: { number: '', authority: '', country: 'US', attachment: [] }, selectedCountry: 'US', })
                 }
             }).catch(err => { })

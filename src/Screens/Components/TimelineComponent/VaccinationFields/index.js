@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
 import MMHG from './../../mmHgField/index';
 import DateFormat from './../../DateFormat/index';
-import TimeTaken from './../../TimeTaken/index';
+import TimeTaken from './../../TimeTaken/vaccinationTimeTaken';
 import NotesEditor from './../../Editor/index';
 import FileUploader from './../../FileUploader/index';
 import ShowHide from './../../ShowHide/index';
@@ -101,7 +101,7 @@ class Index extends Component {
                         </Grid>   
                     </Grid>
                     <Grid className="fillDia">
-                        <TimeTaken name="reminder_time_taken" label={reminder_time_taken} time_format={this.state.time_format} onChange={(e)=> this.updateEntryState1(e, 'reminder_time_taken')} timeArray={this.state.updateTrack.reminder_time_taken} />
+                        <TimeTaken name="reminder_time_taken" label={reminder_time_taken} date_format={this.state.date_format} time_format={this.state.time_format} onChange={(e, savedata)=> this.updateEntryState1(e, savedata)} timeArray={this.state.updateTrack.reminder_time_taken} dateArray={this.state.updateTrack.reminder_date_taken}/>
                     </Grid>
                     <Grid className="fillDia">
                         <NotesEditor name="remarks" label={notes}  onChange={(e)=> this.updateEntryState1(e, 'remarks')} value={this.state.updateTrack.remarks}/> 

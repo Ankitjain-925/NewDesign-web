@@ -1524,7 +1524,7 @@ a.conPainTime img {
     display: none;
     min-width: 192px;
     position: absolute;
-    left: 44px;
+    left: 42px;
     top: -11px;
     border: 1px solid #F2F2F2;
     border-radius: 8px;
@@ -1568,7 +1568,7 @@ a.moreMenu {
     display: none;
     min-width: 192px;
     position: absolute;
-    left: 44px;
+    left: 42px;
     top: -11px;
     border: 1px solid #F2F2F2;
     border-radius: 8px;
@@ -1811,6 +1811,9 @@ a.profilMenu {
     .MenuLeftUpr {
         min-height: auto !important;
     }
+    .lessonTitleVdo iframe img {
+        width: 100% !important;
+    }
 }
 @media (max-width: 599px){ 
     .chatContact {
@@ -2019,7 +2022,7 @@ a.profilMenu {
         margin-bottom: 8px !important;
     }
     .mkFmlyDoc .css-g1d714-ValueContainer {
-        padding: 15px 6px !important;
+        padding: 20px 6px !important;
     }
     .scndOpinionIner tbody tr {
         border-bottom: 1px solid #000 !important;
@@ -3412,7 +3415,7 @@ a.profilMenu {
     font-size: 12px;
     font-weight: 600;
     letter-spacing: 0;
-    line-height: 20px;
+    line-height: 14px;
     margin-bottom: 2px;
 }
 .nuroDr p {
@@ -5550,6 +5553,7 @@ button.presTabsIner {
 }
 .presOpinionIner tr .presImg img {
     width: 16px;
+    height: 16px;
     border-radius: 12px;
     vertical-align: middle;
     margin-right: 10px;
@@ -11523,7 +11527,7 @@ a.clsSltCal{
     background-color: #F2F2F2 !important;
     border-color: transparent !important;
     font-family: Muli !important;
-    height: 32px !important;
+    /* height: 32px !important; */
     min-height: auto;
 }
 .allTimeSelnw span {
@@ -11978,7 +11982,12 @@ span.srchMobIcon img {
     margin: 0px !important;
  }
 }
-
+@media (max-width: 640px){ 
+ .presOpinionIner tbody tr {
+    border-bottom: 1px solid #252525 !important;
+    margin-bottom: 14px;
+  }
+}
 .fltrModelCntnt {
     width: 420px;
     background: #fff;
@@ -13013,12 +13022,21 @@ a.academy_ul ul li img {
 
 
 /*Added By ankita*/
-.homeBgDrk .rbc-event-content {
-    color: #BFC1C1 !important;
+.vaccinationAdd{
+    margin-bottom: 10px;
 }
-.homeBgDrk .searchbyText{
-    background-color: #404646 !important;
-    color: #fff !important;
+.addmores {
+    color: #00ABAF;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 12px;
+    margin: 12px !important;
+    text-align: right;
+}
+.nuroDr p{
+    line-height: 20px !important;
 }
 .searchbyText{
     width: 99%;
@@ -13044,25 +13062,24 @@ a.academy_ul ul li img {
 .unread_msg_notify{
     cursor: pointer;
 }
-.unreadsec{
-    background: #00abafb8;
-    text-align: center;
-    width: 50%;
-    z-index: 9999;
-    position: fixed;
-    padding: 20px;
+.unread_msg_notify span {
+    position: absolute;
+    right: 3px;
+    top: 3px;
+ }
+    .unread_msg_notify {
+        background: #00abafb8;
+        text-align: center;
+        width: 40%;
+        z-index: 9999;
+        position: fixed;
+        padding: 5px;
         top: 6px;
         color: #fff;
         font-weight: 600;
-        left: 27%;
+        left: 32%;
         border-radius: 10px;
-}
-span.unread_msg_notifyspan {
-    cursor: pointer;
-    position: absolute;
-    top: 2px;
-    right: 3px;
-}
+    }
     .homeBgDrk .emrgncyFrmInpt label, .darkTheme .spclistDr a{
         color: #BFC1C1 !important;
     }
@@ -14054,7 +14071,6 @@ label.attached_file a {
         padding: 14px 9px !important;
     }
 }
-
 .homeBgDrk .logForm input[type="text"], 
 .homeBgDrk .logForm input[type="password"],
 .homeBgDrk .registerRow input[type="text"], 
@@ -14080,4 +14096,7 @@ label.attached_file a {
 }
 .MenuLeftUpr .MenuLeftUpr {
     display: none;
+}
+.lessonTitleVdo iframe, .lessonTitleVdo video.VideoPlay {
+    width: 100% !important;
 }

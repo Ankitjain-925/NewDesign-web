@@ -501,7 +501,7 @@ getUpcomingAppointment() {
                 days = "monday"
                 break;
             case 2:
-                days = "tuseday"
+                days = "tuesday"
                 break;
             case 3:
                 days = "wednesday"
@@ -520,6 +520,7 @@ getUpcomingAppointment() {
                 break;
         }
         let appointmentData = this.state.appointmentData
+        console.log('this.state.appointmentData', this.state.appointmentData)
         let appointDate
         if (appointmentData) {
             Object.entries(appointmentData).map(([key, value]) => {
@@ -691,7 +692,29 @@ getUpcomingAppointment() {
             </div>
         );
     }
-
+    _getHourMinut = (time) => {
+        return time.toString().split(':');
+      };
+    Isintime= (currentTime, b_start, b_end) => {
+        if (!currentTime || !b_end || !b_start) return false;
+        let b_start_time, b_end_time, current_time,smint;
+        b_start_time =
+        parseInt(this._getHourMinut(b_start)[0]) * 60 +
+        parseInt(this._getHourMinut(b_start)[1]);
+        b_end_time =
+        parseInt(this._getHourMinut(b_end)[0]) * 60 +
+        parseInt(this._getHourMinut(b_end)[1]);
+        current_time =
+        parseInt(this._getHourMinut(currentTime)[0]) * 60 +
+        parseInt(this._getHourMinut(currentTime)[1]);
+        smint = parseInt(this._getHourMinut(currentTime)[1]);
+        
+        if (current_time >= b_start_time && current_time < b_end_time) {
+        return true;
+        } else {
+        return false;
+        }
+    };
     render() {
         const {  myEventsList } = this.state;
         const { pastappointment, selectedOption, specialityData, subspecialityData, allDocData, date, doc_select, appointType, apointDay } = this.state;
@@ -763,10 +786,12 @@ getUpcomingAppointment() {
                                                     <Grid><label>{slct_time_slot}</label></Grid>
                                                     <Grid className="selTimeAM">
                                                         {this.state.appointDate && this.state.appointDate.length > 0 ? this.state.appointDate.map((data, iA) => {
+                                                            if(this.Isintime(this.state.appointDate[iA], this.state.appointmentData.breakslot_start , this.state.appointmentData.breakslot_end)) return
+
                                                             return (
                                                                 <Grid>
                                                                     {this.state.appointDate[iA + 1] && this.state.appointDate[iA + 1] !== 'undefined' && iA === 0 ?
-                                                                       <a className={this.state.currentSelected === 0 && 'current_selected'} onClick={() => { this.findAppointment('tab3', doc_select, appointType, apointDay, iA) }}>
+                                                                        <a className={this.state.currentSelected === 0 && 'current_selected'} onClick={() => { this.findAppointment('tab3', doc_select, appointType, apointDay, iA) }}>
                                                                             {this.state.appointDate[iA] + ' - ' + this.state.appointDate[iA + 1]}
                                                                         </a>
                                                                     :

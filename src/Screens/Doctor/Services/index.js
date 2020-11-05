@@ -642,8 +642,8 @@ class Index extends Component {
                             <Grid container direction="row">
 
                                 {/* Website Menu */}
-                                <LeftMenu isNotShow={true} currentPage="documents" />
-                                <LeftMenuMobile isNotShow={true} currentPage="documents" />
+                                <LeftMenu isNotShow={true} currentPage="patient" />
+                                <LeftMenuMobile isNotShow={true} currentPage="patient" />
                                 <Notification />
                                 {/* End of Website Menu */}
                                 {console.log('MypatientsData', this.state.MypatientsData)}

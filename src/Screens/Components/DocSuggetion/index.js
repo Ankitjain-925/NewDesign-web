@@ -89,7 +89,8 @@ class Index extends React.Component {
                     }
                 }
                 var recom = reccomend && reccomend.length>0 && reccomend.map((itm)=>{
-                   if(itm.first_name && itm.last_name){ return 'Dr. '+itm.last_name+' '+itm.last_name+' -('+itm.alies_id+')'}
+                   if(itm.first_name && itm.last_name && itm.title && itm.title!==''){ return itm.title +' '+itm.first_name+' '+itm.last_name+' -('+itm.alies_id+') '}
+                   if(itm.first_name && itm.last_name ){ return itm.first_name+' '+itm.last_name+' - ('+itm.alies_id+') '}
                    else{return 'Dr. '+itm.first_name+' -('+itm.alies_id+') '}
                 })
                 this.setState({ docs: recom, ShowTime : true})

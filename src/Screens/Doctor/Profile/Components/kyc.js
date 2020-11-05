@@ -107,6 +107,7 @@ class Index extends Component {
                     this.setState({loaderImage: false})
                 }
                 else {
+                    this.setState({ loaderImage: false})
                     this.setState({ CreateKYC: { number: '', authority: '', country: 'US', attachment: [] }, selectedCountry: 'US', })
                 }
             }).catch(err => { })
@@ -268,9 +269,10 @@ class Index extends Component {
                             })
                             .then((response) => {
                                 if (response.data.hassuccessed) {
-                                    this.setState({ success: true, err1: false, agree: false, CreateKYC: {}, fileattach1: false, fileattach2: false, loaderImage: false })
+                                    this.setState({ success: true, err1: false, agree: false, CreateKYC: {}, fileattach1: false, fileattach2: false })
                                     setTimeout(() => { this.setState({ success: false }); }, 3000);
                                 }
+                                this.setState({ loaderImage: false})
                                 this.getKYC();
                             })
                     }
@@ -284,9 +286,10 @@ class Index extends Component {
                                 }
                             }).then((response) => {
                                 if (response.data.hassuccessed) {
-                                    this.setState({ success: true, err1: false, agree: false, CreateKYC: {}, fileattach1: false, fileattach2: false, loaderImage: false })
+                                    this.setState({ success: true, err1: false, agree: false, CreateKYC: {}, fileattach1: false, fileattach2: false, })
                                     setTimeout(() => { this.setState({ success: false }) }, 3000);
                                 }
+                                this.setState({ loaderImage: false})
                                 this.getKYC();
                             })
                     }

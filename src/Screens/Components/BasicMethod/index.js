@@ -8,6 +8,9 @@ export function ConsoleCustom (msg, value){
 }
 //Get Date in dd/mm/yyyy format
 export function getDate (date, dateFormat){
+    if(date === ""){
+        return; 
+    }
     var d = new Date(date);
     var monthNames = ["01", "02", "03", "04", "05", "06",
         "07", "08", "09", "10", "11", "12"],
@@ -22,6 +25,9 @@ export function getDate (date, dateFormat){
 
 //New Date for Timeline 
 export function newdate (date){
+    if(date === ""){
+        return; 
+    }
     var d = new Date(date);
     var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
         "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
@@ -33,22 +39,24 @@ export function newdate (date){
 
 //For getting the time 
 export function getTime (date, timeFormat){
-    if(timeFormat ==='12')
-    {   
-        var hours = date.getHours();
-        var minutes = date.getMinutes();
-        var ampm = hours >= 12 ? 'pm' : 'am';
-        hours = hours % 12;
-        hours = hours ? hours : 12; // the hour '0' should be '12'
-        minutes = minutes < 10 ? '0'+minutes : minutes;
-        var strTime = hours + ':' + minutes + ' ' + ampm;
-        return strTime;
-    }
-    else {
-        var h = (date.getHours() < 10 ? '0' : '') + date.getHours();
-        var m = (date.getMinutes() < 10 ? '0' : '') + date.getMinutes();
-        return h + ':' + m;
-    }   
+        if(timeFormat ==='12')
+        {   
+            var hours = date.getHours();
+            var minutes = date.getMinutes();
+            var ampm = hours >= 12 ? 'pm' : 'am';
+            hours = hours % 12;
+            hours = hours ? hours : 12; // the hour '0' should be '12'
+            minutes = minutes < 10 ? '0'+minutes : minutes;
+            var strTime = hours + ':' + minutes + ' ' + ampm;
+            return strTime;
+        }
+        else {
+            var h = (date.getHours() < 10 ? '0' : '') + date.getHours();
+            var m = (date.getMinutes() < 10 ? '0' : '') + date.getMinutes();
+            return h + ':' + m;
+        } 
+    
+    
 }
 
 //get image url of S3 from the multiple images
@@ -107,7 +115,6 @@ export function AddFavDoc (doctor_id, profile_id,user_token, user_profile_id){
 
 //Get the link of the Image
 export function GetUrlImage (find){
-    console.log('find', find)
     if(find)
     {
         var find1 = find.split('.com/')[1]
