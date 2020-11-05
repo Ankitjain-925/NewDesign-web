@@ -104,10 +104,10 @@ export default class CalendarToolbar extends Toolbar {
 								<Grid item xs={12} md={6} className="todayMnth">
 									<Grid className="todaySrchLft"><label onClick={() => this.navigate('TODAY')}>Today</label></Grid>
 									<Grid className="movMnth">
-										<a onClick={() => this.navigate('PREV')}><img src={require('../../../assets/images/leftArow.jpg')} alt="" title="" /></a>
-										<a onClick={() => this.navigate('NEXT')}><img src={require('../../../assets/images/rightArow.jpg')} alt="" title="" /></a>
-										{/* <a onClick={() => this.navigate('PREV')}><NavigateBeforeIcon /></a>
-										<a onClick={() => this.navigate('NEXT')}><NavigateNextIcon/></a> */}
+										{/* <a onClick={() => this.navigate('PREV')}><img src={require('../../../assets/images/leftArow.jpg')} alt="" title="" /></a>
+										<a onClick={() => this.navigate('NEXT')}><img src={require('../../../assets/images/rightArow.jpg')} alt="" title="" /></a> */}
+										<a onClick={() => this.navigate('PREV')}><NavigateBeforeIcon /></a>
+										<a onClick={() => this.navigate('NEXT')}><NavigateNextIcon/></a>
 									</Grid>
 									<Grid className="crntMonth">{this.props.label}</Grid>
 								</Grid>

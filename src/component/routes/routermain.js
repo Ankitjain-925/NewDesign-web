@@ -52,6 +52,7 @@ import PharmaOnline from './../../Screens/Pharmacy/onlineCourse/index';
 import PharmaPrescription from './../../Screens/Pharmacy/Prescriptions/index';
 import PharmaChats from './../../Screens/Pharmacy/Chat/index';
 import PharmaArchive from './../../Screens/Pharmacy/Archive/index';
+import PharmaPrescEmergency from './../../Screens/Pharmacy/Journal/index';
 
 //Doctor Component
 import DoctorService from "./../../Screens/Doctor/Services/index.js";
@@ -114,6 +115,7 @@ class Routermain extends Component {
             <Route exact path="/pharmacy/profile" render={(props) => <PharmaProfile {...props} />} />
             <Route exact path="/pharmacy/emergency" render={(props) => <PharmaEmergency {...props} />} />
             <Route exact path="/pharmacy/prescriptions" render={(props) => <PharmaPrescription {...props} />} />
+            <Route exact path="/pharmacy/prescription-emergency" render={(props) => <PharmaPrescEmergency {...props} />} />
             <Route exact path="/pharmacy/online-course" render={(props) => <PharmaOnline {...props} />} />
             <Route exact path="/pharmacy/view-course" render={(props) => <PaitnetViewCourses {...props} />} />
             <Route exact path="/pharmacy/prescription-archive" render={(props) => <PharmaArchive {...props} />} />

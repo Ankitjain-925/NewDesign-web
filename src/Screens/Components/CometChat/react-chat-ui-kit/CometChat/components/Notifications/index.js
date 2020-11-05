@@ -192,10 +192,18 @@ class Notification extends React.Component {
                 actionGenerated={this.callScreenAction} 
                 outgoingCall={this.state.outgoingCall} />
                 {this.state.Unread > 0 && this.state.ShowTime===true &&
-                    <div className="unread_msg_notify" onClick={()=>{this.redirectPage()}}>There are the {this.state.Unread} unread Messages in Chat. Please check this.<span><CancelIcon onClick={(e)=>{this.CloseNotification1(e)}}/></span></div>
+                 <div className="unreadsec">
+                    <div className="unread_msg_notify" onClick={()=>{this.redirectPage()}}>There are the {this.state.Unread} unread Messages in Chat. Please check this.</div>
+                    <span className="unread_msg_notifyspan" onClick={(e)=>{this.CloseNotification1(e)}}><CancelIcon/></span>
+                  </div>
                 }
                 {this.state.NewM===true && this.state.ShowTime1===true &&
-                    <div className="unread_msg_notify" onClick={()=>{this.redirectPage()}}>There are the New Message in Chat. Please check this.<span><CancelIcon onClick={(e)=>{this.CloseNotification(e)}} /></span></div>
+                   <div className="unreadsec">
+                      <div className="unread_msg_notify" onClick={()=>{this.redirectPage()}}>New message(s) in chat module. Please go to CHAT (link) to check your messages.</div>
+                      <span className="unread_msg_notifyspan" onClick={(e)=>{this.CloseNotification(e)}}><CancelIcon /></span>
+                      
+                  </div>
+                   
                 }
             </div>
         );

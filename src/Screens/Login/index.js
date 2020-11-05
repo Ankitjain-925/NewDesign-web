@@ -213,6 +213,20 @@ class Index extends Component {
         }
     }
 
+    onKeyDownlogin=(e)=>{
+        if(e.key === 'Enter')
+        {
+            console.log('fff')
+            this.BtnSubmit()
+        }
+    }
+    onKeyDownverify=(e)=>{
+        if(e.key === 'Enter')
+        {
+            console.log('fff11')
+            this.Verifycode()
+        }
+    }
      //For set the language
      SetMode = () => {
         var mode = this.state.mode === 'normal'? 'dark' : 'normal';
@@ -385,7 +399,7 @@ class Index extends Component {
                                     <Grid className="logRow">
                                         <Grid><label>{Register_email}</label></Grid>
                                         <Grid><input type="text"
-                                            value={this.state.inputEmail} onChange={e => this.handleChange('inputEmail', e.target.value)} /></Grid>
+                                            value={this.state.inputEmail}  onKeyDown={this.onKeyDownlogin} onChange={e => this.handleChange('inputEmail', e.target.value)} /></Grid>
                                     </Grid>
                                     <Grid className="logRow logpassInst">
 
@@ -399,7 +413,7 @@ class Index extends Component {
                                         <Grid className="logPass">
                                             <input
                                                 type={this.state.hidden ? "password" : "text"}
-                                                value={this.state.inputPass} onChange={e => this.handleChange('inputPass', e.target.value)} />
+                                                value={this.state.inputPass} onKeyDown={this.onKeyDownlogin} onChange={e => this.handleChange('inputPass', e.target.value)} />
                                             {this.state.hidden &&
                                                 <a onClick={this.toggleShow}>
                                                     <img src={require('../../assets/images/showeye.svg')} alt="" title="" />
@@ -416,7 +430,7 @@ class Index extends Component {
                                             <Grid className="logRow">
                                                 <Grid><label>{two_fac_auth}</label></Grid>
                                                 <Grid><input type="text"
-                                                    value={this.state.mob_token} onChange={e => this.setState({ mob_token: e.target.value })} /></Grid>
+                                                    value={this.state.mob_token} onKeyDown={this.onKeyDownverify} onChange={e => this.setState({ mob_token: e.target.value })} /></Grid>
                                             </Grid>
                                         } 
                                     

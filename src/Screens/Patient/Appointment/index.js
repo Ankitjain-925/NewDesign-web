@@ -923,7 +923,7 @@ getUpcomingAppointment() {
                                                                                                         <a onClick={() => this.handleOpenFancyVdo(i, "online_appointment", doc.online_appointment[0])}><img src={require('../../../assets/images/video-call-copy2.svg')} alt="" title="" />{vdo_call}</a>
                                                                                                     }
                                                                                                     {this.state.office_visit &&
-                                                                                                        <a onClick={() => this.handleOpenFancyVdo(i, "appointments", doc.appointments[0])}><img src={require('../../../assets/images/ShapeCopy2.svg')} alt="" title="" />{office_visit}</a>
+                                                                                                        <a onClick={() => this.handleOpenFancyVdo(i, "appointments", doc.appointments[0])}><img src={require('../../../assets/images/ShapeCopy2.svg')} alt="" title="" />{doc.appointments && doc.appointments.length>0 && doc.appointments[0].custom_text ? doc.appointments[0].custom_text  : office_visit}</a>
                                                                                                     }
                                                                                                     <a onClick={() => this.handleOpenFancyVdo(i, "practice_days", doc.practice_days[0])} className="addClnder"><img src={require('../../../assets/images/cal.png')} alt="" title="" />{consultancy_cstm_calnder}</a>
                                                                                                 </Grid>
@@ -1041,6 +1041,8 @@ getUpcomingAppointment() {
                                         <Grid className="apointAdd">
                                             <Grid container direction="row">
                                                 <Grid item xs={12} md={12}>
+                                                {this.state.successfull && <div className="success_message">{appointment_booked}</div>}
+                                                {this.state.cancelsuccess && <div className="success_message">{Appointmentiscanceled}</div>}
                                                     <Grid container direction="row">
                                                         <Grid item xs={12} sm={6} md={6}>
                                                             <h1>{appointments}</h1>
@@ -1050,9 +1052,6 @@ getUpcomingAppointment() {
                                                                 {/* <a onClick={this.handleOpenFancy}>+ Arrange an appointment</a> */}
                                                                 <a onClick={this.handleAllowAccess}>+ {arrng_apointmnt}</a>
                                                             </Grid>
-                                                            {this.state.successfull && <div className="success_message">{appointment_booked}</div>}
-                                                            {this.state.cancelsuccess && <div className="success_message">{Appointmentiscanceled}</div>}
-                                                          
                                                         </Grid>
                                                     </Grid>
                                                 </Grid>

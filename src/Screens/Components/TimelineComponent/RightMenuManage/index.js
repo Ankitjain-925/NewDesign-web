@@ -3,7 +3,17 @@ import Grid from '@material-ui/core/Grid';
 import { getDate, getTime, GetUrlImage, getSpec } from '../../BasicMethod';
 import axios from 'axios';
 import sitedata from '../../../../sitedata';
-
+import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
+import { LanguageFetchReducer } from '../../../actions';
+import * as translationEN from "../../../../translations/en.json"
+import * as translationDE from '../../../../translations/de.json';
+import * as translationPT from '../../../../translations/pt.json';
+import * as translationSP from '../../../../translations/sp.json';
+import * as translationRS from '../../../../translations/rs.json';
+import * as translationSW from '../../../../translations/sw.json';
+import * as translationCH from '../../../../translations/ch.json';
+import * as translationNL from '../../../../translations/en.json';
 
 
 class RightManage extends Component {
@@ -15,6 +25,7 @@ class RightManage extends Component {
             added_data: this.props.added_data,
             time_format : this.props.time_format,
             date_format : this.props.date_format,
+            loggedinUser : this.props.loggedinUser, 
             doc_image : '',
         };
     }
@@ -52,6 +63,39 @@ class RightManage extends Component {
     }
 
     render() {
+        let translate;
+        switch (this.props.stateLanguageType) {
+              case "en":
+                  translate = translationEN.text
+                  break;
+              case "de":
+                  translate = translationDE.text
+                  break;
+              case "pt":
+                  translate = translationPT.text
+                  break;
+              case "sp":
+                  translate = translationSP.text
+                  break;
+              case "rs":
+                  translate = translationRS.text
+                  break;
+              case "nl":
+                  translate = translationNL.text
+                  break;
+              case "ch":
+                  translate = translationCH.text
+                  break;
+              case "sw":
+                  translate = translationSW.text
+                  break;
+              case "default":
+                  translate = translationEN.text
+          }
+          let {blood_pressure, visible,feeling,show, date, time, hide, until, archive, rr_systolic,
+            visibility, edit, Delete, RR_diastolic, heart_rate,always, VeiwGraph,
+            Change,de_archive,Download } = translate;
+        var item = this.state.item;
         return (
             <div>
                 {this.state.added_data && this.state.added_data.length > 0 && this.state.added_data.map((item) => (
@@ -63,8 +107,21 @@ class RightManage extends Component {
                                     <label>Blood Pressure</label>
                                 </Grid>
                                 <Grid item xs={6} md={6}>
-                                    <Grid className="persBlodImg">
-                                        <img src={require('../../../../assets/images/nav-more.svg')} alt="" title="" />
+                                    <Grid className="persBlodImg scndOptionIner1">
+                                    {this.state.personalinfo && this.state.personalinfo.blood_pressure &&  this.state.personalinfo.blood_pressure.length>0 && <a className="openScndhrf1">
+                                        <a className="vsblDots"><img src={require('../../../../assets/images/nav-more.svg')} alt="" title="" /></a>
+                                        <ul>
+                                            {this.props.from === 'patient' &&  <li>
+                                                    {this.state.personalinfo.blood_pressure[0].created_by === this.state.loggedinUser._id && ( !this.state.personalinfo.blood_pressure[0].updated_by || this.state.personalinfo.blood_pressure[0].updated_by ==="") ? 
+                                                    <a onClick={()=>this.props.EidtOption(this.state.personalinfo.blood_pressure[0].type, this.state.personalinfo.blood_pressure[0])}><img src={require('../../../../assets/images/edit-1.svg')} alt="" title="" />{edit}</a>
+                                                    : <a onClick={()=>this.props.EidtOption(this.state.personalinfo.blood_pressure[0].type, this.state.personalinfo.blood_pressure[0], true)}><img src={require('../../../../assets/images/edit.svg')} alt="" title="" />{Change} {visibility}</a>
+                                                    }
+                                                 </li>}
+                                                {this.props.from !== 'patient' && <li><a onClick={()=>this.props.EidtOption(this.state.personalinfo.blood_pressure[0].type, this.state.personalinfo.blood_pressure[0])}><img src={require('../../../../assets/images/edit-1.svg')} alt="" title="" />{edit}</a></li>}
+                                            <li><a onClick={() => this.props.downloadTrack(this.state.personalinfo.blood_pressure[0])}><img src={require('../../../../assets/images/download.svg')} alt="" title="" />{Download}</a></li>
+                                          <li><a onClick={()=> this.props.OpenGraph('blood_pressure')}>View Graph</a></li>
+                                        </ul>
+                                    </a>}
                                     </Grid>
                                 </Grid>
                             </Grid>
@@ -93,8 +150,21 @@ class RightManage extends Component {
                                     <label>Weight BMI</label>
                                 </Grid>
                                 <Grid item xs={6} md={6}>
-                                    <Grid className="persBlodImg">
-                                        <img src={require('../../../../assets/images/nav-more.svg')} alt="" title="" />
+                                    <Grid className="persBlodImg scndOptionIner1">
+                                        {this.state.personalinfo && this.state.personalinfo.weight_bmi &&  this.state.personalinfo.weight_bmi.length>0 && <a className="openScndhrf1">
+                                        <a className="vsblDots"><img src={require('../../../../assets/images/nav-more.svg')} alt="" title="" /></a>
+                                        <ul>
+                                            {this.props.from === 'patient' &&  <li>
+                                                    {this.state.personalinfo.weight_bmi[0].created_by === this.state.loggedinUser._id && ( !this.state.personalinfo.weight_bmi[0].updated_by || this.state.personalinfo.weight_bmi[0].updated_by ==="") ? 
+                                                    <a onClick={()=>this.props.EidtOption(this.state.personalinfo.weight_bmi[0].type, this.state.personalinfo.weight_bmi[0])}><img src={require('../../../../assets/images/edit-1.svg')} alt="" title="" />{edit}</a>
+                                                    : <a onClick={()=>this.props.EidtOption(this.state.personalinfo.weight_bmi[0].type, this.state.personalinfo.weight_bmi[0], true)}><img src={require('../../../../assets/images/edit.svg')} alt="" title="" />{Change} {visibility}</a>
+                                                    }
+                                                 </li>}
+                                                {this.props.from !== 'patient' && <li><a onClick={()=>this.props.EidtOption(this.state.personalinfo.weight_bmi[0].type, this.state.personalinfo.weight_bmi[0])}><img src={require('../../../../assets/images/edit-1.svg')} alt="" title="" />{edit}</a></li>}
+                                            <li><a onClick={() => this.props.downloadTrack(this.state.personalinfo.weight_bmi[0])}><img src={require('../../../../assets/images/download.svg')} alt="" title="" />{Download}</a></li>
+                                            <li><a onClick={()=> this.props.OpenGraph('weight_bmi')}>View Graph</a></li>
+                                        </ul>
+                                    </a>}
                                     </Grid>
                                 </Grid>
                             </Grid>
@@ -122,8 +192,21 @@ class RightManage extends Component {
                                     <label>Heart Rate</label>
                                 </Grid>
                                 <Grid item xs={6} md={6}>
-                                    <Grid className="persBlodImg">
-                                        <img src={require('../../../../assets/images/nav-more.svg')} alt="" title="" />
+                                    <Grid className="persBlodImg scndOptionIner1">
+                                        {this.state.personalinfo && this.state.personalinfo.blood_pressure &&  this.state.personalinfo.blood_pressure.length>0 && <a className="openScndhrf1">
+                                        <a className="vsblDots"><img src={require('../../../../assets/images/nav-more.svg')} alt="" title="" /></a>
+                                        <ul>
+                                            {this.props.from === 'patient' &&  <li>
+                                                    {this.state.personalinfo.blood_pressure[0].created_by === this.state.loggedinUser._id && ( !this.state.personalinfo.blood_pressure[0].updated_by || this.state.personalinfo.blood_pressure[0].updated_by ==="") ? 
+                                                    <a onClick={()=>this.props.EidtOption(this.state.personalinfo.blood_pressure[0].type, this.state.personalinfo.blood_pressure[0])}><img src={require('../../../../assets/images/edit-1.svg')} alt="" title="" />{edit}</a>
+                                                    : <a onClick={()=>this.props.EidtOption(this.state.personalinfo.blood_pressure[0].type, this.state.personalinfo.blood_pressure[0], true)}><img src={require('../../../../assets/images/edit.svg')} alt="" title="" />{Change} {visibility}</a>
+                                                    }
+                                                 </li>}
+                                                {this.props.from !== 'patient' && <li><a onClick={()=>this.props.EidtOption(this.state.personalinfo.blood_pressure[0].type, this.state.personalinfo.blood_pressure[0])}><img src={require('../../../../assets/images/edit-1.svg')} alt="" title="" />{edit}</a></li>}
+                                            <li><a onClick={() => this.props.downloadTrack(this.state.personalinfo.blood_pressure[0].type, this.state.personalinfo.blood_pressure[0])}><img src={require('../../../../assets/images/download.svg')} alt="" title="" />{Download}</a></li>
+                                            <li> <a onClick={()=> this.props.OpenGraph('heart_rate')}>View Graph</a></li>
+                                        </ul>
+                                    </a>}
                                     </Grid>
                                 </Grid>
                             </Grid>
@@ -151,8 +234,21 @@ class RightManage extends Component {
                                     <label>Creatinine</label>
                                 </Grid>
                                 <Grid item xs={6} md={6}>
-                                    <Grid className="persBlodImg">
-                                        <img src={require('../../../../assets/images/nav-more.svg')} alt="" title="" />
+                                    <Grid className="persBlodImg scndOptionIner1">
+                                        {this.state.personalinfo && this.state.personalinfo.laboratory_result &&  this.state.personalinfo.laboratory_result.length>0 && <a className="openScndhrf1">
+                                        <a className="vsblDots"><img src={require('../../../../assets/images/nav-more.svg')} alt="" title="" /></a>
+                                        <ul>
+                                            {this.props.from === 'patient' &&  <li>
+                                                    {this.state.personalinfo.laboratory_result[0].created_by === this.state.loggedinUser._id && ( !this.state.personalinfo.laboratory_result[0].updated_by || this.state.personalinfo.laboratory_result[0].updated_by ==="") ? 
+                                                    <a onClick={()=>this.props.EidtOption(this.state.personalinfo.laboratory_result[0].type, this.state.personalinfo.laboratory_result[0])}><img src={require('../../../../assets/images/edit-1.svg')} alt="" title="" />{edit}</a>
+                                                    : <a onClick={()=>this.props.EidtOption(this.state.personalinfo.laboratory_result[0].type, this.state.personalinfo.laboratory_result[0], true)}><img src={require('../../../../assets/images/edit.svg')} alt="" title="" />{Change} {visibility}</a>
+                                                    }
+                                                 </li>}
+                                                {this.props.from !== 'patient' && <li><a onClick={()=>this.props.EidtOption(this.state.personalinfo.laboratory_result[0].type, this.state.personalinfo.laboratory_result[0])}><img src={require('../../../../assets/images/edit-1.svg')} alt="" title="" />{edit}</a></li>}
+                                            <li><a onClick={() => this.props.downloadTrack(this.state.personalinfo.laboratory_result[0])}><img src={require('../../../../assets/images/download.svg')} alt="" title="" />{Download}</a></li>
+                                          <li> <a onClick={()=> this.props.OpenGraph('laboratory_result')}>View Graph</a></li>
+                                        </ul>
+                                    </a>}
                                     </Grid>
                                 </Grid>
                             </Grid>
@@ -180,8 +276,21 @@ class RightManage extends Component {
                                     <label>Blood Sugar</label>
                                 </Grid>
                                 <Grid item xs={6} md={6}>
-                                    <Grid className="persBlodImg">
-                                        <img src={require('../../../../assets/images/nav-more.svg')} alt="" title="" />
+                                    <Grid className="persBlodImg scndOptionIner1">
+                                        {this.state.personalinfo && this.state.personalinfo.blood_sugar &&  this.state.personalinfo.blood_sugar.length>0 && <a className="openScndhrf1">
+                                        <a className="vsblDots"><img src={require('../../../../assets/images/nav-more.svg')} alt="" title="" /></a>
+                                        <ul>
+                                            {this.props.from === 'patient' &&  <li>
+                                                    {this.state.personalinfo.blood_sugar[0].created_by === this.state.loggedinUser._id && ( !this.state.personalinfo.blood_sugar[0].updated_by || this.state.personalinfo.blood_sugar[0].updated_by ==="") ? 
+                                                    <a onClick={()=>this.props.EidtOption(this.state.personalinfo.blood_sugar[0].type, this.state.personalinfo.blood_sugar[0])}><img src={require('../../../../assets/images/edit-1.svg')} alt="" title="" />{edit}</a>
+                                                    : <a onClick={()=>this.props.EidtOption(this.state.personalinfo.blood_sugar[0].type, this.state.personalinfo.blood_sugar[0], true)}><img src={require('../../../../assets/images/edit.svg')} alt="" title="" />{Change} {visibility}</a>
+                                                    }
+                                                 </li>}
+                                                {this.props.from !== 'patient' && <li><a onClick={()=>this.props.EidtOption(this.state.personalinfo.blood_sugar[0].type, this.state.personalinfo.blood_sugar[0])}><img src={require('../../../../assets/images/edit-1.svg')} alt="" title="" />{edit}</a></li>}
+                                                <li><a onClick={() => this.props.downloadTrack(this.state.personalinfo.blood_sugar[0])}><img src={require('../../../../assets/images/download.svg')} alt="" title="" />{Download}</a></li>
+                                                <li><a onClick={()=> this.props.OpenGraph('blood_sugar')}>View Graph</a></li>
+                                        </ul>
+                                    </a>}
                                     </Grid>
                                 </Grid>
                             </Grid>
@@ -237,8 +346,21 @@ class RightManage extends Component {
                                 <Grid className="upcomView"><label>Upcoming appointment</label> {this.props.from==='patient' &&  <a onClick={this.props.MoveAppoint}>View all</a>}</Grid>
                                 </Grid>
                                 <Grid item xs={2} md={2}>
-                                    {/* <Grid className="allViewDots">
-                                        <img src={require('../../../../assets/images/nav-more.svg')} alt="" title="" />
+                                    {/* <Grid className="allViewDots scndOptionIner1">
+                                        <a className="openScndhrf1">
+                                        <a className="vsblDots"><img src={require('../../../../assets/images/nav-more.svg')} alt="" title="" /></a>
+                                        <ul>
+                                            {this.props.from === 'patient' &&  <li>
+                                                    {item.created_by === this.state.loggedinUser._id && ( !item.updated_by || item.updated_by ==="") ? 
+                                                    <a onClick={()=>this.props.EidtOption(item.type, item)}><img src={require('../../../../assets/images/edit-1.svg')} alt="" title="" />{edit}</a>
+                                                    : <a onClick={()=>this.props.EidtOption(item.type, item, true)}><img src={require('../../../../assets/images/edit.svg')} alt="" title="" />{Change} {visibility}</a>
+                                                    }
+                                                 </li>}
+                                                {this.props.from !== 'patient' && <li><a onClick={()=>this.props.EidtOption(item.type, item)}><img src={require('../../../../assets/images/edit-1.svg')} alt="" title="" />{edit}</a></li>}
+                                            <li><a onClick={() => this.props.downloadTrack(item)}><img src={require('../../../../assets/images/download.svg')} alt="" title="" />{Download}</a></li>
+                                          
+                                        </ul>
+                                    </a>
                                     </Grid> */}
                                 </Grid>
                                 <Grid className="clear"></Grid>
@@ -278,9 +400,22 @@ class RightManage extends Component {
                                     </Grid>
                                 </Grid>
                                 <Grid item xs={2} md={2}>
-                                    <Grid className="lstViewDots">
-                                        <img src={require('../../../../assets/images/nav-more.svg')} alt="" title="" />
-                                    </Grid>
+                                    {/* <Grid className="lstViewDots scndOptionIner1">
+                                    <a className="openScndhrf1">
+                                        <a className="vsblDots"><img src={require('../../../../assets/images/nav-more.svg')} alt="" title="" /></a>
+                                        <ul>
+                                            {this.props.from === 'patient' &&  <li>
+                                                    {item.created_by === this.state.loggedinUser._id && ( !item.updated_by || item.updated_by ==="") ? 
+                                                    <a onClick={()=>this.props.EidtOption(item.type, item)}><img src={require('../../../../assets/images/edit-1.svg')} alt="" title="" />{edit}</a>
+                                                    : <a onClick={()=>this.props.EidtOption(item.type, item, true)}><img src={require('../../../../assets/images/edit.svg')} alt="" title="" />{Change} {visibility}</a>
+                                                    }
+                                                 </li>}
+                                                {this.props.from !== 'patient' && <li><a onClick={()=>this.props.EidtOption(item.type, item)}><img src={require('../../../../assets/images/edit-1.svg')} alt="" title="" />{edit}</a></li>}
+                                            <li><a onClick={() => this.props.downloadTrack(item)}><img src={require('../../../../assets/images/download.svg')} alt="" title="" />{Download}</a></li>
+                                          
+                                        </ul>
+                                    </a>
+                                    </Grid> */}
                                 </Grid>
                                 <Grid className="clear"></Grid>
                             </Grid>
@@ -343,5 +478,10 @@ class RightManage extends Component {
         )
     }
 }
-
-export default RightManage;
+const mapStateToProps = (state) => {
+    const { stateLanguageType } = state.LanguageReducer;
+    return {
+        stateLanguageType
+    }
+  };
+  export default withRouter(connect(mapStateToProps, { LanguageFetchReducer })(RightManage));

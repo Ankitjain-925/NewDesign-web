@@ -105,6 +105,9 @@ class Index extends Component {
         this.props.history.push('/pharmacy/emergency');    
     }
 
+    PharmaEmergency=()=>{
+        this.props.history.push('/pharmacy/prescription-emergency');      
+    }
     render() {
         return (
             <Grid  className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode && this.props.settings.setting.mode==='dark' ? "MenuMob MenuLeftDrkUpr" : "MenuMob"}>
@@ -133,10 +136,18 @@ class Index extends Component {
                         </li>
                         <li className={this.props.currentPage==='emergency' ? "menuActv" : ""}>
                             <a onClick={this.Emergency}>
-                            <img src={require('../../../../assets/images/para.png')} alt="" title="" />
+                            <img src={require('../../../../assets/images/ermerAccess.png')} alt="" title="" />
                             {/* {this.props.currentPage==='appointment' ? <img src={require('../../../../assets/images/appointActive.png')} alt="" title="" />
                                 : <img src={require('../../../../assets/images/calenderIcon.jpg')} alt="" title="" />} */}
                                 <span>Emergency Access</span>
+                            </a>
+                        </li>
+                        <li className={this.props.currentPage==='emergency' ? "menuActv" : ""}>
+                            <a onClick={this.PharmaEmergency}>
+                            <img src={require('../../../../assets/images/ermerAccess.png')} alt="" title="" />
+                            {/* {this.props.currentPage==='appointment' ? <img src={require('../../../../assets/images/appointActive.png')} alt="" title="" />
+                                : <img src={require('../../../../assets/images/calenderIcon.jpg')} alt="" title="" />} */}
+                                <span>Pharmacy Access</span>
                             </a>
                         </li>
                         <li className={this.props.currentPage==='course' ? "menuActv" : ""}>

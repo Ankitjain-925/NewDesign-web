@@ -282,7 +282,7 @@ class Index extends Component {
                                 <Notification />
                                 {/* End of Website Menu */}
 
-                                <Grid item xs={12} md={9}>
+                                <Grid item xs={12} md={10} lg={9}>
                                     <Grid className="scndOpinion">
                                         <Grid container direction="row" className="ScndOpinLbl">
                                             <Grid item xs={12} md={6}><label>{secnd_openion}</label></Grid>

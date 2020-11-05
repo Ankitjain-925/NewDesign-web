@@ -1357,8 +1357,11 @@ a.conPainTime img {
     color: #00ABAF !important;
 }
 .comonSel {
-    padding-right: 12px !important;
     font-size: 12px !important;
+    border: 1px solid #dfdfdf;
+    margin-right: 8px !important;
+    margin-bottom: 12px;
+    border-radius: 4px;
 }
 .clear_filterLft a {
     color: #00ABAF !important;
@@ -3409,7 +3412,7 @@ a.profilMenu {
     font-size: 12px;
     font-weight: 600;
     letter-spacing: 0;
-    line-height: 14px;
+    line-height: 20px;
     margin-bottom: 2px;
 }
 .nuroDr p {
@@ -6157,7 +6160,7 @@ img.openScnd {
     box-shadow: 0 8px 16px 0 rgba(0,8,8,0.08);
     padding-left: 0px;
     margin-bottom: 0px;
-    padding: 12px 16px;
+    padding: 12px 8px;
     position: absolute;
     top: 32px;
     right: 0;
@@ -6999,12 +7002,12 @@ a.vsblDots, a.conPainDots, a.bp_vsblDots, a.hideDots {
     background-color: #FFFFFF;
     padding: 6px 3px 9px;
 }
-.persBlodImg img, .allViewDots img, .lstViewDots img {
+/* .persBlodImg img, .allViewDots img, .lstViewDots img {
     border: 1px solid #F2F2F2;
     border-radius: 8px;
     background-color: #FFFFFF;
     padding: 6px 5px 5px;
-}
+} */
 
 /* dark screen css */
 .MenuLeftDrkUpr {
@@ -9349,9 +9352,9 @@ a.menuActv img {
     line-height: 23px;
     margin-bottom: 0px !important;
 }
-.userAdresInfo {
+/* .userAdresInfo {
     padding: 12px 24px 18px 24px;
-}
+} */
 .userAdres .MuiGrid-root {
     min-width: 24px;
 }
@@ -9369,7 +9372,8 @@ a.menuActv img {
     font-size: 14px;
     font-weight: 600;
     letter-spacing: 0;
-    line-height: 14px;
+    line-height: 17px;
+    margin-bottom: 0px;
 }
 .insureMe {
     margin: 24px 0px 24px;
@@ -13009,6 +13013,13 @@ a.academy_ul ul li img {
 
 
 /*Added By ankita*/
+.homeBgDrk .rbc-event-content {
+    color: #BFC1C1 !important;
+}
+.homeBgDrk .searchbyText{
+    background-color: #404646 !important;
+    color: #fff !important;
+}
 .searchbyText{
     width: 99%;
     padding: 5px;
@@ -13033,24 +13044,25 @@ a.academy_ul ul li img {
 .unread_msg_notify{
     cursor: pointer;
 }
-.unread_msg_notify span {
-    position: absolute;
-    right: 3px;
-    top: 3px;
- }
-    .unread_msg_notify {
-        background: #00abafb8;
-        text-align: center;
-        width: 40%;
-        z-index: 9999;
-        position: fixed;
-        padding: 5px;
+.unreadsec{
+    background: #00abafb8;
+    text-align: center;
+    width: 50%;
+    z-index: 9999;
+    position: fixed;
+    padding: 20px;
         top: 6px;
         color: #fff;
         font-weight: 600;
-        left: 32%;
+        left: 27%;
         border-radius: 10px;
-    }
+}
+span.unread_msg_notifyspan {
+    cursor: pointer;
+    position: absolute;
+    top: 2px;
+    right: 3px;
+}
     .homeBgDrk .emrgncyFrmInpt label, .darkTheme .spclistDr a{
         color: #BFC1C1 !important;
     }
@@ -13984,7 +13996,7 @@ label.attached_file a {
 }
 .darkTheme .rrSysto input[type="text"],
 .darkTheme .rrSysto .css-yk16xz-control,
-.relexStressRght a {
+.darkTheme .relexStressRght a {
     background-color: #404646 !important;
     color: #BFC1C1 !important;
 }
@@ -14036,4 +14048,36 @@ label.attached_file a {
 }
 .MenuLeftDrkUpr .profilMenuList li a:hover {
     color: #BFC1C1 !important;
+}
+@media screen and (min-width: 640px) and (max-width: 1200px) {
+    .scndOpinionIner td.pivoted {
+        padding: 14px 9px !important;
+    }
+}
+
+.homeBgDrk .logForm input[type="text"], 
+.homeBgDrk .logForm input[type="password"],
+.homeBgDrk .registerRow input[type="text"], 
+.homeBgDrk .registerRow input[type="password"],
+.homeBgDrk .regMobNum input {
+    background-color: #404646 !important;
+    color: #BFC1C1 !important;
+    border: 1px solid #dfdfdf !important;
+}
+.homeBgDrk button#select_flag_button{
+    background: #b1b1b180;
+    min-height: 43px;
+    border-radius: 5px 0px 0px 5px;
+}
+.homeBgDrk .onProfessional a {
+    background-color: #404646!important;
+    color: #BFC1C1 !important;
+    font-weight: 400!important;
+    border: 1px solid #BFC1C1;
+}
+.wrkHourUpr .ant-picker-input {
+    width: 100% !important;
+}
+.MenuLeftUpr .MenuLeftUpr {
+    display: none;
 }

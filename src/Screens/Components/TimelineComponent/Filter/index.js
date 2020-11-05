@@ -94,7 +94,7 @@ class FilterSec extends Component {
         return (
             <Grid container direction="row">
                 <Grid item xs={12} md={11}>
-                    <Grid className="srchFilter">
+                    <Grid className="srchFilter 11">
                         {!this.state.isTest && <Grid container direction="row">
                             <Grid item xs={12} md={4}>
                                 <RangePicker 
@@ -113,7 +113,7 @@ class FilterSec extends Component {
                                     closeMenuOnSelect={false}
                                 /> */}
                             </Grid>
-                            <Grid item xs={12} md={2}>
+                            <Grid item xs={12} md={4} lg={2}>
                                 <Select
                                     value={this.state.selectType}
                                     onChange={(value)=>this.FilterAccordigly("selectType", value)}
@@ -126,7 +126,7 @@ class FilterSec extends Component {
                                 //isSearchable = {false}
                                 />
                             </Grid>
-                            <Grid item xs={12} md={3} 
+                            <Grid item xs={12} md={4} lg={3}
                                 // className="faclity_all"
                             >
                                 <Select
@@ -154,7 +154,7 @@ class FilterSec extends Component {
                                    // isSearchable = {false}
                                 /> */}
                             </Grid>
-                            <Grid item xs={12} md={2} 
+                            <Grid item xs={12} md={4} lg={2}
                             // className="clear_filter"
                             >
                                 <Grid className="clear_filterUpr">
@@ -168,8 +168,8 @@ class FilterSec extends Component {
                         {this.state.isTest && 
                             <Grid container direction="row">
                                 <Grid item xs={12} md={11}>
-                                <input type="text" className="searchbyText"
-                                        value={this.state.searchText} onChange={e => this.handleChange(e.target.value)} />
+                                <input type="text" className="searchbyText" placeholder="Search timeline..."
+value={this.state.searchText} onChange={e => this.handleChange(e.target.value)} />
                                 </Grid>
                                 <Grid item xs={12} md={1}>
                                     <Grid className="clear_filterUpr">

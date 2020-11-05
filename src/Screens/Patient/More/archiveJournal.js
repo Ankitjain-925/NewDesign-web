@@ -71,6 +71,75 @@ class Index extends Component {
         })
     }
 
+     //For clear the filter
+     ClearData = () => {
+        this.setState({ Sort: 'diagnosed_time', allTrack: this.state.allTrack1 },
+            this.SortData())
+    }
+
+    FilterText = (text) =>{
+        let track = this.state.allTrack1;
+        let FilterFromSearch = track.filter((obj) => {
+        return this.isThisAvilabel(obj, text && text.toLowerCase());
+        });
+    this.setState({ allTrack: FilterFromSearch })
+}
+
+//For filter the Data
+FilterData = (time_range, user_type, type, facility_type) => {
+    var Datas1 = this.state.allTrack1;
+    var FilterFromTime = time_range && time_range.length > 0 ? this.FilterFromTime(Datas1, time_range) : Datas1;
+    var FilerFromType = type && type.length > 0 ? this.FilerFromType(FilterFromTime, type) : FilterFromTime;
+    var FilterFromUserType = user_type && user_type.length > 0 ? this.FilterFromUserType(FilerFromType, user_type) : FilerFromType;
+    if (time_range === null && user_type === null && type === null) {
+        FilterFromUserType = this.state.allTrack1;
+    }
+    FilterFromUserType = [...new Set(FilterFromUserType)];
+    this.setState({ allTrack: FilterFromUserType })
+}
+
+//Filter according to date range
+FilterFromTime = (Datas, time_range) => {
+    if (time_range && time_range.length > 0) {
+        let start_date = new Date(time_range[0])
+        let end_date = new Date(time_range[1])
+        start_date = start_date.setHours(0, 0, 0, 0);
+        end_date = end_date.setDate(end_date.getDate() + 1)
+        end_date = new Date(end_date).setHours(0, 0, 0, 0)
+        return Datas.filter((obj) => new Date(obj.datetime_on) >= start_date && new Date(obj.datetime_on) <= end_date);
+    }
+    else {
+        return null;
+    }
+}
+
+//Filter according to the type 
+FilerFromType = (Datas, type) => {
+    var Datas1 = [];
+    if (type && type.length > 0) {
+        type.map((ob) => {
+            var dts = Datas.filter((obj) => obj.type === ob.value);
+            Datas1 = Datas1.concat(dts);
+        })
+        return Datas1;
+    }
+    else { return null; }
+}
+
+//Filter according to User type
+FilterFromUserType = (Datas, user_type) => {
+    var Datas1 = [];
+    if (user_type && user_type.length > 0) {
+        user_type.map((ob) => {
+            var dts = Datas.filter((obj) => obj.created_by_temp.indexOf(ob.value) > -1);
+            Datas1 = Datas1.concat(dts);
+        })
+        return Datas1;
+    }
+    return null;
+}
+
+
     //For get the Track
     getTrack = () => {
         var user_id = this.props.stateLoginValueAim.user._id;

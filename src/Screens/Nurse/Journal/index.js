@@ -1152,7 +1152,7 @@ DeleteTrack=(deletekey)=> {
                                     {/* End of Model setup */}
 
                                     {/* <RightManage added_data={this.state.added_data} MoveDocument={this.MoveDocument} MoveAppoint={this.MoveAppoint} SelectOption={this.SelectOption} personalinfo={{}} /> */}
-                                    <RightManage upcoming_appointment={this.state.upcoming_appointment} OpenGraph={this.OpenGraph} date_format={this.props.settings.setting.date_format}  time_format={this.props.settings.setting.time_format} from="patient"  added_data={this.state.added_data} MoveDocument={this.MoveDocument} MoveAppoint={this.MoveAppoint} SelectOption={this.SelectOption} personalinfo={this.state.personalinfo} />
+                                    <RightManage upcoming_appointment={this.state.upcoming_appointment} OpenGraph={this.OpenGraph} EidtOption={(value, updateTrack, visibility) => this.EidtOption(value, updateTrack, visibility)} date_format={this.props.settings && this.props.settings.setting && this.props.settings.setting.date_format} time_format={this.props.settings && this.props.settings.setting && this.props.settings.setting.time_format} from="patient" added_data={this.state.added_data} MoveDocument={this.MoveDocument} MoveAppoint={this.MoveAppoint} SelectOption={this.SelectOption} personalinfo={this.state.personalinfo} loggedinUser={this.state.cur_one} downloadTrack={(data) => this.downloadTrack(data)} DeleteTrack={(deleteKey) => this.DeleteTrack(deleteKey)}/>
                                 </Grid>}
                                 {/* End of Website Right Content */}
 

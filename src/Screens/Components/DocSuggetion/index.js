@@ -136,9 +136,13 @@ class Index extends React.Component {
         return (
             <div>
                 {this.state.docs && this.state.docs.length>0 && this.state.ShowTime===true &&
-                    <div className="unread_msg_notify" onClick={this.redirectPage}>  {this.state.docs.join(', ')}
+                    <div className="unreadsec">
+                        <div className="unread_msg_notify" onClick={this.redirectPage}>  {this.state.docs.join(', ')}
                          {requesteddoctor}<br/> 
-                         {accpetRemove}<span><CancelIcon onClick={()=>this.setState({ ShowTime : false})}/></span></div>
+                         {accpetRemove}</div>
+                         <span className="unread_msg_notifyspan" onClick={()=>this.setState({ ShowTime : false})}><CancelIcon/></span>
+                    </div>
+                    
                 }
             </div>
         );
