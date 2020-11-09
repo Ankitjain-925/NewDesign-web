@@ -65,7 +65,7 @@ const conversationview = (props) => {
 
   const getActionMessage = () => {
 
-    const message = props.conversation.lastMessage.message;
+    var message = props.conversation.lastMessage.message;
 
     //if action messages are set to hide in config
     if(props.config) {
@@ -84,7 +84,7 @@ const conversationview = (props) => {
 
   const getCustomMessage = () => {
 
-    const message = "Some Custom Message";
+    var message = "Some Custom Message";
     return message;
   }
 

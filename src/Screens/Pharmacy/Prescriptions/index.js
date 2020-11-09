@@ -335,7 +335,9 @@ class Index extends Component {
                                                         <Th>{recved_on}</Th>
                                                         <Th>{Patient}</Th>
                                                         <Th>{capab_Doctors}</Th>
+                                                        <Th>Short Message</Th>
                                                         <Th>{status}</Th>
+                                                        
                                                     </Tr>
                                                 </Thead>
                                                 <Tbody>
@@ -350,6 +352,9 @@ class Index extends Component {
                                                             <Td className="presImg">
                                                                 <img src={require('../../../assets/images/dr1.jpg')} alt="" title="" />
                                                                 {item.created_by_temp && item.created_by_temp}
+                                                            </Td>
+                                                            <Td className="presImg">
+                                                                {item.remark && item.remark}
                                                             </Td>
                                                             {item.status && item.status==='handled' ? <Td><span className="revwGren"></span>Handled </Td>
                                                             : <Td><span className="revwYelow"></span>Received from doctor </Td>}

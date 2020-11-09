@@ -276,8 +276,8 @@ getUpcomingAppointment() {
 
     bookAppointment =() =>{
         var insurance_no = this.state.personalinfo.insurance && this.state.personalinfo.insurance.length > 0 && this.state.personalinfo.insurance[0] && this.state.personalinfo.insurance[0].insurance_number ? this.state.personalinfo.insurance[0].insurance_number : '';
-        this.setState({ loaderImage: true });
-        console.log('this.state.selectedDate', new Date(this.state.selectedDate))
+        // this.setState({ loaderImage: true });
+        console.log('this.state.selectedDate',this.state.selectedDoc, new Date(this.state.selectedDate))
         const user_token = this.props.stateLoginValueAim.token;
         axios.post(sitedata.data.path + '/User/appointment', {
             patient: this.props.stateLoginValueAim.user._id,
@@ -483,8 +483,9 @@ getUpcomingAppointment() {
         this.setState({ openDash: false });
     };
     onChange = (date) => {
-        let day_num
-        let Month, date1
+        console.log('date', date)
+        var day_num
+        var Month, date1
         if (date !== undefined && date) {
             day_num = date.getDay()
             Month = date.getMonth() + 1;
@@ -768,7 +769,7 @@ getUpcomingAppointment() {
                             <LeftMenuMobile isNotShow={true} currentPage="appointment" />
                             <Notification />
                             {/* Video Model */}
-
+                            {console.log('selectedDate',this.state.selectedDate)}
                             <Modal
                                     open={this.state.openFancyVdo}
                                     onClose={this.handleCloseFancyVdo}

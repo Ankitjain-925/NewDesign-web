@@ -22,7 +22,7 @@ import * as translationSW from '../../../../translations/sw.json';
 import * as translationCH from '../../../../translations/ch.json';
 import * as translationNL from '../../../../translations/en.json';
 
-var doctorArray = ['admin'];
+var doctorArray = [];
 
 class Index extends Component {
     constructor(props) {

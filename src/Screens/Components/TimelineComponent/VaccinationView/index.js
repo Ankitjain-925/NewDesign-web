@@ -52,7 +52,7 @@ class Index extends Component {
                             </Grid>
                             <Grid item xs={12} md={6}>
                                 <Grid className="bp_vsblSec scndOptionIner1">
-                                    <a onClick={()=>this.props.EidtOption(item.type, item, true)} className="bp_vsblEye"><img src={require('../../../../assets/images/eye2.png')} alt="" title="" /> <span>Visible</span> </a>
+                                    <a onClick={()=>this.props.EidtOption(item.type, item, true)} className="bp_vsblEye"><img src={require('../../../../assets/images/eye2.png')} alt="" title="" /> {item.visible === 'show' ?<span>Visible</span> : item.visible=== 'hide' ? <span>Hide</span> : <span>Not mentioned</span>}   </a>
                                     <a className="vsblTime" data-tip data-for={item.track_id + 'visibility'}>
                                         <img src={require('../../../../assets/images/clock.svg')} alt="" title="" />
                                     </a>
@@ -71,7 +71,7 @@ class Index extends Component {
                                                     }
                                                  </li>}
                                                 {this.props.comesfrom !== 'patient' && <li><a onClick={()=>this.props.EidtOption(item.type, item)}><img src={require('../../../../assets/images/edit-1.svg')} alt="" title="" />Edit</a></li>}
-<li><a onClick={() => this.props.downloadTrack(item)}><img src={require('../../../../assets/images/download.svg')} alt="" title="" />Download</a></li>
+                                            <li><a onClick={() => this.props.downloadTrack(item)}><img src={require('../../../../assets/images/download.svg')} alt="" title="" />Download</a></li>
                                             <li><a onClick={(deleteKey) => this.props.DeleteTrack(item.track_id)}><img src={require('../../../../assets/images/cancel-request.svg')} alt="" title="" />Delete</a></li>
                                         </ul> :
                                             <ul>
@@ -136,7 +136,7 @@ class Index extends Component {
                                         <Grid item xs={12} md={6} className="bloodPreBy">
                                             <Grid container direction="row">
                                                 <Grid item xs={5} md={5}><label>Reminder time taken</label></Grid>
-                                                <Grid item xs={7} md={7}><span>{item.reminder_time_taken.map((obj, index) => {
+                                                <Grid item xs={7} md={7}><span>{item.reminder_time_taken && item.reminder_time_taken.map((obj, index) => {
                                                                         if (
                                                                             item.reminder_date_taken &&
                                                                             item.reminder_date_taken.length > 0 && obj.value !==""

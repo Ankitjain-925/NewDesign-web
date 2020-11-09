@@ -61,7 +61,7 @@ import * as translationSW from '../../../translations/sw.json';
 import * as translationCH from '../../../translations/ch.json';
 import * as translationNL from '../../../translations/en.json';
 
-
+import DownloadFullTrack from "../../Components/DownloadFullTrack/index";
 var Datas = [];
 class Index extends Component {
     constructor(props) {
@@ -879,6 +879,7 @@ class Index extends Component {
                                                                 <Grid className="AddEntrynw">
                                                                     <a onClick={this.handleOpenEntry}>+ {add_new_entry}</a>
                                                                 </Grid>
+                                                                <DownloadFullTrack TrackRecord={this.state.allTrack}/>
                                                             </Grid>
                                                         </Grid>
                                                     </Grid>

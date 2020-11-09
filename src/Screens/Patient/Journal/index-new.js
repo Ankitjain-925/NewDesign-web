@@ -137,7 +137,7 @@ class Index extends Component {
                                                         </Grid>
                                                         <Grid item xs={12} md={6}>
                                                             <Grid className="vsblSec">
-                                                                <a className="vsblEye"><img src={require('../../../assets/images/eye2.png')} alt="" title="" /> <span>Visible</span> </a>
+                                                                <a className="vsblEye"><img src={require('../../../assets/images/eye2.png')} alt="" title="" /> {item.visible === 'show' ?<span>Visible</span> : item.visible=== 'hide' ? <span>Hide</span> : <span>Not mentioned</span>}   </a>
                                                                 <a className="vsblTime" data-tip data-for="timeIconTip">
                                                                     <img src={require('../../../assets/images/clock.svg')} alt="" title="" />
                                                                 </a>
@@ -391,7 +391,7 @@ class Index extends Component {
                                                         </Grid>
                                                         <Grid item xs={12} md={6}>
                                                             <Grid className="bp_vsblSec">
-                                                                <a className="bp_vsblEye"><img src={require('../../../assets/images/eye2.png')} alt="" title="" /> <span>Visible</span> </a>
+                                                                <a className="bp_vsblEye"><img src={require('../../../assets/images/eye2.png')} alt="" title="" /> {item.visible === 'show' ?<span>Visible</span> : item.visible=== 'hide' ? <span>Hide</span> : <span>Not mentioned</span>}   </a>
                                                                 <a className="bp_vsblDots"><img src={require('../../../assets/images/nav-more.svg')} alt="" title="" /></a>
                                                             </Grid>
                                                         </Grid>

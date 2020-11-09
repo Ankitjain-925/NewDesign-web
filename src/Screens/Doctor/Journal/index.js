@@ -60,7 +60,7 @@ import PFields from "./../../Components/TimelineComponent/PFields/index.js";
 import AnamnesisFields from "./../../Components/TimelineComponent/AnamnesisFields/index.js";
 import SCFields from "./../../Components/TimelineComponent/SCFields/index.js";
 import SOFields from "./../../Components/TimelineComponent/SOFields/index.js";
-
+import DownloadFullTrack from "../../Components/DownloadFullTrack/index";
 class Index extends Component {
     constructor(props) {
         super(props);
@@ -988,6 +988,7 @@ class Index extends Component {
                                                                 {this.props.Doctorsetget && this.props.Doctorsetget.p_id !== null ? <a onClick={this.AnotherPatient}>{another_patient_data}</a> : <a onClick={this.handleOpenData}>{get_patient_access_data}</a>}
                                                                 {this.props.Doctorsetget && this.props.Doctorsetget.p_id !== null && <a onClick={this.handleOpenEntry}>+ {add_new_entry}</a>}
                                                             </Grid>
+                                                            <DownloadFullTrack TrackRecord={this.state.allTrack}/>
                                                         </Grid>
                                                     </Grid>
                                                 </Grid>

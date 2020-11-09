@@ -13022,6 +13022,44 @@ a.academy_ul ul li img {
 
 
 /*Added By ankita*/
+.darkTheme ul.insuranceHint3 {
+    color:#fff!important;
+    background: #404646!important;
+}
+ul.insuranceHint3 {
+    z-index: 9;
+    position: relative;
+    padding-left: 0px;
+    border-radius: 7px;
+    box-shadow: 0 0px 0px 0 rgba(0, 0, 0, 0.2), 0 0px 13px 0 rgba(0, 0, 0, 0.19);
+    overflow: auto;
+    background: #fff;
+    margin-top: 5px;
+    padding: 3px 0px;
+}
+
+ul.insuranceHint3 li {
+    padding: 8px 5px 8px 12px;
+}
+.unreadsec{
+    background: #00abafb8;
+    text-align: center;
+    width: 50%;
+    z-index: 9999;
+    position: fixed;
+    padding: 20px;
+    left: 27%;
+    top: 6px;
+    color: #fff;
+    font-weight: 600;
+    border-radius: 10px;
+    }
+span.unread_msg_notifyspan {
+    cursor: pointer;
+    position: absolute;
+    top: 2px;
+    right: 3px;
+}
 .vaccinationAdd{
     margin-bottom: 10px;
 }
@@ -13056,13 +13094,13 @@ a.academy_ul ul li img {
 .daySchedule input{
     border: none !important;
 }
-.homeBgDrk .apontBook p span, .homeBgDrk .apontBook p {
+.homeBgDrk .latstInfo label, .homeBgDrk .apontBook p span, .homeBgDrk .apontBook p {
     color: #fff;
 }
 .unread_msg_notify{
     cursor: pointer;
 }
-.unread_msg_notify span {
+/* .unread_msg_notify span {
     position: absolute;
     right: 3px;
     top: 3px;
@@ -13079,7 +13117,7 @@ a.academy_ul ul li img {
         font-weight: 600;
         left: 32%;
         border-radius: 10px;
-    }
+    } */
     .homeBgDrk .emrgncyFrmInpt label, .darkTheme .spclistDr a{
         color: #BFC1C1 !important;
     }
@@ -14099,4 +14137,64 @@ label.attached_file a {
 }
 .lessonTitleVdo iframe, .lessonTitleVdo video.VideoPlay {
     width: 100% !important;
+}
+input#totalGpa {
+    border-radius: 4px !important;
+    border: solid 1px #f1f1f5 !important;
+    background-color: #fafafb !important;
+}
+input#graduationYear {
+    border-radius: 4px !important;
+    border: solid 1px #f1f1f5 !important;
+    background-color: #fafafb !important;
+}
+
+/* ------------------------ */
+
+.chat-contact-list-ext-wrap .contact-thumbnail-wrap img {
+    width: 32px !important;
+    height: 32px !important;
+    border-color: #e8e8e8 !important;
+}
+.ccl-left-panel-srch-inpt-wrap {
+    padding: 0px 12px;
+}
+.ccl-left-panel-srch-wrap .ccl-left-panel-srch-inpt-wrap .search-btn {
+    left: 20px !important;
+    top: 9px !important;
+}
+.ccl-left-panel-srch-inpt-wrap input#chatSearch {
+    border-radius: 8px;
+    background-color: #F2F2F2;
+    border: none !important;
+    box-shadow: none !important;
+}
+.cc1-chat-win-user .cc1-chat-win-user-thumb img {
+    width: 36px !important;
+    height: 36px !important;
+}
+.cc1-chat-win-action-msg-wrap p.chat-txt-msg {
+    color: #00ABAF !important;
+}
+.ccl-center-panel.ccl-chat-center-panel .cc1-chat-win-conver-wrap {
+    padding: 5px 35px 5px 20px !important;
+}
+.inner.CreatChatInner {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.unified .ccl-center-panel .CreatChatInner p {
+    color: #BFC1C1 !important;
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 28px;
+    text-align: center;
+    margin-bottom: 0px !important;
+}
+.contact-listitem .contact-listitem-dtls {
+    padding: 0 3px 6px !important;
 }

@@ -534,7 +534,7 @@ class Index extends Component {
                             <Grid className="meetCourse">
                                 <Grid className="meetCloseBtn">
                                     {/* <a><img src={require('../../../assets/images/threedots.jpg')} alt="" title="" /></a> */}
-                                    <a onClick={this.handleCloseMeet}><img src={require('../../../assets/images/closefancy.png')} alt="" title="" /></a>
+                                    {/* <a><img src={require('../../../assets/images/closefancy.png')} alt="" title="" /></a> */}
                                 </Grid>
                                 <Grid className="meetVdo">
                                     <Grid className="meetVdoLft">

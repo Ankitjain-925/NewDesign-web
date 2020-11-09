@@ -1175,7 +1175,7 @@ class Index extends Component {
                                             onChange={this.selectCountry}
                                             options={this.state.selectCountry}
                                             placeholder=""
-                                            isSearchable={false}
+                                            isSearchable={true}
                                             name="insurance_country"
                                             className="cntryDrop"
                                         />
@@ -1250,7 +1250,7 @@ class Index extends Component {
                                             onChange={(event) => this.updatesinsurancesCountry(editIndex, event)}
                                             options={this.state.selectCountry}
                                             placeholder=""
-                                            isSearchable={false}
+                                            isSearchable={true}
                                             name="insurance_country"
                                             className="cntryDrop"
                                         />

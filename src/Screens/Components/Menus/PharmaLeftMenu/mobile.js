@@ -142,7 +142,7 @@ class Index extends Component {
                                 <span>Emergency Access</span>
                             </a>
                         </li>
-                        <li className={this.props.currentPage==='emergency' ? "menuActv" : ""}>
+                        <li className={this.props.currentPage==='pharmajournal' ? "menuActv" : ""}>
                             <a onClick={this.PharmaEmergency}>
                             <img src={require('../../../../assets/images/ermerAccess.png')} alt="" title="" />
                             {/* {this.props.currentPage==='appointment' ? <img src={require('../../../../assets/images/appointActive.png')} alt="" title="" />

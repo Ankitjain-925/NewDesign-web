@@ -371,7 +371,7 @@ class Index extends Component {
                                             onChange={(e) => this.EntryValueName(e, 'country')}
                                             options={this.state.selectCountry}
                                             placeholder=""
-                                            isSearchable={false}
+                                            isSearchable={true}
                                             name="country"
                                             className="cntryDrop"
                                         />

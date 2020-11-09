@@ -909,8 +909,8 @@ DeleteTrack=(deletekey)=> {
                             <Grid container direction="row">
 
                                 {/* Website Menu */}
-                                <LeftMenu  isNotShow ={true} currentPage="journal" />
-                                <LeftMenuMobile isNotShow ={true}  currentPage ="journal"/>
+                                <LeftMenu  isNotShow ={true} currentPage="pharmajournal" />
+                                <LeftMenuMobile isNotShow ={true}  currentPage ="pharmajournal"/>
                                 <Notification />
                                 {/* End of Website Menu */}
 

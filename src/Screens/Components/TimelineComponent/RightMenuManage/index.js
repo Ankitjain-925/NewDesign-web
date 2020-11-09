@@ -203,7 +203,7 @@ class RightManage extends Component {
                                                     }
                                                  </li>}
                                                 {this.props.from !== 'patient' && <li><a onClick={()=>this.props.EidtOption(this.state.personalinfo.blood_pressure[0].type, this.state.personalinfo.blood_pressure[0])}><img src={require('../../../../assets/images/edit-1.svg')} alt="" title="" />{edit}</a></li>}
-                                            <li><a onClick={() => this.props.downloadTrack(this.state.personalinfo.blood_pressure[0].type, this.state.personalinfo.blood_pressure[0])}><img src={require('../../../../assets/images/download.svg')} alt="" title="" />{Download}</a></li>
+                                            <li><a onClick={() => this.props.downloadTrack(this.state.personalinfo.blood_pressure[0])}><img src={require('../../../../assets/images/download.svg')} alt="" title="" />{Download}</a></li>
                                             <li> <a onClick={()=> this.props.OpenGraph('heart_rate')}>View Graph</a></li>
                                         </ul>
                                     </a>}
