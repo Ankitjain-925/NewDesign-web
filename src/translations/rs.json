@@ -982,6 +982,18 @@
     "pharmacy_access":"Доступ в аптеку",
     "cart_removed":"Корзина успешно удалена",
     "pay_with":"Оплатить с",
-    "full_report":"Полный отчет"
+    "full_report":"Полный отчет",
+    "item_added_to_wishlist":"Товар успешно добавлен в список желаний",
+    "item_present_in_cart":"Товар уже есть в корзине",
+    "previous_lesson":"Предыдущий урок",
+    "next_lesson":"Следующий урок",
+    "rating_sent_success":"Рейтинг успешно отправлен",
+    "plz_give_rate":"Пожалуйста, дайте оценку",
+    "clear_point":"Очистить точки",
+    "language_updated":"Язык обновлен",
+    "language_not_selected":"Язык не выбран.",
+    "emergancy_dignosis":"Экстренная диагностика",
+    "trvl_diagnosis":"Диагностика путешествия",
+    "doc_name":"Имя врача"
   }
 }

@@ -82,7 +82,7 @@ class Index extends Component {
             case "default":
                 translate = translationEN.text
         }
-        let {  selct_pain_area, attachments, Problem, }= translate
+        let {  selct_pain_area, attachments, Problem, notes, pain_type, save_entry, pain_quality }= translate
         
         return (
             <div>
@@ -91,7 +91,7 @@ class Index extends Component {
                         <MMHG name="problem" label={Problem} onChange={(e) => this.props.updateEntryState(e)} value={this.state.updateTrack.problem} />
                     </Grid>
                     <Grid className="fillDia">
-                        <NotesEditor name="remarks" label="Notes" onChange={(e) => this.updateEntryState1(e, 'remarks')} value={this.state.updateTrack.remarks}/>
+                        <NotesEditor name="remarks" label={notes} onChange={(e) => this.updateEntryState1(e, 'remarks')} value={this.state.updateTrack.remarks}/>
                     </Grid>
                     <Grid className="fillDia">
                         <Grid><label>{selct_pain_area}</label></Grid>
@@ -109,17 +109,17 @@ class Index extends Component {
                         <FileUploader name="UploadTrackImageMulti" comesFrom="journal"isMulti={true} fileUpload={this.props.FileAttachMulti} />
                     </Grid>
                     <Grid className="fillDia">
-                        <SelectByTwo name="pain_type" label="Pain Type" options={this.state.options2} onChange={(e) => this.updateEntryState1(e, 'pain_type')} value={this.state.updateTrack.pain_type} />
+                        <SelectByTwo name="pain_type" label={pain_type} options={this.state.options2} onChange={(e) => this.updateEntryState1(e, 'pain_type')} value={this.state.updateTrack.pain_type} />
                     </Grid>
                     <Grid className="fillDia">
-                        <SelectField name="pain_quality" label="Pain Quality" option={this.state.options} onChange={(e) => this.updateEntryState1(e, 'pain_quality')} value={this.state.updateTrack.pain_quality} />
+                        <SelectField name="pain_quality" label={pain_quality} option={this.state.options} onChange={(e) => this.updateEntryState1(e, 'pain_quality')} value={this.state.updateTrack.pain_quality} />
                     </Grid>
                 </Grid>}
 
                 <Grid className="infoShwHidMain3upr">
                     <ShowHide date_format={this.state.date_format} value={this.state.updateTrack} onChange={(data) => this.props.GetHideShow(data)} />
                     <Grid className="infoShwSave3">
-                        <input type="submit" value="Save entry" onClick={this.props.AddTrack} />
+                        <input type="submit" value={save_entry} onClick={this.props.AddTrack} />
                     </Grid>
                 </Grid>
               

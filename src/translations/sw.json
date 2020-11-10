@@ -980,6 +980,18 @@
 		"pharmacy_access":"Ufikiaji wa Dawa",
 		"cart_removed":"Kikapu kimeondolewa kwa mafanikio",
 		"pay_with":"Lipa na",
-		"full_report":"Ripoti Kamili"
+		"full_report":"Ripoti Kamili",
+		"item_added_to_wishlist":"Kipengee kimeongezwa kwenye orodha ya matamanio",
+		"item_present_in_cart":"Bidhaa tayari iko kwenye gari",
+		"previous_lesson":"Somo lililopita",
+		"next_lesson":"Somo linalofuata",
+		"rating_sent_success":"Ukadiriaji umetumwa kwa mafanikio",
+		"plz_give_rate":"Tafadhali toa kiwango",
+		"clear_point":"Futa vidokezo",
+		"language_updated":"Lugha imesasishwa",
+		"language_not_selected":"Lugha haichaguliwi.",
+		"emergancy_dignosis":"Utambuzi wa dharura",
+		"trvl_diagnosis":"Utambuzi wa kusafiri",
+		"doc_name":"Jina la Daktari"
 	}
 }

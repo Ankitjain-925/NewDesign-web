@@ -585,7 +585,7 @@
 		"patient_data_access": "Patient Data Access",
 		"private_doc_rest": "Private Doctor Request",
 		"age": "Age",
-		"not_mentioned": "Not  mentioned",
+		"not_mentioned": "Not mentioned",
 		"openjournal": "Open Journal",
 		"personal_info": "Personal info",
 		"remove_patient": "Remove patient",
@@ -981,6 +981,18 @@
 		"pharmacy_access":"Pharmacy Access",
 		"cart_removed":"Cart removed successfully",
 		"pay_with":"Pay with",
-		"full_report":"Full Report"
+		"full_report":"Full Report",
+		"item_added_to_wishlist":"Item successfully added to wishlist",
+		"item_present_in_cart":"Item already present in cart",
+		"previous_lesson":"Previous lesson",
+		"next_lesson":"Next lesson",
+		"rating_sent_success":"Rating is sent successfully",
+		"plz_give_rate":"Please give the rate",
+		"clear_point":"Clear points",
+		"language_updated":"Language is Updated.",
+		"language_not_selected":"Language is not selected.",
+		"emergancy_dignosis":"Emergency diagnosis",
+		"trvl_diagnosis":"Travel diagnosis",
+		"doc_name":"Doctor Name"
 		}
 }

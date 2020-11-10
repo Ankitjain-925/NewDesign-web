@@ -983,6 +983,18 @@
 		"pharmacy_access":"Acesso à Farmácia",
 		"cart_removed":"Carrinho removido com sucesso",
 		"pay_with":"Pagar com",
-		"full_report":"rapportRelatório completo"
+		"full_report":"rapportRelatório completo",
+		"item_added_to_wishlist":"Item adicionado com sucesso à lista de desejos",
+		"item_present_in_cart":"Item já presente no carrinho",
+		"previous_lesson":"Lição anterior",
+		"next_lesson":"Próxima lição",
+		"rating_sent_success":"Avaliação enviada com sucesso",
+		"plz_give_rate":"Por favor, dê a taxa",
+		"clear_point":"Pontos claros",
+		"language_updated":"O idioma é atualizado",
+		"language_not_selected":"O idioma não foi selecionado.",
+		"emergancy_dignosis":"Diagnóstico de emergência",
+		"trvl_diagnosis":"Diagnóstico de viagens",
+		"doc_name":"Nome do Médico"
 	}
 }

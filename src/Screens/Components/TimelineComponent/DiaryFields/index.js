@@ -73,20 +73,20 @@ class Index extends Component {
             case "default":
                 translate = translationEN.text
         }
-        let {}= translate
+        let {save_entry,notes}= translate
         
         return (
             <div>
                 {!this.props.visibility && <Grid className="cnfrmDiaMain">
                     <Grid className="fillDia">
-                        <NotesEditor name="free_text" label="Notes"  onChange={(e)=> this.updateEntryState1(e, 'free_text')} value={this.state.updateTrack.free_text}/> 
+                        <NotesEditor name="free_text" label={notes}  onChange={(e)=> this.updateEntryState1(e, 'free_text')} value={this.state.updateTrack.free_text}/> 
                     </Grid>
                 </Grid>}
                 <Grid className="infoShwHidMain3upr">
                     
                 <ShowHide date_format= {this.state.date_format} value={this.state.updateTrack} onChange={(data) => this.props.GetHideShow(data)}/>
                     <Grid className="infoShwSave3">
-                        <input type="submit" value="Save entry" onClick={this.props.AddTrack}/>
+                        <input type="submit" value={save_entry} onClick={this.props.AddTrack}/>
                     </Grid>
                 </Grid>
             </div>

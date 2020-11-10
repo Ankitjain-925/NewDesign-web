@@ -1,7 +1,14 @@
 import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
 import $ from "jquery";
-
+import * as translationEN from "../../../translations/en.json"
+import * as translationDE from '../../../translations/de.json';
+import * as translationPT from '../../../translations/pt.json';
+import * as translationSP from '../../../translations/sp.json';
+import * as translationRS from '../../../translations/rs.json';
+import * as translationSW from '../../../translations/sw.json';
+import * as translationCH from '../../../translations/ch.json';
+import * as translationNL from '../../../translations/en.json';
 
 class PointPain extends Component {
     constructor(props) {
@@ -99,6 +106,36 @@ class PointPain extends Component {
     }
 
     render() {
+        let translate;
+        switch (this.props.stateLanguageType) {
+            case "en":
+                translate = translationEN.text
+                break;
+            case "de":
+                translate = translationDE.text
+                break;
+            case "pt":
+                translate = translationPT.text
+                break;
+            case "sp":
+                translate = translationSP.text
+                break;
+            case "rs":
+                translate = translationRS.text
+                break;
+            case "nl":
+                translate = translationNL.text
+                break;
+            case "ch":
+                translate = translationCH.text
+                break;
+            case "sw":
+                translate = translationSW.text
+                break;
+            case "default":
+                translate = translationEN.text
+        }
+        let { clear_point } = translate;
         return (
             <Grid className="rrSysto">
                 <Grid><label>{this.state.label}</label></Grid>
@@ -115,7 +152,7 @@ class PointPain extends Component {
                         {/* <img src={require('../../../assets/images/persionPainEqual.svg')} alt="" title="" /> */}
                     </a>
                     {/* <a className="painAreasimg"><img src={require('../../../assets/images/patient-back.svg')} alt="" title="" /></a> */}
-                    {!this.state.isView && <a className="painAreasTxt" onClick={this.removedata}><img src={require('../../../assets/images/eraser.svg')} alt="" title="" />Clear points</a>}
+                    {!this.state.isView && <a className="painAreasTxt" onClick={this.removedata}><img src={require('../../../assets/images/eraser.svg')} alt="" title="" />{clear_point}</a>}
                 </Grid>
             </Grid>
         )

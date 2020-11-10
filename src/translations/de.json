@@ -982,6 +982,19 @@
 		"pharmacy_access":"Apothekenzugang",
 		"cart_removed":"Warenkorb erfolgreich entfernt",
 		"pay_with":"Bezahlen mit",
-		"full_report":"Kompletter Bericht"
+		"full_report":"Kompletter Bericht",
+		"item_added_to_wishlist":"Artikel erfolgreich zur Wunschliste hinzugefügt",
+		"item_present_in_cart":"Artikel bereits im Warenkorb vorhanden",
+		"previous_lesson":"Vorherige Lektion",
+		"next_lesson":"Nächste Lektion",
+		"rating_sent_success":"Bewertung wird erfolgreich gesendet",
+		"plz_give_rate":"Bitte geben Sie den Preis an",
+		"clear_point":"Klare Punkte",
+		"language_updated":"Die Sprache wird aktualisiert",
+		"language_not_selected":"Sprache ist nicht ausgewählt.",
+		"emergancy_dignosis":"Notfalldiagnose",
+		"trvl_diagnosis":"Reisediagnose",
+		"doc_name":"Name des Arztes"
+		
 	}
 }

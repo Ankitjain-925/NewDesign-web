@@ -1492,6 +1492,18 @@
 		"pharmacy_access":"Apotheek Toegang",
 		"cart_removed":"Winkelwagen succesvol verwijderd",
 		"pay_with":"Betaal met",
-		"full_report":"Volledig rapport"
+		"full_report":"Volledig rapport",
+		"item_added_to_wishlist":"Item succesvol toegevoegd aan verlanglijst",
+		"item_present_in_cart":"Artikel is al aanwezig in winkelwagen",
+		"previous_lesson":"Vorige les",
+		"next_lesson":"Volgende les",
+		"rating_sent_success":"Beoordeling is succesvol verzonden",
+		"plz_give_rate":"Geef het tarief op",
+		"clear_point":"Duidelijke punten",
+		"language_updated":"Taal is bijgewerkt",
+		"language_not_selected":"Taal is niet geselecteerd.",
+		"emergancy_dignosis":"Nood diagnose",
+		"trvl_diagnosis":"Reisdiagnose",
+		"doc_name":"Naam arts"
 	}
 }

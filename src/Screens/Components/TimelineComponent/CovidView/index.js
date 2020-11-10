@@ -85,7 +85,7 @@ class Index extends Component {
           let { selct_pain_area, attachments, O2Saturation, Whereyouarelocated, symp_notes,
             visible,feeling, show, date, time, hide, until, archive, temparture,
          edit, Delete, RR_diastolic, heart_rate,always, Download,
-            Change, Location, visibility,de_archive,covid_diary, pain_areas, } = translate
+            Change, Location, visibility,de_archive,covid_diary, pain_areas, not_mentioned } = translate
         var item = this.state.item;
         return (
             <Grid container direction="row" className="descpCntnt">
@@ -102,7 +102,7 @@ class Index extends Component {
                             </Grid>
                             <Grid item xs={12} md={6}>
                                 <Grid className="bp_vsblSec scndOptionIner1">
-                                    <a onClick={()=>this.props.EidtOption(item.type, item, true)} className="bp_vsblEye"><img src={require('../../../../assets/images/eye2.png')} alt="" title="" /> {item.visible === 'show' ?<span>{visible}</span> : item.visible=== 'hide' ? <span>{hide}</span> : <span>Not mentioned</span>}    </a>
+                                    <a onClick={()=>this.props.EidtOption(item.type, item, true)} className="bp_vsblEye"><img src={require('../../../../assets/images/eye2.png')} alt="" title="" /> {item.visible === 'show' ?<span>{visible}</span> : item.visible=== 'hide' ? <span>{hide}</span> : <span>{not_mentioned}</span>}    </a>
                                     <a className="vsblTime" data-tip data-for={item.track_id + 'visibility'}>
                                         <img src={require('../../../../assets/images/clock.svg')} alt="" title="" />
                                     </a>s
