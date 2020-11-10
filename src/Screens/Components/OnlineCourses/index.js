@@ -443,7 +443,7 @@ class Index extends Component {
                                     <a><img src={require('../../../../assets/images/vote-star-filled.svg')} alt="" title="" /></a>
                                     <a><img src={require('../../../../assets/images/vote-star-filled.svg')} alt="" title="" /></a>
                                     <a><img src={require('../../../../assets/images/vote-star-half.svg')} alt="" title="" /></a> */}
-                                    <span>{item.courseContent && item.courseContent.average}<a>({item.courseContent && item.courseContent.count})</a></span>
+                                    <span>{item.courseContent && item.courseContent.average}<a>{item.courseContent && '(' + item.courseContent.count+')'}</a></span>
                                             </Grid>
                                             <Grid className="wshCorPrice"><label>{item.price} €</label></Grid>
                                             <Grid className="nwWshCrtUpr">
@@ -500,7 +500,7 @@ class Index extends Component {
                                     <a><img src={require('../../../../assets/images/vote-star-filled.svg')} alt="" title="" /></a>
                                     <a><img src={require('../../../../assets/images/vote-star-filled.svg')} alt="" title="" /></a>
                                     <a><img src={require('../../../../assets/images/vote-star-half.svg')} alt="" title="" /></a> */}
-                                    <span>{item.courseContent && item.courseContent.average}<a>({item.courseContent && item.courseContent.count})</a></span>
+                                    <span>{item.courseContent && item.courseContent.average}<a>{item.courseContent && '('+item.courseContent.count+')'}</a></span>
                                             </Grid>
                                             <Grid container direction="row" alignItems="center">
                                                 <Grid item xs={6} md={6}>

@@ -57,6 +57,14 @@ class Date extends Component {
                     case "weight_bmi":
                         weight_bmi.push((data.weight / (data.height * data.height) * 10000).toFixed(2)+ ' BMI')
                         break;
+                    case "anamnesis":
+                        anamnesis.push(data.remarks)
+                    case "smoking_status":
+                        smoking_status.push(data.smoking_status.label)
+                    case "family_anamnesis":
+                        anamnesis.push(data.disease_name +' - '+data.relation)
+                    case "diary":
+                        anamnesis.push(data.free_text)
                     case "default":
                         break;
                                 

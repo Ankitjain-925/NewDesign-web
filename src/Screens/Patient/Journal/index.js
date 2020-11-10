@@ -727,7 +727,6 @@ class Index extends Component {
             }
         })
             .then((response) => {
-                console.log('response.data.data', response.data.data)
                 this.setState({ personalinfo: response.data.data })
             })
     }

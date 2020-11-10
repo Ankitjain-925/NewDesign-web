@@ -480,9 +480,9 @@ class Index extends Component {
                                         <Grid className="attchForms attchImg">
                                             <Grid><label>{attachments}</label></Grid>
                                             <label class="attached_file">{attached_doc} -
-                                            {opinionData && opinionData.attachfile && opinionData.attachfile.map((items) => (
-                                                <a>{items.filename && (items.filename.split('Trackrecord/')[1]).split("&bucket=")[0]}</a>
-                                            ))}
+                                            {opinionData && opinionData.attachfile && 
+                                                <a>{opinionData.attachfile.filename && (opinionData.attachfile.filename.split('Trackrecord/')[1]).split("&bucket=")[0]}</a>
+                                            }
                                             </label>
                                             <Grid className="scamUPInput">
                                                 <a><img src={require('../../../../assets/images/upload-file.svg')} alt="" title="" /></a>
