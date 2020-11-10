@@ -147,14 +147,12 @@ class Date extends Component {
               case "default":
                   translate = translationEN.text
           }
-          let { download_journal_report } = translate;
+          let { full_report } = translate;
         return (
-            <div className="AddEntrynw">
-                 {this.state.loaderImage && <Loader />}
-               <a onClick={()=>{this.downloadTrack()}}>
-                   {/* {/* <img src={require('../../../assets/images/download.svg')} alt="" title="" />  */}
-                  {download_journal_report}</a> 
-            </div>
+            <a onClick={()=>{this.downloadTrack()}}>
+            {this.state.loaderImage && <Loader />}
+             <img src={require('../../../assets/images/download.svg')} alt="" title="" />  {full_report}
+         </a>
         )
     }
 }

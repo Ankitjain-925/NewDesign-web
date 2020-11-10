@@ -211,8 +211,10 @@ getUpcomingAppointment() {
     }
 
     handleOpenFancyVdo = (i, type, data) => {
+
+        console.log('heeee')
         this.setState({ openFancyVdo: true, appointmentData: data, doc_select: i, appointType: type });
-        setTimeout(this.onChange, 5000)
+        // setTimeout(this.onChange, 5000)
         // this.onChange()
     };
     handleCloseFancyVdo = () => {
@@ -781,7 +783,7 @@ getUpcomingAppointment() {
                                             </a>
                                             <Grid className="selCalenderUpr">
                                                 <Grid className="selCalender">
-                                                    <Calendar2 onChange={this.onChange} value={this.state.date} />
+                                                    <Calendar2 onChange={(e)=>this.onChange(e)} value={this.state.date} />
                                                 </Grid>
                                                 <Grid className="selTimeSlot" >
                                                     <Grid><label>{slct_time_slot}</label></Grid>

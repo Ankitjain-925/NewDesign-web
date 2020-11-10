@@ -721,7 +721,8 @@ setTimeout(()=> {
                 insuranceDetails: { insurance: '', insurance_number: '', insurance_type: '' }
             })
             datas = this.state.UpDataDetails.insurance;
-
+            var find =response.data && response.data.data &&response.data.data.image
+            this.SettingImage(find);
             this.setState({ loaderImage: false });
         }).catch((error) => {
             this.setState({ loaderImage: false });

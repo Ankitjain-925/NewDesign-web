@@ -108,7 +108,7 @@ class Index extends Component {
                         <Condition name="conditions" onChange={(e) => this.props.updateEntryState(e)} value={this.state.updateTrack.conditions} />
                     </Grid>
                     <Grid className="fillDia">
-                        <SelectField name="country" label={Whereyouarelocated} option={this.state.options} onChange={(e) => this.updateEntryState1(e, 'country')} value={this.state.updateTrack.country} />
+                        <SelectField isSearchable={true} name="country" label={Whereyouarelocated} option={this.state.options} onChange={(e) => this.updateEntryState1(e, 'country')} value={this.state.updateTrack.country} />
                     </Grid>
                     <Grid className="fillDia">
                         <NotesEditor name="symptoms" label={symp_notes} onChange={(e) => this.updateEntryState1(e, 'symptoms')} value={this.state.updateTrack.symptoms} />

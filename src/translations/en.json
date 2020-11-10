@@ -980,6 +980,7 @@
 		"invite_doc":"Invite Doctors",
 		"pharmacy_access":"Pharmacy Access",
 		"cart_removed":"Cart removed successfully",
-		"pay_with":"Pay with"
+		"pay_with":"Pay with",
+		"full_report":"Full Report"
 		}
 }

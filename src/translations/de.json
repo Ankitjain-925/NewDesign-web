@@ -981,6 +981,7 @@
 		"invite_doc":"Ärzte einladen",
 		"pharmacy_access":"Apothekenzugang",
 		"cart_removed":"Warenkorb erfolgreich entfernt",
-		"pay_with":"Bezahlen mit"
+		"pay_with":"Bezahlen mit",
+		"full_report":"Kompletter Bericht"
 	}
 }

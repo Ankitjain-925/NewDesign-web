@@ -982,6 +982,7 @@
 		"invite_doc":"Convide Médicos",
 		"pharmacy_access":"Acesso à Farmácia",
 		"cart_removed":"Carrinho removido com sucesso",
-		"pay_with":"Pagar com"
+		"pay_with":"Pagar com",
+		"full_report":"rapportRelatório completo"
 	}
 }

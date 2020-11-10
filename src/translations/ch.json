@@ -981,6 +981,7 @@
 		"invite_doc":"邀请医生",
 		"pharmacy_access":"药房访问",
 		"cart_removed":"购物车已成功移除",
-		"pay_with":"使用。。。支付"
+		"pay_with":"使用。。。支付",
+		"full_report":"完整报告"
 	}
 }

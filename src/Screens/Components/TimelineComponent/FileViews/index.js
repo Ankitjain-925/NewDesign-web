@@ -11,7 +11,8 @@ class Index extends Component {
             attachfile : this.props.attachfile,
             crnt_img : false,
             openPopup : false,
-            cnrttype : false
+            cnrttype : false,
+            images: this.props.images
         };
     }
 
@@ -26,6 +27,7 @@ class Index extends Component {
     }
 
     OpenFile = (image)=>{
+        console.log('images',image, this.state.images)
         image = getImage(image, this.state.images)
         this.setState({openPopup: true, crnt_img: image, cnrttype : (image.split("&bucket=")[0]).split('.').pop() })
     }

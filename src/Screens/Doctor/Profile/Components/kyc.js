@@ -255,7 +255,7 @@ class Index extends Component {
         }
         data.attachment = attachment;
         if (this.state.CreateKYC && this.state.CreateKYC.country && this.state.CreateKYC.country !== '' && this.state.CreateKYC.number !== '' && this.state.CreateKYC.number && this.state.CreateKYC.authority && this.state.CreateKYC.authority !== '') {
-            if (data.attachment && data.attachment.length > 0) {
+            // if (data.attachment && data.attachment.length > 0) {
                 if (this.state.agree) {
                     this.setState({ loaderImage: true, err_document: false, allField: false })
                     if (data._id) {
@@ -295,8 +295,8 @@ class Index extends Component {
                     }
                 }
                 else { this.setState({ err1: true, err_document: false, allField: false }) }
-            }
-            else { this.setState({ err_document: true, err1: false, allField: false }) }
+            // }
+            // else { this.setState({ err_document: true, err1: false, allField: false }) }
         }
         else { this.setState({ allField: true }) }
 
