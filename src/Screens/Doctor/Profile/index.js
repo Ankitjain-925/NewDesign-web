@@ -18,7 +18,7 @@ import Typography from '@material-ui/core/Typography';
 
 
 import "react-toggle/style.css";
-
+import Timezone from './../../../timezon.json';
 import LeftMenu from './../../Components/Menus/DoctorLeftMenu/index';
 import LeftMenuMobile from './../../Components/Menus/DoctorLeftMenu/mobile';
 import MyProfile from './Components/myProfile.js';
@@ -86,7 +86,7 @@ class Index extends Component {
         axios.get(sitedata.data.path + '/UserProfile/Metadata')
             .then((responce) => {
                 if (responce && responce.data && responce.data.length > 0) {
-                    var tissue = [], dates = [], times = [];
+                    var tissue = [], dates = [], times = [], zones=[];
                     {
                         responce.data[0].tissue && responce.data[0].tissue.length > 0 && responce.data[0].tissue.map(
                             (item) => { tissue.push({ label: item.title, value: item.value }) })
@@ -99,11 +99,15 @@ class Index extends Component {
                         responce.data[0].times && responce.data[0].times.length > 0 && responce.data[0].times.map(
                             (item) => { times.push({ label: item.title, value: item.value }) })
                     }
+                    {
+                        Timezone && Timezone.length > 0 && Timezone.map(
+                            (item) => { zones.push({ label: item.text, value: item.value }) })
+                    }
                     this.setState({
                         tissue: tissue,
                         dates: dates,
                         times: times,
-                        timezones : responce.data[0].timezones 
+                        timezones : zones
                     });
                 }
             })

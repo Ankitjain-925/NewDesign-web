@@ -6,6 +6,7 @@ import FileViews from  './../FileViews/index';
 import { getDate, newdate, getTime, getImage } from './../../BasicMethod/index';
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
+import DownloadFullTrack from './../../DownloadFullTrack/index.js';
 import { LanguageFetchReducer } from '../../../actions';
 import * as translationEN from "../../../../translations/en.json"
 import * as translationDE from '../../../../translations/de.json';
@@ -26,6 +27,7 @@ class Index extends Component {
             archive: this.props.archive,
             loggedinUser: this.props.loggedinUser,
             images: this.props.images,
+            TrackRecord: this.props.TrackRecord
         };
     }
 
@@ -38,6 +40,10 @@ class Index extends Component {
         if(prevProps.images !== this.props.images)
         {
             this.setState({ images: this.props.images})
+        }
+        if(prevProps.TrackRecord !== this.props.TrackRecord)
+        {
+            this.setState({ TrackRecord: this.props.TrackRecord})
         }
     }
 
@@ -114,7 +120,9 @@ class Index extends Component {
                                                     }
                                                  </li>}
                                                 {this.props.comesfrom !== 'patient' && <li><a onClick={()=>this.props.EidtOption(item.type, item)}><img src={require('../../../../assets/images/edit-1.svg')} alt="" title="" />{edit}</a></li>}
+                                               
                                             <li><a onClick={() => this.props.downloadTrack(item)}><img src={require('../../../../assets/images/download.svg')} alt="" title="" />{Download}</a></li>
+                                            <li><DownloadFullTrack TrackRecord={this.state.TrackRecord}/></li>
                                             <li><a onClick={(deleteKey) => this.props.DeleteTrack(item.track_id)}><img src={require('../../../../assets/images/cancel-request.svg')} alt="" title="" />{Delete}</a></li>
                                         </ul> :
                                             <ul>

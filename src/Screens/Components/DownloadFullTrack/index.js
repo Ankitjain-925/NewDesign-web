@@ -110,13 +110,12 @@ class Date extends Component {
     }
     
     render() {
-        return (
-            <div className="AddEntrynw">
-                 {this.state.loaderImage && <Loader />}
-               <a onClick={()=>{this.downloadTrack()}}>
-                   {/* {/* <img src={require('../../../assets/images/download.svg')} alt="" title="" />  */}
-                  DOWNLOAD JOURNAL REPORT</a> 
-            </div>
+        return ( 
+            <a onClick={()=>{this.downloadTrack()}}>
+               {this.state.loaderImage && <Loader />}
+                <img src={require('../../../assets/images/download.svg')} alt="" title="" />  Full Report
+            </a> 
+           
         )
     }
 }

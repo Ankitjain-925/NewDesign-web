@@ -11,6 +11,7 @@ class SelectField extends Component {
             name : this.props.name,
             option : this.props.option,  
             isMulti : this.props.isMulti,
+            isSearchable: this.props.isSearchable,
             closeMenuOnSelect : this.props.closeMenuOnSelect,
         };
     }
@@ -34,7 +35,7 @@ class SelectField extends Component {
                     options={this.state.option}
                     placeholder="Select"
                     onChange={(e) => this.onSelectChange(e, this.state.name)}
-                    isSearchable={false}
+                    isSearchable={this.state.isSearchable ? true : false}
                     isMulti={this.state.isMulti}
                     closeMenuOnSelect={this.state.closeMenuOnSelect}
                 />

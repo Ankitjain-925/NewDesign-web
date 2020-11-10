@@ -6,6 +6,7 @@ import { Settings } from './../../Login/setting';
 // import { Doctorset } from '../../Doctor/actions';
 // import { filterate } from '../../Doctor/filteraction';
 import { withRouter } from "react-router-dom";
+import Loader from './../../Components/Loader/index.js';
 import { LanguageFetchReducer } from './../../actions';
 import Modal from '@material-ui/core/Modal';
 import sitedata from './../../../sitedata';
@@ -100,6 +101,7 @@ class Index extends Component {
                     setTimeout(
                         function () {
                             this.setState({ sentmessages: false });
+                            this.handleCloseInvt();
                         }
                             .bind(this),
                         3000
@@ -127,6 +129,11 @@ class Index extends Component {
     }
 
     handleChange = (value, actionMeta) => {
+        var value = value;
+        if(value && value.target.value && typeof value.target.value ==="string"){
+            value = [...this.state.value, {label: value.target.value, value: value.target.value}];
+        }
+      
         var state = this.state.invitation;
         if (value) {
             value.map(data => {
@@ -152,6 +159,23 @@ class Index extends Component {
         if (!inputValue) return;
         switch (event.key) {
             case 'Enter':
+                if (this.validateEmail(inputValue)) {
+                    var state = this.state.invitation;
+                    if (state['emails']) { state['emails'] = [...state['emails'], ...[inputValue]] }
+                    else { state['emails'] = [inputValue] };
+
+                    this.setState({
+                        invitation: state,
+                        nv: false,
+                        inputValue: '',
+                        value: [...value, createOption(inputValue)],
+                        emailMissing: false
+                    });
+                }
+                else {
+                    this.setState({ nv: true })
+                }
+                event.preventDefault();
             case 'Tab':
                 if (this.validateEmail(inputValue)) {
                     var state = this.state.invitation;
@@ -221,6 +245,7 @@ class Index extends Component {
 
         return (
             <Grid item xs={12} md={1} className="MenuLeftUpr ">
+               {this.state.loaderImage && <Loader />}
                 <Modal
                     open={openInvt}
                     onClose={this.handleCloseInvt}
@@ -234,7 +259,7 @@ class Index extends Component {
                             </Grid>
                             {this.state.emailMissing && <div className="err_message"> {Enteremailfirst}</div>}
                             {this.state.messageMissing && <div className="err_message"> {Entermessage}</div>}
-                            {this.state.success && <div className="success_message">{Invitationsuccessfully}</div>}
+                            {this.state.sentmessages && <div className="success_message">{Invitationsuccessfully}</div>}
                             <Grid><label>{invite_doc_to} Aimedis</label></Grid>
                             <p>{u_can_enter_mul_email}</p>
                         </Grid>
@@ -250,6 +275,7 @@ class Index extends Component {
                                         menuIsOpen={false}
                                         onChange={this.handleChange}
                                         onInputChange={this.handleInputChange}
+                                        onBlur={this.handleChange}
                                         onKeyDown={this.handleKeyDown}
                                         placeholder="Type emails and press enter or tabs"
                                         value={value}
