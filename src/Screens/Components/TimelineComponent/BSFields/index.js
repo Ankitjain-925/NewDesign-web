@@ -78,7 +78,7 @@ class Index extends Component {
             case "default":
                 translate = translationEN.text
         }
-        let { blood_sugar, Hba1c, situation, attachments, time_measure, date_measure, }= translate
+        let { blood_sugar, Hba1c, situation, attachments, time_measure, date_measure, save_entry }= translate
         
         return (
             <div>
@@ -116,7 +116,7 @@ class Index extends Component {
                     
                 <ShowHide date_format= {this.state.date_format} value={this.state.updateTrack} onChange={(data) => this.props.GetHideShow(data)}/>
                     <Grid className="infoShwSave3">
-                        <input type="submit" value="Save entry" onClick={this.props.AddTrack}/>
+                        <input type="submit" value={save_entry} onClick={this.props.AddTrack}/>
                     </Grid>
                 </Grid>
             </div>

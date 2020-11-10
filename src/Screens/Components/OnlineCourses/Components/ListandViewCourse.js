@@ -9,7 +9,14 @@ import Iframeview from '../../FrameUse/index';
 import { ConsoleCustom } from '../../BasicMethod/index';
 import axios from 'axios';
 import sitedata from './../../../../sitedata';
-
+import * as translationEN from "../../../../translations/en.json"
+import * as translationDE from '../../../../translations/de.json';
+import * as translationPT from '../../../../translations/pt.json';
+import * as translationSP from '../../../../translations/sp.json';
+import * as translationRS from '../../../../translations/rs.json';
+import * as translationSW from '../../../../translations/sw.json';
+import * as translationCH from '../../../../translations/ch.json';
+import * as translationNL from '../../../../translations/en.json';
 class Index extends Component {
     constructor(props) {
        super(props);
@@ -56,11 +63,42 @@ class Index extends Component {
     }
 
     render() {
+        let translate;
+        switch (this.props.stateLanguageType) {
+            case "en":
+                translate = translationEN.text
+                break;
+            case "de":
+                translate = translationDE.text
+                break;
+            case "pt":
+                translate = translationPT.text
+                break;
+            case "sp":
+                translate = translationSP.text
+                break;
+            case "rs":
+                translate = translationRS.text
+                break;
+            case "nl":
+                translate = translationNL.text
+                break;
+            case "ch":
+                translate = translationCH.text
+                break;
+            case "sw":
+                translate = translationSW.text
+                break;
+            case "default":
+                translate = translationEN.text
+        }
+        let { previous_lesson, next_lesson, item_added_to_wishlist, all_course, my_course, topic_all, language_eng, wishlist, prescriptions, appointments, cart_removed, chat_vdocall, pharmacy_access, remove, lectures, add_to_cart, cart, capab_Patients, Inquiries, emegancy_access, archive, more, my_profile, invite_doc,pharma_prescription, online_course, profile_setting, Language,
+            DarkMode, logout } = translate;
         return (
             <Grid className="courseCntent">
                 <Grid container direction="row">
                     <Grid item xs={12} md={3} className="myCoursesOnline">
-                        <Grid className="myCoursesBck"><p><a><img onClick={this.BackButton} src={require('../../../../assets/images/ar1.png')} alt="" title="" />My Courses</a></p></Grid>
+                        <Grid className="myCoursesBck"><p><a><img onClick={this.BackButton} src={require('../../../../assets/images/ar1.png')} alt="" title="" />{my_course}</a></p></Grid>
                         <Grid className="whtDiabts"><h3>{this.state.Course.courseTitle}</h3></Grid>
                         <Grid className="videoTitle">
                             <ul>
@@ -93,10 +131,10 @@ class Index extends Component {
                             
                             <Grid container direction="row" alignItems="center">
                                 <Grid item xs={6} md={6} className="prevLesson">
-                                    {this.state.CurrentIndex > 0 &&<a onClick={()=>this.ChangeIndex(this.state.CurrentIndex-1)}>Previous lesson</a>}
+                                    {this.state.CurrentIndex > 0 &&<a onClick={()=>this.ChangeIndex(this.state.CurrentIndex-1)}>{previous_lesson}</a>}
                                 </Grid>
                                 <Grid item xs={6} md={6} className="nxtLesson">
-                                    {this.state.CurrentIndex < this.state.NextButton && <a onClick={()=>this.ChangeIndex(this.state.CurrentIndex+1)}>Next lesson</a>}
+                                    {this.state.CurrentIndex < this.state.NextButton && <a onClick={()=>this.ChangeIndex(this.state.CurrentIndex+1)}>{next_lesson}</a>}
                                 </Grid>
                             </Grid>
                         </Grid>

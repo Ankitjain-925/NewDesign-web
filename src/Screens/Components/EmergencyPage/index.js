@@ -7,6 +7,14 @@ import { Settings } from './../../Login/setting';
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { LanguageFetchReducer } from './../../actions';
+import * as translationEN from "../../../translations/en.json";
+import * as translationDE from '../../../translations/de.json';
+import * as translationPT from '../../../translations/pt.json';
+import * as translationSP from '../../../translations/sp.json';
+import * as translationRS from '../../../translations/rs.json';
+import * as translationSW from '../../../translations/sw.json';
+import * as translationCH from '../../../translations/ch.json';
+import * as translationNL from '../../../translations/en.json';
 import { EmergencySet } from '../../Doctor/emergencyaction';
 import { ConsoleCustom, getSpec } from './../../Components/BasicMethod/index'
 import axios from 'axios';
@@ -338,6 +346,36 @@ class Index extends Component {
         this.allemergencyrecord();
     }
     render() {
+        let translate;
+        switch (this.props.stateLanguageType) {
+              case "en":
+                  translate = translationEN.text
+                  break;
+              case "de":
+                  translate = translationDE.text
+                  break;
+              case "pt":
+                  translate = translationPT.text
+                  break;
+              case "sp":
+                  translate = translationSP.text
+                  break;
+              case "rs":
+                  translate = translationRS.text
+                  break;
+              case "nl":
+                  translate = translationNL.text
+                  break;
+              case "ch":
+                  translate = translationCH.text
+                  break;
+              case "sw":
+                  translate = translationSW.text
+                  break;
+              case "default":
+                  translate = translationEN.text
+          }
+          let { another_patient_data, ur_emrgancy_access, patient_emrgancy_access, health_status, Medications, No, allergies, diagnosis, contact_other_info, family_doc, Contact, Register_Name, relation, phone, email, organ_donar_status, not_an_organ, emergency, telephone_nmbr } = translate;
         return (
             <Grid container direction="row">
                 {this.state.loaderImage && <Loader />}
@@ -351,11 +389,11 @@ class Index extends Component {
                             
                                 <Grid container direction="row">
                                     <Grid item xs={6} md={6}>
-                                        {this.props.byUser==='patient' ? <h1>Your Emergency Access</h1> : <h1>Patient Emergency Access</h1>}
+                                        {this.props.byUser==='patient' ? <h1>{ur_emrgancy_access}</h1> : <h1>{patient_emrgancy_access}</h1>}
                                     </Grid>
                                     <Grid item xs={6} md={6}>
                                         <Grid className="AddEntrynw">
-                                        {this.props.byUser==='patient' ? '' :  <a onClick={this.props.anotherPatient}>Another patient's Data</a>}
+                                        {this.props.byUser==='patient' ? '' :  <a onClick={this.props.anotherPatient}>{another_patient_data}</a>}
                                             
                                         </Grid>
                                     </Grid>
@@ -364,41 +402,41 @@ class Index extends Component {
                             </Grid>
                         </Grid>
                     </Grid>
-                        <h2>Health Status</h2>
+                        <h2>{health_status}</h2>
                         <Grid container direction="row" spacing={3}>
                             <Grid item xs={12} md={4}>
                                 <Grid className="medicalNotify">
                                     <Grid className="medicalLabl">
-                                        <label>Medications</label>
+                                        <label>{Medications}</label>
                                     </Grid>
                                     <Grid className="medicalDesp">
                                         {this.state.mediacationdata && this.state.mediacationdata.length > 0 ? this.state.mediacationdata.map((item, index) => (
                                             <p><a>{item.substance}</a></p>
-                                        )) : <p>No medications</p>}
+                                        )) : <p>{No} {Medications}</p>}
                                     </Grid>
                                 </Grid>
                             </Grid>
                             <Grid item xs={12} md={4}>
                                 <Grid className="medicalNotify">
                                     <Grid className="medicalLabl">
-                                        <label>Allergies</label>
+                                        <label>{allergies}</label>
                                     </Grid>
                                     <Grid className="medicalDesp">
                                         {this.state.allergydata && this.state.allergydata.length > 0 ? this.state.allergydata.map((item, index) => (
                                             <p><a>{item.diagnosis}</a></p>
-                                        )) : <p>No Allegies</p>}
+                                        )) : <p>{No} {allergies}</p>}
                                     </Grid>
                                 </Grid>
                             </Grid>
                             <Grid item xs={12} md={4}>
                                 <Grid className="medicalNotify">
                                     <Grid className="medicalLabl">
-                                        <label>Diagnoses</label>
+                                        <label>{diagnosis}</label>
                                     </Grid>
                                     <Grid className="medicalDesp">
                                         {this.state.diagnosisdata && this.state.diagnosisdata.length > 0 ? this.state.diagnosisdata.map((item, index) => (
                                             <p><a>{item.diagnosis}</a></p>
-                                        )) : <p>No diagnosis</p>}
+                                        )) : <p>{No} {diagnosis}</p>}
                                     </Grid>
                                 </Grid>
                             </Grid>
@@ -408,7 +446,7 @@ class Index extends Component {
 
                     {/* Contacts & Other info */}
                     <Grid className="otherInfo">
-                        <h2>Contacts & Other info</h2>
+                        <h2>{contact_other_info}</h2>
                         <Grid container direction="row" spacing={3}>
 
                             <Grid item xs={12} md={4}>
@@ -416,7 +454,7 @@ class Index extends Component {
                                     <Grid className="docCntct">
                                         <Grid container direction="row">
                                             <Grid item xs={6} md={7} className="docCntctLft">
-                                                <label>Family Doctor</label>
+                                                <label>{family_doc}</label>
                                             </Grid>
                                             <Grid item xs={6} md={5} className="docCntctRght">
                                                 {this.props.byUser==='patient' && <a onClick={() => { this.setState({ EditFamily: true }) }}><img src={require('../../../assets/images/edit.svg')} alt="" title="" /></a>}
@@ -439,7 +477,7 @@ class Index extends Component {
                                                 </Grid>
                                             </Grid>
                                         </div>))
-                                        : <p>No Family Doctor</p>
+                                        : <p>{No} {family_doc}</p>
                                         : <DoctorSection className="paddingSides" EditFamilyDoc={this.EditFamilyDoc} comesFrom='emergency' />}
                                 </Grid>
                             </Grid>
@@ -449,7 +487,7 @@ class Index extends Component {
                                     <Grid className="docCntct">
                                         <Grid container direction="row">
                                             <Grid item xs={6} md={7} className="docCntctLft">
-                                                <label>Emergency Contact</label>
+                                                <label>{emergency} {Contact}</label>
                                             </Grid>
                                             <Grid item xs={6} md={5} className="docCntctRght">
                                             {this.props.byUser==='patient' && <a onClick={() => this.setState({ edit_contact: true, })}><img src={require('../../../assets/images/edit.svg')} alt="" title="" /></a>}
@@ -468,18 +506,18 @@ class Index extends Component {
                                             </Grid>
                                         </div>
                                     }
-                                    {!this.state.contact_partner && !this.state.edit_contact && <p>No Family Doctor</p>}
+                                    {!this.state.contact_partner && !this.state.edit_contact && <p>{No} {family_doc}</p>}
                                     {this.state.edit_contact && <Grid className="emrgncyFrm">
                                         <Grid className="emrgncyFrmInpt">
-                                            <Grid><label>Name</label></Grid>
+                                            <Grid><label>{Register_Name}</label></Grid>
                                             <Grid><input type="text" name="name" value={this.state.contact_partner.name} onChange={this.contact_partnerState} /></Grid>
                                         </Grid>
                                         <Grid className="emrgncyFrmInpt">
-                                            <Grid><label>Relation</label></Grid>
+                                            <Grid><label>{relation}</label></Grid>
                                             <Grid><input name="relation" value={this.state.contact_partner.relation} onChange={this.contact_partnerState} /></Grid>
                                         </Grid>
                                         <Grid className="emrgncyFrmInpt">
-                                            <Grid><label>Telephone number</label></Grid>
+                                            <Grid><label>{telephone_nmbr}</label></Grid>
                                             <Grid>
                                                 {/* <PhoneInput
                                                 country={'us'}
@@ -490,14 +528,14 @@ class Index extends Component {
                                                     <ReactFlagsSelect placeholder="Country Code" onSelect={(e) => { this.updateFlags(e, 'number') }} name="flag_phone" showSelectedLabel={false} defaultCountry={this.updateFLAG(this.state.contact_partner.number)} />}
                                                 <input type="text"
                                                     className="Mobile_extra Emergency_number"
-                                                    placeholder="phone"
+                                                    placeholder={phone}
                                                     onChange={this.updateEntryState1}
                                                     value={this.state.contact_partner.number && this.updateMOBILE(this.state.contact_partner.number)}
                                                 />
                                             </Grid>
                                         </Grid>
                                         <Grid className="emrgncyFrmInpt">
-                                            <Grid><label>Email address</label></Grid>
+                                            <Grid><label>{email}</label></Grid>
                                             <Grid><input name="email" value={this.state.contact_partner.email} onChange={this.contact_partnerState} /></Grid>
                                         </Grid>
                                         <Grid className="emrgncyFrmSub">
@@ -512,7 +550,7 @@ class Index extends Component {
                                     <Grid className="docCntct">
                                         <Grid container direction="row">
                                             <Grid item xs={6} md={7} className="docCntctLft">
-                                                <label>Organ Donor Status</label>
+                                                <label>{organ_donar_status}</label>
                                             </Grid>
                                             <Grid item xs={6} md={5} className="docCntctRght">
                                                 {this.props.byUser==='patient' && <a onClick={() => { this.setState({ editDonar: true }) }}><img src={require('../../../assets//images/edit.svg')} alt="" title="" /></a>}
@@ -538,7 +576,7 @@ class Index extends Component {
                                                         </span>
                                                     }<br />
                                                     {this.state.donar.remarks && <p>{this.state.donar.remarks}</p>}
-                                                </div> : <Grid><label>Not an organ donor</label></Grid>
+                                                </div> : <Grid><label>{not_an_organ}</label></Grid>
                                             : <OrganSection EditOrganDonar={this.EditOrganDonar} tissue={this.state.tissue && this.state.tissue} comesFrom='emergency' />}
                                     </Grid>
                                 </Grid>

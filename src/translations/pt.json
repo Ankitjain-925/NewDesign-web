@@ -969,6 +969,32 @@
 		"update_inquery":"Atualizar a consulta",
 		"dearchive_entry_q":"Realmente deseja pesquisar esta entrada",
 		"delete_for_msg":"Realmente deseja Excluir esta entrada? Isso significa que ela será excluída para sempre",
-		"make_personilized_acc":"Para tornar sua conta mais personalizada, adicione sua foto de perfil. Ela só ficará visível para si e para as pessoas do seu grupo."
+		"make_personilized_acc":"Para tornar sua conta mais personalizada, adicione sua foto de perfil. Ela só ficará visível para si e para as pessoas do seu grupo.",
+
+		"rmv_entry": "remover entrada",
+		"download_journal_report": "BAIXAR RELATÓRIO DE REVISTA",
+		"ur_emrgancy_access": "Seu acesso de emergência",
+		"patient_emrgancy_access": "Noodtoegang voor patiënten",
+		"contact_other_info":"Contatos e outras informações",
+		"telephone_nmbr":"Número de telefone",
+		"organ_donar_status":"Status de doador de órgãos",
+		"emegancy_access":"Acesso de Emergência",
+		"invite_doc":"Convide Médicos",
+		"pharmacy_access":"Acesso à Farmácia",
+		"cart_removed":"Carrinho removido com sucesso",
+		"pay_with":"Pagar com",
+		"full_report":"rapportRelatório completo",
+		"item_added_to_wishlist":"Item adicionado com sucesso à lista de desejos",
+		"item_present_in_cart":"Item já presente no carrinho",
+		"previous_lesson":"Lição anterior",
+		"next_lesson":"Próxima lição",
+		"rating_sent_success":"Avaliação enviada com sucesso",
+		"plz_give_rate":"Por favor, dê a taxa",
+		"clear_point":"Pontos claros",
+		"language_updated":"O idioma é atualizado",
+		"language_not_selected":"O idioma não foi selecionado.",
+		"emergancy_dignosis":"Diagnóstico de emergência",
+		"trvl_diagnosis":"Diagnóstico de viagens",
+		"doc_name":"Nome do Médico"
 	}
 }

@@ -79,19 +79,19 @@ class Index extends Component {
             case "default":
                 translate = translationEN.text
         }
-        let { date_of_dieses_patient, attachments, date_of_death, dob} = translate
+        let { attachments, date_of_death, dob, disease_name, notes, save_entry, gender_of_relatives, relation_of_relative, date_of_dieses_patient } = translate
 
         return (
             <div>
                 {!this.props.visibility && <Grid className="cnfrmDiaMain">
                     <Grid className="fillDia">
-                        <MMHG name="disease_name" label="Disease Name" onChange={(e)=> this.props.updateEntryState(e)} value={this.state.updateTrack.disease_name}/>    
+                        <MMHG name="disease_name" label={disease_name} onChange={(e)=> this.props.updateEntryState(e)} value={this.state.updateTrack.disease_name}/>    
                     </Grid>
                     <Grid className="fillDia">
-                        <SelectByTwo name="gender" label="Gender of Relative" options={this.state.options} onChange={(e)=> this.updateEntryState1(e, 'gender')} value={this.state.updateTrack.gender}/>    
+                        <SelectByTwo name="gender" label={gender_of_relatives} options={this.state.options} onChange={(e)=> this.updateEntryState1(e, 'gender')} value={this.state.updateTrack.gender}/>    
                     </Grid>
                     <Grid className="fillDia">
-                        <SelectField name="relation" label="Relation with Relative" option={this.state.relativeList} onChange={(e)=> this.updateEntryState1(e, 'relation')} value={this.state.updateTrack.relation} />    
+                        <SelectField name="relation" label={relation_of_relative} option={this.state.relativeList} onChange={(e)=> this.updateEntryState1(e, 'relation')} value={this.state.updateTrack.relation} />    
                     </Grid>
                     <Grid className="fillDia">
                         <Grid className="rrSysto">
@@ -112,7 +112,7 @@ class Index extends Component {
                         </Grid>   
                     </Grid>
                     <Grid className="fillDia">
-                        <NotesEditor name="remarks" label="Notes"  onChange={(e)=> this.updateEntryState1(e, 'remarks')} value={this.state.updateTrack.remarks}/> 
+                        <NotesEditor name="remarks" label={notes} onChange={(e)=> this.updateEntryState1(e, 'remarks')} value={this.state.updateTrack.remarks}/> 
                     </Grid>
                     <Grid className="attchForms attchImg">
                         <Grid><label>{attachments}</label></Grid>
@@ -123,7 +123,7 @@ class Index extends Component {
                 <Grid className="infoShwHidMain3upr">
                     <ShowHide date_format= {this.state.date_format} value={this.state.updateTrack} onChange={(data) => this.props.GetHideShow(data)}/>
                     <Grid className="infoShwSave3">
-                        <input type="submit" value="Save entry" onClick={this.props.AddTrack}/>
+                        <input type="submit" value={save_entry} onClick={this.props.AddTrack}/>
                     </Grid>
                 </Grid>
             </div>

@@ -12,7 +12,14 @@ import sitedata, { data } from '../../../../sitedata';
 import { ConsoleCustom } from '../../BasicMethod';
 import Rating from '../../Rating'
 import Loader from './../../../Components/Loader/index.js'
-
+import * as translationEN from "../../../../translations/en.json"
+import * as translationDE from '../../../../translations/de.json';
+import * as translationPT from '../../../../translations/pt.json';
+import * as translationSP from '../../../../translations/sp.json';
+import * as translationRS from '../../../../translations/rs.json';
+import * as translationSW from '../../../../translations/sw.json';
+import * as translationCH from '../../../../translations/ch.json';
+import * as translationNL from '../../../../translations/en.json';
 function TabContainer(props) {
     return (
         <Typography component="div" style={{ paddingTop: 24 }}>
@@ -150,14 +157,47 @@ class Index extends Component {
     render() {
         const { value } = this.state;
         const { selectedOption } = this.state;
+
+        let translate;
+        switch (this.props.stateLanguageType) {
+            case "en":
+                translate = translationEN.text
+                break;
+            case "de":
+                translate = translationDE.text
+                break;
+            case "pt":
+                translate = translationPT.text
+                break;
+            case "sp":
+                translate = translationSP.text
+                break;
+            case "rs":
+                translate = translationRS.text
+                break;
+            case "nl":
+                translate = translationNL.text
+                break;
+            case "ch":
+                translate = translationCH.text
+                break;
+            case "sw":
+                translate = translationSW.text
+                break;
+            case "default":
+                translate = translationEN.text
+        }
+        let { item_present_in_cart, new_course, item_added_to_wishlist, all_course, my_course, topic_all, language_eng, wishlist, prescriptions, appointments, cart_removed, chat_vdocall, pharmacy_access, remove, lectures, add_to_cart, cart, capab_Patients, Inquiries, emegancy_access, archive, more, my_profile, invite_doc,pharma_prescription, online_course, profile_setting, Language,
+            DarkMode, logout } = translate;
+
         return (
             <div>
                   {this.state.loaderImage && <Loader />}
 
-                  {this.state.addedWish && <div className="success_message">Item successfully added to wishlist</div>}
-                  {this.state.cartAlready &&<div className="err_message">Item already present in cart</div>}
+                  {this.state.addedWish && <div className="success_message">{item_added_to_wishlist}</div>}
+                  {this.state.cartAlready &&<div className="err_message">{item_present_in_cart}</div>}
                  <Grid className="nwCoursName">
-                    <h3>New Courses</h3>
+                    <h3>{new_course}</h3>
                 </Grid>
                 
                 <Grid container direction="row" spacing={4} className="newCourseCntnt">
@@ -170,7 +210,7 @@ class Index extends Component {
                                     <p>{item.courseDesc}</p>
                                 </Grid>
                                 <Grid className="courseListTime">
-                                    <Grid><a><img src={require('../../../../assets/images/lectures.svg')} alt="" title="" />{item.attachment.length} lectures</a></Grid>
+                                    <Grid><a><img src={require('../../../../assets/images/lectures.svg')} alt="" title="" />{item.attachment.length} {lectures}</a></Grid>
                                     {/* <Grid><a><img src={require('../../../../assets/images/time.svg')} alt="" title="" />1.5 h</a></Grid> */}
                                 </Grid>
                                 <Grid className="courseStar">
@@ -187,7 +227,7 @@ class Index extends Component {
                             <Grid className="add_wishList">
                                 <Grid container direction="row" alignItems="center">
                                     <Grid item xs={10} md={9}>
-                                        <Grid className="nwCoursCrt"><a onClick={()=>this.props.AddtoCard(item, 'all')}>Add to cart</a></Grid>
+                                        <Grid className="nwCoursCrt"><a onClick={()=>this.props.AddtoCard(item, 'all')}>{add_to_cart}</a></Grid>
                                     </Grid>
                                     
                                     <Grid item xs={2} md={3}>
@@ -243,7 +283,7 @@ class Index extends Component {
 
                 {/* Second option */}
                 <Grid className="nwCoursName">
-                    <h3>All Courses</h3>
+                    <h3>{all_course}</h3>
                 </Grid>
                 <Grid container direction="row" spacing={4} className="newCourseCntnt">
                 {this.state.allCourse && this.state.allCourse.length>0 && this.state.allCourse.map((item, index)=>(
@@ -255,7 +295,7 @@ class Index extends Component {
                                     <p>{item.courseDesc}</p>
                                 </Grid>
                                 <Grid className="courseListTime">
-                                    <Grid><a><img src={require('../../../../assets/images/lectures.svg')} alt="" title="" />{item.attachment.length} lectures</a></Grid>
+                                    <Grid><a><img src={require('../../../../assets/images/lectures.svg')} alt="" title="" />{item.attachment.length} {lectures}</a></Grid>
                                     {/* <Grid><a><img src={require('../../../../assets/images/time.svg')} alt="" title="" />1.5 h</a></Grid> */}
                                 </Grid>
                                 <Grid className="courseStar">
@@ -272,7 +312,7 @@ class Index extends Component {
                             <Grid className="add_wishList">
                                 <Grid container direction="row" alignItems="center">
                                     <Grid item xs={10} md={9}>
-                                        <Grid className="nwCoursCrt"><a onClick={()=>this.props.AddtoCard(item, 'all')}>Add to cart</a></Grid>
+                                        <Grid className="nwCoursCrt"><a onClick={()=>this.props.AddtoCard(item, 'all')}>{add_to_cart}</a></Grid>
                                     </Grid>
                                     <Grid item xs={2} md={3}>
                                         <Grid className="nwCoursCrtRght">

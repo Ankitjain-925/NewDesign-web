@@ -129,8 +129,9 @@ class Index extends Component {
             case "default":
                 translate = translationEN.text
         }
-        let {slct_ICD_serch_code, when, to , enter_code_serch_by_keyword,  dignose, of, until, archive, rr_systolic, attachments, time_measure, date_measure,
-            date, time }= translate
+        let {slct_ICD_serch_code, when, to , enter_code_serch_by_keyword, Enter_Diagnosis, allergy, dignose, of, until, archive, rr_systolic, attachments, time_measure, date_measure,
+            date, time, confirm_diag, emergancy_dignosis, trvl_diagnosis, travelled_to, diagnosed, by, notes, save_entry }= translate
+        let diagnosed_by = diagnosed+" "+by
         let {MyDocList} = this.state;
         return ( 
             <div>
@@ -147,7 +148,7 @@ class Index extends Component {
                                             color="#00ABAF"
                                         />
                                     }
-                                    label="Confirm diagnosis"
+                                    label={confirm_diag}
                                 />
                             </Grid>
                             <Grid item xs={12} md={4} className="cnfrmDiaRght">
@@ -163,7 +164,7 @@ class Index extends Component {
                                             color="#00ABAF"
                                         />
                                     }
-                                    label="Emergency diagnosis"
+                                    label={emergancy_dignosis}
                                 />
                             </Grid>
                             <Grid item xs={12} md={4} className="cnfrmDiaRght">
@@ -173,7 +174,7 @@ class Index extends Component {
                     </Grid>}
                         
                     <Grid className="fillDia">
-                        <MMHG name="diagnosis" label="Enter Diagnosis" onChange={(e)=> this.props.updateEntryState(e)} value={this.state.updateTrack.diagnosis}/> 
+                        <MMHG name="diagnosis" label={Enter_Diagnosis} onChange={(e)=> this.props.updateEntryState(e)} value={this.state.updateTrack.diagnosis}/> 
                     </Grid>
                     <Grid className="diaCD">
                         <Grid><label>{slct_ICD_serch_code}</label></Grid>
@@ -198,7 +199,7 @@ class Index extends Component {
                                         color="#00ABAF"
                                     />
                                 }
-                                label="Allergy"
+                                label={allergy}
                             />
                         </Grid>
                         <Grid>
@@ -212,14 +213,14 @@ class Index extends Component {
                                         onChange={(e)=> this.updateEntryState1(e.target.checked, 'travel_diagnosis')}
                                     />
                                 }
-                                label="Travel diagnosis"
+                                label={trvl_diagnosis}
                             />
                         </Grid>
 
                     </Grid>
                     {this.state.updateTrack.travel_diagnosis && <div>
                         <Grid className="fillDia">
-                                <MMHG name="travelled_to" label="Travelled to" onChange={(e)=> this.props.updateEntryState(e)} value={this.state.updateTrack.travelled_to}/>    
+                                <MMHG name="travelled_to" label={travelled_to} onChange={(e)=> this.props.updateEntryState(e)} value={this.state.updateTrack.travelled_to}/>    
                         </Grid>
                         <Grid className="fillDia">
                             <Grid className="rrSysto">
@@ -241,7 +242,7 @@ class Index extends Component {
                         </Grid>   
                     </Grid>
                     <Grid className="fillDia">
-                        <MMHG name="diagnosed_by" label="Diagnosed by" onChange={(e)=> this.updateEntryState1(e.target.value, 'diagnosed_by')} value={this.state.updateTrack.diagnosed_by}/>    
+                        <MMHG name="diagnosed_by" label={diagnosed_by} onChange={(e)=> this.updateEntryState1(e.target.value, 'diagnosed_by')} value={this.state.updateTrack.diagnosed_by}/>    
                         <ul className="insuranceHint1" style={{display : MyDocList.length>0 ? 'block' : 'none'}}>
                         {MyDocList && MyDocList.length>0 && MyDocList.map((t)=>(
                             <li onClick={()=>this.updateEntryState2(t, 'diagnosed_by')} value={`${t.first_name} ${t.last_name}`}>{t.first_name && t.first_name} {t.last_name && t.last_name}</li>
@@ -253,13 +254,13 @@ class Index extends Component {
                         <FileUploader name="UploadTrackImageMulti" comesFrom="journal" isMulti={true} fileUpload={this.props.FileAttachMulti} />
                     </Grid>
                     <Grid className="fillDia">
-                        <NotesEditor name="remarks" label="Notes"  onChange={(e)=> this.updateEntryState1(e, 'remarks')} value={this.state.updateTrack.remarks}/> 
+                        <NotesEditor name="remarks" label={notes}  onChange={(e)=> this.updateEntryState1(e, 'remarks')} value={this.state.updateTrack.remarks}/> 
                     </Grid>
                 </Grid>}
                 <Grid className="infoShwHidMain3upr">
                 <ShowHide date_format= {this.state.date_format} value={this.state.updateTrack} onChange={(data) => this.props.GetHideShow(data)}/>
                     <Grid className="infoShwSave3">
-                        <input type="submit" value="Save entry" onClick={this.props.AddTrack}/>
+                        <input type="submit" value={save_entry} onClick={this.props.AddTrack}/>
                     </Grid>
                 </Grid>
             </div>

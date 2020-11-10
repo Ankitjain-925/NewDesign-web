@@ -2,7 +2,15 @@ import React, { Component } from 'react';
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { LoginReducerAim } from './../../Login/actions';
-import { LanguageFetchReducer } from './../../actions';
+import { LanguageFetchReducer } from '../../actions';
+import * as translationEN from "../../../translations/en.json";
+import * as translationDE from '../../../translations/de.json';
+import * as translationPT from '../../../translations/pt.json';
+import * as translationSP from '../../../translations/sp.json';
+import * as translationRS from '../../../translations/rs.json';
+import * as translationSW from '../../../translations/sw.json';
+import * as translationCH from '../../../translations/ch.json';
+import * as translationNL from '../../../translations/en.json';
 import sitedata from '../../../sitedata';
 import Loader from '../Loader/index.js';
 import axios from 'axios';
@@ -118,12 +126,41 @@ class Date extends Component {
     }
     
     render() {
-        return ( 
+        let translate;
+        switch (this.props.stateLanguageType) {
+              case "en":
+                  translate = translationEN.text
+                  break;
+              case "de":
+                  translate = translationDE.text
+                  break;
+              case "pt":
+                  translate = translationPT.text
+                  break;
+              case "sp":
+                  translate = translationSP.text
+                  break;
+              case "rs":
+                  translate = translationRS.text
+                  break;
+              case "nl":
+                  translate = translationNL.text
+                  break;
+              case "ch":
+                  translate = translationCH.text
+                  break;
+              case "sw":
+                  translate = translationSW.text
+                  break;
+              case "default":
+                  translate = translationEN.text
+          }
+          let { full_report } = translate;
+        return (
             <a onClick={()=>{this.downloadTrack()}}>
-               {this.state.loaderImage && <Loader />}
-                <img src={require('../../../assets/images/download.svg')} alt="" title="" />  Full Report
-            </a> 
-           
+            {this.state.loaderImage && <Loader />}
+             <img src={require('../../../assets/images/download.svg')} alt="" title="" />  {full_report}
+         </a>
         )
     }
 }

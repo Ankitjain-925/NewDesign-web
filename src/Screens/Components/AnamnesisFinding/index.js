@@ -99,7 +99,7 @@ class AnamnesisFinding extends Component {
           case "default":
               translate = translationEN.text
       }
-      let { addtextentry, BodySchemeNotes,  } = translate;
+      let { addtextentry, BodySchemeNotes, rmv_entry  } = translate;
     return (
       <div>
         <Grid className="rrSysto">
@@ -141,7 +141,7 @@ class AnamnesisFinding extends Component {
                         className="mr_sel"
                     />
                     <NotesEditor name="notes" label={BodySchemeNotes} onChange={(e) => this.onFieldChangeNote(e, index)}  value={itm.notes}/> 
-                    <Grid className="consumeAt"><p onClick={() => { this.deleteField(index);}} className="minus_span_medication">- remove entry</p></Grid>
+                    <Grid className="consumeAt"><p onClick={() => { this.deleteField(index);}} className="minus_span_medication">- {rmv_entry}</p></Grid>
                 </Grid>
             ))}
                         

@@ -16,7 +16,14 @@ import axios from "axios"
 import Notification from "../../../Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 import PharamacyModal from './../../../Doctor/PharamacyInfo/index.js';
 import DoctorInviteModal from './../../../Doctor/DoctorInvite/index.js'
-
+import * as translationEN from "../../../../translations/en.json"
+import * as translationDE from '../../../../translations/de.json';
+import * as translationPT from '../../../../translations/pt.json';
+import * as translationSP from '../../../../translations/sp.json';
+import * as translationRS from '../../../../translations/rs.json';
+import * as translationSW from '../../../../translations/sw.json';
+import * as translationCH from '../../../../translations/ch.json';
+import * as translationNL from '../../../../translations/en.json';
 import SetLanguage from './../../SetLanguage/index.js';
 
 class Index extends Component {
@@ -156,6 +163,37 @@ class Index extends Component {
     }
 
     render() {
+        let translate;
+        switch (this.props.stateLanguageType) {
+            case "en":
+                translate = translationEN.text
+                break;
+            case "de":
+                translate = translationDE.text
+                break;
+            case "pt":
+                translate = translationPT.text
+                break;
+            case "sp":
+                translate = translationSP.text
+                break;
+            case "rs":
+                translate = translationRS.text
+                break;
+            case "nl":
+                translate = translationNL.text
+                break;
+            case "ch":
+                translate = translationCH.text
+                break;
+            case "sw":
+                translate = translationSW.text
+                break;
+            case "default":
+                translate = translationEN.text
+        }
+        let { appointments, chat_vdocall, capab_Patients, Inquiries, emegancy_access, more, my_profile, invite_doc,pharma_prescription, online_course, profile_setting, Language,
+            DarkMode, logout } = translate;
         return (
             <Grid  className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode && this.props.settings.setting.mode==='dark' ? "MenuMob MenuLeftDrkUpr" : "MenuMob"}>
                 {/* <Notification /> */}
@@ -170,28 +208,28 @@ class Index extends Component {
                             <img src={require('../../../../assets/images/nav-appointments.svg')} alt="" title="" />
                                 {/* {this.props.currentPage === 'appointment' ? <img src={require('../../../../assets/images/appointActive.png')} alt="" title="" />
                                     : <img src={require('../../../../assets/images/nav-appointments.svg')} alt="" title="" />} */}
-                                <span>Appointments</span>
+                                <span>{appointments}</span>
                             </a>
                         </li>
                         <li className={this.props.currentPage === 'chat' ? "menuActv" : ""}>
                             <a onClick={this.Chats}>
                                 {this.props.currentPage === 'chat' ? <img src={require('../../../../assets/images/nav-chat.svg')} alt="" title="" />
                                     : <img src={require('../../../../assets/images/nav-chat.svg')} alt="" title="" />}
-                                <span>Chat & <br /> Videocalls</span>
+                                <span>{chat_vdocall}</span>
                             </a>
                         </li>
                         <li className={this.props.currentPage === 'patient' ? "menuActv" : ""}>
                             <a onClick={this.Service}>
                                 {this.props.currentPage === 'patient' ? <img src={require('../../../../assets/images/patientinfo.png')} alt="" title="" />
                                     : <img src={require('../../../../assets/images/patientinfo.png')} alt="" title="" />}
-                                <span>Patients</span>
+                                <span>{capab_Patients}</span>
                             </a>
                         </li>
                         <li className={this.props.currentPage === 'inquiries' ? "menuActv" : ""}>
                             <a onClick={this.MyDocument}>
                                 {this.props.currentPage === 'inquiries' ? <img src={require('../../../../assets/images/activeDocs.png')} alt="" title="" />
                                     : <img src={require('../../../../assets/images/nav-my-documents-inquiries.svg')} alt="" title="" />}
-                                <span>Inquiries</span>
+                                <span>{Inquiries}</span>
                             </a>
                         </li>
                         <li className={this.props.currentPage === 'tracker' ? "menuActv" : ""}>
@@ -199,18 +237,18 @@ class Index extends Component {
                             <img src={require('../../../../assets/images/ermerAccess.png')} alt="" title="" />
                                 {/* {this.props.currentPage === 'tracker' ? <img src={require('../../../../assets/images/nav-trackers.svg')} alt="" title="" />
                                     : <img src={require('../../../../assets/images/nav-trackers.svg')} alt="" title="" />} */}
-                                <span>Emergency Access</span>
+                                <span>{emegancy_access}</span>
                             </a>
                         </li>
                         <li>
                             <a className="moreMenu">
                                 <img src={require('../../../../assets/images/nav-more.svg')} alt="" title="" />
-                                <span>More</span>
+                                <span>{more}</span>
                                 <div className="moreMenuList">
                                     <ul>  
-                                        <li><a onClick={this.handleOpenInvt}><img src={require('../../../../assets/images/menudocs.jpg')} alt="" title="" />Invite Doctors</a></li>
-                                        <li><a onClick={this.handleOpenPharma}><img src={require('../../../../assets/images/menudocs.jpg')} alt="" title="" />Pharmacy Prescription</a></li>
-                                        <li  className="doctor-menu"><a onClick={this.Online}><img src={require('../../../../assets/images/menudocs.jpg')} alt="" title="" />Aimedis Online Courses</a></li>
+                                        <li><a onClick={this.handleOpenInvt}><img src={require('../../../../assets/images/menudocs.jpg')} alt="" title="" />{invite_doc}</a></li>
+                                        <li><a onClick={this.handleOpenPharma}><img src={require('../../../../assets/images/menudocs.jpg')} alt="" title="" />{pharma_prescription}</a></li>
+                                        <li  className="doctor-menu"><a onClick={this.Online}><img src={require('../../../../assets/images/menudocs.jpg')} alt="" title="" />Aimedis {online_course}</a></li>
                                     </ul>
                                 </div>
                             </a>
@@ -220,13 +258,13 @@ class Index extends Component {
                             <img src={require('../../../../assets/images/nav-my-profile.svg')} alt="" title="" />
                                 {/* {this.props.currentPage === 'profile' ? <img src={require('../../../../assets/images/profileActv.png')} alt="" title="" />
                                     : <img src={require('../../../../assets/images/useru.jpg')} alt="" title="" />} */}
-                                <span>My Profile</span>
+                                <span>{my_profile}</span>
                                 <div className="profilMenuList">
                                     <ul>
-                                        <li><a onClick={this.Myprofile}><img src={require('../../../../assets/images/menudocs.jpg')} alt="" title="" />Profile Settings</a></li>
-                                        <li><a onClick={this.openLanguageModel}><img src={require('../../../../assets/images/menudocs.jpg')} alt="" title="" />Language</a></li>
-                                        <li><a><img src={require('../../../../assets/images/menudocs.jpg')} alt="" title="" />Dark Mode  <Mode mode={this.state.mode} name="mode" getSetting={this.getSetting} /></a></li>
-                                        <li onClick={this.logOutClick}><a><img src={require('../../../../assets/images/menudocs.jpg')} alt="" title="" />Log out</a></li>
+                                        <li><a onClick={this.Myprofile}><img src={require('../../../../assets/images/menudocs.jpg')} alt="" title="" />{profile_setting}</a></li>
+                                        <li><a onClick={this.openLanguageModel}><img src={require('../../../../assets/images/menudocs.jpg')} alt="" title="" />{Language}</a></li>
+                                        <li><a><img src={require('../../../../assets/images/menudocs.jpg')} alt="" title="" />{DarkMode}  <Mode mode={this.state.mode} name="mode" getSetting={this.getSetting} /></a></li>
+                                        <li onClick={this.logOutClick}><a><img src={require('../../../../assets/images/menudocs.jpg')} alt="" title="" />{logout}</a></li>
                                     </ul>
                                 </div>
                             </a>

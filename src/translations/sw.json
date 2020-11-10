@@ -966,6 +966,32 @@
 		"update_inquery":"Update inquery",
 		"dearchive_entry_q":"Je, kweli unataka dearchive kuingia hii",
 		"delete_for_msg":"Je, kweli unataka Kufuta kuingia hii? Hii ina maana itakuwa kufuta milele",
-		"make_personilized_acc":"kufanya akaunti yako zaidi msako, kuongeza picha yako profile. Itakuwa tu kuwa wazi kwa wewe na watu katika kundi lako."
+		"make_personilized_acc":"kufanya akaunti yako zaidi msako, kuongeza picha yako profile. Itakuwa tu kuwa wazi kwa wewe na watu katika kundi lako.",
+
+		"rmv_entry": "ondoa kuingia",
+		"download_journal_report": "PAKUA RIPOTI YA HABARI",
+		"ur_emrgancy_access": "Ufikiaji wako wa Dharura",
+		"patient_emrgancy_access": "Upataji wa Dharura wa Wagonjwa",
+		"contact_other_info":"Mawasiliano na Maelezo mengine",
+		"telephone_nmbr":"Nambari ya simu",
+		"organ_donar_status":"Hali ya Wahisani",
+		"emegancy_access":"Upataji wa Dharura",
+		"invite_doc":"Alika Madaktari",
+		"pharmacy_access":"Ufikiaji wa Dawa",
+		"cart_removed":"Kikapu kimeondolewa kwa mafanikio",
+		"pay_with":"Lipa na",
+		"full_report":"Ripoti Kamili",
+		"item_added_to_wishlist":"Kipengee kimeongezwa kwenye orodha ya matamanio",
+		"item_present_in_cart":"Bidhaa tayari iko kwenye gari",
+		"previous_lesson":"Somo lililopita",
+		"next_lesson":"Somo linalofuata",
+		"rating_sent_success":"Ukadiriaji umetumwa kwa mafanikio",
+		"plz_give_rate":"Tafadhali toa kiwango",
+		"clear_point":"Futa vidokezo",
+		"language_updated":"Lugha imesasishwa",
+		"language_not_selected":"Lugha haichaguliwi.",
+		"emergancy_dignosis":"Utambuzi wa dharura",
+		"trvl_diagnosis":"Utambuzi wa kusafiri",
+		"doc_name":"Jina la Daktari"
 	}
 }

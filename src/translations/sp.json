@@ -968,6 +968,32 @@
 		"update_inquery":"Actualizar la consulta",
 		"dearchive_entry_q":"¿Realmente desea desarchivar esta entrada?",
 		"delete_for_msg":"¿Realmente desea eliminar esta entrada? Esto significa que se eliminará para siempre.",
-		"make_personilized_acc":"Para personalizar su cuenta, agregue su foto de perfil. Solo será visible para usted y las personas de su grupo."
+		"make_personilized_acc":"Para personalizar su cuenta, agregue su foto de perfil. Solo será visible para usted y las personas de su grupo.",
+
+		"rmv_entry": "elimine la entrada",
+		"download_journal_report": "DESCARGAR INFORME DEL DIARIO",
+		"ur_emrgancy_access": "Su acceso de emergencia",
+		"patient_emrgancy_access": "Acceso de emergencia para pacientes",
+		"contact_other_info":"Contactos y otra información",
+		"telephone_nmbr":"Número de teléfono",
+		"organ_donar_status":"Estado del donante de órganos",
+		"emegancy_access":"Acceso de emergencia",
+		"invite_doc":"Invitar Doctores",
+		"pharmacy_access":"Acceso a la farmacia",
+		"cart_removed":"Carrito eliminado correctamente",
+		"pay_with":"Pagar con",
+		"full_report":"Reporte completo",
+		"item_added_to_wishlist":"Artículo agregado exitosamente a la lista de deseos",
+		"item_present_in_cart":"El artículo ya está presente en el carrito",
+		"previous_lesson":"Leccion previa",
+		"next_lesson":"Siguiente lección",
+		"rating_sent_success":"La calificación se envía correctamente",
+		"plz_give_rate":"Por favor indique la tarifa",
+		"clear_point":"Puntos claros",
+		"language_updated":"El idioma está actualizado",
+		"language_not_selected":"El idioma no está seleccionado.",
+		"emergancy_dignosis":"Diagnóstico de emergencia",
+		"trvl_diagnosis":"Diagnóstico de viajes",
+		"doc_name":"Nombre del doctor"
 	}
 }

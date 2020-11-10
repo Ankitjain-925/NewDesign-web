@@ -15,7 +15,14 @@ import sitedata from "../../../../sitedata"
 import SetLanguage from './../../SetLanguage/index.js';
 import axios from "axios"
 import Notification from "../../../Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
-
+import * as translationEN from "../../../../translations/en.json"
+import * as translationDE from '../../../../translations/de.json';
+import * as translationPT from '../../../../translations/pt.json';
+import * as translationSP from '../../../../translations/sp.json';
+import * as translationRS from '../../../../translations/rs.json';
+import * as translationSW from '../../../../translations/sw.json';
+import * as translationCH from '../../../../translations/ch.json';
+import * as translationNL from '../../../../translations/en.json';
 class Index extends Component {
     constructor(props) {
         super(props)
@@ -96,6 +103,37 @@ class Index extends Component {
     }
 
     render() {
+        let translate;
+        switch (this.props.stateLanguageType) {
+            case "en":
+                translate = translationEN.text
+                break;
+            case "de":
+                translate = translationDE.text
+                break;
+            case "pt":
+                translate = translationPT.text
+                break;
+            case "sp":
+                translate = translationSP.text
+                break;
+            case "rs":
+                translate = translationRS.text
+                break;
+            case "nl":
+                translate = translationNL.text
+                break;
+            case "ch":
+                translate = translationCH.text
+                break;
+            case "sw":
+                translate = translationSW.text
+                break;
+            case "default":
+                translate = translationEN.text
+        }
+        let { appointments, chat_vdocall, capab_Patients, Inquiries, emegancy_access, more, my_profile, invite_doc,pharma_prescription, online_course, profile_setting, Language,
+            DarkMode, logout } = translate;
         return (
             <Grid  className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode && this.props.settings.setting.mode==='dark' ? "MenuMob MenuLeftDrkUpr" : "MenuMob"}>
                   {/* <Notification /> */}
@@ -108,13 +146,13 @@ class Index extends Component {
                         <li className={this.props.currentPage === 'emergency' ? "menuActv" : ""}>
                             <a onClick={this.Emergency}>
                                 <img src={require('../../../../assets/images/ermerAccess.png')} alt="" title="" />
-                                <span>Emergency <br /> access</span>
+                                <span>{emegancy_access}</span>
                             </a>
                         </li>
                         <li className={this.props.currentPage === 'course' ? "menuActv" : ""}>
                             <a onClick={this.OnlineCourse} >
                                 <img src={require('../../../../assets/images/onlineCourses.png')} alt="" title="" />
-                                <span>Aimedis Online Courses</span>
+                                <span>Aimedis {online_course}</span>
                             </a>
                         </li>
                         <li className={this.props.currentPage === 'chat' ? "menuActv" : ""}>
@@ -122,7 +160,7 @@ class Index extends Component {
                             <img src={require('../../../../assets/images/nav-chat.svg')} alt="" title="" />
                                 {/* {this.props.currentPage === 'chat' ? <img src={require('../../../../assets//images/chatVideoActive.png')} alt="" title="" />
                                     : <img src={require('../../../../assets//images/chatVideo.jpg')} alt="" title="" />} */}
-                                <span>Chat & <br /> Videocalls</span>
+                                <span>{chat_vdocall}</span>
                             </a>
                         </li>
                         <li className={this.props.currentPage === 'profile' ? "menuActv" : ""}>
@@ -130,13 +168,13 @@ class Index extends Component {
                             <img src={require('../../../../assets/images/nav-my-profile.svg')} alt="" title="" />
                                 {/* {this.props.currentPage === 'profile' ? <img src={require('../../../../assets//images/profileActv.png')} alt="" title="" />
                                     : <img src={require('../../../../assets//images/useru.jpg')} alt="" title="" />} */}
-                                <span>My Profile</span>
+                                <span>{my_profile}</span>
                                 <div className="profilMenuList">
                                     <ul>
-                                        <li><a onClick={this.ProfileLink}><img src={require('../../../../assets//images/menudocs.jpg')} alt="" title="" />Profile Settings</a></li>
-                                        <li><a onClick={this.openLanguageModel}><img src={require('../../../../assets//images/menudocs.jpg')} alt="" title="" />Language</a></li>
-                                        <li><a><img src={require('../../../../assets//images/menudocs.jpg')} alt="" title="" />Dark Mode<Mode mode={this.state.mode} name="mode" getSetting={this.getSetting} /></a></li>
-                                        <li onClick={this.logOutClick}><a><img src={require('../../../../assets//images/menudocs.jpg')} alt="" title="" />Log out</a></li>
+                                        <li><a onClick={this.ProfileLink}><img src={require('../../../../assets//images/menudocs.jpg')} alt="" title="" />{profile_setting}</a></li>
+                                        <li><a onClick={this.openLanguageModel}><img src={require('../../../../assets//images/menudocs.jpg')} alt="" title="" />{Language}</a></li>
+                                        <li><a><img src={require('../../../../assets//images/menudocs.jpg')} alt="" title="" />{DarkMode}<Mode mode={this.state.mode} name="mode" getSetting={this.getSetting} /></a></li>
+                                        <li onClick={this.logOutClick}><a><img src={require('../../../../assets//images/menudocs.jpg')} alt="" title="" />{logout}</a></li>
                                     </ul>
                                 </div>
                             </a>

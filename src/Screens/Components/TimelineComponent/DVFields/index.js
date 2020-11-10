@@ -76,19 +76,19 @@ class Index extends Component {
             case "default":
                 translate = translationEN.text
         }
-        let { date_doc_visit, attachments } = translate
+        let { date_doc_visit, attachments, doc_name, doc_id, speciality, notes, save_entry } = translate
 
         return (
             <div>
                 {!this.props.visibility && <Grid className="cnfrmDiaMain">
                     <Grid className="fillDia">
-                        <MMHG name="doctor_name" label="Doctor Name" onChange={(e)=> this.props.updateEntryState(e)} value={this.state.updateTrack.doctor_name}/>    
+                        <MMHG name="doctor_name" label={doc_name} onChange={(e)=> this.props.updateEntryState(e)} value={this.state.updateTrack.doctor_name}/>    
                     </Grid>
                     <Grid className="fillDia">
-                        <MMHG name="doctor_id" label="Doctor ID" onChange={(e)=> this.props.updateEntryState(e)} value={this.state.updateTrack.doctor_id}/>    
+                        <MMHG name="doctor_id" label={doc_id} onChange={(e)=> this.props.updateEntryState(e)} value={this.state.updateTrack.doctor_id}/>    
                     </Grid>
                     <Grid className="fillDia">
-                        <SelectField name="specialty" label="Speciality" option={this.state.options} onChange={(e)=> this.updateEntryState1(e, 'specialty')} value={this.state.updateTrack.specialty} />    
+                        <SelectField name="specialty" label={speciality} option={this.state.options} onChange={(e)=> this.updateEntryState1(e, 'specialty')} value={this.state.updateTrack.specialty} />    
                     </Grid>
                   
                     <Grid className="fillDia">
@@ -98,7 +98,7 @@ class Index extends Component {
                         </Grid>   
                     </Grid>
                     <Grid className="fillDia">
-                        <NotesEditor name="remarks" label="Notes"  onChange={(e)=> this.updateEntryState1(e, 'remarks')} value={this.state.updateTrack.remarks}/> 
+                        <NotesEditor name="remarks" label={notes}  onChange={(e)=> this.updateEntryState1(e, 'remarks')} value={this.state.updateTrack.remarks}/> 
                     </Grid>
                     <Grid className="attchForms attchImg">
                         <Grid><label>{attachments}</label></Grid>
@@ -110,7 +110,7 @@ class Index extends Component {
                 <Grid className="infoShwHidMain3upr">
                     <ShowHide date_format= {this.state.date_format} value={this.state.updateTrack} onChange={(data) => this.props.GetHideShow(data)}/>
                     <Grid className="infoShwSave3">
-                        <input type="submit" value="Save entry" onClick={this.props.AddTrack}/>
+                        <input type="submit" value={save_entry} onClick={this.props.AddTrack}/>
                     </Grid>
                 </Grid>
             </div>

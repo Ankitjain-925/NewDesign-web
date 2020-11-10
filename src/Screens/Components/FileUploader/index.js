@@ -83,7 +83,7 @@ class Loader extends Component {
           case "default":
               translate = translationEN.text
       }
-      let { browse, suported_file_type_jpg_png, BodySchemeNotes,  } = translate;
+      let { browse, suported_file_type_jpg_png, BodySchemeNotes, or_drag_here } = translate;
         return (
             <div>
             <Dropzone onDrop={(e)=>this.UploadFiles(e)}>
@@ -92,7 +92,7 @@ class Loader extends Component {
                     <Input {...getInputProps()} />
                         <Grid className="browsInput">
                             <a><img src={require('../../../assets/images/upload-file.svg')} alt="" title="" /></a>
-                            <a>{browse} <input type="file" onChange={(e)=>this.UploadFiles(e.target.files)} multiple={this.props.isMulti} /></a> or drag here
+                            <a>{browse} <input type="file" onChange={(e)=>this.UploadFiles(e.target.files)} multiple={this.props.isMulti} /></a> {or_drag_here}
                         </Grid>
                         <p>{suported_file_type_jpg_png}</p>
                     </div>

@@ -22,7 +22,14 @@ import { withRouter } from "react-router-dom";
 import { ConsoleCustom } from './../BasicMethod/index';
 import Rating from '../Rating'
 import { LanguageFetchReducer } from '../../actions';
-
+import * as translationEN from "../../../translations/en.json"
+import * as translationDE from '../../../translations/de.json';
+import * as translationPT from '../../../translations/pt.json';
+import * as translationSP from '../../../translations/sp.json';
+import * as translationRS from '../../../translations/rs.json';
+import * as translationSW from '../../../translations/sw.json';
+import * as translationCH from '../../../translations/ch.json';
+import * as translationNL from '../../../translations/en.json';
 import StripeCheckout from 'react-stripe-checkout';
 const CURRENCY = 'USD';
 const STRIPE_PUBLISHABLE = 'pk_live_SUaxHsAUa2ebLQXAa7NoMwPQ'
@@ -288,6 +295,38 @@ class Index extends Component {
 
       
     render() {
+        let translate;
+        switch (this.props.stateLanguageType) {
+            case "en":
+                translate = translationEN.text
+                break;
+            case "de":
+                translate = translationDE.text
+                break;
+            case "pt":
+                translate = translationPT.text
+                break;
+            case "sp":
+                translate = translationSP.text
+                break;
+            case "rs":
+                translate = translationRS.text
+                break;
+            case "nl":
+                translate = translationNL.text
+                break;
+            case "ch":
+                translate = translationCH.text
+                break;
+            case "sw":
+                translate = translationSW.text
+                break;
+            case "default":
+                translate = translationEN.text
+        }
+        let { all_course, my_course, topic_all, language_eng, wishlist, prescriptions, appointments, cart_removed, chat_vdocall, pharmacy_access, remove, lectures, add_to_cart, cart, capab_Patients, Inquiries, emegancy_access, archive, more, my_profile, invite_doc,pharma_prescription, online_course, profile_setting, Language,
+            DarkMode, logout } = translate;
+
         const { value } = this.state;
         const { selectedOption } = this.state;
         //Success payment alert after payment is success
@@ -395,7 +434,7 @@ class Index extends Component {
                         <Grid className="onlinCours">
                             <Grid container direction="row">
                                 <Grid item xs={12} md={6} className="onlinLft">
-                                    <h4>Aimedis Online Courses</h4>
+                                    <h4>Aimedis {online_course}</h4>
                                 </Grid>
                                 <Grid item xs={12} md={6}>
                                     <Grid className="onlinRght">
@@ -416,7 +455,7 @@ class Index extends Component {
                                 <div className="wishListCntnt">
 
                                     <div className="wshLstHai">
-                                        <div className="wshLstHaiLft"><label>Wishlist</label></div>
+                                        <div className="wshLstHaiLft"><label>{wishlist}</label></div>
                                         <div className="wshLstHaiRght">
                                             <a onClick={this.handleCloseWish}>
                                                 <img src={require('../../../assets/images/closefancy.png')} alt="" title="" />
@@ -433,7 +472,7 @@ class Index extends Component {
                                                 <p>{item.courseDesc}</p>
                                             </Grid>
                                             <Grid className="wshCorListTime">
-                                                <Grid><a><img src={require('../../../assets/images/lectures.svg')} alt="" title="" />{item.attachment.length} lectures</a></Grid>
+                                                <Grid><a><img src={require('../../../assets/images/lectures.svg')} alt="" title="" />{item.attachment.length} {lectures}</a></Grid>
                                                 {/* <Grid><a><img src={require('../../../assets/images/time.svg')} alt="" title="" />1.5 h</a></Grid> */}
                                             </Grid>
                                             <Grid className="wshCorStar">
@@ -449,7 +488,7 @@ class Index extends Component {
                                             <Grid className="nwWshCrtUpr">
                                                 <Grid container direction="row" alignItems="center">
                                                     <Grid item xs={12} md={9}>
-                                                        <Grid className="nwWshCrt" onClick={()=>this.AddtoCard(item)}><a>Add to cart</a></Grid>
+                                                        <Grid className="nwWshCrt" onClick={()=>this.AddtoCard(item)}><a>{add_to_cart}</a></Grid>
                                                     </Grid>
                                                     <Grid item xs={12} md={3}>
                                                         <Grid className="nwWshCrtRght"><a onClick={()=>{this.removeWishlist(item)}}><img src={require('../../../assets/images/fillWish.png')} alt="" title="" /></a></Grid>
@@ -475,14 +514,14 @@ class Index extends Component {
                                 className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode === 'dark' ?"crtListModel darkTheme":"crtListModel"}>
                                 <div className="crtListCntnt">
                                     <div className="crtLstHai">
-                                        <div className="crtLstHaiLft"><label>Cart</label></div>
+                                        <div className="crtLstHaiLft"><label>{cart}</label></div>
                                         <div className="crtLstHaiRght">
                                             <a onClick={this.handleCloseCart}>
                                                 <img src={require('../../../assets/images/closefancy.png')} alt="" title="" />
                                             </a>
                                         </div>
                                     </div>
-                                    {this.state.removeTrue && <div className="success_message">Cart removed successfully</div>}
+                                    {this.state.removeTrue && <div className="success_message">{cart_removed}</div>}
                                     {this.state.AllCart && this.state.AllCart.length>0 && this.state.AllCart.map((item, index)=>(
                                     <Grid className="crtCorList">
                                         <Grid className="crtCorListLbl"><label>{item.courseTitle}</label></Grid>
@@ -491,7 +530,7 @@ class Index extends Component {
                                                 <p>{item.courseDesc}</p>
                                             </Grid>
                                             <Grid className="crtCorListTime">
-                                                <Grid><a><img src={require('../../../assets/images/lectures.svg')} alt="" title="" />{item.attachment.length} lectures</a></Grid>
+                                                <Grid><a><img src={require('../../../assets/images/lectures.svg')} alt="" title="" />{item.attachment.length} {lectures}</a></Grid>
                                             </Grid>
                                             <Grid className="crtCorStar">
                                             <Rating size="20" rating={item.courseContent && item.courseContent.average} />
@@ -508,7 +547,7 @@ class Index extends Component {
                                                 </Grid>
                                                 <Grid item xs={6} md={6}>
                                                     <Grid className="crtCorRmv">
-                                                        <a onClick={()=>{this.RemoveCart(item)}}>Remove</a>
+                                                        <a onClick={()=>{this.RemoveCart(item)}}>{remove}</a>
                                                     </Grid>
                                                 </Grid>
                                             </Grid>
@@ -562,8 +601,8 @@ class Index extends Component {
                                 <Grid item xs={12} md={4}>
                                     <AppBar position="static">
                                         <Tabs value={value} onChange={this.handleChange} className="onlineTabs">
-                                            <Tab label="All Courses" className="onlineTabsIner" />
-                                            <Tab label="My Courses" className="onlineTabsIner" />
+                                            <Tab label={all_course} className="onlineTabsIner" />
+                                            <Tab label={my_course} className="onlineTabsIner" />
                                         </Tabs>
                                     </AppBar>
                                 </Grid>
@@ -575,7 +614,7 @@ class Index extends Component {
                                                 value={this.state.SelectedTopic}
                                                 onChange={(e)=>this.setState({SelectedTopic : e})}
                                                 options={this.state.courseTopics}
-                                                placeholder="Topic: All"
+                                                placeholder={topic_all}
                                                 className="topicAll"
                                             />
                                         </Grid>
@@ -584,7 +623,7 @@ class Index extends Component {
                                                 value={this.state.SelectedLanguage}
                                                 onChange={(e)=>this.setState({SelectedLanguage : e})}
                                                 options={Language}
-                                                placeholder="Language: English"
+                                                placeholder={language_eng}
                                                 className="topicAll"
                                             />
                                         </Grid>

@@ -1478,6 +1478,32 @@
 		"get_patient_access_data":"Krijg toegang tot gegevens patiënt",
 		"id_pin_not_correct":"ID of PIN is niet correct",
 		"healthcare_access_for_non_conn_patient":"Gezondheidsgegevens toegang voor niet-gekoppelde patiënt",
-		"enter_pin":"Voer Pin in"
+		"enter_pin":"Voer Pin in",
+
+		"rmv_entry": "invoer verwijderen",
+		"download_journal_report": "DOWNLOAD JOURNAAL RAPPORT",
+		"ur_emrgancy_access": "Uw noodtoegang",
+		"patient_emrgancy_access": "Noodtoegang voor patiënten",
+		"contact_other_info":"Contacten en andere info",
+		"telephone_nmbr":"Telefoon nummer",
+		"organ_donar_status":"Orgaandonorstatus",
+		"emegancy_access":"Toegang voor noodgevallen",
+		"invite_doc":"Nodig artsen uit",
+		"pharmacy_access":"Apotheek Toegang",
+		"cart_removed":"Winkelwagen succesvol verwijderd",
+		"pay_with":"Betaal met",
+		"full_report":"Volledig rapport",
+		"item_added_to_wishlist":"Item succesvol toegevoegd aan verlanglijst",
+		"item_present_in_cart":"Artikel is al aanwezig in winkelwagen",
+		"previous_lesson":"Vorige les",
+		"next_lesson":"Volgende les",
+		"rating_sent_success":"Beoordeling is succesvol verzonden",
+		"plz_give_rate":"Geef het tarief op",
+		"clear_point":"Duidelijke punten",
+		"language_updated":"Taal is bijgewerkt",
+		"language_not_selected":"Taal is niet geselecteerd.",
+		"emergancy_dignosis":"Nood diagnose",
+		"trvl_diagnosis":"Reisdiagnose",
+		"doc_name":"Naam arts"
 	}
 }

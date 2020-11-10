@@ -77,7 +77,7 @@ class Index extends Component {
             case "default":
                 translate = translationEN.text
         }
-        let { blood_pressure, visible, show, hide, until, archive, rr_systolic, attachments, time_measure, date_measure,
+        let { blood_pressure, visible, show, hide, save_entry, archive, rr_systolic, attachments, time_measure, date_measure,
             visibility, edit, Delete, RR_diastolic, heart_rate, view_fullscren, always, feeling, date, time } = translate
 
 
@@ -107,7 +107,7 @@ class Index extends Component {
                         </Grid>
                     </Grid>
                     <Grid className="fillDia">
-                        <SelectByTwo name="situation" label="Feelings" options={this.state.options} onChange={(e) => this.updateEntryState1(e, 'situation')} value={this.state.updateTrack.feelings} />
+                        <SelectByTwo name="situation" label={feeling} options={this.state.options} onChange={(e) => this.updateEntryState1(e, 'situation')} value={this.state.updateTrack.feelings} />
                     </Grid>
 
                     <Grid className="attchForms attchImg">
@@ -120,7 +120,7 @@ class Index extends Component {
 
                     <ShowHide date_format={this.state.date_format} value={this.state.updateTrack} onChange={(data) => this.props.GetHideShow(data)} />
                     <Grid className="infoShwSave3">
-                        <input type="submit" value="Save entry" onClick={this.props.AddTrack} />
+                        <input type="submit" value={save_entry} onClick={this.props.AddTrack} />
                     </Grid>
                 </Grid>
             </div>

@@ -102,7 +102,7 @@ class ShowHide extends Component {
               case "default":
                   translate = translationEN.text
           }
-          let { Allentries, hide_or_show,profilesettings, edit, done} = translate;
+          let { Allentries, hide_or_show,profilesettings, edit, done, show, hide, show_entry, hide_entry, always} = translate;
         return (
             <div>
                 {!this.state.edit && <Grid className="rrShwHidMain">
@@ -124,7 +124,7 @@ class ShowHide extends Component {
                     <Grid className="shwAfter">
                         <Grid container direction="row" justifyContent="center" alignItems="center">
                             <Grid item xs={12} md={8} className="shwAfterLft">
-                                <p>{this.state.value.visible === 'show' ? 'Show' : 'Hide'} : <span>{this.state.value.publicdatetime && getDate(this.state.value.publicdatetime, this.state.date_format)}</span></p>
+                                <p>{this.state.value.visible === 'show' ? show : hide} : <span>{this.state.value.publicdatetime && getDate(this.state.value.publicdatetime, this.state.date_format)}</span></p>
                             </Grid>
                             <Grid item xs={12} md={4} className="shwAfterRght">
                                 <a onClick={this.onEditDone}>{done}</a>
@@ -135,7 +135,7 @@ class ShowHide extends Component {
                     <Grid className="showThis">
 
                         <Grid className="showThisBtns">
-                            <SelectByTwo name="visible" label="Visible" options={[{ label: 'Show this entry', value: 'show' }, { label: 'Hide this entry', value: 'hide' }]} onChange={(e) => this.updateEntryState1(e, 'visible')} value={this.state.value.visible} />
+                            <SelectByTwo name="visible" label="Visible" options={[{ label: show_entry, value: 'show' }, { label: hide_entry, value: 'hide' }]} onChange={(e) => this.updateEntryState1(e, 'visible')} value={this.state.value.visible} />
                         </Grid>
                         {this.state.value.visible && this.state.value.visible !== "" &&
                         <Grid>
@@ -150,7 +150,7 @@ class ShowHide extends Component {
                                             onChange={this.updateEntryState}
                                         />
                                     }
-                                    label="Always"
+                                    label={always}
                                 />
                             </Grid>
 

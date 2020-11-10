@@ -968,6 +968,33 @@
 		"update_inquery":"Anfrage ändern",
 		"dearchive_entry_q":"Möchten Sie diesen Eintrag wirklich dearchivieren?",
 		"delete_for_msg":"Möchten Sie diesen Eintrag wirklich löschen? Dies kann im Nachhinein nicht rückgängig gemacht werden.",
-		"make_personilized_acc":"Fügen Sie Ihr Profilfoto hinzu, um Ihr Konto persönlicher zu gestalten. Es ist nur für Sie und die Personen in Ihrer Vertrauensliste sichtbar."
+		"make_personilized_acc":"Fügen Sie Ihr Profilfoto hinzu, um Ihr Konto persönlicher zu gestalten. Es ist nur für Sie und die Personen in Ihrer Vertrauensliste sichtbar.",
+		
+		"rmv_entry": "Eintrag entfernen",
+		"download_journal_report": "JOURNALBERICHT HERUNTERLADEN",
+		"ur_emrgancy_access": "Ihr Notfallzugang",
+		"patient_emrgancy_access": "Notfallzugang für Patienten",
+		"contact_other_info":"Kontakte & andere Infos",
+		"telephone_nmbr":"Telefonnummer",
+		"organ_donar_status":"Organspender Status",
+		"emegancy_access":"Notfallzugang",
+		"invite_doc":"Ärzte einladen",
+		"pharmacy_access":"Apothekenzugang",
+		"cart_removed":"Warenkorb erfolgreich entfernt",
+		"pay_with":"Bezahlen mit",
+		"full_report":"Kompletter Bericht",
+		"item_added_to_wishlist":"Artikel erfolgreich zur Wunschliste hinzugefügt",
+		"item_present_in_cart":"Artikel bereits im Warenkorb vorhanden",
+		"previous_lesson":"Vorherige Lektion",
+		"next_lesson":"Nächste Lektion",
+		"rating_sent_success":"Bewertung wird erfolgreich gesendet",
+		"plz_give_rate":"Bitte geben Sie den Preis an",
+		"clear_point":"Klare Punkte",
+		"language_updated":"Die Sprache wird aktualisiert",
+		"language_not_selected":"Sprache ist nicht ausgewählt.",
+		"emergancy_dignosis":"Notfalldiagnose",
+		"trvl_diagnosis":"Reisediagnose",
+		"doc_name":"Name des Arztes"
+		
 	}
 }

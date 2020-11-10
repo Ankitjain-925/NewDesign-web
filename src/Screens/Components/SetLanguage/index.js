@@ -10,6 +10,14 @@ import sitedata from '../../../sitedata';
 import Loader from '../../Components/Loader/index';
 import axios from "axios";
 
+import * as translationEN from "../../../translations/en.json"
+import * as translationDE from '../../../translations/de.json';
+import * as translationPT from '../../../translations/pt.json';
+import * as translationSP from '../../../translations/sp.json';
+import * as translationRS from '../../../translations/rs.json';
+import * as translationSW from '../../../translations/sw.json';
+import * as translationCH from '../../../translations/ch.json';
+import * as translationNL from '../../../translations/en.json';
 class Index extends Component {
     constructor(props) {
         super(props)
@@ -65,6 +73,36 @@ SetLanguage = () => {
 }
 
     render() {
+        let translate;
+        switch (this.props.stateLanguageType) {
+            case "en":
+                translate = translationEN.text
+                break;
+            case "de":
+                translate = translationDE.text
+                break;
+            case "pt":
+                translate = translationPT.text
+                break;
+            case "sp":
+                translate = translationSP.text
+                break;
+            case "rs":
+                translate = translationRS.text
+                break;
+            case "nl":
+                translate = translationNL.text
+                break;
+            case "ch":
+                translate = translationCH.text
+                break;
+            case "sw":
+                translate = translationSW.text
+                break;
+            case "default":
+                translate = translationEN.text
+        }
+        let { language_updated, language_not_selected, select, Language } = translate;
         return (
             <div>
             {this.state.loaderImage && <Loader />}
@@ -80,10 +118,10 @@ SetLanguage = () => {
                             <img src={require('../../../assets/images/closefancy.png')} alt="" title="" />
                         </a>
                     </Grid>
-                    <Grid><label>Select Language</label></Grid>
+                    <Grid><label>{select} {Language}</label></Grid>
                 </Grid>
-                {this.state.PassDone && <div className="success_message">Language is Updated!</div>}
-                {this.state.languageBlank && <div className="err_message">Language is not selected.</div>}
+                {this.state.PassDone && <div className="success_message">{language_updated}</div>}
+                {this.state.languageBlank && <div className="err_message">{language_not_selected}</div>}
                 <div className="languageHead"></div>
                 <Grid className="languageBox">
                     <Grid className="row">
