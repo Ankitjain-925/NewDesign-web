@@ -968,6 +968,19 @@
 		"update_inquery":"更新查询",
 		"dearchive_entry_q":"你真的想取消存档这个条目吗",
 		"delete_for_msg":"你真的想删除这个条目吗？ 这意味着它将被永远删除",
-		"make_personilized_acc":"为了让您的帐户更加个性化，请添加您的个人资料照片。 它只对您和您的小组中的人员可见。"
+		"make_personilized_acc":"为了让您的帐户更加个性化，请添加您的个人资料照片。 它只对您和您的小组中的人员可见。",
+
+		"rmv_entry": "删除条目",
+		"download_journal_report": "下载期刊报告",
+		"ur_emrgancy_access": "您的紧急通道",
+		"patient_emrgancy_access": "病人紧急通道",
+		"contact_other_info":"联系人和其他信息",
+		"telephone_nmbr":"电话号码",
+		"organ_donar_status":"器官捐献者身份",
+		"emegancy_access":"紧急通道",
+		"invite_doc":"邀请医生",
+		"pharmacy_access":"药房访问",
+		"cart_removed":"购物车已成功移除",
+		"pay_with":"使用。。。支付"
 	}
 }

@@ -966,6 +966,19 @@
 		"update_inquery":"Update inquery",
 		"dearchive_entry_q":"Je, kweli unataka dearchive kuingia hii",
 		"delete_for_msg":"Je, kweli unataka Kufuta kuingia hii? Hii ina maana itakuwa kufuta milele",
-		"make_personilized_acc":"kufanya akaunti yako zaidi msako, kuongeza picha yako profile. Itakuwa tu kuwa wazi kwa wewe na watu katika kundi lako."
+		"make_personilized_acc":"kufanya akaunti yako zaidi msako, kuongeza picha yako profile. Itakuwa tu kuwa wazi kwa wewe na watu katika kundi lako.",
+
+		"rmv_entry": "ondoa kuingia",
+		"download_journal_report": "PAKUA RIPOTI YA HABARI",
+		"ur_emrgancy_access": "Ufikiaji wako wa Dharura",
+		"patient_emrgancy_access": "Upataji wa Dharura wa Wagonjwa",
+		"contact_other_info":"Mawasiliano na Maelezo mengine",
+		"telephone_nmbr":"Nambari ya simu",
+		"organ_donar_status":"Hali ya Wahisani",
+		"emegancy_access":"Upataji wa Dharura",
+		"invite_doc":"Alika Madaktari",
+		"pharmacy_access":"Ufikiaji wa Dawa",
+		"cart_removed":"Kikapu kimeondolewa kwa mafanikio",
+		"pay_with":"Lipa na"
 	}
 }

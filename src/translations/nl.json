@@ -1478,6 +1478,19 @@
 		"get_patient_access_data":"Krijg toegang tot gegevens patiënt",
 		"id_pin_not_correct":"ID of PIN is niet correct",
 		"healthcare_access_for_non_conn_patient":"Gezondheidsgegevens toegang voor niet-gekoppelde patiënt",
-		"enter_pin":"Voer Pin in"
+		"enter_pin":"Voer Pin in",
+
+		"rmv_entry": "invoer verwijderen",
+		"download_journal_report": "DOWNLOAD JOURNAAL RAPPORT",
+		"ur_emrgancy_access": "Uw noodtoegang",
+		"patient_emrgancy_access": "Noodtoegang voor patiënten",
+		"contact_other_info":"Contacten en andere info",
+		"telephone_nmbr":"Telefoon nummer",
+		"organ_donar_status":"Orgaandonorstatus",
+		"emegancy_access":"Toegang voor noodgevallen",
+		"invite_doc":"Nodig artsen uit",
+		"pharmacy_access":"Apotheek Toegang",
+		"cart_removed":"Winkelwagen succesvol verwijderd",
+		"pay_with":"Betaal met"
 	}
 }

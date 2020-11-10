@@ -19,7 +19,14 @@ import axios from "axios";
 import Mode from './../../ThemeMode/index.js';
 import SetLanguage from './../../SetLanguage/index.js';
 import Loader from './../../../Components/Loader/index';
-
+import * as translationEN from "../../../../translations/en.json"
+import * as translationDE from '../../../../translations/de.json';
+import * as translationPT from '../../../../translations/pt.json';
+import * as translationSP from '../../../../translations/sp.json';
+import * as translationRS from '../../../../translations/rs.json';
+import * as translationSW from '../../../../translations/sw.json';
+import * as translationCH from '../../../../translations/ch.json';
+import * as translationNL from '../../../../translations/en.json';
 class Index extends Component {
     constructor(props) {
         super(props)
@@ -144,6 +151,37 @@ class Index extends Component {
 
 
     render() {
+        let translate;
+        switch (this.props.stateLanguageType) {
+            case "en":
+                translate = translationEN.text
+                break;
+            case "de":
+                translate = translationDE.text
+                break;
+            case "pt":
+                translate = translationPT.text
+                break;
+            case "sp":
+                translate = translationSP.text
+                break;
+            case "rs":
+                translate = translationRS.text
+                break;
+            case "nl":
+                translate = translationNL.text
+                break;
+            case "ch":
+                translate = translationCH.text
+                break;
+            case "sw":
+                translate = translationSW.text
+                break;
+            case "default":
+                translate = translationEN.text
+        }
+        let { appointments, chat_vdocall, capab_Patients, Inquiries, emegancy_access, more, my_profile, invite_doc,pharma_prescription, my_doc, extra_srvc, online_course, profile_setting, Language,
+            DarkMode, logout, journal, trackers, self_data, emrgancy_patient_data, secnd_openion, blockchain_access_log, jrnl_archive } = translate;
         return (
             <Grid item xs={12} md={1} className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode && this.props.settings.setting.mode==='dark' ? "MenuLeftUpr MenuLeftDrkUpr" : "MenuLeftUpr"}>
                 {this.state.loaderImage && <Loader />}
@@ -159,7 +197,7 @@ class Index extends Component {
                                 <img src={require('../../../../assets/images/nav-journal.svg')} alt="" title="" />
                                 {/* {this.props.currentPage === 'journal' ? <img src={require('../../../../assets/images/menu1.png')} alt="" title="" />
                                     : <img src={require('../../../../assets/images/inactiveJournal.jpg')} alt="" title="" />} */}
-                                <span>Journal</span>
+                                <span>{journal}</span>
                             </a>
                         </li>
                         <li className={this.props.currentPage === 'chat' ? "menuActv" : ""}>
@@ -167,7 +205,7 @@ class Index extends Component {
                                 <img src={require('../../../../assets/images/nav-chat.svg')} alt="" title="" />
                                 {/* {this.props.currentPage === 'chat' ? <img src={require('../../../../assets/images/chatVideoActive.png')} alt="" title="" />
                                     : <img src={require('../../../../assets/images/chatVideo.jpg')} alt="" title="" />} */}
-                                <span>Chat & <br /> Videocalls</span>
+                                <span>{chat_vdocall}</span>
                             </a>
                         </li>
                         <li className={this.props.currentPage === 'appointment' ? "menuActv" : ""}>
@@ -175,7 +213,7 @@ class Index extends Component {
                                 <img src={require('../../../../assets/images/nav-appointments.svg')} alt="" title="" />
                                 {/* {this.props.currentPage === 'appointment' ? <img src={require('../../../../assets/images/appointActive.png')} alt="" title="" />
                                     : <img src={require('../../../../assets/images/calenderIcon.jpg')} alt="" title="" />} */}
-                                <span>Appointments</span>
+                                <span>{appointments}</span>
                             </a>
                         </li>
                         <li className={this.props.currentPage === 'documents' ? "menuActv" : ""}>
@@ -183,7 +221,7 @@ class Index extends Component {
                             <img src={require('../../../../assets/images/nav-my-documents-inquiries.svg')} alt="" title="" /> 
                                 {/* {this.props.currentPage === 'documents' ? <img src={require('../../../../assets/images/activeDocs.png')} alt="" title="" />
                                     : <img src={require('../../../../assets/images/apoint.jpg')} alt="" title="" />} */}
-                                <span>My Documents</span>
+                                <span>{my_doc}</span>
                             </a>
                         </li>
                         <li className={this.props.currentPage === 'tracker' ? "menuActv" : ""}>
@@ -191,7 +229,7 @@ class Index extends Component {
                             <img src={require('../../../../assets/images/nav-trackers.svg')} alt="" title="" />
                                 {/* {this.props.currentPage === 'tracker' ? <img src={require('../../../../assets/images/track.png')} alt="" title="" />
                                     : <img src={require('../../../../assets/images/tracker.jpg')} alt="" title="" />} */}
-                                <span>Trackers & <br /> Self Data</span>
+                                <span>{trackers} & <br /> {self_data}</span>
                             </a>
                         </li>
                         <li className={this.props.currentPage === 'more' ? "menuActv" : ""}>
@@ -199,16 +237,16 @@ class Index extends Component {
                             <img src={require('../../../../assets/images/nav-more.svg')} alt="" title="" />
                                 {/* {this.props.currentPage === 'more' ? <img src={require('../../../../assets/images/moreActive.png')} alt="" title="" />
                                     : <img src={require('../../../../assets/images/moreicon.jpg')} alt="" title="" />} */}
-                                <span>More</span>
+                                <span>{more}</span>
 
                                 <div className="moreMenuList">
                                     <ul>
-                                        <li><a onClick={this.SecondLink}><img src={require('../../../../assets/images/menudocs.jpg')} alt="" title="" />Second Opinion</a></li>
-                                        <li><a onClick={this.EmergencyLink}><img src={require('../../../../assets/images/menudocs.jpg')} alt="" title="" />Emergency Patient Data</a></li>
-                                        <li><a onClick={this.OnlineCourse}><img src={require('../../../../assets/images/menudocs.jpg')} alt="" title="" />Aimedis Online Courses</a></li>
-                                        <li><a onClick={this.ExtraLink}><img src={require('../../../../assets/images/menudocs.jpg')} alt="" title="" />Extra Services</a></li>
-                                        <li><a onClick={this.JournalArchiveLink}><img src={require('../../../../assets/images/menudocs.jpg')} alt="" title="" />Journal Archive</a></li>
-                                        <li><a onClick={this.BlockChain}><img src={require('../../../../assets/images/menudocs.jpg')} alt="" title="" />Blockchain Access Log</a></li>
+                                        <li><a onClick={this.SecondLink}><img src={require('../../../../assets/images/menudocs.jpg')} alt="" title="" />{secnd_openion}</a></li>
+                                        <li><a onClick={this.EmergencyLink}><img src={require('../../../../assets/images/menudocs.jpg')} alt="" title="" />{emrgancy_patient_data}</a></li>
+                                        <li><a onClick={this.OnlineCourse}><img src={require('../../../../assets/images/menudocs.jpg')} alt="" title="" />Aimedis {online_course}</a></li>
+                                        <li><a onClick={this.ExtraLink}><img src={require('../../../../assets/images/menudocs.jpg')} alt="" title="" />{extra_srvc}</a></li>
+                                        <li><a onClick={this.JournalArchiveLink}><img src={require('../../../../assets/images/menudocs.jpg')} alt="" title="" />{jrnl_archive}</a></li>
+                                        <li><a onClick={this.BlockChain}><img src={require('../../../../assets/images/menudocs.jpg')} alt="" title="" />{blockchain_access_log}</a></li>
                                     </ul>
                                 </div>
                             </a>
@@ -219,13 +257,13 @@ class Index extends Component {
                             <img src={require('../../../../assets/images/nav-my-profile.svg')} alt="" title="" />
                                 {/* {this.props.currentPage === 'profile' ? <img src={require('../../../../assets/images/profileActv.png')} alt="" title="" />
                                     : <img src={require('../../../../assets/images/useru.jpg')} alt="" title="" />} */}
-                                <span>My Profile</span>
+                                <span>{my_profile}</span>
                                 <div className="profilMenuList">
                                     <ul>
-                                        <li><a onClick={this.ProfileLink}><img src={require('../../../../assets/images/menudocs.jpg')} alt="" title="" />Profile Settings</a></li>
-                                        <li><a onClick={this.openLanguageModel}><img src={require('../../../../assets/images/menudocs.jpg')} alt="" title="" />Language</a></li>
-                                        <li><a><img src={require('../../../../assets/images/menudocs.jpg')} alt="" title="" />Dark Mode  <Mode mode={this.state.mode} name="mode" getSetting={this.getSetting} /></a></li>
-                                        <li onClick={this.logOutClick}><a><img src={require('../../../../assets/images/menudocs.jpg')} alt="" title="" />Log out</a></li>
+                                        <li><a onClick={this.ProfileLink}><img src={require('../../../../assets/images/menudocs.jpg')} alt="" title="" />{profile_setting}</a></li>
+                                        <li><a onClick={this.openLanguageModel}><img src={require('../../../../assets/images/menudocs.jpg')} alt="" title="" />{Language}</a></li>
+                                        <li><a><img src={require('../../../../assets/images/menudocs.jpg')} alt="" title="" />{DarkMode}  <Mode mode={this.state.mode} name="mode" getSetting={this.getSetting} /></a></li>
+                                        <li onClick={this.logOutClick}><a><img src={require('../../../../assets/images/menudocs.jpg')} alt="" title="" />{logout}</a></li>
                                     </ul>
                                 </div>
                             </a>

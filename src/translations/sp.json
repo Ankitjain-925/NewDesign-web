@@ -968,6 +968,19 @@
 		"update_inquery":"Actualizar la consulta",
 		"dearchive_entry_q":"¿Realmente desea desarchivar esta entrada?",
 		"delete_for_msg":"¿Realmente desea eliminar esta entrada? Esto significa que se eliminará para siempre.",
-		"make_personilized_acc":"Para personalizar su cuenta, agregue su foto de perfil. Solo será visible para usted y las personas de su grupo."
+		"make_personilized_acc":"Para personalizar su cuenta, agregue su foto de perfil. Solo será visible para usted y las personas de su grupo.",
+
+		"rmv_entry": "elimine la entrada",
+		"download_journal_report": "DESCARGAR INFORME DEL DIARIO",
+		"ur_emrgancy_access": "Su acceso de emergencia",
+		"patient_emrgancy_access": "Acceso de emergencia para pacientes",
+		"contact_other_info":"Contactos y otra información",
+		"telephone_nmbr":"Número de teléfono",
+		"organ_donar_status":"Estado del donante de órganos",
+		"emegancy_access":"Acceso de emergencia",
+		"invite_doc":"Invitar Doctores",
+		"pharmacy_access":"Acceso a la farmacia",
+		"cart_removed":"Carrito eliminado correctamente",
+		"pay_with":"Pagar con"
 	}
 }
