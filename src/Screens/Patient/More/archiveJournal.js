@@ -42,6 +42,7 @@ class Index extends Component {
         super(props)
         this.state = {
             loaderImage: false,
+            images: [],
            
         };
         // new Timer(this.logOutClick.bind(this))
@@ -156,6 +157,34 @@ FilterFromUserType = (Datas, user_type) => {
         })
         .then((response) => {
             if (response.data.hassuccessed === true) {
+                var images = [];
+                response.data.data && response.data.data.length > 0 && response.data.data.map((data1, index) => {
+                    var find2 = data1 && data1.created_by_image
+                    if (find2) {
+                        var find3 = find2.split('.com/')[1]
+                        axios.get(sitedata.data.path + '/aws/sign_s3?find=' + find3,)
+                            .then((response2) => {
+                                if (response2.data.hassuccessed) {
+                                    images.push({ image: find2, new_image: response2.data.data })
+                                    this.setState({ images: images })
+                                }
+                            })
+                    }
+                    data1.attachfile && data1.attachfile.length > 0 && data1.attachfile.map((data, index) => {
+                        var find = data && data.filename && data.filename
+                        if (find) {
+                            var find1 = find.split('.com/')[1]
+                            axios.get(sitedata.data.path + '/aws/sign_s3?find=' + find1,)
+                                .then((response2) => {
+                                    if (response2.data.hassuccessed) {
+                                        images.push({ image: find, new_image: response2.data.data })
+                                        this.setState({ images: images })
+                                    }
+                                })
+                        }
+                    })
+                })
+
                 this.setState({ allTrack: response.data.data, loaderImage: false })
             }
             else { this.setState({ allTrack: [], loaderImage: false })  }
@@ -350,7 +379,7 @@ DeleteTrack=(deletekey)=> {
                                     <div>
                                     {this.state.allTrack && this.state.allTrack.length > 0 &&
                                         this.state.allTrack.map((item, index) => (
-                                            <ViewTimeline images={this.state.images} Archive={true} DeleteTrack={(deleteKey)=>this.DeleteTrack(deleteKey)} ArchiveTrack={(data)=> this.ArchiveTrack(data)} EidtOption={(value, updateTrack, visibility)=>this.EidtOption(value, updateTrack, visibility)} date_format={this.props.settings.setting.date_format}  time_format={this.props.settings.setting.time_format} Track={item} from="patient" loggedinUser={this.state.cur_one} patient_gender={this.state.patient_gender} />
+                                            <ViewTimeline  TrackRecord={this.state.allTrack1} Archive={true} OpenGraph={this.OpenGraph} comesfrom='patient' downloadTrack={(data) => this.downloadTrack(data)} from="patient" images={this.state.images} DeleteTrack={(deleteKey) => this.DeleteTrack(deleteKey)} ArchiveTrack={(data) => this.ArchiveTrack(data)} EidtOption={(value, updateTrack, visibility) => this.EidtOption(value, updateTrack, visibility)} date_format={this.props.settings && this.props.settings.setting && this.props.settings.setting.date_format} time_format={this.props.settings.setting.time_format} Track={item} from="patient" loggedinUser={this.state.cur_one} patient_gender={this.state.patient_gender} />
                                             ))
                                     }
                                     </div>

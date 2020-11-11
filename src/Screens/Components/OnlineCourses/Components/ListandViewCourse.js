@@ -124,6 +124,8 @@ class Index extends Component {
                             <h4>{this.state.CurrentAttach && this.state.CurrentAttach.title}</h4>
                             <Grid className="lessonTitleVdo">
                                 {/* <img src={require('../../../../assets/images/vdo.jpg')} alt="" title="" /> */}
+                            {console.log('this.state.CurrentAttach.new_image',this.state.CurrentAttach.new_image)}
+                                <a href={this.state.CurrentAttach.new_image} download target='_blank' className="DownloadFile">Download File</a>
                                 <Iframeview new_image={this.state.CurrentAttach.new_image} type={this.state.CurrentAttach.type} comesFrom="LMS"/>
                             </Grid>
                             

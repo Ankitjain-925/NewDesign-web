@@ -6,6 +6,12 @@ import sitedata from '../../../../sitedata';
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { LanguageFetchReducer } from '../../../actions';
+import GraphView from "../GraphView/JournalGraphView"
+import GraphSec from './../GraphSec/index'
+import HC_more from "highcharts/highcharts-more"; //module3
+// Import Highcharts
+import Highcharts from "highcharts/highstock";
+import HighchartsReact from "highcharts-react-official";
 import * as translationEN from "../../../../translations/en.json"
 import * as translationDE from '../../../../translations/de.json';
 import * as translationPT from '../../../../translations/pt.json';
@@ -14,7 +20,7 @@ import * as translationRS from '../../../../translations/rs.json';
 import * as translationSW from '../../../../translations/sw.json';
 import * as translationCH from '../../../../translations/ch.json';
 import * as translationNL from '../../../../translations/en.json';
-
+HC_more(Highcharts); //init modules
 
 class RightManage extends Component {
     constructor(props) {
@@ -54,11 +60,355 @@ class RightManage extends Component {
                         })
                     }
                 })
-            
+                var laboratory_result = this.getOptions('laboratory_result')
+                var blood_pressure = this.getOptions('blood_pressure')
+                var weight_bmi = this.getOptions('weight_bmi')
+                var heart_rate = this.getOptions('heart_rate')
+                var blood_sugar = this.getOptions('blood_sugar')
+                this.setState({laboratory_result: laboratory_result,blood_pressure: blood_pressure,weight_bmi: weight_bmi,
+                    heart_rate : heart_rate, blood_sugar : blood_sugar})
         }
         if (prevProps.upcoming_appointment !== this.props.upcoming_appointment) {
             this.setState({ upcoming_appointment: this.props.upcoming_appointment })
-            console.log('upcoming_appointment', this.props.upcoming_appointment)
+        }
+    }
+
+    getOptions=(current_Graph)=>{
+        console.log('this.state.personalinfo', this.state.personalinfo)
+        if(current_Graph ==='blood_pressure' || current_Graph === 'heart_rate'){
+            var categoriesbp=[],databp_d=[],databp_s=[], dataf=[],oldone;
+            this.state.personalinfo && this.state.personalinfo.blood_pressure &&  this.state.personalinfo.blood_pressure.length>0  && this.state.personalinfo.blood_pressure.map((data, index) => {
+                databp_d.push({
+                    "y": parseFloat(data.rr_diastolic)
+                })
+                databp_s.push({
+                    "y": parseFloat(data.rr_systolic)
+                })
+                dataf.push({
+                    "y": parseFloat(data.heart_frequncy)
+                })
+                if (oldone && oldone.datetime_on && oldone.datetime_on === data.datetime_on && oldone.created_at) {
+                    categoriesbp.push(getTime(data.datetime_on))
+                }
+                else {
+                    categoriesbp.push(getDate(data.datetime_on))
+                }
+                oldone = data;
+            })
+            if(current_Graph ==='blood_pressure'){
+                var options = {
+                    title: {
+                        text: 'Blood Pressure'
+                    },
+    
+                    yAxis: {
+                        title: {
+                            text: 'Blood Pressure'
+                        }
+    
+                    },
+                    xAxis: {
+                        title: {
+                            text: 'Date'
+                        },
+                        categories: categoriesbp
+                    },
+    
+                    plotOptions: {
+                        series: {
+                            marker: {
+                                enabled: true,
+                                radius: 3
+                            }
+                        }
+                    },
+                    chart: {
+                        type: 'line'
+    
+                    },
+                    credits: {
+                        enabled: false
+                    },
+                    series: [{
+                        name: 'RR Diastolic',
+                        data: databp_d,
+                        type: 'line',
+                        color: '#008080'
+    
+                    },
+                    {
+                        name: 'RR Systolic',
+                        data: databp_s,
+                        type: 'line',
+                        color: '#0000A0'
+    
+                    }]
+                }
+            }
+            else{
+                var options = {
+                    title: {
+                        text: 'Heart Frequency'
+                    },
+    
+                    yAxis: {
+                        title: {
+                            text: 'Heart Frequency'
+                        }
+    
+                    },
+                    xAxis: {
+                        title: {
+                            text: 'Date'
+                        },
+                        categories: categoriesbp
+                    },
+    
+                    plotOptions: {
+                        series: {
+                            marker: {
+                                enabled: true,
+                                radius: 3
+                            }
+                        }
+                    },
+                    chart: {
+                        type: 'line'
+    
+                    },
+                    credits: {
+                        enabled: false
+                    },
+                    series: [{
+                        name: 'Frequency',
+                        data: dataf,
+                        type: 'line',
+                        color: '#008080'
+    
+                    }]
+                }
+            }
+         
+            return options;
+        }
+        if(current_Graph === 'laboratory_result'){
+            var categorieslr=[],datalr1_u=[],datalr1_l=[],datalr1_v=[], oldone, myFilterlr1=[];
+            {this.state.personalinfo && this.state.personalinfo.laboratory_result &&  this.state.personalinfo.laboratory_result.length>0 &&this.state.personalinfo.laboratory_result.map((data, index) => {
+            datalr1_u.push({
+                "y": parseFloat(data.upper_limit)
+            })
+            datalr1_l.push({
+                "y": parseFloat(data.lower_limit)
+            })
+            datalr1_v.push({
+                "y": parseFloat(data.value)
+            })
+            myFilterlr1.push(data);
+            if (oldone && oldone.datetime_on && oldone.datetime_on === data.datetime_on && oldone.datetime_on) {
+                categorieslr.push(getTime(data.datetime_on))
+            }
+            else {
+                categorieslr.push(getDate(data.datetime_on))
+            }
+            oldone = data;
+        })}
+            var options = {
+                    title: {
+                        text: 'Creatinine (mg/dl)'
+                    },
+
+                    yAxis: {
+                        title: {
+                            text: 'Creatinine (mg/dl)'
+                        }
+                    },
+                    xAxis: {
+                        title: {
+                            text: 'Date'
+                        },
+                        categories: categorieslr
+                    },
+
+                    plotOptions: {
+                        series: {
+                            marker: {
+                                enabled: true,
+                                radius: 3
+                            }
+                        }
+                    },
+                    chart: {
+                        type: 'line'
+
+                    },
+                    credits: {
+                        enabled: false
+                    },
+                    series: [{
+                        name: 'Value',
+                        data: datalr1_v,
+                        type: 'line',
+                        color: '#800000'
+
+                    }, {
+                        name: 'Upper limit',
+                        data: datalr1_u,
+                        type: 'line',
+                        dashStyle: 'dot',
+                        color: '#008080'
+
+                    },
+                    {
+                        name: 'Lower limit',
+                        data: datalr1_l,
+                        type: 'line',
+                        dashStyle: 'dot',
+                        color: '#0000A0'
+
+                    }]
+                }
+           return options;
+        }
+
+        if(current_Graph === 'weight_bmi'){
+            var oldthree, weightbmi=[],Ibmi=[],heightbmi=[],categoriesbmi=[];
+            {this.state.personalinfo && this.state.personalinfo.weight_bmi &&  this.state.personalinfo.weight_bmi.length>0 && this.state.personalinfo.weight_bmi.map((data, index) => {
+            weightbmi.push({
+                "y": parseFloat(data.weight)
+            })
+            var BMI = (data.weight / (data.height * data.height) * 10000).toFixed(2)
+            Ibmi.push({
+                "y": parseFloat(BMI)
+            })
+            heightbmi.push({
+                "y": parseFloat(data.height)
+            })
+            if (oldthree && oldthree.datetime_on && oldthree.datetime_on === oldthree.datetime_on && oldthree.created_at) {
+                categoriesbmi.push(getTime(data.datetime_on))
+            }
+            else {
+                categoriesbmi.push(getDate(data.datetime_on))
+            }
+            oldthree = data;
+            })}
+            options ={
+                title: {
+                    text: 'Weight and BMI'
+                },
+
+                yAxis: {
+                    title: {
+                        text: 'Weight'
+                    }
+                },
+                yAxis: [{
+                    title: {
+                        text: 'BMI',
+                        style: {
+                            color: Highcharts.getOptions().colors[2]
+                        }
+                    },
+                    opposite: true
+
+                }, { // Secondary yAxis
+                    gridLineWidth: 0,
+                    title: {
+                        text: 'Weight'
+                    }
+                }],
+                xAxis: {
+                    title: {
+                        text: 'Date'
+                    },
+                    categories: categoriesbmi
+                },
+                plotOptions: {
+                    series: {
+                        marker: {
+                            enabled: true,
+                            radius: 3
+                        }
+                    }
+                },
+                chart: {
+                    type: 'line'
+                },
+                credits: {
+                    enabled: false
+                },
+                series: [{
+                    name: 'Weight',
+                    data: weightbmi,
+                    type: 'line'
+                },
+                {
+                    name: 'BMI',
+                    data: Ibmi,
+                    type: 'line'
+                }]
+            }
+            return options;
+        }
+        if(current_Graph === 'blood_sugar'){
+            var categoriesbs=[], oldtwo, hbac=[],blood_s=[];
+            {this.state.personalinfo && this.state.personalinfo.blood_sugar &&  this.state.personalinfo.blood_sugar.length>0 && this.state.personalinfo.blood_sugar.map((data, index) => {
+                hbac.push({
+                    "y": parseFloat(data.Hba1c)
+                })
+                blood_s.push({
+                    "y": parseFloat(data.blood_sugar)
+                })
+                if (oldtwo && oldtwo.datetime_on && oldtwo.datetime_on === data.datetime_on && oldtwo.created_at) {
+                    categoriesbs.push(getTime(data.datetime_on))
+                }
+                else {
+                    categoriesbs.push(getDate(data.datetime_on))
+                }
+                oldtwo = data;
+            })}
+            options ={
+                title: {
+                    text: 'Blood Sugar'
+                },
+
+                yAxis: {
+                    title: {
+                        text: 'Blood Sugar'
+                    }
+                },
+                xAxis: {
+                    title: {
+                        text: 'Date'
+                    },
+                    categories: categoriesbs
+                },
+
+                plotOptions: {
+                    series: {
+                        marker: {
+                            enabled: true,
+                            radius: 3
+                        }
+                    }
+                },
+                chart: {
+                    type: 'line'
+                },
+                credits: {
+                    enabled: false
+                },
+                series: [{
+                    name: 'Blood Sugar',
+                    data: blood_s,
+                    type: 'line'
+                },
+                {
+                    name: 'HBA1c',
+                    data: hbac,
+                    type: 'line'
+                }]
+            }
+            return options;
         }
     }
 
@@ -132,7 +482,14 @@ class RightManage extends Component {
                                         <p>{getDate(this.state.personalinfo.blood_pressure[0].datetime_on, this.state.date_format)}, {getTime(new Date(this.state.personalinfo.blood_pressure[0].datetime_on), this.state.time_foramt)}</p>
                                     </Grid>
                                     <Grid className="presureDataGrph">
-                                        <img src={require('../../../../assets/images/lineGraph.png')} alt="" title="" />
+                                        {/* <img src={require('../../../../assets/images/lineGraph.png')} alt="" title="" /> */}
+                                        
+                                        <HighchartsReact
+                                            constructorType={"chart"}
+                                            ref={this.chartComponent}
+                                            highcharts={Highcharts}
+                                            options={this.state.blood_pressure}
+                                        />
                                         <a onClick={()=> this.props.OpenGraph('blood_pressure')}>View Graph</a>
                                     </Grid>
                                 </div> :
@@ -175,7 +532,12 @@ class RightManage extends Component {
                                         <p>{getDate(this.state.personalinfo.weight_bmi[0].datetime_on, this.state.date_format)}, {getTime(new Date(this.state.personalinfo.weight_bmi[0].datetime_on), this.state.time_foramt)}</p>
                                     </Grid>
                                     <Grid className="presureDataGrph">
-                                        <img src={require('../../../../assets/images/lineGraph.png')} alt="" title="" />
+                                    <HighchartsReact
+                                            constructorType={"chart"}
+                                            ref={this.chartComponent}
+                                            highcharts={Highcharts}
+                                            options={this.state.weight_bmi}
+                                        />
                                         <a onClick={()=> this.props.OpenGraph('weight_bmi')}>View Graph</a>
                                     </Grid>
                                 </div> :
@@ -217,7 +579,12 @@ class RightManage extends Component {
                                         <p>{getDate(this.state.personalinfo.blood_pressure[0].datetime_on, this.state.date_format)}, {getTime(new Date(this.state.personalinfo.blood_pressure[0].datetime_on), this.state.time_foramt)}</p>
                                     </Grid>
                                     <Grid className="presureDataGrph">
-                                        <img src={require('../../../../assets/images/lineGraph.png')} alt="" title="" />
+                                    <HighchartsReact
+                                            constructorType={"chart"}
+                                            ref={this.chartComponent}
+                                            highcharts={Highcharts}
+                                            options={this.state.heart_rate}
+                                        />
                                         <a onClick={()=> this.props.OpenGraph('heart_rate')}>View Graph</a>
                                     </Grid>
                                 </div> :
@@ -259,7 +626,12 @@ class RightManage extends Component {
                                         <p>{getDate(this.state.personalinfo.laboratory_result[0].datetime_on, this.state.date_format)}, {getTime(new Date(this.state.personalinfo.laboratory_result[0].datetime_on), this.state.time_foramt)}</p>
                                     </Grid>
                                     <Grid className="presureDataGrph">
-                                        <img src={require('../../../../assets/images/lineGraph.png')} alt="" title="" />
+                                    <HighchartsReact
+                                            constructorType={"chart"}
+                                            ref={this.chartComponent}
+                                            highcharts={Highcharts}
+                                            options={this.state.laboratory_result}
+                                        />
                                         <a onClick={()=> this.props.OpenGraph('laboratory_result')}>View Graph</a>
                                     </Grid>
                                 </div> :
@@ -301,7 +673,12 @@ class RightManage extends Component {
                                         <p>{getDate(this.state.personalinfo.blood_sugar[0].datetime_on, this.state.date_format)}, {getTime(new Date(this.state.personalinfo.blood_sugar[0].datetime_on), this.state.time_foramt)}</p>
                                     </Grid>
                                     <Grid className="presureDataGrph">
-                                        <img src={require('../../../../assets/images/lineGraph.png')} alt="" title="" />
+                                         <HighchartsReact
+                                            constructorType={"chart"}
+                                            ref={this.chartComponent}
+                                            highcharts={Highcharts}
+                                            options={this.state.blood_sugar}
+                                        />
                                         <a onClick={()=> this.props.OpenGraph('blood_sugar')}>View Graph</a>
                                     </Grid>
                                 </div> :
@@ -372,10 +749,11 @@ class RightManage extends Component {
                                         <div>
                                         <Grid className="oficVisit">
                                             <label>{getDate(data.date, this.state.date_format)}, {data.start_time && data.start_time}</label>
-                                            <a><img src={require('../../../../assets/images/h2Logo.jpg')} alt="" title="" /> 
-                                            {data.appointment_type === 'private_appointment' && 'Office visit'}
-                                            {data.appointment_type === 'online_appointment' && 'Video call'}
-                                            {data.appointment_type === 'practice_appointment' && 'consultancy Appointment'}</a>
+                         
+                                                               
+                                            {data.appointment_type === 'private_appointment' &&  <a><img src={require('../../../../assets/images/office-visit.svg')} alt="" title="" /> Office visit</a>}
+                                            {data.appointment_type === 'online_appointment' && <a><img src={require('../../../../assets/images/video-call.svg')} alt="" title="" />Video call</a>}
+                                            {data.appointment_type === 'practice_appointment' && <a><img src={require('../../../../assets/images/cal.png')} alt="" title="" />consultancy Appointment'</a>}
                                         </Grid>
                                         <Grid className="neuroSection">
                                             <h3>{data.docProfile && data.docProfile.speciality &&  getSpec(data.docProfile.speciality)}</h3>
@@ -427,14 +805,15 @@ class RightManage extends Component {
                                     {this.state.personalinfo && this.state.personalinfo.prescriptions && this.state.personalinfo.prescriptions.length>0 ?
                                         <div>
                                             {this.state.personalinfo.prescriptions.map((itm)=>(
-                                                <div>
+                                                <div className="metroDoctor">
                                                     <Grid container direction="row" alignItems="center" className="metroPro">
-                                                        <Grid item xs={6} md={6} className="metroPrOpen">
+                                                        <Grid item xs={9} md={9}>{(itm.attachfile && itm.attachfile.length>0 && itm.attachfile[0].filename && itm.attachfile[0].filename.split('Trackrecord/')[1]).split("&bucket=")[0]}</Grid>
+                                                        <Grid item xs={3} md={3} className="metroPrOpen">
                                                             {itm.attachfile && itm.attachfile.length>0 && itm.attachfile[0] && itm.attachfile[0].filename && <a onClick={()=>GetUrlImage(itm.attachfile[0].filename)}>Open</a>}
                                                         </Grid>
                                                         <Grid className="clear"></Grid>
                                                     </Grid>
-                                                    <Grid className="metroDoctor">
+                                                    <Grid>
                                                         <a><img src={require('../../../../assets/images/dr1.jpg')} alt="" title="" /> </a>
                                                     </Grid>
                                                 </div>
@@ -448,17 +827,18 @@ class RightManage extends Component {
 
                                 <a className="presSecAncr">
                                     <h4>Sick Certificate</h4>
-                                    {this.state.personalinfo && this.state.personalinfo.prescriptions && this.state.personalinfo.prescriptions.length>0 ?
+                                    {this.state.personalinfo && this.state.personalinfo.sick_certificates && this.state.personalinfo.sick_certificates.length>0 ?
                                         <div>
-                                            {this.state.personalinfo.prescriptions.map((itm)=>(
-                                                <div>
+                                            {this.state.personalinfo.sick_certificates.map((itm)=>(
+                                                <div className="metroDoctor">
                                                     <Grid container direction="row" alignItems="center" className="metroPro">
-                                                        <Grid item xs={6} md={6} className="metroPrOpen">
+                                                    <Grid item xs={9} md={9}>{(itm.attachfile && itm.attachfile.length>0 && itm.attachfile[0].filename && itm.attachfile[0].filename.split('Trackrecord/')[1]).split("&bucket=")[0]}</Grid>
+                                                        <Grid item xs={3} md={3} className="metroPrOpen">
                                                             {itm.attachfile && itm.attachfile.length>0 && itm.attachfile[0] && itm.attachfile[0].filename && <a onClick={()=>GetUrlImage(itm.attachfile[0].filename)}>Open</a>}
                                                         </Grid>
                                                         <Grid className="clear"></Grid>
                                                     </Grid>
-                                                    <Grid className="metroDoctor">
+                                                    <Grid>
                                                         <a><img src={require('../../../../assets/images/dr1.jpg')} alt="" title="" /> </a>
                                                     </Grid>
                                                 </div>

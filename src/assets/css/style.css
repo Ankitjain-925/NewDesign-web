@@ -13025,8 +13025,11 @@ a.academy_ul ul li img {
 
 
 /*Added By ankita*/
+.DownloadFile{
+    cursor: pointer;
+    color: red;
+}
 .downloadButton {
-    font-weight: 500;
     float: right;
     padding: 15px;
 }
@@ -14209,8 +14212,6 @@ input#graduationYear {
 .contact-listitem .contact-listitem-dtls {
     padding: 0 3px 6px !important;
 }
-
-
 .homeBgDrk .ccl-left-panel.active {
     background-color: #404646 !important;
 }
@@ -14254,9 +14255,37 @@ input#graduationYear {
     background: transparent !important;
     background-color: transparent !important;
 }
-.homeBgDrk span.cc1-chat-win-timestamp, .homeBgDrk span.cc1-chat-win-timestamp {
+.homeBgDrk span.cc1-chat-win-timestamp, 
+.homeBgDrk span.cc1-chat-win-timestamp {
     color: #D9DADA !important;
 }
 .homeBgDrk .cc1-chat-win-header {
     border-bottom: 1px solid #404646 !important;
+}
+.MenuLeftUpr {
+    min-height: 100vh;
+}
+.menuItems {
+    padding-bottom: 90px;
+}
+.unified .ccl-center-panel .CreatChatInner img {
+    margin: initial !important;
+}
+.entryBoxCntnt.SetWidthPopup iframe {
+    width: 100% !important;
+}
+.editBoxModel {
+    z-index: 99999999999 !important;
+}
+.selCalenderUpr .selTimeSlot .selTimeAM {
+    height: 328px;
+    overflow-y: scroll;
+}
+@media (min-width: 1466px){
+    .ccl-center-panel.ccl-chat-center-panel .cc1-chat-win-conver-wrap {
+        padding: 0px 5% !important;
+    }
+    .cc1-chat-win-inpt-ext-wrap{
+        padding: 0px 4% !important;
+    }
 }

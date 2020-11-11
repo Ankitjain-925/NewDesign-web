@@ -146,7 +146,28 @@ class Index extends Component {
 
         })
     }
-
+    GetTime=(start_time)=>{
+        let da1 = new Date();
+        if (start_time) {
+            var t1 = start_time.split(":");
+        }
+        
+        if (t1 && t1.length > 0) {
+            da1.setHours(t1[0]);
+            da1.setMinutes(t1[1]);
+        }
+        else {
+            da1.setHours('00');
+            da1.setMinutes('00');
+        }
+        if(this.props.settings && this.props.settings.setting && this.props.settings.setting.time_format && this.props.settings.setting.time_format==='12')
+        {
+            return moment(da1).format('hh:mm a')
+        }
+        else{
+            return moment(da1).format('HH:mm')
+        }
+    }
     getEvent = () => {
         var finaldata = [];
         var user_token = this.props.stateLoginValueAim.token;
@@ -320,6 +341,7 @@ class Index extends Component {
             }
         }).then((response) => {
             this.getAppoinment();
+            this.getEvent();
         }).catch((error) => {
      
         });
@@ -359,6 +381,7 @@ class Index extends Component {
         this.setState({ selectedOption });
     };
     handleOpenSlot = (data) => {
+        console.log(data.date, 'data.date')
         let date = new Date(moment(new Date(data.date), 'M-DD-YYYY').format())
         this.setState({appoinmentSelected: data },
             ()=>{this.onChange(date);});
@@ -544,7 +567,7 @@ class Index extends Component {
                                         <span>{data.appointment_type == 'practice_days' ? 'Consultancy Appointment' : (data.appointment_type == 'online_appointment' ? 'Video call' : 'Office visit')}</span>
                                     </Grid>
                                     <Grid className="meetVdoRght">
-                                        <p>{moment(new Date(data.date), 'MM-DD-YYYY').format('D MMM')}, {data.start_time}</p>
+                                        <p>{moment(new Date(data.date), 'MM-DD-YYYY').format('D MMM')}, {this.GetTime(data.start_time)}</p>
                                     </Grid>
                                 </Grid>
                                 <Grid className="meetDetail">
@@ -582,7 +605,9 @@ class Index extends Component {
         let weeknumber = moment(date).day();
         var appiInd = -1
         if (this.state[statemanger].workingDays) appiInd = this.state[statemanger].workingDays.findIndex(person => person.value.includes(days[weeknumber - 1]))
+        console.log('appiInd', appiInd, days[weeknumber-1])
         if (appiInd !== -1) {
+            console.log('heree45')
             let start = this.state[statemanger].workingDays[appiInd].start;
             let end = this.state[statemanger].workingDays[appiInd].end;
             var time = moment(start, 'H:mm');
@@ -592,12 +617,13 @@ class Index extends Component {
                 var endtime = moment(firsttime, 'H:mm').add(this.state[statemanger].duration_of_timeslots, 'minutes');
                 let dataq = { start: firsttime.format('H:mm'), end: endtime.format('H:mm') }
                 temptimes.push(dataq)
+               
             }
         }
         else {
-            //    suggestTime:[]
+            //   suggestTime:[]
         }
-
+        console.log('temptimes2', temptimes)
         temptimes.map(tiems => {
             let clashtime = false
             appioinmentTimes.map(datatime => {
@@ -610,7 +636,7 @@ class Index extends Component {
                 suggestTime.push(tiems)
             }
         })
-        console.log('suggestTime',this.state[statemanger], appiInd, temptimes,suggestTime)
+        
 
         this.setState({ suggesteddate: date, suggestTime: suggestTime , currentSelected: -1},
             ()=>{this.setState({ openSlot: true })});
@@ -700,7 +726,7 @@ class Index extends Component {
                                                                 {data.appointment_type == 'practice_days' && <img src={require('../../../assets/images/dates.png')} alt="" title="" />}
                                                                 {data.appointment_type == 'private_appointments' && <img src={require('../../../assets/images/ShapeCopy21.svg')} alt="" title="" />}
 
-                                                                <label>{moment(new Date(data.date), 'MM-DD-YYYY').format('MMMM DD, YYYY')}</label> <span>{data.start_time} - {data.end_time}</span></a>
+                                                                <label>{moment(new Date(data.date), 'MM-DD-YYYY').format('MMMM DD, YYYY')}</label> <span>{this.GetTime(data.start_time)} - {this.GetTime(data.end_time)}</span></a>
                                                         </Grid>
                                                     </Grid>))}
                                             </Grid>
@@ -738,7 +764,7 @@ class Index extends Component {
                                                     </Grid>
                                                     <Grid className="clear"></Grid>
                                                     <Grid className="augDate">
-                                                        <p><label>{moment(new Date(appoinmentSelected.date), 'MM-DD-YYYY').format('MMMM DD, YYYY')}</label> <span>{appoinmentSelected.start_time} - {appoinmentSelected.end_time}</span></p>
+                                                        <p><label>{moment(new Date(appoinmentSelected.date), 'MM-DD-YYYY').format('MMMM DD, YYYY')}</label> <span>{this.GetTime(appoinmentSelected.start_time)} - {this.GetTime(appoinmentSelected.end_time)}</span></p>
                                                     </Grid>
                                                     <Grid className="detailQues">
                                                         <label>{Details} / {Questions}</label>
@@ -755,7 +781,7 @@ class Index extends Component {
                                                             <Grid><label>{date_of_appointment}</label></Grid>
                                                             <Grid>
                                                                 <DatePicker
-                                                                    onChange={this.onChange}
+                                                                    onChange={(e)=>this.onChange(e)}
                                                                     value={this.state.suggesteddate}
                                                                 />
                                                             </Grid>

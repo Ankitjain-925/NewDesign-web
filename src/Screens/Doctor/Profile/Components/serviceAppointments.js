@@ -261,11 +261,23 @@ class Index extends Component {
         let doctor_id = this.props.stateLoginValueAim.user._id;
         let { firstServiceData, sencondSeviceData, thirdServiceData, weoffer, UpDataDetails, DaysforPractices, onlineAppointments, holidayAppointment } = this.state;
         let dataSave = {};
+        console.log('DaysforPractices.duration_of_timeslots', DaysforPractices.duration_of_timeslots)
         this.setState({ updateService: false, appoinmentError: false })
         dataSave['paid_services'] = [];
-        if (UpDataDetails.duration_of_timeslots && UpDataDetails.duration_of_timeslots !== 0 &&
-            DaysforPractices.duration_of_timeslots && DaysforPractices.duration_of_timeslots !== 0 &&
-            onlineAppointments.duration_of_timeslots && onlineAppointments.duration_of_timeslots !== 0) {
+        console.log('weoffer', weoffer)
+        if (weoffer &&  weoffer.Offer_office_prescription && (!UpDataDetails.duratin_of_timeslots || UpDataDetails.duration_of_timeslots === 0)){
+            console.log('hereee')
+            this.setState({ appoinmentError: true })
+        }
+        else if(weoffer &&  weoffer.Offer_practice_appointment && (!DaysforPractices.duration_of_timeslots || DaysforPractices.duration_of_timeslots === 0)){
+            console.log('hereee22')
+            this.setState({ appoinmentError: true })
+        }
+        else if(weoffer &&  weoffer.Offre_online_appointments && (!onlineAppointments.duration_of_timeslots || onlineAppointments.duration_of_timeslots === 0)) {
+            this.setState({ appoinmentError: true })
+        }
+        else {
+            console.log('going to final one')
             if (firstServiceData.created) {
                 dataSave['paid_services'].push(firstServiceData)
             }
@@ -320,10 +332,11 @@ class Index extends Component {
                     setTimeout(() => { this.setState({ updateService: false }) }, 5000)
                 })
         }
-        else {
+        // }
+        // else {
             
-            this.setState({ appoinmentError: true })
-        }
+        //     this.setState({ appoinmentError: true })
+        // }
 
         // if (this.state.UpDataDetails.duration_of_timeslots && this.state.UpDataDetails.duration_of_timeslots !== 0) {
         //     let monday_start, monday_end, tuesday_start, tuesday_end, wednesday_start, wednesday_end, thursday_end, thursday_start,
@@ -901,7 +914,7 @@ class Index extends Component {
 
                     <Grid className="srvcInst instBrdr">
                         {this.state.updateService && <div className="success_message">{the_appointment_srvc_success_updated}</div>}
-                        {this.state.appoinmentError && <div className="err_message">{plz_fill_break_timeslot_for_aapointment}</div>}
+                        {this.state.appoinmentError && <div className="err_message">Please fill the Time duration of appointment</div>}
                         <h3>{Services}</h3>
                         <p>{instant_activation_deactivation_offer_srvc}</p>
                     </Grid>
@@ -1363,8 +1376,8 @@ class Index extends Component {
                                             <Checkbox
                                                 value="checkedB"
                                                 color="#00ABAF"
-                                                checked={weoffer && weoffer.Offre_online_appointments ? true : false}
-                                                onChange={() => this.handleweoffer('Offre_online_appointments')}
+                                                checked={weoffer && weoffer.Offer_practice_appointment ? true : false}
+                                                onChange={() => this.handleweoffer('Offer_practice_appointment')}
                                             />
                                         }
                                         label="Consultancy (custom calendar)"

@@ -988,7 +988,9 @@ class Index extends Component {
                                                                 {this.props.Doctorsetget && this.props.Doctorsetget.p_id !== null ? <a onClick={this.AnotherPatient}>{another_patient_data}</a> : <a onClick={this.handleOpenData}>{get_patient_access_data}</a>}
                                                                 {this.props.Doctorsetget && this.props.Doctorsetget.p_id !== null && <a onClick={this.handleOpenEntry}>+ {add_new_entry}</a>}
                                                             </Grid>
-                                                            <DownloadFullTrack TrackRecord={this.state.allTrack}/>
+                                                            <Grid className="downloadButton">
+                                                                <DownloadFullTrack TrackRecord={this.state.allTrack1}/>
+                                                            </Grid>
                                                         </Grid>
                                                     </Grid>
                                                 </Grid>

@@ -165,6 +165,29 @@ class Index extends Component {
 
     }
 
+    GetTime=(start_time)=>{
+        let da1 = new Date();
+        if (start_time) {
+            var t1 = start_time.split(":");
+        }
+        
+        if (t1 && t1.length > 0) {
+            da1.setHours(t1[0]);
+            da1.setMinutes(t1[1]);
+        }
+        else {
+            da1.setHours('00');
+            da1.setMinutes('00');
+        }
+        if(this.props.settings && this.props.settings.setting && this.props.settings.setting.time_format && this.props.settings.setting.time_format==='12')
+        {
+            return moment(da1).format('hh:mm a')
+        }
+        else{
+            return moment(da1).format('HH:mm')
+        }
+    }
+
 getUpcomingAppointment() {
         var user_token = this.props.stateLoginValueAim.token;
         axios.get(sitedata.data.path + '/UserProfile/UpcomingAppintmentPat', {
@@ -212,7 +235,7 @@ getUpcomingAppointment() {
 
     handleOpenFancyVdo = (i, type, data) => {
 
-        console.log('heeee')
+    
         this.setState({ openFancyVdo: true, appointmentData: data, doc_select: i, appointType: type });
         // setTimeout(this.onChange, 5000)
         // this.onChange()
@@ -279,13 +302,13 @@ getUpcomingAppointment() {
     bookAppointment =() =>{
         var insurance_no = this.state.personalinfo.insurance && this.state.personalinfo.insurance.length > 0 && this.state.personalinfo.insurance[0] && this.state.personalinfo.insurance[0].insurance_number ? this.state.personalinfo.insurance[0].insurance_number : '';
         // this.setState({ loaderImage: true });
-        console.log('this.state.selectedDate',this.state.selectedDoc, new Date(this.state.selectedDate))
+       console.log('this.state.selectedDate', this.state.selectedDate, new Date(this.state.selectedDate))
         const user_token = this.props.stateLoginValueAim.token;
         axios.post(sitedata.data.path + '/User/appointment', {
             patient: this.props.stateLoginValueAim.user._id,
             doctor_id: this.state.selectedDoc.data && this.state.selectedDoc.data._id,
             insurance: this.state.personalinfo.insurance[0].insurance_number,
-            date: new Date(this.state.selectedDate),
+            date: this.state.selectedDate,
             start_time: this.state.mypoint.start,
             end_time: this.state.mypoint.end,
             appointment_type: this.state.mypoint.type,
@@ -523,7 +546,7 @@ getUpcomingAppointment() {
                 break;
         }
         let appointmentData = this.state.appointmentData
-        console.log('this.state.appointmentData', this.state.appointmentData)
+       
         let appointDate
         if (appointmentData) {
             Object.entries(appointmentData).map(([key, value]) => {
@@ -679,7 +702,7 @@ getUpcomingAppointment() {
                                         <span>{data.appointment_type == 'practice_appointment' ? 'Consultancy Appointment' : (data.appointment_type == 'online_appointment' ? 'Video call' : 'Office visit')}</span>
                                     </Grid>
                                     <Grid className="meetVdoRght">
-                                        <p>{moment(new Date(data.date), 'MM-DD-YYYY').format('D MMM')}, {data.start_time}</p>
+                                        <p>{moment(new Date(data.date), 'MM-DD-YYYY').format('D MMM')}, {this.GetTime(data.start_time)}</p>
                                     </Grid>
                                 </Grid>
                                 <Grid className="meetDetail">
@@ -973,7 +996,7 @@ getUpcomingAppointment() {
                                             {this.state.pastAppointment && this.state.pastAppointment.length > 0 && this.state.pastAppointment.map(apoint => (
                                                 <Grid className="officeVst">
                                                     <Grid container direction="row">
-                                                        <Grid item xs={6} md={6} className="officeVstLft"><label>{apoint.date && getDate(apoint.date, this.props.settings && this.props.settings.setting && this.props.settings.setting.date_format)}, {apoint.start_time}</label></Grid>
+                                                        <Grid item xs={6} md={6} className="officeVstLft"><label>{apoint.date && getDate(apoint.date, this.props.settings && this.props.settings.setting && this.props.settings.setting.date_format)}, {this.GetTime(apoint.start_time)}</label></Grid>
                                                         <Grid item xs={6} md={6} className="officeVstRght">
                                                             {apoint.appointment_type == "appointments" ? <a><img src={require('../../../assets/images/office-visit.svg')} alt="" title="" /> {office_visit} </a> :
                                                                 apoint.appointment_type == "online_appointment" ? <a><img src={require('../../../assets/images/video-call.svg')} alt="" title="" /> {vdo_call} </a> :
@@ -1001,8 +1024,9 @@ getUpcomingAppointment() {
                                             <h4>{upcming_apointment}</h4>
                                             {this.state.upcomingAppointment && this.state.upcomingAppointment.length > 0 && this.state.upcomingAppointment.map(apoint => (
                                                 <Grid className="officeVst">
+                                                    
                                                     <Grid container direction="row">
-                                                        <Grid item xs={6} md={6} className="officeVstLft"><label>{apoint.date && getDate(apoint.date, this.props.settings && this.props.settings.setting && this.props.settings.setting.date_format)}, {apoint.start_time}</label></Grid>
+                                                        <Grid item xs={6} md={6} className="officeVstLft"><label>{apoint.date && getDate(apoint.date, this.props.settings && this.props.settings.setting && this.props.settings.setting.date_format)}, {this.GetTime(apoint.start_time)}</label></Grid>
                                                         <Grid item xs={6} md={6} className="officeVstRght">
                                                             {apoint.appointment_type == "appointments" ? <a><img src={require('../../../assets/images/office-visit.svg')} alt="" title="" /> {office_visit} </a> :
                                                                 apoint.appointment_type == "online_appointment" ? <a><img src={require('../../../assets/images/video-call.svg')} alt="" title="" /> {vdo_call} </a> :
