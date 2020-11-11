@@ -89,5 +89,5 @@ const mapStateToProps = (state) => {
     return {
         stateLanguageType
     }
-};
-export default withRouter(connect(mapStateToProps, { LanguageFetchReducer })(SelectField));
+  };
+  export default withRouter(connect(mapStateToProps, { LanguageFetchReducer })(SelectField));

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./style.scss";
 import BadgeCount from "../BadgeCount";
+import ReactTooltip from "react-tooltip";
 import Avatar from "../Avatar";
 import StatusIndicator from "../StatusIndicator";
 import { SvgAvatar } from "../../util/svgavatar";
@@ -52,7 +53,10 @@ function Userview(props) {
         />
       </div>
       <div className="contact-listitem-dtls">
-        <div className="contact-listitem-name">{props.user.name}</div>
+        <div className="contact-listitem-name" data-tip data-for={props.user.name}>{props.user.name}</div>
+        <ReactTooltip className="timeIconClas" id={props.user.name} place="top" effect="solid" backgroundColor="#ffffff">
+           {props.user.name}
+        </ReactTooltip>
         {props &&
           props.UnreadCount &&
           Object.entries(props.UnreadCount).map(([key, value]) =>
