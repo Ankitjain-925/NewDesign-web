@@ -995,7 +995,11 @@
 		"emergancy_dignosis":"Notfalldiagnose",
 		"trvl_diagnosis":"Reisediagnose",
 		"doc_name":"Name des Arztes",
-		"DarkMode" :"Dunkler Modus"
+		"DarkMode" :"Dunkler Modus",
+		"user_type_all":"Benutzertyp: Alle",
+		"search_timeline":"Zeitleiste suchen",
+		"file_content":"Dateiinhalt",
+		"first_day_visit":"Erster Tagesbesuch"
 		
 	}
 }

@@ -995,6 +995,10 @@
     "emergancy_dignosis":"Экстренная диагностика",
     "trvl_diagnosis":"Диагностика путешествия",
     "doc_name":"Имя врача",
-    "DarkMode" :"Темный режим"
+    "DarkMode" :"Темный режим",
+    "user_type_all":"Тип пользователя: Все",
+    "search_timeline":"Хронология поиска",
+    "file_content":"Содержимое файла",
+    "first_day_visit":"Посещение первого дня"
   }
 }

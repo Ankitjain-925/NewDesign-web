@@ -443,7 +443,7 @@ class RightManage extends Component {
                   translate = translationEN.text
           }
           let {blood_pressure, visible,feeling,show, date, time, hide, until, archive, rr_systolic,
-            visibility, edit, Delete, RR_diastolic, heart_rate,always, VeiwGraph,
+            visibility, edit, Delete, RR_diastolic, heart_rate,always, VeiwGraph, no_data_avlbl, add_new_entry, weight_bmi, Creatinine, blood_sugar, last_doc_visit, upcming_apointment, last_document, prescriptions, sick_cert,
             Change,de_archive,Download } = translate;
         var item = this.state.item;
         return (
@@ -454,7 +454,7 @@ class RightManage extends Component {
                         <Grid className="persBlodMesur">
                             <Grid container direction="row" alignItems="center">
                                 <Grid item xs={6} md={6} className="lstView">
-                                    <label>Blood Pressure</label>
+                                    <label>{blood_pressure}</label>
                                 </Grid>
                                 <Grid item xs={6} md={6}>
                                     <Grid className="persBlodImg scndOptionIner1">
@@ -469,7 +469,7 @@ class RightManage extends Component {
                                                  </li>}
                                                 {this.props.from !== 'patient' && <li><a onClick={()=>this.props.EidtOption(this.state.personalinfo.blood_pressure[0].type, this.state.personalinfo.blood_pressure[0])}><img src={require('../../../../assets/images/edit-1.svg')} alt="" title="" />{edit}</a></li>}
                                             <li><a onClick={() => this.props.downloadTrack(this.state.personalinfo.blood_pressure[0])}><img src={require('../../../../assets/images/download.svg')} alt="" title="" />{Download}</a></li>
-                                          <li><a onClick={()=> this.props.OpenGraph('blood_pressure')}>View Graph</a></li>
+                                          <li><a onClick={()=> this.props.OpenGraph('blood_pressure')}>{VeiwGraph}</a></li>
                                         </ul>
                                     </a>}
                                     </Grid>
@@ -490,12 +490,12 @@ class RightManage extends Component {
                                             highcharts={Highcharts}
                                             options={this.state.blood_pressure}
                                         />
-                                        <a onClick={()=> this.props.OpenGraph('blood_pressure')}>View Graph</a>
+                                        <a onClick={()=> this.props.OpenGraph('blood_pressure')}>{VeiwGraph}</a>
                                     </Grid>
                                 </div> :
                                 <Grid className="noBpData">
-                                    <p>No data available</p>
-                                    {this.props.from==='patient' && <h3 onClick={()=>this.props.SelectOption('blood_pressure')}>+ add new entry</h3>}
+                                    <p>{no_data_avlbl}</p>
+                                    {this.props.from==='patient' && <h3 onClick={()=>this.props.SelectOption('blood_pressure')}>+ {add_new_entry}</h3>}
                                 </Grid>}
                         </Grid>
                          }
@@ -504,7 +504,7 @@ class RightManage extends Component {
                         <Grid className="persBlodMesur">
                             <Grid container direction="row" alignItems="center">
                                 <Grid item xs={6} md={6} className="lstView">
-                                    <label>Weight BMI</label>
+                                    <label>{weight_bmi}</label>
                                 </Grid>
                                 <Grid item xs={6} md={6}>
                                     <Grid className="persBlodImg scndOptionIner1">
@@ -519,7 +519,7 @@ class RightManage extends Component {
                                                  </li>}
                                                 {this.props.from !== 'patient' && <li><a onClick={()=>this.props.EidtOption(this.state.personalinfo.weight_bmi[0].type, this.state.personalinfo.weight_bmi[0])}><img src={require('../../../../assets/images/edit-1.svg')} alt="" title="" />{edit}</a></li>}
                                             <li><a onClick={() => this.props.downloadTrack(this.state.personalinfo.weight_bmi[0])}><img src={require('../../../../assets/images/download.svg')} alt="" title="" />{Download}</a></li>
-                                            <li><a onClick={()=> this.props.OpenGraph('weight_bmi')}>View Graph</a></li>
+                                            <li><a onClick={()=> this.props.OpenGraph('weight_bmi')}>{VeiwGraph}</a></li>
                                         </ul>
                                     </a>}
                                     </Grid>
@@ -538,12 +538,12 @@ class RightManage extends Component {
                                             highcharts={Highcharts}
                                             options={this.state.weight_bmi}
                                         />
-                                        <a onClick={()=> this.props.OpenGraph('weight_bmi')}>View Graph</a>
+                                        <a onClick={()=> this.props.OpenGraph('weight_bmi')}>{VeiwGraph}</a>
                                     </Grid>
                                 </div> :
                                 <Grid className="noBpData">
-                                    <p>No data available</p>
-                                    {this.props.from==='patient' && <h3 onClick={()=>this.props.SelectOption('weight_bmi')}>+ add new entry</h3>}
+                                    <p>{no_data_avlbl}</p>
+                                    {this.props.from==='patient' && <h3 onClick={()=>this.props.SelectOption('weight_bmi')}>+ {add_new_entry}</h3>}
                                 </Grid>}
                         </Grid>
                         }
@@ -551,7 +551,7 @@ class RightManage extends Component {
                         <Grid className="persBlodMesur">
                             <Grid container direction="row" alignItems="center">
                                 <Grid item xs={6} md={6} className="lstView">
-                                    <label>Heart Rate</label>
+                                    <label>{heart_rate}</label>
                                 </Grid>
                                 <Grid item xs={6} md={6}>
                                     <Grid className="persBlodImg scndOptionIner1">
@@ -566,7 +566,7 @@ class RightManage extends Component {
                                                  </li>}
                                                 {this.props.from !== 'patient' && <li><a onClick={()=>this.props.EidtOption(this.state.personalinfo.blood_pressure[0].type, this.state.personalinfo.blood_pressure[0])}><img src={require('../../../../assets/images/edit-1.svg')} alt="" title="" />{edit}</a></li>}
                                             <li><a onClick={() => this.props.downloadTrack(this.state.personalinfo.blood_pressure[0])}><img src={require('../../../../assets/images/download.svg')} alt="" title="" />{Download}</a></li>
-                                            <li> <a onClick={()=> this.props.OpenGraph('heart_rate')}>View Graph</a></li>
+                                            <li> <a onClick={()=> this.props.OpenGraph('heart_rate')}>{{VeiwGraph}}</a></li>
                                         </ul>
                                     </a>}
                                     </Grid>
@@ -585,11 +585,11 @@ class RightManage extends Component {
                                             highcharts={Highcharts}
                                             options={this.state.heart_rate}
                                         />
-                                        <a onClick={()=> this.props.OpenGraph('heart_rate')}>View Graph</a>
+                                        <a onClick={()=> this.props.OpenGraph('heart_rate')}>{{VeiwGraph}}</a>
                                     </Grid>
                                 </div> :
                                 <Grid className="noBpData">
-                                    <p>No data available</p>
+                                    <p>{no_data_avlbl}</p>
                                     {this.props.from==='patient' && <h3 onClick={()=>this.props.SelectOption('blood_pressure')}>+ add new entry</h3>}
                                 </Grid>}
                         </Grid>
@@ -598,7 +598,7 @@ class RightManage extends Component {
                         <Grid className="persBlodMesur">
                             <Grid container direction="row" alignItems="center">
                                 <Grid item xs={6} md={6} className="lstView">
-                                    <label>Creatinine</label>
+                                    <label>{Creatinine}</label>
                                 </Grid>
                                 <Grid item xs={6} md={6}>
                                     <Grid className="persBlodImg scndOptionIner1">
@@ -613,7 +613,7 @@ class RightManage extends Component {
                                                  </li>}
                                                 {this.props.from !== 'patient' && <li><a onClick={()=>this.props.EidtOption(this.state.personalinfo.laboratory_result[0].type, this.state.personalinfo.laboratory_result[0])}><img src={require('../../../../assets/images/edit-1.svg')} alt="" title="" />{edit}</a></li>}
                                             <li><a onClick={() => this.props.downloadTrack(this.state.personalinfo.laboratory_result[0])}><img src={require('../../../../assets/images/download.svg')} alt="" title="" />{Download}</a></li>
-                                          <li> <a onClick={()=> this.props.OpenGraph('laboratory_result')}>View Graph</a></li>
+                                          <li> <a onClick={()=> this.props.OpenGraph('laboratory_result')}>{{VeiwGraph}}</a></li>
                                         </ul>
                                     </a>}
                                     </Grid>
@@ -632,11 +632,11 @@ class RightManage extends Component {
                                             highcharts={Highcharts}
                                             options={this.state.laboratory_result}
                                         />
-                                        <a onClick={()=> this.props.OpenGraph('laboratory_result')}>View Graph</a>
+                                        <a onClick={()=> this.props.OpenGraph('laboratory_result')}>{{VeiwGraph}}</a>
                                     </Grid>
                                 </div> :
                                 <Grid className="noBpData">
-                                    <p>No data available</p>
+                                    <p>{no_data_avlbl}</p>
                                     {this.props.from==='patient' && <h3 onClick={()=>this.props.SelectOption('laboratory_result')}>+ add new entry</h3>}
                                 </Grid>}
                         </Grid>
@@ -645,7 +645,7 @@ class RightManage extends Component {
                         <Grid className="persBlodMesur">
                             <Grid container direction="row" alignItems="center">
                                 <Grid item xs={6} md={6} className="lstView">
-                                    <label>Blood Sugar</label>
+                                    <label>{blood_sugar}</label>
                                 </Grid>
                                 <Grid item xs={6} md={6}>
                                     <Grid className="persBlodImg scndOptionIner1">
@@ -660,7 +660,7 @@ class RightManage extends Component {
                                                  </li>}
                                                 {this.props.from !== 'patient' && <li><a onClick={()=>this.props.EidtOption(this.state.personalinfo.blood_sugar[0].type, this.state.personalinfo.blood_sugar[0])}><img src={require('../../../../assets/images/edit-1.svg')} alt="" title="" />{edit}</a></li>}
                                                 <li><a onClick={() => this.props.downloadTrack(this.state.personalinfo.blood_sugar[0])}><img src={require('../../../../assets/images/download.svg')} alt="" title="" />{Download}</a></li>
-                                                <li><a onClick={()=> this.props.OpenGraph('blood_sugar')}>View Graph</a></li>
+                                                <li><a onClick={()=> this.props.OpenGraph('blood_sugar')}>{{VeiwGraph}}</a></li>
                                         </ul>
                                     </a>}
                                     </Grid>
@@ -679,18 +679,18 @@ class RightManage extends Component {
                                             highcharts={Highcharts}
                                             options={this.state.blood_sugar}
                                         />
-                                        <a onClick={()=> this.props.OpenGraph('blood_sugar')}>View Graph</a>
+                                        <a onClick={()=> this.props.OpenGraph('blood_sugar')}>{{VeiwGraph}}</a>
                                     </Grid>
                                 </div> :
                                 <Grid className="noBpData">
-                                    <p>No data available</p>
+                                    <p>{no_data_avlbl}</p>
                                     {this.props.from==='patient' && <h3 onClick={()=>this.props.SelectOption('blood_sugar')}>+ add new entry</h3>}
                                 </Grid>}
                         </Grid>
                         }
                         {item ==='last_doctor_visit' && 
                         <Grid className="drVisit">
-                            <h3>Last doctor visits</h3>
+                            <h3>{last_doc_visit}</h3>
                             {this.state.personalinfo && this.state.personalinfo.last_dv &&  this.state.personalinfo.last_dv.length>0 ?
                                 <div>
                                     {this.state.personalinfo.last_dv.map((data, index) => (
@@ -711,7 +711,7 @@ class RightManage extends Component {
                                     ))}
                                 </div>
                                 : <Grid className="noBpData">
-                                    <p>No data available</p>
+                                    <p>{no_data_avlbl}</p>
                                     {this.props.from==='patient' &&  <h3 onClick={()=>this.props.SelectOption('doctor_visit')}>+ add new entry</h3>}
                                 </Grid>}
                         </Grid>
@@ -720,7 +720,7 @@ class RightManage extends Component {
                         <Grid className="comeAppoint">
                             <Grid container direction="row" alignItems="center">
                                 <Grid item xs={10} md={10}>
-                                <Grid className="upcomView"><label>Upcoming appointment</label> {this.props.from==='patient' &&  <a onClick={this.props.MoveAppoint}>View all</a>}</Grid>
+                                <Grid className="upcomView"><label>{upcming_apointment}</label> {this.props.from==='patient' &&  <a onClick={this.props.MoveAppoint}>View all</a>}</Grid>
                                 </Grid>
                                 <Grid item xs={2} md={2}>
                                     {/* <Grid className="allViewDots scndOptionIner1">
@@ -764,7 +764,7 @@ class RightManage extends Component {
                                         </div>))}
                                 </div> :
                                 <Grid className="noBpData">
-                                    <p>No data available</p>
+                                    <p>{no_data_avlbl}</p>
                                     {this.props.from==='patient' &&  <h3 onClick={()=>this.props.MoveAppoint()}>+ add new entry</h3>}
                                 </Grid>}
                         </Grid>
@@ -774,7 +774,7 @@ class RightManage extends Component {
                             <Grid container direction="row" alignItems="center">
                                 <Grid item xs={10} md={10}>
                                     <Grid className="lstView">
-                                        <label>Last Documents</label> {this.props.from==='patient' &&  <a onClick={()=>this.props.MoveDocument()}>View all</a>}
+                                        <label>{last_document}</label> {this.props.from==='patient' &&  <a onClick={()=>this.props.MoveDocument()}>View all</a>}
                                     </Grid>
                                 </Grid>
                                 <Grid item xs={2} md={2}>
@@ -800,7 +800,7 @@ class RightManage extends Component {
 
                             <Grid className="presSec">
                                 <a className="presSecAncr">
-                                    <h4>Prescription</h4>
+                                    <h4>{prescriptions}</h4>
                                    
                                     {this.state.personalinfo && this.state.personalinfo.prescriptions && this.state.personalinfo.prescriptions.length>0 ?
                                         <div>
@@ -820,13 +820,13 @@ class RightManage extends Component {
                                             ))}
                                         </div> :
                                         <Grid className="noBpData">
-                                            <p>No data available</p>
+                                            <p>{no_data_avlbl}</p>
                                             {this.props.from==='patient' && <h3 onClick={()=>this.props.MoveDocument()}>+ add new entry</h3>}
                                         </Grid>}
                                 </a>
 
                                 <a className="presSecAncr">
-                                    <h4>Sick Certificate</h4>
+                                    <h4>{sick_cert}</h4>
                                     {this.state.personalinfo && this.state.personalinfo.sick_certificates && this.state.personalinfo.sick_certificates.length>0 ?
                                         <div>
                                             {this.state.personalinfo.sick_certificates.map((itm)=>(
@@ -845,7 +845,7 @@ class RightManage extends Component {
                                             ))}
                                         </div> :
                                         <Grid className="noBpData">
-                                            <p>No data available</p>
+                                            <p>{no_data_avlbl}</p>
                                             {this.props.from==='patient' &&  <h3 onClick={()=>this.props.MoveDocument()}>+ add new entry</h3>}
                                         </Grid>}
                                 </a>

@@ -139,7 +139,7 @@ class Index extends Component {
             case "default":
                 translate = translationEN.text
         }
-        let { vaccinated_by, vaccination, reminder_time_taken, save_entry, attachments, date_of_vaccination, trade_name, smoking_status, notes, visible, Change, archive, de_archive, visibility, edit, Delete, show, hide,
+        let { vaccinated_by, vaccination, reminder_time_taken,  change_num, save_entry, attachments, date_of_vaccination, trade_name, smoking_status, notes, visible, Change, archive, de_archive, visibility, edit, Delete, show, hide,
             always  } = translate
         return (
             <div>
@@ -151,7 +151,7 @@ class Index extends Component {
                         <MMHG name="trade_name"  label={trade_name} onChange={(e)=> this.props.updateEntryState(e)} value={this.state.updateTrack.trade_name}/>    
                     </Grid>
                     <Grid className="fillDia">
-                        <MMHG name="charge_number"  label="Charge Number" onChange={(e)=> this.props.updateEntryState(e)} value={this.state.updateTrack.charge_number}/>    
+                        <MMHG name="charge_number"  label={change_num} onChange={(e)=> this.props.updateEntryState(e)} value={this.state.updateTrack.charge_number}/>    
                     </Grid>
                     <Grid className="fillDia">
                         <MMHG name="vaccinated_by"  label={vaccinated_by} onChange={(e)=> {this.filterDoc(e.target.value); this.props.updateEntryState(e)}} value={this.state.updateTrack.vaccinated_by}/>    

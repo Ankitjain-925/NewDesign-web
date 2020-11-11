@@ -5,7 +5,17 @@ import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
 import sitedata from '../../../../sitedata';
 import axios from 'axios';
 import {ConsoleCustom, getDate} from './../../BasicMethod/index';
-
+import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
+import { LanguageFetchReducer } from './../../../actions';
+import * as translationEN from "../../../../translations/en.json";
+import * as translationDE from '../../../../translations/de.json';
+import * as translationPT from '../../../../translations/pt.json';
+import * as translationSP from '../../../../translations/sp.json';
+import * as translationRS from '../../../../translations/rs.json';
+import * as translationSW from '../../../../translations/sw.json';
+import * as translationCH from '../../../../translations/ch.json';
+import * as translationNL from '../../../../translations/en.json';
 class PointPain extends Component {
     constructor(props) {
         super(props)
@@ -130,6 +140,37 @@ class PointPain extends Component {
     }
 
     render() {
+        let translate;
+        switch (this.props.stateLanguageType) {
+            case "en":
+                translate = translationEN.text
+                break;
+            case "de":
+                translate = translationDE.text
+                break;
+            case "pt":
+                translate = translationPT.text
+                break;
+            case "sp":
+                translate = translationSP.text
+                break;
+            case "rs":
+                translate = translationRS.text
+                break;
+            case "nl":
+                translate = translationNL.text
+                break;
+            case "ch":
+                translate = translationCH.text
+                break;
+            case "sw":
+                translate = translationSW.text
+                break;
+            case "default":
+                translate = translationEN.text
+        }
+        let { add_profile, picture, cmplt_ur_profile, my_profile, weight, height, BMI, blood} = translate
+
         return (
             <Grid className="profileDescp">
                 <input type="file" id="getFile" className="FileInptJournal" onChange={this.UploadFile}/>
@@ -143,7 +184,7 @@ class PointPain extends Component {
                 <Grid className="myProfile2">
                     <a className="profilePic2">
                         <label for="getFile">
-                            <span>Add profile <br /> picture</span>
+                            <span>{add_profile} <br /> {picture}</span>
                             <img src={require('../../../../assets/images/user2.jpg')} alt="" title="" />
                         </label>
                     </a>
@@ -151,26 +192,26 @@ class PointPain extends Component {
                 }
                 <Grid className="profileName">
                     <label>{this.state.user.first_name && this.state.user.first_name} {this.state.user.last_name && this.state.user.last_name}</label>
-                    {this.state.user.birthday && this.state.user.birthday!== ''? <p>{getDate(this.state.user.birthday, this.state.user_token)} </p> : <p onClick={this.props.MoveProfile}>Complete your profile</p>}
-                    <Grid className="profileBtn"><a onClick={this.props.MoveProfile}>My Profile</a></Grid>
+                    {this.state.user.birthday && this.state.user.birthday!== ''? <p>{getDate(this.state.user.birthday, this.state.user_token)} </p> : <p onClick={this.props.MoveProfile}>{cmplt_ur_profile}</p>}
+                    <Grid className="profileBtn"><a onClick={this.props.MoveProfile}>{my_profile}</a></Grid>
                     <Grid>
                         <Grid className="prfilHght">
                             <Grid className="prfilHghtLft">
-                                <label>Weight</label>
+                                <label>{weight}</label>
                                 <p>{this.state.personalinfo && this.state.personalinfo.weight_bmi && this.state.personalinfo.weight_bmi.length>0 && this.state.personalinfo.weight_bmi[0].weight ? this.state.personalinfo.weight_bmi[0].weight : '--'}<span>kg</span></p>
                             </Grid>
                             <Grid className="prfilHghtRght">
-                                <label>Height</label>
+                                <label>{height}</label>
                                 <p>{this.state.personalinfo && this.state.personalinfo.weight_bmi && this.state.personalinfo.weight_bmi.length>0 && this.state.personalinfo.weight_bmi[0].height ? this.state.personalinfo.weight_bmi[0].height : '--'}<span>cm</span></p>
                             </Grid>
                         </Grid>
                         <Grid className="prfilHght">
                             <Grid className="prfilHghtLft">
-                                <label>BMI</label>
+                                <label>{BMI}</label>
                                 {this.state.personalinfo && this.state.personalinfo.weight_bmi  && this.state.personalinfo.weight_bmi.length>0 ? <p>{(this.state.personalinfo.weight_bmi[0].weight/(this.state.personalinfo.weight_bmi[0].height * this.state.personalinfo.weight_bmi[0].height)*10000).toFixed(2) ==='NaN' ? '--' : (this.state.personalinfo.weight_bmi[0].weight/(this.state.personalinfo.weight_bmi[0].height * this.state.personalinfo.weight_bmi[0].height)*10000).toFixed(2)}</p>:  <p>--</p>}
                             </Grid> 
                             <Grid className="prfilHghtRght">
-                                <label>Blood</label>
+                                <label>{blood}</label>
                                 <p>{this.state.user && this.state.user.blood_group && this.state.user.rhesus ? 
                                 this.state.user.blood_group+this.state.user.rhesus
                                 : '--'}</p>
@@ -183,8 +224,14 @@ class PointPain extends Component {
     }
 }
 
-export default PointPain;
 
+const mapStateToProps = (state) => {
+    const { stateLanguageType } = state.LanguageReducer;
+    return {
+        stateLanguageType
+    }
+};
+export default withRouter(connect(mapStateToProps, { LanguageFetchReducer })(PointPain));
 
 
 

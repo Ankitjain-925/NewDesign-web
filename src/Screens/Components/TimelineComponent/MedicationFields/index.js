@@ -84,7 +84,7 @@ class Index extends Component {
                 translate = translationEN.text
         }
         let { specific_date, interval, reminder, reminder_time_taken, notes, atc_code, lab_result, upr_limit, unit, lwr_limit, on, prescribed, save_entry, to_be_consume, pain_areas, Change, show, hide, until, archive, rr_systolic, attachments, time_measure, date_measure,
-            enter_dosage, edit, Delete, enter_a_sbstnce, first_visit_day, pain_type, de_archive, ur_trade_name, always, feeling, date, time } = translate
+            enter_dosage, edit, Delete, enter_a_sbstnce, lifelong, on_demand, pain_type, de_archive, ur_trade_name, always, feeling, date, time } = translate
 
         return (
             <div>
@@ -128,7 +128,7 @@ class Index extends Component {
                                     onChange={(e) => this.updateEntryState1(e.target.checked, 'lifelong')}
                                 />
                             }
-                            label="Lifelong"
+                            label={lifelong}
                         />
                     </Grid>
 
@@ -143,7 +143,7 @@ class Index extends Component {
                                     onChange={(e) => this.updateEntryState1(e.target.checked, 'ondemand')}
                                 />
                             }
-                            label="On Demand"
+                            label={on_demand}
                         />
                     </Grid>
 

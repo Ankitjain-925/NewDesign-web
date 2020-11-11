@@ -5,6 +5,17 @@ import GraphSec from './../GraphSec/index'
 import HC_more from "highcharts/highcharts-more"; //module3
 // Import Highcharts
 import Highcharts from "highcharts/highstock";
+import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
+import { LanguageFetchReducer } from './../../../actions';
+import * as translationEN from "../../../../translations/en.json";
+import * as translationDE from '../../../../translations/de.json';
+import * as translationPT from '../../../../translations/pt.json';
+import * as translationSP from '../../../../translations/sp.json';
+import * as translationRS from '../../../../translations/rs.json';
+import * as translationSW from '../../../../translations/sw.json';
+import * as translationCH from '../../../../translations/ch.json';
+import * as translationNL from '../../../../translations/en.json';
 HC_more(Highcharts); //init module
 
 class Index extends Component {
@@ -380,6 +391,37 @@ class Index extends Component {
     
     render() {
         var item = this.state.item;
+        let translate;
+        switch (this.props.stateLanguageType) {
+            case "en":
+                translate = translationEN.text
+                break;
+            case "de":
+                translate = translationDE.text
+                break;
+            case "pt":
+                translate = translationPT.text
+                break;
+            case "sp":
+                translate = translationSP.text
+                break;
+            case "rs":
+                translate = translationRS.text
+                break;
+            case "nl":
+                translate = translationNL.text
+                break;
+            case "ch":
+                translate = translationCH.text
+                break;
+            case "sw":
+                translate = translationSW.text
+                break;
+            case "default":
+                translate = translationEN.text
+        }
+
+        let {blood_pressure, heart_frequency, blood_sugar, weight_bmi, Creatinine}= translate
         return (
             <div>
                 <Grid container direction="row" justify="center">
@@ -392,31 +434,31 @@ class Index extends Component {
                         <Grid className="presurInner">
                             {this.state.personalinfo && this.state.personalinfo.blood_pressure &&  this.state.personalinfo.blood_pressure.length>0 && 
                             <a className={this.state.current_Graph === 'blood_pressure' && "presurInnerActv"} onClick={()=> this.OnGraphChange('blood_pressure')}>
-                                <label>Blood Pressure</label>
+                                <label>{blood_pressure}</label>
                                 <Grid><span>{this.state.personalinfo && this.state.personalinfo.blood_pressure && this.state.personalinfo.blood_pressure[0] && (this.state.personalinfo.blood_pressure[0].rr_systolic +'/'+  this.state.personalinfo.blood_pressure[0].rr_diastolic)} mmHg</span></Grid>
                                 <p>{getDate(this.state.personalinfo.blood_pressure[0].datetime_on, this.state.date_format)}, {getTime(new Date(this.state.personalinfo.blood_pressure[0].datetime_on), this.state.time_foramt)}</p>
                             </a>}
                             {this.state.personalinfo && this.state.personalinfo.blood_pressure &&  this.state.personalinfo.blood_pressure.length>0 &&
                             <a className={this.state.current_Graph === 'heart_rate' && "presurInnerActv"} onClick={()=> this.OnGraphChange('heart_rate')}>
-                                <label>Heart Frequency</label>
+                                <label>{heart_frequency}</label>
                                 <Grid><span>{this.state.personalinfo && this.state.personalinfo.blood_pressure && this.state.personalinfo.blood_pressure[0] && (this.state.personalinfo.blood_pressure[0].heart_frequncy )} bpm</span></Grid>
                                 <p>{getDate(this.state.personalinfo.blood_pressure[0].datetime_on, this.state.date_format)}, {getTime(new Date(this.state.personalinfo.blood_pressure[0].datetime_on), this.state.time_foramt)}</p>
                             </a>}
                             {this.state.personalinfo && this.state.personalinfo.blood_sugar &&  this.state.personalinfo.blood_sugar.length>0 &&
                             <a className={this.state.current_Graph === 'blood_sugar' && "presurInnerActv"} onClick={()=> this.OnGraphChange('blood_sugar')}>
-                                <label>Blood Sugar</label>
+                                <label>{blood_sugar}</label>
                                 <Grid><span>{this.state.personalinfo && this.state.personalinfo.blood_sugar && this.state.personalinfo.blood_sugar[0] && (this.state.personalinfo.blood_sugar[0].blood_sugar )} mg/dl</span></Grid>
                                 <p>{getDate(this.state.personalinfo.blood_sugar[0].datetime_on, this.state.date_format)}, {getTime(new Date(this.state.personalinfo.blood_sugar[0].datetime_on), this.state.time_foramt)}</p>
                             </a>}
                             {this.state.personalinfo && this.state.personalinfo.weight_bmi &&  this.state.personalinfo.weight_bmi.length>0 &&
                             <a className={this.state.current_Graph === 'weight_bmi' && "presurInnerActv"} onClick={()=> this.OnGraphChange('weight_bmi')}>
-                                <label>Weight & BMI</label>
+                                <label>{weight_bmi}</label>
                                 <Grid><span>{this.state.personalinfo && this.state.personalinfo.weight_bmi && this.state.personalinfo.weight_bmi[0] && this.state.personalinfo.weight_bmi[0].weight} kg, {this.state.personalinfo && this.state.personalinfo.weight_bmi && this.state.personalinfo.weight_bmi[0] && (this.state.personalinfo.weight_bmi[0].height + '/'+this.state.personalinfo.weight_bmi[0].weight )} BMI</span></Grid>
                                 <p>{getDate(this.state.personalinfo.weight_bmi[0].datetime_on, this.state.date_format)}, {getTime(new Date(this.state.personalinfo.weight_bmi[0].datetime_on), this.state.time_foramt)}</p>
                             </a>}
                             {this.state.personalinfo && this.state.personalinfo.laboratory_result &&  this.state.personalinfo.laboratory_result.length>0 &&
                             <a className={this.state.current_Graph === 'laboratory_result' && "presurInnerActv"} onClick={()=> this.OnGraphChange('laboratory_result')}>
-                                <label>Creatinine</label>
+                                <label>{Creatinine}</label>
                                 <Grid><span>{this.state.personalinfo && this.state.personalinfo.laboratory_result && this.state.personalinfo.laboratory_result[0] && (this.state.personalinfo.laboratory_result[0].value )} mg/dl</span></Grid>
                                 <p>{getDate(this.state.personalinfo.laboratory_result[0].datetime_on, this.state.date_format)}, {getTime(new Date(this.state.personalinfo.laboratory_result[0].datetime_on), this.state.time_foramt)}</p>
                             </a>}
@@ -429,11 +471,11 @@ class Index extends Component {
                 <Grid container direction="row" justify="center">
                     <Grid item xs={12} md={9}>
                         <Grid className="presurLabl">
-                            {this.state.current_Graph === 'laboratory_result' && <h1>Creatinine</h1>}
-                            {this.state.current_Graph === 'weight_bmi' && <h1>Weight & BMI</h1>}
-                            {this.state.current_Graph === 'blood_sugar' && <h1>Blood Sugar</h1>}
-                            {this.state.current_Graph === 'heart_rate' && <h1>Heart Frequency</h1>}
-                            {this.state.current_Graph === 'blood_pressure' && <h1>Blood Pressure</h1>}
+                            {this.state.current_Graph === 'laboratory_result' && <h1>{Creatinine}</h1>}
+                            {this.state.current_Graph === 'weight_bmi' && <h1>{weight_bmi}</h1>}
+                            {this.state.current_Graph === 'blood_sugar' && <h1>{blood_sugar}</h1>}
+                            {this.state.current_Graph === 'heart_rate' && <h1>{heart_frequency}</h1>}
+                            {this.state.current_Graph === 'blood_pressure' && <h1>{blood_pressure}</h1>}
                         </Grid>
                     </Grid>
                     <Grid item xs={12} md={3}>
@@ -460,4 +502,10 @@ class Index extends Component {
     }
 }
 
-export default Index;
+const mapStateToProps = (state) => {
+    const { stateLanguageType } = state.LanguageReducer;
+    return {
+        stateLanguageType
+    }
+};
+export default withRouter(connect(mapStateToProps, { LanguageFetchReducer })(Index));

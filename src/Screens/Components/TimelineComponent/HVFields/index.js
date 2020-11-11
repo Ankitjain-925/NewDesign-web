@@ -78,7 +78,7 @@ class Index extends Component {
             case "default":
                 translate = translationEN.text
         }
-        let { hosp_name, hosp_id, speciality, doc_id, save_entry, attachments, first_visit_day, last_visit_day } = translate
+        let { hosp_name, hosp_id, speciality, doc_id,  notes, save_entry, attachments, first_visit_day, last_visit_day } = translate
 
         return (
             <div>
@@ -108,7 +108,7 @@ class Index extends Component {
                         </Grid>   
                     </Grid>
                     <Grid className="fillDia">
-                        <NotesEditor name="remarks" label="Notes"  onChange={(e)=> this.updateEntryState1(e, 'remarks')} value={this.state.updateTrack.remarks}/> 
+                        <NotesEditor name="remarks" label={notes}  onChange={(e)=> this.updateEntryState1(e, 'remarks')} value={this.state.updateTrack.remarks}/> 
                     </Grid>
                     <Grid className="attchForms attchImg">
                         <Grid><label>{attachments}</label></Grid>

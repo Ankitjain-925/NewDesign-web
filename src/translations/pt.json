@@ -996,6 +996,10 @@
 		"emergancy_dignosis":"Diagnóstico de emergência",
 		"trvl_diagnosis":"Diagnóstico de viagens",
 		"doc_name":"Nome do Médico",
-		"DarkMode" :"Modo escuro"
+		"DarkMode" :"Modo escuro",
+		"user_type_all":"Tipo de usuário: Todos",
+		"search_timeline":"Linha do tempo de pesquisa",
+		"file_content":"Conteúdo do arquivo",
+		"first_day_visit":"Visita de primeiro dia"
 	}
 }
