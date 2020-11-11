@@ -994,6 +994,7 @@
     "language_not_selected":"Язык не выбран.",
     "emergancy_dignosis":"Экстренная диагностика",
     "trvl_diagnosis":"Диагностика путешествия",
-    "doc_name":"Имя врача"
+    "doc_name":"Имя врача",
+    "DarkMode" :"Темный режим"
   }
 }

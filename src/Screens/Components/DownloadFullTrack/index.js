@@ -27,7 +27,7 @@ class Date extends Component {
       //This is for the Download the Track
       downloadTrack = () => {
         var medication=[], blood_pressure=[],blood_sugar=[],condition_pain=[],diagnosis=[],doctor_visit=[],hospitalization=[],laboratory_result=[],
-        marcumar_pass=[],vaccination=[],weight_bmi = [];
+        marcumar_pass=[],vaccination=[],weight_bmi = [], anamnesis=[], smoking_status=[];
         if(this.state.TrackRecord && this.state.TrackRecord.length>0)
         {
             this.state.TrackRecord.map((data)=>{

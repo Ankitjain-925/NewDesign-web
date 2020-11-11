@@ -994,6 +994,7 @@
 		"language_not_selected":"未选择语言。",
 		"emergancy_dignosis":"紧急诊断",
 		"trvl_diagnosis":"旅行诊断",
-		"doc_name":"医生姓名"
+		"doc_name":"医生姓名",
+		"DarkMode" :"暗模式"
 	}
 }

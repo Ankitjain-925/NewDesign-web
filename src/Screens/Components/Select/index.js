@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
 import Select from 'react-select';
+import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
+import { LanguageFetchReducer } from './../../actions';
 import * as translationEN from "../../../translations/en.json"
 import * as translationDE from '../../../translations/de.json';
 import * as translationPT from '../../../translations/pt.json';
@@ -81,4 +84,10 @@ class SelectField extends Component {
     }
 }
 
-export default SelectField;
+const mapStateToProps = (state) => {
+    const { stateLanguageType } = state.LanguageReducer;
+    return {
+        stateLanguageType
+    }
+};
+export default withRouter(connect(mapStateToProps, { LanguageFetchReducer })(SelectField));

@@ -994,7 +994,8 @@
 		"language_not_selected":"Sprache ist nicht ausgewählt.",
 		"emergancy_dignosis":"Notfalldiagnose",
 		"trvl_diagnosis":"Reisediagnose",
-		"doc_name":"Name des Arztes"
+		"doc_name":"Name des Arztes",
+		"DarkMode" :"Dunkler Modus"
 		
 	}
 }
