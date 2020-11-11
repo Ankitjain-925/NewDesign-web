@@ -227,7 +227,7 @@ class Index extends Component {
 
                                 <div className="moreMenuList">
                                     <ul>
-                                        <li><a onClick={this.SecondLink}><img src={require('../../../../assets/images/menudocs.jpg')} alt="" title="" />{secnd_openion}</a></li>
+                                        {/* <li><a onClick={this.SecondLink}><img src={require('../../../../assets/images/menudocs.jpg')} alt="" title="" />{secnd_openion}</a></li> */}
                                         <li><a onClick={this.EmergencyLink}><img src={require('../../../../assets/images/menudocs.jpg')} alt="" title="" />{emrgancy_patient_data}</a></li>
                                         <li><a onClick={this.OnlineCourse}><img src={require('../../../../assets/images/menudocs.jpg')} alt="" title="" />Aimedis {online_course}</a></li>
                                         <li><a onClick={this.ExtraLink}><img src={require('../../../../assets/images/menudocs.jpg')} alt="" title="" />{extra_srvc}</a></li>

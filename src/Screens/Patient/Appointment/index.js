@@ -786,6 +786,7 @@ getUpcomingAppointment() {
         return (
             <Grid className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode && this.props.settings.setting.mode==='dark' ? "homeBg homeBgDrk" : "homeBg"}>
             <Grid className="homeBgIner">
+            {/* <Autocomplete onPlaceChanged={this.showPlaceDetails.bind(this)} /> */}
             {this.state.loaderImage && <Loader />}
                 <Grid container direction="row" justify="center">
                     <Grid item xs={12} md={12}>

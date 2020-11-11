@@ -27,7 +27,7 @@ class Date extends Component {
       //This is for the Download the Track
       downloadTrack = () => {
         var medication=[], blood_pressure=[],blood_sugar=[],condition_pain=[],diagnosis=[],doctor_visit=[],hospitalization=[],laboratory_result=[],
-        marcumar_pass=[],vaccination=[],weight_bmi = [];
+        marcumar_pass=[],vaccination=[],weight_bmi = [],fanamnesis=[],diary=[],smoking_status=[],anamnesis=[];
         if(this.state.TrackRecord && this.state.TrackRecord.length>0)
         {
             this.state.TrackRecord.map((data)=>{
@@ -70,9 +70,9 @@ class Date extends Component {
                     case "smoking_status":
                         smoking_status.push(data.smoking_status.label)
                     case "family_anamnesis":
-                        anamnesis.push(data.disease_name +' - '+data.relation)
+                        fanamnesis.push(data.disease_name +' - '+data.relation)
                     case "diary":
-                        anamnesis.push(data.free_text)
+                        diary.push(data.free_text)
                     case "default":
                         break;
                                 

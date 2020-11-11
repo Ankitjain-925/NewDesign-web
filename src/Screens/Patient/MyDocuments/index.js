@@ -16,6 +16,8 @@ import axios from 'axios';
 import { withRouter } from "react-router-dom";
 import Radio from '@material-ui/core/Radio';
 import { connect } from "react-redux";
+import FileUploader from './../../Components/FileUploader/index';
+import ListingSecond from '../More/Components/ListingSecond';
 import { LoginReducerAim } from './../../Login/actions';
 import { Settings } from './../../Login/setting';
 import { confirmAlert } from 'react-confirm-alert'; // Import
@@ -82,12 +84,16 @@ class Index extends Component {
             selectedPdoc: {},
             AllSick: [],
             newItemp: {},
+            newItemp2: {},
             newItems: {},
             share_to_doctor: false,
             share_to_doctor1: false,
             found1: false,
             found: false,
-            selectedSub: {}
+            selectedSub: {},
+            successfullsent3: false,
+            AddSecond: {},
+            err_pdf: false,
         };
     }
 
@@ -131,6 +137,55 @@ class Index extends Component {
         this.allSdoctors();
         this.alldoctor();
     }
+
+    // Add the Second State
+    AddStateSO = (e) => {
+        const state = this.state.AddSecond;
+        state[e.target.name] = e.target.value;
+        this.setState({ AddSecond: state })
+    }
+
+      // fancybox open
+      handleaddSecond = () => {
+        this.setState({ addSec: true });
+    };
+    handleCloseDash = () => {
+        this.setState({ addSec: false });
+    };
+
+ //For upload File related the second Opinion
+ fileUpload = (event) => {
+    if (event && event[0] && (event[0].type === "application/pdf" || event[0].type === "image/jpeg" || event[0].type === "image/png")) {
+        this.setState({ isfileuploadmulti: true, loaderImage: true, err_pdf: false })
+        var fileattach = [];
+        for (var i = 0; i < event.length; i++) {
+            var file = event[i];
+            let fileParts = event[i].name.split('.');
+            let fileName = fileParts[0];
+            let fileType = fileParts[1];
+            axios.post(sitedata.data.path + '/aws/sign_s3', {
+                fileName: fileName,
+                fileType: fileType,
+                folders: this.props.stateLoginValueAim.user.profile_id + '/second_opinion/',
+                bucket: this.props.stateLoginValueAim.user.bucket
+            }).then(response => {
+                fileattach.push({ filename: response.data.data.returnData.url + '&bucket=' + this.props.stateLoginValueAim.user.bucket })
+                this.setState({ fileupods: true });
+                setTimeout(() => { this.setState({ fileupods: false }); }, 5000);
+                var returnData = response.data.data.returnData;
+                var signedRequest = returnData.signedRequest;
+                var url = returnData.url;
+                // Put the fileType in the headers for the upload
+                var options = { headers: { 'Content-Type': fileType } };
+                axios.put('https://cors-anywhere.herokuapp.com/' + signedRequest, file, options)
+                    .then(result => {
+                        this.setState({ success: true, loaderImage: false, fileattach: fileattach });
+                    }).catch(error => { })
+            }).catch(error => { })
+        }
+    }
+    else { this.setState({ err_pdf: true }) }
+}
 
     //Get current User Information
     patientinfo() {
@@ -247,6 +302,25 @@ class Index extends Component {
         }
     }
 
+     //Add doctor for Second Opinion
+     AddDoctorSS = (e, name) => {
+        const state = this.state.AddSecond;
+        state[name] = e.value;
+        this.setState({ AddSecond: state, selectedPdoc: e }, () => {
+            if (this.state.AddSecond.doctor_id) {
+                let doctor_id = this.state.AddSecond.doctor_id
+                axios.get(sitedata.data.path + '/UserProfile/DoctorProfile/' + doctor_id, {
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    }
+                }).then((response) => {
+                    const found = this.state.personalinfo.fav_doctor && this.state.personalinfo.fav_doctor.length > 0 && this.state.personalinfo.fav_doctor.some(el => el.doctor === response.data.data.profile_id);
+                    this.setState({ docProfile: response.data.data, found: found })
+                })
+            }
+        })
+    }
     //Add doctor for Prescription
     AddDoctor = (e, name) => {
         const state = this.state.AddPrescription;
@@ -341,6 +415,61 @@ class Index extends Component {
                 }
             })
     }
+    //For save the second opinion
+    saveData = () => {
+        this.setState({ error: false });
+        var data = this.state.AddSecond;
+        if (data.doctor_id) {
+            this.setState({ error: false });
+            this.setState({ loaderImage: true });
+            const user_token = this.props.stateLoginValueAim.token;
+            var data = this.state.AddSecond;
+            if (this.state.fileattach) {
+                data.documents = this.state.fileattach;
+            }
+            data.patient_info = {
+                patient_id: this.props.stateLoginValueAim.user.profile_id,
+                first_name: this.props.stateLoginValueAim.user.first_name,
+                last_name: this.props.stateLoginValueAim.user.last_name,
+                email: this.props.stateLoginValueAim.user.email,
+                birthday: this.props.stateLoginValueAim.user.birthday,
+                profile_image: this.props.stateLoginValueAim.user.image
+            };
+            data.status = "free";
+            data.view_status = "free";
+            data.lan = this.props.stateLanguageType;
+            data.docProfile = {
+                patient_id: this.state.docProfile.profile_id,
+                first_name: this.state.docProfile.first_name,
+                last_name: this.state.docProfile.last_name,
+                email: this.state.docProfile.email,
+                birthday: this.state.docProfile.birthday,
+                profile_image: this.state.docProfile.image
+            };
+            data.send_on = new Date();
+            data.patient_id = this.props.stateLoginValueAim.user._id;
+            data.patient_email = this.props.stateLoginValueAim.user.email;
+            data.first_name = this.state.personalinfo.first_name;
+            data.last_name = this.state.personalinfo.last_name;
+            data.email = this.props.stateLoginValueAim.user.email;
+            data.birthday = this.state.personalinfo.birthday;
+            data.profile_image = this.state.personalinfo.image;
+            data.patient_profile_id = this.props.stateLoginValueAim.user.profile_id;
+            axios.post(sitedata.data.path + '/UserProfile/second_opinion', data)
+                .then((responce) => {
+                    if (this.state.share_to_doctor) {
+                        AddFavDoc(this.state.docProfile.profile_id, this.state.docProfile.profile_id, this.props.stateLoginValueAim.token, this.props.stateLoginValueAim.user.profile_id);
+                    }
+                    this.setState({ fileattach: {}, selectedPdoc: {}, newItemp2: data, docProfile: false, AddSecond: {}, loaderImage: false, successfullsent: true, addSec: false })
+                })
+            setTimeout(() => { this.setState({ successfullsent3: false }); }, 5000);
+        }
+        else {
+            this.setState({ error: true });
+            setTimeout(() => { this.setState({ error: false }) }, 5000);
+        }
+    }
+
     //All doctors of the SC
     allSdoctors() {
         var user_token = this.props.stateLoginValueAim.token;
@@ -406,9 +535,9 @@ class Index extends Component {
             case "default":
                 translate = translationEN.text
         }
-        let { sick_cert,prescriptions, sickcsrtificates, my_doc, prescription, New, r_u_tracking_medi, inquiry, select, for_sick_cert_req_doc, share_health_status_info_from_journal, share_health_status, see_list_shared_info, share_ur_jounral_status,
+        let { secnd_openion, plz_upload_png_jpg,doc_require_for_second_openion, specilist_and_secnd_openion,specialist, how_wuld_u_like_rcv_scnd_openion, online, home_add_mailbox, ur_profesion, questions, attachments, save_entry, sick_cert,prescriptions, sickcsrtificates, my_doc, prescription, New, r_u_tracking_medi, inquiry, select, for_sick_cert_req_doc, share_health_status_info_from_journal, share_health_status, see_list_shared_info, share_ur_jounral_status,
             country_u_live, dieseases_etc, allergies, health_issue, doc_and_statnderd_ques, doc_aimedis_private, how_u_feeling, is_ur_temp_high_to_38, which_symptoms_do_u_hav, since_when,
-            have_u_already_been_sick, how_long_do_u_unable_to_work, days, it_is_known_dieseas, do_u_hv_allergies, what_ur_profession, Annotations, details, questions, for_pres_req_doc_require,
+            have_u_already_been_sick, how_long_do_u_unable_to_work, days, it_is_known_dieseas, do_u_hv_allergies, what_ur_profession, Annotations, details, for_pres_req_doc_require,
             is_this_follow_pres, how_u_like_rcv_pres, Medicine, Substance, Dose, mg, trade_name, atc_if_applicable, manufacturer, pack_size,  } = translate
 
         return (
@@ -434,9 +563,111 @@ class Index extends Component {
                                             <Grid item xs={12} md={6} className="docsOpinRght">
                                                 {value == 0 && <a onClick={this.handleaddInqry}>+ {New} {prescription} {inquiry}</a>}
                                                 {value == 1 && <a onClick={this.handleaddSick}>+ {New} {sick_cert}</a>}
+                                                {value == 2 && <a onClick={this.handleaddSecond}>+ {New} {secnd_openion}</a>}
                                             </Grid>
                                         </Grid>
 
+
+                                      {/* For second opinion */}
+                                        <Modal
+                                            open={this.state.addSec}
+                                            onClose={this.handleCloseDash}
+                                            className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode === 'dark' ?"darkTheme opinBoxModel":"opinBoxModel"}>
+                                            <Grid className="opinBoxCntnt">
+                                                <Grid className="opinBoxCntntIner">
+                                                    <Grid className="opinCourse">
+                                                        <Grid className="opinCloseBtn">
+                                                            <a onClick={this.handleCloseDash}>
+                                                                <img src={require('../../../assets/images/closefancy.png')} alt="" title="" />
+                                                            </a>
+                                                        </Grid>
+                                                        <p>{New} {inquiry}</p>
+                                                        <Grid><label>{secnd_openion}</label></Grid>
+                                                    </Grid>
+                                                    {this.state.err_pdf && <div className="err_message">{plz_upload_png_jpg}</div>}
+                                                    {this.state.error && <div className="err_message">{doc_require_for_second_openion}</div>}
+                                                    <Grid className="shrHlthMain">
+                                                        {!this.state.found && <Grid className="shrHlth">
+                                                            <h2>{share_health_status}</h2>
+                                                            <Grid className="shrHlthChk">
+                                                                <FormControlLabel
+                                                                    control={
+                                                                        <Checkbox
+                                                                            value="checkedB"
+                                                                            color="#00ABAF"
+                                                                            name="share_to_doctor"
+                                                                            checked={this.state.share_to_doctor === true && this.state.share_to_doctor} onChange={(e) => { this.setState({ share_to_doctor: e.target.checked }) }}
+                                                                        />
+                                                                    }
+                                                                    label={share_ur_jounral_status}
+                                                                />
+                                                            </Grid>
+                                                            <p>{share_health_status_info_from_journal}</p>
+                                                            <p>{see_list_shared_info} <a><img src={require('../../../assets/images/Info.svg')} alt="" title="" /></a></p>
+                                                        </Grid>}
+                                                        <Grid className="stndrdQues">
+                                                            <h3>{specilist_and_secnd_openion}</h3>
+                                                            <Grid className="splestQues">
+                                                                <Grid><label>{specialist}</label></Grid>
+                                                                <Grid>
+                                                                    <Select
+                                                                        value={this.state.selectedPdoc}
+                                                                        onChange={(e) => this.AddDoctorSS(e, 'doctor_id')}
+                                                                        options={this.state.Pdoctors}
+                                                                        placeholder="Select"
+                                                                        isSearchable={false}
+                                                                        isMulti={false}
+                                                                    />
+                                                                </Grid>
+                                                            </Grid>
+                                                            <Grid className="recevPrescp">
+                                                                <Grid className="recevPrescpLbl"><label>{how_wuld_u_like_rcv_scnd_openion}?</label></Grid>
+                                                                <Grid className="recevPrescpChk">
+                                                                    <FormControlLabel control={<Radio />} name="online_offline" value="online" color="#00ABAF" checked={this.state.AddSecond && this.state.AddSecond.online_offline === 'online'} onChange={this.AddStateSO} label={online} />
+                                                                    <FormControlLabel control={<Radio />} name="online_offline" color="#00ABAF" value="offline" checked={this.state.AddSecond && this.state.AddSecond.online_offline === 'offline'} onChange={this.AddStateSO} label={home_add_mailbox} />
+                                                                </Grid>
+                                                            </Grid>
+                                                            <Grid className="yrProfes">
+                                                                <Grid><label>{ur_profesion}</label></Grid>
+                                                                <Grid><input type="text" name="professions" value={this.state.AddSecond && this.state.AddSecond.professions && this.state.AddSecond.professions} onChange={this.AddStateSO} /></Grid>
+                                                            </Grid>
+                                                            <Grid className="yrProfes">
+                                                                <Grid><label>{Annotations} / {details} / {questions}</label></Grid>
+                                                                <Grid><textarea name="details" value={this.state.AddSecond && this.state.AddSecond.details && this.state.AddSecond.details} onChange={this.AddStateSO}></textarea></Grid>
+                                                            </Grid>
+                                                            <Grid className="attchForms attchImg">
+                                                                <Grid><label>{attachments}</label></Grid>
+                                                                <FileUploader  comesFrom="journal" name="UploadDocument" fileUpload={this.fileUpload} />
+                                                                {/* <Grid className="attchbrowsInput">
+                                                                    <a><img src={require('../../../assets/images/upload-file.svg')} alt="" title="" /></a>
+                                                                    <a>Browse <input type="file" id="UploadDocument" name="UploadDocument" onChange={(e) => this.UploadFile(e)} /></a> or drag here
+                                                                </Grid>
+                                                                <p>Supported file types: .jpg, .png, .pdf</p> */}
+                                                            </Grid>
+                                                        </Grid>
+                                                    </Grid>
+
+                                                    <Grid className="infoShwHidBrdr"></Grid>
+                                                    <Grid className="infoShwHidIner">
+                                                        {/* <Grid className="infoShwHidMain">
+                                                            <Grid container direction="row" justify="center" alignItems="center">
+                                                                <Grid item xs={6} md={6}>
+                                                                    <Grid className="infoShwHid">
+                                                                        <a>Show or Hide <img src={require('../../../assets/images/Info.svg')} alt="" title="" /></a>
+                                                                    </Grid>
+                                                                </Grid>
+                                                                <Grid item xs={6} md={6} className="editShwHid">
+                                                                    <a>Edit</a>
+                                                                </Grid>
+                                                            </Grid>
+                                                        </Grid> */}
+                                                        <Grid className="infoShwSave">
+                                                            <input type="submit" onClick={this.saveData} value={save_entry} />
+                                                        </Grid>
+                                                    </Grid>
+                                                </Grid>
+                                            </Grid>
+                                        </Modal>
                                         {/* Model setup for sick sertificate*/}
                                         <Modal
                                             open={this.state.addSick}
@@ -756,6 +987,7 @@ class Index extends Component {
                                                         <Tabs value={value} onChange={this.handleChangeTabs} className="presTabs">
                                                             <Tab label={prescriptions} className="presTabsIner" />
                                                             <Tab label={sickcsrtificates} className="presTabsIner" />
+                                                            <Tab label={secnd_openion} className="presTabsIner" />
                                                         </Tabs>
                                                     </Grid>
                                                     <Grid item xs={4} md={4} className="presSrch">
@@ -776,6 +1008,11 @@ class Index extends Component {
                                                 {this.state.successfullsent1 && <div className="success_message">Request sent Successfully</div>}
                                                 <SickList newItem={this.state.newItems} />
                                             </TabContainer>}
+                                            {value === 2 && <TabContainer>
+                                                {this.state.successfullsent3 && <div className="success_message">Request sent Successfully</div>}
+                                                <ListingSecond newItem={this.state.newItemp2} />
+                                            </TabContainer>}
+                                            
                                         </Grid>
 
                                     </Grid>

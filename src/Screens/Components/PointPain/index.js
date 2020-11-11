@@ -106,36 +106,36 @@ class PointPain extends Component {
     }
 
     render() {
-        let translate;
-        switch (this.props.stateLanguageType) {
-            case "en":
-                translate = translationEN.text
-                break;
-            case "de":
-                translate = translationDE.text
-                break;
-            case "pt":
-                translate = translationPT.text
-                break;
-            case "sp":
-                translate = translationSP.text
-                break;
-            case "rs":
-                translate = translationRS.text
-                break;
-            case "nl":
-                translate = translationNL.text
-                break;
-            case "ch":
-                translate = translationCH.text
-                break;
-            case "sw":
-                translate = translationSW.text
-                break;
-            case "default":
-                translate = translationEN.text
-        }
-        let { clear_point } = translate;
+        // let translate;
+        // switch (this.props.stateLanguageType) {
+        //     case "en":
+        //         translate = translationEN.text
+        //         break;
+        //     case "de":
+        //         translate = translationDE.text
+        //         break;
+        //     case "pt":
+        //         translate = translationPT.text
+        //         break;
+        //     case "sp":
+        //         translate = translationSP.text
+        //         break;
+        //     case "rs":
+        //         translate = translationRS.text
+        //         break;
+        //     case "nl":
+        //         translate = translationNL.text
+        //         break;
+        //     case "ch":
+        //         translate = translationCH.text
+        //         break;
+        //     case "sw":
+        //         translate = translationSW.text
+        //         break;
+        //     case "default":
+        //         translate = translationEN.text
+        // }
+        // let { clear_point } = translate;
         return (
             <Grid className="rrSysto">
                 <Grid><label>{this.state.label}</label></Grid>
@@ -152,7 +152,7 @@ class PointPain extends Component {
                         {/* <img src={require('../../../assets/images/persionPainEqual.svg')} alt="" title="" /> */}
                     </a>
                     {/* <a className="painAreasimg"><img src={require('../../../assets/images/patient-back.svg')} alt="" title="" /></a> */}
-                    {!this.state.isView && <a className="painAreasTxt" onClick={this.removedata}><img src={require('../../../assets/images/eraser.svg')} alt="" title="" />{clear_point}</a>}
+                    {!this.state.isView && <a className="painAreasTxt" onClick={this.removedata}><img src={require('../../../assets/images/eraser.svg')} alt="" title="" />Clear point</a>}
                 </Grid>
             </Grid>
         )

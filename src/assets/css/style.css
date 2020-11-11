@@ -13025,6 +13025,50 @@ a.academy_ul ul li img {
 
 
 /*Added By ankita*/
+.contact-listitem-dtls .__react_component_tooltip {
+    color: #000 !important;
+    font-size: 16px;
+}
+.locat_srvc input {
+    width: 100%;
+    border: 1px solid #BFC1C1;
+    border-radius: 4px;
+    background-color: #FFFFFF;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 18px;
+    min-height: 40px;
+    padding: 0px 14px;
+    /* outline: none; */
+}
+.homeBgDrk .OrganMobile .flag-select {
+    height: 37px !important;
+}
+.homeBgDrk .OrganMobile .flag-select__btn:after {
+    margin-top: 6% !important;
+}
+.homeBgDrk .OrganMobile span.flag-select__option.flag-select__option--placeholder .flag-select__option__icon {
+    top: 0px !important;
+}
+.homeBgDrk .OrganMobile button#select_flag_button,.homeBgDrk .profileInfoIner button#select_flag_button {
+    background: #b1b1b180;
+    height: 33px;
+    min-height: 33px;
+    border-radius: 5px 0px 0px 5px;
+}
+
+.homeBgDrk .profileInfoIner .flag-select {
+    height: 33PX !important;
+}
+
+.homeBgDrk .profileInfoIner .flag-select__btn:after {
+    margin-top: 4% !important;
+}
+.homeBgDrk .profileInfoIner span.flag-select__option.flag-select__option--placeholder .flag-select__option__icon {
+    top: 0px !important;
+}
 .DownloadFile{
     cursor: pointer;
     color: red;
@@ -13034,7 +13078,7 @@ a.academy_ul ul li img {
     padding: 15px;
 }
 .homeBgDrk .downloadButton{
-    color:#fff;
+    color:#fff!important;
 }
 .darkTheme ul.insuranceHint3 {
     color:#fff!important;
@@ -13275,7 +13319,7 @@ ul.insuranceHint1 li {
     color: #ffffff !important;
 }
 .pac-logo {
-    z-index: 9999999 !important;
+    z-index: 9999999999999999 !important;
 }
 .MapStyle {
     position: relative !important;
