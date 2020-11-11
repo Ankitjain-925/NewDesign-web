@@ -74,7 +74,7 @@ class RightManage extends Component {
     }
 
     getOptions=(current_Graph)=>{
-        console.log('this.state.personalinfo', this.state.personalinfo)
+
         if(current_Graph ==='blood_pressure' || current_Graph === 'heart_rate'){
             var categoriesbp=[],databp_d=[],databp_s=[], dataf=[],oldone;
             this.state.personalinfo && this.state.personalinfo.blood_pressure &&  this.state.personalinfo.blood_pressure.length>0  && this.state.personalinfo.blood_pressure.map((data, index) => {
@@ -745,15 +745,15 @@ class RightManage extends Component {
                             
                             {this.state.upcoming_appointment && this.state.upcoming_appointment.length>0 ?
                                 <div>
+                                   { console.log('this.state.upcoming_appointment', this.state.upcoming_appointment)}
                                     {this.state.upcoming_appointment.map((data, index) => (
                                         <div>
                                         <Grid className="oficVisit">
                                             <label>{getDate(data.date, this.state.date_format)}, {data.start_time && data.start_time}</label>
-                         
-                                                               
-                                            {data.appointment_type === 'private_appointment' &&  <a><img src={require('../../../../assets/images/office-visit.svg')} alt="" title="" /> Office visit</a>}
+                                                        
+                                            {data.appointment_type === 'appointments' &&  <a><img src={require('../../../../assets/images/office-visit.svg')} alt="" title="" /> Office visit</a>}
                                             {data.appointment_type === 'online_appointment' && <a><img src={require('../../../../assets/images/video-call.svg')} alt="" title="" />Video call</a>}
-                                            {data.appointment_type === 'practice_appointment' && <a><img src={require('../../../../assets/images/cal.png')} alt="" title="" />consultancy Appointment'</a>}
+                                            {data.appointment_type === 'practice_days' && <a><img src={require('../../../../assets/images/cal.png')} alt="" title="" />consultancy Appointment</a>}
                                         </Grid>
                                         <Grid className="neuroSection">
                                             <h3>{data.docProfile && data.docProfile.speciality &&  getSpec(data.docProfile.speciality)}</h3>

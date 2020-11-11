@@ -13025,6 +13025,9 @@ a.academy_ul ul li img {
 
 
 /*Added By ankita*/
+.homeBgDrk .loading-text{
+    color: #fff!important;
+}
 .contact-listitem-dtls .__react_component_tooltip {
     color: #000 !important;
     font-size: 16px;
@@ -13054,7 +13057,7 @@ a.academy_ul ul li img {
 }
 .homeBgDrk .OrganMobile button#select_flag_button,.homeBgDrk .profileInfoIner button#select_flag_button {
     background: #b1b1b180;
-    height: 33px;
+    height: 37px;
     min-height: 33px;
     border-radius: 5px 0px 0px 5px;
 }

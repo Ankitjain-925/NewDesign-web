@@ -12,7 +12,7 @@ import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
 import Select from 'react-select';
 import Loader from './../../../Components/Loader/index';
-import { getImage } from './../../../Components/BasicMethod/index';
+import { getImage, AddFavDoc } from './../../../Components/BasicMethod/index';
 import * as translationEN from '../../../../translations/en.json';
 import * as translationDE from '../../../../translations/de.json';
 import * as translationPT from '../../../../translations/pt.json';
@@ -55,6 +55,7 @@ class Index extends Component {
             family_doc1: [],
             PassDone: false,
             family_doc_list: [],
+            family_doc_list1 :[],
         };
         // new Timer(this.logOutClick.bind(this)) 
     }
@@ -185,7 +186,8 @@ class Index extends Component {
 
     //Get All doctors
     alldoctor = () => {
-        var FamilyList = [];doctorArray=[];
+        var FamilyList = [],FamilyList1 = [];
+        doctorArray=[];
         const user_token = this.props.stateLoginValueAim.token;
         axios.get(sitedata.data.path + '/UserProfile/DoctorUsers', {
             headers: {
@@ -210,8 +212,9 @@ class Index extends Component {
                     alies_id: this.state.allDocData[i].alies_id
                 })
                 FamilyList.push({ value: this.state.allDocData[i]._id, label: name })
+                FamilyList1.push({profile_id :  this.state.allDocData[i].profile_id,value: this.state.allDocData[i]._id, label: name})
             }
-            this.setState({ users: doctorArray, family_doc_list: FamilyList })
+            this.setState({ users: doctorArray, family_doc_list: FamilyList, family_doc_list1 :  FamilyList1})
         })
     }
 
@@ -303,6 +306,12 @@ class Index extends Component {
     AddFmilyDoc = () => {
         if (this.state.family_doc1 && this.state.family_doc1.length > 0) {
             this.setState({ Nodoc: false, loaderImage: true })
+                var myFilterData = this.state.family_doc_list1 && this.state.family_doc_list1.length > 0 && this.state.family_doc_list1.filter((ind) =>
+                ind.value === this.state.family_doc.value);
+                if(myFilterData && myFilterData.length>0 && myFilterData[0] && myFilterData[0].profile_id)
+                {
+                    AddFavDoc(myFilterData[0].profile_id, myFilterData[0].profile_id, this.props.stateLoginValueAim.token, this.props.stateLoginValueAim.user.profile_id);
+                }
             axios.put(sitedata.data.path + '/UserProfile/Users/update', {
                 family_doc: this.state.family_doc1
             }, {
@@ -315,6 +324,7 @@ class Index extends Component {
                 if (this.props.comesFrom) {
                     this.props.EditFamilyDoc();
                 }
+                this.getUserData();
                 this.setState({ PassDone: true, loaderImage: false })
                 setTimeout(() => { this.setState({ PassDone: false }) }, 5000)
 

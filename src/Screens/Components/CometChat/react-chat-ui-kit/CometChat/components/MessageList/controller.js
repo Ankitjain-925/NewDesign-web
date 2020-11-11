@@ -22,6 +22,7 @@ export class MessageListManager {
             if(this.parentMessageId) {
                 this.messageRequest = new CometChat.MessagesRequestBuilder().setUID(item.uid).setParentMessageId(this.parentMessageId).setLimit(30).build();
             } else {
+                console.log('item.uid', item.uid)
                 this.messageRequest = new CometChat.MessagesRequestBuilder().setUID(item.uid).hideReplies(true).setLimit(30).build();
             }
         }

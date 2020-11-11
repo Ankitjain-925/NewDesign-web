@@ -55,7 +55,7 @@ class Index extends Component {
                         {(file.filetype ==='xls'|| file.filetype ==='xlsx' || file.filetype ==='xml' ) && <img onClick={()=>this.OpenFile(file.filename)} src={require('../../../../assets/images/xls1.svg')} alt="" title="" />} 
                         {(file.filetype ==='csv') && <img onClick={()=>this.OpenFile(file.filename)} src={require('../../../../assets/images/csv1.png')} alt="" title="" />} 
                         {(file.filetype ==='dcm') && <img onClick={()=>this.OpenFile(file.filename)} src={require('../../../../assets/images/dcm1.png')} alt="" title="" />} 
-                        <label>{(file && file.filename && file.filename.split('Trackrecord/')[1]).split("&bucket=")[0]}</label></a>   
+                    {file && file.filename && file.filename && <label>{(file && file.filename && file.filename.split('Trackrecord/')[1]).split("&bucket=")[0]}</label>}</a>   
                 ))}
 
             <Modal

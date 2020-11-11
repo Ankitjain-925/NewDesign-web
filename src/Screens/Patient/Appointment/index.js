@@ -302,7 +302,6 @@ getUpcomingAppointment() {
     bookAppointment =() =>{
         var insurance_no = this.state.personalinfo.insurance && this.state.personalinfo.insurance.length > 0 && this.state.personalinfo.insurance[0] && this.state.personalinfo.insurance[0].insurance_number ? this.state.personalinfo.insurance[0].insurance_number : '';
         // this.setState({ loaderImage: true });
-       console.log('this.state.selectedDate', this.state.selectedDate, new Date(this.state.selectedDate))
         const user_token = this.props.stateLoginValueAim.token;
         axios.post(sitedata.data.path + '/User/appointment', {
             patient: this.props.stateLoginValueAim.user._id,
