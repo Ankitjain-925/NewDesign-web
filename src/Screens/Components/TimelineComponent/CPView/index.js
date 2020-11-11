@@ -10,7 +10,7 @@ import DownloadFullTrack from './../../DownloadFullTrack/index.js';
 import { getDate, newdate, getTime, getImage } from './../../BasicMethod/index';
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import { LanguageFetchReducer } from './../../../actions';
+import { LanguageFetchReducer } from '../../../actions';
 import * as translationEN from "../../../../translations/en.json"
 import * as translationDE from '../../../../translations/de.json';
 import * as translationPT from '../../../../translations/pt.json';
@@ -80,8 +80,7 @@ class Index extends Component {
             case "default":
                 translate = translationEN.text
         }
-        let { selct_pain_area, attachments, O2Saturation, Whereyouarelocated, symp_notes,
-            visible, feeling, show, date, time, hide, until, archive, temparture,
+        let {visible, feeling, show, date, time, hide, until, archive, temparture,
             edit, Delete, RR_diastolic, heart_rate, always, Download,
             Change, Location, visibility, de_archive, covid_diary, pain_areas, not_mentioned, condition_pain } = translate
         return (

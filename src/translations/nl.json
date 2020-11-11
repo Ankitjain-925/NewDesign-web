@@ -1504,6 +1504,7 @@
 		"language_not_selected":"Taal is niet geselecteerd.",
 		"emergancy_dignosis":"Nood diagnose",
 		"trvl_diagnosis":"Reisdiagnose",
-		"doc_name":"Naam arts"
+		"doc_name":"Naam arts",
+		"DarkMode" :"Donkere modus"
 	}
 }

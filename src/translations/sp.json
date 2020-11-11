@@ -994,6 +994,7 @@
 		"language_not_selected":"El idioma no está seleccionado.",
 		"emergancy_dignosis":"Diagnóstico de emergencia",
 		"trvl_diagnosis":"Diagnóstico de viajes",
-		"doc_name":"Nombre del doctor"
+		"doc_name":"Nombre del doctor",
+		"DarkMode" :"Modo oscuro"
 	}
 }

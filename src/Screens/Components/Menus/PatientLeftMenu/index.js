@@ -97,7 +97,6 @@ class Index extends Component {
         this.props.Fitbit({lifetimeStats : {}, device : [], distance: {}, steps :{}, user :{}, badges:{}})
         this.props.Withings([])
         this.props.history.push('/')
-
     }
 
     //For My Profile link
