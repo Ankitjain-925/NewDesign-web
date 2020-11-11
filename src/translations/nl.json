@@ -1505,6 +1505,10 @@
 		"emergancy_dignosis":"Nood diagnose",
 		"trvl_diagnosis":"Reisdiagnose",
 		"doc_name":"Naam arts",
-		"DarkMode" :"Donkere modus"
+		"DarkMode" :"Donkere modus",
+		"user_type_all":"Gebruikerstype: alles",
+		"search_timeline":"Tijdlijn zoeken",
+		"file_content":"Bestandsinhoud",
+		"first_day_visit":"Eerste dagbezoek"
 	}
 }

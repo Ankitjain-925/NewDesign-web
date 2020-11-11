@@ -2,7 +2,17 @@ import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
 import Modal from '@material-ui/core/Modal';
 import RLDD from 'react-list-drag-and-drop/lib/RLDD';
-
+import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
+import { LanguageFetchReducer } from './../../../actions';
+import * as translationEN from "../../../../translations/en.json";
+import * as translationDE from '../../../../translations/de.json';
+import * as translationPT from '../../../../translations/pt.json';
+import * as translationSP from '../../../../translations/sp.json';
+import * as translationRS from '../../../../translations/rs.json';
+import * as translationSW from '../../../../translations/sw.json';
+import * as translationCH from '../../../../translations/ch.json';
+import * as translationNL from '../../../../translations/en.json';
 var data = [];
 
 class PersonalizedData extends Component {
@@ -83,6 +93,37 @@ class PersonalizedData extends Component {
     }
     
     render() {
+        let translate;
+        switch (this.props.stateLanguageType) {
+              case "en":
+                  translate = translationEN.text
+                  break;
+              case "de":
+                  translate = translationDE.text
+                  break;
+              case "pt":
+                  translate = translationPT.text
+                  break;
+              case "sp":
+                  translate = translationSP.text
+                  break;
+              case "rs":
+                  translate = translationRS.text
+                  break;
+              case "nl":
+                  translate = translationNL.text
+                  break;
+              case "ch":
+                  translate = translationCH.text
+                  break;
+              case "sw":
+                  translate = translationSW.text
+                  break;
+              case "default":
+                  translate = translationEN.text
+          }
+          let { personalize_dashbrd, prsnalize_a_dashbord_drag_recorder, add_more_cards }=translate
+  
         return (
             <Modal
                 open={this.state.openDash}
@@ -96,8 +137,8 @@ class PersonalizedData extends Component {
                                 <img src={require('../../../../assets/images/closefancy.png')} alt="" title="" />
                             </a>
                         </Grid>
-                        <Grid><label>Personalize dashboard</label></Grid>
-                        <p>Personalize your dashboard by adding or removing cards. Drag to reorder.</p>
+                        <Grid><label>{personalize_dashbrd}</label></Grid>
+                        <p>{prsnalize_a_dashbord_drag_recorder}</p>
                     </Grid>
                     <Grid className="dragDash">
                         <RLDD
@@ -118,7 +159,7 @@ class PersonalizedData extends Component {
                         />
                     </Grid>
                     <Grid className="moreCards">
-                        <h3>Add more cards</h3>
+                        <h3>{add_more_cards}</h3>
 
                         {this.state.not_added_card && this.state.not_added_card.length>0 && this.state.not_added_card.map((item)=>(
                             <Grid><a onClick={()=>this.Add(item.value)}><img onClick={()=>this.Add(item.value)} src={require('../../../../assets/images/add.svg')} alt="" title="" />{item.label}</a></Grid>
@@ -130,6 +171,12 @@ class PersonalizedData extends Component {
     }
 }
 
-export default PersonalizedData;
 
+const mapStateToProps = (state) => {
+    const { stateLanguageType } = state.LanguageReducer;
+    return {
+        stateLanguageType
+    }
+};
+export default withRouter(connect(mapStateToProps, { LanguageFetchReducer })(PersonalizedData));
 

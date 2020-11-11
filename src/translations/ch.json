@@ -428,7 +428,7 @@
 		"quik_value":"快速值",
 		"INR":"INR",
 		"pill_taken":"服用药丸",
-		"marcumer_pass":"Marcumar Pass",
+		"marcumer_pass":"马库马尔 通过",
 		"prsnalize_a_dashbord_drag_recorder":"通过添加或删除卡片来个性化您的仪表板。 拖动以重新排序。",
 		"add_more_cards":"添加更多卡片",
 		"depression" : "抑郁症",
@@ -995,6 +995,10 @@
 		"emergancy_dignosis":"紧急诊断",
 		"trvl_diagnosis":"旅行诊断",
 		"doc_name":"医生姓名",
-		"DarkMode" :"暗模式"
+		"DarkMode" :"暗模式",
+		"user_type_all":"用户类型：全部",
+		"search_timeline":"搜索时间表",
+		"file_content":"文件内容",
+		"first_day_visit":"一日游"
 	}
 }

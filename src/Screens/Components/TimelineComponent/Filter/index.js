@@ -2,6 +2,17 @@ import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
 import Select from 'react-select';
 import { DatePicker } from 'antd';
+import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
+import { LanguageFetchReducer } from './../../../actions';
+import * as translationEN from "../../../../translations/en.json";
+import * as translationDE from '../../../../translations/de.json';
+import * as translationPT from '../../../../translations/pt.json';
+import * as translationSP from '../../../../translations/sp.json';
+import * as translationRS from '../../../../translations/rs.json';
+import * as translationSW from '../../../../translations/sw.json';
+import * as translationCH from '../../../../translations/ch.json';
+import * as translationNL from '../../../../translations/en.json';
 const { RangePicker } = DatePicker;
 
 const Useroptions = [
@@ -9,7 +20,7 @@ const Useroptions = [
     { value: 'Patient', label: 'Patient' },
     { value: 'Nurse', label: 'Nurse' },
 ];
-const Typeoptions= [
+const Typeoptions = [
     { value: 'anamnesis', label: 'Anamnesis' },
     { value: 'blood_pressure', label: 'Blood Pressure' },
     { value: 'blood_sugar', label: 'Blood Sugar' },
@@ -31,7 +42,7 @@ const Typeoptions= [
     { value: 'vaccination', label: 'Vaccination' },
     { value: 'weight_bmi', label: 'Weight & BMI' },
 ]
-const options= [
+const options = [
     { value: 'data1', label: 'Data1' },
     { value: 'data2', label: 'Data2' },
     { value: 'data3', label: 'Data3' },
@@ -43,40 +54,40 @@ class FilterSec extends Component {
         this.state = {
             selectedOption: null,
             sortBy: this.props.sortBy,
-            selectUser : [],
-            selectType : [],
-            selectFacility : [],
-            time_range:[],
+            selectUser: [],
+            selectType: [],
+            selectFacility: [],
+            time_range: [],
             isTest: false,
         };
     }
 
     //Call filter props
-    OnChangeFilter=()=>{
+    OnChangeFilter = () => {
         this.props.FilterData(this.state.time_range, this.state.selectUser, this.state.selectType, this.state.selectFacility)
     }
 
-    handleChange=(search)=>{
-        this.setState({searchText: search},
-        ()=>{
-            if(this.state.searchText ===''){
-                this.props.ClearData();
-            }
-            else {
+    handleChange = (search) => {
+        this.setState({ searchText: search },
+            () => {
+                if (this.state.searchText === '') {
+                    this.props.ClearData();
+                }
+                else {
                     this.props.FilterText(this.state.searchText)
                 }
             })
-        }
+    }
     //Change the state in change the data
-    FilterAccordigly=(name, value)=>{
-        if(name==='time_range'){ this.setState({time_range : value},()=>{ this.OnChangeFilter(); })}
-        if(name==='selectUser'){ this.setState({selectUser : value},()=>{ this.OnChangeFilter(); })}
-        if(name==='selectType'){ this.setState({selectType : value},()=>{ this.OnChangeFilter(); })}
-        if(name==='selectFacility'){ this.setState({selectFacility : value},()=>{ this.OnChangeFilter();})}
+    FilterAccordigly = (name, value) => {
+        if (name === 'time_range') { this.setState({ time_range: value }, () => { this.OnChangeFilter(); }) }
+        if (name === 'selectUser') { this.setState({ selectUser: value }, () => { this.OnChangeFilter(); }) }
+        if (name === 'selectType') { this.setState({ selectType: value }, () => { this.OnChangeFilter(); }) }
+        if (name === 'selectFacility') { this.setState({ selectFacility: value }, () => { this.OnChangeFilter(); }) }
     }
     //For clear Filter 
-    ClearData= ()=>{
-        this.setState({ selectUser : [], selectType : [], selectFacility : [], time_range:[],});
+    ClearData = () => {
+        this.setState({ selectUser: [], selectType: [], selectFacility: [], time_range: [], });
         this.props.ClearData();
     }
     //on adding new data
@@ -91,15 +102,46 @@ class FilterSec extends Component {
 
 
     render() {
+        let translate;
+        switch (this.props.stateLanguageType) {
+            case "en":
+                translate = translationEN.text
+                break;
+            case "de":
+                translate = translationDE.text
+                break;
+            case "pt":
+                translate = translationPT.text
+                break;
+            case "sp":
+                translate = translationSP.text
+                break;
+            case "rs":
+                translate = translationRS.text
+                break;
+            case "nl":
+                translate = translationNL.text
+                break;
+            case "ch":
+                translate = translationCH.text
+                break;
+            case "sw":
+                translate = translationSW.text
+                break;
+            case "default":
+                translate = translationEN.text
+        }
+        let { type, user_type_all, clear_filter, search_timeline, sort_by, dig_time, entry_time } = translate
+
         return (
             <Grid container direction="row">
                 <Grid item xs={12} md={11}>
                     <Grid className="srchFilter 11">
                         {!this.state.isTest && <Grid container direction="row">
                             <Grid item xs={12} md={4}>
-                                <RangePicker 
-                                    className={this.state.time_range && this.state.time_range.length>0 ? "typeSel1 comonSel" : "allTimeSel1 comonSel"}
-                                    onChange={(value)=>this.FilterAccordigly("time_range", value)}
+                                <RangePicker
+                                    className={this.state.time_range && this.state.time_range.length > 0 ? "typeSel1 comonSel" : "allTimeSel1 comonSel"}
+                                    onChange={(value) => this.FilterAccordigly("time_range", value)}
                                     value={this.state.time_range}
                                 />
                                 {/* <Select
@@ -116,31 +158,31 @@ class FilterSec extends Component {
                             <Grid item xs={12} md={4} lg={2}>
                                 <Select
                                     value={this.state.selectType}
-                                    onChange={(value)=>this.FilterAccordigly("selectType", value)}
+                                    onChange={(value) => this.FilterAccordigly("selectType", value)}
                                     options={Typeoptions}
-                                    placeholder="Type"
+                                    placeholder={type}
                                     name=""
-                                    className={this.state.selectType && this.state.selectType.length>0 ? "typeSel comonSel" : "allTimeSel comonSel"}
-                                    isMulti= {true}
+                                    className={this.state.selectType && this.state.selectType.length > 0 ? "typeSel comonSel" : "allTimeSel comonSel"}
+                                    isMulti={true}
                                     closeMenuOnSelect={false}
                                 //isSearchable = {false}
                                 />
                             </Grid>
                             <Grid item xs={12} md={4} lg={3}
-                                // className="faclity_all"
+                            // className="faclity_all"
                             >
                                 <Select
                                     value={this.state.selectUser}
-                                    onChange={(value)=>this.FilterAccordigly("selectUser", value)}
+                                    onChange={(value) => this.FilterAccordigly("selectUser", value)}
                                     options={Useroptions}
-                                    placeholder="User Type :All"
-                                    className={this.state.selectUser && this.state.selectUser.length>0 ? "typeSel comonSel" : "allTimeSel comonSel"}
-                                    isMulti= {true}
+                                    placeholder={user_type_all}
+                                    className={this.state.selectUser && this.state.selectUser.length > 0 ? "typeSel comonSel" : "allTimeSel comonSel"}
+                                    isMulti={true}
                                     closeMenuOnSelect={false}
                                 //isSearchable = {false}
                                 />
                             </Grid>
-                            <Grid item xs={12} md={1} 
+                            <Grid item xs={12} md={1}
                             // className="faclity_all"
                             >
                                 {/* <Select
@@ -158,33 +200,33 @@ class FilterSec extends Component {
                             // className="clear_filter"
                             >
                                 <Grid className="clear_filterUpr">
-                                    <Grid className="clear_filterLft"><a onClick={this.ClearData}>Clear filters</a></Grid>
-                                    <Grid className="clear_filterRght" onClick={()=>{this.setState({isTest: true})}}><a><img src={require('../../../../assets/images/clearSrch.jpg')} alt="" title="" /></a></Grid>
+                                    <Grid className="clear_filterLft"><a onClick={this.ClearData}>{clear_filter}</a></Grid>
+                                    <Grid className="clear_filterRght" onClick={() => { this.setState({ isTest: true }) }}><a><img src={require('../../../../assets/images/clearSrch.jpg')} alt="" title="" /></a></Grid>
                                 </Grid>
                             </Grid>
                             <Grid className="clear"></Grid>
-                            
+
                         </Grid>}
-                        {this.state.isTest && 
+                        {this.state.isTest &&
                             <Grid container direction="row">
                                 <Grid item xs={12} md={11}>
-                                <input type="text" className="searchbyText" placeholder="Search timeline..."
-value={this.state.searchText} onChange={e => this.handleChange(e.target.value)} />
+                                    <input type="text" className="searchbyText" placeholder={search_timeline}
+                                        value={this.state.searchText} onChange={e => this.handleChange(e.target.value)} />
                                 </Grid>
                                 <Grid item xs={12} md={1}>
                                     <Grid className="clear_filterUpr">
-                                        <Grid className="clear_filterRght" onClick={()=>{this.setState({isTest: false});  this.props.ClearData();}}><a><img src={require('../../../../assets/images/closefancy.png')} alt="" title="" /></a></Grid>
+                                        <Grid className="clear_filterRght" onClick={() => { this.setState({ isTest: false }); this.props.ClearData(); }}><a><img src={require('../../../../assets/images/closefancy.png')} alt="" title="" /></a></Grid>
                                     </Grid>
                                 </Grid>
-                            <Grid className="clear"></Grid>
-                            
-                        </Grid>
+                                <Grid className="clear"></Grid>
+
+                            </Grid>
                         }
 
                         <Grid className="sortBySec">
-                            <label>Sort by:</label>
-                            <input type="button" value="Entry time" onClick={()=>{this.props.SortData('entry_time')}} className={this.state.sortBy === 'entry_time' ?"entrTimeBY" : "diagTimeBY" } />
-                            <input type="button" value="Diagnosis time" onClick={()=>{this.props.SortData('diagnosed_time')}} className={this.state.sortBy === 'diagnosed_time' ?"entrTimeBY" : "diagTimeBY" }/>
+                            <label>{sort_by}:</label>
+                            <input type="button" value={entry_time} onClick={() => { this.props.SortData('entry_time') }} className={this.state.sortBy === 'entry_time' ? "entrTimeBY" : "diagTimeBY"} />
+                            <input type="button" value={dig_time} onClick={() => { this.props.SortData('diagnosed_time') }} className={this.state.sortBy === 'diagnosed_time' ? "entrTimeBY" : "diagTimeBY"} />
                         </Grid>
 
                     </Grid>
@@ -194,4 +236,11 @@ value={this.state.searchText} onChange={e => this.handleChange(e.target.value)} 
     }
 }
 
-export default FilterSec;
+const mapStateToProps = (state) => {
+    const { stateLanguageType } = state.LanguageReducer;
+    return {
+        stateLanguageType
+    }
+};
+export default withRouter(connect(mapStateToProps, { LanguageFetchReducer })(FilterSec));
+// export default FilterSec;

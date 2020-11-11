@@ -993,6 +993,10 @@
 		"language_not_selected":"Language is not selected.",
 		"emergancy_dignosis":"Emergency diagnosis",
 		"trvl_diagnosis":"Travel diagnosis",
-		"doc_name":"Doctor Name"
+		"doc_name":"Doctor Name",
+		"user_type_all":"User Type :All",
+		"search_timeline":"Search timeline",
+		"file_content":"File Content",
+		"first_day_visit":"First Day Visit"
 		}
 }

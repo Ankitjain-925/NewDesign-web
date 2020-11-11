@@ -993,6 +993,10 @@
 		"emergancy_dignosis":"Utambuzi wa dharura",
 		"trvl_diagnosis":"Utambuzi wa kusafiri",
 		"doc_name":"Jina la Daktari",
-		"DarkMode" :"Njia ya Giza"
+		"DarkMode" :"Njia ya Giza",
+		"user_type_all":"Aina ya Mtumiaji: Zote",
+		"search_timeline":"Rekodi ya nyakati ya utaftaji",
+		"file_content":"Yaliyomo kwenye faili",
+		"first_day_visit":"Ziara ya Siku ya Kwanza"
 	}
 }

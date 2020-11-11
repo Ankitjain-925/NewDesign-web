@@ -75,7 +75,7 @@ class Index extends Component {
             case "default":
                 translate = translationEN.text
         }
-        let { attachments} = translate
+        let { attachments, file_content, notes, save_entry} = translate
         return (
             <div>
                 {!this.props.visibility && <Grid className="cnfrmDiaMain">
@@ -84,10 +84,10 @@ class Index extends Component {
                         <FileUploader name="UploadTrackImageMulti" comesFrom="journal"isMulti={true} fileUpload={this.props.FileAttachMulti} />
                     </Grid>
                     <Grid className="fillDia">
-                        <MMHG name="file_content" label="File Content" onChange={(e)=> this.props.updateEntryState(e)} value={this.state.updateTrack.file_content}/>    
+                        <MMHG name="file_content" label={file_content} onChange={(e)=> this.props.updateEntryState(e)} value={this.state.updateTrack.file_content}/>    
                     </Grid>
                     <Grid className="fillDia">
-                        <NotesEditor name="remarks" label="Notes"  onChange={(e)=> this.updateEntryState1(e, 'remarks')} value={this.state.updateTrack.remarks}/> 
+                        <NotesEditor name="remarks" label={notes}  onChange={(e)=> this.updateEntryState1(e, 'remarks')} value={this.state.updateTrack.remarks}/> 
                     </Grid>
                   
                 </Grid>}
@@ -95,7 +95,7 @@ class Index extends Component {
                 <Grid className="infoShwHidMain3upr">
                     <ShowHide date_format= {this.state.date_format} value={this.state.updateTrack} onChange={(data) => this.props.GetHideShow(data)}/>
                     <Grid className="infoShwSave3">
-                        <input type="submit" value="Save entry" onClick={this.props.AddTrack}/>
+                        <input type="submit" value={save_entry} onClick={this.props.AddTrack}/>
                     </Grid>
                 </Grid>
             </div>
