@@ -31,7 +31,8 @@ class MessageList extends React.PureComponent {
    super(props);
     this.state = {
       onItemClick: null,
-      loading: false
+      loading: false,
+      counter: 0,
     }
 
     this.messagesEnd = React.createRef();
@@ -47,7 +48,9 @@ class MessageList extends React.PureComponent {
     const previousMessageStr = JSON.stringify(prevProps.messages);
     const currentMessageStr = JSON.stringify(this.props.messages);
 
-    
+    if(!this.props.item.uid)
+    return;
+
     if (this.props.type === 'user' && prevProps.item.uid !== this.props.item.uid) {
       this.MessageListManager.removeListeners();
       this.MessageListManager = new MessageListManager(this.props.item, this.props.type);
@@ -90,7 +93,11 @@ class MessageList extends React.PureComponent {
       
       this.loggedInUser = user;
       this.MessageListManager.fetchPreviousMessages().then((messageList) => {
-
+        if(messageList && messageList.length==0 && this.state.counter<2)
+        {
+          this.getMessages();
+          this.setState({counter : this.state.counter+1})
+        }
         messageList.forEach((message) => {
 
           //if the sender of the message is not the loggedin user, mark it as read.

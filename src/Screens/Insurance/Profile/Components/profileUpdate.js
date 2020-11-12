@@ -941,14 +941,16 @@ class Index extends Component {
                             </Grid>
                         </Grid>
                         <Grid className="kycForms sprtImg">
-                            <Grid container direction="row" alignItems="center" spacing={2}>
-                                <Grid item xs={12} md={6}>
-                                    <FileUploader name="uploadImage" fileUpload={this.fileUpload} isMulti={false} />
-                                </Grid>
-                                <Grid item xs={12} md={6}>
-                                    {this.state.image && this.state.image !== '' &&
-                                        <img className="ProfileImage" onClick={() => GetUrlImage(this.state.image)} src={this.state.image} alt="" title="" />
-                                    }
+                            <Grid item xs={12} md={11}>
+                                <Grid container direction="row" alignItems="center" spacing={2}>
+                                    <Grid item xs={12} md={6}>
+                                        <FileUploader name="uploadImage" fileUpload={this.fileUpload} isMulti={false} />
+                                    </Grid>
+                                    <Grid item xs={12} md={6}>
+                                        {this.state.image && this.state.image !== '' &&
+                                            <img className="ProfileImage" onClick={() => GetUrlImage(this.state.image)} src={this.state.image} alt="" title="" />
+                                        }
+                                    </Grid>
                                 </Grid>
                                 <Grid className="clear"></Grid>
                             </Grid>

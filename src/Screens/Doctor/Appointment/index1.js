@@ -30,6 +30,7 @@ import * as translationPT from '../../../translations/pt';
 import * as translationRS from '../../../translations/rs';
 import * as translationNL from '../../../translations/nl';
 import * as translationSW from '../../../translations/sw';
+import Loader from './../../Components/Loader/index.js';
 import Notification from "../../Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 
 const days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
@@ -87,8 +88,6 @@ class Index extends Component {
                 'Content-Type': 'application/json'
             }
         }).then((response) => {
-            this.setState({ loaderImage: false });
-
             types.map(opoinmentData => {
 
                 if (response.data.data[opoinmentData]) {
@@ -142,11 +141,33 @@ class Index extends Component {
                     }
                 }
             })
+            setTimeout(()=>{ this.setState({ loaderImage: false })}, 3000);
 
 
         })
     }
-
+    GetTime=(start_time)=>{
+        let da1 = new Date();
+        if (start_time) {
+            var t1 = start_time.split(":");
+        }
+        
+        if (t1 && t1.length > 0) {
+            da1.setHours(t1[0]);
+            da1.setMinutes(t1[1]);
+        }
+        else {
+            da1.setHours('00');
+            da1.setMinutes('00');
+        }
+        if(this.props.settings && this.props.settings.setting && this.props.settings.setting.time_format && this.props.settings.setting.time_format==='12')
+        {
+            return moment(da1).format('hh:mm a')
+        }
+        else{
+            return moment(da1).format('HH:mm')
+        }
+    }
     getEvent = () => {
         var finaldata = [];
         var user_token = this.props.stateLoginValueAim.token;
@@ -221,7 +242,7 @@ class Index extends Component {
                     })
 
                 }
-                this.setState({ loaderImage: false })
+                setTimeout(()=>{ this.setState({ loaderImage: false })}, 3000);
 
             })
 
@@ -320,6 +341,7 @@ class Index extends Component {
             }
         }).then((response) => {
             this.getAppoinment();
+            this.getEvent();
         }).catch((error) => {
      
         });
@@ -359,63 +381,10 @@ class Index extends Component {
         this.setState({ selectedOption });
     };
     handleOpenSlot = (data) => {
-       
-        const { appioinmentTimes, appoinmentSelected } = this.state;
-        let temptimes = [];
-        
+        console.log(data.date, 'data.date')
         let date = new Date(moment(new Date(data.date), 'M-DD-YYYY').format())
-        // let suggestTime = [];
-        let dateFormat = moment(date).format('DD/MM/YYYY');
-        let statemanger = 'onlineAppointments';
-
-        let clashtime = false;
-        appioinmentTimes.map(datatime => {
-            if ((datatime.start <= data.starttimeValueof && datatime.end >= data.starttimeValueof) || (datatime.start <= data.endtimeValueof && datatime.end >= data.endtimeValueof)) {
-                clashtime = true;
-            }
-        })
-
-
-        if (appoinmentSelected.appointment_type == types[2]) {
-            statemanger = 'onlineAppointments'
-        }
-        else if (appoinmentSelected.appointment_type == types[0]) {
-            statemanger = 'UpDataDetails'
-        } else {
-            statemanger = 'DaysforPractices'
-        }
-
-        let weeknumber = moment(date).day();
-        var appiInd = -1
-        if (this.state[statemanger].workingDays) appiInd = this.state[statemanger].workingDays.findIndex(person => person.value.includes(days[weeknumber - 1]))
-        if (appiInd !== -1) {
-            let start = this.state[statemanger].workingDays[appiInd].start;
-            let end = this.state[statemanger].workingDays[appiInd].end;
-            var time = moment(start, 'H:mm');
-            while (time.add(this.state[statemanger].duration_of_timeslots, 'minutes').valueOf() < moment(end, 'H:mm').valueOf()) {
-
-                var firsttime = moment(time, 'H:mm').add(-parseInt(this.state[statemanger].duration_of_timeslots) + 1, 'minutes');
-                var endtime = moment(firsttime, 'H:mm').add(this.state[statemanger].duration_of_timeslots, 'minutes');
-                let dataq = { start: firsttime.format('H:mm'), end: endtime.format('H:mm') }
-                temptimes.push(dataq)
-            }
-        }
-
-        // temptimes.map(tiems => {
-        //     let clashtimes = false
-        //     appioinmentTimes.map(datatime => {
-        //         if ((datatime.start <= moment(dateFormat + ' ' + tiems.start, 'DD/MM/YYYY H:mm').valueOf() && datatime.end > moment(dateFormat + ' ' + tiems.start, 'DD/MM/YYYY H:mm').valueOf()) || (datatime.start < moment(dateFormat + ' ' + tiems.end, 'DD/MM/YYYY H:mm').valueOf() && datatime.end >= moment(dateFormat + ' ' + tiems.end, 'DD/MM/YYYY H:mm').valueOf())) {
-        //             clashtimes = true;
-        //         }
-
-        //     })
-        //     if (!clashtimes) {
-        //         suggestTime.push(tiems)
-        //     }
-        // })
-     
-        this.onChange(date);
-        this.setState({appoinmentSelected: data, clashtime: clashtime, suggesteddate: date, currentSelected: -1 });
+        this.setState({appoinmentSelected: data, },
+            ()=>{this.onChange(date);});
     };
 
     handleCloseSlot = () => {
@@ -513,7 +482,7 @@ class Index extends Component {
                 if (response.data.hassuccessed) {
                     this.setState({ SelectDate: date, DetialData: response.data.data })
                 }
-                this.setState({ loaderImage: false })
+                setTimeout(()=>{ this.setState({ loaderImage: false })}, 3000);
             })
 
     }
@@ -588,7 +557,7 @@ class Index extends Component {
                             <Grid className="meetCourse">
                                 <Grid className="meetCloseBtn">
                                     {/* <a><img src={require('../../../assets/images/threedots.jpg')} alt="" title="" /></a> */}
-                                    <a onClick={this.handleCloseMeet}><img src={require('../../../assets/images/closefancy.png')} alt="" title="" /></a>
+                                    {/* <a><img src={require('../../../assets/images/closefancy.png')} alt="" title="" /></a> */}
                                 </Grid>
                                 <Grid className="meetVdo">
                                     <Grid className="meetVdoLft">
@@ -598,7 +567,7 @@ class Index extends Component {
                                         <span>{data.appointment_type == 'practice_days' ? 'Consultancy Appointment' : (data.appointment_type == 'online_appointment' ? 'Video call' : 'Office visit')}</span>
                                     </Grid>
                                     <Grid className="meetVdoRght">
-                                        <p>{moment(new Date(data.date), 'MM-DD-YYYY').format('D MMM')}, {data.start_time}</p>
+                                        <p>{moment(new Date(data.date), 'MM-DD-YYYY').format('D MMM')}, {this.GetTime(data.start_time)}</p>
                                     </Grid>
                                 </Grid>
                                 <Grid className="meetDetail">
@@ -616,7 +585,8 @@ class Index extends Component {
 
     onChange = (date) => {
 
-        console.log('here2', date)
+        console.log('here2', this.state.onlineAppointments, this.state.UpDataDetails, this.state.DaysforPractices)
+        
         const { appioinmentTimes, appoinmentSelected, onlineAppointments, UpDataDetails, DaysforPractices } = this.state;
         let temptimes = [];
         let suggestTime = [];
@@ -635,7 +605,9 @@ class Index extends Component {
         let weeknumber = moment(date).day();
         var appiInd = -1
         if (this.state[statemanger].workingDays) appiInd = this.state[statemanger].workingDays.findIndex(person => person.value.includes(days[weeknumber - 1]))
+        console.log('appiInd', appiInd, days[weeknumber-1])
         if (appiInd !== -1) {
+           
             let start = this.state[statemanger].workingDays[appiInd].start;
             let end = this.state[statemanger].workingDays[appiInd].end;
             var time = moment(start, 'H:mm');
@@ -645,12 +617,13 @@ class Index extends Component {
                 var endtime = moment(firsttime, 'H:mm').add(this.state[statemanger].duration_of_timeslots, 'minutes');
                 let dataq = { start: firsttime.format('H:mm'), end: endtime.format('H:mm') }
                 temptimes.push(dataq)
+               
             }
         }
         else {
-            //    suggestTime:[]
+            //   suggestTime:[]
         }
-
+        console.log('temptimes2', temptimes)
         temptimes.map(tiems => {
             let clashtime = false
             appioinmentTimes.map(datatime => {
@@ -663,7 +636,7 @@ class Index extends Component {
                 suggestTime.push(tiems)
             }
         })
-        console.log('suggestTime',appoinmentSelected, this.state[statemanger].workingDays, appiInd, temptimes,suggestTime)
+        
 
         this.setState({ suggesteddate: date, suggestTime: suggestTime , currentSelected: -1},
             ()=>{this.setState({ openSlot: true })});
@@ -716,6 +689,7 @@ class Index extends Component {
         return (
             <Grid className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode && this.props.settings.setting.mode === 'dark' ? "homeBg homeBgDrk" : "homeBg"}>
                 <Grid className="homeBgIner">
+                {this.state.loaderImage && <Loader />}
                     <Grid container direction="row" justify="center">
                         <Grid item xs={12} md={12}>
                             <Grid container direction="row">
@@ -752,12 +726,12 @@ class Index extends Component {
                                                                 {data.appointment_type == 'practice_days' && <img src={require('../../../assets/images/dates.png')} alt="" title="" />}
                                                                 {data.appointment_type == 'private_appointments' && <img src={require('../../../assets/images/ShapeCopy21.svg')} alt="" title="" />}
 
-                                                                <label>{moment(new Date(data.date), 'MM-DD-YYYY').format('MMMM DD, YYYY')}</label> <span>{data.start_time} - {data.end_time}</span></a>
+                                                                <label>{moment(new Date(data.date), 'MM-DD-YYYY').format('MMMM DD, YYYY')}</label> <span>{this.GetTime(data.start_time)} - {this.GetTime(data.end_time)}</span></a>
                                                         </Grid>
                                                     </Grid>))}
                                             </Grid>
                                         </Grid>}
-
+                                        {console.log('this.state.openSlot', this.state.openSlot)}
                                         {/* Model setup */}
                                         <Modal
                                             open={this.state.openSlot}
@@ -790,7 +764,7 @@ class Index extends Component {
                                                     </Grid>
                                                     <Grid className="clear"></Grid>
                                                     <Grid className="augDate">
-                                                        <p><label>{moment(new Date(appoinmentSelected.date), 'MM-DD-YYYY').format('MMMM DD, YYYY')}</label> <span>{appoinmentSelected.start_time} - {appoinmentSelected.end_time}</span></p>
+                                                        <p><label>{moment(new Date(appoinmentSelected.date), 'MM-DD-YYYY').format('MMMM DD, YYYY')}</label> <span>{this.GetTime(appoinmentSelected.start_time)} - {this.GetTime(appoinmentSelected.end_time)}</span></p>
                                                     </Grid>
                                                     <Grid className="detailQues">
                                                         <label>{Details} / {Questions}</label>
@@ -807,7 +781,7 @@ class Index extends Component {
                                                             <Grid><label>{date_of_appointment}</label></Grid>
                                                             <Grid>
                                                                 <DatePicker
-                                                                    onChange={this.onChange}
+                                                                    onChange={(e)=>this.onChange(e)}
                                                                     value={this.state.suggesteddate}
                                                                 />
                                                             </Grid>

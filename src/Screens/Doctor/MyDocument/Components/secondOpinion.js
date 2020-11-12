@@ -274,7 +274,7 @@ class Index extends Component {
     removePrsecription = (status, id) => {
         this.setState({ message: null });
         confirmAlert({
-            title: 'Update the Inqury',
+            title: 'Update the Inquiry',
             message: 'Are you sure  to remove this Inquiry?',
             buttons: [
                 {

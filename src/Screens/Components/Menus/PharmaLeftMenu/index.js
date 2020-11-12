@@ -156,45 +156,57 @@ class Index extends Component {
                     <ul>
                         <li className={this.props.currentPage==='journal' ? "menuActv" : ""}>
                             <a onClick={this.Journal}>
-                            <img src={require('../../../../assets/images/nav-journal.svg')} alt="" title="" />
-                            {/* {this.props.currentPage==='journal' ? <img src={require('../../../../assets/images/menu1.png')} alt="" title="" />
-                                :<img src={require('../../../../assets/images/inactiveJournal.jpg')} alt="" title="" />} */}
+                            {this.props.settings && this.props.settings.setting && this.props.settings.setting.mode && this.props.settings.setting.mode==='dark' 
+                            ? <img src={require('../../../../assets/images/nav-journal-white.svg')} alt="" title="" /> 
+                            : <img src={require('../../../../assets/images/nav-journal.svg')} alt="" title="" />}
+                            
+                           
                                 <span>{prescriptions}</span>
                             </a>
                         </li>
                         <li className={this.props.currentPage==='chat' ? "menuActv" : ""}>
                             <a onClick={this.Chats}>
-                            <img src={require('../../../../assets/images/nav-chat.svg')} alt="" title="" />
-                            {/* {this.props.currentPage==='chat' ? <img src={require('../../../../assets/images/chatVideoActive.png')} alt="" title="" />
-                                : <img src={require('../../../../assets/images/chatVideo.jpg')} alt="" title="" />} */}
+                            {this.props.settings && this.props.settings.setting && this.props.settings.setting.mode && this.props.settings.setting.mode==='dark' 
+                            ? <img src={require('../../../../assets/images/nav-chat-white.svg')} alt="" title="" />
+                            : <img src={require('../../../../assets/images/nav-chat.svg')} alt="" title="" />}
+                            
+                          
                                 <span>{chat_vdocall}</span>
                             </a>
                         </li>
                         <li className={this.props.currentPage==='emergency' ? "menuActv" : ""}>
                             <a onClick={this.Emergency}>
-                            <img src={require('../../../../assets/images/ermerAccess.png')} alt="" title="" />
-                            {/* {this.props.currentPage==='appointment' ? <img src={require('../../../../assets/images/appointActive.png')} alt="" title="" />
-                                : <img src={require('../../../../assets/images/calenderIcon.jpg')} alt="" title="" />} */}
+                            {this.props.settings && this.props.settings.setting && this.props.settings.setting.mode && this.props.settings.setting.mode==='dark' 
+                            ? <img src={require('../../../../assets/images/ermerAccess-white.svg')} alt="" title="" />
+                            : <img src={require('../../../../assets/images/ermerAccess.svg')} alt="" title="" />}
+                        
                                 <span>{emegancy_access}</span>
                             </a>
                         </li>
                         <li className={this.props.currentPage==='pharmajournal' ? "menuActv" : ""}>
                             <a onClick={this.PharmaEmergency}>
-                            <img src={require('../../../../assets/images/ermerAccess.png')} alt="" title="" />
-                            {/* {this.props.currentPage==='appointment' ? <img src={require('../../../../assets/images/appointActive.png')} alt="" title="" />
-                                : <img src={require('../../../../assets/images/calenderIcon.jpg')} alt="" title="" />} */}
+                            {this.props.settings && this.props.settings.setting && this.props.settings.setting.mode && this.props.settings.setting.mode==='dark' 
+                            ? <img src={require('../../../../assets/images/ermerAccess-white.svg')} alt="" title="" />
+                            : <img src={require('../../../../assets/images/ermerAccess.svg')} alt="" title="" />}
+                          
                                 <span>{pharmacy_access}</span>
                             </a>
                         </li>
                         <li className={this.props.currentPage==='course' ? "menuActv" : ""}>
                             <a onClick={this.OnlineCourse} >
-                            <img src={require('../../../../assets/images/onlineCourses.png')} alt="" title="" />
+                            {this.props.settings && this.props.settings.setting && this.props.settings.setting.mode && this.props.settings.setting.mode==='dark' 
+                            ? <img src={require('../../../../assets/images/onlineCourses-white.svg')} alt="" title="" />
+                            : <img src={require('../../../../assets/images/onlineCourses.svg')} alt="" title="" />}
+                            
                                 <span>Aimedis {online_course}</span>
                             </a>
                         </li>
                         <li className={this.props.currentPage==='more' ? "menuActv" : ""}>
                             <a onClick={this.ArchivePrescription} >
-                            <img src={require('../../../../assets/images/archive.svg')} alt="" title="" />
+                            {this.props.settings && this.props.settings.setting && this.props.settings.setting.mode && this.props.settings.setting.mode==='dark' 
+                            ? <img src={require('../../../../assets/images/archive-white.svg')} alt="" title="" />
+                            : <img src={require('../../../../assets/images/archive.svg')} alt="" title="" />}
+                            
                                 <span>{prescriptions} {archive}</span>
                             </a>
                         </li>
@@ -215,15 +227,26 @@ class Index extends Component {
                         <li className={this.props.currentPage==='profile' ? "menuActv" : ""}>
                             <a className="profilMenu">
                             <img src={require('../../../../assets/images/nav-my-profile.svg')} alt="" title="" />
-                            {/* { this.props.currentPage==='profile' ?   <img src={require('../../../../assets/images/profileActv.png')} alt="" title="" />
-                            :<img src={require('../../../../assets/images/useru.jpg')} alt="" title="" />} */}
+                           
                                 <span>{my_profile}</span>
                                 <div className="profilMenuList">
                                     <ul>
-                                        <li><a onClick={this.ProfileLink}><img src={require('../../../../assets/images/menudocs.jpg')} alt="" title="" />{profile_setting}</a></li>
-                                        <li><a onClick={this.openLanguageModel}><img src={require('../../../../assets/images/menudocs.jpg')} alt="" title="" />{Language}</a></li>
-                                        <li><a><img src={require('../../../../assets/images/menudocs.jpg')} alt="" title="" />{DarkMode}<Mode mode={this.state.mode} name="mode" getSetting={this.getSetting} /></a></li>
-                                        <li onClick={this.logOutClick}><a><img src={require('../../../../assets/images/menudocs.jpg')} alt="" title="" />{logout}</a></li>
+                                        <li><a onClick={this.ProfileLink}>
+                                        {this.props.settings && this.props.settings.setting && this.props.settings.setting.mode && this.props.settings.setting.mode==='dark' 
+                                            ? <img src={require('../../../../assets/images/menudocs-white.jpg')} alt="" title="" />
+                                            : <img src={require('../../../../assets/images/menudocs.jpg')} alt="" title="" />}
+                            
+                                            {profile_setting}
+                                        </a></li>
+                                        <li><a onClick={this.openLanguageModel}> {this.props.settings && this.props.settings.setting && this.props.settings.setting.mode && this.props.settings.setting.mode==='dark' 
+                                            ? <img src={require('../../../../assets/images/menudocs-white.jpg')} alt="" title="" />
+                                            : <img src={require('../../../../assets/images/menudocs.jpg')} alt="" title="" />}{Language}</a></li>
+                                        <li><a> {this.props.settings && this.props.settings.setting && this.props.settings.setting.mode && this.props.settings.setting.mode==='dark' 
+                                            ? <img src={require('../../../../assets/images/menudocs-white.jpg')} alt="" title="" />
+                                            : <img src={require('../../../../assets/images/menudocs.jpg')} alt="" title="" />}{DarkMode}<Mode mode={this.state.mode} name="mode" getSetting={this.getSetting} /></a></li>
+                                        <li onClick={this.logOutClick}><a> {this.props.settings && this.props.settings.setting && this.props.settings.setting.mode && this.props.settings.setting.mode==='dark' 
+                                            ? <img src={require('../../../../assets/images/menudocs-white.jpg')} alt="" title="" />
+                                            : <img src={require('../../../../assets/images/menudocs.jpg')} alt="" title="" />}{logout}</a></li>
                                     </ul>
                                 </div>
                             </a>

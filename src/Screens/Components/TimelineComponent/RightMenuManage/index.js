@@ -7,6 +7,7 @@ import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { LanguageFetchReducer } from '../../../actions';
 import GraphView from "../GraphView/JournalGraphView"
+import moment from 'moment';
 import GraphSec from './../GraphSec/index'
 import HC_more from "highcharts/highcharts-more"; //module3
 // Import Highcharts
@@ -74,7 +75,7 @@ class RightManage extends Component {
     }
 
     getOptions=(current_Graph)=>{
-        console.log('this.state.personalinfo', this.state.personalinfo)
+
         if(current_Graph ==='blood_pressure' || current_Graph === 'heart_rate'){
             var categoriesbp=[],databp_d=[],databp_s=[], dataf=[],oldone;
             this.state.personalinfo && this.state.personalinfo.blood_pressure &&  this.state.personalinfo.blood_pressure.length>0  && this.state.personalinfo.blood_pressure.map((data, index) => {
@@ -412,6 +413,30 @@ class RightManage extends Component {
         }
     }
 
+
+    GetTimess=(start_time)=>{
+        let da1 = new Date();
+        if (start_time) {
+            var t1 = start_time.split(":");
+        }
+        
+        if (t1 && t1.length > 0) {
+            da1.setHours(t1[0]);
+            da1.setMinutes(t1[1]);
+        }
+        else {
+            da1.setHours('00');
+            da1.setMinutes('00');
+        }
+        if(this.state.time_format==='12')
+        {
+            return moment(da1).format('hh:mm a')
+        }
+        else{
+            return moment(da1).format('HH:mm')
+        }
+    }
+    
     render() {
         let translate;
         switch (this.props.stateLanguageType) {
@@ -566,7 +591,7 @@ class RightManage extends Component {
                                                  </li>}
                                                 {this.props.from !== 'patient' && <li><a onClick={()=>this.props.EidtOption(this.state.personalinfo.blood_pressure[0].type, this.state.personalinfo.blood_pressure[0])}><img src={require('../../../../assets/images/edit-1.svg')} alt="" title="" />{edit}</a></li>}
                                             <li><a onClick={() => this.props.downloadTrack(this.state.personalinfo.blood_pressure[0])}><img src={require('../../../../assets/images/download.svg')} alt="" title="" />{Download}</a></li>
-                                            <li> <a onClick={()=> this.props.OpenGraph('heart_rate')}>{{VeiwGraph}}</a></li>
+                                            <li> <a onClick={()=> this.props.OpenGraph('heart_rate')}>{VeiwGraph}</a></li>
                                         </ul>
                                     </a>}
                                     </Grid>
@@ -585,7 +610,7 @@ class RightManage extends Component {
                                             highcharts={Highcharts}
                                             options={this.state.heart_rate}
                                         />
-                                        <a onClick={()=> this.props.OpenGraph('heart_rate')}>{{VeiwGraph}}</a>
+                                        <a onClick={()=> this.props.OpenGraph('heart_rate')}>{VeiwGraph}</a>
                                     </Grid>
                                 </div> :
                                 <Grid className="noBpData">
@@ -613,7 +638,7 @@ class RightManage extends Component {
                                                  </li>}
                                                 {this.props.from !== 'patient' && <li><a onClick={()=>this.props.EidtOption(this.state.personalinfo.laboratory_result[0].type, this.state.personalinfo.laboratory_result[0])}><img src={require('../../../../assets/images/edit-1.svg')} alt="" title="" />{edit}</a></li>}
                                             <li><a onClick={() => this.props.downloadTrack(this.state.personalinfo.laboratory_result[0])}><img src={require('../../../../assets/images/download.svg')} alt="" title="" />{Download}</a></li>
-                                          <li> <a onClick={()=> this.props.OpenGraph('laboratory_result')}>{{VeiwGraph}}</a></li>
+                                          <li> <a onClick={()=> this.props.OpenGraph('laboratory_result')}>{VeiwGraph}</a></li>
                                         </ul>
                                     </a>}
                                     </Grid>
@@ -632,7 +657,7 @@ class RightManage extends Component {
                                             highcharts={Highcharts}
                                             options={this.state.laboratory_result}
                                         />
-                                        <a onClick={()=> this.props.OpenGraph('laboratory_result')}>{{VeiwGraph}}</a>
+                                        <a onClick={()=> this.props.OpenGraph('laboratory_result')}>{VeiwGraph}</a>
                                     </Grid>
                                 </div> :
                                 <Grid className="noBpData">
@@ -660,7 +685,7 @@ class RightManage extends Component {
                                                  </li>}
                                                 {this.props.from !== 'patient' && <li><a onClick={()=>this.props.EidtOption(this.state.personalinfo.blood_sugar[0].type, this.state.personalinfo.blood_sugar[0])}><img src={require('../../../../assets/images/edit-1.svg')} alt="" title="" />{edit}</a></li>}
                                                 <li><a onClick={() => this.props.downloadTrack(this.state.personalinfo.blood_sugar[0])}><img src={require('../../../../assets/images/download.svg')} alt="" title="" />{Download}</a></li>
-                                                <li><a onClick={()=> this.props.OpenGraph('blood_sugar')}>{{VeiwGraph}}</a></li>
+                                                <li><a onClick={()=> this.props.OpenGraph('blood_sugar')}>{VeiwGraph}</a></li>
                                         </ul>
                                     </a>}
                                     </Grid>
@@ -679,7 +704,7 @@ class RightManage extends Component {
                                             highcharts={Highcharts}
                                             options={this.state.blood_sugar}
                                         />
-                                        <a onClick={()=> this.props.OpenGraph('blood_sugar')}>{{VeiwGraph}}</a>
+                                        <a onClick={()=> this.props.OpenGraph('blood_sugar')}>{VeiwGraph}</a>
                                     </Grid>
                                 </div> :
                                 <Grid className="noBpData">
@@ -745,15 +770,15 @@ class RightManage extends Component {
                             
                             {this.state.upcoming_appointment && this.state.upcoming_appointment.length>0 ?
                                 <div>
+                   
                                     {this.state.upcoming_appointment.map((data, index) => (
                                         <div>
                                         <Grid className="oficVisit">
-                                            <label>{getDate(data.date, this.state.date_format)}, {data.start_time && data.start_time}</label>
-                         
-                                                               
-                                            {data.appointment_type === 'private_appointment' &&  <a><img src={require('../../../../assets/images/office-visit.svg')} alt="" title="" /> Office visit</a>}
+                                            <label>{getDate(data.date, this.state.date_format)}, {data.start_time && this.GetTimess(data.start_time)}</label>
+                                                        
+                                            {data.appointment_type === 'appointments' &&  <a><img src={require('../../../../assets/images/office-visit.svg')} alt="" title="" /> Office visit</a>}
                                             {data.appointment_type === 'online_appointment' && <a><img src={require('../../../../assets/images/video-call.svg')} alt="" title="" />Video call</a>}
-                                            {data.appointment_type === 'practice_appointment' && <a><img src={require('../../../../assets/images/cal.png')} alt="" title="" />consultancy Appointment'</a>}
+                                            {data.appointment_type === 'practice_days' && <a><img src={require('../../../../assets/images/cal.png')} alt="" title="" />consultancy Appointment</a>}
                                         </Grid>
                                         <Grid className="neuroSection">
                                             <h3>{data.docProfile && data.docProfile.speciality &&  getSpec(data.docProfile.speciality)}</h3>
@@ -807,7 +832,7 @@ class RightManage extends Component {
                                             {this.state.personalinfo.prescriptions.map((itm)=>(
                                                 <div className="metroDoctor">
                                                     <Grid container direction="row" alignItems="center" className="metroPro">
-                                                        <Grid item xs={9} md={9}>{(itm.attachfile && itm.attachfile.length>0 && itm.attachfile[0].filename && itm.attachfile[0].filename.split('Trackrecord/')[1]).split("&bucket=")[0]}</Grid>
+                                                        <Grid item xs={9} md={9}>{(itm.attachfile && itm.attachfile.length>0 && itm.attachfile[0].filename && itm.attachfile[0].filename.split('Trackrecord/')[1] && itm.attachfile[0].filename.split('Trackrecord/')[1]).split("&bucket=")[0]}</Grid>
                                                         <Grid item xs={3} md={3} className="metroPrOpen">
                                                             {itm.attachfile && itm.attachfile.length>0 && itm.attachfile[0] && itm.attachfile[0].filename && <a onClick={()=>GetUrlImage(itm.attachfile[0].filename)}>Open</a>}
                                                         </Grid>

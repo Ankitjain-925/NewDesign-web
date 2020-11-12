@@ -302,7 +302,6 @@ getUpcomingAppointment() {
     bookAppointment =() =>{
         var insurance_no = this.state.personalinfo.insurance && this.state.personalinfo.insurance.length > 0 && this.state.personalinfo.insurance[0] && this.state.personalinfo.insurance[0].insurance_number ? this.state.personalinfo.insurance[0].insurance_number : '';
         // this.setState({ loaderImage: true });
-       console.log('this.state.selectedDate', this.state.selectedDate, new Date(this.state.selectedDate))
         const user_token = this.props.stateLoginValueAim.token;
         axios.post(sitedata.data.path + '/User/appointment', {
             patient: this.props.stateLoginValueAim.user._id,
@@ -508,7 +507,8 @@ getUpcomingAppointment() {
         this.setState({ openDash: false });
     };
     onChange = (date) => {
-        console.log('date', date)
+ 
+        this.setState({date : date})
         var day_num
         var Month, date1
         if (date !== undefined && date) {
@@ -795,7 +795,7 @@ getUpcomingAppointment() {
                             <LeftMenuMobile isNotShow={true} currentPage="appointment" />
                             <Notification />
                             {/* Video Model */}
-                            {console.log('selectedDate',this.state.selectedDate)}
+                           
                             <Modal
                                     open={this.state.openFancyVdo}
                                     onClose={this.handleCloseFancyVdo}
@@ -807,6 +807,7 @@ getUpcomingAppointment() {
                                             </a>
                                             <Grid className="selCalenderUpr">
                                                 <Grid className="selCalender">
+                                                   
                                                     <Calendar2 onChange={(e)=>this.onChange(e)} value={this.state.date} />
                                                 </Grid>
                                                 <Grid className="selTimeSlot" >

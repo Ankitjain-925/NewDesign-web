@@ -72,8 +72,6 @@ class MessageHeader extends React.Component {
   }
 
   updateHeader = (key, item) => {
-    
-    console.log("MessageHeader updateHeader key", key, "item", item);
     switch(key) {
 
       case enums.USER_ONLINE:

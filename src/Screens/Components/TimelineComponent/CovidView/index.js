@@ -105,7 +105,7 @@ class Index extends Component {
                                     <a onClick={()=>this.props.EidtOption(item.type, item, true)} className="bp_vsblEye"><img src={require('../../../../assets/images/eye2.png')} alt="" title="" /> {item.visible === 'show' ?<span>{visible}</span> : item.visible=== 'hide' ? <span>{hide}</span> : <span>{not_mentioned}</span>}    </a>
                                     <a className="vsblTime" data-tip data-for={item.track_id + 'visibility'}>
                                         <img src={require('../../../../assets/images/clock.svg')} alt="" title="" />
-                                    </a>s
+                                    </a>
                                     <ReactTooltip className="timeIconClas" id={item.track_id + 'visibility'} place="top" effect="solid" backgroundColor="#ffffff">
                                         {item.visible === 'show' ? <label>{show} {until}</label> : <label>{hide} {until}</label>}
                                         {item.public === 'always' ? <p> {always} </p> : <p>{getDate(item.public, this.state.date_format)}</p>}

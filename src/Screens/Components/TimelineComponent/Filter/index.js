@@ -155,7 +155,7 @@ class FilterSec extends Component {
                                     closeMenuOnSelect={false}
                                 /> */}
                             </Grid>
-                            <Grid item xs={12} md={4} lg={2}>
+                            <Grid item xs={12} md={4} lg={3}>
                                 <Select
                                     value={this.state.selectType}
                                     onChange={(value) => this.FilterAccordigly("selectType", value)}
@@ -182,10 +182,10 @@ class FilterSec extends Component {
                                 //isSearchable = {false}
                                 />
                             </Grid>
-                            <Grid item xs={12} md={1}
+                            {/* <Grid item xs={12} md={1}
                             // className="faclity_all"
                             >
-                                {/* <Select
+                                <Select
                                     value={this.state.selectFacility}
                                      onChange={(value)=>this.FilterAccordigly("selectFacility", value)}
                                     options={options}
@@ -194,8 +194,8 @@ class FilterSec extends Component {
                                     isMulti= {true}
                                     closeMenuOnSelect={false}
                                    // isSearchable = {false}
-                                /> */}
-                            </Grid>
+                                />
+                            </Grid> */}
                             <Grid item xs={12} md={4} lg={2}
                             // className="clear_filter"
                             >
