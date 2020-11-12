@@ -131,11 +131,16 @@ class Index extends Component {
     handleChange = (value, actionMeta) => {
         var value = value;
         if(value && value.target.value && typeof value.target.value ==="string"){
-            value = [...this.state.value, {label: value.target.value, value: value.target.value}];
+            if(this.state.value && this.state.value.length>0){
+                value = [...this.state.value, {label: value.target.value, value: value.target.value}];
+            }
+            else{
+                value = [{label: value.target.value, value: value.target.value}]; 
+            }
         }
       
         var state = this.state.invitation;
-        if (value) {
+        if (value && value.length>0) {
             value.map(data => {
                 if (state['emails']) state['emails'].push(data.value)
                 else state['emails'] = [data.value]
