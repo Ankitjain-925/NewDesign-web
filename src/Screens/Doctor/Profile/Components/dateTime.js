@@ -20,69 +20,68 @@ import * as translationNL from '../../../../translations/en.json';
 
 class Index extends Component {
     constructor(props) {
-       super(props);
+        super(props);
         this.state = {
-            Current_state : this.props.LoggedInUser,
-            Format : {},
-            dates : this.props.dates,
-            times : this.props.times,
-            timezones : this.props.timezones,
-            loaderImage : false,
-            PassDone : false,
-            dateF : {},
-            timeF : {},
-            timezone :{},
+            Current_state: this.props.LoggedInUser,
+            Format: {},
+            dates: this.props.dates,
+            times: this.props.times,
+            timezones: this.props.timezones,
+            loaderImage: false,
+            PassDone: false,
+            dateF: {},
+            timeF: {},
+            timezone: {},
         };
         // new Timer(this.logOutClick.bind(this)) 
     }
 
-    componentDidMount = ()=>{
+    componentDidMount = () => {
         this.getSetting()
     }
 
     //For getting the existing settings
-    getSetting =()=>{
-        this.setState({ loaderImage : true})
+    getSetting = () => {
+        this.setState({ loaderImage: true })
         axios.get(sitedata.data.path + '/UserProfile/updateSetting',
             {
-            headers: {
-                'token': this.props.stateLoginValueAim.token,
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            }
-        }).then((responce) => {
-            if(responce.data.hassuccessed && responce.data.data)
-            {
-                this.setState({timezone : responce.data.data.timezone, timeF : {label : responce.data.data.time_format, value :  responce.data.data.time_format}, dateF : {label : responce.data.data.date_format, value :  responce.data.data.date_format},})
-                this.props.Settings(responce.data.data); 
-            }
-            else{
-                this.props.Settings({user_id : this.props.stateLoginValueAim.user._id}); 
-            }
-            this.setState({ loaderImage : false})  
-        })   
+                headers: {
+                    'token': this.props.stateLoginValueAim.token,
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                }
+            }).then((responce) => {
+                if (responce.data.hassuccessed && responce.data.data) {
+                    this.setState({ timezone: responce.data.data.timezone, timeF: { label: responce.data.data.time_format, value: responce.data.data.time_format }, dateF: { label: responce.data.data.date_format, value: responce.data.data.date_format }, })
+                    this.props.Settings(responce.data.data);
+                }
+                else {
+                    this.props.Settings({ user_id: this.props.stateLoginValueAim.user._id });
+                }
+                this.setState({ loaderImage: false })
+            })
     }
 
     //For Change Format State
-    ChangeFormat=(event, name)=>{
-        if(name==='date_format') { this.setState({dateF : event}) }
-        else if(name==='timezone') { this.setState({timezone : event}) }
-        else { this.setState({timeF : event}) }
+    ChangeFormat = (event, name) => {
+        if (name === 'date_format') { this.setState({ dateF: event }) }
+        else if (name === 'timezone') { this.setState({ timezone: event }) }
+        else { this.setState({ timeF: event }) }
         const state = this.state.Format;
-        if(name==='timezone') { state[name] = event }
-        else{ state[name] = event && event.value; }
-        this.setState({Format : state})
+        if (name === 'timezone') { state[name] = event }
+        else { state[name] = event && event.value; }
+        this.setState({ Format: state })
     }
 
     //For Set Format
-    SetFormat=()=>{
-        this.setState({ loaderImage: true})
+    SetFormat = () => {
+        this.setState({ loaderImage: true })
         axios.put(sitedata.data.path + '/UserProfile/updateSetting', {
             date_format: this.state.Format.date_format,
             time_format: this.state.Format.time_format,
-            timezone :  this.state.Format.timezone,
+            timezone: this.state.Format.timezone,
             user_id: this.props.LoggedInUser._id,
-            user_profile_id : this.props.LoggedInUser.profile_id,   
+            user_profile_id: this.props.LoggedInUser.profile_id,
         }, {
             headers: {
                 'token': this.props.stateLoginValueAim.token,
@@ -90,15 +89,15 @@ class Index extends Component {
                 'Content-Type': 'application/json'
             }
         }).then((responce) => {
-            this.setState({PassDone : true, loaderImage : false})
+            this.setState({ PassDone: true, loaderImage: false })
             this.getSetting();
-            setTimeout(()=>{ this.setState({PassDone: false}) }, 5000)
-        })   
+            setTimeout(() => { this.setState({ PassDone: false }) }, 5000)
+        })
     }
 
     render() {
         let translate;
-      switch (this.props.stateLanguageType) {
+        switch (this.props.stateLanguageType) {
             case "en":
                 translate = translationEN.text
                 break;
@@ -126,12 +125,12 @@ class Index extends Component {
             case "default":
                 translate = translationEN.text
         }
-        let {date, time, format, set_the_default, the, is, updated,save_change, Timezone }=translate
+        let { date, time, format, set_the_default, the, is, time_zone, date_format, time_format, updated, save_change, Timezone } = translate
 
         return (
             <div>
-                 {this.state.loaderImage && <Loader />}
-                 {this.state.PassDone && <div className="success_message">{the} {format} {is} {updated}</div>}
+                {this.state.loaderImage && <Loader />}
+                {this.state.PassDone && <div className="success_message">{the} {format} {is} {updated}</div>}
                 <Grid>
                     <Grid className="datTimFrmt">
                         <h5>{date} & {time} {format}</h5>
@@ -147,7 +146,7 @@ class Index extends Component {
                                         value={this.state.dateF}
                                         onChange={(e) => this.ChangeFormat(e, 'date_format')}
                                         options={this.state.dates}
-                                        placeholder="Date format"
+                                        placeholder={date_format}
                                         name="date_format"
                                         isSearchable={false}
                                         className="mr_sel"
@@ -161,7 +160,7 @@ class Index extends Component {
                                         value={this.state.timeF}
                                         onChange={(e) => this.ChangeFormat(e, 'time_format')}
                                         options={this.state.times}
-                                        placeholder="Time format"
+                                        placeholder={time_format}
                                         name="time_format"
                                         isSearchable={false}
                                         className="mr_sel"
@@ -176,7 +175,7 @@ class Index extends Component {
                                         value={this.state.timezone}
                                         onChange={(e) => this.ChangeFormat(e, 'timezone')}
                                         options={this.state.timezones}
-                                        placeholder="Time Zone"
+                                        placeholder={time_zone}
                                         name="timezone"
                                         isSearchable={false}
                                         className="mr_sel"
@@ -200,7 +199,7 @@ class Index extends Component {
 const mapStateToProps = (state) => {
     const { stateLoginValueAim, loadingaIndicatoranswerdetail } = state.LoginReducerAim;
     const { stateLanguageType } = state.LanguageReducer;
-    const {settings} = state.Settings;
+    const { settings } = state.Settings;
     // const { Doctorsetget } = state.Doctorset;
     // const { catfil } = state.filterate;
     return {

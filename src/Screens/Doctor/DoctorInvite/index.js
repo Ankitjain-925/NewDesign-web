@@ -246,7 +246,7 @@ class Index extends Component {
             case "default":
                 translate = translationEN.text
         }
-        let { Invitationsuccessfully, Entermessage, Enteremailfirst, invite_doc_to, u_can_enter_mul_email, who_would_u_like_invite, new_rqst, time_slot_alredy_booke_calender, office_visit, vdo_call, Details, Questions, or, slct_a_time, date_of_appointment } = translate
+        let { Invitationsuccessfully, Entermessage, type_email_press_enter,send_invite, Enteremailfirst, invite_doc_to, u_can_enter_mul_email, who_would_u_like_invite, new_rqst, time_slot_alredy_booke_calender, office_visit, vdo_call, Details, Questions, or, slct_a_time, date_of_appointment } = translate
 
         return (
             <Grid item xs={12} md={1} className="MenuLeftUpr ">
@@ -282,7 +282,7 @@ class Index extends Component {
                                         onInputChange={this.handleInputChange}
                                         onBlur={this.handleChange}
                                         onKeyDown={this.handleKeyDown}
-                                        placeholder="Type emails and press enter or tabs"
+                                        placeholder={type_email_press_enter}
                                         value={value}
                                     />
                                 </Grid>
@@ -295,7 +295,7 @@ class Index extends Component {
                                 ></textarea></Grid>
                             </Grid>
                             <Grid className="invitLinkSub">
-                                <input type="submit" value="Send invites" onClick={this.sentmail} />
+                                <input type="submit" value={send_invite} onClick={this.sentmail} />
                             </Grid>
                         </Grid>
                     </Grid>

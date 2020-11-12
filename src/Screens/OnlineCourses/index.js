@@ -100,7 +100,7 @@ class Index extends Component {
                 break;
             case "sw":
                 translate = translationSW.text
-                break;
+                break;    
             case "default":
                 translate = translationEN.text
         }

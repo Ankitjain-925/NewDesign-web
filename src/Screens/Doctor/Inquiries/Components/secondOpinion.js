@@ -86,7 +86,7 @@ class Index extends Component {
                             })
                     }
                 })
-               
+
                 // this.setState({ MypatientsData: response.data.data });
                 var totalPage = Math.ceil(response.data.data.length / 10);
                 this.setState({ AllPres: response.data.data, loaderImage: false, totalPage: totalPage, currentPage: 1 },
@@ -143,7 +143,7 @@ class Index extends Component {
     }
 
     saveUserData(id) {
-        this.setState({ serverMsg: "" ,saveAttach: false})
+        this.setState({ serverMsg: "", saveAttach: false })
         if (this.state.uploadedimage == "") {
             this.setState({ serverMsg: "please upload documents" })
         } else {
@@ -159,7 +159,7 @@ class Index extends Component {
                 }
             })
                 .then((responce) => {
-                    this.setState({ serverMsg: responce.data.message?responce.data.message:responce.data.msg })
+                    this.setState({ serverMsg: responce.data.message ? responce.data.message : responce.data.msg })
                     if (responce.data.hassuccessed) this.setState({ saveAttach: true })
                     setTimeout(
                         function () {
@@ -213,11 +213,11 @@ class Index extends Component {
                                 .bind(this),
                             3000
                         );
-                        
+
                         var returnData = response.data.data.returnData;
                         var signedRequest = returnData.signedRequest;
                         var url = returnData.url;
-                       
+
 
                         // Put the fileType in the headers for the upload
                         var options = {
@@ -227,15 +227,15 @@ class Index extends Component {
                         };
                         axios.put('https://cors-anywhere.herokuapp.com/' + signedRequest, file1, options)
                             .then(result => {
-                        
+
                                 this.setState({ success: true });
                             })
                             .catch(error => {
-                                
+
                             })
                     })
                     .catch(error => {
-                       
+
                     })
             }
             else {
@@ -312,60 +312,8 @@ class Index extends Component {
     }
 
     removePrsecription = (status, id) => {
-        this.setState({ message: null });
-        confirmAlert({
-            customUI: ({ onClose }) => {
-                return (
-                    <div className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode && this.props.settings.setting.mode === 'dark' ? "dark-confirm react-confirm-alert-body" : "react-confirm-alert-body"} >
-                        <h1>Update the Inquiry?</h1>
-                        <p>Are you sure  to remove this Inquiry?</p>
-                        <div className="react-confirm-alert-button-group">
-                            <button onClick={onClose}>No</button>
-                            <button
-                                onClick={() => {
-                                    this.deleteClickPatient(status, id)
-                                    onClose();
-                                }}
-                            >
-                                Yes
-                            </button>
-                        </div>
-                    </div>
-                );
-            }
-        })
-    }
-
-    handleOpenPrescp = (data) => {
-        let imagePreviewUrl = null
-        if (data.status === 'accept' && data.attachfile && data.attachfile.length > 0) imagePreviewUrl = data.attachfile[0].filename;
-        this.setState({ openPrescp: true, opinionData: data, imagePreviewUrl: imagePreviewUrl, saveAttach: false  });
-    };
-    handleClosePrescp = () => {
-        this.setState({ openPrescp: false, imagePreviewUrl: null, saveAttach: false });
-    };
-
-
-    handleOpenReject = () => {
-        this.setState({ openReject: true });
-    };
-    handleCloseReject = () => {
-        this.setState({ openReject: false });
-    };
-
-    //For chnage the page
-    onChangePage = (pageNumber) => {
-        this.setState({ MypatientsData: this.state.AllPres.slice((pageNumber - 1) * 10, pageNumber * 10), currentPage: pageNumber })
-    }
-
-    render() {
-        const { inqstatus, opinionData, MypatientsData, imagePreviewUrl } = this.state;
-        let $imagePreview = null;
-        if (imagePreviewUrl) {
-            $imagePreview = (<img style={{ borderRadius: "10%", maxWidth: 350, marginBottom: 25, marginTop: 20 }} src={imagePreviewUrl} />);
-        }
         let translate;
-      switch (this.props.stateLanguageType) {
+        switch (this.props.stateLanguageType) {
             case "en":
                 translate = translationEN.text
                 break;
@@ -393,15 +341,97 @@ class Index extends Component {
             case "default":
                 translate = translationEN.text
         }
-        let {srvc_Doctors, see_details, approve, decline, remove, prescription_inquiry, standerd_ques, questions, patient_health_status, sent, on, prescription, Pending, request, edit, Rejected, Answered, Cancelled, req_updated_successfully, sick_cert, my_doc, New, inquiry,
+        let { update_inquiry, are_u_sure_remove_inquiry } = translate;
+        this.setState({ message: null });
+        confirmAlert({
+            customUI: ({ onClose }) => {
+                return (
+                    <div className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode && this.props.settings.setting.mode === 'dark' ? "dark-confirm react-confirm-alert-body" : "react-confirm-alert-body"} >
+                        <h1>{update_inquiry}</h1>
+                        <p>{are_u_sure_remove_inquiry}</p>
+                        <div className="react-confirm-alert-button-group">
+                            <button onClick={onClose}>No</button>
+                            <button
+                                onClick={() => {
+                                    this.deleteClickPatient(status, id)
+                                    onClose();
+                                }}
+                            >
+                                Yes
+                            </button>
+                        </div>
+                    </div>
+                );
+            }
+        })
+    }
+
+    handleOpenPrescp = (data) => {
+        let imagePreviewUrl = null
+        if (data.status === 'accept' && data.attachfile && data.attachfile.length > 0) imagePreviewUrl = data.attachfile[0].filename;
+        this.setState({ openPrescp: true, opinionData: data, imagePreviewUrl: imagePreviewUrl, saveAttach: false });
+    };
+    handleClosePrescp = () => {
+        this.setState({ openPrescp: false, imagePreviewUrl: null, saveAttach: false });
+    };
+
+
+    handleOpenReject = () => {
+        this.setState({ openReject: true });
+    };
+    handleCloseReject = () => {
+        this.setState({ openReject: false });
+    };
+
+    //For chnage the page
+    onChangePage = (pageNumber) => {
+        this.setState({ MypatientsData: this.state.AllPres.slice((pageNumber - 1) * 10, pageNumber * 10), currentPage: pageNumber })
+    }
+
+    render() {
+        const { inqstatus, opinionData, MypatientsData, imagePreviewUrl } = this.state;
+        let $imagePreview = null;
+        if (imagePreviewUrl) {
+            $imagePreview = (<img style={{ borderRadius: "10%", maxWidth: 350, marginBottom: 25, marginTop: 20 }} src={imagePreviewUrl} />);
+        }
+        let translate;
+        switch (this.props.stateLanguageType) {
+            case "en":
+                translate = translationEN.text
+                break;
+            case "de":
+                translate = translationDE.text
+                break;
+            case "pt":
+                translate = translationPT.text
+                break;
+            case "sp":
+                translate = translationSP.text
+                break;
+            case "rs":
+                translate = translationRS.text
+                break;
+            case "nl":
+                translate = translationNL.text
+                break;
+            case "ch":
+                translate = translationCH.text
+                break;
+            case "sw":
+                translate = translationSW.text
+                break;
+            case "default":
+                translate = translationEN.text
+        }
+        let { srvc_Doctors, see_details, approve, decline, remove, prescription_inquiry, standerd_ques, questions, patient_health_status, sent, on, prescription, Pending, request, edit, Rejected, Answered, Cancelled, req_updated_successfully, sick_cert, my_doc, New, inquiry,
             doc_and_statnderd_ques, doc_aimedis_private, Annotations, details, Patient, recved_on, status, home_add_mailbox, how_u_like_rcv_pres, Medicine, Substance, Dose, mg, trade_name, atc_if_applicable, manufacturer, pack_size,
-        Medications, allergies, dignoses, browse, or_drag_here, online,suported_file_type_jpg_png, snd_patient_timeline_email, next, reject, short_msg, previous, back, about, sent_on, secnd_openion, plz_upload_png_jpg, specilist_and_secnd_openion, how_would_patient_like_to_rcv_secon_openion, patient_profession, attachments, attached_doc } = translate
+            Medications, allergies, dignoses, browse, or_drag_here, online, suported_file_type_jpg_png, snd_patient_timeline_email, next, reject, short_msg, previous, back, about, not_mentioned, sent_on, secnd_openion, plz_upload_png_jpg, specilist_and_secnd_openion, how_would_patient_like_to_rcv_secon_openion, patient_profession, attachments, attached_doc } = translate
 
         return (
             <div>
                 {this.state.successfullsent && <div className="success_message">{req_updated_successfully}</div>}
                 <Grid className="presOpinionIner">
-                {this.state.loaderImage && <Loader />}
+                    {this.state.loaderImage && <Loader />}
                     <Table>
                         <Thead>
                             <Tr>
@@ -416,7 +446,7 @@ class Index extends Component {
                             {MypatientsData && MypatientsData.length > 0 && MypatientsData.map((data, index) => (
                                 <Tr>
                                     <Td>{data.details ? data.details : 'Not mentioned'}</Td>
-                                    <Td>{data.send_on ? getDate(data.send_on, this.props.settings.setting ? this.props.settings.setting.date_format : 'DD/MM/YYYY') : 'Not mentioned'}</Td>
+                                    <Td>{data.send_on ? getDate(data.send_on, this.props.settings.setting ? this.props.settings.setting.date_format : 'DD/MM/YYYY') : not_mentioned}</Td>
                                     <Td className="presImg"><img src={data.patient_info && data.patient_info.profile_image ? getImage(data.patient_info.profile_image, this.state.images) : require('../../../../assets/images/dr1.jpg')} alt="" title="" />{data.patient_info && data.patient_info.first_name && data.patient_info.first_name} {data.patient_info && data.patient_info.last_name && data.patient_info.last_name}</Td>
                                     {data.status === 'pending' && <Td><span className="revwYelow"></span>{Pending} </Td>}
                                     {data.status === 'accept' && <Td><span className="revwGren"></span>{Answered} </Td>}
@@ -428,8 +458,8 @@ class Index extends Component {
                                             <img src={require('../../../../assets/images/threedots.jpg')} alt="" title="" className="openScnd" />
                                             <ul>
                                                 <li><a onClick={() => { this.handleOpenPrescp(data) }}><img src={require('../../../../assets/images/details.svg')} alt="" title="" />{see_details}</a></li>
-                                                {(data.status == 'free'||data.status === 'pending')  && <li onClick={() => { this.handleOpenPrescp(data) }}><a><img src={require('../../../../assets/images/edit.svg')} alt="" title="" />{approve}</a></li>}
-                                                {(data.status == 'free'||data.status === 'pending')  && <li onClick={() => { this.updateCertificate('decline', data._id) }}><a><img src={require('../../../../assets/images/plus.png')} alt="" title="" />{reject}</a></li>}
+                                                {(data.status == 'free' || data.status === 'pending') && <li onClick={() => { this.handleOpenPrescp(data) }}><a><img src={require('../../../../assets/images/edit.svg')} alt="" title="" />{approve}</a></li>}
+                                                {(data.status == 'free' || data.status === 'pending') && <li onClick={() => { this.updateCertificate('decline', data._id) }}><a><img src={require('../../../../assets/images/plus.png')} alt="" title="" />{reject}</a></li>}
                                                 {data.status !== 'remove' && <li onClick={() => { this.removePrsecription('remove', data._id) }}><a><img src={require('../../../../assets/images/cancel-request.svg')} alt="" title="" />{remove}</a></li>}
                                             </ul>
                                         </a>
@@ -466,7 +496,7 @@ class Index extends Component {
                                         <Grid className="recevPrescp">
                                             <Grid className="recevPrescpLbl"><label>{how_would_patient_like_to_rcv_secon_openion}</label></Grid>
                                             <Grid className="recevPrescpChk">
-                                                {opinionData.online_offline === 'online' ? online :home_add_mailbox}
+                                                {opinionData.online_offline === 'online' ? online : home_add_mailbox}
                                             </Grid>
                                         </Grid>
                                         <Grid className="yrProfes">
@@ -480,17 +510,17 @@ class Index extends Component {
                                         <Grid className="attchForms attchImg">
                                             <Grid><label>{attachments}</label></Grid>
                                             <label class="attached_file">{attached_doc} -
-                                            {opinionData && opinionData.attachfile && 
-                                                <a>{opinionData.attachfile.filename && (opinionData.attachfile.filename.split('Trackrecord/')[1]).split("&bucket=")[0]}</a>
-                                            }
+                                            {opinionData && opinionData.attachfile &&
+                                                    <a>{opinionData.attachfile.filename && (opinionData.attachfile.filename.split('Trackrecord/')[1]).split("&bucket=")[0]}</a>
+                                                }
                                             </label>
                                             <Grid className="scamUPInput">
                                                 <a><img src={require('../../../../assets/images/upload-file.svg')} alt="" title="" /></a>
                                                 <a>{browse} <input type="file" onChange={(e) => this.UploadFile(e, opinionData.patient_profile_id, opinionData.patient_info.bucket, opinionData._id)} /></a> {or_drag_here}
                                             </Grid>
-                                        {(opinionData.status !== 'accept') && !$imagePreview && <p>{suported_file_type_jpg_png}</p>}
-                                        {$imagePreview}
-                                            
+                                            {(opinionData.status !== 'accept') && !$imagePreview && <p>{suported_file_type_jpg_png}</p>}
+                                            {$imagePreview}
+
                                             {this.state.success && <Grid item xs={12} md={12}>
                                                 <input type="button" value={snd_patient_timeline_email} onClick={() => this.saveUserData(opinionData._id)} className="approvBtn" />
                                             </Grid>}
@@ -501,7 +531,7 @@ class Index extends Component {
                                         </Grid> */}
                                             {/* <p>Supported file types: .jpg, .png, .pdf</p> */}
                                         </Grid>
-                                        
+
                                         <Grid className="infoShwHidIner">
                                             <Grid className="infoShwSave">
                                                 {(opinionData.status !== 'accept' && opinionData.status !== 'decline') && <Grid container direction="row">
@@ -509,7 +539,7 @@ class Index extends Component {
                                                         <input type="button" value={approve} onClick={() => this.deleteClickPatient('accept', opinionData._id)} className="approvBtn" />
                                                     </Grid>
                                                     <Grid item xs={6} md={6}>
-                                                        <input type="button" value={reject}  onClick={() => this.updatePrescription('decline', opinionData._id)} className="rejectBtn" />
+                                                        <input type="button" value={reject} onClick={() => this.updatePrescription('decline', opinionData._id)} className="rejectBtn" />
                                                     </Grid>
                                                 </Grid>}
                                                 {/* <input type="submit" onClick={this.submit} value="Edit entry" /> */}

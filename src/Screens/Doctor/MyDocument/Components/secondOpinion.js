@@ -69,7 +69,7 @@ class Index extends Component {
                     var find = item && item.profile_image && item.profile_image
                     if (find) {
                         var find1 = find.split('.com/')[1]
-                      
+
                         axios.get(sitedata.data.path + '/aws/sign_s3?find=' + find1,)
                             .then((response2) => {
                                 if (response2.data.hassuccessed) {
@@ -80,7 +80,7 @@ class Index extends Component {
                             })
                     }
                 })
-               
+
                 // this.setState({ MypatientsData: response.data.data });
                 var totalPage = Math.ceil(response.data.data.length / 10);
                 this.setState({ AllPres: response.data.data, loaderImage: false, totalPage: totalPage, currentPage: 1 },
@@ -201,11 +201,11 @@ class Index extends Component {
                                 .bind(this),
                             3000
                         );
-                  
+
                         var returnData = response.data.data.returnData;
                         var signedRequest = returnData.signedRequest;
                         var url = returnData.url;
-                       
+
                         // Put the fileType in the headers for the upload
                         var options = {
                             headers: {
@@ -222,7 +222,7 @@ class Index extends Component {
                             })
                     })
                     .catch(error => {
-                       
+
                     })
             }
             else {
@@ -315,7 +315,7 @@ class Index extends Component {
             $imagePreview = (<img style={{ borderRadius: "10%", maxWidth: 350, marginBottom: 10 }} src={imagePreviewUrl} />);
         }
         let translate;
-      switch (this.props.stateLanguageType) {
+        switch (this.props.stateLanguageType) {
             case "en":
                 translate = translationEN.text
                 break;
@@ -343,7 +343,7 @@ class Index extends Component {
             case "default":
                 translate = translationEN.text
         }
-        let { srvc_Doctors,see_details,remove, decline, accept,  status, sent, on, sent_on, Case, Patient, what_ur_profession, accept, decline, remove, Pending, request, edit, Rejected, Answered, Cancelled, req_updated_successfully, sick_cert, my_doc, New, inquiry,
+        let { srvc_Doctors, see_details, remove, decline, accept, status, sent, on, sent_on, Case, Patient, what_ur_profession, accept, decline, remove, Pending, request, edit, not_mentioned, Rejected, Answered, Cancelled, req_updated_successfully, sick_cert, my_doc, New, inquiry,
             short_msg, previous, next, doc_aimedis_private, Annotations, details, questions, how_u_feeling, is_ur_temp_high_to_38, which_symptoms_do_u_hav, show, since_when, have_u_already_been_sick, how_long_do_u_unable_to_work, it_is_known_dieseas, r_u_tracking_medi, do_u_hv_allergies, } = translate
 
         return (
@@ -364,7 +364,7 @@ class Index extends Component {
                             {MypatientsData && MypatientsData.length > 0 && MypatientsData.map((data, index) => (
                                 <Tr>
                                     <Td>{data.which_symptomps ? data.which_symptomps : 'Not mentioned'}</Td>
-                                    <Td>{data.send_on ? getDate(data.send_on, this.props.settings.setting ? this.props.settings.setting.date_format : 'DD/MM/YYYY') : 'Not mentioned'}</Td>
+                                    <Td>{data.send_on ? getDate(data.send_on, this.props.settings.setting ? this.props.settings.setting.date_format : 'DD/MM/YYYY') : not_mentioned}</Td>
                                     <Td className="presImg"><img src={data.patient_info && data.patient_info.profile_image ? getImage(data.patient_info.profile_image, this.state.images) : require('../../../../assets/images/dr1.jpg')} alt="" title="" />{data.patient_info && data.patient_info.first_name && data.patient_info.first_name} {data.patient_info && data.patient_info.last_name && data.patient_info.last_name}</Td>
                                     {data.status === 'pending' && <Td><span className="revwYelow"></span>{Pending} </Td>}
                                     {data.status === 'accept' && <Td><span className="revwGren"></span>{Answered} </Td>}

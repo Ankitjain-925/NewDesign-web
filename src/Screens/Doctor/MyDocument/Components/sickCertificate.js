@@ -346,7 +346,7 @@ class Index extends Component {
             case "default":
                 translate = translationEN.text
         }
-        let { see_details, accept, srvc_Doctors, status, sent, Case, sent_on, Patient, on, what_ur_profession, Pending, request, edit, Rejected, Answered, Cancelled, req_updated_successfully, sick_cert, my_doc, New, inquiry, back, inquiry, short_msg, next, previous,
+        let { prescription, see_details, accept, srvc_Doctors, upload_scanned, scanned, status, sent, reject, approve, Case, sent_on, Patient, snd_patient_timeline_email, on, what_ur_profession, suported_file_type_jpg_png, Pending, not_mentioned, request, edit, Rejected, Answered, Cancelled, req_updated_successfully, sick_cert, my_doc, New, inquiry, back, inquiry, short_msg, next, previous,
             doc_and_statnderd_ques, remove, doc_aimedis_private, Annotations, details, questions, how_u_feeling, is_ur_temp_high_to_38, which_symptoms_do_u_hav, show, since_when, have_u_already_been_sick, how_long_do_u_unable_to_work, it_is_known_dieseas, r_u_tracking_medi, do_u_hv_allergies, } = translate
 
         return (
@@ -367,7 +367,7 @@ class Index extends Component {
                             {MypatientsData && MypatientsData.length > 0 && MypatientsData.map((data, index) => (
                                 <Tr>
                                     <Td>{data.which_symptomps ? data.which_symptomps : 'Not mentioned'}</Td>
-                                    <Td>{data.send_on ? getDate(data.send_on, this.props.settings.setting ? this.props.settings.setting.date_format : 'DD/MM/YYYY') : 'Not mentioned'}</Td>
+                                    <Td>{data.send_on ? getDate(data.send_on, this.props.settings.setting ? this.props.settings.setting.date_format : 'DD/MM/YYYY') : not_mentioned}</Td>
                                     <Td className="presImg"><img src={data.patient_info && data.patient_info.profile_image ? getImage(data.patient_info.profile_image, this.state.images) : require('../../../../assets/images/dr1.jpg')} alt="" title="" />{data.patient_info && data.patient_info.first_name && data.patient_info.first_name} {data.patient_info && data.patient_info.last_name && data.patient_info.last_name}</Td>
                                     {data.status === 'pending' && <Td><span className="revwYelow"></span>{Pending} </Td>}
                                     {data.status === 'accept' && <Td><span className="revwGren"></span>{Answered} </Td>}
@@ -463,26 +463,26 @@ class Index extends Component {
                                 {sickData.status !== 'decline' &&
                                     <Grid className="scamUPForms scamUPImg">
 
-                                        <Grid><label>{(sickData.status !== 'accept') ? 'Upload scanned' : 'Scanned'} prescription</label></Grid>
+                                        <Grid><label>{(sickData.status !== 'accept') ? upload_scanned : scanned} {prescription}</label></Grid>
 
                                         {(sickData.status !== 'accept' && !$imagePreview) && <Grid className="scamUPInput">
                                             <a><img src={require('../../../../assets/images/upload-file.svg')} alt="" title="" /></a>
                                             <a>Browse <input type="file" onChange={(e) => this.UploadFile(e, sickData.patient_profile_id, sickData.patient_info.bucket, sickData._id)} /></a> or drag here
                                                                             </Grid>}
-                                        {(sickData.status !== 'accept') && !$imagePreview && <p>Supported file types: .jpg, .png, .pdf</p>}
+                                        {(sickData.status !== 'accept') && !$imagePreview && <p>{suported_file_type_jpg_png}</p>}
                                         {(sickData.status === 'accept') && !$imagePreview && <img src={sickData.attachfile[0].filename} />}
                                         {(sickData.status !== 'accept') && $imagePreview}
                                         {(sickData.attachfile && this.state.uploadedimage && sickData.status !== 'accept') && <Grid item xs={12} md={12}>
-                                            <input type="button" value="Send to patient's Timeline and Email" onClick={() => this.saveUserData(sickData._id)} className="approvBtn" />
+                                            <input type="button" value={snd_patient_timeline_email} onClick={() => this.saveUserData(sickData._id)} className="approvBtn" />
                                         </Grid>}
                                     </Grid>}
 
                                 {(sickData.status !== 'accept' && sickData.status !== 'decline') && <Grid container direction="row">
                                     <Grid item xs={6} md={6}>
-                                        <input type="button" value="Approve" onClick={() => this.deleteClickPatient('accept', sickData._id)} className="approvBtn" />
+                                        <input type="button" value={approve} onClick={() => this.deleteClickPatient('accept', sickData._id)} className="approvBtn" />
                                     </Grid>
                                     <Grid item xs={6} md={6}>
-                                        <input type="button" value="Reject" onClick={() => this.updateCertificate('decline', sickData._id)} className="rejectBtn" />
+                                        <input type="button" value={reject} onClick={() => this.updateCertificate('decline', sickData._id)} className="rejectBtn" />
                                     </Grid>
                                 </Grid>}
                             </Grid>

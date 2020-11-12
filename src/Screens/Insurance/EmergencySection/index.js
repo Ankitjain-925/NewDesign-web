@@ -144,7 +144,7 @@ class Index extends Component {
             case "default":
                 translate = translationEN.text
         }
-        let { ur_emergancy_data, for_geting_emrgancy_data_on_a_click, emrgncy_data_access, emrgancy_access_for_non_connected, patient_profile_not_crrect,
+        let { ur_emergancy_data, for_geting_emrgancy_data_on_a_click, emrgncy_data_access, emrgancy_access_for_non_connected, patient_profile_not_crrect, view_emrgncy_data,
             plz_accept_term_condition, imp_notice_b, this_will_trigger_following_action, send_email_to_patient_emrgancy, snd_sms_to_patient_emrgancy, snd_push_notification_to_patient_emrgancy,
             patient_id, I_hrwith_cnfirm_that_i_need_access_patient } = translate;
 
@@ -182,7 +182,7 @@ class Index extends Component {
                                                     <Grid className="emrgncyData">
                                                         <Grid className="EmergencyOpenPopup">{for_geting_emrgancy_data_on_a_click}</Grid>
                                                         <Grid className="paramSub">
-                                                            <input type="submit" onClick={this.openPopUp} value="View Emergency Data" />
+                                                            <input type="submit" onClick={this.openPopUp} value={view_emrgncy_data} />
                                                         </Grid>
                                                     </Grid>
                                                 </Grid>
@@ -249,7 +249,7 @@ class Index extends Component {
                                                 </Grid>
 
                                                 <Grid className="paramSub">
-                                                    <input type="submit" onClick={this.getTrack} value="View Emergency Data" />
+                                                    <input type="submit" onClick={this.getTrack} value={view_emrgncy_data} />
                                                 </Grid>
 
                                             </Grid>

@@ -9,7 +9,14 @@ import { LoginReducerAim } from './../../Login/actions';
 import { Settings } from './../../Login/setting';
 import { LanguageFetchReducer } from './../../actions';
 
-
+import * as translationEN from '../../../translations/en.json';
+import * as translationDE from '../../../translations/de.json';
+import * as translationPT from '../../../translations/pt.json';
+import * as translationSP from '../../../translations/sp.json';
+import * as translationRS from '../../../translations/rs.json';
+import * as translationSW from '../../../translations/sw.json';
+import * as translationCH from '../../../translations/ch.json';
+import * as translationNL from '../../../translations/en.json';
 import PropTypes from 'prop-types';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
@@ -148,6 +155,37 @@ class Index extends Component {
     };
 
     render() {
+        let translate
+        switch (this.props.stateLanguageType) {
+            case "en":
+                translate = translationEN.text
+                break;
+            case "de":
+                translate = translationDE.text
+                break;
+            case "pt":
+                translate = translationPT.text
+                break;
+            case "sp":
+                translate = translationSP.text
+                break;
+            case "rs":
+                translate = translationRS.text
+                break;
+            case "nl":
+                translate = translationNL.text
+                break;
+            case "ch":
+                translate = translationCH.text
+                break;
+            case "sw":
+                translate = translationSW.text
+                break;
+            case "default":
+                translate = translationEN.text
+        } 
+        let {my_profile, offc_info , srvcs_appointment, Security, date, time, kyc}= translate
+        const date_time = date+" & "+time
         const { selectedOption, selectedCountry } = this.state;
         const { value } = this.state;
         const { stateLoginValueAim, Doctorsetget } = this.props;
@@ -173,12 +211,12 @@ class Index extends Component {
                                             {/* Tabs  */}
                                             <AppBar position="static" className="profileTabsUpr">
                                                 <Tabs value={value} onChange={this.handleChangeTabs} className="profileTabs">
-                                                    <Tab label="My Profile" className="aboutTabsIner" />
-                                                    <Tab label="Office information" className="aboutTabsIner" />
-                                                    <Tab label="Services & Appointments" className="aboutTabsIner" />
-                                                    <Tab label="Security" className="aboutTabsIner" />
-                                                    <Tab label="KYC" className="aboutTabsIner" />
-                                                    <Tab label="Date & Time" className="aboutTabsIner" />
+                                                    <Tab label={my_profile} className="aboutTabsIner" />
+                                                    <Tab label={offc_info} className="aboutTabsIner" />
+                                                    <Tab label={srvcs_appointment} className="aboutTabsIner" />
+                                                    <Tab label={Security} className="aboutTabsIner" />
+                                                    <Tab label={kyc} className="aboutTabsIner" />
+                                                    <Tab label={date_time} className="aboutTabsIner" />
                                                 </Tabs>
                                             </AppBar>
                                         </Grid>

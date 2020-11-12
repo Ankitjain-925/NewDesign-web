@@ -945,9 +945,9 @@ class Index extends Component {
                 translate = translationEN.text
         }
         let { journal, add_new_entry, New, entry, edit, blood_pressure, doc_visit, blood_sugar, covid_diary, condition_pain, diagnosis, diary, weight_bmi,
-            vaccination, marcumar_pass, smoking_status, hosp_visit, lab_result, file_uplod, family_anmnies, medication,
+            vaccination, marcumar_pass, smoking_status, hosp_visit, lab_result, file_uplod, family_anmnies, medication, enter,
             personalize_dashbrd, online, patient_access_data, another_patient_data, get_patient_access_data, id_pin_not_correct, healthcare_access_for_non_conn_patient, patient_id, pin , enter_pin, view_data, prescription, secnd_openion, sick_cert, anamnesis, Prescription } = translate;
-
+        const enter_patient_id = enter+" "+patient_id
         const { stateLoginValueAim, Doctorsetget } = this.props;
         if (stateLoginValueAim.user === 'undefined' || stateLoginValueAim.token === 450 || stateLoginValueAim.token === 'undefined' || stateLoginValueAim.user.type !== 'doctor') {
             return (<Redirect to={'/'} />);
@@ -1031,7 +1031,7 @@ class Index extends Component {
                                             <Grid className="dataBoxInput">
                                                 <Grid>
                                                     <Grid><label>{patient_id}</label></Grid>
-                                                    <Grid><input type="text" name="patient_id" placeholder="Enter Patient ID" id="login-name" onChange={this.GetTrackData}/></Grid>
+                                                    <Grid><input type="text" name="patient_id" placeholder={enter_patient_id} id="login-name" onChange={this.GetTrackData}/></Grid>
                                                 </Grid>
                                                 <Grid>
                                                     <Grid><label>{pin}</label></Grid>
@@ -1069,7 +1069,7 @@ class Index extends Component {
                                                             <p>{New} {entry}</p>
                                                             <Grid className="nwDiaSel">
                                                                 <select onChange={(e) => this.SelectOption(e.target.value)} value={this.state.current_select}>
-                                                                    <option value="anamnesis">Anamnesis</option>
+                                                                    <option value="anamnesis">{anamnesis}</option>
                                                                     <option value="blood_pressure">{blood_pressure}</option>
                                                                     <option value="blood_sugar">{blood_sugar}</option>
                                                                     <option value="condition_pain">{condition_pain}</option>
