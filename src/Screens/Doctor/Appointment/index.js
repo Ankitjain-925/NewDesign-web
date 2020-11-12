@@ -380,11 +380,62 @@ class Index extends Component {
     handleChange = selectedOption => {
         this.setState({ selectedOption });
     };
+
     handleOpenSlot = (data) => {
-        console.log(data.date, 'data.date')
+        const { appioinmentTimes } = this.state;
+        let temptimes = [];
         let date = new Date(moment(new Date(data.date), 'M-DD-YYYY').format())
-        this.setState({appoinmentSelected: data },
-            ()=>{this.onChange(date);});
+        let suggestTime = [];
+        let dateFormat = moment(date).format('DD/MM/YYYY');
+        let statemanger = 'onlineAppointments';
+
+        let clashtime = false;
+        appioinmentTimes.map(datatime => {
+            if ((datatime.start <= data.starttimeValueof && datatime.end >= data.starttimeValueof) || (datatime.start <= data.endtimeValueof && datatime.end >= data.endtimeValueof)) {
+                clashtime = true;
+            }
+        })
+
+
+        if (data.appointment_type == types[2]) {
+            statemanger = 'onlineAppointments'
+        }
+        else if (data.appointment_type == types[0]) {
+            statemanger = 'UpDataDetails'
+        } else {
+            statemanger = 'DaysforPractices'
+        }
+
+        let weeknumber = moment(date).day();
+        var appiInd = -1;
+        if (this.state[statemanger].workingDays) appiInd = this.state[statemanger].workingDays.findIndex(person => person.value.includes(days[weeknumber - 1]))
+        if (appiInd !== -1) {
+            let start = this.state[statemanger].workingDays[appiInd].start;
+            let end = this.state[statemanger].workingDays[appiInd].end;
+            var time = moment(start, 'H:mm');
+            while (time.add(this.state[statemanger].duration_of_timeslots, 'minutes').valueOf() < moment(end, 'H:mm').valueOf()) {
+
+                var firsttime = moment(time, 'H:mm').add(-parseInt(this.state[statemanger].duration_of_timeslots) + 1, 'minutes');
+                var endtime = moment(firsttime, 'H:mm').add(this.state[statemanger].duration_of_timeslots, 'minutes');
+                let dataq = { start: firsttime.format('H:mm'), end: endtime.format('H:mm') }
+                temptimes.push(dataq)
+            }
+        }
+
+        temptimes.map(tiems => {
+            let clashtimes = false
+            appioinmentTimes.map(datatime => {
+                if ((datatime.start <= moment(dateFormat + ' ' + tiems.start, 'DD/MM/YYYY H:mm').valueOf() && datatime.end > moment(dateFormat + ' ' + tiems.start, 'DD/MM/YYYY H:mm').valueOf()) || (datatime.start < moment(dateFormat + ' ' + tiems.end, 'DD/MM/YYYY H:mm').valueOf() && datatime.end >= moment(dateFormat + ' ' + tiems.end, 'DD/MM/YYYY H:mm').valueOf())) {
+                    clashtimes = true;
+                }
+
+            })
+            if (!clashtimes) {
+                suggestTime.push(tiems)
+            }
+        })
+
+        this.setState({ openSlot: true, appoinmentSelected: data, clashtime: clashtime, suggesteddate: date, suggestTime: suggestTime, currentSelected: -1 });
     };
 
     handleCloseSlot = () => {
@@ -789,7 +840,6 @@ class Index extends Component {
                                                         {this.state.suggesteddate && <Grid item xs={6} md={6}>
                                                             <Grid><label>{slct_a_time}</label></Grid>
                                                             <Grid className="selTimeAM suggent-time scroll-hidden">
-                                                                {console.log('this.state.suggestTime', this.state.suggestTime)}
                                                                 {this.state.suggestTime && this.state.suggestTime.length > 0 ? this.state.suggestTime.map((data, iA) => {
                                                                     return (
                                                                         <Grid>
