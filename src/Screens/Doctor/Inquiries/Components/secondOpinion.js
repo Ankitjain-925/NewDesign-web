@@ -347,13 +347,8 @@ class Index extends Component {
             customUI: ({ onClose }) => {
                 return (
                     <div className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode && this.props.settings.setting.mode === 'dark' ? "dark-confirm react-confirm-alert-body" : "react-confirm-alert-body"} >
-<<<<<<< HEAD
                         <h1>{update_inquiry}</h1>
                         <p>{are_u_sure_remove_inquiry}</p>
-=======
-                        <h1>Update the Inquiry?</h1>
-                        <p>Are you sure  to remove this Inquiry?</p>
->>>>>>> 716f7b1382255d09e3888932d0e05d72c46cc524
                         <div className="react-confirm-alert-button-group">
                             <button onClick={onClose}>No</button>
                             <button
