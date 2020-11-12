@@ -946,8 +946,8 @@ DeleteTrack=(deletekey)=> {
             case "default":
                 translate = translationEN.text
         }
-        let { journal,secnd_openion,sick_cert,prescription,anamnesis,patient_data_access,id_pin_not_correct,patient_id, pin, another_patient_data,healthcare_access_for_non_conn_patient, patient_access_data, add_new_entry, New, entry, edit, blood_pressure, doc_visit, blood_sugar, covid_diary, condition_pain, diagnosis, diary, weight_bmi,
-            vaccination, marcumar_pass, smoking_status, hosp_visit, lab_result, file_uplod, family_anmnies, medication,
+        let { journal,secnd_openion,sick_cert,prescription,anamnesis,patient_data_access,id_pin_not_correct,patient_id, pin, another_patient_data,healthcare_access_for_non_conn_patient, patient_access_data, add_new_entry, New, entry, edit, get_patient_access_data, blood_pressure, doc_visit, blood_sugar, covid_diary, condition_pain, diagnosis, diary, weight_bmi,
+            vaccination, marcumar_pass, smoking_status, hosp_visit, lab_result, view_data, file_uplod, family_anmnies, medication,enter_patient_id, enter_pin,
             personalize_dashbrd } = translate;
 
         const { stateLoginValueAim, Doctorsetget } = this.props;
@@ -988,7 +988,7 @@ DeleteTrack=(deletekey)=> {
                                                         </Grid>
                                                         <Grid item xs={6} md={6}>
                                                             <Grid className="AddEntrynw">
-                                                                {this.props.Doctorsetget && this.props.Doctorsetget.p_id !== null ? <a onClick={this.AnotherPatient}>{another_patient_data}</a> : <a onClick={this.handleOpenData}>Get Patient Access Data</a>}
+                                                                {this.props.Doctorsetget && this.props.Doctorsetget.p_id !== null ? <a onClick={this.AnotherPatient}>{another_patient_data}</a> : <a onClick={this.handleOpenData}>{get_patient_access_data}</a>}
                                                                 {this.props.Doctorsetget && this.props.Doctorsetget.p_id !== null && <a onClick={this.handleOpenEntry}>+ {add_new_entry}</a>}
                                                             </Grid>
                                                             <Grid className="downloadButton">
@@ -1035,15 +1035,15 @@ DeleteTrack=(deletekey)=> {
                                             <Grid className="dataBoxInput">
                                                 <Grid>
                                                     <Grid><label>{patient_id}</label></Grid>
-                                                    <Grid><input type="text" name="patient_id" placeholder="Enter Patient ID" id="login-name" onChange={this.GetTrackData}/></Grid>
+                                                    <Grid><input type="text" name="patient_id" placeholder={enter_patient_id} id="login-name" onChange={this.GetTrackData}/></Grid>
                                                 </Grid>
                                                 <Grid>
                                                     <Grid><label>{pin}</label></Grid>
-                                                    <Grid><input type="text" id="pin" name="pin" placeholder="Enter Pin" onChange={this.GetTrackData}/></Grid>
+                                                    <Grid><input type="text" id="pin" name="pin" placeholder={enter_pin} onChange={this.GetTrackData}/></Grid>
                                                 </Grid>
                                             </Grid>
                                             <Grid className="dataBoxSub">
-                                                <input type="submit" value="View Data" onClick={this.setTrack}/>
+                                                <input type="submit" value={view_data} onClick={this.setTrack}/>
                                             </Grid>
                                         </Grid>
                                     </Grid>

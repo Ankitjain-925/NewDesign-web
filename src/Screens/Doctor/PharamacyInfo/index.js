@@ -421,7 +421,7 @@ class Index extends Component {
             case "default":
                 translate = translationEN.text
         }
-        let { Successfullyaddedtheinformation, PleaseEnterallthefield, Pleaseenterthepatientidfirst, pharma_prescription, send_prescription_to_pharmacy, uplod_scanned_prescription, browse, or, or_drag_here, suported_file_type_jpg_png, patient_id, Pharmacy, search_pharmacy_by_name_id, show_pharmacy_within_radious, short_msg_optional, add_this_patient_journal,send_invite } = translate;
+        let { Successfullyaddedtheinformation, PleaseEnterallthefield, Pleaseenterthepatientidfirst, pharma_prescription, send_prescription, send_prescription_to_pharmacy, uplod_scanned_prescription, browse, or, or_drag_here, suported_file_type_jpg_png, patient_id, Pharmacy, search_pharmacy_by_name_id, show_pharmacy_within_radious, short_msg_optional, add_this_patient_journal,send_invite } = translate;
 
         return (
             <Grid item xs={12} md={1} className="MenuLeftUpr ">
@@ -506,7 +506,7 @@ class Index extends Component {
                                 />
                             </Grid>
                             <Grid className="scanInputsSub">
-                                <input type="submit" value="Send Prescription" onClick={this.AddTrack} />
+                                <input type="submit" value={send_prescription} onClick={this.AddTrack} />
                             </Grid>
                         </Grid>
                     </Grid>

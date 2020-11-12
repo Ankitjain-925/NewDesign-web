@@ -129,14 +129,14 @@ class Index extends Component {
             case "default":
                 translate = translationEN.text
         }
-        let { Change, password, is, we_use_authy, supportive_text, Current, confirm_password, new_password, two_fac_auth, password_changed, new_and_confirm_pass_not_same, current_pass_not_match, plz_fill_fields,Register_characters,
+        let { Passwordisnotvalid, Change, password, is, we_use_authy, supportive_text, Current, confirm_password, new_password, two_fac_auth, password_changed, new_and_confirm_pass_not_same, current_pass_not_match, plz_fill_fields,Register_characters,
             Disable, Enable, Register_Passwordshould, change_password, Register_letter, Register_number, Register_special } = translate;
 
         return (
             <div>
                 {this.state.loaderImage && <Loader />}
                 {this.state.PassDone && <div className="success_message">{password_changed}</div>}
-                {this.state.notVlidpass && <div className="err_message">Password is not valid</div>}
+                {this.state.notVlidpass && <div className="err_message">{Passwordisnotvalid}</div>}
                 {this.state.notmatchCon && <div className="err_message">{new_and_confirm_pass_not_same}</div>}
                 {this.state.notmatch && <div className="err_message">{current_pass_not_match}</div>}
                 {this.state.fillall && <div className="err_message">{plz_fill_fields}</div>}

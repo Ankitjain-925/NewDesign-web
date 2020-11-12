@@ -361,7 +361,7 @@ class Index extends Component {
         if (imagePreviewUrl) {
             $imagePreview = (<img style={{ borderRadius: "10%", maxWidth: 350, marginBottom: 10 }} src={imagePreviewUrl} />);
         }
-        let { srvc_Doctors, see_details, approve, decline, remove, prescription_inquiry, standerd_ques, questions, patient_health_status, sent, on, prescription, Pending, request, edit, Rejected, Answered, Cancelled, req_updated_successfully, sick_cert, my_doc, New, inquiry,
+        let { srvc_Doctors, see_details, approve, decline, remove, prescription_inquiry, yes, no, standerd_ques, home_add_mailbox, questions, online, patient_health_status, sent, on, prescription, Pending, request, edit, Rejected, Answered, Cancelled, req_updated_successfully, sick_cert, my_doc, New, inquiry,
             doc_and_statnderd_ques, doc_aimedis_private, Annotations, details, Patient, recved_on, status, is_this_follow_pres, how_u_like_rcv_pres, Medicine, Substance, Dose, mg, trade_name, atc_if_applicable, manufacturer, pack_size,
             Medications, allergies, dignoses, browse, or_drag_here, suported_file_type_jpg_png, snd_patient_timeline_email, next, reject, short_msg, previous, back, attached_doc } = translate
 
@@ -431,9 +431,9 @@ class Index extends Component {
                                     <Grid><span>{standerd_ques}</span></Grid>
                                     <Grid>
                                         <Grid><label>{is_this_follow_pres}</label></Grid>
-                                        <p>{prescData.follow_up_prescription == 'yes' ? 'Yes' : 'No'}</p>
+                                        <p>{prescData.follow_up_prescription == 'yes' ? yes : no}</p>
                                         <Grid><label>{how_u_like_rcv_pres}</label></Grid>
-                                        <p>{prescData.prescription_type && prescData.prescription_type==='offline'? 'Home address mailbox' : 'Online'}</p>
+                                        <p>{prescData.prescription_type && prescData.prescription_type==='offline'? home_add_mailbox : online}</p>
                                     </Grid>
                                 </Grid>
 

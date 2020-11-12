@@ -381,7 +381,7 @@ class Index extends Component {
         this.setState({ selectedOption });
     };
     handleOpenSlot = (data) => {
-        console.log(data.date, 'data.date')
+        console.log(data, 'data.date')
         let date = new Date(moment(new Date(data.date), 'M-DD-YYYY').format())
         this.setState({appoinmentSelected: data },
             ()=>{this.onChange(date);});
@@ -680,7 +680,8 @@ class Index extends Component {
             case "default":
                 translate = translationEN.text
         }
-        let { holiday, appointments, new_rqst, time_slot_alredy_booke_calender, office_visit, vdo_call, Details, Questions, or, slct_a_time, date_of_appointment } = translate
+        let { holiday, appointments, new_rqst, time_slot_alredy_booke_calender, office_visit, vdo_call, Details,
+            suggest_new_time, Questions, or, slct_a_time, date_of_appointment, book_appointment } = translate
 
 
         if (stateLoginValueAim.user === 'undefined' || stateLoginValueAim.token === 450 || stateLoginValueAim.token === 'undefined' || stateLoginValueAim.user.type !== 'doctor') {
@@ -772,7 +773,7 @@ class Index extends Component {
                                                     </Grid>
                                                 </Grid>
                                                 <Grid className="detailQuesSub">
-                                                    <input type="submit" value="Book appointment" onClick={() => { this.updateAppointment('accept', appoinmentSelected._id, appoinmentSelected) }} />
+                                                    <input type="submit" value={book_appointment} onClick={() => { this.updateAppointment('accept', appoinmentSelected._id, appoinmentSelected) }} />
                                                     <span>{or}</span>
                                                 </Grid>
                                                 <Grid className="slotTimDat">
@@ -805,7 +806,7 @@ class Index extends Component {
                                                         </Grid>}
                                                     </Grid>
                                                     <Grid className={this.state.currentSelected !== undefined && this.state.currentSelected !== -1 ? 'detailQuesSub' : 'SuggNwTim'}>
-                                                        <input type="submit" value="Suggest new time" onClick={() => this.suggestingTime()} />
+                                                        <input type="submit" value={suggest_new_time} onClick={() => this.suggestingTime()} />
                                                     </Grid>
                                                 </Grid>
                                             </Grid>

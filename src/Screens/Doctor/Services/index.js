@@ -627,9 +627,9 @@ class Index extends Component {
             case "default":
                 translate = translationEN.text
         }
-        let { succ1, Register_email, Register_Password, Register_Passwordshould, Register_characters, Register_letter, Register_number, Register_special, Register_Mobilenumber, Register_activate_auth,
+        let { succ1, Register_email, Register_Password, Register_Passwordshould, enter_pin, Register_characters, Register_letter, Register_number, Register_special, Register_Mobilenumber, Register_activate_auth, enter,
             Mnotvalids, Register_CREATE, capab_Patients, not_mentioned, age,gender, patient_id, openjournal, personal_info, remove_patient, insurance, id_pin_not_correct, patient_data_access, healthcare_access_for_non_conn_patient, view_data, private_doc_rest, ask_patient_to_become_a_private_doctor, Ask, email_or_id, enter_patient_email_id, new_patient, add_new_patient, first, name,last, country_code, previous, next, find_patient, Patient, add_new_patient_in_list } = translate
-
+        const enter_patient_id = enter+" "+patient_id
         if (stateLoginValueAim.user === 'undefined' || stateLoginValueAim.token === 450 || stateLoginValueAim.token === 'undefined' || stateLoginValueAim.user.type !== 'doctor') {
             return (<Redirect to={'/'} />);
         }
@@ -646,7 +646,6 @@ class Index extends Component {
                                 <LeftMenuMobile isNotShow={true} currentPage="patient" />
                                 <Notification />
                                 {/* End of Website Menu */}
-                                {console.log('MypatientsData', this.state.MypatientsData)}
                                 <Grid item xs={12} md={9}>
                                     <Grid className="docOpinion">
                                         <Grid container direction="row" className="docAddUpr">
@@ -772,7 +771,7 @@ class Index extends Component {
                                                             <Grid className="openJournal">
                                                                 <Grid container direction="row" justifyContent="center" alignItems="center">
                                                                     <Grid item xs={12} md={12}>
-                                                                        <input type="submit" onClick={() => { this.GotoJournal(profileDetail) }} value="Open Journal" />
+                                                                        <input type="submit" onClick={() => { this.GotoJournal(profileDetail) }} value={openjournal} />
                                                                     </Grid>
                                                                 </Grid>
                                                             </Grid>
@@ -798,11 +797,11 @@ class Index extends Component {
                                                         <Grid className="dataBoxInput">
                                                             <Grid>
                                                                 <Grid><label>{patient_id}</label></Grid>
-                                                                <Grid><input type="text" name="patient_id" placeholder="Enter Patient ID" id="login-name" onChange={this.GetTrackData} /></Grid>
+                                                                <Grid><input type="text" name="patient_id" placeholder={enter_patient_id} id="login-name" onChange={this.GetTrackData} /></Grid>
                                                             </Grid>
                                                             <Grid>
                                                                 <Grid><label>{personal_info}</label></Grid>
-                                                                <Grid><input type="text" id="pin" name="pin" placeholder="Enter Pin" onChange={this.GetTrackData} /></Grid>
+                                                                <Grid><input type="text" id="pin" name="pin" placeholder={enter_pin} onChange={this.GetTrackData} /></Grid>
                                                             </Grid>
                                                         </Grid>
                                                         <Grid className="dataBoxSub">

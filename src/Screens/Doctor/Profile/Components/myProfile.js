@@ -40,7 +40,7 @@ import Loader from './../../../Components/Loader/index';
 import DateFormat from './../../../Components/DateFormat/index'
 import Autocomplete from './../../../Components/Autocomplete/index.js';
 import Modal from '@material-ui/core/Modal';
-import {subspeciality } from '../../../../subspeciality.js';
+import { subspeciality } from '../../../../subspeciality.js';
 import QRCode from 'qrcode.react';
 
 const options = [
@@ -154,8 +154,8 @@ class Index extends Component {
         this.city.addListener("place_changed", this.handlePlaceChanged);
     }
 
-     //For upload the Profile pic
-     fileUpload = (event, filed_name) => {
+    //For upload the Profile pic
+    fileUpload = (event, filed_name) => {
         if (event[0].type === "image/jpeg" || event[0].type === "image/png") {
             this.setState({ loaderImage: true });
             let reader = new FileReader();
@@ -188,79 +188,79 @@ class Index extends Component {
                     }
                 };
                 axios.put('https://cors-anywhere.herokuapp.com/' + signedRequest, file, options)
-                .then(result => {
-                    this.setState({ uploadedimage: response.data.data.returnData.url + '&bucket=' + this.props.stateLoginValueAim.user.bucket, loaderImage: false },
-                        () => { this.saveUserData1() })
-                })
-                .catch(error => {  })
-            }).catch(error => {  })
+                    .then(result => {
+                        this.setState({ uploadedimage: response.data.data.returnData.url + '&bucket=' + this.props.stateLoginValueAim.user.bucket, loaderImage: false },
+                            () => { this.saveUserData1() })
+                    })
+                    .catch(error => { })
+            }).catch(error => { })
         }
         else {
             confirmAlert({
                 customUI: ({ onClose }) => {
-                return (
-                <div className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode === 'dark' ? "dark-confirm react-confirm-alert-body" : "react-confirm-alert-body"} >
-                <h1>Please Upload PNG and JPEG file</h1>
-                <div className="react-confirm-alert-button-group">
-                <button
-                onClick= {() => {onClose()}}
-                >
-                Ok
+                    return (
+                        <div className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode === 'dark' ? "dark-confirm react-confirm-alert-body" : "react-confirm-alert-body"} >
+                            <h1>Please Upload PNG and JPEG file</h1>
+                            <div className="react-confirm-alert-button-group">
+                                <button
+                                    onClick={() => { onClose() }}
+                                >
+                                    Ok
                 </button>
-                </div>
-                </div>
-                );
-                }
-                })
-        }
-    }
-
-    //FOR UPLOADING THE IMAGE
-    saveUserData1=()=>{
-        this.setState({ loaderImage: true });
-        const user_token = this.props.stateLoginValueAim.token;
-        axios.put(sitedata.data.path+'/UserProfile/Users/updateImage', {
-            image       :   this.state.uploadedimage,
-            },{headers:{
-                'token': user_token,
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            }})
-            .then((responce)=>{
-                var find1 =  this.state.uploadedimage;
-                this.SettingImage(find1);  
-        })
-    }
-
-       //For setting the image
-       SettingImage= (find)=> {
-        if(find)
-        {
-            find = find.split('.com/')[1]
-    
-            axios.get(sitedata.data.path + '/aws/sign_s3?find='+find,)
-            .then((response) => {
-                if(response.data.hassuccessed)
-                {
-                    this.setState({image:response.data.data})
-setTimeout(()=> {
-        this.setState({ loaderImage: false });
-   }, 5000
-);
+                            </div>
+                        </div>
+                    );
                 }
             })
         }
     }
+
+    //FOR UPLOADING THE IMAGE
+    saveUserData1 = () => {
+        this.setState({ loaderImage: true });
+        const user_token = this.props.stateLoginValueAim.token;
+        axios.put(sitedata.data.path + '/UserProfile/Users/updateImage', {
+            image: this.state.uploadedimage,
+        }, {
+            headers: {
+                'token': user_token,
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        })
+            .then((responce) => {
+                var find1 = this.state.uploadedimage;
+                this.SettingImage(find1);
+            })
+    }
+
+    //For setting the image
+    SettingImage = (find) => {
+        if (find) {
+            find = find.split('.com/')[1]
+
+            axios.get(sitedata.data.path + '/aws/sign_s3?find=' + find,)
+                .then((response) => {
+                    if (response.data.hassuccessed) {
+                        this.setState({ image: response.data.data })
+                        setTimeout(() => {
+                            this.setState({ loaderImage: false });
+                        }, 5000
+                        );
+                    }
+                })
+        }
+    }
     //Compare the 
-    compare = (a, b)=>{
+    compare = (a, b) => {
         const bandA = a.label.toUpperCase();
         const bandB = b.label.toUpperCase();
-      
+
         let comparison = 0;
         if (bandA > bandB) {
-          comparison = 1;
+            comparison = 1;
         } else if (bandA < bandB) {
-          comparison = -1;
+            comparison = -1;
         }
         return comparison;
     }
@@ -407,14 +407,14 @@ setTimeout(()=> {
                         responce.data[0].title_degreeData && responce.data[0].title_degreeData.length > 0 && responce.data[0].title_degreeData.map(
                             (item) => { Titles.push({ label: item.title, value: item.value }) })
                     }
-                    
+
                     // responce.data[0].title_degreeData && responce.data[0].title_degreeData.length > 0 && responce.data[0].subspeciality.map(
                     //     (item) => { SubSpeciality.push({ label: item.title, value: item.value }) })
 
                     this.setState({
                         genderdata: Gender,
                         languageData: Languages,
-                        specialityData:  Array.from(new Set(Speciality)),
+                        specialityData: Array.from(new Set(Speciality)),
                         title_degreeData: Titles,
                         subspecialityData: subspeciality
                     });
@@ -479,7 +479,7 @@ setTimeout(()=> {
 
     //Save the User profile
     saveUserData = () => {
-        const {UpDataDetails} = this.state;
+        const { UpDataDetails } = this.state;
         if (this.state.insuranceDetails.insurance !== "" && this.state.insuranceDetails.insurance_number !== ""
             && this.state.insuranceDetails.insurance_country !== "") {
             if (datas.some(data => data.insurance === this.state.insuranceDetails.insurance)) { }
@@ -544,7 +544,7 @@ setTimeout(()=> {
                         headers: {
                             'appId': '220824e717b58ac',
                             'apiKey': 'fc177a4e50f38129dca144f6270b91bfc9444736',
-                             'Accept': 'application/json',
+                            'Accept': 'application/json',
                             'Content-Type': 'application/json'
                         }
                     })
@@ -659,7 +659,7 @@ setTimeout(()=> {
                 'Content-Type': 'application/json'
             }
         }).then((response) => {
-            
+
             var title = {}, titlefromD = response.data.data.title;
             var language = [], languagefromD = response.data.data.language;
             var subspeciality_m = [], subspecialityfromD = response.data.data.subspeciality;
@@ -669,18 +669,18 @@ setTimeout(()=> {
                 })
 
             }
-            
+
             if (subspecialityfromD && subspecialityfromD.length > 0) {
                 subspecialityfromD.map((item) => {
-                    if(typeof item==='string')
-                    subspeciality_m.push({ value: item, label: item.replace(/_/g, " ") });
-                    else{
-                        subspeciality_m.push(item)  
+                    if (typeof item === 'string')
+                        subspeciality_m.push({ value: item, label: item.replace(/_/g, " ") });
+                    else {
+                        subspeciality_m.push(item)
                     }
                 })
 
             }
-            
+
             if (titlefromD && titlefromD !== "") {
 
                 title = { label: titlefromD, value: titlefromD }
@@ -713,7 +713,7 @@ setTimeout(()=> {
             }
 
             this.setState({ UpDataDetails: response.data.data, city: response.data.data.city, area: response.data.data.area, profile_id: response.data.data.profile_id });
-            this.setState({ speciality_multi:  response.data.data.speciality, subspeciality_multi:  subspeciality_m })
+            this.setState({ speciality_multi: response.data.data.speciality, subspeciality_multi: subspeciality_m })
 
             this.setState({ name_multi: language, title: title })
             this.setState({
@@ -721,7 +721,7 @@ setTimeout(()=> {
                 insuranceDetails: { insurance: '', insurance_number: '', insurance_type: '' }
             })
             datas = this.state.UpDataDetails.insurance;
-            var find =response.data && response.data.data &&response.data.data.image
+            var find = response.data && response.data.data && response.data.data.image
             this.SettingImage(find);
             this.setState({ loaderImage: false });
         }).catch((error) => {
@@ -885,7 +885,7 @@ setTimeout(()=> {
         });
 
         let translate;
-      switch (this.props.stateLanguageType) {
+        switch (this.props.stateLanguageType) {
             case "en":
                 translate = translationEN.text
                 break;
@@ -913,15 +913,15 @@ setTimeout(()=> {
             case "default":
                 translate = translationEN.text
         }
-        let { profile_info, profile, information, ID, pin, QR_code, done, Change, edit_id_pin, edit, and, is, changed, profile_id_taken, profile_id_greater_then_5,
+        let { profile_info, profile, information, ID, pin, QR_code, done, Change, edit_id_pin, edit, and, is, changed, profile_id_taken, profile_id_greater_then_5, male, female, other,
             save_change, email, title, degree, first, last, name, dob, gender, street, add, city, postal_code, country, home_telephone, phone, country_code, Delete,
             mobile_number, number, mobile, Languages, spoken, insurance, add_more, company, of, info_copied, profile_updated, profile_not_updated, mobile_number_not_valid, insurance_added, speciality,
-        profile_information, this_is_ur_profile_info, change_id, edit_id_or_pin, profile_id_pin_changed, profile_id, fax_nmbr, sub_specilaity, profile_qr_code } = translate;
+            profile_information, this_is_ur_profile_info, change_id, edit_id_or_pin, profile_id_pin_changed, profile_id, fax_nmbr, sub_specilaity, profile_qr_code } = translate;
 
 
         return (
             <div>
-  {this.state.loaderImage && <Loader />}
+                {this.state.loaderImage && <Loader />}
                 <Grid className="profileMy">
                     <Grid className="profileInfo">
                         {this.state.copied && <div className="success_message">{info_copied}</div>}
@@ -960,13 +960,13 @@ setTimeout(()=> {
                     {/* Change ID and Pin */}
                     <Modal
                         open={this.state.chngPinOpen}
-                        onClose={()=>this.handlePinClose("chngPinOpen")}
-                        className={this.props.settings&&this.props.settings.setting && this.props.settings.setting.mode &&this.props.settings.setting.mode === 'dark' ?"darkTheme editBoxModel":"editBoxModel"}
+                        onClose={() => this.handlePinClose("chngPinOpen")}
+                        className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode && this.props.settings.setting.mode === 'dark' ? "darkTheme editBoxModel" : "editBoxModel"}
                     >
                         <Grid className="editBoxCntnt">
                             <Grid className="editCourse">
                                 <Grid className="editCloseBtn">
-                                    <a onClick={()=>this.handlePinClose("chngPinOpen")}>
+                                    <a onClick={() => this.handlePinClose("chngPinOpen")}>
                                         <img src={require('../../../../assets/images/closefancy.png')} alt="" title="" />
                                     </a>
                                 </Grid>
@@ -1044,9 +1044,9 @@ setTimeout(()=> {
                                     <Grid item xs={12} md={8}>
                                         <label>{gender}</label>
                                         <Grid>
-                                            <a onClick={() => this.EntryValueName('male', 'sex')} className={UpDataDetails.sex && UpDataDetails.sex === 'male' && "SelectedGender"}>Male</a>
-                                            <a onClick={() => this.EntryValueName('female', 'sex')} className={UpDataDetails.sex && UpDataDetails.sex === 'female' && "SelectedGender"}>Female</a>
-                                            <a onClick={() => this.EntryValueName('other', 'sex')} className={UpDataDetails.sex && UpDataDetails.sex === 'other' && "SelectedGender"}> Other</a>
+                                            <a onClick={() => this.EntryValueName('male', 'sex')} className={UpDataDetails.sex && UpDataDetails.sex === 'male' && "SelectedGender"}>{male}</a>
+                                            <a onClick={() => this.EntryValueName('female', 'sex')} className={UpDataDetails.sex && UpDataDetails.sex === 'female' && "SelectedGender"}>{female}</a>
+                                            <a onClick={() => this.EntryValueName('other', 'sex')} className={UpDataDetails.sex && UpDataDetails.sex === 'other' && "SelectedGender"}> {other}</a>
                                         </Grid>
                                     </Grid>
                                 </Grid>
@@ -1122,7 +1122,7 @@ setTimeout(()=> {
                                         <label>{mobile_number}</label>
                                         <Grid>
                                             {this.updateFLAG(UpDataDetails.mobile) && this.updateFLAG(UpDataDetails.mobile) !== '' &&
-                                                <ReactFlagsSelect placeholder="Country Code" onSelect={(e) => { this.updateFlags(e, 'flag_mobile') }} name="flag_mobile" showSelectedLabel={false} defaultCountry={this.updateFLAG(UpDataDetails.mobile)} />}
+                                                <ReactFlagsSelect placeholder={country_code} onSelect={(e) => { this.updateFlags(e, 'flag_mobile') }} name="flag_mobile" showSelectedLabel={false} defaultCountry={this.updateFLAG(UpDataDetails.mobile)} />}
                                             <input type="text"
                                                 className="Mobile_extra"
                                                 placeholder={mobile}
@@ -1216,7 +1216,7 @@ setTimeout(()=> {
                                                 name="subspeciality"
                                                 closeMenuOnSelect={false}
                                                 onChange={(e) => { this.handleChange_multi(e, 'subspeciality') }}
-                                                options={subspecialityData.english !==undefined?(this.props.stateLanguageType==='de'? Array.from(new Set(subspecialityData.german)).sort(this.compare) : Array.from(new Set(subspecialityData.english)).sort(this.compare) ):[]}
+                                                options={subspecialityData.english !== undefined ? (this.props.stateLanguageType === 'de' ? Array.from(new Set(subspecialityData.german)).sort(this.compare) : Array.from(new Set(subspecialityData.english)).sort(this.compare)) : []}
                                                 placeholder=""
                                                 isSearchable={true}
                                                 className="profile-language"
@@ -1228,16 +1228,16 @@ setTimeout(()=> {
                                     <Grid className="clear"></Grid>
                                 </Grid>
                             </Grid>
-                            
+
                             <Grid className="kycForms sprtImg">
                                 <Grid container direction="row" alignItems="center" spacing={2}>
                                     <Grid item xs={12} md={4}>
-                                        <FileUploader name="uploadImage" fileUpload={this.fileUpload} isMulti={false}/>
+                                        <FileUploader name="uploadImage" fileUpload={this.fileUpload} isMulti={false} />
                                     </Grid>
                                     <Grid className="clear"></Grid>
                                     <Grid item xs={12} md={4}>
-                                        {this.state.image && this.state.image!=='' &&
-                                            <img className="ProfileImage" onClick={()=>GetUrlImage(this.state.image)} src={this.state.image} alt="" title="" />
+                                        {this.state.image && this.state.image !== '' &&
+                                            <img className="ProfileImage" onClick={() => GetUrlImage(this.state.image)} src={this.state.image} alt="" title="" />
                                         }
                                     </Grid>
                                     <Grid className="clear"></Grid>
@@ -1247,7 +1247,7 @@ setTimeout(()=> {
                             </Grid>
 
                         </Grid>
-                    
+
                         <Grid className="infoSub">
                             <Grid container direction="row" alignItems="center" spacing={2}>
                                 <Grid item xs={12} md={8}>
@@ -1263,7 +1263,7 @@ setTimeout(()=> {
                     <Modal
                         open={this.state.qrOpen}
                         onClose={this.handleQrClose}
-                        className={this.props.settings&&this.props.settings.setting && this.props.settings.setting.mode &&this.props.settings.setting.mode === 'dark' ?"darkTheme qrBoxModel":"qrBoxModel"}
+                        className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode && this.props.settings.setting.mode === 'dark' ? "darkTheme qrBoxModel" : "qrBoxModel"}
                     >
                         <Grid className="qrBoxCntnt">
                             <Grid className="qrCourse">
@@ -1276,7 +1276,7 @@ setTimeout(()=> {
                             </Grid>
                             <Grid className="qrCourseImg">
                                 {/* <Grid><img src={require('../../../../assets/images/qrimg.jpg')} alt="" title="" /></Grid> */}
-                                <Grid> <QRCode value={UpDataDetails.profile_id?''+UpDataDetails.profile_id:''} /> </Grid>
+                                <Grid> <QRCode value={UpDataDetails.profile_id ? '' + UpDataDetails.profile_id : ''} /> </Grid>
                                 <Grid><input type="submit" value={done} onClick={this.handleQrClose} /></Grid>
                             </Grid>
                         </Grid>

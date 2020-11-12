@@ -904,7 +904,7 @@ class Index extends Component {
             case "default":
                 translate = translationEN.text
         }
-        let { Change, password, is, we_use_authy, supportive_text, plz_fill_break_timeslot_for_aapointment, the_appointment_srvc_success_updated, Current, confirm_password, new_password, two_fac_auth, password_changed, new_and_confirm_pass_not_same, current_pass_not_match, plz_fill_fields,
+        let { Change, password, is, we_use_authy, supportive_text, monday, tuseday, wednesday, copy_to_all_time, thursday, friday, saturday, sunday, vdo_call ,set_online_working_hour, plz_fill_break_timeslot_for_aapointment, plz_fill_time_duration_appointment, the_appointment_srvc_success_updated, Current, confirm_password, new_password, two_fac_auth, password_changed, new_and_confirm_pass_not_same, current_pass_not_match, plz_fill_fields,
             Disable, Enable, Services, instant_activation_deactivation_offer_srvc, invite_patient_to_contact_online, copy_time_to_all, chat_vdocall, prescription_and_sick_cert, online_prescription, select_appointment_set_schedule, holiday_period_btw, appointment_system,issue_prescription_and_sickCert_online, onine_sick_cert, appointments, offer_practice_online_appointment, set_timeslot_duration, break_time, appointment_can_be_booked, up_to_days, before_day_of_appointment, Max, hourse_before_time_appointment, save_change } = translate;
 
         return (
@@ -914,7 +914,7 @@ class Index extends Component {
 
                     <Grid className="srvcInst instBrdr">
                         {this.state.updateService && <div className="success_message">{the_appointment_srvc_success_updated}</div>}
-                        {this.state.appoinmentError && <div className="err_message">Please fill the Time duration of appointment</div>}
+                        {this.state.appoinmentError && <div className="err_message">{plz_fill_time_duration_appointment}</div>}
                         <h3>{Services}</h3>
                         <p>{instant_activation_deactivation_offer_srvc}</p>
                     </Grid>
@@ -1042,7 +1042,7 @@ class Index extends Component {
                                                 onChange={() => this.handleweoffer('Offre_online_appointments')}
                                             />
                                         }
-                                        label={"Video call"}
+                                        label={vdo_call}
                                     />
 
                                 </Grid>
@@ -1057,7 +1057,7 @@ class Index extends Component {
                             <Grid container direction="row">
                                 <Grid item xs={12} md={6}>
                                     <Grid className="wrkHour">
-                                        <Grid><label>Set online working hours</label></Grid>
+                                        <Grid><label>{set_online_working_hour}</label></Grid>
                                         <Grid>
                                             <a className={onlineAppointments.monday_end !== '' && 'seleted-days'} onClick={() => this.selectWeek('onlineAppointments', 'monday')}>M</a>
                                             <a className={onlineAppointments.tuesday_end !== '' && 'seleted-days'} onClick={() => this.selectWeek('onlineAppointments', 'tuesday')}>T</a>
@@ -1070,7 +1070,7 @@ class Index extends Component {
                                     </Grid>
                                     <Grid className="dayScheduleUpr appointment">
                                         {onlineAppointments.monday_end && onlineAppointments.monday_end !== '' && <Grid className="daySchedule">
-                                            <Grid><label>Monday</label></Grid>
+                                            <Grid><label>{monday}</label></Grid>
                                             <Grid>
                                                 <TimeFormat name="time" value={onlineAppointments.monday_start ? this.getTime(onlineAppointments.monday_start) : new Date()} time_format={this.props.settings && this.props.settings.setting && this.props.settings.setting.time_format} onChange={(e) => this.onChange(e, 'start', 'onlineAppointments', 'monday')} />
                                                 <span>-</span>
@@ -1082,7 +1082,7 @@ class Index extends Component {
                                             </Grid>
                                         </Grid>}
                                         {onlineAppointments.tuesday_end && onlineAppointments.tuesday_end !== '' && <Grid className="daySchedule">
-                                            <Grid><label>Tuesday</label></Grid>
+                                            <Grid><label>{tuseday}</label></Grid>
                                             <Grid>
                                                 <TimeFormat name="time" value={onlineAppointments.tuesday_start ? this.getTime(onlineAppointments.tuesday_start) : new Date()} time_format={this.props.settings && this.props.settings.setting && this.props.settings.setting.time_format} onChange={(e) => this.onChange(e, 'start', 'onlineAppointments', 'tuesday')} />
                                                 <span>-</span>
@@ -1096,7 +1096,7 @@ class Index extends Component {
                                         </Grid>}
                                         {onlineAppointments.wednesday_end && onlineAppointments.wednesday_end !== '' &&
                                             <Grid className="daySchedule">
-                                                <Grid><label>Wednesday</label></Grid>
+                                                <Grid><label>{wednesday}</label></Grid>
                                                 <Grid>
                                                     <TimeFormat name="time" value={onlineAppointments.wednesday_start ? this.getTime(onlineAppointments.wednesday_start) : new Date()} time_format={this.props.settings && this.props.settings.setting && this.props.settings.setting.time_format} onChange={(e) => this.onChange(e, 'start', 'onlineAppointments', 'wednesday')} />
                                                     <span>-</span>
@@ -1110,7 +1110,7 @@ class Index extends Component {
                                         }
                                         {onlineAppointments.thursday_end && onlineAppointments.thursday_end !== '' &&
                                             <Grid className="daySchedule">
-                                                <Grid><label>Thursday</label></Grid>
+                                                <Grid><label>{thursday}</label></Grid>
                                                 <Grid>
                                                     <TimeFormat name="time" value={onlineAppointments.thursday_start ? this.getTime(onlineAppointments.thursday_start) : new Date()} time_format={this.props.settings && this.props.settings.setting && this.props.settings.setting.time_format} onChange={(e) => this.onChange(e, 'start', 'onlineAppointments', 'thursday')} />
                                                     <span>-</span>
@@ -1124,7 +1124,7 @@ class Index extends Component {
                                         }
                                         {onlineAppointments.friday_end && onlineAppointments.friday_end !== '' &&
                                             <Grid className="daySchedule">
-                                                <Grid><label>Friday</label></Grid>
+                                                <Grid><label>{friday}</label></Grid>
                                                 <Grid>
                                                     <TimeFormat name="time" value={onlineAppointments.friday_start ? this.getTime(onlineAppointments.friday_start) : new Date()} time_format={this.props.settings && this.props.settings.setting && this.props.settings.setting.time_format} onChange={(e) => this.onChange(e, 'start', 'onlineAppointments', 'friday')} />
                                                     <span>-</span>
@@ -1138,7 +1138,7 @@ class Index extends Component {
                                         }
                                         {onlineAppointments.saturday_end && onlineAppointments.saturday_end !== '' &&
                                             <Grid className="daySchedule">
-                                                <Grid><label>Saturday</label></Grid>
+                                                <Grid><label>{saturday}</label></Grid>
                                                 <Grid>
                                                     <TimeFormat name="time" value={onlineAppointments.saturday_start ? this.getTime(onlineAppointments.saturday_start) : new Date()} time_format={this.props.settings && this.props.settings.setting && this.props.settings.setting.time_format} onChange={(e) => this.onChange(e, 'start', 'onlineAppointments', 'saturday')} />
                                                     <span>-</span>
@@ -1152,7 +1152,7 @@ class Index extends Component {
                                         }
                                         {onlineAppointments.sunday_end && onlineAppointments.sunday_end !== '' &&
                                             <Grid className="daySchedule">
-                                                <Grid><label>Sunday</label></Grid>
+                                                <Grid><label>{sunday}</label></Grid>
                                                 <Grid>
                                                     <TimeFormat name="time" value={onlineAppointments.sunday_start ? this.getTime(onlineAppointments.sunday_start) : new Date()} time_format={this.props.settings && this.props.settings.setting && this.props.settings.setting.time_format} onChange={(e) => this.onChange(e, 'start', 'onlineAppointments', 'sunday')} />
                                                     <span>-</span>
@@ -1169,7 +1169,7 @@ class Index extends Component {
                                 <Grid item xs={12} md={6}>
                                     <Grid className="setScheduleUpr">
                                         <Grid className="setSchedule">
-                                            <Grid className="nameSchedule"><label>Set timeslot duration:</label></Grid>
+                                            <Grid className="nameSchedule"><label>{set_timeslot_duration}</label></Grid>
                                             <Grid className="nameSchedule">
                                                 <input type="text" name="duration_of_timeslots" value={onlineAppointments.duration_of_timeslots} onChange={(e) => this.changeDuration(e, 'onlineAppointments')} /> minutes
                                             </Grid>
@@ -1177,7 +1177,7 @@ class Index extends Component {
                                     </Grid>
                                     <Grid className="setScheduleUpr">
                                         <Grid className="setSchedule appointment">
-                                            <Grid className="nameSchedule"><label>Break time:</label></Grid>
+                                            <Grid className="nameSchedule"><label>{break_time}</label></Grid>
                                             <Grid className="nameSchedule">
                                                 <TimeFormat name="time" value={(onlineAppointments.breakslot_start||onlineAppointments.breakslot_start=='') ? this.getTime(onlineAppointments.breakslot_start) : new Date()} time_format={this.props.settings && this.props.settings.setting && this.props.settings.setting.time_format} onChange={(e) => this.onChange(e, 'start', 'onlineAppointments', 'breakslot')} />
                                                 <span>-</span>
@@ -1186,9 +1186,9 @@ class Index extends Component {
                                         </Grid>
                                     </Grid>
                                     <Grid className="apontBook">
-                                        <Grid><label>Appointment can be booked:</label></Grid>
-                                        <Grid><p><span>Up to days,</span> <input type="text" onChange={(e) => this.onChangebook(e, 'appointment_days', 'onlineAppointments')} value={onlineAppointments.appointment_days} /> before the day of appointment</p></Grid>
-                                        <Grid><p><span>Max,</span> <input type="text" value={onlineAppointments.appointment_hours} onChange={(e) => this.onChangebook(e, 'appointment_hours', 'onlineAppointments')} /> hours, before the time of appointment</p></Grid>
+                                        <Grid><label>{appointment_can_be_booked}</label></Grid>
+                                        <Grid><p><span>{up_to_days},</span> <input type="text" onChange={(e) => this.onChangebook(e, 'appointment_days', 'onlineAppointments')} value={onlineAppointments.appointment_days} /> before the day of appointment</p></Grid>
+                                        <Grid><p><span>{Max},</span> <input type="text" value={onlineAppointments.appointment_hours} onChange={(e) => this.onChangebook(e, 'appointment_hours', 'onlineAppointments')} /> hours, before the time of appointment</p></Grid>
                                     </Grid>
                                 </Grid>
                             </Grid>
@@ -1241,7 +1241,7 @@ class Index extends Component {
                                     </Grid>
                                     <Grid className="dayScheduleUpr appointment">
                                         {UpDataDetails.monday_end && UpDataDetails.monday_end !== '' && <Grid className="daySchedule">
-                                            <Grid><label>Monday</label></Grid>
+                                            <Grid><label>{monday}</label></Grid>
                                             <Grid>
                                                 <TimeFormat name="time" value={UpDataDetails.monday_start ? this.getTime(UpDataDetails.monday_start) : new Date()} time_format={this.props.settings && this.props.settings.setting && this.props.settings.setting.time_format} onChange={(e) => this.onChange(e, 'start', 'UpDataDetails', 'monday')} />
                                                 <span>-</span>
@@ -1253,7 +1253,7 @@ class Index extends Component {
                                             </Grid>
                                         </Grid>}
                                         {UpDataDetails.tuesday_end && UpDataDetails.tuesday_end !== '' && <Grid className="daySchedule">
-                                            <Grid><label>Tuesday</label></Grid>
+                                            <Grid><label>{tuseday}</label></Grid>
                                             <Grid>
                                                 <TimeFormat name="time" value={UpDataDetails.tuesday_start ? this.getTime(UpDataDetails.tuesday_start) : new Date()} time_format={this.props.settings && this.props.settings.setting && this.props.settings.setting.time_format} onChange={(e) => this.onChange(e, 'start', 'UpDataDetails', 'tuesday')} />
                                                 <span>-</span>
@@ -1267,7 +1267,7 @@ class Index extends Component {
                                         </Grid>}
                                         {UpDataDetails.wednesday_end && UpDataDetails.wednesday_end !== '' &&
                                             <Grid className="daySchedule">
-                                                <Grid><label>Wednesday</label></Grid>
+                                                <Grid><label>{wednesday}</label></Grid>
                                                 <Grid>
                                                     <TimeFormat name="time" value={UpDataDetails.wednesday_start ? this.getTime(UpDataDetails.wednesday_start) : new Date()} time_format={this.props.settings && this.props.settings.setting && this.props.settings.setting.time_format} onChange={(e) => this.onChange(e, 'start', 'UpDataDetails', 'wednesday')} />
                                                     <span>-</span>
@@ -1281,7 +1281,7 @@ class Index extends Component {
                                         }
                                         {UpDataDetails.thursday_end && UpDataDetails.thursday_end !== '' &&
                                             <Grid className="daySchedule">
-                                                <Grid><label>Thursday</label></Grid>
+                                                <Grid><label>{thursday}</label></Grid>
                                                 <Grid>
                                                     <TimeFormat name="time" value={UpDataDetails.thursday_start ? this.getTime(UpDataDetails.thursday_start) : new Date()} time_format={this.props.settings && this.props.settings.setting && this.props.settings.setting.time_format} onChange={(e) => this.onChange(e, 'start', 'UpDataDetails', 'thursday')} />
                                                     <span>-</span>
@@ -1295,7 +1295,7 @@ class Index extends Component {
                                         }
                                         {UpDataDetails.friday_end && UpDataDetails.friday_end !== '' &&
                                             <Grid className="daySchedule">
-                                                <Grid><label>Friday</label></Grid>
+                                                <Grid><label>{friday}</label></Grid>
                                                 <Grid>
                                                     <TimeFormat name="time" value={UpDataDetails.friday_start ? this.getTime(UpDataDetails.friday_start) : new Date()} time_format={this.props.settings && this.props.settings.setting && this.props.settings.setting.time_format} onChange={(e) => this.onChange(e, 'start', 'UpDataDetails', 'friday')} />
                                                     <span>-</span>
@@ -1309,7 +1309,7 @@ class Index extends Component {
                                         }
                                         {UpDataDetails.saturday_end && UpDataDetails.saturday_end !== '' &&
                                             <Grid className="daySchedule">
-                                                <Grid><label>Saturday</label></Grid>
+                                                <Grid><label>{saturday}</label></Grid>
                                                 <Grid>
                                                     <TimeFormat name="time" value={UpDataDetails.saturday_start ? this.getTime(UpDataDetails.saturday_start) : new Date()} time_format={this.props.settings && this.props.settings.setting && this.props.settings.setting.time_format} onChange={(e) => this.onChange(e, 'start', 'UpDataDetails', 'saturday')} />
                                                     <span>-</span>
@@ -1323,7 +1323,7 @@ class Index extends Component {
                                         }
                                         {UpDataDetails.sunday_end && UpDataDetails.sunday_end !== '' &&
                                             <Grid className="daySchedule">
-                                                <Grid><label>Sunday</label></Grid>
+                                                <Grid><label>{sunday}</label></Grid>
                                                 <Grid>
                                                     <TimeFormat name="time" value={UpDataDetails.sunday_start ? this.getTime(UpDataDetails.sunday_start) : new Date()} time_format={this.props.settings && this.props.settings.setting && this.props.settings.setting.time_format} onChange={(e) => this.onChange(e, 'start', 'UpDataDetails', 'sunday')} />
                                                     <span>-</span>
@@ -1357,9 +1357,9 @@ class Index extends Component {
                                         </Grid>
                                     </Grid>
                                     <Grid className="apontBook">
-                                        <Grid><label>Appointment can be booked:</label></Grid>
-                                        <Grid><p><span>Up to days,</span> <input type="text" onChange={(e) => this.onChangebook(e, 'appointment_days', 'UpDataDetails')} value={UpDataDetails.appointment_days} /> before the day of appointment</p></Grid>
-                                        <Grid><p><span>Max,</span> <input type="text" value={UpDataDetails.appointment_hours} onChange={(e) => this.onChangebook(e, 'appointment_hours', 'UpDataDetails')} /> hours, before the time of appointment</p></Grid>
+                                        <Grid><label>{appointment_can_be_booked}</label></Grid>
+                                        <Grid><p><span>{up_to_days},</span> <input type="text" onChange={(e) => this.onChangebook(e, 'appointment_days', 'UpDataDetails')} value={UpDataDetails.appointment_days} /> before the day of appointment</p></Grid>
+                                        <Grid><p><span>{Max},</span> <input type="text" value={UpDataDetails.appointment_hours} onChange={(e) => this.onChangebook(e, 'appointment_hours', 'UpDataDetails')} /> hours, before the time of appointment</p></Grid>
                                     </Grid>
                                 </Grid>
                             </Grid>
@@ -1408,7 +1408,7 @@ class Index extends Component {
                                     </Grid>
                                     <Grid className="dayScheduleUpr appointment">
                                         {DaysforPractices.monday_end && DaysforPractices.monday_end !== '' && <Grid className="daySchedule">
-                                            <Grid><label>Monday</label></Grid>
+                                            <Grid><label>{monday}</label></Grid>
                                             <Grid>
                                                 <TimeFormat name="time" value={DaysforPractices.monday_start ? this.getTime(DaysforPractices.monday_start) : new Date()} time_format={this.props.settings && this.props.settings.setting && this.props.settings.setting.time_format} onChange={(e) => this.onChange(e, 'start', 'DaysforPractices', 'monday')} />
                                                 <span>-</span>
@@ -1416,11 +1416,11 @@ class Index extends Component {
                                             </Grid>
                                             <Grid>
                                                 <p onClick={() => this.copytoall('DaysforPractices', 'monday')}><img src={require('../../../../assets/images/docscopy.svg')} alt="" title="" />
-                                                                                    Copys time to all </p>
+                                                                                    {copy_to_all_time} </p>
                                             </Grid>
                                         </Grid>}
                                         {DaysforPractices.tuesday_end && DaysforPractices.tuesday_end !== '' && <Grid className="daySchedule">
-                                            <Grid><label>Tuesday</label></Grid>
+                                            <Grid><label>{tuseday}</label></Grid>
                                             <Grid>
                                                 <TimeFormat name="time" value={DaysforPractices.tuesday_start ? this.getTime(DaysforPractices.tuesday_start) : new Date()} time_format={this.props.settings && this.props.settings.setting && this.props.settings.setting.time_format} onChange={(e) => this.onChange(e, 'start', 'DaysforPractices', 'tuesday')} />
                                                 <span>-</span>
@@ -1434,7 +1434,7 @@ class Index extends Component {
                                         </Grid>}
                                         {DaysforPractices.wednesday_end && DaysforPractices.wednesday_end !== '' &&
                                             <Grid className="daySchedule">
-                                                <Grid><label>Wednesday</label></Grid>
+                                                <Grid><label>{wednesday}</label></Grid>
                                                 <Grid>
                                                     <TimeFormat name="time" value={DaysforPractices.wednesday_start ? this.getTime(DaysforPractices.wednesday_start) : new Date()} time_format={this.props.settings && this.props.settings.setting && this.props.settings.setting.time_format} onChange={(e) => this.onChange(e, 'start', 'DaysforPractices', 'wednesday')} />
                                                     <span>-</span>
@@ -1448,7 +1448,7 @@ class Index extends Component {
                                         }
                                         {DaysforPractices.thursday_end && DaysforPractices.thursday_end !== '' &&
                                             <Grid className="daySchedule">
-                                                <Grid><label>Thursday</label></Grid>
+                                                <Grid><label>{thursday}</label></Grid>
                                                 <Grid>
                                                     <TimeFormat name="time" value={DaysforPractices.thursday_start ? this.getTime(DaysforPractices.thursday_start) : new Date()} time_format={this.props.settings && this.props.settings.setting && this.props.settings.setting.time_format} onChange={(e) => this.onChange(e, 'start', 'DaysforPractices', 'thursday')} />
                                                     <span>-</span>
@@ -1462,7 +1462,7 @@ class Index extends Component {
                                         }
                                         {DaysforPractices.friday_end && DaysforPractices.friday_end !== '' &&
                                             <Grid className="daySchedule">
-                                                <Grid><label>Friday</label></Grid>
+                                                <Grid><label>{friday}</label></Grid>
                                                 <Grid>
                                                     <TimeFormat name="time" value={DaysforPractices.friday_start ? this.getTime(DaysforPractices.friday_start) : new Date()} time_format={this.props.settings && this.props.settings.setting && this.props.settings.setting.time_format} onChange={(e) => this.onChange(e, 'start', 'DaysforPractices', 'friday')} />
                                                     <span>-</span>
@@ -1476,7 +1476,7 @@ class Index extends Component {
                                         }
                                         {DaysforPractices.saturday_end && DaysforPractices.saturday_end !== '' &&
                                             <Grid className="daySchedule">
-                                                <Grid><label>Saturday</label></Grid>
+                                                <Grid><label>{saturday}</label></Grid>
                                                 <Grid>
                                                     <TimeFormat name="time" value={DaysforPractices.saturday_start ? this.getTime(DaysforPractices.saturday_start) : new Date()} time_format={this.props.settings && this.props.settings.setting && this.props.settings.setting.time_format} onChange={(e) => this.onChange(e, 'start', 'DaysforPractices', 'saturday')} />
                                                     <span>-</span>
@@ -1490,7 +1490,7 @@ class Index extends Component {
                                         }
                                         {DaysforPractices.sunday_end && DaysforPractices.sunday_end !== '' &&
                                             <Grid className="daySchedule">
-                                                <Grid><label>Sunday</label></Grid>
+                                                <Grid><label>{sunday}</label></Grid>
                                                 <Grid>
                                                     <TimeFormat name="time" value={DaysforPractices.sunday_start ? this.getTime(DaysforPractices.sunday_start) : new Date()} time_format={this.props.settings && this.props.settings.setting && this.props.settings.setting.time_format} onChange={(e) => this.onChange(e, 'start', 'DaysforPractices', 'sunday')} />
                                                     <span>-</span>

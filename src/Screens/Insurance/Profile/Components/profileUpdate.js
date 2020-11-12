@@ -248,33 +248,33 @@ class Index extends Component {
     //For getting the dropdowns from the database
     getMetadata() {
         axios.get(sitedata.data.path + '/UserProfile/Metadata')
-        .then((responce) => {
-            if (responce && responce.data && responce.data.length > 0) {
-                var Gender = [], Languages = [], Speciality = [], Titles = [];
-                {
-                    responce.data[0].gender && responce.data[0].gender.length > 0 && responce.data[0].gender.map(
-                        (item) => { Gender.push({ label: item.title, value: item.value }) })
+            .then((responce) => {
+                if (responce && responce.data && responce.data.length > 0) {
+                    var Gender = [], Languages = [], Speciality = [], Titles = [];
+                    {
+                        responce.data[0].gender && responce.data[0].gender.length > 0 && responce.data[0].gender.map(
+                            (item) => { Gender.push({ label: item.title, value: item.value }) })
+                    }
+                    {
+                        responce.data[0].languages && responce.data[0].languages.length > 0 && responce.data[0].languages.map(
+                            (item) => { Languages.push({ label: item.title, value: item.value }) })
+                    }
+                    {
+                        responce.data[0].speciality && responce.data[0].speciality.length > 0 && responce.data[0].speciality.map(
+                            (item) => { Speciality.push({ label: item.title, value: item.value }) })
+                    }
+                    {
+                        responce.data[0].title_degreeData && responce.data[0].title_degreeData.length > 0 && responce.data[0].title_degreeData.map(
+                            (item) => { Titles.push({ label: item.title, value: item.value }) })
+                    }
+                    this.setState({
+                        genderdata: Gender,
+                        languageData: Languages,
+                        specialityData: Speciality,
+                        title_degreeData: Titles
+                    });
                 }
-                {
-                    responce.data[0].languages && responce.data[0].languages.length > 0 && responce.data[0].languages.map(
-                        (item) => { Languages.push({ label: item.title, value: item.value }) })
-                }
-                {
-                    responce.data[0].speciality && responce.data[0].speciality.length > 0 && responce.data[0].speciality.map(
-                        (item) => { Speciality.push({ label: item.title, value: item.value }) })
-                }
-                {
-                    responce.data[0].title_degreeData && responce.data[0].title_degreeData.length > 0 && responce.data[0].title_degreeData.map(
-                        (item) => { Titles.push({ label: item.title, value: item.value }) })
-                }
-                this.setState({
-                    genderdata: Gender,
-                    languageData: Languages,
-                    specialityData: Speciality,
-                    title_degreeData: Titles
-                });
-            }
-        })
+            })
 
     }
 
@@ -417,7 +417,7 @@ class Index extends Component {
             })
         }
     }
-    
+
 
     // Check the Alies is duplicate or not
     changeAlies = (e) => {
@@ -506,7 +506,7 @@ class Index extends Component {
                 insuranceDetails: { insurance: '', insurance_number: '', insurance_type: '' }
             })
             datas = this.state.UpDataDetails.insurance;
-            var find =response.data && response.data.data &&response.data.data.image
+            var find = response.data && response.data.data && response.data.data.image
             this.SettingImage(find);
         }).catch((error) => {
             this.setState({ loaderImage: false });
@@ -514,21 +514,19 @@ class Index extends Component {
     }
 
     //For setting the image
-    SettingImage =(find)=> {
-        if(find)
-        {
+    SettingImage = (find) => {
+        if (find) {
             find = find.split('.com/')[1]
-            axios.get(sitedata.data.path + '/aws/sign_s3?find='+find,)
-            .then((response) => {
-                if(response.data.hassuccessed)
-                {
-                    this.setState({image:response.data.data})
-setTimeout(()=> {
-        this.setState({ loaderImage: false });
-   }, 5000
-);
-                }
-            })
+            axios.get(sitedata.data.path + '/aws/sign_s3?find=' + find,)
+                .then((response) => {
+                    if (response.data.hassuccessed) {
+                        this.setState({ image: response.data.data })
+                        setTimeout(() => {
+                            this.setState({ loaderImage: false });
+                        }, 5000
+                        );
+                    }
+                })
         }
     }
     //Update the State
@@ -558,21 +556,23 @@ setTimeout(()=> {
         state["city"] = place.formatted_address;
         this.setState({ UpDataDetails: state });
     }
-      //FOR UPLOADING THE IMAGE
-      saveUserData1=()=>{
+    //FOR UPLOADING THE IMAGE
+    saveUserData1 = () => {
         this.setState({ loaderImage: true });
         const user_token = this.props.stateLoginValueAim.token;
-        axios.put(sitedata.data.path+'/UserProfile/Users/updateImage', {
-            image       :   this.state.uploadedimage,
-            },{headers:{
+        axios.put(sitedata.data.path + '/UserProfile/Users/updateImage', {
+            image: this.state.uploadedimage,
+        }, {
+            headers: {
                 'token': user_token,
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
-            }})
-            .then((responce)=>{
-                var find1 =  this.state.uploadedimage;
-                this.SettingImage(find1);  
+            }
         })
+            .then((responce) => {
+                var find1 = this.state.uploadedimage;
+                this.SettingImage(find1);
+            })
     }
 
     //For upload the Profile pic
@@ -609,36 +609,36 @@ setTimeout(()=> {
                     }
                 };
                 axios.put('https://cors-anywhere.herokuapp.com/' + signedRequest, file, options)
-                .then(result => {
-                    this.setState({ uploadedimage: response.data.data.returnData.url + '&bucket=' + this.props.stateLoginValueAim.user.bucket, loaderImage: false },
-                        () => { this.saveUserData1() })
-                })
-                .catch(error => {  })
-            }).catch(error => {  })
+                    .then(result => {
+                        this.setState({ uploadedimage: response.data.data.returnData.url + '&bucket=' + this.props.stateLoginValueAim.user.bucket, loaderImage: false },
+                            () => { this.saveUserData1() })
+                    })
+                    .catch(error => { })
+            }).catch(error => { })
         }
         else {
             confirmAlert({
                 customUI: ({ onClose }) => {
-                return (
-                <div className={this.props.settings.setting.mode === 'dark' ? "dark-confirm react-confirm-alert-body" : "react-confirm-alert-body"} >
-                <h1>Please Upload PNG and JPEG file</h1>
-                <div className="react-confirm-alert-button-group">
-                <button
-                onClick= {() => {onClose()}}
-                >
-                Ok
+                    return (
+                        <div className={this.props.settings.setting.mode === 'dark' ? "dark-confirm react-confirm-alert-body" : "react-confirm-alert-body"} >
+                            <h1>Please Upload PNG and JPEG file</h1>
+                            <div className="react-confirm-alert-button-group">
+                                <button
+                                    onClick={() => { onClose() }}
+                                >
+                                    Ok
                 </button>
-                </div>
-                </div>
-                );
+                            </div>
+                        </div>
+                    );
                 }
-                })
+            })
         }
     }
 
     render() {
         let translate;
-      switch (this.props.stateLanguageType) {
+        switch (this.props.stateLanguageType) {
             case "en":
                 translate = translationEN.text
                 break;
@@ -666,7 +666,7 @@ setTimeout(()=> {
             case "default":
                 translate = translationEN.text
         }
-        let { profile_info, profile, information, ID, pin, QR_code, done, Change, edit_id_pin, edit, and, is, changed, profile_id_taken, profile_id_greater_then_5,
+        let { profile_info, profile, information, ID, pin, QR_code, done, Change, edit_id_pin, edit, and, is, changed, profile_id_taken, profile_id_greater_then_5, other, male, female,
             save_change, email, title, degree, first, last, name, dob, gender, street, add, city, postal_code, country, home_telephone, phone, country_code, Delete,
             mobile_number, number, mobile, Languages, spoken, insurance, add_more, company, of, info_copied, profile_updated, profile_not_updated, mobile_number_not_valid, insurance_added } = translate;
 
@@ -822,9 +822,9 @@ setTimeout(()=> {
                                     <Grid item xs={12} md={8}>
                                         <label>{gender}</label>
                                         <Grid>
-                                            <a onClick={() => this.EntryValueName('male', 'sex')} className={this.state.UpDataDetails.sex && this.state.UpDataDetails.sex === 'male' && "SelectedGender"}>Male</a>
-                                            <a onClick={() => this.EntryValueName('female', 'sex')} className={this.state.UpDataDetails.sex && this.state.UpDataDetails.sex === 'female' && "SelectedGender"}>Female</a>
-                                            <a onClick={() => this.EntryValueName('other', 'sex')} className={this.state.UpDataDetails.sex && this.state.UpDataDetails.sex === 'other' && "SelectedGender"}> Other</a>
+                                            <a onClick={() => this.EntryValueName('male', 'sex')} className={this.state.UpDataDetails.sex && this.state.UpDataDetails.sex === 'male' && "SelectedGender"}>{male}</a>
+                                            <a onClick={() => this.EntryValueName('female', 'sex')} className={this.state.UpDataDetails.sex && this.state.UpDataDetails.sex === 'female' && "SelectedGender"}>{female}</a>
+                                            <a onClick={() => this.EntryValueName('other', 'sex')} className={this.state.UpDataDetails.sex && this.state.UpDataDetails.sex === 'other' && "SelectedGender"}> {other}</a>
                                         </Grid>
                                     </Grid>
                                 </Grid>
@@ -943,24 +943,24 @@ setTimeout(()=> {
                         <Grid className="kycForms sprtImg">
                             <Grid container direction="row" alignItems="center" spacing={2}>
                                 <Grid item xs={12} md={6}>
-                                    <FileUploader name="uploadImage" fileUpload={this.fileUpload} isMulti={false}/>
+                                    <FileUploader name="uploadImage" fileUpload={this.fileUpload} isMulti={false} />
                                 </Grid>
                                 <Grid item xs={12} md={6}>
-                                    {this.state.image && this.state.image!=='' &&
-                                        <img className="ProfileImage" onClick={()=>GetUrlImage(this.state.image)} src={this.state.image} alt="" title="" />
+                                    {this.state.image && this.state.image !== '' &&
+                                        <img className="ProfileImage" onClick={() => GetUrlImage(this.state.image)} src={this.state.image} alt="" title="" />
                                     }
                                 </Grid>
                                 <Grid className="clear"></Grid>
                             </Grid>
                         </Grid>
                     </Grid>
-                      
-                    
+
+
                     <Grid item xs={12} md={4}></Grid>
                     <Grid className="clear"></Grid>
-                    
+
                 </Grid>
-              
+
                 <Grid className="infoSub">
                     <Grid container direction="row" alignItems="center" spacing={2}>
                         <Grid item xs={12} md={5}>

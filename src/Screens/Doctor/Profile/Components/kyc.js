@@ -354,10 +354,8 @@ class Index extends Component {
             case "default":
                 translate = translationEN.text
         }
-        let { patient_id, kyc, enter_healthcare_and_upload_data, plz_upload_png_jpg, plz_uplod_doc, plz_fill_all_fields, plz_accept_term, is, save_change, by_clicking_accept_aimedis_term, upload_id_card, updated_success, file_uploaded, attached_doc, u_r_nvr_obligate_to_upload_doc, email, title, degree, first, last, name, dob, gender, street, add, city, postal_code, country, home_telephone, phone, country_code, Delete,
-            mobile_number, number, in_critical_enviroment_id, mobile, insurance, add_more, company, of } = translate;
-
-
+        let { patient_id, kyc, enter_healthcare_and_upload_data, capab_Doctors, number, registration, responsible_authority, plz_upload_png_jpg, plz_uplod_doc, plz_fill_all_fields, plz_accept_term, is, save_change, by_clicking_accept_aimedis_term, upload_id_card, updated_success, file_uploaded, attached_doc, u_r_nvr_obligate_to_upload_doc, email, title, degree, first, last, name, dob, gender, street, add, city, postal_code, country, home_telephone, phone, country_code, Delete,
+            mobile_number, in_critical_enviroment_id, mobile, insurance, add_more, company, of } = translate;
         return (
             <div>
                 {this.state.loaderImage && <Loader />}
@@ -390,11 +388,11 @@ class Index extends Component {
                                 </Grid>
                             </Grid>
                             <Grid className="kycForms">
-                                <Grid><label>Responsible authority</label></Grid>
+                                <Grid><label>{responsible_authority}</label></Grid>
                                 <Grid><input type="text" value={this.state.CreateKYC ? this.state.CreateKYC.authority : ''} name= "authority" value={this.state.CreateKYC ? this.state.CreateKYC.authority : ''} onChange={(e)=>this.newEntryState1(e)}/></Grid>
                             </Grid>
                             <Grid className="kycForms">
-                                <Grid><label>Registration / Doctor number</label></Grid>
+                                <Grid><label>{registration} / {capab_Doctors} {number}</label></Grid>
                                 <Grid><input type="text" name= "number"  value={this.state.CreateKYC.number ? this.state.CreateKYC.number : ''}  onChange = {this.newEntryState1}/></Grid>
                             </Grid>
                             {this.state.CreateKYC && this.state.CreateKYC.attachment && this.state.CreateKYC.attachment.length > 0 && this.state.CreateKYC.attachment.length == 2 ?

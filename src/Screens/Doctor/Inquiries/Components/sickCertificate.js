@@ -369,7 +369,7 @@ class Index extends Component {
             case "default":
                 translate = translationEN.text
         }
-        let { srvc_Doctors, status, sent, on, what_ur_profession, Pending, request, edit, Rejected, Answered, Cancelled, req_updated_successfully, sick_cert, my_doc, New, inquiry,
+        let { previous, next, srvc_Doctors, Case, status, sent_on, Patient, sent, days, on, short_msg, what_ur_profession, prescription, snd_patient_timeline_email, reject, approve, suported_file_type_jpg_png, Pending, request, edit, Rejected, Answered, Cancelled, req_updated_successfully, sick_cert, my_doc, New, inquiry,see_details, or_drag_here, decline, remove,
             doc_and_statnderd_ques, doc_aimedis_private, Annotations, details, questions, how_u_feeling, is_ur_temp_high_to_38, which_symptoms_do_u_hav, show, since_when, have_u_already_been_sick, how_long_do_u_unable_to_work, it_is_known_dieseas, r_u_tracking_medi, do_u_hv_allergies, attached_doc} = translate
 
         return (
@@ -380,10 +380,10 @@ class Index extends Component {
                     <Table>
                         <Thead>
                             <Tr>
-                                <Th>Case</Th>
-                                <Th>Sent on</Th>
-                                <Th>Patient</Th>
-                                <Th>Status</Th>
+                                <Th>{Case}</Th>
+                                <Th>{sent_on}</Th>
+                                <Th>{Patient}</Th>
+                                <Th>{status}</Th>
                             </Tr>
                         </Thead>
 
@@ -402,10 +402,10 @@ class Index extends Component {
                                         <a className="openScndhrf">
                                             <img src={require('../../../../assets/images/threedots.jpg')} alt="" title="" className="openScnd" />
                                             <ul>
-                                                <li><a onClick={() => { this.handleOpenPrescp(data) }}><img src={require('../../../../assets/images/details.svg')} alt="" title="" />See Details</a></li>
-                                                {(data.status == 'free' || data.status == 'pending') && <li onClick={() => { this.handleOpenPrescp(data) }}><a><img src={require('../../../../assets/images/edit.svg')} alt="" title="" />Approve</a></li>}
-                                                {(data.status == 'free' || data.status == 'pending') && <li onClick={() => { this.updateCertificate('decline', data._id) }}><a><img src={require('../../../../assets/images/plus.png')} alt="" title="" />Decline</a></li>}
-                                                {(data.status !== 'remove') && <li onClick={() => { this.removePrsecription('remove', data._id) }}><a><img src={require('../../../../assets/images/cancel-request.svg')} alt="" title="" />Remove</a></li>}
+                                                <li><a onClick={() => { this.handleOpenPrescp(data) }}><img src={require('../../../../assets/images/details.svg')} alt="" title="" />{see_details}</a></li>
+                                                {(data.status == 'free' || data.status == 'pending') && <li onClick={() => { this.handleOpenPrescp(data) }}><a><img src={require('../../../../assets/images/edit.svg')} alt="" title="" />{approve}</a></li>}
+                                                {(data.status == 'free' || data.status == 'pending') && <li onClick={() => { this.updateCertificate('decline', data._id) }}><a><img src={require('../../../../assets/images/plus.png')} alt="" title="" />{decline}</a></li>}
+                                                {(data.status !== 'remove') && <li onClick={() => { this.removePrsecription('remove', data._id) }}><a><img src={require('../../../../assets/images/cancel-request.svg')} alt="" title="" />{remove}</a></li>}
                                             </ul>
                                         </a>
                                     </Td>
@@ -460,7 +460,7 @@ class Index extends Component {
                                     </Grid>
                                     <Grid className="drsplestQues">
                                         <Grid><label>{how_long_do_u_unable_to_work}?</label></Grid>
-                                        <Grid><h3>{sickData && sickData.time_unable_work && sickData.time_unable_work} days</h3></Grid>
+                                        <Grid><h3>{sickData && sickData.time_unable_work && sickData.time_unable_work} {days}</h3></Grid>
                                     </Grid>
                                     <Grid className="drsplestQues">
                                         <Grid><label>{it_is_known_dieseas}?</label></Grid>
@@ -485,7 +485,7 @@ class Index extends Component {
                                     {sickData.status !== 'decline' &&
                                         <Grid className="scamUPForms scamUPImg">
 
-                                            <Grid><label>{(sickData.status !== 'accept') ? 'Upload scanned' : 'Scanned'} prescription</label></Grid>
+                                            <Grid><label>{(sickData.status !== 'accept') ? 'Upload scanned' : 'Scanned'} {prescription}</label></Grid>
                                             <label class="attached_file">{attached_doc} -
                                             {sickData && sickData.attachfile && sickData.attachfile.map((items) => (
                                                 <a>{items.filename && (items.filename.split('Trackrecord/')[1]).split("&bucket=")[0]}</a>
@@ -493,13 +493,13 @@ class Index extends Component {
                                             </label>
                                             {(sickData.status !== 'accept' && !$imagePreview) && <Grid className="scamUPInput">
                                                 <a><img src={require('../../../../assets/images/upload-file.svg')} alt="" title="" /></a>
-                                                <a>Browse <input type="file" onChange={(e) => this.UploadFile(e, sickData.patient_profile_id, sickData.patient_info.bucket, sickData._id)} /></a> or drag here
+                                                <a>Browse <input type="file" onChange={(e) => this.UploadFile(e, sickData.patient_profile_id, sickData.patient_info.bucket, sickData._id)} /></a> {or_drag_here}
                                                                             </Grid>}
-                                            {(sickData.status !== 'accept') && !$imagePreview && <p>Supported file types: .jpg, .png, .pdf</p>}
+                                            {(sickData.status !== 'accept') && !$imagePreview && <p>{suported_file_type_jpg_png}</p>}
                                             {(sickData.status === 'accept') && !$imagePreview && <img src={sickData.attachfile[0].filename} />}
                                             {(sickData.status !== 'accept') && $imagePreview}
                                             {(sickData.attachfile && this.state.uploadedimage && sickData.status !== 'accept') && <Grid item xs={12} md={12}>
-                                                <input type="button" value="Send to patient's Timeline and Email" onClick={() => this.saveUserData(sickData._id)} className="approvBtn" />
+                                                <input type="button" value={snd_patient_timeline_email} onClick={() => this.saveUserData(sickData._id)} className="approvBtn" />
                                             </Grid>}
                                         </Grid>}
                                     {this.state.serverMsg && this.state.serverMsg !== '' && <div className={this.state.saveAttach ? 'success_message' : 'err_message'}>{this.state.serverMsg}</div>}
@@ -507,10 +507,10 @@ class Index extends Component {
                                         {/* {this.state.saveAttach && <div>Succesully sended to patient's Timeline and Email</div>} */}
 
                                         <Grid item xs={6} md={6}>
-                                            <input type="button" value="Approve" onClick={() => this.deleteClickPatient('accept', sickData._id)} className="approvBtn" />
+                                            <input type="button" value={approve} onClick={() => this.deleteClickPatient('accept', sickData._id)} className="approvBtn" />
                                         </Grid>
                                         <Grid item xs={6} md={6}>
-                                            <input type="button" value="Reject" onClick={() => this.updateCertificate('decline', sickData._id)} className="rejectBtn" />
+                                        <input type="button" value={reject} onClick={() => this.updateCertificate('decline', sickData._id)} className="rejectBtn" />
                                         </Grid>
                                     </Grid>}
                                 </Grid>
@@ -536,7 +536,7 @@ class Index extends Component {
                                 <Grid><label>{inqstatus} Inquiry</label></Grid>
                             </Grid>
                             <Grid className="shrtRejctMsg">
-                                <Grid><label>Short message</label></Grid>
+                                <Grid><label>{short_msg}</label></Grid>
                                 <Grid><textarea onChange={(e) => this.setState({ message: e.target.value })}></textarea></Grid>
                                 <Grid><input type="button" value={inqstatus} onClick={() => this.deleteClickPatient(inqstatus, this.state.selected_id)} /></Grid>
                             </Grid>
@@ -552,11 +552,11 @@ class Index extends Component {
                             </Grid>
                             <Grid item xs={12} md={6}>
                                 {this.state.totalPage > 1 && <Grid className="prevNxtpag">
-                                    {this.state.currentPage != 1 && <a className="prevpag" onClick={() => { this.onChangePage(this.state.currentPage - 1) }}>Previous</a>}
+                                    {this.state.currentPage != 1 && <a className="prevpag" onClick={() => { this.onChangePage(this.state.currentPage - 1) }}>{previous}</a>}
                                     {this.state.pages && this.state.pages.length > 0 && this.state.pages.map((item, index) => (
                                         <a className={this.state.currentPage == item && "activePageDocutmet"} onClick={() => { this.onChangePage(item) }}>{item}</a>
                                     ))}
-                                    {this.state.currentPage != this.state.totalPage && <a className="nxtpag" onClick={() => { this.onChangePage(this.state.currentPage + 1) }}>Next</a>}
+                                    {this.state.currentPage != this.state.totalPage && <a className="nxtpag" onClick={() => { this.onChangePage(this.state.currentPage + 1) }}>{next}</a>}
                                 </Grid>}
                             </Grid>
                         </Grid>
