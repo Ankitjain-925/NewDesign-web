@@ -507,7 +507,8 @@ getUpcomingAppointment() {
         this.setState({ openDash: false });
     };
     onChange = (date) => {
-        console.log('date', date)
+ 
+        this.setState({date : date})
         var day_num
         var Month, date1
         if (date !== undefined && date) {
@@ -794,7 +795,7 @@ getUpcomingAppointment() {
                             <LeftMenuMobile isNotShow={true} currentPage="appointment" />
                             <Notification />
                             {/* Video Model */}
-                            {console.log('selectedDate',this.state.selectedDate)}
+                           
                             <Modal
                                     open={this.state.openFancyVdo}
                                     onClose={this.handleCloseFancyVdo}
@@ -806,6 +807,7 @@ getUpcomingAppointment() {
                                             </a>
                                             <Grid className="selCalenderUpr">
                                                 <Grid className="selCalender">
+                                                   
                                                     <Calendar2 onChange={(e)=>this.onChange(e)} value={this.state.date} />
                                                 </Grid>
                                                 <Grid className="selTimeSlot" >

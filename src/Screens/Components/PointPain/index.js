@@ -43,52 +43,53 @@ class PointPain extends Component {
 
     //For set the canvas and image 
     componentDidMount = () => {
-        var canvas = $('#'+this.state.id)[0];
-        // get reference to canvas context
-        var context = canvas.getContext('2d');
-        context.canvas.width = 100;
-        context.canvas.height = 150;
-        // create an empty image
-        var img = new Image();
-        // after loading...
-        img.onload = function() {
-            // draw the image onto the canvas
-            context.drawImage(img, 0, 0, 100, 150);
-        }
-        if(this.props.gender === 'female')
-        {
-           img.src= require('../../../assets/images/FEMALE_BODY.svg');
-        }
-        else
-        {
-            img.src= require('../../../assets/images/MALE_BODY.svg');  
-        }
+        // var canvas = $('#'+this.state.id)[0];
+        // // get reference to canvas context
+        // var context = canvas.getContext('2d');
+        // context.canvas.width = 100;
+        // context.canvas.height = 150;
+        // // create an empty image
+        // var img = new Image();
+        // // after loading...
+        // img.onload = function() {
+        //     // draw the image onto the canvas
+        //     context.drawImage(img, 0, 0, 100, 150);
+        // }
+        // if(this.props.gender === 'female')
+        // {
+        //    img.src= require('../../../assets/images/FEMALE_BODY.svg');
+        // }
+        // else
+        // {
+        //     img.src= require('../../../assets/images/MALE_BODY.svg');  
+        // }
     }
 
     //on adding new data
     componentDidUpdate = (prevProps) => {
         if(prevProps.id !== this.props.id)
         {
-            var canvas = $('#'+this.state.id)[0];
-            // get reference to canvas context
-            var context = canvas.getContext('2d');
-            context.canvas.width = 100;
-            context.canvas.height = 150;
-            // create an empty image
-            var img = new Image();
-            // after loading...
-            img.onload = function() {
-                // draw the image onto the canvas
-                context.drawImage(img, 0, 0, 100, 150);
-            }
-            if(this.props.gender === 'female')
-            {
-               img.src= require('../../../assets/images/FEMALE_BODY.svg');
-            }
-            else
-            {
-                img.src= require('../../../assets/images/MALE_BODY.svg');  
-            }
+            this.setState({ painPoint: this.props.painPoint })
+            // var canvas = $('#'+this.state.id)[0];
+            // // get reference to canvas context
+            // var context = canvas.getContext('2d');
+            // context.canvas.width = 100;
+            // context.canvas.height = 150;
+            // // create an empty image
+            // var img = new Image();
+            // // after loading...
+            // img.onload = function() {
+            //     // draw the image onto the canvas
+            //     context.drawImage(img, 0, 0, 100, 150);
+            // }
+            // if(this.props.gender === 'female')
+            // {
+            //    img.src= require('../../../assets/images/FEMALE_BODY.svg');
+            // }
+            // else
+            // {
+            //     img.src= require('../../../assets/images/MALE_BODY.svg');  
+            // }
         }
         if (prevProps.painPoint !== this.props.painPoint) {
             this.setState({ painPoint: this.props.painPoint })
@@ -144,7 +145,12 @@ class PointPain extends Component {
                 <Grid><label>{this.state.label}</label></Grid>
                 <Grid className="painAreas">
                     <a id={"V"+this.state.id} className="painAreasimg" style={{position:'relative'}}>
-                        <canvas id={this.state.id}  className="canvases" onClick={(e)=>{this.updatedemo(e)}}></canvas>
+                        <div id={this.state.id} className="canvases" onClick={(e)=>{this.updatedemo(e)}}>
+                        {this.props.gender === 'female'? 
+                            <img width="100" height="150" src= {require('../../../assets/images/FEMALE_BODY.svg')} />
+                        :
+                        <img width="100" height="150" src= {require('../../../assets/images/MALE_BODY.svg')} />}
+                        </div>
                         <div className="mycode">
                             {this.state.painPoint && this.state.painPoint.length>0 && this.state.painPoint.map((item, index) => (
                                 <div className="marker" style={{ position: 'absolute',  width: '6px', height: '6px', background: 'red', borderRadius: '50%', top: item.y,

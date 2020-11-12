@@ -446,7 +446,7 @@ class Index extends Component {
                 </Grid>
                 <Grid container direction="row" justify="center" alignItems="center">
                     <Grid item xs={11} sm={10} md={7}>
-                        <Grid className="regData"><h1>{Register_for_Aimedis} Aimedis</h1></Grid>
+                        <Grid className="regData"><h1>{Register_for_Aimedis}</h1></Grid>
 
                         <Grid className="registerFormMain">
                             <Grid className="registerForm">

@@ -4875,6 +4875,7 @@ body {
     font-weight: 600;
     letter-spacing: 0;
     line-height: 18px;
+    min-width: 178px;
 }
 .scndOpinionIner tbody tr {
     border-bottom: 1px solid #F2F2F2;
@@ -6173,6 +6174,7 @@ img.openScnd {
     right: 0;
     text-align: left;
     z-index: 111;
+    min-width: 180px;
 }
 a.openScndhrf:hover ul {
     display: block !important;
@@ -7108,9 +7110,9 @@ a.vsblDots, a.conPainDots, a.bp_vsblDots, a.hideDots {
     background-color: #404646 !important;
 }
 .homeBgDrk .persBlodImg img {
-    border: 1px solid #4C5252;
+    border: none !important;
     border-radius: 8px;
-    background-color: #404646;
+    background-color: transparent !important;
     padding: 6px 5px 5px;
 }
 .homeBgDrk .presureData h3 {
@@ -8320,7 +8322,7 @@ a.vsblDots2 img {
     color: #000808;
     font-family: Muli;
     font-size: 14px;
-    font-weight: 600;
+    font-weight: 300;
     letter-spacing: 0;
     line-height: 18px;
 }
@@ -9028,6 +9030,7 @@ td.phrImg p {
     height: 24px;
     width: 24px;
     cursor: pointer;
+    border-radius: 6px;
 }
 .imptNotic h2 {
     text-align: center;
@@ -13025,6 +13028,20 @@ a.academy_ul ul li img {
 
 
 /*Added By ankita*/
+.canvases img {
+    height: 150px !important;
+    width: 100px !important;
+    margin: 0px !important;
+}
+.scndOptionIner1 ul li img {
+    /* margin-right: 12px; */
+    height: 17px;
+    width: auto;
+    padding-right: 10px;
+}
+.MenuLeftDrkUpr .profilMenuList img, .MenuLeftDrkUpr .moreMenuList img{
+    width: 15px !important;
+}
 .homeBgDrk .loading-text{
     color: #fff!important;
 }
@@ -13055,11 +13072,21 @@ a.academy_ul ul li img {
 .homeBgDrk .OrganMobile span.flag-select__option.flag-select__option--placeholder .flag-select__option__icon {
     top: 0px !important;
 }
-.homeBgDrk .OrganMobile button#select_flag_button,.homeBgDrk .profileInfoIner button#select_flag_button {
+.homeBgDrk .OrganMobile button#select_flag_button,.homeBgDrk{
     background: #b1b1b180;
     height: 37px;
     min-height: 33px;
     border-radius: 5px 0px 0px 5px;
+}
+.homeBgDrk .profileInfoIner button#select_flag_button {
+    background: #b1b1b180;
+    height: 33px;
+    min-height: 33px;
+    border-radius: 5px 0px 0px 5px;
+}
+.homeBgDrk .contact-listitem-dtls .__react_component_tooltip {
+    color: #fff!important;
+    font-size: 16px;
 }
 
 .homeBgDrk .profileInfoIner .flag-select {
@@ -13332,7 +13359,7 @@ ul.insuranceHint1 li {
 /* for the tracker scroll */
 .disCnctContent {   
     overflow: auto !important;
-    height: 400px !important;
+    height: 500px !important;
 }
 .withingsData img{ width: 160px; }
 .homeBgDrk .EmergencyOpenPopup {
@@ -13359,6 +13386,7 @@ ul.insuranceHint1 li {
 }
 /*Graph CSS*/
 .presureDataGrph {
+    margin-top: 24px !important;
     text-align: center !important;
     color: #00ABAF!important;
     font-weight: 600;
@@ -13474,7 +13502,7 @@ img.openScnd1 {
     box-shadow: 0 8px 16px 0 rgba(0,8,8,0.08);
     padding-left: 0px;
     margin-bottom: 0px;
-    padding: 12px 16px;
+    padding: 12px 12px;
     position: absolute;
     right: 0;
     text-align: left;
@@ -13677,7 +13705,8 @@ a.activePageDocutmet {
     border-radius: 12px;
     background-color: #FFFFFF;
     box-shadow: 0 1px 8px 0 rgba(0,8,8,0.04);
-    padding: 12px 12px;
+    text-align: center;
+    padding: 32px 12px;
     margin-bottom: 26px;
     margin-top: 40px;
 }
@@ -14045,7 +14074,7 @@ input:focus {
 }
 .scndOptionIner1 ul li img {
     margin-right: 12px;
-    width: 18px;
+    width: 25px;
 }
 td.docphrImg {
     display: flex;
@@ -14080,7 +14109,7 @@ td.docphrImg {
 }
 .daySchedule .ant-picker, .nameSchedule .ant-picker {
     margin-bottom: 0px !important;
-    width: 100% !important;
+    width: 125px !important;
     border: 1px solid #dfdfdf;
     padding: 4px 2px 1px;
 }
@@ -14313,7 +14342,7 @@ input#graduationYear {
     min-height: 100vh;
 }
 .menuItems {
-    padding-bottom: 90px;
+    padding-bottom: 95px;
 }
 .unified .ccl-center-panel .CreatChatInner img {
     margin: initial !important;
@@ -14335,4 +14364,60 @@ input#graduationYear {
     .cc1-chat-win-inpt-ext-wrap{
         padding: 0px 4% !important;
     }
+}
+.srchdoseMg input::-webkit-input-placeholder { 
+    color: #676969;
+  }
+.srchdoseMg input::-moz-placeholder {
+    color: #676969;
+  }
+.srchdoseMg input:-ms-input-placeholder { 
+    color: #676969;
+  }
+.srchdoseMg input:-moz-placeholder { 
+    color: #676969;
+  }
+  .darkTheme .paraPatient input {
+    background: #404646 !important;
+    color: #BFC1C1 !important;
+}
+.rbc-day-slot .rbc-event {
+    width: 100% !important;
+    height: initial !important;
+}
+.homeBgDrk .presureDataGrph rect.highcharts-background {
+    fill: #404646 !important;
+}
+.homeBgDrk .presureDataGrph tspan {
+    color: #f2f2f2 !important;
+    fill: #f2f2f2 !important;
+}
+.neuroSection a img {
+    display: none;
+}
+.quill .ql-editor {
+    font-weight: 400 !important;
+    font-family: Muli !important;
+}
+.quill .ql-editor p {
+    font-weight: 400 !important;
+    font-family: Muli !important;
+}
+.homeBgDrk .scndOptionIner ul {
+    border: 1px solid #f2f2f2 !important;
+    background-color: #192020 !important;
+}
+.homeBgDrk .scndOptionIner ul li a {
+    color: #bfc1c1 !important;
+    background-color: transparent !important;
+}
+@media (max-width: 768px){
+  .cc1-chat-win-inpt-ext-wrap {
+    z-index: 999999 !important;
+    position: fixed !important;
+    bottom: 0;
+  }
+  .cc1-chat-win-header {
+    margin-top: 20px !important;
+  }
 }

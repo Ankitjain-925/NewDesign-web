@@ -27,7 +27,7 @@ class Date extends Component {
       //This is for the Download the Track
       downloadTrack = () => {
         var medication=[], blood_pressure=[],blood_sugar=[],condition_pain=[],diagnosis=[],doctor_visit=[],hospitalization=[],laboratory_result=[],
-        marcumar_pass=[],vaccination=[],weight_bmi = [],fanamnesis=[],diary=[],smoking_status=[],anamnesis=[];
+        marcumar_pass=[],vaccination=[],weight_bmi = [],fanamnesis=[],covid_19=[],diary=[],smoking_status=[],anamnesis=[];
         if(this.state.TrackRecord && this.state.TrackRecord.length>0)
         {
             this.state.TrackRecord.map((data)=>{
@@ -54,7 +54,7 @@ class Date extends Component {
                         hospitalization.push(data.hospital_name)
                         break;
                     case "laboratory_result":
-                        laboratory_result.push(data.lab_parameter.label+' '+data.value+' '+data.unit.label)
+                        laboratory_result.push(data.lab_parameter && data.lab_parameter.label+' '+data.value+' '+data.unit.label)
                         break;
                     case "marcumar_pass":
                         marcumar_pass.push(data.quick_value +' mg/dl')
@@ -68,11 +68,13 @@ class Date extends Component {
                     case "anamnesis":
                         anamnesis.push(data.remarks)
                     case "smoking_status":
-                        smoking_status.push(data.smoking_status.label)
+                        smoking_status.push(data.smoking_status && data.smoking_status.label)
                     case "family_anamnesis":
                         fanamnesis.push(data.disease_name +' - '+data.relation)
                     case "diary":
                         diary.push(data.free_text)
+                    case "covid_19":
+                        covid_19.push(data.temprature)
                     case "default":
                         break;
                                 
@@ -82,7 +84,8 @@ class Date extends Component {
         var TrackRecord =  {
             medication: medication,blood_pressure: blood_pressure, blood_sugar : blood_sugar, condition_pain: condition_pain,diagnosis:diagnosis,
             doctor_visit:doctor_visit, hospital_visit: hospitalization, laboratory_result: laboratory_result,marcumar_pass:marcumar_pass, 
-            vaccination:vaccination,weight_bmi:weight_bmi
+            vaccination:vaccination,weight_bmi:weight_bmi,diary:diary, family_anamnesis: fanamnesis, smoking_status:smoking_status,
+            anamnesis: anamnesis,covid_19_diary: covid_19
         }
        
         this.setState({ loaderImage: true })

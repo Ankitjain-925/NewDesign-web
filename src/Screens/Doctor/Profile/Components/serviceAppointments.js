@@ -261,23 +261,29 @@ class Index extends Component {
         let doctor_id = this.props.stateLoginValueAim.user._id;
         let { firstServiceData, sencondSeviceData, thirdServiceData, weoffer, UpDataDetails, DaysforPractices, onlineAppointments, holidayAppointment } = this.state;
         let dataSave = {};
-        console.log('DaysforPractices.duration_of_timeslots', DaysforPractices.duration_of_timeslots)
+       
         this.setState({ updateService: false, appoinmentError: false })
         dataSave['paid_services'] = [];
-        console.log('weoffer', weoffer)
-        if (weoffer &&  weoffer.Offer_office_prescription && (!UpDataDetails.duratin_of_timeslots || UpDataDetails.duration_of_timeslots === 0)){
-            console.log('hereee')
+        
+        // if (weoffer &&  weoffer.Offer_office_prescription && (!UpDataDetails.duratin_of_timeslots || UpDataDetails.duration_of_timeslots === 0 )){
+        //     console.log('hereee')
+        //     this.setState({ appoinmentError: true })
+        // }
+        // else 
+        if(weoffer &&  weoffer.Offer_office_prescription && (!UpDataDetails.duration_of_timeslots || UpDataDetails.duration_of_timeslots === 0)){
+   
             this.setState({ appoinmentError: true })
         }
         else if(weoffer &&  weoffer.Offer_practice_appointment && (!DaysforPractices.duration_of_timeslots || DaysforPractices.duration_of_timeslots === 0)){
-            console.log('hereee22')
+         
             this.setState({ appoinmentError: true })
         }
         else if(weoffer &&  weoffer.Offre_online_appointments && (!onlineAppointments.duration_of_timeslots || onlineAppointments.duration_of_timeslots === 0)) {
+            
             this.setState({ appoinmentError: true })
         }
         else {
-            console.log('going to final one')
+           
             if (firstServiceData.created) {
                 dataSave['paid_services'].push(firstServiceData)
             }

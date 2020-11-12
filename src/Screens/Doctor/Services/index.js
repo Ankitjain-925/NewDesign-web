@@ -646,7 +646,7 @@ class Index extends Component {
                                 <LeftMenuMobile isNotShow={true} currentPage="patient" />
                                 <Notification />
                                 {/* End of Website Menu */}
-                                {console.log('MypatientsData', this.state.MypatientsData)}
+                                
                                 <Grid item xs={12} md={9}>
                                     <Grid className="docOpinion">
                                         <Grid container direction="row" className="docAddUpr">

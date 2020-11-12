@@ -76,7 +76,7 @@ class Index extends Component {
             <Grid className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode && this.props.settings.setting.mode==='dark' ? "homeBg homeBgDrk" : "homeBg"}>
                 <Grid className="homeBgIner">
                     <Grid container direction="row" justify="center">
-                        <Grid item xs={6} md={6}>
+                        <Grid item xs={11} md={8} lg={6}>
                             <Grid className="webLogo">
                                 <a href="/"><img src={require('../../../assets/images/LogoPNG.png')} alt="" title="" /></a>
                             </Grid>
