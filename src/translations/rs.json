@@ -1028,6 +1028,10 @@
     "select_specility":"Выберите специальность",
     "we_r_showing_speciality":"Мы показываем вам специалистов рядом",
     "r_u_sure_update_inquiry":"Вы уверены, что обновите этот запрос?",
-    "organ_donar":"Донор"
+    "organ_donar":"Донор",
+    "search_by_patient_id_name_doc":"Поиск по идентификатору пациента, имени пациента, врачу ...",
+    "rcvd_from_doctor":"Получено от врача",
+    "handled":"Обработано",
+    "medicine_handed_to_patient":"Лекарство передано пациенту"
   }
 }

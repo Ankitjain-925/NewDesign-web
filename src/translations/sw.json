@@ -1027,6 +1027,10 @@
 		"select_specility":"Chagua Utaalam",
 		"we_r_showing_speciality":"Tunakuonyesha wataalam karibu",
 		"r_u_sure_update_inquiry":"Je! Una uhakika wa kusasisha uchunguzi huu?",
-		"organ_donar":"Mfadhili wa Chombo"
+		"organ_donar":"Mfadhili wa Chombo",
+		"search_by_patient_id_name_doc":"Tafuta na Kitambulisho cha Mgonjwa, jina la Mgonjwa, Daktari ...",
+		"rcvd_from_doctor":"Imepokea kutoka kwa daktari",
+		"handled":"Kushughulikiwa",
+		"medicine_handed_to_patient":"Dawa iliyopewa mgonjwa"
 	}
 }

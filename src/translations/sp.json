@@ -1029,6 +1029,10 @@
 		"select_specility":"Seleccionar especialidad",
 		"we_r_showing_speciality":"Te mostramos especialistas cerca",
 		"r_u_sure_update_inquiry":"¿Estás seguro de actualizar esta consulta?",
-		"organ_donar":"donante de órganos"
+		"organ_donar":"donante de órganos",
+		"search_by_patient_id_name_doc":"Buscar por ID de paciente, nombre del paciente, médico ...",
+		"rcvd_from_doctor":"Recibido del doctor",
+		"handled":"Manejado",
+		"medicine_handed_to_patient":"Medicina entregada al paciente"
 	}
 }

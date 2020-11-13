@@ -1030,6 +1030,10 @@
 		"select_specility":"Selecione a especialidade",
 		"we_r_showing_speciality":"Estamos mostrando especialistas próximos",
 		"r_u_sure_update_inquiry":"Tem certeza de que deseja atualizar este inquérito?",
-		"organ_donar":"doador de órgãos"
+		"organ_donar":"doador de órgãos",
+		"search_by_patient_id_name_doc":"Pesquise por ID do paciente, nome do paciente, médico ...",
+		"rcvd_from_doctor":"Recebido de médico",
+		"handled":"Manipulado",
+		"medicine_handed_to_patient":"Remédio entregue ao paciente"
 	}
 }

@@ -35,34 +35,6 @@ class Autocomplete extends React.Component {
 }
 
   render() {
-    let search_city = "search"
-    // if (this.props.stateLanguageType === 'de') {
-    //   search_city=translationDE.text.search_city
-    // }
-    
-    // else if (this.props.stateLanguageType === 'pt') {
-    //   search_city=translationPT.text.search_city
-    // }
-    
-    // else if (this.props.stateLanguageType === 'nl') {
-    //   search_city=translationNL.text.search_city
-    // }
-    
-    // else if (this.props.stateLanguageType === 'ch') {
-    //   search_city=translationCH.text.search_city
-    // }
-    
-    // else if (this.props.stateLanguageType === 'rs') {
-    //   search_city=translationRS.text.search_city
-    // }
-    
-    // else if (this.props.stateLanguageType === 'sp') {
-    //   search_city=translationSP.text.search_city
-    // }
-    
-    // else {
-    //   search_city=translationEN.text.search_city
-    // }
     return (
       <input
         ref={this.autocompleteInput}
