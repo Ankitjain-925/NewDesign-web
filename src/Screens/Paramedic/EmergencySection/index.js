@@ -12,6 +12,7 @@ import { LanguageFetchReducer } from './../../actions';
 import { withRouter } from "react-router-dom";
 import sitedata from '../../../sitedata';
 import axios from 'axios';
+import { authy } from './../../Login/authy.js';
 import { Redirect, Route } from 'react-router-dom';
 import { connect } from "react-redux";
 import { LoginReducerAim } from './../../Login/actions';
@@ -154,7 +155,7 @@ class Index extends Component {
             patient_id, I_hrwith_cnfirm_that_i_need_access_patient } = translate;
             
         const { stateLoginValueAim, Doctorsetget } = this.props;
-        if (stateLoginValueAim.user === 'undefined' || stateLoginValueAim.token === 450 || stateLoginValueAim.token === 'undefined' || stateLoginValueAim.user.type !== 'paramedic' ) {
+        if (stateLoginValueAim.user === 'undefined' || stateLoginValueAim.token === 450 || stateLoginValueAim.token === 'undefined' || stateLoginValueAim.user.type !== 'paramedic' || !this.props.verifyCode || !this.props.verifyCode.code) {
             return (<Redirect to={'/'} />);
             } 
         return (
@@ -277,6 +278,7 @@ const mapStateToProps = (state) => {
     const { stateLoginValueAim, loadingaIndicatoranswerdetail } = state.LoginReducerAim;
     const { stateLanguageType } = state.LanguageReducer;
     const { settings } = state.Settings;
+    const { verifyCode } = state.authy;
     // const { Doctorsetget } = state.Doctorset;
     // const { catfil } = state.filterate;
     const { Emergencysetget }= state.EmergencySet;
@@ -286,8 +288,9 @@ const mapStateToProps = (state) => {
         loadingaIndicatoranswerdetail,
         settings,
         Emergencysetget,
+        verifyCode,
         //   Doctorsetget,
         //   catfil
     }
 };
-export default withRouter(connect(mapStateToProps, { EmergencySet, LoginReducerAim, LanguageFetchReducer, Settings })(Index));
+export default withRouter(connect(mapStateToProps, { EmergencySet, LoginReducerAim, LanguageFetchReducer, Settings, authy })(Index));

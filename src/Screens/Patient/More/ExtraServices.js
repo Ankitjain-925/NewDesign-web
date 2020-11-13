@@ -13,6 +13,7 @@ import Loader from './../../Components/Loader/index';
 import { Redirect, Route } from 'react-router-dom';
 import sitedata from '../../../sitedata';
 import "react-toggle/style.css";
+import { authy } from './../../Login/authy.js';
 import * as translationEN from "../../../translations/en.json"
 import * as translationDE from '../../../translations/de.json';
 import * as translationPT from '../../../translations/pt.json';
@@ -151,7 +152,7 @@ class Index extends Component {
     }
     render() {
         const { stateLoginValueAim } = this.props;
-        if (stateLoginValueAim.user === 'undefined' || stateLoginValueAim.token === 450 || stateLoginValueAim.token === 'undefined' || stateLoginValueAim.user.type !== 'patient') {
+        if (stateLoginValueAim.user === 'undefined' || stateLoginValueAim.token === 450 || stateLoginValueAim.token === 'undefined' || stateLoginValueAim.user.type !== 'patient' || !this.props.verifyCode || !this.props.verifyCode.code) {
             return (<Redirect to={'/'} />);
         }
 
@@ -332,6 +333,7 @@ const mapStateToProps = (state) => {
     const { stateLoginValueAim, loadingaIndicatoranswerdetail } = state.LoginReducerAim;
     const { stateLanguageType } = state.LanguageReducer;
     const { settings } = state.Settings;
+    const { verifyCode } = state.authy;
     // const { Doctorsetget } = state.Doctorset;
     // const { catfil } = state.filterate;
     return {
@@ -339,8 +341,9 @@ const mapStateToProps = (state) => {
         stateLoginValueAim,
         loadingaIndicatoranswerdetail,
         settings,
+        verifyCode,
         //   Doctorsetget,
         //   catfil
     }
 };
-export default withRouter(connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer, Settings })(Index));
+export default withRouter(connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer, Settings, authy })(Index));

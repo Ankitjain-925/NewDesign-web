@@ -134,7 +134,7 @@ class Index extends Component {
     }
 
     componentDidMount() {
-        // new LogOut(this.props.stateLoginValueAim.token, this.props.stateLoginValueAim.user._id, this.logOutClick.bind(this))
+        
         // $("#clickIcon").click(function () {
         //     $("input[id='my_file']").click();
         //   });

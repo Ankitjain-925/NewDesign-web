@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import { LanguageFetchReducer } from '../../actions';
 import { LoginReducerAim } from '../../Login/actions';
 import { Settings } from '../../Login/setting';
+import { authy } from './../../Login/authy.js';
 import { Redirect, Route } from 'react-router-dom';
 import Loader from '../../Components/Loader/index';
 import LeftMenuMobile from './../../Components/Menus/NurseLeftMenu/mobile';
@@ -40,7 +41,7 @@ class Index extends Component {
     render() {
         const { specialistOption } = this.state;
         const { stateLoginValueAim, Doctorsetget } = this.props;
-        if (stateLoginValueAim.user === 'undefined' || stateLoginValueAim.token === 450 || stateLoginValueAim.token === 'undefined' ) {
+        if (stateLoginValueAim.user === 'undefined' || stateLoginValueAim.token === 450 || stateLoginValueAim.token === 'undefined' || !this.props.verifyCode || !this.props.verifyCode.code) {
             if(stateLoginValueAim.user){
             if(stateLoginValueAim.user.type === 'nurse' || stateLoginValueAim.user.type === 'therapist'){}
             else
@@ -76,6 +77,7 @@ const mapStateToProps = (state) => {
     const { stateLoginValueAim, loadingaIndicatoranswerdetail } = state.LoginReducerAim;
     const { stateLanguageType } = state.LanguageReducer;
     const {settings} = state.Settings;
+    const { verifyCode } = state.authy;
     // const { Doctorsetget } = state.Doctorset;
     // const { catfil } = state.filterate;
     return {
@@ -83,8 +85,9 @@ const mapStateToProps = (state) => {
         stateLoginValueAim,
         loadingaIndicatoranswerdetail,
         settings,
+        verifyCode,
         //   Doctorsetget,
         //   catfil
     }
 };
-export default withRouter(connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer, Settings })(Index));
+export default withRouter(connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer, Settings, authy })(Index));

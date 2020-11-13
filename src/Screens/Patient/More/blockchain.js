@@ -14,6 +14,7 @@ import { Redirect, Route } from 'react-router-dom';
 import Collapsible from 'react-collapsible';
 import sitedata from '../../../sitedata';
 import "react-toggle/style.css";
+import { authy } from './../../Login/authy.js';
 import { getDate, getImage } from './../../Components/BasicMethod/index'
 import * as translationEN from "../../../translations/en.json"
 import * as translationDE from '../../../translations/de.json';
@@ -41,7 +42,7 @@ class Index extends Component {
     getHyperdata = () => {
         axios.post(sitedata.data.path + '/blockchain/dataManager', {
             path: "dataManager/getDetails/patient",
-            data: { "_selfId": this.props.stateLoginValueAim.user.profile_id, "_patientId": this.props.stateLoginValueAim.user.profile_id }
+            data: { "_selfId": this.props.stateLoginValueAim && this.props.stateLoginValueAim.user && this.props.stateLoginValueAim.user.profile_id, "_patientId": this.props.stateLoginValueAim && this.props.stateLoginValueAim.user && this.props.stateLoginValueAim.user.profile_id }
         })
             .then(response3 => {
                 this.setState({ PatientFullData: response3.data });
@@ -80,7 +81,7 @@ class Index extends Component {
 
     render() {
         const { stateLoginValueAim, Doctorsetget } = this.props;
-        if (stateLoginValueAim.user === 'undefined' || stateLoginValueAim.token === 450 || stateLoginValueAim.token === 'undefined' || stateLoginValueAim.user.type !== 'patient') {
+        if (stateLoginValueAim.user === 'undefined' || stateLoginValueAim.token === 450 || stateLoginValueAim.token === 'undefined' || stateLoginValueAim.user.type !== 'patient' || !this.props.verifyCode || !this.props.verifyCode.code) {
             return (<Redirect to={'/'} />);
         }
         let translate
@@ -320,6 +321,7 @@ const mapStateToProps = (state) => {
     const { stateLoginValueAim, loadingaIndicatoranswerdetail } = state.LoginReducerAim;
     const { stateLanguageType } = state.LanguageReducer;
     const { settings } = state.Settings;
+    const { verifyCode } = state.authy;
     // const {Doctorsetget} = state.Doctorset;
     // const {catfil} = state.filterate;
     return {
@@ -327,8 +329,9 @@ const mapStateToProps = (state) => {
         stateLoginValueAim,
         loadingaIndicatoranswerdetail,
         settings,
+        verifyCode,
         //   Doctorsetget,
         //   catfil
     }
 };
-export default withRouter(connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer, Settings })(Index));
+export default withRouter(connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer, Settings, authy })(Index));

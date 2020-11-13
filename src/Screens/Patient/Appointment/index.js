@@ -11,6 +11,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
 import axios from 'axios';
+import { authy } from './../../Login/authy.js';
 import Geocode from "react-geocode";
 import { GoogleApiWrapper, Map, Marker } from 'google-maps-react';
 import { withRouter } from "react-router-dom";
@@ -779,7 +780,7 @@ class Index extends Component {
             Contact, Services, latest_info, see_avlbl_date, location_of_srvc, this_way_can_instntly_list_of_specility, find_apointment, consultancy_cstm_calnder, vdo_call, allow_location_access, profile_info, profile, information, ID, pin, QR_code, done, Change, edit_id_pin, edit, and, is, changed, profile_id_taken, profile_id_greater_then_5,
         } = translate;
         const { stateLoginValueAim } = this.props;
-        if (stateLoginValueAim.user === 'undefined' || stateLoginValueAim.token === 450 || stateLoginValueAim.token === 'undefined' || stateLoginValueAim.user.type !== 'patient') {
+        if (stateLoginValueAim.user === 'undefined' || stateLoginValueAim.token === 450 || stateLoginValueAim.token === 'undefined' || stateLoginValueAim.user.type !== 'patient' || !this.props.verifyCode || !this.props.verifyCode.code) {
             return (<Redirect to={'/'} />);
         }
         var myMarker = require('../../../assets/images/loc2.png');
@@ -1244,6 +1245,7 @@ const mapStateToProps = (state) => {
     const { stateLoginValueAim, loadingaIndicatoranswerdetail } = state.LoginReducerAim;
     const { stateLanguageType } = state.LanguageReducer;
     const { settings } = state.Settings;
+    const { verifyCode } = state.authy;
     // const {Doctorsetget} = state.Doctorset;
     // const {catfil} = state.filterate;
     return {
@@ -1251,10 +1253,11 @@ const mapStateToProps = (state) => {
         stateLoginValueAim,
         loadingaIndicatoranswerdetail,
         settings,
+        verifyCode,
         //   Doctorsetget,
         //   catfil
     }
 };
-export default withRouter(connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer, Settings })(GoogleApiWrapper({
+export default withRouter(connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer, Settings, authy })(GoogleApiWrapper({
     apiKey: 'AIzaSyCNLBs_RtZoI4jdrZg_CjBp9hEM6SBIh-4'
 })(Index)));

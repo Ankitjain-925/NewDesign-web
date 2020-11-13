@@ -273,7 +273,7 @@ class Index extends Component {
           }
           let { Prescriptionisdeleted, PrescriptionisDearchived, de_archive, Delete, search_by_patient_id_name_doc, recved_on, archive, fors, prescriptions,prescription, Patient, capab_Doctors } = translate;
         const { stateLoginValueAim, Doctorsetget } = this.props;
-        if (stateLoginValueAim.user === 'undefined' || stateLoginValueAim.token === 450 || stateLoginValueAim.token === 'undefined' || stateLoginValueAim.user.type !== 'pharmacy' ) {
+        if (stateLoginValueAim.user === 'undefined' || stateLoginValueAim.token === 450 || stateLoginValueAim.token === 'undefined' || stateLoginValueAim.user.type !== 'pharmacy' || !this.props.verifyCode || !this.props.verifyCode.code ) {
             return (<Redirect to={'/'} />);
         } 
         return (

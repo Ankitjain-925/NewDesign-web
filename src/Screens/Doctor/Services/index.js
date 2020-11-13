@@ -23,6 +23,7 @@ import { LanguageFetchReducer } from './../../actions';
 import Loader from './../../Components/Loader/index';
 import { Redirect, Route } from 'react-router-dom';
 import moment from 'moment';
+import { authy } from './../../Login/authy.js';
 // import translate from './../../Components/Translator/index.js';
 import ReactFlagsSelect from 'react-flags-select';
 import 'react-flags-select/css/react-flags-select.css';
@@ -630,7 +631,7 @@ class Index extends Component {
         let { succ1, Register_email, Register_Password, Register_Passwordshould, enter_pin, Register_characters, Register_letter, Register_number, Register_special, Register_Mobilenumber, Register_activate_auth, enter,
             Mnotvalids, Register_CREATE, capab_Patients, not_mentioned, age,gender, patient_id, openjournal, personal_info, remove_patient, insurance, id_pin_not_correct, patient_data_access, healthcare_access_for_non_conn_patient, view_data, private_doc_rest, ask_patient_to_become_a_private_doctor, Ask, email_or_id, enter_patient_email_id, new_patient, add_new_patient, first, name,last, country_code, previous, next, find_patient, Patient, add_new_patient_in_list } = translate
         const enter_patient_id = enter+" "+patient_id
-        if (stateLoginValueAim.user === 'undefined' || stateLoginValueAim.token === 450 || stateLoginValueAim.token === 'undefined' || stateLoginValueAim.user.type !== 'doctor') {
+        if (stateLoginValueAim.user === 'undefined' || stateLoginValueAim.token === 450 || stateLoginValueAim.token === 'undefined' || stateLoginValueAim.user.type !== 'doctor' || !this.props.verifyCode || !this.props.verifyCode.code) {
             return (<Redirect to={'/'} />);
         }
         return (
@@ -997,6 +998,7 @@ const mapStateToProps = (state) => {
     const { stateLanguageType } = state.LanguageReducer;
     const { settings } = state.Settings;
     const { Doctorsetget } = state.Doctorset;
+    const { verifyCode } = state.authy;
     // const { catfil } = state.filterate;
     return {
         stateLanguageType,
@@ -1004,7 +1006,8 @@ const mapStateToProps = (state) => {
         loadingaIndicatoranswerdetail,
         settings,
         Doctorsetget,
+        verifyCode,
         //   catfil
     }
 };
-export default withRouter(connect(mapStateToProps, { Doctorset, LoginReducerAim, LanguageFetchReducer, Settings })(Index));
+export default withRouter(connect(mapStateToProps, { Doctorset, LoginReducerAim, LanguageFetchReducer, Settings,authy })(Index));

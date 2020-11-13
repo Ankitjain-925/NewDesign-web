@@ -16,6 +16,7 @@ import axios from 'axios';
 import { withRouter } from "react-router-dom";
 import Radio from '@material-ui/core/Radio';
 import { connect } from "react-redux";
+import { authy } from './../../Login/authy.js';
 import FileUploader from './../../Components/FileUploader/index';
 import ListingSecond from '../More/Components/ListingSecond';
 import { LoginReducerAim } from './../../Login/actions';
@@ -502,7 +503,7 @@ class Index extends Component {
         const { specialistOption } = this.state;
         const { value } = this.state;
         const { stateLoginValueAim, Doctorsetget } = this.props;
-        if (stateLoginValueAim.user === 'undefined' || stateLoginValueAim.token === 450 || stateLoginValueAim.token === 'undefined' || stateLoginValueAim.user.type !== 'patient') {
+        if (stateLoginValueAim.user === 'undefined' || stateLoginValueAim.token === 450 || stateLoginValueAim.token === 'undefined' || stateLoginValueAim.user.type !== 'patient' || !this.props.verifyCode || !this.props.verifyCode.code) {
             return (<Redirect to={'/'} />);
         }
 
@@ -1031,6 +1032,7 @@ const mapStateToProps = (state) => {
     const { stateLoginValueAim, loadingaIndicatoranswerdetail } = state.LoginReducerAim;
     const { stateLanguageType } = state.LanguageReducer;
     const { settings } = state.Settings;
+    const { verifyCode } = state.authy;
     // const { Doctorsetget } = state.Doctorset;
     // const { catfil } = state.filterate;
     return {
@@ -1038,8 +1040,9 @@ const mapStateToProps = (state) => {
         stateLoginValueAim,
         loadingaIndicatoranswerdetail,
         settings,
+        verifyCode,
         //   Doctorsetget,
         //   catfil
     }
 };
-export default withRouter(connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer, Settings })(Index));
+export default withRouter(connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer, Settings, authy })(Index));

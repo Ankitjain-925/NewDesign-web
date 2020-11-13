@@ -14,6 +14,7 @@ import { LanguageFetchReducer } from './../../actions';
 import axios from "axios";
 import Loader from './../../Components/Loader/index';
 import sitedata from '../../../sitedata.js';
+import { authy } from './../../Login/authy.js';
 import Notification from "../../Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 
 // var doctorArray = ['admin'];
@@ -89,7 +90,7 @@ class index extends React.Component {
 
     render() {
         const { stateLoginValueAim, Doctorsetget } = this.props;
-        if (stateLoginValueAim.user === 'undefined' || stateLoginValueAim.token === 450 || stateLoginValueAim.token === 'undefined' || stateLoginValueAim.user.type !== 'insurance' ) {
+        if (stateLoginValueAim.user === 'undefined' || stateLoginValueAim.token === 450 || stateLoginValueAim.token === 'undefined' || stateLoginValueAim.user.type !== 'insurance' || !this.props.verifyCode || !this.props.verifyCode.code ) {
             return (<Redirect to={'/'} />);
             }            
 
@@ -121,6 +122,7 @@ const mapStateToProps = (state) => {
     const { stateLoginValueAim, loadingaIndicatoranswerdetail } = state.LoginReducerAim;
     const { stateLanguageType } = state.LanguageReducer;
     const {settings} = state.Settings;
+    const { verifyCode } = state.authy;
     // const { Doctorsetget } = state.Doctorset;
     // const { catfil } = state.filterate;
     return {
@@ -128,8 +130,9 @@ const mapStateToProps = (state) => {
         stateLoginValueAim,
         loadingaIndicatoranswerdetail,
         settings,
+        verifyCode,
         //   Doctorsetget,
         //   catfil
     }
 };
-export default withRouter(connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer, Settings })(index));
+export default withRouter(connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer, Settings, authy })(index));

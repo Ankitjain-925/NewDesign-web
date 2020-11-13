@@ -12,6 +12,7 @@ import { LanguageFetchReducer } from './../../actions';
 import { withRouter } from "react-router-dom";
 import sitedata from '../../../sitedata';
 import axios from 'axios';
+import { authy } from './../../Login/authy.js';
 import { Redirect, Route } from 'react-router-dom';
 import { connect } from "react-redux";
 import { LoginReducerAim } from './../../Login/actions';
@@ -145,7 +146,7 @@ class Index extends Component {
         }
         let { for_geting_emrgancy_data_on_a_click, view_emrgncy_data, emergancy_access_for_hospital_doc, emrgncy_data_access, patient_profile_is_not_correct, plz_accept_term_condition, imp_notice_b, this_will_trigger_following_action, send_email_to_patient_emrgancy, snd_sms_to_patient_emrgancy, snd_push_notification_to_patient_emrgancy, patient_id, I_hrwith_cnfirm_that_i_need_access_patient, emrgancy_access_for_non_connected } = translate;
         const { stateLoginValueAim, Doctorsetget } = this.props;
-        if (stateLoginValueAim.user === 'undefined' || stateLoginValueAim.token === 450 || stateLoginValueAim.token === 'undefined') {
+        if (stateLoginValueAim.user === 'undefined' || stateLoginValueAim.token === 450 || stateLoginValueAim.token === 'undefined' || !this.props.verifyCode || !this.props.verifyCode.code) {
             if (stateLoginValueAim.user) {
                 if (stateLoginValueAim.user.type === 'nurse' || stateLoginValueAim.user.type === 'therapist') { }
                 else { return (<Redirect to={'/'} />); }
@@ -272,6 +273,8 @@ const mapStateToProps = (state) => {
     const { stateLoginValueAim, loadingaIndicatoranswerdetail } = state.LoginReducerAim;
     const { stateLanguageType } = state.LanguageReducer;
     const { settings } = state.Settings;
+    const { verifyCode } = state.authy;
+
     // const { Doctorsetget } = state.Doctorset;
     // const { catfil } = state.filterate;
     const { Emergencysetget } = state.EmergencySet;
@@ -280,9 +283,10 @@ const mapStateToProps = (state) => {
         stateLoginValueAim,
         loadingaIndicatoranswerdetail,
         settings,
+        verifyCode,
         Emergencysetget,
         //   Doctorsetget,
         //   catfil
     }
 };
-export default withRouter(connect(mapStateToProps, { EmergencySet, LoginReducerAim, LanguageFetchReducer, Settings })(Index));
+export default withRouter(connect(mapStateToProps, { authy,EmergencySet, LoginReducerAim, LanguageFetchReducer, Settings })(Index));
