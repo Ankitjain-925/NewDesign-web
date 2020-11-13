@@ -1029,6 +1029,10 @@
 		"select_specility":"Wählen Sie Spezialität",
 		"we_r_showing_speciality":"Wir zeigen Ihnen Spezialisten in der Nähe",
 		"r_u_sure_update_inquiry":"Möchten Sie diese Abfrage wirklich aktualisieren?",
-		"organ_donar":"Organspender"
+		"organ_donar":"Organspender",
+		"search_by_patient_id_name_doc":"Suche nach Patienten-ID, Patientenname, Arzt ...",
+		"rcvd_from_doctor":"Vom Arzt erhalten",
+		"handled":"Abgewickelt",
+		"medicine_handed_to_patient":"Medizin an Patienten übergeben"
 	}
 }

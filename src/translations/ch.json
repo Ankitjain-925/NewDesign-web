@@ -1029,6 +1029,10 @@
 		"select_specility":"选择专业",
 		"we_r_showing_speciality":"我们向您展示附近的专家",
 		"r_u_sure_update_inquiry":"您确定要更新此查询吗？",
-		"organ_donar":"器官捐献者"
+		"organ_donar":"器官捐献者",
+		"search_by_patient_id_name_doc":"通过患者编号，患者姓名，医生搜索...",
+		"rcvd_from_doctor":"从医生那里收到",
+		"handled":"已处理",
+		"medicine_handed_to_patient":"交给病人的药"
 	}
 }

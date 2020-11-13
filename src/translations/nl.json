@@ -1537,6 +1537,10 @@
 		"reg_number_if_aplicble":"Registratienummer (indien van toepassing)",
 		"select_specility":"Selecteer Specialiteit",
 		"r_u_sure_update_inquiry":"Weet u zeker dat u deze zoekopdracht wilt bijwerken?",
-		"organ_donar":"Orgaandonor"
+		"organ_donar":"Orgaandonor",
+		"search_by_patient_id_name_doc":"Zoeken op patiënt-ID, naam patiënt, arts ...",
+		"rcvd_from_doctor":"Ontvangen van dokter",
+		"handled":"Afgehandeld",
+		"medicine_handed_to_patient":"Medicijn overhandigd aan de patiënt"
 		}
 }

@@ -26,6 +26,15 @@ import KycSection from './Components/kyc';
 import DateTimeSection from './Components/DateTime';
 import Timezone from './../../../timezon.json';
 import Notification from "../../Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
+import translationEN from "../../../translations/en.json"
+import translationCH from "../../../translations/ch.json"
+import translationDE from "../../../translations/de.json"
+import translationSP from "../../../translations/sp.json"
+import translationSW from "../../../translations/sw.json"
+import translationPT from "../../../translations/pt.json"
+import translationNL from "../../../translations/nl.json"
+import translationRS from "../../../translations/rs.json"
+
 
 function TabContainer(props) {
     return (
@@ -40,7 +49,7 @@ TabContainer.propTypes = {
 
 class Index extends Component {
     constructor(props) {
-       super(props);
+        super(props);
         this.state = {
             selectedOption: null,
             openDash: false,
@@ -48,9 +57,9 @@ class Index extends Component {
             value: 0,
             LoggedInUser: {},
             times: [],
-            tissue : [],
-            dates : [], 
-            timezones : [],
+            tissue: [],
+            dates: [],
+            timezones: [],
         };
     }
 
@@ -65,11 +74,11 @@ class Index extends Component {
     };
 
     //   //For getting the dropdowns from the database
-      getMetadata() {
+    getMetadata() {
         axios.get(sitedata.data.path + '/UserProfile/Metadata')
             .then((responce) => {
                 if (responce && responce.data && responce.data.length > 0) {
-                    var tissue = [], dates = [], times = [],zones =[];
+                    var tissue = [], dates = [], times = [], zones = [];
                     {
                         responce.data[0].tissue && responce.data[0].tissue.length > 0 && responce.data[0].tissue.map(
                             (item) => { tissue.push({ label: item.title, value: item.value }) })
@@ -90,7 +99,7 @@ class Index extends Component {
                         tissue: tissue,
                         dates: dates,
                         times: times,
-                        timezones : zones
+                        timezones: zones
                     });
                 }
             })
@@ -120,16 +129,46 @@ class Index extends Component {
         const { value } = this.state;
         if (stateLoginValueAim.user === 'undefined' || stateLoginValueAim.token === 450 || stateLoginValueAim.token === 'undefined' || stateLoginValueAim.user.type !== 'pharmacy' ||  !this.props.verifyCode || !this.props.verifyCode.code ) {
             return (<Redirect to={'/'} />);
-        } 
+        }
+        let translate;
+        switch (this.props.stateLanguageType) {
+            case "en":
+                translate = translationEN.text
+                break;
+            case "de":
+                translate = translationDE.text
+                break;
+            case "pt":
+                translate = translationPT.text
+                break;
+            case "sp":
+                translate = translationSP.text
+                break;
+            case "rs":
+                translate = translationRS.text
+                break;
+            case "nl":
+                translate = translationNL.text
+                break;
+            case "ch":
+                translate = translationCH.text
+                break;
+            case "sw":
+                translate = translationSW.text
+                break;
+            case "default":
+                translate = translationEN.text
+        }
+        let { my_profile, Security, date_time, kyc } = translate;
         return (
-            <Grid className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode && this.props.settings.setting.mode==='dark' ? "homeBg homeBgDrk" : "homeBg"}>
+            <Grid className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode && this.props.settings.setting.mode === 'dark' ? "homeBg homeBgDrk" : "homeBg"}>
                 <Grid className="homeBgIner">
                     <Grid container direction="row" justify="center">
                         <Grid item xs={12} md={12}>
                             <Grid container direction="row">
                                 {/* Website Menu */}
-                                <LeftMenu  isNotShow ={true} currentPage ="profile"/>
-                                <LeftMenuMobile isNotShow ={true}  currentPage ="profile"/>
+                                <LeftMenu isNotShow={true} currentPage="profile" />
+                                <LeftMenuMobile isNotShow={true} currentPage="profile" />
                                 <Notification />
                                 {/* Website Mid Content */}
                                 <Grid item xs={12} md={8}>
@@ -138,10 +177,10 @@ class Index extends Component {
                                             {/* Tabs  */}
                                             <AppBar position="static" className="profileTabsUpr">
                                                 <Tabs value={value} onChange={this.handleChangeTabs} className="profileTabs">
-                                                    <Tab label="My Profile" className="aboutTabsIner" />
-                                                    <Tab label="Security" className="aboutTabsIner" />
-                                                    <Tab label="KYC" className="aboutTabsIner" />
-                                                    <Tab label="Date & Time" className="aboutTabsIner" />
+                                                    <Tab label={my_profile} className="aboutTabsIner" />
+                                                    <Tab label={Security} className="aboutTabsIner" />
+                                                    <Tab label={kyc} className="aboutTabsIner" />
+                                                    <Tab label={date_time} className="aboutTabsIner" />
                                                 </Tabs>
                                             </AppBar>
                                         </Grid>
@@ -151,10 +190,10 @@ class Index extends Component {
                                                 <ProfileSection />
                                             </TabContainer>}
                                             {/* End of MyProfile */}
-                                            
+
                                             {/* Start of Security */}
                                             {value === 1 && <TabContainer>
-                                                <SecuritySection user_token = {this.props.stateLoginValueAim.token} LoggedInUser={this.state.LoggedInUser} getUserData = {this.getUserData} />
+                                                <SecuritySection user_token={this.props.stateLoginValueAim.token} LoggedInUser={this.state.LoggedInUser} getUserData={this.getUserData} />
                                             </TabContainer>}
                                             {/* End of Security */}
                                             {/* Start of KYC */}
@@ -165,7 +204,7 @@ class Index extends Component {
 
                                             {/* Start of DateTime */}
                                             {value === 3 && <TabContainer>
-                                                <DateTimeSection timezones = {this.state.timezones} times={this.state.times && this.state.times} dates= {this.state.dates && this.state.dates} user_token = {this.props.stateLoginValueAim.token} LoggedInUser={this.state.LoggedInUser} getUserData = {this.getUserData}/>
+                                                <DateTimeSection timezones={this.state.timezones} times={this.state.times && this.state.times} dates={this.state.dates && this.state.dates} user_token={this.props.stateLoginValueAim.token} LoggedInUser={this.state.LoggedInUser} getUserData={this.getUserData} />
                                             </TabContainer>}
                                             {/* End of DateTime */}
                                         </Grid>

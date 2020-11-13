@@ -126,7 +126,7 @@ class Index extends Component {
             case "default":
                 translate = translationEN.text
         }
-        let {date, time, format, set_the_default, the, is, updated,save_change, Timezone }=translate
+        let {date, time, format, set_the_default, the, is, updated,save_change, Timezone, date_format, time_format, time_zone }=translate
 
         return (
             <div>
@@ -134,8 +134,8 @@ class Index extends Component {
                  {this.state.PassDone && <div className="success_message">{the} {format} {is} {updated}</div>}
                 <Grid>
                     <Grid className="datTimFrmt">
-                        <h5>{date} & {time} {format}</h5>
-                        <p>{set_the_default} {date} & {time} {format}</p>
+                        <h5>{date} & {time_format}</h5>
+                        <p>{set_the_default} {date} & {time_format}</p>
                     </Grid>
 
                     <Grid container direction="row" alignItems="center">
@@ -147,7 +147,7 @@ class Index extends Component {
                                         value={this.state.dateF}
                                         onChange={(e) => this.ChangeFormat(e, 'date_format')}
                                         options={this.state.dates}
-                                        placeholder="Date format"
+                                        placeholder={date_format}
                                         name="date_format"
                                         isSearchable={false}
                                         className="mr_sel"
@@ -161,7 +161,7 @@ class Index extends Component {
                                         value={this.state.timeF}
                                         onChange={(e) => this.ChangeFormat(e, 'time_format')}
                                         options={this.state.times}
-                                        placeholder="Time format"
+                                        placeholder={time_format}
                                         name="time_format"
                                         isSearchable={false}
                                         className="mr_sel"
@@ -176,7 +176,7 @@ class Index extends Component {
                                         value={this.state.timezone}
                                         onChange={(e) => this.ChangeFormat(e, 'timezone')}
                                         options={this.state.timezones}
-                                        placeholder="Time Zone"
+                                        placeholder={time_zone}
                                         name="timezone"
                                         isSearchable={false}
                                         className="mr_sel"

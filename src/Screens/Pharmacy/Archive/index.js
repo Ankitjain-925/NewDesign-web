@@ -271,7 +271,7 @@ class Index extends Component {
               case "default":
                   translate = translationEN.text
           }
-          let { Prescriptionisdeleted, PrescriptionisDearchived, recved_on, archive, fors, prescriptions,prescription, Patient, capab_Doctors } = translate;
+          let { Prescriptionisdeleted, PrescriptionisDearchived, de_archive, Delete, search_by_patient_id_name_doc, recved_on, archive, fors, prescriptions,prescription, Patient, capab_Doctors } = translate;
         const { stateLoginValueAim, Doctorsetget } = this.props;
         if (stateLoginValueAim.user === 'undefined' || stateLoginValueAim.token === 450 || stateLoginValueAim.token === 'undefined' || stateLoginValueAim.user.type !== 'pharmacy' || !this.props.verifyCode || !this.props.verifyCode.code ) {
             return (<Redirect to={'/'} />);
@@ -296,7 +296,7 @@ class Index extends Component {
                                             <Grid item xs={12} md={12}><label>{archive} {prescriptions}</label></Grid>
                                         </Grid>
                                         <Grid className="patientSrch">
-                                            <input type="text" placeholder="Search by Patient ID, Patient name, Doctor..."  value={this.state.search_value} onChange={this.searchData}/>
+                                            <input type="text" placeholder={search_by_patient_id_name_doc}  value={this.state.search_value} onChange={this.searchData}/>
                                         </Grid>
                                         {this.state.isArchived && <div className="success_message">{PrescriptionisDearchived}</div>}
                                         {this.state.isDeleted && <div className="success_message">{Prescriptionisdeleted}</div>}
@@ -327,8 +327,8 @@ class Index extends Component {
                                                             <a className="openScndhrf">
                                                                 <img src={require('../../../assets/images/threedots.jpg')} alt="" title="" className="openScnd" />
                                                                 <ul>
-                                                                    <li><a onClick={() => { this.ArchiveTrack(item) }}><img src={require('../../../assets/images/details.svg')} alt="" title="" />Dearchive</a></li> 
-                                                                    <li><a onClick={() => { this.DeleteTrack(item.track_id) }}><img src={require('../../../assets/images/details.svg')} alt="" title="" />Delete</a></li> 
+                                                                    <li><a onClick={() => { this.ArchiveTrack(item) }}><img src={require('../../../assets/images/details.svg')} alt="" title="" />{de_archive}</a></li> 
+                                                                    <li><a onClick={() => { this.DeleteTrack(item.track_id) }}><img src={require('../../../assets/images/details.svg')} alt="" title="" />{Delete}</a></li> 
                                                                 </ul>
                                                             </a>
                                                         </Td>

@@ -1027,6 +1027,10 @@
 		"reg_number_if_aplicble":"Registration Number (if applicable)",
 		"select_specility":"Select Specialty",
 		"we_r_showing_speciality":"We are showing you specialists near",
-		"organ_donar":"Organ Donor"
+		"organ_donar":"Organ Donor",
+		"search_by_patient_id_name_doc":"Search by Patient ID, Patient name, Doctor...",
+		"rcvd_from_doctor":"Received from doctor",
+		"handled":"Handled",
+		"medicine_handed_to_patient":"Medicine handed to patient"
 		}
 }

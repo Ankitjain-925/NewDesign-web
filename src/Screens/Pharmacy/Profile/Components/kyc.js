@@ -341,8 +341,8 @@ class Index extends Component {
             case "default":
                 translate = translationEN.text
         }
-        let { patient_id, kyc, enter_healthcare_and_upload_data, plz_upload_png_jpg, plz_uplod_doc, plz_fill_all_fields, plz_accept_term, is, save_change, by_clicking_accept_aimedis_term, upload_id_card, updated_success, file_uploaded, attached_doc, u_r_nvr_obligate_to_upload_doc, email, title, degree, first, last, name, dob, gender, street, add, city, postal_code, country, home_telephone, phone, country_code, Delete,
-            mobile_number, number, in_critical_enviroment_id, mobile, insurance, add_more, company, of} = translate;
+        let { patient_id, Pharmacy, ID, kyc, reg_number_if_aplicble, enter_healthcare_and_upload_data, plz_upload_png_jpg, plz_uplod_doc, plz_fill_all_fields, plz_accept_term, is, save_change, by_clicking_accept_aimedis_term, upload_id_card, updated_success, file_uploaded, attached_doc, u_r_nvr_obligate_to_upload_doc, email, title, degree, first, last, name, dob, gender, street, add, city, postal_code, country, home_telephone, phone, country_code, Delete,
+            mobile_number, number, in_critical_enviroment_id, responsible_authority, mobile, insurance, add_more, company, of} = translate;
 
 
         return (
@@ -350,7 +350,7 @@ class Index extends Component {
                 {this.state.loaderImage && <Loader />}
                 <Grid>
                     <Grid className="patientKyc">
-                        <h5>Nurse ID / {kyc}</h5>
+                        <h5>{Pharmacy} {ID} / {kyc}</h5>
                         <p>{enter_healthcare_and_upload_data}</p>
                     </Grid>
                     {this.state.err_pdf && <div className="err_message">{plz_upload_png_jpg}</div>}
@@ -385,7 +385,7 @@ class Index extends Component {
                             </Grid>
 
                             <Grid className="kycForms">
-                                <Grid><label>Responsible Authority</label></Grid>
+                                <Grid><label>{responsible_authority}</label></Grid>
                                 {this.state.CreateKYC && this.state.CreateKYC.country && this.state.CreateKYC.country !== "" &&
                                     <Grid>
                                         <input type="text" name="authority" value={this.state.CreateKYC.authority} onChange={this.newEntryState1} />
@@ -396,7 +396,7 @@ class Index extends Component {
                             </Grid>
 
                             <Grid className="kycForms">
-                                <Grid><label>Registration Number (if applicable)</label></Grid>
+                                <Grid><label>{reg_number_if_aplicble}</label></Grid>
                                 <Grid><input type="text" name="number" value={this.state.CreateKYC.number} onChange={this.newEntryState1} /></Grid>
                             </Grid>
 
