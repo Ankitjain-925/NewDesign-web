@@ -407,7 +407,7 @@ class Index extends Component {
                                             <Grid className="kycForms sprtImg">
                                                 <Grid><label>{upload_id_card}</label></Grid>
                                                 <Grid><label className="attached_file">{attached_doc} - <a onClick={()=>{GetUrlImage(this.state.KYC_i1)}}>{this.state.KYC_ID}</a></label></Grid>
-                                                <FileUploader name="UploadID" comesFrom="kyc"fileUpload={this.fileUpload} />
+                                                <FileUploader name="UploadID" comesFrom="journal" fileUpload={this.fileUpload} />
                                                 {/* <Grid className="browsInput">
                                             <a><img src={require('../../../../assets/images/upload-file.svg')} alt="" title="" /></a>
                                             <a>Browse <input type="file" name="UploadID" onChange={this.AttachKyc}/></a> or drag here
@@ -419,7 +419,7 @@ class Index extends Component {
                                             <Grid className="kycForms sprtImg">
                                                 <Grid><label>{upload_id_card}</label></Grid>
                                                 <Grid><label className="attached_file">{attached_doc} - <a onClick={()=>{GetUrlImage(this.state.KYC_l1)}}>{this.state.KYC_LICENSE}</a></label></Grid>
-                                                <FileUploader name="UploadLicense" fileUpload={this.fileUpload} />
+                                                <FileUploader name="UploadLicense" comesFrom="journal" fileUpload={this.fileUpload} />
                                             </Grid>}
                                     </Grid>
                                 ))
@@ -432,24 +432,24 @@ class Index extends Component {
                                                     <Grid className="kycForms sprtImg">
                                                         <Grid><label>{upload_id_card}</label></Grid>
                                                         <Grid><label className="attached_file">{attached_doc} - <a onClick={()=>{GetUrlImage(this.state.KYC_i1)}}>{this.state.KYC_ID}</a></label></Grid>
-                                                        <FileUploader name="UploadID" comesFrom="kyc"fileUpload={this.fileUpload} />
+                                                        <FileUploader name="UploadID" comesFrom="journal" fileUpload={this.fileUpload} />
                                                     </Grid>
                                                     <Grid className="kycForms sprtImg">
                                                         <Grid><label>{upload_id_card}</label></Grid>
-                                                        <FileUploader name="UploadLicense" fileUpload={this.fileUpload} />
+                                                        <FileUploader name="UploadLicense" comesFrom="journal" fileUpload={this.fileUpload} />
                                                     </Grid>
                                                 </Grid>}
                                             {value.type === 'UploadLicense' &&
                                                 <Grid>
                                                     <Grid className="kycForms sprtImg">
                                                         <Grid><label>{upload_id_card}</label></Grid>
-                                                        <FileUploader name="UploadID" comesFrom="kyc"fileUpload={this.fileUpload} />
+                                                        <FileUploader name="UploadID" comesFrom="journal" fileUpload={this.fileUpload} />
                                                     </Grid>
 
                                                     <Grid className="kycForms sprtImg">
                                                         <Grid><label>{upload_id_card}</label></Grid>
                                                         <Grid><label className="attached_file">{attached_doc} - <a onClick={()=>{GetUrlImage(this.state.KYC_l1)}}>{this.state.KYC_LICENSE}</a></label></Grid>
-                                                        <FileUploader name="UploadLicense" fileUpload={this.fileUpload} />
+                                                        <FileUploader name="UploadLicense" comesFrom="journal" fileUpload={this.fileUpload} />
                                                     </Grid>
                                                 </Grid>}
                                         </Grid>
@@ -458,12 +458,12 @@ class Index extends Component {
                                     <Grid>
                                         <Grid className="kycForms sprtImg">
                                             <Grid><label>{upload_id_card}</label></Grid>
-                                            <FileUploader name="UploadID" comesFrom="kyc"fileUpload={this.fileUpload} />
+                                            <FileUploader name="UploadID" comesFrom="journal" fileUpload={this.fileUpload} />
                                         </Grid>
 
                                         <Grid className="kycForms sprtImg">
                                             <Grid><label>{upload_id_card}</label></Grid>
-                                            <FileUploader name="UploadLicense" fileUpload={this.fileUpload} />
+                                            <FileUploader name="UploadLicense" comesFrom="journal" fileUpload={this.fileUpload} />
                                         </Grid>
                                     </Grid>
                             }

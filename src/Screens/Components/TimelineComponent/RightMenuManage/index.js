@@ -832,7 +832,7 @@ class RightManage extends Component {
                                             {this.state.personalinfo.prescriptions.map((itm)=>(
                                                 <div className="metroDoctor">
                                                     <Grid container direction="row" alignItems="center" className="metroPro">
-                                                        <Grid item xs={9} md={9}>{(itm.attachfile && itm.attachfile.length>0 && itm.attachfile[0].filename && itm.attachfile[0].filename.split('Trackrecord/')[1] && itm.attachfile[0].filename.split('Trackrecord/')[1]).split("&bucket=")[0]}</Grid>
+                                                        {/* <Grid item xs={9} md={9}>{(itm && itm.filename && itm.filename.split('Trackrecord/')[1]).split("&bucket=")[0]}</Grid> */}
                                                         <Grid item xs={3} md={3} className="metroPrOpen">
                                                             {itm.attachfile && itm.attachfile.length>0 && itm.attachfile[0] && itm.attachfile[0].filename && <a onClick={()=>GetUrlImage(itm.attachfile[0].filename)}>Open</a>}
                                                         </Grid>
@@ -857,7 +857,7 @@ class RightManage extends Component {
                                             {this.state.personalinfo.sick_certificates.map((itm)=>(
                                                 <div className="metroDoctor">
                                                     <Grid container direction="row" alignItems="center" className="metroPro">
-                                                    <Grid item xs={9} md={9}>{(itm.attachfile && itm.attachfile.length>0 && itm.attachfile[0].filename && itm.attachfile[0].filename.split('Trackrecord/')[1]).split("&bucket=")[0]}</Grid>
+                                                    {/* <Grid item xs={9} md={9}>{(itm.attachfile && itm.attachfile.length>0 && itm.attachfile[0].filename && itm.attachfile[0].filename.split('Trackrecord/')[1]).split("&bucket=")[0]}</Grid> */}
                                                         <Grid item xs={3} md={3} className="metroPrOpen">
                                                             {itm.attachfile && itm.attachfile.length>0 && itm.attachfile[0] && itm.attachfile[0].filename && <a onClick={()=>GetUrlImage(itm.attachfile[0].filename)}>Open</a>}
                                                         </Grid>

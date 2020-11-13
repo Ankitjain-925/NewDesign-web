@@ -11,6 +11,7 @@ import { Redirect, Route } from 'react-router-dom';
 import { withRouter } from "react-router-dom";
 import CometChat from '../../Components/CometChat';
 import { LanguageFetchReducer } from './../../actions';
+import Loader from './../../Components/Loader/index';
 import axios from "axios";
 import sitedata from '../../../sitedata.js';
 import Notification from "../../Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
@@ -58,6 +59,7 @@ class index extends React.Component {
         // }).then((response) => {
         //   this.setState({sizeList : response.data.data})
         // })
+        this.setState({loaderImage : true})
         axios.get(sitedata.data.path + '/UserProfile/Users/'+user_id, {headers:{
           'token': user_token,
           'Accept': 'application/json',
@@ -123,6 +125,8 @@ class index extends React.Component {
             })
         })
     })
+
+   
     // axios.get(sitedata.data.path + '/UserProfile/getFvDoc', {headers:{
     //     'token': user_token,
     //     'Accept': 'application/json',
@@ -133,6 +137,7 @@ class index extends React.Component {
     //       })
     //     })
         this.setState({doctorArray : doctorArray})
+        setTimeout(()=>{ this.setState({loaderImage : false})}, 5000)
     }
 
     render() {
@@ -144,6 +149,7 @@ class index extends React.Component {
         return(
             <Grid className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode && this.props.settings.setting.mode==='dark' ? "homeBg homeBgDrk" : "homeBg"}>
             <Grid container direction="row" justify="center">
+            {this.state.loaderImage && <Loader />}
                 <Grid item xs={12} md={12}>
                     <Grid container direction="row">
                         <LeftMenu  isNotShow ={true} currentPage="chat"/>

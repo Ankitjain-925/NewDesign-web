@@ -604,7 +604,7 @@ class Index extends Component {
 
                 {event && event.fulldata.length > 0 &&
                     event.fulldata.map((data, index) => (
-                        <Grid  className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode && this.props.settings.setting.mode === 'dark' ? "darkTheme meetBoxCntnt margin-remove" : "meetBoxCntnt margin-remove"}>
+                        <Grid className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode && this.props.settings.setting.mode === 'dark' ? "darkTheme meetBoxCntnt margin-remove" : "meetBoxCntnt margin-remove"}>
                             <Grid className="meetCourse">
                                 <Grid className="meetCloseBtn">
                                     {/* <a><img src={require('../../../assets/images/threedots.jpg')} alt="" title="" /></a> */}

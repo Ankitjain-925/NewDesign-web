@@ -360,7 +360,6 @@ class MessageList extends React.PureComponent {
         component = this.getCallMessageComponent(message);
       break;
       case "message":
-        console.log('this.loggedInUser', this.loggedInUser, 'message.sender', message.sender)
         if(this.loggedInUser.uid === message.sender.uid) {
           component = this.getSenderMessageComponent(message);
         } else {
