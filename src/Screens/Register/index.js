@@ -390,7 +390,7 @@ class Index extends Component {
             Register_Mobilenumber, Register_activate_auth, Register_Accounttype, click_here_uplod_license, capab_Patients,
             Register_want_register, Register_Clicking_box, Register_clickingbox, Professional, capab_Doctors, Nurse, Pharmacist,
             Register_CREATE, Register_havAC, Register_lohinher, Register_Passwordshould,DarkMode, file_uploaded,
-            Register_characters, Register_letter, Register_number, Register_special } = translate;
+            Register_characters, Register_letter, Register_number, Register_special, country_code } = translate;
 
 
             if(this.state.successfull){
@@ -544,7 +544,7 @@ class Index extends Component {
                                         onChange={phone => this.setState({ phone })}
                                     //enableSearch={true}
                                     /> */}
-                                        <ReactFlagsSelect placeholder="Country Code" name="country_code" onSelect={this.onSelectFlag} showSelectedLabel={false} defaultCountry="DE" />
+                                        <ReactFlagsSelect placeholder={country_code} name="country_code" onSelect={this.onSelectFlag} showSelectedLabel={false} defaultCountry="DE" />
                                         <input type="text" className="mobileReg" type="number" name="mobile" onChange={this.handleChange} />
                                     </Grid>
                                     <FormControlLabel className="regMob"
