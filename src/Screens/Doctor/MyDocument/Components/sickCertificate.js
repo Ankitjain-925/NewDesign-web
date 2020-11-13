@@ -274,22 +274,32 @@ class Index extends Component {
 
     }
 
-    removePrsecription = (status, id) => {
-        this.setState({ message: null });
+     //Delete for the Prescriptions confirmation
+     removePrsecription(status, id) {
         confirmAlert({
-            title: 'Update the Inquiry',
-            message: 'Are you sure  to remove this Inquiry?',
-            buttons: [
-                {
-                    label: 'YES',
-                    onClick: () => this.updateCertificateDetails(status, id)
-                },
-                {
-                    label: 'NO',
-                }
-            ]
-        })
+            customUI: ({ onClose }) => {
+            return (
+            <div className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode === 'dark' ? "dark-confirm react-confirm-alert-body" : "react-confirm-alert-body"} >
+              {status && status === 'remove' ? <h1>Remove the Inquiry?</h1> : <h1>Update the Inquiry?</h1>}
+            <p>Are you sure  to update this Inquiry?</p>
+            <div className="react-confirm-alert-button-group">
+            <button
+            onClick= {() => {this.updateCertificateDetails(status, id); onClose()}}
+            >
+            Yes
+            </button>
+            <button
+            onClick={() => {onClose();}}
+            >
+            No
+            </button>
+            </div>
+            </div>
+            );
+            }
+            })
     }
+
 
     handleOpenPrescp = (data) => {
         this.setState({ openPrescp: true, sickData: data });
