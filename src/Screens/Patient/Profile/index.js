@@ -29,14 +29,14 @@ import DateTimeSection from './Components/DateTime';
 import Timezone from './../../../timezon.json';
 import Notification from "../../Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 
-import * as translationEN from '../../../../translations/en.json';
-import * as translationDE from '../../../../translations/de.json';
-import * as translationPT from '../../../../translations/pt.json';
-import * as translationSP from '../../../../translations/sp.json';
-import * as translationRS from '../../../../translations/rs.json';
-import * as translationSW from '../../../../translations/sw.json';
-import * as translationCH from '../../../../translations/ch.json';
-import * as translationNL from '../../../../translations/en.json';
+import * as translationEN from '../../../translations/en.json';
+import * as translationDE from '../../../translations/de.json';
+import * as translationPT from '../../../translations/pt.json';
+import * as translationSP from '../../../translations/sp.json';
+import * as translationRS from '../../../translations/rs.json';
+import * as translationSW from '../../../translations/sw.json';
+import * as translationCH from '../../../translations/ch.json';
+import * as translationNL from '../../../translations/en.json';
 function TabContainer(props) {
     return (
         <Typography component="div" className="tabsCntnts">
