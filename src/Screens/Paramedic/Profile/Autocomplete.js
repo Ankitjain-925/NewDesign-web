@@ -1,5 +1,17 @@
 /* global google */
 import React from "react";
+import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
+import { LanguageFetchReducer } from './../../actions';
+
+import * as translationEN from '../../../translations/en.json';
+import * as translationDE from '../../../translations/de.json';
+import * as translationPT from '../../../translations/pt.json';
+import * as translationSP from '../../../translations/sp.json';
+import * as translationRS from '../../../translations/rs.json';
+import * as translationSW from '../../../translations/sw.json';
+import * as translationCH from '../../../translations/ch.json';
+import * as translationNL from '../../../translations/en.json';
 class Autocomplete extends React.Component {
   constructor(props) {
    super(props);
@@ -35,34 +47,36 @@ class Autocomplete extends React.Component {
 }
 
   render() {
-    let search_city = "search"
-    // if (this.props.stateLanguageType === 'de') {
-    //   search_city=translationDE.text.search_city
-    // }
-    
-    // else if (this.props.stateLanguageType === 'pt') {
-    //   search_city=translationPT.text.search_city
-    // }
-    
-    // else if (this.props.stateLanguageType === 'nl') {
-    //   search_city=translationNL.text.search_city
-    // }
-    
-    // else if (this.props.stateLanguageType === 'ch') {
-    //   search_city=translationCH.text.search_city
-    // }
-    
-    // else if (this.props.stateLanguageType === 'rs') {
-    //   search_city=translationRS.text.search_city
-    // }
-    
-    // else if (this.props.stateLanguageType === 'sp') {
-    //   search_city=translationSP.text.search_city
-    // }
-    
-    // else {
-    //   search_city=translationEN.text.search_city
-    // }
+    let translate;
+    switch (this.props.stateLanguageType) {
+        case "en":
+            translate = translationEN.text
+            break;
+        case "de":
+            translate = translationDE.text
+            break;
+        case "pt":
+            translate = translationPT.text
+            break;
+        case "sp":
+            translate = translationSP.text
+            break;
+        case "rs":
+            translate = translationRS.text
+            break;
+        case "nl":
+            translate = translationNL.text
+            break;
+        case "ch":
+            translate = translationCH.text
+            break;
+        case "sw":
+            translate = translationSW.text
+            break;
+        case "default":
+            translate = translationEN.text
+    }
+    let {search_city} = translate
     return (
       <input
         ref={this.autocompleteInput}
@@ -79,5 +93,13 @@ class Autocomplete extends React.Component {
   }
 }
 
-export default Autocomplete;
+const mapStateToProps = (state) => {
+  const { stateLanguageType } = state.LanguageReducer;
+
+  return {
+      stateLanguageType,
+  }
+};
+export default withRouter(connect(mapStateToProps, { LanguageFetchReducer })(Autocomplete));
+
 

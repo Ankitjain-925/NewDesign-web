@@ -535,8 +535,8 @@ class Index extends Component {
             case "default":
                 translate = translationEN.text
         }
-        let { secnd_openion, plz_upload_png_jpg,doc_require_for_second_openion, specilist_and_secnd_openion,specialist, how_wuld_u_like_rcv_scnd_openion, online, home_add_mailbox, ur_profesion, questions, attachments, save_entry, sick_cert,prescriptions, sickcsrtificates, my_doc, prescription, New, r_u_tracking_medi, inquiry, select, for_sick_cert_req_doc, share_health_status_info_from_journal, share_health_status, see_list_shared_info, share_ur_jounral_status,
-            country_u_live, dieseases_etc, allergies, health_issue, doc_and_statnderd_ques, doc_aimedis_private, how_u_feeling, is_ur_temp_high_to_38, which_symptoms_do_u_hav, since_when,
+        let { secnd_openion, plz_upload_png_jpg,doc_require_for_second_openion, rqst_sent_succefully, specilist_and_secnd_openion,specialist, how_wuld_u_like_rcv_scnd_openion, online, home_add_mailbox, ur_profesion, questions, attachments, save_entry, sick_cert,prescriptions, sickcsrtificates, my_doc, prescription, New, r_u_tracking_medi, inquiry, select, for_sick_cert_req_doc, share_health_status_info_from_journal, share_health_status, see_list_shared_info, share_ur_jounral_status,
+            country_u_live, dieseases_etc, allergies, health_issue, doc_and_statnderd_ques, doc_aimedis_private, how_u_feeling, is_ur_temp_high_to_38, which_symptoms_do_u_hav, since_when, Yes,No, today, yesterday, two_days_ago, three_to_6_days_ago, Week_or_more,
             have_u_already_been_sick, how_long_do_u_unable_to_work, days, it_is_known_dieseas, do_u_hv_allergies, what_ur_profession, Annotations, details, for_pres_req_doc_require,
             is_this_follow_pres, how_u_like_rcv_pres, Medicine, Substance, Dose, mg, trade_name, atc_if_applicable, manufacturer, pack_size,  } = translate
 
@@ -614,7 +614,7 @@ class Index extends Component {
                                                                         value={this.state.selectedPdoc}
                                                                         onChange={(e) => this.AddDoctorSS(e, 'doctor_id')}
                                                                         options={this.state.Pdoctors}
-                                                                        placeholder="Select"
+                                                                        placeholder={select}
                                                                         isSearchable={false}
                                                                         isMulti={false}
                                                                     />
@@ -739,8 +739,8 @@ class Index extends Component {
                                                         <Grid className="ishelpUpr">
                                                             <Grid className="ishelpLbl"><label>{is_ur_temp_high_to_38}?</label></Grid>
                                                             <Grid className="ishelpChk">
-                                                                <FormControlLabel control={<Radio />} name="fever" value="yes" color="#00ABAF" checked={this.state.AddSickCertificate.fever === 'yes'} onChange={this.AddSickState} label="Yes" />
-                                                                <FormControlLabel control={<Radio />} name="fever" color="#00ABAF" value="no" checked={this.state.AddSickCertificate.fever === 'no'} onChange={this.AddSickState} label="No" />
+                                                                <FormControlLabel control={<Radio />} name="fever" value="yes" color="#00ABAF" checked={this.state.AddSickCertificate.fever === 'yes'} onChange={this.AddSickState} label={Yes} />
+                                                                <FormControlLabel control={<Radio />} name="fever" color="#00ABAF" value="no" checked={this.state.AddSickCertificate.fever === 'no'} onChange={this.AddSickState} label={No} />
                                                             </Grid>
                                                         </Grid>
                                                         <Grid className="medicnSub">
@@ -750,11 +750,11 @@ class Index extends Component {
                                                         <Grid className="medicnSub sncWhen">
                                                             <Grid><label>{since_when}?</label></Grid>
                                                             <Grid>
-                                                                <a className={this.state.AddSickCertificate.since_when === 'Today' && "current_since_when"} onClick={() => { this.eventnameSet('since_when', 'Today') }}>Today</a>
-                                                                <a className={this.state.AddSickCertificate.since_when === 'Yesterday' && "current_since_when"} onClick={() => { this.eventnameSet('since_when', 'Yesterday') }}>Yesterday</a>
-                                                                <a className={this.state.AddSickCertificate.since_when === '2 days ago' && "current_since_when"} onClick={() => { this.eventnameSet('since_when', '2 days ago') }}>2 days ago</a>
-                                                                <a className={this.state.AddSickCertificate.since_when === '3-6 days ago' && "current_since_when"} onClick={() => { this.eventnameSet('since_when', '3-6 days ago') }}>3-6 days ago</a>
-                                                                <a className={this.state.AddSickCertificate.since_when === 'Week or more' && "current_since_when"} onClick={() => { this.eventnameSet('since_when', 'Week or more') }}>Week or more</a></Grid>
+                                                                <a className={this.state.AddSickCertificate.since_when === 'Today' && "current_since_when"} onClick={() => { this.eventnameSet('since_when', 'Today') }}>{today}</a>
+                                                                <a className={this.state.AddSickCertificate.since_when === 'Yesterday' && "current_since_when"} onClick={() => { this.eventnameSet('since_when', 'Yesterday') }}>{yesterday}</a>
+                                                                <a className={this.state.AddSickCertificate.since_when === '2 days ago' && "current_since_when"} onClick={() => { this.eventnameSet('since_when', '2 days ago') }}>{two_days_ago}</a>
+                                                                <a className={this.state.AddSickCertificate.since_when === '3-6 days ago' && "current_since_when"} onClick={() => { this.eventnameSet('since_when', '3-6 days ago') }}>{three_to_6_days_ago}</a>
+                                                                <a className={this.state.AddSickCertificate.since_when === 'Week or more' && "current_since_when"} onClick={() => { this.eventnameSet('since_when', 'Week or more') }}>{Week_or_more}</a></Grid>
                                                         </Grid>
                                                         <Grid className="medicnSub">
                                                             <Grid><label>{have_u_already_been_sick}?</label></Grid>
@@ -802,7 +802,7 @@ class Index extends Component {
                                                             </Grid>
                                                         </Grid> */}
                                                         <Grid className="infoShwSave2">
-                                                            <input type="submit" onClick={this.Submitcertificate} value="Save entry" />
+                                                            <input type="submit" onClick={this.Submitcertificate} value={save_entry} />
                                                         </Grid>
                                                     </Grid>
                                                 </Grid>
@@ -841,7 +841,7 @@ class Index extends Component {
                                                                             checked={this.state.share_to_doctor === true && this.state.share_to_doctor} onChange={(e) => { this.setState({ share_to_doctor: e.target.checked }) }}
                                                                         />
                                                                     }
-                                                                    label="Share journal health status with Doctor"
+                                                                    label={share_ur_jounral_status}
                                                                 />
                                                             </Grid>
                                                             <p>{share_health_status_info_from_journal}</p>
@@ -879,15 +879,15 @@ class Index extends Component {
                                                         <Grid className="ishelpUpr">
                                                             <Grid className="ishelpLbl"><label>{is_this_follow_pres}?</label></Grid>
                                                             <Grid className="ishelpChk">
-                                                                <FormControlLabel control={<Radio />} name="follow_up_prescription" value="yes" color="#00ABAF" checked={this.state.AddPrescription.follow_up_prescription === 'yes'} onChange={this.AddState} label="Yes" />
-                                                                <FormControlLabel control={<Radio />} name="follow_up_prescription" color="#00ABAF" value="no" checked={this.state.AddPrescription.follow_up_prescription === 'no'} onChange={this.AddState} label="No" />
+                                                                <FormControlLabel control={<Radio />} name="follow_up_prescription" value="yes" color="#00ABAF" checked={this.state.AddPrescription.follow_up_prescription === 'yes'} onChange={this.AddState} label={Yes} />
+                                                                <FormControlLabel control={<Radio />} name="follow_up_prescription" color="#00ABAF" value="no" checked={this.state.AddPrescription.follow_up_prescription === 'no'} onChange={this.AddState} label={No} />
                                                             </Grid>
                                                             <Grid className="ishelpLbl">
                                                                 <label>{how_u_like_rcv_pres}?</label>
                                                             </Grid>
                                                             <Grid className="ishelpChk">
-                                                                <FormControlLabel control={<Radio />} name="prescription_type" value="online" color="#00ABAF" checked={this.state.AddPrescription.prescription_type === 'online'} onChange={this.AddState} label="Online" />
-                                                                <FormControlLabel control={<Radio />} name="prescription_type" color="#00ABAF" value="offline" checked={this.state.AddPrescription.prescription_type === 'offline'} onChange={this.AddState} label="Home address mailbox" />
+                                                                <FormControlLabel control={<Radio />} name="prescription_type" value="online" color="#00ABAF" checked={this.state.AddPrescription.prescription_type === 'online'} onChange={this.AddState} label={online} />
+                                                                <FormControlLabel control={<Radio />} name="prescription_type" color="#00ABAF" value="offline" checked={this.state.AddPrescription.prescription_type === 'offline'} onChange={this.AddState} label={home_add_mailbox} />
                                                                 {/* <FormControlLabel
                                                                     control={
                                                                         <Checkbox value="checkedB" color="#00ABAF" />
@@ -969,7 +969,7 @@ class Index extends Component {
                                                             </Grid>
                                                         </Grid> */}
                                                         <Grid className="infoShwSave2">
-                                                            <input type="submit" onClick={this.SubmitPrescription} value="Save entry" />
+                                                            <input type="submit" onClick={this.SubmitPrescription} value={save_entry} />
                                                         </Grid>
                                                     </Grid>
 
@@ -1000,16 +1000,16 @@ class Index extends Component {
                                         <Grid className="presPkgIner2">
 
                                             {value === 0 && <TabContainer>
-                                                {this.state.successfullsent && <div className="success_message">Request sent Successfully</div>}
+                                                {this.state.successfullsent && <div className="success_message">{rqst_sent_succefully}</div>}
                                                 <PrecriptionList newItem={this.state.newItemp} />
                                             </TabContainer>}
 
                                             {value === 1 && <TabContainer>
-                                                {this.state.successfullsent1 && <div className="success_message">Request sent Successfully</div>}
+                                                {this.state.successfullsent1 && <div className="success_message">{rqst_sent_succefully}</div>}
                                                 <SickList newItem={this.state.newItems} />
                                             </TabContainer>}
                                             {value === 2 && <TabContainer>
-                                                {this.state.successfullsent3 && <div className="success_message">Request sent Successfully</div>}
+                                                {this.state.successfullsent3 && <div className="success_message">{rqst_sent_succefully}</div>}
                                                 <ListingSecond newItem={this.state.newItemp2} />
                                             </TabContainer>}
                                             

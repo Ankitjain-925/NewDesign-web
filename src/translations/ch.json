@@ -1025,6 +1025,10 @@
 		"Security":"安全",
 		"date_time":"约会时间",
 		"enter_patient_id":"输入患者ID",
-		"reg_number_if_aplicble":"注册号（如果适用）"
+		"reg_number_if_aplicble":"注册号（如果适用）",
+		"select_specility":"选择专业",
+		"we_r_showing_speciality":"我们向您展示附近的专家",
+		"r_u_sure_update_inquiry":"您确定要更新此查询吗？",
+		"organ_donar":"器官捐献者"
 	}
 }

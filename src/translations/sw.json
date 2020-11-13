@@ -1023,6 +1023,10 @@
 		"Security":"Usalama",
 		"date_time":"Tarehe na Wakati",
 		"enter_patient_id":"Ingiza Kitambulisho cha Mgonjwa",
-		"reg_number_if_aplicble":"Nambari ya Usajili (ikiwa inafaa)"
+		"reg_number_if_aplicble":"Nambari ya Usajili (ikiwa inafaa)",
+		"select_specility":"Chagua Utaalam",
+		"we_r_showing_speciality":"Tunakuonyesha wataalam karibu",
+		"r_u_sure_update_inquiry":"Je! Una uhakika wa kusasisha uchunguzi huu?",
+		"organ_donar":"Mfadhili wa Chombo"
 	}
 }

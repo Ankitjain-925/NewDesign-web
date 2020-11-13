@@ -618,7 +618,7 @@ class Index extends Component {
                 translate = translationEN.text
         }
         let { trackers, TrackersDevices, self_data, connect, search_for_device_palce, devices, services, view_data,
-            view_details, logout, disconect_device, distance, total, best, steps, badges, earned, on, last,
+            view_details, logout, disconect_device, distance, total, best, steps, badges, earned, on, last,user,
             model, type, timezone, session, ur_connected_device_appear, no_device_connctd, connct_a_device } = translate
 
         const { stateLoginValueAim } = this.props;
@@ -628,8 +628,6 @@ class Index extends Component {
         return (
             <Grid className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode && this.props.settings.setting.mode==='dark' ? "homeBg homeBgDrk" : "homeBg"}>
                 <Grid className="homeBgIner">
-                    {console.log('fitbitloggedIn', this.state.fitbitloggedIn)}
-                    {console.log('withings', this.state.withingsloggedIn)}
                     <Grid container direction="row" justify="center">
                         <Grid item xs={12} md={12}>
                             <Grid container direction="row">
@@ -730,8 +728,6 @@ class Index extends Component {
                                                     <p>Your connected devices will appear here</p>
                                                     <h3><a>Connect a device</a></h3>
                                                 </Grid> */}
-                                                {console.log('this.props.fitbit',this.props.fitbit)}
-                                                {console.log('this.props',this.props)}
                                                 {/* Trackers & Devices Design */}
                                                 <Grid className="selfData">
                                                     <Grid container spacing={3}>
@@ -753,7 +749,6 @@ class Index extends Component {
                                                             {this.props.fitbit  && this.props.fitbit.device && this.props.fitbit.device.length>0 && this.props.fitbit.device.map(devicedata => (
                                                                 <Grid item xs={12} md={3}>
                                                                     <Grid className="trckSection">
-                                                                        {console.log('devicedata', devicedata)}
                                                                         <Grid className="trckSecIner">
                                                                             <Grid className="trckDots presEditDot scndOptionIner">
                                                                                 <a className="openScndhrf"><img src={require('../../../assets/images/threedots.jpg')} alt="" title="" />
@@ -806,7 +801,7 @@ class Index extends Component {
                                                                             </Grid>
                                                                             <Grid className="trckLogo"><img style={{ minHeight: "40px" }} src={require('../../../assets/images/logo-withings.png')} alt="" title="" /></Grid>
                                                                             <Grid className="trckCntnt">
-                                                                                <Grid><label>Withings User {i + 1}</label></Grid>
+                                                                                <Grid><label>Withings {user} {i + 1}</label></Grid>
                                                                                 <p>{devices.model}</p>
                                                                             </Grid>
                                                                         </Grid>
@@ -861,7 +856,7 @@ class Index extends Component {
                                                                 <Grid className="disCnct">
                                                                     <Grid className="disCnctLft">
                                                                         <Grid>
-                                                                            <label>{fitbitloggedIn ? this.props.fitbit  && this.props.fitbit.device && this.props.fitbit.user && this.props.fitbit.user.user && this.props.fitbit.user.user.displayName && this.props.fitbit.user.user.displayName : withingsloggedIn ? "Withings Devices" : ""}
+                                                                            <label>{fitbitloggedIn ? this.props.fitbit  && this.props.fitbit.device && this.props.fitbit.user && this.props.fitbit.user.user && this.props.fitbit.user.user.displayName && this.props.fitbit.user.user.displayName : withingsloggedIn ? "Withings "+devices : ""}
                                                                            
                                                                                 <a><img src={require('../../../assets/images/editBlue.png')} alt="" title="" /></a>
                                                                             </label>

@@ -1025,6 +1025,10 @@
 		"Security":"Sicherheit",
 		"date_time":"Terminzeit",
 		"enter_patient_id":"Geben Sie die Patienten-ID ein",
-		"reg_number_if_aplicble":"Registrierungsnummer (falls zutreffend)"
+		"reg_number_if_aplicble":"Registrierungsnummer (falls zutreffend)",
+		"select_specility":"Wählen Sie Spezialität",
+		"we_r_showing_speciality":"Wir zeigen Ihnen Spezialisten in der Nähe",
+		"r_u_sure_update_inquiry":"Möchten Sie diese Abfrage wirklich aktualisieren?",
+		"organ_donar":"Organspender"
 	}
 }

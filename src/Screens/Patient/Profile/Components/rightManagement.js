@@ -23,7 +23,7 @@ import * as translationNL from '../../../../translations/en.json';
 
 class Index extends Component {
     constructor(props) {
-       super(props);
+        super(props);
         this.state = {
             selectedOption: '',
             Language: [],
@@ -149,15 +149,15 @@ class Index extends Component {
             this.setState({ loaderImage: false });
         });
     }
-      // On change the Date
-      onChange = (date) => {
+    // On change the Date
+    onChange = (date) => {
         this.setState({ opt_until: date })
     }
 
 
     render() {
         let translate;
-      switch (this.props.stateLanguageType) {
+        switch (this.props.stateLanguageType) {
             case "en":
                 translate = translationEN.text
                 break;
@@ -185,9 +185,9 @@ class Index extends Component {
             case "default":
                 translate = translationEN.text
         }
-        let {right_management, setup_who_can_see_upload_data, emergancy_access_for_hospital_doc, specify_kind_of_right_management,
+        let { right_management, setup_who_can_see_upload_data, emergancy_access_for_hospital_doc, specify_kind_of_right_management,
             automatically_visible_content, automatically_hidden_content, Opt_In, Opt_Out, apply_right_management_for_all_items,
-            Yes, No, plz_mention_date_time, make_all_item_visible_now_untill,make_all_item_hide_now_untill,make_all_item_hide_untill, make_all_item_visible_untill, save_change }=translate
+            Yes, No, plz_mention_date_time, make_all_item_visible_now_untill, make_all_item_hide_now_untill, make_all_item_hide_untill, make_all_item_visible_untill, save_change } = translate
 
         return (
             <div>
@@ -224,13 +224,13 @@ class Index extends Component {
                                 value='always' checked={this.state.opt_set === 'always'} control={<Radio />} label={this.state.opt === 'out' ? make_all_item_visible_now_untill : make_all_item_hide_now_untill} /></Grid>
                             <Grid>
                                 <FormControlLabel onChange={(e) => { this.setState({ opt_set: e.target.value }) }}
-                                    value='until' checked={this.state.opt_set === 'until'} control={<Radio />} label={this.state.opt === 'out'? make_all_item_visible_untill : make_all_item_hide_untill} />
+                                    value='until' checked={this.state.opt_set === 'until'} control={<Radio />} label={this.state.opt === 'out' ? make_all_item_visible_untill : make_all_item_hide_untill} />
                                 <Grid className="vsblAllTim">
                                     <Grid container direction="row" alignItems="center">
                                         <Grid item xs={12} md={8}>
-                                        
-                                        <DateFormat name="opt_until" value={this.state.opt_until? new Date(this.state.opt_until) : new Date()} onChange={this.onChange} date_format={this.props.settings.setting && this.props.settings.setting.date_format} onChange={this.onChange} />
-                                        {/* <DateFormat value={this.state.opt_until ? new Date(this.state.opt_until) : new Date()} onChange={this.onChange} date_format={this.props.settings.setting && this.props.settings.setting.date_format} name="opt_until" value={this.updateDatetime()} onChange={(date) => { this.setState({ opt_until: date }) }} /> */}
+
+                                            <DateFormat name="opt_until" value={this.state.opt_until ? new Date(this.state.opt_until) : new Date()} onChange={this.onChange} date_format={this.props.settings.setting && this.props.settings.setting.date_format} onChange={this.onChange} />
+                                            {/* <DateFormat value={this.state.opt_until ? new Date(this.state.opt_until) : new Date()} onChange={this.onChange} date_format={this.props.settings.setting && this.props.settings.setting.date_format} name="opt_until" value={this.updateDatetime()} onChange={(date) => { this.setState({ opt_until: date }) }} /> */}
                                             {/* <TextField
                                                 type="datetime-local"
                                                 defaultValue="2018-08-24T10:30"

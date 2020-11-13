@@ -1019,10 +1019,14 @@
 		"copy_to_all_time":"Copys time to all",
 		"update_inquiry":"Update the Inquiry ?",
 		"are_u_sure_remove_inquiry":"Are you sure  to remove this Inquiry?",
+		"r_u_sure_update_inquiry":"Are you sure  to update this Inquiry?",
 		"srvcs_appointment":"Services & Appointments",
 		"Security":"Security",
 		"date_time":"Date & Time",
 		"enter_patient_id":"Enter Patient ID",
-		"reg_number_if_aplicble":"Registration Number (if applicable)"
+		"reg_number_if_aplicble":"Registration Number (if applicable)",
+		"select_specility":"Select Specialty",
+		"we_r_showing_speciality":"We are showing you specialists near",
+		"organ_donar":"Organ Donor"
 		}
 }

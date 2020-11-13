@@ -261,7 +261,7 @@ class Index extends Component {
                 translate = translationEN.text
         }
         let {req_updated_successfully, about, sent_on, srvc_Doctors, status, secnd_openion, New, inquiry, plz_upload_png_jpg, doc_require_for_second_openion, share_health_status, share_ur_jounral_status, share_health_status_info_from_journal, see_list_shared_info,
-             specilist_and_secnd_openion, specialist, how_wuld_u_like_rcv_scnd_openion, online, home_add_mailbox, ur_profesion, Annotations, questions, details, attachments, save_entry, rqst_sent_succefully, Pending, Answered, Rejected, Cancelled, sent, request, see_details, modify, cancel_reqst, edit, attached_doc, edit_entry, doc_and_statnderd_ques, doc_aimedis_private, cancel_details, previous, next } = translate
+             specilist_and_secnd_openion, specialist, how_wuld_u_like_rcv_scnd_openion, not_mentioned, online, home_add_mailbox, ur_profesion, Annotations, questions, details, attachments, save_entry, rqst_sent_succefully, Pending, Answered, Rejected, Cancelled, sent, request, see_details, modify, cancel_reqst, edit, attached_doc, edit_entry, doc_and_statnderd_ques, doc_aimedis_private, cancel_details, previous, next } = translate
 
         return (
             <div>
@@ -280,8 +280,8 @@ class Index extends Component {
                         <Tbody>
                             {this.state.currentList && this.state.currentList.length > 0 && this.state.currentList.map((data, index) => (
                                 <Tr>
-                                    <Td>{data.details ? data.details : 'Not mentioned'}</Td>
-                                    <Td>{data.send_on ? getDate(data.send_on, this.props.settings.setting.date_format) : 'Not mentioned'}</Td>
+                                    <Td>{data.details ? data.details : not_mentioned}</Td>
+                                    <Td>{data.send_on ? getDate(data.send_on, this.props.settings.setting.date_format) : not_mentioned}</Td>
                                     <Td className="drImg"><img src={data.docProfile && data.docProfile.profile_image ? getImage(data.docProfile.profile_image, this.state.images) : require('../../../../assets/images/dr1.jpg')} alt="" title="" />{data.docProfile && data.docProfile.first_name && data.docProfile.first_name} {data.docProfile && data.docProfile.last_name && data.docProfile.last_name}</Td>
                                     {data.status === 'pending' && <Td><span className="revwYelow"></span>{Pending} </Td>}
                                     {data.status === 'accept' && <Td><span className="revwGren"></span>{Answered} </Td>}
@@ -395,7 +395,7 @@ class Index extends Component {
 
                                     <Grid className="recevPrescp">
                                         <Grid className="recevPrescpLbl"><label>{how_wuld_u_like_rcv_scnd_openion}?</label></Grid>
-                                        <Grid><h3>{this.state.AddSecond && this.state.AddSecond.online_offline && this.state.AddSecond.online_offline === 'offline' ? 'Home address mailbox' : 'Online'}</h3></Grid>
+                                        <Grid><h3>{this.state.AddSecond && this.state.AddSecond.online_offline && this.state.AddSecond.online_offline === 'offline' ? home_add_mailbox : online}</h3></Grid>
                                     </Grid>
                                     <Grid className="yrProfes">
                                         <Grid><label>{ur_profesion}</label></Grid>

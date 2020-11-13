@@ -267,7 +267,7 @@ class Index extends Component {
             case "default":
                 translate = translationEN.text
         }
-        let {secnd_openion, New, inquiry, plz_upload_png_jpg,doc_require_for_second_openion, share_health_status, share_ur_jounral_status, share_health_status_info_from_journal, see_list_shared_info, specilist_and_secnd_openion,specialist, how_wuld_u_like_rcv_scnd_openion, online, home_add_mailbox, ur_profesion, Annotations, questions, details, attachments, save_entry, rqst_sent_succefully}=translate
+        let {secnd_openion, New, inquiry, select, plz_upload_png_jpg,doc_require_for_second_openion, share_health_status, share_ur_jounral_status, share_health_status_info_from_journal, see_list_shared_info, specilist_and_secnd_openion,specialist, how_wuld_u_like_rcv_scnd_openion, online, home_add_mailbox, ur_profesion, Annotations, questions, details, attachments, save_entry, rqst_sent_succefully}=translate
         return (
 
             <Grid className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode && this.props.settings.setting.mode==='dark' ? "homeBg homeBgDrk" : "homeBg"}>
@@ -337,7 +337,7 @@ class Index extends Component {
                                                                         value={this.state.selectedPdoc}
                                                                         onChange={(e) => this.AddDoctor(e, 'doctor_id')}
                                                                         options={this.state.Pdoctors}
-                                                                        placeholder="Select"
+                                                                        placeholder={select}
                                                                         isSearchable={false}
                                                                         isMulti={false}
                                                                     />

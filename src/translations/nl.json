@@ -1534,6 +1534,9 @@
 		"srvcs_appointment":"Services & Afspraken",
 		"Security":"Veiligheid",
 		"enter_patient_id":"Voer de patiënt-ID in",
-		"reg_number_if_aplicble":"Registratienummer (indien van toepassing)"
-	}
+		"reg_number_if_aplicble":"Registratienummer (indien van toepassing)",
+		"select_specility":"Selecteer Specialiteit",
+		"r_u_sure_update_inquiry":"Weet u zeker dat u deze zoekopdracht wilt bijwerken?",
+		"organ_donar":"Orgaandonor"
+		}
 }
