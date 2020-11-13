@@ -7,6 +7,7 @@ import Grid from '@material-ui/core/Grid';
 import { Redirect, Route } from 'react-router-dom';
 import sitedata from '../../../sitedata';
 import axios from 'axios';
+import { authy } from './../../Login/authy.js';
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { LoginReducerAim } from './../../Login/actions';
@@ -117,7 +118,7 @@ class Index extends Component {
     render() {
         const { stateLoginValueAim, Doctorsetget } = this.props;
         const { value } = this.state;
-        if (stateLoginValueAim.user === 'undefined' || stateLoginValueAim.token === 450 || stateLoginValueAim.token === 'undefined' || stateLoginValueAim.user.type !== 'pharmacy' ) {
+        if (stateLoginValueAim.user === 'undefined' || stateLoginValueAim.token === 450 || stateLoginValueAim.token === 'undefined' || stateLoginValueAim.user.type !== 'pharmacy' ||  !this.props.verifyCode || !this.props.verifyCode.code ) {
             return (<Redirect to={'/'} />);
         } 
         return (
@@ -188,6 +189,7 @@ const mapStateToProps = (state) => {
     const { stateLoginValueAim, loadingaIndicatoranswerdetail } = state.LoginReducerAim;
     const { stateLanguageType } = state.LanguageReducer;
     const {settings} = state.Settings;
+    const { verifyCode } = state.authy;
     // const { Doctorsetget } = state.Doctorset;
     // const { catfil } = state.filterate;
     return {
@@ -195,8 +197,9 @@ const mapStateToProps = (state) => {
         stateLoginValueAim,
         loadingaIndicatoranswerdetail,
         settings,
+        verifyCode,
         //   Doctorsetget,
         //   catfil
     }
 };
-export default withRouter(connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer, Settings })(Index));
+export default withRouter(connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer, Settings, authy })(Index));

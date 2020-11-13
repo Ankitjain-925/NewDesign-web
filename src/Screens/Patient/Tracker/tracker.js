@@ -14,6 +14,7 @@ import { Settings } from './../../Login/setting';
 import { Fitbit } from './fitbit.js';
 import { Withings } from './withing.js';
 import { Redirect, Route } from 'react-router-dom';
+import { authy } from './../../Login/authy.js';
 import Modal from '@material-ui/core/Modal';
 import LeftMenu from './../../Components/Menus/PatientLeftMenu/index';
 import axios from "axios"
@@ -622,7 +623,7 @@ class Index extends Component {
             model, type, timezone, session, ur_connected_device_appear, no_device_connctd, connct_a_device } = translate
 
         const { stateLoginValueAim } = this.props;
-        if (stateLoginValueAim.user === 'undefined' || stateLoginValueAim.token === 450 || stateLoginValueAim.token === 'undefined' || stateLoginValueAim.user.type !== 'patient') {
+        if (stateLoginValueAim.user === 'undefined' || stateLoginValueAim.token === 450 || stateLoginValueAim.token === 'undefined' || stateLoginValueAim.user.type !== 'patient' || !this.props.verifyCode || !this.props.verifyCode.code) {
             return (<Redirect to={'/'} />);
         }
         return (
@@ -982,6 +983,7 @@ const mapStateToProps = (state) => {
     const { settings } = state.Settings;
     const { fitbit } = state.Fitbit;
     const { withing } = state.Withings;
+    const { verifyCode } = state.authy;
     // const { Doctorsetget } = state.Doctorset;
     // const { catfil } = state.filterate;
     return {
@@ -990,9 +992,10 @@ const mapStateToProps = (state) => {
         loadingaIndicatoranswerdetail,
         settings,
         fitbit,
-        withing
+        withing,
+        verifyCode,
         //   Doctorsetget,
         //   catfil
     }
 };
-export default withRouter(connect(mapStateToProps, { Fitbit, Withings, LoginReducerAim, LanguageFetchReducer, Settings })(Index));
+export default withRouter(connect(mapStateToProps, { Fitbit, Withings, LoginReducerAim, LanguageFetchReducer, Settings, authy })(Index));

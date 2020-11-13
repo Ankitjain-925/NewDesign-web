@@ -53,7 +53,7 @@ import * as translationRS from '../../../translations/rs.json';
 import * as translationSW from '../../../translations/sw.json';
 import * as translationCH from '../../../translations/ch.json';
 import * as translationNL from '../../../translations/en.json';
-
+import { authy } from './../../Login/authy.js';
 import { FormatListBulleted } from '@material-ui/icons';
 import PFields from "./../../Components/TimelineComponent/PFields/index.js";
 import AnamnesisFields from "./../../Components/TimelineComponent/AnamnesisFields/index.js";
@@ -896,7 +896,7 @@ DeleteTrack=(deletekey)=> {
             personalize_dashbrd } = translate;
 
         const { stateLoginValueAim, Doctorsetget } = this.props;
-        if (stateLoginValueAim.user === 'undefined' || stateLoginValueAim.token === 450 || stateLoginValueAim.token === 'undefined' || stateLoginValueAim.user.type !== 'pharmacy') {
+        if (stateLoginValueAim.user === 'undefined' || stateLoginValueAim.token === 450 || stateLoginValueAim.token === 'undefined' || stateLoginValueAim.user.type !== 'pharmacy' || !this.props.verifyCode || !this.props.verifyCode.code) {
             return (<Redirect to={'/'} />);
         }
         return (
@@ -1113,6 +1113,7 @@ const mapStateToProps = (state) => {
     const { stateLanguageType } = state.LanguageReducer;
     const { settings } = state.Settings;
     const { Doctorsetget } = state.Doctorset;
+    const { verifyCode } = state.authy;
     // const { catfil } = state.filterate;
     return {
         stateLanguageType,
@@ -1120,7 +1121,8 @@ const mapStateToProps = (state) => {
         loadingaIndicatoranswerdetail,
         settings,
         Doctorsetget,
+        verifyCode,
         //   catfil
     }
 };
-export default withRouter(connect(mapStateToProps, { Doctorset, LoginReducerAim, LanguageFetchReducer, Settings })(Index));
+export default withRouter(connect(mapStateToProps, { Doctorset, LoginReducerAim, LanguageFetchReducer, Settings, authy })(Index));

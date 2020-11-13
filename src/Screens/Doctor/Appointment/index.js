@@ -19,6 +19,7 @@ import 'react-popper-tooltip/dist/styles.css';
 import CalendarToolbar from "./../../Components/CalendarToolbar/index.js";
 import Modal from '@material-ui/core/Modal';
 import DatePicker from 'react-date-picker';
+import { authy } from './../../Login/authy.js';
 import { getImage } from './../../Components/BasicMethod/index';
 import { Redirect } from 'react-router-dom';
 import { confirmAlert } from 'react-confirm-alert';
@@ -735,7 +736,7 @@ class Index extends Component {
             suggest_new_time, Questions, or, slct_a_time, date_of_appointment, book_appointment } = translate
 
 
-        if (stateLoginValueAim.user === 'undefined' || stateLoginValueAim.token === 450 || stateLoginValueAim.token === 'undefined' || stateLoginValueAim.user.type !== 'doctor') {
+        if (stateLoginValueAim.user === 'undefined' || stateLoginValueAim.token === 450 || stateLoginValueAim.token === 'undefined' || stateLoginValueAim.user.type !== 'doctor' || !this.props.verifyCode || !this.props.verifyCode.code) {
             return (<Redirect to={'/'} />);
         }
         return (
@@ -916,6 +917,7 @@ const mapStateToProps = (state) => {
     const { stateLoginValueAim, loadingaIndicatoranswerdetail } = state.LoginReducerAim;
     const { stateLanguageType } = state.LanguageReducer;
     const { settings } = state.Settings;
+    const { verifyCode } = state.authy;
     // const { Doctorsetget } = state.Doctorset;
     // const { catfil } = state.filterate;
     return {
@@ -923,8 +925,9 @@ const mapStateToProps = (state) => {
         stateLoginValueAim,
         loadingaIndicatoranswerdetail,
         settings,
+        verifyCode,
         //   Doctorsetget,
         //   catfil
     }
 };
-export default withRouter(connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer, Settings })(Index));
+export default withRouter(connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer, Settings, authy })(Index));

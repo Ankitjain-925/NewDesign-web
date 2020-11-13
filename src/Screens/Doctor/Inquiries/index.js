@@ -19,6 +19,7 @@ import { Settings } from '../../Login/setting';
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import { LanguageFetchReducer } from '../../actions';
 import Loader from './../../Components/Loader/index';
+import { authy } from './../../Login/authy.js';
 import PrecriptionList from './Components/prescription.js';
 import SickCertificateList from './Components/sickCertificate.js';
 import * as translationEN from '../../../translations/en.json';
@@ -155,7 +156,7 @@ class Index extends Component {
         let { Inquiries, prescriptions,ScndOpinion,sickcsrtificates, srvc_Doctors, status, sent, on, rqst_sent_succefully, Pending, request, edit, Rejected, Answered, Cancelled, req_updated_successfully, sick_cert, my_doc, New, inquiry,
             doc_and_statnderd_ques, doc_aimedis_private, Annotations, details, questions, is_this_follow_pres, how_u_like_rcv_pres, Medicine, Substance, Dose, mg, trade_name, atc_if_applicable, manufacturer, pack_size, } = translate
             const { stateLoginValueAim, Doctorsetget } = this.props;
-            if (stateLoginValueAim.user === 'undefined' || stateLoginValueAim.token === 450 || stateLoginValueAim.token === 'undefined' || stateLoginValueAim.user.type !== 'doctor') {
+            if (stateLoginValueAim.user === 'undefined' || stateLoginValueAim.token === 450|| stateLoginValueAim.token === 'undefined' || stateLoginValueAim.user.type !== 'doctor' || !this.props.verifyCode || !this.props.verifyCode.code) {
                 return (<Redirect to={'/'} />);
             }
             return (
@@ -232,6 +233,7 @@ const mapStateToProps = (state) => {
     const { stateLoginValueAim, loadingaIndicatoranswerdetail } = state.LoginReducerAim;
     const { stateLanguageType } = state.LanguageReducer;
     const { settings } = state.Settings;
+    const { verifyCode } = state.authy;
     // const { Doctorsetget } = state.Doctorset;
     // const { catfil } = state.filterate;
     return {
@@ -239,8 +241,9 @@ const mapStateToProps = (state) => {
         stateLoginValueAim,
         loadingaIndicatoranswerdetail,
         settings,
+        verifyCode,
         //   Doctorsetget,
         //   catfil
     }
 };
-export default withRouter(connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer, Settings })(Index));
+export default withRouter(connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer, Settings, authy })(Index));

@@ -44,6 +44,7 @@ import CovidFields from '../../Components/TimelineComponent/CovidFields/index';
 import EmptyData from './../../Components/TimelineComponent/EmptyData';
 import DiagnosisFields from './../../Components/TimelineComponent/DiagnosisFields/index';
 import moment from 'moment';
+import { authy } from './../../Login/authy.js';
 import GraphView from './../../Components/TimelineComponent/GraphView/index';
 import * as translationEN from "../../../translations/en.json";
 import * as translationDE from '../../../translations/de.json';
@@ -949,7 +950,7 @@ class Index extends Component {
             personalize_dashbrd, online, patient_access_data, another_patient_data, get_patient_access_data, id_pin_not_correct, healthcare_access_for_non_conn_patient, patient_id, pin , enter_pin, view_data, prescription, secnd_openion, sick_cert, anamnesis, Prescription } = translate;
         const enter_patient_id = enter+" "+patient_id
         const { stateLoginValueAim, Doctorsetget } = this.props;
-        if (stateLoginValueAim.user === 'undefined' || stateLoginValueAim.token === 450 || stateLoginValueAim.token === 'undefined' || stateLoginValueAim.user.type !== 'doctor') {
+        if (stateLoginValueAim.user === 'undefined' || stateLoginValueAim.token === 450 || stateLoginValueAim.token === 'undefined' || stateLoginValueAim.user.type !== 'doctor' || !this.props.verifyCode || !this.props.verifyCode.code) {
             return (<Redirect to={'/'} />);
         }
         if(Doctorsetget && Doctorsetget.p_id === null)
@@ -1174,6 +1175,7 @@ const mapStateToProps = (state) => {
     const { stateLanguageType } = state.LanguageReducer;
     const { settings } = state.Settings;
     const { Doctorsetget } = state.Doctorset;
+    const { verifyCode } = state.authy;
     // const { catfil } = state.filterate;
     return {
         stateLanguageType,
@@ -1181,7 +1183,9 @@ const mapStateToProps = (state) => {
         loadingaIndicatoranswerdetail,
         settings,
         Doctorsetget,
+        verifyCode,
+
         //   catfil
     }
 };
-export default withRouter(connect(mapStateToProps, { Doctorset, LoginReducerAim, LanguageFetchReducer, Settings })(Index));
+export default withRouter(connect(mapStateToProps, { Doctorset, LoginReducerAim, LanguageFetchReducer, Settings, authy })(Index));

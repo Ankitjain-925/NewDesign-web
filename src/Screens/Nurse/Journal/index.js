@@ -44,6 +44,7 @@ import CovidFields from '../../Components/TimelineComponent/CovidFields/index';
 import EmptyData from './../../Components/TimelineComponent/EmptyData';
 import DiagnosisFields from './../../Components/TimelineComponent/DiagnosisFields/index';
 import moment from 'moment';
+import { authy } from './../../Login/authy.js';
 import GraphView from './../../Components/TimelineComponent/GraphView/index';
 import * as translationEN from "../../../translations/en.json";
 import * as translationDE from '../../../translations/de.json';
@@ -951,7 +952,7 @@ DeleteTrack=(deletekey)=> {
             personalize_dashbrd } = translate;
 
         const { stateLoginValueAim, Doctorsetget } = this.props;
-        if (stateLoginValueAim.user === 'undefined' || stateLoginValueAim.token === 450 || stateLoginValueAim.token === 'undefined' ) {
+        if (stateLoginValueAim.user === 'undefined' || stateLoginValueAim.token === 450 || stateLoginValueAim.token === 'undefined' || !this.props.verifyCode || !this.props.verifyCode.code) {
             if(stateLoginValueAim.user){
             if(stateLoginValueAim.user.type === 'nurse' || stateLoginValueAim.user.type === 'therapist'){}
             else
@@ -1177,6 +1178,8 @@ const mapStateToProps = (state) => {
     const { stateLanguageType } = state.LanguageReducer;
     const { settings } = state.Settings;
     const { Doctorsetget } = state.Doctorset;
+    const { verifyCode } = state.authy;
+
     // const { catfil } = state.filterate;
     return {
         stateLanguageType,
@@ -1184,7 +1187,8 @@ const mapStateToProps = (state) => {
         loadingaIndicatoranswerdetail,
         settings,
         Doctorsetget,
+        verifyCode,
         //   catfil
     }
 };
-export default withRouter(connect(mapStateToProps, { Doctorset, LoginReducerAim, LanguageFetchReducer, Settings })(Index));
+export default withRouter(connect(mapStateToProps, {authy, Doctorset, LoginReducerAim, LanguageFetchReducer, Settings })(Index));

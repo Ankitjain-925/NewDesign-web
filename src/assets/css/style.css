@@ -13028,6 +13028,10 @@ a.academy_ul ul li img {
 
 
 /*Added By ankita*/
+.moreMenuList li a img {
+    margin-right: 6px !important;
+}
+
 .canvases img {
     height: 150px !important;
     width: 100px !important;
