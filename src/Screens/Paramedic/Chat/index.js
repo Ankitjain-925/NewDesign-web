@@ -13,6 +13,7 @@ import CometChat from '../../Components/CometChat';
 import { LanguageFetchReducer } from './../../actions';
 import axios from "axios";
 import sitedata from '../../../sitedata.js';
+import Loader from './../../Components/Loader/index';
 import Notification from "../../Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 // var doctorArray = ['admin'];
  
@@ -47,6 +48,7 @@ class index extends React.Component {
     componentWillMount(){
         var doctorArray = ['admin'];
         let user_token = this.props.stateLoginValueAim.token
+        this.setState({loaderImage : true})
         axios.get(sitedata.data.path + '/UserProfile/UserlistSize',{
             headers: {
                 'token': user_token,
@@ -81,6 +83,7 @@ class index extends React.Component {
         let user_id    = this.props.stateLoginValueAim.user._id
         
         this.setState({doctorArray : doctorArray})
+        setTimeout(()=>{ this.setState({loaderImage : false})}, 5000)
     }
 
     render() {
@@ -93,6 +96,7 @@ class index extends React.Component {
         return(
             <Grid className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode && this.props.settings.setting.mode==='dark' ? "homeBg homeBgDrk" : "homeBg"}>
             <Grid container direction="row" justify="center">
+            {this.state.loaderImage && <Loader />}
                 <Grid item xs={12} md={12}>
                     <Grid container direction="row">
                         <LeftMenu  isNotShow ={true} currentPage="chat"/>

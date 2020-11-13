@@ -14,6 +14,7 @@ import axios from 'axios';
 import { Redirect, Route } from 'react-router-dom';
 import { connect } from "react-redux";
 import { LoginReducerAim } from './../../Login/actions';
+import { authy } from './../../Login/authy.js';
 import { Settings } from './../../Login/setting';
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
@@ -388,6 +389,7 @@ const mapStateToProps = (state) => {
     const { stateLoginValueAim, loadingaIndicatoranswerdetail } = state.LoginReducerAim;
     const { stateLanguageType } = state.LanguageReducer;
     const { settings } = state.Settings;
+    const { verifyCode } = state.authy;
     // const { Doctorsetget } = state.Doctorset;
     // const { catfil } = state.filterate;
     const { Emergencysetget }= state.EmergencySet;
@@ -396,9 +398,10 @@ const mapStateToProps = (state) => {
         stateLoginValueAim,
         loadingaIndicatoranswerdetail,
         settings,
+        verifyCode,
         Emergencysetget,
         //   Doctorsetget,
         //   catfil
     }
 };
-export default withRouter(connect(mapStateToProps, { EmergencySet, LoginReducerAim, LanguageFetchReducer, Settings })(Index));
+export default withRouter(connect(mapStateToProps, { EmergencySet, LoginReducerAim, authy, LanguageFetchReducer, Settings })(Index));

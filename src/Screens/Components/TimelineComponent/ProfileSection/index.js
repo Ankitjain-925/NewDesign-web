@@ -8,6 +8,7 @@ import {ConsoleCustom, getDate} from './../../BasicMethod/index';
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { LanguageFetchReducer } from './../../../actions';
+import Loader from './../../Loader';
 import * as translationEN from "../../../../translations/en.json";
 import * as translationDE from '../../../../translations/de.json';
 import * as translationPT from '../../../../translations/pt.json';
@@ -173,6 +174,7 @@ class PointPain extends Component {
 
         return (
             <Grid className="profileDescp">
+                 {this.state.loaderImage && <Loader />}
                 <input type="file" id="getFile" className="FileInptJournal" onChange={this.UploadFile}/>
                 {this.state.image && this.state.image!== '' ? 
                 <Grid className="myProfile">
