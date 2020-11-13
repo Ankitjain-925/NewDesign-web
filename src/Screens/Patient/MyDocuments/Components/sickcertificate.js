@@ -45,22 +45,53 @@ class Index extends Component {
 
     // Delete the Sick certificate confirmation
     updateCertificate(status, id) {
+        let translate;
+        switch (this.props.stateLanguageType) {
+            case "en":
+                translate = translationEN.text
+                break;
+            case "de":
+                translate = translationDE.text
+                break;
+            case "pt":
+                translate = translationPT.text
+                break;
+            case "sp":
+                translate = translationSP.text
+                break;
+            case "rs":
+                translate = translationRS.text
+                break;
+            case "nl":
+                translate = translationNL.text
+                break;
+            case "ch":
+                translate = translationCH.text
+                break;
+            case "sw":
+                translate = translationSW.text
+                break;
+            case "default":
+                translate = translationEN.text
+        }
+        let { Yes, No , update_inquiry, r_u_sure_update_inquiry} = translate;
+
         confirmAlert({
             customUI: ({ onClose }) => {
             return (
             <div className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode === 'dark' ? "dark-confirm react-confirm-alert-body" : "react-confirm-alert-body"} >
-            <h1>Update the Inquiry</h1>
-            <p>Are you sure  to update this Inquiry?</p>
+            <h1>{update_inquiry}</h1>
+            <p>{r_u_sure_update_inquiry}</p>
             <div className="react-confirm-alert-button-group">
             <button
             onClick= {() => {this.updateCertificateDetails(status, id); onClose()}}
             >
-            Yes
+            {Yes}
             </button>
             <button
             onClick={() => {onClose();}}
             >
-            No
+            {No}
             </button>
             </div>
             </div>
@@ -218,8 +249,8 @@ class Index extends Component {
             case "default":
                 translate = translationEN.text
         }
-        let { Case, srvc_Doctors, status, sent, on, which_symptoms_do_u_hav, days, since_when, prescription, how_u_feeling, Pending, request, edit, Rejected, Answered, Cancelled, see, sick_cert, my_doc, New, inquiry, again, modify, cancel,
-            doc_and_statnderd_ques, doc_aimedis_private, it_is_known_dieseas, r_u_tracking_medi, do_u_hv_allergies, what_ur_profession,Week_or_more,today, yesterday, ago, show,
+        let { Case, srvc_Doctors, status, sent, on, which_symptoms_do_u_hav, not_mentioned,days, since_when, prescription, how_u_feeling, Pending, request, edit, Rejected, Answered, Cancelled, see, sick_cert, my_doc, New, inquiry, again, modify, cancel,
+            doc_and_statnderd_ques, doc_aimedis_private, it_is_known_dieseas, r_u_tracking_medi, do_u_hv_allergies, what_ur_profession,Week_or_more,today, yesterday, ago, show, Yes, No, next, previous,
             how_long_do_u_unable_to_work, have_u_already_been_sick, Annotations, is_ur_temp_high_to_38, req_updated_successfully, details, questions } = translate
 
         return (
@@ -241,8 +272,8 @@ class Index extends Component {
                         <Tbody>
                             {this.state.currentList && this.state.currentList.length > 0 && this.state.currentList.map((data, index) => (
                                 <Tr>
-                                    <Td>{data.which_symptomps ? data.which_symptomps : 'Not mentioned'}</Td>
-                                    <Td>{data.send_on ? getDate(data.send_on, this.props.settings.setting.date_format) : 'Not mentioned'}</Td>
+                                    <Td>{data.which_symptomps ? data.which_symptomps : not_mentioned}</Td>
+                                    <Td>{data.send_on ? getDate(data.send_on, this.props.settings.setting.date_format) : not_mentioned}</Td>
                                     {/* <Td className="presImg"><img src={require('../../../../assets/images/dr1.jpg')} alt="" title="" />{data.docProfile && data.docProfile.first_name && data.docProfile.first_name} {data.docProfile && data.docProfile.last_name && data.docProfile.last_name}</Td> */}
                                     <Td className="presImg"><img src={data.docProfile && data.docProfile.profile_image ? getImage(data.docProfile.profile_image, this.state.images) : require('../../../../assets/images/dr1.jpg')} alt="" title="" />{data.docProfile && data.docProfile.first_name && data.docProfile.first_name} {data.docProfile && data.docProfile.last_name && data.docProfile.last_name}</Td>
                                     {data.status === 'pending' && <Td><span className="revwYelow"></span>{Pending} </Td>}
@@ -298,8 +329,8 @@ class Index extends Component {
                                     <Grid className="ishelpUpr">
                                         <Grid className="ishelpLbl"><label>{is_ur_temp_high_to_38}?</label></Grid>
                                         <Grid className="ishelpChk">
-                                            <FormControlLabel control={<Radio />} name="fever" value="yes" color="#00ABAF" checked={this.state.AddSickCertificate.fever === 'yes'} onChange={this.AddSickState} label="Yes" />
-                                            <FormControlLabel control={<Radio />} name="fever" color="#00ABAF" value="no" checked={this.state.AddSickCertificate.fever === 'no'} onChange={this.AddSickState} label="No" />
+                                            <FormControlLabel control={<Radio />} name="fever" value="yes" color="#00ABAF" checked={this.state.AddSickCertificate.fever === 'yes'} onChange={this.AddSickState} label={Yes} />
+                                            <FormControlLabel control={<Radio />} name="fever" color="#00ABAF" value="no" checked={this.state.AddSickCertificate.fever === 'no'} onChange={this.AddSickState} label={No} />
                                         </Grid>
                                     </Grid>
                                     <Grid className="medicnSub">
@@ -457,11 +488,11 @@ class Index extends Component {
                             </Grid>
                             <Grid item xs={12} md={6}>
                                 {this.state.totalPage > 1 && <Grid className="prevNxtpag">
-                                    {this.state.currentPage != 1 && <a className="prevpag" onClick={() => { this.onChangePage(this.state.currentPage - 1) }}>Previous</a>}
+                                    {this.state.currentPage != 1 && <a className="prevpag" onClick={() => { this.onChangePage(this.state.currentPage - 1) }}>{previous}</a>}
                                     {this.state.pages && this.state.pages.length > 0 && this.state.pages.map((item, index) => (
                                         <a className={this.state.currentPage == item && "activePageDocutmet"} onClick={() => { this.onChangePage(item) }}>{item}</a>
                                     ))}
-                                    {this.state.currentPage != this.state.totalPage && <a className="nxtpag" onClick={() => { this.onChangePage(this.state.currentPage + 1) }}>Next</a>}
+                                    {this.state.currentPage != this.state.totalPage && <a className="nxtpag" onClick={() => { this.onChangePage(this.state.currentPage + 1) }}>{next}</a>}
                                 </Grid>}
                             </Grid>
                         </Grid>

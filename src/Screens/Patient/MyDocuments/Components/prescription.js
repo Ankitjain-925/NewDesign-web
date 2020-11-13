@@ -108,28 +108,58 @@ class Index extends Component {
 
     //Delete for the Prescriptions confirmation
     updatePrescription(status, id) {
+        let translate;
+        switch (this.props.stateLanguageType) {
+            case "en":
+                translate = translationEN.text
+                break;
+            case "de":
+                translate = translationDE.text
+                break;
+            case "pt":
+                translate = translationPT.text
+                break;
+            case "sp":
+                translate = translationSP.text
+                break;
+            case "rs":
+                translate = translationRS.text
+                break;
+            case "nl":
+                translate = translationNL.text
+                break;
+            case "ch":
+                translate = translationCH.text
+                break;
+            case "sw":
+                translate = translationSW.text
+                break;
+            case "default":
+                translate = translationEN.text
+        }
+        let { Yes, No , update_inquiry, r_u_sure_update_inquiry} = translate;
         confirmAlert({
             customUI: ({ onClose }) => {
-            return (
-            <div className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode === 'dark' ? "dark-confirm react-confirm-alert-body" : "react-confirm-alert-body"} >
-            <h1>Update the Inquiry</h1>
-            <p>Are you sure  to update this Inquiry?</p>
-            <div className="react-confirm-alert-button-group">
-            <button
-            onClick= {() => {this.deleteClickPatient(status, id); onClose()}}
-            >
-            Yes
-            </button>
-            <button
-            onClick={() => {onClose();}}
-            >
-            No
-            </button>
-            </div>
-            </div>
-            );
+                return (
+                    <div className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode === 'dark' ? "dark-confirm react-confirm-alert-body" : "react-confirm-alert-body"} >
+                        <h1>{update_inquiry}</h1>
+                        <p>{r_u_sure_update_inquiry}</p>
+                        <div className="react-confirm-alert-button-group">
+                            <button
+                                onClick={() => { this.deleteClickPatient(status, id); onClose() }}
+                            >
+                                {Yes}
+                            </button>
+                            <button
+                                onClick={() => { onClose(); }}
+                            >
+                                {No}
+                            </button>
+                        </div>
+                    </div>
+                );
             }
-            })
+        })
     }
 
     //For chnage the page
@@ -198,7 +228,7 @@ class Index extends Component {
 
     render() {
         let translate;
-      switch (this.props.stateLanguageType) {
+        switch (this.props.stateLanguageType) {
             case "en":
                 translate = translationEN.text
                 break;
@@ -226,7 +256,7 @@ class Index extends Component {
             case "default":
                 translate = translationEN.text
         }
-        let {srvc_Doctors,see_details,again,modify,cancel_reqst, status, sent, on, prescription, Pending, request, edit, Rejected, Answered, Cancelled, req_updated_successfully, sick_cert, my_doc, New, inquiry,
+        let { srvc_Doctors, see_details, again, home_add_mailbox, online, modify, cancel_reqst, status, sent, on, prescription, Pending, request, edit, Rejected, Answered, Cancelled, req_updated_successfully, sick_cert, my_doc, New, inquiry, Yes, No,
             doc_and_statnderd_ques, doc_aimedis_private, Annotations, details, questions, is_this_follow_pres, how_u_like_rcv_pres, Medicine, Substance, Dose, mg, trade_name, atc_if_applicable, manufacturer, pack_size, } = translate
 
         return (
@@ -251,7 +281,7 @@ class Index extends Component {
                                     <Td className="presImg"><img src={data.docProfile && data.docProfile.profile_image ? getImage(data.docProfile.profile_image, this.state.images) : require('../../../../assets/images/dr1.jpg')} alt="" title="" />{data.docProfile && data.docProfile.first_name && data.docProfile.first_name} {data.docProfile && data.docProfile.last_name && data.docProfile.last_name}</Td>
                                     {data.status === 'pending' && <Td><span className="revwYelow"></span>{Pending} </Td>}
                                     {data.status === 'accept' && <Td><span className="revwGren"></span>{Answered} </Td>}
-                                    {data.status === 'remove' || data.status ==='decline' && <Td><span className="revwRed"></span>{Rejected}</Td>}
+                                    {data.status === 'remove' || data.status === 'decline' && <Td><span className="revwRed"></span>{Rejected}</Td>}
                                     {data.status === 'cancel' && <Td><span className="revwRed"></span> {Cancelled}</Td>}
                                     {data.status === 'free' && <Td><span className="revwGry"></span> {sent} {request}</Td>}
                                     <Td className="presEditDot scndOptionIner">
@@ -273,7 +303,7 @@ class Index extends Component {
                     <Modal
                         open={this.state.addInqry}
                         onClose={this.handleCloseInqry}
-                        className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode === 'dark' ?"darkTheme nwPresModel":"nwPresModel"}>
+                        className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode === 'dark' ? "darkTheme nwPresModel" : "nwPresModel"}>
                         <Grid className="nwPresCntnt">
                             <Grid className="nwPresCntntIner">
                                 <Grid className="nwPresCourse">
@@ -296,25 +326,25 @@ class Index extends Component {
 
 
                                     <Grid className="ishelpUpr">
-                            <Grid className="ishelpLbl"><label>{is_this_follow_pres}?</label></Grid>
+                                        <Grid className="ishelpLbl"><label>{is_this_follow_pres}?</label></Grid>
                                         <Grid className="ishelpChk">
-                                            <FormControlLabel control={<Radio />} name="follow_up_prescription" value="yes" color="#00ABAF" checked={this.state.AddPrescription.follow_up_prescription === 'yes'} onChange={this.AddState} label="Yes" />
-                                            <FormControlLabel control={<Radio />} name="follow_up_prescription" color="#00ABAF" value="no" checked={this.state.AddPrescription.follow_up_prescription === 'no'} onChange={this.AddState} label="No" />
+                                            <FormControlLabel control={<Radio />} name="follow_up_prescription" value="yes" color="#00ABAF" checked={this.state.AddPrescription.follow_up_prescription === 'yes'} onChange={this.AddState} label={Yes} />
+                                            <FormControlLabel control={<Radio />} name="follow_up_prescription" color="#00ABAF" value="no" checked={this.state.AddPrescription.follow_up_prescription === 'no'} onChange={this.AddState} label={No} />
                                         </Grid>
                                         <Grid className="ishelpLbl">
-                            <label>{how_u_like_rcv_pres}?</label>
+                                            <label>{how_u_like_rcv_pres}?</label>
                                         </Grid>
                                         <Grid className="ishelpChk">
-                                            <FormControlLabel control={<Radio />} name="prescription_type" value="online" color="#00ABAF" checked={this.state.AddPrescription.prescription_type === 'online'} onChange={this.AddState} label="Online" />
-                                            <FormControlLabel control={<Radio />} name="prescription_type" color="#00ABAF" value="offline" checked={this.state.AddPrescription.prescription_type === 'offline'} onChange={this.AddState} label="Home address mailbox" />
+                                            <FormControlLabel control={<Radio />} name="prescription_type" value="online" color="#00ABAF" checked={this.state.AddPrescription.prescription_type === 'online'} onChange={this.AddState} label={online} />
+                                            <FormControlLabel control={<Radio />} name="prescription_type" color="#00ABAF" value="offline" checked={this.state.AddPrescription.prescription_type === 'offline'} onChange={this.AddState} label={home_add_mailbox} />
                                         </Grid>
                                     </Grid>
 
                                     <Grid className="medicnSub">
-                            <h4>{Medicine} {inquiry}</h4>
+                                        <h4>{Medicine} {inquiry}</h4>
                                         <Grid><label>{Medicine} / {Substance}</label></Grid>
                                         <Grid>
-                                        <input type="text" name="medication" value={this.state.AddPrescription.medication} onChange={this.AddState} />
+                                            <input type="text" name="medication" value={this.state.AddPrescription.medication} onChange={this.AddState} />
                                             {/* <Select
                                                 value={this.state.selectedSub}
                                                 onChange={(e) => this.eventnameSetP('medication', e)}
@@ -386,7 +416,7 @@ class Index extends Component {
                     <Modal
                         open={this.state.showInquiry}
                         onClose={this.handleCloseShowSick}
-                        className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode === 'dark' ?"darkTheme nwPresModel":"nwPresModel"}>
+                        className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode === 'dark' ? "darkTheme nwPresModel" : "nwPresModel"}>
                         <Grid className="nwPresCntnt">
                             <Grid className="nwPresCntntIner">
                                 <Grid className="nwPresCourse">
@@ -413,7 +443,7 @@ class Index extends Component {
                                         <Grid><h3>{this.state.AddPrescription && this.state.AddPrescription.follow_up_prescription && this.state.AddPrescription.follow_up_prescription}</h3></Grid>
 
                                         <Grid className="ishelpLbl"> <label>{how_u_like_rcv_pres}?</label> </Grid>
-                                        <Grid><h3>{this.state.AddPrescription && this.state.AddPrescription.prescription_type && this.state.AddPrescription.prescription_type==='offline'? 'Home address mailbox' : 'Online'}</h3></Grid>
+                                        <Grid><h3>{this.state.AddPrescription && this.state.AddPrescription.prescription_type && this.state.AddPrescription.prescription_type === 'offline' ? 'Home address mailbox' : 'Online'}</h3></Grid>
 
                                         <Grid className="medicnSub"> <h4 className="Inquirypaddingtop">{Medicine} {inquiry}</h4>
 

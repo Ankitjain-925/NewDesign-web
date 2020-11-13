@@ -1026,6 +1026,10 @@
 		"Security":"Segurança",
 		"date_time":"Data hora",
 		"enter_patient_id":"Insira a ID do paciente",
-		"reg_number_if_aplicble":"Número de registro (se aplicável)"
+		"reg_number_if_aplicble":"Número de registro (se aplicável)",
+		"select_specility":"Selecione a especialidade",
+		"we_r_showing_speciality":"Estamos mostrando especialistas próximos",
+		"r_u_sure_update_inquiry":"Tem certeza de que deseja atualizar este inquérito?",
+		"organ_donar":"doador de órgãos"
 	}
 }

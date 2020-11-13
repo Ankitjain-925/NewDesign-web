@@ -18,7 +18,7 @@ import * as translationSW from '../../../../translations/sw.json';
 import * as translationCH from '../../../../translations/ch.json';
 import * as translationNL from '../../../../translations/en.json';
 
-var letter = /([a-zA-Z])+([ -~])*/, number = /\d+/, specialchar = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/; 
+var letter = /([a-zA-Z])+([ -~])*/, number = /\d+/, specialchar = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
 
 class Index extends Component {
     constructor(props) {
@@ -50,9 +50,8 @@ class Index extends Component {
         if (this.state.Password.new_pass && this.state.Password.new_pass !== '' && this.state.Password.current_pass && this.state.Password.current_pass !== '') {
             if (!this.state.notmatch) {
                 if (this.state.Password.new_pass !== '' && this.state.Password.new_pass === this.state.Password.new_pass_comfirm) {
-                    this.setState({ notVlidpass : false, notmatchCon: false, loaderImage: true, fillall: false })
-                    if(this.state.Password.new_pass.match(letter) && this.state.Password.new_pass.match(number) && this.state.Password.new_pass.match(specialchar))
-                    {
+                    this.setState({ notVlidpass: false, notmatchCon: false, loaderImage: true, fillall: false })
+                    if (this.state.Password.new_pass.match(letter) && this.state.Password.new_pass.match(number) && this.state.Password.new_pass.match(specialchar)) {
                         axios.put(sitedata.data.path + '/UserProfile/Users/update', {
                             password: this.state.Password.new_pass,
                         }, {
@@ -66,8 +65,8 @@ class Index extends Component {
                             setTimeout(() => { this.setState({ PassDone: false }) }, 5000)
                         })
                     }
-                    else{
-                        this.setState({notmatchCon: false, notVlidpass: true, loaderImage: false, fillall: false })
+                    else {
+                        this.setState({ notmatchCon: false, notVlidpass: true, loaderImage: false, fillall: false })
                     }
                 }
                 else {
@@ -101,7 +100,7 @@ class Index extends Component {
     }
     render() {
         let translate;
-      switch (this.props.stateLanguageType) {
+        switch (this.props.stateLanguageType) {
             case "en":
                 translate = translationEN.text
                 break;
@@ -129,14 +128,14 @@ class Index extends Component {
             case "default":
                 translate = translationEN.text
         }
-        let { Change, password, is, we_use_authy, supportive_text, Current, confirm_password, new_password, two_fac_auth, password_changed, new_and_confirm_pass_not_same, current_pass_not_match, plz_fill_fields,Register_characters,
+        let { Change, password, is, we_use_authy, supportive_text, Passwordisnotvalid, Current, confirm_password, new_password, two_fac_auth, password_changed, new_and_confirm_pass_not_same, current_pass_not_match, plz_fill_fields, Register_characters,
             Disable, Enable, change_password, Register_Passwordshould, Register_letter, Register_number, Register_special } = translate;
 
         return (
             <div>
                 {this.state.loaderImage && <Loader />}
                 {this.state.PassDone && <div className="success_message">{password_changed}</div>}
-                {this.state.notVlidpass && <div className="err_message">Password is not valid</div>}
+                {this.state.notVlidpass && <div className="err_message">{Passwordisnotvalid}</div>}
                 {this.state.notmatchCon && <div className="err_message">{new_and_confirm_pass_not_same}</div>}
                 {this.state.notmatch && <div className="err_message">{current_pass_not_match}</div>}
                 {this.state.fillall && <div className="err_message">{plz_fill_fields}</div>}
@@ -155,42 +154,42 @@ class Index extends Component {
                             <Grid className="genPassInr RelativeatSecurity">
                                 <label>{new_password}</label>
                                 <Grid><input type="password" name="new_pass" onChange={this.ChangePass} /></Grid>
-                         
-                            {this.state.Password && this.state.Password.new_pass ?
-                                        <div className="passInst">
-                                            <div className="passInstIner ">
-                                                <p>{Register_Passwordshould}</p>
-                                                <img src={require('../../../../assets/images/passArrow.png')} alt="" title="" className="passArow" />
-                                                <ul>
-                                                    <li>{this.state.Password && this.state.Password.new_pass && this.state.Password.new_pass.length > 8 && <a><img src={require('../../../../assets/images/CheckCircle.svg')} alt="" title="" />{Register_characters}</a>}
-                                                        {this.state.Password && this.state.Password.new_pass && this.state.Password.new_pass.length <= 8 && <a><img src={require('../../../../assets/images/CloseCircle.svg')} alt="" title="" />{Register_characters}</a>}
-                                                    </li>
-                                                    <li>{this.state.Password && this.state.Password.new_pass && !this.state.Password.new_pass.match(letter) && <a><img src={require('../../../../assets/images/CloseCircle.svg')} alt="" title="" />{Register_letter}</a>}
-                                                        {this.state.Password && this.state.Password.new_pass && this.state.Password.new_pass.match(letter) && <a><img src={require('../../../../assets/images/CheckCircle.svg')} alt="" title="" />{Register_letter}</a>}
-                                                    </li>
-                                                    <li>{this.state.Password && this.state.Password.new_pass && !this.state.Password.new_pass.match(number) && <a><img src={require('../../../../assets/images/CloseCircle.svg')} alt="" title="" />{Register_number}</a>}
-                                                        {this.state.Password && this.state.Password.new_pass && this.state.Password.new_pass.match(number) && <a><img src={require('../../../../assets/images/CheckCircle.svg')} alt="" title="" />{Register_number}</a>}
-                                                    </li>
-                                                    <li>
-                                                        {this.state.Password && this.state.Password.new_pass && !this.state.Password.new_pass.match(specialchar) && <a><img src={require('../../../../assets/images/CloseCircle.svg')} alt="" title="" />{Register_special}</a>}
-                                                        {this.state.Password && this.state.Password.new_pass && this.state.Password.new_pass.match(specialchar) && <a><img src={require('../../../../assets/images/CheckCircle.svg')} alt="" title="" />{Register_special}</a>}
-                                                    </li>
-                                                </ul>
-                                            </div>
+
+                                {this.state.Password && this.state.Password.new_pass ?
+                                    <div className="passInst">
+                                        <div className="passInstIner ">
+                                            <p>{Register_Passwordshould}</p>
+                                            <img src={require('../../../../assets/images/passArrow.png')} alt="" title="" className="passArow" />
+                                            <ul>
+                                                <li>{this.state.Password && this.state.Password.new_pass && this.state.Password.new_pass.length > 8 && <a><img src={require('../../../../assets/images/CheckCircle.svg')} alt="" title="" />{Register_characters}</a>}
+                                                    {this.state.Password && this.state.Password.new_pass && this.state.Password.new_pass.length <= 8 && <a><img src={require('../../../../assets/images/CloseCircle.svg')} alt="" title="" />{Register_characters}</a>}
+                                                </li>
+                                                <li>{this.state.Password && this.state.Password.new_pass && !this.state.Password.new_pass.match(letter) && <a><img src={require('../../../../assets/images/CloseCircle.svg')} alt="" title="" />{Register_letter}</a>}
+                                                    {this.state.Password && this.state.Password.new_pass && this.state.Password.new_pass.match(letter) && <a><img src={require('../../../../assets/images/CheckCircle.svg')} alt="" title="" />{Register_letter}</a>}
+                                                </li>
+                                                <li>{this.state.Password && this.state.Password.new_pass && !this.state.Password.new_pass.match(number) && <a><img src={require('../../../../assets/images/CloseCircle.svg')} alt="" title="" />{Register_number}</a>}
+                                                    {this.state.Password && this.state.Password.new_pass && this.state.Password.new_pass.match(number) && <a><img src={require('../../../../assets/images/CheckCircle.svg')} alt="" title="" />{Register_number}</a>}
+                                                </li>
+                                                <li>
+                                                    {this.state.Password && this.state.Password.new_pass && !this.state.Password.new_pass.match(specialchar) && <a><img src={require('../../../../assets/images/CloseCircle.svg')} alt="" title="" />{Register_special}</a>}
+                                                    {this.state.Password && this.state.Password.new_pass && this.state.Password.new_pass.match(specialchar) && <a><img src={require('../../../../assets/images/CheckCircle.svg')} alt="" title="" />{Register_special}</a>}
+                                                </li>
+                                            </ul>
                                         </div>
-                                        : <div className="passInst">
-                                            <div className="passInstIner">
-                                                <p>{Register_Passwordshould}</p>
-                                                <img src={require('../../../../assets/images/passArrow.png')} alt="" title="" className="passArow" />
-                                                <ul>
-                                                    <li><a><img src={require('../../../../assets/images/CloseCircle.svg')} alt="" title="" />{Register_characters}</a></li>
-                                                    <li><a><img src={require('../../../../assets/images/CloseCircle.svg')} alt="" title="" />{Register_letter}</a></li>
-                                                    <li><a><img src={require('../../../../assets/images/CloseCircle.svg')} alt="" title="" />{Register_number}</a></li>
-                                                    <li><a><img src={require('../../../../assets/images/CloseCircle.svg')} alt="" title="" />{Register_special}</a></li>
-                                                </ul>
-                                            </div>
-                                        </div>}
-                                        </Grid>
+                                    </div>
+                                    : <div className="passInst">
+                                        <div className="passInstIner">
+                                            <p>{Register_Passwordshould}</p>
+                                            <img src={require('../../../../assets/images/passArrow.png')} alt="" title="" className="passArow" />
+                                            <ul>
+                                                <li><a><img src={require('../../../../assets/images/CloseCircle.svg')} alt="" title="" />{Register_characters}</a></li>
+                                                <li><a><img src={require('../../../../assets/images/CloseCircle.svg')} alt="" title="" />{Register_letter}</a></li>
+                                                <li><a><img src={require('../../../../assets/images/CloseCircle.svg')} alt="" title="" />{Register_number}</a></li>
+                                                <li><a><img src={require('../../../../assets/images/CloseCircle.svg')} alt="" title="" />{Register_special}</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>}
+                            </Grid>
                             <Grid className="genPassInr">
                                 <label>{confirm_password}</label>
                                 <Grid><input type="password" name="new_pass_comfirm" onChange={this.ChangePass} /></Grid>

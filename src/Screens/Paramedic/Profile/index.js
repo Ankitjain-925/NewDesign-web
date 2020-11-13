@@ -155,7 +155,7 @@ class Index extends Component {
             case "default":
                 translate = translationEN.text
         }
-        let { my_profile, srvc_Security, date_time } = translate;
+        let { my_profile, Security, date_time } = translate;
         return (
             <Grid className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode && this.props.settings.setting.mode==='dark' ? "homeBg homeBgDrk" : "homeBg"}>
                 <Grid className="homeBgIner">
@@ -174,8 +174,8 @@ class Index extends Component {
                                             <AppBar position="static" className="profileTabsUpr">
                                                 <Tabs value={value} onChange={this.handleChangeTabs} className="profileTabs">
                                                     <Tab label={my_profile} className="aboutTabsIner" />
-                                                    <Tab label="Security" className="aboutTabsIner" />
-                                                    <Tab label="Date & Time" className="aboutTabsIner" />
+                                                    <Tab label={Security} className="aboutTabsIner" />
+                                                    <Tab label={date_time} className="aboutTabsIner" />
                                                 </Tabs>
                                             </AppBar>
                                         </Grid>

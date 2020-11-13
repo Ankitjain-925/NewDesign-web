@@ -844,7 +844,7 @@ class Index extends Component {
             case "default":
                 translate = translationEN.text
         }
-        let { add_new_entry, new_entry, blood_pressure, blood_sugar, condition_pain, covid_diary,
+        let { add_new_entry, new_entry, blood_pressure, blood_sugar, condition_pain, covid_diary, journal,
             personalize_dashbrd, diagnosis, diary, doc_visit, family_anmnies, file_uplod, hosp_visit, lab_result, marcumar_pass, secnd_openion, sick_cert, prescription, medication, smoking_status, vaccination, weight_bmi, edit, entry, anamnesis } = translate
 
         return (
@@ -872,7 +872,7 @@ class Index extends Component {
                                                     <Grid item xs={11} md={11}>
                                                         <Grid container direction="row">
                                                             <Grid item xs={6} md={6}>
-                                                                <h1>Journal</h1>
+                                                                <h1>{journal}</h1>
                                                             </Grid>
                                                             <Grid item xs={6} md={6}>
                                                                 <Grid className="AddEntrynw">
