@@ -187,7 +187,7 @@ class Index extends Component {
             case "default":
                 translate = translationEN.text
         }
-        let { email, forget_password, password_reset, login_Password, password_must_have_its_condition,
+        let { email, forget_password, password_reset, login_Password, password_must_have_its_condition, DarkMode,
             Register_characters, Register_letter, Register_number, Register_special, Register_Passwordshould,
         } = translate
 
@@ -207,7 +207,7 @@ class Index extends Component {
                                     <Grid className="regSelectTop">
                                         <Grid className="changeLang">
                                         <li>
-                                                    <span className="ThemeModeSet1"> Dark Mode </span> 
+                                                    <span className="ThemeModeSet1"> {DarkMode} </span> 
                                                     <span className="ThemeModeSet">
                                                         <Toggle icons={false} checked={this.state.mode==='dark'} name="mode" onClick={(e) => this.SetMode(e)} />   
                                                     </span>
