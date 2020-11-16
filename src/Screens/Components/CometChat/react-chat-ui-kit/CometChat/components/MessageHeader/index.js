@@ -19,7 +19,8 @@ class MessageHeader extends React.Component {
 
     this.state = {
       status: null,
-      presence: "offline"
+      presence: "offline",
+      image : ''
     }
   }
 
@@ -30,6 +31,7 @@ class MessageHeader extends React.Component {
 
     if(this.props.type === "user") {
       this.setStatusForUser();
+      this.setImageForUser();
     } else {
       this.setStatusForGroup();
     }
@@ -39,11 +41,34 @@ class MessageHeader extends React.Component {
 
     if (this.props.type === 'user' && prevProps.item.uid !== this.props.item.uid) {
       this.setStatusForUser();
+      this.setImageForUser();
     } else if (this.props.type === 'group' && prevProps.item.guid !== this.props.item.guid) {
       this.setStatusForGroup();
     }
   }
 
+
+  setImageForUser=( )=>{
+    const uid = this.props.item.uid;
+    const char = this.props.item.name.charAt(0).toUpperCase()
+    
+  if(!this.props.item.avatar) {
+    var newi = SvgAvatar.getAvatar(uid, char);
+    this.setState({image : newi})
+  }
+  else if(this.props.item.avatar !== SvgAvatar.getAvatar(uid, char)){
+    this.setState({image : require('../../../../../../../assets/images/LoaderAim.gif')})
+      var char1 = this.props.item.avatar;
+      char1 = char1.split(".com/")[1];
+      axios.get(sitedata.data.path + '/aws/sign_s3?find=' + char1)
+      .then((response) => {
+      if (response.data.hassuccessed) {
+        console.log('hERE22')
+        this.setState({image : response.data.data})
+        }
+    })
+  }
+}
   setStatusForUser = () => {
 
     let status = this.props.item.status;
@@ -92,24 +117,9 @@ class MessageHeader extends React.Component {
 
     let status, image, presence;
     if(this.props.type === "user") {
-        const uid = this.props.item.uid;
-        const char = this.props.item.name.charAt(0).toUpperCase();
+        
 
-      if(!this.props.item.avatar) {
-        this.props.item.avatar = SvgAvatar.getAvatar(uid, char);
-      }
-      else if(this.props.item.avatar !== SvgAvatar.getAvatar(uid, char)){
-          var char1 = this.props.item.avatar;
-          char1 = char1.split(".com/")[1];
-          axios.get(sitedata.data.path + '/aws/sign_s3?find=' + char1)
-          .then((response) => {
-          if (response.data.hassuccessed) {
-              this.props.item.avatar = response.data.data;
-            }
-        })
-      }
-
-      image = this.props.item.avatar;
+    
       presence = (
         <StatusIndicator
           status={this.state.presence}
@@ -158,8 +168,9 @@ class MessageHeader extends React.Component {
         <div className="cc1-left-panel-trigger" onClick={() => this.props.actionGenerated("menuClicked")}></div>
         <div className="cc1-chat-win-user">
           <div className="cc1-chat-win-user-thumb">
+           { console.log('this.state.image', this.state.image)}
             <Avatar 
-            image={image} 
+            image={this.state.image} 
             cornerRadius="18px" 
             borderColor="#CCC"
             borderWidth="1px" />

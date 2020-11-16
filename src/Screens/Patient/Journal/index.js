@@ -912,7 +912,7 @@ class Index extends Component {
 
                                     {/* Website Right Content */}
                                     <Grid item xs={12} md={3}>
-                                    <ProfileSection settings={this.props.settings} personalinfo={this.state.personalinfo} user={this.state.cur_one} user_token={this.props.stateLoginValueAim.token} getData={this.cur_one} MoveProfile={this.MoveProfile} />
+                                    <ProfileSection settings={this.props.settings} comesFrom="patient" personalinfo={this.state.personalinfo} user={this.state.cur_one} user_token={this.props.stateLoginValueAim.token} getData={this.cur_one} MoveProfile={this.MoveProfile} />
                                         {/* Model setup */}
                                         <Modal
                                             open={this.state.addInqryNw}

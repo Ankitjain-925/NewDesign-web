@@ -175,23 +175,44 @@ class PointPain extends Component {
         return (
             <Grid className="profileDescp">
                  {this.state.loaderImage && <Loader />}
-                <input type="file" id="getFile" className="FileInptJournal" onChange={this.UploadFile}/>
-                {this.state.image && this.state.image!== '' ? 
-                <Grid className="myProfile">
-                    <a className="profilePic">
-                    <label for="getFile"><img src={this.state.image} alt="" titles="" /></label>
-                        
-                    </a>
-                </Grid>:
-                <Grid className="myProfile2">
-                    <a className="profilePic2">
-                        <label for="getFile">
-                            <span>{add_profile} <br /> {picture}</span>
-                            <img src={require('../../../../assets/images/user2.jpg')} alt="" title="" />
-                        </label>
-                    </a>
-                </Grid>
+                {this.props.comesFrom && this.props.comesFrom==="patient" ? 
+                <div>
+                    <input type="file" id="getFile" className="FileInptJournal" onChange={this.UploadFile}/>
+                    {this.state.image && this.state.image!== '' ? 
+                    <Grid className="myProfile">
+                        <a className="profilePic">
+                        <label for="getFile"><img src={this.state.image} alt="" titles="" /></label>
+                            
+                        </a>
+                    </Grid>:
+                    <Grid className="myProfile2">
+                        <a className="profilePic2">
+                            <label for="getFile">
+                                <span>{add_profile} <br /> {picture}</span>
+                                <img src={require('../../../../assets/images/user2.jpg')} alt="" title="" />
+                            </label>
+                        </a>
+                    </Grid>
                 }
+                </div> :
+                <div>
+                     {this.state.image && this.state.image!== '' ? 
+                    <Grid className="myProfile">
+                        <a className="profilePic">
+                        <img src={this.state.image} alt="" titles="" />
+                            
+                        </a>
+                    </Grid>:
+                    <Grid className="myProfile2">
+                        <a className="profilePic2">
+                           
+                                <span>{add_profile} <br /> {picture}</span>
+                                <img src={require('../../../../assets/images/user2.jpg')} alt="" title="" />
+                           
+                        </a>
+                    </Grid>
+                }
+                    </div>}
                 <Grid className="profileName">
                     <label>{this.state.user.first_name && this.state.user.first_name} {this.state.user.last_name && this.state.user.last_name}</label>
                     {this.state.user.birthday && this.state.user.birthday!== ''? <p>{getDate(this.state.user.birthday, this.state.user_token)} </p> : <p onClick={this.props.MoveProfile}>{cmplt_ur_profile}</p>}
