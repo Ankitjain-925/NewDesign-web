@@ -102,7 +102,7 @@ SetLanguage = () => {
             case "default":
                 translate = translationEN.text
         }
-        let { language_updated, language_not_selected, select, Language } = translate;
+        let { language_updated, save_change, language_not_selected, select, Language } = translate;
         return (
             <div>
             {this.state.loaderImage && <Loader />}
@@ -166,7 +166,7 @@ SetLanguage = () => {
                 <Grid className="infoShwHidBrdr2"></Grid>
                 <Grid className="infoShwHidIner2">
                     <Grid className="infoShwSave2">
-                        <input type="submit" value="Save changes" onClick={this.SetLanguage} />
+                        <input type="submit" value={save_change} onClick={this.SetLanguage} />
                     </Grid>
                 </Grid>
             </Grid>

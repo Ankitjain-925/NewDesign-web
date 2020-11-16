@@ -798,6 +798,7 @@
 		"cancel_appoint":"取消预约",
 		"calender_view":"日历视图",
 		"past_appointments":"过去的约会",
+		"appointments": "预约时间",
 		"select_spec":"选择专业",
 		"appoint_type":"约会类型",
 		"select_a_specialist":"选择专家",
