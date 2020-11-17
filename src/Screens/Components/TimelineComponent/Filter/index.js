@@ -38,7 +38,7 @@ const Typeoptions = [
     { value: 'prescription', label: 'Prescription' },
     { value: 'second_opinion', label: 'Second Opinion' },
     { value: 'sick_certificate', label: 'Sick Certificate' },
-    { value: 'smoking_status', label: 'Somking Status' },
+    { value: 'smoking_status', label: 'Smoking Status' },
     { value: 'vaccination', label: 'Vaccination' },
     { value: 'weight_bmi', label: 'Weight & BMI' },
 ]
