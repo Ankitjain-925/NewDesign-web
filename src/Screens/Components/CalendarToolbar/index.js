@@ -7,6 +7,17 @@ import { Calendar, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
 import sitedata from '../../../sitedata';
 import axios from 'axios';
+import { LanguageFetchReducer } from '../../actions';
+import * as translationEN from "../../../translations/en.json"
+import * as translationDE from '../../../translations/de.json';
+import * as translationPT from '../../../translations/pt.json';
+import * as translationSP from '../../../translations/sp.json';
+import * as translationRS from '../../../translations/rs.json';
+import * as translationSW from '../../../translations/sw.json';
+import * as translationCH from '../../../translations/ch.json';
+import * as translationNL from '../../../translations/en.json';
+import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
 import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 const CURRENT_DATE = moment().toDate();
@@ -16,7 +27,7 @@ const options = [
 	{ value: 'week', label: 'Week' },
 	{ value: 'day', label: 'Day' },
 ];
-export default class CalendarToolbar extends Toolbar {
+class Index extends Toolbar {
 
 	constructor(props) {
 		super(props);
@@ -34,16 +45,46 @@ export default class CalendarToolbar extends Toolbar {
 	}
 
 	render() {
+		let translate;
+		switch (this.props.stateLanguageType) {
+			case "en":
+				translate = translationEN.text
+				break;
+			case "de":
+				translate = translationDE.text
+				break;
+			case "pt":
+				translate = translationPT.text
+				break;
+			case "sp":
+				translate = translationSP.text
+				break;
+			case "rs":
+				translate = translationRS.text
+				break;
+			case "nl":
+				translate = translationNL.text
+				break;
+			case "ch":
+				translate = translationCH.text
+				break;
+			case "sw":
+				translate = translationSW.text
+				break;
+			case "default":
+				translate = translationEN.text
+		}
+		let { sync_ur_calander, today } = translate
 		const { selectedOption } = this.state;
 		var CLIENT_ID = "172543130849-d1oc9tut1v70c67fbd6nodrnbdlbina1.apps.googleusercontent.com"
-        var API_KEY= "AIzaSyBEhx3eyniA0yy1Zx-Mia7_EAupS3Lih_A"
-         // Array of API discovery doc URLs for APIs used by the quickstart
-         var DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"];
-     
-         // Authorization scopes required by the API; multiple scopes can be
-         // included, separated by spaces.
-         var SCOPES = "https://www.googleapis.com/auth/calendar";
-         
+		var API_KEY = "AIzaSyBEhx3eyniA0yy1Zx-Mia7_EAupS3Lih_A"
+		// Array of API discovery doc URLs for APIs used by the quickstart
+		var DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"];
+
+		// Authorization scopes required by the API; multiple scopes can be
+		// included, separated by spaces.
+		var SCOPES = "https://www.googleapis.com/auth/calendar";
+
 		const handleClick = () => {
 			window.gapi.load('client:auth2', () => {
 				window.gapi.client.init({
@@ -95,6 +136,7 @@ export default class CalendarToolbar extends Toolbar {
 			});
 		}
 
+
 		return (
 			<div>
 				<Grid className="todaySrch">
@@ -102,18 +144,18 @@ export default class CalendarToolbar extends Toolbar {
 						<Grid item xs={12} md={12} alignItems="center" justify="center">
 							<Grid container direction="row">
 								<Grid item xs={12} md={6} className="todayMnth">
-									<Grid className="todaySrchLft"><label onClick={() => this.navigate('TODAY')}>Today</label></Grid>
+									<Grid className="todaySrchLft"><label onClick={() => this.navigate('TODAY')}>{today}</label></Grid>
 									<Grid className="movMnth">
 										{/* <a onClick={() => this.navigate('PREV')}><img src={require('../../../assets/images/leftArow.jpg')} alt="" title="" /></a>
 										<a onClick={() => this.navigate('NEXT')}><img src={require('../../../assets/images/rightArow.jpg')} alt="" title="" /></a> */}
 										<a onClick={() => this.navigate('PREV')}><NavigateBeforeIcon /></a>
-										<a onClick={() => this.navigate('NEXT')}><NavigateNextIcon/></a>
+										<a onClick={() => this.navigate('NEXT')}><NavigateNextIcon /></a>
 									</Grid>
 									<Grid className="crntMonth">{this.props.label}</Grid>
 								</Grid>
 								<Grid item xs={12} md={6}>
 									<Grid className="todaySrchRght todayAddons">
-										<a onClick={handleClick} className="syncRght">Sync to your calendar</a>
+										<a onClick={handleClick} className="syncRght">{sync_ur_calander}</a>
 										<a><img src={require('../../../assets/images/topicSrch.jpg')} alt="" title="" /></a>
 										<Select
 											value={selectedOption}
@@ -138,3 +180,10 @@ export default class CalendarToolbar extends Toolbar {
 		);
 	}
 }
+const mapStateToProps = (state) => {
+	const { stateLanguageType } = state.LanguageReducer;
+	return {
+		stateLanguageType
+	}
+};
+export default withRouter(connect(mapStateToProps, { LanguageFetchReducer })(Index));

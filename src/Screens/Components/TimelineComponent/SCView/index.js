@@ -77,7 +77,7 @@ class Index extends Component {
             case "default":
                 translate = translationEN.text
         }
-        let { sick_cert, visibility, Download, quik_value, lwr_limit, upr_limit, pill_taken, Delete, visible, hide, title, show, first_day_visit, always, edit, date_of_death, date_of_dieses_patient, dob, day_doc_visit, gender_of_relatives, relation_of_relative, Change, speciality, hosp_id, hosp_name, doc_id, traveled, slct_ICD_serch_code, when, to, allergy, enter_code_serch_by_keyword, dignose, of, until, archive, rr_systolic, attachments, time_measure, date_measure,
+        let { sick_cert, visibility, Download, quik_value, lwr_limit, upr_limit, img_file, pill_taken, Delete, visible, hide, title, show, first_day_visit, always, edit, date_of_death, date_of_dieses_patient, dob, day_doc_visit, gender_of_relatives, relation_of_relative, Change, speciality, hosp_id, hosp_name, doc_id, traveled, slct_ICD_serch_code, when, to, allergy, enter_code_serch_by_keyword, dignose, of, until, archive, rr_systolic, attachments, time_measure, date_measure,
             date, time, confirm_diag, emergancy_dignosis, trvl_diagnosis, disease_name, doc_name, first_visit_day, last_visit_day, diagnosed, by, notes, save_entry, emergency, diagnosis, review, on, not_mentioned, de_archive } = translate
 
         return (
@@ -148,7 +148,7 @@ class Index extends Component {
                             <Grid className="clear"></Grid>
                         </Grid>
                         <Grid className="addSpc detailMark">
-                            <Collapsible trigger="Images & Files" open="true">
+                            <Collapsible trigger={img_file} open="true">
                                 <FileViews images={this.state.images} attachfile={item.attachfile} />
                             </Collapsible>
                         </Grid>

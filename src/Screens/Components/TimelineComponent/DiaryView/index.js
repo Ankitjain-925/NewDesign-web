@@ -146,7 +146,7 @@ class Index extends Component {
                         </Grid>
 
                         <Grid className="addSpc detailMark">
-                            <Collapsible trigger="Notes" open="true">
+                            <Collapsible trigger={notes} open="true">
                                 <Grid className="detailCntnt">
                                     <p dangerouslySetInnerHTML={{ __html: item.free_text }} />
                                 </Grid>

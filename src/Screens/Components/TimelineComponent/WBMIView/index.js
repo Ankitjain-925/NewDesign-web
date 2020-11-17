@@ -77,7 +77,7 @@ class Index extends Component {
             case "default":
                 translate = translationEN.text
         }
-        let { weight_bmi, visibility, Download, quik_value, lwr_limit, VeiwGraph, from, upr_limit, vaccinated_by, height, weight, BMI, change_num, trade_name, pill_taken, Delete, visible, hide, title, show, first_day_visit, always, edit, date_of_death, date_of_dieses_patient, dob, day_doc_visit, gender_of_relatives, relation_of_relative, Change, speciality, hosp_id, hosp_name, doc_id, traveled, slct_ICD_serch_code, when, to, allergy, enter_code_serch_by_keyword, dignose, of, until, archive, rr_systolic, attachments, time_measure, date_measure,
+        let { weight_bmi, visibility, Download, quik_value, details, img_file, lwr_limit, VeiwGraph, from, upr_limit, vaccinated_by, height, weight, BMI, change_num, trade_name, pill_taken, Delete, visible, hide, title, show, first_day_visit, always, edit, date_of_death, date_of_dieses_patient, dob, day_doc_visit, gender_of_relatives, relation_of_relative, Change, speciality, hosp_id, hosp_name, doc_id, traveled, slct_ICD_serch_code, when, to, allergy, enter_code_serch_by_keyword, dignose, of, until, archive, rr_systolic, attachments, time_measure, date_measure,
             date, time, confirm_diag, emergancy_dignosis, trvl_diagnosis, disease_name, doc_name, date_of_vaccination, reminder_time_taken, last_visit_day, diagnosed, by, notes, save_entry, emergency, diagnosis, review, on, not_mentioned, de_archive } = translate
 
         return (
@@ -149,7 +149,7 @@ class Index extends Component {
                         </Grid>
 
                         <Grid className="addSpc detailMark">
-                            <Collapsible trigger="Details" open="true">
+                            <Collapsible trigger={details} open="true">
                                 <Grid className="detailCntnt">
                                     <Grid container direction="row">
                                         <Grid item xs={12} md={6} className="bloodPreBy">
@@ -190,7 +190,7 @@ class Index extends Component {
                             </Collapsible>
                         </Grid>
                         <Grid className="addSpc detailMark">
-                            <Collapsible trigger="Images & Files" open="true">
+                            <Collapsible trigger={img_file} open="true">
                                 <FileViews images={this.state.images} attachfile={item.attachfile} />
                             </Collapsible>
                         </Grid>

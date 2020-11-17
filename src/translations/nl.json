@@ -1049,6 +1049,7 @@
 		"company": "Bedrijf",
 		"of": "van",
 		"info_copied": "Informatie is gekopieerd",
+		"followingorgantissues" :"Ja, ik sta dit toe, behalve de volgende organen / weefsels:",
 		"profile_updated": "Profiel is geüpdatet",
 		"profile_not_updated": "Profiel is niet geüpdatet. Kan de server niet bereiken", 
 		"mobile_number_not_valid": "Mobiel telefoonnummer is niet geldig",
@@ -1539,6 +1540,13 @@
 		"search_by_patient_id_name_doc":"Zoeken op patiënt-ID, naam patiënt, arts ...",
 		"rcvd_from_doctor":"Ontvangen van dokter",
 		"handled":"Afgehandeld",
-		"medicine_handed_to_patient":"Medicijn overhandigd aan de patiënt"
+		"medicine_handed_to_patient":"Medicijn overhandigd aan de patiënt",
+		"img_files":"Afbeeldingen en bestanden",
+		"Explanation":"Uitleg",
+		"r_u_sure_remove_doctor":"Weet u zeker dat u de dokter uit de vertrouwde dokter verwijdert?",
+		"paymnt_processed":"De betaling is succesvol verwerkt",
+		"paymnt_err":"betalingsfout",
+		"pay_with_stripe":"Betaal met Stripe",
+		"frequency":"Frequentie"
 		}
 }

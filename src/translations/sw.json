@@ -290,7 +290,7 @@
 		"activated": "Ulioamilishwa",
 		"past_apointment": "Zamani Uteuzi",
 		"hide_past_appointment": "Kujificha Nyuma ya Uteuzi",
-		"deactivated": "deactivated",
+		"deactivated": "imezimwa",
 		"srvc_not_updt_cannt_reach_srvr": "Huduma si updated. Hawezi kufikia kwa server",
 		"doc_around_clock": "Doc Kote Saa",
 		"cntct_aimedis_medi_team_24_7": "Wasiliana Aimedis timu ya matibabu 24 / 7 kwa maswali",
@@ -618,7 +618,7 @@
 		"DetailsQuestions": "Maelezo / Maswali",
 		"Timezone": "Saa za eneo",
 		"YesIherewithagreewitha": "Ndio, nakubaliana na upandikizaji wa kiungo kimoja au zaidi ya tishu baada ya madaktari kunitangaza kuwa nimekufa",
-		"followingorgantissues:": "Ndio, ninaruhusu hii isipokuwa kwa kufuata viungo / tishu:",
+		"followingorgantissues": "Ndio, ninaruhusu hii isipokuwa kwa kufuata viungo / tishu:",
 		"allowthisonlyforfollowing": "Ndio, ninaruhusu hii tu kwa kufuata viungo / tishu:",
 		"Yes": "Ndio",
 		"No": "Hapana",
@@ -793,6 +793,7 @@
 		"cancel_appoint": "Kufuta Uteuzi",
 		"calender_view": "Kalenda View",
 		"past_appointments": "Zamani Uteuzi",
+		"appointments": "Uteuzi",
 		"select_spec": "Kuchagua maalum",
 		"appoint_type": "Uteuzi aina",
 		"select_a_specialist": "Kuchagua mtaalamu",
@@ -1027,6 +1028,13 @@
 		"search_by_patient_id_name_doc": "Tafuta na Kitambulisho cha Mgonjwa, jina la Mgonjwa, Daktari ...",
 		"rcvd_from_doctor": "Imepokea kutoka kwa daktari",
 		"handled": "Kushughulikiwa",
-		"medicine_handed_to_patient": "Dawa iliyopewa mgonjwa"
+		"medicine_handed_to_patient": "Dawa iliyopewa mgonjwa",
+		"img_files":"Picha na Faili",
+		"Explanation":"Maelezo",
+		"r_u_sure_remove_doctor":"Je! Una uhakika wa kumwondoa Daktari kutoka kwa Daktari anayeaminika?",
+		"paymnt_processed":"Malipo yamechakatwa",
+		"paymnt_err":"Hitilafu ya malipo",
+		"pay_with_stripe":"Lipa na Stripe",
+		"frequency":"Mzunguko"
 	}
 }

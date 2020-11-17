@@ -78,7 +78,7 @@ class Index extends Component {
             case "default":
                 translate = translationEN.text
         }
-        let { file_uploads, visibility, Download, Delete, visible, hide, title, show, doc_visit, always, edit, date_of_death, date_of_dieses_patient, dob, day_doc_visit, gender_of_relatives, relation_of_relative, Change, speciality, traveled, slct_ICD_serch_code, when, to, allergy, enter_code_serch_by_keyword, dignose, of, until, archive, rr_systolic, attachments, time_measure, date_measure,
+        let { file_uploads, visibility, Download, Delete, visible, hide, details, img_file, title, show, doc_visit, always, edit, date_of_death, date_of_dieses_patient, dob, day_doc_visit, gender_of_relatives, relation_of_relative, Change, speciality, traveled, slct_ICD_serch_code, when, to, allergy, enter_code_serch_by_keyword, dignose, of, until, archive, rr_systolic, attachments, time_measure, date_measure,
             date, time, confirm_diag, emergancy_dignosis, trvl_diagnosis, disease_name, doc_name, doc_id, family_anmnies, diagnosed, by, notes, save_entry, emergency, diagnosis, review, on, not_mentioned, de_archive } = translate
  
         return (
@@ -150,7 +150,7 @@ class Index extends Component {
                             <Grid className="clear"></Grid>
                         </Grid>
                         <Grid className="addSpc detailMark">
-                            <Collapsible trigger="Details" open="true">
+                            <Collapsible trigger={details} open="true">
                                 <Grid className="detailCntnt">
                                     <Grid container direction="row">
                                         <Grid item xs={12} md={6} className="bloodPreBy">
@@ -165,14 +165,14 @@ class Index extends Component {
                             </Collapsible>
                         </Grid>
                         <Grid className="addSpc detailMark">
-                            <Collapsible trigger="Notes" open="true">
+                            <Collapsible trigger={notes} open="true">
                                 <Grid className="detailCntnt">
                                     <p dangerouslySetInnerHTML={{ __html: item.remarks }} />
                                 </Grid>
                             </Collapsible>
                         </Grid>
                         <Grid className="addSpc detailMark">
-                            <Collapsible trigger="Images & Files" open="true">
+                            <Collapsible trigger={img_file} open="true">
                                 <FileViews images={this.state.images} attachfile={item.attachfile} />
                             </Collapsible>
                         </Grid>

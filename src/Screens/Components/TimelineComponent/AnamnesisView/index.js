@@ -79,7 +79,7 @@ class Index extends Component {
               case "default":
                   translate = translationEN.text
           }
-          let {anamnesis,always, show, hide, until, Change, edit, Download,
+          let {anamnesis,always, show, hide, until, Change, edit, Download, img_file,
             visibility,visible,archive,de_archive,Delete, pain_areas, BodySchemeNotes } = translate;
         var item = this.state.item;
         return (
@@ -187,7 +187,7 @@ class Index extends Component {
                            
                         
                         <Grid className="addSpc detailMark">
-                            <Collapsible trigger="Images & Files" open="true">
+                            <Collapsible trigger={img_file} open="true">
                                 <FileViews images={this.state.images} attachfile={item.attachfile} />
                             </Collapsible>
                         </Grid>
