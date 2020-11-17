@@ -1012,7 +1012,7 @@ class Index extends Component {
                                         <Grid className="Personal_dash">
                                             <a onClick={this.handleOpenDash}>
                                                 <img src={require('../../../assets/images/bpupr.png')} alt="" title="" />
-                                                {personalize_dashbrd}uuu
+                                                {personalize_dashbrd}
                                             </a>
                                         </Grid>
 
