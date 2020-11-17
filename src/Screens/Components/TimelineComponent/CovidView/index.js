@@ -82,9 +82,9 @@ class Index extends Component {
               case "default":
                   translate = translationEN.text
           }
-          let { selct_pain_area, attachments, O2Saturation, Whereyouarelocated, symp_notes,
+          let { selct_pain_area, attachments, O2Saturation, Whereyouarelocated, symp_notes, notes,
             visible,feeling, show, date, time, hide, until, archive, temparture,
-         edit, Delete, RR_diastolic, heart_rate,always, Download,
+         edit, Delete, RR_diastolic, heart_rate,always, Download, details, img_files,
             Change, Location, visibility,de_archive,covid_diary, pain_areas, not_mentioned } = translate
         var item = this.state.item;
         return (
@@ -181,7 +181,7 @@ class Index extends Component {
                         </Grid>
 
                         <Grid className="addSpc detailMark">
-                            <Collapsible trigger="Details" open="true">
+                            <Collapsible trigger={details} open="true">
                                 <Grid>
                                     <Grid container direction="row">
                                         <Grid item xs={12} md={6} className="painTypeBy">
@@ -211,14 +211,14 @@ class Index extends Component {
                             </Collapsible>
                         </Grid>
                         <Grid className="addSpc detailMark">
-                            <Collapsible trigger="Notes" open="true">
+                            <Collapsible trigger={notes} open="true">
                                 <Grid className="detailCntnt">
                                     <p dangerouslySetInnerHTML={{ __html: item.symptoms }} />
                                 </Grid>
                             </Collapsible>
                         </Grid>
                         <Grid className="addSpc detailMark">
-                            <Collapsible trigger="Images & Files" open="true">
+                            <Collapsible trigger={img_files} open="true">
                                 <FileViews images={this.state.images} attachfile={item.attachfile} />
                             </Collapsible>
                         </Grid>

@@ -5,7 +5,7 @@
 		"login_LOGIN_btn": "LOG IN",
 		"login_an_account": "don't have an account?",
 		"login_Registerhere": "Register here",
-		"reg_content": "reg_content",
+		"reg_content": "Register content",
 		"Register_for_Aimedis": "Register for Aimedis",
 		"Register_Name": "Name",
 		"Register_email": "E-mail address",
@@ -217,7 +217,7 @@
 		"do_u_hv_allergies": "Do you have any allergies",
 		"ur_profession": "Your Profession",
 		"Annotations": "Annotations",
-		"details": "details",
+		"details": "Details",
 		"questions": "questions",
 		"is_this_follow_pres": "Is this a follow-up prescription",
 		"how_u_like_rcv_pres": "How would you like to receive the prescription",
@@ -620,7 +620,7 @@
 		"DetailsQuestions": "Details / Questions",
 		"Timezone": "Timezone",
 		"YesIherewithagreewitha": "Yes, I herewith agree with a transplantation of one or more organ / tissues of mine after doctors have pronounced me dead",
-		"followingorgantissues:": "Yes, I allow this except for following organ / tissues:",
+		"followingorgantissues": "Yes, I allow this except for following organ / tissues:",
 		"allowthisonlyforfollowing": "Yes, I allow this only for following organ / tissues:",
 		"Yes": "Yes",
 		"No": "No",
@@ -1031,6 +1031,13 @@
 		"search_by_patient_id_name_doc":"Search by Patient ID, Patient name, Doctor...",
 		"rcvd_from_doctor":"Received from doctor",
 		"handled":"Handled",
-		"medicine_handed_to_patient":"Medicine handed to patient"
+		"medicine_handed_to_patient":"Medicine handed to patient",
+		"img_files":"Images & Files",
+		"Explanation":"Explanation",
+		"r_u_sure_remove_doctor":"Are you sure to remove the Doctor from the Trusted Doctor",
+		"paymnt_processed":"Payment successfully processed",
+		"paymnt_err":"Payment error",
+		"pay_with_stripe":"Pay with stripe",
+		"frequency":"Frequency"
 		}
 }

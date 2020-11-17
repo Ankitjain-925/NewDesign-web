@@ -620,7 +620,7 @@
 		"DetailsQuestions" :"Detalles / Preguntas",
 		"Timezone" : "Zona horaria",
 		"YesIherewithagreewitha" : "Sí, por la presente estoy de acuerdo con un trasplante de uno o más órganos / tejidos míos después de que los médicos me hayan declarado muerto.",
-		"followingorgantissues:" :"Sí, lo permito, excepto para los siguientes órganos / tejidos:",
+		"followingorgantissues" :"Sí, lo permito, excepto para los siguientes órganos / tejidos:",
 		"allowthisonlyforfollowing" : "Sí, permito esto solo para los siguientes órganos / tejidos:",
 		"Yes" : "si",
 		"No" : "No",
@@ -1033,6 +1033,13 @@
 		"search_by_patient_id_name_doc":"Buscar por ID de paciente, nombre del paciente, médico ...",
 		"rcvd_from_doctor":"Recibido del doctor",
 		"handled":"Manejado",
-		"medicine_handed_to_patient":"Medicina entregada al paciente"
+		"medicine_handed_to_patient":"Medicina entregada al paciente",
+		"img_files":"Imágenes y archivos",
+		"Explanation":"Explicación",
+		"r_u_sure_remove_doctor":"¿Está seguro de eliminar al Doctor del Doctor de confianza?",
+		"paymnt_processed":"Pago procesado correctamente",
+		"paymnt_err":"error en el pago",
+		"pay_with_stripe":"Lipa na Stripe",
+		"frequency":"Frecuencia"
 	}
 }

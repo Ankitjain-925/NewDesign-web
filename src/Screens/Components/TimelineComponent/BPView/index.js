@@ -78,7 +78,7 @@ class Index extends Component {
                   translate = translationEN.text
           }
           let {blood_pressure, visible,feeling,show, date, time, hide, until, archive, rr_systolic,
-            visibility, edit, Delete, RR_diastolic, heart_rate,always, VeiwGraph,
+            visibility, edit, Delete, RR_diastolic, heart_rate,always, VeiwGraph, img_file, details,
             Change,de_archive,Download } = translate;
         var item = this.state.item;
         return (
@@ -152,7 +152,7 @@ class Index extends Component {
                         </Grid>
 
                         <Grid className="addSpc detailMark">
-                            <Collapsible trigger="Details" open="true">
+                            <Collapsible trigger={details} open="true">
                                 <Grid className="detailCntnt">
                                     <Grid container direction="row">
                                         <Grid item xs={12} md={6} className="bloodPreBy">
@@ -201,7 +201,7 @@ class Index extends Component {
                             </Collapsible>
                         </Grid>
                         <Grid className="addSpc detailMark">
-                            <Collapsible trigger="Images & Files" open="true">
+                            <Collapsible trigger={img_file} open="true">
                                 <FileViews images={this.state.images} attachfile={item.attachfile} />
                             </Collapsible>
                         </Grid>

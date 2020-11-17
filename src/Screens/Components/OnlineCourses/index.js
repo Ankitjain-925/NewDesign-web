@@ -53,42 +53,72 @@ const Language = [
 
 class Index extends Component {
     constructor(props) {
-       super(props);
-       this.StripeClick = React.createRef();
+        super(props);
+        this.StripeClick = React.createRef();
         this.state = {
             value: 0,
             selectedOption: null,
             openFancy: false,
             openWish: false,
             openCart: false,
-            courseTopics : [],
-            SelectedLanguage : { value: 'All', label: 'All' },
-            SelectedTopic :  { value: 'All', label: 'All' },
-            Allwishlist : [],
-            AllCart : [],
-            addedCart : false,
+            courseTopics: [],
+            SelectedLanguage: { value: 'All', label: 'All' },
+            SelectedTopic: { value: 'All', label: 'All' },
+            Allwishlist: [],
+            AllCart: [],
+            addedCart: false,
             removeTrue: false,
-            amount : 0,
-            cartAlready : false,
+            amount: 0,
+            cartAlready: false,
 
         };
     }
     handleChange = (event, value) => {
-        this.setState({ value : value, SelectedLanguage : { value: 'All', label: 'All' }, SelectedTopic :  { value: 'All', label: 'All' }, });
+        this.setState({ value: value, SelectedLanguage: { value: 'All', label: 'All' }, SelectedTopic: { value: 'All', label: 'All' }, });
     };
     handleChangeSelect = selectedOption => {
         this.setState({ selectedOption });
     };
 
     componentDidMount() {
-       this.getAlltopic();
-       this.getAllwishlist();
-       this.getAllCart();
+        this.getAlltopic();
+        this.getAllwishlist();
+        this.getAllCart();
     }
 
-    
+
     //for getting the all Topic
     getAlltopic = () => {
+        let translate;
+        switch (this.props.stateLanguageType) {
+            case "en":
+                translate = translationEN.text
+                break;
+            case "de":
+                translate = translationDE.text
+                break;
+            case "pt":
+                translate = translationPT.text
+                break;
+            case "sp":
+                translate = translationSP.text
+                break;
+            case "rs":
+                translate = translationRS.text
+                break;
+            case "nl":
+                translate = translationNL.text
+                break;
+            case "ch":
+                translate = translationCH.text
+                break;
+            case "sw":
+                translate = translationSW.text
+                break;
+            case "default":
+                translate = translationEN.text
+        }
+        let { all } = translate
         var user_token = this.props.stateLoginValueAim.token;
         axios.get(sitedata.data.path + '/admin/topic',
             {
@@ -99,17 +129,18 @@ class Index extends Component {
                 }
             }
         ).then(res => {
-            var topics = [{label : 'All' , value : 'All'}];
-            res.data.data && res.data.data.length>0 && res.data.data.map((item)=>{
-                topics.push({label : item.topic_name , value : item.topic_name})
+            console.log("ALL VALUE", all)
+            var topics = [{ label: all, value: all }];
+            res.data.data && res.data.data.length > 0 && res.data.data.map((item) => {
+                topics.push({ label: item.topic_name, value: item.topic_name })
                 this.setState({ courseTopics: topics })
             })
         })
     }
 
-     //for getting the All wishlists
-     getAllwishlist=()=>{
-        this.setState({loaderImage: true})
+    //for getting the All wishlists
+    getAllwishlist = () => {
+        this.setState({ loaderImage: true })
         axios.post(sitedata.data.path + '/lms/getWishlist', {
             user_id: this.props.stateLoginValueAim.user._id
         },
@@ -120,11 +151,11 @@ class Index extends Component {
                     'Content-Type': 'application/json'
                 }
             }).then(res => {
-                if(res.data.hassuccessed){
+                if (res.data.hassuccessed) {
                     this.setState({ Allwishlist: res.data.data });
                 }
-                this.setState({loaderImage: false})
-            }).catch(err => {})
+                this.setState({ loaderImage: false })
+            }).catch(err => { })
     }
 
     //For remove wishlist
@@ -181,21 +212,20 @@ class Index extends Component {
     };
 
     //For add to card
-    AddtoCard=(element, comeFrom)=> {
+    AddtoCard = (element, comeFrom) => {
         var data = element;
-        if(!data._id){
+        if (!data._id) {
             data._id = data.courseId;
         }
         var GetAllCart = this.state.AllCart;
-        var GetCart = GetAllCart && GetAllCart.length>0 && GetAllCart.filter((itm)=>itm.courseId===data.courseId)
-        if(GetCart && GetCart.length>0)
-        { 
-            this.setState({cartAlready: true})
-            setTimeout(()=>{this.setState({cartAlready: false})}, 3000)
+        var GetCart = GetAllCart && GetAllCart.length > 0 && GetAllCart.filter((itm) => itm.courseId === data.courseId)
+        if (GetCart && GetCart.length > 0) {
+            this.setState({ cartAlready: true })
+            setTimeout(() => { this.setState({ cartAlready: false }) }, 3000)
         }
-        else{
+        else {
             let user_token = this.props.stateLoginValueAim.token
-            if(comeFrom == 'all'){
+            if (comeFrom == 'all') {
                 data.courseId = data._id;
                 delete data.isActive;
                 delete data.permission;
@@ -215,12 +245,32 @@ class Index extends Component {
             data.email = this.props.stateLoginValueAim.user.email;
             delete data._id;
             GetAllCart.push(data);
-            this.setState({loaderImage: true})
-            axios.post(sitedata.data.path + '/lms/addtocart', 
-            {   
-                user_id : this.props.stateLoginValueAim.user._id,
-                cartList : GetAllCart
-            },
+            this.setState({ loaderImage: true })
+            axios.post(sitedata.data.path + '/lms/addtocart',
+                {
+                    user_id: this.props.stateLoginValueAim.user._id,
+                    cartList: GetAllCart
+                },
+                {
+                    headers: {
+                        'token': user_token,
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    }
+                }).then(res => {
+                    this.setState({ addedCart: true, loaderImage: false })
+                    setTimeout(() => { this.setState({ addedCart: false }) }, 3000)
+                    this.getAllCart();
+                }).catch(err => { })
+        }
+
+    }
+
+    //For remove the Cart
+    RemoveCart = (data) => {
+        let user_token = this.props.stateLoginValueAim.token
+        this.setState({ loaderImage: true })
+        axios.delete(sitedata.data.path + '/lms/removeCart/' + data.user_id + '/' + data.courseId,
             {
                 headers: {
                     'token': user_token,
@@ -228,72 +278,50 @@ class Index extends Component {
                     'Content-Type': 'application/json'
                 }
             }).then(res => {
-                this.setState({addedCart : true, loaderImage: false})
-                    setTimeout(()=>{ this.setState({addedCart : false}) }, 3000)
-                    this.getAllCart();
-            }).catch(err => { })
-        }
-       
-    }
-
-    //For remove the Cart
-    RemoveCart=(data)=>{
-        let user_token = this.props.stateLoginValueAim.token
-        this.setState({loaderImage: true})
-        axios.delete(sitedata.data.path + '/lms/removeCart/'+data.user_id+'/'+data.courseId, 
-        {
-            headers: {
-                'token': user_token,
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            }
-        }).then(res => {
-             this.setState({ removeTrue : true, loaderImage: false})
-                setTimeout(()=>{ this.setState({removeTrue : false}) }, 3000)
+                this.setState({ removeTrue: true, loaderImage: false })
+                setTimeout(() => { this.setState({ removeTrue: false }) }, 3000)
                 this.getAllCart();
-        }).catch(err => { })
+            }).catch(err => { })
     }
 
     //For get the Cart 
-    getAllCart=()=>{
-        this.setState({loaderImage: true})
+    getAllCart = () => {
+        this.setState({ loaderImage: true })
         axios.post(sitedata.data.path + '/lms/getCart', {
             user_id: this.props.stateLoginValueAim.user._id
         },
-        {
-            headers: {
-                'token': this.props.stateLoginValueAim.token,
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            }
-        }).then(res => {
-            if(res.data.hassuccessed)
             {
-                if(res.data.data && res.data.data.cartList)
-                {
-                    this.setState({ AllCart: res.data.data.cartList },
-                    ()=>{
-                        var sum = 0;
-                        this.state.AllCart.forEach(element => {
-                            sum = element.price + sum
-                        });
-                        this.setState({ amount: sum });
-                    });
+                headers: {
+                    'token': this.props.stateLoginValueAim.token,
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
                 }
-            }
-            this.setState({loaderImage: false})
-        }).catch(err => {})
+            }).then(res => {
+                if (res.data.hassuccessed) {
+                    if (res.data.data && res.data.data.cartList) {
+                        this.setState({ AllCart: res.data.data.cartList },
+                            () => {
+                                var sum = 0;
+                                this.state.AllCart.forEach(element => {
+                                    sum = element.price + sum
+                                });
+                                this.setState({ amount: sum });
+                            });
+                    }
+                }
+                this.setState({ loaderImage: false })
+            }).catch(err => { })
     }
     //Using to convert the currency
     fromDollarToCent = (amount) => { return parseInt(amount * 100); }
 
 
-    onClicks=()=> {
-            this.handleCloseCart();
-            this.StripeClick.onClick();
-      }
+    onClicks = () => {
+        this.handleCloseCart();
+        this.StripeClick.onClick();
+    }
 
-      
+
     render() {
         let translate;
         switch (this.props.stateLanguageType) {
@@ -324,7 +352,7 @@ class Index extends Component {
             case "default":
                 translate = translationEN.text
         }
-        let { all_course, my_course, topic_all, language_eng, wishlist, prescriptions, appointments, cart_removed, chat_vdocall, pharmacy_access, remove, lectures, add_to_cart, cart, capab_Patients, Inquiries, emegancy_access, archive, more, my_profile, invite_doc,pharma_prescription, online_course, profile_setting, Language,
+        let { all_course, ok, pay_with_stripe, my_course, paymnt_err, paymnt_processed, topic_all, language_eng, wishlist, prescriptions, appointments, cart_removed, chat_vdocall, pharmacy_access, remove, lectures, add_to_cart, cart, capab_Patients, Inquiries, emegancy_access, archive, more, my_profile, invite_doc, pharma_prescription, online_course, profile_setting, Language,
             DarkMode, logout } = translate;
 
         const { value } = this.state;
@@ -333,63 +361,63 @@ class Index extends Component {
         const successPayment = data => {
             confirmAlert({
                 customUI: ({ onClose }) => {
-                return (
-                <div className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode === 'dark' ? "dark-confirm react-confirm-alert-body" : "react-confirm-alert-body"} >
-                <h1>Payment successfully processed</h1>
-                <div className="react-confirm-alert-button-group">
-                <button
-                onClick={() => {onClose();}}
-                >
-                OK
-                </button>
-                </div>
-                </div>
-                );
+                    return (
+                        <div className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode === 'dark' ? "dark-confirm react-confirm-alert-body" : "react-confirm-alert-body"} >
+                            <h1>{paymnt_processed}</h1>
+                            <div className="react-confirm-alert-button-group">
+                                <button
+                                    onClick={() => { onClose(); }}
+                                >
+                                    {ok}
+                                </button>
+                            </div>
+                        </div>
+                    );
                 }
-                })
-           
+            })
+
             let user_token = this.props.stateLoginValueAim.token
             axios.post(sitedata.data.path + '/lms_stripeCheckout/saveData',
-            {
-                user_id: this.props.stateLoginValueAim.user._id,
-                userName:  this.props.stateLoginValueAim.user.first_name + this.props.stateLoginValueAim.user.last_name,
-                userType: this.props.stateLoginValueAim.user.type,
-                paymentData: data,
-                orderlist: this.state.AllCart
+                {
+                    user_id: this.props.stateLoginValueAim.user._id,
+                    userName: this.props.stateLoginValueAim.user.first_name + this.props.stateLoginValueAim.user.last_name,
+                    userType: this.props.stateLoginValueAim.user.type,
+                    paymentData: data,
+                    orderlist: this.state.AllCart
 
-            },
-            {
-                headers: {
-                    'token': user_token,
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                }
-            }).then(res => {
-                this.GetAllCart();
-            })
-            .catch(err => {
-                
-            })
+                },
+                {
+                    headers: {
+                        'token': user_token,
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    }
+                }).then(res => {
+                    this.GetAllCart();
+                })
+                .catch(err => {
+
+                })
         };
 
         //Alert of the Error payment
         const errorPayment = data => {
             confirmAlert({
                 customUI: ({ onClose }) => {
-                return (
-                <div className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode === 'dark' ? "dark-confirm react-confirm-alert-body" : "react-confirm-alert-body"} >
-                <h1>Payment error</h1>
-                <div className="react-confirm-alert-button-group">
-                <button
-                onClick={() => {onClose();}}
-                >
-                OK
-                </button>
-                </div>
-                </div>
-                );
+                    return (
+                        <div className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode === 'dark' ? "dark-confirm react-confirm-alert-body" : "react-confirm-alert-body"} >
+                            <h1>{paymnt_err}</h1>
+                            <div className="react-confirm-alert-button-group">
+                                <button
+                                    onClick={() => { onClose(); }}
+                                >
+                                    {ok}
+                                </button>
+                            </div>
+                        </div>
+                    );
                 }
-                })
+            })
         };
 
         //For convert EuroToCent
@@ -415,7 +443,7 @@ class Index extends Component {
                 description = 'Stripe Payment',
                 amount = this.state.amount }) =>
             <StripeCheckout
-                ref={ref => { this.StripeClick = ref; }} 
+                ref={ref => { this.StripeClick = ref; }}
                 name={name}
                 image="https://aimedis.com/wp-content/uploads/2019/02/Aimedis-Logo-transparent-no-borders-25.10.2017-e1550053501852.png"
                 billingAddress
@@ -424,7 +452,7 @@ class Index extends Component {
                 token={onToken}
                 currency={CURRENCY}
                 stripeKey={STRIPE_PUBLISHABLE}
-                label="Pay with stripe"
+                label={pay_with_stripe}
                 className="CutomStripeButton"
             />
         return (
@@ -450,8 +478,8 @@ class Index extends Component {
                             <Modal
                                 open={this.state.openWish}
                                 onClose={this.handleCloseWish}
-                                className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode === 'dark' ?"wishListModel darkTheme":"wishListModel"}
-                                >
+                                className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode === 'dark' ? "wishListModel darkTheme" : "wishListModel"}
+                            >
                                 <div className="wishListCntnt">
 
                                     <div className="wshLstHai">
@@ -464,39 +492,39 @@ class Index extends Component {
                                     </div>
 
                                     {/* WishList Content */}
-                                    {this.state.Allwishlist && this.state.Allwishlist.length>0 && this.state.Allwishlist.map((item, index)=>(
-                                    <Grid className="wshCorList">
-                                        <Grid className="wshCorListLbl"><label>{item.courseTitle}</label></Grid>
-                                        <Grid className="wshCorListInr">
-                                            <Grid className="wshCorListPara">
-                                                <p>{item.courseDesc}</p>
-                                            </Grid>
-                                            <Grid className="wshCorListTime">
-                                                <Grid><a><img src={require('../../../assets/images/lectures.svg')} alt="" title="" />{item.attachment.length} {lectures}</a></Grid>
-                                                {/* <Grid><a><img src={require('../../../assets/images/time.svg')} alt="" title="" />1.5 h</a></Grid> */}
-                                            </Grid>
-                                            <Grid className="wshCorStar">
-                                            <Rating size="20" rating={item.courseContent && item.courseContent.average} />
-                                    {/* <a><img src={require('../../../../assets/images/vote-star-filled.svg')} alt="" title="" /></a>
+                                    {this.state.Allwishlist && this.state.Allwishlist.length > 0 && this.state.Allwishlist.map((item, index) => (
+                                        <Grid className="wshCorList">
+                                            <Grid className="wshCorListLbl"><label>{item.courseTitle}</label></Grid>
+                                            <Grid className="wshCorListInr">
+                                                <Grid className="wshCorListPara">
+                                                    <p>{item.courseDesc}</p>
+                                                </Grid>
+                                                <Grid className="wshCorListTime">
+                                                    <Grid><a><img src={require('../../../assets/images/lectures.svg')} alt="" title="" />{item.attachment.length} {lectures}</a></Grid>
+                                                    {/* <Grid><a><img src={require('../../../assets/images/time.svg')} alt="" title="" />1.5 h</a></Grid> */}
+                                                </Grid>
+                                                <Grid className="wshCorStar">
+                                                    <Rating size="20" rating={item.courseContent && item.courseContent.average} />
+                                                    {/* <a><img src={require('../../../../assets/images/vote-star-filled.svg')} alt="" title="" /></a>
                                     <a><img src={require('../../../../assets/images/vote-star-filled.svg')} alt="" title="" /></a>
                                     <a><img src={require('../../../../assets/images/vote-star-filled.svg')} alt="" title="" /></a>
                                     <a><img src={require('../../../../assets/images/vote-star-filled.svg')} alt="" title="" /></a>
                                     <a><img src={require('../../../../assets/images/vote-star-half.svg')} alt="" title="" /></a> */}
-                                    <span>{item.courseContent && item.courseContent.average}<a>{item.courseContent && '(' + item.courseContent.count+')'}</a></span>
-                                            </Grid>
-                                            <Grid className="wshCorPrice"><label>{item.price} €</label></Grid>
-                                            <Grid className="nwWshCrtUpr">
-                                                <Grid container direction="row" alignItems="center">
-                                                    <Grid item xs={12} md={9}>
-                                                        <Grid className="nwWshCrt" onClick={()=>this.AddtoCard(item)}><a>{add_to_cart}</a></Grid>
-                                                    </Grid>
-                                                    <Grid item xs={12} md={3}>
-                                                        <Grid className="nwWshCrtRght"><a onClick={()=>{this.removeWishlist(item)}}><img src={require('../../../assets/images/fillWish.png')} alt="" title="" /></a></Grid>
+                                                    <span>{item.courseContent && item.courseContent.average}<a>{item.courseContent && '(' + item.courseContent.count + ')'}</a></span>
+                                                </Grid>
+                                                <Grid className="wshCorPrice"><label>{item.price} €</label></Grid>
+                                                <Grid className="nwWshCrtUpr">
+                                                    <Grid container direction="row" alignItems="center">
+                                                        <Grid item xs={12} md={9}>
+                                                            <Grid className="nwWshCrt" onClick={() => this.AddtoCard(item)}><a>{add_to_cart}</a></Grid>
+                                                        </Grid>
+                                                        <Grid item xs={12} md={3}>
+                                                            <Grid className="nwWshCrtRght"><a onClick={() => { this.removeWishlist(item) }}><img src={require('../../../assets/images/fillWish.png')} alt="" title="" /></a></Grid>
+                                                        </Grid>
                                                     </Grid>
                                                 </Grid>
                                             </Grid>
                                         </Grid>
-                                    </Grid>
                                     ))}
                                     {/* End of WishList Content */}
 
@@ -511,7 +539,7 @@ class Index extends Component {
                             <Modal
                                 open={this.state.openCart}
                                 onClose={this.handleCloseCart}
-                                className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode === 'dark' ?"crtListModel darkTheme":"crtListModel"}>
+                                className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode === 'dark' ? "crtListModel darkTheme" : "crtListModel"}>
                                 <div className="crtListCntnt">
                                     <div className="crtLstHai">
                                         <div className="crtLstHaiLft"><label>{cart}</label></div>
@@ -522,37 +550,37 @@ class Index extends Component {
                                         </div>
                                     </div>
                                     {this.state.removeTrue && <div className="success_message">{cart_removed}</div>}
-                                    {this.state.AllCart && this.state.AllCart.length>0 && this.state.AllCart.map((item, index)=>(
-                                    <Grid className="crtCorList">
-                                        <Grid className="crtCorListLbl"><label>{item.courseTitle}</label></Grid>
-                                        <Grid className="crtCorListInr">
-                                            <Grid className="crtCorListPara">
-                                                <p>{item.courseDesc}</p>
-                                            </Grid>
-                                            <Grid className="crtCorListTime">
-                                                <Grid><a><img src={require('../../../assets/images/lectures.svg')} alt="" title="" />{item.attachment.length} {lectures}</a></Grid>
-                                            </Grid>
-                                            <Grid className="crtCorStar">
-                                            <Rating size="20" rating={item.courseContent && item.courseContent.average} />
-                                    {/* <a><img src={require('../../../../assets/images/vote-star-filled.svg')} alt="" title="" /></a>
+                                    {this.state.AllCart && this.state.AllCart.length > 0 && this.state.AllCart.map((item, index) => (
+                                        <Grid className="crtCorList">
+                                            <Grid className="crtCorListLbl"><label>{item.courseTitle}</label></Grid>
+                                            <Grid className="crtCorListInr">
+                                                <Grid className="crtCorListPara">
+                                                    <p>{item.courseDesc}</p>
+                                                </Grid>
+                                                <Grid className="crtCorListTime">
+                                                    <Grid><a><img src={require('../../../assets/images/lectures.svg')} alt="" title="" />{item.attachment.length} {lectures}</a></Grid>
+                                                </Grid>
+                                                <Grid className="crtCorStar">
+                                                    <Rating size="20" rating={item.courseContent && item.courseContent.average} />
+                                                    {/* <a><img src={require('../../../../assets/images/vote-star-filled.svg')} alt="" title="" /></a>
                                     <a><img src={require('../../../../assets/images/vote-star-filled.svg')} alt="" title="" /></a>
                                     <a><img src={require('../../../../assets/images/vote-star-filled.svg')} alt="" title="" /></a>
                                     <a><img src={require('../../../../assets/images/vote-star-filled.svg')} alt="" title="" /></a>
                                     <a><img src={require('../../../../assets/images/vote-star-half.svg')} alt="" title="" /></a> */}
-                                    <span>{item.courseContent && item.courseContent.average}<a>{item.courseContent && '('+item.courseContent.count+')'}</a></span>
-                                            </Grid>
-                                            <Grid container direction="row" alignItems="center">
-                                                <Grid item xs={6} md={6}>
-                                                    <Grid className="crtCorPrice"><label>{item.price} €</label></Grid>
+                                                    <span>{item.courseContent && item.courseContent.average}<a>{item.courseContent && '(' + item.courseContent.count + ')'}</a></span>
                                                 </Grid>
-                                                <Grid item xs={6} md={6}>
-                                                    <Grid className="crtCorRmv">
-                                                        <a onClick={()=>{this.RemoveCart(item)}}>{remove}</a>
+                                                <Grid container direction="row" alignItems="center">
+                                                    <Grid item xs={6} md={6}>
+                                                        <Grid className="crtCorPrice"><label>{item.price} €</label></Grid>
+                                                    </Grid>
+                                                    <Grid item xs={6} md={6}>
+                                                        <Grid className="crtCorRmv">
+                                                            <a onClick={() => { this.RemoveCart(item) }}>{remove}</a>
+                                                        </Grid>
                                                     </Grid>
                                                 </Grid>
                                             </Grid>
                                         </Grid>
-                                    </Grid>
                                     ))}
 
                                     {/* <Grid className="crtCorList">
@@ -588,7 +616,7 @@ class Index extends Component {
 
                                     <Grid className="crtChekOut">
                                         {/* <input type="submit" value="Checkout" /> */}
-                                        {this.state.AllCart && this.state.AllCart.length>0 && <input type="button" value="Pay with stripe" onClick={this.onClicks} />}
+                                        {this.state.AllCart && this.state.AllCart.length > 0 && <input type="button" value={pay_with_stripe} onClick={this.onClicks} />}
                                     </Grid>
                                 </div>
                             </Modal>
@@ -612,7 +640,7 @@ class Index extends Component {
                                         <Grid item xs={12} md={3}>
                                             <Select
                                                 value={this.state.SelectedTopic}
-                                                onChange={(e)=>this.setState({SelectedTopic : e})}
+                                                onChange={(e) => this.setState({ SelectedTopic: e })}
                                                 options={this.state.courseTopics}
                                                 placeholder={topic_all}
                                                 className="topicAll"
@@ -621,7 +649,7 @@ class Index extends Component {
                                         <Grid item xs={12} md={4}>
                                             <Select
                                                 value={this.state.SelectedLanguage}
-                                                onChange={(e)=>this.setState({SelectedLanguage : e})}
+                                                onChange={(e) => this.setState({ SelectedLanguage: e })}
                                                 options={Language}
                                                 placeholder={language_eng}
                                                 className="topicAll"
@@ -637,16 +665,16 @@ class Index extends Component {
                         </Grid>
 
                         {value === 0 && <TabContainer>
-                             <AllCourses  cartAlready={this.state.cartAlready}  removeWishlist={this.removeWishlist} Allwishlist={this.state.Allwishlist} AddtoCard={this.AddtoCard} getAllwishlist={this.getAllwishlist} SelectedLanguage={this.state.SelectedLanguage} SelectedTopic={this.state.SelectedTopic} />
+                            <AllCourses cartAlready={this.state.cartAlready} removeWishlist={this.removeWishlist} Allwishlist={this.state.Allwishlist} AddtoCard={this.AddtoCard} getAllwishlist={this.getAllwishlist} SelectedLanguage={this.state.SelectedLanguage} SelectedTopic={this.state.SelectedTopic} />
                         </TabContainer>}
 
                         {value === 1 && <TabContainer>
-                            <MyCourses AllCart={this.state.AllCart} SelectedLanguage={this.state.SelectedLanguage} SelectedTopic={this.state.SelectedTopic}/>
+                            <MyCourses AllCart={this.state.AllCart} SelectedLanguage={this.state.SelectedLanguage} SelectedTopic={this.state.SelectedTopic} />
                         </TabContainer>}
                         {/* End of Website Right Content */}
                     </Grid>
                 </Grid>
-                {this.state.AllCart && this.state.AllCart.length>0 && <Checkout />}
+                {this.state.AllCart && this.state.AllCart.length > 0 && <Checkout />}
             </Grid >
         );
     }
@@ -654,7 +682,7 @@ class Index extends Component {
 const mapStateToProps = (state) => {
     const { stateLoginValueAim, loadingaIndicatoranswerdetail } = state.LoginReducerAim;
     const { stateLanguageType } = state.LanguageReducer;
-    const {settings} = state.Settings;
+    const { settings } = state.Settings;
     // const { Doctorsetget } = state.Doctorset;
     // const { catfil } = state.filterate;
     return {

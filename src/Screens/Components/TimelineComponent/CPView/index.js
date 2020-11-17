@@ -80,8 +80,8 @@ class Index extends Component {
             case "default":
                 translate = translationEN.text
         }
-        let {visible, feeling, show, date, time, hide, until, archive, temparture,
-            edit, Delete, RR_diastolic, heart_rate, always, Download,
+        let {visible, feeling, show, date, time, hide, until, archive, temparture, pain_type, pain_quality,
+            edit, Delete, RR_diastolic, heart_rate, always, Download, img_file, notes, details,
             Change, Location, visibility, de_archive, covid_diary, pain_areas, not_mentioned, condition_pain } = translate
         return (
             <Grid container direction="row" className="descpCntnt">
@@ -162,7 +162,7 @@ class Index extends Component {
                         <Grid container direction="row" className="addSpc conPainGraph">
                             <Grid item xs={12} md={5}>
                                 <Grid className="conPainLft">
-                                    <Grid className="conPainArea"><label>Pain areas</label></Grid>
+                                    <Grid className="conPainArea"><label>{pain_areas}</label></Grid>
                                     <PainPoint id={item.track_id} gender={this.state.gender} painPoint={item.painPoint} isView={true} />
                                 </Grid>
                             </Grid>
@@ -181,19 +181,19 @@ class Index extends Component {
                         </Grid>
 
                         <Grid className="addSpc detailMark">
-                            <Collapsible trigger="Details" open="true">
+                            <Collapsible trigger={details} open="true">
                                 <Grid>
                                     <Grid container direction="row">
                                         <Grid item xs={12} md={6} className="painTypeBy">
                                             <Grid container direction="row">
-                                                <Grid item xs={5} md={5}><label>Pain type</label></Grid>
+                                                <Grid item xs={5} md={5}><label>{pain_type}</label></Grid>
                                                 <Grid item xs={7} md={7}><span>{item.pain_type && item.pain_type.label}</span></Grid>
                                                 <Grid className="clear"></Grid>
                                             </Grid>
                                         </Grid>
                                         <Grid item xs={12} md={6} className="painTypeBy">
                                             <Grid container direction="row">
-                                                <Grid item xs={5} md={5}><label>Pain quality</label></Grid>
+                                                <Grid item xs={5} md={5}><label>{pain_quality}</label></Grid>
                                                 <Grid item xs={7} md={7}><span>{item.pain_quality && item.pain_quality.label}</span></Grid>
                                                 <Grid className="clear"></Grid>
                                             </Grid>
@@ -204,14 +204,14 @@ class Index extends Component {
                             </Collapsible>
                         </Grid>
                         <Grid className="addSpc detailMark">
-                            <Collapsible trigger="Notes" open="true">
+                            <Collapsible trigger={notes} open="true">
                                 <Grid className="detailCntnt">
                                     <p dangerouslySetInnerHTML={{ __html: item.remarks }} />
                                 </Grid>
                             </Collapsible>
                         </Grid>
                         <Grid className="addSpc detailMark">
-                            <Collapsible trigger="Images & Files" open="true">
+                            <Collapsible trigger={img_file} open="true">
                                 <FileViews images={this.state.images} attachfile={item.attachfile} />
                             </Collapsible>
                         </Grid>

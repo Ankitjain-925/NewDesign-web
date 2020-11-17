@@ -621,7 +621,7 @@
 		"DetailsQuestions" :"Detalhes / perguntas",
 		"Timezone" : "Fuso horário",
 		"YesIherewithagreewitha" : "Sim, concordo com o transplante de um ou mais órgãos / tecidos meus depois que os médicos me declararam morto",
-		"followingorgantissues:" :"Sim, eu permito isso, exceto para os seguintes órgãos / tecidos:",
+		"followingorgantissues" :"Sim, eu permito isso, exceto para os seguintes órgãos / tecidos:",
 		"allowthisonlyforfollowing" : "Sim, eu permito isso apenas para os seguintes órgãos / tecidos:",
 		"Yes" : "Sim",
 		"No" : "Não",
@@ -1034,6 +1034,13 @@
 		"search_by_patient_id_name_doc":"Pesquise por ID do paciente, nome do paciente, médico ...",
 		"rcvd_from_doctor":"Recebido de médico",
 		"handled":"Manipulado",
-		"medicine_handed_to_patient":"Remédio entregue ao paciente"
+		"medicine_handed_to_patient":"Remédio entregue ao paciente",
+		"img_files":"Imagens e arquivos",
+		"Explanation":"Explicação",
+		"r_u_sure_remove_doctor":"Tem certeza de que deseja remover o Doctor do Trusted Doctor?",
+		"paymnt_processed":"Pagamento processado com sucesso",
+		"paymnt_err":"erro de pagamento",
+		"pay_with_stripe":"Pagar com Stripe",
+		"frequency":"Frequência"
 	}
 }
