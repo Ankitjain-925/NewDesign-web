@@ -1039,6 +1039,11 @@
     "paymnt_processed":"Платеж успешно обработан",
     "paymnt_err":"Ошибка оплаты",
     "pay_with_stripe":"Оплатить с Stripe",
-    "frequency":"Частота"
+    "frequency":"Частота",
+    "relaxed":"Расслабленный",
+    "stressed":"Подчеркнул",
+    "plz_fill_mob_number":"Пожалуйста, введите номер мобильного телефона",
+    "pswd_not_valid":"Пароль неверный",
+    "plz_fill_fullname_user":"Пожалуйста, введите полное имя пользователя"
   }
 }

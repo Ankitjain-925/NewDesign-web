@@ -1041,6 +1041,11 @@
 		"paymnt_processed":"Pagamento processado com sucesso",
 		"paymnt_err":"erro de pagamento",
 		"pay_with_stripe":"Pagar com Stripe",
-		"frequency":"Frequência"
+		"frequency":"Frequência",
+		"relaxed":"Relaxado",
+		"stressed":"Estressado",
+		"plz_fill_mob_number":"Por favor, preencha o número do celular",
+		"pswd_not_valid":"Senha não é válida",
+		"plz_fill_fullname_user":"Por favor, preencha o nome completo do usuário"
 	}
 }

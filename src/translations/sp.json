@@ -1040,6 +1040,11 @@
 		"paymnt_processed":"Pago procesado correctamente",
 		"paymnt_err":"error en el pago",
 		"pay_with_stripe":"Lipa na Stripe",
-		"frequency":"Frecuencia"
+		"frequency":"Frecuencia",
+		"relaxed":"Relajado",
+		"stressed":"Estresado",
+		"plz_fill_mob_number":"Por favor complete el número de celular",
+		"pswd_not_valid":"La contraseña no es válida",
+		"plz_fill_fullname_user":"Por favor ingrese el nombre completo del usuario"
 	}
 }

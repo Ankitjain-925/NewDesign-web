@@ -1537,6 +1537,7 @@
 		"select_specility":"Selecteer Specialiteit",
 		"r_u_sure_update_inquiry":"Weet u zeker dat u deze zoekopdracht wilt bijwerken?",
 		"organ_donar":"Orgaandonor",
+		"profile_id_pin_changed":"Profiel-ID en pincode gewijzigd",
 		"search_by_patient_id_name_doc":"Zoeken op patiënt-ID, naam patiënt, arts ...",
 		"rcvd_from_doctor":"Ontvangen van dokter",
 		"handled":"Afgehandeld",
@@ -1547,6 +1548,11 @@
 		"paymnt_processed":"De betaling is succesvol verwerkt",
 		"paymnt_err":"betalingsfout",
 		"pay_with_stripe":"Betaal met Stripe",
-		"frequency":"Frequentie"
+		"frequency":"Frequentie",
+		"relaxed":"Ontspannen",
+		"stressed":"Benadrukt",
+		"plz_fill_mob_number":"Vul het mobiele nummer in",
+		"pswd_not_valid":"Wachtwoord is niet geldig",
+		"plz_fill_fullname_user":"Vul de volledige naam van de gebruiker in"
 		}
 }

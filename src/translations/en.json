@@ -1038,6 +1038,11 @@
 		"paymnt_processed":"Payment successfully processed",
 		"paymnt_err":"Payment error",
 		"pay_with_stripe":"Pay with stripe",
-		"frequency":"Frequency"
+		"frequency":"Frequency",
+		"relaxed":"Relaxed",
+		"stressed":"Stressed",
+		"plz_fill_mob_number":"Please fill mobile number",
+		"pswd_not_valid":"Password is not valid",
+		"plz_fill_fullname_user":"Please fill the full name of user"
 		}
 }

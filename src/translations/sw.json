@@ -1035,6 +1035,11 @@
 		"paymnt_processed":"Malipo yamechakatwa",
 		"paymnt_err":"Hitilafu ya malipo",
 		"pay_with_stripe":"Lipa na Stripe",
-		"frequency":"Mzunguko"
+		"frequency":"Mzunguko",
+		"relaxed":"Kupumzika",
+		"stressed":"Amesisitiza",
+		"plz_fill_mob_number":"Tafadhali jaza nambari ya rununu",
+		"pswd_not_valid":"Nenosiri si halali",
+		"plz_fill_fullname_user":"Tafadhali jaza jina kamili la mtumiaji"
 	}
 }

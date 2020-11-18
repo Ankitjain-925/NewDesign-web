@@ -1040,6 +1040,11 @@
 		"paymnt_processed":"Zahlung erfolgreich verarbeitet",
 		"paymnt_err":"Hitilafu ya malipo",
 		"pay_with_stripe":"Bezahlen mit Stripe",
-		"frequency":"Frequenz"
+		"frequency":"Frequenz",
+		"relaxed":"Entspannt",
+		"stressed":"Betont",
+		"plz_fill_mob_number":"Bitte geben Sie die Handynummer ein",
+		"pswd_not_valid":"Passwort ist ungültig",
+		"plz_fill_fullname_user":"Bitte geben Sie den vollständigen Namen des Benutzers ein"
 	}
 }

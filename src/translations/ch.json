@@ -1036,6 +1036,10 @@
 		"paymnt_processed":"付款已成功处理",
 		"paymnt_err":"付款错误",
 		"pay_with_stripe":"使用。。。支付 Stripe",
-		"frequency":"频率"
+		"frequency":"频率",
+		"relaxed":"轻松",
+		"stressed":"强调",
+		"plz_fill_mob_number":"请填写手机号码",
+		"plz_fill_fullname_user":"请填写用户的全名"
 	}
 }
