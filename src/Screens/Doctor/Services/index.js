@@ -38,7 +38,7 @@ import * as translationRS from '../../../translations/rs.json';
 import * as translationSW from '../../../translations/sw.json';
 import * as translationCH from '../../../translations/ch.json';
 import * as translationNL from '../../../translations/en.json';
-import { AddFavDoc, ConsoleCustom } from './../../Components/BasicMethod/index';
+import { AddFavDoc2, ConsoleCustom } from './../../Components/BasicMethod/index';
 import { Doctorset } from '../../Doctor/actions';
 import Notification from "../../Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 
@@ -345,8 +345,8 @@ class Index extends Component {
                                             }
                                         })
                                         .then((res) => { })
-
-                                        AddFavDoc(this.props.stateLoginValueAim.user.profile_id, this.props.stateLoginValueAim.user.profile_id, this.props.stateLoginValueAim.token, responce.data.data.profile_id);
+                                        console.log('responce', responce)
+                                        AddFavDoc2(this.props.stateLoginValueAim.user.profile_id, this.props.stateLoginValueAim.user.profile_id, this.props.stateLoginValueAim.token, responce.data.data.profile_id);
                                     // axios.post(sitedata.data.path + '/UserProfile/AddtoPatientList/' + this.props.stateLoginValueAim.user.profile_id, {
                                     //     profile_id: responce.data.data.profile_id
                                     // }, {
@@ -357,6 +357,15 @@ class Index extends Component {
                                     //     }
                                     // }).then((responce) => { })
                                     this.setState({ successfull: true, alreadyerror: false, Mnotvalid: false, regisError: null })
+                                   
+                                    setTimeout(
+                                        function () {
+                                            this.getMypatientsData()
+                                        }
+                                            .bind(this),
+                                        2000
+                                    );
+                                   
                                     setTimeout(
                                         function () {
                                             this.setState({ successfull: false });
@@ -364,7 +373,7 @@ class Index extends Component {
                                             .bind(this),
                                         5000
                                     );
-                                    this.getMypatientsData();
+                                   
                                 }
                                 else if (responce.data.message === "Phone is not verified") {
                                     this.setState({ successfull: false, Mnotvalid: true, alreadyerror: false })

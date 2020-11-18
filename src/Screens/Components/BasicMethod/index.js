@@ -89,7 +89,36 @@ export function SortByDiagnose(a, b) {
 
  //If Req to add doctor as favorite doctor
 export function AddFavDoc (doctor_id, profile_id,user_token, user_profile_id){
+
+    console.log('sdd', doctor_id, profile_id, user_token, user_profile_id)
     axios.put(sitedata.data.path + '/UserProfile/AddFavDoc', {
+        doctor: doctor_id,
+        profile_id: profile_id,
+    }, {
+        headers: {
+            'token': user_token,
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        }
+    }).then((responce) => {
+        if (responce.data.hassuccessed == true) {
+            axios.post(sitedata.data.path + '/UserProfile/AddtoPatientList/'+doctor_id, {
+                profile_id: user_profile_id
+            }, {
+                headers: {
+                    'token': user_token,
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                }
+            }).then((responce) => {})
+        }
+    })
+}
+
+export function AddFavDoc2 (doctor_id, profile_id,user_token, user_profile_id){
+
+    console.log('sdd', doctor_id, profile_id, user_token, user_profile_id)
+    axios.put(sitedata.data.path + '/UserProfile/AddFavDoc1/'+user_profile_id, {
         doctor: doctor_id,
         profile_id: profile_id,
     }, {

@@ -151,11 +151,15 @@ class Index extends Component {
 
                         <Grid container direction="row" className="addSpc markCntntMain">
                             <Grid item xs={12} md={5}>
-                                <Grid className="markCntntImg">
-                                    <a><img src={getImage(item.created_by_image, this.state.images)} alt="" title="" />
-
+                            <Grid className="markCntntImg">
+                                    <a data-tip data-for={item.track_id + 'created'}><img src={getImage(item.created_by_image, this.state.images)} alt="" title="" />
                                         <span>{item.created_by_temp}</span>
                                     </a>
+                                    <ReactTooltip className="timeIconClas_crested" id={item.track_id + 'created'} place="top" effect="solid" backgroundColor="#ffffff">
+                                        <p>{item.created_by_temp}</p>
+                                        <p>{item.created_by_profile}</p>
+                                        <p><img src={getImage(item.created_by_image, this.state.images)} alt="" title="" /></p>
+                                    </ReactTooltip>
                                 </Grid>
                             </Grid>
                             {/* <Grid item xs={12} md={7}>
