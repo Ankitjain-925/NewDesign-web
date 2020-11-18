@@ -74,14 +74,14 @@ class Index extends Component {
             case "default":
                 translate = translationEN.text
         }
-        let { Yes, No , update_inquiry, r_u_sure_update_inquiry} = translate;
+        let { Yes, No , update_inquiry, r_u_sure_update_inquiry, r_u_sure_cancel_inquiry, cancel_inquiry} = translate;
 
         confirmAlert({
             customUI: ({ onClose }) => {
             return (
             <div className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode === 'dark' ? "dark-confirm react-confirm-alert-body" : "react-confirm-alert-body"} >
-              {status && status === 'cancel' ? <h1>Cancel the Inquiry?</h1> : <h1>{update_inquiry}</h1>}
-              <p>Are you sure  to {status && status === 'cancel' ? "cancel" : 'update'} this Inquiry?</p>
+              {status && status === 'cancel' ? <h1>{cancel_inquiry}</h1> : <h1>{update_inquiry}</h1>}
+              <p>{status && status === 'cancel' ? r_u_sure_cancel_inquiry : r_u_sure_update_inquiry} </p>
             <div className="react-confirm-alert-button-group">
             <button
             onClick= {() => {this.updateCertificateDetails(status, id); onClose()}}
@@ -249,7 +249,7 @@ class Index extends Component {
             case "default":
                 translate = translationEN.text
         }
-        let { Case, srvc_Doctors, status, sent, on, which_symptoms_do_u_hav, not_mentioned,days, since_when, prescription, how_u_feeling, Pending, request, edit, Rejected, Answered, Cancelled, see, sick_cert, my_doc, New, inquiry, again, modify, cancel,
+        let { Case, srvc_Doctors, status, sent, on, which_symptoms_do_u_hav, cancel_details, update_entry, not_mentioned,days, since_when, prescription, how_u_feeling, Pending, request, edit, Rejected, Answered, Cancelled, see, sick_cert, my_doc, New, inquiry, again, modify, cancel,
             doc_and_statnderd_ques, doc_aimedis_private, it_is_known_dieseas, r_u_tracking_medi, do_u_hv_allergies, what_ur_profession,Week_or_more,today, yesterday, ago, show, Yes, No, next, previous,
             how_long_do_u_unable_to_work, have_u_already_been_sick, Annotations, is_ur_temp_high_to_38, req_updated_successfully, details, questions } = translate
 
@@ -392,7 +392,7 @@ class Index extends Component {
                                     </Grid>
                                 </Grid> */}
                                     <Grid className="infoShwSave2">
-                                        <input type="submit" onClick={this.Submitcertificate} value="Update entry" />
+                                        <input type="submit" onClick={this.Submitcertificate} value={update_entry} />
                                     </Grid>
                                 </Grid>
                             </Grid>
@@ -472,7 +472,7 @@ class Index extends Component {
                                 <Grid className="infoShwHidBrdr2"></Grid>
                                 <Grid className="infoShwHidIner2">
                                     <Grid className="infoShwSave2">
-                                        <input type="submit" onClick={this.handleCloseShowSick} value="Close Details" />
+                                        <input type="submit" onClick={this.handleCloseShowSick} value={cancel_details} />
                                     </Grid>
                                 </Grid>
                             </Grid>

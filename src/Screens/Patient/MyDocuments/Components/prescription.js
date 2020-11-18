@@ -137,14 +137,14 @@ class Index extends Component {
             case "default":
                 translate = translationEN.text
         }
-        let { Yes, No , update_inquiry, r_u_sure_update_inquiry} = translate;
+        let { Yes, No , update_inquiry, r_u_sure_update_inquiry, r_u_sure_cancel_inquiry, cancel_inquiry,} = translate;
         confirmAlert({
             customUI: ({ onClose }) => {
                 return (
                     <div className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode === 'dark' ? "dark-confirm react-confirm-alert-body" : "react-confirm-alert-body"} >
-                        {status && status === 'cancel' ? <h1>Cancel the Inquiry?</h1> : <h1>{update_inquiry}</h1>}
+                        {status && status === 'cancel' ? <h1>{cancel_inquiry}</h1> : <h1>{update_inquiry}</h1>}
                      
-                        <p>Are you sure  to {status && status === 'cancel' ? "cancel" : 'update'} this Inquiry?</p>
+                        <p>{status && status === 'cancel' ? r_u_sure_cancel_inquiry : r_u_sure_update_inquiry} </p>
                         
                         <div className="react-confirm-alert-button-group">
                             <button
@@ -258,7 +258,7 @@ class Index extends Component {
             case "default":
                 translate = translationEN.text
         }
-        let { srvc_Doctors, see_details, again, home_add_mailbox, online, modify, cancel_reqst, status, sent, on, prescription, Pending, request, edit, Rejected, Answered, Cancelled, req_updated_successfully, sick_cert, my_doc, New, inquiry, Yes, No,
+        let { srvc_Doctors, see_details, again, home_add_mailbox, online, modify, cancel_reqst, edit_entry, status,  cancel_details,sent, on, prescription, Pending, request, edit, Rejected, Answered, Cancelled, req_updated_successfully, sick_cert, my_doc, New, inquiry, Yes, No,
             doc_and_statnderd_ques, doc_aimedis_private, Annotations, details, questions, is_this_follow_pres, how_u_like_rcv_pres, Medicine, Substance, Dose, mg, trade_name, atc_if_applicable, manufacturer, pack_size, } = translate
 
         return (
@@ -407,7 +407,7 @@ class Index extends Component {
                                     </Grid>
                                 </Grid> */}
                                     <Grid className="infoShwSave2">
-                                        <input type="submit" onClick={this.SubmitPrescription} value="Edit entry" />
+                                        <input type="submit" onClick={this.SubmitPrescription} value={edit_entry} />
                                     </Grid>
                                 </Grid>
                             </Grid>
@@ -501,7 +501,7 @@ class Index extends Component {
                                         </Grid>
                                     </Grid> */}
                                     <Grid className="infoShwSave2">
-                                        <input type="submit" onClick={this.handleCloseShowSick} value="Close details" />
+                                        <input type="submit" onClick={this.handleCloseShowSick} value={cancel_details} />
                                     </Grid>
                                 </Grid>
                             </Grid>

@@ -29,13 +29,13 @@ class Index extends Component {
         };
     }
 
+
     //on Change Course
     componentDidUpdate = (prevProps) => {
         if (prevProps.Course !== this.props.Course) {
             var NextButton = this.props.Course && this.props.Course.attachment && this.props.Course.attachment.length > 0 ? (this.props.Course.attachment.length - 1) : 0;
             this.setState({ Course: this.props.Course, NextButton: NextButton },
                 () => this.ChangeIndex(0))
-
         }
     }
     //Back Button to go Online Courses
@@ -97,8 +97,13 @@ class Index extends Component {
             <Grid className="courseCntent">
                 <Grid container direction="row">
                     <Grid item xs={12} md={3} className="myCoursesOnline">
-                        <Grid className="myCoursesBck"><p><a><img onClick={() => this.BackButton()}
-                            src={require('../../../../assets/images/ar1.png')} alt="" title="" />{my_course}</a></p></Grid>
+                        <Grid className="myCoursesBck">
+                            <p>
+                                <a>
+                                    <img onClick={() => this.BackButton()} src={require('../../../../assets/images/ar1.png')} alt="" title="" />{my_course}
+                                </a>
+                            </p>
+                        </Grid>
                         <Grid className="whtDiabts"><h3>{this.state.Course.courseTitle}</h3></Grid>
                         <Grid className="videoTitle">
                             <ul>
