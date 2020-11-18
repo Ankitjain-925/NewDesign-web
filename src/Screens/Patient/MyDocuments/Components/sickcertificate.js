@@ -22,7 +22,7 @@ import * as translationSP from '../../../../translations/sp.json';
 import * as translationRS from '../../../../translations/rs.json';
 import * as translationSW from '../../../../translations/sw.json';
 import * as translationCH from '../../../../translations/ch.json';
-import * as translationNL from '../../../../translations/en.json';
+import * as translationNL from '../../../../translations/nl.json';
 
 class Index extends Component {
     constructor(props) {
@@ -80,8 +80,8 @@ class Index extends Component {
             customUI: ({ onClose }) => {
             return (
             <div className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode === 'dark' ? "dark-confirm react-confirm-alert-body" : "react-confirm-alert-body"} >
-              {status && status === 'remove' ? <h1>Remove the Inquiry?</h1> : <h1>{update_inquiry}</h1>}
-            <p>{r_u_sure_update_inquiry}</p>
+              {status && status === 'cancel' ? <h1>Cancel the Inquiry?</h1> : <h1>{update_inquiry}</h1>}
+              <p>Are you sure  to {status && status === 'cancel' ? "cancel" : 'update'} this Inquiry?</p>
             <div className="react-confirm-alert-button-group">
             <button
             onClick= {() => {this.updateCertificateDetails(status, id); onClose()}}

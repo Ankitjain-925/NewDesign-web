@@ -10,7 +10,7 @@ import * as translationSP from '../../../translations/sp.json';
 import * as translationRS from '../../../translations/rs.json';
 import * as translationSW from '../../../translations/sw.json';
 import * as translationCH from '../../../translations/ch.json';
-import * as translationNL from '../../../translations/en.json';
+import * as translationNL from '../../../translations/nl.json';
 import sitedata from '../../../sitedata';
 import Loader from '../Loader/index.js';
 import axios from 'axios';

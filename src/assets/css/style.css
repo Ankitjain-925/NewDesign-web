@@ -13030,6 +13030,10 @@ a.academy_ul ul li img {
 
 
 /*Added By ankita*/
+
+.darkTheme > .nwPresCntnt ,.darkTheme > .opinBoxCntnt {
+    background-color: #404646!important;
+}
 .timeIconClas_crested img{
     width: 30px;
     border-radius: 50%;
@@ -14016,7 +14020,7 @@ input:focus {
       background-color: #404646!important;
   }
 
-  .darkTheme label, .darkTheme span, .darkTheme p, .darkTheme h3, .darkTheme h1 {
+.darkTheme label, .darkTheme span, .darkTheme p, .darkTheme h3, .darkTheme h1 {
       color: #D9DADA !important;
   }
 

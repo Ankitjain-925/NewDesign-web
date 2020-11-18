@@ -257,6 +257,7 @@ class Index extends Component {
             }
             oldthree = data;
             })}
+            console.log('heightbmi', heightbmi)
             options ={
                 title: {
                     text: 'Weight and BMI'
@@ -306,6 +307,12 @@ class Index extends Component {
                     name: 'Weight',
                     data: weightbmi,
                     type: 'line'
+                },
+                {
+                    name: 'Height',
+                    data: heightbmi,
+                    type: 'line',
+                    color: 'red'
                 },
                 {
                     name: 'BMI',

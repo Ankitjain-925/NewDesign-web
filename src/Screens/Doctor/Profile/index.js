@@ -16,7 +16,7 @@ import * as translationSP from '../../../translations/sp.json';
 import * as translationRS from '../../../translations/rs.json';
 import * as translationSW from '../../../translations/sw.json';
 import * as translationCH from '../../../translations/ch.json';
-import * as translationNL from '../../../translations/en.json';
+import * as translationNL from '../../../translations/nl.json';
 import PropTypes from 'prop-types';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
@@ -30,7 +30,7 @@ import LeftMenu from './../../Components/Menus/DoctorLeftMenu/index';
 import LeftMenuMobile from './../../Components/Menus/DoctorLeftMenu/mobile';
 import MyProfile from './Components/myProfile.js';
 import KYC from './Components/kyc.js';
-import Security from './Components/security.js';
+import SecurityTab from './Components/security.js';
 import ServicesAppointment from './Components/serviceAppointments.js';
 import DateTime from './Components/dateTime.js';
 import OfficeInformation from './Components/officeInformation.js'
@@ -244,7 +244,7 @@ class Index extends Component {
 
                                             {/* Start of Security Tab */}
                                             {value === 3 && <TabContainer>
-                                                <Security user_token = {this.props.stateLoginValueAim.token} LoggedInUser={this.state.LoggedInUser} getUserData = {this.getUserData}/>
+                                                <SecurityTab user_token = {this.props.stateLoginValueAim.token} LoggedInUser={this.state.LoggedInUser} getUserData = {this.getUserData}/>
                                             </TabContainer>}
                                             {/* End of Security Tab */}
 
