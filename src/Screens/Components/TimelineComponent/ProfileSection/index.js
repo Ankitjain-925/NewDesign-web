@@ -16,7 +16,7 @@ import * as translationSP from '../../../../translations/sp.json';
 import * as translationRS from '../../../../translations/rs.json';
 import * as translationSW from '../../../../translations/sw.json';
 import * as translationCH from '../../../../translations/ch.json';
-import * as translationNL from '../../../../translations/en.json';
+import * as translationNL from '../../../../translations/nl.json';
 class PointPain extends Component {
     constructor(props) {
         super(props)
@@ -77,7 +77,7 @@ class PointPain extends Component {
             this.props.getData();
             this.setState({ loaderImage: false });
             axios.put('https://api-eu.cometchats.io/v2.0/users/' + this.state.personalinfo.info.profile_id.toLowerCase(), {
-                avatar: sitedata.data.image_path + this.state.uploadedimage
+                avatar: this.state.uploadedimage
             },{
                 headers: {
                     'appId': '220824e717b58ac',

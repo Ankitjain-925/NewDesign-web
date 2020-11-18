@@ -20,7 +20,7 @@ import * as translationSP from '../../../../translations/sp.json';
 import * as translationRS from '../../../../translations/rs.json';
 import * as translationSW from '../../../../translations/sw.json';
 import * as translationCH from '../../../../translations/ch.json';
-import * as translationNL from '../../../../translations/en.json';
+import * as translationNL from '../../../../translations/nl.json';
 HC_more(Highcharts); //init modules
 
 class RightManage extends Component {
@@ -590,7 +590,8 @@ class RightManage extends Component {
                                 {this.state.personalinfo && this.state.personalinfo.weight_bmi && this.state.personalinfo.weight_bmi.length > 0 ?
                                     <div>
                                         <Grid className="presureData">
-                                            <h3>{this.state.personalinfo && this.state.personalinfo.weight_bmi && this.state.personalinfo.weight_bmi[0] && (this.state.personalinfo.weight_bmi[0].height + '/' + this.state.personalinfo.weight_bmi[0].weight)} <span>mmHg</span></h3>
+                                        
+                                            <h3>{this.state.personalinfo && this.state.personalinfo.weight_bmi && this.state.personalinfo.weight_bmi[0] && ((this.state.personalinfo.weight_bmi[0].weight/(this.state.personalinfo.weight_bmi[0].height * this.state.personalinfo.weight_bmi[0].height)* 10000).toFixed(2))} <span>BMI</span></h3>
                                             <p>{getDate(this.state.personalinfo.weight_bmi[0].datetime_on, this.state.date_format)}, {getTime(new Date(this.state.personalinfo.weight_bmi[0].datetime_on), this.state.time_foramt)}</p>
                                         </Grid>
                                         <Grid className="presureDataGrph">

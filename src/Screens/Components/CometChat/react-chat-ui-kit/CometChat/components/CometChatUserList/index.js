@@ -15,6 +15,7 @@ class CometChatUserList extends React.PureComponent {
    super(props);
     this.state = {
       userlist: [],
+      userlist1: [],
       preUserList: [],
       loading: false,
       Unread: 0,
@@ -126,16 +127,40 @@ class CometChatUserList extends React.PureComponent {
     this.props.actionGenerated("closeMenuClicked");
   };
 
+  isThisAvilabel = (object, text) => {
+    if (object && typeof object == 'object') {
+    if (object.uid && object.uid.toLowerCase().includes(text) || object.name && object.name.toLowerCase().includes(text)) {
+    return true;
+    }
+    else{
+      return false;
+    }
+    } else {
+    return false;
+    }
+    };
+
+
   searchUsers = (e) => {
     if (this.timeout) {
       clearTimeout(this.timeout);
     }
 
     let val = e.target.value;
-    this.timeout = setTimeout(() => {
-      this.UserListManager = new UserListManager(this.friendsOnly, val);
-      this.setState({ userlist: [] }, () => this.getUsers());
-    }, 500);
+    if(val === ''){
+      this.setState({userlist: this.state.userlist1})
+    }
+    else{
+      let FilterFromSearch = this.state.userlist1 && this.state.userlist1.length>0 && this.state.userlist1.filter((data)=>{
+        return this.isThisAvilabel(data, val && val.toLowerCase());
+        }); 
+        this.setState({userlist: FilterFromSearch})
+    }
+    
+    // this.timeout = setTimeout(() => {
+    //   this.UserListManager = new UserListManager(this.friendsOnly, val);
+    //   this.setState({ userlist: [] }, () => this.getUsers());
+    // }, 500);
   };
 
   //   async GetData(users) {
@@ -169,7 +194,7 @@ class CometChatUserList extends React.PureComponent {
               })
             .then(() => {
               if (users.length + er == u.length) {
-                this.setState({ userlist: users }
+                this.setState({ userlist1: users, userlist: users }
                  );
               }
             });

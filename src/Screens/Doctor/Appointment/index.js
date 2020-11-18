@@ -75,7 +75,25 @@ class Index extends Component {
     componentDidMount() {
         this.getUserData()
         this.getEvent();
-        this.getAppoinment()
+        this.getAppoinment();
+        this.getTimeSlot();
+    }
+
+    getTimeSlot=()=> {
+        this.setState({ loaderImage: true });
+        let user_token = this.props.stateLoginValueAim.token
+        let user_id = this.props.stateLoginValueAim.user._id
+        axios.get(sitedata.data.path + '/UserProfile/timeSuggest/', {
+            headers: {
+                'token': user_token,
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        }).then((response) => {
+            this.setState({ loaderImage: false });
+           console.log('response', response)
+
+        })
     }
 
     getUserData() {

@@ -15,7 +15,7 @@ import * as translationSP from '../../../../translations/sp.json';
 import * as translationRS from '../../../../translations/rs.json';
 import * as translationSW from '../../../../translations/sw.json';
 import * as translationCH from '../../../../translations/ch.json';
-import * as translationNL from '../../../../translations/en.json';
+import * as translationNL from '../../../../translations/nl.json';
 HC_more(Highcharts); //init module
 
 class Index extends Component {
@@ -317,6 +317,12 @@ class Index extends Component {
                     name: 'Weight',
                     data: weightbmi,
                     type: 'line'
+                },
+                {
+                    name: 'Height',
+                    data: heightbmi,
+                    type: 'line',
+                    color: 'red'
                 },
                 {
                     name: 'BMI',
