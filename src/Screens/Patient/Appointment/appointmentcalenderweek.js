@@ -182,7 +182,7 @@ class Index extends Component {
                                                   </p></Grid>
                                                 <Grid className="slotCourse">
                                                     <a onClick={this.handleCloseSlot} className="clsSltCal">
-                                                        <img src={require('../../../assets/images/closefancy.png')} alt="" title="" />
+                                                        <img src={require('../../../assets/images/close-search.svg')} alt="" title="" />
                                                     </a>
                                                     <Grid container direction="row">
                                                         <Grid item xs={6} md={6} alignItems="center" justify="center">

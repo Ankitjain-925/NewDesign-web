@@ -435,7 +435,7 @@ class Index extends Component {
                         <Grid className="phrmCourse">
                             <Grid className="phrmCloseBtn">
                                 <a onClick={this.handleClosePharma}>
-                                    <img src={require('../../../assets/images/closefancy.png')} alt="" title="" />
+                                    <img src={require('../../../assets/images/close-search.svg')} alt="" title="" />
                                 </a>
                             </Grid>
                             {this.state.firstPatient_id && <div className="err_message">{Pleaseenterthepatientidfirst}</div>}

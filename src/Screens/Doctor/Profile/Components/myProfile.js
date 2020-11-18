@@ -997,7 +997,7 @@ class Index extends Component {
                             <Grid className="editCourse">
                                 <Grid className="editCloseBtn">
                                     <a onClick={() => this.handlePinClose("chngPinOpen")}>
-                                        <img src={require('../../../../assets/images/closefancy.png')} alt="" title="" />
+                                        <img src={require('../../../../assets/images/close-search.svg')} alt="" title="" />
                                     </a>
                                 </Grid>
                                 <Grid><label>{edit_id_or_pin}</label></Grid>
@@ -1298,7 +1298,7 @@ class Index extends Component {
                             <Grid className="qrCourse">
                                 <Grid className="qrCloseBtn">
                                     <a onClick={this.handleQrClose}>
-                                        <img src={require('../../../../assets/images/closefancy.png')} alt="" title="" />
+                                        <img src={require('../../../../assets/images/close-search.svg')} alt="" title="" />
                                     </a>
                                 </Grid>
                                 <Grid><label>{profile_qr_code}</label></Grid>

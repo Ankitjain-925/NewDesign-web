@@ -393,7 +393,7 @@ class Index extends Component {
                 <Grid item xs={12} md={12}>
                     <Grid className="presurMeter">
                         <Grid className="presurCloseFncy">
-                            <img onClick={this.props.CloseGraph} src={require('../../../../assets/images/closefancy.png')} alt="" title="" />
+                            <img onClick={this.props.CloseGraph} src={require('../../../../assets/images/close-search.svg')} alt="" title="" />
                         </Grid>
 
                         <Grid className="presurInner">

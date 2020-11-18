@@ -493,7 +493,7 @@ class Index extends Component {
                                                                 <div className="rateCourse">
                                                                     <div className="handleCloseBtn">
                                                                         <a onClick={this.handleCloseFancy}>
-                                                                            <img src={require('../../assets/images/closefancy.png')} alt="" title="" />
+                                                                            <img src={require('../../assets/images/close-search.svg')} alt="" title="" />
                                                                         </a>
                                                                     </div>
                                                                     <div><label>Rate this course</label></div>
@@ -532,7 +532,7 @@ class Index extends Component {
                                                                     <div className="wshLstHaiLft"><label>Wishlist</label></div>
                                                                     <div className="wshLstHaiRght">
                                                                         <a onClick={this.handleCloseWish}>
-                                                                            <img src={require('../../assets/images/closefancy.png')} alt="" title="" />
+                                                                            <img src={require('../../assets/images/close-search.svg')} alt="" title="" />
                                                                         </a>
                                                                     </div>
                                                                 </div>
@@ -656,7 +656,7 @@ class Index extends Component {
                                                                     <div className="crtLstHaiLft"><label>Cart</label></div>
                                                                     <div className="crtLstHaiRght">
                                                                         <a onClick={this.handleCloseCart}>
-                                                                            <img src={require('../../assets/images/closefancy.png')} alt="" title="" />
+                                                                            <img src={require('../../assets/images/close-search.svg')} alt="" title="" />
                                                                         </a>
                                                                     </div>
                                                                 </div>

@@ -67,7 +67,7 @@ class Index extends Component {
                     <Grid className="entryCourse">
                         <Grid className="entryCloseBtn">
                             <a onClick={this.CloseFile}>
-                                <img src={require('../../../../assets/images/closefancy.png')} alt="" title="" />
+                                <img src={require('../../../../assets/images/close-search.svg')} alt="" title="" />
                             </a>
                         </Grid>
                     </Grid>

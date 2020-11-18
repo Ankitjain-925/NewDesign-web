@@ -259,7 +259,7 @@ class Index extends Component {
                         <Grid className="invtCourse">
                             <Grid className="invtCloseBtn">
                                 <a onClick={this.handleCloseInvt}>
-                                    <img src={require('../../../assets/images/closefancy.png')} alt="" title="" />
+                                    <img src={require('../../../assets/images/close-search.svg')} alt="" title="" />
                                 </a>
                             </Grid>
                             {this.state.emailMissing && <div className="err_message"> {Enteremailfirst}</div>}

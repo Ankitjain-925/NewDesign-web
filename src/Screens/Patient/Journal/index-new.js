@@ -560,7 +560,7 @@ class Index extends Component {
                                                         <Grid className="nwDiaCourse">
                                                             <Grid className="nwDiaCloseBtn">
                                                                 <a onClick={this.handleCloseInqryNw}>
-                                                                    <img src={require('../../../assets/images/closefancy.png')} alt="" title="" />
+                                                                    <img src={require('../../../assets/images/close-search.svg')} alt="" title="" />
                                                                 </a>
                                                             </Grid>
                                                             {this.state.updateTrack._id && this.state.updateOne !== this.state.updateTrack._id ? 
@@ -646,7 +646,7 @@ class Index extends Component {
                                                 <Grid className="entryCourse">
                                                     <Grid className="entryCloseBtn">
                                                         <a onClick={this.handleCloseEntry}>
-                                                            <img src={require('../../../assets/images/closefancy.png')} alt="" title="" />
+                                                            <img src={require('../../../assets/images/close-search.svg')} alt="" title="" />
                                                         </a>
                                                     </Grid>
                                                     <Grid><label>Select entry type</label></Grid>
@@ -726,7 +726,7 @@ class Index extends Component {
                                                 <Grid className="nwDiaCourse">
                                                     <Grid className="nwDiaCloseBtn">
                                                         <a onClick={this.handleCloseInqrySw}>
-                                                            <img src={require('../../../assets/images/closefancy.png')} alt="" title="" />
+                                                            <img src={require('../../../assets/images/close-search.svg')} alt="" title="" />
                                                         </a>
                                                     </Grid>
                                                     <p>New entry</p>

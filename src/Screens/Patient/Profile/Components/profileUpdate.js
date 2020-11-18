@@ -876,7 +876,7 @@ class Index extends Component {
                                 <Grid className="qrCourse">
                                     <Grid className="qrCloseBtn">
                                         <a onClick={this.handleQrClose}>
-                                            <img src={require('../../../../assets/images/closefancy.png')} alt="" title="" />
+                                            <img src={require('../../../../assets/images/close-search.svg')} alt="" title="" />
                                         </a>
                                     </Grid>
                                     <Grid><label>{profile} {QR_code}</label></Grid>
@@ -903,7 +903,7 @@ class Index extends Component {
                                 <Grid className="editCourse">
                                     <Grid className="editCloseBtn">
                                         <a onClick={() => this.handlePinClose("chngPinOpen")}>
-                                            <img src={require('../../../../assets/images/closefancy.png')} alt="" title="" />
+                                            <img src={require('../../../../assets/images/close-search.svg')} alt="" title="" />
                                         </a>
                                     </Grid>
                                     <Grid><label>{edit} {ID} {and} {pin}</label></Grid>
@@ -1161,7 +1161,7 @@ class Index extends Component {
                             <Grid className="editCourse">
                                 <Grid className="editCloseBtn">
                                     <a onClick={() => this.handlePinClose("addInsuranceOpen")}>
-                                        <img src={require('../../../../assets/images/closefancy.png')} alt="" title="" />
+                                        <img src={require('../../../../assets/images/close-search.svg')} alt="" title="" />
                                     </a>
                                 </Grid>
                                 <Grid><label>{add_more} {insurance}</label></Grid>
@@ -1219,7 +1219,7 @@ class Index extends Component {
                                         <img src={require('../../../../assets/images/moreicon.jpg')} alt="" title="" className="openScnd" />
                                         <ul>
                                             <li><a onClick={() => this.editKYCopen(insu, i)}><img src={require('../../../../assets/images/edit.svg')} alt="" title="" />{edit}</a></li>
-                                            <li><a onClick={() => this.removeInsurance(i, insu)} ><img src={require('../../../../assets/images/closefancy.png')} alt="" title="" />{Delete}</a></li>
+                                            <li><a onClick={() => this.removeInsurance(i, insu)} ><img src={require('../../../../assets/images/close-search.svg')} alt="" title="" />{Delete}</a></li>
                                         </ul>
                                     </a></td>
                                 </tr>
@@ -1235,7 +1235,7 @@ class Index extends Component {
                             <Grid className="editCourse">
                                 <Grid className="editCloseBtn">
                                     <a onClick={() => this.handlePinClose("editInsuranceOpen")}>
-                                        <img src={require('../../../../assets/images/closefancy.png')} alt="" title="" />
+                                        <img src={require('../../../../assets/images/close-search.svg')} alt="" title="" />
                                     </a>
                                 </Grid>
                                 <Grid><label>{edit} {insurance}</label></Grid>

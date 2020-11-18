@@ -813,7 +813,7 @@ class Index extends Component {
                                                         <Grid className="shPatientProfile">
                                                             <Grid className="infoCloseBtn">
                                                                 <a onClick={this.handleCloseShowPatient}>
-                                                                    <img src={require('../../../assets/images/closefancy.png')} alt="" title="" />
+                                                                    <img src={require('../../../assets/images/close-search.svg')} alt="" title="" />
                                                                 </a>
                                                             </Grid>
                                                             <Grid className="userDetail">
@@ -887,7 +887,7 @@ class Index extends Component {
                                                     <Grid className="dataCourse">
                                                         <Grid className="dataCloseBtn">
                                                             <a onClick={this.handleCloseData}>
-                                                                <img src={require('../../../assets/images/closefancy.png')} alt="" title="" />
+                                                                <img src={require('../../../assets/images/close-search.svg')} alt="" title="" />
                                                             </a>
                                                         </Grid>
                                                         <Grid>{this.state.error_msg && <div className="err_message">{id_pin_not_correct}</div>}</Grid>
@@ -922,7 +922,7 @@ class Index extends Component {
                                                     <Grid className="dataCourse">
                                                         <Grid className="dataCloseBtn">
                                                             <a onClick={this.handleCloseReq}>
-                                                                <img src={require('../../../assets/images/closefancy.png')} alt="" title="" />
+                                                                <img src={require('../../../assets/images/close-search.svg')} alt="" title="" />
                                                             </a>
                                                         </Grid>
                                                         <Grid><label>{private_doc_rest}</label></Grid>
@@ -956,7 +956,7 @@ class Index extends Component {
                                                     <Grid className="dataCourse">
                                                         <Grid className="dataCloseBtn">
                                                             <a onClick={this.handleCloseNewPatient}>
-                                                                <img src={require('../../../assets/images/closefancy.png')} alt="" title="" />
+                                                                <img src={require('../../../assets/images/close-search.svg')} alt="" title="" />
                                                             </a>
                                                         </Grid>
                                                         <Grid><label>{new_patient}</label></Grid>

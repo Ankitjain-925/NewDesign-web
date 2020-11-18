@@ -209,7 +209,7 @@ class Index extends Component {
                                             <Grid className="paraCourse">
                                                 <Grid className="paraCloseBtn">
                                                     <a onClick={this.handleClosePara}>
-                                                        <img src={require('../../../assets/images/closefancy.png')} alt="" title="" />
+                                                        <img src={require('../../../assets/images/close-search.svg')} alt="" title="" />
                                                     </a>
                                                 </Grid>
                                                

@@ -13030,6 +13030,27 @@ a.academy_ul ul li img {
 
 
 /*Added By ankita*/
+.dataCloseBtn a img, .editCloseBtn a img, .entryCloseBtn a img, .wshLstHaiRght a img,
+.crtLstHaiRght a img,.handleCloseBtn a img, .nwPresCloseBtn a img,
+.presurCloseFncy a img, .dashCloseBtn a img, .invtCloseBtn a img, .paraCloseBtn a img,
+ .prespCloseBtn a img, .rejectCloseBtn a img, .opinCloseBtn a img, .nwDiaCloseBtn a img, 
+ .phrmCloseBtn a img, .qrCloseBtn a img, .infoCloseBtn a img, .slotCourse a img, .slotBoxCourse a img,
+ .apontCloseBtn a img, .handleAccessBtn a img,.trstCloseBtn a img, .srvcCloseBtn a img,.presCloseBtn a img{
+    width: 17px;
+}
+.dataCloseBtn a, .editCloseBtn a, .entryCloseBtn a , .wshLstHaiRght a,
+.crtLstHaiRght a, .handleCloseBtn a, .nwPresCloseBtn a,
+.presurCloseFncy a, .dashCloseBtn a, .invtCloseBtn a, .paraCloseBtn a,
+ .prespCloseBtn a, .rejectCloseBtn a, .opinCloseBtn a, .nwDiaCloseBtn a,
+ .phrmCloseBtn a, .qrCloseBtn a, .infoCloseBtn a, .slotCourse a, .slotBoxCourse a,
+ .apontCloseBtn a, .handleAccessBtn a, .trstCloseBtn a, .srvcCloseBtn a,.presCloseBtn a{
+    border: 1px solid #9fa2a2;
+    display: inline-flex;
+    padding: 5px 5px;
+    border-radius: 8px;
+    align-items: center;
+    justify-content: center;
+}
 
 .darkTheme > .nwPresCntnt ,.darkTheme > .opinBoxCntnt {
     background-color: #404646!important;

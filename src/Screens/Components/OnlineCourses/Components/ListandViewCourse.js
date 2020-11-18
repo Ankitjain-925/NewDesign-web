@@ -98,7 +98,7 @@ class Index extends Component {
             <Grid className="courseCntent">
                 <Grid container direction="row">
                     <Grid item xs={12} md={3} className="myCoursesOnline">
-                        <Grid className="myCoursesBck"><p><a><img onClick={this.BackButton} src={require('../../../../assets/images/ar1.png')} alt="" title="" />{my_course}</a></p></Grid>
+                        <Grid className="myCoursesBck"><p><a><img onClick={()=>{this.BackButton()}} src={require('../../../../assets/images/ar1.png')} alt="" title="" />{my_course}</a></p></Grid>
                         <Grid className="whtDiabts"><h3>{this.state.Course.courseTitle}</h3></Grid>
                         <Grid className="videoTitle">
                             <ul>
@@ -124,7 +124,7 @@ class Index extends Component {
                             <h4>{this.state.CurrentAttach && this.state.CurrentAttach.title}</h4>
                             <Grid className="lessonTitleVdo">
                                 {/* <img src={require('../../../../assets/images/vdo.jpg')} alt="" title="" /> */}
-                            {console.log('this.state.CurrentAttach.new_image',this.state.CurrentAttach.new_image)}
+
                                 <a href={this.state.CurrentAttach.new_image} download target='_blank' className="DownloadFile">Download File</a>
                                 <Iframeview new_image={this.state.CurrentAttach.new_image} type={this.state.CurrentAttach.type} comesFrom="LMS"/>
                             </Grid>

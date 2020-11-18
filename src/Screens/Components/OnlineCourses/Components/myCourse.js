@@ -69,6 +69,7 @@ class Index extends Component {
 
     //Go to the view Courses
     viewCourses = (item) => {
+        console.log('item', item)
         this.props.history.push({
             pathname: `/${this.props.stateLoginValueAim.user.type}/view-course`,
             state: item
@@ -334,7 +335,7 @@ class Index extends Component {
                                 <div className="rateCourse">
                                     <div className="handleCloseBtn">
                                         <a onClick={this.handleCloseFancy}>
-                                            <img src={require('../../../../assets/images/closefancy.png')} alt="" title="" />
+                                            <img src={require('../../../../assets/images/close-search.svg')} alt="" title="" />
                                         </a>
                                     </div>
                                     <div><label>{rate_this_course}</label></div>

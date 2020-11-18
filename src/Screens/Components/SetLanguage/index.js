@@ -67,7 +67,8 @@ SetLanguage = () => {
         }).then((responce) => {
             this.setState({ PassDone: true, loaderImage: false })
             this.props.getSetting();
-            setTimeout(() => { this.setState({ PassDone: false, openFancyLanguage: false }) }, 5000)
+            setTimeout(() => { this.setState({ PassDone: false }) 
+        this.handleCloseFancyLanguage()}, 5000)
         })
     }
 }
@@ -115,7 +116,7 @@ SetLanguage = () => {
                 <Grid className="nwPresCourse">
                     <Grid className="nwPresCloseBtn">
                         <a onClick={this.handleCloseFancyLanguage}>
-                            <img src={require('../../../assets/images/closefancy.png')} alt="" title="" />
+                            <img src={require('../../../assets/images/close-search.svg')} alt="" title="" />
                         </a>
                     </Grid>
                     <Grid><label>{select} {Language}</label></Grid>

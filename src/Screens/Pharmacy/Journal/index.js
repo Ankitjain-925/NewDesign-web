@@ -960,7 +960,7 @@ DeleteTrack=(deletekey)=> {
                                         <Grid className="dataCourse">
                                             <Grid className="dataCloseBtn">
                                                 <a onClick={this.handleCloseData}>
-                                                    <img src={require('../../../assets/images/closefancy.png')} alt="" title="" />
+                                                    <img src={require('../../../assets/images/close-search.svg')} alt="" title="" />
                                                 </a>
                                             </Grid>
                                             <Grid>{this.state.error_msg && <div className="err_message">{id_pin_not_correct}</div>}</Grid>
@@ -1000,7 +1000,7 @@ DeleteTrack=(deletekey)=> {
                                                 <Grid className="nwDiaCourse">
                                                     <Grid className="nwDiaCloseBtn">
                                                         <a onClick={this.handleCloseInqryNw}>
-                                                            <img src={require('../../../assets/images/closefancy.png')} alt="" title="" />
+                                                            <img src={require('../../../assets/images/close-search.svg')} alt="" title="" />
                                                         </a>
                                                     </Grid>
                                                     {this.state.updateOne !== this.state.updateTrack._id ?

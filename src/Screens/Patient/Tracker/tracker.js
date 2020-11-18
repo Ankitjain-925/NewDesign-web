@@ -667,7 +667,7 @@ class Index extends Component {
                                                 <Grid className="srvcCourse">
                                                     <Grid className="srvcCloseBtn">
                                                         <a onClick={this.handleCloseSrvc}>
-                                                            <img src={require('../../../assets/images/closefancy.png')} alt="" title="" />
+                                                            <img src={require('../../../assets/images/close-search.svg')} alt="" title="" />
                                                         </a>
                                                     </Grid>
                                                     <Grid><label>{connect} {devices} & {services}</label></Grid>
@@ -827,7 +827,7 @@ class Index extends Component {
                                                         <Grid className="datCourse">
                                                             <Grid className="datCloseBtn">
                                                                 <a onClick={this.handleClosevData}>
-                                                                    <img src={require('../../../assets/images/closefancy.png')} alt="" title="" />
+                                                                    <img src={require('../../../assets/images/close-search.svg')} alt="" title="" />
                                                                 </a>
                                                             </Grid>
                                                             <Grid className="expndLogo">
