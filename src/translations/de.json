@@ -1045,6 +1045,22 @@
 		"stressed":"Betont",
 		"plz_fill_mob_number":"Bitte geben Sie die Handynummer ein",
 		"pswd_not_valid":"Passwort ist ungültig",
-		"plz_fill_fullname_user":"Bitte geben Sie den vollständigen Namen des Benutzers ein"
+		"plz_fill_fullname_user":"Bitte geben Sie den vollständigen Namen des Benutzers ein",
+		"plz_enter_email_id_patient":"Bitte geben Sie die E-Mail-Adresse oder die ID des Patienten ein",
+		"unknown":"Unbekannt",
+		"there_r_the":"Da sind die",
+		"plz_check_unread_message_in_chat":"ungelesene Nachrichten im Chat. Bitte prüfen Sie das.",
+		"new_message_in_chat_plz_check":"Neue Nachricht (en) im Chat-Modul. Bitte gehen Sie zu CHAT (Link), um Ihre Nachrichten zu überprüfen.",
+		"remove_inquiry":"Anfrage entfernen?",
+
+		"archive_item":"Archivobjekt",
+		"do_u_really_want_archive_item":"Möchten Sie den Artikel wirklich archivieren?",
+		"delete_item":"Element löschen",
+		"do_u_really_want_delete_item":"Möchten Sie den Artikel wirklich löschen?",
+		"plz_upload_png_jpeg":"Bitte laden Sie eine PNG- und JPEG-Datei hoch",
+		"r_u_sure_want_book_appointment":"Möchten Sie diesen Termin wirklich buchen?",
+		"r_u_sure_remove_patient":"Sind Sie sicher, den Patienten zu entfernen?",
+		"cancel_inquiry":"Anfrage abbrechen?",
+		"r_u_sure_cancel_inquiry":"Sind Sie sicher, diese Anfrage abzubrechen?"
 	}
 }

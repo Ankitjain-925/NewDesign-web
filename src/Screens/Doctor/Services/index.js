@@ -204,9 +204,39 @@ class Index extends Component {
 
     //Sent mail for asking personal doctor to patient
     sentmail = () => {
+        let translate;
+        switch (this.props.stateLanguageType) {
+            case "en":
+                translate = translationEN.text
+                break;
+            case "de":
+                translate = translationDE.text
+                break;
+            case "pt":
+                translate = translationPT.text
+                break;
+            case "sp":
+                translate = translationSP.text
+                break;
+            case "rs":
+                translate = translationRS.text
+                break;
+            case "nl":
+                translate = translationNL.text
+                break;
+            case "ch":
+                translate = translationCH.text
+                break;
+            case "sw":
+                translate = translationSW.text
+                break;
+            case "default":
+                translate = translationEN.text
+        }
+        let{plz_enter_email_id_patient }= translate
         const AskPatient = this.state.AskPatient;
         if (!AskPatient || AskPatient === '') {
-            this.setState({ errorSentMsg: 'Please enter the email or id of the patient' })
+            this.setState({ errorSentMsg: plz_enter_email_id_patient })
             return
         }
         this.setState({ loaderImage: true, ne: false, ve: false, error_message_1: '' });
@@ -551,16 +581,46 @@ class Index extends Component {
     }
 
     removePatient = (patientData) => {
+        let translate;
+        switch (this.props.stateLanguageType) {
+            case "en":
+                translate = translationEN.text
+                break;
+            case "de":
+                translate = translationDE.text
+                break;
+            case "pt":
+                translate = translationPT.text
+                break;
+            case "sp":
+                translate = translationSP.text
+                break;
+            case "rs":
+                translate = translationRS.text
+                break;
+            case "nl":
+                translate = translationNL.text
+                break;
+            case "ch":
+                translate = translationCH.text
+                break;
+            case "sw":
+                translate = translationSW.text
+                break;
+            case "default":
+                translate = translationEN.text
+        }
+        let { remove_patient, yes, r_u_sure_remove_patient, no } = translate;
         this.setState({ profileDetail: patientData })
         this.handleCloseShowPatient();
         confirmAlert({
-            title: "Remove Patient",
-            message: "Are you sure to remove the Patient",
+            title: remove_patient,
+            message: r_u_sure_remove_patient,
             buttons: [{
-                label: 'YES',
+                label: yes,
                 onClick: () => { this.deleteClickPatient() }
             }, {
-                label: 'NO',
+                label: no,
             }]
         })
     }

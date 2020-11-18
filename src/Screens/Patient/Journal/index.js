@@ -211,22 +211,53 @@ class Index extends Component {
 
     //Modal Open on Archive the Journal
     ArchiveTrack=(data)=>{
+        let translate;
+    switch (this.props.stateLanguageType) {
+        case "en":
+            translate = translationEN.text
+            break;
+        case "de":
+            translate = translationDE.text
+            break;
+        case "pt":
+            translate = translationPT.text
+            break;
+        case "sp":
+            translate = translationSP.text
+            break;
+        case "rs":
+            translate = translationRS.text
+            break;
+        case "nl":
+            translate = translationNL.text
+            break;
+        case "ch":
+            translate = translationCH.text
+            break;
+        case "sw":
+            translate = translationSW.text
+            break;
+        case "default":
+            translate = translationEN.text
+    }
+    let { archive_item, ok, do_u_really_want_archive_item, yes, no } = translate;
+
         confirmAlert({
             customUI: ({ onClose }) => {
             return (
             <div className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode === 'dark' ? "dark-confirm react-confirm-alert-body" : "react-confirm-alert-body"} >
-            <h1>Archive item</h1>
-            <p>Do you really want to archive the item?</p>
+            <h1>{archive_item}</h1>
+            <p>{do_u_really_want_archive_item}</p>
             <div className="react-confirm-alert-button-group">
             <button
             onClick= {() => {this.updateArchiveTrack(data); onClose()}}
             >
-            Yes
+            {yes}
             </button>
             <button
             onClick={() => {onClose();}}
             >
-            No
+            {no}
             </button>
             </div>
             </div>
@@ -236,22 +267,52 @@ class Index extends Component {
     }
     //Delete the perticular track confirmation box
     DeleteTrack = (deletekey) => {
+        let translate;
+    switch (this.props.stateLanguageType) {
+        case "en":
+            translate = translationEN.text
+            break;
+        case "de":
+            translate = translationDE.text
+            break;
+        case "pt":
+            translate = translationPT.text
+            break;
+        case "sp":
+            translate = translationSP.text
+            break;
+        case "rs":
+            translate = translationRS.text
+            break;
+        case "nl":
+            translate = translationNL.text
+            break;
+        case "ch":
+            translate = translationCH.text
+            break;
+        case "sw":
+            translate = translationSW.text
+            break;
+        case "default":
+            translate = translationEN.text
+    }
+    let { delete_item, ok, do_u_really_want_delete_item, yes, no } = translate;
         confirmAlert({
             customUI: ({ onClose }) => {
             return (
             <div className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode === 'dark' ? "dark-confirm react-confirm-alert-body" : "react-confirm-alert-body"} >
-            <h1>Delete item</h1>
-            <p>Do you really want to delete the item?</p>
+            <h1>{delete_item}</h1>
+            <p>{do_u_really_want_delete_item}</p>
             <div className="react-confirm-alert-button-group">
             <button
             onClick= {() => {this.deleteClickTrack(deletekey); onClose()}}
             >
-            Yes
+            {yes}
             </button>
             <button
             onClick={() => {onClose();}}
             >
-            No
+            {no}
             </button>
             </div>
             </div>

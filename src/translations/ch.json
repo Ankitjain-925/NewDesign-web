@@ -1040,6 +1040,22 @@
 		"relaxed":"轻松",
 		"stressed":"强调",
 		"plz_fill_mob_number":"请填写手机号码",
-		"plz_fill_fullname_user":"请填写用户的全名"
+		"plz_fill_fullname_user":"请填写用户的全名",
+		"plz_enter_email_id_patient":"请输入患者的电子邮件或身份证",
+		"unknown":"未知",
+		"there_r_the":"有",
+		"plz_check_unread_message_in_chat":"聊天中未读的消息。请检查一下。",
+		"new_message_in_chat_plz_check":"聊天模块中的新消息。请转到聊天（链接）以检查您的消息。",
+		"remove_inquiry":"删除查询？",
+
+		"archive_item":"存档项目",
+		"do_u_really_want_archive_item":"您真的要存档该项目吗？",
+		"delete_item":"删除项目",
+		"do_u_really_want_delete_item":"Do you really want to delete the item?",
+		"plz_upload_png_jpeg":"请上传PNG和JPEG文件",
+		"r_u_sure_want_book_appointment":"您确定要预订此预定吗？",
+		"r_u_sure_remove_patient":"您确定要移除患者吗？",
+		"cancel_inquiry":"取消查询？",
+		"r_u_sure_cancel_inquiry":"您确定要取消此查询吗？"
 	}
 }

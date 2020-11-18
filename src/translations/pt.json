@@ -1046,6 +1046,22 @@
 		"stressed":"Estressado",
 		"plz_fill_mob_number":"Por favor, preencha o número do celular",
 		"pswd_not_valid":"Senha não é válida",
-		"plz_fill_fullname_user":"Por favor, preencha o nome completo do usuário"
+		"plz_fill_fullname_user":"Por favor, preencha o nome completo do usuário",
+		"plz_enter_email_id_patient":"Por favor, insira o e-mail ou id do paciente",
+		"unknown":"Desconhecido",
+		"there_r_the":"Existem os",
+		"plz_check_unread_message_in_chat":"Mensagens não lidas no bate-papo. Por favor, checar isto.",
+		"new_message_in_chat_plz_check":"Nova (s) mensagem (ns) no módulo de chat. Acesse CHAT (link) para verificar suas mensagens.",
+		"remove_inquiry":"Remover o inquérito?",
+
+		"archive_item":"Item de arquivo",
+		"do_u_really_want_archive_item":"Você realmente deseja arquivar o item?",
+		"delete_item":"Excluir item",
+		"do_u_really_want_delete_item":"Tem certeza de que deseja excluir o item?",
+		"plz_upload_png_jpeg":"Envie o arquivo PNG e JPEG",
+		"r_u_sure_want_book_appointment":"Tem certeza de que deseja agendar esta nomeação?",
+		"r_u_sure_remove_patient":"Tem certeza de que deseja remover o paciente?",
+		"cancel_inquiry":"Cancelar o inquérito?",
+		"r_u_sure_cancel_inquiry":"Tem certeza que deseja cancelar esta Consulta?"
 	}
 }

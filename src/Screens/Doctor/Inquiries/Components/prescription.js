@@ -113,22 +113,52 @@ class Index extends Component {
     }
 
     removePrsecription = (status, id) => {
+        let translate;
+        switch (this.props.stateLanguageType) {
+            case "en":
+                translate = translationEN.text
+                break;
+            case "de":
+                translate = translationDE.text
+                break;
+            case "pt":
+                translate = translationPT.text
+                break;
+            case "sp":
+                translate = translationSP.text
+                break;
+            case "rs":
+                translate = translationRS.text
+                break;
+            case "nl":
+                translate = translationNL.text
+                break;
+            case "ch":
+                translate = translationCH.text
+                break;
+            case "sw":
+                translate = translationSW.text
+                break;
+            case "default":
+                translate = translationEN.text
+        }
+        let { update_inquiry, are_u_sure_remove_inquiry, yes, no,remove_inquiry } = translate;
         this.setState({ message: null });
         confirmAlert({
             customUI: ({ onClose }) => {
                 return (
                     <div className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode && this.props.settings.setting.mode === 'dark' ? "dark-confirm react-confirm-alert-body" : "react-confirm-alert-body"} >
-                        {status && status === 'remove' ? <h1>Remove the Inquiry?</h1> : <h1>Update the Inquiry?</h1>}
-                        <p>Are you sure  to remove this Inquiry?</p>
+                        {status && status === 'remove' ? <h1>{remove_inquiry}</h1> : <h1>{update_inquiry}</h1>}
+                        <p>{are_u_sure_remove_inquiry}</p>
                         <div className="react-confirm-alert-button-group">
-                            <button onClick={onClose}>No</button>
+                            <button onClick={onClose}>{no}</button>
                             <button
                                 onClick={() => {
                                     this.deleteClickPatient(status, id)
                                     onClose();
                                 }}
                             >
-                                Yes
+                                {yes}
                             </button>
                         </div>
                     </div>
@@ -287,13 +317,13 @@ class Index extends Component {
                     case "default":
                         translate = translationEN.text
                 }
-                let { UploadMust } = translate;
+                let { UploadMust, yes } = translate;
                 this.setState({ loaderImage: false });
                 confirmAlert({
                     message: UploadMust,
                     buttons: [
                         {
-                            label: 'YES',
+                            label: yes,
                         },
 
                     ]
@@ -361,7 +391,7 @@ class Index extends Component {
         if (imagePreviewUrl) {
             $imagePreview = (<img style={{ borderRadius: "10%", maxWidth: 350, marginBottom: 10 }} src={imagePreviewUrl} />);
         }
-        let { srvc_Doctors, see_details, approve, decline, remove, prescription_inquiry, yes, no, standerd_ques, home_add_mailbox, questions, online, patient_health_status, sent, on, prescription, Pending, request, edit, Rejected, Answered, Cancelled, req_updated_successfully, sick_cert, my_doc, New, inquiry,
+        let { unknown, srvc_Doctors, see_details, approve, decline, remove, prescription_inquiry, yes, no, standerd_ques, home_add_mailbox, questions, online, patient_health_status, sent, on, prescription, Pending, request, edit, Rejected, Answered, Cancelled, req_updated_successfully, sick_cert, my_doc, New, inquiry,
             doc_and_statnderd_ques, doc_aimedis_private, Annotations, details, Patient, recved_on, status, is_this_follow_pres, how_u_like_rcv_pres, Medicine, Substance, Dose, mg, trade_name, atc_if_applicable, manufacturer, pack_size,
             Medications, allergies, dignoses, browse, or_drag_here, suported_file_type_jpg_png, snd_patient_timeline_email, next, reject, short_msg, previous, back, attached_doc } = translate
 
@@ -445,9 +475,9 @@ class Index extends Component {
                                         <Grid><label>{Dose}</label></Grid>
                                         <p>{prescData.dose} mg</p>
                                         <Grid><label>{trade_name}</label></Grid>
-                                        <p>{prescData.trade_name ? prescData.trade_name : 'Unknown'}</p>
+                                        <p>{prescData.trade_name ? prescData.trade_name : unknown}</p>
                                         <Grid><label>{atc_if_applicable}</label></Grid>
-                                        <p>{prescData.atc_code ? prescData.atc_code : 'Unknown'}</p>
+                                        <p>{prescData.atc_code ? prescData.atc_code : unknown}</p>
                                         <Grid><label>{manufacturer}</label></Grid>
                                         <p>{prescData.manufacturer}</p>
                                         <Grid><label>{pack_size}</label></Grid>
@@ -461,11 +491,11 @@ class Index extends Component {
                                     <Grid><span>{patient_health_status}</span></Grid>
                                     <Grid>
                                         <Grid><label>{Medications}</label></Grid>
-                                        <p>{prescData.medication ? prescData.medication : 'Unknown'}</p>
+                                        <p>{prescData.medication ? prescData.medication : unknown}</p>
                                         <Grid><label>{allergies}</label></Grid>
-                                        <p>{prescData.allergies ? prescData.allergies : 'Unknown'}</p>
+                                        <p>{prescData.allergies ? prescData.allergies : unknown}</p>
                                         <Grid><label>{dignoses}</label></Grid>
-                                        <p>{prescData.diagnosis ? prescData.diagnosis : 'Unknown'}</p>
+                                        <p>{prescData.diagnosis ? prescData.diagnosis : unknown}</p>
                                     </Grid>
                                 </Grid>
 
@@ -517,12 +547,12 @@ class Index extends Component {
                                     </a>
                                 </Grid>
                                 <p onClick={this.handleCloseReject}>{back}</p>
-                                <Grid><label>{inqstatus} {inquiry}</label></Grid>
+                                <Grid><label>{decline} {inquiry}</label></Grid>
                             </Grid>
                             <Grid className="shrtRejctMsg">
                                 <Grid><label>{short_msg}</label></Grid>
                                 <Grid><textarea onChange={(e) => this.setState({ message: e.target.value })}></textarea></Grid>
-                                <Grid><input type="button" value={inqstatus} onClick={() => this.deleteClickPatient(inqstatus, this.state.selected_id)} /></Grid>
+                                <Grid><input type="button" value={decline} onClick={() => this.deleteClickPatient(inqstatus, this.state.selected_id)} /></Grid>
                             </Grid>
                         </Grid>
                     </Modal>

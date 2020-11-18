@@ -1043,6 +1043,22 @@
 		"stressed":"Stressed",
 		"plz_fill_mob_number":"Please fill mobile number",
 		"pswd_not_valid":"Password is not valid",
-		"plz_fill_fullname_user":"Please fill the full name of user"
+		"plz_fill_fullname_user":"Please fill the full name of user",
+		"plz_enter_email_id_patient":"Please enter the email or id of the patient",
+		"unknown":"Unknown",
+		"there_r_the":"There are the",
+		"plz_check_unread_message_in_chat":"unread Messages in Chat. Please check this.",
+		"new_message_in_chat_plz_check":"New message(s) in chat module. Please go to CHAT (link) to check your messages.",
+		"remove_inquiry":"Remove the Inquiry ?",
+		"archive_item":"Archive Item",
+		"do_u_really_want_archive_item":"Do you really want to archive the item?",
+		"delete_item":"Delete item",
+		"do_u_really_want_delete_item":"Do you really want to delete the item?",
+		"plz_upload_png_jpeg":"Please Upload PNG and JPEG file",
+		"r_u_sure_want_book_appointment":"Are you sure you want to book this appoinment?",
+		"r_u_sure_remove_patient":"Are you sure to remove the Patient?",
+		"cancel_inquiry":"Cancel the Inquiry ?",
+		"r_u_sure_cancel_inquiry":"Are you sure  to cancel this Inquiry?"
+
 		}
 }
