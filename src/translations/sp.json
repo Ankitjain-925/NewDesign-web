@@ -1061,6 +1061,7 @@
 		"r_u_sure_want_book_appointment":"¿Estás seguro de que quieres reservar esta cita?",
 		"r_u_sure_remove_patient":"¿Estás seguro de eliminar al paciente?",
 		"cancel_inquiry":"¿Cancelar la consulta?",
-		"r_u_sure_cancel_inquiry":"¿Estás seguro de cancelar esta consulta?"
+		"r_u_sure_cancel_inquiry":"¿Estás seguro de cancelar esta consulta?",
+		"download_file":"Descargar archivo"
 	}
 }

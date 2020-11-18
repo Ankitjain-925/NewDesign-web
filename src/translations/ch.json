@@ -1056,6 +1056,7 @@
 		"r_u_sure_want_book_appointment":"您确定要预订此预定吗？",
 		"r_u_sure_remove_patient":"您确定要移除患者吗？",
 		"cancel_inquiry":"取消查询？",
-		"r_u_sure_cancel_inquiry":"您确定要取消此查询吗？"
+		"r_u_sure_cancel_inquiry":"您确定要取消此查询吗？",
+		"download_file":"下载文件"
 	}
 }
