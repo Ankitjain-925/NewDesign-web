@@ -255,13 +255,13 @@ class Index extends Component {
                     case "default":
                         translate = translationEN.text
                 }
-                let { UploadMust } = translate;
+                let { UploadMust, yes } = translate;
                 this.setState({ loaderImage: false });
                 confirmAlert({
                     message: UploadMust,
                     buttons: [
                         {
-                            label: 'YES',
+                            label: yes,
                         },
 
                     ]
@@ -272,22 +272,52 @@ class Index extends Component {
     }
 
     removePrsecription = (status, id) => {
+        let translate;
+                switch (this.props.stateLanguageType) {
+                    case "en":
+                        translate = translationEN.text
+                        break;
+                    case "de":
+                        translate = translationDE.text
+                        break;
+                    case "pt":
+                        translate = translationPT.text
+                        break;
+                    case "sp":
+                        translate = translationSP.text
+                        break;
+                    case "rs":
+                        translate = translationRS.text
+                        break;
+                    case "nl":
+                        translate = translationNL.text
+                        break;
+                    case "ch":
+                        translate = translationCH.text
+                        break;
+                    case "sw":
+                        translate = translationSW.text
+                        break;
+                    case "default":
+                        translate = translationEN.text
+                }
+                let { remove_inquiry, yes, no,update_inquiry , are_u_sure_remove_inquiry} = translate;
         this.setState({ message: null });
         confirmAlert({
             customUI: ({ onClose }) => {
                 return (
                     <div className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode && this.props.settings.setting.mode === 'dark' ? "dark-confirm react-confirm-alert-body" : "react-confirm-alert-body"} >
-                        {status && status === 'remove' ? <h1>Remove the Inquiry?</h1> : <h1>Update the Inquiry?</h1>}
-                        <p>Are you sure  to remove this Inquiry?</p>
+                        {status && status === 'remove' ? <h1>{remove_inquiry}</h1> : <h1>{update_inquiry}</h1>}
+                        <p>{are_u_sure_remove_inquiry}</p>
                         <div className="react-confirm-alert-button-group">
-                            <button onClick={onClose}>No</button>
+                            <button onClick={onClose}>{no}</button>
                             <button
                                 onClick={() => {
                                     this.updateCertificateDetails(status, id)
                                     onClose();
                                 }}
                             >
-                                Yes
+                                {yes}
                              </button>
                         </div>
                     </div>

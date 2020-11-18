@@ -1035,6 +1035,27 @@
 		"paymnt_processed":"Malipo yamechakatwa",
 		"paymnt_err":"Hitilafu ya malipo",
 		"pay_with_stripe":"Lipa na Stripe",
-		"frequency":"Mzunguko"
+		"frequency":"Mzunguko",
+		"relaxed":"Kupumzika",
+		"stressed":"Amesisitiza",
+		"plz_fill_mob_number":"Tafadhali jaza nambari ya rununu",
+		"pswd_not_valid":"Nenosiri si halali",
+		"plz_fill_fullname_user":"Tafadhali jaza jina kamili la mtumiaji",
+		"plz_enter_email_id_patient":"Tafadhali ingiza barua pepe au kitambulisho cha mgonjwa",
+		"unknown":"Haijulikani",
+		"there_r_the":"Kuna faili za",
+		"plz_check_unread_message_in_chat":"Ujumbe ambao haujasomwa kwenye Gumzo. Tafadhali angalia hii.",
+		"new_message_in_chat_plz_check":"Ujumbe mpya katika moduli ya mazungumzo. Tafadhali nenda kwenye CHAT (kiungo) kukagua ujumbe wako.",
+		"remove_inquiry":"Ondoa Uchunguzi?",
+
+		"archive_item":"Jalada la Bidhaa",
+		"do_u_really_want_archive_item":"Je! Kweli unataka kuhifadhi kipengee?",
+		"delete_item":"Futa kipengee",
+		"do_u_really_want_delete_item":"Je! Kweli unataka kufuta kipengee?",
+		"plz_upload_png_jpeg":"Tafadhali Pakia faili ya PNG na JPEG",
+		"r_u_sure_want_book_appointment":"Je! Una uhakika unataka kuweka nafasi hii?",
+		"r_u_sure_remove_patient":"Je! Una uhakika wa kumuondoa Mgonjwa?",
+		"cancel_inquiry":"Ghairi Uchunguzi?",
+		"r_u_sure_cancel_inquiry":"Je! Una uhakika wa kughairi uchunguzi huu?"
 	}
 }

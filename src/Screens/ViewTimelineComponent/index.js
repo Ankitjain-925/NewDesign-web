@@ -20,7 +20,14 @@ import Temprature from './../Components/Temprature/index';
 import ShowHide from './../Components/ShowHide/index';
 import PainPoint from './../Components/PointPain/index';
 import FileUploader from './../Components/FileUploader/index.js'
-
+import * as translationEN from '../../translations/en.json';
+import * as translationDE from '../../translations/de';
+import * as translationSP from '../../translations/sp.json';
+import * as translationCH from '../../translations/ch';
+import * as translationPT from '../../translations/pt';
+import * as translationRS from '../../translations/rs';
+import * as translationNL from '../../translations/nl';
+import * as translationSW from '../../translations/sw';
 import moment from 'moment';
 
 const options = [
@@ -173,6 +180,36 @@ class Index extends Component {
         // );
     }
     render() {
+        let translate
+        switch (this.props.stateLanguageType) {
+            case "en":
+                translate = translationEN.text
+                break;
+            case "de":
+                translate = translationDE.text
+                break;
+            case "pt":
+                translate = translationPT.text
+                break;
+            case "sp":
+                translate = translationSP.text
+                break;
+            case "rs":
+                translate = translationRS.text
+                break;
+            case "nl":
+                translate = translationNL.text
+                break;
+            case "ch":
+                translate = translationCH.text
+                break;
+            case "sw":
+                translate = translationSW.text
+                break;
+            case "default":
+                translate = translationEN.text
+        }
+        let { reminder_time, notes , visible, show_entry, feeling, stressed, relaxed, rr_systolic, smoking_status, allergy, review, hide_entry }= translate
         return (
             <Grid className="homeBg">
                 <Grid className="homeBgIner">
@@ -190,7 +227,7 @@ class Index extends Component {
 
                                     <TimeFormat name="time" value={this.state.time ? new Date(this.state.time) : new Date()} time_format={this.props.settings.setting.time_format} onChange={(e)=>this.onChange(e, 'time')}/>
                                     
-                                    <TimeTaken name="timetaken" label="Reminder time" time_format={this.props.settings.setting.time_format} onChange={(e)=> this.updateEntryState1(e, 'time_taken')} timeArray={this.state.updateTrack.time_taken} />
+                                    <TimeTaken name="timetaken" label={reminder_time} time_format={this.props.settings.setting.time_format} onChange={(e)=> this.updateEntryState1(e, 'time_taken')} timeArray={this.state.updateTrack.time_taken} />
 
                                     <PainIntensity name="pain" Forview={true} onChange={(e)=> this.updateEntryState(e)} value={this.state.updateTrack.pain}/>
                                     <PainIntensity name="pain" onChange={(e)=> this.updateEntryState(e)} value={this.state.updateTrack.pain}/>
@@ -200,19 +237,19 @@ class Index extends Component {
                                     
                                     {/* <NotesEditor name="remarks" label="Notes"  onChange={(e)=> this.updateEntryState1(e, 'remarks')} />     */}
                                 
-                                    <NotesEditor name="remarks" label="Notes" value={this.state.updateTrack.remarks} onChange={(e)=> this.updateEntryState1(e, 'remarks')} value={this.state.updateTrack.remarks}/> 
+                                <NotesEditor name="remarks" label={notes} value={this.state.updateTrack.remarks} onChange={(e)=> this.updateEntryState1(e, 'remarks')} value={this.state.updateTrack.remarks}/> 
 
-                                    <SelectByTwo name="visible" label="Visible" options={[{label : 'Show this entry', value: 'show'}, {label: 'Hide this entry', value : 'hide'}]} onChange={(e)=> this.updateEntryState1(e, 'visible')} value={this.state.updateTrack.visible}/>    
-                                    <SelectByTwo name="feeling" label="Feelings" options={[{label : 'Relaxed', value: 'relaxed'}, {label: 'Stressed', value : 'stressed'}]} onChange={(e)=> this.updateEntryState1(e, 'feelings')} value={this.state.updateTrack.feelings}/>    
+                                    <SelectByTwo name="visible" label={visible} options={[{label : show_entry, value: 'show'}, {label: hide_entry, value : 'hide'}]} onChange={(e)=> this.updateEntryState1(e, 'visible')} value={this.state.updateTrack.visible}/>    
+                                    <SelectByTwo name="feeling" label={feeling} options={[{label : relaxed, value: 'relaxed'}, {label: stressed, value : 'stressed'}]} onChange={(e)=> this.updateEntryState1(e, 'feelings')} value={this.state.updateTrack.feelings}/>    
 
-                                    <MMHG name="rr_systolic" Unit="mmHg" label="RR Systolic" onChange={(e)=> this.updateEntryState(e)} value={this.state.updateTrack.rr_systolic}/>    
+                                    <MMHG name="rr_systolic" Unit="mmHg" label={rr_systolic} onChange={(e)=> this.updateEntryState(e)} value={this.state.updateTrack.rr_systolic}/>    
                                     
-                                    <SelectField name="smoking_status" label="Smoking Status" option={[{label : 'Show this entry', value: 'show'}, {label: 'Hide this entry', value : 'hide'}]} onChange={(e)=> this.updateEntryState1(e, 'smoking_status')} value={this.state.updateTrack.smoking_status} />
+                                    <SelectField name="smoking_status" label={smoking_status} option={[{label : show_entry, value: 'show'}, {label:hide_entry, value : 'hide'}]} onChange={(e)=> this.updateEntryState1(e, 'smoking_status')} value={this.state.updateTrack.smoking_status} />
 
-                                    <CheckBoxField name="allergy" label="Allergy" value={this.state.updateTrack.allergy}  onChange={(e)=>this.updateEntryState1(e, 'allergy')}/>
-                                    <CheckBoxField name="review" label="Review" value={this.state.updateTrack.review}  onChange={(e)=>this.updateEntryState1(e, 'review')}/>
+                                    <CheckBoxField name="allergy" label={allergy} value={this.state.updateTrack.allergy}  onChange={(e)=>this.updateEntryState1(e, 'allergy')}/>
+                                    <CheckBoxField name="review" label={review} value={this.state.updateTrack.review}  onChange={(e)=>this.updateEntryState1(e, 'review')}/>
                                    
-                                    <Temprature name="temprature"  name="temprature" valueType = {this.state.updateTrack.temprature_type} value={this.state.updateTrack.temprature} Options={[{label: '°C', value: 'C'},{label: '°F', value: 'F'}]} onChange={(e)=> this.updateEntryState(e)} onChangeType={(e)=> this.updateEntryState1(e, 'temprature_type')} />
+                                    <Temprature name="temprature" valueType = {this.state.updateTrack.temprature_type} value={this.state.updateTrack.temprature} Options={[{label: '°C', value: 'C'},{label: '°F', value: 'F'}]} onChange={(e)=> this.updateEntryState(e)} onChangeType={(e)=> this.updateEntryState1(e, 'temprature_type')} />
 
                                     <ShowHide date_format= {this.props.settings.setting.date_format} value={this.state.updateTrack} onChange={(data) => this.GetHideShow(data)}/>
 

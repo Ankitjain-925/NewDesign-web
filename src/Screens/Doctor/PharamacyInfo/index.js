@@ -253,13 +253,13 @@ class Index extends Component {
                         case "default":
                             translate = translationEN.text
                     }
-                    let { UploadMust } = translate;
+                    let { UploadMust, yes } = translate;
                     this.setState({ loaderImage: false });
                     confirmAlert({
                         message: UploadMust,
                         buttons: [
                             {
-                                label: 'YES',
+                                label: yes,
                             },
 
                         ]

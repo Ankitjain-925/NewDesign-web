@@ -134,7 +134,7 @@ class Index extends Component {
     }
 
     componentDidMount() {
-        
+
         // $("#clickIcon").click(function () {
         //     $("input[id='my_file']").click();
         //   });
@@ -196,17 +196,47 @@ class Index extends Component {
             }).catch(error => { })
         }
         else {
+            let translate;
+            switch (this.props.stateLanguageType) {
+                case "en":
+                    translate = translationEN.text
+                    break;
+                case "de":
+                    translate = translationDE.text
+                    break;
+                case "pt":
+                    translate = translationPT.text
+                    break;
+                case "sp":
+                    translate = translationSP.text
+                    break;
+                case "rs":
+                    translate = translationRS.text
+                    break;
+                case "nl":
+                    translate = translationNL.text
+                    break;
+                case "ch":
+                    translate = translationCH.text
+                    break;
+                case "sw":
+                    translate = translationSW.text
+                    break;
+                case "default":
+                    translate = translationEN.text
+            }
+            let { plz_upload_png_jpeg, ok } = translate;
             confirmAlert({
                 customUI: ({ onClose }) => {
                     return (
                         <div className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode === 'dark' ? "dark-confirm react-confirm-alert-body" : "react-confirm-alert-body"} >
-                            <h1>Please Upload PNG and JPEG file</h1>
+                            <h1>{plz_upload_png_jpeg}</h1>
                             <div className="react-confirm-alert-button-group">
                                 <button
                                     onClick={() => { onClose() }}
                                 >
-                                    Ok
-                </button>
+                                    {ok}
+                                </button>
                             </div>
                         </div>
                     );

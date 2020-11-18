@@ -1040,6 +1040,27 @@
 		"paymnt_processed":"Pago procesado correctamente",
 		"paymnt_err":"error en el pago",
 		"pay_with_stripe":"Lipa na Stripe",
-		"frequency":"Frecuencia"
+		"frequency":"Frecuencia",
+		"relaxed":"Relajado",
+		"stressed":"Estresado",
+		"plz_fill_mob_number":"Por favor complete el número de celular",
+		"pswd_not_valid":"La contraseña no es válida",
+		"plz_fill_fullname_user":"Por favor ingrese el nombre completo del usuario",
+		"plz_enter_email_id_patient":"Ingrese el correo electrónico o identificación del paciente",
+		"unknown":"Desconocido",
+		"there_r_the":"Allí están los",
+		"plz_check_unread_message_in_chat":"Mensajes no leídos en el chat. Por favor, chequee esto.",
+		"new_message_in_chat_plz_check":"Nuevo mensaje (s) en el módulo de chat. Vaya a CHAT (enlace) para comprobar sus mensajes.",
+		"remove_inquiry":"¿Eliminar la consulta?",
+
+		"archive_item":"Elemento de archivo",
+		"do_u_really_want_archive_item":"¿Realmente quieres archivar el artículo?",
+		"delete_item":"Eliminar elemento",
+		"do_u_really_want_delete_item":"¿Realmente desea eliminar el elemento?",
+		"plz_upload_png_jpeg":"Sube archivos PNG y JPEG",
+		"r_u_sure_want_book_appointment":"¿Estás seguro de que quieres reservar esta cita?",
+		"r_u_sure_remove_patient":"¿Estás seguro de eliminar al paciente?",
+		"cancel_inquiry":"¿Cancelar la consulta?",
+		"r_u_sure_cancel_inquiry":"¿Estás seguro de cancelar esta consulta?"
 	}
 }

@@ -139,28 +139,58 @@ class Index extends Component {
 
     //Delete for the Prescriptions confirmation
     updatePrescription(status, id) {
+        let translate
+        switch (this.props.stateLanguageType) {
+            case "en":
+                translate = translationEN.text
+                break;
+            case "de":
+                translate = translationDE.text
+                break;
+            case "pt":
+                translate = translationPT.text
+                break;
+            case "sp":
+                translate = translationSP.text
+                break;
+            case "rs":
+                translate = translationRS.text
+                break;
+            case "nl":
+                translate = translationNL.text
+                break;
+            case "ch":
+                translate = translationCH.text
+                break;
+            case "sw":
+                translate = translationSW.text
+                break;
+            case "default":
+                translate = translationEN.text
+        }
+        let { r_u_sure_update_inquiry, r_u_sure_cancel_inquiry, cancel_inquiry, yes, no, update_inquiry } = translate
         confirmAlert({
             customUI: ({ onClose }) => {
-            return (
-            <div className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode === 'dark' ? "dark-confirm react-confirm-alert-body" : "react-confirm-alert-body"} >
- {status && status === 'cancel' ? <h1>Cancel the Inquiry?</h1> : <h1>Update the Inquiry?</h1>}
-            <p>Are you sure  to {status && status === 'cancel' ? "cancel" : 'update'} this Inquiry?</p>
-            <div className="react-confirm-alert-button-group">
-            <button
-            onClick= {() => {this.deleteClickPatient(status, id); onClose()}}
-            >
-            Yes
-            </button>
-            <button
-            onClick={() => {onClose();}}
-            >
-            No
-            </button>
-            </div>
-            </div>
-            );
+                return (
+                    <div className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode === 'dark' ? "dark-confirm react-confirm-alert-body" : "react-confirm-alert-body"} >
+                        {status && status === 'cancel' ? <h1>{cancel_inquiry}</h1> : <h1>{update_inquiry}</h1>}
+                        <p>{status && status === 'cancel' ? r_u_sure_cancel_inquiry : r_u_sure_update_inquiry} </p>
+                        <div className="react-confirm-alert-button-group">
+                            <button
+                                onClick={() => { this.deleteClickPatient(status, id); onClose() }}
+                            >
+                                {yes}
+                            </button>
+                            <button
+                                onClick={() => { onClose(); }}
+                            >
+                                {no}
+                            </button>
+                        </div>
+                    </div>
+                );
             }
-            })
+        })
     }
 
     //For chnage the page
@@ -232,7 +262,7 @@ class Index extends Component {
 
     render() {
         let translate
-      switch (this.props.stateLanguageType) {
+        switch (this.props.stateLanguageType) {
             case "en":
                 translate = translationEN.text
                 break;
@@ -260,8 +290,8 @@ class Index extends Component {
             case "default":
                 translate = translationEN.text
         }
-        let {req_updated_successfully, about, sent_on, srvc_Doctors, status, secnd_openion, New, inquiry, plz_upload_png_jpg, doc_require_for_second_openion, share_health_status, share_ur_jounral_status, share_health_status_info_from_journal, see_list_shared_info,
-             specilist_and_secnd_openion, specialist, how_wuld_u_like_rcv_scnd_openion, not_mentioned, online, home_add_mailbox, ur_profesion, Annotations, questions, details, attachments, save_entry, rqst_sent_succefully, Pending, Answered, Rejected, Cancelled, sent, request, see_details, modify, cancel_reqst, edit, attached_doc, edit_entry, doc_and_statnderd_ques, doc_aimedis_private, cancel_details, previous, next } = translate
+        let { req_updated_successfully, about, sent_on, srvc_Doctors, status, secnd_openion, New, inquiry, plz_upload_png_jpg, doc_require_for_second_openion, share_health_status, share_ur_jounral_status, share_health_status_info_from_journal, see_list_shared_info,
+            specilist_and_secnd_openion, specialist, how_wuld_u_like_rcv_scnd_openion, not_mentioned, online, home_add_mailbox, ur_profesion, Annotations, questions, details, attachments, save_entry, rqst_sent_succefully, Pending, Answered, Rejected, Cancelled, sent, request, see_details, modify, cancel_reqst, edit, attached_doc, edit_entry, doc_and_statnderd_ques, doc_aimedis_private, cancel_details, previous, next } = translate
 
         return (
             <div>
@@ -306,7 +336,7 @@ class Index extends Component {
                     <Modal
                         open={this.state.addInqry}
                         onClose={this.handleCloseInqry}
-                        className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode === 'dark' ?"darkTheme opinBoxModel":"opinBoxModel"}>
+                        className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode === 'dark' ? "darkTheme opinBoxModel" : "opinBoxModel"}>
                         <Grid className="opinBoxCntnt">
                             <Grid className="opinBoxCntntIner">
                                 <Grid className="opinCourse">
@@ -348,7 +378,7 @@ class Index extends Component {
                                                 <a>{items.filename && (items.filename.split('second_opinion/')[1]).split("&bucket=")[0]}</a>
                                             ))}
                                             </label>
-                                            <FileUploader name="UploadDocument"  comesFrom="journal" fileUpload={this.fileUpload} />
+                                            <FileUploader name="UploadDocument" comesFrom="journal" fileUpload={this.fileUpload} />
                                             {/* <Grid className="attchbrowsInput">
                                             <a><img src={require('../../../../assets/images/upload-file.svg')} alt="" title="" /></a>
                                             <a>Browse <input type="file" id="UploadDocument" name="UploadDocument" onChange={(e) => this.UploadFile(e)} /></a> or drag here
@@ -361,7 +391,7 @@ class Index extends Component {
                                 <Grid className="infoShwHidBrdr"></Grid>
                                 <Grid className="infoShwHidIner">
                                     <Grid className="infoShwSave">
-                                        <input type="submit" onClick={this.SubmitPrescription} value={edit_entry}  />
+                                        <input type="submit" onClick={this.SubmitPrescription} value={edit_entry} />
                                     </Grid>
                                 </Grid>
                             </Grid>
@@ -372,7 +402,7 @@ class Index extends Component {
                     <Modal
                         open={this.state.showInquiry}
                         onClose={this.handleCloseShowSick}
-                        className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode === 'dark' ?"darkTheme nwPresModel":"nwPresModel"}>
+                        className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode === 'dark' ? "darkTheme nwPresModel" : "nwPresModel"}>
                         <Grid className="nwPresCntnt">
                             <Grid className="nwPresCntntIner">
                                 <Grid className="nwPresCourse">
@@ -406,7 +436,7 @@ class Index extends Component {
                                         <Grid><h3>{this.state.AddSecond && this.state.AddSecond.details && this.state.AddSecond.details}</h3></Grid>
                                     </Grid>
                                     <Grid className="attchForms attchImg">
-                                    <Grid><label>{attachments}</label></Grid>
+                                        <Grid><label>{attachments}</label></Grid>
                                         <label class="attached_file">{attached_doc} -
                                     {this.state.AddSecond && this.state.AddSecond.documents && this.state.AddSecond.documents.map((items) => (
                                             <a className="click_document" onClick={() => { GetUrlImage(items.filename) }}>

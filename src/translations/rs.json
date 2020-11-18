@@ -1039,6 +1039,27 @@
     "paymnt_processed":"Платеж успешно обработан",
     "paymnt_err":"Ошибка оплаты",
     "pay_with_stripe":"Оплатить с Stripe",
-    "frequency":"Частота"
+    "frequency":"Частота",
+    "relaxed":"Расслабленный",
+    "stressed":"Подчеркнул",
+    "plz_fill_mob_number":"Пожалуйста, введите номер мобильного телефона",
+    "pswd_not_valid":"Пароль неверный",
+    "plz_fill_fullname_user":"Пожалуйста, введите полное имя пользователя",
+    "plz_enter_email_id_patient":"Пожалуйста, введите адрес электронной почты или идентификатор пациента",
+    "unknown":"Неизвестно",
+    "there_r_the":"Есть",
+    "plz_check_unread_message_in_chat":"непрочитанные сообщения в чате. Пожалуйста, проверьте это.",
+    "new_message_in_chat_plz_check":"Новое сообщение (я) в модуле чата. Пожалуйста, перейдите в ЧАТ (ссылка), чтобы проверить свои сообщения.",
+    "remove_inquiry":"Удалить запрос?",
+
+    "archive_item":"Архивный элемент",
+		"do_u_really_want_archive_item":"Вы действительно хотите заархивировать объект?",
+		"delete_item":"Удалить пункт",
+		"do_u_really_want_delete_item":"Вы действительно хотите удалить элемент?",
+		"plz_upload_png_jpeg":"Загрузите файл PNG и JPEG",
+		"r_u_sure_want_book_appointment":"Вы действительно хотите записаться на эту встречу?",
+		"r_u_sure_remove_patient":"Вы уверены, что удалите пациента?",
+		"cancel_inquiry":"Отменить запрос?",
+		"r_u_sure_cancel_inquiry":"Вы действительно хотите отменить этот запрос?"
   }
 }

@@ -299,6 +299,36 @@ class Index extends Component {
     }
 
     updateAppointment(status, id, data) {
+        let translate;
+        switch (this.props.stateLanguageType) {
+            case "en":
+                translate = translationEN.text
+                break;
+            case "de":
+                translate = translationDE.text
+                break;
+            case "pt":
+                translate = translationPT.text
+                break;
+            case "sp":
+                translate = translationSP.text
+                break;
+            case "rs":
+                translate = translationRS.text
+                break;
+            case "nl":
+                translate = translationNL.text
+                break;
+            case "ch":
+                translate = translationCH.text
+                break;
+            case "sw":
+                translate = translationSW.text
+                break;
+            case "default":
+                translate = translationEN.text
+        }
+        let { r_u_sure_want_book_appointment, yes, no } = translate;
         this.setState({ openSlot: false })
         var Delete_Document, click_on_YES_document;
         // if (this.props.stateLanguageType === 'de') {
@@ -310,14 +340,14 @@ class Index extends Component {
         // }
         confirmAlert({
             //title: Delete_Document,
-            message: 'Are you sure you want to book this appoinment?',
+            message: r_u_sure_want_book_appointment,
             buttons: [
                 {
-                    label: 'YES',
+                    label: yes,
                     onClick: () => this.updateAppointmentDetails(status, id, data)
                 },
                 {
-                    label: 'NO',
+                    label: no,
                 }
             ]
         })
