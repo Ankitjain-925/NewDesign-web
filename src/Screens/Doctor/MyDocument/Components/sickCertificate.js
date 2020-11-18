@@ -276,22 +276,52 @@ class Index extends Component {
 
      //Delete for the Prescriptions confirmation
      removePrsecription(status, id) {
+        let translate;
+        switch (this.props.stateLanguageType) {
+            case "en":
+                translate = translationEN.text
+                break;
+            case "de":
+                translate = translationDE.text
+                break;
+            case "pt":
+                translate = translationPT.text
+                break;
+            case "sp":
+                translate = translationSP.text
+                break;
+            case "rs":
+                translate = translationRS.text
+                break;
+            case "nl":
+                translate = translationNL.text
+                break;
+            case "ch":
+                translate = translationCH.text
+                break;
+            case "sw":
+                translate = translationSW.text
+                break;
+            case "default":
+                translate = translationEN.text
+        }
+        let { update_inquiry, remove_inquiry, r_u_sure_update_inquiry, yes, no } = translate;
         confirmAlert({
             customUI: ({ onClose }) => {
             return (
             <div className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode === 'dark' ? "dark-confirm react-confirm-alert-body" : "react-confirm-alert-body"} >
-              {status && status === 'remove' ? <h1>Remove the Inquiry?</h1> : <h1>Update the Inquiry?</h1>}
-            <p>Are you sure  to update this Inquiry?</p>
+              {status && status === 'remove' ? <h1>{remove_inquiry}</h1> : <h1>{update_inquiry}</h1>}
+            <p>{r_u_sure_update_inquiry}</p>
             <div className="react-confirm-alert-button-group">
             <button
             onClick= {() => {this.updateCertificateDetails(status, id); onClose()}}
             >
-            Yes
+            {yes}
             </button>
             <button
             onClick={() => {onClose();}}
             >
-            No
+            {no}
             </button>
             </div>
             </div>

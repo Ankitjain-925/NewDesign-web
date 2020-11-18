@@ -391,9 +391,9 @@ class Index extends Component {
         if (imagePreviewUrl) {
             $imagePreview = (<img style={{ borderRadius: "10%", maxWidth: 350, marginBottom: 10 }} src={imagePreviewUrl} />);
         }
-        let { unknown, srvc_Doctors, see_details, approve, decline, remove, prescription_inquiry, yes, no, standerd_ques, home_add_mailbox, questions, online, patient_health_status, sent, on, prescription, Pending, request, edit, Rejected, Answered, Cancelled, req_updated_successfully, sick_cert, my_doc, New, inquiry,
+        let { unknown, srvc_Doctors, see_details, approve, decline, scanned, upload_scanned, remove, prescription_inquiry, yes, no, standerd_ques, home_add_mailbox, questions, online, patient_health_status, sent, on, prescription, Pending, request, edit, Rejected, Answered, Cancelled, req_updated_successfully, sick_cert, my_doc, New, inquiry,
             doc_and_statnderd_ques, doc_aimedis_private, Annotations, details, Patient, recved_on, status, is_this_follow_pres, how_u_like_rcv_pres, Medicine, Substance, Dose, mg, trade_name, atc_if_applicable, manufacturer, pack_size,
-            Medications, allergies, dignoses, browse, or_drag_here, suported_file_type_jpg_png, snd_patient_timeline_email, next, reject, short_msg, previous, back, attached_doc } = translate
+            Medications, allergies, dignoses, browse, or_drag_here, suported_file_type_jpg_png, snd_patient_timeline_email, next, reject, short_msg, previous, back, attached_doc , not_mentioned} = translate
 
         return (
             <div>
@@ -412,8 +412,8 @@ class Index extends Component {
                         <Tbody>
                             {this.state.MypatientsData && this.state.MypatientsData.length > 0 && this.state.MypatientsData.map((data, index) => (
                                 <Tr>
-                                    <Td>{data.medication ? data.medication : 'Not mentioned'}</Td>
-                                    <Td>{data.send_on ? getDate(data.send_on, this.props.settings.setting ? this.props.settings.setting.date_format : 'DD/MM/YYYY') : 'Not mentioned'}</Td>
+                                    <Td>{data.medication ? data.medication : not_mentioned}</Td>
+                                    <Td>{data.send_on ? getDate(data.send_on, this.props.settings.setting ? this.props.settings.setting.date_format : 'DD/MM/YYYY') : not_mentioned}</Td>
                                     <Td className="presImg"><img src={data.patient_info && data.patient_info.profile_image ? getImage(data.patient_info.profile_image, this.state.images) : require('../../../../assets/images/dr1.jpg')} alt="" title="" />{data.patient_info && data.patient_info.first_name && data.patient_info.first_name} {data.patient_info && data.patient_info.last_name && data.patient_info.last_name}</Td>
                                     {data.status === 'pending' && <Td><span className="revwYelow"></span>{Pending} </Td>}
                                     {data.status === 'accept' && <Td><span className="revwGren"></span>{Answered} </Td>}
@@ -502,7 +502,7 @@ class Index extends Component {
                                 {prescData.status !== 'decline' &&
                                     <Grid className="scamUPForms scamUPImg">
 
-                                        <Grid><label>{(prescData.status !== 'accept') ? 'Upload scanned' : 'Scanned'} {prescription}</label></Grid>
+                                        <Grid><label>{(prescData.status !== 'accept') ? upload_scanned : scanned} {prescription}</label></Grid>
                                         <label class="attached_file">{attached_doc} -
                                             {prescData && prescData.attachfile && prescData.attachfile.map((items) => (
                                             <a>{items.filename && (items.filename.split('Trackrecord/')[1]).split("&bucket=")[0]}</a>
