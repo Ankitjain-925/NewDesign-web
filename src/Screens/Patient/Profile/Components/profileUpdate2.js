@@ -718,7 +718,7 @@ class Index extends Component {
                                 <Grid className="qrCourse">
                                     <Grid className="qrCloseBtn">
                                         <a onClick={this.handleQrClose}>
-                                            <img src={require('../../../../assets/images/closefancy.png')} alt="" title="" />
+                                            <img src={require('../../../../assets/images/close-search.svg')} alt="" title="" />
                                         </a>
                                     </Grid>
                                     <Grid><label>Profile QR code</label></Grid>
@@ -745,7 +745,7 @@ class Index extends Component {
                                 <Grid className="editCourse">
                                     <Grid className="editCloseBtn">
                                         <a onClick={this.handlePinClose}>
-                                            <img src={require('../../../../assets/images/closefancy.png')} alt="" title="" />
+                                            <img src={require('../../../../assets/images/close-search.svg')} alt="" title="" />
                                         </a>
                                     </Grid>
                                     <Grid><label>Edit ID and PIN</label></Grid>

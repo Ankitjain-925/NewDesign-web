@@ -215,7 +215,7 @@ class FilterSec extends Component {
                                 </Grid>
                                 <Grid item xs={12} md={1}>
                                     <Grid className="clear_filterUpr">
-                                        <Grid className="clear_filterRght" onClick={() => { this.setState({ isTest: false }); this.props.ClearData(); }}><a><img src={require('../../../../assets/images/closefancy.png')} alt="" title="" /></a></Grid>
+                                        <Grid className="trstCloseBtn" onClick={() => { this.setState({ isTest: false }); this.props.ClearData(); }}><a><img src={require('../../../../assets/images/close-search.svg')} alt="" title="" /></a></Grid>
                                     </Grid>
                                 </Grid>
                                 <Grid className="clear"></Grid>

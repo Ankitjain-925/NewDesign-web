@@ -587,7 +587,7 @@ class Index extends Component {
                             <Grid className="meetCourse">
                                 <Grid className="meetCloseBtn">
                                     {/* <a><img src={require('../../../assets/images/threedots.jpg')} alt="" title="" /></a> */}
-                                    {/* <a><img src={require('../../../assets/images/closefancy.png')} alt="" title="" /></a> */}
+                                    {/* <a><img src={require('../../../assets/images/close-search.svg')} alt="" title="" /></a> */}
                                 </Grid>
                                 <Grid className="meetVdo">
                                     <Grid className="meetVdoLft">
@@ -775,7 +775,7 @@ class Index extends Component {
                                                   </p></Grid>}
                                                 <Grid className="slotCourse">
                                                     <a onClick={this.handleCloseSlot} className="clsSltCal">
-                                                        <img src={require('../../../assets/images/closefancy.png')} alt="" title="" />
+                                                        <img src={require('../../../assets/images/close-search.svg')} alt="" title="" />
                                                     </a>
                                                     <Grid container direction="row">
                                                         <Grid item xs={6} md={6} alignItems="center" justify="center">

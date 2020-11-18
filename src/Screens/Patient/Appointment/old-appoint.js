@@ -518,7 +518,7 @@ class Index extends Component {
                                     <Grid className="slotBoxMain">
                                         <Grid className="slotBoxCourse">
                                             <a onClick={this.handleCloseFancyVdo} className="timSlotClose">
-                                                <img src={require('../../../assets/images/closefancy.png')} alt="" title="" />
+                                                <img src={require('../../../assets/images/close-search.svg')} alt="" title="" />
                                             </a>
                                             <Grid className="selCalenderUpr">
                                                 <Grid className="selCalender">
@@ -698,7 +698,7 @@ class Index extends Component {
                                                     <Grid className="apontCourse">
                                                         <Grid className="apontCloseBtn">
                                                             <a onClick={this.handleCloseApoint}>
-                                                                <img src={require('../../../assets/images/closefancy.png')} alt="" title="" />
+                                                                <img src={require('../../../assets/images/close-search.svg')} alt="" title="" />
                                                             </a>
                                                         </Grid>
                                                         <Grid><label>{cancel_apointmnt}</label></Grid>
@@ -744,7 +744,7 @@ class Index extends Component {
                                                                     <div className="cnclCourse">
                                                                         <div className="handleCnclBtn">
                                                                             <a onClick={this.handleCloseFancy}>
-                                                                                <img src={require('../../../assets/images/closefancy.png')} alt="" title="" />
+                                                                                <img src={require('../../../assets/images/close-search.svg')} alt="" title="" />
                                                                             </a>
                                                                         </div>
                                                                         <div><label>{cancel_apointmnt}</label></div>
@@ -788,7 +788,7 @@ class Index extends Component {
                                                                         <div className="accessCourse">
                                                                             <div className="handleAccessBtn">
                                                                                 <a onClick={this.handleCloseAllowLoc}>
-                                                                                    <img src={require('../../../assets/images/closefancy.png')} alt="" title="" />
+                                                                                    <img src={require('../../../assets/images/close-search.svg')} alt="" title="" />
                                                                                 </a>
                                                                             </div>
                                                                             <Grid container direction="row" spacing={2} className="srchAccessLoc">
@@ -1125,7 +1125,7 @@ class Index extends Component {
                                                                         <div className="accessCourse">
                                                                             <div className="handleAccessBtn">
                                                                                 <a onClick={this.handleCloseAllowAccess}>
-                                                                                    <img src={require('../../../assets/images/closefancy.png')} alt="" title="" />
+                                                                                    <img src={require('../../../assets/images/close-search.svg')} alt="" title="" />
                                                                                 </a>
                                                                             </div>
                                                                             <Grid container direction="row" spacing={2} className="srchAccessLoc">

@@ -129,7 +129,7 @@ class Index extends Component {
                 }
             }
         ).then(res => {
-            console.log("ALL VALUE", all)
+  
             var topics = [{ label: all, value: all }];
             res.data.data && res.data.data.length > 0 && res.data.data.map((item) => {
                 topics.push({ label: item.topic_name, value: item.topic_name })
@@ -486,7 +486,7 @@ class Index extends Component {
                                         <div className="wshLstHaiLft"><label>{wishlist}</label></div>
                                         <div className="wshLstHaiRght">
                                             <a onClick={this.handleCloseWish}>
-                                                <img src={require('../../../assets/images/closefancy.png')} alt="" title="" />
+                                                <img src={require('../../../assets/images/close-search.svg')} alt="" title="" />
                                             </a>
                                         </div>
                                     </div>
@@ -545,7 +545,7 @@ class Index extends Component {
                                         <div className="crtLstHaiLft"><label>{cart}</label></div>
                                         <div className="crtLstHaiRght">
                                             <a onClick={this.handleCloseCart}>
-                                                <img src={require('../../../assets/images/closefancy.png')} alt="" title="" />
+                                                <img src={require('../../../assets/images/close-search.svg')} alt="" title="" />
                                             </a>
                                         </div>
                                     </div>

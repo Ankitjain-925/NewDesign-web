@@ -247,7 +247,7 @@ class Index extends Component {
                                 <div className="profilMenuList">
                                     <ul>
                                         <li><a onClick={this.ProfileLink}><img src={require('../../../../assets/images/menudocs.jpg')} alt="" title="" />{profile_setting}</a></li>
-                                        <li><a onClick={this.openLanguageModel}><img src={require('../../../../assets/images/menudocs.jpg')} alt="" title="" />{Language}</a></li>
+                                        <li><a onClick={()=>{this.openLanguageModel()}}><img src={require('../../../../assets/images/menudocs.jpg')} alt="" title="" />{Language}</a></li>
                                         <li><a><img src={require('../../../../assets/images/menudocs.jpg')} alt="" title="" />{DarkMode} <Mode mode={this.state.mode} name="mode" getSetting={this.getSetting} /></a></li>
                                         <li onClick={this.logOutClick}><a><img src={require('../../../../assets/images/menudocs.jpg')} alt="" title="" />{logout}</a></li>
                                     </ul>

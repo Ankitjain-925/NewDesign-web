@@ -302,7 +302,7 @@ class Index extends Component {
                                                     <Grid className="opinCourse">
                                                         <Grid className="opinCloseBtn">
                                                             <a onClick={this.handleCloseDash}>
-                                                                <img src={require('../../../assets/images/closefancy.png')} alt="" title="" />
+                                                                <img src={require('../../../assets/images/close-search.svg')} alt="" title="" />
                                                             </a>
                                                         </Grid>
                                                         <p>{New} {inquiry}</p>

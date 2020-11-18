@@ -134,7 +134,7 @@ class PersonalizedData extends Component {
                     <Grid className="dashCourse">
                         <Grid className="dashCloseBtn">
                             <a onClick={this.handleCloseDash}>
-                                <img src={require('../../../../assets/images/closefancy.png')} alt="" title="" />
+                                <img src={require('../../../../assets/images/close-search.svg')} alt="" title="" />
                             </a>
                         </Grid>
                         <Grid><label>{personalize_dashbrd}</label></Grid>

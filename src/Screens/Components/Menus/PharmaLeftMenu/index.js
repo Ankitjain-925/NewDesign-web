@@ -238,7 +238,7 @@ class Index extends Component {
                             
                                             {profile_setting}
                                         </a></li>
-                                        <li><a onClick={this.openLanguageModel}> {this.props.settings && this.props.settings.setting && this.props.settings.setting.mode && this.props.settings.setting.mode==='dark' 
+                                        <li><a onClick={()=>{this.openLanguageModel()}}> {this.props.settings && this.props.settings.setting && this.props.settings.setting.mode && this.props.settings.setting.mode==='dark' 
                                             ? <img src={require('../../../../assets/images/menudocs-white.jpg')} alt="" title="" />
                                             : <img src={require('../../../../assets/images/menudocs.jpg')} alt="" title="" />}{Language}</a></li>
                                         <li><a> {this.props.settings && this.props.settings.setting && this.props.settings.setting.mode && this.props.settings.setting.mode==='dark' 

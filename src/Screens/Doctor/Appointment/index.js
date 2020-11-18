@@ -76,25 +76,25 @@ class Index extends Component {
         this.getUserData()
         this.getEvent();
         this.getAppoinment();
-        this.getTimeSlot();
+        // this.getTimeSlot();
     }
 
-    getTimeSlot=()=> {
-        this.setState({ loaderImage: true });
-        let user_token = this.props.stateLoginValueAim.token
-        let user_id = this.props.stateLoginValueAim.user._id
-        axios.get(sitedata.data.path + '/UserProfile/timeSuggest/', {
-            headers: {
-                'token': user_token,
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            }
-        }).then((response) => {
-            this.setState({ loaderImage: false });
-           console.log('response', response)
+    // getTimeSlot=()=> {
+    //     this.setState({ loaderImage: true });
+    //     let user_token = this.props.stateLoginValueAim.token
+    //     let user_id = this.props.stateLoginValueAim.user._id
+    //     axios.get(sitedata.data.path + '/UserProfile/timeSuggest/', {
+    //         headers: {
+    //             'token': user_token,
+    //             'Accept': 'application/json',
+    //             'Content-Type': 'application/json'
+    //         }
+    //     }).then((response) => {
+    //         this.setState({ loaderImage: false });
+    //        console.log('response', response)
 
-        })
-    }
+    //     })
+    // }
 
     getUserData() {
         this.setState({ loaderImage: true });
@@ -658,12 +658,12 @@ class Index extends Component {
                             <Grid className="meetCourse">
                                 <Grid className="meetCloseBtn">
                                     {/* <a><img src={require('../../../assets/images/threedots.jpg')} alt="" title="" /></a> */}
-                                    {/* <a><img src={require('../../../assets/images/closefancy.png')} alt="" title="" /></a> */}
+                                    {/* <a><img src={require('../../../assets/images/close-search.svg')} alt="" title="" /></a> */}
                                 </Grid>
                                 <Grid className="meetVdo">
                                     <Grid className="meetVdoLft">
                                         {data.appointment_type == 'online_appointment' && <img src={require('../../../assets/images/video-call.svg')} alt="" title="" />}
-                                        {data.appointment_type == 'practice_days' && <img src={require('../../../assets/images/dates.png')} alt="" title="" />}
+                                        {data.appointment_type == 'practice_days' && <img src={require('../../../assets/images/cal.png')} alt="" title="" />}
                                         {data.appointment_type == 'private_appointments' && <img src={require('../../../assets/images/ShapeCopy21.svg')} alt="" title="" />}
                                         <span>{data.appointment_type == 'practice_days' ? 'Consultancy Appointment' : (data.appointment_type == 'online_appointment' ? 'Video call' : 'Office visit')}</span>
                                     </Grid>
@@ -825,7 +825,7 @@ class Index extends Component {
                                                         </Grid>
                                                         <Grid className="newReqInfo">
                                                             <a>{data.appointment_type == 'online_appointment' && <img src={require('../../../assets/images/video-call.svg')} alt="" title="" />}
-                                                                {data.appointment_type == 'practice_days' && <img src={require('../../../assets/images/dates.png')} alt="" title="" />}
+                                                                {data.appointment_type == 'practice_days' && <img src={require('../../../assets/images/cal.png')} alt="" title="" />}
                                                                 {data.appointment_type == 'private_appointments' && <img src={require('../../../assets/images/ShapeCopy21.svg')} alt="" title="" />}
 
                                                                 <label>{moment(new Date(data.date), 'MM-DD-YYYY').format('MMMM DD, YYYY')}</label> <span>{this.GetTime(data.start_time)} - {this.GetTime(data.end_time)}</span></a>
@@ -847,7 +847,7 @@ class Index extends Component {
                                                   </p></Grid>}
                                                 <Grid className="slotCourse">
                                                     <a onClick={this.handleCloseSlot} className="clsSltCal">
-                                                        <img src={require('../../../assets/images/closefancy.png')} alt="" title="" />
+                                                        <img src={require('../../../assets/images/close-search.svg')} alt="" title="" />
                                                     </a>
                                                     <Grid container direction="row">
                                                         <Grid item xs={6} md={6} alignItems="center" justify="center">
@@ -858,7 +858,7 @@ class Index extends Component {
                                                         <Grid item xs={6} md={6} alignItems="center" justify="center">
                                                             <Grid className="jmInfoVdo">
                                                                 <a>{appoinmentSelected.appointment_type == 'online_appointment' && <img src={require('../../../assets/images/video-call.svg')} alt="" title="" />}
-                                                                    {appoinmentSelected.appointment_type == 'practice_days' && <img src={require('../../../assets/images/dates.png')} alt="" title="" />}
+                                                                    {appoinmentSelected.appointment_type == 'practice_days' && <img src={require('../../../assets/images/cal.png')} alt="" title="" />}
                                                                     {appoinmentSelected.appointment_type == 'private_appointments' && <img src={require('../../../assets/images/ShapeCopy21.svg')} alt="" title="" />}
                                                                     {appoinmentSelected.appointment_type == 'practice_days' ? 'Consultancy Appointment' : (appoinmentSelected.appointment_type == 'online_appointment' ? vdo_call : office_visit)}</a>
                                                             </Grid>

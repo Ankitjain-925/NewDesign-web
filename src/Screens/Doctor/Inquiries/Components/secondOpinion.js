@@ -479,7 +479,7 @@ class Index extends Component {
                                 <Grid className="opinCourse">
                                     <Grid className="opinCloseBtn">
                                         <a onClick={this.handleClosePrescp}>
-                                            <img src={require('../../../../assets/images/closefancy.png')} alt="" title="" />
+                                            <img src={require('../../../../assets/images/close-search.svg')} alt="" title="" />
                                         </a>
                                     </Grid>
                                     <p>{edit} {inquiry}</p>
@@ -563,7 +563,7 @@ class Index extends Component {
                             <Grid className="rejectCourse">
                                 <Grid className="rejectCloseBtn">
                                     <a onClick={this.handleCloseReject}>
-                                        <img src={require('../../../../assets/images/closefancy.png')} alt="" title="" />
+                                        <img src={require('../../../../assets/images/close-search.svg')} alt="" title="" />
                                     </a>
                                 </Grid>
                                 <p onClick={this.handleCloseReject}>{back}</p>

@@ -438,7 +438,7 @@ class Index extends Component {
                                                             <Grid className="presCourse">
                                                                 <Grid className="presCloseBtn">
                                                                     <a onClick={this.handleClosePres}>
-                                                                        <img src={require('../../../assets/images/closefancy.png')} alt="" title="" />
+                                                                        <img src={require('../../../assets/images/close-search.svg')} alt="" title="" />
                                                                     </a>
                                                                 </Grid>
                                                                 <p>{prescription} {fors}</p>

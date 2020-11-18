@@ -598,7 +598,7 @@ class Index extends Component {
                                     {this.state.already && <div className="err_message">{doc_already_exit_in_list}</div>}
                                     <Grid className="trstCloseBtn">
                                         <a onClick={this.handleCloseTrust}>
-                                            <img src={require('../../../../assets/images/closefancy.png')} alt="" title="" />
+                                            <img src={require('../../../../assets/images/close-search.svg')} alt="" title="" />
                                         </a>
                                     </Grid>
                                     <Grid><label>{New} {trusted_doc}</label></Grid>

@@ -984,7 +984,7 @@ class Index extends Component {
                                                     <Grid className="nwDiaCourse">
                                                         <Grid className="nwDiaCloseBtn">
                                                             <a onClick={this.handleCloseInqryNw}>
-                                                                <img src={require('../../../assets/images/closefancy.png')} alt="" title="" />
+                                                                <img src={require('../../../assets/images/close-search.svg')} alt="" title="" />
                                                             </a>
                                                         </Grid>
 
