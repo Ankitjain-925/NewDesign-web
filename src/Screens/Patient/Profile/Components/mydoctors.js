@@ -55,7 +55,7 @@ class Index extends Component {
             family_doc1: [],
             PassDone: false,
             family_doc_list: [],
-            family_doc_list1: [],
+            family_doc_list1 :[],
         };
         // new Timer(this.logOutClick.bind(this)) 
     }
@@ -70,7 +70,7 @@ class Index extends Component {
 
 
     componentDidMount() {
-
+        
         this.alldoctor();
         this.alldocs();
     }
@@ -186,8 +186,8 @@ class Index extends Component {
 
     //Get All doctors
     alldoctor = () => {
-        var FamilyList = [], FamilyList1 = [];
-        doctorArray = [];
+        var FamilyList = [],FamilyList1 = [];
+        doctorArray=[];
         const user_token = this.props.stateLoginValueAim.token;
         axios.get(sitedata.data.path + '/UserProfile/DoctorUsers', {
             headers: {
@@ -212,66 +212,36 @@ class Index extends Component {
                     alies_id: this.state.allDocData[i].alies_id
                 })
                 FamilyList.push({ value: this.state.allDocData[i]._id, label: name })
-                FamilyList1.push({ profile_id: this.state.allDocData[i].profile_id, value: this.state.allDocData[i]._id, label: name })
+                FamilyList1.push({profile_id :  this.state.allDocData[i].profile_id,value: this.state.allDocData[i]._id, label: name})
             }
-            this.setState({ users: doctorArray, family_doc_list: FamilyList, family_doc_list1: FamilyList1 })
+            this.setState({ users: doctorArray, family_doc_list: FamilyList, family_doc_list1 :  FamilyList1})
         })
     }
 
     //For remove the doctor in the trusted Doctor
     removeDoctor = (doctor) => {
-        let translate;
-        switch (this.props.stateLanguageType) {
-            case "en":
-                translate = translationEN.text
-                break;
-            case "de":
-                translate = translationDE.text
-                break;
-            case "pt":
-                translate = translationPT.text
-                break;
-            case "sp":
-                translate = translationSP.text
-                break;
-            case "rs":
-                translate = translationRS.text
-                break;
-            case "nl":
-                translate = translationNL.text
-                break;
-            case "ch":
-                translate = translationCH.text
-                break;
-            case "sw":
-                translate = translationSW.text
-                break;
-            case "default":
-                translate = translationEN.text
-        }
-        let { remove, capab_Doctors, r_u_sure_remove_doctor, yes, no } = translate
         confirmAlert({
             customUI: ({ onClose }) => {
-                return (
-                    <div className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode === 'dark' ? "dark-confirm react-confirm-alert-body" : "react-confirm-alert-body"} >
-                        <h1>{remove} {capab_Doctors}</h1>
-                        <p>{r_u_sure_remove_doctor}</p>
-                        <div className="react-confirm-alert-button-group">
-                            <button
-                                onClick={() => { this.deleteClickDoctor(doctor); onClose() }}
-                            >
-                                {yes}
-                            </button>
-                            <button
-                                onClick={() => { onClose(); }}
-                            >
-                                {no}
-                            </button>
-                        </div>
-                    </div>
-                );
+            return (
+            <div className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode === 'dark' ? "dark-confirm react-confirm-alert-body" : "react-confirm-alert-body"} >
+            <h1>Remove Doctor</h1>
+            <p>Are you sure to remove the Doctor from the Trusted Doctor</p>
+            <div className="react-confirm-alert-button-group">
+            <button
+            onClick= {() => {this.deleteClickDoctor(doctor); onClose()}}
+            >
+            Yes
+            </button>
+            <button
+            onClick={() => {onClose();}}
+            >
+            No
+            </button>
+            </div>
+            </div>
+            );
             }
-        })
+            })
     }
 
     //For Add the Doctor
@@ -336,11 +306,12 @@ class Index extends Component {
     AddFmilyDoc = () => {
         if (this.state.family_doc1 && this.state.family_doc1.length > 0) {
             this.setState({ Nodoc: false, loaderImage: true })
-            var myFilterData = this.state.family_doc_list1 && this.state.family_doc_list1.length > 0 && this.state.family_doc_list1.filter((ind) =>
+                var myFilterData = this.state.family_doc_list1 && this.state.family_doc_list1.length > 0 && this.state.family_doc_list1.filter((ind) =>
                 ind.value === this.state.family_doc.value);
-            if (myFilterData && myFilterData.length > 0 && myFilterData[0] && myFilterData[0].profile_id) {
-                AddFavDoc(myFilterData[0].profile_id, myFilterData[0].profile_id, this.props.stateLoginValueAim.token, this.props.stateLoginValueAim.user.profile_id);
-            }
+                if(myFilterData && myFilterData.length>0 && myFilterData[0] && myFilterData[0].profile_id)
+                {
+                    AddFavDoc(myFilterData[0].profile_id, myFilterData[0].profile_id, this.props.stateLoginValueAim.token, this.props.stateLoginValueAim.user.profile_id);
+                }
             axios.put(sitedata.data.path + '/UserProfile/Users/update', {
                 family_doc: this.state.family_doc1
             }, {
@@ -470,7 +441,7 @@ class Index extends Component {
         };
 
         let translate;
-        switch (this.props.stateLanguageType) {
+      switch (this.props.stateLanguageType) {
             case "en":
                 translate = translationEN.text
                 break;
@@ -498,7 +469,7 @@ class Index extends Component {
             case "default":
                 translate = translationEN.text
         }
-        let { select_family_doc, family_doc, visible_emergancy, doc_added_succefully, New, make_sure_family_doc, add_a_family_doc, trusted_doc,
+        let {select_family_doc, family_doc, visible_emergancy, doc_added_succefully, New, make_sure_family_doc, add_a_family_doc, trusted_doc,
             doc_have_access_ur_journal, doc_already_exit_in_list, doc_removed_trusted_list, remove, add_trusted_doc, select_doctor,
             find_doc, serch_by_name_id, add_to_trusted_doc, recmonded_doc, doc_who_part_of_aimedis } = translate;
 
@@ -548,12 +519,12 @@ class Index extends Component {
                             <Grid className="trstaddDocUpr">
                                 <Grid container direction="row" alignItems="center" spacing={2}>
                                     <Grid item xs={12} md={9}>
-                                        <Grid className="trstmkFmlyDoc">
+                                        <Grid className="trstmkFmlyDoc 44">
                                             <Grid container direction="row" alignItems="center">
-                                                <Grid item xs={12} md={4}>
+                                                <Grid item xs={12} md={5}>
                                                     {index.image ? <a><img src={getImage(index.image, this.state.images)} alt="" title="" /> </a>
                                                         : <a><img src={require('../../../../assets/images/chatPerson.jpg')} alt="" title="" /> </a>}<label>{index.first_name && index.first_name} {index.last_name && index.last_name}</label></Grid>
-                                                <Grid item xs={12} md={8}><p>{index.alies_id && index.alies_id}</p></Grid>
+                                                <Grid item xs={12} md={7}><p>{index.alies_id && index.alies_id}</p></Grid>
                                             </Grid>
                                         </Grid>
                                     </Grid>
@@ -590,7 +561,7 @@ class Index extends Component {
                         <Modal
                             open={this.state.openTrust}
                             onClose={this.handleCloseTrust}
-                            className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode === 'dark' ? "darkTheme trstBoxModel" : "trstBoxModel"}>
+                            className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode === 'dark' ?"darkTheme trstBoxModel":"trstBoxModel"}>
                             <Grid className="trstBoxCntnt">
                                 <Grid className="trstCourse">
                                     {this.state.succset && <div className="success_message">{doc_added_succefully}</div>}

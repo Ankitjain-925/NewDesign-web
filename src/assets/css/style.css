@@ -3671,7 +3671,7 @@ span.css-1okebmr-indicatorSeparator {
     padding: 10px 12px;
     margin-right: 8px;
     cursor: pointer;
-    width: 26%;
+    min-width: 26%;
     display: inline-block;
 }
 /* .profileInfoDate a:first-child {
@@ -4136,6 +4136,7 @@ button.aboutTabsIner {
     font-weight: 600;
     letter-spacing: 0;
     line-height: 18px;
+    margin-bottom: 0px !important;
 }
 .trstaddFmlyDoc a {
     color: #00ABAF;
@@ -4151,8 +4152,9 @@ button.aboutTabsIner {
 }
 .trstmkFmlyDoc img {
     width: 16px;
+    height: 16px;
     border-radius: 12px;
-    margin-right: 10px;
+    margin-right: 5px;
 }
 .trstmkFmlyDoc label {
     color: #000808;
@@ -13028,6 +13030,15 @@ a.academy_ul ul li img {
 
 
 /*Added By ankita*/
+.timeIconClas_crested img{
+    width: 30px;
+    border-radius: 50%;
+}
+.timeIconClas_crested p{
+    text-align: center;
+    color:#000;
+    font-size: 16px;
+}
 .moreMenuList li a img {
     margin-right: 6px !important;
 }
@@ -13039,7 +13050,7 @@ a.academy_ul ul li img {
 }
 .scndOptionIner1 ul li img {
     /* margin-right: 12px; */
-    height: 17px;
+    /* height: 17px; */
     width: auto;
     padding-right: 10px;
 }
@@ -13485,6 +13496,7 @@ img.openScnd1 {
     list-style-type: none;
     cursor: pointer;
     padding: 8px 12px;
+    display: block !important;
 }
 .scndOptionIner1 ul li a:hover {
     border-radius: 8px;
@@ -13511,6 +13523,7 @@ img.openScnd1 {
     right: 0;
     text-align: left;
     z-index: 111;
+    min-width: 223px;
 }
 a.openScndhrf1:hover ul {
     display: block !important;
@@ -14425,3 +14438,80 @@ input#graduationYear {
     margin-top: 20px !important;
   }
 }
+
+.passInstIner:after {
+    content: '';
+    position: absolute;
+    left: -22px;
+    top: 42px;
+    width: 0;
+    height: 0;
+    width: 0px;
+    height: 0px;
+    border-top: 13px solid transparent;
+    border-bottom: 13px solid transparent;
+    border-right: 13px solid #ffffff;
+}
+.passInstIner img.passArow {
+    display: none;
+}
+
+.homeBgDrk .passInst {
+    background-color: #192020;
+}
+.homeBgDrk .passInstIner:after {
+    border-right: 13px solid #192020;
+}
+.homeBgDrk .passInst p {
+    color: #BFC1C1 !important;
+}
+.homeBgDrk .passInst a {
+    color: #BFC1C1 !important;
+}
+.homeBgDrk .ant-picker {
+    background: transparent;
+    color: #BFC1C1 !important;
+}
+.homeBgDrk .ant-picker input {
+    color: #BFC1C1 !important;
+}
+.profileInfoDate a {
+    background: transparent !important;
+    border: 1px solid #d9d9d9 !important;
+}
+a.SelectedGender{
+    background-color: #00ABAF !important;
+    background: #00ABAF !important;
+    color: #FFFFFF !important;
+}
+.homeBgDrk .mkFmlyDoc .css-yk16xz-control {
+    background-color: #404646 !important;
+    color: #BFC1C1 !important;
+}
+.homeBgDrk .trstaddDocUpr {
+    background-color: #404646 !important;
+    border: 1px solid #d9d9d9 !important;
+}
+.homeBgDrk .css-yk16xz-control {
+    background-color: #404646 !important;
+    color: #BFC1C1 !important;
+}
+.homeBgDrk .neuroSection p {
+    color: #D9DADA !important;
+}
+.homeBgDrk .scndOptionIner1 ul {
+    border: 1px solid #696969 !important;
+    background-color: #192020 !important;
+}
+.homeBgDrk .scndOptionIner1 ul li a:hover {
+    background: transparent !important;
+    background-color: transparent !important;
+}
+.homeBgDrk .scndOptionIner1 ul li a {
+    color: #BFC1C1 !important;
+}
+.homeBgDrk .trstmkFmlyDoc label, .homeBgDrk .trstmkFmlyDoc p{
+    color: #BFC1C1 !important;
+}
+
+

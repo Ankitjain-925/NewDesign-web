@@ -164,7 +164,7 @@ class Index extends Component {
                                                                                     </Grid>
                                                                                     : <div>
                                                                                         {Object.entries(v).map(([k1, v1]) => (
-                                                                                            k1 !== '' && k1 !== 'track_id' && k1 !== 'created_by_temp2' && k1 !== 'review_by' &&
+                                                                                            k1 !== '' && k1 !== 'track_id' && k1 !== 'created_by_temp2' && k1 !== 'created_by_profile' && k1 !== 'review_by' &&
                                                                                             k1 !== 'review_on' && k1 !== 'review_by_temp' && k1 !== 'emergency_by_temp' && k1 !== 'created_at' && k1 !== 'created_by'
                                                                                             && k1 !== 'emergency_on' && k1 !== 'emergency_by' && k1 !== "created_by_temp" && k1 !== "datetime_on" && k1 !== "type"
                                                                                             && typeof v1 === 'string' && <Grid container direction="row">
