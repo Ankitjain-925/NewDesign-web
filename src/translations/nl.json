@@ -1569,6 +1569,7 @@
 		"r_u_sure_want_book_appointment":"Weet u zeker dat u deze afspraak wilt boeken?",
 		"r_u_sure_remove_patient":"Weet u zeker dat u de patiënt verwijdert?",
 		"cancel_inquiry":"De aanvraag annuleren?",
-		"r_u_sure_cancel_inquiry":"Weet u zeker dat u deze aanvraag wilt annuleren?"
+		"r_u_sure_cancel_inquiry":"Weet u zeker dat u deze aanvraag wilt annuleren?",
+		"download_file":"Download bestand"
 		}
 }

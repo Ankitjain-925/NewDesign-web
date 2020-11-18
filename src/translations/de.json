@@ -1061,6 +1061,7 @@
 		"r_u_sure_want_book_appointment":"Möchten Sie diesen Termin wirklich buchen?",
 		"r_u_sure_remove_patient":"Sind Sie sicher, den Patienten zu entfernen?",
 		"cancel_inquiry":"Anfrage abbrechen?",
-		"r_u_sure_cancel_inquiry":"Sind Sie sicher, diese Anfrage abzubrechen?"
+		"r_u_sure_cancel_inquiry":"Sind Sie sicher, diese Anfrage abzubrechen?",
+		"download_file":"Download-Datei"
 	}
 }

@@ -1058,7 +1058,8 @@
 		"r_u_sure_want_book_appointment":"Are you sure you want to book this appoinment?",
 		"r_u_sure_remove_patient":"Are you sure to remove the Patient?",
 		"cancel_inquiry":"Cancel the Inquiry ?",
-		"r_u_sure_cancel_inquiry":"Are you sure  to cancel this Inquiry?"
+		"r_u_sure_cancel_inquiry":"Are you sure  to cancel this Inquiry?",
+		"download_file":"Download File"
 
 		}
 }
