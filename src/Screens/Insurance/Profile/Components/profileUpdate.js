@@ -364,6 +364,7 @@ class Index extends Component {
             }
         }).then((responce) => {
             if (responce.data.hassuccessed) {
+                this.setState({ loaderImage: false });
                 this.setState({ editInsuranceOpen: false, addInsuranceOpen: false, succUpdate: true, insuranceDetails: { insurance: '', insurance_number: '', insurance_country: '' } })
                 this.setState({ loaderImage: false });
                 setTimeout(() => { this.setState({ succUpdate: false }) }, 5000)

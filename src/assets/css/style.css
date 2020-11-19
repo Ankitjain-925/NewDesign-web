@@ -304,6 +304,7 @@ a.vsblTime {
     line-height: 18px;
 }
 .detailMark span.Collapsible__trigger {
+    min-height: 37px;
     border-radius: 8px;
     background-color: #F2F2F2;
     padding: 8px 14px;
@@ -7387,7 +7388,8 @@ a.vsblDots, a.conPainDots, a.bp_vsblDots, a.hideDots {
 .homeBgDrk .kycForms label, .homeBgDrk .chatVoice label, .homeBgDrk .prescSick label, .homeBgDrk .prescSickVdo label,
 .homeBgDrk .wrkHour label, .homeBgDrk .setSchedule label, .homeBgDrk .apontBook label, .homeBgDrk span.holdyPeriod,
 .homeBgDrk .setSchedule div:last-child, .homeBgDrk .daySchedule label, .homeBgDrk .daySchedule span,
-.homeBgDrk .profileIdLft label, .homeBgDrk .setSchedule span {
+.homeBgDrk .profileIdLft label, .homeBgDrk .setSchedule span,
+.homeBgDrk .profileInfoDate label {
     color: #FAFAFA !important;
 }
 .homeBgDrk .mr_sel .css-yk16xz-control div {
@@ -9425,7 +9427,7 @@ a.menuActv img {
     box-shadow: 0 8px 16px 0 rgba(0,8,8,0.08);
     padding: 14px 18px;
     position: absolute;
-    right: 0;
+    right: -6px;
 }
 .openJourMenu a ul li {
     list-style-type: none;
@@ -9444,6 +9446,7 @@ a.menuActv img {
 }
 .openJourMenu a {
     position: relative;
+    display: block;
 }
 .openJourMenu a:hover ul {
     display: block !important;
@@ -13030,6 +13033,9 @@ a.academy_ul ul li img {
 
 
 /*Added By ankita*/
+.oficVisit img {
+    width: 13px !important;
+}
 .dataCloseBtn a img, .editCloseBtn a img, .entryCloseBtn a img, .wshLstHaiRght a img,
 .crtLstHaiRght a img,.handleCloseBtn a img, .nwPresCloseBtn a img,
 .presurCloseFncy a img, .dashCloseBtn a img, .invtCloseBtn a img, .paraCloseBtn a img,
@@ -13052,7 +13058,7 @@ a.academy_ul ul li img {
     justify-content: center;
 }
 
-.darkTheme > .nwPresCntnt ,.darkTheme > .opinBoxCntnt {
+.darkTheme > .nwPresCntnt ,.darkTheme > .opinBoxCntnt, .darkTheme > .invtCourse {
     background-color: #404646!important;
 }
 .timeIconClas_crested img{
@@ -13296,7 +13302,8 @@ button.CutomStripeButton{
     position : relative !important;
 }
 .allTimeSelnw.comonSelnw div:last-child {
-    z-index: 99999999999!important;
+    /* z-index: 99999999999!important; */
+    z-index: 999 !important;
 }
 .rlativeDiv .passInst {
     position: relative!important;
@@ -13545,7 +13552,7 @@ img.openScnd1 {
     margin-bottom: 0px;
     padding: 12px 12px;
     position: absolute;
-    right: 0;
+    right: -8px;
     text-align: left;
     z-index: 111;
     min-width: 223px;
@@ -13684,7 +13691,7 @@ h4.Inquirypaddingtop {
     padding-top: 25px;
 }
 .scndOptionIner ul {
-    margin-top: -8px !important;
+    margin-top: -9px !important;
 }
 .scndOptionIner ul li a img {
     height: 15px !important;
@@ -14041,7 +14048,7 @@ input:focus {
       background-color: #404646!important;
   }
 
-.darkTheme label, .darkTheme span, .darkTheme p, .darkTheme h3, .darkTheme h1 {
+  .darkTheme label, .darkTheme span, .darkTheme p, .darkTheme h3, .darkTheme h1 {
       color: #D9DADA !important;
   }
 
@@ -14453,6 +14460,10 @@ input#graduationYear {
     color: #bfc1c1 !important;
     background-color: transparent !important;
 }
+.homeBgDrk .profileInfoIner .css-1pahdxg-control{
+    color: #bfc1c1 !important;
+    background-color: transparent !important;
+}
 @media (max-width: 768px){
   .cc1-chat-win-inpt-ext-wrap {
     z-index: 999999 !important;
@@ -14463,7 +14474,6 @@ input#graduationYear {
     margin-top: 20px !important;
   }
 }
-
 .passInstIner:after {
     content: '';
     position: absolute;
@@ -14471,8 +14481,6 @@ input#graduationYear {
     top: 42px;
     width: 0;
     height: 0;
-    width: 0px;
-    height: 0px;
     border-top: 13px solid transparent;
     border-bottom: 13px solid transparent;
     border-right: 13px solid #ffffff;
@@ -14480,7 +14488,6 @@ input#graduationYear {
 .passInstIner img.passArow {
     display: none;
 }
-
 .homeBgDrk .passInst {
     background-color: #192020;
 }
@@ -14538,5 +14545,99 @@ a.SelectedGender{
 .homeBgDrk .trstmkFmlyDoc label, .homeBgDrk .trstmkFmlyDoc p{
     color: #BFC1C1 !important;
 }
+.homeBgDrk .inner.CreatChatInner {
+    background: #192020 !important;
+}
+.darkTheme > div:nth-child(3) .cntryLiv{
+    background: #202323 !important;
+}
+.darkTheme > div:nth-child(3) .cntryLiv p{
+    background: #202323 !important;
+    color: #D9DADA !important;
+}
+.darkTheme > div:nth-child(3) .cntryLiv::after {
+    border-right-color: #202323 !important;
+}
+.darkTheme > div:nth-child(3) .docHlth h2 {
+    color: #d1d2d2 !important;
+}
+.darkTheme > div:nth-child(3) .drsplestQues .css-yk16xz-control,
+.darkTheme > div:nth-child(3) .drsplestQues .css-1pahdxg-control,
+.darkTheme > div:nth-child(3) .medicnSub input[type="text"],
+.darkTheme > div:nth-child(3) .medicnSub textarea {
+    background-color: #404646 !important;
+    color: #BFC1C1 !important;
+}
+.openJourMenu a ul li:first-child {
+    margin-top: 0px;
+}
+.cnfrmDiaMain .fillDia div {
+    color: #000808 !important;
+    font-family: Muli;
+}
+.slotTimDat .selTimeAM.suggent-time {
+    height: 130px;
+}
+.darkTheme > div:nth-child(3) .dataBoxInput input,
+.darkTheme > div:nth-child(3) .cntryDrop .css-yk16xz-control,
+.darkTheme > div:nth-child(3) .editPinform input[type="text"],
+.darkTheme > div:nth-child(3) .srchSrvc input {
+    background-color: #404646 !important;
+    color: #BFC1C1 !important;
+}
+.homeBgDrk .profileInfoIner input#react-select-3-input {
+    background-color: transparent !important;
+    background: transparent !important;
+}
+/* Start close button css */
+.dataCloseBtn a img {
+    width: 17px;
+}
+.dataCloseBtn a {
+    border: 1px solid #9fa2a2;
+    display: inline-flex;
+    padding: 5px 5px;
+    border-radius: 8px;
+    align-items: center;
+    justify-content: center;
+}
+/* End of close button css */
+.presureDataGrph g.highcharts-axis.highcharts-yaxis {
+    font-size: 15px !important;
+}
+.cntryLiv {
+    opacity: initial !important;
+    border: 1px solid #dfdfdf26;
+}
+.homeBgDrk .topicAll {
+    border: 1px solid #BFC1C1;
+    border-radius: 4px;
+}
+.darkTheme > div:nth-child(3) .crtCorList {
+    background-color: #0c1010;
+}
+.darkTheme > div:nth-child(3) .crtCorListLbl label, 
+.darkTheme > div:nth-child(3) .crtCorListPara p,
+.darkTheme > div:nth-child(3) .crtCorListTime a{
+    color: #BFC1C1 !important;
+}
+.darkTheme > div:nth-child(3) .dataBoxInput input::-webkit-input-placeholder {
+    color: #bfc1c1 !important;   
+  }
+  .darkTheme > div:nth-child(3) .dataBoxInput input::-moz-placeholder {
+    color: #bfc1c1 !important;   
+  }
+  .darkTheme > div:nth-child(3) .dataBoxInput input:-ms-input-placeholder {
+    color: #bfc1c1 !important;   
+  }
+  .darkTheme > div:nth-child(3) .dataBoxInput input:-moz-placeholder { 
+    color: #bfc1c1 !important;   
+  }
+
+.homeBgDrk .topicAll .css-1pahdxg-control {
+    color: #bfc1c1 !important;
+    background-color: transparent !important;
+}
+
 
 

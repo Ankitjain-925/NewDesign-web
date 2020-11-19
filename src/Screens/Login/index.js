@@ -75,7 +75,7 @@ class Index extends Component {
 
     logoutUser = () => {
         this.props.authy(false);
-        let languageType = 'en';
+        let languageType = this.props.stateLanguageType && this.props.stateLanguageType!==''? this.props.stateLanguageType :'en';
         this.props.LanguageFetchReducer(languageType);
         this.anotherPatient();
     }

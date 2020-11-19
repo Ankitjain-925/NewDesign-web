@@ -266,7 +266,7 @@ class Index extends Component {
                         <li className={this.props.currentPage === 'profile' ? "menuActv" : ""}>
                             <a className="profilMenu">
                             <img src={require('../../../../assets/images/nav-my-profile.svg')} alt="" title="" />
-                             
+                            {console.log('this.props.settings && this.props.settings.setting && this.props.settings.setting.mode && this.props.settings.setting.mode', this.props.settings && this.props.settings.setting && this.props.settings.setting.mode && this.props.settings.setting.mode)}
                                 <span>{my_profile}</span>
                                 <div className="profilMenuList">
                                     <ul>
