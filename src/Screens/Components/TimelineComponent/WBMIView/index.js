@@ -117,7 +117,7 @@ class Index extends Component {
                                                 }
                                             </li>}
                                             {this.props.comesfrom !== 'patient' && <li><a onClick={() => this.props.EidtOption(item.type, item)}><img src={require('../../../../assets/images/edit-1.svg')} alt="" title="" />{edit}</a></li>}
-                                            <li><a onClick={() => this.props.downloadTrack(item)}><img src={require('../../../../assets/images/download.svg')} alt="" title="" />Download</a></li>
+                                            <li><a onClick={() => this.props.downloadTrack(item)}><img src={require('../../../../assets/images/download.svg')} alt="" title="" />{Download}</a></li>
                                             <li><DownloadFullTrack TrackRecord={this.state.TrackRecord} /></li>
                                             <li><a onClick={(deleteKey) => this.props.DeleteTrack(item.track_id)}><img src={require('../../../../assets/images/cancel-request.svg')} alt="" title="" />{Delete}</a></li>
                                         </ul> :
@@ -132,7 +132,7 @@ class Index extends Component {
                         </Grid>
 
                         <Grid className="bp_hg addSpc">
-                            <label>{item.weight && item.height && (item.weight / (item.height * item.height) * 10000).toFixed(2)} <span>BMI</span></label>
+                            <label>{item.weight && item.height && (item.weight / (item.height * item.height) * 10000).toFixed(2)} <span>{BMI}</span></label>
                             {/* <p>Normal</p> */}
                         </Grid>
 

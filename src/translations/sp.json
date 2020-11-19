@@ -444,7 +444,7 @@
 		"last_doc_visit": "Últimas visitas al médico",
 		"upcming_appointment": "Próxima cita",
 		"neurology": "Neurología",
-		"Office": "Office",
+		"Office": "Oficina",
 		"Video": "Vídeo",
 		"last_document": "Últimos Documentos",
 		"view_all": "Visualizar todo",
@@ -1065,6 +1065,7 @@
 		"download_file":"Descargar archivo",
 		"Select_chat":"Seleccione un chat para comenzar a enviar mensajes",
 		"Search" :"Buscar",
-		"Date_of_event" :"Fecha del evento"
+		"Date_of_event" :"Fecha del evento",
+		"consultancy_appintment":"Cita de consultoría"
 	}
 }

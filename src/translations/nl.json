@@ -169,8 +169,11 @@
 		"we_are_near":"We tonen de specialisten in de buurt",
 		"km_range":"km reikwijdte",
 		"certificate": "Certificaat",
+		"chat_vdocall": "Chat- en videocalls",
 		"yes":"Ja",
 		"no":"Nee",
+		"Yes":"Ja",
+		"No":"Nee",
 		"cart":"Winkelwagen",
 		"pay":"Betalen",
 		"unable_to_update":"Kon niet updaten",
@@ -1244,7 +1247,7 @@
 		"stay_upto_date_orgnize_data": "Blijf op de hoogte en laat Aimedis jouw medische gegevens beheren",
 		"available": "Beschikbaar",
 		"activate": "Activeren",
-		"secnd_openion": "Second Opinion",
+		"secnd_openion": "Tweede mening",
 		"emrgancy_patient_data": "Noodgegevens van Patiënt",
 		"online_course": "Online Cursussen",
 		"online": "Online",
@@ -1556,6 +1559,7 @@
 		"plz_fill_fullname_user":"Vul de volledige naam van de gebruiker in",
 		"plz_enter_email_id_patient":"Voer het e-mailadres of ID van de patiënt in",
 		"unknown":"Onbekend",
+		"prescriptions":"Voorschriften",
 		"there_r_the":"Er zijn de",
 		"plz_check_unread_message_in_chat":"ongelezen berichten in Chat. Kunt u dit nakijken.",
 		"new_message_in_chat_plz_check":"Nieuwe bericht (en) in chatmodule. Ga naar CHAT (link) om uw berichten te controleren.",
@@ -1573,6 +1577,7 @@
 		"download_file":"Download bestand",
 		"Select_chat":"Selecteer een chat om berichten te verzenden",
 		"Search" :"Zoeken",
-		"Date_of_event" :"Datum van het evenement"
+		"Date_of_event" :"Datum van het evenement",
+		"consultancy_appintment":"Consultancy Afspraak"
 		}
 }

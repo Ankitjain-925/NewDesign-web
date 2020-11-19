@@ -1065,6 +1065,7 @@
 		"download_file":"Download-Datei",
 		"Select_chat" :"Wählen Sie einen Chat aus, um die Nachrichtenübermittlung zu starten",
 		"Search" :"Suche",
-		"Date_of_event" :"Datum der Veranstaltung"
+		"Date_of_event" :"Datum der Veranstaltung",
+		"consultancy_appintment":"Beratungstermin"
 	}
 }
