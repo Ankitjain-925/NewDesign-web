@@ -81,28 +81,28 @@ class TimeTaken extends Component {
           case "default":
               translate = translationEN.text
       }
-      let { addentry, profilesettings,  } = translate;
+      let { addentry, profilesettings, rmv_entry, select_time  } = translate;
     return (
       <div>
         <Grid className="rrSysto consumeAt">
         <Grid><label>{this.state.label}</label></Grid>
         {this.state.timeArr && this.state.timeArr.length == 0 && <div> <Grid>
-        {this.state.is24 === '24' ? <TimePicker className="Medicationtime" onChange={(e) => { this.onTimeChange(e, 0) }} format="HH:mm" />
-            : <TimePicker className="Medicationtime" use12Hours onChange={(e) => { this.onTimeChange(e, 0) }} format="h:mm a" />}
-        </Grid>
+        {this.state.is24 === '24' ? <TimePicker placeholder={select_time} className="Medicationtime" onChange={(e) => { this.onTimeChange(e, 0) }} format="HH:mm" />
+            : <TimePicker placeholder={select_time} className="Medicationtime" use12Hours onChange={(e) => { this.onTimeChange(e, 0) }} format="h:mm a" />}
+        </Grid> 
         <p onClick={this.onAddFiled}>+ {addentry}</p>
          </div>}
          
          {this.state.timeArr && this.state.timeArr.length > 0 &&
           this.state.timeArr.map((itm, index) => (
             index == 0 ? <div>
-              {this.state.is24 === '24' ? <TimePicker className="Medicationtime" onChange={(e) => { this.onTimeChange(e, 0) }} value={itm.value ? moment(itm.value, 'HH:mm') : ''} format="HH:mm" /> :
-                <TimePicker className="Medicationtime" use12Hours onChange={(e) => { this.onTimeChange(e, 0) }} format="h:mm a" value={itm.value ? moment(itm.value, 'h:mm a') : ''} />}
+              {this.state.is24 === '24' ? <TimePicker placeholder={select_time} className="Medicationtime" onChange={(e) => { this.onTimeChange(e, 0) }} value={itm.value ? moment(itm.value, 'HH:mm') : ''} format="HH:mm" /> :
+                <TimePicker placeholder={select_time} className="Medicationtime" use12Hours onChange={(e) => { this.onTimeChange(e, 0) }} format="h:mm a" value={itm.value ? moment(itm.value, 'h:mm a') : ''} />}
                 <p onClick={this.onAddFiled}>+ {addentry}</p>
                 </div>
               : <div>
-                {this.state.is24 === '24' ? <TimePicker className="Medicationtime" onChange={(e) => { this.onTimeChange(e, index) }} value={itm.value ? moment(itm.value, 'HH:mm') : ''} format="HH:mm" /> :
-                  <TimePicker className="Medicationtime" use12Hours onChange={(e) => { this.onTimeChange(e, index) }} format="h:mm a" value={itm.value ? moment(itm.value, 'h:mm a') : ''} />}<p onClick={() => { this.deleteTimes(index);}} className="minus_span_medication">- remove entry</p>
+                {this.state.is24 === '24' ? <TimePicker placeholder={select_time} className="Medicationtime" onChange={(e) => { this.onTimeChange(e, index) }} value={itm.value ? moment(itm.value, 'HH:mm') : ''} format="HH:mm" /> :
+                  <TimePicker placeholder={select_time} className="Medicationtime" use12Hours onChange={(e) => { this.onTimeChange(e, index) }} format="h:mm a" value={itm.value ? moment(itm.value, 'h:mm a') : ''} />}<p onClick={() => { this.deleteTimes(index);}} className="minus_span_medication">- {rmv_entry}</p>
               </div>
           ))}
          </Grid>

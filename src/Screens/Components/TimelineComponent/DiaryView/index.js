@@ -74,7 +74,7 @@ class Index extends Component {
             case "default":
                 translate = translationEN.text
         }
-        let { visibility, Download, Delete, visible, hide, show, always, edit, Change, traveled, slct_ICD_serch_code, when, to,allergy,  enter_code_serch_by_keyword, dignose, of, until, archive, rr_systolic, attachments, time_measure, date_measure,
+        let { visibility, Download, Delete, visible, diary, hide, show, always, edit, Change, traveled, slct_ICD_serch_code, when, to,allergy,  enter_code_serch_by_keyword, dignose, of, until, archive, rr_systolic, attachments, time_measure, date_measure,
             date, time, confirm_diag, emergancy_dignosis, trvl_diagnosis, travelled_to, diary_note, diagnosed, by, notes, save_entry, emergency, diagnosis, review, on, not_mentioned, de_archive } = translate
 
         return (
@@ -89,7 +89,7 @@ class Index extends Component {
                             <Grid item xs={12} md={6}>
                                 <Grid className="blodPrsurImg">
                                     <a className="diryNote"><img src={require('../../../../assets/images/condition-diagnosis-family-anamnesis-diary.svg')} alt="" title="" />
-                                        <span>Diary</span>
+                                        <span>{diary}</span>
                                     </a>
                                 </Grid>
                             </Grid>

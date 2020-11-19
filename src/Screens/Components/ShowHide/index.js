@@ -35,15 +35,14 @@ class ShowHide extends Component {
     // On change the time of any index
     onEditDone = () => {
         var Data = this.state.value;
-        this.setState({edit: false, value : {}})
+        this.setState({ edit: false, value: {} })
         this.props.onChange(Data);
     };
 
     //On Change according component
     updateEntryState1 = (value, name) => {
         const state = this.state.value;
-        if(name==='publicdatetime')
-        {
+        if (name === 'publicdatetime') {
             state['public'] = value;
         }
         state[name] = value;
@@ -62,8 +61,7 @@ class ShowHide extends Component {
                 state['public'] = '';
             }
         }
-        else
-        {
+        else {
             state[e.target.name] = e.target.value;
         }
         this.setState({ value: state });
@@ -75,34 +73,34 @@ class ShowHide extends Component {
     render() {
         let translate;
         switch (this.props.stateLanguageType) {
-              case "en":
-                  translate = translationEN.text
-                  break;
-              case "de":
-                  translate = translationDE.text
-                  break;
-              case "pt":
-                  translate = translationPT.text
-                  break;
-              case "sp":
-                  translate = translationSP.text
-                  break;
-              case "rs":
-                  translate = translationRS.text
-                  break;
-              case "nl":
-                  translate = translationNL.text
-                  break;
-              case "ch":
-                  translate = translationCH.text
-                  break;
-              case "sw":
-                  translate = translationSW.text
-                  break;
-              case "default":
-                  translate = translationEN.text
-          }
-          let { Allentries, hide_or_show,profilesettings, edit, done, show, hide, show_entry, hide_entry, always} = translate;
+            case "en":
+                translate = translationEN.text
+                break;
+            case "de":
+                translate = translationDE.text
+                break;
+            case "pt":
+                translate = translationPT.text
+                break;
+            case "sp":
+                translate = translationSP.text
+                break;
+            case "rs":
+                translate = translationRS.text
+                break;
+            case "nl":
+                translate = translationNL.text
+                break;
+            case "ch":
+                translate = translationCH.text
+                break;
+            case "sw":
+                translate = translationSW.text
+                break;
+            case "default":
+                translate = translationEN.text
+        }
+        let { Allentries, hide_or_show, profilesettings, visible, edit, done, show, hide, show_entry, hide_entry, always } = translate;
         return (
             <div>
                 {!this.state.edit && <Grid className="rrShwHidMain">
@@ -110,9 +108,9 @@ class ShowHide extends Component {
                         <Grid item xs={6} md={6}>
                             <Grid className="infoShwHid3">
                                 <a className="visibleAllShw">{hide_or_show} <img src={require('../../../assets/images/Info.svg')} alt="" title="" />
-                                <Grid className="visibleAll">
-                                   {Allentries}<a>{profilesettings}</a>
-                                </Grid></a>
+                                    <Grid className="visibleAll">
+                                        {Allentries}<a>{profilesettings}</a>
+                                    </Grid></a>
                             </Grid>
                         </Grid>
                         <Grid item xs={6} md={6} className="rreditShwHid">
@@ -135,29 +133,29 @@ class ShowHide extends Component {
                     <Grid className="showThis">
 
                         <Grid className="showThisBtns">
-                            <SelectByTwo name="visible" label="Visible" options={[{ label: show_entry, value: 'show' }, { label: hide_entry, value: 'hide' }]} onChange={(e) => this.updateEntryState1(e, 'visible')} value={this.state.value.visible} />
+                            <SelectByTwo name="visible" label={visible} options={[{ label: show_entry, value: 'show' }, { label: hide_entry, value: 'hide' }]} onChange={(e) => this.updateEntryState1(e, 'visible')} value={this.state.value.visible} />
                         </Grid>
                         {this.state.value.visible && this.state.value.visible !== "" &&
-                        <Grid>
-                            <Grid className="alwaysDate">
-                                <FormControlLabel
-                                    control={
-                                        <Checkbox
-                                            value="always"
-                                            color="#00ABAF"
-                                            name="public"
-                                            checked={this.state.value.public === 'always'}
-                                            onChange={this.updateEntryState}
-                                        />
-                                    }
-                                    label={always}
-                                />
-                            </Grid>
+                            <Grid>
+                                <Grid className="alwaysDate">
+                                    <FormControlLabel
+                                        control={
+                                            <Checkbox
+                                                value="always"
+                                                color="#00ABAF"
+                                                name="public"
+                                                checked={this.state.value.public === 'always'}
+                                                onChange={this.updateEntryState}
+                                            />
+                                        }
+                                        label={always}
+                                    />
+                                </Grid>
 
-                            {this.state.value.public !== 'always' && <Grid className="afterDate">
-                                <DateFormat name="date" value={this.state.value.publicdatetime ? new Date(this.state.value.publicdatetime) : new Date()} date_format={this.state.date_format} onChange={(value) => this.updateEntryState1(value, 'publicdatetime')} />
+                                {this.state.value.public !== 'always' && <Grid className="afterDate">
+                                    <DateFormat name="date" value={this.state.value.publicdatetime ? new Date(this.state.value.publicdatetime) : new Date()} date_format={this.state.date_format} onChange={(value) => this.updateEntryState1(value, 'publicdatetime')} />
+                                </Grid>}
                             </Grid>}
-                        </Grid>}
                     </Grid>
                 </Grid>}
             </div>
@@ -171,5 +169,5 @@ const mapStateToProps = (state) => {
     return {
         stateLanguageType
     }
-  };
-  export default withRouter(connect(mapStateToProps, { LanguageFetchReducer })(ShowHide));
+};
+export default withRouter(connect(mapStateToProps, { LanguageFetchReducer })(ShowHide));

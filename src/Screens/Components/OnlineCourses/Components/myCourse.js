@@ -258,7 +258,7 @@ class Index extends Component {
             case "default":
                 translate = translationEN.text
         }
-        let { previous_lesson, next_lesson, plz_give_rate, poor, save_and_cont, fair, short_msg, good, very_good, excellent, specific_comments, rate_this_course, all_course, my_course, rating_sent_success, language_eng, wishlist, prescriptions, appointments, cart_removed, chat_vdocall, pharmacy_access, remove, lectures, add_to_cart, cart, capab_Patients, Inquiries, emegancy_access, archive, more, my_profile, invite_doc, pharma_prescription, online_course, profile_setting, Language,
+        let { previous_lesson, next_lesson, plz_give_rate, poor, save_and_cont, fair, short_msg, good, very_good, excellent, specific_comments, rate_this_course, all_course, my_course, leave_rating, your_rating, start_learning, continue_watch, rating_sent_success, language_eng, wishlist, prescriptions, appointments, cart_removed, chat_vdocall, pharmacy_access, remove, lectures, add_to_cart, cart, capab_Patients, Inquiries, emegancy_access, archive, more, my_profile, invite_doc, pharma_prescription, online_course, profile_setting, Language,
             DarkMode, logout } = translate;
         return (
             <div>
@@ -288,9 +288,9 @@ class Index extends Component {
                                         <a><img src={require('../../../../assets/images/vote-star-empty.svg')} alt="" title="" /></a>
                                         <a><img src={require('../../../../assets/images/vote-star-empty.svg')} alt="" title="" /></a>
                                         <a><img src={require('../../../../assets/images/vote-star-empty.svg')} alt="" title="" /></a> */}
-                                        <span onClick={() => this.handleOpenFancy(item.course_id)}>{item && this.your_rating(item.course_id) ? 'Your rating' : 'Leave a rating'}</span>
+                                        <span onClick={() => this.handleOpenFancy(item.course_id)}>{item && this.your_rating(item.course_id) ? your_rating : leave_rating}</span>
                                     </Grid>
-                                    <Grid className="strtLrn"><label onClick={() => this.viewCourses(item)}>{item && this.your_rating(item.course_id) ? 'Continue watching' : 'Start learning'}</label></Grid>
+                                    <Grid className="strtLrn"><label onClick={() => this.viewCourses(item)}>{item && this.your_rating(item.course_id) ? continue_watch : start_learning}</label></Grid>
                                 </Grid>
                             </Grid>
                         </Grid>
