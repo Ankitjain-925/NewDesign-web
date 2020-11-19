@@ -130,7 +130,9 @@ class Index extends Component {
             })
                 .then((response) => {
                     this.setState({ searchName: response.data.data })
-                })
+                }).catch((error) => {
+                    this.setState({ loaderImage: false })  
+                }) 
         }
         else {
           

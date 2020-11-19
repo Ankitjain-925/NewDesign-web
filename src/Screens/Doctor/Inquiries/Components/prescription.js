@@ -516,7 +516,7 @@ class Index extends Component {
                                         {(prescData.status !== 'accept') && !$imagePreview && <p>{suported_file_type_jpg_png}</p>}
                                         {$imagePreview}
                                         {(prescData.attachfile && success && prescData.status !== 'accept') && <Grid item xs={12} md={12}>
-                                            <input type="button" value={snd_patient_timeline_email} onClick={() => this.saveUserData(prescData._id)} className="approvBtn" />
+                                            <div onClick={() => this.saveUserData(prescData._id)} className="approvBtn sendtotimelinenew">{snd_patient_timeline_email}</div>
                                         </Grid>}
                                     </Grid>}
                                 {this.state.serverMsg && this.state.serverMsg !== '' && <div className={this.state.saveAttach ? 'success_message' : 'err_message'}>{this.state.serverMsg}</div>}

@@ -13033,6 +13033,25 @@ a.academy_ul ul li img {
 
 
 /*Added By ankita*/
+.sendtotimelinenew{
+    border-radius: 8px;
+    background-color: #00ABAF;
+    outline: none;
+    color: #FFFFFF;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 16px;
+    text-align: center;
+    border: none;
+    width: 100%;
+    margin-right: 3%;
+    padding: 12px 10px;
+}
+.menuActv .profilMenu .profilMenuList img {
+    background: none !important;
+}
 .oficVisit img {
     width: 13px !important;
 }
@@ -13058,7 +13077,7 @@ a.academy_ul ul li img {
     justify-content: center;
 }
 
-.darkTheme > .nwPresCntnt ,.darkTheme > .opinBoxCntnt, .darkTheme > .invtCourse {
+.darkTheme > .nwPresCntnt ,.darkTheme > .opinBoxCntnt, .darkTheme > .invtCourse, .darkTheme > .invtBoxCntnt {
     background-color: #404646!important;
 }
 .timeIconClas_crested img{

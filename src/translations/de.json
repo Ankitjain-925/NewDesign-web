@@ -1048,20 +1048,6 @@
 		"plz_check_unread_message_in_chat": "ungelesene Nachrichten im Chat. Bitte prüfen Sie das.",
 		"new_message_in_chat_plz_check": "Neue Nachricht (en) im Chat-Modul. Bitte gehen Sie zu CHAT (Link), um Ihre Nachrichten zu überprüfen.",
 		"remove_inquiry": "Anfrage entfernen?",
-		"archive_item": "Archivobjekt",
-		"do_u_really_want_archive_item": "Möchten Sie den Artikel wirklich archivieren?",
-		"delete_item": "Element löschen",
-		"do_u_really_want_delete_item": "Möchten Sie den Artikel wirklich löschen?",
-		"plz_upload_png_jpeg": "Bitte laden Sie eine PNG- und JPEG-Datei hoch",
-		"r_u_sure_want_book_appointment": "Möchten Sie diesen Termin wirklich buchen?",
-		"r_u_sure_remove_patient": "Sind Sie sicher, den Patienten zu entfernen?",
-		"cancel_inquiry": "Anfrage abbrechen?",
-		"r_u_sure_cancel_inquiry": "Sind Sie sicher, diese Anfrage abzubrechen?",
-		"download_file": "Download-Datei",
-		"consultancy_appintment": "Beratungstermin",
-
-
-
 		"are_u_sue_appo": "Möchten Sie diesen Termin wirklich buchen?",
 		"Appointment": "Geplanter Termin",
 		"activities": "Aktivitäten",
@@ -1077,7 +1063,6 @@
 		"medicine_inquiry": "Medizinuntersuchung",
 		"Approve": "Genehmigen",
 		"decline_inquiry": "Anfrage ablehnen",
-		"Inquiries": "Anfragen",
 		"Prescriptions": "Rezepte",
 		"Sick_Certificates": "Kranke Zertifikate",
 		"Second_Opinions": "Zweite Meinung",
@@ -1127,6 +1112,20 @@
 		"date_to": "Datum bis",
 		"pls_fill_duration": "Bitte geben Sie die Zeitdauer des Termins ein",
 		"minutes": "Protokoll",
-		"offline": "Offline"
+		"offline": "Offline",
+		"archive_item": "Archivobjekt",
+		"do_u_really_want_archive_item": "Möchten Sie den Artikel wirklich archivieren?",
+		"delete_item": "Element löschen",
+		"do_u_really_want_delete_item": "Möchten Sie den Artikel wirklich löschen?",
+		"plz_upload_png_jpeg": "Bitte laden Sie eine PNG- und JPEG-Datei hoch",
+		"r_u_sure_want_book_appointment": "Möchten Sie diesen Termin wirklich buchen?",
+		"r_u_sure_remove_patient": "Sind Sie sicher, den Patienten zu entfernen?",
+		"cancel_inquiry": "Anfrage abbrechen?",
+		"r_u_sure_cancel_inquiry": "Sind Sie sicher, diese Anfrage abzubrechen?",
+		"download_file": "Download-Datei",
+		"Select_chat": "Wählen Sie einen Chat aus, um die Nachrichtenübermittlung zu starten",
+		"Search": "Suche",
+		"Date_of_event": "Datum der Veranstaltung",
+		"consultancy_appintment": "Beratungstermin"
 	}
 }

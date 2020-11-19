@@ -509,6 +509,7 @@ class Index extends Component {
             datas = this.state.UpDataDetails.insurance;
             var find = response.data && response.data.data && response.data.data.image
             this.SettingImage(find);
+            this.setState({ loaderImage: false });
         }).catch((error) => {
             this.setState({ loaderImage: false });
         });
@@ -705,6 +706,7 @@ class Index extends Component {
         return (
             <div>
                 {this.state.loaderImage && <Loader />}
+               
                 <Grid className="profileMy">
                     <Grid className="profileInfo">
                         {this.state.copied && <div className="success_message">{info_copied}</div>}

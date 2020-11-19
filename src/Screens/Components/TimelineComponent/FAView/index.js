@@ -77,7 +77,7 @@ class Index extends Component {
             case "default":
                 translate = translationEN.text
         }
-        let { visibility, Download, Delete, visible, hide, show, doc_visit, details, img_file, always, edit, date_of_death, date_of_dieses_patient, dob, day_doc_visit, gender_of_relatives, relation_of_relative, Change, speciality, traveled, slct_ICD_serch_code, when, to, allergy, enter_code_serch_by_keyword, dignose, of, until, archive, rr_systolic, attachments, time_measure, date_measure,
+        let { visibility, Download, Delete, visible, hide, show,Date_of_event, doc_visit, details, img_file, always, edit, date_of_death, date_of_dieses_patient, dob, day_doc_visit, gender_of_relatives, relation_of_relative, Change, speciality, traveled, slct_ICD_serch_code, when, to, allergy, enter_code_serch_by_keyword, dignose, of, until, archive, rr_systolic, attachments, time_measure, date_measure,
             date, time, confirm_diag, emergancy_dignosis, trvl_diagnosis, disease_name, doc_name, doc_id, family_anmnies, diagnosed, by, notes, save_entry, emergency, diagnosis, review, on, not_mentioned, de_archive } = translate
         return (
             <Grid container direction="row" className="descpCntnt">
@@ -193,6 +193,13 @@ class Index extends Component {
                                             <Grid container direction="row">
                                                 <Grid item xs={5} md={5}><label>{date_of_death}</label></Grid>
                                                 <Grid item xs={7} md={7}><span>{item.dod && getDate(item.dod, this.state.date_format)}</span></Grid>
+                                                <Grid className="clear"></Grid>
+                                            </Grid>
+                                        </Grid>
+                                        <Grid item xs={12} md={6} className="bloodPreBy">
+                                            <Grid container direction="row">
+                                                <Grid item xs={5} md={5}><label>{Date_of_event}</label></Grid>
+                                                <Grid item xs={7} md={7}><span>{item.event_date && getDate(item.event_date , this.state.date_format)}</span></Grid>
                                                 <Grid className="clear"></Grid>
                                             </Grid>
                                         </Grid>

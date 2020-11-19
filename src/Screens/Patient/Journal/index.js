@@ -478,8 +478,7 @@ class Index extends Component {
                         axios.put('https://cors-anywhere.herokuapp.com/' + signedRequest, file, options)
                             .then(result => { })
                             .catch(error => { })
-                    })
-                        .catch(error => { })
+                    }).catch(error => { })
                     this.setState({ fileattach: Fileadd, loaderImage: false, fileupods: true });
                 }
             }
@@ -559,6 +558,11 @@ class Index extends Component {
         else if (this.state.current_select === 'vaccination') {
             if (data.data_of_vaccination && data.data_of_vaccination !== '') {
                 data.datetime_on = new Date(data.data_of_vaccination);
+            }
+        }
+        else {
+            if (data.event_date && data.event_date !== '') {
+                data.datetime_on = new Date(data.event_date);
             }
         }
         var track_id = this.state.updateTrack.track_id;
@@ -913,6 +917,7 @@ class Index extends Component {
             <Grid className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode && this.props.settings.setting.mode === 'dark' ? "homeBg homeBgDrk" : "homeBg"}>
                 {this.state.loaderImage && <Loader />}
                 <Notification />
+                {console.log('this.state.updateTrack',this.state.updateTrack)}
                 <Grid className="homeBgIner">
                     <Grid container direction="row" justify="center">
                         <Grid item xs={12} md={12}>

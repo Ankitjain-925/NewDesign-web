@@ -1058,6 +1058,9 @@
 		"cancel_inquiry": "Cancel the Inquiry ?",
 		"r_u_sure_cancel_inquiry": "Are you sure  to cancel this Inquiry?",
 		"download_file": "Download File",
+		"Select_chat": "Select a chat to start messaging",
+		"Search": "Search",
+		"Date_of_event": "Date of event",
 		"consultancy_appintment": "Consultancy Appointment"
 	}
 }

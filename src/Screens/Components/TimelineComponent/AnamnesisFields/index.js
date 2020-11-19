@@ -102,7 +102,7 @@ class Index extends Component {
                 </Grid>
 
                 <Grid className="infoShwHidMain3upr">
-                    <ShowHide date_format= {this.state.date_format} value={this.state.updateTrack} onChange={(data) => this.props.GetHideShow(data)}/>
+                    <ShowHide eventdate={true} date_format= {this.state.date_format} value={this.state.updateTrack} onChange={(data) => this.props.GetHideShow(data)}/>
                     <Grid className="infoShwSave3">
                         <input type="submit" value="Save entry" onClick={this.props.AddTrack}/>
                     </Grid>

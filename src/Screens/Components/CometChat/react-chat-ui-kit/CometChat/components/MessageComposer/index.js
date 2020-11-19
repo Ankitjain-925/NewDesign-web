@@ -4,6 +4,14 @@ import classNames from "classnames";
 import "./style.scss";
 
 import { CometChat } from "@cometchat-pro/chat"
+import * as translationEN from "../../../../../.../../../../translations/en.json";
+import * as translationDE from "../../../../../.../../../../translations/de.json";
+import * as translationSP from "../../../../../.../../../../translations/sp.json";
+import * as translationPT from "../../../../../.../../../../translations/pt.json";
+import * as translationRS from "../../../../../.../../../../translations/rs.json";
+import * as translationNL from "../../../../../.../../../../translations/nl.json";
+import * as translationCH from "../../../../../.../../../../translations/ch.json";
+import * as translationSW from "../../../../../.../../../../translations/sw.json";
 
 import roundedPlus from "./resources/rounded-plus-grey-icon.svg";
 import sendBlue from "./resources/send-blue-icon.svg";
@@ -184,6 +192,36 @@ class MessageComposer extends React.PureComponent {
       "cc1-chat-win-file-popup": true,
       "active": (this.state.showFilePicker)
     });
+    let translate;
+    switch (this.props.lan) {
+          case "en":
+              translate = translationEN.text
+              break;
+          case "de":
+              translate = translationDE.text
+              break;
+          case "pt":
+              translate = translationPT.text
+              break;
+          case "sp":
+              translate = translationSP.text
+              break;
+          case "rs":
+              translate = translationRS.text
+              break;
+          case "nl":
+              translate = translationNL.text
+              break;
+          case "ch":
+              translate = translationCH.text
+              break;
+          case "sw":
+              translate = translationSW.text
+              break;
+          case "default":
+              translate = translationEN.text
+      }
+      let { Entermessage  } = translate;
 
     return (
 
@@ -213,7 +251,7 @@ class MessageComposer extends React.PureComponent {
             <input 
             type="text"
             className="cc1-chat-win-inpt-box"
-            placeholder="Enter your message here" 
+            placeholder={Entermessage}
             autoComplete="off" 
             disabled={disabled}
             onChange={this.changeHandler}

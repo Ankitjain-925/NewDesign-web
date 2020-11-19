@@ -167,7 +167,12 @@ class Index extends Component {
         start_date = start_date.setHours(0,0,0,0);
         end_date = end_date.setDate(end_date.getDate() + 1)
         end_date = new Date(end_date).setHours(0,0,0,0)
-        return Datas.filter((obj) => new Date(obj.datetime_on) >= start_date && new Date(obj.datetime_on) <= end_date);  
+        if(Datas && Datas.length>0){
+            return Datas.filter((obj) => new Date(obj.datetime_on) >= start_date && new Date(obj.datetime_on) <= end_date);
+        }
+        else{
+            return [];
+        }
     }
     else {
         return null;
@@ -556,6 +561,11 @@ DeleteTrack=(deletekey)=> {
                 data.datetime_on = new Date(data.data_of_vaccination);
             }
         }
+        else {
+            if (data.event_date && data.event_date !== '') {
+                data.datetime_on = new Date(data.event_date);
+            }
+        }
         var track_id = this.state.updateTrack.track_id;
         if (this.state.updateTrack && this.state.updateTrack.track_id && this.state.updateTrack.track_id !== '' && this.state.updateTrack.track_id !== 'undefined') {
             data.updated_by = this.props.stateLoginValueAim.user._id;
@@ -643,7 +653,9 @@ DeleteTrack=(deletekey)=> {
                     this.setState({ allTrack1 : response.data.data.track_record, allTrack: response.data.data.track_record, loaderImage: false })
                 }
                 else { this.setState({ allTrack1 : [], allTrack: [], loaderImage: false }) }
-            })
+            }).catch((error) => {
+                this.setState({ loaderImage: false })  
+            }) 
     }
 
     //Get All information Related to Metadata

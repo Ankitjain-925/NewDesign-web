@@ -83,7 +83,7 @@ class Index extends Component {
                   translate = translationEN.text
           }
           let { selct_pain_area, attachments, O2Saturation, Whereyouarelocated, symp_notes, notes,
-            visible,feeling, show, date, time, hide, until, archive, temparture,
+            visible,feeling, show, date, time, hide, until, archive, temparture,Date_of_event,
          edit, Delete, RR_diastolic, heart_rate,always, Download, details, img_files,
             Change, Location, visibility,de_archive,covid_diary, pain_areas, not_mentioned } = translate
         var item = this.state.item;
@@ -207,6 +207,13 @@ class Index extends Component {
                                             <Grid container direction="row">
                                                 <Grid item xs={5} md={5}><label>{Location}</label></Grid>
                                                 <Grid item xs={7} md={7}><span>{item.country && item.country.label}</span></Grid>
+                                                <Grid className="clear"></Grid>
+                                            </Grid>
+                                        </Grid>
+                                        <Grid item xs={12} md={6} className="painTypeBy">
+                                            <Grid container direction="row">
+                                                <Grid item xs={5} md={5}><label>{Date_of_event}</label></Grid>
+                                                <Grid item xs={7} md={7}><span>{item.event_date && getDate(item.event_date , this.state.date_format)}</span></Grid>
                                                 <Grid className="clear"></Grid>
                                             </Grid>
                                         </Grid>

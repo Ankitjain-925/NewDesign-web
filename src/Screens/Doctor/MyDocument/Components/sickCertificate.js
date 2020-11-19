@@ -513,7 +513,8 @@ class Index extends Component {
                                         {(sickData.status === 'accept') && !$imagePreview && <img src={sickData.attachfile[0].filename} />}
                                         {(sickData.status !== 'accept') && $imagePreview}
                                         {(sickData.attachfile && this.state.uploadedimage && sickData.status !== 'accept') && <Grid item xs={12} md={12}>
-                                            <input type="button" value={snd_patient_timeline_email} onClick={() => this.saveUserData(sickData._id)} className="approvBtn" />
+                                        <div onClick={() => this.saveUserData(sickData._id)} className="approvBtn sendtotimelinenew">{snd_patient_timeline_email}</div>
+                                            {/* <input type="button" value={snd_patient_timeline_email}  className="approvBtn" /> */}
                                         </Grid>}
                                     </Grid>}
 

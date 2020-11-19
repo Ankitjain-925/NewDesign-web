@@ -183,7 +183,7 @@ class CometChatUserListScreen extends React.Component {
             actionGenerated={this.actionHandler} />
         </div>);
     }
-    
+    console.log('this.props', this.props)
     let messageScreen = (<h1 className="cp-center-text">Select a chat to start messaging</h1>);
     if(Object.keys(this.state.item).length) {
       messageScreen = (<CometChatMessageListScreen 

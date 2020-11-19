@@ -351,7 +351,33 @@ class CometChatUnified extends React.Component {
               alt="Aimedis Logo"
               title="Aimedis Logo"
             /><br/>
-            <p className="chatScreenText">Select a chat to start messaging</p>
+
+            {this.props.lan === "en" && (
+              <p className="chatScreenText">{translationEN.text.Select_chat}</p>
+            )}
+            {this.props.lan === "de" && (
+             <p className="chatScreenText">{translationDE.text.Select_chat}</p>
+            )}
+            {this.props.lan === "ch" && (
+              <p className="chatScreenText">{translationCH.text.Select_chat}</p>
+            )}
+            {this.props.lan === "nl" && (
+             <p className="chatScreenText">{translationNL.text.Select_chat}</p>
+            )}
+            {this.props.lan === "sp" && (
+             <p className="chatScreenText">{translationSP.text.Select_chat}</p>
+            )}
+            {this.props.lan === "pt" && (
+            <p className="chatScreenText">{translationPT.text.Select_chat}</p>
+            )}
+            {this.props.lan === "rs" && (
+              <p className="chatScreenText">{translationRS.text.Select_chat}</p>
+            )}
+            {this.props.lan === "sw" && (
+              <p className="chatScreenText">{translationSW.text.Select_chat}</p>
+            )}
+
+
             <CallScreen
               className="callscreen"
               item={this.state.item}
@@ -365,54 +391,7 @@ class CometChatUnified extends React.Component {
           actionGenerated={this.callScreenAction} 
           outgoingCall={this.state.outgoingCall} /> */}
 
-            {this.props.lan === "en" && (
-              <h1>
-                {translationEN.text.WelcometotheAimedis} <br />
-                {translationEN.text.VideoandChatsystem}
-              </h1>
-            )}
-            {this.props.lan === "de" && (
-              <h1>
-                {translationDE.text.WelcometotheAimedis} <br />
-                {translationDE.text.VideoandChatsystem}
-              </h1>
-            )}
-            {this.props.lan === "ch" && (
-              <h1>
-                {translationCH.text.WelcometotheAimedis} <br />
-                {translationCH.text.VideoandChatsystem}
-              </h1>
-            )}
-            {this.props.lan === "nl" && (
-              <h1>
-                {translationNL.text.WelcometotheAimedis} <br />
-                {translationNL.text.VideoandChatsystem}
-              </h1>
-            )}
-            {this.props.lan === "sp" && (
-              <h1>
-                {translationSP.text.WelcometotheAimedis} <br />
-                {translationSP.text.VideoandChatsystem}
-              </h1>
-            )}
-            {this.props.lan === "pt" && (
-              <h1>
-                {translationPT.text.WelcometotheAimedis} <br />
-                {translationPT.text.VideoandChatsystem}
-              </h1>
-            )}
-            {this.props.lan === "rs" && (
-              <h1>
-                {translationRS.text.WelcometotheAimedis} <br />
-                {translationRS.text.VideoandChatsystem}
-              </h1>
-            )}
-            {this.props.lan === "sw" && (
-              <h1>
-                {translationSW.text.WelcometotheAimedis} <br />
-                {translationSW.text.VideoandChatsystem}
-              </h1>
-            )}
+          
           </div>
         </div>
       </div>
@@ -423,6 +402,7 @@ class CometChatUnified extends React.Component {
           item={this.state.item}
           tab={this.state.tab}
           type={this.state.type}
+          lan={this.props.lan}
           composedthreadmessage={this.state.composedthreadmessage}
           actionGenerated={this.actionHandler}
         />
@@ -434,6 +414,7 @@ class CometChatUnified extends React.Component {
         <div className="ccl-left-panel" ref={this.leftPanelRef}>
           <NavBar
             Userlist={this.props.Userlist}
+            lan={this.props.lan}
             item={this.state.item}
             tab={this.state.tab}
             groupToDelete={this.state.groupToDelete}

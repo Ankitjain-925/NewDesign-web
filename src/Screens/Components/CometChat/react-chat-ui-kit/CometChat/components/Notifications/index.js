@@ -7,6 +7,14 @@ import CallScreen from "../CallScreen";
 import CancelIcon from '@material-ui/icons/Cancel';
 import * as enums from '../../util/enums.js';
 import { withRouter } from "react-router-dom";
+import * as translationEN from "../../../../../.../../../../translations/en.json";
+import * as translationDE from "../../../../../.../../../../translations/de.json";
+import * as translationSP from "../../../../../.../../../../translations/sp.json";
+import * as translationPT from "../../../../../.../../../../translations/pt.json";
+import * as translationRS from "../../../../../.../../../../translations/rs.json";
+import * as translationNL from "../../../../../.../../../../translations/nl.json";
+import * as translationCH from "../../../../../.../../../../translations/ch.json";
+import * as translationSW from "../../../../../.../../../../translations/sw.json";
 // import { CometChatUnified } from '../react-chat-ui-kit/CometChat'; 
 var NewM = false
 class Notification extends React.Component {
@@ -183,9 +191,39 @@ class Notification extends React.Component {
         } 
     }
     render() {
-     
+      let translate;
+    switch (this.props.stateLanguageType.stateLanguageType) {
+          case "en":
+              translate = translationEN.text
+              break;
+          case "de":
+              translate = translationDE.text
+              break;
+          case "pt":
+              translate = translationPT.text
+              break;
+          case "sp":
+              translate = translationSP.text
+              break;
+          case "rs":
+              translate = translationRS.text
+              break;
+          case "nl":
+              translate = translationNL.text
+              break;
+          case "ch":
+              translate = translationCH.text
+              break;
+          case "sw":
+              translate = translationSW.text
+              break;
+          case "default":
+              translate = translationEN.text
+      }
+      let { there_r_the, plz_check_unread_message_in_chat, new_message_in_chat_plz_check } = translate;
         return (
             <div>
+              {console.log('stateLanguageType', this.props.stateLanguageType)}
                 <CallScreen className="callscreen"
                 item={this.state.item} 
                 type={this.state.type}
@@ -193,13 +231,13 @@ class Notification extends React.Component {
                 outgoingCall={this.state.outgoingCall} />
                 {this.state.Unread > 0 && this.state.ShowTime===true &&
                  <div className="unreadsec">
-                    <div className="unread_msg_notify" onClick={()=>{this.redirectPage()}}>There are the {this.state.Unread} unread Messages in Chat. Please check this.</div>
+                    <div className="unread_msg_notify" onClick={()=>{this.redirectPage()}}>{there_r_the} {this.state.Unread} {plz_check_unread_message_in_chat}</div>
                     <span className="unread_msg_notifyspan" onClick={(e)=>{this.CloseNotification1(e)}}><CancelIcon/></span>
                   </div>
                 }
                 {this.state.NewM===true && this.state.ShowTime1===true &&
                    <div className="unreadsec">
-                      <div className="unread_msg_notify" onClick={()=>{this.redirectPage()}}>New message(s) in chat module. Please go to CHAT (link) to check your messages.</div>
+                      <div className="unread_msg_notify" onClick={()=>{this.redirectPage()}}>{new_message_in_chat_plz_check}</div>
                       <span className="unread_msg_notifyspan" onClick={(e)=>{this.CloseNotification(e)}}><CancelIcon /></span>
                       
                   </div>
@@ -212,6 +250,7 @@ class Notification extends React.Component {
 
 const mapStateToProps = state => {
     return {
+        stateLanguageType : state.LanguageReducer,
         isLoggedIn: state.isLoggedIn,
         loading: state.loading,
         error: state.error,
