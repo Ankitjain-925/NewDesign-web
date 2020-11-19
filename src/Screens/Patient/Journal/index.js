@@ -176,14 +176,19 @@ class Index extends Component {
     //Filter according to the type 
     FilerFromType = (Datas, type) => {
         var Datas1 = [];
-        if (type && type.length > 0) {
-            type.map((ob) => {
-                var dts = Datas.filter((obj) => obj.type === ob.value);
-                Datas1 = Datas1.concat(dts);
-            })
-            return Datas1;
+        if(Datas && Datas.length>0){
+            if (type && type.length > 0) {
+                type.map((ob) => {
+                    var dts = Datas.filter((obj) => obj.type === ob.value);
+                    Datas1 = Datas1.concat(dts);
+                })
+                return Datas1;
+            }
+            else { return null; }
         }
-        else { return null; }
+        else{
+            return null;
+        }
     }
 
     //Filter according to User type
@@ -917,7 +922,7 @@ class Index extends Component {
             <Grid className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode && this.props.settings.setting.mode === 'dark' ? "homeBg homeBgDrk" : "homeBg"}>
                 {this.state.loaderImage && <Loader />}
                 <Notification />
-                {console.log('this.state.updateTrack',this.state.updateTrack)}
+               
                 <Grid className="homeBgIner">
                     <Grid container direction="row" justify="center">
                         <Grid item xs={12} md={12}>

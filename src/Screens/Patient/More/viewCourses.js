@@ -23,7 +23,7 @@ class Index extends Component {
 
     componentDidMount()
     {
-        if(this.props.location && this.props.location.state !== 'undefined' && this.props.location.state && this.props.location.state.course_id)
+        if(this.props.location && this.props.location.state !== 'undefined' && this.props.location.state && this.props.location.state.courseId)
         {
             this.setState({Course : this.props.location.state})
         }   
@@ -36,13 +36,14 @@ class Index extends Component {
     render() {
         const { specialistOption } = this.state;
         const { stateLoginValueAim } = this.props;
-        if (stateLoginValueAim.user === 'undefined' || stateLoginValueAim.token === 450 || stateLoginValueAim.token === 'undefined' || !this.props.verifyCode || !this.props.verifyCode.code) {
-            return (<Redirect to={'/'} />);
-            }            
+        // if (stateLoginValueAim.user === 'undefined' || stateLoginValueAim.token === 450 || stateLoginValueAim.token === 'undefined' || !this.props.verifyCode || !this.props.verifyCode.code) {
+        //     return (<Redirect to={'/'} />);
+        //     }            
 
         return (
             <Grid className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode && this.props.settings.setting.mode==='dark' ? "homeBg homeBgDrk" : "homeBg"}>
                 {this.state.loaderImage && <Loader />}
+             
                 <Grid className="homeBgIner">
                     <Grid container direction="row" justify="center">
                         <Grid item xs={12} md={12}>

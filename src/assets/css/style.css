@@ -1359,7 +1359,7 @@ a.conPainTime img {
 }
 .comonSel {
     font-size: 12px !important;
-    border: 1px solid #dfdfdf;
+    border: 1px solid #BFC1C1;
     margin-right: 8px !important;
     margin-bottom: 12px;
     border-radius: 4px;
@@ -4320,7 +4320,7 @@ button.aboutTabsIner {
     font-size: 20px;
     font-weight: bold;
     letter-spacing: 0;
-    line-height: 26px;
+    line-height: 21px;
 }
 .secureChain p {
     color: #7F8383;
@@ -4356,7 +4356,7 @@ button.aboutTabsIner {
     margin-right: 0px;
 }
 .organDeclare {
-    margin-top: 28px;
+    margin-top: 16px;
 }
 .organDeclare span.MuiIconButton-label {
     color: #00ABAF !important;
@@ -4439,10 +4439,10 @@ button.aboutTabsIner {
     line-height: 16px;
     text-align: center;
     padding: 13px 0px;
-    margin-top: 14px;
+    margin-top: 10px;
     width: 100%;
     border: none;
-    margin-bottom: 132px;
+    margin-bottom: 10px;
     outline: none;
 }
 .donarForm .form-control:focus {
@@ -5168,6 +5168,7 @@ span.revwRed{
     background: #f7f7f7;
     min-height: 160vh;
     padding-top: 45px;
+    height: 100%;
 }
 .emrgncyData h1 {
     color: #000808;
@@ -8611,6 +8612,7 @@ a.painAreasTxt img {
     width: 17%;
     display: inline-block;
     justify-content: center;
+    word-wrap: break-word !important;
 }
 .visibleAll {
     position: absolute;
@@ -13077,11 +13079,12 @@ a.academy_ul ul li img {
     justify-content: center;
 }
 
-.darkTheme > .nwPresCntnt ,.darkTheme > .opinBoxCntnt, .darkTheme > .invtCourse, .darkTheme > .invtBoxCntnt {
+.darkTheme > .nwPresCntnt ,.darkTheme > .opinBoxCntnt, .darkTheme > .invtCourse {
     background-color: #404646!important;
 }
 .timeIconClas_crested img{
     width: 30px;
+    height: 30px;
     border-radius: 50%;
 }
 .timeIconClas_crested p{
@@ -13234,6 +13237,7 @@ span.unread_msg_notifyspan {
     padding: 5px;
     border: none;
     border-radius: 5px;
+    border: 1px solid #BFC1C1;
 }
 .drVisit, .comeAppoint, .lstDocs, .persBlodMesur{
     margin-bottom: 32px;
@@ -13314,8 +13318,9 @@ button.CutomStripeButton{
     font-weight: 700;
 }
 .chat-ppl-listitem-msg-cnt{
-    top: 5px !important;
-    background-color : red !important;
+    top: -5px !important;
+    background-color: red !important;
+    right: 0px !important;
 }
 .contact-listitem .contact-listitem-dtls{
     position : relative !important;
@@ -13474,7 +13479,7 @@ ul.insuranceHint1 li {
     padding: 7px !important;
 }
 .allTimeSel1{
-    border-radius: 8px !important;
+    border-radius: 2px !important;
     background-color: #F2F2F2 !important;
     border-color: transparent !important;
     font-family: Muli !important;
@@ -14366,6 +14371,10 @@ input#graduationYear {
 .homeBgDrk .chat-contact-list-ext-wrap div {
     background-color: #404646 !important;
 }
+.homeBgDrk .timeIconClas.place-top::before, 
+.homeBgDrk .timeIconClas.place-top::after{
+    border-top-color: #404646 !important;
+}
 .homeBgDrk .contact-listitem .contact-listitem-dtls .contact-listitem-name {
     color: #D9DADA !important;
 }
@@ -14520,8 +14529,10 @@ input#graduationYear {
     color: #BFC1C1 !important;
 }
 .homeBgDrk .ant-picker {
+    border-radius: 2px !important;
     background: transparent;
     color: #BFC1C1 !important;
+    border: 1px solid #BFC1C1 !important;
 }
 .homeBgDrk .ant-picker input {
     color: #BFC1C1 !important;
@@ -14583,7 +14594,8 @@ a.SelectedGender{
 .darkTheme > div:nth-child(3) .drsplestQues .css-yk16xz-control,
 .darkTheme > div:nth-child(3) .drsplestQues .css-1pahdxg-control,
 .darkTheme > div:nth-child(3) .medicnSub input[type="text"],
-.darkTheme > div:nth-child(3) .medicnSub textarea {
+.darkTheme > div:nth-child(3) .medicnSub textarea,
+.darkTheme > div:nth-child(3) .findDoctor input[type="text"]{
     background-color: #404646 !important;
     color: #BFC1C1 !important;
 }
@@ -14642,21 +14654,67 @@ a.SelectedGender{
 }
 .darkTheme > div:nth-child(3) .dataBoxInput input::-webkit-input-placeholder {
     color: #bfc1c1 !important;   
-  }
-  .darkTheme > div:nth-child(3) .dataBoxInput input::-moz-placeholder {
+}
+.darkTheme > div:nth-child(3) .dataBoxInput input::-moz-placeholder {
     color: #bfc1c1 !important;   
-  }
-  .darkTheme > div:nth-child(3) .dataBoxInput input:-ms-input-placeholder {
+}
+.darkTheme > div:nth-child(3) .dataBoxInput input:-ms-input-placeholder {
     color: #bfc1c1 !important;   
-  }
-  .darkTheme > div:nth-child(3) .dataBoxInput input:-moz-placeholder { 
+}
+.darkTheme > div:nth-child(3) .dataBoxInput input:-moz-placeholder { 
     color: #bfc1c1 !important;   
-  }
-
+}
+.darkTheme > div:nth-child(3) .diaCD a {
+    background-color: #0c10104a !important;
+    color: #D9DADA !important;
+}
+.darkTheme > div:nth-child(3) .srchdoseMg input{
+    background: #404646 !important;
+    color: #BFC1C1 !important; 
+}
 .homeBgDrk .topicAll .css-1pahdxg-control {
     color: #bfc1c1 !important;
     background-color: transparent !important;
 }
+.homeBgDrk .quill .ql-editor {
+    background: #404646 !important;
+    color: #BFC1C1 !important;
+}
+.homeBgDrk .timeIconClas_crested {
+    background-color: #192020 !important;
+    opacity: initial !important;
+}
+.homeBgDrk .timeIconClas_crested::after, 
+.homeBgDrk .timeIconClas_crested::before {
+    border-top-color: #192020 !important;
+    border-bottom-color: #192020 !important;
+}
+.homeBgDrk .timeIconClas_crested p{
+    color: #D9DADA !important;
+    margin-bottom: 5px !important;
+}
+.homeBgDrk input#chatSearch{
+    background: #a0a0a00d !important;
+    color: #BFC1C1 !important;
+    border: 1px solid #00adb8 !important;
+}
+.homeBgDrk .searchbyText{
+    background: #a0a0a00d !important;
+    color: #BFC1C1 !important;
+    border: 1px solid #BFC1C1 !important;
+}
+.passInst {
+    width: 210px !important;
+}
+.menuActv .profilMenu .profilMenuList img {
+    background: none !important;
+}
+.otherInfo .MuiGrid-spacing-xs-3 {
+    margin-bottom: initial !important;
+}
+
+
+
 
 
 

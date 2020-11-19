@@ -223,7 +223,7 @@ class Notification extends React.Component {
       let { there_r_the, plz_check_unread_message_in_chat, new_message_in_chat_plz_check } = translate;
         return (
             <div>
-              {console.log('stateLanguageType', this.props.stateLanguageType)}
+   
                 <CallScreen className="callscreen"
                 item={this.state.item} 
                 type={this.state.type}

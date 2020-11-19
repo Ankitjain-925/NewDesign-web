@@ -159,10 +159,14 @@ class CometChatUserList extends React.PureComponent {
       this.setState({userlist: this.state.userlist1})
     }
     else{
-      let FilterFromSearch = this.state.userlist1 && this.state.userlist1.length>0 && this.state.userlist1.filter((data)=>{
-        return this.isThisAvilabel(data, val && val.toLowerCase());
-        }); 
-        this.setState({userlist: FilterFromSearch})
+      if(this.state.userlist1 && this.state.userlist1.length>0)
+      {
+        let FilterFromSearch = this.state.userlist1 && this.state.userlist1.length>0 && this.state.userlist1.filter((data)=>{
+          return this.isThisAvilabel(data, val && val.toLowerCase());
+          }); 
+          this.setState({userlist: FilterFromSearch})
+      }
+     
     }
     
     // this.timeout = setTimeout(() => {

@@ -19,6 +19,7 @@ import Autocomplete from '../../../Components/Autocomplete/index';
 import FileUploader from './../../../Components/FileUploader/index';
 import { LanguageFetchReducer } from './../../../actions';
 import Modal from '@material-ui/core/Modal';
+import npmCountryList from 'react-select-country-list';
 import Loader from './../../../Components/Loader/index';
 import DateFormat from './../../../Components/DateFormat/index';
 import { GetUrlImage } from './../../../Components/BasicMethod/index';
@@ -121,6 +122,8 @@ class Index extends Component {
             { types: ["geocode"] }
         );
         this.city.addListener("place_changed", this.handlePlaceChanged);
+        var npmCountry = npmCountryList().getData()
+        this.setState({ selectCountry: npmCountry })
     }
 
     // Copy the Profile id and PIN

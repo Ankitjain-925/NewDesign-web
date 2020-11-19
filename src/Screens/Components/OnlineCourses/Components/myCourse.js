@@ -69,7 +69,7 @@ class Index extends Component {
 
     //Go to the view Courses
     viewCourses = (item) => {
-        console.log('item', item)
+
         this.props.history.push({
             pathname: `/${this.props.stateLoginValueAim.user.type}/view-course`,
             state: item

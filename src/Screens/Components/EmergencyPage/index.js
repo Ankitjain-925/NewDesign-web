@@ -24,129 +24,129 @@ import DoctorSection from './../../Patient/Profile/Components/mydoctors';
 
 const path = sitedata.data.path + '/emergency_record';
 
-class ComponentToPrint extends React.Component {
-    render() {
-        return (
-            <div>
-                <img style={{ height: '40px', width: 'auto', margin: '30px' }} src={require('../../../assets/images/LogoPNG.png')} />
-                <div style={{ textAlign: 'center' }}>
-                    <div style={{ marginLeft: '200px', marginBottom: '20px', textAlign: 'left', fontSize: '24px', fontWeight: '900', textTransform: 'uppercase' }}>Aimedis Emergency Record</div>
-                    <p style={{ marginLeft: '200px', textAlign: 'left', fontSize: '20px', fontWeight: '800' }}>{this.props.User.first_name && this.props.User.first_name} {this.props.User.last_name && this.props.User.last_name}</p>
-                    <p style={{ marginLeft: '200px', textAlign: 'left', fontSize: '20px', fontWeight: '800' }}>{this.props.User.profile_id && this.props.User.profile_id}</p>
-                    <p style={{ marginLeft: '200px', textAlign: 'left', fontSize: '20px', fontWeight: '800' }}>{this.props.User.email && this.props.User.email}</p>
-                    <p style={{ marginLeft: '200px', textAlign: 'left', fontSize: '20px', fontWeight: '800' }}>{this.props.User.mobile && this.props.User.mobile}</p>
-                    {this.props.User.birthday && <p style={{ marginLeft: '200px', fontSize: '20px', fontWeight: '800' }}>Birthday : {this.props.User.birthday}</p>}
-                    <div style={{ fontSize: '22px', fontWeight: '900', marginTop: '50px', textTransform: 'uppercase', marginBottom: '50px', marginLeft: '200px', marginRight: '200px', padding: '20px', borderBottom: '#679be8 1px solid', borderTop: '#679be8 1px solid', color: '#679be8' }}>Emergency Diagnosis </div>
-                    {this.props.diagnosisdata && this.props.diagnosisdata.length > 0 ? this.props.diagnosisdata.map((item, index) =>
-                        (
-                            <li style={{ lineHeight: '1.5', textAlign: 'left', listStyleType: 'none', paddingBottom: '15px', width: '400px', marginLeft: '200px', marginTop: '20px' }}>
-                                {item.diagnosis && <p style={{ fontSize: '18px', fontWeight: '900' }}>{item.diagnosis}</p>}
-                                {item.Emergency_on && <p><b>Emergency on</b> : {item.emergency_on}</p>}
-                                {item.ICD_code_label && <p><b>ICD code</b> : {item.ICD_code_label}</p>}
-                                <p><b>Travel Diagnosis</b> : {item.travel_diagnosis ? 'Yes' : 'No'}</p>
-                                {item.travel_diagnosis &&
-                                    <p>{item.travelled_to && <p><b>Travelled to</b> : {item.travelled_to}</p>}
-                                        {item.when_to && <p><b>When to</b> : {item.when_to}</p>}
-                                        {item.when_until && <p><b>When until</b> : {item.when_until}</p>}
-                                    </p>
-                                }
-                                {item.diagnosed_by && <p><b>Diagnosed by</b> : {item.diagnosed_by}</p>}
-                                {item.diagnosed_on && <p><b>Diagnosed on</b> : {item.diagnosed_on}</p>}
-                                {item.remarks && <p><b>Remarks</b> : {item.remarks}</p>}
-                            </li>
-                        )) :
-                        <li style={{ listStyleType: 'none', paddingBottom: '15px', width: '400px', marginLeft: '200px', marginTop: '20px' }}>No Data yet</li>}
+// class ComponentToPrint extends React.Component {
+//     render() {
+//         return (
+//             <div>
+//                 <img style={{ height: '40px', width: 'auto', margin: '30px' }} src={require('../../../assets/images/LogoPNG.png')} />
+//                 <div style={{ textAlign: 'center' }}>
+//                     <div style={{ marginLeft: '200px', marginBottom: '20px', textAlign: 'left', fontSize: '24px', fontWeight: '900', textTransform: 'uppercase' }}>Aimedis Emergency Record</div>
+//                     <p style={{ marginLeft: '200px', textAlign: 'left', fontSize: '20px', fontWeight: '800' }}>{this.props.User.first_name && this.props.User.first_name} {this.props.User.last_name && this.props.User.last_name}</p>
+//                     <p style={{ marginLeft: '200px', textAlign: 'left', fontSize: '20px', fontWeight: '800' }}>{this.props.User.profile_id && this.props.User.profile_id}</p>
+//                     <p style={{ marginLeft: '200px', textAlign: 'left', fontSize: '20px', fontWeight: '800' }}>{this.props.User.email && this.props.User.email}</p>
+//                     <p style={{ marginLeft: '200px', textAlign: 'left', fontSize: '20px', fontWeight: '800' }}>{this.props.User.mobile && this.props.User.mobile}</p>
+//                     {this.props.User.birthday && <p style={{ marginLeft: '200px', fontSize: '20px', fontWeight: '800' }}>Birthday : {this.props.User.birthday}</p>}
+//                     <div style={{ fontSize: '22px', fontWeight: '900', marginTop: '50px', textTransform: 'uppercase', marginBottom: '50px', marginLeft: '200px', marginRight: '200px', padding: '20px', borderBottom: '#679be8 1px solid', borderTop: '#679be8 1px solid', color: '#679be8' }}>Emergency Diagnosis </div>
+//                     {this.props.diagnosisdata && this.props.diagnosisdata.length > 0 ? this.props.diagnosisdata.map((item, index) =>
+//                         (
+//                             <li style={{ lineHeight: '1.5', textAlign: 'left', listStyleType: 'none', paddingBottom: '15px', width: '400px', marginLeft: '200px', marginTop: '20px' }}>
+//                                 {item.diagnosis && <p style={{ fontSize: '18px', fontWeight: '900' }}>{item.diagnosis}</p>}
+//                                 {item.Emergency_on && <p><b>Emergency on</b> : {item.emergency_on}</p>}
+//                                 {item.ICD_code_label && <p><b>ICD code</b> : {item.ICD_code_label}</p>}
+//                                 <p><b>Travel Diagnosis</b> : {item.travel_diagnosis ? 'Yes' : 'No'}</p>
+//                                 {item.travel_diagnosis &&
+//                                     <p>{item.travelled_to && <p><b>Travelled to</b> : {item.travelled_to}</p>}
+//                                         {item.when_to && <p><b>When to</b> : {item.when_to}</p>}
+//                                         {item.when_until && <p><b>When until</b> : {item.when_until}</p>}
+//                                     </p>
+//                                 }
+//                                 {item.diagnosed_by && <p><b>Diagnosed by</b> : {item.diagnosed_by}</p>}
+//                                 {item.diagnosed_on && <p><b>Diagnosed on</b> : {item.diagnosed_on}</p>}
+//                                 {item.remarks && <p><b>Remarks</b> : {item.remarks}</p>}
+//                             </li>
+//                         )) :
+//                         <li style={{ listStyleType: 'none', paddingBottom: '15px', width: '400px', marginLeft: '200px', marginTop: '20px' }}>No Data yet</li>}
 
-                    <div style={{ fontSize: '22px', fontWeight: '900', marginTop: '50px', textTransform: 'uppercase', marginBottom: '50px', marginLeft: '200px', marginRight: '200px', padding: '20px', borderBottom: '#679be8 1px solid', borderTop: '#679be8 1px solid', color: '#679be8' }}>Allergies </div>
-                    {this.props.allergydata && this.props.allergydata.length > 0 ? this.props.allergydata.map((item, index) =>
-                        (
-                            <li style={{ lineHeight: '1.5', textAlign: 'left', listStyleType: 'none', paddingBottom: '15px', width: '400px', marginLeft: '200px', marginTop: '20px' }}>
-                                {item.diagnosis && <p style={{ fontSize: '18px', fontWeight: '900' }}>{item.diagnosis}</p>}
-                                {item.Emergency_on && <p><b>Emergency on</b> : {item.emergency_on}</p>}
-                                {item.ICD_code_label && <p><b>ICD code</b> : {item.ICD_code_label}</p>}
-                                <p><b>Travel Diagnosis</b> : {item.travel_diagnosis ? 'Yes' : 'No'}</p>
-                                {item.travel_diagnosis &&
-                                    <p>{item.travelled_to && <p><b>Travelled to</b> : {item.travelled_to}</p>}
-                                        {item.when_to && <p><b>When to</b> : {item.when_to}</p>}
-                                        {item.when_until && <p><b>When until</b> : {item.when_until}</p>}
-                                    </p>
-                                }
-                                {item.diagnosed_by && <p><b>Diagnosed by</b> : {item.diagnosed_by}</p>}
-                                {item.diagnosed_on && <p><b>Diagnosed on</b> : {item.diagnosed_on}</p>}
-                                {item.remarks && <p><b>Remarks</b> : {item.remarks}</p>}
-                            </li>
-                        )) :
-                        <li style={{ listStyleType: 'none', paddingBottom: '15px', width: '400px', marginLeft: '200px', marginTop: '20px' }}>No Data yet</li>}
+//                     <div style={{ fontSize: '22px', fontWeight: '900', marginTop: '50px', textTransform: 'uppercase', marginBottom: '50px', marginLeft: '200px', marginRight: '200px', padding: '20px', borderBottom: '#679be8 1px solid', borderTop: '#679be8 1px solid', color: '#679be8' }}>Allergies </div>
+//                     {this.props.allergydata && this.props.allergydata.length > 0 ? this.props.allergydata.map((item, index) =>
+//                         (
+//                             <li style={{ lineHeight: '1.5', textAlign: 'left', listStyleType: 'none', paddingBottom: '15px', width: '400px', marginLeft: '200px', marginTop: '20px' }}>
+//                                 {item.diagnosis && <p style={{ fontSize: '18px', fontWeight: '900' }}>{item.diagnosis}</p>}
+//                                 {item.Emergency_on && <p><b>Emergency on</b> : {item.emergency_on}</p>}
+//                                 {item.ICD_code_label && <p><b>ICD code</b> : {item.ICD_code_label}</p>}
+//                                 <p><b>Travel Diagnosis</b> : {item.travel_diagnosis ? 'Yes' : 'No'}</p>
+//                                 {item.travel_diagnosis &&
+//                                     <p>{item.travelled_to && <p><b>Travelled to</b> : {item.travelled_to}</p>}
+//                                         {item.when_to && <p><b>When to</b> : {item.when_to}</p>}
+//                                         {item.when_until && <p><b>When until</b> : {item.when_until}</p>}
+//                                     </p>
+//                                 }
+//                                 {item.diagnosed_by && <p><b>Diagnosed by</b> : {item.diagnosed_by}</p>}
+//                                 {item.diagnosed_on && <p><b>Diagnosed on</b> : {item.diagnosed_on}</p>}
+//                                 {item.remarks && <p><b>Remarks</b> : {item.remarks}</p>}
+//                             </li>
+//                         )) :
+//                         <li style={{ listStyleType: 'none', paddingBottom: '15px', width: '400px', marginLeft: '200px', marginTop: '20px' }}>No Data yet</li>}
 
-                    <div style={{ fontSize: '22px', fontWeight: '900', marginTop: '50px', textTransform: 'uppercase', marginBottom: '50px', marginLeft: '200px', marginRight: '200px', padding: '20px', borderBottom: '#679be8 1px solid', borderTop: '#679be8 1px solid', color: '#679be8' }}>Medication </div>
+//                     <div style={{ fontSize: '22px', fontWeight: '900', marginTop: '50px', textTransform: 'uppercase', marginBottom: '50px', marginLeft: '200px', marginRight: '200px', padding: '20px', borderBottom: '#679be8 1px solid', borderTop: '#679be8 1px solid', color: '#679be8' }}>Medication </div>
 
-                    {this.props.mediacationdata && this.props.mediacationdata.length > 0 ? this.props.mediacationdata.map((item, index) =>
-                        (
-                            <li style={{ lineHeight: '1.5', textAlign: 'left', listStyleType: 'none', paddingBottom: '15px', width: '400px', marginLeft: '200px', marginTop: '20px' }}>
-                                {item.substance && <p style={{ fontSize: '18px', fontWeight: '900' }}>{item.substance}</p>}
-                                {item.ATC_code && item.ATC_code.label && <p>ATC code : {item.ATC_code.label}</p>}
-                                {item.trade_name && <p>Trade Name : {item.trade_name}</p>}
-                                {item.time_taken && <p>Time Taken : {item.time_taken && (Array.prototype.map.call(item.time_taken, s => s.label).toString()).split(/[,]+/).join(',  ')} {item.interval && (Array.prototype.map.call(item.interval, s => s.label).toString()).split(/[,]+/).join(',  ')}</p>}
-                                {item.reminder_time_taken && <p>Reminder Time Taken : {item.reminder_time_taken && (Array.prototype.map.call(item.reminder_time_taken, s => s.label).toString()).split(/[,]+/).join(',  ')} {item.reminders && (Array.prototype.map.call(item.reminders, s => s.label).toString()).split(/[,]+/).join(',  ')}</p>}
-                                {item.remarks && <p>Remarks : {item.remarks}</p>}
-                                {item.remarks && <p>Prescribed on : {item.prescribed_on}</p>}
-                                {item.lifelong ? <p>Until : {item.lifelong}</p> :
-                                    <p>Until : {item.until}</p>}
-                            </li>
-                        )) :
-                        <li style={{ listStyleType: 'none', paddingBottom: '15px', width: '400px', marginLeft: '200px', marginTop: '20px' }}>No Data yet</li>}
+//                     {this.props.mediacationdata && this.props.mediacationdata.length > 0 ? this.props.mediacationdata.map((item, index) =>
+//                         (
+//                             <li style={{ lineHeight: '1.5', textAlign: 'left', listStyleType: 'none', paddingBottom: '15px', width: '400px', marginLeft: '200px', marginTop: '20px' }}>
+//                                 {item.substance && <p style={{ fontSize: '18px', fontWeight: '900' }}>{item.substance}</p>}
+//                                 {item.ATC_code && item.ATC_code.label && <p>ATC code : {item.ATC_code.label}</p>}
+//                                 {item.trade_name && <p>Trade Name : {item.trade_name}</p>}
+//                                 {item.time_taken && <p>Time Taken : {item.time_taken && (Array.prototype.map.call(item.time_taken, s => s.label).toString()).split(/[,]+/).join(',  ')} {item.interval && (Array.prototype.map.call(item.interval, s => s.label).toString()).split(/[,]+/).join(',  ')}</p>}
+//                                 {item.reminder_time_taken && <p>Reminder Time Taken : {item.reminder_time_taken && (Array.prototype.map.call(item.reminder_time_taken, s => s.label).toString()).split(/[,]+/).join(',  ')} {item.reminders && (Array.prototype.map.call(item.reminders, s => s.label).toString()).split(/[,]+/).join(',  ')}</p>}
+//                                 {item.remarks && <p>Remarks : {item.remarks}</p>}
+//                                 {item.remarks && <p>Prescribed on : {item.prescribed_on}</p>}
+//                                 {item.lifelong ? <p>Until : {item.lifelong}</p> :
+//                                     <p>Until : {item.until}</p>}
+//                             </li>
+//                         )) :
+//                         <li style={{ listStyleType: 'none', paddingBottom: '15px', width: '400px', marginLeft: '200px', marginTop: '20px' }}>No Data yet</li>}
 
-                    <div style={{ fontSize: '22px', fontWeight: '900', marginTop: '50px', textTransform: 'uppercase', marginBottom: '50px', marginLeft: '200px', marginRight: '200px', padding: '20px', borderBottom: '#679be8 1px solid', borderTop: '#679be8 1px solid', color: '#679be8' }}>Contact Person in case of an Emergency</div>
-                    {this.props.contact_partner ?
-                        <li style={{ lineHeight: '1.5', textAlign: 'left', listStyleType: 'none', paddingBottom: '15px', width: '400px', marginLeft: '200px', marginTop: '20px' }}>
-                            {this.props.contact_partner.name && <p>Contact Name: {this.props.contact_partner.name} </p>}
-                            {this.props.contact_partner.number && <p>Contact Number : {this.props.contact_partner.number} </p>}
-                            {this.props.contact_partner.email && <p>Contact E-mail: {this.props.contact_partner.email} </p>}
-                            {!this.props.contact_partner.name && !this.props.contact_partner.number && !this.props.contact_partner.email && <li style={{ listStyleType: 'none', paddingBottom: '15px', width: '400px', marginLeft: '200px', marginTop: '20px' }}>No Data yet</li>}
-                        </li> :
-                        <li style={{ listStyleType: 'none', paddingBottom: '15px', width: '400px', marginLeft: '200px', marginTop: '20px' }}>No Data yet</li>}
+//                     <div style={{ fontSize: '22px', fontWeight: '900', marginTop: '50px', textTransform: 'uppercase', marginBottom: '50px', marginLeft: '200px', marginRight: '200px', padding: '20px', borderBottom: '#679be8 1px solid', borderTop: '#679be8 1px solid', color: '#679be8' }}>Contact Person in case of an Emergency</div>
+//                     {this.props.contact_partner ?
+//                         <li style={{ lineHeight: '1.5', textAlign: 'left', listStyleType: 'none', paddingBottom: '15px', width: '400px', marginLeft: '200px', marginTop: '20px' }}>
+//                             {this.props.contact_partner.name && <p>Contact Name: {this.props.contact_partner.name} </p>}
+//                             {this.props.contact_partner.number && <p>Contact Number : {this.props.contact_partner.number} </p>}
+//                             {this.props.contact_partner.email && <p>Contact E-mail: {this.props.contact_partner.email} </p>}
+//                             {!this.props.contact_partner.name && !this.props.contact_partner.number && !this.props.contact_partner.email && <li style={{ listStyleType: 'none', paddingBottom: '15px', width: '400px', marginLeft: '200px', marginTop: '20px' }}>No Data yet</li>}
+//                         </li> :
+//                         <li style={{ listStyleType: 'none', paddingBottom: '15px', width: '400px', marginLeft: '200px', marginTop: '20px' }}>No Data yet</li>}
 
-                    <div style={{ fontSize: '22px', fontWeight: '900', marginTop: '50px', textTransform: 'uppercase', marginBottom: '50px', marginLeft: '200px', marginRight: '200px', padding: '20px', borderBottom: '#679be8 1px solid', borderTop: '#679be8 1px solid', color: '#679be8' }}>Family Doctor </div>
-                    {this.props.family_doc && this.props.family_doc.length > 0 ? this.props.family_doc.map((item, index) =>
-                        (<li style={{ lineHeight: '1.5', textAlign: 'left', listStyleType: 'none', paddingBottom: '15px', width: '400px', marginLeft: '200px', marginTop: '20px' }}>
-                            {item.first_name && <p>First Name : {item.first_name}</p>}
-                            {item.last_name && <p>Last Name : {item.last_name}</p>}
-                            {item.sex && <p>Gender : {item.sex}</p>}
-                            {item.speciality && <p>Speciality  : {getSpec(item.speciality)}</p>}
-                            {item.mobile && <p>Mobile : {item.mobile}</p>}
-                            {item.email && <p>Email : {item.email}</p>}
-                        </li>
-                        )) :
-                        <li style={{ listStyleType: 'none', paddingBottom: '15px', width: '400px', marginLeft: '200px', marginTop: '20px' }}>No Data yet</li>}
+//                     <div style={{ fontSize: '22px', fontWeight: '900', marginTop: '50px', textTransform: 'uppercase', marginBottom: '50px', marginLeft: '200px', marginRight: '200px', padding: '20px', borderBottom: '#679be8 1px solid', borderTop: '#679be8 1px solid', color: '#679be8' }}>Family Doctor </div>
+//                     {this.props.family_doc && this.props.family_doc.length > 0 ? this.props.family_doc.map((item, index) =>
+//                         (<li style={{ lineHeight: '1.5', textAlign: 'left', listStyleType: 'none', paddingBottom: '15px', width: '400px', marginLeft: '200px', marginTop: '20px' }}>
+//                             {item.first_name && <p>First Name : {item.first_name}</p>}
+//                             {item.last_name && <p>Last Name : {item.last_name}</p>}
+//                             {item.sex && <p>Gender : {item.sex}</p>}
+//                             {item.speciality && <p>Speciality  : {getSpec(item.speciality)}</p>}
+//                             {item.mobile && <p>Mobile : {item.mobile}</p>}
+//                             {item.email && <p>Email : {item.email}</p>}
+//                         </li>
+//                         )) :
+//                         <li style={{ listStyleType: 'none', paddingBottom: '15px', width: '400px', marginLeft: '200px', marginTop: '20px' }}>No Data yet</li>}
 
-                    <div style={{ fontSize: '22px', fontWeight: '900', marginTop: '50px', textTransform: 'uppercase', marginBottom: '50px', marginLeft: '200px', marginRight: '200px', padding: '20px', borderBottom: '#679be8 1px solid', borderTop: '#679be8 1px solid', color: '#679be8' }}>Organ Donar Status</div>
-                    {this.props.donar && this.props.donar.status !== 'Nothing' ?
-                        <p>
-                            Status : {this.props.donar.status}<br />
-                            {this.props.donar.options && this.props.donar.options !== '' &&
-                                <span>
-                                    {typeof this.props.donar.options === 'object' ?
-                                        <p>
-                                            <p>{this.props.donar.options.first_name && this.props.donar.options.first_name} {this.props.donar.options.last_name && this.props.donar.options.last_name}</p>
-                                            <p>{this.props.donar.options.phone && this.props.donar.options.phone}</p>
-                                            <p>{this.props.donar.options.city && this.props.donar.options.city} {this.props.donar.options.address && this.props.donar.options.address}</p>
-                                        </p>
-                                        :
-                                        this.props.donar.options && <p>  {this.props.donar.options} </p>}
-                                </span>
-                            }<br />
-                            {this.props.donar.remarks && <p>Remarks : {this.props.donar.remarks}</p>}
-                        </p> : <li style={{ listStyleType: 'none', paddingBottom: '15px', width: '400px', marginLeft: '200px', marginTop: '20px' }}>No Data yet</li>}
-                </div>
-                <div style={{ textAlign: 'right', marginRight: '100px', marginTop: '50px' }}><div style={{ fontSize: '22px', fontWeight: '800' }}>Your Aimedis team</div><br />
-                https://sys.aimedis.io<br />
-                    <b>The Aimedis blog:</b>https://blog.aimedis.com<br />
-                </div>
-            </div>
+//                     <div style={{ fontSize: '22px', fontWeight: '900', marginTop: '50px', textTransform: 'uppercase', marginBottom: '50px', marginLeft: '200px', marginRight: '200px', padding: '20px', borderBottom: '#679be8 1px solid', borderTop: '#679be8 1px solid', color: '#679be8' }}>Organ Donar Status</div>
+//                     {this.props.donar && this.props.donar.status !== 'Nothing' ?
+//                         <p>
+//                             Status : {this.props.donar.status}<br />
+//                             {this.props.donar.options && this.props.donar.options !== '' &&
+//                                 <span>
+//                                     {typeof this.props.donar.options === 'object' ?
+//                                         <p>
+//                                             <p>{this.props.donar.options.first_name && this.props.donar.options.first_name} {this.props.donar.options.last_name && this.props.donar.options.last_name}</p>
+//                                             <p>{this.props.donar.options.phone && this.props.donar.options.phone}</p>
+//                                             <p>{this.props.donar.options.city && this.props.donar.options.city} {this.props.donar.options.address && this.props.donar.options.address}</p>
+//                                         </p>
+//                                         :
+//                                         this.props.donar.options && <p>  {this.props.donar.options} </p>}
+//                                 </span>
+//                             }<br />
+//                             {this.props.donar.remarks && <p>Remarks : {this.props.donar.remarks}</p>}
+//                         </p> : <li style={{ listStyleType: 'none', paddingBottom: '15px', width: '400px', marginLeft: '200px', marginTop: '20px' }}>No Data yet</li>}
+//                 </div>
+//                 <div style={{ textAlign: 'right', marginRight: '100px', marginTop: '50px' }}><div style={{ fontSize: '22px', fontWeight: '800' }}>Your Aimedis team</div><br />
+//                 https://sys.aimedis.io<br />
+//                     <b>The Aimedis blog:</b>https://blog.aimedis.com<br />
+//                 </div>
+//             </div>
 
-        );
-    }
-}
+//         );
+//     }
+// }
 
 class Index extends Component {
     constructor(props) {
@@ -375,7 +375,7 @@ class Index extends Component {
               case "default":
                   translate = translationEN.text
           }
-          let { another_patient_data, ur_emrgancy_access, patient_emrgancy_access, health_status, Medications, No, allergies, diagnosis, contact_other_info, family_doc, Contact, Register_Name, relation, phone, email, organ_donar_status, not_an_organ, emergency, telephone_nmbr } = translate;
+          let { another_patient_data, ur_emrgancy_access, country_code, patient_emrgancy_access, health_status, Medications, No, allergies, diagnosis, contact_other_info, family_doc, Contact, Register_Name, relation, phone, email, organ_donar_status, not_an_organ, emergency, telephone_nmbr } = translate;
         return (
             <Grid container direction="row">
                 {this.state.loaderImage && <Loader />}
@@ -501,8 +501,8 @@ class Index extends Component {
                                                 <p>{this.state.contact_partner.relation && this.state.contact_partner.relation}</p>
                                             </Grid>
                                             <Grid className="docInfo docInfoBrdr">
-                                                <Grid><a><img src={require('../../../assets//images/phone.svg')} alt="" title="" />{this.state.contact_partner.number && this.state.contact_partner.number}</a></Grid>
-                                                <Grid><a><img src={require('../../../assets//images/email.svg')} alt="" title="" />{this.state.contact_partner.email && this.state.contact_partner.email}</a></Grid>
+                                                <Grid>{this.state.contact_partner.number && <a><img src={require('../../../assets//images/phone.svg')} alt="" title="" /> {this.state.contact_partner.number}</a>}</Grid>
+                                                <Grid>{this.state.contact_partner.email && <a><img src={require('../../../assets//images/email.svg')} alt="" title="" /> {this.state.contact_partner.email}</a>}</Grid>
                                             </Grid>
                                         </div>
                                     }
@@ -525,7 +525,7 @@ class Index extends Component {
                                                 onChange={phone => this.setState({ phone })}
                                             /> */}
                                                 {this.updateFLAG(this.state.contact_partner.number) && this.updateFLAG(this.state.contact_partner.number) !== '' &&
-                                                    <ReactFlagsSelect placeholder="Country Code" onSelect={(e) => { this.updateFlags(e, 'number') }} name="flag_phone" showSelectedLabel={false} defaultCountry={this.updateFLAG(this.state.contact_partner.number)} />}
+                                                    <ReactFlagsSelect placeholder={country_code} onSelect={(e) => { this.updateFlags(e, 'number') }} name="flag_phone" showSelectedLabel={false} defaultCountry={this.updateFLAG(this.state.contact_partner.number)} />}
                                                 <input type="text"
                                                     className="Mobile_extra Emergency_number"
                                                     placeholder={phone}
@@ -567,7 +567,7 @@ class Index extends Component {
                                                             {typeof this.state.donar.options === 'object' ?
                                                                 <Grid className="docInfo">
                                                                     <Grid className="docInfoName"><a><img src={require('../../../assets//images/person1.jpg')} alt="" title="" /><span>{this.state.donar.options.first_name && this.state.donar.options.first_name} {this.state.donar.options.last_name && this.state.donar.options.last_name}</span></a></Grid>
-                                                                    <Grid><a><img src={require('../../../assets//images/phone.svg')} alt="" title="" />{this.state.donar.options.phone && this.state.donar.options.phone}</a></Grid>
+                                                                    <Grid>{this.state.donar.options.phone && <a><img src={require('../../../assets//images/phone.svg')} alt="" title="" /> {this.state.donar.options.phone}</a>}</Grid>
                                                                     <Grid><a><img src={require('../../../assets//images/language.svg')} alt="" title="" />{this.state.donar.options.city && this.state.donar.options.city}, {this.state.donar.options.address && this.state.donar.options.address},  {this.state.donar.options.postal_code && this.state.donar.options.postal_code}</a></Grid>
                                                                     {/* <Grid><a><img src={require('../../../assets//images/language.svg')} alt="" title="" />{item.language && item.language.join(', ')}</a></Grid> */}
                                                                 </Grid>
