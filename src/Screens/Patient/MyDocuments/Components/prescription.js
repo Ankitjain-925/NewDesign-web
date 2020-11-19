@@ -285,7 +285,7 @@ class Index extends Component {
                                     {data.status === 'accept' && <Td><span className="revwGren"></span>{Answered} </Td>}
                                     {data.status === 'remove' || data.status === 'decline' && <Td><span className="revwRed"></span>{Rejected}</Td>}
                                     {data.status === 'cancel' && <Td><span className="revwRed"></span> {Cancelled}</Td>}
-                                    {data.status === 'free' && <Td><span className="revwGry"></span> {sent} {request}</Td>}
+                                    {data.status === 'free' || data.status === 'normal' && <Td><span className="revwGry"></span> {sent} {request}</Td>}
                                     <Td className="presEditDot scndOptionIner">
                                         <a className="openScndhrf">
                                             <img src={require('../../../../assets/images/threedots.jpg')} alt="" title="" className="openScnd" />

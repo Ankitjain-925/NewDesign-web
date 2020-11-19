@@ -89,7 +89,7 @@ class Index extends Component {
                             <Grid item xs={12} md={6}>
                                 <Grid className="blodPrsurImg">
                                     <a className="diryNote"><img src={require('../../../../assets/images/condition-diagnosis-family-anamnesis-diary.svg')} alt="" title="" />
-                                        <span>Diary</span>
+                                        <span>{diary}</span>
                                     </a>
                                 </Grid>
                             </Grid>
