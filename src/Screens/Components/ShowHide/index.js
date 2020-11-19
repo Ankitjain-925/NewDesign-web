@@ -24,7 +24,8 @@ class ShowHide extends Component {
         this.state = {
             edit: false,
             value: this.props.value,
-            date_format: this.props.date_format
+            date_format: this.props.date_format,
+            eventdate : this.props.eventdate,
         };
     }
 
@@ -102,7 +103,7 @@ class ShowHide extends Component {
               case "default":
                   translate = translationEN.text
           }
-          let { Allentries, hide_or_show,profilesettings, edit, done, show, hide, show_entry, hide_entry, always} = translate;
+          let { Allentries, Date_of_event, hide_or_show,profilesettings, edit, done, show, hide, show_entry, hide_entry, always} = translate;
         return (
             <div>
                 {!this.state.edit && <Grid className="rrShwHidMain">
@@ -133,7 +134,14 @@ class ShowHide extends Component {
                     </Grid>
 
                     <Grid className="showThis">
-
+                        {this.state.eventdate  && 
+                         <Grid className="fillDia">
+                            <Grid className="rrSysto">
+                                <Grid><label>{Date_of_event}</label></Grid>
+                                <DateFormat name="date" value={this.state.value.event_date ? new Date(this.state.value.event_date) : new Date()} date_format={this.state.date_format} onChange={(value) => this.updateEntryState1(value, 'event_date')} />
+                            </Grid>
+                        </Grid>
+                        }
                         <Grid className="showThisBtns">
                             <SelectByTwo name="visible" label="Visible" options={[{ label: show_entry, value: 'show' }, { label: hide_entry, value: 'hide' }]} onChange={(e) => this.updateEntryState1(e, 'visible')} value={this.state.value.visible} />
                         </Grid>

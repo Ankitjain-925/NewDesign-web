@@ -18,12 +18,12 @@ import { Settings } from './../../Login/setting';
 import LeftMenu from './../../Components/Menus/PatientLeftMenu/index';
 import LeftMenuMobile from './../../Components/Menus/PatientLeftMenu/mobile';
 import { LanguageFetchReducer } from './../../actions';
+import { SortByEntry,SortByDiagnose,ConsoleCustom, getTime, getDate, mySorter } from './../../Components/BasicMethod/index';
 import AddEntry from './../../Components/AddEntry/index';
 import PersonalizedData from './../../Components/TimelineComponent/PersonalizedData/index';
 import FilterSec from './../../Components/TimelineComponent/Filter/index';
 import ProfileSection from './../../Components/TimelineComponent/ProfileSection/index';
 import RightManage from './../../Components/TimelineComponent/RightMenuManage/index';
-import { ConsoleCustom, getTime, getDate } from './../../Components/BasicMethod/index';
 import ViewTimeline from './../../Components/TimelineComponent/ViewTimeline/index';
 import Loader from './../../Components/Loader/index.js';
 import translationEN from "../../../translations/en.json"
@@ -72,6 +72,16 @@ class Index extends Component {
             })
     }
 
+      //For Sort the Data
+      SortData=(data)=>{
+        if(data === 'entry_time'){
+            this.state.allTrack.sort(SortByEntry);
+        }else{
+            this.state.allTrack.sort(SortByDiagnose);
+        }
+        this.setState({Sort : data})
+    }
+
     //For clear the filter
     ClearData = () => {
         this.setState({ Sort: 'diagnosed_time', allTrack: this.state.allTrack1 },
@@ -107,7 +117,12 @@ class Index extends Component {
             start_date = start_date.setHours(0, 0, 0, 0);
             end_date = end_date.setDate(end_date.getDate() + 1)
             end_date = new Date(end_date).setHours(0, 0, 0, 0)
-            return Datas.filter((obj) => new Date(obj.datetime_on) >= start_date && new Date(obj.datetime_on) <= end_date);
+            if(Datas && Datas.length>0){
+                return Datas.filter((obj) => new Date(obj.datetime_on) >= start_date && new Date(obj.datetime_on) <= end_date);
+            }
+            else{
+                return [];
+            }
         }
         else {
             return null;
@@ -432,7 +447,7 @@ class Index extends Component {
                                     </Grid>
 
                                     {/* For the filter section */}
-                                    <FilterSec />
+                                    <FilterSec FilterText={this.FilterText} settings={this.props.settings} FilterData={this.FilterData} SortData={this.SortData} ClearData={this.ClearData} sortBy={this.state.Sort}/>
 
                                     {/* For Empty Entry */}
                                     <div>

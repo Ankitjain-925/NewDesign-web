@@ -1570,6 +1570,9 @@
 		"r_u_sure_remove_patient":"Weet u zeker dat u de patiënt verwijdert?",
 		"cancel_inquiry":"De aanvraag annuleren?",
 		"r_u_sure_cancel_inquiry":"Weet u zeker dat u deze aanvraag wilt annuleren?",
-		"download_file":"Download bestand"
+		"download_file":"Download bestand",
+		"Select_chat":"Selecteer een chat om berichten te verzenden",
+		"Search" :"Zoeken",
+		"Date_of_event" :"Datum van het evenement"
 		}
 }

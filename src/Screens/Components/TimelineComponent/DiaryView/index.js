@@ -74,7 +74,7 @@ class Index extends Component {
             case "default":
                 translate = translationEN.text
         }
-        let { visibility, Download, Delete, visible, hide, show, always, edit, Change, traveled, slct_ICD_serch_code, when, to,allergy,  enter_code_serch_by_keyword, dignose, of, until, archive, rr_systolic, attachments, time_measure, date_measure,
+        let { visibility, Download, Delete, visible, details, hide, show, always,Date_of_event, edit, Change, traveled, slct_ICD_serch_code, when, to,allergy,  enter_code_serch_by_keyword, dignose, of, until, archive, rr_systolic, attachments, time_measure, date_measure,
             date, time, confirm_diag, emergancy_dignosis, trvl_diagnosis, travelled_to, diary_note, diagnosed, by, notes, save_entry, emergency, diagnosis, review, on, not_mentioned, de_archive } = translate
 
         return (
@@ -148,7 +148,22 @@ class Index extends Component {
                             </Grid>
                             <Grid className="clear"></Grid>
                         </Grid>
-
+                        <Grid className="addSpc detailMark">
+                            <Collapsible trigger={details} open="true">
+                                <Grid>
+                                    <Grid container direction="row">
+                                        <Grid item xs={12} md={6} className="painTypeBy">
+                                            <Grid container direction="row">
+                                                <Grid item xs={5} md={5}><label>{Date_of_event}</label></Grid>
+                                                <Grid item xs={7} md={7}><span>{item.event_date && getDate(item.event_date , this.state.date_format)}</span></Grid>
+                                                <Grid className="clear"></Grid>
+                                            </Grid>
+                                        </Grid>
+                                        <Grid className="clear"></Grid>
+                                    </Grid>
+                                </Grid>
+                            </Collapsible>
+                        </Grid>
                         <Grid className="addSpc detailMark">
                             <Collapsible trigger={notes} open="true">
                                 <Grid className="detailCntnt">

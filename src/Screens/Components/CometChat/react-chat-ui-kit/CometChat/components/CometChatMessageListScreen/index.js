@@ -237,6 +237,7 @@ class CometChatMessageListScreen extends React.PureComponent {
         <MessageComposer 
           item={this.props.item} 
           type={this.props.type}
+          lan={this.props.lan}
           actionGenerated={this.actionHandler}></MessageComposer>
         <CallScreen className="callscreen"
           item={this.props.item} 

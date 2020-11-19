@@ -81,7 +81,7 @@ class Index extends Component {
                 translate = translationEN.text
         }
         let {visible, feeling, show, date, time, hide, until, archive, temparture, pain_type, pain_quality,
-            edit, Delete, RR_diastolic, heart_rate, always, Download, img_file, notes, details,
+            edit, Delete, RR_diastolic, heart_rate, always, Download, img_file, notes, details,Date_of_event,
             Change, Location, visibility, de_archive, covid_diary, pain_areas, not_mentioned, condition_pain } = translate
         return (
             <Grid container direction="row" className="descpCntnt">
@@ -199,6 +199,21 @@ class Index extends Component {
                                             <Grid container direction="row">
                                                 <Grid item xs={5} md={5}><label>{pain_quality}</label></Grid>
                                                 <Grid item xs={7} md={7}><span>{item.pain_quality && item.pain_quality.label}</span></Grid>
+                                                <Grid className="clear"></Grid>
+                                            </Grid>
+                                        </Grid>
+                                        <Grid className="clear"></Grid>
+                                    </Grid>
+                                    <Grid container direction="row">
+                                        <Grid item xs={12} md={6} className="painTypeBy">
+                                            <Grid container direction="row">
+                                                <Grid item xs={5} md={5}><label>{Date_of_event}</label></Grid>
+                                                <Grid item xs={7} md={7}><span>{item.event_date && getDate(item.event_date , this.state.date_format)}</span></Grid>
+                                                <Grid className="clear"></Grid>
+                                            </Grid>
+                                        </Grid>
+                                        <Grid item xs={12} md={6} className="painTypeBy">
+                                            <Grid container direction="row">
                                                 <Grid className="clear"></Grid>
                                             </Grid>
                                         </Grid>

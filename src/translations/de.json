@@ -1062,6 +1062,9 @@
 		"r_u_sure_remove_patient":"Sind Sie sicher, den Patienten zu entfernen?",
 		"cancel_inquiry":"Anfrage abbrechen?",
 		"r_u_sure_cancel_inquiry":"Sind Sie sicher, diese Anfrage abzubrechen?",
-		"download_file":"Download-Datei"
+		"download_file":"Download-Datei",
+		"Select_chat" :"Wählen Sie einen Chat aus, um die Nachrichtenübermittlung zu starten",
+		"Search" :"Suche",
+		"Date_of_event" :"Datum der Veranstaltung"
 	}
 }

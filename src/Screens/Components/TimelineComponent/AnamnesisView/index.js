@@ -79,7 +79,7 @@ class Index extends Component {
               case "default":
                   translate = translationEN.text
           }
-          let {anamnesis,always, show, hide, until, Change, edit, Download, img_file,
+          let {anamnesis,always,Date_of_event, show, hide, until, Change, edit, Download, img_file,
             visibility,visible,archive,de_archive,Delete, pain_areas, BodySchemeNotes } = translate;
         var item = this.state.item;
         return (
@@ -162,7 +162,10 @@ class Index extends Component {
                             </Grid>
                             <Grid item xs={7} md={7}>
                                 <Grid className="conPainArea"><label>{BodySchemeNotes}</label></Grid>
-                                <span dangerouslySetInnerHTML={{ __html: item.remarks }}/></Grid>
+                                <span dangerouslySetInnerHTML={{ __html: item.remarks }}/>
+                                <Grid className="conPainArea"><label>{Date_of_event}</label></Grid>
+                                 <span>{item.event_date && getDate(item.event_date , this.state.date_format)}</span></Grid>
+                                
                             <Grid className="clear"></Grid>
                         </Grid>
                   

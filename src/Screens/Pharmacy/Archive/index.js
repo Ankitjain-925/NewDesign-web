@@ -93,6 +93,9 @@ class Index extends Component {
                 this.setState({ loaderImage: false, Allpre : [], Allpre1 : [], loaderImage: false})
             }
         })
+        .catch((error) => {
+            this.setState({ loaderImage: false })  
+        }) 
     }
 
     //For open the file of prescription

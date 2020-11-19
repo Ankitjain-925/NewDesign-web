@@ -1057,6 +1057,9 @@
 		"r_u_sure_remove_patient":"Je! Una uhakika wa kumuondoa Mgonjwa?",
 		"cancel_inquiry":"Ghairi Uchunguzi?",
 		"r_u_sure_cancel_inquiry":"Je! Una uhakika wa kughairi uchunguzi huu?",
-		"download_file":"Pakua faili"
+		"download_file":"Pakua faili",
+		"Select_chat":"Chagua soga ili kuanza kutuma ujumbe",
+		"Search" :"Tafuta",
+		"Date_of_event" :"Tarehe ya tukio"
 	}
 }

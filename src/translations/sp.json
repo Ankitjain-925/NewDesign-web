@@ -1062,6 +1062,9 @@
 		"r_u_sure_remove_patient":"¿Estás seguro de eliminar al paciente?",
 		"cancel_inquiry":"¿Cancelar la consulta?",
 		"r_u_sure_cancel_inquiry":"¿Estás seguro de cancelar esta consulta?",
-		"download_file":"Descargar archivo"
+		"download_file":"Descargar archivo",
+		"Select_chat":"Seleccione un chat para comenzar a enviar mensajes",
+		"Search" :"Buscar",
+		"Date_of_event" :"Fecha del evento"
 	}
 }

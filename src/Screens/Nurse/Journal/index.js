@@ -170,7 +170,12 @@ class Index extends Component {
         start_date = start_date.setHours(0,0,0,0);
         end_date = end_date.setDate(end_date.getDate() + 1)
         end_date = new Date(end_date).setHours(0,0,0,0)
-        return Datas.filter((obj) => new Date(obj.datetime_on) >= start_date && new Date(obj.datetime_on) <= end_date);  
+        if(Datas && Datas.length>0){
+            return Datas.filter((obj) => new Date(obj.datetime_on) >= start_date && new Date(obj.datetime_on) <= end_date);
+        }
+        else{
+            return [];
+        }
     }
     else {
         return null;
@@ -556,6 +561,11 @@ DeleteTrack=(deletekey)=> {
         else if (this.state.current_select === 'vaccination') {
             if (data.data_of_vaccination && data.data_of_vaccination !== '') {
                 data.datetime_on = new Date(data.data_of_vaccination);
+            }
+        }
+        else {
+            if (data.event_date && data.event_date !== '') {
+                data.datetime_on = new Date(data.event_date);
             }
         }
         var track_id = this.state.updateTrack.track_id;

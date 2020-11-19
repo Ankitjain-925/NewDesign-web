@@ -12,6 +12,7 @@ const navbar = (props) => {
       case "contacts":
         return (
           <CometChatUserList
+            lan={props.lan}
             Userlist={props.Userlist}
             item={props.item}
             actionGenerated={props.actionGenerated}

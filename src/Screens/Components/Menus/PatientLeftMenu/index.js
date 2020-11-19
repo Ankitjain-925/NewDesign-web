@@ -182,7 +182,7 @@ class Index extends Component {
         let { appointments, chat_vdocall, capab_Patients, Inquiries, emegancy_access, more, my_profile, invite_doc,pharma_prescription, my_doc, extra_srvc, online_course, profile_setting, Language,
             DarkMode, logout, journal, trackers, self_data, emrgancy_patient_data, secnd_openion, blockchain_access_log, jrnl_archive } = translate;
         return (
-            <Grid item xs={12} md={1} className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode && this.props.settings.setting.mode==='dark' ? "MenuLeftUpr MenuLeftDrkUpr" : "MenuLeftUpr"}>
+            <Grid item xs={12} md={1} className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode && this.props.settings.setting.mode==='dark' ? this.props.comes === 'emergency' ? "emergency_accessmenu MenuLeftUpr MenuLeftDrkUpr" : "MenuLeftUpr MenuLeftDrkUpr" : this.props.comes === 'emergency' ? "emergency_accessmenu MenuLeftUpr" : "MenuLeftUpr"}>
                 {this.state.loaderImage && <Loader />}
                 {/* <Notification /> */}
                 <DocSuggetion />
@@ -266,7 +266,7 @@ class Index extends Component {
                         <li className={this.props.currentPage === 'profile' ? "menuActv" : ""}>
                             <a className="profilMenu">
                             <img src={require('../../../../assets/images/nav-my-profile.svg')} alt="" title="" />
-                            {console.log('this.props.settings && this.props.settings.setting && this.props.settings.setting.mode && this.props.settings.setting.mode', this.props.settings && this.props.settings.setting && this.props.settings.setting.mode && this.props.settings.setting.mode)}
+                           
                                 <span>{my_profile}</span>
                                 <div className="profilMenuList">
                                     <ul>
