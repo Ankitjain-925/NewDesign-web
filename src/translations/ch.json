@@ -182,6 +182,8 @@
 		"u_r_nvr_obligate_to_upload_doc": "你没有义务上传你的许可证或其他身份证明。",
 		"in_critical_enviroment_id": "在关键环境中，当你这样做的时候，它可以使唯一的识别和比较现有的helthcare数据变得更加容易。 此外扣除的医疗保健服务与您的保险公司是更容易的方式。",
 		"date": "日期",
+		"Delete":"删除",
+		"Video":"视频",
 		"edit_entry": "编辑条目",
 		"heart_rate": "心率",
 		"time": "时间",
@@ -596,6 +598,7 @@
 		"add_new_patient_in_list": "在列表中添加新患者",
 		"succ1": "邮件已发送给患者",
 		"Log_into": "登录到",
+		"Office":"办公室",
 		"Mnotvalids": "手机号码无效",
 		"password_reset": "重设密码",
 		"click_here_uplod_license": "点击此处上传您的许可证",
@@ -1057,6 +1060,7 @@
 		"r_u_sure_remove_patient":"您确定要移除患者吗？",
 		"cancel_inquiry":"取消查询？",
 		"r_u_sure_cancel_inquiry":"您确定要取消此查询吗？",
-		"download_file":"下载文件"
+		"download_file":"下载文件",
+		"consultancy_appintment":"顾问委任"
 	}
 }

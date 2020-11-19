@@ -672,7 +672,7 @@ class Index extends Component {
             case "default":
                 translate = translationEN.text
         }
-        let { DetailsQuestions } = translate;
+        let { DetailsQuestions, consultancy_appintment, office_visit, vdo_call } = translate;
         return (
             <div
                 {...getTooltipProps({
@@ -701,7 +701,7 @@ class Index extends Component {
                                         {data.appointment_type == 'online_appointment' && <img src={require('../../../assets/images/video-call.svg')} alt="" title="" />}
                                         {data.appointment_type == 'practice_appointment' && <img src={require('../../../assets/images/dates.png')} alt="" title="" />}
                                         {data.appointment_type == 'private_appointment' && <img src={require('../../../assets/images/ShapeCopy21.svg')} alt="" title="" />}
-                                        <span>{data.appointment_type == 'practice_appointment' ? 'Consultancy Appointment' : (data.appointment_type == 'online_appointment' ? 'Video call' : 'Office visit')}</span>
+                                        <span>{data.appointment_type == 'practice_appointment' ? consultancy_appintment : (data.appointment_type == 'online_appointment' ? vdo_call : office_visit)}</span>
                                     </Grid>
                                     <Grid className="meetVdoRght">
                                         <p>{moment(new Date(data.date), 'MM-DD-YYYY').format('D MMM')}, {this.GetTime(data.start_time)}</p>
@@ -775,7 +775,7 @@ class Index extends Component {
             case "default":
                 translate = translationEN.text
         }
-        let { Appointmentiscanceled, select_spec, slct_time_slot, holiday, select_specility, Details, past_apointment, Questions, cancel, book, appointment_booked, upcming_apointment, office_visit, cancel_apointmnt, hide_past_appointment, show_past_apointment,km_range, we_r_showing_speciality,
+        let { Appointmentiscanceled, select_spec, slct_time_slot, holiday, select_specility, Details, consultancy_appintment, past_apointment, Questions, cancel, book, appointment_booked, upcming_apointment, office_visit, cancel_apointmnt, hide_past_appointment, show_past_apointment,km_range, we_r_showing_speciality,
             plz_write_short_explnation, short_msg, appointments, appointment, arrng_apointmnt, today, sync_ur_calander, speciality, search_within, Video, Office, type,
             Contact, Services, latest_info, see_avlbl_date, location_of_srvc, this_way_can_instntly_list_of_specility, find_apointment, consultancy_cstm_calnder, vdo_call, allow_location_access, profile_info, profile, information, ID, pin, QR_code, done, Change, edit_id_pin, edit, and, is, changed, profile_id_taken, profile_id_greater_then_5,
         } = translate;
@@ -1149,8 +1149,8 @@ class Index extends Component {
                                                         </Grid>
                                                         <Grid item xs={12} md={4} className="apointType">
                                                             <Grid><label>{appointment} {type}</label></Grid>
-                                                            <FormControlLabel control={this.state.video_call ? <Checkbox checked onClick={this.apointmentType} name="Video" /> : <Checkbox onClick={this.apointmentType} name="Video" />} label="Video" />
-                                                            <FormControlLabel control={this.state.office_visit ? <Checkbox checked name="Office" onClick={this.apointmentType} /> : <Checkbox name="Office" onClick={this.apointmentType} />} label="Office" />
+                                                            <FormControlLabel control={this.state.video_call ? <Checkbox checked onClick={this.apointmentType} name="Video" /> : <Checkbox onClick={this.apointmentType} name="Video" />} label={Video} />
+                                                            <FormControlLabel control={this.state.office_visit ? <Checkbox checked name="Office" onClick={this.apointmentType} /> : <Checkbox name="Office" onClick={this.apointmentType} />} label={Office} />
                                                         </Grid>
                                                     </Grid>
                                                 </div>

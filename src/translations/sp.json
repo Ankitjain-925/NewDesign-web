@@ -444,7 +444,7 @@
 		"last_doc_visit": "Últimas visitas al médico",
 		"upcming_appointment": "Próxima cita",
 		"neurology": "Neurología",
-		"Office": "Office",
+		"Office": "Oficina",
 		"Video": "Vídeo",
 		"last_document": "Últimos Documentos",
 		"view_all": "Visualizar todo",
@@ -1062,6 +1062,7 @@
 		"r_u_sure_remove_patient":"¿Estás seguro de eliminar al paciente?",
 		"cancel_inquiry":"¿Cancelar la consulta?",
 		"r_u_sure_cancel_inquiry":"¿Estás seguro de cancelar esta consulta?",
-		"download_file":"Descargar archivo"
+		"download_file":"Descargar archivo",
+		"consultancy_appintment":"Cita de consultoría"
 	}
 }

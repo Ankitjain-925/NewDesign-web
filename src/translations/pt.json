@@ -1063,6 +1063,7 @@
 		"r_u_sure_remove_patient":"Tem certeza de que deseja remover o paciente?",
 		"cancel_inquiry":"Cancelar o inquérito?",
 		"r_u_sure_cancel_inquiry":"Tem certeza que deseja cancelar esta Consulta?",
-		"download_file":"⇬ Fazer download do arquivo"
+		"download_file":"⇬ Fazer download do arquivo",
+		"consultancy_appintment":"Consulta de Consultoria"
 	}
 }

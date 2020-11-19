@@ -1061,6 +1061,7 @@
 		"r_u_sure_remove_patient":"Вы уверены, что удалите пациента?",
 		"cancel_inquiry":"Отменить запрос?",
     "r_u_sure_cancel_inquiry":"Вы действительно хотите отменить этот запрос?",
-    "download_file":"Скачать файл"
+    "download_file":"Скачать файл",
+    "consultancy_appintment":"Запись на консультацию"
   }
 }
