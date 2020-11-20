@@ -1068,6 +1068,16 @@
 		"Search" :"Pesquisa",
 		"Date_of_event" :"Data do evento",
 		"consultancy_appintment":"Consulta de Consultoria",
-		"pin_greater_then_4" : "O PIN deve ter mais de 3 caracteres"
+		"pin_greater_then_4" : "O PIN deve ter mais de 3 caracteres",
+		"unblock_user":"Desbloquear usuário",
+		"block_user":"Bloquear usuário",
+		"Options":"Opções",
+		"had_miss_call_from":" tinha uma chamada perdida de ",
+		"had_rejected_call": " tinha rejeitado a chamada com ",
+		"had_joined_call_with": " tinha se juntado à chamada com ",
+		"had_initiated_call_with": " tinha iniciado a chamada com ",
+		"ended_call_with": " terminou a chamada com ",
+		"cancelled_call_with": " cancelou a chamada com ",
+		"minutes": "minutos"
 	}
 }

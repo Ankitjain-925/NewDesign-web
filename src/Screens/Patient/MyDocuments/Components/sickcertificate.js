@@ -249,7 +249,7 @@ class Index extends Component {
             case "default":
                 translate = translationEN.text
         }
-        let { Case, srvc_Doctors, status, sent, on, which_symptoms_do_u_hav, cancel_details, update_entry, not_mentioned,days, since_when, prescription, how_u_feeling, Pending, request, edit, Rejected, Answered, Cancelled, see, sick_cert, my_doc, New, inquiry, again, modify, cancel,
+        let { Case, capab_Doctors, status, sent, on, which_symptoms_do_u_hav, cancel_details, update_entry, not_mentioned,days, since_when, prescription, how_u_feeling, Pending, request, edit, Rejected, Answered, Cancelled, see, sick_cert, my_doc, New, inquiry, again, modify, cancel,
             doc_and_statnderd_ques, doc_aimedis_private, it_is_known_dieseas, r_u_tracking_medi, do_u_hv_allergies, what_ur_profession,Week_or_more,today, yesterday, ago, show, Yes, No, next, previous,
             how_long_do_u_unable_to_work, have_u_already_been_sick, Annotations, is_ur_temp_high_to_38, req_updated_successfully, details, questions } = translate
 
@@ -264,7 +264,7 @@ class Index extends Component {
                             <Tr>
                                 <Th>{Case}</Th>
                                 <Th>{sent} {on}</Th>
-                                <Th>{srvc_Doctors}</Th>
+                                <Th>{capab_Doctors}</Th>
                                 <Th>{status}</Th>
                             </Tr>
                         </Thead>

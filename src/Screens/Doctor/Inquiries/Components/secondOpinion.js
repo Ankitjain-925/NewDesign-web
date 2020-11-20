@@ -423,7 +423,7 @@ class Index extends Component {
             case "default":
                 translate = translationEN.text
         }
-        let { srvc_Doctors, see_details, approve, decline, remove, prescription_inquiry, standerd_ques, questions, patient_health_status, sent, on, prescription, Pending, request, edit, Rejected, Answered, Cancelled, req_updated_successfully, sick_cert, my_doc, New, inquiry,
+        let { capab_Doctors, see_details, approve, decline, remove, prescription_inquiry, standerd_ques, questions, patient_health_status, sent, on, prescription, Pending, request, edit, Rejected, Answered, Cancelled, req_updated_successfully, sick_cert, my_doc, New, inquiry,
             doc_and_statnderd_ques, doc_aimedis_private, Annotations, details, Patient, recved_on, status, home_add_mailbox, how_u_like_rcv_pres, Medicine, Substance, Dose, mg, trade_name, atc_if_applicable, manufacturer, pack_size,
             Medications, allergies, dignoses, browse, or_drag_here, online, suported_file_type_jpg_png, snd_patient_timeline_email, next, reject, short_msg, previous, back, about, not_mentioned, sent_on, secnd_openion, plz_upload_png_jpg, specilist_and_secnd_openion, how_would_patient_like_to_rcv_secon_openion, patient_profession, attachments, attached_doc } = translate
 

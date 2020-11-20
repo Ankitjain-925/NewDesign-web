@@ -75,7 +75,7 @@ class Index extends Component {
             case "default":
                 translate = translationEN.text
         }
-        let { visibility, Download, Delete, visible, hide, show, always, edit, Change, traveled, img_file, details, slct_ICD_serch_code, when, to,allergy,  enter_code_serch_by_keyword, dignose, of, until, archive, rr_systolic, attachments, time_measure, date_measure,
+        let { visibility, Download, Delete, visible, hide, show, always, edit, Change, traveled, img_files, details, slct_ICD_serch_code, when, to,allergy,  enter_code_serch_by_keyword, dignose, of, until, archive, rr_systolic, attachments, time_measure, date_measure,
             date, time, confirm_diag, emergancy_dignosis, trvl_diagnosis, travelled_to, diagnosed, by, notes, save_entry, emergency, diagnosis, review, on, not_mentioned, de_archive } = translate
 
         return (
@@ -227,7 +227,7 @@ class Index extends Component {
                             </Collapsible>
                         </Grid>
                         <Grid className="addSpc detailMark">
-                            <Collapsible trigger={img_file} open="true">
+                            <Collapsible trigger={img_files} open="true">
                                 <FileViews images={this.state.images} attachfile={item.attachfile} />
                             </Collapsible>
                         </Grid>

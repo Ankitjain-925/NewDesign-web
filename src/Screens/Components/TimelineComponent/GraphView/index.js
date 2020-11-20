@@ -53,6 +53,36 @@ class Index extends Component {
 
     //Set options for the graph
     setOptions=(current_Graph)=>{
+        let translate;
+        switch (this.props.stateLanguageType) {
+            case "en":
+                translate = translationEN.text
+                break;
+            case "de":
+                translate = translationDE.text
+                break;
+            case "pt":
+                translate = translationPT.text
+                break;
+            case "sp":
+                translate = translationSP.text
+                break;
+            case "rs":
+                translate = translationRS.text
+                break;
+            case "nl":
+                translate = translationNL.text
+                break;
+            case "ch":
+                translate = translationCH.text
+                break;
+            case "sw":
+                translate = translationSW.text
+                break;
+            case "default":
+                translate = translationEN.text
+        }
+        let {blood_pressure, heart_frequency, blood_sugar, weight_bmi, weight, height, Creatinine, date, rr_diastolic, upr_limit, lwr_limit, value, frequency}= translate
         if(current_Graph ==='blood_pressure' || current_Graph === 'heart_rate'){
             var categoriesbp=[],databp_d=[],databp_s=[], dataf=[],oldone;
             this.state.personalinfo && this.state.personalinfo.blood_pressure &&  this.state.personalinfo.blood_pressure.length>0  && this.state.personalinfo.blood_pressure.map((data, index) => {
@@ -76,18 +106,18 @@ class Index extends Component {
             if(current_Graph ==='blood_pressure'){
                 var options = {
                     title: {
-                        text: 'Blood Pressure'
+                        text: blood_pressure
                     },
     
                     yAxis: {
                         title: {
-                            text: 'Blood Pressure'
+                            text: blood_pressure
                         }
     
                     },
                     xAxis: {
                         title: {
-                            text: 'Date'
+                            text: date
                         },
                         categories: categoriesbp
                     },
@@ -108,14 +138,14 @@ class Index extends Component {
                         enabled: false
                     },
                     series: [{
-                        name: 'RR Diastolic',
+                        name: rr_diastolic,
                         data: databp_d,
                         type: 'line',
                         color: '#008080'
     
                     },
                     {
-                        name: 'RR Systolic',
+                        name: rr_diastolic,
                         data: databp_s,
                         type: 'line',
                         color: '#0000A0'
@@ -126,18 +156,18 @@ class Index extends Component {
             else{
                 var options = {
                     title: {
-                        text: 'Heart Frequency'
+                        text: heart_frequency
                     },
     
                     yAxis: {
                         title: {
-                            text: 'Heart Frequency'
+                            text: heart_frequency
                         }
     
                     },
                     xAxis: {
                         title: {
-                            text: 'Date'
+                            text: date
                         },
                         categories: categoriesbp
                     },
@@ -158,7 +188,7 @@ class Index extends Component {
                         enabled: false
                     },
                     series: [{
-                        name: 'Frequency',
+                        name: frequency,
                         data: dataf,
                         type: 'line',
                         color: '#008080'
@@ -191,17 +221,17 @@ class Index extends Component {
         })}
             var options = {
                     title: {
-                        text: 'Creatinine (mg/dl)'
+                        text: Creatinine+' (mg/dl)'
                     },
 
                     yAxis: {
                         title: {
-                            text: 'Creatinine (mg/dl)'
+                            text: Creatinine+' (mg/dl)'
                         }
                     },
                     xAxis: {
                         title: {
-                            text: 'Date'
+                            text: date
                         },
                         categories: categorieslr
                     },
@@ -222,13 +252,13 @@ class Index extends Component {
                         enabled: false
                     },
                     series: [{
-                        name: 'Value',
+                        name: value,
                         data: datalr1_v,
                         type: 'line',
                         color: '#800000'
 
                     }, {
-                        name: 'Upper limit',
+                        name: upr_limit,
                         data: datalr1_u,
                         type: 'line',
                         dashStyle: 'dot',
@@ -236,7 +266,7 @@ class Index extends Component {
 
                     },
                     {
-                        name: 'Lower limit',
+                        name: lwr_limit,
                         data: datalr1_l,
                         type: 'line',
                         dashStyle: 'dot',
@@ -270,12 +300,12 @@ class Index extends Component {
             })}
             options ={
                 title: {
-                    text: 'Weight and BMI'
+                    text: weight_bmi
                 },
 
                 yAxis: {
                     title: {
-                        text: 'Weight'
+                        text: weight
                     }
                 },
                 yAxis: [{
@@ -290,12 +320,12 @@ class Index extends Component {
                 }, { // Secondary yAxis
                     gridLineWidth: 0,
                     title: {
-                        text: 'Weight'
+                        text: weight
                     }
                 }],
                 xAxis: {
                     title: {
-                        text: 'Date'
+                        text: date
                     },
                     categories: categoriesbmi
                 },
@@ -314,12 +344,12 @@ class Index extends Component {
                     enabled: false
                 },
                 series: [{
-                    name: 'Weight',
+                    name: weight,
                     data: weightbmi,
                     type: 'line'
                 },
                 {
-                    name: 'Height',
+                    name: height,
                     data: heightbmi,
                     type: 'line',
                     color: 'red'
@@ -351,17 +381,17 @@ class Index extends Component {
             })}
             options ={
                 title: {
-                    text: 'Blood Sugar'
+                    text: blood_sugar
                 },
 
                 yAxis: {
                     title: {
-                        text: 'Blood Sugar'
+                        text: blood_sugar
                     }
                 },
                 xAxis: {
                     title: {
-                        text: 'Date'
+                        text: date
                     },
                     categories: categoriesbs
                 },
@@ -381,7 +411,7 @@ class Index extends Component {
                     enabled: false
                 },
                 series: [{
-                    name: 'Blood Sugar',
+                    name: blood_sugar,
                     data: blood_s,
                     type: 'line'
                 },

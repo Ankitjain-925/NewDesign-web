@@ -160,17 +160,17 @@ class Index extends Component {
                     }
                 }
             })
-            setTimeout(()=>{ this.setState({ loaderImage: false })}, 3000);
+            setTimeout(() => { this.setState({ loaderImage: false }) }, 3000);
 
 
         })
     }
-    GetTime=(start_time)=>{
+    GetTime = (start_time) => {
         let da1 = new Date();
         if (start_time) {
             var t1 = start_time.split(":");
         }
-        
+
         if (t1 && t1.length > 0) {
             da1.setHours(t1[0]);
             da1.setMinutes(t1[1]);
@@ -179,11 +179,10 @@ class Index extends Component {
             da1.setHours('00');
             da1.setMinutes('00');
         }
-        if(this.props.settings && this.props.settings.setting && this.props.settings.setting.time_format && this.props.settings.setting.time_format==='12')
-        {
+        if (this.props.settings && this.props.settings.setting && this.props.settings.setting.time_format && this.props.settings.setting.time_format === '12') {
             return moment(da1).format('hh:mm a')
         }
-        else{
+        else {
             return moment(da1).format('HH:mm')
         }
     }
@@ -261,7 +260,7 @@ class Index extends Component {
                     })
 
                 }
-                setTimeout(()=>{ this.setState({ loaderImage: false })}, 3000);
+                setTimeout(() => { this.setState({ loaderImage: false }) }, 3000);
 
             })
 
@@ -278,11 +277,11 @@ class Index extends Component {
                 }
             })
             .then((response) => {
-         
+
                 let newAppoint = []
                 if (response.data.hassuccessed) {
                     response.data.data.map(d1 => {
-                     
+
                         if (d1.start_time) {
                             var t1 = d1.start_time.split(":");
                         }
@@ -367,7 +366,7 @@ class Index extends Component {
                 translate = translationEN.text
         }
         let { r_u_sure_want_book_appointment, yes, no } = translate;
-        
+
         this.setState({ openSlot: false })
         var Delete_Document, click_on_YES_document;
         // if (this.props.stateLanguageType === 'de') {
@@ -412,37 +411,37 @@ class Index extends Component {
             this.getAppoinment();
             this.getEvent();
         }).catch((error) => {
-     
+
         });
     }
 
     suggestingTime = () => {
         const { currentSelected, appoinmentSelected, suggesteddate, suggestTime } = this.state;
-        if(currentSelected!==-1){
+        if (currentSelected !== -1) {
             let timeslot = suggestTime[currentSelected];
-        let user_token = this.props.stateLoginValueAim.token
-        axios.put(sitedata.data.path + '/UserProfile/SuggestTimeSlot', {
-            email: appoinmentSelected.patient_info.email,
-            lan: this.props.stateLanguageType,
-            _id: appoinmentSelected._id,
-            oldSchedule: moment(new Date(appoinmentSelected.date)).format('MM-DD-YYYY') + " " + appoinmentSelected.start_time + "-" + appoinmentSelected.end_time,
-            timeslot: moment(new Date(suggesteddate)).format('MM-DD-YYYY') + " " + timeslot.start + "-" + timeslot.end,
-            docProfile: {
-                first_name: this.props.stateLoginValueAim.user.first_name ? this.props.stateLoginValueAim.user.first_name : '',
-                last_name: this.props.stateLoginValueAim.user.last_name ? this.props.stateLoginValueAim.user.last_name : ''
-            }
-        }, {
-            headers: {
-                'token': user_token,
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            }
-        }).then((response) => {
-            if (response.data.hassuccessed) {
-                this.setState({ openSlot: false, suggestTime: [], suggesteddate: new Date(), appoinmentSelected: {} })
-            }
-            this.getAppoinment();
-        })
+            let user_token = this.props.stateLoginValueAim.token
+            axios.put(sitedata.data.path + '/UserProfile/SuggestTimeSlot', {
+                email: appoinmentSelected.patient_info.email,
+                lan: this.props.stateLanguageType,
+                _id: appoinmentSelected._id,
+                oldSchedule: moment(new Date(appoinmentSelected.date)).format('MM-DD-YYYY') + " " + appoinmentSelected.start_time + "-" + appoinmentSelected.end_time,
+                timeslot: moment(new Date(suggesteddate)).format('MM-DD-YYYY') + " " + timeslot.start + "-" + timeslot.end,
+                docProfile: {
+                    first_name: this.props.stateLoginValueAim.user.first_name ? this.props.stateLoginValueAim.user.first_name : '',
+                    last_name: this.props.stateLoginValueAim.user.last_name ? this.props.stateLoginValueAim.user.last_name : ''
+                }
+            }, {
+                headers: {
+                    'token': user_token,
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                }
+            }).then((response) => {
+                if (response.data.hassuccessed) {
+                    this.setState({ openSlot: false, suggestTime: [], suggesteddate: new Date(), appoinmentSelected: {} })
+                }
+                this.getAppoinment();
+            })
         }
     }
 
@@ -602,7 +601,7 @@ class Index extends Component {
                 if (response.data.hassuccessed) {
                     this.setState({ SelectDate: date, DetialData: response.data.data })
                 }
-                setTimeout(()=>{ this.setState({ loaderImage: false })}, 3000);
+                setTimeout(() => { this.setState({ loaderImage: false }) }, 3000);
             })
 
     }
@@ -654,7 +653,7 @@ class Index extends Component {
             case "default":
                 translate = translationEN.text
         }
-        let { DetailsQuestions } = translate
+        let { DetailsQuestions, vdo_call, office_visit, consultancy_appintment } = translate
         return (
             <div
                 {...getTooltipProps({
@@ -684,7 +683,7 @@ class Index extends Component {
                                         {data.appointment_type == 'online_appointment' && <img src={require('../../../assets/images/video-call.svg')} alt="" title="" />}
                                         {data.appointment_type == 'practice_days' && <img src={require('../../../assets/images/cal.png')} alt="" title="" />}
                                         {data.appointment_type == 'private_appointments' && <img src={require('../../../assets/images/ShapeCopy21.svg')} alt="" title="" />}
-                                        <span>{data.appointment_type == 'practice_days' ? 'Consultancy Appointment' : (data.appointment_type == 'online_appointment' ? 'Video call' : 'Office visit')}</span>
+                                        <span>{data.appointment_type == 'practice_days' ? consultancy_appintment : (data.appointment_type == 'online_appointment' ? vdo_call : office_visit)}</span>
                                     </Grid>
                                     <Grid className="meetVdoRght">
                                         <p>{moment(new Date(data.date), 'MM-DD-YYYY').format('D MMM')}, {this.GetTime(data.start_time)}</p>
@@ -734,7 +733,7 @@ class Index extends Component {
                 var endtime = moment(firsttime, 'H:mm').add(this.state[statemanger].duration_of_timeslots, 'minutes');
                 let dataq = { start: firsttime.format('H:mm'), end: endtime.format('H:mm') }
                 temptimes.push(dataq)
-               
+
             }
         }
         else {
@@ -753,10 +752,10 @@ class Index extends Component {
                 suggestTime.push(tiems)
             }
         })
-        
 
-        this.setState({ suggesteddate: date, suggestTime: suggestTime , currentSelected: -1},
-            ()=>{this.setState({ openSlot: true })});
+
+        this.setState({ suggesteddate: date, suggestTime: suggestTime, currentSelected: -1 },
+            () => { this.setState({ openSlot: true }) });
         // this.setState({ suggesteddate: date })
     }
 
@@ -807,7 +806,7 @@ class Index extends Component {
         return (
             <Grid className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode && this.props.settings.setting.mode === 'dark' ? "homeBg homeBgDrk" : "homeBg"}>
                 <Grid className="homeBgIner">
-                {this.state.loaderImage && <Loader />}
+                    {this.state.loaderImage && <Loader />}
                     <Grid container direction="row" justify="center">
                         <Grid item xs={12} md={12}>
                             <Grid container direction="row">
@@ -826,7 +825,7 @@ class Index extends Component {
                                                         <Grid item xs={6} md={6}>
                                                             <h1>{appointments}</h1>
                                                         </Grid>
-                                                       
+
                                                     </Grid>
                                                 </Grid>
                                             </Grid>
@@ -855,13 +854,13 @@ class Index extends Component {
                                         <Modal
                                             open={this.state.openSlot}
                                             onClose={this.handleCloseSlot}
-                                            className={this.props.settings&&this.props.settings.setting && this.props.settings.setting.mode &&this.props.settings.setting.mode === 'dark' ?"darkTheme":""}
-                                            >
+                                            className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode && this.props.settings.setting.mode === 'dark' ? "darkTheme" : ""}
+                                        >
                                             <Grid className="slotBoxCntnt">
                                                 {clashtime && <Grid className="timSltCal">
                                                     <p><img src={require('../../../assets/images/important-info.svg')} alt="" title="" />
                                                         {time_slot_alredy_booke_calender}
-                                                  </p></Grid>}
+                                                    </p></Grid>}
                                                 <Grid className="slotCourse">
                                                     <a onClick={this.handleCloseSlot} className="clsSltCal">
                                                         <img src={require('../../../assets/images/close-search.svg')} alt="" title="" />
@@ -900,7 +899,7 @@ class Index extends Component {
                                                             <Grid><label>{date_of_appointment}</label></Grid>
                                                             <Grid>
                                                                 <DatePicker
-                                                                    onChange={(e)=>this.onChange(e)}
+                                                                    onChange={(e) => this.onChange(e)}
                                                                     value={this.state.suggesteddate}
                                                                 />
                                                             </Grid>

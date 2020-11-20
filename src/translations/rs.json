@@ -1066,6 +1066,16 @@
     "Search" :"Поиск",
     "Date_of_event" :"Дата мероприятия",
     "consultancy_appintment":"Запись на консультацию",
-    "pin_greater_then_4" : "PIN-код должен быть длиннее 3 символов"
+    "pin_greater_then_4" : "PIN-код должен быть длиннее 3 символов",
+    "unblock_user":"Разблокировать пользователя",
+    "block_user":"Заблокировать пользователя",
+    "Options":"Параметры",
+    "had_miss_call_from":" пропустил звонок от ",
+		"had_rejected_call": " отклонил звонок с ",
+		"had_joined_call_with": " присоединился к звонку с ",
+		"had_initiated_call_with": " инициировал звонок с ",
+		"ended_call_with": " закончил звонок с ",
+    "cancelled_call_with": " отменил звонок с ",
+    "minutes": "минут"
   }
 }

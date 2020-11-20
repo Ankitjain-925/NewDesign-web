@@ -81,7 +81,7 @@ class Index extends Component {
                 translate = translationEN.text
         }
         let {visible, feeling, show, date, time, hide, until, archive, temparture, pain_type, pain_quality,
-            edit, Delete, RR_diastolic, heart_rate, always, Download, img_file, notes, details,Date_of_event,
+            edit, Delete, RR_diastolic, heart_rate, always, Download, img_files, notes, details,Date_of_event,
             Change, Location, visibility, de_archive, covid_diary, pain_areas, not_mentioned, condition_pain } = translate
         return (
             <Grid container direction="row" className="descpCntnt">
@@ -230,7 +230,7 @@ class Index extends Component {
                             </Collapsible>
                         </Grid>
                         <Grid className="addSpc detailMark">
-                            <Collapsible trigger={img_file} open="true">
+                            <Collapsible trigger={img_files} open="true">
                                 <FileViews images={this.state.images} attachfile={item.attachfile} />
                             </Collapsible>
                         </Grid>
