@@ -1777,6 +1777,7 @@
 		"Select_chat": "Selecteer een chat om berichten te verzenden",
 		"Search": "Zoeken",
 		"Date_of_event": "Datum van het evenement",
-		"consultancy_appintment": "Consultancy Afspraak"
+		"consultancy_appintment": "Consultancy Afspraak",
+		"pin_greater_then_4" : "De pincode moet langer zijn dan 3 tekens"
 	}
 }

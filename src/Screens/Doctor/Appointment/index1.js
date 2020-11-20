@@ -19,6 +19,7 @@ import 'react-popper-tooltip/dist/styles.css';
 import CalendarToolbar from "./../../Components/CalendarToolbar/index.js";
 import Modal from '@material-ui/core/Modal';
 import DatePicker from 'react-date-picker';
+import { authy } from './../../Login/authy.js';
 import { getImage } from './../../Components/BasicMethod/index';
 import { Redirect } from 'react-router-dom';
 import { confirmAlert } from 'react-confirm-alert';
@@ -74,8 +75,26 @@ class Index extends Component {
     componentDidMount() {
         this.getUserData()
         this.getEvent();
-        this.getAppoinment()
+        this.getAppoinment();
+        // this.getTimeSlot();
     }
+
+    // getTimeSlot=()=> {
+    //     this.setState({ loaderImage: true });
+    //     let user_token = this.props.stateLoginValueAim.token
+    //     let user_id = this.props.stateLoginValueAim.user._id
+    //     axios.get(sitedata.data.path + '/UserProfile/timeSuggest/', {
+    //         headers: {
+    //             'token': user_token,
+    //             'Accept': 'application/json',
+    //             'Content-Type': 'application/json'
+    //         }
+    //     }).then((response) => {
+    //         this.setState({ loaderImage: false });
+    //        console.log('response', response)
+
+    //     })
+    // }
 
     getUserData() {
         this.setState({ loaderImage: true });
@@ -294,7 +313,26 @@ class Index extends Component {
                     })
                 }
 
-                if (response && response.data.hassuccessed) this.setState({ newAppoinments: newAppoint })
+                if (response && response.data.hassuccessed) {
+                    var images = [];
+                    newAppoint && newAppoint.length>0 && newAppoint.map((data)=>{
+                        if(data.patient_info && data.patient_info.profile_image){
+                            images.push()
+                            var find = data.patient_info && data.patient_info.profile_image
+                            if (find) {
+                                var find1 = find.split('.com/')[1]
+                                axios.get(sitedata.data.path + '/aws/sign_s3?find=' + find1,)
+                                .then((response2) => {
+                                    if (response2.data.hassuccessed) {
+                                        images.push({ image: find, new_image: response2.data.data })
+                                        this.setState({ images: images })
+                                    }
+                                })
+                            }
+                        }
+                    })
+                    this.setState({ newAppoinments: newAppoint })
+                }
             })
     }
 
@@ -329,6 +367,7 @@ class Index extends Component {
                 translate = translationEN.text
         }
         let { r_u_sure_want_book_appointment, yes, no } = translate;
+        
         this.setState({ openSlot: false })
         var Delete_Document, click_on_YES_document;
         // if (this.props.stateLanguageType === 'de') {
@@ -410,11 +449,62 @@ class Index extends Component {
     handleChange = selectedOption => {
         this.setState({ selectedOption });
     };
+
     handleOpenSlot = (data) => {
-        console.log(data.date, 'data.date')
+        const { appioinmentTimes } = this.state;
+        let temptimes = [];
         let date = new Date(moment(new Date(data.date), 'M-DD-YYYY').format())
-        this.setState({appoinmentSelected: data, },
-            ()=>{this.onChange(date);});
+        let suggestTime = [];
+        let dateFormat = moment(date).format('DD/MM/YYYY');
+        let statemanger = 'onlineAppointments';
+
+        let clashtime = false;
+        appioinmentTimes.map(datatime => {
+            if ((datatime.start <= data.starttimeValueof && datatime.end >= data.starttimeValueof) || (datatime.start <= data.endtimeValueof && datatime.end >= data.endtimeValueof)) {
+                clashtime = true;
+            }
+        })
+
+
+        if (data.appointment_type == types[2]) {
+            statemanger = 'onlineAppointments'
+        }
+        else if (data.appointment_type == types[0]) {
+            statemanger = 'UpDataDetails'
+        } else {
+            statemanger = 'DaysforPractices'
+        }
+
+        let weeknumber = moment(date).day();
+        var appiInd = -1;
+        if (this.state[statemanger].workingDays) appiInd = this.state[statemanger].workingDays.findIndex(person => person.value.includes(days[weeknumber - 1]))
+        if (appiInd !== -1) {
+            let start = this.state[statemanger].workingDays[appiInd].start;
+            let end = this.state[statemanger].workingDays[appiInd].end;
+            var time = moment(start, 'H:mm');
+            while (time.add(this.state[statemanger].duration_of_timeslots, 'minutes').valueOf() < moment(end, 'H:mm').valueOf()) {
+
+                var firsttime = moment(time, 'H:mm').add(-parseInt(this.state[statemanger].duration_of_timeslots) + 1, 'minutes');
+                var endtime = moment(firsttime, 'H:mm').add(this.state[statemanger].duration_of_timeslots, 'minutes');
+                let dataq = { start: firsttime.format('H:mm'), end: endtime.format('H:mm') }
+                temptimes.push(dataq)
+            }
+        }
+
+        temptimes.map(tiems => {
+            let clashtimes = false
+            appioinmentTimes.map(datatime => {
+                if ((datatime.start <= moment(dateFormat + ' ' + tiems.start, 'DD/MM/YYYY H:mm').valueOf() && datatime.end > moment(dateFormat + ' ' + tiems.start, 'DD/MM/YYYY H:mm').valueOf()) || (datatime.start < moment(dateFormat + ' ' + tiems.end, 'DD/MM/YYYY H:mm').valueOf() && datatime.end >= moment(dateFormat + ' ' + tiems.end, 'DD/MM/YYYY H:mm').valueOf())) {
+                    clashtimes = true;
+                }
+
+            })
+            if (!clashtimes) {
+                suggestTime.push(tiems)
+            }
+        })
+
+        this.setState({ openSlot: true, appoinmentSelected: data, clashtime: clashtime, suggesteddate: date, suggestTime: suggestTime, currentSelected: -1 });
     };
 
     handleCloseSlot = () => {
@@ -583,16 +673,16 @@ class Index extends Component {
 
                 {event && event.fulldata.length > 0 &&
                     event.fulldata.map((data, index) => (
-                        <Grid  className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode && this.props.settings.setting.mode === 'dark' ? "darkTheme meetBoxCntnt margin-remove" : "meetBoxCntnt margin-remove"}>
+                        <Grid className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode && this.props.settings.setting.mode === 'dark' ? "darkTheme meetBoxCntnt margin-remove" : "meetBoxCntnt margin-remove"}>
                             <Grid className="meetCourse">
                                 <Grid className="meetCloseBtn">
-                                    {/* <a><img src={require('../../../assets/images/threedots.jpg')} alt="" title="" /></a> */}
+                                    {/* <a><img src={require('../../../assets/images/three_dots_t.png')} alt="" title="" /></a> */}
                                     {/* <a><img src={require('../../../assets/images/close-search.svg')} alt="" title="" /></a> */}
                                 </Grid>
                                 <Grid className="meetVdo">
                                     <Grid className="meetVdoLft">
                                         {data.appointment_type == 'online_appointment' && <img src={require('../../../assets/images/video-call.svg')} alt="" title="" />}
-                                        {data.appointment_type == 'practice_days' && <img src={require('../../../assets/images/dates.png')} alt="" title="" />}
+                                        {data.appointment_type == 'practice_days' && <img src={require('../../../assets/images/cal.png')} alt="" title="" />}
                                         {data.appointment_type == 'private_appointments' && <img src={require('../../../assets/images/ShapeCopy21.svg')} alt="" title="" />}
                                         <span>{data.appointment_type == 'practice_days' ? 'Consultancy Appointment' : (data.appointment_type == 'online_appointment' ? 'Video call' : 'Office visit')}</span>
                                     </Grid>
@@ -614,9 +704,6 @@ class Index extends Component {
     }
 
     onChange = (date) => {
-
-        console.log('here2', this.state.onlineAppointments, this.state.UpDataDetails, this.state.DaysforPractices)
-        
         const { appioinmentTimes, appoinmentSelected, onlineAppointments, UpDataDetails, DaysforPractices } = this.state;
         let temptimes = [];
         let suggestTime = [];
@@ -635,9 +722,9 @@ class Index extends Component {
         let weeknumber = moment(date).day();
         var appiInd = -1
         if (this.state[statemanger].workingDays) appiInd = this.state[statemanger].workingDays.findIndex(person => person.value.includes(days[weeknumber - 1]))
-        console.log('appiInd', appiInd, days[weeknumber-1])
+       
         if (appiInd !== -1) {
-           
+         
             let start = this.state[statemanger].workingDays[appiInd].start;
             let end = this.state[statemanger].workingDays[appiInd].end;
             var time = moment(start, 'H:mm');
@@ -653,7 +740,7 @@ class Index extends Component {
         else {
             //   suggestTime:[]
         }
-        console.log('temptimes2', temptimes)
+       
         temptimes.map(tiems => {
             let clashtime = false
             appioinmentTimes.map(datatime => {
@@ -710,10 +797,11 @@ class Index extends Component {
             case "default":
                 translate = translationEN.text
         }
-        let { holiday, appointments, new_rqst, time_slot_alredy_booke_calender, office_visit, vdo_call, Details, Questions, or, slct_a_time, date_of_appointment } = translate
+        let { holiday, appointments, new_rqst, time_slot_alredy_booke_calender, office_visit, vdo_call, Details,
+            suggest_new_time, Questions, or, slct_a_time, date_of_appointment, book_appointment } = translate
 
 
-        if (stateLoginValueAim.user === 'undefined' || stateLoginValueAim.token === 450 || stateLoginValueAim.token === 'undefined' || stateLoginValueAim.user.type !== 'doctor') {
+        if (stateLoginValueAim.user === 'undefined' || stateLoginValueAim.token === 450 || stateLoginValueAim.token === 'undefined' || stateLoginValueAim.user.type !== 'doctor' || !this.props.verifyCode || !this.props.verifyCode.code) {
             return (<Redirect to={'/'} />);
         }
         return (
@@ -749,11 +837,12 @@ class Index extends Component {
                                                 {newAppoinments && newAppoinments.map((data) => (
                                                     <Grid className="newRequest" onClick={() => this.handleOpenSlot(data)}>
                                                         <Grid className="newReqInfo">
+                                                           
                                                             <a><img src={data.patient_info && data.patient_info.profile_image ? getImage(data.patient_info.profile_image, this.state.images) : require('../../../assets/images/dr1.jpg')} alt="" title="" />{data.patient_info.first_name + ' ' + data.patient_info.last_name}</a>
                                                         </Grid>
                                                         <Grid className="newReqInfo">
                                                             <a>{data.appointment_type == 'online_appointment' && <img src={require('../../../assets/images/video-call.svg')} alt="" title="" />}
-                                                                {data.appointment_type == 'practice_days' && <img src={require('../../../assets/images/dates.png')} alt="" title="" />}
+                                                                {data.appointment_type == 'practice_days' && <img src={require('../../../assets/images/cal.png')} alt="" title="" />}
                                                                 {data.appointment_type == 'private_appointments' && <img src={require('../../../assets/images/ShapeCopy21.svg')} alt="" title="" />}
 
                                                                 <label>{moment(new Date(data.date), 'MM-DD-YYYY').format('MMMM DD, YYYY')}</label> <span>{this.GetTime(data.start_time)} - {this.GetTime(data.end_time)}</span></a>
@@ -761,7 +850,7 @@ class Index extends Component {
                                                     </Grid>))}
                                             </Grid>
                                         </Grid>}
-                                        {console.log('this.state.openSlot', this.state.openSlot)}
+
                                         {/* Model setup */}
                                         <Modal
                                             open={this.state.openSlot}
@@ -786,7 +875,7 @@ class Index extends Component {
                                                         <Grid item xs={6} md={6} alignItems="center" justify="center">
                                                             <Grid className="jmInfoVdo">
                                                                 <a>{appoinmentSelected.appointment_type == 'online_appointment' && <img src={require('../../../assets/images/video-call.svg')} alt="" title="" />}
-                                                                    {appoinmentSelected.appointment_type == 'practice_days' && <img src={require('../../../assets/images/dates.png')} alt="" title="" />}
+                                                                    {appoinmentSelected.appointment_type == 'practice_days' && <img src={require('../../../assets/images/cal.png')} alt="" title="" />}
                                                                     {appoinmentSelected.appointment_type == 'private_appointments' && <img src={require('../../../assets/images/ShapeCopy21.svg')} alt="" title="" />}
                                                                     {appoinmentSelected.appointment_type == 'practice_days' ? 'Consultancy Appointment' : (appoinmentSelected.appointment_type == 'online_appointment' ? vdo_call : office_visit)}</a>
                                                             </Grid>
@@ -802,7 +891,7 @@ class Index extends Component {
                                                     </Grid>
                                                 </Grid>
                                                 <Grid className="detailQuesSub">
-                                                    <input type="submit" value="Book appointment" onClick={() => { this.updateAppointment('accept', appoinmentSelected._id, appoinmentSelected) }} />
+                                                    <input type="submit" value={book_appointment} onClick={() => { this.updateAppointment('accept', appoinmentSelected._id, appoinmentSelected) }} />
                                                     <span>{or}</span>
                                                 </Grid>
                                                 <Grid className="slotTimDat">
@@ -819,7 +908,6 @@ class Index extends Component {
                                                         {this.state.suggesteddate && <Grid item xs={6} md={6}>
                                                             <Grid><label>{slct_a_time}</label></Grid>
                                                             <Grid className="selTimeAM suggent-time scroll-hidden">
-                                                                {console.log('this.state.suggestTime', this.state.suggestTime)}
                                                                 {this.state.suggestTime && this.state.suggestTime.length > 0 ? this.state.suggestTime.map((data, iA) => {
                                                                     return (
                                                                         <Grid>
@@ -835,7 +923,7 @@ class Index extends Component {
                                                         </Grid>}
                                                     </Grid>
                                                     <Grid className={this.state.currentSelected !== undefined && this.state.currentSelected !== -1 ? 'detailQuesSub' : 'SuggNwTim'}>
-                                                        <input type="submit" value="Suggest new time" onClick={() => this.suggestingTime()} />
+                                                        <input type="submit" value={suggest_new_time} onClick={() => this.suggestingTime()} />
                                                     </Grid>
                                                 </Grid>
                                             </Grid>
@@ -895,6 +983,7 @@ const mapStateToProps = (state) => {
     const { stateLoginValueAim, loadingaIndicatoranswerdetail } = state.LoginReducerAim;
     const { stateLanguageType } = state.LanguageReducer;
     const { settings } = state.Settings;
+    const { verifyCode } = state.authy;
     // const { Doctorsetget } = state.Doctorset;
     // const { catfil } = state.filterate;
     return {
@@ -902,8 +991,9 @@ const mapStateToProps = (state) => {
         stateLoginValueAim,
         loadingaIndicatoranswerdetail,
         settings,
+        verifyCode,
         //   Doctorsetget,
         //   catfil
     }
 };
-export default withRouter(connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer, Settings })(Index));
+export default withRouter(connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer, Settings, authy })(Index));

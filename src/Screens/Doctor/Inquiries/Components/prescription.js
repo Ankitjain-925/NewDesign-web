@@ -423,7 +423,7 @@ class Index extends Component {
 
                                     <Td className="presEditDot scndOptionIner">
                                         <a className="openScndhrf">
-                                            <img src={require('../../../../assets/images/threedots.jpg')} alt="" title="" className="openScnd" />
+                                            <img src={require('../../../../assets/images/three_dots_t.png')} alt="" title="" className="openScnd" />
                                             <ul>
                                                 <li><a onClick={() => { this.handleOpenPrescp(data) }}><img src={require('../../../../assets/images/details.svg')} alt="" title="" />{see_details}</a></li>
                                                 {(data.status == 'free' || data.status == 'pending') && <li onClick={() => { this.handleOpenPrescp(data) }}><a><img src={require('../../../../assets/images/edit.svg')} alt="" title="" />{approve}</a></li>}

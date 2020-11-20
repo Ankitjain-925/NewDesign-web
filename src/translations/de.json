@@ -1126,6 +1126,7 @@
 		"Select_chat": "Wählen Sie einen Chat aus, um die Nachrichtenübermittlung zu starten",
 		"Search": "Suche",
 		"Date_of_event": "Datum der Veranstaltung",
-		"consultancy_appintment": "Beratungstermin"
+		"consultancy_appintment": "Beratungstermin",
+		"pin_greater_then_4" : "Die PIN muss größer als 3 Zeichen sein"
 	}
 }

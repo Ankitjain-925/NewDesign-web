@@ -388,7 +388,7 @@ class Index extends Component {
                                                             </Td>
                                                           <Td className="presEditDot scndOptionIner">
                                                             <a className="openScndhrf">
-                                                                <img src={require('../../../assets/images/threedots.jpg')} alt="" title="" className="openScnd" />
+                                                                <img src={require('../../../assets/images/three_dots_t.png')} alt="" title="" className="openScnd" />
                                                                 <ul>
                                                                     <li><a onClick={() => { this.ArchiveTrack(item) }}><img src={require('../../../assets/images/details.svg')} alt="" title="" />{de_archive}</a></li> 
                                                                     <li><a onClick={() => { this.DeleteTrack(item.track_id) }}><img src={require('../../../assets/images/details.svg')} alt="" title="" />{Delete}</a></li> 

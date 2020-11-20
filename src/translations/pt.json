@@ -1067,6 +1067,7 @@
 		"Select_chat":"Selecione um bate-papo para começar a enviar mensagens",
 		"Search" :"Pesquisa",
 		"Date_of_event" :"Data do evento",
-		"consultancy_appintment":"Consulta de Consultoria"
+		"consultancy_appintment":"Consulta de Consultoria",
+		"pin_greater_then_4" : "O PIN deve ter mais de 3 caracteres"
 	}
 }

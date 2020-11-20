@@ -1061,6 +1061,7 @@
 		"Select_chat": "Select a chat to start messaging",
 		"Search": "Search",
 		"Date_of_event": "Date of event",
-		"consultancy_appintment": "Consultancy Appointment"
+		"consultancy_appintment": "Consultancy Appointment",
+		"pin_greater_then_4" : "PIN must be greater then 3 characters"
 	}
 }

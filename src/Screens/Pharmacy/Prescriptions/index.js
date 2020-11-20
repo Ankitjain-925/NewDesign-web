@@ -420,7 +420,7 @@ class Index extends Component {
                                                                 : <Td><span className="revwYelow"></span>{rcvd_from_doctor} </Td>}
                                                             <Td className="presEditDot scndOptionIner">
                                                                 <a className="openScndhrf">
-                                                                    <img src={require('../../../assets/images/threedots.jpg')} alt="" title="" className="openScnd" />
+                                                                    <img src={require('../../../assets/images/three_dots_t.png')} alt="" title="" className="openScnd" />
                                                                     <ul>
                                                                         <li><a onClick={() => { this.handleOpenPres(item) }}><img src={require('../../../assets/images/details.svg')} alt="" title="" />{see_details}</a></li>
                                                                         <li><a onClick={() => { this.ArchiveTrack(item) }}><img src={require('../../../assets/images/details.svg')} alt="" title="" />{archive}</a></li>

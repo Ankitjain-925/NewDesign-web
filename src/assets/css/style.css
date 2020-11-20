@@ -4815,7 +4815,7 @@ body {
     min-height: 100vh;
     left: 0;
     top: 0;
-    z-index: 9999;
+    z-index: 999999999999999999999999;
 }
 /* End of loader css */
 
@@ -13035,6 +13035,14 @@ a.academy_ul ul li img {
 
 
 /*Added By ankita*/
+.showDetail img, .openScnd {
+    width: 35px;
+    height: 33px;
+    border-radius: 6px;
+    cursor: pointer;
+    border: 1px solid #bfc1c1;
+    padding: 3px 3px;
+    }
 .sendtotimelinenew{
     border-radius: 8px;
     background-color: #00ABAF;

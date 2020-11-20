@@ -1065,6 +1065,7 @@
     "Select_chat":"Выберите чат, чтобы начать обмен сообщениями",
     "Search" :"Поиск",
     "Date_of_event" :"Дата мероприятия",
-    "consultancy_appintment":"Запись на консультацию"
+    "consultancy_appintment":"Запись на консультацию",
+    "pin_greater_then_4" : "PIN-код должен быть длиннее 3 символов"
   }
 }

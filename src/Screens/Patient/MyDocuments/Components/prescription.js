@@ -288,7 +288,7 @@ class Index extends Component {
                                     {data.status === 'free' || data.status === 'normal' && <Td><span className="revwGry"></span> {sent} {request}</Td>}
                                     <Td className="presEditDot scndOptionIner">
                                         <a className="openScndhrf">
-                                            <img src={require('../../../../assets/images/threedots.jpg')} alt="" title="" className="openScnd" />
+                                            <img src={require('../../../../assets/images/three_dots_t.png')} alt="" title="" className="openScnd" />
                                             <ul>
                                                 <li><a onClick={() => { this.handleshowSick(data) }}><img src={require('../../../../assets/images/details.svg')} alt="" title="" />{see_details}</a></li>
                                                 {data.status !== 'accept' && <li><a onClick={() => { this.handleaddInqry(data) }}><img src={require('../../../../assets/images/edit.svg')} alt="" title="" />{modify}</a></li>}

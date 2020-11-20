@@ -1136,6 +1136,7 @@
 		"Select_chat": "选择一个聊天开始消息",
 		"Search": "搜索",
 		"Date_of_event": "活动日期",
-		"consultancy_appintment": "顾问委任"
+		"consultancy_appintment": "顾问委任",
+		"pin_greater_then_4" : "PIN码必须大于3个字符"
 	}
 }

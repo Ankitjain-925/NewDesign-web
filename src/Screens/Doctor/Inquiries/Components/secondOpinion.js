@@ -150,7 +150,7 @@ class Index extends Component {
             this.setState({ loaderImage: true });
             const user_token = this.props.stateLoginValueAim.token;
             axios.put(sitedata.data.path + '/UserProfile/UpdateSecondOpinion/' + id, {
-                attachfile: this.state.uploadedimage,
+                attachfile: [this.state.uploadedimage],
             }, {
                 headers: {
                     'token': user_token,
@@ -296,7 +296,7 @@ class Index extends Component {
             status: status,
             doctor_name: this.props.myData.first_name + ' ' + this.props.myData.last_name,
             short_msg: message,
-            attachfile: this.state.uploadedimage,
+            attachfile: [this.state.uploadedimage],
             type: 'second_opinion'
         }, {
             headers: {
@@ -455,7 +455,7 @@ class Index extends Component {
                                     {data.status === 'free' && <Td><span className="revwGry"></span> {sent} {request}</Td>}
                                     <Td className="presEditDot scndOptionIner">
                                         <a className="openScndhrf">
-                                            <img src={require('../../../../assets/images/threedots.jpg')} alt="" title="" className="openScnd" />
+                                            <img src={require('../../../../assets/images/three_dots_t.png')} alt="" title="" className="openScnd" />
                                             <ul>
                                                 <li><a onClick={() => { this.handleOpenPrescp(data) }}><img src={require('../../../../assets/images/details.svg')} alt="" title="" />{see_details}</a></li>
                                                 {(data.status == 'free' || data.status === 'pending') && <li onClick={() => { this.handleOpenPrescp(data) }}><a><img src={require('../../../../assets/images/edit.svg')} alt="" title="" />{approve}</a></li>}

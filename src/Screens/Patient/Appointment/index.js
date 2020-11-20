@@ -693,7 +693,7 @@ class Index extends Component {
                         <Grid className="meetBoxCntnt">
                             <Grid className="meetCourse">
                                 <Grid className="meetCloseBtn">
-                                    {/* <a><img src={require('../../../assets/images/threedots.jpg')} alt="" title="" /></a> */}
+                                    {/* <a><img src={require('../../../assets/images/three_dots_t.png')} alt="" title="" /></a> */}
                                     {/* <a onClick={this.handleCloseMeet}><img src={require('../../../assets/images/close-search.svg')} alt="" title="" /></a> */}
                                 </Grid>
                                 <Grid className="meetVdo">
@@ -1046,7 +1046,7 @@ class Index extends Component {
 
                                                             <Grid item xs={6} md={6} className="officeVstRght">
                                                                 <a className="showDetail">
-                                                                    {apoint.status === "free" && <img src={require('../../../assets/images/threedots.jpg')} alt="" title="" />}
+                                                                    {apoint.status === "free" && <img src={require('../../../assets/images/three_dots_t.png')} alt="" title="" className="openScnd"/>}
                                                                     <Grid className="cancelAppoint">
                                                                         <a onClick={() => { this.handleOpenApoint(apoint) }}><img src={require('../../../assets/images/cancelAppoint.jpg')} alt="" title="" />{cancel_apointmnt}</a>
                                                                     </Grid>

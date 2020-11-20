@@ -1066,6 +1066,7 @@
 		"Select_chat":"Seleccione un chat para comenzar a enviar mensajes",
 		"Search" :"Buscar",
 		"Date_of_event" :"Fecha del evento",
-		"consultancy_appintment":"Cita de consultoría"
+		"consultancy_appintment":"Cita de consultoría",
+		"pin_greater_then_4" : "El PIN debe tener más de 3 caracteres"
 	}
 }

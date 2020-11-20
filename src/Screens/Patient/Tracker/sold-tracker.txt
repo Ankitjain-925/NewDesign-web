@@ -779,7 +779,7 @@ class Index extends Component {
                                                                     <Grid className="trckSection">
                                                                         <Grid className="trckSecIner">
                                                                             <Grid className="trckDots presEditDot scndOptionIner">
-                                                                                <a className="openScndhrf"><img src={require('../../../assets/images/threedots.jpg')} alt="" title="" />
+                                                                                <a className="openScndhrf"><img src={require('../../../assets/images/three_dots_t.png')} alt="" title="" />
                                                                                     <ul>
                                                                                         <li><a onClick={() => this.handleOpenvData(devicedata)} className="trackView" >{view_details}</a></li>
                                                                                         <li><a onClick={()=>{this.logoutfromall('fitbit')}} className="trackView" >{logout}</a></li>
@@ -820,7 +820,7 @@ class Index extends Component {
                                                                     <Grid className="trckSection">
                                                                         <Grid className="trckSecIner">
                                                                             <Grid className="trckDots presEditDot scndOptionIner">
-                                                                                <a className="openScndhrf"><img src={require('../../../assets/images/threedots.jpg')} alt="" title="" />
+                                                                                <a className="openScndhrf"><img src={require('../../../assets/images/three_dots_t.png')} alt="" title="" />
                                                                                     <ul>
                                                                                         <li><a onClick={() => this.handleOpenvData(devicedata)} className="trackView" >{view_details}</a></li>
                                                                                         <li><a onClick={()=>{this.logoutfromall('withing')}} className="trackView" >{logout}</a></li>
@@ -982,7 +982,7 @@ class Index extends Component {
                                                 {/* <Grid item xs={12} md={3}>
                                                             <Grid className="trckSection">
                                                                 <Grid className="trckSecIner">
-                                                                    <Grid className="trckDots"><img src={require('../../../assets/images/threedots.jpg')} alt="" title="" /></Grid>
+                                                                    <Grid className="trckDots"><img src={require('../../../assets/images/three_dots_t.png')} alt="" title="" /></Grid>
                                                                     <Grid className="trckLogo"><img src={require('../../../assets/images/fitbit.png')} alt="" title="" /></Grid>
                                                                     <Grid className="trckCntnt">
                                                                         <Grid><label>Klemen’s Fitbit 1</label></Grid>
@@ -995,61 +995,7 @@ class Index extends Component {
                                                         <Grid item xs={12} md={3}>
                                                             <Grid className="trckSection">
                                                                 <Grid className="trckSecIner">
-                                                                    <Grid className="trckDots"><img src={require('../../../assets/images/threedots.jpg')} alt="" title="" /></Grid>
-                                                                    <Grid className="trckLogo"><img src={require('../../../assets/images/fitbit.png')} alt="" title="" /></Grid>
-                                                                    <Grid className="trckCntnt">
-                                                                        <Grid><label>Klemen’s Fitbit 1</label></Grid>
-                                                                        <p>Fitbit Versa 2</p>
-                                                                    </Grid>
-                                                                </Grid>
-                                                                <Grid className="trackView"><a>{view_data}</a></Grid>
-                                                            </Grid>
-                                                        </Grid>
-                                                    </Grid>
-                                                    <Grid container direction="row" spacing={3}>
-                                                        <Grid item xs={12} md={3}>
-                                                            <Grid className="trckSection">
-                                                                <Grid className="trckSecIner">
-                                                                    <Grid className="trckDots"><img src={require('../../../assets/images/threedots.jpg')} alt="" title="" /></Grid>
-                                                                    <Grid className="trckLogo"><img src={require('../../../assets/images/fitbit.png')} alt="" title="" /></Grid>
-                                                                    <Grid className="trckCntnt">
-                                                                        <Grid><label>Klemen’s Fitbit 1</label></Grid>
-                                                                        <p>Fitbit Versa 2</p>
-                                                                    </Grid>
-                                                                </Grid>
-                                                                <Grid className="trackView"><a>{view_data}</a></Grid>
-                                                            </Grid>
-                                                        </Grid>
-                                                        <Grid item xs={12} md={3}>
-                                                            <Grid className="trckSection">
-                                                                <Grid className="trckSecIner">
-                                                                    <Grid className="trckDots"><img src={require('../../../assets/images/threedots.jpg')} alt="" title="" /></Grid>
-                                                                    <Grid className="trckLogo"><img src={require('../../../assets/images/fitbit.png')} alt="" title="" /></Grid>
-                                                                    <Grid className="trckCntnt">
-                                                                        <Grid><label>Klemen’s Fitbit 1</label></Grid>
-                                                                        <p>Fitbit Versa 2</p>
-                                                                    </Grid>
-                                                                </Grid>
-                                                                <Grid className="trackView"><a>{view_data}</a></Grid>
-                                                            </Grid>
-                                                        </Grid>
-                                                        <Grid item xs={12} md={3}>
-                                                            <Grid className="trckSection">
-                                                                <Grid className="trckSecIner">
-                                                                    <Grid className="trckDots"><img src={require('../../../assets/images/threedots.jpg')} alt="" title="" /></Grid>
-                                                                    <Grid className="trckLogo"><img src={require('../../../assets/images/fitbit.png')} alt="" title="" /></Grid>
-                                                                    <Grid className="trckCntnt">
-                                                                        <Grid><label>Klemen’s Fitbit 1</label></Grid>
-                                                                        <p>Fitbit Versa 2</p>
-                                                                    </Grid>
-                                                                </Grid>
-                                                                <Grid className="trackView"><a>{view_data}</a></Grid>
-                                                            </Grid>
-                                                        </Grid>
-                                                        <Grid item xs={12} md={3}>
-                                                            <Grid className="trckSection">
-                                                                <Grid className="trckSecIner">
-                                                                    <Grid className="trckDots"><img src={require('../../../assets/images/threedots.jpg')} alt="" title="" /></Grid>
+                                                                    <Grid className="trckDots"><img src={require('../../../assets/images/three_dots_t.png')} alt="" title="" /></Grid>
                                                                     <Grid className="trckLogo"><img src={require('../../../assets/images/fitbit.png')} alt="" title="" /></Grid>
                                                                     <Grid className="trckCntnt">
                                                                         <Grid><label>Klemen’s Fitbit 1</label></Grid>
@@ -1064,7 +1010,61 @@ class Index extends Component {
                                                         <Grid item xs={12} md={3}>
                                                             <Grid className="trckSection">
                                                                 <Grid className="trckSecIner">
-                                                                    <Grid className="trckDots"><img src={require('../../../assets/images/threedots.jpg')} alt="" title="" /></Grid>
+                                                                    <Grid className="trckDots"><img src={require('../../../assets/images/three_dots_t.png')} alt="" title="" /></Grid>
+                                                                    <Grid className="trckLogo"><img src={require('../../../assets/images/fitbit.png')} alt="" title="" /></Grid>
+                                                                    <Grid className="trckCntnt">
+                                                                        <Grid><label>Klemen’s Fitbit 1</label></Grid>
+                                                                        <p>Fitbit Versa 2</p>
+                                                                    </Grid>
+                                                                </Grid>
+                                                                <Grid className="trackView"><a>{view_data}</a></Grid>
+                                                            </Grid>
+                                                        </Grid>
+                                                        <Grid item xs={12} md={3}>
+                                                            <Grid className="trckSection">
+                                                                <Grid className="trckSecIner">
+                                                                    <Grid className="trckDots"><img src={require('../../../assets/images/three_dots_t.png')} alt="" title="" /></Grid>
+                                                                    <Grid className="trckLogo"><img src={require('../../../assets/images/fitbit.png')} alt="" title="" /></Grid>
+                                                                    <Grid className="trckCntnt">
+                                                                        <Grid><label>Klemen’s Fitbit 1</label></Grid>
+                                                                        <p>Fitbit Versa 2</p>
+                                                                    </Grid>
+                                                                </Grid>
+                                                                <Grid className="trackView"><a>{view_data}</a></Grid>
+                                                            </Grid>
+                                                        </Grid>
+                                                        <Grid item xs={12} md={3}>
+                                                            <Grid className="trckSection">
+                                                                <Grid className="trckSecIner">
+                                                                    <Grid className="trckDots"><img src={require('../../../assets/images/three_dots_t.png')} alt="" title="" /></Grid>
+                                                                    <Grid className="trckLogo"><img src={require('../../../assets/images/fitbit.png')} alt="" title="" /></Grid>
+                                                                    <Grid className="trckCntnt">
+                                                                        <Grid><label>Klemen’s Fitbit 1</label></Grid>
+                                                                        <p>Fitbit Versa 2</p>
+                                                                    </Grid>
+                                                                </Grid>
+                                                                <Grid className="trackView"><a>{view_data}</a></Grid>
+                                                            </Grid>
+                                                        </Grid>
+                                                        <Grid item xs={12} md={3}>
+                                                            <Grid className="trckSection">
+                                                                <Grid className="trckSecIner">
+                                                                    <Grid className="trckDots"><img src={require('../../../assets/images/three_dots_t.png')} alt="" title="" /></Grid>
+                                                                    <Grid className="trckLogo"><img src={require('../../../assets/images/fitbit.png')} alt="" title="" /></Grid>
+                                                                    <Grid className="trckCntnt">
+                                                                        <Grid><label>Klemen’s Fitbit 1</label></Grid>
+                                                                        <p>Fitbit Versa 2</p>
+                                                                    </Grid>
+                                                                </Grid>
+                                                                <Grid className="trackView"><a>{view_data}</a></Grid>
+                                                            </Grid>
+                                                        </Grid>
+                                                    </Grid>
+                                                    <Grid container direction="row" spacing={3}>
+                                                        <Grid item xs={12} md={3}>
+                                                            <Grid className="trckSection">
+                                                                <Grid className="trckSecIner">
+                                                                    <Grid className="trckDots"><img src={require('../../../assets/images/three_dots_t.png')} alt="" title="" /></Grid>
                                                                     <Grid className="trckLogo"><img src={require('../../../assets/images/fitbit.png')} alt="" title="" /></Grid>
                                                                     <Grid className="trckCntnt">
                                                                         <Grid><label>Klemen’s Fitbit 1</label></Grid>
