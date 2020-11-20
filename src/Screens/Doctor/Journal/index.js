@@ -181,18 +181,23 @@ class Index extends Component {
     }
 }
 
+
     //Filter according to the type 
-    FilerFromType=(Datas, type)=>{
-        var Datas1=[];
-        if(type && type.length>0 ) 
-        {
-            type.map((ob)=>{
-                var dts = Datas.filter((obj) => obj.type === ob.value);
-                Datas1 = Datas1.concat(dts);
-            })
-            return Datas1;
+    FilerFromType = (Datas, type) => {
+        var Datas1 = [];
+        if(Datas && Datas.length>0){
+            if (type && type.length > 0) {
+                type.map((ob) => {
+                    var dts = Datas.filter((obj) => obj.type === ob.value);
+                    Datas1 = Datas1.concat(dts);
+                })
+                return Datas1;
+            }
+            else { return null; }
         }
-        else { return null; }
+        else{
+            return null;
+        }
     }
     
     //Filter according to User type

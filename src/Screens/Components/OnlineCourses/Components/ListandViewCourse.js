@@ -32,14 +32,18 @@ class Index extends Component {
 
     //on Change Course
     componentDidUpdate = (prevProps) => {
+        
         if (prevProps.Course !== this.props.Course) {
+          
             var NextButton = this.props.Course && this.props.Course.attachment && this.props.Course.attachment.length > 0 ? (this.props.Course.attachment.length - 1) : 0;
-            this.setState({ Course: this.props.Course, NextButton: NextButton },
+            this.setState({ Course: this.props.Course },
                 () => this.ChangeIndex(0))
         }
     }
+
     //Back Button to go Online Courses
     BackButton = () => {
+     
         this.props.history.push(`/${this.props.stateLoginValueAim.user.type}/online-course`);
     }
 
@@ -91,7 +95,7 @@ class Index extends Component {
             case "default":
                 translate = translationEN.text
         }
-        let { previous_lesson, next_lesson, item_added_to_wishlist, all_course, my_course, topic_all, language_eng, wishlist, prescriptions, appointments, cart_removed, chat_vdocall, pharmacy_access, remove, lectures, add_to_cart, cart, capab_Patients, Inquiries, emegancy_access, archive, more, my_profile, invite_doc, pharma_prescription, online_course, profile_setting, Language,
+        let { previous_lesson, next_lesson,  my_course, 
             DarkMode, logout, download_file } = translate;
         return (
             <Grid className="courseCntent">

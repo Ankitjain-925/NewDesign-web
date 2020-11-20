@@ -70,7 +70,8 @@ class Date extends Component {
                     case "smoking_status":
                         smoking_status.push(data.smoking_status && data.smoking_status.label)
                     case "family_anamnesis":
-                        fanamnesis.push(data.disease_name +' - '+data.relation)
+                        var dess = data.relation && data.relation.label ? data.disease_name +' - '+ data.relation.label : data.disease_name
+                        fanamnesis.push(dess)
                     case "diary":
                         diary.push(data.free_text)
                     case "covid_19":

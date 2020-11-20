@@ -106,7 +106,7 @@ class RightManage extends Component {
                 translate = translationEN.text
         }
         let { blood_pressure, date, heart_frequency, lwr_limit, upr_limit, Creatinine, RR_diastolic,
-            frequency, rr_systolic, value, weight, weight_bmi, BMI, blood_sugar } = translate
+            frequency, rr_systolic, value, weight, height, weight_bmi, BMI, blood_sugar } = translate
 
         if (current_Graph === 'blood_pressure' || current_Graph === 'heart_rate') {
             var categoriesbp = [], databp_d = [], databp_s = [], dataf = [], oldone;
@@ -306,29 +306,27 @@ class RightManage extends Component {
         }
 
         if (current_Graph === 'weight_bmi') {
-            var oldthree, weightbmi = [], Ibmi = [], heightbmi = [], categoriesbmi = [];
-            {
-                this.state.personalinfo && this.state.personalinfo.weight_bmi && this.state.personalinfo.weight_bmi.length > 0 && this.state.personalinfo.weight_bmi.map((data, index) => {
-                    weightbmi.push({
-                        "y": parseFloat(data.weight)
-                    })
-                    var BMI = (data.weight / (data.height * data.height) * 10000).toFixed(2)
-                    Ibmi.push({
-                        "y": parseFloat(BMI)
-                    })
-                    heightbmi.push({
-                        "y": parseFloat(data.height)
-                    })
-                    if (oldthree && oldthree.datetime_on && oldthree.datetime_on === oldthree.datetime_on && oldthree.created_at) {
-                        categoriesbmi.push(getTime(data.datetime_on))
-                    }
-                    else {
-                        categoriesbmi.push(getDate(data.datetime_on))
-                    }
-                    oldthree = data;
-                })
+            var oldthree, weightbmi=[],Ibmi=[],heightbmi=[],categoriesbmi=[];
+            {this.state.personalinfo && this.state.personalinfo.weight_bmi &&  this.state.personalinfo.weight_bmi.length>0 && this.state.personalinfo.weight_bmi.map((data, index) => {
+            weightbmi.push({
+                "y": parseFloat(data.weight)
+            })
+            var BMI = (data.weight / (data.height * data.height) * 10000).toFixed(2)
+            Ibmi.push({
+                "y": parseFloat(BMI)
+            })
+            heightbmi.push({
+                "y": parseFloat(data.height)
+            })
+            if (oldthree && oldthree.datetime_on && oldthree.datetime_on === oldthree.datetime_on && oldthree.created_at) {
+                categoriesbmi.push(getTime(data.datetime_on))
             }
-            options = {
+            else {
+                categoriesbmi.push(getDate(data.datetime_on))
+            }
+            oldthree = data;
+            })}
+            options ={
                 title: {
                     text: weight_bmi
                 },
@@ -377,6 +375,12 @@ class RightManage extends Component {
                     name: weight,
                     data: weightbmi,
                     type: 'line'
+                },
+                {
+                    name: height,
+                    data: heightbmi,
+                    type: 'line',
+                    color: 'red'
                 },
                 {
                     name: BMI,
