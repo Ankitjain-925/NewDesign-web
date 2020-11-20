@@ -1,27 +1,68 @@
 import React from "react";
 
 import "./style.scss";
+import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
+import { LanguageFetchReducer } from "../../../../../../actions";
+import translationEN from "../../../../../../../translations/en.json";
+import translationRS from "../../../../../../../translations/rs.json";
+import translationDE from "../../../../../../../translations/de.json";
+import translationSP from "../../../../../../../translations/sp.json";
+import translationNL from "../../../../../../../translations/nl.json";
+import translationCH from "../../../../../../../translations/ch.json";
+import translationPT from "../../../../../../../translations/pt.json";
+import translationSW from "../../../../../../../translations/sw.json";
 
 class CometChatUserDetail extends React.Component {
 
-    render () {
+    render() {
+        let translate;
+        switch (this.props.stateLanguageType) {
+            case "en":
+                translate = translationEN.text
+                break;
+            case "de":
+                translate = translationDE.text
+                break;
+            case "pt":
+                translate = translationPT.text
+                break;
+            case "sp":
+                translate = translationSP.text
+                break;
+            case "rs":
+                translate = translationRS.text
+                break;
+            case "nl":
+                translate = translationNL.text
+                break;
+            case "ch":
+                translate = translationCH.text
+                break;
+            case "sw":
+                translate = translationSW.text
+                break;
+            case "default":
+                translate = translationEN.text
+        }
+        let { unblock_user, block_user, Options, details } = translate
 
         let blockUserDisplay;
-  
-        if(this.props.item.blockedByMe) {
+
+        if (this.props.item.blockedByMe) {
             blockUserDisplay = (
-                <span className="ccl-dtls-section-listitem-link" onClick={() => this.props.actionGenerated("unblockUser")}>Unblock User</span>
+                <span className="ccl-dtls-section-listitem-link" onClick={() => this.props.actionGenerated("unblockUser")}>{unblock_user}</span>
             );
         } else {
             blockUserDisplay = (
-                <span className="ccl-dtls-section-listitem-link" onClick={() => this.props.actionGenerated("blockUser")}>Block User</span>
+                <span className="ccl-dtls-section-listitem-link" onClick={() => this.props.actionGenerated("blockUser")}>{block_user}</span>
             );
         }
 
         return (
             <div className="ccl-dtls-panel-wrap">
                 <div className="ccl-right-panel-head-wrap">
-                    <h4 className="ccl-right-panel-head-ttl">Details</h4>
+                    <h4 className="ccl-right-panel-head-ttl">{details}</h4>
                     <div className="cc1-right-panel-close" onClick={() => this.props.actionGenerated("closeDetailClicked")}></div>
                 </div>
                 <div className="ccl-dtls-panel-body">
@@ -37,7 +78,7 @@ class CometChatUserDetail extends React.Component {
                         </div>
                     </div> */}
                     <div className="ccl-dtls-panel-section privacy">
-                        <h6 className="ccl-dtls-panel-section-head">Options</h6>
+                        <h6 className="ccl-dtls-panel-section-head">{Options}</h6>
                         <div className="ccl-dtls-section-list">
                             {/* <div className="ccl-dtls-section-listitem"><span className="ccl-dtls-section-listitem-link">Clear Chat</span></div> */}
                             <div className="ccl-dtls-section-listitem">{blockUserDisplay}</div>
@@ -68,4 +109,10 @@ class CometChatUserDetail extends React.Component {
     }
 }
 
-export default CometChatUserDetail;
+const mapStateToProps = (state) => {
+    const { stateLanguageType } = state.LanguageReducer;
+    return {
+        stateLanguageType
+    }
+};
+export default withRouter(connect(mapStateToProps, { LanguageFetchReducer })(CometChatUserDetail));

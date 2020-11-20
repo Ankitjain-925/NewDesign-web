@@ -101,7 +101,7 @@ class ShowHide extends Component {
               case "default":
                   translate = translationEN.text
           }
-          let { Allentries, Date_of_event, hide_or_show,profilesettings, edit, done, show, hide, show_entry, hide_entry, always} = translate;
+          let { Allentries, Date_of_event, hide_or_show,profilesettings, visible, edit, done, show, hide, show_entry, hide_entry, always} = translate;
         return (
             <div>
                 {!this.state.edit && <Grid className="rrShwHidMain">

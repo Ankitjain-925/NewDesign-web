@@ -1095,6 +1095,16 @@
 		"Select_chat": "Chagua soga ili kuanza kutuma ujumbe",
 		"Search": "Tafuta",
 		"Date_of_event": "Tarehe ya tukio",
-		"consultancy_appintment": "Uteuzi wa Ushauri"
+		"consultancy_appintment": "Uteuzi wa Ushauri",
+		"unblock_user":"Futa Mtumiaji",
+		"block_user":"Zuia Mtumiaji",
+		"Options":"Chaguzi",
+		"had_miss_call_from":" alikuwa amekosa simu kutoka ",
+		"had_rejected_call": " alikuwa amekataa simu na ",
+		"had_joined_call_with": " alikuwa amejiunga na simu na ",
+		"had_initiated_call_with": " alikuwa ameanzisha simu na ",
+		"ended_call_with": " ilimaliza simu na ",
+		"cancelled_call_with": " Kughairiwa simu na ",
+		"minutes":"dakika"
 	}
 }

@@ -504,7 +504,7 @@
 		"new_entry": "Neuer Eintrag",
 		"home_add_mailbox": "Postfach für Privatadresse",
 		"cancel_details": "Cancel details",
-		"new_rqst": "New Requests",
+		"new_rqst": "Neue Anfragen",
 		"time_slot_alredy_booke_calender": "Das Zeitfenster ist bereits in Ihrem Kalender gebucht",
 		"or": "oder",
 		"date_of_appointment": "Datum der Termine",
@@ -514,7 +514,7 @@
 		"who_would_u_like_invite": "Wen würden Sie gerne einladen?",
 		"patient_profile_is_not_correct": "Das Patientenprofil ist nicht korrekt",
 		"recved_on": "Erhalten am",
-		"Patient": "Patient",
+		"Patient": "Geduldig",
 		"approve": "Bestätigen",
 		"decline": "Ablehnen",
 		"prescription_inquiry": "Rezeptanfrage",
@@ -1126,6 +1126,15 @@
 		"Select_chat": "Wählen Sie einen Chat aus, um die Nachrichtenübermittlung zu starten",
 		"Search": "Suche",
 		"Date_of_event": "Datum der Veranstaltung",
-		"consultancy_appintment": "Beratungstermin"
+		"consultancy_appintment": "Beratungstermin",
+		"unblock_user":"Nutzer entblockieren",
+		"block_user":"Benutzer blockieren",
+		"Options":"Optionen",
+		"had_miss_call_from":" hatte Anruf von verpasst ",
+		"had_rejected_call": " hatte Anruf mit abgelehnt ",
+		"had_joined_call_with": " hatte sich dem Anruf mit angeschlossen ",
+		"had_initiated_call_with": " hatte den Anruf mit initiiert ",
+		"ended_call_with": " beendete den Anruf mit ",
+		"cancelled_call_with": " hat den Anruf mit abgebrochen "
 	}
 }

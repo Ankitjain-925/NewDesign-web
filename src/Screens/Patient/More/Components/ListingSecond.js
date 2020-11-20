@@ -290,7 +290,7 @@ class Index extends Component {
             case "default":
                 translate = translationEN.text
         }
-        let { req_updated_successfully, about, sent_on, srvc_Doctors, status, secnd_openion, New, inquiry, plz_upload_png_jpg, doc_require_for_second_openion, share_health_status, share_ur_jounral_status, share_health_status_info_from_journal, see_list_shared_info,
+        let { req_updated_successfully, about, sent_on, capab_Doctors, status, secnd_openion, New, inquiry, plz_upload_png_jpg, doc_require_for_second_openion, share_health_status, share_ur_jounral_status, share_health_status_info_from_journal, see_list_shared_info,
             specilist_and_secnd_openion, specialist, how_wuld_u_like_rcv_scnd_openion, not_mentioned, online, home_add_mailbox, ur_profesion, Annotations, questions, details, attachments, save_entry, rqst_sent_succefully, Pending, Answered, Rejected, Cancelled, sent, request, see_details, modify, cancel_reqst, edit, attached_doc, edit_entry, doc_and_statnderd_ques, doc_aimedis_private, cancel_details, previous, next } = translate
 
         return (
@@ -303,7 +303,7 @@ class Index extends Component {
                             <Tr>
                                 <Th>{about}</Th>
                                 <Th>{sent_on}</Th>
-                                <Th>{srvc_Doctors}</Th>
+                                <Th>{capab_Doctors}</Th>
                                 <Th>{status}</Th>
                             </Tr>
                         </Thead>

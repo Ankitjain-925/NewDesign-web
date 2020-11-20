@@ -1066,6 +1066,16 @@
 		"Select_chat":"Seleccione un chat para comenzar a enviar mensajes",
 		"Search" :"Buscar",
 		"Date_of_event" :"Fecha del evento",
-		"consultancy_appintment":"Cita de consultoría"
+		"consultancy_appintment":"Cita de consultoría",
+		"unblock_user":"Desbloquear usuario",
+		"block_user":"Bloquear usuario",
+		"Options":"Opciones",
+		"had_miss_call_from":" había perdido una llamada de ",
+		"had_rejected_call": " había rechazado la llamada con ",
+		"had_joined_call_with": " se había unido a la llamada con ",
+		"had_initiated_call_with": " había iniciado la llamada con ",
+		"ended_call_with": " terminó la llamada con ",
+		"cancelled_call_with": " canceló la llamada con ",
+		"minutes": "minutos"
 	}
 }

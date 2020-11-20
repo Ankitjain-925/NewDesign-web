@@ -153,7 +153,7 @@ class Index extends Component {
             case "default":
                 translate = translationEN.text
         }
-        let { Inquiries, prescriptions,ScndOpinion,sickcsrtificates, srvc_Doctors, status, sent, on, rqst_sent_succefully, Pending, request, edit, Rejected, Answered, Cancelled, req_updated_successfully, sick_cert, my_doc, New, inquiry,
+        let { Inquiries, prescriptions,ScndOpinion,sickcsrtificates, capab_Doctors, status, sent, on, rqst_sent_succefully, Pending, request, edit, Rejected, Answered, Cancelled, req_updated_successfully, sick_cert, my_doc, New, inquiry,
             doc_and_statnderd_ques, doc_aimedis_private, Annotations, details, questions, is_this_follow_pres, how_u_like_rcv_pres, Medicine, Substance, Dose, mg, trade_name, atc_if_applicable, manufacturer, pack_size, } = translate
             const { stateLoginValueAim, Doctorsetget } = this.props;
             if (stateLoginValueAim.user === 'undefined' || stateLoginValueAim.token === 450|| stateLoginValueAim.token === 'undefined' || stateLoginValueAim.user.type !== 'doctor' || !this.props.verifyCode || !this.props.verifyCode.code) {

@@ -910,8 +910,8 @@ class Index extends Component {
             case "default":
                 translate = translationEN.text
         }
-        let { Change, password, is, we_use_authy, supportive_text, monday, tuseday, wednesday, copy_to_all_time, thursday, friday, saturday, sunday, vdo_call ,set_online_working_hour, plz_fill_break_timeslot_for_aapointment, plz_fill_time_duration_appointment, the_appointment_srvc_success_updated, Current, confirm_password, new_password, two_fac_auth, password_changed, new_and_confirm_pass_not_same, current_pass_not_match, plz_fill_fields,
-            Disable, Enable, Services, instant_activation_deactivation_offer_srvc, invite_patient_to_contact_online, copy_time_to_all, chat_vdocall, prescription_and_sick_cert, online_prescription, select_appointment_set_schedule, holiday_period_btw, appointment_system,issue_prescription_and_sickCert_online, onine_sick_cert, appointments, offer_practice_online_appointment, set_timeslot_duration, break_time, appointment_can_be_booked, up_to_days, before_day_of_appointment, Max, hourse_before_time_appointment, save_change } = translate;
+        let { Change, password, minutes, is, we_use_authy, before_day_of_appointment, supportive_text, monday, tuseday, wednesday, copy_to_all_time, thursday, friday, saturday, sunday, vdo_call ,set_online_working_hour, plz_fill_break_timeslot_for_aapointment, plz_fill_time_duration_appointment, the_appointment_srvc_success_updated, Current, confirm_password, new_password, two_fac_auth, password_changed, new_and_confirm_pass_not_same, current_pass_not_match, plz_fill_fields,
+            Disable, Enable, Services, instant_activation_deactivation_offer_srvc, invite_patient_to_contact_online, copy_time_to_all, chat_vdocall, prescription_and_sick_cert, online_prescription, select_appointment_set_schedule, holiday_period_btw, appointment_system,issue_prescription_and_sickCert_online, onine_sick_cert, appointments, offer_practice_online_appointment, set_timeslot_duration, break_time, appointment_can_be_booked, up_to_days, Max, hourse_before_time_appointment, save_change } = translate;
 
         return (
             <div>
@@ -1177,7 +1177,7 @@ class Index extends Component {
                                         <Grid className="setSchedule">
                                             <Grid className="nameSchedule"><label>{set_timeslot_duration}</label></Grid>
                                             <Grid className="nameSchedule">
-                                                <input type="text" name="duration_of_timeslots" value={onlineAppointments.duration_of_timeslots} onChange={(e) => this.changeDuration(e, 'onlineAppointments')} /> minutes
+                                                <input type="text" name="duration_of_timeslots" value={onlineAppointments.duration_of_timeslots} onChange={(e) => this.changeDuration(e, 'onlineAppointments')} /> {minutes}
                                             </Grid>
                                         </Grid>
                                     </Grid>
@@ -1193,8 +1193,8 @@ class Index extends Component {
                                     </Grid>
                                     <Grid className="apontBook">
                                         <Grid><label>{appointment_can_be_booked}</label></Grid>
-                                        <Grid><p><span>{up_to_days},</span> <input type="text" onChange={(e) => this.onChangebook(e, 'appointment_days', 'onlineAppointments')} value={onlineAppointments.appointment_days} /> before the day of appointment</p></Grid>
-                                        <Grid><p><span>{Max},</span> <input type="text" value={onlineAppointments.appointment_hours} onChange={(e) => this.onChangebook(e, 'appointment_hours', 'onlineAppointments')} /> hours, before the time of appointment</p></Grid>
+                                        <Grid><p><span>{up_to_days},</span> <input type="text" onChange={(e) => this.onChangebook(e, 'appointment_days', 'onlineAppointments')} value={onlineAppointments.appointment_days} /> {before_day_of_appointment}</p></Grid>
+                                        <Grid><p><span>{Max},</span> <input type="text" value={onlineAppointments.appointment_hours} onChange={(e) => this.onChangebook(e, 'appointment_hours', 'onlineAppointments')} /> {hourse_before_time_appointment}</p></Grid>
                                     </Grid>
                                 </Grid>
                             </Grid>
@@ -1346,15 +1346,15 @@ class Index extends Component {
                                 <Grid item xs={12} md={6}>
                                     <Grid className="setScheduleUpr">
                                         <Grid className="setSchedule">
-                                            <Grid className="nameSchedule"><label>Set timeslot duration:</label></Grid>
+                                            <Grid className="nameSchedule"><label>{set_timeslot_duration}</label></Grid>
                                             <Grid className="nameSchedule">
-                                                <input type="text" name="duration_of_timeslots" value={UpDataDetails.duration_of_timeslots} onChange={(e) => this.changeDuration(e, 'UpDataDetails')} /> minutes
+                                                <input type="text" name="duration_of_timeslots" value={UpDataDetails.duration_of_timeslots} onChange={(e) => this.changeDuration(e, 'UpDataDetails')} /> {minutes}
                                             </Grid>
                                         </Grid>
                                     </Grid>
                                     <Grid className="setScheduleUpr">
                                         <Grid className="setSchedule appointment">
-                                            <Grid className="nameSchedule"><label>Break time:</label></Grid>
+                                            <Grid className="nameSchedule"><label>{break_time}</label></Grid>
                                             <Grid className="nameSchedule">
                                                 <TimeFormat name="time" value={UpDataDetails.breakslot_start || UpDataDetails.breakslot_start=='' ? this.getTime(UpDataDetails.breakslot_start) : new Date()} time_format={this.props.settings && this.props.settings.setting && this.props.settings.setting.time_format} onChange={(e) => this.onChange(e, 'start', 'UpDataDetails', 'breakslot')} />
                                                 <span>-</span>
@@ -1364,8 +1364,8 @@ class Index extends Component {
                                     </Grid>
                                     <Grid className="apontBook">
                                         <Grid><label>{appointment_can_be_booked}</label></Grid>
-                                        <Grid><p><span>{up_to_days},</span> <input type="text" onChange={(e) => this.onChangebook(e, 'appointment_days', 'UpDataDetails')} value={UpDataDetails.appointment_days} /> before the day of appointment</p></Grid>
-                                        <Grid><p><span>{Max},</span> <input type="text" value={UpDataDetails.appointment_hours} onChange={(e) => this.onChangebook(e, 'appointment_hours', 'UpDataDetails')} /> hours, before the time of appointment</p></Grid>
+                                        <Grid><p><span>{up_to_days},</span> <input type="text" onChange={(e) => this.onChangebook(e, 'appointment_days', 'UpDataDetails')} value={UpDataDetails.appointment_days} /> {before_day_of_appointment}</p></Grid>
+                                        <Grid><p><span>{Max},</span> <input type="text" value={UpDataDetails.appointment_hours} onChange={(e) => this.onChangebook(e, 'appointment_hours', 'UpDataDetails')} /> {hourse_before_time_appointment}</p></Grid>
                                     </Grid>
                                 </Grid>
                             </Grid>
@@ -1515,7 +1515,7 @@ class Index extends Component {
                                         <Grid className="setSchedule">
                                             <Grid className="nameSchedule"><label>{set_timeslot_duration}</label></Grid>
                                             <Grid className="nameSchedule">
-                                                <input type="text" name="duration_of_timeslots" value={DaysforPractices.duration_of_timeslots} onChange={(e) => this.changeDuration(e, 'DaysforPractices')} /> minutes
+                                                <input type="text" name="duration_of_timeslots" value={DaysforPractices.duration_of_timeslots} onChange={(e) => this.changeDuration(e, 'DaysforPractices')} /> {minutes}
                                             </Grid>
                                         </Grid>
                                     </Grid>

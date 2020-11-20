@@ -80,7 +80,7 @@ class Index extends Component {
           }
           let { blood_sugar, Hba1c, situation, attachments, time_measure, date_measure,
             blood_pressure, visible,feeling, show, date, time, hide, until, rr_systolic,
-            visibility, edit, Delete, RR_diastolic, heart_rate,always, VeiwGraph,  img_file, details,
+            visibility, edit, Delete, RR_diastolic, heart_rate,always, VeiwGraph,  img_files, details,
             Change,archive,de_archive, Download }= translate
         var item = this.state.item;
         return (
@@ -200,7 +200,7 @@ class Index extends Component {
                             </Collapsible>
                         </Grid>
                         <Grid className="addSpc detailMark">
-                            <Collapsible trigger={img_file} open="true">
+                            <Collapsible trigger={img_files} open="true">
                                 <FileViews images={this.state.images} attachfile={item.attachfile} />
                             </Collapsible>
                         </Grid>

@@ -94,8 +94,8 @@ class Index extends Component {
                 }
             })
             .catch((error) => {
-                this.setState({ loaderImage: false })  
-            }) 
+                this.setState({ loaderImage: false })
+            })
     }
 
     //For open the file of prescription
@@ -143,7 +143,7 @@ class Index extends Component {
             case "default":
                 translate = translationEN.text
         }
-        let { delete_item, do_u_really_want_delete_item, r_u_sure_remove_doctor, yes, no}= translate
+        let { delete_item, do_u_really_want_delete_item, r_u_sure_remove_doctor, yes, no } = translate
         confirmAlert({
             customUI: ({ onClose }) => {
                 return (
@@ -155,12 +155,12 @@ class Index extends Component {
                                 onClick={() => { this.deleteClickTrack(deletekey); onClose() }}
                             >
                                 {yes}
-            </button>
+                            </button>
                             <button
                                 onClick={() => { onClose(); }}
                             >
                                 {no}
-            </button>
+                            </button>
                         </div>
                     </div>
                 );
@@ -170,35 +170,35 @@ class Index extends Component {
     //Confirm popup for archive
     ArchiveTrack = (data) => {
         let translate;
-    switch (this.props.stateLanguageType) {
-        case "en":
-            translate = translationEN.text
-            break;
-        case "de":
-            translate = translationDE.text
-            break;
-        case "pt":
-            translate = translationPT.text
-            break;
-        case "sp":
-            translate = translationSP.text
-            break;
-        case "rs":
-            translate = translationRS.text
-            break;
-        case "nl":
-            translate = translationNL.text
-            break;
-        case "ch":
-            translate = translationCH.text
-            break;
-        case "sw":
-            translate = translationSW.text
-            break;
-        case "default":
-            translate = translationEN.text
-    }
-    let { archive_item, do_u_really_want_archive_item, r_u_sure_remove_doctor, yes, no}= translate
+        switch (this.props.stateLanguageType) {
+            case "en":
+                translate = translationEN.text
+                break;
+            case "de":
+                translate = translationDE.text
+                break;
+            case "pt":
+                translate = translationPT.text
+                break;
+            case "sp":
+                translate = translationSP.text
+                break;
+            case "rs":
+                translate = translationRS.text
+                break;
+            case "nl":
+                translate = translationNL.text
+                break;
+            case "ch":
+                translate = translationCH.text
+                break;
+            case "sw":
+                translate = translationSW.text
+                break;
+            case "default":
+                translate = translationEN.text
+        }
+        let { archive_item, do_u_really_want_archive_item, r_u_sure_remove_doctor, yes, no } = translate
         confirmAlert({
             customUI: ({ onClose }) => {
                 return (
@@ -210,12 +210,12 @@ class Index extends Component {
                                 onClick={() => { this.updateArchiveTrack(data); onClose() }}
                             >
                                 {yes}
-            </button>
+                            </button>
                             <button
                                 onClick={() => { onClose(); }}
                             >
                                 {no}
-            </button>
+                            </button>
                         </div>
                     </div>
                 );

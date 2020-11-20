@@ -399,7 +399,7 @@ class Index extends Component {
             case "default":
                 translate = translationEN.text
         }
-        let { previous, next, srvc_Doctors, Case, status, sent_on, Patient, sent, days, on, short_msg, what_ur_profession, prescription, snd_patient_timeline_email, reject, approve, suported_file_type_jpg_png, Pending, request, edit, Rejected, Answered, Cancelled, req_updated_successfully, sick_cert, my_doc, New, inquiry,see_details, or_drag_here, decline, remove,
+        let { previous, next, capab_Doctors, Case, status, sent_on, Patient, sent, days, on, short_msg, what_ur_profession, prescription, snd_patient_timeline_email, reject, approve, suported_file_type_jpg_png, Pending, request, edit, Rejected, Answered, Cancelled, req_updated_successfully, sick_cert, my_doc, New, inquiry,see_details, or_drag_here, decline, remove,
             doc_and_statnderd_ques, doc_aimedis_private, Annotations, details, questions, how_u_feeling, is_ur_temp_high_to_38, which_symptoms_do_u_hav, show, since_when, have_u_already_been_sick, how_long_do_u_unable_to_work, it_is_known_dieseas, r_u_tracking_medi, do_u_hv_allergies, attached_doc} = translate
 
         return (
