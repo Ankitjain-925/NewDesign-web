@@ -44,11 +44,16 @@ function TabContainer(props) {
 TabContainer.propTypes = {
     children: PropTypes.node.isRequired,
 };
-const Language = [
+const Languages = [
     { value: 'All', label: 'All' },
-    { value: 'English', label: 'English' },
-    { value: 'German', label: 'German' },
-    { value: 'Swahili', label: 'Swahili' },
+    { value: 'en', label: 'English' },
+    { value: 'de', label: 'German' },
+    { value: 'nl', label: 'Dutch' },
+    { value: 'sp', label: 'Spanish' },
+    { value: 'rs', label: 'Russian' },
+    { value: 'pt', label: 'Portuguese' },
+    { value: 'sw', label: 'Swahili' },
+    { value: 'ch', label: 'Chainese' }
 ];
 
 class Index extends Component {
@@ -650,7 +655,7 @@ class Index extends Component {
                                             <Select
                                                 value={this.state.SelectedLanguage}
                                                 onChange={(e) => this.setState({ SelectedLanguage: e })}
-                                                options={Language}
+                                                options={Languages}
                                                 placeholder={language_eng}
                                                 className="topicAll"
                                             />

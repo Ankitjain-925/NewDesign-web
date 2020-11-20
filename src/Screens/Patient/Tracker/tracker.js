@@ -752,7 +752,7 @@ class Index extends Component {
                                                                     <Grid className="trckSection">
                                                                         <Grid className="trckSecIner">
                                                                             <Grid className="trckDots presEditDot scndOptionIner">
-                                                                                <a className="openScndhrf"><img src={require('../../../assets/images/threedots.jpg')} alt="" title="" />
+                                                                                <a className="openScndhrf"><img src={require('../../../assets/images/three_dots_t.png')} alt="" title="" className="openScnd" />
                                                                                     <ul>
                                                                                         <li><a onClick={() => this.handleOpenvData(devicedata ,'fitbit')} className="trackView" >{view_details}</a></li>
                                                                                         <li><a onClick={()=>{this.logoutfromall('fitbit')}} className="trackView" >{logout}</a></li>
@@ -793,7 +793,7 @@ class Index extends Component {
                                                                     <Grid className="trckSection">
                                                                         <Grid className="trckSecIner">
                                                                             <Grid className="trckDots presEditDot scndOptionIner">
-                                                                                <a className="openScndhrf"><img src={require('../../../assets/images/threedots.jpg')} alt="" title="" />
+                                                                                <a className="openScndhrf"><img src={require('../../../assets/images/three_dots_t.png')} alt="" title="" className="openScnd" />
                                                                                     <ul>
                                                                                         <li><a onClick={() => this.handleOpenvData(devices, 'withing')} className="trackView" >{view_details}</a></li>
                                                                                         <li><a onClick={()=>{this.logoutfromall('withing')}} className="trackView" >{logout}</a></li>

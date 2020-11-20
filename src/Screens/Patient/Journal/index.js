@@ -139,7 +139,7 @@ class Index extends Component {
 
     FilterText = (text) =>{
             let track = this.state.allTrack1;
-            let FilterFromSearch = track.filter((obj) => {
+            let FilterFromSearch = track && track.length>0 && track.filter((obj) => {
             return this.isThisAvilabel(obj, text && text.toLowerCase());
             });
         this.setState({ allTrack: FilterFromSearch })
@@ -194,12 +194,14 @@ class Index extends Component {
     //Filter according to User type
     FilterFromUserType = (Datas, user_type) => {
         var Datas1 = [];
-        if (user_type && user_type.length > 0) {
-            user_type.map((ob) => {
-                var dts = Datas.filter((obj) => obj.created_by_temp.indexOf(ob.value) > -1);
-                Datas1 = Datas1.concat(dts);
-            })
-            return Datas1;
+        if(Datas && Datas.length>0){
+            if (user_type && user_type.length > 0) {
+                user_type.map((ob) => {
+                    var dts = Datas.filter((obj) => obj.created_by_temp.indexOf(ob.value) > -1);
+                    Datas1 = Datas1.concat(dts);
+                })
+                return Datas1;
+            }
         }
         return null;
     }

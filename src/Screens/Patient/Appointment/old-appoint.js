@@ -608,7 +608,7 @@ class Index extends Component {
 
                                                             <Grid item xs={6} md={6} className="officeVstRght">
                                                                 <a className="showDetail">
-                                                                    <img src={require('../../../assets/images/threedots.jpg')} alt="" title="" />
+                                                                    <img src={require('../../../assets/images/three_dots_t.png')} alt="" title="" />
                                                                     <Grid className="cancelAppoint">
                                                                         <a><img src={require('../../../assets/images/cancelAppoint.jpg')} alt="" title="" />{cancel_apointmnt}</a>
                                                                     </Grid>
@@ -639,7 +639,7 @@ class Index extends Component {
                                                 <Grid item xs={6} md={6} className="officeVstLft"><label>7 Aug, 09:00</label></Grid>
                                                 <Grid item xs={6} md={6} className="officeVstRght">
                                                     <a className="showDetail">
-                                                        <img src={require('../../../assets/images/threedots.jpg')} alt="" title="" />
+                                                        <img src={require('../../../assets/images/three_dots_t.png')} alt="" title="" />
                                                         <Grid className="cancelAppoint">
                                                             <a><img src={require('../../../assets/images/cancelAppoint.jpg')} alt="" title="" />{cancel_apointmnt}</a>
                                                         </Grid>

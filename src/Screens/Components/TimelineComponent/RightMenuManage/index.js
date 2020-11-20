@@ -46,7 +46,7 @@ class RightManage extends Component {
         if (prevProps.added_data !== this.props.added_data) {
             this.setState({ added_data: this.props.added_data })
         }
-        if (prevProps.personalinfo !== this.props.personalinfo) {
+        if (prevProps.personalinfo !== this.props.personalinfo || prevProps.stateLanguageType !== this.props.stateLanguageType) {
             this.setState({ personalinfo: this.props.personalinfo },
                 () => {
                     var find = this.state.personalinfo && this.state.personalinfo.upcoming_appointment && this.state.personalinfo.upcoming_appointment.length > 0 && this.state.personalinfo.upcoming_appointment[0] && this.state.personalinfo.upcoming_appointment[0].docProfile && this.state.personalinfo.upcoming_appointment[0].docProfile.profile_image

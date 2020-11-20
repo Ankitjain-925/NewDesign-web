@@ -277,7 +277,7 @@ class Index extends Component {
                                                                     <label>Visible until</label>
                                                                     <p>12/08/2020</p>
                                                                 </ReactTooltip>
-                                                                <a className="vsblDots"><img src={require('../../assets/images/threedots.jpg')} alt="" title="" /></a>
+                                                                <a className="vsblDots"><img src={require('../../assets/images/three_dots_t.png')} alt="" title="" /></a>
                                                             </Grid>
                                                         </Grid>
                                                         <Grid className="clear"></Grid>
@@ -406,7 +406,7 @@ class Index extends Component {
                                                         <Grid item xs={12} md={6}>
                                                             <Grid className="conPainSec">
                                                                 <a className="conPainEye"><img src={require('../../assets/images/closeEye.jpg')} alt="" title="" /> <span>Hidden</span> </a>
-                                                                <a className="conPainDots"><img src={require('../../assets/images/threedots.jpg')} alt="" title="" /></a>
+                                                                <a className="conPainDots"><img src={require('../../assets/images/three_dots_t.png')} alt="" title="" /></a>
                                                             </Grid>
                                                         </Grid>
                                                         <Grid className="clear"></Grid>
@@ -524,7 +524,7 @@ class Index extends Component {
                                                         <Grid item xs={12} md={6}>
                                                             <Grid className="bp_vsblSec">
                                                                 <a className="bp_vsblEye"><img src={require('../../assets/images/eyeicon.jpg')} alt="" title="" /> {item.visible === 'show' ?<span>Visible</span> : item.visible=== 'hide' ? <span>Hide</span> : <span>Not mentioned</span>}   </a>
-                                                                <a className="bp_vsblDots"><img src={require('../../assets/images/threedots.jpg')} alt="" title="" /></a>
+                                                                <a className="bp_vsblDots"><img src={require('../../assets/images/three_dots_t.png')} alt="" title="" /></a>
                                                             </Grid>
                                                         </Grid>
                                                         <Grid className="clear"></Grid>
@@ -620,7 +620,7 @@ class Index extends Component {
                                                         <Grid item xs={12} md={6}>
                                                             <Grid className="hideSec">
                                                                 <a className="hideEye"><img src={require('../../assets/images/eyeicon.jpg')} alt="" title="" /> <span>Hidden</span> </a>
-                                                                <a className="hideDots"><img src={require('../../assets/images/threedots.jpg')} alt="" title="" /></a>
+                                                                <a className="hideDots"><img src={require('../../assets/images/three_dots_t.png')} alt="" title="" /></a>
                                                             </Grid>
                                                         </Grid>
                                                         <Grid className="clear"></Grid>
@@ -713,7 +713,7 @@ class Index extends Component {
                                             </Grid>
                                             <Grid item xs={6} md={6}>
                                                 <Grid className="persBlodImg">
-                                                    <img src={require('../../assets/images/threedots.jpg')} alt="" title="" />
+                                                    <img src={require('../../assets/images/three_dots_t.png')} alt="" title="" />
                                                 </Grid>
                                             </Grid>
                                         </Grid>
@@ -765,7 +765,7 @@ class Index extends Component {
                                             </Grid>
                                             <Grid item xs={2} md={2}>
                                                 <Grid className="allViewDots">
-                                                    <img src={require('../../assets/images/threedots.jpg')} alt="" title="" />
+                                                    <img src={require('../../assets/images/three_dots_t.png')} alt="" title="" />
                                                 </Grid>
                                             </Grid>
                                             <Grid className="clear"></Grid>
@@ -789,7 +789,7 @@ class Index extends Component {
                                             </Grid>
                                             <Grid item xs={2} md={2}>
                                                 <Grid className="lstViewDots">
-                                                    <img src={require('../../assets/images/threedots.jpg')} alt="" title="" />
+                                                    <img src={require('../../assets/images/three_dots_t.png')} alt="" title="" />
                                                 </Grid>
                                             </Grid>
                                             <Grid className="clear"></Grid>

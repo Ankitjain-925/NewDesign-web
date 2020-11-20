@@ -392,10 +392,22 @@ class Index extends Component {
             }
         })
     }
+         // Check the Alies is duplicate or not
+         changePin = (e) => {
+            const state = this.state.UpDataDetails;
+            state[e.target.name] = e.target.value;
+            this.setState({ UpDataDetails: state });
+            if (e.target.value.length > 3 && e.target.value !== '') {
+                this.setState({ toSmall1: false });
+            }
+            else {
+                this.setState({ toSmall1: true })
+            }
+        }
 
     //Chnage Id Pin by here
     ChangeIDPIN = () => {
-        if (!this.state.DuplicateAlies) {
+        if (!this.state.DuplicateAlies && !this.state.toSmall && !this.state.toSmall1) {
             this.setState({ loaderImage: true });
             const user_token = this.props.stateLoginValueAim.token;
             axios.put(sitedata.data.path + '/UserProfile/Users/update', {
@@ -700,7 +712,7 @@ class Index extends Component {
         }
         let { profile_info, profile, information, ID, pin, QR_code, done, Change, edit_id_pin, edit, and, is, changed, profile_id_taken, profile_id_greater_then_5, male, female, other,
             save_change, email, title, degree, first, last, name, dob, gender, street, add, city, postal_code, country, home_telephone, phone, country_code, Delete,
-            mobile_number, number, mobile, Languages, spoken, insurance, add_more, company, of, info_copied, profile_updated, profile_not_updated, mobile_number_not_valid, insurance_added } = translate;
+            mobile_number, number, mobile,pin_greater_then_4, Languages, spoken, insurance, add_more, company, of, info_copied, profile_updated, profile_not_updated, mobile_number_not_valid, insurance_added } = translate;
 
 
         return (
@@ -785,7 +797,8 @@ class Index extends Component {
                                     </Grid>
                                     <Grid className="editField">
                                         <label>{pin}</label>
-                                        <Grid><input type="text" name="pin" onChange={this.updateEntryState} value={this.state.UpDataDetails.pin} /></Grid>
+                                        <Grid><input type="text" name="pin" onChange={this.changePin} value={this.state.UpDataDetails.pin} /></Grid>
+                                        {this.state.toSmall1 && <p>{pin_greater_then_4}</p>}
                                     </Grid>
                                     <Grid>
                                         <input type="submit" onClick={this.ChangeIDPIN} value={save_change} />

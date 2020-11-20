@@ -790,7 +790,7 @@ class Index extends Component {
                                                             <Td>{data.mobile ? data.mobile : not_mentioned}</Td>
                                                             <Td>{data.alies_id ? data.alies_id : not_mentioned}</Td>
                                                             <Td className="presEditDot scndOptionIner openJourMenu">
-                                                                <a><img src={require('../../../assets/images/threedots.jpg')} alt="" title="" className="openScnd" />
+                                                                <a><img src={require('../../../assets/images/three_dots_t.png')} alt="" title="" className="openScnd" />
                                                                     <ul>
                                                                         <li onClick={() => { this.GotoJournal(data) }}><img src={require('../../../assets/images/journal1.svg')} alt="" title="" />{openjournal}</li>
                                                                         <li onClick={(e) => this.handleshowPatient(data)}><img src={require('../../../assets/images/personal-info.svg')} alt="" title="" />{personal_info}</li>

@@ -1096,6 +1096,7 @@
 		"Search": "Tafuta",
 		"Date_of_event": "Tarehe ya tukio",
 		"consultancy_appintment": "Uteuzi wa Ushauri",
+		"pin_greater_then_4" : "PIN lazima iwe kubwa zaidi ya herufi 3",
 		"unblock_user":"Futa Mtumiaji",
 		"block_user":"Zuia Mtumiaji",
 		"Options":"Chaguzi",

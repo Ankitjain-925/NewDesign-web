@@ -312,7 +312,26 @@ class Index extends Component {
                     })
                 }
 
-                if (response && response.data.hassuccessed) this.setState({ newAppoinments: newAppoint })
+                if (response && response.data.hassuccessed) {
+                    var images = [];
+                    newAppoint && newAppoint.length>0 && newAppoint.map((data)=>{
+                        if(data.patient_info && data.patient_info.profile_image){
+                            images.push()
+                            var find = data.patient_info && data.patient_info.profile_image
+                            if (find) {
+                                var find1 = find.split('.com/')[1]
+                                axios.get(sitedata.data.path + '/aws/sign_s3?find=' + find1,)
+                                .then((response2) => {
+                                    if (response2.data.hassuccessed) {
+                                        images.push({ image: find, new_image: response2.data.data })
+                                        this.setState({ images: images })
+                                    }
+                                })
+                            }
+                        }
+                    })
+                    this.setState({ newAppoinments: newAppoint })
+                }
             })
     }
 
@@ -656,7 +675,7 @@ class Index extends Component {
                         <Grid className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode && this.props.settings.setting.mode === 'dark' ? "darkTheme meetBoxCntnt margin-remove" : "meetBoxCntnt margin-remove"}>
                             <Grid className="meetCourse">
                                 <Grid className="meetCloseBtn">
-                                    {/* <a><img src={require('../../../assets/images/threedots.jpg')} alt="" title="" /></a> */}
+                                    {/* <a><img src={require('../../../assets/images/three_dots_t.png')} alt="" title="" /></a> */}
                                     {/* <a><img src={require('../../../assets/images/close-search.svg')} alt="" title="" /></a> */}
                                 </Grid>
                                 <Grid className="meetVdo">
@@ -684,9 +703,6 @@ class Index extends Component {
     }
 
     onChange = (date) => {
-
-        console.log('here2', this.state.onlineAppointments, this.state.UpDataDetails, this.state.DaysforPractices)
-
         const { appioinmentTimes, appoinmentSelected, onlineAppointments, UpDataDetails, DaysforPractices } = this.state;
         let temptimes = [];
         let suggestTime = [];
@@ -705,9 +721,9 @@ class Index extends Component {
         let weeknumber = moment(date).day();
         var appiInd = -1
         if (this.state[statemanger].workingDays) appiInd = this.state[statemanger].workingDays.findIndex(person => person.value.includes(days[weeknumber - 1]))
-        console.log('appiInd', appiInd, days[weeknumber - 1])
+       
         if (appiInd !== -1) {
-            console.log('heree45')
+         
             let start = this.state[statemanger].workingDays[appiInd].start;
             let end = this.state[statemanger].workingDays[appiInd].end;
             var time = moment(start, 'H:mm');
@@ -723,7 +739,7 @@ class Index extends Component {
         else {
             //   suggestTime:[]
         }
-        console.log('temptimes2', temptimes)
+       
         temptimes.map(tiems => {
             let clashtime = false
             appioinmentTimes.map(datatime => {
@@ -820,6 +836,7 @@ class Index extends Component {
                                                 {newAppoinments && newAppoinments.map((data) => (
                                                     <Grid className="newRequest" onClick={() => this.handleOpenSlot(data)}>
                                                         <Grid className="newReqInfo">
+                                                           
                                                             <a><img src={data.patient_info && data.patient_info.profile_image ? getImage(data.patient_info.profile_image, this.state.images) : require('../../../assets/images/dr1.jpg')} alt="" title="" />{data.patient_info.first_name + ' ' + data.patient_info.last_name}</a>
                                                         </Grid>
                                                         <Grid className="newReqInfo">

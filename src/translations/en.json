@@ -1062,6 +1062,7 @@
 		"Search": "Search",
 		"Date_of_event": "Date of event",
 		"consultancy_appintment": "Consultancy Appointment",
+		"pin_greater_then_4" : "PIN must be greater then 3 characters",
 		"are_u_sue_appo": "Are you sure you want to book this appoinment?",
 		"Appointment": "Appointment",
 		"activities": "Activities",

@@ -1688,6 +1688,7 @@
 		"Select_chat": "Selecteer een chat om berichten te verzenden",
 		"Search": "Zoeken",
 		"Date_of_event": "Datum van het evenement",
+		"pin_greater_then_4" : "De pincode moet langer zijn dan 3 tekens",
 		"unblock_user":"Deblokkeer gebruiker",
 		"block_user":"Blokkeer gebruiker",
 		"Options":"Opties",

@@ -74,8 +74,8 @@ class Index extends Component {
             case "default":
                 translate = translationEN.text
         }
-        let { visibility, Download, Delete, visible, details, hide, show, always,Date_of_event, diary, edit, Change, traveled, slct_ICD_serch_code, when, to,allergy,  enter_code_serch_by_keyword, dignose, of, until, archive, rr_systolic, attachments, time_measure, date_measure,
-            date, time, confirm_diag, emergancy_dignosis, trvl_diagnosis, travelled_to, diary_note, diagnosed, by, notes, save_entry, emergency, diagnosis, review, on, not_mentioned, de_archive } = translate
+        let { visibility, Download, Delete, visible, details, hide, show, always,Date_of_event, edit, Change, traveled, slct_ICD_serch_code, when, to,allergy,  enter_code_serch_by_keyword, dignose, of, until, archive, rr_systolic, attachments, time_measure, date_measure,
+            date, time, confirm_diag, emergancy_dignosis, diary, trvl_diagnosis, travelled_to, diary_note, diagnosed, by, notes, save_entry, emergency, diagnosis, review, on, not_mentioned, de_archive } = translate
 
         return (
             <Grid container direction="row" className="descpCntnt">
