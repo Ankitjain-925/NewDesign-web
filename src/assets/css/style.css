@@ -2987,10 +2987,12 @@ a.profilMenu {
     margin: 2px 0px;
 }
 .showDetail img {
-    width: 32px;
-    height: 32px;
+    width: 35px;
+    height: 33px;
     border-radius: 6px;
     cursor: pointer;
+    border: 1px solid #bfc1c1;
+    padding: 3px 3px;
 }
 .cancelAppoint a {
     color: #000808;
@@ -3481,16 +3483,18 @@ a.profilMenu {
     margin-top: 8px;
 }
 .avlablDates a {
-    color: #00ABAF;
+    color: #00ABAF !important;
     font-family: Muli;
     font-size: 12px;
     font-weight: 600;
     letter-spacing: 0;
-    line-height: 12px;
+    line-height: 18px;
+    word-break: break-all;
     display: block;
     margin-bottom: 10px;
     position: relative;
     cursor: pointer;
+    padding-right: 42px;
 }
 .addClnder img {
     width: 12px;
@@ -3505,7 +3509,7 @@ a.profilMenu {
     width: 18px;
     background: url("../images/rightArrow.png") no-repeat center center;
     position: absolute;
-    right: 70px;
+    right: 10px;
     top: 0px;
 }
 .srvcTagsCntnt {
@@ -4815,7 +4819,7 @@ body {
     min-height: 100vh;
     left: 0;
     top: 0;
-    z-index: 999999999999999999999999;
+    z-index: 9999;
 }
 /* End of loader css */
 
@@ -7479,7 +7483,7 @@ a.vsblDots, a.conPainDots, a.bp_vsblDots, a.hideDots {
     color: #D9DADA !important;
 }
 .homeBgDrk .trckSection {
-    background-color: #404646 !important;
+    background-color: #009396bd !important;
 }
 .homeBgDrk .trckCntnt p {
     color: #BFC1C1 !important;
@@ -9301,7 +9305,7 @@ a.menuActv img {
 }
 .infoCourse {
     padding: 12px 24px 18px 24px;
-    border-bottom: 1px solid #F2F2F2;
+    /* border-bottom: 1px solid #F2F2F2; */
 }
 .infoCloseBtn {
     text-align: right;
@@ -11524,10 +11528,10 @@ a.clsSltCal img {
 }
 a.clsSltCal{
     position: absolute;
-    right: -6px;
-    top: -12px;
+    right: -23px;
+    top: -20px;
+    border-radius: 21px !important;
 }
-
 .comonSelnw {
     font-size: 12px !important;
     min-width: 107px;
@@ -13118,7 +13122,7 @@ a.academy_ul ul li img {
 .MenuLeftDrkUpr .profilMenuList img, .MenuLeftDrkUpr .moreMenuList img{
     width: 15px !important;
 }
-.homeBgDrk .loading-text{
+.homeBgDrk .loading-text,  .metroPro div {
     color: #fff!important;
 }
 .contact-listitem-dtls .__react_component_tooltip {
@@ -13252,9 +13256,6 @@ span.unread_msg_notifyspan {
 }
 .SetWidthPopup{
     width: 600px !important;
-}
-.nameSchedule input {
-    border: none !important;
 }
 .daySchedule input{
     border: none !important;
@@ -14321,7 +14322,6 @@ input#graduationYear {
 }
 
 /* ------------------------ */
-
 .chat-contact-list-ext-wrap .contact-thumbnail-wrap img {
     width: 32px !important;
     height: 32px !important;
@@ -14492,6 +14492,10 @@ input#graduationYear {
     border: 1px solid #f2f2f2 !important;
     background-color: #192020 !important;
 }
+.homeBgDrk .scndOptionIner ul li{
+    color: #bfc1c1 !important;
+    background-color: transparent !important;
+}
 .homeBgDrk .scndOptionIner ul li a {
     color: #bfc1c1 !important;
     background-color: transparent !important;
@@ -14509,6 +14513,16 @@ input#graduationYear {
   .cc1-chat-win-header {
     margin-top: 20px !important;
   }
+}
+.timeIconClas_crested {
+    background: #e1f7f7 !important;
+    opacity: initial !important;
+    z-index: 1 !important;
+}
+.timeIconClas_crested::after, 
+.timeIconClas_crested::before{
+    border-top-color: #e1f7f7 !important;
+    border-bottom-color: #e1f7f7 !important;
 }
 .passInstIner:after {
     content: '';
@@ -14641,18 +14655,18 @@ a.SelectedGender{
     justify-content: center;
 }
 /* End of close button css */
-.presureDataGrph g.highcharts-axis.highcharts-yaxis {
+.presureDataGrph g.highcharts-axis.highcharts-yaxis{
     font-size: 15px !important;
 }
-.cntryLiv {
+.cntryLiv{
     opacity: initial !important;
     border: 1px solid #dfdfdf26;
 }
-.homeBgDrk .topicAll {
+.homeBgDrk .topicAll{
     border: 1px solid #BFC1C1;
     border-radius: 4px;
 }
-.darkTheme > div:nth-child(3) .crtCorList {
+.darkTheme > div:nth-child(3) .crtCorList{
     background-color: #0c1010;
 }
 .darkTheme > div:nth-child(3) .crtCorListLbl label, 
@@ -14660,40 +14674,40 @@ a.SelectedGender{
 .darkTheme > div:nth-child(3) .crtCorListTime a{
     color: #BFC1C1 !important;
 }
-.darkTheme > div:nth-child(3) .dataBoxInput input::-webkit-input-placeholder {
-    color: #bfc1c1 !important;   
-}
-.darkTheme > div:nth-child(3) .dataBoxInput input::-moz-placeholder {
-    color: #bfc1c1 !important;   
-}
-.darkTheme > div:nth-child(3) .dataBoxInput input:-ms-input-placeholder {
-    color: #bfc1c1 !important;   
-}
-.darkTheme > div:nth-child(3) .dataBoxInput input:-moz-placeholder { 
-    color: #bfc1c1 !important;   
-}
-.darkTheme > div:nth-child(3) .diaCD a {
+.darkTheme > div:nth-child(3) .locat_srvc input{
     background-color: #0c10104a !important;
     color: #D9DADA !important;
 }
-.darkTheme > div:nth-child(3) .srchdoseMg input{
-    background: #404646 !important;
-    color: #BFC1C1 !important; 
+.darkTheme > div:nth-child(3) .dataBoxInput input::-webkit-input-placeholder{
+    color: #bfc1c1 !important;   
 }
-.homeBgDrk .topicAll .css-1pahdxg-control {
+.darkTheme > div:nth-child(3) .dataBoxInput input::-moz-placeholder{
+    color: #bfc1c1 !important;   
+}
+.darkTheme > div:nth-child(3) .dataBoxInput input:-ms-input-placeholder{
+    color: #bfc1c1 !important;   
+}
+.darkTheme > div:nth-child(3) .dataBoxInput input:-moz-placeholder{ 
+    color: #bfc1c1 !important;   
+}
+.darkTheme > div:nth-child(3) .diaCD a{
+    background-color: #0c10104a !important;
+    color: #D9DADA !important;
+}
+.homeBgDrk .topicAll .css-1pahdxg-control{
     color: #bfc1c1 !important;
     background-color: transparent !important;
 }
-.homeBgDrk .quill .ql-editor {
+.homeBgDrk .quill .ql-editor{
     background: #404646 !important;
     color: #BFC1C1 !important;
 }
-.homeBgDrk .timeIconClas_crested {
+.homeBgDrk .timeIconClas_crested{
     background-color: #192020 !important;
     opacity: initial !important;
 }
 .homeBgDrk .timeIconClas_crested::after, 
-.homeBgDrk .timeIconClas_crested::before {
+.homeBgDrk .timeIconClas_crested::before{
     border-top-color: #192020 !important;
     border-bottom-color: #192020 !important;
 }
@@ -14714,15 +14728,129 @@ a.SelectedGender{
 .passInst {
     width: 210px !important;
 }
-.menuActv .profilMenu .profilMenuList img {
+.menuActv .profilMenu .profilMenuList img{
     background: none !important;
 }
-.otherInfo .MuiGrid-spacing-xs-3 {
+.otherInfo .MuiGrid-spacing-xs-3{
     margin-bottom: initial !important;
 }
-
-
-
+.darkTheme > div:nth-child(3) .srchdoseMg input,
+.darkTheme > div:nth-child(3) .srchKm input,
+.darkTheme > div:nth-child(3) .sel_specialty .css-yk16xz-control,
+.darkTheme > div:nth-child(3) .sel_specialty .css-1pahdxg-control,
+.darkTheme > div:nth-child(3) .delQues textarea{
+    background: #303737 !important;
+    color: #BFC1C1 !important; 
+}
+.darkTheme > div:nth-child(3) .srvcTags a{
+    background-color: #303737;
+    color: #D9DADA !important;
+}
+.darkTheme > div:nth-child(3) .srvcTags a.currentTab{
+    background-color: #E1F7F7 !important;
+    color: #00abaf !important;
+}
+.darkTheme > div:nth-child(3) .selTimeSlot a{
+    background: #303737 !important;
+    color: #BFC1C1 !important;
+}
+.darkTheme > div:nth-child(3) .invitLinkInfo .css-yk16xz-control,
+.darkTheme > div:nth-child(3) .invitLinkInfo .css-1pahdxg-control,
+.darkTheme > div:nth-child(3) .invitLinkInfo .css-b8ldur-Input,
+.darkTheme > div:nth-child(3) .invitLinkArea textarea{
+    background: #404646 !important;
+    color: #BFC1C1 !important;
+}
+.darkTheme > div:nth-child(3) .registerRow input[type="text"], 
+.darkTheme > div:nth-child(3) .registerRow input[type="password"],
+.darkTheme > div:nth-child(3) .regMobNum input{
+    background: #404646 !important;
+    color: #BFC1C1 !important;
+    border: 1px solid #BFC1C1 !important;
+}
+.darkTheme > div:nth-child(3) .invtBoxCntnt{
+    background: #404646 !important;
+    background-color: #404646 !important;
+}
+.darkTheme > div:nth-child(3) .delQuesBook a:last-child{
+    border: none !important;
+}
+.darkTheme > div:nth-child(3) .fitBitSection {
+    background-color: #009396bd !important;
+}
+.darkTheme > div:nth-child(3) .mainLogoAdd a{
+    color: #d9dada !important;
+}
+.darkTheme > div:nth-child(3) .scanInputs input,
+.darkTheme > div:nth-child(3) .upScanInput,
+.darkTheme > div:nth-child(3) .scanInputs textarea{
+    background: #404646 !important;
+    color: #BFC1C1 !important;
+}
+.darkTheme > div:nth-child(3) .scamUPInput{
+    background: #404646 !important;
+    background-color: #404646 !important;
+}
+.darkTheme > div:nth-child(3) .shrtRejctMsg textarea{
+    background-color: #404646 !important;
+    background: #404646 !important;
+    color: #BFC1C1 !important;
+}
+.darkTheme > div:nth-child(3) .splestQues, 
+.darkTheme > div:nth-child(3) .recevPrescp, 
+.darkTheme > div:nth-child(3) .yrProfes, 
+.darkTheme > div:nth-child(3) .attchForms{
+    color: #BFC1C1 !important;
+}
+.darkTheme > div:nth-child(3) .passInst{
+    background: #192020 !important;
+}
+.darkTheme > div:nth-child(3) .passInstIner:after{
+    border-right: 13px solid #192020 !important;
+}
+.darkTheme > div:nth-child(3) .passInst a{
+    color: #D9DADA !important;
+}
+.darkTheme > div:nth-child(3) .selTimeSlot a, 
+.darkTheme > div:nth-child(3) .suggent-time a {
+    border: 1px solid #BFC1C1 !important;
+    background-color: transparent !important;
+    color: #D9DADA !important;
+}
+.darkTheme > div:nth-child(3) .addBirthSlot .react-date-picker__wrapper{
+    background: #404646 !important;
+    color: #BFC1C1 !important;
+}
+.darkTheme > div:nth-child(3) .selTimeSlot a:hover, 
+.darkTheme > div:nth-child(3) .suggent-time a:hover, 
+.darkTheme > div:nth-child(3) .suggent-time a.current_selected {
+    background-color: #00ABAF !important;
+}
+.homeBgDrk .cancelAppoint, .homeBgDrk .cancelAppoint a{
+    background-color: #323333 !important;
+}
+.homeBgDrk .cancelAppoint{
+    border: 1px solid #bfc1c1 !important;
+}
+.homeBgDrk .setSchedule input{
+    border-radius: 2px !important;
+    background: transparent;
+    color: #BFC1C1 !important;
+}
+.homeBgDrk .wrkHour a,
+.homeBgDrk .apontBook input{
+    background-color: #404646;
+    color: #FAFAFA !important;
+}
+.homeBgDrk .wrkHour a.seleted-days{
+    background-color: #00abaf !important;
+}
+.homeBgDrk a.prevpag {
+    color: #00ABAF !important;
+}
+.homeBgDrk .sortBySec label {
+    color: #FAFAFA !important;
+}
 
 
 

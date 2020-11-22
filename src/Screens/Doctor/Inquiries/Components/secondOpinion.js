@@ -509,7 +509,7 @@ class Index extends Component {
                                         </Grid>
                                         <Grid className="attchForms attchImg">
                                             <Grid><label>{attachments}</label></Grid>
-                                            <label class="attached_file">{attached_doc} -
+                                            <label className="attached_file">{attached_doc} -
                                             {opinionData && opinionData.attachfile &&
                                                     <a>{opinionData.attachfile.filename && (opinionData.attachfile.filename.split('Trackrecord/')[1]).split("&bucket=")[0]}</a>
                                                 }

@@ -1015,6 +1015,7 @@ DeleteTrack=(deletekey)=> {
                                         {/* {this.props.Doctorsetget.p_id !== null && <FilterSec FilterText={this.FilterText} settings={this.props.settings} FilterData={this.FilterData} SortData={this.SortData} ClearData={this.ClearData} sortBy={this.state.Sort}/>} */}
 
                                         {/* For Empty Entry */}
+                                        {console.log('this.state.allTrack', this.state.allTrack)}
                                         {this.props.Doctorsetget.p_id !== null && <div>
                                             {this.state.allTrack && this.state.allTrack.length > 0 ?
                                                 this.state.allTrack.map((item, index) => (

@@ -31,6 +31,7 @@ export const logoutSuccess = () => {
 }
 
 export const logout = () => {
+    console.log('logout from cometchat')
     return dispatch => {
         CometChat.logout().then(dispatch(logoutSuccess()));
     }
@@ -44,19 +45,13 @@ export const auth = (uid, authKey) => {
         dispatch(authStart());
 
         CometChat.login(uid, authKey).then((user) => {
-            console.log('here3333')
             if(user) {
-                console.log('here1333')
                 dispatch(authSuccess(user));
             } else {
-                console.log('here12333')
                 dispatch(authFail(user));
             }
             
         }).catch(error => {
-            console.log('here123333333')
-            console.log('CometChatLogin Failed55', error);
-
             dispatch(authFail(error));
         });
     };

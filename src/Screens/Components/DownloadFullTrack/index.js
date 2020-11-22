@@ -23,7 +23,6 @@ class Date extends Component {
         };
     }
 
-   
       //This is for the Download the Track
       downloadTrack = () => {
         var medication=[], blood_pressure=[],blood_sugar=[],condition_pain=[],diagnosis=[],doctor_visit=[],hospitalization=[],laboratory_result=[],
@@ -82,13 +81,14 @@ class Date extends Component {
                 }
             })
         }
+
         var TrackRecord =  {
-            medication: medication,blood_pressure: blood_pressure, blood_sugar : blood_sugar, condition_pain: condition_pain,diagnosis:diagnosis,
-            doctor_visit:doctor_visit, hospital_visit: hospitalization, laboratory_result: laboratory_result,marcumar_pass:marcumar_pass, 
-            vaccination:vaccination,weight_bmi:weight_bmi,diary:diary, family_anamnesis: fanamnesis, smoking_status:smoking_status,
-            anamnesis: anamnesis,covid_19_diary: covid_19
+            medication: medication.filter(e => e != null),blood_pressure: blood_pressure.filter(e => e != null), blood_sugar : blood_sugar.filter(e => e != null), condition_pain: condition_pain.filter(e => e != null),diagnosis:diagnosis.filter(e => e != null),
+            doctor_visit:doctor_visit.filter(e => e != null), hospital_visit: hospitalization.filter(e => e != null), laboratory_result: laboratory_result.filter(e => e != null),marcumar_pass:marcumar_pass.filter(e => e != null), 
+            vaccination:vaccination.filter(e => e != null),weight_bmi:weight_bmi.filter(e => e != null),diary:diary.filter(e => e != null), family_anamnesis: fanamnesis.filter(e => e != null), smoking_status:smoking_status.filter(e => e != null),
+            anamnesis: anamnesis.filter(e => e != null),covid_19_diary:covid_19.filter(e => e != null)
         }
-       
+     
         this.setState({ loaderImage: true })
         axios.post(sitedata.data.path + '/UserProfile/downloadfullPdf',
             {

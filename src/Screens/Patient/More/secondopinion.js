@@ -91,12 +91,12 @@ class Index extends Component {
                 data.documents = this.state.fileattach;
             }
             data.patient_info = {
-                patient_id: this.props.stateLoginValueAim.user.profile_id,
-                first_name: this.props.stateLoginValueAim.user.first_name,
-                last_name: this.props.stateLoginValueAim.user.last_name,
-                email: this.props.stateLoginValueAim.user.email,
-                birthday: this.props.stateLoginValueAim.user.birthday,
-                profile_image: this.props.stateLoginValueAim.user.image
+                patient_id: this.state.personalinfo.profile_id,
+                first_name: this.state.personalinfo.first_name,
+                last_name: this.state.personalinfo.last_name,
+                email: this.state.personalinfo.email,
+                birthday: this.state.personalinfo.birthday,
+                profile_image: this.state.personalinfo.image
             };
             data.status = "free";
             data.view_status = "free";

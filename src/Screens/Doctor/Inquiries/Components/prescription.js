@@ -503,7 +503,7 @@ class Index extends Component {
                                     <Grid className="scamUPForms scamUPImg">
 
                                         <Grid><label>{(prescData.status !== 'accept') ? upload_scanned : scanned} {prescription}</label></Grid>
-                                        <label class="attached_file">{attached_doc} -
+                                        <label className="attached_file">{attached_doc} -
                                             {prescData && prescData.attachfile && prescData.attachfile.map((items) => (
                                             <a>{items.filename && (items.filename.split('Trackrecord/')[1]).split("&bucket=")[0]}</a>
                                         ))}

@@ -342,8 +342,8 @@ class CometChatUnified extends React.Component {
     }
 
     let messageScreen = (
-      <div class="outer CreatChatOuter">
-        <div class="middle CreatChatMid">
+      <div className="outer CreatChatOuter">
+        <div className="middle CreatChatMid">
           <div className="inner CreatChatInner">
             <img
               className='chatScreenImg'

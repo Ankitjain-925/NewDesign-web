@@ -96,6 +96,7 @@ class Index extends Component {
     }
 
     onChange = (date) => {
+
         this.setState({ date: date })
         var day_num
         var Month, date1
@@ -134,16 +135,16 @@ class Index extends Component {
                 break;
         }
         let appointmentData = this.state.appointmentData
-        let appointDate;
-        if (appointmentData && appointmentData.length>0 &&  appointmentData[0]) {
-            Object.entries(appointmentData[0]).map(([key, value]) => {
+
+        let appointDate
+        if (appointmentData) {
+            Object.entries(appointmentData).map(([key, value]) => {
                 if (key == days) {
-                    appointDate = value;
-                    this.setState({ appointDate: appointDate})
+                    appointDate = value
                 }
             })
         }
-        this.setState({ apointDay: days, selectedDate: date1 })
+        this.setState({ appointDate: appointDate, apointDay: days, selectedDate: date1 })
     }
 
     // getUserData() {
@@ -468,7 +469,7 @@ class Index extends Component {
     suggestingTime = () => {
         const { currentSelected, appoinmentSelected, suggesteddate, suggestTime } = this.state;
         if (currentSelected !== -1) {
-            let timeslot = suggestTime;
+            let timeslot = suggestTime[currentSelected];
             let user_token = this.props.stateLoginValueAim.token
             axios.put(sitedata.data.path + '/UserProfile/SuggestTimeSlot', {
                 email: appoinmentSelected.patient_info.email,
@@ -500,16 +501,16 @@ class Index extends Component {
     };
 
     handleOpenSlot = (data) => {
-        console.log('datsss', data)
-        if (data.appointment_type == 'online_appointment') {
-            this.setState({appoinmentSelected: data, appointmentData :this.state.appointmentDatas.online_appointment},
+        console.log('data', this.state.appointmentDatas, data)
+        if (data.appointment_type == types[2]) {
+            this.setState({appointmentData :this.state.appointmentDatas.online_appointment},
                 ()=>{this.onChange(new Date(data.date))})
         }
-        else if (data.appointment_type == 'appointments') {
-            this.setState({appoinmentSelected: data, appointmentData :this.state.appointmentDatas.appointments},
+        else if (data.appointment_type == types[0]) {
+            this.setState({appointmentData :this.state.appointmentDatas.appointments},
                 ()=>{this.onChange(new Date(data.date))})
         } else {
-             this.setState({appoinmentSelected: data, appointmentData :this.state.appointmentDatas.practice_days},
+             this.setState({appointmentData :this.state.appointmentDatas.practice_days},
             ()=>{this.onChange(new Date(data.date))})
         }
         this.setState({openSlot: true})
@@ -823,16 +824,6 @@ class Index extends Component {
     //     // this.setState({ suggesteddate: date })
     // }
 
-    // 
-    findAppointment =  (iA) => {
-        console.log('appointDate', this.state.appointDate[iA])
-        this.setState({
-            suggesteddate : this.state.selectedDate,
-            suggestTime : {start: this.state.appointDate[iA],
-            end: this.state.appointDate[iA+1] },
-           currentSelected : iA,
-        })
-    }
     selectTimeSlot = (index) => {
 
         this.setState({ currentSelected: index })
@@ -894,7 +885,6 @@ class Index extends Component {
         }
         let { holiday, appointments, new_rqst, time_slot_alredy_booke_calender, office_visit, vdo_call, Details,
             suggest_new_time, Questions, or, slct_a_time, date_of_appointment, book_appointment } = translate
-
 
 
         if (stateLoginValueAim.user === 'undefined' || stateLoginValueAim.token === 450 || stateLoginValueAim.token === 'undefined' || stateLoginValueAim.user.type !== 'doctor' || !this.props.verifyCode || !this.props.verifyCode.code) {
@@ -962,7 +952,6 @@ class Index extends Component {
                                                     <a onClick={this.handleCloseSlot} className="clsSltCal">
                                                         <img src={require('../../../assets/images/close-search.svg')} alt="" title="" />
                                                     </a>
-                                                {console.log('appoinmentSelected1q', this.state.appoinmentSelected)}
                                                     <Grid container direction="row">
                                                         <Grid item xs={6} md={6} alignItems="center" justify="center">
                                                             <Grid className="jmInfo">
@@ -1022,12 +1011,12 @@ class Index extends Component {
                                                             return (
                                                                 <Grid>
                                                                     {this.state.appointDate[iA + 1] && this.state.appointDate[iA + 1] !== 'undefined' && iA === 0 ?
-                                                                        <a className={this.state.currentSelected === 0 && 'current_selected'}  onClick={() => { this.findAppointment (iA) }}>
+                                                                        <a className={this.state.currentSelected === 0 && 'current_selected'} onClick={() => { this.selectTimeSlot(iA) }}>
                                                                             {this.state.appointDate[iA] + ' - ' + this.state.appointDate[iA + 1]}
                                                                         </a>
                                                                         :
                                                                         this.state.appointDate[iA + 1] && this.state.appointDate[iA + 1] !== 'undefined' &&
-                                                                        <a className={this.state.currentSelected && this.state.currentSelected === iA ? 'current_selected' : ''}  onClick={() => { this.findAppointment(iA) }}>
+                                                                        <a className={this.state.currentSelected && this.state.currentSelected === iA ? 'current_selected' : ''} onClick={() => { this.selectTimeSlot(iA) }}>
                                                                             {this.state.appointDate[iA] + ' - ' + this.state.appointDate[iA + 1]}
                                                                         </a>}
                                                                 </Grid>

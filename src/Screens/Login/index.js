@@ -19,6 +19,7 @@ import * as translationNL from '../../translations/nl';
 import * as translationSW from '../../translations/sw';
 import { EmergencySet } from '../Doctor/emergencyaction.js';
 import { Doctorset } from '../Doctor/actions';
+import * as actions from '../Components/CometChat/store/action';
 import Toggle from 'react-toggle';
 import queryString from 'query-string';
 import Loader from './../Components/Loader/index';
@@ -61,10 +62,11 @@ class Index extends Component {
     //     }
     // }
     componentDidMount = () => {
+        actions.logout();
         this.logoutUser();
         // this.movedashboard();
         this.unsetCategory();
-
+ 
         let url = this.props.location.search;
         let params = queryString.parse(url);
         this.setState({ logintoken: params.token })
@@ -126,52 +128,24 @@ class Index extends Component {
         this.setState({ loginError: false, loginError2: false, loginError9: false })
         if (this.state.inputPass && this.state.inputPass !== '') {
             if (this.validateEmail(this.state.inputEmail)) {
-                if (this.state.logintoken != '' && this.state.logintoken != undefined) {
-                    let email = this.state.inputEmail;
-                    let password = this.state.inputPass;
-                    let logintoken = this.state.logintoken;
-                    this.setState({ loaderImage: true })
-                    this.props.LoginReducerAim(email, password, logintoken);
-                    setTimeout(
-                        function () {
-                            this.setState({ myLogin: true });
-                            this.setState({ loaderImage: false })
-                            if (this.props.stateLoginValueAim.token !== 450 && this.props.stateLoginValueAim.user !== 'undefined' && this.props.stateLoginValueAim.user !== null) {
-                                if (!this.props.stateLoginValueAim.user.is2fa) {
-                                    this.props.authy(true);
-                                }
-                                this.setState({ anotherlogin: true })
-                            }
-                            else {
-                                this.setState({ thisverify: false })
-                            }
-
-                        }.bind(this),
-                        3000
-                    );
-                } else {
                     let email = this.state.inputEmail;
                     let password = this.state.inputPass;
                     this.setState({ loaderImage: true })
-                    this.props.LoginReducerAim(email, password);
-                    setTimeout(
-                        function () {
-                            this.setState({ myLogin: true });
-                            this.setState({ loaderImage: false })
-                            if (this.props.stateLoginValueAim && this.props.stateLoginValueAim.user && !this.props.stateLoginValueAim.user.is2fa) {
-                                this.props.authy(true);
-                            }
-                            else if (this.props.stateLoginValueAim.token === 450) {
-                                this.setState({ thisverify: false })
-                            }
-                            else {
-                                this.setState({ thisverify: true })
-                            }
+                    this.props.LoginReducerAim(email, password, ()=>{
+                        console.log('Hetzs')
+                        this.setState({ myLogin: true });
+                        this.setState({ loaderImage: false })
+                        if (this.props.stateLoginValueAim && this.props.stateLoginValueAim.user && !this.props.stateLoginValueAim.user.is2fa) {
+                            
+                            this.props.authy(true);
                         }
-                            .bind(this),
-                        3000
-                    );
-                }
+                        else if (this.props.stateLoginValueAim.token === 450) {
+                            this.setState({ thisverify: false })
+                        }
+                        else {
+                            this.setState({ thisverify: true })
+                        }
+                    }) ;   
             } else {
                 this.setState({ loginError2: true })
             }
@@ -473,6 +447,7 @@ const mapStateToProps = (state) => {
     }
 };
 
+  
 export default connect(mapStateToProps, { Doctorset, EmergencySet, LoginReducerAim, LanguageFetchReducer, authy, Settings })(Index)
 
 // export default Index;

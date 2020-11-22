@@ -157,8 +157,8 @@ class Index extends Component {
                         <li className={this.props.currentPage==='journal' ? "menuActv" : ""}>
                             <a onClick={this.Journal}>
                             {this.props.settings && this.props.settings.setting && this.props.settings.setting.mode && this.props.settings.setting.mode==='dark' 
-                            ? <img src={require('../../../../assets/images/nav-journal-white.svg')} alt="" title="" /> 
-                            : <img src={require('../../../../assets/images/nav-journal.svg')} alt="" title="" />}
+                            ? <img src={require('../../../../assets/images/nav-my-documents-inquiries-active.svg')} alt="" title="" />
+                            : <img src={require('../../../../assets/images/nav-my-documents-inquiries.svg')} alt="" title="" />}
                             
                            
                                 <span>{prescriptions}</span>

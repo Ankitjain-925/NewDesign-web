@@ -27,7 +27,6 @@ class App extends React.Component {
         setTimeout(()=>{this.setState({isLoggedin : true})},3000)
         this.props.onLogin(this.props.Uid, COMETCHAT_CONSTANTS.AUTH_KEY);
       }
-
   }).catch(error => {
     this.props.onLogin(this.props.Uid, COMETCHAT_CONSTANTS.AUTH_KEY);
   });
