@@ -196,7 +196,7 @@
 		"prescription": "处方",
 		"sick_cert": "病假证书",
 		"inquiry": "查询",
-		"status":"状态",
+		"status": "状态",
 		"for_sick_cert_req_doc": "病假证书申请需要医生",
 		"for_pres_req_doc_require": "需要指定医生",
 		"share_health_status": "共享运行状况",
@@ -443,7 +443,7 @@
 		"weight": "重量",
 		"height": "高度",
 		"blood": "血",
-		"Patient":"患者",
+		"Patient": "患者",
 		"BMI": "BMI",
 		"no_data_avlbl": "没有可用的数据",
 		"last_doc_visit": "最后一次就诊",
@@ -1147,6 +1147,17 @@
 		"had_joined_call_with": " 参加了与 ",
 		"had_initiated_call_with": " 发起了与 ",
 		"ended_call_with": " 结束通话 ",
-		"cancelled_call_with": " 通过取消了通话 "
+		"cancelled_call_with": " 通过取消了通话 ",
+		"Change": "更改",
+		"visibility": "能见度",
+		"Current": "当前",
+		"New": "新",
+		"traveled": "旅行",
+		"Location": "位置",
+		"neurology": "神经病学",
+		"dignoses": "诊断",
+		"addentry": "添加条目",
+		"nurology": "神经病学",
+		"pswd_not_valid": "密码无效"
 	}
 }

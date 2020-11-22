@@ -1136,6 +1136,7 @@
 		"had_joined_call_with": " hatte sich dem Anruf mit angeschlossen ",
 		"had_initiated_call_with": " hatte den Anruf mit initiiert ",
 		"ended_call_with": " beendete den Anruf mit ",
-		"cancelled_call_with": " hat den Anruf mit abgebrochen "
+		"cancelled_call_with": " hat den Anruf mit abgebrochen ",
+		"addentry": "Eintrag hinzufügen"
 	}
 }
