@@ -25,6 +25,10 @@ export const GET_SETTING_REQUEST = 'GET_SETTING_REQUEST';
 export const GET_SETTING_SUCCESS = 'GET_SETTING_SUCCESS';
 export const GET_SETTING_ERROR = 'GET_SETTING_ERROR';
 
+export const GET_DoctorArray_REQUEST = 'GET_DoctorArray_REQUEST';
+export const GET_DoctorArray_SUCCESS = 'GET_DoctorArray_SUCCESS';
+export const GET_DoctorArray_ERROR = 'GET_DoctorArray_ERROR';
+
 export const GET_Withing_REQUEST = 'GET_Withing_REQUEST';
 export const GET_Withing_SUCCESS = 'GET_Withing_SUCCESS';
 export const GET_Withing_ERROR = 'GET_Withing_ERROR';

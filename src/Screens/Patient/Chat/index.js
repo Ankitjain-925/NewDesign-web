@@ -5,6 +5,7 @@ import LeftMenuMobile from './../../Components/Menus/PatientLeftMenu/mobile';
 import { LoginReducerAim } from './../../Login/actions';
 import { Settings } from './../../Login/setting';
 import { connect } from "react-redux";
+import {Doctorarrays} from './../../Login/doctorarray';
 import { Redirect, Route } from 'react-router-dom';
 // import { Doctorset } from '../../Doctor/actions';
 // import { filterate } from '../../Doctor/filteraction';
@@ -37,7 +38,6 @@ class index extends React.Component {
             isattach : false,
             attachfile : [],
             unreadm : false,
-            doctorArray : [],
             sizeList : 100,
         }
     }
@@ -47,55 +47,52 @@ class index extends React.Component {
         // new LogOut(this.props.stateLoginValueAim.token, this.props.stateLoginValueAim.user._id, this.logOutClick.bind(this))
     }
     componentWillMount(){
-        var doctorArray = ['admin'];
-        let user_token = this.props.stateLoginValueAim.token
-        this.setState({loaderImage : true})
-        axios.get(sitedata.data.path + '/UserProfile/UserlistSize',{
-            headers: {
-                'token': user_token,
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            }
-        }).then((response) => {
-          this.setState({sizeList : response.data.data})
-        })
-        axios.get(sitedata.data.path + '/UserProfile/DoctorUsersChat',{
-            headers: {
-                'token': user_token,
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            }
-        }).then((response) => {
-            response.data.data && response.data.data.length>0 && response.data.data.map((data,index)=>{  
-             if(data.email === 'doctor4@aimedis.com' || data.email === 'doctor5@aimedis.com' || data.email === 'doctor3@aimedis.com' || data.email === 'doctor6@aimedis.com' || data.email === 'doctor7@aimedis.com')
-             {
-                if(doctorArray.indexOf(data.profile_id.toLowerCase()) === -1){
-                    doctorArray.push(data.profile_id.toLowerCase()) 
-                }
-             } 
-             else if(data.paid_services && data.paid_services>0)
-                {
-                    if(doctorArray.indexOf(data.profile_id.toLowerCase()) === -1){
-                         doctorArray.push(data.profile_id.toLowerCase())
-                    }
-                }   
-            })
-        })
-        let user_id    = this.props.stateLoginValueAim.user._id
-        axios.get(sitedata.data.path + '/UserProfile/Users/'+user_id, {headers:{
-          'token': user_token,
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-          }}).then((response) =>{
-            response.data.data && response.data.data.fav_doctor && response.data.data.fav_doctor.map((value, i)=>{
-                if(doctorArray.indexOf(value.profile_id.toLowerCase()) === -1){
-                    doctorArray.push(value.profile_id.toLowerCase())
-                }
-            })
-        })
-        this.setState({doctorArray : doctorArray})
-        setTimeout(()=>{ this.setState({loaderImage : false})}, 5000)
+        if(this.props.stateLoginValueAim.user)
+        {
+            this.props.Doctorarrays(this.props.stateLoginValueAim.user.type, this.props.stateLoginValueAim.user, this.props.stateLoginValueAim.token)
+        }
     }
+    // componentWillMount(){
+    //     var doctorArray = ['admin'];
+    //     let user_token = this.props.stateLoginValueAim.token
+    //     this.setState({loaderImage : true})
+    //     axios.get(sitedata.data.path + '/UserProfile/DoctorUsersChat',{
+    //         headers: {
+    //             'token': user_token,
+    //             'Accept': 'application/json',
+    //             'Content-Type': 'application/json'
+    //         }
+    //     }).then((response) => {
+    //         response.data.data && response.data.data.length>0 && response.data.data.map((data,index)=>{  
+    //          if(data.email === 'doctor4@aimedis.com' || data.email === 'doctor5@aimedis.com' || data.email === 'doctor3@aimedis.com' || data.email === 'doctor6@aimedis.com' || data.email === 'doctor7@aimedis.com')
+    //          {
+    //             if(doctorArray.indexOf(data.profile_id.toLowerCase()) === -1){
+    //                 doctorArray.push(data.profile_id.toLowerCase()) 
+    //             }
+    //          } 
+    //          else if(data.paid_services && data.paid_services>0)
+    //             {
+    //                 if(doctorArray.indexOf(data.profile_id.toLowerCase()) === -1){
+    //                      doctorArray.push(data.profile_id.toLowerCase())
+    //                 }
+    //             }   
+    //         })
+    //     })
+    //     let user_id    = this.props.stateLoginValueAim.user._id
+    //     axios.get(sitedata.data.path + '/UserProfile/Users/'+user_id, {headers:{
+    //       'token': user_token,
+    //       'Accept': 'application/json',
+    //       'Content-Type': 'application/json'
+    //       }}).then((response) =>{
+    //         response.data.data && response.data.data.fav_doctor && response.data.data.fav_doctor.map((value, i)=>{
+    //             if(doctorArray.indexOf(value.profile_id.toLowerCase()) === -1){
+    //                 doctorArray.push(value.profile_id.toLowerCase())
+    //             }
+    //         })
+    //     })
+    //     this.setState({doctorArray : doctorArray})
+    //     setTimeout(()=>{ this.setState({loaderImage : false})}, 5000)
+    // }
 
     render() {
         const { stateLoginValueAim, Doctorsetget } = this.props;
@@ -106,6 +103,7 @@ class index extends React.Component {
            
         return(
             <Grid className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode && this.props.settings.setting.mode==='dark' ? "homeBg homeBgDrk" : "homeBg"}>
+              
             <Grid container direction="row" justify="center">
             {this.state.loaderImage && <Loader />}
                 <Grid item xs={12} md={12}>
@@ -116,8 +114,9 @@ class index extends React.Component {
                         {/* Website Mid Content */}
                         <Grid item xs={12} md={11}>
                             {/* Inbox page Content */}
+                            {console.log('doctorArray', this.props)}
                             <Grid container style={{fontSize: "16px"}} direction="row" justify="left" alignItems="center">
-                                <CometChat lan= {this.props.stateLanguageType} Uid={this.props.stateLoginValueAim.user.profile_id} Userlist={this.state.doctorArray && this.state.doctorArray}  sizeList = {this.state.sizeList && this.state.sizeList}/> 
+                                <CometChat lan= {this.props.stateLanguageType} Uid={this.props.stateLoginValueAim.user.profile_id} Userlist={this.props.doctorarrays && this.props.doctorarrays.doctorarray} /> 
                             </Grid>
                         </Grid>
                     </Grid>
@@ -132,6 +131,7 @@ const mapStateToProps = (state) => {
     const { stateLanguageType } = state.LanguageReducer;
     const {settings} = state.Settings;
     const { verifyCode } = state.authy;
+    const { doctorarrays } = state.Doctorarrays;
     // const { Doctorsetget } = state.Doctorset;
     // const { catfil } = state.filterate;
     return {
@@ -140,8 +140,9 @@ const mapStateToProps = (state) => {
         loadingaIndicatoranswerdetail,
         settings,
         verifyCode,
+        doctorarrays,
         //   Doctorsetget,
         //   catfil
     }
 };
-export default withRouter(connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer, Settings, authy })(index));
+export default withRouter(connect(mapStateToProps, { Doctorarrays, LoginReducerAim, LanguageFetchReducer, Settings, authy })(index));

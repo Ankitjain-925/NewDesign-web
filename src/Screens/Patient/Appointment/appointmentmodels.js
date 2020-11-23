@@ -191,7 +191,7 @@ class Index extends Component {
                                                     <a className="showDetail">
                                                         <img src={require('../../../assets/images/three_dots_t.png')} alt="" title="" />
                                                         <Grid className="cancelAppoint">
-                                                            <a><img src={require('../../../assets/images/cancelAppoint.jpg')} alt="" title="" />Cancel appointment</a>
+                                                            <a><img src={require('../../../assets/images/cancelAppoint.png')} alt="" title="" />Cancel appointment</a>
                                                         </Grid>
                                                     </a>
                                                 </Grid>

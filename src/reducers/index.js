@@ -9,7 +9,8 @@ import EmergencySet from './EmergencySet';
 import cometreducer from './cometreducer';
 import Settings from './setting'
 import Fitbit from './fitbit';
-import Withings from './withing'; 
+import Withings from './withing';
+import Doctorarrays from './doctorarray'; 
 
 const allReducers = combineReducers({
     //signupReducer: signupReducer,
@@ -23,6 +24,7 @@ const allReducers = combineReducers({
     cometreducer: cometreducer,
     EmergencySet : EmergencySet,
     Settings : Settings,
+    Doctorarrays : Doctorarrays,
     Fitbit : Fitbit,
     Withings : Withings
 });

@@ -1229,7 +1229,7 @@ class Index extends Component {
                                     <td>{insu.insurance}</td>
                                     <td>{insu.insurance_number}</td>
                                     <td className="presEditDot scndOptionIner pivoted"><a className="openScndhrf">
-                                        <img src={require('../../../../assets/images/moreicon.jpg')} alt="" title="" className="openScnd" />
+                                        <img src={require('../../../../assets/images/three_dots_t.png')} alt="" title="" className="openScnd" />
                                         <ul>
                                             <li><a onClick={() => this.editKYCopen(insu, i)}><img src={require('../../../../assets/images/edit.svg')} alt="" title="" />{edit}</a></li>
                                             <li><a onClick={() => this.removeInsurance(i, insu)} ><img src={require('../../../../assets/images/close-search.svg')} alt="" title="" />{Delete}</a></li>
