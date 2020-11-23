@@ -83,7 +83,6 @@ class Index extends Component {
     getTimeSlot=()=> {
         this.setState({ loaderImage: true });
         let user_token = this.props.stateLoginValueAim.token
-        let user_id = this.props.stateLoginValueAim.user._id
         axios.get(sitedata.data.path + '/UserProfile/timeSuggest/', {
             headers: {
                 'token': user_token,
@@ -500,7 +499,6 @@ class Index extends Component {
     };
 
     handleOpenSlot = (data) => {
-        console.log('datsss', data)
         if (data.appointment_type == 'online_appointment') {
             this.setState({appoinmentSelected: data, appointmentData :this.state.appointmentDatas.online_appointment},
                 ()=>{this.onChange(new Date(data.date))})

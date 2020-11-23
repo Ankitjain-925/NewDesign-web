@@ -117,7 +117,6 @@ export function AddFavDoc (doctor_id, profile_id,user_token, user_profile_id){
 
 export function AddFavDoc2 (doctor_id, profile_id,user_token, user_profile_id){
 
-    console.log('sdd', doctor_id, profile_id, user_token, user_profile_id)
     axios.put(sitedata.data.path + '/UserProfile/AddFavDoc1/'+user_profile_id, {
         doctor: doctor_id,
         profile_id: profile_id,
