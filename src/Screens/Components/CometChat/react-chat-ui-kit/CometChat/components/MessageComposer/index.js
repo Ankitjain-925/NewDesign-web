@@ -34,6 +34,12 @@ class MessageComposer extends React.PureComponent {
     messageInput: "",
     messageType: ""
   }
+
+  componentDidUpdate(prevProps){
+    if(prevProps.item.name !== this.props.item.name){
+      this.setState({"messageInput":""})
+    }
+  }
   
   changeHandler = (e) => {
     this.setState({"messageInput": e.target.value, "messageType": "text"});
