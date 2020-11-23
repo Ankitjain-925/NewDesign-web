@@ -13039,6 +13039,13 @@ a.academy_ul ul li img {
 
 
 /*Added By ankita*/
+.cancelAppoint img {
+    width: 20px !important;
+    height: 20px !important;
+    margin-right: 5px !important;
+    border: none !important;
+    border-radius: 0px !important;
+}
 .showDetail img, .openScnd {
     width: 35px;
     height: 33px;

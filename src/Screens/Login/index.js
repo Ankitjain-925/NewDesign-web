@@ -5,6 +5,7 @@ import axios from "axios";
 import { connect } from "react-redux";
 import { LoginReducerAim } from './actions';
 import { Settings } from './setting';
+import {Doctorarrays} from './doctorarray';
 import Grid from '@material-ui/core/Grid';
 import { authy } from './authy.js';
 import { NavLink, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
@@ -64,6 +65,7 @@ class Index extends Component {
     componentDidMount = () => {
         actions.logout();
         this.logoutUser();
+        this.props.Doctorarrays('logout');
         // this.movedashboard();
         this.unsetCategory();
  
@@ -135,8 +137,7 @@ class Index extends Component {
                         console.log('Hetzs')
                         this.setState({ myLogin: true });
                         this.setState({ loaderImage: false })
-                        if (this.props.stateLoginValueAim && this.props.stateLoginValueAim.user && !this.props.stateLoginValueAim.user.is2fa) {
-                            
+                        if (this.props.stateLoginValueAim && this.props.stateLoginValueAim.user && !this.props.stateLoginValueAim.user.is2fa) {   
                             this.props.authy(true);
                         }
                         else if (this.props.stateLoginValueAim.token === 450) {
@@ -434,6 +435,7 @@ const mapStateToProps = (state) => {
     const { stateLanguageType } = state.LanguageReducer;
     const { verifyCode } = state.authy;
     const { settings } = state.Settings;
+    const { doctorarray } = state.Doctorarrays;
     const { Emergencysetget } = state.EmergencySet;
     const { Doctorsetget } = state.Doctorset;
     return {
@@ -443,11 +445,12 @@ const mapStateToProps = (state) => {
         verifyCode,
         settings,
         Doctorsetget,
-        Emergencysetget
+        Emergencysetget,
+        doctorarray
     }
 };
 
   
-export default connect(mapStateToProps, { Doctorset, EmergencySet, LoginReducerAim, LanguageFetchReducer, authy, Settings })(Index)
+export default connect(mapStateToProps, { Doctorset, Doctorarrays, EmergencySet, LoginReducerAim, LanguageFetchReducer, authy, Settings })(Index)
 
 // export default Index;

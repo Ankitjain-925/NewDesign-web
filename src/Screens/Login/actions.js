@@ -5,6 +5,8 @@ import axios from "axios";
 import { CometChat } from '@cometchat-pro/chat';
 import { COMETCHAT_CONSTANTS } from '../Components//CometChat/consts';
 import * as actions from '../Components/CometChat/store/action';
+import * as Docarray from './doctorarray';
+
 const path = sitedata.data.path + '/UserProfile';
 const path1 = sitedata.data.path + '/User';
 
@@ -50,56 +52,53 @@ export const LoginReducerAim = (email, password, SendCallback = () => {}) => {
               token:response.data.token,
               user:response.data.user,
             }
-
-            dispatch( actions.auth( response.data.user.profile_id, COMETCHAT_CONSTANTS.AUTH_KEY ) ) 
-            dispatch({ type: GET_LOGIN_SUCCESS, payload :tmp}); 
-            SendCallback(); 
-            // CometChat.login(response.data.user.profile_id, COMETCHAT_CONSTANTS.AUTH_KEY)
-            // .then(
-            //   (user) => {
-            //     console.log('heres1', user);
-            //     dispatch({ type: GET_LOGIN_SUCCESS, payload :tmp});
-            //     SendCallback();
-            //   },
-            //   (error) => {
-            //     console.log(error, 'error in login');
-            //     if (error && error.code == 'ERR_UID_NOT_FOUND') {
-            //       createUser({
-            //         uid: response.data.user.profile_id,
-            //         name: `${response.data.user.first_name} ${response.data.user.last_name}`,
-            //       }).then(
-            //         (user) => {
-            //           CometChat.login(response.data.user.profile_id, COMETCHAT_CONSTANTS.AUTH_KEY)
-            //           .then(
-            //             (user) => {
-            //               console.log('heres2', user);
-            //               dispatch({ type: GET_LOGIN_SUCCESS, payload :tmp});
-            //               SendCallback();
-            //             },
-            //             (error) => {
-            //               console.log('after create login error')
-            //               let tmp = 'error';
-            //               dispatch({ type: GET_LOGIN_ERROR , payload :tmp});
-            //               SendCallback();
-            //             })
-            //          },
-            //         (error) => {
-            //           let tmp = 'error';
-            //           dispatch({ type: GET_LOGIN_ERROR , payload :tmp});
-            //           SendCallback();
-            //         },
-            //       );
-            //     }
-            //     else{ 
-            //       let tmp = 'error';
-            //       dispatch({ type: GET_LOGIN_ERROR , payload :tmp});
-            //       SendCallback();
-            //     }
-            //   }).catch(error=>{
-            //     let tmp = 'error';
-            //     dispatch({ type: GET_LOGIN_ERROR , payload :tmp});
-            //     SendCallback();
-            //   })
+            dispatch( Docarray.Doctorarrays( response.data.user.type , response.data.user, response.data.token ) ) 
+            CometChat.login(response.data.user.profile_id, COMETCHAT_CONSTANTS.AUTH_KEY)
+            .then(
+              (user) => {
+                console.log('heres1', user);
+                dispatch({ type: GET_LOGIN_SUCCESS, payload :tmp});
+                SendCallback();
+              },
+              (error) => {
+                console.log(error, 'error in login');
+                if (error && error.code == 'ERR_UID_NOT_FOUND') {
+                  createUser({
+                    uid: response.data.user.profile_id,
+                    name: `${response.data.user.first_name} ${response.data.user.last_name}`,
+                  }).then(
+                    (user) => {
+                      CometChat.login(response.data.user.profile_id, COMETCHAT_CONSTANTS.AUTH_KEY)
+                      .then(
+                        (user) => {
+                          console.log('heres2', user);
+                          dispatch({ type: GET_LOGIN_SUCCESS, payload :tmp});
+                          SendCallback();
+                        },
+                        (error) => {
+                          console.log('after create login error')
+                          let tmp = 'error';
+                          dispatch({ type: GET_LOGIN_ERROR , payload :tmp});
+                          SendCallback();
+                        })
+                     },
+                    (error) => {
+                      let tmp = 'error';
+                      dispatch({ type: GET_LOGIN_ERROR , payload :tmp});
+                      SendCallback();
+                    },
+                  );
+                }
+                else{ 
+                  let tmp = 'error';
+                  dispatch({ type: GET_LOGIN_ERROR , payload :tmp});
+                  SendCallback();
+                }
+              }).catch(error=>{
+                let tmp = 'error';
+                dispatch({ type: GET_LOGIN_ERROR , payload :tmp});
+                SendCallback();
+              })
               
         }
         }).catch((error) => {

@@ -1048,7 +1048,7 @@ class Index extends Component {
                                                                 <a className="showDetail">
                                                                     {apoint.status === "free" && <img src={require('../../../assets/images/three_dots_t.png')} alt="" title="" className="openScnd"/>}
                                                                     <Grid className="cancelAppoint">
-                                                                        <a onClick={() => { this.handleOpenApoint(apoint) }}><img src={require('../../../assets/images/cancelAppoint.jpg')} alt="" title="" />{cancel_apointmnt}</a>
+                                                                        <a onClick={() => { this.handleOpenApoint(apoint) }}><img src={require('../../../assets/images/cancelAppoint.png')} alt="" title="" />{cancel_apointmnt}</a>
                                                                     </Grid>
                                                                 </a>
                                                             </Grid>

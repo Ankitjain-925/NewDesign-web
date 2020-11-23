@@ -147,7 +147,7 @@ class PersonalizedData extends Component {
                                 return (
                                 <Grid container direction="row" alignItems="center" justify="center" className="dragDashMain">
                                     <Grid item xs={8} md={8} className="dragDashLft">
-                                        <Grid><a onClick={()=>this.Remove(item.value)}><img onClick={()=>this.Remove(item.value)} src={require('../../../../assets/images/remove-2.svg')} alt="" title="" /> {item.label} </a></Grid>
+                                        <Grid><a onClick={()=>this.Remove(item.value)}><img src={require('../../../../assets/images/remove-2.svg')} alt="" title="" /> {item.label} </a></Grid>
                                     </Grid>
                                     <Grid item xs={4} md={4} className="dragDashRght">
                                         <a><img src={require('../../../../assets/images/drag.svg')} alt="" title="" /></a>
@@ -162,7 +162,7 @@ class PersonalizedData extends Component {
                         <h3>{add_more_cards}</h3>
 
                         {this.state.not_added_card && this.state.not_added_card.length>0 && this.state.not_added_card.map((item)=>(
-                            <Grid><a onClick={()=>this.Add(item.value)}><img onClick={()=>this.Add(item.value)} src={require('../../../../assets/images/add.svg')} alt="" title="" />{item.label}</a></Grid>
+                            <Grid><a onClick={()=>this.Add(item.value)}><img src={require('../../../../assets/images/add.svg')} alt="" title="" />{item.label}</a></Grid>
                         ))}
                     </Grid>
                 </Grid>
