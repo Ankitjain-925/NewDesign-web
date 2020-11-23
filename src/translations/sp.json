@@ -530,6 +530,7 @@
 		"patient_profession": "Profesión del paciente",
 		"Patient_access_data": "Datos de Acceso del Paciente",
 		"another_patient_data": "Datos de otro paciente",
+		"patient_access_data": "Datos de acceso del paciente",
 		"get_patient_access_data": "Obtener Datos de Acceso del Paciente",
 		"id_pin_not_correct": "El ID o PIN no es correcto",
 		"healthcare_access_for_non_conn_patient": "Acceso a datos de salud para pacientes no conectados",
