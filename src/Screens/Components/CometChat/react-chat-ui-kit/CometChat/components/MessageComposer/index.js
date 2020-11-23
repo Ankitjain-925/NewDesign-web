@@ -19,15 +19,15 @@ import sendBlue from "./resources/send-blue-icon.svg";
 class MessageComposer extends React.PureComponent {
 
   constructor(props) {
-   super(props);
-  
-		this.imageUploaderRef = React.createRef();
-		this.fileUploaderRef = React.createRef();
-		this.audioUploaderRef = React.createRef();
+    super(props);
+
+    this.imageUploaderRef = React.createRef();
+    this.fileUploaderRef = React.createRef();
+    this.audioUploaderRef = React.createRef();
     this.videoUploaderRef = React.createRef();
     this.messageInputRef = React.createRef();
     this.messageSending = false;
-	}
+  }
 
   state = {
     showFilePicker: false,
@@ -35,14 +35,14 @@ class MessageComposer extends React.PureComponent {
     messageType: ""
   }
 
-  componentDidUpdate(prevProps){
-    if(prevProps.item.name !== this.props.item.name){
-      this.setState({"messageInput":""})
+  componentDidUpdate(prevProps) {
+    if (prevProps.item.name !== this.props.item.name) {
+      this.setState({ "messageInput": "" })
     }
   }
-  
+
   changeHandler = (e) => {
-    this.setState({"messageInput": e.target.value, "messageType": "text"});
+    this.setState({ "messageInput": e.target.value, "messageType": "text" });
   }
 
   toggleFilePicker = () => {
@@ -57,13 +57,13 @@ class MessageComposer extends React.PureComponent {
         this.imageUploaderRef.current.click();
         break;
       case "file":
-          this.fileUploaderRef.current.click();
+        this.fileUploaderRef.current.click();
         break;
       case "audio":
-          this.audioUploaderRef.current.click();
+        this.audioUploaderRef.current.click();
         break;
       case "video":
-          this.videoUploaderRef.current.click();
+        this.videoUploaderRef.current.click();
         break;
       default:
         break;
@@ -72,49 +72,49 @@ class MessageComposer extends React.PureComponent {
 
   onImageChange = (e, messageType) => {
 
-    if(!e.target.files[0]) {
+    if (!e.target.files[0]) {
       return false;
     }
-    
+
     const imageInput = e.target.files[0];
-    this.sendMediaMessage(imageInput, messageType)   
+    this.sendMediaMessage(imageInput, messageType)
   }
 
   onFileChange = (e, messageType) => {
 
-    if(!e.target.files[0]) {
+    if (!e.target.files[0]) {
       return false;
     }
 
     const fileInput = e.target.files[0];
-    this.sendMediaMessage(fileInput, messageType)   
+    this.sendMediaMessage(fileInput, messageType)
   }
 
   onAudioChange = (e, messageType) => {
 
-    if(!e.target.files[0]) {
+    if (!e.target.files[0]) {
       return false;
     }
 
     const audioInput = e.target.files[0];
-    this.sendMediaMessage(audioInput, messageType)   
+    this.sendMediaMessage(audioInput, messageType)
   }
 
   onVideoChange = (e, messageType) => {
 
-    if(!e.target.files[0]) {
+    if (!e.target.files[0]) {
       return false;
     }
 
     const videoInput = e.target.files[0];
-    this.sendMediaMessage(videoInput, messageType)   
+    this.sendMediaMessage(videoInput, messageType)
   }
 
   sendMediaMessage = (messageInput, messageType) => {
 
     this.toggleFilePicker();
 
-    if(this.messageSending) {
+    if (this.messageSending) {
       return false;
     }
 
@@ -129,7 +129,7 @@ class MessageComposer extends React.PureComponent {
     }
 
     let message = new CometChat.MediaMessage(receiverId, messageInput, messageType, receiverType);
-    if(this.props.parentMessageId) {
+    if (this.props.parentMessageId) {
       message.setParentMessageId(this.props.parentMessageId);
     }
 
@@ -144,7 +144,7 @@ class MessageComposer extends React.PureComponent {
 
   sendMessageOnEnter = (e) => {
 
-    if(e.key !== 'Enter')
+    if (e.key !== 'Enter')
       return false;
 
     this.sendTextMessage();
@@ -152,11 +152,11 @@ class MessageComposer extends React.PureComponent {
 
   sendTextMessage = () => {
 
-    if(!this.state.messageInput.trim().length) {
+    if (!this.state.messageInput.trim().length) {
       return false;
     }
 
-    if(this.messageSending) {
+    if (this.messageSending) {
       return false;
     }
 
@@ -173,12 +173,12 @@ class MessageComposer extends React.PureComponent {
     }
 
     let textMessage = new CometChat.TextMessage(receiverId, messageInput, receiverType);
-    if(this.props.parentMessageId) {
+    if (this.props.parentMessageId) {
       textMessage.setParentMessageId(this.props.parentMessageId);
     }
-    
+
     CometChat.sendMessage(textMessage).then(message => {
-      this.setState({messageInput: ""});
+      this.setState({ messageInput: "" });
       this.messageSending = false;
       this.props.actionGenerated("messageComposed", [message]);
     }).catch(error => {
@@ -190,7 +190,7 @@ class MessageComposer extends React.PureComponent {
   render() {
 
     let disabled = false;
-    if(this.props.item.blockedByMe) {
+    if (this.props.item.blockedByMe) {
       disabled = true;
     }
 
@@ -200,39 +200,39 @@ class MessageComposer extends React.PureComponent {
     });
     let translate;
     switch (this.props.lan) {
-          case "en":
-              translate = translationEN.text
-              break;
-          case "de":
-              translate = translationDE.text
-              break;
-          case "pt":
-              translate = translationPT.text
-              break;
-          case "sp":
-              translate = translationSP.text
-              break;
-          case "rs":
-              translate = translationRS.text
-              break;
-          case "nl":
-              translate = translationNL.text
-              break;
-          case "ch":
-              translate = translationCH.text
-              break;
-          case "sw":
-              translate = translationSW.text
-              break;
-          case "default":
-              translate = translationEN.text
-      }
-      let { Entermessage  } = translate;
+      case "en":
+        translate = translationEN.text
+        break;
+      case "de":
+        translate = translationDE.text
+        break;
+      case "pt":
+        translate = translationPT.text
+        break;
+      case "sp":
+        translate = translationSP.text
+        break;
+      case "rs":
+        translate = translationRS.text
+        break;
+      case "nl":
+        translate = translationNL.text
+        break;
+      case "ch":
+        translate = translationCH.text
+        break;
+      case "sw":
+        translate = translationSW.text
+        break;
+      case "default":
+        translate = translationEN.text
+    }
+    let { Entermessage } = translate;
 
     return (
 
       <div className="cc1-chat-win-inpt-ext-wrap">
-        
+
         <div className="cc1-chat-win-inpt-int-wrap">
           <div className="cc1-chat-win-inpt-attach" onClick={this.toggleFilePicker}>
             <span><img src={roundedPlus} alt="Click to upload a file" /></span>
@@ -240,30 +240,30 @@ class MessageComposer extends React.PureComponent {
           <div className={filePickerClassName}>
             <div className="cc1-chat-win-file-type-list">
               <span className="cc1-chat-win-file-type-listitem video" onClick={() => { this.openFileDialogue("video") }}>
-              <input onChange={(e) => this.onVideoChange(e, "video")} accept="video/*" type="file" ref={this.videoUploaderRef} />
+                <input onChange={(e) => this.onVideoChange(e, "video")} accept="video/*" type="file" ref={this.videoUploaderRef} />
               </span>
               <span className="cc1-chat-win-file-type-listitem audio" onClick={() => { this.openFileDialogue("audio") }}>
-              <input onChange={(e) => this.onAudioChange(e, "audio")} accept="audio/*" type="file" ref={this.audioUploaderRef} />
+                <input onChange={(e) => this.onAudioChange(e, "audio")} accept="audio/*" type="file" ref={this.audioUploaderRef} />
               </span>
               <span className="cc1-chat-win-file-type-listitem image" onClick={() => { this.openFileDialogue("image") }}>
                 <input onChange={(e) => this.onImageChange(e, "image")} accept="image/*" type="file" ref={this.imageUploaderRef} />
               </span>
               <span className="cc1-chat-win-file-type-listitem file" onClick={() => { this.openFileDialogue("file") }}>
-              <input onChange={(e) => this.onFileChange(e, "file")} type="file" id="file" ref={this.fileUploaderRef} />
+                <input onChange={(e) => this.onFileChange(e, "file")} type="file" id="file" ref={this.fileUploaderRef} />
               </span>
             </div>
           </div>
           <div className="cc1-chat-win-inpt-wrap">
-            <input 
-            type="text"
-            className="cc1-chat-win-inpt-box"
-            placeholder={Entermessage}
-            autoComplete="off" 
-            disabled={disabled}
-            onChange={this.changeHandler}
-            onKeyDown={this.sendMessageOnEnter}
-            value={this.state.messageInput}
-            ref={this.messageInputRef} />
+            <input
+              type="text"
+              className="cc1-chat-win-inpt-box"
+              placeholder={Entermessage}
+              autoComplete="off"
+              disabled={disabled}
+              onChange={this.changeHandler}
+              onKeyDown={this.sendMessageOnEnter}
+              value={this.state.messageInput}
+              ref={this.messageInputRef} />
           </div>
           <div className="cc1-chat-win-inpt-send">
             <span className="cc1-chat-win-inpt-send-btn" onClick={this.sendTextMessage}><img src={sendBlue} alt="Send Message" /></span>
