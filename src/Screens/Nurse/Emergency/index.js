@@ -81,6 +81,9 @@ class Index extends Component {
                     }
                 })
         }
+        setTimeout(()=>{
+            this.setState({ error_msg: false, error_msg1: false })
+        }, 5000)
     }
 
     //To open the Default Popup
@@ -106,7 +109,7 @@ class Index extends Component {
         this.setState({ gettrackdatas: state });
     }
     handleClosePara = () => {
-        this.setState({ openPara: false });
+        this.setState({ openPara: false, error_msg:false, error_msg1:false});
     };
     anotherPatient = () => {
         var user_id = null;

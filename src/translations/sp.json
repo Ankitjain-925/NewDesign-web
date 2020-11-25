@@ -1141,6 +1141,8 @@
 		"trusted_doc": "Doctores de confianza",
 		"forget_password": "Contraseña olvidada",
 		"Oops": "Ups",
-		"addentry": "Añadir entrada"
+		"addentry": "Añadir entrada",
+		"enabled":"habilitado",
+		"disabled":"discapacitado"
 	}
 }

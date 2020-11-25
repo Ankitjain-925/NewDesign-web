@@ -103,9 +103,9 @@ class Index extends Component {
             regisError: null,
             gettrackdatas: {},
             patDeleteErr: null,
-            error_message_1:null,
+            error_message_1: null,
             sentmessages: true,
-            selectCountry:[]
+            selectCountry: []
         };
     }
 
@@ -233,12 +233,13 @@ class Index extends Component {
             case "default":
                 translate = translationEN.text
         }
-        let{plz_enter_email_id_patient }= translate
+        let { plz_enter_email_id_patient } = translate
         const AskPatient = this.state.AskPatient;
         if (!AskPatient || AskPatient === '') {
             this.setState({ errorSentMsg: plz_enter_email_id_patient })
             return
         }
+
         this.setState({ loaderImage: true, ne: false, ve: false, error_message_1: '' });
         let user_token = this.props.stateLoginValueAim.token
 
@@ -277,10 +278,10 @@ class Index extends Component {
                                     this.setState({ loaderImage: false });
                                     if (response.data.hassuccessed) {
                                         this.setState({ sentmessages: true });
-                                        setTimeout(() =>{
+                                        setTimeout(() => {
                                             this.setState({ sentmessages: false });
                                             this.handleCloseReq();
-                                        },3000);
+                                        }, 3000);
                                     }
                                     else {
                                         this.setState({ ne: true });
@@ -288,15 +289,18 @@ class Index extends Component {
                                 })
                             }
                             else {
-                                this.setState({ loaderImage: false, error_message_1: responce.data.msg? responce.data.msg: responce.data.message })
+                                this.setState({ loaderImage: false, error_message_1: responce.data.msg ? responce.data.msg : responce.data.message })
                             }
                         })
                 }
                 else {
-                    this.setState({ loaderImage: false, error_message_1: responce.data.msg? responce.data.msg: responce.data.message })
+                    this.setState({ loaderImage: false, error_message_1: responce.data.msg ? responce.data.msg : responce.data.message })
                 }
 
             })
+        setTimeout(() => {
+            this.setState({ errorSentMsg: false });
+        }, 5000);
     }
 
 
@@ -331,7 +335,7 @@ class Index extends Component {
             case "default":
                 translate = translationEN.text
         }
-        let{plz_fill_mob_number, pswd_not_valid, email_not_valid, plz_fill_fullname_user }= translate
+        let { plz_fill_mob_number, pswd_not_valid, email_not_valid, plz_fill_fullname_user } = translate
         const { userDetails } = this.state;
         let user_token = this.props.stateLoginValueAim.token;
         this.setState({ regisError: null })
@@ -375,8 +379,8 @@ class Index extends Component {
                                             }
                                         })
                                         .then((res) => { })
-                                        console.log('responce', responce)
-                                        AddFavDoc2(this.props.stateLoginValueAim.user.profile_id, this.props.stateLoginValueAim.user.profile_id, this.props.stateLoginValueAim.token, responce.data.data.profile_id);
+                                    console.log('responce', responce)
+                                    AddFavDoc2(this.props.stateLoginValueAim.user.profile_id, this.props.stateLoginValueAim.user.profile_id, this.props.stateLoginValueAim.token, responce.data.data.profile_id);
                                     // axios.post(sitedata.data.path + '/UserProfile/AddtoPatientList/' + this.props.stateLoginValueAim.user.profile_id, {
                                     //     profile_id: responce.data.data.profile_id
                                     // }, {
@@ -387,7 +391,7 @@ class Index extends Component {
                                     //     }
                                     // }).then((responce) => { })
                                     this.setState({ successfull: true, alreadyerror: false, Mnotvalid: false, regisError: null })
-                                   
+
                                     setTimeout(
                                         function () {
                                             this.getMypatientsData()
@@ -395,7 +399,7 @@ class Index extends Component {
                                             .bind(this),
                                         2000
                                     );
-                                   
+
                                     setTimeout(
                                         function () {
                                             this.setState({ successfull: false });
@@ -403,7 +407,7 @@ class Index extends Component {
                                             .bind(this),
                                         5000
                                     );
-                                   
+
                                 }
                                 else if (responce.data.message === "Phone is not verified") {
                                     this.setState({ successfull: false, Mnotvalid: true, alreadyerror: false })
@@ -438,7 +442,7 @@ class Index extends Component {
 
     //open and close Prescription Details
     handleshowPatient = (data) => {
-      
+
         this.setState({ showPatient: true, addPatient: false, profileDetail: data });
     };
     handleCloseShowPatient = () => {
@@ -450,7 +454,7 @@ class Index extends Component {
         this.setState({ openData: true });
     };
     handleCloseData = () => {
-        this.setState({ openData: false });
+        this.setState({ openData: false, error_msg: false });
     };
 
     handleOpenReq = () => {
@@ -511,7 +515,7 @@ class Index extends Component {
         })
             .then((response) => {
                 this.setState({ loaderImage: false });
-              
+
                 if (response.data.hassuccessed) {
                     // axios.delete('https://api-eu.cometchat.io/v2.0/users/' + profileDetail.profile_id.toLowerCase(),
                     //     {
@@ -523,8 +527,8 @@ class Index extends Component {
                     //         }
                     //     })
                     //     .then((response) => {
-                            this.getMypatientsData();
-                        // })
+                    this.getMypatientsData();
+                    // })
                 }
                 else {
                     this.setState({ patDeleteErr: 'Something happened Wrong, Patient delete unsuccessfull' })
@@ -673,6 +677,9 @@ class Index extends Component {
                     }
                 })
         }
+        setTimeout(() => {
+            this.setState({ error_msg: false })
+        }, 5000)
     }
 
     //For chnage the page
@@ -728,8 +735,8 @@ class Index extends Component {
                 translate = translationEN.text
         }
         let { succ1, Register_email, Register_Password, Register_Passwordshould, enter_pin, Register_characters, Register_letter, Register_number, Register_special, Register_Mobilenumber, Register_activate_auth, enter,
-            Mnotvalids, Register_CREATE, capab_Patients, not_mentioned, age,gender, patient_id, openjournal, personal_info, remove_patient, insurance, id_pin_not_correct, patient_data_access, healthcare_access_for_non_conn_patient, view_data, private_doc_rest, ask_patient_to_become_a_private_doctor, Ask, email_or_id, enter_patient_email_id, new_patient, add_new_patient, first, name,last, country_code, previous, next, find_patient, Patient, add_new_patient_in_list } = translate
-        const enter_patient_id = enter+" "+patient_id
+            Mnotvalids, Register_CREATE, capab_Patients, not_mentioned, age, gender, patient_id, openjournal, personal_info, remove_patient, insurance, id_pin_not_correct, patient_data_access, healthcare_access_for_non_conn_patient, view_data, private_doc_rest, ask_patient_to_become_a_private_doctor, Ask, email_or_id, enter_patient_email_id, new_patient, add_new_patient, first, name, last, country_code, previous, next, find_patient, Patient, add_new_patient_in_list } = translate
+        const enter_patient_id = enter + " " + patient_id
         if (stateLoginValueAim.user === 'undefined' || stateLoginValueAim.token === 450 || stateLoginValueAim.token === 'undefined' || stateLoginValueAim.user.type !== 'doctor' || !this.props.verifyCode || !this.props.verifyCode.code) {
             return (<Redirect to={'/'} />);
         }
@@ -746,7 +753,7 @@ class Index extends Component {
                                 <LeftMenuMobile isNotShow={true} currentPage="patient" />
                                 <Notification />
                                 {/* End of Website Menu */}
-                                
+
                                 <Grid item xs={12} md={9}>
                                     <Grid className="docOpinion">
                                         <Grid container direction="row" className="docAddUpr">
@@ -804,7 +811,7 @@ class Index extends Component {
                                             </Table>
                                             {/*Start of Patient detail Modal*/}
                                             <Modal
-                                                className={this.props.settings&&this.props.settings.setting && this.props.settings.setting.mode &&this.props.settings.setting.mode === 'dark' ?"darkTheme":""}
+                                                className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode && this.props.settings.setting.mode === 'dark' ? "darkTheme" : ""}
                                                 open={this.state.showPatient}
                                                 onClose={this.handleCloseShowPatient}
                                             >
@@ -848,12 +855,12 @@ class Index extends Component {
                                                             </Grid>
                                                             <Grid className="userAdres">
                                                                 <Grid><img src={require('../../../assets/images/language11.svg')} alt="" title="" /></Grid>
-                                                                <p>{profileDetail.language && profileDetail.language.map((data,inde)=>
-                                                                    ((inde!==0)?
-                                                                        (', '+data)
-                                                                    :
-                                                                    (data))
-                                                                    )}</p>
+                                                                <p>{profileDetail.language && profileDetail.language.map((data, inde) =>
+                                                                    ((inde !== 0) ?
+                                                                        (', ' + data)
+                                                                        :
+                                                                        (data))
+                                                                )}</p>
                                                             </Grid>
                                                             <Grid className="insureMe">
                                                                 <Grid><label>{insurance}</label></Grid>
@@ -882,7 +889,7 @@ class Index extends Component {
                                             </Modal>
                                             {/* End of Model setup */}
                                             {/* Model Patient Data Access */}
-                                            <Modal open={this.state.openData} onClose={this.handleCloseData} className={this.props.settings&&this.props.settings.setting && this.props.settings.setting.mode &&this.props.settings.setting.mode === 'dark' ?"darkTheme":""}>
+                                            <Modal open={this.state.openData} onClose={this.handleCloseData} className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode && this.props.settings.setting.mode === 'dark' ? "darkTheme" : ""}>
                                                 <Grid className="dataBoxCntnt">
                                                     <Grid className="dataCourse">
                                                         <Grid className="dataCloseBtn">
@@ -917,7 +924,7 @@ class Index extends Component {
                                             <Modal
                                                 open={this.state.openReq}
                                                 onClose={this.handleCloseReq}
-                                                className={this.props.settings&&this.props.settings.setting && this.props.settings.setting.mode &&this.props.settings.setting.mode === 'dark' ?"darkTheme":""}>
+                                                className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode && this.props.settings.setting.mode === 'dark' ? "darkTheme" : ""}>
                                                 <Grid className="dataBoxCntnt">
                                                     <Grid className="dataCourse">
                                                         <Grid className="dataCloseBtn">
@@ -935,7 +942,7 @@ class Index extends Component {
                                                             {this.state.sentmessages && <div className="success_message">{succ1}</div>}
                                                             <Grid>
                                                                 <Grid><label>{email_or_id}</label></Grid>
-                                                                <Grid><input type="text" placeholder={enter_patient_email_id} onChange={(event) => {this.setState({ AskPatient: event.target.value, errorSentMsg:'' });}} /></Grid>
+                                                                <Grid><input type="text" placeholder={enter_patient_email_id} onChange={(event) => { this.setState({ AskPatient: event.target.value, errorSentMsg: '' }); }} /></Grid>
                                                             </Grid>
                                                         </Grid>
                                                         <Grid className="dataBoxSub">
@@ -949,8 +956,8 @@ class Index extends Component {
                                             <Modal
                                                 open={this.state.openNew}
                                                 onClose={this.handleCloseNewPatient}
-                                                className={this.props.settings&&this.props.settings.setting && this.props.settings.setting.mode &&this.props.settings.setting.mode === 'dark' ?"darkTheme nwPresModel":"nwPresModel"}
-                                                 
+                                                className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode && this.props.settings.setting.mode === 'dark' ? "darkTheme nwPresModel" : "nwPresModel"}
+
                                             >
                                                 <Grid className="dataBoxCntnt">
                                                     <Grid className="dataCourse">
@@ -1109,4 +1116,4 @@ const mapStateToProps = (state) => {
         //   catfil
     }
 };
-export default withRouter(connect(mapStateToProps, { Doctorset, LoginReducerAim, LanguageFetchReducer, Settings,authy })(Index));
+export default withRouter(connect(mapStateToProps, { Doctorset, LoginReducerAim, LanguageFetchReducer, Settings, authy })(Index));

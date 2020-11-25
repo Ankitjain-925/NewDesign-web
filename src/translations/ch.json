@@ -1158,6 +1158,8 @@
 		"dignoses": "诊断",
 		"addentry": "添加条目",
 		"nurology": "神经病学",
-		"pswd_not_valid": "密码无效"
+		"pswd_not_valid": "密码无效",
+		"enabled":"已启用",
+		"disabled":"残障人士"
 	}
 }

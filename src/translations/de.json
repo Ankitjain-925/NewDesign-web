@@ -1137,6 +1137,8 @@
 		"had_initiated_call_with": " hatte den Anruf mit initiiert ",
 		"ended_call_with": " beendete den Anruf mit ",
 		"cancelled_call_with": " hat den Anruf mit abgebrochen ",
-		"addentry": "Eintrag hinzufügen"
+		"addentry": "Eintrag hinzufügen",
+		"enabled":"aktiviert",
+		"disabled":"behindert"
 	}
 }

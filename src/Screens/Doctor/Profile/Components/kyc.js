@@ -472,7 +472,7 @@ class Index extends Component {
                                 <Checkbox
                                     value="checkedB"
                                     color="#00ABAF"
-                                    checked={this.state.agree === true && this.state.agree} onChange={(e) => { this.setState({ agree: !this.state.agree }) }}
+                                    checked={this.state.agree === true && this.state.agree} onChange={(e) => { this.setState({ agree: !this.state.agree, err1:false }) }}
                                 />
                             }
                             label={by_clicking_accept_aimedis_term}

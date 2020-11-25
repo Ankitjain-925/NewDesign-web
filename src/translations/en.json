@@ -763,6 +763,8 @@
 		"serach_pers_sick": "Search prescription & sick certificate",
 		"set_default_date_time": "Set the default date & time format",
 		"two_fac_auth_enable": "2-factor authentication is enabled",
+		"enabled":"enabled",
+		"disabled":"disabled",
 		"disable_2_factor": "Disable 2-factor authentication",
 		"enable_2_factor": "Enable 2-factor authentication",
 		"appVersion": "App version 3.0",
