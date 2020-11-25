@@ -52,6 +52,8 @@ class index extends React.Component {
         if(this.props.stateLoginValueAim.user)
         {
             this.props.Doctorarrays(this.props.stateLoginValueAim.user.type, this.props.stateLoginValueAim.user, this.props.stateLoginValueAim.token)
+            this.setState({loaderImage : true})
+            setTimeout(()=>{ this.setState({loaderImage : false})}, 3000)
         }
     }
     // componentWillMount(){
@@ -138,7 +140,6 @@ class index extends React.Component {
             <Grid className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode && this.props.settings.setting.mode==='dark' ? "homeBg homeBgDrk" : "homeBg"}>
             <Grid container direction="row" justify="center">
             {this.state.loaderImage && <Loader />}
-            {console.log('doctorArray', this.state.doctorArray)}
                 <Grid item xs={12} md={12}>
                     <Grid container direction="row">
                         <LeftMenu  isNotShow ={true} currentPage="chat"/>

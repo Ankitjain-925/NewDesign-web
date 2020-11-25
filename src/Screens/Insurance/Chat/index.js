@@ -52,6 +52,8 @@ class index extends React.Component {
         if(this.props.stateLoginValueAim.user)
         {
             this.props.Doctorarrays(this.props.stateLoginValueAim.user.type, this.props.stateLoginValueAim.user, this.props.stateLoginValueAim.token)
+            this.setState({loaderImage : true})
+            setTimeout(()=>{ this.setState({loaderImage : false})}, 3000)
         }
     }
     // componentWillMount(){
@@ -102,8 +104,7 @@ class index extends React.Component {
                         <LeftMenu  isNotShow ={true} currentPage="chat"/>
                         <LeftMenuMobile isNotShow ={true}  currentPage="chat"/>
                         {/* <Notification /> */}
-                        {/* Website Mid Content */}
-                        {console.log('doctorArray', this.state.doctorArray)}
+
                         <Grid item xs={12} md={11}>
                             {/* Inbox page Content */}
                             <Grid container style={{fontSize: "16px"}} direction="row" justify="left" alignItems="center">

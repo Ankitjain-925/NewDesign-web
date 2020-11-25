@@ -51,6 +51,8 @@ class index extends React.Component {
         if(this.props.stateLoginValueAim.user)
         {
             this.props.Doctorarrays(this.props.stateLoginValueAim.user.type, this.props.stateLoginValueAim.user, this.props.stateLoginValueAim.token)
+            this.setState({loaderImage : true})
+            setTimeout(()=>{ this.setState({loaderImage : false})}, 3000)
         }
     }
     // componentWillMount(){

@@ -50,6 +50,8 @@ class index extends React.Component {
         if(this.props.stateLoginValueAim.user)
         {
             this.props.Doctorarrays(this.props.stateLoginValueAim.user.type, this.props.stateLoginValueAim.user, this.props.stateLoginValueAim.token)
+            this.setState({loaderImage : true})
+            setTimeout(()=>{ this.setState({loaderImage : false})}, 3000)
         }
     }
     // componentWillMount(){
@@ -114,7 +116,7 @@ class index extends React.Component {
                         {/* Website Mid Content */}
                         <Grid item xs={12} md={11}>
                             {/* Inbox page Content */}
-                            {console.log('doctorArray', this.props)}
+                            
                             <Grid container style={{fontSize: "16px"}} direction="row" justify="left" alignItems="center">
                                 <CometChat lan= {this.props.stateLanguageType} Uid={this.props.stateLoginValueAim.user.profile_id} Userlist={this.props.doctorarrays && this.props.doctorarrays.doctorarray} /> 
                             </Grid>
