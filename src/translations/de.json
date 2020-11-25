@@ -1140,6 +1140,8 @@
 		"addentry": "Eintrag hinzufügen",
 		"InsurancecompanyError" : "Bitte füllen Sie das Versicherungsland und die Versicherungsgesellschaft aus",
 		"StartDate" :"Anfangsdatum",
-		"EndDate" :"Endtermin"
+		"EndDate" :"Endtermin",
+		"enabled":"aktiviert",
+		"disabled":"behindert"
 	}
 }

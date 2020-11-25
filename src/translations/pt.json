@@ -1155,6 +1155,8 @@
 		"offline": "Desligado",
 		"InsurancecompanyError" : "Preencha o país do seguro e a companhia de seguros",
 		"StartDate" :"Data de início",
-		"EndDate" :"Data final"
+		"EndDate" :"Data final",
+		"enabled":"ativado",
+		"disabled":"desativado"
 	}
 }

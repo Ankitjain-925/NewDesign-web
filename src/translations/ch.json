@@ -1161,6 +1161,8 @@
 		"pswd_not_valid": "密码无效",
 		"InsurancecompanyError" : "请填写保险国家和保险公司",
 		"StartDate" :"开始日期",
-		"EndDate" :"结束日期"
+		"EndDate" :"结束日期",
+		"enabled":"已启用",
+		"disabled":"残障人士"
 	}
 }
