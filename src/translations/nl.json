@@ -1698,6 +1698,9 @@
 		"had_initiated_call_with": " had de oproep geïnitieerd met ",
 		"ended_call_with": " beëindigde het gesprek met ",
 		"cancelled_call_with": " annuleerde het gesprek met ",
-		"minutes":"minuten"
+		"minutes":"minuten",
+		"InsurancecompanyError" : "Vul het verzekeringsland en de verzekeringsmaatschappij in",
+		"StartDate" :"Startdatum",
+		"EndDate" :"Einddatum"
 	}
 }

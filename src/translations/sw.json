@@ -1106,6 +1106,9 @@
 		"had_initiated_call_with": " alikuwa ameanzisha simu na ",
 		"ended_call_with": " ilimaliza simu na ",
 		"cancelled_call_with": " Kughairiwa simu na ",
-		"minutes":"dakika"
+		"minutes":"dakika",
+		"InsurancecompanyError" : "Tafadhali jaza nchi ya Bima na kampuni ya Bima",
+		"StartDate" :"Tarehe ya Kuanza",
+		"EndDate" :"Tarehe ya mwisho"
 	}
 }

@@ -10,6 +10,7 @@ import ReactFlagsSelect from 'react-flags-select';
 import sitedata from '../../../../sitedata';
 import axios from 'axios';
 import { withRouter } from "react-router-dom";
+import QRCode from 'qrcode.react';
 import { connect } from "react-redux";
 import { LoginReducerAim } from './../../../Login/actions';
 import { Settings } from './../../../Login/setting';
@@ -762,7 +763,7 @@ class Index extends Component {
                                     <Grid><label>{profile} {QR_code}</label></Grid>
                                 </Grid>
                                 <Grid className="qrCourseImg">
-                                    <Grid><img src={require('../../../../assets/images/qrimg.jpg')} alt="" title="" /></Grid>
+                                    <Grid> <QRCode value={this.state.UpDataDetails && this.state.UpDataDetails.profile_id} /></Grid>
                                     <Grid><input type="submit" value={done} /></Grid>
                                 </Grid>
                             </Grid>

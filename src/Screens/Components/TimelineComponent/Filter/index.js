@@ -131,7 +131,7 @@ class FilterSec extends Component {
             case "default":
                 translate = translationEN.text
         }
-        let { type, user_type_all, clear_filter, search_timeline, sort_by, dig_time, entry_time } = translate
+        let { type, user_type_all, clear_filter, StartDate, EndDate, search_timeline, sort_by, dig_time, entry_time } = translate
 
         return (
             <Grid container direction="row">
@@ -140,6 +140,7 @@ class FilterSec extends Component {
                         {!this.state.isTest && <Grid container direction="row">
                             <Grid item xs={12} md={4}>
                                 <RangePicker
+                                placeholder= {[StartDate, EndDate]}
                                     className={this.state.time_range && this.state.time_range.length > 0 ? "typeSel1 comonSel" : "allTimeSel1 comonSel"}
                                     onChange={(value) => this.FilterAccordigly("time_range", value)}
                                     value={this.state.time_range}

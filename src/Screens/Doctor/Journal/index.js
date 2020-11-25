@@ -381,7 +381,7 @@ class Index extends Component {
         })
         .then((response) => {
             this.setState({
-                ismore_five: false, updateTrack: {}, updateOne: '', isfileupload: false, isfileuploadmulti: false, loaderImage: false,
+                ismore_five: false, updateTrack: {}, updateOne: 0, isfileupload: false, isfileuploadmulti: false, loaderImage: false,
             })
             this.getTrack();
         })
@@ -395,7 +395,7 @@ class Index extends Component {
 
     //For open Edit
     EidtOption = (value, updateTrack, visibility) => {
-        this.setState({ visibility: visibility, current_select: value, updateTrack: updateTrack }, () => {
+        this.setState({ updateOne: updateTrack.track_id, visibility: visibility, current_select: value, updateTrack: updateTrack }, () => {
             this.handleaddInqryNw();
         })
     }
@@ -586,7 +586,7 @@ class Index extends Component {
                     'Content-Type': 'application/json'
                 }
             }).then((response) => {
-                this.setState({ ismore_five: false, isless_one: false, updateTrack: {}, updateOne: '', visibleupdate: 0, isfileupload: false, isfileuploadmulti: false, loaderImage: false })
+                this.setState({ ismore_five: false, isless_one: false, updateTrack: {}, updateOne: 0, visibleupdate: 0, isfileupload: false, isfileuploadmulti: false, loaderImage: false })
                 this.getTrack();
                 this.handleCloseInqryNw();
             })
@@ -1143,7 +1143,8 @@ class Index extends Component {
                                                             <img src={require('../../../assets/images/close-search.svg')} alt="" title="" />
                                                         </a>
                                                     </Grid>
-                                                    {this.state.updateOne !== this.state.updateTrack._id ?
+                                                    {console.log('this.state.updateOne', this.state.updateOne)}
+                                                    {this.state.updateOne !== this.state.updateTrack.track_id ?
                                                         <div>
                                                             <p>{New} {entry}</p>
                                                             <Grid className="nwDiaSel">
@@ -1174,7 +1175,28 @@ class Index extends Component {
                                                         <div>
                                                             <p>{edit} {entry}</p>
                                                             <Grid className="nwDiaSel">
-                                                                <select disabled onChange={(e) => this.SelectOption(e.target.value)} value={this.state.current_select}>
+                                                            {this.state.current_select === 'anamnesis' && <Grid className="nwDiaSel1">{anamnesis}</Grid>}
+                                                                {this.state.current_select === 'blood_pressure' && <Grid className="nwDiaSel1">{blood_pressure}</Grid>}
+                                                                {this.state.current_select === 'blood_sugar' && <Grid className="nwDiaSel1">{blood_sugar}</Grid>}
+                                                                {this.state.current_select === 'condition_pain' && <Grid className="nwDiaSel1">{condition_pain}</Grid>}
+                                                                {this.state.current_select === 'covid_19' && <Grid className="nwDiaSel1">{covid_diary}</Grid>}
+                                                                {this.state.current_select === 'diagnosis' && <Grid className="nwDiaSel1">{diagnosis}</Grid>}
+                                                                {this.state.current_select === 'diary' && <Grid className="nwDiaSel1">{diary}</Grid>}
+                                                                {this.state.current_select === 'doctor_visit' && <Grid className="nwDiaSel1">{doc_visit}</Grid>}
+                                                                {this.state.current_select === 'family_anamnesis' && <Grid className="nwDiaSel1">{family_anmnies}</Grid>}
+                                                                {this.state.current_select === 'file_upload' && <Grid className="nwDiaSel1">{file_uplod}</Grid>}
+                                                                {this.state.current_select === 'hospitalization' && <Grid className="nwDiaSel1">{hosp_visit}</Grid>}
+                                                                {this.state.current_select === 'laboratory_result' && <Grid className="nwDiaSel1">{lab_result}</Grid>}
+                                                                {this.state.current_select === 'marcumar_pass' && <Grid className="nwDiaSel1">{marcumar_pass}</Grid>}
+                                                                {this.state.current_select === 'medication' && <Grid className="nwDiaSel1">{medication}</Grid>}
+                                                                {this.state.current_select === 'prescription' && <Grid className="nwDiaSel1">{prescription}</Grid>}
+                                                                {this.state.current_select === 'second_opinion' && <Grid className="nwDiaSel1">{secnd_openion}</Grid>}
+                                                                {this.state.current_select === 'sick_certificate' && <Grid className="nwDiaSel1">{sick_cert}</Grid>}
+                                                                {this.state.current_select === 'smoking_status' && <Grid className="nwDiaSel1">{smoking_status}</Grid>}
+                                                                {this.state.current_select === 'vaccination' && <Grid className="nwDiaSel1">{vaccination}</Grid>}
+                                                                {this.state.current_select === 'weight_bmi' && <Grid className="nwDiaSel1">{weight_bmi}</Grid>}
+
+                                                                {/* <select disabled onChange={(e) => this.SelectOption(e.target.value)} value={this.state.current_select}>
                                                                     <option value="anamnesis">{anamnesis}</option>
                                                                     <option value="blood_pressure">{blood_pressure}</option>
                                                                     <option value="blood_sugar">{blood_sugar}</option>
@@ -1195,7 +1217,7 @@ class Index extends Component {
                                                                     <option value="smoking_status">{smoking_status}</option>
                                                                     <option value="vaccination">{vaccination}</option>
                                                                     <option value="weight_bmi">{weight_bmi}</option>
-                                                                </select>
+                                                                </select> */}
                                                             </Grid>
                                                         </div>}
                                                 </Grid>

@@ -777,6 +777,7 @@ class Index extends Component {
         axios.put(sitedata.data.path + '/UserProfile/updateSetting', {
             personalized: data,
             user_id: this.props.stateLoginValueAim.user._id,
+            user_profile_id: this.props.stateLoginValueAim.user.profile_id
         }, {
             headers: {
                 'token': this.props.stateLoginValueAim.token,

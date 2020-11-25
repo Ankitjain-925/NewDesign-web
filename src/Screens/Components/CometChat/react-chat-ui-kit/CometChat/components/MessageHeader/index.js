@@ -168,7 +168,7 @@ class MessageHeader extends React.Component {
         <div className="cc1-left-panel-trigger" onClick={() => this.props.actionGenerated("menuClicked")}></div>
         <div className="cc1-chat-win-user">
           <div className="cc1-chat-win-user-thumb">
-           { console.log('this.state.image', this.state.image)}
+          
             <Avatar 
             image={this.state.image} 
             cornerRadius="18px" 

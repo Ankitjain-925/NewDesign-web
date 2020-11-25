@@ -92,7 +92,7 @@ class PointPain extends Component {
     //For Upload the User Image 
     UploadFile = (event)=> {
         if (event.target.files[0].type === "image/jpeg" || event.target.files[0].type === "image/png") {
-            this.setState({ loaderImage: true });
+            this.setState({ loaderImage: true,  image : URL.createObjectURL(event.target.files[0])  });
             event.preventDefault();
             let file = event.target.files[0];
             let fileParts = event.target.files[0].name.split('.');
@@ -115,7 +115,7 @@ class PointPain extends Component {
                 };
                 axios.put('https://cors-anywhere.herokuapp.com/' + signedRequest, file, options)
                     .then(result => {
-                        this.setState({ uploadedimage: response.data.data.returnData.url + '&bucket=' + this.state.user.bucket, loaderImage: false },
+                        this.setState({ uploadedimage: response.data.data.returnData.url + '&bucket=' + this.state.user.bucket, loaderImage: false},
                             () => { this.saveUserData() })
                     }).catch(error => { })
             }).catch(error => { })

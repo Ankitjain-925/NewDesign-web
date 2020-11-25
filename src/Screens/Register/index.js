@@ -178,7 +178,7 @@ class Index extends Component {
                                                     if (this.state.selectedOption == 'nurse') {
                                                         axios.post('https://api-eu.cometchat.io/v2.0/users', {
                                                             uid: responce.data.data.profile_id,
-                                                            name: responce.data.data.profile_id
+                                                            name: responce.data.data.first_name +' '+ responce.data.data.last_name
                                                         },
                                                             {
                                                                 headers: {
@@ -306,7 +306,7 @@ class Index extends Component {
                 if (responce.data.hassuccessed) {
                     axios.post('https://api-eu.cometchat.io/v2.0/users', {
                         uid: responce.data.data.profile_id,
-                        name: responce.data.data.profile_id
+                        name: responce.data.data.first_name +' '+ responce.data.data.last_name
                     },
                         {
                             headers: {

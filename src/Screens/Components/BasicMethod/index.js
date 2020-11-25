@@ -89,8 +89,6 @@ export function SortByDiagnose(a, b) {
 
  //If Req to add doctor as favorite doctor
 export function AddFavDoc (doctor_id, profile_id,user_token, user_profile_id){
-
-    console.log('sdd', doctor_id, profile_id, user_token, user_profile_id)
     axios.put(sitedata.data.path + '/UserProfile/AddFavDoc', {
         doctor: doctor_id,
         profile_id: profile_id,

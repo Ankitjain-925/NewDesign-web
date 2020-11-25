@@ -90,35 +90,56 @@ class PointPain extends Component {
                         {/* <p>Click or input number on your keyboard</p> */}
                     </Grid>
 
-                    <Grid className="checkHelth">
+                    <Grid className="checkHelth 1111">
                         <Grid container direction="row">
                             <Grid item xs={12} sm={6} md={6}>
                                 <Grid className="checkHelthLbl">
                                     {this.state.openBy !=='patient' && <Grid><a onClick={()=>this.handleChangeEntry('anamnesis')}><span>1</span>{anamnesis}</a></Grid>}
-                                    <Grid><a onClick={()=>this.handleChangeEntry('blood_pressure')}>{this.state.openBy !=='patient' ? <span>2</span>: <span>1</span> }{blood_pressure}</a></Grid>
-                                    <Grid><a onClick={()=>this.handleChangeEntry('blood_sugar')}>{this.state.openBy !=='patient' ? <span>3</span>: <span>2</span> }{blood_sugar}</a></Grid>
-                                    <Grid><a onClick={()=>this.handleChangeEntry('condition_pain')}>{this.state.openBy !=='patient' ? <span>4</span>: <span>3</span> }{condition_pain}</a></Grid>
-                                    <Grid><a onClick={()=>this.handleChangeEntry('covid_19')}>{this.state.openBy !=='patient' ? <span>5</span>: <span>4</span> }{covid_diary}</a></Grid>
-                                    <Grid><a onClick={()=>this.handleChangeEntry('diagnosis')}>{this.state.openBy !=='patient' ? <span>6</span>: <span>5</span> }{diagnosis}</a></Grid>
-                                    <Grid><a onClick={()=>this.handleChangeEntry('diary')}>{this.state.openBy !=='patient' ? <span>7</span>: <span>6</span> } {diary}</a></Grid>
-                                    <Grid><a onClick={()=>this.handleChangeEntry('doctor_visit')}>{this.state.openBy !=='patient' ? <span>8</span>: <span>7</span> }{doc_visit}</a></Grid>
-                                    <Grid><a onClick={()=>this.handleChangeEntry('family_anamnesis')}>{this.state.openBy !=='patient' ? <span>9</span>: <span>8</span> }{family_anmnies}</a></Grid>
-                                    {this.state.openBy !=='patient' && <Grid><a onClick={()=>this.handleChangeEntry('file_upload')}>{this.state.openBy !=='patient' ? <span>10</span>: <span>9</span> }{file_uplod}</a></Grid>}
+                                    <Grid className="clear"></Grid>
+                                    <Grid><a onClick={()=>this.handleChangeEntry('blood_pressure')}>{this.state.openBy !=='patient' ? <span>2</span>: <span>1</span> }<p>{blood_pressure}</p></a></Grid>
+                                    <Grid className="clear"></Grid>
+                                    <Grid><a onClick={()=>this.handleChangeEntry('blood_sugar')}>{this.state.openBy !=='patient' ? <span>3</span>: <span>2</span> }<p>{blood_sugar}</p></a></Grid>
+                                    <Grid className="clear"></Grid>
+                                    <Grid><a onClick={()=>this.handleChangeEntry('condition_pain')}>{this.state.openBy !=='patient' ? <span>4</span>: <span>3</span> }<p>{condition_pain}</p></a></Grid>
+                                    <Grid className="clear"></Grid>
+                                    <Grid><a onClick={()=>this.handleChangeEntry('covid_19')}>{this.state.openBy !=='patient' ? <span>5</span>: <span>4</span> }<p>{covid_diary}</p></a></Grid>
+                                    <Grid className="clear"></Grid>
+                                    <Grid><a onClick={()=>this.handleChangeEntry('diagnosis')}>{this.state.openBy !=='patient' ? <span>6</span>: <span>5</span> }<p>{diagnosis}</p></a></Grid>
+                                    <Grid className="clear"></Grid>
+                                    <Grid><a onClick={()=>this.handleChangeEntry('diary')}>{this.state.openBy !=='patient' ? <span>7</span>: <span>6</span> }<p>{diary}</p></a></Grid>
+                                    <Grid className="clear"></Grid>
+                                    <Grid><a onClick={()=>this.handleChangeEntry('doctor_visit')}>{this.state.openBy !=='patient' ? <span>8</span>: <span>7</span> }<p>{doc_visit}</p></a></Grid>
+                                    <Grid className="clear"></Grid>
+                                    <Grid><a onClick={()=>this.handleChangeEntry('family_anamnesis')}>{this.state.openBy !=='patient' ? <span>9</span>: <span>8</span> }<p>{family_anmnies}</p></a></Grid>
+                                    <Grid className="clear"></Grid>
+                                    {this.state.openBy !=='patient' && <Grid><a onClick={()=>this.handleChangeEntry('file_upload')}>{this.state.openBy !=='patient' ? <span>10</span>: <span>9</span> }<p>{file_uplod}</p></a></Grid>}
+                                    {this.state.openBy !=='patient' && <Grid className="clear"></Grid>}
                                 </Grid>
                             </Grid>
                             <Grid item xs={12} sm={6} md={6}>
                                 <Grid className="checkHelthLbl">
-                                    {this.state.openBy ==='patient' && <Grid><a onClick={()=>this.handleChangeEntry('file_upload')}>{this.state.openBy !=='patient' ? <span>10</span>: <span>9</span> }{file_uplod}</a></Grid>}
-                                    <Grid><a onClick={()=>this.handleChangeEntry('hospitalization')}>{this.state.openBy !=='patient' ? <span>11</span>: <span>10</span> }{hosp_visit}</a></Grid>
-                                    <Grid><a onClick={()=>this.handleChangeEntry('laboratory_result')}>{this.state.openBy !=='patient' ? <span>12</span>: <span>11</span> }{lab_result}</a></Grid>
-                                    <Grid><a onClick={()=>this.handleChangeEntry('marcumar_pass')}>{this.state.openBy !=='patient' ? <span>13</span>: <span>12</span> }{marcumar_pass}</a></Grid>
-                                    <Grid><a onClick={()=>this.handleChangeEntry('medication')}>{this.state.openBy !=='patient' ? <span>14</span>: <span>13</span> }{medication}</a></Grid>
-                                    {this.state.openBy !=='patient' && <Grid><a onClick={()=>this.handleChangeEntry('prescription')}>{this.state.openBy !=='patient' && <span>15</span>} {prescription}</a></Grid>}
-                                    {this.state.openBy !=='patient' && <Grid><a onClick={()=>this.handleChangeEntry('second_opinion')}>{this.state.openBy !=='patient' && <span>16</span>}{secnd_openion}</a></Grid>}
-                                    {this.state.openBy !=='patient' && <Grid><a onClick={()=>this.handleChangeEntry('sick_certificate')}>{this.state.openBy !=='patient' && <span>17</span>}{sick_cert}</a></Grid>}
-                                    <Grid><a onClick={()=>this.handleChangeEntry('smoking_status')}>{this.state.openBy !=='patient' ? <span>18</span>: <span>14</span> }{smoking_status}</a></Grid>
-                                    <Grid><a onClick={()=>this.handleChangeEntry('vaccination')}>{this.state.openBy !=='patient' ? <span>19</span>: <span>15</span> }{vaccination}</a></Grid>
-                                    <Grid><a onClick={()=>this.handleChangeEntry('weight_bmi')}>{this.state.openBy !=='patient' ? <span>20</span>: <span>16</span> }{weight_bmi}</a></Grid>
+                                    {this.state.openBy ==='patient' && <Grid><a onClick={()=>this.handleChangeEntry('file_upload')}>{this.state.openBy !=='patient' ? <span>10</span>: <span>9</span> }<p>{file_uplod}</p></a></Grid>}
+                                    {this.state.openBy ==='patient' && <Grid className="clear"></Grid>}
+                                    <Grid><a onClick={()=>this.handleChangeEntry('hospitalization')}>{this.state.openBy !=='patient' ? <span>11</span>: <span>10</span> }<p>{hosp_visit}</p></a></Grid>
+                                    <Grid className="clear"></Grid>
+                                    <Grid><a onClick={()=>this.handleChangeEntry('laboratory_result')}>{this.state.openBy !=='patient' ? <span>12</span>: <span>11</span> }<p>{lab_result}</p></a></Grid>
+                                    <Grid className="clear"></Grid>
+                                    <Grid><a onClick={()=>this.handleChangeEntry('marcumar_pass')}>{this.state.openBy !=='patient' ? <span>13</span>: <span>12</span> }<p>{marcumar_pass}</p></a></Grid>
+                                    <Grid className="clear"></Grid>
+                                    <Grid><a onClick={()=>this.handleChangeEntry('medication')}>{this.state.openBy !=='patient' ? <span>14</span>: <span>13</span> }<p>{medication}</p></a></Grid>
+                                    <Grid className="clear"></Grid>
+                                    {this.state.openBy !=='patient' && <Grid><a onClick={()=>this.handleChangeEntry('prescription')}>{this.state.openBy !=='patient' && <span>15</span>}<p>{prescription}</p></a></Grid>}
+                                    {this.state.openBy !=='patient' && <Grid className="clear"></Grid>}
+                                    {this.state.openBy !=='patient' && <Grid><a onClick={()=>this.handleChangeEntry('second_opinion')}>{this.state.openBy !=='patient' && <span>16</span>}<p>{secnd_openion}</p></a></Grid>}
+                                    {this.state.openBy !=='patient' && <Grid className="clear"></Grid>}
+                                    {this.state.openBy !=='patient' && <Grid><a onClick={()=>this.handleChangeEntry('sick_certificate')}>{this.state.openBy !=='patient' && <span>17</span>}<p>{sick_cert}</p></a></Grid>}
+                                    {this.state.openBy !=='patient' && <Grid className="clear"></Grid>}
+                                    <Grid><a onClick={()=>this.handleChangeEntry('smoking_status')}>{this.state.openBy !=='patient' ? <span>18</span>: <span>14</span> }<p>{smoking_status}</p></a></Grid>
+                                    <Grid className="clear"></Grid>
+                                    <Grid><a onClick={()=>this.handleChangeEntry('vaccination')}>{this.state.openBy !=='patient' ? <span>19</span>: <span>15</span> }<p>{vaccination}</p></a></Grid>
+                                    <Grid className="clear"></Grid>
+                                    <Grid><a onClick={()=>this.handleChangeEntry('weight_bmi')}>{this.state.openBy !=='patient' ? <span>20</span>: <span>16</span> }<p>{weight_bmi}</p></a></Grid>
+                                    <Grid className="clear"></Grid>
                                 </Grid>
                             </Grid>
                         </Grid>

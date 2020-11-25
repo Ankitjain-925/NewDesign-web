@@ -1152,6 +1152,9 @@
 		"date_from": "Data de",
 		"date_to": "Data para",
 		"pls_fill_duration": "Por favor, preencha o tempo de duração do compromisso",
-		"offline": "Desligado"
+		"offline": "Desligado",
+		"InsurancecompanyError" : "Preencha o país do seguro e a companhia de seguros",
+		"StartDate" :"Data de início",
+		"EndDate" :"Data final"
 	}
 }

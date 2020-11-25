@@ -223,7 +223,7 @@ class Index extends Component {
                             <img src={require('../../../../assets/images/nav-more.svg')} alt="" title="" />
                                 {/* {this.props.currentPage === 'more' ? <img src={require('../../../../assets/images/moreActive.png')} alt="" title="" />
                                     : <img src={require('../../../../assets/images/moreicon.jpg')} alt="" title="" />} */}
-                                <span>More</span>
+                                <span>{more}</span>
 
                                 <div className="moreMenuList">
                                     <ul>

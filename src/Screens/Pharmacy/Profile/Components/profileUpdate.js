@@ -13,6 +13,7 @@ import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { LoginReducerAim } from './../../../Login/actions';
 import { Settings } from './../../../Login/setting';
+import QRCode from 'qrcode.react';
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
 import Autocomplete from '../../../Components/Autocomplete/index';
@@ -766,7 +767,7 @@ setTimeout(()=> {
                                     <Grid><label>{profile} {QR_code}</label></Grid>
                                 </Grid>
                                 <Grid className="qrCourseImg">
-                                    <Grid><img src={require('../../../../assets/images/qrimg.jpg')} alt="" title="" /></Grid>
+                                    <Grid> <QRCode value={this.state.UpDataDetails && this.state.UpDataDetails.profile_id} /></Grid>
                                     <Grid><input type="submit" value={done} /></Grid>
                                 </Grid>
                             </Grid>

@@ -22,6 +22,7 @@ import Modal from '@material-ui/core/Modal';
 import npmCountryList from 'react-select-country-list';
 import Loader from './../../../Components/Loader/index';
 import DateFormat from './../../../Components/DateFormat/index';
+import QRCode from 'qrcode.react';
 import { GetUrlImage } from './../../../Components/BasicMethod/index';
 import * as translationEN from '../../../../translations/en.json';
 import * as translationDE from '../../../../translations/de.json';
@@ -764,7 +765,7 @@ setTimeout(()=> {
                                     <Grid><label>{profile} {QR_code}</label></Grid>
                                 </Grid>
                                 <Grid className="qrCourseImg">
-                                    <Grid><img src={require('../../../../assets/images/qrimg.jpg')} alt="" title="" /></Grid>
+                                    <Grid><QRCode value={this.state.UpDataDetails && this.state.UpDataDetails.profile_id} /></Grid>
                                     <Grid><input type="submit" value={done} /></Grid>
                                 </Grid>
                             </Grid>

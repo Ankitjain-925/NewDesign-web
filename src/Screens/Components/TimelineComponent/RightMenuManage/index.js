@@ -555,7 +555,7 @@ class RightManage extends Component {
                                                     </li>}
                                                     {this.props.from !== 'patient' && <li><a onClick={() => this.props.EidtOption(this.state.personalinfo.blood_pressure[0].type, this.state.personalinfo.blood_pressure[0])}><img src={require('../../../../assets/images/edit-1.svg')} alt="" title="" />{edit}</a></li>}
                                                     <li><a onClick={() => this.props.downloadTrack(this.state.personalinfo.blood_pressure[0])}><img src={require('../../../../assets/images/download.svg')} alt="" title="" />{Download}</a></li>
-                                                    <li><a onClick={() => this.props.OpenGraph('blood_pressure')}>{VeiwGraph}</a></li>
+                                                    <li><a onClick={() => this.props.OpenGraph('blood_pressure')}><img src={require('../../../../assets/images/eye2.png')} alt="" title="" />{VeiwGraph}</a></li>
                                                 </ul>
                                             </a>}
                                         </Grid>
@@ -605,7 +605,7 @@ class RightManage extends Component {
                                                     </li>}
                                                     {this.props.from !== 'patient' && <li><a onClick={() => this.props.EidtOption(this.state.personalinfo.weight_bmi[0].type, this.state.personalinfo.weight_bmi[0])}><img src={require('../../../../assets/images/edit-1.svg')} alt="" title="" />{edit}</a></li>}
                                                     <li><a onClick={() => this.props.downloadTrack(this.state.personalinfo.weight_bmi[0])}><img src={require('../../../../assets/images/download.svg')} alt="" title="" />{Download}</a></li>
-                                                    <li><a onClick={() => this.props.OpenGraph('weight_bmi')}>{VeiwGraph}</a></li>
+                                                    <li><a onClick={() => this.props.OpenGraph('weight_bmi')}><img src={require('../../../../assets/images/eye2.png')} alt="" title="" />{VeiwGraph}</a></li>
                                                 </ul>
                                             </a>}
                                         </Grid>
@@ -653,7 +653,7 @@ class RightManage extends Component {
                                                     </li>}
                                                     {this.props.from !== 'patient' && <li><a onClick={() => this.props.EidtOption(this.state.personalinfo.blood_pressure[0].type, this.state.personalinfo.blood_pressure[0])}><img src={require('../../../../assets/images/edit-1.svg')} alt="" title="" />{edit}</a></li>}
                                                     <li><a onClick={() => this.props.downloadTrack(this.state.personalinfo.blood_pressure[0])}><img src={require('../../../../assets/images/download.svg')} alt="" title="" />{Download}</a></li>
-                                                    <li> <a onClick={() => this.props.OpenGraph('heart_rate')}>{VeiwGraph}</a></li>
+                                                    <li> <a onClick={() => this.props.OpenGraph('heart_rate')}><img src={require('../../../../assets/images/eye2.png')} alt="" title="" />{VeiwGraph}</a></li>
                                                 </ul>
                                             </a>}
                                         </Grid>
@@ -700,7 +700,7 @@ class RightManage extends Component {
                                                     </li>}
                                                     {this.props.from !== 'patient' && <li><a onClick={() => this.props.EidtOption(this.state.personalinfo.laboratory_result[0].type, this.state.personalinfo.laboratory_result[0])}><img src={require('../../../../assets/images/edit-1.svg')} alt="" title="" />{edit}</a></li>}
                                                     <li><a onClick={() => this.props.downloadTrack(this.state.personalinfo.laboratory_result[0])}><img src={require('../../../../assets/images/download.svg')} alt="" title="" />{Download}</a></li>
-                                                    <li> <a onClick={() => this.props.OpenGraph('laboratory_result')}>{VeiwGraph}</a></li>
+                                                    <li> <a onClick={() => this.props.OpenGraph('laboratory_result')}><img src={require('../../../../assets/images/eye2.png')} alt="" title="" />{VeiwGraph}</a></li>
                                                 </ul>
                                             </a>}
                                         </Grid>
@@ -747,7 +747,7 @@ class RightManage extends Component {
                                                     </li>}
                                                     {this.props.from !== 'patient' && <li><a onClick={() => this.props.EidtOption(this.state.personalinfo.blood_sugar[0].type, this.state.personalinfo.blood_sugar[0])}><img src={require('../../../../assets/images/edit-1.svg')} alt="" title="" />{edit}</a></li>}
                                                     <li><a onClick={() => this.props.downloadTrack(this.state.personalinfo.blood_sugar[0])}><img src={require('../../../../assets/images/download.svg')} alt="" title="" />{Download}</a></li>
-                                                    <li><a onClick={() => this.props.OpenGraph('blood_sugar')}>{VeiwGraph}</a></li>
+                                                    <li><a onClick={() => this.props.OpenGraph('blood_sugar')}><img src={require('../../../../assets/images/eye2.png')} alt="" title="" />{VeiwGraph}</a></li>
                                                 </ul>
                                             </a>}
                                         </Grid>

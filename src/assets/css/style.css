@@ -896,14 +896,14 @@ a.presSecAncr:hover {
 .AddEntrynw a {
     color: #FFFFFF !important;
     font-family: Muli;
-    font-size: 14px;
+    font-size: 12px;
     font-weight: bold;
     letter-spacing: 0;
     line-height: 16px;
     text-align: center;
     border-radius: 8px;
     background-color: #00ABAF;
-    min-width: 175px;
+    min-width: 164px;
     display: inline-block;
     padding: 16px 8px;
     cursor: pointer;
@@ -1532,7 +1532,7 @@ a.conPainTime img {
     background-color: #FFFFFF;
     box-shadow: 0 8px 16px 0 rgba(0,8,8,0.08);
     z-index: 999;
-    padding: 8px 15px;
+    padding: 12px 15px;
 }
 .moreMenu:hover .moreMenuList {
     display: block;
@@ -1576,7 +1576,7 @@ a.moreMenu {
     background-color: #FFFFFF;
     box-shadow: 0 8px 16px 0 rgba(0,8,8,0.08);
     z-index: 999;
-    padding: 8px 15px;
+    padding: 12px 15px;
 }
 .profilMenu:hover .profilMenuList {
     display: block;
@@ -3002,8 +3002,8 @@ a.profilMenu {
     letter-spacing: 0;
     line-height: 14px;
     border-radius: 8px;
-    background-color: #FAFAFA;
-    padding: 8px 12px;
+    /* background-color: #FAFAFA; */
+    /* padding: 8px 12px; */
 }
 .cancelAppoint img {
     width: 16px;
@@ -3019,7 +3019,7 @@ a.profilMenu {
     border-radius: 8px;
     background-color: #FFFFFF;
     box-shadow: 0 8px 16px 0 rgba(0,8,8,0.08);
-    padding: 10px 10px;
+    padding: 10px 8px;
     min-width: 206px;
     text-align: center;
 }
@@ -6146,6 +6146,8 @@ img.openScnd {
     border-radius: 5px;
 }
 .scndOptionIner ul li a {
+    display: flex;
+    align-items: flex-start;
     color: #404646;
     font-family: Muli;
     font-size: 14px;
@@ -8105,7 +8107,6 @@ a.vsblDots2 img {
     margin-top: 32px;
     margin-bottom: 22px;
 }
-
 .videoTitle ul li a label {
     opacity: 0.5;
     color: #404646;
@@ -8606,6 +8607,7 @@ a.painAreasTxt img {
     align-items: center;
 }
   .painPointer a {
+    margin: 0px 4px;
     color: #7F8383;
     font-family: Muli;
     font-size: 12px;
@@ -9436,6 +9438,8 @@ a.menuActv img {
     right: -6px;
 }
 .openJourMenu a ul li {
+    display: flex;
+    align-items: flex-start;
     list-style-type: none;
     color: #404646;
     font-family: Muli;
@@ -9444,6 +9448,7 @@ a.menuActv img {
     letter-spacing: 0;
     line-height: 14px;
     margin: 10px 0px;
+    word-break: break-all !important;
 }
 .openJourMenu a ul li img {
     height: 16px;
@@ -11315,7 +11320,7 @@ a.barViewnw {
     margin-top: 35px;
 }
 .slotCourse {
-    padding: 16px 24px 18px 24px;
+    padding: 28px 24px 18px 24px;
 }
 .slotCloseBtn {
     text-align: right;
@@ -13039,6 +13044,28 @@ a.academy_ul ul li img {
 
 
 /*Added By ankita*/
+.darkTheme > div:nth-child(3) .wshCorList{
+    background-color: #0c1010;
+}
+.darkTheme > div:nth-child(3) .wshCorListLbl label, 
+.darkTheme > div:nth-child(3) .wshCorListPara p,
+.darkTheme > div:nth-child(3) .wshCorListTime a{
+    color: #BFC1C1 !important;
+}
+.imptNotic {
+    height: 530px;
+    padding: 24px 24px 24px 24px;
+    overflow: auto;
+}
+.addmores, .minus_span_medication, .noBpData h3, .consumeAt p {
+    cursor: pointer;
+}
+.nwDiaCntntIner, .nwPresCntntIner, .opinBoxCntntIner {
+    height: 650px !important; 
+}
+.phrmLinkUpr, .detailPrescp {
+    height: 550px !important;
+}
 .cancelAppoint img {
     width: 20px !important;
     height: 20px !important;
@@ -13129,7 +13156,7 @@ a.academy_ul ul li img {
 .MenuLeftDrkUpr .profilMenuList img, .MenuLeftDrkUpr .moreMenuList img{
     width: 15px !important;
 }
-.homeBgDrk .loading-text,  .metroPro div {
+.homeBgDrk .loading-text, .homeBgDrk .metroPro div {
     color: #fff!important;
 }
 .contact-listitem-dtls .__react_component_tooltip {
@@ -13559,6 +13586,8 @@ img.openScnd1 {
     cursor: pointer;
 }
 .scndOptionIner1 ul li a {
+    display: flex;
+    align-items: flex-start;
     color: #404646;
     font-family: Muli;
     font-size: 14px;
@@ -13567,8 +13596,7 @@ img.openScnd1 {
     line-height: 14px;
     list-style-type: none;
     cursor: pointer;
-    padding: 8px 12px;
-    display: block !important;
+    padding: 4px 8px;
 }
 .scndOptionIner1 ul li a:hover {
     border-radius: 8px;
@@ -13761,6 +13789,7 @@ a.activePageDocutmet {
 /* For Profile Page */
 .profilMenuList ul li:last-child {
     margin-top: 10px !important;
+    padding-top: 10px;
 }
 .Mobile_extra{
     padding-left: 20% !important; 
@@ -13803,8 +13832,7 @@ a.activePageDocutmet {
     font-weight: 800;
     padding-bottom: 10px;
 }
-.BackHomeBtn
-{
+.BackHomeBtn{
     color: #fff!important;
     font-family: Muli;
     font-size: 14px;
@@ -14779,8 +14807,8 @@ a.SelectedGender{
     background: #404646 !important;
     background-color: #404646 !important;
 }
-.darkTheme > div:nth-child(3) .delQuesBook a:last-child{
-    border: none !important;
+.delQuesBook a:last-child{
+    min-height: 48px;
 }
 .darkTheme > div:nth-child(3) .fitBitSection {
     background-color: #009396bd !important;
@@ -14833,6 +14861,16 @@ a.SelectedGender{
 .darkTheme > div:nth-child(3) .suggent-time a.current_selected {
     background-color: #00ABAF !important;
 }
+.checkHelth a p {
+    width: 77%;
+    float: right;
+    margin-bottom: 0px;
+    padding-right: 4px;
+}
+.checkHelth span {
+    width: 18%;
+    float: left;
+}
 .homeBgDrk .cancelAppoint, .homeBgDrk .cancelAppoint a{
     background-color: #323333 !important;
 }
@@ -14852,12 +14890,81 @@ a.SelectedGender{
 .homeBgDrk .wrkHour a.seleted-days{
     background-color: #00abaf !important;
 }
-.homeBgDrk a.prevpag {
+.homeBgDrk a.prevpag{
     color: #00ABAF !important;
 }
-.homeBgDrk .sortBySec label {
+.homeBgDrk .sortBySec label{
     color: #FAFAFA !important;
 }
-
-
-
+.homeBgDrk .place-top.type-custom.timeIconClas, 
+.homeBgDrk .place-bottom.type-custom.timeIconClas{
+    background-color: #404646;
+}
+.homeBgDrk .place-top.type-custom.timeIconClas label, 
+.homeBgDrk .place-bottom.type-custom.timeIconClas label{
+    color: #D9DADA !important;
+}
+.homeBgDrk .place-top.type-custom.timeIconClas p, 
+.homeBgDrk .place-bottom.type-custom.timeIconClas p{
+    color: #BFC1C1 !important;
+}
+.homeBgDrk .place-bottom.type-custom.timeIconClas::after{
+    border-bottom-color: #404646 !important;
+}
+a.clsSltCal img {
+    width: 12px;
+}
+a.clsSltCal {
+    padding: 2px 2px;
+    right: 3px;
+    top: 3px;
+}
+.registerRow.regMobNum .flag-select ul.flag-select__options {
+    background-color: #202323;
+}
+.darkTheme > div:nth-child(3) .registerRow.regMobNum .flag-select__option:not(.flag-select__option--placeholder):hover, 
+.darkTheme > div:nth-child(3) .registerRow.regMobNum .flag-select__option:not(.flag-select__option--placeholder):focus{
+    outline: none;
+    background: #404646 !important;
+}
+.darkTheme > div:nth-child(3) .registerRow.regMobNum .flag-select__btn:after {
+    border-top: 3px solid #e8f0fe !important;
+}
+.cancelAppoint img{
+    width: 22px;
+    height: 22px;
+    border: none !important;
+}
+.homeBgDrk .unified .ccl-right-panel{
+    background: #192020 !important;
+}
+.MenuLeftDrkUpr .moreMenuList li a,
+.MenuLeftDrkUpr .profilMenuList li a{
+    display: flex;
+    align-items: flex-start;
+}
+.MenuLeftDrkUpr .moreMenuList li,
+.MenuLeftDrkUpr .profilMenuList li{
+    margin-bottom: 10px !important;
+}
+.MenuLeftDrkUpr .moreMenuList li:last-child,
+.MenuLeftDrkUpr .profilMenuList li:last-child{
+    margin-bottom: 0px ;
+}
+.MenuLeftDrkUpr .profilMenuList li:nth-child(3) a{
+    display: block !important;
+    align-items: initial !important;
+}
+.darkTheme > div:nth-child(3) .yrProfes input,
+.darkTheme > div:nth-child(3) .yrProfes textarea,
+.darkTheme > div:nth-child(3) .drsplestQues input[type="text"]{
+    background: #404646 !important;
+    color: #BFC1C1 !important;
+}
+.darkTheme > div:nth-child(3) .sncWhen a{
+    color: #D9DADA !important;
+    background-color: #202323;
+}
+.darkTheme > div:nth-child(3) .current_since_when{
+    background-color: #00ABAF !important;
+}

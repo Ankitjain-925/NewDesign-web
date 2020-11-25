@@ -20,6 +20,7 @@ import FileUploader from './../../../Components/FileUploader/index';
 import { LanguageFetchReducer } from './../../../actions';
 import Modal from '@material-ui/core/Modal';
 import Loader from './../../../Components/Loader/index';
+import QRCode from 'qrcode.react';
 import DateFormat from './../../../Components/DateFormat/index';
 import { GetUrlImage } from './../../../Components/BasicMethod/index';
 import * as translationEN from '../../../../translations/en.json';
@@ -766,7 +767,7 @@ class Index extends Component {
                                     <Grid><label>{profile} {QR_code}</label></Grid>
                                 </Grid>
                                 <Grid className="qrCourseImg">
-                                    <Grid><img src={require('../../../../assets/images/qrimg.jpg')} alt="" title="" /></Grid>
+                                    <Grid> <QRCode value={this.state.UpDataDetails && this.state.UpDataDetails.profile_id} /></Grid>
                                     <Grid><input type="submit" value={done} /></Grid>
                                 </Grid>
                             </Grid>

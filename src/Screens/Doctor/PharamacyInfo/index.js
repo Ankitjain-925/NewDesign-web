@@ -344,7 +344,7 @@ class Index extends Component {
         data.patient_id = patient_id;
         data.remark = remark;
 
-       
+        console.log('user_id', user_id, 'patient_id', patient_id)
         if (!user_id || user_id === '' || !patient_id || patient_id === '' || !this.state.isfileupload) {
             this.setState({ compulsary: true })
         }
@@ -447,20 +447,6 @@ class Index extends Component {
                             <p>{send_prescription_to_pharmacy}</p>
                         </Grid>
                         <Grid className="phrmLinkUpr">
-                            <Grid className="upScanForms upScanImg">
-                                <Grid><label>{uplod_scanned_prescription}</label></Grid>
-                                {!$imagePreview && <Grid className="upScanInput">
-                                    <a><img src={require('../../../assets/images/upload-file.svg')} alt="" title="" /></a>
-                                    <a>{browse} <input type="file" onChange={this.CertificateAttach} /></a> {or_drag_here}
-                                                                        </Grid>}
-                                {!$imagePreview && <p>{suported_file_type_jpg_png}</p>}
-                                {$imagePreview}
-                                <div className="filetitle">{this.state.isfileupload && (
-                                    this.state.fileattach && this.state.fileattach.length > 0 && this.state.fileattach.map((ite, ind) => (
-                                        ite.filename
-                                    )))
-                                }</div>
-                            </Grid>
                             <Grid className="scanInputs">
                                 <Grid><label>{patient_id}</label></Grid>
                                 <Grid><input type="text" onChange={this.updateEntryState} value={this.state.newEntry && this.state.newEntry.patient_id && this.state.newEntry.patient_id} name="patient_id" /></Grid>
@@ -490,6 +476,20 @@ class Index extends Component {
                                         ))}
                                     </div>
                                 </Grid>
+                            </Grid>
+                            <Grid className="upScanForms upScanImg">
+                                <Grid><label>{uplod_scanned_prescription}</label></Grid>
+                                {!$imagePreview && <Grid className="upScanInput">
+                                    <a><img src={require('../../../assets/images/upload-file.svg')} alt="" title="" /></a>
+                                    <a>{browse} <input type="file" onChange={this.CertificateAttach} /></a> {or_drag_here}
+                                                                        </Grid>}
+                                {!$imagePreview && <p>{suported_file_type_jpg_png}</p>}
+                                {$imagePreview}
+                                <div className="filetitle">{this.state.isfileupload && (
+                                    this.state.fileattach && this.state.fileattach.length > 0 && this.state.fileattach.map((ite, ind) => (
+                                        ite.filename
+                                    )))
+                                }</div>
                             </Grid>
                             <Grid className="scanInputs shrtMsgOpt">
                                 <Grid><label>{short_msg_optional}</label></Grid>

@@ -51,7 +51,8 @@ class Index extends Component {
             message: '',
             fileattach: [],
             uploadedimage: '',
-            success: false
+            success: false,
+            send_to_timeline : false,
         };
     }
 
@@ -142,7 +143,11 @@ class Index extends Component {
         }
     }
 
-    saveUserData(id) {
+    saveUserData= (id, timeline, send=()=>{} ) =>{
+     
+        if(timeline){
+            this.setState({send_to_timeline: true})
+        }
         this.setState({ serverMsg: "", saveAttach: false })
         if (this.state.uploadedimage == "") {
             this.setState({ serverMsg: "please upload documents" })
@@ -159,6 +164,7 @@ class Index extends Component {
                 }
             })
                 .then((responce) => {
+                    send();
                     this.setState({ serverMsg: responce.data.message ? responce.data.message : responce.data.msg })
                     if (responce.data.hassuccessed) this.setState({ saveAttach: true })
                     setTimeout(
@@ -290,6 +296,18 @@ class Index extends Component {
     }
 
     deleteClickPatient = (status, id) => {
+     
+        if(status === 'accept' && !this.state.send_to_timeline){
+            this.saveUserData(id, false, ()=>{
+              
+                this.UpdatetheStatus(status, id)
+            });
+        }
+        else{
+            this.UpdatetheStatus(status, id)
+        }
+    }
+    UpdatetheStatus=(status, id)=>{
         let user_token = this.props.stateLoginValueAim.token
         const { message } = this.state
         axios.put(sitedata.data.path + '/UserProfile/GetSecondOpinion/' + id, {
@@ -297,7 +315,9 @@ class Index extends Component {
             doctor_name: this.props.myData.first_name + ' ' + this.props.myData.last_name,
             short_msg: message,
             attachfile: [this.state.uploadedimage],
-            type: 'second_opinion'
+            type: 'second_opinion',
+            send_to_timeline : this.state.send_to_timeline
+
         }, {
             headers: {
                 'token': user_token,
@@ -305,7 +325,7 @@ class Index extends Component {
                 'Content-Type': 'application/json'
             }
         }).then((response) => {
-            this.setState({ openPrescp: false, openReject: false })
+            this.setState({ send_to_timeline: false, openPrescp: false, openReject: false })
             this.getMypatientsData();
         }).catch((error) => {
         });
@@ -522,7 +542,7 @@ class Index extends Component {
                                             {$imagePreview}
 
                                             {this.state.success && <Grid item xs={12} md={12}>
-                                            <div onClick={() => this.saveUserData(opinionData._id)} className="approvBtn sendtotimelinenew">{snd_patient_timeline_email}</div>
+                                            <div onClick={() => this.saveUserData(opinionData._id, true)} className="approvBtn sendtotimelinenew">{snd_patient_timeline_email}</div>
                                                 
                                             </Grid>}
                                             {this.state.serverMsg && this.state.serverMsg !== '' && <div className={this.state.saveAttach ? 'success_message' : 'err_message'}>{this.state.serverMsg}</div>}

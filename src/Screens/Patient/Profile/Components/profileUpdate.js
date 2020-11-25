@@ -11,6 +11,7 @@ import sitedata from '../../../../sitedata';
 import axios from 'axios';
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
+import QRCode from 'qrcode.react';
 import { LoginReducerAim } from './../../../Login/actions';
 import { Settings } from './../../../Login/setting';
 import npmCountryList from 'react-select-country-list'
@@ -122,6 +123,7 @@ class Index extends Component {
             rhesusgroup: [],
             bloods :{},
             rhesus:{},
+            insu1 : false,
         };
         // new Timer(this.logOutClick.bind(this)) 
     }
@@ -391,11 +393,45 @@ class Index extends Component {
         this.setState({ moreone: true })
     }
 
+     //Save the User profile
+     saveUserData1 = () => {
+        if (this.state.insuranceDetails.insurance !== "" && this.state.insuranceDetails.insurance_country !== "") {
+            if (datas.some(data => data.insurance === this.state.insuranceDetails.insurance)) {
+
+             }
+            else {
+                datas.push(this.state.insuranceDetails)
+                this.setState({ insurancefull: datas })
+            }
+            const user_token = this.props.stateLoginValueAim.token;
+            this.setState({insu1 : false, loaderImage: true})
+            axios.put(sitedata.data.path + '/UserProfile/Users/update', {
+                insurance: datas
+            }, {
+                headers: {
+                    'token': user_token,
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                }
+            }).then((responce) => {
+                if (responce.data.hassuccessed) {
+                    this.setState({ editInsuranceOpen: false, addInsuranceOpen: false, succUpdate: true, insuranceDetails: { insurance: '', insurance_number: '', insurance_country: '' } })
+                    this.setState({ loaderImage: false });
+                    setTimeout(() => { this.setState({ succUpdate: false }) }, 5000)
+                    this.getUserData();
+                } 
+            })
+        }
+        else {
+            this.setState({insu1 : true})
+        }
+    }
     //Save the User profile
     saveUserData = () => {
-        if (this.state.insuranceDetails.insurance !== "" && this.state.insuranceDetails.insurance_number !== ""
-            && this.state.insuranceDetails.insurance_country !== "") {
-            if (datas.some(data => data.insurance === this.state.insuranceDetails.insurance)) { }
+        if (this.state.insuranceDetails.insurance !== "" && this.state.insuranceDetails.insurance_country !== "") {
+            if (datas.some(data => data.insurance === this.state.insuranceDetails.insurance)) {
+
+             }
             else {
                 datas.push(this.state.insuranceDetails)
                 this.setState({ insurancefull: datas })
@@ -843,7 +879,7 @@ class Index extends Component {
             case "default":
                 translate = translationEN.text
         }
-        let {Rhesus, Addcompany, Blood, profile_info, profile, information, ID, pin, QR_code, done, Change, edit_id_pin, edit, and, is, changed, profile_id_taken, profile_id_greater_then_5,
+        let {Rhesus, InsurancecompanyError, Addcompany, Blood, profile_info, profile, information, ID, pin, QR_code, done, Change, edit_id_pin, edit, and, is, changed, profile_id_taken, profile_id_greater_then_5,
             save_change, email, title, degree, first, last, name, dob, gender, street, add, city, postal_code, country, home_telephone, phone, country_code, Delete, male, female, other,
             mobile_number, number, mobile, Languages, spoken, pin_greater_then_4, insurance, add_more, company, of, info_copied, profile_updated, profile_not_updated, mobile_number_not_valid, insurance_added } = translate;
 
@@ -894,7 +930,7 @@ class Index extends Component {
                                     <Grid><label>{profile} {QR_code}</label></Grid>
                                 </Grid>
                                 <Grid className="qrCourseImg">
-                                    <Grid><img src={require('../../../../assets/images/qrimg.jpg')} alt="" title="" /></Grid>
+                                    <Grid> <QRCode value={this.state.UpDataDetails && this.state.UpDataDetails.profile_id} /></Grid>
                                     <Grid><input type="submit" value={done} /></Grid>
                                 </Grid>
                             </Grid>
@@ -1022,6 +1058,7 @@ class Index extends Component {
                                     <Grid item xs={12} md={8}>
                                         <label>{city}</label>
                                         <Grid>
+                                           
                                             <Autocomplete value={this.state.city} stateLanguageType={this.props.stateLanguageType} onPlaceChanged={this.updateEntryCity.bind(this)} />                                        </Grid>
                                     </Grid>
                                     <Grid item xs={12} md={4}>
@@ -1182,6 +1219,7 @@ class Index extends Component {
                             <Grid className="editPinform">
                                 <Grid className="editField">
                                     {this.state.insurnanceAdded && <div className="success_message">{insurance_added}</div>}
+                                    {this.state.insu1 && <div className="err_message">{InsurancecompanyError}</div>}
                                     <label>{country} {of} {insurance}</label>
                                     <Grid>
                                         <Select
@@ -1207,7 +1245,7 @@ class Index extends Component {
                                     <Grid><input type="text" name="insurance_number" onChange={(e) => this.insuranceForm(e)} /></Grid>
                                 </Grid>
                                 <Grid>
-                                    <input type="submit" onClick={this.saveUserData} value={save_change} />
+                                    <input type="submit" onClick={this.saveUserData1} value={save_change} />
                                 </Grid>
                             </Grid>
                         </Grid>
@@ -1255,6 +1293,7 @@ class Index extends Component {
                             </Grid>
                             <Grid className="editPinform">
                                 <Grid className="editField">
+                                    {this.state.insu1 && <div className="err_message">{InsurancecompanyError}</div>}
                                     {this.state.insurnanceAdded && <div className="success_message">{insurance_added}</div>}
                                     <label>{country} {of} {insurance}</label>
                                     <Grid>
@@ -1283,7 +1322,7 @@ class Index extends Component {
                                     <Grid><input type="text" value={datas && datas[editIndex] && datas[editIndex].insurance_number ? datas[editIndex] && datas[editIndex].insurance_number : ''} name="insurance_number" onChange={(event) => this.updatesinsurances(editIndex, event)} /></Grid>
                                 </Grid>
                                 <Grid>
-                                    <input type="submit" onClick={this.saveUserData} value={save_change} />
+                                    <input type="submit" onClick={this.saveUserData1} value={save_change} />
                                 </Grid>
                             </Grid>
                         </Grid>

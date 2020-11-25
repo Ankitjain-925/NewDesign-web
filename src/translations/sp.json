@@ -1141,6 +1141,9 @@
 		"trusted_doc": "Doctores de confianza",
 		"forget_password": "Contraseña olvidada",
 		"Oops": "Ups",
-		"addentry": "Añadir entrada"
+		"addentry": "Añadir entrada",
+		"InsurancecompanyError" : "Complete el país del seguro y la compañía de seguros",
+		"StartDate" :"Fecha de inicio",
+		"EndDate" :"Fecha final"
 	}
 }

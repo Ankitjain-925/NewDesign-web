@@ -1136,6 +1136,9 @@
 		"had_initiated_call_with": " had initiated the call with ",
 		"ended_call_with": " ended the call with ",
 		"cancelled_call_with": " cancelled the call with ",
-		"minutes": "minutes"
+		"minutes": "minutes",
+		"InsurancecompanyError" : "Please fill the Insurance country and Insurance company",
+		"StartDate" :"Start Date",
+		"EndDate" :"End Date"
 	}
 }

@@ -271,6 +271,7 @@ class Index extends Component {
                                
                                 <span>{my_profile}</span>
                                 <div className="profilMenuList">
+                                   
                                     <ul>
                                         <li><a onClick={this.Myprofile}>{this.props.settings && this.props.settings.setting && this.props.settings.setting.mode && this.props.settings.setting.mode==='dark' 
                                             ? <img src={require('../../../../assets/images/menudocs-white.jpg')} alt="" title="" />
