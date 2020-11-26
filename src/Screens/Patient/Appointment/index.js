@@ -235,7 +235,7 @@ class Index extends Component {
 
     handleOpenFancyVdo = (i, type, data) => {
 
-
+      
         this.setState({ openFancyVdo: true, appointmentData: data, doc_select: i, appointType: type });
         // setTimeout(this.onChange, 5000)
         // this.onChange()
@@ -548,7 +548,6 @@ class Index extends Component {
                 break;
         }
         let appointmentData = this.state.appointmentData
-
         let appointDate
         if (appointmentData) {
             Object.entries(appointmentData).map(([key, value]) => {
@@ -574,6 +573,7 @@ class Index extends Component {
                     event: data.event
                 })}
                 modifiers={modifiers}
+                
             >
                 { ({
                     getTriggerProps, triggerRef
@@ -684,13 +684,14 @@ class Index extends Component {
                     {...getArrowProps({
                         ref: arrowRef,
                         'data-placement': placement,
-                        className: 'tooltip-arrow'
+                        className: this.props.settings && this.props.settings.setting && this.props.settings.setting.mode === 'dark' ? "darktheme tooltip-arrow " : "tooltip-arrow "
                     })}
                 />
 
                 {event && event.fulldata.length > 0 &&
                     event.fulldata.map((data, index) => (
-                        <Grid className="meetBoxCntnt">
+                        <Grid className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode === 'dark' ? "darktheme meetBoxCntnt" : "meetBoxCntnt"}
+                       >
                             <Grid className="meetCourse">
                                 <Grid className="meetCloseBtn">
                                     {/* <a><img src={require('../../../assets/images/three_dots_t.png')} alt="" title="" /></a> */}

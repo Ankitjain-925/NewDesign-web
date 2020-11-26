@@ -156,7 +156,7 @@ class Index extends Toolbar {
 								<Grid item xs={12} md={6}>
 									<Grid className="todaySrchRght todayAddons">
 										<a onClick={handleClick} className="syncRght">{sync_ur_calander}</a>
-										<a><img src={require('../../../assets/images/topicSrch.jpg')} alt="" title="" /></a>
+										<a className="toolSearch"><img src={require('../../../assets/images/search-entries.svg')} alt="" title="" /></a>
 										<Select
 											value={selectedOption}
 											onChange={this.handleChange}
