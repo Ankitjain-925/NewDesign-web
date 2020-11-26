@@ -121,7 +121,7 @@ class Index extends Component {
             case "default":
                 translate = translationEN.text
         }
-        let { Change, password, is, we_use_authy,change_password, supportive_text, Current, confirm_password, new_password, two_fac_auth, password_changed, new_and_confirm_pass_not_same, current_pass_not_match, plz_fill_fields,
+        let { Change, password, is, we_use_authy,change_password, supportive_text, Current, confirm_password, new_password, disabled, enabled, two_fac_auth, password_changed, new_and_confirm_pass_not_same, current_pass_not_match, plz_fill_fields,
             Disable, Enable } = translate;
 
         return (
@@ -131,7 +131,7 @@ class Index extends Component {
                 {this.state.notmatchCon && <div className="err_message">{new_and_confirm_pass_not_same}</div>}
                 {this.state.notmatch && <div className="err_message">{current_pass_not_match}</div>}
                 {this.state.fillall && <div className="err_message">{plz_fill_fields}</div>}
-                {this.state.is2faDone && <div className="success_message">{two_fac_auth} {this.state.is2fa ? 'enabled' : 'disabled'}</div>}
+                {this.state.is2faDone && <div className="success_message">{two_fac_auth} {this.state.is2fa ? enabled : disabled}</div>}
                 <Grid container direction="row" alignItems="center" spacing={2}>
                     <Grid item xs={12} md={5}>
                         <Grid className="chngPasswrd">
@@ -161,7 +161,7 @@ class Index extends Component {
                                 <p>{we_use_authy}</p>
                             </Grid>
                             <Grid className="factorAuthEnbl">
-                                <h4>{this.state.is2fa && <img src={require('../../../../assets/images/watched.svg')} alt="" title="" />} {two_fac_auth} {is} {this.state.is2fa ? 'enabled' : 'disabled'}</h4>
+                                <h4>{this.state.is2fa && <img src={require('../../../../assets/images/watched.svg')} alt="" title="" />} {two_fac_auth} {is} {this.state.is2fa ? enabled : disabled}</h4>
                                 <Grid><input type="submit" onClick={this.Change2fa} value={this.state.is2fa ? `${Disable} ${two_fac_auth}` : `${Enable} ${two_fac_auth}`} /></Grid>
                             </Grid>
                         </Grid>
