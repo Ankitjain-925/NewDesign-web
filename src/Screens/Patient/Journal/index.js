@@ -629,9 +629,7 @@ class Index extends Component {
                         path:"dataManager/getDetails/patient",
                         data:{ "_selfId": this.props.stateLoginValueAim && this.props.stateLoginValueAim.user && this.props.stateLoginValueAim.user.profile_id, "_patientId": this.props.stateLoginValueAim && this.props.stateLoginValueAim.user && this.props.stateLoginValueAim.user.profile_id }})
                     .then(response3 => {
-                        console.log('2333')
                         if(response3 && response3.data && response3.data.name==='Error'){
-                            console.log('Found errros')
                             axios.post(sitedata.data.path  + '/blockchain/dataManager', {
                                 path:"dataManager/generate/token/patient",
                                 data:{  "_password": '123456'}})
