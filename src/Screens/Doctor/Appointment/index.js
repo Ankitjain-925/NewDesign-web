@@ -585,6 +585,7 @@ class Index extends Component {
                     placement: datas.placement,
                     event: data.event,
                 })}
+                className="ThisEventShower"
                 modifiers={modifiers}
             >
                 { ({
@@ -728,13 +729,14 @@ class Index extends Component {
                     {...getArrowProps({
                         ref: arrowRef,
                         'data-placement': placement,
-                        className: 'tooltip-arrow'
+                        className: this.props.settings && this.props.settings.setting && this.props.settings.setting.mode === 'dark' ? "darktheme tooltip-arrow " : "tooltip-arrow "
                     })}
                 />
 
                 {event && event.fulldata.length > 0 &&
                     event.fulldata.map((data, index) => (
-                        <Grid className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode && this.props.settings.setting.mode === 'dark' ? "darkTheme meetBoxCntnt margin-remove" : "meetBoxCntnt margin-remove"}>
+                        <Grid className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode === 'dark' ? "darktheme meetBoxCntnt" : "meetBoxCntnt"}
+                        >
                             <Grid className="meetCourse">
                                 <Grid className="meetCloseBtn">
                                     {/* <a><img src={require('../../../assets/images/three_dots_t.png')} alt="" title="" /></a> */}

@@ -625,6 +625,92 @@ class Index extends Component {
             .then((response) => {
                 if (response.data.hassuccessed === true) {
                     //This is for Aimedis Blockchain Section
+                    axios.post(sitedata.data.path  + '/blockchain/dataManager', {
+                        path:"dataManager/getDetails/patient",
+                        data:{ "_selfId": this.props.stateLoginValueAim && this.props.stateLoginValueAim.user && this.props.stateLoginValueAim.user.profile_id, "_patientId": this.props.stateLoginValueAim && this.props.stateLoginValueAim.user && this.props.stateLoginValueAim.user.profile_id }})
+                    .then(response3 => {
+                        console.log('2333')
+                        if(response3 && response3.data && response3.data.name==='Error'){
+                            console.log('Found errros')
+                            axios.post(sitedata.data.path  + '/blockchain/dataManager', {
+                                path:"dataManager/generate/token/patient",
+                                data:{  "_password": '123456'}})
+                            .then(response5 => {
+                                axios.post(sitedata.data.path  + '/blockchain/dataManager', {
+                                    path:"dataManager/add/patient",
+                                    data: {  
+                                        "_patientId":this.props.stateLoginValueAim.user.profile_id,
+                                        "_publicKey":response5.data.address,
+                                        "_patientData":{  
+                                           "email":this.props.stateLoginValueAim.user.email,
+                                           "First Name":this.props.stateLoginValueAim.user.first_name,
+                                           "Last Name":this.props.stateLoginValueAim.user.last_name,
+                                           "DOB" :this.props.stateLoginValueAim.user.birthday,
+                                           "Sex" :this.props.stateLoginValueAim.user.sex,
+                                           "Address" :this.props.stateLoginValueAim.user.city,
+                                           "Contact Email" :this.props.stateLoginValueAim.user.email,
+                                           "Language": this.props.stateLoginValueAim.user.language,
+                                           "Track Record": response.data.data 
+                                        }
+                                        }})
+                            .then(response6 => {})
+                     })
+                        }
+                        else{
+                            axios.post(sitedata.data.path  + '/blockchain/dataManager', {
+                                path:"dataManager/generate/token/patient",
+                                data:{ "_password": '123456' }})
+                                .then(response5 => {
+                                    console.log('hiii2333')
+                                    var dataHeightWegiht = response.data.data.filter((value, key) =>
+                                        value.type === 'weight_bmi');
+                                    var datas = {};
+                                    if (dataHeightWegiht && dataHeightWegiht.length > 0) {
+                                        response3.data['Weight'] = dataHeightWegiht[0].weight;
+                                        response3.data['Height'] = dataHeightWegiht[0].height;
+                                    }
+                                    response3.data['Track Record'] = response.data.data;
+                                    datas['_patientData'] = response3.data;
+                                    datas['_publicKey'] = response5.data.address;
+                                    datas['_patientId'] = this.props.stateLoginValueAim.user.profile_id;
+                                    console.log('Here running')
+                                    axios.post(sitedata.data.path  + '/blockchain/dataManager', {
+                                        path:"dataManager/update/patient",
+                                        data: datas})
+                                   .then(response6 => { 
+                                    console.log('Here running22')
+                                   })
+                                })
+                        }
+                        
+
+                    })
+                    .catch(err => {
+                        console.log('Found errros')
+                        axios.post(sitedata.data.path  + '/blockchain/dataManager', {
+                            path:"dataManager/generate/token/patient",
+                            data:{  "_password": '123456'}})
+                        .then(response5 => {
+                            axios.post(sitedata.data.path  + '/blockchain/dataManager', {
+                                path:"dataManager/add/patient",
+                                data: {  
+                                    "_patientId":this.props.stateLoginValueAim.user.profile_id,
+                                    "_publicKey":response5.data.address,
+                                    "_patientData":{  
+                                       "email":this.props.stateLoginValueAim.user.email,
+                                       "First Name":this.props.stateLoginValueAim.user.first_name,
+                                       "Last Name":this.props.stateLoginValueAim.user.last_name,
+                                       "DOB" :this.props.stateLoginValueAim.user.birthday,
+                                       "Sex" :this.props.stateLoginValueAim.user.sex,
+                                       "Address" :this.props.stateLoginValueAim.user.city,
+                                       "Contact Email" :this.props.stateLoginValueAim.user.email,
+                                       "Language": this.props.stateLoginValueAim.user.language,
+                                       "Track Record": response.data.data 
+                                    }
+                                    }})
+                        .then(response6 => {})
+                 })
+                })
                     this.rightInfo();
                     var images = [];
                     response.data.data && response.data.data.length > 0 && response.data.data.map((data1, index) => {
@@ -653,28 +739,6 @@ class Index extends Component {
                             }
                         })
                     })
-
-                    axios.post(sitedata.data.path + '/blockchain/dataManager', {
-                        path: "dataManager/getDetails/patient",
-                        data: { "_selfId":this.props.stateLoginValueAim && this.props.stateLoginValueAim.user && this.props.stateLoginValueAim.user.profile_id, "_patientId": this.props.stateLoginValueAim && this.props.stateLoginValueAim.user && this.props.stateLoginValueAim.user.profile_id }
-                    })
-                        .then(response3 => {
-                            axios.post(sitedata.data.path + '/blockchain/dataManager', {
-                                path: "dataManager/generate/token/patient",
-                                data: { "_password": '123456' }
-                            })
-                                .then(response5 => {
-                                    var dataHeightWegiht = response.data.data.filter((value, key) =>
-                                        value.type === 'weight_bmi');
-                                    var datas = {};
-                                    if (dataHeightWegiht && dataHeightWegiht.length > 0) {
-                                        response3.data['Weight'] = dataHeightWegiht[0].weight;
-                                        response3.data['Height'] = dataHeightWegiht[0].height;
-                                    }
-                                })
-                                .then(response6 => { })
-                        })
-
                     this.setState({ allTrack1: response.data.data, allTrack: response.data.data, loaderImage: false })
                 }
                 else { this.setState({ allTrack1: [], allTrack: [], loaderImage: false }) }

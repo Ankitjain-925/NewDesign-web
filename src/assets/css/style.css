@@ -1386,12 +1386,12 @@ a.conPainTime img {
 .clear_filterLft {
     width: 70%;
 }
-.clear_filterRght {
+/* .clear_filterRght {
     width: 30%;
 }
 .clear_filterRght {
     text-align: right;
-}
+} */
 .sortBySec {
     border-top: 1px solid #F2F2F2;
     margin-top: 20px;
@@ -5528,9 +5528,10 @@ button.presTabsIner {
 .presSrch {
     text-align: right;
 }
-.presSrch a {
+.presSrch a, .toolSearch {
     border-radius: 8px;
-    background-color: #F2F2F2;
+    border: 1px solid #bfc1c1;
+    /* background-color: #F2F2F2; */
     padding: 5px 7px;
     margin-top: 3px;
     display: inline-block;
@@ -13044,6 +13045,65 @@ a.academy_ul ul li img {
 
 
 /*Added By ankita*/
+.tooltip-container{
+    box-shadow: none!important;
+}
+.darktheme.meetBoxCntnt{
+    background: #404646 !important;
+    color: #fff !important;
+}
+.darktheme.tooltip-arrow[data-placement*='left']::after, .darktheme.tooltip-arrow[data-placement*='left']::before {
+    border-color: transparent transparent transparent #404646 !important;
+}
+.tooltip-arrow[data-placement*='left']::after, .tooltip-arrow[data-placement*='left']::before {
+    border-color: transparent transparent transparent #fff !important;
+}
+.darktheme.meetBoxCntnt .meetDetail h1{
+    color: #fff !important;
+}
+.homeBgDrk .rbc-overlay {
+    background: #404646 !important;
+    color: #fff !important;
+}
+.homeBgDrk .rbc-overlay .rbc-event {
+    color: #fff!important;
+}
+.extraSrvcUpr {
+    min-height: 100% !important;
+}
+.allTimeSel1.comonSel {
+    background: #fff!important;
+    border: 1px solid #BFC1C1!important;
+}
+.clear_filterRght a img, .trstCloseBtn a img, .toolSearch img, .topicSrch img{
+    width: 20px !important;
+}
+.clear_filterRght a{
+    padding: 4px 7px !important;
+}
+.clear_filterRght a, .topicSrch {
+    border: 1px solid #bfc1c1;
+    display: inline-flex;
+    padding: 9px 8px;
+    border-radius: 8px;
+    align-items: center;
+    justify-content: center;
+}
+.homeBgDrk h4.ccl-right-panel-head-ttl {
+    color: #ffff;
+}
+.homeBgDrk .registerRow.regMobNum .flag-select ul.flag-select__options{
+    background-color: #0c1010;
+    color: #BFC1C1 !important;
+}
+.homeBgDrk .registerRow.regMobNum .flag-select__option:not(.flag-select__option--placeholder):hover, 
+.homeBgDrk .registerRow.regMobNum .flag-select__option:not(.flag-select__option--placeholder):focus{
+    outline: none;
+    background: #404646 !important;
+}
+.homeBgDrk .registerRow.regMobNum .flag-select__btn:after {
+    border-top: 3px solid #e8f0fe !important;
+}
 .darkTheme > div:nth-child(3) .wshCorList{
     background-color: #0c1010;
 }
@@ -13108,7 +13168,7 @@ a.academy_ul ul li img {
 .presurCloseFncy a img, .dashCloseBtn a img, .invtCloseBtn a img, .paraCloseBtn a img,
  .prespCloseBtn a img, .rejectCloseBtn a img, .opinCloseBtn a img, .nwDiaCloseBtn a img, 
  .phrmCloseBtn a img, .qrCloseBtn a img, .infoCloseBtn a img, .slotCourse a img, .slotBoxCourse a img,
- .apontCloseBtn a img, .handleAccessBtn a img,.trstCloseBtn a img, .srvcCloseBtn a img,.presCloseBtn a img{
+ .apontCloseBtn a img, .handleAccessBtn a img, .srvcCloseBtn a img,.presCloseBtn a img{
     width: 17px;
 }
 .dataCloseBtn a, .editCloseBtn a, .entryCloseBtn a , .wshLstHaiRght a,
@@ -14919,7 +14979,7 @@ a.clsSltCal {
     right: 3px;
     top: 3px;
 }
-.registerRow.regMobNum .flag-select ul.flag-select__options {
+.darkTheme > div:nth-child(3) .registerRow.regMobNum .flag-select ul.flag-select__options {
     background-color: #202323;
 }
 .darkTheme > div:nth-child(3) .registerRow.regMobNum .flag-select__option:not(.flag-select__option--placeholder):hover, 

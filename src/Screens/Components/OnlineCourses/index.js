@@ -660,8 +660,10 @@ class Index extends Component {
                                                 className="topicAll"
                                             />
                                         </Grid>
-                                        <Grid item xs={12} md={1} className="topicSrch">
-                                            <img src={require('../../../assets/images/topicSrch.jpg')} alt="" title="" />
+                                        <Grid item xs={12} md={1}> 
+                                            <Grid className="topicSrch">
+                                                <img src={require('../../../assets/images/search-entries.svg')} alt="" title="" />
+                                            </Grid>
                                         </Grid>
                                     </Grid>
 
