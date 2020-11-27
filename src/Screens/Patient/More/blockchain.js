@@ -45,7 +45,7 @@ class Index extends Component {
             data: { "_selfId": this.props.stateLoginValueAim && this.props.stateLoginValueAim.user && this.props.stateLoginValueAim.user.profile_id, "_patientId": this.props.stateLoginValueAim && this.props.stateLoginValueAim.user && this.props.stateLoginValueAim.user.profile_id }
         })
             .then(response3 => {
-                
+
                 this.setState({ PatientFullData: response3.data });
             })
             .catch(err => {
@@ -86,7 +86,7 @@ class Index extends Component {
             return (<Redirect to={'/'} />);
         }
         let translate
-      switch (this.props.stateLanguageType) {
+        switch (this.props.stateLanguageType) {
             case "en":
                 translate = translationEN.text
                 break;
@@ -117,8 +117,8 @@ class Index extends Component {
         let { blockchain_access_log, created_by, log_type, time_created } = translate;
 
 
-        return ( 
-            <Grid className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode && this.props.settings.setting.mode==='dark' ? "homeBg homeBgDrk" : "homeBg"}>
+        return (
+            <Grid className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode && this.props.settings.setting.mode === 'dark' ? "homeBg homeBgDrk" : "homeBg"}>
                 {this.state.loaderImage && <Loader />}
                 <Grid className="homeBgIner">
                     <Grid container direction="row" justify="center">
@@ -126,8 +126,8 @@ class Index extends Component {
                             <Grid container direction="row">
 
                                 {/* Website Menu */}
-                                <LeftMenu  isNotShow ={true} currentPage="more" />
-                                <LeftMenuMobile isNotShow ={true}  currentPage ="more"/>
+                                <LeftMenu isNotShow={true} currentPage="more" />
+                                <LeftMenuMobile isNotShow={true} currentPage="more" />
                                 <Notification />
                                 {/* End of Website Menu */}
 
@@ -143,7 +143,6 @@ class Index extends Component {
                                                     <Grid><label>{created_by}</label></Grid>
                                                     <Grid><label>{time_created}</label></Grid>
                                                 </Grid>
-
                                                 {Object.entries(this.state.PatientFullData).map(([key, value]) => (
                                                     (key !== '' && key == "Track Record") && <div>
                                                         {typeof value !== "string" && <div>
@@ -174,29 +173,7 @@ class Index extends Component {
                                                                                             </Grid>
                                                                                         ))}
                                                                                     </div>}
-                                                                                {/* <Grid container direction="row">
-                                                                                    <Grid item xs={12} md={5}><span>Date of diagnose</span></Grid>
-                                                                                    <Grid item xs={12} md={7}><label>20/05/2020</label></Grid>
-                                                                                </Grid>
-                                                                                <Grid container direction="row">
-                                                                                    <Grid item xs={12} md={5}><span>Date of diagnose</span></Grid>
-                                                                                    <Grid item xs={12} md={7}><label>20/05/2020</label></Grid>
-                                                                                </Grid> */}
                                                                             </Grid>
-                                                                            {/* <Grid item xs={12} md={6}>
-                                                                                <Grid container direction="row">
-                                                                                    <Grid item xs={12} md={5}><span>Diagnosed by</span></Grid>
-                                                                                    <Grid item xs={12} md={7}><label>Mark Anderson M.D.</label></Grid>
-                                                                                </Grid>
-                                                                                <Grid container direction="row">
-                                                                                    <Grid item xs={12} md={5}><span>Date of diagnose</span></Grid>
-                                                                                    <Grid item xs={12} md={7}><label>20/05/2020</label></Grid>
-                                                                                </Grid>
-                                                                                <Grid container direction="row">
-                                                                                    <Grid item xs={12} md={5}><span>Date of diagnose</span></Grid>
-                                                                                    <Grid item xs={12} md={7}><label>20/05/2020</label></Grid>
-                                                                                </Grid>
-                                                                            </Grid> */}
                                                                         </Grid>
                                                                     </Collapsible>
                                                                 </div>
@@ -204,107 +181,7 @@ class Index extends Component {
                                                         </div>}
                                                     </div>
                                                 ))}
-
-
-
-
                                             </Grid>
-                                            <Grid className="blockChainBrdr"></Grid>
-                                            {/* 
-                                            <Grid className="blockChainUpr">
-                                                <Grid className="blochChainIner">
-                                                    <Grid><label>Diagnosis</label></Grid>
-                                                    <Grid><label>Mark Anderson M.D.</label></Grid>
-                                                    <Grid><label>20/05/2020</label></Grid>
-                                                    <img src={require('../../../assets/images/down2.png')} alt="" title="" className="cstmDown" />
-                                                </Grid>
-                                                <Collapsible trigger="">
-                                                    <Grid container direction="row" className="subsDetails">
-                                                        <Grid item xs={12} md={6}>
-                                                            <Grid container direction="row">
-                                                                <Grid item xs={12} md={5}><span>Diagnosed by</span></Grid>
-                                                                <Grid item xs={12} md={7}><label>Mark Anderson M.D.</label></Grid>
-                                                            </Grid>
-                                                            <Grid container direction="row">
-                                                                <Grid item xs={12} md={5}><span>Date of diagnose</span></Grid>
-                                                                <Grid item xs={12} md={7}><label>20/05/2020</label></Grid>
-                                                            </Grid>
-                                                            <Grid container direction="row">
-                                                                <Grid item xs={12} md={5}><span>Date of diagnose</span></Grid>
-                                                                <Grid item xs={12} md={7}><label>20/05/2020</label></Grid>
-                                                            </Grid>
-                                                        </Grid>
-                                                        <Grid item xs={12} md={6}>
-                                                            <Grid container direction="row">
-                                                                <Grid item xs={12} md={5}><span>Diagnosed by</span></Grid>
-                                                                <Grid item xs={12} md={7}><label>Mark Anderson M.D.</label></Grid>
-                                                            </Grid>
-                                                            <Grid container direction="row">
-                                                                <Grid item xs={12} md={5}><span>Date of diagnose</span></Grid>
-                                                                <Grid item xs={12} md={7}><label>20/05/2020</label></Grid>
-                                                            </Grid>
-                                                            <Grid container direction="row">
-                                                                <Grid item xs={12} md={5}><span>Date of diagnose</span></Grid>
-                                                                <Grid item xs={12} md={7}><label>20/05/2020</label></Grid>
-                                                            </Grid>
-                                                        </Grid>
-                                                    </Grid>
-                                                </Collapsible>
-                                            </Grid>
-                                            <Grid className="blockChainBrdr"></Grid>
-
-                                            <Grid className="blockChainUpr">
-                                                <Grid className="blochChainIner">
-                                                    <Grid><label>Diagnosis</label></Grid>
-                                                    <Grid><label>Mark Anderson M.D.</label></Grid>
-                                                    <Grid><label>20/05/2020</label></Grid>
-                                                    <img src={require('../../../assets/images/down2.png')} alt="" title="" className="cstmDown" />
-                                                </Grid>
-                                                <Collapsible trigger="">
-                                                    Dummy
-                                                </Collapsible>
-                                            </Grid>
-                                            <Grid className="blockChainBrdr"></Grid>
-
-                                            <Grid className="blockChainUpr">
-                                                <Grid className="blochChainIner">
-                                                    <Grid><label>Diagnosis</label></Grid>
-                                                    <Grid><label>Mark Anderson M.D.</label></Grid>
-                                                    <Grid><label>20/05/2020</label></Grid>
-                                                    <img src={require('../../../assets/images/down2.png')} alt="" title="" className="cstmDown" />
-                                                </Grid>
-                                                <Collapsible trigger="">
-                                                    Dummy
-                                                </Collapsible>
-                                            </Grid>
-                                            <Grid className="blockChainBrdr"></Grid>
-
-                                            <Grid className="blockChainUpr">
-                                                <Grid className="blochChainIner">
-                                                    <Grid><label>Diagnosis</label></Grid>
-                                                    <Grid><label>Mark Anderson M.D.</label></Grid>
-                                                    <Grid><label>20/05/2020</label></Grid>
-                                                    <img src={require('../../../assets/images/down2.png')} alt="" title="" className="cstmDown" />
-                                                </Grid>
-                                                <Collapsible trigger="">
-                                                    Dummy
-                                                </Collapsible>
-                                            </Grid>
-                                            <Grid className="blockChainBrdr"></Grid>
-
-                                            <Grid className="blockChainUpr">
-                                                <Grid className="blochChainIner">
-                                                    <Grid><label>Diagnosis</label></Grid>
-                                                    <Grid><label>Mark Anderson M.D.</label></Grid>
-                                                    <Grid><label>20/05/2020</label></Grid>
-                                                    <img src={require('../../../assets/images/down2.png')} alt="" title="" className="cstmDown" />
-                                                </Grid>
-                                                <Collapsible trigger="">
-                                                    Dummy
-                                                </Collapsible>
-                                            </Grid>
-                                            <Grid className="blockChainBrdr"></Grid> */}
-
                                         </Grid>
                                     </Grid>
                                 </Grid>

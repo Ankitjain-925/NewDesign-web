@@ -373,18 +373,6 @@ class Index extends Component {
 
                                                     <Grid className="infoShwHidBrdr"></Grid>
                                                     <Grid className="infoShwHidIner">
-                                                        {/* <Grid className="infoShwHidMain">
-                                                            <Grid container direction="row" justify="center" alignItems="center">
-                                                                <Grid item xs={6} md={6}>
-                                                                    <Grid className="infoShwHid">
-                                                                        <a>Show or Hide <img src={require('../../../assets/images/Info.svg')} alt="" title="" /></a>
-                                                                    </Grid>
-                                                                </Grid>
-                                                                <Grid item xs={6} md={6} className="editShwHid">
-                                                                    <a>Edit</a>
-                                                                </Grid>
-                                                            </Grid>
-                                                        </Grid> */}
                                                         <Grid className="infoShwSave">
                                                             <input type="submit" onClick={this.saveData} value={save_entry} />
                                                         </Grid>
@@ -395,11 +383,8 @@ class Index extends Component {
                                         {/* End of Model setup */}
                                         {this.state.successfullsent && <div className="success_message">{rqst_sent_succefully}</div>}
                                         <ListingSecond newItem={this.state.newItemp} />
-
                                     </Grid>
-
                                 </Grid>
-
                             </Grid>
                         </Grid>
                     </Grid>
