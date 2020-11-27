@@ -889,6 +889,8 @@ a.presSecAncr:hover {
     font-weight: bold;
     letter-spacing: 0;
     line-height: 40px;
+    margin-top: 18px;
+    margin-bottom: 0px;
 }
 .AddEntrynw {
     text-align: right;
@@ -9113,7 +9115,7 @@ td.phrImg p {
     margin-top: 28px;
 }
 .hereConfirm .MuiFormControlLabel-label {
-    color: #404646;
+    /* color: #404646; */
     font-family: Muli;
     font-size: 14px;
     font-weight: 600;
@@ -13045,6 +13047,22 @@ a.academy_ul ul li img {
 
 
 /*Added By ankita*/
+.darkTheme> .travelDia label span {
+    color: #fff !important;
+}
+.darkTheme > .opinBoxCntnt .yrProfes input, .darkTheme > .opinBoxCntnt .yrProfes textarea,
+.darkTheme > .opinBoxCntnt .css-yk16xz-control, .darkTheme > .opinBoxCntnt .drsplestQues input[type="text"]{
+    background: #404646 !important;
+    color: #BFC1C1 !important;
+}
+.darkTheme > .nwPresCntnt .medicnSub textarea,.darkTheme > .nwPresCntnt .medicnSub input[type="text"],
+.darkTheme > .nwPresCntnt .docHlth h2,.darkTheme > .nwPresCntnt .drsplestQues input[type="text"],.darkTheme > .nwPresCntnt .drsplestQues .css-yk16xz-control,
+.darkTheme > .nwPresCntnt .drsplestQues .css-1pahdxg-control, .darkTheme > .findDoctor input[type="text"]
+{
+    background-color: #404646 !important;
+    color: #BFC1C1 !important;
+}
+
 .tooltip-container{
     box-shadow: none!important;
 }
@@ -14176,7 +14194,7 @@ input:focus {
       background-color: #404646!important;
   }
 
-  .darkTheme label, .darkTheme span, .darkTheme p, .darkTheme h3, .darkTheme h1 {
+  .darkTheme label, .darkTheme p, .darkTheme h3, .darkTheme h1 {
       color: #D9DADA !important;
   }
 
@@ -15027,4 +15045,14 @@ a.clsSltCal {
 }
 .darkTheme > div:nth-child(3) .current_since_when{
     background-color: #00ABAF !important;
+}
+.darkTheme span{
+    color: #D9DADA;
+}
+.darkTheme > div:nth-child(3) .paraBoxCntnt .hereConfirm .MuiFormControlLabel-label{
+    color: #D9DADA !important;
+}
+.homeBgDrk .cc1-chat-win-msg-block span.cc1-chat-win-timestamp img{
+    background: #929292 !important;
+    border-radius: 18px !important;
 }

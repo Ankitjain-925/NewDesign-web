@@ -659,7 +659,7 @@ class Index extends Component {
                                 path:"dataManager/generate/token/patient",
                                 data:{ "_password": '123456' }})
                                 .then(response5 => {
-                                    console.log('hiii2333')
+                                  
                                     var dataHeightWegiht = response.data.data.filter((value, key) =>
                                         value.type === 'weight_bmi');
                                     var datas = {};
@@ -684,7 +684,6 @@ class Index extends Component {
 
                     })
                     .catch(err => {
-                        console.log('Found errros')
                         axios.post(sitedata.data.path  + '/blockchain/dataManager', {
                             path:"dataManager/generate/token/patient",
                             data:{  "_password": '123456'}})
