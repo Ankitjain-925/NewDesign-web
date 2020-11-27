@@ -483,7 +483,7 @@
 		"send_email_to_patient_emrgancy": "send email to patient and emergency contact",
 		"snd_sms_to_patient_emrgancy": "send SMS to patient and emergency contact",
 		"snd_push_notification_to_patient_emrgancy": "send push notification to patient and emergency contact",
-		"I_hrwith_cnfirm_that_i_need_access_patient": "I herewith confirm that I need to access the patient's data due to a medical emergency situation the patient will be informed about that",
+		"I_hrwith_cnfirm_that_i_need_access_patient": "I here with confirm that I need to access the patient's data due to a medical emergency situation the patient will be informed about that",
 		"time_format": "Time format",
 		"date_format": "Date format",
 		"view_emrgncy_data": "View Emergency Data",
@@ -497,6 +497,7 @@
 		"new_course": "New Courses",
 		"topic_all": "Topic: All",
 		"language_eng": "Language: English",
+		"language_all":"Language: All",
 		"what_diabetes": "What is Diabetes",
 		"add_to_cart": "Add to cart",
 		"here_u_see_diabetes": "Here you see what diabetes is, how it comes to diabetes and why a good treatment is so crucial.",
@@ -1141,6 +1142,7 @@
 		"minutes": "minutes",
 		"InsurancecompanyError" : "Please fill the Insurance country and Insurance company",
 		"StartDate" :"Start Date",
-		"EndDate" :"End Date"
+		"EndDate" :"End Date",
+		"Loading":"Loading..."
 	}
 }

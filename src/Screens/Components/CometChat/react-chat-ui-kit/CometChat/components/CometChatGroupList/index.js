@@ -9,7 +9,14 @@ import { GroupListManager } from "./controller";
 
 import CometChatCreateGroup from "../CometChatCreateGroup";
 import GroupView from "../GroupView";
-
+import * as translationEN from "../../../../../.../../../../translations/en.json";
+import * as translationDE from "../../../../../.../../../../translations/de.json";
+import * as translationSP from "../../../../../.../../../../translations/sp.json";
+import * as translationPT from "../../../../../.../../../../translations/pt.json";
+import * as translationRS from "../../../../../.../../../../translations/rs.json";
+import * as translationNL from "../../../../../.../../../../translations/nl.json";
+import * as translationCH from "../../../../../.../../../../translations/ch.json";
+import * as translationSW from "../../../../../.../../../../translations/sw.json";
 import "./style.scss";
 
 class CometChatGroupList extends React.Component {
@@ -222,11 +229,41 @@ class CometChatGroupList extends React.Component {
   }
 
   render() {
+    let translate;
+    switch (this.props.lan) {
+          case "en":
+              translate = translationEN.text
+              break;
+          case "de":
+              translate = translationDE.text
+              break;
+          case "pt":
+              translate = translationPT.text
+              break;
+          case "sp":
+              translate = translationSP.text
+              break;
+          case "rs":
+              translate = translationRS.text
+              break;
+          case "nl":
+              translate = translationNL.text
+              break;
+          case "ch":
+              translate = translationCH.text
+              break;
+          case "sw":
+              translate = translationSW.text
+              break;
+          case "default":
+              translate = translationEN.text
+      }
+      let { Search , Loading } = translate;
 
     let loading = null;
     if(this.state.loading) {
       loading = (
-        <div className="loading-text">Loading...</div>
+        <div className="loading-text">{Loading}</div>
       );
     }
 
@@ -258,7 +295,7 @@ class CometChatGroupList extends React.Component {
             type="text" 
             autoComplete="off" 
             className="ccl-left-panel-srch" 
-            placeholder="Search"
+            placeholder={Search}
             onChange={this.searchGroup} />
             <input id="searchButton" type="button" className="search-btn" />
           </div>

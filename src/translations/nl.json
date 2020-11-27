@@ -222,6 +222,7 @@
 		"fair": "Eerlijk",
 		"poor": "Arm",
 		"audio": "Audio",
+		"language_all":"Taal: alles",
 		"blocked_users": "Geblokkeerde Gebruikers",
 		"actions": "Acties",
 		"sending": "Versturen",
@@ -1767,6 +1768,7 @@
 		"date_from": "Datum vanaf",
 		"date_to": "Datum tot",
 		"pls_fill_duration": "Gelieve de tijdsduur van de afspraak in te vullen",
-		"offline": "Offline"
+		"offline": "Offline",
+		"Loading":"Bezig met laden..."
 	}
 }

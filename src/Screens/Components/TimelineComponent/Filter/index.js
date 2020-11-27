@@ -15,33 +15,6 @@ import * as translationCH from '../../../../translations/ch.json';
 import * as translationNL from '../../../../translations/nl.json';
 const { RangePicker } = DatePicker;
 
-const Useroptions = [
-    { value: 'Doctor', label: 'Doctor' },
-    { value: 'Patient', label: 'Patient' },
-    { value: 'Nurse', label: 'Nurse' },
-];
-const Typeoptions = [
-    { value: 'anamnesis', label: 'Anamnesis' },
-    { value: 'blood_pressure', label: 'Blood Pressure' },
-    { value: 'blood_sugar', label: 'Blood Sugar' },
-    { value: 'condition_pain', label: 'Condition and Pain' },
-    { value: 'covid_19', label: 'Covid-19 Diary' },
-    { value: 'diagnosis', label: 'Diagnosis' },
-    { value: 'diary', label: 'Diary' },
-    { value: 'doctor_visit', label: 'Doctor Visit' },
-    { value: 'family_anamnesis', label: 'Family Anamnesis' },
-    { value: 'file_upload', label: 'Files Upload' },
-    { value: 'hospitalization', label: 'Hospital Visit' },
-    { value: 'laboratory_result', label: 'Laboratory Result' },
-    { value: 'marcumar_pass', label: 'Marcumar pass' },
-    { value: 'medication', label: 'Medication' },
-    { value: 'prescription', label: 'Prescription' },
-    { value: 'second_opinion', label: 'Second Opinion' },
-    { value: 'sick_certificate', label: 'Sick Certificate' },
-    { value: 'smoking_status', label: 'Smoking Status' },
-    { value: 'vaccination', label: 'Vaccination' },
-    { value: 'weight_bmi', label: 'Weight & BMI' },
-]
 const options = [
     { value: 'data1', label: 'Data1' },
     { value: 'data2', label: 'Data2' },
@@ -95,9 +68,74 @@ class FilterSec extends Component {
         if (prevProps.sortBy !== this.props.sortBy) {
             this.setState({ sortBy: this.props.sortBy })
         }
+        if(prevProps.stateLanguageType !== this.props.stateLanguageType){
+            this.languageChangeState()
+        }
     }
     componentDidMount = () => {
+        this.languageChangeState()
+    }
 
+    languageChangeState() {
+        let translate;
+        switch (this.props.stateLanguageType) {
+            case "en":
+                translate = translationEN.text
+                break;
+            case "de":
+                translate = translationDE.text
+                break;
+            case "pt":
+                translate = translationPT.text
+                break;
+            case "sp":
+                translate = translationSP.text
+                break;
+            case "rs":
+                translate = translationRS.text
+                break;
+            case "nl":
+                translate = translationNL.text
+                break;
+            case "ch":
+                translate = translationCH.text
+                break;
+            case "sw":
+                translate = translationSW.text
+                break;
+            case "default":
+                translate = translationEN.text
+        }
+        let { diary, diagnosis, family_anmnies, covid_diary, secnd_openion, sick_cert, smoking_status, weight_bmi, vaccination, doc_visit, marcumar_pass, medication, prescription, file_uplod, hosp_visit, lab_result, capab_Doctors, capab_Patients, Nurse, anamnesis, blood_pressure, blood_sugar, condition_pain } = translate
+
+        const Useroptions = [
+            { value: 'Doctor', label: capab_Doctors },
+            { value: 'Patient', label: capab_Patients },
+            { value: 'Nurse', label: Nurse },
+        ];
+        const Typeoptions = [
+            { value: 'anamnesis', label: anamnesis },
+            { value: 'blood_pressure', label: blood_pressure },
+            { value: 'blood_sugar', label: blood_sugar },
+            { value: 'condition_pain', label: condition_pain },
+            { value: 'covid_19', label: covid_diary },
+            { value: 'diagnosis', label: diagnosis },
+            { value: 'diary', label: diary },
+            { value: 'doctor_visit', label: doc_visit },
+            { value: 'family_anamnesis', label: family_anmnies },
+            { value: 'file_upload', label: file_uplod },
+            { value: 'hospitalization', label: hosp_visit },
+            { value: 'laboratory_result', label: lab_result },
+            { value: 'marcumar_pass', label: marcumar_pass },
+            { value: 'medication', label: medication },
+            { value: 'prescription', label: prescription },
+            { value: 'second_opinion', label: secnd_openion },
+            { value: 'sick_certificate', label: sick_cert },
+            { value: 'smoking_status', label: smoking_status },
+            { value: 'vaccination', label: vaccination },
+            { value: 'weight_bmi', label: weight_bmi },
+        ]
+        this.setState({ Useroptions: Useroptions, Typeoptions: Typeoptions })
     }
 
 
@@ -140,7 +178,7 @@ class FilterSec extends Component {
                         {!this.state.isTest && <Grid container direction="row">
                             <Grid item xs={12} md={4}>
                                 <RangePicker
-                                placeholder= {[StartDate, EndDate]}
+                                    placeholder={[StartDate, EndDate]}
                                     className={this.state.time_range && this.state.time_range.length > 0 ? "typeSel1 comonSel" : "allTimeSel1 comonSel"}
                                     onChange={(value) => this.FilterAccordigly("time_range", value)}
                                     value={this.state.time_range}
@@ -160,7 +198,7 @@ class FilterSec extends Component {
                                 <Select
                                     value={this.state.selectType}
                                     onChange={(value) => this.FilterAccordigly("selectType", value)}
-                                    options={Typeoptions}
+                                    options={this.state.Typeoptions}
                                     placeholder={type}
                                     name=""
                                     className={this.state.selectType && this.state.selectType.length > 0 ? "typeSel comonSel" : "allTimeSel comonSel"}
@@ -175,7 +213,7 @@ class FilterSec extends Component {
                                 <Select
                                     value={this.state.selectUser}
                                     onChange={(value) => this.FilterAccordigly("selectUser", value)}
-                                    options={Useroptions}
+                                    options={this.state.Useroptions}
                                     placeholder={user_type_all}
                                     className={this.state.selectUser && this.state.selectUser.length > 0 ? "typeSel comonSel" : "allTimeSel comonSel"}
                                     isMulti={true}

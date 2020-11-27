@@ -1157,6 +1157,8 @@
 		"StartDate" :"Data de início",
 		"EndDate" :"Data final",
 		"enabled":"ativado",
-		"disabled":"desativado"
+		"disabled":"desativado",
+		"Loading":"Carregando...",
+		"language_all":"Idioma: todos"
 	}
 }
