@@ -829,6 +829,7 @@
 		"select_time_to": "Seleccionar hora (hasta)",
 		"detail_ques": "Detalle/Pregunta",
 		"all": "Todas",
+		"language_all":"Idioma: Todos",
 		"char_8": "8 Caracteres",
 		"lettr_1": "1 letra",
 		"number_1": "1 número",
@@ -1146,6 +1147,7 @@
 		"StartDate" :"Fecha de inicio",
 		"EndDate" :"Fecha final",
 		"enabled":"habilitado",
-		"disabled":"discapacitado"
+		"disabled":"discapacitado",
+		"Loading":"Cargando..."
 	}
 }

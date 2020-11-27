@@ -8,7 +8,19 @@ import { ConversationListManager } from "./controller";
 import { SvgAvatar } from '../../util/svgavatar';
 
 import ConversationView from "../ConversationView";
+import { connect } from "react-redux";
 
+import * as actions from '../../../../store/action';
+import { withRouter } from "react-router-dom";
+import { LanguageFetchReducer } from './../../../../../../actions';
+import * as translationEN from "../../../../../../../translations/en.json";
+import * as translationDE from '../../../../../../../translations/de.json';
+import * as translationPT from '../../../../../../../translations/pt.json';
+import * as translationSP from '../../../../../../../translations/sp.json';
+import * as translationRS from '../../../../../../../translations/rs.json';
+import * as translationSW from '../../../../../../../translations/sw.json';
+import * as translationCH from '../../../../../../../translations/ch.json';
+import * as translationNL from '../../../../../../../translations/nl.json';
 class CometChatConversationList extends React.Component {
 
   constructor(props) {
@@ -146,11 +158,41 @@ class CometChatConversationList extends React.Component {
   }
 
   render() {
+    let translate;
+        switch (this.props.stateLanguageType) {
+            case "en":
+                translate = translationEN.text
+                break;
+            case "de":
+                translate = translationDE.text
+                break;
+            case "pt":
+                translate = translationPT.text
+                break;
+            case "sp":
+                translate = translationSP.text
+                break;
+            case "rs":
+                translate = translationRS.text
+                break;
+            case "nl":
+                translate = translationNL.text
+                break;
+            case "ch":
+                translate = translationCH.text
+                break;
+            case "sw":
+                translate = translationSW.text
+                break;
+            case "default":
+                translate = translationEN.text
+        }
+        let {Loading}= translate
 
     let loading = null;
     if(this.state.loading) {
       loading = (
-        <div className="loading-text">Loading...</div>
+        <div className="loading-text">{Loading}14521</div>
       );
     }
 
@@ -180,4 +222,11 @@ class CometChatConversationList extends React.Component {
   }
 }
 
-export default CometChatConversationList;
+const mapStateToProps = (state) => {
+  const { stateLanguageType } = state.LanguageReducer;
+  return {
+      stateLanguageType
+  }
+};
+export default withRouter(connect(mapStateToProps, { LanguageFetchReducer })(CometChatConversationList));
+// export default CometChatConversationList;

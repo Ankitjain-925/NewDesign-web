@@ -248,9 +248,39 @@ class CometChatUserList extends React.PureComponent {
   }
 
   render() {
+    let translate;
+    switch (this.props.lan) {
+          case "en":
+              translate = translationEN.text
+              break;
+          case "de":
+              translate = translationDE.text
+              break;
+          case "pt":
+              translate = translationPT.text
+              break;
+          case "sp":
+              translate = translationSP.text
+              break;
+          case "rs":
+              translate = translationRS.text
+              break;
+          case "nl":
+              translate = translationNL.text
+              break;
+          case "ch":
+              translate = translationCH.text
+              break;
+          case "sw":
+              translate = translationSW.text
+              break;
+          case "default":
+              translate = translationEN.text
+      }
+      let { Search , Loading } = translate;
     let loading = null;
     if (this.state.loading) {
-      loading = <div className="loading-text">Loading...</div>;
+      loading = <div className="loading-text">{Loading}</div>;
     }
 
     const userList = this.state.userlist;
@@ -284,36 +314,7 @@ class CometChatUserList extends React.PureComponent {
       }
     });
 
-    let translate;
-    switch (this.props.lan) {
-          case "en":
-              translate = translationEN.text
-              break;
-          case "de":
-              translate = translationDE.text
-              break;
-          case "pt":
-              translate = translationPT.text
-              break;
-          case "sp":
-              translate = translationSP.text
-              break;
-          case "rs":
-              translate = translationRS.text
-              break;
-          case "nl":
-              translate = translationNL.text
-              break;
-          case "ch":
-              translate = translationCH.text
-              break;
-          case "sw":
-              translate = translationSW.text
-              break;
-          case "default":
-              translate = translationEN.text
-      }
-      let { Search  } = translate;
+    
     
 
     return (

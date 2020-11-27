@@ -1142,6 +1142,8 @@
 		"StartDate" :"Anfangsdatum",
 		"EndDate" :"Endtermin",
 		"enabled":"aktiviert",
-		"disabled":"behindert"
+		"disabled":"behindert",
+		"Loading":"Wird geladen...",
+		"language_all":"Sprache: Alle"
 	}
 }

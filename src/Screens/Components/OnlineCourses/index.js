@@ -44,17 +44,7 @@ function TabContainer(props) {
 TabContainer.propTypes = {
     children: PropTypes.node.isRequired,
 };
-const Languages = [
-    { value: 'All', label: 'All' },
-    { value: 'en', label: 'English' },
-    { value: 'de', label: 'German' },
-    { value: 'nl', label: 'Dutch' },
-    { value: 'sp', label: 'Spanish' },
-    { value: 'rs', label: 'Russian' },
-    { value: 'pt', label: 'Portuguese' },
-    { value: 'sw', label: 'Swahili' },
-    { value: 'ch', label: 'Chainese' }
-];
+
 
 class Index extends Component {
     constructor(props) {
@@ -67,8 +57,8 @@ class Index extends Component {
             openWish: false,
             openCart: false,
             courseTopics: [],
-            SelectedLanguage: { value: 'All', label: 'All' },
-            SelectedTopic: { value: 'All', label: 'All' },
+            SelectedLanguage: { value: 'All', label: '' },
+            SelectedTopic: { value: 'All', label: '' },
             Allwishlist: [],
             AllCart: [],
             addedCart: false,
@@ -79,16 +69,99 @@ class Index extends Component {
         };
     }
     handleChange = (event, value) => {
-        this.setState({ value: value, SelectedLanguage: { value: 'All', label: 'All' }, SelectedTopic: { value: 'All', label: 'All' }, });
+        let translate;
+        switch (this.props.stateLanguageType) {
+            case "en":
+                translate = translationEN.text
+                break;
+            case "de":
+                translate = translationDE.text
+                break;
+            case "pt":
+                translate = translationPT.text
+                break;
+            case "sp":
+                translate = translationSP.text
+                break;
+            case "rs":
+                translate = translationRS.text
+                break;
+            case "nl":
+                translate = translationNL.text
+                break;
+            case "ch":
+                translate = translationCH.text
+                break;
+            case "sw":
+                translate = translationSW.text
+                break;
+            case "default":
+                translate = translationEN.text
+        }
+        let { all, language_all, topic_all } = translate
+        this.setState({ value: value, SelectedLanguage: { value: 'All', label: language_all }, SelectedTopic: { value: 'All', label: topic_all }, });
     };
     handleChangeSelect = selectedOption => {
         this.setState({ selectedOption });
     };
 
+    changeLanguageState() {
+        let translate;
+        switch (this.props.stateLanguageType) {
+            case "en":
+                translate = translationEN.text
+                break;
+            case "de":
+                translate = translationDE.text
+                break;
+            case "pt":
+                translate = translationPT.text
+                break;
+            case "sp":
+                translate = translationSP.text
+                break;
+            case "rs":
+                translate = translationRS.text
+                break;
+            case "nl":
+                translate = translationNL.text
+                break;
+            case "ch":
+                translate = translationCH.text
+                break;
+            case "sw":
+                translate = translationSW.text
+                break;
+            case "default":
+                translate = translationEN.text
+        }
+        let { all } = translate
+        const Languages = [
+            { value: 'All', label: all },
+            { value: 'en', label: 'English' },
+            { value: 'de', label: 'German' },
+            { value: 'nl', label: 'Dutch' },
+            { value: 'sp', label: 'Spanish' },
+            { value: 'rs', label: 'Russian' },
+            { value: 'pt', label: 'Portuguese' },
+            { value: 'sw', label: 'Swahili' },
+            { value: 'ch', label: 'Chainese' }
+        ];
+        this.setState({ Languages })
+    }
+
     componentDidMount() {
+        this.changeLanguageState()
         this.getAlltopic();
         this.getAllwishlist();
         this.getAllCart();
+    }
+
+    componentDidUpdate(prevProps) {
+        if (prevProps.stateLanguageType !== this.props.stateLanguageType) {
+            this.changeLanguageState()
+            this.getAlltopic()
+        }
     }
 
 
@@ -134,7 +207,7 @@ class Index extends Component {
                 }
             }
         ).then(res => {
-  
+
             var topics = [{ label: all, value: all }];
             res.data.data && res.data.data.length > 0 && res.data.data.map((item) => {
                 topics.push({ label: item.topic_name, value: item.topic_name })
@@ -357,7 +430,7 @@ class Index extends Component {
             case "default":
                 translate = translationEN.text
         }
-        let { all_course, ok, pay_with_stripe, my_course, paymnt_err, paymnt_processed, topic_all, language_eng, wishlist, prescriptions, appointments, cart_removed, chat_vdocall, pharmacy_access, remove, lectures, add_to_cart, cart, capab_Patients, Inquiries, emegancy_access, archive, more, my_profile, invite_doc, pharma_prescription, online_course, profile_setting, Language,
+        let { all_course, ok, pay_with_stripe, my_course, paymnt_err, paymnt_processed, topic_all, language_all, wishlist, prescriptions, appointments, cart_removed, chat_vdocall, pharmacy_access, remove, lectures, add_to_cart, cart, capab_Patients, Inquiries, emegancy_access, archive, more, my_profile, invite_doc, pharma_prescription, online_course, profile_setting, Language,
             DarkMode, logout } = translate;
 
         const { value } = this.state;
@@ -644,7 +717,7 @@ class Index extends Component {
                                         <Grid item xs={12} md={4}></Grid>
                                         <Grid item xs={12} md={3}>
                                             <Select
-                                                value={this.state.SelectedTopic}
+                                                // value={this.state.SelectedTopic}
                                                 onChange={(e) => this.setState({ SelectedTopic: e })}
                                                 options={this.state.courseTopics}
                                                 placeholder={topic_all}
@@ -653,14 +726,14 @@ class Index extends Component {
                                         </Grid>
                                         <Grid item xs={12} md={4}>
                                             <Select
-                                                value={this.state.SelectedLanguage}
+                                                // value={this.state.SelectedLanguage}
                                                 onChange={(e) => this.setState({ SelectedLanguage: e })}
-                                                options={Languages}
-                                                placeholder={language_eng}
+                                                options={this.state.Languages}
+                                                placeholder={language_all}
                                                 className="topicAll"
                                             />
                                         </Grid>
-                                        <Grid item xs={12} md={1}> 
+                                        <Grid item xs={12} md={1}>
                                             <Grid className="topicSrch">
                                                 <img src={require('../../../assets/images/search-entries.svg')} alt="" title="" />
                                             </Grid>

@@ -1175,6 +1175,8 @@
 		"date_from": "Tarehe kutoka",
 		"date_to": "Tarehe ya",
 		"pls_fill_duration": "Tafadhali jaza muda wa miadi",
-		"offline": "Nje ya mtandao"
+		"offline": "Nje ya mtandao",
+		"language_all":"Lugha: Zote",
+		"Loading":"Inapakia ..."
 	}
 }
