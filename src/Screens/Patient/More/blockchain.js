@@ -45,6 +45,7 @@ class Index extends Component {
             data: { "_selfId": this.props.stateLoginValueAim && this.props.stateLoginValueAim.user && this.props.stateLoginValueAim.user.profile_id, "_patientId": this.props.stateLoginValueAim && this.props.stateLoginValueAim.user && this.props.stateLoginValueAim.user.profile_id }
         })
             .then(response3 => {
+                
                 this.setState({ PatientFullData: response3.data });
             })
             .catch(err => {
