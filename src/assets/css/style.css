@@ -1,5 +1,46 @@
-@import url('https://fonts.googleapis.com/css?family=Muli:200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap');
-@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800&display=swap');
+
+@font-face {
+    font-family: 'mulibold';
+    src: url('../fonts/muli-bold-webfont.woff2') format('woff2'),
+         url('../fonts/muli-bold-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'muliextrabold';
+    src: url('../fonts/muli-extrabold-webfont.woff2') format('woff2'),
+         url('../fonts/muli-extrabold-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'muliextralight';
+    src: url('../fonts/muli-extralight-webfont.woff2') format('woff2'),
+         url('../fonts/muli-extralight-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'mulilight';
+    src: url('../fonts/muli-light-webfont.woff2') format('woff2'),
+         url('../fonts/muli-light-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Muli';
+    src: url('../fonts/muli-regular-webfont.woff2') format('woff2'),
+         url('../fonts/muli-regular-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'mulisemibold';
+    src: url('../fonts/muli-semibold-webfont.woff2') format('woff2'),
+         url('../fonts/muli-semibold-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
 
 body{ margin: 0; padding: 0; font-family: Muli; color: #000808; font-weight:400; }
 h1,h2,h3,h4,h5,h6,h7,p{ margin:0; padding:0; font-size: inherit; font-weight: inherit; }
@@ -1819,6 +1860,9 @@ a.profilMenu {
     }
     .unified {
         width: 100% !important;
+    }
+    .docOpinion {
+        margin-left: 0px !important;
     }
 }
 @media (max-width: 599px){ 
@@ -5413,6 +5457,7 @@ span.revwRed{
     font-weight: 600;
     letter-spacing: 0;
     line-height: 12px;
+    margin-bottom: 0px;
 }
 .docArund {
     text-align: center;
@@ -9115,7 +9160,7 @@ td.phrImg p {
     margin-top: 28px;
 }
 .hereConfirm .MuiFormControlLabel-label {
-    /* color: #404646; */
+    color: #404646;
     font-family: Muli;
     font-size: 14px;
     font-weight: 600;
@@ -15049,7 +15094,7 @@ a.clsSltCal {
 .darkTheme span{
     color: #D9DADA;
 }
-.darkTheme > div:nth-child(3) .paraBoxCntnt .hereConfirm .MuiFormControlLabel-label{
+.darkTheme > div:nth-child(3) .hereConfirm .MuiFormControlLabel-label{
     color: #D9DADA !important;
 }
 .homeBgDrk .cc1-chat-win-msg-block span.cc1-chat-win-timestamp img{
