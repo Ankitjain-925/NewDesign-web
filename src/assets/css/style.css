@@ -638,7 +638,7 @@ a.hideDots img {
     box-shadow: 0 1px 8px 0 rgba(0,8,8,0.04);
 }
 .profilePic img {
-    height: 104px;
+    height: auto;
     width: 104px;
     border-radius: 16px;
     box-shadow: 0 24px 40px 0 rgba(0,8,8,0.08);
@@ -6698,7 +6698,7 @@ a.archvDel:hover ul {
     margin-bottom: 18px;
 }
 .travelDia label span {
-    color: #404646;
+    /* color: #404646; */
     font-family: Muli;
     font-size: 14px;
     font-weight: 600;
@@ -13093,7 +13093,7 @@ a.academy_ul ul li img {
 
 /*Added By ankita*/
 .darkTheme> .travelDia label span {
-    color: #fff !important;
+    color: #dcdcdc !important;
 }
 .darkTheme > .opinBoxCntnt .yrProfes input, .darkTheme > .opinBoxCntnt .yrProfes textarea,
 .darkTheme > .opinBoxCntnt .css-yk16xz-control, .darkTheme > .opinBoxCntnt .drsplestQues input[type="text"]{
@@ -14370,7 +14370,7 @@ label.attached_file a {
     line-height: 18px;
 }
 .homeBgDrk .latestGrph rect.highcharts-background {
-    fill: #000 !important;
+    fill: #a9a9a9 !important;
 }
 .srchFilter .css-yk16xz-control {
     background-color: transparent !important;
@@ -14851,6 +14851,14 @@ a.SelectedGender{
 .darkTheme > div:nth-child(3) .diaCD a{
     background-color: #0c10104a !important;
     color: #D9DADA !important;
+}
+.darkTheme > div:nth-child(3) .diaCD a:hover {
+    background-color: #00ABAF !important;
+    color: #fff !important;
+}
+.darkTheme > div:nth-child(3) a.diaCDActv {
+    background-color: #00ABAF !important;
+    color: #fff !important;
 }
 .homeBgDrk .topicAll .css-1pahdxg-control{
     color: #bfc1c1 !important;
