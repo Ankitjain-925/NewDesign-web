@@ -93,8 +93,8 @@ class PointPain extends Component {
                     <Grid className="checkHelth 1111">
                         <Grid container direction="row">
                             <Grid item xs={12} sm={6} md={6}>
-                                <Grid className="checkHelthLbl">
-                                    {this.state.openBy !=='patient' && <Grid><a onClick={()=>this.handleChangeEntry('anamnesis')}><span>1</span>{anamnesis}</a></Grid>}
+                                <Grid className="checkHelthLbl 111">
+                                    {this.state.openBy !=='patient' && <Grid><a onClick={()=>this.handleChangeEntry('anamnesis')}><span>1</span><p>{anamnesis}</p></a></Grid>}
                                     <Grid className="clear"></Grid>
                                     <Grid><a onClick={()=>this.handleChangeEntry('blood_pressure')}>{this.state.openBy !=='patient' ? <span>2</span>: <span>1</span> }<p>{blood_pressure}</p></a></Grid>
                                     <Grid className="clear"></Grid>
