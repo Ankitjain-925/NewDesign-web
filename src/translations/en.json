@@ -358,7 +358,7 @@
 		"situation": "Situation",
 		"selct_pain_area": "Select Pain areas",
 		"pain_areas": "Pain areas",
-		"temparture": "Temparture",
+		"temparture": "Temprature",
 		"saturation": "saturation",
 		"Location": "location",
 		"pain_type": "Pain type",
@@ -1143,6 +1143,7 @@
 		"InsurancecompanyError" : "Please fill the Insurance country and Insurance company",
 		"StartDate" :"Start Date",
 		"EndDate" :"End Date",
-		"Loading":"Loading..."
+		"Loading":"Loading...",
+		"goto_top":"Go to top"
 	}
 }

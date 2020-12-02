@@ -42,6 +42,7 @@ import FAFields from './../../Components/TimelineComponent/FAFields/index';
 import npmCountryList from 'react-select-country-list';
 import CovidFields from '../../Components/TimelineComponent/CovidFields/index';
 import EmptyData from './../../Components/TimelineComponent/EmptyData';
+import FloatArrowUp from "./../../Components/FloatArrowUp/index"
 import DiagnosisFields from './../../Components/TimelineComponent/DiagnosisFields/index';
 import moment from 'moment';
 import GraphView from './../../Components/TimelineComponent/GraphView/index';
@@ -1175,6 +1176,7 @@ class Index extends Component {
                             } */}
                         </Grid>
                     </Grid>
+                    <FloatArrowUp stateLanguageType={this.props.stateLanguageType}/>
                 </Grid>
             </Grid>
         );

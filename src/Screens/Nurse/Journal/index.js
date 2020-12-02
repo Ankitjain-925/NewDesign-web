@@ -61,8 +61,8 @@ import AnamnesisFields from "./../../Components/TimelineComponent/AnamnesisField
 import SCFields from "./../../Components/TimelineComponent/SCFields/index.js";
 import SOFields from "./../../Components/TimelineComponent/SOFields/index.js";
 import Notification from "../../Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
-
-
+import FloatArrowUp from "../../Components/FloatArrowUp/index"
+ 
 import DownloadFullTrack from "../../Components/DownloadFullTrack/index";
 class Index extends Component {
     constructor(props) {
@@ -1340,6 +1340,7 @@ class Index extends Component {
                             }
                         </Grid>
                     </Grid>
+                    <FloatArrowUp stateLanguageType={this.props.stateLanguageType}/>
                 </Grid>
             </Grid>
         );

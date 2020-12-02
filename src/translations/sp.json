@@ -1148,6 +1148,7 @@
 		"EndDate" :"Fecha final",
 		"enabled":"habilitado",
 		"disabled":"discapacitado",
-		"Loading":"Cargando..."
+		"Loading":"Cargando...",
+		"goto_top":"Ve arriba"
 	}
 }

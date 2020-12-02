@@ -1165,6 +1165,7 @@
 		"enabled":"已启用",
 		"disabled":"残障人士",
 		"Loading":"载入中...",
-		"language_all":"语言：全部"
+		"language_all":"语言：全部",
+		"goto_top":"到顶部"
 	}
 }

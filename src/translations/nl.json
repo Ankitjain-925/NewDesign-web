@@ -1769,6 +1769,7 @@
 		"date_to": "Datum tot",
 		"pls_fill_duration": "Gelieve de tijdsduur van de afspraak in te vullen",
 		"offline": "Offline",
-		"Loading":"Bezig met laden..."
+		"Loading":"Bezig met laden...",
+		"goto_top":"Ga naar boven"
 	}
 }
