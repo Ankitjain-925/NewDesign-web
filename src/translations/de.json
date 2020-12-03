@@ -359,7 +359,7 @@
 		"situation": "Lage",
 		"selct_pain_area": "Bitte Schmerzpunkte defininieren",
 		"pain_areas": "Schmerzpunkte",
-		"temparture": "Tempartur",
+		"temparture": "Temperatur",
 		"saturation": "Sättigung",
 		"Location": "Ort",
 		"pain_type": "Schmerztyp",
@@ -1144,6 +1144,7 @@
 		"enabled":"aktiviert",
 		"disabled":"behindert",
 		"Loading":"Wird geladen...",
-		"language_all":"Sprache: Alle"
+		"language_all":"Sprache: Alle",
+		"goto_top":"Zur Spitze gehen"
 	}
 }

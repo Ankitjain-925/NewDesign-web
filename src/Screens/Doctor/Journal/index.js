@@ -43,6 +43,7 @@ import npmCountryList from 'react-select-country-list';
 import CovidFields from '../../Components/TimelineComponent/CovidFields/index';
 import EmptyData from './../../Components/TimelineComponent/EmptyData';
 import DiagnosisFields from './../../Components/TimelineComponent/DiagnosisFields/index';
+import FloatArrowUp from "../../Components/FloatArrowUp/index"
 import moment from 'moment';
 import { authy } from './../../Login/authy.js';
 import GraphView from './../../Components/TimelineComponent/GraphView/index';
@@ -1266,6 +1267,7 @@ class Index extends Component {
                         </Grid>
                     </Grid>
                 </Grid>
+                <FloatArrowUp stateLanguageType={this.props.stateLanguageType}/>
             </Grid>
         );
     }

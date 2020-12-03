@@ -1145,6 +1145,7 @@
     "enabled":"включен",
     "disabled":"отключен",
     "Loading":"Загружается ...",
-    "language_all":"Язык: Все"
+    "language_all":"Язык: Все",
+    "goto_top":"Наверх"
   }
 }

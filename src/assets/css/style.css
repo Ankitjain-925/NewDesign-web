@@ -13570,6 +13570,13 @@ ul.insuranceHint1 li {
 .darkTheme .checkHelth a {
     color: #D9DADA;
 }
+.darkTheme .checkHelth a p {
+    width: 77%;
+    float: right;
+    margin-top: 7px;
+    margin-bottom: 0px;
+    padding-right: 4px;
+}
 .darkTheme .checkHelthLbl a:hover {
     color: #00ABAF;
 }
@@ -14995,6 +15002,7 @@ a.SelectedGender{
 .checkHelth a p {
     width: 77%;
     float: right;
+    margin-top: 7px;
     margin-bottom: 0px;
     padding-right: 4px;
 }
@@ -15108,4 +15116,26 @@ a.clsSltCal {
 .homeBgDrk .cc1-chat-win-msg-block span.cc1-chat-win-timestamp img{
     background: #929292 !important;
     border-radius: 18px !important;
+}
+
+
+/* Added by Satish for Float arrow */
+
+.floatArrowUp {
+    position:fixed;
+	width:50px;
+	height:50px;
+	bottom:20px;
+	right:20px;
+	background-color:rgb(79, 184, 184);
+	color:#FFF;
+	border-radius:20px;
+	text-align:center;
+    box-shadow: 2px 2px 3px #999;
+    padding-top: 10px;
+}
+.arrowIcon{
+    height: 18px;
+    color: rgb(31, 27, 27) !important;
+    z-index: 9999999999; 
 }

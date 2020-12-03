@@ -1159,6 +1159,7 @@
 		"enabled":"ativado",
 		"disabled":"desativado",
 		"Loading":"Carregando...",
-		"language_all":"Idioma: todos"
+		"language_all":"Idioma: todos",
+		"goto_top":"Ir para o topo"
 	}
 }
