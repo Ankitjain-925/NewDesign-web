@@ -80,6 +80,18 @@ class Index extends Component {
 
     }
 
+    getValue=(current_select, value)=>{
+        if (current_select === 'date_measured' || current_select === "created_on" || current_select === "diagnosed_on" || current_select=== "date_doctor_visits" ||
+        current_select === "first_visit_date"|| current_select === "data_of_vaccination" || current_select ==="event_date") 
+        {
+            var dates = getDate(value, this.props.settings.setting ? this.props.settings.setting.date_format : 'DD/MM/YYYY');
+            return dates;
+        }
+        else{
+            return value;
+        }
+    }
+
     render() {
         const { stateLoginValueAim, Doctorsetget } = this.props;
         if (stateLoginValueAim.user === 'undefined' || stateLoginValueAim.token === 450 || stateLoginValueAim.token === 'undefined' || stateLoginValueAim.user.type !== 'patient' || !this.props.verifyCode || !this.props.verifyCode.code) {
@@ -151,7 +163,7 @@ class Index extends Component {
                                                                     <Grid className="blochChainIner">
                                                                         <Grid><label>{v.type && v.type.charAt(0).toUpperCase() + v.type.slice(1).replace("_", " ")}</label></Grid>
                                                                         <Grid><label>{v.created_by_temp && v.created_by_temp}</label></Grid>
-                                                                        <Grid><label>{v.created_on && getDate(v.created_on)}</label></Grid>
+                                                                        <Grid><label>{v.created_on && getDate(v.created_on, this.props.settings.setting ? this.props.settings.setting.date_format : 'DD/MM/YYYY')}</label></Grid>
                                                                         <img src={require('../../../assets/images/down2.png')} alt="" title="" className="cstmDown" />
                                                                     </Grid>
                                                                     <Collapsible trigger="">
@@ -169,7 +181,7 @@ class Index extends Component {
                                                                                             && k1 !== 'emergency_on' && k1 !== 'emergency_by' && k1 !== "created_by_temp" && k1 !== "datetime_on" && k1 !== "type"
                                                                                             && typeof v1 === 'string' && <Grid container direction="row">
                                                                                                 <Grid item xs={12} md={5}><span>{k1.charAt(0).toUpperCase() + k1.slice(1).replace("_", " ")}</span></Grid>
-                                                                                                <Grid item xs={12} md={7}><label>{v1}</label></Grid>
+                                                                                                <label>{this.getValue(k1 , v1)}</label>
                                                                                             </Grid>
                                                                                         ))}
                                                                                     </div>}

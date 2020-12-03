@@ -174,11 +174,11 @@ class Index extends Component {
                             <Grid item xs={12} md={7}>
                                 <Grid className="conPainRght">
                                     <Grid className="painIntencty">
-                                        <PainIntensity name="pains" Forview={true} onChange={(e) => this.props.updateEntryState(e)} value={item.pains} />
+                                        <PainIntensity name="pains" Forview={true} onChange={(e) => this.props.updateEntryState(e)} value={Math.round(item.pains)} />
                                     </Grid>
 
                                     <Grid className="condIntencty">
-                                        <Condition name="conditions" Forview={true} onChange={(e) => this.props.updateEntryState(e)} value={item.conditions} />
+                                        <Condition name="conditions" Forview={true} onChange={(e) => this.props.updateEntryState(e)} value={Math.round(item.conditions)} />
                                     </Grid>
                                 </Grid>
                             </Grid>

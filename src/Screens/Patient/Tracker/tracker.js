@@ -682,7 +682,7 @@ class Index extends Component {
                                                             <Grid className="fitBitSection">
                                                                 <Grid className="mainLogo1"><img src={require('../../../assets/images/fitbit.png')} alt="" title="" /></Grid>
                                                                 <Grid className="mainLogoAdd">
-                                                                    <a href="https://www.fitbit.com/oauth2/authorize?response_type=token&client_id=22BNVH&redirect_uri=https%3A%2F%2Faidoc.io%2Fpatient%2Ftracker&scope=activity%20heartrate%20location%20nutrition%20profile%20settings%20sleep%20social%20weight&expires_in=604800">
+                                                                    <a href="https://www.fitbit.com/oauth2/authorize?response_type=token&client_id=22BNVH&redirect_uri=https%3A%2F%2Fsys.aimedis.io%2Fpatient%2Ftracker&scope=activity%20heartrate%20location%20nutrition%20profile%20settings%20sleep%20social%20weight&expires_in=604800">
                                                                         <img src={require('../../../assets/images/add.svg')} alt="" title="" className="addBlue" />
                                                                         <img src={require('../../../assets/images/addgrey.svg')} alt="" title="" className="addGray" />{connect}</a>
                                                                 </Grid>
@@ -692,7 +692,7 @@ class Index extends Component {
                                                             <Grid className="fitBitSection">
                                                                 <Grid className="mainLogo2"><img src={require('../../../assets/images/within.png')} alt="" title="" /></Grid>
                                                                 <Grid className="mainLogoAdd">
-                                                                    <a href="https://account.withings.com/oauth2_user/authorize2?response_type=code&client_id=198370b3fcf82d7ed5968266d053f376291849d5691751e9987e1d71ae867c92&scope=user.info,user.metrics,user.activity,user.sleepevents&redirect_uri=https://aidoc.io/patient/tracker&state=up">
+                                                                    <a href="https://account.withings.com/oauth2_user/authorize2?response_type=code&client_id=198370b3fcf82d7ed5968266d053f376291849d5691751e9987e1d71ae867c92&scope=user.info,user.metrics,user.activity,user.sleepevents&redirect_uri=https://sys.aimedis.io/patient/tracker&state=up">
                                                                         <img src={require('../../../assets/images/add.svg')} alt="" title="" className="addBlue" />
                                                                         <img src={require('../../../assets/images/addgrey.svg')} alt="" title="" className="addGray" />{connect}</a>
                                                                 </Grid>
@@ -738,7 +738,7 @@ class Index extends Component {
                                                                     <Grid className="trckSecIner" >
                                                                         <Grid style={{ minHeight: "140px" }} >
                                                                             <div style={{ minHeight: "40px" }}></div>
-                                                                            < a href="https://www.fitbit.com/oauth2/authorize?response_type=token&client_id=22BNVH&redirect_uri=https%3A%2F%2Faidoc.io%2Fpatient%2Ftracker&scope=activity%20heartrate%20location%20nutrition%20profile%20settings%20sleep%20social%20weight&expires_in=604800">
+                                                                            < a href="https://www.fitbit.com/oauth2/authorize?response_type=token&client_id=22BNVH&redirect_uri=https%3A%2F%2Fsys.aimedis.io%2Fpatient%2Ftracker&scope=activity%20heartrate%20location%20nutrition%20profile%20settings%20sleep%20social%20weight&expires_in=604800">
                                                                                 <img style={{ margin: "10%" }} title="Loggin via Fitbit!" src={require('../../../assets/images/fitbit.png')} style={{ maxWidth: "100px" }} alt="" />
                                                                             </a>
                                                                         </Grid>
@@ -779,7 +779,7 @@ class Index extends Component {
                                                                     <Grid className="trckSecIner" >
                                                                         <Grid className="trckLogo1" style={{ minHeight: "140px" }} >
                                                                             <div style={{ minHeight: "35px" }}></div>
-                                                                            < a className="withingsData" href="https://account.withings.com/oauth2_user/authorize2?response_type=code&client_id=198370b3fcf82d7ed5968266d053f376291849d5691751e9987e1d71ae867c92&scope=user.info,user.metrics,user.activity,user.sleepevents&redirect_uri=https://aidoc.io/patient/tracker&state=up">
+                                                                            < a className="withingsData" href="https://account.withings.com/oauth2_user/authorize2?response_type=code&client_id=198370b3fcf82d7ed5968266d053f376291849d5691751e9987e1d71ae867c92&scope=user.info,user.metrics,user.activity,user.sleepevents&redirect_uri=https://sys.aimedis.io/patient/tracker&state=up">
                                                                                 <img title="Loggin via Withings!" src={require('../../../assets/images/logo-withings.png')} alt="" />
                                                                             </a>
                                                                         </Grid>

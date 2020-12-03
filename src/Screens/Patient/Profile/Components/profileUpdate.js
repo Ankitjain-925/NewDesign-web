@@ -124,6 +124,7 @@ class Index extends Component {
             bloods :{},
             rhesus:{},
             insu1 : false,
+            contact_partner :{},
         };
         // new Timer(this.logOutClick.bind(this)) 
     }
@@ -157,6 +158,7 @@ class Index extends Component {
         this.city.addListener("place_changed", this.handlePlaceChanged);
     }
 
+ 
     firstLoginUpdate=()=>{
         const user_token = this.props.stateLoginValueAim.token;
         axios.put(sitedata.data.path + '/UserProfile/Users/update', {
@@ -208,7 +210,12 @@ class Index extends Component {
             else { return 'DE' }
         }
     }
-
+    updateEntryState11 = (e) => {
+        const state = this.state.contact_partner;
+        state['number'] = this.state.flag_emergency_number + '-' + e.target.value;
+        this.setState({ phone: e.target.value });
+        this.setState({ contact_partner: state });
+    }
     //Update the states
     updateEntryState1 = (e) => {
         const state = this.state.UpDataDetails;
@@ -477,9 +484,10 @@ class Index extends Component {
             city: this.state.city,
             area: this.state.area,
             address: this.state.UpDataDetails.address,
-            emergency_contact_name: this.state.UpDataDetails.emergency_contact_name,
-            emergency_email: this.state.UpDataDetails.emergency_email,
-            emergency_number: this.state.UpDataDetails.emergency_number,
+            emergency_contact_name: this.state.contact_partner.name,
+            emergency_relation: this.state.contact_partner.relation,
+            emergency_email: this.state.contact_partner.email,
+            emergency_number: this.state.contact_partner.number,
             family_doc: this.state.UpDataDetails.family_doc,
             insurance: datas,
             is2fa: this.state.UpDataDetails.is2fa,
@@ -633,6 +641,20 @@ class Index extends Component {
                 'Content-Type': 'application/json'
             }
         }).then((response) => {
+            var state1 = this.state.contact_partner;
+            state1['relation'] =  response.data.data && response.data.data.emergency_relation
+            state1['email'] = response.data.data && response.data.data.emergency_email
+            state1['name'] = response.data.data && response.data.data.emergency_contact_name
+            state1['number'] = response.data.data && response.data.data.emergency_number
+            this.setState({ contact_partner: state1 },
+            () => {
+                if ( response.data.data &&  response.data.data.emergency_number && response.data.data.emergency_number !== '') {
+                let fen = response.data.data.emergency_number.split("-");
+                if (fen && fen.length > 0) {
+                    this.setState({ flag_emergency_number: fen[0] })
+                }
+                }
+            })
             var title = {}, titlefromD = response.data.data.title;
             var bloodfromD = response.data.data.blood_group, rhesusfromD = response.data.data.rhesus, 
             bloods = {}, rhesus = {};
@@ -677,12 +699,12 @@ class Index extends Component {
                     this.setState({ flag_fax: fx[0] })
                 }
             }
-            if (response.data.data.emergency_number && response.data.data.emergency_number !== '') {
-                let fen = response.data.data.emergency_number.split("-");
-                if (fen && fen.length > 0) {
-                    this.setState({ flag_emergency_number: fen[0] })
-                }
-            }
+            // if (response.data.data.emergency_number && response.data.data.emergency_number !== '') {
+            //     let fen = response.data.data.emergency_number.split("-");
+            //     if (fen && fen.length > 0) {
+            //         this.setState({ flag_emergency_number: fen[0] })
+            //     }
+            // }
             this.setState({ UpDataDetails: response.data.data, city: response.data.data.city, area: response.data.data.area, profile_id: response.data.data.profile_id });
             this.setState({ speciality_multi: this.state.UpDataDetails.speciality })
             this.setState({ name_multi: language, title: title, rhesus: rhesus, bloods: bloods })
@@ -755,6 +777,12 @@ class Index extends Component {
         this.setState({ insuranceDetails: state });
     }
 
+ //Update contact State
+ contact_partnerState = (e) => {
+    let state = this.state.contact_partner;
+    state[e.target.name] = e.target.value;
+    this.setState({ contact_partner: state })
+}
 
     selectCountry = (event) => {
         const state = this.state.insuranceDetails;
@@ -879,8 +907,9 @@ class Index extends Component {
             case "default":
                 translate = translationEN.text
         }
-        let {Rhesus, InsurancecompanyError, Addcompany, Blood, profile_info, profile, information, ID, pin, QR_code, done, Change, edit_id_pin, edit, and, is, changed, profile_id_taken, profile_id_greater_then_5,
-            save_change, email, title, degree, first, last, name, dob, gender, street, add, city, postal_code, country, home_telephone, phone, country_code, Delete, male, female, other,
+        let {Contact, Register_Name, relation, phone, organ_donar_status, not_an_organ, emergency, telephone_nmbr,
+            Rhesus, InsurancecompanyError, Addcompany, Blood, profile_info, profile, information, ID, pin, QR_code, done, Change, edit_id_pin, edit, and, is, changed, profile_id_taken, profile_id_greater_then_5,
+            save_change, email, title, degree, first, last, name, dob, gender, street, add, city, postal_code, country, home_telephone, country_code, Delete, male, female, other,
             mobile_number, number, mobile, Languages, spoken, pin_greater_then_4, insurance, add_more, company, of, info_copied, profile_updated, profile_not_updated, mobile_number_not_valid, insurance_added } = translate;
 
 
@@ -1196,6 +1225,44 @@ class Index extends Component {
                     <Grid item xs={12} md={4}></Grid>
                     <Grid className="clear"></Grid>
                 </Grid>
+
+                <Grid>
+
+                    <Grid className="insrnceTbl"><h3>{emergency} {Contact}</h3></Grid>
+                    <Grid className="emrgncyFrmInpt">
+                        <Grid><label>{Register_Name}</label></Grid>
+                        <Grid><input type="text" name="name" value={this.state.contact_partner.name} onChange={this.contact_partnerState} /></Grid>
+                    </Grid>
+                    <Grid className="emrgncyFrmInpt">
+                        <Grid><label>{relation}</label></Grid>
+                        <Grid><input name="relation" value={this.state.contact_partner.relation} onChange={this.contact_partnerState} /></Grid>
+                    </Grid>
+                    <Grid className="emrgncyFrmInpt">
+                        <Grid><label>{telephone_nmbr}</label></Grid>
+                        <Grid>
+                            {/* <PhoneInput
+                            country={'us'}
+                            value={this.state.phone}
+                            onChange={phone => this.setState({ phone })}
+                        /> */}
+                            {this.updateFLAG(this.state.contact_partner.number) && this.updateFLAG(this.state.contact_partner.number) !== '' &&
+                                <ReactFlagsSelect placeholder={country_code} onSelect={(e) => { this.updateFlags(e, 'number') }} name="flag_phone" showSelectedLabel={false} defaultCountry={this.updateFLAG(this.state.contact_partner.number)} />}
+                            <input type="text"
+                                className="Mobile_extra Emergency_number"
+                                placeholder={phone}
+                                onChange={this.updateEntryState11}
+                                value={this.state.contact_partner.number && this.updateMOBILE(this.state.contact_partner.number)}
+                            />
+                        </Grid>
+                    </Grid>
+                    <Grid className="emrgncyFrmInpt">
+                        <Grid><label>{email}</label></Grid>
+                        <Grid><input name="email" value={this.state.contact_partner.email} onChange={this.contact_partnerState} /></Grid>
+                    </Grid>
+                </Grid>
+
+
+
 
                 <Grid className="insrnceTbl">
                     <Grid><h3>{insurance}</h3></Grid>

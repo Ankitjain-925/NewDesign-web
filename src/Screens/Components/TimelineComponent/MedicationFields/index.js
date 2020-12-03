@@ -30,6 +30,7 @@ class Index extends Component {
             time_format: this.props.time_format,
             options: this.props.options,
             reminder: this.props.reminders,
+            lrpUnit : this.props.lrpUnit,
 
         };
     }
@@ -100,6 +101,9 @@ class Index extends Component {
                     </Grid>
                     <Grid className="fillDia">
                         <MMHG name="dosage" label={enter_dosage} onChange={(e) => this.props.updateEntryState(e)} value={this.state.updateTrack.dosage} />
+                    </Grid>
+                    <Grid className="fillDia">
+                        <SelectField name="unit" label={unit} option={this.state.lrpUnit} onChange={(e)=> this.updateEntryState1(e, 'unit')} value={this.state.updateTrack.unit} />    
                     </Grid>
                     <Grid className="fillDia">
                         <Grid className="rrSysto">

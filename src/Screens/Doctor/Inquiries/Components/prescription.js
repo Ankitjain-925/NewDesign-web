@@ -243,12 +243,33 @@ class Index extends Component {
         event.preventDefault();
         let reader = new FileReader();
         let file = event.target.files[0];
-        reader.onloadend = () => {
-            this.setState({
-                file: file,
-                imagePreviewUrl: reader.result
-            });
+        if(file.name.split('.').pop()==='mp4'){
+            this.setState({file: file, imagePreviewUrl: require('../../../../assets/images/videoIcon.png')});
         }
+        if(file.name.split('.').pop()==='pdf'){
+            this.setState({file: file, imagePreviewUrl: require('../../../../assets/images/pdfimg.png')});
+        }
+        else if(file.name.split('.').pop() ==='doc'|| file.name.split('.').pop() ==='docx' || file.name.split('.').pop() ==='xml' || file.name.split('.').pop() ==='txt'){
+            this.setState({file: file, imagePreviewUrl: require('../../../../assets/images/txt1.png')});
+        }
+        else if(file.name.split('.').pop() ==='xls'|| file.name.split('.').pop() ==='xlsx' || file.name.split('.').pop() ==='xml'){
+            this.setState({file: file, imagePreviewUrl: require('../../../../assets/images/xls1.svg')});
+        }
+        else if(file.name.split('.').pop() ==='csv'){
+            this.setState({file: file, imagePreviewUrl: require('../../../../assets/images/csv1.png')});
+        }
+        else if(file.name.split('.').pop() ==='dcm'){
+            this.setState({file: file, imagePreviewUrl: require('../../../../assets/images/dcm1.png')});
+        }
+        else{
+            this.setState({file: file, imagePreviewUrl: URL.createObjectURL(file) });
+        }
+        // reader.onloadend = () => {
+        //     this.setState({
+        //         file: file,
+        //         imagePreviewUrl: reader.result
+        //     });
+        // }
         let user_token = this.props.stateLoginValueAim.token;
         reader.readAsDataURL(file)
         const data = new FormData()
@@ -531,7 +552,7 @@ class Index extends Component {
                                             <a>{browse} <input type="file" onChange={(e) => this.UploadFile(e, prescData.patient_profile_id, prescData.patient_info.bucket, prescData._id)} /></a> {or_drag_here}
                                         </Grid>}
                                         {(prescData.status !== 'accept') && !$imagePreview && <p>{suported_file_type_jpg_png}</p>}
-                                        {$imagePreview}
+                                        <Grid>{$imagePreview}</Grid>
                                         {(prescData.attachfile && success && prescData.status !== 'accept') && <Grid item xs={12} md={12}>
                                             <div onClick={() => this.saveUserData(prescData._id, true)} className="approvBtn sendtotimelinenew">{snd_patient_timeline_email}</div>
                                         </Grid>}

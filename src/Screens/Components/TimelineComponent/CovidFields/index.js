@@ -102,10 +102,10 @@ class Index extends Component {
                         <PainPoint id="New_id1" gender={this.state.gender} painPoint={this.state.updateTrack && this.state.updateTrack.painPoint ? this.state.updateTrack.painPoint : []} onChange={(e) => this.updateEntryState1(e, 'painPoint')} />
                     </Grid>
                     <Grid className="fillDia">
-                        <PainIntensity name="pains" onChange={(e) => this.props.updateEntryState(e)} value={this.state.updateTrack.pains} />
+                        <PainIntensity name="pains" onChange={(e) => this.props.updateEntryState(e)} value={Math.round(this.state.updateTrack.pains)} />
                     </Grid>
                     <Grid className="fillDia">
-                        <Condition name="conditions" onChange={(e) => this.props.updateEntryState(e)} value={this.state.updateTrack.conditions} />
+                        <Condition name="conditions" onChange={(e) => this.props.updateEntryState(e)} value={Math.round(this.state.updateTrack.conditions)} />
                     </Grid>
                     <Grid className="fillDia">
                         <SelectField isSearchable={true} name="country" label={Whereyouarelocated} option={this.state.options} onChange={(e) => this.updateEntryState1(e, 'country')} value={this.state.updateTrack.country} />

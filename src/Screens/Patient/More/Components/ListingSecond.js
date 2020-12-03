@@ -317,6 +317,7 @@ class Index extends Component {
                                     {data.status === 'accept' && <Td><span className="revwGren"></span>{Answered} </Td>}
                                     {data.status === 'remove' && <Td><span className="revwRed"></span>{Rejected}</Td>}
                                     {data.status === 'cancel' && <Td><span className="revwRed"></span>{Cancelled}</Td>}
+                                    {data.status === 'decline' && <Td><span className="revwRed"></span>{Rejected}</Td>}
                                     {data.status === 'free' && <Td><span className="revwGry"></span>{sent} {request}</Td>}
                                     <Td className="presEditDot scndOptionIner">
                                         <a className="openScndhrf">

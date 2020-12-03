@@ -84,7 +84,7 @@ class Index extends Component {
       let { SelectPainArea, attachments, Fieldtitle, BodySchemeNotes } = translate;
         return (
             <div>
-                <Grid className="cnfrmDiaMain">
+                 {!this.props.visibility && <Grid className="cnfrmDiaMain">
                     <Grid className="fillDia">
                         <AnamnesisFinding  options= {this.state.options} name="anamesis" label={Fieldtitle}  onChange={(e) => this.updateEntryState1(e, 'anamesis')} findingArr={this.state.updateTrack.anamesis} />
                     </Grid>
@@ -99,7 +99,7 @@ class Index extends Component {
                         <Grid><label>{attachments}</label></Grid>
                         <FileUploader name="UploadTrackImageMulti" comesFrom="journal" isMulti="true" fileUpload={(event)=>{this.props.FileAttachMulti(event)}}/>
                     </Grid>
-                </Grid>
+                </Grid>}
 
                 <Grid className="infoShwHidMain3upr">
                     <ShowHide eventdate={true} date_format= {this.state.date_format} value={this.state.updateTrack} onChange={(data) => this.props.GetHideShow(data)}/>
