@@ -15,7 +15,7 @@ import Collapsible from 'react-collapsible';
 import sitedata from '../../../sitedata';
 import "react-toggle/style.css";
 import { authy } from './../../Login/authy.js';
-import { getDate, getImage } from './../../Components/BasicMethod/index'
+import { getDate, getReminder, getTime } from './../../Components/BasicMethod/index'
 import * as translationEN from "../../../translations/en.json"
 import * as translationDE from '../../../translations/de.json';
 import * as translationPT from '../../../translations/pt.json';
@@ -76,16 +76,27 @@ class Index extends Component {
                             })
                     })
             })
-
-
     }
 
     getValue=(current_select, value)=>{
         if (current_select === 'date_measured' || current_select === "created_on" || current_select === "diagnosed_on" || current_select=== "date_doctor_visits" ||
-        current_select === "first_visit_date"|| current_select === "data_of_vaccination" || current_select ==="event_date") 
+        current_select === "first_visit_date"|| current_select === "from_when" || current_select === "until_when" || current_select === "data_of_vaccination" || current_select ==="event_date" || current_select ==="prescribed_on" ||
+        current_select === "until" ||current_select === "dod_onset"|| current_select === "dob"|| current_select === "last_visit_date"||current_select === "date_doctor_visit") 
         {
             var dates = getDate(value, this.props.settings.setting ? this.props.settings.setting.date_format : 'DD/MM/YYYY');
             return dates;
+        }
+        else if(current_select === "time_measured" ){
+            var dates = getTime(new Date(value), this.props.settings && this.props.settings.setting && this.props.settings.setting.time_format ? this.props.settings.setting.time_format : '24');
+            return dates;
+        }
+        else if(current_select === "time_taken" || current_select === "reminder_time_taken")
+        {
+            var dates = getReminder(value, this.props.settings.setting ? this.props.settings.setting.time_format : '24');
+            return dates;
+        }
+        else if(current_select === 'symptoms' ||current_select === 'remarks' ||current_select === 'tree_text'  ){
+            return <p dangerouslySetInnerHTML={{ __html: value }} />
         }
         else{
             return value;
@@ -126,7 +137,7 @@ class Index extends Component {
             case "default":
                 translate = translationEN.text
         }
-        let { blockchain_access_log, created_by, log_type, time_created } = translate;
+        let { blockchain_access_log, organ_donar, created_by, log_type, time_created } = translate;
 
 
         return (
@@ -147,8 +158,39 @@ class Index extends Component {
                                 <Grid item xs={12} md={8}>
                                     <Grid className="blockChainLog">
                                         <h1>{blockchain_access_log}</h1>
-                                        <Grid className="blockChainDtail">
-
+                                        <Grid className="blockChainDtail1">
+                                            <Grid className="blockChainUpr">
+                                                <h2>{organ_donar}</h2>
+                                                {Object.entries(this.state.PatientFullData).map(([key, value]) => (
+                                                    (key !== '' && key == "organ_data") && <div>
+                                                    {Object.entries(value).map(([k, v]) => (
+                                                        <div>
+                                                            {k==='selectedOption' && 
+                                                            <div>
+                                                                {v === 'yes_to_all' && <div>Transplantation of one or more organ / tissues of mine after doctors have pronounced me dead</div>}
+                                                                {v ==='exclude_some' && <div>Transplantation of organ / tissues of mine after doctors have pronounced me dead accept for following organ / tissues</div>}
+                                                                {v ==='include_some' && <div>Transplantation of organ / tissues of mine after doctors have pronounced me dead only for following organ / tissues</div>}
+                                                                {v ==='not_allowed' && <div>NOT allow a transplantation of any of my organs or tissues</div>}
+                                                                {v ==='decided_by_following' && <div>Transplantation of one or more organ / tissues of mine after doctors have pronounced me dead YES or NO shall be decided by the following person</div>}
+                                                            </div>}
+                                                            {/* {k==='free_remarks' && <div>{v}</div>} */}
+                                                            {k==='OptionData' && 
+                                                            <div>
+                                                            {typeof v === "string" && <div>{v}</div>}
+                                                            {typeof v !== "string" && Object.entries(v).map(([k1, v1]) => (
+                                                                <Grid container direction="row">
+                                                                    <Grid item xs={5} md={5}><span>{k1.charAt(0).toUpperCase() + k1.slice(1).replace("_", " ")}</span></Grid>
+                                                                    <Grid item xs={7} md={7}><label>{v1}</label></Grid>
+                                                                </Grid>  
+                                                            ))}
+                                                            </div>}
+                                                        </div>
+                                                    ))}
+                                                    </div>
+                                                ))}
+                                            </Grid>
+                                        </Grid>
+                                          <Grid className="blockChainDtail">
                                             <Grid className="blockChainUpr">
                                                 <Grid className="blochChainHead">
                                                     <Grid><label>{log_type}</label></Grid>
@@ -176,9 +218,9 @@ class Index extends Component {
                                                                                     </Grid>
                                                                                     : <div>
                                                                                         {Object.entries(v).map(([k1, v1]) => (
-                                                                                            k1 !== '' && k1 !== 'track_id' && k1 !== 'created_by_temp2' && k1 !== 'created_by_profile' && k1 !== 'review_by' &&
-                                                                                            k1 !== 'review_on' && k1 !== 'review_by_temp' && k1 !== 'emergency_by_temp' && k1 !== 'created_at' && k1 !== 'created_by'
-                                                                                            && k1 !== 'emergency_on' && k1 !== 'emergency_by' && k1 !== "created_by_temp" && k1 !== "datetime_on" && k1 !== "type"
+                                                                                            k1 !== '' && k1 !== 'created_by_image' && k1 !== 'track_id' && k1 !== 'created_by_temp2' && k1 !== 'created_by_profile' && k1 !== 'review_by' &&
+                                                                                            k1 !== 'review_on' && k1 !== 'review_by_temp' && k1 !== 'emergency_by_temp' && k1 !== 'created_at' && k1 !== 'created_by' && k1 !== 'public' 
+                                                                                            && k1 !== 'emergency_on' && k1 !== 'emergency_by' && k1 !== "created_by_temp" && k1 !== "datetime_on" && k1 !== "type" && k1 !== 'publicdatetime' 
                                                                                             && typeof v1 === 'string' && <Grid container direction="row">
                                                                                                 <Grid item xs={12} md={5}><span>{k1.charAt(0).toUpperCase() + k1.slice(1).replace("_", " ")}</span></Grid>
                                                                                                 <label>{this.getValue(k1 , v1)}</label>

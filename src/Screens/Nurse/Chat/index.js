@@ -111,7 +111,7 @@ class index extends React.Component {
             <Grid className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode && this.props.settings.setting.mode==='dark' ? "homeBg homeBgDrk" : "homeBg"}>
             <Grid container direction="row" justify="center">
             {this.state.loaderImage && <Loader />}
-            {console.log('doctorArray1', this.state.doctorArray)}
+         
                 <Grid item xs={12} md={12}>
                     <Grid container direction="row">
                         <LeftMenu  isNotShow ={true} currentPage="chat"/>

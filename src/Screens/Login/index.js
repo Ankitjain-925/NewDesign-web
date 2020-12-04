@@ -134,7 +134,6 @@ class Index extends Component {
                     let password = this.state.inputPass;
                     this.setState({ loaderImage: true })
                     this.props.LoginReducerAim(email, password, ()=>{
-                        console.log('Hetzs')
                         this.setState({ myLogin: true });
                         this.setState({ loaderImage: false })
                         if (this.props.stateLoginValueAim && this.props.stateLoginValueAim.user && !this.props.stateLoginValueAim.user.is2fa) {   
@@ -191,14 +190,14 @@ class Index extends Component {
     onKeyDownlogin=(e)=>{
         if(e.key === 'Enter')
         {
-            console.log('fff')
+         
             this.BtnSubmit()
         }
     }
     onKeyDownverify=(e)=>{
         if(e.key === 'Enter')
         {
-            console.log('fff11')
+            
             this.Verifycode()
         }
     }

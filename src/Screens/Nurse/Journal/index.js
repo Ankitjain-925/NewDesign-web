@@ -571,6 +571,9 @@ class Index extends Component {
             if (data.event_date && data.event_date !== '') {
                 data.datetime_on = new Date(data.event_date);
             }
+            else{
+                data.event_date = new Date();
+            }
         }
         var track_id = this.state.updateTrack.track_id;
         if (this.state.updateTrack && this.state.updateTrack.track_id && this.state.updateTrack.track_id !== '' && this.state.updateTrack.track_id !== 'undefined') {

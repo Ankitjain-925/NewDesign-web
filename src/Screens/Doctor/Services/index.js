@@ -379,7 +379,6 @@ class Index extends Component {
                                             }
                                         })
                                         .then((res) => { })
-                                    console.log('responce', responce)
                                     AddFavDoc2(this.props.stateLoginValueAim.user.profile_id, this.props.stateLoginValueAim.user.profile_id, this.props.stateLoginValueAim.token, responce.data.data.profile_id);
                                     // axios.post(sitedata.data.path + '/UserProfile/AddtoPatientList/' + this.props.stateLoginValueAim.user.profile_id, {
                                     //     profile_id: responce.data.data.profile_id

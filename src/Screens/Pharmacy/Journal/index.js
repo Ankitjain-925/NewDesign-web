@@ -565,6 +565,9 @@ class Index extends Component {
             if (data.event_date && data.event_date !== '') {
                 data.datetime_on = new Date(data.event_date);
             }
+            else{
+                data.event_date = new Date();
+            }
         }
         var track_id = this.state.updateTrack.track_id;
         if (this.state.updateTrack && this.state.updateTrack.track_id && this.state.updateTrack.track_id !== '' && this.state.updateTrack.track_id !== 'undefined') {
@@ -622,7 +625,7 @@ class Index extends Component {
                     //This is for Aimedis Blockchain Section
                     this.rightInfo();
                     var images = [];
-                    console.log('response.data.data.track_record', response.data.data.track_record)
+                
                     response.data.data && response.data.data.track_record && response.data.data.track_record.length > 0 && response.data.data.track_record.map((data1, index) => {
                         var find2 = data1 && data1.created_by_image
                         if (find2) {
@@ -1012,7 +1015,7 @@ class Index extends Component {
                                             {/* {this.props.Doctorsetget.p_id !== null && <FilterSec FilterText={this.FilterText} settings={this.props.settings} FilterData={this.FilterData} SortData={this.SortData} ClearData={this.ClearData} sortBy={this.state.Sort}/>} */}
 
                                             {/* For Empty Entry */}
-                                            {console.log('this.state.allTrack', this.state.allTrack)}
+                                            
                                             {this.props.Doctorsetget.p_id !== null && <div>
                                                 {this.state.allTrack && this.state.allTrack.length > 0 ?
                                                     this.state.allTrack.map((item, index) => (

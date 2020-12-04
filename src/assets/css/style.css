@@ -13092,6 +13092,20 @@ a.academy_ul ul li img {
 
 
 /*Added By ankita*/
+.blockChainDtail1 {
+    border-radius: 12px;
+    background-color: #FFFFFF;
+    box-shadow: 0 1px 8px 0 rgba(0,8,8,0.04);
+    min-height: 50px;
+    padding:10px;
+}
+g.highcharts-axis.highcharts-yaxis text {
+    color: #000!important;
+    fill: #000!important;
+}
+.darkTheme> .apontBoxCntnt{
+    background-color: #404646!important;
+}
 .darkTheme> .travelDia label span {
     color: #dcdcdc !important;
 }
@@ -14377,7 +14391,7 @@ label.attached_file a {
     line-height: 18px;
 }
 .homeBgDrk .latestGrph rect.highcharts-background {
-    fill: #a9a9a9 !important;
+    fill: #dadada !important;
 }
 .srchFilter .css-yk16xz-control {
     background-color: transparent !important;

@@ -47,7 +47,6 @@ class Index extends Component {
     }
 
     componentDidMount() {
-        console.log('here 11')
         this.getAllList();
     }
 

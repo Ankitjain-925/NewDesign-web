@@ -63,7 +63,7 @@ class MessageHeader extends React.Component {
       axios.get(sitedata.data.path + '/aws/sign_s3?find=' + char1)
       .then((response) => {
       if (response.data.hassuccessed) {
-        console.log('hERE22')
+   
         this.setState({image : response.data.data})
         }
     })

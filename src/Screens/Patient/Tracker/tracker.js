@@ -84,7 +84,7 @@ class Index extends Component {
             let fitbitToken = window.location.hash.slice(1).split("&")[0].replace("access_token=", "")
          
             this.setState({ fitbitloggedIn: true})
-            console.log('fitbitloggedIn22', this.state.fitbitloggedIn, )
+          
            this.fetchFitbitData("devices.json", fitbitToken, "device")
             this.fetchFitbitData("profile.json", fitbitToken, "user")
             this.fetchFitbitData('activities.json', fitbitToken, 'lifetimeStats')
@@ -99,7 +99,7 @@ class Index extends Component {
             var code = decodeURIComponent(window.location.search.replace(new RegExp("^(?:.*[&\\?]" + encodeURIComponent("code").replace(/[\.\+\*]/g, "\\$&") + "(?:\\=([^&]*))?)?.*$", "i"), "$1"));
          
             this.setState({ code: code })
-            console.log('fitbitloggedIn223', this.state.fitbitloggedIn)
+           
             this.getDevice(code);
             this.getUser(code)
             // this.getMeassure(code);
@@ -194,7 +194,7 @@ class Index extends Component {
                 'Content-Type': 'application/json'
             }
         }).then((response) => {
-            console.log('comehere', response.data.body)
+           
             this.props.Withings({data: {Devices_id: this.state.Devices_id , measure: response.data.body}});
         })
     }
@@ -224,7 +224,6 @@ class Index extends Component {
 
     handleOpenvData = (device, type) => {
         if (type === 'withing') {
-            console.log('I am here')
                 this.GetDATA(this.props.withing.data.data.measure, device.deviceid)
                 this.setState({ withingsDevice: device, fitbitloggedIn: false, withingsloggedIn: true,  })
             } else (
@@ -929,7 +928,7 @@ class Index extends Component {
                                                                                                     </Grid>
                                                                                                 </Grid>
                                                                                             </div>}
-                                                                                           { console.log('this.state.optionsGraph', this.state.optionsGraph)}
+                                                                                           
                                                                                         {this.state.optionsGraph && this.state.optionsGraph.length > 0 ? this.state.optionsGraph.map((item1, index) => (
                                                                                             <div className="setMarginforgraph">
                                                                                                 <HighchartsReact

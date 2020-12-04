@@ -306,7 +306,7 @@ class Index extends Component {
         axios.post(sitedata.data.path + '/User/appointment', {
             patient: this.props.stateLoginValueAim.user._id,
             doctor_id: this.state.selectedDoc.data && this.state.selectedDoc.data._id,
-            insurance: this.state.personalinfo.insurance[0].insurance_number,
+            insurance: this.state.personalinfo && this.state.personalinfo.insurance && this.state.personalinfo.insurance.length>0 && this.state.personalinfo.insurance[0] && this.state.personalinfo.insurance[0].insurance_number && this.state.personalinfo.insurance[0].insurance_number,
             date: this.state.selectedDate,
             start_time: this.state.mypoint.start,
             end_time: this.state.mypoint.end,

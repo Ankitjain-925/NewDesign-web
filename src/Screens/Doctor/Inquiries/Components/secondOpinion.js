@@ -337,7 +337,7 @@ class Index extends Component {
             short_msg: message,
             attachfile: [this.state.uploadedimage],
             type: 'second_opinion',
-            send_to_timeline : this.state.send_to_timeline
+            send_to_timeline : true
 
         }, {
             headers: {
@@ -562,10 +562,10 @@ class Index extends Component {
                                             {(opinionData.status !== 'accept') && !$imagePreview && <p>{suported_file_type_jpg_png}</p>}
                                             <Grid>{$imagePreview}</Grid>
 
-                                            `````{this.state.success && <Grid item xs={12} md={12}>
+                                           {/* {this.state.success && <Grid item xs={12} md={12}>
                                             <div onClick={() => this.saveUserData(opinionData._id, true)} className="approvBtn sendtotimelinenew">{snd_patient_timeline_email}</div>
                                                 
-                                            </Grid>}
+                                            </Grid>} */}
                                             {this.state.serverMsg && this.state.serverMsg !== '' && <div className={this.state.saveAttach ? 'success_message' : 'err_message'}>{this.state.serverMsg}</div>}
                                             {/* <Grid className="attchbrowsInput">
                                             <a><img src={require('../../../../assets/images/upload-file.svg')} alt="" title="" /></a>

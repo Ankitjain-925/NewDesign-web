@@ -32,6 +32,8 @@ class Index extends Component {
             options : this.props.options,
             allDocData1 : [],
             MyDocList : [],
+            icdinr : '',
+            icd : ''
         };
     }
 
@@ -178,8 +180,12 @@ class Index extends Component {
                     </Grid>
                     <Grid className="diaCD">
                         <Grid><label>{slct_ICD_serch_code}</label></Grid>
-                        <Grid><a className="diaCDActv">ICD-10</a> <a>ICD-11</a></Grid>
-                        <Grid><a className="diaCDActv">ICD-10 WHO</a> <a>ICD-10 CM</a> <a>ICD-10 GM</a></Grid>
+                        <Grid><a onClick={()=>{this.setState({icd: 'icd-10'})}} className={this.state.icd==='icd-10' ? "diaCDActv" : ''}>ICD-10</a> <a className={this.state.icd==='icd-11' ? "diaCDActv" : ''} onClick={()=>{this.setState({icd: 'icd-11'})}}>ICD-11</a></Grid>
+                        {this.state.icd === 'icd-10' && <Grid>
+                            <a onClick={()=>{this.setState({icdinr: 'icd-10-who'})}} className={this.state.icdinr==='icd-10-who' ? "diaCDActv" : ''}>ICD-10 WHO</a>
+                            <a onClick={()=>{this.setState({icdinr: 'icd-10-cm'})}} className={this.state.icdinr==='icd-10-cm' ? "diaCDActv" : ''}>ICD-10 CM</a> 
+                            <a onClick={()=>{this.setState({icdinr: 'icd-10-gm'})}} className={this.state.icdinr==='icd-10-gm' ? "diaCDActv" : ''}>ICD-10 GM</a>
+                        </Grid>}
                     </Grid>
                     <Grid className="srchDia">
                         <Grid className="srchdoseMg">

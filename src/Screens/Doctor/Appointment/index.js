@@ -825,7 +825,6 @@ class Index extends Component {
 
     // 
     findAppointment =  (iA) => {
-        console.log('appointDate', this.state.appointDate[iA])
         this.setState({
             suggesteddate : this.state.selectedDate,
             suggestTime : {start: this.state.appointDate[iA],
@@ -962,7 +961,7 @@ class Index extends Component {
                                                     <a onClick={this.handleCloseSlot} className="clsSltCal">
                                                         <img src={require('../../../assets/images/close-search.svg')} alt="" title="" />
                                                     </a>
-                                                {console.log('appoinmentSelected1q', this.state.appoinmentSelected)}
+                                               
                                                     <Grid container direction="row">
                                                         <Grid item xs={6} md={6} alignItems="center" justify="center">
                                                             <Grid className="jmInfo">

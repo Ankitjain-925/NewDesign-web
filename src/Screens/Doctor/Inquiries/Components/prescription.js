@@ -171,7 +171,6 @@ class Index extends Component {
         
         if(status === 'accept' && !this.state.send_to_timeline){
             this.saveUserData(id, false, ()=>{
-                console.log('I AM HERE')
                 this.UpdatetheStatus(status, id)
             });
         }
@@ -188,7 +187,7 @@ class Index extends Component {
             doctor_name: this.props.myData.first_name + ' ' + this.props.myData.last_name,
             type: "prescription",
             short_msg: message,
-            send_to_timeline : this.state.send_to_timeline
+            send_to_timeline : true
 
         }, {
             headers: {
@@ -553,9 +552,9 @@ class Index extends Component {
                                         </Grid>}
                                         {(prescData.status !== 'accept') && !$imagePreview && <p>{suported_file_type_jpg_png}</p>}
                                         <Grid>{$imagePreview}</Grid>
-                                        {(prescData.attachfile && success && prescData.status !== 'accept') && <Grid item xs={12} md={12}>
+                                        {/* {(prescData.attachfile && success && prescData.status !== 'accept') && <Grid item xs={12} md={12}>
                                             <div onClick={() => this.saveUserData(prescData._id, true)} className="approvBtn sendtotimelinenew">{snd_patient_timeline_email}</div>
-                                        </Grid>}
+                                        </Grid>} */}
                                     </Grid>}
                                 {this.state.serverMsg && this.state.serverMsg !== '' && <div className={this.state.saveAttach ? 'success_message' : 'err_message'}>{this.state.serverMsg}</div>}
                                 {(prescData.status !== 'accept' && prescData.status !== 'decline') && <Grid container direction="row">

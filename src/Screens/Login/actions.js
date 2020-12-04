@@ -47,7 +47,6 @@ export const LoginReducerAim = (email, password, SendCallback = () => {}) => {
             SendCallback();
           }
           else{
-            console.log('Here');
             tmp = {
               token:response.data.token,
               user:response.data.user,

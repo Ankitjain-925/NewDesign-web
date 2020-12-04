@@ -575,6 +575,9 @@ class Index extends Component {
             if (data.event_date && data.event_date !== '') {
                 data.datetime_on = new Date(data.event_date);
             }
+            else{
+                data.event_date = new Date();
+            }
         }
         var track_id = this.state.updateTrack.track_id;
         if (this.state.updateTrack && this.state.updateTrack.track_id && this.state.updateTrack.track_id !== '' && this.state.updateTrack.track_id !== 'undefined') {
@@ -1144,7 +1147,7 @@ class Index extends Component {
                                                             <img src={require('../../../assets/images/close-search.svg')} alt="" title="" />
                                                         </a>
                                                     </Grid>
-                                                    {console.log('this.state.updateOne', this.state.updateOne)}
+                                                   
                                                     {this.state.updateOne !== this.state.updateTrack.track_id ?
                                                         <div>
                                                             <p>{New} {entry}</p>

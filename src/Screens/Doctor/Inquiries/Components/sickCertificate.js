@@ -312,7 +312,7 @@ class Index extends Component {
             doctor_name: this.props.myData.first_name + ' ' + this.props.myData.last_name,
             type: "sick_certificate",
             short_msg: message,
-            send_to_timeline : this.state.send_to_timeline
+            send_to_timeline : true
 
         }, {
             headers: {
@@ -566,10 +566,10 @@ class Index extends Component {
                                             {(sickData.status !== 'accept') && !$imagePreview && <p>{suported_file_type_jpg_png}</p>}
                                             {(sickData.status === 'accept') && !$imagePreview && <img src={sickData.attachfile[0].filename} />}
                                             <Grid>{(sickData.status !== 'accept') && $imagePreview}</Grid>
-                                            {(sickData.attachfile && this.state.uploadedimage && sickData.status !== 'accept') && <Grid item xs={12} md={12}>
+                                            {/* {(sickData.attachfile && this.state.uploadedimage && sickData.status !== 'accept') && <Grid item xs={12} md={12}>
                                             <div onClick={() => this.saveUserData(sickData._id, true)} className="approvBtn sendtotimelinenew">{snd_patient_timeline_email}</div>
                                                
-                                            </Grid>}
+                                            </Grid>} */}
                                         </Grid>}
                                     {this.state.serverMsg && this.state.serverMsg !== '' && <div className={this.state.saveAttach ? 'success_message' : 'err_message'}>{this.state.serverMsg}</div>}
                                     {(sickData.status !== 'accept' && sickData.status !== 'decline') && <Grid container direction="row">

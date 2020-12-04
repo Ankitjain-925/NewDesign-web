@@ -98,10 +98,10 @@ class Index extends Component {
                         <PainPoint id="New_id1" gender={this.state.gender} painPoint={this.state.updateTrack && this.state.updateTrack.painPoint ? this.state.updateTrack.painPoint : []} onChange={(e) => this.updateEntryState1(e, 'painPoint')} />
                     </Grid>
                     <Grid className="fillDia">
-                        <PainIntensity name="pain_intensity" onChange={(e)=> this.props.updateEntryState(e)} value={this.state.updateTrack.pain_intensity}/>
+                        <PainIntensity name="pain_intensity" onChange={(e)=> this.props.updateEntryState(e)} value={Math.round(this.state.updateTrack.pain_intensity)}/>
                     </Grid>
                     <Grid className="fillDia">
-                        <Condition name="feeling"  onChange={(e)=> this.props.updateEntryState(e)} value={this.state.updateTrack.feeling}/>
+                        <Condition name="feeling"  onChange={(e)=> this.props.updateEntryState(e)} value={Math.round(this.state.updateTrack.feeling)}/>
                     </Grid>
 
                     <Grid className="attchForms attchImg">

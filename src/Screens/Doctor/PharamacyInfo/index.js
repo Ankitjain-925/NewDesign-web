@@ -344,7 +344,6 @@ class Index extends Component {
         data.patient_id = patient_id;
         data.remark = remark;
 
-        console.log('user_id', user_id, 'patient_id', patient_id)
         if (!user_id || user_id === '' || !patient_id || patient_id === '' || !this.state.isfileupload) {
             this.setState({ compulsary: true })
         }

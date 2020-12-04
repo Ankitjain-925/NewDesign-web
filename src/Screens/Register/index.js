@@ -263,30 +263,39 @@ class Index extends Component {
         this.setState({ isfileuploadmulti: true })
         var getBucket = contry && contry.length > 0 && contry.filter((value, key) =>
             value.code === country_code.toUpperCase());
+        if(this.state.FilesUp && this.state.FilesUp.length>0){
+            for (var i = 0; i < this.state.FilesUp.length; i++) {
+                var file = this.state.FilesUp[i];
+                let fileParts = this.state.FilesUp[i].name.split('.');
+                let fileName = fileParts[0];
+                let fileType = fileParts[1];
+                axios.post(sitedata.data.path + '/aws/sign_s3', {
+                    fileName: fileName,
+                    fileType: fileType,
+                    folders: 'registration/',
+                    bucket: getBucket[0].bucket
+                }).then(response => {
+                    this.setState({ uploadLicence: {url: response.data.data.returnData.url + '&bucket=' +getBucket[0].bucket} }, ()=>{
+                        this.getUpdate(country_code, getBucket);
+                    });
 
-        for (var i = 0; i < this.state.FilesUp.length; i++) {
-            var file = this.state.FilesUp[i];
-            let fileParts = this.state.FilesUp[i].name.split('.');
-            let fileName = fileParts[0];
-            let fileType = fileParts[1];
-            axios.post(sitedata.data.path + '/aws/sign_s3', {
-                fileName: fileName,
-                fileType: fileType,
-                folders: 'registration/',
-                bucket: getBucket[0].bucket
-            }).then(response => {
-                this.setState({ uploadLicence: response.data.data.returnData });
-
-                var returnData = response.data.data.returnData;
-                var signedRequest = returnData.signedRequest;
-                var url = returnData.url;
-                // Put the fileType in the headers for the upload
-                var options = { headers: { 'Content-Type': fileType } };
-                axios.put('https://cors-anywhere.herokuapp.com/' + signedRequest, file, options)
-                    .then(result => { this.setState({ success: true, loaderImage: false }); })
-                    .catch(error => { })
-            }).catch(error => { })
+                    var returnData = response.data.data.returnData;
+                    var signedRequest = returnData.signedRequest;
+                    var url = returnData.url;
+                    // Put the fileType in the headers for the upload
+                    var options = { headers: { 'Content-Type': fileType } };
+                    axios.put('https://cors-anywhere.herokuapp.com/' + signedRequest, file, options)
+                        .then(result => { this.setState({ success: true, loaderImage: false }); })
+                        .catch(error => { })
+                }).catch(error => { })
+            }
         }
+        else{
+            this.getUpdate(country_code, getBucket);
+        }
+       
+    }
+    getUpdate=(country_code, getBucket)=>{
         axios.post(sitedata.data.path + '/UserProfile/AddUser/', {
             type: this.state.selectedOption,
             email: this.state.userDetails.email,
@@ -325,7 +334,6 @@ class Index extends Component {
                 }
             })
     }
-
     //For select the country code Flag
     onSelectFlag = (countryCode) => {
         const state = this.state.userDetails

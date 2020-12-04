@@ -238,7 +238,6 @@ class Index extends Component {
                 }
             })
             .then((response) => {
-                {console.log("GSHGHAGUDSY", response.data)}
                 this.setState({
                     diagnosisdata: response.data.diagnosisdata, mediacationdata: response.data.medicationdata, allergydata: response.data.allergydata,
                     family_doc: response.data.doctor, loaderImage: false, donar: response.data.donardata,

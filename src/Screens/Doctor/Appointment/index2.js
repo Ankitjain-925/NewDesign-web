@@ -501,7 +501,7 @@ class Index extends Component {
     };
 
     handleOpenSlot = (data) => {
-        console.log('data', this.state.appointmentDatas, data)
+       
         if (data.appointment_type == types[2]) {
             this.setState({appointmentData :this.state.appointmentDatas.online_appointment},
                 ()=>{this.onChange(new Date(data.date))})

@@ -20,7 +20,7 @@ import * as translationRS from '../../../../translations/rs.json';
 import * as translationSW from '../../../../translations/sw.json';
 import * as translationCH from '../../../../translations/ch.json';
 import * as translationNL from '../../../../translations/nl.json';
-
+import {updateBlockchain} from './../../../Components/BlockchainEntry/index';
 
 class Index extends Component {
     constructor(props) {
@@ -126,6 +126,7 @@ class Index extends Component {
             }
         })
             .then((responce) => {
+                this.getUserData();
                 if(this.props.comesFrom)
                 {
                     this.props.EditOrganDonar();
@@ -160,6 +161,7 @@ class Index extends Component {
         }).then((response) => {
             this.setState({ loaderImage: false });
             if (response) {
+                updateBlockchain(this.props.stateLoginValueAim.user, [], response.data.data.organ_donor[0], 'organ_data')
                 if (response.data.data.organ_donor[0].selectedOption) {
                     this.setState({ selectedOption: response.data.data.organ_donor[0].selectedOption })
                 }
