@@ -13255,9 +13255,9 @@ g.highcharts-axis.highcharts-yaxis text {
 .dataCloseBtn a, .editCloseBtn a, .entryCloseBtn a , .wshLstHaiRght a,
 .crtLstHaiRght a, .handleCloseBtn a, .nwPresCloseBtn a,
 .presurCloseFncy a, .dashCloseBtn a, .invtCloseBtn a, .paraCloseBtn a,
- .prespCloseBtn a, .rejectCloseBtn a, .opinCloseBtn a, .nwDiaCloseBtn a,
- .phrmCloseBtn a, .qrCloseBtn a, .infoCloseBtn a, .slotCourse a, .slotBoxCourse a,
- .apontCloseBtn a, .handleAccessBtn a, .trstCloseBtn a, .srvcCloseBtn a,.presCloseBtn a{
+.prespCloseBtn a, .rejectCloseBtn a, .opinCloseBtn a, .nwDiaCloseBtn a,
+.phrmCloseBtn a, .qrCloseBtn a, .infoCloseBtn a, .slotCourse a, .slotBoxCourse a,
+.apontCloseBtn a, .handleAccessBtn a, .trstCloseBtn a, .srvcCloseBtn a,.presCloseBtn a{
     border: 1px solid #9fa2a2;
     display: inline-flex;
     padding: 5px 5px;
@@ -13265,7 +13265,15 @@ g.highcharts-axis.highcharts-yaxis text {
     align-items: center;
     justify-content: center;
 }
-
+.dataCloseBtn a:hover, .editCloseBtn a:hover, .entryCloseBtn a:hover, .wshLstHaiRght a:hover,
+.crtLstHaiRght a:hover, .handleCloseBtn a:hover, .nwPresCloseBtn a:hover,
+.presurCloseFncy a:hover, .dashCloseBtn a:hover, .invtCloseBtn a:hover, .paraCloseBtn a:hover,
+.prespCloseBtn a:hover, .rejectCloseBtn a:hover, .opinCloseBtn a:hover, .nwDiaCloseBtn a:hover,
+.phrmCloseBtn a:hover, .qrCloseBtn a:hover, .infoCloseBtn a:hover, .slotCourse a:hover, .slotBoxCourse a:hover,
+.apontCloseBtn a:hover, .handleAccessBtn a:hover, .trstCloseBtn a:hover, .srvcCloseBtn a:hover,
+.presCloseBtn a:hover{
+    background: #e2e2e2e0 !important;
+}
 .darkTheme > .nwPresCntnt ,.darkTheme > .opinBoxCntnt, .darkTheme > .invtCourse {
     background-color: #404646!important;
 }
@@ -14222,7 +14230,6 @@ input:focus {
     min-width: 43px;
     color: #000808;
     font-family: Muli;
-    
     text-align: center;
     border: 1px solid #BFC1C1;
     border-radius: 4px;
@@ -15132,13 +15139,11 @@ a.clsSltCal {
     color: #D9DADA !important;
 }
 .homeBgDrk .cc1-chat-win-msg-block span.cc1-chat-win-timestamp img{
-    background: #929292 !important;
+    background: transparent !important;
     border-radius: 18px !important;
 }
 
-
 /* Added by Satish for Float arrow */
-
 .floatArrowUp {
     position:fixed;
 	width:50px;
@@ -15156,4 +15161,53 @@ a.clsSltCal {
     height: 18px;
     color: rgb(31, 27, 27) !important;
     z-index: 9999999999; 
+}
+.cancelAppoint a{
+    text-align: left;
+    display: flex;
+    line-height: 17px;
+}
+.ccl-call-ong-max-wrap .ccl-call-ong-max-header h6.ccl-call-ong-max-name{
+    margin-top: 18px;
+}
+.homeBgDrk .ccl-call-ong-max-wrap .ccl-call-ong-max-header h6.ccl-call-ong-max-name{
+    color: #D9DADA !important;
+}
+.homeBgDrk .cc1-chat-win-user-status{
+    color: #D9DADA !important;
+}
+.homeBgIner .wrkHourUpr .ant-picker span.ant-picker-clear{
+    background: transparent !important;
+}
+.homeBgDrk .ccl-center-panel.ccl-chat-center-panel{
+    background: #192020 !important;
+}
+.homeBgDrk h4.ccl-right-panel-head-ttl{
+    color: #D9DADA !important;
+}
+.docCntctMain p{
+    padding: 8px 16px 0;
+}
+.homeBgDrk .docCntctMain p{
+    color: #bfc1c1 !important;
+}
+.homeBgDrk .blockChainDtail1{
+    background-color: #404646 !important;
+}
+.homeBgDrk .blockChainUpr h2{
+    color: #D9DADA !important;
+}
+.homeBgDrk .blockChainUpr h2, .homeBgDrk .blockChainUpr div{
+    color: #D9DADA !important;
+}
+.darkTheme > div:nth-child(3) .MuiGrid-root.selTimeAM a.current_selected{
+    background-color: #00ABAF !important;
+}
+@media (max-width: 960px){
+  .journalAdd .MuiGrid-grid-xs-11.MuiGrid-grid-md-11{
+    margin: 0 auto;
+  }
+  .onlineCoursesList{
+    padding-left: 0px !important;
+  }
 }

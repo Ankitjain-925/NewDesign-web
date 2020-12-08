@@ -627,7 +627,7 @@ setTimeout(()=> {
                         'Content-Type': fileType
                     }
                 };
-                axios.put( signedRequest, file, options)
+                axios.put(signedRequest, file, options)
                 .then(result => {
                     this.setState({ uploadedimage: response.data.data.returnData.url + '&bucket=' + this.props.stateLoginValueAim.user.bucket, loaderImage: false },
                         () => { this.saveUserData1() })
@@ -990,17 +990,14 @@ setTimeout(()=> {
                             </Grid>
                             <Grid className="kycForms sprtImg">
                                 <Grid container direction="row" alignItems="center" spacing={2}>
-                                    <Grid item xs={12} md={4}>
+                                    <Grid item xs={12} md={6}>
                                         <FileUploader name="uploadImage" fileUpload={this.fileUpload} isMulti={false}/>
                                     </Grid>
-                                    <Grid className="clear"></Grid>
-                                    <Grid item xs={12} md={4}>
+                                    <Grid item xs={12} md={6}>
                                         {this.state.image && this.state.image!=='' &&
                                             <img className="ProfileImage" onClick={()=>GetUrlImage(this.state.image)} src={this.state.image} alt="" title="" />
                                         }
                                     </Grid>
-                                    <Grid className="clear"></Grid>
-                                    <Grid item xs={12} md={4}></Grid>
                                     <Grid className="clear"></Grid>
                                 </Grid>
                             </Grid>

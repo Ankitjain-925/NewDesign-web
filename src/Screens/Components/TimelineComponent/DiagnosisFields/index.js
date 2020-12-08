@@ -153,8 +153,8 @@ class Index extends Component {
                                     label={confirm_diag}
                                 />
                             </Grid>
-                            <Grid item xs={12} md={4} className="cnfrmDiaRght">
-                                <img src={require('../../../../assets/images/plusgreen.jpg')} alt="" title="" />
+                            <Grid item xs={12} md={4} className="cnfrmDiaRght 444">
+                                <img src={require('../../../../assets/images/confirmed-diagnosis.svg')} alt="" title="" />
                             </Grid>
                         </Grid>
                         <Grid container direction="row">
@@ -169,8 +169,8 @@ class Index extends Component {
                                     label={emergancy_dignosis}
                                 />
                             </Grid>
-                            <Grid item xs={12} md={4} className="cnfrmDiaRght">
-                                <img src={require('../../../../assets/images/plusvan.jpg')} alt="" title="" />
+                            <Grid item xs={12} md={4} className="cnfrmDiaRght 555">
+                                <img src={require('../../../../assets/images/emergency-diagnosis.svg')} alt="" title="" />
                             </Grid>
                         </Grid>
                     </Grid>}

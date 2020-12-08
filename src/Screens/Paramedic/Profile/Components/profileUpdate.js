@@ -623,7 +623,7 @@ class Index extends Component {
                         'Content-Type': fileType
                     }
                 };
-                axios.put( signedRequest, file, options)
+                axios.put(signedRequest, file, options)
                     .then(result => {
                         this.setState({ uploadedimage: response.data.data.returnData.url + '&bucket=' + this.props.stateLoginValueAim.user.bucket, loaderImage: false },
                             () => { this.saveUserData1() })
@@ -986,7 +986,7 @@ class Index extends Component {
                                 </Grid>
                             </Grid>
                             <Grid className="kycForms sprtImg">
-                                <Grid item xs={12} md={11}>
+                                <Grid item xs={12} md={12}>
                                     <Grid container direction="row" alignItems="center" spacing={2}>
                                         <Grid item xs={12} md={6}>
                                             <FileUploader name="uploadImage" fileUpload={this.fileUpload} isMulti={false} />
