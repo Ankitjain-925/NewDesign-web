@@ -208,13 +208,13 @@ class PointPain extends Component {
                         {this.state.image && this.state.image !== '' ?
                             <Grid className="myProfile">
                                 <a className="profilePic">
-                                    <label for="getFile"><img src={this.state.image} alt="" titles="" /></label>
+                                    <label htmlFor="getFile"><img src={this.state.image} alt="" titles="" /></label>
 
                                 </a>
                             </Grid> :
                             <Grid className="myProfile2">
                                 <a className="profilePic2">
-                                    <label for="getFile">
+                                    <label htmlFor="getFile">
                                         <span>{add_profile} <br /> {picture}</span>
                                         <img src={require('../../../../assets/images/user2.jpg')} alt="" title="" />
                                     </label>

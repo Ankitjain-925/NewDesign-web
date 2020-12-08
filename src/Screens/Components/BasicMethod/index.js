@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 
 //Custom Console So comment only One console works on whole website
 export function ConsoleCustom (msg, value){
-    console.log(msg , value)
+    // console.log(msg , value)
 }
 //Get Date in dd/mm/yyyy format
 export function getDate (date, dateFormat){

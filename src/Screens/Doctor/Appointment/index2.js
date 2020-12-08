@@ -1044,7 +1044,7 @@ class Index extends Component {
                                                     endAccessor="end"
                                                     popup
                                                     style={{ minHeight: 900 }}
-                                                    onShowMore={(events, date) => console.log("events", events)}
+                                                    onShowMore={(events, date) => // console.log("events", events)}
                                                     messages={{
 
                                                         showMore: total => (

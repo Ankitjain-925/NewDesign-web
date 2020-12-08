@@ -106,17 +106,17 @@ class CallScreen extends React.PureComponent {
       new CometChat.OngoingCallListener({
         onUserJoined: (user) => {
           /* Notification received here if another user joins the call. */
-          //console.log("[CallScreen] onCallAccepted User joined call:", user);
+          //// console.log("[CallScreen] onCallAccepted User joined call:", user);
           /* this method can be use to display message or perform any actions if someone joining the call */
         },
         onUserLeft: (user) => {
           /* Notification received here if another user left the call. */
-          //console.log("[CallScreen] onCallAccepted User left call:", user);
+          //// console.log("[CallScreen] onCallAccepted User left call:", user);
           /* this method can be use to display message or perform any actions if someone leaving the call */
         },
         onCallEnded: (call) => {
           /* Notification received here if current ongoing call is ended. */
-          //console.log("[CallScreen] onCallAccepted call ended:", call);
+          //// console.log("[CallScreen] onCallAccepted call ended:", call);
           this.setState({
             showCallScreen: false,
             showIncomingScreen: false,
@@ -133,10 +133,10 @@ class CallScreen extends React.PureComponent {
 
   //answering incoming call, occurs at the callee end
   acceptCall = () => {
-    console.log(
-      "this.state.callIProgress.sessionId",
-      this.state.callIProgress.sessionId
-    );
+    // console.log(
+    //   "this.state.callIProgress.sessionId",
+    //   this.state.callIProgress.sessionId
+    // );
     CometChatManager.acceptCall(this.state.callIProgress.sessionId)
       .then((call) => {
         this.setState({
@@ -153,17 +153,17 @@ class CallScreen extends React.PureComponent {
           new CometChat.OngoingCallListener({
             onUserJoined: (user) => {
               /* Notification received here if another user joins the call. */
-              //console.log("User joined call:", enums.USER_JOINED, user);
+              //// console.log("User joined call:", enums.USER_JOINED, user);
               /* this method can be use to display message or perform any actions if someone joining the call */
             },
             onUserLeft: (user) => {
               /* Notification received here if another user left the call. */
-              //console.log("User left call:", enums.USER_LEFT, user);
+              //// console.log("User left call:", enums.USER_LEFT, user);
               /* this method can be use to display message or perform any actions if someone leaving the call */
             },
             onCallEnded: (call) => {
               /* Notification received here if current ongoing call is ended. */
-              //console.log("call ended:", enums.CALL_ENDED, call);
+              //// console.log("call ended:", enums.CALL_ENDED, call);
               this.setState({
                 showCallScreen: false,
                 showIncomingScreen: false,

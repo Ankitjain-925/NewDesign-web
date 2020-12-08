@@ -113,7 +113,7 @@ class Notification extends React.Component {
           this.setState({ outgoingCall: call });
     
         }).catch(error => {
-          console.log("Call initialization failed with exception:", error);
+          // console.log("Call initialization failed with exception:", error);
         });
     
       }
@@ -154,7 +154,7 @@ class Notification extends React.Component {
           this.setState({ outgoingCall: call });
     
         }).catch(error => {
-          console.log("Call initialization failed with exception:", error);
+          // console.log("Call initialization failed with exception:", error);
         });
     
       }

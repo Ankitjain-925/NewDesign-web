@@ -28,6 +28,9 @@ class Time extends Component {
             this.setState({ value: this.props.value })
         }
     }
+    shouldComponentUpdate(nextProps, nextState){
+        return nextState.value !== this.state.value || nextProps.value !== this.props.value 
+    }
     render() {
         return (
             <div>

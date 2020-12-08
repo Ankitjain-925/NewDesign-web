@@ -145,7 +145,7 @@ class PersonalizedData extends Component {
                             items={this.state.added_card}
                             itemRenderer={(item) => {
                                 return (
-                                <Grid container direction="row" alignItems="center" justify="center" className="dragDashMain">
+                                <Grid key={item.value} container direction="row" alignItems="center" justify="center" className="dragDashMain">
                                     <Grid item xs={8} md={8} className="dragDashLft">
                                         <Grid><a onClick={()=>this.Remove(item.value)}><img src={require('../../../../assets/images/remove-2.svg')} alt="" title="" /> {item.label} </a></Grid>
                                     </Grid>
@@ -162,7 +162,7 @@ class PersonalizedData extends Component {
                         <h3>{add_more_cards}</h3>
 
                         {this.state.not_added_card && this.state.not_added_card.length>0 && this.state.not_added_card.map((item)=>(
-                            <Grid><a onClick={()=>this.Add(item.value)}><img src={require('../../../../assets/images/add.svg')} alt="" title="" />{item.label}</a></Grid>
+                            <Grid key={item.value}><a onClick={()=>this.Add(item.value)}><img src={require('../../../../assets/images/add.svg')} alt="" title="" />{item.label}</a></Grid>
                         ))}
                     </Grid>
                 </Grid>

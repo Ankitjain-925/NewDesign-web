@@ -146,7 +146,7 @@ class index extends React.Component {
                         <LeftMenuMobile isNotShow ={true}  currentPage ="chat"/>
                         {/* <Notification /> */}
                         {/* Website Mid Content */}
-                      {/*  { console.log('this.props.doctorarrays.doctorarray', this.props.doctorarrays.doctorarray)} */}
+                      {/*  { // console.log('this.props.doctorarrays.doctorarray', this.props.doctorarrays.doctorarray)} */}
                         <Grid item xs={12} md={11}>
                             {/* Inbox page Content */}
                             <Grid container style={{fontSize: "16px"}} direction="row" justify="left" alignItems="center">

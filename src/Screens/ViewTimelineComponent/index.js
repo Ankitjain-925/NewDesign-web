@@ -158,11 +158,11 @@ class Index extends Component {
         //                   this.setState({success: true});
         //                 })
         //                 .catch(error => {
-        //                   console.log("ERROR " + JSON.stringify(error));
+        //                   // console.log("ERROR " + JSON.stringify(error));
         //                 })
         //               })
         //               .catch(error => {
-        //                 console.log(JSON.stringify(error));
+        //                 // console.log(JSON.stringify(error));
         //               })
         //               this.setState({
         //                 fileattach : Fileadd, 

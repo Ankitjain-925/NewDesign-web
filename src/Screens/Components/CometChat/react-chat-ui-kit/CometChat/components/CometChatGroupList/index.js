@@ -118,7 +118,7 @@ class CometChatGroupList extends React.Component {
       
       CometChat.joinGroup(guid, groupType, password).then(response => {
 
-        console.log("Group joining success with response", response, "group", group);
+        // console.log("Group joining success with response", response, "group", group);
 
         const groups = [...this.state.grouplist];
 
@@ -136,7 +136,7 @@ class CometChatGroupList extends React.Component {
         this.props.onItemClick(groupFound, 'group');
 
       }).catch(error => {
-        console.log("Group joining failed with exception:", error);
+        // console.log("Group joining failed with exception:", error);
       });
 
     } else {
@@ -196,7 +196,7 @@ class CometChatGroupList extends React.Component {
         });
 
     }).catch(error => {
-      console.log("[CometChatGroupList] getUsers getLoggedInUser error", error);
+      // console.log("[CometChatGroupList] getUsers getLoggedInUser error", error);
       this.setState({loading: false});
     });
   }

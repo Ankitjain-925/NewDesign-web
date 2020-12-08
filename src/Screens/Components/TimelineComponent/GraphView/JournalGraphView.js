@@ -55,10 +55,10 @@ class Index extends Component {
                     "y": parseFloat(data.heart_frequncy)
                 })
                 if (oldone && oldone.datetime_on && oldone.datetime_on === data.datetime_on && oldone.created_at) {
-                    categoriesbp.push(getTime(data.datetime_on))
+                    categoriesbp.push(getTime(data.datetime_on, this.state.time_format))
                 }
                 else {
-                    categoriesbp.push(getDate(data.datetime_on))
+                    categoriesbp.push(getDate(data.datetime_on, this.state.date_format))
                 }
                 oldone = data;
             })
@@ -171,10 +171,10 @@ class Index extends Component {
             })
             myFilterlr1.push(data);
             if (oldone && oldone.datetime_on && oldone.datetime_on === data.datetime_on && oldone.datetime_on) {
-                categorieslr.push(getTime(data.datetime_on))
+                categorieslr.push(getTime(data.datetime_on, this.state.time_format))
             }
             else {
-                categorieslr.push(getDate(data.datetime_on))
+                categorieslr.push(getDate(data.datetime_on, this.state.date_format))
             }
             oldone = data;
         })}
@@ -250,14 +250,14 @@ class Index extends Component {
                 "y": parseFloat(data.height)
             })
             if (oldthree && oldthree.datetime_on && oldthree.datetime_on === oldthree.datetime_on && oldthree.created_at) {
-                categoriesbmi.push(getTime(data.datetime_on))
+                categoriesbmi.push(getTime(data.datetime_on, this.state.time_format))
             }
             else {
-                categoriesbmi.push(getDate(data.datetime_on))
+                categoriesbmi.push(getDate(data.datetime_on, this.state.date_format))
             }
             oldthree = data;
             })}
-            console.log('heightbmi', heightbmi)
+            // console.log('heightbmi', heightbmi)
             options ={
                 title: {
                     text: 'Weight and BMI'
@@ -332,10 +332,10 @@ class Index extends Component {
                     "y": parseFloat(data.blood_sugar)
                 })
                 if (oldtwo && oldtwo.datetime_on && oldtwo.datetime_on === data.datetime_on && oldtwo.created_at) {
-                    categoriesbs.push(getTime(data.datetime_on))
+                    categoriesbs.push(getTime(data.datetime_on, this.state.time_format))
                 }
                 else {
-                    categoriesbs.push(getDate(data.datetime_on))
+                    categoriesbs.push(getDate(data.datetime_on, this.state.date_format))
                 }
                 oldtwo = data;
             })}

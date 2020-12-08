@@ -81,7 +81,7 @@ class CometChatMessageListScreen extends React.PureComponent {
       this.setState({ outgoingCall: call });
 
     }).catch(error => {
-      console.log("Call initialization failed with exception:", error);
+      // console.log("Call initialization failed with exception:", error);
     });
 
   }
@@ -107,7 +107,7 @@ class CometChatMessageListScreen extends React.PureComponent {
       this.setState({ outgoingCall: call });
 
     }).catch(error => {
-      console.log("Call initialization failed with exception:", error);
+      // console.log("Call initialization failed with exception:", error);
     });
 
   }

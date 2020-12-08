@@ -27,7 +27,7 @@ export class MessageHeaderManager {
             this.msgListenerId,
             new CometChat.MessageListener({
                 onTypingStarted: typingIndicator => {
-                    console.log("MessageHeaderManager MessageListener typingIndicator", typingIndicator);
+                    // console.log("MessageHeaderManager MessageListener typingIndicator", typingIndicator);
                     callback(enums.TYPING_STARTED, typingIndicator);
                 },
                 onTypingEnded: typingIndicator => {

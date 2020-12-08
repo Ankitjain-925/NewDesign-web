@@ -88,7 +88,7 @@ class CometChatConversationListScreen extends React.Component {
         this.setState({item: {...this.state.item, blockedByMe: true}});
 
     }).catch(error => {
-      console.log("Blocking user fails with error", error);
+      // // console.log("Blocking user fails with error", error);
     });
 
   }
@@ -101,7 +101,7 @@ class CometChatConversationListScreen extends React.Component {
         this.setState({item: {...this.state.item, blockedByMe: false}});
 
       }).catch(error => {
-      console.log("unblocking user fails with error", error);
+      // // console.log("unblocking user fails with error", error);
     });
 
   }
@@ -146,11 +146,11 @@ class CometChatConversationListScreen extends React.Component {
 
   onThreadMessageComposed = (composedMessage) => {
 
-    console.log("type", this.state.type, "threadmessagetype", this.state.threadmessagetype);
+    // // console.log("type", this.state.type, "threadmessagetype", this.state.threadmessagetype);
     if(this.state.type !== this.state.threadmessagetype) {
       return false;
     }
-    console.log("item", this.state.item, "threadmessageitem", this.state.threadmessageitem);
+    // // console.log("item", this.state.item, "threadmessageitem", this.state.threadmessageitem);
     if((this.state.threadmessagetype === "group" && this.state.item.guid !== this.state.threadmessageitem.guid)
     || (this.state.threadmessagetype === "user" && this.state.item.uid !== this.state.threadmessageitem.uid)) {
       return false;

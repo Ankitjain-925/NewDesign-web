@@ -133,7 +133,7 @@ class MessageList extends React.PureComponent {
       });
 
     }).catch((error) => {
-      console.log("[MessageList] getMessages getLoggedInUser error", error);
+      // console.log("[MessageList] getMessages getLoggedInUser error", error);
       this.setState({loading: false});
     });
 
@@ -248,7 +248,7 @@ class MessageList extends React.PureComponent {
 
   groupMemberUpdated = (key, message, ...otherProps) => {
 
-    console.log("MessageList groupMemberUpdated key", key);
+    // console.log("MessageList groupMemberUpdated key", key);
     if (this.props.type === 'group' 
     && message.getReceiverType() === 'group'
     && message.getReceiver().guid === this.props.item.guid) {

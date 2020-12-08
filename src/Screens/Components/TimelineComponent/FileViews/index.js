@@ -45,7 +45,7 @@ class Index extends Component {
         else return '';
     }
     OpenFile = (image)=>{
-        console.log('images',image, this.state.images)
+        // console.log('images',image, this.state.images)
         image = getImage(image, this.state.images)
         this.setState({openPopup: true, crnt_img: image, cnrttype : (image.split("&bucket=")[0]).split('.').pop() })
     }

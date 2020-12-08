@@ -137,7 +137,7 @@ class MessageComposer extends React.PureComponent {
       this.messageSending = false;
       this.props.actionGenerated("messageComposed", [message])
     }).catch(error => {
-      console.log("Message sending failed with error:", error);
+      // console.log("Message sending failed with error:", error);
       this.messageSending = false;
     });
   }
@@ -182,7 +182,7 @@ class MessageComposer extends React.PureComponent {
       this.messageSending = false;
       this.props.actionGenerated("messageComposed", [message]);
     }).catch(error => {
-      console.log("Message sending failed with error:", error);
+      // console.log("Message sending failed with error:", error);
       this.messageSending = false;
     });
   }

@@ -96,6 +96,11 @@ class PointPain extends Component {
         }
     }
 
+    shouldComponentUpdate(nextProps, nextState){
+        return nextProps.painPoint !== this.props.painPoint || nextProps.isView !== this.props.isView
+        ||nextProps.label !== this.props.label || nextProps.id !== this.props.id
+    }
+
     //On add and Update points
     updatedemo=(e)=>{
         if(!this.state.isView)

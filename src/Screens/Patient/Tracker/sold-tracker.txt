@@ -80,7 +80,7 @@ class Index extends Component {
             let fitbitToken = window.location.hash.slice(1).split("&")[0].replace("access_token=", "")
          
             this.setState({ fitbitloggedIn: true})
-            console.log('fitbitloggedIn22', this.state.fitbitloggedIn, )
+            // console.log('fitbitloggedIn22', this.state.fitbitloggedIn, )
             this.fetchFitbitData("devices.json", fitbitToken, "device")
             this.fetchFitbitData("profile.json", fitbitToken, "user")
             this.fetchFitbitData('activities.json', fitbitToken, 'lifetimeStats')
@@ -94,7 +94,7 @@ class Index extends Component {
             var code = decodeURIComponent(window.location.search.replace(new RegExp("^(?:.*[&\\?]" + encodeURIComponent("code").replace(/[\.\+\*]/g, "\\$&") + "(?:\\=([^&]*))?)?.*$", "i"), "$1"));
          
             this.setState({ withingsloggedIn: true, code: code })
-            console.log('fitbitloggedIn223', this.state.fitbitloggedIn)
+            // console.log('fitbitloggedIn223', this.state.fitbitloggedIn)
             this.getDevice(code);
             this.getUser(code)
             // this.getMeassure(code);
@@ -623,8 +623,8 @@ class Index extends Component {
         return (
             <Grid className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode && this.props.settings.setting.mode==='dark' ? "homeBg homeBgDrk" : "homeBg"}>
                 <Grid className="homeBgIner">
-                    {console.log('fitbitloggedIn', this.state.fitbitloggedIn)}
-                    {console.log('withings', this.state.withingsloggedIn)}
+                    {// console.log('fitbitloggedIn', this.state.fitbitloggedIn)}
+                    {// console.log('withings', this.state.withingsloggedIn)}
                     <Grid container direction="row" justify="center">
                         <Grid item xs={12} md={12}>
                             <Grid container direction="row">

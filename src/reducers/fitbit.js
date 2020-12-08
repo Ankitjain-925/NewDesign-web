@@ -10,7 +10,6 @@ const Fitbit = (state = INITIAL_STATE, action) => {
         case GET_fitbit_REQUEST:
             return { ...state,  fitbit:{data: []} }
         case GET_fitbit_SUCCESS:
-            console.log('action.payload', action.payload)
             return { ...state, fitbit: action.payload }
         case GET_fitbit_ERROR:
             return { ...state, fitbit:{data: []} }

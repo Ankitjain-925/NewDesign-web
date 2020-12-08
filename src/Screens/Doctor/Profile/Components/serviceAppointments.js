@@ -266,7 +266,7 @@ class Index extends Component {
         dataSave['paid_services'] = [];
         
         // if (weoffer &&  weoffer.Offer_office_prescription && (!UpDataDetails.duratin_of_timeslots || UpDataDetails.duration_of_timeslots === 0 )){
-        //     console.log('hereee')
+        //     // console.log('hereee')
         //     this.setState({ appoinmentError: true })
         // }
         // else 
@@ -324,7 +324,7 @@ class Index extends Component {
             dataSave['online_appointment'] = [dataSave['online_appointment']];
             dataSave['private_appointments'] = [dataSave['private_appointments']];
             this.setState({ loaderImage: true, PrivateErr: false });
-            // console.log("dataSave", dataSave)
+            // // console.log("dataSave", dataSave)
             axios.put(sitedata.data.path + '/UserProfile/Users/update', dataSave, {
                 headers: {
                     'token': user_token,

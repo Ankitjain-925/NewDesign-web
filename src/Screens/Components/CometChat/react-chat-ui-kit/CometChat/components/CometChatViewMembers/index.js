@@ -45,12 +45,12 @@ class CometChatViewMembers extends React.Component {
         CometChat.banGroupMember(guid, memberToBan.uid).then(response => {
             
             if(response) {
-                console.log("Group member banning success with response", response);
+                // console.log("Group member banning success with response", response);
                 this.props.actionGenerated("removeGroupParticipants", memberToBan);
             }
 
         }).catch(error => {
-            console.log("Group member banning failed with error", error);
+            // console.log("Group member banning failed with error", error);
         });
     }
 
@@ -60,12 +60,12 @@ class CometChatViewMembers extends React.Component {
         CometChat.kickGroupMember(guid, memberToKick.uid).then(response => {
             
             if(response) {
-                console.log("kickGroupMember response", response);
+                // console.log("kickGroupMember response", response);
                 this.props.actionGenerated("removeGroupParticipants", memberToKick);
             }
             
         }).catch(error => {
-            console.log("Group member kicking failed with error", error);
+            // console.log("Group member kicking failed with error", error);
         });
     }
 
@@ -76,13 +76,13 @@ class CometChatViewMembers extends React.Component {
         CometChat.updateGroupMemberScope(guid, member.uid, scope).then(response => {
             
             if(response) {
-                console.log("Group member scopped changed", response);
+                // console.log("Group member scopped changed", response);
                 const updatedMember = {...member, scope: scope};
                 this.props.actionGenerated("updateGroupParticipants", updatedMember);
             }
             
         }).catch(error => {
-            console.log("Group member scopped changed failed", error);
+            // console.log("Group member scopped changed failed", error);
         });
     }
 

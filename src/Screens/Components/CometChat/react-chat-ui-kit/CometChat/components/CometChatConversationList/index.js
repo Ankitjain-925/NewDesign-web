@@ -80,7 +80,7 @@ class CometChatConversationList extends React.Component {
       }
 
     }, error => {
-      console.log('This is an error in converting message to conversation', { error })
+      // // console.log('This is an error in converting message to conversation', { error })
     });
 
   }
@@ -102,7 +102,7 @@ class CometChatConversationList extends React.Component {
 
     // const conversationList = [...this.state.conversationlist];
     // const conversationFound = conversationList.find(c => c.conversationWith.uid === item.conversationWith.uid);
-    // if(conversationFound) {console.log("[conversationFound]", conversationFound)
+    // if(conversationFound) {// console.log("[conversationFound]", conversationFound)
     
     // }
     conversation.setUnreadMessageCount(0);
@@ -134,7 +134,7 @@ class CometChatConversationList extends React.Component {
         });
 
       }).catch(error => {
-        console.log("[CometChatConversationList] getConversations getLoggedInUser error", error);
+        // // console.log("[CometChatConversationList] getConversations getLoggedInUser error", error);
         this.setState({loading: false});
     });
   }

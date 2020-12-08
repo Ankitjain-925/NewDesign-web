@@ -10,14 +10,14 @@ const path1 = sitedata.data.path + '/User';
 
 
 export const createUser = ({uid, name}) => {
-  console.log('create user')
+  // console.log('create user')
   let user = new CometChat.User(uid);
   user.setName(name);
   return CometChat.createUser(user, COMETCHAT_CONSTANTS.AUTH_KEY);
 };
 //login user
 export const cometLogin = async (uid) => {
-  console.log(uid, 'uid');
+  // console.log(uid, 'uid');
   return CometChat.login(uid, COMETCHAT_CONSTANTS.AUTH_KEY);
 };
 
@@ -45,7 +45,7 @@ export const LoginReducerAim = (email, password, SendCallback = () => {}) => {
             SendCallback();
           }
           else{
-            console.log('Here');
+            // console.log('Here');
             tmp = {
               token:response.data.token,
               user:response.data.user,
@@ -53,12 +53,12 @@ export const LoginReducerAim = (email, password, SendCallback = () => {}) => {
             CometChat.login(response.data.user.profile_id, COMETCHAT_CONSTANTS.AUTH_KEY)
             .then(
               (user) => {
-                console.log('heres1', user);
+                // console.log('heres1', user);
                 dispatch({ type: GET_LOGIN_SUCCESS, payload :tmp});
                 SendCallback();
               },
               (error) => {
-                console.log(error, 'error in login');
+                // console.log(error, 'error in login');
                 if (error && error.code == 'ERR_UID_NOT_FOUND') {
                   createUser({
                     uid: response.data.user.profile_id,
@@ -68,12 +68,12 @@ export const LoginReducerAim = (email, password, SendCallback = () => {}) => {
                       CometChat.login(response.data.user.profile_id, COMETCHAT_CONSTANTS.AUTH_KEY)
                       .then(
                         (user) => {
-                          console.log('heres2', user);
+                          // console.log('heres2', user);
                           dispatch({ type: GET_LOGIN_SUCCESS, payload :tmp});
                           SendCallback();
                         },
                         (error) => {
-                          console.log('after create login error')
+                          // console.log('after create login error')
                           let tmp = 'error';
                           dispatch({ type: GET_LOGIN_ERROR , payload :tmp});
                           SendCallback();

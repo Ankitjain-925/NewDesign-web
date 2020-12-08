@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {  DatePicker  } from 'antd';
 import moment from 'moment';
+import {pure} from 'recompose';
 import 'antd/dist/antd.css'; // or 'antd/dist/antd.less'
 const dateFormatList = ['DD/MM/YYYY', 'MM/DD/YYYY', 'YYYY/DD/MM'];
 
@@ -29,6 +30,9 @@ class Date extends Component {
             this.setState({ value: this.props.value })
         }
     }
+    shouldComponentUpdate(nextProps, nextState){
+        return nextState.value !== this.state.value || nextProps.value !== this.props.value 
+    }
     
     render() {
         return (
@@ -43,4 +47,4 @@ class Date extends Component {
     }
 }
 
-export default Date;
+export default pure(Date);

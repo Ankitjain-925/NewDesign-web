@@ -3,6 +3,7 @@ import Grid from '@material-ui/core/Grid';
 import Modal from '@material-ui/core/Modal';
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
+import {pure} from 'recompose';
 import { LanguageFetchReducer } from '../../actions';
 import * as translationEN from "../../../translations/en.json"
 import * as translationDE from '../../../translations/de.json';
@@ -37,6 +38,9 @@ class PointPain extends Component {
         if (prevProps.openEntry !== this.props.openEntry) {
            this.setState({openEntry : this.props.openEntry})
         }
+    }
+    shouldComponentUpdate(nextProps, nextState){
+        return nextProps.openEntry !== this.props.openEntry || nextState.openEntry !== this.state.openEntry || nextProps.openBy !== this.props.openBy
     }
     componentDidMount = () => {
 
@@ -74,6 +78,7 @@ class PointPain extends Component {
           let { anamnesis, Selectentrytype, blood_pressure,blood_sugar,condition_pain, covid_diary, diagnosis, diary, doc_visit,family_anmnies, file_uplod, hosp_visit,
             lab_result, marcumar_pass, medication, prescription, secnd_openion, sick_cert, smoking_status, vaccination, weight_bmi } = translate;
         return (
+            
             <Modal
                 open={this.state.openEntry}
                 onClose={this.handleCloseEntry}
@@ -89,7 +94,6 @@ class PointPain extends Component {
                         <Grid><label>{Selectentrytype}</label></Grid>
                         {/* <p>Click or input number on your keyboard</p> */}
                     </Grid>
-
                     <Grid className="checkHelth 1111">
                         <Grid container direction="row">
                             <Grid item xs={12} sm={6} md={6}>
@@ -156,6 +160,6 @@ const mapStateToProps = (state) => {
         stateLanguageType
     }
 };
-export default withRouter(connect(mapStateToProps, { LanguageFetchReducer })(PointPain));
+export default pure(withRouter(connect(mapStateToProps, { LanguageFetchReducer })(PointPain)));
 
 

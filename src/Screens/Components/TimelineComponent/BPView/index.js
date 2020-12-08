@@ -198,7 +198,7 @@ class Index extends Component {
                                     </Grid>
                                     <Grid className="bp_graph">
                                         {/* <Grid><img src={require('../../../../assets/images/gp.png')} alt="" title="" /></Grid> */}
-                                        {/* {console.log('this.props', this.props)} */}
+                                        {/* {// console.log('this.props', this.props)} */}
                                         <Grid><a onClick={()=> this.props.OpenGraph('blood_pressure')}>{VeiwGraph}</a></Grid>
                                     </Grid>
                                 </Grid>

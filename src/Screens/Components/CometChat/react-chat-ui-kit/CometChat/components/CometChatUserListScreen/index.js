@@ -91,7 +91,7 @@ class CometChatUserListScreen extends React.Component {
         this.setState({item: {...this.state.item, blockedByMe: true}});
 
     }).catch(error => {
-      console.log("Blocking user fails with error", error);
+      // console.log("Blocking user fails with error", error);
     });
 
   }
@@ -104,7 +104,7 @@ class CometChatUserListScreen extends React.Component {
         this.setState({item: {...this.state.item, blockedByMe: false}});
 
       }).catch(error => {
-      console.log("unblocking user fails with error", error);
+      // console.log("unblocking user fails with error", error);
     });
 
   }
@@ -183,7 +183,7 @@ class CometChatUserListScreen extends React.Component {
             actionGenerated={this.actionHandler} />
         </div>);
     }
-    console.log('this.props', this.props)
+    // console.log('this.props', this.props)
     let messageScreen = (<h1 className="cp-center-text">Select a chat to start messaging</h1>);
     if(Object.keys(this.state.item).length) {
       messageScreen = (<CometChatMessageListScreen 

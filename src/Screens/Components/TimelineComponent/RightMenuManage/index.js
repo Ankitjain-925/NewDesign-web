@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
-import { getDate, getTime, GetUrlImage, getSpec } from '../../BasicMethod';
+import { getDate, getTime, GetUrlImage, getSpec, getImage } from '../../BasicMethod';
 import axios from 'axios';
 import sitedata from '../../../../sitedata';
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
+import {pure} from 'recompose';
 import { LanguageFetchReducer } from '../../../actions';
 import GraphView from "../GraphView/JournalGraphView"
 import moment from 'moment';
@@ -34,6 +35,7 @@ class RightManage extends Component {
             date_format: this.props.date_format,
             loggedinUser: this.props.loggedinUser,
             doc_image: '',
+            images: [],
         };
     }
 
@@ -41,6 +43,12 @@ class RightManage extends Component {
 
     }
 
+    shouldComponentUpdate(nextProps, nextState){
+        return nextProps.personalinfo !== this.props.personalinfo || nextProps.upcoming_appointment !== this.props.upcoming_appointment
+        ||nextProps.added_data !== this.props.added_data || nextProps.stateLanguageType !== this.props.stateLanguageType ||
+        nextState.laboratory_result!== this.state.laboratory_result || nextState.blood_pressure !== this.state.blood_pressure||
+        nextState.weight_bmi !== this.state.weight_bmi || nextState.heart_rate !== this.state.heart_rate || nextState.blood_sugar !== this.state.blood_sugar
+    }
     //On change the User Data
     componentDidUpdate = (prevProps) => {
         if (prevProps.added_data !== this.props.added_data) {
@@ -49,16 +57,33 @@ class RightManage extends Component {
         if (prevProps.personalinfo !== this.props.personalinfo || prevProps.stateLanguageType !== this.props.stateLanguageType) {
             this.setState({ personalinfo: this.props.personalinfo },
                 () => {
-                    var find = this.state.personalinfo && this.state.personalinfo.upcoming_appointment && this.state.personalinfo.upcoming_appointment.length > 0 && this.state.personalinfo.upcoming_appointment[0] && this.state.personalinfo.upcoming_appointment[0].docProfile && this.state.personalinfo.upcoming_appointment[0].docProfile.profile_image
-                    if (find) {
-                        var find1 = find.split('.com/')[1]
-                        axios.get(sitedata.data.path + '/aws/sign_s3?find=' + find1,)
-                            .then((response) => {
-                                if (response.data.hassuccessed) {
-                                    this.setState({ doc_image: response.data.data })
-                                }
-                            })
-                    }
+                    // var find = this.state.personalinfo && this.state.personalinfo.upcoming_appointment && this.state.personalinfo.upcoming_appointment.length > 0 && this.state.personalinfo.upcoming_appointment[0] && this.state.personalinfo.upcoming_appointment[0].docProfile && this.state.personalinfo.upcoming_appointment[0].docProfile.profile_image
+                    // if (find) {
+                    //     var find1 = find.split('.com/')[1]
+                    //     axios.get(sitedata.data.path + '/aws/sign_s3?find=' + find1,)
+                    //         .then((response) => {
+                    //             if (response.data.hassuccessed) {
+                    //                 this.setState({ doc_image: response.data.data })
+                    //             }
+                    //         })
+                    // }
+                    var images=[];
+                    this.state.personalinfo && this.state.personalinfo.last_dv && this.state.personalinfo.last_dv.length>0 &&
+                    this.state.personalinfo.last_dv.map((item)=>{
+                        if(item.image){
+                            var find = item && item.image; 
+                            if (find) {
+                                var find1 = find.split('.com/')[1]
+                                axios.get(sitedata.data.path + '/aws/sign_s3?find=' + find1,)
+                                .then((response) => {
+                                    if (response.data.hassuccessed) {
+                                        images.push({ image: find, new_image: response.data.data })
+                                        this.setState({images : images})
+                                    }
+                                })
+                            }
+                        }
+                    })
                 })
             var laboratory_result = this.getOptions('laboratory_result')
             var blood_pressure = this.getOptions('blood_pressure')
@@ -121,10 +146,10 @@ class RightManage extends Component {
                     "y": parseFloat(data.heart_frequncy)
                 })
                 if (oldone && oldone.datetime_on && oldone.datetime_on === data.datetime_on && oldone.created_at) {
-                    categoriesbp.push(getTime(data.datetime_on))
+                    categoriesbp.push(getTime(new Date(data.datetime_on, this.state.time_foramt)))
                 }
                 else {
-                    categoriesbp.push(getDate(data.datetime_on))
+                    categoriesbp.push(getDate(data.datetime_on, this.state.date_format))
                 }
                 oldone = data;
             })
@@ -155,7 +180,7 @@ class RightManage extends Component {
                             }
                         }
                     },
-                    chart: {
+                    chart: {    
                         type: 'line'
 
                     },
@@ -239,10 +264,10 @@ class RightManage extends Component {
                     })
                     myFilterlr1.push(data);
                     if (oldone && oldone.datetime_on && oldone.datetime_on === data.datetime_on && oldone.datetime_on) {
-                        categorieslr.push(getTime(data.datetime_on))
+                        categorieslr.push(getTime(new Date(data.datetime_on, this.state.time_foramt)))
                     }
                     else {
-                        categorieslr.push(getDate(data.datetime_on))
+                        categorieslr.push(getDate(data.datetime_on, this.state.date_format))
                     }
                     oldone = data;
                 })
@@ -319,10 +344,10 @@ class RightManage extends Component {
                 "y": parseFloat(data.height)
             })
             if (oldthree && oldthree.datetime_on && oldthree.datetime_on === oldthree.datetime_on && oldthree.created_at) {
-                categoriesbmi.push(getTime(data.datetime_on))
+                categoriesbmi.push(getTime(new Date(data.datetime_on, this.state.time_foramt)))
             }
             else {
-                categoriesbmi.push(getDate(data.datetime_on))
+                categoriesbmi.push(getDate(data.datetime_on, this.state.date_format))
             }
             oldthree = data;
             })}
@@ -401,10 +426,10 @@ class RightManage extends Component {
                         "y": parseFloat(data.blood_sugar)
                     })
                     if (oldtwo && oldtwo.datetime_on && oldtwo.datetime_on === data.datetime_on && oldtwo.created_at) {
-                        categoriesbs.push(getTime(data.datetime_on))
+                        categoriesbs.push(getTime(new Date(data.datetime_on, this.state.time_foramt)))
                     }
                     else {
-                        categoriesbs.push(getDate(data.datetime_on))
+                        categoriesbs.push(getDate(data.datetime_on, this.state.date_format))
                     }
                     oldtwo = data;
                 })
@@ -534,12 +559,12 @@ class RightManage extends Component {
         var item = this.state.item;
         return (
             <div>
-                {this.state.added_data && this.state.added_data.length > 0 && this.state.added_data.map((item) => (
-                    <div>
+                {this.state.added_data && this.state.added_data.length > 0 && this.state.added_data.map((item,index) => (
+                    <div key={index}>
                         {item === 'graph_blood_pressure' &&
                             <Grid className="persBlodMesur">
                                 <Grid container direction="row" alignItems="center">
-                                    <Grid item xs={6} md={6} className="lstView">
+                                    <Grid item sxs={6} md={6} className="lstView">
                                         <label>{blood_pressure}</label>
                                     </Grid>
                                     <Grid item xs={6} md={6}>
@@ -784,7 +809,8 @@ class RightManage extends Component {
                                             <Grid container direction="row" alignItems="center">
                                                 <Grid item xs={2} md={2}>
                                                     <Grid className="drVisitImg">
-                                                        <img src={require('../../../../assets/images/dr1.jpg')} alt="" title="" />
+                                                        <img src={data && data.image ? getImage(data.image, this.state.images) : require('../../../../assets/images/dr1.jpg')} alt="" title="" />
+                                                        {/* <img src={require('../../../../assets/images/dr1.jpg')} alt="" title="" /> */}
                                                     </Grid>
                                                 </Grid>
                                                 <Grid item xs={10} md={10}>
@@ -888,7 +914,6 @@ class RightManage extends Component {
                                 <Grid className="presSec">
                                     <a className="presSecAncr">
                                         <h4>{prescriptions}</h4>
-
                                         {this.state.personalinfo && this.state.personalinfo.prescriptions && this.state.personalinfo.prescriptions.length > 0 ?
                                             <div>
                                                 {this.state.personalinfo.prescriptions.map((itm) => (
@@ -901,7 +926,7 @@ class RightManage extends Component {
                                                             <Grid className="clear"></Grid>
                                                         </Grid>
                                                         <Grid>
-                                                            <a><img src={require('../../../../assets/images/dr1.jpg')} alt="" title="" /> </a>
+                                                            {/* <a><img src={require('../../../../assets/images/dr1.jpg')} alt="" title="" /> </a> */}
                                                         </Grid>
                                                     </div>
                                                 ))}
@@ -926,7 +951,7 @@ class RightManage extends Component {
                                                             <Grid className="clear"></Grid>
                                                         </Grid>
                                                         <Grid>
-                                                            <a><img src={require('../../../../assets/images/dr1.jpg')} alt="" title="" /> </a>
+                                                            {/* <a><img src={require('../../../../assets/images/dr1.jpg')} alt="" title="" /> </a> */}
                                                         </Grid>
                                                     </div>
                                                 ))}
@@ -951,4 +976,5 @@ const mapStateToProps = (state) => {
         stateLanguageType
     }
 };
-export default withRouter(connect(mapStateToProps, { LanguageFetchReducer })(RightManage));
+const FinalExport = withRouter(connect(mapStateToProps, { LanguageFetchReducer })(RightManage));
+export default pure(FinalExport);

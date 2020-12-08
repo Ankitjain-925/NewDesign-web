@@ -71,11 +71,11 @@ class CometChatAddMembers extends React.Component {
             this.setState({ userlist: [...this.state.userlist, ...userList] });
                 
             }).catch((error) => {
-                console.error("[CometChatAddMembers] getUsers fetchNext error", error);
+                // console.error("[CometChatAddMembers] getUsers fetchNext error", error);
             });
   
         }).catch((error) => {
-            console.log("[CometChatAddMembers] getUsers getLoggedInUser error", error);
+            // // console.log("[CometChatAddMembers] getUsers getLoggedInUser error", error);
         });
     }
   
@@ -147,7 +147,7 @@ class CometChatAddMembers extends React.Component {
                 }
                 this.props.close();
             }).catch(error => {
-                console.log("addMembersToGroup failed with exception:", error);
+                // // console.log("addMembersToGroup failed with exception:", error);
             });
  
         }

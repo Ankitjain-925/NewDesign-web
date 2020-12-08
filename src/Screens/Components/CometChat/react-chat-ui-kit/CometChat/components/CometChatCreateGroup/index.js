@@ -99,13 +99,13 @@ class CometChatCreateGroup extends React.Component {
 
         CometChat.createGroup(group).then(group => {
 
-            console.log("Group created successfully:", group);
+            // // console.log("Group created successfully:", group);
             this.setState({error: null, name: "", type: "", password: "", passwordInput: ""})
             this.props.actionGenerated("groupCreated", group);
 
         }).catch(error => {
             
-            console.log("Group creation failed with exception:", error);
+            // // console.log("Group creation failed with exception:", error);
             this.setState({error: error })
         });
     }

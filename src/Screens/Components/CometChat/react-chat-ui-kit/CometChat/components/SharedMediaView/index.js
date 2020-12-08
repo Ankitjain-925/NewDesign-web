@@ -95,7 +95,7 @@ class SharedMediaView extends React.Component {
           });
     
         }).catch((error) => {
-            console.log("[SharedMediaView] getMessages getLoggedInUser error", error);
+            // console.log("[SharedMediaView] getMessages getLoggedInUser error", error);
         });
     
     }

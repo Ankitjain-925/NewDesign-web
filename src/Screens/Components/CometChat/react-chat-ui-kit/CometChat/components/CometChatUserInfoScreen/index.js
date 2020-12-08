@@ -21,7 +21,7 @@ class CometChatUserInfoScreen extends React.Component {
         this.setAvatar(user);
         this.setState({ user: user });
     }).catch(error => {
-      console.log("[CometChatUserInfoScreen] getProfile getLoggedInUser error", error);
+      // console.log("[CometChatUserInfoScreen] getProfile getLoggedInUser error", error);
     });
 
   }

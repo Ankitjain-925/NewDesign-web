@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
+import {pure} from 'recompose';
 import { LanguageFetchReducer } from '../../actions';
 import * as translationEN from "../../../translations/en.json"
 import * as translationDE from '../../../translations/de.json';
@@ -32,6 +33,10 @@ class Condition extends Component {
           this.setState({value : this.props.value})
         }
     }
+    shouldComponentUpdate(nextProps, nextState){
+        return nextState.value !== this.state.value && this.state.value !== 'NaN'|| (nextProps.value !== this.props.value && this.props.value!=='NaN')
+    }
+
     render() {
         let translate;
     switch (this.props.stateLanguageType) {
@@ -90,4 +95,4 @@ const mapStateToProps = (state) => {
         stateLanguageType
     }
   };
-  export default withRouter(connect(mapStateToProps, { LanguageFetchReducer })(Condition));
+  export default pure(withRouter(connect(mapStateToProps, { LanguageFetchReducer })(Condition)));

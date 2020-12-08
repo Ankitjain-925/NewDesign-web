@@ -4,6 +4,7 @@ import Grid from '@material-ui/core/Grid';
 import { Input } from '@material-ui/core';
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
+import {pure} from 'recompose';
 import { LanguageFetchReducer } from '../../actions';
 import * as translationEN from "../../../translations/en.json"
 import * as translationDE from '../../../translations/de.json';
@@ -113,7 +114,7 @@ const mapStateToProps = (state) => {
         stateLanguageType
     }
   };
-  export default withRouter(connect(mapStateToProps, { LanguageFetchReducer })(Loader));
+  export default pure(withRouter(connect(mapStateToProps, { LanguageFetchReducer })(Loader)));
 
 
 
@@ -124,7 +125,7 @@ const mapStateToProps = (state) => {
 // export default function App( fileUpload ) {
 //   const [fileNames, setFileNames] = useState([]);
 // //   const handleDrop = acceptedFiles =>{
-// //     console.log('acceptedfiles', acceptedFiles)
+// //     // console.log('acceptedfiles', acceptedFiles)
 // //     setFileNames(acceptedFiles.map(file => file.name))
 // //   };
 

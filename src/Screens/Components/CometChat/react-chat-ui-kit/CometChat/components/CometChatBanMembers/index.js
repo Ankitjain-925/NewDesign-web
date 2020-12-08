@@ -30,11 +30,11 @@ class CometChatBanMembers extends React.Component {
         CometChat.unbanGroupMember(guid, memberToUnBan.uid).then(response => {
             
             if(response) {
-                console.log("Group member unbanning success with response", response);
+                // // console.log("Group member unbanning success with response", response);
                 this.props.actionGenerated("unbanGroupMembers", [memberToUnBan]);
             }
         }).catch(error => {
-            console.log("Group member banning failed with error", error);
+            // // console.log("Group member banning failed with error", error);
         });
     }
 

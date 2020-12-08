@@ -563,7 +563,7 @@ class Index extends Component {
                                 </Grid>
                                 {this.state.selectedOption == 'doctor' &&
                                     <Grid item xs={12} sm={12} className="common_name_v2_reg">
-                                        <label for="UploadDocument"> {click_here_uplod_license}  <img src={require('../../assets/images/links.png')} alt="" title="" className="link_docs" /></label>
+                                        <label htmlFor="UploadDocument"> {click_here_uplod_license}  <img src={require('../../assets/images/links.png')} alt="" title="" className="link_docs" /></label>
                                         <input type="file" style={{ display: 'none' }} id="UploadDocument" name="UploadDocument" onChange={(e) => this.UploadFile(e)} multiple />
                                         <div>
                                         {this.state.fileattach && this.state.fileattach.length>0 && this.state.fileattach.map((data)=>(

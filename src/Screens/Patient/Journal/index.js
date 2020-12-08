@@ -856,6 +856,7 @@ class Index extends Component {
 
     //Get the RIGHT INFO 
     rightInfo() {
+        console.log('I am her2222')
         var user_token = this.props.stateLoginValueAim.token;
         axios.get(sitedata.data.path + '/rightinfo/patient', {
             headers: {

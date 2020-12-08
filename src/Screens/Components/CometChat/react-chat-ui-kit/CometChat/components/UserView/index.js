@@ -34,7 +34,7 @@ function Userview(props) {
     }
   }, [props.user]);
   return ((
-    // console.log('csfsdf', props.Userlist, props.user.uid),
+    // // console.log('csfsdf', props.Userlist, props.user.uid),
     // props.Userlist && props.Userlist.includes(props.user.uid) ?
     <div className="contact-listitem" >
       <div className="contact-thumbnail-wrap">

@@ -45,9 +45,9 @@ class CometChatUnified extends React.Component {
 
   componentDidMount() {
     //   CometChat.getUnreadMessageCountForUser(UID).then(array => {
-    //     console.log("Message count fetched", array);
+    //     // console.log("Message count fetched", array);
     // }, error => {
-    //     console.log("Error in getting message count", error);
+    //     // console.log("Error in getting message count", error);
     // });
 
     if (!Object.keys(this.state.item).length) {
@@ -73,7 +73,7 @@ class CometChatUnified extends React.Component {
         this.setState({ outgoingCall: call });
       })
       .catch((error) => {
-        console.log("Call initialization failed with exception:", error);
+        // console.log("Call initialization failed with exception:", error);
       });
   };
 
@@ -107,7 +107,7 @@ class CometChatUnified extends React.Component {
         this.setState({ outgoingCall: call });
       })
       .catch((error) => {
-        console.log("Call initialization failed with exception:", error);
+        // console.log("Call initialization failed with exception:", error);
       });
   };
 
@@ -198,7 +198,7 @@ class CometChatUnified extends React.Component {
         this.setState({ item: { ...this.state.item, blockedByMe: true } });
       })
       .catch((error) => {
-        console.log("Blocking user fails with error", error);
+        // console.log("Blocking user fails with error", error);
       });
   };
 
@@ -209,7 +209,7 @@ class CometChatUnified extends React.Component {
         this.setState({ item: { ...this.state.item, blockedByMe: false } });
       })
       .catch((error) => {
-        console.log("unblocking user fails with error", error);
+        // console.log("unblocking user fails with error", error);
       });
   };
 

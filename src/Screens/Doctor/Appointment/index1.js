@@ -91,7 +91,7 @@ class Index extends Component {
     //         }
     //     }).then((response) => {
     //         this.setState({ loaderImage: false });
-    //        console.log('response', response)
+    //        // console.log('response', response)
 
     //     })
     // }
@@ -939,7 +939,7 @@ class Index extends Component {
                                                     endAccessor="end"
                                                     popup
                                                     style={{ minHeight: 900 }}
-                                                    onShowMore={(events, date) => console.log("events", events)}
+                                                    onShowMore={(events, date) => // console.log("events", events)}
                                                     messages={{
 
                                                         showMore: total => (

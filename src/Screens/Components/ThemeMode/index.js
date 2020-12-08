@@ -22,7 +22,9 @@ class Index extends Component {
             this.setState({ mode: this.props.mode })
         }
     }
-
+    shouldComponentUpdate(nextProps, nextState){
+        return nextProps.mode !== this.props.mode
+    }
     //For set the language
     SetMode = () => {
         var mode = this.state.mode === 'normal'? 'dark' : 'normal';

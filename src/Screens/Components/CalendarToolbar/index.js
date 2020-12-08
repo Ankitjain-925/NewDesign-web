@@ -94,7 +94,7 @@ class Index extends Toolbar {
 					scope: SCOPES
 				})
 
-				window.gapi.client.load('calendar', 'v3', () => console.log(''))
+				window.gapi.client.load('calendar', 'v3', () =>  console.log(''))
 				window.gapi.auth2.getAuthInstance().signIn()
 					.then(() => {
 

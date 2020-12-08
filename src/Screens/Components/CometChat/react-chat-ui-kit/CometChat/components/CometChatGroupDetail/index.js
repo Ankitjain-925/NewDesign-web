@@ -161,11 +161,11 @@ class CometChatGroupDetail extends React.Component {
                 });
 
             }).catch(error => {
-                console.error("[CometChatGroupDetail] getGroupMembers fetchNextGroupMembers error", error);
+                // console.error("[CometChatGroupDetail] getGroupMembers fetchNextGroupMembers error", error);
             });
 
         }).catch(error => {
-            console.log("[CometChatGroupDetail] getGroupMembers getLoggedInUser error", error);
+            // console.log("[CometChatGroupDetail] getGroupMembers getLoggedInUser error", error);
         });
     }
 
@@ -190,7 +190,7 @@ class CometChatGroupDetail extends React.Component {
             });
 
         }).catch(error => {
-            console.log("[CometChatGroupDetail] getGroupMembers getLoggedInUser error", error);
+            // console.log("[CometChatGroupDetail] getGroupMembers getLoggedInUser error", error);
         });
     }
     
@@ -208,10 +208,10 @@ class CometChatGroupDetail extends React.Component {
 
         const guid = this.props.item.guid;
         CometChat.deleteGroup(guid).then(response => {
-            console.log("Groups deleted successfully:", response);
+            // console.log("Groups deleted successfully:", response);
             this.props.actionGenerated("groupDeleted", this.props.item);
         }).catch(error => {
-            console.log("Group delete failed with exception:", error);
+            // console.log("Group delete failed with exception:", error);
         });
     }
 
@@ -219,10 +219,10 @@ class CometChatGroupDetail extends React.Component {
 
         const guid = this.props.item.guid;
         CometChat.leaveGroup(guid).then(hasLeft => {
-            console.log("Group left successfully:", hasLeft);
+            // console.log("Group left successfully:", hasLeft);
             this.props.actionGenerated("leftGroup", this.props.item);
         }).catch(error => {
-            console.log("Group leaving failed with exception:", error);
+            // console.log("Group leaving failed with exception:", error);
         });
     }
 

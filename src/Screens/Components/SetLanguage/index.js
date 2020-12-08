@@ -42,6 +42,12 @@ class Index extends Component {
             this.setState({languageValue : this.props.languageValue})
          }
     }
+    shouldComponentUpdate(nextProps, nextState){
+        return nextState.languageValue !== this.state.languageValue || nextState.openFancyLanguage !== this.state.openFancyLanguage ||
+        nextProps.languageValue !== this.props.languageValue || nextProps.openFancyLanguage !== this.props.openFancyLanguage 
+    }
+
+    
 
     // Change Language function
 changeLanguage = (e) => {

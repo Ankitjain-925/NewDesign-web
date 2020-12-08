@@ -177,12 +177,12 @@ class CometChatUserList extends React.PureComponent {
 
   //   async GetData(users) {
   //     try {
-  //         console.log('I am also here')
+  //         // console.log('I am also here')
   //         await this.setState({userlist : users})
 
   //     } catch (error) {
 
-  //         console.log(error);
+  //         // console.log(error);
   //     }
   // }
   getUsers = () => {
@@ -202,7 +202,7 @@ class CometChatUserList extends React.PureComponent {
               },
               (error) => {
                 er++;
-                console.log("User details fetching failed with error:", error);
+                // console.log("User details fetching failed with error:", error);
               })
             .then(() => {
               if (users.length + er == u.length) {
@@ -228,10 +228,10 @@ class CometChatUserList extends React.PureComponent {
         //   });
       })
       .catch((error) => {
-        console.log(
-          "[CometChatUserList] getUsers getLoggedInUser error",
-          error
-        );
+        // console.log(
+        //   "[CometChatUserList] getUsers getLoggedInUser error",
+        //   error
+        // );
         this.setState({ loading: false });
       });
   };

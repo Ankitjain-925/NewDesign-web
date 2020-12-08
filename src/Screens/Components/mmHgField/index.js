@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
-
+import {pure} from 'recompose';
 class MMHG extends Component {
     constructor(props) {
         super(props)
@@ -24,6 +24,10 @@ class MMHG extends Component {
         }
     }
 
+    shouldComponentUpdate(nextProps, nextState){
+        return nextState.value !== this.state.value || nextProps.value !== this.props.value 
+    }
+    
     componentDidMount = () => {
 
     }
@@ -40,4 +44,4 @@ class MMHG extends Component {
     }
 }
 
-export default MMHG;
+export default pure(MMHG);

@@ -82,7 +82,7 @@ class Index extends Component {
             case "default":
                 translate = translationEN.text
         }
-        let {blood_pressure, heart_frequency, blood_sugar, weight_bmi, weight, height, Creatinine, date, rr_diastolic, upr_limit, lwr_limit, value, frequency}= translate
+        let {blood_pressure, heart_frequency, blood_sugar, RR_diastolic, rr_systolic, weight_bmi, weight, height, Creatinine, date, rr_diastolic, upr_limit, lwr_limit, value, frequency}= translate
         if(current_Graph ==='blood_pressure' || current_Graph === 'heart_rate'){
             var categoriesbp=[],databp_d=[],databp_s=[], dataf=[],oldone;
             this.state.personalinfo && this.state.personalinfo.blood_pressure &&  this.state.personalinfo.blood_pressure.length>0  && this.state.personalinfo.blood_pressure.map((data, index) => {
@@ -96,10 +96,10 @@ class Index extends Component {
                     "y": parseFloat(data.heart_frequncy)
                 })
                 if (oldone && oldone.datetime_on && oldone.datetime_on === data.datetime_on && oldone.created_at) {
-                    categoriesbp.push(getTime(data.datetime_on))
+                    categoriesbp.push(getTime(data.datetime_on, this.state.time_format))
                 }
                 else {
-                    categoriesbp.push(getDate(data.datetime_on))
+                    categoriesbp.push(getDate(data.datetime_on, this.state.date_format))
                 }
                 oldone = data;
             })
@@ -138,14 +138,14 @@ class Index extends Component {
                         enabled: false
                     },
                     series: [{
-                        name: rr_diastolic,
+                        name: RR_diastolic,
                         data: databp_d,
                         type: 'line',
                         color: '#008080'
     
                     },
                     {
-                        name: rr_diastolic,
+                        name: rr_systolic,
                         data: databp_s,
                         type: 'line',
                         color: '#0000A0'
@@ -212,10 +212,10 @@ class Index extends Component {
             })
             myFilterlr1.push(data);
             if (oldone && oldone.datetime_on && oldone.datetime_on === data.datetime_on && oldone.datetime_on) {
-                categorieslr.push(getTime(data.datetime_on))
+                categorieslr.push(getTime(data.datetime_on, this.state.time_format))
             }
             else {
-                categorieslr.push(getDate(data.datetime_on))
+                categorieslr.push(getDate(data.datetime_on, this.state.date_format))
             }
             oldone = data;
         })}
@@ -291,10 +291,10 @@ class Index extends Component {
                 "y": parseFloat(data.height)
             })
             if (oldthree && oldthree.datetime_on && oldthree.datetime_on === oldthree.datetime_on && oldthree.created_at) {
-                categoriesbmi.push(getTime(data.datetime_on))
+                categoriesbmi.push(getTime(data.datetime_on, this.state.time_format))
             }
             else {
-                categoriesbmi.push(getDate(data.datetime_on))
+                categoriesbmi.push(getDate(data.datetime_on,this.state.date_format))
             }
             oldthree = data;
             })}
@@ -372,10 +372,10 @@ class Index extends Component {
                     "y": parseFloat(data.blood_sugar)
                 })
                 if (oldtwo && oldtwo.datetime_on && oldtwo.datetime_on === data.datetime_on && oldtwo.created_at) {
-                    categoriesbs.push(getTime(data.datetime_on))
+                    categoriesbs.push(getTime(data.datetime_on, this.state.time_format))
                 }
                 else {
-                    categoriesbs.push(getDate(data.datetime_on))
+                    categoriesbs.push(getDate(data.datetime_on, this.state.date_format))
                 }
                 oldtwo = data;
             })}

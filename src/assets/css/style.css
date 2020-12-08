@@ -13092,6 +13092,10 @@ a.academy_ul ul li img {
 
 
 /*Added By ankita*/
+.homeBgDrk .blockChainDtail1, .homeBgDrk .blockChainDtail1 h2{
+    background-color: #404646!important;
+    color: #D9DADA !important;
+}
 .blockChainDtail1 {
     border-radius: 12px;
     background-color: #FFFFFF;

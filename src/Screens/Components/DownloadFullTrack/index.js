@@ -12,6 +12,7 @@ import * as translationSW from '../../../translations/sw.json';
 import * as translationCH from '../../../translations/ch.json';
 import * as translationNL from '../../../translations/nl.json';
 import sitedata from '../../../sitedata';
+import {pure} from 'recompose';
 import Loader from '../Loader/index.js';
 import axios from 'axios';
 
@@ -129,6 +130,10 @@ class Date extends Component {
         }
     }
     
+    shouldComponentUpdate(nextProps, nextState){
+        return nextProps.TrackRecord !== this.props.TrackRecord || nextState.TrackRecord !== this.state.TrackRecord;
+    }
+
     render() {
         let translate;
         switch (this.props.stateLanguageType) {
@@ -177,4 +182,4 @@ const mapStateToProps = (state) => {
         stateLoginValueAim,
     }
 };
-export default withRouter(connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer })(Date));
+export default pure(withRouter(connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer })(Date)));

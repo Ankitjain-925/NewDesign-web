@@ -13,11 +13,11 @@ const actionHandler = (props) => {
 const DeleteMessage = (messageId, props) => {
   CometChat.deleteMessage(messageId).then(
     message => {
-        // console.log("Message deleted", message);
+        // // console.log("Message deleted", message);
         props.actionGenerated("messageDeleted", [ message ])
     },
     error => {
-        console.log("Message delete failed with error:", error);
+        // console.log("Message delete failed with error:", error);
     }
   );
 }

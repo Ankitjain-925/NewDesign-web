@@ -107,7 +107,7 @@ class CometChatGroupListScreen extends React.Component {
         this.setState({item: {...this.state.item, blockedByMe: true}});
 
     }).catch(error => {
-      console.log("Blocking user fails with error", error);
+      // console.log("Blocking user fails with error", error);
     });
 
   }
@@ -120,7 +120,7 @@ class CometChatGroupListScreen extends React.Component {
         this.setState({item: {...this.state.item, blockedByMe: false}});
 
       }).catch(error => {
-      console.log("unblocking user fails with error", error);
+      // console.log("unblocking user fails with error", error);
     });
   }
 

@@ -46,9 +46,9 @@ export const updateBlockchain = async (
                   response3.data['Weight'] = dataHeightWegiht[0].weight;
                   response3.data['Height'] = dataHeightWegiht[0].height;
                 }
-                if (type == 'tracker') {
+                if (type === 'tracker') {
                   response3.data['Track Record'] = track_record;
-                } else if (type == 'organ_data') {
+                } else if (type === 'organ_data') {
                   response3.data['organ_data'] = organ_data;
                 } else {
                   response3.data['Track Record'] = track_record;
@@ -101,9 +101,9 @@ export const updateBlockchain = async (
         Language: userInfo.language,
       },
     };
-    if (type == 'tracker') {
+    if (type === 'tracker') {
       data['Track Record'] = track_record;
-    } else if (type == 'organ_data') {
+    } else if (type === 'organ_data') {
       data['organ_data'] = organ_data;
     } else {
       data['Track Record'] = track_record;
