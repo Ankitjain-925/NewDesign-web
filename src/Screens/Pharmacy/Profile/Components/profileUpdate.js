@@ -627,7 +627,7 @@ setTimeout(()=> {
                         'Content-Type': fileType
                     }
                 };
-                axios.put('https://cors-anywhere.herokuapp.com/' + signedRequest, file, options)
+                axios.put( signedRequest, file, options)
                 .then(result => {
                     this.setState({ uploadedimage: response.data.data.returnData.url + '&bucket=' + this.props.stateLoginValueAim.user.bucket, loaderImage: false },
                         () => { this.saveUserData1() })

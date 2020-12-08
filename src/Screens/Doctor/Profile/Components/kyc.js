@@ -217,7 +217,7 @@ class Index extends Component {
 
                     // Put the fileType in the headers for the upload
                     var options = { headers: { 'Content-Type': fileType } };
-                    axios.put('https://cors-anywhere.herokuapp.com/' + signedRequest, file, options)
+                    axios.put( signedRequest, file, options)
                         .then(result => { this.setState({ loaderImage: false }) })
                         .catch(error => { })
                 }).catch(error => { })

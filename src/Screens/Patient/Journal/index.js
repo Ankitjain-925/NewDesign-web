@@ -484,7 +484,7 @@ class Index extends Component {
                                 'Content-Type': fileType
                             }
                         };
-                        axios.put('https://cors-anywhere.herokuapp.com/' + signedRequest, file, options)
+                        axios.put( signedRequest, file, options)
                             .then(result => { })
                             .catch(error => { })
                     }).catch(error => { })
@@ -856,7 +856,6 @@ class Index extends Component {
 
     //Get the RIGHT INFO 
     rightInfo() {
-        console.log('I am her2222')
         var user_token = this.props.stateLoginValueAim.token;
         axios.get(sitedata.data.path + '/rightinfo/patient', {
             headers: {

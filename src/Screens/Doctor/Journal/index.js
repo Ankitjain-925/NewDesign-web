@@ -485,7 +485,7 @@ class Index extends Component {
                                 'Content-Type': fileType
                             }
                         };
-                        axios.put('https://cors-anywhere.herokuapp.com/' + signedRequest, file, options)
+                        axios.put( signedRequest, file, options)
                             .then(result => { })
                             .catch(error => { })
                     })
