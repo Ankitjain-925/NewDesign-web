@@ -869,8 +869,8 @@ class RightManage extends Component {
                                                     {data.appointment_type === 'practice_days' && <a><img src={require('../../../../assets/images/cal.png')} alt="" title="" />{consultancy} {appointments}</a>}
                                                 </Grid>
                                                 <Grid className="neuroSection">
-                                                    <h3>{data.docProfile && data.docProfile.speciality && getSpec(data.docProfile.speciality)}</h3>
-                                                    <p>{data.docProfile && data.docProfile.subspeciality && getSpec(data.docProfile.subspeciality)}</p>
+                                                    <h3>{data.docProfile && data.docProfile.speciality &&  getSpec(data.docProfile.speciality, this.props.stateLanguageType)}</h3>
+                                                    <p>{data.docProfile && data.docProfile.subspeciality && getSpec(data.docProfile.subspeciality, this.props.stateLanguageType)}</p>
                                                     <Grid><a><img src={this.state.doc_image} alt="" title="" />{data.docProfile && data.docProfile.first_name && data.docProfile.first_name} {data.docProfile && data.docProfile.last_name && data.docProfile.last_name} (Doctor)</a></Grid>
                                                     {/* <Grid><a><img src={require('../../../../assets/images/h2Logo.jpg')} alt="" title="" />Illinois Masonic Medical Center</a></Grid> */}
                                                 </Grid>

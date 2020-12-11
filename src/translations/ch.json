@@ -619,6 +619,9 @@
 		"capab_Doctors": "医生",
 		"capab_Patients": "患者",
 		"Nurse": "护士",
+		"capab_Doctors1": "医生",
+		"capab_Patients1": "患者",
+		"Nurse1": "护士",
 		"Pharmacist": "药剂师",
 		"Professional": "专业的",
 		"Appointmentiscanceled": "处方交给病人",
@@ -1166,6 +1169,9 @@
 		"disabled":"残障人士",
 		"Loading":"载入中...",
 		"language_all":"语言：全部",
-		"goto_top":"到顶部"
+		"goto_top":"到顶部",
+		"Consultancy_custom_calendar" : "咨询定制日历",
+		"Calling" :"呼唤...",
+		"incomingcall": "来电"
 	}
 }

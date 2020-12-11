@@ -5,6 +5,15 @@ import { CometChat } from "@cometchat-pro/chat";
 
 import { CometChatManager } from "../../util/controller";
 
+import * as translationEN from "../../../../../.../../../../translations/en.json";
+import * as translationDE from "../../../../../.../../../../translations/de.json";
+import * as translationSP from "../../../../../.../../../../translations/sp.json";
+import * as translationPT from "../../../../../.../../../../translations/pt.json";
+import * as translationRS from "../../../../../.../../../../translations/rs.json";
+import * as translationNL from "../../../../../.../../../../translations/nl.json";
+import * as translationCH from "../../../../../.../../../../translations/ch.json";
+import * as translationSW from "../../../../../.../../../../translations/sw.json";
+
 import { CallScreenManager } from "./controller";
 import * as enums from "../../util/enums.js";
 
@@ -263,7 +272,31 @@ class CallScreen extends React.PureComponent {
           </div> */}
           <Grid className="inCallUpr">
             <Grid>
-              <h4>incoming call from </h4>
+            {this.props.lan === "en" && (
+               <h4>{translationEN.text.incomingcall}</h4>
+            )}
+            {this.props.lan === "de" && (
+              <h4>{translationDE.text.incomingcall}</h4>
+            )}
+            {this.props.lan === "ch" && (
+               <h4>{translationCH.text.incomingcall}</h4>
+            )}
+            {this.props.lan === "nl" && (
+              <h4>{translationNL.text.incomingcall}</h4>
+            )}
+            {this.props.lan === "sp" && (
+               <h4>{translationSP.text.incomingcall}</h4>
+            )}
+            {this.props.lan === "pt" && (
+               <h4>{translationPT.text.incomingcall}</h4>
+            )}
+            {this.props.lan === "rs" && (
+               <h4>{translationRS.text.incomingcall}</h4>
+            )}
+            {this.props.lan === "sw" && (
+               <h4>{translationSW.text.incomingcall}</h4>
+            )}
+              
             </Grid>
             <Grid className="inCallPic">
               <img
@@ -348,7 +381,31 @@ class CallScreen extends React.PureComponent {
       outgoingCallScreen = (
         <React.Fragment>
           <div className="ccl-call-ong-max-header">
-            <span className="ccl-call-ong-max-dur">Calling...</span>
+          {this.props.lan === "en" && (
+              <span className="ccl-call-ong-max-dur">{translationEN.text.Calling}</span>
+            )}
+            {this.props.lan === "de" && (
+             <span className="ccl-call-ong-max-dur">{translationDE.text.Calling}</span>
+            )}
+            {this.props.lan === "ch" && (
+              <span className="ccl-call-ong-max-dur">{translationCH.text.Calling}</span>
+            )}
+            {this.props.lan === "nl" && (
+             <span className="ccl-call-ong-max-dur">{translationNL.text.Calling}</span>
+            )}
+            {this.props.lan === "sp" && (
+              <span className="ccl-call-ong-max-dur">{translationSP.text.Calling}</span>
+            )}
+            {this.props.lan === "pt" && (
+              <span className="ccl-call-ong-max-dur">{translationPT.text.Calling}</span>
+            )}
+            {this.props.lan === "rs" && (
+              <span className="ccl-call-ong-max-dur">{translationRS.text.Calling}</span>
+            )}
+            {this.props.lan === "sw" && (
+               <span className="ccl-call-ong-max-dur">{translationSW.text.Calling}</span>
+            )}
+           
             <h6 className="ccl-call-ong-max-name">
               {this.state.callIProgress.receiver.name}
             </h6>

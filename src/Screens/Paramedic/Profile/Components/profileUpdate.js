@@ -32,6 +32,8 @@ import * as translationRS from '../../../../translations/rs.json';
 import * as translationSW from '../../../../translations/sw.json';
 import * as translationCH from '../../../../translations/ch.json';
 import * as translationNL from '../../../../translations/nl.json';
+import  SPECIALITY   from '../../../../speciality';
+import {GetLanguageDropdown} from './../../../Components/GetMetaData/index.js';
 
 var datas = [];
 var insurances = [];
@@ -247,38 +249,33 @@ class Index extends Component {
         })
     }
 
+    componentDidUpdate=(prevProps)=>{
+        if (prevProps.stateLanguageType !== this.props.stateLanguageType) {
+            this.GetLanguageMetadata();
+        }
+    }
+
     //For getting the dropdowns from the database
     getMetadata() {
         axios.get(sitedata.data.path + '/UserProfile/Metadata')
             .then((responce) => {
                 if (responce && responce.data && responce.data.length > 0) {
-                    var Gender = [], Languages = [], Speciality = [], Titles = [];
-                    {
-                        responce.data[0].gender && responce.data[0].gender.length > 0 && responce.data[0].gender.map(
-                            (item) => { Gender.push({ label: item.title, value: item.value }) })
-                    }
-                    {
-                        responce.data[0].languages && responce.data[0].languages.length > 0 && responce.data[0].languages.map(
-                            (item) => { Languages.push({ label: item.title, value: item.value }) })
-                    }
-                    {
-                        responce.data[0].speciality && responce.data[0].speciality.length > 0 && responce.data[0].speciality.map(
-                            (item) => { Speciality.push({ label: item.title, value: item.value }) })
-                    }
-                    {
-                        responce.data[0].title_degreeData && responce.data[0].title_degreeData.length > 0 && responce.data[0].title_degreeData.map(
-                            (item) => { Titles.push({ label: item.title, value: item.value }) })
-                    }
-                    this.setState({
-                        genderdata: Gender,
-                        languageData: Languages,
-                        specialityData: Speciality,
-                        title_degreeData: Titles
-                    });
+                    this.setState({ allMetadata: responce.data[0] }) 
+                    this.GetLanguageMetadata(); 
                 }
             })
-
     }
+
+    GetLanguageMetadata=()=>{
+        var Allgender = GetLanguageDropdown(this.state.allMetadata && this.state.allMetadata.gender && this.state.allMetadata.gender.length > 0 && this.state.allMetadata.gender, this.props.stateLanguageType)
+        this.setState({
+            genderdata: Allgender,
+            languageData : this.state.allMetadata && this.state.allMetadata.languages && this.state.allMetadata.languages.length > 0 && this.state.allMetadata.languages,
+            specialityData: GetLanguageDropdown(SPECIALITY.speciality.english, this.props.stateLanguageType),
+            title_degreeData: this.state.allMetadata && this.state.allMetadata.title_degreeData && this.state.allMetadata.title_degreeData.length > 0 && this.state.allMetadata.title_degreeData
+        });
+    }
+
 
     //For change the language and the Speciality
     handleChange_multi = (event, name) => {
@@ -764,7 +761,7 @@ class Index extends Component {
                                 </Grid>
                                 <Grid className="qrCourseImg">
                                     <Grid> <QRCode value={this.state.UpDataDetails && this.state.UpDataDetails.profile_id} /></Grid>
-                                    <Grid><input type="submit" value={done} /></Grid>
+                                    <Grid><input type="submit" value={done} onClick={this.handleQrClose}/></Grid>
                                 </Grid>
                             </Grid>
                         </Modal>

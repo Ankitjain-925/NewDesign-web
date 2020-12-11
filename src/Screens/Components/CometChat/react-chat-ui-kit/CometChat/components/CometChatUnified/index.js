@@ -382,6 +382,7 @@ class CometChatUnified extends React.Component {
               className="callscreen"
               item={this.state.item}
               type={this.state.type}
+              lan={this.props.lan}
               actionGenerated={this.callScreenAction}
               outgoingCall={this.state.outgoingCall}
             />

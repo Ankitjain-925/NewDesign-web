@@ -21,6 +21,7 @@ import axios from 'axios';
 import OrganSection from './../../Patient/Profile/Components/orgnaDonar';
 import ReactFlagsSelect from 'react-flags-select';
 import DoctorSection from './../../Patient/Profile/Components/mydoctors';
+import {GetLanguageDropdown, GetShowLabel1, GetShowLabel} from "../../Components/GetMetaData/index.js";
 
 const path = sitedata.data.path + '/emergency_record';
 
@@ -318,20 +319,26 @@ class Index extends Component {
         }
     }
 
+    componentDidUpdate=(prevProps)=>{
+        if (prevProps.stateLanguageType !== this.props.stateLanguageType) {
+            this.GetLanguageMetadata();
+        }
+    }
     //   //For getting the dropdowns from the database
     getMetadata() {
         axios.get(sitedata.data.path + '/UserProfile/Metadata')
             .then((responce) => {
                 if (responce && responce.data && responce.data.length > 0) {
-                    var tissue = [];
-                    {
-                        responce.data[0].tissue && responce.data[0].tissue.length > 0 && responce.data[0].tissue.map(
-                            (item) => { tissue.push({ label: item.title, value: item.value }) })
-                    }
-                    this.setState({ tissue: tissue });
+                    this.setState({ allMetadata: responce.data[0] }) 
+                    this.GetLanguageMetadata(); 
                 }
             })
-
+    }
+    GetLanguageMetadata=()=>{
+        var Alltissues = GetLanguageDropdown(this.state.allMetadata && this.state.allMetadata.tissue && this.state.allMetadata.tissue.length > 0 && this.state.allMetadata.tissue, this.props.stateLanguageType)
+        this.setState({
+            tissue: Alltissues,
+        });
     }
 
     //On remove the oegen donor edit mode 
@@ -339,7 +346,15 @@ class Index extends Component {
         this.setState({ editDonar: false })
         this.allemergencyrecord();
     }
-
+    getOrgans=(optionData)=>{
+        var rhesus = [];
+        optionData = optionData.split(", ")
+        rhesus = optionData.map((item) => {
+            return GetShowLabel1(this.state.tissue, item, this.props.stateLanguageType, true)
+        }) 
+        return rhesus.join(', ');
+        
+    }
     //On remove the Family Doctor edit mode 
     EditFamilyDoc = () => {
         this.setState({ EditFamily: false })
@@ -472,8 +487,8 @@ class Index extends Component {
                                             </Grid>
                                             <Grid className="neuroDises">
                                                 <Grid className="neuroGen">
-                                                    <Grid><label>{item.speciality && getSpec(item.speciality)}</label></Grid>
-                                                    <p>{item.subspeciality && getSpec(item.subspeciality)}</p>
+                                                    <Grid><label>{item.speciality && getSpec(item.speciality, this.props.stateLanguageType)}</label></Grid>
+                                                    <p>{item.subspeciality && getSpec(item.subspeciality, this.props.stateLanguageType)}</p>
                                                 </Grid>
                                             </Grid>
                                         </div>))
@@ -559,9 +574,9 @@ class Index extends Component {
                                     </Grid>
                                     <Grid className="jlyMorr">
                                         {!this.state.editDonar ?
-                                            this.state.donar && this.state.donar.status !== 'Nothing' ?
+                                            this.state.donar && this.state.donar.status && this.state.donar.status.label_en !== 'Nothing' ?
                                                 <div>
-                                                    <Grid><label>{this.state.donar.status}</label></Grid>
+                                                    <Grid><label>{GetShowLabel(this.state.donar.status, this.props.stateLanguageType)}</label></Grid>
                                                     {this.state.donar.options && this.state.donar.options !== '' &&
                                                         <span>
                                                             {typeof this.state.donar.options === 'object' ?
@@ -572,7 +587,7 @@ class Index extends Component {
                                                                     {/* <Grid><a><img src={require('../../../assets//images/language.svg')} alt="" title="" />{item.language && item.language.join(', ')}</a></Grid> */}
                                                                 </Grid>
                                                                 :
-                                                                this.state.donar.options && <p>  {this.state.donar.options} </p>}
+                                                                this.state.donar.options && <p>  {this.getOrgans(this.state.donar.options)} </p>}
                                                         </span>
                                                     }<br />
                                                     {this.state.donar.remarks && <p>{this.state.donar.remarks}</p>}

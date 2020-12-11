@@ -8,6 +8,7 @@ import { getDate, newdate, getTime, getImage } from './../../BasicMethod/index';
 import DownloadFullTrack from './../../DownloadFullTrack/index.js';
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
+import {GetShowLabel1} from "../../GetMetaData/index.js";
 import { LanguageFetchReducer } from '../../../actions';
 import * as translationEN from "../../../../translations/en.json"
 import * as translationDE from '../../../../translations/de.json';
@@ -172,7 +173,7 @@ class Index extends Component {
                             
                             {item.anamesis && item.anamesis.length>0 && item.anamesis.map((data)=>(
                                 <Grid className="addSpc detailMark">
-                                    <Collapsible trigger={data.title && data.title.label} open="true">
+         <Collapsible trigger={data.title && GetShowLabel1(this.props.list, data.title, this.props.stateLanguageType, true)} open="true">
                                         <Grid className="detailCntnt">
                                             <p dangerouslySetInnerHTML={{ __html: data.notes }} />
                                         </Grid>

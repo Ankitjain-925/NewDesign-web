@@ -106,12 +106,12 @@ class FilterSec extends Component {
             case "default":
                 translate = translationEN.text
         }
-        let { diary, diagnosis, family_anmnies, covid_diary, secnd_openion, sick_cert, smoking_status, weight_bmi, vaccination, doc_visit, marcumar_pass, medication, prescription, file_uplod, hosp_visit, lab_result, capab_Doctors, capab_Patients, Nurse, anamnesis, blood_pressure, blood_sugar, condition_pain } = translate
+        let { diary, diagnosis, family_anmnies, covid_diary, secnd_openion, sick_cert, smoking_status, weight_bmi, vaccination, doc_visit, marcumar_pass, medication, prescription, file_uplod, hosp_visit, lab_result, capab_Doctors1, capab_Patients1, Nurse1, anamnesis, blood_pressure, blood_sugar, condition_pain } = translate
 
         const Useroptions = [
-            { value: 'Doctor', label: capab_Doctors },
-            { value: 'Patient', label: capab_Patients },
-            { value: 'Nurse', label: Nurse },
+            { value: 'Doctor', label: capab_Doctors1 },
+            { value: 'Patient', label: capab_Patients1 },
+            { value: 'Nurse', label: Nurse1 },
         ];
         const Typeoptions = [
             { value: 'anamnesis', label: anamnesis },

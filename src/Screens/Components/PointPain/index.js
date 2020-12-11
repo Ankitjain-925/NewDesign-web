@@ -96,10 +96,12 @@ class PointPain extends Component {
         }
     }
 
-    shouldComponentUpdate(nextProps, nextState){
-        return nextProps.painPoint !== this.props.painPoint || nextProps.isView !== this.props.isView
-        ||nextProps.label !== this.props.label || nextProps.id !== this.props.id
-    }
+    // shouldComponentUpdate(nextProps, nextState){
+    //     return nextProps.painPoint !== this.props.painPoint || nextProps.isView !== this.props.isView
+    //     ||nextProps.label !== this.props.label || nextProps.id !== this.props.id ||
+    //     nextState.painPoint !== this.state.painPoint || nextState.isView !== this.state.isView
+    //     ||nextState.label !== this.state.label
+    // }
 
     //On add and Update points
     updatedemo=(e)=>{

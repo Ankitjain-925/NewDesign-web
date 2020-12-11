@@ -227,6 +227,7 @@ class Notification extends React.Component {
                 <CallScreen className="callscreen"
                 item={this.state.item} 
                 type={this.state.type}
+                lan={this.props.stateLanguageType.stateLanguageType}
                 actionGenerated={this.callScreenAction} 
                 outgoingCall={this.state.outgoingCall} />
                 {this.state.Unread > 0 && this.state.ShowTime===true &&

@@ -34,7 +34,7 @@ import translationSW from "../../../translations/sw.json"
 import translationPT from "../../../translations/pt.json"
 import translationNL from "../../../translations/nl.json"
 import translationRS from "../../../translations/rs.json"
-
+import {GetLanguageDropdown} from "../../Components/GetMetaData/index.js";
 
 function TabContainer(props) {
     return (
@@ -73,37 +73,30 @@ class Index extends Component {
         this.setState({ value });
     };
 
-    //   //For getting the dropdowns from the database
-    getMetadata() {
+    componentDidUpdate=(prevProps)=>{
+        if (prevProps.stateLanguageType !== this.props.stateLanguageType) {
+            this.GetLanguageMetadata();
+        }
+    }
+     //   //For getting the dropdowns from the database
+     getMetadata() {
         axios.get(sitedata.data.path + '/UserProfile/Metadata')
             .then((responce) => {
                 if (responce && responce.data && responce.data.length > 0) {
-                    var tissue = [], dates = [], times = [], zones = [];
-                    {
-                        responce.data[0].tissue && responce.data[0].tissue.length > 0 && responce.data[0].tissue.map(
-                            (item) => { tissue.push({ label: item.title, value: item.value }) })
-                    }
-                    {
-                        responce.data[0].dates && responce.data[0].dates.length > 0 && responce.data[0].dates.map(
-                            (item) => { dates.push({ label: item.title, value: item.value }) })
-                    }
-                    {
-                        responce.data[0].times && responce.data[0].times.length > 0 && responce.data[0].times.map(
-                            (item) => { times.push({ label: item.title, value: item.value }) })
-                    }
-                    {
-                        Timezone && Timezone.length > 0 && Timezone.map(
-                            (item) => { zones.push({ label: item.text, value: item.value }) })
-                    }
-                    this.setState({
-                        tissue: tissue,
-                        dates: dates,
-                        times: times,
-                        timezones: zones
-                    });
+                    this.setState({ allMetadata: responce.data[0] })
+                    this.GetLanguageMetadata();
                 }
             })
-
+    }
+    GetLanguageMetadata=()=>{
+        var Alltissues = GetLanguageDropdown(this.state.allMetadata && this.state.allMetadata.tissue && this.state.allMetadata.tissue.length > 0 && this.state.allMetadata.tissue, this.props.stateLanguageType)
+        var zones = GetLanguageDropdown(Timezone && Timezone.length > 0 && Timezone, this.props.stateLanguageType, 'timezone')
+        this.setState({
+            tissue: Alltissues,
+            dates: this.state.allMetadata && this.state.allMetadata.dates && this.state.allMetadata.dates.length > 0 && this.state.allMetadata.dates,
+            times: this.state.allMetadata && this.state.allMetadata.times && this.state.allMetadata.times.length > 0 && this.state.allMetadata.times,
+            timezones : zones
+        });
     }
 
     //Get the current User Data

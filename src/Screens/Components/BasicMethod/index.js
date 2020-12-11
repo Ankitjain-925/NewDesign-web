@@ -1,6 +1,7 @@
 import axios from 'axios';
 import sitedata from '../../../sitedata';
 import React, { Component } from 'react';
+import {speciality} from './../../../speciality'
 
 //Custom Console So comment only One console works on whole website
 export function ConsoleCustom (msg, value){
@@ -152,14 +153,36 @@ export function GetUrlImage (find){
         })
     }
 }
+export function capitalizeFirstLetter(string){
+    if (!string) return '';
+    let st = string.toLowerCase();
+    return st.charAt(0).toUpperCase() + st.slice(1);
+};
 
 //For getting doctor speciality
-export function getSpec (speciality){
-if(speciality){ 
-    return speciality.map((obj) => {
-        if (typeof obj == 'string') return obj;
-        else return obj.label;
-}).join(', ')
+export function getSpec (value, lang){
+    console.log('speciality', speciality)
+    if (!value) return '';
+    if (Array.isArray(value)) {
+    const valarray = value.map((_it) =>
+    typeof _it == 'string'
+    ? _it && it.toLowerCase().replace(/\s/g, '_')
+    : _it.value && _it.value.toLowerCase().replace(/\s/g, '_'),
+    );
+    
+    return speciality.english
+    .filter((it) => {
+    return (
+    valarray.includes(it && it.value && it.value.toLowerCase()) ||
+    valarray.includes(it && it.value && it.value.toLowerCase() && it.value.toLowerCase().replace(/\s/g, '_'))
+    );
+    })
+    .map((item) => capitalizeFirstLetter(item['label_' + lang]))
+    .join(',').replace(/_/g, ' ');
+    } else if (typeof value == 'object') {
+    return value['label_' + lang] ? value['label_' + lang] : value.label;
+    } else {
+    return '';
 }
 }
 

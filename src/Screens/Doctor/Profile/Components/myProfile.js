@@ -41,6 +41,8 @@ import DateFormat from './../../../Components/DateFormat/index'
 import Autocomplete from './../../../Components/Autocomplete/index.js';
 import Modal from '@material-ui/core/Modal';
 import { subspeciality } from '../../../../subspeciality.js';
+import  SPECIALITY   from '../../../../speciality';
+import {GetLanguageDropdown, GetShowLabel12} from './../../../Components/GetMetaData/index.js';
 import QRCode from 'qrcode.react';
 
 const options = [
@@ -283,18 +285,18 @@ class Index extends Component {
         }
     }
     //Compare the 
-    compare = (a, b) => {
-        const bandA = a.label.toUpperCase();
-        const bandB = b.label.toUpperCase();
+    // compare = (a, b) => {
+    //     const bandA = a.label.toUpperCase();
+    //     const bandB = b.label.toUpperCase();
 
-        let comparison = 0;
-        if (bandA > bandB) {
-            comparison = 1;
-        } else if (bandA < bandB) {
-            comparison = -1;
-        }
-        return comparison;
-    }
+    //     let comparison = 0;
+    //     if (bandA > bandB) {
+    //         comparison = 1;
+    //     } else if (bandA < bandB) {
+    //         comparison = -1;
+    //     }
+    //     return comparison;
+    // }
 
     // Copy the Profile id and PIN
     copyText = (copyT) => {
@@ -416,44 +418,37 @@ class Index extends Component {
         })
     }
 
+    componentDidUpdate=(prevProps)=>{
+        if (prevProps.stateLanguageType !== this.props.stateLanguageType) {
+            this.GetLanguageMetadata();
+            this.GetSpec(this.state.speciality_multi, this.state.subspeciality_multi)
+        }
+    }
+
     //For getting the dropdowns from the database
     getMetadata() {
         axios.get(sitedata.data.path + '/UserProfile/Metadata')
             .then((responce) => {
                 if (responce && responce.data && responce.data.length > 0) {
-                    var Gender = [], Languages = [], Speciality = [], Titles = [], SubSpeciality = [];
-                    {
-                        responce.data[0].gender && responce.data[0].gender.length > 0 && responce.data[0].gender.map(
-                            (item) => { Gender.push({ label: item.title, value: item.value }) })
-                    }
-                    {
-                        responce.data[0].languages && responce.data[0].languages.length > 0 && responce.data[0].languages.map(
-                            (item) => { Languages.push({ label: item.title, value: item.value }) })
-                    }
-                    {
-                        responce.data[0].speciality && responce.data[0].speciality.length > 0 && responce.data[0].speciality.map(
-                            (item) => { Speciality.push({ label: item.title, value: item.value }) })
-                    }
-                    {
-                        responce.data[0].title_degreeData && responce.data[0].title_degreeData.length > 0 && responce.data[0].title_degreeData.map(
-                            (item) => { Titles.push({ label: item.title, value: item.value }) })
-                    }
-
-                    // responce.data[0].title_degreeData && responce.data[0].title_degreeData.length > 0 && responce.data[0].subspeciality.map(
-                    //     (item) => { SubSpeciality.push({ label: item.title, value: item.value }) })
-
-                    this.setState({
-                        genderdata: Gender,
-                        languageData: Languages,
-                        specialityData: Array.from(new Set(Speciality)),
-                        title_degreeData: Titles,
-                        subspecialityData: subspeciality
-                    });
+                    this.setState({ allMetadata: responce.data[0] })  
+                    this.GetLanguageMetadata();
                 }
             })
-
     }
 
+    GetLanguageMetadata=()=>{
+        var Allgender = GetLanguageDropdown(this.state.allMetadata && this.state.allMetadata.gender && this.state.allMetadata.gender.length > 0 && this.state.allMetadata.gender, this.props.stateLanguageType)
+        this.setState({
+            genderdata: Allgender,
+            languageData : this.state.allMetadata && this.state.allMetadata.languages && this.state.allMetadata.languages.length > 0 && this.state.allMetadata.languages,
+            specialityData: GetLanguageDropdown(SPECIALITY.speciality.english, this.props.stateLanguageType),
+            title_degreeData: this.state.allMetadata && this.state.allMetadata.title_degreeData && this.state.allMetadata.title_degreeData.length > 0 && this.state.allMetadata.title_degreeData,
+            subspecialityData: GetLanguageDropdown(subspeciality.english, this.props.stateLanguageType)
+        });
+    }
+    GetSpec=(speciality, subspeciality_m)=>{
+        this.setState({ speciality_multi: GetShowLabel12(this.state.specialityData, speciality, this.props.stateLanguageType), subspeciality_multi: GetShowLabel12(this.state.subspecialityData, subspeciality_m, this.props.stateLanguageType) })
+    }
     //Getting Doctor to add as Family doctor
     alldoctor() {
         const user_token = this.props.stateLoginValueAim.token;
@@ -758,7 +753,7 @@ class Index extends Component {
             }
 
             this.setState({ UpDataDetails: response.data.data, city: response.data.data.city, area: response.data.data.area, profile_id: response.data.data.profile_id });
-            this.setState({ speciality_multi: response.data.data.speciality, subspeciality_multi: subspeciality_m })
+            this.setState({ speciality_multi: GetShowLabel12(this.state.specialityData, response.data.data.speciality, this.props.stateLanguageType), subspeciality_multi: GetShowLabel12(this.state.subspecialityData, subspeciality_m, this.props.stateLanguageType) })
 
             this.setState({ name_multi: language, title: title })
             this.setState({
@@ -1262,7 +1257,7 @@ class Index extends Component {
                                                 name="subspeciality"
                                                 closeMenuOnSelect={false}
                                                 onChange={(e) => { this.handleChange_multi(e, 'subspeciality') }}
-                                                options={subspecialityData.english !== undefined ? (this.props.stateLanguageType === 'de' ? Array.from(new Set(subspecialityData.german)).sort(this.compare) : Array.from(new Set(subspecialityData.english)).sort(this.compare)) : []}
+                                                options={subspecialityData !== undefined ? Array.from(new Set(subspecialityData)) : []}
                                                 placeholder=""
                                                 isSearchable={true}
                                                 className="profile-language"

@@ -8,7 +8,7 @@ import { getDate, newdate, getTime, getImage } from './../../BasicMethod/index';
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { LanguageFetchReducer } from './../../../actions';
-
+import {GetShowLabel1} from "../../GetMetaData/index.js";
 import * as translationEN from "../../../../translations/en.json";
 import * as translationDE from '../../../../translations/de.json';
 import * as translationPT from '../../../../translations/pt.json';
@@ -174,7 +174,7 @@ class Index extends Component {
                                         <Grid item xs={12} md={6} className="bloodPreBy">
                                             <Grid container direction="row">
                                                 <Grid item xs={5} md={5}><label>{speciality}</label></Grid>
-                                                <Grid item xs={7} md={7}><span>{item.specialty && item.specialty.label}</span></Grid>
+                                                <Grid item xs={7} md={7}><span>{item.specialty && GetShowLabel1(this.props.AllSpecialty, item.specialty.value, this.props.stateLanguageType, true)}</span></Grid>
                                                 <Grid className="clear"></Grid>
                                             </Grid>
                                         </Grid>

@@ -24,6 +24,8 @@ import Loader from './../../../Components/Loader/index';
 import DateFormat from './../../../Components/DateFormat/index';
 import QRCode from 'qrcode.react';
 import { GetUrlImage } from './../../../Components/BasicMethod/index';
+import  SPECIALITY   from '../../../../speciality';
+import {GetLanguageDropdown} from './../../../Components/GetMetaData/index.js';
 import * as translationEN from '../../../../translations/en.json';
 import * as translationDE from '../../../../translations/de.json';
 import * as translationPT from '../../../../translations/pt.json';
@@ -247,37 +249,31 @@ class Index extends Component {
         })
     }
 
+    componentDidUpdate=(prevProps)=>{
+        if (prevProps.stateLanguageType !== this.props.stateLanguageType) {
+            this.GetLanguageMetadata();
+        }
+    }
+    
     //For getting the dropdowns from the database
     getMetadata() {
         axios.get(sitedata.data.path + '/UserProfile/Metadata')
-        .then((responce) => {
-            if (responce && responce.data && responce.data.length > 0) {
-                var Gender = [], Languages = [], Speciality = [], Titles = [];
-                {
-                    responce.data[0].gender && responce.data[0].gender.length > 0 && responce.data[0].gender.map(
-                        (item) => { Gender.push({ label: item.title, value: item.value }) })
+            .then((responce) => {
+                if (responce && responce.data && responce.data.length > 0) {
+                    this.setState({ allMetadata: responce.data[0] })  
+                    this.GetLanguageMetadata();
                 }
-                {
-                    responce.data[0].languages && responce.data[0].languages.length > 0 && responce.data[0].languages.map(
-                        (item) => { Languages.push({ label: item.title, value: item.value }) })
-                }
-                {
-                    responce.data[0].speciality && responce.data[0].speciality.length > 0 && responce.data[0].speciality.map(
-                        (item) => { Speciality.push({ label: item.title, value: item.value }) })
-                }
-                {
-                    responce.data[0].title_degreeData && responce.data[0].title_degreeData.length > 0 && responce.data[0].title_degreeData.map(
-                        (item) => { Titles.push({ label: item.title, value: item.value }) })
-                }
-                this.setState({
-                    genderdata: Gender,
-                    languageData: Languages,
-                    specialityData: Speciality,
-                    title_degreeData: Titles
-                });
-            }
-        })
+            })
+    }
 
+    GetLanguageMetadata=()=>{
+        var Allgender = GetLanguageDropdown(this.state.allMetadata && this.state.allMetadata.gender && this.state.allMetadata.gender.length > 0 && this.state.allMetadata.gender, this.props.stateLanguageType)
+        this.setState({
+            genderdata: Allgender,
+            languageData : this.state.allMetadata && this.state.allMetadata.languages && this.state.allMetadata.languages.length > 0 && this.state.allMetadata.languages,
+            specialityData: GetLanguageDropdown(SPECIALITY.speciality.english, this.props.stateLanguageType),
+            title_degreeData: this.state.allMetadata && this.state.allMetadata.title_degreeData && this.state.allMetadata.title_degreeData.length > 0 && this.state.allMetadata.title_degreeData,
+        });
     }
 
     //For change the language and the Speciality
@@ -715,7 +711,7 @@ setTimeout(()=> {
         }
         let { profile_info, profile, information, ID,pin_greater_then_4, pin, QR_code, done, Change, edit_id_pin, edit, and, is, changed, profile_id_taken, profile_id_greater_then_5,
             save_change, email, title, degree, first, last, name, dob, gender, street, add, city, postal_code, country, home_telephone, phone, country_code, Delete,
-            mobile_number, number, mobile, Languages, spoken, insurance, add_more, company, of, info_copied, profile_updated, profile_not_updated, mobile_number_not_valid, insurance_added } = translate;
+            mobile_number,male, female, other, number, mobile, Languages, spoken, insurance, add_more, company, of, info_copied, profile_updated, profile_not_updated, mobile_number_not_valid, insurance_added } = translate;
 
 
         return (
@@ -766,7 +762,7 @@ setTimeout(()=> {
                                 </Grid>
                                 <Grid className="qrCourseImg">
                                     <Grid><QRCode value={this.state.UpDataDetails && this.state.UpDataDetails.profile_id} /></Grid>
-                                    <Grid><input type="submit" value={done} /></Grid>
+                                    <Grid><input type="submit" value={done} onClick={this.handleQrClose}/></Grid>
                                 </Grid>
                             </Grid>
                         </Modal>
@@ -870,9 +866,9 @@ setTimeout(()=> {
                                     <Grid item xs={12} md={8}>
                                         <label>{gender}</label>
                                         <Grid>
-                                            <a onClick={() => this.EntryValueName('male', 'sex')} className={this.state.UpDataDetails.sex && this.state.UpDataDetails.sex === 'male' && "SelectedGender"}>Male</a>
-                                            <a onClick={() => this.EntryValueName('female', 'sex')} className={this.state.UpDataDetails.sex && this.state.UpDataDetails.sex === 'female' && "SelectedGender"}>Female</a>
-                                            <a onClick={() => this.EntryValueName('other', 'sex')} className={this.state.UpDataDetails.sex && this.state.UpDataDetails.sex === 'other' && "SelectedGender"}> Other</a>
+                                            <a onClick={() => this.EntryValueName('male', 'sex')} className={this.state.UpDataDetails.sex && this.state.UpDataDetails.sex === 'male' && "SelectedGender"}>{male}</a>
+                                            <a onClick={() => this.EntryValueName('female', 'sex')} className={this.state.UpDataDetails.sex && this.state.UpDataDetails.sex === 'female' && "SelectedGender"}>{female}</a>
+                                            <a onClick={() => this.EntryValueName('other', 'sex')} className={this.state.UpDataDetails.sex && this.state.UpDataDetails.sex === 'other' && "SelectedGender"}> {other}</a>
                                         </Grid>
                                     </Grid>
                                 </Grid>

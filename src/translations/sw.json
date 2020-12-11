@@ -612,6 +612,9 @@
 		"capab_Doctors": "Daktari",
 		"capab_Patients": "Mgonjwa",
 		"Nurse": "Muuguzi",
+		"capab_Doctors1": "Médica",
+		"capab_Patients1": "Paciente",
+		"Nurse1": "Enfermeira",
 		"Pharmacist": "Mfamasia",
 		"Professional": "Mtaalamu",
 		"Appointmentiscanceled": "Uteuzi umeghairiwa",
@@ -1178,6 +1181,10 @@
 		"offline": "Nje ya mtandao",
 		"language_all":"Lugha: Zote",
 		"Loading":"Inapakia ...",
-		"goto_top":"Nenda juu"
+		"goto_top":"Nenda juu",
+		"Consultancy_custom_calendar" : "Kalenda ya desturi ya ushauri",
+		"addentry": "ongeza kuingia",
+		"Calling" :"Inapiga simu...",
+		"incomingcall": "Simu inayoingia"
 	}
 }

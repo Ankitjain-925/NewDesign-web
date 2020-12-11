@@ -613,6 +613,9 @@
     "capab_Doctors": "Доктор",
     "capab_Patients": "Пациент",
     "Nurse": "Медсестра",
+    "capab_Doctors1": "Médica",
+		"capab_Patients1": "Paciente",
+		"Nurse1": "Enfermeira",
     "Pharmacist": "Фармацевт",
     "Professional": "Профессиональный",
     "Appointmentiscanceled": "Встреча отменена",
@@ -1146,6 +1149,9 @@
     "disabled":"отключен",
     "Loading":"Загружается ...",
     "language_all":"Язык: Все",
-    "goto_top":"Наверх"
+    "goto_top":"Наверх",
+    "Consultancy_custom_calendar" : "Индивидуальный календарь консультации",
+    "Calling" :"Вызов...",
+		"incomingcall": "Входящий звонок"
   }
 }

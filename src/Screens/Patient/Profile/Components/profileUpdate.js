@@ -28,6 +28,8 @@ import Autocomplete from '../../../Components/Autocomplete/index';
 import { LanguageFetchReducer } from './../../../actions';
 import Modal from '@material-ui/core/Modal';
 import Loader from './../../../Components/Loader/index';
+import  SPECIALITY   from '../../../../speciality';
+import {GetLanguageDropdown, GetShowLabel1} from './../../../Components/GetMetaData/index.js';
 import DateFormat from './../../../Components/DateFormat/index'
 import * as translationEN from '../../../../translations/en.json';
 import * as translationDE from '../../../../translations/de.json';
@@ -314,40 +316,70 @@ class Index extends Component {
         })
     }
 
+    componentDidUpdate=(prevProps)=>{
+        if (prevProps.stateLanguageType !== this.props.stateLanguageType) {
+            this.GetLanguageMetadata();
+            this.Upsaterhesus(this.state.rhesus.value);
+        }
+    }
+
     //For getting the dropdowns from the database
     getMetadata() {
         axios.get(sitedata.data.path + '/UserProfile/Metadata')
             .then((responce) => {
                 if (responce && responce.data && responce.data.length > 0) {
-                    var Gender = [], Languages = [], Speciality = [], Titles = [];
-                    {
-                        responce.data[0].gender && responce.data[0].gender.length > 0 && responce.data[0].gender.map(
-                            (item) => { Gender.push({ label: item.title, value: item.value }) })
-                    }
-                    {
-                        responce.data[0].languages && responce.data[0].languages.length > 0 && responce.data[0].languages.map(
-                            (item) => { Languages.push({ label: item.title, value: item.value }) })
-                    }
-                    {
-                        responce.data[0].speciality && responce.data[0].speciality.length > 0 && responce.data[0].speciality.map(
-                            (item) => { Speciality.push({ label: item.title, value: item.value }) })
-                    }
-                    {
-                        responce.data[0].title_degreeData && responce.data[0].title_degreeData.length > 0 && responce.data[0].title_degreeData.map(
-                            (item) => { Titles.push({ label: item.title, value: item.value }) })
-                    }
-                    this.setState({
-                        genderdata: Gender,
-                        languageData: Languages,
-                        specialityData: Speciality,
-                        title_degreeData: Titles,
-                        bloodgroup: responce.data[0].bloodgroup,
-                        rhesusgroup: responce.data[0].rhesus 
-                    });
+                    this.setState({ allMetadata: responce.data[0] })  
+                    this.GetLanguageMetadata();
                 }
             })
-
     }
+
+    GetLanguageMetadata=()=>{
+        var Allgender = GetLanguageDropdown(this.state.allMetadata && this.state.allMetadata.gender && this.state.allMetadata.gender.length > 0 && this.state.allMetadata.gender, this.props.stateLanguageType)
+        var rhesusgroup = GetLanguageDropdown(this.state.allMetadata && this.state.allMetadata.rhesus && this.state.allMetadata.rhesus.length > 0 && this.state.allMetadata.rhesus, this.props.stateLanguageType)
+        this.setState({
+            genderdata: Allgender,
+            languageData : this.state.allMetadata && this.state.allMetadata.languages && this.state.allMetadata.languages.length > 0 && this.state.allMetadata.languages,
+            specialityData: GetLanguageDropdown(SPECIALITY.speciality.english, this.props.stateLanguageType),
+            title_degreeData: this.state.allMetadata && this.state.allMetadata.title_degreeData && this.state.allMetadata.title_degreeData.length > 0 && this.state.allMetadata.title_degreeData,
+            bloodgroup : this.state.allMetadata && this.state.allMetadata.bloodgroup && this.state.allMetadata.bloodgroup.length > 0 && this.state.allMetadata.bloodgroup,
+            rhesusgroup : rhesusgroup
+        });
+    }
+
+    // getMetadata() {
+    //     axios.get(sitedata.data.path + '/UserProfile/Metadata')
+    //         .then((responce) => {
+    //             if (responce && responce.data && responce.data.length > 0) {
+    //                 var Gender = [], Languages = [], Speciality = [], Titles = [];
+    //                 {
+    //                     responce.data[0].gender && responce.data[0].gender.length > 0 && responce.data[0].gender.map(
+    //                         (item) => { Gender.push({ label: item.title, value: item.value }) })
+    //                 }
+    //                 {
+    //                     responce.data[0].languages && responce.data[0].languages.length > 0 && responce.data[0].languages.map(
+    //                         (item) => { Languages.push({ label: item.title, value: item.value }) })
+    //                 }
+    //                 {
+    //                     responce.data[0].speciality && responce.data[0].speciality.length > 0 && responce.data[0].speciality.map(
+    //                         (item) => { Speciality.push({ label: item.title, value: item.value }) })
+    //                 }
+    //                 {
+    //                     responce.data[0].title_degreeData && responce.data[0].title_degreeData.length > 0 && responce.data[0].title_degreeData.map(
+    //                         (item) => { Titles.push({ label: item.title, value: item.value }) })
+    //                 }
+    //                 this.setState({
+    //                     genderdata: Gender,
+    //                     languageData: Languages,
+    //                     specialityData: Speciality,
+    //                     title_degreeData: Titles,
+    //                     bloodgroup: responce.data[0].bloodgroup,
+    //                     rhesusgroup: responce.data[0].rhesus 
+    //                 });
+    //             }
+    //         })
+
+    // }
 
     //Getting Doctor to add as Family doctor
     alldoctor() {
@@ -629,6 +661,11 @@ class Index extends Component {
         this.setState({ insurancefull: datas })
     }
 
+    Upsaterhesus=(rhesusfromD)=>{
+        var rhesus = GetShowLabel1(this.state.rhesusgroup, rhesusfromD, this.props.stateLanguageType)  
+        this.setState({rhesus: rhesus})
+    }
+    
     //For getting User Data
     getUserData() {
         this.setState({ loaderImage: true });
@@ -657,7 +694,7 @@ class Index extends Component {
             })
             var title = {}, titlefromD = response.data.data.title;
             var bloodfromD = response.data.data.blood_group, rhesusfromD = response.data.data.rhesus, 
-            bloods = {}, rhesus = {};
+            bloods = {};
             var language = [], languagefromD = response.data.data.language;
             if (languagefromD && languagefromD.length > 0) {
                 languagefromD.map((item) => {
@@ -670,12 +707,7 @@ class Index extends Component {
                 bloods = { label: bloodfromD, value: bloodfromD }
             }
             if (rhesusfromD && rhesusfromD !== "") {
-                if(rhesusfromD==='-'){
-                    rhesus = { label: 'Negative', value: rhesusfromD }
-                }else if(rhesusfromD==='+'){
-                    rhesus = { label: 'Positive', value: rhesusfromD }
-                }
-                
+                this.Upsaterhesus(rhesusfromD)
             }
             if (titlefromD && titlefromD !== "") {
                 title = { label: titlefromD, value: titlefromD }
@@ -707,7 +739,7 @@ class Index extends Component {
             // }
             this.setState({ UpDataDetails: response.data.data, city: response.data.data.city, area: response.data.data.area, profile_id: response.data.data.profile_id });
             this.setState({ speciality_multi: this.state.UpDataDetails.speciality })
-            this.setState({ name_multi: language, title: title, rhesus: rhesus, bloods: bloods })
+            this.setState({ name_multi: language, title: title, bloods: bloods })
             this.setState({
                 insurancefull: this.state.UpDataDetails.insurance,
                 insuranceDetails: { insurance: '', insurance_number: '', insurance_type: '' }
@@ -960,7 +992,7 @@ class Index extends Component {
                                 </Grid>
                                 <Grid className="qrCourseImg">
                                     <Grid> <QRCode value={this.state.UpDataDetails && this.state.UpDataDetails.profile_id} /></Grid>
-                                    <Grid><input type="submit" value={done} /></Grid>
+                                    <Grid><input type="submit" value={done} onClick={this.handleQrClose}/></Grid>
                                 </Grid>
                             </Grid>
                         </Modal>

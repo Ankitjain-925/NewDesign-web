@@ -11,6 +11,7 @@
 		"Register_Accounttype": "Account type",
 		"Pharmacist": "Apotheker",
 		"Nurse": "Verpleegster",
+		"Nurse1": "Verpleegster",
 		"Professional": "Professioneel",
 		"Register_want_register": "Ik wil me aanmelden voor de Aimedis Health-nieuwsbrief (optioneel).",
 		"Register_Clicking_box": "Door op het vakje te klikken, ga ik akkoord met onze gebruiksvoorwaarden en accepteer ik de gegevensverzameling, gegevensverwerking en het gebruik van mijn persoonlijke gegevens. Meer in ons privacybeleid.",
@@ -468,7 +469,9 @@
 		"CAPABILITIES_heading": "Mogelijkheden",
 		"capab_The_Aimedis_Ecosystem": "Het Aimedis Ecosysteem",
 		"capab_Patients": "Patiënten",
+		"capab_Patients1": "Patiënten",
 		"capab_Doctors": "Doktoren",
+		"capab_Doctors1": "Doktoren",
 		"capab_Hospitals": "Ziekenhuizen",
 		"capab_Blockchain": "Blockchain",
 		"capab_AI": "AI",
@@ -1770,6 +1773,9 @@
 		"pls_fill_duration": "Gelieve de tijdsduur van de afspraak in te vullen",
 		"offline": "Offline",
 		"Loading":"Bezig met laden...",
-		"goto_top":"Ga naar boven"
+		"goto_top":"Ga naar boven",
+		"Consultancy_custom_calendar" : "Consultancy aangepaste kalender",
+		"Calling" :"Roeping...",
+		"incomingcall": "Binnenkomend telefoongesprek"
 	}
 }

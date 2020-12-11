@@ -38,8 +38,9 @@ import * as translationRS from '../../../translations/rs';
 import * as translationNL from '../../../translations/nl';
 import * as translationSW from '../../../translations/sw';
 import SPECIALITY from '../../../speciality'
-import SUBSPECIALITY from '../../../subspeciality'
+import { subspeciality } from '../../../subspeciality.js';
 import Loader from './../../Components/Loader/index';
+import {GetLanguageDropdown} from './../../Components/GetMetaData/index.js';
 import Notification from "../../Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 
 const CURRENT_DATE = moment().toDate();
@@ -263,19 +264,18 @@ class Index extends Component {
             })
     }
 
+    componentDidUpdate=(prevProps)=>{
+        if (prevProps.stateLanguageType !== this.props.stateLanguageType) {
+            this.getSpecialities();
+        }
+    }
+
     // Get Speciality DATA
     getSpecialities() {
-        let specialityData = [], subspecialityData = []
-        SPECIALITY.speciality && SPECIALITY.speciality.english && SPECIALITY.speciality.english.map(speciality => {
-            specialityData.push(speciality)
-        })
-        SUBSPECIALITY.subspeciality && SUBSPECIALITY.subspeciality.english && SUBSPECIALITY.subspeciality.english.map(subspeciality => {
-            subspecialityData.push(subspeciality)
-        })
         this.setState({
-            specialityData: specialityData,
-            subspecialityData: subspecialityData
-        });
+        specialityData: GetLanguageDropdown(SPECIALITY.speciality.english, this.props.stateLanguageType),
+        subspecialityData: GetLanguageDropdown(subspeciality.english, this.props.stateLanguageType)
+        })
     }
 
     // findAppointment
@@ -472,7 +472,7 @@ class Index extends Component {
     };
     handleChangeSelect = selectedOption => {
         let searchDetails = this.state.searchDetails
-        searchDetails["specialty"] = selectedOption.label
+        searchDetails["specialty"] = selectedOption.value
         this.setState({ selectedOption: selectedOption, searchDetails: searchDetails });
     };
     handleAllowLoc = () => {
@@ -937,8 +937,8 @@ class Index extends Component {
                                                                                                 </a>
                                                             </Grid>
                                                             <Grid className="nuroDr">
-                                                                <label>{doc.data && doc.data.speciality && doc.data.speciality.length > 0 && getSpec(doc.data.speciality)}</label>
-                                                                <p>{doc.data && doc.data.subspeciality && doc.data.subspeciality.length > 0 && getSpec(doc.data.subspeciality)}</p>
+                                                                <label>{doc.data && doc.data.speciality && doc.data.speciality.length > 0 && getSpec(doc.data.speciality, this.props.stateLanguageType)}</label>
+                                                                <p>{doc.data && doc.data.subspeciality && doc.data.subspeciality.length > 0 && getSpec(doc.data.subspeciality, this.props.stateLanguageType)}</p>
                                                             </Grid>
 
                                                             {/* <Grid className="nuroDr">
@@ -1011,8 +1011,8 @@ class Index extends Component {
                                                     <Grid className="showSubject">
                                                         <Grid container direction="row">
                                                             <Grid item xs={6} md={6} className="officeVstLft nuroDr">
-                                                                <h3>{apoint.docProfile && apoint.docProfile.speciality && getSpec(apoint.docProfile.speciality)}</h3>
-                                                                <p>{apoint.docProfile && apoint.docProfile.subspeciality && getSpec(apoint.docProfile.subspeciality)}</p>
+                                                                <h3>{apoint.docProfile && apoint.docProfile.speciality && getSpec(apoint.docProfile.speciality, this.props.stateLanguageType)}</h3>
+                                                                <p>{apoint.docProfile && apoint.docProfile.subspeciality && getSpec(apoint.docProfile.subspeciality, this.props.stateLanguageType)}</p>
                                                             </Grid>
                                                         </Grid>
                                                         <Grid><a><img src={require('../../../assets/images/dr1.jpg')} alt="" title="" />{apoint.docProfile && `${apoint.docProfile.first_name} ${apoint.docProfile.last_name}`}</a></Grid>
@@ -1041,8 +1041,8 @@ class Index extends Component {
                                                     <Grid className="showSubject">
                                                         <Grid container direction="row">
                                                             <Grid item xs={6} md={6} className="officeVstLft nuroDr">
-                                                                <h3>{apoint.docProfile && apoint.docProfile.speciality && getSpec(apoint.docProfile.speciality)}</h3>
-                                                                <p>{apoint.docProfile && apoint.docProfile.subspeciality && getSpec(apoint.docProfile.subspeciality)}</p>
+                                                                <h3>{apoint.docProfile && apoint.docProfile.speciality && getSpec(apoint.docProfile.speciality, this.props.stateLanguageType)}</h3>
+                                                                <p>{apoint.docProfile && apoint.docProfile.subspeciality && getSpec(apoint.docProfile.subspeciality, this.props.stateLanguageType)}</p>
                                                             </Grid>
 
                                                             <Grid item xs={6} md={6} className="officeVstRght">

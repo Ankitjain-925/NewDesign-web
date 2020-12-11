@@ -17,6 +17,7 @@ import * as translationRS from '../../../../translations/rs.json';
 import * as translationSW from '../../../../translations/sw.json';
 import * as translationCH from '../../../../translations/ch.json';
 import * as translationNL from '../../../../translations/nl.json';
+import { find } from 'highcharts';
 class PointPain extends Component {
     constructor(props) {
         super(props)
@@ -39,12 +40,14 @@ class PointPain extends Component {
     SetImage = (image) => {
         if (image && image !== '' && image !== 'undefined') {
             var find1 = image.split('.com/')[1]
-            axios.get(sitedata.data.path + '/aws/sign_s3?find=' + find1,)
+            if(find1.split('/')[0] !=='undefined'){
+                axios.get(sitedata.data.path + '/aws/sign_s3?find=' + find1,)
                 .then((response) => {
                     if (response.data.hassuccessed) {
                         this.setState({ image: response.data.data })
                     }
                 })
+            } 
         }
     }
 

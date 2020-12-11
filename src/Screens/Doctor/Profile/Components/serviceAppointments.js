@@ -910,7 +910,7 @@ class Index extends Component {
             case "default":
                 translate = translationEN.text
         }
-        let { Change, password, minutes, is, we_use_authy, before_day_of_appointment, supportive_text, monday, tuseday, wednesday, copy_to_all_time, thursday, friday, saturday, sunday, vdo_call ,set_online_working_hour, plz_fill_break_timeslot_for_aapointment, plz_fill_time_duration_appointment, the_appointment_srvc_success_updated, Current, confirm_password, new_password, two_fac_auth, password_changed, new_and_confirm_pass_not_same, current_pass_not_match, plz_fill_fields,
+        let { Change, password, set_working_hours,Consultancy_custom_calendar, minutes, is, we_use_authy, before_day_of_appointment, supportive_text, monday, tuseday, wednesday, copy_to_all_time, thursday, friday, saturday, sunday, vdo_call ,set_online_working_hour, plz_fill_break_timeslot_for_aapointment, plz_fill_time_duration_appointment, the_appointment_srvc_success_updated, Current, confirm_password, new_password, two_fac_auth, password_changed, new_and_confirm_pass_not_same, current_pass_not_match, plz_fill_fields,
             Disable, Enable, Services, instant_activation_deactivation_offer_srvc, invite_patient_to_contact_online, copy_time_to_all, chat_vdocall, prescription_and_sick_cert, online_prescription, select_appointment_set_schedule, holiday_period_btw, appointment_system,issue_prescription_and_sickCert_online, onine_sick_cert, appointments, offer_practice_online_appointment, set_timeslot_duration, break_time, appointment_can_be_booked, up_to_days, Max, hourse_before_time_appointment, save_change } = translate;
 
         return (
@@ -1234,7 +1234,7 @@ class Index extends Component {
                             <Grid container direction="row">
                                 <Grid item xs={12} md={6}>
                                     <Grid className="wrkHour">
-                                        <Grid><label>Set online working hours</label></Grid>
+                                        <Grid><label>{set_working_hours}</label></Grid>
                                         <Grid>
                                             <a className={UpDataDetails.monday_end !== '' && 'seleted-days'} onClick={() => this.selectWeek('UpDataDetails', 'monday')}>M</a>
                                             <a className={UpDataDetails.tuesday_end !== '' && 'seleted-days'} onClick={() => this.selectWeek('UpDataDetails', 'tuesday')}>T</a>
@@ -1386,7 +1386,7 @@ class Index extends Component {
                                                 onChange={() => this.handleweoffer('Offer_practice_appointment')}
                                             />
                                         }
-                                        label="Consultancy (custom calendar)"
+                                        label={Consultancy_custom_calendar}
                                     />
 
                                 </Grid>
@@ -1401,7 +1401,7 @@ class Index extends Component {
                             <Grid container direction="row">
                                 <Grid item xs={12} md={6}>
                                     <Grid className="wrkHour">
-                                        <Grid><label>Set online working hours</label></Grid>
+                                        <Grid><label>{set_working_hours}</label></Grid>
                                         <Grid>
                                             <a className={DaysforPractices.monday_end !== '' && 'seleted-days'} onClick={() => this.selectWeek('DaysforPractices', 'monday')}>M</a>
                                             <a className={DaysforPractices.tuesday_end !== '' && 'seleted-days'} onClick={() => this.selectWeek('DaysforPractices', 'tuesday')}>T</a>

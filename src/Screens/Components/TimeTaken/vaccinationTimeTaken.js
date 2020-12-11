@@ -57,9 +57,19 @@ class Index extends Component {
   //On add the new Time 
   onAddFiled = () => {
     let tArray = this.state.timeArr;
-    tArray.push({ label: "", value: "", title: "" });
+    if(tArray && tArray.length>0){
+      tArray.push({ label: "", value: "", title: "" });
+    }
+    else{
+      tArray.push({ label: "", value: "", title: "" },{ label: "", value: "", title: "" });
+    }
     let dArray = this.state.dateArr;
-    dArray.push({ label: "", value: "", title: "" });
+    if(dArray && dArray.length>0){
+      dArray.push({ label: "", value: "", title: "" });
+    }
+    else{
+      dArray.push({ label: "", value: "", title: "" },{ label: "", value: "", title: "" });
+    }
     this.setState({ dateArr: dArray });
   };
 

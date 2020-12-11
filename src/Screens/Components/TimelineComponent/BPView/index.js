@@ -6,6 +6,7 @@ import FileViews from  './../FileViews/index';
 import { getDate, newdate, getTime, getImage } from './../../BasicMethod/index';
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
+import {GetShowLabel1} from "../../GetMetaData/index.js";
 import DownloadFullTrack from './../../DownloadFullTrack/index.js';
 import { LanguageFetchReducer } from '../../../actions';
 import * as translationEN from "../../../../translations/en.json"
@@ -169,7 +170,7 @@ class Index extends Component {
                                         <Grid item xs={12} md={6} className="bloodPreBy">
                                             <Grid container direction="row">
                                                 <Grid item xs={5} md={5}><label>{feeling}</label></Grid>
-                                                <Grid item xs={7} md={7}><span>{item.situation && item.situation.label}</span></Grid>
+                                                <Grid item xs={7} md={7}><span>{item.situation && GetShowLabel1(this.props.list, item.situation.value, this.props.stateLanguageType, true)}</span></Grid>
                                                 <Grid className="clear"></Grid>
                                             </Grid>
                                         </Grid>

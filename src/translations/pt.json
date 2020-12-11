@@ -614,6 +614,9 @@
 		"capab_Doctors": "Médica",
 		"capab_Patients": "Paciente",
 		"Nurse": "Enfermeira",
+		"capab_Doctors1": "Médica",
+		"capab_Patients1": "Paciente",
+		"Nurse1": "Enfermeira",
 		"Professional": "Profissional",
 		"Appointmentiscanceled": "Compromisso cancelado",
 		"DetailsQuestions": "Detalhes / perguntas",
@@ -1160,6 +1163,9 @@
 		"disabled":"desativado",
 		"Loading":"Carregando...",
 		"language_all":"Idioma: todos",
-		"goto_top":"Ir para o topo"
+		"goto_top":"Ir para o topo",
+		"Consultancy_custom_calendar" : "Calendário personalizado de consultoria",
+		"Calling" :"Chamando...",
+		"incomingcall": "Chamada recebida"
 	}
 }

@@ -7,6 +7,7 @@ import DownloadFullTrack from './../../DownloadFullTrack/index.js';
 import { getDate, newdate, getTime, getImage } from './../../BasicMethod/index';
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
+import {GetShowLabel1} from "../../GetMetaData/index.js";
 import { LanguageFetchReducer } from './../../../actions';
 import * as translationEN from "../../../../translations/en.json";
 import * as translationDE from '../../../../translations/de.json';
@@ -164,14 +165,14 @@ class Index extends Component {
                                         <Grid item xs={12} md={6} className="bloodPreBy">
                                             <Grid container direction="row">
                                                 <Grid item xs={5} md={5}><label>{gender_of_relatives}</label></Grid>
-                                                <Grid item xs={7} md={7}><span>{item.gender && item.gender.label}</span></Grid>
+                                                <Grid item xs={7} md={7}><span>{item.gender && GetShowLabel1(this.props.Allgender, item.gender.value, this.props.stateLanguageType, true)}</span></Grid>
                                                 <Grid className="clear"></Grid>
                                             </Grid>
                                         </Grid>
                                         <Grid item xs={12} md={6} className="bloodPreBy">
                                             <Grid container direction="row">
                                                 <Grid item xs={5} md={5}><label>{relation_of_relative}</label></Grid>
-                                                <Grid item xs={7} md={7}><span>{item.relation && item.relation.label}</span></Grid>
+                                                <Grid item xs={7} md={7}><span>{item.relation && GetShowLabel1(this.props.Allrelation, item.relation.value, this.props.stateLanguageType, true)}</span></Grid>
                                                 <Grid className="clear"></Grid>
                                             </Grid>
                                         </Grid>

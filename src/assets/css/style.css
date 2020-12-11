@@ -13092,6 +13092,15 @@ a.academy_ul ul li img {
 
 
 /*Added By ankita*/
+a.profilePic2 span,a.profilePic2 img {
+    cursor: pointer;
+}
+.neuroSection h3, .officeVstLft h3 {
+    line-break: anywhere;
+}
+.homeBgDrk .addSpc.conPainGraph span p, .homeBgDrk .addSpc.conPainGraph span {
+    color: #BFC1C1 !important;
+}
 .homeBgDrk .blockChainDtail1, .homeBgDrk .blockChainDtail1 h2{
     background-color: #404646!important;
     color: #D9DADA !important;

@@ -10,6 +10,7 @@ import DownloadFullTrack from './../../DownloadFullTrack/index.js';
 import { getDate, newdate, getTime, getImage } from './../../BasicMethod/index';
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
+import {GetShowLabel1} from "../../GetMetaData/index.js";
 import { LanguageFetchReducer } from '../../../actions';
 import * as translationEN from "../../../../translations/en.json"
 import * as translationDE from '../../../../translations/de.json';
@@ -137,7 +138,7 @@ class Index extends Component {
 
                         <Grid className="conPain_num addSpc">
                             <label>{item.problem && item.problem}</label>
-                            <p>{item.pain_type && item.pain_type.label}</p>
+                            <p>{item.pain_type && GetShowLabel1(this.props.paintype, item.pain_type.value, this.props.stateLanguageType, true)}</p>
                         </Grid>
 
                         <Grid container direction="row" className="addSpc conPain_Cntnt">
@@ -191,14 +192,14 @@ class Index extends Component {
                                         <Grid item xs={12} md={6} className="painTypeBy">
                                             <Grid container direction="row">
                                                 <Grid item xs={5} md={5}><label>{pain_type}</label></Grid>
-                                                <Grid item xs={7} md={7}><span>{item.pain_type && item.pain_type.label}</span></Grid>
+                                                <Grid item xs={7} md={7}><span>{item.pain_type && GetShowLabel1(this.props.paintype, item.pain_type.value, this.props.stateLanguageType, true)}</span></Grid>
                                                 <Grid className="clear"></Grid>
                                             </Grid>
                                         </Grid>
                                         <Grid item xs={12} md={6} className="painTypeBy">
                                             <Grid container direction="row">
                                                 <Grid item xs={5} md={5}><label>{pain_quality}</label></Grid>
-                                                <Grid item xs={7} md={7}><span>{item.pain_quality && item.pain_quality.label}</span></Grid>
+                                                <Grid item xs={7} md={7}><span>{item.pain_quality && GetShowLabel1(this.props.painquality, item.pain_quality.value, this.props.stateLanguageType, true)}</span></Grid>
                                                 <Grid className="clear"></Grid>
                                             </Grid>
                                         </Grid>

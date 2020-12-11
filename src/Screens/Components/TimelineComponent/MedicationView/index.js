@@ -7,6 +7,7 @@ import DownloadFullTrack from './../../DownloadFullTrack/index.js';
 import { getDate, newdate, getTime, getImage, getReminder } from './../../BasicMethod/index';
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
+import {GetShowLabel1} from '../../GetMetaData/index.js';
 import { LanguageFetchReducer } from './../../../actions';
 import * as translationEN from "../../../../translations/en.json";
 import * as translationDE from '../../../../translations/de.json';
@@ -214,7 +215,7 @@ class Index extends Component {
                                         <Grid item xs={12} md={6} className="bloodPreBy">
                                             <Grid container direction="row">
                                                 <Grid item xs={5} md={5}><label>{time_taken}</label></Grid>
-                                                <Grid item xs={7} md={7}><span>{getReminder(item.time_taken, this.state.time_foramt)} {item.interval && (Array.prototype.map.call(item.interval, s => s.label).toString()).split(/[,]+/).join(',  ')}</span></Grid>
+                                                <Grid item xs={7} md={7}><span>{getReminder(item.time_taken, this.state.time_foramt)} {item.interval && (Array.prototype.map.call(item.interval, s => GetShowLabel1(this.props.Allreminder, s.value, this.props.stateLanguageType, true)).toString()).split(/[,]+/).join(',  ')}</span></Grid>
                                                 <Grid className="clear"></Grid>
                                             </Grid>
                                         </Grid>
@@ -222,7 +223,7 @@ class Index extends Component {
                                         <Grid item xs={12} md={6} className="bloodPreBy">
                                             <Grid container direction="row">
                                                 <Grid item xs={5} md={5}><label>{reminder}</label></Grid>
-                                                <Grid item xs={7} md={7}><span>{getReminder(item.reminder_time_taken, this.state.time_foramt)} {item.reminders && (Array.prototype.map.call(item.reminders, s => s.label).toString()).split(/[,]+/).join(',  ')}</span></Grid>
+                                                <Grid item xs={7} md={7}><span>{getReminder(item.reminder_time_taken, this.state.time_foramt)} {item.reminders && (Array.prototype.map.call(item.reminders, s => GetShowLabel1(this.props.Allreminder, s.value, this.props.stateLanguageType, true)).toString()).split(/[,]+/).join(',  ')}</span></Grid>
                                                 <Grid className="clear"></Grid>
                                             </Grid>
                                         </Grid>

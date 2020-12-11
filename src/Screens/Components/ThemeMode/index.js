@@ -23,7 +23,7 @@ class Index extends Component {
         }
     }
     shouldComponentUpdate(nextProps, nextState){
-        return nextProps.mode !== this.props.mode
+        return nextProps.mode !== this.props.mode || nextState.mode !== this.state.mode
     }
     //For set the language
     SetMode = () => {

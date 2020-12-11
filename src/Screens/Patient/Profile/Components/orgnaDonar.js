@@ -11,6 +11,7 @@ import Select from 'react-select';
 import Loader from './../../../Components/Loader/index';
 import Radio from '@material-ui/core/Radio';
 import ReactFlagsSelect from 'react-flags-select';
+import { GetShowLabel1} from './../../../Components/GetMetaData/index.js';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import * as translationEN from '../../../../translations/en.json';
 import * as translationDE from '../../../../translations/de.json';
@@ -45,6 +46,28 @@ class Index extends Component {
         this.getUserData();
     }
 
+    componentDidUpdate=(prevProps)=>{
+        if (prevProps.stateLanguageType !== this.props.stateLanguageType) {
+            this.Upsaterhesus(this.state.exclude_some,'exclude_some');
+            this.Upsaterhesus(this.state.include_some,'include_some');
+        }
+    }
+    Upsaterhesus=(optionData, name)=>{
+        var rhesus = [];
+        if(optionData && typeof optionData === 'string'){
+            optionData = optionData.split(", ")
+            rhesus = optionData.map((item) => {
+                return GetShowLabel1(this.state.tissue, item, this.props.stateLanguageType)
+            }) 
+        }
+        else{
+            rhesus = optionData;
+        }
+       
+        if(name==='include_some') {this.setState({include_some: rhesus})}
+        else{this.setState({exclude_some: rhesus})}
+        
+    }
     // For Select one option 
     handleOptionChange=(changeEvent) =>{
         this.setState({
@@ -143,7 +166,7 @@ class Index extends Component {
         if(name==='include_some')
         {  this.setState({ include_some: event })}
         else {this.setState({ exclude_some: event })}
-        state[name] = event && (Array.prototype.map.call(event, s => s.label).toString()).split(/[,]+/).join(',  ');
+        state[name] = event && (Array.prototype.map.call(event, s => s.value).toString()).split(/[,]+/).join(',  ');
         this.setState({ OptionData: state })
     };
 
@@ -186,10 +209,11 @@ class Index extends Component {
                     else {
                         title = [];
                     }
-                    title.map((item) => {
-                        titles.push({ value: item, label: item });
-                    })
-                    this.setState({ exclude_some : titles, OptionData: { exclude_some: response.data.data.organ_donor[0].OptionData } },
+                    this.Upsaterhesus(response.data.data.organ_donor[0].OptionData, 'exclude_some')
+                    // title.map((item) => {
+                    //     titles.push({ value: item, label: item });
+                    // })
+                    this.setState({ OptionData: { exclude_some: response.data.data.organ_donor[0].OptionData } },
                         ()=>{
                             if (response.data.data.organ_donor[0].free_remarks) {
                                 var state = this.state.OptionData;
@@ -206,10 +230,11 @@ class Index extends Component {
                     else {
                         title1 = [];
                     }
-                    title1.map((item) => {
-                        titles1.push({ value: item, label: item });
-                    })
-                    this.setState({include_some: titles1 , OptionData: { include_some: response.data.data.organ_donor[0].OptionData } },
+                    this.Upsaterhesus(response.data.data.organ_donor[0].OptionData, 'include_some')
+                    // title1.map((item) => {
+                    //     titles1.push({ value: item, label: item });
+                    // })
+                    this.setState({OptionData: { include_some: response.data.data.organ_donor[0].OptionData } },
                         ()=>{
                             if (response.data.data.organ_donor[0].free_remarks) {
                                 var state = this.state.OptionData;

@@ -1,0 +1,65 @@
+export function GetLanguageDropdown (Metadatas, language, name=''){
+    if(Metadatas && Metadatas.length>0 && language)
+    {
+        Metadatas.forEach(function(e, index){
+            if (typeof e === "object" ){
+                if(name==='timezone'){
+                    e["label"] = e["text"]
+                }
+                else{
+                    e["label"] = e['label_'+ language] ? e['label_'+ language] : e["label"];
+                }
+                if(name==='personalised_card')
+                {
+                    e["id"] = index;
+                }
+            }
+          });
+          return Metadatas;
+    }
+    else return;
+}
+export function GetShowLabel (data, language, name=''){
+    if(data && language)
+    {
+        return data['label_'+language] ? data['label_'+language] : data['label'];
+    }
+    else return;
+}
+export function GetShowLabel1 (list, data, language, forview=false){
+    if(list && data && data!=='undefined' && language)
+    {
+        var filterData = list && list.length>0 && list.filter((d)=>{
+            return d.value && d.value.toLowerCase().replace(/\s/g,"") === data && data.toLowerCase().replace(/\s/g,"")
+        });
+        if(filterData && filterData.length>0){
+            var e = filterData[0]
+            e["label"] = e['label_'+ language] ? e['label_'+ language] : e["label"];
+            if(forview){
+                return e.label;
+            }
+            return filterData[0];
+        }  
+    }
+    else return;
+}
+
+export function GetShowLabel12 (list, data, language){
+    if(list && data && language)
+    {
+        if(Array.isArray(data)){
+            var datat  = data.map((_it) =>{
+            var filterData = list && list.length>0 && list.filter((d)=>{
+                return d.value.toLowerCase() === _it.value.toLowerCase().replace(/\s/g,"_")
+            });
+            if(filterData && filterData.length>0){
+                var e = filterData[0]
+                e["label"] = e['label_'+ language] ? e['label_'+ language] : e["label"];
+                return filterData[0];
+            }  
+            })
+           return datat;
+        }
+    }
+    else return;
+}

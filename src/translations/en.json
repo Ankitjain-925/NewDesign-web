@@ -614,6 +614,9 @@
 		"capab_Doctors": "Doctor",
 		"capab_Patients": "Patient",
 		"Nurse": "Nurse",
+		"capab_Doctors1": "Doctor",
+		"capab_Patients1": "Patient",
+		"Nurse1": "Nurse",
 		"Pharmacist": "Pharmacist",
 		"Professional": "Professional",
 		"Appointmentiscanceled": "Appointment is canceled",
@@ -1144,6 +1147,9 @@
 		"StartDate" :"Start Date",
 		"EndDate" :"End Date",
 		"Loading":"Loading...",
-		"goto_top":"Go to top"
+		"goto_top":"Go to top",
+		"Consultancy_custom_calendar" : "Consultancy (custom calendar)",
+		"Calling" :"Calling...",
+		"incomingcall": "Incoming call"
 	}
 }

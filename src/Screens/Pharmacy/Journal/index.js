@@ -61,7 +61,8 @@ import AnamnesisFields from "./../../Components/TimelineComponent/AnamnesisField
 import SCFields from "./../../Components/TimelineComponent/SCFields/index.js";
 import SOFields from "./../../Components/TimelineComponent/SOFields/index.js";
 import Notification from "../../Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
-
+import SPECIALITY from '../../../speciality'
+import {GetLanguageDropdown} from './../../Components/GetMetaData/index.js';
 class Index extends Component {
     constructor(props) {
         super(props);
@@ -433,6 +434,11 @@ class Index extends Component {
             this.GetInfoForPatient();
         }
     }
+    componentDidUpdate=(prevProps)=>{
+        if (prevProps.stateLanguageType !== this.props.stateLanguageType) {
+            this.GetLanguageMetadata();
+        }
+    }
 
     //Upload file MultiFiles
     FileAttachMulti = (event) => {
@@ -673,66 +679,38 @@ class Index extends Component {
                 }
             }).then((response) => {
                 this.setState({ allMetadata: response.data[0] })
-                if (this.state.allMetadata) {
-                    var Anamnesis = [], Alltemprature = [], personalised_card = [], AllATC_code = [], Alltime_taken = [], Allpain_type = [], Allpain_quality = [], Pressuresituation = [], Allsituation = [],
-                        Allsmoking_status = [], Allreminder = [], AllreminderV = [{ label: "Yearly", value: "yearly" }], Allrelation = [], AllL_Pt = [], AllSpecialty = [], Allsubstance = [], Allgender = []
-                    // var personalised_card = this.state.allMetadata && this.state.allMetadata.personalised_card; 
-                    Anamnesis = this.state.allMetadata && this.state.allMetadata.anamnesis && this.state.allMetadata.anamnesis;
-
-                    this.state.allMetadata && this.state.allMetadata.personalised_card && this.state.allMetadata.personalised_card.map((item, index) => (
-                        personalised_card.push({ id: index, label: item.label, value: item.value })
-                    ))
-                    this.state.allMetadata && this.state.allMetadata.time_taken && this.state.allMetadata.time_taken.map((item, index) => (
-                        Alltime_taken.push({ label: item.title, value: item.value })
-                    ))
-                    this.state.allMetadata && this.state.allMetadata.Temprature && this.state.allMetadata.Temprature.map((item, index) => (
-                        Alltemprature.push({ label: item.title, value: item.value })
-                    ))
-                    this.state.allMetadata && this.state.allMetadata.ATC_code && this.state.allMetadata.ATC_code.map((item, index) => (
-                        AllATC_code.push({ label: item.title, value: item.value })
-                    ))
-                    this.state.allMetadata && this.state.allMetadata.pain_type && this.state.allMetadata.pain_type.map((item, index) => (
-                        Allpain_type.push({ label: item.title, value: item.value })
-                    ))
-                    this.state.allMetadata && this.state.allMetadata.pain_quality && this.state.allMetadata.pain_quality.map((item, index) => (
-                        Allpain_quality.push({ label: item.title, value: item.value })
-                    ))
-                    this.state.allMetadata && this.state.allMetadata.situation && this.state.allMetadata.situation.map((item, index) => (
-                        Allsituation.push({ label: item.title, value: item.value })
-                    ))
-                    this.state.allMetadata && this.state.allMetadata.situation_pressure && this.state.allMetadata.situation_pressure.map((item, index) => (
-                        Pressuresituation.push({ label: item.title, value: item.value })
-                    ))
-                    this.state.allMetadata && this.state.allMetadata.smoking_status && this.state.allMetadata.smoking_status.map((item, index) => (
-                        Allsmoking_status.push({ label: item.title, value: item.value })
-                    ))
-                    this.state.allMetadata && this.state.allMetadata.reminder && this.state.allMetadata.reminder.map((item, index) => (
-                        Allreminder.push({ label: item.title, value: item.value }),
-                        AllreminderV.push({ label: item.title, value: item.value })
-                    ))
-                    this.state.allMetadata && this.state.allMetadata.relation && this.state.allMetadata.relation.map((item, index) => (
-                        Allrelation.push({ label: item.title, value: item.value })
-                    ))
-                    this.state.allMetadata && this.state.allMetadata.speciality && this.state.allMetadata.speciality.map((item, index) => (
-                        AllSpecialty.push({ label: item.title, value: item.value })
-                    ))
-                    this.state.allMetadata && this.state.allMetadata.substance && this.state.allMetadata.substance.map((item, index) => (
-                        Allsubstance.push({ label: item.title, value: item.value })
-                    ))
-                    this.state.allMetadata && this.state.allMetadata.gender && this.state.allMetadata.gender.map((item, index) => (
-                        Allgender.push({ label: item.title, value: item.value })
-                    ))
-
-                    Alltime_taken.sort(mySorter);
-                    this.setState({
-                        Alltemprature: Alltemprature, Anamnesis: Anamnesis,
-                        AllATC_code: AllATC_code, Allpain_type: Allpain_type, Allpain_quality: Allpain_quality, Pressuresituation: Pressuresituation, Allsituation: Allsituation,
-                        Allsmoking_status: Allsmoking_status, Allreminder: Allreminder, AllreminderV: AllreminderV, AllSpecialty: AllSpecialty, Allsubstance1: Allsubstance,
-                        Allrelation: Allrelation, Allgender: Allgender, Alltime_taken: Alltime_taken, personalised_card: personalised_card,
-                        // AllL_P: AllL_Ps.AllL_Ps, 
-                    })
-                }
+                this.GetLanguageMetadata();
             })
+    }
+
+    GetLanguageMetadata=()=>{
+        if (this.state.allMetadata) {
+            var AllATC_code = this.state.allMetadata && this.state.allMetadata.ATC_code && this.state.allMetadata.ATC_code;
+   
+            var Alltemprature = this.state.allMetadata && this.state.allMetadata.Temprature && this.state.allMetadata.Temprature;
+            var Allgender = GetLanguageDropdown(this.state.allMetadata && this.state.allMetadata.gender && this.state.allMetadata.gender, this.props.stateLanguageType);
+            var Allpain_type = GetLanguageDropdown(this.state.allMetadata && this.state.allMetadata.pain_type && this.state.allMetadata.pain_type, this.props.stateLanguageType);
+            var Pressuresituation = GetLanguageDropdown(this.state.allMetadata && this.state.allMetadata.situation_pressure && this.state.allMetadata.situation_pressure, this.props.stateLanguageType);
+            var Allpain_quality = GetLanguageDropdown(this.state.allMetadata && this.state.allMetadata.pain_quality && this.state.allMetadata.pain_quality && this.state.allMetadata.pain_quality, this.props.stateLanguageType);
+            var Allsituation = GetLanguageDropdown(this.state.allMetadata && this.state.allMetadata.situation && this.state.allMetadata.situation, this.props.stateLanguageType);
+            var Allsmoking_status = GetLanguageDropdown(this.state.allMetadata && this.state.allMetadata.smoking_status && this.state.allMetadata.smoking_status, this.props.stateLanguageType);
+
+            var Allreminder = GetLanguageDropdown(this.state.allMetadata && this.state.allMetadata.reminder && this.state.allMetadata.reminder, this.props.stateLanguageType);
+            var Allrelation = GetLanguageDropdown(this.state.allMetadata && this.state.allMetadata.relation && this.state.allMetadata.relation, this.props.stateLanguageType);
+            var Allsubstance = GetLanguageDropdown(this.state.allMetadata && this.state.allMetadata.substance && this.state.allMetadata.substance, this.props.stateLanguageType);
+            var Anamnesis =  GetLanguageDropdown(this.state.allMetadata && this.state.allMetadata.anamnesis && this.state.allMetadata.anamnesis, this.props.stateLanguageType);
+            var personalised_card = GetLanguageDropdown(this.state.allMetadata && this.state.allMetadata.personalised_card && this.state.allMetadata.personalised_card, this.props.stateLanguageType, 'personalised_card');
+            var Alltime_taken =  this.state.allMetadata && this.state.allMetadata.time_taken && this.state.allMetadata.time_taken;
+            Alltime_taken.sort(mySorter);
+
+            this.setState({
+                Alltemprature: Alltemprature,Anamnesis:Anamnesis,
+                AllATC_code: AllATC_code, Allpain_type: Allpain_type, Allpain_quality: Allpain_quality, Pressuresituation: Pressuresituation, Allsituation: Allsituation,
+                Allsmoking_status: Allsmoking_status, Allreminder: Allreminder, AllSpecialty: GetLanguageDropdown(SPECIALITY.speciality.english, this.props.stateLanguageType), Allsubstance1: Allsubstance,
+                Allrelation: Allrelation, Allgender: Allgender, Alltime_taken: Alltime_taken, personalised_card: personalised_card,
+                // AllL_P: AllL_Ps.AllL_Ps, 
+            })
+        }
     }
 
 
@@ -1019,7 +997,7 @@ class Index extends Component {
                                             {this.props.Doctorsetget.p_id !== null && <div>
                                                 {this.state.allTrack && this.state.allTrack.length > 0 ?
                                                     this.state.allTrack.map((item, index) => (
-                                                        <ViewTimeline downloadTrack={(data) => this.downloadTrack(data)} OpenGraph={this.OpenGraph} comesfrom='pharmacy' images={this.state.images} DeleteTrack={(deleteKey) => this.DeleteTrack(deleteKey)} ArchiveTrack={(data) => this.ArchiveTrack(data)} EidtOption={(value, updateTrack, visibility) => this.EidtOption(value, updateTrack, visibility)} date_format={this.props.settings.setting.date_format} time_format={this.props.settings.setting.time_format} Track={item} loggedinUser={this.state.cur_one} patient_gender={this.state.patient_gender} />
+                                                        <ViewTimeline lrp={AllL_Ps.AllL_Ps.english} Allrelation={this.state.Allrelation} Allreminder={this.state.Allreminder} Allpain_type={this.state.Allpain_type} Allsmoking_status={this.state.Allsmoking_status} Allgender={this.state.Allgender} AllSpecialty={this.state.AllSpecialty} Allpain_quality={this.state.Allpain_quality} Allsituation={this.state.Allsituation} Pressuresituation={this.state.Pressuresituation} Anamnesis={this.state.Anamnesis} downloadTrack={(data) => this.downloadTrack(data)} OpenGraph={this.OpenGraph} comesfrom='pharmacy' images={this.state.images} DeleteTrack={(deleteKey) => this.DeleteTrack(deleteKey)} ArchiveTrack={(data) => this.ArchiveTrack(data)} EidtOption={(value, updateTrack, visibility) => this.EidtOption(value, updateTrack, visibility)} date_format={this.props.settings.setting.date_format} time_format={this.props.settings.setting.time_format} Track={item} loggedinUser={this.state.cur_one} patient_gender={this.state.patient_gender} />
                                                     ))
                                                     : <EmptyData />}
                                             </div>}
@@ -1154,7 +1132,7 @@ class Index extends Component {
                                                         {this.state.current_select === 'second_opinion' && <SOFields FileAttachMulti={this.FileAttachMulti} visibility={this.state.visibility} comesfrom='pharmacy' GetHideShow={this.GetHideShow} options={this.state.Pressuresituation} AddTrack={this.AddTrack} date_format={this.props.settings.setting.date_format} time_format={this.props.settings.setting.time_format} updateEntryState={this.updateEntryState} updateEntryState1={this.updateEntryState1} updateTrack={this.state.updateTrack} />}
                                                         {this.state.current_select === 'sick_certificate' && <SCFields FileAttachMulti={this.FileAttachMulti} visibility={this.state.visibility} comesfrom='pharmacy' GetHideShow={this.GetHideShow} options={this.state.Pressuresituation} AddTrack={this.AddTrack} date_format={this.props.settings.setting.date_format} time_format={this.props.settings.setting.time_format} updateEntryState={this.updateEntryState} updateEntryState1={this.updateEntryState1} updateTrack={this.state.updateTrack} />}
                                                         {this.state.current_select === 'smoking_status' && <SSFields FileAttachMulti={this.FileAttachMulti} visibility={this.state.visibility} comesfrom='pharmacy' GetHideShow={this.GetHideShow} options={this.state.Allsmoking_status} AddTrack={this.AddTrack} date_format={this.props.settings.setting.date_format} time_format={this.props.settings.setting.time_format} updateEntryState={this.updateEntryState} updateEntryState1={this.updateEntryState1} updateTrack={this.state.updateTrack} />}
-                                                        {this.state.current_select === 'vaccination' && <VaccinationFields FileAttachMulti={this.FileAttachMulti} visibility={this.state.visibility} comesfrom='pharmacy' GetHideShow={this.GetHideShow} options={this.state.AllreminderV} AddTrack={this.AddTrack} date_format={this.props.settings.setting.date_format} time_format={this.props.settings.setting.time_format} updateEntryState={this.updateEntryState} updateEntryState1={this.updateEntryState1} updateTrack={this.state.updateTrack} />}
+                                                        {this.state.current_select === 'vaccination' && <VaccinationFields FileAttachMulti={this.FileAttachMulti} visibility={this.state.visibility} comesfrom='pharmacy' GetHideShow={this.GetHideShow} AddTrack={this.AddTrack} date_format={this.props.settings.setting.date_format} time_format={this.props.settings.setting.time_format} updateEntryState={this.updateEntryState} updateEntryState1={this.updateEntryState1} updateTrack={this.state.updateTrack} />}
                                                         {this.state.current_select === 'weight_bmi' && <BMIFields FileAttachMulti={this.FileAttachMulti} visibility={this.state.visibility} comesfrom='pharmacy' GetHideShow={this.GetHideShow} AddTrack={this.AddTrack} date_format={this.props.settings.setting.date_format} time_format={this.props.settings.setting.time_format} updateEntryState={this.updateEntryState} updateEntryState1={this.updateEntryState1} updateTrack={this.state.updateTrack} />}
                                                     </Grid>
                                                 </Grid>

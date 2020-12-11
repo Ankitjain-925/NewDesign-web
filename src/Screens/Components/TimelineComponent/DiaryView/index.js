@@ -38,8 +38,13 @@ class Index extends Component {
                 images: this.props.images,
             })
         }
-        if (prevProps.TrackRecord !== this.props.TrackRecord) {
-            this.setState({ TrackRecord: this.props.TrackRecord })
+        if(prevProps.images !== this.props.images)
+        {
+            this.setState({ images: this.props.images})
+        }
+        if(prevProps.TrackRecord !== this.props.TrackRecord)
+        {
+            this.setState({ TrackRecord: this.props.TrackRecord})
         }
     }
 

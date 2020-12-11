@@ -43,8 +43,12 @@ class TimeTaken extends Component {
   //On add the new Time 
   onAddFiled = () => {
     let tArray = this.state.timeArr;
-    tArray.push({ label: "", value: "", title: "" });
-
+    if(tArray && tArray.length>0){
+      tArray.push({ label: "", value: "", title: "" });
+    }
+    else{
+      tArray.push({ label: "", value: "", title: "" },{ label: "", value: "", title: "" });
+    }
     this.setState({ timeArr: tArray });
   };
 
