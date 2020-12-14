@@ -11,6 +11,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
+import {GetShowLabel12} from '../../GetMetaData/index.js'
 import { LanguageFetchReducer } from './../../../actions';
 import * as translationEN from "../../../../translations/en.json";
 import * as translationDE from '../../../../translations/de.json';
@@ -152,14 +153,14 @@ class Index extends Component {
                     </Grid>
 
                     <Grid className="fillDia">
-                        <SelectField name="interval" isMulti={true} closeMenuOnSelect={false} label={interval} option={this.state.reminder} onChange={(e) => this.updateEntryState1(e, 'interval')} value={this.state.updateTrack.interval} />
+                        <SelectField name="interval" isMulti={true} closeMenuOnSelect={false} label={interval} option={this.state.reminder} onChange={(e) => this.updateEntryState1(e, 'interval')} value={GetShowLabel12(this.state.reminder, this.state.updateTrack && this.state.updateTrack.interval , this.props.stateLanguageType)} />
                     </Grid>
                     <Grid className="fillDia">
                         <TimeTaken name="time_taken" label={to_be_consume} time_format={this.state.time_format} onChange={(e) => this.updateEntryState1(e, 'time_taken')} timeArray={this.state.updateTrack.time_taken} />
                     </Grid>
 
                     <Grid className="fillDia">
-                        <SelectField name="reminders" isMulti={true} closeMenuOnSelect={false} label={reminder} option={this.state.reminder} onChange={(e) => this.updateEntryState1(e, 'reminders')} value={this.state.updateTrack.reminders} />
+                        <SelectField name="reminders" isMulti={true} closeMenuOnSelect={false} label={reminder} option={this.state.reminder} onChange={(e) => this.updateEntryState1(e, 'reminders')} value={GetShowLabel12(this.state.reminder, this.state.updateTrack && this.state.updateTrack.reminders, this.props.stateLanguageType)} />
                     </Grid>
                     <Grid className="fillDia">
                         <TimeTaken name="reminder_time_taken" label={reminder_time_taken} time_format={this.state.time_format} onChange={(e) => this.updateEntryState1(e, 'reminder_time_taken')} timeArray={this.state.updateTrack.reminder_time_taken} />

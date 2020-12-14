@@ -9,6 +9,7 @@ import ShowHide from './../../ShowHide/index';
 import NotesEditor from './../../Editor/index';
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
+import {GetShowLabel1} from "../../GetMetaData/index.js";
 import { LanguageFetchReducer } from './../../../actions';
 import * as translationEN from "../../../../translations/en.json";
 import * as translationDE from '../../../../translations/de.json';
@@ -88,10 +89,10 @@ class Index extends Component {
                         <MMHG name="disease_name" label={disease_name} onChange={(e) => this.props.updateEntryState(e)} value={this.state.updateTrack.disease_name} />
                     </Grid>
                     <Grid className="fillDia">
-                        <SelectByTwo name="gender" label={gender_of_relatives} options={this.state.options} onChange={(e) => this.updateEntryState1(e, 'gender')} value={this.state.updateTrack.gender} />
+                        <SelectByTwo name="gender" label={gender_of_relatives} options={this.state.options} onChange={(e) => this.updateEntryState1(e, 'gender')} value={GetShowLabel1(this.props.options, this.state.updateTrack && this.state.updateTrack.gender && this.state.updateTrack.gender.value, this.props.stateLanguageType)} />
                     </Grid>
                     <Grid className="fillDia">
-                        <SelectField name="relation" label={relation_of_relative} option={this.state.relativeList} onChange={(e) => this.updateEntryState1(e, 'relation')} value={this.state.updateTrack.relation} />
+                        <SelectField name="relation" label={relation_of_relative} option={this.state.relativeList} onChange={(e) => this.updateEntryState1(e, 'relation')} value={GetShowLabel1(this.props.relativeList, this.state.updateTrack && this.state.updateTrack.relation && this.state.updateTrack.relation.value, this.props.stateLanguageType)} />
                     </Grid>
                     <Grid className="fillDia">
                         <Grid className="rrSysto">

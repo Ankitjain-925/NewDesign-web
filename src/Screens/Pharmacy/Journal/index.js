@@ -404,7 +404,7 @@ class Index extends Component {
 
     //Open for the Add entry
     handleOpenEntry = () => {
-        this.setState({ openEntry: true });
+        this.setState({ openEntry: true, updateOne: 0 });
     };
     //Close for the Add entry
     handleCloseEntry = () => {
@@ -475,6 +475,9 @@ class Index extends Component {
                         let returnData = response.data.data.returnData;
                         let signedRequest = returnData.signedRequest;
                         let url = returnData.url;
+                        if(fileType ==='pdf'){
+                            fileType = 'application/pdf'
+                        }
                         // Put the fileType in the headers for the upload
                         var options = {
                             headers: {

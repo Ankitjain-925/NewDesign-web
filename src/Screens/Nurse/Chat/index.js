@@ -48,12 +48,12 @@ class index extends React.Component {
         // new LogOut(this.props.stateLoginValueAim.token, this.props.stateLoginValueAim.user._id, this.logOutClick.bind(this))
     }
     componentWillMount(){
-        if(this.props.stateLoginValueAim.user)
-        {
-            this.props.Doctorarrays(this.props.stateLoginValueAim.user.type, this.props.stateLoginValueAim.user, this.props.stateLoginValueAim.token)
-            this.setState({loaderImage : true})
-            setTimeout(()=>{ this.setState({loaderImage : false})}, 3000)
-        }
+        // if(this.props.stateLoginValueAim.user)
+        // {
+        //     this.props.Doctorarrays(this.props.stateLoginValueAim.user.type, this.props.stateLoginValueAim.user, this.props.stateLoginValueAim.token)
+        //     this.setState({loaderImage : true})
+        //     setTimeout(()=>{ this.setState({loaderImage : false})}, 3000)
+        // }
     }
     // componentWillMount(){
     //     var doctorArray = ['admin'];

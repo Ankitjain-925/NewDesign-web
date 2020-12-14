@@ -161,7 +161,6 @@ export function capitalizeFirstLetter(string){
 
 //For getting doctor speciality
 export function getSpec (value, lang){
-    console.log('speciality', speciality)
     if (!value) return '';
     if (Array.isArray(value)) {
     const valarray = value.map((_it) =>

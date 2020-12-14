@@ -6,7 +6,7 @@ import TimeFormat from './../../TimeFormat/index';
 import SelectByTwo from './../../SelectbyTwo/index';
 import FileUploader from './../../FileUploader/index';
 import ShowHide from './../../ShowHide/index';
-
+import {GetShowLabel1} from "../../GetMetaData/index.js";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { LanguageFetchReducer } from './../../../actions';
@@ -107,7 +107,7 @@ class Index extends Component {
                         </Grid>
                     </Grid>
                     <Grid className="fillDia">
-                        <SelectByTwo name="situation" label={feeling} options={this.state.options} onChange={(e) => this.updateEntryState1(e, 'situation')} value={this.state.updateTrack.feelings} />
+                        <SelectByTwo name="situation" label={feeling} options={this.state.options} onChange={(e) => this.updateEntryState1(e, 'situation')} value={GetShowLabel1(this.state.options, this.state.updateTrack && this.state.updateTrack.situation && this.state.updateTrack.situation.value, this.props.stateLanguageType)} />
                     </Grid>
 
                     <Grid className="attchForms attchImg">

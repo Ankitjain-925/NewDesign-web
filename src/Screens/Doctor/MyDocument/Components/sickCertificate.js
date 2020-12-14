@@ -207,7 +207,9 @@ class Index extends Component {
                         var returnData = response.data.data.returnData;
                         var signedRequest = returnData.signedRequest;
                         var url = returnData.url;
-                        
+                        if(fileType ==='pdf'){
+                            fileType = 'application/pdf'
+                        }
 
                         // Put the fileType in the headers for the upload
                         var options = {

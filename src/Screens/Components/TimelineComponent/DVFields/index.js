@@ -8,6 +8,7 @@ import NotesEditor from './../../Editor/index';
 import ShowHide from './../../ShowHide/index';
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
+import {GetShowLabel1} from "../../GetMetaData/index.js";
 import { LanguageFetchReducer } from './../../../actions';
 import * as translationEN from "../../../../translations/en.json";
 import * as translationDE from '../../../../translations/de.json';
@@ -88,7 +89,7 @@ class Index extends Component {
                         <MMHG name="doctor_id" label={doc_id} onChange={(e)=> this.props.updateEntryState(e)} value={this.state.updateTrack.doctor_id}/>    
                     </Grid>
                     <Grid className="fillDia">
-                        <SelectField name="specialty" label={speciality} option={this.state.options} onChange={(e)=> this.updateEntryState1(e, 'specialty')} value={this.state.updateTrack.specialty} />    
+                        <SelectField name="specialty" label={speciality} option={this.state.options} onChange={(e)=> this.updateEntryState1(e, 'specialty')} value={GetShowLabel1(this.props.options, this.state.updateTrack && this.state.updateTrack.specialty && this.state.updateTrack.specialty.value, this.props.stateLanguageType, false, 'specialty') } />    
                     </Grid>
                   
                     <Grid className="fillDia">

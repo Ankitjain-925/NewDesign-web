@@ -56,8 +56,8 @@ class Index extends Component {
         var rhesus = [];
         if(optionData && typeof optionData === 'string'){
             optionData = optionData.split(", ")
-            rhesus = optionData.map((item) => {
-                return GetShowLabel1(this.state.tissue, item, this.props.stateLanguageType)
+            rhesus = optionData && optionData.length>0 && optionData.map((item) => {
+                return GetShowLabel1(this.state.tissue, item, this.props.stateLanguageType,false,'organ')
             }) 
         }
         else{

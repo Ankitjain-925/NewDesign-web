@@ -133,7 +133,7 @@ class Index extends Component {
                         </Grid>
 
                         <Grid className="bp_hg addSpc">
-                            <label><span>{item.lab_parameter && GetShowLabel1(this.props.lrp, item.lab_parameter.value, this.props.stateLanguageType, true)}</span> {item.value && item.value} <span>{item.unit && item.unit.label}</span></label>
+                            <label><span>{item.lab_parameter && GetShowLabel1(this.props.lrp, item.lab_parameter && item.lab_parameter.value, this.props.stateLanguageType, true,'lpr')}</span> {item.value && item.value} <span>{item.unit && item.unit.label}</span></label>
                             {/* <p>Normal</p> */}
                         </Grid>
 
@@ -181,7 +181,7 @@ class Index extends Component {
                                         <Grid item xs={12} md={6} className="bloodPreBy">
                                             <Grid container direction="row">
                                                 <Grid item xs={5} md={5}><label>{lab_parameter}</label></Grid>
-                                                <Grid item xs={7} md={7} className="lrlp"><span>{item.lab_parameter && GetShowLabel1(this.props.lrp, item.lab_parameter.value, this.props.stateLanguageType, true)}</span></Grid>
+                                                <Grid item xs={7} md={7} className="lrlp"><span>{item.lab_parameter && GetShowLabel1(this.props.lrp, item.lab_parameter && item.lab_parameter.value, this.props.stateLanguageType, true,'lpr')}</span></Grid>
                                                 <Grid className="clear"></Grid>
                                             </Grid>
                                         </Grid>

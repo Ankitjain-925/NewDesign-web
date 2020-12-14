@@ -173,7 +173,7 @@ class Index extends Component {
                             
                             {item.anamesis && item.anamesis.length>0 && item.anamesis.map((data)=>(
                                 <Grid className="addSpc detailMark">
-         <Collapsible trigger={data.title && GetShowLabel1(this.props.list, data.title, this.props.stateLanguageType, true)} open="true">
+         <Collapsible trigger={data.title && GetShowLabel1(this.props.list, data && data.title && data.title.value, this.props.stateLanguageType, true, 'anamnesis')} open="true">
                                         <Grid className="detailCntnt">
                                             <p dangerouslySetInnerHTML={{ __html: data.notes }} />
                                         </Grid>

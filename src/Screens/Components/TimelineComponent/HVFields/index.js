@@ -6,7 +6,7 @@ import SelectField from './../../Select/index';
 import FileUploader from './../../FileUploader/index';
 import ShowHide from './../../ShowHide/index';
 import NotesEditor from './../../Editor/index';
-
+import {GetShowLabel1} from "../../GetMetaData/index.js";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { LanguageFetchReducer } from './../../../actions';
@@ -90,7 +90,7 @@ class Index extends Component {
                         <MMHG name="hospital_id" label={hosp_id} onChange={(e)=> this.props.updateEntryState(e)} value={this.state.updateTrack.Hba1c}/>    
                     </Grid>
                     <Grid className="fillDia">
-                        <SelectField name="specialty" label={speciality} option={this.state.options} onChange={(e)=> this.updateEntryState1(e, 'specialty')} value={this.state.updateTrack.specialty} />    
+                        <SelectField name="specialty" label={speciality} option={this.state.options} onChange={(e)=> this.updateEntryState1(e, 'specialty')} value={GetShowLabel1(this.props.options, this.state.updateTrack && this.state.updateTrack.specialty && this.state.updateTrack.specialty.value, this.props.stateLanguageType, false, 'specialty') } />    
                     </Grid>
                     <Grid className="fillDia">
                         <MMHG name="doctor_id" label={doc_id} onChange={(e)=> this.props.updateEntryState(e)} value={this.state.updateTrack.Hba1c}/>    

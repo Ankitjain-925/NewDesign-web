@@ -184,6 +184,9 @@ class Index extends Component {
                 var returnData = response.data.data.returnData;
                 var signedRequest = returnData.signedRequest;
                 var url = returnData.url;
+                if(fileType ==='pdf'){
+                    fileType = 'application/pdf'
+                }
                 // Put the fileType in the headers for the upload
                 var options = {
                     headers: {
@@ -262,6 +265,16 @@ class Index extends Component {
             }
         })
             .then((responce) => {
+                axios.put('https://api-eu.cometchat.io/v2.0/users/' + this.props.stateLoginValueAim.user.profile_id.toLowerCase(), {
+                    avatar: this.state.uploadedimage
+                }, {
+                    headers: {
+                        'appId': '220824e717b58ac',
+                        'apiKey': 'fc177a4e50f38129dca144f6270b91bfc9444736',
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    }
+                }).then((res) => { })
                 var find1 = this.state.uploadedimage;
                 this.SettingImage(find1);
             })

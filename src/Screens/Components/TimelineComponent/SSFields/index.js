@@ -15,6 +15,7 @@ import * as translationRS from '../../../../translations/rs.json';
 import * as translationSW from '../../../../translations/sw.json';
 import * as translationCH from '../../../../translations/ch.json';
 import * as translationNL from '../../../../translations/nl.json';
+import {GetShowLabel1} from '../../GetMetaData/index.js';
 
 class Index extends Component {
     constructor(props) {
@@ -83,7 +84,7 @@ class Index extends Component {
             <div>
                 {!this.props.visibility && <Grid className="cnfrmDiaMain">
                     <Grid className="fillDia">
-                        <SelectField name="smoking_status" label={smoking_status} option={this.state.options} onChange={(e)=> this.updateEntryState1(e, 'smoking_status')} value={this.state.updateTrack.smoking_status} />
+                        <SelectField name="smoking_status" label={smoking_status} option={this.state.options} onChange={(e)=> this.updateEntryState1(e, 'smoking_status')} value={GetShowLabel1(this.props.options, this.state.updateTrack && this.state.updateTrack.smoking_status && this.state.updateTrack.smoking_status.value, this.props.stateLanguageType, false,'anamnesis')} />
                     </Grid>
                     {(!this.state.updateTrack.smoking_status || (this.state.updateTrack.smoking_status && this.state.updateTrack.smoking_status.value !=='Never_smoked')) &&
                     <div>

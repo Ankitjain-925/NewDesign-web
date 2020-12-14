@@ -135,7 +135,7 @@ class Index extends Component {
                         </Grid>
 
                         <Grid className="bp_hg addSpc">
-                            <label>{item.smoking_status && GetShowLabel1(this.props.Allsmoking_status, item.smoking_status.value, this.props.stateLanguageType, true)} <span></span></label>
+                            <label>{item.smoking_status && GetShowLabel1(this.props.Allsmoking_status, item.smoking_status.value, this.props.stateLanguageType, true, 'anamnesis')} <span></span></label>
                             {/* <p>Normal</p> */}
                         </Grid>
 
@@ -162,7 +162,7 @@ class Index extends Component {
                                         <Grid item xs={12} md={6} className="bloodPreBy">
                                             <Grid container direction="row">
                                                 <Grid item xs={5} md={5}><label>{smoking_status}</label></Grid>
-                                                <Grid item xs={7} md={7}><span>{item.smoking_status && GetShowLabel1(this.props.Allsmoking_status, item.smoking_status.value, this.props.stateLanguageType, true)}</span></Grid>
+                                                <Grid item xs={7} md={7}><span>{item.smoking_status && GetShowLabel1(this.props.Allsmoking_status, item.smoking_status.value, this.props.stateLanguageType, true, 'anamnesis')}</span></Grid>
                                                 <Grid className="clear"></Grid>
                                             </Grid>
                                         </Grid>

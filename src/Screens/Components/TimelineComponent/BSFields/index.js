@@ -8,6 +8,7 @@ import FileUploader from './../../FileUploader/index';
 import ShowHide from './../../ShowHide/index';
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
+import {GetShowLabel1} from "../../GetMetaData/index.js";
 import { LanguageFetchReducer } from './../../../actions';
 import * as translationEN from "../../../../translations/en.json";
 import * as translationDE from '../../../../translations/de.json';
@@ -103,7 +104,7 @@ class Index extends Component {
                         </Grid>
                     </Grid>
                     <Grid className="fillDia">
-                        <SelectByTwo name="situation" label={situation} options={this.state.options} onChange={(e)=> this.updateEntryState1(e, 'situation')} value={this.state.updateTrack.feelings}/>    
+                        <SelectByTwo name="situation" label={situation} options={this.state.options} onChange={(e)=> this.updateEntryState1(e, 'situation')} value={ GetShowLabel1(this.props.options, this.state.updateTrack && this.state.updateTrack.situation && this.state.updateTrack.situation.value, this.props.stateLanguageType)}/>    
                     </Grid>
                   
                     <Grid className="attchForms attchImg">

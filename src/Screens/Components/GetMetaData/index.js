@@ -26,11 +26,24 @@ export function GetShowLabel (data, language, name=''){
     }
     else return;
 }
-export function GetShowLabel1 (list, data, language, forview=false){
+export function GetShowLabel1 (list, data, language, forview=false, comesFrom=''){
     if(list && data && data!=='undefined' && language)
     {
         var filterData = list && list.length>0 && list.filter((d)=>{
-            return d.value && d.value.toLowerCase().replace(/\s/g,"") === data && data.toLowerCase().replace(/\s/g,"")
+            if(d.value && data){
+                if(comesFrom==='organ'){
+                    return  d.value.replace(/\s/g,"") === data.replace(/\s/g,"")
+                }
+                if(comesFrom==='anamnesis'){
+                    return  d.value.replace(/\s/g,"") === data && data.replace(/\s/g,"")
+                }
+                if(comesFrom==='specialty' || comesFrom==='lpr'){
+                    return d.value.toLowerCase() === data.toLowerCase().replace(/\s/g,"_")
+                }
+                else{
+                    return d.value && d.value.toLowerCase().replace(/\s/g,"") === data && data.toLowerCase().replace(/\s/g,"")
+                }  
+            } 
         });
         if(filterData && filterData.length>0){
             var e = filterData[0]
@@ -38,7 +51,7 @@ export function GetShowLabel1 (list, data, language, forview=false){
             if(forview){
                 return e.label;
             }
-            return filterData[0];
+            return filterData[0]; 
         }  
     }
     else return;

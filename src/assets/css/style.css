@@ -3990,6 +3990,7 @@ button.aboutTabsIner {
 .profilePkgIner2 {
     padding: 22px 28px;
     min-height: 150vh;
+    padding-bottom: 122px;
 }
 .profileInfoDate .react-date-picker {
     display: block !important;
@@ -7034,6 +7035,7 @@ a.diaCDActv {
     width: 100%;
     outline: none;
     padding: 5px 8px;
+    min-height: 38px;
 }
 .emrgncyFrmInpt {
     margin-bottom: 8px;
@@ -13092,6 +13094,9 @@ a.academy_ul ul li img {
 
 
 /*Added By ankita*/
+.darkTheme .jurnlTatent label span{
+    color: #fff!important;
+}
 a.profilePic2 span,a.profilePic2 img {
     cursor: pointer;
 }
@@ -14756,7 +14761,9 @@ input#graduationYear {
     border: 1px solid #BFC1C1 !important;
 }
 .homeBgDrk .ant-picker input {
-    color: #BFC1C1 !important;
+    color: #bfc1c1!important;
+    background: transparent !important;
+    border: none !important;
 }
 .profileInfoDate a {
     background: transparent !important;
@@ -15219,4 +15226,33 @@ a.clsSltCal {
   .onlineCoursesList{
     padding-left: 0px !important;
   }
+}
+.getCalBnr .rbc-day-slot .rbc-event{
+    width: 100% !important;
+    height: initial !important;
+    padding: 1px 2px 0px;
+    flex-flow: initial !important;
+    min-height: initial !important;
+}
+.getCalBnr .rbc-event-content span.trigger{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.getCalBnr .rbc-event-content p.calendar-cont{
+    margin-right: 2px;
+}
+.trstmkFmlyDoc .MuiGrid-grid-md-5{
+    display: flex;
+}
+@media (max-width: 468px){
+    .ant-picker-dropdown .ant-picker-range-wrapper.ant-picker-date-range-wrapper{
+        min-width: initial !important;
+    }
+    .ant-picker-dropdown .ant-picker-panel-container{
+        width: 100% !important;
+    }
+    .ant-picker-dropdown .ant-picker-panel-container .ant-picker-panels{
+        display: inline-block !important;
+    }
 }

@@ -348,9 +348,9 @@ class Index extends Component {
     }
     getOrgans=(optionData)=>{
         var rhesus = [];
-        optionData = optionData.split(", ")
+        optionData = optionData.split(",")
         rhesus = optionData.map((item) => {
-            return GetShowLabel1(this.state.tissue, item, this.props.stateLanguageType, true)
+            return GetShowLabel1(this.state.tissue, item, this.props.stateLanguageType, true, 'organ')
         }) 
         return rhesus.join(', ');
         

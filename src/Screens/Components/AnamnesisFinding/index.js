@@ -6,6 +6,7 @@ import NotesEditor from './../Editor/index';
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { LanguageFetchReducer } from '../../actions';
+import {GetShowLabel1} from "../GetMetaData/index.js";
 import * as translationEN from "../../../translations/en.json"
 import * as translationDE from '../../../translations/de.json';
 import * as translationPT from '../../../translations/pt.json';
@@ -123,17 +124,18 @@ class AnamnesisFinding extends Component {
                     <Select
                         onChange={(e) => this.onFieldChange(e, 0)}
                         options={this.state.options}
+                        value={GetShowLabel1(this.state.options, itm && itm.title && itm.title.value, this.props.stateLanguageType, false, 'anamnesis')}
                         name="title"
                         isSearchable={false}
                         className="mr_sel"
                     />
-                    <NotesEditor name="notes" label={BodySchemeNotes}  onChange={(e) => this.onFieldChangeNote(e, 0)}  /> 
+                    <NotesEditor name="notes" value={itm.notes || ''} label={BodySchemeNotes}  onChange={(e) => this.onFieldChangeNote(e, 0)}  /> 
                     <Grid className="consumeAt"><p onClick={this.onAddFiled}>+ {addtextentry}</p></Grid>
                     </Grid>
                 : 
                 <Grid>
                     <Select
-                        value={itm.title}
+                        value={GetShowLabel1(this.state.options, itm && itm.title && itm.title.value, this.props.stateLanguageType, false, "anamnesis")}
                         onChange={(e) => this.onFieldChange(e, index)}
                         options={this.state.options}
                         name="title"

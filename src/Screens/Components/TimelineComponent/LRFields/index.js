@@ -8,6 +8,7 @@ import SelectField from './../../Select/index';
 import TimeFormat from './../../TimeFormat/index';
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
+import {GetShowLabel1} from "../../GetMetaData/index.js";
 import { LanguageFetchReducer } from './../../../actions';
 import * as translationEN from "../../../../translations/en.json";
 import * as translationDE from '../../../../translations/de.json';
@@ -97,7 +98,7 @@ class Index extends Component {
                         <MMHG name="lower_limit" Unit= "mg/dl" label={lwr_limit}  onChange={(e)=> this.props.updateEntryState(e)} value={this.state.updateTrack.lower_limit} />    
                     </Grid>
                     <Grid className="fillDia">
-                        <SelectField name="lab_parameter" label={lab_parameter} option={this.state.lrpEnglish} onChange={(e)=> this.updateEntryState1(e, 'lab_parameter')} value={this.state.updateTrack.lab_parameter} />    
+                        <SelectField name="lab_parameter" label={lab_parameter} option={this.state.lrpEnglish} onChange={(e)=> this.updateEntryState1(e, 'lab_parameter')} value={GetShowLabel1(this.props.lrpEnglish, this.state.updateTrack && this.state.updateTrack.lab_parameter && this.state.updateTrack.lab_parameter.value, this.props.stateLanguageType,false,'lpr')} />    
                     </Grid>
                     <Grid className="fillDia">
                         <Grid className="rrSysto">

@@ -7,6 +7,7 @@ import ShowHide from './../../ShowHide/index';
 import NotesEditor from './../../Editor/index';
 import PainPoint from './../../PointPain/index';
 import SelectByTwo from './../../SelectbyTwo/index';
+import {GetShowLabel1} from "../../GetMetaData/index.js";
 import PainIntensity from './../../PainIntansity/index';
 import Condition  from './../../Condition/index';
 import { withRouter } from "react-router-dom";
@@ -109,10 +110,10 @@ class Index extends Component {
                         <FileUploader name="UploadTrackImageMulti" comesFrom="journal"isMulti={true} fileUpload={this.props.FileAttachMulti} />
                     </Grid>
                     <Grid className="fillDia">
-                        <SelectByTwo name="pain_type" label={pain_type} options={this.state.options2} onChange={(e) => this.updateEntryState1(e, 'pain_type')} value={this.state.updateTrack.pain_type} />
+                        <SelectByTwo name="pain_type" label={pain_type} options={this.state.options2} onChange={(e) => this.updateEntryState1(e, 'pain_type')} value={ GetShowLabel1(this.props.options2, this.state.updateTrack && this.state.updateTrack.pain_type && this.state.updateTrack.pain_type.value, this.props.stateLanguageType)} />
                     </Grid>
                     <Grid className="fillDia">
-                        <SelectField name="pain_quality" label={pain_quality} option={this.state.options} onChange={(e) => this.updateEntryState1(e, 'pain_quality')} value={this.state.updateTrack.pain_quality} />
+                        <SelectField name="pain_quality" label={pain_quality} option={this.state.options} onChange={(e) => this.updateEntryState1(e, 'pain_quality')} value={GetShowLabel1(this.props.options, this.state.updateTrack && this.state.updateTrack.pain_quality && this.state.updateTrack.pain_quality.value, this.props.stateLanguageType)} />
                     </Grid>
                 </Grid>}
 
