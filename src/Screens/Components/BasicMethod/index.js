@@ -153,6 +153,12 @@ export function GetUrlImage (find){
         })
     }
 }
+export function GetUrlImage1 (find){
+    if(find)
+    {
+       window.open(find, '_blank');
+    }
+}
 export function capitalizeFirstLetter(string){
     if (!string) return '';
     let st = string.toLowerCase();

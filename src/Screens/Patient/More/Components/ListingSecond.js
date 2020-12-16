@@ -25,6 +25,8 @@ import * as translationRS from '../../../../translations/rs.json';
 import * as translationSW from '../../../../translations/sw.json';
 import * as translationCH from '../../../../translations/ch.json';
 import * as translationNL from '../../../../translations/nl.json';
+import * as translationFR from '../../../../translations/fr.json';
+import * as translationAR from '../../../../translations/ar.json';
 const specialistOptions = [
     { value: 'Specialist1', label: 'Specialist1' },
     { value: 'Specialist2', label: 'Specialist2' },
@@ -168,7 +170,13 @@ class Index extends Component {
             case "sw":
                 translate = translationSW.text
                 break;
-            case "default":
+            case "fr":
+                translate = translationFR.text
+                break;
+            case "ar":
+                translate = translationAR.text
+                break;
+            default:
                 translate = translationEN.text
         }
         let { r_u_sure_update_inquiry, r_u_sure_cancel_inquiry, cancel_inquiry, yes, no, update_inquiry } = translate
@@ -290,7 +298,13 @@ class Index extends Component {
             case "sw":
                 translate = translationSW.text
                 break;
-            case "default":
+            case "fr":
+                translate = translationFR.text
+                break;
+            case "ar":
+                translate = translationAR.text
+                break;
+            default:
                 translate = translationEN.text
         }
         let { req_updated_successfully, about, sent_on, capab_Doctors, status, secnd_openion, New, inquiry, plz_upload_png_jpg, doc_require_for_second_openion, share_health_status, share_ur_jounral_status, share_health_status_info_from_journal, see_list_shared_info,

@@ -46,7 +46,7 @@ class PointPain extends Component {
 
     }
     render() {
-        let translate;
+        let translate={};
         switch (this.props.stateLanguageType) {
               case "en":
                   translate = translationEN.text
@@ -72,7 +72,7 @@ class PointPain extends Component {
               case "sw":
                   translate = translationSW.text
                   break;
-              case "default":
+              default:
                   translate = translationEN.text
           }
           let { anamnesis, Selectentrytype, blood_pressure,blood_sugar,condition_pain, covid_diary, diagnosis, diary, doc_visit,family_anmnies, file_uplod, hosp_visit,

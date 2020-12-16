@@ -75,7 +75,7 @@ class Index extends Component {
     render() {
         const { value } = this.state;
         const { selectedOption } = this.state;
-        let translate;
+        let translate={};
       switch (this.props.stateLanguageType) {
             case "en":
                 translate = translationEN.text
@@ -101,7 +101,7 @@ class Index extends Component {
             case "sw":
                 translate = translationSW.text
                 break;    
-            case "default":
+            default:
                 translate = translationEN.text
         }
         let { journal, appointments, vdo_calls, my_profile, my_doc, trackers, what_diabetes, online_course, jrnl_archive, extra_srvc, secnd_openion, emrgancy_patient_data, blockchain_access_log,

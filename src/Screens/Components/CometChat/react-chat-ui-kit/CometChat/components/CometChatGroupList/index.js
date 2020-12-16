@@ -17,6 +17,8 @@ import * as translationRS from "../../../../../.../../../../translations/rs.json
 import * as translationNL from "../../../../../.../../../../translations/nl.json";
 import * as translationCH from "../../../../../.../../../../translations/ch.json";
 import * as translationSW from "../../../../../.../../../../translations/sw.json";
+import * as translationFR from "../../../../../.../../../../translations/fr.json";
+import * as translationAR from "../../../../../.../../../../translations/ar.json";
 import "./style.scss";
 
 class CometChatGroupList extends React.Component {
@@ -229,7 +231,7 @@ class CometChatGroupList extends React.Component {
   }
 
   render() {
-    let translate;
+    let translate={};
     switch (this.props.lan) {
           case "en":
               translate = translationEN.text
@@ -255,7 +257,13 @@ class CometChatGroupList extends React.Component {
           case "sw":
               translate = translationSW.text
               break;
-          case "default":
+          case "fr":
+              translate = translationFR.text
+              break;
+          case "ar":
+              translate = translationAR.text
+                break;
+          default:
               translate = translationEN.text
       }
       let { Search , Loading } = translate;

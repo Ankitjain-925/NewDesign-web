@@ -27,6 +27,8 @@ import * as translationRS from '../../../translations/rs.json';
 import * as translationSW from '../../../translations/sw.json';
 import * as translationCH from '../../../translations/ch.json';
 import * as translationNL from '../../../translations/nl.json';
+import * as translationFR from '../../../translations/fr.json';
+import * as translationAR from '../../../translations/ar.json';
 import Notification from "../../Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 
 class Index extends Component {
@@ -114,7 +116,7 @@ class Index extends Component {
 
     //Confirm popup for Delete
     DeleteTrack = (deletekey) => {
-        let translate;
+        let translate={};
         switch (this.props.stateLanguageType) {
             case "en":
                 translate = translationEN.text
@@ -140,7 +142,13 @@ class Index extends Component {
             case "sw":
                 translate = translationSW.text
                 break;
-            case "default":
+            case "fr":
+                translate = translationFR.text
+                break;
+            case "ar":
+                translate = translationAR.text
+                break;
+            default:
                 translate = translationEN.text
         }
         let { delete_item, do_u_really_want_delete_item, r_u_sure_remove_doctor, yes, no } = translate
@@ -169,7 +177,7 @@ class Index extends Component {
     }
     //Confirm popup for archive
     ArchiveTrack = (data) => {
-        let translate;
+        let translate={};
         switch (this.props.stateLanguageType) {
             case "en":
                 translate = translationEN.text
@@ -195,7 +203,13 @@ class Index extends Component {
             case "sw":
                 translate = translationSW.text
                 break;
-            case "default":
+            case "fr":
+                translate = translationFR.text
+                break;
+            case "ar":
+                translate = translationAR.text
+                break;
+            default:
                 translate = translationEN.text
         }
         let { archive_item, do_u_really_want_archive_item, r_u_sure_remove_doctor, yes, no } = translate
@@ -330,7 +344,7 @@ class Index extends Component {
         if (stateLoginValueAim.user === 'undefined' || stateLoginValueAim.token === 450 || stateLoginValueAim.token === 'undefined' || stateLoginValueAim.user.type !== 'pharmacy' || !this.props.verifyCode || !this.props.verifyCode.code) {
             return (<Redirect to={'/'} />);
         }
-        let translate;
+        let translate={};
         switch (this.props.stateLanguageType) {
             case "en":
                 translate = translationEN.text
@@ -356,7 +370,13 @@ class Index extends Component {
             case "sw":
                 translate = translationSW.text
                 break;
-            case "default":
+            case "fr":
+                translate = translationFR.text
+                break;
+            case "ar":
+                translate = translationAR.text
+                break;
+            default:
                 translate = translationEN.text
         }
         let { prescriptions, Prescriptionisarchived, prescription, fors, Prescriptionisdeleted, Prescriptionishandedtopatient, short_msg, rcvd_from_doctor, handled, recved_on, Patient, archive, Delete, see_details, capab_Doctors,
@@ -403,7 +423,7 @@ class Index extends Component {
                                                 <Tbody>
                                                     {this.state.Allpre && this.state.Allpre.length > 0 && this.state.Allpre.map((item) => (
                                                         <Tr>
-                                                            <Td>{getDate(item.datetime_on)}</Td>
+                                                            <Td>{getDate(item.datetime_on, this.props.settings && this.props.settings.setting && this.props.settings.setting.date_format)}</Td>
                                                             <Td className="presImg">
                                                                 <img src={require('../../../assets/images/dr1.jpg')} alt="" title="" />
                                                                 {item.patient_name && item.patient_name}

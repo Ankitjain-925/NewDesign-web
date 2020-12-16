@@ -22,6 +22,8 @@ import * as translationRS from '../../../../translations/rs.json';
 import * as translationSW from '../../../../translations/sw.json';
 import * as translationCH from '../../../../translations/ch.json';
 import * as translationNL from '../../../../translations/nl.json';
+import * as translationFR from '../../../../translations/fr.json';
+import * as translationAR from '../../../../translations/ar.json';
 HC_more(Highcharts); //init modules
 
 class RightManage extends Component {
@@ -101,7 +103,7 @@ class RightManage extends Component {
     }
 
     getOptions = (current_Graph) => {
-        let translate;
+        let translate={};
         switch (this.props.stateLanguageType) {
             case "en":
                 translate = translationEN.text
@@ -124,10 +126,16 @@ class RightManage extends Component {
             case "ch":
                 translate = translationCH.text
                 break;
-            case "sw":
+case "sw":
                 translate = translationSW.text
                 break;
-            case "default":
+            case "fr":
+                translate = translationFR.text
+                break;
+            case "ar":
+                translate = translationAR.text
+                break;
+            default:
                 translate = translationEN.text
         }
         let { blood_pressure, date, heart_frequency, lwr_limit, upr_limit, Creatinine, RR_diastolic,
@@ -524,7 +532,7 @@ class RightManage extends Component {
     }
 
     render() {
-        let translate;
+        let translate={};
         switch (this.props.stateLanguageType) {
             case "en":
                 translate = translationEN.text
@@ -547,10 +555,16 @@ class RightManage extends Component {
             case "ch":
                 translate = translationCH.text
                 break;
-            case "sw":
+case "sw":
                 translate = translationSW.text
                 break;
-            case "default":
+            case "fr":
+                translate = translationFR.text
+                break;
+            case "ar":
+                translate = translationAR.text
+                break;
+            default:
                 translate = translationEN.text
         }
         let {open, blood_pressure, visible, feeling, show, date, time, hide, until, archive, rr_systolic, view_all, vdo_call, office_visit, consultancy, appointments,

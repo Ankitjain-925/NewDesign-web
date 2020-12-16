@@ -13,6 +13,8 @@ import * as translationRS from '../../../../translations/rs.json';
 import * as translationSW from '../../../../translations/sw.json';
 import * as translationCH from '../../../../translations/ch.json';
 import * as translationNL from '../../../../translations/nl.json';
+import * as translationFR from '../../../../translations/fr.json';
+import * as translationAR from '../../../../translations/ar.json';
 const { RangePicker } = DatePicker;
 
 const options = [
@@ -77,7 +79,7 @@ class FilterSec extends Component {
     }
 
     languageChangeState() {
-        let translate;
+        let translate={};
         switch (this.props.stateLanguageType) {
             case "en":
                 translate = translationEN.text
@@ -100,10 +102,16 @@ class FilterSec extends Component {
             case "ch":
                 translate = translationCH.text
                 break;
-            case "sw":
+case "sw":
                 translate = translationSW.text
                 break;
-            case "default":
+            case "fr":
+                translate = translationFR.text
+                break;
+            case "ar":
+                translate = translationAR.text
+                break;
+            default:
                 translate = translationEN.text
         }
         let { diary, diagnosis, family_anmnies, covid_diary, secnd_openion, sick_cert, smoking_status, weight_bmi, vaccination, doc_visit, marcumar_pass, medication, prescription, file_uplod, hosp_visit, lab_result, capab_Doctors1, capab_Patients1, Nurse1, anamnesis, blood_pressure, blood_sugar, condition_pain } = translate
@@ -140,7 +148,7 @@ class FilterSec extends Component {
 
 
     render() {
-        let translate;
+        let translate={};
         switch (this.props.stateLanguageType) {
             case "en":
                 translate = translationEN.text
@@ -163,10 +171,16 @@ class FilterSec extends Component {
             case "ch":
                 translate = translationCH.text
                 break;
-            case "sw":
+case "sw":
                 translate = translationSW.text
                 break;
-            case "default":
+            case "fr":
+                translate = translationFR.text
+                break;
+            case "ar":
+                translate = translationAR.text
+                break;
+            default:
                 translate = translationEN.text
         }
         let { type, user_type_all, clear_filter, StartDate, EndDate, search_timeline, sort_by, dig_time, entry_time } = translate

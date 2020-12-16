@@ -39,6 +39,8 @@ import * as translationRS from '../../../translations/rs.json';
 import * as translationSW from '../../../translations/sw.json';
 import * as translationCH from '../../../translations/ch.json';
 import * as translationNL from '../../../translations/nl.json';
+import * as translationFR from '../../../translations/fr.json';
+import * as translationAR from '../../../translations/ar.json';
 import Notification from "../../Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 
 const specialistOptions = [
@@ -510,7 +512,7 @@ class Index extends Component {
             return (<Redirect to={'/'} />);
         }
 
-        let translate;
+        let translate={};
       switch (this.props.stateLanguageType) {
             case "en":
                 translate = translationEN.text
@@ -536,7 +538,13 @@ class Index extends Component {
             case "sw":
                 translate = translationSW.text
                 break;
-            case "default":
+            case "fr":
+                translate = translationFR.text
+                break;
+            case "ar":
+                translate = translationAR.text
+                break;
+            default:
                 translate = translationEN.text
         }
         let { secnd_openion, plz_upload_png_jpg,doc_require_for_second_openion, rqst_sent_succefully, specilist_and_secnd_openion,specialist, how_wuld_u_like_rcv_scnd_openion, online, home_add_mailbox, ur_profesion, questions, attachments, save_entry, sick_cert,prescriptions, sickcsrtificates, my_doc, prescription, New, r_u_tracking_medi, inquiry, select, for_sick_cert_req_doc, share_health_status_info_from_journal, share_health_status, see_list_shared_info, share_ur_jounral_status,

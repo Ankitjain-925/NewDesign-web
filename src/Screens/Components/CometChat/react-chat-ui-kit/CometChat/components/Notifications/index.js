@@ -15,6 +15,8 @@ import * as translationRS from "../../../../../.../../../../translations/rs.json
 import * as translationNL from "../../../../../.../../../../translations/nl.json";
 import * as translationCH from "../../../../../.../../../../translations/ch.json";
 import * as translationSW from "../../../../../.../../../../translations/sw.json";
+import * as translationFR from "../../../../../.../../../../translations/fr.json";
+import * as translationAR from "../../../../../.../../../../translations/ar.json";
 // import { CometChatUnified } from '../react-chat-ui-kit/CometChat'; 
 var NewM = false
 class Notification extends React.Component {
@@ -191,7 +193,7 @@ class Notification extends React.Component {
         } 
     }
     render() {
-      let translate;
+      let translate={};
     switch (this.props.stateLanguageType.stateLanguageType) {
           case "en":
               translate = translationEN.text
@@ -217,7 +219,13 @@ class Notification extends React.Component {
           case "sw":
               translate = translationSW.text
               break;
-          case "default":
+          case "fr":
+              translate = translationFR.text
+              break;
+          case "ar":
+              translate = translationAR.text
+              break;
+          default:
               translate = translationEN.text
       }
       let { there_r_the, plz_check_unread_message_in_chat, new_message_in_chat_plz_check } = translate;

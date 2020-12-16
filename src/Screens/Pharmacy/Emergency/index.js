@@ -151,7 +151,7 @@ class Index extends Component {
               case "sw":
                   translate = translationSW.text
                   break;
-              case "default":
+              default:
                   translate = translationEN.text
           }
           let { for_geting_emrgancy_data_on_a_click, view_emrgncy_data, emergancy_access_for_hospital_doc, emrgncy_data_access, patient_profile_is_not_correct, plz_accept_term_condition, imp_notice_b, this_will_trigger_following_action, send_email_to_patient_emrgancy, snd_sms_to_patient_emrgancy, snd_push_notification_to_patient_emrgancy, patient_id, I_hrwith_cnfirm_that_i_need_access_patient, emrgancy_access_for_non_connected } = translate;

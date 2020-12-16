@@ -23,7 +23,8 @@ import * as translationRS from '../../../../translations/rs.json';
 import * as translationSW from '../../../../translations/sw.json';
 import * as translationCH from '../../../../translations/ch.json';
 import * as translationNL from '../../../../translations/nl.json';
-
+import * as translationFR from '../../../../translations/fr.json';
+import * as translationAR from '../../../../translations/ar.json';
 // import * as translationDE from '../../../../../translations/de_json_proofread_13072020.json';
 function TabContainer(props) {
     return (
@@ -113,7 +114,7 @@ class Index extends Component {
     }
 
     removePrsecription = (status, id) => {
-        let translate;
+        let translate={};
         switch (this.props.stateLanguageType) {
             case "en":
                 translate = translationEN.text
@@ -136,10 +137,16 @@ class Index extends Component {
             case "ch":
                 translate = translationCH.text
                 break;
-            case "sw":
+case "sw":
                 translate = translationSW.text
                 break;
-            case "default":
+            case "fr":
+                translate = translationFR.text
+                break;
+            case "ar":
+                translate = translationAR.text
+                break;
+            default:
                 translate = translationEN.text
         }
         let { update_inquiry, are_u_sure_remove_inquiry, yes, no,remove_inquiry } = translate;
@@ -327,7 +334,7 @@ class Index extends Component {
                     })
             }
             else {
-                let translate;
+                let translate={};
                 switch (this.props.stateLanguageType) {
                     case "en":
                         translate = translationEN.text
@@ -353,7 +360,7 @@ class Index extends Component {
                     case "sw":
                         translate = translationSW.text
                         break;
-                    case "default":
+                    default:
                         translate = translationEN.text
                 }
                 let { UploadMust, yes } = translate;
@@ -396,7 +403,7 @@ class Index extends Component {
 
     render() {
         const { success, prescData, inqstatus } = this.state;
-        let translate;
+        let translate={};
       switch (this.props.stateLanguageType) {
             case "en":
                 translate = translationEN.text
@@ -419,10 +426,16 @@ class Index extends Component {
             case "ch":
                 translate = translationCH.text
                 break;
-            case "sw":
+case "sw":
                 translate = translationSW.text
                 break;
-            case "default":
+            case "fr":
+                translate = translationFR.text
+                break;
+            case "ar":
+                translate = translationAR.text
+                break;
+            default:
                 translate = translationEN.text
         }
         let { imagePreviewUrl } = this.state;

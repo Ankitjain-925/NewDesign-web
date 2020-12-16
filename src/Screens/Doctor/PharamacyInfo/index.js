@@ -22,6 +22,9 @@ import * as translationRS from '../../../translations/rs.json';
 import * as translationSW from '../../../translations/sw.json';
 import * as translationCH from '../../../translations/ch.json';
 import * as translationNL from '../../../translations/nl.json';
+import * as translationFR from '../../../translations/fr.json';
+import * as translationAR from '../../../translations/ar.json';
+
 class Index extends Component {
     constructor(props) {
         super(props)
@@ -228,7 +231,7 @@ class Index extends Component {
                         })
                 }
                 else {
-                    let translate;
+                    let translate={};
                     switch (this.props.stateLanguageType) {
                         case "en":
                             translate = translationEN.text
@@ -254,7 +257,7 @@ class Index extends Component {
                         case "sw":
                             translate = translationSW.text
                             break;
-                        case "default":
+                        default:
                             translate = translationEN.text
                     }
                     let { UploadMust, yes } = translate;
@@ -395,7 +398,7 @@ class Index extends Component {
             $imagePreview = (<img style={{ borderRadius: "10%", maxWidth: 350, marginBottom: 10 }} src={imagePreviewUrl} />);
         }
 
-        let translate;
+        let translate={};
       switch (this.props.stateLanguageType) {
             case "en":
                 translate = translationEN.text
@@ -421,7 +424,13 @@ class Index extends Component {
             case "sw":
                 translate = translationSW.text
                 break;
-            case "default":
+            case "fr":
+                translate = translationFR.text
+                break;
+            case "ar":
+                translate = translationAR.text
+                break;
+            default:
                 translate = translationEN.text
         }
         let { Successfullyaddedtheinformation, PleaseEnterallthefield, Pleaseenterthepatientidfirst, pharma_prescription, send_prescription, send_prescription_to_pharmacy, uplod_scanned_prescription, browse, or, or_drag_here, suported_file_type_jpg_png, patient_id, Pharmacy, search_pharmacy_by_name_id, show_pharmacy_within_radious, short_msg_optional, add_this_patient_journal,send_invite } = translate;

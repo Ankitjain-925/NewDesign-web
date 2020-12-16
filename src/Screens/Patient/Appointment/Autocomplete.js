@@ -73,7 +73,7 @@ class Autocomplete extends React.Component {
       case "sw":
         translate = translationSW.text
         break;
-      case "default":
+      default:
         translate = translationEN.text
     }
     let { search_city } = translate

@@ -30,6 +30,8 @@ import * as translationRS from '../../../translations/rs.json';
 import * as translationSW from '../../../translations/sw.json';
 import * as translationCH from '../../../translations/ch.json';
 import * as translationNL from '../../../translations/nl.json';
+import * as translationFR from '../../../translations/fr.json';
+import * as translationAR from '../../../translations/ar.json';
 import StripeCheckout from 'react-stripe-checkout';
 const CURRENCY = 'USD';
 const STRIPE_PUBLISHABLE = 'pk_live_SUaxHsAUa2ebLQXAa7NoMwPQ'
@@ -69,7 +71,7 @@ class Index extends Component {
         };
     }
     handleChange = (event, value) => {
-        let translate;
+        let translate={};
         switch (this.props.stateLanguageType) {
             case "en":
                 translate = translationEN.text
@@ -95,7 +97,13 @@ class Index extends Component {
             case "sw":
                 translate = translationSW.text
                 break;
-            case "default":
+            case "fr":
+                translate = translationFR.text
+                break;
+            case "ar":
+                translate = translationAR.text
+                break;
+            default:
                 translate = translationEN.text
         }
         let { all, language_all, topic_all } = translate
@@ -106,7 +114,7 @@ class Index extends Component {
     };
 
     changeLanguageState() {
-        let translate;
+        let translate={};
         switch (this.props.stateLanguageType) {
             case "en":
                 translate = translationEN.text
@@ -132,7 +140,13 @@ class Index extends Component {
             case "sw":
                 translate = translationSW.text
                 break;
-            case "default":
+            case "fr":
+                translate = translationFR.text
+                break;
+            case "ar":
+                translate = translationAR.text
+                break;
+            default:
                 translate = translationEN.text
         }
         let { all } = translate
@@ -167,7 +181,7 @@ class Index extends Component {
 
     //for getting the all Topic
     getAlltopic = () => {
-        let translate;
+        let translate={};
         switch (this.props.stateLanguageType) {
             case "en":
                 translate = translationEN.text
@@ -193,7 +207,13 @@ class Index extends Component {
             case "sw":
                 translate = translationSW.text
                 break;
-            case "default":
+            case "fr":
+                translate = translationFR.text
+                break;
+            case "ar":
+                translate = translationAR.text
+                break;
+            default:
                 translate = translationEN.text
         }
         let { all } = translate
@@ -401,7 +421,7 @@ class Index extends Component {
 
 
     render() {
-        let translate;
+        let translate={};
         switch (this.props.stateLanguageType) {
             case "en":
                 translate = translationEN.text
@@ -427,7 +447,13 @@ class Index extends Component {
             case "sw":
                 translate = translationSW.text
                 break;
-            case "default":
+            case "fr":
+                translate = translationFR.text
+                break;
+            case "ar":
+                translate = translationAR.text
+                break;
+            default:
                 translate = translationEN.text
         }
         let { all_course, ok, pay_with_stripe, my_course, paymnt_err, paymnt_processed, topic_all, language_all, wishlist, prescriptions, appointments, cart_removed, chat_vdocall, pharmacy_access, remove, lectures, add_to_cart, cart, capab_Patients, Inquiries, emegancy_access, archive, more, my_profile, invite_doc, pharma_prescription, online_course, profile_setting, Language,

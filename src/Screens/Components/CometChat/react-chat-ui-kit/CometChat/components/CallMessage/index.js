@@ -13,10 +13,13 @@ import translationNL from "../../../../../../../translations/nl.json";
 import translationCH from "../../../../../../../translations/ch.json";
 import translationPT from "../../../../../../../translations/pt.json";
 import translationSW from "../../../../../../../translations/sw.json";
+import translationFR from "../../../../../../../translations/fr.json";
+import translationAR from "../../../../../../../translations/ar.json";
+
 const callmessage = (props) => {
     
     const getMessage = () => {
-        let translate;
+        let translate={};
         switch (props.stateLanguageType) {
             case "en":
                 translate = translationEN.text
@@ -42,7 +45,13 @@ const callmessage = (props) => {
             case "sw":
                 translate = translationSW.text
                 break;
-            case "default":
+            case "fr":
+                translate = translationFR.text
+                break;
+            case "ar":
+                translate = translationAR.text
+                break;
+            default:
                 translate = translationEN.text
         }
         let { had_miss_call_from, had_rejected_call, had_joined_call_with, had_initiated_call_with, ended_call_with, cancelled_call_with } = translate

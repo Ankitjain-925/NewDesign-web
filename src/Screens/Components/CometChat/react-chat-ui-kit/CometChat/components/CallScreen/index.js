@@ -13,7 +13,8 @@ import * as translationRS from "../../../../../.../../../../translations/rs.json
 import * as translationNL from "../../../../../.../../../../translations/nl.json";
 import * as translationCH from "../../../../../.../../../../translations/ch.json";
 import * as translationSW from "../../../../../.../../../../translations/sw.json";
-
+import * as translationFR from "../../../../../.../../../../translations/fr.json";
+import * as  translationAR from "../../../../../.../../../../translations/ar.json";
 import { CallScreenManager } from "./controller";
 import * as enums from "../../util/enums.js";
 
@@ -273,7 +274,7 @@ class CallScreen extends React.PureComponent {
           <Grid className="inCallUpr">
             <Grid>
             {this.props.lan === "en" && (
-               <h4>{translationEN.text.incomingcall}</h4>
+              <h4>{translationEN.text.incomingcall}</h4>
             )}
             {this.props.lan === "de" && (
               <h4>{translationDE.text.incomingcall}</h4>
@@ -295,6 +296,12 @@ class CallScreen extends React.PureComponent {
             )}
             {this.props.lan === "sw" && (
                <h4>{translationSW.text.incomingcall}</h4>
+            )}
+            {this.props.lan === "fr" && (
+               <h4>{translationFR.text.incomingcall}</h4>
+            )}
+            {this.props.lan === "ar" && (
+               <h4>{translationAR.text.incomingcall}</h4>
             )}
               
             </Grid>
@@ -404,6 +411,12 @@ class CallScreen extends React.PureComponent {
             )}
             {this.props.lan === "sw" && (
                <span className="ccl-call-ong-max-dur">{translationSW.text.Calling}</span>
+            )}
+             {this.props.lan === "fr" && (
+               <span className="ccl-call-ong-max-dur">{translationFR.text.Calling}</span>
+            )}
+             {this.props.lan === "ar" && (
+               <span className="ccl-call-ong-max-dur">{translationAR.text.Calling}</span>
             )}
            
             <h6 className="ccl-call-ong-max-name">

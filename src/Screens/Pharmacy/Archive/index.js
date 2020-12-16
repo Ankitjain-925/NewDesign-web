@@ -28,6 +28,8 @@ import * as translationRS from '../../../translations/rs.json';
 import * as translationSW from '../../../translations/sw.json';
 import * as translationCH from '../../../translations/ch.json';
 import * as translationNL from '../../../translations/en.json';
+import * as translationFR from '../../../translations/fr.json';
+import * as translationAR from '../../../translations/ar.json';
 import Notification from "../../Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 class Index extends Component {
     constructor(props) {
@@ -115,7 +117,7 @@ class Index extends Component {
 
     //Confirm popup for Delete
     DeleteTrack = (deletekey) => {
-        let translate;
+        let translate={};
         switch (this.props.stateLanguageType) {
             case "en":
                 translate = translationEN.text
@@ -141,7 +143,13 @@ class Index extends Component {
             case "sw":
                 translate = translationSW.text
                 break;
-            case "default":
+            case "fr":
+                translate = translationFR.text
+                break;
+            case "ar":
+                translate = translationAR.text
+                break;
+            default:
                 translate = translationEN.text
         }
         let { delete_item, do_u_really_want_delete_item, r_u_sure_remove_doctor, yes, no}= translate
@@ -170,7 +178,7 @@ class Index extends Component {
     }
     //Confirm popup for Dearchive
     ArchiveTrack=(data)=>{
-        let translate;
+        let translate={};
         switch (this.props.stateLanguageType) {
             case "en":
                 translate = translationEN.text
@@ -196,7 +204,13 @@ class Index extends Component {
             case "sw":
                 translate = translationSW.text
                 break;
-            case "default":
+            case "fr":
+                translate = translationFR.text
+                break;
+            case "ar":
+                translate = translationAR.text
+                break;
+            default:
                 translate = translationEN.text
         }
         let { archive_item, do_u_really_want_archive_item, r_u_sure_remove_doctor, yes, no}= translate
@@ -331,7 +345,7 @@ class Index extends Component {
               case "sw":
                   translate = translationSW.text
                   break;
-              case "default":
+              default:
                   translate = translationEN.text
           }
           let { Prescriptionisdeleted, PrescriptionisDearchived, de_archive, Delete, search_by_patient_id_name_doc, recved_on, archive, fors, prescriptions,prescription, Patient, capab_Doctors } = translate;

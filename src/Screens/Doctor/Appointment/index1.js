@@ -31,6 +31,8 @@ import * as translationPT from '../../../translations/pt';
 import * as translationRS from '../../../translations/rs';
 import * as translationNL from '../../../translations/nl';
 import * as translationSW from '../../../translations/sw';
+import * as translationFR from '../../../translations/fr';
+import * as translationAR from '../../../translations/ar';
 import Loader from './../../Components/Loader/index.js';
 import Notification from "../../Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 
@@ -337,7 +339,7 @@ class Index extends Component {
     }
 
     updateAppointment(status, id, data) {
-        let translate;
+        let translate={};
         switch (this.props.stateLanguageType) {
             case "en":
                 translate = translationEN.text
@@ -363,7 +365,13 @@ class Index extends Component {
             case "sw":
                 translate = translationSW.text
                 break;
-            case "default":
+            case "fr":
+                translate = translationFR.text
+                break;
+            case "ar":
+                translate = translationAR.text
+                break;
+            default:
                 translate = translationEN.text
         }
         let { r_u_sure_want_book_appointment, yes, no } = translate;
@@ -625,7 +633,7 @@ class Index extends Component {
         placement,
         event
     }) => {
-        let translate;
+        let translate={};
         switch (this.props.stateLanguageType) {
             case "en":
                 translate = translationEN.text
@@ -648,10 +656,16 @@ class Index extends Component {
             case "ch":
                 translate = translationCH.text
                 break;
-            case "sw":
+case "sw":
                 translate = translationSW.text
                 break;
-            case "default":
+            case "fr":
+                translate = translationFR.text
+                break;
+            case "ar":
+                translate = translationAR.text
+                break;
+            default:
                 translate = translationEN.text
         }
         let { DetailsQuestions } = translate
@@ -768,7 +782,7 @@ class Index extends Component {
     render() {
         const { appoinmentSelected, myEventsList, newAppoinments, clashtime } = this.state;
         const { stateLoginValueAim, Doctorsetget } = this.props;
-        let translate;
+        let translate={};
         switch (this.props.stateLanguageType) {
             case "en":
                 translate = translationEN.text
@@ -791,10 +805,16 @@ class Index extends Component {
             case "ch":
                 translate = translationCH.text
                 break;
-            case "sw":
+case "sw":
                 translate = translationSW.text
                 break;
-            case "default":
+            case "fr":
+                translate = translationFR.text
+                break;
+            case "ar":
+                translate = translationAR.text
+                break;
+            default:
                 translate = translationEN.text
         }
         let { holiday, appointments, new_rqst, time_slot_alredy_booke_calender, office_visit, vdo_call, Details,

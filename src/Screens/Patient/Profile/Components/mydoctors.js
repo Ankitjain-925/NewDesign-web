@@ -21,7 +21,8 @@ import * as translationRS from '../../../../translations/rs.json';
 import * as translationSW from '../../../../translations/sw.json';
 import * as translationCH from '../../../../translations/ch.json';
 import * as translationNL from '../../../../translations/nl.json';
-
+import * as translationFR from '../../../../translations/fr.json';
+import * as translationAR from '../../../../translations/ar.json';
 var doctorArray = [];
 
 class Index extends Component {
@@ -220,7 +221,7 @@ class Index extends Component {
 
     //For remove the doctor in the trusted Doctor
     removeDoctor = (doctor) => {
-        let translate;
+        let translate={};
         switch (this.props.stateLanguageType) {
             case "en":
                 translate = translationEN.text
@@ -246,7 +247,13 @@ class Index extends Component {
             case "sw":
                 translate = translationSW.text
                 break;
-            case "default":
+            case "fr":
+                translate = translationFR.text
+                break;
+            case "ar":
+                translate = translationAR.text
+                break;
+            default:
                 translate = translationEN.text
         }
         let { remove, capab_Doctors, r_u_sure_remove_doctor, yes, no}= translate
@@ -469,7 +476,7 @@ class Index extends Component {
             width: '100%'
         };
 
-        let translate;
+        let translate={};
         switch (this.props.stateLanguageType) {
             case "en":
                 translate = translationEN.text
@@ -495,7 +502,13 @@ class Index extends Component {
             case "sw":
                 translate = translationSW.text
                 break;
-            case "default":
+            case "fr":
+                translate = translationFR.text
+                break;
+            case "ar":
+                translate = translationAR.text
+                break;
+            default:
                 translate = translationEN.text
         }
         let { select_family_doc, family_doc, visible_emergancy, doc_added_succefully, New, make_sure_family_doc, add_a_family_doc, trusted_doc,

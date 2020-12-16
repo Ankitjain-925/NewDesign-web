@@ -37,7 +37,7 @@ class Pain extends Component {
     }
     
     render() {
-        let translate;
+        let translate={};
         switch (this.props.stateLanguageType) {
               case "en":
                   translate = translationEN.text
@@ -63,7 +63,7 @@ class Pain extends Component {
               case "sw":
                   translate = translationSW.text
                   break;
-              case "default":
+              default:
                   translate = translationEN.text
           }
           let { very_severy, no_pain, pain_intensity, warst_p_p, pain, Mild, Moderate, Servere} = translate;

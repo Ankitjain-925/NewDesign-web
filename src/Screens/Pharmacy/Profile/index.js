@@ -34,6 +34,8 @@ import translationSW from "../../../translations/sw.json"
 import translationPT from "../../../translations/pt.json"
 import translationNL from "../../../translations/nl.json"
 import translationRS from "../../../translations/rs.json"
+import translationFR from "../../../translations/fr.json"
+import translationAR from "../../../translations/ar.json"
 import {GetLanguageDropdown} from "../../Components/GetMetaData/index.js";
 
 function TabContainer(props) {
@@ -123,7 +125,7 @@ class Index extends Component {
         if (stateLoginValueAim.user === 'undefined' || stateLoginValueAim.token === 450 || stateLoginValueAim.token === 'undefined' || stateLoginValueAim.user.type !== 'pharmacy' ||  !this.props.verifyCode || !this.props.verifyCode.code ) {
             return (<Redirect to={'/'} />);
         }
-        let translate;
+        let translate={};
         switch (this.props.stateLanguageType) {
             case "en":
                 translate = translationEN.text
@@ -149,7 +151,13 @@ class Index extends Component {
             case "sw":
                 translate = translationSW.text
                 break;
-            case "default":
+            case "fr":
+                translate = translationFR.text
+                break;
+            case "ar":
+                translate = translationAR.text
+                break;
+            default:
                 translate = translationEN.text
         }
         let { my_profile, Security, date_time, kyc } = translate;

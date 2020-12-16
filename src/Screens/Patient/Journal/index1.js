@@ -62,7 +62,8 @@ import * as translationRS from '../../../translations/rs.json';
 import * as translationSW from '../../../translations/sw.json';
 import * as translationCH from '../../../translations/ch.json';
 import * as translationNL from '../../../translations/nl.json';
-
+import * as translationFR from '../../../translations/fr.json';
+import * as translationAR from '../../../translations/ar.json';
 import DownloadFullTrack from "../../Components/DownloadFullTrack/index";
 var Datas = [];
 class Index extends Component {
@@ -219,7 +220,7 @@ class Index extends Component {
 
     //Modal Open on Archive the Journal
     ArchiveTrack=(data)=>{
-        let translate;
+        let translate={};
     switch (this.props.stateLanguageType) {
         case "en":
             translate = translationEN.text
@@ -245,7 +246,7 @@ class Index extends Component {
         case "sw":
             translate = translationSW.text
             break;
-        case "default":
+        default:
             translate = translationEN.text
     }
     let { archive_item, ok, do_u_really_want_archive_item, yes, no } = translate;
@@ -275,7 +276,7 @@ class Index extends Component {
     }
     //Delete the perticular track confirmation box
     DeleteTrack = (deletekey) => {
-        let translate;
+        let translate={};
     switch (this.props.stateLanguageType) {
         case "en":
             translate = translationEN.text
@@ -301,7 +302,7 @@ class Index extends Component {
         case "sw":
             translate = translationSW.text
             break;
-        case "default":
+        default:
             translate = translationEN.text
     }
     let { delete_item, ok, do_u_really_want_delete_item, yes, no } = translate;
@@ -954,7 +955,7 @@ class Index extends Component {
         if (stateLoginValueAim.user === 'undefined' || stateLoginValueAim.token === 450 || stateLoginValueAim.token === 'undefined' || stateLoginValueAim.user.type !== 'patient' || !this.props.verifyCode || !this.props.verifyCode.code) {
             return (<Redirect to={'/'} />);
         }
-        let translate;
+        let translate={};
       switch (this.props.stateLanguageType) {
             case "en":
                 translate = translationEN.text
@@ -980,7 +981,13 @@ class Index extends Component {
             case "sw":
                 translate = translationSW.text
                 break;
-            case "default":
+            case "fr":
+                translate = translationFR.text
+                break;
+            case "ar":
+                translate = translationAR.text
+                break;
+            default:
                 translate = translationEN.text
         }
         let { add_new_entry, new_entry, blood_pressure, blood_sugar, condition_pain, covid_diary, journal,

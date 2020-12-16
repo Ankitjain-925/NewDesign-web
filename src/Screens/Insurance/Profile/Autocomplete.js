@@ -47,7 +47,7 @@ class Autocomplete extends React.Component {
 }
 
   render() {
-    let translate;
+    let translate={};
     switch (this.props.stateLanguageType) {
         case "en":
             translate = translationEN.text
@@ -73,7 +73,7 @@ class Autocomplete extends React.Component {
         case "sw":
             translate = translationSW.text
             break;
-        case "default":
+        default:
             translate = translationEN.text
     }
     let {search_city} = translate

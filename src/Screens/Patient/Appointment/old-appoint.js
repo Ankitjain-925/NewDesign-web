@@ -28,6 +28,8 @@ import * as translationPT from '../../../translations/pt';
 import * as translationRS from '../../../translations/rs';
 import * as translationNL from '../../../translations/nl';
 import * as translationSW from '../../../translations/sw';
+import * as translationFR from '../../../translations/fr';
+import * as translationAR from '../../../translations/ar';
 import SPECIALITY from '../../../speciality'
 import SUBSPECIALITY from '../../../subspeciality'
 
@@ -464,7 +466,7 @@ class Index extends Component {
 
     render() {
         const { pastappointment, selectedOption, specialityData, subspecialityData, allDocData, date, doc_select, appointType, apointDay } = this.state;
-        let translate;
+        let translate={};
         switch (this.props.stateLanguageType) {
             case "en":
                 translate = translationEN.text
@@ -490,7 +492,13 @@ class Index extends Component {
             case "sw":
                 translate = translationSW.text
                 break;
-            case "default":
+            case "fr":
+                translate = translationFR.text
+                break;
+            case "ar":
+                translate = translationAR.text
+                break;
+            default:
                 translate = translationEN.text
         }
         let { slct_time_slot, holiday, Details, past_apointment, Questions, cancel, book, appointment_booked, upcming_apointment, office_visit, cancel_apointmnt, hide_past_appointment, show_past_apointment,

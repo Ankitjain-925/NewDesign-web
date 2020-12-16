@@ -38,6 +38,8 @@ import * as translationRS from '../../../translations/rs.json';
 import * as translationSW from '../../../translations/sw.json';
 import * as translationCH from '../../../translations/ch.json';
 import * as translationNL from '../../../translations/nl.json';
+import * as translationFR from '../../../translations/fr.json';
+import * as translationAR from '../../../translations/ar.json';
 import { AddFavDoc2, ConsoleCustom } from './../../Components/BasicMethod/index';
 import { Doctorset } from '../../Doctor/actions';
 import Notification from "../../Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
@@ -204,7 +206,7 @@ class Index extends Component {
 
     //Sent mail for asking personal doctor to patient
     sentmail = () => {
-        let translate;
+        let translate={};
         switch (this.props.stateLanguageType) {
             case "en":
                 translate = translationEN.text
@@ -230,7 +232,13 @@ class Index extends Component {
             case "sw":
                 translate = translationSW.text
                 break;
-            case "default":
+            case "fr":
+                translate = translationFR.text
+                break;
+            case "ar":
+                translate = translationAR.text
+                break;
+            default:
                 translate = translationEN.text
         }
         let { plz_enter_email_id_patient } = translate
@@ -306,7 +314,7 @@ class Index extends Component {
 
     //For save data of user
     saveUserData() {
-        let translate;
+        let translate={};
         switch (this.props.stateLanguageType) {
             case "en":
                 translate = translationEN.text
@@ -332,7 +340,13 @@ class Index extends Component {
             case "sw":
                 translate = translationSW.text
                 break;
-            case "default":
+            case "fr":
+                translate = translationFR.text
+                break;
+            case "ar":
+                translate = translationAR.text
+                break;
+            default:
                 translate = translationEN.text
         }
         let { plz_fill_mob_number, pswd_not_valid, email_not_valid, plz_fill_fullname_user } = translate
@@ -584,7 +598,7 @@ class Index extends Component {
     }
 
     removePatient = (patientData) => {
-        let translate;
+        let translate={};
         switch (this.props.stateLanguageType) {
             case "en":
                 translate = translationEN.text
@@ -610,7 +624,13 @@ class Index extends Component {
             case "sw":
                 translate = translationSW.text
                 break;
-            case "default":
+            case "fr":
+                translate = translationFR.text
+                break;
+            case "ar":
+                translate = translationAR.text
+                break;
+            default:
                 translate = translationEN.text
         }
         let { remove_patient, yes, r_u_sure_remove_patient, no } = translate;
@@ -704,7 +724,7 @@ class Index extends Component {
     render() {
         const { profileDetail, userDetails } = this.state;
         const { stateLoginValueAim, stateLanguageType } = this.props;
-        let translate;
+        let translate={};
         switch (this.props.stateLanguageType) {
             case "en":
                 translate = translationEN.text
@@ -730,7 +750,13 @@ class Index extends Component {
             case "sw":
                 translate = translationSW.text
                 break;
-            case "default":
+            case "fr":
+                translate = translationFR.text
+                break;
+            case "ar":
+                translate = translationAR.text
+                break;
+            default:
                 translate = translationEN.text
         }
         let { succ1, Register_email, Register_Password,pin, Register_Passwordshould, enter_pin, Register_characters, Register_letter, Register_number, Register_special, Register_Mobilenumber, Register_activate_auth, enter,

@@ -20,6 +20,8 @@ import * as translationPT from '../../../translations/pt';
 import * as translationRS from '../../../translations/rs';
 import * as translationNL from '../../../translations/nl';
 import * as translationSW from '../../../translations/sw';
+import * as translationFR from '../../../translations/fr';
+import * as translationAR from '../../../translations/ar';
 
 const createOption = (label) => ({
     label,
@@ -217,7 +219,7 @@ class Index extends Component {
         const { openInvt } = this.props
         const { inputValue, value } = this.state
 
-        let translate;
+        let translate={};
         switch (this.props.stateLanguageType) {
             case "en":
                 translate = translationEN.text
@@ -243,7 +245,13 @@ class Index extends Component {
             case "sw":
                 translate = translationSW.text
                 break;
-            case "default":
+            case "fr":
+                translate = translationFR.text
+                break;
+            case "ar":
+                translate = translationAR.text
+                break;
+            default:
                 translate = translationEN.text
         }
         let { Invitationsuccessfully, Entermessage, type_email_press_enter,send_invite, Enteremailfirst, invite_doc_to, u_can_enter_mul_email, who_would_u_like_invite, new_rqst, time_slot_alredy_booke_calender, office_visit, vdo_call, Details, Questions, or, slct_a_time, date_of_appointment } = translate

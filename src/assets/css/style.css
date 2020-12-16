@@ -13094,6 +13094,16 @@ a.academy_ul ul li img {
 
 
 /*Added By ankita*/
+.homeBgDrk a.activePageDocutmet{
+    color: #fff !important;
+    font-weight: 800 !important;
+}
+.homeBgDrk path.highcharts-label-box.highcharts-tooltip-box {
+    fill: #192020 !important;
+}
+.homeBgDrk .ant-picker-input input {
+    background: #404646 !important;
+}
 .darkTheme .jurnlTatent label span{
     color: #fff!important;
 }

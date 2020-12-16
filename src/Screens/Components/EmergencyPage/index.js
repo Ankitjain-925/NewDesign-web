@@ -361,7 +361,7 @@ class Index extends Component {
         this.allemergencyrecord();
     }
     render() {
-        let translate;
+        let translate={};
         switch (this.props.stateLanguageType) {
               case "en":
                   translate = translationEN.text
@@ -387,7 +387,7 @@ class Index extends Component {
               case "sw":
                   translate = translationSW.text
                   break;
-              case "default":
+              default:
                   translate = translationEN.text
           }
           let { another_patient_data, ur_emrgancy_access, country_code, patient_emrgancy_access, health_status, Medications, No, allergies, diagnosis, contact_other_info, family_doc, Contact, Register_Name, relation, phone, email, organ_donar_status, not_an_organ, emergency, telephone_nmbr } = translate;

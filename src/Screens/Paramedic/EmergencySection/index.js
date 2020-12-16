@@ -25,6 +25,8 @@ import * as translationRS from '../../../translations/rs.json';
 import * as translationSW from '../../../translations/sw.json';
 import * as translationCH from '../../../translations/ch.json';
 import * as translationNL from '../../../translations/nl.json';
+import * as translationFR from '../../../translations/fr.json';
+import * as translationAR from '../../../translations/ar.json';
 import Notification from "../../Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 import { Settings } from './../../Login/setting';
 
@@ -147,7 +149,13 @@ class Index extends Component {
             case "sw":
                 translate = translationSW.text
                 break;
-            case "default":
+            case "fr":
+                translate = translationFR.text
+                break;
+            case "ar":
+                translate = translationAR.text
+                break;
+            default:
                 translate = translationEN.text
         }
         let { ur_emergancy_data, view_emrgncy_data, for_geting_emrgancy_data_on_a_click, emrgncy_data_access, emrgancy_access_for_non_connected, patient_profile_not_crrect,

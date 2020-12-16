@@ -17,7 +17,8 @@ import * as translationRS from '../../../../translations/rs.json';
 import * as translationSW from '../../../../translations/sw.json';
 import * as translationCH from '../../../../translations/ch.json';
 import * as translationNL from '../../../../translations/nl.json';
-
+import * as translationFR from '../../../../translations/fr.json';
+import * as translationAR from '../../../../translations/ar.json';
 import Toggle from 'react-toggle';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
@@ -879,7 +880,7 @@ class Index extends Component {
     }
 
     render() {
-        let translate;
+        let translate={};
         const { onlineAppointments, UpDataDetails, DaysforPractices, weoffer, firstServiceData, sencondSeviceData, thirdServiceData, holidayAppointment, changeText, appoinmentError } = this.state;
 
       switch (this.props.stateLanguageType) {
@@ -907,7 +908,13 @@ class Index extends Component {
             case "sw":
                 translate = translationSW.text
                 break;
-            case "default":
+            case "fr":
+                translate = translationFR.text
+                break;
+            case "ar":
+                translate = translationAR.text
+                break;
+            default:
                 translate = translationEN.text
         }
         let { Change, password, set_working_hours,Consultancy_custom_calendar, minutes, is, we_use_authy, before_day_of_appointment, supportive_text, monday, tuseday, wednesday, copy_to_all_time, thursday, friday, saturday, sunday, vdo_call ,set_online_working_hour, plz_fill_break_timeslot_for_aapointment, plz_fill_time_duration_appointment, the_appointment_srvc_success_updated, Current, confirm_password, new_password, two_fac_auth, password_changed, new_and_confirm_pass_not_same, current_pass_not_match, plz_fill_fields,

@@ -18,6 +18,8 @@ import * as translationPT from '../../translations/pt';
 import * as translationRS from '../../translations/rs';
 import * as translationNL from '../../translations/nl';
 import * as translationSW from '../../translations/sw';
+import * as translationFR from '../../translations/fr';
+import * as translationAR from '../../translations/ar';
 import { EmergencySet } from '../Doctor/emergencyaction.js';
 import { Doctorset } from '../Doctor/actions';
 import * as actions from '../Components/CometChat/store/action';
@@ -238,7 +240,13 @@ class Index extends Component {
             case "sw":
                 translate = translationSW.text
                 break;
-            case "default":
+            case "fr":
+                translate = translationFR.text
+                break;
+            case "ar":
+                translate = translationAR.text
+                break;
+            default:
                 translate = translationEN.text
         }
         let { Log_into, Register_email, login_Password, login_Forgotpassword, DarkMode,

@@ -12,11 +12,13 @@ import translationNL from "../../../../../../../translations/nl.json";
 import translationCH from "../../../../../../../translations/ch.json";
 import translationPT from "../../../../../../../translations/pt.json";
 import translationSW from "../../../../../../../translations/sw.json";
+import translationFR from "../../../../../../../translations/fr.json";
+import translationAR from "../../../../../../../translations/ar.json";
 
 class CometChatUserDetail extends React.Component {
 
     render() {
-        let translate;
+        let translate={};
         switch (this.props.stateLanguageType) {
             case "en":
                 translate = translationEN.text
@@ -42,7 +44,13 @@ class CometChatUserDetail extends React.Component {
             case "sw":
                 translate = translationSW.text
                 break;
-            case "default":
+            case "fr":
+                translate = translationFR.text
+                break;
+            case "ar":
+                translate = translationAR.text
+                break;
+            default:
                 translate = translationEN.text
         }
         let { unblock_user, block_user, Options, details } = translate

@@ -53,7 +53,7 @@ class Index extends Component {
 
 
     render() {
-        let translate;
+        let translate={};
         switch (this.props.stateLanguageType) {
               case "en":
                   translate = translationEN.text
@@ -79,7 +79,7 @@ class Index extends Component {
               case "sw":
                   translate = translationSW.text
                   break;
-              case "default":
+              default:
                   translate = translationEN.text
           }
           let { selct_pain_area, attachments, O2Saturation, Whereyouarelocated, symp_notes, notes,

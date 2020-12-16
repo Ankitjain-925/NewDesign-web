@@ -25,6 +25,8 @@ import * as translationRS from '../../../../translations/rs.json';
 import * as translationSW from '../../../../translations/sw.json';
 import * as translationCH from '../../../../translations/ch.json';
 import * as translationNL from '../../../../translations/nl.json';
+import * as translationFR from '../../../../translations/fr.json';
+import * as translationAR from '../../../../translations/ar.json';
 // import * as translationDE from '../../../translations/de_json_proofread_13072020.json';
 function TabContainer(props) {
     return (
@@ -231,7 +233,7 @@ class Index extends Component {
                     })
             }
             else {
-                let translate;
+                let translate={};
                 switch (this.props.stateLanguageType) {
                     case "en":
                         translate = translationEN.text
@@ -257,7 +259,7 @@ class Index extends Component {
                     case "sw":
                         translate = translationSW.text
                         break;
-                    case "default":
+                    default:
                         translate = translationEN.text
                 }
                 let { UploadMust } = translate;
@@ -278,7 +280,7 @@ class Index extends Component {
 
      //Delete for the Prescriptions confirmation
      removePrsecription(status, id) {
-        let translate;
+        let translate={};
         switch (this.props.stateLanguageType) {
             case "en":
                 translate = translationEN.text
@@ -304,7 +306,13 @@ class Index extends Component {
             case "sw":
                 translate = translationSW.text
                 break;
-            case "default":
+            case "fr":
+                translate = translationFR.text
+                break;
+            case "ar":
+                translate = translationAR.text
+                break;
+            default:
                 translate = translationEN.text
         }
         let { update_inquiry, remove_inquiry, r_u_sure_update_inquiry, yes, no } = translate;
@@ -359,7 +367,7 @@ class Index extends Component {
         if (imagePreviewUrl) {
             $imagePreview = (<img style={{ borderRadius: "10%", maxWidth: 350, marginBottom: 10 }} src={imagePreviewUrl} />);
         }
-        let translate;
+        let translate={};
       switch (this.props.stateLanguageType) {
             case "en":
                 translate = translationEN.text
@@ -385,7 +393,13 @@ class Index extends Component {
             case "sw":
                 translate = translationSW.text
                 break;
-            case "default":
+            case "fr":
+                translate = translationFR.text
+                break;
+            case "ar":
+                translate = translationAR.text
+                break;
+            default:
                 translate = translationEN.text
         }
         let { prescription, see_details, accept, capab_Doctors, upload_scanned, scanned, status, sent, reject, approve, Case, sent_on, Patient, snd_patient_timeline_email, on, what_ur_profession, suported_file_type_jpg_png, Pending, not_mentioned, request, edit, Rejected, Answered, Cancelled, req_updated_successfully, sick_cert, my_doc, New, inquiry, back, inquiry, short_msg, next, previous,

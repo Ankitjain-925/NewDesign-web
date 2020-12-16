@@ -54,7 +54,8 @@ import * as translationRS from '../../../translations/rs.json';
 import * as translationSW from '../../../translations/sw.json';
 import * as translationCH from '../../../translations/ch.json';
 import * as translationNL from '../../../translations/nl.json';
-
+import * as translationFR from '../../../translations/fr.json';
+import * as translationAR from '../../../translations/ar.json';
 import { FormatListBulleted } from '@material-ui/icons';
 import PFields from "./../../Components/TimelineComponent/PFields/index.js";
 import AnamnesisFields from "./../../Components/TimelineComponent/AnamnesisFields/index.js";
@@ -230,7 +231,7 @@ class Index extends Component {
 
     //Modal Open on Archive the Journal
     ArchiveTrack = (data) => {
-        let translate;
+        let translate={};
         switch (this.props.stateLanguageType) {
             case "en":
                 translate = translationEN.text
@@ -256,7 +257,13 @@ class Index extends Component {
             case "sw":
                 translate = translationSW.text
                 break;
-            case "default":
+            case "fr":
+                translate = translationFR.text
+                break;
+            case "ar":
+                translate = translationAR.text
+                break;
+            default:
                 translate = translationEN.text
         }
         let { archive_item, ok, do_u_really_want_archive_item, yes, no } = translate;
@@ -286,7 +293,7 @@ class Index extends Component {
     }
     //Delete the perticular track confirmation box
     DeleteTrack = (deletekey) => {
-        let translate;
+        let translate={};
         switch (this.props.stateLanguageType) {
             case "en":
                 translate = translationEN.text
@@ -312,7 +319,13 @@ class Index extends Component {
             case "sw":
                 translate = translationSW.text
                 break;
-            case "default":
+            case "fr":
+                translate = translationFR.text
+                break;
+            case "ar":
+                translate = translationAR.text
+                break;
+            default:
                 translate = translationEN.text
         }
         let { delete_item, ok, do_u_really_want_delete_item, yes, no } = translate;
@@ -977,7 +990,7 @@ class Index extends Component {
 
 
     render() {
-        let translate;
+        let translate={};
         switch (this.props.stateLanguageType) {
             case "en":
                 translate = translationEN.text
@@ -1003,7 +1016,13 @@ class Index extends Component {
             case "sw":
                 translate = translationSW.text
                 break;
-            case "default":
+            case "fr":
+                translate = translationFR.text
+                break;
+            case "ar":
+                translate = translationAR.text
+                break;
+            default:
                 translate = translationEN.text
         }
         let { journal, secnd_openion, sick_cert, prescription, anamnesis, patient_data_access, id_pin_not_correct, patient_id, pin, another_patient_data, healthcare_access_for_non_conn_patient, patient_access_data, add_new_entry, New, entry, edit, get_patient_access_data, blood_pressure, doc_visit, blood_sugar, covid_diary, condition_pain, diagnosis, diary, weight_bmi,

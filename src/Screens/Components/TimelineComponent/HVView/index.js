@@ -17,6 +17,8 @@ import * as translationRS from '../../../../translations/rs.json';
 import * as translationSW from '../../../../translations/sw.json';
 import * as translationCH from '../../../../translations/ch.json';
 import * as translationNL from '../../../../translations/nl.json';
+import * as translationFR from '../../../../translations/fr.json';
+import * as translationAR from '../../../../translations/ar.json';
 
 class Index extends Component {
     constructor(props) {
@@ -49,7 +51,7 @@ class Index extends Component {
 
     render() {
         var item = this.state.item;
-        let translate;
+        let translate={};
         switch (this.props.stateLanguageType) {
             case "en":
                 translate = translationEN.text
@@ -72,10 +74,16 @@ class Index extends Component {
             case "ch":
                 translate = translationCH.text
                 break;
-            case "sw":
+case "sw":
                 translate = translationSW.text
                 break;
-            case "default":
+            case "fr":
+                translate = translationFR.text
+                break;
+            case "ar":
+                translate = translationAR.text
+                break;
+            default:
                 translate = translationEN.text
         }
         let { hosp_visit, visibility, Download, Delete, visible, hide, details, img_files,  title, show, first_day_visit, always, edit, date_of_death, date_of_dieses_patient, dob, day_doc_visit, gender_of_relatives, relation_of_relative, Change, speciality, hosp_id, hosp_name, doc_id, traveled, slct_ICD_serch_code, when, to, allergy, enter_code_serch_by_keyword, dignose, of, until, archive, rr_systolic, attachments, time_measure, date_measure,

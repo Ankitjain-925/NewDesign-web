@@ -72,7 +72,7 @@ class ShowHide extends Component {
 
     }
     render() {
-        let translate;
+        let translate={};
         switch (this.props.stateLanguageType) {
               case "en":
                   translate = translationEN.text
@@ -98,7 +98,7 @@ class ShowHide extends Component {
               case "sw":
                   translate = translationSW.text
                   break;
-              case "default":
+              default:
                   translate = translationEN.text
           }
           let { Allentries, Date_of_event,visible, hide_or_show,profilesettings, edit, done, show, hide, show_entry, hide_entry, always} = translate;

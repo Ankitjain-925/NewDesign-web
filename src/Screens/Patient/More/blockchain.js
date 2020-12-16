@@ -24,6 +24,8 @@ import * as translationRS from '../../../translations/rs.json';
 import * as translationSW from '../../../translations/sw.json';
 import * as translationCH from '../../../translations/ch.json';
 import * as translationNL from '../../../translations/nl.json';
+import * as translationFR from '../../../translations/fr.json';
+import * as translationAR from '../../../translations/ar.json';
 import Notification from "../../Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 class Index extends Component {
     constructor(props) {
@@ -134,7 +136,13 @@ class Index extends Component {
             case "sw":
                 translate = translationSW.text
                 break;
-            case "default":
+            case "fr":
+                translate = translationFR.text
+                break;
+            case "ar":
+                translate = translationAR.text
+                break;
+            default:
                 translate = translationEN.text
         }
         let { blockchain_access_log, organ_donar, created_by, log_type, time_created } = translate;
@@ -168,7 +176,7 @@ class Index extends Component {
                                                             {k==='selectedOption' && 
                                                             <div>
                                                                 {v === 'yes_to_all' && <div>Transplantation of one or more organ / tissues of mine after doctors have pronounced me dead</div>}
-                                                                {v ==='exclude_some' && <div>Transplantation of organ / tissues of mine after doctors have pronounced me dead accept for following organ / tissues</div>}
+                                                                {v ==='exclude_some' && <div>Transplantation of organ / tissues of mine after doctors have pronounced me dead except for following organ / tissues</div>}
                                                                 {v ==='include_some' && <div>Transplantation of organ / tissues of mine after doctors have pronounced me dead only for following organ / tissues</div>}
                                                                 {v ==='not_allowed' && <div>NOT allow a transplantation of any of my organs or tissues</div>}
                                                                 {v ==='decided_by_following' && <div>Transplantation of one or more organ / tissues of mine after doctors have pronounced me dead YES or NO shall be decided by the following person</div>}

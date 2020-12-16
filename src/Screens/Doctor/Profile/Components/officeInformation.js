@@ -17,6 +17,8 @@ import * as translationRS from '../../../../translations/rs.json';
 import * as translationSW from '../../../../translations/sw.json';
 import * as translationCH from '../../../../translations/ch.json';
 import * as translationNL from '../../../../translations/nl.json';
+import * as translationFR from '../../../../translations/fr.json';
+import * as translationAR from '../../../../translations/ar.json';
 
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css'; // ES6
@@ -133,7 +135,7 @@ class Index extends Component {
     }
 
     render() {
-        let translate;
+        let translate={};
       switch (this.props.stateLanguageType) {
             case "en":
                 translate = translationEN.text
@@ -159,7 +161,13 @@ class Index extends Component {
             case "sw":
                 translate = translationSW.text
                 break;
-            case "default":
+            case "fr":
+                translate = translationFR.text
+                break;
+            case "ar":
+                translate = translationAR.text
+                break;
+            default:
                 translate = translationEN.text
         }
         let {offc_info, this_is_what_patient_see_arrenging_appointment, we_offer, latest_info, date, time, format, set_the_default, the, is, updated, save_change , the_info_isnt_update_succ, the_info_update_succefully } = translate

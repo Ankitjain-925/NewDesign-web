@@ -71,7 +71,7 @@ class AnamnesisFinding extends Component {
 
     }
   render() {
-    let translate;
+    let translate={};
     switch (this.props.stateLanguageType) {
           case "en":
               translate = translationEN.text
@@ -97,7 +97,7 @@ class AnamnesisFinding extends Component {
           case "sw":
               translate = translationSW.text
               break;
-          case "default":
+          default:
               translate = translationEN.text
       }
       let { addtextentry, BodySchemeNotes, rmv_entry  } = translate;

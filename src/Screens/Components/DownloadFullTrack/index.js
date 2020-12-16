@@ -76,7 +76,7 @@ class Date extends Component {
                         diary.push(data.free_text)
                     case "covid_19":
                         covid_19.push(data.temprature)
-                    case "default":
+                    default:
                         break;
                                 
                 }
@@ -135,7 +135,7 @@ class Date extends Component {
     }
 
     render() {
-        let translate;
+        let translate={};
         switch (this.props.stateLanguageType) {
               case "en":
                   translate = translationEN.text
@@ -161,7 +161,7 @@ class Date extends Component {
               case "sw":
                   translate = translationSW.text
                   break;
-              case "default":
+              default:
                   translate = translationEN.text
           }
           let { full_report } = translate;

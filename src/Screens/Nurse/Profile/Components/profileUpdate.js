@@ -23,7 +23,7 @@ import npmCountryList from 'react-select-country-list';
 import Loader from './../../../Components/Loader/index';
 import DateFormat from './../../../Components/DateFormat/index';
 import QRCode from 'qrcode.react';
-import { GetUrlImage } from './../../../Components/BasicMethod/index';
+import { GetUrlImage1 } from './../../../Components/BasicMethod/index';
 import  SPECIALITY   from '../../../../speciality';
 import {GetLanguageDropdown} from './../../../Components/GetMetaData/index.js';
 import * as translationEN from '../../../../translations/en.json';
@@ -34,6 +34,8 @@ import * as translationRS from '../../../../translations/rs.json';
 import * as translationSW from '../../../../translations/sw.json';
 import * as translationCH from '../../../../translations/ch.json';
 import * as translationNL from '../../../../translations/nl.json';
+import * as translationFR from '../../../../translations/fr.json';
+import * as translationAR from '../../../../translations/ar.json';
 
 var datas = [];
 var insurances = [];
@@ -644,7 +646,7 @@ setTimeout(()=> {
             }).catch(error => {  })
         }
         else {
-            let translate;
+            let translate={};
             switch (this.props.stateLanguageType) {
                 case "en":
                     translate = translationEN.text
@@ -670,7 +672,7 @@ setTimeout(()=> {
                 case "sw":
                     translate = translationSW.text
                     break;
-                case "default":
+                default:
                     translate = translationEN.text
             }
             let { plz_upload_png_jpeg, ok } = translate;
@@ -694,7 +696,7 @@ setTimeout(()=> {
     }
 
     render() {
-        let translate;
+        let translate={};
       switch (this.props.stateLanguageType) {
             case "en":
                 translate = translationEN.text
@@ -720,7 +722,13 @@ setTimeout(()=> {
             case "sw":
                 translate = translationSW.text
                 break;
-            case "default":
+            case "fr":
+                translate = translationFR.text
+                break;
+            case "ar":
+                translate = translationAR.text
+                break;
+            default:
                 translate = translationEN.text
         }
         let { profile_info, profile, information, ID,pin_greater_then_4, pin, QR_code, done, Change, edit_id_pin, edit, and, is, changed, profile_id_taken, profile_id_greater_then_5,
@@ -1005,7 +1013,7 @@ setTimeout(()=> {
         </Grid>
         <Grid item xs={12} md={6}>
            {this.state.image && this.state.image!=='' &&
-                <img className="ProfileImage" onClick={()=>GetUrlImage(this.state.image)} src={this.state.image} alt="" title="" />
+                <img className="ProfileImage" onClick={()=>GetUrlImage1(this.state.image)} src={this.state.image} alt="" title="" />
          }
         </Grid>
       </Grid>

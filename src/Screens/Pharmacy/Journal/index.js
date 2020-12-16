@@ -54,6 +54,8 @@ import * as translationRS from '../../../translations/rs.json';
 import * as translationSW from '../../../translations/sw.json';
 import * as translationCH from '../../../translations/ch.json';
 import * as translationNL from '../../../translations/en.json';
+import * as translationFR from '../../../translations/fr.json';
+import * as translationAR from '../../../translations/ar.json';
 import { authy } from './../../Login/authy.js';
 import { FormatListBulleted } from '@material-ui/icons';
 import PFields from "./../../Components/TimelineComponent/PFields/index.js";
@@ -221,7 +223,7 @@ class Index extends Component {
 
     //Modal Open on Archive the Journal
     ArchiveTrack = (data) => {
-        let translate;
+        let translate={};
         switch (this.props.stateLanguageType) {
             case "en":
                 translate = translationEN.text
@@ -247,7 +249,13 @@ class Index extends Component {
             case "sw":
                 translate = translationSW.text
                 break;
-            case "default":
+            case "fr":
+                translate = translationFR.text
+                break;
+            case "ar":
+                translate = translationAR.text
+                break;
+            default:
                 translate = translationEN.text
         }
         let { archive_item, do_u_really_want_archive_item, r_u_sure_remove_doctor, yes, no } = translate
@@ -278,7 +286,7 @@ class Index extends Component {
     }
     //Delete the perticular track confirmation box
     DeleteTrack = (deletekey) => {
-        let translate;
+        let translate={};
         switch (this.props.stateLanguageType) {
             case "en":
                 translate = translationEN.text
@@ -304,7 +312,13 @@ class Index extends Component {
             case "sw":
                 translate = translationSW.text
                 break;
-            case "default":
+            case "fr":
+                translate = translationFR.text
+                break;
+            case "ar":
+                translate = translationAR.text
+                break;
+            default:
                 translate = translationEN.text
         }
         let { delete_item, do_u_really_want_delete_item, r_u_sure_remove_doctor, yes, no } = translate
@@ -918,7 +932,7 @@ class Index extends Component {
 
 
     render() {
-        let translate;
+        let translate={};
         switch (this.props.stateLanguageType) {
             case "en":
                 translate = translationEN.text
@@ -944,7 +958,13 @@ class Index extends Component {
             case "sw":
                 translate = translationSW.text
                 break;
-            case "default":
+            case "fr":
+                translate = translationFR.text
+                break;
+            case "ar":
+                translate = translationAR.text
+                break;
+            default:
                 translate = translationEN.text
         }
         let { journal, secnd_openion, sick_cert, prescription, anamnesis, patient_data_access, id_pin_not_correct, patient_id, pin, another_patient_data, healthcare_access_for_non_conn_patient, patient_access_data, add_new_entry, get_patient_access_data, New, entry, edit, blood_pressure, doc_visit, blood_sugar, covid_diary, condition_pain, diagnosis, diary, weight_bmi,
@@ -1000,7 +1020,7 @@ class Index extends Component {
                                             {this.props.Doctorsetget.p_id !== null && <div>
                                                 {this.state.allTrack && this.state.allTrack.length > 0 ?
                                                     this.state.allTrack.map((item, index) => (
-                                                        <ViewTimeline lrp={AllL_Ps.AllL_Ps.english} Allrelation={this.state.Allrelation} Allreminder={this.state.Allreminder} Allpain_type={this.state.Allpain_type} Allsmoking_status={this.state.Allsmoking_status} Allgender={this.state.Allgender} AllSpecialty={this.state.AllSpecialty} Allpain_quality={this.state.Allpain_quality} Allsituation={this.state.Allsituation} Pressuresituation={this.state.Pressuresituation} Anamnesis={this.state.Anamnesis} downloadTrack={(data) => this.downloadTrack(data)} OpenGraph={this.OpenGraph} comesfrom='pharmacy' images={this.state.images} DeleteTrack={(deleteKey) => this.DeleteTrack(deleteKey)} ArchiveTrack={(data) => this.ArchiveTrack(data)} EidtOption={(value, updateTrack, visibility) => this.EidtOption(value, updateTrack, visibility)} date_format={this.props.settings.setting.date_format} time_format={this.props.settings.setting.time_format} Track={item} loggedinUser={this.state.cur_one} patient_gender={this.state.patient_gender} />
+                                                        <ViewTimeline lrp={AllL_Ps.AllL_Ps.english} Allrelation={this.state.Allrelation} Allreminder={this.state.Allreminder} Allpain_type={this.state.Allpain_type} Allsmoking_status={this.state.Allsmoking_status} Allgender={this.state.Allgender} AllSpecialty={this.state.AllSpecialty} Allpain_quality={this.state.Allpain_quality} Allsituation={this.state.Allsituation} Pressuresituation={this.state.Pressuresituation} Anamnesis={this.state.Anamnesis} downloadTrack={(data) => this.downloadTrack(data)} OpenGraph={this.OpenGraph} comesfrom='pharmacy' images={this.state.images} DeleteTrack={(deleteKey) => this.DeleteTrack(deleteKey)} ArchiveTrack={(data) => this.ArchiveTrack(data)} EidtOption={(value, updateTrack, visibility) => this.EidtOption(value, updateTrack, visibility)} date_format={this.props.settings && this.props.settings.setting && this.props.settings.setting.date_format} time_format={this.props.settings && this.props.settings.setting && this.props.settings.setting.time_format} Track={item} loggedinUser={this.state.cur_one} patient_gender={this.state.patient_gender} />
                                                     ))
                                                     : <EmptyData />}
                                             </div>}

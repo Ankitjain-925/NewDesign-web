@@ -24,7 +24,8 @@ import * as translationRS from '../../../../translations/rs.json';
 import * as translationSW from '../../../../translations/sw.json';
 import * as translationCH from '../../../../translations/ch.json';
 import * as translationNL from '../../../../translations/nl.json';
-
+import * as translationFR from '../../../../translations/fr.json';
+import * as translationAR from '../../../../translations/ar.json';
 const specialistOptions = [
     { value: 'Specialist1', label: 'Specialist1' },
     { value: 'Specialist2', label: 'Specialist2' },
@@ -108,7 +109,7 @@ class Index extends Component {
 
     //Delete for the Prescriptions confirmation
     updatePrescription(status, id) {
-        let translate;
+        let translate={};
         switch (this.props.stateLanguageType) {
             case "en":
                 translate = translationEN.text
@@ -134,7 +135,13 @@ class Index extends Component {
             case "sw":
                 translate = translationSW.text
                 break;
-            case "default":
+            case "fr":
+                translate = translationFR.text
+                break;
+            case "ar":
+                translate = translationAR.text
+                break;
+            default:
                 translate = translationEN.text
         }
         let { Yes, No , update_inquiry, r_u_sure_update_inquiry, r_u_sure_cancel_inquiry, cancel_inquiry,} = translate;
@@ -229,7 +236,7 @@ class Index extends Component {
     }
 
     render() {
-        let translate;
+        let translate={};
         switch (this.props.stateLanguageType) {
             case "en":
                 translate = translationEN.text
@@ -255,7 +262,13 @@ class Index extends Component {
             case "sw":
                 translate = translationSW.text
                 break;
-            case "default":
+            case "fr":
+                translate = translationFR.text
+                break;
+            case "ar":
+                translate = translationAR.text
+                break;
+            default:
                 translate = translationEN.text
         }
         let { capab_Doctors, see_details, again, home_add_mailbox, online, modify, cancel_reqst, edit_entry, status,  cancel_details,sent, on, prescription, Pending, request, edit, Rejected, Answered, Cancelled, req_updated_successfully, sick_cert, my_doc, New, inquiry, Yes, No,

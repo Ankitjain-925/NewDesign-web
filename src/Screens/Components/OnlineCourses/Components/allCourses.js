@@ -20,6 +20,8 @@ import * as translationRS from '../../../../translations/rs.json';
 import * as translationSW from '../../../../translations/sw.json';
 import * as translationCH from '../../../../translations/ch.json';
 import * as translationNL from '../../../../translations/nl.json';
+import * as translationFR from '../../../../translations/fr.json';
+import * as translationAR from '../../../../translations/ar.json';
 function TabContainer(props) {
     return (
         <Typography component="div" style={{ paddingTop: 24 }}>
@@ -158,7 +160,7 @@ class Index extends Component {
         const { value } = this.state;
         const { selectedOption } = this.state;
 
-        let translate;
+        let translate={};
         switch (this.props.stateLanguageType) {
             case "en":
                 translate = translationEN.text
@@ -184,7 +186,13 @@ class Index extends Component {
             case "sw":
                 translate = translationSW.text
                 break;
-            case "default":
+            case "fr":
+                translate = translationFR.text
+                break;
+            case "ar":
+                translate = translationAR.text
+                break;
+            default:
                 translate = translationEN.text
         }
         let { item_present_in_cart, new_course, item_added_to_wishlist, all_course, my_course, topic_all, language_eng, wishlist, prescriptions, appointments, cart_removed, chat_vdocall, pharmacy_access, remove, lectures, add_to_cart, cart, capab_Patients, Inquiries, emegancy_access, archive, more, my_profile, invite_doc,pharma_prescription, online_course, profile_setting, Language,

@@ -14,6 +14,8 @@ import * as translationRS from '../../../../translations/rs.json';
 import * as translationSW from '../../../../translations/sw.json';
 import * as translationCH from '../../../../translations/ch.json';
 import * as translationNL from '../../../../translations/nl.json';
+import * as translationFR from '../../../../translations/fr.json';
+import * as translationAR from '../../../../translations/ar.json';
 class Index extends Component {
     constructor(props) {
         super(props)
@@ -24,7 +26,7 @@ class Index extends Component {
 
     }
     render() {
-        let translate;
+        let translate={};
         switch (this.props.stateLanguageType) {
             case "en":
                 translate = translationEN.text
@@ -50,7 +52,13 @@ class Index extends Component {
             case "sw":
                 translate = translationSW.text
                 break;
-            case "default":
+            case "fr":
+                translate = translationFR.text
+                break;
+            case "ar":
+                translate = translationAR.text
+                break;
+            default:
                 translate = translationEN.text
         }
         let {journal_entry, mild_depresive_episode, welcome, example, team, ur_helthcare_on_blockchain, we_hv_prpared_short_introductry, entry_example, u_get_from_aimedis, example_entry_of_journal_timline_etc,  visibility, Download, Delete, visible, hide, show, doc_visit, always, edit, day_doc_visit, Change, speciality, traveled, slct_ICD_serch_code, when, to, allergy, enter_code_serch_by_keyword, dignose, of, until, archive, rr_systolic, attachments, time_measure, date_measure,

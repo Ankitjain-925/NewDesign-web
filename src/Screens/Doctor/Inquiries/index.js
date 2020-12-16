@@ -30,6 +30,8 @@ import * as translationRS from '../../../translations/rs.json';
 import * as translationSW from '../../../translations/sw.json';
 import * as translationCH from '../../../translations/ch.json';
 import * as translationNL from '../../../translations/nl.json';
+import * as translationFR from '../../../translations/fr.json';
+import * as translationAR from '../../../translations/ar.json';
 import { Redirect, Route } from 'react-router-dom';
 import SecondOpinion from './Components/secondOpinion';
 import Notification from "../../Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
@@ -124,7 +126,7 @@ class Index extends Component {
     render() {
         const { specialistOption, prescData } = this.state;
         const { value } = this.state;
-        let translate;
+        let translate={};
       switch (this.props.stateLanguageType) {
             case "en":
                 translate = translationEN.text
@@ -150,7 +152,13 @@ class Index extends Component {
             case "sw":
                 translate = translationSW.text
                 break;
-            case "default":
+            case "fr":
+                translate = translationFR.text
+                break;
+            case "ar":
+                translate = translationAR.text
+                break;
+            default:
                 translate = translationEN.text
         }
         let { Inquiries, prescriptions,ScndOpinion,sickcsrtificates, capab_Doctors, status, sent, on, rqst_sent_succefully, Pending, request, edit, Rejected, Answered, Cancelled, req_updated_successfully, sick_cert, my_doc, New, inquiry,

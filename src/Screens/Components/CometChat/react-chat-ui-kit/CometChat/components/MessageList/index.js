@@ -384,7 +384,7 @@ class MessageList extends React.PureComponent {
   }
 
   render() {
-    let translate;
+    let translate={};
     switch (this.props.stateLanguageType) {
         case "en":
             translate = translationEN.text
@@ -410,7 +410,7 @@ class MessageList extends React.PureComponent {
         case "sw":
             translate = translationSW.text
             break;
-        case "default":
+        default:
             translate = translationEN.text
     }
     let {Loading}= translate

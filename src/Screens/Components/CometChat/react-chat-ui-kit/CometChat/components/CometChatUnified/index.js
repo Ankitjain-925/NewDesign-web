@@ -17,7 +17,8 @@ import * as translationRS from "../../../../../.../../../../translations/rs.json
 import * as translationNL from "../../../../../.../../../../translations/nl.json";
 import * as translationCH from "../../../../../.../../../../translations/ch.json";
 import * as translationSW from "../../../../../.../../../../translations/sw.json";
-
+import * as translationFR from "../../../../../.../../../../translations/fr.json";
+import * as translationAR from "../../../../../.../../../../translations/ar.json";
 class CometChatUnified extends React.Component {
   constructor(props) {
    super(props);
@@ -375,6 +376,12 @@ class CometChatUnified extends React.Component {
             )}
             {this.props.lan === "sw" && (
               <p className="chatScreenText">{translationSW.text.Select_chat}</p>
+            )}
+             {this.props.lan === "fr" && (
+              <p className="chatScreenText">{translationFR.text.Select_chat}</p>
+            )}
+             {this.props.lan === "ar" && (
+              <p className="chatScreenText">{translationAR.text.Select_chat}</p>
             )}
 
 

@@ -55,7 +55,7 @@ class Loader extends Component {
     }
     
     render() {
-        let translate;
+        let translate={};
     switch (this.props.stateLanguageType) {
           case "en":
               translate = translationEN.text
@@ -81,7 +81,7 @@ class Loader extends Component {
           case "sw":
               translate = translationSW.text
               break;
-          case "default":
+          default:
               translate = translationEN.text
       }
       let { browse, suported_file_type_jpg_png, BodySchemeNotes, or_drag_here } = translate;

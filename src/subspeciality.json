@@ -9,6 +9,7 @@
             "label_pt": "Critical care medicine",
             "label_sw": "Dawa muhimu ya utunzaji",
             "label_ch": "重症监护医学",
+            "label_fr": "Médecine des soins intensifs",
             "value": "Critical_care_medicine"
         },
         {
@@ -20,6 +21,7 @@
             "label_pt": "Hospice and palliative care",
             "label_sw": "Hospitali na huduma ya kupendeza",
             "label_ch": "临终关怀和姑息治疗",
+            "label_fr": "Hospices et soins palliatifs",
             "value": "Hospice_and_palliative_care"
         },
         {
@@ -31,6 +33,7 @@
             "label_pt": "Pain medicine",
             "label_sw": "Dawa ya maumivu",
             "label_ch": "止痛药",
+            "label_fr": "Médicaments antidouleur",
             "value": "Pain_medicine"
         },
         {
@@ -42,6 +45,7 @@
             "label_pt": "Pediatric anesthesiology",
             "label_sw": "Anesthesiolojia ya watoto",
             "label_ch": "儿科麻醉学",
+            "label_fr": "Anesthésiologie pédiatrique",
             "value": "Pediatric_anesthesiology"
         },
         {
@@ -53,6 +57,7 @@
             "label_pt": "Sleep medicine",
             "label_sw": "Dawa ya kulala",
             "label_ch": "睡眠药",
+            "label_fr": "Médecine du sommeil",
             "value": "Sleep_medicine"
         },
         {
@@ -64,6 +69,7 @@
             "label_pt": "Dermatopatologia",
             "label_sw": "Utibabu wa ngozi",
             "label_ch": "皮肤病理学",
+            "label_fr": "Dermatopathologie",
             "value": "Dermatopathology"
         },
         {
@@ -75,6 +81,7 @@
             "label_pt": "Pediatric dermatology",
             "label_sw": "Utibabu wa ngozi ya watoto",
             "label_ch": "儿科皮肤科",
+            "label_fr": "Dermatologie pédiatrique",
             "value": "Pediatric_dermatology"
         },
         {
@@ -86,6 +93,7 @@
             "label_pt": "Procedural dermatology",
             "label_sw": "Utabibu wa ngozi kiutaratibu",
             "label_ch": "程序性皮肤科",
+            "label_fr": "Dermatologie procédurale",
             "value": "Procedural_dermatology"
         },
         {
@@ -97,6 +105,7 @@
             "label_pt": "Abdominal radiology",
             "label_sw": "Radiolojia ya tumbo",
             "label_ch": "腹部放射科",
+            "label_fr": "Radiologie abdominale",
             "value": "Abdominal_radiology"
         },
         {
@@ -108,6 +117,7 @@
             "label_pt": "Breast imaging",
             "label_sw": "Picha ya matiti",
             "label_ch": "乳房成像",
+            "label_fr": "Imagerie mammaire",
             "value": "Breast_imaging"
         },
         {
@@ -119,6 +129,7 @@
             "label_pt": "Cardiothoracic radiology",
             "label_sw": "Radiolojia ya moyo",
             "label_ch": "心胸放射科",
+            "label_fr": "Radiologie cardiothoracique",
             "value": "Cardiothoracic_radiology"
         },
         {
@@ -130,6 +141,7 @@
             "label_pt": "Cardiovascular radiology",
             "label_sw": "Radiolojia ya mishipa wa moyo",
             "label_ch": "心血管放射学",
+            "label_fr": "Radiologie cardiovasculaire",
             "value": "Cardiovascular_radiology"
         },
         {
@@ -141,6 +153,7 @@
             "label_pt": "Chest radiology",
             "label_sw": "Radiolojia ya kifua",
             "label_ch": "胸部放射科",
+            "label_fr": "Radiologie thoracique",
             "value": "Chest_radiology"
         },
         {
@@ -152,6 +165,7 @@
             "label_pt": "Emergency radiology",
             "label_sw": "Radiolojia ya dharura",
             "label_ch": "紧急放射科",
+            "label_fr": "Radiologie d'urgence",
             "value": "Emergency_radiology"
         },
         {
@@ -163,6 +177,7 @@
             "label_pt": "Endovascular surgical neuroradiology",
             "label_sw": "Neuroradiolojia ya upasuaji wa mishipa",
             "label_ch": "血管内手术神经放射学",
+            "label_fr": "Neuroradiologie chirurgicale endovasculaire",
             "value": "Endovascular_surgical_neuroradiology"
         },
         {
@@ -174,6 +189,7 @@
             "label_pt": "Gastrointestinal radiology",
             "label_sw": "Radiolojia ya njia ya utumbo",
             "label_ch": "胃肠放射科",
+            "label_fr": "Radiologie gastro-intestinale",
             "value": "Gastrointestinal_radiology"
         },
         {
@@ -185,6 +201,7 @@
             "label_pt": "Genitourinary radiology",
             "label_sw": "Radiolojia ya mionzi ya kizazi",
             "label_ch": "泌尿生殖放射科",
+            "label_fr": "Radiologie génito-urinaire",
             "value": "Genitourinary_radiology"
         },
         {
@@ -196,6 +213,7 @@
             "label_pt": "Head and neck radiology",
             "label_sw": "Radiolojia ya kichwa na shingo",
             "label_ch": "头颈部放射科",
+            "label_fr": "Radiologie de la tête et du cou",
             "value": "Head_and_neck_radiology"
         },
         {
@@ -207,6 +225,7 @@
             "label_pt": "Interventional radiology",
             "label_sw": "Radiolojia ya kuingilia kati",
             "label_ch": "介入放射学",
+            "label_fr": "Radiologie interventionnelle",
             "value": "Interventional_radiology"
         },
         {
@@ -218,6 +237,7 @@
             "label_pt": "Musculoskeletal radiology",
             "label_sw": "Radiolojia ya misuli",
             "label_ch": "肌肉骨骼放射学",
+            "label_fr": "Radiologie musculo-squelettique",
             "value": "Musculoskeletal_radiology"
         },
         {
@@ -229,6 +249,7 @@
             "label_pt": "Neurorradiologia",
             "label_sw": "Neuroradiolojia",
             "label_ch": "神经放射学",
+            "label_fr": "Neuroradiologie",
             "value": "Neuroradiology"
         },
         {
@@ -239,6 +260,7 @@
             "label_sp": "Nuclear radiology",
             "label_pt": "Nuclear radiology",
             "label_ch": "核放射学",
+            "label_fr": "Radiologie nucléaire",
             "value": "Nuclear_radiology"
         },
         {
@@ -250,6 +272,7 @@
             "label_pt": "Pediatric radiology",
             "label_sw": "Radiolojia ya watoto",
             "label_ch": "儿科放射科",
+            "label_fr": "Radiologie pédiatrique",
             "value": "Pediatric_radiology"
         },
         {
@@ -261,6 +284,7 @@
             "label_pt": "Radiation oncology",
             "label_sw": "Oncolojia ya mionzi",
             "label_ch": "放射肿瘤学",
+            "label_fr": "Radio-oncologie",
             "value": "Radiation_oncology"
         },
         {
@@ -272,6 +296,7 @@
             "label_pt": "Vascular and interventional radiology",
             "label_sw": "Radiolojia ya mishipa na ya kuingilia kati",
             "label_ch": "血管和介入放射学",
+            "label_fr": "Radiologie vasculaire et interventionnelle",
             "value": "Vascular_and_interventional_radiology"
         },
         {
@@ -283,6 +308,7 @@
             "label_pt": "Anesthesiology critical care medicine",
             "label_sw": "Dawa ya utunzaji muhimu ya Anesthesiolojia",
             "label_ch": "麻醉学重症监护医学",
+            "label_fr": "Anesthésiologie médecine de soins intensifs",
             "value": "Anesthesiology_critical_care_medicine"
         },
         {
@@ -294,6 +320,7 @@
             "label_pt": "Emergency medical services",
             "label_sw": "Huduma za dharura za matibabu",
             "label_ch": "紧急医疗服务",
+            "label_fr": "Services médicaux d'urgence",
             "value": "Emergency_medical_services"
         },
         {
@@ -305,6 +332,7 @@
             "label_pt": "Hospice and palliative medicine",
             "label_sw": "Hospitali na dawa ya kutuliza",
             "label_ch": "临终关怀和姑息药",
+            "label_fr": "Hospice et médecine palliative",
             "value": "Hospice_and_palliative_medicine"
         },
         {
@@ -316,6 +344,7 @@
             "label_pt": "Internal medicine / Critical care medicine",
             "label_sw": "Dawa ya undani / Dawa muhimu ya utunzaji",
             "label_ch": "内科/重症医学",
+            "label_fr": "Médecine interne / Médecine des soins intensifs",
             "value": "Internal_medicine_/_Critical_care_medicine"
         },
         {
@@ -327,6 +356,7 @@
             "label_pt": "Medical toxicology",
             "label_sw": "Matibabu ya sumu",
             "label_ch": "医学毒理学",
+            "label_fr": "Toxicologie médicale",
             "value": "Medical_toxicology"
         },
         {
@@ -338,6 +368,7 @@
             "label_pt": "Pain medicine",
             "label_sw": "Dawa ya maumivu",
             "label_ch": "止痛药",
+            "label_fr": "Médicaments antidouleur",
             "value": "Pain_medicine"
         },
         {
@@ -349,6 +380,7 @@
             "label_pt": "Pediatric emergency medicine",
             "label_sw": "Dawa ya dharura ya watoto",
             "label_ch": "儿科急诊医学",
+            "label_fr": "Médecine d'urgence pédiatrique",
             "value": "Pediatric_emergency_medicine"
         },
         {
@@ -360,6 +392,7 @@
             "label_pt": "Sports medicine",
             "label_sw": "Dawa ya michezo",
             "label_ch": "运动医学",
+            "label_fr": "Médecine du sport",
             "value": "Sports_medicine"
         },
         {
@@ -371,6 +404,7 @@
             "label_pt": "Undersea and hyperbaric medicine",
             "label_sw": "Dawa ya chini ya maji na hyperbaric",
             "label_ch": "海底和高压医学",
+            "label_fr": "Médecine sous-marine et hyperbare",
             "value": "Undersea_and_hyperbaric_medicine"
         },
         {
@@ -382,6 +416,7 @@
             "label_pt": "Adolescent medicine",
             "label_sw": "Dawa ya vijana",
             "label_ch": "青少年医学",
+            "label_fr": "Médecine des adolescents",
             "value": "Adolescent_medicine"
         },
         {
@@ -393,6 +428,7 @@
             "label_pt": "Geriatric medicine",
             "label_sw": "Dawa ya Geriatric",
             "label_ch": "老年医学",
+            "label_fr": "Médecine gériatrique",
             "value": "Geriatric_medicine"
         },
         {
@@ -404,6 +440,7 @@
             "label_pt": "Hospice and palliative medicine",
             "label_sw": "Hospitali na dawa ya kutuliza",
             "label_ch": "临终关怀和姑息药",
+            "label_fr": "Hospice et médecine palliative",
             "value": "Hospice_and_palliative_medicine"
         },
         {
@@ -415,6 +452,7 @@
             "label_pt": "Pain medicine",
             "label_sw": "Dawa ya maumivu",
             "label_ch": "止痛药",
+            "label_fr": "Médicaments antidouleur",
             "value": "Pain_medicine"
         },
         {
@@ -426,6 +464,7 @@
             "label_pt": "Sleep medicine",
             "label_sw": "Dawa ya kulala",
             "label_ch": "睡眠药",
+            "label_fr": "Médecine du sommeil",
             "value": "Sleep_medicine"
         },
         {
@@ -437,6 +476,7 @@
             "label_pt": "Sports medicine",
             "label_sw": "Dawa ya michezo",
             "label_ch": "运动医学",
+            "label_fr": "Médecine du sport",
             "value": "Sports_medicine"
         },
         {
@@ -448,6 +488,7 @@
             "label_pt": "Advanced heart failure and transplant cardiology",
             "label_sw": "Kushindwa kwa moyo wa hali ya juu na kupandikiza moyo",
             "label_ch": "高级心力衰竭和移植心脏病学",
+            "label_fr": "Insuffisance cardiaque avancée et cardiologie de la transplantation",
             "value": "Advanced_heart_failure_and_transplant_cardiology"
         },
         {
@@ -459,6 +500,7 @@
             "label_pt": "Cardiovascular disease",
             "label_sw": "Ugonjwa wa moyo na mishipa",
             "label_ch": "心血管疾病",
+            "label_fr": "Maladies cardiovasculaires",
             "value": "Cardiovascular_disease"
         },
         {
@@ -470,6 +512,7 @@
             "label_pt": "Clinical cardiac electrophysiology",
             "label_sw": "Kliniki ya elektroniki ya moyo",
             "label_ch": "临床心脏电生理",
+            "label_fr": "Électrophysiologie cardiaque clinique",
             "value": "Clinical_cardiac_electrophysiology"
         },
         {
@@ -481,6 +524,7 @@
             "label_pt": "Critical care medicine",
             "label_sw": "Dawa muhimu ya utunzaji",
             "label_ch": "重症监护医学",
+            "label_fr": "Médecine des soins intensifs",
             "value": "Critical_care_medicine"
         },
         {
@@ -492,6 +536,7 @@
             "label_pt": "Endocrinology, diabetes, and metabolism",
             "label_sw": "Endocrinolojia, ugonjwa wa sukari na kimetaboliki",
             "label_ch": "内分泌、糖尿病和代谢",
+            "label_fr": "Endocrinologie, diabète et métabolisme",
             "value": "Endocrinology,_diabetes,_and_metabolism"
         },
         {
@@ -503,6 +548,7 @@
             "label_pt": "Gastroenterologia",
             "label_sw": "Ugonjwa wa tumbo",
             "label_ch": "胃肠病学",
+            "label_fr": "Gastroentérologie",
             "value": "Gastroenterology"
         },
         {
@@ -514,6 +560,7 @@
             "label_pt": "Geriatric medicine",
             "label_sw": "Dawa ya Geriatric",
             "label_ch": "老年医学",
+            "label_fr": "Médecine gériatrique",
             "value": "Geriatric_medicine"
         },
         {
@@ -525,6 +572,7 @@
             "label_pt": "Hematologia",
             "label_sw": "Hematolojia",
             "label_ch": "血液学",
+            "label_fr": "Hématologie",
             "value": "Hematology"
         },
         {
@@ -536,6 +584,7 @@
             "label_pt": "Hematology and oncology",
             "label_sw": "Hematolojia na oncolojia",
             "label_ch": "血液学和肿瘤学",
+            "label_fr": "Hématologie et oncologie",
             "value": "Hematology_and_oncology"
         },
         {
@@ -547,6 +596,7 @@
             "label_pt": "Infectious disease",
             "label_sw": "Ugonjwa wa kuambukiza",
             "label_ch": "传染病",
+            "label_fr": "Maladies infectieuses",
             "value": "Infectious_disease"
         },
         {
@@ -558,6 +608,7 @@
             "label_pt": "Internal medicine",
             "label_sw": "Dawa ya undani",
             "label_ch": "内科",
+            "label_fr": "Internal medicine",
             "value": "Internal_medicine"
         },
         {
@@ -569,6 +620,7 @@
             "label_pt": "Interventional cardiology",
             "label_sw": "Cardiolojia ya kuingilia kati",
             "label_ch": "介入心脏病学",
+            "label_fr": "Cardiologie interventionnelle",
             "value": "Interventional_cardiology"
         },
         {
@@ -580,6 +632,7 @@
             "label_pt": "Nefrologia",
             "label_sw": "Nephrolojia",
             "label_ch": "肾脏病",
+            "label_fr": "Néphrologie",
             "value": "Nephrology"
         },
         {
@@ -591,6 +644,7 @@
             "label_pt": "Oncologia",
             "label_sw": "Oncolojia",
             "label_ch": "肿瘤学",
+            "label_fr": "Oncologie",
             "value": "Oncology"
         },
         {
@@ -602,6 +656,7 @@
             "label_pt": "Pediatric internal medicine",
             "label_sw": "Dawa ya ndani ya watoto",
             "label_ch": "小儿内科",
+            "label_fr": "Médecine interne pédiatrique",
             "value": "Pediatric_internal_medicine"
         },
         {
@@ -613,6 +668,7 @@
             "label_pt": "Pulmonary disease",
             "label_sw": "Ugonjwa wa mapafu",
             "label_ch": "肺部疾病",
+            "label_fr": "Maladie pulmonaire",
             "value": "Pulmonary_disease"
         },
         {
@@ -624,6 +680,7 @@
             "label_pt": "Pulmonary disease and critical care medicine",
             "label_sw": "Ugonjwa wa mapafu na dawa ya utunzaji muhimu",
             "label_ch": "肺病和重症监护医学",
+            "label_fr": "Maladies pulmonaires et médecine des soins intensifs",
             "value": "Pulmonary_disease_and_critical_care_medicine"
         },
         {
@@ -635,6 +692,7 @@
             "label_pt": "Reumatologia",
             "label_sw": "Rheumatolojia",
             "label_ch": "风湿病",
+            "label_fr": "Rhumatologie",
             "value": "Rheumatology"
         },
         {
@@ -646,6 +704,7 @@
             "label_pt": "Sleep medicine",
             "label_sw": "Dawa ya kulala",
             "label_ch": "睡眠药",
+            "label_fr": "Médecine du sommeil",
             "value": "Sleep_medicine"
         },
         {
@@ -657,6 +716,7 @@
             "label_pt": "Sports medicine",
             "label_sw": "Dawa ya michezo",
             "label_ch": "运动医学",
+            "label_fr": "Médecine du sport",
             "value": "Sports_medicine"
         },
         {
@@ -668,6 +728,7 @@
             "label_pt": "Transplant hepatology",
             "label_sw": "Kupandikiza hepatolojia",
             "label_ch": "移植肝病",
+            "label_fr": "Hépatologie de la transplantation",
             "value": "Transplant_hepatology"
         },
         {
@@ -679,6 +740,7 @@
             "label_pt": "Biochemical genetics",
             "label_sw": "Maumbile ya biokemikali",
             "label_ch": "生化遗传学",
+            "label_fr": "Génétique biochimique",
             "value": "Biochemical_genetics"
         },
         {
@@ -690,6 +752,7 @@
             "label_pt": "Clinical cytogenetics",
             "label_sw": "Kliniki ya cytogenetics",
             "label_ch": "临床细胞遗传学",
+            "label_fr": "Cytogénétique clinique",
             "value": "Clinical_cytogenetics"
         },
         {
@@ -701,6 +764,7 @@
             "label_pt": "Clinical genetics",
             "label_sw": "Kliniki ya maumbile",
             "label_ch": "临床遗传学",
+            "label_fr": "Génétique clinique",
             "value": "Clinical_genetics"
         },
         {
@@ -712,6 +776,7 @@
             "label_pt": "Molecular genetic pathology",
             "label_sw": "Patholojia ya maumbile ya Masi",
             "label_ch": "分子遗传病理学",
+            "label_fr": "Pathologie génétique moléculaire",
             "value": "Molecular_genetic_pathology"
         },
         {
@@ -723,6 +788,7 @@
             "label_pt": "Brain injury medicine",
             "label_sw": "Dawa ya kuumia ubongo",
             "label_ch": "脑损伤医学",
+            "label_fr": "Médecine des lésions cérébrales",
             "value": "Brain_injury_medicine"
         },
         {
@@ -734,6 +800,7 @@
             "label_pt": "Child neurology",
             "label_sw": "Mishipa ya watoto",
             "label_ch": "儿童神经病学",
+            "label_fr": "Neurologie de l'enfant",
             "value": "Child_neurology"
         },
         {
@@ -745,6 +812,7 @@
             "label_pt": "Clinical neurophysiology",
             "label_sw": "Kliniki_ ya neurophysiolojia",
             "label_ch": "临床神经生理学",
+            "label_fr": "Neurophysiologie clinique",
             "value": "Clinical_neurophysiology"
         },
         {
@@ -756,6 +824,7 @@
             "label_pt": "Endovascular surgical neuroradiology",
             "label_sw": "Neuroradiolojia ya upasuaji wa mishipa",
             "label_ch": "血管内手术神经放射学",
+            "label_fr": "Neuroradiologie chirurgicale endovasculaire",
             "value": "Endovascular_surgical_neuroradiology"
         },
         {
@@ -767,6 +836,7 @@
             "label_pt": "Hospice and palliative medicine",
             "label_sw": "Hospitali na dawa ya kutuliza",
             "label_ch": "临终关怀和姑息药",
+            "label_fr": "Hospice et médecine palliative",
             "value": "Hospice_and_palliative_medicine"
         },
         {
@@ -778,6 +848,7 @@
             "label_pt": "Neurodevelopmental disabilities",
             "label_sw": "Ulemavu wa maendeleo ya neva",
             "label_ch": "神经发育障碍",
+            "label_fr": "Troubles neurologiques du développement",
             "value": "Neurodevelopmental_disabilities"
         },
         {
@@ -789,6 +860,7 @@
             "label_pt": "Neuromuscular medicine",
             "label_sw": "Dawa ya mshipa wa neva",
             "label_ch": "神经肌肉医学",
+            "label_fr": "Médecine neuromusculaire",
             "value": "Neuromuscular_medicine"
         },
         {
@@ -800,6 +872,7 @@
             "label_pt": "Pain medicine",
             "label_sw": "Dawa ya maumivu",
             "label_ch": "止痛药",
+            "label_fr": "Médicaments antidouleur",
             "value": "Pain_medicine"
         },
         {
@@ -811,6 +884,7 @@
             "label_pt": "Sleep medicine",
             "label_sw": "Dawa ya kulala",
             "label_ch": "睡眠药",
+            "label_fr": "Médecine du sommeil",
             "value": "Sleep_medicine"
         },
         {
@@ -822,6 +896,7 @@
             "label_pt": "Vascular neurology",
             "label_sw": "Mishipa ya fahamu",
             "label_ch": "血管神经学",
+            "label_fr": "Neurologie vasculaire",
             "value": "Vascular_neurology"
         },
         {
@@ -833,6 +908,7 @@
             "label_pt": "Female pelvic medicine and reconstructive surgery",
             "label_sw": "Dawa ya kiuno ya kike na upasuaji wa ujenzi",
             "label_ch": "女性骨盆医学和重建手术",
+            "label_fr": "Médecine pelvienne féminine et chirurgie reconstructive",
             "value": "Female_pelvic_medicine_and_reconstructive_surgery"
         },
         {
@@ -844,6 +920,7 @@
             "label_pt": "Gynecologic oncology",
             "label_sw": "Oncolojia ya Gynecologic",
             "label_ch": "妇科肿瘤",
+            "label_fr": "Oncologie gynécologique",
             "value": "Gynecologic_oncology"
         },
         {
@@ -855,6 +932,7 @@
             "label_pt": "Maternal-fetal medicine",
             "label_sw": "Dawa ya fetasi ya mama",
             "label_ch": "母胎医学",
+            "label_fr": "Médecine materno-fœtale",
             "value": "Maternal-fetal_medicine"
         },
         {
@@ -866,6 +944,7 @@
             "label_pt": "Reproductive endocrinologists and infertility",
             "label_sw": "Wataalam wa endocrinolojia ya uzazi na utasa",
             "label_ch": "生殖内分泌学和不孕不育",
+            "label_fr": "Endocrinologues de la reproduction et infertilité",
             "value": "Reproductive_endocrinologists_and_infertility"
         },
         {
@@ -877,6 +956,7 @@
             "label_pt": "Anterior segment/cornea ophthalmology",
             "label_sw": "Sehemu ya mbele / ophthalmolojia ya koni",
             "label_ch": "前段/角膜眼科",
+            "label_fr": "Segment antérieur/ophtalmologie de la cornée",
             "value": "Anterior_segment/cornea_ophthalmology"
         },
         {
@@ -888,6 +968,7 @@
             "label_pt": "Glaucoma ophthalmology",
             "label_sw": "Glaucoma ophthalmolojia",
             "label_ch": "青光眼眼科",
+            "label_fr": "Ophtalmologie du glaucome",
             "value": "Glaucoma_ophthalmology"
         },
         {
@@ -899,6 +980,7 @@
             "label_pt": "Neurooftalmologia",
             "label_sw": "Neuro-ophthalmolojia",
             "label_ch": "眼肿瘤学",
+            "label_fr": "Neuro-ophtalmologie",
             "value": "Neuro-ophthalmology"
         },
         {
@@ -910,6 +992,7 @@
             "label_pt": "Ocular oncology",
             "label_sw": "Oncolojia ya macho",
             "label_ch": "神经眼科",
+            "label_fr": "Oncologie oculaire",
             "value": "Ocular_oncology"
         },
         {
@@ -921,6 +1004,7 @@
             "label_pt": "Oculoplastia e Órbita",
             "label_sw": "Oculoplastics / obiti",
             "label_ch": "ﾂ环板篠ｮﾂ嘉ｯﾂ偲",
+            "label_fr": "Oculoplastique / orbite",
             "value": "Oculoplastics/orbit"
         },
         {
@@ -932,6 +1016,7 @@
             "label_pt": "Ophthalmic Plastic & Reconstructive Surgery",
             "label_sw": "Upasuaji wa Plastiki na Urekebishaji wa Ophthalmic",
             "label_ch": "眼科整形外科",
+            "label_fr": "Chirurgie plastique et reconstructive ophtalmique",
             "value": "Ophthalmic_Plastic_&_Reconstructive_Surgery"
         },
         {
@@ -943,6 +1028,7 @@
             "label_pt": "Retina/Uveíte",
             "label_sw": "Retina / uveitis",
             "label_ch": "视网膜/葡萄膜炎",
+            "label_fr": "Rétine / uvéite",
             "value": "Retina/uveitis"
         },
         {
@@ -954,6 +1040,7 @@
             "label_pt": "Strabismus/pediatric ophthalmology",
             "label_sw": "Strabismus / ophthalmolojia ya watoto",
             "label_ch": "斜视/儿科眼科",
+            "label_fr": "Strabisme/ophtalmologie pédiatrique",
             "value": "Strabismus/pediatric_ophthalmology"
         },
         {
@@ -965,6 +1052,7 @@
             "label_pt": "Blood banking and transfusion medicine",
             "label_sw": "Benki ya damu na dawa ya kuongezea damu",
             "label_ch": "血库和输血医学",
+            "label_fr": "Banque de sang et médecine transfusionnelle",
             "value": "Blood_banking_and_transfusion_medicine"
         },
         {
@@ -976,6 +1064,7 @@
             "label_pt": "Chemical pathology",
             "label_sw": "Ugonjwa wa kemikali",
             "label_ch": "化学病理学",
+            "label_fr": "Pathologie chimique",
             "value": "Chemical_pathology"
         },
         {
@@ -987,6 +1076,7 @@
             "label_pt": "Citopatologia",
             "label_sw": "Cytopatholojia",
             "label_ch": "细胞病理学",
+            "label_fr": "Cytopathologie",
             "value": "Cytopathology"
         },
         {
@@ -998,6 +1088,7 @@
             "label_pt": "Forensic pathology",
             "label_sw": "Kuchunguza mauaji ya ugonjwa",
             "label_ch": "法医病理学",
+            "label_fr": "Pathologie médico-légale",
             "value": "Forensic_pathology"
         },
         {
@@ -1009,6 +1100,7 @@
             "label_pt": "Genetic pathology",
             "label_sw": "Ugonjwa wa maumbile",
             "label_ch": "遗传病理学",
+            "label_fr": "Pathologie génétique",
             "value": "Genetic_pathology"
         },
         {
@@ -1020,6 +1112,7 @@
             "label_pt": "Hematologia",
             "label_sw": "Hematolojia",
             "label_ch": "血液学",
+            "label_fr": "Hématologie",
             "value": "Hematology"
         },
         {
@@ -1031,6 +1124,7 @@
             "label_pt": "Imunopatologia",
             "label_sw": "Immunopatholojia",
             "label_ch": "免疫病理学",
+            "label_fr": "Immunopathologie",
             "value": "Immunopathology"
         },
         {
@@ -1042,6 +1136,7 @@
             "label_pt": "Medical microbiology",
             "label_sw": "Matibabu ya microbiolojia",
             "label_ch": "医学微生物学",
+            "label_fr": "Microbiologie médicale",
             "value": "Medical_microbiology"
         },
         {
@@ -1053,6 +1148,7 @@
             "label_pt": "Molecular pathology",
             "label_sw": "ugonjwa wa Masi",
             "label_ch": "分子病理学",
+            "label_fr": "Pathologie moléculaire",
             "value": "Molecular_pathology"
         },
         {
@@ -1064,6 +1160,7 @@
             "label_pt": "Neuropatologia",
             "label_sw": "Neuropatholojia",
             "label_ch": "神经病理学",
+            "label_fr": "Neuropathologie",
             "value": "Neuropathology"
         },
         {
@@ -1075,6 +1172,7 @@
             "label_pt": "Pediatric pathology",
             "label_sw": "ugonjwa wa watoto",
             "label_ch": "儿科病理",
+            "label_fr": "Pathologie pédiatrique",
             "value": "Pediatric_pathology"
         },
         {
@@ -1086,6 +1184,7 @@
             "label_pt": "Adolescent medicine",
             "label_sw": "Dawa ya vijana",
             "label_ch": "青少年医学",
+            "label_fr": "Médecine des adolescents",
             "value": "Adolescent_medicine"
         },
         {
@@ -1097,6 +1196,7 @@
             "label_pt": "Child abuse pediatrics",
             "label_sw": "Matibabu ya watoto  wanaodhulumia",
             "label_ch": "儿童虐待儿科",
+            "label_fr": "Pédiatrie des enfants maltraités",
             "value": "Child_abuse_pediatrics"
         },
         {
@@ -1108,6 +1208,7 @@
             "label_pt": "Developmental-behavioral pediatrics",
             "label_sw": "Watoto wa maendeleo kitabia",
             "label_ch": "发育行为儿科",
+            "label_fr": "Pédiatrie développementale et comportementale",
             "value": "Developmental-behavioral_pediatrics"
         },
         {
@@ -1119,6 +1220,7 @@
             "label_pt": "Neonatal-perinatal medicine",
             "label_sw": "Dawa ya kuzaliwa kwa mtoto mchanga",
             "label_ch": "新生儿-围产期医学",
+            "label_fr": "Médecine néonatale et périnatale",
             "value": "Neonatal-perinatal_medicine"
         },
         {
@@ -1130,6 +1232,7 @@
             "label_pt": "Pediatric cardiology",
             "label_sw": "Ugonjwa wa moyo ya watoto",
             "label_ch": "儿科心脏病",
+            "label_fr": "Cardiologie pédiatrique",
             "value": "Pediatric_cardiology"
         },
         {
@@ -1141,6 +1244,7 @@
             "label_pt": "Pediatric critical care medicine",
             "label_sw": "Dawa ya utunzaji wa watoto muhimu",
             "label_ch": "儿科重症监护医学",
+            "label_fr": "Médecine pédiatrique de soins intensifs",
             "value": "Pediatric_critical_care_medicine"
         },
         {
@@ -1152,6 +1256,7 @@
             "label_pt": "Pediatric endocrinology",
             "label_sw": "Endocrinolojia ya watoto",
             "label_ch": "儿科内分泌学",
+            "label_fr": "Endocrinologie pédiatrique",
             "value": "Pediatric_endocrinology"
         },
         {
@@ -1163,6 +1268,7 @@
             "label_pt": "Pediatric gastroenterology",
             "label_sw": "Gastroenterolojia ya watoto",
             "label_ch": "小儿胃肠病学",
+            "label_fr": "Gastroentérologie pédiatrique",
             "value": "Pediatric_gastroenterology"
         },
         {
@@ -1174,6 +1280,7 @@
             "label_pt": "Pediatric hematology-oncology",
             "label_sw": "hematology-oncolojia ya watoto",
             "label_ch": "小儿血液学-肿瘤学",
+            "label_fr": "Hématologie-oncologie pédiatrique",
             "value": "Pediatric_hematology-oncology"
         },
         {
@@ -1185,6 +1292,7 @@
             "label_pt": "Pediatric infectious diseases",
             "label_sw": "Pediatric infectious diseases",
             "label_ch": "小儿传染病",
+            "label_fr": "Maladies infectieuses pédiatriques",
             "value": "Pediatric_infectious_diseases"
         },
         {
@@ -1196,6 +1304,7 @@
             "label_pt": "Pediatric nephrology",
             "label_sw": "Pediatric nephrology",
             "label_ch": "小儿肾病",
+            "label_fr": "Néphrologie pédiatrique",
             "value": "Pediatric_nephrology"
         },
         {
@@ -1207,6 +1316,7 @@
             "label_pt": "Pediatric pulmonology",
             "label_sw": "Ugonjwa wa mapafu ya watoto",
             "label_ch": "小儿肺病",
+            "label_fr": "Pneumologie pédiatrique",
             "value": "Pediatric_pulmonology"
         },
         {
@@ -1218,6 +1328,7 @@
             "label_pt": "Pediatric rheumatology",
             "label_sw": "rheumatolojia ya watoto",
             "label_ch": "小儿风湿病",
+            "label_fr": "Rhumatologie pédiatrique",
             "value": "Pediatric_rheumatology"
         },
         {
@@ -1229,6 +1340,7 @@
             "label_pt": "Pediatric sports medicine",
             "label_sw": "Dawa ya michezo ya watoto",
             "label_ch": "小儿运动医学",
+            "label_fr": "Médecine sportive pédiatrique",
             "value": "Pediatric_sports_medicine"
         },
         {
@@ -1240,6 +1352,7 @@
             "label_pt": "Pediatric transplant hepatology",
             "label_sw": "hepatolojia ya kupandikiza watoto",
             "label_ch": "小儿移植肝病",
+            "label_fr": "Hépatologie de la transplantation pédiatrique",
             "value": "Pediatric_transplant_hepatology"
         },
         {
@@ -1251,6 +1364,7 @@
             "label_pt": "Brain injury medicine",
             "label_sw": "Dawa ya kuumia ubongo",
             "label_ch": "脑损伤医学",
+            "label_fr": "Médecine des lésions cérébrales",
             "value": "Brain_injury_medicine"
         },
         {
@@ -1262,6 +1376,7 @@
             "label_pt": "Hospice and palliative medicine",
             "label_sw": "Hospitali na dawa ya kutuliza",
             "label_ch": "临终关怀和姑息药",
+            "label_fr": "Hospice et médecine palliative",
             "value": "Hospice_and_palliative_medicine"
         },
         {
@@ -1273,6 +1388,7 @@
             "label_pt": "Neuromuscular medicine",
             "label_sw": "Dawa ya mshipa wa neva",
             "label_ch": "神经肌肉医学",
+            "label_fr": "Médecine neuromusculaire",
             "value": "Neuromuscular_medicine"
         },
         {
@@ -1284,6 +1400,7 @@
             "label_pt": "Pain medicine",
             "label_sw": "Dawa ya maumivu",
             "label_ch": "止痛药",
+            "label_fr": "Médicaments antidouleur",
             "value": "Pain_medicine"
         },
         {
@@ -1295,6 +1412,7 @@
             "label_pt": "Pediatric rehabilitation medicine",
             "label_sw": "Dawa ya ukarabati wa watoto",
             "label_ch": "小儿康复医学",
+            "label_fr": "Médecine de réadaptation pédiatrique",
             "value": "Pediatric_rehabilitation_medicine"
         },
         {
@@ -1306,6 +1424,7 @@
             "label_pt": "Spinal cord injury medicine",
             "label_sw": "Dawa ya kuumia ya uti wa mgongo",
             "label_ch": "脊髓损伤医学",
+            "label_fr": "Médecine des lésions de la moelle épinière",
             "value": "Spinal_cord_injury_medicine"
         },
         {
@@ -1317,6 +1436,7 @@
             "label_pt": "Sports medicine",
             "label_sw": "Dawa ya michezo",
             "label_ch": "运动医学",
+            "label_fr": "Médecine du sport",
             "value": "Sports_medicine"
         },
         {
@@ -1328,6 +1448,7 @@
             "label_pt": "Aerospace medicine",
             "label_sw": "Dawa ya kutumia angani",
             "label_ch": "航空医学",
+            "label_fr": "Médecine aérospatiale",
             "value": "Aerospace_medicine"
         },
         {
@@ -1339,6 +1460,7 @@
             "label_pt": "Medical toxicology",
             "label_sw": "Matibabu ya sumu",
             "label_ch": "医学毒理学",
+            "label_fr": "Toxicologie médicale",
             "value": "Medical_toxicology"
         },
         {
@@ -1350,6 +1472,7 @@
             "label_pt": "Occupational medicine",
             "label_sw": "Dawa ya kazini",
             "label_ch": "职业医学",
+            "label_fr": "Médecine du travail",
             "value": "Occupational_medicine"
         },
         {
@@ -1361,6 +1484,7 @@
             "label_pt": "Public health medicine",
             "label_sw": "Dawa ya afya ya umma",
             "label_ch": "公共卫生医学",
+            "label_fr": "Médecine de santé publique",
             "value": "Public_health_medicine"
         },
         {
@@ -1372,6 +1496,7 @@
             "label_pt": "Administrative psychiatry",
             "label_sw": "Saikolojia ya kiutawala",
             "label_ch": "行政精神病学",
+            "label_fr": "Psychiatrie administrative",
             "value": "Administrative_psychiatry"
         },
         {
@@ -1383,6 +1508,7 @@
             "label_pt": "Child and adolescent psychiatry",
             "label_sw": "Saikolojia ya watoto na vijana",
             "label_ch": "儿童和青少年精神病学",
+            "label_fr": "Psychiatrie de l'enfant et de l'adolescent",
             "value": "Child_and_adolescent_psychiatry"
         },
         {
@@ -1394,6 +1520,7 @@
             "label_pt": "Community psychiatry",
             "label_sw": "Saikolojia ya jamii",
             "label_ch": "社区精神病学",
+            "label_fr": "Psychiatrie communautaire",
             "value": "Community_psychiatry"
         },
         {
@@ -1405,6 +1532,7 @@
             "label_pt": "Consultation/liaison psychiatry",
             "label_sw": "Mashauriano / uhusiano wa kisiakolojia",
             "label_ch": "咨询/联络精神病学",
+            "label_fr": "Psychiatrie de consultation/liaison",
             "value": "Consultation/liaison_psychiatry"
         },
         {
@@ -1416,6 +1544,7 @@
             "label_pt": "Emergency psychiatry",
             "label_sw": "Saikolojia ya dharura",
             "label_ch": "紧急精神病学",
+            "label_fr": "Psychiatrie d'urgence",
             "value": "Emergency_psychiatry"
         },
         {
@@ -1427,6 +1556,7 @@
             "label_pt": "Forensic psychiatry",
             "label_sw": "Saikolojia ya kiuchunguzi",
             "label_ch": "法医精神病学",
+            "label_fr": "Psychiatrie légale",
             "value": "Forensic_psychiatry"
         },
         {
@@ -1438,6 +1568,7 @@
             "label_pt": "Geriatric psychiatry",
             "label_sw": "Saikolojia ya kizazi",
             "label_ch": "老年精神病学",
+            "label_fr": "Geriatric psychiatry",
             "value": "Geriatric_psychiatry"
         },
         {
@@ -1449,6 +1580,7 @@
             "label_pt": "Mental retardation psychiatry",
             "label_sw": "Saikolojia ya kudhoofika kwa akili",
             "label_ch": "精神发育迟缓精神病学",
+            "label_fr": "Psychiatrie du retard mental",
             "value": "Mental_retardation_psychiatry"
         },
         {
@@ -1460,6 +1592,7 @@
             "label_pt": "Military psychiatry",
             "label_sw": "Saikolojia ya jeshi",
             "label_ch": "军事精神病学",
+            "label_fr": "Psychiatrie militaire",
             "value": "Military_psychiatry"
         },
         {
@@ -1471,6 +1604,7 @@
             "label_pt": "Pain medicine",
             "label_sw": "Dawa ya maumivu",
             "label_ch": "止痛药",
+            "label_fr": "Médicaments antidouleur",
             "value": "Pain_medicine"
         },
         {
@@ -1482,6 +1616,7 @@
             "label_pt": "Psychiatric research",
             "label_sw": "Utafiti wa kisiakolojia",
             "label_ch": "精神病学研究",
+            "label_fr": "Recherche en psychiatrie",
             "value": "Psychiatric_research"
         },
         {
@@ -1493,6 +1628,7 @@
             "label_pt": "Psychosomatic medicine",
             "label_sw": "Dawa ya kisaikolojia",
             "label_ch": "心身医学",
+            "label_fr": "Médecine psychosomatique",
             "value": "Psychosomatic_medicine"
         },
         {
@@ -1504,6 +1640,7 @@
             "label_pt": "Hospice and palliative medicine",
             "label_sw": "Hospitali na dawa ya kutuliza",
             "label_ch": "临终关怀和姑息药",
+            "label_fr": "Hospice et médecine palliative",
             "value": "Hospice_and_palliative_medicine"
         },
         {
@@ -1515,6 +1652,7 @@
             "label_pt": "Pain medicine",
             "label_sw": "Dawa ya maumivu",
             "label_ch": "止痛药",
+            "label_fr": "Médicaments antidouleur",
             "value": "Pain_medicine"
         },
         {
@@ -1526,6 +1664,7 @@
             "label_pt": "Colon and rectal surgery",
             "label_sw": "Oparesheni wa Colon na rectal",
             "label_ch": "结肠和直肠手术",
+            "label_fr": "Chirurgie du côlon et du rectum",
             "value": "Colon_and_rectal_surgery"
         },
         {
@@ -1537,6 +1676,7 @@
             "label_pt": "Surgical critical care",
             "label_sw": "Huduma muhimu ya Oparesheni",
             "label_ch": "外科重症监护",
+            "label_fr": "Soins intensifs chirurgicaux",
             "value": "Surgical_critical_care"
         },
         {
@@ -1548,6 +1688,7 @@
             "label_pt": "Gynecologic oncology",
             "label_sw": "Oncolojia ya Gynecologic",
             "label_ch": "妇科肿瘤",
+            "label_fr": "Oncologie gynécologique",
             "value": "Gynecologic_oncology"
         },
         {
@@ -1559,6 +1700,7 @@
             "label_pt": "Plastic surgery",
             "label_sw": "Oparesheni wa kiplastiki",
             "label_ch": "整形外科",
+            "label_fr": "Chirurgie plastique",
             "value": "Plastic_surgery"
         },
         {
@@ -1570,6 +1712,7 @@
             "label_pt": "Craniofacial surgery",
             "label_sw": "Craniofacial surgery",
             "label_ch": "颅面外科",
+            "label_fr": "Chirurgie cranio-faciale",
             "value": "Craniofacial_surgery"
         },
         {
@@ -1581,6 +1724,7 @@
             "label_pt": "Hand surgery",
             "label_sw": "Oparesheni wa mkono",
             "label_ch": "手部手术",
+            "label_fr": "Chirurgie de la main",
             "value": "Hand_surgery"
         },
         {
@@ -1592,6 +1736,7 @@
             "label_pt": "Neurological surgery",
             "label_sw": "Oparesheni wa neva",
             "label_ch": "神经外科手术",
+            "label_fr": "Chirurgie neurologique",
             "value": "Neurological_surgery"
         },
         {
@@ -1603,6 +1748,7 @@
             "label_pt": "Endovascular surgical neuroradiology",
             "label_sw": "Neuroradiolojia ya upasuaji wa mishipa",
             "label_ch": "血管内手术神经放射学",
+            "label_fr": "Neuroradiologie chirurgicale endovasculaire",
             "value": "Endovascular_surgical_neuroradiology"
         },
         {
@@ -1614,6 +1760,7 @@
             "label_pt": "Ophthalmic surgery",
             "label_sw": "Oparesheni ya macho",
             "label_ch": "眼科手术",
+            "label_fr": "Chirurgie ophtalmique",
             "value": "Ophthalmic_surgery"
         },
         {
@@ -1625,6 +1772,7 @@
             "label_pt": "Oral and maxillofacial surgery",
             "label_sw": "Oral and maxillofacial surgery",
             "label_ch": "Oral and maxillofacial surgery",
+            "label_fr": "Chirurgie buccale et maxillo-faciale",
             "value": "Oral_and_maxillofacial_surgery"
         },
         {
@@ -1636,6 +1784,7 @@
             "label_pt": "HEAD AND NECK SURGERY",
             "label_sw": "OPARESHENI WA KICHWA NA SHINGO",
             "label_ch": "头颈部手术",
+            "label_fr": "CHIRURGIE DE LA TÊTE ET DU COU",
             "value": "HEAD_AND_NECK_SURGERY"
         },
         {
@@ -1647,6 +1796,7 @@
             "label_pt": "Orthopaedic surgery",
             "label_sw": "Oparesheni wa mifupa",
             "label_ch": "骨科手术",
+            "label_fr": "Chirurgie orthopédique",
             "value": "Orthopaedic_surgery"
         },
         {
@@ -1658,6 +1808,7 @@
             "label_pt": "Adult reconstructive orthopaedics",
             "label_sw": "Ujenzi ya mifupa ya watu wazima",
             "label_ch": "成人重建骨科",
+            "label_fr": "Orthopédie reconstructive pour adultes",
             "value": "Adult_reconstructive_orthopaedics"
         },
         {
@@ -1669,6 +1820,7 @@
             "label_pt": "Foot and ankle orthopaedics",
             "label_sw": "Hali ya mfupa wa mguu na kifundo",
             "label_ch": "足踝骨科",
+            "label_fr": "Orthopédie du pied et de la cheville",
             "value": "Foot_and_ankle_orthopaedics"
         },
         {
@@ -1680,6 +1832,7 @@
             "label_pt": "Musculoskeletal oncology",
             "label_sw": "Onkolojia ya mifupa",
             "label_ch": "肌肉骨骼肿瘤学",
+            "label_fr": "Oncologie musculo-squelettique",
             "value": "Musculoskeletal_oncology"
         },
         {
@@ -1691,6 +1844,7 @@
             "label_pt": "Orthopaedic sports medicine",
             "label_sw": "Dawa ya michezo ya mifupa",
             "label_ch": "骨科运动医学",
+            "label_fr": "Médecine sportive orthopédique",
             "value": "Orthopaedic_sports_medicine"
         },
         {
@@ -1702,6 +1856,7 @@
             "label_pt": "Orthopaedic surgery of the spine",
             "label_sw": "Upasuaji wa mifupa ya mgongo",
             "label_ch": "脊柱骨科手术",
+            "label_fr": "Chirurgie orthopédique de la colonne vertébrale",
             "value": "Orthopaedic_surgery_of_the_spine"
         },
         {
@@ -1713,6 +1868,7 @@
             "label_pt": "Orthopaedic trauma",
             "label_sw": "kiwewe cha mifupa",
             "label_ch": "骨科创伤",
+            "label_fr": "Traumatisme orthopédique",
             "value": "Orthopaedic_trauma"
         },
         {
@@ -1724,6 +1880,7 @@
             "label_pt": "Pediatric orthopaedics",
             "label_sw": "Mifupa ya watoto",
             "label_ch": "小儿骨科",
+            "label_fr": "Orthopédie pédiatrique",
             "value": "Pediatric_orthopaedics"
         },
         {
@@ -1735,6 +1892,7 @@
             "label_pt": "Otorrinolaringologia",
             "label_sw": "Otolaryngolojia",
             "label_ch": "耳鼻喉科",
+            "label_fr": "Otolaryngologie",
             "value": "Otolaryngology"
         },
         {
@@ -1746,6 +1904,7 @@
             "label_pt": "Pediatric otolaryngology",
             "label_sw": "Otolaryngolojia ya watoto",
             "label_ch": "小儿耳鼻喉科",
+            "label_fr": "Otolaryngologie pédiatrique",
             "value": "Pediatric_otolaryngology"
         },
         {
@@ -1757,6 +1916,7 @@
             "label_pt": "Otology neurotology",
             "label_sw": "Neurolojia ya Otolojia",
             "label_ch": "耳科神经学",
+            "label_fr": "Otologie neurotologie",
             "value": "Otology_neurotology"
         },
         {
@@ -1768,6 +1928,7 @@
             "label_pt": "Pediatric surgery",
             "label_sw": "Oparesheni ya wa watoto",
             "label_ch": "小儿外科",
+            "label_fr": "Chirurgie pédiatrique",
             "value": "Pediatric_surgery"
         },
         {
@@ -1779,6 +1940,7 @@
             "label_pt": "Neonatal",
             "label_sw": "Mtoto mchanga",
             "label_ch": "新生儿",
+            "label_fr": "Néonatal",
             "value": "Neonatal"
         },
         {
@@ -1790,6 +1952,7 @@
             "label_pt": "Pré-natal",
             "label_sw": "kabla ya kuzaa",
             "label_ch": "产前",
+            "label_fr": "Prénatal",
             "value": "Prenatal"
         },
         {
@@ -1801,6 +1964,7 @@
             "label_pt": "Trauma",
             "label_sw": "Kiwewe",
             "label_ch": "创伤",
+            "label_fr": "Traumatisme",
             "value": "Trauma"
         },
         {
@@ -1812,6 +1976,7 @@
             "label_pt": "Pediatric oncology",
             "label_sw": "Oncolojia ya watoto",
             "label_ch": "小儿肿瘤",
+            "label_fr": "Oncologie pédiatrique",
             "value": "Pediatric_oncology"
         },
         {
@@ -1823,6 +1988,7 @@
             "label_pt": "Thoracic Surgery",
             "label_sw": "Oparesheni ya kifua",
             "label_ch": "胸外科",
+            "label_fr": "Chirurgie thoracique",
             "value": "Thoracic_Surgery"
         },
         {
@@ -1834,6 +2000,7 @@
             "label_pt": "Congenital cardiac surgery",
             "label_sw": "Oparesheni wa moyo wa kuzaliwa",
             "label_ch": "先天性心脏手术",
+            "label_fr": "Chirurgie cardiaque congénitale",
             "value": "Congenital_cardiac_surgery"
         },
         {
@@ -1845,6 +2012,7 @@
             "label_pt": "Thoracic surgery-integrated",
             "label_sw": "Oparesheni wa kifua jumuishi",
             "label_ch": "胸外科-集成",
+            "label_fr": "Chirurgie thoracique intégrée",
             "value": "Thoracic_surgery-integrated"
         },
         {
@@ -1856,6 +2024,7 @@
             "label_pt": "Vascular surgery",
             "label_sw": "Oparesheni wa mishipa",
             "label_ch": "血管手术",
+            "label_fr": "Chirurgie vasculaire",
             "value": "Vascular_surgery"
         },
         {
@@ -1867,6 +2036,7 @@
             "label_pt": "Pediatric urology",
             "label_sw": "Urolojia ya watoto",
             "label_ch": "儿科泌尿科",
+            "label_fr": "Urologie pédiatrique",
             "value": "Pediatric_urology"
         },
         {
@@ -1878,6 +2048,7 @@
             "label_pt": "Urologic oncology",
             "label_sw": "Oncolojia ya Urolojia",
             "label_ch": "泌尿肿瘤",
+            "label_fr": "Oncologie urologique",
             "value": "Urologic_oncology"
         },
         {
@@ -1889,6 +2060,7 @@
             "label_pt": "Renal transplant",
             "label_sw": "Kupandikiza figo",
             "label_ch": "肾移植",
+            "label_fr": "Transplantation rénale",
             "value": "Renal_transplant"
         },
         {
@@ -1900,6 +2072,7 @@
             "label_pt": "Male infertility",
             "label_sw": "Ugumba wa kiume",
             "label_ch": "男性不孕不育",
+            "label_fr": "Infertilité masculine",
             "value": "Male_infertility"
         },
         {
@@ -1911,6 +2084,7 @@
             "label_pt": "Cálculos",
             "label_sw": "Calculi",
             "label_ch": "结石",
+            "label_fr": "Calculs",
             "value": "Calculi"
         },
         {
@@ -1922,6 +2096,7 @@
             "label_pt": "Female urology",
             "label_sw": "Urolojia ya kike",
             "label_ch": "女性泌尿科",
+            "label_fr": "Urologie féminine",
             "value": "Female_urology"
         },
         {
@@ -1933,6 +2108,7 @@
             "label_pt": "Neurourologia",
             "label_sw": "Neurourolojia",
             "label_ch": "神经泌尿学",
+            "label_fr": "Neurourologie",
             "value": "Neurourology"
         }
     ]

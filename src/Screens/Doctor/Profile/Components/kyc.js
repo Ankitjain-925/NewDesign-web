@@ -30,7 +30,8 @@ import * as translationRS from '../../../../translations/rs.json';
 import * as translationSW from '../../../../translations/sw.json';
 import * as translationCH from '../../../../translations/ch.json';
 import * as translationNL from '../../../../translations/nl.json';
-
+import * as translationFR from '../../../../translations/fr.json';
+import * as translationAR from '../../../../translations/ar.json';
 const countryoptions = [
     { value: 'england', label: 'England' },
     { value: 'australia', label: 'Australia' },
@@ -327,7 +328,7 @@ class Index extends Component {
             )
         });
 
-        let translate;
+        let translate={};
       switch (this.props.stateLanguageType) {
             case "en":
                 translate = translationEN.text
@@ -353,7 +354,13 @@ class Index extends Component {
             case "sw":
                 translate = translationSW.text
                 break;
-            case "default":
+            case "fr":
+                translate = translationFR.text
+                break;
+            case "ar":
+                translate = translationAR.text
+                break;
+            default:
                 translate = translationEN.text
         }
         let { patient_id, kyc, enter_healthcare_and_upload_data, capab_Doctors, number, registration, responsible_authority, plz_upload_png_jpg, plz_uplod_doc, plz_fill_all_fields, plz_accept_term, is, save_change, by_clicking_accept_aimedis_term, upload_id_card, updated_success, file_uploaded, attached_doc, u_r_nvr_obligate_to_upload_doc, email, title, degree, first, last, name, dob, gender, street, add, city, postal_code, country, home_telephone, phone, country_code, Delete,

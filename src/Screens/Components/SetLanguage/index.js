@@ -18,6 +18,8 @@ import * as translationRS from '../../../translations/rs.json';
 import * as translationSW from '../../../translations/sw.json';
 import * as translationCH from '../../../translations/ch.json';
 import * as translationNL from '../../../translations/nl.json';
+import * as translationFR from '../../../translations/fr.json';
+import * as translationAR from '../../../translations/ar.json';
 class Index extends Component {
     constructor(props) {
         super(props)
@@ -80,7 +82,7 @@ SetLanguage = () => {
 }
 
     render() {
-        let translate;
+        let translate={};
         switch (this.props.stateLanguageType) {
             case "en":
                 translate = translationEN.text
@@ -106,7 +108,13 @@ SetLanguage = () => {
             case "sw":
                 translate = translationSW.text
                 break;
-            case "default":
+            case "fr":
+                translate = translationFR.text
+                break;
+            case "ar":
+                translate = translationAR.text
+                break;
+            default:
                 translate = translationEN.text
         }
         let { language_updated, save_change, language_not_selected, select, Language } = translate;
@@ -149,6 +157,12 @@ SetLanguage = () => {
                                 <input value="nl" onChange={this.changeLanguage} name="language" type="radio" checked={this.state.languageValue == "nl" ? "checked" : ""} />
                                 <label>Dutch</label>
                             </Grid>
+
+                            {/* <Grid>
+                                <input value="fr" onChange={this.changeLanguage} name="language" type="radio" checked={this.state.languageValue == "fr" ? "checked" : ""} />
+                                <label>French</label>
+                            </Grid> */}
+
                         </Grid>
                         <Grid className="col-sm-6 col-xl-6">
                             <Grid>
@@ -167,6 +181,12 @@ SetLanguage = () => {
                                 <input value="sw" onChange={this.changeLanguage} name="language" type="radio" checked={this.state.languageValue == "sw" ? "checked" : ""} />
                                 <label>Swahili</label>
                             </Grid>
+                           
+                            {/* <Grid>
+                                <input value="ar" onChange={this.changeLanguage} name="language" type="radio" checked={this.state.languageValue == "ar" ? "checked" : ""} />
+                                <label>Arabic</label>
+                            </Grid> */}
+
                         </Grid>
                     </Grid>
                 </Grid>

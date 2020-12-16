@@ -93,7 +93,7 @@ class PersonalizedData extends Component {
     }
     
     render() {
-        let translate;
+        let translate={};
         switch (this.props.stateLanguageType) {
               case "en":
                   translate = translationEN.text
@@ -119,7 +119,7 @@ class PersonalizedData extends Component {
               case "sw":
                   translate = translationSW.text
                   break;
-              case "default":
+              default:
                   translate = translationEN.text
           }
           let { personalize_dashbrd, prsnalize_a_dashbord_drag_recorder, add_more_cards }=translate

@@ -583,7 +583,7 @@ class Index extends Component {
     render() {
         const { fitbitDevice, withingsDevice, value, fitbitloggedIn, apidata, withingsloggedIn, garminloggedIn, Devices_id, deviceid } = this.state;
 
-        let translate;
+        let translate={};
       switch (this.props.stateLanguageType) {
             case "en":
                 translate = translationEN.text
@@ -609,7 +609,13 @@ class Index extends Component {
             case "sw":
                 translate = translationSW.text
                 break;
-            case "default":
+            case "fr":
+                translate = translationFR.text
+                break;
+            case "ar":
+                translate = translationAR.text
+                break;
+            default:
                 translate = translationEN.text
         }
         let { trackers, TrackersDevices, self_data, connect, search_for_device_palce, devices, services, view_data,

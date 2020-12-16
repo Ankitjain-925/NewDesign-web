@@ -20,7 +20,8 @@ import * as translationRS from '../../../../translations/rs.json';
 import * as translationSW from '../../../../translations/sw.json';
 import * as translationCH from '../../../../translations/ch.json';
 import * as translationNL from '../../../../translations/nl.json';
-
+import * as translationFR from '../../../../translations/fr.json';
+import * as translationAR from '../../../../translations/ar.json';
 
 var doctorArray = [];
 class Index extends Component {
@@ -59,20 +60,23 @@ class Index extends Component {
                 'Content-Type': 'application/json'
             }
         }).then((response) => {
-            this.setState({ allDocData: response.data.data })
-            for (let i = 0; i < this.state.allDocData.length; i++) {
-                var name = '';
-                if (this.state.allDocData[i].first_name && this.state.allDocData[i].last_name) {
-                    name = this.state.allDocData[i].first_name + ' ' + this.state.allDocData[i].last_name
-                }
-                else if (this.state.allDocData[i].first_name) {
-                    name = this.state.allDocData[i].first_name
-                }
-                doctorArray.push({
-                    label: name
-                })  
-            }
-            this.setState({ DocSug: doctorArray })
+            this.setState({ allDocData: response.data.data },
+               ()=>{ 
+                    for (let i = 0; i < this.state.allDocData.length; i++) {
+                        var name = '';
+                        if (this.state.allDocData[i].first_name && this.state.allDocData[i].last_name) {
+                            name = this.state.allDocData[i].first_name + ' ' + this.state.allDocData[i].last_name
+                        }
+                        else if (this.state.allDocData[i].first_name) {
+                            name = this.state.allDocData[i].first_name
+                        }
+                        doctorArray.push({
+                            label: name
+                        })  
+                    }
+                    this.setState({ DocSug: doctorArray })
+            })
+          
         })
     }
     
@@ -110,7 +114,7 @@ class Index extends Component {
             width: '100%'
         };
 
-        let translate;
+        let translate={};
       switch (this.props.stateLanguageType) {
             case "en":
                 translate = translationEN.text
@@ -133,10 +137,16 @@ class Index extends Component {
             case "ch":
                 translate = translationCH.text
                 break;
-            case "sw":
+case "sw":
                 translate = translationSW.text
                 break;
-            case "default":
+            case "fr":
+                translate = translationFR.text
+                break;
+            case "ar":
+                translate = translationAR.text
+                break;
+            default:
                 translate = translationEN.text
         }
         let { vaccinated_by, vaccination, reminder_time_taken,  change_num, save_entry, attachments, date_of_vaccination, trade_name, smoking_status, notes, visible, Change, archive, de_archive, visibility, edit, Delete, show, hide,

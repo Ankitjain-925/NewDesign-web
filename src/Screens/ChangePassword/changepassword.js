@@ -27,6 +27,8 @@ import * as translationPT from '../../translations/pt';
 import * as translationRS from '../../translations/rs';
 import * as translationNL from '../../translations/nl';
 import * as translationSW from '../../translations/sw';
+import * as translationFR from '../../translations/fr';
+import * as translationAR from '../../translations/ar';
 
 const path = sitedata.data.path + '/UserProfile';
 var letter = /([a-zA-Z])+([ -~])*/, number = /\d+/, specialchar = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
@@ -158,7 +160,7 @@ class Index extends Component {
             return (<Redirect to={'/'} />);
         }
 
-        let translate;
+        let translate={};
         switch (this.props.stateLanguageType) {
             case "en":
                 translate = translationEN.text
@@ -184,7 +186,13 @@ class Index extends Component {
             case "sw":
                 translate = translationSW.text
                 break;
-            case "default":
+            case "fr":
+                translate = translationFR.text
+                break;
+            case "ar":
+                translate = translationAR.text
+                    break;
+            default:
                 translate = translationEN.text
         }
         let { email, forget_password, password_reset, login_Password, password_must_have_its_condition, DarkMode,

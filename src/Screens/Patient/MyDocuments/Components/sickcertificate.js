@@ -23,7 +23,8 @@ import * as translationRS from '../../../../translations/rs.json';
 import * as translationSW from '../../../../translations/sw.json';
 import * as translationCH from '../../../../translations/ch.json';
 import * as translationNL from '../../../../translations/nl.json';
-
+import * as translationFR from '../../../../translations/fr.json';
+import * as translationAR from '../../../../translations/ar.json';
 class Index extends Component {
     constructor(props) {
         super(props);
@@ -45,7 +46,7 @@ class Index extends Component {
 
     // Delete the Sick certificate confirmation
     updateCertificate(status, id) {
-        let translate;
+        let translate={};
         switch (this.props.stateLanguageType) {
             case "en":
                 translate = translationEN.text
@@ -71,7 +72,13 @@ class Index extends Component {
             case "sw":
                 translate = translationSW.text
                 break;
-            case "default":
+            case "fr":
+                translate = translationFR.text
+                break;
+            case "ar":
+                translate = translationAR.text
+                break;
+            default:
                 translate = translationEN.text
         }
         let { Yes, No , update_inquiry, r_u_sure_update_inquiry, r_u_sure_cancel_inquiry, cancel_inquiry} = translate;
@@ -220,7 +227,7 @@ class Index extends Component {
     }
 
     render() {
-        let translate;
+        let translate={};
       switch (this.props.stateLanguageType) {
             case "en":
                 translate = translationEN.text
@@ -246,7 +253,13 @@ class Index extends Component {
             case "sw":
                 translate = translationSW.text
                 break;
-            case "default":
+            case "fr":
+                translate = translationFR.text
+                break;
+            case "ar":
+                translate = translationAR.text
+                break;
+            default:
                 translate = translationEN.text
         }
         let { Case, capab_Doctors, status, sent, on, which_symptoms_do_u_hav, cancel_details, update_entry, not_mentioned,days, since_when, prescription, how_u_feeling, Pending, request, edit, Rejected, Answered, Cancelled, see, sick_cert, my_doc, New, inquiry, again, modify, cancel,
