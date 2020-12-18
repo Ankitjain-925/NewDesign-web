@@ -65,6 +65,8 @@ import DoctorEmergency from './../../Screens/Doctor/Emergency/index.js';
 import DoctorOnline from './../../Screens/Doctor/onlineCourse/index.js';
 import DoctorJournal from './../../Screens/Doctor/Journal/index.js';
 
+import DicomView from './../../Screens/Components/DicomView/ImageViewer';
+
 class Routermain extends Component {
   render() {
     return (
@@ -137,7 +139,7 @@ class Routermain extends Component {
 
             {/* Doctor Router End*/}
             <Route exact path="/register-successfull" render={(props)=><RegSuccuss {...props}/>} />
-
+            <Route exact path="/Dicom-file-view" render={(props)=><DicomView {...props}/>} />
 
             <Route path='*' exact={true} render={(props) => <NotFound {...props} />} />
             {/* End By Ankita */}

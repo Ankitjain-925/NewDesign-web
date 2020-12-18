@@ -44,11 +44,17 @@ class Index extends Component {
         } 
         else return '';
     }
-    OpenFile = (image)=>{
-        // console.log('images',image, this.state.images)
+    OpenFile = (image, type='')=>{
         if(image){
             image = getImage(image, this.state.images)
-            this.setState({openPopup: true, crnt_img: image, cnrttype : (image && image.split("&bucket=")[0] && image.split("&bucket=")[0].split('.').pop()) })
+            if(type==='DICOM'|| type==='dcm'){
+                window.open('/Dicom-file-view?input='+encodeURIComponent(image), '_blank');
+                // this.props.history.push();
+                
+            }
+            else{
+                this.setState({openPopup: true, crnt_img: image, cnrttype : (image && image.split("&bucket=")[0] && image.split("&bucket=")[0].split('.').pop()) })
+            } 
         }
     }
 
@@ -74,7 +80,7 @@ class Index extends Component {
                         {(file.filetype ==='doc'|| file.filetype ==='docx' || file.filetype ==='xml' || file.filetype ==='txt') && <img onClick={()=>this.OpenFile(file.filename)} src={require('../../../../assets/images/txt1.png')} alt="" title="" />}
                         {(file.filetype ==='xls'|| file.filetype ==='xlsx' || file.filetype ==='xml' ) && <img onClick={()=>this.OpenFile(file.filename)} src={require('../../../../assets/images/xls1.svg')} alt="" title="" />} 
                         {(file.filetype ==='csv') && <img onClick={()=>this.OpenFile(file.filename)} src={require('../../../../assets/images/csv1.png')} alt="" title="" />} 
-                        {(file.filetype ==='dcm') && <img onClick={()=>this.OpenFile(file.filename)} src={require('../../../../assets/images/dcm1.png')} alt="" title="" />} 
+                        {(file.filetype ==='dcm' || file.filetype==='DICOM') && <img onClick={()=>this.OpenFile(file.filename, file.filetype)} src={require('../../../../assets/images/dcm1.png')} alt="" title="" />} 
                         <label>{this.getFileName(file)}</label></a>
                         
                 ))}

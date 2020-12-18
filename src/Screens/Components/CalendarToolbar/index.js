@@ -16,6 +16,8 @@ import * as translationRS from '../../../translations/rs.json';
 import * as translationSW from '../../../translations/sw.json';
 import * as translationCH from '../../../translations/ch.json';
 import * as translationNL from '../../../translations/nl.json';
+import * as translationFR from '../../../translations/fr.json';
+import * as translationAR from '../../../translations/ar.json';
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
@@ -71,6 +73,12 @@ class Index extends Toolbar {
 			case "sw":
 				translate = translationSW.text
 				break;
+				case "fr":
+					translate = translationFR.text
+					break;
+				case "ar":
+					translate = translationAR.text
+					break;
 			default:
 				translate = translationEN.text
 		}
@@ -155,8 +163,8 @@ class Index extends Toolbar {
 								</Grid>
 								<Grid item xs={12} md={6}>
 									<Grid className="todaySrchRght todayAddons">
-										<a onClick={handleClick} className="syncRght">{sync_ur_calander}</a>
-										<a className="toolSearch"><img src={require('../../../assets/images/search-entries.svg')} alt="" title="" /></a>
+										{/* <a onClick={handleClick} className="syncRght">{sync_ur_calander}</a>
+										<a className="toolSearch"><img src={require('../../../assets/images/search-entries.svg')} alt="" title="" /></a> */}
 										<Select
 											value={selectedOption}
 											onChange={this.handleChange}
@@ -167,8 +175,8 @@ class Index extends Toolbar {
 											//isMulti= {true}
 											isSearchable={false}
 										/>
-										<a className="calViewnw"><img src={require('../../../assets/images/calendar-view.svg')} alt="" title="" /></a>
-										<a className="barViewnw"><img src={require('../../../assets/images/bar.png')} alt="" title="" /></a>
+										<a onClick={()=>{this.handleChange({ value: 'month', label: 'Month' })}} className={this.state.selectedOption && this.state.selectedOption.value==='month' ? "calViewnw nowactive":"calViewnw"}><img src={require('../../../assets/images/calendar-view.svg')} alt="" title="" /></a>
+										<a onClick={()=>{this.handleChange({ value: 'week', label: 'Week' })}} className={this.state.selectedOption && this.state.selectedOption.value==='week' ? "barViewnw nowactive":"barViewnw"}><img src={require('../../../assets/images/bar1.svg')} alt="" title="" /></a>
 									</Grid>
 								</Grid>
 							</Grid>

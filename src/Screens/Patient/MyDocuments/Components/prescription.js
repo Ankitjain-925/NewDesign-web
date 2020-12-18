@@ -294,13 +294,13 @@ class Index extends Component {
                                     <Td>{data.medication ? data.medication : 'Not mentioned'}</Td>
                                     <Td>{data.send_on ? getDate(data.send_on, this.props.settings.setting.date_format) : 'Not mentioned'}</Td>
                                     <Td className="presImg"><img src={data.docProfile && data.docProfile.profile_image ? getImage(data.docProfile.profile_image, this.state.images) : require('../../../../assets/images/dr1.jpg')} alt="" title="" />{data.docProfile && data.docProfile.first_name && data.docProfile.first_name} {data.docProfile && data.docProfile.last_name && data.docProfile.last_name}</Td>
-                                    {data.status === 'pending' && <Td><span className="revwYelow"></span>{Pending} </Td>}
-                                    {data.status === 'accept' && <Td><span className="revwGren"></span>{Answered} </Td>}
-                                    {data.status === 'remove' && <Td><span className="revwRed"></span>{Rejected}</Td>}
-                                    {data.status === 'decline' && <Td><span className="revwRed"></span>{Rejected}</Td>}
-                                    {data.status === 'cancel' && <Td><span className="revwRed"></span> {Cancelled}</Td>}
-                                    {data.status === 'free' && <Td><span className="revwGry"></span>{sent} {request}</Td>}
-                                    {data.status === 'normal' && <Td><span className="revwGry"></span>{sent} {request}</Td>}
+                                    {data.status === 'pending' && <Td className="dotsImgColor"><span className="revwYelow"></span>{Pending} </Td>}
+                                    {data.status === 'accept' && <Td className="dotsImgColor"><span className="revwGren"></span>{Answered} </Td>}
+                                    {data.status === 'remove' && <Td className="dotsImgColor"><span className="revwRed"></span>{Rejected}</Td>}
+                                    {data.status === 'decline' && <Td className="dotsImgColor"><span className="revwRed"></span>{Rejected}</Td>}
+                                    {data.status === 'cancel' && <Td className="dotsImgColor"><span className="revwRed"></span> {Cancelled}</Td>}
+                                    {data.status === 'free' && <Td className="dotsImgColor"><span className="revwGry"></span>{sent} {request}</Td>}
+                                    {data.status === 'normal' && <Td className="dotsImgColor"><span className="revwGry"></span>{sent} {request}</Td>}
                                     <Td className="presEditDot scndOptionIner">
                                         <a className="openScndhrf">
                                             <img src={require('../../../../assets/images/three_dots_t.png')} alt="" title="" className="openScnd" />

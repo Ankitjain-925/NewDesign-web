@@ -74,7 +74,7 @@ class Index extends Component {
             case "ch":
                 translate = translationCH.text
                 break;
-case "sw":
+            case "sw":
                 translate = translationSW.text
                 break;
             case "fr":

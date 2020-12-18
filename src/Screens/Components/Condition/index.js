@@ -12,7 +12,8 @@ import * as translationRS from '../../../translations/rs.json';
 import * as translationSW from '../../../translations/sw.json';
 import * as translationCH from '../../../translations/ch.json';
 import * as translationNL from '../../../translations/nl.json';
-
+import * as translationFR from '../../../translations/fr.json';
+import * as translationAR from '../../../translations/ar.json';
 class Condition extends Component {
     constructor(props) {
         super(props)
@@ -64,6 +65,12 @@ class Condition extends Component {
           case "sw":
               translate = translationSW.text
               break;
+              case "fr":
+                translate = translationFR.text
+                break;
+            case "ar":
+                translate = translationAR.text
+                break;
           default:
               translate = translationEN.text
       }

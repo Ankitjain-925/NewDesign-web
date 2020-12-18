@@ -23,14 +23,12 @@ class Index extends Component {
 
     componentDidMount()
     {
-        console.log('this.props.location.state', this.props.location.state)
         if(this.props.location && this.props.location.state !== 'undefined' && this.props.location.state && (this.props.location.state.course_id || this.props.location.state.courseId))
         {
             this.setState({Course : this.props.location.state})
         }   
         else
         {
-            console.log('here111')
             this.props.history.push(`/${this.props.stateLoginValueAim.user.type}/online-course`);
         }
     }

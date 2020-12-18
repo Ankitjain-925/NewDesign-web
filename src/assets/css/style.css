@@ -1864,6 +1864,16 @@ a.profilMenu {
     .docOpinion {
         margin-left: 0px !important;
     }
+    .checkHelth {
+        overflow-y: scroll;
+        height: 362px !important;
+    }
+    .docsOpinion {
+        margin-left: 0px !important;
+    }
+    .presOpinionIner td {
+        font-size: 11px !important;
+    }    
 }
 @media (max-width: 599px){ 
     .chatContact {
@@ -1956,10 +1966,6 @@ a.profilMenu {
     }
     .entryBoxCntnt {
         width: 96% !important;
-    }
-    .checkHelth {
-        overflow-y: scroll;
-        height: 362px !important;
     }
     .nwDiaCntnt {
         width: 96% !important;
@@ -2071,8 +2077,8 @@ a.profilMenu {
         display: block !important;
         margin-bottom: 8px !important;
     }
-    .mkFmlyDoc .css-g1d714-ValueContainer {
-        padding: 20px 6px !important;
+    .mkFmlyDoc div div {
+        padding: 12px 5px !important;
     }
     .scndOpinionIner tbody tr {
         border-bottom: 1px solid #000 !important;
@@ -6427,7 +6433,7 @@ a.archvDel:hover ul {
 }
 
 .entryBoxCntnt {
-    width: 455px;
+    width: 460px;
     background: #fff;
     margin: 0 auto;
     border: none;
@@ -11287,12 +11293,12 @@ a.calViewnw img {
     border-radius: initial !important;
 }
 a.barViewnw img {
-    width: 15px;
+    width: 17px;
     border-radius: initial !important;
 }
 a.calViewnw {
     border-radius: 8px;
-    background-color: #E1F7F7;
+    /* background-color: #E1F7F7; */
     padding: 7px 8px;
     display: inline-flex;
     justify-content: center;
@@ -13094,12 +13100,32 @@ a.academy_ul ul li img {
 
 
 /*Added By ankita*/
+.Pwrdby{
+    text-align: center;
+    font-size:15px;
+}
+.Pwrdby1{
+    text-align: center;
+    font-size:30px;
+}
+.drawDiv {
+    position: static !important;
+}
+.darkTheme> .fancyBoxCntnt{
+    background-color: #404646!important;
+}
+.homeBgDrk .rbc-event-content {
+    color: #bbb;
+}
+a.calViewnw {
+    border: 1px solid #dfdfdf;
+}
+a.barViewnw.nowactive,  a.calViewnw.nowactive{
+    background-color: #E1F7F7; 
+}
 .homeBgDrk a.activePageDocutmet{
     color: #fff !important;
     font-weight: 800 !important;
-}
-.homeBgDrk path.highcharts-label-box.highcharts-tooltip-box {
-    fill: #192020 !important;
 }
 .homeBgDrk .ant-picker-input input {
     background: #404646 !important;
@@ -13226,7 +13252,7 @@ g.highcharts-axis.highcharts-yaxis text {
     cursor: pointer;
 }
 .nwDiaCntntIner, .nwPresCntntIner, .opinBoxCntntIner {
-    height: 650px !important; 
+    height: 580px !important; 
 }
 .phrmLinkUpr, .detailPrescp {
     height: 550px !important;
@@ -14435,12 +14461,6 @@ label.attached_file a {
 .homeBgDrk {
     min-height: 100vh;
 }
-.darkTheme .rrSysto input[type="text"],
-.darkTheme .rrSysto .css-yk16xz-control,
-.darkTheme .relexStressRght a {
-    background-color: #404646 !important;
-    color: #BFC1C1 !important;
-}
 .darkTheme .rrShwHidMain{
     background-color: #404646 !important; 
     border: 1px solid #F2F2F2 !important; 
@@ -14841,7 +14861,7 @@ a.SelectedGender{
     margin-top: 0px;
 }
 .cnfrmDiaMain .fillDia div {
-    color: #000808 !important;
+    color: #000808;
     font-family: Muli;
 }
 .slotTimDat .selTimeAM.suggent-time {
@@ -15265,4 +15285,35 @@ a.clsSltCal {
     .ant-picker-dropdown .ant-picker-panel-container .ant-picker-panels{
         display: inline-block !important;
     }
+}
+.homeBgDrk .persBlodMesur path.highcharts-label-box.highcharts-tooltip-box{
+    fill: #192020 !important;
+}
+.darkTheme > div:nth-child(3) .rrSysto .css-1pahdxg-control{
+    color: #BFC1C1 !important;
+    background-color: transparent !important;
+}
+.darkTheme > div:nth-child(3) .rrSysto svg{
+    color: #dfdfdf;
+}
+.darkTheme .rrSysto input[type="text"],
+.darkTheme .rrSysto .css-yk16xz-control,
+.darkTheme .relexStressRght a{
+    background-color: #404646 !important;
+    color: #BFC1C1 !important;
+}
+.nwPresModel, .darkTheme, .opinBoxModel, .editBoxModel, .addScrollBar{
+    overflow-y: auto !important;
+}
+.presOpinionIner td.presImg {
+    display: flex;
+}
+td.dotsImgColor span.revwRed {
+    float: left;
+}
+td.dotsImgColor.pivoted {
+    padding: 0px;
+}
+.profilMenuList ul li a .react-toggle {
+    margin-top: 12px !important;
 }

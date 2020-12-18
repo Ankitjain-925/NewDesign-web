@@ -562,11 +562,11 @@ class Index extends Component {
 
                                 {/* Website Menu */}
                                 <LeftMenu  isNotShow ={true} currentPage="documents" />
-                                <LeftMenuMobile isNotShow ={true}  currentPage ="documents"/>
+                                  <LeftMenuMobile isNotShow ={true}  currentPage ="documents"/>
                                 <Notification />
                                 {/* End of Website Menu */}
 
-                                <Grid item xs={12} md={9}>
+                                <Grid item xs={12} md={11} lg={9}>
 
                                     <Grid className="docsOpinion">
 

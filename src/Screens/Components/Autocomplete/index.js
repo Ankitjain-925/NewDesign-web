@@ -9,6 +9,8 @@ import * as translationRS from '../../../translations/rs.json';
 import * as translationSW from '../../../translations/sw.json';
 import * as translationCH from '../../../translations/ch.json';
 import * as translationNL from '../../../translations/nl.json';
+import * as translationFR from '../../../translations/fr.json';
+import * as translationAR from '../../../translations/ar.json';
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 class Autocomplete extends React.Component {
@@ -69,6 +71,17 @@ class Autocomplete extends React.Component {
     
     else if (this.props.stateLanguageType === 'sp') {
       search_city=translationSP.text.search_city
+    }
+    else if (this.props.stateLanguageType === 'sw') {
+      search_city=translationSW.text.search_city
+    }
+    
+    else if (this.props.stateLanguageType === 'fr') {
+      search_city=translationFR.text.search_city
+    }
+    
+    else if (this.props.stateLanguageType === 'ar') {
+      search_city=translationAR.text.search_city
     }
     
     else {

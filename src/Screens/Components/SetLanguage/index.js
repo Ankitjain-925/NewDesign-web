@@ -158,10 +158,10 @@ SetLanguage = () => {
                                 <label>Dutch</label>
                             </Grid>
 
-                            {/* <Grid>
+                            <Grid>
                                 <input value="fr" onChange={this.changeLanguage} name="language" type="radio" checked={this.state.languageValue == "fr" ? "checked" : ""} />
                                 <label>French</label>
-                            </Grid> */}
+                            </Grid>
 
                         </Grid>
                         <Grid className="col-sm-6 col-xl-6">
@@ -182,10 +182,10 @@ SetLanguage = () => {
                                 <label>Swahili</label>
                             </Grid>
                            
-                            {/* <Grid>
+                            <Grid>
                                 <input value="ar" onChange={this.changeLanguage} name="language" type="radio" checked={this.state.languageValue == "ar" ? "checked" : ""} />
                                 <label>Arabic</label>
-                            </Grid> */}
+                            </Grid>
 
                         </Grid>
                     </Grid>

@@ -147,7 +147,7 @@ class Index extends Component {
         //     labelWidth: ReactDOM.findDOMNode(this.InputLabelRef).offsetWidth,
         // });
         this.getMetadata();
-        this.getUserData();
+        // this.getUserData();
         this.alldoctor();
         var npmCountry = npmCountryList().getData()
         this.setState({ selectCountry: npmCountry })
@@ -230,6 +230,12 @@ class Index extends Component {
                 case "sw":
                     translate = translationSW.text
                     break;
+                    case "fr":
+                        translate = translationFR.text
+                        break;
+                    case "ar":
+                        translate = translationAR.text
+                        break;
                 default:
                     translate = translationEN.text
             }
@@ -459,12 +465,12 @@ class Index extends Component {
             specialityData: GetLanguageDropdown(SPECIALITY.speciality.english, this.props.stateLanguageType),
             title_degreeData: this.state.allMetadata && this.state.allMetadata.title_degreeData && this.state.allMetadata.title_degreeData.length > 0 && this.state.allMetadata.title_degreeData,
             subspecialityData: GetLanguageDropdown(subspeciality.english, this.props.stateLanguageType)
-        });
+        }, ()=>{ this.getUserData() });
     }
     GetSpec=(speciality, subspeciality_m)=>{
         this.setState({ speciality_multi: GetShowLabel12(this.state.specialityData, speciality, this.props.stateLanguageType), subspeciality_multi: GetShowLabel12(this.state.subspecialityData, subspeciality_m, this.props.stateLanguageType) })
     }
-    //Getting Doctor to add as Family doctor
+    //Getting Doctor to add as Famisly doctor
     alldoctor() {
         const user_token = this.props.stateLoginValueAim.token;
         axios.get(sitedata.data.path + '/UserProfile/DoctorUsers', {
@@ -717,21 +723,9 @@ class Index extends Component {
 
             var title = {}, titlefromD = response.data.data.title;
             var language = [], languagefromD = response.data.data.language;
-            var subspeciality_m = [], subspecialityfromD = response.data.data.subspeciality;
             if (languagefromD && languagefromD.length > 0) {
                 languagefromD.map((item) => {
                     language.push({ value: item, label: item.replace(/_/g, " ") });
-                })
-
-            }
-
-            if (subspecialityfromD && subspecialityfromD.length > 0) {
-                subspecialityfromD.map((item) => {
-                    if (typeof item === 'string')
-                        subspeciality_m.push({ value: item, label: item.replace(/_/g, " ") });
-                    else {
-                        subspeciality_m.push(item)
-                    }
                 })
 
             }
@@ -768,8 +762,6 @@ class Index extends Component {
             }
 
             this.setState({ UpDataDetails: response.data.data, city: response.data.data.city, area: response.data.data.area, profile_id: response.data.data.profile_id });
-            this.setState({ speciality_multi: GetShowLabel12(this.state.specialityData, response.data.data.speciality, this.props.stateLanguageType), subspeciality_multi: GetShowLabel12(this.state.subspecialityData, subspeciality_m, this.props.stateLanguageType) })
-
             this.setState({ name_multi: language, title: title })
             this.setState({
                 insurancefull: this.state.UpDataDetails.insurance,
@@ -778,6 +770,7 @@ class Index extends Component {
             datas = this.state.UpDataDetails.insurance;
             var find = response.data && response.data.data && response.data.data.image
             this.SettingImage(find);
+            this.GetSpec( response.data.data.speciality,response.data.data.subspeciality)
             this.setState({ loaderImage: false });
         }).catch((error) => {
             this.setState({ loaderImage: false });

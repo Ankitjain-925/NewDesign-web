@@ -295,6 +295,12 @@ class Index extends Component {
                     case "sw":
                         translate = translationSW.text
                         break;
+                        case "fr":
+                            translate = translationFR.text
+                            break;
+                        case "ar":
+                            translate = translationAR.text
+                            break;
                     default:
                         translate = translationEN.text
                 }

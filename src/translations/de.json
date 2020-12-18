@@ -159,7 +159,7 @@
 		"specify00000_kind_of_right_management": "Bitte spezifizieren Sie, welchen Rechtemanagementtyp Sie bevorzugen.",
 		"automatically_hidden_content": "Ein neuer Eintrag wird Ärzten und Pflegepersonal bei einem regulären Profilzugriffs (PIN & ID) automatisch ausgeblendet und muss von mir manuell SICHTBAR gemacht werden (IMMER ANZEIGEN oder BIS ZU EINEM BESTIMMTEN DATUM ANZEIGEN).",
 		"automatically_visible_content": "Ein neuer Eintrag ist für Ärzte und Pflegepersonal im Falle eines regulären Profilzugriffs (PIN & ID) automatisch SICHTBAR und muss von mir manuell UNSICHTBAR gemacht werden (IMMER AUSBLENDEN oder BIS ZU EINEM BESTIMMTEN DATUM AUSBLENDEN).",
-		"Opt_Out": "Optischer Ausgang",
+		"Opt_Out": "Opt-Out",
 		"Opt_In": "Opt-In",
 		"apply_right_management_for_all_items": "Eine Rechtemanagement-Einstellung für ALLE Einträge festlegen.",
 		"plz_mention_date_time": "Bitte legen Sie ein Datum fest",

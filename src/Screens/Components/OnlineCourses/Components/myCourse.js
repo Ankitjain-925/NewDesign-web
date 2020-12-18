@@ -116,6 +116,7 @@ class Index extends Component {
                         Course.push(item2)
                     })
                 })
+
                 this.setState({ MyCourse2: Course, loaderImage: false },
                     () => this.IncludeRating())
             }
@@ -290,7 +291,9 @@ class Index extends Component {
                                         {/* <Grid><a><img src={require('../../../../assets/images/time.svg')} alt="" title="" />1.5 h</a></Grid> */}
                                     </Grid>
                                     <Grid className="courseStar">
-                                        <Rating size="20" rating={item.rating} />
+                                        {item.rating && item.rating>0 &&  <Rating size="20" rating={item.rating && item.rating} />}
+                                        {!item.rating &&  <Rating size="20" rating={0} />}
+                                        {item.rating && item.rating==0 && <Rating size="20" rating={0} />}
                                         {/* <a><img src={require('../../../../assets/images/vote-star-empty.svg')} alt="" title="" /></a>
                                         <a><img src={require('../../../../assets/images/vote-star-empty.svg')} alt="" title="" /></a>
                                         <a><img src={require('../../../../assets/images/vote-star-empty.svg')} alt="" title="" /></a>
