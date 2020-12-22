@@ -507,7 +507,7 @@
 		"new_rqst": "New Requests",
 		"time_slot_alredy_booke_calender": "Time slot is already booked on your calendar",
 		"or": "or",
-		"date_of_appointment": "Date of appoinments",
+		"date_of_appointment": "Date of appointments",
 		"slct_a_time": "Select a time",
 		"invite_doc_to": "Invite Doctors to",
 		"u_can_enter_mul_email": "You can enter multiple email addresses and add a personal message",
@@ -1059,7 +1059,7 @@
 		"delete_item": "Delete item",
 		"do_u_really_want_delete_item": "Do you really want to delete the item?",
 		"plz_upload_png_jpeg": "Please Upload PNG and JPEG file",
-		"r_u_sure_want_book_appointment": "Are you sure you want to book this appoinment?",
+		"r_u_sure_want_book_appointment": "Are you sure you want to book this appointment?",
 		"r_u_sure_remove_patient": "Are you sure to remove the Patient?",
 		"cancel_inquiry": "Cancel the Inquiry ?",
 		"r_u_sure_cancel_inquiry": "Are you sure  to cancel this Inquiry?",
@@ -1150,6 +1150,9 @@
 		"goto_top":"Go to top",
 		"Consultancy_custom_calendar" : "Consultancy (custom calendar)",
 		"Calling" :"Calling...",
-		"incomingcall": "Incoming call"
+		"incomingcall": "Incoming call",
+		"Online": "online",
+		"Offline": "offline",
+		"Lao": "Last active at:"
 	}
 }

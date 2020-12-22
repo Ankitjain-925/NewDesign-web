@@ -328,7 +328,7 @@
 		"blood_sugar": "Blutzucker",
 		"condition_pain": "Befinden und Schmerzen",
 		"covid_diary": "Covid-19 Tagebuch",
-		"diagnosis": "Diagnostizieren",
+		"diagnosis": "Diagnosen",
 		"travel": "Reise",
 		"traveled": "Reise",
 		"diary": "Tagebuch",
@@ -1151,6 +1151,9 @@
 		"goto_top":"Zur Spitze gehen",
 		"Consultancy_custom_calendar" : "Benutzerdefinierter Beratungskalender",
 		"Calling" :"Berufung...",
-		"incomingcall": "Eingehender Anruf"
+		"incomingcall": "Eingehender Anruf",
+		"Online": "online",
+		"Offline": "offline",
+		"Lao": "Zuletzt aktiv bei:"
 	}
 }

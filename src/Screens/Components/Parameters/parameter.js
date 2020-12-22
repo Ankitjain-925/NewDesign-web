@@ -9,7 +9,9 @@ var AllL_Ps = {
             "label_sw": "Ubunifu",
             "label_nl": "Creatinine",
             "label_rs": "Креатинин",
-            "label_ch": "肌酐"
+            "label_ch": "肌酐",
+            "label_fr" :"Créatinine",
+            "label_ar":"الكرياتينين"
         },
         {
             "value": "Hemoglobine",
@@ -20,7 +22,9 @@ var AllL_Ps = {
             "label_sw": "Hemoglobini",
             "label_nl": "Hemoglobine",
             "label_rs": "Гемоглобин",
-            "label_ch": "血红蛋白"
+            "label_ch": "血红蛋白",
+            "label_fr" :"Hémoglobine",
+            "label_ar":"الهيموجلوبين"
         },
         {
             "value": "Leucocytes",
@@ -31,7 +35,9 @@ var AllL_Ps = {
             "label_sw": "Leucocytes",
             "label_nl": "Leukocyten",
             "label_rs": "Лейкоциты",
-            "label_ch": "白细胞"
+            "label_ch": "白细胞",
+            "label_fr" :"Les leucocytes",
+            "label_ar":"الكريات البيض"
         },
         {
             "value": "Potassium",
@@ -42,7 +48,9 @@ var AllL_Ps = {
             "label_sw": "Potasiamu",
             "label_nl": "Kalium",
             "label_rs": "Калий",
-            "label_ch": "钾盐"
+            "label_ch": "钾盐",
+            "label_fr" :"Potassium",
+            "label_ar":"البوتاسيوم"
         },
         {
             "value": "Pancreaticlipase",
@@ -53,7 +61,9 @@ var AllL_Ps = {
             "label_sw": "Pancreaticlipase",
             "label_nl": "Pancreaticlipase",
             "label_rs": "Панкреатиклипаза",
-            "label_ch": "胰脂酶"
+            "label_ch": "胰脂酶",
+            "label_fr" :"Pancréaticlipase",
+            "label_ar":"البنكرياس ليباز"
         },
         {
             "value": "Thrombocytes",
@@ -64,7 +74,9 @@ var AllL_Ps = {
             "label_sw": "Thrombocytes",
             "label_nl": "Trombocyten",
             "label_rs": "Тромбоциты",
-            "label_ch": "血小板"
+            "label_ch": "血小板",
+            "label_fr" :"Les thrombocytes",
+            "label_ar":"الصفائح الدموية"
         },
         {
             "value": "Sodium",
@@ -75,7 +87,9 @@ var AllL_Ps = {
             "label_sw": "Sodiamu",
             "label_nl": "Natrium",
             "label_rs": "Натрий",
-            "label_ch": "钠"
+            "label_ch": "钠",
+            "label_fr" :"Sodium",
+            "label_ar":"صوديوم"
         },
         {
             "value": "GGT",
@@ -86,7 +100,9 @@ var AllL_Ps = {
             "label_sw": "GGT",
             "label_nl": "GGT",
             "label_rs": "GGT",
-            "label_ch": "GGT"
+            "label_ch": "GGT",
+            "label_fr" :"GGT",
+            "label_ar":"GGT"
         },
         {
             "value": "AST/GOT",
@@ -97,7 +113,9 @@ var AllL_Ps = {
             "label_sw": "AST/GOT",
             "label_nl": "AST/GOT",
             "label_rs": "AST/GOT",
-            "label_ch": "AST/GOT"
+            "label_ch": "AST/GOT",
+            "label_fr" :"AST/GOT",
+            "label_ar":"AST/GOT"
         },
         {
             "value": "ALT/GPT",
@@ -108,7 +126,9 @@ var AllL_Ps = {
             "label_sw": "ALT/GPT",
             "label_nl": "ALT/GPT",
             "label_rs": "ALT/GPT",
-            "label_ch": "ALT/GPT"
+            "label_ch": "ALT/GPT",
+            "label_fr" :"ALT/GPT",
+            "label_ar":"ALT/GPT"
         }
     ],
 

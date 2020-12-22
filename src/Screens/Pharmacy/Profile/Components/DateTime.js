@@ -149,7 +149,7 @@ class Index extends Component {
                     <Grid container direction="row" alignItems="center">
                         <Grid item xs={12} md={4}>
                             <Grid className="dateFormat">
-                                <Grid><label>{date} {format}</label></Grid>
+                                <Grid><label>{date_format}</label></Grid>
                                 <Grid>
                                     <Select
                                         value={this.state.dateF}

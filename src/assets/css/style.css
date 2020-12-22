@@ -1946,9 +1946,6 @@ a.profilMenu {
         margin-top: 0px !important;
         padding: 12px 12px !important;
     }
-    .docsOpinRght {
-        text-align: left !important;
-    }
     .docsOpinLbl a {
         margin-top: 12px;
     }
@@ -4942,9 +4939,13 @@ body {
 }
 .scndOpinionIner tr .drImg img {
     width: 16px;
+    height: 16px;
     border-radius: 12px;
     vertical-align: middle;
     margin-right: 10px;
+}
+.presPkgIner2 td.drImg {
+    display: flex;
 }
 .scndOpinionIner td.drEditDot img {
     height: 15px;
@@ -5610,10 +5611,10 @@ button.presTabsIner {
     border-bottom: 1px solid #F2F2F2;
 }
 .presOpinionIner td.pivoted {
-    padding: 14px 25px;
+    padding: 14px 14px;
     color: #000808;
     font-family: Muli;
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 600;
     letter-spacing: 0;
     line-height: 18px;
@@ -7104,6 +7105,7 @@ a.vsblDots, a.conPainDots, a.bp_vsblDots, a.hideDots {
 }
 .homeBgDrk .journalAdd h1 {
     color: #FAFAFA !important;
+    word-break: break-all;
 }
 .homeBgDrk .allTimeSel .css-yk16xz-control, 
 .homeBgDrk .typeSel .css-yk16xz-control,
@@ -12041,8 +12043,10 @@ span.srchMobIcon img {
     text-align: center;
   }
   .journalAdd h1 {
-    text-align: center;
     margin-bottom: 24px;
+    /* text-align: center; */
+    font-size: 19px;
+    line-height: 25px;
   }
   .diagnosImg a {
     padding-right: 5px;
@@ -13100,6 +13104,14 @@ a.academy_ul ul li img {
 
 
 /*Added By ankita*/
+.darkTheme .cnfrmDiaLft label span{
+    color: #D9DADA !important;
+}
+span.ccl-dtls-section-listitem-link {
+    background: #009688;
+    color: #fff !important;
+    padding: 12px !important;
+}
 .Pwrdby{
     text-align: center;
     font-size:15px;
@@ -13108,11 +13120,16 @@ a.academy_ul ul li img {
     text-align: center;
     font-size:30px;
 }
-.drawDiv {
+/* .drawDiv {
     position: static !important;
+} */
+.drawDiv {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
 }
 .darkTheme> .fancyBoxCntnt{
-    background-color: #404646!important;
+    background-color: #404646 !important;
 }
 .homeBgDrk .rbc-event-content {
     color: #bbb;
@@ -13210,7 +13227,7 @@ g.highcharts-axis.highcharts-yaxis text {
     width: 20px !important;
 }
 .clear_filterRght a{
-    padding: 4px 7px !important;
+    padding: 2px 7px !important;
 }
 .clear_filterRght a, .topicSrch {
     border: 1px solid #bfc1c1;
@@ -13947,7 +13964,7 @@ button.CutomStripeButton span {
 /*For LMS End*/
 /* For emergency */
 input.Mobile_extra.Emergency_number {
-    height: 45px !important;
+    height: 38px !important;
     padding-left: 52px !important;
 }
 /*For emergency End*/
@@ -14267,13 +14284,11 @@ input:focus {
   .rbc-day-slot .rbc-event{
     width: 50% !important;
   }
-
   .scroll-hidden {
     overflow: hidden;
     height: 86%;
     overflow-y: auto;
   }
-
   .custom-text {
     margin-left: 40px;
     /* font-family: Muli; */
@@ -14295,7 +14310,6 @@ input:focus {
     letter-spacing: 0;
     line-height: 18px;
   }
-
   .officVisit button{
     color: #404646;
     font-size: 14px;
@@ -14312,23 +14326,18 @@ input:focus {
     color: #fff;
     background-color: #00abaf;
   }
-
   .officVisit.display-cls{
       display: flex;
   }
-
   .darkTheme > div:nth-child(3), .homeBgDrk .tooltip-container {
       background-color: #404646!important;
   }
-
   .darkTheme label, .darkTheme p, .darkTheme h3, .darkTheme h1 {
       color: #D9DADA !important;
   }
-
   .dark-confirm{
     background-color: #404646!important;
   }
-
   .dark-confirm h1, .dark-confirm span, .dark-confirm p, .dark-confirm h3, .dark-confirm h1 {
     color: #D9DADA !important;
 }
@@ -15040,7 +15049,7 @@ a.SelectedGender{
     background: #404646 !important;
     color: #BFC1C1 !important;
 }
-.darkTheme > div:nth-child(3) .splestQues, 
+/* .darkTheme > div:nth-child(3) .splestQues,  */
 .darkTheme > div:nth-child(3) .recevPrescp, 
 .darkTheme > div:nth-child(3) .yrProfes, 
 .darkTheme > div:nth-child(3) .attchForms{
@@ -15305,15 +15314,55 @@ a.clsSltCal {
 .nwPresModel, .darkTheme, .opinBoxModel, .editBoxModel, .addScrollBar{
     overflow-y: auto !important;
 }
-.presOpinionIner td.presImg {
-    display: flex;
-}
-td.dotsImgColor span.revwRed {
+td.dotsImgColor span.revwRed{
     float: left;
 }
-td.dotsImgColor.pivoted {
+td.dotsImgColor.pivoted{
     padding: 0px;
 }
-.profilMenuList ul li a .react-toggle {
+.profilMenuList ul li a .react-toggle{
     margin-top: 12px !important;
+}
+.presOpinionIner .responsiveTable td:nth-child(2){
+    display: flex;
+    align-items: center;
+    padding: 17px 14px;
+}
+.presOpinionIner .responsiveTable td:nth-child(2) p{
+    margin-bottom: 0px;
+    padding-left: 6px;
+}
+.emrgncyFrmInpt button#select_flag_button{
+    min-height: 38px !important;
+}
+@media screen and (min-width: 960px) and (max-width: 1200px){
+  .docsOpinion{
+     margin-left: 25px !important;
+  }
+}
+@media (max-width: 959px){
+.docsOpinRght{
+    text-align: left !important;
+  }
+  .AddEntrynw a{
+    min-width: initial !important;
+    margin-left: 0px !important;
+  }
+  .AddEntrynw{
+    text-align: left !important;
+  }
+  .journalAdd .MuiGrid-grid-xs-6{
+    max-width: 100% !important;
+    flex-basis: 100% !important;
+  }
+}
+.homeBgDrk .allTimeSel1 svg{
+    color: #dfdfdf !important;
+}
+.darkTheme > div:nth-child(3) .splestQues .css-1pahdxg-control:focus,
+.darkTheme > div:nth-child(3) .splestQues .css-1pahdxg-control{
+    background-color: #404646 !important;
+}
+.rbc-overlay{
+    background: #e0e0e0 !important;
 }

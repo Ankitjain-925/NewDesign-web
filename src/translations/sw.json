@@ -505,7 +505,7 @@
 		"new_rqst": "Maombi Mapya",
 		"time_slot_alredy_booke_calender": "Wakati yanayopangwa ni tayari kadi kwenye kalenda yako",
 		"or": "au",
-		"date_of_appointment": "Tarehe ya appoinments",
+		"date_of_appointment": "Tarehe ya appointments",
 		"slct_a_time": "Chagua muda",
 		"invite_doc_to": "Kukaribisha Madaktari",
 		"u_can_enter_mul_email": "Wewe kuingia anwani nyingi za barua pepe na kuongeza ujumbe binafsi",
@@ -1185,6 +1185,9 @@
 		"Consultancy_custom_calendar" : "Kalenda ya desturi ya ushauri",
 		"addentry": "ongeza kuingia",
 		"Calling" :"Inapiga simu...",
-		"incomingcall": "Simu inayoingia"
+		"incomingcall": "Simu inayoingia",
+		"Online": "mkondoni",
+		"Offline": "nje ya mtandao",
+		"Lao": "Mwishowe ilifanya kazi saa:"
 	}
 }

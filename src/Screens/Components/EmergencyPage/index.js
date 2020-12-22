@@ -597,7 +597,7 @@ class Index extends Component {
                                                                 :
                                                                 this.state.donar.options && <p>  {this.getOrgans(this.state.donar.options)} </p>}
                                                         </span>
-                                                    }<br />
+                                                    }
                                                     {this.state.donar.remarks && <p>{this.state.donar.remarks}</p>}
                                                 </div> : <Grid><label>{not_an_organ}</label></Grid>
                                             : <OrganSection EditOrganDonar={this.EditOrganDonar} tissue={this.state.tissue && this.state.tissue} comesFrom='emergency' />}

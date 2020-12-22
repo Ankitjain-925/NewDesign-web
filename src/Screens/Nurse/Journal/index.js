@@ -536,20 +536,46 @@ class Index extends Component {
         })
         this.setState({ updateTrack: state });
     }
+ 
+ //For update the Track state 
+ updateEntryState1 = (value, name) => {
+    const state = this.state.updateTrack;
+    state[name] = value;
+    this.setState({ updateTrack: state });
+}
 
-    //For update the Track state 
-    updateEntryState1 = (value, name) => {
-        const state = this.state.updateTrack;
-        state[name] = value;
-        this.setState({ updateTrack: state });
+//For update the Track state
+updateEntryState = (e) => {
+    const state = this.state.updateTrack;
+    if(e.target.name === 'review'|| e.target.name === 'emergency' ){
+        if(e.target.name === 'review')
+        {
+            if (e.target.checked) {
+                state['review_by'] = this.props.stateLoginValueAim && this.props.stateLoginValueAim.user && this.props.stateLoginValueAim.user._id;
+                state['review_on'] = new Date();
+            }
+            else {
+                state['review_by'] = '';
+                state['review_on'] = '';
+            }
+        }
+        else{
+            if (e.target.checked) {
+                state['emergency_by'] = this.props.stateLoginValueAim && this.props.stateLoginValueAim.user && this.props.stateLoginValueAim.user._id;
+                state['emergency_on'] = new Date();
+            }
+            else {
+                state['emergency_by'] = '';
+                state['emergency_on'] = '';
+            }
+        }
+        state[e.target.name] = e.target.checked;
     }
-
-    //For update the Track state
-    updateEntryState = (e) => {
-        const state = this.state.updateTrack;
+    else{
         state[e.target.name] = e.target.value;
-        this.setState({ updateTrack: state });
     }
+    this.setState({ updateTrack: state });
+}
 
     //For adding the Track entry
     AddTrack = () => {
@@ -1060,10 +1086,10 @@ class Index extends Component {
                                                 <Grid container direction="row">
                                                     <Grid item xs={11} md={11}>
                                                         <Grid container direction="row">
-                                                            <Grid item xs={6} md={6}>
+                                                            <Grid item xs={12} md={6}>
                                                                 <h1>{patient_access_data}</h1>
                                                             </Grid>
-                                                            <Grid item xs={6} md={6}>
+                                                            <Grid item xs={12} md={6}>
                                                                 <Grid className="AddEntrynw">
                                                                     {this.props.Doctorsetget && this.props.Doctorsetget.p_id !== null ? <a onClick={this.AnotherPatient}>{another_patient_data}</a> : <a onClick={this.handleOpenData}>{get_patient_access_data}</a>}
                                                                     {this.props.Doctorsetget && this.props.Doctorsetget.p_id !== null && <a onClick={this.handleOpenEntry}>+ {add_new_entry}</a>}

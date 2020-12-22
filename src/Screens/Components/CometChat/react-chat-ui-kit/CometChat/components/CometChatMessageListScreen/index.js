@@ -222,6 +222,7 @@ class CometChatMessageListScreen extends React.PureComponent {
         <MessageHeader 
           item={this.props.item} 
           type={this.props.type} 
+          lan={this.props.lan}
           viewdetail={this.props.viewdetail === false ? false : true}
           audiocall={this.props.audiocall === false ? false : true}
           videocall={this.props.videocall === false ? false : true}

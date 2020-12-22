@@ -1172,6 +1172,9 @@
 		"goto_top":"到顶部",
 		"Consultancy_custom_calendar" : "咨询定制日历",
 		"Calling" :"呼唤...",
-		"incomingcall": "来电"
+		"incomingcall": "来电",
+		"Online": "线上",
+		"Offline": "离线",
+		"Lao": "上次启用时间："
 	}
 }

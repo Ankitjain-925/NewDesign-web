@@ -1166,6 +1166,9 @@
 		"goto_top":"Ir para o topo",
 		"Consultancy_custom_calendar" : "Calendário personalizado de consultoria",
 		"Calling" :"Chamando...",
-		"incomingcall": "Chamada recebida"
+		"incomingcall": "Chamada recebida",
+		"Online": "conectadas",
+		"Offline": "desligada",
+		"Lao": "Última atividade em:"
 	}
 }

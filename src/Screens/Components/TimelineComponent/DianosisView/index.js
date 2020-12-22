@@ -98,14 +98,14 @@ class Index extends Component {
                             <Grid item xs={12} md={6}>
                                 <Grid className="diagnosImg">
                                     <a className="diagnosNote"><img src={require('../../../../assets/images/condition-diagnosis-family-anamnesis-diary.svg')} alt="" title="" /><span>{diagnosis}</span> </a>
-                                    <a className="diagnosAwrd" data-tip data-for={item.track_id + 'review'} ><img src={require('../../../../assets/images/confirmed-diagnosis.svg')} alt="" title="" /></a>
+                                    <a className="diagnosAwrd" data-tip data-for={item.track_id + 'review'} >{item.review && item.review !=='' ? <img src={require('../../../../assets/images/confirmed-diagnosis.svg')} alt="" title="" /> : <img src={require('../../../../assets/images/conf1.svg')} alt="" title="" />}</a>
                                     {item.review_by && <ReactTooltip className="timeIconClas" id={item.track_id + 'review'} place="top" effect="solid" backgroundColor="#ffffff">
                                         <label>{review} {by}</label>
                                         <p> {item.review_by_temp ? item.review_by_temp : ''} </p>
                                         <label>{review} {on}</label>
                                         <p> {item.review_on && getDate(item.review_on, this.state.date_format)}</p>
                                     </ReactTooltip>}
-                                    <a className="diagnosBus" data-tip data-for={item.track_id + 'emergency'}><img src={require('../../../../assets/images/emergency-diagnosis.svg')} alt="" title="" /></a>
+                                    <a className="diagnosBus" data-tip data-for={item.track_id + 'emergency'}>{item.emergency && item.emergency !=='' ?<img src={require('../../../../assets/images/emergency-diagnosis.svg')} alt="" title="" /> : <img src={require('../../../../assets/images/emer1.svg')} alt="" title="" />}</a>
                                     {item.emergency_by && <ReactTooltip className="timeIconClas" id={item.track_id + 'emergency'} place="top" effect="solid" backgroundColor="#ffffff">
                                         <label>{emergency} {by}</label>
                                         <p> {item.emergency_by_temp ? item.emergency_by_temp : ''} </p>

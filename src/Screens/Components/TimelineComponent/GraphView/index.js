@@ -207,6 +207,8 @@ case "sw":
             this.setState({options: options})
         }
         if(current_Graph === 'laboratory_result'){
+             var myFilterData1 = this.state.personalinfo && this.state.personalinfo.laboratory_result && this.state.personalinfo.laboratory_result.length > 0 && this.state.personalinfo.laboratory_result.filter((value, key) =>
+            value.lab_parameter.value ==='Creatinine');
             var categorieslr=[],datalr1_u=[],datalr1_l=[],datalr1_v=[], oldone, myFilterlr1=[];
             {this.state.personalinfo && this.state.personalinfo.laboratory_result &&  this.state.personalinfo.laboratory_result.length>0 &&this.state.personalinfo.laboratory_result.map((data, index) => {
             datalr1_u.push({

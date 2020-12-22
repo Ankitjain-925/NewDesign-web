@@ -90,7 +90,7 @@
 		"postal_code": "الرمز البريدي",
 		"country": "الدولة",
 		"home_telephone": "رقم تليفون المنزل",
-		"phone": "phone",
+		"phone": "هاتف",
 		"country_code": "كود الدولة",
 		"mobile_number": "رقم الهاتف المحمول",
 		"mobile": "الموبايل",
@@ -291,7 +291,7 @@
 		"activated": "مفعل",
 		"past_apointment": "الموعد السابق",
 		"hide_past_appointment": "إخفاء المواعيد السابقة",
-		"deactivated": "deactivated",
+		"deactivated": "معطل",
 		"srvc_not_updt_cannt_reach_srvr": "لم يتم تحديث الخدمة. لا يمكن الوصول إلى السيرفر",
 		"doc_around_clock": "دكتور على مدار الساعة",
 		"cntct_aimedis_medi_team_24_7": "اتصل بفريق Aimedis الطبي24/7 لطرح الأسئلة",
@@ -1145,7 +1145,11 @@
 		"goto_top":"إذهب إلى الأعلى",
 		"Consultancy_custom_calendar" : "الاستشارات (تقويم مخصص)",
 		"Calling" :"جارٍ الاتصال ...",
-		"incomingcall": "مكالمة واردة"
+		"incomingcall": "مكالمة واردة",
+		"Online": "عبر الانترنت",
+		"Offline": "غير متصل على الانترنت",
+		"Lao": "آخر نشاط في:",
+		"language_all":"اللغة: الكل"
 
 		}
 }

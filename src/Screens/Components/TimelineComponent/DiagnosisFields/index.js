@@ -62,6 +62,14 @@ class Index extends Component {
         }
     }
 
+    updateEntryState3=(e)=>{
+        var state= this.state.updateTrack
+        state[e.target.name] = e.target.checked;
+        this.setState({updateTrack: state})
+        this.props.updateEntryState(e)
+    }
+    
+
     updateEntryState1=(value, name)=>{
         if(name === 'diagnosed_by')
         {
@@ -153,9 +161,12 @@ class Index extends Component {
                                 <FormControlLabel
                                     control={
                                         <Checkbox
-                                            value="checkedB"
-                                            color="#00ABAF"
-                                        />
+                                        value="checkedB"
+                                        color="#00ABAF"
+                                        name="review"
+                                        checked={this.state.updateTrack.review === true}
+                                        onChange={(e)=> this.updateEntryState3(e)}
+                                    />
                                     }
                                     label={confirm_diag}
                                 />
@@ -169,9 +180,12 @@ class Index extends Component {
                                 <FormControlLabel
                                     control={
                                         <Checkbox
-                                            value="checkedB"
-                                            color="#00ABAF"
-                                        />
+                                        value="checkedB"
+                                        color="#00ABAF"
+                                        name="emergency"
+                                        checked={this.state.updateTrack.emergency === true}
+                                        onChange={(e)=> this.updateEntryState3(e)}
+                                    />
                                     }
                                     label={emergancy_dignosis}
                                 />

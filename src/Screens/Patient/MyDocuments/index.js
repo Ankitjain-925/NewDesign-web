@@ -566,7 +566,7 @@ class Index extends Component {
                                 <Notification />
                                 {/* End of Website Menu */}
 
-                                <Grid item xs={12} md={11} lg={9}>
+                                <Grid item xs={12} md={11} lg={10}>
 
                                     <Grid className="docsOpinion">
 

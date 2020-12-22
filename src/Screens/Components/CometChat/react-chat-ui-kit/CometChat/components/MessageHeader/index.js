@@ -5,7 +5,16 @@ import { MessageHeaderManager } from "./controller";
 import sitedata from "../../../../../../../sitedata";
 import Avatar from "../Avatar";
 import { SvgAvatar } from '../../util/svgavatar';
-
+import * as translationEN from "../../../../../.../../../../translations/en.json";
+import * as translationDE from "../../../../../.../../../../translations/de.json";
+import * as translationSP from "../../../../../.../../../../translations/sp.json";
+import * as translationPT from "../../../../../.../../../../translations/pt.json";
+import * as translationRS from "../../../../../.../../../../translations/rs.json";
+import * as translationNL from "../../../../../.../../../../translations/nl.json";
+import * as translationCH from "../../../../../.../../../../translations/ch.json";
+import * as translationSW from "../../../../../.../../../../translations/sw.json";
+import * as translationFR from "../../../../../.../../../../translations/fr.json";
+import * as translationAR from "../../../../../.../../../../translations/ar.json";
 import * as enums from '../../util/enums.js';
 
 import StatusIndicator from "../StatusIndicator";
@@ -18,6 +27,7 @@ class MessageHeader extends React.Component {
    super(props);
 
     this.state = {
+      lan : this.props.lan,
       status: null,
       presence: "offline",
       image : ''
@@ -38,6 +48,11 @@ class MessageHeader extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
+    if (prevProps.lan !== this.props.lan) {
+        this.setState({lan: this.props.lan},()=>{
+          this.setStatusForUser();
+        })
+    }
 
     if (this.props.type === 'user' && prevProps.item.uid !== this.props.item.uid) {
       this.setStatusForUser();
@@ -70,16 +85,54 @@ class MessageHeader extends React.Component {
   }
 }
   setStatusForUser = () => {
+    let translate={};
+    switch (this.state.lan) {
+      case "en":
+        translate = translationEN.text
+        break;
+      case "de":
+        translate = translationDE.text
+        break;
+      case "pt":
+        translate = translationPT.text
+        break;
+      case "sp":
+        translate = translationSP.text
+        break;
+      case "rs":
+        translate = translationRS.text
+        break;
+      case "nl":
+        translate = translationNL.text
+        break;
+      case "ch":
+        translate = translationCH.text
+        break;
+      case "sw":
+        translate = translationSW.text
+        break;
+      case "fr":
+          translate = translationFR.text
+          break;
+      case "ar":
+          translate = translationAR.text
+          break;
+      default:
+        translate = translationEN.text
+    }
+    let { Offline, Online, Lao } = translate;
 
     let status = this.props.item.status;
     const presence = (this.props.item.status === "online") ? "online" : "offline";
 
     if(this.props.item.status === "offline" && this.props.item.lastActiveAt) {
-      status = "Last active at: " + new Date(this.props.item.lastActiveAt * 1000).toLocaleTimeString('en-US', { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', hour12: true });
+      status = Lao + new Date(this.props.item.lastActiveAt * 1000).toLocaleTimeString('en-US', { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', hour12: true });
     } else if(this.props.item.status === "offline") {
-      status = "offline";
+      status = Offline;
     }
-
+    else{
+      status = Online;
+    }
     this.setState({status: status, presence: presence});
   }
 
