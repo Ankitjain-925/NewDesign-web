@@ -114,7 +114,7 @@ case "sw":
             default:
                 translate = translationEN.text
         }
-        let { diary, diagnosis, family_anmnies, covid_diary, secnd_openion, sick_cert, smoking_status, weight_bmi, vaccination, doc_visit, marcumar_pass, medication, prescription, file_uplod, hosp_visit, lab_result, capab_Doctors1, capab_Patients1, Nurse1, anamnesis, blood_pressure, blood_sugar, condition_pain } = translate
+        let { diary, diagnosis,VaccinationTrial, family_anmnies, covid_diary, secnd_openion, sick_cert, smoking_status, weight_bmi, vaccination, doc_visit, marcumar_pass, medication, prescription, file_uplod, hosp_visit, lab_result, capab_Doctors1, capab_Patients1, Nurse1, anamnesis, blood_pressure, blood_sugar, condition_pain } = translate
 
         const Useroptions = [
             { value: 'Doctor', label: capab_Doctors1 },
@@ -141,6 +141,7 @@ case "sw":
             { value: 'sick_certificate', label: sick_cert },
             { value: 'smoking_status', label: smoking_status },
             { value: 'vaccination', label: vaccination },
+            { value: 'vaccination_trial', label: VaccinationTrial },
             { value: 'weight_bmi', label: weight_bmi },
         ]
         this.setState({ Useroptions: Useroptions, Typeoptions: Typeoptions })

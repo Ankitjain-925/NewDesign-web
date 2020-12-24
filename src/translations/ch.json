@@ -1175,6 +1175,22 @@
 		"incomingcall": "来电",
 		"Online": "线上",
 		"Offline": "离线",
-		"Lao": "上次启用时间："
+		"Lao": "上次启用时间：",
+		"VaccinationTrial":"COVID-19疫苗接种试验",
+		"SARSCoV_2_TEST":"SARS CoV-2 Ag测试",
+		"time_of_vaccination" :"接种时间",
+		"Daydate":"接种日期后的XYZ天",
+		"PositiveSARS" :"SARS CoV-2 IgG，IgM，AG检测呈阳性？",
+		"Chargenumberpicture" :"充电号码图片",
+		"VaccinationCharge":"预防接种费",
+		"DocAuthName" :"接种疫苗的当局/医院/医生",
+		"Newdiagnoses" :"新诊断",
+		"Newmedication" : "新药",
+		"Newallergies":"新的过敏",
+		"Newinfections": "新感染", 
+		"Digestion":"消化",
+		"Diaryentry":"日记条目",
+		"Newdoctorvisits":"新医生就诊",
+		"Newhospitalizations":"新住院"
 	}
 }

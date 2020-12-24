@@ -204,10 +204,19 @@ case "sw":
                                         </Grid>
                                         <Grid className="clear"></Grid>
                                     </Grid>
-                                    {item.lab_parameter && item.lab_parameter.value ==='Creatinine' && <Grid className="bp_graph">
+                                    <Grid className="bp_graph">
                                         {/* <Grid><img src={require('../../../../assets/images/gp.png')} alt="" title="" /></Grid> */}
-                                        <Grid><a onClick={()=> this.props.OpenGraph('laboratory_result')}>{VeiwGraph}</a></Grid>
-                                    </Grid>}
+                                        {item.lab_parameter && item.lab_parameter.value ==='Creatinine' && <Grid><a onClick={()=> this.props.OpenGraph('laboratory_result')}>{VeiwGraph}</a></Grid>}
+                                        {item.lab_parameter && item.lab_parameter.value ==='AST/GOT' && <Grid><a onClick={()=> this.props.OpenGraph('ast/got')}>{VeiwGraph}</a></Grid>}
+                                        {item.lab_parameter && item.lab_parameter.value ==='GGT' && <Grid><a onClick={()=> this.props.OpenGraph('ggt')}>{VeiwGraph}</a></Grid>}
+                                        {item.lab_parameter && item.lab_parameter.value ==='Sodium' && <Grid><a onClick={()=> this.props.OpenGraph('sodium')}>{VeiwGraph}</a></Grid>}
+                                        {item.lab_parameter && item.lab_parameter.value ==='Thrombocytes' && <Grid><a onClick={()=> this.props.OpenGraph('thrombocytes')}>{VeiwGraph}</a></Grid>}
+                                        {item.lab_parameter && item.lab_parameter.value ==='Pancreaticlipase' && <Grid><a onClick={()=> this.props.OpenGraph('pancreaticlipase')}>{VeiwGraph}</a></Grid>}
+                                        {item.lab_parameter && item.lab_parameter.value ==='Leucocytes' && <Grid><a onClick={()=> this.props.OpenGraph('leucocytes')}>{VeiwGraph}</a></Grid>}
+                                        {item.lab_parameter && item.lab_parameter.value ==='Hemoglobine' && <Grid><a onClick={()=> this.props.OpenGraph('hemoglobine')}>{VeiwGraph}</a></Grid>}
+                                        {item.lab_parameter && item.lab_parameter.value ==='Potassium' && <Grid><a onClick={()=> this.props.OpenGraph('potassium')}>{VeiwGraph}</a></Grid>}
+                                        {item.lab_parameter && item.lab_parameter.value ==='ALT/GPT' && <Grid><a onClick={()=> this.props.OpenGraph('alt/gpt')}>{VeiwGraph}</a></Grid>}
+                                    </Grid>
                                 </Grid>
                             </Collapsible>
                         </Grid>

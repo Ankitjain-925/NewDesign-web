@@ -328,10 +328,11 @@ class MessageList extends React.PureComponent {
   }
 
   getCallMessageComponent = (message) => {
-
-    return (
-      <CallMessage message={message} />
-    );
+    if(message.status ==='rejected' || message.status ==='unanswered'){
+      return (
+        <CallMessage message={message} />
+      );
+    }
   }
 
   getActionMessageComponent = (message) => {

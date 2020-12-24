@@ -1779,6 +1779,22 @@
 		"incomingcall": "Binnenkomend telefoongesprek",
 		"Online": "online",
 		"Offline": "offline",
-		"Lao": "Laatst actief om:"
+		"Lao": "Laatst actief om:",
+		"VaccinationTrial":"COVID-19-vaccinatieonderzoek",
+		"SARSCoV_2_TEST":"SARS CoV-2 Ag-Test",
+		"time_of_vaccination" :"Tijdstip van vaccinatie",
+		"Daydate":"Dag XYZ na vaccinatie met datum",
+		"PositiveSARS" :"Positieve SARS CoV-2 IgG-, IgM-, AG-test?",
+		"Chargenumberpicture" :"Laadnummer foto",
+		"VaccinationCharge":"Vaccinatiekosten",
+		"DocAuthName" :"Autoriteit / ziekenhuis / arts die heeft ingeënt",
+		"Newdiagnoses" :"Nieuwe diagnoses",
+		"Newmedication" : "Nieuwe medicatie",
+		"Newallergies":"Nieuwe allergieën",
+		"Newinfections": "Nieuwe infecties", 
+		"Digestion":"Spijsvertering",
+		"Diaryentry":"Dagboek invulling",
+		"Newdoctorvisits":"Nieuwe doktersbezoeken",
+		"Newhospitalizations":"Nieuwe ziekenhuisopnames"
 	}
 }

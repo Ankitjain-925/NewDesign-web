@@ -1030,7 +1030,7 @@
 		"medicine_handed_to_patient":"La médecine remise au patient",
 		"img_files":"Images et fichiers",
 		"Explanation":"Explication",
-		"r_u_sure_remove_doctor":"Êtes-vous sûr de retirer le Docteur du Docteur de confiance",
+		"r_u_sure_remove_doctor":"Êtes-vous sûr de retirer le Docteur du Docteur de confiance?",
 		"paymnt_processed":"Paiement traité avec succès",
 		"paymnt_err":"Erreur de paiement",
 		"pay_with_stripe":"Payer avec une bande",
@@ -1155,6 +1155,22 @@
 		"Lao": "Dernière activité à:",
 		"consultancy_cstm_calnder": "Rendez-vous de consultation",
 		"language_all":"Langue: Tous",
-		"date_formatt": "صيغة التاريخ"
+		"date_format": "Format de date",
+		"VaccinationTrial":"Essai de vaccination COVID-19",
+		"SARSCoV_2_TEST":"Test Ag du SARS CoV-2",
+		"time_of_vaccination" :"Heure de la vaccination",
+		"Daydate":"Jour XYZ après vaccination avec date",
+		"PositiveSARS" :"Test positif du SRAS CoV-2 IgG, IgM, AG?",
+		"Chargenumberpicture" :"Image du numéro de charge",
+		"VaccinationCharge":"Frais de vaccination",
+		"DocAuthName" :"Autorité / hôpital / médecin qui a vacciné",
+		"Newdiagnoses" :"Nouveaux diagnostics",
+		"Newmedication" : "Nouveau médicament",
+		"Newallergies":"Nouvelles allergies",
+		"Newinfections": "Nouvelles infections", 
+		"Digestion":"Digestion",
+		"Diaryentry":"Entrée de journal",
+		"Newdoctorvisits":"Nouvelles visites chez le médecin",
+		"Newhospitalizations":"Nouvelles hospitalisations"
 	}
 }

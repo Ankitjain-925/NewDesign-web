@@ -38,6 +38,7 @@ import HVFields from './../../Components/TimelineComponent/HVFields/index';
 import DVFields from './../../Components/TimelineComponent/DVFields/index';
 import CPFields from './../../Components/TimelineComponent/CPFields/index';
 import DiaryFields from './../../Components/TimelineComponent/DiaryFields/index';
+import VaccinationTrialFields from './../../Components/TimelineComponent/VaccinationTrialFields/index';
 import AllL_Ps from '../../Components/Parameters/parameter.js';
 import LRFields from './../../Components/TimelineComponent/LRFields/index';
 import FUFields from './../../Components/TimelineComponent/FUFields/index';
@@ -108,7 +109,9 @@ class Index extends Component {
             Sort: 'diagnosed_time',
             isGraph: false,
             current_Graph: '',
-            upcoming_appointment: []
+            upcoming_appointment: [],
+            SARS: [],
+            Positive_SARS : [],
         };
     }
 
@@ -525,6 +528,74 @@ class Index extends Component {
         );
     }
 
+    //Upload file MultiFiles
+    FileAttachMultiVaccination = (event, name) => {
+        // this.setState({file:})
+        this.setState({ isfileuploadmulti: true })
+        var user_id = this.props.stateLoginValueAim.user._id;
+        var user_token = this.props.stateLoginValueAim.token;
+        const data = new FormData()
+        if (event[0].type === "application/x-zip-compressed") {
+            this.setState({ file_type: true, isless_one: false, isless_one: false })
+        } else {
+            if (event.length < 1) {
+                this.setState({ isless_one: true, ismore_five: false, file_type: false })
+            }
+            if (event.length > 5) {
+                this.setState({ ismore_five: true, isless_one: false, file_type: false })
+            }
+            else {
+                var Fileadd = [];
+                this.setState({ loaderImage: true, ismore_five: false, isless_one: false, file_type: false })
+                for (var i = 0; i < event.length; i++) {
+                    let file = event[i];
+                    let fileParts = file.name.split('.');
+                    let fileName = fileParts[0];
+                    let fileType = fileParts[1];
+                    axios.post(sitedata.data.path + '/aws/sign_s3', {
+                        fileName: fileName,
+                        fileType: fileType,
+                        folders: this.props.stateLoginValueAim.user.profile_id + '/Trackrecord/',
+                        bucket: this.props.stateLoginValueAim.user.bucket
+                    }).then(response => {
+                        Fileadd.push({ filename: response.data.data.returnData.url + '&bucket=' + this.props.stateLoginValueAim.user.bucket, filetype: fileType })
+                        setTimeout(() => { this.setState({ fileupods: false }); }, 3000);
+                        let returnData = response.data.data.returnData;
+                        let signedRequest = returnData.signedRequest;
+                        let url = returnData.url;
+                        if(fileType ==='pdf'){
+                            fileType = 'application/pdf'
+                        }
+                        // Put the fileType in the headers for the upload
+                        var options = {
+                            headers: {
+                                'Content-Type': fileType
+                            }
+                        };
+                        axios.put( signedRequest, file, options)
+                            .then(result => { })
+                            .catch(error => { })
+                    }).catch(error => { })
+                    if(name==='SARS'){
+                        this.setState({ SARS: Fileadd, loaderImage: false, fileupods: true });
+                    }
+                    else{
+                        this.setState({ Positive_SARS: Fileadd, loaderImage: false, fileupods: true });
+                    }
+                    
+                }
+            }
+        }
+        setTimeout(
+            function () {
+                this.setState({ file_type: false, isless_one: false, ismore_five: false });
+            }
+                .bind(this),
+            2000
+        );
+    }
+
+    
     //For getting full data of hide Show
     GetHideShow = (data) => {
         const state = this.state.updateTrack;
@@ -564,6 +635,10 @@ class Index extends Component {
         }
         else if (this.state.isfileuploadmulti) {
             data.attachfile = this.state.fileattach
+        }
+        if(this.state.current_select === 'vaccination_trial'){
+            data.Positive_SARS = this.state.Positive_SARS
+            data.SARS = this.state.SARS
         }
         data.type = this.state.current_select;
         data.created_on = new Date();
@@ -611,7 +686,7 @@ class Index extends Component {
                         'Content-Type': 'application/json'
                     }
                 }).then((response) => {
-                    this.setState({ ismore_five: false, isless_one: false, updateTrack: {}, updateOne: 0, visibleupdate: 0, isfileupload: false, isfileuploadmulti: false, loaderImage: false })
+                    this.setState({ ismore_five: false, Positive_SARS: [], SARS: [],isless_one: false, updateTrack: {}, updateOne: 0, visibleupdate: 0, isfileupload: false, isfileuploadmulti: false, loaderImage: false })
                     this.getTrack();
                     this.handleCloseInqryNw();
                 })
@@ -628,7 +703,7 @@ class Index extends Component {
                 })
                 .then((response) => {
                     this.setState({
-                        updateTrack: {}, isfileupload: false, isfileuploadmulti: false, fileattach: {}, current_select: 'diagnosis', Addmore: true, newElement: false,
+                        updateTrack: {}, isfileupload: false, Positive_SARS: [], SARS: [], isfileuploadmulti: false, fileattach: {}, current_select: 'diagnosis', Addmore: true, newElement: false,
                         loaderImage: false, ismore_five: false, isless_one: false
                     })
                     this.getTrack();
@@ -735,7 +810,6 @@ class Index extends Component {
                 //  })
                 // })
                  updateBlockchain(this.props.stateLoginValueAim.user, response.data.data)
-                    this.rightInfo();
                     var images = [];
                     response.data.data && response.data.data.length > 0 && response.data.data.map((data1, index) => {
                         var find2 = data1 && data1.created_by_image
@@ -762,7 +836,34 @@ class Index extends Component {
                                     })
                             }
                         })
+                        data1.Positive_SARS && data1.Positive_SARS.length > 0 && data1.Positive_SARS.map((data, index) => {
+                            var find = data && data.filename && data.filename
+                            if (find) {
+                                var find1 = find.split('.com/')[1]
+                                axios.get(sitedata.data.path + '/aws/sign_s3?find=' + find1,)
+                                    .then((response2) => {
+                                        if (response2.data.hassuccessed) {
+                                            images.push({ image: find, new_image: response2.data.data })
+                                            this.setState({ images: images })
+                                        }
+                                    })
+                            }
+                        })
+                        data1.SARS && data1.SARS.length > 0 && data1.SARS.map((data, index) => {
+                            var find = data && data.filename && data.filename
+                            if (find) {
+                                var find1 = find.split('.com/')[1]
+                                axios.get(sitedata.data.path + '/aws/sign_s3?find=' + find1,)
+                                    .then((response2) => {
+                                        if (response2.data.hassuccessed) {
+                                            images.push({ image: find, new_image: response2.data.data })
+                                            this.setState({ images: images })
+                                        }
+                                    })
+                            }
+                        })
                     })
+                    this.rightInfo();
                     this.setState({ allTrack1: response.data.data, allTrack: response.data.data, loaderImage: false })
                 }
                 else { this.setState({ allTrack1: [], allTrack: [], loaderImage: false }) }
@@ -988,7 +1089,7 @@ class Index extends Component {
         let { add_new_entry, new_entry, blood_pressure, blood_sugar, condition_pain, covid_diary, journal,
             personalize_dashbrd, diagnosis, diary, doc_visit, family_anmnies, file_uplod, hosp_visit, 
             lab_result, marcumar_pass, secnd_openion, sick_cert, prescription, medication, smoking_status, 
-            vaccination, weight_bmi, edit, entry, anamnesis } = translate
+            vaccination, weight_bmi, edit, entry, anamnesis, VaccinationTrial } = translate
 
         return (
             <Grid className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode && this.props.settings.setting.mode === 'dark' ? "homeBg homeBgDrk" : "homeBg"}>
@@ -1090,6 +1191,7 @@ class Index extends Component {
                                                                         <option value="medication" >{medication}</option>
                                                                         <option value="smoking_status">{smoking_status}</option>
                                                                         <option value="vaccination">{vaccination}</option>
+                                                                        <option value="vaccination_trial">{VaccinationTrial}</option>
                                                                         <option value="weight_bmi">{weight_bmi}</option>
                                                                     </select>
                                                                 </Grid>
@@ -1115,6 +1217,7 @@ class Index extends Component {
                                                                 {this.state.current_select === 'sick_certificate' && <Grid className="nwDiaSel1">{sick_cert}</Grid>}
                                                                 {this.state.current_select === 'smoking_status' && <Grid className="nwDiaSel1">{smoking_status}</Grid>}
                                                                 {this.state.current_select === 'vaccination' && <Grid className="nwDiaSel1">{vaccination}</Grid>}
+                                                                {this.state.current_select === 'vaccination_trial' && <Grid className="nwDiaSel1">{VaccinationTrial}</Grid>}              
                                                                 {this.state.current_select === 'weight_bmi' && <Grid className="nwDiaSel1">{weight_bmi}</Grid>}
 
                                                             </div>}
@@ -1139,6 +1242,7 @@ class Index extends Component {
                                                         {this.state.current_select === 'sick_certificate' && <SCFields FileAttachMulti={this.FileAttachMulti} visibility={this.state.visibility} comesfrom='patient' GetHideShow={this.GetHideShow} AddTrack={this.AddTrack} date_format={this.props.settings.setting.date_format} options={this.state.AllATC_code} reminders={this.state.Allreminder} time_format={this.props.settings.setting.time_format} updateEntryState={this.updateEntryState} updateEntryState1={this.updateEntryState1} updateTrack={this.state.updateTrack} />}
                                                         {this.state.current_select === 'smoking_status' && <SSFields FileAttachMulti={this.FileAttachMulti} visibility={this.state.visibility} comesfrom='patient' GetHideShow={this.GetHideShow} options={this.state.Allsmoking_status} AddTrack={this.AddTrack} date_format={this.props.settings.setting.date_format} time_format={this.props.settings.setting.time_format} updateEntryState={this.updateEntryState} updateEntryState1={this.updateEntryState1} updateTrack={this.state.updateTrack} />}
                                                         {this.state.current_select === 'vaccination' && <VaccinationFields FileAttachMulti={this.FileAttachMulti} visibility={this.state.visibility} comesfrom='patient' GetHideShow={this.GetHideShow} AddTrack={this.AddTrack} date_format={this.props.settings.setting.date_format} time_format={this.props.settings.setting.time_format} updateEntryState={this.updateEntryState} updateEntryState1={this.updateEntryState1} updateTrack={this.state.updateTrack} />}
+                                                        {this.state.current_select === 'vaccination_trial' && <VaccinationTrialFields FileAttachMultiVaccination= {this.FileAttachMultiVaccination} FileAttachMulti={this.FileAttachMulti} visibility={this.state.visibility} comesfrom='patient' gender={this.state.patient_gender} GetHideShow={this.GetHideShow} options3={this.state.Alltemprature} options={this.state.Allpain_quality} options2={this.state.Allpain_type} AddTrack={this.AddTrack} date_format={this.props.settings.setting.date_format} time_format={this.props.settings.setting.time_format} updateEntryState={this.updateEntryState} updateEntryState1={this.updateEntryState1} updateTrack={this.state.updateTrack} />}
                                                         {this.state.current_select === 'weight_bmi' && <BMIFields FileAttachMulti={this.FileAttachMulti} visibility={this.state.visibility} comesfrom='patient' GetHideShow={this.GetHideShow} AddTrack={this.AddTrack} date_format={this.props.settings.setting.date_format} time_format={this.props.settings.setting.time_format} updateEntryState={this.updateEntryState} updateEntryState1={this.updateEntryState1} updateTrack={this.state.updateTrack} />}
                                                     </Grid>
                                                 </Grid>

@@ -137,8 +137,9 @@ class PersonalizedData extends Component {
                 open={this.state.openDash}
                 onClose={this.handleCloseDash}
                 className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode === 'dark' ?"darkTheme dashBoxModel":"dashBoxModel"}>
-                <Grid className="dashBoxCntnt">
+                <Grid className="dashBoxCntnt 111">
 
+                  <Grid className="dashBoxCntntScrol">
                     <Grid className="dashCourse">
                         <Grid className="dashCloseBtn">
                             <a onClick={this.handleCloseDash}>
@@ -173,6 +174,8 @@ class PersonalizedData extends Component {
                             <Grid key={item.value}><a onClick={()=>this.Add(item.value)}><img src={require('../../../../assets/images/add.svg')} alt="" title="" />{item.label}</a></Grid>
                         ))}
                     </Grid>
+                  </Grid>
+
                 </Grid>
             </Modal>
         )

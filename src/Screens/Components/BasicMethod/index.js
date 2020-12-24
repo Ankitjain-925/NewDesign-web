@@ -169,12 +169,11 @@ export function capitalizeFirstLetter(string){
 export function getSpec (value, lang){
     if (!value) return '';
     if (Array.isArray(value)) {
-    const valarray = value.map((_it) =>
-    typeof _it == 'string'
-    ? _it && it.toLowerCase().replace(/\s/g, '_')
-    : _it.value && _it.value.toLowerCase().replace(/\s/g, '_'),
-    );
-    
+        const valarray = value && value.map((_it) =>
+        typeof _it == 'string'
+        ? _it && _it.toLowerCase().replace(/\s/g, '_')
+        : _it.value && _it.value.toLowerCase().replace(/\s/g, '_'),
+        );
     return speciality.english
     .filter((it) => {
     return (

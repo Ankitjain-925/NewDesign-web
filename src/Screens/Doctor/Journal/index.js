@@ -43,6 +43,7 @@ import npmCountryList from 'react-select-country-list';
 import CovidFields from '../../Components/TimelineComponent/CovidFields/index';
 import EmptyData from './../../Components/TimelineComponent/EmptyData';
 import DiagnosisFields from './../../Components/TimelineComponent/DiagnosisFields/index';
+import VaccinationTrialFields from './../../Components/TimelineComponent/VaccinationTrialFields/index.js';
 import FloatArrowUp from "../../Components/FloatArrowUp/index"
 import moment from 'moment';
 import { authy } from './../../Login/authy.js';
@@ -58,6 +59,7 @@ import * as translationNL from '../../../translations/nl.json';
 import * as translationFR from '../../../translations/fr.json';
 import * as translationAR from '../../../translations/ar.json';
 import { FormatListBulleted } from '@material-ui/icons';
+import {updateBlockchain} from './../../Components/BlockchainEntry/index.js';
 import Notification from "../../Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 import PFields from "./../../Components/TimelineComponent/PFields/index.js";
 import AnamnesisFields from "./../../Components/TimelineComponent/AnamnesisFields/index.js";
@@ -108,7 +110,9 @@ class Index extends Component {
             allTrack1: [],
             Sort: 'diagnosed_time',
             current_Graph: '',
-            upcoming_appointment: []
+            upcoming_appointment: [],
+            SARS: [],
+            Positive_SARS : [],
         };
     }
 
@@ -466,6 +470,76 @@ class Index extends Component {
     }
 
     //Upload file MultiFiles
+    FileAttachMultiVaccination = (event, name) => {
+        console.log('event, name', event, name)
+        // this.setState({file:})
+        this.setState({ isfileuploadmulti: true })
+        var user_id = this.props.stateLoginValueAim.user._id;
+        var user_token = this.props.stateLoginValueAim.token;
+        const data = new FormData()
+        if (event[0].type === "application/x-zip-compressed") {
+            this.setState({ file_type: true, isless_one: false, isless_one: false })
+        } else {
+            if (event.length < 1) {
+                this.setState({ isless_one: true, ismore_five: false, file_type: false })
+            }
+            if (event.length > 5) {
+                this.setState({ ismore_five: true, isless_one: false, file_type: false })
+            }
+            else {
+                var Fileadd = [];
+                this.setState({ loaderImage: true, ismore_five: false, isless_one: false, file_type: false })
+                for (var i = 0; i < event.length; i++) {
+                    let file = event[i];
+                    let fileParts = file.name.split('.');
+                    let fileName = fileParts[0];
+                    let fileType = fileParts[1];
+                    axios.post(sitedata.data.path + '/aws/sign_s3', {
+                        fileName: fileName,
+                        fileType: fileType,
+                        folders: this.props.stateLoginValueAim.user.profile_id + '/Trackrecord/',
+                        bucket: this.props.stateLoginValueAim.user.bucket
+                    }).then(response => {
+                        Fileadd.push({ filename: response.data.data.returnData.url + '&bucket=' + this.props.stateLoginValueAim.user.bucket, filetype: fileType })
+                        setTimeout(() => { this.setState({ fileupods: false }); }, 3000);
+                        let returnData = response.data.data.returnData;
+                        let signedRequest = returnData.signedRequest;
+                        let url = returnData.url;
+                        if(fileType ==='pdf'){
+                            fileType = 'application/pdf'
+                        }
+                        // Put the fileType in the headers for the upload
+                        var options = {
+                            headers: {
+                                'Content-Type': fileType
+                            }
+                        };
+                        axios.put( signedRequest, file, options)
+                            .then(result => { })
+                            .catch(error => { })
+                    }).catch(error => { })
+                    if(name==='SARS'){
+                        this.setState({ SARS: Fileadd, loaderImage: false, fileupods: true });
+                    }
+                    else{
+                        this.setState({ Positive_SARS: Fileadd, loaderImage: false, fileupods: true });
+                    }
+                    
+                }
+            }
+        }
+        setTimeout(
+            function () {
+                this.setState({ file_type: false, isless_one: false, ismore_five: false });
+            }
+                .bind(this),
+            2000
+        );
+    }
+
+    
+
+    //Upload file MultiFiles
     FileAttachMulti = (event) => {
         // this.setState({file:})
         this.setState({ isfileuploadmulti: true });
@@ -593,6 +667,10 @@ class Index extends Component {
         else if (this.state.isfileuploadmulti) {
             data.attachfile = this.state.fileattach
         }
+        if(this.state.current_select === 'vaccination_trial'){
+            data.Positive_SARS = this.state.Positive_SARS
+            data.SARS = this.state.SARS
+        }
         data.type = this.state.current_select;
         data.created_on = new Date();
         data.datetime_on = new Date();
@@ -711,61 +789,62 @@ class Index extends Component {
                         }
                       })
                     })
-                    axios.post(sitedata.data.path + '/blockchain/dataManager', {
-                        path: "dataManager/getDetails/patient",
-                        data: { "_selfId": this.props.stateLoginValueAim.user.profile_id, "_patientId": this.props.stateLoginValueAim.user.profile_id }
-                    })
-                        .then(response3 => {
-                            axios.post(sitedata.data.path + '/blockchain/dataManager', {
-                                path: "dataManager/generate/token/patient",
-                                data: { "_password": '123456' }
-                            })
-                                .then(response5 => {
-                                    var dataHeightWegiht = response.data.data.filter((value, key) =>
-                                        value.type === 'weight_bmi');
-                                    var datas = {};
-                                    if (dataHeightWegiht && dataHeightWegiht.length > 0) {
-                                        response3.data['Weight'] = dataHeightWegiht[0].weight;
-                                        response3.data['Height'] = dataHeightWegiht[0].height;
-                                    }
-                                    response3.data['Track Record'] = response.data.data;
-                                    datas['_patientData'] = response3.data;
-                                    datas['_publicKey'] = response5.data.address;
-                                    datas['_patientId'] = this.props.stateLoginValueAim.user.profile_id;
-                                    axios.post(sitedata.data.path + '/blockchain/dataManager', {
-                                        path: "dataManager/update/patient",
-                                        data: datas
-                                    })
-                                        .then(response6 => { })
-                                })
-                        })
-                        .catch(err => {
-                            axios.post(sitedata.data.path + '/blockchain/dataManager', {
-                                path: "dataManager/generate/token/patient",
-                                data: { "_password": '123456' }
-                            })
-                                .then(response5 => {
-                                    axios.post(sitedata.data.path + '/blockchain/dataManager', {
-                                        path: "dataManager/add/patient",
-                                        data: {
-                                            "_patientId": this.props.stateLoginValueAim.user.profile_id,
-                                            "_publicKey": response5.data.address,
-                                            "_patientData": {
-                                                "email": this.props.stateLoginValueAim.user.email,
-                                                "First Name": this.props.stateLoginValueAim.user.first_name,
-                                                "Last Name": this.props.stateLoginValueAim.user.last_name,
-                                                "DOB": this.props.stateLoginValueAim.user.birthday,
-                                                "Sex": this.props.stateLoginValueAim.user.sex,
-                                                "Address": this.props.stateLoginValueAim.user.city,
-                                                "Contact Email": this.props.stateLoginValueAim.user.email,
-                                                "Language": this.props.stateLoginValueAim.user.language,
-                                                "Track Record": response.data.data
-                                            }
-                                        }
-                                    })
-                                        .then(response6 => { })
-                                })
-                        })
+                    // axios.post(sitedata.data.path + '/blockchain/dataManager', {
+                    //     path: "dataManager/getDetails/patient",
+                    //     data: { "_selfId": this.props.stateLoginValueAim.user.profile_id, "_patientId": this.props.stateLoginValueAim.user.profile_id }
+                    // })
+                    //     .then(response3 => {
+                    //         axios.post(sitedata.data.path + '/blockchain/dataManager', {
+                    //             path: "dataManager/generate/token/patient",
+                    //             data: { "_password": '123456' }
+                    //         })
+                    //             .then(response5 => {
+                    //                 var dataHeightWegiht = response.data.data.filter((value, key) =>
+                    //                     value.type === 'weight_bmi');
+                    //                 var datas = {};
+                    //                 if (dataHeightWegiht && dataHeightWegiht.length > 0) {
+                    //                     response3.data['Weight'] = dataHeightWegiht[0].weight;
+                    //                     response3.data['Height'] = dataHeightWegiht[0].height;
+                    //                 }
+                    //                 response3.data['Track Record'] = response.data.data;
+                    //                 datas['_patientData'] = response3.data;
+                    //                 datas['_publicKey'] = response5.data.address;
+                    //                 datas['_patientId'] = this.props.stateLoginValueAim.user.profile_id;
+                    //                 axios.post(sitedata.data.path + '/blockchain/dataManager', {
+                    //                     path: "dataManager/update/patient",
+                    //                     data: datas
+                    //                 })
+                    //                     .then(response6 => { })
+                    //             })
+                    //     })
+                    //     .catch(err => {
+                    //         axios.post(sitedata.data.path + '/blockchain/dataManager', {
+                    //             path: "dataManager/generate/token/patient",
+                    //             data: { "_password": '123456' }
+                    //         })
+                    //             .then(response5 => {
+                    //                 axios.post(sitedata.data.path + '/blockchain/dataManager', {
+                    //                     path: "dataManager/add/patient",
+                    //                     data: {
+                    //                         "_patientId": this.props.stateLoginValueAim.user.profile_id,
+                    //                         "_publicKey": response5.data.address,
+                    //                         "_patientData": {
+                    //                             "email": this.props.stateLoginValueAim.user.email,
+                    //                             "First Name": this.props.stateLoginValueAim.user.first_name,
+                    //                             "Last Name": this.props.stateLoginValueAim.user.last_name,
+                    //                             "DOB": this.props.stateLoginValueAim.user.birthday,
+                    //                             "Sex": this.props.stateLoginValueAim.user.sex,
+                    //                             "Address": this.props.stateLoginValueAim.user.city,
+                    //                             "Contact Email": this.props.stateLoginValueAim.user.email,
+                    //                             "Language": this.props.stateLoginValueAim.user.language,
+                    //                             "Track Record": response.data.data
+                    //                         }
+                    //                     }
+                    //                 })
+                    //                     .then(response6 => { })
+                    //             })
+                    //     })
+                    updateBlockchain(this.state.personalinfo, response.data.data)
                     this.setState({ allTrack1 : response.data.data, allTrack: response.data.data, loaderImage: false })
                 }
                 else { this.setState({ allTrack1 : [], allTrack: [], loaderImage: false }) }
@@ -1056,7 +1135,7 @@ class Index extends Component {
                 translate = translationEN.text
         }
         let { journal, add_new_entry, New, entry, edit, blood_pressure, doc_visit, blood_sugar, covid_diary, condition_pain, diagnosis, diary, weight_bmi,
-            vaccination, marcumar_pass, smoking_status, hosp_visit, lab_result, file_uplod, family_anmnies, medication, enter,
+            vaccination, marcumar_pass, smoking_status, hosp_visit, lab_result, file_uplod, family_anmnies, medication, enter,VaccinationTrial,
             personalize_dashbrd, online, patient_access_data, another_patient_data, get_patient_access_data, id_pin_not_correct, healthcare_access_for_non_conn_patient, patient_id, pin , enter_pin, view_data, prescription, secnd_openion, sick_cert, anamnesis, Prescription } = translate;
         const enter_patient_id = enter+" "+patient_id
         const { stateLoginValueAim, Doctorsetget } = this.props;
@@ -1200,6 +1279,7 @@ class Index extends Component {
                                                                     <option value="sick_certificate">{sick_cert}</option>
                                                                     <option value="smoking_status">{smoking_status}</option>
                                                                     <option value="vaccination">{vaccination}</option>
+                                                                    <option value="vaccination_trial">{VaccinationTrial}</option>
                                                                     <option value="weight_bmi">{weight_bmi}</option>
                                                                 </select>
                                                             </Grid>
@@ -1207,7 +1287,7 @@ class Index extends Component {
                                                         <div>
                                                             <p>{edit} {entry}</p>
                                                             <Grid className="nwDiaSel">
-                                                            {this.state.current_select === 'anamnesis' && <Grid className="nwDiaSel1">{anamnesis}</Grid>}
+                                                                {this.state.current_select === 'anamnesis' && <Grid className="nwDiaSel1">{anamnesis}</Grid>}
                                                                 {this.state.current_select === 'blood_pressure' && <Grid className="nwDiaSel1">{blood_pressure}</Grid>}
                                                                 {this.state.current_select === 'blood_sugar' && <Grid className="nwDiaSel1">{blood_sugar}</Grid>}
                                                                 {this.state.current_select === 'condition_pain' && <Grid className="nwDiaSel1">{condition_pain}</Grid>}
@@ -1226,6 +1306,7 @@ class Index extends Component {
                                                                 {this.state.current_select === 'sick_certificate' && <Grid className="nwDiaSel1">{sick_cert}</Grid>}
                                                                 {this.state.current_select === 'smoking_status' && <Grid className="nwDiaSel1">{smoking_status}</Grid>}
                                                                 {this.state.current_select === 'vaccination' && <Grid className="nwDiaSel1">{vaccination}</Grid>}
+                                                                {this.state.current_select === 'vaccination_trial' && <Grid className="nwDiaSel1">{VaccinationTrial}</Grid>}              
                                                                 {this.state.current_select === 'weight_bmi' && <Grid className="nwDiaSel1">{weight_bmi}</Grid>}
 
                                                                 {/* <select disabled onChange={(e) => this.SelectOption(e.target.value)} value={this.state.current_select}>
@@ -1273,6 +1354,7 @@ class Index extends Component {
                                                     {this.state.current_select === 'sick_certificate' && <SCFields FileAttachMulti={this.FileAttachMulti} visibility={this.state.visibility} comesfrom='doctor' GetHideShow={this.GetHideShow} options={this.state.Pressuresituation} AddTrack={this.AddTrack} date_format={this.props.settings && this.props.settings.setting && this.props.settings.setting.date_format} time_format={this.props.settings && this.props.settings.setting && this.props.settings.setting.time_format} updateEntryState={this.updateEntryState} updateEntryState1={this.updateEntryState1} updateTrack={this.state.updateTrack} />}
                                                     {this.state.current_select === 'smoking_status' && <SSFields FileAttachMulti={this.FileAttachMulti} visibility={this.state.visibility} comesfrom='doctor' GetHideShow={this.GetHideShow} options={this.state.Allsmoking_status} AddTrack={this.AddTrack} date_format={this.props.settings && this.props.settings.setting && this.props.settings.setting.date_format} time_format={this.props.settings && this.props.settings.setting && this.props.settings.setting.time_format} updateEntryState={this.updateEntryState} updateEntryState1={this.updateEntryState1} updateTrack={this.state.updateTrack} />}
                                                     {this.state.current_select === 'vaccination' && <VaccinationFields FileAttachMulti={this.FileAttachMulti} visibility={this.state.visibility} comesfrom='doctor' GetHideShow={this.GetHideShow} AddTrack={this.AddTrack} date_format={this.props.settings && this.props.settings.setting && this.props.settings.setting.date_format} time_format={this.props.settings && this.props.settings.setting && this.props.settings.setting.time_format} updateEntryState={this.updateEntryState} updateEntryState1={this.updateEntryState1} updateTrack={this.state.updateTrack} />}
+                                                    {this.state.current_select === 'vaccination_trial' && <VaccinationTrialFields FileAttachMultiVaccination= {this.FileAttachMultiVaccination} FileAttachMulti={this.FileAttachMulti} visibility={this.state.visibility} comesfrom='patient' gender={this.state.patient_gender} GetHideShow={this.GetHideShow} options3={this.state.Alltemprature} options={this.state.Allpain_quality} options2={this.state.Allpain_type} AddTrack={this.AddTrack} date_format={this.props.settings.setting.date_format} time_format={this.props.settings.setting.time_format} updateEntryState={this.updateEntryState} updateEntryState1={this.updateEntryState1} updateTrack={this.state.updateTrack} />}
                                                     {this.state.current_select === 'weight_bmi' && <BMIFields FileAttachMulti={this.FileAttachMulti} visibility={this.state.visibility} comesfrom='doctor' GetHideShow={this.GetHideShow} AddTrack={this.AddTrack} date_format={this.props.settings && this.props.settings.setting && this.props.settings.setting.date_format} time_format={this.props.settings && this.props.settings.setting && this.props.settings.setting.time_format} updateEntryState={this.updateEntryState} updateEntryState1={this.updateEntryState1} updateTrack={this.state.updateTrack} />}
                                                 </Grid>
                                             </Grid>

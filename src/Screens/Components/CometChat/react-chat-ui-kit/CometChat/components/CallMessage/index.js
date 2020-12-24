@@ -57,7 +57,6 @@ const callmessage = (props) => {
         let { had_miss_call_from, had_rejected_call, had_joined_call_with, had_initiated_call_with, ended_call_with, cancelled_call_with } = translate
 
         switch (props.message.action) {
-    
             case CometChat.CALL_STATUS.UNANSWERED:
                 return <p className="chat-txt-msg">{props.message.receiver.name + had_miss_call_from + props.message.sender.name}</p>
             case CometChat.CALL_STATUS.REJECTED:

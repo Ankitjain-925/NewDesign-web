@@ -2878,6 +2878,8 @@ a.profilMenu {
 }
 /* Add dashboard css */
 .dashBoxCntnt {
+    padding: 6px;
+    padding-right: 3px !important;
     width: 420px;
     background: #fff;
     margin: 0 auto;
@@ -2885,6 +2887,7 @@ a.profilMenu {
     outline: none;
     border-radius: 12px;
     background-color: #FFFFFF;
+    -webkit-box-shadow: 0 24px 32px 0 rgba(0,8,8,0.08);
     box-shadow: 0 24px 32px 0 rgba(0,8,8,0.08);
     margin-top: 35px;
 }
@@ -5367,6 +5370,7 @@ span.revwRed{
     letter-spacing: 0;
     line-height: 18px;
     margin-bottom: 4px;
+    word-break: break-all;
 }
 .neuroDises p {
     color: #7F8383;
@@ -11367,7 +11371,7 @@ a.barViewnw {
 
 .slotBoxCntnt {
     position: relative;
-    width: 420px;
+    width: 450px;
     background: #fff;
     margin: 0 auto;
     border: none;
@@ -11495,7 +11499,7 @@ a.barViewnw {
     background: #fff;
 }
 .slotTimDat {
-    padding: 20px 24px 20px 24px;
+    padding: 20px 21px 20px 21px;
 }
 
 .addBirthSlot label {
@@ -13104,6 +13108,9 @@ a.academy_ul ul li img {
 
 
 /*Added By ankita*/
+.presurInner a{
+    margin-top: 15px;
+}
 .darkTheme .cnfrmDiaLft label span{
     color: #D9DADA !important;
 }
@@ -14173,7 +14180,7 @@ input:focus {
   /* added by satish */
 
   .languageBox {
-      margin: 2px 8px 10px 40px ;
+      margin: 2px 8px 10px 30px ;
   }
 
   .LanguageBoxMain {
@@ -14192,6 +14199,7 @@ input:focus {
 .LanguageBoxMain label{
     margin-left: 10px !important;
     font-size: 15px;
+    vertical-align: middle;
 }
 
 .languageHead {
@@ -15365,4 +15373,43 @@ td.dotsImgColor.pivoted{
 }
 .rbc-overlay{
     background: #e0e0e0 !important;
+}
+.languageBox label img{
+    height: 14px;
+    width: 20px;
+    vertical-align: middle;
+    margin-right: 6px;
+}
+.languageBox input[type="radio"]{
+    cursor: pointer;
+}
+.dashBoxCntntScrol{
+    height: 475px;
+    overflow-y: scroll;
+    margin-right: 2px;
+}
+.homeBgDrk .docArund label{
+    color: #dadada !important;
+}
+.addBirthSlot .react-date-picker__inputGroup__month{
+    min-width: 33px !important;
+    font-size: 10px !important;
+}
+.addBirthSlot .react-date-picker__inputGroup__day{
+    min-width: 33px !important;
+    font-size: 10px !important;
+}
+.addBirthSlot .react-date-picker__inputGroup__year{
+    min-width: 45px !important;
+    font-size: 10px !important;
+}
+.addBirthSlot .react-date-picker__wrapper{
+    padding: 6px 2px !important;
+}
+.addBirthSlot .react-date-picker{
+    display: block !important;
+    width: 92% !important;
+}
+.addBirthSlot .react-date-picker__button{
+    padding: 0px 2px;
 }

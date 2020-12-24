@@ -1158,6 +1158,22 @@
 		"incomingcall": "Llamada entrante",
 		"Online": "en línea",
 		"Offline": "desconectada",
-		"Lao": "Última activa en:"
+		"Lao": "Última activa en:", 
+		"VaccinationTrial":"Ensayo de vacunación COVID-19",
+		"SARSCoV_2_TEST":"Prueba Ag-SARS CoV-2",
+		"time_of_vaccination" :"Hora de vacunación",
+		"Daydate":"Día XYZ después de la vacunación con fecha",
+		"PositiveSARS" :"¿Prueba de SARS CoV-2 IgG, IgM, AG positiva?",
+		"Chargenumberpicture" :"Imagen del número de cargo",
+		"VaccinationCharge":"Cargo por vacunación",
+		"DocAuthName" :"Autoridad / hospital / médico que vacunó",
+		"Newdiagnoses" :"Nuevos diagnósticos",
+		"Newmedication" : "Nueva medicación",
+		"Newallergies":"Nuevas alergias",
+		"Newinfections": "Nuevas infecciones", 
+		"Digestion":"Digestión",
+		"Diaryentry":"Entrada del diario",
+		"Newdoctorvisits":"Nuevas visitas al médico",
+		"Newhospitalizations":"Nuevas hospitalizaciones"
 	}
 }

@@ -7,6 +7,8 @@ import HC_more from "highcharts/highcharts-more"; //module3
 import Highcharts from "highcharts/highstock";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
+import {GetShowLabel1} from "../../GetMetaData/index.js";
+import AllL_Ps from '../../Parameters/parameter.js';
 import { LanguageFetchReducer } from './../../../actions';
 import * as translationEN from "../../../../translations/en.json";
 import * as translationDE from '../../../../translations/de.json';
@@ -37,19 +39,20 @@ class Index extends Component {
         this.setOptions(this.props.current_Graph)
     }
     //On change the User Data
+
     componentDidUpdate = (prevProps) => {
         if (prevProps.personalinfo !== this.props.personalinfo) {
-            this.setState({ personalinfo: this.props.personalinfo  })     
+            this.setState({ personalinfo: this.props.personalinfo  })
         }
         if(prevProps.current_Graph !== this.props.current_Graph)
         {
             this.OnGraphChange(this.props.current_Graph)   
         }
     }
-
     //On Graph Change
     OnGraphChange=(current_Graph)=>{
         this.setState({ current_Graph: current_Graph })
+       
         this.setOptions(current_Graph);
     }
 
@@ -78,7 +81,7 @@ class Index extends Component {
             case "ch":
                 translate = translationCH.text
                 break;
-case "sw":
+            case "sw":
                 translate = translationSW.text
                 break;
             case "fr":
@@ -91,6 +94,32 @@ case "sw":
                 translate = translationEN.text
         }
         let {blood_pressure, heart_frequency, blood_sugar, RR_diastolic, rr_systolic, weight_bmi, weight, height, Creatinine, date, rr_diastolic, upr_limit, lwr_limit, value, frequency}= translate
+        
+        var Creatinine1 = this.state.personalinfo && this.state.personalinfo.laboratory_result && this.state.personalinfo.laboratory_result.length > 0 && this.state.personalinfo.laboratory_result.filter((value, key) =>
+        value.lab_parameter.value ==='Creatinine'); 
+        var Potassium = this.state.personalinfo && this.state.personalinfo.laboratory_result && this.state.personalinfo.laboratory_result.length > 0 && this.state.personalinfo.laboratory_result.filter((value, key) =>
+        value.lab_parameter.value ==='Potassium');
+        var Hemoglobine = this.state.personalinfo && this.state.personalinfo.laboratory_result && this.state.personalinfo.laboratory_result.length > 0 && this.state.personalinfo.laboratory_result.filter((value, key) =>
+        value.lab_parameter.value ==='Hemoglobine');
+        var Leucocytes = this.state.personalinfo && this.state.personalinfo.laboratory_result && this.state.personalinfo.laboratory_result.length > 0 && this.state.personalinfo.laboratory_result.filter((value, key) =>
+        value.lab_parameter.value ==='Leucocytes');
+        var Pancreaticlipase = this.state.personalinfo && this.state.personalinfo.laboratory_result && this.state.personalinfo.laboratory_result.length > 0 && this.state.personalinfo.laboratory_result.filter((value, key) =>
+        value.lab_parameter.value ==='Pancreaticlipase');
+        var Thrombocytes = this.state.personalinfo && this.state.personalinfo.laboratory_result && this.state.personalinfo.laboratory_result.length > 0 && this.state.personalinfo.laboratory_result.filter((value, key) =>
+        value.lab_parameter.value ==='Thrombocytes');
+        var Sodium = this.state.personalinfo && this.state.personalinfo.laboratory_result && this.state.personalinfo.laboratory_result.length > 0 && this.state.personalinfo.laboratory_result.filter((value, key) =>
+        value.lab_parameter.value ==='Sodium');
+        var GGT = this.state.personalinfo && this.state.personalinfo.laboratory_result && this.state.personalinfo.laboratory_result.length > 0 && this.state.personalinfo.laboratory_result.filter((value, key) =>
+        value.lab_parameter.value ==='GGT');
+        var AST = this.state.personalinfo && this.state.personalinfo.laboratory_result && this.state.personalinfo.laboratory_result.length > 0 && this.state.personalinfo.laboratory_result.filter((value, key) =>
+        value.lab_parameter.value ==='AST/GOT');
+        var ALT = this.state.personalinfo && this.state.personalinfo.laboratory_result && this.state.personalinfo.laboratory_result.length > 0 && this.state.personalinfo.laboratory_result.filter((value, key) =>
+        value.lab_parameter.value ==='ALT/GPT');
+        this.setState({
+            Creatinine:Creatinine1,Potassium:Potassium,Hemoglobine:Hemoglobine,Leucocytes:Leucocytes,Pancreaticlipase:Pancreaticlipase, 
+            Thrombocytes:Thrombocytes,Sodium:Sodium,GGT:GGT, AST:AST,ALT:ALT
+        })
+        
         if(current_Graph ==='blood_pressure' || current_Graph === 'heart_rate'){
             var categoriesbp=[],databp_d=[],databp_s=[], dataf=[],oldone;
             this.state.personalinfo && this.state.personalinfo.blood_pressure &&  this.state.personalinfo.blood_pressure.length>0  && this.state.personalinfo.blood_pressure.map((data, index) => {
@@ -210,7 +239,7 @@ case "sw":
              var myFilterData1 = this.state.personalinfo && this.state.personalinfo.laboratory_result && this.state.personalinfo.laboratory_result.length > 0 && this.state.personalinfo.laboratory_result.filter((value, key) =>
             value.lab_parameter.value ==='Creatinine');
             var categorieslr=[],datalr1_u=[],datalr1_l=[],datalr1_v=[], oldone, myFilterlr1=[];
-            {this.state.personalinfo && this.state.personalinfo.laboratory_result &&  this.state.personalinfo.laboratory_result.length>0 &&this.state.personalinfo.laboratory_result.map((data, index) => {
+            {myFilterData1 &&  myFilterData1.length>0 && myFilterData1.map((data, index) => {
             datalr1_u.push({
                 "y": parseFloat(data.upper_limit)
             })
@@ -231,12 +260,12 @@ case "sw":
         })}
             var options = {
                     title: {
-                        text: Creatinine+' (mg/dl)'
+                        text: GetShowLabel1(AllL_Ps.AllL_Ps.english, 'Creatinine', this.props.stateLanguageType, true, 'lpr')
                     },
 
                     yAxis: {
                         title: {
-                            text: Creatinine+' (mg/dl)'
+                            text:  GetShowLabel1(AllL_Ps.AllL_Ps.english, 'Creatinine', this.props.stateLanguageType, true, 'lpr')
                         }
                     },
                     xAxis: {
@@ -286,6 +315,735 @@ case "sw":
                 }
             this.setState({options : options})
         }
+        if(current_Graph === 'potassium'){
+            var myFilterData1 = this.state.personalinfo && this.state.personalinfo.laboratory_result && this.state.personalinfo.laboratory_result.length > 0 && this.state.personalinfo.laboratory_result.filter((value, key) =>
+           value.lab_parameter.value ==='Potassium');
+           var categorieslr=[],datalr1_u=[],datalr1_l=[],datalr1_v=[], oldone, myFilterlr1=[];
+           {myFilterData1 &&  myFilterData1.length>0 && myFilterData1.map((data, index) => {
+           datalr1_u.push({
+               "y": parseFloat(data.upper_limit)
+           })
+           datalr1_l.push({
+               "y": parseFloat(data.lower_limit)
+           })
+           datalr1_v.push({
+               "y": parseFloat(data.value)
+           })
+           myFilterlr1.push(data);
+           if (oldone && oldone.datetime_on && oldone.datetime_on === data.datetime_on && oldone.datetime_on) {
+               categorieslr.push(getTime(data.datetime_on, this.state.time_format))
+           }
+           else {
+               categorieslr.push(getDate(data.datetime_on, this.state.date_format))
+           }
+           oldone = data;
+       })}
+           var options = {
+                   title: {
+                       text:  GetShowLabel1(AllL_Ps.AllL_Ps.english, 'Potassium', this.props.stateLanguageType, true, 'lpr')
+                   },
+
+                   yAxis: {
+                       title: {
+                           text: GetShowLabel1(AllL_Ps.AllL_Ps.english, 'Potassium', this.props.stateLanguageType, true, 'lpr')
+                       }
+                   },
+                   xAxis: {
+                       title: {
+                           text: date
+                       },
+                       categories: categorieslr
+                   },
+
+                   plotOptions: {
+                       series: {
+                           marker: {
+                               enabled: true,
+                               radius: 3
+                           }
+                       }
+                   },
+                   chart: {
+                       type: 'line'
+
+                   },
+                   credits: {
+                       enabled: false
+                   },
+                   series: [{
+                       name: value,
+                       data: datalr1_v,
+                       type: 'line',
+                       color: '#800000'
+
+                   }, {
+                       name: upr_limit,
+                       data: datalr1_u,
+                       type: 'line',
+                       dashStyle: 'dot',
+                       color: '#008080'
+
+                   },
+                   {
+                       name: lwr_limit,
+                       data: datalr1_l,
+                       type: 'line',
+                       dashStyle: 'dot',
+                       color: '#0000A0'
+
+                   }]
+               }
+           this.setState({options : options})
+       }
+
+       if(current_Graph === 'hemoglobine'){
+        var myFilterData1 = this.state.personalinfo && this.state.personalinfo.laboratory_result && this.state.personalinfo.laboratory_result.length > 0 && this.state.personalinfo.laboratory_result.filter((value, key) =>
+       value.lab_parameter.value ==='Hemoglobine');
+       var categorieslr=[],datalr1_u=[],datalr1_l=[],datalr1_v=[], oldone, myFilterlr1=[];
+       {myFilterData1 &&  myFilterData1.length>0 && myFilterData1.map((data, index) => {
+       datalr1_u.push({
+           "y": parseFloat(data.upper_limit)
+       })
+       datalr1_l.push({
+           "y": parseFloat(data.lower_limit)
+       })
+       datalr1_v.push({
+           "y": parseFloat(data.value)
+       })
+       myFilterlr1.push(data);
+       if (oldone && oldone.datetime_on && oldone.datetime_on === data.datetime_on && oldone.datetime_on) {
+           categorieslr.push(getTime(data.datetime_on, this.state.time_format))
+       }
+       else {
+           categorieslr.push(getDate(data.datetime_on, this.state.date_format))
+       }
+       oldone = data;
+   })}
+       var options = {
+               title: {
+                   text: GetShowLabel1(AllL_Ps.AllL_Ps.english, 'Hemoglobine', this.props.stateLanguageType, true, 'lpr')
+               },
+
+               yAxis: {
+                   title: {
+                       text: GetShowLabel1(AllL_Ps.AllL_Ps.english, 'Hemoglobine', this.props.stateLanguageType, true, 'lpr')
+                   }
+               },
+               xAxis: {
+                   title: {
+                       text: date
+                   },
+                   categories: categorieslr
+               },
+
+               plotOptions: {
+                   series: {
+                       marker: {
+                           enabled: true,
+                           radius: 3
+                       }
+                   }
+               },
+               chart: {
+                   type: 'line'
+
+               },
+               credits: {
+                   enabled: false
+               },
+               series: [{
+                   name: value,
+                   data: datalr1_v,
+                   type: 'line',
+                   color: '#800000'
+
+               }, {
+                   name: upr_limit,
+                   data: datalr1_u,
+                   type: 'line',
+                   dashStyle: 'dot',
+                   color: '#008080'
+
+               },
+               {
+                   name: lwr_limit,
+                   data: datalr1_l,
+                   type: 'line',
+                   dashStyle: 'dot',
+                   color: '#0000A0'
+
+               }]
+           }
+       this.setState({options : options,})
+   }
+
+   if(current_Graph === 'leucocytes'){
+    var myFilterData1 = this.state.personalinfo && this.state.personalinfo.laboratory_result && this.state.personalinfo.laboratory_result.length > 0 && this.state.personalinfo.laboratory_result.filter((value, key) =>
+   value.lab_parameter.value ==='Leucocytes');
+   var categorieslr=[],datalr1_u=[],datalr1_l=[],datalr1_v=[], oldone, myFilterlr1=[];
+   {myFilterData1 &&  myFilterData1.length>0 && myFilterData1.map((data, index) => {
+   datalr1_u.push({
+       "y": parseFloat(data.upper_limit)
+   })
+   datalr1_l.push({
+       "y": parseFloat(data.lower_limit)
+   })
+   datalr1_v.push({
+       "y": parseFloat(data.value)
+   })
+   myFilterlr1.push(data);
+   if (oldone && oldone.datetime_on && oldone.datetime_on === data.datetime_on && oldone.datetime_on) {
+       categorieslr.push(getTime(data.datetime_on, this.state.time_format))
+   }
+   else {
+       categorieslr.push(getDate(data.datetime_on, this.state.date_format))
+   }
+   oldone = data;
+})}
+   var options = {
+           title: {
+               text: GetShowLabel1(AllL_Ps.AllL_Ps.english, 'Leucocytes', this.props.stateLanguageType, true, 'lpr')
+           },
+
+           yAxis: {
+               title: {
+                   text:  GetShowLabel1(AllL_Ps.AllL_Ps.english, 'Leucocytes', this.props.stateLanguageType, true, 'lpr')
+               }
+           },
+           xAxis: {
+               title: {
+                   text: date
+               },
+               categories: categorieslr
+           },
+
+           plotOptions: {
+               series: {
+                   marker: {
+                       enabled: true,
+                       radius: 3
+                   }
+               }
+           },
+           chart: {
+               type: 'line'
+
+           },
+           credits: {
+               enabled: false
+           },
+           series: [{
+               name: value,
+               data: datalr1_v,
+               type: 'line',
+               color: '#800000'
+
+           }, {
+               name: upr_limit,
+               data: datalr1_u,
+               type: 'line',
+               dashStyle: 'dot',
+               color: '#008080'
+
+           },
+           {
+               name: lwr_limit,
+               data: datalr1_l,
+               type: 'line',
+               dashStyle: 'dot',
+               color: '#0000A0'
+
+           }]
+       }
+   this.setState({options : options,})
+}
+
+
+if(current_Graph === 'pancreaticlipase'){
+    var myFilterData1 = this.state.personalinfo && this.state.personalinfo.laboratory_result && this.state.personalinfo.laboratory_result.length > 0 && this.state.personalinfo.laboratory_result.filter((value, key) =>
+   value.lab_parameter.value ==='Pancreaticlipase');
+   var categorieslr=[],datalr1_u=[],datalr1_l=[],datalr1_v=[], oldone, myFilterlr1=[];
+   {myFilterData1 &&  myFilterData1.length>0 && myFilterData1.map((data, index) => {
+   datalr1_u.push({
+       "y": parseFloat(data.upper_limit)
+   })
+   datalr1_l.push({
+       "y": parseFloat(data.lower_limit)
+   })
+   datalr1_v.push({
+       "y": parseFloat(data.value)
+   })
+   myFilterlr1.push(data);
+   if (oldone && oldone.datetime_on && oldone.datetime_on === data.datetime_on && oldone.datetime_on) {
+       categorieslr.push(getTime(data.datetime_on, this.state.time_format))
+   }
+   else {
+       categorieslr.push(getDate(data.datetime_on, this.state.date_format))
+   }
+   oldone = data;
+})}
+   var options = {
+           title: {
+               text:  GetShowLabel1(AllL_Ps.AllL_Ps.english, 'Pancreaticlipase', this.props.stateLanguageType, true, 'lpr')
+           },
+           yAxis: {
+               title: {
+                   text: GetShowLabel1(AllL_Ps.AllL_Ps.english, 'Pancreaticlipase', this.props.stateLanguageType, true, 'lpr')
+               }
+           },
+           xAxis: {
+               title: {
+                   text: date
+               },
+               categories: categorieslr
+           },
+
+           plotOptions: {
+               series: {
+                   marker: {
+                       enabled: true,
+                       radius: 3
+                   }
+               }
+           },
+           chart: {
+               type: 'line'
+
+           },
+           credits: {
+               enabled: false
+           },
+           series: [{
+               name: value,
+               data: datalr1_v,
+               type: 'line',
+               color: '#800000'
+
+           }, {
+               name: upr_limit,
+               data: datalr1_u,
+               type: 'line',
+               dashStyle: 'dot',
+               color: '#008080'
+
+           },
+           {
+               name: lwr_limit,
+               data: datalr1_l,
+               type: 'line',
+               dashStyle: 'dot',
+               color: '#0000A0'
+
+           }]
+       }
+   this.setState({options : options})
+}
+
+if(current_Graph === 'thrombocytes'){
+    var myFilterData1 = this.state.personalinfo && this.state.personalinfo.laboratory_result && this.state.personalinfo.laboratory_result.length > 0 && this.state.personalinfo.laboratory_result.filter((value, key) =>
+   value.lab_parameter.value ==='Thrombocytes');
+   var categorieslr=[],datalr1_u=[],datalr1_l=[],datalr1_v=[], oldone, myFilterlr1=[];
+   {myFilterData1 &&  myFilterData1.length>0 && myFilterData1.map((data, index) => {
+   datalr1_u.push({
+       "y": parseFloat(data.upper_limit)
+   })
+   datalr1_l.push({
+       "y": parseFloat(data.lower_limit)
+   })
+   datalr1_v.push({
+       "y": parseFloat(data.value)
+   })
+   myFilterlr1.push(data);
+   if (oldone && oldone.datetime_on && oldone.datetime_on === data.datetime_on && oldone.datetime_on) {
+       categorieslr.push(getTime(data.datetime_on, this.state.time_format))
+   }
+   else {
+       categorieslr.push(getDate(data.datetime_on, this.state.date_format))
+   }
+   oldone = data;
+})}
+   var options = {
+           title: {
+               text:GetShowLabel1(AllL_Ps.AllL_Ps.english, 'Thrombocytes', this.props.stateLanguageType, true, 'lpr')
+           },
+
+           yAxis: {
+               title: {
+                   text: GetShowLabel1(AllL_Ps.AllL_Ps.english, 'Thrombocytes', this.props.stateLanguageType, true, 'lpr')
+               }
+           },
+           xAxis: {
+               title: {
+                   text: date
+               },
+               categories: categorieslr
+           },
+
+           plotOptions: {
+               series: {
+                   marker: {
+                       enabled: true,
+                       radius: 3
+                   }
+               }
+           },
+           chart: {
+               type: 'line'
+
+           },
+           credits: {
+               enabled: false
+           },
+           series: [{
+               name: value,
+               data: datalr1_v,
+               type: 'line',
+               color: '#800000'
+
+           }, {
+               name: upr_limit,
+               data: datalr1_u,
+               type: 'line',
+               dashStyle: 'dot',
+               color: '#008080'
+
+           },
+           {
+               name: lwr_limit,
+               data: datalr1_l,
+               type: 'line',
+               dashStyle: 'dot',
+               color: '#0000A0'
+
+           }]
+       }
+   this.setState({options : options})
+}
+
+if(current_Graph === 'sodium'){
+    var myFilterData1 = this.state.personalinfo && this.state.personalinfo.laboratory_result && this.state.personalinfo.laboratory_result.length > 0 && this.state.personalinfo.laboratory_result.filter((value, key) =>
+   value.lab_parameter.value ==='Sodium');
+   var categorieslr=[],datalr1_u=[],datalr1_l=[],datalr1_v=[], oldone, myFilterlr1=[];
+   {myFilterData1 &&  myFilterData1.length>0 && myFilterData1.map((data, index) => {
+   datalr1_u.push({
+       "y": parseFloat(data.upper_limit)
+   })
+   datalr1_l.push({
+       "y": parseFloat(data.lower_limit)
+   })
+   datalr1_v.push({
+       "y": parseFloat(data.value)
+   })
+   myFilterlr1.push(data);
+   if (oldone && oldone.datetime_on && oldone.datetime_on === data.datetime_on && oldone.datetime_on) {
+       categorieslr.push(getTime(data.datetime_on, this.state.time_format))
+   }
+   else {
+       categorieslr.push(getDate(data.datetime_on, this.state.date_format))
+   }
+   oldone = data;
+})}
+   var options = {
+           title: {
+               text: GetShowLabel1(AllL_Ps.AllL_Ps.english, 'Sodium', this.props.stateLanguageType, true, 'lpr')
+           },
+
+           yAxis: {
+               title: {
+                   text: GetShowLabel1(AllL_Ps.AllL_Ps.english, 'Sodium', this.props.stateLanguageType, true, 'lpr')
+               }
+           },
+           xAxis: {
+               title: {
+                   text: date
+               },
+               categories: categorieslr
+           },
+
+           plotOptions: {
+               series: {
+                   marker: {
+                       enabled: true,
+                       radius: 3
+                   }
+               }
+           },
+           chart: {
+               type: 'line'
+
+           },
+           credits: {
+               enabled: false
+           },
+           series: [{
+               name: value,
+               data: datalr1_v,
+               type: 'line',
+               color: '#800000'
+
+           }, {
+               name: upr_limit,
+               data: datalr1_u,
+               type: 'line',
+               dashStyle: 'dot',
+               color: '#008080'
+
+           },
+           {
+               name: lwr_limit,
+               data: datalr1_l,
+               type: 'line',
+               dashStyle: 'dot',
+               color: '#0000A0'
+
+           }]
+       }
+   this.setState({options : options})
+}
+
+if(current_Graph === 'ggt'){
+    var myFilterData1 = this.state.personalinfo && this.state.personalinfo.laboratory_result && this.state.personalinfo.laboratory_result.length > 0 && this.state.personalinfo.laboratory_result.filter((value, key) =>
+   value.lab_parameter.value ==='GGT');
+   var categorieslr=[],datalr1_u=[],datalr1_l=[],datalr1_v=[], oldone, myFilterlr1=[];
+   {myFilterData1 &&  myFilterData1.length>0 && myFilterData1.map((data, index) => {
+   datalr1_u.push({
+       "y": parseFloat(data.upper_limit)
+   })
+   datalr1_l.push({
+       "y": parseFloat(data.lower_limit)
+   })
+   datalr1_v.push({
+       "y": parseFloat(data.value)
+   })
+   myFilterlr1.push(data);
+   if (oldone && oldone.datetime_on && oldone.datetime_on === data.datetime_on && oldone.datetime_on) {
+       categorieslr.push(getTime(data.datetime_on, this.state.time_format))
+   }
+   else {
+       categorieslr.push(getDate(data.datetime_on, this.state.date_format))
+   }
+   oldone = data;
+})}
+   var options = {
+           title: {
+               text: GetShowLabel1(AllL_Ps.AllL_Ps.english, 'GGT', this.props.stateLanguageType, true, 'lpr')
+           },
+
+           yAxis: {
+               title: {
+                   text: GetShowLabel1(AllL_Ps.AllL_Ps.english, 'GGT', this.props.stateLanguageType, true, 'lpr')
+               }
+           },
+           xAxis: {
+               title: {
+                   text: date
+               },
+               categories: categorieslr
+           },
+
+           plotOptions: {
+               series: {
+                   marker: {
+                       enabled: true,
+                       radius: 3
+                   }
+               }
+           },
+           chart: {
+               type: 'line'
+
+           },
+           credits: {
+               enabled: false
+           },
+           series: [{
+               name: value,
+               data: datalr1_v,
+               type: 'line',
+               color: '#800000'
+
+           }, {
+               name: upr_limit,
+               data: datalr1_u,
+               type: 'line',
+               dashStyle: 'dot',
+               color: '#008080'
+
+           },
+           {
+               name: lwr_limit,
+               data: datalr1_l,
+               type: 'line',
+               dashStyle: 'dot',
+               color: '#0000A0'
+
+           }]
+       }
+   this.setState({options : options,})
+}
+
+
+if(current_Graph === 'ast/got'){
+    var myFilterData1 = this.state.personalinfo && this.state.personalinfo.laboratory_result && this.state.personalinfo.laboratory_result.length > 0 && this.state.personalinfo.laboratory_result.filter((value, key) =>
+   value.lab_parameter.value ==='AST/GOT');
+   var categorieslr=[],datalr1_u=[],datalr1_l=[],datalr1_v=[], oldone, myFilterlr1=[];
+   {myFilterData1 &&  myFilterData1.length>0 && myFilterData1.map((data, index) => {
+   datalr1_u.push({
+       "y": parseFloat(data.upper_limit)
+   })
+   datalr1_l.push({
+       "y": parseFloat(data.lower_limit)
+   })
+   datalr1_v.push({
+       "y": parseFloat(data.value)
+   })
+   myFilterlr1.push(data);
+   if (oldone && oldone.datetime_on && oldone.datetime_on === data.datetime_on && oldone.datetime_on) {
+       categorieslr.push(getTime(data.datetime_on, this.state.time_format))
+   }
+   else {
+       categorieslr.push(getDate(data.datetime_on, this.state.date_format))
+   }
+   oldone = data;
+})}
+   var options = {
+           title: {
+               text:  GetShowLabel1(AllL_Ps.AllL_Ps.english, 'AST/GOT', this.props.stateLanguageType, true, 'lpr')
+           },
+
+           yAxis: {
+               title: {
+                   text: GetShowLabel1(AllL_Ps.AllL_Ps.english, 'AST/GOT', this.props.stateLanguageType, true, 'lpr')
+               }
+           },
+           xAxis: {
+               title: {
+                   text: date
+               },
+               categories: categorieslr
+           },
+
+           plotOptions: {
+               series: {
+                   marker: {
+                       enabled: true,
+                       radius: 3
+                   }
+               }
+           },
+           chart: {
+               type: 'line'
+
+           },
+           credits: {
+               enabled: false
+           },
+           series: [{
+               name: value,
+               data: datalr1_v,
+               type: 'line',
+               color: '#800000'
+
+           }, {
+               name: upr_limit,
+               data: datalr1_u,
+               type: 'line',
+               dashStyle: 'dot',
+               color: '#008080'
+
+           },
+           {
+               name: lwr_limit,
+               data: datalr1_l,
+               type: 'line',
+               dashStyle: 'dot',
+               color: '#0000A0'
+
+           }]
+       }
+   this.setState({options : options})
+}
+
+if(current_Graph === 'alt/gpt'){
+    var myFilterData1 = this.state.personalinfo && this.state.personalinfo.laboratory_result && this.state.personalinfo.laboratory_result.length > 0 && this.state.personalinfo.laboratory_result.filter((value, key) =>
+   value.lab_parameter.value ==='ALT/GPT');
+   var categorieslr=[],datalr1_u=[],datalr1_l=[],datalr1_v=[], oldone, myFilterlr1=[];
+   {myFilterData1 &&  myFilterData1.length>0 && myFilterData1.map((data, index) => {
+   datalr1_u.push({
+       "y": parseFloat(data.upper_limit)
+   })
+   datalr1_l.push({
+       "y": parseFloat(data.lower_limit)
+   })
+   datalr1_v.push({
+       "y": parseFloat(data.value)
+   })
+   myFilterlr1.push(data);
+   if (oldone && oldone.datetime_on && oldone.datetime_on === data.datetime_on && oldone.datetime_on) {
+       categorieslr.push(getTime(data.datetime_on, this.state.time_format))
+   }
+   else {
+       categorieslr.push(getDate(data.datetime_on, this.state.date_format))
+   }
+   oldone = data;
+})}
+   var options = {
+           title: {
+               text: GetShowLabel1(AllL_Ps.AllL_Ps.english, 'ALT/GPT', this.props.stateLanguageType, true, 'lpr')
+           },
+
+           yAxis: {
+               title: {
+                   text:  GetShowLabel1(AllL_Ps.AllL_Ps.english, 'ALT/GPT', this.props.stateLanguageType, true, 'lpr')
+               }
+           },
+           xAxis: {
+               title: {
+                   text: date
+               },
+               categories: categorieslr
+           },
+
+           plotOptions: {
+               series: {
+                   marker: {
+                       enabled: true,
+                       radius: 3
+                   }
+               }
+           },
+           chart: {
+               type: 'line'
+
+           },
+           credits: {
+               enabled: false
+           },
+           series: [{
+               name: value,
+               data: datalr1_v,
+               type: 'line',
+               color: '#800000'
+
+           }, {
+               name: upr_limit,
+               data: datalr1_u,
+               type: 'line',
+               dashStyle: 'dot',
+               color: '#008080'
+
+           },
+           {
+               name: lwr_limit,
+               data: datalr1_l,
+               type: 'line',
+               dashStyle: 'dot',
+               color: '#0000A0'
+
+           }]
+       }
+   this.setState({options : options})
+}
 
         if(current_Graph === 'weight_bmi'){
             var oldthree, weightbmi=[],Ibmi=[],heightbmi=[],categoriesbmi=[];
@@ -460,7 +1218,7 @@ case "sw":
             case "ch":
                 translate = translationCH.text
                 break;
-case "sw":
+            case "sw":
                 translate = translationSW.text
                 break;
             case "fr":
@@ -508,11 +1266,67 @@ case "sw":
                                 <Grid><span>{this.state.personalinfo && this.state.personalinfo.weight_bmi && this.state.personalinfo.weight_bmi[0] && this.state.personalinfo.weight_bmi[0].weight} kg, {this.state.personalinfo && this.state.personalinfo.weight_bmi && this.state.personalinfo.weight_bmi[0] && (this.state.personalinfo.weight_bmi[0].height + '/'+this.state.personalinfo.weight_bmi[0].weight )} BMI</span></Grid>
                                 <p>{getDate(this.state.personalinfo.weight_bmi[0].datetime_on, this.state.date_format)}, {getTime(new Date(this.state.personalinfo.weight_bmi[0].datetime_on), this.state.time_foramt)}</p>
                             </a>}
-                            {this.state.personalinfo && this.state.personalinfo.laboratory_result &&  this.state.personalinfo.laboratory_result.length>0 &&
+                            {this.state.Creatinine && this.state.Creatinine.length>0 &&
                             <a className={this.state.current_Graph === 'laboratory_result' && "presurInnerActv"} onClick={()=> this.OnGraphChange('laboratory_result')}>
-                                <label>{Creatinine}</label>
-                                <Grid><span>{this.state.personalinfo && this.state.personalinfo.laboratory_result && this.state.personalinfo.laboratory_result[0] && (this.state.personalinfo.laboratory_result[0].value )} mg/dl</span></Grid>
-                                <p>{getDate(this.state.personalinfo.laboratory_result[0].datetime_on, this.state.date_format)}, {getTime(new Date(this.state.personalinfo.laboratory_result[0].datetime_on), this.state.time_foramt)}</p>
+                                <label>{GetShowLabel1(AllL_Ps.AllL_Ps.english, 'Creatinine', this.props.stateLanguageType, true, 'lpr')}</label>
+                                <Grid><span>{this.state.Creatinine && this.state.Creatinine.length>0 && this.state.Creatinine[0] && (this.state.Creatinine[0].value )} {this.state.Creatinine[0].unit && this.state.Creatinine[0].unit.label}</span></Grid>
+                                <p>{getDate(this.state.Creatinine[0].datetime_on, this.state.date_format)}, {getTime(new Date(this.state.Creatinine[0].datetime_on), this.state.time_foramt)}</p>
+                            </a>}
+                            
+                            {this.state.AST && this.state.AST.length>0 &&
+                            <a className={this.state.current_Graph === 'ast/got' && "presurInnerActv"} onClick={()=> this.OnGraphChange('ast/got')}>
+                                <label>{GetShowLabel1(AllL_Ps.AllL_Ps.english, 'AST/GOT', this.props.stateLanguageType, true, 'lpr')}</label>
+                                <Grid><span>{this.state.AST && this.state.AST.length>0 && this.state.AST[0] && (this.state.AST[0].value )} {this.state.AST[0].unit && this.state.AST[0].unit.label}</span></Grid>
+                                <p>{getDate(this.state.AST[0].datetime_on, this.state.date_format)}, {getTime(new Date(this.state.AST[0].datetime_on), this.state.time_foramt)}</p>
+                            </a>}
+                            {this.state.GGT && this.state.GGT.length>0 &&
+                            <a className={this.state.current_Graph === 'ggt' && "presurInnerActv"} onClick={()=> this.OnGraphChange('ggt')}>
+                                <label>{GetShowLabel1(AllL_Ps.AllL_Ps.english, 'GGT', this.props.stateLanguageType, true, 'lpr')}</label>
+                                <Grid><span>{this.state.GGT && this.state.GGT.length>0 && this.state.GGT[0] && (this.state.GGT[0].value )} {this.state.GGT[0].unit && this.state.GGT[0].unit.label}</span></Grid>
+                                <p>{getDate(this.state.GGT[0].datetime_on, this.state.date_format)}, {getTime(new Date(this.state.GGT[0].datetime_on), this.state.time_foramt)}</p>
+                            </a>}
+                            {this.state.Sodium && this.state.Sodium.length>0 &&
+                            <a className={this.state.current_Graph === 'sodium' && "presurInnerActv"} onClick={()=> this.OnGraphChange('sodium')}>
+                                <label>{GetShowLabel1(AllL_Ps.AllL_Ps.english, 'Sodium', this.props.stateLanguageType, true, 'lpr')}</label>
+                                <Grid><span>{this.state.Sodium && this.state.Sodium.length>0 && this.state.Sodium[0] && (this.state.Sodium[0].value )} {this.state.Sodium[0].unit && this.state.Sodium[0].unit.label}</span></Grid>
+                                <p>{getDate(this.state.Sodium[0].datetime_on, this.state.date_format)}, {getTime(new Date(this.state.Sodium[0].datetime_on), this.state.time_foramt)}</p>
+                            </a>}
+                            {this.state.Thrombocytes && this.state.Thrombocytes.length>0 &&
+                            <a className={this.state.current_Graph === 'thrombocytes' && "presurInnerActv"} onClick={()=> this.OnGraphChange('thrombocytes')}>
+                                <label>{GetShowLabel1(AllL_Ps.AllL_Ps.english, 'Thrombocytes', this.props.stateLanguageType, true, 'lpr')}</label>
+                                <Grid><span>{this.state.Thrombocytes && this.state.Thrombocytes.length>0 && this.state.Thrombocytes[0] && (this.state.Thrombocytes[0].value )} {this.state.Thrombocytes[0].unit && this.state.Thrombocytes[0].unit.label}</span></Grid>
+                                <p>{getDate(this.state.Thrombocytes[0].datetime_on, this.state.date_format)}, {getTime(new Date(this.state.Thrombocytes[0].datetime_on), this.state.time_foramt)}</p>
+                            </a>}
+                            {this.state.Pancreaticlipase && this.state.Pancreaticlipase.length>0 &&
+                            <a className={this.state.current_Graph === 'pancreaticlipase' && "presurInnerActv"} onClick={()=> this.OnGraphChange('pancreaticlipase')}>
+                                <label>{GetShowLabel1(AllL_Ps.AllL_Ps.english, 'Pancreaticlipase', this.props.stateLanguageType, true, 'lpr')}</label>
+                                <Grid><span>{this.state.Pancreaticlipase && this.state.Pancreaticlipase.length>0 && this.state.Pancreaticlipase[0] && (this.state.Pancreaticlipase[0].value )} {this.state.Pancreaticlipase[0].unit && this.state.Pancreaticlipase[0].unit.label}</span></Grid>
+                                <p>{getDate(this.state.Pancreaticlipase[0].datetime_on, this.state.date_format)}, {getTime(new Date(this.state.Pancreaticlipase[0].datetime_on), this.state.time_foramt)}</p>
+                            </a>}
+                            {this.state.Leucocytes && this.state.Leucocytes.length>0 &&
+                            <a className={this.state.current_Graph === 'leucocytes' && "presurInnerActv"} onClick={()=> this.OnGraphChange('leucocytes')}>
+                                <label>{GetShowLabel1(AllL_Ps.AllL_Ps.english, 'Leucocytes', this.props.stateLanguageType, true, 'lpr')}</label>
+                                <Grid><span>{this.state.Leucocytes && this.state.Leucocytes.length>0 &&  this.state.Leucocytes[0] && (this.state.Leucocytes[0].value )} {this.state.Leucocytes[0].unit && this.state.Leucocytes[0].unit.label}</span></Grid>
+                                <p>{getDate(this.state.Leucocytes[0].datetime_on, this.state.date_format)}, {getTime(new Date(this.state.Leucocytes[0].datetime_on), this.state.time_foramt)}</p>
+                            </a>}
+                            {this.state.Hemoglobine && this.state.Hemoglobine.length>0 &&
+                            <a className={this.state.current_Graph === 'hemoglobine' && "presurInnerActv"} onClick={()=> this.OnGraphChange('hemoglobine')}>
+                                <label>{GetShowLabel1(AllL_Ps.AllL_Ps.english, 'Hemoglobine', this.props.stateLanguageType, true, 'lpr')}</label>
+                                <Grid><span>{this.state.Potassium && this.state.Hemoglobine.length>0 && this.state.Hemoglobine[0] && (this.state.Hemoglobine[0].value )} {this.state.Hemoglobine[0].unit && this.state.Hemoglobine[0].unit.label}</span></Grid>
+                                <p>{getDate(this.state.Hemoglobine[0].datetime_on, this.state.date_format)}, {getTime(new Date(this.state.Hemoglobine[0].datetime_on), this.state.time_foramt)}</p>
+                            </a>}
+
+                            {this.state.Potassium && this.state.Potassium.length>0 &&
+                            <a className={this.state.current_Graph === 'potassium' && "presurInnerActv"} onClick={()=> this.OnGraphChange('potassium')}>
+                                <label>{GetShowLabel1(AllL_Ps.AllL_Ps.english, 'Potassium', this.props.stateLanguageType, true, 'lpr')}</label>
+                                <Grid><span>{this.state.Potassium && this.state.Potassium.length>0 && this.state.Potassium[0] && (this.state.Potassium[0].value )} {this.state.Potassium[0].unit && this.state.Potassium[0].unit.label}</span></Grid>
+                                <p>{getDate(this.state.Potassium && this.state.Potassium[0].datetime_on, this.state.date_format)}, {getTime(new Date(this.state.Potassium && this.state.Potassium[0].datetime_on), this.state.time_foramt)}</p>
+                            </a>}
+                            {this.state.ALT && this.state.ALT.length>0 &&
+                            <a className={this.state.current_Graph === 'alt/gpt' && "presurInnerActv"} onClick={()=> this.OnGraphChange('alt/gpt')}>
+                                <label>{GetShowLabel1(AllL_Ps.AllL_Ps.english, 'ALT/GPT', this.props.stateLanguageType, true, 'lpr')}</label>
+                                <Grid><span>{this.state.ALT && this.state.ALT.length>0 && this.state.ALT[0] && (this.state.ALT[0].value )} {this.state.ALT[0].unit && this.state.ALT[0].unit.label}</span></Grid>
+                                <p>{getDate(this.state.ALT[0].datetime_on, this.state.date_format)}, {getTime(new Date(this.state.ALT[0].datetime_on), this.state.time_foramt)}</p>
                             </a>}
                         </Grid>
                     </Grid>
@@ -523,7 +1337,17 @@ case "sw":
                 <Grid container direction="row" justify="center">
                     <Grid item xs={12} md={9}>
                         <Grid className="presurLabl">
-                            {this.state.current_Graph === 'laboratory_result' && <h1>{Creatinine}</h1>}
+                            {this.state.current_Graph === 'potassium'&& <h1>{GetShowLabel1(AllL_Ps.AllL_Ps.english, 'Potassium', this.props.stateLanguageType, true, 'lpr')}</h1>}
+                            {this.state.current_Graph === 'hemoglobine'&& <h1>{GetShowLabel1(AllL_Ps.AllL_Ps.english, 'Hemoglobine', this.props.stateLanguageType, true, 'lpr')}</h1>}
+                            {this.state.current_Graph === 'laboratory_result' && <h1>{GetShowLabel1(AllL_Ps.AllL_Ps.english, 'Creatinine', this.props.stateLanguageType, true, 'lpr')}</h1>}
+                            {this.state.current_Graph === 'leucocytes'&& <h1>{GetShowLabel1(AllL_Ps.AllL_Ps.english, 'Leucocytes', this.props.stateLanguageType, true, 'lpr')}</h1>}
+                            {this.state.current_Graph === 'pancreaticlipase'&& <h1>{GetShowLabel1(AllL_Ps.AllL_Ps.english, 'Pancreaticlipase', this.props.stateLanguageType, true, 'lpr')}</h1>}
+                            {this.state.current_Graph === 'thrombocytes' && <h1>{GetShowLabel1(AllL_Ps.AllL_Ps.english, 'Thrombocytes', this.props.stateLanguageType, true, 'lpr')}</h1>}
+                            {this.state.current_Graph === 'sodium'&& <h1>{GetShowLabel1(AllL_Ps.AllL_Ps.english, 'Sodium', this.props.stateLanguageType, true, 'lpr')}</h1>}
+                            {this.state.current_Graph === 'ggt'&& <h1>{GetShowLabel1(AllL_Ps.AllL_Ps.english, 'GGT', this.props.stateLanguageType, true, 'lpr')}</h1>}
+                            {this.state.current_Graph === 'ast/got' && <h1>{GetShowLabel1(AllL_Ps.AllL_Ps.english, 'AST/GOT', this.props.stateLanguageType, true, 'lpr')}</h1>}
+                            {this.state.current_Graph === 'alt/gpt'&& <h1>{GetShowLabel1(AllL_Ps.AllL_Ps.english, 'ALT/GPT', this.props.stateLanguageType, true, 'lpr')}</h1>}
+                            
                             {this.state.current_Graph === 'weight_bmi' && <h1>{weight_bmi}</h1>}
                             {this.state.current_Graph === 'blood_sugar' && <h1>{blood_sugar}</h1>}
                             {this.state.current_Graph === 'heart_rate' && <h1>{heart_frequency}</h1>}

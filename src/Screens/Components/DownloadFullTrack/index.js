@@ -29,7 +29,7 @@ class Date extends Component {
       //This is for the Download the Track
       downloadTrack = () => {
         var medication=[], blood_pressure=[],blood_sugar=[],condition_pain=[],diagnosis=[],doctor_visit=[],hospitalization=[],laboratory_result=[],
-        marcumar_pass=[],vaccination=[],weight_bmi = [],fanamnesis=[],covid_19=[],diary=[],smoking_status=[],anamnesis=[];
+        marcumar_pass=[],vaccination=[],weight_bmi = [],VTrial=[],fanamnesis=[],covid_19=[],diary=[],smoking_status=[],anamnesis=[];
         if(this.state.TrackRecord && this.state.TrackRecord.length>0)
         {
             this.state.TrackRecord.map((data)=>{
@@ -78,6 +78,9 @@ class Date extends Component {
                         diary.push(data.free_text)
                     case "covid_19":
                         covid_19.push(data.temprature)
+                    case "vaccination_trial":
+                        var trial = data.temprature && data.temprature + ' -' + data.problem && data.problem 
+                        VTrial.push(trial)
                     default:
                         break;
                                 
@@ -89,7 +92,8 @@ class Date extends Component {
             medication: medication.filter(e => e != null),blood_pressure: blood_pressure.filter(e => e != null), blood_sugar : blood_sugar.filter(e => e != null), condition_pain: condition_pain.filter(e => e != null),diagnosis:diagnosis.filter(e => e != null),
             doctor_visit:doctor_visit.filter(e => e != null), hospital_visit: hospitalization.filter(e => e != null), laboratory_result: laboratory_result.filter(e => e != null),marcumar_pass:marcumar_pass.filter(e => e != null), 
             vaccination:vaccination.filter(e => e != null),weight_bmi:weight_bmi.filter(e => e != null),diary:diary.filter(e => e != null), family_anamnesis: fanamnesis.filter(e => e != null), smoking_status:smoking_status.filter(e => e != null),
-            anamnesis: anamnesis.filter(e => e != null),covid_19_diary:covid_19.filter(e => e != null)
+            anamnesis: anamnesis.filter(e => e != null),covid_19_diary:covid_19.filter(e => e != null),
+            covid_19_vaccination_trial: VTrial.filter(e => e != null)
         }
      
         this.setState({ loaderImage: true })

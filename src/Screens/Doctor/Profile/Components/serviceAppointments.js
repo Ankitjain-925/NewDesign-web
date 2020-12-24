@@ -847,10 +847,13 @@ class Index extends Component {
     }
 
     handleholidayDate = (statechange, date) => {
-        let state = this.state[statechange];
-        state['holidays_start'] = date[0].format()
-        state['holidays_end'] = date[1].format()
-        this.setState({ [statechange]: state });
+        console.log('I am here');
+        if(date && date.length>0){
+            let state = this.state[statechange];
+            state['holidays_start'] = date[0].format()
+            state['holidays_end'] = date[1].format()
+            this.setState({ [statechange]: state });
+        }
     }
 
     onChangebook = (event, key, statechange) => {

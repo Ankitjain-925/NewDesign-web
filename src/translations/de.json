@@ -1154,6 +1154,22 @@
 		"incomingcall": "Eingehender Anruf",
 		"Online": "online",
 		"Offline": "offline",
-		"Lao": "Zuletzt aktiv bei:"
+		"Lao": "Zuletzt aktiv bei:",
+		"VaccinationTrial":"COVID-19-Impfversuch",
+		"SARSCoV_2_TEST":"SARS CoV-2 Ag-Test",
+		"time_of_vaccination" :"Zeitpunkt der Impfung",
+		"Daydate":"Tag XYZ nach Impfung mit Datum",
+		"PositiveSARS" :"Positiver SARS CoV-2 IgG, IgM, AG Test?",
+		"Chargenumberpicture" :"Chargennummer Bild",
+		"VaccinationCharge":"Impfgebühr",
+		"DocAuthName" :"Behörde / Krankenhaus / Arzt, der geimpft hat",
+		"Newdiagnoses" :"Neue Diagnosen",
+		"Newmedication" : "Neue Medikamente",
+		"Newallergies":"Neue Allergien",
+		"Newinfections": "Neuinfektionen", 
+		"Digestion":"Verdauung",
+		"Diaryentry":"Tagebucheintrag",
+		"Newdoctorvisits":"Neue Arztbesuche",
+		"Newhospitalizations":"Neue Krankenhausaufenthalte"
 	}
 }

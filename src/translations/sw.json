@@ -1188,6 +1188,22 @@
 		"incomingcall": "Simu inayoingia",
 		"Online": "mkondoni",
 		"Offline": "nje ya mtandao",
-		"Lao": "Mwishowe ilifanya kazi saa:"
+		"Lao": "Mwishowe ilifanya kazi saa:",
+		"VaccinationTrial":"Jaribio la chanjo ya COVID-19",
+		"SARSCoV_2_TEST":"Mtihani wa Ag-Co-2 wa SARS",
+		"time_of_vaccination" :"Wakati wa Chanjo",
+		"Daydate":"Siku ya XYZ baada ya chanjo na tarehe",
+		"PositiveSARS" :"Mtihani mzuri wa SARS CoV-2 IgG, IgM, AG?",
+		"Chargenumberpicture" :"Chaji picha ya nambari",
+		"VaccinationCharge":"Malipo ya Chanjo",
+		"DocAuthName" :"Mamlaka / hospitali / daktari aliye chanjo",
+		"Newdiagnoses" :"Utambuzi mpya",
+		"Newmedication" : "Dawa mpya",
+		"Newallergies":"Mizio mpya",
+		"Newinfections": "Maambukizi mapya", 
+		"Digestion":"Mmeng'enyo",
+		"Diaryentry":"Kuingia kwa shajara",
+		"Newdoctorvisits":"Ziara mpya za daktari",
+		"Newhospitalizations":"Hospitali mpya"
 	}
 }

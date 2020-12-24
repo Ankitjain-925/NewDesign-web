@@ -1155,6 +1155,22 @@
     "incomingcall": "Входящий звонок",
     "Online": "онлайн",
 		"Offline": "не в сети",
-		"Lao": "Последняя активность:"
+    "Lao": "Последняя активность:",
+    "VaccinationTrial":"Испытание вакцинации против COVID-19",
+		"SARSCoV_2_TEST":"SARS CoV-2 Ag-Тест",
+		"time_of_vaccination" :"Время вакцинации",
+		"Daydate":"День XYZ после вакцинации с указанием даты",
+		"PositiveSARS" :"Положительный тест на SARS CoV-2 IgG, IgM, AG?",
+		"Chargenumberpicture" :"Изображение номера заряда",
+		"VaccinationCharge":"Плата за вакцинацию",
+    "DocAuthName" :"Орган / больница / врач, проводивший вакцинацию",
+    "Newdiagnoses" :"Новые диагнозы",
+		"Newmedication" : "Новое лекарство",
+		"Newallergies":"Новые аллергии",
+		"Newinfections": "Новые инфекции", 
+		"Digestion":"Пищеварение",
+		"Diaryentry":"Запись дневника",
+		"Newdoctorvisits":"Новые посещения врача",
+		"Newhospitalizations":"Новые диагнозы"
   }
 }
