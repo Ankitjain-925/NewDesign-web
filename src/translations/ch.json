@@ -1179,7 +1179,7 @@
 		"VaccinationTrial":"COVID-19疫苗接种试验",
 		"SARSCoV_2_TEST":"SARS CoV-2 Ag测试",
 		"time_of_vaccination" :"接种时间",
-		"Daydate":"接种日期后的XYZ天",
+		"Daydate":"接种后天数",
 		"PositiveSARS" :"SARS CoV-2 IgG，IgM，AG检测呈阳性？",
 		"Chargenumberpicture" :"充电号码图片",
 		"VaccinationCharge":"预防接种费",

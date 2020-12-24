@@ -114,6 +114,7 @@ class Index extends Component {
             upcoming_appointment: [],
             SARS: [],
             Positive_SARS : [],
+            vaccinations:[],
         };
     }
 
@@ -468,7 +469,6 @@ class Index extends Component {
 
     //Upload file MultiFiles
     FileAttachMultiVaccination = (event, name) => {
-        console.log('event, name', event, name)
         // this.setState({file:})
         this.setState({ isfileuploadmulti: true })
         var user_id = this.props.stateLoginValueAim.user._id;
@@ -881,12 +881,13 @@ updateEntryState = (e) => {
             var Allrelation = GetLanguageDropdown(this.state.allMetadata && this.state.allMetadata.relation && this.state.allMetadata.relation, this.props.stateLanguageType);
             var Allsubstance = GetLanguageDropdown(this.state.allMetadata && this.state.allMetadata.substance && this.state.allMetadata.substance, this.props.stateLanguageType);
             var Anamnesis =  GetLanguageDropdown(this.state.allMetadata && this.state.allMetadata.anamnesis && this.state.allMetadata.anamnesis, this.props.stateLanguageType);
+            var vaccinations =  GetLanguageDropdown(this.state.allMetadata && this.state.allMetadata.vaccination && this.state.allMetadata.vaccination, this.props.stateLanguageType);
             var personalised_card = GetLanguageDropdown(this.state.allMetadata && this.state.allMetadata.personalised_card && this.state.allMetadata.personalised_card, this.props.stateLanguageType, 'personalised_card');
             var Alltime_taken =  this.state.allMetadata && this.state.allMetadata.time_taken && this.state.allMetadata.time_taken;
             Alltime_taken.sort(mySorter);
 
             this.setState({
-                Alltemprature: Alltemprature,Anamnesis: Anamnesis,
+                Alltemprature: Alltemprature,Anamnesis: Anamnesis,vaccinations:vaccinations,
                 AllATC_code: AllATC_code, Allpain_type: Allpain_type, Allpain_quality: Allpain_quality, Pressuresituation: Pressuresituation, Allsituation: Allsituation,
                 Allsmoking_status: Allsmoking_status, Allreminder: Allreminder, AllSpecialty: GetLanguageDropdown(SPECIALITY.speciality.english, this.props.stateLanguageType), Allsubstance1: Allsubstance,
                 Allrelation: Allrelation, Allgender: Allgender, Alltime_taken: Alltime_taken, personalised_card: personalised_card,
@@ -1262,6 +1263,7 @@ updateEntryState = (e) => {
                                                                         <option value="blood_sugar">{blood_sugar}</option>
                                                                         <option value="condition_pain">{condition_pain}</option>
                                                                         <option value="covid_19">{covid_diary}</option>
+                                                                        <option value="vaccination_trial">{VaccinationTrial}</option>
                                                                         <option value="diagnosis">{diagnosis}</option>
                                                                         <option value="diary">{diary}</option>
                                                                         <option value="doctor_visit">{doc_visit}</option>
@@ -1276,7 +1278,6 @@ updateEntryState = (e) => {
                                                                         <option value="sick_certificate">{sick_cert}</option>
                                                                         <option value="smoking_status">{smoking_status}</option>
                                                                         <option value="vaccination">{vaccination}</option>
-                                                                        <option value="vaccination_trial">{VaccinationTrial}</option>
                                                                         <option value="weight_bmi">{weight_bmi}</option>
                                                                     </select>
                                                                 </Grid>
@@ -1351,7 +1352,7 @@ updateEntryState = (e) => {
                                                         {this.state.current_select === 'sick_certificate' && <SCFields FileAttachMulti={this.FileAttachMulti} visibility={this.state.visibility} comesfrom='nurse' GetHideShow={this.GetHideShow} options={this.state.Pressuresituation} AddTrack={this.AddTrack} date_format={this.props.settings.setting.date_format} time_format={this.props.settings.setting.time_format} updateEntryState={this.updateEntryState} updateEntryState1={this.updateEntryState1} updateTrack={this.state.updateTrack} />}
                                                         {this.state.current_select === 'smoking_status' && <SSFields FileAttachMulti={this.FileAttachMulti} visibility={this.state.visibility} comesfrom='nurse' GetHideShow={this.GetHideShow} options={this.state.Allsmoking_status} AddTrack={this.AddTrack} date_format={this.props.settings.setting.date_format} time_format={this.props.settings.setting.time_format} updateEntryState={this.updateEntryState} updateEntryState1={this.updateEntryState1} updateTrack={this.state.updateTrack} />}
                                                         {this.state.current_select === 'vaccination' && <VaccinationFields FileAttachMulti={this.FileAttachMulti} visibility={this.state.visibility} comesfrom='nurse' GetHideShow={this.GetHideShow}  AddTrack={this.AddTrack} date_format={this.props.settings.setting.date_format} time_format={this.props.settings.setting.time_format} updateEntryState={this.updateEntryState} updateEntryState1={this.updateEntryState1} updateTrack={this.state.updateTrack} />}
-                                                        {this.state.current_select === 'vaccination_trial' && <VaccinationTrialFields FileAttachMultiVaccination= {this.FileAttachMultiVaccination} FileAttachMulti={this.FileAttachMulti} visibility={this.state.visibility} comesfrom='patient' gender={this.state.patient_gender} GetHideShow={this.GetHideShow} options3={this.state.Alltemprature} options={this.state.Allpain_quality} options2={this.state.Allpain_type} AddTrack={this.AddTrack} date_format={this.props.settings.setting.date_format} time_format={this.props.settings.setting.time_format} updateEntryState={this.updateEntryState} updateEntryState1={this.updateEntryState1} updateTrack={this.state.updateTrack} />}
+                                                        {this.state.current_select === 'vaccination_trial' && <VaccinationTrialFields option4={this.state.vaccinations} FileAttachMultiVaccination= {this.FileAttachMultiVaccination} FileAttachMulti={this.FileAttachMulti} visibility={this.state.visibility} comesfrom='patient' gender={this.state.patient_gender} GetHideShow={this.GetHideShow} options3={this.state.Alltemprature} options={this.state.Allpain_quality} options2={this.state.Allpain_type} AddTrack={this.AddTrack} date_format={this.props.settings.setting.date_format} time_format={this.props.settings.setting.time_format} updateEntryState={this.updateEntryState} updateEntryState1={this.updateEntryState1} updateTrack={this.state.updateTrack} />}
                                                         {this.state.current_select === 'weight_bmi' && <BMIFields FileAttachMulti={this.FileAttachMulti} visibility={this.state.visibility} comesfrom='nurse' GetHideShow={this.GetHideShow} AddTrack={this.AddTrack} date_format={this.props.settings.setting.date_format} time_format={this.props.settings.setting.time_format} updateEntryState={this.updateEntryState} updateEntryState1={this.updateEntryState1} updateTrack={this.state.updateTrack} />}
                                                     </Grid>
                                                 </Grid>

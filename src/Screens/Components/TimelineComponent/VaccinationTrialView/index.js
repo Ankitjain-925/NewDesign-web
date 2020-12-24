@@ -10,7 +10,7 @@ import DownloadFullTrack from './../../DownloadFullTrack/index.js';
 import { getDate, newdate, getTime, getImage } from './../../BasicMethod/index';
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import {GetShowLabel1} from "../../GetMetaData/index.js";
+import {GetShowLabel1, GetShowLabel} from "../../GetMetaData/index.js";
 import { LanguageFetchReducer } from '../../../actions';
 import * as translationEN from "../../../../translations/en.json"
 import * as translationDE from '../../../../translations/de.json';
@@ -211,7 +211,7 @@ class Index extends Component {
                                         <Grid item xs={12} md={6} className="painTypeBy">
                                             <Grid container direction="row">
                                             <Grid item xs={5} md={5}><label>{vaccination}</label></Grid>
-                                                <Grid item xs={7} md={7}><span>{item.vaccination && item.vaccination}</span></Grid>
+                                                <Grid item xs={7} md={7}><span>{item.vaccination && typeof item.vaccination==='string' ? item.vaccination : GetShowLabel(item.vaccination, this.props.stateLanguageType) }</span></Grid>
                                                 <Grid className="clear"></Grid>
                                             </Grid>
                                         </Grid>
@@ -222,7 +222,7 @@ class Index extends Component {
                                         <Grid item xs={12} md={6} className="painTypeBy">
                                             <Grid container direction="row">
                                                 <Grid item xs={5} md={5}><label>{Daydate}</label></Grid>
-                                                <Grid item xs={7} md={7}><span>{item.day_after && item.day_after}</span></Grid>
+                                                <Grid item xs={7} md={7}><span>{item.day_after && Array.isArray(item.day_after) ? item.day_after.join(', '): item.day_after }</span></Grid>
                                                 <Grid className="clear"></Grid>
                                             </Grid>
                                         </Grid>

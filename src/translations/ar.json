@@ -1153,7 +1153,7 @@
 		"VaccinationTrial":"تجربة التطعيم COVID-19",
 		"SARSCoV_2_TEST":"سارس CoV-2 Ag-Test",
 		"time_of_vaccination" :"وقت التطعيم",
-		"Daydate":"اليوم XYZ بعد التطعيم مع التاريخ",
+		"Daydate":"عدد الأيام بعد التطعيم",
 		"PositiveSARS" :"اختبار إيجابي لـ SARS CoV-2 IgG و IgM و AG؟",
 		"Chargenumberpicture" :"صورة رقم المسؤول",
 		"VaccinationCharge":"رسوم التطعيم",

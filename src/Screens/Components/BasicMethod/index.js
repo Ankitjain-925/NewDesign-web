@@ -182,7 +182,7 @@ export function getSpec (value, lang){
     );
     })
     .map((item) => capitalizeFirstLetter(item['label_' + lang]))
-    .join(',').replace(/_/g, ' ');
+    .join(', ').replace(/_/g, ' ');
     } else if (typeof value == 'object') {
     return value['label_' + lang] ? value['label_' + lang] : value.label;
     } else {

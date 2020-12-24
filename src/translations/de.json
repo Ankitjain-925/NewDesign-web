@@ -1158,7 +1158,7 @@
 		"VaccinationTrial":"COVID-19-Impfversuch",
 		"SARSCoV_2_TEST":"SARS CoV-2 Ag-Test",
 		"time_of_vaccination" :"Zeitpunkt der Impfung",
-		"Daydate":"Tag XYZ nach Impfung mit Datum",
+		"Daydate":"Anzahl der Tage nach der Impfung",
 		"PositiveSARS" :"Positiver SARS CoV-2 IgG, IgM, AG Test?",
 		"Chargenumberpicture" :"Chargennummer Bild",
 		"VaccinationCharge":"Impfgebühr",

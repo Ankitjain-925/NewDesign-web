@@ -145,7 +145,7 @@ class Index extends Component {
                                 <Grid className="col-sm-6 col-xl-6">
                                     <Grid>
                                         <input value="ar" onChange={this.changeLanguage} name="language" type="radio" checked={this.state.languageValue == "ar" ? "checked" : ""} />
-                                        <label><img src={require('../../../assets/images/Arabic.jpg')} alt="Arabic" title="Arabic" />Arabic (عربى)</label>
+                                        <label><img src={require('../../../assets/images/Arabic.jpg')} alt="Arabic" title="Arabic" />Arabian (عربى)</label>
                                     </Grid>
                                     <Grid>
                                         <input value="ch" onChange={this.changeLanguage} name="language" type="radio" checked={this.state.languageValue == "ch" ? "checked" : ""} />
@@ -161,13 +161,13 @@ class Index extends Component {
                                     </Grid>
                                     <Grid>
                                         <input value="fr" onChange={this.changeLanguage} name="language" type="radio" checked={this.state.languageValue == "fr" ? "checked" : ""} />
-                                        <label><img src={require('../../../assets/images/France.png')} alt="French" title="French" />French (Frans)</label>
+                                        <label><img src={require('../../../assets/images/France.png')} alt="French" title="French" />French (Francais)</label>
                                     </Grid>
                                 </Grid>
                                 <Grid className="col-sm-6 col-xl-6">
                                     <Grid>
                                         <input value="de" onChange={this.changeLanguage} name="language" type="radio" checked={this.state.languageValue == "de" ? "checked" : ""} />
-                                        <label><img src={require('../../../assets/images/german.jpg')} alt="Germany" title="Germany" />Germany (Deutschland)</label>
+                                        <label><img src={require('../../../assets/images/german.jpg')} alt="Germany" title="Germany" />Germany (Deutsch)</label>
                                     </Grid>
                                     <Grid>
                                         <input value="pt" onChange={this.changeLanguage} name="language" type="radio" checked={this.state.languageValue == "pt" ? "checked" : ""} />

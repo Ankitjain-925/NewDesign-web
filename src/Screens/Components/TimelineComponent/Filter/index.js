@@ -127,6 +127,7 @@ case "sw":
             { value: 'blood_sugar', label: blood_sugar },
             { value: 'condition_pain', label: condition_pain },
             { value: 'covid_19', label: covid_diary },
+            { value: 'vaccination_trial', label: VaccinationTrial },
             { value: 'diagnosis', label: diagnosis },
             { value: 'diary', label: diary },
             { value: 'doctor_visit', label: doc_visit },
@@ -141,7 +142,6 @@ case "sw":
             { value: 'sick_certificate', label: sick_cert },
             { value: 'smoking_status', label: smoking_status },
             { value: 'vaccination', label: vaccination },
-            { value: 'vaccination_trial', label: VaccinationTrial },
             { value: 'weight_bmi', label: weight_bmi },
         ]
         this.setState({ Useroptions: Useroptions, Typeoptions: Typeoptions })

@@ -13108,6 +13108,16 @@ a.academy_ul ul li img {
 
 
 /*Added By ankita*/
+.painQualityDrop .css-yk16xz-control .css-2613qy-menu{
+    max-height: 30px;
+    overflow: auto;
+}
+.homeBgDrk .condIntencty p {
+    color: #bfc1c1!important;
+}
+.languageBox label img {
+    margin-top: -3%;
+}
 .presurInner a{
     margin-top: 15px;
 }

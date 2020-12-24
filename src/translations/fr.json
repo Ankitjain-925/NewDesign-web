@@ -1159,7 +1159,7 @@
 		"VaccinationTrial":"Essai de vaccination COVID-19",
 		"SARSCoV_2_TEST":"Test Ag du SARS CoV-2",
 		"time_of_vaccination" :"Heure de la vaccination",
-		"Daydate":"Jour XYZ après vaccination avec date",
+		"Daydate":"Nombre de jours après la vaccination",
 		"PositiveSARS" :"Test positif du SRAS CoV-2 IgG, IgM, AG?",
 		"Chargenumberpicture" :"Image du numéro de charge",
 		"VaccinationCharge":"Frais de vaccination",

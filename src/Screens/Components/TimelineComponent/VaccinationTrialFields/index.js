@@ -9,6 +9,7 @@ import Temprature from '../../Temprature';
 import PainPoint from './../../PointPain/index';
 import TimeFormat from './../../TimeFormat/index';
 import DateFormat from './../../DateFormat/index';
+import DaysAddField from './../DaysAddField/index.js';
 import SelectByTwo from './../../SelectbyTwo/index';
 import {GetShowLabel1} from "../../GetMetaData/index.js";
 import PainIntensity from './../../PainIntansity/index';
@@ -36,7 +37,8 @@ class Index extends Component {
             options: this.props.options,
             gender: this.props.gender,
             options2: this.props.options2,
-            option3: this.props.options3
+            option3: this.props.options3,
+            option4: this.props.option4
         };
     }
 
@@ -103,7 +105,10 @@ class Index extends Component {
                         <MMHG name="doctor_name" label={DocAuthName} onChange={(e)=> this.props.updateEntryState(e)} value={this.state.updateTrack.doctor_name}/>    
                     </Grid>
                     <Grid className="fillDia">
-                        <MMHG name="vaccination" label={vaccination} onChange={(e)=> this.props.updateEntryState(e)} value={this.state.updateTrack.vaccination}/>    
+                        <SelectField name="vaccination" label={vaccination} option={this.state.option4} onChange={(e) => this.updateEntryState1(e, 'vaccination')} value={GetShowLabel1(this.props.option4, this.state.updateTrack && this.state.updateTrack.vaccination && this.state.updateTrack.vaccination.value, this.props.stateLanguageType, false, 'organ')} />
+                    </Grid>
+                    <Grid className="fillDia">
+                        <DaysAddField name="day_after" label={Daydate} onChange={(e)=> this.props.updateEntryState1(e, 'day_after')} findingArr={this.state.updateTrack.day_after}/>    
                     </Grid>
                     <Grid className="fillDia">
                         <MMHG name="vaccination_charge"  label={VaccinationCharge} onChange={(e)=> this.props.updateEntryState(e)} value={this.state.updateTrack.vaccination_charge}/>    
@@ -124,9 +129,6 @@ class Index extends Component {
                             <TimeFormat name="time_of_vaccination" value={this.state.updateTrack.time_of_vaccination ? new Date(this.state.updateTrack.time_of_vaccination) : new Date()} time_format={this.state.time_format} onChange={(e) => this.updateEntryState1(e, 'time_of_vaccination')} />
 
                         </Grid>
-                    </Grid>
-                    <Grid className="fillDia">
-                        <MMHG name="day_after" label={Daydate} onChange={(e)=> this.props.updateEntryState(e)} value={this.state.updateTrack.day_after}/>    
                     </Grid>
                     <Grid className="fillDia">
                         <Temprature name="temprature" name="temprature" valueType={this.state.updateTrack.temprature_type} value={this.state.updateTrack.temprature} Options={this.state.option3} onChange={(e) => this.props.updateEntryState(e)} onChangeType={(e) => this.updateEntryState1(e, 'temprature_type')} />

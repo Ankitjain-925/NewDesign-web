@@ -1159,7 +1159,7 @@
     "VaccinationTrial":"Испытание вакцинации против COVID-19",
 		"SARSCoV_2_TEST":"SARS CoV-2 Ag-Тест",
 		"time_of_vaccination" :"Время вакцинации",
-		"Daydate":"День XYZ после вакцинации с указанием даты",
+		"Daydate":"Количество дней после вакцинации",
 		"PositiveSARS" :"Положительный тест на SARS CoV-2 IgG, IgM, AG?",
 		"Chargenumberpicture" :"Изображение номера заряда",
 		"VaccinationCharge":"Плата за вакцинацию",

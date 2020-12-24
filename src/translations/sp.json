@@ -1162,7 +1162,7 @@
 		"VaccinationTrial":"Ensayo de vacunación COVID-19",
 		"SARSCoV_2_TEST":"Prueba Ag-SARS CoV-2",
 		"time_of_vaccination" :"Hora de vacunación",
-		"Daydate":"Día XYZ después de la vacunación con fecha",
+		"Daydate":"Número de días después de la vacunación",
 		"PositiveSARS" :"¿Prueba de SARS CoV-2 IgG, IgM, AG positiva?",
 		"Chargenumberpicture" :"Imagen del número de cargo",
 		"VaccinationCharge":"Cargo por vacunación",

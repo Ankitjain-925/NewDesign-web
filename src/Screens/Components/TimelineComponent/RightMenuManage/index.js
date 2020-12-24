@@ -91,52 +91,53 @@ class RightManage extends Component {
                             }
                         }
                     })
-                })
-            var laboratory_result = this.getOptions('laboratory_result')
-            var blood_pressure = this.getOptions('blood_pressure')
-            var weight_bmi = this.getOptions('weight_bmi')
-            var heart_rate = this.getOptions('heart_rate')
-            var blood_sugar = this.getOptions('blood_sugar')
-            var potassium1 = this.getOptions('potassium')
-            var hemoglobine1 = this.getOptions('hemoglobine')
-            var leucocytes1 = this.getOptions('leucocytes')
-            var pancreaticlipase1 = this.getOptions('pancreaticlipase')
-            var thrombocytes1 = this.getOptions('thrombocytes')
-            var sodium1 = this.getOptions('sodium')
-            var ggt1 = this.getOptions('ggt')
-            var ast1 = this.getOptions('ast/got')
-            var alt1 = this.getOptions('alt/gpt')
 
-            var Creatinine1 = this.state.personalinfo && this.state.personalinfo.laboratory_result && this.state.personalinfo.laboratory_result.length > 0 && this.state.personalinfo.laboratory_result.filter((value, key) =>
-            value.lab_parameter &&  value.lab_parameter.value ==='Creatinine'); 
-            var Potassium = this.state.personalinfo && this.state.personalinfo.laboratory_result && this.state.personalinfo.laboratory_result.length > 0 && this.state.personalinfo.laboratory_result.filter((value, key) =>
-            value.lab_parameter &&  value.lab_parameter.value ==='Potassium');
-            var Hemoglobine = this.state.personalinfo && this.state.personalinfo.laboratory_result && this.state.personalinfo.laboratory_result.length > 0 && this.state.personalinfo.laboratory_result.filter((value, key) =>
-            value.lab_parameter &&  value.lab_parameter.value ==='Hemoglobine');
-            var Leucocytes = this.state.personalinfo && this.state.personalinfo.laboratory_result && this.state.personalinfo.laboratory_result.length > 0 && this.state.personalinfo.laboratory_result.filter((value, key) =>
-            value.lab_parameter &&  value.lab_parameter.value ==='Leucocytes');
-            var Pancreaticlipase = this.state.personalinfo && this.state.personalinfo.laboratory_result && this.state.personalinfo.laboratory_result.length > 0 && this.state.personalinfo.laboratory_result.filter((value, key) =>
-            value.lab_parameter &&  value.lab_parameter.value ==='Pancreaticlipase');
-            var Thrombocytes = this.state.personalinfo && this.state.personalinfo.laboratory_result && this.state.personalinfo.laboratory_result.length > 0 && this.state.personalinfo.laboratory_result.filter((value, key) =>
-            value.lab_parameter &&  value.lab_parameter.value ==='Thrombocytes');
-            var Sodium = this.state.personalinfo && this.state.personalinfo.laboratory_result && this.state.personalinfo.laboratory_result.length > 0 && this.state.personalinfo.laboratory_result.filter((value, key) =>
-            value.lab_parameter &&  value.lab_parameter.value ==='Sodium');
-            var GGT = this.state.personalinfo && this.state.personalinfo.laboratory_result && this.state.personalinfo.laboratory_result.length > 0 && this.state.personalinfo.laboratory_result.filter((value, key) =>
-            value.lab_parameter &&  value.lab_parameter.value ==='GGT');
-            var AST = this.state.personalinfo && this.state.personalinfo.laboratory_result && this.state.personalinfo.laboratory_result.length > 0 && this.state.personalinfo.laboratory_result.filter((value, key) =>
-            value.lab_parameter &&  value.lab_parameter.value ==='AST/GOT');
-            var ALT = this.state.personalinfo && this.state.personalinfo.laboratory_result && this.state.personalinfo.laboratory_result.length > 0 && this.state.personalinfo.laboratory_result.filter((value, key) =>
-            value.lab_parameter &&  value.lab_parameter.value ==='ALT/GPT');
-            this.setState({
-                Creatinine:Creatinine1,Potassium:Potassium,Hemoglobine:Hemoglobine,Leucocytes:Leucocytes,Pancreaticlipase:Pancreaticlipase, 
-                Thrombocytes:Thrombocytes,Sodium:Sodium,GGT:GGT, AST:AST,ALT:ALT
-            })
-            this.setState({
-                laboratory_result: laboratory_result, blood_pressure: blood_pressure, weight_bmi: weight_bmi,
-                heart_rate: heart_rate, blood_sugar: blood_sugar,pancreaticlipase1:pancreaticlipase1,
-                potassium1 :potassium1,hemoglobine1: hemoglobine1, leucocytes1: leucocytes1, thrombocytes1: thrombocytes1,
-                sodium1: sodium1, ggt1 :ggt1, ast1: ast1, alt1:alt1,
-            })
+                    var laboratory_result = this.getOptions('laboratory_result')
+                    var blood_pressure = this.getOptions('blood_pressure')
+                    var weight_bmi = this.getOptions('weight_bmi')
+                    var heart_rate = this.getOptions('heart_rate')
+                    var blood_sugar = this.getOptions('blood_sugar')
+                    var potassium1 = this.getOptions('potassium')
+                    var hemoglobine1 = this.getOptions('hemoglobine')
+                    var leucocytes1 = this.getOptions('leucocytes')
+                    var pancreaticlipase1 = this.getOptions('pancreaticlipase')
+                    var thrombocytes1 = this.getOptions('thrombocytes')
+                    var sodium1 = this.getOptions('sodium')
+                    var ggt1 = this.getOptions('ggt')
+                    var ast1 = this.getOptions('ast/got')
+                    var alt1 = this.getOptions('alt/gpt')
+        
+                    var Creatinine1 = this.state.personalinfo && this.state.personalinfo.laboratory_result && this.state.personalinfo.laboratory_result.length > 0 && this.state.personalinfo.laboratory_result.filter((value, key) =>
+                    value.lab_parameter &&  value.lab_parameter.value ==='Creatinine'); 
+                    var Potassium = this.state.personalinfo && this.state.personalinfo.laboratory_result && this.state.personalinfo.laboratory_result.length > 0 && this.state.personalinfo.laboratory_result.filter((value, key) =>
+                    value.lab_parameter &&  value.lab_parameter.value ==='Potassium');
+                    var Hemoglobine = this.state.personalinfo && this.state.personalinfo.laboratory_result && this.state.personalinfo.laboratory_result.length > 0 && this.state.personalinfo.laboratory_result.filter((value, key) =>
+                    value.lab_parameter &&  value.lab_parameter.value ==='Hemoglobine');
+                    var Leucocytes = this.state.personalinfo && this.state.personalinfo.laboratory_result && this.state.personalinfo.laboratory_result.length > 0 && this.state.personalinfo.laboratory_result.filter((value, key) =>
+                    value.lab_parameter &&  value.lab_parameter.value ==='Leucocytes');
+                    var Pancreaticlipase = this.state.personalinfo && this.state.personalinfo.laboratory_result && this.state.personalinfo.laboratory_result.length > 0 && this.state.personalinfo.laboratory_result.filter((value, key) =>
+                    value.lab_parameter &&  value.lab_parameter.value ==='Pancreaticlipase');
+                    var Thrombocytes = this.state.personalinfo && this.state.personalinfo.laboratory_result && this.state.personalinfo.laboratory_result.length > 0 && this.state.personalinfo.laboratory_result.filter((value, key) =>
+                    value.lab_parameter &&  value.lab_parameter.value ==='Thrombocytes');
+                    var Sodium = this.state.personalinfo && this.state.personalinfo.laboratory_result && this.state.personalinfo.laboratory_result.length > 0 && this.state.personalinfo.laboratory_result.filter((value, key) =>
+                    value.lab_parameter &&  value.lab_parameter.value ==='Sodium');
+                    var GGT = this.state.personalinfo && this.state.personalinfo.laboratory_result && this.state.personalinfo.laboratory_result.length > 0 && this.state.personalinfo.laboratory_result.filter((value, key) =>
+                    value.lab_parameter &&  value.lab_parameter.value ==='GGT');
+                    var AST = this.state.personalinfo && this.state.personalinfo.laboratory_result && this.state.personalinfo.laboratory_result.length > 0 && this.state.personalinfo.laboratory_result.filter((value, key) =>
+                    value.lab_parameter &&  value.lab_parameter.value ==='AST/GOT');
+                    var ALT = this.state.personalinfo && this.state.personalinfo.laboratory_result && this.state.personalinfo.laboratory_result.length > 0 && this.state.personalinfo.laboratory_result.filter((value, key) =>
+                    value.lab_parameter &&  value.lab_parameter.value ==='ALT/GPT');
+                    this.setState({
+                        Creatinine:Creatinine1,Potassium:Potassium,Hemoglobine:Hemoglobine,Leucocytes:Leucocytes,Pancreaticlipase:Pancreaticlipase, 
+                        Thrombocytes:Thrombocytes,Sodium:Sodium,GGT:GGT, AST:AST,ALT:ALT
+                    })
+                    this.setState({
+                        laboratory_result: laboratory_result, blood_pressure: blood_pressure, weight_bmi: weight_bmi,
+                        heart_rate: heart_rate, blood_sugar: blood_sugar,pancreaticlipase1:pancreaticlipase1,
+                        potassium1 :potassium1,hemoglobine1: hemoglobine1, leucocytes1: leucocytes1, thrombocytes1: thrombocytes1,
+                        sodium1: sodium1, ggt1 :ggt1, ast1: ast1, alt1:alt1,
+                    })
+                })
         }
         if (prevProps.upcoming_appointment !== this.props.upcoming_appointment) {
             this.setState({ upcoming_appointment: this.props.upcoming_appointment })
@@ -167,7 +168,7 @@ class RightManage extends Component {
             case "ch":
                 translate = translationCH.text
                 break;
-case "sw":
+            case "sw":
                 translate = translationSW.text
                 break;
             case "fr":

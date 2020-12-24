@@ -1783,7 +1783,7 @@
 		"VaccinationTrial":"COVID-19-vaccinatieonderzoek",
 		"SARSCoV_2_TEST":"SARS CoV-2 Ag-Test",
 		"time_of_vaccination" :"Tijdstip van vaccinatie",
-		"Daydate":"Dag XYZ na vaccinatie met datum",
+		"Daydate":"Aantal dagen na vaccinatie",
 		"PositiveSARS" :"Positieve SARS CoV-2 IgG-, IgM-, AG-test?",
 		"Chargenumberpicture" :"Laadnummer foto",
 		"VaccinationCharge":"Vaccinatiekosten",
