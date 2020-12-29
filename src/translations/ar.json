@@ -326,7 +326,7 @@
 		"blood_pressure": "ضغط الدم",
 		"blood_sugar": "سكر الدم",
 		"condition_pain": "الحالة والألم",
-		"covid_diary": "يوميات Covid-19",
+		"covid_diary": "يوميات COVID-19",
 		"diagnosis": "التشخيص",
 		"travel": "السفر",
 		"traveled": "سافر",
@@ -1165,7 +1165,8 @@
 		"Digestion":"الهضم",
 		"Diaryentry":"دخول اليوميات",
 		"Newdoctorvisits":"زيارات طبيب جديد",
-		"Newhospitalizations":"دخول المستشفى الجديد"
+		"Newhospitalizations":"دخول المستشفى الجديد",
+		"EmailExists":"البريد الإلكتروني موجود بالفعل ، يرجى استخدام بريد إلكتروني آخر."
 
 		}
 }

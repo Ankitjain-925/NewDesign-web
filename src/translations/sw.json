@@ -325,7 +325,7 @@
 		"blood_pressure": "Shinikizo la Damu",
 		"blood_sugar": "Damu Sukari",
 		"condition_pain": "Hali na Maumivu",
-		"covid_diary": "Shajara ya Covid-19",
+		"covid_diary": "Shajara ya COVID-19",
 		"utambuzi": "Utambuzi",
 		"travel": "Kusafiri",
 		"travelled": "usafiri",
@@ -1204,6 +1204,7 @@
 		"Digestion":"Mmeng'enyo",
 		"Diaryentry":"Kuingia kwa shajara",
 		"Newdoctorvisits":"Ziara mpya za daktari",
-		"Newhospitalizations":"Hospitali mpya"
+		"Newhospitalizations":"Hospitali mpya",
+		"EmailExists":"Barua pepe tayari ipo, tafadhali tumia barua pepe nyingine."
 	}
 }

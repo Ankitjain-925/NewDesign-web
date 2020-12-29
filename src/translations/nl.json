@@ -387,7 +387,7 @@
 		"Services": "Diensten",
 		"Support_footerSubitem": "Hulp",
 		"AimedisToken_footerSubitem": "Aimedis Token",
-		"Covid_footerSubitem": "Covid-19",
+		"Covid_footerSubitem": "COVID-19",
 		"JobPost_footerSubitem": "Vacatures",
 		"TERMS_footeritem": "VOORWAARDEN",
 		"POLICY_footeritem": "BELEID",
@@ -1278,7 +1278,7 @@
 		"blood_pressure": "Bloeddruk",
 		"blood_sugar": "Bloedsuiker",
 		"condition_pain": "Kwaal en Pijn",
-		"covid_diary": "Covid-19 Dagboek",
+		"covid_diary": "COVID-19 Dagboek",
 		"diagnosis": "Diagnose",
 		"travel": "Reizen",
 		"traveled": "Gereisd",
@@ -1795,6 +1795,7 @@
 		"Digestion":"Spijsvertering",
 		"Diaryentry":"Dagboek invulling",
 		"Newdoctorvisits":"Nieuwe doktersbezoeken",
-		"Newhospitalizations":"Nieuwe ziekenhuisopnames"
+		"Newhospitalizations":"Nieuwe ziekenhuisopnames",
+		"EmailExists":"E-mailadres bestaat al, gebruik een ander e-mailadres."
 	}
 }

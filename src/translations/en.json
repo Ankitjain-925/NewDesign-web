@@ -217,7 +217,7 @@
 		"ur_profession": "Your Profession",
 		"Annotations": "Annotations",
 		"details": "Details",
-		"questions": "questions",
+		"questions": "Questions",
 		"is_this_follow_pres": "Is this a follow-up prescription",
 		"how_u_like_rcv_pres": "How would you like to receive the prescription",
 		"Medicine": "Medicine",
@@ -326,7 +326,7 @@
 		"blood_pressure": "Blood Pressure",
 		"blood_sugar": "Blood Sugar",
 		"condition_pain": "Condition and Pain",
-		"covid_diary": "Covid-19 Diary",
+		"covid_diary": "COVID-19 Diary",
 		"diagnosis": "Diagnosis",
 		"travel": "Travel",
 		"traveled": "Traveled",
@@ -829,7 +829,7 @@
 		"book_consultancy": "Book consultancy",
 		"select_time_from": "Select time(from)",
 		"select_time_to": "Select time(to)",
-		"detail_ques": "Details / questions",
+		"detail_ques": "Details / Questions",
 		"all": "All",
 		"char_8": "8 characters",
 		"lettr_1": "1 letter",
@@ -1170,6 +1170,7 @@
 		"Digestion":"Digestion",
 		"Diaryentry":"Diary entry",
 		"Newdoctorvisits":"New doctor visits",
-		"Newhospitalizations":"New hospitalizations"
+		"Newhospitalizations":"New hospitalizations",
+		"EmailExists":"Email has already exists, please use another email."
 	}
 }

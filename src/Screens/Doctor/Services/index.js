@@ -760,7 +760,7 @@ class Index extends Component {
                 translate = translationEN.text
         }
         let { succ1, Register_email, Register_Password,pin, Register_Passwordshould, enter_pin, Register_characters, Register_letter, Register_number, Register_special, Register_Mobilenumber, Register_activate_auth, enter,
-            Mnotvalids, Register_CREATE, capab_Patients, not_mentioned, age,gender, patient_id, openjournal, personal_info, remove_patient, insurance, id_pin_not_correct, patient_data_access, healthcare_access_for_non_conn_patient, view_data, private_doc_rest, ask_patient_to_become_a_private_doctor, Ask, email_or_id, enter_patient_email_id, new_patient, add_new_patient, first, name,last, country_code, previous, next, find_patient, Patient, add_new_patient_in_list } = translate
+            Mnotvalids, Register_CREATE, capab_Patients, not_mentioned,EmailExists, age,gender, patient_id, openjournal, personal_info, remove_patient, insurance, id_pin_not_correct, patient_data_access, healthcare_access_for_non_conn_patient, view_data, private_doc_rest, ask_patient_to_become_a_private_doctor, Ask, email_or_id, enter_patient_email_id, new_patient, add_new_patient, first, name,last, country_code, previous, next, find_patient, Patient, add_new_patient_in_list } = translate
         const enter_patient_id = enter+" "+patient_id
         if (stateLoginValueAim.user === 'undefined' || stateLoginValueAim.token === 450 || stateLoginValueAim.token === 'undefined' || stateLoginValueAim.user.type !== 'doctor' || !this.props.verifyCode || !this.props.verifyCode.code) {
             return (<Redirect to={'/'} />);
@@ -1082,6 +1082,7 @@ class Index extends Component {
                                                             {this.state.regisError}
                                                             {this.state.namevald}
                                                             {this.state.Mnotvalid && Mnotvalids}
+                                                            {this.state.alreadyerror && EmailExists}
                                                         </div>
                                                         <Grid className="registerRow">
                                                             <Grid className="regCrtAc">

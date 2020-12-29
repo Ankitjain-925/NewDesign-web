@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
-import { getDate, getTime, GetUrlImage, getFirstLastName } from '../../BasicMethod';
+import { getDate, getTime, GetUrlImage, getFirstLastName, SortByGraphView } from '../../BasicMethod';
 import GraphSec from './../GraphSec/index'
 import HC_more from "highcharts/highcharts-more"; //module3
 // Import Highcharts
@@ -122,7 +122,8 @@ class Index extends Component {
         
         if(current_Graph ==='blood_pressure' || current_Graph === 'heart_rate'){
             var categoriesbp=[],databp_d=[],databp_s=[], dataf=[],oldone;
-            this.state.personalinfo && this.state.personalinfo.blood_pressure &&  this.state.personalinfo.blood_pressure.length>0  && this.state.personalinfo.blood_pressure.map((data, index) => {
+            var blood_pressure5 = this.state.personalinfo && this.state.personalinfo.blood_pressure && this.state.personalinfo.blood_pressure.length > 0 && this.state.personalinfo.blood_pressure.sort(SortByGraphView);
+            blood_pressure5 && blood_pressure5.length > 0 && blood_pressure5.map((data, index) => {
                 databp_d.push({
                     "y": parseFloat(data.rr_diastolic)
                 })
@@ -236,8 +237,9 @@ class Index extends Component {
             this.setState({options: options})
         }
         if(current_Graph === 'laboratory_result'){
-             var myFilterData1 = this.state.personalinfo && this.state.personalinfo.laboratory_result && this.state.personalinfo.laboratory_result.length > 0 && this.state.personalinfo.laboratory_result.filter((value, key) =>
-            value.lab_parameter.value ==='Creatinine');
+            var laboratory_result5 = this.state.personalinfo && this.state.personalinfo.laboratory_result && this.state.personalinfo.laboratory_result.length > 0 && this.state.personalinfo.laboratory_result.sort(SortByGraphView);
+            var myFilterData1 = laboratory_result5 && laboratory_result5.length > 0 && laboratory_result5.filter((value, key) =>
+            value.lab_parameter &&  value.lab_parameter.value ==='Creatinine');
             var categorieslr=[],datalr1_u=[],datalr1_l=[],datalr1_v=[], oldone, myFilterlr1=[];
             {myFilterData1 &&  myFilterData1.length>0 && myFilterData1.map((data, index) => {
             datalr1_u.push({
@@ -316,8 +318,9 @@ class Index extends Component {
             this.setState({options : options})
         }
         if(current_Graph === 'potassium'){
-            var myFilterData1 = this.state.personalinfo && this.state.personalinfo.laboratory_result && this.state.personalinfo.laboratory_result.length > 0 && this.state.personalinfo.laboratory_result.filter((value, key) =>
-           value.lab_parameter.value ==='Potassium');
+            var laboratory_result5 = this.state.personalinfo && this.state.personalinfo.laboratory_result && this.state.personalinfo.laboratory_result.length > 0 && this.state.personalinfo.laboratory_result.sort(SortByGraphView);
+            var myFilterData1 = laboratory_result5 && laboratory_result5.length > 0 && laboratory_result5.filter((value, key) =>
+           value.lab_parameter &&  value.lab_parameter.value ==='Potassium');
            var categorieslr=[],datalr1_u=[],datalr1_l=[],datalr1_v=[], oldone, myFilterlr1=[];
            {myFilterData1 &&  myFilterData1.length>0 && myFilterData1.map((data, index) => {
            datalr1_u.push({
@@ -397,8 +400,9 @@ class Index extends Component {
        }
 
        if(current_Graph === 'hemoglobine'){
-        var myFilterData1 = this.state.personalinfo && this.state.personalinfo.laboratory_result && this.state.personalinfo.laboratory_result.length > 0 && this.state.personalinfo.laboratory_result.filter((value, key) =>
-       value.lab_parameter.value ==='Hemoglobine');
+        var laboratory_result5 = this.state.personalinfo && this.state.personalinfo.laboratory_result && this.state.personalinfo.laboratory_result.length > 0 && this.state.personalinfo.laboratory_result.sort(SortByGraphView);
+        var myFilterData1 = laboratory_result5 && laboratory_result5.length > 0 && laboratory_result5.filter((value, key) =>
+   value.lab_parameter &&  value.lab_parameter.value ==='Hemoglobine');
        var categorieslr=[],datalr1_u=[],datalr1_l=[],datalr1_v=[], oldone, myFilterlr1=[];
        {myFilterData1 &&  myFilterData1.length>0 && myFilterData1.map((data, index) => {
        datalr1_u.push({
@@ -478,8 +482,9 @@ class Index extends Component {
    }
 
    if(current_Graph === 'leucocytes'){
-    var myFilterData1 = this.state.personalinfo && this.state.personalinfo.laboratory_result && this.state.personalinfo.laboratory_result.length > 0 && this.state.personalinfo.laboratory_result.filter((value, key) =>
-   value.lab_parameter.value ==='Leucocytes');
+    var laboratory_result5 = this.state.personalinfo && this.state.personalinfo.laboratory_result && this.state.personalinfo.laboratory_result.length > 0 && this.state.personalinfo.laboratory_result.sort(SortByGraphView);
+    var myFilterData1 = laboratory_result5 && laboratory_result5.length > 0 && laboratory_result5.filter((value, key) =>
+value.lab_parameter &&  value.lab_parameter.value ==='Leucocytes');
    var categorieslr=[],datalr1_u=[],datalr1_l=[],datalr1_v=[], oldone, myFilterlr1=[];
    {myFilterData1 &&  myFilterData1.length>0 && myFilterData1.map((data, index) => {
    datalr1_u.push({
@@ -560,8 +565,9 @@ class Index extends Component {
 
 
 if(current_Graph === 'pancreaticlipase'){
-    var myFilterData1 = this.state.personalinfo && this.state.personalinfo.laboratory_result && this.state.personalinfo.laboratory_result.length > 0 && this.state.personalinfo.laboratory_result.filter((value, key) =>
-   value.lab_parameter.value ==='Pancreaticlipase');
+    var laboratory_result5 = this.state.personalinfo && this.state.personalinfo.laboratory_result && this.state.personalinfo.laboratory_result.length > 0 && this.state.personalinfo.laboratory_result.sort(SortByGraphView);
+    var myFilterData1 = laboratory_result5 && laboratory_result5.length > 0 && laboratory_result5.filter((value, key) =>
+   value.lab_parameter &&  value.lab_parameter.value ==='Pancreaticlipase');
    var categorieslr=[],datalr1_u=[],datalr1_l=[],datalr1_v=[], oldone, myFilterlr1=[];
    {myFilterData1 &&  myFilterData1.length>0 && myFilterData1.map((data, index) => {
    datalr1_u.push({
@@ -640,8 +646,9 @@ if(current_Graph === 'pancreaticlipase'){
 }
 
 if(current_Graph === 'thrombocytes'){
-    var myFilterData1 = this.state.personalinfo && this.state.personalinfo.laboratory_result && this.state.personalinfo.laboratory_result.length > 0 && this.state.personalinfo.laboratory_result.filter((value, key) =>
-   value.lab_parameter.value ==='Thrombocytes');
+    var laboratory_result5 = this.state.personalinfo && this.state.personalinfo.laboratory_result && this.state.personalinfo.laboratory_result.length > 0 && this.state.personalinfo.laboratory_result.sort(SortByGraphView);
+            var myFilterData1 = laboratory_result5 && laboratory_result5.length > 0 && laboratory_result5.filter((value, key) =>
+   value.lab_parameter &&  value.lab_parameter.value ==='Thrombocytes');
    var categorieslr=[],datalr1_u=[],datalr1_l=[],datalr1_v=[], oldone, myFilterlr1=[];
    {myFilterData1 &&  myFilterData1.length>0 && myFilterData1.map((data, index) => {
    datalr1_u.push({
@@ -721,8 +728,9 @@ if(current_Graph === 'thrombocytes'){
 }
 
 if(current_Graph === 'sodium'){
-    var myFilterData1 = this.state.personalinfo && this.state.personalinfo.laboratory_result && this.state.personalinfo.laboratory_result.length > 0 && this.state.personalinfo.laboratory_result.filter((value, key) =>
-   value.lab_parameter.value ==='Sodium');
+    var laboratory_result5 = this.state.personalinfo && this.state.personalinfo.laboratory_result && this.state.personalinfo.laboratory_result.length > 0 && this.state.personalinfo.laboratory_result.sort(SortByGraphView);
+    var myFilterData1 = laboratory_result5 && laboratory_result5.length > 0 && laboratory_result5.filter((value, key) =>
+value.lab_parameter &&  value.lab_parameter.value ==='Sodium');
    var categorieslr=[],datalr1_u=[],datalr1_l=[],datalr1_v=[], oldone, myFilterlr1=[];
    {myFilterData1 &&  myFilterData1.length>0 && myFilterData1.map((data, index) => {
    datalr1_u.push({
@@ -802,8 +810,9 @@ if(current_Graph === 'sodium'){
 }
 
 if(current_Graph === 'ggt'){
-    var myFilterData1 = this.state.personalinfo && this.state.personalinfo.laboratory_result && this.state.personalinfo.laboratory_result.length > 0 && this.state.personalinfo.laboratory_result.filter((value, key) =>
-   value.lab_parameter.value ==='GGT');
+    var laboratory_result5 = this.state.personalinfo && this.state.personalinfo.laboratory_result && this.state.personalinfo.laboratory_result.length > 0 && this.state.personalinfo.laboratory_result.sort(SortByGraphView);
+            var myFilterData1 = laboratory_result5 && laboratory_result5.length > 0 && laboratory_result5.filter((value, key) =>
+   value.lab_parameter &&  value.lab_parameter.value ==='GGT');
    var categorieslr=[],datalr1_u=[],datalr1_l=[],datalr1_v=[], oldone, myFilterlr1=[];
    {myFilterData1 &&  myFilterData1.length>0 && myFilterData1.map((data, index) => {
    datalr1_u.push({
@@ -884,8 +893,9 @@ if(current_Graph === 'ggt'){
 
 
 if(current_Graph === 'ast/got'){
-    var myFilterData1 = this.state.personalinfo && this.state.personalinfo.laboratory_result && this.state.personalinfo.laboratory_result.length > 0 && this.state.personalinfo.laboratory_result.filter((value, key) =>
-   value.lab_parameter.value ==='AST/GOT');
+    var laboratory_result5 = this.state.personalinfo && this.state.personalinfo.laboratory_result && this.state.personalinfo.laboratory_result.length > 0 && this.state.personalinfo.laboratory_result.sort(SortByGraphView);
+            var myFilterData1 = laboratory_result5 && laboratory_result5.length > 0 && laboratory_result5.filter((value, key) =>
+   value.lab_parameter &&  value.lab_parameter.value ==='AST/GOT');
    var categorieslr=[],datalr1_u=[],datalr1_l=[],datalr1_v=[], oldone, myFilterlr1=[];
    {myFilterData1 &&  myFilterData1.length>0 && myFilterData1.map((data, index) => {
    datalr1_u.push({
@@ -965,8 +975,9 @@ if(current_Graph === 'ast/got'){
 }
 
 if(current_Graph === 'alt/gpt'){
-    var myFilterData1 = this.state.personalinfo && this.state.personalinfo.laboratory_result && this.state.personalinfo.laboratory_result.length > 0 && this.state.personalinfo.laboratory_result.filter((value, key) =>
-   value.lab_parameter.value ==='ALT/GPT');
+    var laboratory_result5 = this.state.personalinfo && this.state.personalinfo.laboratory_result && this.state.personalinfo.laboratory_result.length > 0 && this.state.personalinfo.laboratory_result.sort(SortByGraphView);
+    var myFilterData1 = laboratory_result5 && laboratory_result5.length > 0 && laboratory_result5.filter((value, key) =>
+value.lab_parameter &&  value.lab_parameter.value ==='ALT/GPT');
    var categorieslr=[],datalr1_u=[],datalr1_l=[],datalr1_v=[], oldone, myFilterlr1=[];
    {myFilterData1 &&  myFilterData1.length>0 && myFilterData1.map((data, index) => {
    datalr1_u.push({
@@ -1047,7 +1058,9 @@ if(current_Graph === 'alt/gpt'){
 
         if(current_Graph === 'weight_bmi'){
             var oldthree, weightbmi=[],Ibmi=[],heightbmi=[],categoriesbmi=[];
-            {this.state.personalinfo && this.state.personalinfo.weight_bmi &&  this.state.personalinfo.weight_bmi.length>0 && this.state.personalinfo.weight_bmi.map((data, index) => {
+            var weight_bmi5 = this.state.personalinfo && this.state.personalinfo.weight_bmi && this.state.personalinfo.weight_bmi.length > 0 && this.state.personalinfo.weight_bmi.sort(SortByGraphView);
+
+            {weight_bmi5 && weight_bmi5 &&  weight_bmi5.length>0 && weight_bmi5.map((data, index) => {
             weightbmi.push({
                 "y": parseFloat(data.weight)
             })
@@ -1132,7 +1145,10 @@ if(current_Graph === 'alt/gpt'){
         }
         if(current_Graph === 'blood_sugar'){
             var categoriesbs=[], oldtwo, hbac=[],blood_s=[];
-            {this.state.personalinfo && this.state.personalinfo.blood_sugar &&  this.state.personalinfo.blood_sugar.length>0 && this.state.personalinfo.blood_sugar.map((data, index) => {
+            var blood_sugar5 = this.state.personalinfo && this.state.personalinfo.blood_sugar && this.state.personalinfo.blood_sugar.length > 0 && this.state.personalinfo.blood_sugar.sort(SortByGraphView);
+            {
+                
+                blood_sugar5 && blood_sugar5.length > 0 && blood_sugar5.map((data, index) => {
                 hbac.push({
                     "y": parseFloat(data.Hba1c)
                 })
@@ -1245,88 +1261,88 @@ if(current_Graph === 'alt/gpt'){
                             {this.state.personalinfo && this.state.personalinfo.blood_pressure &&  this.state.personalinfo.blood_pressure.length>0 && 
                             <a className={this.state.current_Graph === 'blood_pressure' && "presurInnerActv"} onClick={()=> this.OnGraphChange('blood_pressure')}>
                                 <label>{blood_pressure}</label>
-                                <Grid><span>{this.state.personalinfo && this.state.personalinfo.blood_pressure && this.state.personalinfo.blood_pressure[0] && (this.state.personalinfo.blood_pressure[0].rr_systolic +'/'+  this.state.personalinfo.blood_pressure[0].rr_diastolic)} mmHg</span></Grid>
-                                <p>{getDate(this.state.personalinfo.blood_pressure[0].datetime_on, this.state.date_format)}, {getTime(new Date(this.state.personalinfo.blood_pressure[0].datetime_on), this.state.time_foramt)}</p>
+                                <Grid><span>{this.state.personalinfo && this.state.personalinfo.blood_pressure && this.state.personalinfo.blood_pressure[this.state.personalinfo.blood_pressure.length-1] && (this.state.personalinfo.blood_pressure[this.state.personalinfo.blood_pressure.length-1].rr_systolic +'/'+  this.state.personalinfo.blood_pressure[this.state.personalinfo.blood_pressure.length-1].rr_diastolic)} mmHg</span></Grid>
+                                <p>{getDate(this.state.personalinfo.blood_pressure[this.state.personalinfo.blood_pressure.length-1].datetime_on, this.state.date_format)}, {getTime(new Date(this.state.personalinfo.blood_pressure[this.state.personalinfo.blood_pressure.length-1].datetime_on), this.state.time_foramt)}</p>
                             </a>}
                             {this.state.personalinfo && this.state.personalinfo.blood_pressure &&  this.state.personalinfo.blood_pressure.length>0 &&
                             <a className={this.state.current_Graph === 'heart_rate' && "presurInnerActv"} onClick={()=> this.OnGraphChange('heart_rate')}>
                                 <label>{heart_frequency}</label>
-                                <Grid><span>{this.state.personalinfo && this.state.personalinfo.blood_pressure && this.state.personalinfo.blood_pressure[0] && (this.state.personalinfo.blood_pressure[0].heart_frequncy )} bpm</span></Grid>
-                                <p>{getDate(this.state.personalinfo.blood_pressure[0].datetime_on, this.state.date_format)}, {getTime(new Date(this.state.personalinfo.blood_pressure[0].datetime_on), this.state.time_foramt)}</p>
+                                <Grid><span>{this.state.personalinfo && this.state.personalinfo.blood_pressure && this.state.personalinfo.blood_pressure[this.state.personalinfo.blood_pressure.length-1] && (this.state.personalinfo.blood_pressure[this.state.personalinfo.blood_pressure.length-1].heart_frequncy )} bpm</span></Grid>
+                                <p>{getDate(this.state.personalinfo.blood_pressure[this.state.personalinfo.blood_pressure.length-1].datetime_on, this.state.date_format)}, {getTime(new Date(this.state.personalinfo.blood_pressure[this.state.personalinfo.blood_pressure.length-1].datetime_on), this.state.time_foramt)}</p>
                             </a>}
                             {this.state.personalinfo && this.state.personalinfo.blood_sugar &&  this.state.personalinfo.blood_sugar.length>0 &&
                             <a className={this.state.current_Graph === 'blood_sugar' && "presurInnerActv"} onClick={()=> this.OnGraphChange('blood_sugar')}>
                                 <label>{blood_sugar}</label>
-                                <Grid><span>{this.state.personalinfo && this.state.personalinfo.blood_sugar && this.state.personalinfo.blood_sugar[0] && (this.state.personalinfo.blood_sugar[0].blood_sugar )} mg/dl</span></Grid>
-                                <p>{getDate(this.state.personalinfo.blood_sugar[0].datetime_on, this.state.date_format)}, {getTime(new Date(this.state.personalinfo.blood_sugar[0].datetime_on), this.state.time_foramt)}</p>
+                                <Grid><span>{this.state.personalinfo && this.state.personalinfo.blood_sugar && this.state.personalinfo.blood_sugar[this.state.personalinfo.blood_sugar.length-1] && (this.state.personalinfo.blood_sugar[this.state.personalinfo.blood_sugar.length-1].blood_sugar )} mg/dl</span></Grid>
+                                <p>{getDate(this.state.personalinfo.blood_sugar[this.state.personalinfo.blood_sugar.length-1].datetime_on, this.state.date_format)}, {getTime(new Date(this.state.personalinfo.blood_sugar[this.state.personalinfo.blood_sugar.length-1].datetime_on), this.state.time_foramt)}</p>
                             </a>}
                             {this.state.personalinfo && this.state.personalinfo.weight_bmi &&  this.state.personalinfo.weight_bmi.length>0 &&
                             <a className={this.state.current_Graph === 'weight_bmi' && "presurInnerActv"} onClick={()=> this.OnGraphChange('weight_bmi')}>
                                 <label>{weight_bmi}</label>
-                                <Grid><span>{this.state.personalinfo && this.state.personalinfo.weight_bmi && this.state.personalinfo.weight_bmi[0] && this.state.personalinfo.weight_bmi[0].weight} kg, {this.state.personalinfo && this.state.personalinfo.weight_bmi && this.state.personalinfo.weight_bmi[0] && (this.state.personalinfo.weight_bmi[0].height + '/'+this.state.personalinfo.weight_bmi[0].weight )} BMI</span></Grid>
-                                <p>{getDate(this.state.personalinfo.weight_bmi[0].datetime_on, this.state.date_format)}, {getTime(new Date(this.state.personalinfo.weight_bmi[0].datetime_on), this.state.time_foramt)}</p>
+                                <Grid><span>{this.state.personalinfo && this.state.personalinfo.weight_bmi && this.state.personalinfo.weight_bmi[this.state.personalinfo.weight_bmi.length-1] && this.state.personalinfo.weight_bmi[this.state.personalinfo.weight_bmi.length-1].weight} kg, {this.state.personalinfo && this.state.personalinfo.weight_bmi && this.state.personalinfo.weight_bmi[this.state.personalinfo.weight_bmi.length-1] && (this.state.personalinfo.weight_bmi[this.state.personalinfo.weight_bmi.length-1].height + '/'+this.state.personalinfo.weight_bmi[this.state.personalinfo.weight_bmi.length-1].weight )} BMI</span></Grid>
+                                <p>{getDate(this.state.personalinfo.weight_bmi[this.state.personalinfo.weight_bmi.length-1].datetime_on, this.state.date_format)}, {getTime(new Date(this.state.personalinfo.weight_bmi[this.state.personalinfo.weight_bmi.length-1].datetime_on), this.state.time_foramt)}</p>
                             </a>}
                             {this.state.Creatinine && this.state.Creatinine.length>0 &&
                             <a className={this.state.current_Graph === 'laboratory_result' && "presurInnerActv"} onClick={()=> this.OnGraphChange('laboratory_result')}>
                                 <label>{GetShowLabel1(AllL_Ps.AllL_Ps.english, 'Creatinine', this.props.stateLanguageType, true, 'lpr')}</label>
-                                <Grid><span>{this.state.Creatinine && this.state.Creatinine.length>0 && this.state.Creatinine[0] && (this.state.Creatinine[0].value )} {this.state.Creatinine[0].unit && this.state.Creatinine[0].unit.label}</span></Grid>
-                                <p>{getDate(this.state.Creatinine[0].datetime_on, this.state.date_format)}, {getTime(new Date(this.state.Creatinine[0].datetime_on), this.state.time_foramt)}</p>
+                                <Grid><span>{this.state.Creatinine && this.state.Creatinine.length>0 && this.state.Creatinine[this.state.Creatinine.length-1] && (this.state.Creatinine[this.state.Creatinine.length-1].value )} {this.state.Creatinine[this.state.Creatinine.length-1].unit && this.state.Creatinine[this.state.Creatinine.length-1].unit.label}</span></Grid>
+                                <p>{getDate(this.state.Creatinine[this.state.Creatinine.length-1].datetime_on, this.state.date_format)}, {getTime(new Date(this.state.Creatinine[this.state.Creatinine.length-1].datetime_on), this.state.time_foramt)}</p>
                             </a>}
                             
                             {this.state.AST && this.state.AST.length>0 &&
                             <a className={this.state.current_Graph === 'ast/got' && "presurInnerActv"} onClick={()=> this.OnGraphChange('ast/got')}>
                                 <label>{GetShowLabel1(AllL_Ps.AllL_Ps.english, 'AST/GOT', this.props.stateLanguageType, true, 'lpr')}</label>
-                                <Grid><span>{this.state.AST && this.state.AST.length>0 && this.state.AST[0] && (this.state.AST[0].value )} {this.state.AST[0].unit && this.state.AST[0].unit.label}</span></Grid>
-                                <p>{getDate(this.state.AST[0].datetime_on, this.state.date_format)}, {getTime(new Date(this.state.AST[0].datetime_on), this.state.time_foramt)}</p>
+                                <Grid><span>{this.state.AST && this.state.AST.length>0 && this.state.AST[this.state.AST.length-1] && (this.state.AST[this.state.AST.length-1].value )} {this.state.AST[this.state.AST.length-1].unit && this.state.AST[this.state.AST.length-1].unit.label}</span></Grid>
+                                <p>{getDate(this.state.AST[this.state.AST.length-1].datetime_on, this.state.date_format)}, {getTime(new Date(this.state.AST[this.state.AST.length-1].datetime_on), this.state.time_foramt)}</p>
                             </a>}
                             {this.state.GGT && this.state.GGT.length>0 &&
                             <a className={this.state.current_Graph === 'ggt' && "presurInnerActv"} onClick={()=> this.OnGraphChange('ggt')}>
                                 <label>{GetShowLabel1(AllL_Ps.AllL_Ps.english, 'GGT', this.props.stateLanguageType, true, 'lpr')}</label>
-                                <Grid><span>{this.state.GGT && this.state.GGT.length>0 && this.state.GGT[0] && (this.state.GGT[0].value )} {this.state.GGT[0].unit && this.state.GGT[0].unit.label}</span></Grid>
-                                <p>{getDate(this.state.GGT[0].datetime_on, this.state.date_format)}, {getTime(new Date(this.state.GGT[0].datetime_on), this.state.time_foramt)}</p>
+                                <Grid><span>{this.state.GGT && this.state.GGT.length>0 && this.state.GGT[this.state.GGT.length-1] && (this.state.GGT[this.state.GGT.length-1].value )} {this.state.GGT[this.state.GGT.length-1].unit && this.state.GGT[this.state.GGT.length-1].unit.label}</span></Grid>
+                                <p>{getDate(this.state.GGT[this.state.GGT.length-1].datetime_on, this.state.date_format)}, {getTime(new Date(this.state.GGT[this.state.GGT.length-1].datetime_on), this.state.time_foramt)}</p>
                             </a>}
                             {this.state.Sodium && this.state.Sodium.length>0 &&
                             <a className={this.state.current_Graph === 'sodium' && "presurInnerActv"} onClick={()=> this.OnGraphChange('sodium')}>
                                 <label>{GetShowLabel1(AllL_Ps.AllL_Ps.english, 'Sodium', this.props.stateLanguageType, true, 'lpr')}</label>
-                                <Grid><span>{this.state.Sodium && this.state.Sodium.length>0 && this.state.Sodium[0] && (this.state.Sodium[0].value )} {this.state.Sodium[0].unit && this.state.Sodium[0].unit.label}</span></Grid>
-                                <p>{getDate(this.state.Sodium[0].datetime_on, this.state.date_format)}, {getTime(new Date(this.state.Sodium[0].datetime_on), this.state.time_foramt)}</p>
+                                <Grid><span>{this.state.Sodium && this.state.Sodium.length>0 && this.state.Sodium[this.state.Sodium.length-1] && (this.state.Sodium[this.state.Sodium.length-1].value )} {this.state.Sodium[this.state.Sodium.length-1].unit && this.state.Sodium[this.state.Sodium.length-1].unit.label}</span></Grid>
+                                <p>{getDate(this.state.Sodium[this.state.Sodium.length-1].datetime_on, this.state.date_format)}, {getTime(new Date(this.state.Sodium[this.state.Sodium.length-1].datetime_on), this.state.time_foramt)}</p>
                             </a>}
                             {this.state.Thrombocytes && this.state.Thrombocytes.length>0 &&
                             <a className={this.state.current_Graph === 'thrombocytes' && "presurInnerActv"} onClick={()=> this.OnGraphChange('thrombocytes')}>
                                 <label>{GetShowLabel1(AllL_Ps.AllL_Ps.english, 'Thrombocytes', this.props.stateLanguageType, true, 'lpr')}</label>
-                                <Grid><span>{this.state.Thrombocytes && this.state.Thrombocytes.length>0 && this.state.Thrombocytes[0] && (this.state.Thrombocytes[0].value )} {this.state.Thrombocytes[0].unit && this.state.Thrombocytes[0].unit.label}</span></Grid>
-                                <p>{getDate(this.state.Thrombocytes[0].datetime_on, this.state.date_format)}, {getTime(new Date(this.state.Thrombocytes[0].datetime_on), this.state.time_foramt)}</p>
+                                <Grid><span>{this.state.Thrombocytes && this.state.Thrombocytes.length>0 && this.state.Thrombocytes[this.state.Thrombocytes.length-1] && (this.state.Thrombocytes[this.state.Thrombocytes.length-1].value )} {this.state.Thrombocytes[this.state.Thrombocytes.length-1].unit && this.state.Thrombocytes[this.state.Thrombocytes.length-1].unit.label}</span></Grid>
+                                <p>{getDate(this.state.Thrombocytes[this.state.Thrombocytes.length-1].datetime_on, this.state.date_format)}, {getTime(new Date(this.state.Thrombocytes[this.state.Thrombocytes.length-1].datetime_on), this.state.time_foramt)}</p>
                             </a>}
                             {this.state.Pancreaticlipase && this.state.Pancreaticlipase.length>0 &&
                             <a className={this.state.current_Graph === 'pancreaticlipase' && "presurInnerActv"} onClick={()=> this.OnGraphChange('pancreaticlipase')}>
                                 <label>{GetShowLabel1(AllL_Ps.AllL_Ps.english, 'Pancreaticlipase', this.props.stateLanguageType, true, 'lpr')}</label>
-                                <Grid><span>{this.state.Pancreaticlipase && this.state.Pancreaticlipase.length>0 && this.state.Pancreaticlipase[0] && (this.state.Pancreaticlipase[0].value )} {this.state.Pancreaticlipase[0].unit && this.state.Pancreaticlipase[0].unit.label}</span></Grid>
-                                <p>{getDate(this.state.Pancreaticlipase[0].datetime_on, this.state.date_format)}, {getTime(new Date(this.state.Pancreaticlipase[0].datetime_on), this.state.time_foramt)}</p>
+                                <Grid><span>{this.state.Pancreaticlipase && this.state.Pancreaticlipase.length>0 && this.state.Pancreaticlipase[this.state.Pancreaticlipase.length-1] && (this.state.Pancreaticlipase[this.state.Pancreaticlipase.length-1].value )} {this.state.Pancreaticlipase[this.state.Pancreaticlipase.length-1].unit && this.state.Pancreaticlipase[this.state.Pancreaticlipase.length-1].unit.label}</span></Grid>
+                                <p>{getDate(this.state.Pancreaticlipase[this.state.Pancreaticlipase.length-1].datetime_on, this.state.date_format)}, {getTime(new Date(this.state.Pancreaticlipase[this.state.Pancreaticlipase.length-1].datetime_on), this.state.time_foramt)}</p>
                             </a>}
                             {this.state.Leucocytes && this.state.Leucocytes.length>0 &&
                             <a className={this.state.current_Graph === 'leucocytes' && "presurInnerActv"} onClick={()=> this.OnGraphChange('leucocytes')}>
                                 <label>{GetShowLabel1(AllL_Ps.AllL_Ps.english, 'Leucocytes', this.props.stateLanguageType, true, 'lpr')}</label>
-                                <Grid><span>{this.state.Leucocytes && this.state.Leucocytes.length>0 &&  this.state.Leucocytes[0] && (this.state.Leucocytes[0].value )} {this.state.Leucocytes[0].unit && this.state.Leucocytes[0].unit.label}</span></Grid>
-                                <p>{getDate(this.state.Leucocytes[0].datetime_on, this.state.date_format)}, {getTime(new Date(this.state.Leucocytes[0].datetime_on), this.state.time_foramt)}</p>
+                                <Grid><span>{this.state.Leucocytes && this.state.Leucocytes.length>0 &&  this.state.Leucocytes[this.state.Leucocytes.length-1] && (this.state.Leucocytes[this.state.Leucocytes.length-1].value )} {this.state.Leucocytes[this.state.Leucocytes.length-1].unit && this.state.Leucocytes[this.state.Leucocytes.length-1].unit.label}</span></Grid>
+                                <p>{getDate(this.state.Leucocytes[this.state.Leucocytes.length-1].datetime_on, this.state.date_format)}, {getTime(new Date(this.state.Leucocytes[this.state.Leucocytes.length-1].datetime_on), this.state.time_foramt)}</p>
                             </a>}
                             {this.state.Hemoglobine && this.state.Hemoglobine.length>0 &&
                             <a className={this.state.current_Graph === 'hemoglobine' && "presurInnerActv"} onClick={()=> this.OnGraphChange('hemoglobine')}>
                                 <label>{GetShowLabel1(AllL_Ps.AllL_Ps.english, 'Hemoglobine', this.props.stateLanguageType, true, 'lpr')}</label>
-                                <Grid><span>{this.state.Potassium && this.state.Hemoglobine.length>0 && this.state.Hemoglobine[0] && (this.state.Hemoglobine[0].value )} {this.state.Hemoglobine[0].unit && this.state.Hemoglobine[0].unit.label}</span></Grid>
-                                <p>{getDate(this.state.Hemoglobine[0].datetime_on, this.state.date_format)}, {getTime(new Date(this.state.Hemoglobine[0].datetime_on), this.state.time_foramt)}</p>
+                                <Grid><span>{this.state.Potassium && this.state.Hemoglobine.length>0 && this.state.Hemoglobine[this.state.Hemoglobine.length-1] && (this.state.Hemoglobine[this.state.Hemoglobine.length-1].value )} {this.state.Hemoglobine[this.state.Hemoglobine.length-1].unit && this.state.Hemoglobine[this.state.Hemoglobine.length-1].unit.label}</span></Grid>
+                                <p>{getDate(this.state.Hemoglobine[this.state.Hemoglobine.length-1].datetime_on, this.state.date_format)}, {getTime(new Date(this.state.Hemoglobine[this.state.Hemoglobine.length-1].datetime_on), this.state.time_foramt)}</p>
                             </a>}
 
                             {this.state.Potassium && this.state.Potassium.length>0 &&
                             <a className={this.state.current_Graph === 'potassium' && "presurInnerActv"} onClick={()=> this.OnGraphChange('potassium')}>
                                 <label>{GetShowLabel1(AllL_Ps.AllL_Ps.english, 'Potassium', this.props.stateLanguageType, true, 'lpr')}</label>
-                                <Grid><span>{this.state.Potassium && this.state.Potassium.length>0 && this.state.Potassium[0] && (this.state.Potassium[0].value )} {this.state.Potassium[0].unit && this.state.Potassium[0].unit.label}</span></Grid>
-                                <p>{getDate(this.state.Potassium && this.state.Potassium[0].datetime_on, this.state.date_format)}, {getTime(new Date(this.state.Potassium && this.state.Potassium[0].datetime_on), this.state.time_foramt)}</p>
+                                <Grid><span>{this.state.Potassium && this.state.Potassium.length>0 && this.state.Potassium[this.state.Potassium.length-1] && (this.state.Potassium[this.state.Potassium.length-1].value )} {this.state.Potassium[this.state.Potassium.length-1].unit && this.state.Potassium[this.state.Potassium.length-1].unit.label}</span></Grid>
+                                <p>{getDate(this.state.Potassium && this.state.Potassium[this.state.Potassium.length-1].datetime_on, this.state.date_format)}, {getTime(new Date(this.state.Potassium && this.state.Potassium[this.state.Potassium.length-1].datetime_on), this.state.time_foramt)}</p>
                             </a>}
                             {this.state.ALT && this.state.ALT.length>0 &&
                             <a className={this.state.current_Graph === 'alt/gpt' && "presurInnerActv"} onClick={()=> this.OnGraphChange('alt/gpt')}>
                                 <label>{GetShowLabel1(AllL_Ps.AllL_Ps.english, 'ALT/GPT', this.props.stateLanguageType, true, 'lpr')}</label>
-                                <Grid><span>{this.state.ALT && this.state.ALT.length>0 && this.state.ALT[0] && (this.state.ALT[0].value )} {this.state.ALT[0].unit && this.state.ALT[0].unit.label}</span></Grid>
-                                <p>{getDate(this.state.ALT[0].datetime_on, this.state.date_format)}, {getTime(new Date(this.state.ALT[0].datetime_on), this.state.time_foramt)}</p>
+                                <Grid><span>{this.state.ALT && this.state.ALT.length>0 && this.state.ALT[this.state.ALT.length-1] && (this.state.ALT[this.state.ALT.length-1].value )} {this.state.ALT[this.state.ALT.length-1].unit && this.state.ALT[this.state.ALT.length-1].unit.label}</span></Grid>
+                                <p>{getDate(this.state.ALT[this.state.ALT.length-1].datetime_on, this.state.date_format)}, {getTime(new Date(this.state.ALT[this.state.ALT.length-1].datetime_on), this.state.time_foramt)}</p>
                             </a>}
                         </Grid>
                     </Grid>

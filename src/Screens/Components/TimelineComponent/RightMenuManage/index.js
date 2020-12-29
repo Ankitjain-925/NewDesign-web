@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
-import { getDate, getTime, GetUrlImage, getSpec, getImage } from '../../BasicMethod';
+import { getDate, getTime, GetUrlImage, getSpec, getImage, SortByGraphView } from '../../BasicMethod';
 import axios from 'axios';
 import sitedata from '../../../../sitedata';
 import { withRouter } from "react-router-dom";
@@ -185,7 +185,8 @@ class RightManage extends Component {
 
         if (current_Graph === 'blood_pressure' || current_Graph === 'heart_rate') {
             var categoriesbp = [], databp_d = [], databp_s = [], dataf = [], oldone;
-            this.state.personalinfo && this.state.personalinfo.blood_pressure && this.state.personalinfo.blood_pressure.length > 0 && this.state.personalinfo.blood_pressure.map((data, index) => {
+            var blood_pressure5 = this.state.personalinfo && this.state.personalinfo.blood_pressure && this.state.personalinfo.blood_pressure.length > 0 && this.state.personalinfo.blood_pressure.sort(SortByGraphView);
+            blood_pressure5 && blood_pressure5.length > 0 && blood_pressure5.map((data, index) => {
                 databp_d.push({
                     "y": parseFloat(data.rr_diastolic)
                 })
@@ -300,7 +301,8 @@ class RightManage extends Component {
             return options;
         }
         if(current_Graph === 'potassium'){
-            var myFilterData1 = this.state.personalinfo && this.state.personalinfo.laboratory_result && this.state.personalinfo.laboratory_result.length > 0 && this.state.personalinfo.laboratory_result.filter((value, key) =>
+            var laboratory_result5 = this.state.personalinfo && this.state.personalinfo.laboratory_result && this.state.personalinfo.laboratory_result.length > 0 && this.state.personalinfo.laboratory_result.sort(SortByGraphView);
+            var myFilterData1 = laboratory_result5 && laboratory_result5.length > 0 && laboratory_result5.filter((value, key) =>
            value.lab_parameter &&  value.lab_parameter.value ==='Potassium');
            var categorieslr=[],datalr1_u=[],datalr1_l=[],datalr1_v=[], oldone, myFilterlr1=[];
            {myFilterData1 &&  myFilterData1.length>0 && myFilterData1.map((data, index) => {
@@ -381,7 +383,8 @@ class RightManage extends Component {
        }
 
        if(current_Graph === 'hemoglobine'){
-        var myFilterData1 = this.state.personalinfo && this.state.personalinfo.laboratory_result && this.state.personalinfo.laboratory_result.length > 0 && this.state.personalinfo.laboratory_result.filter((value, key) =>
+        var laboratory_result5 = this.state.personalinfo && this.state.personalinfo.laboratory_result && this.state.personalinfo.laboratory_result.length > 0 && this.state.personalinfo.laboratory_result.sort(SortByGraphView);
+            var myFilterData1 = laboratory_result5 && laboratory_result5.length > 0 && laboratory_result5.filter((value, key) =>
        value.lab_parameter &&  value.lab_parameter.value ==='Hemoglobine');
        var categorieslr=[],datalr1_u=[],datalr1_l=[],datalr1_v=[], oldone, myFilterlr1=[];
        {myFilterData1 &&  myFilterData1.length>0 && myFilterData1.map((data, index) => {
@@ -462,7 +465,8 @@ class RightManage extends Component {
    }
 
    if(current_Graph === 'leucocytes'){
-    var myFilterData1 = this.state.personalinfo && this.state.personalinfo.laboratory_result && this.state.personalinfo.laboratory_result.length > 0 && this.state.personalinfo.laboratory_result.filter((value, key) =>
+    var laboratory_result5 = this.state.personalinfo && this.state.personalinfo.laboratory_result && this.state.personalinfo.laboratory_result.length > 0 && this.state.personalinfo.laboratory_result.sort(SortByGraphView);
+            var myFilterData1 = laboratory_result5 && laboratory_result5.length > 0 && laboratory_result5.filter((value, key) =>
    value.lab_parameter &&  value.lab_parameter.value ==='Leucocytes');
    var categorieslr=[],datalr1_u=[],datalr1_l=[],datalr1_v=[], oldone, myFilterlr1=[];
    {myFilterData1 &&  myFilterData1.length>0 && myFilterData1.map((data, index) => {
@@ -544,7 +548,8 @@ class RightManage extends Component {
 
 
 if(current_Graph === 'pancreaticlipase'){
-    var myFilterData1 = this.state.personalinfo && this.state.personalinfo.laboratory_result && this.state.personalinfo.laboratory_result.length > 0 && this.state.personalinfo.laboratory_result.filter((value, key) =>
+    var laboratory_result5 = this.state.personalinfo && this.state.personalinfo.laboratory_result && this.state.personalinfo.laboratory_result.length > 0 && this.state.personalinfo.laboratory_result.sort(SortByGraphView);
+    var myFilterData1 = laboratory_result5 && laboratory_result5.length > 0 && laboratory_result5.filter((value, key) =>
    value.lab_parameter &&  value.lab_parameter.value ==='Pancreaticlipase');
    var categorieslr=[],datalr1_u=[],datalr1_l=[],datalr1_v=[], oldone, myFilterlr1=[];
    {myFilterData1 &&  myFilterData1.length>0 && myFilterData1.map((data, index) => {
@@ -625,7 +630,9 @@ if(current_Graph === 'pancreaticlipase'){
 }
 
 if(current_Graph === 'thrombocytes'){
-    var myFilterData1 = this.state.personalinfo && this.state.personalinfo.laboratory_result && this.state.personalinfo.laboratory_result.length > 0 && this.state.personalinfo.laboratory_result.filter((value, key) =>
+
+   var laboratory_result5 = this.state.personalinfo && this.state.personalinfo.laboratory_result && this.state.personalinfo.laboratory_result.length > 0 && this.state.personalinfo.laboratory_result.sort(SortByGraphView);
+            var myFilterData1 = laboratory_result5 && laboratory_result5.length > 0 && laboratory_result5.filter((value, key) =>
    value.lab_parameter &&  value.lab_parameter.value ==='Thrombocytes');
    var categorieslr=[],datalr1_u=[],datalr1_l=[],datalr1_v=[], oldone, myFilterlr1=[];
    {myFilterData1 &&  myFilterData1.length>0 && myFilterData1.map((data, index) => {
@@ -706,7 +713,8 @@ if(current_Graph === 'thrombocytes'){
 }
 
 if(current_Graph === 'sodium'){
-    var myFilterData1 = this.state.personalinfo && this.state.personalinfo.laboratory_result && this.state.personalinfo.laboratory_result.length > 0 && this.state.personalinfo.laboratory_result.filter((value, key) =>
+    var laboratory_result5 = this.state.personalinfo && this.state.personalinfo.laboratory_result && this.state.personalinfo.laboratory_result.length > 0 && this.state.personalinfo.laboratory_result.sort(SortByGraphView);
+            var myFilterData1 = laboratory_result5 && laboratory_result5.length > 0 && laboratory_result5.filter((value, key) =>
    value.lab_parameter &&  value.lab_parameter.value ==='Sodium');
    var categorieslr=[],datalr1_u=[],datalr1_l=[],datalr1_v=[], oldone, myFilterlr1=[];
    {myFilterData1 &&  myFilterData1.length>0 && myFilterData1.map((data, index) => {
@@ -787,7 +795,8 @@ if(current_Graph === 'sodium'){
 }
 
 if(current_Graph === 'ggt'){
-    var myFilterData1 = this.state.personalinfo && this.state.personalinfo.laboratory_result && this.state.personalinfo.laboratory_result.length > 0 && this.state.personalinfo.laboratory_result.filter((value, key) =>
+    var laboratory_result5 = this.state.personalinfo && this.state.personalinfo.laboratory_result && this.state.personalinfo.laboratory_result.length > 0 && this.state.personalinfo.laboratory_result.sort(SortByGraphView);
+            var myFilterData1 = laboratory_result5 && laboratory_result5.length > 0 && laboratory_result5.filter((value, key) =>
    value.lab_parameter &&  value.lab_parameter.value ==='GGT');
    var categorieslr=[],datalr1_u=[],datalr1_l=[],datalr1_v=[], oldone, myFilterlr1=[];
    {myFilterData1 &&  myFilterData1.length>0 && myFilterData1.map((data, index) => {
@@ -869,7 +878,8 @@ if(current_Graph === 'ggt'){
 
 
 if(current_Graph === 'ast/got'){
-    var myFilterData1 = this.state.personalinfo && this.state.personalinfo.laboratory_result && this.state.personalinfo.laboratory_result.length > 0 && this.state.personalinfo.laboratory_result.filter((value, key) =>
+    var laboratory_result5 = this.state.personalinfo && this.state.personalinfo.laboratory_result && this.state.personalinfo.laboratory_result.length > 0 && this.state.personalinfo.laboratory_result.sort(SortByGraphView);
+            var myFilterData1 = laboratory_result5 && laboratory_result5.length > 0 && laboratory_result5.filter((value, key) =>
    value.lab_parameter &&  value.lab_parameter.value ==='AST/GOT');
    var categorieslr=[],datalr1_u=[],datalr1_l=[],datalr1_v=[], oldone, myFilterlr1=[];
    {myFilterData1 &&  myFilterData1.length>0 && myFilterData1.map((data, index) => {
@@ -950,7 +960,8 @@ if(current_Graph === 'ast/got'){
 }
 
 if(current_Graph === 'alt/gpt'){
-    var myFilterData1 = this.state.personalinfo && this.state.personalinfo.laboratory_result && this.state.personalinfo.laboratory_result.length > 0 && this.state.personalinfo.laboratory_result.filter((value, key) =>
+    var laboratory_result5 = this.state.personalinfo && this.state.personalinfo.laboratory_result && this.state.personalinfo.laboratory_result.length > 0 && this.state.personalinfo.laboratory_result.sort(SortByGraphView);
+            var myFilterData1 = laboratory_result5 && laboratory_result5.length > 0 && laboratory_result5.filter((value, key) =>
    value.lab_parameter &&  value.lab_parameter.value ==='ALT/GPT');
    var categorieslr=[],datalr1_u=[],datalr1_l=[],datalr1_v=[], oldone, myFilterlr1=[];
    {myFilterData1 &&  myFilterData1.length>0 && myFilterData1.map((data, index) => {
@@ -1030,7 +1041,8 @@ if(current_Graph === 'alt/gpt'){
        return options;
 }
         if (current_Graph === 'laboratory_result') {
-            var myFilterData1 = this.state.personalinfo && this.state.personalinfo.laboratory_result && this.state.personalinfo.laboratory_result.length > 0 && this.state.personalinfo.laboratory_result.filter((value, key) =>
+            var laboratory_result5 = this.state.personalinfo && this.state.personalinfo.laboratory_result && this.state.personalinfo.laboratory_result.length > 0 && this.state.personalinfo.laboratory_result.sort(SortByGraphView);
+            var myFilterData1 = laboratory_result5 && laboratory_result5.length > 0 && laboratory_result5.filter((value, key) =>
             value.lab_parameter &&  value.lab_parameter.value ==='Creatinine');
             var categorieslr = [], datalr1_u = [], datalr1_l = [], datalr1_v = [], oldone, myFilterlr1 = [];
             {
@@ -1114,7 +1126,9 @@ if(current_Graph === 'alt/gpt'){
 
         if (current_Graph === 'weight_bmi') {
             var oldthree, weightbmi=[],Ibmi=[],heightbmi=[],categoriesbmi=[];
-            {this.state.personalinfo && this.state.personalinfo.weight_bmi &&  this.state.personalinfo.weight_bmi.length>0 && this.state.personalinfo.weight_bmi.map((data, index) => {
+            var weight_bmi5 = this.state.personalinfo && this.state.personalinfo.weight_bmi && this.state.personalinfo.weight_bmi.length > 0 && this.state.personalinfo.weight_bmi.sort(SortByGraphView);
+
+            {weight_bmi5 && weight_bmi5 &&  weight_bmi5.length>0 && weight_bmi5.map((data, index) => {
             weightbmi.push({
                 "y": parseFloat(data.weight)
             })
@@ -1199,8 +1213,10 @@ if(current_Graph === 'alt/gpt'){
         }
         if (current_Graph === 'blood_sugar') {
             var categoriesbs = [], oldtwo, hbac = [], blood_s = [];
+            var blood_sugar5 = this.state.personalinfo && this.state.personalinfo.blood_sugar && this.state.personalinfo.blood_sugar.length > 0 && this.state.personalinfo.blood_sugar.sort(SortByGraphView);
             {
-                this.state.personalinfo && this.state.personalinfo.blood_sugar && this.state.personalinfo.blood_sugar.length > 0 && this.state.personalinfo.blood_sugar.map((data, index) => {
+                
+                blood_sugar5 && blood_sugar5.length > 0 && blood_sugar5.map((data, index) => {
                     hbac.push({
                         "y": parseFloat(data.Hba1c)
                     })
@@ -1361,13 +1377,13 @@ case "sw":
                                                 <a className="vsblDots"><img src={require('../../../../assets/images/nav-more.svg')} alt="" title="" /></a>
                                                 <ul>
                                                     {this.props.from === 'patient' && <li>
-                                                        {this.state.personalinfo.blood_pressure[0].created_by === this.state.loggedinUser._id && (!this.state.personalinfo.blood_pressure[0].updated_by || this.state.personalinfo.blood_pressure[0].updated_by === "") ?
-                                                            <a onClick={() => this.props.EidtOption(this.state.personalinfo.blood_pressure[0].type, this.state.personalinfo.blood_pressure[0])}><img src={require('../../../../assets/images/edit-1.svg')} alt="" title="" />{edit}</a>
-                                                            : <a onClick={() => this.props.EidtOption(this.state.personalinfo.blood_pressure[0].type, this.state.personalinfo.blood_pressure[0], true)}><img src={require('../../../../assets/images/edit.svg')} alt="" title="" />{Change} {visibility}</a>
+                                                        {this.state.personalinfo.blood_pressure[this.state.personalinfo.blood_pressure.length-1].created_by === this.state.loggedinUser._id && (!this.state.personalinfo.blood_pressure[this.state.personalinfo.blood_pressure.length-1].updated_by || this.state.personalinfo.blood_pressure[this.state.personalinfo.blood_pressure.length-1].updated_by === "") ?
+                                                            <a onClick={() => this.props.EidtOption(this.state.personalinfo.blood_pressure[this.state.personalinfo.blood_pressure.length-1].type, this.state.personalinfo.blood_pressure[this.state.personalinfo.blood_pressure.length-1])}><img src={require('../../../../assets/images/edit-1.svg')} alt="" title="" />{edit}</a>
+                                                            : <a onClick={() => this.props.EidtOption(this.state.personalinfo.blood_pressure[this.state.personalinfo.blood_pressure.length-1].type, this.state.personalinfo.blood_pressure[this.state.personalinfo.blood_pressure.length-1], true)}><img src={require('../../../../assets/images/edit.svg')} alt="" title="" />{Change} {visibility}</a>
                                                         }
                                                     </li>}
-                                                    {this.props.from !== 'patient' && <li><a onClick={() => this.props.EidtOption(this.state.personalinfo.blood_pressure[0].type, this.state.personalinfo.blood_pressure[0])}><img src={require('../../../../assets/images/edit-1.svg')} alt="" title="" />{edit}</a></li>}
-                                                    <li><a onClick={() => this.props.downloadTrack(this.state.personalinfo.blood_pressure[0])}><img src={require('../../../../assets/images/download.svg')} alt="" title="" />{Download}</a></li>
+                                                    {this.props.from !== 'patient' && <li><a onClick={() => this.props.EidtOption(this.state.personalinfo.blood_pressure[this.state.personalinfo.blood_pressure.length-1].type, this.state.personalinfo.blood_pressure[this.state.personalinfo.blood_pressure.length-1])}><img src={require('../../../../assets/images/edit-1.svg')} alt="" title="" />{edit}</a></li>}
+                                                    <li><a onClick={() => this.props.downloadTrack(this.state.personalinfo.blood_pressure[this.state.personalinfo.blood_pressure.length-1])}><img src={require('../../../../assets/images/download.svg')} alt="" title="" />{Download}</a></li>
                                                     <li><a onClick={() => this.props.OpenGraph('blood_pressure')}><img src={require('../../../../assets/images/eye2.png')} alt="" title="" />{VeiwGraph}</a></li>
                                                 </ul>
                                             </a>}
@@ -1377,8 +1393,8 @@ case "sw":
                                 {this.state.personalinfo && this.state.personalinfo.blood_pressure && this.state.personalinfo.blood_pressure.length > 0 ?
                                     <div>
                                         <Grid className="presureData">
-                                            <h3>{this.state.personalinfo && this.state.personalinfo.blood_pressure && this.state.personalinfo.blood_pressure[0] && (this.state.personalinfo.blood_pressure[0].rr_systolic + '/' + this.state.personalinfo.blood_pressure[0].rr_diastolic)} <span>mmHg</span></h3>
-                                            <p>{getDate(this.state.personalinfo.blood_pressure[0].datetime_on, this.state.date_format)}, {getTime(new Date(this.state.personalinfo.blood_pressure[0].datetime_on), this.state.time_foramt)}</p>
+                                            <h3>{this.state.personalinfo && this.state.personalinfo.blood_pressure && this.state.personalinfo.blood_pressure[this.state.personalinfo.blood_pressure.length-1] && (this.state.personalinfo.blood_pressure[this.state.personalinfo.blood_pressure.length-1].rr_systolic + '/' + this.state.personalinfo.blood_pressure[this.state.personalinfo.blood_pressure.length-1].rr_diastolic)} <span>mmHg</span></h3>
+                                            <p>{getDate(this.state.personalinfo.blood_pressure[this.state.personalinfo.blood_pressure.length-1].datetime_on, this.state.date_format)}, {getTime(new Date(this.state.personalinfo.blood_pressure[this.state.personalinfo.blood_pressure.length-1].datetime_on), this.state.time_foramt)}</p>
                                         </Grid>
                                         <Grid className="presureDataGrph">
                                             {/* <img src={require('../../../../assets/images/lineGraph.png')} alt="" title="" /> */}
@@ -1411,13 +1427,13 @@ case "sw":
                                                 <a className="vsblDots"><img src={require('../../../../assets/images/nav-more.svg')} alt="" title="" /></a>
                                                 <ul>
                                                     {this.props.from === 'patient' && <li>
-                                                        {this.state.personalinfo.weight_bmi[0].created_by === this.state.loggedinUser._id && (!this.state.personalinfo.weight_bmi[0].updated_by || this.state.personalinfo.weight_bmi[0].updated_by === "") ?
-                                                            <a onClick={() => this.props.EidtOption(this.state.personalinfo.weight_bmi[0].type, this.state.personalinfo.weight_bmi[0])}><img src={require('../../../../assets/images/edit-1.svg')} alt="" title="" />{edit}</a>
-                                                            : <a onClick={() => this.props.EidtOption(this.state.personalinfo.weight_bmi[0].type, this.state.personalinfo.weight_bmi[0], true)}><img src={require('../../../../assets/images/edit.svg')} alt="" title="" />{Change} {visibility}</a>
+                                                        {this.state.personalinfo.weight_bmi[this.state.personalinfo.weight_bmi.length-1].created_by === this.state.loggedinUser._id && (!this.state.personalinfo.weight_bmi[this.state.personalinfo.weight_bmi.length-1].updated_by || this.state.personalinfo.weight_bmi[this.state.personalinfo.weight_bmi.length-1].updated_by === "") ?
+                                                            <a onClick={() => this.props.EidtOption(this.state.personalinfo.weight_bmi[this.state.personalinfo.weight_bmi.length-1].type, this.state.personalinfo.weight_bmi[this.state.personalinfo.weight_bmi.length-1])}><img src={require('../../../../assets/images/edit-1.svg')} alt="" title="" />{edit}</a>
+                                                            : <a onClick={() => this.props.EidtOption(this.state.personalinfo.weight_bmi[this.state.personalinfo.weight_bmi.length-1].type, this.state.personalinfo.weight_bmi[this.state.personalinfo.weight_bmi.length-1], true)}><img src={require('../../../../assets/images/edit.svg')} alt="" title="" />{Change} {visibility}</a>
                                                         }
                                                     </li>}
-                                                    {this.props.from !== 'patient' && <li><a onClick={() => this.props.EidtOption(this.state.personalinfo.weight_bmi[0].type, this.state.personalinfo.weight_bmi[0])}><img src={require('../../../../assets/images/edit-1.svg')} alt="" title="" />{edit}</a></li>}
-                                                    <li><a onClick={() => this.props.downloadTrack(this.state.personalinfo.weight_bmi[0])}><img src={require('../../../../assets/images/download.svg')} alt="" title="" />{Download}</a></li>
+                                                    {this.props.from !== 'patient' && <li><a onClick={() => this.props.EidtOption(this.state.personalinfo.weight_bmi[this.state.personalinfo.weight_bmi.length-1].type, this.state.personalinfo.weight_bmi[this.state.personalinfo.weight_bmi.length-1])}><img src={require('../../../../assets/images/edit-1.svg')} alt="" title="" />{edit}</a></li>}
+                                                    <li><a onClick={() => this.props.downloadTrack(this.state.personalinfo.weight_bmi[this.state.personalinfo.weight_bmi.length-1])}><img src={require('../../../../assets/images/download.svg')} alt="" title="" />{Download}</a></li>
                                                     <li><a onClick={() => this.props.OpenGraph('weight_bmi')}><img src={require('../../../../assets/images/eye2.png')} alt="" title="" />{VeiwGraph}</a></li>
                                                 </ul>
                                             </a>}
@@ -1428,8 +1444,8 @@ case "sw":
                                     <div>
                                         <Grid className="presureData">
                                         
-                                            <h3>{this.state.personalinfo && this.state.personalinfo.weight_bmi && this.state.personalinfo.weight_bmi[0] && ((this.state.personalinfo.weight_bmi[0].weight/(this.state.personalinfo.weight_bmi[0].height * this.state.personalinfo.weight_bmi[0].height)* 10000).toFixed(2))} <span>BMI</span></h3>
-                                            <p>{getDate(this.state.personalinfo.weight_bmi[0].datetime_on, this.state.date_format)}, {getTime(new Date(this.state.personalinfo.weight_bmi[0].datetime_on), this.state.time_foramt)}</p>
+                                            <h3>{this.state.personalinfo && this.state.personalinfo.weight_bmi && this.state.personalinfo.weight_bmi[this.state.personalinfo.weight_bmi.length-1] && ((this.state.personalinfo.weight_bmi[this.state.personalinfo.weight_bmi.length-1].weight/(this.state.personalinfo.weight_bmi[this.state.personalinfo.weight_bmi.length-1].height * this.state.personalinfo.weight_bmi[this.state.personalinfo.weight_bmi.length-1].height)* 10000).toFixed(2))} <span>BMI</span></h3>
+                                            <p>{getDate(this.state.personalinfo.weight_bmi[this.state.personalinfo.weight_bmi.length-1].datetime_on, this.state.date_format)}, {getTime(new Date(this.state.personalinfo.weight_bmi[this.state.personalinfo.weight_bmi.length-1].datetime_on), this.state.time_foramt)}</p>
                                         </Grid>
                                         <Grid className="presureDataGrph">
                                             <HighchartsReact
@@ -1459,13 +1475,13 @@ case "sw":
                                                 <a className="vsblDots"><img src={require('../../../../assets/images/nav-more.svg')} alt="" title="" /></a>
                                                 <ul>
                                                     {this.props.from === 'patient' && <li>
-                                                        {this.state.personalinfo.blood_pressure[0].created_by === this.state.loggedinUser._id && (!this.state.personalinfo.blood_pressure[0].updated_by || this.state.personalinfo.blood_pressure[0].updated_by === "") ?
-                                                            <a onClick={() => this.props.EidtOption(this.state.personalinfo.blood_pressure[0].type, this.state.personalinfo.blood_pressure[0])}><img src={require('../../../../assets/images/edit-1.svg')} alt="" title="" />{edit}</a>
-                                                            : <a onClick={() => this.props.EidtOption(this.state.personalinfo.blood_pressure[0].type, this.state.personalinfo.blood_pressure[0], true)}><img src={require('../../../../assets/images/edit.svg')} alt="" title="" />{Change} {visibility}</a>
+                                                        {this.state.personalinfo.blood_pressure[this.state.personalinfo.blood_pressure.length-1].created_by === this.state.loggedinUser._id && (!this.state.personalinfo.blood_pressure[this.state.personalinfo.blood_pressure.length-1].updated_by || this.state.personalinfo.blood_pressure[this.state.personalinfo.blood_pressure.length-1].updated_by === "") ?
+                                                            <a onClick={() => this.props.EidtOption(this.state.personalinfo.blood_pressure[this.state.personalinfo.blood_pressure.length-1].type, this.state.personalinfo.blood_pressure[this.state.personalinfo.blood_pressure.length-1])}><img src={require('../../../../assets/images/edit-1.svg')} alt="" title="" />{edit}</a>
+                                                            : <a onClick={() => this.props.EidtOption(this.state.personalinfo.blood_pressure[this.state.personalinfo.blood_pressure.length-1].type, this.state.personalinfo.blood_pressure[this.state.personalinfo.blood_pressure.length-1], true)}><img src={require('../../../../assets/images/edit.svg')} alt="" title="" />{Change} {visibility}</a>
                                                         }
                                                     </li>}
-                                                    {this.props.from !== 'patient' && <li><a onClick={() => this.props.EidtOption(this.state.personalinfo.blood_pressure[0].type, this.state.personalinfo.blood_pressure[0])}><img src={require('../../../../assets/images/edit-1.svg')} alt="" title="" />{edit}</a></li>}
-                                                    <li><a onClick={() => this.props.downloadTrack(this.state.personalinfo.blood_pressure[0])}><img src={require('../../../../assets/images/download.svg')} alt="" title="" />{Download}</a></li>
+                                                    {this.props.from !== 'patient' && <li><a onClick={() => this.props.EidtOption(this.state.personalinfo.blood_pressure[this.state.personalinfo.blood_pressure.length-1].type, this.state.personalinfo.blood_pressure[this.state.personalinfo.blood_pressure.length-1])}><img src={require('../../../../assets/images/edit-1.svg')} alt="" title="" />{edit}</a></li>}
+                                                    <li><a onClick={() => this.props.downloadTrack(this.state.personalinfo.blood_pressure[this.state.personalinfo.blood_pressure.length-1])}><img src={require('../../../../assets/images/download.svg')} alt="" title="" />{Download}</a></li>
                                                     <li> <a onClick={() => this.props.OpenGraph('heart_rate')}><img src={require('../../../../assets/images/eye2.png')} alt="" title="" />{VeiwGraph}</a></li>
                                                 </ul>
                                             </a>}
@@ -1475,8 +1491,8 @@ case "sw":
                                 {this.state.personalinfo && this.state.personalinfo.blood_pressure && this.state.personalinfo.blood_pressure.length > 0 ?
                                     <div>
                                         <Grid className="presureData">
-                                            <h3>{this.state.personalinfo && this.state.personalinfo.blood_pressure && this.state.personalinfo.blood_pressure[0] && (this.state.personalinfo.blood_pressure[0].heart_frequncy)} <span>b/min</span></h3>
-                                            <p>{getDate(this.state.personalinfo.blood_pressure[0].datetime_on, this.state.date_format)}, {getTime(new Date(this.state.personalinfo.blood_pressure[0].datetime_on), this.state.time_foramt)}</p>
+                                            <h3>{this.state.personalinfo && this.state.personalinfo.blood_pressure && this.state.personalinfo.blood_pressure[this.state.personalinfo.blood_pressure.length-1] && (this.state.personalinfo.blood_pressure[this.state.personalinfo.blood_pressure.length-1].heart_frequncy)} <span>b/min</span></h3>
+                                            <p>{getDate(this.state.personalinfo.blood_pressure[this.state.personalinfo.blood_pressure.length-1].datetime_on, this.state.date_format)}, {getTime(new Date(this.state.personalinfo.blood_pressure[this.state.personalinfo.blood_pressure.length-1].datetime_on), this.state.time_foramt)}</p>
                                         </Grid>
                                         <Grid className="presureDataGrph">
                                             <HighchartsReact
@@ -1506,13 +1522,13 @@ case "sw":
                                                 <a className="vsblDots"><img src={require('../../../../assets/images/nav-more.svg')} alt="" title="" /></a>
                                                 <ul>
                                                     {this.props.from === 'patient' && <li>
-                                                        {this.state.Potassium[0].created_by === this.state.loggedinUser._id && (!this.state.Potassium[0].updated_by || this.state.Potassium[0].updated_by === "") ?
-                                                            <a onClick={() => this.props.EidtOption(this.state.Potassium[0].type, this.state.Potassium[0])}><img src={require('../../../../assets/images/edit-1.svg')} alt="" title="" />{edit}</a>
-                                                            : <a onClick={() => this.props.EidtOption(this.state.Potassium[0].type, this.state.Potassium[0], true)}><img src={require('../../../../assets/images/edit.svg')} alt="" title="" />{Change} {visibility}</a>
+                                                        {this.state.Potassium[this.state.Potassium.length-1].created_by === this.state.loggedinUser._id && (!this.state.Potassium[this.state.Potassium.length-1].updated_by || this.state.Potassium[this.state.Potassium.length-1].updated_by === "") ?
+                                                            <a onClick={() => this.props.EidtOption(this.state.Potassium[this.state.Potassium.length-1].type, this.state.Potassium[this.state.Potassium.length-1])}><img src={require('../../../../assets/images/edit-1.svg')} alt="" title="" />{edit}</a>
+                                                            : <a onClick={() => this.props.EidtOption(this.state.Potassium[this.state.Potassium.length-1].type, this.state.Potassium[this.state.Potassium.length-1], true)}><img src={require('../../../../assets/images/edit.svg')} alt="" title="" />{Change} {visibility}</a>
                                                         }
                                                     </li>}
-                                                    {this.props.from !== 'patient' && <li><a onClick={() => this.props.EidtOption(this.state.Potassium[0].type, this.state.Potassium[0])}><img src={require('../../../../assets/images/edit-1.svg')} alt="" title="" />{edit}</a></li>}
-                                                    <li><a onClick={() => this.props.downloadTrack(this.state.Potassium[0])}><img src={require('../../../../assets/images/download.svg')} alt="" title="" />{Download}</a></li>
+                                                    {this.props.from !== 'patient' && <li><a onClick={() => this.props.EidtOption(this.state.Potassium[this.state.Potassium.length-1].type, this.state.Potassium[this.state.Potassium.length-1])}><img src={require('../../../../assets/images/edit-1.svg')} alt="" title="" />{edit}</a></li>}
+                                                    <li><a onClick={() => this.props.downloadTrack(this.state.Potassium[this.state.Potassium.length-1])}><img src={require('../../../../assets/images/download.svg')} alt="" title="" />{Download}</a></li>
                                                     <li> <a onClick={() => this.props.OpenGraph('potassium')}><img src={require('../../../../assets/images/eye2.png')} alt="" title="" />{VeiwGraph}</a></li>
                                                 </ul>
                                             </a>}
@@ -1522,8 +1538,8 @@ case "sw":
                                 {this.state.Potassium && this.state.Potassium.length > 0 ?
                                     <div>
                                         <Grid className="presureData">
-                                            <h3>{this.state.Potassium && this.state.Potassium[0] && (this.state.Potassium[0].value)} <span>{this.state.Potassium[0].unit && this.state.Potassium[0].unit.label}</span></h3>
-                                            <p>{getDate(this.state.Potassium[0].datetime_on, this.state.date_format)}, {getTime(new Date(this.state.Potassium[0].datetime_on), this.state.time_foramt)}</p>
+                                            <h3>{this.state.Potassium && this.state.Potassium[this.state.Potassium.length-1] && (this.state.Potassium[this.state.Potassium.length-1].value)} <span>{this.state.Potassium[this.state.Potassium.length-1].unit && this.state.Potassium[this.state.Potassium.length-1].unit.label}</span></h3>
+                                            <p>{getDate(this.state.Potassium[this.state.Potassium.length-1].datetime_on, this.state.date_format)}, {getTime(new Date(this.state.Potassium[this.state.Potassium.length-1].datetime_on), this.state.time_foramt)}</p>
                                         </Grid>
                                         <Grid className="presureDataGrph">
                                             <HighchartsReact
@@ -1556,13 +1572,13 @@ case "sw":
                                                 <a className="vsblDots"><img src={require('../../../../assets/images/nav-more.svg')} alt="" title="" /></a>
                                                 <ul>
                                                     {this.props.from === 'patient' && <li>
-                                                        {this.state.Creatinine[0].created_by === this.state.loggedinUser._id && (!this.state.Creatinine[0].updated_by || this.state.Creatinine[0].updated_by === "") ?
-                                                            <a onClick={() => this.props.EidtOption(this.state.Creatinine[0].type, this.state.Creatinine[0])}><img src={require('../../../../assets/images/edit-1.svg')} alt="" title="" />{edit}</a>
-                                                            : <a onClick={() => this.props.EidtOption(this.state.Creatinine[0].type, this.state.Creatinine[0], true)}><img src={require('../../../../assets/images/edit.svg')} alt="" title="" />{Change} {visibility}</a>
+                                                        {this.state.Creatinine[this.state.Creatinine.length-1].created_by === this.state.loggedinUser._id && (!this.state.Creatinine[this.state.Creatinine.length-1].updated_by || this.state.Creatinine[this.state.Creatinine.length-1].updated_by === "") ?
+                                                            <a onClick={() => this.props.EidtOption(this.state.Creatinine[this.state.Creatinine.length-1].type, this.state.Creatinine[this.state.Creatinine.length-1])}><img src={require('../../../../assets/images/edit-1.svg')} alt="" title="" />{edit}</a>
+                                                            : <a onClick={() => this.props.EidtOption(this.state.Creatinine[this.state.Creatinine.length-1].type, this.state.Creatinine[this.state.Creatinine.length-1], true)}><img src={require('../../../../assets/images/edit.svg')} alt="" title="" />{Change} {visibility}</a>
                                                         }
                                                     </li>}
-                                                    {this.props.from !== 'patient' && <li><a onClick={() => this.props.EidtOption(this.state.Creatinine[0].type, this.state.Creatinine[0])}><img src={require('../../../../assets/images/edit-1.svg')} alt="" title="" />{edit}</a></li>}
-                                                    <li><a onClick={() => this.props.downloadTrack(this.state.Creatinine[0])}><img src={require('../../../../assets/images/download.svg')} alt="" title="" />{Download}</a></li>
+                                                    {this.props.from !== 'patient' && <li><a onClick={() => this.props.EidtOption(this.state.Creatinine[this.state.Creatinine.length-1].type, this.state.Creatinine[this.state.Creatinine.length-1])}><img src={require('../../../../assets/images/edit-1.svg')} alt="" title="" />{edit}</a></li>}
+                                                    <li><a onClick={() => this.props.downloadTrack(this.state.Creatinine[this.state.Creatinine.length-1])}><img src={require('../../../../assets/images/download.svg')} alt="" title="" />{Download}</a></li>
                                                     <li> <a onClick={() => this.props.OpenGraph('laboratory_result')}><img src={require('../../../../assets/images/eye2.png')} alt="" title="" />{VeiwGraph}</a></li>
                                                 </ul>
                                             </a>}
@@ -1572,8 +1588,8 @@ case "sw":
                                 {this.state.Creatinine && this.state.Creatinine.length > 0 ?
                                     <div>
                                         <Grid className="presureData">
-                                            <h3>{this.state.Creatinine && this.state.Creatinine[0] && (this.state.Creatinine[0].value)} <span>{this.state.Creatinine[0].unit && this.state.Creatinine[0].unit.label}</span></h3>
-                                            <p>{getDate(this.state.Creatinine[0].datetime_on, this.state.date_format)}, {getTime(new Date(this.state.Creatinine[0].datetime_on), this.state.time_foramt)}</p>
+                                            <h3>{this.state.Creatinine && this.state.Creatinine[this.state.Creatinine.length-1] && (this.state.Creatinine[this.state.Creatinine.length-1].value)} <span>{this.state.Creatinine[this.state.Creatinine.length-1].unit && this.state.Creatinine[this.state.Creatinine.length-1].unit.label}</span></h3>
+                                            <p>{getDate(this.state.Creatinine[this.state.Creatinine.length-1].datetime_on, this.state.date_format)}, {getTime(new Date(this.state.Creatinine[this.state.Creatinine.length-1].datetime_on), this.state.time_foramt)}</p>
                                         </Grid>
                                         <Grid className="presureDataGrph">
                                             <HighchartsReact
@@ -1608,13 +1624,13 @@ case "sw":
                                                    <a className="vsblDots"><img src={require('../../../../assets/images/nav-more.svg')} alt="" title="" /></a>
                                                    <ul>
                                                        {this.props.from === 'patient' && <li>
-                                                           {this.state.Hemoglobine[0].created_by === this.state.loggedinUser._id && (!this.state.Hemoglobine[0].updated_by || this.state.Hemoglobine[0].updated_by === "") ?
-                                                               <a onClick={() => this.props.EidtOption(this.state.Hemoglobine[0].type, this.state.Hemoglobine[0])}><img src={require('../../../../assets/images/edit-1.svg')} alt="" title="" />{edit}</a>
-                                                               : <a onClick={() => this.props.EidtOption(this.state.Hemoglobine[0].type, this.state.Hemoglobine[0], true)}><img src={require('../../../../assets/images/edit.svg')} alt="" title="" />{Change} {visibility}</a>
+                                                           {this.state.Hemoglobine[this.state.Hemoglobine.length-1].created_by === this.state.loggedinUser._id && (!this.state.Hemoglobine[this.state.Hemoglobine.length-1].updated_by || this.state.Hemoglobine[this.state.Hemoglobine.length-1].updated_by === "") ?
+                                                               <a onClick={() => this.props.EidtOption(this.state.Hemoglobine[this.state.Hemoglobine.length-1].type, this.state.Hemoglobine[this.state.Hemoglobine.length-1])}><img src={require('../../../../assets/images/edit-1.svg')} alt="" title="" />{edit}</a>
+                                                               : <a onClick={() => this.props.EidtOption(this.state.Hemoglobine[this.state.Hemoglobine.length-1].type, this.state.Hemoglobine[this.state.Hemoglobine.length-1], true)}><img src={require('../../../../assets/images/edit.svg')} alt="" title="" />{Change} {visibility}</a>
                                                            }
                                                        </li>}
-                                                       {this.props.from !== 'patient' && <li><a onClick={() => this.props.EidtOption(this.state.Hemoglobine[0].type, this.state.Hemoglobine[0])}><img src={require('../../../../assets/images/edit-1.svg')} alt="" title="" />{edit}</a></li>}
-                                                       <li><a onClick={() => this.props.downloadTrack(this.state.Hemoglobine[0])}><img src={require('../../../../assets/images/download.svg')} alt="" title="" />{Download}</a></li>
+                                                       {this.props.from !== 'patient' && <li><a onClick={() => this.props.EidtOption(this.state.Hemoglobine[this.state.Hemoglobine.length-1].type, this.state.Hemoglobine[this.state.Hemoglobine.length-1])}><img src={require('../../../../assets/images/edit-1.svg')} alt="" title="" />{edit}</a></li>}
+                                                       <li><a onClick={() => this.props.downloadTrack(this.state.Hemoglobine[this.state.Hemoglobine.length-1])}><img src={require('../../../../assets/images/download.svg')} alt="" title="" />{Download}</a></li>
                                                        <li> <a onClick={() => this.props.OpenGraph('Hemoglobine')}><img src={require('../../../../assets/images/eye2.png')} alt="" title="" />{VeiwGraph}</a></li>
                                                    </ul>
                                                </a>}
@@ -1624,8 +1640,8 @@ case "sw":
                                    {this.state.Hemoglobine && this.state.Hemoglobine.length > 0 ?
                                        <div>
                                            <Grid className="presureData">
-                                               <h3>{this.state.Hemoglobine && this.state.Hemoglobine[0] && (this.state.Hemoglobine[0].value)} <span>{this.state.Hemoglobine[0].unit && this.state.Hemoglobine[0].unit.label}</span></h3>
-                                               <p>{getDate(this.state.Hemoglobine[0].datetime_on, this.state.date_format)}, {getTime(new Date(this.state.Hemoglobine[0].datetime_on), this.state.time_foramt)}</p>
+                                               <h3>{this.state.Hemoglobine && this.state.Hemoglobine[this.state.Hemoglobine.length-1] && (this.state.Hemoglobine[this.state.Hemoglobine.length-1].value)} <span>{this.state.Hemoglobine[this.state.Hemoglobine.length-1].unit && this.state.Hemoglobine[this.state.Hemoglobine.length-1].unit.label}</span></h3>
+                                               <p>{getDate(this.state.Hemoglobine[this.state.Hemoglobine.length-1].datetime_on, this.state.date_format)}, {getTime(new Date(this.state.Hemoglobine[this.state.Hemoglobine.length-1].datetime_on), this.state.time_foramt)}</p>
                                            </Grid>
                                            <Grid className="presureDataGrph">
                                                <HighchartsReact
@@ -1660,13 +1676,13 @@ case "sw":
                                                    <a className="vsblDots"><img src={require('../../../../assets/images/nav-more.svg')} alt="" title="" /></a>
                                                    <ul>
                                                        {this.props.from === 'patient' && <li>
-                                                           {this.state.Leucocytes[0].created_by === this.state.loggedinUser._id && (!this.state.Leucocytes[0].updated_by || this.state.Leucocytes[0].updated_by === "") ?
-                                                               <a onClick={() => this.props.EidtOption(this.state.Leucocytes[0].type, this.state.Leucocytes[0])}><img src={require('../../../../assets/images/edit-1.svg')} alt="" title="" />{edit}</a>
-                                                               : <a onClick={() => this.props.EidtOption(this.state.Leucocytes[0].type, this.state.Leucocytes[0], true)}><img src={require('../../../../assets/images/edit.svg')} alt="" title="" />{Change} {visibility}</a>
+                                                           {this.state.Leucocytes[this.state.Leucocytes.length-1].created_by === this.state.loggedinUser._id && (!this.state.Leucocytes[this.state.Leucocytes.length-1].updated_by || this.state.Leucocytes[this.state.Leucocytes.length-1].updated_by === "") ?
+                                                               <a onClick={() => this.props.EidtOption(this.state.Leucocytes[this.state.Leucocytes.length-1].type, this.state.Leucocytes[this.state.Leucocytes.length-1])}><img src={require('../../../../assets/images/edit-1.svg')} alt="" title="" />{edit}</a>
+                                                               : <a onClick={() => this.props.EidtOption(this.state.Leucocytes[this.state.Leucocytes.length-1].type, this.state.Leucocytes[this.state.Leucocytes.length-1], true)}><img src={require('../../../../assets/images/edit.svg')} alt="" title="" />{Change} {visibility}</a>
                                                            }
                                                        </li>}
-                                                       {this.props.from !== 'patient' && <li><a onClick={() => this.props.EidtOption(this.state.Leucocytes[0].type, this.state.Leucocytes[0])}><img src={require('../../../../assets/images/edit-1.svg')} alt="" title="" />{edit}</a></li>}
-                                                       <li><a onClick={() => this.props.downloadTrack(this.state.Leucocytes[0])}><img src={require('../../../../assets/images/download.svg')} alt="" title="" />{Download}</a></li>
+                                                       {this.props.from !== 'patient' && <li><a onClick={() => this.props.EidtOption(this.state.Leucocytes[this.state.Leucocytes.length-1].type, this.state.Leucocytes[this.state.Leucocytes.length-1])}><img src={require('../../../../assets/images/edit-1.svg')} alt="" title="" />{edit}</a></li>}
+                                                       <li><a onClick={() => this.props.downloadTrack(this.state.Leucocytes[this.state.Leucocytes.length-1])}><img src={require('../../../../assets/images/download.svg')} alt="" title="" />{Download}</a></li>
                                                        <li> <a onClick={() => this.props.OpenGraph('Leucocytes')}><img src={require('../../../../assets/images/eye2.png')} alt="" title="" />{VeiwGraph}</a></li>
                                                    </ul>
                                                </a>}
@@ -1676,8 +1692,8 @@ case "sw":
                                    {this.state.Leucocytes && this.state.Leucocytes.length > 0 ?
                                        <div>
                                            <Grid className="presureData">
-                                               <h3>{this.state.Leucocytes && this.state.Leucocytes[0] && (this.state.Leucocytes[0].value)} <span>{this.state.Leucocytes[0].unit && this.state.Leucocytes[0].unit.label}</span></h3>
-                                               <p>{getDate(this.state.Leucocytes[0].datetime_on, this.state.date_format)}, {getTime(new Date(this.state.Leucocytes[0].datetime_on), this.state.time_foramt)}</p>
+                                               <h3>{this.state.Leucocytes && this.state.Leucocytes[this.state.Leucocytes.length-1] && (this.state.Leucocytes[this.state.Leucocytes.length-1].value)} <span>{this.state.Leucocytes[this.state.Leucocytes.length-1].unit && this.state.Leucocytes[this.state.Leucocytes.length-1].unit.label}</span></h3>
+                                               <p>{getDate(this.state.Leucocytes[this.state.Leucocytes.length-1].datetime_on, this.state.date_format)}, {getTime(new Date(this.state.Leucocytes[this.state.Leucocytes.length-1].datetime_on), this.state.time_foramt)}</p>
                                            </Grid>
                                            <Grid className="presureDataGrph">
                                                <HighchartsReact
@@ -1711,13 +1727,13 @@ case "sw":
                                                    <a className="vsblDots"><img src={require('../../../../assets/images/nav-more.svg')} alt="" title="" /></a>
                                                    <ul>
                                                        {this.props.from === 'patient' && <li>
-                                                           {this.state.Pancreaticlipase[0].created_by === this.state.loggedinUser._id && (!this.state.Pancreaticlipase[0].updated_by || this.state.Pancreaticlipase[0].updated_by === "") ?
-                                                               <a onClick={() => this.props.EidtOption(this.state.Pancreaticlipase[0].type, this.state.Pancreaticlipase[0])}><img src={require('../../../../assets/images/edit-1.svg')} alt="" title="" />{edit}</a>
-                                                               : <a onClick={() => this.props.EidtOption(this.state.Pancreaticlipase[0].type, this.state.Pancreaticlipase[0], true)}><img src={require('../../../../assets/images/edit.svg')} alt="" title="" />{Change} {visibility}</a>
+                                                           {this.state.Pancreaticlipase[this.state.Pancreaticlipase.length-1].created_by === this.state.loggedinUser._id && (!this.state.Pancreaticlipase[this.state.Pancreaticlipase.length-1].updated_by || this.state.Pancreaticlipase[this.state.Pancreaticlipase.length-1].updated_by === "") ?
+                                                               <a onClick={() => this.props.EidtOption(this.state.Pancreaticlipase[this.state.Pancreaticlipase.length-1].type, this.state.Pancreaticlipase[this.state.Pancreaticlipase.length-1])}><img src={require('../../../../assets/images/edit-1.svg')} alt="" title="" />{edit}</a>
+                                                               : <a onClick={() => this.props.EidtOption(this.state.Pancreaticlipase[this.state.Pancreaticlipase.length-1].type, this.state.Pancreaticlipase[this.state.Pancreaticlipase.length-1], true)}><img src={require('../../../../assets/images/edit.svg')} alt="" title="" />{Change} {visibility}</a>
                                                            }
                                                        </li>}
-                                                       {this.props.from !== 'patient' && <li><a onClick={() => this.props.EidtOption(this.state.Pancreaticlipase[0].type, this.state.Pancreaticlipase[0])}><img src={require('../../../../assets/images/edit-1.svg')} alt="" title="" />{edit}</a></li>}
-                                                       <li><a onClick={() => this.props.downloadTrack(this.state.Pancreaticlipase[0])}><img src={require('../../../../assets/images/download.svg')} alt="" title="" />{Download}</a></li>
+                                                       {this.props.from !== 'patient' && <li><a onClick={() => this.props.EidtOption(this.state.Pancreaticlipase[this.state.Pancreaticlipase.length-1].type, this.state.Pancreaticlipase[this.state.Pancreaticlipase.length-1])}><img src={require('../../../../assets/images/edit-1.svg')} alt="" title="" />{edit}</a></li>}
+                                                       <li><a onClick={() => this.props.downloadTrack(this.state.Pancreaticlipase[this.state.Pancreaticlipase.length-1])}><img src={require('../../../../assets/images/download.svg')} alt="" title="" />{Download}</a></li>
                                                        <li> <a onClick={() => this.props.OpenGraph('Pancreaticlipase')}><img src={require('../../../../assets/images/eye2.png')} alt="" title="" />{VeiwGraph}</a></li>
                                                    </ul>
                                                </a>}
@@ -1727,8 +1743,8 @@ case "sw":
                                    {this.state.Pancreaticlipase && this.state.Pancreaticlipase.length > 0 ?
                                        <div>
                                            <Grid className="presureData">
-                                               <h3>{this.state.Pancreaticlipase && this.state.Pancreaticlipase[0] && (this.state.Pancreaticlipase[0].value)} <span>{this.state.Pancreaticlipase[0].unit && this.state.Pancreaticlipase[0].unit.label}</span></h3>
-                                               <p>{getDate(this.state.Pancreaticlipase[0].datetime_on, this.state.date_format)}, {getTime(new Date(this.state.Pancreaticlipase[0].datetime_on), this.state.time_foramt)}</p>
+                                               <h3>{this.state.Pancreaticlipase && this.state.Pancreaticlipase[this.state.Pancreaticlipase.length-1] && (this.state.Pancreaticlipase[this.state.Pancreaticlipase.length-1].value)} <span>{this.state.Pancreaticlipase[this.state.Pancreaticlipase.length-1].unit && this.state.Pancreaticlipase[this.state.Pancreaticlipase.length-1].unit.label}</span></h3>
+                                               <p>{getDate(this.state.Pancreaticlipase[this.state.Pancreaticlipase.length-1].datetime_on, this.state.date_format)}, {getTime(new Date(this.state.Pancreaticlipase[this.state.Pancreaticlipase.length-1].datetime_on), this.state.time_foramt)}</p>
                                            </Grid>
                                            <Grid className="presureDataGrph">
                                                <HighchartsReact
@@ -1758,28 +1774,28 @@ case "sw":
                                        </Grid>
                                        <Grid item xs={6} md={6}>
                                            <Grid className="persBlodImg scndOptionIner1">
-                                               {this.state.Pancreaticlipase && this.state.Pancreaticlipase.length>0 &&  <a className="openScndhrf1">
+                                               {this.state.Thrombocytes && this.state.Thrombocytes.length>0 &&  <a className="openScndhrf1">
                                                    <a className="vsblDots"><img src={require('../../../../assets/images/nav-more.svg')} alt="" title="" /></a>
                                                    <ul>
                                                        {this.props.from === 'patient' && <li>
-                                                           {this.state.Pancreaticlipase[0].created_by === this.state.loggedinUser._id && (!this.state.Pancreaticlipase[0].updated_by || this.state.Pancreaticlipase[0].updated_by === "") ?
-                                                               <a onClick={() => this.props.EidtOption(this.state.Pancreaticlipase[0].type, this.state.Pancreaticlipase[0])}><img src={require('../../../../assets/images/edit-1.svg')} alt="" title="" />{edit}</a>
-                                                               : <a onClick={() => this.props.EidtOption(this.state.Pancreaticlipase[0].type, this.state.Pancreaticlipase[0], true)}><img src={require('../../../../assets/images/edit.svg')} alt="" title="" />{Change} {visibility}</a>
+                                                           {this.state.Thrombocytes[this.state.Thrombocytes.length-1].created_by === this.state.loggedinUser._id && (!this.state.Thrombocytes[this.state.Thrombocytes.length-1].updated_by || this.state.Thrombocytes[this.state.Thrombocytes.length-1].updated_by === "") ?
+                                                               <a onClick={() => this.props.EidtOption(this.state.Thrombocytes[this.state.Thrombocytes.length-1].type, this.state.Thrombocytes[this.state.Thrombocytes.length-1])}><img src={require('../../../../assets/images/edit-1.svg')} alt="" title="" />{edit}</a>
+                                                               : <a onClick={() => this.props.EidtOption(this.state.Thrombocytes[this.state.Thrombocytes.length-1].type, this.state.Thrombocytes[this.state.Thrombocytes.length-1], true)}><img src={require('../../../../assets/images/edit.svg')} alt="" title="" />{Change} {visibility}</a>
                                                            }
                                                        </li>}
-                                                       {this.props.from !== 'patient' && <li><a onClick={() => this.props.EidtOption(this.state.Pancreaticlipase[0].type, this.state.Pancreaticlipase[0])}><img src={require('../../../../assets/images/edit-1.svg')} alt="" title="" />{edit}</a></li>}
-                                                       <li><a onClick={() => this.props.downloadTrack(this.state.Pancreaticlipase[0])}><img src={require('../../../../assets/images/download.svg')} alt="" title="" />{Download}</a></li>
+                                                       {this.props.from !== 'patient' && <li><a onClick={() => this.props.EidtOption(this.state.Thrombocytes[this.state.Thrombocytes.length-1].type, this.state.Thrombocytes[this.state.Thrombocytes.length-1])}><img src={require('../../../../assets/images/edit-1.svg')} alt="" title="" />{edit}</a></li>}
+                                                       <li><a onClick={() => this.props.downloadTrack(this.state.Thrombocytes[this.state.Thrombocytes.length-1])}><img src={require('../../../../assets/images/download.svg')} alt="" title="" />{Download}</a></li>
                                                        <li> <a onClick={() => this.props.OpenGraph('Pancreaticlipase')}><img src={require('../../../../assets/images/eye2.png')} alt="" title="" />{VeiwGraph}</a></li>
                                                    </ul>
                                                </a>}
                                            </Grid>
                                        </Grid>
                                    </Grid>
-                                   {this.state.Pancreaticlipase && this.state.Pancreaticlipase.length > 0 ?
+                                   {this.state.Thrombocytes && this.state.Thrombocytes.length > 0 ?
                                        <div>
                                            <Grid className="presureData">
-                                               <h3>{this.state.Pancreaticlipase && this.state.Pancreaticlipase[0] && (this.state.Pancreaticlipase[0].value)} <span>{this.state.Pancreaticlipase[0].unit && this.state.Pancreaticlipase[0].unit.label}</span></h3>
-                                               <p>{getDate(this.state.Pancreaticlipase[0].datetime_on, this.state.date_format)}, {getTime(new Date(this.state.Pancreaticlipase[0].datetime_on), this.state.time_foramt)}</p>
+                                               <h3>{this.state.Thrombocytes && this.state.Thrombocytes[this.state.Thrombocytes.length-1] && (this.state.Thrombocytes[this.state.Thrombocytes.length-1].value)} <span>{this.state.Thrombocytes[this.state.Thrombocytes.length-1].unit && this.state.Thrombocytes[this.state.Thrombocytes.length-1].unit.label}</span></h3>
+                                               <p>{getDate(this.state.Thrombocytes[this.state.Thrombocytes.length-1].datetime_on, this.state.date_format)}, {getTime(new Date(this.state.Thrombocytes[this.state.Thrombocytes.length-1].datetime_on), this.state.time_foramt)}</p>
                                            </Grid>
                                            <Grid className="presureDataGrph">
                                                <HighchartsReact
@@ -1812,13 +1828,13 @@ case "sw":
                                                    <a className="vsblDots"><img src={require('../../../../assets/images/nav-more.svg')} alt="" title="" /></a>
                                                    <ul>
                                                        {this.props.from === 'patient' && <li>
-                                                           {this.state.Sodium[0].created_by === this.state.loggedinUser._id && (!this.state.Sodium[0].updated_by || this.state.Sodium[0].updated_by === "") ?
-                                                               <a onClick={() => this.props.EidtOption(this.state.Sodium[0].type, this.state.Sodium[0])}><img src={require('../../../../assets/images/edit-1.svg')} alt="" title="" />{edit}</a>
-                                                               : <a onClick={() => this.props.EidtOption(this.state.Sodium[0].type, this.state.Sodium[0], true)}><img src={require('../../../../assets/images/edit.svg')} alt="" title="" />{Change} {visibility}</a>
+                                                           {this.state.Sodium[this.state.Sodium.length-1].created_by === this.state.loggedinUser._id && (!this.state.Sodium[this.state.Sodium.length-1].updated_by || this.state.Sodium[this.state.Sodium.length-1].updated_by === "") ?
+                                                               <a onClick={() => this.props.EidtOption(this.state.Sodium[this.state.Sodium.length-1].type, this.state.Sodium[this.state.Sodium.length-1])}><img src={require('../../../../assets/images/edit-1.svg')} alt="" title="" />{edit}</a>
+                                                               : <a onClick={() => this.props.EidtOption(this.state.Sodium[this.state.Sodium.length-1].type, this.state.Sodium[this.state.Sodium.length-1], true)}><img src={require('../../../../assets/images/edit.svg')} alt="" title="" />{Change} {visibility}</a>
                                                            }
                                                        </li>}
-                                                       {this.props.from !== 'patient' && <li><a onClick={() => this.props.EidtOption(this.state.Sodium[0].type, this.state.Sodium[0])}><img src={require('../../../../assets/images/edit-1.svg')} alt="" title="" />{edit}</a></li>}
-                                                       <li><a onClick={() => this.props.downloadTrack(this.state.Sodium[0])}><img src={require('../../../../assets/images/download.svg')} alt="" title="" />{Download}</a></li>
+                                                       {this.props.from !== 'patient' && <li><a onClick={() => this.props.EidtOption(this.state.Sodium[this.state.Sodium.length-1].type, this.state.Sodium[this.state.Sodium.length-1])}><img src={require('../../../../assets/images/edit-1.svg')} alt="" title="" />{edit}</a></li>}
+                                                       <li><a onClick={() => this.props.downloadTrack(this.state.Sodium[this.state.Sodium.length-1])}><img src={require('../../../../assets/images/download.svg')} alt="" title="" />{Download}</a></li>
                                                        <li> <a onClick={() => this.props.OpenGraph('Sodium')}><img src={require('../../../../assets/images/eye2.png')} alt="" title="" />{VeiwGraph}</a></li>
                                                    </ul>
                                                </a>}
@@ -1828,8 +1844,8 @@ case "sw":
                                    {this.state.Sodium && this.state.Sodium.length > 0 ?
                                        <div>
                                            <Grid className="presureData">
-                                               <h3>{this.state.Sodium && this.state.Sodium[0] && (this.state.Sodium[0].value)} <span>{this.state.Sodium[0].unit && this.state.Sodium[0].unit.label}</span></h3>
-                                               <p>{getDate(this.state.Sodium[0].datetime_on, this.state.date_format)}, {getTime(new Date(this.state.Sodium[0].datetime_on), this.state.time_foramt)}</p>
+                                               <h3>{this.state.Sodium && this.state.Sodium[this.state.Sodium.length-1] && (this.state.Sodium[this.state.Sodium.length-1].value)} <span>{this.state.Sodium[this.state.Sodium.length-1].unit && this.state.Sodium[this.state.Sodium.length-1].unit.label}</span></h3>
+                                               <p>{getDate(this.state.Sodium[this.state.Sodium.length-1].datetime_on, this.state.date_format)}, {getTime(new Date(this.state.Sodium[this.state.Sodium.length-1].datetime_on), this.state.time_foramt)}</p>
                                            </Grid>
                                            <Grid className="presureDataGrph">
                                                <HighchartsReact
@@ -1863,13 +1879,13 @@ case "sw":
                                                    <a className="vsblDots"><img src={require('../../../../assets/images/nav-more.svg')} alt="" title="" /></a>
                                                    <ul>
                                                        {this.props.from === 'patient' && <li>
-                                                           {this.state.GGT[0].created_by === this.state.loggedinUser._id && (!this.state.GGT[0].updated_by || this.state.GGT[0].updated_by === "") ?
-                                                               <a onClick={() => this.props.EidtOption(this.state.GGT[0].type, this.state.GGT[0])}><img src={require('../../../../assets/images/edit-1.svg')} alt="" title="" />{edit}</a>
-                                                               : <a onClick={() => this.props.EidtOption(this.state.GGT[0].type, this.state.GGT[0], true)}><img src={require('../../../../assets/images/edit.svg')} alt="" title="" />{Change} {visibility}</a>
+                                                           {this.state.GGT[this.state.GGT.length-1].created_by === this.state.loggedinUser._id && (!this.state.GGT[this.state.GGT.length-1].updated_by || this.state.GGT[this.state.GGT.length-1].updated_by === "") ?
+                                                               <a onClick={() => this.props.EidtOption(this.state.GGT[this.state.GGT.length-1].type, this.state.GGT[this.state.GGT.length-1])}><img src={require('../../../../assets/images/edit-1.svg')} alt="" title="" />{edit}</a>
+                                                               : <a onClick={() => this.props.EidtOption(this.state.GGT[this.state.GGT.length-1].type, this.state.GGT[this.state.GGT.length-1], true)}><img src={require('../../../../assets/images/edit.svg')} alt="" title="" />{Change} {visibility}</a>
                                                            }
                                                        </li>}
-                                                       {this.props.from !== 'patient' && <li><a onClick={() => this.props.EidtOption(this.state.GGT[0].type, this.state.GGT[0])}><img src={require('../../../../assets/images/edit-1.svg')} alt="" title="" />{edit}</a></li>}
-                                                       <li><a onClick={() => this.props.downloadTrack(this.state.GGT[0])}><img src={require('../../../../assets/images/download.svg')} alt="" title="" />{Download}</a></li>
+                                                       {this.props.from !== 'patient' && <li><a onClick={() => this.props.EidtOption(this.state.GGT[this.state.GGT.length-1].type, this.state.GGT[this.state.GGT.length-1])}><img src={require('../../../../assets/images/edit-1.svg')} alt="" title="" />{edit}</a></li>}
+                                                       <li><a onClick={() => this.props.downloadTrack(this.state.GGT[this.state.GGT.length-1])}><img src={require('../../../../assets/images/download.svg')} alt="" title="" />{Download}</a></li>
                                                        <li> <a onClick={() => this.props.OpenGraph('GGT')}><img src={require('../../../../assets/images/eye2.png')} alt="" title="" />{VeiwGraph}</a></li>
                                                    </ul>
                                                </a>}
@@ -1879,8 +1895,8 @@ case "sw":
                                    {this.state.GGT && this.state.GGT.length > 0 ?
                                        <div>
                                            <Grid className="presureData">
-                                               <h3>{this.state.GGT && this.state.GGT[0] && (this.state.GGT[0].value)} <span>{this.state.GGT[0].unit && this.state.GGT[0].unit.label}</span></h3>
-                                               <p>{getDate(this.state.GGT[0].datetime_on, this.state.date_format)}, {getTime(new Date(this.state.GGT[0].datetime_on), this.state.time_foramt)}</p>
+                                               <h3>{this.state.GGT && this.state.GGT[this.state.GGT.length-1] && (this.state.GGT[this.state.GGT.length-1].value)} <span>{this.state.GGT[this.state.GGT.length-1].unit && this.state.GGT[this.state.GGT.length-1].unit.label}</span></h3>
+                                               <p>{getDate(this.state.GGT[this.state.GGT.length-1].datetime_on, this.state.date_format)}, {getTime(new Date(this.state.GGT[this.state.GGT.length-1].datetime_on), this.state.time_foramt)}</p>
                                            </Grid>
                                            <Grid className="presureDataGrph">
                                                <HighchartsReact
@@ -1911,13 +1927,13 @@ case "sw":
                                                    <a className="vsblDots"><img src={require('../../../../assets/images/nav-more.svg')} alt="" title="" /></a>
                                                    <ul>
                                                        {this.props.from === 'patient' && <li>
-                                                           {this.state.AST[0].created_by === this.state.loggedinUser._id && (!this.state.AST[0].updated_by || this.state.AST[0].updated_by === "") ?
-                                                               <a onClick={() => this.props.EidtOption(this.state.AST[0].type, this.state.AST[0])}><img src={require('../../../../assets/images/edit-1.svg')} alt="" title="" />{edit}</a>
-                                                               : <a onClick={() => this.props.EidtOption(this.state.AST[0].type, this.state.AST[0], true)}><img src={require('../../../../assets/images/edit.svg')} alt="" title="" />{Change} {visibility}</a>
+                                                           {this.state.AST[this.state.AST.length-1].created_by === this.state.loggedinUser._id && (!this.state.AST[this.state.AST.length-1].updated_by || this.state.AST[this.state.AST.length-1].updated_by === "") ?
+                                                               <a onClick={() => this.props.EidtOption(this.state.AST[this.state.AST.length-1].type, this.state.AST[this.state.AST.length-1])}><img src={require('../../../../assets/images/edit-1.svg')} alt="" title="" />{edit}</a>
+                                                               : <a onClick={() => this.props.EidtOption(this.state.AST[this.state.AST.length-1].type, this.state.AST[this.state.AST.length-1], true)}><img src={require('../../../../assets/images/edit.svg')} alt="" title="" />{Change} {visibility}</a>
                                                            }
                                                        </li>}
-                                                       {this.props.from !== 'patient' && <li><a onClick={() => this.props.EidtOption(this.state.AST[0].type, this.state.AST[0])}><img src={require('../../../../assets/images/edit-1.svg')} alt="" title="" />{edit}</a></li>}
-                                                       <li><a onClick={() => this.props.downloadTrack(this.state.AST[0])}><img src={require('../../../../assets/images/download.svg')} alt="" title="" />{Download}</a></li>
+                                                       {this.props.from !== 'patient' && <li><a onClick={() => this.props.EidtOption(this.state.AST[this.state.AST.length-1].type, this.state.AST[this.state.AST.length-1])}><img src={require('../../../../assets/images/edit-1.svg')} alt="" title="" />{edit}</a></li>}
+                                                       <li><a onClick={() => this.props.downloadTrack(this.state.AST[this.state.AST.length-1])}><img src={require('../../../../assets/images/download.svg')} alt="" title="" />{Download}</a></li>
                                                        <li> <a onClick={() => this.props.OpenGraph('AST')}><img src={require('../../../../assets/images/eye2.png')} alt="" title="" />{VeiwGraph}</a></li>
                                                    </ul>
                                                </a>}
@@ -1927,8 +1943,8 @@ case "sw":
                                    {this.state.AST && this.state.AST.length > 0 ?
                                        <div>
                                            <Grid className="presureData">
-                                               <h3>{this.state.AST && this.state.AST[0] && (this.state.AST[0].value)} <span>{this.state.AST[0].unit && this.state.AST[0].unit.label}</span></h3>
-                                               <p>{getDate(this.state.AST[0].datetime_on, this.state.date_format)}, {getTime(new Date(this.state.AST[0].datetime_on), this.state.time_foramt)}</p>
+                                               <h3>{this.state.AST && this.state.AST[this.state.AST.length-1] && (this.state.AST[this.state.AST.length-1].value)} <span>{this.state.AST[this.state.AST.length-1].unit && this.state.AST[this.state.AST.length-1].unit.label}</span></h3>
+                                               <p>{getDate(this.state.AST[this.state.AST.length-1].datetime_on, this.state.date_format)}, {getTime(new Date(this.state.AST[this.state.AST.length-1].datetime_on), this.state.time_foramt)}</p>
                                            </Grid>
                                            <Grid className="presureDataGrph">
                                                <HighchartsReact
@@ -1961,13 +1977,13 @@ case "sw":
                                                    <a className="vsblDots"><img src={require('../../../../assets/images/nav-more.svg')} alt="" title="" /></a>
                                                    <ul>
                                                        {this.props.from === 'patient' && <li>
-                                                           {this.state.ALT[0].created_by === this.state.loggedinUser._id && (!this.state.ALT[0].updated_by || this.state.ALT[0].updated_by === "") ?
-                                                               <a onClick={() => this.props.EidtOption(this.state.ALT[0].type, this.state.ALT[0])}><img src={require('../../../../assets/images/edit-1.svg')} alt="" title="" />{edit}</a>
-                                                               : <a onClick={() => this.props.EidtOption(this.state.ALT[0].type, this.state.ALT[0], true)}><img src={require('../../../../assets/images/edit.svg')} alt="" title="" />{Change} {visibility}</a>
+                                                           {this.state.ALT[this.state.ALT.length-1].created_by === this.state.loggedinUser._id && (!this.state.ALT[this.state.ALT.length-1].updated_by || this.state.ALT[this.state.ALT.length-1].updated_by === "") ?
+                                                               <a onClick={() => this.props.EidtOption(this.state.ALT[this.state.ALT.length-1].type, this.state.ALT[this.state.ALT.length-1])}><img src={require('../../../../assets/images/edit-1.svg')} alt="" title="" />{edit}</a>
+                                                               : <a onClick={() => this.props.EidtOption(this.state.ALT[this.state.ALT.length-1].type, this.state.ALT[this.state.ALT.length-1], true)}><img src={require('../../../../assets/images/edit.svg')} alt="" title="" />{Change} {visibility}</a>
                                                            }
                                                        </li>}
-                                                       {this.props.from !== 'patient' && <li><a onClick={() => this.props.EidtOption(this.state.ALT[0].type, this.state.ALT[0])}><img src={require('../../../../assets/images/edit-1.svg')} alt="" title="" />{edit}</a></li>}
-                                                       <li><a onClick={() => this.props.downloadTrack(this.state.ALT[0])}><img src={require('../../../../assets/images/download.svg')} alt="" title="" />{Download}</a></li>
+                                                       {this.props.from !== 'patient' && <li><a onClick={() => this.props.EidtOption(this.state.ALT[this.state.ALT.length-1].type, this.state.ALT[this.state.ALT.length-1])}><img src={require('../../../../assets/images/edit-1.svg')} alt="" title="" />{edit}</a></li>}
+                                                       <li><a onClick={() => this.props.downloadTrack(this.state.ALT[this.state.ALT.length-1])}><img src={require('../../../../assets/images/download.svg')} alt="" title="" />{Download}</a></li>
                                                        <li> <a onClick={() => this.props.OpenGraph('ALT')}><img src={require('../../../../assets/images/eye2.png')} alt="" title="" />{VeiwGraph}</a></li>
                                                    </ul>
                                                </a>}
@@ -1977,8 +1993,8 @@ case "sw":
                                    {this.state.ALT && this.state.ALT.length > 0 ?
                                        <div>
                                            <Grid className="presureData">
-                                               <h3>{this.state.ALT && this.state.ALT[0] && (this.state.ALT[0].value)} <span>{this.state.ALT[0].unit && this.state.ALT[0].unit.label}</span></h3>
-                                               <p>{getDate(this.state.ALT[0].datetime_on, this.state.date_format)}, {getTime(new Date(this.state.ALT[0].datetime_on), this.state.time_foramt)}</p>
+                                               <h3>{this.state.ALT && this.state.ALT[this.state.ALT.length-1] && (this.state.ALT[this.state.ALT.length-1].value)} <span>{this.state.ALT[this.state.ALT.length-1].unit && this.state.ALT[this.state.ALT.length-1].unit.label}</span></h3>
+                                               <p>{getDate(this.state.ALT[this.state.ALT.length-1].datetime_on, this.state.date_format)}, {getTime(new Date(this.state.ALT[this.state.ALT.length-1].datetime_on), this.state.time_foramt)}</p>
                                            </Grid>
                                            <Grid className="presureDataGrph">
                                                <HighchartsReact
@@ -2011,13 +2027,13 @@ case "sw":
                                                 <a className="vsblDots"><img src={require('../../../../assets/images/nav-more.svg')} alt="" title="" /></a>
                                                 <ul>
                                                     {this.props.from === 'patient' && <li>
-                                                        {this.state.personalinfo.blood_sugar[0].created_by === this.state.loggedinUser._id && (!this.state.personalinfo.blood_sugar[0].updated_by || this.state.personalinfo.blood_sugar[0].updated_by === "") ?
-                                                            <a onClick={() => this.props.EidtOption(this.state.personalinfo.blood_sugar[0].type, this.state.personalinfo.blood_sugar[0])}><img src={require('../../../../assets/images/edit-1.svg')} alt="" title="" />{edit}</a>
-                                                            : <a onClick={() => this.props.EidtOption(this.state.personalinfo.blood_sugar[0].type, this.state.personalinfo.blood_sugar[0], true)}><img src={require('../../../../assets/images/edit.svg')} alt="" title="" />{Change} {visibility}</a>
+                                                        {this.state.personalinfo.blood_sugar[this.state.personalinfo.blood_sugar.length-1].created_by === this.state.loggedinUser._id && (!this.state.personalinfo.blood_sugar[this.state.personalinfo.blood_sugar.length-1].updated_by || this.state.personalinfo.blood_sugar[this.state.personalinfo.blood_sugar.length-1].updated_by === "") ?
+                                                            <a onClick={() => this.props.EidtOption(this.state.personalinfo.blood_sugar[this.state.personalinfo.blood_sugar.length-1].type, this.state.personalinfo.blood_sugar[this.state.personalinfo.blood_sugar.length-1])}><img src={require('../../../../assets/images/edit-1.svg')} alt="" title="" />{edit}</a>
+                                                            : <a onClick={() => this.props.EidtOption(this.state.personalinfo.blood_sugar[this.state.personalinfo.blood_sugar.length-1].type, this.state.personalinfo.blood_sugar[this.state.personalinfo.blood_sugar.length-1], true)}><img src={require('../../../../assets/images/edit.svg')} alt="" title="" />{Change} {visibility}</a>
                                                         }
                                                     </li>}
-                                                    {this.props.from !== 'patient' && <li><a onClick={() => this.props.EidtOption(this.state.personalinfo.blood_sugar[0].type, this.state.personalinfo.blood_sugar[0])}><img src={require('../../../../assets/images/edit-1.svg')} alt="" title="" />{edit}</a></li>}
-                                                    <li><a onClick={() => this.props.downloadTrack(this.state.personalinfo.blood_sugar[0])}><img src={require('../../../../assets/images/download.svg')} alt="" title="" />{Download}</a></li>
+                                                    {this.props.from !== 'patient' && <li><a onClick={() => this.props.EidtOption(this.state.personalinfo.blood_sugar[this.state.personalinfo.blood_sugar.length-1].type, this.state.personalinfo.blood_sugar[this.state.personalinfo.blood_sugar.length-1])}><img src={require('../../../../assets/images/edit-1.svg')} alt="" title="" />{edit}</a></li>}
+                                                    <li><a onClick={() => this.props.downloadTrack(this.state.personalinfo.blood_sugar[this.state.personalinfo.blood_sugar.length-1])}><img src={require('../../../../assets/images/download.svg')} alt="" title="" />{Download}</a></li>
                                                     <li><a onClick={() => this.props.OpenGraph('blood_sugar')}><img src={require('../../../../assets/images/eye2.png')} alt="" title="" />{VeiwGraph}</a></li>
                                                 </ul>
                                             </a>}
@@ -2027,8 +2043,8 @@ case "sw":
                                 {this.state.personalinfo && this.state.personalinfo.blood_sugar && this.state.personalinfo.blood_sugar.length > 0 ?
                                     <div>
                                         <Grid className="presureData">
-                                            <h3>{this.state.personalinfo && this.state.personalinfo.blood_sugar && this.state.personalinfo.blood_sugar[0] && (this.state.personalinfo.blood_sugar[0].blood_sugar)} <span>mg/dl</span></h3>
-                                            <p>{getDate(this.state.personalinfo.blood_sugar[0].datetime_on, this.state.date_format)}, {getTime(new Date(this.state.personalinfo.blood_sugar[0].datetime_on), this.state.time_foramt)}</p>
+                                            <h3>{this.state.personalinfo && this.state.personalinfo.blood_sugar && this.state.personalinfo.blood_sugar[this.state.personalinfo.blood_sugar.length-1] && (this.state.personalinfo.blood_sugar[this.state.personalinfo.blood_sugar.length-1].blood_sugar)} <span>mg/dl</span></h3>
+                                            <p>{getDate(this.state.personalinfo.blood_sugar[this.state.personalinfo.blood_sugar.length-1].datetime_on, this.state.date_format)}, {getTime(new Date(this.state.personalinfo.blood_sugar[this.state.personalinfo.blood_sugar.length-1].datetime_on), this.state.time_foramt)}</p>
                                         </Grid>
                                         <Grid className="presureDataGrph">
                                             <HighchartsReact
@@ -2156,7 +2172,6 @@ case "sw":
                                     </Grid>
                                     <Grid className="clear"></Grid>
                                 </Grid>
-
                                 <Grid className="presSec">
                                     <a className="presSecAncr">
                                         <h4>{prescriptions}</h4>

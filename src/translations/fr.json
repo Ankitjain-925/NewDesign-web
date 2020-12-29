@@ -217,7 +217,7 @@
 		"ur_profession": "Votre profession",
 		"Annotations": "Annotations",
 		"details": "Détails",
-		"questions": "questions",
+		"questions": "Des questions",
 		"is_this_follow_pres": "S'agit-il d'une prescription de suivi",
 		"how_u_like_rcv_pres": "Comment souhaitez-vous recevoir l'ordonnance",
 		"Medicine": "Médecine",
@@ -326,7 +326,7 @@
 		"blood_pressure": "Tension artérielle",
 		"blood_sugar": "Glycémie",
 		"condition_pain": "État de santé et douleur",
-		"covid_diary": "Journal Covid-19",
+		"covid_diary": "Journal COVID-19",
 		"diagnosis": "Diagnostic",
 		"travel": "Voyage",
 		"traveled": "Voyager:",
@@ -1171,6 +1171,7 @@
 		"Digestion":"Digestion",
 		"Diaryentry":"Entrée de journal",
 		"Newdoctorvisits":"Nouvelles visites chez le médecin",
-		"Newhospitalizations":"Nouvelles hospitalisations"
+		"Newhospitalizations":"Nouvelles hospitalisations",
+		"EmailExists":"L'e-mail existe déjà, veuillez utiliser un autre e-mail."
 	}
 }

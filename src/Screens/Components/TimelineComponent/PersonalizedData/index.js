@@ -40,7 +40,8 @@ class PersonalizedData extends Component {
     //on adding new data
     componentDidUpdate = (prevProps) => {
         if (prevProps.openDash !== this.props.openDash) {
-            this.setState({ openDash: this.props.openDash })
+            this.setState({ openDash: this.props.openDash },
+                ()=> this.Filterate(this.props.added_data))
         }
         if (prevProps.personalised_card !== this.props.personalised_card || prevProps.added_data !== this.props.added_data) {
             data = this.props.added_data;
@@ -121,10 +122,10 @@ class PersonalizedData extends Component {
               case "sw":
                   translate = translationSW.text
                   break;
-                  case "fr":
+              case "fr":
                     translate = translationFR.text
                     break;
-                case "ar":
+             case "ar":
                     translate = translationAR.text
                     break;
               default:

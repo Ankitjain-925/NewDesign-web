@@ -327,7 +327,7 @@
 		"blood_pressure": "Blutdruck",
 		"blood_sugar": "Blutzucker",
 		"condition_pain": "Befinden und Schmerzen",
-		"covid_diary": "Covid-19 Tagebuch",
+		"covid_diary": "COVID-19 Tagebuch",
 		"diagnosis": "Diagnosen",
 		"travel": "Reise",
 		"traveled": "Reise",
@@ -1170,6 +1170,7 @@
 		"Digestion":"Verdauung",
 		"Diaryentry":"Tagebucheintrag",
 		"Newdoctorvisits":"Neue Arztbesuche",
-		"Newhospitalizations":"Neue Krankenhausaufenthalte"
+		"Newhospitalizations":"Neue Krankenhausaufenthalte",
+		"EmailExists":"E-Mail ist bereits vorhanden, bitte verwenden Sie eine andere E-Mail."
 	}
 }

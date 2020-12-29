@@ -222,3 +222,10 @@ export function getDesc(a, b) {
     var y = b.date;
     return ((x < y) ? -1 : ((x > y) ? 1 : 0));
 }
+
+//Sort by diagnose time
+export function SortByGraphView(a, b) {
+    var x = a.datetime_on.toLowerCase();
+    var y = b.datetime_on.toLowerCase();
+    return ((x < y) ? -1 : ((x > y) ? 1 : 0));
+}

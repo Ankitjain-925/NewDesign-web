@@ -331,7 +331,7 @@
 		"blood_pressure": "血压",
 		"blood_sugar": "血糖",
 		"condition_pain": "状况和疼痛",
-		"covid_diary": "Covid-19日记",
+		"covid_diary": "COVID-19日记",
 		"diagnosis": "诊断",
 		"travel": "旅行",
 		"travelled": "旅行过",
@@ -1191,6 +1191,7 @@
 		"Digestion":"消化",
 		"Diaryentry":"日记条目",
 		"Newdoctorvisits":"新医生就诊",
-		"Newhospitalizations":"新住院"
+		"Newhospitalizations":"新住院",
+		"EmailExists":"电子邮件已经存在，请使用其他电子邮件。"
 	}
 }

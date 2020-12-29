@@ -433,7 +433,7 @@ class Index extends Component {
 
     //Open for the Add entry
     handleOpenEntry = () => {
-        this.setState({ openEntry: true, updateOne: 0 });
+        this.setState({ openEntry: true, updateOne: 0, updateTrack: {} });
     };
     //Close for the Add entry
     handleCloseEntry = () => {

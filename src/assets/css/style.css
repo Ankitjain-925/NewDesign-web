@@ -13108,6 +13108,12 @@ a.academy_ul ul li img {
 
 
 /*Added By ankita*/
+.darkTheme > .phrmBoxCntnt .scanInputs input,
+.darkTheme > .phrmBoxCntnt .upScanInput,
+.darkTheme > .phrmBoxCntnt .scanInputs textarea{
+    background: #404646 !important;
+    color: #BFC1C1 !important;
+}
 .painQualityDrop .css-yk16xz-control .css-2613qy-menu{
     max-height: 30px;
     overflow: auto;
@@ -13116,7 +13122,7 @@ a.academy_ul ul li img {
     color: #bfc1c1!important;
 }
 .languageBox label img {
-    margin-top: -3%;
+    margin-top: -3% !important;
 }
 .presurInner a{
     margin-top: 15px;
@@ -13145,7 +13151,7 @@ span.ccl-dtls-section-listitem-link {
     top: 0 !important;
     left: 0 !important;
 }
-.darkTheme> .fancyBoxCntnt{
+.darkTheme> .fancyBoxCntnt, .darkTheme> .phrmBoxCntnt{
     background-color: #404646 !important;
 }
 .homeBgDrk .rbc-event-content {

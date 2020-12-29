@@ -807,7 +807,7 @@ class Index extends Component {
                                                                 <Grid><a><span>1</span>Blood Pressure</a></Grid>
                                                                 <Grid><a><span>2</span>Blood Sugar</a></Grid>
                                                                 <Grid><a><span>3</span>Condition and Pain</a></Grid>
-                                                                <Grid><a><span>4</span>Covid-19 Diary</a></Grid>
+                                                                <Grid><a><span>4</span>COVID-19 Diary</a></Grid>
                                                                 <Grid><a><span>5</span>Diagnosis</a></Grid>
                                                                 <Grid><a><span>6</span>Diary</a></Grid>
                                                                 <Grid><a><span>7</span>Doctor visit</a></Grid>

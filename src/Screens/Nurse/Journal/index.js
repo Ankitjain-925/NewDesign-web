@@ -430,7 +430,7 @@ class Index extends Component {
 
     //Open for the Add entry
     handleOpenEntry = () => {
-        this.setState({ openEntry: true, updateOne: 0 });
+        this.setState({ openEntry: true, updateOne: 0, updateTrack: {} });
     };
     //Close for the Add entry
     handleCloseEntry = () => {
@@ -1253,7 +1253,7 @@ updateEntryState = (e) => {
                                                                 <img src={require('../../../assets/images/close-search.svg')} alt="" title="" />
                                                             </a>
                                                         </Grid>
-                                                        {this.state.updateOne !== this.state.updateTrack._id ?
+                                                        {this.state.updateOne !== this.state.updateTrack.track_id ?
                                                             <div>
                                                                 <p>{New} {entry}</p>
                                                                 <Grid className="nwDiaSel">
