@@ -337,7 +337,7 @@
 		"file_uplod": "رفع ملفات",
 		"hosp_visit": "زيارة المشفى",
 		"lab_result": "نتائج المعمل",
-		"marcumar_pass": "Marcumar pass",
+		"marcumar_pass": "تمريرة ماركومار",
 		"medication": "العلاج",
 		"smoking_status": "حالة التدخين",
 		"vaccination": "التطعيم",
@@ -1166,7 +1166,10 @@
 		"Diaryentry":"دخول اليوميات",
 		"Newdoctorvisits":"زيارات طبيب جديد",
 		"Newhospitalizations":"دخول المستشفى الجديد",
-		"EmailExists":"البريد الإلكتروني موجود بالفعل ، يرجى استخدام بريد إلكتروني آخر."
+		"EmailExists":"البريد الإلكتروني موجود بالفعل ، يرجى استخدام بريد إلكتروني آخر.",
+		"alredypatientFav":"أنت موجود بالفعل في قائمة طبيب المريض الخاص",
+		"Submit":"إرسال",
+		"select_Language":"اختار اللغة"
 
 		}
 }

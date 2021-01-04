@@ -119,7 +119,7 @@ class Index extends Component {
             default:
                 translate = translationEN.text
         }
-        let { language_updated, save_change, language_not_selected, select, Language } = translate;
+        let { language_updated, save_change, select_Language, language_not_selected, select, Language } = translate;
         return (
             <div>
                 {this.state.loaderImage && <Loader />}
@@ -135,7 +135,7 @@ class Index extends Component {
                                     <img src={require('../../../assets/images/close-search.svg')} alt="" title="" />
                                 </a>
                             </Grid>
-                            <Grid><label>{select} {Language}</label></Grid>
+                            <Grid><label>{select_Language}</label></Grid>
                         </Grid>
                         {this.state.PassDone && <div className="success_message">{language_updated}</div>}
                         {this.state.languageBlank && <div className="err_message">{language_not_selected}</div>}

@@ -29,7 +29,6 @@ class AnamnesisFinding extends Component {
 
     // On change the Fields of any index
     onFieldChange = (e ,i) => {
-        console.log('title', e.target.value, i)
         let tArray = this.state.findingArr;
         if(tArray && tArray.length==0){
           tArray.push(e.target.value)
@@ -52,7 +51,12 @@ class AnamnesisFinding extends Component {
       //On add the new Time 
       onAddFiled = () => {
         let tArray = this.state.findingArr;
-        tArray.push("");
+        if(tArray && tArray.length>0){
+          tArray.push("");
+        }
+        else{
+          tArray.push("","");
+        } 
         this.setState({ findingArr: tArray });
       };
     
@@ -100,7 +104,6 @@ class AnamnesisFinding extends Component {
     return (
       <div>
         <Grid className="rrSysto">
-            {console.log('findingArr', this.state.findingArr)}
             <Grid><label>{this.state.label}</label></Grid>
             {this.state.findingArr && this.state.findingArr.length == 0 &&
             <Grid>

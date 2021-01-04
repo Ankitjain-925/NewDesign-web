@@ -1192,6 +1192,9 @@
 		"Diaryentry":"日记条目",
 		"Newdoctorvisits":"新医生就诊",
 		"Newhospitalizations":"新住院",
-		"EmailExists":"电子邮件已经存在，请使用其他电子邮件。"
+		"EmailExists":"电子邮件已经存在，请使用其他电子邮件。",
+		"alredypatientFav":"您已经存在于患者的私人医生名单上",
+		"Submit":"提交",
+		"select_Language":"选择语言"
 	}
 }

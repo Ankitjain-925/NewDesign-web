@@ -398,13 +398,13 @@ class Index extends Component {
                                     </Grid>
                                 </Grid>
                                 <Grid container direction="row" alignItems="center" spacing={2} className="donarForm">
-                                    <Grid item xs={12} md={7}>
+                                    <Grid item xs={12} md={this.props.comesFrom ? 12 : 7}>
                                         <Grid>
                                             <Grid><label>{city}</label></Grid>
                                             <Grid><input type="text" name="city" onChange={this.updateEntryState} value={this.state.OptionData && this.state.OptionData.city}/></Grid>
                                         </Grid>
                                     </Grid>
-                                    <Grid item xs={12} md={5}>
+                                    <Grid item xs={12} md={this.props.comesFrom ? 12 : 5}>
                                         <Grid>
                                             <Grid><label>{postal_code}</label></Grid>
                                             <Grid><input type="text" name="postal_code" onChange={this.updateEntryState} value={this.state.OptionData && this.state.OptionData.postal_code}/></Grid>

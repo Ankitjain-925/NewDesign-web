@@ -132,7 +132,7 @@ class Index extends Component {
 
     handleChange = (value, actionMeta) => {
         var value = value;
-        if(value && value.target.value && typeof value.target.value ==="string"){
+        if(value && value.target && value.target.value && typeof value.target.value ==="string" && value.target.value !==""){
             if(this.state.value && this.state.value.length>0){
                 value = [...this.state.value, {label: value.target.value, value: value.target.value}];
             }
@@ -140,7 +140,15 @@ class Index extends Component {
                 value = [{label: value.target.value, value: value.target.value}]; 
             }
         }
-      
+        else{
+            if(Array.isArray(value)){
+                value = value; 
+            }
+            else{
+                value = [];
+            }
+           
+        }
         var state = this.state.invitation;
         if (value && value.length>0) {
             value.map(data => {
@@ -155,6 +163,7 @@ class Index extends Component {
         // if(state['emails']){state['emails'] = value}
 
         this.setState({ value, invitation: state });
+
     };
 
     handleInputChange = (inputValue) => {

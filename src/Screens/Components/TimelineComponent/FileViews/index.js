@@ -3,6 +3,9 @@ import Grid from '@material-ui/core/Grid';
 import { getImage } from './../../BasicMethod/index';
 import Iframeview from '../../FrameUse/index';
 import Modal from '@material-ui/core/Modal';
+import axios from 'axios';
+import sitedata from '../../../../sitedata';
+import Loader from './../../Loader/index';
 
 class Index extends Component {
     constructor(props) {
@@ -12,7 +15,9 @@ class Index extends Component {
             crnt_img : false,
             openPopup : false,
             cnrttype : false,
-            images: this.props.images
+            images: this.props.images,
+            loaderImage: false,
+            forZoom :{}
         };
     }
 
@@ -46,15 +51,29 @@ class Index extends Component {
     }
     OpenFile = (image, type='')=>{
         if(image){
-            image = getImage(image, this.state.images)
-            if(type==='DICOM'|| type==='dcm'){
-                window.open('/Dicom-file-view?input='+encodeURIComponent(image), '_blank');
-                // this.props.history.push();
-                
-            }
-            else{
-                this.setState({openPopup: true, crnt_img: image, cnrttype : (image && image.split("&bucket=")[0] && image.split("&bucket=")[0].split('.').pop()) })
-            } 
+            var find1 = image.split('.com/')[1]
+            this.setState({loaderImage: true})
+            axios.get(sitedata.data.path + '/aws/sign_s3?find='+find1,)
+            .then((response) => {
+                if(response.data.hassuccessed) { 
+                    if(type==='DICOM'|| type==='dcm'){
+                        image = response.data.data;
+                        this.setState({loaderImage: false})
+                        window.open('/Dicom-file-view?input='+encodeURIComponent(image), '_blank'); 
+                    }
+                    else{
+                        image = response.data.data;
+                        this.setState({forZoom: {width: 400, height: 250, zoomPosition:'original', img: image },
+                          crnt_img: image, cnrttype : type },()=>{
+                            this.setState({openPopup: true,loaderImage: false}) 
+                         })
+                    } 
+                }
+                else{
+                    this.setState({loaderImage: false}) 
+                }
+            })
+           
         }
     }
 
@@ -66,6 +85,7 @@ class Index extends Component {
         var item = this.state.attachfile;
         return (
             <Grid className="imgsFile">
+                {this.state.loaderImage && <Loader />}
                 {item && item.length>0 && item.map((file)=>(
                    <a>
                         {file.filetype ==='mp4' && 
@@ -74,12 +94,12 @@ class Index extends Component {
                             </video>
                         }
                         {(file.filetype ==='png' || file.filetype ==='jpeg' || file.filetype ==='jpg' || file.filetype ==='svg') && 
-                            <img onClick={()=>this.OpenFile(file.filename)} src={getImage(file.filename, this.state.images)} alt="" title="" />
+                            <img onClick={()=>this.OpenFile(file.filename, file.filetype)} src={getImage(file.filename, this.state.images)} alt="" title="" />
                         }
-                        {(file.filetype ==='pdf') && <img onClick={()=>this.OpenFile(file.filename)}  src={require('../../../../assets/images/pdfimg.png')} alt="" title="" />}  
-                        {(file.filetype ==='doc'|| file.filetype ==='docx' || file.filetype ==='xml' || file.filetype ==='txt') && <img onClick={()=>this.OpenFile(file.filename)} src={require('../../../../assets/images/txt1.png')} alt="" title="" />}
-                        {(file.filetype ==='xls'|| file.filetype ==='xlsx' || file.filetype ==='xml' ) && <img onClick={()=>this.OpenFile(file.filename)} src={require('../../../../assets/images/xls1.svg')} alt="" title="" />} 
-                        {(file.filetype ==='csv') && <img onClick={()=>this.OpenFile(file.filename)} src={require('../../../../assets/images/csv1.png')} alt="" title="" />} 
+                        {(file.filetype ==='pdf') && <img onClick={()=>this.OpenFile(file.filename, file.filetype)}  src={require('../../../../assets/images/pdfimg.png')} alt="" title="" />}  
+                        {(file.filetype ==='doc'|| file.filetype ==='docx' || file.filetype ==='xml' || file.filetype ==='txt') && <img onClick={()=>this.OpenFile(file.filename, file.filetype)} src={require('../../../../assets/images/txt1.png')} alt="" title="" />}
+                        {(file.filetype ==='xls'|| file.filetype ==='xlsx' || file.filetype ==='xml' ) && <img onClick={()=>this.OpenFile(file.filename, file.filetype)} src={require('../../../../assets/images/xls1.svg')} alt="" title="" />} 
+                        {(file.filetype ==='csv') && <img onClick={()=>this.OpenFile(file.filename, file.filetype)} src={require('../../../../assets/images/csv1.png')} alt="" title="" />} 
                         {(file.filetype ==='dcm' || file.filetype==='DICOM') && <img onClick={()=>this.OpenFile(file.filename, file.filetype)} src={require('../../../../assets/images/dcm1.png')} alt="" title="" />} 
                         <label>{this.getFileName(file)}</label></a>
                         
@@ -98,7 +118,6 @@ class Index extends Component {
                             </a>
                         </Grid>
                     </Grid>
-
                     <Iframeview new_image={this.state.crnt_img} type={this.state.cnrttype} comesFrom= "LMS"/> 
                 </Grid>
             </Modal>

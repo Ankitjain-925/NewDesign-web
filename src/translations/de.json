@@ -1155,7 +1155,7 @@
 		"Online": "online",
 		"Offline": "offline",
 		"Lao": "Zuletzt aktiv bei:",
-		"VaccinationTrial":"COVID-19-Impfversuch",
+		"VaccinationTrial":"COVID-19-Impfstudie",
 		"SARSCoV_2_TEST":"SARS CoV-2 Ag-Test",
 		"time_of_vaccination" :"Zeitpunkt der Impfung",
 		"Daydate":"Anzahl der Tage nach der Impfung",
@@ -1171,6 +1171,9 @@
 		"Diaryentry":"Tagebucheintrag",
 		"Newdoctorvisits":"Neue Arztbesuche",
 		"Newhospitalizations":"Neue Krankenhausaufenthalte",
-		"EmailExists":"E-Mail ist bereits vorhanden, bitte verwenden Sie eine andere E-Mail."
+		"EmailExists":"E-Mail ist bereits vorhanden, bitte verwenden Sie eine andere E-Mail.",
+		"alredypatientFav":"Sie befinden sich bereits auf der privaten Arztliste des Patienten",
+		"Submit":"einreichen",
+		"select_Language":"Sprache auswählen"
 	}
 }

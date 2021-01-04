@@ -1171,6 +1171,9 @@
 		"Diaryentry":"Diary entry",
 		"Newdoctorvisits":"New doctor visits",
 		"Newhospitalizations":"New hospitalizations",
-		"EmailExists":"Email has already exists, please use another email."
+		"EmailExists":"Email has already exists, please use another email.",
+		"alredypatientFav":"You already exist on the patient's private doctor list",
+		"Submit":"Submit",
+		"select_Language":"Select Language"
 	}
 }

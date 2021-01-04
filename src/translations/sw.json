@@ -1205,6 +1205,9 @@
 		"Diaryentry":"Kuingia kwa shajara",
 		"Newdoctorvisits":"Ziara mpya za daktari",
 		"Newhospitalizations":"Hospitali mpya",
-		"EmailExists":"Barua pepe tayari ipo, tafadhali tumia barua pepe nyingine."
+		"EmailExists":"Barua pepe tayari ipo, tafadhali tumia barua pepe nyingine.",
+		"alredypatientFav":"Tayari upo kwenye orodha ya daktari wa kibinafsi ya mgonjwa",
+		"Submit":"Wasilisha",
+		"select_Language":"Chagua Lugha"
 	}
 }

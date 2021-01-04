@@ -625,7 +625,7 @@
 		"Blood": "Sang",
 		"Rhesus": "Rhesus",
 		"TrackersDevices": "Traqueurs et dispositifs",
-		"prescriptions": "Prescriptions",
+		"prescriptions": "Les ordonnances",
 		"sickcsrtificates": "Certificats de maladie",
 		"ScndOpinion": "Deuxièmes avis",
 		"Contact": "Contactez",
@@ -1172,6 +1172,9 @@
 		"Diaryentry":"Entrée de journal",
 		"Newdoctorvisits":"Nouvelles visites chez le médecin",
 		"Newhospitalizations":"Nouvelles hospitalisations",
-		"EmailExists":"L'e-mail existe déjà, veuillez utiliser un autre e-mail."
+		"EmailExists":"L'e-mail existe déjà, veuillez utiliser un autre e-mail.",
+		"alredypatientFav":"Vous existez déjà sur la liste privée des médecins du patient",
+		"Submit":"Soumettre",
+		"select_Language":"Choisir la langue"
 	}
 }

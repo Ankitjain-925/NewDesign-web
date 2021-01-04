@@ -13108,9 +13108,29 @@ a.academy_ul ul li img {
 
 
 /*Added By ankita*/
+.image-zoom-settings {
+    max-width: 130px; }
+    .image-zoom-settings__button {
+      display: block;
+      width: 120px;
+      margin-bottom: 5px; }
+  
+.darkTheme > .invtBoxCntnt .invitLinkInfo .css-yk16xz-control {
+    border: 1px solid #BFC1C1 !important;
+    border-radius: 4px;
+    background: #404646 !important;
+    color: #BFC1C1 !important;
+    font-family: Muli;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 12px;
+    box-shadow: none !important;
+    outline: none !important;
+}
 .darkTheme > .phrmBoxCntnt .scanInputs input,
 .darkTheme > .phrmBoxCntnt .upScanInput,
-.darkTheme > .phrmBoxCntnt .scanInputs textarea{
+.darkTheme > .phrmBoxCntnt .scanInputs textarea,
+.darkTheme> .invtBoxCntnt textarea{
     background: #404646 !important;
     color: #BFC1C1 !important;
 }
@@ -13151,7 +13171,7 @@ span.ccl-dtls-section-listitem-link {
     top: 0 !important;
     left: 0 !important;
 }
-.darkTheme> .fancyBoxCntnt, .darkTheme> .phrmBoxCntnt{
+.darkTheme> .fancyBoxCntnt, .darkTheme> .phrmBoxCntnt,.darkTheme> .invtBoxCntnt{
     background-color: #404646 !important;
 }
 .homeBgDrk .rbc-event-content {
@@ -13392,7 +13412,8 @@ g.highcharts-axis.highcharts-yaxis text {
     width: auto;
     padding-right: 10px;
 }
-.MenuLeftDrkUpr .profilMenuList img, .MenuLeftDrkUpr .moreMenuList img{
+.MenuLeftDrkUpr .profilMenuList img, .MenuLeftDrkUpr .moreMenuList img,
+.MenuLeftDrkUpr .moreMenuList img:first-child{
     width: 15px !important;
 }
 .homeBgDrk .loading-text, .homeBgDrk .metroPro div {

@@ -1172,6 +1172,9 @@
 		"Diaryentry":"Запись дневника",
 		"Newdoctorvisits":"Новые посещения врача",
     "Newhospitalizations":"Новые диагнозы",
-    "EmailExists":"Электронный адрес уже существует, используйте другой адрес электронной почты."
+    "EmailExists":"Электронный адрес уже существует, используйте другой адрес электронной почты.",
+    "alredypatientFav":"Tayari upo kwenye orodha ya daktari wa kibinafsi ya mgonjwa",
+    "Submit":"Разместить",
+    "select_Language":"Выбрать язык"
   }
 }

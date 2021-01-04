@@ -847,7 +847,6 @@ class Index extends Component {
     }
 
     handleholidayDate = (statechange, date) => {
-        console.log('I am here');
         if(date && date.length>0){
             let state = this.state[statechange];
             state['holidays_start'] = date[0].format()

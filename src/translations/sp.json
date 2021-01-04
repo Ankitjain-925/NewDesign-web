@@ -1175,6 +1175,9 @@
 		"Diaryentry":"Entrada del diario",
 		"Newdoctorvisits":"Nuevas visitas al médico",
 		"Newhospitalizations":"Nuevas hospitalizaciones",
-		"EmailExists":"El correo electrónico ya existe, utilice otro correo electrónico."
+		"EmailExists":"El correo electrónico ya existe, utilice otro correo electrónico.",
+		"alredypatientFav":"Ya existe en la lista de médicos privados del paciente",
+		"Submit":"Enviar",
+		"select_Language":"Seleccione el idioma"
 	}
 }

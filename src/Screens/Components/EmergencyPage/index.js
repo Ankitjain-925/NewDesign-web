@@ -398,7 +398,7 @@ class Index extends Component {
               default:
                   translate = translationEN.text
           }
-          let { another_patient_data, ur_emrgancy_access, country_code, patient_emrgancy_access, health_status, Medications, No, allergies, diagnosis, contact_other_info, family_doc, Contact, Register_Name, relation, phone, email, organ_donar_status, not_an_organ, emergency, telephone_nmbr } = translate;
+          let { another_patient_data, ur_emrgancy_access, country_code, Submit, patient_emrgancy_access, health_status, Medications, No, allergies, diagnosis, contact_other_info, family_doc, Contact, Register_Name, relation, phone, email, organ_donar_status, not_an_organ, emergency, telephone_nmbr } = translate;
         return (
             <Grid container direction="row">
                 {this.state.loaderImage && <Loader />}
@@ -562,7 +562,7 @@ class Index extends Component {
                                             <Grid><input name="email" value={this.state.contact_partner.email} onChange={this.contact_partnerState} /></Grid>
                                         </Grid>
                                         <Grid className="emrgncyFrmSub">
-                                            <input type="submit" onClick={this.submitContact} />
+                                            <input type="submit" value={Submit} onClick={this.submitContact} />
                                         </Grid>
                                     </Grid>}
                                 </Grid>

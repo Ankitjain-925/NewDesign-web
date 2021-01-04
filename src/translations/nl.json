@@ -1796,6 +1796,9 @@
 		"Diaryentry":"Dagboek invulling",
 		"Newdoctorvisits":"Nieuwe doktersbezoeken",
 		"Newhospitalizations":"Nieuwe ziekenhuisopnames",
-		"EmailExists":"E-mailadres bestaat al, gebruik een ander e-mailadres."
+		"EmailExists":"E-mailadres bestaat al, gebruik een ander e-mailadres.",
+		"alredypatientFav":"U staat al op de privédokterslijst van de patiënt",
+		"Submit":"Verzenden",
+		"select_Language":"Selecteer taal"
 	}
 }

@@ -2,7 +2,7 @@ var speciality = {
     "english":[
         {
             "label_en": "ALLERGY & IMMUNOLOGY",
-            "label_de": "ALLERGOLOGIE & IMMUNOLOGIE",
+            "label_de": "Allergologie & Immunologie",
             "label_nl": "ALLERGIE & IMMUNOLOGIE",
             "label_rs": "АЛЛЕРГИЯ И ИММУНОЛОГИЯ",
             "label_sp": "ALERGIA E INMUNOLOGIA",
@@ -15,7 +15,7 @@ var speciality = {
         },
         {
             "label_en": "ANESTHESIOLOGY",
-            "label_de": "ANÄSTHESIE",
+            "label_de": "Anästhesie",
             "label_nl": "ANESTHESIOLOGIE",
             "label_rs": "АНЕСТЕЗИОЛОГИЯ",
             "label_sp": "ANESTESIOLOGÍA",
@@ -28,7 +28,7 @@ var speciality = {
         },
         {
             "label_en": "DERMATOLOGY",
-            "label_de": "DERMATOLOGIE",
+            "label_de": "Dermatologie",
             "label_nl": "DERMATOLOGIE",
             "label_rs": "ДЕРМАТОЛОГИЯ",
             "label_sp": "DERMATOLOGÍA",
@@ -41,7 +41,7 @@ var speciality = {
         },
         {
             "label_en": "DIAGNOSTIC RADIOLOGY",
-            "label_de": "DIAGNOSTISCHE RADIOLOGIE",
+            "label_de": "Diagnostische Radiologie",
             "label_nl": "DIAGNOSTISCHE RADIOLOGIE",
             "label_rs": "ДИАГНОСТИЧЕСКАЯ РАДИОЛОГИЯ",
             "label_sp": "RADIOLOGÍA DIAGNÓSTICA",
@@ -54,7 +54,7 @@ var speciality = {
         },
         {
             "label_en": "EMERGENCY MEDICINE",
-            "label_de": "NOTFALLMEDIZIN",
+            "label_de": "Notfallmedizin",
             "label_nl": "NOODGEVAL MEDICIJN",
             "label_rs": "НЕОТЛОЖНАЯ МЕДИЦИНСКАЯ ПОМОЩЬ",
             "label_sp": "MEDICINA DE EMERGENCIA",
@@ -67,7 +67,7 @@ var speciality = {
         },
         {
             "label_en": "FAMILY MEDICINE",
-            "label_de": "FAMILIENMEDIZIN",
+            "label_de": "Familienmedizin",
             "label_nl": "FAMILIE MEDICIJN",
             "label_rs": "СЕМЕЙНАЯ МЕДИЦИНА",
             "label_sp": "MEDICINA FAMILIAR",
@@ -80,7 +80,7 @@ var speciality = {
         },
         {
             "label_en": "INTERNAL MEDICINE",
-            "label_de": "INNERE MEDIZIN",
+            "label_de": "Innere Medizin",
             "label_nl": "INWENDIG MEDICIJN",
             "label_rs": "МЕДИЦИНА ВНУТРЕННИХ ОРГАНОВ",
             "label_sp": "MEDICINA INTERNA",
@@ -93,7 +93,7 @@ var speciality = {
         },
         {
             "label_en": "MEDICAL GENETICS AND GENOMICS",
-            "label_de": "MEDIZINISCHE GENETIK UND GENOMIK",
+            "label_de": "Medizinische Genetik",
             "label_nl": "MEDISCHE GENETICA EN GENOMIE",
             "label_rs": "МЕДИЦИНСКАЯ ГЕНЕТИКА И ГЕНОМИКА",
             "label_sp": "GENÉTICA MÉDICA Y GENÓMICA",
@@ -106,7 +106,7 @@ var speciality = {
         },
         {
             "label_en": "NEUROLOGY",
-            "label_de": "NEUROLOGIE",
+            "label_de": "Neurologie",
             "label_nl": "NEUROLOGIE",
             "label_rs": "НЕВРОЛОГИЯ",
             "label_sp": "NEUROLOGÍA",
@@ -119,7 +119,7 @@ var speciality = {
         },
         {
             "label_en": "NUCLEAR MEDICINE",
-            "label_de": "NUKLEARMEDIZIN",
+            "label_de": "Nuklearmedizin",
             "label_nl": "NUCLEAIR MEDICIJN",
             "label_rs": "ЯДЕРНАЯ МЕДИЦИНА",
             "label_sp": "MEDICINA NUCLEAR",
@@ -132,7 +132,7 @@ var speciality = {
         },
         {
             "label_en": "OBSTETRICS AND GYNECOLOGY",
-            "label_de": "GEBURTSHILFE UND GYNÄKOLOGIE",
+            "label_de": "Geburtshilfe und Gynäkologie",
             "label_nl": "OBSTETRICS_AND_GYNECOLOGY",
             "label_rs": "АКУШЕРСТВО И ГИНЕКОЛОГИЯ",
             "label_sp": "OBSTETRICIA Y GINECOLOGÍA",
@@ -145,7 +145,7 @@ var speciality = {
         },
         {
             "label_en": "OPHTHALMOLOGY",
-            "label_de": "AUGENHEILKUNDE",
+            "label_de": "Augenheilkunde",
             "label_nl": "OOGHEELKUNDE",
             "label_rs": "ОФТАЛЬМОЛОГИЯ",
             "label_sp": "OFTALMOLOGÍA",
@@ -158,7 +158,7 @@ var speciality = {
         },
         {
             "label_en": "OTOLANRYNGOLOGY",
-            "label_de": "OTOLANRYNGOLOGIE",
+            "label_de": "Hals-, Nasen- und Ohrenheilkunde (HNO)",
             "label_nl": "KNO-GENEESKUNDE",
             "label_rs": "ОТОЛАРИНГОЛОГИЯ",
             "label_sp": "OTOLARINGOLOGÍA",
@@ -171,7 +171,7 @@ var speciality = {
         },
         {
             "label_en": "PATHOLOGY",
-            "label_de": "PATHOLOGIE",
+            "label_de": "Pathologie",
             "label_nl": "PATHOLOGIE",
             "label_rs": "ПАТОЛОГИЯ",
             "label_sp": "PATOLOGÍA",
@@ -184,7 +184,7 @@ var speciality = {
         },
         {
             "label_en": "PEDIATRICS",
-            "label_de": "PÄDIATRIE",
+            "label_de": "Pädiatrie",
             "label_nl": "KINDERGENEESKUNDE",
             "label_rs": "ПЕДИАТРИЯ",
             "label_sp": "PEDIATRÍA",
@@ -197,7 +197,7 @@ var speciality = {
         },
         {
             "label_en": "PHYSICAL MEDICINE & REHABILITATION",
-            "label_de": "PHYSIKALISCHE MEDIZIN & REHABILITATION",
+            "label_de": "Physikalische Medizin & Rehabilitation",
             "label_nl": "FYSIEKE GENEESKUNDE & REVALIDATIE",
             "label_rs": "ФИЗИЧЕСКАЯ МЕДИЦИНА И РЕАБИЛИТАЦИЯ",
             "label_sp": "MEDICINA FISICA Y REHABILITACION",
@@ -210,7 +210,7 @@ var speciality = {
         },
         {
             "label_en": "PREVENTIVE MEDICINE",
-            "label_de": "PRÄVENTIVMEDIZIN",
+            "label_de": "Präventivmedizin",
             "label_nl": "PREVENTIEVE GENEESKUNDE",
             "label_rs": "ПРОФИЛАКТИЧЕСКАЯ МЕДИЦИНА",
             "label_sp": "MEDICINA PREVENTIVA",
@@ -223,7 +223,7 @@ var speciality = {
         },
         {
             "label_en": "PSYCHIATRY",
-            "label_de": "PSYCHIATRIE",
+            "label_de": "Psychiatrie",
             "label_nl": "PSYCHIATRIE",
             "label_rs": "ПСИХИАТРИЯ",
             "label_sp": "PSIQUIATRÍA",
@@ -236,7 +236,7 @@ var speciality = {
         },
         {
             "label_en": "RADIATION",
-            "label_de": "STRAHLUNG",
+            "label_de": "Nuklearmedizin",
             "label_nl": "RADIATIE",
             "label_rs": "РАДИОЛОГИЯ",
             "label_sp": "RADIACIÓN",
@@ -249,7 +249,7 @@ var speciality = {
         },
         {
             "label_en": "ONCOLOGY",
-            "label_de": "ONKOLOGIE",
+            "label_de": "Hämatoonkologie",
             "label_nl": "ONCOLOGIE",
             "label_rs": "ONCOLOGY",
             "label_sp": "ONCOLOGÍA",
@@ -262,7 +262,7 @@ var speciality = {
         },
         {
             "label_en": "SURGERY",
-            "label_de": "CHIRURGIE",
+            "label_de": "Chirurgie",
             "label_nl": "CHIRURGIE",
             "label_rs": "ХИРУРГИЯ",
             "label_sp": "CIRUGÍA",
@@ -275,7 +275,7 @@ var speciality = {
         },
         {
             "label_en": "UROLOGY",
-            "label_de": "UROLOGIE",
+            "label_de": "Urologie",
             "label_nl": "UROLOGIE",
             "label_rs": "УРОЛОГИЯ",
             "label_sp": "UROLOGÍA",

@@ -198,7 +198,7 @@ class Index extends Component {
                                     <Grid container direction="row">
                                         <Grid item xs={12} md={6} className="painTypeBy">
                                             <Grid container direction="row">
-                                                <Grid item xs={5} md={5}><label>{temparture}</label></Grid>&nbsp;
+                                                <Grid item xs={5} md={5}><label>{temparture}</label></Grid>
                                                 <Grid item xs={7} md={7}><span>{item.temprature && item.temprature} {item.temprature_type && item.temprature_type.label}</span></Grid>
                                                 <Grid className="clear"></Grid>
                                             </Grid>
