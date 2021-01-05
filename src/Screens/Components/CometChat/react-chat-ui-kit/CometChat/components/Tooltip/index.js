@@ -3,10 +3,18 @@ import TooltipTrigger from 'react-popper-tooltip';
 import 'react-popper-tooltip/dist/styles.css';
 import { CometChat } from "@cometchat-pro/chat";
 import "./style.scss";
-
+import * as translationEN from "../../../../../../../translations/en.json";
+import * as translationDE from '../../../../../../../translations/de.json';
+import * as translationPT from '../../../../../../../translations/pt.json';
+import * as translationSP from '../../../../../../../translations/sp.json';
+import * as translationRS from '../../../../../../../translations/rs.json';
+import * as translationSW from '../../../../../../../translations/sw.json';
+import * as translationCH from '../../../../../../../translations/ch.json';
+import * as translationNL from '../../../../../../../translations/nl.json';
+import * as translationFR from "../../../../../../../translations/fr.json";
+import * as translationAR from "../../../../../../../translations/ar.json";
 
 const actionHandler = (props) => {
-
   props.actionGenerated(props.action, props.message);
   document.body.click();
 }
@@ -37,7 +45,6 @@ const Tooltip = ({ tooltip, children, ...props }) => (
           {...getArrowProps({
             ref: arrowRef,
             'data-placement': placement,
-            className: 'tooltip-arrow'
           })}
         />
         <ul className="cc1-chat-win-tooltip">
@@ -46,7 +53,58 @@ const Tooltip = ({ tooltip, children, ...props }) => (
             <span></span>{(props.message.replyCount) ? "Reply to thread" : "Reply in thread"}
           </li>
           <li className="edit"><span></span>Edit message</li> */}
-         <li className="delete"  onClick={() =>  DeleteMessage(props.message.id, props)}><span></span>Delete message</li>
+         
+           {props.lan === "en" && (
+               <li className="delete"  onClick={() =>  DeleteMessage(props.message.id, props)}>
+               {translationEN.text.DeleteMessages}
+             </li>
+            )}
+            {props.lan === "de" && (
+               <li className="delete"  onClick={() =>  DeleteMessage(props.message.id, props)}>
+               {translationDE.text.DeleteMessages}
+             </li>
+            )}
+            {props.lan === "ch" && (
+               <li className="delete"  onClick={() =>  DeleteMessage(props.message.id, props)}>
+                  {translationCH.text.DeleteMessages}
+                </li>
+            )}
+            {props.lan === "nl" && (
+               <li className="delete"  onClick={() =>  DeleteMessage(props.message.id, props)}>
+                  {translationNL.text.DeleteMessages}
+                </li>
+            )}
+            {props.lan === "sp" && (
+              <li className="delete"  onClick={() =>  DeleteMessage(props.message.id, props)}>
+                {translationSP.text.DeleteMessages}
+              </li>
+            )}
+            {props.lan === "pt" && (
+               <li className="delete"  onClick={() =>  DeleteMessage(props.message.id, props)}>
+               {translationPT.text.DeleteMessages}
+             </li>
+            )}
+            {props.lan === "rs" && (
+              <li className="delete"  onClick={() =>  DeleteMessage(props.message.id, props)}>
+              {translationRS.text.DeleteMessages}
+            </li>
+            )}
+            {props.lan === "sw" && (
+               <li className="delete"  onClick={() =>  DeleteMessage(props.message.id, props)}>
+               {translationSW.text.DeleteMessages}
+             </li>
+            )}
+             {props.lan === "fr" && (
+              <li className="delete"  onClick={() =>  DeleteMessage(props.message.id, props)}>
+                {translationFR.text.DeleteMessages}
+              </li>
+            )}
+             {props.lan === "ar" && (
+                <li className="delete"  onClick={() =>  DeleteMessage(props.message.id, props)}>
+                  {translationAR.text.DeleteMessages} 
+                </li>
+            )}
+        
         </ul>
       </div>
     )}>

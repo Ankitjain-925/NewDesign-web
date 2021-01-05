@@ -4,6 +4,8 @@ import { getImage } from './../../BasicMethod/index';
 import Iframeview from '../../FrameUse/index';
 import Modal from '@material-ui/core/Modal';
 import axios from 'axios';
+import 'react-inner-image-zoom/lib/InnerImageZoom/styles.css';
+import InnerImageZoom from 'react-inner-image-zoom';
 import sitedata from '../../../../sitedata';
 import Loader from './../../Loader/index';
 
@@ -110,7 +112,7 @@ class Index extends Component {
                 onClose={this.CloseFile}
                 // className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode === 'dark' ?"darkTheme":""}
                 >
-                <Grid className="entryBoxCntnt SetWidthPopup">
+                <Grid className={(this.state.cnrttype ==='png' || this.state.cnrttype ==='jpeg' || this.state.cnrttype ==='jpg' || this.state.cnrttype ==='svg') ? "entryBoxCntnt SetWidthPopup1" : "entryBoxCntnt SetWidthPopup"}>
                     <Grid className="entryCourse">
                         <Grid className="entryCloseBtn">
                             <a onClick={this.CloseFile}>
@@ -118,7 +120,10 @@ class Index extends Component {
                             </a>
                         </Grid>
                     </Grid>
-                    <Iframeview new_image={this.state.crnt_img} type={this.state.cnrttype} comesFrom= "LMS"/> 
+                    {(this.state.cnrttype ==='png' || this.state.cnrttype ==='jpeg' || this.state.cnrttype ==='jpg' || this.state.cnrttype ==='svg') ?
+                    <InnerImageZoom src={this.state.crnt_img} />
+                    :
+                    <Iframeview new_image={this.state.crnt_img} type={this.state.cnrttype} comesFrom= "LMS"/> }
                 </Grid>
             </Modal>
                 

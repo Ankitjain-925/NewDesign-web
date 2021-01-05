@@ -2,7 +2,7 @@ import React from "react";
 import "./style.scss";
 
 import Tooltip from "../Tooltip"
-
+import MoreVertIcon from '@material-ui/icons/MoreVert';
 import blueDoubleTick from "./resources/blue-double-tick-icon.png";
 import greyDoubleTick from "./resources/grey-double-tick-icon.png";
 import greyTick from "./resources/grey-tick-icon.png";
@@ -35,8 +35,10 @@ const senderaudiobubble = (props) => {
       trigger="click" 
       action="viewMessageThread" 
       message={message}
-      actionGenerated={props.actionGenerated}>
-        <span className="cc1-chat-win-sndr-row-message-action"></span>     
+      actionGenerated={props.actionGenerated}
+     lan={props.lan}
+      className="moreoptions">
+        <MoreVertIcon/> 
       </Tooltip> 
     );
   }

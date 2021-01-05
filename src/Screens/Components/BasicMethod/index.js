@@ -181,7 +181,7 @@ export function getSpec (value, lang){
     valarray.includes(it && it.value && it.value.toLowerCase() && it.value.toLowerCase().replace(/\s/g, '_'))
     );
     })
-    .map((item) => capitalizeFirstLetter(item['label_' + lang]))
+    .map((item) => item['label_' + lang])
     .join(', ').replace(/_/g, ' ');
     } else if (typeof value == 'object') {
     return value['label_' + lang] ? value['label_' + lang] : value.label;

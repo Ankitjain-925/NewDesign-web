@@ -133,7 +133,7 @@ var speciality = {
         {
             "label_en": "OBSTETRICS AND GYNECOLOGY",
             "label_de": "Geburtshilfe und Gynäkologie",
-            "label_nl": "OBSTETRICS_AND_GYNECOLOGY",
+            "label_nl": "OBSTETRICS AND GYNECOLOGY",
             "label_rs": "АКУШЕРСТВО И ГИНЕКОЛОГИЯ",
             "label_sp": "OBSTETRICIA Y GINECOLOGÍA",
             "label_pt": "OBSTETRÍCIA E GINECOLOGIA",

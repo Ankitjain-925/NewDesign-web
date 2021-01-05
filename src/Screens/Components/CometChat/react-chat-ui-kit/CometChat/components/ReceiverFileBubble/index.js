@@ -2,7 +2,7 @@ import React from "react";
 import "./style.scss";
 
 import Tooltip from "../Tooltip";
-
+import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { SvgAvatar } from '../../util/svgavatar';
 
 import Avatar from "../Avatar";
@@ -54,8 +54,10 @@ const receiverfilebubble = (props) => {
       trigger="click" 
       action="viewMessageThread" 
       message={message}
-      actionGenerated={props.actionGenerated}>
-        <span className="cc1-chat-win-rcvr-row-message-action"></span>     
+      actionGenerated={props.actionGenerated}
+     lan={props.lan}
+      className="moreoptions">
+          <MoreVertIcon/>   
       </Tooltip>
     );
   }

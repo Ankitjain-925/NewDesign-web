@@ -4,7 +4,7 @@ import "./style.scss";
 import Tooltip from "../Tooltip";
 
 import { SvgAvatar } from '../../util/svgavatar';
-
+import MoreVertIcon from '@material-ui/icons/MoreVert';
 import Avatar from "../Avatar";
 
 const revceiverimagebubble = (props) => {
@@ -52,8 +52,10 @@ const revceiverimagebubble = (props) => {
       trigger="click" 
       action="viewMessageThread" 
       message={message}
-      actionGenerated={props.actionGenerated}>
-        <span className="cc1-chat-win-rcvr-row-message-action"></span>     
+      actionGenerated={props.actionGenerated}
+     lan={props.lan}
+      className="moreoptions">
+        <MoreVertIcon/>  
       </Tooltip>
     );
   }

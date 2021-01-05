@@ -52,7 +52,8 @@ const receivermessagebuble = (props) => {
         trigger="click" 
         action="viewMessageThread" 
         message={message}
-        actionGenerated={props.actionGenerated}>
+        actionGenerated={props.actionGenerated}
+       lan={props.lan}>
           <span className="cc1-chat-win-rcvr-row-message-action"></span>     
         </Tooltip>
     );

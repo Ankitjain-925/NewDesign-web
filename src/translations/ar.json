@@ -98,7 +98,7 @@
 		"Language": "اللغة",
 		"dark_mode": "الوضع الداكن",
 		"spoken": "ناطق",
-		"insurance": "التأمين",
+		"insurance": "فارما / بحث / تأمين",
 		"add_more": "إضافة المزيد",
 		"company": "الشركة",
 		"of": "من",
@@ -168,7 +168,7 @@
 		"make_all_item_hide_untill": "اجعل جميع العناصر مخفية حتى",
 		"patient_id": "ID المريض",
 		"kyc": "KYC ",
-		"enter_healthcare_and_upload_data": "يرجى إدخال بيانات تأمين الرعاية الصحية الخاصة بك وتحميل نسخة من بطاقة الهوية والتأمين الصحي الخاص بك إلى حسابك",
+		"enter_healthcare_and_upload_data": "يُرجى إدخال بيانات الرعاية الصحية الخاصة بالأدوية / الأبحاث / التأمين وتحميل نسخة من هويتك وبطاقة Heathcare Pharma / Research / Insurance في حسابك",
 		"plz_upload_png_jpg": "يرجى تحميل ملف PDF و PNG و JPEG",
 		"plz_uplod_doc": "يرج تحميل ملفات",
 		"plz_fill_all_fields": "برجاء ملء جميع البيانات",
@@ -646,7 +646,7 @@
 		"Prescriptionisdeleted": "تم مسح الروشتة",
 		"Prescriptionisarchived": "تم أرشفة الروشتة",
 		"Prescriptionishandedtopatient": "تم تسليم الروشتة للمريض",
-		"Addcompany": "إضافة شركة تأمين أخرى",
+		"Addcompany": "إضافة شركة فارما / أبحاث / تأمين أخرى",
 		"Selectentrytype": "حدد نوع الإدخال",
 		"addtextentry": "إضافة إدخال نص",
 		"BodySchemeNotes": "ملاحظات مخطط الجسم",
@@ -749,8 +749,8 @@
 		"add_successfully": "تم إضافته بنجاح",
 		"block_chain": "الوصول إلى Blockchain",
 		"terms": "الشروط",
-		"insurance_comp": "شركة تأمين",
-		"insurance_num": "رقم التأمين",
+		"insurance_comp": "فارما / ابحاث / شركة تأمين",
+		"insurance_num": "فارما / بحث / رقم تأمين",
 		"street_address": "عنوان الشارع",
 		"privacy_policy": "سياسة الخصوصية",
 		"aimedis_online_cour": "كورسات Aimedis الأونلاين",
@@ -1138,7 +1138,7 @@
 		"ended_call_with": " أنهى المكالمة مع ",
 		"cancelled_call_with": " إلغاء المكالمة مع ",
 		"minutes": "الدقائق",
-		"InsurancecompanyError" : "يرجى ملء بيانات بلد التأمين وشركة التأمين",
+		"InsurancecompanyError" : "يرجى ملء فارما / بحث / بلد التأمين وشركة فارما / أبحاث / تأمين",
 		"StartDate" :"تاريخ البدء",
 		"EndDate" :"تاريخ الانتهاء",
 		"Loading":"جار التحميل...",
@@ -1169,7 +1169,8 @@
 		"EmailExists":"البريد الإلكتروني موجود بالفعل ، يرجى استخدام بريد إلكتروني آخر.",
 		"alredypatientFav":"أنت موجود بالفعل في قائمة طبيب المريض الخاص",
 		"Submit":"إرسال",
-		"select_Language":"اختار اللغة"
+		"select_Language":"اختار اللغة",
+		"DeleteMessages" :"حذف رسالة"
 
 		}
 }

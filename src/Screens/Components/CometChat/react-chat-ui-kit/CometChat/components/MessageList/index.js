@@ -280,19 +280,19 @@ class MessageList extends React.PureComponent {
     let component;
     switch (message.type) {
       case CometChat.MESSAGE_TYPE.TEXT:
-        component =  (message.text ?  <SenderMessageBubble message={message} widgetconfig={this.props.widgetconfig} actionGenerated={this.props.actionGenerated} /> : null);
+        component =  (message.text ?  <SenderMessageBubble lan={this.props.stateLanguageType} message={message} widgetconfig={this.props.widgetconfig} actionGenerated={this.props.actionGenerated} /> : null);
       break;
       case CometChat.MESSAGE_TYPE.IMAGE:
-        component =  (message.data.url ? <SenderImageBubble message={message} widgetconfig={this.props.widgetconfig} actionGenerated={this.props.actionGenerated} /> : null);
+        component =  (message.data.url ? <SenderImageBubble lan={this.props.stateLanguageType} message={message} widgetconfig={this.props.widgetconfig} actionGenerated={this.props.actionGenerated} /> : null);
       break;
       case CometChat.MESSAGE_TYPE.FILE:
-        component =  (message.data.attachments ? <SenderFileBubble message={message} widgetconfig={this.props.widgetconfig} actionGenerated={this.props.actionGenerated} /> : null);
+        component =  (message.data.attachments ? <SenderFileBubble lan={this.props.stateLanguageType} message={message} widgetconfig={this.props.widgetconfig} actionGenerated={this.props.actionGenerated} /> : null);
       break;
       case CometChat.MESSAGE_TYPE.VIDEO:
-        component =  (message.data.url ? <SenderVideoBubble message={message} widgetconfig={this.props.widgetconfig} actionGenerated={this.props.actionGenerated} /> : null);
+        component =  (message.data.url ? <SenderVideoBubble lan={this.props.stateLanguageType} message={message} widgetconfig={this.props.widgetconfig} actionGenerated={this.props.actionGenerated} /> : null);
       break;
       case CometChat.MESSAGE_TYPE.AUDIO:
-        component =  (message.data.url ? <SenderAudioBubble message={message} widgetconfig={this.props.widgetconfig} actionGenerated={this.props.actionGenerated} /> : null);
+        component =  (message.data.url ? <SenderAudioBubble lan={this.props.stateLanguageType} message={message} widgetconfig={this.props.widgetconfig} actionGenerated={this.props.actionGenerated} /> : null);
       break;
       default:
       break;

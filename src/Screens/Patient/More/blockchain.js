@@ -15,7 +15,7 @@ import Collapsible from 'react-collapsible';
 import sitedata from '../../../sitedata';
 import "react-toggle/style.css";
 import { authy } from './../../Login/authy.js';
-import { getDate, getReminder, getTime } from './../../Components/BasicMethod/index'
+import { getDate, getReminder, getTime, SortByEntry } from './../../Components/BasicMethod/index'
 import * as translationEN from "../../../translations/en.json"
 import * as translationDE from '../../../translations/de.json';
 import * as translationPT from '../../../translations/pt.json';
@@ -48,7 +48,17 @@ class Index extends Component {
         })
             .then(response3 => {
 
-                this.setState({ PatientFullData: response3.data });
+                const allowed = ['Track Record'];
+                this.setState({ PatientFullData: response3.data }, ()=>{
+                    const filtered = Object.keys(this.state.PatientFullData)
+                        .filter(key => allowed.includes(key))
+                        .reduce((obj, key) => {
+                        obj[key] = this.state.PatientFullData[key];
+                        return obj;
+                        }, {});
+                        filtered['Track Record'].sort(SortByEntry)
+                       this.setState({PatientFullData1 : filtered })
+                });
             })
             .catch(err => {
                 axios.post(sitedata.data.path + '/blockchain/dataManager', {
@@ -150,64 +160,65 @@ class Index extends Component {
 
         return (
             <Grid className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode && this.props.settings.setting.mode === 'dark' ? "homeBg homeBgDrk" : "homeBg"}>
-                {this.state.loaderImage && <Loader />}
-                <Grid className="homeBgIner">
-                    <Grid container direction="row" justify="center">
-                        <Grid item xs={12} md={12}>
-                            <Grid container direction="row">
+            {this.state.loaderImage && <Loader />}
+            <Grid className="homeBgIner">
+                <Grid container direction="row" justify="center">
+                    <Grid item xs={12} md={12}>
+                        <Grid container direction="row">
 
-                                {/* Website Menu */}
-                                <LeftMenu isNotShow={true} currentPage="more" />
-                                <LeftMenuMobile isNotShow={true} currentPage="more" />
-                                <Notification />
-                                {/* End of Website Menu */}
+                            {/* Website Menu */}
+                            <LeftMenu isNotShow={true} currentPage="more" />
+                            <LeftMenuMobile isNotShow={true} currentPage="more" />
+                            <Notification />
+                            {/* End of Website Menu */}
 
-                                {/* Website Mid Content */}
-                                <Grid item xs={12} md={8}>
-                                    <Grid className="blockChainLog">
-                                        <h1>{blockchain_access_log}</h1>
-                                        <Grid className="blockChainDtail1">
-                                            <Grid className="blockChainUpr">
-                                                <h2>{organ_donar}</h2>
-                                                {Object.entries(this.state.PatientFullData).map(([key, value]) => (
-                                                    (key !== '' && key == "organ_data") && <div>
-                                                    {Object.entries(value).map(([k, v]) => (
+                            {/* Website Mid Content */}
+                            <Grid item xs={12} md={8}>
+                                <Grid className="blockChainLog">
+                                    <h1>{blockchain_access_log}</h1>
+                                    <Grid className="blockChainDtail1">
+                                        <Grid className="blockChainUpr">
+                                            <h2>{organ_donar}</h2>
+                                            {Object.entries(this.state.PatientFullData).map(([key, value]) => (
+                                                (key !== '' && key == "organ_data") && <div>
+                                                {Object.entries(value).map(([k, v]) => (
+                                                    <div>
+                                                        {k==='selectedOption' && 
                                                         <div>
-                                                            {k==='selectedOption' && 
-                                                            <div>
-                                                                {v === 'yes_to_all' && <div>Transplantation of one or more organ / tissues of mine after doctors have pronounced me dead</div>}
-                                                                {v ==='exclude_some' && <div>Transplantation of organ / tissues of mine after doctors have pronounced me dead except for following organ / tissues</div>}
-                                                                {v ==='include_some' && <div>Transplantation of organ / tissues of mine after doctors have pronounced me dead only for following organ / tissues</div>}
-                                                                {v ==='not_allowed' && <div>NOT allow a transplantation of any of my organs or tissues</div>}
-                                                                {v ==='decided_by_following' && <div>Transplantation of one or more organ / tissues of mine after doctors have pronounced me dead YES or NO shall be decided by the following person</div>}
-                                                            </div>}
-                                                            {/* {k==='free_remarks' && <div>{v}</div>} */}
-                                                            {k==='OptionData' && 
-                                                            <div>
-                                                            {typeof v === "string" && <div>{v}</div>}
-                                                            {typeof v !== "string" && Object.entries(v).map(([k1, v1]) => (
-                                                                <Grid container direction="row">
-                                                                    <Grid item xs={5} md={5}><span>{k1.charAt(0).toUpperCase() + k1.slice(1).replace("_", " ")}</span></Grid>
-                                                                    <Grid item xs={7} md={7}><label>{v1}</label></Grid>
-                                                                </Grid>  
-                                                            ))}
-                                                            </div>}
-                                                        </div>
-                                                    ))}
+                                                            {v === 'yes_to_all' && <div>Transplantation of one or more organ / tissues of mine after doctors have pronounced me dead</div>}
+                                                            {v ==='exclude_some' && <div>Transplantation of organ / tissues of mine after doctors have pronounced me dead except for following organ / tissues</div>}
+                                                            {v ==='include_some' && <div>Transplantation of organ / tissues of mine after doctors have pronounced me dead only for following organ / tissues</div>}
+                                                            {v ==='not_allowed' && <div>NOT allow a transplantation of any of my organs or tissues</div>}
+                                                            {v ==='decided_by_following' && <div>Transplantation of one or more organ / tissues of mine after doctors have pronounced me dead YES or NO shall be decided by the following person</div>}
+                                                        </div>}
+                                                        {/* {k==='free_remarks' && <div>{v}</div>} */}
+                                                        {k==='OptionData' && 
+                                                        <div>
+                                                        {typeof v === "string" && <div>{v}</div>}
+                                                        {typeof v !== "string" && Object.entries(v).map(([k1, v1]) => (
+                                                            <Grid container direction="row">
+                                                                <Grid item xs={5} md={5}><span>{k1.charAt(0).toUpperCase() + k1.slice(1).replace("_", " ")}</span></Grid>
+                                                                <Grid item xs={7} md={7}><label>{v1}</label></Grid>
+                                                            </Grid>  
+                                                        ))}
+                                                        </div>}
                                                     </div>
                                                 ))}
-                                            </Grid>
+                                                </div>
+                                            ))}
                                         </Grid>
-                                          <Grid className="blockChainDtail">
-                                            <Grid className="blockChainUpr">
-                                                <Grid className="blochChainHead">
-                                                    <Grid><label>{log_type}</label></Grid>
-                                                    <Grid><label>{created_by}</label></Grid>
-                                                    <Grid><label>{time_created}</label></Grid>
-                                                </Grid>
-                                                {Object.entries(this.state.PatientFullData).map(([key, value]) => (
-                                                    (key !== '' && key == "Track Record") && <div>
-                                                        {typeof value !== "string" && <div>
+                                    </Grid>
+
+                                    <Grid className="blockChainDtail">
+                                        <Grid className="blockChainUpr">
+                                            <Grid className="blochChainHead">
+                                                <Grid><label>{log_type}</label></Grid>
+                                                <Grid><label>{created_by}</label></Grid>
+                                                <Grid><label>{time_created}</label></Grid>
+                                            </Grid>
+                                            {this.state.PatientFullData1 && Object.entries(this.state.PatientFullData1).map(([key, value]) => (
+                                                (key !== '' && key == "Track Record") && <div>
+                                               {typeof value !== "string" && <div>
                                                             {Object.entries(value).map(([k, v]) => (
                                                                 <div>
                                                                     <Grid className="blochChainIner">
@@ -243,16 +254,17 @@ class Index extends Component {
                                                         </div>}
                                                     </div>
                                                 ))}
-                                            </Grid>
                                         </Grid>
                                     </Grid>
-                                </Grid>
-                                {/* End of Website Right Content */}
 
+                                </Grid>
                             </Grid>
+                            {/* End of Website Right Content */}
+
                         </Grid>
-                    </Grid >
-                </Grid >
+                    </Grid>
+                </Grid>
+            </Grid>
             </Grid>
         );
     }

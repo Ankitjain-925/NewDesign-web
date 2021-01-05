@@ -13108,6 +13108,24 @@ a.academy_ul ul li img {
 
 
 /*Added By ankita*/
+.homeBgDrk .cc1-chat-win-sndr-row .cc1-chat-win-msg-block .cc1-chat-win-sndr-msg-action-wrap .trigger{
+    color: #fff!important;
+}
+.tooltip-container{
+    color: red!important;
+}
+.SetWidthPopup1{
+    width: 400px !important;
+    height : 85% !important;
+}
+.iiz__img {
+    max-width: 100%;
+    height: auto;
+    max-height: 500px !important;
+}
+.ImageSec{
+    height: 200px;
+}
 .image-zoom-settings {
     max-width: 130px; }
     .image-zoom-settings__button {
