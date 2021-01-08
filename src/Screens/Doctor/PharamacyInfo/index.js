@@ -41,6 +41,7 @@ class Index extends Component {
             isadded: false,
             firstPatient_id: false,
             imagePreviewUrl: null,
+            setError: false,
         };
 
     }
@@ -170,18 +171,18 @@ class Index extends Component {
                 let fileName = fileParts[0];
                 let fileType = fileParts[1];
                 if (fileType === 'pdf' || fileType === 'jpeg' || fileType === 'png' || fileType === 'jpg' || fileType === 'svg') {
-                    if (fileType !== 'pdf') {
-                        reader.onloadend = () => {
-
-                            this.setState({
-                                file: file,
-                                imagePreviewUrl: reader.result
-                            });
-                        }
-                        reader.readAsDataURL(file)
+                   this.setState({setError: false})
+                    if(fileType ==='pdf'){
+                        this.setState({
+                            file: file,
+                            imagePreviewUrl: require('../../../assets/images/pdfimg.png')
+                        });
                     }
-                    else {
-
+                    else{
+                        this.setState({
+                            file: file,
+                            imagePreviewUrl: URL.createObjectURL(file)
+                        });
                     }
                     axios.post(sitedata.data.path + '/aws/sign_s3', {
                         fileName: fileName,
@@ -267,16 +268,16 @@ class Index extends Component {
                             translate = translationEN.text
                     }
                     let { UploadMust, yes } = translate;
-                    this.setState({ loaderImage: false });
-                    confirmAlert({
-                        message: UploadMust,
-                        buttons: [
-                            {
-                                label: yes,
-                            },
+                    this.setState({ loaderImage: false, setError: true });
+                    // confirmAlert({
+                    //     message: UploadMust,
+                    //     buttons: [
+                    //         {
+                    //             label: yes,
+                    //         },
 
-                        ]
-                    })
+                    //     ]
+                    // })
                 }
             }
         }
@@ -439,7 +440,7 @@ class Index extends Component {
             default:
                 translate = translationEN.text
         }
-        let { Successfullyaddedtheinformation, PleaseEnterallthefield, Pleaseenterthepatientidfirst, pharma_prescription, send_prescription, send_prescription_to_pharmacy, uplod_scanned_prescription, browse, or, or_drag_here, suported_file_type_jpg_png, patient_id, Pharmacy, search_pharmacy_by_name_id, show_pharmacy_within_radious, short_msg_optional, add_this_patient_journal,send_invite } = translate;
+        let { Successfullyaddedtheinformation, plz_upload_png_jpg, PleaseEnterallthefield, Pleaseenterthepatientidfirst, pharma_prescription, send_prescription, send_prescription_to_pharmacy, uplod_scanned_prescription, browse, or, or_drag_here, suported_file_type_jpg_png, patient_id, Pharmacy, search_pharmacy_by_name_id, show_pharmacy_within_radious, short_msg_optional, add_this_patient_journal,send_invite } = translate;
 
         return (
             <Grid item xs={12} md={1} className="MenuLeftUpr ">
@@ -459,6 +460,7 @@ class Index extends Component {
                             {this.state.firstPatient_id && <div className="err_message">{Pleaseenterthepatientidfirst}</div>}
                             {this.state.isadded && <div className="success_message">{Successfullyaddedtheinformation}</div>}
                             {this.state.compulsary && <div className="err_message">{PleaseEnterallthefield}</div>}
+                            {this.state.setError && <div className="err_message">{plz_upload_png_jpg}</div>}
                             <Grid><label>{pharma_prescription}</label></Grid>
                             <p>{send_prescription_to_pharmacy}</p>
                         </Grid>

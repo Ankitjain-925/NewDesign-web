@@ -27,13 +27,11 @@ class SelectField extends Component {
             closeMenuOnSelect : this.props.closeMenuOnSelect,
         };
     }
-
     //On Select Change 
     onSelectChange = (e, name) => {
         this.setState({ value : e});
         this.props.onChange(e, name);
     };
-
     componentDidMount = () => {
 
     }
@@ -86,16 +84,16 @@ class SelectField extends Component {
                     isSearchable={this.state.isSearchable ? true : false}
                     isMulti={this.state.isMulti}
                     closeMenuOnSelect={this.state.closeMenuOnSelect}
+                    maxMenuHeight={155}
                 />
             </Grid>
         )
     }
 }
-
 const mapStateToProps = (state) => {
     const { stateLanguageType } = state.LanguageReducer;
     return {
         stateLanguageType
     }
   };
-  export default withRouter(connect(mapStateToProps, { LanguageFetchReducer })(SelectField));
+export default withRouter(connect(mapStateToProps, { LanguageFetchReducer })(SelectField));

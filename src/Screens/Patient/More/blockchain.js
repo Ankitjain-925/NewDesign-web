@@ -56,7 +56,9 @@ class Index extends Component {
                         obj[key] = this.state.PatientFullData[key];
                         return obj;
                         }, {});
-                        filtered['Track Record'].sort(SortByEntry)
+                        if(filtered['Track Record'] && filtered['Track Record'].length>0){
+                            filtered['Track Record'].sort(SortByEntry)
+                        }
                        this.setState({PatientFullData1 : filtered })
                 });
             })

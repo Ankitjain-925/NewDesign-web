@@ -139,10 +139,10 @@ class Index extends Component {
                         </Grid>
                         {this.state.PassDone && <div className="success_message">{language_updated}</div>}
                         {this.state.languageBlank && <div className="err_message">{language_not_selected}</div>}
-                        <div className="languageHead"></div>
+                        {/* <div className="languageHead"></div> */}
                         <Grid className="languageBox">
                             <Grid className="row">
-                                <Grid className="col-sm-6 col-xl-6">
+                                <Grid className="col-xl-6">
                                     <Grid>
                                         <input value="ar" onChange={this.changeLanguage} name="language" type="radio" checked={this.state.languageValue == "ar" ? "checked" : ""} />
                                         <label><img src={require('../../../assets/images/Arabic.jpg')} alt="Arabic" title="Arabic" />Arabian (عربى)</label>
@@ -164,7 +164,7 @@ class Index extends Component {
                                         <label><img src={require('../../../assets/images/France.png')} alt="French" title="French" />French (Francais)</label>
                                     </Grid>
                                 </Grid>
-                                <Grid className="col-sm-6 col-xl-6">
+                                <Grid className="col-xl-6">
                                     <Grid>
                                         <input value="de" onChange={this.changeLanguage} name="language" type="radio" checked={this.state.languageValue == "de" ? "checked" : ""} />
                                         <label><img src={require('../../../assets/images/german.jpg')} alt="Germany" title="Germany" />German (Deutsch)</label>

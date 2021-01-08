@@ -1174,7 +1174,7 @@
 		"EmailExists":"E-Mail ist bereits vorhanden, bitte verwenden Sie eine andere E-Mail.",
 		"alredypatientFav":"Sie befinden sich bereits auf der privaten Arztliste des Patienten",
 		"Submit":"einreichen",
-		"select_Language":"Sprache auswählen",
+		"select_Language":"Sprache wählen",
 		"DeleteMessages" :"Nachricht löschen"
 	}
 }

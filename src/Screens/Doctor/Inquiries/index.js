@@ -177,18 +177,15 @@ class Index extends Component {
 
                                 {/* Website Menu */}
                                 <LeftMenu  isNotShow ={true} currentPage="inquiries" />
-                                <LeftMenuMobile isNotShow ={true}  currentPage="inquiries" />
+                                  <LeftMenuMobile isNotShow ={true}  currentPage="inquiries" />
                                 <Notification />
                                 {/* End of Website Menu */}
 
-                                <Grid item xs={12} md={9}>
-
+                                <Grid item xs={12} md={11} lg={9}>
                                     <Grid className="docsOpinion">
-
                                         <Grid container direction="row" className="docsOpinLbl">
                                             <Grid item xs={12} md={12}><label>{Inquiries}</label></Grid>
                                         </Grid>
-
                                         <Grid className="presPkgIner1">
                                             {/* Tabs  */}
                                             <AppBar position="static" className="presTabsUpr">
@@ -208,25 +205,22 @@ class Index extends Component {
                                         </Grid>
 
                                         <Grid className="presPkgIner2">
-
                                             {value === 0 && <TabContainer>
                                                 {this.state.successfullsent && <div className="success_message">{rqst_sent_succefully}</div>}
                                                 <PrecriptionList newItem={this.state.newItemp} myData ={ this.state.myData}/>
                                             </TabContainer>}
-
                                             {value === 1 && <TabContainer>
                                                 {this.state.successfullsent1 && <div className="success_message">{rqst_sent_succefully}</div>}
                                                 <SickCertificateList  newItem={this.state.newItemp} myData ={ this.state.myData}/>
                                                 </TabContainer>}
-
                                             {value === 2 && <TabContainer>
                                                 {this.state.successfullsent1 && <div className="success_message">{rqst_sent_succefully}</div>}
                                                 <SecondOpinion  newItem={this.state.newItemp} myData ={ this.state.myData}/>
                                             </TabContainer>}
-
                                         </Grid>
                                     </Grid>
                                 </Grid>
+
                             </Grid>
                         </Grid>
                     </Grid>

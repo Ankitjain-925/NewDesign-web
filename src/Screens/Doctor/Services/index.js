@@ -775,11 +775,11 @@ class Index extends Component {
 
                                 {/* Website Menu */}
                                 <LeftMenu isNotShow={true} currentPage="patient" />
-                                <LeftMenuMobile isNotShow={true} currentPage="patient" />
+                                  <LeftMenuMobile isNotShow={true} currentPage="patient" />
                                 <Notification />
                                 {/* End of Website Menu */}
 
-                                <Grid item xs={12} md={9}>
+                                <Grid item xs={12} md={11} lg={9}>
                                     <Grid className="docOpinion">
                                         <Grid container direction="row" className="docAddUpr">
                                             <Grid item xs={12} md={6} className="docOpinLbl"><label>{capab_Patients}</label></Grid>
@@ -866,8 +866,8 @@ class Index extends Component {
                                                             <Grid className="userAdres">
                                                                 <Grid><img src={require('../../../assets/images/location-pin2.svg')} alt="" title="" /></Grid>
                                                                 <p>{profileDetail.address} <br />
-                                                                    {profileDetail.city} <br />
-                                                                    {profileDetail.country ? profileDetail.country.label : ''}
+                                                                   {profileDetail.city} <br />
+                                                                   {profileDetail.country ? profileDetail.country.label : ''}
                                                                 </p>
                                                             </Grid>
                                                             <Grid className="userAdres">
