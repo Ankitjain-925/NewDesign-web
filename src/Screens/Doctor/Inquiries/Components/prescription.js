@@ -387,8 +387,47 @@ case "sw":
 
     handleOpenPrescp = (data) => {
         let imagePreviewUrl = null
-        if (data.status === 'accept' && data.attachfile && data.attachfile.length > 0) imagePreviewUrl = data.attachfile[0].filename;
-        this.setState({ openPrescp: true, prescData: data, imagePreviewUrl: imagePreviewUrl, saveAttach: false });
+        if (data.status === 'accept' && data.attachfile && data.attachfile.length > 0)
+        {
+            if (data.attachfile[0].filename) {
+                var find1 = data.attachfile[0].filename.split('.com/')[1]
+                axios.get(sitedata.data.path + '/aws/sign_s3?find=' + find1,)
+                .then((response2) => {
+                    if (response2.data.hassuccessed) {
+                        console.log('data.attachfile[0].filename.split.pop()',(data.attachfile[0].filename.split("&bucket=")[0]).split('.').pop())
+                        if((data.attachfile[0].filename.split("&bucket=")[0]).split('.').pop()==='mp4'){
+                            this.setState({ imagePreviewUrl: require('../../../../assets/images/videoIcon.png')});
+                        }
+                        if((data.attachfile[0].filename.split("&bucket=")[0]).split('.').pop()==='pdf'){
+                            console.log('here1')
+                            this.setState({ imagePreviewUrl: require('../../../../assets/images/pdfimg.png')});
+                        }
+                        else if((data.attachfile[0].filename.split("&bucket=")[0]).split('.').pop() ==='doc'|| (data.attachfile[0].filename.split("&bucket=")[0]).split('.').pop() ==='docx' || (data.attachfile[0].filename.split("&bucket=")[0]).split('.').pop() ==='xml' || (data.attachfile[0].filename.split("&bucket=")[0]).split('.').pop() ==='txt'){
+                            this.setState({ imagePreviewUrl: require('../../../../assets/images/txt1.png')});
+                        }
+                        else if((data.attachfile[0].filename.split("&bucket=")[0]).split('.').pop() ==='xls'|| (data.attachfile[0].filename.split("&bucket=")[0]).split('.').pop() ==='xlsx' || (data.attachfile[0].filename.split("&bucket=")[0]).split('.').pop() ==='xml'){
+                            this.setState({ imagePreviewUrl: require('../../../../assets/images/xls1.svg')});
+                        }
+                        else if((data.attachfile[0].filename.split("&bucket=")[0]).split('.').pop() ==='csv'){
+                            this.setState({ imagePreviewUrl: require('../../../../assets/images/csv1.png')});
+                        }
+                        else if((data.attachfile[0].filename.split("&bucket=")[0]).split('.').pop() ==='dcm'){
+                            this.setState({ imagePreviewUrl: require('../../../../assets/images/dcm1.png')});
+                        }
+                        else{
+                            console.log('here12')
+                            this.setState({ imagePreviewUrl: response2.data.data })
+                        }
+                        console.log('imagePreviewUrl', imagePreviewUrl)
+                    }
+                })
+            }
+        } 
+        else{
+            this.setState({imagePreviewUrl: imagePreviewUrl})
+        }
+
+        this.setState({ openPrescp: true, prescData: data, saveAttach: false });
     };
     handleClosePrescp = () => {
         this.setState({ openPrescp: false, imagePreviewUrl: null, saveAttach: false });

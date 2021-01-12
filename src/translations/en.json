@@ -1175,6 +1175,8 @@
 		"alredypatientFav":"You already exist on the patient's private doctor list",
 		"Submit":"Submit",
 		"select_Language":"Select Language",
-		"DeleteMessages" :"Delete Message"
+		"DeleteMessages" :"Delete Message",
+		"less_than_err":"Please upload images less than 6",
+		"err_file_formart": "System is not supported this file format"
 	}
 }

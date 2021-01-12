@@ -4,7 +4,7 @@ import MMHG from './../../mmHgField/index';
 import DateFormat from './../../DateFormat/index';
 import SelectByTwo from './../../SelectbyTwo/index';
 import SelectField from './../../Select/index';
-import FileUploader from './../../FileUploader/index';
+import FileUploader from './../../JournalFileUploader/index';
 import ShowHide from './../../ShowHide/index';
 import NotesEditor from './../../Editor/index';
 import { withRouter } from "react-router-dom";
@@ -125,7 +125,7 @@ class Index extends Component {
                     </Grid>
                     <Grid className="attchForms attchImg">
                         <Grid><label>{attachments}</label></Grid>
-                        <FileUploader name="UploadTrackImageMulti" comesFrom="journal" isMulti={true} fileUpload={this.props.FileAttachMulti} />
+                        <FileUploader cur_one={this.props.cur_one} attachfile={this.state.updateTrack && this.state.updateTrack.attachfile ? this.state.updateTrack.attachfile : []}  name="UploadTrackImageMulti" comesFrom="journal" isMulti={true} fileUpload={this.props.FileAttachMulti} />
                     </Grid>
                 </Grid>}
 

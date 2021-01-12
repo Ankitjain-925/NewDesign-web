@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
 import MMHG from './../../mmHgField/index';
-import FileUploader from './../../FileUploader/index';
+import FileUploader from './../../JournalFileUploader/index';
 import ShowHide from './../../ShowHide/index';
 import NotesEditor from './../../Editor/index';
 import { withRouter } from "react-router-dom";
@@ -88,7 +88,7 @@ class Index extends Component {
                 {!this.props.visibility && <Grid className="cnfrmDiaMain">
                     <Grid className="attchForms attchImg">
                         <Grid><label>{attachments}</label></Grid>
-                        <FileUploader name="UploadTrackImageMulti" comesFrom="journal" isMulti="true" fileUpload={(event)=>{this.props.FileAttachMulti(event)}}/>
+                        <FileUploader cur_one={this.props.cur_one} attachfile={this.state.updateTrack && this.state.updateTrack.attachfile ? this.state.updateTrack.attachfile : []} name="UploadTrackImageMulti" comesFrom="journal" isMulti="true" fileUpload={(event)=>{this.props.FileAttachMulti(event)}}/>
                     </Grid>
                     <Grid className="fillDia">
                         <NotesEditor name="explanation" label={notes}  onChange={(e)=> this.updateEntryState1(e, 'explanation')} value={this.state.updateTrack.explanation}/> 

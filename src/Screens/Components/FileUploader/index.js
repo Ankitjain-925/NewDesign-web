@@ -23,6 +23,7 @@ class Loader extends Component {
             fileattach : [],
         };
     }
+    
     //For upload and image previews
     UploadFiles=(files)=>
     {

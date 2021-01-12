@@ -151,8 +151,8 @@ class Index extends Component {
                 <Grid container direction="row" alignItems="center" spacing={2}>
                     <Grid item xs={12} md={5}>
                         <Grid className="chngPasswrd">
-                            <h2>{Change} {password}</h2>
-                            <p>{supportive_text}</p>
+                        <h2>{change_password}</h2>
+                            {/* <p>{supportive_text}</p> */}
                         </Grid>
                         <Grid className="genPass">
                             <Grid className="genPassInr">

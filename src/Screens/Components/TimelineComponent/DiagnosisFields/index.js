@@ -5,7 +5,7 @@ import ShowHide from './../../ShowHide/index';
 import Checkbox from '@material-ui/core/Checkbox';
 import MMHG from './../../mmHgField/index';
 import DateFormat from './../../DateFormat/index';
-import FileUploader from './../../FileUploader/index';
+import FileUploader from './../../JournalFileUploader/index';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import axios from 'axios';
 import sitedata from '../../../../sitedata';
@@ -278,7 +278,7 @@ class Index extends Component {
                     </Grid>
                     <Grid className="attchForms attchImg">
                         <Grid><label>{attachments}</label></Grid>
-                        <FileUploader name="UploadTrackImageMulti" comesFrom="journal" isMulti={true} fileUpload={this.props.FileAttachMulti} />
+                        <FileUploader cur_one={this.props.cur_one} attachfile={this.state.updateTrack && this.state.updateTrack.attachfile ? this.state.updateTrack.attachfile : []} name="UploadTrackImageMulti" comesFrom="journal" isMulti={true} fileUpload={this.props.FileAttachMulti} />
                     </Grid>
                     <Grid className="fillDia">
                         <NotesEditor name="remarks" label={notes}  onChange={(e)=> this.updateEntryState1(e, 'remarks')} value={this.state.updateTrack.remarks}/> 

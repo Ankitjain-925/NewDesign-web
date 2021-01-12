@@ -13099,6 +13099,15 @@ a.academy_ul ul li img {
 
 
 /*Added By ankita*/
+.deletepointer{
+    width: 22px !important;
+    cursor: pointer;
+}
+.updatedfileuploader img{
+    width: 100%;
+    padding: 3px;
+    border-radius: 15px;
+}
 .homeBgDrk .cc1-chat-win-sndr-row .cc1-chat-win-msg-block .cc1-chat-win-sndr-msg-action-wrap .trigger{
     color: #fff!important;
 }

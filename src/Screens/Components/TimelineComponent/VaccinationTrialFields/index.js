@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
 import MMHG from './../../mmHgField/index';
 import SelectField from './../../Select/index';
-import FileUploader from './../../FileUploader/index';
+import FileUploader from './../../JournalFileUploader/index';
 import ShowHide from './../../ShowHide/index';
 import NotesEditor from './../../Editor/index';
 import Temprature from '../../Temprature';
@@ -115,7 +115,7 @@ class Index extends Component {
                     </Grid>
                     <Grid className="attchForms attchImg">
                         <Grid><label>{Chargenumberpicture}</label></Grid>
-                        <FileUploader name="UploadTrackImageMulti" comesFrom="journal"isMulti={true} fileUpload={this.props.FileAttachMulti} />
+                        <FileUploader cur_one={this.props.cur_one} attachfile={this.state.updateTrack && this.state.updateTrack.attachfile ? this.state.updateTrack.attachfile : []}  name="UploadTrackImageMulti" comesFrom="journal"isMulti={true} fileUpload={this.props.FileAttachMulti} />
                     </Grid>
                     <Grid className="fillDia">
                         <Grid className="rrSysto">
@@ -182,11 +182,11 @@ class Index extends Component {
                     </Grid>
                     <Grid className="attchForms attchImg">
                         <Grid><label>{PositiveSARS}</label></Grid>
-                        <FileUploader name="Positive_SARS" comesFrom="journal" isMulti={true} fileUpload={this.props.FileAttachMultiVaccination} />
+                        <FileUploader cur_one={this.props.cur_one} attachfile={this.state.updateTrack && this.state.updateTrack.Positive_SARS ? this.state.updateTrack.Positive_SARS : []}  name="Positive_SARS" comesFrom="journal" isMulti={true} fileUpload={this.props.FileAttachMultiVaccination} />
                     </Grid>
                     <Grid className="attchForms attchImg">
                         <Grid><label>{SARSCoV_2_TEST}</label></Grid>
-                        <FileUploader name="SARS" comesFrom="journal" isMulti={true} fileUpload={this.props.FileAttachMultiVaccination} />
+                        <FileUploader cur_one={this.props.cur_one} attachfile={this.state.updateTrack && this.state.updateTrack.SARS ? this.state.updateTrack.SARS : []}  name="SARS" comesFrom="journal" isMulti={true} fileUpload={this.props.FileAttachMultiVaccination} />
                     </Grid>
                 </Grid>}
 

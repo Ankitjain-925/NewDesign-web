@@ -110,7 +110,7 @@ export const updateBlockchain = async (
       data['organ_data'] = organ_data;
     }
 
-    axios.post('blockchain/dataManager', {
+    axios.post(sitedata.data.path  +'/blockchain/dataManager', {
         path: 'dataManager/add/patient',
         data: data,
       })

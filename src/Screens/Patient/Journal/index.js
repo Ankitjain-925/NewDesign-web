@@ -468,133 +468,147 @@ class Index extends Component {
             this.setState({ upcoming_appointment: upcomingData })
         })
     }
-    //Upload file MultiFiles
-    FileAttachMulti = (event) => {
-        // this.setState({file:})
-        this.setState({ isfileuploadmulti: true })
-        var user_id = this.props.stateLoginValueAim.user._id;
-        var user_token = this.props.stateLoginValueAim.token;
-        const data = new FormData()
-        if (event[0].type === "application/x-zip-compressed") {
-            this.setState({ file_type: true, isless_one: false, isless_one: false })
-        } else {
-            if (event.length < 1) {
-                this.setState({ isless_one: true, ismore_five: false, file_type: false })
-            }
-            if (event.length > 5) {
-                this.setState({ ismore_five: true, isless_one: false, file_type: false })
-            }
-            else {
-                var Fileadd = [];
-                this.setState({ loaderImage: true, ismore_five: false, isless_one: false, file_type: false })
-                for (var i = 0; i < event.length; i++) {
-                    let file = event[i];
-                    let fileParts = file.name.split('.');
-                    let fileName = fileParts[0];
-                    let fileType = fileParts[1];
-                    axios.post(sitedata.data.path + '/aws/sign_s3', {
-                        fileName: fileName,
-                        fileType: fileType,
-                        folders: this.props.stateLoginValueAim.user.profile_id + '/Trackrecord/',
-                        bucket: this.props.stateLoginValueAim.user.bucket
-                    }).then(response => {
-                        Fileadd.push({ filename: response.data.data.returnData.url + '&bucket=' + this.props.stateLoginValueAim.user.bucket, filetype: fileType })
-                        setTimeout(() => { this.setState({ fileupods: false }); }, 3000);
-                        let returnData = response.data.data.returnData;
-                        let signedRequest = returnData.signedRequest;
-                        let url = returnData.url;
-                        if(fileType ==='pdf'){
-                            fileType = 'application/pdf'
-                        }
-                        // Put the fileType in the headers for the upload
-                        var options = {
-                            headers: {
-                                'Content-Type': fileType
-                            }
-                        };
-                        axios.put( signedRequest, file, options)
-                            .then(result => { })
-                            .catch(error => { })
-                    }).catch(error => { })
-                    this.setState({ fileattach: Fileadd, loaderImage: false, fileupods: true });
-                }
-            }
-        }
-        setTimeout(
-            function () {
-                this.setState({ file_type: false, isless_one: false, ismore_five: false });
-            }
-                .bind(this),
-            2000
-        );
+    
+    FileAttachMulti=(Fileadd)=>{
+        this.setState({ isfileuploadmulti: true, fileattach: Fileadd, fileupods: true})
     }
 
-    //Upload file MultiFiles
-    FileAttachMultiVaccination = (event, name) => {
-        // this.setState({file:})
-        this.setState({ isfileuploadmulti: true })
-        var user_id = this.props.stateLoginValueAim.user._id;
-        var user_token = this.props.stateLoginValueAim.token;
-        const data = new FormData()
-        if (event[0].type === "application/x-zip-compressed") {
-            this.setState({ file_type: true, isless_one: false, isless_one: false })
-        } else {
-            if (event.length < 1) {
-                this.setState({ isless_one: true, ismore_five: false, file_type: false })
-            }
-            if (event.length > 5) {
-                this.setState({ ismore_five: true, isless_one: false, file_type: false })
-            }
-            else {
-                var Fileadd = [];
-                this.setState({ loaderImage: true, ismore_five: false, isless_one: false, file_type: false })
-                for (var i = 0; i < event.length; i++) {
-                    let file = event[i];
-                    let fileParts = file.name.split('.');
-                    let fileName = fileParts[0];
-                    let fileType = fileParts[1];
-                    axios.post(sitedata.data.path + '/aws/sign_s3', {
-                        fileName: fileName,
-                        fileType: fileType,
-                        folders: this.props.stateLoginValueAim.user.profile_id + '/Trackrecord/',
-                        bucket: this.props.stateLoginValueAim.user.bucket
-                    }).then(response => {
-                        Fileadd.push({ filename: response.data.data.returnData.url + '&bucket=' + this.props.stateLoginValueAim.user.bucket, filetype: fileType })
-                        setTimeout(() => { this.setState({ fileupods: false }); }, 3000);
-                        let returnData = response.data.data.returnData;
-                        let signedRequest = returnData.signedRequest;
-                        let url = returnData.url;
-                        if(fileType ==='pdf'){
-                            fileType = 'application/pdf'
-                        }
-                        // Put the fileType in the headers for the upload
-                        var options = {
-                            headers: {
-                                'Content-Type': fileType
-                            }
-                        };
-                        axios.put( signedRequest, file, options)
-                            .then(result => { })
-                            .catch(error => { })
-                    }).catch(error => { })
-                    if(name==='SARS'){
-                        this.setState({ SARS: Fileadd, loaderImage: false, fileupods: true });
-                    }
-                    else{
-                        this.setState({ Positive_SARS: Fileadd, loaderImage: false, fileupods: true });
-                    }
-                    
-                }
-            }
+    FileAttachMultiVaccination = (Fileadd, name) => {
+        if(name==='SARS'){
+            this.setState({ SARS: Fileadd, fileupods: true });
         }
-        setTimeout(
-            function () {
-                this.setState({ file_type: false, isless_one: false, ismore_five: false });
-            }
-                .bind(this),
-            2000
-        );
+        else{
+            this.setState({ Positive_SARS: Fileadd, fileupods: true });
+        }
+        
     }
+    //Upload file MultiFiles
+    // FileAttachMulti = (event) => {
+    //     // this.setState({file:})
+    //     this.setState({ isfileuploadmulti: true })
+    //     var user_id = this.props.stateLoginValueAim.user._id;
+    //     var user_token = this.props.stateLoginValueAim.token;
+    //     const data = new FormData()
+    //     if (event[0].type === "application/x-zip-compressed") {
+    //         this.setState({ file_type: true, isless_one: false, isless_one: false })
+    //     } else {
+    //         if (event.length < 1) {
+    //             this.setState({ isless_one: true, ismore_five: false, file_type: false })
+    //         }
+    //         if (event.length > 5) {
+    //             this.setState({ ismore_five: true, isless_one: false, file_type: false })
+    //         }
+    //         else {
+    //             var Fileadd = [];
+    //             this.setState({ loaderImage: true, ismore_five: false, isless_one: false, file_type: false })
+    //             for (var i = 0; i < event.length; i++) {
+    //                 let file = event[i];
+    //                 let fileParts = file.name.split('.');
+    //                 let fileName = fileParts[0];
+    //                 let fileType = fileParts[1];
+    //                 axios.post(sitedata.data.path + '/aws/sign_s3', {
+    //                     fileName: fileName,
+    //                     fileType: fileType,
+    //                     folders: this.props.stateLoginValueAim.user.profile_id + '/Trackrecord/',
+    //                     bucket: this.props.stateLoginValueAim.user.bucket
+    //                 }).then(response => {
+    //                     Fileadd.push({ filename: response.data.data.returnData.url + '&bucket=' + this.props.stateLoginValueAim.user.bucket, filetype: fileType })
+    //                     setTimeout(() => { this.setState({ fileupods: false }); }, 3000);
+    //                     let returnData = response.data.data.returnData;
+    //                     let signedRequest = returnData.signedRequest;
+    //                     let url = returnData.url;
+    //                     if(fileType ==='pdf'){
+    //                         fileType = 'application/pdf'
+    //                     }
+    //                     // Put the fileType in the headers for the upload
+    //                     var options = {
+    //                         headers: {
+    //                             'Content-Type': fileType
+    //                         }
+    //                     };
+    //                     axios.put( signedRequest, file, options)
+    //                         .then(result => { })
+    //                         .catch(error => { })
+    //                 }).catch(error => { })
+    //                 this.setState({ fileattach: Fileadd, loaderImage: false, fileupods: true });
+    //             }
+    //         }
+    //     }
+    //     setTimeout(
+    //         function () {
+    //             this.setState({ file_type: false, isless_one: false, ismore_five: false });
+    //         }
+    //             .bind(this),
+    //         2000
+    //     );
+    // }
+
+    //Upload file MultiFiles
+    // FileAttachMultiVaccination = (event, name) => {
+    //     // this.setState({file:})
+    //     this.setState({ isfileuploadmulti: true })
+    //     var user_id = this.props.stateLoginValueAim.user._id;
+    //     var user_token = this.props.stateLoginValueAim.token;
+    //     const data = new FormData()
+    //     if (event[0].type === "application/x-zip-compressed") {
+    //         this.setState({ file_type: true, isless_one: false, isless_one: false })
+    //     } else {
+    //         if (event.length < 1) {
+    //             this.setState({ isless_one: true, ismore_five: false, file_type: false })
+    //         }
+    //         if (event.length > 5) {
+    //             this.setState({ ismore_five: true, isless_one: false, file_type: false })
+    //         }
+    //         else {
+    //             var Fileadd = [];
+    //             this.setState({ loaderImage: true, ismore_five: false, isless_one: false, file_type: false })
+    //             for (var i = 0; i < event.length; i++) {
+    //                 let file = event[i];
+    //                 let fileParts = file.name.split('.');
+    //                 let fileName = fileParts[0];
+    //                 let fileType = fileParts[1];
+    //                 axios.post(sitedata.data.path + '/aws/sign_s3', {
+    //                     fileName: fileName,
+    //                     fileType: fileType,
+    //                     folders: this.props.stateLoginValueAim.user.profile_id + '/Trackrecord/',
+    //                     bucket: this.props.stateLoginValueAim.user.bucket
+    //                 }).then(response => {
+    //                     Fileadd.push({ filename: response.data.data.returnData.url + '&bucket=' + this.props.stateLoginValueAim.user.bucket, filetype: fileType })
+    //                     setTimeout(() => { this.setState({ fileupods: false }); }, 3000);
+    //                     let returnData = response.data.data.returnData;
+    //                     let signedRequest = returnData.signedRequest;
+    //                     let url = returnData.url;
+    //                     if(fileType ==='pdf'){
+    //                         fileType = 'application/pdf'
+    //                     }
+    //                     // Put the fileType in the headers for the upload
+    //                     var options = {
+    //                         headers: {
+    //                             'Content-Type': fileType
+    //                         }
+    //                     };
+    //                     axios.put( signedRequest, file, options)
+    //                         .then(result => { })
+    //                         .catch(error => { })
+    //                 }).catch(error => { })
+    //                 if(name==='SARS'){
+    //                     this.setState({ SARS: Fileadd, loaderImage: false, fileupods: true });
+    //                 }
+    //                 else{
+    //                     this.setState({ Positive_SARS: Fileadd, loaderImage: false, fileupods: true });
+    //                 }
+                    
+    //             }
+    //         }
+    //     }
+    //     setTimeout(
+    //         function () {
+    //             this.setState({ file_type: false, isless_one: false, ismore_five: false });
+    //         }
+    //             .bind(this),
+    //         2000
+    //     );
+    // }
 
     
     //For getting full data of hide Show
@@ -810,7 +824,7 @@ class Index extends Component {
                 //         .then(response6 => {})
                 //  })
                 // })
-                 updateBlockchain(this.props.stateLoginValueAim.user, response.data.data)
+                //  updateBlockchain(this.props.stateLoginValueAim.user, response.data.data)
                     var images = [];
                     response.data.data && response.data.data.length > 0 && response.data.data.map((data1, index) => {
                         var find2 = data1 && data1.created_by_image
@@ -1225,27 +1239,27 @@ class Index extends Component {
                                                             </div>}
                                                     </Grid>
                                                     <Grid>
-                                                        {this.state.current_select === 'anamnesis' && <AnamnesisFields FileAttachMulti={this.FileAttachMulti} visibility={this.state.visibility} comesfrom='patient' GetHideShow={this.GetHideShow} options={this.state.Pressuresituation} AddTrack={this.AddTrack} date_format={this.props.settings.setting.date_format} time_format={this.props.settings.setting.time_format} updateEntryState={this.updateEntryState} updateEntryState1={this.updateEntryState1} updateTrack={this.state.updateTrack} />}
-                                                        {this.state.current_select === 'blood_pressure' && <BPFields FileAttachMulti={this.FileAttachMulti} visibility={this.state.visibility} comesfrom='patient' GetHideShow={this.GetHideShow} options={this.state.Pressuresituation} AddTrack={this.AddTrack} date_format={this.props.settings.setting.date_format} time_format={this.props.settings.setting.time_format} updateEntryState={this.updateEntryState} updateEntryState1={this.updateEntryState1} updateTrack={this.state.updateTrack} />}
-                                                        {this.state.current_select === 'blood_sugar' && <BSFields FileAttachMulti={this.FileAttachMulti} visibility={this.state.visibility} comesfrom='patient' GetHideShow={this.GetHideShow} options={this.state.Allsituation} AddTrack={this.AddTrack} date_format={this.props.settings.setting.date_format} time_format={this.props.settings.setting.time_format} updateEntryState={this.updateEntryState} updateEntryState1={this.updateEntryState1} updateTrack={this.state.updateTrack} />}
-                                                        {this.state.current_select === 'condition_pain' && <CPFields FileAttachMulti={this.FileAttachMulti} visibility={this.state.visibility} comesfrom='patient' gender={this.state.patient_gender} GetHideShow={this.GetHideShow} options={this.state.Allpain_quality} options2={this.state.Allpain_type} AddTrack={this.AddTrack} date_format={this.props.settings.setting.date_format} time_format={this.props.settings.setting.time_format} updateEntryState={this.updateEntryState} updateEntryState1={this.updateEntryState1} updateTrack={this.state.updateTrack} />}
-                                                        {this.state.current_select === 'covid_19' && <CovidFields FileAttachMulti={this.FileAttachMulti} visibility={this.state.visibility} comesfrom='patient' gender={this.state.patient_gender} GetHideShow={this.GetHideShow} options={this.state.selectCountry} options2={this.state.Alltemprature} AddTrack={this.AddTrack} date_format={this.props.settings.setting.date_format} time_format={this.props.settings.setting.time_format} updateEntryState={this.updateEntryState} updateEntryState1={this.updateEntryState1} updateTrack={this.state.updateTrack} />}
-                                                        {this.state.current_select === 'diagnosis' && <DiagnosisFields FileAttachMulti={this.FileAttachMulti} visibility={this.state.visibility} comesfrom='patient' gender={this.state.patient_gender} GetHideShow={this.GetHideShow} options={this.state.selectCountry} options2={this.state.Alltemprature} AddTrack={this.AddTrack} date_format={this.props.settings.setting && this.props.settings.setting.date_format && this.props.settings.setting.date_format} time_format={this.props.settings.setting && this.props.settings.setting.time_format && this.props.settings.setting.time_format} updateEntryState={this.updateEntryState} updateEntryState1={this.updateEntryState1} updateTrack={this.state.updateTrack} />}
-                                                        {this.state.current_select === 'diary' && <DiaryFields FileAttachMulti={this.FileAttachMulti} visibility={this.state.visibility} comesfrom='patient' GetHideShow={this.GetHideShow} AddTrack={this.AddTrack} date_format={this.props.settings.setting && this.props.settings.setting.date_format && this.props.settings.setting.date_format} time_format={this.props.settings.setting.time_format} updateEntryState={this.updateEntryState} updateEntryState1={this.updateEntryState1} updateTrack={this.state.updateTrack} />}
-                                                        {this.state.current_select === 'doctor_visit' && <DVFields FileAttachMulti={this.FileAttachMulti} visibility={this.state.visibility} comesfrom='patient' GetHideShow={this.GetHideShow} AddTrack={this.AddTrack} options={this.state.AllSpecialty} date_format={this.props.settings.setting.date_format} time_format={this.props.settings.setting.time_format} updateEntryState={this.updateEntryState} updateEntryState1={this.updateEntryState1} updateTrack={this.state.updateTrack} />}
-                                                        {this.state.current_select === 'family_anamnesis' && <FAFields FileAttachMulti={this.FileAttachMulti} visibility={this.state.visibility} comesfrom='patient' GetHideShow={this.GetHideShow} AddTrack={this.AddTrack} options={this.state.Allgender} relativeList={this.state.Allrelation} date_format={this.props.settings.setting.date_format} time_format={this.props.settings.setting.time_format} updateEntryState={this.updateEntryState} updateEntryState1={this.updateEntryState1} updateTrack={this.state.updateTrack} />}
-                                                        {this.state.current_select === 'file_upload' && <FUFields FileAttachMulti={this.FileAttachMulti} visibility={this.state.visibility} comesfrom='patient' GetHideShow={this.GetHideShow} AddTrack={this.AddTrack} options={this.state.AllSpecialty} date_format={this.props.settings.setting.date_format} time_format={this.props.settings.setting.time_format} updateEntryState={this.updateEntryState} updateEntryState1={this.updateEntryState1} updateTrack={this.state.updateTrack} />}
-                                                        {this.state.current_select === 'hospitalization' && <HVFields FileAttachMulti={this.FileAttachMulti} visibility={this.state.visibility} comesfrom='patient' GetHideShow={this.GetHideShow} AddTrack={this.AddTrack} options={this.state.AllSpecialty} date_format={this.props.settings.setting.date_format} time_format={this.props.settings.setting.time_format} updateEntryState={this.updateEntryState} updateEntryState1={this.updateEntryState1} updateTrack={this.state.updateTrack} />}
-                                                        {this.state.current_select === 'laboratory_result' && <LRFields FileAttachMulti={this.FileAttachMulti} visibility={this.state.visibility} comesfrom='patient' lrpUnit={AllL_Ps.AllL_Ps.units} lrpEnglish={GetLanguageDropdown(AllL_Ps.AllL_Ps.english, this.props.stateLanguageType)} GetHideShow={this.GetHideShow} AddTrack={this.AddTrack} options={this.state.AllSpecialty} date_format={this.props.settings.setting.date_format} time_format={this.props.settings.setting.time_format} updateEntryState={this.updateEntryState} updateEntryState1={this.updateEntryState1} updateTrack={this.state.updateTrack} />}
-                                                        {this.state.current_select === 'marcumar_pass' && <MPFields FileAttachMulti={this.FileAttachMulti} visibility={this.state.visibility} comesfrom='patient' GetHideShow={this.GetHideShow} AddTrack={this.AddTrack} date_format={this.props.settings.setting.date_formats} time_format={this.props.settings.setting.time_format} updateEntryState={this.updateEntryState} updateEntryState1={this.updateEntryState1} updateTrack={this.state.updateTrack} />}
-                                                        {this.state.current_select === 'medication' && <MedicationFields lrpUnit={AllL_Ps.AllL_Ps.units} FileAttachMulti={this.FileAttachMulti} visibility={this.state.visibility} comesfrom='patient' GetHideShow={this.GetHideShow} AddTrack={this.AddTrack} date_format={this.props.settings.setting.date_format} options={this.state.AllATC_code} reminders={this.state.Allreminder} time_format={this.props.settings.setting.time_format} updateEntryState={this.updateEntryState} updateEntryState1={this.updateEntryState1} updateTrack={this.state.updateTrack} />}
-                                                        {this.state.current_select === 'prescription' && <PFields FileAttachMulti={this.FileAttachMulti} visibility={this.state.visibility} comesfrom='patient' GetHideShow={this.GetHideShow} AddTrack={this.AddTrack} date_format={this.props.settings.setting.date_format} options={this.state.AllATC_code} reminders={this.state.Allreminder} time_format={this.props.settings.setting.time_format} updateEntryState={this.updateEntryState} updateEntryState1={this.updateEntryState1} updateTrack={this.state.updateTrack} />}
-                                                        {this.state.current_select === 'second_opinion' && <SOFields FileAttachMulti={this.FileAttachMulti} visibility={this.state.visibility} comesfrom='patient' GetHideShow={this.GetHideShow} AddTrack={this.AddTrack} date_format={this.props.settings.setting.date_format} options={this.state.AllATC_code} reminders={this.state.Allreminder} time_format={this.props.settings.setting.time_format} updateEntryState={this.updateEntryState} updateEntryState1={this.updateEntryState1} updateTrack={this.state.updateTrack} />}
-                                                        {this.state.current_select === 'sick_certificate' && <SCFields FileAttachMulti={this.FileAttachMulti} visibility={this.state.visibility} comesfrom='patient' GetHideShow={this.GetHideShow} AddTrack={this.AddTrack} date_format={this.props.settings.setting.date_format} options={this.state.AllATC_code} reminders={this.state.Allreminder} time_format={this.props.settings.setting.time_format} updateEntryState={this.updateEntryState} updateEntryState1={this.updateEntryState1} updateTrack={this.state.updateTrack} />}
-                                                        {this.state.current_select === 'smoking_status' && <SSFields FileAttachMulti={this.FileAttachMulti} visibility={this.state.visibility} comesfrom='patient' GetHideShow={this.GetHideShow} options={this.state.Allsmoking_status} AddTrack={this.AddTrack} date_format={this.props.settings.setting.date_format} time_format={this.props.settings.setting.time_format} updateEntryState={this.updateEntryState} updateEntryState1={this.updateEntryState1} updateTrack={this.state.updateTrack} />}
-                                                        {this.state.current_select === 'vaccination' && <VaccinationFields FileAttachMulti={this.FileAttachMulti} visibility={this.state.visibility} comesfrom='patient' GetHideShow={this.GetHideShow} AddTrack={this.AddTrack} date_format={this.props.settings.setting.date_format} time_format={this.props.settings.setting.time_format} updateEntryState={this.updateEntryState} updateEntryState1={this.updateEntryState1} updateTrack={this.state.updateTrack} />}
-                                                        {this.state.current_select === 'vaccination_trial' && <VaccinationTrialFields option4={this.state.vaccinations} FileAttachMultiVaccination= {this.FileAttachMultiVaccination} FileAttachMulti={this.FileAttachMulti} visibility={this.state.visibility} comesfrom='patient' gender={this.state.patient_gender} GetHideShow={this.GetHideShow} options3={this.state.Alltemprature} options={this.state.Allpain_quality} options2={this.state.Allpain_type} AddTrack={this.AddTrack} date_format={this.props.settings.setting.date_format} time_format={this.props.settings.setting.time_format} updateEntryState={this.updateEntryState} updateEntryState1={this.updateEntryState1} updateTrack={this.state.updateTrack} />}
-                                                        {this.state.current_select === 'weight_bmi' && <BMIFields FileAttachMulti={this.FileAttachMulti} visibility={this.state.visibility} comesfrom='patient' GetHideShow={this.GetHideShow} AddTrack={this.AddTrack} date_format={this.props.settings.setting.date_format} time_format={this.props.settings.setting.time_format} updateEntryState={this.updateEntryState} updateEntryState1={this.updateEntryState1} updateTrack={this.state.updateTrack} />}
+                                                        {this.state.current_select === 'anamnesis' && <AnamnesisFields cur_one={this.state.cur_one} FileAttachMulti={this.FileAttachMulti} visibility={this.state.visibility} comesfrom='patient' GetHideShow={this.GetHideShow} options={this.state.Pressuresituation} AddTrack={this.AddTrack} date_format={this.props.settings.setting.date_format} time_format={this.props.settings.setting.time_format} updateEntryState={this.updateEntryState} updateEntryState1={this.updateEntryState1} updateTrack={this.state.updateTrack} />}
+                                                        {this.state.current_select === 'blood_pressure' && <BPFields  cur_one={this.state.cur_one}  FileAttachMulti={this.FileAttachMulti} visibility={this.state.visibility} comesfrom='patient' GetHideShow={this.GetHideShow} options={this.state.Pressuresituation} AddTrack={this.AddTrack} date_format={this.props.settings.setting.date_format} time_format={this.props.settings.setting.time_format} updateEntryState={this.updateEntryState} updateEntryState1={this.updateEntryState1} updateTrack={this.state.updateTrack} />}
+                                                        {this.state.current_select === 'blood_sugar' && <BSFields cur_one={this.state.cur_one}   FileAttachMulti={this.FileAttachMulti} visibility={this.state.visibility} comesfrom='patient' GetHideShow={this.GetHideShow} options={this.state.Allsituation} AddTrack={this.AddTrack} date_format={this.props.settings.setting.date_format} time_format={this.props.settings.setting.time_format} updateEntryState={this.updateEntryState} updateEntryState1={this.updateEntryState1} updateTrack={this.state.updateTrack} />}
+                                                        {this.state.current_select === 'condition_pain' && <CPFields  cur_one={this.state.cur_one}  FileAttachMulti={this.FileAttachMulti} visibility={this.state.visibility} comesfrom='patient' gender={this.state.patient_gender} GetHideShow={this.GetHideShow} options={this.state.Allpain_quality} options2={this.state.Allpain_type} AddTrack={this.AddTrack} date_format={this.props.settings.setting.date_format} time_format={this.props.settings.setting.time_format} updateEntryState={this.updateEntryState} updateEntryState1={this.updateEntryState1} updateTrack={this.state.updateTrack} />}
+                                                        {this.state.current_select === 'covid_19' && <CovidFields  cur_one={this.state.cur_one}  FileAttachMulti={this.FileAttachMulti} visibility={this.state.visibility} comesfrom='patient' gender={this.state.patient_gender} GetHideShow={this.GetHideShow} options={this.state.selectCountry} options2={this.state.Alltemprature} AddTrack={this.AddTrack} date_format={this.props.settings.setting.date_format} time_format={this.props.settings.setting.time_format} updateEntryState={this.updateEntryState} updateEntryState1={this.updateEntryState1} updateTrack={this.state.updateTrack} />}
+                                                        {this.state.current_select === 'diagnosis' && <DiagnosisFields  cur_one={this.state.cur_one}  FileAttachMulti={this.FileAttachMulti} visibility={this.state.visibility} comesfrom='patient' gender={this.state.patient_gender} GetHideShow={this.GetHideShow} options={this.state.selectCountry} options2={this.state.Alltemprature} AddTrack={this.AddTrack} date_format={this.props.settings.setting && this.props.settings.setting.date_format && this.props.settings.setting.date_format} time_format={this.props.settings.setting && this.props.settings.setting.time_format && this.props.settings.setting.time_format} updateEntryState={this.updateEntryState} updateEntryState1={this.updateEntryState1} updateTrack={this.state.updateTrack} />}
+                                                        {this.state.current_select === 'diary' && <DiaryFields  cur_one={this.state.cur_one}  FileAttachMulti={this.FileAttachMulti} visibility={this.state.visibility} comesfrom='patient' GetHideShow={this.GetHideShow} AddTrack={this.AddTrack} date_format={this.props.settings.setting && this.props.settings.setting.date_format && this.props.settings.setting.date_format} time_format={this.props.settings.setting.time_format} updateEntryState={this.updateEntryState} updateEntryState1={this.updateEntryState1} updateTrack={this.state.updateTrack} />}
+                                                        {this.state.current_select === 'doctor_visit' && <DVFields  cur_one={this.state.cur_one} FileAttachMulti={this.FileAttachMulti} visibility={this.state.visibility} comesfrom='patient' GetHideShow={this.GetHideShow} AddTrack={this.AddTrack} options={this.state.AllSpecialty} date_format={this.props.settings.setting.date_format} time_format={this.props.settings.setting.time_format} updateEntryState={this.updateEntryState} updateEntryState1={this.updateEntryState1} updateTrack={this.state.updateTrack} />}
+                                                        {this.state.current_select === 'family_anamnesis' && <FAFields  cur_one={this.state.cur_one} FileAttachMulti={this.FileAttachMulti} visibility={this.state.visibility} comesfrom='patient' GetHideShow={this.GetHideShow} AddTrack={this.AddTrack} options={this.state.Allgender} relativeList={this.state.Allrelation} date_format={this.props.settings.setting.date_format} time_format={this.props.settings.setting.time_format} updateEntryState={this.updateEntryState} updateEntryState1={this.updateEntryState1} updateTrack={this.state.updateTrack} />}
+                                                        {this.state.current_select === 'file_upload' && <FUFields  cur_one={this.state.cur_one} FileAttachMulti={this.FileAttachMulti} visibility={this.state.visibility} comesfrom='patient' GetHideShow={this.GetHideShow} AddTrack={this.AddTrack} options={this.state.AllSpecialty} date_format={this.props.settings.setting.date_format} time_format={this.props.settings.setting.time_format} updateEntryState={this.updateEntryState} updateEntryState1={this.updateEntryState1} updateTrack={this.state.updateTrack} />}
+                                                        {this.state.current_select === 'hospitalization' && <HVFields cur_one={this.state.cur_one} FileAttachMulti={this.FileAttachMulti} visibility={this.state.visibility} comesfrom='patient' GetHideShow={this.GetHideShow} AddTrack={this.AddTrack} options={this.state.AllSpecialty} date_format={this.props.settings.setting.date_format} time_format={this.props.settings.setting.time_format} updateEntryState={this.updateEntryState} updateEntryState1={this.updateEntryState1} updateTrack={this.state.updateTrack} />}
+                                                        {this.state.current_select === 'laboratory_result' && <LRFields cur_one={this.state.cur_one} FileAttachMulti={this.FileAttachMulti} visibility={this.state.visibility} comesfrom='patient' lrpUnit={AllL_Ps.AllL_Ps.units} lrpEnglish={GetLanguageDropdown(AllL_Ps.AllL_Ps.english, this.props.stateLanguageType)} GetHideShow={this.GetHideShow} AddTrack={this.AddTrack} options={this.state.AllSpecialty} date_format={this.props.settings.setting.date_format} time_format={this.props.settings.setting.time_format} updateEntryState={this.updateEntryState} updateEntryState1={this.updateEntryState1} updateTrack={this.state.updateTrack} />}
+                                                        {this.state.current_select === 'marcumar_pass' && <MPFields cur_one={this.state.cur_one} FileAttachMulti={this.FileAttachMulti} visibility={this.state.visibility} comesfrom='patient' GetHideShow={this.GetHideShow} AddTrack={this.AddTrack} date_format={this.props.settings.setting.date_formats} time_format={this.props.settings.setting.time_format} updateEntryState={this.updateEntryState} updateEntryState1={this.updateEntryState1} updateTrack={this.state.updateTrack} />}
+                                                        {this.state.current_select === 'medication' && <MedicationFields cur_one={this.state.cur_one} lrpUnit={AllL_Ps.AllL_Ps.units} FileAttachMulti={this.FileAttachMulti} visibility={this.state.visibility} comesfrom='patient' GetHideShow={this.GetHideShow} AddTrack={this.AddTrack} date_format={this.props.settings.setting.date_format} options={this.state.AllATC_code} reminders={this.state.Allreminder} time_format={this.props.settings.setting.time_format} updateEntryState={this.updateEntryState} updateEntryState1={this.updateEntryState1} updateTrack={this.state.updateTrack} />}
+                                                        {this.state.current_select === 'prescription' && <PFields cur_one={this.state.cur_one} FileAttachMulti={this.FileAttachMulti} visibility={this.state.visibility} comesfrom='patient' GetHideShow={this.GetHideShow} AddTrack={this.AddTrack} date_format={this.props.settings.setting.date_format} options={this.state.AllATC_code} reminders={this.state.Allreminder} time_format={this.props.settings.setting.time_format} updateEntryState={this.updateEntryState} updateEntryState1={this.updateEntryState1} updateTrack={this.state.updateTrack} />}
+                                                        {this.state.current_select === 'second_opinion' && <SOFields cur_one={this.state.cur_one} FileAttachMulti={this.FileAttachMulti} visibility={this.state.visibility} comesfrom='patient' GetHideShow={this.GetHideShow} AddTrack={this.AddTrack} date_format={this.props.settings.setting.date_format} options={this.state.AllATC_code} reminders={this.state.Allreminder} time_format={this.props.settings.setting.time_format} updateEntryState={this.updateEntryState} updateEntryState1={this.updateEntryState1} updateTrack={this.state.updateTrack} />}
+                                                        {this.state.current_select === 'sick_certificate' && <SCFields cur_one={this.state.cur_one} FileAttachMulti={this.FileAttachMulti} visibility={this.state.visibility} comesfrom='patient' GetHideShow={this.GetHideShow} AddTrack={this.AddTrack} date_format={this.props.settings.setting.date_format} options={this.state.AllATC_code} reminders={this.state.Allreminder} time_format={this.props.settings.setting.time_format} updateEntryState={this.updateEntryState} updateEntryState1={this.updateEntryState1} updateTrack={this.state.updateTrack} />}
+                                                        {this.state.current_select === 'smoking_status' && <SSFields cur_one={this.state.cur_one} FileAttachMulti={this.FileAttachMulti} visibility={this.state.visibility} comesfrom='patient' GetHideShow={this.GetHideShow} options={this.state.Allsmoking_status} AddTrack={this.AddTrack} date_format={this.props.settings.setting.date_format} time_format={this.props.settings.setting.time_format} updateEntryState={this.updateEntryState} updateEntryState1={this.updateEntryState1} updateTrack={this.state.updateTrack} />}
+                                                        {this.state.current_select === 'vaccination' && <VaccinationFields cur_one={this.state.cur_one}  FileAttachMulti={this.FileAttachMulti} visibility={this.state.visibility} comesfrom='patient' GetHideShow={this.GetHideShow} AddTrack={this.AddTrack} date_format={this.props.settings.setting.date_format} time_format={this.props.settings.setting.time_format} updateEntryState={this.updateEntryState} updateEntryState1={this.updateEntryState1} updateTrack={this.state.updateTrack} />}
+                                                        {this.state.current_select === 'vaccination_trial' && <VaccinationTrialFields cur_one={this.state.cur_one} option4={this.state.vaccinations} FileAttachMultiVaccination= {this.FileAttachMultiVaccination} FileAttachMulti={this.FileAttachMulti} visibility={this.state.visibility} comesfrom='patient' gender={this.state.patient_gender} GetHideShow={this.GetHideShow} options3={this.state.Alltemprature} options={this.state.Allpain_quality} options2={this.state.Allpain_type} AddTrack={this.AddTrack} date_format={this.props.settings.setting.date_format} time_format={this.props.settings.setting.time_format} updateEntryState={this.updateEntryState} updateEntryState1={this.updateEntryState1} updateTrack={this.state.updateTrack} />}
+                                                        {this.state.current_select === 'weight_bmi' && <BMIFields cur_one={this.state.cur_one} FileAttachMulti={this.FileAttachMulti} visibility={this.state.visibility} comesfrom='patient' GetHideShow={this.GetHideShow} AddTrack={this.AddTrack} date_format={this.props.settings.setting.date_format} time_format={this.props.settings.setting.time_format} updateEntryState={this.updateEntryState} updateEntryState1={this.updateEntryState1} updateTrack={this.state.updateTrack} />}
                                                     </Grid>
                                                 </Grid>
                                             </Grid>
