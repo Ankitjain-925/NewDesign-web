@@ -392,11 +392,11 @@ class Index extends Component {
 
                                 {/* Website Menu */}
                                 <LeftMenu isNotShow={true} currentPage="journal" />
-                                <LeftMenuMobile isNotShow={true} currentPage="journal" />
+                                  <LeftMenuMobile isNotShow={true} currentPage="journal" />
                                 <Notification />
                                 {/* End of Website Menu */}
 
-                                <Grid item xs={12} md={10}>
+                                <Grid item xs={12} md={11} lg={10}>
                                     <Grid className="phrmOpinion">
                                         <Grid container direction="row" className="phrmOpinLbl">
                                             <Grid item xs={12} md={12}><label>{prescriptions}</label></Grid>
@@ -417,7 +417,6 @@ class Index extends Component {
                                                         <Th>{capab_Doctors}</Th>
                                                         <Th>{short_msg}</Th>
                                                         <Th>{status}</Th>
-
                                                     </Tr>
                                                 </Thead>
                                                 <Tbody>

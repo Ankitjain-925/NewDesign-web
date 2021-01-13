@@ -331,12 +331,17 @@ img.passArow {
     padding: 0!important;
 }
 @media (max-width: 992px){
-.registerFormMain {
+.registerFormMain{
     padding: 0 15%;
     background-size: 550px;
  }
- .passInst {
-    display: none;
+ .passInst{
+    position: initial !important;
+    margin-top: 16px;
+  }
+  .passInstIner:after{
+    left: 0px !important;
+    top: -23px !important;
   }
 }
 @media screen and (max-width: 767px){

@@ -1065,7 +1065,7 @@ class Index extends Component {
 
 
                                     {/* Website Right Content */}
-                                    {this.props.Doctorsetget.p_id !== null && <Grid item xs={12} md={3}>
+                                    {this.props.Doctorsetget.p_id !== null && <Grid item xs={12} md={3} className="rghtSideSpc">
                                         <ProfileSection settings={this.props.settings} personalinfo={this.state.personalinfo} user={this.state.cur_one2} user_token={this.props.stateLoginValueAim.token} getData={this.cur_one2} />
                                         {/* Model setup */}
                                         <Modal

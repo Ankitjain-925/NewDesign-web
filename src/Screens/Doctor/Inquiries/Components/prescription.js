@@ -264,7 +264,7 @@ case "sw":
         else if(file.name.split('.').pop() ==='csv'){
             this.setState({file: file, imagePreviewUrl: require('../../../../assets/images/csv1.png')});
         }
-        else if(file.name.split('.').pop() ==='dcm'){
+        else  if(file.name.split('.').pop() ==='dcm' ||  file.name.split('.').pop() ==='DCM' ||file.name.split('.').pop() ==='DICOM' || file.name.split('.').pop() ==='dicom'){
             this.setState({file: file, imagePreviewUrl: require('../../../../assets/images/dcm1.png')});
         }
         else{
@@ -394,12 +394,10 @@ case "sw":
                 axios.get(sitedata.data.path + '/aws/sign_s3?find=' + find1,)
                 .then((response2) => {
                     if (response2.data.hassuccessed) {
-                        console.log('data.attachfile[0].filename.split.pop()',(data.attachfile[0].filename.split("&bucket=")[0]).split('.').pop())
                         if((data.attachfile[0].filename.split("&bucket=")[0]).split('.').pop()==='mp4'){
                             this.setState({ imagePreviewUrl: require('../../../../assets/images/videoIcon.png')});
                         }
                         if((data.attachfile[0].filename.split("&bucket=")[0]).split('.').pop()==='pdf'){
-                            console.log('here1')
                             this.setState({ imagePreviewUrl: require('../../../../assets/images/pdfimg.png')});
                         }
                         else if((data.attachfile[0].filename.split("&bucket=")[0]).split('.').pop() ==='doc'|| (data.attachfile[0].filename.split("&bucket=")[0]).split('.').pop() ==='docx' || (data.attachfile[0].filename.split("&bucket=")[0]).split('.').pop() ==='xml' || (data.attachfile[0].filename.split("&bucket=")[0]).split('.').pop() ==='txt'){
@@ -411,14 +409,12 @@ case "sw":
                         else if((data.attachfile[0].filename.split("&bucket=")[0]).split('.').pop() ==='csv'){
                             this.setState({ imagePreviewUrl: require('../../../../assets/images/csv1.png')});
                         }
-                        else if((data.attachfile[0].filename.split("&bucket=")[0]).split('.').pop() ==='dcm'){
+                        else if((data.attachfile[0].filename.split("&bucket=")[0]).split('.').pop() ==='dcm' || (data.attachfile[0].filename.split("&bucket=")[0]).split('.').pop() ==='DCM' ||(data.attachfile[0].filename.split("&bucket=")[0]).split('.').pop() ==='DICOM' || (data.attachfile[0].filename.split("&bucket=")[0]).split('.').pop() ==='dicom'){
                             this.setState({ imagePreviewUrl: require('../../../../assets/images/dcm1.png')});
                         }
                         else{
-                            console.log('here12')
                             this.setState({ imagePreviewUrl: response2.data.data })
                         }
-                        console.log('imagePreviewUrl', imagePreviewUrl)
                     }
                 })
             }

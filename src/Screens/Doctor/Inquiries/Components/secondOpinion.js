@@ -199,7 +199,7 @@ class Index extends Component {
         else if(file.name.split('.').pop() ==='csv'){
             this.setState({file: file, imagePreviewUrl: require('../../../../assets/images/csv1.png')});
         }
-        else if(file.name.split('.').pop() ==='dcm'){
+        else if(file.name.split('.').pop() ==='dcm' ||  file.name.split('.').pop() ==='DCM' ||file.name.split('.').pop() ==='DICOM' || file.name.split('.').pop() ==='dicom'){
             this.setState({file: file, imagePreviewUrl: require('../../../../assets/images/dcm1.png')});
         }
         else{
@@ -446,7 +446,7 @@ class Index extends Component {
                         else if((data.attachfile[0].filename.split("&bucket=")[0]).split('.').pop() ==='csv'){
                             this.setState({ imagePreviewUrl: require('../../../../assets/images/csv1.png')});
                         }
-                        else if((data.attachfile[0].filename.split("&bucket=")[0]).split('.').pop() ==='dcm'){
+                        else  if((data.attachfile[0].filename.split("&bucket=")[0]).split('.').pop() ==='dcm' || (data.attachfile[0].filename.split("&bucket=")[0]).split('.').pop() ==='DCM' ||(data.attachfile[0].filename.split("&bucket=")[0]).split('.').pop() ==='DICOM' || (data.attachfile[0].filename.split("&bucket=")[0]).split('.').pop() ==='dicom'){
                             this.setState({ imagePreviewUrl: require('../../../../assets/images/dcm1.png')});
                         }
                         else{

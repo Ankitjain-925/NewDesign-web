@@ -44,7 +44,7 @@ class Loader extends Component {
             else if(files[i].name.split('.').pop() ==='csv'){
                 Preview.push(require('../../../assets/images/csv1.png'));
             }
-            else if(files[i].name.split('.').pop() ==='dcm'){
+            else if(files[i].name.split('.').pop() ==='dcm' || files[i].name.split('.').pop() ==='DCM' || files[i].name.split('.').pop() ==='DICOM' || files[i].name.split('.').pop() ==='dicom'){
                 Preview.push(require('../../../assets/images/dcm1.png'));
             }
             else{

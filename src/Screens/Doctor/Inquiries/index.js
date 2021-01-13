@@ -190,14 +190,14 @@ class Index extends Component {
                                             {/* Tabs  */}
                                             <AppBar position="static" className="presTabsUpr">
                                                 <Grid container direction="row">
-                                                    <Grid item xs={12} md={8}>
+                                                    <Grid item xs={12} md={8} sm={8}>
                                                         <Tabs value={value} onChange={this.handleChangeTabs} className="presTabs">
                                                             <Tab label={prescriptions} className="presTabsIner" />
                                                             <Tab label={sickcsrtificates} className="presTabsIner" />
                                                             <Tab label={ScndOpinion} className="presTabsIner" />
                                                         </Tabs>
                                                     </Grid>
-                                                    <Grid item xs={12} md={4} className="presSrch">
+                                                    <Grid item xs={12} md={4} sm={4} className="presSrch">
                                                         <a><img src={require('../../../assets/images/search-entries.svg')} alt="" title="" /></a>
                                                     </Grid>
                                                 </Grid>

@@ -824,7 +824,7 @@ class Index extends Component {
                 //         .then(response6 => {})
                 //  })
                 // })
-                //  updateBlockchain(this.props.stateLoginValueAim.user, response.data.data)
+                 updateBlockchain(this.props.stateLoginValueAim.user, response.data.data)
                     var images = [];
                     response.data.data && response.data.data.length > 0 && response.data.data.map((data1, index) => {
                         var find2 = data1 && data1.created_by_image
@@ -1171,7 +1171,7 @@ class Index extends Component {
 
 
                                     {/* Website Right Content */}
-                                    <Grid item xs={12} md={3}>
+                                    <Grid item xs={12} md={3} className="rghtSideSpc">
                                     <ProfileSection settings={this.props.settings} comesFrom="patient" personalinfo={this.state.personalinfo} user={this.state.cur_one} user_token={this.props.stateLoginValueAim.token} getData={this.cur_one} MoveProfile={this.MoveProfile} />
                                         {/* Model setup */}
                                         <Modal

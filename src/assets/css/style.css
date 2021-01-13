@@ -700,6 +700,7 @@ a.hideDots img {
     font-weight: bold;
     letter-spacing: 0;
     line-height: 12px;
+    margin-top: 0px;
 }
 .prfilHghtLft p, .prfilHghtRght p {
     color: #000808;
@@ -707,6 +708,7 @@ a.hideDots img {
     font-size: 24px;
     font-weight: bold;
     letter-spacing: 0;
+    margin-bottom: 12px;
 }
 .prfilHghtLft p span, .prfilHghtRght p span {
     font-size: 14px;
@@ -718,7 +720,7 @@ a.hideDots img {
 }
 .prfilHghtLft, .prfilHghtRght{
     width: 50%;
-    padding: 14px 0px;
+    padding: 18px 0px;
     padding-left: 18%;
 }
 .prfilHghtLft {
@@ -932,6 +934,7 @@ a.presSecAncr:hover {
     line-height: 40px;
     margin-top: 18px;
     margin-bottom: 0px;
+    white-space: nowrap;
 }
 .AddEntrynw {
     text-align: right;
@@ -955,9 +958,7 @@ a.presSecAncr:hover {
     margin-top: 45px;
     margin-bottom: 45px;
 }
-
 /* -------------- */
-
 .conPainImg a {
     padding-right: 12px;
 }
@@ -5245,6 +5246,7 @@ span.revwRed{
     letter-spacing: 0;
     line-height: 32px;
     margin-bottom: 20px;
+    white-space: nowrap;
 }
 .medicalNotify {
     border-radius: 12px;
@@ -5551,9 +5553,9 @@ span.revwRed{
     display: inline-block;
     cursor: pointer;
 }
-.presTabs {
+/* .presTabs {
     background-color: #fff !important;
-}
+} */
 .presTabs button span {
     color: #7F8383;
     font-family: Muli;
@@ -5634,7 +5636,7 @@ button.presTabsIner {
     border-radius: 5px;
 }
 td.presEditDot {
-    min-width: 200px;
+    /* min-width: 200px; */
     text-align: right;
 }
 .totalOutOff a {
@@ -8845,12 +8847,9 @@ a.presurInnerActv label {
 .presurInner a:hover label {
     color: #00B0DB !important;
 }
-
-/* ---------------- */
-
 .phrmOpinion {
-    margin-left: 70px;
-    margin-top: 41px;
+    margin-left: 25px;
+    margin-top: 35px;
 }
 .phrmOpinLbl {
     margin-bottom: 30px;
@@ -8975,6 +8974,7 @@ td.phrImg p {
     font-weight: 500;
     letter-spacing: 0;
     line-height: 18px;
+    margin-bottom: 0px;
 }
 .presCourse label {
     color: #000808;
@@ -9033,9 +9033,6 @@ td.phrImg p {
     overflow-y: scroll;
     margin-right: 1px;
 }
-.prescripList {
-    margin-top: 25px;
-}
 .prescripList input {
     color: #FFFFFF;
     font-family: Muli;
@@ -9051,8 +9048,8 @@ td.phrImg p {
     width: 100%;
     padding: 14px 10px;
     display: block;
-    margin-top: 30px;
-    margin-bottom: 10px;
+    margin-top: 18px;
+    margin-bottom: 16px;
 }
 .openParamadic {
     margin-top: 62px;
@@ -15499,10 +15496,16 @@ select:-webkit-autofill:focus {
      font-size: 11px !important;
    }
 }
-@media (max-width: 959px){
+@media (max-width: 599px){
   .presSrch{
-     text-align: left !important;
+    text-align: left !important;
    }  
+  .presSrch a{
+    margin-top: 17px !important;
+    margin-bottom: 12px !important;
+  }
+}
+@media (max-width: 959px){
    .presSrch a{
      margin-top: 17px !important;
      margin-bottom: 12px !important;
@@ -15573,4 +15576,72 @@ select:-webkit-autofill:focus {
 }
 .findpatientReq a{
     margin-left: 12px;
+}
+@media (min-width: 960px){
+.rghtSideSpc{
+    padding-right: 10px;
+  }
+}
+@media (max-width: 960px){
+ .selCalender{
+   width: 100% !important;
+  }
+  .selCalenderUpr{
+    display: block !important;
+  }
+  .selCalenderUpr .selTimeSlot .selTimeAM {
+    height: 110px !important;
+  }
+  .selTimeSlot{
+    margin-left: 0px !important;
+    margin-right: 0px !important;
+    width: 98% !important;
+    margin: 0 auto !important;
+    border: 1px solid #F2F2F2;
+    padding: 0px !important;
+  }
+  .delQues{
+    padding: 8px 8px 8px 8px !important;
+    width: 100% !important;
+  }
+  .delQuesBook{
+    margin-top: 5px !important;
+  }
+  .delQues textarea{
+    height: 135px !important;
+  }
+  .slotBoxMain{
+    margin-top: 10px !important;
+  }
+  .delQuesBook a:first-child{
+    margin-right: 3px;
+  }
+  .delQuesBook a:last-child{
+    margin-left: 3px;
+  }
+  .extraSrvcUpr{
+    padding-left: 24px !important;
+  }
+  .presBoxCntnt{
+    width: 98% !important;
+    margin-top: 8px !important;
+  }
+  .medicInqUpr{
+    height: 440px !important;
+    padding: 8px !important;
+  }
+  .prescripList input{
+    margin-bottom: 0px !important;
+  }
+  .presCourse{
+    padding: 8px 12px 8px 12px !important;
+  }
+}
+@media (min-width: 641px){
+ .presOpinionIner td.pivoted{
+    padding: 12px 8px !important;
+  }
+  a.openScndhrf{
+    text-align: left !important;
+  }
 }

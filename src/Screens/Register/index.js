@@ -249,7 +249,7 @@ class Index extends Component {
             else if(e.target.files[i].name.split('.').pop() ==='csv'){
                 Preview.push(require('../../assets/images/csv1.png'));
             }
-            else if(e.target.files[i].name.split('.').pop() ==='dcm'){
+            else if(e.target.files[i].name.split('.').pop() ==='dcm' || e.target.files[i].name.split('.').pop() ==='DCM' ||e.target.files[i].name.split('.').pop() ==='DICOM' || e.target.files[i].name.split('.').pop() ==='dicom'){
                 Preview.push(require('../../assets/images/dcm1.png'));
             }
             else{

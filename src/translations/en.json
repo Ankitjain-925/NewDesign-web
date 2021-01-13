@@ -76,7 +76,7 @@
 		"profile_id_taken": "This Profile ID is already taken. Please try a different ID",
 		"profile_id_greater_then_5": "Profile id must be greater then 5 characters",
 		"save_change": "Save Changes",
-		"email": "Email address",
+		"email": "Email Address",
 		"title": "Title",
 		"degree": "Degree",
 		"first": "First",

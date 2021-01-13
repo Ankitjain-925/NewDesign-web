@@ -41,7 +41,6 @@ class ImageUploderView extends Component {
         this.updateImages(this.props.attachfile)
     }
     updateNewImage=(file)=>{
-        console.log('file', file)
         var images=this.state.images
         if (file) {
             var find1 = file.split('.com/')[1]
@@ -216,7 +215,7 @@ class ImageUploderView extends Component {
                     {(file.filetype ==='doc'|| file.filetype ==='docx' || file.filetype ==='xml' || file.filetype ==='txt') && <img src={require('../../../assets/images/txt1.png')} alt="" title="" />}
                     {(file.filetype ==='xls'|| file.filetype ==='xlsx' || file.filetype ==='xml' ) && <img src={require('../../../assets/images/xls1.svg')} alt="" title="" />} 
                     {(file.filetype ==='csv') && <img src={require('../../../assets/images/csv1.png')} alt="" title="" />} 
-                    {(file.filetype ==='dcm' || file.filetype==='DICOM') && <img src={require('../../../assets/images/dcm1.png')} alt="" title="" />} 
+                    {(file.filetype ==='dcm' || file.filetype==='DICOM' || file.filetype==='dicom' || file.filetype ==='DCM' ) &&  <img src={require('../../../assets/images/dcm1.png')} alt="" title="" />} 
                    
                    </Grid>
                    <Grid item xs={6} md={6}>

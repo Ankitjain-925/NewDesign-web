@@ -844,7 +844,7 @@ setTimeout(()=> {
                             <Grid className="profileInfoIner">
                                 <Grid container direction="row" alignItems="center" spacing={2}>
                                     <Grid item xs={12} md={12}>
-                                        <label>{email} {add}</label>
+                                        <label>{email}</label>
                                         <Grid><input name="email" type="text" onChange={this.updateEntryState} value={this.state.UpDataDetails.email} disabled /></Grid>
                                     </Grid>
                                 </Grid>

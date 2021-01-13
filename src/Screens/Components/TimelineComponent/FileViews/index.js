@@ -58,7 +58,7 @@ class Index extends Component {
             axios.get(sitedata.data.path + '/aws/sign_s3?find='+find1,)
             .then((response) => {
                 if(response.data.hassuccessed) { 
-                    if(type==='DICOM'|| type==='dcm'){
+                    if(type==='DICOM'|| type==='dcm' || type==='DCM' || type==='dicom'){
                         image = response.data.data;
                         this.setState({loaderImage: false})
                         window.open('/Dicom-file-view?input='+encodeURIComponent(image), '_blank'); 
@@ -102,7 +102,7 @@ class Index extends Component {
                         {(file.filetype ==='doc'|| file.filetype ==='docx' || file.filetype ==='xml' || file.filetype ==='txt') && <img onClick={()=>this.OpenFile(file.filename, file.filetype)} src={require('../../../../assets/images/txt1.png')} alt="" title="" />}
                         {(file.filetype ==='xls'|| file.filetype ==='xlsx' || file.filetype ==='xml' ) && <img onClick={()=>this.OpenFile(file.filename, file.filetype)} src={require('../../../../assets/images/xls1.svg')} alt="" title="" />} 
                         {(file.filetype ==='csv') && <img onClick={()=>this.OpenFile(file.filename, file.filetype)} src={require('../../../../assets/images/csv1.png')} alt="" title="" />} 
-                        {(file.filetype ==='dcm' || file.filetype==='DICOM') && <img onClick={()=>this.OpenFile(file.filename, file.filetype)} src={require('../../../../assets/images/dcm1.png')} alt="" title="" />} 
+                        {(file.filetype ==='dcm' || file.filetype==='DICOM' || file.filetype==='dicom' || file.filetype ==='DCM' ) && <img onClick={()=>this.OpenFile(file.filename, file.filetype)} src={require('../../../../assets/images/dcm1.png')} alt="" title="" />} 
                         <label>{this.getFileName(file)}</label></a>
                         
                 ))}
