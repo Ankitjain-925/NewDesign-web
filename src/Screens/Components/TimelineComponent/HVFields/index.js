@@ -92,16 +92,16 @@ case "sw":
             <div>
                 {!this.props.visibility && <Grid className="cnfrmDiaMain">
                     <Grid className="fillDia">
-                        <MMHG name="hospital_name" label={hosp_name} onChange={(e)=> this.props.updateEntryState(e)} value={this.state.updateTrack.blood_sugar}/>    
+                        <MMHG name="hospital_name" label={hosp_name} onChange={(e)=> this.props.updateEntryState(e)} value={this.state.updateTrack.hospital_name}/>    
                     </Grid>
                     <Grid className="fillDia">
-                        <MMHG name="hospital_id" label={hosp_id} onChange={(e)=> this.props.updateEntryState(e)} value={this.state.updateTrack.Hba1c}/>    
+                        <MMHG name="hospital_id" label={hosp_id} onChange={(e)=> this.props.updateEntryState(e)} value={this.state.updateTrack.hospital_id}/>    
                     </Grid>
                     <Grid className="fillDia">
                         <SelectField name="specialty" label={speciality} option={this.state.options} onChange={(e)=> this.updateEntryState1(e, 'specialty')} value={GetShowLabel1(this.props.options, this.state.updateTrack && this.state.updateTrack.specialty && this.state.updateTrack.specialty.value, this.props.stateLanguageType, false, 'specialty') } />    
                     </Grid>
                     <Grid className="fillDia">
-                        <MMHG name="doctor_id" label={doc_id} onChange={(e)=> this.props.updateEntryState(e)} value={this.state.updateTrack.Hba1c}/>    
+                        <MMHG name="doctor_id" label={doc_id} onChange={(e)=> this.props.updateEntryState(e)} value={this.state.updateTrack.doctor_id}/>    
                     </Grid>
                     <Grid className="fillDia">
                         <Grid className="rrSysto">

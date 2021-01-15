@@ -9,6 +9,8 @@ import Modal from '@material-ui/core/Modal';
 import sitedata, { data } from '../../../../sitedata';
 import axios from 'axios';
 import { connect } from "react-redux";
+import Dropzone from "react-dropzone";
+import { Input } from '@material-ui/core';
 import { withRouter } from "react-router-dom";
 import { LoginReducerAim } from './../../../Login/actions';
 import { Settings } from './../../../Login/setting';
@@ -159,9 +161,8 @@ class Index extends Component {
     }
 
     UploadFile(event, patient_profile_id, bucket, id) {
-        event.preventDefault();
         let reader = new FileReader();
-        let file = event.target.files[0];
+        let file = event[0];
         // reader.onloadend = () => {
         //     this.setState({
         //         file: file,
@@ -192,9 +193,9 @@ class Index extends Component {
         let user_token = this.props.stateLoginValueAim.token;
         reader.readAsDataURL(file)
         const data = new FormData()
-        for (var i = 0; i < event.target.files.length; i++) {
-            var file1 = event.target.files[i];
-            let fileParts = event.target.files[i].name.split('.');
+        for (var i = 0; i < event.length; i++) {
+            var file1 = event[i];
+            let fileParts = event[i].name.split('.');
             let fileName = fileParts[0];
             let fileType = fileParts[1];
            
@@ -496,7 +497,7 @@ case "sw":
             default:
                 translate = translationEN.text
         }
-        let { previous, next, capab_Doctors, Case, status, sent_on, Patient, sent, days, on, short_msg, what_ur_profession, prescription, snd_patient_timeline_email, reject, approve, suported_file_type_jpg_png, Pending, request, edit, Rejected, Answered, Cancelled, req_updated_successfully, sick_cert, my_doc, New, inquiry,see_details, or_drag_here, decline, remove,
+        let { previous, next,browse, capab_Doctors, Case, status, sent_on, Patient, sent, days, on, short_msg, what_ur_profession, prescription, snd_patient_timeline_email, reject, approve, suported_file_type_jpg_png, Pending, request, edit, Rejected, Answered, Cancelled, req_updated_successfully, sick_cert, my_doc, New, inquiry,see_details, or_drag_here, decline, remove,
             doc_and_statnderd_ques, doc_aimedis_private, Annotations, details, questions, how_u_feeling, is_ur_temp_high_to_38, which_symptoms_do_u_hav, show, since_when, have_u_already_been_sick, how_long_do_u_unable_to_work, it_is_known_dieseas, r_u_tracking_medi, do_u_hv_allergies, attached_doc} = translate
 
         return (
@@ -618,13 +619,25 @@ case "sw":
                                                 <a>{items.filename && (items.filename.split('Trackrecord/')[1]).split("&bucket=")[0]}</a>
                                             ))}
                                             </label>
-                                            {(sickData.status !== 'accept' && !$imagePreview) && <Grid className="scamUPInput">
+                                            {(sickData.status !== 'accept' && !$imagePreview) && <Dropzone onDrop={(e)=>this.UploadFile(e, sickData.patient_profile_id, sickData.patient_info.bucket, sickData._id)}>
+                                            {({ getRootProps, getInputProps }) => (
+                                                <div {...getRootProps({ className: "dropzone" })}>
+                                                <Input {...getInputProps()} />
+                                                    <Grid className="browsInput">
+                                                        <a><img src={require('../../../../assets/images/upload-file.svg')} alt="" title="" /></a>
+                                                        <a>{browse} <input type="file" onChange={(e)=>this.UploadFile(e.target.files, sickData.patient_profile_id, sickData.patient_info.bucket, sickData._id)} multiple={this.props.isMulti} /></a> {or_drag_here}
+                                                    </Grid>
+                                                    <p>{suported_file_type_jpg_png}</p>
+                                                </div>
+                                            )}
+                                        </Dropzone>}
+                                            {/* {(sickData.status !== 'accept' && !$imagePreview) && <Grid className="scamUPInput">
                                                 <a><img src={require('../../../../assets/images/upload-file.svg')} alt="" title="" /></a>
                                                 <a>Browse <input type="file" onChange={(e) => this.UploadFile(e, sickData.patient_profile_id, sickData.patient_info.bucket, sickData._id)} /></a> {or_drag_here}
                                                                             </Grid>}
-                                            {(sickData.status !== 'accept') && !$imagePreview && <p>{suported_file_type_jpg_png}</p>}
+                                            {(sickData.status !== 'accept') && !$imagePreview && <p>{suported_file_type_jpg_png}</p>} */}
                                             {(sickData.status === 'accept') && !$imagePreview && <img src={sickData.attachfile[0].filename} />}
-                                            <Grid>{(sickData.status !== 'accept') && $imagePreview}</Grid>
+                                            <Grid>{$imagePreview}</Grid>
                                             {/* {(sickData.attachfile && this.state.uploadedimage && sickData.status !== 'accept') && <Grid item xs={12} md={12}>
                                             <div onClick={() => this.saveUserData(sickData._id, true)} className="approvBtn sendtotimelinenew">{snd_patient_timeline_email}</div>
                                                

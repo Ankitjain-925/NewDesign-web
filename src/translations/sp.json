@@ -523,6 +523,7 @@
 		"Medications": "Medicamentos",
 		"dignoses": "Diagnósticos",
 		"suported_file_type_jpg_png": "Tipos de archivos admitidos: .jpg, .png, .pdf",
+		"suported_file_type_jpg_png_dcm": "Tipos de archivos admitidos: .jpg, .png, .pdf, .doc, .dcm, etc.s",
 		"snd_patient_timeline_email": "Enviar a la Línea de Tiempo y al Correo Electrónico del paciente",
 		"reject": "Rechazar",
 		"back": "Volver",

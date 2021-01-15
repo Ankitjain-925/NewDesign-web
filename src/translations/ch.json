@@ -527,6 +527,7 @@
 		"patient_health_status": "患者健康状况",
 		"medications": "药物",
 		"suported_file_type_jpg_png": "支持的文件类型：。jpg，。png，。pdf",
+		"suported_file_type_jpg_png_dcm": "支持的文件类型：.jpg，.png，.pdf，.doc，.dcm等",
 		"snd_patient_timeline_email": "发送到病人的时间表和电子邮件",
 		"reject": "拒绝",
 		"back": "返回",

@@ -61,6 +61,7 @@ class Index extends Component {
                     if(type==='DICOM'|| type==='dcm' || type==='DCM' || type==='dicom'){
                         image = response.data.data;
                         this.setState({loaderImage: false})
+                        // console.log('image', image)
                         window.open('/Dicom-file-view?input='+encodeURIComponent(image), '_blank'); 
                     }
                     else{

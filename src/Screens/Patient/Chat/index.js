@@ -40,62 +40,20 @@ class index extends React.Component {
             unreadm : false,
             sizeList : 100,
         }
+        this.props.Doctorarrays(this.props.stateLoginValueAim.user.type, this.props.stateLoginValueAim.user, this.props.stateLoginValueAim.token, this.removeLoader)   
     }
 
-    componentDidMount()
-    {
-        // new LogOut(this.props.stateLoginValueAim.token, this.props.stateLoginValueAim.user._id, this.logOutClick.bind(this))
-    }
     componentWillMount(){
         if(this.props.stateLoginValueAim.user)
         {
-            this.props.Doctorarrays(this.props.stateLoginValueAim.user.type, this.props.stateLoginValueAim.user, this.props.stateLoginValueAim.token)
             this.setState({loaderImage : true})
-            setTimeout(()=>{ this.setState({loaderImage : false})}, 3000)
+            this.props.Doctorarrays(this.props.stateLoginValueAim.user.type, this.props.stateLoginValueAim.user, this.props.stateLoginValueAim.token, this.removeLoader)   
         }
     }
-    // componentWillMount(){
-    //     var doctorArray = ['admin'];
-    //     let user_token = this.props.stateLoginValueAim.token
-    //     this.setState({loaderImage : true})
-    //     axios.get(sitedata.data.path + '/UserProfile/DoctorUsersChat',{
-    //         headers: {
-    //             'token': user_token,
-    //             'Accept': 'application/json',
-    //             'Content-Type': 'application/json'
-    //         }
-    //     }).then((response) => {
-    //         response.data.data && response.data.data.length>0 && response.data.data.map((data,index)=>{  
-    //          if(data.email === 'doctor4@aimedis.com' || data.email === 'doctor5@aimedis.com' || data.email === 'doctor3@aimedis.com' || data.email === 'doctor6@aimedis.com' || data.email === 'doctor7@aimedis.com')
-    //          {
-    //             if(doctorArray.indexOf(data.profile_id.toLowerCase()) === -1){
-    //                 doctorArray.push(data.profile_id.toLowerCase()) 
-    //             }
-    //          } 
-    //          else if(data.paid_services && data.paid_services>0)
-    //             {
-    //                 if(doctorArray.indexOf(data.profile_id.toLowerCase()) === -1){
-    //                      doctorArray.push(data.profile_id.toLowerCase())
-    //                 }
-    //             }   
-    //         })
-    //     })
-    //     let user_id    = this.props.stateLoginValueAim.user._id
-    //     axios.get(sitedata.data.path + '/UserProfile/Users/'+user_id, {headers:{
-    //       'token': user_token,
-    //       'Accept': 'application/json',
-    //       'Content-Type': 'application/json'
-    //       }}).then((response) =>{
-    //         response.data.data && response.data.data.fav_doctor && response.data.data.fav_doctor.map((value, i)=>{
-    //             if(doctorArray.indexOf(value.profile_id.toLowerCase()) === -1){
-    //                 doctorArray.push(value.profile_id.toLowerCase())
-    //             }
-    //         })
-    //     })
-    //     this.setState({doctorArray : doctorArray})
-    //     setTimeout(()=>{ this.setState({loaderImage : false})}, 5000)
-    // }
-
+    removeLoader=()=>{
+        setTimeout(()=>{ this.setState({loaderImage : false}) }, 4000)     
+    }
+   
     render() {
         const { stateLoginValueAim, Doctorsetget } = this.props;
         if (stateLoginValueAim.user === 'undefined' || stateLoginValueAim.token === 450 || stateLoginValueAim.token === 'undefined' || stateLoginValueAim.user.type !== 'patient' || !this.props.verifyCode || !this.props.verifyCode.code) {

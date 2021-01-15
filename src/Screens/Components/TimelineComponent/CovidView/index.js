@@ -143,8 +143,8 @@ class Index extends Component {
                         </Grid>
 
                         <Grid className="conPain_num addSpc">
-                            <label>{item.temprature && item.temprature}</label>
-                            <p>{item.temprature_type && item.temprature_type.label}</p>
+                            <label>{item.temprature && item.temprature}
+                           <span>{item.temprature_type && item.temprature_type.label}</span></label>
                         </Grid>
 
                         <Grid container direction="row" className="addSpc conPain_Cntnt">

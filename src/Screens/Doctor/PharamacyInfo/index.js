@@ -3,8 +3,8 @@ import Grid from '@material-ui/core/Grid';
 import { connect } from "react-redux";
 import { LoginReducerAim } from './../../Login/actions';
 import { Settings } from './../../Login/setting';
-// import { Doctorset } from '../../Doctor/actions';
-// import { filterate } from '../../Doctor/filteraction';
+import Dropzone from "react-dropzone";
+import { Input } from '@material-ui/core';
 import { withRouter } from "react-router-dom";
 import { LanguageFetchReducer } from './../../actions';
 import Modal from '@material-ui/core/Modal';
@@ -155,19 +155,18 @@ class Index extends Component {
         if (this.state.newEntry.patient_id) {
             // this.setState({file:})
             this.setState({ isfileupload: true, firstPatient_id: false })
-            event.preventDefault();
-            // let file = event.target.files[0];
+            // let file = event[0];
 
             var user_id = this.props.stateLoginValueAim.user._id;
             var user_token = this.props.stateLoginValueAim.token;
             const patient_id = this.state.newEntry.patient_id
             const data = new FormData()
             let reader = new FileReader();
-            data.append('uploadCertificate', event.target.files[0])
+            data.append('uploadCertificate', event[0])
             this.setState({ loaderImage: true })
-            for (var i = 0; i < event.target.files.length; i++) {
-                var file = event.target.files[i];
-                let fileParts = event.target.files[i].name.split('.');
+            for (var i = 0; i < event.length; i++) {
+                var file = event[i];
+                let fileParts = event[i].name.split('.');
                 let fileName = fileParts[0];
                 let fileType = fileParts[1];
                 if (fileType === 'pdf' || fileType === 'jpeg' || fileType === 'png' || fileType === 'jpg' || fileType === 'svg') {
@@ -285,7 +284,7 @@ class Index extends Component {
             this.setState({
                 firstPatient_id: true
             })
-            // event.target.files = []
+            // event = []
             return false
         }
     }
@@ -497,11 +496,23 @@ class Index extends Component {
                             </Grid>
                             <Grid className="upScanForms upScanImg">
                                 <Grid><label>{uplod_scanned_prescription}</label></Grid>
-                                {!$imagePreview && <Grid className="upScanInput">
+                                {!$imagePreview && <Dropzone onDrop={(e)=>this.CertificateAttach(e)}>
+                                    {({ getRootProps, getInputProps }) => (
+                                        <div {...getRootProps({ className: "dropzone" })}>
+                                        <Input {...getInputProps()} />
+                                            <Grid className="browsInput">
+                                                <a><img src={require('../../../assets/images/upload-file.svg')} alt="" title="" /></a>
+                                                <a>{browse} <input type="file" onChange={(e)=>this.CertificateAttach(e.target.files)} multiple={this.props.isMulti} /></a> {or_drag_here}
+                                            </Grid>
+                                            <p>{suported_file_type_jpg_png}</p>
+                                        </div>
+                                    )}
+                                </Dropzone>}
+                                {/* {!$imagePreview && <Grid className="upScanInput">
                                     <a><img src={require('../../../assets/images/upload-file.svg')} alt="" title="" /></a>
                                     <a>{browse} <input type="file" onChange={this.CertificateAttach} /></a> {or_drag_here}
                                                                         </Grid>}
-                                {!$imagePreview && <p>{suported_file_type_jpg_png}</p>}
+                                {!$imagePreview && <p>{suported_file_type_jpg_png}</p>} */}
                                 {$imagePreview}
                                 <div className="filetitle">{this.state.isfileupload && (
                                     this.state.fileattach && this.state.fileattach.length > 0 && this.state.fileattach.map((ite, ind) => (

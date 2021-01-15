@@ -8,6 +8,8 @@ import PropTypes from 'prop-types';
 import Modal from '@material-ui/core/Modal';
 import sitedata, { data } from '../../../../sitedata';
 import axios from 'axios';
+import Dropzone from "react-dropzone";
+import { Input } from '@material-ui/core';
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { LoginReducerAim } from '../../../Login/actions';
@@ -246,9 +248,8 @@ case "sw":
 
     UploadFile = (event, patient_profile_id, bucket, id) => {
         this.setState({ loaderImage: true });
-        event.preventDefault();
         let reader = new FileReader();
-        let file = event.target.files[0];
+        let file = event[0];
         if(file.name.split('.').pop()==='mp4'){
             this.setState({file: file, imagePreviewUrl: require('../../../../assets/images/videoIcon.png')});
         }
@@ -279,9 +280,9 @@ case "sw":
         let user_token = this.props.stateLoginValueAim.token;
         reader.readAsDataURL(file)
         const data = new FormData()
-        for (var i = 0; i < event.target.files.length; i++) {
-            var file1 = event.target.files[i];
-            let fileParts = event.target.files[i].name.split('.');
+        for (var i = 0; i < event.length; i++) {
+            var file1 = event[i];
+            let fileParts = event[i].name.split('.');
             let fileName = fileParts[0];
             let fileType = fileParts[1];
             if (fileType === 'pdf' || fileType === 'jpeg' || fileType === 'png' || fileType === 'jpg' || fileType === 'svg') {
@@ -601,12 +602,23 @@ case "sw":
                                             <a>{items.filename && (items.filename.split('Trackrecord/')[1]).split("&bucket=")[0]}</a>
                                         ))}
                                         </label>
-
-                                        {(prescData.status !== 'accept' && !$imagePreview) && <Grid className="scamUPInput">
+                                        {(prescData.status !== 'accept' && !$imagePreview) && <Dropzone onDrop={(e)=>this.UploadFile(e, prescData.patient_profile_id, prescData.patient_info.bucket, prescData._id)}>
+                                            {({ getRootProps, getInputProps }) => (
+                                                <div {...getRootProps({ className: "dropzone" })}>
+                                                <Input {...getInputProps()} />
+                                                    <Grid className="browsInput">
+                                                        <a><img src={require('../../../../assets/images/upload-file.svg')} alt="" title="" /></a>
+                                                        <a>{browse} <input type="file" onChange={(e)=>this.UploadFile(e.target.files, prescData.patient_profile_id, prescData.patient_info.bucket, prescData._id)} multiple={this.props.isMulti} /></a> {or_drag_here}
+                                                    </Grid>
+                                                    <p>{suported_file_type_jpg_png}</p>
+                                                </div>
+                                            )}
+                                        </Dropzone>}
+                                        {/* {(prescData.status !== 'accept' && !$imagePreview) && <Grid className="scamUPInput">
                                             <a><img src={require('../../../../assets/images/upload-file.svg')} alt="" title="" /></a>
                                             <a>{browse} <input type="file" onChange={(e) => this.UploadFile(e, prescData.patient_profile_id, prescData.patient_info.bucket, prescData._id)} /></a> {or_drag_here}
                                         </Grid>}
-                                        {(prescData.status !== 'accept') && !$imagePreview && <p>{suported_file_type_jpg_png}</p>}
+                                        {(prescData.status !== 'accept') && !$imagePreview && <p>{suported_file_type_jpg_png}</p>} */}
                                         <Grid>{$imagePreview}</Grid>
                                         {/* {(prescData.attachfile && success && prescData.status !== 'accept') && <Grid item xs={12} md={12}>
                                             <div onClick={() => this.saveUserData(prescData._id, true)} className="approvBtn sendtotimelinenew">{snd_patient_timeline_email}</div>

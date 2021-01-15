@@ -521,6 +521,7 @@
 		"medications": "Dawa",
 		"dignoses": "Diagnoser",
 		"suported_file_type_jpg_png": "Mkono faili aina: .jpg, .png, .pdf",
+		"suported_file_type_jpg_png_dcm": "Aina za faili zinazoungwa mkono: .jpg, .png, .pdf, .doc, .dcm nk",
 		"snd_patient_timeline_email": "Kutuma kwa mgonjwa Kalenda ya matukio na barua Pepe",
 		"reject": "kataa",
 		"back": "Nyuma",

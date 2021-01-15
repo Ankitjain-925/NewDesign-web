@@ -107,13 +107,13 @@ class TimeTaken extends Component {
          {this.state.timeArr && this.state.timeArr.length > 0 &&
           this.state.timeArr.map((itm, index) => (
             index == 0 ? <div>
-              {this.state.is24 === '24' ? <TimePicker placeholder={select_time} className="Medicationtime" onChange={(e) => { this.onTimeChange(e, 0) }} value={itm.value ? moment(itm.value, 'HH:mm') : ''} format="HH:mm" /> :
-                <TimePicker placeholder={select_time} className="Medicationtime" use12Hours onChange={(e) => { this.onTimeChange(e, 0) }} format="h:mm a" value={itm.value ? moment(itm.value, 'h:mm a') : ''} />}
+              {this.state.is24 === '24' ? <TimePicker placeholder={select_time} className="Medicationtime" onChange={(e) => { this.onTimeChange(e, 0) }} value={itm.value ? moment(new Date(itm.value), 'HH:mm') : ''} format="HH:mm" /> :
+                <TimePicker placeholder={select_time} className="Medicationtime" use12Hours onChange={(e) => { this.onTimeChange(e, 0) }} format="h:mm a" value={itm.value ? moment(new Date(itm.value), 'h:mm a') : ''} />}
                 <p onClick={this.onAddFiled}>+ {addentry}</p>
                 </div>
               : <div>
-                {this.state.is24 === '24' ? <TimePicker placeholder={select_time} className="Medicationtime" onChange={(e) => { this.onTimeChange(e, index) }} value={itm.value ? moment(itm.value, 'HH:mm') : ''} format="HH:mm" /> :
-                  <TimePicker placeholder={select_time} className="Medicationtime" use12Hours onChange={(e) => { this.onTimeChange(e, index) }} format="h:mm a" value={itm.value ? moment(itm.value, 'h:mm a') : ''} />}<p onClick={() => { this.deleteTimes(index);}} className="minus_span_medication">- {rmv_entry}</p>
+                {this.state.is24 === '24' ? <TimePicker placeholder={select_time} className="Medicationtime" onChange={(e) => { this.onTimeChange(e, index) }} value={itm.value ? moment(new Date(itm.value), 'HH:mm') : ''} format="HH:mm" /> :
+                  <TimePicker placeholder={select_time} className="Medicationtime" use12Hours onChange={(e) => { this.onTimeChange(e, index) }} format="h:mm a" value={itm.value ? moment(new Date(itm.value), 'h:mm a') : ''} />}<p onClick={() => { this.deleteTimes(index);}} className="minus_span_medication">- {rmv_entry}</p>
               </div>
           ))}
          </Grid>

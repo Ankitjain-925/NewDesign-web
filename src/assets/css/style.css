@@ -14119,7 +14119,7 @@ a.activePageDocutmet {
     padding-bottom: 10px;
 }
 .BackHomeBtn{
-    color: #fff!important;
+    color: #fff !important;
     font-family: Muli;
     font-size: 14px;
     font-weight: 700;
@@ -14156,7 +14156,6 @@ ul.insuranceHint li {
 /*KYC Pages end*/
 
 /*Stop the outline comes from Comet Chat*/
-
 input:focus {
     outline: unset !important;
   }
@@ -14213,12 +14212,10 @@ input:focus {
     overflow-y: auto;
     position: relative;
   }
-
   .wrkHour a.seleted-days {
       color: #ffffff;
       background-color:#00abaf;
   }
-  
   .appointment .ant-picker{
     border: none;
     outline: none;
@@ -14228,7 +14225,6 @@ input:focus {
   .appointment .nameSchedule .ant-picker {
       width: 70%;
   }
-
   .appointment .ant-picker-suffix{
       display: none;
   }
@@ -14254,10 +14250,10 @@ input:focus {
     font-size: 13px;
     vertical-align: middle;
 }
-.languageBox .col-xl-6 {
+.languageBox .col-xl-6{
     padding: 0px;
 }
-.languageHead {
+.languageHead{
     padding: 15px;
     text-align: center;
     color: #00abaf !important;
@@ -14270,19 +14266,19 @@ input:focus {
     color: #862d2d !important;
     font-weight: 900;
  }
-.dropbtn {
+.dropbtn{
     background-color: #4CAF50;
     color: white;
     padding: 16px;
     font-size: 16px;
     border: none;
   }
-.dropdown-main {
+.dropdown-main{
     position: relative;
     display: inline-block;
     width: 100%;
 }
-.dropdown-content {
+.dropdown-content{
     display: none;
     position: absolute;
     background-color: #f1f1f1;
@@ -14290,55 +14286,46 @@ input:focus {
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
 }  
-  .dropdown-content a {
+  .dropdown-content a{
     color: black;
     padding: 12px 16px;
     text-decoration: none;
     display: block;
   }
-
   .dropdown-content a:hover {background-color: #ddd;}
-  .show-content {
+  .show-content{
     display: block;
     width: 100%;
     max-height: 150px;
     overflow: hidden;
     overflow-y: auto;
    }
-
-   label.or-label {
+   label.or-label{
     width: 100%;
     text-align: center;
     font-size: 15px;
     font-weight: 800;
    }
-
-   .rbc-event {
-    background-color: transparent!important;
-    color: black!important;
+   .rbc-event{
+    background-color: transparent !important;
+    color: black !important;
    }
-
-   .getCalBnr .movMnth img {
-       width: auto!important;
+   .getCalBnr .movMnth img{
+       width: auto !important;
    }
-
-   .margin-remove {
+   .margin-remove{
        margin-top: 0px;
    }
-
-  .rbc-event {
+  .rbc-event{
     height: 30px;
   }
-
-  .rbc-time-column {
-    height: 100%!important;
-    min-height: 900px!important;
+  .rbc-time-column{
+    height: 100% !important;
+    min-height: 900px !important;
   }
-
-  .rbc-day-slot .rbc-event-label {
+  .rbc-day-slot .rbc-event-label{
     display: none;
   }
-
   .rbc-day-slot .rbc-event{
     width: 50% !important;
   }
@@ -14347,9 +14334,8 @@ input:focus {
     height: 86%;
     overflow-y: auto;
   }
-  .custom-text {
+  .custom-text{
     margin-left: 40px;
-    /* font-family: Muli; */
     min-width: 43px;
     color: #000808;
     font-family: Muli;
@@ -14363,7 +14349,6 @@ input:focus {
     outline: none;
     margin-bottom: 5px;
     font-size: 14px;
-    /* min-width: 30px; */
     font-weight: 600;
     letter-spacing: 0;
     line-height: 18px;
@@ -14402,15 +14387,12 @@ input:focus {
 .homeBgDrk .rbc-date-cell,.homeBgDrk .calendar-cont,.homeBgDrk .calendar-date {
     color: #9b9b9b!important;
 }
-
 .homeBgDrk .rbc-header span {
     color: #fff!important;
 }
-
 .homeBgDrk .rbc-today {
     background-color: #404646 !important;
 }
-
 .calendar-cont {
     font-size: 11px; 
     margin: 0px; 
@@ -14421,35 +14403,27 @@ input:focus {
     margin: 0px; 
     line-height: 12px;
 }
-
 .homeBgDrk .movMnth{
     color: #9b9b9b!important;
 }
-
 .movMnth{
     color: #D9DADA;
 }
-
 .darkTheme.meetBoxCntnt {
     background-color: #404646;
 }
-
 .tooltip-container{
     background-color: transparent!important;
     border: none!important;
     padding:0px!important;
     border-radius:0px!important;
 }
-
 .darkTheme .react-date-picker__calendar .react-calendar, .darkTheme .detailQuesSub span{
     background-color: #464646!important;
 }
-
-
 .homeBgDrk .ql-toolbar.ql-snow{
     background-color: #c0c1c1!important;
 }
-
 .homeBgDrk .ql-editor {
     color: #c0c0c0;
 }
@@ -15563,6 +15537,11 @@ select:-webkit-autofill:focus {
      margin-top: 0px !important;
      margin-bottom: 15px !important;
     }
+    .profilePkg{
+     margin-left: 8px !important;
+     margin-right: 8px !important;
+     margin-top: 14px !important;
+   }
 }
 @media screen and (min-width: 460px) and (max-width: 959px){
  .srchFilter .ant-picker-range.allTimeSel1.comonSel{
@@ -15570,12 +15549,12 @@ select:-webkit-autofill:focus {
   }
 }
 @media (max-width: 459px){
-.srchFilter .ant-picker-range.allTimeSel1.comonSel{
+  .srchFilter .ant-picker-range.allTimeSel1.comonSel{
     width: 98.3% !important;
   }
-}
-.findpatientReq a{
-    margin-left: 12px;
+  .slotBoxCntnt{
+    width: 98% !important;
+  }
 }
 @media (min-width: 960px){
 .rghtSideSpc{
@@ -15589,7 +15568,7 @@ select:-webkit-autofill:focus {
   .selCalenderUpr{
     display: block !important;
   }
-  .selCalenderUpr .selTimeSlot .selTimeAM {
+  .selCalenderUpr .selTimeSlot .selTimeAM{
     height: 110px !important;
   }
   .selTimeSlot{
@@ -15636,6 +15615,9 @@ select:-webkit-autofill:focus {
   .presCourse{
     padding: 8px 12px 8px 12px !important;
   }
+  .meetBoxCntnt{
+    width: 100% !important;
+  }
 }
 @media (min-width: 641px){
  .presOpinionIner td.pivoted{
@@ -15644,4 +15626,25 @@ select:-webkit-autofill:focus {
   a.openScndhrf{
     text-align: left !important;
   }
+}
+@media screen and (min-width: 768px) and (max-width: 959px){
+  .cc1-chat-win-conver-wrap{
+    height: calc(92vh - 132px) !important;
+  }
+}
+.updatedfileuploader{
+    align-items: center;
+    margin-top: 8px;
+}
+.updatedfileMid{
+    padding-left: 6px;
+}
+.updatedfileRght{
+    text-align: right;
+}
+.findpatientReq a{
+    margin-left: 12px;
+}
+.darktheme .meetDetail p{
+    color: #e6e6e6 !important;
 }

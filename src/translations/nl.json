@@ -1474,6 +1474,7 @@
 		"Medications": "Medicatie",
 		"dignoses": "Diagnoses",
 		"suported_file_type_jpg_png": "Ondersteunde bestandssoorten: .jpg, .png, .pdf",
+		"suported_file_type_jpg_png_dcm": "Ondersteunde bestandstypen: .jpg, .png, .pdf, .doc, .dcm enz",
 		"snd_patient_timeline_email": "Stuur naar Tijdlijn en Email van patiënt",
 		"reject": "Weigeren",
 		"back": "Terug",

@@ -522,6 +522,7 @@
 		"Medications": "Medications",
 		"dignoses": "Diagnoses",
 		"suported_file_type_jpg_png": "Supported file types: .jpg, .png, .pdf",
+		"suported_file_type_jpg_png_dcm": "Supported file types: .jpg, .png, .pdf, .doc, .dcm etc",
 		"snd_patient_timeline_email": "Send to patient's Timeline and Email",
 		"reject": "Reject",
 		"back": "Back",

@@ -420,6 +420,7 @@ class CometChatUnified extends React.Component {
     return (
       <div className="unified">
         <div className="ccl-left-panel" ref={this.leftPanelRef}>
+      
           <NavBar
             Userlist={this.props.Userlist}
             lan={this.props.lan}

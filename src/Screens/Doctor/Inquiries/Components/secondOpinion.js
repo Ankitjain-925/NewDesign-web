@@ -7,6 +7,8 @@ import PropTypes from 'prop-types';
 import Modal from '@material-ui/core/Modal';
 import sitedata, { data } from '../../../../sitedata';
 import axios from 'axios';
+import Dropzone from "react-dropzone";
+import { Input } from '@material-ui/core';
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { LoginReducerAim } from './../../../Login/actions';
@@ -181,9 +183,8 @@ class Index extends Component {
     }
     UploadFile = (event, patient_profile_id, bucket, id) => {
         this.setState({ loaderImage: true });
-        event.preventDefault();
         let reader = new FileReader();
-        let file = event.target.files[0];
+        let file = event[0];
         if(file.name.split('.').pop()==='mp4'){
             this.setState({file: file, imagePreviewUrl: require('../../../../assets/images/videoIcon.png')});
         }
@@ -214,9 +215,9 @@ class Index extends Component {
         let user_token = this.props.stateLoginValueAim.token;
         reader.readAsDataURL(file)
         const data = new FormData()
-        for (var i = 0; i < event.target.files.length; i++) {
-            var file1 = event.target.files[i];
-            let fileParts = event.target.files[i].name.split('.');
+        for (var i = 0; i < event.length; i++) {
+            var file1 = event[i];
+            let fileParts = event[i].name.split('.');
             let fileName = fileParts[0];
             let fileType = fileParts[1];
             if (fileType === 'pdf' || fileType === 'jpeg' || fileType === 'png' || fileType === 'jpg' || fileType === 'svg') {
@@ -611,11 +612,26 @@ class Index extends Component {
                                                     <a>{opinionData.attachfile.filename && (opinionData.attachfile.filename.split('Trackrecord/')[1]).split("&bucket=")[0]}</a>
                                                 }
                                             </label>
-                                            <Grid className="scamUPInput">
+                                            {(opinionData.status !== 'accept') && !$imagePreview &&
+                                                <Dropzone onDrop={(e)=>this.UploadFile(e, opinionData.patient_profile_id, opinionData.patient_info.bucket, opinionData._id)}>
+                                                {({ getRootProps, getInputProps }) => (
+                                                    <div {...getRootProps({ className: "dropzone" })}>
+                                                    <Input {...getInputProps()} />
+                                                        <Grid className="browsInput">
+                                                            <a><img src={require('../../../../assets/images/upload-file.svg')} alt="" title="" /></a>
+                                                            <a>{browse} <input type="file" onChange={(e)=>this.UploadFile(e.target.files, opinionData.patient_profile_id, opinionData.patient_info.bucket, opinionData._id)} multiple={this.props.isMulti} /></a> {or_drag_here}
+                                                        </Grid>
+                                                        <p>{suported_file_type_jpg_png}</p>
+                                                    </div>
+                                                )}
+                                                </Dropzone>
+                                            }
+                                            {/* <Grid className="scamUPInput">
                                                 <a><img src={require('../../../../assets/images/upload-file.svg')} alt="" title="" /></a>
                                                 <a>{browse} <input type="file" onChange={(e) => this.UploadFile(e, opinionData.patient_profile_id, opinionData.patient_info.bucket, opinionData._id)} /></a> {or_drag_here}
                                             </Grid>
-                                            {(opinionData.status !== 'accept') && !$imagePreview && <p>{suported_file_type_jpg_png}</p>}
+                                            {(opinionData.status !== 'accept') && !$imagePreview && <p>{suported_file_type_jpg_png}</p>} */}
+                                            
                                             <Grid>{$imagePreview}</Grid>
 
                                            {/* {this.state.success && <Grid item xs={12} md={12}>

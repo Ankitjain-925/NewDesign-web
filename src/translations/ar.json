@@ -522,6 +522,7 @@
 		"Medications": "الأدوية",
 		"dignoses": "التشخيصات",
 		"suported_file_type_jpg_png": "أنواع الملفات المدعومة: .jpg و .png و .pdf",
+		"suported_file_type_jpg_png_dcm": "أنواع الملفات المدعومة: .jpg ، .png ، .pdf ، .doc ، .dcm ، إلخ",
 		"snd_patient_timeline_email": "أرسل إلى الجدول الزمني للمريض والبريد الإلكتروني",
 		"reject": "رفض",
 		"back": "عودة",

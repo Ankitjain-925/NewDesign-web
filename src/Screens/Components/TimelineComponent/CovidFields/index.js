@@ -102,7 +102,7 @@ class Index extends Component {
                         <Temprature name="temprature" name="temprature" valueType={this.state.updateTrack.temprature_type} value={this.state.updateTrack.temprature} Options={this.state.options2} onChange={(e) => this.props.updateEntryState(e)} onChangeType={(e) => this.updateEntryState1(e, 'temprature_type')} />
                     </Grid>
                     <Grid className="fillDia">
-                        <MMHG name="saturaion" Unit="%" label={O2Saturation} onChange={(e) => this.props.updateEntryState(e)} value={this.state.updateTrack.blood_sugar} />
+                        <MMHG name="saturaion" Unit="%" label={O2Saturation} onChange={(e) => this.props.updateEntryState(e)} value={this.state.updateTrack.saturaion} />
                     </Grid>
 
                     <Grid className="fillDia">

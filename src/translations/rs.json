@@ -523,6 +523,7 @@
     "Medications": "Лекарства",
     "dignoses": "Диагнозы",
     "suported_file_type_jpg_png": "Поддерживаемые типы файлов: .JPG, .PNG, .PDF",
+    "suported_file_type_jpg_png_dcm": "Поддерживаемые типы файлов: .jpg, .png, .pdf, .doc, .dcm и т. Д.",
     "snd_patient_timeline_email": "Отправить в ленту пациента и по эл. почте",
     "reject": "Отклонить",
     "back": "Назад",

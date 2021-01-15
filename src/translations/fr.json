@@ -521,6 +521,7 @@
 		"Medications": "Médicaments",
 		"dignoses": "Diagnostics",
 		"suported_file_type_jpg_png": "Types de fichiers pris en charge .jpg, .png, .pdf",
+		"suported_file_type_jpg_png_dcm": "Ondersteunde bestandstypen: .jpg, .png, .pdf, .doc, .dcm enz",
 		"snd_patient_timeline_email": "Envoyer au patient un calendrier et un courriel",
 		"reject": "Rejeter",
 		"back": "Retour",

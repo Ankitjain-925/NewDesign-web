@@ -89,10 +89,10 @@ class Index extends Component {
             <div>
                 {!this.props.visibility && <Grid className="cnfrmDiaMain">
                     <Grid className="fillDia">
-                        <MMHG name="weight" Unit="kg" label={weight} onChange={(e)=> this.props.updateEntryState(e)} value={this.state.updateTrack.blood_sugar}/>    
+                        <MMHG name="weight" Unit="kg" label={weight} onChange={(e)=> this.props.updateEntryState(e)} value={this.state.updateTrack.weight}/>    
                     </Grid>
                     <Grid className="fillDia">
-                        <MMHG name="height" Unit="cm" label={height} onChange={(e)=> this.props.updateEntryState(e)} value={this.state.updateTrack.Hba1c}/>    
+                        <MMHG name="height" Unit="cm" label={height} onChange={(e)=> this.props.updateEntryState(e)} value={this.state.updateTrack.height}/>    
                     </Grid>
                     <Grid className="fillDia">
                         <Grid className="rrSysto">

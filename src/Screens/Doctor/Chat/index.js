@@ -41,94 +41,20 @@ class index extends React.Component {
             unreadm : false,
             doctorArray : [],
             sizeList : 100,
+            doctorarrays: this.props.doctorarrays,
         }
-    }
-
-    componentDidMount()
-    {
-        // new LogOut(this.props.stateLoginValueAim.token, this.props.stateLoginValueAim.user._id, this.logOutClick.bind(this))
+         this.props.Doctorarrays(this.props.stateLoginValueAim.user.type, this.props.stateLoginValueAim.user, this.props.stateLoginValueAim.token, this.removeLoader)
     }
     componentWillMount(){
         if(this.props.stateLoginValueAim.user)
         {
-            this.props.Doctorarrays(this.props.stateLoginValueAim.user.type, this.props.stateLoginValueAim.user, this.props.stateLoginValueAim.token)
             this.setState({loaderImage : true})
-            setTimeout(()=>{ this.setState({loaderImage : false})}, 3000)
+            this.props.Doctorarrays(this.props.stateLoginValueAim.user.type, this.props.stateLoginValueAim.user, this.props.stateLoginValueAim.token, this.removeLoader)
         }
     }
-    // componentWillMount(){
-    //     var doctorArray = ['admin'];
-    //     let user_token = this.props.stateLoginValueAim.token
-    //     let user_id    = this.props.stateLoginValueAim.user._id
-    //     this.setState({loaderImage : true})
-    //     axios.get(sitedata.data.path + '/UserProfile/Users/'+user_id, {headers:{
-    //       'token': user_token,
-    //       'Accept': 'application/json',
-    //       'Content-Type': 'application/json'
-    //       }}).then((response) =>{
-            
-    //         axios.get(sitedata.data.path + '/UserProfile/Mypatients', {
-    //             headers: {
-    //                 'token': user_token,
-    //                 'Accept': 'application/json',
-    //                 'Content-Type': 'application/json'
-    //             }
-    //         }).then((response) => {
-    //             response.data.data && response.data.data.length>0 && response.data.data.map((data,index)=>{  
-    //                 if(doctorArray.indexOf(data.profile_id.toLowerCase()) === -1){
-    //                     doctorArray.push(data.profile_id.toLowerCase())
-    //                 }
-                 
-    //           })
-    //         })
-    //         response.data.data && (response.data.data.email=== 'doctor4@aimedis.com' ||  response.data.data.email=== 'doctor5@aimedis.com' ||  response.data.data.email=== 'doctor3@aimedis.com' ||  response.data.data.email=== 'doctor6@aimedis.com' ||  response.data.data.email=== 'doctor7@aimedis.com') &&
-    //         axios.get(sitedata.data.path + '/UserProfile/NursePharmaChat',{
-    //             headers: {
-    //                 'token': user_token,
-    //                 'Accept': 'application/json',
-    //                 'Content-Type': 'application/json'
-    //             }
-    //         }).then((response) => {
-    //             response.data.data && response.data.data.length>0 && response.data.data.map((data,index)=>{ 
-    //                 if(doctorArray.indexOf(data.profile_id.toLowerCase()) === -1){  
-    //                     doctorArray.push(data.profile_id.toLowerCase())
-    //                 }
-    //             })
-    //         })
-    //         response.data.data && (response.data.data.paid_services && response.data.data.paid_services.length>0) || (response.data.data.email=== 'doctor4@aimedis.com' ||  response.data.data.email=== 'doctor5@aimedis.com' ||  response.data.data.email=== 'doctor3@aimedis.com' ||  response.data.data.email=== 'doctor6@aimedis.com' ||  response.data.data.email=== 'doctor7@aimedis.com') &&
-    //         axios.get(sitedata.data.path + '/UserProfile/PatientUsersChat',{
-    //             headers: {
-    //                 'token': user_token,
-    //                 'Accept': 'application/json',
-    //                 'Content-Type': 'application/json'
-    //             }
-    //         }).then((response) => {
-    //             response.data.data && response.data.data.length>0 && response.data.data.map((data,index)=>{
-    //                 if(doctorArray.indexOf(data.profile_id.toLowerCase()) === -1){   
-    //                     doctorArray.push(data.profile_id.toLowerCase())
-    //                 }
-    //             })
-    //     })
-    //     axios.get(sitedata.data.path + '/UserProfile/DoctorUsersChat',{
-    //         headers: {
-    //             'token': user_token,
-    //             'Accept': 'application/json',
-    //             'Content-Type': 'application/json'
-    //         }
-    //     }).then((response) => {
-    //         response.data.data && response.data.data.length>0 && response.data.data.map((data,index)=>{  
-    //          if(data.email === 'doctor4@aimedis.com' || data.email === 'doctor5@aimedis.com' || data.email === 'doctor3@aimedis.com' || data.email === 'doctor6@aimedis.com' || data.email === 'doctor7@aimedis.com')
-    //          {
-    //             if(doctorArray.indexOf(data.profile_id.toLowerCase()) === -1){
-    //                 doctorArray.push(data.profile_id.toLowerCase())
-    //             }
-    //          } 
-    //         })
-    //     })
-    // })
-    //     this.setState({doctorArray : doctorArray})
-    //     setTimeout(()=>{ this.setState({loaderImage : false})}, 5000)
-    // }
+    removeLoader=()=>{
+        setTimeout(()=>{ this.setState({loaderImage : false}) }, 4000)     
+    }
 
     render() {
         const { stateLoginValueAim, Doctorsetget } = this.props;

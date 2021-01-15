@@ -523,6 +523,7 @@
 		"Medications": "Medikation",
 		"dignoses": "Diagnosen",
 		"suported_file_type_jpg_png": "Unterstützte Dateitypen: .jpg, .png, .pdf",
+		"suported_file_type_jpg_png_dcm": "Unterstützte Dateitypen: .jpg, .png, .pdf, .doc, .dcm usw.",
 		"snd_patient_timeline_email": "In das Patientenjournal eintragen und als E-Mail senden",
 		"reject": "Ablehnen",
 		"back": "Zurück",
