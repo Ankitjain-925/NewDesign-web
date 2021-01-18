@@ -1,246 +1,284 @@
-
-import {GET_DoctorArray_REQUEST , GET_DoctorArray_SUCCESS, GET_DoctorArray_ERROR} from '../../actiontypes';
-import sitedata from '../../sitedata.js';
+import {
+  GET_DoctorArray_REQUEST,
+  GET_DoctorArray_SUCCESS,
+  GET_DoctorArray_ERROR,
+} from "../../actiontypes";
+import sitedata from "../../sitedata.js";
 import axios from "axios";
 
-const getDoctorArray = async ( doctorArray = new Set(), user_token) => {
-    await axios.get(sitedata.data.path + '/UserProfile/DoctorUsersChat', {
-        headers: {
-            'token': user_token,
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        }
-    }).then((response) => {
+const getDoctorArray = async (doctorArray = new Set(), user_token) => {
+  await axios
+    .get(sitedata.data.path + "/UserProfile/DoctorUsersChat", {
+      headers: {
+        token: user_token,
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    })
+    .then((response) => {
       response.data.data &&
         response.data.data.length > 0 &&
         response.data.data.map((data, index) => {
-        
           if (isInDoctorList(data)) {
             doctorArray.push(data.profile_id.toLowerCase());
           }
         });
     });
-    return doctorArray;
-   };
+  return doctorArray;
+};
 const isInDoctorList = (user = {}) => {
-    if (user) {
-      if (
-        user.email === 'doctor4@aimedis.com' ||
-        user.email === 'doctor5@aimedis.com' ||
-        user.email === 'doctor3@aimedis.com' ||
-        user.email === 'doctor6@aimedis.com' ||
-        user.email === 'doctor7@aimedis.com'
-      ) {
-        return true;
-      } else {
-        return false;
-      }
+  if (user) {
+    if (
+      user.email === "doctor4@aimedis.com" ||
+      user.email === "doctor5@aimedis.com" ||
+      user.email === "doctor3@aimedis.com" ||
+      user.email === "doctor6@aimedis.com" ||
+      user.email === "doctor7@aimedis.com"
+    ) {
+      return true;
     } else {
       return false;
     }
-   };
-   const getNusePharma = async (
-    userInfo = {},
-    doctorArray = new Set(),
-    user_token
-   ) => {
-    if (isInDoctorList(userInfo)) {
-      await axios.get(sitedata.data.path + '/UserProfile/NursePharmaChat',{
+  } else {
+    return false;
+  }
+};
+const getNusePharma = async (
+  userInfo = {},
+  doctorArray = new Set(),
+  user_token
+) => {
+  if (isInDoctorList(userInfo)) {
+    await axios
+      .get(sitedata.data.path + "/UserProfile/NursePharmaChat", {
         headers: {
-            'token': user_token,
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        }
-    }).then((response) => {
+          token: user_token,
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      })
+      .then((response) => {
         response.data.data &&
           response.data.data.length > 0 &&
           response.data.data.map((data, index) => {
             doctorArray.push(data.profile_id.toLowerCase());
           });
-      }).catch(()=>{
-        
-      });
-      return doctorArray;
-    } else {
-      return doctorArray;
-    }
-   };
-   
-   const getPatientUserChat = async (
-    hasPaidservice,
-    userInfo,
-    doctorArray,
-    user_token
-   ) => {
-    if (isInDoctorList(userInfo)) {
-        await axios.get(sitedata.data.path + '/UserProfile/PatientUsersChat',{
-            headers: {
-                'token': user_token,
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            }
-        }).then((response) => {
-        response.data.data &&
-          response.data.data.length > 0 &&
-          response.data.data.map((data, index) => {
-            doctorArray.push(data.profile_id.toLowerCase());
-          });
-      });
-      return doctorArray;
-    }else{
-      return doctorArray;
-    }
-   };      
+      })
+      .catch(() => {});
+    return doctorArray;
+  } else {
+    return doctorArray;
+  }
+};
 
-export const Doctorarrays = (type, user, token, CB=()=>{}) => {
-    return (dispatch) => {
-        var doctorArray = ['admin'];
-        let user_token = token
-        dispatch({ type: GET_DoctorArray_REQUEST });
-        
-        if(type === 'patient' )
-            {
-                axios.get(sitedata.data.path + '/UserProfile/DoctorUsersChat',{
-                    headers: {
-                        'token': user_token,
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json'
-                    }
-                }).then((response) => {
-                    response.data.data && response.data.data.length>0 && response.data.data.map((data,index)=>{  
-                    if(data.email === 'doctor4@aimedis.com' || data.email === 'doctor5@aimedis.com' || data.email === 'doctor3@aimedis.com' || data.email === 'doctor6@aimedis.com' || data.email === 'doctor7@aimedis.com')
-                    {
-                        if(doctorArray.indexOf(data.profile_id.toLowerCase()) === -1){
-                            doctorArray.push(data.profile_id.toLowerCase()) 
-                        }
-                    } 
-                    else if(data.paid_services && data.paid_services>0)
-                        {
-                            if(doctorArray.indexOf(data.profile_id.toLowerCase()) === -1){
-                                doctorArray.push(data.profile_id.toLowerCase())
-                            }
-                        }   
-                    })
-                }).then(() => {
-                let user_id    = user._id
-                axios.get(sitedata.data.path + '/UserProfile/Users/'+user_id, {headers:{
-                'token': user_token,
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-                }}).then((response) =>{
-                    response.data.data && response.data.data.fav_doctor && response.data.data.fav_doctor.map((value, i)=>{
-                        if(doctorArray.indexOf(value.profile_id.toLowerCase()) === -1){
-                            doctorArray.push(value.profile_id.toLowerCase())
-                        }
-                    })
-                    CB()
-                    let tmp = {doctorarray : [...new Set(doctorArray)] }
-                    dispatch({ type: GET_DoctorArray_SUCCESS, payload :tmp});
-                })
-             
-            }).catch(() => {
-                CB()
-            let tmp = {doctorarray : []}
-            dispatch({ type: GET_DoctorArray_SUCCESS, payload :tmp});
-            });
-        
-               
-        }
-        else if(type==='doctor')
-{     
-   
-    const hasPaidservice = user && user.paid_services && user.paid_services.length > 0; 
-            axios.get(sitedata.data.path + '/UserProfile/Mypatients', {
-                headers: {
-                    'token': user_token,
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
+const getPatientUserChat = async (
+  hasPaidservice,
+  userInfo,
+  doctorArray,
+  user_token
+) => {
+  if (isInDoctorList(userInfo)) {
+    await axios
+      .get(sitedata.data.path + "/UserProfile/PatientUsersChat", {
+        headers: {
+          token: user_token,
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      })
+      .then((response) => {
+        response.data.data &&
+          response.data.data.length > 0 &&
+          response.data.data.map((data, index) => {
+            doctorArray.push(data.profile_id.toLowerCase());
+          });
+      });
+    return doctorArray;
+  } else {
+    return doctorArray;
+  }
+};
+
+export const Doctorarrays = (type, user, token, CB = () => {}) => {
+  return (dispatch) => {
+    var doctorArray = ["admin"];
+    let user_token = token;
+    dispatch({ type: GET_DoctorArray_REQUEST });
+
+    if (type === "patient") {
+      axios
+        .get(sitedata.data.path + "/UserProfile/DoctorUsersChat", {
+          headers: {
+            token: user_token,
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        })
+        .then((response) => {
+          response.data.data &&
+            response.data.data.length > 0 &&
+            response.data.data.map((data, index) => {
+              if (
+                data.email === "doctor4@aimedis.com" ||
+                data.email === "doctor5@aimedis.com" ||
+                data.email === "doctor3@aimedis.com" ||
+                data.email === "doctor6@aimedis.com" ||
+                data.email === "doctor7@aimedis.com"
+              ) {
+                if (doctorArray.indexOf(data.profile_id.toLowerCase()) === -1) {
+                  doctorArray.push(data.profile_id.toLowerCase());
                 }
-            }).then((response) => {
-            response.data.data &&
-                response.data.data.length > 0 &&
-                response.data.data.map((data, index) => {
-                doctorArray.push(data.profile_id.toLowerCase());
-                });
+              } else if (data.paid_services && data.paid_services > 0) {
+                if (doctorArray.indexOf(data.profile_id.toLowerCase()) === -1) {
+                  doctorArray.push(data.profile_id.toLowerCase());
+                }
+              }
+            });
+        })
+        .then(() => {
+          let user_id = user._id;
+          axios
+            .get(sitedata.data.path + "/UserProfile/Users/" + user_id, {
+              headers: {
+                token: user_token,
+                Accept: "application/json",
+                "Content-Type": "application/json",
+              },
             })
-            .then(() => {
-                
-          getNusePharma(user, doctorArray, user_token)
-                .then((responce) => {
-                    doctorArray=responce
-                    
-                axios.get(sitedata.data.path + '/UserProfile/Users/'+user._id, {headers:{
-                    'token': user_token,
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                    }}).then((response3) =>{   
-                        response3.data.data &&
-                        response3.data.data.fav_doctor &&
-                        response3.data.data.fav_doctor.map((value, i) => {
-                        doctorArray.push(value.profile_id.toLowerCase());
-                        });
-                    })
-                    .then(() => {
-                        getDoctorArray( doctorArray, user_token).then((docArray) => {
-                            doctorArray = docArray;
-                    if (!hasPaidservice) {
-                        let tmp = {doctorarray : doctorArray}
-                        dispatch({ type: GET_DoctorArray_SUCCESS, payload :tmp});
-                    }
-                    if (hasPaidservice) {
-                        getPatientUserChat(hasPaidservice, user, doctorArray, user_token).then((result) => {
-                        CB()
-                        let tmp = {doctorarray : [...new Set(result)]}
-                        dispatch({ type: GET_DoctorArray_SUCCESS, payload :tmp});
-                        });
-                    }
+            .then((response) => {
+              response.data.data &&
+                response.data.data.fav_doctor &&
+                response.data.data.fav_doctor.map((value, i) => {
+                  if (
+                    doctorArray.indexOf(value.profile_id.toLowerCase()) === -1
+                  ) {
+                    doctorArray.push(value.profile_id.toLowerCase());
+                  }
+                });
+              CB();
+              let tmp = { doctorarray: [...new Set(doctorArray)] };
+              dispatch({ type: GET_DoctorArray_SUCCESS, payload: tmp });
+            });
+        })
+        .catch(() => {
+          CB();
+          let tmp = { doctorarray: [] };
+          dispatch({ type: GET_DoctorArray_SUCCESS, payload: tmp });
+        });
+    } else if (type === "doctor") {
+      const hasPaidservice =
+        user && user.paid_services && user.paid_services.length > 0;
+      axios
+        .get(sitedata.data.path + "/UserProfile/Mypatients", {
+          headers: {
+            token: user_token,
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        })
+        .then((response) => {
+          response.data.data &&
+            response.data.data.length > 0 &&
+            response.data.data.map((data, index) => {
+              doctorArray.push(data.profile_id.toLowerCase());
+            });
+        })
+        .then(() => {
+          getNusePharma(user, doctorArray, user_token).then((responce) => {
+            doctorArray = responce;
+
+            axios
+              .get(sitedata.data.path + "/UserProfile/Users/" + user._id, {
+                headers: {
+                  token: user_token,
+                  Accept: "application/json",
+                  "Content-Type": "application/json",
+                },
+              })
+              .then((response3) => {
+                response3.data.data &&
+                  response3.data.data.fav_doctor &&
+                  response3.data.data.fav_doctor.map((value, i) => {
+                    doctorArray.push(value.profile_id.toLowerCase());
+                  });
+              })
+              .then(() => {
+                getDoctorArray(doctorArray, user_token).then((docArray) => {
+                  doctorArray = docArray;
+                  if (!hasPaidservice) {
+                    let tmp = { doctorarray: doctorArray };
+                    dispatch({ type: GET_DoctorArray_SUCCESS, payload: tmp });
+                  }
+                  if (hasPaidservice) {
+                    getPatientUserChat(
+                      hasPaidservice,
+                      user,
+                      doctorArray,
+                      user_token
+                    ).then((result) => {
+                      CB();
+                      let tmp = { doctorarray: [...new Set(result)] };
+                      dispatch({ type: GET_DoctorArray_SUCCESS, payload: tmp });
                     });
-                })
+                  }
                 });
-            })
-            .catch(() => {
-                CB()
-            let tmp = {doctorarray : []}
-            dispatch({ type: GET_DoctorArray_SUCCESS, payload :tmp});
-            });
-        }
-        else if(type==='paramedic' || type==='insurance' || type==='nurse' || type==='therapist' || type==='pharmacy')
-        {
-            axios.get(sitedata.data.path + '/UserProfile/DoctorUsersChat',{
-                headers: {
-                    'token': token,
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
+              });
+          });
+        })
+        .catch(() => {
+          CB();
+          let tmp = { doctorarray: [] };
+          dispatch({ type: GET_DoctorArray_SUCCESS, payload: tmp });
+        });
+    } else if (
+      type === "paramedic" ||
+      type === "insurance" ||
+      type === "nurse" ||
+      type === "therapist" ||
+      type === "pharmacy"
+    ) {
+      axios
+        .get(sitedata.data.path + "/UserProfile/DoctorUsersChat", {
+          headers: {
+            token: token,
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        })
+        .then((response) => {
+          response.data.data &&
+            response.data.data.length > 0 &&
+            response.data.data.map((data, index) => {
+              if (
+                data.email === "doctor4@aimedis.com" ||
+                data.email === "doctor5@aimedis.com" ||
+                data.email === "doctor3@aimedis.com" ||
+                data.email === "doctor6@aimedis.com" ||
+                data.email === "doctor7@aimedis.com"
+              ) {
+                if (doctorArray.indexOf(data.profile_id.toLowerCase()) === -1) {
+                  doctorArray.push(data.profile_id.toLowerCase());
                 }
-            }).then((response) => {
-                response.data.data && response.data.data.length>0 && response.data.data.map((data,index)=>{  
-                    if(data.email === 'doctor4@aimedis.com' || data.email === 'doctor5@aimedis.com' || data.email === 'doctor3@aimedis.com' || data.email === 'doctor6@aimedis.com' || data.email === 'doctor7@aimedis.com')
-                    {
-                        if(doctorArray.indexOf(data.profile_id.toLowerCase()) === -1){
-                            doctorArray.push(data.profile_id.toLowerCase())
-                        }    
-                    } 
-                    if(data.paid_services && data.paid_services>0)
-                    {
-                        if(doctorArray.indexOf(data.profile_id.toLowerCase()) === -1){
-                            doctorArray.push(data.profile_id.toLowerCase())
-                        }
-                    }
-                })
-                CB()
-                let tmp = {doctorarray : doctorArray}
-                dispatch({ type: GET_DoctorArray_SUCCESS, payload :tmp});
-            }).catch(() => {
-                CB()
-                let tmp = {doctorarray : []}
-                dispatch({ type: GET_DoctorArray_SUCCESS, payload :tmp});
+              }
+              if (data.paid_services && data.paid_services > 0) {
+                if (doctorArray.indexOf(data.profile_id.toLowerCase()) === -1) {
+                  doctorArray.push(data.profile_id.toLowerCase());
+                }
+              }
             });
-        }
-        else if(type==='logout'){
-            dispatch({ type: GET_DoctorArray_ERROR});
-        }  
-        else{
-            dispatch({ type: GET_DoctorArray_ERROR});
-        } 
+          CB();
+          let tmp = { doctorarray: doctorArray };
+          dispatch({ type: GET_DoctorArray_SUCCESS, payload: tmp });
+        })
+        .catch(() => {
+          CB();
+          let tmp = { doctorarray: [] };
+          dispatch({ type: GET_DoctorArray_SUCCESS, payload: tmp });
+        });
+    } else if (type === "logout") {
+      dispatch({ type: GET_DoctorArray_ERROR });
+    } else {
+      dispatch({ type: GET_DoctorArray_ERROR });
     }
+  };
 };

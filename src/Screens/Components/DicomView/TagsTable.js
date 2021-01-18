@@ -1,39 +1,38 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
+import React from "react";
+import PropTypes from "prop-types";
+import { withStyles } from "@material-ui/core/styles";
 
-import InputAdornment from '@material-ui/core/InputAdornment';
-import TextField from '@material-ui/core/TextField';
+import InputAdornment from "@material-ui/core/InputAdornment";
+import TextField from "@material-ui/core/TextField";
 
-import Search from '@material-ui/icons/Search';
+import Search from "@material-ui/icons/Search";
 
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import TablePagination from '@material-ui/core/TablePagination';
+import Table from "@material-ui/core/Table";
+import TableBody from "@material-ui/core/TableBody";
+import TableCell from "@material-ui/core/TableCell";
+import TableHead from "@material-ui/core/TableHead";
+import TableRow from "@material-ui/core/TableRow";
+import TablePagination from "@material-ui/core/TablePagination";
 
-const styles = theme => ({
+const styles = (theme) => ({
   flex: {
     flex: 1,
   },
   spacer: {
-    flex: '1 1 100%',
+    flex: "1 1 100%",
   },
   row: {
-    '&:nth-of-type(odd)': {
+    "&:nth-of-type(odd)": {
       backgroundColor: theme.palette.background.default,
     },
   },
   searchField: {
-    backgroundColor: 'white',
-    marginLeft: 20
-  }
+    backgroundColor: "white",
+    marginLeft: 20,
+  },
 });
 
 class TagsTable extends React.Component {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -41,7 +40,7 @@ class TagsTable extends React.Component {
       displayData: this.props.data,
       searchfor: "",
       page: 0,
-      rowsPerPage: 10
+      rowsPerPage: 10,
     };
 
     // bind listener
@@ -49,32 +48,32 @@ class TagsTable extends React.Component {
   }
 
   filterList(event) {
-    var search = event.target.value
+    var search = event.target.value;
     var searchLo = search.toLowerCase();
-    var updatedList = this.state.data.filter( function (item) {
-      for ( var key in item ) {
-        if( item.hasOwnProperty(key) ) {
+    var updatedList = this.state.data.filter(function (item) {
+      for (var key in item) {
+        if (item.hasOwnProperty(key)) {
           var value = item[key];
-          if ( typeof value !== "string" ) {
+          if (typeof value !== "string") {
             value = value.toString();
           }
-          if ( value.toLowerCase().indexOf(searchLo) !== -1 ) {
+          if (value.toLowerCase().indexOf(searchLo) !== -1) {
             return true;
           }
         }
       }
       return false;
     });
-    this.setState({searchfor: search, displayData: updatedList});
+    this.setState({ searchfor: search, displayData: updatedList });
   }
 
   handleChangePage = (event, page) => {
     this.setState({ page });
-  }
+  };
 
-  handleChangeRowsPerPage = event => {
+  handleChangeRowsPerPage = (event) => {
     this.setState({ page: 0, rowsPerPage: event.target.value });
-  }
+  };
 
   render() {
     const { classes } = this.props;
@@ -94,7 +93,7 @@ class TagsTable extends React.Component {
               <InputAdornment position="start">
                 <Search />
               </InputAdornment>
-            )
+            ),
           }}
         />
 
@@ -106,15 +105,19 @@ class TagsTable extends React.Component {
             </TableRow>
           </TableHead>
           <TableBody>
-          {displayData.slice(page * rowsPerPage,
-                page * rowsPerPage + rowsPerPage).map( item => {
-            return (
-              <TableRow className={classes.row} key={item.group+item.element}>
-                <TableCell>{item.name}</TableCell>
-                <TableCell>{item.value.toString()}</TableCell>
-              </TableRow>
-            );
-          })}
+            {displayData
+              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+              .map((item) => {
+                return (
+                  <TableRow
+                    className={classes.row}
+                    key={item.group + item.element}
+                  >
+                    <TableCell>{item.name}</TableCell>
+                    <TableCell>{item.value.toString()}</TableCell>
+                  </TableRow>
+                );
+              })}
           </TableBody>
         </Table>
 
@@ -124,15 +127,14 @@ class TagsTable extends React.Component {
           rowsPerPage={rowsPerPage}
           page={page}
           backIconButtonProps={{
-            'aria-label': 'Previous Page',
+            "aria-label": "Previous Page",
           }}
           nextIconButtonProps={{
-            'aria-label': 'Next Page',
+            "aria-label": "Next Page",
           }}
           onChangePage={this.handleChangePage}
           onChangeRowsPerPage={this.handleChangeRowsPerPage}
         />
-
       </div>
     );
   }

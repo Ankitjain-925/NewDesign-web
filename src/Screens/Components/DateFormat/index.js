@@ -1,50 +1,96 @@
-import React, { Component } from 'react';
-import {  DatePicker  } from 'antd';
-import moment from 'moment';
-import {pure} from 'recompose';
-import 'antd/dist/antd.css'; // or 'antd/dist/antd.less'
-const dateFormatList = ['DD/MM/YYYY', 'MM/DD/YYYY', 'YYYY/DD/MM'];
+import React, { Component } from "react";
+import { DatePicker } from "antd";
+import moment from "moment";
+import { pure } from "recompose";
+import "antd/dist/antd.css"; // or 'antd/dist/antd.less'
+const dateFormatList = ["DD/MM/YYYY", "MM/DD/YYYY", "YYYY/DD/MM"];
 
 class Date extends Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            is24: this.props.date_format,
-            value : this.props.value || new Date(),
-        };
-    }
-
-    //On Time Change s
-    onDateChange = (date, i) => {
-        this.setState({ value: date });
-        this.props.onChange(date);
+  constructor(props) {
+    super(props);
+    this.state = {
+      is24: this.props.date_format,
+      value: this.props.value || new Date(),
     };
+  }
 
-    componentDidMount = () => {
-        this.props.onChange(this.props.value);
-    }
+  //On Time Change s
+  onDateChange = (date, i) => {
+    this.setState({ value: date });
+    this.props.onChange(date);
+  };
 
-     //on adding new data
-     componentDidUpdate = (prevProps) => {
-        if (prevProps.value !== this.props.value) {
-            this.setState({ value: this.props.value })
-        }
+  componentDidMount = () => {
+    this.props.onChange(this.props.value);
+  };
+
+  //on adding new data
+  componentDidUpdate = (prevProps) => {
+    if (prevProps.value !== this.props.value) {
+      this.setState({ value: this.props.value });
     }
-    shouldComponentUpdate(nextProps, nextState){
-        return nextState.value !== this.state.value || nextProps.value !== this.props.value 
-    }
-    
-    render() {
-        return (
-            <div>
-                {!this.state.is24 && <DatePicker name={this.props.name} onChange={this.onDateChange} value={this.state.value ? moment(this.state.value, dateFormatList[0]) : ''}  format={dateFormatList[0]} />}
-                {this.state.is24 === 'DD/MM/YYYY' && <DatePicker name={this.props.name} onChange={this.onDateChange} value={this.state.value ? moment(this.state.value, dateFormatList[0]) : ''}  format={dateFormatList[0]} />}
-                {this.state.is24 === 'YYYY/DD/MM' && <DatePicker name={this.props.name} onChange={this.onDateChange} value={this.state.value ? moment(this.state.value, dateFormatList[2]) : ''}  format={dateFormatList[2]} />}
-                {this.state.is24 === 'MM/DD/YYYY' && <DatePicker name={this.props.name} onChange={this.onDateChange} value={this.state.value ? moment(this.state.value, dateFormatList[1]) : ''} format={dateFormatList[1]} />}
-                
-            </div>
-        )
-    }
+  };
+  shouldComponentUpdate(nextProps, nextState) {
+    return (
+      nextState.value !== this.state.value ||
+      nextProps.value !== this.props.value
+    );
+  }
+
+  render() {
+    return (
+      <div>
+        {!this.state.is24 && (
+          <DatePicker
+            name={this.props.name}
+            onChange={this.onDateChange}
+            value={
+              this.state.value
+                ? moment(this.state.value, dateFormatList[0])
+                : ""
+            }
+            format={dateFormatList[0]}
+          />
+        )}
+        {this.state.is24 === "DD/MM/YYYY" && (
+          <DatePicker
+            name={this.props.name}
+            onChange={this.onDateChange}
+            value={
+              this.state.value
+                ? moment(this.state.value, dateFormatList[0])
+                : ""
+            }
+            format={dateFormatList[0]}
+          />
+        )}
+        {this.state.is24 === "YYYY/DD/MM" && (
+          <DatePicker
+            name={this.props.name}
+            onChange={this.onDateChange}
+            value={
+              this.state.value
+                ? moment(this.state.value, dateFormatList[2])
+                : ""
+            }
+            format={dateFormatList[2]}
+          />
+        )}
+        {this.state.is24 === "MM/DD/YYYY" && (
+          <DatePicker
+            name={this.props.name}
+            onChange={this.onDateChange}
+            value={
+              this.state.value
+                ? moment(this.state.value, dateFormatList[1])
+                : ""
+            }
+            format={dateFormatList[1]}
+          />
+        )}
+      </div>
+    );
+  }
 }
 
 export default pure(Date);

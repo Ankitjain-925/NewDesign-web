@@ -672,61 +672,6 @@ class Index extends Component {
                         }
                       })
                     })
-                    // axios.post(sitedata.data.path + '/blockchain/dataManager', {
-                    //     path: "dataManager/getDetails/patient",
-                    //     data: { "_selfId": this.props.stateLoginValueAim.user.profile_id, "_patientId": this.props.stateLoginValueAim.user.profile_id }
-                    // })
-                    //     .then(response3 => {
-                    //         axios.post(sitedata.data.path + '/blockchain/dataManager', {
-                    //             path: "dataManager/generate/token/patient",
-                    //             data: { "_password": '123456' }
-                    //         })
-                    //             .then(response5 => {
-                    //                 var dataHeightWegiht = response.data.data.filter((value, key) =>
-                    //                     value.type === 'weight_bmi');
-                    //                 var datas = {};
-                    //                 if (dataHeightWegiht && dataHeightWegiht.length > 0) {
-                    //                     response3.data['Weight'] = dataHeightWegiht[0].weight;
-                    //                     response3.data['Height'] = dataHeightWegiht[0].height;
-                    //                 }
-                    //                 response3.data['Track Record'] = response.data.data;
-                    //                 datas['_patientData'] = response3.data;
-                    //                 datas['_publicKey'] = response5.data.address;
-                    //                 datas['_patientId'] = this.props.stateLoginValueAim.user.profile_id;
-                    //                 axios.post(sitedata.data.path + '/blockchain/dataManager', {
-                    //                     path: "dataManager/update/patient",
-                    //                     data: datas
-                    //                 })
-                    //                     .then(response6 => { })
-                    //             })
-                    //     })
-                    //     .catch(err => {
-                    //         axios.post(sitedata.data.path + '/blockchain/dataManager', {
-                    //             path: "dataManager/generate/token/patient",
-                    //             data: { "_password": '123456' }
-                    //         })
-                    //             .then(response5 => {
-                    //                 axios.post(sitedata.data.path + '/blockchain/dataManager', {
-                    //                     path: "dataManager/add/patient",
-                    //                     data: {
-                    //                         "_patientId": this.props.stateLoginValueAim.user.profile_id,
-                    //                         "_publicKey": response5.data.address,
-                    //                         "_patientData": {
-                    //                             "email": this.props.stateLoginValueAim.user.email,
-                    //                             "First Name": this.props.stateLoginValueAim.user.first_name,
-                    //                             "Last Name": this.props.stateLoginValueAim.user.last_name,
-                    //                             "DOB": this.props.stateLoginValueAim.user.birthday,
-                    //                             "Sex": this.props.stateLoginValueAim.user.sex,
-                    //                             "Address": this.props.stateLoginValueAim.user.city,
-                    //                             "Contact Email": this.props.stateLoginValueAim.user.email,
-                    //                             "Language": this.props.stateLoginValueAim.user.language,
-                    //                             "Track Record": response.data.data
-                    //                         }
-                    //                     }
-                    //                 })
-                    //                     .then(response6 => { })
-                    //             })
-                    //     })
                     updateBlockchain(this.state.personalinfo, response.data.data)
                     this.setState({ allTrack1 : response.data.data, allTrack: response.data.data, loaderImage: false })
                 }
@@ -1192,29 +1137,6 @@ class Index extends Component {
                                                                 {this.state.current_select === 'vaccination' && <Grid className="nwDiaSel1">{vaccination}</Grid>}
                                                                 {this.state.current_select === 'vaccination_trial' && <Grid className="nwDiaSel1">{VaccinationTrial}</Grid>}              
                                                                 {this.state.current_select === 'weight_bmi' && <Grid className="nwDiaSel1">{weight_bmi}</Grid>}
-
-                                                                {/* <select disabled onChange={(e) => this.SelectOption(e.target.value)} value={this.state.current_select}>
-                                                                    <option value="anamnesis">{anamnesis}</option>
-                                                                    <option value="blood_pressure">{blood_pressure}</option>
-                                                                    <option value="blood_sugar">{blood_sugar}</option>
-                                                                    <option value="condition_pain">{condition_pain}</option>
-                                                                    <option value="covid_19">{covid_diary}</option>
-                                                                    <option value="diagnosis">{diagnosis}</option>
-                                                                    <option value="diary">{diary}</option>
-                                                                    <option value="doctor_visit">{doc_visit}</option>
-                                                                    <option value="family_anamnesis">{family_anmnies}</option>
-                                                                    <option value="file_upload">{file_uplod}</option>
-                                                                    <option value="hospitalization">{hosp_visit}</option>
-                                                                    <option value="laboratory_result">{lab_result}</option>
-                                                                    <option value="marcumar_pass">{marcumar_pass}</option>
-                                                                    <option value="medication" >{medication}</option>
-                                                                    <option value="prescription">{Prescription}</option>
-                                                                    <option value="second_opinion">{secnd_openion}</option>
-                                                                    <option value="sick_certificate">{sick_cert}</option>
-                                                                    <option value="smoking_status">{smoking_status}</option>
-                                                                    <option value="vaccination">{vaccination}</option>
-                                                                    <option value="weight_bmi">{weight_bmi}</option>
-                                                                </select> */}
                                                             </Grid>
                                                         </div>}
                                                 </Grid>
