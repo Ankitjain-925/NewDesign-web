@@ -22,6 +22,7 @@ import Loader from "./../../Components/Loader/index";
 import { authy } from "./../../Login/authy.js";
 import PrecriptionList from "./Components/prescription.js";
 import SickCertificateList from "./Components/sickCertificate.js";
+import SentPrescription from "./Components/sentPricription";
 import * as translationEN from "../../../translations/en.json";
 import * as translationDE from "../../../translations/de.json";
 import * as translationPT from "../../../translations/pt.json";
@@ -268,6 +269,10 @@ class Index extends Component {
                                 label={ScndOpinion}
                                 className="presTabsIner"
                               />
+                              <Tab
+                                label="Sent Prescriptions"
+                                className="presTabsIner"
+                              />
                             </Tabs>
                           </Grid>
                           <Grid item xs={12} md={4} sm={4} className="presSrch">
@@ -318,6 +323,19 @@ class Index extends Component {
                             </div>
                           )}
                           <SecondOpinion
+                            newItem={this.state.newItemp}
+                            myData={this.state.myData}
+                          />
+                        </TabContainer>
+                      )}
+                      {value === 3 && (
+                        <TabContainer>
+                          {this.state.successfullsent1 && (
+                            <div className="success_message">
+                              {rqst_sent_succefully}
+                            </div>
+                          )}
+                          <SentPrescription
                             newItem={this.state.newItemp}
                             myData={this.state.myData}
                           />

@@ -70,8 +70,8 @@ class Index extends Component {
     axios
       .get(
         sitedata.data.path +
-          "/emergency_record/getTrack/" +
-          this.props.stateLoginValueAim.user._id,
+        "/emergency_record/getTrack/" +
+        this.props.stateLoginValueAim.user._id,
         {
           headers: {
             token: user_token,
@@ -185,8 +185,8 @@ class Index extends Component {
           <div
             className={
               this.props.settings &&
-              this.props.settings.setting &&
-              this.props.settings.setting.mode === "dark"
+                this.props.settings.setting &&
+                this.props.settings.setting.mode === "dark"
                 ? "dark-confirm react-confirm-alert-body"
                 : "react-confirm-alert-body"
             }
@@ -265,8 +265,8 @@ class Index extends Component {
           <div
             className={
               this.props.settings &&
-              this.props.settings.setting &&
-              this.props.settings.setting.mode === "dark"
+                this.props.settings.setting &&
+                this.props.settings.setting.mode === "dark"
                 ? "dark-confirm react-confirm-alert-body"
                 : "react-confirm-alert-body"
             }
@@ -325,7 +325,13 @@ class Index extends Component {
 
   //Update Archive Track State
   updateHandleTrack = (data) => {
+    let pharma = {
+      name: this.props.stateLoginValueAim.user.first_name + " " + this.props.stateLoginValueAim.user.last_name,
+      email: this.props.stateLoginValueAim.user.email
+    }
     data.status = "handled";
+    data.lan = this.props.stateLanguageType
+    data.pharma = pharma
     var user_id = this.props.stateLoginValueAim.user._id;
     var user_token = this.props.stateLoginValueAim.token;
     var track_id = data.track_id;
@@ -374,7 +380,7 @@ class Index extends Component {
           this.setState({ isDeleted: false });
         }, 3000);
       })
-      .catch((error) => {});
+      .catch((error) => { });
   };
 
   ResetData = () => {
@@ -496,9 +502,9 @@ class Index extends Component {
       <Grid
         className={
           this.props.settings &&
-          this.props.settings.setting &&
-          this.props.settings.setting.mode &&
-          this.props.settings.setting.mode === "dark"
+            this.props.settings.setting &&
+            this.props.settings.setting.mode &&
+            this.props.settings.setting.mode === "dark"
             ? "homeBg homeBgDrk"
             : "homeBg"
         }
@@ -565,8 +571,8 @@ class Index extends Component {
                                   {getDate(
                                     item.datetime_on,
                                     this.props.settings &&
-                                      this.props.settings.setting &&
-                                      this.props.settings.setting.date_format
+                                    this.props.settings.setting &&
+                                    this.props.settings.setting.date_format
                                   )}
                                 </Td>
                                 <Td className="presImg">
@@ -598,11 +604,11 @@ class Index extends Component {
                                     {handled}{" "}
                                   </Td>
                                 ) : (
-                                  <Td>
-                                    <span className="revwYelow"></span>
-                                    {rcvd_from_doctor}{" "}
-                                  </Td>
-                                )}
+                                    <Td>
+                                      <span className="revwYelow"></span>
+                                      {rcvd_from_doctor}{" "}
+                                    </Td>
+                                  )}
                                 <Td className="presEditDot scndOptionIner">
                                   <a className="openScndhrf">
                                     <img
@@ -666,8 +672,8 @@ class Index extends Component {
                             onClose={this.handleClosePres}
                             className={
                               this.props.settings &&
-                              this.props.settings.setting &&
-                              this.props.settings.setting.mode === "dark"
+                                this.props.settings.setting &&
+                                this.props.settings.setting.mode === "dark"
                                 ? "darkTheme presBoxModel"
                                 : "presBoxModel"
                             }
@@ -701,7 +707,7 @@ class Index extends Component {
                                     {this.state.openDetail &&
                                       this.state.openDetail.attachfile &&
                                       this.state.openDetail.attachfile.length >
-                                        0 &&
+                                      0 &&
                                       this.state.openDetail.attachfile.map(
                                         (file) => (
                                           <div>
@@ -723,15 +729,15 @@ class Index extends Component {
                                               file.filetype === "jpeg" ||
                                               file.filetype === "jpg" ||
                                               file.filetype === "svg") && (
-                                              <img
-                                                src={getImage(
-                                                  file.filename,
-                                                  this.state.images
-                                                )}
-                                                alt=""
-                                                title=""
-                                              />
-                                            )}
+                                                <img
+                                                  src={getImage(
+                                                    file.filename,
+                                                    this.state.images
+                                                  )}
+                                                  alt=""
+                                                  title=""
+                                                />
+                                              )}
                                           </div>
                                         )
                                       )}
@@ -739,21 +745,21 @@ class Index extends Component {
                                     {/* <img src={require('../../../assets/images/prescriptions.jpg')} alt="" title="" /> */}
                                   </Grid>
                                   {this.state.openDetail.status &&
-                                  this.state.openDetail.status === "handled" ? (
-                                    ""
-                                  ) : (
-                                    <Grid>
-                                      <input
-                                        type="submit"
-                                        value={medicine_handed_to_patient}
-                                        onClick={() => {
-                                          this.updateHandleTrack(
-                                            this.state.openDetail
-                                          );
-                                        }}
-                                      />
-                                    </Grid>
-                                  )}
+                                    this.state.openDetail.status === "handled" ? (
+                                      ""
+                                    ) : (
+                                      <Grid>
+                                        <input
+                                          type="submit"
+                                          value={medicine_handed_to_patient}
+                                          onClick={() => {
+                                            this.updateHandleTrack(
+                                              this.state.openDetail
+                                            );
+                                          }}
+                                        />
+                                      </Grid>
+                                    )}
                                 </Grid>
                               </Grid>
                             </Grid>
