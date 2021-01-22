@@ -43,6 +43,7 @@ class Index extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      searchName: [],
       openPrescp: false,
       openReject: false,
       specialistOption: null,
@@ -52,6 +53,8 @@ class Index extends Component {
       inqstatus: null,
       message: "",
       success: false,
+      newEntry: {},
+      name: ''
     };
   }
 
@@ -120,7 +123,7 @@ class Index extends Component {
           // this.setState({ MypatientsData: response.data.data });
         }
       })
-      .catch((error) => {});
+      .catch((error) => { });
   };
 
   updatePrescription = (status, id) => {
@@ -178,9 +181,9 @@ class Index extends Component {
           <div
             className={
               this.props.settings &&
-              this.props.settings.setting &&
-              this.props.settings.setting.mode &&
-              this.props.settings.setting.mode === "dark"
+                this.props.settings.setting &&
+                this.props.settings.setting.mode &&
+                this.props.settings.setting.mode === "dark"
                 ? "dark-confirm react-confirm-alert-body"
                 : "react-confirm-alert-body"
             }
@@ -188,8 +191,8 @@ class Index extends Component {
             {status && status === "remove" ? (
               <h1>{remove_inquiry}</h1>
             ) : (
-              <h1>{update_inquiry}</h1>
-            )}
+                <h1>{update_inquiry}</h1>
+              )}
             <p>{are_u_sure_remove_inquiry}</p>
             <div className="react-confirm-alert-button-group">
               <button onClick={onClose}>{no}</button>
@@ -216,6 +219,7 @@ class Index extends Component {
     } else {
       this.UpdatetheStatus(status, id);
     }
+    this.AddTrack()
   };
 
   UpdatetheStatus = (status, id) => {
@@ -248,10 +252,10 @@ class Index extends Component {
         });
         this.getMyprescriptionssData();
       })
-      .catch((error) => {});
+      .catch((error) => { });
   };
 
-  saveUserData = (id, timeline, send = () => {}) => {
+  saveUserData = (id, timeline, send = () => { }) => {
     if (timeline) {
       this.setState({ send_to_timeline: true });
     }
@@ -295,6 +299,7 @@ class Index extends Component {
   };
 
   UploadFile = (event, patient_profile_id, bucket, id) => {
+    this.CertificateAttach(event)
     this.setState({ loaderImage: true });
     let reader = new FileReader();
     let file = event[0];
@@ -408,9 +413,9 @@ class Index extends Component {
               .then((result) => {
                 this.setState({ success: true });
               })
-              .catch((error) => {});
+              .catch((error) => { });
           })
-          .catch((error) => {});
+          .catch((error) => { });
       } else {
         let translate = {};
         switch (this.props.stateLanguageType) {
@@ -599,8 +604,272 @@ class Index extends Component {
     });
   };
 
+  findByName = (e) => {
+    let newEntry = this.state.newEntry;
+
+    if (newEntry.pharmacy_id) {
+      newEntry.pharmacy_id = "";
+    }
+    this.setState(
+      { name: e.target.value, searchLocation: [], newEntry: newEntry },
+      () => this.getName()
+    );
+  };
+
+  getName = () => {
+    var user_token = this.props.stateLoginValueAim.token;
+
+    if (this.state.name && this.state.name !== "") {
+      axios
+        .get(
+          sitedata.data.path +
+          "/emergency_record/getPharmacy/search/" +
+          this.state.name,
+          {
+            headers: {
+              token: user_token,
+              Accept: "application/json",
+              "Content-Type": "application/json",
+            },
+          }
+        )
+        .then((response) => {
+          this.setState({ searchName: response.data.data });
+        })
+        .catch((error) => {
+          this.setState({ loaderImage: false });
+        });
+    } else {
+      this.setState({ searchName: [] });
+    }
+  };
+
+  SetIds = (item) => {
+    const state = this.state.newEntry;
+    state["pharmacy_id"] = item.profile_id;
+    this.setState({
+      newEntry: state,
+      radius: "",
+      name: item.first_name,
+      searchLocation: [],
+      searchName: [],
+    });
+  };
+
+  //Custom date
+  formatDate = () => {
+    var d = new Date(),
+      month = "" + (d.getMonth() + 1),
+      day = "" + d.getDate(),
+      year = d.getFullYear();
+    if (month.length < 2) month = "0" + month;
+    if (day.length < 2) day = "0" + day;
+    return year + "-" + month + "-" + day;
+  };
+  //Custom time
+  timeNow = () => {
+    var d = new Date(),
+      h = (d.getHours() < 10 ? "0" : "") + d.getHours(),
+      m = (d.getMinutes() < 10 ? "0" : "") + d.getMinutes();
+    return h + ":" + m;
+  };
+
+  CertificateAttach = (event) => {
+    if (this.state.prescData && this.state.prescData.patient_info && this.state.prescData.patient_info.patient_id) {
+      // this.setState({file:})
+      this.setState({ isfileupload: true, firstPatient_id: false });
+      // let file = event[0];
+
+      var user_id = this.props.stateLoginValueAim.user._id;
+      var user_token = this.props.stateLoginValueAim.token;
+      const patient_id = this.state.newEntry.patient_id;
+      const data = new FormData();
+      let reader = new FileReader();
+      data.append("uploadCertificate", event[0]);
+      this.setState({ loaderImage: true });
+      for (var i = 0; i < event.length; i++) {
+        var file = event[i];
+        let fileParts = event[i].name.split(".");
+        let fileName = fileParts[0];
+        let fileType = fileParts[1];
+        if (
+          fileType === "pdf" ||
+          fileType === "jpeg" ||
+          fileType === "png" ||
+          fileType === "jpg" ||
+          fileType === "svg"
+        ) {
+          this.setState({ setError: false });
+          if (fileType === "pdf") {
+            this.setState({
+              file: file,
+              imagePreviewUrl: require("../../../../assets/images/pdfimg.png"),
+            });
+          } else {
+            this.setState({
+              file: file,
+              imagePreviewUrl: URL.createObjectURL(file),
+            });
+          }
+          axios
+            .post(sitedata.data.path + "/aws/sign_s3", {
+              fileName: fileName,
+              fileType: fileType,
+              folders: `${patient_id}/Trackrecord/`,
+              bucket: this.props.stateLoginValueAim.user.bucket,
+            })
+            .then((response) => {
+              var Filename =
+                response.data.data.returnData.url +
+                "&bucket=" +
+                this.props.stateLoginValueAim.user.bucket;
+              this.setState({
+                loaderImage: false,
+                filename: [{ filename: Filename, filetype: fileType }],
+              });
+
+              setTimeout(
+                function () {
+                  this.setState({ fileupods: false });
+                }.bind(this),
+                3000
+              );
+
+              var returnData = response.data.data.returnData;
+              var signedRequest = returnData.signedRequest;
+              var url = returnData.url;
+
+              if (fileType === "pdf") {
+                fileType = "application/pdf";
+              }
+              // Put the fileType in the headers for the upload
+              var options = {
+                headers: {
+                  "Content-Type": fileType,
+                },
+              };
+              axios
+                .put(signedRequest, file, options)
+                .then((result) => {
+                  this.setState({ success: true });
+                })
+                .catch((error) => {});
+            })
+            .catch((error) => {});
+        } else {
+          let translate = {};
+          switch (this.props.stateLanguageType) {
+            case "en":
+              translate = translationEN.text;
+              break;
+            case "de":
+              translate = translationDE.text;
+              break;
+            case "pt":
+              translate = translationPT.text;
+              break;
+            case "sp":
+              translate = translationSP.text;
+              break;
+            case "rs":
+              translate = translationRS.text;
+              break;
+            case "nl":
+              translate = translationNL.text;
+              break;
+            case "ch":
+              translate = translationCH.text;
+              break;
+            case "sw":
+              translate = translationSW.text;
+              break;
+            case "fr":
+              translate = translationFR.text;
+              break;
+            case "ar":
+              translate = translationAR.text;
+              break;
+            default:
+              translate = translationEN.text;
+          }
+          let { UploadMust, yes } = translate;
+          this.setState({ loaderImage: false, setError: true });
+          // confirmAlert({
+          //     message: UploadMust,
+          //     buttons: [
+          //         {
+          //             label: yes,
+          //         },
+
+          //     ]
+          // })
+        }
+      }
+    } else {
+      this.setState({
+        firstPatient_id: true,
+      });
+      // event = []
+      return false;
+    }
+  };
+
+
+  AddTrack = () => {
+    var data = {};
+    var user_id = this.state.newEntry.pharmacy_id;
+    var patient_id = this.state.prescData.patient_info.patient_id;
+    var doctor_id = this.props.stateLoginValueAim.user.profile_id;
+    var user_token = this.props.stateLoginValueAim.token;
+    var remark = "Sent by patient to doctor";
+    if (this.state.isfileupload) {
+      data.attachfile = this.state.filename;
+    }
+    data.created_on = this.formatDate();
+    data.created_at = this.timeNow();
+    data.created_by = this.props.stateLoginValueAim.user._id;
+    data.type = "prescription";
+    data.datetime_on = new Date();
+    data.patient_id = patient_id;
+    data.remark = remark;
+    if (
+      !user_id ||
+      user_id === "" ||
+      !patient_id ||
+      patient_id === "" ||
+      !this.state.file
+    ) {
+      this.setState({ compulsary: true });
+    } else {
+      this.setState({ loaderImage: true, compulsary: false });
+      axios.put(sitedata.data.path + "/emergency_record/AddstoredPre/" +user_id ,
+          { data },
+          {
+            headers: {
+              token: user_token,
+              Accept: "application/json",
+              "Content-Type": "application/json",
+            },
+          }
+        ).then((response) => {
+          this.setState({
+            radius: "",
+            name: "",
+            isfileupload: false,
+            fileattach: {},
+            loaderImage: false,
+            newEntry: { patient_id: "", pharmacy_id: "" },
+            isadded: true,
+          });
+          setTimeout(() => {
+            this.setState({ isadded: false });
+          }, 3000);
+        });
+    }
+  };
+
   render() {
-    const { success, prescData, inqstatus } = this.state;
+    const { success, prescData, inqstatus, searchName } = this.state;
     let translate = {};
     switch (this.props.stateLanguageType) {
       case "en":
@@ -708,6 +977,8 @@ class Index extends Component {
       back,
       attached_doc,
       not_mentioned,
+      search_pharmacy_by_name_id,
+      Pharmacy
     } = translate;
 
     return (
@@ -735,11 +1006,11 @@ class Index extends Component {
                     <Td>
                       {data.send_on
                         ? getDate(
-                            data.send_on,
-                            this.props.settings.setting
-                              ? this.props.settings.setting.date_format
-                              : "DD/MM/YYYY"
-                          )
+                          data.send_on,
+                          this.props.settings.setting
+                            ? this.props.settings.setting.date_format
+                            : "DD/MM/YYYY"
+                        )
                         : not_mentioned}
                     </Td>
                     <Td className="presImg">
@@ -747,9 +1018,9 @@ class Index extends Component {
                         src={
                           data.patient_info && data.patient_info.profile_image
                             ? getImage(
-                                data.patient_info.profile_image,
-                                this.state.images
-                              )
+                              data.patient_info.profile_image,
+                              this.state.images
+                            )
                             : require("../../../../assets/images/dr1.jpg")
                         }
                         alt=""
@@ -815,38 +1086,38 @@ class Index extends Component {
                           </li>
                           {(data.status == "free" ||
                             data.status == "pending") && (
-                            <li
-                              onClick={() => {
-                                this.handleOpenPrescp(data);
-                              }}
-                            >
-                              <a>
-                                <img
-                                  src={require("../../../../assets/images/edit.svg")}
-                                  alt=""
-                                  title=""
-                                />
-                                {approve}
-                              </a>
-                            </li>
-                          )}
+                              <li
+                                onClick={() => {
+                                  this.handleOpenPrescp(data);
+                                }}
+                              >
+                                <a>
+                                  <img
+                                    src={require("../../../../assets/images/edit.svg")}
+                                    alt=""
+                                    title=""
+                                  />
+                                  {approve}
+                                </a>
+                              </li>
+                            )}
                           {(data.status == "free" ||
                             data.status == "pending") && (
-                            <li
-                              onClick={() => {
-                                this.updatePrescription("decline", data._id);
-                              }}
-                            >
-                              <a>
-                                <img
-                                  src={require("../../../../assets/images/plus.png")}
-                                  alt=""
-                                  title=""
-                                />
-                                {decline}
-                              </a>
-                            </li>
-                          )}
+                              <li
+                                onClick={() => {
+                                  this.updatePrescription("decline", data._id);
+                                }}
+                              >
+                                <a>
+                                  <img
+                                    src={require("../../../../assets/images/plus.png")}
+                                    alt=""
+                                    title=""
+                                  />
+                                  {decline}
+                                </a>
+                              </li>
+                            )}
                           {data.status !== "remove" && (
                             <li
                               onClick={() => {
@@ -876,9 +1147,9 @@ class Index extends Component {
             onClose={this.handleClosePrescp}
             className={
               this.props.settings &&
-              this.props.settings.setting &&
-              this.props.settings.setting.mode &&
-              this.props.settings.setting.mode === "dark"
+                this.props.settings.setting &&
+                this.props.settings.setting.mode &&
+                this.props.settings.setting.mode === "dark"
                 ? "darkTheme prespBoxModel"
                 : "prespBoxModel"
             }
@@ -923,7 +1194,7 @@ class Index extends Component {
                     </Grid>
                     <p>
                       {prescData.prescription_type &&
-                      prescData.prescription_type === "offline"
+                        prescData.prescription_type === "offline"
                         ? home_add_mailbox
                         : online}
                     </p>
@@ -993,6 +1264,44 @@ class Index extends Component {
                       <label>{dignoses}</label>
                     </Grid>
                     <p>{prescData.diagnosis ? prescData.diagnosis : unknown}</p>
+                  </Grid>
+                </Grid>
+
+                <Grid className="scanInputs">
+                  <Grid>
+                    <label>{Pharmacy}</label>
+                  </Grid>
+                  <Grid className="scanInputPhrm dropdown-main">
+                    <input
+                      type="text"
+                      placeholder={search_pharmacy_by_name_id}
+                      onChange={this.findByName}
+                      value={
+                        this.state.newEntry.pharmacy_id
+                          ? this.state.name +
+                          "- " +
+                          this.state.newEntry.pharmacy_id
+                          : this.state.name
+                      }
+                    />
+                    <img
+                      src={require("../../../../assets/images/srchInputField.svg")}
+                      alt=""
+                      title=""
+                    />
+                    <div
+                      className={
+                        searchName && searchName.length > 0
+                          ? "show-content dropdown-content"
+                          : "dropdown-content"
+                      }
+                    >
+                      {searchName.map((data) => (
+                        <a onClick={() => this.SetIds(data)}>
+                          {data.first_name + " " + data.last_name}
+                        </a>
+                      ))}
+                    </div>
                   </Grid>
                 </Grid>
 
@@ -1119,9 +1428,9 @@ class Index extends Component {
             onClose={this.handleCloseReject}
             className={
               this.props.settings &&
-              this.props.settings.setting &&
-              this.props.settings.setting.mode &&
-              this.props.settings.setting.mode === "dark"
+                this.props.settings.setting &&
+                this.props.settings.setting.mode &&
+                this.props.settings.setting.mode === "dark"
                 ? "darkTheme "
                 : ""
             }
