@@ -349,7 +349,8 @@ class Index extends Component {
             specialityData: GetLanguageDropdown(SPECIALITY.speciality.english, this.props.stateLanguageType),
             title_degreeData: this.state.allMetadata && this.state.allMetadata.title_degreeData && this.state.allMetadata.title_degreeData.length > 0 && this.state.allMetadata.title_degreeData,
             bloodgroup: this.state.allMetadata && this.state.allMetadata.bloodgroup && this.state.allMetadata.bloodgroup.length > 0 && this.state.allMetadata.bloodgroup,
-            rhesusgroup: rhesusgroup
+            rhesusgroup: rhesusgroup,
+            handleMaritalStatus: AllMaritalOption
         });
     }
 
