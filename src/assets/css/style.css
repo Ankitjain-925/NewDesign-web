@@ -2091,6 +2091,9 @@ a.profilMenu {
         height: 440px;
         overflow-y: scroll;
     }
+    .actvMain .MuiGrid-spacing-xs-3 {
+        margin: 0px !important;
+    }
 }
 @media (max-width: 992px){ 
     .srvcBoxCntnt {
@@ -3734,7 +3737,7 @@ span.css-1okebmr-indicatorSeparator {
     color: #FFFFFF;
 } */
 .profileInfoDate a:hover {
-    background-color: #00ABAF;
+    background-color: #00ABAF !important;
     color: #FFFFFF;
 }
 .cntryDrop .css-yk16xz-control {
@@ -11302,7 +11305,11 @@ a.calViewnw {
     align-items: center;
     margin-left: 8px;
 }
-
+/* .newReqInfo label {
+    color: #404646;
+    font-family: Muli;
+    font-size: 12px;
+} */
 a.barViewnw {
     border-radius: 8px;
     padding: 7px 8px;
@@ -15387,6 +15394,14 @@ td.dotsImgColor.pivoted{
     max-width: 100% !important;
     flex-basis: 100% !important;
   }
+  .addBirthSlot .MuiGrid-root.MuiGrid-item.MuiGrid-grid-xs-6.MuiGrid-grid-md-6:first-child{
+    max-width: 55% !important;
+    flex-basis: 55% !important;
+  }
+ .addBirthSlot .MuiGrid-root.MuiGrid-item.MuiGrid-grid-xs-6.MuiGrid-grid-md-6:last-child{
+    max-width: 45% !important;
+    flex-basis: 45% !important;
+  }
 }
 .homeBgDrk .allTimeSel1 svg{
     color: #dfdfdf !important;
@@ -15420,7 +15435,7 @@ td.dotsImgColor.pivoted{
     font-size: 10px !important;
 }
 .addBirthSlot .react-date-picker__inputGroup__day{
-    min-width: 33px !important;
+    min-width: 17px !important;
     font-size: 10px !important;
 }
 .addBirthSlot .react-date-picker__inputGroup__year{
@@ -15428,7 +15443,7 @@ td.dotsImgColor.pivoted{
     font-size: 10px !important;
 }
 .addBirthSlot .react-date-picker__wrapper{
-    padding: 6px 2px !important;
+    padding: 6px 0px !important;
 }
 .addBirthSlot .react-date-picker{
     display: block !important;
@@ -15553,7 +15568,12 @@ select:-webkit-autofill:focus {
     width: 98.3% !important;
   }
   .slotBoxCntnt{
-    width: 98% !important;
+    width: 96% !important;
+    margin-left: 0px !important;
+    margin-right: 0px !important;
+  }
+  .slotTimDat {
+    padding: 18px 2px !important;
   }
 }
 @media (min-width: 960px){
@@ -15647,4 +15667,7 @@ select:-webkit-autofill:focus {
 }
 .darktheme .meetDetail p{
     color: #e6e6e6 !important;
+}
+.profileInfoDate .ant-picker {
+    margin-bottom: 0px !important;
 }

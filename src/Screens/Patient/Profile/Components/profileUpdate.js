@@ -29,7 +29,7 @@ import { LanguageFetchReducer } from './../../../actions';
 import Modal from '@material-ui/core/Modal';
 import Loader from './../../../Components/Loader/index';
 import SPECIALITY from '../../../../speciality';
-import { GetLanguageDropdown, GetShowLabel1 } from './../../../Components/GetMetaData/index.js';
+import { GetLanguageDropdown, GetShowLabel1, GetShowLabel } from './../../../Components/GetMetaData/index.js';
 import DateFormat from './../../../Components/DateFormat/index'
 import * as translationEN from '../../../../translations/en.json';
 import * as translationDE from '../../../../translations/de.json';
@@ -1133,7 +1133,12 @@ class Index extends Component {
                                             <Select
                                                 placeholder={select_marital_status}
                                                 options={this.state.AllMaritalOption}
-                                                value ={this.state.UpDataDetails && this.state.UpDataDetails.marital_status && this.state.UpDataDetails.marital_status}
+                                                value = {this.state.UpDataDetails && this.state.UpDataDetails.marital_status && GetShowLabel1(
+                                                    this.state.handleMaritalStatus,
+                                                    this.state.UpDataDetails.marital_status.value,
+                                                    this.props.stateLanguageType
+                                                  )}
+                                                // value ={this.state.UpDataDetails && this.state.UpDataDetails.marital_status && GetShowLabel(this.state.UpDataDetails.marital_status, this.props.stateLanguageType)}
                                                 onChange={this.handleMaritalStatus} />
                                         </Grid>
                                     </Grid>

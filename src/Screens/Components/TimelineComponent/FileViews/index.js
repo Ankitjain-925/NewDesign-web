@@ -61,7 +61,7 @@ class Index extends Component {
             ) {
               image = response.data.data;
               this.setState({ loaderImage: false });
-              // console.log('image', image)
+              console.log('image', image)
               window.open(
                 "/Dicom-file-view?input=" + encodeURIComponent(image),
                 "_blank"

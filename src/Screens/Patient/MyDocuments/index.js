@@ -991,7 +991,7 @@ class Index extends Component {
                                         </Modal>
                                         {/* End of Model setup */}
 
-                                        <Grid className="presPkgIner1">which_symptomps
+                                        <Grid className="presPkgIner1">
                                             {/* Tabs  */}
                                             <AppBar position="static" className="presTabsUpr">
                                                 <Grid container direction="row">
