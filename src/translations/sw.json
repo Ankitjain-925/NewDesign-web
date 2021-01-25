@@ -1210,6 +1210,8 @@
 		"alredypatientFav":"Tayari upo kwenye orodha ya daktari wa kibinafsi ya mgonjwa",
 		"Submit":"Wasilisha",
 		"select_Language":"Chagua Lugha",
-		"DeleteMessages" :"Futa Ujumbe"
+		"DeleteMessages" :"Futa Ujumbe",
+		"marital_status":"Hali ya ndoa",
+		"select_marital_status":"Chagua Hali ya Ndoa"
 	}
 }

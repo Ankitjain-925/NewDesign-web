@@ -1191,6 +1191,8 @@
 		"alredypatientFav":"Você já existe na lista particular de médicos do paciente",
 		"Submit":"Enviar",
 		"select_Language":"Selecione o idioma",
-		"DeleteMessages" :"Apagar mensagem"
+		"DeleteMessages" :"Apagar mensagem",
+		"marital_status":"Estado civil",
+		"select_marital_status":"Selecione o estado civil"
 	}
 }

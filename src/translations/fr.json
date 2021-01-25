@@ -1177,6 +1177,8 @@
 		"alredypatientFav":"Vous existez déjà sur la liste privée des médecins du patient",
 		"Submit":"Soumettre",
 		"select_Language":"Choisir la langue",
-		"DeleteMessages" :"Supprimer le message"
+		"DeleteMessages" :"Supprimer le message",
+		"marital_status":"État civil",
+		"select_marital_status":"Sélectionnez l'état matrimonial"
 	}
 }

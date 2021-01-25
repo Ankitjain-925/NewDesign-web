@@ -1197,6 +1197,8 @@
 		"alredypatientFav":"您已经存在于患者的私人医生名单上",
 		"Submit":"提交",
 		"select_Language":"选择语言",
-		"DeleteMessages" :"删除留言"
+		"DeleteMessages" :"删除留言",
+		"marital_status":"婚姻状况",
+		"select_marital_status":"选择婚姻状况"
 	}
 }

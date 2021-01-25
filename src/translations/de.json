@@ -1176,6 +1176,8 @@
 		"alredypatientFav":"Sie befinden sich bereits auf der privaten Arztliste des Patienten",
 		"Submit":"einreichen",
 		"select_Language":"Sprache wählen",
-		"DeleteMessages" :"Nachricht löschen"
+		"DeleteMessages" :"Nachricht löschen",
+		"marital_status":"Familienstand",
+		"select_marital_status":"Wählen Sie Familienstand"
 	}
 }

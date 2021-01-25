@@ -28,8 +28,8 @@ import Autocomplete from '../../../Components/Autocomplete/index';
 import { LanguageFetchReducer } from './../../../actions';
 import Modal from '@material-ui/core/Modal';
 import Loader from './../../../Components/Loader/index';
-import  SPECIALITY   from '../../../../speciality';
-import {GetLanguageDropdown, GetShowLabel1} from './../../../Components/GetMetaData/index.js';
+import SPECIALITY from '../../../../speciality';
+import { GetLanguageDropdown, GetShowLabel1 } from './../../../Components/GetMetaData/index.js';
 import DateFormat from './../../../Components/DateFormat/index'
 import * as translationEN from '../../../../translations/en.json';
 import * as translationDE from '../../../../translations/de.json';
@@ -122,12 +122,12 @@ class Index extends Component {
             q: '',
             filteredCompany: [],
             editIndex: null,
-            bloodgroup : [],
+            bloodgroup: [],
             rhesusgroup: [],
-            bloods :{},
-            rhesus:{},
-            insu1 : false,
-            contact_partner :{},
+            bloods: {},
+            rhesus: {},
+            insu1: false,
+            contact_partner: {},
         };
         // new Timer(this.logOutClick.bind(this)) 
     }
@@ -161,11 +161,11 @@ class Index extends Component {
         this.city.addListener("place_changed", this.handlePlaceChanged);
     }
 
- 
-    firstLoginUpdate=()=>{
+
+    firstLoginUpdate = () => {
         const user_token = this.props.stateLoginValueAim.token;
         axios.put(sitedata.data.path + '/UserProfile/Users/update', {
-        firstlogin : true,
+            firstlogin: true,
         }, {
             headers: {
                 'token': user_token,
@@ -317,13 +317,13 @@ class Index extends Component {
         })
     }
 
-    componentDidUpdate=(prevProps)=>{
+    componentDidUpdate = (prevProps) => {
         if (prevProps.stateLanguageType !== this.props.stateLanguageType) {
             this.GetLanguageMetadata();
-            if(this.state.rhesus && this.state.rhesus.value){
+            if (this.state.rhesus && this.state.rhesus.value) {
                 this.Upsaterhesus(this.state.rhesus.value);
             }
-            
+
         }
     }
 
@@ -332,24 +332,27 @@ class Index extends Component {
         axios.get(sitedata.data.path + '/UserProfile/Metadata')
             .then((responce) => {
                 if (responce && responce.data && responce.data.length > 0) {
-                    this.setState({ allMetadata: responce.data[0] })  
+                    this.setState({ allMetadata: responce.data[0] })
                     this.GetLanguageMetadata();
                 }
             })
     }
 
-    GetLanguageMetadata=()=>{
+    GetLanguageMetadata = () => {
         var Allgender = GetLanguageDropdown(this.state.allMetadata && this.state.allMetadata.gender && this.state.allMetadata.gender.length > 0 && this.state.allMetadata.gender, this.props.stateLanguageType)
         var rhesusgroup = GetLanguageDropdown(this.state.allMetadata && this.state.allMetadata.rhesus && this.state.allMetadata.rhesus.length > 0 && this.state.allMetadata.rhesus, this.props.stateLanguageType)
+        let AllMaritalOption = GetLanguageDropdown(this.state.allMetadata && this.state.allMetadata.maritalStatus && this.state.allMetadata.maritalStatus.length > 0 && this.state.allMetadata.maritalStatus, this.props.stateLanguageType)
         this.setState({
+            AllMaritalOption: AllMaritalOption,
             genderdata: Allgender,
-            languageData : this.state.allMetadata && this.state.allMetadata.languages && this.state.allMetadata.languages.length > 0 && this.state.allMetadata.languages,
+            languageData: this.state.allMetadata && this.state.allMetadata.languages && this.state.allMetadata.languages.length > 0 && this.state.allMetadata.languages,
             specialityData: GetLanguageDropdown(SPECIALITY.speciality.english, this.props.stateLanguageType),
             title_degreeData: this.state.allMetadata && this.state.allMetadata.title_degreeData && this.state.allMetadata.title_degreeData.length > 0 && this.state.allMetadata.title_degreeData,
-            bloodgroup : this.state.allMetadata && this.state.allMetadata.bloodgroup && this.state.allMetadata.bloodgroup.length > 0 && this.state.allMetadata.bloodgroup,
-            rhesusgroup : rhesusgroup
+            bloodgroup: this.state.allMetadata && this.state.allMetadata.bloodgroup && this.state.allMetadata.bloodgroup.length > 0 && this.state.allMetadata.bloodgroup,
+            rhesusgroup: rhesusgroup
         });
     }
+
 
     // getMetadata() {
     //     axios.get(sitedata.data.path + '/UserProfile/Metadata')
@@ -436,18 +439,18 @@ class Index extends Component {
         this.setState({ moreone: true })
     }
 
-     //Save the User profile
-     saveUserData1 = () => {
+    //Save the User profile
+    saveUserData1 = () => {
         if (this.state.insuranceDetails.insurance !== "" && this.state.insuranceDetails.insurance_country !== "") {
             if (datas.some(data => data.insurance === this.state.insuranceDetails.insurance)) {
 
-             }
+            }
             else {
                 datas.push(this.state.insuranceDetails)
                 this.setState({ insurancefull: datas })
             }
             const user_token = this.props.stateLoginValueAim.token;
-            this.setState({insu1 : false, loaderImage: true})
+            this.setState({ insu1: false, loaderImage: true })
             axios.put(sitedata.data.path + '/UserProfile/Users/update', {
                 insurance: datas
             }, {
@@ -462,11 +465,11 @@ class Index extends Component {
                     this.setState({ loaderImage: false });
                     setTimeout(() => { this.setState({ succUpdate: false }) }, 5000)
                     this.getUserData();
-                } 
+                }
             })
         }
         else {
-            this.setState({insu1 : true})
+            this.setState({ insu1: true })
         }
     }
     //Save the User profile
@@ -474,7 +477,7 @@ class Index extends Component {
         if (this.state.insuranceDetails.insurance !== "" && this.state.insuranceDetails.insurance_country !== "") {
             if (datas.some(data => data.insurance === this.state.insuranceDetails.insurance)) {
 
-             }
+            }
             else {
                 datas.push(this.state.insuranceDetails)
                 this.setState({ insurancefull: datas })
@@ -498,7 +501,6 @@ class Index extends Component {
         const user_token = this.props.stateLoginValueAim.token;
         this.setState({ insuranceDetails: { insurance: '', insurance_number: '', insurance_country: '' } })
         var parent_id = this.state.UpDataDetails.parent_id ? this.state.UpDataDetails.parent_id : '0';
-       
         axios.put(sitedata.data.path + '/UserProfile/Users/update', {
             type: 'patient',
             pin: this.state.UpDataDetails.pin,
@@ -516,6 +518,7 @@ class Index extends Component {
             email: this.state.UpDataDetails.email,
             password: this.state.UpDataDetails.password,
             sex: this.state.UpDataDetails.sex,
+            marital_status: this.state.UpDataDetails.marital_status,
             street: this.state.UpDataDetails.street,
             city: this.state.city,
             area: this.state.area,
@@ -567,18 +570,18 @@ class Index extends Component {
         })
     }
 
-         // Check the Alies is duplicate or not
-         changePin = (e) => {
-            const state = this.state.UpDataDetails;
-            state[e.target.name] = e.target.value;
-            this.setState({ UpDataDetails: state });
-            if (e.target.value.length > 3 && e.target.value !== '') {
-                this.setState({ toSmall1: false });
-            }
-            else {
-                this.setState({ toSmall1: true })
-            }
+    // Check the Alies is duplicate or not
+    changePin = (e) => {
+        const state = this.state.UpDataDetails;
+        state[e.target.name] = e.target.value;
+        this.setState({ UpDataDetails: state });
+        if (e.target.value.length > 3 && e.target.value !== '') {
+            this.setState({ toSmall1: false });
         }
+        else {
+            this.setState({ toSmall1: true })
+        }
+    }
     //Chnage Id Pin by here
     ChangeIDPIN = () => {
         if (!this.state.DuplicateAlies && !this.state.toSmall && !this.state.toSmall1) {
@@ -665,11 +668,11 @@ class Index extends Component {
         this.setState({ insurancefull: datas })
     }
 
-    Upsaterhesus=(rhesusfromD)=>{
-        var rhesus = GetShowLabel1(this.state.rhesusgroup, rhesusfromD, this.props.stateLanguageType)  
-        this.setState({rhesus: rhesus})
+    Upsaterhesus = (rhesusfromD) => {
+        var rhesus = GetShowLabel1(this.state.rhesusgroup, rhesusfromD, this.props.stateLanguageType)
+        this.setState({ rhesus: rhesus })
     }
-    
+
     //For getting User Data
     getUserData() {
         this.setState({ loaderImage: true });
@@ -683,22 +686,22 @@ class Index extends Component {
             }
         }).then((response) => {
             var state1 = this.state.contact_partner;
-            state1['relation'] =  response.data.data && response.data.data.emergency_relation
+            state1['relation'] = response.data.data && response.data.data.emergency_relation
             state1['email'] = response.data.data && response.data.data.emergency_email
             state1['name'] = response.data.data && response.data.data.emergency_contact_name
             state1['number'] = response.data.data && response.data.data.emergency_number
             this.setState({ contact_partner: state1 },
-            () => {
-                if ( response.data.data &&  response.data.data.emergency_number && response.data.data.emergency_number !== '') {
-                let fen = response.data.data.emergency_number.split("-");
-                if (fen && fen.length > 0) {
-                    this.setState({ flag_emergency_number: fen[0] })
-                }
-                }
-            })
+                () => {
+                    if (response.data.data && response.data.data.emergency_number && response.data.data.emergency_number !== '') {
+                        let fen = response.data.data.emergency_number.split("-");
+                        if (fen && fen.length > 0) {
+                            this.setState({ flag_emergency_number: fen[0] })
+                        }
+                    }
+                })
             var title = {}, titlefromD = response.data.data.title;
-            var bloodfromD = response.data.data.blood_group, rhesusfromD = response.data.data.rhesus, 
-            bloods = {};
+            var bloodfromD = response.data.data.blood_group, rhesusfromD = response.data.data.rhesus,
+                bloods = {};
             var language = [], languagefromD = response.data.data.language;
             if (languagefromD && languagefromD.length > 0) {
                 languagefromD.map((item) => {
@@ -741,6 +744,7 @@ class Index extends Component {
             //         this.setState({ flag_emergency_number: fen[0] })
             //     }
             // }
+
             this.setState({ UpDataDetails: response.data.data, city: response.data.data.city, area: response.data.data.area, profile_id: response.data.data.profile_id });
             this.setState({ speciality_multi: this.state.UpDataDetails.speciality })
             this.setState({ name_multi: language, title: title, bloods: bloods })
@@ -813,12 +817,12 @@ class Index extends Component {
         this.setState({ insuranceDetails: state });
     }
 
- //Update contact State
- contact_partnerState = (e) => {
-    let state = this.state.contact_partner;
-    state[e.target.name] = e.target.value;
-    this.setState({ contact_partner: state })
-}
+    //Update contact State
+    contact_partnerState = (e) => {
+        let state = this.state.contact_partner;
+        state[e.target.name] = e.target.value;
+        this.setState({ contact_partner: state })
+    }
 
     selectCountry = (event) => {
         const state = this.state.insuranceDetails;
@@ -902,6 +906,12 @@ class Index extends Component {
         return name[0]
     }
 
+    handleMaritalStatus = (e) => {
+        const state = this.state.UpDataDetails;
+        state["marital_status"] = e
+        this.setState({ UpDataDetails: state })
+    }
+
 
     render() {
         const { stateLoginValueAim, Doctorsetget } = this.props;
@@ -914,8 +924,8 @@ class Index extends Component {
             )
         });
 
-        let translate={};
-      switch (this.props.stateLanguageType) {
+        let translate = {};
+        switch (this.props.stateLanguageType) {
             case "en":
                 translate = translationEN.text
                 break;
@@ -949,7 +959,7 @@ class Index extends Component {
             default:
                 translate = translationEN.text
         }
-        let {Contact, Register_Name, relation, phone, organ_donar_status, not_an_organ, emergency, telephone_nmbr,
+        let { Contact, Register_Name, relation, phone, select_marital_status, organ_donar_status, not_an_organ, emergency, telephone_nmbr, marital_status,
             Rhesus, InsurancecompanyError, Addcompany, Blood, profile_info, profile, information, ID, pin, QR_code, done, Change, edit_id_pin, edit, and, is, changed, profile_id_taken, profile_id_greater_then_5,
             save_change, email, title, degree, first, last, name, dob, gender, street, add, city, postal_code, country, home_telephone, country_code, Delete, male, female, other,
             mobile_number, number, mobile, Languages, spoken, pin_greater_then_4, insurance, add_more, company, of, info_copied, profile_updated, profile_not_updated, mobile_number_not_valid, insurance_added } = translate;
@@ -990,7 +1000,7 @@ class Index extends Component {
                         <Modal
                             open={this.state.qrOpen}
                             onClose={this.handleQrClose}
-                            className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode === 'dark' ?"darkTheme qrBoxModel":"qrBoxModel"}>
+                            className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode === 'dark' ? "darkTheme qrBoxModel" : "qrBoxModel"}>
                             <Grid className="qrBoxCntnt">
                                 <Grid className="qrCourse">
                                     <Grid className="qrCloseBtn">
@@ -1002,7 +1012,7 @@ class Index extends Component {
                                 </Grid>
                                 <Grid className="qrCourseImg">
                                     <Grid> <QRCode value={this.state.UpDataDetails && this.state.UpDataDetails.profile_id} /></Grid>
-                                    <Grid><input type="submit" value={done} onClick={this.handleQrClose}/></Grid>
+                                    <Grid><input type="submit" value={done} onClick={this.handleQrClose} /></Grid>
                                 </Grid>
                             </Grid>
                         </Modal>
@@ -1016,8 +1026,8 @@ class Index extends Component {
                         <Modal
                             open={this.state.chngPinOpen}
                             onClose={() => this.handlePinClose("chngPinOpen")}
-                            className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode === 'dark' ?"darkTheme editBoxModel":"editBoxModel"}>
-                                
+                            className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode === 'dark' ? "darkTheme editBoxModel" : "editBoxModel"}>
+
                             <Grid className="editBoxCntnt">
                                 <Grid className="editCourse">
                                     <Grid className="editCloseBtn">
@@ -1118,6 +1128,21 @@ class Index extends Component {
                             <Grid className="profileInfoIner">
                                 <Grid container direction="row" alignItems="center" spacing={2}>
                                     <Grid item xs={12} md={8}>
+                                        <label>{marital_status}</label>
+                                        <Grid>
+                                            <Select
+                                                placeholder={select_marital_status}
+                                                options={this.state.AllMaritalOption}
+                                                value ={this.state.UpDataDetails && this.state.UpDataDetails.marital_status && this.state.UpDataDetails.marital_status}
+                                                onChange={this.handleMaritalStatus} />
+                                        </Grid>
+                                    </Grid>
+                                </Grid>
+                            </Grid>
+
+                            <Grid className="profileInfoIner">
+                                <Grid container direction="row" alignItems="center" spacing={2}>
+                                    <Grid item xs={12} md={8}>
                                         <label>{street} {add}</label>
                                         <Grid><input type="text" name="address" onChange={this.updateEntryState} value={this.state.UpDataDetails.address ? this.state.UpDataDetails.address : ''} /></Grid>
                                     </Grid>
@@ -1129,7 +1154,7 @@ class Index extends Component {
                                     <Grid item xs={12} md={8}>
                                         <label>{city}</label>
                                         <Grid>
-                                           
+
                                             <Autocomplete value={this.state.city} stateLanguageType={this.props.stateLanguageType} onPlaceChanged={this.updateEntryCity.bind(this)} />                                        </Grid>
                                     </Grid>
                                     <Grid item xs={12} md={4}>
@@ -1242,11 +1267,11 @@ class Index extends Component {
                                             />
                                         </Grid>
                                     </Grid>
-                                  
+
                                     <Grid item xs={12} md={4}>
                                         <label>{Rhesus}</label>
                                         <Grid>
-                                               <Select
+                                            <Select
                                                 value={this.state.rhesus}
                                                 name="rhesus"
                                                 closeMenuOnSelect={false}
@@ -1315,7 +1340,7 @@ class Index extends Component {
                     <Modal
                         open={this.state.addInsuranceOpen}
                         onClose={() => this.handlePinClose("addInsuranceOpen")}
-                        className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode === 'dark' ?"darkTheme editBoxModel":"editBoxModel"}>
+                        className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode === 'dark' ? "darkTheme editBoxModel" : "editBoxModel"}>
                         <Grid className="editBoxCntnt">
                             <Grid className="editCourse">
                                 <Grid className="editCloseBtn">
@@ -1390,7 +1415,7 @@ class Index extends Component {
                     <Modal
                         open={this.state.editInsuranceOpen}
                         onClose={() => this.handlePinClose("editInsuranceOpen")}
-                        className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode === 'dark' ?"darkTheme editBoxModel":"editBoxModel"}>
+                        className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode === 'dark' ? "darkTheme editBoxModel" : "editBoxModel"}>
                         <Grid className="editBoxCntnt">
                             <Grid className="editCourse">
                                 <Grid className="editCloseBtn">
@@ -1417,7 +1442,7 @@ class Index extends Component {
                                         />
                                     </Grid>
                                 </Grid>
-                               
+
                                 <Grid className="editField">
                                     <label>{insurance} {company}</label>
                                     <Grid><input type="text" value={datas && datas[editIndex] && datas[editIndex].insurance ? datas[editIndex] && datas[editIndex].insurance : ''} name="insurance" onChange={(event) => this.updatesinsurances(editIndex, event)} /></Grid>

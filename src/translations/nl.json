@@ -1801,6 +1801,8 @@
 		"alredypatientFav":"U staat al op de privédokterslijst van de patiënt",
 		"Submit":"Verzenden",
 		"select_Language":"Selecteer taal",
-		"DeleteMessages" :"Verwijder bericht"
+		"DeleteMessages" :"Verwijder bericht",
+		"marital_status":"Burgerlijke staat",
+		"select_marital_status":"Selecteer Burgerlijke staat"
 	}
 }

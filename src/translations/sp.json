@@ -1180,6 +1180,8 @@
 		"alredypatientFav":"Ya existe en la lista de médicos privados del paciente",
 		"Submit":"Enviar",
 		"select_Language":"Seleccione el idioma",
-		"DeleteMessages" :"Borrar mensaje"
+		"DeleteMessages" :"Borrar mensaje",
+		"marital_status":"Estado civil",
+		"select_marital_status":"Seleccione Estado civil"
 	}
 }

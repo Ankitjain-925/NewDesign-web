@@ -1177,6 +1177,8 @@
     "alredypatientFav":"Tayari upo kwenye orodha ya daktari wa kibinafsi ya mgonjwa",
     "Submit":"Разместить",
     "select_Language":"Выбрать язык",
-    "DeleteMessages" :"Удалить сообщение"
+    "DeleteMessages" :"Удалить сообщение",
+    "marital_status":"Cемейный статус",
+    "select_marital_status":"Выберите семейное положение"
   }
 }
