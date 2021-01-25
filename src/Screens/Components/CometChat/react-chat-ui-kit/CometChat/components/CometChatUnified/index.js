@@ -348,7 +348,8 @@ class CometChatUnified extends React.Component {
           <div className="inner CreatChatInner">
             <img
               className='chatScreenImg'
-              src="https://aimedis.io/assets/images/LogoSymbolTransparentAimedis.png"
+              src={require("../../LogoPNG.png")}
+              // src="https://aimedis.io/assets/images/LogoSymbolTransparentAimedis.png"
               alt="Aimedis Logo"
               title="Aimedis Logo"
             /><br/>
