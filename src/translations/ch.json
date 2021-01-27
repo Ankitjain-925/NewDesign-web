@@ -1199,6 +1199,7 @@
 		"select_Language":"选择语言",
 		"DeleteMessages" :"删除留言",
 		"marital_status":"婚姻状况",
-		"select_marital_status":"选择婚姻状况"
+		"select_marital_status":"选择婚姻状况",
+		"respiration":"呼吸"
 	}
 }

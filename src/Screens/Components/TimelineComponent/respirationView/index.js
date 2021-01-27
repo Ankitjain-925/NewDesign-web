@@ -111,6 +111,7 @@ class Index extends Component {
             Change,
             de_archive,
             Download,
+            respiration
         } = translate;
         var item = this.state.item;
         return (
@@ -130,7 +131,7 @@ class Index extends Component {
                                             alt=""
                                             title=""
                                         />
-                                        <span>{"Respiration"}</span>
+                                        <span>{respiration}</span>
                                     </a>
                                 </Grid>
                             </Grid>
@@ -359,50 +360,12 @@ class Index extends Component {
                                         <Grid item xs={12} md={6} className="bloodPreBy">
                                             <Grid container direction="row">
                                                 <Grid item xs={5} md={5}>
-                                                    <label>{"Respiration"}</label>
+                                                    <label>{respiration}</label>
                                                 </Grid>
                                                 <Grid>
                                                     <label>
                                                         {item.respiration && item.respiration}<span> / min</span>
                                                     </label>
-                                                </Grid>
-                                                <Grid className="clear"></Grid>
-                                            </Grid>
-                                        </Grid>
-                                        <Grid item xs={12} md={6} className="bloodPreBy">
-                                            <Grid container direction="row">
-                                                <Grid item xs={5} md={5}>
-                                                    <label>
-                                                        {date} & {time}
-                                                    </label>
-                                                </Grid>
-                                                <Grid item xs={7} md={7}>
-                                                    <span>
-                                                        {item.date_measured &&
-                                                            getDate(
-                                                                item.date_measured,
-                                                                this.state.date_format
-                                                            )}{" "}
-                                                        {item.time_measured &&
-                                                            ", " +
-                                                            getTime(
-                                                                new Date(item.time_measured),
-                                                                this.state.time_foramt
-                                                            )}
-                                                    </span>
-                                                </Grid>
-                                                <Grid className="clear"></Grid>
-                                            </Grid>
-                                        </Grid>
-                                        <Grid item xs={12} md={6} className="bloodPreBy">
-                                            <Grid container direction="row">
-                                                <Grid item xs={5} md={5}>
-                                                    <label>{heart_rate}</label>
-                                                </Grid>
-                                                <Grid item xs={7} md={7}>
-                                                    <span>
-                                                        {item.heart_frequncy && item.heart_frequncy}
-                                                    </span>
                                                 </Grid>
                                                 <Grid className="clear"></Grid>
                                             </Grid>
