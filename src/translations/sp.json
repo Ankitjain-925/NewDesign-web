@@ -1182,6 +1182,7 @@
 		"select_Language":"Seleccione el idioma",
 		"DeleteMessages" :"Borrar mensaje",
 		"marital_status":"Estado civil",
-		"select_marital_status":"Seleccione Estado civil"
+		"select_marital_status":"Seleccione Estado civil",
+		"respiration":"Respiración"
 	}
 }

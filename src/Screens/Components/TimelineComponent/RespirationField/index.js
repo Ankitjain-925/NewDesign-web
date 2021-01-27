@@ -79,7 +79,7 @@ class Index extends Component {
             default:
                 translate = translationEN.text;
         }
-        let { attachments, save_entry, notes } = translate;
+        let { attachments, save_entry, notes, respiration } = translate;
         return (
             <div>
                 {!this.props.visibility && (
@@ -88,7 +88,7 @@ class Index extends Component {
                             <MMHG
                                 name="respiration"
                                 Unit="/min"
-                                label={"Respiration"}
+                                label={respiration}
                                 onChange={(e) => this.props.updateEntryState(e)}
                                 value={this.state.updateTrack.respiration}
                             />

@@ -899,7 +899,7 @@ class Index extends Component {
         let { add_new_entry, new_entry, blood_pressure, blood_sugar, condition_pain, covid_diary, journal,
             personalize_dashbrd, diagnosis, diary, doc_visit, family_anmnies, file_uplod, hosp_visit,
             lab_result, marcumar_pass, secnd_openion, sick_cert, prescription, medication, smoking_status,
-            vaccination, weight_bmi, edit, entry, anamnesis, VaccinationTrial } = translate
+            vaccination, weight_bmi, edit, entry, respiration, anamnesis, VaccinationTrial } = translate
 
         return (
             <Grid className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode && this.props.settings.setting.mode === 'dark' ? "homeBg homeBgDrk" : "homeBg"}>
@@ -1003,7 +1003,7 @@ class Index extends Component {
                                                                         <option value="smoking_status">{smoking_status}</option>
                                                                         <option value="vaccination">{vaccination}</option>
                                                                         <option value="weight_bmi">{weight_bmi}</option>
-                                                                        <option value="respiration">{"Respiration"}</option>
+                                                                        <option value="respiration">{respiration}</option>
                                                                     </select>
                                                                 </Grid>
                                                             </div> :
@@ -1030,7 +1030,7 @@ class Index extends Component {
                                                                 {this.state.current_select === 'vaccination' && <Grid className="nwDiaSel1">{vaccination}</Grid>}
                                                                 {this.state.current_select === 'vaccination_trial' && <Grid className="nwDiaSel1">{VaccinationTrial}</Grid>}
                                                                 {this.state.current_select === 'weight_bmi' && <Grid className="nwDiaSel1">{weight_bmi}</Grid>}
-                                                                {this.state.current_select === 'respiration' && <Grid className="nwDiaSel1">{"Respiration"}</Grid>}
+                                                                {this.state.current_select === 'respiration' && <Grid className="nwDiaSel1">{respiration}</Grid>}
                                                             </div>}
                                                     </Grid>
                                                     <Grid>
