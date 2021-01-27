@@ -412,6 +412,16 @@ class PointPain extends Component {
                     </a>
                   </Grid>
                   <Grid className="clear"></Grid>
+                  <Grid>
+                    <a onClick={() => this.handleChangeEntry("respiration")}>
+                      {this.state.openBy !== "patient" ? (
+                        <span>22</span>
+                      ) : (
+                        <span>18</span>
+                      )}
+                      <p>{"Respiration"}</p>
+                    </a>
+                  </Grid>
                 </Grid>
               </Grid>
             </Grid>
