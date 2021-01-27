@@ -107,6 +107,7 @@ class PointPain extends Component {
       smoking_status,
       vaccination,
       weight_bmi,
+      respiration
     } = translate;
     return (
       <Modal
@@ -351,12 +352,23 @@ class PointPain extends Component {
                   {this.state.openBy !== "patient" && (
                     <Grid className="clear"></Grid>
                   )}
+                  <Grid>
+                    <a onClick={() => this.handleChangeEntry("respiration")}>
+                      {this.state.openBy !== "patient" ? (
+                        <span>17</span>
+                      ) : (
+                        <span>15</span>
+                      )}
+                      <p>{respiration}</p>
+                    </a>
+                  </Grid>
+                  <Grid className="clear"></Grid>
                   {this.state.openBy !== "patient" && (
                     <Grid>
                       <a
                         onClick={() => this.handleChangeEntry("second_opinion")}
                       >
-                        {this.state.openBy !== "patient" && <span>17</span>}
+                        {this.state.openBy !== "patient" && <span>18</span>}
                         <p>{secnd_openion}</p>
                       </a>
                     </Grid>
@@ -371,7 +383,7 @@ class PointPain extends Component {
                           this.handleChangeEntry("sick_certificate")
                         }
                       >
-                        {this.state.openBy !== "patient" && <span>18</span>}
+                        {this.state.openBy !== "patient" && <span>19</span>}
                         <p>{sick_cert}</p>
                       </a>
                     </Grid>
@@ -382,9 +394,9 @@ class PointPain extends Component {
                   <Grid>
                     <a onClick={() => this.handleChangeEntry("smoking_status")}>
                       {this.state.openBy !== "patient" ? (
-                        <span>19</span>
+                        <span>20</span>
                       ) : (
-                        <span>15</span>
+                        <span>16</span>
                       )}
                       <p>{smoking_status}</p>
                     </a>
@@ -393,9 +405,9 @@ class PointPain extends Component {
                   <Grid>
                     <a onClick={() => this.handleChangeEntry("vaccination")}>
                       {this.state.openBy !== "patient" ? (
-                        <span>20</span>
+                        <span>21</span>
                       ) : (
-                        <span>16</span>
+                        <span>17</span>
                       )}
                       <p>{vaccination}</p>
                     </a>
@@ -404,24 +416,14 @@ class PointPain extends Component {
                   <Grid>
                     <a onClick={() => this.handleChangeEntry("weight_bmi")}>
                       {this.state.openBy !== "patient" ? (
-                        <span>21</span>
-                      ) : (
-                        <span>17</span>
-                      )}
-                      <p>{weight_bmi}</p>
-                    </a>
-                  </Grid>
-                  <Grid className="clear"></Grid>
-                  <Grid>
-                    <a onClick={() => this.handleChangeEntry("respiration")}>
-                      {this.state.openBy !== "patient" ? (
                         <span>22</span>
                       ) : (
                         <span>18</span>
                       )}
-                      <p>{"Respiration"}</p>
+                      <p>{weight_bmi}</p>
                     </a>
                   </Grid>
+                  
                 </Grid>
               </Grid>
             </Grid>

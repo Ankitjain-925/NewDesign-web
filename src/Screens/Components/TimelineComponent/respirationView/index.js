@@ -111,6 +111,7 @@ class Index extends Component {
             Change,
             de_archive,
             Download,
+            respiration
         } = translate;
         var item = this.state.item;
         return (
@@ -130,7 +131,7 @@ class Index extends Component {
                                             alt=""
                                             title=""
                                         />
-                                        <span>{"Respiration"}</span>
+                                        <span>{respiration}</span>
                                     </a>
                                 </Grid>
                             </Grid>
@@ -359,7 +360,7 @@ class Index extends Component {
                                         <Grid item xs={12} md={6} className="bloodPreBy">
                                             <Grid container direction="row">
                                                 <Grid item xs={5} md={5}>
-                                                    <label>{"Respiration"}</label>
+                                                    <label>{respiration}</label>
                                                 </Grid>
                                                 <Grid>
                                                     <label>
