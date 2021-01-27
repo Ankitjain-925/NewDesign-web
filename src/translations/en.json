@@ -1180,7 +1180,11 @@
 		"less_than_err":"Please upload images less than 6",
 		"err_file_formart": "System is not supported this file format",
 		"marital_status":"Marital Status",
+<<<<<<< HEAD
 		"select_marital_status":"Selcet Marital Status",
 		"respiration":"Respiration"
+=======
+		"select_marital_status":"Select Marital Status"
+>>>>>>> 81feaf555ca51fb1f128da5fbf1ded36bffbfff9
 	}
 }

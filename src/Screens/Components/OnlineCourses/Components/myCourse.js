@@ -145,7 +145,7 @@ class Index extends Component {
       this.state.MyCourse2.length > 0 &&
       this.state.MyCourse2.map((item) => {
         var myFilterData = this.state.MyRating.filter(
-          (value) => value.courseID === item.course_id
+          (value) => value.courseID === item.courseId
         );
         if (
           myFilterData &&
@@ -428,16 +428,16 @@ class Index extends Component {
                                         <a><img src={require('../../../../assets/images/vote-star-empty.svg')} alt="" title="" /></a>
                                         <a><img src={require('../../../../assets/images/vote-star-empty.svg')} alt="" title="" /></a> */}
                       <span
-                        onClick={() => this.handleOpenFancy(item.course_id)}
+                        onClick={() => this.handleOpenFancy(item.courseId)}
                       >
-                        {item && this.your_rating(item.course_id)
+                        {item && this.your_rating(item.courseId)
                           ? your_rating
                           : leave_rating}
                       </span>
                     </Grid>
                     <Grid className="strtLrn">
                       <label onClick={() => this.viewCourses(item)}>
-                        {item && this.your_rating(item.course_id)
+                        {item && this.your_rating(item.courseId)
                           ? continue_watch
                           : start_learning}
                       </label>

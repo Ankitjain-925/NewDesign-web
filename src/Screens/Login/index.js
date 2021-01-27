@@ -363,7 +363,18 @@ class Index extends Component {
       } else {
         return <Redirect to={"/nurse"} />;
       }
-    } else {
+    }  
+    if (
+      stateLoginValueAim.token !== 450 &&
+      stateLoginValueAim.user.type === "hospitaladmin" &&
+      this.props.verifyCode.code
+    ) {
+      if (stateLoginValueAim.kyc) {
+        return <Redirect to={"/admin/h-patients"} />;
+      } else {
+        return <Redirect to={"/admin/h-patients"} />;
+      }
+    }  else {
       return (
         <Grid
           className={
