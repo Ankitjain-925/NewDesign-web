@@ -101,6 +101,9 @@ class Index extends Component {
                 }
             }).catch((error) => {});
     }
+    onChangePage = (pageNumber) => {
+        this.setState({ MypatientsData: this.state.AllDocuments.slice((pageNumber - 1) * 10, pageNumber * 10), currentPage: pageNumber })
+    }
 
     search_user(event) {
         if (event.target.value == '') {

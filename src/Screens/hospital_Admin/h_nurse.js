@@ -23,6 +23,7 @@ import H_LeftMenuMobile from "../Components/Menus/H_leftMenu/mobile"
 import { SearchUser } from '../Components/Search';
 import CreateAdminUser from "../Components/CreateHospitalUser/index";
 import ViewDetail from "./../Components/ViewInformation/index";
+import "./style.css";
 
 const specialistOptions = [
     { value: 'Specialist1', label: 'Specialist1' },
@@ -206,14 +207,14 @@ class Index extends Component {
                 axios(config)
                 .then(function (response) { })
                 .catch(function (error) { });
-                this.getDoctors();
+                this.getNurses();
                 //   this.MessageUser();
             }).catch((error) => {});
     }
 
     BlockUser=(patient_id, isblock)=>{
         var data = blockClick(patient_id, isblock, this.props.stateLoginValueAim.token)
-        this.getDoctors();
+        this.getNurses();
     }
     openDetail =(patient)=>{
         this.setState({openDetial : true, current_user : patient})
