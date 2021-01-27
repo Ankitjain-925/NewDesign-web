@@ -19,6 +19,11 @@ import * as translationCH from "../../../../translations/ch.json";
 import * as translationNL from "../../../../translations/nl.json";
 import * as translationFR from "../../../../translations/fr.json";
 import * as translationAR from "../../../../translations/ar.json";
+
+var letter = /([a-zA-Z])+([ -~])*/,
+  number = /\d+/,
+  specialchar = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
+  
 class Index extends Component {
   constructor(props) {
     super(props);
@@ -33,6 +38,100 @@ class Index extends Component {
       fillall: false,
     };
   }
+    //For Change Password State For version V4
+    // ChangePass = (e) => {
+    //   const state = this.state.Password;
+    //   state[e.target.name] = e.target.value;
+    //   if (
+    //     e.target.value &&
+    //     e.target.value.length > 0 &&
+    //     e.target.name === "current_pass"
+    //   ) {
+    //     axios
+    //       .post(
+    //         sitedata.data.path + "/UserProfile/Users/checkPass",
+    //         {
+    //           password: this.state.Password.current_pass,
+    //         },
+    //         {
+    //           headers: {
+    //             token: this.props.user_token,
+    //             Accept: "application/json",
+    //             "Content-Type": "application/json",
+    //           },
+    //         }
+    //       )
+    //       .then((responce) => {
+    //         if (responce.data.data) {
+    //           this.setState({ notmatch: false, fillall: false });
+    //         } else {
+    //           this.setState({ notmatch: true, fillall: false });
+    //         }
+    //       });
+    //   }
+    //   this.setState({ Password: state });
+    // };
+  
+    // //For Change Password
+    // ChangePassword = () => {
+    //   if (
+    //     this.state.Password.new_pass &&
+    //     this.state.Password.new_pass !== "" &&
+    //     this.state.Password.current_pass &&
+    //     this.state.Password.current_pass !== ""
+    //   ) {
+    //     if (!this.state.notmatch) {
+    //       if (
+    //         this.state.Password.new_pass !== "" &&
+    //         this.state.Password.new_pass === this.state.Password.new_pass_comfirm
+    //       ) {
+    //         this.setState({
+    //           notVlidpass: false,
+    //           notmatchCon: false,
+    //           loaderImage: true,
+    //           fillall: false,
+    //         });
+    //         if (
+    //           this.state.Password.new_pass.match(letter) &&
+    //           this.state.Password.new_pass.match(number) &&
+    //           this.state.Password.new_pass.match(specialchar)
+    //         ) {
+    //           axios
+    //             .put(
+    //               sitedata.data.path + "/UserProfile/Users/changePass",
+    //               {
+    //                 password: this.state.Password.new_pass,
+    //               },
+    //               {
+    //                 headers: {
+    //                   token: this.props.user_token,
+    //                   Accept: "application/json",
+    //                   "Content-Type": "application/json",
+    //                 },
+    //               }
+    //             )
+    //             .then((responce) => {
+    //               this.setState({ PassDone: true, loaderImage: false });
+    //               setTimeout(() => {
+    //                 this.setState({ PassDone: false });
+    //               }, 5000);
+    //             });
+    //         } else {
+    //           this.setState({
+    //             notmatchCon: false,
+    //             notVlidpass: true,
+    //             loaderImage: false,
+    //             fillall: false,
+    //           });
+    //         }
+    //       } else {
+    //         this.setState({ notmatchCon: true, fillall: false });
+    //       }
+    //     }
+    //   } else {
+    //     this.setState({ fillall: true });
+    //   }
+    // };
 
   //For Change Password State
   ChangePass = (e) => {
