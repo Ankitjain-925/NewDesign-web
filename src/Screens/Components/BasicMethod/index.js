@@ -287,3 +287,19 @@ export function SortByGraphView(a, b) {
   var y = b.datetime_on.toLowerCase();
   return x < y ? -1 : x > y ? 1 : 0;
 }
+
+//For hospital add new method to block the user
+export function blockClick(deletekey, userblock, user_token) {
+  axios.put(sitedata.data.path + '/admin/BlockUser/' + deletekey,
+        { isblock: !userblock },
+        {
+            headers: {
+                'token': user_token,
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        })
+        .then((response) => {
+            return response;
+        })
+}

@@ -12886,14 +12886,14 @@ a.timSlotClose {
     margin-bottom: 0px;
     font-weight: 400;
 }
-.adminmenuItems ul li a img {
+/* .adminmenuItems ul li a img {
     margin-right: 0px !important;
-}
+} */
 @media (max-width: 959px){
-.adminmenuItems ul li a img {
-    margin-right: 12px !important;
-  }
-}
+    .adminmenuItems ul li a img {
+        margin-right: 12px !important;
+      }
+    }
 a.addNewPlus {
     border: 1px solid #F2F2F2;
     border-radius: 8px;
@@ -13103,6 +13103,14 @@ a.academy_ul ul li img {
 
 
 /*Added By ankita*/
+.adminmenuItems .menuActv a img{
+    background-color: #fff !important;
+}
+.adminmenuItems .HospitalAdd .passInst {
+    position: relative!important;
+    top: unset !important;
+    right: 0px !important;
+}
 .deletepointer{
     width: 22px !important;
     cursor: pointer;

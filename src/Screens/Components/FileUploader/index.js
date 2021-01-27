@@ -142,6 +142,11 @@ class Loader extends Component {
               <img src={data} />
             </span>
           ))}
+          {this.props.comesFrom && this.props.comesFrom === "admin" && this.state.fileattach && this.state.fileattach.length > 0 && this.state.fileattach.map((data) => (
+            <span className="preview_img">
+                <img src={data} />
+            </span>
+          ))}
       </div>
     );
   }

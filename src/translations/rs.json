@@ -1179,7 +1179,6 @@
     "select_Language":"Выбрать язык",
     "DeleteMessages" :"Удалить сообщение",
     "marital_status":"Cемейный статус",
-    "select_marital_status":"Выберите семейное положение",
-    "respiration":"Дыхание"
+    "select_marital_status":"Выберите семейное положение"
   }
 }

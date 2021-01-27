@@ -1803,7 +1803,6 @@
 		"select_Language":"Selecteer taal",
 		"DeleteMessages" :"Verwijder bericht",
 		"marital_status":"Burgerlijke staat",
-		"select_marital_status":"Selecteer Burgerlijke staat",
-		"respiration":"Ademhaling"
+		"select_marital_status":"Selecteer Burgerlijke staat"
 	}
 }

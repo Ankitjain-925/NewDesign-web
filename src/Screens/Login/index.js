@@ -370,9 +370,9 @@ class Index extends Component {
       this.props.verifyCode.code
     ) {
       if (stateLoginValueAim.kyc) {
-        return <Redirect to={"/admin/h-patients"} />;
+        return <Redirect to={"/h-patients"} />;
       } else {
-        return <Redirect to={"/admin/h-patients"} />;
+        return <Redirect to={"/h-patients"} />;
       }
     }  else {
       return (

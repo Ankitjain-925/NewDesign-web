@@ -65,6 +65,14 @@ import DoctorJournal from "./../../Screens/Doctor/Journal/index.js";
 
 import DicomView from "./../../Screens/Components/DicomView/ImageViewer";
 
+//for hospital admin user
+import H_patient from "../../Screens/hospital_Admin/h_patient";
+import H_doctor from "../../Screens/hospital_Admin/h_doctors";
+import H_nurse from "../../Screens/hospital_Admin/h_nurse";
+import H_archive from "../../Screens/hospital_Admin/hadmin_archivechoose";
+import H_document from "../../Screens/hospital_Admin/h_Documents";
+import H_profile from "../../Screens/hospital_Admin/h_adminProfile";
+
 class Routermain extends Component {
   render() {
     return (
@@ -347,6 +355,37 @@ class Routermain extends Component {
               exact
               path="/Dicom-file-view"
               render={(props) => <DicomView {...props} />}
+            />
+            {/* Add for hospital */}
+            <Route
+              exact={true}
+              path="/h-patients"
+              render={(props) => <H_patient {...props} />}
+            />
+            <Route
+              exact={true}
+              path="/h-doctors"
+              render={(props) => <H_doctor {...props} />}
+            />
+            <Route
+              exact={true}
+              path="/h-nurses"
+              render={(props) => <H_nurse {...props} />}
+            />
+            <Route
+              exact={true}
+              path="/h-archivechoose"
+              render={(props) => <H_archive {...props} />}
+            />
+            <Route
+              exact={true}
+              path="/h-documents"
+              render={(props) => <H_document {...props} />}
+            />
+            <Route
+              exact={true}
+              path="/h-profile"
+              render={(props) => <H_profile {...props} />}
             />
 
             <Route

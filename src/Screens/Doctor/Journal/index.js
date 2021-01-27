@@ -35,7 +35,6 @@ import HVFields from './../../Components/TimelineComponent/HVFields/index';
 import DVFields from './../../Components/TimelineComponent/DVFields/index';
 import CPFields from './../../Components/TimelineComponent/CPFields/index';
 import DiaryFields from './../../Components/TimelineComponent/DiaryFields/index';
-import RespirationField from "./../../Components/TimelineComponent/RespirationField/index"
 import AllL_Ps from '../../Components/Parameters/parameter.js';
 import LRFields from './../../Components/TimelineComponent/LRFields/index';
 import FUFields from './../../Components/TimelineComponent/FUFields/index';
@@ -964,7 +963,7 @@ class Index extends Component {
             default:
                 translate = translationEN.text
         }
-        let { respiration, journal, add_new_entry, New, entry, edit, blood_pressure, doc_visit, blood_sugar, covid_diary, condition_pain, diagnosis, diary, weight_bmi,
+        let { journal, add_new_entry, New, entry, edit, blood_pressure, doc_visit, blood_sugar, covid_diary, condition_pain, diagnosis, diary, weight_bmi,
             vaccination, marcumar_pass, smoking_status, hosp_visit, lab_result, file_uplod, family_anmnies, medication, enter,VaccinationTrial,
             personalize_dashbrd, online, patient_access_data, another_patient_data, get_patient_access_data, id_pin_not_correct, healthcare_access_for_non_conn_patient, patient_id, pin , enter_pin, view_data, prescription, secnd_openion, sick_cert, anamnesis, Prescription } = translate;
         const enter_patient_id = enter+" "+patient_id
@@ -1111,7 +1110,6 @@ class Index extends Component {
                                                                     <option value="smoking_status">{smoking_status}</option>
                                                                     <option value="vaccination">{vaccination}</option>
                                                                     <option value="weight_bmi">{weight_bmi}</option>
-                                                                    <option value="respiration">{respiration}</option>
                                                                 </select>
                                                             </Grid>
                                                         </div> :
@@ -1139,7 +1137,6 @@ class Index extends Component {
                                                                 {this.state.current_select === 'vaccination' && <Grid className="nwDiaSel1">{vaccination}</Grid>}
                                                                 {this.state.current_select === 'vaccination_trial' && <Grid className="nwDiaSel1">{VaccinationTrial}</Grid>}              
                                                                 {this.state.current_select === 'weight_bmi' && <Grid className="nwDiaSel1">{weight_bmi}</Grid>}
-                                                                {this.state.current_select === 'respiration' && <Grid className="nwDiaSel1">{respiration}</Grid>}
                                                             </Grid>
                                                         </div>}
                                                 </Grid>
@@ -1165,7 +1162,6 @@ class Index extends Component {
                                                     {this.state.current_select === 'vaccination' && <VaccinationFields cur_one={this.state.cur_one2} FileAttachMulti={this.FileAttachMulti} visibility={this.state.visibility} comesfrom='doctor' GetHideShow={this.GetHideShow} AddTrack={this.AddTrack} date_format={this.props.settings && this.props.settings.setting && this.props.settings.setting.date_format} time_format={this.props.settings && this.props.settings.setting && this.props.settings.setting.time_format} updateEntryState={this.updateEntryState} updateEntryState1={this.updateEntryState1} updateTrack={this.state.updateTrack} />}
                                                     {this.state.current_select === 'vaccination_trial' && <VaccinationTrialFields cur_one={this.state.cur_one2} option4={this.state.vaccinations} FileAttachMultiVaccination= {this.FileAttachMultiVaccination} FileAttachMulti={this.FileAttachMulti} visibility={this.state.visibility} comesfrom='patient' gender={this.state.patient_gender} GetHideShow={this.GetHideShow} options3={this.state.Alltemprature} options={this.state.Allpain_quality} options2={this.state.Allpain_type} AddTrack={this.AddTrack} date_format={this.props.settings.setting.date_format} time_format={this.props.settings.setting.time_format} updateEntryState={this.updateEntryState} updateEntryState1={this.updateEntryState1} updateTrack={this.state.updateTrack} />}
                                                     {this.state.current_select === 'weight_bmi' && <BMIFields cur_one={this.state.cur_one2} FileAttachMulti={this.FileAttachMulti} visibility={this.state.visibility} comesfrom='doctor' GetHideShow={this.GetHideShow} AddTrack={this.AddTrack} date_format={this.props.settings && this.props.settings.setting && this.props.settings.setting.date_format} time_format={this.props.settings && this.props.settings.setting && this.props.settings.setting.time_format} updateEntryState={this.updateEntryState} updateEntryState1={this.updateEntryState1} updateTrack={this.state.updateTrack} />}
-                                                    {this.state.current_select === 'respiration' && <RespirationField cur_one={this.state.cur_one} FileAttachMulti={this.FileAttachMulti} visibility={this.state.visibility} comesfrom='patient' GetHideShow={this.GetHideShow} AddTrack={this.AddTrack} date_format={this.props.settings.setting.date_format} time_format={this.props.settings.setting.time_format} updateEntryState={this.updateEntryState} updateEntryState1={this.updateEntryState1} updateTrack={this.state.updateTrack} />}
                                                 </Grid>
                                             </Grid>
                                         </Grid>

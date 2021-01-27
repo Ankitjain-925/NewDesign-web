@@ -1178,7 +1178,6 @@
 		"select_Language":"Sprache wählen",
 		"DeleteMessages" :"Nachricht löschen",
 		"marital_status":"Familienstand",
-		"select_marital_status":"Wählen Sie Familienstand",
-		"respiration":"Atmung"
+		"select_marital_status":"Wählen Sie Familienstand"
 	}
 }
