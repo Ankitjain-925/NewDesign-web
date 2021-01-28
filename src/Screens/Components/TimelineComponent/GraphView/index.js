@@ -114,6 +114,7 @@ class Index extends Component {
       lwr_limit,
       value,
       frequency,
+      respiration
     } = translate;
 
     var Creatinine1 =
@@ -204,7 +205,9 @@ class Index extends Component {
         databp_d = [],
         databp_s = [],
         dataf = [],
+        data_respiration = [],
         oldone;
+      console.log("Personal info", this.state.personalinfo)
       var blood_pressure5 =
         this.state.personalinfo &&
         this.state.personalinfo.blood_pressure &&
@@ -222,6 +225,9 @@ class Index extends Component {
           dataf.push({
             y: parseFloat(data.heart_frequncy),
           });
+          data_respiration.push({
+            y: parseFloat(data.respiration)
+          })
           if (
             oldone &&
             oldone.datetime_on &&
@@ -1717,6 +1723,83 @@ class Index extends Component {
       };
       this.setState({ options: options });
     }
+    if (current_Graph === "respiration") {
+      console.log("Personalinfo", this.props.personalinfo)
+      var categoriesbs = [],
+        oldtwo,
+        hbac = [],
+        r_value = [];
+      var respiration_result =
+        this.state.personalinfo &&
+        this.state.personalinfo.respiration &&
+        this.state.personalinfo.respiration.length > 0 &&
+        this.state.personalinfo.respiration.sort(SortByGraphView);
+      {
+        respiration_result &&
+          respiration_result.length > 0 &&
+          respiration_result.map((data, index) => {
+
+            r_value.push({
+              y: parseFloat(data.respiration),
+            });
+            if (
+              oldtwo &&
+              oldtwo.datetime_on &&
+              oldtwo.datetime_on === data.datetime_on &&
+              oldtwo.created_at
+            ) {
+              categoriesbs.push(
+                getTime(data.datetime_on, this.state.time_format)
+              );
+            } else {
+              categoriesbs.push(
+                getDate(data.datetime_on, this.state.date_format)
+              );
+            }
+            oldtwo = data;
+          });
+      }
+      options = {
+        title: {
+          text: respiration,
+        },
+
+        yAxis: {
+          title: {
+            text: respiration,
+          },
+        },
+        xAxis: {
+          title: {
+            text: date,
+          },
+          categories: categoriesbs,
+        },
+
+        plotOptions: {
+          series: {
+            marker: {
+              enabled: true,
+              radius: 3,
+            },
+          },
+        },
+        chart: {
+          type: "line",
+        },
+        credits: {
+          enabled: false,
+        },
+        series: [
+          {
+            name: respiration,
+            data: r_value,
+            type: "line",
+          },
+        ],
+      };
+      this.setState({ options: options });
+    }
   };
 
   render() {
@@ -1763,6 +1846,7 @@ class Index extends Component {
       blood_sugar,
       weight_bmi,
       Creatinine,
+      respiration
     } = translate;
     return (
       <div>
@@ -1795,16 +1879,16 @@ class Index extends Component {
                           {this.state.personalinfo &&
                             this.state.personalinfo.blood_pressure &&
                             this.state.personalinfo.blood_pressure[
-                              this.state.personalinfo.blood_pressure.length - 1
+                            this.state.personalinfo.blood_pressure.length - 1
                             ] &&
                             this.state.personalinfo.blood_pressure[
                               this.state.personalinfo.blood_pressure.length - 1
                             ].rr_systolic +
-                              "/" +
-                              this.state.personalinfo.blood_pressure[
-                                this.state.personalinfo.blood_pressure.length -
-                                  1
-                              ].rr_diastolic}{" "}
+                            "/" +
+                            this.state.personalinfo.blood_pressure[
+                              this.state.personalinfo.blood_pressure.length -
+                              1
+                            ].rr_diastolic}{" "}
                           mmHg
                         </span>
                       </Grid>
@@ -1843,7 +1927,7 @@ class Index extends Component {
                           {this.state.personalinfo &&
                             this.state.personalinfo.blood_pressure &&
                             this.state.personalinfo.blood_pressure[
-                              this.state.personalinfo.blood_pressure.length - 1
+                            this.state.personalinfo.blood_pressure.length - 1
                             ] &&
                             this.state.personalinfo.blood_pressure[
                               this.state.personalinfo.blood_pressure.length - 1
@@ -1886,7 +1970,7 @@ class Index extends Component {
                           {this.state.personalinfo &&
                             this.state.personalinfo.blood_sugar &&
                             this.state.personalinfo.blood_sugar[
-                              this.state.personalinfo.blood_sugar.length - 1
+                            this.state.personalinfo.blood_sugar.length - 1
                             ] &&
                             this.state.personalinfo.blood_sugar[
                               this.state.personalinfo.blood_sugar.length - 1
@@ -1913,6 +1997,50 @@ class Index extends Component {
                       </p>
                     </a>
                   )}
+
+                {this.state.personalinfo &&
+                  this.state.personalinfo.respiration &&
+                  this.state.personalinfo.respiration.length > 0 && (
+                    <a
+                      className={
+                        this.state.current_Graph === "respiration" &&
+                        "presurInnerActv"
+                      }
+                      onClick={() => this.OnGraphChange("respiration")}
+                    >
+                      <label>{respiration}</label>
+                      <Grid>
+                        <span>
+                          {this.state.personalinfo &&
+                            this.state.personalinfo.respiration &&
+                            this.state.personalinfo.respiration[
+                            this.state.personalinfo.respiration.length - 1
+                            ] &&
+                            this.state.personalinfo.respiration[
+                              this.state.personalinfo.respiration.length - 1
+                            ].respiration}{" "}
+                          / min
+                        </span>
+                      </Grid>
+                      <p>
+                        {getDate(
+                          this.state.personalinfo.respiration[
+                            this.state.personalinfo.respiration.length - 1
+                          ].datetime_on,
+                          this.state.date_format
+                        )}
+                        ,{" "}
+                        {getTime(
+                          new Date(
+                            this.state.personalinfo.respiration[
+                              this.state.personalinfo.respiration.length - 1
+                            ].datetime_on
+                          ),
+                          this.state.time_foramt
+                        )}
+                      </p>
+                    </a>
+                  )}
                 {this.state.personalinfo &&
                   this.state.personalinfo.weight_bmi &&
                   this.state.personalinfo.weight_bmi.length > 0 && (
@@ -1929,7 +2057,7 @@ class Index extends Component {
                           {this.state.personalinfo &&
                             this.state.personalinfo.weight_bmi &&
                             this.state.personalinfo.weight_bmi[
-                              this.state.personalinfo.weight_bmi.length - 1
+                            this.state.personalinfo.weight_bmi.length - 1
                             ] &&
                             this.state.personalinfo.weight_bmi[
                               this.state.personalinfo.weight_bmi.length - 1
@@ -1938,15 +2066,15 @@ class Index extends Component {
                           {this.state.personalinfo &&
                             this.state.personalinfo.weight_bmi &&
                             this.state.personalinfo.weight_bmi[
-                              this.state.personalinfo.weight_bmi.length - 1
+                            this.state.personalinfo.weight_bmi.length - 1
                             ] &&
                             this.state.personalinfo.weight_bmi[
                               this.state.personalinfo.weight_bmi.length - 1
                             ].height +
-                              "/" +
-                              this.state.personalinfo.weight_bmi[
-                                this.state.personalinfo.weight_bmi.length - 1
-                              ].weight}{" "}
+                            "/" +
+                            this.state.personalinfo.weight_bmi[
+                              this.state.personalinfo.weight_bmi.length - 1
+                            ].weight}{" "}
                           BMI
                         </span>
                       </Grid>
@@ -1991,7 +2119,7 @@ class Index extends Component {
                         {this.state.Creatinine &&
                           this.state.Creatinine.length > 0 &&
                           this.state.Creatinine[
-                            this.state.Creatinine.length - 1
+                          this.state.Creatinine.length - 1
                           ] &&
                           this.state.Creatinine[
                             this.state.Creatinine.length - 1
@@ -2173,7 +2301,7 @@ class Index extends Component {
                         {this.state.Thrombocytes &&
                           this.state.Thrombocytes.length > 0 &&
                           this.state.Thrombocytes[
-                            this.state.Thrombocytes.length - 1
+                          this.state.Thrombocytes.length - 1
                           ] &&
                           this.state.Thrombocytes[
                             this.state.Thrombocytes.length - 1
@@ -2228,7 +2356,7 @@ class Index extends Component {
                           {this.state.Pancreaticlipase &&
                             this.state.Pancreaticlipase.length > 0 &&
                             this.state.Pancreaticlipase[
-                              this.state.Pancreaticlipase.length - 1
+                            this.state.Pancreaticlipase.length - 1
                             ] &&
                             this.state.Pancreaticlipase[
                               this.state.Pancreaticlipase.length - 1
@@ -2282,7 +2410,7 @@ class Index extends Component {
                         {this.state.Leucocytes &&
                           this.state.Leucocytes.length > 0 &&
                           this.state.Leucocytes[
-                            this.state.Leucocytes.length - 1
+                          this.state.Leucocytes.length - 1
                           ] &&
                           this.state.Leucocytes[
                             this.state.Leucocytes.length - 1
@@ -2334,7 +2462,7 @@ class Index extends Component {
                         {this.state.Potassium &&
                           this.state.Hemoglobine.length > 0 &&
                           this.state.Hemoglobine[
-                            this.state.Hemoglobine.length - 1
+                          this.state.Hemoglobine.length - 1
                           ] &&
                           this.state.Hemoglobine[
                             this.state.Hemoglobine.length - 1
@@ -2389,7 +2517,7 @@ class Index extends Component {
                         {this.state.Potassium &&
                           this.state.Potassium.length > 0 &&
                           this.state.Potassium[
-                            this.state.Potassium.length - 1
+                          this.state.Potassium.length - 1
                           ] &&
                           this.state.Potassium[this.state.Potassium.length - 1]
                             .value}{" "}
@@ -2402,17 +2530,17 @@ class Index extends Component {
                     <p>
                       {getDate(
                         this.state.Potassium &&
-                          this.state.Potassium[this.state.Potassium.length - 1]
-                            .datetime_on,
+                        this.state.Potassium[this.state.Potassium.length - 1]
+                          .datetime_on,
                         this.state.date_format
                       )}
                       ,{" "}
                       {getTime(
                         new Date(
                           this.state.Potassium &&
-                            this.state.Potassium[
-                              this.state.Potassium.length - 1
-                            ].datetime_on
+                          this.state.Potassium[
+                            this.state.Potassium.length - 1
+                          ].datetime_on
                         ),
                         this.state.time_foramt
                       )}
@@ -2592,6 +2720,9 @@ class Index extends Component {
                 )}
                 {this.state.current_Graph === "blood_pressure" && (
                   <h1>{blood_pressure}</h1>
+                )}
+                {this.state.current_Graph === "respiration" && (
+                  <h1>{respiration}</h1>
                 )}
               </Grid>
             </Grid>

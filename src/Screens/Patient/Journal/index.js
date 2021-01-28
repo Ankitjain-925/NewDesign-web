@@ -565,7 +565,6 @@ class Index extends Component {
             }
         }
         var track_id = this.state.updateTrack.track_id;
-        console.log("OPOPOPOPOP", data)
         if (this.state.updateTrack && this.state.updateTrack.track_id && this.state.updateTrack.track_id !== '' && this.state.updateTrack.track_id !== 'undefined') {
             axios.put(sitedata.data.path + '/User/AddTrack/' + user_id + '/' + track_id, { data },
                 {
