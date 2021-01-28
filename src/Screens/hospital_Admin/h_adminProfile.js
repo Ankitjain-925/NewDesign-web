@@ -12,7 +12,7 @@ import LeftMenuMobile from "../Components/Menus/H_leftMenu/mobile"
 import Loader from '../Components/Loader/index';
 import translationEN from "./translations/en_json_proofread_13072020.json"
 import translationDE from "./translations/de.json"
-
+import "./style.css";
 class Index extends Component {
     constructor(props) {
         super(props);

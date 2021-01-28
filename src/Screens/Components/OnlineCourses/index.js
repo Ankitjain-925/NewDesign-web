@@ -643,7 +643,7 @@ class Index extends Component {
           this.StripeClick = ref;
         }}
         name={name}
-        image="https://aimedis.com/wp-content/uploads/2019/02/Aimedis-Logo-transparent-no-borders-25.10.2017-e1550053501852.png"
+        image="https://sys.aimedis.io/static/media/LogoPNG.03ac2d92.png"
         billingAddress
         description={description}
         amount={this.fromDollarToCent(amount)}

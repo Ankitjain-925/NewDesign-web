@@ -23,6 +23,7 @@ import H_LeftMenuMobile from "../Components/Menus/H_leftMenu/mobile"
 import { SearchUser } from '../Components/Search';
 import CreateAdminUser from "../Components/CreateHospitalUser/index"
 import ViewDetail from "./../Components/ViewInformation/index";
+import "./style.css";
 
 const specialistOptions = [
     { value: 'Specialist1', label: 'Specialist1' },
