@@ -309,6 +309,7 @@ class RightManage extends Component {
       weight_bmi,
       BMI,
       blood_sugar,
+      respiration
     } = translate;
 
     if (current_Graph === "blood_pressure" || current_Graph === "heart_rate") {
@@ -1830,6 +1831,81 @@ class RightManage extends Component {
         ],
       };
       return options;
+    }
+    if (current_Graph === "respiration") {
+      var categoriesbs = [],
+        oldtwo,
+        r_value = [];
+      var respiration_result =
+        this.state.personalinfo &&
+        this.state.personalinfo.respiration &&
+        this.state.personalinfo.respiration.length > 0 &&
+        this.state.personalinfo.respiration.sort(SortByGraphView);
+      {
+        respiration_result &&
+          respiration_result.length > 0 &&
+          respiration_result.map((data, index) => {
+
+            r_value.push({
+              y: parseFloat(data.respiration),
+            });
+            if (
+              oldtwo &&
+              oldtwo.datetime_on &&
+              oldtwo.datetime_on === data.datetime_on &&
+              oldtwo.created_at
+            ) {
+              categoriesbs.push(
+                getTime(data.datetime_on, this.state.time_format)
+              );
+            } else {
+              categoriesbs.push(
+                getDate(data.datetime_on, this.state.date_format)
+              );
+            }
+            oldtwo = data;
+          });
+      }
+      options = {
+        title: {
+          text: respiration,
+        },
+
+        yAxis: {
+          title: {
+            text: respiration,
+          },
+        },
+        xAxis: {
+          title: {
+            text: date,
+          },
+          categories: categoriesbs,
+        },
+
+        plotOptions: {
+          series: {
+            marker: {
+              enabled: true,
+              radius: 3,
+            },
+          },
+        },
+        chart: {
+          type: "line",
+        },
+        credits: {
+          enabled: false,
+        },
+        series: [
+          {
+            name: respiration,
+            data: r_value,
+            type: "line",
+          },
+        ],
+      };
+    return options
     }
   };
 

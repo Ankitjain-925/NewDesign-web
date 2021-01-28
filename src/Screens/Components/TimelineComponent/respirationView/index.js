@@ -370,51 +370,14 @@ class Index extends Component {
                                                 <Grid className="clear"></Grid>
                                             </Grid>
                                         </Grid>
-                                        <Grid item xs={12} md={6} className="bloodPreBy">
-                                            <Grid container direction="row">
-                                                <Grid item xs={5} md={5}>
-                                                    <label>
-                                                        {date} & {time}
-                                                    </label>
-                                                </Grid>
-                                                <Grid item xs={7} md={7}>
-                                                    <span>
-                                                        {item.date_measured &&
-                                                            getDate(
-                                                                item.date_measured,
-                                                                this.state.date_format
-                                                            )}{" "}
-                                                        {item.time_measured &&
-                                                            ", " +
-                                                            getTime(
-                                                                new Date(item.time_measured),
-                                                                this.state.time_foramt
-                                                            )}
-                                                    </span>
-                                                </Grid>
-                                                <Grid className="clear"></Grid>
-                                            </Grid>
-                                        </Grid>
-                                        <Grid item xs={12} md={6} className="bloodPreBy">
-                                            <Grid container direction="row">
-                                                <Grid item xs={5} md={5}>
-                                                    <label>{heart_rate}</label>
-                                                </Grid>
-                                                <Grid item xs={7} md={7}>
-                                                    <span>
-                                                        {item.heart_frequncy && item.heart_frequncy}
-                                                    </span>
-                                                </Grid>
-                                                <Grid className="clear"></Grid>
-                                            </Grid>
-                                        </Grid>
+                                        
                                         <Grid className="clear"></Grid>
                                     </Grid>
                                     <Grid className="bp_graph">
                                         {/* <Grid><img src={require('../../../../assets/images/gp.png')} alt="" title="" /></Grid> */}
                                         {/* {// console.log('this.props', this.props)} */}
                                         <Grid>
-                                            <a onClick={() => this.props.OpenGraph("blood_pressure")}>
+                                            <a onClick={() => this.props.OpenGraph("respiration")}>
                                                 {VeiwGraph}
                                             </a>
                                         </Grid>
