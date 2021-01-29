@@ -163,6 +163,7 @@ class FilterSec extends Component {
       blood_pressure,
       blood_sugar,
       condition_pain,
+      respiration
     } = translate;
 
     const Useroptions = [
@@ -187,6 +188,7 @@ class FilterSec extends Component {
       { value: "marcumar_pass", label: marcumar_pass },
       { value: "medication", label: medication },
       { value: "prescription", label: prescription },
+      { value: "respiration", label: respiration},
       { value: "second_opinion", label: secnd_openion },
       { value: "sick_certificate", label: sick_cert },
       { value: "smoking_status", label: smoking_status },

@@ -8,9 +8,11 @@ export const updateBlockchain = async (
 ) => {
   if (!userInfo || !track_record) return;
   const profile_id = userInfo.profile_id;
+
   var vaccination = track_record.filter(
     (value, key) => value.type === "vaccination"
-  );
+  ).map((data)=>
+   {return {date: data.data_of_vaccination, vaccination: data.vaccination}});
   axios
     .post(sitedata.data.path + "/blockchain/dataManager", {
       path: "dataManager/getDetails/patient",
@@ -53,11 +55,13 @@ export const updateBlockchain = async (
             }
             if (type === "tracker") {
               response3.data["Track Record"] = track_record;
+              response3.data["Vaccination"] = vaccination;
             } else if (type === "organ_data") {
               response3.data["organ_data"] = organ_data;
             } else {
               response3.data["Track Record"] = track_record;
               response3.data["organ_data"] = organ_data;
+              response3.data["Vaccination"] = vaccination;
             }
 
             datas["_patientData"] = response3.data;
@@ -107,16 +111,15 @@ const updateInfo = async (userInfo, key, track_record, organ_data, type, vaccina
     },
   };
   if (type === "tracker") {
-    data["Track Record"] = track_record;
-    data["Vaccination"] = vaccination;
+    data._patientData["Track Record"] = track_record;
+    data._patientData["Vaccination"] = vaccination;
   } else if (type === "organ_data") {
-    data["organ_data"] = organ_data;
+    data._patientData["organ_data"] = organ_data;
   } else {
-    data["Track Record"] = track_record;
-    data["Vaccination"] = vaccination;
-    data["organ_data"] = organ_data;
+    data._patientData["Track Record"] = track_record;
+    data._patientData["Vaccination"] = vaccination;
+    data._patientData["organ_data"] = organ_data;
   }
-
   axios
     .post(sitedata.data.path + "/blockchain/dataManager", {
       path: "dataManager/add/patient",

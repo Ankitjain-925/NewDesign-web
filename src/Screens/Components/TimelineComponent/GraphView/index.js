@@ -207,7 +207,6 @@ class Index extends Component {
         dataf = [],
         data_respiration = [],
         oldone;
-      console.log("Personal info", this.state.personalinfo)
       var blood_pressure5 =
         this.state.personalinfo &&
         this.state.personalinfo.blood_pressure &&
@@ -1724,7 +1723,6 @@ class Index extends Component {
       this.setState({ options: options });
     }
     if (current_Graph === "respiration") {
-      console.log("Personalinfo", this.props.personalinfo)
       var categoriesbs = [],
         oldtwo,
         hbac = [],

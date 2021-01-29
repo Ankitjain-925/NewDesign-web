@@ -1378,7 +1378,7 @@ a.conPainTime img {
 }
 .allTimeSel .css-yk16xz-control{
     border-radius: 8px !important;
-    /* background-color: #F2F2F2 !important; */
+    background-color: #F2F2F2 !important;
     border-color: transparent !important;
     font-family: Muli !important;
 }
@@ -12886,14 +12886,14 @@ a.timSlotClose {
     margin-bottom: 0px;
     font-weight: 400;
 }
-/* .adminmenuItems ul li a img {
+.adminmenuItems ul li a img {
     margin-right: 0px !important;
-} */
+}
 @media (max-width: 959px){
-    .adminmenuItems ul li a img {
-        margin-right: 12px !important;
-      }
-    }
+.adminmenuItems ul li a img {
+    margin-right: 12px !important;
+  }
+}
 a.addNewPlus {
     border: 1px solid #F2F2F2;
     border-radius: 8px;
@@ -13103,6 +13103,21 @@ a.academy_ul ul li img {
 
 
 /*Added By ankita*/
+.setVaccination{
+    padding : 0px 5px;
+}
+.blockChainUpr h2 {
+    margin-bottom: 0px !important;
+    color: #7F8383;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 2.5;
+}
+.blockChainDtail1 {
+    margin-top: 15px;
+}
 /* Start For Hospital addition in user side */
 .ulpoad_icon img {
     width: 65px;
@@ -15600,11 +15615,9 @@ select:-webkit-autofill:focus {
     width: 98.3% !important;
   }
   .slotBoxCntnt{
-    width: 96% !important;
-    margin-left: 0px !important;
-    margin-right: 0px !important;
+    width: 98% !important;
   }
-  .slotTimDat {
+  .slotTimDat{
     padding: 18px 2px !important;
   }
 }

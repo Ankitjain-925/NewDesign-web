@@ -44,7 +44,8 @@ class Date extends Component {
       covid_19 = [],
       diary = [],
       smoking_status = [],
-      anamnesis = [];
+      anamnesis = [],
+      respiration = [];
     if (this.state.TrackRecord && this.state.TrackRecord.length > 0) {
       this.state.TrackRecord.map((data) => {
         switch (data.type) {
@@ -107,6 +108,8 @@ class Date extends Component {
             fanamnesis.push(dess);
           case "diary":
             diary.push(data.free_text);
+          case "respiration":
+            respiration.push(data.respiration);
           case "covid_19":
             covid_19.push(data.temprature);
           case "vaccination_trial":
@@ -139,6 +142,7 @@ class Date extends Component {
       anamnesis: anamnesis.filter((e) => e != null),
       covid_19_diary: covid_19.filter((e) => e != null),
       covid_19_vaccination_trial: VTrial.filter((e) => e != null),
+      respiration: respiration.filter((e)=> e != null)
     };
 
     this.setState({ loaderImage: true });

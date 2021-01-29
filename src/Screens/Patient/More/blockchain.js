@@ -217,6 +217,7 @@ class Index extends Component {
       created_by,
       log_type,
       time_created,
+      vaccination
     } = translate;
 
     return (
@@ -327,6 +328,37 @@ class Index extends Component {
                         )}
                       </Grid>
                     </Grid>
+                    
+                    <Grid className="blockChainDtail1">
+                      <Grid className="blockChainUpr">
+                        <h2>{vaccination}</h2>
+                        {Object.entries(this.state.PatientFullData).map(
+                          ([key, value]) =>
+                            key !== "" &&
+                            key == "Vaccination" && (
+                              <div>
+                                {Object.entries(value).map(([k, v]) => (
+                                  <div>
+                                    {Object.entries(v).map(([k1, v1]) => (
+                                      <span className="setVaccination">
+                                       {k1 !== 'date' &&  <label> : {v1}</label> }
+                                       {k1 === 'date' && <label> {getDate(
+                                          v1,
+                                          this.props.settings.setting
+                                            ? this.props.settings
+                                                .setting.date_format
+                                            : "DD/MM/YYYY"
+                                       )}</label>}
+                                      </span>
+                                    ))}
+                                  </div>
+                                ))}
+                              </div>
+                            )
+                        )}
+                      </Grid>
+                    </Grid>
+
 
                     <Grid className="blockChainDtail">
                       <Grid className="blockChainUpr">

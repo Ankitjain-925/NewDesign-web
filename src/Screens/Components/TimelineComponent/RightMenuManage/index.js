@@ -78,7 +78,8 @@ class RightManage extends Component {
       nextState.sodium1 !== this.state.sodium1 ||
       nextState.Sodium !== this.state.Sodium ||
       nextState.thrombocytes1 !== this.state.thrombocytes1 ||
-      nextState.Thrombocytes !== this.state.Thrombocytes
+      nextState.Thrombocytes !== this.state.Thrombocytes ||
+      nextState.respiration_data !== this.state.respiration_data
     );
   }
   //On change the User Data
@@ -139,6 +140,7 @@ class RightManage extends Component {
         var ggt1 = this.getOptions("ggt");
         var ast1 = this.getOptions("ast/got");
         var alt1 = this.getOptions("alt/gpt");
+        var respiration_data = this.getOptions("respiration");
 
         var Creatinine1 =
           this.state.personalinfo &&
@@ -237,6 +239,7 @@ class RightManage extends Component {
         this.setState({
           laboratory_result: laboratory_result,
           blood_pressure: blood_pressure,
+          respiration_data: respiration_data,
           weight_bmi: weight_bmi,
           heart_rate: heart_rate,
           blood_sugar: blood_sugar,
@@ -2016,6 +2019,7 @@ class RightManage extends Component {
       Change,
       de_archive,
       Download,
+      respiration
     } = translate;
     var item = this.state.item;
     return (
@@ -2024,6 +2028,226 @@ class RightManage extends Component {
           this.state.added_data.length > 0 &&
           this.state.added_data.map((item, index) => (
             <div key={index}>
+              {item === "respiration" && (
+                <Grid className="persBlodMesur">
+                  <Grid container direction="row" alignItems="center">
+                    <Grid item sxs={6} md={6} className="lstView">
+                      <label>{respiration}</label>
+                    </Grid>
+                    <Grid item xs={6} md={6}>
+                      <Grid className="persBlodImg scndOptionIner1">
+                        {this.state.personalinfo &&
+                          this.state.personalinfo.respiration &&
+                          this.state.personalinfo.respiration.length > 0 && (
+                            <a className="openScndhrf1">
+                              <a className="vsblDots">
+                                <img
+                                  src={require("../../../../assets/images/nav-more.svg")}
+                                  alt=""
+                                  title=""
+                                />
+                              </a>
+                              <ul>
+                                {this.props.from === "patient" && (
+                                  <li>
+                                    {this.state.personalinfo.respiration[
+                                      this.state.personalinfo.respiration
+                                        .length - 1
+                                    ].created_by ===
+                                      this.state.loggedinUser._id &&
+                                    (!this.state.personalinfo.respiration[
+                                      this.state.personalinfo.respiration
+                                        .length - 1
+                                    ].updated_by ||
+                                      this.state.personalinfo.respiration[
+                                        this.state.personalinfo.v
+                                          .length - 1
+                                      ].updated_by === "") ? (
+                                      <a
+                                        onClick={() =>
+                                          this.props.EidtOption(
+                                            this.state.personalinfo
+                                              .respiration[
+                                              this.state.personalinfo
+                                                .respiration.length - 1
+                                            ].type,
+                                            this.state.personalinfo
+                                              .respiration[
+                                              this.state.personalinfo
+                                                .respiration.length - 1
+                                            ]
+                                          )
+                                        }
+                                      >
+                                        <img
+                                          src={require("../../../../assets/images/edit-1.svg")}
+                                          alt=""
+                                          title=""
+                                        />
+                                        {edit}
+                                      </a>
+                                    ) : (
+                                      <a
+                                        onClick={() =>
+                                          this.props.EidtOption(
+                                            this.state.personalinfo
+                                              .respiration[
+                                              this.state.personalinfo
+                                                .respiration.length - 1
+                                            ].type,
+                                            this.state.personalinfo
+                                              .respiration[
+                                              this.state.personalinfo
+                                                .respiration.length - 1
+                                            ],
+                                            true
+                                          )
+                                        }
+                                      >
+                                        <img
+                                          src={require("../../../../assets/images/edit.svg")}
+                                          alt=""
+                                          title=""
+                                        />
+                                        {Change} {visibility}
+                                      </a>
+                                    )}
+                                  </li>
+                                )}
+                                {this.props.from !== "patient" && (
+                                  <li>
+                                    <a
+                                      onClick={() =>
+                                        this.props.EidtOption(
+                                          this.state.personalinfo
+                                            .respiration[
+                                            this.state.personalinfo
+                                              .respiration.length - 1
+                                          ].type,
+                                          this.state.personalinfo
+                                            .respiration[
+                                            this.state.personalinfo
+                                              .respiration.length - 1
+                                          ]
+                                        )
+                                      }
+                                    >
+                                      <img
+                                        src={require("../../../../assets/images/edit-1.svg")}
+                                        alt=""
+                                        title=""
+                                      />
+                                      {edit}
+                                    </a>
+                                  </li>
+                                )}
+                                <li>
+                                  <a
+                                    onClick={() =>
+                                      this.props.downloadTrack(
+                                        this.state.personalinfo.respiration[
+                                          this.state.personalinfo.respiration
+                                            .length - 1
+                                        ]
+                                      )
+                                    }
+                                  >
+                                    <img
+                                      src={require("../../../../assets/images/download.svg")}
+                                      alt=""
+                                      title=""
+                                    />
+                                    {Download}
+                                  </a>
+                                </li>
+                                <li>
+                                  <a
+                                    onClick={() =>
+                                      this.props.OpenGraph("respiration")
+                                    }
+                                  >
+                                    <img
+                                      src={require("../../../../assets/images/eye2.png")}
+                                      alt=""
+                                      title=""
+                                    />
+                                    {VeiwGraph}
+                                  </a>
+                                </li>
+                              </ul>
+                            </a>
+                          )}
+                      </Grid>
+                    </Grid>
+                  </Grid>
+                  {this.state.personalinfo &&
+                  this.state.personalinfo.respiration &&
+                  this.state.personalinfo.respiration.length > 0 ? (
+                    <div>
+                      <Grid className="presureData">
+                        <h3>
+                          {this.state.personalinfo &&
+                            this.state.personalinfo.respiration &&
+                            this.state.personalinfo.respiration[
+                              this.state.personalinfo.respiration.length - 1
+                            ] &&
+                            this.state.personalinfo.respiration[
+                              this.state.personalinfo.respiration.length - 1
+                            ].respiration}
+                          <span>/min</span>
+                        </h3>
+                        <p>
+                          {getDate(
+                            this.state.personalinfo.respiration[
+                              this.state.personalinfo.respiration.length - 1
+                            ].datetime_on,
+                            this.state.date_format
+                          )}
+                          ,{" "}
+                          {getTime(
+                            new Date(
+                              this.state.personalinfo.respiration[
+                                this.state.personalinfo.respiration.length -
+                                  1
+                              ].datetime_on
+                            ),
+                            this.state.time_foramt
+                          )}
+                        </p>
+                      </Grid>
+                      <Grid className="presureDataGrph">
+                        {/* <img src={require('../../../../assets/images/lineGraph.png')} alt="" title="" /> */}
+
+                        <HighchartsReact
+                          constructorType={"chart"}
+                          ref={this.chartComponent}
+                          highcharts={Highcharts}
+                          options={this.state.respiration_data}
+                        />
+                        <a
+                          onClick={() => this.props.OpenGraph("respiration")}
+                        >
+                          {VeiwGraph}
+                        </a>
+                      </Grid>
+                    </div>
+                  ) : (
+                    <Grid className="noBpData">
+                      <p>{no_data_avlbl}</p>
+                      {this.props.from === "patient" && (
+                        <h3
+                          onClick={() =>
+                            this.props.SelectOption("respiration")
+                          }
+                        >
+                          + {add_new_entry}
+                        </h3>
+                      )}
+                    </Grid>
+                  )}
+                </Grid>
+              )}
+
               {item === "graph_blood_pressure" && (
                 <Grid className="persBlodMesur">
                   <Grid container direction="row" alignItems="center">

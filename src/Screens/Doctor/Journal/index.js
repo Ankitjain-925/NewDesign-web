@@ -673,11 +673,13 @@ class Index extends Component {
                         }
                       })
                     })
-                    updateBlockchain(this.state.personalinfo, response.data.data)
+                   
                     this.setState({ allTrack1 : response.data.data, allTrack: response.data.data, loaderImage: false })
                 }
                 else { this.setState({ allTrack1 : [], allTrack: [], loaderImage: false }) }
-            })
+            }).then(()=>{
+                // updateBlockchain(this.state.cur2, response.data.data)
+             })
     }
 
     //Get All information Related to Metadata

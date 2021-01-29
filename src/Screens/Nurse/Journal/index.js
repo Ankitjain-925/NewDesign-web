@@ -852,7 +852,7 @@ class Index extends Component {
           //                     .then(response6 => { })
           //             })
           //     })
-          updateBlockchain(this.state.personalinfo, response.data.data);
+          // updateBlockchain(this.state.cur2, response.data.data)
           this.setState({
             allTrack1: response.data.data,
             allTrack: response.data.data,
