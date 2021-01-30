@@ -33,6 +33,7 @@ import * as translationNL from "../../../translations/nl.json";
 import * as translationFR from "../../../translations/fr.json";
 import * as translationAR from "../../../translations/ar.json";
 import StripeCheckout from "react-stripe-checkout";
+import $ from "jquery"
 const CURRENCY = "USD";
 // const STRIPE_PUBLISHABLE = "pk_live_SUaxHsAUa2ebLQXAa7NoMwPQ";
 const STRIPE_PUBLISHABLE = "pk_test_qoJaLAHMXbv3fzci2AEcmkYX";
@@ -460,6 +461,10 @@ class Index extends Component {
     this.StripeClick.onClick();
   };
 
+  onClosed = ()=>{
+    $("body").css("overflow", "auto");
+ }
+
   render() {
     let translate = {};
     switch (this.props.stateLanguageType) {
@@ -652,6 +657,7 @@ class Index extends Component {
         stripeKey={STRIPE_PUBLISHABLE}
         label={pay_with_stripe}
         className="CutomStripeButton"
+        closed = {this.onClosed}
       />
     );
     return (
