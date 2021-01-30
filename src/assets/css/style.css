@@ -13103,6 +13103,9 @@ a.academy_ul ul li img {
 
 
 /*Added By ankita*/
+iframe.stripe_checkout_app {
+    overflow: scroll!important;
+}
 .setVaccination{
     padding : 0px 5px;
 }
