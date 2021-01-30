@@ -207,6 +207,7 @@ export const Doctorarrays = (type, user, token, CB = () => {}) => {
                   doctorArray = docArray;
                   if (!hasPaidservice) {
                     let tmp = { doctorarray: doctorArray };
+                    CB();
                     dispatch({ type: GET_DoctorArray_SUCCESS, payload: tmp });
                   }
                   if (hasPaidservice) {
