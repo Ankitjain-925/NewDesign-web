@@ -103,6 +103,7 @@ class Index extends Component {
             mobile: '',
             phone: '',
             fax: '',
+            emergency_number: '',
             updateIns: -1,
             error3: false,
             succUpdate: false,
@@ -216,7 +217,7 @@ class Index extends Component {
     updateEntryState11 = (e) => {
         const state = this.state.contact_partner;
         state['number'] = this.state.flag_emergency_number + '-' + e.target.value;
-        this.setState({ phone: e.target.value });
+        this.setState({ emergency_number: e.target.value });
         this.setState({ contact_partner: state });
     }
     //Update the states
@@ -236,7 +237,7 @@ class Index extends Component {
         }
         if (e.target.name === 'emergency_number') {
             state[e.target.name] = this.state.flag_emergency_number + '-' + e.target.value;
-            this.setState({ phone: e.target.value });
+            this.setState({ emergency_number: e.target.value });
         }
         this.setState({ UpDataDetails: state });
     }
@@ -299,8 +300,12 @@ class Index extends Component {
             this.setState({ flag_phone: e });
         }
         if (name === 'flag_emergency_number') {
-            state['emergency_number'] = e + '-' + this.state.phone;
+            console.log('I am here111')
+            const state = this.state.contact_partner;
+            state['number'] = e + '-' + this.state.emergency_number;
             this.setState({ flag_emergency_number: e });
+            this.setState({ contact_partner: state });
+            // state['emergency_number'] = e + '-' + this.state.phone;
         }
         this.setState({ UpDataDetails: state });
     }
@@ -1319,7 +1324,7 @@ class Index extends Component {
                             onChange={phone => this.setState({ phone })}
                         /> */}
                             {this.updateFLAG(this.state.contact_partner.number) && this.updateFLAG(this.state.contact_partner.number) !== '' &&
-                                <ReactFlagsSelect placeholder={country_code} onSelect={(e) => { this.updateFlags(e, 'number') }} name="flag_phone" showSelectedLabel={false} defaultCountry={this.updateFLAG(this.state.contact_partner.number)} />}
+                                <ReactFlagsSelect placeholder={country_code} onSelect={(e) => { this.updateFlags(e, 'flag_emergency_number') }} name="flag_emergency_number" showSelectedLabel={false} defaultCountry={this.updateFLAG(this.state.contact_partner.number)} />}
                             <input type="text"
                                 className="Mobile_extra Emergency_number"
                                 placeholder={phone}

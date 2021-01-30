@@ -36,7 +36,7 @@ const sendervideobubble = (props) => {
       action="viewMessageThread" 
       message={message}
       actionGenerated={props.actionGenerated}
-      lan={this.props.lan}
+      lan={props.lan}
       className="moreoptions">
         <MoreVertIcon/>
       </Tooltip>  

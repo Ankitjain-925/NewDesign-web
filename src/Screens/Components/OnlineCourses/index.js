@@ -588,7 +588,7 @@ class Index extends Component {
           }
         )
         .then((res) => {
-          this.GetAllCart();
+          this.getAllCart();
         })
         .catch((err) => {});
     };

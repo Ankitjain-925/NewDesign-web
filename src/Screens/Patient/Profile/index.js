@@ -85,12 +85,12 @@ class Index extends Component {
      //   //For getting the dropdowns from the database
      getMetadata() {
         axios.get(sitedata.data.path + '/UserProfile/Metadata')
-            .then((responce) => {
-                if (responce && responce.data && responce.data.length > 0) {
-                    this.setState({ allMetadata: responce.data[0] })
-                    this.GetLanguageMetadata();
-                }
-            })
+        .then((responce) => {
+            if (responce && responce.data && responce.data.length > 0) {
+                this.setState({ allMetadata: responce.data[0] })
+                this.GetLanguageMetadata();
+            }
+        })
     }
     GetLanguageMetadata=()=>{
         var Alltissues = GetLanguageDropdown(this.state.allMetadata && this.state.allMetadata.tissue && this.state.allMetadata.tissue.length > 0 && this.state.allMetadata.tissue, this.props.stateLanguageType)
