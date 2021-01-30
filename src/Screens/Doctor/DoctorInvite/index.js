@@ -156,6 +156,7 @@ class Index extends Component {
   };
 
   handleChange = (value, actionMeta) => {
+ 
     var value = value;
     if (
       value &&
@@ -175,8 +176,10 @@ class Index extends Component {
     } else {
       if (Array.isArray(value)) {
         value = value;
-      } else {
+      } else if(value === null){
         value = [];
+      }else {
+        value = [ ...this.state.value];
       }
     }
     var state = this.state.invitation;
