@@ -10,25 +10,24 @@ import greyTick from "./resources/grey-tick-icon.png";
 const sendervideobubble = (props) => {
 
   let ticks = blueDoubleTick;
-  if(props.message.sentAt && !props.message.readAt && !props.message.deliveredAt){
+  if (props.message.sentAt && !props.message.readAt && !props.message.deliveredAt) {
     ticks = greyTick;
-  } else if(props.message.sentAt && !props.message.readAt && props.message.deliveredAt){
+  } else if (props.message.sentAt && !props.message.readAt && props.message.deliveredAt) {
     ticks = greyDoubleTick
   }
 
-  const message = Object.assign({}, props.message, {messageFrom: "sender"});
+  const message = Object.assign({}, props.message, { messageFrom: "sender" });
 
   let replies = null, tooltip = null;
-  if((!props.widgetconfig && props.message.replyCount) 
-  || (props.widgetconfig && props.widgetconfig["threaded-chats"] && props.message.replyCount)) {
+  if ((!props.widgetconfig && props.message.replyCount)
+    || (props.widgetconfig && props.widgetconfig["threaded-chats"] && props.message.replyCount)) {
 
     const replyCount = props.message.replyCount;
     const replyText = (replyCount === 1) ? `${replyCount} reply` : `${replyCount} replies`;
     replies = (<span className="cc1-chat-win-replies" onClick={() => props.actionGenerated("viewMessageThread", message)}>{replyText}</span>);
   }
 
-  if((!props.widgetconfig) || (props.widgetconfig && props.widgetconfig["threaded-chats"])) {
-
+  if ((!props.widgetconfig) || (props.widgetconfig && props.widgetconfig["threaded-chats"])) {
     tooltip = (
       <Tooltip 
       placement="left" 
@@ -42,17 +41,16 @@ const sendervideobubble = (props) => {
       </Tooltip>  
     );
   }
-
   return (
     <div className="cc1-chat-win-sndr-row clearfix">
-      <div className="cc1-chat-win-msg-block">  
+      <div className="cc1-chat-win-msg-block">
         <div className="cc1-chat-win-sndr-video-action-wrap">
           <div className="cc1-chat-win-sndr-video-wrap">
             <video controls>
               <source src={props.message.data.url} />
-            </video>                        
+            </video>
           </div>
-          {tooltip}                      
+          {tooltip}
         </div>
         <div className="cc1-chat-win-msg-time-wrap">
           {replies}
@@ -60,7 +58,7 @@ const sendervideobubble = (props) => {
             <img src={ticks} alt="time" />
           </span>
         </div>
-      </div>                            
+      </div>
     </div>
   )
 }
