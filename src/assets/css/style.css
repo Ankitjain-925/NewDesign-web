@@ -14833,7 +14833,7 @@ input#graduationYear {
     color: #bfc1c1 !important;
     background-color: transparent !important;
 }
-@media (max-width: 768px){
+@media (max-width: 960px){
   .cc1-chat-win-inpt-ext-wrap {
     z-index: 999999 !important;
     position: fixed !important;
@@ -14842,6 +14842,11 @@ input#graduationYear {
   .cc1-chat-win-header {
     margin-top: 20px !important;
   }
+}
+@media  screen and (min-width:768px) and (max-width:960px){
+    .cc1-chat-win-inpt-ext-wrap {
+        width: 67% !important;
+    }
 }
 .timeIconClas_crested {
     background: #e1f7f7 !important;
@@ -15716,3 +15721,4 @@ select:-webkit-autofill:focus {
 .profileInfoDate .ant-picker {
     margin-bottom: 0px !important;
 }
+
