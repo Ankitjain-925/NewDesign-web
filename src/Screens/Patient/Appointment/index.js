@@ -20,6 +20,7 @@ import { LoginReducerAim } from "./../../Login/actions";
 import { Settings } from "./../../Login/setting";
 import { LanguageFetchReducer } from "./../../actions";
 import TooltipTrigger from "react-popper-tooltip";
+import { pure } from "recompose";
 import "react-popper-tooltip/dist/styles.css";
 import CalendarToolbar from "./../../Components/CalendarToolbar/index.js";
 import DatePicker from "react-date-picker";
@@ -2206,7 +2207,7 @@ const mapStateToProps = (state) => {
     //   catfil
   };
 };
-export default withRouter(
+export default pure(withRouter(
   connect(mapStateToProps, {
     LoginReducerAim,
     LanguageFetchReducer,
@@ -2217,4 +2218,4 @@ export default withRouter(
       apiKey: "AIzaSyCNLBs_RtZoI4jdrZg_CjBp9hEM6SBIh-4",
     })(Index)
   )
-);
+));
