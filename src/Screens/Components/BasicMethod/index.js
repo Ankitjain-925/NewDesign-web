@@ -14,19 +14,19 @@ export function getDate(date, dateFormat) {
   }
   var d = new Date(date);
   var monthNames = [
-      "01",
-      "02",
-      "03",
-      "04",
-      "05",
-      "06",
-      "07",
-      "08",
-      "09",
-      "10",
-      "11",
-      "12",
-    ],
+    "01",
+    "02",
+    "03",
+    "04",
+    "05",
+    "06",
+    "07",
+    "08",
+    "09",
+    "10",
+    "11",
+    "12",
+  ],
     month = monthNames[d.getMonth()],
     day = d.getDate(),
     year = d.getFullYear();
@@ -47,19 +47,19 @@ export function newdate(date) {
   }
   var d = new Date(date);
   var monthNames = [
-      "Jan",
-      "Feb",
-      "Mar",
-      "Apr",
-      "May",
-      "Jun",
-      "Jul",
-      "Aug",
-      "Sep",
-      "Oct",
-      "Nov",
-      "Dec",
-    ],
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ],
     month = monthNames[d.getMonth()],
     day = d.getDate();
   if (day.length < 2) day = "0" + day;
@@ -151,7 +151,7 @@ export function AddFavDoc(doctor_id, profile_id, user_token, user_profile_id) {
               },
             }
           )
-          .then((responce) => {});
+          .then((responce) => { });
       }
     });
 }
@@ -188,7 +188,7 @@ export function AddFavDoc2(doctor_id, profile_id, user_token, user_profile_id) {
               },
             }
           )
-          .then((responce) => {});
+          .then((responce) => { });
       }
     });
 }
@@ -234,9 +234,9 @@ export function getSpec(value, lang) {
           valarray.includes(it && it.value && it.value.toLowerCase()) ||
           valarray.includes(
             it &&
-              it.value &&
-              it.value.toLowerCase() &&
-              it.value.toLowerCase().replace(/\s/g, "_")
+            it.value &&
+            it.value.toLowerCase() &&
+            it.value.toLowerCase().replace(/\s/g, "_")
           )
         );
       })
@@ -291,15 +291,24 @@ export function SortByGraphView(a, b) {
 //For hospital add new method to block the user
 export function blockClick(deletekey, userblock, user_token) {
   axios.put(sitedata.data.path + '/admin/BlockUser/' + deletekey,
-        { isblock: !userblock },
-        {
-            headers: {
-                'token': user_token,
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            }
-        })
-        .then((response) => {
-            return response;
-        })
+    { isblock: !userblock },
+    {
+      headers: {
+        'token': user_token,
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      }
+    })
+    .then((response) => {
+      return response;
+    })
+}
+
+export function sortCometUser(userList) {
+  let users = userList.sort(function (a, b) {
+    if (a.name < b.name) { return -1; }
+    if (a.name > b.name) { return 1; }
+    return 0;
+  })
+  return users
 }
