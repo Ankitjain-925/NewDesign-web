@@ -35,8 +35,8 @@ import * as translationAR from "../../../translations/ar.json";
 import StripeCheckout from "react-stripe-checkout";
 import $ from "jquery"
 const CURRENCY = "USD";
-// const STRIPE_PUBLISHABLE = "pk_live_SUaxHsAUa2ebLQXAa7NoMwPQ";
-const STRIPE_PUBLISHABLE = "pk_test_qoJaLAHMXbv3fzci2AEcmkYX";
+const STRIPE_PUBLISHABLE = "pk_live_SUaxHsAUa2ebLQXAa7NoMwPQ";
+// const STRIPE_PUBLISHABLE = "pk_test_qoJaLAHMXbv3fzci2AEcmkYX";
 
 function TabContainer(props) {
   return (
