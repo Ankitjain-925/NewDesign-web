@@ -4,7 +4,7 @@ import { CometChat } from "@cometchat-pro/chat";
 import { CometChatManager } from "../../util/controller";
 import { SvgAvatar } from "../../util/svgavatar";
 import { UserListManager } from "./controller";
-
+import { sortCometUser } from "../../../../../BasicMethod/index"
 import UserView from "../UserView";
 import * as translationEN from "../../../../../.../../../../translations/en.json";
 import * as translationDE from "../../../../../.../../../../translations/de.json";
@@ -21,7 +21,7 @@ class CometChatUserList extends React.PureComponent {
   friendsOnly = false;
 
   constructor(props) {
-   super(props);
+    super(props);
     this.state = {
       userlist: [],
       userlist1: [],
@@ -122,7 +122,7 @@ class CometChatUserList extends React.PureComponent {
   };
 
   handleClick = (user) => {
-    this.setState({selectedUser:user.uid})
+    this.setState({ selectedUser: user.uid })
     if (!this.props.onItemClick) return;
 
     this.props.onItemClick(user, "user");
@@ -138,16 +138,16 @@ class CometChatUserList extends React.PureComponent {
 
   isThisAvilabel = (object, text) => {
     if (object && typeof object == 'object') {
-    if (object.uid && object.uid.toLowerCase().includes(text) || object.name && object.name.toLowerCase().includes(text)) {
-    return true;
-    }
-    else{
+      if (object.uid && object.uid.toLowerCase().includes(text) || object.name && object.name.toLowerCase().includes(text)) {
+        return true;
+      }
+      else {
+        return false;
+      }
+    } else {
       return false;
     }
-    } else {
-    return false;
-    }
-    };
+  };
 
 
   searchUsers = (e) => {
@@ -156,20 +156,19 @@ class CometChatUserList extends React.PureComponent {
     }
 
     let val = e.target.value;
-    if(val === ''){
-      this.setState({userlist: this.state.userlist1})
+    if (val === '') {
+      this.setState({ userlist: this.state.userlist1 })
     }
-    else{
-      if(this.state.userlist1 && this.state.userlist1.length>0)
-      {
-        let FilterFromSearch = this.state.userlist1 && this.state.userlist1.length>0 && this.state.userlist1.filter((data)=>{
+    else {
+      if (this.state.userlist1 && this.state.userlist1.length > 0) {
+        let FilterFromSearch = this.state.userlist1 && this.state.userlist1.length > 0 && this.state.userlist1.filter((data) => {
           return this.isThisAvilabel(data, val && val.toLowerCase());
-          }); 
-          this.setState({userlist: FilterFromSearch})
+        });
+        this.setState({ userlist: FilterFromSearch })
       }
-     
+
     }
-    
+
     // this.timeout = setTimeout(() => {
     //   this.UserListManager = new UserListManager(this.friendsOnly, val);
     //   this.setState({ userlist: [] }, () => this.getUsers());
@@ -208,7 +207,7 @@ class CometChatUserList extends React.PureComponent {
             .then(() => {
               if (users.length + er == u.length) {
                 this.setState({ userlist1: users, userlist: users }
-                 );
+                );
               }
             });
         });
@@ -249,56 +248,56 @@ class CometChatUserList extends React.PureComponent {
   }
 
   render() {
-    let translate={};
+    let translate = {};
     switch (this.props.lan) {
-          case "en":
-              translate = translationEN.text
-              break;
-          case "de":
-              translate = translationDE.text
-              break;
-          case "pt":
-              translate = translationPT.text
-              break;
-          case "sp":
-              translate = translationSP.text
-              break;
-          case "rs":
-              translate = translationRS.text
-              break;
-          case "nl":
-              translate = translationNL.text
-              break;
-          case "ch":
-              translate = translationCH.text
-              break;
-          case "sw":
-              translate = translationSW.text
-              break;
-          case "fr":
-              translate = translationFR.text
-              break;
-          case "ar":
-              translate = translationAR.text
-              break;
-          default:
-              translate = translationEN.text
-      }
-      let { Search , Loading } = translate;
+      case "en":
+        translate = translationEN.text
+        break;
+      case "de":
+        translate = translationDE.text
+        break;
+      case "pt":
+        translate = translationPT.text
+        break;
+      case "sp":
+        translate = translationSP.text
+        break;
+      case "rs":
+        translate = translationRS.text
+        break;
+      case "nl":
+        translate = translationNL.text
+        break;
+      case "ch":
+        translate = translationCH.text
+        break;
+      case "sw":
+        translate = translationSW.text
+        break;
+      case "fr":
+        translate = translationFR.text
+        break;
+      case "ar":
+        translate = translationAR.text
+        break;
+      default:
+        translate = translationEN.text
+    }
+    let { Search, Loading } = translate;
     let loading = null;
     if (this.state.loading) {
       loading = <div className="loading-text">{Loading}</div>;
     }
 
-    const userList = this.state.userlist;
-
+    let userList = this.state.userlist;
+    userList = sortCometUser(userList)
     let currentLetter = "";
     const users = userList.map((user, key) => {
       const chr = user.name[0].toUpperCase();
       if (chr !== currentLetter) {
         currentLetter = chr;
         return (
-          <div style={{background: this.state.selectedUser==user.uid ?"#F2F2F2": "#fff"}} id={key} onClick={() => this.handleClick(user)} key={key}>
+          <div style={{ background: this.state.selectedUser == user.uid ? "#F2F2F2" : "#fff" }} id={key} onClick={() => this.handleClick(user)} key={key}>
             <UserView
               Userlist={this.props.Userlist}
               key={user.uid}
@@ -309,7 +308,7 @@ class CometChatUserList extends React.PureComponent {
         );
       } else {
         return (
-          <div style={{background: this.state.selectedUser==user.uid ?"#F2F2F2": "#fff"}} id={key} onClick={() => this.handleClick(user)} key={key}>
+          <div style={{ background: this.state.selectedUser == user.uid ? "#F2F2F2" : "#fff" }} id={key} onClick={() => this.handleClick(user)} key={key}>
             <UserView
               Userlist={this.props.Userlist}
               key={user.uid}
@@ -321,8 +320,8 @@ class CometChatUserList extends React.PureComponent {
       }
     });
 
-    
-    
+
+
 
     return (
       <React.Fragment>
@@ -335,7 +334,7 @@ class CometChatUserList extends React.PureComponent {
         </div>
         <div className="ccl-left-panel-srch-wrap">
           <div className="ccl-left-panel-srch-inpt-wrap ">
-        
+
             <input
               type="text"
               autoComplete="off"
