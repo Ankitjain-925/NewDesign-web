@@ -8,6 +8,7 @@ import axios from "axios";
 import { withRouter } from "react-router-dom";
 import QRCode from "qrcode.react";
 import { connect } from "react-redux";
+import { OptionList } from "Screens/Login/metadataaction";
 import { LoginReducerAim } from "./../../../Login/actions";
 import { Settings } from "./../../../Login/setting";
 import { confirmAlert } from "react-confirm-alert"; // Import
@@ -30,8 +31,8 @@ import {
   translationDE,
   translationCH,
   translationPT,
-  translationFR
-} from "translations/index"
+  translationFR,
+} from "translations/index";
 import SPECIALITY from "../../../../speciality";
 import { GetLanguageDropdown } from "./../../../Components/GetMetaData/index.js";
 
@@ -260,12 +261,15 @@ class Index extends Component {
 
   //For getting the dropdowns from the database
   getMetadata() {
-    axios.get(sitedata.data.path + "/UserProfile/Metadata").then((responce) => {
-      if (responce && responce.data && responce.data.length > 0) {
-        this.setState({ allMetadata: responce.data[0] });
-        this.GetLanguageMetadata();
-      }
+    this.setState({ allMetadata: this.props.metadata }, () => {
+      this.GetLanguageMetadata();
     });
+    // axios.get(sitedata.data.path + "/UserProfile/Metadata").then((responce) => {
+    //   if (responce && responce.data && responce.data.length > 0) {
+    //     this.setState({ allMetadata: responce.data[0] });
+    //     this.GetLanguageMetadata();
+    //   }
+    // });
   }
 
   GetLanguageMetadata = () => {
@@ -1506,6 +1510,7 @@ const mapStateToProps = (state) => {
   } = state.LoginReducerAim;
   const { stateLanguageType } = state.LanguageReducer;
   const { settings } = state.Settings;
+  const { metadata } = state.OptionList;
   // const { Doctorsetget } = state.Doctorset;
   // const { catfil } = state.filterate;
   return {
@@ -1513,12 +1518,16 @@ const mapStateToProps = (state) => {
     stateLoginValueAim,
     loadingaIndicatoranswerdetail,
     settings,
+    metadata,
     //   Doctorsetget,
     //   catfil
   };
 };
 export default withRouter(
-  connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer, Settings })(
-    Index
-  )
+  connect(mapStateToProps, {
+    LoginReducerAim,
+    LanguageFetchReducer,
+    Settings,
+    OptionList,
+  })(Index)
 );

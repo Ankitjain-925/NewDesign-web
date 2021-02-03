@@ -64,7 +64,6 @@ export const LoginReducerAim = (email, password, SendCallback = () => {}) => {
           )
             .then(
               (user) => {
-                // console.log('heres1', user);
                 dispatch({ type: GET_LOGIN_SUCCESS, payload: tmp });
                 SendCallback();
               },

@@ -37,4 +37,8 @@ export const GET_fitbit_REQUEST = "GET_fitbit_REQUEST";
 export const GET_fitbit_SUCCESS = "GET_fitbit_SUCCESS";
 export const GET_fitbit_ERROR = "GET_fitbit_ERROR";
 
+export const GET_OptionList_REQUEST = "GET_OptionList_REQUEST";
+export const GET_OptionList_FAIL = "GET_OptionList_FAIL";
+export const GET_OptionList_SUCCESS = "GET_OptionList_SUCCESS";
+
 export const SET_AUTH_REDIRECT_PATH = "SET_AUTH_REDIRECT_PATH";

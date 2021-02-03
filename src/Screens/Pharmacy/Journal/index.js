@@ -8,6 +8,7 @@ import axios from "axios";
 import { confirmAlert } from "react-confirm-alert"; // Import
 import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
 import { withRouter } from "react-router-dom";
+import { OptionList } from "Screens/Login/metadataaction";
 import { connect } from "react-redux";
 import { LoginReducerAim } from "./../../Login/actions";
 import LeftMenuMobile from "./../../Components/Menus/PharmaLeftMenu/mobile";
@@ -861,19 +862,22 @@ class Index extends Component {
 
   //Get All information Related to Metadata
   getMetadata() {
-    var user_token = this.props.stateLoginValueAim.token;
-    axios
-      .get(sitedata.data.path + "/UserProfile/Metadata", {
-        headers: {
-          token: user_token,
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      })
-      .then((response) => {
-        this.setState({ allMetadata: response.data[0] });
-        this.GetLanguageMetadata();
-      });
+    this.setState({ allMetadata: this.props.metadata }, () => {
+      this.GetLanguageMetadata();
+    });
+    // var user_token = this.props.stateLoginValueAim.token;
+    // axios
+    //   .get(sitedata.data.path + "/UserProfile/Metadata", {
+    //     headers: {
+    //       token: user_token,
+    //       Accept: "application/json",
+    //       "Content-Type": "application/json",
+    //     },
+    //   })
+    //   .then((response) => {
+    //     this.setState({ allMetadata: response.data[0] });
+    //     this.GetLanguageMetadata();
+    //   });
   }
 
   GetLanguageMetadata = () => {
@@ -2129,6 +2133,7 @@ const mapStateToProps = (state) => {
   const { settings } = state.Settings;
   const { Doctorsetget } = state.Doctorset;
   const { verifyCode } = state.authy;
+  const { metadata } = state.OptionList;
   // const { catfil } = state.filterate;
   return {
     stateLanguageType,
@@ -2137,6 +2142,7 @@ const mapStateToProps = (state) => {
     settings,
     Doctorsetget,
     verifyCode,
+    metadata,
     //   catfil
   };
 };
@@ -2147,5 +2153,6 @@ export default withRouter(
     LanguageFetchReducer,
     Settings,
     authy,
+    OptionList
   })(Index)
 );

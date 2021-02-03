@@ -13,6 +13,7 @@ import { Settings } from "./../../Login/setting";
 import LeftMenu from "./../../Components/Menus/ParamedicLeftMenu/index.js";
 import LeftMenuMobile from "./../../Components/Menus/ParamedicLeftMenu/mobile";
 import { LanguageFetchReducer } from "./../../actions";
+import { OptionList } from "Screens/Login/metadataaction";
 import PropTypes from "prop-types";
 import AppBar from "@material-ui/core/AppBar";
 import Tabs from "@material-ui/core/Tabs";
@@ -80,12 +81,16 @@ class Index extends Component {
   };
   //   //For getting the dropdowns from the database
   getMetadata() {
-    axios.get(sitedata.data.path + "/UserProfile/Metadata").then((responce) => {
-      if (responce && responce.data && responce.data.length > 0) {
-        this.setState({ allMetadata: responce.data[0] });
-        this.GetLanguageMetadata();
-      }
-    });
+    this.setState({ allMetadata: this.props.metadata},
+      ()=>{
+          this.GetLanguageMetadata();
+      })
+    // axios.get(sitedata.data.path + "/UserProfile/Metadata").then((responce) => {
+    //   if (responce && responce.data && responce.data.length > 0) {
+    //     this.setState({ allMetadata: responce.data[0] });
+    //     this.GetLanguageMetadata();
+    //   }
+    // });
   }
   GetLanguageMetadata = () => {
     var Alltissues = GetLanguageDropdown(
@@ -280,6 +285,7 @@ const mapStateToProps = (state) => {
   const { stateLanguageType } = state.LanguageReducer;
   const { settings } = state.Settings;
   const { verifyCode } = state.authy;
+  const { metadata } = state.OptionList;
   // const { Doctorsetget } = state.Doctorset;
   // const { catfil } = state.filterate;
   return {
@@ -288,6 +294,7 @@ const mapStateToProps = (state) => {
     loadingaIndicatoranswerdetail,
     settings,
     verifyCode,
+    metadata,
     //   Doctorsetget,
     //   catfil
   };
@@ -298,5 +305,6 @@ export default withRouter(
     LanguageFetchReducer,
     Settings,
     authy,
+    OptionList
   })(Index)
 );

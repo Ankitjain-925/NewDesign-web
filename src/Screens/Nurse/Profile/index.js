@@ -8,6 +8,7 @@ import { Redirect, Route } from "react-router-dom";
 import sitedata from "../../../sitedata";
 import axios from "axios";
 import { withRouter } from "react-router-dom";
+import { OptionList } from "Screens/Login/metadataaction";
 import { connect } from "react-redux";
 import { LoginReducerAim } from "./../../Login/actions";
 import { Settings } from "./../../Login/setting";
@@ -83,12 +84,16 @@ class Index extends Component {
   };
   //   //For getting the dropdowns from the database
   getMetadata() {
-    axios.get(sitedata.data.path + "/UserProfile/Metadata").then((responce) => {
-      if (responce && responce.data && responce.data.length > 0) {
-        this.setState({ allMetadata: responce.data[0] });
-        this.GetLanguageMetadata();
-      }
-    });
+    this.setState({ allMetadata: this.props.metadata},
+      ()=>{
+          this.GetLanguageMetadata();
+      })
+    // axios.get(sitedata.data.path + "/UserProfile/Metadata").then((responce) => {
+    //   if (responce && responce.data && responce.data.length > 0) {
+    //     this.setState({ allMetadata: responce.data[0] });
+    //     this.GetLanguageMetadata();
+    //   }
+    // });
   }
   GetLanguageMetadata = () => {
     var Alltissues = GetLanguageDropdown(
@@ -299,6 +304,7 @@ const mapStateToProps = (state) => {
   } = state.LoginReducerAim;
   const { stateLanguageType } = state.LanguageReducer;
   const { settings } = state.Settings;
+  const { metadata } = state.OptionList;
   const { verifyCode } = state.authy;
   // const { Doctorsetget } = state.Doctorset;
   // const { catfil } = state.filterate;
@@ -308,6 +314,7 @@ const mapStateToProps = (state) => {
     loadingaIndicatoranswerdetail,
     settings,
     verifyCode,
+    metadata,
     //   Doctorsetget,
     //   catfil
   };
@@ -318,5 +325,6 @@ export default withRouter(
     LanguageFetchReducer,
     Settings,
     authy,
+    OptionList
   })(Index)
 );

@@ -23,6 +23,7 @@ import Typography from "@material-ui/core/Typography";
 import ProfileSection from "./Components/profileUpdate";
 import SecuritySection from "./Components/security";
 import DateTimeSection from "./Components/DateTime";
+import { OptionList } from "Screens/Login/metadataaction";
 import Timezone from "./../../../timezon.json";
 import Notification from "../../Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 import { GetLanguageDropdown } from "../../Components/GetMetaData/index.js";
@@ -82,12 +83,16 @@ class Index extends Component {
   };
   //   //For getting the dropdowns from the database
   getMetadata() {
-    axios.get(sitedata.data.path + "/UserProfile/Metadata").then((responce) => {
-      if (responce && responce.data && responce.data.length > 0) {
-        this.setState({ allMetadata: responce.data[0] });
-        this.GetLanguageMetadata();
-      }
-    });
+    this.setState({ allMetadata: this.props.metadata},
+      ()=>{
+          this.GetLanguageMetadata();
+      })
+    // axios.get(sitedata.data.path + "/UserProfile/Metadata").then((responce) => {
+    //   if (responce && responce.data && responce.data.length > 0) {
+    //     this.setState({ allMetadata: responce.data[0] });
+    //     this.GetLanguageMetadata();
+    //   }
+    // });
   }
   GetLanguageMetadata = () => {
     var Alltissues = GetLanguageDropdown(
@@ -279,6 +284,7 @@ const mapStateToProps = (state) => {
     stateLoginValueAim,
     loadingaIndicatoranswerdetail,
   } = state.LoginReducerAim;
+  const { metadata } = state.OptionList;
   const { stateLanguageType } = state.LanguageReducer;
   const { settings } = state.Settings;
   const { verifyCode } = state.authy;
@@ -290,6 +296,7 @@ const mapStateToProps = (state) => {
     loadingaIndicatoranswerdetail,
     settings,
     verifyCode,
+    metadata,
     //   Doctorsetget,
     //   catfil
   };
@@ -300,5 +307,6 @@ export default withRouter(
     LanguageFetchReducer,
     Settings,
     authy,
+    OptionList
   })(Index)
 );

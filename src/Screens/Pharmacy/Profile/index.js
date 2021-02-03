@@ -6,6 +6,7 @@ import Grid from "@material-ui/core/Grid";
 // import 'react-phone-input-2/lib/style.css';
 import { Redirect, Route } from "react-router-dom";
 import sitedata from "../../../sitedata";
+import { OptionList } from "Screens/Login/metadataaction";
 import axios from "axios";
 import { authy } from "./../../Login/authy.js";
 import { withRouter } from "react-router-dom";
@@ -84,12 +85,16 @@ class Index extends Component {
   };
   //   //For getting the dropdowns from the database
   getMetadata() {
-    axios.get(sitedata.data.path + "/UserProfile/Metadata").then((responce) => {
-      if (responce && responce.data && responce.data.length > 0) {
-        this.setState({ allMetadata: responce.data[0] });
-        this.GetLanguageMetadata();
-      }
-    });
+    this.setState({ allMetadata: this.props.metadata},
+      ()=>{
+          this.GetLanguageMetadata();
+      })
+    // axios.get(sitedata.data.path + "/UserProfile/Metadata").then((responce) => {
+    //   if (responce && responce.data && responce.data.length > 0) {
+    //     this.setState({ allMetadata: responce.data[0] });
+    //     this.GetLanguageMetadata();
+    //   }
+    // });
   }
   GetLanguageMetadata = () => {
     var Alltissues = GetLanguageDropdown(
@@ -292,6 +297,7 @@ const mapStateToProps = (state) => {
   const { stateLanguageType } = state.LanguageReducer;
   const { settings } = state.Settings;
   const { verifyCode } = state.authy;
+  const { metadata } = state.OptionList;
   // const { Doctorsetget } = state.Doctorset;
   // const { catfil } = state.filterate;
   return {
@@ -300,6 +306,7 @@ const mapStateToProps = (state) => {
     loadingaIndicatoranswerdetail,
     settings,
     verifyCode,
+    metadata,
     //   Doctorsetget,
     //   catfil
   };
@@ -310,5 +317,6 @@ export default withRouter(
     LanguageFetchReducer,
     Settings,
     authy,
+    OptionList
   })(Index)
 );

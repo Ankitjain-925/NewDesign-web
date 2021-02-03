@@ -8,6 +8,7 @@ import { Settings } from "./setting";
 import { Doctorarrays } from "./doctorarray";
 import Grid from "@material-ui/core/Grid";
 import { authy } from "./authy.js";
+import { OptionList } from "./metadataaction.js";
 import {
   NavLink,
   UncontrolledDropdown,
@@ -92,6 +93,7 @@ class Index extends Component {
   };
 
   logoutUser = () => {
+    this.props.OptionList(false);
     this.props.authy(false);
     let languageType =
       this.props.stateLanguageType && this.props.stateLanguageType !== ""
@@ -163,6 +165,7 @@ class Index extends Component {
             !this.props.stateLoginValueAim.user.is2fa
           ) {
             this.props.authy(true);
+            this.props.OptionList(true);
           } else if (this.props.stateLoginValueAim.token === 450) {
             this.setState({ thisverify: false });
           } else {
@@ -197,6 +200,7 @@ class Index extends Component {
       .then((response) => {
         this.setState({ loaderImage: false });
         if (response.data.hassuccessed === true) {
+          // this.props.OptionList();
           this.props.authy(true);
         } else {
           this.setState({ loginError1: true });
@@ -659,6 +663,7 @@ const mapStateToProps = (state) => {
   } = state.LoginReducerAim;
   const { stateLanguageType } = state.LanguageReducer;
   const { verifyCode } = state.authy;
+  const { metadata } = state.OptionList;
   const { settings } = state.Settings;
   const { doctorarray } = state.Doctorarrays;
   const { Emergencysetget } = state.EmergencySet;
@@ -672,6 +677,7 @@ const mapStateToProps = (state) => {
     Doctorsetget,
     Emergencysetget,
     doctorarray,
+    metadata
   };
 };
 
@@ -683,6 +689,7 @@ export default connect(mapStateToProps, {
   LanguageFetchReducer,
   authy,
   Settings,
+  OptionList
 })(Index);
 
 // export default Index;
