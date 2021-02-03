@@ -26,16 +26,18 @@ import KycSection from "./Components/kyc";
 import DateTimeSection from "./Components/DateTime";
 import Timezone from "./../../../timezon.json";
 import Notification from "../../Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
-import translationEN from "../../../translations/en.json";
-import translationCH from "../../../translations/ch.json";
-import translationDE from "../../../translations/de.json";
-import translationSP from "../../../translations/sp.json";
-import translationSW from "../../../translations/sw.json";
-import translationPT from "../../../translations/pt.json";
-import translationNL from "../../../translations/nl.json";
-import translationRS from "../../../translations/rs.json";
-import translationFR from "../../../translations/fr.json";
-import translationAR from "../../../translations/ar.json";
+import {
+  translationAR,
+  translationSW,
+  translationSP,
+  translationRS,
+  translationEN,
+  translationNL,
+  translationDE,
+  translationCH,
+  translationPT,
+  translationFR
+} from "translations/index"
 import { GetLanguageDropdown } from "../../Components/GetMetaData/index.js";
 
 function TabContainer(props) {

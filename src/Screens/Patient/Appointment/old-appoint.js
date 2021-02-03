@@ -20,16 +20,18 @@ import axios from "axios";
 import sitedata from "../../../sitedata";
 import { Redirect, Route } from "react-router-dom";
 import Autocomplete from "./Autocomplete";
-import translationEN from "../../../translations/en.json";
-import * as translationDE from "../../../translations/de";
-import * as translationSP from "../../../translations/sp.json";
-import * as translationCH from "../../../translations/ch";
-import * as translationPT from "../../../translations/pt";
-import * as translationRS from "../../../translations/rs";
-import * as translationNL from "../../../translations/nl";
-import * as translationSW from "../../../translations/sw";
-import * as translationFR from "../../../translations/fr";
-import * as translationAR from "../../../translations/ar";
+import {
+  translationAR,
+  translationSW,
+  translationSP,
+  translationRS,
+  translationEN,
+  translationNL,
+  translationDE,
+  translationCH,
+  translationPT,
+  translationFR
+} from "translations/index"
 import SPECIALITY from "../../../speciality";
 import SUBSPECIALITY from "../../../subspeciality";
 

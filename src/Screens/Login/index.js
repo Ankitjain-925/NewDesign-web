@@ -16,16 +16,18 @@ import {
   DropdownItem,
 } from "reactstrap";
 import sitedata from "../../sitedata";
-import * as translationEN from "../../translations/en.json";
-import * as translationDE from "../../translations/de";
-import * as translationSP from "../../translations/sp.json";
-import * as translationCH from "../../translations/ch";
-import * as translationPT from "../../translations/pt";
-import * as translationRS from "../../translations/rs";
-import * as translationNL from "../../translations/nl";
-import * as translationSW from "../../translations/sw";
-import * as translationFR from "../../translations/fr";
-import * as translationAR from "../../translations/ar";
+import {
+  translationAR,
+  translationSW,
+  translationSP,
+  translationRS,
+  translationEN,
+  translationNL,
+  translationDE,
+  translationCH,
+  translationPT,
+  translationFR
+} from "translations/index"
 import { EmergencySet } from "../Doctor/emergencyaction.js";
 import { Doctorset } from "../Doctor/actions";
 import * as actions from "../Components/CometChat/store/action";

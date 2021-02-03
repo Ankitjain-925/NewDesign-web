@@ -28,16 +28,18 @@ import * as SwitzerlandC from "../../../Components/insuranceCompanies/switzerlan
 import * as AmericaC from "../../../Components/insuranceCompanies/us.json";
 import * as ThailandC from "../../../Components/insuranceCompanies/thailand.json";
 import { LanguageFetchReducer } from "./../../../actions";
-import * as translationEN from "../../../../translations/en.json";
-import * as translationDE from "../../../../translations/de.json";
-import * as translationPT from "../../../../translations/pt.json";
-import * as translationSP from "../../../../translations/sp.json";
-import * as translationRS from "../../../../translations/rs.json";
-import * as translationSW from "../../../../translations/sw.json";
-import * as translationCH from "../../../../translations/ch.json";
-import * as translationNL from "../../../../translations/nl.json";
-import * as translationFR from "../../../../translations/fr.json";
-import * as translationAR from "../../../../translations/ar.json";
+import {
+  translationAR,
+  translationSW,
+  translationSP,
+  translationRS,
+  translationEN,
+  translationNL,
+  translationDE,
+  translationCH,
+  translationPT,
+  translationFR
+} from "translations/index"
 import Loader from "./../../../Components/Loader/index";
 import DateFormat from "./../../../Components/DateFormat/index";
 import Autocomplete from "./../../../Components/Autocomplete/index.js";

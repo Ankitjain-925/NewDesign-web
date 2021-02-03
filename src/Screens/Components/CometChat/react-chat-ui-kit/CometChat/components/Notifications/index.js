@@ -7,16 +7,18 @@ import CallScreen from "../CallScreen";
 import CancelIcon from '@material-ui/icons/Cancel';
 import * as enums from '../../util/enums.js';
 import { withRouter } from "react-router-dom";
-import * as translationEN from "../../../../../.../../../../translations/en.json";
-import * as translationDE from "../../../../../.../../../../translations/de.json";
-import * as translationSP from "../../../../../.../../../../translations/sp.json";
-import * as translationPT from "../../../../../.../../../../translations/pt.json";
-import * as translationRS from "../../../../../.../../../../translations/rs.json";
-import * as translationNL from "../../../../../.../../../../translations/nl.json";
-import * as translationCH from "../../../../../.../../../../translations/ch.json";
-import * as translationSW from "../../../../../.../../../../translations/sw.json";
-import * as translationFR from "../../../../../.../../../../translations/fr.json";
-import * as translationAR from "../../../../../.../../../../translations/ar.json";
+import {
+  translationAR,
+  translationSW,
+  translationSP,
+  translationRS,
+  translationEN,
+  translationNL,
+  translationDE,
+  translationCH,
+  translationPT,
+  translationFR
+} from "translations/index"
 // import { CometChatUnified } from '../react-chat-ui-kit/CometChat'; 
 var NewM = false
 class Notification extends React.Component {

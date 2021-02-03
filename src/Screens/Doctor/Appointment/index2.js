@@ -23,16 +23,18 @@ import { authy } from './../../Login/authy.js';
 import { getImage } from './../../Components/BasicMethod/index';
 import { Redirect } from 'react-router-dom';
 import { confirmAlert } from 'react-confirm-alert';
-import * as translationEN from '../../../translations/en.json'
-import * as translationDE from '../../../translations/de';
-import * as translationSP from '../../../translations/sp.json';
-import * as translationCH from '../../../translations/ch';
-import * as translationPT from '../../../translations/pt';
-import * as translationRS from '../../../translations/rs';
-import * as translationNL from '../../../translations/nl';
-import * as translationSW from '../../../translations/sw';
-import * as translationFR from '../../../translations/fr';
-import * as translationAR from '../../../translations/ar';
+import {
+    translationAR,
+    translationSW,
+    translationSP,
+    translationRS,
+    translationEN,
+    translationNL,
+    translationDE,
+    translationCH,
+    translationPT,
+    translationFR
+  } from "translations/index"
 import Loader from './../../Components/Loader/index.js';
 import Notification from "../../Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 

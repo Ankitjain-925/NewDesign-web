@@ -6,16 +6,18 @@ import { connect } from "react-redux";
 import { LoginReducerAim } from "../../Login/actions";
 import { Settings } from "./../../Login/setting";
 import "react-calendar/dist/Calendar.css";
-import * as translationEN from "../../../translations/en.json";
-import * as translationDE from "../../../translations/de";
-import * as translationSP from "../../../translations/sp.json";
-import * as translationCH from "../../../translations/ch";
-import * as translationPT from "../../../translations/pt";
-import * as translationRS from "../../../translations/rs";
-import * as translationNL from "../../../translations/nl";
-import * as translationSW from "../../../translations/sw";
-import * as translationFR from "../../../translations/fr";
-import * as translationAR from "../../../translations/ar";
+import {
+  translationAR,
+  translationSW,
+  translationSP,
+  translationRS,
+  translationEN,
+  translationNL,
+  translationDE,
+  translationCH,
+  translationPT,
+  translationFR
+} from "translations/index"
 class Index extends Component {
   constructor(props) {
     super(props);

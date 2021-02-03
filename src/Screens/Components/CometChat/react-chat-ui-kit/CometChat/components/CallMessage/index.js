@@ -5,16 +5,18 @@ import { CometChat } from "@cometchat-pro/chat";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { LanguageFetchReducer } from "../../../../../../actions";
-import translationEN from "../../../../../../../translations/en.json";
-import translationRS from "../../../../../../../translations/rs.json";
-import translationDE from "../../../../../../../translations/de.json";
-import translationSP from "../../../../../../../translations/sp.json";
-import translationNL from "../../../../../../../translations/nl.json";
-import translationCH from "../../../../../../../translations/ch.json";
-import translationPT from "../../../../../../../translations/pt.json";
-import translationSW from "../../../../../../../translations/sw.json";
-import translationFR from "../../../../../../../translations/fr.json";
-import translationAR from "../../../../../../../translations/ar.json";
+import {
+    translationAR,
+    translationSW,
+    translationSP,
+    translationRS,
+    translationEN,
+    translationNL,
+    translationDE,
+    translationCH,
+    translationPT,
+    translationFR
+  } from "translations/index"
 
 const callmessage = (props) => {
     

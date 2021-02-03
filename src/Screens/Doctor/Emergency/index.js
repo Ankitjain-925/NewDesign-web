@@ -17,16 +17,18 @@ import { connect } from "react-redux";
 import { authy } from "./../../Login/authy.js";
 import { LoginReducerAim } from "./../../Login/actions";
 import EmergencyCall from "./../../Components/EmergencyPage/index";
-import * as translationEN from "../../../translations/en.json";
-import * as translationDE from "../../../translations/de.json";
-import * as translationPT from "../../../translations/pt.json";
-import * as translationSP from "../../../translations/sp.json";
-import * as translationRS from "../../../translations/rs.json";
-import * as translationSW from "../../../translations/sw.json";
-import * as translationCH from "../../../translations/ch.json";
-import * as translationNL from "../../../translations/nl.json";
-import * as translationFR from "../../../translations/fr.json";
-import * as translationAR from "../../../translations/ar.json";
+import {
+  translationAR,
+  translationSW,
+  translationSP,
+  translationRS,
+  translationEN,
+  translationNL,
+  translationDE,
+  translationCH,
+  translationPT,
+  translationFR
+} from "translations/index"
 import Notification from "../../Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 
 import { Settings } from "./../../Login/setting";
