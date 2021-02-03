@@ -810,7 +810,9 @@ class Index extends Component {
                         Allgender.push({ label: item.title, value: item.value })
                     ))
 
-                    Alltime_taken.sort(mySorter);
+                    if(Alltime_taken && Alltime_taken.length>0){
+        Alltime_taken.sort(mySorter);
+      } 
                     this.setState({
                         Alltemprature: Alltemprature,
                         AllATC_code: AllATC_code, Allpain_type: Allpain_type, Allpain_quality: Allpain_quality, Pressuresituation: Pressuresituation, Allsituation: Allsituation,

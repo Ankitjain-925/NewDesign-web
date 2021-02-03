@@ -9,7 +9,7 @@ export default class index {
           token: user_token,
           Accept: "application/json",
           "Content-Type": "application/json",
-        },
+        }, 
       })
       .then((response) => {
         if (response.data.hassuccessed) {

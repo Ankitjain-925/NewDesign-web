@@ -1,25 +1,25 @@
 import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
-import sitedata from "../../../../sitedata";
+import sitedata from "sitedata";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import { LoginReducerAim } from "./../../../Login/actions";
-import { Settings } from "./../../../Login/setting";
+import { LoginReducerAim } from "Screens/Login/actions";
+import { Settings } from "Screens/Login/setting";
 import axios from "axios";
-import { LanguageFetchReducer } from "./../../../actions";
+import { LanguageFetchReducer } from "Screens/actions";
 import Select from "react-select";
-import { GetUrlImage } from "./../../../Components/BasicMethod/index";
+import { GetUrlImage } from "Screens/Components/BasicMethod/index";
 import npmCountryList from "react-select-country-list";
-import Loader from "./../../../Components/Loader/index";
-import * as AustraliaC from "../../../Components/insuranceCompanies/australia.json";
-import * as AustriaC from "../../../Components/insuranceCompanies/austria.json";
-import * as NetherlandC from "../../../Components/insuranceCompanies/dutch.json";
-import * as GermanC from "../../../Components/insuranceCompanies/german.json";
-import * as PhillipinesC from "../../../Components/insuranceCompanies/phillippines.json";
-import * as SwitzerlandC from "../../../Components/insuranceCompanies/switzerland.json";
-import * as AmericaC from "../../../Components/insuranceCompanies/us.json";
-import * as ThailandC from "../../../Components/insuranceCompanies/thailand.json";
-import FileUploader from "./../../../Components/FileUploader/index";
+import Loader from "Screens/Components/Loader/index";
+import * as AustraliaC from "Screens/Components/insuranceCompanies/australia.json";
+import * as AustriaC from "Screens/Components/insuranceCompanies/austria.json";
+import * as NetherlandC from "Screens/Components/insuranceCompanies/dutch.json";
+import * as GermanC from "Screens/Components/insuranceCompanies/german.json";
+import * as PhillipinesC from "Screens/Components/insuranceCompanies/phillippines.json";
+import * as SwitzerlandC from "Screens/Components/insuranceCompanies/switzerland.json";
+import * as AmericaC from "Screens/Components/insuranceCompanies/us.json";
+import * as ThailandC from "Screens/Components/insuranceCompanies/thailand.json";
+import FileUploader from "Screens/Components/FileUploader/index";
 import Checkbox from "@material-ui/core/Checkbox";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import {
@@ -478,7 +478,6 @@ class Index extends Component {
         translate = translationEN.text;
     }
     let {
-      patient_id,
       Pharmacy,
       ID,
       kyc,
@@ -489,39 +488,22 @@ class Index extends Component {
       plz_fill_all_fields,
       plz_accept_term,
       is,
+      patient_id,
+      insurance,
       save_change,
       by_clicking_accept_aimedis_term,
       upload_id_card,
       updated_success,
       file_uploaded,
       attached_doc,
-      u_r_nvr_obligate_to_upload_doc,
-      email,
-      title,
-      degree,
-      first,
-      last,
-      name,
-      dob,
-      gender,
-      street,
-      add,
-      city,
-      postal_code,
-      country,
-      home_telephone,
-      phone,
-      country_code,
-      Delete,
-      mobile_number,
       number,
+      company,
+      u_r_nvr_obligate_to_upload_doc,
+      country,
+      Nurse,
       in_critical_enviroment_id,
       responsible_authority,
-      mobile,
-      insurance,
-      add_more,
-      company,
-      of,
+    
     } = translate;
 
     return (
@@ -529,9 +511,15 @@ class Index extends Component {
         {this.state.loaderImage && <Loader />}
         <Grid>
           <Grid className="patientKyc">
-            <h5>
-              {Pharmacy} {ID} / {kyc}
-            </h5>
+           {this.props.comesFrom==='pharmacy' &&<h5>
+            {Pharmacy} {ID} / {kyc}
+            </h5>}
+            {this.props.comesFrom==='pateint' &&<h5>
+            {patient_id} / {kyc}
+            </h5>}
+            {this.props.comesFrom==='nurse' &&<h5>
+              {Nurse} {ID} / {kyc}
+            </h5>}
             <p>{enter_healthcare_and_upload_data}</p>
           </Grid>
           {this.state.err_pdf && (
@@ -583,7 +571,9 @@ class Index extends Component {
 
               <Grid className="kycForms">
                 <Grid>
-                  <label>{responsible_authority}</label>
+                {this.props.comesFrom==='pharmacy' && this.props.comesFrom==='nurse' && <label>{responsible_authority}</label>}
+                {this.props.comesFrom==='pateint' && <label>{insurance} {company}</label>}
+               
                 </Grid>
                 {this.state.CreateKYC &&
                   this.state.CreateKYC.country &&
@@ -612,7 +602,9 @@ class Index extends Component {
 
               <Grid className="kycForms">
                 <Grid>
-                  <label>{reg_number_if_aplicble}</label>
+                  {this.props.comesFrom==='pharmacy' || this.props.comesFrom==='nurse' && <label>{reg_number_if_aplicble}</label>}
+                  {this.props.comesFrom==='pateint' && <label>{insurance} {number}</label>}
+                  
                 </Grid>
                 <Grid>
                   <input

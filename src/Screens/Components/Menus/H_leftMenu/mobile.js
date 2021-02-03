@@ -41,7 +41,7 @@ class Index extends Component {
     //For loggedout if logged in user is deleted 
     componentDidMount() {
         if (this.props.stateLoginValueAim.token) {
-            new LogOut(this.props.stateLoginValueAim.token, this.props.stateLoginValueAim.user._id, this.logOutClick.bind(this))
+            // new LogOut(this.props.stateLoginValueAim.token, this.props.stateLoginValueAim.user._id, this.logOutClick.bind(this))
             this.props.Settings(this.props.stateLoginValueAim.token);
         } else {
             this.props.history.push("/")

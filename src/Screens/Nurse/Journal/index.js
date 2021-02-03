@@ -978,7 +978,9 @@ class Index extends Component {
         this.state.allMetadata &&
         this.state.allMetadata.time_taken &&
         this.state.allMetadata.time_taken;
-      Alltime_taken.sort(mySorter);
+      if(Alltime_taken && Alltime_taken.length>0){
+        Alltime_taken.sort(mySorter);
+      } 
 
       this.setState({
         Alltemprature: Alltemprature,

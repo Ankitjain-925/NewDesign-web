@@ -20,8 +20,8 @@ import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import ProfileSection from "./Components/profileUpdate";
-import SecuritySection from "./Components/security";
-import DateTimeSection from "./Components/DateTime";
+import SecuritySection from "Screens/Components/CommonProfileSec/security";
+import DateTimeSection from "Screens/Components/CommonProfileSec/DateTime";
 import {
   translationAR,
   translationSW,

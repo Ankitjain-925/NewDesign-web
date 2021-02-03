@@ -22,12 +22,12 @@ import Tab from "@material-ui/core/Tab";
 import { authy } from "./../../Login/authy.js";
 import Typography from "@material-ui/core/Typography";
 import ProfileSection from "./Components/profileUpdate";
-import SecuritySection from "./Components/security";
+import SecuritySection from "Screens/Components/CommonProfileSec/security";
 import DoctorSection from "./Components/mydoctors";
 import OrganSection from "./Components/orgnaDonar";
 import ManagementSection from "./Components/rightManagement";
-import KycSection from "./Components/kyc";
-import DateTimeSection from "./Components/DateTime";
+import KycSection from "Screens/Components/CommonProfileSec/kyc";
+import DateTimeSection from "Screens/Components/CommonProfileSec/DateTime";
 import Timezone from "./../../../timezon.json";
 import Notification from "../../Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 import { GetLanguageDropdown } from "../../Components/GetMetaData/index.js";
@@ -301,7 +301,7 @@ class Index extends Component {
                       {/* Start of KYC */}
                       {value === 5 && (
                         <TabContainer>
-                          <KycSection />
+                          <KycSection comesFrom="pateint"/>
                         </TabContainer>
                       )}
                       {/* End of KYC */}

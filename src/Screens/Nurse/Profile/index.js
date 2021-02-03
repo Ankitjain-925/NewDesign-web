@@ -5,29 +5,29 @@ import Grid from "@material-ui/core/Grid";
 // import PhoneInput from 'react-phone-input-2';
 // import 'react-phone-input-2/lib/style.css';
 import { Redirect, Route } from "react-router-dom";
-import sitedata from "../../../sitedata";
+import sitedata from "sitedata";
 import axios from "axios";
 import { withRouter } from "react-router-dom";
 import { OptionList } from "Screens/Login/metadataaction";
 import { connect } from "react-redux";
-import { LoginReducerAim } from "./../../Login/actions";
-import { Settings } from "./../../Login/setting";
-import LeftMenu from "./../../Components/Menus/NurseLeftMenu/index";
-import { LanguageFetchReducer } from "./../../actions";
+import { LoginReducerAim } from "Screens/Login/actions";
+import { Settings } from "Screens/Login/setting";
+import LeftMenu from "Screens/Components/Menus/NurseLeftMenu/index";
+import { LanguageFetchReducer } from "Screens/actions";
 import PropTypes from "prop-types";
 import AppBar from "@material-ui/core/AppBar";
 import Tabs from "@material-ui/core/Tabs";
-import LeftMenuMobile from "./../../Components/Menus/NurseLeftMenu/mobile";
+import LeftMenuMobile from "Screens/Components/Menus/NurseLeftMenu/mobile";
 import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import ProfileSection from "./Components/profileUpdate";
-import SecuritySection from "./Components/security";
-import KycSection from "./Components/kyc";
-import DateTimeSection from "./Components/DateTime";
-import Timezone from "./../../../timezon.json";
-import { authy } from "./../../Login/authy.js";
-import { GetLanguageDropdown } from "../../Components/GetMetaData/index.js";
-import Notification from "../../Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
+import SecuritySection from "Screens/Components/CommonProfileSec/security";
+import KycSection from "Screens/Components/CommonProfileSec/kyc";
+import DateTimeSection from "Screens/Components/CommonProfileSec/DateTime";
+import Timezone from "timezon.json";
+import { authy } from "Screens/Login/authy.js";
+import { GetLanguageDropdown } from "Screens/Components/GetMetaData/index.js";
+import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 import {
   translationAR,
   translationSW,
@@ -263,7 +263,7 @@ class Index extends Component {
                       {/* Start of KYC */}
                       {value === 2 && (
                         <TabContainer>
-                          <KycSection />
+                          <KycSection comesFrom="nurse"/>
                         </TabContainer>
                       )}
                       {/* End of KYC */}
