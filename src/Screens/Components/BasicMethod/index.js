@@ -306,8 +306,24 @@ export function blockClick(deletekey, userblock, user_token) {
 
 export function sortCometUser(userList) {
   let users = userList.sort(function (a, b) {
-    if (a.name < b.name) { return -1; }
-    if (a.name > b.name) { return 1; }
+    if(a.name.includes('undefined') && b.name.includes('undefined')){
+      if (a.uid < b.uid) { return -1; }
+      if (a.uid > b.uid) { return 1; }
+    }
+    else if(a.name.includes('undefined') || b.name.includes('undefined')){
+     if(a.name.includes('undefined')) {
+        if (a.uid < b.name) { return -1; }
+        if (a.uid > b.name) { return 1; }
+      }
+     if(a.name.includes('undefined')) {
+        if (a.name < b.uid) { return -1; }
+        if (a.name > b.uid) { return 1; }
+      }
+    }
+    else{
+      if (a.name < b.name) { return -1; }
+      if (a.name > b.name) { return 1; }
+    }
     return 0;
   })
   return users
