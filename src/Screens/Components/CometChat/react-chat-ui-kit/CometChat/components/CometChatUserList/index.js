@@ -4,18 +4,21 @@ import { CometChat } from "@cometchat-pro/chat";
 import { CometChatManager } from "../../util/controller";
 import { SvgAvatar } from "../../util/svgavatar";
 import { UserListManager } from "./controller";
-import { sortCometUser } from "../../../../../BasicMethod/index"
+import { sortCometUser } from "Screens/Components/BasicMethod/index"// "../../../../../BasicMethod/index"
 import UserView from "../UserView";
-import * as translationEN from "../../../../../.../../../../translations/en.json";
-import * as translationDE from "../../../../../.../../../../translations/de.json";
-import * as translationSP from "../../../../../.../../../../translations/sp.json";
-import * as translationPT from "../../../../../.../../../../translations/pt.json";
-import * as translationRS from "../../../../../.../../../../translations/rs.json";
-import * as translationNL from "../../../../../.../../../../translations/nl.json";
-import * as translationCH from "../../../../../.../../../../translations/ch.json";
-import * as translationSW from "../../../../../.../../../../translations/sw.json";
-import * as translationFR from "../../../../../.../../../../translations/fr.json";
-import * as translationAR from "../../../../../.../../../../translations/ar.json";
+
+import {
+  translationAR,
+  translationSW,
+  translationSP,
+  translationRS,
+  translationEN,
+  translationNL,
+  translationDE,
+  translationCH,
+  translationPT,
+  translationFR
+} from "translations/index"
 class CometChatUserList extends React.PureComponent {
   timeout;
   friendsOnly = false;
