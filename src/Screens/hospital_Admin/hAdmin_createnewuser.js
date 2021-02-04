@@ -80,7 +80,7 @@ class Index extends Component {
                                                 <Grid className="nwEntrCourse">
                                                     <Grid className="nwEntrCloseBtn nwEntrCloseBtnAdd">
                                                         <a onClick={this.handleCloseCreate}>
-                                                            <img src={require('../../assets/images/close-search.svg')} alt="" title="" />
+                                                            <img src={require('assets/images/close-search.svg')} alt="" title="" />
                                                         </a>
                                                     </Grid>
                                                     <p>New entry</p>
@@ -161,7 +161,7 @@ class Index extends Component {
                                                         <Grid><label>Hospital</label></Grid>
                                                         <Grid className="emlCreatSubSrch">
                                                            <input type="text" placeholder="Search by Hospital name or ID" />
-                                                           <img src={require('../../assets/images/InputField.svg')} alt="" title="" />
+                                                           <img src={require('assets/images/InputField.svg')} alt="" title="" />
                                                         </Grid>
                                                     </Grid>
 
@@ -173,7 +173,7 @@ class Index extends Component {
                                                         <Grid container direction="row" justify="center" alignItems="center">
                                                             <Grid item xs={6} md={6}>
                                                                 <Grid className="infoShwHid21">
-                                                                    <a>Show or Hide <img src={require('../../assets/images/Info.svg')} alt="" title="" /></a>
+                                                                    <a>Show or Hide <img src={require('assets/images/Info.svg')} alt="" title="" /></a>
                                                                 </Grid>
                                                             </Grid>
                                                             <Grid item xs={6} md={6} className="editShwHid21">

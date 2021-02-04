@@ -1141,7 +1141,7 @@ class Index extends Component {
                 <Grid className="chatVoice">
                   <Grid>
                     <img
-                      src={require("../../../../assets/images/chat.png")}
+                      src={require("assets/images/chat.png")}
                       alt=""
                       title=""
                     />
@@ -1180,7 +1180,7 @@ class Index extends Component {
                   <Grid className="prescSick">
                     <Grid>
                       <img
-                        src={require("../../../../assets/images/docs.png")}
+                        src={require("assets/images/docs.png")}
                         alt=""
                         title=""
                       />
@@ -1310,7 +1310,7 @@ class Index extends Component {
                         }
                       />
                       {/* <span>27/06/2020 - 15/07/2020
-                                                                           <img src={require('../../../../assets/images/calIcon.png')} alt="" title="" />
+                                                                           <img src={require('assets/images/calIcon.png')} alt="" title="" />
                                         </span> */}
                     </Grid>
                   )}
@@ -1325,7 +1325,7 @@ class Index extends Component {
                 <Grid className="prescSickVdo">
                   <Grid>
                     <img
-                      src={require("../../../../assets/images/docs.png")}
+                      src={require("assets/images/docs.png")}
                       alt=""
                       title=""
                     />
@@ -1339,7 +1339,7 @@ class Index extends Component {
                 </Grid>
                 <Grid className="onlinSickVdo">
                   <img
-                    src={require("../../../../assets/images/video-call-copy.svg")}
+                    src={require("assets/images/video-call-copy.svg")}
                     className="vdoCalNow"
                     alt=""
                     title=""
@@ -1526,7 +1526,7 @@ class Index extends Component {
                               }
                             >
                               <img
-                                src={require("../../../../assets/images/docscopy.svg")}
+                                src={require("assets/images/docscopy.svg")}
                                 alt=""
                                 title=""
                               />
@@ -1599,7 +1599,7 @@ class Index extends Component {
                                 }
                               >
                                 <img
-                                  src={require("../../../../assets/images/docscopy.svg")}
+                                  src={require("assets/images/docscopy.svg")}
                                   alt=""
                                   title=""
                                 />
@@ -1676,7 +1676,7 @@ class Index extends Component {
                                   }
                                 >
                                   <img
-                                    src={require("../../../../assets/images/docscopy.svg")}
+                                    src={require("assets/images/docscopy.svg")}
                                     alt=""
                                     title=""
                                   />
@@ -1754,7 +1754,7 @@ class Index extends Component {
                                   }
                                 >
                                   <img
-                                    src={require("../../../../assets/images/docscopy.svg")}
+                                    src={require("assets/images/docscopy.svg")}
                                     alt=""
                                     title=""
                                   />
@@ -1831,7 +1831,7 @@ class Index extends Component {
                                   }
                                 >
                                   <img
-                                    src={require("../../../../assets/images/docscopy.svg")}
+                                    src={require("assets/images/docscopy.svg")}
                                     alt=""
                                     title=""
                                   />
@@ -1911,7 +1911,7 @@ class Index extends Component {
                                   }
                                 >
                                   <img
-                                    src={require("../../../../assets/images/docscopy.svg")}
+                                    src={require("assets/images/docscopy.svg")}
                                     alt=""
                                     title=""
                                   />
@@ -1990,7 +1990,7 @@ class Index extends Component {
                                   }
                                 >
                                   <img
-                                    src={require("../../../../assets/images/docscopy.svg")}
+                                    src={require("assets/images/docscopy.svg")}
                                     alt=""
                                     title=""
                                   />
@@ -2130,7 +2130,7 @@ class Index extends Component {
                   }
                 >
                   <img
-                    src={require("../../../../assets/images/ShapeCopy21.svg")}
+                    src={require("assets/images/ShapeCopy21.svg")}
                     className="vdoCalNow"
                     alt=""
                     title=""
@@ -2168,7 +2168,7 @@ class Index extends Component {
                   )}
                   {!changeText && (
                     <img
-                      src={require("../../../../assets/images/editBlue.png")}
+                      src={require("assets/images/editBlue.png")}
                       className="editPendata"
                       alt=""
                       title=""
@@ -2343,7 +2343,7 @@ class Index extends Component {
                               }
                             >
                               <img
-                                src={require("../../../../assets/images/docscopy.svg")}
+                                src={require("assets/images/docscopy.svg")}
                                 alt=""
                                 title=""
                               />
@@ -2411,7 +2411,7 @@ class Index extends Component {
                                 }
                               >
                                 <img
-                                  src={require("../../../../assets/images/docscopy.svg")}
+                                  src={require("assets/images/docscopy.svg")}
                                   alt=""
                                   title=""
                                 />
@@ -2481,7 +2481,7 @@ class Index extends Component {
                                   }
                                 >
                                   <img
-                                    src={require("../../../../assets/images/docscopy.svg")}
+                                    src={require("assets/images/docscopy.svg")}
                                     alt=""
                                     title=""
                                   />
@@ -2552,7 +2552,7 @@ class Index extends Component {
                                   }
                                 >
                                   <img
-                                    src={require("../../../../assets/images/docscopy.svg")}
+                                    src={require("assets/images/docscopy.svg")}
                                     alt=""
                                     title=""
                                   />
@@ -2624,7 +2624,7 @@ class Index extends Component {
                                   }
                                 >
                                   <img
-                                    src={require("../../../../assets/images/docscopy.svg")}
+                                    src={require("assets/images/docscopy.svg")}
                                     alt=""
                                     title=""
                                   />
@@ -2697,7 +2697,7 @@ class Index extends Component {
                                   }
                                 >
                                   <img
-                                    src={require("../../../../assets/images/docscopy.svg")}
+                                    src={require("assets/images/docscopy.svg")}
                                     alt=""
                                     title=""
                                   />
@@ -2771,7 +2771,7 @@ class Index extends Component {
                                   }
                                 >
                                   <img
-                                    src={require("../../../../assets/images/docscopy.svg")}
+                                    src={require("assets/images/docscopy.svg")}
                                     alt=""
                                     title=""
                                   />
@@ -2905,7 +2905,7 @@ class Index extends Component {
               <Grid item xs={12} md={6}>
                 <Grid className="onlinSickVdo officVisit">
                   <img
-                    src={require("../../../../assets/images/dates.png")}
+                    src={require("assets/images/dates.png")}
                     className="vdoCalNow mngDates"
                     alt=""
                     title=""
@@ -3076,7 +3076,7 @@ class Index extends Component {
                               }
                             >
                               <img
-                                src={require("../../../../assets/images/docscopy.svg")}
+                                src={require("assets/images/docscopy.svg")}
                                 alt=""
                                 title=""
                               />
@@ -3144,7 +3144,7 @@ class Index extends Component {
                                 }
                               >
                                 <img
-                                  src={require("../../../../assets/images/docscopy.svg")}
+                                  src={require("assets/images/docscopy.svg")}
                                   alt=""
                                   title=""
                                 />
@@ -3219,7 +3219,7 @@ class Index extends Component {
                                   }
                                 >
                                   <img
-                                    src={require("../../../../assets/images/docscopy.svg")}
+                                    src={require("assets/images/docscopy.svg")}
                                     alt=""
                                     title=""
                                   />
@@ -3295,7 +3295,7 @@ class Index extends Component {
                                   }
                                 >
                                   <img
-                                    src={require("../../../../assets/images/docscopy.svg")}
+                                    src={require("assets/images/docscopy.svg")}
                                     alt=""
                                     title=""
                                   />
@@ -3367,7 +3367,7 @@ class Index extends Component {
                                   }
                                 >
                                   <img
-                                    src={require("../../../../assets/images/docscopy.svg")}
+                                    src={require("assets/images/docscopy.svg")}
                                     alt=""
                                     title=""
                                   />
@@ -3445,7 +3445,7 @@ class Index extends Component {
                                   }
                                 >
                                   <img
-                                    src={require("../../../../assets/images/docscopy.svg")}
+                                    src={require("assets/images/docscopy.svg")}
                                     alt=""
                                     title=""
                                   />
@@ -3519,7 +3519,7 @@ class Index extends Component {
                                   }
                                 >
                                   <img
-                                    src={require("../../../../assets/images/docscopy.svg")}
+                                    src={require("assets/images/docscopy.svg")}
                                     alt=""
                                     title=""
                                   />

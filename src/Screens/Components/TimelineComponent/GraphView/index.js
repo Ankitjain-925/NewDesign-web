@@ -1856,7 +1856,7 @@ class Index extends Component {
               <Grid className="presurCloseFncy">
                 <img
                   onClick={this.props.CloseGraph}
-                  src={require("../../../../assets/images/close-search.svg")}
+                  src={require("assets/images/close-search.svg")}
                   alt=""
                   title=""
                 />
@@ -2728,9 +2728,9 @@ class Index extends Component {
             </Grid>
             <Grid item xs={12} md={3}>
               {/* <Grid className="presurAction">
-                            <a><img src={require('../../../../assets/images/download.svg')} alt="" title="" /></a>
-                            <a><img src={require('../../../../assets/images/print.svg')} alt="" title="" /></a>
-                            <a><img src={require('../../../../assets/images/expand.svg')} alt="" title="" /></a>
+                            <a><img src={require('assets/images/download.svg')} alt="" title="" /></a>
+                            <a><img src={require('assets/images/print.svg')} alt="" title="" /></a>
+                            <a><img src={require('assets/images/expand.svg')} alt="" title="" /></a>
                             <a className="pluspresur">+ Add new entry</a>
                         </Grid> */}
             </Grid>

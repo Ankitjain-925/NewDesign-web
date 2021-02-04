@@ -1495,7 +1495,7 @@ class Index extends Component {
                         <Grid className="dataCloseBtn">
                           <a onClick={this.handleCloseData}>
                             <img
-                              src={require("../../../assets/images/close-search.svg")}
+                              src={require("assets/images/close-search.svg")}
                               alt=""
                               title=""
                             />
@@ -1584,7 +1584,7 @@ class Index extends Component {
                               <Grid className="nwDiaCloseBtn">
                                 <a onClick={this.handleCloseInqryNw}>
                                   <img
-                                    src={require("../../../assets/images/close-search.svg")}
+                                    src={require("assets/images/close-search.svg")}
                                     alt=""
                                     title=""
                                   />

@@ -268,7 +268,7 @@ class Index extends Component {
                                     </Grid>
                                     <Grid container direction="row" justifyContent="center" className="archvSrchInput">
                                         <Grid item xs={12} md={12}> <input onChange={this.search_user} type="text" placeholder={find_nurse} /></Grid>
-                                        <img src={require('../../assets/images/InputField.svg')} alt="" title="" />
+                                        <img src={require('assets/images/InputField.svg')} alt="" title="" />
                                     </Grid>
                                     <Grid className="archvOpinionIner">
                                         <Table>
@@ -286,7 +286,7 @@ class Index extends Component {
                                             {this.state.MypatientsData && this.state.MypatientsData.length>0 && this.state.MypatientsData.map((nurse, i) => (
                                                     <Tr>
                                                           <Td>{((this.state.currentPage-1)*10) + i+1}</Td>
-                                                        <Td><img className="doctor_pic" src={nurse && nurse.image ? getImage(nurse.image, this.state.images) : require('../../assets/images/dr1.jpg')} alt="" title="" />
+                                                        <Td><img className="doctor_pic" src={nurse && nurse.image ? getImage(nurse.image, this.state.images) : require('assets/images/dr1.jpg')} alt="" title="" />
                                                             {nurse.first_name && nurse.first_name}</Td>
                                                         <Td>{nurse.last_name && nurse.last_name}</Td>
                                                         <Td>{nurse.email && nurse.email}</Td>
@@ -297,11 +297,11 @@ class Index extends Component {
                                                         }
                                                         <Td className="archvDot">
                                                             <a className="academy_ul">
-                                                                <img src={require('../../assets/images/threedots.jpg')} alt="" title="" className="academyDots" />
+                                                                <img src={require('assets/images/threedots.jpg')} alt="" title="" className="academyDots" />
                                                                 <ul>
-                                                                <li onClick={()=>this.openDetail(nurse)}><a><span><img src={require('../../assets/images/admin/details1.svg')} alt="" title="" /></span>{see_detail}</a></li>
-                                                                    <li onClick={()=>this.BlockUser(nurse._id, nurse.isblock)}><a><span><img src={require('../../assets/images/admin/restoreIcon.png')} alt="" title="" /></span>{nurse.isblock && nurse.isblock == true ?'Unblock': 'Block'}</a></li>
-                                                                    <li onClick={()=>this.submitDelete(nurse._id, nurse.profile_id, nurse.bucket)}><a><span><img src={require('../../assets/images/admin/delIcon.png')} alt="" title="" /></span>{Delete}</a></li>
+                                                                <li onClick={()=>this.openDetail(nurse)}><a><span><img src={require('assets/images/admin/details1.svg')} alt="" title="" /></span>{see_detail}</a></li>
+                                                                    <li onClick={()=>this.BlockUser(nurse._id, nurse.isblock)}><a><span><img src={require('assets/images/admin/restoreIcon.png')} alt="" title="" /></span>{nurse.isblock && nurse.isblock == true ?'Unblock': 'Block'}</a></li>
+                                                                    <li onClick={()=>this.submitDelete(nurse._id, nurse.profile_id, nurse.bucket)}><a><span><img src={require('assets/images/admin/delIcon.png')} alt="" title="" /></span>{Delete}</a></li>
                                                                 </ul>
                                                             </a>
                                                         </Td>

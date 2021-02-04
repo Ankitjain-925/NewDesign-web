@@ -573,7 +573,7 @@ class Index extends Component {
                                 </Td>
                                 <Td className="presImg">
                                   <img
-                                    src={require("../../../assets/images/dr1.jpg")}
+                                    src={require("assets/images/dr1.jpg")}
                                     alt=""
                                     title=""
                                   />
@@ -585,7 +585,7 @@ class Index extends Component {
                                 </Td>
                                 <Td className="presImg">
                                   <img
-                                    src={require("../../../assets/images/dr1.jpg")}
+                                    src={require("assets/images/dr1.jpg")}
                                     alt=""
                                     title=""
                                   />
@@ -608,7 +608,7 @@ class Index extends Component {
                                 <Td className="presEditDot scndOptionIner">
                                   <a className="openScndhrf">
                                     <img
-                                      src={require("../../../assets/images/three_dots_t.png")}
+                                      src={require("assets/images/three_dots_t.png")}
                                       alt=""
                                       title=""
                                       className="openScnd"
@@ -621,7 +621,7 @@ class Index extends Component {
                                           }}
                                         >
                                           <img
-                                            src={require("../../../assets/images/details.svg")}
+                                            src={require("assets/images/details.svg")}
                                             alt=""
                                             title=""
                                           />
@@ -635,7 +635,7 @@ class Index extends Component {
                                           }}
                                         >
                                           <img
-                                            src={require("../../../assets/images/details.svg")}
+                                            src={require("assets/images/details.svg")}
                                             alt=""
                                             title=""
                                           />
@@ -649,7 +649,7 @@ class Index extends Component {
                                           }}
                                         >
                                           <img
-                                            src={require("../../../assets/images/details.svg")}
+                                            src={require("assets/images/details.svg")}
                                             alt=""
                                             title=""
                                           />
@@ -679,7 +679,7 @@ class Index extends Component {
                                 <Grid className="presCloseBtn">
                                   <a onClick={this.handleClosePres}>
                                     <img
-                                      src={require("../../../assets/images/close-search.svg")}
+                                      src={require("assets/images/close-search.svg")}
                                       alt=""
                                       title=""
                                     />
@@ -738,7 +738,7 @@ class Index extends Component {
                                         )
                                       )}
 
-                                    {/* <img src={require('../../../assets/images/prescriptions.jpg')} alt="" title="" /> */}
+                                    {/* <img src={require('assets/images/prescriptions.jpg')} alt="" title="" /> */}
                                   </Grid>
                                   {this.state.openDetail.status &&
                                   this.state.openDetail.status === "handled" ? (

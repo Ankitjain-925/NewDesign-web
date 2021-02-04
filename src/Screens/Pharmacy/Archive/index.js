@@ -36,7 +36,7 @@ import {
   translationPT,
   translationFR
 } from "translations/index"
-import Notification from "../../Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
+import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 class Index extends Component {
   constructor(props) {
     super(props);
@@ -529,7 +529,7 @@ class Index extends Component {
                                 <Td>{getDate(item.datetime_on)}</Td>
                                 <Td className="presImg">
                                   <img
-                                    src={require("../../../assets/images/dr1.jpg")}
+                                    src={require("assets/images/dr1.jpg")}
                                     alt=""
                                     title=""
                                   />
@@ -541,7 +541,7 @@ class Index extends Component {
                                 </Td>
                                 <Td className="presImg">
                                   <img
-                                    src={require("../../../assets/images/dr1.jpg")}
+                                    src={require("assets/images/dr1.jpg")}
                                     alt=""
                                     title=""
                                   />
@@ -550,7 +550,7 @@ class Index extends Component {
                                 <Td className="presEditDot scndOptionIner">
                                   <a className="openScndhrf">
                                     <img
-                                      src={require("../../../assets/images/three_dots_t.png")}
+                                      src={require("assets/images/three_dots_t.png")}
                                       alt=""
                                       title=""
                                       className="openScnd"
@@ -563,7 +563,7 @@ class Index extends Component {
                                           }}
                                         >
                                           <img
-                                            src={require("../../../assets/images/details.svg")}
+                                            src={require("assets/images/details.svg")}
                                             alt=""
                                             title=""
                                           />
@@ -577,7 +577,7 @@ class Index extends Component {
                                           }}
                                         >
                                           <img
-                                            src={require("../../../assets/images/details.svg")}
+                                            src={require("assets/images/details.svg")}
                                             alt=""
                                             title=""
                                           />
@@ -607,7 +607,7 @@ class Index extends Component {
                                 <Grid className="presCloseBtn">
                                   <a onClick={this.handleClosePres}>
                                     <img
-                                      src={require("../../../assets/images/close-search.svg")}
+                                      src={require("assets/images/close-search.svg")}
                                       alt=""
                                       title=""
                                     />
@@ -666,7 +666,7 @@ class Index extends Component {
                                         )
                                       )}
 
-                                    {/* <img src={require('../../../assets/images/prescriptions.jpg')} alt="" title="" /> */}
+                                    {/* <img src={require('assets/images/prescriptions.jpg')} alt="" title="" /> */}
                                   </Grid>
                                 </Grid>
                               </Grid>

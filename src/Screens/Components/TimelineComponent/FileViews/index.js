@@ -126,7 +126,7 @@ class Index extends Component {
               {file.filetype === "pdf" && (
                 <img
                   onClick={() => this.OpenFile(file.filename, file.filetype)}
-                  src={require("../../../../assets/images/pdfimg.png")}
+                  src={require("assets/images/pdfimg.png")}
                   alt=""
                   title=""
                 />
@@ -137,7 +137,7 @@ class Index extends Component {
                 file.filetype === "txt") && (
                 <img
                   onClick={() => this.OpenFile(file.filename, file.filetype)}
-                  src={require("../../../../assets/images/txt1.png")}
+                  src={require("assets/images/txt1.png")}
                   alt=""
                   title=""
                 />
@@ -147,7 +147,7 @@ class Index extends Component {
                 file.filetype === "xml") && (
                 <img
                   onClick={() => this.OpenFile(file.filename, file.filetype)}
-                  src={require("../../../../assets/images/xls1.svg")}
+                  src={require("assets/images/xls1.svg")}
                   alt=""
                   title=""
                 />
@@ -155,7 +155,7 @@ class Index extends Component {
               {file.filetype === "csv" && (
                 <img
                   onClick={() => this.OpenFile(file.filename, file.filetype)}
-                  src={require("../../../../assets/images/csv1.png")}
+                  src={require("assets/images/csv1.png")}
                   alt=""
                   title=""
                 />
@@ -166,7 +166,7 @@ class Index extends Component {
                 file.filetype === "DCM") && (
                 <img
                   onClick={() => this.OpenFile(file.filename, file.filetype)}
-                  src={require("../../../../assets/images/dcm1.png")}
+                  src={require("assets/images/dcm1.png")}
                   alt=""
                   title=""
                 />
@@ -194,7 +194,7 @@ class Index extends Component {
               <Grid className="entryCloseBtn">
                 <a onClick={this.CloseFile}>
                   <img
-                    src={require("../../../../assets/images/close-search.svg")}
+                    src={require("assets/images/close-search.svg")}
                     alt=""
                     title=""
                   />

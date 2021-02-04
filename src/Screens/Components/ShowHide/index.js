@@ -135,7 +135,7 @@ class ShowHide extends Component {
                   <a className="visibleAllShw">
                     {hide_or_show}{" "}
                     <img
-                      src={require("../../../assets/images/Info.svg")}
+                      src={require("assets/images/Info.svg")}
                       alt=""
                       title=""
                     />

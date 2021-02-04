@@ -2044,7 +2044,7 @@ class RightManage extends Component {
                             <a className="openScndhrf1">
                               <a className="vsblDots">
                                 <img
-                                  src={require("../../../../assets/images/nav-more.svg")}
+                                  src={require("assets/images/nav-more.svg")}
                                   alt=""
                                   title=""
                                 />
@@ -2082,7 +2082,7 @@ class RightManage extends Component {
                                         }
                                       >
                                         <img
-                                          src={require("../../../../assets/images/edit-1.svg")}
+                                          src={require("assets/images/edit-1.svg")}
                                           alt=""
                                           title=""
                                         />
@@ -2107,7 +2107,7 @@ class RightManage extends Component {
                                         }
                                       >
                                         <img
-                                          src={require("../../../../assets/images/edit.svg")}
+                                          src={require("assets/images/edit.svg")}
                                           alt=""
                                           title=""
                                         />
@@ -2135,7 +2135,7 @@ class RightManage extends Component {
                                       }
                                     >
                                       <img
-                                        src={require("../../../../assets/images/edit-1.svg")}
+                                        src={require("assets/images/edit-1.svg")}
                                         alt=""
                                         title=""
                                       />
@@ -2155,7 +2155,7 @@ class RightManage extends Component {
                                     }
                                   >
                                     <img
-                                      src={require("../../../../assets/images/download.svg")}
+                                      src={require("assets/images/download.svg")}
                                       alt=""
                                       title=""
                                     />
@@ -2169,7 +2169,7 @@ class RightManage extends Component {
                                     }
                                   >
                                     <img
-                                      src={require("../../../../assets/images/eye2.png")}
+                                      src={require("assets/images/eye2.png")}
                                       alt=""
                                       title=""
                                     />
@@ -2218,7 +2218,7 @@ class RightManage extends Component {
                         </p>
                       </Grid>
                       <Grid className="presureDataGrph">
-                        {/* <img src={require('../../../../assets/images/lineGraph.png')} alt="" title="" /> */}
+                        {/* <img src={require('assets/images/lineGraph.png')} alt="" title="" /> */}
 
                         <HighchartsReact
                           constructorType={"chart"}
@@ -2264,7 +2264,7 @@ class RightManage extends Component {
                             <a className="openScndhrf1">
                               <a className="vsblDots">
                                 <img
-                                  src={require("../../../../assets/images/nav-more.svg")}
+                                  src={require("assets/images/nav-more.svg")}
                                   alt=""
                                   title=""
                                 />
@@ -2302,7 +2302,7 @@ class RightManage extends Component {
                                         }
                                       >
                                         <img
-                                          src={require("../../../../assets/images/edit-1.svg")}
+                                          src={require("assets/images/edit-1.svg")}
                                           alt=""
                                           title=""
                                         />
@@ -2327,7 +2327,7 @@ class RightManage extends Component {
                                         }
                                       >
                                         <img
-                                          src={require("../../../../assets/images/edit.svg")}
+                                          src={require("assets/images/edit.svg")}
                                           alt=""
                                           title=""
                                         />
@@ -2355,7 +2355,7 @@ class RightManage extends Component {
                                       }
                                     >
                                       <img
-                                        src={require("../../../../assets/images/edit-1.svg")}
+                                        src={require("assets/images/edit-1.svg")}
                                         alt=""
                                         title=""
                                       />
@@ -2375,7 +2375,7 @@ class RightManage extends Component {
                                     }
                                   >
                                     <img
-                                      src={require("../../../../assets/images/download.svg")}
+                                      src={require("assets/images/download.svg")}
                                       alt=""
                                       title=""
                                     />
@@ -2389,7 +2389,7 @@ class RightManage extends Component {
                                     }
                                   >
                                     <img
-                                      src={require("../../../../assets/images/eye2.png")}
+                                      src={require("assets/images/eye2.png")}
                                       alt=""
                                       title=""
                                     />
@@ -2443,7 +2443,7 @@ class RightManage extends Component {
                         </p>
                       </Grid>
                       <Grid className="presureDataGrph">
-                        {/* <img src={require('../../../../assets/images/lineGraph.png')} alt="" title="" /> */}
+                        {/* <img src={require('assets/images/lineGraph.png')} alt="" title="" /> */}
 
                         <HighchartsReact
                           constructorType={"chart"}
@@ -2489,7 +2489,7 @@ class RightManage extends Component {
                             <a className="openScndhrf1">
                               <a className="vsblDots">
                                 <img
-                                  src={require("../../../../assets/images/nav-more.svg")}
+                                  src={require("assets/images/nav-more.svg")}
                                   alt=""
                                   title=""
                                 />
@@ -2525,7 +2525,7 @@ class RightManage extends Component {
                                         }
                                       >
                                         <img
-                                          src={require("../../../../assets/images/edit-1.svg")}
+                                          src={require("assets/images/edit-1.svg")}
                                           alt=""
                                           title=""
                                         />
@@ -2548,7 +2548,7 @@ class RightManage extends Component {
                                         }
                                       >
                                         <img
-                                          src={require("../../../../assets/images/edit.svg")}
+                                          src={require("assets/images/edit.svg")}
                                           alt=""
                                           title=""
                                         />
@@ -2574,7 +2574,7 @@ class RightManage extends Component {
                                       }
                                     >
                                       <img
-                                        src={require("../../../../assets/images/edit-1.svg")}
+                                        src={require("assets/images/edit-1.svg")}
                                         alt=""
                                         title=""
                                       />
@@ -2594,7 +2594,7 @@ class RightManage extends Component {
                                     }
                                   >
                                     <img
-                                      src={require("../../../../assets/images/download.svg")}
+                                      src={require("assets/images/download.svg")}
                                       alt=""
                                       title=""
                                     />
@@ -2608,7 +2608,7 @@ class RightManage extends Component {
                                     }
                                   >
                                     <img
-                                      src={require("../../../../assets/images/eye2.png")}
+                                      src={require("assets/images/eye2.png")}
                                       alt=""
                                       title=""
                                     />
@@ -2705,7 +2705,7 @@ class RightManage extends Component {
                             <a className="openScndhrf1">
                               <a className="vsblDots">
                                 <img
-                                  src={require("../../../../assets/images/nav-more.svg")}
+                                  src={require("assets/images/nav-more.svg")}
                                   alt=""
                                   title=""
                                 />
@@ -2743,7 +2743,7 @@ class RightManage extends Component {
                                         }
                                       >
                                         <img
-                                          src={require("../../../../assets/images/edit-1.svg")}
+                                          src={require("assets/images/edit-1.svg")}
                                           alt=""
                                           title=""
                                         />
@@ -2768,7 +2768,7 @@ class RightManage extends Component {
                                         }
                                       >
                                         <img
-                                          src={require("../../../../assets/images/edit.svg")}
+                                          src={require("assets/images/edit.svg")}
                                           alt=""
                                           title=""
                                         />
@@ -2796,7 +2796,7 @@ class RightManage extends Component {
                                       }
                                     >
                                       <img
-                                        src={require("../../../../assets/images/edit-1.svg")}
+                                        src={require("assets/images/edit-1.svg")}
                                         alt=""
                                         title=""
                                       />
@@ -2816,7 +2816,7 @@ class RightManage extends Component {
                                     }
                                   >
                                     <img
-                                      src={require("../../../../assets/images/download.svg")}
+                                      src={require("assets/images/download.svg")}
                                       alt=""
                                       title=""
                                     />
@@ -2831,7 +2831,7 @@ class RightManage extends Component {
                                     }
                                   >
                                     <img
-                                      src={require("../../../../assets/images/eye2.png")}
+                                      src={require("assets/images/eye2.png")}
                                       alt=""
                                       title=""
                                     />
@@ -2929,7 +2929,7 @@ class RightManage extends Component {
                             <a className="openScndhrf1">
                               <a className="vsblDots">
                                 <img
-                                  src={require("../../../../assets/images/nav-more.svg")}
+                                  src={require("assets/images/nav-more.svg")}
                                   alt=""
                                   title=""
                                 />
@@ -2960,7 +2960,7 @@ class RightManage extends Component {
                                         }
                                       >
                                         <img
-                                          src={require("../../../../assets/images/edit-1.svg")}
+                                          src={require("assets/images/edit-1.svg")}
                                           alt=""
                                           title=""
                                         />
@@ -2981,7 +2981,7 @@ class RightManage extends Component {
                                         }
                                       >
                                         <img
-                                          src={require("../../../../assets/images/edit.svg")}
+                                          src={require("assets/images/edit.svg")}
                                           alt=""
                                           title=""
                                         />
@@ -3005,7 +3005,7 @@ class RightManage extends Component {
                                       }
                                     >
                                       <img
-                                        src={require("../../../../assets/images/edit-1.svg")}
+                                        src={require("assets/images/edit-1.svg")}
                                         alt=""
                                         title=""
                                       />
@@ -3024,7 +3024,7 @@ class RightManage extends Component {
                                     }
                                   >
                                     <img
-                                      src={require("../../../../assets/images/download.svg")}
+                                      src={require("assets/images/download.svg")}
                                       alt=""
                                       title=""
                                     />
@@ -3039,7 +3039,7 @@ class RightManage extends Component {
                                     }
                                   >
                                     <img
-                                      src={require("../../../../assets/images/eye2.png")}
+                                      src={require("assets/images/eye2.png")}
                                       alt=""
                                       title=""
                                     />
@@ -3140,7 +3140,7 @@ class RightManage extends Component {
                             <a className="openScndhrf1">
                               <a className="vsblDots">
                                 <img
-                                  src={require("../../../../assets/images/nav-more.svg")}
+                                  src={require("assets/images/nav-more.svg")}
                                   alt=""
                                   title=""
                                 />
@@ -3171,7 +3171,7 @@ class RightManage extends Component {
                                         }
                                       >
                                         <img
-                                          src={require("../../../../assets/images/edit-1.svg")}
+                                          src={require("assets/images/edit-1.svg")}
                                           alt=""
                                           title=""
                                         />
@@ -3192,7 +3192,7 @@ class RightManage extends Component {
                                         }
                                       >
                                         <img
-                                          src={require("../../../../assets/images/edit.svg")}
+                                          src={require("assets/images/edit.svg")}
                                           alt=""
                                           title=""
                                         />
@@ -3216,7 +3216,7 @@ class RightManage extends Component {
                                       }
                                     >
                                       <img
-                                        src={require("../../../../assets/images/edit-1.svg")}
+                                        src={require("assets/images/edit-1.svg")}
                                         alt=""
                                         title=""
                                       />
@@ -3235,7 +3235,7 @@ class RightManage extends Component {
                                     }
                                   >
                                     <img
-                                      src={require("../../../../assets/images/download.svg")}
+                                      src={require("assets/images/download.svg")}
                                       alt=""
                                       title=""
                                     />
@@ -3250,7 +3250,7 @@ class RightManage extends Component {
                                     }
                                   >
                                     <img
-                                      src={require("../../../../assets/images/eye2.png")}
+                                      src={require("assets/images/eye2.png")}
                                       alt=""
                                       title=""
                                     />
@@ -3355,7 +3355,7 @@ class RightManage extends Component {
                             <a className="openScndhrf1">
                               <a className="vsblDots">
                                 <img
-                                  src={require("../../../../assets/images/nav-more.svg")}
+                                  src={require("assets/images/nav-more.svg")}
                                   alt=""
                                   title=""
                                 />
@@ -3386,7 +3386,7 @@ class RightManage extends Component {
                                         }
                                       >
                                         <img
-                                          src={require("../../../../assets/images/edit-1.svg")}
+                                          src={require("assets/images/edit-1.svg")}
                                           alt=""
                                           title=""
                                         />
@@ -3407,7 +3407,7 @@ class RightManage extends Component {
                                         }
                                       >
                                         <img
-                                          src={require("../../../../assets/images/edit.svg")}
+                                          src={require("assets/images/edit.svg")}
                                           alt=""
                                           title=""
                                         />
@@ -3431,7 +3431,7 @@ class RightManage extends Component {
                                       }
                                     >
                                       <img
-                                        src={require("../../../../assets/images/edit-1.svg")}
+                                        src={require("assets/images/edit-1.svg")}
                                         alt=""
                                         title=""
                                       />
@@ -3450,7 +3450,7 @@ class RightManage extends Component {
                                     }
                                   >
                                     <img
-                                      src={require("../../../../assets/images/download.svg")}
+                                      src={require("assets/images/download.svg")}
                                       alt=""
                                       title=""
                                     />
@@ -3465,7 +3465,7 @@ class RightManage extends Component {
                                     }
                                   >
                                     <img
-                                      src={require("../../../../assets/images/eye2.png")}
+                                      src={require("assets/images/eye2.png")}
                                       alt=""
                                       title=""
                                     />
@@ -3567,7 +3567,7 @@ class RightManage extends Component {
                             <a className="openScndhrf1">
                               <a className="vsblDots">
                                 <img
-                                  src={require("../../../../assets/images/nav-more.svg")}
+                                  src={require("assets/images/nav-more.svg")}
                                   alt=""
                                   title=""
                                 />
@@ -3598,7 +3598,7 @@ class RightManage extends Component {
                                         }
                                       >
                                         <img
-                                          src={require("../../../../assets/images/edit-1.svg")}
+                                          src={require("assets/images/edit-1.svg")}
                                           alt=""
                                           title=""
                                         />
@@ -3619,7 +3619,7 @@ class RightManage extends Component {
                                         }
                                       >
                                         <img
-                                          src={require("../../../../assets/images/edit.svg")}
+                                          src={require("assets/images/edit.svg")}
                                           alt=""
                                           title=""
                                         />
@@ -3643,7 +3643,7 @@ class RightManage extends Component {
                                       }
                                     >
                                       <img
-                                        src={require("../../../../assets/images/edit-1.svg")}
+                                        src={require("assets/images/edit-1.svg")}
                                         alt=""
                                         title=""
                                       />
@@ -3662,7 +3662,7 @@ class RightManage extends Component {
                                     }
                                   >
                                     <img
-                                      src={require("../../../../assets/images/download.svg")}
+                                      src={require("assets/images/download.svg")}
                                       alt=""
                                       title=""
                                     />
@@ -3677,7 +3677,7 @@ class RightManage extends Component {
                                     }
                                   >
                                     <img
-                                      src={require("../../../../assets/images/eye2.png")}
+                                      src={require("assets/images/eye2.png")}
                                       alt=""
                                       title=""
                                     />
@@ -3779,7 +3779,7 @@ class RightManage extends Component {
                             <a className="openScndhrf1">
                               <a className="vsblDots">
                                 <img
-                                  src={require("../../../../assets/images/nav-more.svg")}
+                                  src={require("assets/images/nav-more.svg")}
                                   alt=""
                                   title=""
                                 />
@@ -3812,7 +3812,7 @@ class RightManage extends Component {
                                         }
                                       >
                                         <img
-                                          src={require("../../../../assets/images/edit-1.svg")}
+                                          src={require("assets/images/edit-1.svg")}
                                           alt=""
                                           title=""
                                         />
@@ -3835,7 +3835,7 @@ class RightManage extends Component {
                                         }
                                       >
                                         <img
-                                          src={require("../../../../assets/images/edit.svg")}
+                                          src={require("assets/images/edit.svg")}
                                           alt=""
                                           title=""
                                         />
@@ -3861,7 +3861,7 @@ class RightManage extends Component {
                                       }
                                     >
                                       <img
-                                        src={require("../../../../assets/images/edit-1.svg")}
+                                        src={require("assets/images/edit-1.svg")}
                                         alt=""
                                         title=""
                                       />
@@ -3880,7 +3880,7 @@ class RightManage extends Component {
                                     }
                                   >
                                     <img
-                                      src={require("../../../../assets/images/download.svg")}
+                                      src={require("assets/images/download.svg")}
                                       alt=""
                                       title=""
                                     />
@@ -3895,7 +3895,7 @@ class RightManage extends Component {
                                     }
                                   >
                                     <img
-                                      src={require("../../../../assets/images/eye2.png")}
+                                      src={require("assets/images/eye2.png")}
                                       alt=""
                                       title=""
                                     />
@@ -4001,7 +4001,7 @@ class RightManage extends Component {
                             <a className="openScndhrf1">
                               <a className="vsblDots">
                                 <img
-                                  src={require("../../../../assets/images/nav-more.svg")}
+                                  src={require("assets/images/nav-more.svg")}
                                   alt=""
                                   title=""
                                 />
@@ -4032,7 +4032,7 @@ class RightManage extends Component {
                                         }
                                       >
                                         <img
-                                          src={require("../../../../assets/images/edit-1.svg")}
+                                          src={require("assets/images/edit-1.svg")}
                                           alt=""
                                           title=""
                                         />
@@ -4053,7 +4053,7 @@ class RightManage extends Component {
                                         }
                                       >
                                         <img
-                                          src={require("../../../../assets/images/edit.svg")}
+                                          src={require("assets/images/edit.svg")}
                                           alt=""
                                           title=""
                                         />
@@ -4077,7 +4077,7 @@ class RightManage extends Component {
                                       }
                                     >
                                       <img
-                                        src={require("../../../../assets/images/edit-1.svg")}
+                                        src={require("assets/images/edit-1.svg")}
                                         alt=""
                                         title=""
                                       />
@@ -4096,7 +4096,7 @@ class RightManage extends Component {
                                     }
                                   >
                                     <img
-                                      src={require("../../../../assets/images/download.svg")}
+                                      src={require("assets/images/download.svg")}
                                       alt=""
                                       title=""
                                     />
@@ -4111,7 +4111,7 @@ class RightManage extends Component {
                                     }
                                   >
                                     <img
-                                      src={require("../../../../assets/images/eye2.png")}
+                                      src={require("assets/images/eye2.png")}
                                       alt=""
                                       title=""
                                     />
@@ -4212,7 +4212,7 @@ class RightManage extends Component {
                           <a className="openScndhrf1">
                             <a className="vsblDots">
                               <img
-                                src={require("../../../../assets/images/nav-more.svg")}
+                                src={require("assets/images/nav-more.svg")}
                                 alt=""
                                 title=""
                               />
@@ -4243,7 +4243,7 @@ class RightManage extends Component {
                                       }
                                     >
                                       <img
-                                        src={require("../../../../assets/images/edit-1.svg")}
+                                        src={require("assets/images/edit-1.svg")}
                                         alt=""
                                         title=""
                                       />
@@ -4264,7 +4264,7 @@ class RightManage extends Component {
                                       }
                                     >
                                       <img
-                                        src={require("../../../../assets/images/edit.svg")}
+                                        src={require("assets/images/edit.svg")}
                                         alt=""
                                         title=""
                                       />
@@ -4288,7 +4288,7 @@ class RightManage extends Component {
                                     }
                                   >
                                     <img
-                                      src={require("../../../../assets/images/edit-1.svg")}
+                                      src={require("assets/images/edit-1.svg")}
                                       alt=""
                                       title=""
                                     />
@@ -4307,7 +4307,7 @@ class RightManage extends Component {
                                   }
                                 >
                                   <img
-                                    src={require("../../../../assets/images/download.svg")}
+                                    src={require("assets/images/download.svg")}
                                     alt=""
                                     title=""
                                   />
@@ -4320,7 +4320,7 @@ class RightManage extends Component {
                                   onClick={() => this.props.OpenGraph("Sodium")}
                                 >
                                   <img
-                                    src={require("../../../../assets/images/eye2.png")}
+                                    src={require("assets/images/eye2.png")}
                                     alt=""
                                     title=""
                                   />
@@ -4414,7 +4414,7 @@ class RightManage extends Component {
                           <a className="openScndhrf1">
                             <a className="vsblDots">
                               <img
-                                src={require("../../../../assets/images/nav-more.svg")}
+                                src={require("assets/images/nav-more.svg")}
                                 alt=""
                                 title=""
                               />
@@ -4442,7 +4442,7 @@ class RightManage extends Component {
                                       }
                                     >
                                       <img
-                                        src={require("../../../../assets/images/edit-1.svg")}
+                                        src={require("assets/images/edit-1.svg")}
                                         alt=""
                                         title=""
                                       />
@@ -4463,7 +4463,7 @@ class RightManage extends Component {
                                       }
                                     >
                                       <img
-                                        src={require("../../../../assets/images/edit.svg")}
+                                        src={require("assets/images/edit.svg")}
                                         alt=""
                                         title=""
                                       />
@@ -4487,7 +4487,7 @@ class RightManage extends Component {
                                     }
                                   >
                                     <img
-                                      src={require("../../../../assets/images/edit-1.svg")}
+                                      src={require("assets/images/edit-1.svg")}
                                       alt=""
                                       title=""
                                     />
@@ -4504,7 +4504,7 @@ class RightManage extends Component {
                                   }
                                 >
                                   <img
-                                    src={require("../../../../assets/images/download.svg")}
+                                    src={require("assets/images/download.svg")}
                                     alt=""
                                     title=""
                                   />
@@ -4515,7 +4515,7 @@ class RightManage extends Component {
                                 {" "}
                                 <a onClick={() => this.props.OpenGraph("GGT")}>
                                   <img
-                                    src={require("../../../../assets/images/eye2.png")}
+                                    src={require("assets/images/eye2.png")}
                                     alt=""
                                     title=""
                                   />
@@ -4607,7 +4607,7 @@ class RightManage extends Component {
                           <a className="openScndhrf1">
                             <a className="vsblDots">
                               <img
-                                src={require("../../../../assets/images/nav-more.svg")}
+                                src={require("assets/images/nav-more.svg")}
                                 alt=""
                                 title=""
                               />
@@ -4635,7 +4635,7 @@ class RightManage extends Component {
                                       }
                                     >
                                       <img
-                                        src={require("../../../../assets/images/edit-1.svg")}
+                                        src={require("assets/images/edit-1.svg")}
                                         alt=""
                                         title=""
                                       />
@@ -4656,7 +4656,7 @@ class RightManage extends Component {
                                       }
                                     >
                                       <img
-                                        src={require("../../../../assets/images/edit.svg")}
+                                        src={require("assets/images/edit.svg")}
                                         alt=""
                                         title=""
                                       />
@@ -4680,7 +4680,7 @@ class RightManage extends Component {
                                     }
                                   >
                                     <img
-                                      src={require("../../../../assets/images/edit-1.svg")}
+                                      src={require("assets/images/edit-1.svg")}
                                       alt=""
                                       title=""
                                     />
@@ -4697,7 +4697,7 @@ class RightManage extends Component {
                                   }
                                 >
                                   <img
-                                    src={require("../../../../assets/images/download.svg")}
+                                    src={require("assets/images/download.svg")}
                                     alt=""
                                     title=""
                                   />
@@ -4708,7 +4708,7 @@ class RightManage extends Component {
                                 {" "}
                                 <a onClick={() => this.props.OpenGraph("AST")}>
                                   <img
-                                    src={require("../../../../assets/images/eye2.png")}
+                                    src={require("assets/images/eye2.png")}
                                     alt=""
                                     title=""
                                   />
@@ -4801,7 +4801,7 @@ class RightManage extends Component {
                           <a className="openScndhrf1">
                             <a className="vsblDots">
                               <img
-                                src={require("../../../../assets/images/nav-more.svg")}
+                                src={require("assets/images/nav-more.svg")}
                                 alt=""
                                 title=""
                               />
@@ -4829,7 +4829,7 @@ class RightManage extends Component {
                                       }
                                     >
                                       <img
-                                        src={require("../../../../assets/images/edit-1.svg")}
+                                        src={require("assets/images/edit-1.svg")}
                                         alt=""
                                         title=""
                                       />
@@ -4850,7 +4850,7 @@ class RightManage extends Component {
                                       }
                                     >
                                       <img
-                                        src={require("../../../../assets/images/edit.svg")}
+                                        src={require("assets/images/edit.svg")}
                                         alt=""
                                         title=""
                                       />
@@ -4874,7 +4874,7 @@ class RightManage extends Component {
                                     }
                                   >
                                     <img
-                                      src={require("../../../../assets/images/edit-1.svg")}
+                                      src={require("assets/images/edit-1.svg")}
                                       alt=""
                                       title=""
                                     />
@@ -4891,7 +4891,7 @@ class RightManage extends Component {
                                   }
                                 >
                                   <img
-                                    src={require("../../../../assets/images/download.svg")}
+                                    src={require("assets/images/download.svg")}
                                     alt=""
                                     title=""
                                   />
@@ -4902,7 +4902,7 @@ class RightManage extends Component {
                                 {" "}
                                 <a onClick={() => this.props.OpenGraph("ALT")}>
                                   <img
-                                    src={require("../../../../assets/images/eye2.png")}
+                                    src={require("assets/images/eye2.png")}
                                     alt=""
                                     title=""
                                   />
@@ -4989,7 +4989,7 @@ class RightManage extends Component {
                             <a className="openScndhrf1">
                               <a className="vsblDots">
                                 <img
-                                  src={require("../../../../assets/images/nav-more.svg")}
+                                  src={require("assets/images/nav-more.svg")}
                                   alt=""
                                   title=""
                                 />
@@ -5025,7 +5025,7 @@ class RightManage extends Component {
                                         }
                                       >
                                         <img
-                                          src={require("../../../../assets/images/edit-1.svg")}
+                                          src={require("assets/images/edit-1.svg")}
                                           alt=""
                                           title=""
                                         />
@@ -5048,7 +5048,7 @@ class RightManage extends Component {
                                         }
                                       >
                                         <img
-                                          src={require("../../../../assets/images/edit.svg")}
+                                          src={require("assets/images/edit.svg")}
                                           alt=""
                                           title=""
                                         />
@@ -5074,7 +5074,7 @@ class RightManage extends Component {
                                       }
                                     >
                                       <img
-                                        src={require("../../../../assets/images/edit-1.svg")}
+                                        src={require("assets/images/edit-1.svg")}
                                         alt=""
                                         title=""
                                       />
@@ -5094,7 +5094,7 @@ class RightManage extends Component {
                                     }
                                   >
                                     <img
-                                      src={require("../../../../assets/images/download.svg")}
+                                      src={require("assets/images/download.svg")}
                                       alt=""
                                       title=""
                                     />
@@ -5108,7 +5108,7 @@ class RightManage extends Component {
                                     }
                                   >
                                     <img
-                                      src={require("../../../../assets/images/eye2.png")}
+                                      src={require("assets/images/eye2.png")}
                                       alt=""
                                       title=""
                                     />
@@ -5196,12 +5196,12 @@ class RightManage extends Component {
                                 src={
                                   data && data.image
                                     ? getImage(data.image, this.state.images)
-                                    : require("../../../../assets/images/dr1.jpg")
+                                    : require("assets/images/dr1.jpg")
                                 }
                                 alt=""
                                 title=""
                               />
-                              {/* <img src={require('../../../../assets/images/dr1.jpg')} alt="" title="" /> */}
+                              {/* <img src={require('assets/images/dr1.jpg')} alt="" title="" /> */}
                             </Grid>
                           </Grid>
                           <Grid item xs={10} md={10}>
@@ -5254,16 +5254,16 @@ class RightManage extends Component {
                     <Grid item xs={2} md={2}>
                       {/* <Grid className="allViewDots scndOptionIner1">
                                         <a className="openScndhrf1">
-                                        <a className="vsblDots"><img src={require('../../../../assets/images/nav-more.svg')} alt="" title="" /></a>
+                                        <a className="vsblDots"><img src={require('assets/images/nav-more.svg')} alt="" title="" /></a>
                                         <ul>
                                             {this.props.from === 'patient' &&  <li>
                                                     {item.created_by === this.state.loggedinUser._id && ( !item.updated_by || item.updated_by ==="") ? 
-                                                    <a onClick={()=>this.props.EidtOption(item.type, item)}><img src={require('../../../../assets/images/edit-1.svg')} alt="" title="" />{edit}</a>
-                                                    : <a onClick={()=>this.props.EidtOption(item.type, item, true)}><img src={require('../../../../assets/images/edit.svg')} alt="" title="" />{Change} {visibility}</a>
+                                                    <a onClick={()=>this.props.EidtOption(item.type, item)}><img src={require('assets/images/edit-1.svg')} alt="" title="" />{edit}</a>
+                                                    : <a onClick={()=>this.props.EidtOption(item.type, item, true)}><img src={require('assets/images/edit.svg')} alt="" title="" />{Change} {visibility}</a>
                                                     }
                                                  </li>}
-                                                {this.props.from !== 'patient' && <li><a onClick={()=>this.props.EidtOption(item.type, item)}><img src={require('../../../../assets/images/edit-1.svg')} alt="" title="" />{edit}</a></li>}
-                                            <li><a onClick={() => this.props.downloadTrack(item)}><img src={require('../../../../assets/images/download.svg')} alt="" title="" />{Download}</a></li>
+                                                {this.props.from !== 'patient' && <li><a onClick={()=>this.props.EidtOption(item.type, item)}><img src={require('assets/images/edit-1.svg')} alt="" title="" />{edit}</a></li>}
+                                            <li><a onClick={() => this.props.downloadTrack(item)}><img src={require('assets/images/download.svg')} alt="" title="" />{Download}</a></li>
                                           
                                         </ul>
                                     </a>
@@ -5287,7 +5287,7 @@ class RightManage extends Component {
                             {data.appointment_type === "appointments" && (
                               <a>
                                 <img
-                                  src={require("../../../../assets/images/office-visit.svg")}
+                                  src={require("assets/images/office-visit.svg")}
                                   alt=""
                                   title=""
                                 />{" "}
@@ -5297,7 +5297,7 @@ class RightManage extends Component {
                             {data.appointment_type === "online_appointment" && (
                               <a>
                                 <img
-                                  src={require("../../../../assets/images/video-call.svg")}
+                                  src={require("assets/images/video-call.svg")}
                                   alt=""
                                   title=""
                                 />
@@ -5307,7 +5307,7 @@ class RightManage extends Component {
                             {data.appointment_type === "practice_days" && (
                               <a>
                                 <img
-                                  src={require("../../../../assets/images/cal.png")}
+                                  src={require("assets/images/cal.png")}
                                   alt=""
                                   title=""
                                 />
@@ -5348,7 +5348,7 @@ class RightManage extends Component {
                                 (Doctor)
                               </a>
                             </Grid>
-                            {/* <Grid><a><img src={require('../../../../assets/images/h2Logo.jpg')} alt="" title="" />Illinois Masonic Medical Center</a></Grid> */}
+                            {/* <Grid><a><img src={require('assets/images/h2Logo.jpg')} alt="" title="" />Illinois Masonic Medical Center</a></Grid> */}
                           </Grid>
                         </div>
                       ))}
@@ -5381,16 +5381,16 @@ class RightManage extends Component {
                     <Grid item xs={2} md={2}>
                       {/* <Grid className="lstViewDots scndOptionIner1">
                                     <a className="openScndhrf1">
-                                        <a className="vsblDots"><img src={require('../../../../assets/images/nav-more.svg')} alt="" title="" /></a>
+                                        <a className="vsblDots"><img src={require('assets/images/nav-more.svg')} alt="" title="" /></a>
                                         <ul>
                                             {this.props.from === 'patient' &&  <li>
                                                     {item.created_by === this.state.loggedinUser._id && ( !item.updated_by || item.updated_by ==="") ? 
-                                                    <a onClick={()=>this.props.EidtOption(item.type, item)}><img src={require('../../../../assets/images/edit-1.svg')} alt="" title="" />{edit}</a>
-                                                    : <a onClick={()=>this.props.EidtOption(item.type, item, true)}><img src={require('../../../../assets/images/edit.svg')} alt="" title="" />{Change} {visibility}</a>
+                                                    <a onClick={()=>this.props.EidtOption(item.type, item)}><img src={require('assets/images/edit-1.svg')} alt="" title="" />{edit}</a>
+                                                    : <a onClick={()=>this.props.EidtOption(item.type, item, true)}><img src={require('assets/images/edit.svg')} alt="" title="" />{Change} {visibility}</a>
                                                     }
                                                  </li>}
-                                                {this.props.from !== 'patient' && <li><a onClick={()=>this.props.EidtOption(item.type, item)}><img src={require('../../../../assets/images/edit-1.svg')} alt="" title="" />{edit}</a></li>}
-                                            <li><a onClick={() => this.props.downloadTrack(item)}><img src={require('../../../../assets/images/download.svg')} alt="" title="" />{Download}</a></li>
+                                                {this.props.from !== 'patient' && <li><a onClick={()=>this.props.EidtOption(item.type, item)}><img src={require('assets/images/edit-1.svg')} alt="" title="" />{edit}</a></li>}
+                                            <li><a onClick={() => this.props.downloadTrack(item)}><img src={require('assets/images/download.svg')} alt="" title="" />{Download}</a></li>
                                           
                                         </ul>
                                     </a>
@@ -5443,7 +5443,7 @@ class RightManage extends Component {
                                 <Grid className="clear"></Grid>
                               </Grid>
                               <Grid>
-                                {/* <a><img src={require('../../../../assets/images/dr1.jpg')} alt="" title="" /> </a> */}
+                                {/* <a><img src={require('assets/images/dr1.jpg')} alt="" title="" /> </a> */}
                               </Grid>
                             </div>
                           ))}
@@ -5505,7 +5505,7 @@ class RightManage extends Component {
                                   <Grid className="clear"></Grid>
                                 </Grid>
                                 <Grid>
-                                  {/* <a><img src={require('../../../../assets/images/dr1.jpg')} alt="" title="" /> </a> */}
+                                  {/* <a><img src={require('assets/images/dr1.jpg')} alt="" title="" /> </a> */}
                                 </Grid>
                               </div>
                             )

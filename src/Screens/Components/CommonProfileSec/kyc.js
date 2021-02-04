@@ -650,7 +650,7 @@ class Index extends Component {
                           fileUpload={this.fileUpload}
                         />
                         {/* <Grid className="browsInput">
-                                            <a><img src={require('../../../../assets/images/upload-file.svg')} alt="" title="" /></a>
+                                            <a><img src={require('assets/images/upload-file.svg')} alt="" title="" /></a>
                                             <a>Browse <input type="file" name="UploadID" onChange={this.AttachKyc}/></a> or drag here
                                         </Grid>
                                         <p>Supported file types: .jpg, .png, .pdf</p> */}

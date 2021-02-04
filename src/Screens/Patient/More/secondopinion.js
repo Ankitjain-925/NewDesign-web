@@ -416,7 +416,7 @@ class Index extends Component {
                             <Grid className="opinCloseBtn">
                               <a onClick={this.handleCloseDash}>
                                 <img
-                                  src={require("../../../assets/images/close-search.svg")}
+                                  src={require("assets/images/close-search.svg")}
                                   alt=""
                                   title=""
                                 />
@@ -469,7 +469,7 @@ class Index extends Component {
                                   {see_list_shared_info}{" "}
                                   <a>
                                     <img
-                                      src={require("../../../assets/images/Info.svg")}
+                                      src={require("assets/images/Info.svg")}
                                       alt=""
                                       title=""
                                     />

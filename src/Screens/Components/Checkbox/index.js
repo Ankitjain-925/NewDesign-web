@@ -50,14 +50,14 @@ class CheckBoxField extends Component {
           <Grid item xs={12} md={4} className="cnfrmDiaRght">
             {this.state.name === "emergency" && (
               <img
-                src={require("../../../assets/images/plusvan.jpg")}
+                src={require("assets/images/plusvan.jpg")}
                 alt=""
                 title=""
               />
             )}
             {this.state.name === "review" && (
               <img
-                src={require("../../../assets/images/plusgreen.jpg")}
+                src={require("assets/images/plusgreen.jpg")}
                 alt=""
                 title=""
               />

@@ -262,7 +262,7 @@ class Index extends Component {
                                     </Grid>
                                     <Grid container direction="row" justifyContent="center" className="archvSrchInput">
                                         <Grid item xs={12} md={12}> <input onChange={this.search_user} type="text" placeholder={find_patient} /></Grid>
-                                        <img src={require('../../assets/images/InputField.svg')} alt="" title="" />
+                                        <img src={require('assets/images/InputField.svg')} alt="" title="" />
                                     </Grid>
                                     <Grid className="archvOpinionIner">
                                         <Table>
@@ -280,7 +280,7 @@ class Index extends Component {
                                             {this.state.MypatientsData && this.state.MypatientsData.length>0 && this.state.MypatientsData.map((patient, i) => (
                                                     <Tr>
                                                           <Td>{((this.state.currentPage-1)*10) + i+1}</Td>
-                                                        <Td><img className="doctor_pic" src={patient && patient.image ? getImage(patient.image, this.state.images) : require('../../assets/images/dr1.jpg')} alt="" title="" />
+                                                        <Td><img className="doctor_pic" src={patient && patient.image ? getImage(patient.image, this.state.images) : require('assets/images/dr1.jpg')} alt="" title="" />
                                                             {patient.first_name && patient.first_name}</Td>
                                                         <Td>{patient.last_name && patient.last_name}</Td>
                                                         <Td>{patient.email && patient.email}</Td>
@@ -291,11 +291,11 @@ class Index extends Component {
                                                         }
                                                         <Td className="archvDot">
                                                             <a className="academy_ul">
-                                                                <img src={require('../../assets/images/threedots.jpg')} alt="" title="" className="academyDots" />
+                                                                <img src={require('assets/images/threedots.jpg')} alt="" title="" className="academyDots" />
                                                                 <ul>
-                                                                    <li onClick={() => this.openDetail(patient)}><a><span><img src={require('../../assets/images/admin/details1.svg')} alt="" title="" /></span>{see_detail}</a></li>
-                                                                    <li onClick={() => this.BlockUser(patient._id, patient.isblock)}><a><span><img src={require('../../assets/images/admin/restoreIcon.png')} alt="" title="" /></span>{patient.isblock && patient.isblock == true ? 'Unblock' : 'Block'}</a></li>
-                                                                    <li onClick={() => this.submitDelete(patient._id, patient.profile_id, patient.bucket)}><a><span><img src={require('../../assets/images/admin/delIcon.png')} alt="" title="" /></span>{Delete}</a></li>
+                                                                    <li onClick={() => this.openDetail(patient)}><a><span><img src={require('assets/images/admin/details1.svg')} alt="" title="" /></span>{see_detail}</a></li>
+                                                                    <li onClick={() => this.BlockUser(patient._id, patient.isblock)}><a><span><img src={require('assets/images/admin/restoreIcon.png')} alt="" title="" /></span>{patient.isblock && patient.isblock == true ? 'Unblock' : 'Block'}</a></li>
+                                                                    <li onClick={() => this.submitDelete(patient._id, patient.profile_id, patient.bucket)}><a><span><img src={require('assets/images/admin/delIcon.png')} alt="" title="" /></span>{Delete}</a></li>
                                                                 </ul>
                                                             </a>
                                                         </Td>

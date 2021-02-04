@@ -841,28 +841,28 @@ class Index extends Component {
             >
               <Grid className="meetCourse">
                 <Grid className="meetCloseBtn">
-                  {/* <a><img src={require('../../../assets/images/three_dots_t.png')} alt="" title="" /></a> */}
-                  {/* <a onClick={this.handleCloseMeet}><img src={require('../../../assets/images/close-search.svg')} alt="" title="" /></a> */}
+                  {/* <a><img src={require('assets/images/three_dots_t.png')} alt="" title="" /></a> */}
+                  {/* <a onClick={this.handleCloseMeet}><img src={require('assets/images/close-search.svg')} alt="" title="" /></a> */}
                 </Grid>
                 <Grid className="meetVdo">
                   <Grid className="meetVdoLft">
                     {data.appointment_type == "online_appointment" && (
                       <img
-                        src={require("../../../assets/images/video-call.svg")}
+                        src={require("assets/images/video-call.svg")}
                         alt=""
                         title=""
                       />
                     )}
                     {data.appointment_type == "practice_appointment" && (
                       <img
-                        src={require("../../../assets/images/dates.png")}
+                        src={require("assets/images/dates.png")}
                         alt=""
                         title=""
                       />
                     )}
                     {data.appointment_type == "private_appointment" && (
                       <img
-                        src={require("../../../assets/images/ShapeCopy21.svg")}
+                        src={require("assets/images/ShapeCopy21.svg")}
                         alt=""
                         title=""
                       />
@@ -1039,8 +1039,8 @@ class Index extends Component {
     ) {
       return <Redirect to={"/"} />;
     }
-    var myMarker = require("../../../assets/images/loc2.png");
-    var theirMarker = require("../../../assets/images/loc.png");
+    var myMarker = require("assets/images/loc2.png");
+    var theirMarker = require("assets/images/loc.png");
     return (
       <Grid
         className={
@@ -1081,7 +1081,7 @@ class Index extends Component {
                         className="timSlotClose"
                       >
                         <img
-                          src={require("../../../assets/images/close-search.svg")}
+                          src={require("assets/images/close-search.svg")}
                           alt=""
                           title=""
                         />
@@ -1221,7 +1221,7 @@ class Index extends Component {
                       <Grid className="apontCloseBtn">
                         <a onClick={this.handleCloseApoint}>
                           <img
-                            src={require("../../../assets/images/close-search.svg")}
+                            src={require("assets/images/close-search.svg")}
                             alt=""
                             title=""
                           />
@@ -1275,7 +1275,7 @@ class Index extends Component {
                       <div className="handleAccessBtn">
                         <a onClick={this.handleCloseAllowLoc}>
                           <img
-                            src={require("../../../assets/images/close-search.svg")}
+                            src={require("assets/images/close-search.svg")}
                             alt=""
                             title=""
                           />
@@ -1308,7 +1308,7 @@ class Index extends Component {
                             onPlaceChanged={this.showPlaceDetails.bind(this)}
                           />
                           <img
-                            src={require("../../../assets/images/search-entries.svg")}
+                            src={require("assets/images/search-entries.svg")}
                             alt=""
                             title=""
                           />
@@ -1374,7 +1374,7 @@ class Index extends Component {
                       <div className="showSpcial">
                         <p>
                           <img
-                            src={require("../../../assets/images/location.png")}
+                            src={require("assets/images/location.png")}
                             alt=""
                             title=""
                           />
@@ -1412,7 +1412,7 @@ class Index extends Component {
                                   ) : (
                                     <img
                                       className="doctor_pic"
-                                      src={require("../../../assets/images/avatar.png")}
+                                      src={require("assets/images/avatar.png")}
                                       alt=""
                                       title=""
                                     />
@@ -1501,7 +1501,7 @@ class Index extends Component {
                                     <Grid className="srvcTagsLoc">
                                       <a>
                                         <img
-                                          src={require("../../../assets/images/location-pin.svg")}
+                                          src={require("assets/images/location-pin.svg")}
                                           alt=""
                                           title=""
                                         />
@@ -1511,7 +1511,7 @@ class Index extends Component {
                                       </a>
                                       <a>
                                         <img
-                                          src={require("../../../assets/images/phone.svg")}
+                                          src={require("assets/images/phone.svg")}
                                           alt=""
                                           title=""
                                         />
@@ -1521,7 +1521,7 @@ class Index extends Component {
                                       </a>
                                       <a>
                                         <img
-                                          src={require("../../../assets/images/email.svg")}
+                                          src={require("assets/images/email.svg")}
                                           alt=""
                                           title=""
                                         />
@@ -1531,7 +1531,7 @@ class Index extends Component {
                                       </a>
                                       <a>
                                         <img
-                                          src={require("../../../assets/images/language.svg")}
+                                          src={require("assets/images/language.svg")}
                                           alt=""
                                           title=""
                                         />
@@ -1581,7 +1581,7 @@ class Index extends Component {
                                         }
                                       >
                                         <img
-                                          src={require("../../../assets/images/video-call-copy2.svg")}
+                                          src={require("assets/images/video-call-copy2.svg")}
                                           alt=""
                                           title=""
                                         />
@@ -1599,7 +1599,7 @@ class Index extends Component {
                                         }
                                       >
                                         <img
-                                          src={require("../../../assets/images/ShapeCopy2.svg")}
+                                          src={require("assets/images/ShapeCopy2.svg")}
                                           alt=""
                                           title=""
                                         />
@@ -1621,7 +1621,7 @@ class Index extends Component {
                                       className="addClnder"
                                     >
                                       <img
-                                        src={require("../../../assets/images/cal.png")}
+                                        src={require("assets/images/cal.png")}
                                         alt=""
                                         title=""
                                       />
@@ -1668,7 +1668,7 @@ class Index extends Component {
                                 {apoint.appointment_type == "appointments" ? (
                                   <a>
                                     <img
-                                      src={require("../../../assets/images/office-visit.svg")}
+                                      src={require("assets/images/office-visit.svg")}
                                       alt=""
                                       title=""
                                     />{" "}
@@ -1678,7 +1678,7 @@ class Index extends Component {
                                   "online_appointment" ? (
                                   <a>
                                     <img
-                                      src={require("../../../assets/images/video-call.svg")}
+                                      src={require("assets/images/video-call.svg")}
                                       alt=""
                                       title=""
                                     />{" "}
@@ -1687,7 +1687,7 @@ class Index extends Component {
                                 ) : (
                                   <a>
                                     <img
-                                      src={require("../../../assets/images/cal.png")}
+                                      src={require("assets/images/cal.png")}
                                       alt=""
                                       title=""
                                     />
@@ -1725,7 +1725,7 @@ class Index extends Component {
                               <Grid>
                                 <a>
                                   <img
-                                    src={require("../../../assets/images/dr1.jpg")}
+                                    src={require("assets/images/dr1.jpg")}
                                     alt=""
                                     title=""
                                   />
@@ -1733,7 +1733,7 @@ class Index extends Component {
                                     `${apoint.docProfile.first_name} ${apoint.docProfile.last_name}`}
                                 </a>
                               </Grid>
-                              {/* <Grid><a><img src={require('../../../assets/images/office-visit.svg')} alt="" title="" />Illinois Masonic Medical Center</a></Grid> */}
+                              {/* <Grid><a><img src={require('assets/images/office-visit.svg')} alt="" title="" />Illinois Masonic Medical Center</a></Grid> */}
                             </Grid>
                           </Grid>
                         ))}
@@ -1774,7 +1774,7 @@ class Index extends Component {
                                 {apoint.appointment_type == "appointments" ? (
                                   <a>
                                     <img
-                                      src={require("../../../assets/images/office-visit.svg")}
+                                      src={require("assets/images/office-visit.svg")}
                                       alt=""
                                       title=""
                                     />{" "}
@@ -1784,7 +1784,7 @@ class Index extends Component {
                                   "online_appointment" ? (
                                   <a>
                                     <img
-                                      src={require("../../../assets/images/video-call.svg")}
+                                      src={require("assets/images/video-call.svg")}
                                       alt=""
                                       title=""
                                     />{" "}
@@ -1793,7 +1793,7 @@ class Index extends Component {
                                 ) : (
                                   <a>
                                     <img
-                                      src={require("../../../assets/images/cal.png")}
+                                      src={require("assets/images/cal.png")}
                                       alt=""
                                       title=""
                                     />
@@ -1837,7 +1837,7 @@ class Index extends Component {
                                   <a className="showDetail">
                                     {apoint.status === "free" && (
                                       <img
-                                        src={require("../../../assets/images/three_dots_t.png")}
+                                        src={require("assets/images/three_dots_t.png")}
                                         alt=""
                                         title=""
                                         className="openScnd"
@@ -1850,7 +1850,7 @@ class Index extends Component {
                                         }}
                                       >
                                         <img
-                                          src={require("../../../assets/images/cancelAppoint.png")}
+                                          src={require("assets/images/cancelAppoint.png")}
                                           alt=""
                                           title=""
                                         />
@@ -1863,7 +1863,7 @@ class Index extends Component {
                               <Grid>
                                 <a>
                                   <img
-                                    src={require("../../../assets/images/dr1.jpg")}
+                                    src={require("assets/images/dr1.jpg")}
                                     alt=""
                                     title=""
                                   />
@@ -1871,7 +1871,7 @@ class Index extends Component {
                                     `${apoint.docProfile.first_name} ${apoint.docProfile.last_name}`}
                                 </a>
                               </Grid>
-                              {/* <Grid><a><img src={require('../../../assets/images/office-visit.svg')} alt="" title="" />Illinois Masonic Medical Center</a></Grid> */}
+                              {/* <Grid><a><img src={require('assets/images/office-visit.svg')} alt="" title="" />Illinois Masonic Medical Center</a></Grid> */}
                             </Grid>
                           </Grid>
                         ))}
@@ -1892,7 +1892,7 @@ class Index extends Component {
                                                     <Grid className="apontCourse">
                                                         <Grid className="apontCloseBtn">
                                                             <a onClick={this.handleCloseApoint}>
-                                                                <img src={require('../../../assets/images/close-search.svg')} alt="" title="" />
+                                                                <img src={require('assets/images/close-search.svg')} alt="" title="" />
                                                             </a>
                                                         </Grid>
                                                         <Grid><label>{cancel_apointmnt}</label></Grid>
@@ -1960,7 +1960,7 @@ class Index extends Component {
                           <div className="handleAccessBtn">
                             <a onClick={this.handleCloseAllowAccess}>
                               <img
-                                src={require("../../../assets/images/close-search.svg")}
+                                src={require("assets/images/close-search.svg")}
                                 alt=""
                                 title=""
                               />
@@ -1997,7 +1997,7 @@ class Index extends Component {
                                 )}
                               />
                               <img
-                                src={require("../../../assets/images/search-entries.svg")}
+                                src={require("assets/images/search-entries.svg")}
                                 alt=""
                                 title=""
                               />
@@ -2064,7 +2064,7 @@ class Index extends Component {
                         <div className="showSpcial">
                           <p>
                             <img
-                              src={require("../../../assets/images/location.png")}
+                              src={require("assets/images/location.png")}
                               alt=""
                               title=""
                             />
@@ -2115,7 +2115,7 @@ class Index extends Component {
                               <div>
                                 <a>
                                   <img
-                                    src={require("../../../assets/images/location.png")}
+                                    src={require("assets/images/location.png")}
                                     alt=""
                                     title=""
                                   />
@@ -2125,7 +2125,7 @@ class Index extends Component {
                               <p>{this_way_can_instntly_list_of_specility}</p>
                             </div>
                           )}
-                          {/* <div><a><img src={require('../../../assets/images/location.png')} alt="" title="" /></a></div>
+                          {/* <div><a><img src={require('assets/images/location.png')} alt="" title="" /></a></div>
                                                                             <h1>{allow_location_access}</h1>
                                                                             <p>{this_way_can_instntly_list_of_specility}</p> */}
                         </div>
@@ -2176,7 +2176,7 @@ class Index extends Component {
                                                     Popper element
                                                     <div ref={setArrowElement} style={styles.arrow} />
                                                 </div> */}
-                        {/* <img src={require('../../../assets/images/uidoc.jpg')} alt="" title="" /> */}
+                        {/* <img src={require('assets/images/uidoc.jpg')} alt="" title="" /> */}
                       </Grid>
                     </Grid>
                   </Grid>

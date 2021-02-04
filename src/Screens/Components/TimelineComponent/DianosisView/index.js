@@ -146,7 +146,7 @@ class Index extends Component {
                 <Grid className="diagnosImg">
                   <a className="diagnosNote">
                     <img
-                      src={require("../../../../assets/images/condition-diagnosis-family-anamnesis-diary.svg")}
+                      src={require("assets/images/condition-diagnosis-family-anamnesis-diary.svg")}
                       alt=""
                       title=""
                     />
@@ -159,13 +159,13 @@ class Index extends Component {
                   >
                     {item.review && item.review !== "" ? (
                       <img
-                        src={require("../../../../assets/images/confirmed-diagnosis.svg")}
+                        src={require("assets/images/confirmed-diagnosis.svg")}
                         alt=""
                         title=""
                       />
                     ) : (
                       <img
-                        src={require("../../../../assets/images/conf1.svg")}
+                        src={require("assets/images/conf1.svg")}
                         alt=""
                         title=""
                       />
@@ -200,13 +200,13 @@ class Index extends Component {
                   >
                     {item.emergency && item.emergency !== "" ? (
                       <img
-                        src={require("../../../../assets/images/emergency-diagnosis.svg")}
+                        src={require("assets/images/emergency-diagnosis.svg")}
                         alt=""
                         title=""
                       />
                     ) : (
                       <img
-                        src={require("../../../../assets/images/emer1.svg")}
+                        src={require("assets/images/emer1.svg")}
                         alt=""
                         title=""
                       />
@@ -248,7 +248,7 @@ class Index extends Component {
                     className="bp_vsblEye"
                   >
                     <img
-                      src={require("../../../../assets/images/eye2.png")}
+                      src={require("assets/images/eye2.png")}
                       alt=""
                       title=""
                     />{" "}
@@ -266,7 +266,7 @@ class Index extends Component {
                     data-for={item.track_id + "visibility"}
                   >
                     <img
-                      src={require("../../../../assets/images/clock.svg")}
+                      src={require("assets/images/clock.svg")}
                       alt=""
                       title=""
                     />
@@ -298,7 +298,7 @@ class Index extends Component {
                   <a className="openScndhrf1">
                     <a className="vsblDots">
                       <img
-                        src={require("../../../../assets/images/nav-more.svg")}
+                        src={require("assets/images/nav-more.svg")}
                         alt=""
                         title=""
                       />
@@ -308,7 +308,7 @@ class Index extends Component {
                         <li>
                           <a onClick={(data) => this.props.ArchiveTrack(item)}>
                             <img
-                              src={require("../../../../assets/images/archive-1.svg")}
+                              src={require("assets/images/archive-1.svg")}
                               alt=""
                               title=""
                             />
@@ -325,7 +325,7 @@ class Index extends Component {
                                 }
                               >
                                 <img
-                                  src={require("../../../../assets/images/edit-1.svg")}
+                                  src={require("assets/images/edit-1.svg")}
                                   alt=""
                                   title=""
                                 />
@@ -338,7 +338,7 @@ class Index extends Component {
                                 }
                               >
                                 <img
-                                  src={require("../../../../assets/images/edit.svg")}
+                                  src={require("assets/images/edit.svg")}
                                   alt=""
                                   title=""
                                 />
@@ -355,7 +355,7 @@ class Index extends Component {
                               }
                             >
                               <img
-                                src={require("../../../../assets/images/edit-1.svg")}
+                                src={require("assets/images/edit-1.svg")}
                                 alt=""
                                 title=""
                               />
@@ -366,7 +366,7 @@ class Index extends Component {
                         <li>
                           <a onClick={() => this.props.downloadTrack(item)}>
                             <img
-                              src={require("../../../../assets/images/download.svg")}
+                              src={require("assets/images/download.svg")}
                               alt=""
                               title=""
                             />
@@ -385,7 +385,7 @@ class Index extends Component {
                             }
                           >
                             <img
-                              src={require("../../../../assets/images/cancel-request.svg")}
+                              src={require("assets/images/cancel-request.svg")}
                               alt=""
                               title=""
                             />
@@ -398,7 +398,7 @@ class Index extends Component {
                         <li>
                           <a onClick={(data) => this.props.ArchiveTrack(item)}>
                             <img
-                              src={require("../../../../assets/images/archive-1.svg")}
+                              src={require("assets/images/archive-1.svg")}
                               alt=""
                               title=""
                             />
@@ -412,7 +412,7 @@ class Index extends Component {
                             }
                           >
                             <img
-                              src={require("../../../../assets/images/cancel-request.svg")}
+                              src={require("assets/images/cancel-request.svg")}
                               alt=""
                               title=""
                             />
@@ -475,7 +475,7 @@ class Index extends Component {
               </Grid>
               {/* <Grid item xs={12} md={7}>
                                 <Grid className="markMDCntntImg">
-                                    <a><img src={require('../../../../assets/images/hLogo.jpg')} alt="" title="" />
+                                    <a><img src={require('assets/images/hLogo.jpg')} alt="" title="" />
                                         <span>Illinois Masonic Medical Center</span>
                                     </a>
                                 </Grid>
@@ -539,7 +539,7 @@ class Index extends Component {
                           <span>{item.travel_diagnosis ? "Yes" : "No"}</span>
                           <a className="yesInfo" data-tip data-for="yesInfoTip">
                             <img
-                              src={require("../../../../assets/images/yesinfo.jpg")}
+                              src={require("assets/images/yesinfo.jpg")}
                               alt=""
                               title=""
                             />

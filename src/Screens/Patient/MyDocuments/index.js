@@ -592,7 +592,7 @@ class Index extends Component {
                                                     <Grid className="opinCourse">
                                                         <Grid className="opinCloseBtn">
                                                             <a onClick={this.handleCloseDash}>
-                                                                <img src={require('../../../assets/images/close-search.svg')} alt="" title="" />
+                                                                <img src={require('assets/images/close-search.svg')} alt="" title="" />
                                                             </a>
                                                         </Grid>
                                                         <p>{New} {inquiry}</p>
@@ -617,7 +617,7 @@ class Index extends Component {
                                                                 />
                                                             </Grid>
                                                             <p>{share_health_status_info_from_journal}</p>
-                                                            <p>{see_list_shared_info} <a><img src={require('../../../assets/images/Info.svg')} alt="" title="" /></a></p>
+                                                            <p>{see_list_shared_info} <a><img src={require('assets/images/Info.svg')} alt="" title="" /></a></p>
                                                         </Grid>}
                                                         <Grid className="stndrdQues">
                                                             <h3>{specilist_and_secnd_openion}</h3>
@@ -653,7 +653,7 @@ class Index extends Component {
                                                                 <Grid><label>{attachments}</label></Grid>
                                                                 <FileUploader  comesFrom="journal" name="UploadDocument" fileUpload={this.fileUpload} />
                                                                 {/* <Grid className="attchbrowsInput">
-                                                                    <a><img src={require('../../../assets/images/upload-file.svg')} alt="" title="" /></a>
+                                                                    <a><img src={require('assets/images/upload-file.svg')} alt="" title="" /></a>
                                                                     <a>Browse <input type="file" id="UploadDocument" name="UploadDocument" onChange={(e) => this.UploadFile(e)} /></a> or drag here
                                                                 </Grid>
                                                                 <p>Supported file types: .jpg, .png, .pdf</p> */}
@@ -667,7 +667,7 @@ class Index extends Component {
                                                             <Grid container direction="row" justify="center" alignItems="center">
                                                                 <Grid item xs={6} md={6}>
                                                                     <Grid className="infoShwHid">
-                                                                        <a>Show or Hide <img src={require('../../../assets/images/Info.svg')} alt="" title="" /></a>
+                                                                        <a>Show or Hide <img src={require('assets/images/Info.svg')} alt="" title="" /></a>
                                                                     </Grid>
                                                                 </Grid>
                                                                 <Grid item xs={6} md={6} className="editShwHid">
@@ -692,7 +692,7 @@ class Index extends Component {
                                                     <Grid className="nwPresCourse">
                                                         <Grid className="nwPresCloseBtn">
                                                             <a onClick={this.handleCloseSick}>
-                                                                <img src={require('../../../assets/images/close-search.svg')} alt="" title="" />
+                                                                <img src={require('assets/images/close-search.svg')} alt="" title="" />
                                                             </a>
                                                         </Grid>
                                                         <p>{New} {inquiry}</p>
@@ -718,7 +718,7 @@ class Index extends Component {
                                                             <p>{share_health_status_info_from_journal}</p>
                                                             <p>{see_list_shared_info}
                                                                 <a className="vsblTime" data-tip data-for="timeIconTip">
-                                                                    <img src={require('../../../assets/images/Info.svg')} alt="" title="" />
+                                                                    <img src={require('assets/images/Info.svg')} alt="" title="" />
                                                                 </a>
                                                                 <ReactTooltip className="cntryLiv" id="timeIconTip" place="right" effect="solid" backgroundColor="#ffffff">
                                                                     <p>- {country_u_live}</p>
@@ -807,7 +807,7 @@ class Index extends Component {
                                                             <Grid container direction="row" justify="center" alignItems="center">
                                                                 <Grid item xs={6} md={6}>
                                                                     <Grid className="infoShwHid2">
-                                                                        <a>Show or Hide <img src={require('../../../assets/images/Info.svg')} alt="" title="" /></a>
+                                                                        <a>Show or Hide <img src={require('assets/images/Info.svg')} alt="" title="" /></a>
                                                                     </Grid>
                                                                 </Grid>
                                                                 <Grid item xs={6} md={6} className="editShwHid2">
@@ -835,7 +835,7 @@ class Index extends Component {
                                                     <Grid className="nwPresCourse">
                                                         <Grid className="nwPresCloseBtn">
                                                             <a onClick={this.handleCloseInqry}>
-                                                                <img src={require('../../../assets/images/close-search.svg')} alt="" title="" />
+                                                                <img src={require('assets/images/close-search.svg')} alt="" title="" />
                                                             </a>
                                                         </Grid>
                                                         <p>{New} {inquiry}</p>
@@ -862,7 +862,7 @@ class Index extends Component {
                                                             <p>{see_list_shared_info}
 
                                                                 <a className="vsblTime" data-tip data-for="timeIconTip">
-                                                                    <img src={require('../../../assets/images/Info.svg')} alt="" title="" />
+                                                                    <img src={require('assets/images/Info.svg')} alt="" title="" />
                                                                 </a>
                                                                 <ReactTooltip className="cntryLiv" id="timeIconTip" place="right" effect="solid" backgroundColor="#ffffff">
                                                                     <p>- {country_u_live}</p>
@@ -974,7 +974,7 @@ class Index extends Component {
                                                             <Grid container direction="row" justify="center" alignItems="center">
                                                                 <Grid item xs={6} md={6}>
                                                                     <Grid className="infoShwHid2">
-                                                                        <a>Show or Hide <img src={require('../../../assets/images/Info.svg')} alt="" title="" /></a>
+                                                                        <a>Show or Hide <img src={require('assets/images/Info.svg')} alt="" title="" /></a>
                                                                     </Grid>
                                                                 </Grid>
                                                                 <Grid item xs={6} md={6} className="editShwHid2">
@@ -1005,7 +1005,7 @@ class Index extends Component {
                                                         </Tabs>
                                                     </Grid>
                                                     <Grid item xs={12} md={4} sm={4} className="presSrch">
-                                                        <a><img src={require('../../../assets/images/search-entries.svg')} alt="" title="" /></a>
+                                                        <a><img src={require('assets/images/search-entries.svg')} alt="" title="" /></a>
                                                     </Grid>
                                                 </Grid>
                                             </AppBar>

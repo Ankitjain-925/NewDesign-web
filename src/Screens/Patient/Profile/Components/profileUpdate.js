@@ -151,9 +151,10 @@ class Index extends Component {
         // this.setState({
         //     labelWidth: ReactDOM.findDOMNode(this.InputLabelRef).offsetWidth,
         // });
+       console.log('profile')
         this.getMetadata();
         this.getUserData();
-        this.alldoctor();
+        // this.alldoctor();
         this.firstLoginUpdate();
         var npmCountry = npmCountryList().getData()
         this.setState({ selectCountry: npmCountry })
@@ -402,19 +403,20 @@ class Index extends Component {
     // }
 
     //Getting Doctor to add as Family doctor
-    alldoctor() {
-        const user_token = this.props.stateLoginValueAim.token;
-        axios.get(sitedata.data.path + '/UserProfile/DoctorUsers', {
-            headers: {
-                'token': user_token,
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            }
-        })
-            .then((response) => {
-                this.setState({ allDocData: response.data.data })
-            })
-    }
+    // alldoctor() {
+
+    //     const user_token = this.props.stateLoginValueAim.token;
+    //     axios.get(sitedata.data.path + '/UserProfile/DoctorUsers', {
+    //         headers: {
+    //             'token': user_token,
+    //             'Accept': 'application/json',
+    //             'Content-Type': 'application/json'
+    //         }
+    //     })
+    //         .then((response) => {
+    //             this.setState({ allDocData: response.data.data })
+    //         })
+    // }
 
     //For change the language and the Speciality
     handleChange_multi = (event, name) => {
@@ -999,12 +1001,12 @@ class Index extends Component {
                                 <Grid container direction="row" alignItems="center" spacing={1}>
                                     <Grid item xs={12} md={7}>
                                         <label>{profile} {ID}</label><span id="profile_id">{this.state.UpDataDetails.alies_id && this.state.UpDataDetails.alies_id}</span>
-                                        <a><img src={require('../../../../assets/images/copycopy.svg')} onClick={() => this.copyText('profile_id')} alt="" title="" /></a>
-                                        <a><img src={require('../../../../assets/images/qr-code.svg')} onClick={this.handleQrOpen} alt="" title="" /></a>
+                                        <a><img src={require('assets/images/copycopy.svg')} onClick={() => this.copyText('profile_id')} alt="" title="" /></a>
+                                        <a><img src={require('assets/images/qr-code.svg')} onClick={this.handleQrOpen} alt="" title="" /></a>
                                     </Grid>
                                     <Grid item xs={12} md={5}>
                                         <label>{pin}</label><span id="profile_pin">{this.state.UpDataDetails.pin && this.state.UpDataDetails.pin}</span>
-                                        <a><img src={require('../../../../assets/images/copycopy.svg')} onClick={() => this.copyText('profile_pin')} alt="" title="" /></a>
+                                        <a><img src={require('assets/images/copycopy.svg')} onClick={() => this.copyText('profile_pin')} alt="" title="" /></a>
                                     </Grid>
                                 </Grid>
                             </Grid>
@@ -1018,7 +1020,7 @@ class Index extends Component {
                                 <Grid className="qrCourse">
                                     <Grid className="qrCloseBtn">
                                         <a onClick={this.handleQrClose}>
-                                            <img src={require('../../../../assets/images/close-search.svg')} alt="" title="" />
+                                            <img src={require('assets/images/close-search.svg')} alt="" title="" />
                                         </a>
                                     </Grid>
                                     <Grid><label>{profile} {QR_code}</label></Grid>
@@ -1045,7 +1047,7 @@ class Index extends Component {
                                 <Grid className="editCourse">
                                     <Grid className="editCloseBtn">
                                         <a onClick={() => this.handlePinClose("chngPinOpen")}>
-                                            <img src={require('../../../../assets/images/close-search.svg')} alt="" title="" />
+                                            <img src={require('assets/images/close-search.svg')} alt="" title="" />
                                         </a>
                                     </Grid>
                                     <Grid><label>{edit} {ID} {and} {pin}</label></Grid>
@@ -1363,7 +1365,7 @@ class Index extends Component {
                             <Grid className="editCourse">
                                 <Grid className="editCloseBtn">
                                     <a onClick={() => this.handlePinClose("addInsuranceOpen")}>
-                                        <img src={require('../../../../assets/images/close-search.svg')} alt="" title="" />
+                                        <img src={require('assets/images/close-search.svg')} alt="" title="" />
                                     </a>
                                 </Grid>
                                 <Grid><label>{add_more} {insurance}</label></Grid>
@@ -1419,10 +1421,10 @@ class Index extends Component {
                                     <td>{insu.insurance}</td>
                                     <td>{insu.insurance_number}</td>
                                     <td className="presEditDot scndOptionIner pivoted"><a className="openScndhrf">
-                                        <img src={require('../../../../assets/images/three_dots_t.png')} alt="" title="" className="openScnd" />
+                                        <img src={require('assets/images/three_dots_t.png')} alt="" title="" className="openScnd" />
                                         <ul>
-                                            <li><a onClick={() => this.editKYCopen(insu, i)}><img src={require('../../../../assets/images/edit.svg')} alt="" title="" />{edit}</a></li>
-                                            <li><a onClick={() => this.removeInsurance(i, insu)} ><img src={require('../../../../assets/images/close-search.svg')} alt="" title="" />{Delete}</a></li>
+                                            <li><a onClick={() => this.editKYCopen(insu, i)}><img src={require('assets/images/edit.svg')} alt="" title="" />{edit}</a></li>
+                                            <li><a onClick={() => this.removeInsurance(i, insu)} ><img src={require('assets/images/close-search.svg')} alt="" title="" />{Delete}</a></li>
                                         </ul>
                                     </a></td>
                                 </tr>
@@ -1438,7 +1440,7 @@ class Index extends Component {
                             <Grid className="editCourse">
                                 <Grid className="editCloseBtn">
                                     <a onClick={() => this.handlePinClose("editInsuranceOpen")}>
-                                        <img src={require('../../../../assets/images/close-search.svg')} alt="" title="" />
+                                        <img src={require('assets/images/close-search.svg')} alt="" title="" />
                                     </a>
                                 </Grid>
                                 <Grid><label>{edit} {insurance}</label></Grid>

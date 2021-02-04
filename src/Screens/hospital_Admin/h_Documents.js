@@ -258,7 +258,7 @@ class Index extends Component {
                                     {this.state.document_is_archive && <div className="success_message">Document is moved to Archive</div>}
                                     <Grid container direction="row" justifyContent="center" className="archvSrchInput">
                                         <Grid item xs={12} md={12}> <input onChange={this.search_user.bind(this)} type="text" placeholder={find_document} /></Grid>
-                                        <img src={require('../../assets/images/InputField.svg')} alt="" title="" />
+                                        <img src={require('assets/images/InputField.svg')} alt="" title="" />
                                     </Grid>
                                     <Grid className="archvOpinionIner">
                                         <Table>
@@ -279,10 +279,10 @@ class Index extends Component {
                                                         <Td>{doc.createdate  ? getDate(doc.createdate , 'DD/MM/YYYY') : 'Not mentioned'}</Td>
                                                         <Td className="archvDot">
                                                             <a className="academy_ul">
-                                                                <img src={require('../../assets/images/threedots.jpg')} alt="" title="" className="academyDots" />
+                                                                <img src={require('assets/images/threedots.jpg')} alt="" title="" className="academyDots" />
                                                                 <ul>
-                                                                    <li onClick={()=>this.handleOpenPres(doc)}><a><span><img src={require('../../assets/images/admin/details1.svg')} alt="" title="" /></span>{see_detail}</a></li>
-                                                                    <li onClick={()=>{this.DocumentarchiveClick(doc.DocumentId)}}><a><span><img src={require('../../assets/images/admin/delIcon.png')} alt="" title="" /></span>{Delete}</a></li>
+                                                                    <li onClick={()=>this.handleOpenPres(doc)}><a><span><img src={require('assets/images/admin/details1.svg')} alt="" title="" /></span>{see_detail}</a></li>
+                                                                    <li onClick={()=>{this.DocumentarchiveClick(doc.DocumentId)}}><a><span><img src={require('assets/images/admin/delIcon.png')} alt="" title="" /></span>{Delete}</a></li>
                                                                 </ul>
                                                             </a>
                                                         </Td>
@@ -321,7 +321,7 @@ class Index extends Component {
                                 <Grid className="nwPresCourse">
                                     <Grid className="nwPresCloseBtn nwEntrCloseBtnAdd">
                                         <a onClick={() => this.setState({ openDocUploadModel: false })}>
-                                            <img src={require('../../assets/images/close-search.svg')} alt="" title="" />
+                                            <img src={require('assets/images/close-search.svg')} alt="" title="" />
                                         </a>
                                     </Grid>
                                     <Grid><label>{upload_a_doc}</label></Grid>
@@ -333,7 +333,7 @@ class Index extends Component {
                                     <div className="ulpoad_btm">
                                         <div className="ulpoad_icon" style={{ cursor: 'pointer' }}>
                                             <a onClick={() => { $("input[id='my_file']").click() }}>
-                                                <img id="clickIcon" src={require('../../assets/images/upload-file.svg')} alt="" title="" />
+                                                <img id="clickIcon" src={require('assets/images/upload-file.svg')} alt="" title="" />
                                             </a>
                                             <input type="file" style={{ display: 'none' }} id="my_file" name="UploadDocument" ref={this.fileInput} onChange={(e) => this.UploadFile(e)} />
                                             <h3 id="clickIcon1">{upload_documents}</h3>
@@ -358,7 +358,7 @@ class Index extends Component {
                         <Grid className="presCourse">
                             <Grid className="presCloseBtn nwEntrCloseBtnAdd">
                                 <a onClick={this.handleClosePres}>
-                                    <img src={require('../../assets/images/close-search.svg')} alt="" title="" />
+                                    <img src={require('assets/images/close-search.svg')} alt="" title="" />
                                 </a>
                             </Grid>
                             <p>{document}</p>

@@ -354,7 +354,7 @@ class FilterSec extends Component {
                     >
                       <a>
                         <img
-                          src={require("../../../../assets/images/search-entries.svg")}
+                          src={require("assets/images/search-entries.svg")}
                           alt=""
                           title=""
                         />
@@ -387,7 +387,7 @@ class FilterSec extends Component {
                     >
                       <a>
                         <img
-                          src={require("../../../../assets/images/close-search.svg")}
+                          src={require("assets/images/close-search.svg")}
                           alt=""
                           title=""
                         />

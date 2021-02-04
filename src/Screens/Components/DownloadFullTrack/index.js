@@ -249,7 +249,7 @@ class Date extends Component {
       >
         {this.state.loaderImage && <Loader />}
         <img
-          src={require("../../../assets/images/download.svg")}
+          src={require("assets/images/download.svg")}
           alt=""
           title=""
         />{" "}

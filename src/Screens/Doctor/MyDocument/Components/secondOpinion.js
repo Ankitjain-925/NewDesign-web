@@ -427,7 +427,7 @@ class Index extends Component {
                                 <Tr>
                                     <Td>{data.which_symptomps ? data.which_symptomps : 'Not mentioned'}</Td>
                                     <Td>{data.send_on ? getDate(data.send_on, this.props.settings.setting ? this.props.settings.setting.date_format : 'DD/MM/YYYY') : not_mentioned}</Td>
-                                    <Td className="presImg"><img src={data.patient_info && data.patient_info.profile_image ? getImage(data.patient_info.profile_image, this.state.images) : require('../../../../assets/images/dr1.jpg')} alt="" title="" />{data.patient_info && data.patient_info.first_name && data.patient_info.first_name} {data.patient_info && data.patient_info.last_name && data.patient_info.last_name}</Td>
+                                    <Td className="presImg"><img src={data.patient_info && data.patient_info.profile_image ? getImage(data.patient_info.profile_image, this.state.images) : require('assets/images/dr1.jpg')} alt="" title="" />{data.patient_info && data.patient_info.first_name && data.patient_info.first_name} {data.patient_info && data.patient_info.last_name && data.patient_info.last_name}</Td>
                                     {data.status === 'pending' && <Td><span className="revwYelow"></span>{Pending} </Td>}
                                     {data.status === 'accept' && <Td><span className="revwGren"></span>{Answered} </Td>}
                                     {data.status === 'decline' && <Td><span className="revwRed"></span> {Rejected}</Td>}
@@ -435,12 +435,12 @@ class Index extends Component {
                                     {data.status === 'free' && <Td><span className="revwGry"></span> {sent} {request}</Td>}
                                     <Td className="presEditDot scndOptionIner">
                                         <a className="openScndhrf">
-                                            <img src={require('../../../../assets/images/three_dots_t.png')} alt="" title="" className="openScnd" />
+                                            <img src={require('assets/images/three_dots_t.png')} alt="" title="" className="openScnd" />
                                             <ul>
-                                                <li><a onClick={() => { this.handleOpenPrescp(data) }}><img src={require('../../../../assets/images/details.svg')} alt="" title="" />{see_details}</a></li>
-                                                {data.status == 'free' && <li onClick={() => { this.handleOpenPrescp('accept', data._id) }}><a><img src={require('../../../../assets/images/edit.svg')} alt="" title="" />{accept}</a></li>}
-                                                {data.status == 'free' && <li onClick={() => { this.updateCertificate('decline', data._id) }}><a><img src={require('../../../../assets/images/plus.png')} alt="" title="" />{decline}</a></li>}
-                                                {data.status !== 'remove' && <li onClick={() => { this.removePrsecription('remove', data._id) }}><a><img src={require('../../../../assets/images/cancel-request.svg')} alt="" title="" />{remove}</a></li>}
+                                                <li><a onClick={() => { this.handleOpenPrescp(data) }}><img src={require('assets/images/details.svg')} alt="" title="" />{see_details}</a></li>
+                                                {data.status == 'free' && <li onClick={() => { this.handleOpenPrescp('accept', data._id) }}><a><img src={require('assets/images/edit.svg')} alt="" title="" />{accept}</a></li>}
+                                                {data.status == 'free' && <li onClick={() => { this.updateCertificate('decline', data._id) }}><a><img src={require('assets/images/plus.png')} alt="" title="" />{decline}</a></li>}
+                                                {data.status !== 'remove' && <li onClick={() => { this.removePrsecription('remove', data._id) }}><a><img src={require('assets/images/cancel-request.svg')} alt="" title="" />{remove}</a></li>}
                                             </ul>
                                         </a>
                                     </Td>
@@ -458,7 +458,7 @@ class Index extends Component {
                                 <Grid className="opinCourse">
                                     <Grid className="opinCloseBtn">
                                         <a onClick={this.handleClosePrescp}>
-                                            <img src={require('../../../../assets/images/close-search.svg')} alt="" title="" />
+                                            <img src={require('assets/images/close-search.svg')} alt="" title="" />
                                         </a>
                                     </Grid>
                                     <p>Edit inquiry</p>
@@ -496,7 +496,7 @@ class Index extends Component {
                                             </label>
                                             <FileUploader name="UploadDocument" fileUpload={this.fileUpload} />
                                             {/* <Grid className="attchbrowsInput">
-                                            <a><img src={require('../../../../assets/images/upload-file.svg')} alt="" title="" /></a>
+                                            <a><img src={require('assets/images/upload-file.svg')} alt="" title="" /></a>
                                             <a>Browse <input type="file" id="UploadDocument" name="UploadDocument" onChange={(e) => this.UploadFile(e)} /></a> or drag here
                                         </Grid> */}
                     {/* <p>Supported file types: .jpg, .png, .pdf</p> 
@@ -524,7 +524,7 @@ class Index extends Component {
                             <Grid className="rejectCourse">
                                 <Grid className="rejectCloseBtn">
                                     <a onClick={this.handleCloseReject}>
-                                        <img src={require('../../../../assets/images/close-search.svg')} alt="" title="" />
+                                        <img src={require('assets/images/close-search.svg')} alt="" title="" />
                                     </a>
                                 </Grid>
                                 <p onClick={this.handleCloseReject}>{back}</p>

@@ -65,7 +65,7 @@ export default class FloatArrowUp extends Component {
       >
         <img
           className="arrowIcon"
-          src={require("../../../assets/images/scrollUp.png")}
+          src={require("assets/images/scrollUp.png")}
         />
       </a>
     );

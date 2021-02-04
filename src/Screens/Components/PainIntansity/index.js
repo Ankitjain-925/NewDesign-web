@@ -105,7 +105,7 @@ class Pain extends Component {
               {this.state.value >= 0 && this.state.value <= 1 && (
                 <a>
                   <img
-                    src={require("../../../assets/images/nopain.svg")}
+                    src={require("assets/images/nopain.svg")}
                     alt=""
                     title=""
                   />
@@ -115,7 +115,7 @@ class Pain extends Component {
               {this.state.value > 1 && this.state.value <= 3 && (
                 <a>
                   <img
-                    src={require("../../../assets/images/mild.svg")}
+                    src={require("assets/images/mild.svg")}
                     alt=""
                     title=""
                   />
@@ -125,7 +125,7 @@ class Pain extends Component {
               {this.state.value > 3 && this.state.value <= 5 && (
                 <a>
                   <img
-                    src={require("../../../assets/images/moderate.svg")}
+                    src={require("assets/images/moderate.svg")}
                     alt=""
                     title=""
                   />
@@ -135,7 +135,7 @@ class Pain extends Component {
               {this.state.value > 5 && this.state.value <= 7 && (
                 <a>
                   <img
-                    src={require("../../../assets/images/severe.svg")}
+                    src={require("assets/images/severe.svg")}
                     alt=""
                     title=""
                   />
@@ -145,7 +145,7 @@ class Pain extends Component {
               {this.state.value > 7 && this.state.value <= 9 && (
                 <a>
                   <img
-                    src={require("../../../assets/images/veryServere.svg")}
+                    src={require("assets/images/veryServere.svg")}
                     alt=""
                     title=""
                   />
@@ -155,7 +155,7 @@ class Pain extends Component {
               {this.state.value > 9 && this.state.value <= 10 && (
                 <a>
                   <img
-                    src={require("../../../assets/images/worst.svg")}
+                    src={require("assets/images/worst.svg")}
                     alt=""
                     title=""
                   />

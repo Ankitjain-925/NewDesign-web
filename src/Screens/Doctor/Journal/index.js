@@ -1436,7 +1436,7 @@ class Index extends Component {
                         <Grid className="dataCloseBtn">
                           <a onClick={this.handleCloseData}>
                             <img
-                              src={require("../../../assets/images/close-search.svg")}
+                              src={require("assets/images/close-search.svg")}
                               alt=""
                               title=""
                             />
@@ -1526,7 +1526,7 @@ class Index extends Component {
                               <Grid className="nwDiaCloseBtn">
                                 <a onClick={this.handleCloseInqryNw}>
                                   <img
-                                    src={require("../../../assets/images/close-search.svg")}
+                                    src={require("assets/images/close-search.svg")}
                                     alt=""
                                     title=""
                                   />
@@ -2280,7 +2280,7 @@ class Index extends Component {
                               )}
                               {this.state.current_select === "respiration" && (
                                 <RespirationField
-                                  cur_one={this.state.cur_one}
+                                  cur_one={this.state.cur_one2}
                                   FileAttachMulti={this.FileAttachMulti}
                                   visibility={this.state.visibility}
                                   comesfrom="patient"

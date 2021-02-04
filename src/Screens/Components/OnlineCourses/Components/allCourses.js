@@ -309,14 +309,14 @@ class Index extends Component {
                       <Grid>
                         <a>
                           <img
-                            src={require("../../../../assets/images/lectures.svg")}
+                            src={require("assets/images/lectures.svg")}
                             alt=""
                             title=""
                           />
                           {item.attachment.length} {lectures}
                         </a>
                       </Grid>
-                      {/* <Grid><a><img src={require('../../../../assets/images/time.svg')} alt="" title="" />1.5 h</a></Grid> */}
+                      {/* <Grid><a><img src={require('assets/images/time.svg')} alt="" title="" />1.5 h</a></Grid> */}
                     </Grid>
                     <Grid className="courseStar">
                       <Rating
@@ -325,11 +325,11 @@ class Index extends Component {
                           item.courseContent && item.courseContent.average
                         }
                       />
-                      {/* <a><img src={require('../../../../assets/images/vote-star-filled.svg')} alt="" title="" /></a>
-                                    <a><img src={require('../../../../assets/images/vote-star-filled.svg')} alt="" title="" /></a>
-                                    <a><img src={require('../../../../assets/images/vote-star-filled.svg')} alt="" title="" /></a>
-                                    <a><img src={require('../../../../assets/images/vote-star-filled.svg')} alt="" title="" /></a>
-                                    <a><img src={require('../../../../assets/images/vote-star-half.svg')} alt="" title="" /></a> */}
+                      {/* <a><img src={require('assets/images/vote-star-filled.svg')} alt="" title="" /></a>
+                                    <a><img src={require('assets/images/vote-star-filled.svg')} alt="" title="" /></a>
+                                    <a><img src={require('assets/images/vote-star-filled.svg')} alt="" title="" /></a>
+                                    <a><img src={require('assets/images/vote-star-filled.svg')} alt="" title="" /></a>
+                                    <a><img src={require('assets/images/vote-star-half.svg')} alt="" title="" /></a> */}
                       <span>
                         {item.courseContent && item.courseContent.average}
                         {item.courseContent && (
@@ -362,7 +362,7 @@ class Index extends Component {
                               }}
                             >
                               <img
-                                src={require("../../../../assets/images/fillWish.png")}
+                                src={require("assets/images/fillWish.png")}
                                 alt=""
                                 title=""
                               />
@@ -370,7 +370,7 @@ class Index extends Component {
                           ) : (
                             <a onClick={() => this.AddtoWishtlist(item)}>
                               <img
-                                src={require("../../../../assets/images/wishlist.png")}
+                                src={require("assets/images/wishlist.png")}
                                 alt=""
                                 title=""
                               />
@@ -393,15 +393,15 @@ class Index extends Component {
                                     diabetes and why a good treatment is so crucial.</p>
                                 </Grid>
                                 <Grid className="courseListTime">
-                                    <Grid><a><img src={require('../../../../assets/images/lectures.svg')} alt="" title="" />3 lectures</a></Grid>
-                                    <Grid><a><img src={require('../../../../assets/images/time.svg')} alt="" title="" />1.5 h</a></Grid>
+                                    <Grid><a><img src={require('assets/images/lectures.svg')} alt="" title="" />3 lectures</a></Grid>
+                                    <Grid><a><img src={require('assets/images/time.svg')} alt="" title="" />1.5 h</a></Grid>
                                 </Grid>
                                 <Grid className="courseStar">
-                                    <a><img src={require('../../../../assets/images/vote-star-filled.svg')} alt="" title="" /></a>
-                                    <a><img src={require('../../../../assets/images/vote-star-filled.svg')} alt="" title="" /></a>
-                                    <a><img src={require('../../../../assets/images/vote-star-filled.svg')} alt="" title="" /></a>
-                                    <a><img src={require('../../../../assets/images/vote-star-filled.svg')} alt="" title="" /></a>
-                                    <a><img src={require('../../../../assets/images/vote-star-half.svg')} alt="" title="" /></a>
+                                    <a><img src={require('assets/images/vote-star-filled.svg')} alt="" title="" /></a>
+                                    <a><img src={require('assets/images/vote-star-filled.svg')} alt="" title="" /></a>
+                                    <a><img src={require('assets/images/vote-star-filled.svg')} alt="" title="" /></a>
+                                    <a><img src={require('assets/images/vote-star-filled.svg')} alt="" title="" /></a>
+                                    <a><img src={require('assets/images/vote-star-half.svg')} alt="" title="" /></a>
                                     <span>4.5<a>(38)</a></span>
                                 </Grid>
                                 <Grid className="coursePrice"><label>19 €</label></Grid>
@@ -413,7 +413,7 @@ class Index extends Component {
                                         <Grid className="nwCoursCrt"><a onClick={()=>this.props.AddtoCard()}>Add to cart</a></Grid>
                                     </Grid>
                                     <Grid item xs={12} md={3}>
-                                        <Grid className="nwCoursCrtRght"><a><img onClick={()=>this.AddtoWishtlist()} src={require('../../../../assets/images/wishlist.png')} alt="" title="" /></a></Grid>
+                                        <Grid className="nwCoursCrtRght"><a><img onClick={()=>this.AddtoWishtlist()} src={require('assets/images/wishlist.png')} alt="" title="" /></a></Grid>
                                     </Grid>
                                 </Grid>
                             </Grid>
@@ -452,14 +452,14 @@ class Index extends Component {
                       <Grid>
                         <a>
                           <img
-                            src={require("../../../../assets/images/lectures.svg")}
+                            src={require("assets/images/lectures.svg")}
                             alt=""
                             title=""
                           />
                           {item.attachment.length} {lectures}
                         </a>
                       </Grid>
-                      {/* <Grid><a><img src={require('../../../../assets/images/time.svg')} alt="" title="" />1.5 h</a></Grid> */}
+                      {/* <Grid><a><img src={require('assets/images/time.svg')} alt="" title="" />1.5 h</a></Grid> */}
                     </Grid>
                     <Grid className="courseStar">
                       <Rating
@@ -468,11 +468,11 @@ class Index extends Component {
                           item.courseContent && item.courseContent.average
                         }
                       />
-                      {/* <a><img src={require('../../../../assets/images/vote-star-filled.svg')} alt="" title="" /></a>
-                                    <a><img src={require('../../../../assets/images/vote-star-filled.svg')} alt="" title="" /></a>
-                                    <a><img src={require('../../../../assets/images/vote-star-filled.svg')} alt="" title="" /></a>
-                                    <a><img src={require('../../../../assets/images/vote-star-filled.svg')} alt="" title="" /></a>
-                                    <a><img src={require('../../../../assets/images/vote-star-half.svg')} alt="" title="" /></a> */}
+                      {/* <a><img src={require('assets/images/vote-star-filled.svg')} alt="" title="" /></a>
+                                    <a><img src={require('assets/images/vote-star-filled.svg')} alt="" title="" /></a>
+                                    <a><img src={require('assets/images/vote-star-filled.svg')} alt="" title="" /></a>
+                                    <a><img src={require('assets/images/vote-star-filled.svg')} alt="" title="" /></a>
+                                    <a><img src={require('assets/images/vote-star-half.svg')} alt="" title="" /></a> */}
                       <span>
                         {item.courseContent && item.courseContent.average}
                         <a>
@@ -506,7 +506,7 @@ class Index extends Component {
                               }}
                             >
                               <img
-                                src={require("../../../../assets/images/fillWish.png")}
+                                src={require("assets/images/fillWish.png")}
                                 alt=""
                                 title=""
                               />
@@ -515,7 +515,7 @@ class Index extends Component {
                             <a>
                               <img
                                 onClick={() => this.AddtoWishtlist(item)}
-                                src={require("../../../../assets/images/wishlist.png")}
+                                src={require("assets/images/wishlist.png")}
                                 alt=""
                                 title=""
                               />
@@ -537,15 +537,15 @@ class Index extends Component {
                                     diabetes and why a good treatment is so crucial.</p>
                                 </Grid>
                                 <Grid className="courseListTime">
-                                    <Grid><a><img src={require('../../../../assets/images/lectures.svg')} alt="" title="" />3 lectures</a></Grid>
-                                    <Grid><a><img src={require('../../../../assets/images/time.svg')} alt="" title="" />1.5 h</a></Grid>
+                                    <Grid><a><img src={require('assets/images/lectures.svg')} alt="" title="" />3 lectures</a></Grid>
+                                    <Grid><a><img src={require('assets/images/time.svg')} alt="" title="" />1.5 h</a></Grid>
                                 </Grid>
                                 <Grid className="courseStar">
-                                    <a><img src={require('../../../../assets/images/vote-star-filled.svg')} alt="" title="" /></a>
-                                    <a><img src={require('../../../../assets/images/vote-star-filled.svg')} alt="" title="" /></a>
-                                    <a><img src={require('../../../../assets/images/vote-star-filled.svg')} alt="" title="" /></a>
-                                    <a><img src={require('../../../../assets/images/vote-star-filled.svg')} alt="" title="" /></a>
-                                    <a><img src={require('../../../../assets/images/vote-star-half.svg')} alt="" title="" /></a>
+                                    <a><img src={require('assets/images/vote-star-filled.svg')} alt="" title="" /></a>
+                                    <a><img src={require('assets/images/vote-star-filled.svg')} alt="" title="" /></a>
+                                    <a><img src={require('assets/images/vote-star-filled.svg')} alt="" title="" /></a>
+                                    <a><img src={require('assets/images/vote-star-filled.svg')} alt="" title="" /></a>
+                                    <a><img src={require('assets/images/vote-star-half.svg')} alt="" title="" /></a>
                                     <span>4.5<a>(38)</a></span>
                                 </Grid>
 
@@ -554,7 +554,7 @@ class Index extends Component {
                                         <Grid className="coursePrice"><label>19 €</label></Grid>
                                     </Grid>
                                     <Grid item xs={6} md={6} className="fillWish">
-                                        <a><img src={require('../../../../assets/images/fillWish.png')} alt="" title="" /></a>
+                                        <a><img src={require('assets/images/fillWish.png')} alt="" title="" /></a>
                                     </Grid>
                                 </Grid>
 
@@ -571,15 +571,15 @@ class Index extends Component {
                                     diabetes and why a good treatment is so crucial.</p>
                                 </Grid>
                                 <Grid className="courseListTime">
-                                    <Grid><a><img src={require('../../../../assets/images/lectures.svg')} alt="" title="" />3 lectures</a></Grid>
-                                    <Grid><a><img src={require('../../../../assets/images/time.svg')} alt="" title="" />1.5 h</a></Grid>
+                                    <Grid><a><img src={require('assets/images/lectures.svg')} alt="" title="" />3 lectures</a></Grid>
+                                    <Grid><a><img src={require('assets/images/time.svg')} alt="" title="" />1.5 h</a></Grid>
                                 </Grid>
                                 <Grid className="courseStar">
-                                    <a><img src={require('../../../../assets/images/vote-star-filled.svg')} alt="" title="" /></a>
-                                    <a><img src={require('../../../../assets/images/vote-star-filled.svg')} alt="" title="" /></a>
-                                    <a><img src={require('../../../../assets/images/vote-star-filled.svg')} alt="" title="" /></a>
-                                    <a><img src={require('../../../../assets/images/vote-star-filled.svg')} alt="" title="" /></a>
-                                    <a><img src={require('../../../../assets/images/vote-star-half.svg')} alt="" title="" /></a>
+                                    <a><img src={require('assets/images/vote-star-filled.svg')} alt="" title="" /></a>
+                                    <a><img src={require('assets/images/vote-star-filled.svg')} alt="" title="" /></a>
+                                    <a><img src={require('assets/images/vote-star-filled.svg')} alt="" title="" /></a>
+                                    <a><img src={require('assets/images/vote-star-filled.svg')} alt="" title="" /></a>
+                                    <a><img src={require('assets/images/vote-star-half.svg')} alt="" title="" /></a>
                                     <span>4.5<a>(38)</a></span>
                                 </Grid>
                                 <Grid className="coursePrice"><label>19 €</label></Grid>

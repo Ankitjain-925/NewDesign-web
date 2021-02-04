@@ -135,7 +135,7 @@ class Index extends Component {
               </Grid>
               <Grid className="welVideo">
                 <img
-                  src={require("../../../../assets/images/vdo.jpg")}
+                  src={require("assets/images/vdo.jpg")}
                   alt=""
                   title=""
                 />
@@ -157,7 +157,7 @@ class Index extends Component {
                   <Grid className="diagnosImg2">
                     <a className="diagnosNote2">
                       <img
-                        src={require("../../../../assets/images/entry.png")}
+                        src={require("assets/images/entry.png")}
                         alt=""
                         title=""
                       />
@@ -169,7 +169,7 @@ class Index extends Component {
                   <Grid className="vsblSec2">
                     <a className="vsblDots2">
                       <img
-                        src={require("../../../../assets/images/nav-more.svg")}
+                        src={require("assets/images/nav-more.svg")}
                         alt=""
                         title=""
                       />
@@ -204,7 +204,7 @@ class Index extends Component {
                   <Grid className="markCntntImg2">
                     <a>
                       <img
-                        src={require("../../../../assets/images/logo_new2.png")}
+                        src={require("assets/images/logo_new2.png")}
                         alt=""
                         title=""
                       />

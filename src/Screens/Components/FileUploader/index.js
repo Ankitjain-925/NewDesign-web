@@ -31,32 +31,32 @@ class Loader extends Component {
     var Preview = [];
     for (var i = 0; i < files.length; i++) {
       if (files[i].name.split(".").pop() === "mp4") {
-        Preview.push(require("../../../assets/images/videoIcon.png"));
+        Preview.push(require("assets/images/videoIcon.png"));
       }
       if (files[i].name.split(".").pop() === "pdf") {
-        Preview.push(require("../../../assets/images/pdfimg.png"));
+        Preview.push(require("assets/images/pdfimg.png"));
       } else if (
         files[i].name.split(".").pop() === "doc" ||
         files[i].name.split(".").pop() === "docx" ||
         files[i].name.split(".").pop() === "xml" ||
         files[i].name.split(".").pop() === "txt"
       ) {
-        Preview.push(require("../../../assets/images/txt1.png"));
+        Preview.push(require("assets/images/txt1.png"));
       } else if (
         files[i].name.split(".").pop() === "xls" ||
         files[i].name.split(".").pop() === "xlsx" ||
         files[i].name.split(".").pop() === "xml"
       ) {
-        Preview.push(require("../../../assets/images/xls1.svg"));
+        Preview.push(require("assets/images/xls1.svg"));
       } else if (files[i].name.split(".").pop() === "csv") {
-        Preview.push(require("../../../assets/images/csv1.png"));
+        Preview.push(require("assets/images/csv1.png"));
       } else if (
         files[i].name.split(".").pop() === "dcm" ||
         files[i].name.split(".").pop() === "DCM" ||
         files[i].name.split(".").pop() === "DICOM" ||
         files[i].name.split(".").pop() === "dicom"
       ) {
-        Preview.push(require("../../../assets/images/dcm1.png"));
+        Preview.push(require("assets/images/dcm1.png"));
       } else {
         Preview.push(URL.createObjectURL(files[i]));
       }
@@ -116,7 +116,7 @@ class Loader extends Component {
               <Grid className="browsInput">
                 <a>
                   <img
-                    src={require("../../../assets/images/upload-file.svg")}
+                    src={require("assets/images/upload-file.svg")}
                     alt=""
                     title=""
                   />

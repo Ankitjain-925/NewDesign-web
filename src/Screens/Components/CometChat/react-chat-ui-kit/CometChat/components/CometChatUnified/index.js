@@ -1,6 +1,6 @@
 import React from "react";
 import "./style.scss";
-import "../../../../../../../assets/css/style.css"
+import "assets/css/style.css"
 import { CometChat } from "@cometchat-pro/chat";
 import { CometChatManager } from "../../util/controller";
 import NavBar from "./NavBar";
@@ -9,16 +9,18 @@ import CometChatUserDetail from "../CometChatUserDetail";
 import CometChatGroupDetail from "../CometChatGroupDetail";
 import MessageThread from "../MessageThread";
 import CallScreen from "../CallScreen";
-import * as translationEN from "../../../../../.../../../../translations/en.json";
-import * as translationDE from "../../../../../.../../../../translations/de.json";
-import * as translationSP from "../../../../../.../../../../translations/sp.json";
-import * as translationPT from "../../../../../.../../../../translations/pt.json";
-import * as translationRS from "../../../../../.../../../../translations/rs.json";
-import * as translationNL from "../../../../../.../../../../translations/nl.json";
-import * as translationCH from "../../../../../.../../../../translations/ch.json";
-import * as translationSW from "../../../../../.../../../../translations/sw.json";
-import * as translationFR from "../../../../../.../../../../translations/fr.json";
-import * as translationAR from "../../../../../.../../../../translations/ar.json";
+import {
+  translationAR,
+  translationSW,
+  translationSP,
+  translationRS,
+  translationEN,
+  translationNL,
+  translationDE,
+  translationCH,
+  translationPT,
+  translationFR
+} from "translations/index"
 class CometChatUnified extends React.Component {
   constructor(props) {
    super(props);

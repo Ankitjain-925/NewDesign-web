@@ -12,7 +12,7 @@ class Index extends Component {
                             {/* Website Menu */}
                             <Grid item xs={12} md={1} className="MenuLeftUpr">
                                 <Grid className="webLogo">
-                                    <a href="/"><img src={require('../../assets/images/LogoPNG.png')} alt="" title="" /></a>
+                                    <a href="/"><img src={require('assets/images/LogoPNG.png')} alt="" title="" /></a>
                                 </Grid>
                                 <Grid className="menuItems">
                                     <ul>
@@ -42,41 +42,41 @@ class Index extends Component {
                                         </li>
                                         <li className="menuActv">
                                             <a href="/inbox">
-                                                <img src={require('../../assets/images/chatVideoActive.png')} alt="" title="" />
+                                                <img src={require('assets/images/chatVideoActive.png')} alt="" title="" />
                                                 <span>Chat & <br/> Videocalls</span>
                                             </a>
                                         </li>
                                         <li>
                                             <a href="/appointment">
-                                                <img src={require('../../assets/images/calenderIcon.jpg')} alt="" title="" />
+                                                <img src={require('assets/images/calenderIcon.jpg')} alt="" title="" />
                                                 <span>Appointments</span>
                                             </a>
                                         </li>
                                         <li>
                                             <a>
-                                                <img src={require('../../assets/images/apoint.jpg')} alt="" title="" />
+                                                <img src={require('assets/images/apoint.jpg')} alt="" title="" />
                                                 <span>My Documents</span>
                                             </a>
                                         </li>
                                         <li>
                                             <a>
-                                                <img src={require('../../assets/images/tracker.jpg')} alt="" title="" />
+                                                <img src={require('assets/images/tracker.jpg')} alt="" title="" />
                                                 <span>Trackers & <br /> Self Data</span>
                                             </a>
                                         </li>
                                         <li>
                                             <a className="moreMenu">
-                                                <img src={require('../../assets/images/moreicon.jpg')} alt="" title="" />
+                                                <img src={require('assets/images/moreicon.jpg')} alt="" title="" />
                                                 <span>More</span>
 
                                                 <div className="moreMenuList">
                                                     <ul>
-                                                        <li><a><img src={require('../../assets/images/menudocs.jpg')} alt="" title="" />Second Opinion</a></li>
-                                                        <li><a><img src={require('../../assets/images/menudocs.jpg')} alt="" title="" />Emergency Patient Data</a></li>
-                                                        <li><a><img src={require('../../assets/images/menudocs.jpg')} alt="" title="" />Aimedis Online Courses</a></li>
-                                                        <li><a><img src={require('../../assets/images/menudocs.jpg')} alt="" title="" />Extra Services</a></li>
-                                                        <li><a><img src={require('../../assets/images/menudocs.jpg')} alt="" title="" />Journal Archive</a></li>
-                                                        <li><a><img src={require('../../assets/images/menudocs.jpg')} alt="" title="" />Blockchain Access Log</a></li>
+                                                        <li><a><img src={require('assets/images/menudocs.jpg')} alt="" title="" />Second Opinion</a></li>
+                                                        <li><a><img src={require('assets/images/menudocs.jpg')} alt="" title="" />Emergency Patient Data</a></li>
+                                                        <li><a><img src={require('assets/images/menudocs.jpg')} alt="" title="" />Aimedis Online Courses</a></li>
+                                                        <li><a><img src={require('assets/images/menudocs.jpg')} alt="" title="" />Extra Services</a></li>
+                                                        <li><a><img src={require('assets/images/menudocs.jpg')} alt="" title="" />Journal Archive</a></li>
+                                                        <li><a><img src={require('assets/images/menudocs.jpg')} alt="" title="" />Blockchain Access Log</a></li>
                                                     </ul>
                                                 </div>
                                             </a>
@@ -84,15 +84,15 @@ class Index extends Component {
                                         </li>
                                         <li>
                                             <a className="profilMenu">
-                                                <img src={require('../../assets/images/useru.jpg')} alt="" title="" />
+                                                <img src={require('assets/images/useru.jpg')} alt="" title="" />
                                                 <span>My Profile</span>
 
                                                 <div className="profilMenuList">
                                                     <ul>
-                                                        <li><a><img src={require('../../assets/images/menudocs.jpg')} alt="" title="" />Profile Settings</a></li>
-                                                        <li><a><img src={require('../../assets/images/menudocs.jpg')} alt="" title="" />Language</a></li>
-                                                        <li><a><img src={require('../../assets/images/menudocs.jpg')} alt="" title="" />Dark Mode</a></li>
-                                                        <li><a><img src={require('../../assets/images/menudocs.jpg')} alt="" title="" />Log out</a></li>
+                                                        <li><a><img src={require('assets/images/menudocs.jpg')} alt="" title="" />Profile Settings</a></li>
+                                                        <li><a><img src={require('assets/images/menudocs.jpg')} alt="" title="" />Language</a></li>
+                                                        <li><a><img src={require('assets/images/menudocs.jpg')} alt="" title="" />Dark Mode</a></li>
+                                                        <li><a><img src={require('assets/images/menudocs.jpg')} alt="" title="" />Log out</a></li>
                                                     </ul>
                                                 </div>
 
@@ -116,12 +116,12 @@ class Index extends Component {
                                                     <h2>Chats</h2>
                                                 </Grid>
                                                 <Grid item xs={4} md={4} className="chatIconEdit">
-                                                    <img src={require('../../assets/images/chatIcon.png')} alt="" title="" />
+                                                    <img src={require('assets/images/chatIcon.png')} alt="" title="" />
                                                 </Grid>
                                             </Grid>
 
                                             <Grid className="contactSrch">
-                                                <img src={require('../../assets/images/search-entries.svg')} alt="" title="" />
+                                                <img src={require('assets/images/search-entries.svg')} alt="" title="" />
                                                 <input type="text" placeholder="Search" />
                                             </Grid>
 
@@ -129,7 +129,7 @@ class Index extends Component {
 
                                                 <Grid className="chatClnt">
                                                     <Grid className="chatClntLft">
-                                                        <a><img src={require('../../assets/images/chat11.jpg')} alt="" title="" /></a>
+                                                        <a><img src={require('assets/images/chat11.jpg')} alt="" title="" /></a>
                                                     </Grid>
                                                     <Grid className="chatClntMid">
                                                         <a>Darren Adams</a>
@@ -137,11 +137,11 @@ class Index extends Component {
                                                     </Grid>
                                                     <Grid className="chatClntRght">
                                                         <a>
-                                                            <img src={require('../../assets/images/seenimg.png')} alt="" title="" />
+                                                            <img src={require('assets/images/seenimg.png')} alt="" title="" />
                                                             <span>08:30 PM</span>
                                                         </a>
                                                         <p>
-                                                            <img src={require('../../assets/images/pin.png')} alt="" title="" />
+                                                            <img src={require('assets/images/pin.png')} alt="" title="" />
                                                         </p>
                                                     </Grid>
                                                 </Grid>
@@ -149,19 +149,19 @@ class Index extends Component {
 
                                                 <Grid className="chatClnt">
                                                     <Grid className="chatClntLft">
-                                                        <a><img src={require('../../assets/images/chat44.jpg')} alt="" title="" /></a>
+                                                        <a><img src={require('assets/images/chat44.jpg')} alt="" title="" /></a>
                                                     </Grid>
                                                     <Grid className="chatClntMid">
                                                         <a>Ashish Asharaful</a>
-                                                        <p><img src={require('../../assets/images/thumb.png')} alt="" title="" /></p>
+                                                        <p><img src={require('assets/images/thumb.png')} alt="" title="" /></p>
                                                     </Grid>
                                                     <Grid className="chatClntRght">
                                                         <a>
-                                                            <img src={require('../../assets/images/seenimg.png')} alt="" title="" />
+                                                            <img src={require('assets/images/seenimg.png')} alt="" title="" />
                                                             <span>08:30 PM</span>
                                                         </a>
                                                         <p>
-                                                            <img src={require('../../assets/images/pin.png')} alt="" title="" />
+                                                            <img src={require('assets/images/pin.png')} alt="" title="" />
                                                         </p>
                                                     </Grid>
                                                 </Grid>
@@ -169,19 +169,19 @@ class Index extends Component {
 
                                                 <Grid className="chatClnt">
                                                     <Grid className="chatClntLft">
-                                                        <a><img src={require('../../assets/images/chat33.jpg')} alt="" title="" /></a>
+                                                        <a><img src={require('assets/images/chat33.jpg')} alt="" title="" /></a>
                                                     </Grid>
                                                     <Grid className="chatClntMid">
                                                         <a>Yi Chun-Hwa</a>
-                                                        <p><img src={require('../../assets/images/thumb.png')} alt="" title="" /></p>
+                                                        <p><img src={require('assets/images/thumb.png')} alt="" title="" /></p>
                                                     </Grid>
                                                     <Grid className="chatClntRght">
                                                         <a>
-                                                            <img src={require('../../assets/images/seenimg.png')} alt="" title="" />
+                                                            <img src={require('assets/images/seenimg.png')} alt="" title="" />
                                                             <span>08:30 PM</span>
                                                         </a>
                                                         <p>
-                                                            <img src={require('../../assets/images/pin.png')} alt="" title="" />
+                                                            <img src={require('assets/images/pin.png')} alt="" title="" />
                                                         </p>
                                                     </Grid>
                                                 </Grid>
@@ -189,7 +189,7 @@ class Index extends Component {
 
                                                 <Grid className="chatClnt">
                                                     <Grid className="chatClntLft">
-                                                        <a><img src={require('../../assets/images/chat33.jpg')} alt="" title="" /></a>
+                                                        <a><img src={require('assets/images/chat33.jpg')} alt="" title="" /></a>
                                                     </Grid>
                                                     <Grid className="chatClntMid">
                                                         <a>Yi Chun-Hwa</a>
@@ -197,11 +197,11 @@ class Index extends Component {
                                                     </Grid>
                                                     <Grid className="chatClntRght">
                                                         <a>
-                                                            <img src={require('../../assets/images/seenimg.png')} alt="" title="" />
+                                                            <img src={require('assets/images/seenimg.png')} alt="" title="" />
                                                             <span>08:30 PM</span>
                                                         </a>
                                                         <p>
-                                                            <img src={require('../../assets/images/pin.png')} alt="" title="" />
+                                                            <img src={require('assets/images/pin.png')} alt="" title="" />
                                                         </p>
                                                     </Grid>
                                                 </Grid>
@@ -209,7 +209,7 @@ class Index extends Component {
 
                                                 <Grid className="chatClnt">
                                                     <Grid className="chatClntLft">
-                                                        <a><img src={require('../../assets/images/chat55.jpg')} alt="" title="" /></a>
+                                                        <a><img src={require('assets/images/chat55.jpg')} alt="" title="" /></a>
                                                     </Grid>
                                                     <Grid className="chatClntMid">
                                                         <a>Justine Robinson</a>
@@ -217,11 +217,11 @@ class Index extends Component {
                                                     </Grid>
                                                     <Grid className="chatClntRght">
                                                         <a>
-                                                            <img src={require('../../assets/images/seenimg.png')} alt="" title="" />
+                                                            <img src={require('assets/images/seenimg.png')} alt="" title="" />
                                                             <span>11:30 PM</span>
                                                         </a>
                                                         <p>
-                                                            <img src={require('../../assets/images/pin.png')} alt="" title="" />
+                                                            <img src={require('assets/images/pin.png')} alt="" title="" />
                                                         </p>
                                                     </Grid>
                                                 </Grid>
@@ -229,7 +229,7 @@ class Index extends Component {
 
                                                 <Grid className="chatClnt">
                                                     <Grid className="chatClntLft">
-                                                        <a><img src={require('../../assets/images/chat66.jpg')} alt="" title="" /></a>
+                                                        <a><img src={require('assets/images/chat66.jpg')} alt="" title="" /></a>
                                                     </Grid>
                                                     <Grid className="chatClntMid">
                                                         <a>Neeshaan El Pasha</a>
@@ -237,11 +237,11 @@ class Index extends Component {
                                                     </Grid>
                                                     <Grid className="chatClntRght">
                                                         <a>
-                                                            <img src={require('../../assets/images/seenimg.png')} alt="" title="" />
+                                                            <img src={require('assets/images/seenimg.png')} alt="" title="" />
                                                             <span>01:30 PM</span>
                                                         </a>
                                                         <p>
-                                                            <img src={require('../../assets/images/pin.png')} alt="" title="" />
+                                                            <img src={require('assets/images/pin.png')} alt="" title="" />
                                                         </p>
                                                     </Grid>
                                                 </Grid>
@@ -250,10 +250,10 @@ class Index extends Component {
                                             </Grid>
 
                                             <Grid className="chatMenu">
-                                                <Grid><img src={require('../../assets/images/chatPerson.jpg')} alt="" title="" /></Grid>
-                                                <Grid><img src={require('../../assets/images/chatcall.jpg')} alt="" title="" /></Grid>
-                                                <Grid><img src={require('../../assets/images/chatmessage.jpg')} alt="" title="" /></Grid>
-                                                <Grid><img src={require('../../assets/images/chatdots.jpg')} alt="" title="" /></Grid>
+                                                <Grid><img src={require('assets/images/chatPerson.jpg')} alt="" title="" /></Grid>
+                                                <Grid><img src={require('assets/images/chatcall.jpg')} alt="" title="" /></Grid>
+                                                <Grid><img src={require('assets/images/chatmessage.jpg')} alt="" title="" /></Grid>
+                                                <Grid><img src={require('assets/images/chatdots.jpg')} alt="" title="" /></Grid>
                                             </Grid>
 
                                         </Grid>
@@ -265,12 +265,12 @@ class Index extends Component {
 
                                             <Grid container direction="row" justify="center" alignItems="center" className="onlineData">
                                                 <Grid item xs={6} md={6} className="chatclientLft">
-                                                    <a><img src={require('../../assets/images/chat44.jpg')} alt="" title="" /></a>
+                                                    <a><img src={require('assets/images/chat44.jpg')} alt="" title="" /></a>
                                                 </Grid>
                                                 <Grid item xs={6} md={6} className="chatclientRght">
-                                                    <a><img src={require('../../assets/images/callchat.png')} alt="" title="" /></a>
-                                                    <a><img src={require('../../assets/images/videochat.png')} alt="" title="" /></a>
-                                                    <a><img src={require('../../assets/images/msgChat.png')} alt="" title="" /></a>
+                                                    <a><img src={require('assets/images/callchat.png')} alt="" title="" /></a>
+                                                    <a><img src={require('assets/images/videochat.png')} alt="" title="" /></a>
+                                                    <a><img src={require('assets/images/msgChat.png')} alt="" title="" /></a>
                                                 </Grid>
                                                 <Grid className="clear"></Grid>
                                             </Grid>
@@ -316,7 +316,7 @@ class Index extends Component {
                                             <Grid className="addMsgsUpr">
                                                 <Grid container direction="row" justify="center" alignItems="center">
                                                     <Grid item xs={2} md={1}>
-                                                        <a className="addMsgsIcons"><img src={require('../../assets/images/allicons.png')} alt="" title="" /></a>
+                                                        <a className="addMsgsIcons"><img src={require('assets/images/allicons.png')} alt="" title="" /></a>
                                                     </Grid>
                                                     <Grid item xs={10} md={11}>
                                                         <Grid className="addMsgs"><textarea placeholder="Message"></textarea></Grid>

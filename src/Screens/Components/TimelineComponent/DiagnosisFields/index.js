@@ -203,7 +203,7 @@ class Index extends Component {
                   </Grid>
                   <Grid item xs={12} md={4} className="cnfrmDiaRght 444">
                     <img
-                      src={require("../../../../assets/images/confirmed-diagnosis.svg")}
+                      src={require("assets/images/confirmed-diagnosis.svg")}
                       alt=""
                       title=""
                     />
@@ -226,7 +226,7 @@ class Index extends Component {
                   </Grid>
                   <Grid item xs={12} md={4} className="cnfrmDiaRght 555">
                     <img
-                      src={require("../../../../assets/images/emergency-diagnosis.svg")}
+                      src={require("assets/images/emergency-diagnosis.svg")}
                       alt=""
                       title=""
                     />
@@ -305,7 +305,7 @@ class Index extends Component {
                 <input type="text" placeholder={enter_code_serch_by_keyword} />
                 <span>
                   <img
-                    src={require("../../../../assets/images/search-entries.svg")}
+                    src={require("assets/images/search-entries.svg")}
                     alt=""
                     title=""
                   />

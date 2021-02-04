@@ -96,7 +96,7 @@ class Condition extends Component {
               {this.state.value > 90 && this.state.value <= 100 && (
                 <a>
                   <img
-                    src={require("../../../assets/images/nopain.svg")}
+                    src={require("assets/images/nopain.svg")}
                     alt=""
                     title=""
                   />
@@ -106,7 +106,7 @@ class Condition extends Component {
               {this.state.value > 70 && this.state.value <= 90 && (
                 <a>
                   <img
-                    src={require("../../../assets/images/mild.svg")}
+                    src={require("assets/images/mild.svg")}
                     alt=""
                     title=""
                   />{" "}
@@ -116,7 +116,7 @@ class Condition extends Component {
               {this.state.value > 50 && this.state.value <= 70 && (
                 <a>
                   <img
-                    src={require("../../../assets/images/moderate.svg")}
+                    src={require("assets/images/moderate.svg")}
                     alt=""
                     title=""
                   />
@@ -126,7 +126,7 @@ class Condition extends Component {
               {this.state.value > 30 && this.state.value <= 50 && (
                 <a>
                   <img
-                    src={require("../../../assets/images/severe.svg")}
+                    src={require("assets/images/severe.svg")}
                     alt=""
                     title=""
                   />
@@ -136,7 +136,7 @@ class Condition extends Component {
               {this.state.value > 10 && this.state.value <= 30 && (
                 <a>
                   <img
-                    src={require("../../../assets/images/veryServere.svg")}
+                    src={require("assets/images/veryServere.svg")}
                     alt=""
                     title=""
                   />
@@ -146,7 +146,7 @@ class Condition extends Component {
               {this.state.value >= 0 && this.state.value <= 10 && (
                 <a>
                   <img
-                    src={require("../../../assets/images/worst.svg")}
+                    src={require("assets/images/worst.svg")}
                     alt=""
                     title=""
                   />

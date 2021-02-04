@@ -273,7 +273,7 @@ class Index extends Component {
                     <Grid className="nwEntrCourse">
                         <Grid className="nwEntrCloseBtn nwEntrCloseBtnAdd">
                             <a onClick={this.handleCloseCreate}>
-                                <img src={require('../../../assets/images/close-search.svg')} alt="" title="" />
+                                <img src={require('assets/images/close-search.svg')} alt="" title="" />
                             </a>
                         </Grid>
                         <p>{New} {entry}</p>
@@ -318,12 +318,12 @@ class Index extends Component {
                                     />
                                     {this.state.hidden &&
                                         <a onClick={this.toggleShow}>
-                                            <img src={require('../../../assets/images/showeye.svg')} alt="" title="" />
+                                            <img src={require('assets/images/showeye.svg')} alt="" title="" />
                                         </a>
                                     }
                                     {!(this.state.hidden) &&
                                         <a onClick={this.toggleShow}>
-                                            <img src={require('../../../assets/images/hide.svg')} alt="" title="" />
+                                            <img src={require('assets/images/hide.svg')} alt="" title="" />
                                         </a>
                                     }
                                 </Grid>
@@ -333,18 +333,18 @@ class Index extends Component {
                         <div className="passInstIner">
                             <p>{Register_Passwordshould}</p>
                             <ul>
-                                <li>{this.state.CreateUsers && this.state.CreateUsers.password && this.state.CreateUsers.password.length > 8 && <a><img src={require('../../../assets/images/CheckCircle.svg')} alt="" title="" />{Register_characters}</a>}
-                                    {this.state.CreateUsers && this.state.CreateUsers.password && this.state.CreateUsers.password.length <= 8 && <a><img src={require('../../../assets/images/CloseCircle.svg')} alt="" title="" />{Register_Passwordshould}</a>}
+                                <li>{this.state.CreateUsers && this.state.CreateUsers.password && this.state.CreateUsers.password.length > 8 && <a><img src={require('assets/images/CheckCircle.svg')} alt="" title="" />{Register_characters}</a>}
+                                    {this.state.CreateUsers && this.state.CreateUsers.password && this.state.CreateUsers.password.length <= 8 && <a><img src={require('assets/images/CloseCircle.svg')} alt="" title="" />{Register_Passwordshould}</a>}
                                 </li>
-                                <li>{this.state.CreateUsers && this.state.CreateUsers.password && !this.state.CreateUsers.password.match(letter) && <a><img src={require('../../../assets/images/CloseCircle.svg')} alt="" title="" />{Register_letter}</a>}
-                                    {this.state.CreateUsers && this.state.CreateUsers.password && this.state.CreateUsers.password.match(letter) && <a><img src={require('../../../assets/images/CheckCircle.svg')} alt="" title="" />{Register_letter}</a>}
+                                <li>{this.state.CreateUsers && this.state.CreateUsers.password && !this.state.CreateUsers.password.match(letter) && <a><img src={require('assets/images/CloseCircle.svg')} alt="" title="" />{Register_letter}</a>}
+                                    {this.state.CreateUsers && this.state.CreateUsers.password && this.state.CreateUsers.password.match(letter) && <a><img src={require('assets/images/CheckCircle.svg')} alt="" title="" />{Register_letter}</a>}
                                 </li>
-                                <li>{this.state.CreateUsers && this.state.CreateUsers.password && !this.state.CreateUsers.password.match(number) && <a><img src={require('../../../assets/images/CloseCircle.svg')} alt="" title="" />{Register_number}</a>}
-                                    {this.state.CreateUsers && this.state.CreateUsers.password && this.state.CreateUsers.password.match(number) && <a><img src={require('../../../assets/images/CheckCircle.svg')} alt="" title="" />{Register_number}</a>}
+                                <li>{this.state.CreateUsers && this.state.CreateUsers.password && !this.state.CreateUsers.password.match(number) && <a><img src={require('assets/images/CloseCircle.svg')} alt="" title="" />{Register_number}</a>}
+                                    {this.state.CreateUsers && this.state.CreateUsers.password && this.state.CreateUsers.password.match(number) && <a><img src={require('assets/images/CheckCircle.svg')} alt="" title="" />{Register_number}</a>}
                                 </li>
                                 <li>
-                                    {this.state.CreateUsers && this.state.CreateUsers.password && !this.state.CreateUsers.password.match(specialchar) && <a><img src={require('../../../assets/images/CloseCircle.svg')} alt="" title="" />{Register_special}</a>}
-                                    {this.state.CreateUsers && this.state.CreateUsers.password && this.state.CreateUsers.password.match(specialchar) && <a><img src={require('../../../assets/images/CheckCircle.svg')} alt="" title="" />{Register_special}</a>}
+                                    {this.state.CreateUsers && this.state.CreateUsers.password && !this.state.CreateUsers.password.match(specialchar) && <a><img src={require('assets/images/CloseCircle.svg')} alt="" title="" />{Register_special}</a>}
+                                    {this.state.CreateUsers && this.state.CreateUsers.password && this.state.CreateUsers.password.match(specialchar) && <a><img src={require('assets/images/CheckCircle.svg')} alt="" title="" />{Register_special}</a>}
                                 </li>
                             </ul>
                         </div>
@@ -353,10 +353,10 @@ class Index extends Component {
                         <div className="passInstIner">
                             <p>{Register_Passwordshould}</p>
                             <ul>
-                                <li><a><img src={require('../../../assets/images/CloseCircle.svg')} alt="" title="" />{Register_characters}</a></li>
-                                <li><a><img src={require('../../../assets/images/CloseCircle.svg')} alt="" title="" />{Register_letter}</a></li>
-                                <li><a><img src={require('../../../assets/images/CloseCircle.svg')} alt="" title="" />{Register_number}</a></li>
-                                <li><a><img src={require('../../../assets/images/CloseCircle.svg')} alt="" title="" />{Register_special}</a></li>
+                                <li><a><img src={require('assets/images/CloseCircle.svg')} alt="" title="" />{Register_characters}</a></li>
+                                <li><a><img src={require('assets/images/CloseCircle.svg')} alt="" title="" />{Register_letter}</a></li>
+                                <li><a><img src={require('assets/images/CloseCircle.svg')} alt="" title="" />{Register_number}</a></li>
+                                <li><a><img src={require('assets/images/CloseCircle.svg')} alt="" title="" />{Register_special}</a></li>
                             </ul>
                         </div>
                     </div>}
@@ -370,12 +370,12 @@ class Index extends Component {
                             />
                             {this.state.hidden_confirm &&
                                 <a onClick={this.toggleShow1}>
-                                    <img src={require('../../../assets/images/showeye.svg')} alt="" title="" />
+                                    <img src={require('assets/images/showeye.svg')} alt="" title="" />
                                 </a>
                             }
                             {!(this.state.hidden_confirm) &&
                                 <a onClick={this.toggleShow1}>
-                                    <img src={require('../../../assets/images/hide.svg')} alt="" title="" />
+                                    <img src={require('assets/images/hide.svg')} alt="" title="" />
                                 </a>
                             }
                         </Grid>

@@ -275,7 +275,7 @@ class Index extends Component {
                           <Grid item xs={12} md={4} sm={4} className="presSrch">
                             <a>
                               <img
-                                src={require("../../../assets/images/search-entries.svg")}
+                                src={require("assets/images/search-entries.svg")}
                                 alt=""
                                 title=""
                               />

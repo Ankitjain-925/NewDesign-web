@@ -60,11 +60,11 @@ class PointPain extends Component {
     // }
     // if(this.props.gender === 'female')
     // {
-    //    img.src= require('../../../assets/images/FEMALE_BODY.svg');
+    //    img.src= require('assets/images/FEMALE_BODY.svg');
     // }
     // else
     // {
-    //     img.src= require('../../../assets/images/MALE_BODY.svg');
+    //     img.src= require('assets/images/MALE_BODY.svg');
     // }
   };
 
@@ -86,11 +86,11 @@ class PointPain extends Component {
       // }
       // if(this.props.gender === 'female')
       // {
-      //    img.src= require('../../../assets/images/FEMALE_BODY.svg');
+      //    img.src= require('assets/images/FEMALE_BODY.svg');
       // }
       // else
       // {
-      //     img.src= require('../../../assets/images/MALE_BODY.svg');
+      //     img.src= require('assets/images/MALE_BODY.svg');
       // }
     }
     if (prevProps.painPoint !== this.props.painPoint) {
@@ -179,13 +179,13 @@ class PointPain extends Component {
                 <img
                   width="100"
                   height="150"
-                  src={require("../../../assets/images/FEMALE_BODY.svg")}
+                  src={require("assets/images/FEMALE_BODY.svg")}
                 />
               ) : (
                 <img
                   width="100"
                   height="150"
-                  src={require("../../../assets/images/MALE_BODY.svg")}
+                  src={require("assets/images/MALE_BODY.svg")}
                 />
               )}
             </div>
@@ -209,13 +209,13 @@ class PointPain extends Component {
                   ></div>
                 ))}
             </div>
-            {/* <img src={require('../../../assets/images/persionPainEqual.svg')} alt="" title="" /> */}
+            {/* <img src={require('assets/images/persionPainEqual.svg')} alt="" title="" /> */}
           </a>
-          {/* <a className="painAreasimg"><img src={require('../../../assets/images/patient-back.svg')} alt="" title="" /></a> */}
+          {/* <a className="painAreasimg"><img src={require('assets/images/patient-back.svg')} alt="" title="" /></a> */}
           {!this.state.isView && (
             <a className="painAreasTxt" onClick={this.removedata}>
               <img
-                src={require("../../../assets/images/eraser.svg")}
+                src={require("assets/images/eraser.svg")}
                 alt=""
                 title=""
               />

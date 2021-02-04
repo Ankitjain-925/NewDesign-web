@@ -42,10 +42,10 @@ class Index extends Component {
                            <Grid className="MenuMob">
                                 <Grid container direction="row" alignItems="center">
                                     <Grid item xs={6} md={6} sm={6} className="MenuMobLeft">
-                                        <a><img src={require('../../../assets/images/navigation-drawer.svg')} alt="" title="" /></a>
+                                        <a><img src={require('assets/images/navigation-drawer.svg')} alt="" title="" /></a>
                                     </Grid>
                                     <Grid item xs={6} md={6} sm={6} className="MenuMobRght">
-                                        <a href="/"><img src={require('../../../assets/images/LogoPNG.png')} alt="" title="" /></a>
+                                        <a href="/"><img src={require('assets/images/LogoPNG.png')} alt="" title="" /></a>
                                     </Grid>
                                 </Grid>
                             </Grid>
@@ -56,66 +56,66 @@ class Index extends Component {
                                 <Grid className="MenuWeb">
                                     <Grid item xs={12} md={1} className="MenuLeftUpr">
                                         <Grid className="webLogo">
-                                            <a href="/"><img src={require('../../../assets/images/LogoPNG.png')} alt="" title="" /></a>
+                                            <a href="/"><img src={require('assets/images/LogoPNG.png')} alt="" title="" /></a>
                                         </Grid>
                                         <Grid className="menuItems">
                                             <ul>
                                                 <li>
                                                     <a className="menuActv">
-                                                        <img src={require('../../../assets/images/nav-journal.svg')} alt="" title="" />
+                                                        <img src={require('assets/images/nav-journal.svg')} alt="" title="" />
                                                         <span>Journal</span>
                                                     </a>
                                                 </li>
                                                 <li>
                                                     <a href="/inbox">
-                                                        <img src={require('../../../assets/images/nav-chat.svg')} alt="" title="" />
+                                                        <img src={require('assets/images/nav-chat.svg')} alt="" title="" />
                                                         <span>Chat & <br /> Videocalls</span>
                                                     </a>
                                                 </li>
                                                 <li>
                                                     <a href="/appointment">
-                                                        <img src={require('../../../assets/images/nav-appointments.svg')} alt="" title="" />
+                                                        <img src={require('assets/images/nav-appointments.svg')} alt="" title="" />
                                                         <span>Appointments</span>
                                                     </a>
                                                 </li>
                                                 <li>
                                                     <a href="/mydocuments">
-                                                        <img src={require('../../../assets/images/nav-my-documents-inquiries.svg')} alt="" title="" />
+                                                        <img src={require('assets/images/nav-my-documents-inquiries.svg')} alt="" title="" />
                                                         <span>My Documents</span>
                                                     </a>
                                                 </li>
                                                 <li>
                                                     <a href="/trackerselfdata">
-                                                        <img src={require('../../../assets/images/nav-trackers.svg')} alt="" title="" />
+                                                        <img src={require('assets/images/nav-trackers.svg')} alt="" title="" />
                                                         <span>Trackers & <br /> Self Data</span>
                                                     </a>
                                                 </li>
                                                 <li>
                                                     <a className="moreMenu">
-                                                        <img src={require('../../../assets/images/nav-more.svg')} alt="" title="" />
+                                                        <img src={require('assets/images/nav-more.svg')} alt="" title="" />
                                                         <span>More</span>
                                                         <div className="moreMenuList">
                                                             <ul>
-                                                                <li><a href="/secondopinion"><img src={require('../../../assets/images/menudocs.jpg')} alt="" title="" />Second Opinion</a></li>
-                                                                <li><a href="emergencypatientdata"><img src={require('../../../assets/images/menudocs.jpg')} alt="" title="" />Emergency Patient Data</a></li>
-                                                                <li><a><img src={require('../../../assets/images/menudocs.jpg')} alt="" title="" />Aimedis Online Courses</a></li>
-                                                                <li><a href="/extraservices"><img src={require('../../../assets/images/menudocs.jpg')} alt="" title="" />Extra Services</a></li>
-                                                                <li><a href="/journalarchive"><img src={require('../../../assets/images/menudocs.jpg')} alt="" title="" />Journal Archive</a></li>
-                                                                <li><a href="/blockchainaccesslog"><img src={require('../../../assets/images/menudocs.jpg')} alt="" title="" />Blockchain Access Log</a></li>
+                                                                <li><a href="/secondopinion"><img src={require('assets/images/menudocs.jpg')} alt="" title="" />Second Opinion</a></li>
+                                                                <li><a href="emergencypatientdata"><img src={require('assets/images/menudocs.jpg')} alt="" title="" />Emergency Patient Data</a></li>
+                                                                <li><a><img src={require('assets/images/menudocs.jpg')} alt="" title="" />Aimedis Online Courses</a></li>
+                                                                <li><a href="/extraservices"><img src={require('assets/images/menudocs.jpg')} alt="" title="" />Extra Services</a></li>
+                                                                <li><a href="/journalarchive"><img src={require('assets/images/menudocs.jpg')} alt="" title="" />Journal Archive</a></li>
+                                                                <li><a href="/blockchainaccesslog"><img src={require('assets/images/menudocs.jpg')} alt="" title="" />Blockchain Access Log</a></li>
                                                             </ul>
                                                         </div>
                                                     </a>
                                                 </li>
                                                 <li>
                                                     <a className="profilMenu" href="/myprofile">
-                                                        <img src={require('../../../assets/images/nav-my-profile.svg')} alt="" title="" />
+                                                        <img src={require('assets/images/nav-my-profile.svg')} alt="" title="" />
                                                         <span>My Profile</span>
                                                         <div className="profilMenuList">
                                                             <ul>
-                                                                <li><a><img src={require('../../../assets/images/menudocs.jpg')} alt="" title="" />Profile Settings</a></li>
-                                                                <li><a><img src={require('../../../assets/images/menudocs.jpg')} alt="" title="" />Language</a></li>
-                                                                <li><a><img src={require('../../../assets/images/menudocs.jpg')} alt="" title="" />Dark Mode</a></li>
-                                                                <li><a><img src={require('../../../assets/images/menudocs.jpg')} alt="" title="" />Log out</a></li>
+                                                                <li><a><img src={require('assets/images/menudocs.jpg')} alt="" title="" />Profile Settings</a></li>
+                                                                <li><a><img src={require('assets/images/menudocs.jpg')} alt="" title="" />Language</a></li>
+                                                                <li><a><img src={require('assets/images/menudocs.jpg')} alt="" title="" />Dark Mode</a></li>
+                                                                <li><a><img src={require('assets/images/menudocs.jpg')} alt="" title="" />Log out</a></li>
                                                             </ul>
                                                         </div>
                                                     </a>
@@ -151,19 +151,19 @@ class Index extends Component {
                                             <Grid className="newRequestUpr">
                                                 <Grid className="newRequest">
                                                     <Grid className="newReqInfo">
-                                                        <a><img src={require('../../../assets/images/agedman.png')} alt="" title="" />James Morrison</a>
+                                                        <a><img src={require('assets/images/agedman.png')} alt="" title="" />James Morrison</a>
                                                     </Grid>
                                                     <Grid className="newReqInfo">
-                                                        <a><img src={require('../../../assets/images/video-call.svg')} alt="" title="" />
+                                                        <a><img src={require('assets/images/video-call.svg')} alt="" title="" />
                                                             <label>August 14, 2020</label> <span>12:30 - 13:00</span></a>
                                                     </Grid>
                                                 </Grid>
                                                 <Grid className="newRequest" onClick={this.handleOpenSlot}>
                                                     <Grid className="newReqInfo">
-                                                        <a><img src={require('../../../assets/images/agedman.png')} alt="" title="" />James Morrison</a>
+                                                        <a><img src={require('assets/images/agedman.png')} alt="" title="" />James Morrison</a>
                                                     </Grid>
                                                     <Grid className="newReqInfo">
-                                                        <a><img src={require('../../../assets/images/video-call.svg')} alt="" title="" />
+                                                        <a><img src={require('assets/images/video-call.svg')} alt="" title="" />
                                                             <label>August 14, 2020</label> <span>12:30 - 13:00</span></a>
                                                     </Grid>
                                                 </Grid>
@@ -177,22 +177,22 @@ class Index extends Component {
                                             className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode === 'dark' ?"darkTheme editBoxModel":"editBoxModel"}>
                                             <Grid className="slotBoxCntnt">
                                                 <Grid className="timSltCal">
-                                                    <p><img src={require('../../../assets/images/important-info.svg')} alt="" title="" />
+                                                    <p><img src={require('assets/images/important-info.svg')} alt="" title="" />
                                                         Time slot is already booked on your calendar
                                                   </p></Grid>
                                                 <Grid className="slotCourse">
                                                     <a onClick={this.handleCloseSlot} className="clsSltCal">
-                                                        <img src={require('../../../assets/images/close-search.svg')} alt="" title="" />
+                                                        <img src={require('assets/images/close-search.svg')} alt="" title="" />
                                                     </a>
                                                     <Grid container direction="row">
                                                         <Grid item xs={6} md={6} alignItems="center" justify="center">
                                                             <Grid className="jmInfo">
-                                                                <a><img src={require('../../../assets/images/agedman.png')} alt="" title="" />James Morrison</a>
+                                                                <a><img src={require('assets/images/agedman.png')} alt="" title="" />James Morrison</a>
                                                             </Grid>
                                                         </Grid>
                                                         <Grid item xs={6} md={6} alignItems="center" justify="center">
                                                             <Grid className="jmInfoVdo">
-                                                                <a><img src={require('../../../assets/images/video-call.svg')} alt="" title="" />Video call</a>
+                                                                <a><img src={require('assets/images/video-call.svg')} alt="" title="" />Video call</a>
                                                             </Grid>
                                                         </Grid>
                                                     </Grid>
@@ -244,15 +244,15 @@ class Index extends Component {
                                                         <Grid item xs={6} md={6} className="todayMnth">
                                                             <Grid className="todaySrchLft"><label>Today</label></Grid>
                                                             <Grid className="movMnth">
-                                                                <a><img src={require('../../../assets/images/leftArow.jpg')} alt="" title="" /></a>
-                                                                <a><img src={require('../../../assets/images/rightArow.jpg')} alt="" title="" /></a>
+                                                                <a><img src={require('assets/images/leftArow.jpg')} alt="" title="" /></a>
+                                                                <a><img src={require('assets/images/rightArow.jpg')} alt="" title="" /></a>
                                                             </Grid>
                                                             <Grid className="crntMonth">Augest 2020</Grid>
                                                         </Grid>
                                                         <Grid item xs={6} md={6}>
                                                             <Grid className="todaySrchRght todayAddons">
                                                                 <a className="syncRght">Sync to your calendar</a>
-                                                                <a><img src={require('../../../assets/images/topicSrch.jpg')} alt="" title="" /></a>
+                                                                <a><img src={require('assets/images/topicSrch.jpg')} alt="" title="" /></a>
                                                                 <Select
                                                                     value={selectedOption}
                                                                     onChange={this.handleChange}
@@ -262,8 +262,8 @@ class Index extends Component {
                                                                     //isMulti= {true}
                                                                     isSearchable={false}
                                                                 />
-                                                                <a className="calViewnw"><img src={require('../../../assets/images/calendar-view.svg')} alt="" title="" /></a>
-                                                                <a className="barViewnw"><img src={require('../../../assets/images/bar.png')} alt="" title="" /></a>
+                                                                <a className="calViewnw"><img src={require('assets/images/calendar-view.svg')} alt="" title="" /></a>
+                                                                <a className="barViewnw"><img src={require('assets/images/bar.png')} alt="" title="" /></a>
                                                             </Grid>
                                                         </Grid>
                                                     </Grid>
@@ -274,7 +274,7 @@ class Index extends Component {
                                         <Grid className="getCalapoint">
                                             {/* <Calendar onChange={this.onChange} value={this.state.date} /> */}
                                             <Grid className="getCalBnr">
-                                                <img src={require('../../../assets/images/baner22.jpg')} alt="" title="" />
+                                                <img src={require('assets/images/baner22.jpg')} alt="" title="" />
                                             </Grid>
                                         </Grid>
 

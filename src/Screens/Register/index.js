@@ -1,20 +1,20 @@
 import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
-import { LanguageFetchReducer } from "../actions";
+import { LanguageFetchReducer } from "Screens/actions";
 import { Redirect, Route } from "react-router-dom";
 import axios from "axios";
 import { connect } from "react-redux";
-import { LoginReducerAim } from "../Login/actions";
+import { LoginReducerAim } from "Screens/Login/actions";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
-import sitedata from "../../sitedata";
+import sitedata from "sitedata";
 import ReactFlagsSelect from "react-flags-select";
 import "react-flags-select/css/react-flags-select.css";
 import "react-flags-select/scss/react-flags-select.scss";
-import Loader from "./../Components/Loader/index";
-import { Settings } from "../Login/setting";
+import Loader from "Screens/Components/Loader/index";
+import { Settings } from "Screens/Login/setting";
 import Toggle from "react-toggle";
-import "../../assets/css/style_log.css";
+import "assets/css/style_log.css";
 import {
   NavLink,
   UncontrolledDropdown,
@@ -35,7 +35,7 @@ import {
   translationPT,
   translationFR
 } from "translations/index"
-import contry from "./../Components/countryBucket/countries.json";
+import contry from "Screens/Components/countryBucket/countries.json";
 //Values for the validate Password
 var letter = /([a-zA-Z])+([ -~])*/,
   number = /\d+/,
@@ -306,32 +306,32 @@ class Index extends Component {
     var Preview = [];
     for (var i = 0; i < e.target.files.length; i++) {
       if (e.target.files[i].name.split(".").pop() === "mp4") {
-        Preview.push(require("../../assets/images/videoIcon.png"));
+        Preview.push(require("assets/images/videoIcon.png"));
       }
       if (e.target.files[i].name.split(".").pop() === "pdf") {
-        Preview.push(require("../../assets/images/pdfimg.png"));
+        Preview.push(require("assets/images/pdfimg.png"));
       } else if (
         e.target.files[i].name.split(".").pop() === "doc" ||
         e.target.files[i].name.split(".").pop() === "docx" ||
         e.target.files[i].name.split(".").pop() === "xml" ||
         e.target.files[i].name.split(".").pop() === "txt"
       ) {
-        Preview.push(require("../../assets/images/txt1.png"));
+        Preview.push(require("assets/images/txt1.png"));
       } else if (
         e.target.files[i].name.split(".").pop() === "xls" ||
         e.target.files[i].name.split(".").pop() === "xlsx" ||
         e.target.files[i].name.split(".").pop() === "xml"
       ) {
-        Preview.push(require("../../assets/images/xls1.svg"));
+        Preview.push(require("assets/images/xls1.svg"));
       } else if (e.target.files[i].name.split(".").pop() === "csv") {
-        Preview.push(require("../../assets/images/csv1.png"));
+        Preview.push(require("assets/images/csv1.png"));
       } else if (
         e.target.files[i].name.split(".").pop() === "dcm" ||
         e.target.files[i].name.split(".").pop() === "DCM" ||
         e.target.files[i].name.split(".").pop() === "DICOM" ||
         e.target.files[i].name.split(".").pop() === "dicom"
       ) {
-        Preview.push(require("../../assets/images/dcm1.png"));
+        Preview.push(require("assets/images/dcm1.png"));
       } else {
         Preview.push(URL.createObjectURL(e.target.files[i]));
       }
@@ -563,7 +563,7 @@ class Index extends Component {
                   <Grid item xs={6} sm={6} className="LogoForms">
                     <a href={sitedata.data.live_site}>
                       <img
-                        src={require("../../assets/images/LogoPNG.png")}
+                        src={require("assets/images/LogoPNG.png")}
                         alt=""
                         title=""
                       />
@@ -733,7 +733,7 @@ class Index extends Component {
                       {this.state.hidden && (
                         <a onClick={this.toggleShow}>
                           <img
-                            src={require("../../assets/images/showeye.svg")}
+                            src={require("assets/images/showeye.svg")}
                             alt=""
                             title=""
                           />
@@ -742,7 +742,7 @@ class Index extends Component {
                       {!this.state.hidden && (
                         <a onClick={this.toggleShow}>
                           <img
-                            src={require("../../assets/images/hide.svg")}
+                            src={require("assets/images/hide.svg")}
                             alt=""
                             title=""
                           />
@@ -755,7 +755,7 @@ class Index extends Component {
                         <div className="passInstIner">
                           <p>{Register_Passwordshould}</p>
                           <img
-                            src={require("../../assets/images/passArrow.png")}
+                            src={require("assets/images/passArrow.png")}
                             alt=""
                             title=""
                             className="passArow"
@@ -767,7 +767,7 @@ class Index extends Component {
                                 this.state.userDetails.password.length > 8 && (
                                   <a>
                                     <img
-                                      src={require("../../assets/images/CheckCircle.svg")}
+                                      src={require("assets/images/CheckCircle.svg")}
                                       alt=""
                                       title=""
                                     />
@@ -779,7 +779,7 @@ class Index extends Component {
                                 this.state.userDetails.password.length <= 8 && (
                                   <a>
                                     <img
-                                      src={require("../../assets/images/CloseCircle.svg")}
+                                      src={require("assets/images/CloseCircle.svg")}
                                       alt=""
                                       title=""
                                     />
@@ -795,7 +795,7 @@ class Index extends Component {
                                 ) && (
                                   <a>
                                     <img
-                                      src={require("../../assets/images/CloseCircle.svg")}
+                                      src={require("assets/images/CloseCircle.svg")}
                                       alt=""
                                       title=""
                                     />
@@ -809,7 +809,7 @@ class Index extends Component {
                                 ) && (
                                   <a>
                                     <img
-                                      src={require("../../assets/images/CheckCircle.svg")}
+                                      src={require("assets/images/CheckCircle.svg")}
                                       alt=""
                                       title=""
                                     />
@@ -825,7 +825,7 @@ class Index extends Component {
                                 ) && (
                                   <a>
                                     <img
-                                      src={require("../../assets/images/CloseCircle.svg")}
+                                      src={require("assets/images/CloseCircle.svg")}
                                       alt=""
                                       title=""
                                     />
@@ -839,7 +839,7 @@ class Index extends Component {
                                 ) && (
                                   <a>
                                     <img
-                                      src={require("../../assets/images/CheckCircle.svg")}
+                                      src={require("assets/images/CheckCircle.svg")}
                                       alt=""
                                       title=""
                                     />
@@ -855,7 +855,7 @@ class Index extends Component {
                                 ) && (
                                   <a>
                                     <img
-                                      src={require("../../assets/images/CloseCircle.svg")}
+                                      src={require("assets/images/CloseCircle.svg")}
                                       alt=""
                                       title=""
                                     />
@@ -869,7 +869,7 @@ class Index extends Component {
                                 ) && (
                                   <a>
                                     <img
-                                      src={require("../../assets/images/CheckCircle.svg")}
+                                      src={require("assets/images/CheckCircle.svg")}
                                       alt=""
                                       title=""
                                     />
@@ -885,7 +885,7 @@ class Index extends Component {
                         <div className="passInstIner">
                           <p>{Register_Passwordshould}</p>
                           <img
-                            src={require("../../assets/images/passArrow.png")}
+                            src={require("assets/images/passArrow.png")}
                             alt=""
                             title=""
                             className="passArow"
@@ -894,7 +894,7 @@ class Index extends Component {
                             <li>
                               <a>
                                 <img
-                                  src={require("../../assets/images/CloseCircle.svg")}
+                                  src={require("assets/images/CloseCircle.svg")}
                                   alt=""
                                   title=""
                                 />
@@ -904,7 +904,7 @@ class Index extends Component {
                             <li>
                               <a>
                                 <img
-                                  src={require("../../assets/images/CloseCircle.svg")}
+                                  src={require("assets/images/CloseCircle.svg")}
                                   alt=""
                                   title=""
                                 />
@@ -914,7 +914,7 @@ class Index extends Component {
                             <li>
                               <a>
                                 <img
-                                  src={require("../../assets/images/CloseCircle.svg")}
+                                  src={require("assets/images/CloseCircle.svg")}
                                   alt=""
                                   title=""
                                 />
@@ -924,7 +924,7 @@ class Index extends Component {
                             <li>
                               <a>
                                 <img
-                                  src={require("../../assets/images/CloseCircle.svg")}
+                                  src={require("assets/images/CloseCircle.svg")}
                                   alt=""
                                   title=""
                                 />
@@ -982,7 +982,7 @@ class Index extends Component {
                         {" "}
                         {click_here_uplod_license}{" "}
                         <img
-                          src={require("../../assets/images/links.png")}
+                          src={require("assets/images/links.png")}
                           alt=""
                           title=""
                           className="link_docs"

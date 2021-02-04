@@ -295,7 +295,7 @@ class Index extends Component {
                                     {this.state.document_is_archive && <div className="success_message">Document is moved to Documents</div>}
                                     <Grid container direction="row" justifyContent="center" className="archvSrchInput">
                                         <Grid item xs={12} md={12}> <input onChange={this.search_user.bind(this)} type="text" placeholder={find_document} /></Grid>
-                                        <img src={require('../../assets/images/InputField.svg')} alt="" title="" />
+                                        <img src={require('assets/images/InputField.svg')} alt="" title="" />
                                     </Grid>
                                     <Grid className="archvOpinionIner">
                                         <Table>
@@ -316,11 +316,11 @@ class Index extends Component {
                                                         <Td>{doc.createdate ? getDate(doc.createdate, 'DD/MM/YYYY') : 'Not mentioned'}</Td>
                                                         <Td className="archvDot">
                                                             <a className="academy_ul">
-                                                                <img src={require('../../assets/images/threedots.jpg')} alt="" title="" className="academyDots" />
+                                                                <img src={require('assets/images/threedots.jpg')} alt="" title="" className="academyDots" />
                                                                 <ul>
-                                                                    <li onClick={()=>this.handleOpenPres(doc)}><a><span><img src={require('../../assets/images/admin/details1.svg')} alt="" title="" /></span>{see_detail}</a></li>
-                                                                    <li onClick={()=>{this.DocumentarchiveClick(doc.DocumentId)}}><a><span><img src={require('../../assets/images/admin/restoreIcon.png')} alt="" title="" /></span>{restore}</a></li>
-                                                                    <li onClick={()=>{this.submitDeleteDocument(doc.DocumentId)}}><a><span><img src={require('../../assets/images/admin/delIcon.png')} alt="" title="" /></span>{Delete}</a></li>
+                                                                    <li onClick={()=>this.handleOpenPres(doc)}><a><span><img src={require('assets/images/admin/details1.svg')} alt="" title="" /></span>{see_detail}</a></li>
+                                                                    <li onClick={()=>{this.DocumentarchiveClick(doc.DocumentId)}}><a><span><img src={require('assets/images/admin/restoreIcon.png')} alt="" title="" /></span>{restore}</a></li>
+                                                                    <li onClick={()=>{this.submitDeleteDocument(doc.DocumentId)}}><a><span><img src={require('assets/images/admin/delIcon.png')} alt="" title="" /></span>{Delete}</a></li>
                                                                 </ul>
                                                             </a>
                                                         </Td>
@@ -362,7 +362,7 @@ class Index extends Component {
                         <Grid className="presCourse">
                             <Grid className="presCloseBtn nwEntrCloseBtnAdd">
                                 <a onClick={this.handleClosePres}>
-                                    <img src={require('../../assets/images/close-search.svg')} alt="" title="" />
+                                    <img src={require('assets/images/close-search.svg')} alt="" title="" />
                                 </a>
                             </Grid>
                             <p>{document}</p>

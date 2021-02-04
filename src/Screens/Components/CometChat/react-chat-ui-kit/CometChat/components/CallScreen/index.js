@@ -1,6 +1,6 @@
 import React from "react";
 import "./style.scss";
-import "../../../../../../../assets/css/style.css"
+import "assets/css/style.css"
 import { CometChat } from "@cometchat-pro/chat";
 
 import { CometChatManager } from "../../util/controller";
@@ -313,7 +313,7 @@ class CallScreen extends React.PureComponent {
                 alt=""
                 title=""
               />
-              {/* <img src={require('../../../assets/images/incomingCall.png')} alt="" title="" /> */}
+              {/* <img src={require('assets/images/incomingCall.png')} alt="" title="" /> */}
             </Grid>
             <Grid>
               <label>{this.state.callIProgress.sender.name}</label>
@@ -321,7 +321,7 @@ class CallScreen extends React.PureComponent {
             <Grid className="inCallAdd">
               <a onClick={this.acceptCall}>
                 <img
-                  src={require("../../../../../../../assets//images/rcvCall.png")}
+                  src={require("assets//images/rcvCall.png")}
                   alt=""
                   title=""
                 />
@@ -330,7 +330,7 @@ class CallScreen extends React.PureComponent {
                 onClick={() => this.rejectCall(CometChat.CALL_STATUS.REJECTED)}
               >
                 <img
-                  src={require("../../../../../../../assets//images/closeCall.png")}
+                  src={require("assets//images/closeCall.png")}
                   alt=""
                   title=""
                 />

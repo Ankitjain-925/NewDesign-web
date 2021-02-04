@@ -133,7 +133,7 @@ class Index extends Component {
                 <a>
                   <img
                     onClick={() => this.BackButton()}
-                    src={require("../../../../assets/images/ar1.png")}
+                    src={require("assets/images/ar1.png")}
                     alt=""
                     title=""
                   />
@@ -176,7 +176,7 @@ class Index extends Component {
                 {this.state.CurrentAttach && this.state.CurrentAttach.title}
               </h4>
               <Grid className="lessonTitleVdo">
-                {/* <img src={require('../../../../assets/images/vdo.jpg')} alt="" title="" /> */}
+                {/* <img src={require('assets/images/vdo.jpg')} alt="" title="" /> */}
 
                 <a
                   href={this.state.CurrentAttach.new_image}

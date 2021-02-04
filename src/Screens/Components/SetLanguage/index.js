@@ -161,7 +161,7 @@ class Index extends Component {
               <Grid className="nwPresCloseBtn">
                 <a onClick={this.handleCloseFancyLanguage}>
                   <img
-                    src={require("../../../assets/images/close-search.svg")}
+                    src={require("assets/images/close-search.svg")}
                     alt=""
                     title=""
                   />
@@ -193,7 +193,7 @@ class Index extends Component {
                     />
                     <label>
                       <img
-                        src={require("../../../assets/images/Arabic.jpg")}
+                        src={require("assets/images/Arabic.jpg")}
                         alt="Arabic"
                         title="Arabic"
                       />
@@ -212,7 +212,7 @@ class Index extends Component {
                     />
                     <label>
                       <img
-                        src={require("../../../assets/images/Chinese.png")}
+                        src={require("assets/images/Chinese.png")}
                         alt="Chinese"
                         title="Chinese"
                       />
@@ -231,7 +231,7 @@ class Index extends Component {
                     />
                     <label>
                       <img
-                        src={require("../../../assets/images/Dutch.jpg")}
+                        src={require("assets/images/Dutch.jpg")}
                         alt="Dutch"
                         title="Dutch"
                       />
@@ -250,7 +250,7 @@ class Index extends Component {
                     />
                     <label>
                       <img
-                        src={require("../../../assets/images/english.png")}
+                        src={require("assets/images/english.png")}
                         alt="English"
                         title="English"
                       />
@@ -269,7 +269,7 @@ class Index extends Component {
                     />
                     <label>
                       <img
-                        src={require("../../../assets/images/France.png")}
+                        src={require("assets/images/France.png")}
                         alt="French"
                         title="French"
                       />
@@ -290,7 +290,7 @@ class Index extends Component {
                     />
                     <label>
                       <img
-                        src={require("../../../assets/images/german.jpg")}
+                        src={require("assets/images/german.jpg")}
                         alt="Germany"
                         title="Germany"
                       />
@@ -309,7 +309,7 @@ class Index extends Component {
                     />
                     <label>
                       <img
-                        src={require("../../../assets/images/Portugal.png")}
+                        src={require("assets/images/Portugal.png")}
                         alt="Portuguese"
                         title="Portuguese"
                       />
@@ -328,7 +328,7 @@ class Index extends Component {
                     />
                     <label>
                       <img
-                        src={require("../../../assets/images/Russian.jpg")}
+                        src={require("assets/images/Russian.jpg")}
                         alt="Russian"
                         title="Russian"
                       />
@@ -347,7 +347,7 @@ class Index extends Component {
                     />
                     <label>
                       <img
-                        src={require("../../../assets/images/Spanish.png")}
+                        src={require("assets/images/Spanish.png")}
                         alt="Spanish"
                         title="Spanish"
                       />
@@ -366,7 +366,7 @@ class Index extends Component {
                     />
                     <label>
                       <img
-                        src={require("../../../assets/images/Swahili.jpg")}
+                        src={require("assets/images/Swahili.jpg")}
                         alt="Swahili"
                         title="Swahili"
                       />

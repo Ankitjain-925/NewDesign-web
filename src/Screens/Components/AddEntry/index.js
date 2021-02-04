@@ -128,7 +128,7 @@ class PointPain extends Component {
             <Grid className="entryCloseBtn">
               <a onClick={this.handleCloseEntry}>
                 <img
-                  src={require("../../../assets/images/close-search.svg")}
+                  src={require("assets/images/close-search.svg")}
                   alt=""
                   title=""
                 />

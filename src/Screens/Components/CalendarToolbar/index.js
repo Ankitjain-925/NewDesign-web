@@ -164,8 +164,8 @@ class Index extends Toolbar {
                     </label>
                   </Grid>
                   <Grid className="movMnth">
-                    {/* <a onClick={() => this.navigate('PREV')}><img src={require('../../../assets/images/leftArow.jpg')} alt="" title="" /></a>
-										<a onClick={() => this.navigate('NEXT')}><img src={require('../../../assets/images/rightArow.jpg')} alt="" title="" /></a> */}
+                    {/* <a onClick={() => this.navigate('PREV')}><img src={require('assets/images/leftArow.jpg')} alt="" title="" /></a>
+										<a onClick={() => this.navigate('NEXT')}><img src={require('assets/images/rightArow.jpg')} alt="" title="" /></a> */}
                     <a onClick={() => this.navigate("PREV")}>
                       <NavigateBeforeIcon />
                     </a>
@@ -178,7 +178,7 @@ class Index extends Toolbar {
                 <Grid item xs={12} md={6}>
                   <Grid className="todaySrchRght todayAddons">
                     {/* <a onClick={handleClick} className="syncRght">{sync_ur_calander}</a>
-										<a className="toolSearch"><img src={require('../../../assets/images/search-entries.svg')} alt="" title="" /></a> */}
+										<a className="toolSearch"><img src={require('assets/images/search-entries.svg')} alt="" title="" /></a> */}
                     <Select
                       value={selectedOption}
                       onChange={this.handleChange}
@@ -201,7 +201,7 @@ class Index extends Toolbar {
                       }
                     >
                       <img
-                        src={require("../../../assets/images/calendar-view.svg")}
+                        src={require("assets/images/calendar-view.svg")}
                         alt=""
                         title=""
                       />
@@ -218,7 +218,7 @@ class Index extends Toolbar {
                       }
                     >
                       <img
-                        src={require("../../../assets/images/bar1.svg")}
+                        src={require("assets/images/bar1.svg")}
                         alt=""
                         title=""
                       />

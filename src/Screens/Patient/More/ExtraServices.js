@@ -309,7 +309,7 @@ class Index extends Component {
                               <Grid className="docArund">
                                 <Grid>
                                   <img
-                                    src={require("../../../assets/images/24.svg")}
+                                    src={require("assets/images/24.svg")}
                                     alt=""
                                     title=""
                                   />
@@ -364,7 +364,7 @@ class Index extends Component {
                               <Grid className="docArund">
                                 <Grid className="dataSrvcImg">
                                   <img
-                                    src={require("../../../assets/images/dataSrvc.png")}
+                                    src={require("assets/images/dataSrvc.png")}
                                     alt=""
                                     title=""
                                   />
@@ -422,7 +422,7 @@ class Index extends Component {
                               <Grid className="docArund">
                                 <Grid>
                                   <img
-                                    src={require("../../../assets/images/24.svg")}
+                                    src={require("assets/images/24.svg")}
                                     alt=""
                                     title=""
                                   />
@@ -471,7 +471,7 @@ class Index extends Component {
                               <Grid className="docArund">
                                 <Grid className="dataSrvcImg">
                                   <img
-                                    src={require("../../../assets/images/dataSrvc.png")}
+                                    src={require("assets/images/dataSrvc.png")}
                                     alt=""
                                     title=""
                                   />

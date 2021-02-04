@@ -38,7 +38,7 @@ const path = sitedata.data.path + "/emergency_record";
 //     render() {
 //         return (
 //             <div>
-//                 <img style={{ height: '40px', width: 'auto', margin: '30px' }} src={require('../../../assets/images/LogoPNG.png')} />
+//                 <img style={{ height: '40px', width: 'auto', margin: '30px' }} src={require('assets/images/LogoPNG.png')} />
 //                 <div style={{ textAlign: 'center' }}>
 //                     <div style={{ marginLeft: '200px', marginBottom: '20px', textAlign: 'left', fontSize: '24px', fontWeight: '900', textTransform: 'uppercase' }}>Aimedis Emergency Record</div>
 //                     <p style={{ marginLeft: '200px', textAlign: 'left', fontSize: '20px', fontWeight: '800' }}>{this.props.User.first_name && this.props.User.first_name} {this.props.User.last_name && this.props.User.last_name}</p>
@@ -587,7 +587,7 @@ class Index extends Component {
                             }}
                           >
                             <img
-                              src={require("../../../assets/images/edit.svg")}
+                              src={require("assets/images/edit.svg")}
                               alt=""
                               title=""
                             />
@@ -618,7 +618,7 @@ class Index extends Component {
                             <Grid>
                               <a>
                                 <img
-                                  src={require("../../../assets//images/phone.svg")}
+                                  src={require("assets//images/phone.svg")}
                                   alt=""
                                   title=""
                                 />
@@ -628,7 +628,7 @@ class Index extends Component {
                             <Grid>
                               <a>
                                 <img
-                                  src={require("../../../assets//images/email.svg")}
+                                  src={require("assets//images/email.svg")}
                                   alt=""
                                   title=""
                                 />
@@ -638,7 +638,7 @@ class Index extends Component {
                             <Grid>
                               <a>
                                 <img
-                                  src={require("../../../assets//images/language.svg")}
+                                  src={require("assets//images/language.svg")}
                                   alt=""
                                   title=""
                                 />
@@ -700,7 +700,7 @@ class Index extends Component {
                             }
                           >
                             <img
-                              src={require("../../../assets/images/edit.svg")}
+                              src={require("assets/images/edit.svg")}
                               alt=""
                               title=""
                             />
@@ -728,7 +728,7 @@ class Index extends Component {
                           {this.state.contact_partner.number && (
                             <a>
                               <img
-                                src={require("../../../assets//images/phone.svg")}
+                                src={require("assets//images/phone.svg")}
                                 alt=""
                                 title=""
                               />{" "}
@@ -740,7 +740,7 @@ class Index extends Component {
                           {this.state.contact_partner.email && (
                             <a>
                               <img
-                                src={require("../../../assets//images/email.svg")}
+                                src={require("assets//images/email.svg")}
                                 alt=""
                                 title=""
                               />{" "}
@@ -862,7 +862,7 @@ class Index extends Component {
                             }}
                           >
                             <img
-                              src={require("../../../assets//images/edit.svg")}
+                              src={require("assets//images/edit.svg")}
                               alt=""
                               title=""
                             />
@@ -894,7 +894,7 @@ class Index extends Component {
                                     <Grid className="docInfoName">
                                       <a>
                                         <img
-                                          src={require("../../../assets/images/person1.jpg")}
+                                          src={require("assets/images/person1.jpg")}
                                           alt=""
                                           title=""
                                         />
@@ -912,7 +912,7 @@ class Index extends Component {
                                       {this.state.donar.options.phone && (
                                         <a>
                                           <img
-                                            src={require("../../../assets/images/phone.svg")}
+                                            src={require("assets/images/phone.svg")}
                                             alt=""
                                             title=""
                                           />{" "}
@@ -923,7 +923,7 @@ class Index extends Component {
                                     <Grid>
                                       <a>
                                         <img
-                                          src={require("../../../assets/images/language.svg")}
+                                          src={require("assets/images/language.svg")}
                                           alt=""
                                           title=""
                                         />
@@ -937,7 +937,7 @@ class Index extends Component {
                                           this.state.donar.options.postal_code}
                                       </a>
                                     </Grid>
-                                    {/* <Grid><a><img src={require('../../../assets//images/language.svg')} alt="" title="" />{item.language && item.language.join(', ')}</a></Grid> */}
+                                    {/* <Grid><a><img src={require('assets//images/language.svg')} alt="" title="" />{item.language && item.language.join(', ')}</a></Grid> */}
                                   </Grid>
                                 ) : (
                                   this.state.donar.options && (

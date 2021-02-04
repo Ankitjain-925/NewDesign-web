@@ -407,14 +407,14 @@ class Index extends Component {
                       <Grid>
                         <a>
                           <img
-                            src={require("../../../../assets/images/lectures.svg")}
+                            src={require("assets/images/lectures.svg")}
                             alt=""
                             title=""
                           />
                           {item.attachment && item.attachment.length} {lectures}
                         </a>
                       </Grid>
-                      {/* <Grid><a><img src={require('../../../../assets/images/time.svg')} alt="" title="" />1.5 h</a></Grid> */}
+                      {/* <Grid><a><img src={require('assets/images/time.svg')} alt="" title="" />1.5 h</a></Grid> */}
                     </Grid>
                     <Grid className="courseStar">
                       {item.rating && item.rating > 0 && (
@@ -424,11 +424,11 @@ class Index extends Component {
                       {item.rating && item.rating == 0 && (
                         <Rating size="20" rating={0} />
                       )}
-                      {/* <a><img src={require('../../../../assets/images/vote-star-empty.svg')} alt="" title="" /></a>
-                                        <a><img src={require('../../../../assets/images/vote-star-empty.svg')} alt="" title="" /></a>
-                                        <a><img src={require('../../../../assets/images/vote-star-empty.svg')} alt="" title="" /></a>
-                                        <a><img src={require('../../../../assets/images/vote-star-empty.svg')} alt="" title="" /></a>
-                                        <a><img src={require('../../../../assets/images/vote-star-empty.svg')} alt="" title="" /></a> */}
+                      {/* <a><img src={require('assets/images/vote-star-empty.svg')} alt="" title="" /></a>
+                                        <a><img src={require('assets/images/vote-star-empty.svg')} alt="" title="" /></a>
+                                        <a><img src={require('assets/images/vote-star-empty.svg')} alt="" title="" /></a>
+                                        <a><img src={require('assets/images/vote-star-empty.svg')} alt="" title="" /></a>
+                                        <a><img src={require('assets/images/vote-star-empty.svg')} alt="" title="" /></a> */}
                       <span
                         onClick={() => this.handleOpenFancy(item.courseId)}
                       >
@@ -459,15 +459,15 @@ class Index extends Component {
                                                 </p>
                                 </Grid>
                                 <Grid className="courseListTime">
-                                    <Grid><a><img src={require('../../../../assets/images/lectures.svg')} alt="" title="" />3 lectures</a></Grid>
-                                    <Grid><a><img src={require('../../../../assets/images/time.svg')} alt="" title="" />1.5 h</a></Grid>
+                                    <Grid><a><img src={require('assets/images/lectures.svg')} alt="" title="" />3 lectures</a></Grid>
+                                    <Grid><a><img src={require('assets/images/time.svg')} alt="" title="" />1.5 h</a></Grid>
                                 </Grid>
                                 <Grid className="courseStar">
-                                    <a><img src={require('../../../../assets/images/vote-star-filled.svg')} alt="" title="" /></a>
-                                    <a><img src={require('../../../../assets/images/vote-star-filled.svg')} alt="" title="" /></a>
-                                    <a><img src={require('../../../../assets/images/vote-star-filled.svg')} alt="" title="" /></a>
-                                    <a><img src={require('../../../../assets/images/vote-star-filled.svg')} alt="" title="" /></a>
-                                    <a><img src={require('../../../../assets/images/vote-star-half.svg')} alt="" title="" /></a>
+                                    <a><img src={require('assets/images/vote-star-filled.svg')} alt="" title="" /></a>
+                                    <a><img src={require('assets/images/vote-star-filled.svg')} alt="" title="" /></a>
+                                    <a><img src={require('assets/images/vote-star-filled.svg')} alt="" title="" /></a>
+                                    <a><img src={require('assets/images/vote-star-filled.svg')} alt="" title="" /></a>
+                                    <a><img src={require('assets/images/vote-star-half.svg')} alt="" title="" /></a>
                                     <span onClick={this.handleOpenFancy}>Your rating</span>
                                 </Grid>
                                 <Grid className="strtLrn"><label>Continue watching</label></Grid>
@@ -496,7 +496,7 @@ class Index extends Component {
                   <div className="handleCloseBtn">
                     <a onClick={this.handleCloseFancy}>
                       <img
-                        src={require("../../../../assets/images/close-search.svg")}
+                        src={require("assets/images/close-search.svg")}
                         alt=""
                         title=""
                       />
@@ -532,11 +532,11 @@ class Index extends Component {
                     />
                   </div>
 
-                  {/* <a><img src={require('../../../../assets/images/vote-star-filled.svg')} alt="" title="" /></a>
-                                        <a><img src={require('../../../../assets/images/vote-star-filled.svg')} alt="" title="" /></a>
-                                        <a><img src={require('../../../../assets/images/vote-star-filled.svg')} alt="" title="" /></a>
-                                        <a><img src={require('../../../../assets/images/vote-star-filled.svg')} alt="" title="" /></a>
-                                        <a><img src={require('../../../../assets/images/vote-star-empty.svg')} alt="" title="" /></a> */}
+                  {/* <a><img src={require('assets/images/vote-star-filled.svg')} alt="" title="" /></a>
+                                        <a><img src={require('assets/images/vote-star-filled.svg')} alt="" title="" /></a>
+                                        <a><img src={require('assets/images/vote-star-filled.svg')} alt="" title="" /></a>
+                                        <a><img src={require('assets/images/vote-star-filled.svg')} alt="" title="" /></a>
+                                        <a><img src={require('assets/images/vote-star-empty.svg')} alt="" title="" /></a> */}
                 </div>
                 <div className="shrtMsg">
                   <div>

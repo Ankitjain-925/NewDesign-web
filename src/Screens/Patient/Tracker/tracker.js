@@ -658,11 +658,11 @@ class Index extends Component {
                                         <Grid item sm={4}>
 
                                             {/* <a href="https://www.fitbit.com/oauth2/authorize?response_type=code&client_id=22BRQT&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fpatient%2Ftracker&scope=activity%20heartrate%20location%20nutrition%20profile%20settings%20sleep%20social%20weight&expires_in=604800">
-                                                <img src={require('../../../assets/images/fitbit.png')} style={{ maxWidth: "50px" }} alt="" />
+                                                <img src={require('assets/images/fitbit.png')} style={{ maxWidth: "50px" }} alt="" />
                                             </a> */}
 
                                             {/* {this.state.fitbitloggedIn &&
-                                                <img onClick={this.logoutfromall} style={{ maxWidth: "50px" }} src={require('../../../assets/images/logouttracker.png')} alt="" />
+                                                <img onClick={this.logoutfromall} style={{ maxWidth: "50px" }} src={require('assets/images/logouttracker.png')} alt="" />
                                             } */}
                                         </Grid>
 
@@ -676,34 +676,34 @@ class Index extends Component {
                                                 <Grid className="srvcCourse">
                                                     <Grid className="srvcCloseBtn">
                                                         <a onClick={this.handleCloseSrvc}>
-                                                            <img src={require('../../../assets/images/close-search.svg')} alt="" title="" />
+                                                            <img src={require('assets/images/close-search.svg')} alt="" title="" />
                                                         </a>
                                                     </Grid>
                                                     <Grid><label>{connect} {devices} & {services}</label></Grid>
 
                                                     <Grid className="srchSrvc">
                                                         <input type="text" placeholder={search_for_device_palce} />
-                                                        <img src={require('../../../assets/images/InputField.svg')} alt="" title="" />
+                                                        <img src={require('assets/images/InputField.svg')} alt="" title="" />
                                                     </Grid>
 
                                                     <Grid container direction="row" spacing={3}>
                                                         <Grid item xs={12} md={3}>
                                                             <Grid className="fitBitSection">
-                                                                <Grid className="mainLogo1"><img src={require('../../../assets/images/fitbit.png')} alt="" title="" /></Grid>
+                                                                <Grid className="mainLogo1"><img src={require('assets/images/fitbit.png')} alt="" title="" /></Grid>
                                                                 <Grid className="mainLogoAdd">
                                                                     <a href="https://www.fitbit.com/oauth2/authorize?response_type=token&client_id=22BNVH&redirect_uri=https%3A%2F%2Fsys.aimedis.io%2Fpatient%2Ftracker&scope=activity%20heartrate%20location%20nutrition%20profile%20settings%20sleep%20social%20weight&expires_in=604800">
-                                                                        <img src={require('../../../assets/images/add.svg')} alt="" title="" className="addBlue" />
-                                                                        <img src={require('../../../assets/images/addgrey.svg')} alt="" title="" className="addGray" />{connect}</a>
+                                                                        <img src={require('assets/images/add.svg')} alt="" title="" className="addBlue" />
+                                                                        <img src={require('assets/images/addgrey.svg')} alt="" title="" className="addGray" />{connect}</a>
                                                                 </Grid>
                                                             </Grid>
                                                         </Grid>
                                                         <Grid item xs={12} md={3}>
                                                             <Grid className="fitBitSection">
-                                                                <Grid className="mainLogo2"><img src={require('../../../assets/images/within.png')} alt="" title="" /></Grid>
+                                                                <Grid className="mainLogo2"><img src={require('assets/images/within.png')} alt="" title="" /></Grid>
                                                                 <Grid className="mainLogoAdd">
                                                                     <a href="https://account.withings.com/oauth2_user/authorize2?response_type=code&client_id=198370b3fcf82d7ed5968266d053f376291849d5691751e9987e1d71ae867c92&scope=user.info,user.metrics,user.activity,user.sleepevents&redirect_uri=https://sys.aimedis.io/patient/tracker&state=up">
-                                                                        <img src={require('../../../assets/images/add.svg')} alt="" title="" className="addBlue" />
-                                                                        <img src={require('../../../assets/images/addgrey.svg')} alt="" title="" className="addGray" />{connect}</a>
+                                                                        <img src={require('assets/images/add.svg')} alt="" title="" className="addBlue" />
+                                                                        <img src={require('assets/images/addgrey.svg')} alt="" title="" className="addGray" />{connect}</a>
                                                                 </Grid>
                                                             </Grid>
                                                         </Grid>
@@ -725,7 +725,7 @@ class Index extends Component {
                                                         </Tabs>
                                                     </Grid>
                                                     <Grid item xs={12} md={4} className="presSrch">
-                                                        <a><img src={require('../../../assets/images/search-entries.svg')} alt="" title="" /></a>
+                                                        <a><img src={require('assets/images/search-entries.svg')} alt="" title="" /></a>
                                                     </Grid>
                                                 </Grid>
                                             </AppBar>
@@ -748,7 +748,7 @@ class Index extends Component {
                                                                         <Grid style={{ minHeight: "140px" }} >
                                                                             <div style={{ minHeight: "40px" }}></div>
                                                                             < a href="https://www.fitbit.com/oauth2/authorize?response_type=token&client_id=22BNVH&redirect_uri=https%3A%2F%2Fsys.aimedis.io%2Fpatient%2Ftracker&scope=activity%20heartrate%20location%20nutrition%20profile%20settings%20sleep%20social%20weight&expires_in=604800">
-                                                                                <img style={{ margin: "10%" }} title="Loggin via Fitbit!" src={require('../../../assets/images/fitbit.png')} style={{ maxWidth: "100px" }} alt="" />
+                                                                                <img style={{ margin: "10%" }} title="Loggin via Fitbit!" src={require('assets/images/fitbit.png')} style={{ maxWidth: "100px" }} alt="" />
                                                                             </a>
                                                                         </Grid>
                                                                     </Grid>
@@ -761,13 +761,13 @@ class Index extends Component {
                                                                     <Grid className="trckSection">
                                                                         <Grid className="trckSecIner">
                                                                             <Grid className="trckDots presEditDot scndOptionIner">
-                                                                                <a className="openScndhrf"><img src={require('../../../assets/images/three_dots_t.png')} alt="" title="" className="openScnd" />
+                                                                                <a className="openScndhrf"><img src={require('assets/images/three_dots_t.png')} alt="" title="" className="openScnd" />
                                                                                     <ul>
                                                                                         <li><a onClick={() => this.handleOpenvData(devicedata ,'fitbit')} className="trackView" >{view_details}</a></li>
                                                                                         <li><a onClick={()=>{this.logoutfromall('fitbit')}} className="trackView" >{logout}</a></li>
                                                                                     </ul>
                                                                                 </a></Grid>
-                                                                            <Grid className="trckLogo"><img src={require('../../../assets/images/fitbit.png')} alt="" title="" /></Grid>
+                                                                            <Grid className="trckLogo"><img src={require('assets/images/fitbit.png')} alt="" title="" /></Grid>
                                                                             <Grid className="trckCntnt">
                                                                                 <Grid><label>{apidata.user && apidata.user.user && apidata.user.user.displayName && apidata.user.user.displayName}</label></Grid>
                                                                                 <p>{devicedata.deviceVersion}</p>
@@ -789,7 +789,7 @@ class Index extends Component {
                                                                         <Grid className="trckLogo1" style={{ minHeight: "140px" }} >
                                                                             <div style={{ minHeight: "35px" }}></div>
                                                                             < a className="withingsData" href="https://account.withings.com/oauth2_user/authorize2?response_type=code&client_id=198370b3fcf82d7ed5968266d053f376291849d5691751e9987e1d71ae867c92&scope=user.info,user.metrics,user.activity,user.sleepevents&redirect_uri=https://sys.aimedis.io/patient/tracker&state=up">
-                                                                                <img title="Loggin via Withings!" src={require('../../../assets/images/logo-withings.png')} alt="" />
+                                                                                <img title="Loggin via Withings!" src={require('assets/images/logo-withings.png')} alt="" />
                                                                             </a>
                                                                         </Grid>
                                                                     </Grid>
@@ -802,14 +802,14 @@ class Index extends Component {
                                                                     <Grid className="trckSection">
                                                                         <Grid className="trckSecIner">
                                                                             <Grid className="trckDots presEditDot scndOptionIner">
-                                                                                <a className="openScndhrf"><img src={require('../../../assets/images/three_dots_t.png')} alt="" title="" className="openScnd" />
+                                                                                <a className="openScndhrf"><img src={require('assets/images/three_dots_t.png')} alt="" title="" className="openScnd" />
                                                                                     <ul>
                                                                                         <li><a onClick={() => this.handleOpenvData(devices, 'withing')} className="trackView" >{view_details}</a></li>
                                                                                         <li><a onClick={()=>{this.logoutfromall('withing')}} className="trackView" >{logout}</a></li>
                                                                                     </ul>
                                                                                 </a>
                                                                             </Grid>
-                                                                            <Grid className="trckLogo"><img style={{ minHeight: "40px" }} src={require('../../../assets/images/logo-withings.png')} alt="" title="" /></Grid>
+                                                                            <Grid className="trckLogo"><img style={{ minHeight: "40px" }} src={require('assets/images/logo-withings.png')} alt="" title="" /></Grid>
                                                                             <Grid className="trckCntnt">
                                                                                 <Grid><label>Withings {user} {i + 1}</label></Grid>
                                                                                 <p>{devices.model}</p>
@@ -836,13 +836,13 @@ class Index extends Component {
                                                         <Grid className="datCourse">
                                                             <Grid className="datCloseBtn">
                                                                 <a onClick={this.handleClosevData}>
-                                                                    <img src={require('../../../assets/images/close-search.svg')} alt="" title="" />
+                                                                    <img src={require('assets/images/close-search.svg')} alt="" title="" />
                                                                 </a>
                                                             </Grid>
                                                             <Grid className="expndLogo">
-                                                                <a><img src={require('../../../assets/images/fitbit.png')} alt="" title="" /></a>
-                                                                <a><img src={require('../../../assets/images/within.png')} alt="" title="" /></a>
-                                                                <a><img src={require('../../../assets/images/fitbit.png')} alt="" title="" /></a>
+                                                                <a><img src={require('assets/images/fitbit.png')} alt="" title="" /></a>
+                                                                <a><img src={require('assets/images/within.png')} alt="" title="" /></a>
+                                                                <a><img src={require('assets/images/fitbit.png')} alt="" title="" /></a>
                                                             </Grid>
                                                             {/* <Grid className="fitBitVersaUpr">
                                                                             <Grid className="fitBitVersa fitBitVersaActv">
@@ -868,7 +868,7 @@ class Index extends Component {
                                                                         <Grid>
                                                                             <label>{fitbitloggedIn ? this.props.fitbit  && this.props.fitbit.device && this.props.fitbit.user && this.props.fitbit.user.user && this.props.fitbit.user.user.displayName && this.props.fitbit.user.user.displayName : withingsloggedIn ? "Withings "+devices : ""}
                                                                            
-                                                                                <a><img src={require('../../../assets/images/editBlue.png')} alt="" title="" /></a>
+                                                                                <a><img src={require('assets/images/editBlue.png')} alt="" title="" /></a>
                                                                             </label>
                                                                         </Grid>
                                                                         <p>{fitbitloggedIn ? fitbitDevice && fitbitDevice.deviceVersion : withingsloggedIn ? withingsDevice && withingsDevice.model : ""}</p>

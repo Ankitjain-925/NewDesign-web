@@ -74,7 +74,7 @@ class MessageHeader extends React.Component {
     this.setState({image : newi})
   }
   else if(this.props.item.avatar !== SvgAvatar.getAvatar(uid, char)){
-    this.setState({image : require('../../../../../../../assets/images/LoaderAim.gif')})
+    this.setState({image : require('assets/images/LoaderAim.gif')})
       var char1 = this.props.item.avatar;
       char1 = char1.split(".com/")[1];
       axios.get(sitedata.data.path + '/aws/sign_s3?find=' + char1)

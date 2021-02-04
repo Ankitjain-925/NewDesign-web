@@ -338,7 +338,7 @@ class Index extends Component {
               <Grid className="invtCloseBtn">
                 <a onClick={this.handleCloseInvt}>
                   <img
-                    src={require("../../../assets/images/close-search.svg")}
+                    src={require("assets/images/close-search.svg")}
                     alt=""
                     title=""
                   />

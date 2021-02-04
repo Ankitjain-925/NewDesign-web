@@ -1274,7 +1274,7 @@ class Index extends Component {
                     </span>
                     <a>
                       <img
-                        src={require("../../../../assets/images/copycopy.svg")}
+                        src={require("assets/images/copycopy.svg")}
                         alt=""
                         onClick={() => this.copyText("profile_id")}
                         title=""
@@ -1282,7 +1282,7 @@ class Index extends Component {
                     </a>
                     <a>
                       <img
-                        src={require("../../../../assets/images/qr-code.svg")}
+                        src={require("assets/images/qr-code.svg")}
                         alt=""
                         title=""
                         onClick={this.handleQrOpen}
@@ -1296,7 +1296,7 @@ class Index extends Component {
                     </span>
                     <a>
                       <img
-                        src={require("../../../../assets/images/copycopy.svg")}
+                        src={require("assets/images/copycopy.svg")}
                         onClick={() => this.copyText("profile_pin")}
                         alt=""
                         title=""
@@ -1330,7 +1330,7 @@ class Index extends Component {
                 <Grid className="editCloseBtn">
                   <a onClick={() => this.handlePinClose("chngPinOpen")}>
                     <img
-                      src={require("../../../../assets/images/close-search.svg")}
+                      src={require("assets/images/close-search.svg")}
                       alt=""
                       title=""
                     />
@@ -1838,7 +1838,7 @@ class Index extends Component {
                 <Grid className="qrCloseBtn">
                   <a onClick={this.handleQrClose}>
                     <img
-                      src={require("../../../../assets/images/close-search.svg")}
+                      src={require("assets/images/close-search.svg")}
                       alt=""
                       title=""
                     />
@@ -1849,7 +1849,7 @@ class Index extends Component {
                 </Grid>
               </Grid>
               <Grid className="qrCourseImg">
-                {/* <Grid><img src={require('../../../../assets/images/qrimg.jpg')} alt="" title="" /></Grid> */}
+                {/* <Grid><img src={require('assets/images/qrimg.jpg')} alt="" title="" /></Grid> */}
                 <Grid>
                   {" "}
                   <QRCode

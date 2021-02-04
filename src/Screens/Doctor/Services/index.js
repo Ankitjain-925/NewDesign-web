@@ -1034,7 +1034,7 @@ class Index extends Component {
                                       this.state.MypatientsData[index].new_image
                                         ? this.state.MypatientsData[index]
                                             .new_image
-                                        : require("../../../assets/images/dr1.jpg")
+                                        : require("assets/images/dr1.jpg")
                                     }
                                     alt=""
                                     title=""
@@ -1062,7 +1062,7 @@ class Index extends Component {
                                 <Td className="presEditDot scndOptionIner openJourMenu">
                                   <a>
                                     <img
-                                      src={require("../../../assets/images/three_dots_t.png")}
+                                      src={require("assets/images/three_dots_t.png")}
                                       alt=""
                                       title=""
                                       className="openScnd"
@@ -1074,7 +1074,7 @@ class Index extends Component {
                                         }}
                                       >
                                         <img
-                                          src={require("../../../assets/images/journal1.svg")}
+                                          src={require("assets/images/journal1.svg")}
                                           alt=""
                                           title=""
                                         />
@@ -1086,7 +1086,7 @@ class Index extends Component {
                                         }
                                       >
                                         <img
-                                          src={require("../../../assets/images/personal-info.svg")}
+                                          src={require("assets/images/personal-info.svg")}
                                           alt=""
                                           title=""
                                         />
@@ -1098,7 +1098,7 @@ class Index extends Component {
                                         }
                                       >
                                         <img
-                                          src={require("../../../assets/images/del.png")}
+                                          src={require("assets/images/del.png")}
                                           alt=""
                                           title=""
                                         />
@@ -1130,7 +1130,7 @@ class Index extends Component {
                               <Grid className="infoCloseBtn">
                                 <a onClick={this.handleCloseShowPatient}>
                                   <img
-                                    src={require("../../../assets/images/close-search.svg")}
+                                    src={require("assets/images/close-search.svg")}
                                     alt=""
                                     title=""
                                   />
@@ -1170,7 +1170,7 @@ class Index extends Component {
                               <Grid className="userAdres">
                                 <Grid>
                                   <img
-                                    src={require("../../../assets/images/location-pin2.svg")}
+                                    src={require("assets/images/location-pin2.svg")}
                                     alt=""
                                     title=""
                                   />
@@ -1186,7 +1186,7 @@ class Index extends Component {
                               <Grid className="userAdres">
                                 <Grid>
                                   <img
-                                    src={require("../../../assets/images/phone2.svg")}
+                                    src={require("assets/images/phone2.svg")}
                                     alt=""
                                     title=""
                                   />
@@ -1196,7 +1196,7 @@ class Index extends Component {
                               <Grid className="userAdres">
                                 <Grid>
                                   <img
-                                    src={require("../../../assets/images/email11.svg")}
+                                    src={require("assets/images/email11.svg")}
                                     alt=""
                                     title=""
                                   />
@@ -1206,7 +1206,7 @@ class Index extends Component {
                               <Grid className="userAdres">
                                 <Grid>
                                   <img
-                                    src={require("../../../assets/images/language11.svg")}
+                                    src={require("assets/images/language11.svg")}
                                     alt=""
                                     title=""
                                   />
@@ -1286,7 +1286,7 @@ class Index extends Component {
                             <Grid className="dataCloseBtn">
                               <a onClick={this.handleCloseData}>
                                 <img
-                                  src={require("../../../assets/images/close-search.svg")}
+                                  src={require("assets/images/close-search.svg")}
                                   alt=""
                                   title=""
                                 />
@@ -1365,7 +1365,7 @@ class Index extends Component {
                             <Grid className="dataCloseBtn">
                               <a onClick={this.handleCloseReq}>
                                 <img
-                                  src={require("../../../assets/images/close-search.svg")}
+                                  src={require("assets/images/close-search.svg")}
                                   alt=""
                                   title=""
                                 />
@@ -1451,7 +1451,7 @@ class Index extends Component {
                             <Grid className="dataCloseBtn">
                               <a onClick={this.handleCloseNewPatient}>
                                 <img
-                                  src={require("../../../assets/images/close-search.svg")}
+                                  src={require("assets/images/close-search.svg")}
                                   alt=""
                                   title=""
                                 />
@@ -1520,7 +1520,7 @@ class Index extends Component {
                                 {this.state.hidden && (
                                   <a onClick={this.toggleShow}>
                                     <img
-                                      src={require("../../../assets/images/showeye.svg")}
+                                      src={require("assets/images/showeye.svg")}
                                       alt=""
                                       title=""
                                     />
@@ -1529,7 +1529,7 @@ class Index extends Component {
                                 {!this.state.hidden && (
                                   <a onClick={this.toggleShow}>
                                     <img
-                                      src={require("../../../assets/images/hide.svg")}
+                                      src={require("assets/images/hide.svg")}
                                       alt=""
                                       title=""
                                     />
@@ -1541,7 +1541,7 @@ class Index extends Component {
                                 <div className="passInst">
                                   <div className="passInstIner">
                                     <p>{Register_Passwordshould}</p>
-                                    {/* <img src={require('../../../assets/images/passArrow.png')} alt="" title="" className="passArow" /> */}
+                                    {/* <img src={require('assets/images/passArrow.png')} alt="" title="" className="passArow" /> */}
                                     <ul>
                                       <li>
                                         {userDetails &&
@@ -1549,7 +1549,7 @@ class Index extends Component {
                                           userDetails.password.length > 8 && (
                                             <a>
                                               <img
-                                                src={require("../../../assets/images/CheckCircle.svg")}
+                                                src={require("assets/images/CheckCircle.svg")}
                                                 alt=""
                                                 title=""
                                               />
@@ -1561,7 +1561,7 @@ class Index extends Component {
                                           userDetails.password.length <= 8 && (
                                             <a>
                                               <img
-                                                src={require("../../../assets/images/CloseCircle.svg")}
+                                                src={require("assets/images/CloseCircle.svg")}
                                                 alt=""
                                                 title=""
                                               />
@@ -1577,7 +1577,7 @@ class Index extends Component {
                                           ) && (
                                             <a>
                                               <img
-                                                src={require("../../../assets/images/CloseCircle.svg")}
+                                                src={require("assets/images/CloseCircle.svg")}
                                                 alt=""
                                                 title=""
                                               />
@@ -1591,7 +1591,7 @@ class Index extends Component {
                                           ) && (
                                             <a>
                                               <img
-                                                src={require("../../../assets/images/CheckCircle.svg")}
+                                                src={require("assets/images/CheckCircle.svg")}
                                                 alt=""
                                                 title=""
                                               />
@@ -1607,7 +1607,7 @@ class Index extends Component {
                                           ) && (
                                             <a>
                                               <img
-                                                src={require("../../../assets/images/CloseCircle.svg")}
+                                                src={require("assets/images/CloseCircle.svg")}
                                                 alt=""
                                                 title=""
                                               />
@@ -1621,7 +1621,7 @@ class Index extends Component {
                                           ) && (
                                             <a>
                                               <img
-                                                src={require("../../../assets/images/CheckCircle.svg")}
+                                                src={require("assets/images/CheckCircle.svg")}
                                                 alt=""
                                                 title=""
                                               />
@@ -1637,7 +1637,7 @@ class Index extends Component {
                                           ) && (
                                             <a>
                                               <img
-                                                src={require("../../../assets/images/CloseCircle.svg")}
+                                                src={require("assets/images/CloseCircle.svg")}
                                                 alt=""
                                                 title=""
                                               />
@@ -1651,7 +1651,7 @@ class Index extends Component {
                                           ) && (
                                             <a>
                                               <img
-                                                src={require("../../../assets/images/CheckCircle.svg")}
+                                                src={require("assets/images/CheckCircle.svg")}
                                                 alt=""
                                                 title=""
                                               />
@@ -1667,7 +1667,7 @@ class Index extends Component {
                                   <div className="passInstIner">
                                     <p>{Register_Passwordshould}</p>
                                     <img
-                                      src={require("../../../assets/images/passArrow.png")}
+                                      src={require("assets/images/passArrow.png")}
                                       alt=""
                                       title=""
                                       className="passArow"
@@ -1676,7 +1676,7 @@ class Index extends Component {
                                       <li>
                                         <a>
                                           <img
-                                            src={require("../../../assets/images/CloseCircle.svg")}
+                                            src={require("assets/images/CloseCircle.svg")}
                                             alt=""
                                             title=""
                                           />
@@ -1686,7 +1686,7 @@ class Index extends Component {
                                       <li>
                                         <a>
                                           <img
-                                            src={require("../../../assets/images/CloseCircle.svg")}
+                                            src={require("assets/images/CloseCircle.svg")}
                                             alt=""
                                             title=""
                                           />
@@ -1696,7 +1696,7 @@ class Index extends Component {
                                       <li>
                                         <a>
                                           <img
-                                            src={require("../../../assets/images/CloseCircle.svg")}
+                                            src={require("assets/images/CloseCircle.svg")}
                                             alt=""
                                             title=""
                                           />
@@ -1706,7 +1706,7 @@ class Index extends Component {
                                       <li>
                                         <a>
                                           <img
-                                            src={require("../../../assets/images/CloseCircle.svg")}
+                                            src={require("assets/images/CloseCircle.svg")}
                                             alt=""
                                             title=""
                                           />

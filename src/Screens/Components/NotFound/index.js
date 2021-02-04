@@ -104,7 +104,7 @@ class Index extends Component {
               <Grid className="webLogo">
                 <a href="/">
                   <img
-                    src={require("../../../assets/images/LogoPNG.png")}
+                    src={require("assets/images/LogoPNG.png")}
                     alt=""
                     title=""
                   />

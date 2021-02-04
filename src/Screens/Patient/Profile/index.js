@@ -43,6 +43,7 @@ import {
   translationPT,
   translationFR,
 } from "translations/index";
+import { pure } from "recompose";
 function TabContainer(props) {
   return (
     <Typography component="div" className="tabsCntnts">
@@ -357,7 +358,7 @@ const mapStateToProps = (state) => {
     //   catfil
   };
 };
-export default withRouter(
+export default pure(withRouter(
   connect(mapStateToProps, {
     LoginReducerAim,
     OptionList,
@@ -365,4 +366,4 @@ export default withRouter(
     Settings,
     authy,
   })(Index)
-);
+));

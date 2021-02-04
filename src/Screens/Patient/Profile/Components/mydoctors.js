@@ -73,7 +73,7 @@ class Index extends Component {
 
 
     componentDidMount() {
-
+        console.log('mydoc')
         this.alldoctor();
         this.alldocs();
     }
@@ -567,7 +567,7 @@ class Index extends Component {
                                             <Grid container direction="row" alignItems="center">
                                                 <Grid item xs={12} md={5}>
                                                     {index.image ? <a><img src={getImage(index.image, this.state.images)} alt="" title="" /> </a>
-                                                        : <a><img src={require('../../../../assets/images/chatPerson.jpg')} alt="" title="" /> </a>}<label>{index.first_name && index.first_name} {index.last_name && index.last_name}</label></Grid>
+                                                        : <a><img src={require('assets/images/chatPerson.jpg')} alt="" title="" /> </a>}<label>{index.first_name && index.first_name} {index.last_name && index.last_name}</label></Grid>
                                                 <Grid item xs={12} md={7}><p>{index.alies_id && index.alies_id}</p></Grid>
                                             </Grid>
                                         </Grid>
@@ -584,7 +584,7 @@ class Index extends Component {
                             <Grid item xs={12} md={9}>
                                 <Grid className="trstmkFmlyDoc">
                                     <Grid container direction="row" alignItems="center">
-                                        <Grid item xs={12} md={4}><a><img src={require('../../../../assets/images/dr1.jpg')} alt="" title="" /></a><label>Mark Anderson M.D.</label></Grid>
+                                        <Grid item xs={12} md={4}><a><img src={require('assets/images/dr1.jpg')} alt="" title="" /></a><label>Mark Anderson M.D.</label></Grid>
                                         <Grid item xs={12} md={8}><p>D_lnTSgFWtN</p></Grid>
                                     </Grid>
                                 </Grid>
@@ -613,7 +613,7 @@ class Index extends Component {
                                     {this.state.already && <div className="err_message">{doc_already_exit_in_list}</div>}
                                     <Grid className="trstCloseBtn">
                                         <a onClick={this.handleCloseTrust}>
-                                            <img src={require('../../../../assets/images/close-search.svg')} alt="" title="" />
+                                            <img src={require('assets/images/close-search.svg')} alt="" title="" />
                                         </a>
                                     </Grid>
                                     <Grid><label>{New} {trusted_doc}</label></Grid>
@@ -644,7 +644,7 @@ class Index extends Component {
                                                 <Grid container direction="row" alignItems="center">
                                                     <Grid item xs={12} md={4}>
                                                         {index.image ? <a><img src={getImage(index.image, this.state.images)} alt="" title="" /> </a>
-                                                            : <a><img src={require('../../../../assets/images/chatPerson.jpg')} alt="" title="" /> </a>}
+                                                            : <a><img src={require('assets/images/chatPerson.jpg')} alt="" title="" /> </a>}
                                                         <label>{index.first_name && index.first_name} {index.last_name && index.last_name}</label></Grid>
                                                     <Grid item xs={12} md={8}><p>{index.alies_id}</p></Grid>
                                                 </Grid>

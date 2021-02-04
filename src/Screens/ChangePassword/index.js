@@ -193,7 +193,7 @@ class Index extends Component {
                   <Grid item xs={6} sm={6} className="LogoForms">
                     <a>
                       <img
-                        src={require("../../assets/images/LogoPNG.png")}
+                        src={require("assets/images/LogoPNG.png")}
                         alt=""
                         title=""
                       />

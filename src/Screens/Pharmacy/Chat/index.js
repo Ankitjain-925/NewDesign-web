@@ -1,21 +1,21 @@
 import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
-import LeftMenu from "./../../Components/Menus/PharmaLeftMenu/index";
-import LeftMenuMobile from "./../../Components/Menus/PharmaLeftMenu/mobile";
-import { LoginReducerAim } from "./../../Login/actions";
-import { Settings } from "./../../Login/setting";
+import LeftMenu from "Screens/Components/Menus/PharmaLeftMenu/index";
+import LeftMenuMobile from "Screens/Components/Menus/PharmaLeftMenu/mobile";
+import { LoginReducerAim } from "Screens/Login/actions";
+import { Settings } from "Screens/Login/setting";
 import { connect } from "react-redux";
-import { Doctorarrays } from "./../../Login/doctorarray";
+import { Doctorarrays } from "Screens/Login/doctorarray";
 import { Redirect, Route } from "react-router-dom";
 import { withRouter } from "react-router-dom";
-import CometChat from "../../Components/CometChat";
-import { LanguageFetchReducer } from "./../../actions";
+import CometChat from "Screens/Components/CometChat";
+import { LanguageFetchReducer } from "Screens/actions";
 import axios from "axios";
-import { authy } from "./../../Login/authy.js";
+import { authy } from "Screens/Login/authy.js";
 
-import sitedata from "../../../sitedata.js";
-import Loader from "./../../Components/Loader/index";
-import Notification from "../../Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
+import sitedata from "sitedata.js";
+import Loader from "Screens/Components/Loader/index";
+import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 
 class index extends React.Component {
   constructor(props) {

@@ -189,73 +189,73 @@ class Index extends Component {
                 <Grid container direction="row" alignItems="center">
                     {this.state.loaderImage && <Loader />}
                     <Grid item xs={6} md={6} sm={6} className="MenuMobLeft">
-                        <a><img src={require('../../../../assets/images/navigation-drawer.svg')} alt="" title="" className="MenuImg" /></a>
+                        <a><img src={require('assets/images/navigation-drawer.svg')} alt="" title="" className="MenuImg" /></a>
                         <Menu className="addCstmMenu">
                             <Grid className="menuItems adminmenuItems">
                                 <ul>
                                     <li className={this.props.currentPage === 'patient_List' ? "menuActv" : ""}>
                                         <a onClick={() => this.props.history.push("/h-patients")}>
-                                            <img src={require('../../../../assets/images/admin/patintIcon.png')} alt="" title="" />
+                                            <img src={require('assets/images/admin/patintIcon.png')} alt="" title="" />
                                             <span>{capab_Patients}</span>
                                         </a>
                                     </li>
                                     <li className={this.props.currentPage === 'doctor_List' ? "menuActv" : ""}>
                                         <a onClick={() => this.props.history.push("/h-doctors")} >
-                                            <img src={require('../../../../assets/images/admin/DoctorsIcon.png')} alt="" title="" />
+                                            <img src={require('assets/images/admin/DoctorsIcon.png')} alt="" title="" />
                                             <span>{capab_Doctors}</span>
                                         </a>
                                     </li>
                                     <li className={this.props.currentPage === 'nurse_List' ? "menuActv" : ""}>
                                         <a onClick={() => this.props.history.push("/h-nurses")}>
-                                            <img src={require('../../../../assets/images/therapist_green.svg')} alt="" title="" />
+                                            <img src={require('assets/images/therapist_green.svg')} alt="" title="" />
                                             <span>{srvc_Nurses}</span>
                                         </a>
                                     </li>
                                     <li className={this.props.currentPage === "h_document" ? "menuActv" : ''}>
                                         <a onClick={() => this.props.history.push("/h-documents")}>
-                                            <img src={require('../../../../assets/images/admin/docsIcon.png')} alt="" title="" />
+                                            <img src={require('assets/images/admin/docsIcon.png')} alt="" title="" />
                                             <span>{documents}</span>
                                         </a>
                                     </li>
                                     <li className={this.props.currentPage === 'archive_choose' ? "menuActv" : ""}>
                                         <a onClick={() => this.props.history.push("/h-archivechoose")}>
-                                            <img src={require('../../../../assets/images/admin/ParamedicIcon.png')} alt="" title="" />
+                                            <img src={require('assets/images/admin/ParamedicIcon.png')} alt="" title="" />
                                             <span>{archive}</span>
                                         </a>
                                     </li>
                                     {/* <li>
                             <a className="moreMenu">
-                                <img src={require('../../../../assets/images/nav-more.svg')} alt="" title="" />
+                                <img src={require('assets/images/nav-more.svg')} alt="" title="" />
                                 <span>More</span>
                                 <div className="moreMenuList">
                                     <ul>
-                                        <li><a onClick={() => this.props.history.push("/nurses")}><img src={require('../../../../assets/images/menudocs.jpg')} alt="" title="" />{srvc_Nurses}</a></li>
-                                        <li><a onClick={() => this.props.history.push("/insurances")}><img src={require('../../../../assets/images/menudocs.jpg')} alt="" title="" />{insurance}</a></li>
-                                        <li><a onClick={() => this.props.history.push("/pharmacies")}><img src={require('../../../../assets/images/menudocs.jpg')} alt="" title="" />{pharmacy}</a></li>
-                                        <li><a onClick={() => this.props.history.push("/onlinecourses")}><img src={require('../../../../assets/images/menudocs.jpg')} alt="" title="" />Aimedis {online_course}</a></li>
-                                        <li><a onClick={() => this.props.history.push("/topics")}><img src={require('../../../../assets/images/menudocs.jpg')} alt="" title="" />{course_topic}</a></li>
-                                        <li><a><img src={require('../../../../assets/images/menudocs.jpg')} alt="" title="" />Journal Archive</a></li>
-                                        <li><a><img src={require('../../../../assets/images/menudocs.jpg')} alt="" title="" />Blockchain Access Log</a></li>
+                                        <li><a onClick={() => this.props.history.push("/nurses")}><img src={require('assets/images/menudocs.jpg')} alt="" title="" />{srvc_Nurses}</a></li>
+                                        <li><a onClick={() => this.props.history.push("/insurances")}><img src={require('assets/images/menudocs.jpg')} alt="" title="" />{insurance}</a></li>
+                                        <li><a onClick={() => this.props.history.push("/pharmacies")}><img src={require('assets/images/menudocs.jpg')} alt="" title="" />{pharmacy}</a></li>
+                                        <li><a onClick={() => this.props.history.push("/onlinecourses")}><img src={require('assets/images/menudocs.jpg')} alt="" title="" />Aimedis {online_course}</a></li>
+                                        <li><a onClick={() => this.props.history.push("/topics")}><img src={require('assets/images/menudocs.jpg')} alt="" title="" />{course_topic}</a></li>
+                                        <li><a><img src={require('assets/images/menudocs.jpg')} alt="" title="" />Journal Archive</a></li>
+                                        <li><a><img src={require('assets/images/menudocs.jpg')} alt="" title="" />Blockchain Access Log</a></li>
                                     </ul>
                                 </div>
                             </a>
                         </li> */}
                                     <li className={this.props.currentPage === 'createnewuser' ? "menuActv" : ""}>
                                         <a className="addNewPlus" onClick={this.handleOpenCreate}>
-                                            <img src={require('../../../../assets/images/admin/plusnew.png')} alt="" title="" />
+                                            <img src={require('assets/images/admin/plusnew.png')} alt="" title="" />
                                             <span>{add_new} <br /> {user}</span>
                                         </a>
                                     </li>
 
                                     <li>
                                         <a className="profilMenu">
-                                            <img src={require('../../../../assets/images/nav-my-profile.svg')} alt="" title="" />
+                                            <img src={require('assets/images/nav-my-profile.svg')} alt="" title="" />
                                             <span>{my_profile}</span>
                                             <div className="profilMenuList">
                                                 <ul>
-                                                    <li><a><img src={require('../../../../assets/images/menudocs.jpg')} alt="" title="" />{profile_setting}</a></li>
-                                                    <li><a onClick={this.openLanguageModel}><img src={require('../../../../assets/images/menudocs.jpg')} alt="" title="" />{Language}</a></li>
-                                                    <li><a onClick={this.logOutClick}><img src={require('../../../../assets/images/menudocs.jpg')} alt="" title="" />{logout}</a></li>
+                                                    <li><a><img src={require('assets/images/menudocs.jpg')} alt="" title="" />{profile_setting}</a></li>
+                                                    <li><a onClick={this.openLanguageModel}><img src={require('assets/images/menudocs.jpg')} alt="" title="" />{Language}</a></li>
+                                                    <li><a onClick={this.logOutClick}><img src={require('assets/images/menudocs.jpg')} alt="" title="" />{logout}</a></li>
                                                 </ul>
                                             </div>
                                         </a>
@@ -265,7 +265,7 @@ class Index extends Component {
                         </Menu>
                     </Grid>
                     <Grid item xs={6} md={6} sm={6} className="MenuMobRght">
-                        <a href="/"><img src={require('../../../../assets/images/logo_new.png')} alt="" title="" /></a>
+                        <a href="/"><img src={require('assets/images/logo_new.png')} alt="" title="" /></a>
                     </Grid>
                 </Grid>
                 <Modal
@@ -276,7 +276,7 @@ class Index extends Component {
                         <Grid className="nwPresCourse">
                             <Grid className="nwPresCloseBtn nwEntrCloseBtnAdd">
                                 <a onClick={this.handleCloseFancyLanguage}>
-                                    <img src={require('../../../../assets/images/close-search.svg')} alt="" title="" />
+                                    <img src={require('assets/images/close-search.svg')} alt="" title="" />
                                 </a>
                             </Grid>
                             <Grid><label>{SelectLanguage}</label></Grid>
@@ -289,13 +289,13 @@ class Index extends Component {
                                 <Grid className="col-sm-6 col-xl-6">
                                     <Grid>
                                         <input value="en" onChange={this.changeLanguage} name="language" type="radio" checked={this.state.languageValue == "en" ? "checked" : ""} />
-                                        <label><img src={require('../../../../assets/images/english.png')} alt="English" title="English" />English (English)</label>
+                                        <label><img src={require('assets/images/english.png')} alt="English" title="English" />English (English)</label>
                                     </Grid>
                                 </Grid>
                                 <Grid className="col-sm-6 col-xl-6">
                                     <Grid>
                                         <input value="de" onChange={this.changeLanguage} name="language" type="radio" checked={this.state.languageValue == "de" ? "checked" : ""} />
-                                        <label><img src={require('../../../../assets/images/german.jpg')} alt="Germany" title="Germany" />German (Deutsch)</label>
+                                        <label><img src={require('assets/images/german.jpg')} alt="Germany" title="Germany" />German (Deutsch)</label>
                                     </Grid>
                                 </Grid>
                             </Grid>

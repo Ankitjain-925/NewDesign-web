@@ -245,7 +245,7 @@ class Index extends Component {
           <Grid item xs={6} md={6} sm={6} className="MenuMobLeft">
             <a>
               <img
-                src={require("../../../../assets//images/navigation-drawer.svg")}
+                src={require("assets/images/navigation-drawer.svg")}
                 alt=""
                 title=""
                 className="MenuImg"
@@ -265,13 +265,13 @@ class Index extends Component {
                       this.props.settings.setting.mode &&
                       this.props.settings.setting.mode === "dark" ? (
                         <img
-                          src={require("../../../../assets/images/nav-journal-white.svg")}
+                          src={require("assets/images/nav-journal-white.svg")}
                           alt=""
                           title=""
                         />
                       ) : (
                         <img
-                          src={require("../../../../assets/images/nav-journal.svg")}
+                          src={require("assets/images/nav-journal.svg")}
                           alt=""
                           title=""
                         />
@@ -290,13 +290,13 @@ class Index extends Component {
                       this.props.settings.setting.mode &&
                       this.props.settings.setting.mode === "dark" ? (
                         <img
-                          src={require("../../../../assets/images/nav-chat-white.svg")}
+                          src={require("assets/images/nav-chat-white.svg")}
                           alt=""
                           title=""
                         />
                       ) : (
                         <img
-                          src={require("../../../../assets/images/nav-chat.svg")}
+                          src={require("assets/images/nav-chat.svg")}
                           alt=""
                           title=""
                         />
@@ -315,13 +315,13 @@ class Index extends Component {
                       this.props.settings.setting.mode &&
                       this.props.settings.setting.mode === "dark" ? (
                         <img
-                          src={require("../../../../assets/images/nav-appointments-white.svg")}
+                          src={require("assets/images/nav-appointments-white.svg")}
                           alt=""
                           title=""
                         />
                       ) : (
                         <img
-                          src={require("../../../../assets/images/nav-appointments.svg")}
+                          src={require("assets/images/nav-appointments.svg")}
                           alt=""
                           title=""
                         />
@@ -341,13 +341,13 @@ class Index extends Component {
                       this.props.settings.setting.mode &&
                       this.props.settings.setting.mode === "dark" ? (
                         <img
-                          src={require("../../../../assets/images/nav-my-documents-inquiries-active.svg")}
+                          src={require("assets/images/nav-my-documents-inquiries-active.svg")}
                           alt=""
                           title=""
                         />
                       ) : (
                         <img
-                          src={require("../../../../assets/images/nav-my-documents-inquiries.svg")}
+                          src={require("assets/images/nav-my-documents-inquiries.svg")}
                           alt=""
                           title=""
                         />
@@ -366,13 +366,13 @@ class Index extends Component {
                       this.props.settings.setting.mode &&
                       this.props.settings.setting.mode === "dark" ? (
                         <img
-                          src={require("../../../../assets/images/nav-trackers-white.svg")}
+                          src={require("assets/images/nav-trackers-white.svg")}
                           alt=""
                           title=""
                         />
                       ) : (
                         <img
-                          src={require("../../../../assets/images/nav-trackers.svg")}
+                          src={require("assets/images/nav-trackers.svg")}
                           alt=""
                           title=""
                         />
@@ -394,13 +394,13 @@ class Index extends Component {
                       this.props.settings.setting.mode &&
                       this.props.settings.setting.mode === "dark" ? (
                         <img
-                          src={require("../../../../assets/images/nav-more-white.svg")}
+                          src={require("assets/images/nav-more-white.svg")}
                           alt=""
                           title=""
                         />
                       ) : (
                         <img
-                          src={require("../../../../assets/images/nav-more.svg")}
+                          src={require("assets/images/nav-more.svg")}
                           alt=""
                           title=""
                         />
@@ -416,13 +416,13 @@ class Index extends Component {
                               this.props.settings.setting.mode &&
                               this.props.settings.setting.mode === "dark" ? (
                                 <img
-                                  src={require("../../../../assets/images/menudocs-white.jpg")}
+                                  src={require("assets/images/menudocs-white.jpg")}
                                   alt=""
                                   title=""
                                 />
                               ) : (
                                 <img
-                                  src={require("../../../../assets/images/menudocs.jpg")}
+                                  src={require("assets/images/menudocs.jpg")}
                                   alt=""
                                   title=""
                                 />
@@ -437,13 +437,13 @@ class Index extends Component {
                               this.props.settings.setting.mode &&
                               this.props.settings.setting.mode === "dark" ? (
                                 <img
-                                  src={require("../../../../assets/images/menudocs-white.jpg")}
+                                  src={require("assets/images/menudocs-white.jpg")}
                                   alt=""
                                   title=""
                                 />
                               ) : (
                                 <img
-                                  src={require("../../../../assets/images/menudocs.jpg")}
+                                  src={require("assets/images/menudocs.jpg")}
                                   alt=""
                                   title=""
                                 />
@@ -458,13 +458,13 @@ class Index extends Component {
                               this.props.settings.setting.mode &&
                               this.props.settings.setting.mode === "dark" ? (
                                 <img
-                                  src={require("../../../../assets/images/menudocs-white.jpg")}
+                                  src={require("assets/images/menudocs-white.jpg")}
                                   alt=""
                                   title=""
                                 />
                               ) : (
                                 <img
-                                  src={require("../../../../assets/images/menudocs.jpg")}
+                                  src={require("assets/images/menudocs.jpg")}
                                   alt=""
                                   title=""
                                 />
@@ -479,13 +479,13 @@ class Index extends Component {
                               this.props.settings.setting.mode &&
                               this.props.settings.setting.mode === "dark" ? (
                                 <img
-                                  src={require("../../../../assets/images/menudocs-white.jpg")}
+                                  src={require("assets/images/menudocs-white.jpg")}
                                   alt=""
                                   title=""
                                 />
                               ) : (
                                 <img
-                                  src={require("../../../../assets/images/menudocs.jpg")}
+                                  src={require("assets/images/menudocs.jpg")}
                                   alt=""
                                   title=""
                                 />
@@ -500,13 +500,13 @@ class Index extends Component {
                               this.props.settings.setting.mode &&
                               this.props.settings.setting.mode === "dark" ? (
                                 <img
-                                  src={require("../../../../assets/images/menudocs-white.jpg")}
+                                  src={require("assets/images/menudocs-white.jpg")}
                                   alt=""
                                   title=""
                                 />
                               ) : (
                                 <img
-                                  src={require("../../../../assets/images/menudocs.jpg")}
+                                  src={require("assets/images/menudocs.jpg")}
                                   alt=""
                                   title=""
                                 />
@@ -525,7 +525,7 @@ class Index extends Component {
                   >
                     <a className="profilMenu">
                       <img
-                        src={require("../../../../assets/images/nav-my-profile.svg")}
+                        src={require("assets/images/nav-my-profile.svg")}
                         alt=""
                         title=""
                       />
@@ -540,13 +540,13 @@ class Index extends Component {
                               this.props.settings.setting.mode &&
                               this.props.settings.setting.mode === "dark" ? (
                                 <img
-                                  src={require("../../../../assets/images/menudocs-white.jpg")}
+                                  src={require("assets/images/menudocs-white.jpg")}
                                   alt=""
                                   title=""
                                 />
                               ) : (
                                 <img
-                                  src={require("../../../../assets/images/menudocs.jpg")}
+                                  src={require("assets/images/menudocs.jpg")}
                                   alt=""
                                   title=""
                                 />
@@ -565,13 +565,13 @@ class Index extends Component {
                               this.props.settings.setting.mode &&
                               this.props.settings.setting.mode === "dark" ? (
                                 <img
-                                  src={require("../../../../assets/images/menudocs-white.jpg")}
+                                  src={require("assets/images/menudocs-white.jpg")}
                                   alt=""
                                   title=""
                                 />
                               ) : (
                                 <img
-                                  src={require("../../../../assets/images/menudocs.jpg")}
+                                  src={require("assets/images/menudocs.jpg")}
                                   alt=""
                                   title=""
                                 />
@@ -586,13 +586,13 @@ class Index extends Component {
                               this.props.settings.setting.mode &&
                               this.props.settings.setting.mode === "dark" ? (
                                 <img
-                                  src={require("../../../../assets/images/menudocs-white.jpg")}
+                                  src={require("assets/images/menudocs-white.jpg")}
                                   alt=""
                                   title=""
                                 />
                               ) : (
                                 <img
-                                  src={require("../../../../assets/images/menudocs.jpg")}
+                                  src={require("assets/images/menudocs.jpg")}
                                   alt=""
                                   title=""
                                 />
@@ -612,13 +612,13 @@ class Index extends Component {
                               this.props.settings.setting.mode &&
                               this.props.settings.setting.mode === "dark" ? (
                                 <img
-                                  src={require("../../../../assets/images/menudocs-white.jpg")}
+                                  src={require("assets/images/menudocs-white.jpg")}
                                   alt=""
                                   title=""
                                 />
                               ) : (
                                 <img
-                                  src={require("../../../../assets/images/menudocs.jpg")}
+                                  src={require("assets/images/menudocs.jpg")}
                                   alt=""
                                   title=""
                                 />
@@ -637,7 +637,7 @@ class Index extends Component {
           <Grid item xs={6} md={6} sm={6} className="MenuMobRght">
             <a>
               <img
-                src={require("../../../../assets//images/LogoPNG.png")}
+                src={require("assets//images/LogoPNG.png")}
                 alt=""
                 title=""
               />

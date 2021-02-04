@@ -298,7 +298,7 @@ class PointPain extends Component {
                       {add_profile} <br /> {picture}
                     </span>
                     <img
-                      src={require("../../../../assets/images/user2.jpg")}
+                      src={require("assets/images/user2.jpg")}
                       alt=""
                       title=""
                     />
@@ -322,7 +322,7 @@ class PointPain extends Component {
                     {add_profile} <br /> {picture}
                   </span>
                   <img
-                    src={require("../../../../assets/images/user2.jpg")}
+                    src={require("assets/images/user2.jpg")}
                     alt=""
                     title=""
                   />

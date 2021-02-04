@@ -265,7 +265,7 @@ class Index extends Component {
                                     </Grid>
                                     <Grid container direction="row" justifyContent="center" className="archvSrchInput">
                                         <Grid item xs={12} md={12}> <input onChange={this.search_user.bind(this)} type="text" placeholder={find_doctor} /></Grid>
-                                        <img src={require('../../assets/images/InputField.svg')} alt="" title="" />
+                                        <img src={require('assets/images/InputField.svg')} alt="" title="" />
                                     </Grid>
                                     <Grid className="archvOpinionIner">
                                         <Table>
@@ -283,7 +283,7 @@ class Index extends Component {
                                             {this.state.MypatientsData && this.state.MypatientsData.length>0 && this.state.MypatientsData.map((doctor, i) => (
                                                     <Tr>
                                                           <Td>{((this.state.currentPage-1)*10) + i+1}</Td>
-                                                        <Td><img className="doctor_pic" src={doctor && doctor.image ? getImage(doctor.image, this.state.images) : require('../../assets/images/dr1.jpg')} alt="" title="" />
+                                                        <Td><img className="doctor_pic" src={doctor && doctor.image ? getImage(doctor.image, this.state.images) : require('assets/images/dr1.jpg')} alt="" title="" />
                                                             {doctor.first_name && doctor.first_name}</Td>
                                                         <Td>{doctor.last_name && doctor.last_name}</Td>
                                                         <Td>{doctor.email && doctor.email}</Td>
@@ -294,11 +294,11 @@ class Index extends Component {
                                                         }
                                                         <Td className="archvDot">
                                                             <a className="academy_ul">
-                                                                <img src={require('../../assets/images/threedots.jpg')} alt="" title="" className="academyDots" />
+                                                                <img src={require('assets/images/threedots.jpg')} alt="" title="" className="academyDots" />
                                                                 <ul>
-                                                                    <li onClick={()=>this.openDetail(doctor)}><a><span><img src={require('../../assets/images/admin/details1.svg')} alt="" title="" /></span>{see_detail}</a></li>
-                                                                    <li onClick={()=>this.BlockUser(doctor._id, doctor.isblock)}><a><span><img src={require('../../assets/images/admin/restoreIcon.png')} alt="" title="" /></span>{doctor.isblock && doctor.isblock == true ?'Unblock': 'Block'}</a></li>
-                                                                    <li onClick={()=>this.submitDelete(doctor._id, doctor.profile_id, doctor.bucket)}><a><span><img src={require('../../assets/images/admin/delIcon.png')} alt="" title="" /></span>{Delete}</a></li>
+                                                                    <li onClick={()=>this.openDetail(doctor)}><a><span><img src={require('assets/images/admin/details1.svg')} alt="" title="" /></span>{see_detail}</a></li>
+                                                                    <li onClick={()=>this.BlockUser(doctor._id, doctor.isblock)}><a><span><img src={require('assets/images/admin/restoreIcon.png')} alt="" title="" /></span>{doctor.isblock && doctor.isblock == true ?'Unblock': 'Block'}</a></li>
+                                                                    <li onClick={()=>this.submitDelete(doctor._id, doctor.profile_id, doctor.bucket)}><a><span><img src={require('assets/images/admin/delIcon.png')} alt="" title="" /></span>{Delete}</a></li>
                                                                 </ul>
                                                             </a>
                                                         </Td>

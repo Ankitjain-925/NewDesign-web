@@ -289,8 +289,8 @@ class Index extends Component {
                                 <Tr>
                                     <Td>{data.which_symptomps ? data.which_symptomps : not_mentioned}</Td>
                                     <Td>{data.send_on ? getDate(data.send_on, this.props.settings.setting.date_format) : not_mentioned}</Td>
-                                    {/* <Td className="presImg"><img src={require('../../../../assets/images/dr1.jpg')} alt="" title="" />{data.docProfile && data.docProfile.first_name && data.docProfile.first_name} {data.docProfile && data.docProfile.last_name && data.docProfile.last_name}</Td> */}
-                                    <Td className="presImg"><img src={data.docProfile && data.docProfile.profile_image ? getImage(data.docProfile.profile_image, this.state.images) : require('../../../../assets/images/dr1.jpg')} alt="" title="" />{data.docProfile && data.docProfile.first_name && data.docProfile.first_name} {data.docProfile && data.docProfile.last_name && data.docProfile.last_name}</Td>
+                                    {/* <Td className="presImg"><img src={require('assets/images/dr1.jpg')} alt="" title="" />{data.docProfile && data.docProfile.first_name && data.docProfile.first_name} {data.docProfile && data.docProfile.last_name && data.docProfile.last_name}</Td> */}
+                                    <Td className="presImg"><img src={data.docProfile && data.docProfile.profile_image ? getImage(data.docProfile.profile_image, this.state.images) : require('assets/images/dr1.jpg')} alt="" title="" />{data.docProfile && data.docProfile.first_name && data.docProfile.first_name} {data.docProfile && data.docProfile.last_name && data.docProfile.last_name}</Td>
                                     {data.status === 'pending' && <Td><span className="revwYelow"></span>{Pending} </Td>}
                                     {data.status === 'accept' && <Td><span className="revwGren"></span>{Answered} </Td>}
                                     {data.status === 'remove' && <Td><span className="revwRed"></span>{Rejected}</Td>}
@@ -300,12 +300,12 @@ class Index extends Component {
                                     {data.status === 'normal' && <Td><span className="revwGry"></span>{sent} {request}</Td>}
                                     <Td className="presEditDot scndOptionIner">
                                         <a className="openScndhrf">
-                                            <img src={require('../../../../assets/images/three_dots_t.png')} alt="" title="" className="openScnd" />
+                                            <img src={require('assets/images/three_dots_t.png')} alt="" title="" className="openScnd" />
                                             <ul>
-                                                <li><a onClick={() => { this.handleshowSick(data) }}><img src={require('../../../../assets/images/details.svg')} alt="" title="" />{see} {details}</a></li>
-                                                {data.status !== 'accept' && <li><a onClick={() => { this.handleaddSick(data) }}><img src={require('../../../../assets/images/edit.svg')} alt="" title="" />{modify}</a></li>}
-                                                {data.status === 'decline' && <li><a onClick={() => { this.updateCertificate('free', data._id) }}><img src={require('../../../../assets/images/plus.png')} alt="" title="" />{inquiry} {again}</a></li>}
-                                                {data.status !== 'cancel' && <li><a onClick={() => { this.updateCertificate('cancel', data._id) }}><img src={require('../../../../assets/images/cancel-request.svg')} alt="" title="" />{cancel} {request}</a></li>}
+                                                <li><a onClick={() => { this.handleshowSick(data) }}><img src={require('assets/images/details.svg')} alt="" title="" />{see} {details}</a></li>
+                                                {data.status !== 'accept' && <li><a onClick={() => { this.handleaddSick(data) }}><img src={require('assets/images/edit.svg')} alt="" title="" />{modify}</a></li>}
+                                                {data.status === 'decline' && <li><a onClick={() => { this.updateCertificate('free', data._id) }}><img src={require('assets/images/plus.png')} alt="" title="" />{inquiry} {again}</a></li>}
+                                                {data.status !== 'cancel' && <li><a onClick={() => { this.updateCertificate('cancel', data._id) }}><img src={require('assets/images/cancel-request.svg')} alt="" title="" />{cancel} {request}</a></li>}
                                             </ul>
                                         </a>
                                     </Td>
@@ -323,7 +323,7 @@ class Index extends Component {
                                 <Grid className="nwPresCourse">
                                     <Grid className="nwPresCloseBtn">
                                         <a onClick={this.handleCloseSick}>
-                                            <img src={require('../../../../assets/images/close-search.svg')} alt="" title="" />
+                                            <img src={require('assets/images/close-search.svg')} alt="" title="" />
                                         </a>
                                     </Grid>
                                     <p>{edit} {inquiry}</p>
@@ -400,7 +400,7 @@ class Index extends Component {
                                     <Grid container direction="row" justify="center" alignItems="center">
                                         <Grid item xs={6} md={6}>
                                             <Grid className="infoShwHid2">
-                                                <a>Show or Hide <img src={require('../../../assets/images/Info.svg')} alt="" title="" /></a>
+                                                <a>Show or Hide <img src={require('assets/images/Info.svg')} alt="" title="" /></a>
                                             </Grid>
                                         </Grid>
                                         <Grid item xs={6} md={6} className="editShwHid2">
@@ -427,7 +427,7 @@ class Index extends Component {
                                 <Grid className="nwPresCourse">
                                     <Grid className="nwPresCloseBtn">
                                         <a onClick={this.handleCloseShowSick}>
-                                            <img src={require('../../../../assets/images/close-search.svg')} alt="" title="" />
+                                            <img src={require('assets/images/close-search.svg')} alt="" title="" />
                                         </a>
                                     </Grid>
                                     <p>{show} {inquiry}</p>

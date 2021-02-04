@@ -175,7 +175,7 @@ class PersonalizedData extends Component {
               <Grid className="dashCloseBtn">
                 <a onClick={this.handleCloseDash}>
                   <img
-                    src={require("../../../../assets/images/close-search.svg")}
+                    src={require("assets/images/close-search.svg")}
                     alt=""
                     title=""
                   />
@@ -203,7 +203,7 @@ class PersonalizedData extends Component {
                         <Grid>
                           <a onClick={() => this.Remove(item.value)}>
                             <img
-                              src={require("../../../../assets/images/remove-2.svg")}
+                              src={require("assets/images/remove-2.svg")}
                               alt=""
                               title=""
                             />{" "}
@@ -214,7 +214,7 @@ class PersonalizedData extends Component {
                       <Grid item xs={4} md={4} className="dragDashRght">
                         <a>
                           <img
-                            src={require("../../../../assets/images/drag.svg")}
+                            src={require("assets/images/drag.svg")}
                             alt=""
                             title=""
                           />
@@ -235,7 +235,7 @@ class PersonalizedData extends Component {
                   <Grid key={item.value}>
                     <a onClick={() => this.Add(item.value)}>
                       <img
-                        src={require("../../../../assets/images/add.svg")}
+                        src={require("assets/images/add.svg")}
                         alt=""
                         title=""
                       />

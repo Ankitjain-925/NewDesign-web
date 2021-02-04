@@ -406,7 +406,7 @@ class Index extends Component {
                     <Grid item xs={6} sm={6} className="LogoForms">
                       <a>
                         <img
-                          src={require("../../assets/images/LogoPNG.png")}
+                          src={require("assets/images/LogoPNG.png")}
                           alt=""
                           title=""
                         />
@@ -588,7 +588,7 @@ class Index extends Component {
                         {this.state.hidden && (
                           <a onClick={this.toggleShow}>
                             <img
-                              src={require("../../assets/images/showeye.svg")}
+                              src={require("assets/images/showeye.svg")}
                               alt=""
                               title=""
                             />
@@ -597,7 +597,7 @@ class Index extends Component {
                         {!this.state.hidden && (
                           <a onClick={this.toggleShow}>
                             <img
-                              src={require("../../assets/images/hide.svg")}
+                              src={require("assets/images/hide.svg")}
                               alt=""
                               title=""
                             />

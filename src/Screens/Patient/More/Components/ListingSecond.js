@@ -498,7 +498,7 @@ class Index extends Component {
                                 data.docProfile.profile_image,
                                 this.state.images
                               )
-                            : require("../../../../assets/images/dr1.jpg")
+                            : require("assets/images/dr1.jpg")
                         }
                         alt=""
                         title=""
@@ -555,7 +555,7 @@ class Index extends Component {
                     <Td className="presEditDot scndOptionIner">
                       <a className="openScndhrf">
                         <img
-                          src={require("../../../../assets/images/three_dots_t.png")}
+                          src={require("assets/images/three_dots_t.png")}
                           alt=""
                           title=""
                           className="openScnd"
@@ -568,7 +568,7 @@ class Index extends Component {
                               }}
                             >
                               <img
-                                src={require("../../../../assets/images/details.svg")}
+                                src={require("assets/images/details.svg")}
                                 alt=""
                                 title=""
                               />
@@ -583,7 +583,7 @@ class Index extends Component {
                                 }}
                               >
                                 <img
-                                  src={require("../../../../assets/images/edit.svg")}
+                                  src={require("assets/images/edit.svg")}
                                   alt=""
                                   title=""
                                 />
@@ -599,7 +599,7 @@ class Index extends Component {
                                 }}
                               >
                                 <img
-                                  src={require("../../../../assets/images/cancel-request.svg")}
+                                  src={require("assets/images/cancel-request.svg")}
                                   alt=""
                                   title=""
                                 />
@@ -632,7 +632,7 @@ class Index extends Component {
                   <Grid className="opinCloseBtn">
                     <a onClick={this.handleCloseInqry}>
                       <img
-                        src={require("../../../../assets/images/close-search.svg")}
+                        src={require("assets/images/close-search.svg")}
                         alt=""
                         title=""
                       />
@@ -747,7 +747,7 @@ class Index extends Component {
                         fileUpload={this.fileUpload}
                       />
                       {/* <Grid className="attchbrowsInput">
-                                            <a><img src={require('../../../../assets/images/upload-file.svg')} alt="" title="" /></a>
+                                            <a><img src={require('assets/images/upload-file.svg')} alt="" title="" /></a>
                                             <a>Browse <input type="file" id="UploadDocument" name="UploadDocument" onChange={(e) => this.UploadFile(e)} /></a> or drag here
                                         </Grid> */}
                       {/* <p>Supported file types: .jpg, .png, .pdf</p> */}
@@ -786,7 +786,7 @@ class Index extends Component {
                   <Grid className="nwPresCloseBtn">
                     <a onClick={this.handleCloseShowSick}>
                       <img
-                        src={require("../../../../assets/images/close-search.svg")}
+                        src={require("assets/images/close-search.svg")}
                         alt=""
                         title=""
                       />
@@ -892,7 +892,7 @@ class Index extends Component {
                                     <Grid container direction="row" justify="center" alignItems="center">
                                         <Grid item xs={6} md={6}>
                                             <Grid className="infoShwHid2">
-                                                <a>Show or Hide <img src={require('../../../assets/images/Info.svg')} alt="" title="" /></a>
+                                                <a>Show or Hide <img src={require('assets/images/Info.svg')} alt="" title="" /></a>
                                             </Grid>
                                         </Grid>
                                         <Grid item xs={6} md={6} className="editShwHid2">

@@ -3,20 +3,20 @@ import Grid from "@material-ui/core/Grid";
 import "react-super-responsive-table/dist/SuperResponsiveTableStyle.css";
 import Modal from "@material-ui/core/Modal";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
-import LeftMenu from "./../../Components/Menus/PharmaLeftMenu/index";
-import LeftMenuMobile from "./../../Components/Menus/PharmaLeftMenu/mobile";
+import LeftMenu from "Screens/Components/Menus/PharmaLeftMenu/index";
+import LeftMenuMobile from "Screens/Components/Menus/PharmaLeftMenu/mobile";
 import Checkbox from "@material-ui/core/Checkbox";
-import Loader from "./../../Components/Loader/index";
-import { EmergencySet } from "../../Doctor/emergencyaction.js";
-import { LanguageFetchReducer } from "./../../actions";
+import Loader from "Screens/Components/Loader/index";
+import { EmergencySet } from "Screens/Doctor/emergencyaction.js";
+import { LanguageFetchReducer } from "Screens/actions";
 import { withRouter } from "react-router-dom";
-import sitedata from "../../../sitedata";
+import sitedata from "sitedata";
 import axios from "axios";
-import { authy } from "./../../Login/authy.js";
+import { authy } from "Screens/Login/authy.js";
 import { Redirect, Route } from "react-router-dom";
 import { connect } from "react-redux";
-import { LoginReducerAim } from "./../../Login/actions";
-import EmergencyCall from "./../../Components/EmergencyPage/index";
+import { LoginReducerAim } from "Screens/Login/actions";
+import EmergencyCall from "Screens/Components/EmergencyPage/index";
 import {
   translationAR,
   translationSW,
@@ -29,7 +29,7 @@ import {
   translationPT,
   translationFR
 } from "translations/index"
-import { Settings } from "./../../Login/setting";
+import { Settings } from "Screens/Login/setting";
 import Notification from "../../Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 
 class Index extends Component {
@@ -270,7 +270,7 @@ class Index extends Component {
                         <Grid className="paraCloseBtn">
                           <a onClick={this.handleClosePara}>
                             <img
-                              src={require("../../../assets/images/close-search.svg")}
+                              src={require("assets/images/close-search.svg")}
                               alt=""
                               title=""
                             />
@@ -296,7 +296,7 @@ class Index extends Component {
                       <Grid className="imptNotic">
                         <h2>
                           <img
-                            src={require("../../../assets/images/important-notice.svg")}
+                            src={require("assets/images/important-notice.svg")}
                             alt=""
                             title=""
                           />

@@ -223,13 +223,13 @@ class Index extends Component {
     if (file.name.split(".").pop() === "mp4") {
       this.setState({
         file: file,
-        imagePreviewUrl: require("../../../../assets/images/videoIcon.png"),
+        imagePreviewUrl: require("assets/images/videoIcon.png"),
       });
     }
     if (file.name.split(".").pop() === "pdf") {
       this.setState({
         file: file,
-        imagePreviewUrl: require("../../../../assets/images/pdfimg.png"),
+        imagePreviewUrl: require("assets/images/pdfimg.png"),
       });
     } else if (
       file.name.split(".").pop() === "doc" ||
@@ -239,7 +239,7 @@ class Index extends Component {
     ) {
       this.setState({
         file: file,
-        imagePreviewUrl: require("../../../../assets/images/txt1.png"),
+        imagePreviewUrl: require("assets/images/txt1.png"),
       });
     } else if (
       file.name.split(".").pop() === "xls" ||
@@ -248,12 +248,12 @@ class Index extends Component {
     ) {
       this.setState({
         file: file,
-        imagePreviewUrl: require("../../../../assets/images/xls1.svg"),
+        imagePreviewUrl: require("assets/images/xls1.svg"),
       });
     } else if (file.name.split(".").pop() === "csv") {
       this.setState({
         file: file,
-        imagePreviewUrl: require("../../../../assets/images/csv1.png"),
+        imagePreviewUrl: require("assets/images/csv1.png"),
       });
     } else if (
       file.name.split(".").pop() === "dcm" ||
@@ -263,7 +263,7 @@ class Index extends Component {
     ) {
       this.setState({
         file: file,
-        imagePreviewUrl: require("../../../../assets/images/dcm1.png"),
+        imagePreviewUrl: require("assets/images/dcm1.png"),
       });
     } else {
       this.setState({ file: file, imagePreviewUrl: URL.createObjectURL(file) });
@@ -531,7 +531,7 @@ class Index extends Component {
                   .pop() === "mp4"
               ) {
                 this.setState({
-                  imagePreviewUrl: require("../../../../assets/images/videoIcon.png"),
+                  imagePreviewUrl: require("assets/images/videoIcon.png"),
                 });
               }
               if (
@@ -541,7 +541,7 @@ class Index extends Component {
                   .pop() === "pdf"
               ) {
                 this.setState({
-                  imagePreviewUrl: require("../../../../assets/images/pdfimg.png"),
+                  imagePreviewUrl: require("assets/images/pdfimg.png"),
                 });
               } else if (
                 data.attachfile[0].filename
@@ -562,7 +562,7 @@ class Index extends Component {
                   .pop() === "txt"
               ) {
                 this.setState({
-                  imagePreviewUrl: require("../../../../assets/images/txt1.png"),
+                  imagePreviewUrl: require("assets/images/txt1.png"),
                 });
               } else if (
                 data.attachfile[0].filename
@@ -579,7 +579,7 @@ class Index extends Component {
                   .pop() === "xml"
               ) {
                 this.setState({
-                  imagePreviewUrl: require("../../../../assets/images/xls1.svg"),
+                  imagePreviewUrl: require("assets/images/xls1.svg"),
                 });
               } else if (
                 data.attachfile[0].filename
@@ -588,7 +588,7 @@ class Index extends Component {
                   .pop() === "csv"
               ) {
                 this.setState({
-                  imagePreviewUrl: require("../../../../assets/images/csv1.png"),
+                  imagePreviewUrl: require("assets/images/csv1.png"),
                 });
               } else if (
                 data.attachfile[0].filename
@@ -609,7 +609,7 @@ class Index extends Component {
                   .pop() === "dicom"
               ) {
                 this.setState({
-                  imagePreviewUrl: require("../../../../assets/images/dcm1.png"),
+                  imagePreviewUrl: require("assets/images/dcm1.png"),
                 });
               } else {
                 this.setState({ imagePreviewUrl: response2.data.data });
@@ -812,7 +812,7 @@ class Index extends Component {
                                 data.patient_info.profile_image,
                                 this.state.images
                               )
-                            : require("../../../../assets/images/dr1.jpg")
+                            : require("assets/images/dr1.jpg")
                         }
                         alt=""
                         title=""
@@ -854,7 +854,7 @@ class Index extends Component {
                     <Td className="presEditDot scndOptionIner">
                       <a className="openScndhrf">
                         <img
-                          src={require("../../../../assets/images/three_dots_t.png")}
+                          src={require("assets/images/three_dots_t.png")}
                           alt=""
                           title=""
                           className="openScnd"
@@ -867,7 +867,7 @@ class Index extends Component {
                               }}
                             >
                               <img
-                                src={require("../../../../assets/images/details.svg")}
+                                src={require("assets/images/details.svg")}
                                 alt=""
                                 title=""
                               />
@@ -883,7 +883,7 @@ class Index extends Component {
                             >
                               <a>
                                 <img
-                                  src={require("../../../../assets/images/edit.svg")}
+                                  src={require("assets/images/edit.svg")}
                                   alt=""
                                   title=""
                                 />
@@ -900,7 +900,7 @@ class Index extends Component {
                             >
                               <a>
                                 <img
-                                  src={require("../../../../assets/images/plus.png")}
+                                  src={require("assets/images/plus.png")}
                                   alt=""
                                   title=""
                                 />
@@ -916,7 +916,7 @@ class Index extends Component {
                             >
                               <a>
                                 <img
-                                  src={require("../../../../assets/images/cancel-request.svg")}
+                                  src={require("assets/images/cancel-request.svg")}
                                   alt=""
                                   title=""
                                 />
@@ -950,7 +950,7 @@ class Index extends Component {
                   <Grid className="opinCloseBtn">
                     <a onClick={this.handleClosePrescp}>
                       <img
-                        src={require("../../../../assets/images/close-search.svg")}
+                        src={require("assets/images/close-search.svg")}
                         alt=""
                         title=""
                       />
@@ -1044,7 +1044,7 @@ class Index extends Component {
                               <Grid className="browsInput">
                                 <a>
                                   <img
-                                    src={require("../../../../assets/images/upload-file.svg")}
+                                    src={require("assets/images/upload-file.svg")}
                                     alt=""
                                     title=""
                                   />
@@ -1072,7 +1072,7 @@ class Index extends Component {
                         </Dropzone>
                       )}
                       {/* <Grid className="scamUPInput">
-                                                <a><img src={require('../../../../assets/images/upload-file.svg')} alt="" title="" /></a>
+                                                <a><img src={require('assets/images/upload-file.svg')} alt="" title="" /></a>
                                                 <a>{browse} <input type="file" onChange={(e) => this.UploadFile(e, opinionData.patient_profile_id, opinionData.patient_info.bucket, opinionData._id)} /></a> {or_drag_here}
                                             </Grid>
                                             {(opinionData.status !== 'accept') && !$imagePreview && <p>{suported_file_type_jpg_png}</p>} */}
@@ -1095,7 +1095,7 @@ class Index extends Component {
                         </div>
                       )}
                       {/* <Grid className="attchbrowsInput">
-                                            <a><img src={require('../../../../assets/images/upload-file.svg')} alt="" title="" /></a>
+                                            <a><img src={require('assets/images/upload-file.svg')} alt="" title="" /></a>
                                             <a>Browse <input type="file" id="UploadDocument" name="UploadDocument" onChange={(e) => this.UploadFile(e)} /></a> or drag here
                                         </Grid> */}
                       {/* <p>Supported file types: .jpg, .png, .pdf</p> */}
@@ -1164,7 +1164,7 @@ class Index extends Component {
                 <Grid className="rejectCloseBtn">
                   <a onClick={this.handleCloseReject}>
                     <img
-                      src={require("../../../../assets/images/close-search.svg")}
+                      src={require("assets/images/close-search.svg")}
                       alt=""
                       title=""
                     />

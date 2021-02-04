@@ -200,7 +200,7 @@ class Index extends Component {
           if (fileType === "pdf") {
             this.setState({
               file: file,
-              imagePreviewUrl: require("../../../assets/images/pdfimg.png"),
+              imagePreviewUrl: require("assets/images/pdfimg.png"),
             });
           } else {
             this.setState({
@@ -540,7 +540,7 @@ class Index extends Component {
               <Grid className="phrmCloseBtn">
                 <a onClick={this.handleClosePharma}>
                   <img
-                    src={require("../../../assets/images/close-search.svg")}
+                    src={require("assets/images/close-search.svg")}
                     alt=""
                     title=""
                   />
@@ -603,7 +603,7 @@ class Index extends Component {
                     }
                   />
                   <img
-                    src={require("../../../assets/images/srchInputField.svg")}
+                    src={require("assets/images/srchInputField.svg")}
                     alt=""
                     title=""
                   />
@@ -664,7 +664,7 @@ class Index extends Component {
                         <Grid className="browsInput">
                           <a>
                             <img
-                              src={require("../../../assets/images/upload-file.svg")}
+                              src={require("assets/images/upload-file.svg")}
                               alt=""
                               title=""
                             />
@@ -687,7 +687,7 @@ class Index extends Component {
                   </Dropzone>
                 )}
                 {/* {!$imagePreview && <Grid className="upScanInput">
-                                    <a><img src={require('../../../assets/images/upload-file.svg')} alt="" title="" /></a>
+                                    <a><img src={require('assets/images/upload-file.svg')} alt="" title="" /></a>
                                     <a>{browse} <input type="file" onChange={this.CertificateAttach} /></a> {or_drag_here}
                                                                         </Grid>}
                                 {!$imagePreview && <p>{suported_file_type_jpg_png}</p>} */}

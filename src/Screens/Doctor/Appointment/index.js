@@ -886,28 +886,28 @@ class Index extends Component {
             >
               <Grid className="meetCourse">
                 <Grid className="meetCloseBtn">
-                  {/* <a><img src={require('../../../assets/images/three_dots_t.png')} alt="" title="" /></a> */}
-                  {/* <a><img src={require('../../../assets/images/close-search.svg')} alt="" title="" /></a> */}
+                  {/* <a><img src={require('assets/images/three_dots_t.png')} alt="" title="" /></a> */}
+                  {/* <a><img src={require('assets/images/close-search.svg')} alt="" title="" /></a> */}
                 </Grid>
                 <Grid className="meetVdo">
                   <Grid className="meetVdoLft">
                     {data.appointment_type == "online_appointment" && (
                       <img
-                        src={require("../../../assets/images/video-call.svg")}
+                        src={require("assets/images/video-call.svg")}
                         alt=""
                         title=""
                       />
                     )}
                     {data.appointment_type == "practice_days" && (
                       <img
-                        src={require("../../../assets/images/cal.png")}
+                        src={require("assets/images/cal.png")}
                         alt=""
                         title=""
                       />
                     )}
                     {data.appointment_type == "private_appointments" && (
                       <img
-                        src={require("../../../assets/images/ShapeCopy21.svg")}
+                        src={require("assets/images/ShapeCopy21.svg")}
                         alt=""
                         title=""
                       />
@@ -1158,7 +1158,7 @@ class Index extends Component {
                                               data.patient_info.profile_image,
                                               this.state.images
                                             )
-                                          : require("../../../assets/images/dr1.jpg")
+                                          : require("assets/images/dr1.jpg")
                                       }
                                       alt=""
                                       title=""
@@ -1173,7 +1173,7 @@ class Index extends Component {
                                     {data.appointment_type ==
                                       "online_appointment" && (
                                       <img
-                                        src={require("../../../assets/images/video-call.svg")}
+                                        src={require("assets/images/video-call.svg")}
                                         alt=""
                                         title=""
                                       />
@@ -1181,7 +1181,7 @@ class Index extends Component {
                                     {data.appointment_type ==
                                       "practice_days" && (
                                       <img
-                                        src={require("../../../assets/images/cal.png")}
+                                        src={require("assets/images/cal.png")}
                                         alt=""
                                         title=""
                                       />
@@ -1189,7 +1189,7 @@ class Index extends Component {
                                     {data.appointment_type ==
                                       "private_appointments" && (
                                       <img
-                                        src={require("../../../assets/images/ShapeCopy21.svg")}
+                                        src={require("assets/images/ShapeCopy21.svg")}
                                         alt=""
                                         title=""
                                       />
@@ -1230,7 +1230,7 @@ class Index extends Component {
                           <Grid className="timSltCal">
                             <p>
                               <img
-                                src={require("../../../assets/images/important-info.svg")}
+                                src={require("assets/images/important-info.svg")}
                                 alt=""
                                 title=""
                               />
@@ -1244,7 +1244,7 @@ class Index extends Component {
                             className="clsSltCal"
                           >
                             <img
-                              src={require("../../../assets/images/close-search.svg")}
+                              src={require("assets/images/close-search.svg")}
                               alt=""
                               title=""
                             />
@@ -1270,7 +1270,7 @@ class Index extends Component {
                                               .profile_image,
                                             this.state.images
                                           )
-                                        : require("../../../assets/images/dr1.jpg")
+                                        : require("assets/images/dr1.jpg")
                                     }
                                     alt=""
                                     title=""
@@ -1296,7 +1296,7 @@ class Index extends Component {
                                   {appoinmentSelected.appointment_type ==
                                     "online_appointment" && (
                                     <img
-                                      src={require("../../../assets/images/video-call.svg")}
+                                      src={require("assets/images/video-call.svg")}
                                       alt=""
                                       title=""
                                     />
@@ -1304,7 +1304,7 @@ class Index extends Component {
                                   {appoinmentSelected.appointment_type ==
                                     "practice_days" && (
                                     <img
-                                      src={require("../../../assets/images/cal.png")}
+                                      src={require("assets/images/cal.png")}
                                       alt=""
                                       title=""
                                     />
@@ -1312,7 +1312,7 @@ class Index extends Component {
                                   {appoinmentSelected.appointment_type ==
                                     "private_appointments" && (
                                     <img
-                                      src={require("../../../assets/images/ShapeCopy21.svg")}
+                                      src={require("assets/images/ShapeCopy21.svg")}
                                       alt=""
                                       title=""
                                     />
@@ -1524,7 +1524,7 @@ class Index extends Component {
                                                     Popper element
                                                     <div ref={setArrowElement} style={styles.arrow} />
                                                 </div> */}
-                        {/* <img src={require('../../../assets/images/uidoc.jpg')} alt="" title="" /> */}
+                        {/* <img src={require('assets/images/uidoc.jpg')} alt="" title="" /> */}
                       </Grid>
                     </Grid>
                   </Grid>

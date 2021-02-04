@@ -19,7 +19,7 @@ class Loader extends Component {
       >
         <Grid className="dataLoader">
           <img
-            src={require("../../../assets/images/LoaderAim.gif")}
+            src={require("assets/images/LoaderAim.gif")}
             alt=""
             title=""
           />

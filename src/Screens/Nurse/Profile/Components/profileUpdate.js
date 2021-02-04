@@ -999,7 +999,7 @@ class Index extends Component {
                     </span>
                     <a>
                       <img
-                        src={require("../../../../assets/images/copycopy.svg")}
+                        src={require("assets/images/copycopy.svg")}
                         onClick={() => this.copyText("profile_id")}
                         alt=""
                         title=""
@@ -1007,7 +1007,7 @@ class Index extends Component {
                     </a>
                     <a>
                       <img
-                        src={require("../../../../assets/images/qr-code.svg")}
+                        src={require("assets/images/qr-code.svg")}
                         onClick={this.handleQrOpen}
                         alt=""
                         title=""
@@ -1022,7 +1022,7 @@ class Index extends Component {
                     </span>
                     <a>
                       <img
-                        src={require("../../../../assets/images/copycopy.svg")}
+                        src={require("assets/images/copycopy.svg")}
                         onClick={() => this.copyText("profile_pin")}
                         alt=""
                         title=""
@@ -1049,7 +1049,7 @@ class Index extends Component {
                   <Grid className="qrCloseBtn">
                     <a onClick={this.handleQrClose}>
                       <img
-                        src={require("../../../../assets/images/close-search.svg")}
+                        src={require("assets/images/close-search.svg")}
                         alt=""
                         title=""
                       />
@@ -1105,7 +1105,7 @@ class Index extends Component {
                   <Grid className="editCloseBtn">
                     <a onClick={() => this.handlePinClose("chngPinOpen")}>
                       <img
-                        src={require("../../../../assets/images/close-search.svg")}
+                        src={require("assets/images/close-search.svg")}
                         alt=""
                         title=""
                       />

@@ -153,32 +153,32 @@ class ImageUploderView extends Component {
 
                 let previes = URL.createObjectURL(file);
                 if (fileType === "mp4") {
-                  previes = require("../../../assets/images/videoIcon.png");
+                  previes = require("assets/images/videoIcon.png");
                 }
                 if (fileType === "pdf" || fileType === "application/pdf") {
-                  previes = require("../../../assets/images/pdfimg.png");
+                  previes = require("assets/images/pdfimg.png");
                 } else if (
                   fileType === "doc" ||
                   fileType === "docx" ||
                   fileType === "xml" ||
                   fileType === "txt"
                 ) {
-                  previes = require("../../../assets/images/txt1.png");
+                  previes = require("assets/images/txt1.png");
                 } else if (
                   fileType === "xls" ||
                   fileType === "xlsx" ||
                   fileType === "xml"
                 ) {
-                  previes = require("../../../assets/images/xls1.svg");
+                  previes = require("assets/images/xls1.svg");
                 } else if (fileType === "csv") {
-                  previes = require("../../../assets/images/csv1.png");
+                  previes = require("assets/images/csv1.png");
                 } else if (
                   fileType === "dcm" ||
                   fileType === "DCM" ||
                   fileType === "DICOM" ||
                   fileType === "dicom"
                 ) {
-                  previes = require("../../../assets/images/dcm1.png");
+                  previes = require("assets/images/dcm1.png");
                 } else {
                   previes = URL.createObjectURL(file);
                 }
@@ -261,7 +261,7 @@ class ImageUploderView extends Component {
               <Grid className="browsInput">
                 <a>
                   <img
-                    src={require("../../../assets/images/upload-file.svg")}
+                    src={require("assets/images/upload-file.svg")}
                     alt=""
                     title=""
                   />
@@ -286,7 +286,7 @@ class ImageUploderView extends Component {
                 <Grid item xs={3} md={3} className="updatedfileLft">
                   {file.filetype === "mp4" && (
                     <img
-                      src={require("../../../assets/images/videoIcon.png")}
+                      src={require("assets/images/videoIcon.png")}
                       alt=""
                       title=""
                     />
@@ -303,7 +303,7 @@ class ImageUploderView extends Component {
                   )}
                   {file.filetype === "pdf" && (
                     <img
-                      src={require("../../../assets/images/pdfimg.png")}
+                      src={require("assets/images/pdfimg.png")}
                       alt=""
                       title=""
                     />
@@ -313,7 +313,7 @@ class ImageUploderView extends Component {
                     file.filetype === "xml" ||
                     file.filetype === "txt") && (
                     <img
-                      src={require("../../../assets/images/txt1.png")}
+                      src={require("assets/images/txt1.png")}
                       alt=""
                       title=""
                     />
@@ -322,14 +322,14 @@ class ImageUploderView extends Component {
                     file.filetype === "xlsx" ||
                     file.filetype === "xml") && (
                     <img
-                      src={require("../../../assets/images/xls1.svg")}
+                      src={require("assets/images/xls1.svg")}
                       alt=""
                       title=""
                     />
                   )}
                   {file.filetype === "csv" && (
                     <img
-                      src={require("../../../assets/images/csv1.png")}
+                      src={require("assets/images/csv1.png")}
                       alt=""
                       title=""
                     />
@@ -339,7 +339,7 @@ class ImageUploderView extends Component {
                     file.filetype === "dicom" ||
                     file.filetype === "DCM") && (
                     <img
-                      src={require("../../../assets/images/dcm1.png")}
+                      src={require("assets/images/dcm1.png")}
                       alt=""
                       title=""
                     />
@@ -354,7 +354,7 @@ class ImageUploderView extends Component {
                     onClick={() => {
                       this.delindex(file.filename);
                     }}
-                    src={require("../../../assets/images/closeCall.png")}
+                    src={require("assets/images/closeCall.png")}
                     alt=""
                     title=""
                   />

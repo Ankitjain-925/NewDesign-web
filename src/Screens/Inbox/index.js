@@ -12,7 +12,7 @@ class Index extends Component {
                             {/* Website Menu */}
                             <Grid item xs={12} md={1} className="MenuLeftUpr">
                                 <Grid className="webLogo">
-                                    <a href="/"><img src={require('../../assets/images/LogoPNG.png')} alt="" title="" /></a>
+                                    <a href="/"><img src={require('assets/images/LogoPNG.png')} alt="" title="" /></a>
                                 </Grid>
                                 <Grid className="menuItems">
                                     <ul>
@@ -42,41 +42,41 @@ class Index extends Component {
                                         </li>
                                         <li className="menuActv">
                                             <a href="/inbox">
-                                                <img src={require('../../assets/images/chatVideoActive.png')} alt="" title="" />
+                                                <img src={require('assets/images/chatVideoActive.png')} alt="" title="" />
                                                 <span>Chat & <br/> Videocalls</span>
                                             </a>
                                         </li>
                                         <li>
                                             <a href="/appointment">
-                                                <img src={require('../../assets/images/calenderIcon.jpg')} alt="" title="" />
+                                                <img src={require('assets/images/calenderIcon.jpg')} alt="" title="" />
                                                 <span>Appointments</span>
                                             </a>
                                         </li>
                                         <li>
                                             <a>
-                                                <img src={require('../../assets/images/apoint.jpg')} alt="" title="" />
+                                                <img src={require('assets/images/apoint.jpg')} alt="" title="" />
                                                 <span>My Documents</span>
                                             </a>
                                         </li>
                                         <li>
                                             <a>
-                                                <img src={require('../../assets/images/tracker.jpg')} alt="" title="" />
+                                                <img src={require('assets/images/tracker.jpg')} alt="" title="" />
                                                 <span>Trackers & <br /> Self Data</span>
                                             </a>
                                         </li>
                                         <li>
                                             <a className="moreMenu">
-                                                <img src={require('../../assets/images/moreicon.jpg')} alt="" title="" />
+                                                <img src={require('assets/images/moreicon.jpg')} alt="" title="" />
                                                 <span>More</span>
 
                                                 <div className="moreMenuList">
                                                     <ul>
-                                                        <li><a><img src={require('../../assets/images/menudocs.jpg')} alt="" title="" />Second Opinion</a></li>
-                                                        <li><a><img src={require('../../assets/images/menudocs.jpg')} alt="" title="" />Emergency Patient Data</a></li>
-                                                        <li><a><img src={require('../../assets/images/menudocs.jpg')} alt="" title="" />Aimedis Online Courses</a></li>
-                                                        <li><a><img src={require('../../assets/images/menudocs.jpg')} alt="" title="" />Extra Services</a></li>
-                                                        <li><a><img src={require('../../assets/images/menudocs.jpg')} alt="" title="" />Journal Archive</a></li>
-                                                        <li><a><img src={require('../../assets/images/menudocs.jpg')} alt="" title="" />Blockchain Access Log</a></li>
+                                                        <li><a><img src={require('assets/images/menudocs.jpg')} alt="" title="" />Second Opinion</a></li>
+                                                        <li><a><img src={require('assets/images/menudocs.jpg')} alt="" title="" />Emergency Patient Data</a></li>
+                                                        <li><a><img src={require('assets/images/menudocs.jpg')} alt="" title="" />Aimedis Online Courses</a></li>
+                                                        <li><a><img src={require('assets/images/menudocs.jpg')} alt="" title="" />Extra Services</a></li>
+                                                        <li><a><img src={require('assets/images/menudocs.jpg')} alt="" title="" />Journal Archive</a></li>
+                                                        <li><a><img src={require('assets/images/menudocs.jpg')} alt="" title="" />Blockchain Access Log</a></li>
                                                     </ul>
                                                 </div>
                                             </a>
@@ -84,15 +84,15 @@ class Index extends Component {
                                         </li>
                                         <li>
                                             <a className="profilMenu">
-                                                <img src={require('../../assets/images/useru.jpg')} alt="" title="" />
+                                                <img src={require('assets/images/useru.jpg')} alt="" title="" />
                                                 <span>My Profile</span>
 
                                                 <div className="profilMenuList">
                                                     <ul>
-                                                        <li><a><img src={require('../../assets/images/menudocs.jpg')} alt="" title="" />Profile Settings</a></li>
-                                                        <li><a><img src={require('../../assets/images/menudocs.jpg')} alt="" title="" />Language</a></li>
-                                                        <li><a><img src={require('../../assets/images/menudocs.jpg')} alt="" title="" />Dark Mode</a></li>
-                                                        <li><a><img src={require('../../assets/images/menudocs.jpg')} alt="" title="" />Log out</a></li>
+                                                        <li><a><img src={require('assets/images/menudocs.jpg')} alt="" title="" />Profile Settings</a></li>
+                                                        <li><a><img src={require('assets/images/menudocs.jpg')} alt="" title="" />Language</a></li>
+                                                        <li><a><img src={require('assets/images/menudocs.jpg')} alt="" title="" />Dark Mode</a></li>
+                                                        <li><a><img src={require('assets/images/menudocs.jpg')} alt="" title="" />Log out</a></li>
                                                     </ul>
                                                 </div>
 
@@ -112,7 +112,7 @@ class Index extends Component {
                                         <Grid className="chatContact">
                                             <h1>Contacts</h1>
                                             <Grid className="contactSrch">
-                                                <img src={require('../../assets/images/search-entries.svg')} alt="" title="" />
+                                                <img src={require('assets/images/search-entries.svg')} alt="" title="" />
                                                 <input type="text" placeholder="Search" />
                                             </Grid>
                                             <Grid className="onlineListing">
@@ -120,55 +120,55 @@ class Index extends Component {
                                                     <label>A</label>
                                                     <Grid>
                                                         <a>
-                                                            <img src={require('../../assets/images/chat11.jpg')} alt="" title="" />
+                                                            <img src={require('assets/images/chat11.jpg')} alt="" title="" />
                                                             <span>Darren Adams</span>
                                                         </a>
                                                         <a>
-                                                            <img src={require('../../assets/images/chat22.jpg')} alt="" title="" />
+                                                            <img src={require('assets/images/chat22.jpg')} alt="" title="" />
                                                             <span>Evelyn Allen</span>
                                                         </a>
                                                     </Grid>
                                                     <label>B</label>
                                                     <Grid>
                                                         <a>
-                                                            <img src={require('../../assets/images/chat33.jpg')} alt="" title="" />
+                                                            <img src={require('assets/images/chat33.jpg')} alt="" title="" />
                                                             <span>Kun Chang-Min</span>
                                                         </a>
                                                         <a>
-                                                            <img src={require('../../assets/images/chatimg.jpg')} alt="" title="" />
+                                                            <img src={require('assets/images/chatimg.jpg')} alt="" title="" />
                                                             <span>Heather Clark</span>
                                                         </a>
                                                         <a>
-                                                            <img src={require('../../assets/images/chat44.jpg')} alt="" title="" />
+                                                            <img src={require('assets/images/chat44.jpg')} alt="" title="" />
                                                             <span>Bárbara Cotilla</span>
                                                         </a>
                                                         <a>
-                                                            <img src={require('../../assets/images/chat55.jpg')} alt="" title="" />
+                                                            <img src={require('assets/images/chat55.jpg')} alt="" title="" />
                                                             <span>Gypsy Cardinge</span>
                                                         </a>
                                                     </Grid>
                                                     <label>C</label>
                                                     <Grid>
                                                         <a>
-                                                            <img src={require('../../assets/images/chat66.jpg')} alt="" title="" />
+                                                            <img src={require('assets/images/chat66.jpg')} alt="" title="" />
                                                             <span>Gauthier Drewitt</span>
                                                         </a>
                                                         <a>
-                                                            <img src={require('../../assets/images/chatimg.jpg')} alt="" title="" />
+                                                            <img src={require('assets/images/chatimg.jpg')} alt="" title="" />
                                                             <span>Cvita Doleschall</span>
                                                         </a>
                                                         <a>
-                                                            <img src={require('../../assets/images/chat77.jpg')} alt="" title="" />
+                                                            <img src={require('assets/images/chat77.jpg')} alt="" title="" />
                                                             <span>Irene Dotelo</span>
                                                         </a>
                                                     </Grid>
                                                 </Grid>
                                             </Grid>
                                             <Grid className="chatMenu">
-                                                <Grid><img src={require('../../assets/images/chatPerson.jpg')} alt="" title="" /></Grid>
-                                                <Grid><img src={require('../../assets/images/chatcall.jpg')} alt="" title="" /></Grid>
-                                                <Grid><img src={require('../../assets/images/chatmessage.jpg')} alt="" title="" /></Grid>
-                                                <Grid><img src={require('../../assets/images/chatdots.jpg')} alt="" title="" /></Grid>
+                                                <Grid><img src={require('assets/images/chatPerson.jpg')} alt="" title="" /></Grid>
+                                                <Grid><img src={require('assets/images/chatcall.jpg')} alt="" title="" /></Grid>
+                                                <Grid><img src={require('assets/images/chatmessage.jpg')} alt="" title="" /></Grid>
+                                                <Grid><img src={require('assets/images/chatdots.jpg')} alt="" title="" /></Grid>
                                             </Grid>
                                         </Grid>
                                     </Grid>

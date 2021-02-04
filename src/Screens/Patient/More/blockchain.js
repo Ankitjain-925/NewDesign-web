@@ -416,7 +416,7 @@ class Index extends Component {
                                               </label>
                                             </Grid>
                                             <img
-                                              src={require("../../../assets/images/down2.png")}
+                                              src={require("assets/images/down2.png")}
                                               alt=""
                                               title=""
                                               className="cstmDown"
