@@ -5,7 +5,7 @@ import ReactTooltip from "react-tooltip";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { LanguageFetchReducer } from "./../../../actions";
-
+import { pure } from "recompose";
 import {
   translationAR,
   translationSW,
@@ -236,6 +236,6 @@ const mapStateToProps = (state) => {
     stateLanguageType,
   };
 };
-export default withRouter(
+export default pure(withRouter(
   connect(mapStateToProps, { LanguageFetchReducer })(Index)
-);
+));

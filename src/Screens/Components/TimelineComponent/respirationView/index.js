@@ -9,6 +9,7 @@ import { connect } from "react-redux";
 import { GetShowLabel1 } from "../../GetMetaData/index.js";
 import DownloadFullTrack from "./../../DownloadFullTrack/index.js";
 import { LanguageFetchReducer } from "../../../actions";
+import { pure } from "recompose";
 import {
     translationAR,
     translationSW,
@@ -408,6 +409,6 @@ const mapStateToProps = (state) => {
         stateLanguageType,
     };
 };
-export default withRouter(
+export default pure(withRouter(
     connect(mapStateToProps, { LanguageFetchReducer })(Index)
-);
+));

@@ -6,6 +6,7 @@ import ShowHide from "./../../ShowHide/index";
 import NotesEditor from "./../../Editor/index";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
+import { pure } from "recompose";
 import { LanguageFetchReducer } from "./../../../actions";
 import {
   translationAR,
@@ -127,6 +128,6 @@ const mapStateToProps = (state) => {
     stateLanguageType,
   };
 };
-export default withRouter(
+export default pure(withRouter(
   connect(mapStateToProps, { LanguageFetchReducer })(Index)
-);
+));

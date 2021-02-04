@@ -1,14 +1,14 @@
 import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
 import Select from "react-select";
-import sitedata from "../../../sitedata";
+import sitedata from "sitedata";
 import axios from "axios";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import { LoginReducerAim } from "./../../Login/actions";
-import { Settings } from "./../../Login/setting";
-import { LanguageFetchReducer } from "./../../actions";
-import { authy } from "./../../Login/authy.js";
+import { LoginReducerAim } from "Screens/Login/actions";
+import { Settings } from "Screens/Login/setting";
+import { LanguageFetchReducer } from "Screens/actions";
+import { authy } from "Screens/Login/authy.js";
 import { OptionList } from "Screens/Login/metadataaction";
 import {
   translationAR,
@@ -28,18 +28,18 @@ import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 
-import { GetLanguageDropdown } from "../../Components/GetMetaData/index.js";
+import { GetLanguageDropdown } from "Screens/Components/GetMetaData/index.js";
 import "react-toggle/style.css";
-import Timezone from "./../../../timezon.json";
-import LeftMenu from "./../../Components/Menus/DoctorLeftMenu/index";
-import LeftMenuMobile from "./../../Components/Menus/DoctorLeftMenu/mobile";
+import Timezone from "timezon.json";
+import LeftMenu from "Screens/Components/Menus/DoctorLeftMenu/index";
+import LeftMenuMobile from "Screens/Components/Menus/DoctorLeftMenu/mobile";
 import MyProfile from "./Components/myProfile.js";
-import KYC from "./Components/kyc.js";
-import SecurityTab from "./Components/security.js";
+import KYC from "Screens/Components/CommonProfileSec/kyc.js";
+import SecurityTab from "Screens/Components/CommonProfileSec/security.js";
 import ServicesAppointment from "./Components/serviceAppointments.js";
-import DateTime from "./Components/dateTime.js";
+import DateTime from "Screens/Components/CommonProfileSec/DateTime";
 import OfficeInformation from "./Components/officeInformation.js";
-import Notification from "../../Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
+import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 import { Redirect, Route } from "react-router-dom";
 
 function TabContainer(props) {
@@ -318,7 +318,7 @@ class Index extends Component {
                       {/* Start of KYC section */}
                       {value === 4 && (
                         <TabContainer>
-                          <KYC />
+                          <KYC comesFrom="doctor"/>
                         </TabContainer>
                       )}
                       {/* End of KYC section */}

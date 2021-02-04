@@ -29,6 +29,7 @@ import {
   translationPT,
   translationFR
 } from "translations/index"
+// import { pure } from "recompose";
 class Index extends Component {
   constructor(props) {
     super(props);

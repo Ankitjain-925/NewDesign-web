@@ -24,6 +24,7 @@ import {
   translationPT,
   translationFR
 } from "translations/index"
+import { pure } from "recompose";
 
 var doctorArray = [];
 class Index extends Component {
@@ -321,6 +322,6 @@ const mapStateToProps = (state) => {
     stateLoginValueAim,
   };
 };
-export default withRouter(
+export default pure(withRouter(
   connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer })(Index)
-);
+));

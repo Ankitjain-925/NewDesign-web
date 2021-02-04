@@ -21,7 +21,7 @@ import {
   translationPT,
   translationFR
 } from "translations/index"
-
+import { pure } from "recompose";
 class Index extends Component {
   constructor(props) {
     super(props);
@@ -524,6 +524,6 @@ const mapStateToProps = (state) => {
     stateLanguageType,
   };
 };
-export default withRouter(
+export default pure(withRouter(
   connect(mapStateToProps, { LanguageFetchReducer })(Index)
-);
+));

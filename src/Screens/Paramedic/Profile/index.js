@@ -3,16 +3,16 @@
 import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
 import { Redirect, Route } from "react-router-dom";
-import sitedata from "../../../sitedata";
+import sitedata from "sitedata";
 import axios from "axios";
 import { withRouter } from "react-router-dom";
-import { authy } from "./../../Login/authy.js";
+import { authy } from "Screens/Login/authy.js";
 import { connect } from "react-redux";
-import { LoginReducerAim } from "./../../Login/actions";
-import { Settings } from "./../../Login/setting";
-import LeftMenu from "./../../Components/Menus/ParamedicLeftMenu/index.js";
-import LeftMenuMobile from "./../../Components/Menus/ParamedicLeftMenu/mobile";
-import { LanguageFetchReducer } from "./../../actions";
+import { LoginReducerAim } from "Screens/Login/actions";
+import { Settings } from "Screens/Login/setting";
+import LeftMenu from "Screens/Components/Menus/ParamedicLeftMenu/index.js";
+import LeftMenuMobile from "Screens/Components/Menus/ParamedicLeftMenu/mobile";
+import { LanguageFetchReducer } from "Screens/actions";
 import { OptionList } from "Screens/Login/metadataaction";
 import PropTypes from "prop-types";
 import AppBar from "@material-ui/core/AppBar";
@@ -34,9 +34,9 @@ import {
   translationPT,
   translationFR
 } from "translations/index"
-import Timezone from "./../../../timezon.json";
-import { GetLanguageDropdown } from "../../Components/GetMetaData/index.js";
-import Notification from "../../Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
+import Timezone from "timezon.json";
+import { GetLanguageDropdown } from "Screens/Components/GetMetaData/index.js";
+import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 function TabContainer(props) {
   return (
     <Typography component="div" className="tabsCntnts">

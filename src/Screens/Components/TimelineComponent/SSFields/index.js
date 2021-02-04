@@ -20,7 +20,7 @@ import {
   translationFR
 } from "translations/index"
 import { GetShowLabel1 } from "../../GetMetaData/index.js";
-
+import { pure } from "recompose";
 class Index extends Component {
   constructor(props) {
     super(props);
@@ -186,6 +186,6 @@ const mapStateToProps = (state) => {
     stateLanguageType,
   };
 };
-export default withRouter(
+export default pure(withRouter(
   connect(mapStateToProps, { LanguageFetchReducer })(Index)
-);
+));

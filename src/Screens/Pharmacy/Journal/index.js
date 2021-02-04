@@ -1707,6 +1707,7 @@ class Index extends Component {
                                   visibility={this.state.visibility}
                                   comesfrom="pharmacy"
                                   GetHideShow={this.GetHideShow}
+                                  gender={this.state.patient_gender}
                                   options={this.state.Anamnesis}
                                   AddTrack={this.AddTrack}
                                   date_format={

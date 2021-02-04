@@ -480,12 +480,16 @@ class Index extends Component {
 
   //For open Edit
   EidtOption = (value, updateTrack, visibility) => {
+    if (value === "vaccination_trial") {
+      this.setState({Positive_SARS : updateTrack.Positive_SARS,
+      SARS : updateTrack.SARS})
+    }
     this.setState(
       {
         updateOne: updateTrack.track_id,
         visibility: visibility,
         current_select: value,
-        updateTrack: updateTrack,
+        updateTrack: updateTrack
       },
       () => {
         this.handleaddInqryNw();
@@ -573,6 +577,7 @@ class Index extends Component {
   };
 
   FileAttachMultiVaccination = (Fileadd, name) => {
+    console.log('FileAttachMultiVaccination', Fileadd, name)
     if (name === "SARS") {
       this.setState({ SARS: Fileadd, fileupods: true });
     } else {
@@ -1566,6 +1571,7 @@ class Index extends Component {
                             {this.state.current_select === "anamnesis" && (
                               <AnamnesisFields
                                 cur_one={this.state.cur_one}
+                                gender={this.state.patient_gender}
                                 FileAttachMulti={this.FileAttachMulti}
                                 visibility={this.state.visibility}
                                 comesfrom="patient"

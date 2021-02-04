@@ -1,10 +1,4 @@
 import React, { Component } from 'react';
-import Grid from '@material-ui/core/Grid';
-import Collapsible from 'react-collapsible';
-import ReactTooltip from "react-tooltip";
-import { getDate, newdate, getTime, getImage } from './../../BasicMethod/index';
-
-
 class Index extends Component {
     constructor(props) {
         super(props)

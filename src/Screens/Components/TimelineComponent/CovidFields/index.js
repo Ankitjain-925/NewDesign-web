@@ -9,7 +9,7 @@ import NotesEditor from "../../Editor/index";
 import PainPoint from "../../PointPain/index";
 import PainIntensity from "../../PainIntansity/index";
 import Condition from "../../Condition/index";
-
+import { pure } from "recompose";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { LanguageFetchReducer } from "./../../../actions";
@@ -220,6 +220,6 @@ const mapStateToProps = (state) => {
     stateLanguageType,
   };
 };
-export default withRouter(
+export default pure(withRouter(
   connect(mapStateToProps, { LanguageFetchReducer })(Index)
-);
+));

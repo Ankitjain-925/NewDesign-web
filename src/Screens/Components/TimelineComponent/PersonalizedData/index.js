@@ -17,6 +17,7 @@ import {
   translationPT,
   translationFR
 } from "translations/index"
+import { pure } from "recompose";
 var data = [];
 
 class PersonalizedData extends Component {
@@ -73,7 +74,7 @@ class PersonalizedData extends Component {
       added_data.length > 0 &&
       added_data.map((item) => {
         if (
-          this.state.personalised_card.findIndex((x) => x.value === item) !== -1
+          this.state.personalised_card && this.state.personalised_card.length>0 && this.state.personalised_card.findIndex((x) => x.value === item) !== -1
         ) {
           Added.push(
             this.state.personalised_card[
@@ -256,6 +257,6 @@ const mapStateToProps = (state) => {
     stateLanguageType,
   };
 };
-export default withRouter(
+export default pure(withRouter(
   connect(mapStateToProps, { LanguageFetchReducer })(PersonalizedData)
-);
+));

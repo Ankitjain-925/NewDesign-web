@@ -501,6 +501,9 @@ class Index extends Component {
       u_r_nvr_obligate_to_upload_doc,
       country,
       Nurse,
+      Doctor,
+      registration,
+      capab_Doctors,
       in_critical_enviroment_id,
       responsible_authority,
     
@@ -519,6 +522,9 @@ class Index extends Component {
             </h5>}
             {this.props.comesFrom==='nurse' &&<h5>
               {Nurse} {ID} / {kyc}
+            </h5>}
+            {this.props.comesFrom==='doctor' &&<h5>
+              {capab_Doctors} {ID} / {kyc}
             </h5>}
             <p>{enter_healthcare_and_upload_data}</p>
           </Grid>
@@ -571,9 +577,8 @@ class Index extends Component {
 
               <Grid className="kycForms">
                 <Grid>
-                {this.props.comesFrom==='pharmacy' && this.props.comesFrom==='nurse' && <label>{responsible_authority}</label>}
+                {(this.props.comesFrom==='pharmacy' || this.props.comesFrom==='nurse'|| this.props.comesFrom==='doctor') && <label>{responsible_authority}</label>}
                 {this.props.comesFrom==='pateint' && <label>{insurance} {company}</label>}
-               
                 </Grid>
                 {this.state.CreateKYC &&
                   this.state.CreateKYC.country &&
@@ -604,7 +609,7 @@ class Index extends Component {
                 <Grid>
                   {this.props.comesFrom==='pharmacy' || this.props.comesFrom==='nurse' && <label>{reg_number_if_aplicble}</label>}
                   {this.props.comesFrom==='pateint' && <label>{insurance} {number}</label>}
-                  
+                  {this.props.comesFrom==='doctor' &&  <label>{registration} / {capab_Doctors} {number} </label>}
                 </Grid>
                 <Grid>
                   <input

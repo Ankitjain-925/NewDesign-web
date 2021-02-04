@@ -24,6 +24,8 @@ import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import NavigateBeforeIcon from "@material-ui/icons/NavigateBefore";
 import NavigateNextIcon from "@material-ui/icons/NavigateNext";
+import { pure } from "recompose";
+
 const CURRENT_DATE = moment().toDate();
 const localizer = momentLocalizer(moment);
 const options = [
@@ -237,6 +239,6 @@ const mapStateToProps = (state) => {
     stateLanguageType,
   };
 };
-export default withRouter(
+export default pure(withRouter(
   connect(mapStateToProps, { LanguageFetchReducer })(Index)
-);
+));
