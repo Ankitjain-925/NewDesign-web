@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
-import MMHG from "./../../mmHgField/index";
-import FileUploader from "./../../JournalFileUploader/index";
-import ShowHide from "./../../ShowHide/index";
-import NotesEditor from "./../../Editor/index";
+import MMHG from "Screens/Components/mmHgField/index";
+import FileUploader from "Screens/Components/JournalFileUploader/index";
+import ShowHide from "Screens/Components/ShowHide/index";
+import NotesEditor from "Screens/Components/Editor/index";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import { LanguageFetchReducer } from "./../../../actions";
+import { LanguageFetchReducer } from "Screens/actions";
 import {
   translationAR,
   translationSW,

@@ -1,23 +1,23 @@
 import React, { Component } from "react";
-import { LanguageFetchReducer } from "../actions";
+import { LanguageFetchReducer } from "Screens/actions";
 import { Redirect, Route } from "react-router-dom";
 import axios from "axios";
 import { connect } from "react-redux";
-import { LoginReducerAim } from "../Login/actions";
+import { LoginReducerAim } from "Screens/Login/actions";
 import Grid from "@material-ui/core/Grid";
-import { authy } from "../Login/authy.js";
+import { authy } from "Screens/Login/authy.js";
 import queryString from "query-string";
-import Loader from "./../Components/Loader/index";
-import { Settings } from "../Login/setting";
+import Loader from "Screens/Components/Loader/index";
+import { Settings } from "Screens/Login/setting";
 import Toggle from "react-toggle";
 import {
   NavLink,
   UncontrolledDropdown,
-  DropdownToggle,
+  DropdownToggle, 
   DropdownMenu,
   DropdownItem,
 } from "reactstrap";
-import sitedata from "../../sitedata";
+import sitedata from "sitedata";
 
 import {
   translationAR,

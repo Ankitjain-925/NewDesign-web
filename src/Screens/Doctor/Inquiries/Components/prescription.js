@@ -2,21 +2,21 @@ import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
 import { Table, Thead, Tbody, Tr, Th, Td } from "react-super-responsive-table";
 import "react-super-responsive-table/dist/SuperResponsiveTableStyle.css";
-import Loader from "./../../../Components/Loader/index.js";
+import Loader from "Screens/Components/Loader/index.js";
 import Typography from "@material-ui/core/Typography";
 import PropTypes from "prop-types";
 import Modal from "@material-ui/core/Modal";
-import sitedata, { data } from "../../../../sitedata";
+import sitedata, { data } from "sitedata";
 import axios from "axios";
 import Dropzone from "react-dropzone";
 import { Input } from "@material-ui/core";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { LoginReducerAim } from "../../../Login/actions";
-import { Settings } from "../../../Login/setting";
+import { LoginReducerAim } from "Screens/Login/actions";
+import { Settings } from "Screens/Login/setting";
 import { confirmAlert } from "react-confirm-alert"; // Import
-import { LanguageFetchReducer } from "../../../actions";
-import { getDate, getImage } from "../../../Components/BasicMethod/index";
+import { LanguageFetchReducer } from "Screens/actions";
+import { getDate, getImage } from "Screens/Components/BasicMethod/index";
 import {
   translationAR,
   translationSW,
@@ -29,7 +29,7 @@ import {
   translationPT,
   translationFR
 } from "translations/index"
-// import * as translationDE from '../../../../../translations/de_json_proofread_13072020.json';
+// import * as translationDE from '.Screens/../translations/de_json_proofread_13072020.json';
 function TabContainer(props) {
   return (
     <Typography component="div" className="tabsCntnts">

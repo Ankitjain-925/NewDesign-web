@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
-import sitedata from "../../../sitedata";
-import Loader from "./../../Components/Loader/index";
-import { LoginReducerAim } from "./../../Login/actions";
-import { Settings } from "./../../Login/setting";
+import sitedata from "sitedata";
+import Loader from "Screens/Components/Loader/index";
+import { LoginReducerAim } from "Screens/Login/actions";
+import { Settings } from "Screens/Login/setting";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import { LanguageFetchReducer } from "./../../actions";
+import { LanguageFetchReducer } from "Screens/actions";
 import { OptionList } from "Screens/Login/metadataaction";
 import {
   translationAR,
@@ -20,17 +20,17 @@ import {
   translationPT,
   translationFR
 } from "translations/index"
-import { EmergencySet } from "../../Doctor/emergencyaction";
-import { ConsoleCustom, getSpec } from "./../../Components/BasicMethod/index";
+import { EmergencySet } from "Screens/Doctor/emergencyaction";
+import { ConsoleCustom, getSpec } from "Screens/Components/BasicMethod/index";
 import axios from "axios";
-import OrganSection from "./../../Patient/Profile/Components/orgnaDonar";
+import OrganSection from "Screens/Patient/Profile/Components/orgnaDonar";
 import ReactFlagsSelect from "react-flags-select";
-import DoctorSection from "./../../Patient/Profile/Components/mydoctors";
+import DoctorSection from "Screens/Patient/Profile/Components/mydoctors";
 import {
   GetLanguageDropdown,
   GetShowLabel1,
   GetShowLabel,
-} from "../../Components/GetMetaData/index.js";
+} from "Screens/Components/GetMetaData/index.js";
 
 const path = sitedata.data.path + "/emergency_record";
 

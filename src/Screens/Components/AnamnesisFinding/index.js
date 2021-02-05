@@ -5,7 +5,7 @@ import Grid from "@material-ui/core/Grid";
 import NotesEditor from "./../Editor/index";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import { LanguageFetchReducer } from "../../actions";
+import { LanguageFetchReducer } from "Screens/actions";
 import { GetShowLabel1 } from "../GetMetaData/index.js";
 import {
   translationAR,

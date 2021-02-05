@@ -4,14 +4,14 @@ import PropTypes from "prop-types";
 import Typography from "@material-ui/core/Typography";
 import axios from "axios";
 import { connect } from "react-redux";
-import { LoginReducerAim } from "../../../Login/actions";
-import { Settings } from "../../../Login/setting";
+import { LoginReducerAim } from "Screens/Login/actions";
+import { Settings } from "Screens/Login/setting";
 import { withRouter } from "react-router-dom";
-import { LanguageFetchReducer } from "../../../actions";
-import sitedata, { data } from "../../../../sitedata";
+import { LanguageFetchReducer } from "Screens/actions";
+import sitedata, { data } from "sitedata";
 import { ConsoleCustom } from "../../BasicMethod";
 import Rating from "../../Rating";
-import Loader from "./../../../Components/Loader/index.js";
+import Loader from "Screens/Components/Loader/index.js";
 import {
   translationAR,
   translationSW,

@@ -4,27 +4,27 @@ import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 import Tabs from '@material-ui/core/Tabs';
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import { LoginReducerAim } from './../../Login/actions';
-import { LanguageFetchReducer } from './../../actions';
+import { LoginReducerAim } from 'Screens/Login/actions';
+import { LanguageFetchReducer } from 'Screens/actions';
 import Tab from '@material-ui/core/Tab';
 import AppBar from '@material-ui/core/AppBar';
 import Typography from '@material-ui/core/Typography';
 import PropTypes from 'prop-types';
-import { Settings } from './../../Login/setting';
+import { Settings } from 'Screens/Login/setting';
 import { Fitbit } from './fitbit.js';
 import { Withings } from './withing.js';
-import { Redirect, Route } from 'react-router-dom';
-import { authy } from './../../Login/authy.js';
+import { Redirect } from 'react-router-dom';
+import { authy } from 'Screens/Login/authy.js';
 import Modal from '@material-ui/core/Modal';
-import LeftMenu from './../../Components/Menus/PatientLeftMenu/index';
+import LeftMenu from 'Screens/Components/Menus/PatientLeftMenu/index';
 import axios from "axios"
 import Highcharts from "highcharts/highstock";
 import Battery30Icon from '@material-ui/icons/Battery30';
 import Battery60Icon from '@material-ui/icons/Battery60';
 import Battery90Icon from '@material-ui/icons/Battery90';
 import HighchartsReact from "highcharts-react-official";
-import { getDesc } from "../../Components/BasicMethod/index"
-import LeftMenuMobile from './../../Components/Menus/PatientLeftMenu/mobile';
+import { getDesc } from "Screens/Components/BasicMethod/index"
+import LeftMenuMobile from 'Screens/Components/Menus/PatientLeftMenu/mobile';
 import {
     translationAR,
     translationSW,
@@ -37,7 +37,7 @@ import {
     translationPT,
     translationFR
   } from "translations/index"
-import Notification from "../../Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
+import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 
 const withingsMeasureType = {
     Weight: 1,

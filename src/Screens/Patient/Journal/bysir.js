@@ -10,7 +10,7 @@ import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import Radio from '@material-ui/core/Radio';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import DatePicker from 'react-date-picker';
-import LeftMenu from './../../Components/Menus/PatientLeftMenu/index';
+import LeftMenu from 'Screens/Components/Menus/PatientLeftMenu/index';
 
 const options = [
     { value: 'data1', label: 'Data1' },
@@ -105,7 +105,7 @@ class Index extends Component {
                                                 <Grid className="dashCourse">
                                                     <Grid className="dashCloseBtn">
                                                         <a onClick={this.handleCloseDash}>
-                                                            <img src={require('../../../assets/images/close-search.svg')} alt="" title="" />
+                                                            <img src={require('.Screens/assets/images/close-search.svg')} alt="" title="" />
                                                         </a>
                                                     </Grid>
                                                     <Grid><label>Personalize dashboard</label></Grid>
@@ -114,29 +114,29 @@ class Index extends Component {
                                                 <Grid className="dragDash">
                                                     <Grid container direction="row" alignItems="center" justify="center" className="dragDashMain">
                                                         <Grid item xs={8} md={8} className="dragDashLft">
-                                                            <Grid><a><img src={require('../../../assets/images/remove-2.svg')} alt="" title="" /> Graph - Blood Pressure</a></Grid>
+                                                            <Grid><a><img src={require('.Screens/assets/images/remove-2.svg')} alt="" title="" /> Graph - Blood Pressure</a></Grid>
                                                         </Grid>
                                                         <Grid item xs={4} md={4} className="dragDashRght">
-                                                            <a><img src={require('../../../assets/images/drag.svg')} alt="" title="" /></a>
+                                                            <a><img src={require('.Screens/assets/images/drag.svg')} alt="" title="" /></a>
                                                         </Grid>
                                                     </Grid>
                                                     <Grid container direction="row" alignItems="center" justify="center" className="dragDashMain">
                                                         <Grid item xs={8} md={8} className="dragDashLft">
-                                                            <Grid><a><img src={require('../../../assets/images/remove-2.svg')} alt="" title="" /> Graph - Blood Pressure</a></Grid>
+                                                            <Grid><a><img src={require('.Screens/assets/images/remove-2.svg')} alt="" title="" /> Graph - Blood Pressure</a></Grid>
                                                         </Grid>
                                                         <Grid item xs={4} md={4} className="dragDashRght">
-                                                            <a><img src={require('../../../assets/images/drag.svg')} alt="" title="" /></a>
+                                                            <a><img src={require('.Screens/assets/images/drag.svg')} alt="" title="" /></a>
                                                         </Grid>
                                                     </Grid>
                                                 </Grid>
                                                 <Grid className="moreCards">
                                                     <h3>Add more cards</h3>
-                                                    <Grid><a><img src={require('../../../assets/images/add.svg')} alt="" title="" /> Graph - Blood Sugar</a></Grid>
-                                                    <Grid><a><img src={require('../../../assets/images/add.svg')} alt="" title="" /> Graph - Heart Rate</a></Grid>
-                                                    <Grid><a><img src={require('../../../assets/images/add.svg')} alt="" title="" /> Graph - Weight & BMI</a></Grid>
-                                                    <Grid><a><img src={require('../../../assets/images/add.svg')} alt="" title="" /> Creatinine</a></Grid>
-                                                    <Grid><a><img src={require('../../../assets/images/add.svg')} alt="" title="" /> Upcoming appointment</a></Grid>
-                                                    <Grid><a><img src={require('../../../assets/images/add.svg')} alt="" title="" /> Last documents</a></Grid>
+                                                    <Grid><a><img src={require('.Screens/assets/images/add.svg')} alt="" title="" /> Graph - Blood Sugar</a></Grid>
+                                                    <Grid><a><img src={require('.Screens/assets/images/add.svg')} alt="" title="" /> Graph - Heart Rate</a></Grid>
+                                                    <Grid><a><img src={require('.Screens/assets/images/add.svg')} alt="" title="" /> Graph - Weight & BMI</a></Grid>
+                                                    <Grid><a><img src={require('.Screens/assets/images/add.svg')} alt="" title="" /> Creatinine</a></Grid>
+                                                    <Grid><a><img src={require('.Screens/assets/images/add.svg')} alt="" title="" /> Upcoming appointment</a></Grid>
+                                                    <Grid><a><img src={require('.Screens/assets/images/add.svg')} alt="" title="" /> Last documents</a></Grid>
                                                 </Grid>
                                             </Grid>
                                         </Modal>
@@ -193,7 +193,7 @@ class Index extends Component {
                                                         <Grid item xs={12} md={2} className="clear_filter">
                                                             <Grid className="clear_filterUpr">
                                                                 <Grid className="clear_filterLft"><a>Clear filters</a></Grid>
-                                                                <Grid className="clear_filterRght"><a><img src={require('../../../assets/images/clearSrch.jpg')} alt="" title="" /></a></Grid>
+                                                                <Grid className="clear_filterRght"><a><img src={require('.Screens/assets/images/clearSrch.jpg')} alt="" title="" /></a></Grid>
                                                             </Grid>
                                                         </Grid>
                                                         <Grid className="clear"></Grid>
@@ -219,22 +219,22 @@ class Index extends Component {
                                                     <Grid container direction="row" className="addSpc">
                                                         <Grid item xs={12} md={6}>
                                                             <Grid className="diagnosImg">
-                                                                <a className="diagnosNote"><img src={require('../../../assets/images/condition-diagnosis-family-anamnesis-diary.svg')} alt="" title="" /><span>Diagnosis</span> </a>
-                                                                <a className="diagnosAwrd"><img src={require('../../../assets/images/confirmed-diagnosis.svg')} alt="" title="" /></a>
-                                                                <a className="diagnosBus"><img src={require('../../../assets/images/emergency-diagnosis.svg')} alt="" title="" /></a>
+                                                                <a className="diagnosNote"><img src={require('.Screens/assets/images/condition-diagnosis-family-anamnesis-diary.svg')} alt="" title="" /><span>Diagnosis</span> </a>
+                                                                <a className="diagnosAwrd"><img src={require('.Screens/assets/images/confirmed-diagnosis.svg')} alt="" title="" /></a>
+                                                                <a className="diagnosBus"><img src={require('.Screens/assets/images/emergency-diagnosis.svg')} alt="" title="" /></a>
                                                             </Grid>
                                                         </Grid>
                                                         <Grid item xs={12} md={6}>
                                                             <Grid className="vsblSec">
-                                                                <a className="vsblEye"><img src={require('../../../assets/images/eye2.png')} alt="" title="" /> {item.visible === 'show' ?<span>Visible</span> : item.visible=== 'hide' ? <span>Hide</span> : <span>Not mentioned</span>}   </a>
+                                                                <a className="vsblEye"><img src={require('.Screens/assets/images/eye2.png')} alt="" title="" /> {item.visible === 'show' ?<span>Visible</span> : item.visible=== 'hide' ? <span>Hide</span> : <span>Not mentioned</span>}   </a>
                                                                 <a className="vsblTime" data-tip data-for="timeIconTip">
-                                                                    <img src={require('../../../assets/images/clock.svg')} alt="" title="" />
+                                                                    <img src={require('.Screens/assets/images/clock.svg')} alt="" title="" />
                                                                 </a>
                                                                 <ReactTooltip className="timeIconClas" id="timeIconTip" place="top" effect="solid" backgroundColor="#ffffff">
                                                                     <label>Visible until</label>
                                                                     <p>12/08/2020</p>
                                                                 </ReactTooltip>
-                                                                <a className="vsblDots"><img src={require('../../../assets/images/nav-more.svg')} alt="" title="" /></a>
+                                                                <a className="vsblDots"><img src={require('.Screens/assets/images/nav-more.svg')} alt="" title="" /></a>
                                                             </Grid>
                                                         </Grid>
                                                         <Grid className="clear"></Grid>
@@ -251,14 +251,14 @@ class Index extends Component {
                                                     <Grid container direction="row" className="addSpc markCntntMain">
                                                         <Grid item xs={12} md={5}>
                                                             <Grid className="markCntntImg">
-                                                                <a><img src={require('../../../assets/images/person1.jpg')} alt="" title="" />
+                                                                <a><img src={require('.Screens/assets/images/person1.jpg')} alt="" title="" />
                                                                     <span>Mark Anderson M.D. (Doctor)</span>
                                                                 </a>
                                                             </Grid>
                                                         </Grid>
                                                         <Grid item xs={12} md={7}>
                                                             <Grid className="markMDCntntImg">
-                                                                <a><img src={require('../../../assets/images/hLogo.jpg')} alt="" title="" />
+                                                                <a><img src={require('.Screens/assets/images/hLogo.jpg')} alt="" title="" />
                                                                     <span>Illinois Masonic Medical Center</span>
                                                                 </a>
                                                             </Grid>
@@ -297,7 +297,7 @@ class Index extends Component {
                                                                             <Grid item xs={7} md={7}>
                                                                                 <span>Yes</span>
                                                                                 <a className="yesInfo" data-tip data-for="yesInfoTip">
-                                                                                    <img src={require('../../../assets/images/yesinfo.jpg')} alt="" title="" />
+                                                                                    <img src={require('.Screens/assets/images/yesinfo.jpg')} alt="" title="" />
                                                                                 </a>
                                                                                 <ReactTooltip className="yesInfoClas" id="yesInfoTip" place="top" effect="solid" backgroundColor="#ffffff">
                                                                                     <h4>Traveled to Africa</h4>
@@ -328,9 +328,9 @@ class Index extends Component {
                                                     <Grid className="addSpc detailMark">
                                                         <Collapsible trigger="Images & Files" open="true">
                                                             <Grid className="imgsFile">
-                                                                <a><img src={require('../../../assets/images/agedman.png')} alt="" title="" />
+                                                                <a><img src={require('.Screens/assets/images/agedman.png')} alt="" title="" />
                                                                     <label>IMG_23_6_2020_09_18.jpg</label></a>
-                                                                <a><img src={require('../../../assets/images/pdfimg.png')} alt="" title="" />
+                                                                <a><img src={require('.Screens/assets/images/pdfimg.png')} alt="" title="" />
                                                                     <label>No_name_file.pdf</label></a>
                                                             </Grid>
                                                         </Collapsible>
@@ -356,14 +356,14 @@ class Index extends Component {
                                                     <Grid container direction="row" className="addSpc">
                                                         <Grid item xs={12} md={6}>
                                                             <Grid className="conPainImg">
-                                                                <a className="conPainNote"><img src={require('../../../assets/images/condition-diagnosis-family-anamnesis-diary.svg')} alt="" title="" /><span>Condition and Pain</span> </a>
-                                                                <a className="conPainAwrd"><img src={require('../../../assets/images/confirmed-diagnosis.svg')} alt="" title="" /></a>
+                                                                <a className="conPainNote"><img src={require('.Screens/assets/images/condition-diagnosis-family-anamnesis-diary.svg')} alt="" title="" /><span>Condition and Pain</span> </a>
+                                                                <a className="conPainAwrd"><img src={require('.Screens/assets/images/confirmed-diagnosis.svg')} alt="" title="" /></a>
                                                             </Grid>
                                                         </Grid>
                                                         <Grid item xs={12} md={6}>
                                                             <Grid className="conPainSec">
-                                                                <a className="conPainEye"><img src={require('../../../assets/images/eye2.png')} alt="" title="" /> <span>Hidden</span> </a>
-                                                                <a className="conPainDots"><img src={require('../../../assets/images/nav-more.svg')} alt="" title="" /></a>
+                                                                <a className="conPainEye"><img src={require('.Screens/assets/images/eye2.png')} alt="" title="" /> <span>Hidden</span> </a>
+                                                                <a className="conPainDots"><img src={require('.Screens/assets/images/nav-more.svg')} alt="" title="" /></a>
                                                             </Grid>
                                                         </Grid>
                                                         <Grid className="clear"></Grid>
@@ -377,14 +377,14 @@ class Index extends Component {
                                                     <Grid container direction="row" className="addSpc conPain_Cntnt">
                                                         <Grid item xs={12} md={5}>
                                                             <Grid className="conPain_Img">
-                                                                <a><img src={require('../../../assets/images/person1.jpg')} alt="" title="" />
+                                                                <a><img src={require('.Screens/assets/images/person1.jpg')} alt="" title="" />
                                                                     <span>Mark Anderson M.D. (Doctor)</span>
                                                                 </a>
                                                             </Grid>
                                                         </Grid>
                                                         <Grid item xs={12} md={7}>
                                                             <Grid className="conPain_MDCImg">
-                                                                <a><img src={require('../../../assets/images/hLogo.jpg')} alt="" title="" />
+                                                                <a><img src={require('.Screens/assets/images/hLogo.jpg')} alt="" title="" />
                                                                     <span>Illinois Masonic Medical Center</span>
                                                                 </a>
                                                             </Grid>
@@ -396,21 +396,21 @@ class Index extends Component {
                                                         <Grid item xs={12} md={5}>
                                                             <Grid className="conPainLft">
                                                                 <Grid className="conPainArea"><label>Pain areas</label></Grid>
-                                                                <a><img src={require('../../../assets/images/pat22.png')} alt="" title="" /></a>
-                                                                <a><img src={require('../../../assets/images/patient-back.svg')} alt="" title="" /></a>
+                                                                <a><img src={require('.Screens/assets/images/pat22.png')} alt="" title="" /></a>
+                                                                <a><img src={require('.Screens/assets/images/patient-back.svg')} alt="" title="" /></a>
                                                             </Grid>
                                                         </Grid>
                                                         <Grid item xs={12} md={7}>
                                                             <Grid className="conPainRght">
                                                                 <Grid className="painIntencty">
                                                                     <Grid><label>Pain intensity</label></Grid>
-                                                                    <Grid><a><img src={require('../../../assets/images/pain.png')} alt="" title="" />Moderate (42)</a></Grid>
+                                                                    <Grid><a><img src={require('.Screens/assets/images/pain.png')} alt="" title="" />Moderate (42)</a></Grid>
                                                                     <Grid> <input type="range" /></Grid>
                                                                 </Grid>
 
                                                                 <Grid className="condIntencty">
                                                                     <Grid><label>Condition (How are you?)</label></Grid>
-                                                                    <Grid><a><img src={require('../../../assets/images/condition.png')} alt="" title="" />83</a></Grid>
+                                                                    <Grid><a><img src={require('.Screens/assets/images/condition.png')} alt="" title="" />83</a></Grid>
                                                                     <Grid> <input type="range" /></Grid>
                                                                 </Grid>
                                                             </Grid>
@@ -473,15 +473,15 @@ class Index extends Component {
                                                     <Grid container direction="row" className="addSpc">
                                                         <Grid item xs={12} md={6}>
                                                             <Grid className="blodPrsurImg">
-                                                                <a className="blodPrsurNote"><img src={require('../../../assets/images/blood-pressure-sugar.svg')} alt="" title="" />
+                                                                <a className="blodPrsurNote"><img src={require('.Screens/assets/images/blood-pressure-sugar.svg')} alt="" title="" />
                                                                     <span>Blood Pressure</span>
                                                                 </a>
                                                             </Grid>
                                                         </Grid>
                                                         <Grid item xs={12} md={6}>
                                                             <Grid className="bp_vsblSec">
-                                                                <a className="bp_vsblEye"><img src={require('../../../assets/images/eye2.png')} alt="" title="" /> {item.visible === 'show' ?<span>Visible</span> : item.visible=== 'hide' ? <span>Hide</span> : <span>Not mentioned</span>}   </a>
-                                                                <a className="bp_vsblDots"><img src={require('../../../assets/images/nav-more.svg')} alt="" title="" /></a>
+                                                                <a className="bp_vsblEye"><img src={require('.Screens/assets/images/eye2.png')} alt="" title="" /> {item.visible === 'show' ?<span>Visible</span> : item.visible=== 'hide' ? <span>Hide</span> : <span>Not mentioned</span>}   </a>
+                                                                <a className="bp_vsblDots"><img src={require('.Screens/assets/images/nav-more.svg')} alt="" title="" /></a>
                                                             </Grid>
                                                         </Grid>
                                                         <Grid className="clear"></Grid>
@@ -495,7 +495,7 @@ class Index extends Component {
                                                     <Grid container direction="row" className="addSpc bpJohnMain">
                                                         <Grid item xs={12} md={12}>
                                                             <Grid className="bpJohnImg">
-                                                                <a><img src={require('../../../assets/images/person1.jpg')} alt="" title="" />
+                                                                <a><img src={require('.Screens/assets/images/person1.jpg')} alt="" title="" />
                                                                     <span>James Morrison (Patient)</span>
                                                                 </a>
                                                             </Grid>
@@ -545,7 +545,7 @@ class Index extends Component {
                                                                     <Grid className="clear"></Grid>
                                                                 </Grid>
                                                                 <Grid className="bp_graph">
-                                                                    <Grid><img src={require('../../../assets/images/gp.png')} alt="" title="" /></Grid>
+                                                                    <Grid><img src={require('.Screens/assets/images/gp.png')} alt="" title="" /></Grid>
                                                                     <Grid><a>View in fullscreen</a></Grid>
                                                                 </Grid>
                                                             </Grid>
@@ -570,14 +570,14 @@ class Index extends Component {
                                                     <Grid container direction="row" className="addSpc">
                                                         <Grid item xs={12} md={6}>
                                                             <Grid className="diryImg">
-                                                                <a className="diryNote"><img src={require('../../../assets/images/condition-diagnosis-family-anamnesis-diary.svg')} alt="" title="" />
+                                                                <a className="diryNote"><img src={require('.Screens/assets/images/condition-diagnosis-family-anamnesis-diary.svg')} alt="" title="" />
                                                                     <span>Diary</span> </a>
                                                             </Grid>
                                                         </Grid>
                                                         <Grid item xs={12} md={6}>
                                                             <Grid className="hideSec">
-                                                                <a className="hideEye"><img src={require('../../../assets/images/eye2.png')} alt="" title="" /> <span>Hidden</span> </a>
-                                                                <a className="hideDots"><img src={require('../../../assets/images/nav-more.svg')} alt="" title="" /></a>
+                                                                <a className="hideEye"><img src={require('.Screens/assets/images/eye2.png')} alt="" title="" /> <span>Hidden</span> </a>
+                                                                <a className="hideDots"><img src={require('.Screens/assets/images/nav-more.svg')} alt="" title="" /></a>
                                                             </Grid>
                                                         </Grid>
                                                         <Grid className="clear"></Grid>
@@ -590,7 +590,7 @@ class Index extends Component {
                                                     <Grid container direction="row" className="addSpc diryCntntMain">
                                                         <Grid item xs={12} md={12}>
                                                             <Grid className="diryCntntImg">
-                                                                <a><img src={require('../../../assets/images/person1.jpg')} alt="" title="" />
+                                                                <a><img src={require('.Screens/assets/images/person1.jpg')} alt="" title="" />
                                                                     <span>James Morrison (Patient)</span>
                                                                 </a>
                                                             </Grid>
@@ -629,7 +629,7 @@ class Index extends Component {
                                     <Grid className="profileDescp">
                                         <Grid className="myProfile">
                                             <a className="profilePic">
-                                                <img src={require('../../../assets/images/agedman.jpg')} alt="" title="" />
+                                                <img src={require('.Screens/assets/images/agedman.jpg')} alt="" title="" />
                                             </a>
                                         </Grid>
                                         <Grid className="profileName">
@@ -647,7 +647,7 @@ class Index extends Component {
                                                         <Grid className="nwDiaCourse">
                                                             <Grid className="nwDiaCloseBtn">
                                                                 <a onClick={this.handleCloseInqryNw}>
-                                                                    <img src={require('../../../assets/images/close-search.svg')} alt="" title="" />
+                                                                    <img src={require('.Screens/assets/images/close-search.svg')} alt="" title="" />
                                                                 </a>
                                                             </Grid>
                                                             <p>New entry</p>
@@ -674,7 +674,7 @@ class Index extends Component {
                                                                         />
                                                                     </Grid>
                                                                     <Grid item xs={12} md={4} className="cnfrmDiaRght">
-                                                                        <img src={require('../../../assets/images/plusgreen.jpg')} alt="" title="" />
+                                                                        <img src={require('.Screens/assets/images/plusgreen.jpg')} alt="" title="" />
                                                                     </Grid>
                                                                 </Grid>
                                                                 <Grid container direction="row">
@@ -690,7 +690,7 @@ class Index extends Component {
                                                                         />
                                                                     </Grid>
                                                                     <Grid item xs={12} md={4} className="cnfrmDiaRght">
-                                                                        <img src={require('../../../assets/images/plusvan.jpg')} alt="" title="" />
+                                                                        <img src={require('.Screens/assets/images/plusvan.jpg')} alt="" title="" />
                                                                     </Grid>
                                                                 </Grid>
                                                             </Grid>
@@ -706,7 +706,7 @@ class Index extends Component {
                                                             <Grid className="srchDia">
                                                                 <Grid className="srchdoseMg">
                                                                     <input type="text" placeholder="Enter code or search by keywords" />
-                                                                    <span><img src={require('../../../assets/images/search-entries.svg')} alt="" title="" /></span>
+                                                                    <span><img src={require('.Screens/assets/images/search-entries.svg')} alt="" title="" /></span>
                                                                 </Grid>
                                                             </Grid>
                                                             <Grid className="travelDia">
@@ -753,7 +753,7 @@ class Index extends Component {
                                                             <Grid className="attchForms attchImg">
                                                                 <Grid><label>Attachments</label></Grid>
                                                                 <Grid className="attchInput">
-                                                                    <a><img src={require('../../../assets/images/upload-file.svg')} alt="" title="" /></a>
+                                                                    <a><img src={require('.Screens/assets/images/upload-file.svg')} alt="" title="" /></a>
                                                                     <a>Browse <input type="file" /></a> or drag here
                                                                 </Grid>
                                                                 <p>Supported file types: .jpg, .png, .pdf</p>
@@ -765,7 +765,7 @@ class Index extends Component {
                                                                 <Grid container direction="row" justify="center" alignItems="center">
                                                                     <Grid item xs={6} md={6}>
                                                                         <Grid className="infoShwHid3">
-                                                                            <a>Show or Hide <img src={require('../../../assets/images/Info.svg')} alt="" title="" /></a>
+                                                                            <a>Show or Hide <img src={require('.Screens/assets/images/Info.svg')} alt="" title="" /></a>
                                                                         </Grid>
                                                                     </Grid>
                                                                     <Grid item xs={6} md={6} className="editShwHid3">
@@ -793,7 +793,7 @@ class Index extends Component {
                                                 <Grid className="entryCourse">
                                                     <Grid className="entryCloseBtn">
                                                         <a onClick={this.handleCloseEntry}>
-                                                            <img src={require('../../../assets/images/close-search.svg')} alt="" title="" />
+                                                            <img src={require('.Screens/assets/images/close-search.svg')} alt="" title="" />
                                                         </a>
                                                     </Grid>
                                                     <Grid><label>Select entry type</label></Grid>
@@ -858,7 +858,7 @@ class Index extends Component {
 
                                     <Grid className="Personal_dash">
                                         <a onClick={this.handleaddInqrySw}>
-                                            <img src={require('../../../assets/images/bpupr.png')} alt="" title="" />
+                                            <img src={require('.Screens/assets/images/bpupr.png')} alt="" title="" />
                                             Personalize dashboard
                                         </a>
                                     </Grid>
@@ -873,7 +873,7 @@ class Index extends Component {
                                                 <Grid className="nwDiaCourse">
                                                     <Grid className="nwDiaCloseBtn">
                                                         <a onClick={this.handleCloseInqrySw}>
-                                                            <img src={require('../../../assets/images/close-search.svg')} alt="" title="" />
+                                                            <img src={require('.Screens/assets/images/close-search.svg')} alt="" title="" />
                                                         </a>
                                                     </Grid>
                                                     <p>New entry</p>
@@ -900,7 +900,7 @@ class Index extends Component {
                                                                 />
                                                             </Grid>
                                                             <Grid item xs={12} md={4} className="cnfrmDiaRght">
-                                                                <img src={require('../../../assets/images/plusgreen.jpg')} alt="" title="" />
+                                                                <img src={require('.Screens/assets/images/plusgreen.jpg')} alt="" title="" />
                                                             </Grid>
                                                         </Grid>
                                                         <Grid container direction="row">
@@ -916,7 +916,7 @@ class Index extends Component {
                                                                 />
                                                             </Grid>
                                                             <Grid item xs={12} md={4} className="cnfrmDiaRght">
-                                                                <img src={require('../../../assets/images/plusvan.jpg')} alt="" title="" />
+                                                                <img src={require('.Screens/assets/images/plusvan.jpg')} alt="" title="" />
                                                             </Grid>
                                                         </Grid>
                                                     </Grid>
@@ -940,7 +940,7 @@ class Index extends Component {
                                                     {/* <Grid className="srchDia">
                                                         <Grid className="srchdoseMg">
                                                             <input type="text" placeholder="Enter code or search by keywords" />
-                                                            <span><img src={require('../../../assets/images/search-entries.svg')} alt="" title="" /></span>
+                                                            <span><img src={require('.Screens/assets/images/search-entries.svg')} alt="" title="" /></span>
                                                         </Grid>
                                                     </Grid> */}
 
@@ -990,7 +990,7 @@ class Index extends Component {
                                                     <Grid className="attchForms attchImg">
                                                         <Grid><label>Attachments</label></Grid>
                                                         <Grid className="attchInput">
-                                                            <a><img src={require('../../../assets/images/upload-file.svg')} alt="" title="" /></a>
+                                                            <a><img src={require('.Screens/assets/images/upload-file.svg')} alt="" title="" /></a>
                                                             <a>Browse <input type="file" /></a> or drag here
                                                                 </Grid>
                                                         <p>Supported file types: .jpg, .png, .pdf</p>
@@ -998,14 +998,14 @@ class Index extends Component {
 
                                                     <Grid>
                                                         <Grid className="uploadImgs">
-                                                            <Grid className="uploadImgsLft"><img src={require('../../../assets/images/agedman.png')} alt="" title="" /></Grid>
+                                                            <Grid className="uploadImgsLft"><img src={require('.Screens/assets/images/agedman.png')} alt="" title="" /></Grid>
                                                             <Grid className="uploadImgsMid"><p>IMG_23_6_2020_09_18.jpg</p></Grid>
-                                                            <Grid className="uploadImgsRght"><img src={require('../../../assets/images/remove-1.svg')} alt="" title="" /></Grid>
+                                                            <Grid className="uploadImgsRght"><img src={require('.Screens/assets/images/remove-1.svg')} alt="" title="" /></Grid>
                                                         </Grid>
                                                         <Grid className="uploadImgs">
-                                                            <Grid className="uploadImgsLft"><img src={require('../../../assets/images/agedman.png')} alt="" title="" /></Grid>
+                                                            <Grid className="uploadImgsLft"><img src={require('.Screens/assets/images/agedman.png')} alt="" title="" /></Grid>
                                                             <Grid className="uploadImgsMid"><p>IMG_23_6_2020_09_18.jpg</p></Grid>
-                                                            <Grid className="uploadImgsRght"><img src={require('../../../assets/images/remove-1.svg')} alt="" title="" /></Grid>
+                                                            <Grid className="uploadImgsRght"><img src={require('.Screens/assets/images/remove-1.svg')} alt="" title="" /></Grid>
                                                         </Grid>
                                                     </Grid>
 
@@ -1066,7 +1066,7 @@ class Index extends Component {
                                             </Grid>
                                             <Grid item xs={6} md={6}>
                                                 <Grid className="persBlodImg">
-                                                    <img src={require('../../../assets/images/nav-more.svg')} alt="" title="" />
+                                                    <img src={require('.Screens/assets/images/nav-more.svg')} alt="" title="" />
                                                 </Grid>
                                             </Grid>
                                         </Grid>
@@ -1075,7 +1075,7 @@ class Index extends Component {
                                             <p>17/07/2020, 12:03 AM</p>
                                         </Grid>
                                         <Grid className="presureDataGrph">
-                                            <img src={require('../../../assets/images/lineGraph.png')} alt="" title="" />
+                                            <img src={require('.Screens/assets/images/lineGraph.png')} alt="" title="" />
                                         </Grid>
                                     </Grid>
 
@@ -1084,7 +1084,7 @@ class Index extends Component {
                                         <Grid container direction="row" alignItems="center">
                                             <Grid item xs={2} md={2}>
                                                 <Grid className="drVisitImg">
-                                                    <img src={require('../../../assets/images/dr1.jpg')} alt="" title="" />
+                                                    <img src={require('.Screens/assets/images/dr1.jpg')} alt="" title="" />
                                                 </Grid>
                                             </Grid>
                                             <Grid item xs={10} md={10}>
@@ -1098,7 +1098,7 @@ class Index extends Component {
                                         <Grid container direction="row" alignItems="center">
                                             <Grid item xs={2} md={2}>
                                                 <Grid className="drVisitImg">
-                                                    <img src={require('../../../assets/images/dr2.jpg')} alt="" title="" />
+                                                    <img src={require('.Screens/assets/images/dr2.jpg')} alt="" title="" />
                                                 </Grid>
                                             </Grid>
                                             <Grid item xs={10} md={10}>
@@ -1118,18 +1118,18 @@ class Index extends Component {
                                             </Grid>
                                             <Grid item xs={2} md={2}>
                                                 <Grid className="allViewDots">
-                                                    <img src={require('../../../assets/images/nav-more.svg')} alt="" title="" />
+                                                    <img src={require('.Screens/assets/images/nav-more.svg')} alt="" title="" />
                                                 </Grid>
                                             </Grid>
                                             <Grid className="clear"></Grid>
                                         </Grid>
                                         <Grid className="oficVisit">
-                                            <label>06/08/2020, 9:00 AM</label> <a><img src={require('../../../assets/images/h2Logo.jpg')} alt="" title="" /> Office visit</a>
+                                            <label>06/08/2020, 9:00 AM</label> <a><img src={require('.Screens/assets/images/h2Logo.jpg')} alt="" title="" /> Office visit</a>
                                         </Grid>
                                         <Grid className="neuroSection">
                                             <h3>Neurology</h3>
-                                            <Grid><a><img src={require('../../../assets/images/dr1.jpg')} alt="" title="" />Mark Anderson M.D. (Doctor)</a></Grid>
-                                            <Grid><a><img src={require('../../../assets/images/h2Logo.jpg')} alt="" title="" />Illinois Masonic Medical Center</a></Grid>
+                                            <Grid><a><img src={require('.Screens/assets/images/dr1.jpg')} alt="" title="" />Mark Anderson M.D. (Doctor)</a></Grid>
+                                            <Grid><a><img src={require('.Screens/assets/images/h2Logo.jpg')} alt="" title="" />Illinois Masonic Medical Center</a></Grid>
                                         </Grid>
                                     </Grid>
 
@@ -1142,7 +1142,7 @@ class Index extends Component {
                                             </Grid>
                                             <Grid item xs={2} md={2}>
                                                 <Grid className="lstViewDots">
-                                                    <img src={require('../../../assets/images/nav-more.svg')} alt="" title="" />
+                                                    <img src={require('.Screens/assets/images/nav-more.svg')} alt="" title="" />
                                                 </Grid>
                                             </Grid>
                                             <Grid className="clear"></Grid>
@@ -1157,7 +1157,7 @@ class Index extends Component {
                                                     <Grid className="clear"></Grid>
                                                 </Grid>
                                                 <Grid className="metroDoctor">
-                                                    <a><img src={require('../../../assets/images/dr1.jpg')} alt="" title="" />
+                                                    <a><img src={require('.Screens/assets/images/dr1.jpg')} alt="" title="" />
                                                         Mark Anderson M.D. (Doctor)
                                                  </a>
                                                 </Grid>
@@ -1170,7 +1170,7 @@ class Index extends Component {
                                                     <Grid className="clear"></Grid>
                                                 </Grid>
                                                 <Grid className="metroDoctor">
-                                                    <a><img src={require('../../../assets/images/dr1.jpg')} alt="" title="" />
+                                                    <a><img src={require('.Screens/assets/images/dr1.jpg')} alt="" title="" />
                                                         Mark Anderson M.D. (Doctor)
                                                    </a>
                                                 </Grid>

@@ -4,24 +4,24 @@ import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import { slide as Menu } from "react-burger-menu";
 import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
 import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
-import LeftMenu from "../Components/Menus/H_leftMenu/index"
-import LeftMenuMobile from "../Components/Menus/H_leftMenu/mobile"
+import LeftMenu from "Screens/Components/Menus/H_leftMenu/index"
+import LeftMenuMobile from "Screens/Components/Menus/H_leftMenu/mobile"
 import axios from 'axios';
 import Select from 'react-select';
 import Modal from '@material-ui/core/Modal';
-import { LanguageFetchReducer } from '../actions';
+import { LanguageFetchReducer } from 'Screens/actions';
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import { LoginReducerAim } from '../Login/actions';
-import { Settings } from '../Login/setting';
-import sitedata from '../../sitedata';
+import { LoginReducerAim } from 'Screens/Login/actions';
+import { Settings } from 'Screens/Login/setting';
+import sitedata from 'sitedata';
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
-import Loader from '../Components/Loader/index';
-import { getDate, getImage } from '../Components/BasicMethod/index'
+import Loader from 'Screens/Components/Loader/index';
+import { getDate, getImage } from 'Screens/Components/BasicMethod/index'
 import * as translationEN from './translations/en_json_proofread_13072020.json';
 import * as translationDE from "./translations/de.json"
-import { SearchUser } from "../Components/Search"
+import { SearchUser } from "Screens/Components/Search"
 import $ from "jquery";
 class Index extends Component {
     constructor(props) {

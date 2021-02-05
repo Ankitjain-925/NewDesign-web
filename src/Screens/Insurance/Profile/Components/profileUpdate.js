@@ -6,23 +6,23 @@ import DatePicker from "react-date-picker";
 // import PhoneInput from 'react-phone-input-2';
 // import 'react-phone-input-2/lib/style.css';
 import ReactFlagsSelect from "react-flags-select";
-import sitedata from "../../../../sitedata";
+import sitedata from "sitedata";
 import axios from "axios";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import { LoginReducerAim } from "./../../../Login/actions";
-import { Settings } from "./../../../Login/setting";
+import { LoginReducerAim } from "Screens/Login/actions";
+import { Settings } from "Screens/Login/setting";
 import { confirmAlert } from "react-confirm-alert"; // Import
 import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
 import Autocomplete from "../Autocomplete.js";
 import npmCountryList from "react-select-country-list";
-import FileUploader from "./../../../Components/FileUploader/index";
-import { LanguageFetchReducer } from "./../../../actions";
+import FileUploader from "Screens/Components/FileUploader/index";
+import { LanguageFetchReducer } from "Screens/actions";
 import Modal from "@material-ui/core/Modal";
-import Loader from "./../../../Components/Loader/index";
+import Loader from "Screens/Components/Loader/index";
 import QRCode from "qrcode.react";
-import DateFormat from "./../../../Components/DateFormat/index";
-import { GetUrlImage1 } from "./../../../Components/BasicMethod/index";
+import DateFormat from "Screens/Components/DateFormat/index";
+import { GetUrlImage1 } from "Screens/Components/BasicMethod/index";
 import { OptionList } from "Screens/Login/metadataaction";
 import {
   translationAR,
@@ -36,8 +36,8 @@ import {
   translationPT,
   translationFR
 } from "translations/index"
-import SPECIALITY from "../../../../speciality";
-import { GetLanguageDropdown } from "./../../../Components/GetMetaData/index.js";
+import SPECIALITY from "speciality";
+import { GetLanguageDropdown } from "Screens/Components/GetMetaData/index.js";
 
 var datas = [];
 var insurances = [];

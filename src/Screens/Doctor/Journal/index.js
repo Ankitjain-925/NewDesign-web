@@ -1,62 +1,57 @@
 import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
 import Modal from "@material-ui/core/Modal";
-import Checkbox from "@material-ui/core/Checkbox";
-import { Editor } from "react-draft-wysiwyg";
-import sitedata, { data } from "../../../sitedata";
+import sitedata from "sitedata";
 import axios from "axios";
 import { confirmAlert } from "react-confirm-alert"; // Import
 import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import { LoginReducerAim } from "./../../Login/actions";
-import LeftMenuMobile from "./../../Components/Menus/DoctorLeftMenu/mobile";
-import { Doctorset } from "../../Doctor/actions";
-import { Settings } from "./../../Login/setting";
-import { Redirect, Route } from "react-router-dom";
-import LeftMenu from "./../../Components/Menus/DoctorLeftMenu/index";
-import { LanguageFetchReducer } from "./../../actions";
-import AddEntry from "./../../Components/AddEntry/index";
-import PersonalizedData from "./../../Components/TimelineComponent/PersonalizedData/index";
-import FilterSec from "./../../Components/TimelineComponent/Filter/index";
-import ProfileSection from "./../../Components/TimelineComponent/ProfileSection/index";
-import RightManage from "./../../Components/TimelineComponent/RightMenuManage/index";
+import { LoginReducerAim } from "Screens/Login/actions";
+import LeftMenuMobile from "Screens/Components/Menus/DoctorLeftMenu/mobile";
+import { Doctorset } from "Screens/Doctor/actions";
+import { Settings } from "Screens/Login/setting";
+import { Redirect  } from "react-router-dom";
+import LeftMenu from "Screens/Components/Menus/DoctorLeftMenu/index";
+import { LanguageFetchReducer } from "Screens/actions";
+import AddEntry from "Screens/Components/AddEntry/index";
+// import PersonalizedData from "Screens/Components/TimelineComponent/PersonalizedData/index";
+import FilterSec from "Screens/Components/TimelineComponent/Filter/index";
+import ProfileSection from "Screens/Components/TimelineComponent/ProfileSection/index";
+import RightManage from "Screens/Components/TimelineComponent/RightMenuManage/index";
 import {
   SortByEntry,
   SortByDiagnose,
-  ConsoleCustom,
-  getTime,
-  getDate,
   mySorter,
-} from "./../../Components/BasicMethod/index";
-import ViewTimeline from "./../../Components/TimelineComponent/ViewTimeline/index";
-import Loader from "./../../Components/Loader/index.js";
-import BPFields from "./../../Components/TimelineComponent/BPFields/index";
-import BSFields from "./../../Components/TimelineComponent/BSFields/index";
-import BMIFields from "./../../Components/TimelineComponent/BMIFields/index";
-import MPFields from "./../../Components/TimelineComponent/MPFields/index";
-import SSFields from "./../../Components/TimelineComponent/SSFields/index";
-import VaccinationFields from "./../../Components/TimelineComponent/VaccinationFields/index";
-import MedicationFields from "./../../Components/TimelineComponent/MedicationFields/index";
-import HVFields from "./../../Components/TimelineComponent/HVFields/index";
-import DVFields from "./../../Components/TimelineComponent/DVFields/index";
-import CPFields from "./../../Components/TimelineComponent/CPFields/index";
-import DiaryFields from "./../../Components/TimelineComponent/DiaryFields/index";
-import RespirationField from "./../../Components/TimelineComponent/RespirationField/index";
-import AllL_Ps from "../../Components/Parameters/parameter.js";
-import LRFields from "./../../Components/TimelineComponent/LRFields/index";
-import FUFields from "./../../Components/TimelineComponent/FUFields/index";
-import FAFields from "./../../Components/TimelineComponent/FAFields/index";
+} from "Screens/Components/BasicMethod/index";
+import ViewTimeline from "Screens/Components/TimelineComponent/ViewTimeline/index";
+import Loader from "Screens/Components/Loader/index.js";
+import BPFields from "Screens/Components/TimelineComponent/BPFields/index";
+import BSFields from "Screens/Components/TimelineComponent/BSFields/index";
+import BMIFields from "Screens/Components/TimelineComponent/BMIFields/index";
+import MPFields from "Screens/Components/TimelineComponent/MPFields/index";
+import SSFields from "Screens/Components/TimelineComponent/SSFields/index";
+import VaccinationFields from "Screens/Components/TimelineComponent/VaccinationFields/index";
+import MedicationFields from "Screens/Components/TimelineComponent/MedicationFields/index";
+import HVFields from "Screens/Components/TimelineComponent/HVFields/index";
+import DVFields from "Screens/Components/TimelineComponent/DVFields/index";
+import CPFields from "Screens/Components/TimelineComponent/CPFields/index";
+import DiaryFields from "Screens/Components/TimelineComponent/DiaryFields/index";
+import RespirationField from "Screens/Components/TimelineComponent/RespirationField/index";
+import AllL_Ps from "Screens/Components/Parameters/parameter.js";
+import LRFields from "Screens/Components/TimelineComponent/LRFields/index";
+import FUFields from "Screens/Components/TimelineComponent/FUFields/index";
+import FAFields from "Screens/Components/TimelineComponent/FAFields/index";
 import npmCountryList from "react-select-country-list";
-import CovidFields from "../../Components/TimelineComponent/CovidFields/index";
-import EmptyData from "./../../Components/TimelineComponent/EmptyData";
-import DiagnosisFields from "./../../Components/TimelineComponent/DiagnosisFields/index";
-import VaccinationTrialFields from "./../../Components/TimelineComponent/VaccinationTrialFields/index.js";
-import FloatArrowUp from "../../Components/FloatArrowUp/index";
+import CovidFields from "Screens/Components/TimelineComponent/CovidFields/index";
+import EmptyData from "Screens/Components/TimelineComponent/EmptyData";
+import DiagnosisFields from "Screens/Components/TimelineComponent/DiagnosisFields/index";
+import VaccinationTrialFields from "Screens/Components/TimelineComponent/VaccinationTrialFields/index.js";
+import FloatArrowUp from "Screens/Components/FloatArrowUp/index";
 import moment from "moment";
-import { authy } from "./../../Login/authy.js";
+import { authy } from "Screens/Login/authy.js";
 import { OptionList } from "Screens/Login/metadataaction";
-import GraphView from "./../../Components/TimelineComponent/GraphView/index";
+import GraphView from "Screens/Components/TimelineComponent/GraphView/index";
 import {
   translationAR,
   translationSW,
@@ -69,17 +64,15 @@ import {
   translationPT,
   translationFR,
 } from "translations/index";
-import { FormatListBulleted } from "@material-ui/icons";
-import { updateBlockchain } from "./../../Components/BlockchainEntry/index.js";
-import Notification from "../../Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
-import PFields from "./../../Components/TimelineComponent/PFields/index.js";
-import AnamnesisFields from "./../../Components/TimelineComponent/AnamnesisFields/index.js";
-import SCFields from "./../../Components/TimelineComponent/SCFields/index.js";
-import SOFields from "./../../Components/TimelineComponent/SOFields/index.js";
-import DownloadFullTrack from "../../Components/DownloadFullTrack/index";
+import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
+import PFields from "Screens/Components/TimelineComponent/PFields/index.js";
+import AnamnesisFields from "Screens/Components/TimelineComponent/AnamnesisFields/index.js";
+import SCFields from "Screens/Components/TimelineComponent/SCFields/index.js";
+import SOFields from "Screens/Components/TimelineComponent/SOFields/index.js";
+import DownloadFullTrack from "Screens/Components/DownloadFullTrack/index";
 
-import SPECIALITY from "../../../speciality";
-import { GetLanguageDropdown } from "./../../Components/GetMetaData/index.js";
+import SPECIALITY from "speciality";
+import { GetLanguageDropdown } from "Screens/Components/GetMetaData/index.js";
 class Index extends Component {
   constructor(props) {
     super(props);

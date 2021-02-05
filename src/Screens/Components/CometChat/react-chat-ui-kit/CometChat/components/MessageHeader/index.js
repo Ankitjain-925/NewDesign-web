@@ -2,7 +2,7 @@ import React from "react";
 import classNames from "classnames";
 import axios from "axios";
 import { MessageHeaderManager } from "./controller";
-import sitedata from "../../../../../../../sitedata";
+import sitedata from "sitedata";
 import Avatar from "../Avatar";
 import { SvgAvatar } from '../../util/svgavatar';
 import {

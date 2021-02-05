@@ -3,26 +3,26 @@ import Grid from '@material-ui/core/Grid';
 import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import { LoginReducerAim } from '../Login/actions';
-import { Settings } from '../Login/setting';
+import { LoginReducerAim } from 'Screens/Login/actions';
+import { Settings } from 'Screens/Login/setting';
 import axios from 'axios';
 import Select from 'react-select';
-import { LanguageFetchReducer } from '../actions';
-import sitedata from '../../sitedata';
+import { LanguageFetchReducer } from 'Screens/actions';
+import sitedata from 'sitedata';
 import Modal from '@material-ui/core/Modal';
 import Radio from '@material-ui/core/Radio';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
-import Loader from '../Components/Loader/index';
-import { getDate, getImage, blockClick } from '../Components/BasicMethod/index'
+import Loader from 'Screens/Components/Loader/index';
+import { getDate, getImage, blockClick } from 'Screens/Components/BasicMethod/index'
 import * as translationEN from './translations/en_json_proofread_13072020.json';
 import * as translationDE from "./translations/de.json"
-import H_LeftMenu from "../Components/Menus/H_leftMenu/index"
-import H_LeftMenuMobile from "../Components/Menus/H_leftMenu/mobile"
-import { SearchUser } from '../Components/Search';
-import CreateAdminUser from "../Components/CreateHospitalUser/index"
-import ViewDetail from "./../Components/ViewInformation/index";
+import H_LeftMenu from "Screens/Components/Menus/H_leftMenu/index"
+import H_LeftMenuMobile from "Screens/Components/Menus/H_leftMenu/mobile"
+import { SearchUser } from 'Screens/Components/Search';
+import CreateAdminUser from "Screens/Components/CreateHospitalUser/index"
+import ViewDetail from "Screens/Components/ViewInformation/index";
 import "./style.css";
 
 const specialistOptions = [

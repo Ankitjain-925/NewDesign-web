@@ -2,8 +2,8 @@ import {
   GET_DoctorArray_REQUEST,
   GET_DoctorArray_SUCCESS,
   GET_DoctorArray_ERROR,
-} from "../../actiontypes";
-import sitedata from "../../sitedata.js";
+} from "actiontypes";
+import sitedata from "sitedata.js";
 import axios from "axios";
 
 const getDoctorArray = async (doctorArray = new Set(), user_token) => {

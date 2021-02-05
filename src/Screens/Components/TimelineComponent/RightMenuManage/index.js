@@ -7,16 +7,16 @@ import {
   getSpec,
   getImage,
   SortByGraphView,
-} from "../../BasicMethod";
+} from "Screens/Components/BasicMethod";
 import axios from "axios";
-import sitedata from "../../../../sitedata";
+import sitedata from "sitedata";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { pure } from "recompose";
-import { LanguageFetchReducer } from "../../../actions";
+import { LanguageFetchReducer } from "Screens/actions";
 import moment from "moment";
-import { GetShowLabel1 } from "../../GetMetaData/index.js";
-import AllL_Ps from "../../Parameters/parameter.js";
+import { GetShowLabel1 } from "Screens/Components/GetMetaData/index.js";
+import AllL_Ps from "Screens/Components/Parameters/parameter.js";
 import HC_more from "highcharts/highcharts-more"; //module3
 // Import Highcharts
 import Highcharts from "highcharts/highstock";

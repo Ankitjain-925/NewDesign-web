@@ -1,25 +1,22 @@
 import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
-import { Table, Thead, Tbody, Tr, Th, Td } from "react-super-responsive-table";
 import "react-super-responsive-table/dist/SuperResponsiveTableStyle.css";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import AppBar from "@material-ui/core/AppBar";
 import Typography from "@material-ui/core/Typography";
 import PropTypes from "prop-types";
-import Modal from "@material-ui/core/Modal";
-import LeftMenu from "../../Components/Menus/DoctorLeftMenu/index";
-import LeftMenuMobile from "../../Components/Menus/DoctorLeftMenu/mobile";
-import sitedata, { data } from "../../../sitedata";
+import LeftMenu from "Screens/Components/Menus/DoctorLeftMenu/index";
+import LeftMenuMobile from "Screens/Components/Menus/DoctorLeftMenu/mobile";
+import sitedata  from "sitedata";
 import axios from "axios";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { LoginReducerAim } from "../../Login/actions";
-import { Settings } from "../../Login/setting";
-import { confirmAlert } from "react-confirm-alert"; // Import
-import { LanguageFetchReducer } from "../../actions";
-import Loader from "./../../Components/Loader/index";
-import { authy } from "./../../Login/authy.js";
+import { LoginReducerAim } from "Screens/Login/actions";
+import { Settings } from "Screens/Login/setting";
+import { LanguageFetchReducer } from "Screens/actions";
+import Loader from "Screens/Components/Loader/index";
+import { authy } from "Screens/Login/authy.js";
 import PrecriptionList from "./Components/prescription.js";
 import SickCertificateList from "./Components/sickCertificate.js";
 import {
@@ -34,11 +31,11 @@ import {
   translationPT,
   translationFR
 } from "translations/index"
-import { Redirect, Route } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import SecondOpinion from "./Components/secondOpinion";
-import Notification from "../../Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
+import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 
-// import * as translationDE from '../../../translations/de_json_proofread_13072020.json';
+// import * as translationDE from '.Screens/translations/de_json_proofread_13072020.json';
 function TabContainer(props) {
   return (
     <Typography component="div" className="tabsCntnts">

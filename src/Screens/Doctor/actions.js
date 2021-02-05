@@ -3,7 +3,7 @@ import {
   GET_PATIENT_FAIL,
   GET_PATIENT_SUCCESS,
 } from "../../actiontypes";
-import sitedata from "../../sitedata.js";
+import sitedata from "sitedata.js";
 import axios from "axios";
 
 const path = sitedata.data.path + "/UserProfile";

@@ -7,21 +7,21 @@ import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import Select from "react-select";
 import axios from "axios";
-import sitedata from "../../../sitedata";
+import sitedata from "sitedata";
 import MyCourses from "./Components/myCourse";
 import AllCourses from "./Components/allCourses";
 import { connect } from "react-redux";
-import { LoginReducerAim } from "../../Login/actions";
-import { Settings } from "../../Login/setting";
+import { LoginReducerAim } from "Screens/Login/actions";
+import { Settings } from "Screens/Login/setting";
 import { confirmAlert } from "react-confirm-alert"; // Import
 import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
 import Modal from "@material-ui/core/Modal";
-// import { Doctorset } from '../../Doctor/actions';
-// import { filterate } from '../../Doctor/filteraction';
+// import { Doctorset } from 'Screens/Doctor/actions';
+// import { filterate } from 'Screens/Doctor/filteraction';
 import { withRouter } from "react-router-dom";
 import { ConsoleCustom } from "./../BasicMethod/index";
 import Rating from "../Rating";
-import { LanguageFetchReducer } from "../../actions";
+import { LanguageFetchReducer } from "Screens/actions";
 import {
   translationAR,
   translationSW,

@@ -1,20 +1,19 @@
 import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
 import { connect } from "react-redux";
-import { LoginReducerAim } from "../../../Login/actions";
-import { Settings } from "../../../Login/setting";
+import { LoginReducerAim } from "Screens/Login/actions";
+import { Settings } from "Screens/Login/setting";
 // import { Doctorset } from '../../Doctor/actions';
 // import { filterate } from '../../Doctor/filteraction';
 import { withRouter } from "react-router-dom";
-import { LanguageFetchReducer } from "../../../actions";
-import LogOut from "./../../LogOut/index";
-import Timer from "./../../TimeLogOut/index";
+import { LanguageFetchReducer } from "Screens/actions";
+import Timer from "Screens/Components/TimeLogOut/index";
 import { slide as Menu } from "react-burger-menu";
-import Mode from "./../../ThemeMode/index.js";
-import sitedata from "../../../../sitedata";
+import Mode from "Screens/Components/ThemeMode/index.js";
+import sitedata from "sitedata";
 import axios from "axios";
-import SetLanguage from "./../../SetLanguage/index.js";
-import Notification from "../../../Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
+import SetLanguage from "Screens/Components/SetLanguage/index.js";
+// import Notification from "Screens/Components/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 import {
   translationAR,
   translationSW,

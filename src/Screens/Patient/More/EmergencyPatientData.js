@@ -1,16 +1,16 @@
 import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
-import LeftMenu from "./../../Components/Menus/PatientLeftMenu/index";
-import LeftMenuMobile from "./../../Components/Menus/PatientLeftMenu/mobile";
-import sitedata from "../../../sitedata";
-import { LoginReducerAim } from "./../../Login/actions";
-import { Settings } from "./../../Login/setting";
+import LeftMenu from "Screens/Components/Menus/PatientLeftMenu/index";
+import LeftMenuMobile from "Screens/Components/Menus/PatientLeftMenu/mobile";
+import sitedata from "sitedata";
+import { LoginReducerAim } from "Screens/Login/actions";
+import { Settings } from "Screens/Login/setting";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import { LanguageFetchReducer } from "./../../actions";
+import { LanguageFetchReducer } from "Screens/actions";
 import { Redirect, Route } from "react-router-dom";
-import { authy } from "./../../Login/authy.js";
-import EmergencyCall from "./../../Components/EmergencyPage/index";
+import { authy } from "Screens/Login/authy.js";
+import EmergencyCall from "Screens/Components/EmergencyPage/index";
 import {
   translationAR,
   translationSW,
@@ -23,7 +23,7 @@ import {
   translationPT,
   translationFR
 } from "translations/index"
-import Notification from "../../Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
+import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 
 const path = sitedata.data.path + "/emergency_record";
 

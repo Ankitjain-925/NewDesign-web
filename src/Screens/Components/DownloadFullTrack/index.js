@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import { LoginReducerAim } from "./../../Login/actions";
-import { LanguageFetchReducer } from "../../actions";
+import { LoginReducerAim } from "Screens/Login/actions";
+import { LanguageFetchReducer } from "Screens/actions";
 import {
   translationAR,
   translationSW,
@@ -15,7 +15,7 @@ import {
   translationPT,
   translationFR
 } from "translations/index"
-import sitedata from "../../../sitedata";
+import sitedata from "sitedata";
 import { pure } from "recompose";
 import Loader from "../Loader/index.js";
 import axios from "axios";

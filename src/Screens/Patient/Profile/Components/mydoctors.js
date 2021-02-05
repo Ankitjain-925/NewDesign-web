@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
-import sitedata from '../../../../sitedata';
+import sitedata from 'sitedata';
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import { LoginReducerAim } from './../../../Login/actions';
-import { Settings } from './../../../Login/setting';
+import { LoginReducerAim } from 'Screens/Login/actions';
+import { Settings } from 'Screens/Login/setting';
 import axios from 'axios';
-import { LanguageFetchReducer } from './../../../actions';
+import { LanguageFetchReducer } from 'Screens/actions';
 import Modal from '@material-ui/core/Modal';
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
 import Select from 'react-select';
-import Loader from './../../../Components/Loader/index';
-import { getImage, AddFavDoc } from './../../../Components/BasicMethod/index';
+import Loader from 'Screens/Components/Loader/index';
+import { getImage, AddFavDoc } from 'Screens/Components/BasicMethod/index';
 import {
     translationAR,
     translationSW,

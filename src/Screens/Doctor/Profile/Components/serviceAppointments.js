@@ -1,14 +1,14 @@
 import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
 import { connect } from "react-redux";
-import { LoginReducerAim } from "./../../../Login/actions";
-import { LanguageFetchReducer } from "./../../../actions";
-import { Settings } from "./../../../Login/setting";
+import { LoginReducerAim } from "Screens/Login/actions";
+import { LanguageFetchReducer } from "Screens/actions";
+import { Settings } from "Screens/Login/setting";
 import { withRouter } from "react-router-dom";
 import moment from "moment";
-import sitedata, { data } from "../../../../sitedata";
+import sitedata, { data } from "sitedata";
 import axios from "axios";
-import Loader from "./../../../Components/Loader/index";
+import Loader from "Screens/Components/Loader/index";
 import {
   translationAR,
   translationSW,
@@ -24,7 +24,7 @@ import {
 import Toggle from "react-toggle";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
-import TimeFormat from "./../../../Components/TimeFormat/index";
+import TimeFormat from "Screens/Components/TimeFormat/index";
 import { DatePicker } from "antd";
 const { RangePicker } = DatePicker;
 const dateFormat = "DD/MM/YYYY";

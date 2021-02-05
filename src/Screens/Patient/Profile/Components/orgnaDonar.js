@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
-import sitedata from '../../../../sitedata';
+import sitedata from 'sitedata';
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import { Settings } from './../../../Login/setting';
-import { LoginReducerAim } from './../../../Login/actions';
+import { Settings } from 'Screens/Login/setting';
+import { LoginReducerAim } from 'Screens/Login/actions';
 import axios from 'axios';
-import { LanguageFetchReducer } from './../../../actions';
+import { LanguageFetchReducer } from 'Screens/actions';
 import Select from 'react-select';
-import Loader from './../../../Components/Loader/index';
+import Loader from 'Screens/Components/Loader/index';
 import Radio from '@material-ui/core/Radio';
 import ReactFlagsSelect from 'react-flags-select';
-import { GetShowLabel1} from './../../../Components/GetMetaData/index.js';
+import { GetShowLabel1} from 'Screens/Components/GetMetaData/index.js';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import {
     translationAR,
@@ -25,7 +25,7 @@ import {
     translationPT,
     translationFR
   } from "translations/index"
-import {updateBlockchain} from './../../../Components/BlockchainEntry/index';
+import {updateBlockchain} from 'Screens/Components/BlockchainEntry/index';
 
 class Index extends Component {
     constructor(props) {

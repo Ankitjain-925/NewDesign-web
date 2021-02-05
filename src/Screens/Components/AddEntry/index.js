@@ -4,7 +4,7 @@ import Modal from "@material-ui/core/Modal";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { pure } from "recompose";
-import { LanguageFetchReducer } from "../../actions";
+import { LanguageFetchReducer } from "Screens/actions";
 import {
   translationAR,
   translationSW,

@@ -5,22 +5,22 @@ import 'react-calendar/dist/Calendar.css';
 import 'react-big-calendar/lib/css/react-big-calendar.css'
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
-import LeftMenu from './../../Components/Menus/DoctorLeftMenu/index';
-import LeftMenuMobile from './../../Components/Menus/DoctorLeftMenu/mobile';
-import sitedata from '../../../sitedata';
+import LeftMenu from 'Screens/Components/Menus/DoctorLeftMenu/index';
+import LeftMenuMobile from 'Screens/Components/Menus/DoctorLeftMenu/mobile';
+import sitedata from 'sitedata';
 import axios from 'axios';
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import { LoginReducerAim } from './../../Login/actions';
-import { Settings } from './../../Login/setting';
-import { LanguageFetchReducer } from './../../actions';
+import { LoginReducerAim } from 'Screens/Login/actions';
+import { Settings } from 'Screens/Login/setting';
+import { LanguageFetchReducer } from 'Screens/actions';
 import TooltipTrigger from 'react-popper-tooltip';
 import 'react-popper-tooltip/dist/styles.css';
-import CalendarToolbar from "./../../Components/CalendarToolbar/index.js";
+import CalendarToolbar from "Screens/Components/CalendarToolbar/index.js";
 import Modal from '@material-ui/core/Modal';
 import DatePicker from 'react-date-picker';
-import { authy } from './../../Login/authy.js';
-import { getImage } from './../../Components/BasicMethod/index';
+import { authy } from 'Screens/Login/authy.js';
+import { getImage } from 'Screens/Components/BasicMethod/index';
 import { Redirect } from 'react-router-dom';
 import { confirmAlert } from 'react-confirm-alert';
 import {
@@ -35,8 +35,8 @@ import {
     translationPT,
     translationFR
   } from "translations/index"
-import Loader from './../../Components/Loader/index.js';
-import Notification from "../../Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
+import Loader from 'Screens/Components/Loader/index.js';
+import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 
 const days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
 const types = ['private_appointments', 'days_for_practices', 'online_appointment'];

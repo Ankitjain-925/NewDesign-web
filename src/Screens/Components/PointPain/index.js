@@ -3,7 +3,7 @@ import Grid from "@material-ui/core/Grid";
 import $ from "jquery";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import { LanguageFetchReducer } from "../../actions";
+import { LanguageFetchReducer } from "Screens/actions";
 import {
   translationAR,
   translationSW,

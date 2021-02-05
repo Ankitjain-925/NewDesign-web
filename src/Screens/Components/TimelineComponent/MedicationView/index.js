@@ -3,18 +3,18 @@ import Grid from "@material-ui/core/Grid";
 import Collapsible from "react-collapsible";
 import FileViews from "./../FileViews/index";
 import ReactTooltip from "react-tooltip";
-import DownloadFullTrack from "./../../DownloadFullTrack/index.js";
+import DownloadFullTrack from "Screens/Components/DownloadFullTrack/index.js";
 import {
   getDate,
   newdate,
   getTime,
   getImage,
   getReminder,
-} from "./../../BasicMethod/index";
+} from "Screens/Components/BasicMethod/index";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { GetShowLabel1 } from "../../GetMetaData/index.js";
-import { LanguageFetchReducer } from "./../../../actions";
+import { LanguageFetchReducer } from "Screens/actions";
 import {
   translationAR,
   translationSW,

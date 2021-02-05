@@ -2,8 +2,8 @@ import {
     GET_OptionList_REQUEST,
     GET_OptionList_SUCCESS,
     GET_OptionList_FAIL,
-  } from "../../actiontypes";
-  import sitedata from "../../sitedata.js";
+  } from "actiontypes";
+  import sitedata from "sitedata.js";
   import axios from "axios";
 
 

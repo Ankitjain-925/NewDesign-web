@@ -1,17 +1,17 @@
 import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
-import sitedata from "../../../../sitedata";
+import sitedata from "sitedata";
 import axios from "axios";
-import MMHG from "./../../mmHgField/index";
-import DateFormat from "./../../DateFormat/index";
-import TimeTaken from "./../../TimeTaken/vaccinationTimeTaken";
-import NotesEditor from "./../../Editor/index";
-import FileUploader from "./../../JournalFileUploader/index";
-import ShowHide from "./../../ShowHide/index";
+import MMHG from "Screens/Components/mmHgField/index";
+import DateFormat from "Screens/Components/DateFormat/index";
+import TimeTaken from "Screens/Components/TimeTaken/vaccinationTimeTaken";
+import NotesEditor from "Screens/Components/Editor/index";
+import FileUploader from "Screens/Components/JournalFileUploader/index";
+import ShowHide from "Screens/Components/ShowHide/index";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import { LoginReducerAim } from "./../../../Login/actions";
-import { LanguageFetchReducer } from "./../../../actions";
+import { LoginReducerAim } from "Screens/Login/actions";
+import { LanguageFetchReducer } from "Screens/actions";
 import {
   translationAR,
   translationSW,

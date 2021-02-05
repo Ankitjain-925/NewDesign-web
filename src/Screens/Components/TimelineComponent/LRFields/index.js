@@ -1,15 +1,15 @@
 import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
-import MMHG from "./../../mmHgField/index";
-import DateFormat from "./../../DateFormat/index";
-import FileUploader from "./../../JournalFileUploader/index";
-import ShowHide from "./../../ShowHide/index";
-import SelectField from "./../../Select/index";
-import TimeFormat from "./../../TimeFormat/index";
+import MMHG from "Screens/Components/mmHgField/index";
+import DateFormat from "Screens/Components/DateFormat/index";
+import FileUploader from "Screens/Components/JournalFileUploader/index";
+import ShowHide from "Screens/Components/ShowHide/index";
+import SelectField from "Screens/Components/Select/index";
+import TimeFormat from "Screens/Components/TimeFormat/index";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import { GetShowLabel1 } from "../../GetMetaData/index.js";
-import { LanguageFetchReducer } from "./../../../actions";
+import { GetShowLabel1 } from "Screens/Components/GetMetaData/index.js";
+import { LanguageFetchReducer } from "Screens/actions";
 import {
   translationAR,
   translationSW,

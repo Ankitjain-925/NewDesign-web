@@ -1,11 +1,11 @@
 import React, { Component } from "react";
-import { LanguageFetchReducer } from "../actions";
+import { LanguageFetchReducer } from "Screens/actions";
 import { Redirect, Route } from "react-router-dom";
 import axios from "axios";
 import { connect } from "react-redux";
-import { LoginReducerAim } from "../Login/actions";
+import { LoginReducerAim } from "Screens/Login/actions";
 import Grid from "@material-ui/core/Grid";
-import { authy } from "../Login/authy.js";
+import { authy } from "Screens/Login/authy.js";
 import Toggle from "react-toggle";
 // import * as translationEN from '../../translations/en.json';
 
@@ -21,7 +21,7 @@ import {
   translationPT,
   translationFR
 } from "translations/index"
-import { Settings } from "../Login/setting";
+import { Settings } from "Screens/Login/setting";
 import {
   NavLink,
   UncontrolledDropdown,
@@ -29,8 +29,8 @@ import {
   DropdownMenu,
   DropdownItem,
 } from "reactstrap";
-import sitedata from "../../sitedata";
-import Loader from "./../Components/Loader/index";
+import sitedata from "sitedata";
+import Loader from "Screens/Components/Loader/index";
 const path = sitedata.data.path + "/UserProfile";
 
 class Index extends Component {

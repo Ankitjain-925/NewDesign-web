@@ -1,23 +1,23 @@
 import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
 import { connect } from "react-redux";
-import { LoginReducerAim } from '../../../Login/actions';
-import { Settings } from '../../../Login/setting';
+import { LoginReducerAim } from 'Screens/Login/actions';
+import { Settings } from 'Screens/Login/setting';
 // import { Doctorset } from '../../Doctor/actions';
 // import { filterate } from '../../Doctor/filteraction';
 import { withRouter } from "react-router-dom";
-import { LanguageFetchReducer } from '../../../actions';
+import { LanguageFetchReducer } from 'Screens/actions';
 import { slide as Menu } from "react-burger-menu";
-import LogOut from './../../LogOut/index';
-import Timer from './../../TimeLogOut/index';
-import Loader from './../../../Components/Loader/index';
-import Notification from "../../../Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
+import LogOut from 'Screens/Components/LogOut/index';
+import Timer from 'Screens/Components/TimeLogOut/index';
+import Loader from 'Screens/Components/Loader/index';
+import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 import Modal from '@material-ui/core/Modal';
 import axios from "axios"
-import sitedata from "../../../../sitedata"
+import sitedata from "sitedata"
 import * as translationEN from '../../../hospital_Admin/translations/en_json_proofread_13072020.json';
 import * as translationDE from "../../../hospital_Admin/translations/de.json"
-import CreateAdminUser from "../../CreateHospitalUser/index"
+import CreateAdminUser from "Screens/Components/CreateHospitalUser/index"
 
 class Index extends Component {
     constructor(props) {

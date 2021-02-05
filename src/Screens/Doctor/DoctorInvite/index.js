@@ -1,15 +1,15 @@
 import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
 import { connect } from "react-redux";
-import { LoginReducerAim } from "./../../Login/actions";
-import { Settings } from "./../../Login/setting";
+import { LoginReducerAim } from "Screens/Login/actions";
+import { Settings } from "Screens/Login/setting";
 // import { Doctorset } from '../../Doctor/actions';
 // import { filterate } from '../../Doctor/filteraction';
 import { withRouter } from "react-router-dom";
-import Loader from "./../../Components/Loader/index.js";
-import { LanguageFetchReducer } from "./../../actions";
+import Loader from "Screens/Components/Loader/index.js";
+import { LanguageFetchReducer } from "Screens/actions";
 import Modal from "@material-ui/core/Modal";
-import sitedata from "./../../../sitedata";
+import sitedata from "sitedata";
 import axios from "axios";
 import CreatableSelect from "react-select/creatable";
 import {

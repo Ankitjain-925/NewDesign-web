@@ -2,13 +2,13 @@ import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
 import { confirmAlert } from "react-confirm-alert"; // Import
 import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
-import sitedata from "../../../../sitedata";
+import sitedata from "sitedata";
 import axios from "axios";
-import { ConsoleCustom, getDate } from "./../../BasicMethod/index";
+import { ConsoleCustom, getDate } from "Screens/Components/BasicMethod/index";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import { LanguageFetchReducer } from "./../../../actions";
-import Loader from "./../../Loader";
+import { LanguageFetchReducer } from "Screens/actions";
+import Loader from "Screens/Components/Loader";
 import {
   translationAR,
   translationSW,

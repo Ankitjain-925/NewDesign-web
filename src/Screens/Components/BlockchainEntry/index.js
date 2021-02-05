@@ -1,4 +1,4 @@
-import sitedata, { data } from "../../../sitedata";
+import sitedata, { data } from "sitedata";
 import axios from "axios";
 export const updateBlockchain = async (
   userInfo,

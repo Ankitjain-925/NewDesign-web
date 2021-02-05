@@ -6,20 +6,20 @@ import Checkbox from "@material-ui/core/Checkbox";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import Select from "react-select";
-import sitedata, { data } from "../../../sitedata";
-import { LanguageFetchReducer } from "../../actions";
-import { LoginReducerAim } from "../../Login/actions";
-import { Settings } from "../../Login/setting";
+import sitedata, { data } from "sitedata";
+import { LanguageFetchReducer } from "Screens/actions";
+import { LoginReducerAim } from "Screens/Login/actions";
+import { Settings } from "Screens/Login/setting";
 import Radio from "@material-ui/core/Radio";
 import axios from "axios";
 import { Redirect, Route } from "react-router-dom";
 import ListingSecond from "./Components/ListingSecond";
-import Loader from "../../Components/Loader/index";
-import LeftMenu from "./../../Components/Menus/PatientLeftMenu/index";
-import LeftMenuMobile from "./../../Components/Menus/PatientLeftMenu/mobile";
-import FileUploader from "./../../Components/FileUploader/index";
-import { AddFavDoc, ConsoleCustom } from "./../../Components/BasicMethod/index";
-import { authy } from "./../../Login/authy.js";
+import Loader from "Screens/Components/Loader/index";
+import LeftMenu from "Screens/Components/Menus/PatientLeftMenu/index";
+import LeftMenuMobile from "Screens/Components/Menus/PatientLeftMenu/mobile";
+import FileUploader from "Screens/Components/FileUploader/index";
+import { AddFavDoc, ConsoleCustom } from "Screens/Components/BasicMethod/index";
+import { authy } from "Screens/Login/authy.js";
 import {
   translationAR,
   translationSW,
@@ -32,7 +32,7 @@ import {
   translationPT,
   translationFR
 } from "translations/index"
-import Notification from "../../Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
+import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 
 const specialistOptions = [
   { value: "Specialist1", label: "Specialist1" },

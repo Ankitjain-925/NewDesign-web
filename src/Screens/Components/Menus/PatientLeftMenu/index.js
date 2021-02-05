@@ -1,24 +1,23 @@
 import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
 import { connect } from "react-redux";
-import { LoginReducerAim } from "../../../Login/actions";
-import { Settings } from "../../../Login/setting";
+import { LoginReducerAim } from "Screens/Login/actions";
+import { Settings } from "Screens/Login/setting";
 // import { Doctorset } from '../../Doctor/actions';
 // import { filterate } from '../../Doctor/filteraction';
-import Modal from "@material-ui/core/Modal";
 import { withRouter } from "react-router-dom";
-import { LanguageFetchReducer } from "../../../actions";
-import LogOut from "./../../LogOut/index";
-import Timer from "./../../TimeLogOut/index";
-import { Fitbit } from "../../../Patient/Tracker/fitbit";
-import { Withings } from "../../../Patient/Tracker/withing.js";
-import Notification from "../../../Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
-import DocSuggetion from "../../DocSuggetion/index.js";
-import sitedata from "../../../../sitedata";
+import { LanguageFetchReducer } from "Screens/actions";
+import LogOut from "Screens/Components/LogOut/index";
+import Timer from "Screens/Components/TimeLogOut/index";
+import { Fitbit } from "Screens/Patient/Tracker/fitbit";
+import { Withings } from "Screens/Patient/Tracker/withing.js";
+// import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
+import DocSuggetion from "Screens/Components/DocSuggetion/index.js";
+import sitedata from "sitedata";
 import axios from "axios";
-import Mode from "./../../ThemeMode/index.js";
-import SetLanguage from "./../../SetLanguage/index.js";
-import Loader from "./../../../Components/Loader/index";
+import Mode from "Screens/Components/ThemeMode/index.js";
+import SetLanguage from "Screens/Components/SetLanguage/index.js";
+import Loader from "Screens/Components/Loader/index";
 import {
   translationAR,
   translationSW,

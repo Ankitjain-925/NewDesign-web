@@ -1,22 +1,22 @@
 import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
-import MMHG from "./../../mmHgField/index";
-import SelectField from "./../../Select/index";
-import FileUploader from "./../../JournalFileUploader/index";
-import ShowHide from "./../../ShowHide/index";
-import NotesEditor from "./../../Editor/index";
-import Temprature from "../../Temprature";
-import PainPoint from "./../../PointPain/index";
-import TimeFormat from "./../../TimeFormat/index";
-import DateFormat from "./../../DateFormat/index";
+import MMHG from "Screens/Components/mmHgField/index";
+import SelectField from "Screens/Components/Select/index";
+import FileUploader from "Screens/Components/JournalFileUploader/index";
+import ShowHide from "Screens/Components/ShowHide/index";
+import NotesEditor from "Screens/Components/Editor/index";
+import Temprature from "Screens/Components/Temprature";
+import PainPoint from "Screens/Components/PointPain/index";
+import TimeFormat from "Screens/Components/TimeFormat/index";
+import DateFormat from "Screens/Components/DateFormat/index";
 import DaysAddField from "./../DaysAddField/index.js";
-import SelectByTwo from "./../../SelectbyTwo/index";
-import { GetShowLabel1 } from "../../GetMetaData/index.js";
-import PainIntensity from "./../../PainIntansity/index";
-import Condition from "./../../Condition/index";
+import SelectByTwo from "Screens/Components/SelectbyTwo/index";
+import { GetShowLabel1 } from "Screens/Components/GetMetaData/index.js";
+import PainIntensity from "Screens/Components/PainIntansity/index";
+import Condition from "Screens/Components/Condition/index";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import { LanguageFetchReducer } from "./../../../actions";
+import { LanguageFetchReducer } from "Screens/actions";
 import {
   translationAR,
   translationSW,

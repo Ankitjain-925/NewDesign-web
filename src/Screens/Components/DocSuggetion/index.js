@@ -1,11 +1,11 @@
 import React from "react";
 import { connect } from "react-redux";
-import { LoginReducerAim } from "../../Login/actions";
-import { Settings } from "../../Login/setting";
+import { LoginReducerAim } from "Screens/Login/actions";
+import { Settings } from "Screens/Login/setting";
 import { withRouter } from "react-router-dom";
-import { LanguageFetchReducer } from "../../actions";
+import { LanguageFetchReducer } from "Screens/actions";
 import CancelIcon from "@material-ui/icons/Cancel";
-import sitedata from "../../../sitedata";
+import sitedata from "sitedata";
 import axios from "axios";
 import {
   translationAR,

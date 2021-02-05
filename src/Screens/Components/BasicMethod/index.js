@@ -1,7 +1,7 @@
 import axios from "axios";
-import sitedata from "../../../sitedata";
+import sitedata from "sitedata";
 import React, { Component } from "react";
-import { speciality } from "./../../../speciality";
+import { speciality } from "speciality";
 
 //Custom Console So comment only One console works on whole website
 export function ConsoleCustom(msg, value) {

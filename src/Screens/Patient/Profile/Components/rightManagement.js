@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
-import sitedata from '../../../../sitedata';
+import sitedata from 'sitedata';
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import { LoginReducerAim } from './../../../Login/actions';
-import { Settings } from './../../../Login/setting';
+import { LoginReducerAim } from 'Screens/Login/actions';
+import { Settings } from 'Screens/Login/setting';
 import axios from 'axios';
-import { LanguageFetchReducer } from './../../../actions';
+import { LanguageFetchReducer } from 'Screens/actions';
 import Radio from '@material-ui/core/Radio';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import TextField from '@material-ui/core/TextField';
-import Loader from './../../../Components/Loader/index';
-import DateFormat from './../../../Components/DateFormat/index'
+import Loader from 'Screens/Components/Loader/index';
+import DateFormat from 'Screens/Components/DateFormat/index'
 import {
     translationAR,
     translationSW,

@@ -1,14 +1,14 @@
 import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
-import sitedata from "../../../../sitedata";
+import sitedata from "sitedata";
 import axios from "axios";
-import Loader from "./../../../Components/Loader/index";
+import Loader from "Screens/Components/Loader/index";
 import Select from "react-select";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import { LoginReducerAim } from "./../../../Login/actions";
-import { Settings } from "./../../../Login/setting";
-import { LanguageFetchReducer } from "./../../../actions";
+import { LoginReducerAim } from "Screens/Login/actions";
+import { Settings } from "Screens/Login/setting";
+import { LanguageFetchReducer } from "Screens/actions";
 import {
   translationAR,
   translationSW,

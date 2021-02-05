@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
-import { getImage } from "./../../BasicMethod/index";
-import Iframeview from "../../FrameUse/index";
+import { getImage } from "Screens/Components/BasicMethod/index";
+import Iframeview from "Screens/Components/FrameUse/index";
 import Modal from "@material-ui/core/Modal";
 import axios from "axios";
 import "react-inner-image-zoom/lib/InnerImageZoom/styles.css";
 import InnerImageZoom from "react-inner-image-zoom";
-import sitedata from "../../../../sitedata";
-import Loader from "./../../Loader/index";
+import sitedata from "sitedata";
+import Loader from "Screens/Components/Loader/index";
 
 class Index extends Component {
   constructor(props) {

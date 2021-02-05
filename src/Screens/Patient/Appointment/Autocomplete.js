@@ -1,6 +1,6 @@
 /* global google */
 import React from "react";
-import { LanguageFetchReducer } from "../../actions";
+import { LanguageFetchReducer } from "Screens/actions";
 import {
   translationAR,
   translationSW,

@@ -1,21 +1,21 @@
 import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
 import { connect } from "react-redux";
-import { LoginReducerAim } from "../../../Login/actions";
-import { Settings } from "../../../Login/setting";
+import { LoginReducerAim } from "Screens/Login/actions";
+import { Settings } from "Screens/Login/setting";
 // import { Doctorset } from '../../Doctor/actions';
 // import { filterate } from '../../Doctor/filteraction';
 import { withRouter } from "react-router-dom";
-import { LanguageFetchReducer } from "../../../actions";
-import LogOut from "./../../LogOut/index";
-import Timer from "./../../TimeLogOut/index";
+import { LanguageFetchReducer } from "Screens/actions";
+import LogOut from "Screens/Components/LogOut/index";
+import Timer from "Screens/Components/TimeLogOut/index";
 import { slide as Menu } from "react-burger-menu";
-import Mode from "./../../ThemeMode/index.js";
-import sitedata from "../../../../sitedata";
+import Mode from "Screens/Components/ThemeMode/index.js";
+import sitedata from "sitedata";
 import axios from "axios";
-import Notification from "../../../Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
-import PharamacyModal from "./../../../Doctor/PharamacyInfo/index.js";
-import DoctorInviteModal from "./../../../Doctor/DoctorInvite/index.js";
+import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
+import PharamacyModal from "Screens/Doctor/PharamacyInfo/index.js";
+import DoctorInviteModal from "Screens/Doctor/DoctorInvite/index.js";
 import {
   translationAR,
   translationSW,
@@ -28,7 +28,7 @@ import {
   translationPT,
   translationFR
 } from "translations/index"
-import SetLanguage from "./../../SetLanguage/index.js";
+import SetLanguage from "Screens/Components/SetLanguage/index.js";
 
 class Index extends Component {
   constructor(props) {

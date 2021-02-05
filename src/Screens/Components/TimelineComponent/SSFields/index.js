@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
-import NotesEditor from "./../../Editor/index";
-import SelectField from "./../../Select/index";
-import ShowHide from "./../../ShowHide/index";
-import DateFormat from "./../../DateFormat/index";
+import NotesEditor from "Screens/Components/Editor/index";
+import SelectField from "Screens/Components/Select/index";
+import ShowHide from "Screens/Components/ShowHide/index";
+import DateFormat from "Screens/Components/DateFormat/index";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import { LanguageFetchReducer } from "./../../../actions";
+import { LanguageFetchReducer } from "Screens/actions";
 import {
   translationAR,
   translationSW,
@@ -19,7 +19,7 @@ import {
   translationPT,
   translationFR
 } from "translations/index"
-import { GetShowLabel1 } from "../../GetMetaData/index.js";
+import { GetShowLabel1 } from "Screens/Components/GetMetaData/index.js";
 import { pure } from "recompose";
 class Index extends Component {
   constructor(props) {

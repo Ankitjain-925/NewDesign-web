@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
-import sitedata from '../../sitedata';
+import sitedata from 'sitedata';
 import axios from 'axios';
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import { LoginReducerAim } from '../Login/actions';
-import { Settings } from '../Login/setting';
-import { LanguageFetchReducer } from '../actions';
-import LeftMenu from "../Components/Menus/H_leftMenu/index"
-import LeftMenuMobile from "../Components/Menus/H_leftMenu/mobile"
-import Loader from '../Components/Loader/index';
+import { LoginReducerAim } from 'Screens/Login/actions';
+import { Settings } from 'Screens/Login/setting';
+import { LanguageFetchReducer } from 'Screens/actions';
+import LeftMenu from "Screens/Components/Menus/H_leftMenu/index"
+import LeftMenuMobile from "Screens/Components/Menus/H_leftMenu/mobile"
+import Loader from 'Screens/Components/Loader/index';
 import translationEN from "./translations/en_json_proofread_13072020.json"
 import translationDE from "./translations/de.json"
 import "./style.css";

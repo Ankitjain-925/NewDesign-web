@@ -1,24 +1,24 @@
 import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
 import { connect } from "react-redux";
-import { LoginReducerAim } from "../../../Login/actions";
-import { Settings } from "../../../Login/setting";
+import { LoginReducerAim } from "Screens/Login/actions";
+import { Settings } from "Screens/Login/setting";
 // import { Doctorset } from '../../Doctor/actions';
 // import { filterate } from '../../Doctor/filteraction';
 import { withRouter } from "react-router-dom";
-import { LanguageFetchReducer } from "../../../actions";
-import LogOut from "./../../LogOut/index";
-import Timer from "./../../TimeLogOut/index";
-import Notification from "../../../Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
+import { LanguageFetchReducer } from "Screens/actions";
+import LogOut from "Screens/Components/LogOut/index";
+import Timer from "Screens/Components/TimeLogOut/index";
+import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 
 import Modal from "@material-ui/core/Modal";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
-import sitedata from "../../../../sitedata";
+import sitedata from "sitedata";
 import axios from "axios";
-import Mode from "./../../ThemeMode/index.js";
-import PharamacyModal from "./../../../Doctor/PharamacyInfo/index.js";
-import DoctorInviteModal from "./../../../Doctor/DoctorInvite/index.js";
+import Mode from "Screens/Components/ThemeMode/index.js";
+import PharamacyModal from "Screens/Doctor/PharamacyInfo/index.js";
+import DoctorInviteModal from "Screens/Doctor/DoctorInvite/index.js";
 import {
   translationAR,
   translationSW,
@@ -31,7 +31,7 @@ import {
   translationPT,
   translationFR
 } from "translations/index"
-import SetLanguage from "./../../SetLanguage/index.js";
+import SetLanguage from "Screens/Components/SetLanguage/index.js";
 
 class Index extends Component {
   constructor(props) {

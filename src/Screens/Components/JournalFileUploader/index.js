@@ -5,10 +5,10 @@ import { Input } from "@material-ui/core";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { pure } from "recompose";
-import sitedata, { data } from "../../../sitedata";
+import sitedata, { data } from "sitedata";
 import axios from "axios";
 import Loader from "./../Loader/index";
-import { LanguageFetchReducer } from "../../actions";
+import { LanguageFetchReducer } from "Screens/actions";
 import { getImage } from "./../BasicMethod/index";
 import {
   translationAR,

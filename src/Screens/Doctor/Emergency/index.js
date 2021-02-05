@@ -3,20 +3,20 @@ import Grid from "@material-ui/core/Grid";
 import "react-super-responsive-table/dist/SuperResponsiveTableStyle.css";
 import Modal from "@material-ui/core/Modal";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
-import LeftMenu from "./../../Components/Menus/DoctorLeftMenu/index";
-import LeftMenuMobile from "./../../Components/Menus/DoctorLeftMenu/mobile";
+import LeftMenu from "Screens/Components/Menus/DoctorLeftMenu/index";
+import LeftMenuMobile from "Screens/Components/Menus/DoctorLeftMenu/mobile";
 import Checkbox from "@material-ui/core/Checkbox";
-import Loader from "./../../Components/Loader/index";
-import { EmergencySet } from "../../Doctor/emergencyaction.js";
-import { LanguageFetchReducer } from "./../../actions";
+import Loader from "Screens/Components/Loader/index";
+import { EmergencySet } from "Screens/Doctor/emergencyaction.js";
+import { LanguageFetchReducer } from "Screens/actions";
 import { withRouter } from "react-router-dom";
-import sitedata from "../../../sitedata";
+import sitedata from "sitedata";
 import axios from "axios";
 import { Redirect, Route } from "react-router-dom";
 import { connect } from "react-redux";
-import { authy } from "./../../Login/authy.js";
-import { LoginReducerAim } from "./../../Login/actions";
-import EmergencyCall from "./../../Components/EmergencyPage/index";
+import { authy } from "Screens/Login/authy.js";
+import { LoginReducerAim } from "Screens/Login/actions";
+import EmergencyCall from "Screens/Components/EmergencyPage/index";
 import {
   translationAR,
   translationSW,
@@ -29,9 +29,9 @@ import {
   translationPT,
   translationFR
 } from "translations/index"
-import Notification from "../../Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
+import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 
-import { Settings } from "./../../Login/setting";
+import { Settings } from "Screens/Login/setting";
 
 class Index extends Component {
   constructor(props) {

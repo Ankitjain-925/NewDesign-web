@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
-import { Settings } from "../../Login/setting";
+import { Settings } from "Screens/Login/setting";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 

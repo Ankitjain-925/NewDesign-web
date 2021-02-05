@@ -6,9 +6,9 @@ import App from "./component/App";
 import * as serviceWorker from "./serviceWorker";
 import { Provider } from "react-redux";
 import store from "./store/index";
-import "./assets/css/style.css";
+import "assets/css/style.css";
 import { CometChat } from "@cometchat-pro/chat";
-import { COMETCHAT_CONSTANTS } from "./Screens/Components/CometChat/consts";
+import { COMETCHAT_CONSTANTS } from "Screens/Components/CometChat/consts";
 
 // const rootReducers = combineReducers(reducers);
 // const store1 = createStore(rootReducers,applyMiddleware(thunk)

@@ -4,23 +4,23 @@ import Toggle from "react-toggle";
 import axios from "axios";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import { LoginReducerAim } from "./../../Login/actions";
-import { Settings } from "./../../Login/setting";
-import LeftMenu from "./../../Components/Menus/PatientLeftMenu/index";
-import LeftMenuMobile from "./../../Components/Menus/PatientLeftMenu/mobile";
-import { LanguageFetchReducer } from "./../../actions";
-import Loader from "./../../Components/Loader/index";
+import { LoginReducerAim } from "Screens/Login/actions";
+import { Settings } from "Screens/Login/setting";
+import LeftMenu from "Screens/Components/Menus/PatientLeftMenu/index";
+import LeftMenuMobile from "Screens/Components/Menus/PatientLeftMenu/mobile";
+import { LanguageFetchReducer } from "Screens/actions";
+import Loader from "Screens/Components/Loader/index";
 import { Redirect, Route } from "react-router-dom";
 import Collapsible from "react-collapsible";
-import sitedata from "../../../sitedata";
+import sitedata from "sitedata";
 import "react-toggle/style.css";
-import { authy } from "./../../Login/authy.js";
+import { authy } from "Screens/Login/authy.js";
 import {
   getDate,
   getReminder,
   getTime,
   SortByEntry,
-} from "./../../Components/BasicMethod/index";
+} from "Screens/Components/BasicMethod/index";
 import {
   translationAR,
   translationSW,
@@ -33,7 +33,7 @@ import {
   translationPT,
   translationFR
 } from "translations/index"
-import Notification from "../../Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
+import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 class Index extends Component {
   constructor(props) {
     super(props);

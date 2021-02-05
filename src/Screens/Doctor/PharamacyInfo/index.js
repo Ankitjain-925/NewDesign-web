@@ -1,16 +1,16 @@
 import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
 import { connect } from "react-redux";
-import { LoginReducerAim } from "./../../Login/actions";
-import { Settings } from "./../../Login/setting";
+import { LoginReducerAim } from "Screens/Login/actions";
+import { Settings } from "Screens/Login/setting";
 import Dropzone from "react-dropzone";
 import { Input } from "@material-ui/core";
 import { withRouter } from "react-router-dom";
-import { LanguageFetchReducer } from "./../../actions";
+import { LanguageFetchReducer } from "Screens/actions";
 import Modal from "@material-ui/core/Modal";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
-import sitedata from "./../../../sitedata";
+import sitedata from "sitedata";
 import axios from "axios";
 import Geocode from "react-geocode";
 import { confirmAlert } from "react-confirm-alert"; // Import

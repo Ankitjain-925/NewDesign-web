@@ -4,7 +4,7 @@ import Modal from "@material-ui/core/Modal";
 import RLDD from "react-list-drag-and-drop/lib/RLDD";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import { LanguageFetchReducer } from "./../../../actions";
+import { LanguageFetchReducer } from "Screens/actions";
 import {
   translationAR,
   translationSW,

@@ -1,18 +1,18 @@
 import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
-import MMHG from "../../mmHgField/index";
-import Temprature from "../../Temprature";
-import SelectField from "../../Select/index";
-import FileUploader from "./../../JournalFileUploader/index";
-import ShowHide from "../../ShowHide/index";
-import NotesEditor from "../../Editor/index";
-import PainPoint from "../../PointPain/index";
-import PainIntensity from "../../PainIntansity/index";
-import Condition from "../../Condition/index";
+import MMHG from "Screens/Components/mmHgField/index";
+import Temprature from "Screens/Components/Temprature";
+import SelectField from "Screens/Components/Select/index";
+import FileUploader from "Screens/Components/JournalFileUploader/index";
+import ShowHide from "Screens/Components/ShowHide/index";
+import NotesEditor from "Screens/Components/Editor/index";
+import PainPoint from "Screens/Components/PointPain/index";
+import PainIntensity from "Screens/Components/PainIntansity/index";
+import Condition from "Screens/Components/Condition/index";
 import { pure } from "recompose";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import { LanguageFetchReducer } from "./../../../actions";
+import { LanguageFetchReducer } from "Screens/actions";
 import {
   translationAR,
   translationSW,

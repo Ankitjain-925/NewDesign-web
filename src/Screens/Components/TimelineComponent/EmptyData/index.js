@@ -4,7 +4,7 @@ import Collapsible from "react-collapsible";
 import ReactTooltip from "react-tooltip";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import { LanguageFetchReducer } from "./../../../actions";
+import { LanguageFetchReducer } from "Screens/actions";
 import { pure } from "recompose";
 import {
   translationAR,

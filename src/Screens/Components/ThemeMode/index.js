@@ -2,13 +2,13 @@ import React, { Component } from "react";
 import Toggle from "react-toggle";
 import "react-toggle/style.css";
 import { connect } from "react-redux";
-import { LoginReducerAim } from "../../Login/actions";
-import { Settings } from "../../Login/setting";
+import { LoginReducerAim } from "Screens/Login/actions";
+import { Settings } from "Screens/Login/setting";
 import { withRouter } from "react-router-dom";
-import { LanguageFetchReducer } from "../../actions";
-import sitedata from "../../../sitedata";
+import { LanguageFetchReducer } from "Screens/actions";
+import sitedata from "sitedata";
 import axios from "axios";
-import Loader from "../../Components/Loader/index";
+import Loader from "Screens/Components/Loader/index";
 
 class Index extends Component {
   constructor(props) {

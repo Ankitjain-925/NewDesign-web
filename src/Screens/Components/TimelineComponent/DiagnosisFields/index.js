@@ -1,18 +1,18 @@
 import React, { Component, useLayoutEffect } from "react";
 import Grid from "@material-ui/core/Grid";
-import NotesEditor from "./../../Editor/index";
-import ShowHide from "./../../ShowHide/index";
+import NotesEditor from "Screens/Components/Editor/index";
+import ShowHide from "Screens/Components/ShowHide/index";
 import Checkbox from "@material-ui/core/Checkbox";
-import MMHG from "./../../mmHgField/index";
-import DateFormat from "./../../DateFormat/index";
-import FileUploader from "./../../JournalFileUploader/index";
+import MMHG from "Screens/Components/mmHgField/index";
+import DateFormat from "Screens/Components/DateFormat/index";
+import FileUploader from "Screens/Components/JournalFileUploader/index";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import axios from "axios";
-import sitedata from "../../../../sitedata";
+import sitedata from "sitedata";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import { LoginReducerAim } from "./../../../Login/actions";
-import { LanguageFetchReducer } from "./../../../actions";
+import { LoginReducerAim } from "Screens/Login/actions";
+import { LanguageFetchReducer } from "Screens/actions";
 import {
   translationAR,
   translationSW,

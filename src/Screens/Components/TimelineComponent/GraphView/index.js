@@ -6,16 +6,16 @@ import {
   GetUrlImage,
   getFirstLastName,
   SortByGraphView,
-} from "../../BasicMethod";
+} from "Screens/Components/BasicMethod";
 import GraphSec from "./../GraphSec/index";
 import HC_more from "highcharts/highcharts-more"; //module3
 // Import Highcharts
 import Highcharts from "highcharts/highstock";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import { GetShowLabel1 } from "../../GetMetaData/index.js";
-import AllL_Ps from "../../Parameters/parameter.js";
-import { LanguageFetchReducer } from "./../../../actions";
+import { GetShowLabel1 } from "Screens/Components/GetMetaData/index.js";
+import AllL_Ps from "Screens/Components/Parameters/parameter.js";
+import { LanguageFetchReducer } from "Screens/actions";
 import {
   translationAR,
   translationSW,

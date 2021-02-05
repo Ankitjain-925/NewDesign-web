@@ -2,8 +2,8 @@ import {
   GET_EMERGENCY_REQUEST,
   GET_EMERGENCY_FAIL1,
   GET_EMERGENCY_SUCCESS,
-} from "../../actiontypes";
-import sitedata from "../../sitedata.js";
+} from "actiontypes";
+import sitedata from "sitedata.js";
 import axios from "axios";
 
 const path = sitedata.data.path + "/UserProfile";

@@ -2,15 +2,15 @@ import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
 import Modal from '@material-ui/core/Modal';
 import { connect } from "react-redux";
-import { LoginReducerAim } from '../../Login/actions';
-import { Settings } from '../../Login/setting';
+import { LoginReducerAim } from 'Screens/Login/actions';
+import { Settings } from 'Screens/Login/setting';
 import { withRouter } from "react-router-dom";
-import { LanguageFetchReducer } from '../../actions';
+import { LanguageFetchReducer } from 'Screens/actions';
 import { getDate, getImage, GetUrlImage } from '../BasicMethod/index'
-import sitedata from '../../../sitedata';
+import sitedata from 'sitedata';
 import axios from "axios"
-import translationEN from "../../hospital_Admin/translations/en_json_proofread_13072020.json"
-import translationDE from "../../hospital_Admin/translations/de.json"
+import translationEN from "Screens/hospital_Admin/translations/en_json_proofread_13072020.json"
+import translationDE from "Screens/hospital_Admin/translations/de.json"
 
 
 class Index extends Component {

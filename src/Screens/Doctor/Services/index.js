@@ -8,27 +8,27 @@ import Checkbox from "@material-ui/core/Checkbox";
 import Typography from "@material-ui/core/Typography";
 import PropTypes from "prop-types";
 import ReactTooltip from "react-tooltip";
-import sitedata, { data } from "../../../sitedata";
+import sitedata, { data } from "sitedata";
 import axios from "axios";
 import { withRouter } from "react-router-dom";
 import Radio from "@material-ui/core/Radio";
 import { connect } from "react-redux";
-import { LoginReducerAim } from "./../../Login/actions";
-import { Settings } from "./../../Login/setting";
+import { LoginReducerAim } from "Screens/Login/actions";
+import { Settings } from "Screens/Login/setting";
 import { confirmAlert } from "react-confirm-alert"; // Import
 import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
-import LeftMenu from "./../../Components/Menus/DoctorLeftMenu/index";
-import LeftMenuMobile from "./../../Components/Menus/DoctorLeftMenu/mobile";
-import { LanguageFetchReducer } from "./../../actions";
-import Loader from "./../../Components/Loader/index";
+import LeftMenu from "Screens/Components/Menus/DoctorLeftMenu/index";
+import LeftMenuMobile from "Screens/Components/Menus/DoctorLeftMenu/mobile";
+import { LanguageFetchReducer } from "Screens/actions";
+import Loader from "Screens/Components/Loader/index";
 import { Redirect, Route } from "react-router-dom";
 import moment from "moment";
-import { authy } from "./../../Login/authy.js";
-// import translate from './../../Components/Translator/index.js';
+import { authy } from "Screens/Login/authy.js";
+// import translate from 'Screens/Components/Translator/index.js';
 import ReactFlagsSelect from "react-flags-select";
 import "react-flags-select/css/react-flags-select.css";
 import "react-flags-select/scss/react-flags-select.scss";
-import { getDate, getImage } from "./../../Components/BasicMethod/index";
+import { getDate, getImage } from "Screens/Components/BasicMethod/index";
 import npmCountryList from "react-select-country-list";
 import {
   translationAR,
@@ -45,9 +45,9 @@ import {
 import {
   AddFavDoc2,
   ConsoleCustom,
-} from "./../../Components/BasicMethod/index";
-import { Doctorset } from "../../Doctor/actions";
-import Notification from "../../Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
+} from "Screens/Components/BasicMethod/index";
+import { Doctorset } from "Screens/Doctor/actions";
+import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 
 var letter = /([a-zA-Z])+([ -~])*/,
   number = /\d+/,

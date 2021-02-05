@@ -11,28 +11,28 @@ import Checkbox from "@material-ui/core/Checkbox";
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
 import axios from "axios";
-import { authy } from "./../../Login/authy.js";
+import { authy } from "Screens/Login/authy.js";
 import Geocode from "react-geocode";
 import { GoogleApiWrapper, Map, Marker } from "google-maps-react";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import { LoginReducerAim } from "./../../Login/actions";
-import { Settings } from "./../../Login/setting";
-import { LanguageFetchReducer } from "./../../actions";
+import { LoginReducerAim } from "Screens/Login/actions";
+import { Settings } from "Screens/Login/setting";
+import { LanguageFetchReducer } from "Screens/actions";
 import TooltipTrigger from "react-popper-tooltip";
 import { pure } from "recompose";
 import "react-popper-tooltip/dist/styles.css";
-import CalendarToolbar from "./../../Components/CalendarToolbar/index.js";
+import CalendarToolbar from "Screens/Components/CalendarToolbar/index.js";
 import DatePicker from "react-date-picker";
 import {
   getDate,
   getImage,
   getSpec,
-} from "./../../Components/BasicMethod/index";
+} from "Screens/Components/BasicMethod/index";
 import { Redirect, Route } from "react-router-dom";
 import LeftMenu from "../../Components/Menus/PatientLeftMenu/index";
-import LeftMenuMobile from "./../../Components/Menus/PatientLeftMenu/mobile";
-import sitedata from "../../../sitedata";
+import LeftMenuMobile from "Screens/Components/Menus/PatientLeftMenu/mobile";
+import sitedata from "sitedata";
 import Autocomplete from "./Autocomplete";
 import {
   translationAR,
@@ -46,10 +46,10 @@ import {
   translationPT,
   translationFR
 } from "translations/index"
-import SPECIALITY from "../../../speciality";
-import { subspeciality } from "../../../subspeciality.js";
-import Loader from "./../../Components/Loader/index";
-import { GetLanguageDropdown } from "./../../Components/GetMetaData/index.js";
+import SPECIALITY from "speciality";
+import { subspeciality } from "subspeciality.js";
+import Loader from "Screens/Components/Loader/index";
+import { GetLanguageDropdown } from "Screens/Components/GetMetaData/index.js";
 import Notification from "../../Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 
 const CURRENT_DATE = moment().toDate();

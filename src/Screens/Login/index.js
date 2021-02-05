@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { LanguageFetchReducer } from "../actions";
+import { LanguageFetchReducer } from "Screens/actions";
 import { Redirect, Route } from "react-router-dom";
 import axios from "axios";
 import { connect } from "react-redux";
@@ -16,7 +16,7 @@ import {
   DropdownMenu,
   DropdownItem,
 } from "reactstrap";
-import sitedata from "../../sitedata";
+import sitedata from "sitedata";
 import {
   translationAR,
   translationSW,
@@ -29,13 +29,12 @@ import {
   translationPT,
   translationFR
 } from "translations/index"
-import { EmergencySet } from "../Doctor/emergencyaction.js";
-import { Doctorset } from "../Doctor/actions";
-import * as actions from "../Components/CometChat/store/action";
+import { EmergencySet } from "Screens/Doctor/emergencyaction.js";
+import { Doctorset } from "Screens/Doctor/actions";
+import * as actions from "Screens/Components/CometChat/store/action";
 import Toggle from "react-toggle";
 import queryString from "query-string";
-import Loader from "./../Components/Loader/index";
-import Emergency from "../Nurse/Emergency";
+import Loader from "Screens/Components/Loader/index";
 const path = sitedata.data.path + "/UserProfile";
 
 class Index extends Component {

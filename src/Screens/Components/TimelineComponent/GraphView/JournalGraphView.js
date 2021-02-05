@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
-import { getDate, getTime, GetUrlImage, getFirstLastName } from '../../BasicMethod';
+import { getDate, getTime, GetUrlImage, getFirstLastName } from 'Screens/Components/BasicMethod';
 import GraphSec from './../GraphSec/index'
 import HC_more from "highcharts/highcharts-more"; //module3
 // Import Highcharts

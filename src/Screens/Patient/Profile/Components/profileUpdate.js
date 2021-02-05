@@ -1,37 +1,36 @@
 /*global google*/
-import TextField from '@material-ui/core/TextField';
 import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
 import Select from 'react-select';
-import DatePicker from 'react-date-picker';
+// import DatePicker from 'react-date-picker';
 // import PhoneInput from 'react-phone-input-2';
 // import 'react-phone-input-2/lib/style.css';
 import ReactFlagsSelect from 'react-flags-select';
-import sitedata from '../../../../sitedata';
+import sitedata from 'sitedata';
 import axios from 'axios';
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { OptionList } from "Screens/Login/metadataaction";
 import QRCode from 'qrcode.react';
-import { LoginReducerAim } from './../../../Login/actions';
-import { Settings } from './../../../Login/setting';
+import { LoginReducerAim } from 'Screens/Login/actions';
+import { Settings } from 'Screens/Login/setting';
 import npmCountryList from 'react-select-country-list'
 import { Table } from 'reactstrap';
-import * as AustraliaC from '../../../Components/insuranceCompanies/australia.json';
-import * as AustriaC from '../../../Components/insuranceCompanies/austria.json';
-import * as NetherlandC from '../../../Components/insuranceCompanies/dutch.json';
-import * as GermanC from '../../../Components/insuranceCompanies/german.json';
-import * as PhillipinesC from '../../../Components/insuranceCompanies/phillippines.json';
-import * as SwitzerlandC from '../../../Components/insuranceCompanies/switzerland.json';
-import * as AmericaC from '../../../Components/insuranceCompanies/us.json';
-import * as ThailandC from '../../../Components/insuranceCompanies/thailand.json';
-import Autocomplete from '../../../Components/Autocomplete/index';
-import { LanguageFetchReducer } from './../../../actions';
+import * as AustraliaC from 'Screens/Components/insuranceCompanies/australia.json';
+import * as AustriaC from 'Screens/Components/insuranceCompanies/austria.json';
+import * as NetherlandC from 'Screens/Components/insuranceCompanies/dutch.json';
+import * as GermanC from 'Screens/Components/insuranceCompanies/german.json';
+import * as PhillipinesC from 'Screens/Components/insuranceCompanies/phillippines.json';
+import * as SwitzerlandC from 'Screens/Components/insuranceCompanies/switzerland.json';
+import * as AmericaC from 'Screens/Components/insuranceCompanies/us.json';
+import * as ThailandC from 'Screens/Components/insuranceCompanies/thailand.json';
+import Autocomplete from 'Screens/Components/Autocomplete/index';
+import { LanguageFetchReducer } from 'Screens/actions';
 import Modal from '@material-ui/core/Modal';
-import Loader from './../../../Components/Loader/index';
-import SPECIALITY from '../../../../speciality';
-import { GetLanguageDropdown, GetShowLabel1, GetShowLabel } from './../../../Components/GetMetaData/index.js';
-import DateFormat from './../../../Components/DateFormat/index'
+import Loader from 'Screens/Components/Loader/index';
+import SPECIALITY from 'speciality';
+import { GetLanguageDropdown, GetShowLabel1, GetShowLabel } from 'Screens/Components/GetMetaData/index.js';
+import DateFormat from 'Screens/Components/DateFormat/index'
 import {
     translationAR,
     translationSW,

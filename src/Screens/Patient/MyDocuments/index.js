@@ -11,26 +11,26 @@ import AppBar from '@material-ui/core/AppBar';
 import Typography from '@material-ui/core/Typography';
 import PropTypes from 'prop-types';
 import ReactTooltip from "react-tooltip";
-import sitedata, { data } from '../../../sitedata';
+import sitedata, { data } from 'sitedata';
 import axios from 'axios';
 import { withRouter } from "react-router-dom";
 import Radio from '@material-ui/core/Radio';
 import { connect } from "react-redux";
-import { authy } from './../../Login/authy.js';
-import FileUploader from './../../Components/FileUploader/index';
+import { authy } from 'Screens/Login/authy.js';
+import FileUploader from 'Screens/Components/FileUploader/index';
 import ListingSecond from '../More/Components/ListingSecond';
-import { LoginReducerAim } from './../../Login/actions';
-import { Settings } from './../../Login/setting';
+import { LoginReducerAim } from 'Screens/Login/actions';
+import { Settings } from 'Screens/Login/setting';
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
-import LeftMenu from './../../Components/Menus/PatientLeftMenu/index';
-import LeftMenuMobile from './../../Components/Menus/PatientLeftMenu/mobile';
-import { LanguageFetchReducer } from './../../actions';
-import Loader from './../../Components/Loader/index';
+import LeftMenu from 'Screens/Components/Menus/PatientLeftMenu/index';
+import LeftMenuMobile from 'Screens/Components/Menus/PatientLeftMenu/mobile';
+import { LanguageFetchReducer } from 'Screens/actions';
+import Loader from 'Screens/Components/Loader/index';
 import { Redirect, Route } from 'react-router-dom';
 import SickList from './Components/sickcertificate';
 import PrecriptionList from './Components/prescription';
-import { AddFavDoc, ConsoleCustom } from './../../Components/BasicMethod/index';
+import { AddFavDoc, ConsoleCustom } from 'Screens/Components/BasicMethod/index';
 import {
     translationAR,
     translationSW,

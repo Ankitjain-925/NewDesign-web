@@ -7,27 +7,27 @@ import DatePicker from "react-date-picker";
 // import PhoneInput from 'react-phone-input-2';
 // import 'react-phone-input-2/lib/style.css';
 import ReactFlagsSelect from "react-flags-select";
-import sitedata from "../../../../sitedata";
+import sitedata from "sitedata";
 import axios from "axios";
 import { withRouter } from "react-router-dom";
 import { confirmAlert } from "react-confirm-alert"; // Import
 import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
 import { connect } from "react-redux";
-import { LoginReducerAim } from "./../../../Login/actions";
-import { Settings } from "./../../../Login/setting";
+import { LoginReducerAim } from "Screens/Login/actions";
+import { Settings } from "Screens/Login/setting";
 import npmCountryList from "react-select-country-list";
-import FileUploader from "./../../../Components/FileUploader/index";
-import { GetUrlImage1 } from "./../../../Components/BasicMethod/index";
+import FileUploader from "Screens/Components/FileUploader/index";
+import { GetUrlImage1 } from "Screens/Components/BasicMethod/index";
 import { Table } from "reactstrap";
-import * as AustraliaC from "../../../Components/insuranceCompanies/australia.json";
-import * as AustriaC from "../../../Components/insuranceCompanies/austria.json";
-import * as NetherlandC from "../../../Components/insuranceCompanies/dutch.json";
-import * as GermanC from "../../../Components/insuranceCompanies/german.json";
-import * as PhillipinesC from "../../../Components/insuranceCompanies/phillippines.json";
-import * as SwitzerlandC from "../../../Components/insuranceCompanies/switzerland.json";
-import * as AmericaC from "../../../Components/insuranceCompanies/us.json";
-import * as ThailandC from "../../../Components/insuranceCompanies/thailand.json";
-import { LanguageFetchReducer } from "./../../../actions";
+import * as AustraliaC from "Screens/Components/insuranceCompanies/australia.json";
+import * as AustriaC from "Screens/Components/insuranceCompanies/austria.json";
+import * as NetherlandC from "Screens/Components/insuranceCompanies/dutch.json";
+import * as GermanC from "Screens/Components/insuranceCompanies/german.json";
+import * as PhillipinesC from "Screens/Components/insuranceCompanies/phillippines.json";
+import * as SwitzerlandC from "Screens/Components/insuranceCompanies/switzerland.json";
+import * as AmericaC from "Screens/Components/insuranceCompanies/us.json";
+import * as ThailandC from "Screens/Components/insuranceCompanies/thailand.json";
+import { LanguageFetchReducer } from "Screens/actions";
 import {
   translationAR,
   translationSW,
@@ -40,17 +40,17 @@ import {
   translationPT,
   translationFR
 } from "translations/index"
-import Loader from "./../../../Components/Loader/index";
-import DateFormat from "./../../../Components/DateFormat/index";
-import Autocomplete from "./../../../Components/Autocomplete/index.js";
+import Loader from "Screens/Components/Loader/index";
+import DateFormat from "Screens/Components/DateFormat/index";
+import Autocomplete from "Screens/Components/Autocomplete/index.js";
 import Modal from "@material-ui/core/Modal";
-import { subspeciality } from "../../../../subspeciality.js";
-import SPECIALITY from "../../../../speciality";
+import { subspeciality } from "subspeciality.js";
+import SPECIALITY from "speciality";
 import { OptionList } from "Screens/Login/metadataaction";
 import {
   GetLanguageDropdown,
   GetShowLabel12,
-} from "./../../../Components/GetMetaData/index.js";
+} from "Screens/Components/GetMetaData/index.js";
 import QRCode from "qrcode.react";
 
 const options = [

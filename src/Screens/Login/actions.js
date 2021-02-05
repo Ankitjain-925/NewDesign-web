@@ -2,12 +2,11 @@ import {
   GET_LOGIN_REQUEST,
   GET_LOGIN_SUCCESS,
   GET_LOGIN_ERROR,
-} from "../../actiontypes";
-import sitedata from "../../sitedata.js";
+} from "actiontypes";
+import sitedata from "sitedata.js";
 import axios from "axios";
 import { CometChat } from "@cometchat-pro/chat";
 import { COMETCHAT_CONSTANTS } from "../Components//CometChat/consts";
-import * as actions from "../Components/CometChat/store/action";
 import * as Docarray from "./doctorarray";
 
 const path = sitedata.data.path + "/UserProfile";

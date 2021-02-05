@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
-import { LanguageFetchReducer } from "../../actions";
+import { LanguageFetchReducer } from "Screens/actions";
 import { connect } from "react-redux";
-import { LoginReducerAim } from "../../Login/actions";
-import { Settings } from "./../../Login/setting";
+import { LoginReducerAim } from "Screens/Login/actions";
+import { Settings } from "Screens/Login/setting";
 import "react-calendar/dist/Calendar.css";
 import {
   translationAR,

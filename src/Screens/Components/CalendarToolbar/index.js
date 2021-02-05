@@ -5,9 +5,9 @@ import Grid from "@material-ui/core/Grid";
 import Select from "react-select";
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
-import sitedata from "../../../sitedata";
+import sitedata from "sitedata";
 import axios from "axios";
-import { LanguageFetchReducer } from "../../actions";
+import { LanguageFetchReducer } from "Screens/actions";
 import {
   translationAR,
   translationSW,

@@ -2,12 +2,12 @@ import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
 import Modal from "@material-ui/core/Modal";
 import { connect } from "react-redux";
-import { LoginReducerAim } from "../../Login/actions";
-import { Settings } from "../../Login/setting";
+import { LoginReducerAim } from "Screens/Login/actions";
+import { Settings } from "Screens/Login/setting";
 import { withRouter } from "react-router-dom";
-import { LanguageFetchReducer } from "../../actions";
-import sitedata from "../../../sitedata";
-import Loader from "../../Components/Loader/index";
+import { LanguageFetchReducer } from "Screens/actions";
+import sitedata from "sitedata";
+import Loader from "Screens/Components/Loader/index";
 import axios from "axios";
 
 import {

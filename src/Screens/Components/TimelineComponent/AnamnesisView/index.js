@@ -2,14 +2,14 @@ import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
 import Collapsible from "react-collapsible";
 import FileViews from "./../FileViews/index";
-import PainPoint from "./../../PointPain/index";
+import PainPoint from "Screens/Components/PointPain/index";
 import ReactTooltip from "react-tooltip";
-import { getDate, newdate, getTime, getImage } from "./../../BasicMethod/index";
-import DownloadFullTrack from "./../../DownloadFullTrack/index.js";
+import { getDate, newdate, getTime, getImage } from "Screens/Components/BasicMethod/index";
+import DownloadFullTrack from "Screens/Components/DownloadFullTrack/index.js";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { GetShowLabel1 } from "../../GetMetaData/index.js";
-import { LanguageFetchReducer } from "../../../actions";
+import { LanguageFetchReducer } from "Screens/actions";
 import {
   translationAR,
   translationSW,

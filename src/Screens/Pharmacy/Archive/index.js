@@ -3,26 +3,26 @@ import Grid from "@material-ui/core/Grid";
 import { Table, Thead, Tbody, Tr, Th, Td } from "react-super-responsive-table";
 import "react-super-responsive-table/dist/SuperResponsiveTableStyle.css";
 import Modal from "@material-ui/core/Modal";
-import LeftMenuMobile from "./../../Components/Menus/PharmaLeftMenu/mobile";
-import LeftMenu from "./../../Components/Menus/PharmaLeftMenu/index";
-import Loader from "./../../Components/Loader/index";
+import LeftMenuMobile from "Screens/Components/Menus/PharmaLeftMenu/mobile";
+import LeftMenu from "Screens/Components/Menus/PharmaLeftMenu/index";
+import Loader from "Screens/Components/Loader/index";
 import { EmergencySet } from "../../Doctor/emergencyaction.js";
-import { LanguageFetchReducer } from "./../../actions";
+import { LanguageFetchReducer } from "Screens/actions";
 import { withRouter } from "react-router-dom";
-import sitedata from "../../../sitedata";
+import sitedata from "sitedata";
 import axios from "axios";
-import { Redirect, Route } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
-import { LoginReducerAim } from "./../../Login/actions";
-import { authy } from "./../../Login/authy.js";
-import { Settings } from "./../../Login/setting";
+import { LoginReducerAim } from "Screens/Login/actions";
+import { authy } from "Screens/Login/authy.js";
+import { Settings } from "Screens/Login/setting";
 import { confirmAlert } from "react-confirm-alert"; // Import
 import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
 import {
   getDate,
   getTime,
   getImage,
-} from "./../../Components/BasicMethod/index";
+} from "Screens/Components/BasicMethod/index";
 
 import {
   translationAR,

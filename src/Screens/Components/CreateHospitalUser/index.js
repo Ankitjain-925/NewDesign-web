@@ -6,12 +6,12 @@ import ReactFlagsSelect from 'react-flags-select';
 import 'react-flags-select/css/react-flags-select.css';
 import 'react-flags-select/scss/react-flags-select.scss';
 import { connect } from "react-redux";
-import { LoginReducerAim } from '../../Login/actions';
-import { Settings } from '../../Login/setting';
+import { LoginReducerAim } from 'Screens/Login/actions';
+import { Settings } from 'Screens/Login/setting';
 import { withRouter } from "react-router-dom";
-import { LanguageFetchReducer } from '../../actions';
+import { LanguageFetchReducer } from 'Screens/actions';
 import Checkbox from '@material-ui/core/Checkbox';
-import sitedata from '../../../sitedata';
+import sitedata from 'sitedata';
 import axios from "axios"
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import contry from '../countryBucket/countries.json';

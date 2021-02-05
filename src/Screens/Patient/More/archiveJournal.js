@@ -4,7 +4,7 @@ import { Redirect, Route } from "react-router-dom";
 import Modal from "@material-ui/core/Modal";
 import Checkbox from "@material-ui/core/Checkbox";
 import { Editor } from "react-draft-wysiwyg";
-import sitedata, { data } from "../../../sitedata";
+import sitedata, { data } from "sitedata";
 import axios from "axios";
 import { confirmAlert } from "react-confirm-alert"; // Import
 import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
@@ -13,11 +13,11 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import DatePicker from "react-date-picker";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import { LoginReducerAim } from "./../../Login/actions";
-import { Settings } from "./../../Login/setting";
-import LeftMenu from "./../../Components/Menus/PatientLeftMenu/index";
-import LeftMenuMobile from "./../../Components/Menus/PatientLeftMenu/mobile";
-import { LanguageFetchReducer } from "./../../actions";
+import { LoginReducerAim } from "Screens/Login/actions";
+import { Settings } from "Screens/Login/setting";
+import LeftMenu from "Screens/Components/Menus/PatientLeftMenu/index";
+import LeftMenuMobile from "Screens/Components/Menus/PatientLeftMenu/mobile";
+import { LanguageFetchReducer } from "Screens/actions";
 import {
   SortByEntry,
   SortByDiagnose,
@@ -25,14 +25,14 @@ import {
   getTime,
   getDate,
   mySorter,
-} from "./../../Components/BasicMethod/index";
-import AddEntry from "./../../Components/AddEntry/index";
-import PersonalizedData from "./../../Components/TimelineComponent/PersonalizedData/index";
-import FilterSec from "./../../Components/TimelineComponent/Filter/index";
-import ProfileSection from "./../../Components/TimelineComponent/ProfileSection/index";
-import RightManage from "./../../Components/TimelineComponent/RightMenuManage/index";
-import ViewTimeline from "./../../Components/TimelineComponent/ViewTimeline/index";
-import Loader from "./../../Components/Loader/index.js";
+} from "Screens/Components/BasicMethod/index";
+import AddEntry from "Screens/Components/AddEntry/index";
+import PersonalizedData from "Screens/Components/TimelineComponent/PersonalizedData/index";
+import FilterSec from "Screens/Components/TimelineComponent/Filter/index";
+import ProfileSection from "Screens/Components/TimelineComponent/ProfileSection/index";
+import RightManage from "Screens/Components/TimelineComponent/RightMenuManage/index";
+import ViewTimeline from "Screens/Components/TimelineComponent/ViewTimeline/index";
+import Loader from "Screens/Components/Loader/index.js";
 import {
   translationAR,
   translationSW,
@@ -45,8 +45,8 @@ import {
   translationPT,
   translationFR
 } from "translations/index"
-import { authy } from "./../../Login/authy.js";
-import Notification from "../../Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
+import { authy } from "Screens/Login/authy.js";
+import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 
 class Index extends Component {
   constructor(props) {

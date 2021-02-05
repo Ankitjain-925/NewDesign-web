@@ -7,14 +7,14 @@ import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { slide as Menu } from "react-burger-menu";
 import PhoneInput from 'react-phone-input-2';
-import H_LeftMenu from "../Components/Menus/H_leftMenu/index"
-import H_LeftMenuMobile from "../Components/Menus/H_leftMenu/mobile"
+import H_LeftMenu from "Screens/Components/Menus/H_leftMenu/index"
+import H_LeftMenuMobile from "Screens/Components/Menus/H_leftMenu/mobile"
 import { connect } from "react-redux";
-import { LoginReducerAim } from '../Login/actions';
-import { Settings } from '../Login/setting';
-import { LanguageFetchReducer } from "../actions";
+import { LoginReducerAim } from 'Screens/Login/actions';
+import { Settings } from 'Screens/Login/setting';
+import { LanguageFetchReducer } from "Screens/actions";
 import axios from "axios"
-import sitedata from "../../sitedata"
+import sitedata from "sitedata"
 
 const specialistOptions = [
     { value: 'Specialist1', label: 'Specialist1' },
