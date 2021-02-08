@@ -267,6 +267,10 @@ class Index extends Component {
                                 label={ScndOpinion}
                                 className="presTabsIner"
                               />
+                              <Tab
+                                label="Sent Prescriptions"
+                                className="presTabsIner"
+                              />
                             </Tabs>
                           </Grid>
                           <Grid item xs={12} md={4} sm={4} className="presSrch">
@@ -317,6 +321,19 @@ class Index extends Component {
                             </div>
                           )}
                           <SecondOpinion
+                            newItem={this.state.newItemp}
+                            myData={this.state.myData}
+                          />
+                        </TabContainer>
+                      )}
+                      {value === 3 && (
+                        <TabContainer>
+                          {this.state.successfullsent1 && (
+                            <div className="success_message">
+                              {rqst_sent_succefully}
+                            </div>
+                          )}
+                          <SentPrescription
                             newItem={this.state.newItemp}
                             myData={this.state.myData}
                           />
