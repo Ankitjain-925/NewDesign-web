@@ -1179,6 +1179,8 @@
 		"DeleteMessages" :"Nachricht löschen",
 		"marital_status":"Familienstand",
 		"select_marital_status":"Wählen Sie Familienstand",
-		"respiration":"Atmung"
+		"respiration":"Atmung",
+		"course_not_updt_cannt_reach_srvr": "Kurs wird nicht hinzugefügt. Kann nicht zum Server erreichen",
+		"CourseAddedMyCourses" : "Kurs erfolgreich in Meine Kurse hinzugefügt"
 	}
 }

@@ -1181,6 +1181,8 @@
 		"err_file_formart": "System is not supported this file format",
 		"marital_status":"Marital Status",
 		"select_marital_status":"Selcet Marital Status",
-		"respiration":"Respiration"
+		"respiration":"Respiration",
+		"course_not_updt_cannt_reach_srvr": "Course is not added. Can not reach to server",
+		"CourseAddedMyCourses" : "Course added successfully in My courses"
 	}
 }

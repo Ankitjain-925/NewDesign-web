@@ -77,6 +77,7 @@ class Index extends Component {
   //     }
   // }
   componentDidMount = () => {
+   
     actions.logout();
     this.logoutUser();
     this.props.Doctorarrays("logout");
@@ -92,6 +93,7 @@ class Index extends Component {
   };
 
   logoutUser = () => {
+
     this.props.OptionList(false);
     this.props.authy(false);
     let languageType =

@@ -1180,6 +1180,8 @@
     "DeleteMessages" :"Удалить сообщение",
     "marital_status":"Cемейный статус",
     "select_marital_status":"Выберите семейное положение",
-    "respiration":"Дыхание"
+    "respiration":"Дыхание",
+    "course_not_updt_cannt_reach_srvr": "Курс не добавляется. Невозможно связаться с сервером",
+		"CourseAddedMyCourses" : "Курс успешно добавлен в Мои курсы"
   }
 }

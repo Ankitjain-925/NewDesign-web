@@ -762,6 +762,7 @@ class Index extends Component {
           //This is for Aimedis Blockchain Section
           this.rightInfo();
           var images = [];
+          // response.data.data = response.data.data.filter((e) => e != null);
           response.data.data &&
             response.data.data.length > 0 &&
             response.data.data.map((data1, index) => {

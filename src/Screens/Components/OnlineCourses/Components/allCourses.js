@@ -47,6 +47,7 @@ class Index extends Component {
       addedWish: false,
       Allwishlist: [],
       cartAlready: this.props.cartAlready,
+      someIssue: this.props.someIssue
     };
   }
 
@@ -144,6 +145,9 @@ class Index extends Component {
   componentDidUpdate = (prevProps) => {
     if (prevProps.cartAlready !== this.props.cartAlready) {
       this.setState({ cartAlready: this.props.cartAlready });
+    }
+    if (prevProps.someIssue !== this.props.someIssue) {
+      this.setState({ someIssue: this.props.someIssue });
     }
     if (
       prevProps.SelectedLanguage !== this.props.SelectedLanguage ||
@@ -268,6 +272,8 @@ class Index extends Component {
       Language,
       DarkMode,
       logout,
+      course_not_updt_cannt_reach_srvr
+      
     } = translate;
 
     return (
@@ -280,6 +286,10 @@ class Index extends Component {
         {this.state.cartAlready && (
           <div className="err_message">{item_present_in_cart}</div>
         )}
+        {this.state.someIssue && (
+          <div className="err_message">{course_not_updt_cannt_reach_srvr}</div>
+        )}
+        
         <Grid className="nwCoursName">
           <h3>{new_course}</h3>
         </Grid>

@@ -1213,6 +1213,8 @@
 		"DeleteMessages" :"Futa Ujumbe",
 		"marital_status":"Hali ya ndoa",
 		"select_marital_status":"Chagua Hali ya Ndoa",
-		"respiration":"Kupumua"
+		"respiration":"Kupumua",
+		"course_not_updt_cannt_reach_srvr": "Kozi haijaongezwa. Imeshindwa kufikia seva",
+		"CourseAddedMyCourses" : "Kozi imeongezwa kwa mafanikio katika kozi Zangu"
 	}
 }

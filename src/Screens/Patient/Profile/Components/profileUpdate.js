@@ -1277,7 +1277,6 @@ class Index extends Component {
                                             <Select
                                                 value={this.state.bloods}
                                                 name="bloodgroup"
-                                                closeMenuOnSelect={false}
                                                 onChange={(e) => { this.onSelectBlood(e, 'bloodgroup') }}
                                                 options={this.state.bloodgroup}
                                                 placeholder=""
@@ -1293,7 +1292,6 @@ class Index extends Component {
                                             <Select
                                                 value={this.state.rhesus}
                                                 name="rhesus"
-                                                closeMenuOnSelect={false}
                                                 onChange={(e) => { this.onSelectRshesus(e, 'rhesus') }}
                                                 options={this.state.rhesusgroup}
                                                 placeholder=""

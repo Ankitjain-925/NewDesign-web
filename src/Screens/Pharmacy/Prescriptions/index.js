@@ -85,6 +85,7 @@ class Index extends Component {
       .then((response) => {
         if (response.data.hassuccessed === true) {
           var images = [];
+          response.data.data = response.data.data.filter((e) => e != null);
           response.data.data &&
             response.data.data.length > 0 &&
             response.data.data.map((data1, index) => {
@@ -559,6 +560,7 @@ class Index extends Component {
                           </Tr>
                         </Thead>
                         <Tbody>
+               
                           {this.state.Allpre &&
                             this.state.Allpre.length > 0 &&
                             this.state.Allpre.map((item) => (

@@ -70,6 +70,7 @@ class Index extends Component {
       removeTrue: false,
       amount: 0,
       cartAlready: false,
+      someIssue: false
     };
   }
   handleChange = (event, value) => {
@@ -331,46 +332,30 @@ class Index extends Component {
     if (!data._id) {
       data._id = data.courseId;
     }
-    var GetAllCart = this.state.AllCart;
-    var GetCart =
-      GetAllCart &&
-      GetAllCart.length > 0 &&
-      GetAllCart.filter((itm) => itm.courseId === data.courseId);
-    if (GetCart && GetCart.length > 0) {
-      this.setState({ cartAlready: true });
-      setTimeout(() => {
-        this.setState({ cartAlready: false });
-      }, 3000);
-    } else {
+    if(data.price === 0)
+    {
       let user_token = this.props.stateLoginValueAim.token;
-      if (comeFrom == "all") {
-        data.courseId = data._id;
-        delete data.isActive;
-        delete data.permission;
-      } else {
-        data.courseId = data.courseId;
-        delete data.isActive;
-        delete data.permission;
-        delete data.wishlistAddedDate;
-        delete data.createdAt;
-        delete data.createdBy;
-      }
       data.user_id = this.props.stateLoginValueAim.user._id;
       data.user_profile_id = this.props.stateLoginValueAim.user.profile_id;
       data.userName =
-        this.props.stateLoginValueAim.user.first_name +
+        this.props.stateLoginValueAim.user.first_name +' '+
         this.props.stateLoginValueAim.user.last_name;
       data.userType = this.props.stateLoginValueAim.user.type;
       data.email = this.props.stateLoginValueAim.user.email;
       delete data._id;
-      GetAllCart.push(data);
+
       this.setState({ loaderImage: true });
       axios
         .post(
-          sitedata.data.path + "/lms/addtocart",
+          sitedata.data.path + "/lms_stripeCheckout/saveDataNotCart",
           {
             user_id: this.props.stateLoginValueAim.user._id,
-            cartList: GetAllCart,
+            user_id: this.props.stateLoginValueAim.user._id,
+            userName:
+              this.props.stateLoginValueAim.user.first_name +' '+
+              this.props.stateLoginValueAim.user.last_name,
+            userType: this.props.stateLoginValueAim.user.type,
+            orderlist: [data],
           },
           {
             headers: {
@@ -381,14 +366,150 @@ class Index extends Component {
           }
         )
         .then((res) => {
-          this.setState({ addedCart: true, loaderImage: false });
-          setTimeout(() => {
-            this.setState({ addedCart: false });
-          }, 3000);
+          this.setState({ loaderImage: false });
+          if(res.data.hassuccessed){
+            let translate = {};
+            switch (this.props.stateLanguageType) {
+              case "en":
+                translate = translationEN.text;
+                break;
+              case "de":
+                translate = translationDE.text;
+                break;
+              case "pt":
+                translate = translationPT.text;
+                break;
+              case "sp":
+                translate = translationSP.text;
+                break;
+              case "rs":
+                translate = translationRS.text;
+                break;
+              case "nl":
+                translate = translationNL.text;
+                break;
+              case "ch":
+                translate = translationCH.text;
+                break;
+              case "sw":
+                translate = translationSW.text;
+                break;
+              case "fr":
+                translate = translationFR.text;
+                break;
+              case "ar":
+                translate = translationAR.text;
+                break;
+              default:
+                translate = translationEN.text;
+            }
+            let {
+              CourseAddedMyCourses, ok} = translate;
+            confirmAlert({
+              customUI: ({ onClose }) => {
+                return (
+                  <div
+                    className={
+                      this.props.settings &&
+                      this.props.settings.setting &&
+                      this.props.settings.setting.mode === "dark"
+                        ? "dark-confirm react-confirm-alert-body"
+                        : "react-confirm-alert-body"
+                    }
+                  >
+                    <h1>{CourseAddedMyCourses}</h1>
+                    <div className="react-confirm-alert-button-group">
+                      <button
+                        onClick={() => {
+                          onClose();
+                        }}
+                      >
+                        {ok}
+                      </button>
+                    </div>
+                  </div>
+                );
+              },
+            });
+          }
+          else{
+            this.setState({someIssue: true})
+            setTimeout(() => {
+              this.setState({ someIssue: false });
+            }, 3000);
+          }
           this.getAllCart();
         })
-        .catch((err) => {});
+        .catch((err) => {
+          this.setState({ loaderImage: false });
+          this.setState({someIssue: true})
+          setTimeout(() => {
+            this.setState({ someIssue: false });
+          }, 3000);
+        });
     }
+    else{
+      var GetAllCart = this.state.AllCart;
+      var GetCart =
+        GetAllCart &&
+        GetAllCart.length > 0 &&
+        GetAllCart.filter((itm) => itm.courseId === data.courseId);
+      if (GetCart && GetCart.length > 0) {
+        this.setState({ cartAlready: true });
+        setTimeout(() => {
+          this.setState({ cartAlready: false });
+        }, 3000);
+      } else {
+        let user_token = this.props.stateLoginValueAim.token;
+        if (comeFrom == "all") {
+          data.courseId = data._id;
+          delete data.isActive;
+          delete data.permission;
+        } else {
+          data.courseId = data.courseId;
+          delete data.isActive;
+          delete data.permission;
+          delete data.wishlistAddedDate;
+          delete data.createdAt;
+          delete data.createdBy;
+        }
+        data.user_id = this.props.stateLoginValueAim.user._id;
+        data.user_profile_id = this.props.stateLoginValueAim.user.profile_id;
+        data.userName =
+          this.props.stateLoginValueAim.user.first_name +' '+
+          this.props.stateLoginValueAim.user.last_name;
+        data.userType = this.props.stateLoginValueAim.user.type;
+        data.email = this.props.stateLoginValueAim.user.email;
+        delete data._id;
+        console.log('data', data)
+        GetAllCart.push(data);
+        this.setState({ loaderImage: true });
+        axios
+          .post(
+            sitedata.data.path + "/lms/addtocart",
+            {
+              user_id: this.props.stateLoginValueAim.user._id,
+              cartList: GetAllCart,
+            },
+            {
+              headers: {
+                token: user_token,
+                Accept: "application/json",
+                "Content-Type": "application/json",
+              },
+            }
+          )
+          .then((res) => {
+            this.setState({ addedCart: true, loaderImage: false });
+            setTimeout(() => {
+              this.setState({ addedCart: false });
+            }, 3000);
+            this.getAllCart();
+          })
+          .catch((err) => {});
+      }
+    }
+  
   };
 
   //For remove the Cart
@@ -575,7 +696,7 @@ class Index extends Component {
           {
             user_id: this.props.stateLoginValueAim.user._id,
             userName:
-              this.props.stateLoginValueAim.user.first_name +
+              this.props.stateLoginValueAim.user.first_name +' '+
               this.props.stateLoginValueAim.user.last_name,
             userType: this.props.stateLoginValueAim.user.type,
             paymentData: data,
@@ -1009,6 +1130,7 @@ class Index extends Component {
             {value === 0 && (
               <TabContainer>
                 <AllCourses
+                  someIssue={this.state.someIssue}
                   cartAlready={this.state.cartAlready}
                   removeWishlist={this.removeWishlist}
                   Allwishlist={this.state.Allwishlist}

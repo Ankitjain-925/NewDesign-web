@@ -1180,6 +1180,8 @@
 		"DeleteMessages" :"Supprimer le message",
 		"marital_status":"État civil",
 		"select_marital_status":"Sélectionnez l'état matrimonial",
-		"respiration":"Respiration"
+		"respiration":"Respiration",
+		"course_not_updt_cannt_reach_srvr": "Le cours n'est pas ajouté. Impossible d'accéder au serveur",
+		"CourseAddedMyCourses" : "Cours ajouté avec succès dans Mes cours"
 	}
 }
