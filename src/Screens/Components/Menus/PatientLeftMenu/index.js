@@ -223,13 +223,8 @@ class Index extends Component {
     let {
       appointments,
       chat_vdocall,
-      capab_Patients,
-      Inquiries,
-      emegancy_access,
       more,
       my_profile,
-      invite_doc,
-      pharma_prescription,
       my_doc,
       extra_srvc,
       online_course,
@@ -241,7 +236,6 @@ class Index extends Component {
       trackers,
       self_data,
       emrgancy_patient_data,
-      secnd_openion,
       blockchain_access_log,
       jrnl_archive,
     } = translate;

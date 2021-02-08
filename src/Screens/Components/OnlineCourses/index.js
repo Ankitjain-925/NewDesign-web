@@ -19,7 +19,6 @@ import Modal from "@material-ui/core/Modal";
 // import { Doctorset } from 'Screens/Doctor/actions';
 // import { filterate } from 'Screens/Doctor/filteraction';
 import { withRouter } from "react-router-dom";
-import { ConsoleCustom } from "./../BasicMethod/index";
 import Rating from "../Rating";
 import { LanguageFetchReducer } from "Screens/actions";
 import {
@@ -109,7 +108,7 @@ class Index extends Component {
       default:
         translate = translationEN.text;
     }
-    let { all, language_all, topic_all } = translate;
+    let { language_all, topic_all } = translate;
     this.setState({
       value: value,
       SelectedLanguage: { value: "All", label: language_all },
@@ -350,7 +349,6 @@ class Index extends Component {
           sitedata.data.path + "/lms_stripeCheckout/saveDataNotCart",
           {
             user_id: this.props.stateLoginValueAim.user._id,
-            user_id: this.props.stateLoginValueAim.user._id,
             userName:
               this.props.stateLoginValueAim.user.first_name +' '+
               this.props.stateLoginValueAim.user.last_name,
@@ -461,7 +459,7 @@ class Index extends Component {
         }, 3000);
       } else {
         let user_token = this.props.stateLoginValueAim.token;
-        if (comeFrom == "all") {
+        if (comeFrom === "all") {
           data.courseId = data._id;
           delete data.isActive;
           delete data.permission;
@@ -634,28 +632,12 @@ class Index extends Component {
       topic_all,
       language_all,
       wishlist,
-      prescriptions,
-      appointments,
       cart_removed,
-      chat_vdocall,
-      pharmacy_access,
       remove,
       lectures,
       add_to_cart,
       cart,
-      capab_Patients,
-      Inquiries,
-      emegancy_access,
-      archive,
-      more,
-      my_profile,
-      invite_doc,
-      pharma_prescription,
       online_course,
-      profile_setting,
-      Language,
-      DarkMode,
-      logout,
     } = translate;
 
     const { value } = this.state;

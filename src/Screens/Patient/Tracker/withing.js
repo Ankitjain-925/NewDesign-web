@@ -1,4 +1,4 @@
-import {GET_Withing_REQUEST , GET_Withing_SUCCESS, GET_Withing_ERROR} from '../../../actiontypes';
+import {GET_Withing_REQUEST , GET_Withing_SUCCESS } from '../../../actiontypes';
 
 
 export const Withings = (data) => {

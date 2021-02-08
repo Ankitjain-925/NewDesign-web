@@ -141,7 +141,7 @@ class Index extends Component {
   };
 
   isThisAvilabel = (object, text) => {
-    if (object && typeof object == "object") {
+    if (object && typeof object === "object") {
       if (
         object.type.replace("_", " ") &&
         object.type.replace("_", " ").includes(text)
@@ -302,7 +302,6 @@ class Index extends Component {
       do_u_really_want_archive_item,
       yes,
       no,
-      remove_inquiry,
     } = translate;
 
     confirmAlert({
@@ -1219,7 +1218,6 @@ class Index extends Component {
     }
     let {
       respiration,
-      journal,
       add_new_entry,
       New,
       entry,
@@ -1242,8 +1240,6 @@ class Index extends Component {
       medication,
       enter,
       VaccinationTrial,
-      personalize_dashbrd,
-      online,
       patient_access_data,
       another_patient_data,
       get_patient_access_data,
@@ -1257,7 +1253,6 @@ class Index extends Component {
       secnd_openion,
       sick_cert,
       anamnesis,
-      Prescription,
     } = translate;
     const enter_patient_id = enter + " " + patient_id;
     const { stateLoginValueAim, Doctorsetget } = this.props;

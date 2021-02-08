@@ -18,6 +18,7 @@ import { LanguageFetchReducer } from "Screens/actions";
 import Loader from "Screens/Components/Loader/index";
 import { authy } from "Screens/Login/authy.js";
 import PrecriptionList from "./Components/prescription.js";
+import SentPrescription from "./Components/sentPricription.js";
 import SickCertificateList from "./Components/sickCertificate.js";
 import {
   translationAR,
@@ -173,37 +174,7 @@ class Index extends Component {
       prescriptions,
       ScndOpinion,
       sickcsrtificates,
-      capab_Doctors,
-      status,
-      sent,
-      on,
       rqst_sent_succefully,
-      Pending,
-      request,
-      edit,
-      Rejected,
-      Answered,
-      Cancelled,
-      req_updated_successfully,
-      sick_cert,
-      my_doc,
-      New,
-      inquiry,
-      doc_and_statnderd_ques,
-      doc_aimedis_private,
-      Annotations,
-      details,
-      questions,
-      is_this_follow_pres,
-      how_u_like_rcv_pres,
-      Medicine,
-      Substance,
-      Dose,
-      mg,
-      trade_name,
-      atc_if_applicable,
-      manufacturer,
-      pack_size,
     } = translate;
     const { stateLoginValueAim, Doctorsetget } = this.props;
     if (

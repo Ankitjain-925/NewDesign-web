@@ -6,7 +6,6 @@ import { connect } from "react-redux";
 import { LoginReducerAim } from "Screens/Login/actions";
 import { Settings } from "Screens/Login/setting";
 import axios from "axios";
-import Select from "react-select";
 import { LanguageFetchReducer } from "Screens/actions";
 import sitedata from "sitedata";
 import Modal from "@material-ui/core/Modal";
@@ -33,10 +32,7 @@ import {
   translationPT,
   translationFR
 } from "translations/index"
-const specialistOptions = [
-  { value: "Specialist1", label: "Specialist1" },
-  { value: "Specialist2", label: "Specialist2" },
-];
+
 
 class Index extends Component {
   constructor(props) {
@@ -158,7 +154,7 @@ class Index extends Component {
             }, 5000);
             var returnData = response.data.data.returnData;
             var signedRequest = returnData.signedRequest;
-            var url = returnData.url;
+         
             if (fileType === "pdf") {
               fileType = "application/pdf";
             }
@@ -420,14 +416,8 @@ class Index extends Component {
       capab_Doctors,
       status,
       secnd_openion,
-      New,
       inquiry,
       plz_upload_png_jpg,
-      doc_require_for_second_openion,
-      share_health_status,
-      share_ur_jounral_status,
-      share_health_status_info_from_journal,
-      see_list_shared_info,
       specilist_and_secnd_openion,
       specialist,
       how_wuld_u_like_rcv_scnd_openion,
@@ -439,8 +429,6 @@ class Index extends Component {
       questions,
       details,
       attachments,
-      save_entry,
-      rqst_sent_succefully,
       Pending,
       Answered,
       Rejected,
