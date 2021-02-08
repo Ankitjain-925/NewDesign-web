@@ -1,42 +1,42 @@
 import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
+import { Table, Thead, Tbody, Tr, Th, Td } from "react-super-responsive-table";
 import "react-super-responsive-table/dist/SuperResponsiveTableStyle.css";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import AppBar from "@material-ui/core/AppBar";
 import Typography from "@material-ui/core/Typography";
 import PropTypes from "prop-types";
-import LeftMenu from "Screens/Components/Menus/DoctorLeftMenu/index";
-import LeftMenuMobile from "Screens/Components/Menus/DoctorLeftMenu/mobile";
-import sitedata  from "sitedata";
+import Modal from "@material-ui/core/Modal";
+import LeftMenu from "../../Components/Menus/DoctorLeftMenu/index";
+import LeftMenuMobile from "../../Components/Menus/DoctorLeftMenu/mobile";
+import sitedata, { data } from "../../../sitedata";
 import axios from "axios";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { LoginReducerAim } from "Screens/Login/actions";
-import { Settings } from "Screens/Login/setting";
-import { LanguageFetchReducer } from "Screens/actions";
-import Loader from "Screens/Components/Loader/index";
-import { authy } from "Screens/Login/authy.js";
+import { LoginReducerAim } from "../../Login/actions";
+import { Settings } from "../../Login/setting";
+import { confirmAlert } from "react-confirm-alert"; // Import
+import { LanguageFetchReducer } from "../../actions";
+import Loader from "./../../Components/Loader/index";
+import { authy } from "./../../Login/authy.js";
 import PrecriptionList from "./Components/prescription.js";
-import SentPrescription from "./Components/sentPricription.js";
 import SickCertificateList from "./Components/sickCertificate.js";
-import {
-  translationAR,
-  translationSW,
-  translationSP,
-  translationRS,
-  translationEN,
-  translationNL,
-  translationDE,
-  translationCH,
-  translationPT,
-  translationFR
-} from "translations/index"
-import { Redirect } from "react-router-dom";
+import * as translationEN from "../../../translations/en.json";
+import * as translationDE from "../../../translations/de.json";
+import * as translationPT from "../../../translations/pt.json";
+import * as translationSP from "../../../translations/sp.json";
+import * as translationRS from "../../../translations/rs.json";
+import * as translationSW from "../../../translations/sw.json";
+import * as translationCH from "../../../translations/ch.json";
+import * as translationNL from "../../../translations/nl.json";
+import * as translationFR from "../../../translations/fr.json";
+import * as translationAR from "../../../translations/ar.json";
+import { Redirect, Route } from "react-router-dom";
 import SecondOpinion from "./Components/secondOpinion";
-import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
+import Notification from "../../Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 
-// import * as translationDE from '.Screens/translations/de_json_proofread_13072020.json';
+// import * as translationDE from '../../../translations/de_json_proofread_13072020.json';
 function TabContainer(props) {
   return (
     <Typography component="div" className="tabsCntnts">
@@ -174,7 +174,37 @@ class Index extends Component {
       prescriptions,
       ScndOpinion,
       sickcsrtificates,
+      capab_Doctors,
+      status,
+      sent,
+      on,
       rqst_sent_succefully,
+      Pending,
+      request,
+      edit,
+      Rejected,
+      Answered,
+      Cancelled,
+      req_updated_successfully,
+      sick_cert,
+      my_doc,
+      New,
+      inquiry,
+      doc_and_statnderd_ques,
+      doc_aimedis_private,
+      Annotations,
+      details,
+      questions,
+      is_this_follow_pres,
+      how_u_like_rcv_pres,
+      Medicine,
+      Substance,
+      Dose,
+      mg,
+      trade_name,
+      atc_if_applicable,
+      manufacturer,
+      pack_size,
     } = translate;
     const { stateLoginValueAim, Doctorsetget } = this.props;
     if (
@@ -238,16 +268,12 @@ class Index extends Component {
                                 label={ScndOpinion}
                                 className="presTabsIner"
                               />
-                              <Tab
-                                label="Sent Prescriptions"
-                                className="presTabsIner"
-                              />
                             </Tabs>
                           </Grid>
                           <Grid item xs={12} md={4} sm={4} className="presSrch">
                             <a>
                               <img
-                                src={require("assets/images/search-entries.svg")}
+                                src={require("../../../assets/images/search-entries.svg")}
                                 alt=""
                                 title=""
                               />
@@ -292,19 +318,6 @@ class Index extends Component {
                             </div>
                           )}
                           <SecondOpinion
-                            newItem={this.state.newItemp}
-                            myData={this.state.myData}
-                          />
-                        </TabContainer>
-                      )}
-                      {value === 3 && (
-                        <TabContainer>
-                          {this.state.successfullsent1 && (
-                            <div className="success_message">
-                              {rqst_sent_succefully}
-                            </div>
-                          )}
-                          <SentPrescription
                             newItem={this.state.newItemp}
                             myData={this.state.myData}
                           />

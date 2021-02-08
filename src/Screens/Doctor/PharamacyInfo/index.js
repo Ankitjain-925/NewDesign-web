@@ -1,31 +1,29 @@
 import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
 import { connect } from "react-redux";
-import { LoginReducerAim } from "Screens/Login/actions";
-import { Settings } from "Screens/Login/setting";
+import { LoginReducerAim } from "./../../Login/actions";
+import { Settings } from "./../../Login/setting";
 import Dropzone from "react-dropzone";
 import { Input } from "@material-ui/core";
 import { withRouter } from "react-router-dom";
-import { LanguageFetchReducer } from "Screens/actions";
+import { LanguageFetchReducer } from "./../../actions";
 import Modal from "@material-ui/core/Modal";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
-import sitedata from "sitedata";
+import sitedata from "./../../../sitedata";
 import axios from "axios";
 import Geocode from "react-geocode";
 import { confirmAlert } from "react-confirm-alert"; // Import
-import {
-  translationAR,
-  translationSW,
-  translationSP,
-  translationRS,
-  translationEN,
-  translationNL,
-  translationDE,
-  translationCH,
-  translationPT,
-  translationFR
-} from "translations/index"
+import * as translationEN from "../../../translations/en.json";
+import * as translationDE from "../../../translations/de.json";
+import * as translationPT from "../../../translations/pt.json";
+import * as translationSP from "../../../translations/sp.json";
+import * as translationRS from "../../../translations/rs.json";
+import * as translationSW from "../../../translations/sw.json";
+import * as translationCH from "../../../translations/ch.json";
+import * as translationNL from "../../../translations/nl.json";
+import * as translationFR from "../../../translations/fr.json";
+import * as translationAR from "../../../translations/ar.json";
 
 class Index extends Component {
   constructor(props) {
@@ -200,7 +198,7 @@ class Index extends Component {
           if (fileType === "pdf") {
             this.setState({
               file: file,
-              imagePreviewUrl: require("assets/images/pdfimg.png"),
+              imagePreviewUrl: require("../../../assets/images/pdfimg.png"),
             });
           } else {
             this.setState({
@@ -540,7 +538,7 @@ class Index extends Component {
               <Grid className="phrmCloseBtn">
                 <a onClick={this.handleClosePharma}>
                   <img
-                    src={require("assets/images/close-search.svg")}
+                    src={require("../../../assets/images/close-search.svg")}
                     alt=""
                     title=""
                   />
@@ -603,7 +601,7 @@ class Index extends Component {
                     }
                   />
                   <img
-                    src={require("assets/images/srchInputField.svg")}
+                    src={require("../../../assets/images/srchInputField.svg")}
                     alt=""
                     title=""
                   />
@@ -664,7 +662,7 @@ class Index extends Component {
                         <Grid className="browsInput">
                           <a>
                             <img
-                              src={require("assets/images/upload-file.svg")}
+                              src={require("../../../assets/images/upload-file.svg")}
                               alt=""
                               title=""
                             />
@@ -687,7 +685,7 @@ class Index extends Component {
                   </Dropzone>
                 )}
                 {/* {!$imagePreview && <Grid className="upScanInput">
-                                    <a><img src={require('assets/images/upload-file.svg')} alt="" title="" /></a>
+                                    <a><img src={require('../../../assets/images/upload-file.svg')} alt="" title="" /></a>
                                     <a>{browse} <input type="file" onChange={this.CertificateAttach} /></a> {or_drag_here}
                                                                         </Grid>}
                                 {!$imagePreview && <p>{suported_file_type_jpg_png}</p>} */}
