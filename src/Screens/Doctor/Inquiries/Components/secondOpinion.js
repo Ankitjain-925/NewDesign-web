@@ -5,29 +5,30 @@ import "react-super-responsive-table/dist/SuperResponsiveTableStyle.css";
 import Typography from "@material-ui/core/Typography";
 import PropTypes from "prop-types";
 import Modal from "@material-ui/core/Modal";
-import sitedata, { data } from "../../../../sitedata";
+import sitedata from "sitedata";
 import axios from "axios";
 import Dropzone from "react-dropzone";
 import { Input } from "@material-ui/core";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { LoginReducerAim } from "./../../../Login/actions";
-import { Settings } from "./../../../Login/setting";
+import { LoginReducerAim } from "Screens/Login/actions";
+import { Settings } from "Screens/Login/setting";
 import { confirmAlert } from "react-confirm-alert"; // Import
-import { LanguageFetchReducer } from "./../../../actions";
-import { getDate, getImage } from "./../../../Components/BasicMethod/index";
-import * as translationEN from "../../../../translations/en.json";
-import * as translationDE from "../../../../translations/de.json";
-import * as translationPT from "../../../../translations/pt.json";
-import * as translationSP from "../../../../translations/sp.json";
-import * as translationRS from "../../../../translations/rs.json";
-import * as translationSW from "../../../../translations/sw.json";
-import * as translationCH from "../../../../translations/ch.json";
-import * as translationNL from "../../../../translations/nl.json";
-import * as translationFR from "../../../../translations/fr.json";
-import * as translationAR from "../../../../translations/ar.json";
-import FileUploader from "./../../../Components/FileUploader/index";
-import Loader from "./../../../Components/Loader/index.js";
+import { LanguageFetchReducer } from "Screens/actions";
+import { getDate, getImage } from "Screens/Components/BasicMethod/index";
+import {
+  translationAR,
+  translationSW,
+  translationSP,
+  translationRS,
+  translationEN,
+  translationNL,
+  translationDE,
+  translationCH,
+  translationPT,
+  translationFR
+} from "translations/index"
+import Loader from "Screens/Components/Loader/index.js";
 
 function TabContainer(props) {
   return (

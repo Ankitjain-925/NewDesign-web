@@ -1,29 +1,30 @@
 import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
 import { connect } from "react-redux";
-import { LoginReducerAim } from "./../../Login/actions";
-import { Settings } from "./../../Login/setting";
+import { LoginReducerAim } from "Screens/Login/actions";
+import { Settings } from "Screens/Login/setting";
 import Dropzone from "react-dropzone";
 import { Input } from "@material-ui/core";
 import { withRouter } from "react-router-dom";
-import { LanguageFetchReducer } from "./../../actions";
+import { LanguageFetchReducer } from "Screens/actions";
 import Modal from "@material-ui/core/Modal";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
-import sitedata from "./../../../sitedata";
+import sitedata from "sitedata";
 import axios from "axios";
 import Geocode from "react-geocode";
-import { confirmAlert } from "react-confirm-alert"; // Import
-import * as translationEN from "../../../translations/en.json";
-import * as translationDE from "../../../translations/de.json";
-import * as translationPT from "../../../translations/pt.json";
-import * as translationSP from "../../../translations/sp.json";
-import * as translationRS from "../../../translations/rs.json";
-import * as translationSW from "../../../translations/sw.json";
-import * as translationCH from "../../../translations/ch.json";
-import * as translationNL from "../../../translations/nl.json";
-import * as translationFR from "../../../translations/fr.json";
-import * as translationAR from "../../../translations/ar.json";
+import {
+  translationAR,
+  translationSW,
+  translationSP,
+  translationRS,
+  translationEN,
+  translationNL,
+  translationDE,
+  translationCH,
+  translationPT,
+  translationFR
+} from "translations/index"
 
 class Index extends Component {
   constructor(props) {

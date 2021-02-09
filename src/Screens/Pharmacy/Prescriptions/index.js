@@ -20,7 +20,6 @@ import { confirmAlert } from "react-confirm-alert"; // Import
 import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
 import {
   getDate,
-  getTime,
   getImage,
 } from "Screens/Components/BasicMethod/index";
 import {
