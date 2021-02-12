@@ -11,7 +11,7 @@ import { LanguageFetchReducer } from "Screens/actions";
 import { withRouter } from "react-router-dom";
 import sitedata from "sitedata";
 import axios from "axios";
-import { Redirect, Route } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { LoginReducerAim } from "Screens/Login/actions";
 import { Settings } from "Screens/Login/setting";
@@ -22,7 +22,7 @@ import {
   getDate,
   getImage,
 } from "Screens/Components/BasicMethod/index";
-import {
+import { 
   translationAR,
   translationSW,
   translationSP,
@@ -177,7 +177,6 @@ class Index extends Component {
     let {
       delete_item,
       do_u_really_want_delete_item,
-      r_u_sure_remove_doctor,
       yes,
       no,
     } = translate;
@@ -257,7 +256,6 @@ class Index extends Component {
     let {
       archive_item,
       do_u_really_want_archive_item,
-      r_u_sure_remove_doctor,
       yes,
       no,
     } = translate;
@@ -265,10 +263,7 @@ class Index extends Component {
       customUI: ({ onClose }) => {
         return (
           <div
-            className={
-              this.props.settings &&
-                this.props.settings.setting &&
-                this.props.settings.setting.mode === "dark"
+            className={this.props?.settings?.setting.mode === "dark"
                 ? "dark-confirm react-confirm-alert-body"
                 : "react-confirm-alert-body"
             }
@@ -340,7 +335,7 @@ class Index extends Component {
     this.setState({ loaderImage: true });
     axios
       .put(
-        sitedata.data.path + "/User/AddTrack/" + user_id + "/" + track_id,
+        sitedata.data.path + "/User/HandlePrescriptions/" + user_id + "/" + track_id,
         { data },
         {
           headers: {
@@ -503,10 +498,7 @@ class Index extends Component {
     return (
       <Grid
         className={
-          this.props.settings &&
-            this.props.settings.setting &&
-            this.props.settings.setting.mode &&
-            this.props.settings.setting.mode === "dark"
+          this.props?.settings?.setting.mode === "dark"
             ? "homeBg homeBgDrk"
             : "homeBg"
         }

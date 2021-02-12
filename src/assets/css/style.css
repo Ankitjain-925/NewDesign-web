@@ -7388,7 +7388,7 @@ a.vsblDots, a.conPainDots, a.bp_vsblDots, a.hideDots {
     color: #BFC1C1 !important;
 }
 .homeBgDrk .docsOpinion label {
-    color: #FAFAFA !important;
+    color: #bfc1c1!important;
 }
 .homeBgDrk .presOpinionIner td.pivoted {
     color: #D9DADA !important;
@@ -7549,7 +7549,7 @@ a.vsblDots, a.conPainDots, a.bp_vsblDots, a.hideDots {
     color: #D9DADA !important;
 }
 .homeBgDrk .trckSection {
-    background-color: #009396bd !important;
+    background-color: #4C5252!important;
 }
 .homeBgDrk .trckCntnt p {
     color: #BFC1C1 !important;
@@ -15123,7 +15123,7 @@ a.SelectedGender{
     min-height: 48px;
 }
 .darkTheme > div:nth-child(3) .fitBitSection {
-    background-color: #009396bd !important;
+    background-color: #4C5252 !important;
 }
 .darkTheme > div:nth-child(3) .mainLogoAdd a{
     color: #d9dada !important;

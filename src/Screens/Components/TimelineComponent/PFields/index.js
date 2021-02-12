@@ -1,12 +1,13 @@
 import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
-import MMHG from "Screens/Components/mmHgField/index";
 import FileUploader from "Screens/Components/JournalFileUploader/index";
 import ShowHide from "Screens/Components/ShowHide/index";
-import NotesEditor from "Screens/Components/Editor/index";
+import { LoginReducerAim } from "Screens/Login/actions";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { pure } from "recompose";
+import sitedata from "sitedata";
+import axios from "axios";
 import { LanguageFetchReducer } from "Screens/actions";
 import {
   translationAR,
@@ -28,6 +29,8 @@ class Index extends Component {
       date_format: this.props.date_format,
       time_format: this.props.time_format,
       options: this.props.options,
+      searchName: [],
+      name : '',
     };
   }
 
@@ -38,6 +41,58 @@ class Index extends Component {
     if (prevProps.updateTrack !== this.props.updateTrack) {
       this.setState({ updateTrack: this.props.updateTrack });
     }
+  };
+
+   findByName = (e) => {
+    let pharmacy_id = this.state.pharmacy_id;
+
+    if (pharmacy_id) {
+      this.setState({pharmacy_id : ''})
+    }
+    this.setState(
+      { name: e.target.value, searchLocation: []},
+      () => this.getName()
+    );
+  };
+
+  getName = () => {
+    var user_token = this.props.stateLoginValueAim.token;
+
+    if (this.state.name && this.state.name !== "") {
+      axios
+        .get(
+          sitedata.data.path +
+            "/emergency_record/getPharmacy/search/" +
+            this.state.name,
+          {
+            headers: {
+              token: user_token,
+              Accept: "application/json",
+              "Content-Type": "application/json",
+            },
+          }
+        )
+        .then((response) => {
+          this.setState({ searchName: response.data.data });
+        })
+        .catch((error) => {
+          this.setState({ loaderImage: false });
+        });
+    } else {
+      this.setState({ searchName: [] });
+    }
+  };
+
+  SetIds = (item) => {
+    this.props.updateEntryState1(item.profile_id, 'pharmacy_id');
+    this.props.updateEntryState1(this.props.cur_one.profile_id, 'patient_profile_id');
+    
+    this.setState({
+      searchLocation: [],
+      searchName: [],
+      pharmacy_id: item.profile_id,
+      name: item.first_name
+    });
   };
 
   render() {
@@ -76,11 +131,48 @@ class Index extends Component {
       default:
         translate = translationEN.text;
     }
-    let { attachments, save_entry } = translate;
+    let { attachments, save_entry, search_pharmacy_by_name_id, Pharmacy } = translate;
     return (
       <div>
         {!this.props.visibility && (
           <Grid className="cnfrmDiaMain">
+            {this.props.comesfrom === "doctor" && <Grid className="scanInputs">
+              <Grid>
+                <label>{Pharmacy}</label>
+              </Grid>
+              <Grid className="scanInputPhrm dropdown-main">
+                <input
+                  type="text"
+                  placeholder={search_pharmacy_by_name_id}
+                  onChange={this.findByName}
+                  value={
+                    this.state.pharmacy_id
+                      ? this.state.name +
+                      "- " +
+                      this.state.pharmacy_id
+                      : this.state.name
+                  }
+                />
+                <img
+                  src={require("../../../../assets/images/srchInputField.svg")}
+                  alt=""
+                  title=""
+                />
+                <div
+                  className={
+                    this.state.searchName && this.state.searchName.length > 0
+                      ? "show-content dropdown-content"
+                      : "dropdown-content"
+                  }
+                >
+                    {this.state.searchName?.length>0 && this.state.searchName.map((data) => (
+                  <a onClick={() => this.SetIds(data)}>
+                    {data.first_name + " " + data.last_name}
+                  </a>
+                ))}
+                </div>
+              </Grid>
+            </Grid>}
             <Grid className="attchForms attchImg">
               <Grid>
                 <label>{attachments}</label>
@@ -124,10 +216,16 @@ class Index extends Component {
 }
 const mapStateToProps = (state) => {
   const { stateLanguageType } = state.LanguageReducer;
+  const {
+    stateLoginValueAim,
+    loadingaIndicatoranswerdetail,
+  } = state.LoginReducerAim;
   return {
     stateLanguageType,
+    stateLoginValueAim,
+    loadingaIndicatoranswerdetail
   };
 };
 export default pure(withRouter(
-  connect(mapStateToProps, { LanguageFetchReducer })(Index)
+  connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer })(Index)
 ));

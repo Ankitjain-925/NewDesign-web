@@ -84,7 +84,6 @@ class Index extends Component {
         translate = translationEN.text;
     }
     let {
-      lab_result,
       upr_limit,
       unit,
       lwr_limit,

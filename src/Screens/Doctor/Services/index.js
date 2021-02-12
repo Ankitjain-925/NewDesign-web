@@ -7,11 +7,9 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import Typography from "@material-ui/core/Typography";
 import PropTypes from "prop-types";
-import ReactTooltip from "react-tooltip";
-import sitedata, { data } from "sitedata";
+import sitedata from "sitedata";
 import axios from "axios";
 import { withRouter } from "react-router-dom";
-import Radio from "@material-ui/core/Radio";
 import { connect } from "react-redux";
 import { LoginReducerAim } from "Screens/Login/actions";
 import { Settings } from "Screens/Login/setting";
@@ -28,7 +26,6 @@ import { authy } from "Screens/Login/authy.js";
 import ReactFlagsSelect from "react-flags-select";
 import "react-flags-select/css/react-flags-select.css";
 import "react-flags-select/scss/react-flags-select.scss";
-import { getDate, getImage } from "Screens/Components/BasicMethod/index";
 import npmCountryList from "react-select-country-list";
 import {
   translationAR,

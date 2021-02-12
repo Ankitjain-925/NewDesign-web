@@ -1,6 +1,7 @@
 {
     "compilerOptions": {
-      "baseUrl": "./src"
+      "baseUrl": "./src",
+      "target": "es2019"
     },
     "include": ["src"]
   }

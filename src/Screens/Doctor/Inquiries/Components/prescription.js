@@ -54,6 +54,7 @@ class Index extends Component {
       inqstatus: null,
       message: "",
       success: false,
+      newEntry: {},
     };
   }
 
@@ -62,6 +63,58 @@ class Index extends Component {
     this.getMyprescriptionssData();
   }
 
+  findByName = (e) => {
+    let newEntry = this.state.newEntry;
+
+    if (newEntry.pharmacy_id) {
+      newEntry.pharmacy_id = "";
+    }
+    this.setState(
+      { name: e.target.value, searchLocation: [], newEntry: newEntry },
+      () => this.getName()
+    );
+  };
+
+  getName = () => {
+    var user_token = this.props.stateLoginValueAim.token;
+
+    if (this.state.name && this.state.name !== "") {
+      axios
+        .get(
+          sitedata.data.path +
+            "/emergency_record/getPharmacy/search/" +
+            this.state.name,
+          {
+            headers: {
+              token: user_token,
+              Accept: "application/json",
+              "Content-Type": "application/json",
+            },
+          }
+        )
+        .then((response) => {
+          this.setState({ searchName: response.data.data });
+        })
+        .catch((error) => {
+          this.setState({ loaderImage: false });
+        });
+    } else {
+      this.setState({ searchName: [] });
+    }
+  };
+
+  SetIds = (item) => {
+    const state = this.state.newEntry;
+    state["pharmacy_id"] = item.profile_id;
+    this.setState({
+      newEntry: state,
+      radius: "",
+      name: item.first_name,
+      searchLocation: [],
+      searchName: [],
+    });
+  };
+  
   getMyprescriptionssData = () => {
     let user_token = this.props.stateLoginValueAim.token;
     axios
@@ -223,6 +276,12 @@ class Index extends Component {
   UpdatetheStatus = (status, id) => {
     let user_token = this.props.stateLoginValueAim.token;
     const { message } = this.state;
+    sendPharmacy = false;
+    console.log('this.state.newEntry?.pharmacy_id', this.state.newEntry?.pharmacy_id)
+    if(this.state.newEntry?.pharmacy_id){
+      var sendPharmacy= this.state.newEntry?.pharmacy_id
+    }
+    console.log('sendPharmacy', sendPharmacy)
     axios
       .put(
         sitedata.data.path + "/UserProfile/GetPrescription/" + id,
@@ -233,6 +292,7 @@ class Index extends Component {
           type: "prescription",
           short_msg: message,
           send_to_timeline: true,
+          sendPharmacy: sendPharmacy,
         },
         {
           headers: {
@@ -243,6 +303,7 @@ class Index extends Component {
         }
       )
       .then((response) => {
+     
         this.setState({
           send_to_timeline: false,
           openPrescp: false,
@@ -303,13 +364,13 @@ class Index extends Component {
     if (file.name.split(".").pop() === "mp4") {
       this.setState({
         file: file,
-        imagePreviewUrl: require("../../../../assets/images/videoIcon.png"),
+        imagePreviewUrl: require("assets/images/videoIcon.png"),
       });
     }
     if (file.name.split(".").pop() === "pdf") {
       this.setState({
         file: file,
-        imagePreviewUrl: require("../../../../assets/images/pdfimg.png"),
+        imagePreviewUrl: require("assets/images/pdfimg.png"),
       });
     } else if (
       file.name.split(".").pop() === "doc" ||
@@ -319,7 +380,7 @@ class Index extends Component {
     ) {
       this.setState({
         file: file,
-        imagePreviewUrl: require("../../../../assets/images/txt1.png"),
+        imagePreviewUrl: require("assets/images/txt1.png"),
       });
     } else if (
       file.name.split(".").pop() === "xls" ||
@@ -328,12 +389,12 @@ class Index extends Component {
     ) {
       this.setState({
         file: file,
-        imagePreviewUrl: require("../../../../assets/images/xls1.svg"),
+        imagePreviewUrl: require("assets/images/xls1.svg"),
       });
     } else if (file.name.split(".").pop() === "csv") {
       this.setState({
         file: file,
-        imagePreviewUrl: require("../../../../assets/images/csv1.png"),
+        imagePreviewUrl: require("assets/images/csv1.png"),
       });
     } else if (
       file.name.split(".").pop() === "dcm" ||
@@ -343,7 +404,7 @@ class Index extends Component {
     ) {
       this.setState({
         file: file,
-        imagePreviewUrl: require("../../../../assets/images/dcm1.png"),
+        imagePreviewUrl: require("assets/images/dcm1.png"),
       });
     } else {
       this.setState({ file: file, imagePreviewUrl: URL.createObjectURL(file) });
@@ -483,7 +544,7 @@ class Index extends Component {
                   .pop() === "mp4"
               ) {
                 this.setState({
-                  imagePreviewUrl: require("../../../../assets/images/videoIcon.png"),
+                  imagePreviewUrl: require("assets/images/videoIcon.png"),
                 });
               }
               if (
@@ -493,7 +554,7 @@ class Index extends Component {
                   .pop() === "pdf"
               ) {
                 this.setState({
-                  imagePreviewUrl: require("../../../../assets/images/pdfimg.png"),
+                  imagePreviewUrl: require("assets/images/pdfimg.png"),
                 });
               } else if (
                 data.attachfile[0].filename
@@ -514,7 +575,7 @@ class Index extends Component {
                   .pop() === "txt"
               ) {
                 this.setState({
-                  imagePreviewUrl: require("../../../../assets/images/txt1.png"),
+                  imagePreviewUrl: require("assets/images/txt1.png"),
                 });
               } else if (
                 data.attachfile[0].filename
@@ -531,7 +592,7 @@ class Index extends Component {
                   .pop() === "xml"
               ) {
                 this.setState({
-                  imagePreviewUrl: require("../../../../assets/images/xls1.svg"),
+                  imagePreviewUrl: require("assets/images/xls1.svg"),
                 });
               } else if (
                 data.attachfile[0].filename
@@ -540,7 +601,7 @@ class Index extends Component {
                   .pop() === "csv"
               ) {
                 this.setState({
-                  imagePreviewUrl: require("../../../../assets/images/csv1.png"),
+                  imagePreviewUrl: require("assets/images/csv1.png"),
                 });
               } else if (
                 data.attachfile[0].filename
@@ -561,7 +622,7 @@ class Index extends Component {
                   .pop() === "dicom"
               ) {
                 this.setState({
-                  imagePreviewUrl: require("../../../../assets/images/dcm1.png"),
+                  imagePreviewUrl: require("assets/images/dcm1.png"),
                 });
               } else {
                 this.setState({ imagePreviewUrl: response2.data.data });
@@ -650,7 +711,6 @@ class Index extends Component {
     }
     let {
       unknown,
-      capab_Doctors,
       see_details,
       approve,
       decline,
@@ -666,21 +726,14 @@ class Index extends Component {
       online,
       patient_health_status,
       sent,
-      on,
       prescription,
       Pending,
       request,
-      edit,
       Rejected,
       Answered,
       Cancelled,
       req_updated_successfully,
-      sick_cert,
-      my_doc,
-      New,
       inquiry,
-      doc_and_statnderd_ques,
-      doc_aimedis_private,
       Annotations,
       details,
       Patient,
@@ -691,7 +744,6 @@ class Index extends Component {
       Medicine,
       Substance,
       Dose,
-      mg,
       trade_name,
       atc_if_applicable,
       manufacturer,
@@ -702,13 +754,15 @@ class Index extends Component {
       browse,
       or_drag_here,
       suported_file_type_jpg_png,
-      snd_patient_timeline_email,
+      Pharmacy,
+      searchName,
       next,
       reject,
       short_msg,
       previous,
       back,
       attached_doc,
+      search_pharmacy_by_name_id,
       not_mentioned,
     } = translate;
 
@@ -752,7 +806,7 @@ class Index extends Component {
                                 data.patient_info.profile_image,
                                 this.state.images
                               )
-                            : require("../../../../assets/images/dr1.jpg")
+                            : require("assets/images/dr1.jpg")
                         }
                         alt=""
                         title=""
@@ -795,7 +849,7 @@ class Index extends Component {
                     <Td className="presEditDot scndOptionIner">
                       <a className="openScndhrf">
                         <img
-                          src={require("../../../../assets/images/three_dots_t.png")}
+                          src={require("assets/images/three_dots_t.png")}
                           alt=""
                           title=""
                           className="openScnd"
@@ -808,7 +862,7 @@ class Index extends Component {
                               }}
                             >
                               <img
-                                src={require("../../../../assets/images/details.svg")}
+                                src={require("assets/images/details.svg")}
                                 alt=""
                                 title=""
                               />
@@ -824,7 +878,7 @@ class Index extends Component {
                             >
                               <a>
                                 <img
-                                  src={require("../../../../assets/images/edit.svg")}
+                                  src={require("assets/images/edit.svg")}
                                   alt=""
                                   title=""
                                 />
@@ -841,7 +895,7 @@ class Index extends Component {
                             >
                               <a>
                                 <img
-                                  src={require("../../../../assets/images/plus.png")}
+                                  src={require("assets/images/plus.png")}
                                   alt=""
                                   title=""
                                 />
@@ -857,7 +911,7 @@ class Index extends Component {
                             >
                               <a>
                                 <img
-                                  src={require("../../../../assets/images/cancel-request.svg")}
+                                  src={require("assets/images/cancel-request.svg")}
                                   alt=""
                                   title=""
                                 />
@@ -890,7 +944,7 @@ class Index extends Component {
                 <Grid className="prespCloseBtn">
                   <a onClick={this.handleClosePrescp}>
                     <img
-                      src={require("../../../../assets/images/close-search.svg")}
+                      src={require("assets/images/close-search.svg")}
                       alt=""
                       title=""
                     />
@@ -997,7 +1051,45 @@ class Index extends Component {
                     <p>{prescData.diagnosis ? prescData.diagnosis : unknown}</p>
                   </Grid>
                 </Grid>
-
+                {prescData.status !== "accept" &&
+                  prescData.status !== "decline" && (
+                  <Grid className="scanInputs">
+                  <Grid>
+                    <label>{Pharmacy}</label>
+                  </Grid>
+                  <Grid className="scanInputPhrm dropdown-main">
+                    <input
+                      type="text"
+                      placeholder={search_pharmacy_by_name_id}
+                      onChange={this.findByName}
+                      value={
+                        this.state.newEntry.pharmacy_id
+                          ? this.state.name +
+                          "- " +
+                          this.state.newEntry.pharmacy_id
+                          : this.state.name
+                      }
+                    />
+                    <img
+                      src={require("../../../../assets/images/srchInputField.svg")}
+                      alt=""
+                      title=""
+                    />
+                    <div
+                      className={
+                        this.state.searchName && this.state.searchName.length > 0
+                          ? "show-content dropdown-content"
+                          : "dropdown-content"
+                      }
+                    >
+                       {this.state.searchName?.length>0 && this.state.searchName.map((data) => (
+                      <a onClick={() => this.SetIds(data)}>
+                        {data.first_name + " " + data.last_name}
+                      </a>
+                    ))}
+                    </div>
+                  </Grid>
+                </Grid>)}
                 {prescData.status !== "decline" && (
                   <Grid className="scamUPForms scamUPImg">
                     <Grid>
@@ -1021,6 +1113,7 @@ class Index extends Component {
                           </a>
                         ))}
                     </label>
+
                     {prescData.status !== "accept" && !$imagePreview && (
                       <Dropzone
                         onDrop={(e) =>
@@ -1038,7 +1131,7 @@ class Index extends Component {
                             <Grid className="browsInput">
                               <a>
                                 <img
-                                  src={require("../../../../assets/images/upload-file.svg")}
+                                  src={require("assets/images/upload-file.svg")}
                                   alt=""
                                   title=""
                                 />
@@ -1066,7 +1159,7 @@ class Index extends Component {
                       </Dropzone>
                     )}
                     {/* {(prescData.status !== 'accept' && !$imagePreview) && <Grid className="scamUPInput">
-                                            <a><img src={require('../../../../assets/images/upload-file.svg')} alt="" title="" /></a>
+                                            <a><img src={require('assets/images/upload-file.svg')} alt="" title="" /></a>
                                             <a>{browse} <input type="file" onChange={(e) => this.UploadFile(e, prescData.patient_profile_id, prescData.patient_info.bucket, prescData._id)} /></a> {or_drag_here}
                                         </Grid>}
                                         {(prescData.status !== 'accept') && !$imagePreview && <p>{suported_file_type_jpg_png}</p>} */}
@@ -1133,7 +1226,7 @@ class Index extends Component {
                 <Grid className="rejectCloseBtn">
                   <a onClick={this.handleCloseReject}>
                     <img
-                      src={require("../../../../assets/images/close-search.svg")}
+                      src={require("assets/images/close-search.svg")}
                       alt=""
                       title=""
                     />

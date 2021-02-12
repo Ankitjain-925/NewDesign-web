@@ -18,6 +18,7 @@ import Loader from "Screens/Components/Loader/index";
 import { authy } from "Screens/Login/authy.js";
 import PrecriptionList from "./Components/prescription.js";
 import SickCertificateList from "./Components/sickCertificate.js";
+import SentPrescriptionList from "./Components/sentPricription.js";
 import {
   translationAR,
   translationSW,
@@ -236,12 +237,16 @@ class Index extends Component {
                                 label={ScndOpinion}
                                 className="presTabsIner"
                               />
+                              <Tab
+                                label="Sent Prescriptions"
+                                className="presTabsIner"
+                              />
                             </Tabs>
                           </Grid>
                           <Grid item xs={12} md={4} sm={4} className="presSrch">
                             <a>
                               <img
-                                src={require("../../../assets/images/search-entries.svg")}
+                                src={require("assets/images/search-entries.svg")}
                                 alt=""
                                 title=""
                               />
@@ -286,6 +291,14 @@ class Index extends Component {
                             </div>
                           )}
                           <SecondOpinion
+                            newItem={this.state.newItemp}
+                            myData={this.state.myData}
+                          />
+                        </TabContainer>
+                      )}
+                       {value === 3 && (
+                        <TabContainer>
+                          <SentPrescriptionList
                             newItem={this.state.newItemp}
                             myData={this.state.myData}
                           />
