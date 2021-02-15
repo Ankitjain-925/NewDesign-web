@@ -1176,6 +1176,9 @@
 		"select_marital_status":"حدد الحالة الاجتماعية",
 		"respiration":"التنفس",
 		"course_not_updt_cannt_reach_srvr": "لم يتم إضافة الدورة. لا يمكن الوصول إلى الخادم",
-		"CourseAddedMyCourses" : "تمت إضافة الدورة بنجاح في دوراتي"
+		"CourseAddedMyCourses" : "تمت إضافة الدورة بنجاح في دوراتي",
+		"RBPharmacy":"استقبله صيدلي",
+		"SentPrescriptions" :"الوصفات الطبية المرسلة",
+		"Enrolled" : "المقيدين"
 		}
 }

@@ -62,20 +62,23 @@ class Index extends Component {
       },
       () => {
         var find = this.state.CurrentAttach.filename;
-        var find1 = find.split(".com/")[1];
-        axios
+        console.log('find1', find)
+        if(find){
+          var find1 = find?.split(".com/")[1];
+          axios
           .get(sitedata.data.path + "/aws/sign_s3?find=" + find1)
           .then((response) => {
             if (response.data.hassuccessed) {
               var state = this.state.CurrentAttach;
               state["new_image"] = response.data.data;
               state["type"] = this.state.CurrentAttach.filename
-                .split("&bucket=")[0]
-                .split(".")
-                .pop();
+                ?.split("&bucket=")[0]
+                ?.split(".")
+                ?.pop();
               this.setState({ CurrentAttach: state });
             }
           });
+        }
       }
     );
   };

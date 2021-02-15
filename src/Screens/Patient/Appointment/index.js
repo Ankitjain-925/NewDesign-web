@@ -1012,21 +1012,6 @@ class Index extends Component {
       consultancy_cstm_calnder,
       vdo_call,
       allow_location_access,
-      profile_info,
-      profile,
-      information,
-      ID,
-      pin,
-      QR_code,
-      done,
-      Change,
-      edit_id_pin,
-      edit,
-      and,
-      is,
-      changed,
-      profile_id_taken,
-      profile_id_greater_then_5,
     } = translate;
     const { stateLoginValueAim } = this.props;
     if (

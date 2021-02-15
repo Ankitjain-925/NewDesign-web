@@ -258,7 +258,8 @@ class Index extends Component {
             handled,
             Remarks,
             prescription,
-            see_details
+            see_details,
+            RBPharmacy
         } = translate;
 
 
@@ -326,7 +327,7 @@ class Index extends Component {
                                             </Td>
                                         ) : (
                                                 <Td>
-                                                    <span className="revwGry"></span> {"Recieved by Pharmacist"}
+                                                    <span className="revwGry"></span> {RBPharmacy}
                                                 </Td>
                                             )}
                                         <Td className="presEditDot scndOptionIner">

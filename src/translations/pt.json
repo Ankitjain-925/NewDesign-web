@@ -1196,6 +1196,9 @@
 		"select_marital_status":"Selecione o estado civil",
 		"respiration":"Respiração",
 		"course_not_updt_cannt_reach_srvr": "O curso não foi adicionado. Não é possível acessar o servidor",
-		"CourseAddedMyCourses" : "Curso adicionado com sucesso em Meus cursos"
+		"CourseAddedMyCourses" : "Curso adicionado com sucesso em Meus cursos",
+		"RBPharmacy":"Recebido por Farmacêutico",
+		"SentPrescriptions" :"Receitas enviadas",
+		"Enrolled" : "Inscrito"
 	}
 }

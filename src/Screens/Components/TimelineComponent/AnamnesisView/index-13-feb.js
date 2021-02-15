@@ -1,12 +1,14 @@
 import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
 import Collapsible from "react-collapsible";
-import ReactTooltip from "react-tooltip";
 import FileViews from "./../FileViews/index";
+import PainPoint from "Screens/Components/PointPain/index";
+import ReactTooltip from "react-tooltip";
 import { getDate, newdate, getTime, getImage } from "Screens/Components/BasicMethod/index";
+import DownloadFullTrack from "Screens/Components/DownloadFullTrack/index.js";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import DownloadFullTrack from "Screens/Components/DownloadFullTrack/index.js";
+import { GetShowLabel1 } from "../../GetMetaData/index.js";
 import { LanguageFetchReducer } from "Screens/actions";
 import {
   translationAR,
@@ -31,6 +33,7 @@ class Index extends Component {
       archive: this.props.archive,
       loggedinUser: this.props.loggedinUser,
       images: this.props.images,
+      gender: this.props.gender,
       TrackRecord: this.props.TrackRecord,
     };
   }
@@ -90,27 +93,23 @@ class Index extends Component {
         translate = translationEN.text;
     }
     let {
-      blood_sugar,
-      Hba1c,
-      situation,
-      visible,
+      anamnesis,
+      always,
+      Date_of_event,
       show,
-      date,
-      time,
       hide,
       until,
-      visibility,
-      edit,
-      Delete,
-      not_mentioned,
-      always,
-      VeiwGraph,
-      img_files,
-      details,
       Change,
+      edit,
+      Download,
+      img_files,
+      visibility,
+      visible,
       archive,
       de_archive,
-      Download,
+      Delete,
+      pain_areas,
+      BodySchemeNotes,
     } = translate;
     var item = this.state.item;
     return (
@@ -118,18 +117,18 @@ class Index extends Component {
         <Grid item xs={12} md={1} className="descpCntntLft">
           {newdate(item.datetime_on)}
         </Grid>
-        <Grid item xs={12} md={10} className="descpCntntRght">
-          <Grid className="descpInerRght descpInerBlue">
+        <Grid item xs={12} md={10}>
+          <Grid className="descpInerRght descpInerPurple">
             <Grid container direction="row" className="addSpc">
               <Grid item xs={12} md={6}>
-                <Grid className="blodPrsurImg">
-                  <a className="blodPrsurNote">
+                <Grid className="blodPrsurImg purpleSpan">
+                  <a className="diryNote">
                     <img
-                      src={require("assets/images/blood-pressure-sugar.svg")}
+                      src={require("assets/images/doctor-appointments.svg")}
                       alt=""
                       title=""
                     />
-                    <span>{blood_sugar}</span>
+                    <span>{anamnesis}</span>
                   </a>
                 </Grid>
               </Grid>
@@ -149,7 +148,7 @@ class Index extends Component {
                     ) : item.visible === "hide" ? (
                       <span>{hide}</span>
                     ) : (
-                      <span>{not_mentioned}</span>
+                      <span>Not mentioned</span>
                     )}{" "}
                   </a>
                   <a
@@ -253,7 +252,6 @@ class Index extends Component {
                             </a>
                           </li>
                         )}
-
                         <li>
                           <a onClick={() => this.props.downloadTrack(item)}>
                             <img
@@ -319,9 +317,7 @@ class Index extends Component {
             </Grid>
 
             <Grid className="bp_hg addSpc">
-              <label>
-                {item.blood_sugar && item.blood_sugar} <span>mg/dl</span>
-              </label>
+              <label dangerouslySetInnerHTML={{ __html: item.remarks }} />
               {/* <p>Normal</p> */}
             </Grid>
 
@@ -357,82 +353,72 @@ class Index extends Component {
               </Grid>
               <Grid className="clear"></Grid>
             </Grid>
-
-            <Grid className="addSpc detailMark">
-              <Collapsible trigger={details} open="true">
-                <Grid className="detailCntnt">
-                  <Grid container direction="row">
-                    <Grid item xs={12} md={6} className="bloodPreBy">
-                      <Grid container direction="row">
-                        <Grid item xs={5} md={5}>
-                          <label>{blood_sugar}</label>
-                        </Grid>
-                        <Grid item xs={7} md={7}>
-                          <span>{item.blood_sugar && item.blood_sugar}</span>
-                        </Grid>
-                        <Grid className="clear"></Grid>
-                      </Grid>
-                    </Grid>
-                    <Grid item xs={12} md={6} className="bloodPreBy">
-                      <Grid container direction="row">
-                        <Grid item xs={5} md={5}>
-                          <label>{situation}</label>
-                        </Grid>
-                        <Grid item xs={7} md={7}>
-                          <span>{item.situation && item.situation.label}</span>
-                        </Grid>
-                        <Grid className="clear"></Grid>
-                      </Grid>
-                    </Grid>
-                    <Grid item xs={12} md={6} className="bloodPreBy">
-                      <Grid container direction="row">
-                        <Grid item xs={5} md={5}>
-                          <label>{Hba1c}</label>
-                        </Grid>
-                        <Grid item xs={7} md={7}>
-                          <span>{item.Hba1c && item.Hba1c}</span>
-                        </Grid>
-                        <Grid className="clear"></Grid>
-                      </Grid>
-                    </Grid>
-                    <Grid item xs={12} md={6} className="bloodPreBy">
-                      <Grid container direction="row">
-                        <Grid item xs={5} md={5}>
-                          <label>
-                            {date} & {time}
-                          </label>
-                        </Grid>
-                        <Grid item xs={7} md={7}>
-                          <span>
-                            {item.date_measured &&
-                              getDate(
-                                item.date_measured,
-                                this.state.date_format
-                              )}{" "}
-                            {item.time_measured &&
-                              ", " +
-                                getTime(
-                                  new Date(item.time_measured),
-                                  this.state.time_foramt
-                                )}
-                          </span>
-                        </Grid>
-                        <Grid className="clear"></Grid>
-                      </Grid>
-                    </Grid>
-                    <Grid className="clear"></Grid>
+            <Grid container direction="row" className="addSpc conPainGraph">
+              <Grid item xs={12} md={5}>
+                <Grid className="conPainLft">
+                  <Grid className="conPainArea">
+                    <label>{pain_areas}</label>
                   </Grid>
-                  <Grid className="bp_graph">
-                    {/* <Grid><img src={require('assets/images/gp.png')} alt="" title="" /></Grid> */}
-                    <Grid>
-                      <a onClick={() => this.props.OpenGraph("blood_sugar")}>
-                        {VeiwGraph}
-                      </a>
-                    </Grid>
-                  </Grid>
+                  <PainPoint
+                    id={item.track_id}
+                    gender={this.state.gender}
+                    painPoint={item.painPoint}
+                    isView={true}
+                  />
                 </Grid>
-              </Collapsible>
+              </Grid>
+              <Grid item xs={7} md={7}>
+                <Grid className="conPainArea">
+                  <label>{BodySchemeNotes}</label>
+                </Grid>
+                <span dangerouslySetInnerHTML={{ __html: item.remarks }} />
+                <Grid className="conPainArea">
+                  <label>{Date_of_event}</label>
+                </Grid>
+                <span>
+                  {item.event_date &&
+                    getDate(item.event_date, this.state.date_format)}
+                </span>
+              </Grid>
+
+              <Grid className="clear"></Grid>
             </Grid>
+
+            {item.anamesis &&
+              item.anamesis.length > 0 &&
+              item.anamesis.map((data) => (
+                <Grid className="addSpc detailMark">
+                  <Collapsible
+                    trigger={
+                      data.title &&
+                      GetShowLabel1(
+                        this.props.list,
+                        data && data.title && data.title.value,
+                        this.props.stateLanguageType,
+                        true,
+                        "anamnesis"
+                      )
+                    }
+                    open="true"
+                  >
+                    <Grid className="detailCntnt">
+                      <p dangerouslySetInnerHTML={{ __html: data.notes }} />
+                    </Grid>
+                  </Collapsible>
+                </Grid>
+              ))}
+            {/* <Grid container direction="row">
+                                        <Grid item xs={12} md={6} className="painTypeBy">
+                                            {item.anamesis && item.anamesis.length>0 && item.anamesis.map((data)=>(
+                                                <Grid container direction="row">
+                                                    <Grid item xs={5} md={5}><label>{data.title && data.title.label}</label></Grid>
+                                                    <Grid item xs={7} md={7}><span dangerouslySetInnerHTML={{ __html: data.notes }}/></Grid>
+                                                </Grid>
+                                            ))}
+                                        </Grid>
+                                        <Grid className="clear"></Grid>
+                                    </Grid> */}
+
             <Grid className="addSpc detailMark">
               <Collapsible trigger={img_files} open="true">
                 <FileViews

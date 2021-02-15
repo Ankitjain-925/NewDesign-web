@@ -36,8 +36,8 @@ import {
 import StripeCheckout from "react-stripe-checkout";
 import $ from "jquery"
 const CURRENCY = "USD";
-const STRIPE_PUBLISHABLE = "pk_live_SUaxHsAUa2ebLQXAa7NoMwPQ";
-// const STRIPE_PUBLISHABLE = "pk_test_qoJaLAHMXbv3fzci2AEcmkYX";
+// const STRIPE_PUBLISHABLE = "pk_live_SUaxHsAUa2ebLQXAa7NoMwPQ";
+const STRIPE_PUBLISHABLE = "pk_test_qoJaLAHMXbv3fzci2AEcmkYX";
 
 function TabContainer(props) {
   return (
@@ -333,6 +333,9 @@ class Index extends Component {
     }
     if(data.price === 0)
     {
+      if (!data.courseId) {
+        data.courseId = data._id;
+      }
       let user_token = this.props.stateLoginValueAim.token;
       data.user_id = this.props.stateLoginValueAim.user._id;
       data.user_profile_id = this.props.stateLoginValueAim.user.profile_id;
@@ -479,7 +482,6 @@ class Index extends Component {
         data.userType = this.props.stateLoginValueAim.user.type;
         data.email = this.props.stateLoginValueAim.user.email;
         delete data._id;
-        console.log('data', data)
         GetAllCart.push(data);
         this.setState({ loaderImage: true });
         axios
@@ -858,11 +860,7 @@ class Index extends Component {
                                 item.courseContent && item.courseContent.average
                               }
                             />
-                            {/* <a><img src={require('../assets/images/vote-star-filled.svg')} alt="" title="" /></a>
-                                    <a><img src={require('../assets/images/vote-star-filled.svg')} alt="" title="" /></a>
-                                    <a><img src={require('../assets/images/vote-star-filled.svg')} alt="" title="" /></a>
-                                    <a><img src={require('../assets/images/vote-star-filled.svg')} alt="" title="" /></a>
-                                    <a><img src={require('../assets/images/vote-star-half.svg')} alt="" title="" /></a> */}
+                           
                             <span>
                               {item.courseContent && item.courseContent.average}
                               <a>
@@ -971,11 +969,7 @@ class Index extends Component {
                                 item.courseContent && item.courseContent.average
                               }
                             />
-                            {/* <a><img src={require('../assets/images/vote-star-filled.svg')} alt="" title="" /></a>
-                                    <a><img src={require('../assets/images/vote-star-filled.svg')} alt="" title="" /></a>
-                                    <a><img src={require('../assets/images/vote-star-filled.svg')} alt="" title="" /></a>
-                                    <a><img src={require('../assets/images/vote-star-filled.svg')} alt="" title="" /></a>
-                                    <a><img src={require('../assets/images/vote-star-half.svg')} alt="" title="" /></a> */}
+                            
                             <span>
                               {item.courseContent && item.courseContent.average}
                               <a>
@@ -1005,37 +999,6 @@ class Index extends Component {
                         </Grid>
                       </Grid>
                     ))}
-
-                  {/* <Grid className="crtCorList">
-                                        <Grid className="crtCorListLbl"><label>What is Diabetes?</label></Grid>
-                                        <Grid className="crtCorListInr">
-                                            <Grid className="crtCorListPara">
-                                                <p>Here you see what diabetes is, how it comes to diabetes and why a good treatment is so crucial.</p>
-                                            </Grid>
-                                            <Grid className="crtCorListTime">
-                                                <Grid><a><img src={require('assets/images/lectures.svg')} alt="" title="" />3 lectures</a></Grid>
-                                                <Grid><a><img src={require('assets/images/time.svg')} alt="" title="" />1.5 h</a></Grid>
-                                            </Grid>
-                                            <Grid className="crtCorStar">
-                                                <a><img src={require('assets/images/vote-star-filled.svg')} alt="" title="" /></a>
-                                                <a><img src={require('assets/images/vote-star-filled.svg')} alt="" title="" /></a>
-                                                <a><img src={require('assets/images/vote-star-filled.svg')} alt="" title="" /></a>
-                                                <a><img src={require('assets/images/vote-star-filled.svg')} alt="" title="" /></a>
-                                                <a><img src={require('assets/images/vote-star-half.svg')} alt="" title="" /></a>
-                                                <span>4.5<a>(38)</a></span>
-                                            </Grid>
-                                            <Grid container direction="row" alignItems="center">
-                                                <Grid item xs={6} md={6}>
-                                                    <Grid className="crtCorPrice"><label>19 €</label></Grid>
-                                                </Grid>
-                                                <Grid item xs={6} md={6}>
-                                                    <Grid className="crtCorRmv">
-                                                        <a>Remove</a>
-                                                    </Grid>
-                                                </Grid>
-                                            </Grid>
-                                        </Grid>
-                                    </Grid> */}
 
                   <Grid className="crtChekOut">
                     {/* <input type="submit" value="Checkout" /> */}

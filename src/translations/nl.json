@@ -1806,6 +1806,9 @@
 		"select_marital_status":"Selecteer Burgerlijke staat",
 		"respiration":"Ademhaling",
 		"course_not_updt_cannt_reach_srvr": "Cursus is niet toegevoegd. Kan de server niet bereiken",
-		"CourseAddedMyCourses" : "Cursus met succes toegevoegd in Mijn cursussen"
+		"CourseAddedMyCourses" : "Cursus met succes toegevoegd in Mijn cursussen",
+		"RBPharmacy":"Ontvangen door apotheker",
+		"SentPrescriptions" :"Verzonden recepten",
+		"Enrolled" : "Ingeschreven"
 	}
 }

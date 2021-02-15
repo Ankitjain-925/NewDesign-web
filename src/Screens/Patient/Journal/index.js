@@ -1,9 +1,7 @@
 import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
 import Modal from "@material-ui/core/Modal";
-import Checkbox from "@material-ui/core/Checkbox";
-import { Editor } from "react-draft-wysiwyg";
-import sitedata, { data } from "sitedata";
+import sitedata from "sitedata";
 import axios from "axios";
 import { confirmAlert } from "react-confirm-alert"; // Import
 import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
@@ -574,7 +572,6 @@ class Index extends Component {
   };
 
   FileAttachMultiVaccination = (Fileadd, name) => {
-    console.log('FileAttachMultiVaccination', Fileadd, name)
     if (name === "SARS") {
       this.setState({ SARS: Fileadd, fileupods: true });
     } else {
@@ -753,7 +750,7 @@ class Index extends Component {
             response.data.data
           );
           var images = [];
-          // response.data.data = response.data.data.filter((e) => e != null);
+          response.data.data = response.data.data.filter((e) => e != null);
           response.data.data &&
             response.data.data.length > 0 &&
             response.data.data.map((data1, index) => {

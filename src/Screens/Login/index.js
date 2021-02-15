@@ -165,8 +165,9 @@ class Index extends Component {
             this.props.stateLoginValueAim.user &&
             !this.props.stateLoginValueAim.user.is2fa
           ) {
-            this.props.authy(true);
-            this.props.OptionList(true);
+            this.props.OptionList(true, ()=>{
+              this.props.authy(true);
+            });
           } else if (this.props.stateLoginValueAim.token === 450) {
             this.setState({ thisverify: false });
           } else {
@@ -201,8 +202,9 @@ class Index extends Component {
       .then((response) => {
         this.setState({ loaderImage: false });
         if (response.data.hassuccessed === true) {
-          // this.props.OptionList();
-          this.props.authy(true);
+          this.props.OptionList(true, ()=>{
+            this.props.authy(true);
+          });
         } else {
           this.setState({ loginError1: true });
         }

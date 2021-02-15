@@ -905,7 +905,7 @@ class Index extends Component {
                         title=""
                       />
                     )}
-                    {data.appointment_type == "private_appointments" && (
+                    {data.appointment_type == "appointments" && (
                       <img
                         src={require("assets/images/ShapeCopy21.svg")}
                         alt=""
@@ -917,7 +917,9 @@ class Index extends Component {
                         ? consultancy_appintment
                         : data.appointment_type == "online_appointment"
                         ? vdo_call
-                        : office_visit}
+                        : this.state.appointmentDatas && this.state.appointmentDatas.appointments && this.state.appointmentDatas.appointments.length>0  && this.state.appointmentDatas.appointments[0].custom_text
+                        ? this.state.appointmentDatas.appointments[0].custom_text :office_visit
+                      }
                     </span>
                   </Grid>
                   <Grid className="meetVdoRght">
@@ -1187,7 +1189,7 @@ class Index extends Component {
                                       />
                                     )}
                                     {data.appointment_type ==
-                                      "private_appointments" && (
+                                      "appointments" && (
                                       <img
                                         src={require("assets/images/ShapeCopy21.svg")}
                                         alt=""
@@ -1310,7 +1312,7 @@ class Index extends Component {
                                     />
                                   )}
                                   {appoinmentSelected.appointment_type ==
-                                    "private_appointments" && (
+                                    "appointments" && (
                                     <img
                                       src={require("assets/images/ShapeCopy21.svg")}
                                       alt=""
@@ -1323,7 +1325,8 @@ class Index extends Component {
                                     : appoinmentSelected.appointment_type ==
                                       "online_appointment"
                                     ? vdo_call
-                                    : office_visit}
+                                    : this.state.appointmentDatas && this.state.appointmentDatas.appointments && this.state.appointmentDatas.appointments.length>0  && this.state.appointmentDatas.appointments[0].custom_text
+                                    ? this.state.appointmentDatas.appointments[0].custom_text :office_visit}
                                 </a>
                               </Grid>
                             </Grid>

@@ -1183,6 +1183,9 @@
 		"select_marital_status":"Selcet Marital Status",
 		"respiration":"Respiration",
 		"course_not_updt_cannt_reach_srvr": "Course is not added. Can not reach to server",
-		"CourseAddedMyCourses" : "Course added successfully in My courses"
+		"CourseAddedMyCourses" : "Course added successfully in My courses",
+		"RBPharmacy":"Received by Pharmacist",
+		"SentPrescriptions" :"Sent Prescriptions",
+		"Enrolled" : "Enrolled"
 	}
 }

@@ -62,7 +62,7 @@ class PointPain extends Component {
     if (prevProps.user !== this.props.user) {
       this.setState(
         { user: this.props.user },
-        this.SetImage(this.props.user.image)
+        this.SetImage(this.props.user?.image)
       );
     }
     if (prevProps.personalinfo !== this.props.personalinfo) {
@@ -333,13 +333,13 @@ class PointPain extends Component {
         )}
         <Grid className="profileName">
           <label>
-            {this.state.user.first_name && this.state.user.first_name}{" "}
-            {this.state.user.last_name && this.state.user.last_name}
+            {this.state.user?.first_name && this.state.user?.first_name}{" "}
+            {this.state.user?.last_name && this.state.user?.last_name}
           </label>
-          {this.state.user.birthday && this.state.user.birthday !== "" ? (
+          {this.state.user?.birthday && this.state.user?.birthday !== "" ? (
             <p>
               {getDate(
-                this.state.user.birthday,
+                this.state.user?.birthday,
                 this.props.settings.setting.date_format
               )}{" "}
             </p>
@@ -355,10 +355,10 @@ class PointPain extends Component {
                 <label>{weight}</label>
                 <p>
                   {this.state.personalinfo &&
-                  this.state.personalinfo.weight_bmi &&
-                  this.state.personalinfo.weight_bmi.length > 0 &&
-                  this.state.personalinfo.weight_bmi[0].weight
-                    ? this.state.personalinfo.weight_bmi[0].weight
+                  this.state.personalinfo?.weight_bmi &&
+                  this.state.personalinfo?.weight_bmi.length > 0 &&
+                  this.state.personalinfo?.weight_bmi[0].weight
+                    ? this.state.personalinfo?.weight_bmi[0].weight
                     : "--"}
                   <span>kg</span>
                 </p>
@@ -367,10 +367,10 @@ class PointPain extends Component {
                 <label>{height}</label>
                 <p>
                   {this.state.personalinfo &&
-                  this.state.personalinfo.weight_bmi &&
-                  this.state.personalinfo.weight_bmi.length > 0 &&
-                  this.state.personalinfo.weight_bmi[0].height
-                    ? this.state.personalinfo.weight_bmi[0].height
+                  this.state.personalinfo?.weight_bmi &&
+                  this.state.personalinfo?.weight_bmi.length > 0 &&
+                  this.state.personalinfo?.weight_bmi[0].height
+                    ? this.state.personalinfo?.weight_bmi[0].height
                     : "--"}
                   <span>cm</span>
                 </p>
@@ -380,8 +380,8 @@ class PointPain extends Component {
               <Grid className="prfilHghtLft">
                 <label>{BMI}</label>
                 {this.state.personalinfo &&
-                this.state.personalinfo.weight_bmi &&
-                this.state.personalinfo.weight_bmi.length > 0 ? (
+                this.state.personalinfo?.weight_bmi &&
+                this.state.personalinfo?.weight_bmi.length > 0 ? (
                   <p>
                     {(
                       (this.state.personalinfo.weight_bmi[0].weight /
@@ -405,8 +405,8 @@ class PointPain extends Component {
                 <label>{blood}</label>
                 <p>
                   {this.state.user &&
-                  this.state.user.blood_group &&
-                  this.state.user.rhesus
+                  this.state.user?.blood_group &&
+                  this.state.user?.rhesus
                     ? this.state.user.blood_group + this.state.user.rhesus
                     : "--"}
                 </p>

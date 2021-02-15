@@ -1202,6 +1202,9 @@
 		"select_marital_status":"选择婚姻状况",
 		"respiration":"呼吸",
 		"course_not_updt_cannt_reach_srvr": "课程未添加。无法到达服务器",
-		"CourseAddedMyCourses" : "课程已成功添加到“我的课程”中"
+		"CourseAddedMyCourses" : "课程已成功添加到“我的课程”中",
+		"RBPharmacy":"收到药剂师",
+		"SentPrescriptions" :"发送处方",
+		"Enrolled" : "已入学"
 	}
 }

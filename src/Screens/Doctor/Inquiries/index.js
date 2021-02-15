@@ -174,6 +174,7 @@ class Index extends Component {
       ScndOpinion,
       sickcsrtificates,
       rqst_sent_succefully,
+      SentPrescriptions
     } = translate;
     const { stateLoginValueAim, Doctorsetget } = this.props;
     if (
@@ -238,7 +239,7 @@ class Index extends Component {
                                 className="presTabsIner"
                               />
                               <Tab
-                                label="Sent Prescriptions"
+                                label={SentPrescriptions}
                                 className="presTabsIner"
                               />
                             </Tabs>

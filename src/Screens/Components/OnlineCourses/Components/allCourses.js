@@ -8,8 +8,7 @@ import { LoginReducerAim } from "Screens/Login/actions";
 import { Settings } from "Screens/Login/setting";
 import { withRouter } from "react-router-dom";
 import { LanguageFetchReducer } from "Screens/actions";
-import sitedata, { data } from "sitedata";
-import { ConsoleCustom } from "../../BasicMethod";
+import sitedata from "sitedata";
 import Rating from "../../Rating";
 import Loader from "Screens/Components/Loader/index.js";
 import {
@@ -46,15 +45,62 @@ class Index extends Component {
       loaderImage: false,
       addedWish: false,
       Allwishlist: [],
+      MyCourse2: [],
       cartAlready: this.props.cartAlready,
       someIssue: this.props.someIssue
     };
   }
 
   componentDidMount() {
+    this.getOrderhistory();
     this.getAllList();
   }
 
+
+    //Go to the view Courses
+  viewCourses = (item) => {
+    item.courseId = item._id;
+    this.props.history.push({
+      pathname: `/${this.props.stateLoginValueAim.user.type}/view-course`,
+      state: item,
+    });
+  };
+  
+   //Get My courses
+   getOrderhistory = () => {
+    var user_token = this.props.stateLoginValueAim.token;
+    axios
+      .post(
+        sitedata.data.path + "/lms/getOrderHistory",
+        {
+          user_id: this.props.stateLoginValueAim.user._id,
+        },
+        {
+          headers: {
+            token: user_token,
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      .then((res) => {
+        if (res.data && res.data.hassuccessed) {
+          var Course = [];
+          res.data.data &&
+            res.data.data.length > 0 &&
+            res.data.data.map((item) => {
+              item.orderlist &&
+                item.orderlist.length > 0 &&
+                item.orderlist.map((item2) => {
+                  Course.push(item2);
+                });
+            });
+
+          this.setState({ MyCourse2: Course});
+        }
+      })
+      .catch((err) => {});
+  };
   //get All the Course
   getAllList = () => {
     this.setState({ loaderImage: true });
@@ -246,33 +292,10 @@ class Index extends Component {
       new_course,
       item_added_to_wishlist,
       all_course,
-      my_course,
-      topic_all,
-      language_eng,
-      wishlist,
-      prescriptions,
-      appointments,
-      cart_removed,
-      chat_vdocall,
-      pharmacy_access,
-      remove,
       lectures,
       add_to_cart,
-      cart,
-      capab_Patients,
-      Inquiries,
-      emegancy_access,
-      archive,
-      more,
-      my_profile,
-      invite_doc,
-      pharma_prescription,
-      online_course,
-      profile_setting,
-      Language,
-      DarkMode,
-      logout,
-      course_not_updt_cannt_reach_srvr
+      course_not_updt_cannt_reach_srvr,
+      Enrolled
       
     } = translate;
 
@@ -335,11 +358,7 @@ class Index extends Component {
                           item.courseContent && item.courseContent.average
                         }
                       />
-                      {/* <a><img src={require('assets/images/vote-star-filled.svg')} alt="" title="" /></a>
-                                    <a><img src={require('assets/images/vote-star-filled.svg')} alt="" title="" /></a>
-                                    <a><img src={require('assets/images/vote-star-filled.svg')} alt="" title="" /></a>
-                                    <a><img src={require('assets/images/vote-star-filled.svg')} alt="" title="" /></a>
-                                    <a><img src={require('assets/images/vote-star-half.svg')} alt="" title="" /></a> */}
+                     
                       <span>
                         {item.courseContent && item.courseContent.average}
                         {item.courseContent && (
@@ -351,85 +370,66 @@ class Index extends Component {
                       <label>{item.price} €</label>
                     </Grid>
                   </Grid>
-                  <Grid className="add_wishList">
-                    <Grid container direction="row" alignItems="center">
-                      <Grid item xs={10} md={9}>
-                        <Grid className="nwCoursCrt">
-                          <a onClick={() => this.props.AddtoCard(item, "all")}>
-                            {add_to_cart}
-                          </a>
+                  {this.state.MyCourse2.some(
+                        (Wish) => Wish.courseId === item._id
+                      ) ? 
+                      <Grid className="add_wishList">
+                      <Grid container direction="row" alignItems="center">
+                        <Grid item xs={10} md={9}>
+                          <Grid className="nwCoursCrt">
+                            <a onClick={() => this.viewCourses(item)}>
+                              {Enrolled}
+                            </a>
+                          </Grid>
+                        </Grid>
+                        <Grid item xs={2} md={3}>
+                          
                         </Grid>
                       </Grid>
-
-                      <Grid item xs={2} md={3}>
-                        <Grid className="nwCoursCrtRght">
-                          {this.state.Allwishlist.some(
-                            (Wish) => Wish.courseId === item._id
-                          ) ? (
-                            <a
-                              onClick={() => {
-                                this.removeWishlist(item);
-                              }}
-                            >
-                              <img
-                                src={require("assets/images/fillWish.png")}
-                                alt=""
-                                title=""
-                              />
-                            </a>
-                          ) : (
-                            <a onClick={() => this.AddtoWishtlist(item)}>
-                              <img
-                                src={require("assets/images/wishlist.png")}
-                                alt=""
-                                title=""
-                              />
-                            </a>
-                          )}
-                        </Grid>
+                    </Grid>: 
+                  <Grid className="add_wishList">
+                  <Grid container direction="row" alignItems="center">
+                    <Grid item xs={10} md={9}>
+                      <Grid className="nwCoursCrt">
+                        <a onClick={() => this.props.AddtoCard(item, "all")}>
+                          {add_to_cart}
+                        </a>
+                      </Grid>
+                    </Grid>
+                    <Grid item xs={2} md={3}>
+                      <Grid className="nwCoursCrtRght">
+                        {this.state.Allwishlist.some(
+                          (Wish) => Wish.courseId === item._id
+                        ) ? (
+                          <a
+                            onClick={() => {
+                              this.removeWishlist(item);
+                            }}
+                          >
+                            <img
+                              src={require("assets/images/fillWish.png")}
+                              alt=""
+                              title=""
+                            />
+                           </a>
+                        ) : (
+                          <a>
+                            <img
+                              onClick={() => this.AddtoWishtlist(item)}
+                              src={require("assets/images/wishlist.png")}
+                              alt=""
+                              title=""
+                            />
+                          </a>
+                        )}
                       </Grid>
                     </Grid>
                   </Grid>
+                </Grid>}
                 </Grid>
               </Grid>
             ))}
-          {/*                     
-                    <Grid item xs={12} md={4}>
-                        <Grid className="courseList">
-                            <Grid className="courseListLbl"><label>What is Diabetes?</label></Grid>
-                            <Grid className="courseListInr">
-                                <Grid className="courseListPara">
-                                    <p>Here you see what diabetes is, how it comes to
-                                    diabetes and why a good treatment is so crucial.</p>
-                                </Grid>
-                                <Grid className="courseListTime">
-                                    <Grid><a><img src={require('assets/images/lectures.svg')} alt="" title="" />3 lectures</a></Grid>
-                                    <Grid><a><img src={require('assets/images/time.svg')} alt="" title="" />1.5 h</a></Grid>
-                                </Grid>
-                                <Grid className="courseStar">
-                                    <a><img src={require('assets/images/vote-star-filled.svg')} alt="" title="" /></a>
-                                    <a><img src={require('assets/images/vote-star-filled.svg')} alt="" title="" /></a>
-                                    <a><img src={require('assets/images/vote-star-filled.svg')} alt="" title="" /></a>
-                                    <a><img src={require('assets/images/vote-star-filled.svg')} alt="" title="" /></a>
-                                    <a><img src={require('assets/images/vote-star-half.svg')} alt="" title="" /></a>
-                                    <span>4.5<a>(38)</a></span>
-                                </Grid>
-                                <Grid className="coursePrice"><label>19 €</label></Grid>
-                            </Grid>
-
-                            <Grid className="add_wishList">
-                                <Grid container direction="row" alignItems="center">
-                                    <Grid item xs={12} md={9}>
-                                        <Grid className="nwCoursCrt"><a onClick={()=>this.props.AddtoCard()}>Add to cart</a></Grid>
-                                    </Grid>
-                                    <Grid item xs={12} md={3}>
-                                        <Grid className="nwCoursCrtRght"><a><img onClick={()=>this.AddtoWishtlist()} src={require('assets/images/wishlist.png')} alt="" title="" /></a></Grid>
-                                    </Grid>
-                                </Grid>
-                            </Grid>
-
-                        </Grid>
-                    </Grid> */}
+         
           <Grid className="clear"></Grid>
         </Grid>
 
@@ -469,7 +469,7 @@ class Index extends Component {
                           {item.attachment.length} {lectures}
                         </a>
                       </Grid>
-                      {/* <Grid><a><img src={require('assets/images/time.svg')} alt="" title="" />1.5 h</a></Grid> */}
+                     
                     </Grid>
                     <Grid className="courseStar">
                       <Rating
@@ -478,11 +478,7 @@ class Index extends Component {
                           item.courseContent && item.courseContent.average
                         }
                       />
-                      {/* <a><img src={require('assets/images/vote-star-filled.svg')} alt="" title="" /></a>
-                                    <a><img src={require('assets/images/vote-star-filled.svg')} alt="" title="" /></a>
-                                    <a><img src={require('assets/images/vote-star-filled.svg')} alt="" title="" /></a>
-                                    <a><img src={require('assets/images/vote-star-filled.svg')} alt="" title="" /></a>
-                                    <a><img src={require('assets/images/vote-star-half.svg')} alt="" title="" /></a> */}
+                      
                       <span>
                         {item.courseContent && item.courseContent.average}
                         <a>
@@ -496,45 +492,62 @@ class Index extends Component {
                       <label>{item.price} €</label>
                     </Grid>
                   </Grid>
-                  <Grid className="add_wishList">
-                    <Grid container direction="row" alignItems="center">
-                      <Grid item xs={10} md={9}>
-                        <Grid className="nwCoursCrt">
-                          <a onClick={() => this.props.AddtoCard(item, "all")}>
-                            {add_to_cart}
-                          </a>
-                        </Grid>
-                      </Grid>
-                      <Grid item xs={2} md={3}>
-                        <Grid className="nwCoursCrtRght">
-                          {this.state.Allwishlist.some(
+                  {this.state.MyCourse2.some(
                             (Wish) => Wish.courseId === item._id
-                          ) ? (
-                            <a
-                              onClick={() => {
-                                this.removeWishlist(item);
-                              }}
-                            >
-                              <img
-                                src={require("assets/images/fillWish.png")}
-                                alt=""
-                                title=""
-                              />
-                            </a>
-                          ) : (
-                            <a>
-                              <img
-                                onClick={() => this.AddtoWishtlist(item)}
-                                src={require("assets/images/wishlist.png")}
-                                alt=""
-                                title=""
-                              />
-                            </a>
-                          )}
-                        </Grid>
+                          ) ? 
+                          <Grid className="add_wishList">
+                          <Grid container direction="row" alignItems="center">
+                            <Grid item xs={10} md={9}>
+                              <Grid className="nwCoursCrt">
+                                <a onClick={() => this.viewCourses(item)}>
+                                  {Enrolled}
+                                </a>
+                              </Grid>
+                            </Grid>
+                            <Grid item xs={2} md={3}>
+                              
+                            </Grid>
+                          </Grid>
+                        </Grid>: 
+                  <Grid className="add_wishList">
+                  <Grid container direction="row" alignItems="center">
+                    <Grid item xs={10} md={9}>
+                      <Grid className="nwCoursCrt">
+                        <a onClick={() => this.props.AddtoCard(item, "all")}>
+                          {add_to_cart}
+                        </a>
+                      </Grid>
+                    </Grid>
+                    <Grid item xs={2} md={3}>
+                      <Grid className="nwCoursCrtRght">
+                        {this.state.Allwishlist.some(
+                          (Wish) => Wish.courseId === item._id
+                        ) ? (
+                          <a
+                            onClick={() => {
+                              this.removeWishlist(item);
+                            }}
+                          >
+                            <img
+                              src={require("assets/images/fillWish.png")}
+                              alt=""
+                              title=""
+                            />
+                           </a>
+                        ) : (
+                          <a>
+                            <img
+                              onClick={() => this.AddtoWishtlist(item)}
+                              src={require("assets/images/wishlist.png")}
+                              alt=""
+                              title=""
+                            />
+                          </a>
+                        )}
                       </Grid>
                     </Grid>
                   </Grid>
+                </Grid>}
                 </Grid>
               </Grid>
             ))}

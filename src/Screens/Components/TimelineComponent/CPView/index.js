@@ -58,6 +58,8 @@ class Index extends Component {
     }
   };
 
+  
+
   render() {
     var item = this.state.item;
     let translate = {};

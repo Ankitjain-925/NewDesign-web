@@ -150,7 +150,6 @@ class Index extends Component {
         // this.setState({
         //     labelWidth: ReactDOM.findDOMNode(this.InputLabelRef).offsetWidth,
         // });
-       console.log('profile')
         this.getMetadata();
         this.getUserData();
         // this.alldoctor();
@@ -303,7 +302,7 @@ class Index extends Component {
             this.setState({ flag_phone: e });
         }
         if (name === 'flag_emergency_number') {
-            console.log('I am here111')
+      
             const state = this.state.contact_partner;
             state['number'] = e + '-' + this.state.emergency_number;
             this.setState({ flag_emergency_number: e });
@@ -337,6 +336,7 @@ class Index extends Component {
 
     //For getting the dropdowns from the database
     getMetadata() {
+ 
         this.setState({ allMetadata: this.props.metadata},
             ()=>{
                 this.GetLanguageMetadata();

@@ -1215,6 +1215,9 @@
 		"select_marital_status":"Chagua Hali ya Ndoa",
 		"respiration":"Kupumua",
 		"course_not_updt_cannt_reach_srvr": "Kozi haijaongezwa. Imeshindwa kufikia seva",
-		"CourseAddedMyCourses" : "Kozi imeongezwa kwa mafanikio katika kozi Zangu"
+		"CourseAddedMyCourses" : "Kozi imeongezwa kwa mafanikio katika kozi Zangu",
+		"RBPharmacy":"Imepokelewa na Mfamasia",
+		"SentPrescriptions" :"Maagizo yaliyotumwa",
+		"Enrolled" : "Wamesajiliwa"
 	}
 }
