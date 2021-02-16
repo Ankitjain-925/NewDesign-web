@@ -187,7 +187,7 @@ class Index extends Toolbar {
 
                       className="allTimeSelnw comonSelnw"
                       //isMulti= {true}
-                      isSearchable={false}
+                      isSearchable={true}
                     />
                     <a
                       onClick={() => {

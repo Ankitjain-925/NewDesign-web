@@ -100,6 +100,9 @@ class Index extends Component {
 
   search_user = (event) => {
     let serach_value = this.SearchUser(event, this.state.allDocData1);
+    serach_value = serach_value.filter(function( element ) {
+      return element.first_name !== undefined;
+   });
     this.setState({ MyDocList: serach_value });
   };
 

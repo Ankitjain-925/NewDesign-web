@@ -187,7 +187,7 @@ class Index extends Component {
                                         options={this.state.timezones}
                                         placeholder={time_zone}
                                         name="timezone"
-                                        isSearchable={false}
+                                        isSearchable={true}
                                         className="mr_sel"
                                     />
                                 </Grid>

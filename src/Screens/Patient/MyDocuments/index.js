@@ -629,7 +629,7 @@ class Index extends Component {
                                                                         onChange={(e) => this.AddDoctorSS(e, 'doctor_id')}
                                                                         options={this.state.Pdoctors}
                                                                         placeholder={select}
-                                                                        isSearchable={false}
+                                                                        isSearchable={true}
                                                                         isMulti={false}
                                                                     />
                                                                 </Grid>
@@ -738,7 +738,7 @@ class Index extends Component {
                                                                         onChange={(e) => this.AddDocotor(e, 'doctor_id')}
                                                                         options={this.state.Sdoctors}
                                                                         placeholder={select}
-                                                                        isSearchable={false}
+                                                                        isSearchable={true}
                                                                         isMulti={false}
                                                                     />
                                                                 </Grid>
@@ -883,7 +883,7 @@ class Index extends Component {
                                                                         onChange={(e) => this.AddDoctor(e, 'doctor_id')}
                                                                         options={this.state.Pdoctors}
                                                                         placeholder={select}
-                                                                        isSearchable={false}
+                                                                        isSearchable={true}
                                                                         isMulti={false}
                                                                     />
                                                                 </Grid>

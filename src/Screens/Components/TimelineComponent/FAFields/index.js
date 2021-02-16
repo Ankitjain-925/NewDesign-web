@@ -130,6 +130,7 @@ class Index extends Component {
             <Grid className="fillDia">
               <SelectField
                 name="relation"
+                isSearchable={true}
                 label={relation_of_relative}
                 option={this.state.relativeList}
                 onChange={(e) => this.updateEntryState1(e, "relation")}

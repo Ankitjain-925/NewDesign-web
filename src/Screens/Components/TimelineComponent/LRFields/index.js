@@ -133,6 +133,7 @@ class Index extends Component {
             </Grid>
             <Grid className="fillDia">
               <SelectField
+              isSearchable={true}
                 name="unit"
                 label={unit}
                 option={this.state.lrpUnit}
@@ -160,6 +161,7 @@ class Index extends Component {
             </Grid>
             <Grid className="fillDia">
               <SelectField
+              isSearchable={true}
                 name="lab_parameter"
                 label={lab_parameter}
                 option={this.state.lrpEnglish}

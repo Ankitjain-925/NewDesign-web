@@ -13103,6 +13103,12 @@ a.academy_ul ul li img {
 
 
 /*Added By ankita*/
+.flag-select .filterBox input {
+    width: 90% !important;
+}
+.darkTheme > div:nth-child(3) .sel_specialty .css-yk16xz-control input{
+    color: #BFC1C1 !important;
+}
 iframe.stripe_checkout_app {
     overflow: scroll!important;
 }

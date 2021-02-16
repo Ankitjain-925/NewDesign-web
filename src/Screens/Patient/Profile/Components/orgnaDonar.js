@@ -344,7 +344,7 @@ class Index extends Component {
                                 onChange={(e) => this.handleChange_multi(e, 'exclude_some')}
                                 options={this.state.tissue}
                                 placeholder=""
-                                isSearchable={false}
+                                isSearchable={true}
                                 className=""
                                 isMulti={true}
                                 closeMenuOnSelect={false}
@@ -361,7 +361,7 @@ class Index extends Component {
                                 onChange={(e) => this.handleChange_multi(e, 'include_some')}
                                 options={this.state.tissue}
                                 placeholder=""
-                                isSearchable={false}
+                                isSearchable={true}
                                 className=""
                                 isMulti={true}
                                 closeMenuOnSelect={false}
@@ -420,7 +420,7 @@ class Index extends Component {
                                             <Grid><label>{mobile_number}</label></Grid>
                                             <Grid>
                                             {this.updateFLAG(this.state.OptionData.phone) && this.updateFLAG(this.state.OptionData.phone) !== '' &&
-                                                <ReactFlagsSelect placeholder={country_code} onSelect={(e) => { this.updateFlags(e, 'flag_phone') }} name="flag_phone" showSelectedLabel={false} defaultCountry={this.updateFLAG(this.state.OptionData.phone)} />}
+                                                <ReactFlagsSelect searchable={true} placeholder={country_code} onSelect={(e) => { this.updateFlags(e, 'flag_phone') }} name="flag_phone" showSelectedLabel={false} defaultCountry={this.updateFLAG(this.state.OptionData.phone)} />}
                                             <input type="text"
                                                 className="Mobile_extra"
                                                 placeholder={phone}

@@ -491,7 +491,7 @@ class Index extends Component {
                                     }
                                     options={this.state.Pdoctors}
                                     placeholder={select}
-                                    isSearchable={false}
+                                    isSearchable={true}
                                     isMulti={false}
                                   />
                                 </Grid>

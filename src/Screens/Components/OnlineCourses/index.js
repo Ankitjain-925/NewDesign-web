@@ -1047,6 +1047,7 @@ class Index extends Component {
                         options={this.state.courseTopics}
                         placeholder={topic_all}
                         className="topicAll"
+                        isSearchable={true}
                       />
                     </Grid>
                     <Grid item xs={12} md={4}>
@@ -1056,6 +1057,7 @@ class Index extends Component {
                         options={this.state.Languages}
                         placeholder={language_all}
                         className="topicAll"
+                        isSearchable={true}
                       />
                     </Grid>
                     <Grid item xs={12} md={1}>

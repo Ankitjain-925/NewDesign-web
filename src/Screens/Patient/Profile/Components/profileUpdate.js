@@ -1210,7 +1210,7 @@ class Index extends Component {
                                         <label>{home_telephone}</label>
                                         <Grid>
                                             {this.updateFLAG(this.state.UpDataDetails.phone) && this.updateFLAG(this.state.UpDataDetails.phone) !== '' &&
-                                                <ReactFlagsSelect placeholder={country_code} onSelect={(e) => { this.updateFlags(e, 'flag_phone') }} name="flag_phone" showSelectedLabel={false} defaultCountry={this.updateFLAG(this.state.UpDataDetails.phone)} />}
+                                                <ReactFlagsSelect searchable={true} placeholder={country_code} onSelect={(e) => { this.updateFlags(e, 'flag_phone') }} name="flag_phone" showSelectedLabel={false} defaultCountry={this.updateFLAG(this.state.UpDataDetails.phone)} />}
                                             <input type="text"
                                                 className="Mobile_extra"
                                                 placeholder={phone}
@@ -1231,7 +1231,7 @@ class Index extends Component {
                                         <label>{mobile_number}</label>
                                         <Grid>
                                             {this.updateFLAG(this.state.UpDataDetails.mobile) && this.updateFLAG(this.state.UpDataDetails.mobile) !== '' &&
-                                                <ReactFlagsSelect placeholder="Country Code" onSelect={(e) => { this.updateFlags(e, 'flag_mobile') }} name="flag_mobile" showSelectedLabel={false} defaultCountry={this.updateFLAG(this.state.UpDataDetails.mobile)} />}
+                                                <ReactFlagsSelect searchable={true} placeholder="Country Code" onSelect={(e) => { this.updateFlags(e, 'flag_mobile') }} name="flag_mobile" showSelectedLabel={false} defaultCountry={this.updateFLAG(this.state.UpDataDetails.mobile)} />}
                                             <input type="text"
                                                 className="Mobile_extra"
                                                 placeholder={mobile}
@@ -1330,7 +1330,7 @@ class Index extends Component {
                             onChange={phone => this.setState({ phone })}
                         /> */}
                             {this.updateFLAG(this.state.contact_partner.number) && this.updateFLAG(this.state.contact_partner.number) !== '' &&
-                                <ReactFlagsSelect placeholder={country_code} onSelect={(e) => { this.updateFlags(e, 'flag_emergency_number') }} name="flag_emergency_number" showSelectedLabel={false} defaultCountry={this.updateFLAG(this.state.contact_partner.number)} />}
+                                <ReactFlagsSelect searchable={true} placeholder={country_code} onSelect={(e) => { this.updateFlags(e, 'flag_emergency_number') }} name="flag_emergency_number" showSelectedLabel={false} defaultCountry={this.updateFLAG(this.state.contact_partner.number)} />}
                             <input type="text"
                                 className="Mobile_extra Emergency_number"
                                 placeholder={phone}

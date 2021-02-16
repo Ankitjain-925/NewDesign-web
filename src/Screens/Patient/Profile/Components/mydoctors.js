@@ -538,7 +538,7 @@ class Index extends Component {
                                     options={this.state.family_doc_list}
                                     placeholder={make_sure_family_doc}
                                     name="title"
-                                    isSearchable={false}
+                                    isSearchable={true}
                                     className="mkFmlyDoc"
                                 />
                                 {/* <Grid ><p></p></Grid> */}

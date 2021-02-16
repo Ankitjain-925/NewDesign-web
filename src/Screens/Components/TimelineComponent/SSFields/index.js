@@ -92,6 +92,7 @@ class Index extends Component {
           <Grid className="cnfrmDiaMain">
             <Grid className="fillDia">
               <SelectField
+              isSearchable={true}
                 name="smoking_status"
                 label={smoking_status}
                 option={this.state.options}

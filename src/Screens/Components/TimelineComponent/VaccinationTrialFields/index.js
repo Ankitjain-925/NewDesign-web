@@ -137,6 +137,7 @@ class Index extends Component {
             </Grid>
             <Grid className="fillDia">
               <SelectField
+              isSearchable={true}
                 name="vaccination"
                 label={vaccination}
                 option={this.state.option4}
@@ -300,6 +301,7 @@ class Index extends Component {
             <Grid className="fillDia">
               <SelectField
                 name="pain_quality"
+                isSearchable={true}
                 label={pain_quality}
                 option={this.state.options}
                 onChange={(e) => this.updateEntryState1(e, "pain_quality")}

@@ -1566,6 +1566,7 @@ class Index extends Component {
                     <label>{country}</label>
                     <Grid>
                       <Select
+                      isSearchable={true}
                         value={UpDataDetails.country}
                         onChange={(e) => this.EntryValueName(e, "country")}
                         options={this.state.selectCountry}
@@ -1588,6 +1589,7 @@ class Index extends Component {
                       {this.updateFLAG(UpDataDetails.phone) &&
                         this.updateFLAG(UpDataDetails.phone) !== "" && (
                           <ReactFlagsSelect
+                          searchable={true}
                             placeholder={country_code}
                             onSelect={(e) => {
                               this.updateFlags(e, "flag_phone");
@@ -1625,6 +1627,7 @@ class Index extends Component {
                       {this.updateFLAG(UpDataDetails.mobile) &&
                         this.updateFLAG(UpDataDetails.mobile) !== "" && (
                           <ReactFlagsSelect
+                          searchable={true}
                             placeholder={country_code}
                             onSelect={(e) => {
                               this.updateFlags(e, "flag_mobile");
@@ -1663,6 +1666,7 @@ class Index extends Component {
                       {this.updateFLAG(UpDataDetails.fax) &&
                         this.updateFLAG(UpDataDetails.fax) !== "" && (
                           <ReactFlagsSelect
+                          searchable={true}
                             placeholder={country_code}
                             onSelect={(e) => {
                               this.updateFlags(e, "flag_fax");

@@ -798,6 +798,7 @@ class Index extends Component {
                               this.state.contact_partner.number
                             ) !== "" && (
                               <ReactFlagsSelect
+                              searchable={true}
                                 placeholder={country_code}
                                 onSelect={(e) => {
                                   this.updateFlags(e, "number");

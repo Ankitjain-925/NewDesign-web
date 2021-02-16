@@ -1374,6 +1374,7 @@ class Index extends Component {
                         this.updateFLAG(this.state.UpDataDetails.phone) !==
                           "" && (
                           <ReactFlagsSelect
+                          searchable={true}
                             placeholder={country_code}
                             onSelect={(e) => {
                               this.updateFlags(e, "flag_phone");
@@ -1412,6 +1413,7 @@ class Index extends Component {
                         this.updateFLAG(this.state.UpDataDetails.mobile) !==
                           "" && (
                           <ReactFlagsSelect
+                          searchable={true}
                             placeholder="Country Code"
                             onSelect={(e) => {
                               this.updateFlags(e, "flag_mobile");

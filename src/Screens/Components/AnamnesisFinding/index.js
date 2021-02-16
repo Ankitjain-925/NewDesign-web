@@ -44,6 +44,7 @@ class AnamnesisFinding extends Component {
     this.setState({ findingArr: tArray });
     this.props.onChange(tArray);
   };
+  
   onFieldChangeNote = (notes, i) => {
     let tArray = this.state.findingArr;
     if (tArray && tArray.length == 0) {
@@ -120,7 +121,7 @@ class AnamnesisFinding extends Component {
                 onChange={(e) => this.onFieldChange(e, 0)}
                 options={this.state.options}
                 name="title"
-                isSearchable={false}
+                isSearchable={true}
                 className="mr_sel"
               />
               <NotesEditor
@@ -150,7 +151,7 @@ class AnamnesisFinding extends Component {
                       "anamnesis"
                     )}
                     name="title"
-                    isSearchable={false}
+                    isSearchable={true}
                     className="mr_sel"
                   />
                   <NotesEditor
@@ -176,7 +177,7 @@ class AnamnesisFinding extends Component {
                     onChange={(e) => this.onFieldChange(e, index)}
                     options={this.state.options}
                     name="title"
-                    isSearchable={false}
+                    isSearchable={true}
                     className="mr_sel"
                   />
                   <NotesEditor

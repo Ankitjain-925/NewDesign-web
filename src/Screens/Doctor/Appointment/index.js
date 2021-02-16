@@ -907,7 +907,7 @@ class Index extends Component {
                     )}
                     {data.appointment_type == "appointments" && (
                       <img
-                        src={require("assets/images/ShapeCopy21.svg")}
+                        src={require("assets/images/office-visit.svg")}
                         alt=""
                         title=""
                       />
@@ -1191,7 +1191,7 @@ class Index extends Component {
                                     {data.appointment_type ==
                                       "appointments" && (
                                       <img
-                                        src={require("assets/images/ShapeCopy21.svg")}
+                                        src={require("assets/images/office-visit.svg")}
                                         alt=""
                                         title=""
                                       />
@@ -1293,6 +1293,7 @@ class Index extends Component {
                               alignItems="center"
                               justify="center"
                             >
+                              
                               <Grid className="jmInfoVdo">
                                 <a>
                                   {appoinmentSelected.appointment_type ==
@@ -1314,7 +1315,7 @@ class Index extends Component {
                                   {appoinmentSelected.appointment_type ==
                                     "appointments" && (
                                     <img
-                                      src={require("assets/images/ShapeCopy21.svg")}
+                                      src={require("assets/images/office-visit.svg")}
                                       alt=""
                                       title=""
                                     />

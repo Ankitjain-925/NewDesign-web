@@ -119,6 +119,7 @@ class Index extends Component {
             </Grid>
             <Grid className="fillDia">
               <SelectField
+              isSearchable={true}
                 name="specialty"
                 label={speciality}
                 option={this.state.options}

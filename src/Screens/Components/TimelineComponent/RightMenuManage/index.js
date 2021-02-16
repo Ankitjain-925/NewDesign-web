@@ -5291,7 +5291,7 @@ class RightManage extends Component {
                                   alt=""
                                   title=""
                                 />{" "}
-                                {office_visit}
+                                {data.custom_text ? data.custom_text : office_visit}
                               </a>
                             )}
                             {data.appointment_type === "online_appointment" && (

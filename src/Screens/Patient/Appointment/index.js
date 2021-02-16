@@ -872,7 +872,7 @@ class Index extends Component {
                         ? consultancy_appintment
                         : data.appointment_type == "online_appointment"
                         ? vdo_call
-                        : office_visit}
+                        : data.custom_text ? data.custom_text :office_visit}
                     </span>
                   </Grid>
                   <Grid className="meetVdoRght">
@@ -1012,6 +1012,21 @@ class Index extends Component {
       consultancy_cstm_calnder,
       vdo_call,
       allow_location_access,
+      profile_info,
+      profile,
+      information,
+      ID,
+      pin,
+      QR_code,
+      done,
+      Change,
+      edit_id_pin,
+      edit,
+      and,
+      is,
+      changed,
+      profile_id_taken,
+      profile_id_greater_then_5,
     } = translate;
     const { stateLoginValueAim } = this.props;
     if (
@@ -1606,7 +1621,7 @@ class Index extends Component {
                                       className="addClnder"
                                     >
                                       <img
-                                        src={require("assets/images/cal.png")}
+                                        src={require("assets/images/cal1.png")}
                                         alt=""
                                         title=""
                                       />
@@ -1657,7 +1672,7 @@ class Index extends Component {
                                       alt=""
                                       title=""
                                     />{" "}
-                                    {office_visit}{" "}
+                                    {apoint.custom_text ? apoint.custom_text : office_visit}{" "}
                                   </a>
                                 ) : apoint.appointment_type ==
                                   "online_appointment" ? (
@@ -1763,7 +1778,7 @@ class Index extends Component {
                                       alt=""
                                       title=""
                                     />{" "}
-                                    {office_visit}{" "}
+                                    {apoint.custom_text ? apoint.custom_text :office_visit}{" "}
                                   </a>
                                 ) : apoint.appointment_type ==
                                   "online_appointment" ? (
