@@ -1186,6 +1186,7 @@
 		"CourseAddedMyCourses" : "Course added successfully in My courses",
 		"RBPharmacy":"Received by Pharmacist",
 		"SentPrescriptions" :"Sent Prescriptions",
-		"Enrolled" : "Enrolled"
+		"Enrolled" : "Enrolled",
+		"Seemore10entries" : "See more 10 entries"
 	}
 }

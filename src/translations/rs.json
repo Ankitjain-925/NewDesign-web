@@ -1185,6 +1185,7 @@
 		"CourseAddedMyCourses" : "Курс успешно добавлен в Мои курсы",
     "RBPharmacy":"Получено фармацевтом",
 		"SentPrescriptions" :"Отправленные рецепты",
-    "Enrolled" : "Зарегистрирован"
+    "Enrolled" : "Зарегистрирован",
+    "Seemore10entries" : "Посмотреть еще 10 записей"
   }
 }

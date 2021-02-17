@@ -151,8 +151,9 @@ class Index extends Component {
   //For clear the filter
   ClearData = () => {
     this.setState(
-      { Sort: "diagnosed_time", allTrack: this.state.allTrack1 },
-      this.SortData()
+      { Sort: "diagnosed_time", allTrack2: this.state.allTrack1, allTrack: this.state.allTrack1, defaultValue: 10 },
+      ()=>{this.SortData()
+        this.Showdefaults(this.state.allTrack2, this.state.defaultValue) }
     ); 
   };
 
@@ -184,7 +185,7 @@ class Index extends Component {
       track.filter((obj) => {
         return this.isThisAvilabel(obj, text && text.toLowerCase());
       });
-    this.setState({ allTrack2: FilterFromSearch },
+    this.setState({ allTrack2: FilterFromSearch, defaultValue: 10  },
      ()=>{ this.Showdefaults(FilterFromSearch, this.state.defaultValue) } );
   };
 
@@ -207,7 +208,7 @@ class Index extends Component {
       FilterFromUserType = this.state.allTrack1;
     }
     FilterFromUserType = [...new Set(FilterFromUserType)];
-    this.setState({ allTrack2: FilterFromUserType },
+    this.setState({ allTrack2: FilterFromUserType,  defaultValue: 10 },
       ()=>{ this.Showdefaults(FilterFromUserType, this.state.defaultValue) } );
   };
 
@@ -253,8 +254,8 @@ class Index extends Component {
     if (Datas && Datas.length > 0) {
       if (user_type && user_type.length > 0) {
         user_type.map((ob) => {
-          var dts = Datas.filter(
-            (obj) => obj.created_by_temp.indexOf(ob.value) > -1
+          var dts = Datas?.filter(
+            (obj) => obj?.created_by_temp?.indexOf(ob.value) > -1
           );
           Datas1 = Datas1.concat(dts);
         });
@@ -849,6 +850,7 @@ class Index extends Component {
             allTrack1: response.data.data,
             allTrack2 : response.data.data,
             loaderImage: false,
+            defaultValue : 10,
           },
           ()=>{this.Showdefaults(this.state.allTrack2, this.state.defaultValue)});
         } else {
@@ -1222,9 +1224,11 @@ class Index extends Component {
       weight_bmi,
       edit,
       entry,
+      loadingref,
       respiration,
       anamnesis,
       VaccinationTrial,
+      Seemore10entries
     } = translate;
 
     return (
@@ -1347,10 +1351,10 @@ class Index extends Component {
                             />
                           ))}
                             {this.state.allTrack2 > this.state.allTrack && <div className="more10entries" onClick={()=>this.LoadMore(this.state.allTrack2)}>
-                              See more 10 entries
+                              {Seemore10entries}
                             </div>}
                             {this.state.loading && <div className="more10entries">
-                              Loading...
+                              {loadingref}
                             </div>}
                         </div>)
                            : (

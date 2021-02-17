@@ -120,15 +120,29 @@ class Index extends Component {
       Anamnesis: [],
       images: [],
       allTrack1: [],
+      allTrack2: [],
       Sort: "diagnosed_time",
       current_Graph: "",
       upcoming_appointment: [],
       SARS: [],
       Positive_SARS: [],
       vaccinations: [],
+      defaultValue : 10,
+      loading: false,
     };
   }
 
+  LoadMore=(allTrack)=>{
+    this.setState({loading: true, defaultValue : this.state.defaultValue+10}, 
+      ()=>{ this.Showdefaults(allTrack, this.state.defaultValue)
+        this.setState({loading: false})
+      })
+  }
+  //For render 10 entries at one time 
+  Showdefaults = (allTrack, defaultValue )=>{
+    allTrack = allTrack.slice(0, defaultValue);
+    this.setState({ allTrack : allTrack })
+  }
   //For Close the Graph
   CloseGraph = () => {
     this.rightInfo();
@@ -143,9 +157,10 @@ class Index extends Component {
   //For clear the filter
   ClearData = () => {
     this.setState(
-      { Sort: "diagnosed_time", allTrack: this.state.allTrack1 },
-      this.SortData()
-    );
+      { Sort: "diagnosed_time", allTrack2: this.state.allTrack1, allTrack: this.state.allTrack1, defaultValue : 10, },
+      ()=>{this.SortData()
+        this.Showdefaults(this.state.allTrack2, this.state.defaultValue) }
+    ); 
   };
 
   isThisAvilabel = (object, text) => {
@@ -176,8 +191,9 @@ class Index extends Component {
       track.filter((obj) => {
         return this.isThisAvilabel(obj, text && text.toLowerCase());
       });
-    this.setState({ allTrack: FilterFromSearch });
-  };
+      this.setState({ allTrack2: FilterFromSearch,  defaultValue: 10  },
+        ()=>{ this.Showdefaults(FilterFromSearch, this.state.defaultValue) } );
+     };
 
   //For filter the Data
   FilterData = (time_range, user_type, type, facility_type) => {
@@ -198,8 +214,10 @@ class Index extends Component {
       FilterFromUserType = this.state.allTrack1;
     }
     FilterFromUserType = [...new Set(FilterFromUserType)];
-    this.setState({ allTrack: FilterFromUserType });
+    this.setState({ allTrack2: FilterFromUserType, defaultValue: 10 },
+      ()=>{ this.Showdefaults(FilterFromUserType, this.state.defaultValue) } );
   };
+
 
   //Filter according to date range
   FilterFromTime = (Datas, time_range) => {
@@ -247,8 +265,8 @@ class Index extends Component {
     if (Datas && Datas.length > 0) {
       if (user_type && user_type.length > 0) {
         user_type.map((ob) => {
-          var dts = Datas.filter(
-            (obj) => obj.created_by_temp.indexOf(ob.value) > -1
+          var dts = Datas?.filter(
+            (obj) => obj?.created_by_temp?.indexOf(ob.value) > -1
           );
           Datas1 = Datas1.concat(dts);
         });
@@ -857,13 +875,16 @@ class Index extends Component {
           //             })
           //     })
           // updateBlockchain(this.state.cur2, response.data.data)
+          this.rightInfo();
           this.setState({
             allTrack1: response.data.data,
-            allTrack: response.data.data,
+            allTrack2 : response.data.data,
             loaderImage: false,
-          });
+            defaultValue : 10,
+          },
+          ()=>{this.Showdefaults(this.state.allTrack2, this.state.defaultValue)});
         } else {
-          this.setState({ allTrack1: [], allTrack: [], loaderImage: false });
+          this.setState({ allTrack1: [], allTrack: [],allTrack2 : [], loaderImage: false });
         }
       });
   };
@@ -1290,6 +1311,8 @@ class Index extends Component {
       anamnesis,
       patient_data_access,
       id_pin_not_correct,
+      loadingref,
+      Seemore10entries,
       patient_id,
       pin,
       another_patient_data,
@@ -1427,7 +1450,8 @@ class Index extends Component {
                         <div>
                           {this.state.allTrack &&
                             this.state.allTrack.length > 0 ? (
-                              this.state.allTrack.map((item, index) => (
+                            <div>
+                              {this.state.allTrack.map((item, index) => (
                                 <ViewTimeline
                                   lrp={AllL_Ps.AllL_Ps.english}
                                   Allrelation={this.state.Allrelation}
@@ -1468,7 +1492,14 @@ class Index extends Component {
                                   loggedinUser={this.state.cur_one}
                                   patient_gender={this.state.patient_gender}
                                 />
-                              ))
+                              ))}
+                              {this.state.allTrack2 > this.state.allTrack && <div className="more10entries" onClick={()=>this.LoadMore(this.state.allTrack2)}>
+                             {Seemore10entries}
+                            </div>}
+                            {this.state.loading && <div className="more10entries">
+                              {loadingref}
+                            </div>}
+                          </div>
                             ) : (
                               <EmptyData />
                             )}

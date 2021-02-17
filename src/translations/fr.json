@@ -1185,6 +1185,7 @@
 		"CourseAddedMyCourses" : "Cours ajouté avec succès dans Mes cours",
 		"RBPharmacy":"Reçu par le pharmacien",
 		"SentPrescriptions" :"Ordonnances envoyées",
-		"Enrolled" : "Inscrit"
+		"Enrolled" : "Inscrit",
+		"Seemore10entries" : "Voir plus de 10 entrées"
 	}
 }
