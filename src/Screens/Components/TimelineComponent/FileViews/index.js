@@ -8,6 +8,7 @@ import "react-inner-image-zoom/lib/InnerImageZoom/styles.css";
 import InnerImageZoom from "react-inner-image-zoom";
 import sitedata from "sitedata";
 import Loader from "Screens/Components/Loader/index";
+import { pure } from "recompose";
 
 class Index extends Component {
   constructor(props) {
@@ -17,20 +18,50 @@ class Index extends Component {
       crnt_img: false,
       openPopup: false,
       cnrttype: false,
-      images: this.props.images,
+      images: [],
       loaderImage: false,
       forZoom: {},
     };
   }
 
+  componentDidMount() {
+    this.setState({ attachfile: this.props.attachfile },
+      ()=>{
+        this.GetAttachfiles();
+      })
+  }
+
+  GetAttachfiles = ()=>{
+    var images =[];
+    this.state.attachfile &&
+          this.state.attachfile.length > 0 &&
+          this.state.attachfile.map((data, index) => {
+            var find = data && data.filename && data.filename;
+            if (find) {
+              var find1 = find.split(".com/")[1];
+              axios
+                .get(sitedata.data.path + "/aws/sign_s3?find=" + find1)
+                .then((response2) => {
+                  if (response2.data.hassuccessed) {
+                    images.push({
+                      image: find,
+                      new_image: response2.data.data,
+                    });
+                    this.setState({ images: images });
+                  }
+                });
+            }
+          });
+  }
+
   componentDidUpdate = (prevProps) => {
     if (prevProps.attachfile !== this.props.attachfile) {
-      this.setState({ attachfile: this.props.attachfile });
-    }
-    if (prevProps.images !== this.props.images) {
-      this.setState({ images: this.props.images });
-    }
-  };
+      this.setState({ attachfile: this.props.attachfile },
+        ()=>{
+          this.GetAttachfiles();
+    });
+  }
+}
 
   getFileName = (file) => {
     if (file && file.filename) {
@@ -45,6 +76,7 @@ class Index extends Component {
       }
     } else return "";
   };
+
   OpenFile = (image, type = "") => {
     if (image) {
       var find1 = image.split(".com/")[1];
@@ -61,7 +93,6 @@ class Index extends Component {
             ) {
               image = response.data.data;
               this.setState({ loaderImage: false });
-              console.log('image', image)
               window.open(
                 "/Dicom-file-view?input=" + encodeURIComponent(image),
                 "_blank"
@@ -220,4 +251,4 @@ class Index extends Component {
   }
 }
 
-export default Index;
+export default pure(Index);

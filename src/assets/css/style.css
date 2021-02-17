@@ -13103,6 +13103,13 @@ a.academy_ul ul li img {
 
 
 /*Added By ankita*/
+.more10entries{
+    text-align: center;
+    cursor: pointer;
+    color: #4fb8b8;
+    font-weight: 700;
+}
+
 .flag-select .filterBox input {
     width: 90% !important;
 }

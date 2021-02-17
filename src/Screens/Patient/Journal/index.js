@@ -11,6 +11,7 @@ import { connect } from "react-redux";
 import { OptionList } from "Screens/Login/metadataaction";
 import { LoginReducerAim } from "Screens/Login/actions";
 import { Settings } from "Screens/Login/setting";
+import { pure } from "recompose";
 import LeftMenu from "Screens/Components/Menus/PatientLeftMenu/index";
 import LeftMenuMobile from "Screens/Components/Menus/PatientLeftMenu/mobile";
 import { LanguageFetchReducer } from "Screens/actions";
@@ -112,6 +113,7 @@ class Index extends Component {
       visibility: false,
       images: [],
       allTrack1: [],
+      allTrack2: [],
       Sort: "diagnosed_time",
       isGraph: false,
       current_Graph: "",
@@ -119,10 +121,23 @@ class Index extends Component {
       SARS: [],
       Positive_SARS: [],
       vaccinations: [],
+      defaultValue : 10,
+      loading: false,
     };
   }
 
-  //For Close the Graph
+  LoadMore=(allTrack)=>{
+    this.setState({loading: true, defaultValue : this.state.defaultValue+10}, 
+      ()=>{ this.Showdefaults(allTrack, this.state.defaultValue)
+        this.setState({loading: false})
+      })
+  }
+  //For render 10 entries at one time 
+  Showdefaults = (allTrack, defaultValue )=>{
+    allTrack = allTrack.slice(0, defaultValue);
+    this.setState({ allTrack : allTrack })
+  }
+  //For Close the Graphs
   CloseGraph = () => {
     this.rightInfo();
     this.getTrack();
@@ -138,7 +153,7 @@ class Index extends Component {
     this.setState(
       { Sort: "diagnosed_time", allTrack: this.state.allTrack1 },
       this.SortData()
-    );
+    ); 
   };
 
   isThisAvilabel = (object, text) => {
@@ -169,7 +184,8 @@ class Index extends Component {
       track.filter((obj) => {
         return this.isThisAvilabel(obj, text && text.toLowerCase());
       });
-    this.setState({ allTrack: FilterFromSearch });
+    this.setState({ allTrack2: FilterFromSearch },
+     ()=>{ this.Showdefaults(FilterFromSearch, this.state.defaultValue) } );
   };
 
   //For filter the Data
@@ -191,7 +207,8 @@ class Index extends Component {
       FilterFromUserType = this.state.allTrack1;
     }
     FilterFromUserType = [...new Set(FilterFromUserType)];
-    this.setState({ allTrack: FilterFromUserType });
+    this.setState({ allTrack2: FilterFromUserType },
+      ()=>{ this.Showdefaults(FilterFromUserType, this.state.defaultValue) } );
   };
 
   //Filter according to date range
@@ -769,72 +786,73 @@ class Index extends Component {
                     }
                   });
               }
-              data1.attachfile &&
-                data1.attachfile.length > 0 &&
-                data1.attachfile.map((data, index) => {
-                  var find = data && data.filename && data.filename;
-                  if (find) {
-                    var find1 = find.split(".com/")[1];
-                    axios
-                      .get(sitedata.data.path + "/aws/sign_s3?find=" + find1)
-                      .then((response2) => {
-                        if (response2.data.hassuccessed) {
-                          images.push({
-                            image: find,
-                            new_image: response2.data.data,
-                          });
-                          this.setState({ images: images });
-                        }
-                      });
-                  }
-                });
-              data1.Positive_SARS &&
-                data1.Positive_SARS.length > 0 &&
-                data1.Positive_SARS.map((data, index) => {
-                  var find = data && data.filename && data.filename;
-                  if (find) {
-                    var find1 = find.split(".com/")[1];
-                    axios
-                      .get(sitedata.data.path + "/aws/sign_s3?find=" + find1)
-                      .then((response2) => {
-                        if (response2.data.hassuccessed) {
-                          images.push({
-                            image: find,
-                            new_image: response2.data.data,
-                          });
-                          this.setState({ images: images });
-                        }
-                      });
-                  }
-                });
-              data1.SARS &&
-                data1.SARS.length > 0 &&
-                data1.SARS.map((data, index) => {
-                  var find = data && data.filename && data.filename;
-                  if (find) {
-                    var find1 = find.split(".com/")[1];
-                    axios
-                      .get(sitedata.data.path + "/aws/sign_s3?find=" + find1)
-                      .then((response2) => {
-                        if (response2.data.hassuccessed) {
-                          images.push({
-                            image: find,
-                            new_image: response2.data.data,
-                          });
-                          this.setState({ images: images });
-                        }
-                      });
-                  }
-                });
+              // data1.attachfile &&
+              //   data1.attachfile.length > 0 &&
+              //   data1.attachfile.map((data, index) => {
+              //     var find = data && data.filename && data.filename;
+              //     if (find) {
+              //       var find1 = find.split(".com/")[1];
+              //       axios
+              //         .get(sitedata.data.path + "/aws/sign_s3?find=" + find1)
+              //         .then((response2) => {
+              //           if (response2.data.hassuccessed) {
+              //             images.push({
+              //               image: find,
+              //               new_image: response2.data.data,
+              //             });
+              //             this.setState({ images: images });
+              //           }
+              //         });
+              //     }
+              //   });
+              // data1.Positive_SARS &&
+              //   data1.Positive_SARS.length > 0 &&
+              //   data1.Positive_SARS.map((data, index) => {
+              //     var find = data && data.filename && data.filename;
+              //     if (find) {
+              //       var find1 = find.split(".com/")[1];
+              //       axios
+              //         .get(sitedata.data.path + "/aws/sign_s3?find=" + find1)
+              //         .then((response2) => {
+              //           if (response2.data.hassuccessed) {
+              //             images.push({
+              //               image: find,
+              //               new_image: response2.data.data,
+              //             });
+              //             this.setState({ images: images });
+              //           }
+              //         });
+              //     }
+              //   });
+              // data1.SARS &&
+              //   data1.SARS.length > 0 &&
+              //   data1.SARS.map((data, index) => {
+              //     var find = data && data.filename && data.filename;
+              //     if (find) {
+              //       var find1 = find.split(".com/")[1];
+              //       axios
+              //         .get(sitedata.data.path + "/aws/sign_s3?find=" + find1)
+              //         .then((response2) => {
+              //           if (response2.data.hassuccessed) {
+              //             images.push({
+              //               image: find,
+              //               new_image: response2.data.data,
+              //             });
+              //             this.sestState({ images: images });
+              //           }
+              //         });
+              //     }
+              //   });
             });
           this.rightInfo();
           this.setState({
             allTrack1: response.data.data,
-            allTrack: response.data.data,
+            allTrack2 : response.data.data,
             loaderImage: false,
-          });
+          },
+          ()=>{this.Showdefaults(this.state.allTrack2, this.state.defaultValue)});
         } else {
-          this.setState({ allTrack1: [], allTrack: [], loaderImage: false });
+          this.setState({ allTrack1: [], allTrack2 : [], allTrack: [], loaderImage: false });
         }
       });
   };
@@ -1261,7 +1279,6 @@ class Index extends Component {
                           </Grid>
                         </Grid>
                       </Grid>
-
                       {/* Model setup */}
                       <PersonalizedData
                         settings={this.props.settings}
@@ -1288,8 +1305,10 @@ class Index extends Component {
                       <div>
                         {this.state.allTrack &&
                         this.state.allTrack.length > 0 ? (
-                          this.state.allTrack.map((item, index) => (
+                        <div>
+                          {this.state.allTrack.map((item, index) => (
                             <ViewTimeline
+                              indexTimeline = {index}
                               lrp={AllL_Ps.AllL_Ps.english}
                               Allrelation={this.state.Allrelation}
                               Allreminder={this.state.Allreminder}
@@ -1326,8 +1345,15 @@ class Index extends Component {
                               loggedinUser={this.state.cur_one}
                               patient_gender={this.state.patient_gender}
                             />
-                          ))
-                        ) : (
+                          ))}
+                            {this.state.allTrack2 > this.state.allTrack && <div className="more10entries" onClick={()=>this.LoadMore(this.state.allTrack2)}>
+                              See more 10 entries
+                            </div>}
+                            {this.state.loading && <div className="more10entries">
+                              Loading...
+                            </div>}
+                        </div>)
+                           : (
                           <EmptyData />
                         )}
                       </div>
@@ -2140,12 +2166,12 @@ const mapStateToProps = (state) => {
     //   catfil
   };
 };
-export default withRouter(
+export default pure(withRouter(
   connect(mapStateToProps, {
     OptionList,
     LoginReducerAim,
     LanguageFetchReducer,
     Settings,
     authy,
-  })(Index)
+  })(Index))
 );

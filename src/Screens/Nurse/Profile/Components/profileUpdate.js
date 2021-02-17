@@ -1232,11 +1232,11 @@ class Index extends Component {
                   <Grid item xs={12} md={4}>
                     <label>{dob}</label>
                     <Grid>
-                      {/* <DatePicker
-                                                name="birthday"
-                                                value={this.state.UpDataDetails.birthday ? new Date(this.state.UpDataDetails.birthday) : new Date()}
-                                                onChange={this.onChange}
-                                            /> */}
+                    {/* <DatePicker
+                          name="birthday"
+                          value={this.state.UpDataDetails.birthday ? new Date(this.state.UpDataDetails.birthday) : new Date()}
+                          onChange={this.onChange}
+                      /> */}
                       <DateFormat
                         name="birthday"
                         value={
