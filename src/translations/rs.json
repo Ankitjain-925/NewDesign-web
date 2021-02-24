@@ -1186,6 +1186,10 @@
     "RBPharmacy":"Получено фармацевтом",
 		"SentPrescriptions" :"Отправленные рецепты",
     "Enrolled" : "Зарегистрирован",
+    "UnableCancel" : "Вы не можете отменить встречу.",
+    "appointment_can_be_cancelled" : "Прием можно отменить:",
+    "notmore24": "Пожалуйста, введите менее 24 часов",
+    "NotAvailable":"Нет в наличии",
     "Seemore10entries" : "Посмотреть еще 10 записей"
   }
 }

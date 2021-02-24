@@ -8956,7 +8956,7 @@ td.phrImg p {
     background-color: #FFFFFF;
     -webkit-box-shadow: 0 24px 32px 0 rgba(0,8,8,0.08);
     box-shadow: 0 24px 32px 0 rgba(0,8,8,0.08);
-    margin-top: 35px;
+    margin-top: 10px;
 }
 .presCourse {
     padding: 12px 24px 18px 24px;
@@ -8964,7 +8964,7 @@ td.phrImg p {
 }
 .presCloseBtn {
     text-align: right;
-    margin-bottom: 4px;
+    margin-bottom: 0px;
 }
 .presCloseBtn img {
     width: 26px;
@@ -9028,12 +9028,16 @@ td.phrImg p {
     margin-bottom: 0px !important;
 }
 .prescripList img {
-    width: 100%;
+    width: 416px;
+    height: auto;
+    max-width: 92%;
+    display: table;
+    margin: 0 auto;
     box-shadow: 10px 10px 5px -9px rgba(0,0,0,0.75);
 }
 .medicInqUpr {
-    height: 482px;
-    overflow-y: scroll;
+    /* height: 482px; */
+    /* overflow-y: scroll; */
     margin-right: 1px;
 }
 .prescripList input {
@@ -13103,6 +13107,12 @@ a.academy_ul ul li img {
 
 
 /*Added By ankita*/
+.sortBySec .react-toggle{
+    margin: 0px 12px 0px 10px;
+}
+.sortBySec label{
+    vertical-align: middle;
+}
 .more10entries{
     text-align: center;
     cursor: pointer;
@@ -15692,7 +15702,7 @@ select:-webkit-autofill:focus {
     margin-top: 8px !important;
   }
   .medicInqUpr{
-    height: 440px !important;
+    /* height: 440px !important; */
     padding: 8px !important;
   }
   .prescripList input{

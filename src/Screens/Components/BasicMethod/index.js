@@ -328,3 +328,15 @@ export function sortCometUser(userList) {
   })
   return users
 }
+
+export function unreadAtLast(userList, unread){
+  let users = userList.filter(function (usersa) {
+      if(unread && unread.users && unread.users.hasOwnProperty(usersa.uid)){
+         return false;
+      }
+      else{
+          return true; 
+      }
+    })
+    return users
+}

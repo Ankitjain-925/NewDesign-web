@@ -1219,6 +1219,10 @@
 		"RBPharmacy":"Imepokelewa na Mfamasia",
 		"SentPrescriptions" :"Maagizo yaliyotumwa",
 		"Enrolled" : "Wamesajiliwa",
+		"UnableCancel" : "Hauwezi kughairi miadi.",
+		"appointment_can_be_cancelled" : "Uteuzi unaweza kufutwa:",
+		"notmore24": "Tafadhali ingiza chini ya masaa 24",
+		"NotAvailable":"Haipatikani",
 		"Seemore10entries" : "Angalia wasilisho 10 zaidi"
 	}
 }

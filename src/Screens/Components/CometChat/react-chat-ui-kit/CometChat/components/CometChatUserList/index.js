@@ -4,8 +4,9 @@ import { CometChat } from "@cometchat-pro/chat";
 import { CometChatManager } from "../../util/controller";
 import { SvgAvatar } from "../../util/svgavatar";
 import { UserListManager } from "./controller";
-import { sortCometUser } from "Screens/Components/BasicMethod/index"// "../../../../../BasicMethod/index"
+import { sortCometUser, unreadAtLast } from "Screens/Components/BasicMethod/index"// "../../../../../BasicMethod/index"
 import UserView from "../UserView";
+import * as enums from '../../util/enums.js';
 
 import {
   translationAR,
@@ -47,7 +48,57 @@ class CometChatUserList extends React.PureComponent {
     this.UserListManager.attachListeners(this.userUpdated);
   }
 
+  messageUpdated = (key, message, ...otherProps) => {
+    switch(key) {
+      case enums.TEXT_MESSAGE_RECEIVED:
+      case enums.MEDIA_MESSAGE_RECEIVED:
+      case enums.CUSTOM_MESSAGE_RECEIVED:
+        this.messageReceived(message);
+        break;
+      default:
+        break;
+    }
+  }
+  messageReceived=()=>
+  {
+    new CometChatManager().getLoggedInUser().then((user) => {
+      CometChat.getUnreadMessageCount().then((users) => {
+        this.setState({ Unread: users });
+      });
+    });
+  }
+  removeListeners(){
+    CometChat.removeMessageListener(this.msgListenerId);
+  }
+
+  attachListeners = (callback) => {
+    CometChat.addMessageListener(
+        this.msgListenerId,
+        new CometChat.MessageListener({
+            onTextMessageReceived: textMessage => {
+                callback(enums.TEXT_MESSAGE_RECEIVED, textMessage);
+            },
+            onMediaMessageReceived: mediaMessage => {
+                callback(enums.MEDIA_MESSAGE_RECEIVED, mediaMessage);
+            },
+            onCustomMessageReceived: customMessage => {
+                callback(enums.CUSTOM_MESSAGE_RECEIVED, customMessage);
+            },
+            onMessagesDelivered: messageReceipt => {
+                callback(enums.MESSAGE_DELIVERED, messageReceipt);
+            },
+            onMessagesRead: messageReceipt => {
+                callback(enums.MESSAGE_READ, messageReceipt);
+            },
+            onMessageDeleted: deletedMessage => {
+                callback(enums.MESSAGE_DELETED, deletedMessage);
+            }
+        })
+    );
+  }
+
   componentDidUpdate(prevProps, prevState) {
+    this.attachListeners(this.messageUpdated);
     {
       this.state.Unread &&
         this.state.Unread.users &&
@@ -95,6 +146,7 @@ class CometChatUserList extends React.PureComponent {
   componentWillUnmount() {
     this.UserListManager.removeListeners();
     this.UserListManager = null;
+    this.removeListeners(); 
   }
 
   userUpdated = (user) => {
@@ -292,8 +344,15 @@ class CometChatUserList extends React.PureComponent {
       loading = <div className="loading-text">{Loading}</div>;
     }
 
-    let userList = this.state.userlist;
-    userList = sortCometUser(userList)
+    let userList1 = this.state.userlist, TopUsers=[];
+    userList1 = sortCometUser(userList1)
+    if(this.state.Unread)
+    {
+      TopUsers = userList1 && userList1.filter((data)=>this.state.Unread.users.hasOwnProperty(data.uid))
+    }
+    userList1 = unreadAtLast(userList1, this.state.Unread)
+    let userList = [...TopUsers, ...userList1];
+    
     let currentLetter = "";
     const users = userList.map((user, key) => {
       const chr = user.name[0].toUpperCase();

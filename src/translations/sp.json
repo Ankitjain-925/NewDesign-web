@@ -1189,6 +1189,10 @@
 		"RBPharmacy":"Recibida por la farmacéutica",
 		"SentPrescriptions" :"Recetas enviadas",
 		"Enrolled" : "Inscrito",
+		"UnableCancel" : "No puede cancelar la cita.",
+		"appointment_can_be_cancelled" : "La cita se puede cancelar:",
+		"notmore24": "Ingrese menos de 24 horas",
+		"NotAvailable":"No disponible",
 		"Seemore10entries" : "Ver más 10 entradas"
 	}
 }

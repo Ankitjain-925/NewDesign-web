@@ -94,6 +94,7 @@ class Index extends Component {
       cancelappoint: {},
       cancelsuccess: false,
       message: "",
+      cancelNable: false,
     };
   }
 
@@ -537,18 +538,67 @@ class Index extends Component {
   }
 
   handleOpenApoint = (apoint) => {
-    this.setState({ openApoint: true, cancelappoint: apoint._id });
+    this.setState({ openApoint: true, cancelappoint: apoint , });
   };
 
   // for cancel Appointment
   CancelAppoint = () => {
     let user_token = this.props.stateLoginValueAim.token;
-    this.setState({ loaderImage: true });
+    let timedifference = new Date(this.state.cancelappoint.date);
+    let currentDate =new Date();
+    if(currentDate.getDate() === timedifference.getDate())
+    {
+      var timedifference1 = parseInt((this.state.cancelappoint.start_time.split(":"))[0]) - currentDate.getHours();
+      this.setState({ loaderImage: true });
+      axios
+      .post(
+        sitedata.data.path +
+          "/UserProfile/abletocancel/" +
+          this.state.cancelappoint.doctor_id,
+        {
+          appointment_type : this.state.cancelappoint.appointment_type,
+          timedifference : timedifference1,
+        },
+        {
+          headers: {
+            token: user_token,
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      .then((response) => {
+          if(response.data.hassuccessed)
+          {
+             this.CancelAppointsments() 
+          }
+          else{
+            this.setState({
+              cancelNable: true,
+              openApoint: false,
+            });
+            setTimeout(() => {
+              this.setState({ cancelNable: false });
+            }, 5000);
+          }
+          this.setState({
+            loaderImage: false,
+          });
+      })
+      .catch((error) => {});
+    }
+    else{
+      this.CancelAppointsments() 
+    }
+  };
+
+  CancelAppointsments = ()=>{
+    let user_token = this.props.stateLoginValueAim.token;
     axios
       .put(
         sitedata.data.path +
           "/UserProfile/GetAppointment/" +
-          this.state.cancelappoint,
+          this.state.cancelappoint._id,
         {
           status: "cancel",
           message: this.state.message,
@@ -573,7 +623,8 @@ class Index extends Component {
         this.getUpcomingAppointment();
       })
       .catch((error) => {});
-  };
+    }
+  
 
   handleCloseApoint = () => {
     this.setState({ openApoint: false });
@@ -915,13 +966,41 @@ class Index extends Component {
       parseInt(this._getHourMinut(currentTime)[0]) * 60 +
       parseInt(this._getHourMinut(currentTime)[1]);
     smint = parseInt(this._getHourMinut(currentTime)[1]);
-
+   
+  
     if (current_time >= b_start_time && current_time < b_end_time) {
       return true;
     } else {
       return false;
     }
   };
+  
+  Availabledays = (date, days_upto) => {
+    let current_date = new Date();
+    let Newdate = new Date();
+    if(date && days_upto){
+      current_date = new Date(current_date).setHours(0, 0, 0, 0);
+      Newdate= Newdate.setDate(Newdate.getDate() + parseInt(days_upto))
+      return (new Date(Date.parse(date.replace(/-/gm, '/'))) < current_date || new Date(Date.parse(date.replace(/-/gm, '/')))>= Newdate);
+    }
+    else{
+      return false;
+    }
+  }
+
+   ExitinHoliday = (date, h_start, h_end) => {
+    if (h_start && h_end && date) {
+      let start_date = new Date(h_start);
+      let end_date = new Date(h_end);
+      start_date = start_date.setHours(0, 0, 0, 0);
+      end_date = end_date.setDate(end_date.getDate() + 1);
+      end_date = new Date(end_date).setHours(0, 0, 0, 0);
+      return (new Date(Date.parse(date.replace(/-/gm, '/'))) >= start_date && new Date(Date.parse(date.replace(/-/gm, '/'))) < end_date);
+    } else {
+      return false;
+    }
+  };
+
   render() {
     const { myEventsList } = this.state;
     const {
@@ -975,6 +1054,7 @@ class Index extends Component {
       select_spec,
       slct_time_slot,
       holiday,
+      NotAvailable,
       select_specility,
       Details,
       consultancy_appintment,
@@ -993,6 +1073,7 @@ class Index extends Component {
       plz_write_short_explnation,
       short_msg,
       appointments,
+      UnableCancel,
       appointment,
       arrng_apointmnt,
       today,
@@ -1097,29 +1178,71 @@ class Index extends Component {
                           <Grid>
                             <label>{slct_time_slot}</label>
                           </Grid>
+                          
                           <Grid className="selTimeAM">
                             {this.state.appointDate &&
-                            this.state.appointDate.length > 0 ? (
-                              this.state.appointDate.map((data, iA) => {
-                                if (
-                                  this.Isintime(
-                                    this.state.appointDate[iA],
-                                    this.state.appointmentData.breakslot_start,
-                                    this.state.appointmentData.breakslot_end
-                                  )
-                                )
-                                  return;
+                            this.state.appointDate.length > 0 ? 
+                            (
+                              this.Availabledays(this.state.selectedDate, this.state.appointmentData.appointment_days)
+                              ?
+                              <Grid>
+                                <span>{NotAvailable}!</span>
+                              </Grid>
 
-                                return (
-                                  <Grid>
-                                    {this.state.appointDate[iA + 1] &&
+                              : this.ExitinHoliday(this.state.selectedDate, this.state.appointmentData.holidays_start,
+                                this.state.appointmentData.holidays_end)
+                              ?  
+                            <Grid>
+                              <span>{holiday}!</span>
+                            </Grid> : 
+                            
+                            (this.state.appointDate.map((data, iA) => {
+                              if (
+                                this.Isintime(
+                                  this.state.appointDate[iA],
+                                  this.state.appointmentData.breakslot_start,
+                                  this.state.appointmentData.breakslot_end,
+                                  this.state.appointmentData.holidays_start,
+                                  this.state.appointmentData.holidays_end,
+                                )
+                              )
+                                return;
+                          
+                              return (
+                                <Grid>
+                                  {this.state.appointDate[iA + 1] &&
+                                  this.state.appointDate[iA + 1] !==
+                                    "undefined" &&
+                                  iA === 0 ? (
+                                    <a
+                                      className={
+                                        this.state.currentSelected === 0 &&
+                                        "current_selected"
+                                      }
+                                      onClick={() => {
+                                        this.findAppointment(
+                                          "tab3",
+                                          doc_select,
+                                          appointType,
+                                          apointDay,
+                                          iA
+                                        );
+                                      }}
+                                    >
+                                      {this.state.appointDate[iA] +
+                                        " - " +
+                                        this.state.appointDate[iA + 1]}
+                                    </a>
+                                  ) : (
+                                    this.state.appointDate[iA + 1] &&
                                     this.state.appointDate[iA + 1] !==
-                                      "undefined" &&
-                                    iA === 0 ? (
+                                      "undefined" && (
                                       <a
                                         className={
-                                          this.state.currentSelected === 0 &&
-                                          "current_selected"
+                                          this.state.currentSelected &&
+                                          this.state.currentSelected === iA
+                                            ? "current_selected"
+                                            : ""
                                         }
                                         onClick={() => {
                                           this.findAppointment(
@@ -1135,42 +1258,24 @@ class Index extends Component {
                                           " - " +
                                           this.state.appointDate[iA + 1]}
                                       </a>
-                                    ) : (
-                                      this.state.appointDate[iA + 1] &&
-                                      this.state.appointDate[iA + 1] !==
-                                        "undefined" && (
-                                        <a
-                                          className={
-                                            this.state.currentSelected &&
-                                            this.state.currentSelected === iA
-                                              ? "current_selected"
-                                              : ""
-                                          }
-                                          onClick={() => {
-                                            this.findAppointment(
-                                              "tab3",
-                                              doc_select,
-                                              appointType,
-                                              apointDay,
-                                              iA
-                                            );
-                                          }}
-                                        >
-                                          {this.state.appointDate[iA] +
-                                            " - " +
-                                            this.state.appointDate[iA + 1]}
-                                        </a>
-                                      )
-                                    )}
-                                  </Grid>
-                                );
-                              })
-                            ) : this.state.appointDate !== undefined ? (
+                                    )
+                                  )}
+                                </Grid>
+                              );
+                            })
+                          )
+
+
+                            )
+                            : 
+                            this.state.appointDate !== undefined ? (
                               <Grid>
-                                <span>{holiday}!</span>
+                                <span>{NotAvailable}!</span>
                               </Grid>
                             ) : (
-                              ""
+                              <Grid>
+                                <span>{NotAvailable}!</span>
+                              </Grid>
                             )}
                           </Grid>
                         </Grid>
@@ -1925,6 +2030,11 @@ class Index extends Component {
                           {this.state.cancelsuccess && (
                             <div className="success_message">
                               {Appointmentiscanceled}
+                            </div>
+                          )}
+                            {this.state.cancelNable && (
+                            <div className="err_message">
+                             {UnableCancel}
                             </div>
                           )}
                           <Grid container direction="row">

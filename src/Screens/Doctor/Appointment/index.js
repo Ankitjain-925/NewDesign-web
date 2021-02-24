@@ -913,6 +913,7 @@ class Index extends Component {
                       />
                     )}
                     <span>
+                     
                       {data.appointment_type == "practice_days"
                         ? consultancy_appintment
                         : data.appointment_type == "online_appointment"

@@ -1206,6 +1206,10 @@
 		"RBPharmacy":"收到药剂师",
 		"SentPrescriptions" :"发送处方",
 		"Enrolled" : "已入学",
+		"UnableCancel" : "您无法取消约会。",
+		"appointment_can_be_cancelled" : "可以取消约会：",
+		"notmore24": "请输入少于24小时",
+		"NotAvailable":"无法使用",
 		"Seemore10entries" : "查看更多10条目"
 	}
 }

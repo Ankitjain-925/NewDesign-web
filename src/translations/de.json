@@ -1185,6 +1185,10 @@
 		"RBPharmacy":"Vom Apotheker erhaltent",
 		"SentPrescriptions" :"Verschickte Rezepte",
 		"Enrolled" : "Eingeschrieben",
+		"UnableCancel" : "Sie können den Termin nicht absagen.",
+		"appointment_can_be_cancelled" : "Termin kann abgesagt werden:",
+		"notmore24": "Bitte geben Sie weniger als 24 Stunden ein",
+		"NotAvailable":"Nicht verfügbar",
 		"Seemore10entries" : "Weitere 10 Einträge anzeigen"
 	}
 }

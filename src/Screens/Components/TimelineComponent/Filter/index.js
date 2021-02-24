@@ -17,6 +17,7 @@ import {
   translationPT,
   translationFR
 } from "translations/index"
+import Toggle from 'react-toggle';
 const { RangePicker } = DatePicker;
 
 const options = [
@@ -36,6 +37,9 @@ class FilterSec extends Component {
       selectFacility: [],
       time_range: [],
       isTest: false,
+      onlyOverview: this.props.settings?.setting?.onlyOverview ? 
+        this.props.settings?.setting?.onlyOverview
+          : false,
     };
   }
 
@@ -399,7 +403,18 @@ class FilterSec extends Component {
               </Grid>
             )}
 
-            <Grid className="sortBySec">
+            <Grid className="sortBySec acvtTogle">
+              <label>
+              Show Only Overview :
+              </label>
+              <label>
+                <Toggle
+                  icons={false}
+                  checked={this.state.onlyOverview === true}
+                  name="onlyOverview"
+                  onClick={(e) => this.SetonlyOverview(e)}
+                />
+              </label>
               <label>{sort_by}:</label>
               <input
                 type="button"

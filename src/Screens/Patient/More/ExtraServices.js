@@ -340,6 +340,7 @@ class Index extends Component {
                                     <Grid className="acvtTogle">
                                       <label>
                                         <Toggle
+                                         disabled={true}
                                           icons={false}
                                           checked={this.state.firstActive}
                                           onClick={() =>
@@ -395,6 +396,7 @@ class Index extends Component {
                                     <Grid className="acvtTogle">
                                       <label>
                                         <Toggle
+                                        disabled={true}
                                           icons={false}
                                           checked={this.state.secondActive}
                                           onClick={() =>
@@ -450,6 +452,7 @@ class Index extends Component {
                                     <Grid className="acvtTogle">
                                       <label>
                                         <Toggle
+                                        disabled={true}
                                           icons={false}
                                           onClick={() =>
                                             this.onToken("Doc Around The Clock")
@@ -499,6 +502,7 @@ class Index extends Component {
                                     <Grid className="acvtTogle">
                                       <label>
                                         <Toggle
+                                        disabled={true}
                                           icons={false}
                                           onClick={() =>
                                             this.onToken("Data services")

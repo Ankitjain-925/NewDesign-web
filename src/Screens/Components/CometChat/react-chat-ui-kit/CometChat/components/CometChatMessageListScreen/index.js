@@ -116,7 +116,6 @@ class CometChatMessageListScreen extends React.PureComponent {
     
     switch(action) {
       case "messageReceived": {
-
         const message = messages[0];
         if(message.parentMessageId) {
           this.updateReplyCount(messages);

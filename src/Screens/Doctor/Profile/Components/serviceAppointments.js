@@ -73,6 +73,9 @@ class Index extends Component {
       weoffer: {},
       holidayAppointment: {},
       updateService: false,
+      val1: false, 
+      val2: false, 
+      val3: false
     };
   }
 
@@ -986,9 +989,26 @@ class Index extends Component {
   };
 
   onChangebook = (event, key, statechange) => {
-    let state = this.state[statechange];
-    state[key] = event.target.value;
-    this.setState({ [statechange]: state });
+    console.log('event', event, 'key', key, 'statechange', statechange)
+    if(key === "appointment_hours" && event.target.value >= 24){
+      if(statechange === "DaysforPractices"){
+        this.setState({val3: true})
+      }
+      else if(statechange === "UpDataDetails"){
+        this.setState({val2: true})
+      }
+      else{
+        this.setState({val1: true})
+      }
+      setTimeout(()=>{
+        this.setState({ val1: false, val2: false, val3: false  });
+      }, 3000);
+    }
+    else{
+      let state = this.state[statechange];
+      state[key] = event.target.value;
+      this.setState({ [statechange]: state });
+    }
   };
 
   changeCustomtext = (event) => {
@@ -1076,24 +1096,15 @@ class Index extends Component {
       copy_to_all_time,
       thursday,
       friday,
+      appointment_can_be_cancelled,
       saturday,
       sunday,
       vdo_call,
       set_online_working_hour,
-      plz_fill_break_timeslot_for_aapointment,
       plz_fill_time_duration_appointment,
       the_appointment_srvc_success_updated,
-      Current,
-      confirm_password,
-      new_password,
-      two_fac_auth,
-      password_changed,
-      new_and_confirm_pass_not_same,
-      current_pass_not_match,
-      plz_fill_fields,
-      Disable,
-      Enable,
       Services,
+      notmore24,
       instant_activation_deactivation_offer_srvc,
       invite_patient_to_contact_online,
       copy_time_to_all,
@@ -1163,6 +1174,7 @@ class Index extends Component {
                         firstServiceData &&
                         firstServiceData.description == "videochat"
                       }
+                      disabled={true}
                       onClick={(e) => {
                         this.handlepaidService(e, "firstServiceData");
                       }}
@@ -2097,6 +2109,9 @@ class Index extends Component {
                       </p>
                     </Grid>
                     <Grid>
+                      <label>{appointment_can_be_cancelled}</label>
+                    </Grid>
+                    <Grid>
                       <p>
                         <span>{Max},</span>{" "}
                         <input
@@ -2111,6 +2126,11 @@ class Index extends Component {
                           }
                         />{" "}
                         {hourse_before_time_appointment}
+                        {this.state.val1 && (
+                            <div className="err_message">
+                             {notmore24}
+                            </div>
+                        )}
                       </p>
                     </Grid>
                   </Grid>
@@ -2878,6 +2898,9 @@ class Index extends Component {
                       </p>
                     </Grid>
                     <Grid>
+                      <label>{appointment_can_be_cancelled}</label>
+                    </Grid>
+                    <Grid>
                       <p>
                         <span>{Max},</span>{" "}
                         <input
@@ -2892,6 +2915,11 @@ class Index extends Component {
                           }
                         />{" "}
                         {hourse_before_time_appointment}
+                        {this.state.val2 && (
+                            <div className="err_message">
+                             {notmore24}
+                            </div>
+                        )}
                       </p>
                     </Grid>
                   </Grid>
@@ -3626,6 +3654,9 @@ class Index extends Component {
                       </p>
                     </Grid>
                     <Grid>
+                      <label>{appointment_can_be_cancelled}</label>
+                    </Grid>
+                    <Grid>
                       <p>
                         <span>{Max},</span>{" "}
                         <input
@@ -3640,6 +3671,11 @@ class Index extends Component {
                           }
                         />{" "}
                         {hourse_before_time_appointment}
+                        {this.state.val3 && (
+                            <div className="err_message">
+                             {notmore24}
+                            </div>
+                        )}
                       </p>
                     </Grid>
                   </Grid>

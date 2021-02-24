@@ -1200,6 +1200,10 @@
 		"RBPharmacy":"Recebido por Farmacêutico",
 		"SentPrescriptions" :"Receitas enviadas",
 		"Enrolled" : "Inscrito",
+		"UnableCancel" : "Você não pode cancelar o compromisso.",
+		"appointment_can_be_cancelled" : "O compromisso pode ser cancelado:",
+		"notmore24": "Insira menos de 24 horas",
+		"NotAvailable":"Não disponível",
 		"Seemore10entries" : "Veja mais 10 entradas"
 	}
 }

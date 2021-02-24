@@ -1180,6 +1180,10 @@
 		"RBPharmacy":"استقبله صيدلي",
 		"SentPrescriptions" :"الوصفات الطبية المرسلة",
 		"Enrolled" : "المقيدين",
+		"UnableCancel" : "أنت غير قادر على إلغاء الموعد.",
+		"appointment_can_be_cancelled" : "يمكن إلغاء الموعد:",
+		"notmore24": "الرجاء إدخال أقل من 24 ساعة",
+		"NotAvailable":"غير متوفر",
 		"Seemore10entries" : "انظر أكثر من 10 مداخل"
 		}
 }

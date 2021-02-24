@@ -1810,6 +1810,10 @@
 		"RBPharmacy":"Ontvangen door apotheker",
 		"SentPrescriptions" :"Verzonden recepten",
 		"Enrolled" : "Ingeschreven",
+		"UnableCancel" : "U kunt de afspraak niet annuleren.",
+		"appointment_can_be_cancelled" : "Afspraak kan worden geannuleerd:", 
+		"notmore24": "Voer a.u.b. minder dan 24 uur in",
+		"NotAvailable":"Niet beschikbaar",
 		"Seemore10entries" : "Zie meer 10 inzendingen"
 	}
 }

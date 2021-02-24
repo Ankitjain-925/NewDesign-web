@@ -124,7 +124,11 @@ class Index extends Component {
 
     //For change the Tab
     handleChangeTabs = (event, value) => {
-        this.setState({ value })
+        this.setState({ value },
+            ()=>{
+                this.allSdoctors();
+                this.alldoctor();
+            })
     };
 
 
