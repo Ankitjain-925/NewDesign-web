@@ -548,44 +548,65 @@ class Index extends Component {
     let currentDate =new Date();
     if(currentDate.getDate() === timedifference.getDate())
     {
-      var timedifference1 = parseInt((this.state.cancelappoint.start_time.split(":"))[0]) - currentDate.getHours();
-      this.setState({ loaderImage: true });
-      axios
-      .post(
-        sitedata.data.path +
-          "/UserProfile/abletocancel/" +
-          this.state.cancelappoint.doctor_id,
-        {
-          appointment_type : this.state.cancelappoint.appointment_type,
-          timedifference : timedifference1,
-        },
-        {
-          headers: {
-            token: user_token,
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-        }
-      )
-      .then((response) => {
-          if(response.data.hassuccessed)
+      if(this.state.cancelappoint.start_time)
+      {
+        var timedifference1 = parseInt((this.state.cancelappoint.start_time.split(":"))[0]) - currentDate.getHours();
+        this.setState({ loaderImage: true });
+        axios
+        .post(
+          sitedata.data.path +
+            "/UserProfile/abletocancel/" +
+            this.state.cancelappoint.doctor_id,
           {
-             this.CancelAppointsments() 
+            appointment_type : this.state.cancelappoint.appointment_type,
+            timedifference : timedifference1,
+          },
+          {
+            headers: {
+              token: user_token,
+              Accept: "application/json",
+              "Content-Type": "application/json",
+            },
           }
-          else{
+        )
+        .then((response) => {
+            if(response.data.hassuccessed)
+            {
+               this.CancelAppointsments() 
+            }
+            else{
+              this.setState({
+                cancelNable: true,
+                openApoint: false,
+              });
+              window.scroll({
+                top: 0,
+                behavior: "smooth",
+              })
+              setTimeout(() => {
+                this.setState({ cancelNable: false });
+              }, 5000);
+            }
             this.setState({
-              cancelNable: true,
-              openApoint: false,
+              loaderImage: false,
             });
-            setTimeout(() => {
-              this.setState({ cancelNable: false });
-            }, 5000);
-          }
-          this.setState({
-            loaderImage: false,
-          });
-      })
-      .catch((error) => {});
+        })
+        .catch((error) => {});
+      }
+     else{
+        this.setState({
+          cancelNable: true,
+          openApoint: false,
+        });
+        window.scroll({
+          top: 0,
+          behavior: "smooth",
+        })
+        setTimeout(() => {
+          this.setState({ cancelNable: false });
+        }, 5000);
+     }
+     
     }
     else{
       this.CancelAppointsments() 
@@ -617,6 +638,10 @@ class Index extends Component {
           loaderImage: false,
           openApoint: false,
         });
+        window.scroll({
+          top: 0,
+          behavior: "smooth",
+        })
         setTimeout(() => {
           this.setState({ cancelsuccess: false });
         }, 5000);
