@@ -4,6 +4,10 @@ import Select from "react-select";
 import { DatePicker } from "antd";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
+import axios from "axios";
+import sitedata from "sitedata";
+import { LoginReducerAim } from "Screens/Login/actions";
+import { Settings } from "Screens/Login/setting";
 import { LanguageFetchReducer } from "Screens/actions";
 import {
   translationAR,
@@ -15,16 +19,10 @@ import {
   translationDE,
   translationCH,
   translationPT,
-  translationFR
-} from "translations/index"
-import Toggle from 'react-toggle';
+  translationFR,
+} from "translations/index";
+import Toggle from "react-toggle";
 const { RangePicker } = DatePicker;
-
-const options = [
-  { value: "data1", label: "Data1" },
-  { value: "data2", label: "Data2" },
-  { value: "data3", label: "Data3" },
-];
 
 class FilterSec extends Component {
   constructor(props) {
@@ -37,9 +35,9 @@ class FilterSec extends Component {
       selectFacility: [],
       time_range: [],
       isTest: false,
-      onlyOverview: this.props.settings?.setting?.onlyOverview ? 
-        this.props.settings?.setting?.onlyOverview
-          : false,
+      onlyOverview: this.props.settings?.setting?.onlyOverview
+        ? this.props.settings?.setting?.onlyOverview
+        : false,
     };
   }
 
@@ -94,6 +92,56 @@ class FilterSec extends Component {
       time_range: [],
     });
     this.props.ClearData();
+  };
+
+   //For getting the existing settings
+   getSetting =()=>{
+    this.setState({ loaderImage : true})
+    axios.get(sitedata.data.path + '/UserProfile/updateSetting',
+        {
+        headers: {
+            'token': this.props.stateLoginValueAim.token,
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        }
+    }).then((responce) => {
+        if(responce.data.hassuccessed && responce.data.data)
+        {
+            this.setState({onlyOverview : responce.data.data.onlyOverview})
+            this.props.Settings(responce.data.data); 
+        }
+        else{
+            this.props.Settings({user_id : this.props.stateLoginValueAim.user._id}); 
+        }
+        this.setState({ loaderImage : false})  
+    })   
+}
+
+  //For set the Overview Mode
+  SetonlyOverview = () => {
+    let onlyOverview = this.state.onlyOverview ? false : true;
+    this.setState({ loaderImage: true, onlyOverview: onlyOverview }, () => {
+      axios
+        .put(
+          sitedata.data.path + "/UserProfile/updateSetting",
+          {
+            onlyOverview: this.state.onlyOverview,
+            user_id: this.props.stateLoginValueAim.user._id,
+            user_profile_id: this.props.stateLoginValueAim.user.profile_id,
+          },
+          {
+            headers: {
+              token: this.props.stateLoginValueAim.token,
+              Accept: "application/json",
+              "Content-Type": "application/json",
+            },
+          }
+        )
+        .then((responce) => {
+          this.setState({ loaderImage: false });
+          this.getSetting();
+        });
+    });
   };
   //on adding new data
   componentDidUpdate = (prevProps) => {
@@ -169,7 +217,7 @@ class FilterSec extends Component {
       blood_pressure,
       blood_sugar,
       condition_pain,
-      respiration
+      respiration,
     } = translate;
 
     const Useroptions = [
@@ -194,7 +242,7 @@ class FilterSec extends Component {
       { value: "marcumar_pass", label: marcumar_pass },
       { value: "medication", label: medication },
       { value: "prescription", label: prescription },
-      { value: "respiration", label: respiration},
+      { value: "respiration", label: respiration },
       { value: "second_opinion", label: secnd_openion },
       { value: "sick_certificate", label: sick_cert },
       { value: "smoking_status", label: smoking_status },
@@ -404,9 +452,7 @@ class FilterSec extends Component {
             )}
 
             <Grid className="sortBySec acvtTogle">
-              <label>
-              Show Only Overview :
-              </label>
+              <label>Show Only Overview :</label>
               <label>
                 <Toggle
                   icons={false}
@@ -450,11 +496,24 @@ class FilterSec extends Component {
 
 const mapStateToProps = (state) => {
   const { stateLanguageType } = state.LanguageReducer;
+  const {
+    stateLoginValueAim,
+    loadingaIndicatoranswerdetail,
+  } = state.LoginReducerAim;
+  const { settings } = state.Settings;
+
   return {
     stateLanguageType,
+    stateLoginValueAim,
+    loadingaIndicatoranswerdetail,
+    stateLoginValueAim,
+    loadingaIndicatoranswerdetail,
+    settings,
   };
 };
 export default withRouter(
-  connect(mapStateToProps, { LanguageFetchReducer })(FilterSec)
+  connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer, Settings })(
+    FilterSec
+  )
 );
 // export default FilterSec;

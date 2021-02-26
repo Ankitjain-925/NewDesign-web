@@ -7,8 +7,21 @@ import { LoginReducerAim } from "Screens/Login/actions";
 import { Settings } from "Screens/Login/setting";
 import Loader from "Screens/Components/Loader/index";
 import { authy } from "Screens/Login/authy.js";
-import LeftMenu from "Screens/Components/Menus/PatientLeftMenu/index";
-import LeftMenuMobile from "Screens/Components/Menus/PatientLeftMenu/mobile";
+import LeftMenuPatient from "Screens/Components/Menus/PatientLeftMenu/index";
+import LeftMenuMobilePatient from "Screens/Components/Menus/PatientLeftMenu/mobile";
+import LeftMenuDoctor from "Screens/Components/Menus/DoctorLeftMenu/index";
+import LeftMenuMobileDoctor from "Screens/Components/Menus/DoctorLeftMenu/mobile";
+
+import LeftMenuPharma from "Screens/Components/Menus/PharmaLeftMenu/index";
+import LeftMenuMobilePharma from "Screens/Components/Menus/PharmaLeftMenu/mobile";
+import LeftMenuNurse from "Screens/Components/Menus/NurseLeftMenu/index";
+import LeftMenuMobileNurse from "Screens/Components/Menus/NurseLeftMenu/mobile";
+
+import LeftMenuParam from "Screens/Components/Menus/ParamedicLeftMenu/index";
+import LeftMenuMobileParam from "Screens/Components/Menus/ParamedicLeftMenu/mobile";
+import LeftMenuIns from "Screens/Components/Menus/InsuranceLeftMenu/index";
+import LeftMenuMobileIns from "Screens/Components/Menus/InsuranceLeftMenu/mobile";
+
 import ViewCourse from "Screens/Components/OnlineCourses/Components/ListandViewCourse";
 import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 
@@ -58,8 +71,23 @@ class Index extends Component {
             <Grid item xs={12} md={12}>
               <Grid container direction="row">
                 {/* Website Menu */}
-                <LeftMenu isNotShow={true} currentPage="more" />
-                <LeftMenuMobile isNotShow={true} currentPage="more" />
+                {this.props.stateLoginValueAim.user.type === 'patient' && <LeftMenuPatient isNotShow={true} currentPage="more" />}
+                {this.props.stateLoginValueAim.user.type === 'patient' && <LeftMenuMobilePatient isNotShow={true} currentPage="more" />}
+
+                {this.props.stateLoginValueAim.user.type === 'doctor' && <LeftMenuDoctor isNotShow={true} currentPage="more" />}
+                {this.props.stateLoginValueAim.user.type === 'doctor' && <LeftMenuMobileDoctor isNotShow={true} currentPage="more" />}
+
+                {this.props.stateLoginValueAim.user.type === 'pharmacy' && <LeftMenuPharma isNotShow={true} currentPage="course" />}
+                {this.props.stateLoginValueAim.user.type === 'pharmacy' && <LeftMenuMobilePharma isNotShow={true} currentPage="course" />}
+
+                {this.props.stateLoginValueAim.user.type === 'insurance' && <LeftMenuIns isNotShow={true} currentPage="course" />}
+                {this.props.stateLoginValueAim.user.type === 'insurance' && <LeftMenuMobileIns isNotShow={true} currentPage="course" />}
+
+                {this.props.stateLoginValueAim.user.type === 'paramedic' && <LeftMenuParam isNotShow={true} currentPage="course" />}
+                {this.props.stateLoginValueAim.user.type === 'paramedic' && <LeftMenuMobileParam isNotShow={true} currentPage="course" />}
+
+                {this.props.stateLoginValueAim.user.type === 'nurse' && <LeftMenuNurse isNotShow={true} currentPage="course" />}
+                {this.props.stateLoginValueAim.user.type === 'nurse' && <LeftMenuMobileNurse isNotShow={true} currentPage="course" />}
                 <Notification />
                 {/* End of Website Menu */}
                 <Grid item xs={12} md={11}>

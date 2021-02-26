@@ -71,51 +71,7 @@ class Index extends Component {
       entry_example,
       u_get_from_aimedis,
       example_entry_of_journal_timline_etc,
-      visibility,
-      Download,
-      Delete,
-      visible,
-      hide,
-      show,
-      doc_visit,
-      always,
-      edit,
-      day_doc_visit,
-      Change,
-      speciality,
-      traveled,
-      slct_ICD_serch_code,
-      when,
       to,
-      allergy,
-      enter_code_serch_by_keyword,
-      dignose,
-      of,
-      until,
-      archive,
-      rr_systolic,
-      attachments,
-      time_measure,
-      date_measure,
-      date,
-      time,
-      confirm_diag,
-      emergancy_dignosis,
-      trvl_diagnosis,
-      travelled_to,
-      doc_name,
-      doc_id,
-      diary_note,
-      diagnosed,
-      by,
-      notes,
-      save_entry,
-      emergency,
-      diagnosis,
-      review,
-      on,
-      not_mentioned,
-      de_archive,
     } = translate;
 
     return (
@@ -134,11 +90,14 @@ class Index extends Component {
                 </h2>
               </Grid>
               <Grid className="welVideo">
-                <img
+                <video width="100%" className="VideoPlay" controls>
+                    <source src={require("assets/video/demovideos.mp4")} type="video/mp4" />
+                </video>
+                {/* <img
                   src={require("assets/images/vdo.jpg")}
                   alt=""
                   title=""
-                />
+                /> */}
               </Grid>
             </Grid>
           </Grid>

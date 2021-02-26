@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./style.scss";
+import sitedata from "sitedata";
 import BadgeCount from "../BadgeCount";
 import ReactTooltip from "react-tooltip";
 import Avatar from "../Avatar";
@@ -24,9 +25,10 @@ function Userview(props) {
       var char = user.getAvatar();
       char = char.split(".com/")[1];
       axios
-        .get("https://sys.aimedis.io/api/v2/aws/sign_s3?find=" + char)
+        .get(sitedata.data.path + "/aws/sign_s3?find=" + char)
         .then((response) => {
           if (response.data.hassuccessed) {
+            console.log('response.data.data', response.data.data)
             setImage(response.data.data);
             // user.setAvatar(response.data.data);
           }

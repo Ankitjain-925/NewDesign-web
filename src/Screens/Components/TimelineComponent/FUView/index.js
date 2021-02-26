@@ -7,6 +7,7 @@ import DownloadFullTrack from "Screens/Components/DownloadFullTrack/index.js";
 import FileViews from "./../FileViews/index";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
+import { Settings } from "Screens/Login/setting";
 import { LanguageFetchReducer } from "Screens/actions";
 import {
   translationAR,
@@ -32,6 +33,9 @@ class Index extends Component {
       loggedinUser: this.props.loggedinUser,
       images: this.props.images,
       TrackRecord: this.props.TrackRecord,
+      onlyOverview: this.props.settings?.setting?.onlyOverview
+      ? this.props.settings?.setting?.onlyOverview
+      : false,
     };
   }
 
@@ -102,48 +106,12 @@ class Index extends Component {
       img_files,
       title,
       show,
-      doc_visit,
       always,
       edit,
-      date_of_death,
-      date_of_dieses_patient,
-      dob,
-      day_doc_visit,
-      gender_of_relatives,
-      relation_of_relative,
       Change,
-      speciality,
-      traveled,
-      slct_ICD_serch_code,
-      when,
-      to,
-      allergy,
-      enter_code_serch_by_keyword,
-      dignose,
-      of,
       until,
       archive,
-      rr_systolic,
-      attachments,
-      time_measure,
-      date_measure,
-      date,
-      time,
-      confirm_diag,
-      emergancy_dignosis,
-      trvl_diagnosis,
-      disease_name,
-      doc_name,
-      doc_id,
-      family_anmnies,
-      diagnosed,
-      by,
       notes,
-      save_entry,
-      emergency,
-      diagnosis,
-      review,
-      on,
       not_mentioned,
       de_archive,
     } = translate;
@@ -362,79 +330,81 @@ class Index extends Component {
               {/* <p>Normal</p> */}
             </Grid>
 
-            <Grid container direction="row" className="addSpc bpJohnMain">
-              <Grid item xs={12} md={12}>
-                <Grid className="bpJohnImg">
-                  <a data-tip data-for={item.track_id + "created"}>
-                    <img
-                      src={getImage(item.created_by_image, this.state.images)}
-                      alt=""
-                      title=""
-                    />
-                    <span>{item.created_by_temp}</span>
-                  </a>
-                  <ReactTooltip
-                    className="timeIconClas_crested"
-                    id={item.track_id + "created"}
-                    place="top"
-                    effect="solid"
-                    backgroundColor="#ffffff"
-                  >
-                    <p>{item.created_by_temp}</p>
-                    <p>{item.created_by_profile}</p>
-                    <p>
+           
+            {!this.state.onlyOverview && <Grid>
+              <Grid container direction="row" className="addSpc bpJohnMain">
+                <Grid item xs={12} md={12}>
+                  <Grid className="bpJohnImg">
+                    <a data-tip data-for={item.track_id + "created"}>
                       <img
                         src={getImage(item.created_by_image, this.state.images)}
                         alt=""
                         title=""
                       />
-                    </p>
-                  </ReactTooltip>
+                      <span>{item.created_by_temp}</span>
+                    </a>
+                    <ReactTooltip
+                      className="timeIconClas_crested"
+                      id={item.track_id + "created"}
+                      place="top"
+                      effect="solid"
+                      backgroundColor="#ffffff"
+                    >
+                      <p>{item.created_by_temp}</p>
+                      <p>{item.created_by_profile}</p>
+                      <p>
+                        <img
+                          src={getImage(item.created_by_image, this.state.images)}
+                          alt=""
+                          title=""
+                        />
+                      </p>
+                    </ReactTooltip>
+                  </Grid>
                 </Grid>
+                <Grid className="clear"></Grid>
               </Grid>
-              <Grid className="clear"></Grid>
-            </Grid>
-            <Grid className="addSpc detailMark">
-              <Collapsible trigger={details} open="true">
-                <Grid className="detailCntnt">
-                  <Grid container direction="row">
-                    <Grid item xs={12} md={6} className="bloodPreBy">
-                      <Grid container direction="row">
-                        <Grid item xs={5} md={5}>
-                          <label>{title}</label>
+              <Grid className="addSpc detailMark">
+                <Collapsible trigger={details} open="true">
+                  <Grid className="detailCntnt">
+                    <Grid container direction="row">
+                      <Grid item xs={12} md={6} className="bloodPreBy">
+                        <Grid container direction="row">
+                          <Grid item xs={5} md={5}>
+                            <label>{title}</label>
+                          </Grid>
+                          <Grid item xs={7} md={7}>
+                            <span>{item.file_content && item.file_content}</span>
+                          </Grid>
+                          <Grid className="clear"></Grid>
                         </Grid>
-                        <Grid item xs={7} md={7}>
-                          <span>{item.file_content && item.file_content}</span>
-                        </Grid>
-                        <Grid className="clear"></Grid>
                       </Grid>
-                    </Grid>
-                    <Grid item xs={12} md={6} className="painTypeBy">
-                      <Grid container direction="row">
-                        <Grid item xs={5} md={5}>
-                          <label>{Date_of_event}</label>
+                      <Grid item xs={12} md={6} className="painTypeBy">
+                        <Grid container direction="row">
+                          <Grid item xs={5} md={5}>
+                            <label>{Date_of_event}</label>
+                          </Grid>
+                          <Grid item xs={7} md={7}>
+                            <span>
+                              {item.event_date &&
+                                getDate(item.event_date, this.state.date_format)}
+                            </span>
+                          </Grid>
+                          <Grid className="clear"></Grid>
                         </Grid>
-                        <Grid item xs={7} md={7}>
-                          <span>
-                            {item.event_date &&
-                              getDate(item.event_date, this.state.date_format)}
-                          </span>
-                        </Grid>
-                        <Grid className="clear"></Grid>
                       </Grid>
                     </Grid>
                   </Grid>
-                </Grid>
-              </Collapsible>
-            </Grid>
-            <Grid className="addSpc detailMark">
-              <Collapsible trigger={notes} open="true">
-                <Grid className="detailCntnt">
-                  <p dangerouslySetInnerHTML={{ __html: item.remarks }} />
-                </Grid>
-              </Collapsible>
-            </Grid>
-            <Grid className="addSpc detailMark">
+                </Collapsible>
+              </Grid>
+              <Grid className="addSpc detailMark">
+                <Collapsible trigger={notes} open="true">
+                  <Grid className="detailCntnt">
+                    <p dangerouslySetInnerHTML={{ __html: item.remarks }} />
+                  </Grid>
+                </Collapsible>
+              </Grid>
+              <Grid className="addSpc detailMark">
               <Collapsible trigger={img_files} open="true">
                 <FileViews
                   images={this.state.images}
@@ -442,6 +412,7 @@ class Index extends Component {
                 />.
               </Collapsible>
             </Grid>
+          </Grid>}
           </Grid>
         </Grid>
       </Grid>
@@ -451,10 +422,12 @@ class Index extends Component {
 
 const mapStateToProps = (state) => {
   const { stateLanguageType } = state.LanguageReducer;
+  const { settings } = state.Settings;
   return {
     stateLanguageType,
+    settings
   };
 };
 export default pure(withRouter(
-  connect(mapStateToProps, { LanguageFetchReducer })(Index)
+  connect(mapStateToProps, { LanguageFetchReducer, Settings })(Index)
 ));

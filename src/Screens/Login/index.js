@@ -588,6 +588,7 @@ class Index extends Component {
                             this.handleChange("inputPass", e.target.value)
                           }
                         />
+                        {console.log('require("assets/images/showeye.svg")', require("assets/images/showeye.svg"))}
                         {this.state.hidden && (
                           <a onClick={this.toggleShow}>
                             <img

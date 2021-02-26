@@ -5489,7 +5489,7 @@ span.revwRed{
     height: 16px;
 }
 .acvtTogle .react-toggle-track {
-    width: 33px;
+    width: 45px;
     height: 18px;
 }
 .srvcActiv p span {
@@ -13108,7 +13108,7 @@ a.academy_ul ul li img {
 
 /*Added By ankita*/
 .sortBySec .react-toggle{
-    margin: 0px 12px 0px 10px;
+    margin: 0px 30px 0px 12px;
 }
 .sortBySec label{
     vertical-align: middle;

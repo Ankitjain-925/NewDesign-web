@@ -1,5 +1,46 @@
-@import url('https://fonts.googleapis.com/css?family=Muli:200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap');
-@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800&display=swap');
+
+@font-face {
+    font-family: 'mulibold';
+    src: url('../fonts/muli-bold-webfont.woff2') format('woff2'),
+         url('../fonts/muli-bold-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'muliextrabold';
+    src: url('../fonts/muli-extrabold-webfont.woff2') format('woff2'),
+         url('../fonts/muli-extrabold-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'muliextralight';
+    src: url('../fonts/muli-extralight-webfont.woff2') format('woff2'),
+         url('../fonts/muli-extralight-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'mulilight';
+    src: url('../fonts/muli-light-webfont.woff2') format('woff2'),
+         url('../fonts/muli-light-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Muli';
+    src: url('../fonts/muli-regular-webfont.woff2') format('woff2'),
+         url('../fonts/muli-regular-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'mulisemibold';
+    src: url('../fonts/muli-semibold-webfont.woff2') format('woff2'),
+         url('../fonts/muli-semibold-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
 
 body{ margin: 0; padding: 0; font-family: Muli; color: #000808; font-weight:400; }
 h1,h2,h3,h4,h5,h6,h7,p{ margin:0; padding:0; font-size: inherit; font-weight: inherit; }
@@ -39,8 +80,9 @@ h1,h2,h3,h4,h5,h6,h7,p{ margin:0; padding:0; font-size: inherit; font-weight: in
 }
 .MenuLeftUpr {
     background: #fff;
-    min-height: 100vh;
+    /* min-height: 100vh; */
     border-right: 2px solid #ececec;
+    min-height: 1065px;
 }
 .webLogo {
     text-align: center;
@@ -303,6 +345,7 @@ a.vsblTime {
     line-height: 18px;
 }
 .detailMark span.Collapsible__trigger {
+    min-height: 37px;
     border-radius: 8px;
     background-color: #F2F2F2;
     padding: 8px 14px;
@@ -595,7 +638,7 @@ a.hideDots img {
     box-shadow: 0 1px 8px 0 rgba(0,8,8,0.04);
 }
 .profilePic img {
-    height: 104px;
+    height: auto;
     width: 104px;
     border-radius: 16px;
     box-shadow: 0 24px 40px 0 rgba(0,8,8,0.08);
@@ -657,6 +700,7 @@ a.hideDots img {
     font-weight: bold;
     letter-spacing: 0;
     line-height: 12px;
+    margin-top: 0px;
 }
 .prfilHghtLft p, .prfilHghtRght p {
     color: #000808;
@@ -664,6 +708,7 @@ a.hideDots img {
     font-size: 24px;
     font-weight: bold;
     letter-spacing: 0;
+    margin-bottom: 12px;
 }
 .prfilHghtLft p span, .prfilHghtRght p span {
     font-size: 14px;
@@ -675,7 +720,7 @@ a.hideDots img {
 }
 .prfilHghtLft, .prfilHghtRght{
     width: 50%;
-    padding: 14px 0px;
+    padding: 18px 0px;
     padding-left: 18%;
 }
 .prfilHghtLft {
@@ -887,6 +932,9 @@ a.presSecAncr:hover {
     font-weight: bold;
     letter-spacing: 0;
     line-height: 40px;
+    margin-top: 18px;
+    margin-bottom: 0px;
+    white-space: nowrap;
 }
 .AddEntrynw {
     text-align: right;
@@ -894,14 +942,14 @@ a.presSecAncr:hover {
 .AddEntrynw a {
     color: #FFFFFF !important;
     font-family: Muli;
-    font-size: 14px;
+    font-size: 12px;
     font-weight: bold;
     letter-spacing: 0;
     line-height: 16px;
     text-align: center;
     border-radius: 8px;
     background-color: #00ABAF;
-    min-width: 175px;
+    min-width: 164px;
     display: inline-block;
     padding: 16px 8px;
     cursor: pointer;
@@ -910,9 +958,7 @@ a.presSecAncr:hover {
     margin-top: 45px;
     margin-bottom: 45px;
 }
-
 /* -------------- */
-
 .conPainImg a {
     padding-right: 12px;
 }
@@ -1341,7 +1387,7 @@ a.conPainTime img {
 }
 .typeSel .css-yk16xz-control{
     border-radius: 8px !important;
-    background-color: #ffffff !important;
+    background-color: #E1F7F7 !important;
     color: #00ABAF !important;
     border-color: transparent !important;
     font-family: Muli !important;
@@ -1356,11 +1402,14 @@ a.conPainTime img {
     color: #00ABAF !important;
 }
 .comonSel {
-    padding-right: 12px !important;
     font-size: 12px !important;
+    border: 1px solid #BFC1C1;
+    margin-right: 8px !important;
+    margin-bottom: 12px;
+    border-radius: 4px;
 }
 .clear_filterLft a {
-    color: #00ABAF;
+    color: #00ABAF !important;
     font-family: Muli;
     font-size: 12px;
     font-weight: bold;
@@ -1378,12 +1427,15 @@ a.conPainTime img {
     display: flex;
     align-items: center;
 }
-.clear_filterLft, .clear_filterRght {
-    width: 50%;
+.clear_filterLft {
+    width: 70%;
+}
+/* .clear_filterRght {
+    width: 30%;
 }
 .clear_filterRght {
     text-align: right;
-}
+} */
 .sortBySec {
     border-top: 1px solid #F2F2F2;
     margin-top: 20px;
@@ -1517,14 +1569,14 @@ a.conPainTime img {
     display: none;
     min-width: 192px;
     position: absolute;
-    left: 44px;
+    left: 42px;
     top: -11px;
     border: 1px solid #F2F2F2;
     border-radius: 8px;
     background-color: #FFFFFF;
     box-shadow: 0 8px 16px 0 rgba(0,8,8,0.08);
     z-index: 999;
-    padding: 8px 15px;
+    padding: 12px 15px;
 }
 .moreMenu:hover .moreMenuList {
     display: block;
@@ -1561,20 +1613,20 @@ a.moreMenu {
     display: none;
     min-width: 192px;
     position: absolute;
-    left: 44px;
+    left: 42px;
     top: -11px;
     border: 1px solid #F2F2F2;
     border-radius: 8px;
     background-color: #FFFFFF;
     box-shadow: 0 8px 16px 0 rgba(0,8,8,0.08);
     z-index: 999;
-    padding: 8px 15px;
+    padding: 12px 15px;
 }
 .profilMenu:hover .profilMenuList {
     display: block;
 }
 .profilMenuList li a {
-    color: #404646;
+    color: #404646 !important;
     font-family: Muli;
     font-size: 12px;
     font-weight: 600;
@@ -1801,6 +1853,28 @@ a.profilMenu {
         right: 0px !important;
         left: initial !important;
     }
+    .MenuLeftUpr {
+        min-height: auto !important;
+    }
+    .lessonTitleVdo iframe img {
+        width: 100% !important;
+    }
+    .unified {
+        width: 100% !important;
+    }
+    .docOpinion {
+        margin-left: 0px !important;
+    }
+    .checkHelth {
+        overflow-y: scroll;
+        height: 362px !important;
+    }
+    .docsOpinion {
+        margin-left: 0px !important;
+    }
+    .presOpinionIner td {
+        font-size: 11px !important;
+    }    
 }
 @media (max-width: 599px){ 
     .chatContact {
@@ -1856,11 +1930,6 @@ a.profilMenu {
         width: 96% !important;
         margin-top: 14px !important;
     }
-    .emrgncyDataUpr {
-        padding-left: 0px !important;
-        padding-top: 0px !important;
-        padding: 30px 24px !important;
-    }
     .docCntctMain {
         min-height: 152px !important;
     }
@@ -1872,9 +1941,6 @@ a.profilMenu {
         margin-left: 0px !important;
         margin-top: 0px !important;
         padding: 12px 12px !important;
-    }
-    .docsOpinRght {
-        text-align: left !important;
     }
     .docsOpinLbl a {
         margin-top: 12px;
@@ -1893,10 +1959,6 @@ a.profilMenu {
     }
     .entryBoxCntnt {
         width: 96% !important;
-    }
-    .checkHelth {
-        overflow-y: scroll;
-        height: 362px !important;
     }
     .nwDiaCntnt {
         width: 96% !important;
@@ -1941,7 +2003,8 @@ a.profilMenu {
     .infoBoxCntnt, .dataBoxCntnt, .prespBoxCntnt, .presBoxCntnt, 
     .paraBoxCntnt, .fancyBoxCntnt, .fancyBoxCncl, .qrBoxCntnt, .trstBoxCntnt,
     .invtBoxCntnt, .apontBoxCntnt, .apontBoxCntnt, .keyBoxCntnt, .dashBoxCntnt,
-    .fltrModelCntnt, .slotBoxMain, .nwEntrCntnt, .nwEntrMsg {
+    .fltrModelCntnt, .slotBoxMain, .nwEntrCntnt, .nwEntrMsg, .phrmBoxCntnt,
+    .editBoxCntnt {
         width: 96% !important;
     }
     .apointUpcom {
@@ -1957,15 +2020,79 @@ a.profilMenu {
         margin-top: 26px !important;
         margin-bottom: 16px !important;
     }
-    .apointUpcom {
+    /* .apointUpcom {
         display: none !important;
-    }
+    } */
     .appointArang {
         padding: 0px 18px !important;
     }
     .lessonTitle {
         margin-left: 0px !important;
         padding: 0px 12px;
+    }
+    .organDeclare h5 {
+        line-height: 18px !important;
+    }
+    .organDeclare label span {
+        line-height: 18px !important;
+        margin-bottom: 6px;
+    }
+    .organDecide label span {
+        line-height: 18px !important;
+    }
+    .scndOptionIner ul {
+        padding: 12px 8px !important;
+        min-width: 182px !important;
+    }
+    
+    /* Tabs scrollbar for mobile */
+    .MuiTabs-fixed {
+        overflow-x: scroll !important;
+    }
+    .MuiTabs-fixed::-webkit-scrollbar{
+        height: 3px;
+    }
+    .MuiTabs-fixed::-webkit-scrollbar-track{
+        background: #fff;
+    }
+    .MuiTabs-fixed::-webkit-scrollbar-thumb{
+        background: #BFC1C1;
+    }
+    .MuiTabs-fixed::-webkit-scrollbar-thumb:hover{
+        background: #fff;
+    }
+    /* End tabs scrollbar for mobile */
+
+    .todayAddons {
+        display: block !important;
+    }
+    .syncRght {
+        display: block !important;
+        margin-bottom: 8px !important;
+    }
+    .mkFmlyDoc div div {
+        padding: 12px 5px !important;
+    }
+    .scndOpinionIner tbody tr {
+        border-bottom: 1px solid #000 !important;
+        margin-bottom: 10px !important;
+    }
+    .add_wishList {
+        display: block !important;
+    }
+    .lessonTitleVdo video.VideoPlay {
+        width: 100% !important;
+    }
+    .enableTogle {
+        text-align: left !important;
+        margin-top: 10px !important;
+    }
+    .alowLocAces {
+        height: 440px;
+        overflow-y: scroll;
+    }
+    .actvMain .MuiGrid-spacing-xs-3 {
+        margin: 0px !important;
     }
 }
 @media (max-width: 992px){ 
@@ -2067,7 +2194,7 @@ a.profilMenu {
 .onlineListing {
     min-height: 100vh;
 }
-.menuItems ul li:last-child {
+.menuItems ul li:last-child:not(.doctor-menu) {
     margin-bottom: 0px !important;
     margin-top: 145px;
 }
@@ -2229,7 +2356,7 @@ a.profilMenu {
     cursor: pointer;
 }
 .courseStar span a {
-    color: #BFC1C1;
+    color: #BFC1C1 !important;
     margin-left: 5px;
 }
 .courseStar a {
@@ -2363,6 +2490,7 @@ a.profilMenu {
 }
 .topicSrch img {
     width: 37px;
+    border-radius: 5px;
 }
 .strtLrn label {
     color: #00ABAF;
@@ -2749,6 +2877,8 @@ a.profilMenu {
 }
 /* Add dashboard css */
 .dashBoxCntnt {
+    padding: 6px;
+    padding-right: 3px !important;
     width: 420px;
     background: #fff;
     margin: 0 auto;
@@ -2756,6 +2886,7 @@ a.profilMenu {
     outline: none;
     border-radius: 12px;
     background-color: #FFFFFF;
+    -webkit-box-shadow: 0 24px 32px 0 rgba(0,8,8,0.08);
     box-shadow: 0 24px 32px 0 rgba(0,8,8,0.08);
     margin-top: 35px;
 }
@@ -2770,6 +2901,7 @@ a.profilMenu {
 .dashCloseBtn img {
     width: 26px;
     cursor: pointer;
+    border-radius: 7px;
 }
 .dashCourse label {
     color: #000808;
@@ -2792,6 +2924,8 @@ a.profilMenu {
     text-align: right;
 }
 .dragDash {
+    position: relative;
+    top: 0;
     padding: 18px 24px 10px 24px;
 }
 .dragDashLft a {
@@ -2906,10 +3040,12 @@ a.profilMenu {
     margin: 2px 0px;
 }
 .showDetail img {
-    width: 32px;
-    height: 32px;
+    width: 35px;
+    height: 33px;
     border-radius: 6px;
     cursor: pointer;
+    border: 1px solid #bfc1c1;
+    padding: 3px 3px;
 }
 .cancelAppoint a {
     color: #000808;
@@ -2919,8 +3055,8 @@ a.profilMenu {
     letter-spacing: 0;
     line-height: 14px;
     border-radius: 8px;
-    background-color: #FAFAFA;
-    padding: 8px 12px;
+    /* background-color: #FAFAFA; */
+    /* padding: 8px 12px; */
 }
 .cancelAppoint img {
     width: 16px;
@@ -2936,7 +3072,7 @@ a.profilMenu {
     border-radius: 8px;
     background-color: #FFFFFF;
     box-shadow: 0 8px 16px 0 rgba(0,8,8,0.08);
-    padding: 10px 10px;
+    padding: 10px 8px;
     min-width: 206px;
     text-align: center;
 }
@@ -2954,12 +3090,13 @@ a.profilMenu {
 .pendConfirm img {
     vertical-align: sub;
     margin-right: 8px;
+    border-radius: 12px;
 }
 .pendConfirm {
     margin-bottom: 6px;
 }
 .shwAppoints a {
-    color: #00ABAF;
+    color: #00ABAF !important;
     font-family: Muli;
     font-size: 12px;
     font-weight: bold;
@@ -3190,6 +3327,7 @@ a.profilMenu {
 .handleAccessBtn img {
     width: 26px;
     cursor: pointer;
+    border-radius: 7px;
 }
 .sel_specialty span {
     background-color: transparent;
@@ -3310,6 +3448,7 @@ a.profilMenu {
     letter-spacing: 0;
     line-height: 16px;
     margin-top: 9px;
+    text-align: center;
 }
 .showSpcial img {
     height: 14px;
@@ -3382,10 +3521,10 @@ a.profilMenu {
     margin-right: 8px;
     vertical-align: middle;
 }
-.srvcTags a:first-child {
+/* .srvcTags a:first-child {
     color: #00ABAF;
     background-color: #E1F7F7;
-}
+} */
 .avlablDates h3 {
     color: #404646;
     font-family: Muli;
@@ -3397,16 +3536,18 @@ a.profilMenu {
     margin-top: 8px;
 }
 .avlablDates a {
-    color: #00ABAF;
+    color: #00ABAF !important;
     font-family: Muli;
     font-size: 12px;
     font-weight: 600;
     letter-spacing: 0;
-    line-height: 12px;
+    line-height: 18px;
+    word-break: break-all;
     display: block;
     margin-bottom: 10px;
     position: relative;
     cursor: pointer;
+    padding-right: 42px;
 }
 .addClnder img {
     width: 12px;
@@ -3421,7 +3562,7 @@ a.profilMenu {
     width: 18px;
     background: url("../images/rightArrow.png") no-repeat center center;
     position: absolute;
-    right: 70px;
+    right: 10px;
     top: 0px;
 }
 .srvcTagsCntnt {
@@ -3588,7 +3729,7 @@ span.css-1okebmr-indicatorSeparator {
     padding: 10px 12px;
     margin-right: 8px;
     cursor: pointer;
-    width: 26%;
+    min-width: 26%;
     display: inline-block;
 }
 /* .profileInfoDate a:first-child {
@@ -3596,7 +3737,7 @@ span.css-1okebmr-indicatorSeparator {
     color: #FFFFFF;
 } */
 .profileInfoDate a:hover {
-    background-color: #00ABAF;
+    background-color: #00ABAF !important;
     color: #FFFFFF;
 }
 .cntryDrop .css-yk16xz-control {
@@ -3641,6 +3782,7 @@ span.css-1okebmr-indicatorSeparator {
 .insrnceTbl img {
     height: 24px;
     cursor: pointer;
+    border-radius: 5px;
 }
 .insrnceTbl .table td {
     color: #000808;
@@ -3855,6 +3997,7 @@ button.aboutTabsIner {
 .profilePkgIner2 {
     padding: 22px 28px;
     min-height: 150vh;
+    padding-bottom: 122px;
 }
 .profileInfoDate .react-date-picker {
     display: block !important;
@@ -3989,7 +4132,6 @@ button.aboutTabsIner {
 .mkFmlyDoc {
     border-radius: 12px;
     background-color: #FAFAFA;
-    padding: 7px 7px;
 }
 .mkFmlyDoc p {
     color: #7F8383;
@@ -4053,6 +4195,7 @@ button.aboutTabsIner {
     font-weight: 600;
     letter-spacing: 0;
     line-height: 18px;
+    margin-bottom: 0px !important;
 }
 .trstaddFmlyDoc a {
     color: #00ABAF;
@@ -4068,8 +4211,9 @@ button.aboutTabsIner {
 }
 .trstmkFmlyDoc img {
     width: 16px;
+    height: 16px;
     border-radius: 12px;
-    margin-right: 10px;
+    margin-right: 5px;
 }
 .trstmkFmlyDoc label {
     color: #000808;
@@ -4234,7 +4378,7 @@ button.aboutTabsIner {
     font-size: 20px;
     font-weight: bold;
     letter-spacing: 0;
-    line-height: 32px;
+    line-height: 21px;
 }
 .secureChain p {
     color: #7F8383;
@@ -4254,7 +4398,7 @@ button.aboutTabsIner {
     font-size: 14px;
     font-weight: bold;
     letter-spacing: 0;
-    line-height: 14px;
+    line-height: 18px;
 }
 .organDeclare label {
     margin-right: 0px;
@@ -4266,11 +4410,11 @@ button.aboutTabsIner {
     font-size: 14px;
     font-weight: 600;
     letter-spacing: 0;
-    line-height: 14px;
+    line-height: 18px;
     margin-right: 0px;
 }
 .organDeclare {
-    margin-top: 28px;
+    margin-top: 16px;
 }
 .organDeclare span.MuiIconButton-label {
     color: #00ABAF !important;
@@ -4305,7 +4449,7 @@ button.aboutTabsIner {
     font-size: 14px;
     font-weight: 600;
     letter-spacing: 0;
-    line-height: 14px;
+    line-height: 18px;
     margin-right: 0px;
 }
 .organDecide span.MuiIconButton-label {
@@ -4353,10 +4497,10 @@ button.aboutTabsIner {
     line-height: 16px;
     text-align: center;
     padding: 13px 0px;
-    margin-top: 14px;
+    margin-top: 10px;
     width: 100%;
     border: none;
-    margin-bottom: 132px;
+    margin-bottom: 10px;
     outline: none;
 }
 .donarForm .form-control:focus {
@@ -4725,7 +4869,6 @@ body {
 }
 .dataLoader {
     position: fixed;
-    background: #0000002e;
     width: 100%;
     min-height: 100vh;
     left: 0;
@@ -4793,20 +4936,26 @@ body {
     font-weight: 600;
     letter-spacing: 0;
     line-height: 18px;
+    min-width: 178px;
 }
 .scndOpinionIner tbody tr {
     border-bottom: 1px solid #F2F2F2;
 }
 .scndOpinionIner tr .drImg img {
     width: 16px;
+    height: 16px;
     border-radius: 12px;
     vertical-align: middle;
     margin-right: 10px;
+}
+.presPkgIner2 td.drImg {
+    display: flex;
 }
 .scndOpinionIner td.drEditDot img {
     height: 15px;
     width: 15px;
     cursor: pointer;
+    border-radius: 4px;
 }
 span.revwYelow, span.revwGry, span.revwGren, span.revwRed {
     width: 10px;
@@ -5081,6 +5230,7 @@ span.revwRed{
     background: #f7f7f7;
     min-height: 160vh;
     padding-top: 45px;
+    height: 100%;
 }
 .emrgncyData h1 {
     color: #000808;
@@ -5099,6 +5249,7 @@ span.revwRed{
     letter-spacing: 0;
     line-height: 32px;
     margin-bottom: 20px;
+    white-space: nowrap;
 }
 .medicalNotify {
     border-radius: 12px;
@@ -5158,7 +5309,7 @@ span.revwRed{
     font-size: 14px;
     font-weight: bold;
     letter-spacing: 0;
-    line-height: 14px;
+    line-height: 18px;
     margin-bottom: 0px;
 }
 .docCntctRght {
@@ -5183,6 +5334,7 @@ span.revwRed{
 }
 .docInfoName img {
     width: 16px;
+    border-radius: 28px;
 }
 .docInfoName span {
     color: #000808;
@@ -5207,7 +5359,7 @@ span.revwRed{
     letter-spacing: 0;
     line-height: 14px;
     margin-bottom: 13px;
-    display: block;
+    display: flex !important;
 }
 .docInfo div:last-child a {
     margin-bottom: 0px !important;
@@ -5218,8 +5370,9 @@ span.revwRed{
     font-size: 12px;
     font-weight: 600;
     letter-spacing: 0;
-    line-height: 14px;
+    line-height: 18px;
     margin-bottom: 4px;
+    word-break: break-all;
 }
 .neuroDises p {
     color: #7F8383;
@@ -5227,7 +5380,7 @@ span.revwRed{
     font-size: 12px;
     font-weight: 600;
     letter-spacing: 0;
-    line-height: 14px;
+    line-height: 18px;
 }
 .neuroDises {
     padding: 15px 18px 20px;
@@ -5241,7 +5394,7 @@ span.revwRed{
     font-size: 14px;
     font-weight: 600;
     letter-spacing: 0;
-    line-height: 14px;
+    line-height: 18px;
 }
 .jlyMorr p {
     color: #7F8383;
@@ -5249,7 +5402,7 @@ span.revwRed{
     font-size: 14px;
     font-weight: 600;
     letter-spacing: 0;
-    line-height: 14px;
+    line-height: 18px;
 }
 .jlyMorr {
     padding: 20px 18px 0px;
@@ -5318,6 +5471,7 @@ span.revwRed{
     font-weight: 600;
     letter-spacing: 0;
     line-height: 12px;
+    margin-bottom: 0px;
 }
 .docArund {
     text-align: center;
@@ -5402,12 +5556,9 @@ span.revwRed{
     display: inline-block;
     cursor: pointer;
 }
-.presPkgIner1 {
-    border-bottom: 1px solid #F2F2F2;
-}
-.presTabs {
+/* .presTabs {
     background-color: #fff !important;
-}
+} */
 .presTabs button span {
     color: #7F8383;
     font-family: Muli;
@@ -5438,9 +5589,10 @@ button.presTabsIner {
 .presSrch {
     text-align: right;
 }
-.presSrch a {
+.presSrch a, .toolSearch {
     border-radius: 8px;
-    background-color: #F2F2F2;
+    border: 1px solid #bfc1c1;
+    /* background-color: #F2F2F2; */
     padding: 5px 7px;
     margin-top: 3px;
     display: inline-block;
@@ -5465,16 +5617,17 @@ button.presTabsIner {
     border-bottom: 1px solid #F2F2F2;
 }
 .presOpinionIner td.pivoted {
-    padding: 14px 25px;
+    padding: 14px 20px;
     color: #000808;
     font-family: Muli;
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 600;
     letter-spacing: 0;
     line-height: 18px;
 }
 .presOpinionIner tr .presImg img {
     width: 16px;
+    height: 16px;
     border-radius: 12px;
     vertical-align: middle;
     margin-right: 10px;
@@ -5483,9 +5636,10 @@ button.presTabsIner {
     height: 24px;
     width: 24px;
     cursor: pointer;
+    border-radius: 5px;
 }
 td.presEditDot {
-    min-width: 200px;
+    /* min-width: 200px; */
     text-align: right;
 }
 .totalOutOff a {
@@ -5821,7 +5975,7 @@ a.nxtpag {
     margin-bottom: 24px;
 }
 .noDevices h3 a {
-    color: #00ABAF;
+    color: #00ABAF !important;
     font-family: Muli;
     font-size: 12px;
     font-weight: bold;
@@ -6048,11 +6202,14 @@ img.addBlue {
     padding: 14px 20px;
 } */
 img.openScnd {
-    height: 32px;
-    width: 32px;
+    height: 24px;
+    width: 24px;
     cursor: pointer;
+    border-radius: 5px;
 }
 .scndOptionIner ul li a {
+    display: flex;
+    align-items: flex-start;
     color: #404646;
     font-family: Muli;
     font-size: 14px;
@@ -6083,12 +6240,13 @@ img.openScnd {
     box-shadow: 0 8px 16px 0 rgba(0,8,8,0.08);
     padding-left: 0px;
     margin-bottom: 0px;
-    padding: 12px 16px;
+    padding: 12px 8px;
     position: absolute;
     top: 32px;
     right: 0;
     text-align: left;
     z-index: 111;
+    min-width: 180px;
 }
 a.openScndhrf:hover ul {
     display: block !important;
@@ -6282,7 +6440,7 @@ a.archvDel:hover ul {
 }
 
 .entryBoxCntnt {
-    width: 455px;
+    width: 460px;
     background: #fff;
     margin: 0 auto;
     border: none;
@@ -6304,6 +6462,7 @@ a.archvDel:hover ul {
 .entryCloseBtn img {
     width: 26px;
     cursor: pointer;
+    border-radius: 7px;
 }
 .entryCourse label {
     color: #000808;
@@ -6394,6 +6553,7 @@ a.archvDel:hover ul {
 .nwDiaCloseBtn img {
     width: 26px;
     cursor: pointer;
+    border-radius: 7px;
 }
 .nwDiaCourse p {
     color: #7F8383;
@@ -6552,7 +6712,7 @@ a.archvDel:hover ul {
     margin-bottom: 18px;
 }
 .travelDia label span {
-    color: #404646;
+    /* color: #404646; */
     font-family: Muli;
     font-size: 14px;
     font-weight: 600;
@@ -6719,6 +6879,7 @@ a.diaCDActv {
     font-weight: 600;
     letter-spacing: 0;
     line-height: 18px;
+    margin-bottom: 0px !important;
 }
 .shwAfterLft p span {
     color: #404646;
@@ -6887,6 +7048,7 @@ a.diaCDActv {
     width: 100%;
     outline: none;
     padding: 5px 8px;
+    min-height: 38px;
 }
 .emrgncyFrmInpt {
     margin-bottom: 8px;
@@ -6922,12 +7084,12 @@ a.vsblDots, a.conPainDots, a.bp_vsblDots, a.hideDots {
     background-color: #FFFFFF;
     padding: 6px 3px 9px;
 }
-.persBlodImg img, .allViewDots img, .lstViewDots img {
+/* .persBlodImg img, .allViewDots img, .lstViewDots img {
     border: 1px solid #F2F2F2;
     border-radius: 8px;
     background-color: #FFFFFF;
     padding: 6px 5px 5px;
-}
+} */
 
 /* dark screen css */
 .MenuLeftDrkUpr {
@@ -6949,6 +7111,7 @@ a.vsblDots, a.conPainDots, a.bp_vsblDots, a.hideDots {
 }
 .homeBgDrk .journalAdd h1 {
     color: #FAFAFA !important;
+    word-break: break-all;
 }
 .homeBgDrk .allTimeSel .css-yk16xz-control, 
 .homeBgDrk .typeSel .css-yk16xz-control,
@@ -7021,9 +7184,9 @@ a.vsblDots, a.conPainDots, a.bp_vsblDots, a.hideDots {
     background-color: #404646 !important;
 }
 .homeBgDrk .persBlodImg img {
-    border: 1px solid #4C5252;
+    border: none !important;
     border-radius: 8px;
-    background-color: #404646;
+    background-color: transparent !important;
     padding: 6px 5px 5px;
 }
 .homeBgDrk .presureData h3 {
@@ -7151,6 +7314,350 @@ a.vsblDots, a.conPainDots, a.bp_vsblDots, a.hideDots {
 }
 .homeBgDrk .contactListing label {
     color: #FAFAFA !important;
+}
+.homeBgDrk .lessonTitle h4 {
+    color: #FAFAFA !important;
+}
+.homeBgDrk .myCoursesOnline {
+    background-color: #404646 !important;
+}
+.homeBgDrk .whtDiabts h3 {
+    color: #D9DADA !important;
+}
+.homeBgDrk .myCoursesBck a {
+    color: #D9DADA !important;
+}
+.homeBgDrk .videoTitle ul li:hover {
+    background-color: #192020 !important;
+}
+.homeBgDrk .videoTitle ul li a label {
+    color: #D9DADA !important;
+    opacity: 0.8 !important;
+}
+.homeBgDrk .videoTitle ul li a span {
+    color: #D9DADA !important;
+}
+.homeBgDrk .emrgncyDataUpr{
+    background: #192020 !important;
+}
+.homeBgDrk .emrgncyData h1 {
+    color: #FAFAFA !important;
+}
+.homeBgDrk .healthStatus h2, .homeBgDrk .otherInfo h2 {
+    color: #FAFAFA !important;
+}
+.homeBgDrk .medicalNotify {
+    background-color: #404646 !important;
+}
+.homeBgDrk .docCntctMain {
+    background-color: #404646 !important;
+}
+.homeBgDrk .docCntctRght a {
+    background-color: transparent !important;
+}
+.homeBgDrk .medicalDesp p, .homeBgDrk .medicalDesp a, 
+.homeBgDrk .docInfoName span, .homeBgDrk .docInfo a,
+.homeBgDrk .jlyMorr label, .homeBgDrk .neuroDises label {
+    color: #BFC1C1 !important;
+}
+.homeBgDrk .extraSrvcUpr {
+    background: #192020 !important;
+}
+.homeBgDrk .extraSrvc h1, .homeBgDrk .actvMain h2 {
+    color: #FAFAFA !important;
+}
+.homeBgDrk .docArundUpr {
+    background-color: #404646 !important;
+}
+.homeBgDrk .docArund p {
+    color: #BFC1C1 !important;
+}
+.homeBgDrk .srvcActiv p {
+    color: #BFC1C1 !important;
+}
+.homeBgDrk .scndOpinion label {
+    color: #FAFAFA !important;
+}
+.homeBgDrk .scndOpinionIner {
+    background-color: #404646 !important;
+}
+.homeBgDrk .scndOpinionIner td.pivoted {
+    color: #D9DADA !important;
+}
+.homeBgDrk .scndOpinionIner thead th {
+    color: #BFC1C1 !important;
+}
+.homeBgDrk .docsOpinion label {
+    color: #bfc1c1!important;
+}
+.homeBgDrk .presOpinionIner td.pivoted {
+    color: #D9DADA !important;
+}
+.homeBgDrk .presOpinionIner {
+    background-color: #404646 !important;
+}
+.homeBgDrk .presOpinionIner thead th {
+    color: #BFC1C1 !important;
+}
+.homeBgDrk .totalOutOff a, .homeBgDrk .prevNxtpag a {
+    color: #D9DADA !important;
+}
+.homeBgDrk a.nxtpag {
+    color: #00ABAF !important;
+}
+.homeBgDrk .presPkgIner1 header.presTabsUpr, .homeBgDrk .presPkgIner1 .MuiTabs-flexContainer {
+    background-color: #404646 !important;
+}
+.homeBgDrk .presTabs button span {
+    color: #BFC1C1 !important;
+}
+.homeBgDrk .profilePkg {
+    background-color: #404646 !important;
+}
+.homeBgDrk .profilePkgIner1 .profileTabs {
+    background-color: #404646 !important;
+}
+.homeBgDrk .profileInfo h1, .homeBgDrk .chngPasswrd h2,
+.homeBgDrk .factorAuth h3, .homeBgDrk .factorAuthEnbl h4,
+.homeBgDrk .fmlyDoc h3, .homeBgDrk .trstfmlyDoc h3, .homeBgDrk .recfmlyDoc h3,
+.homeBgDrk .secureChain h4, .homeBgDrk .organDeclare h5, .homeBgDrk .rghtMgnt h5,
+.homeBgDrk .emrgncyAccess p, .homeBgDrk .otpAccess h5, .homeBgDrk .spcifyKind h5,
+.homeBgDrk .datTimFrmt h5, .homeBgDrk .patientKyc h5, .homeBgDrk .onlinLft h4, 
+.homeBgDrk .nwCoursName h3, .homeBgDrk .profileName2 label, .homeBgDrk .lstdrVisitLft h3,
+.homeBgDrk .phrmOpinion label, .homeBgDrk .srvcInst h3{
+    color: #FAFAFA !important;
+}
+.homeBgDrk .profileInfo p, .homeBgDrk .chngPasswrd p,
+.homeBgDrk .factorAuth p, .homeBgDrk .fmlyDoc p,
+.homeBgDrk .trstfmlyDoc p, .homeBgDrk .recfmlyDoc p, .homeBgDrk .secureChain p, 
+.homeBgDrk .organDeclare label span, .homeBgDrk .organDecide label span,
+.homeBgDrk .rghtMgnt p, .homeBgDrk .otpAccess p, .homeBgDrk .otpAccess span.MuiFormControlLabel-label,
+.homeBgDrk .spcifyKind span.MuiFormControlLabel-label, .homeBgDrk .emrgncyAccess span.MuiFormControlLabel-label,
+.homeBgDrk .datTimFrmt p, .patientKyc p, .homeBgDrk .licensProof p, .homeBgDrk .sprtImg p, .homeBgDrk .aceptTermsPlcy span,
+.homeBgDrk .prfilHghtLft2 p, .homeBgDrk .prfilHghtRght2 p {
+    color: #BFC1C1 !important;
+}
+.homeBgDrk .profileTabs button span {
+    color: #BFC1C1 !important;
+}
+.homeBgDrk .profileInfoIner input {
+    background-color: #404646 !important;
+    color: #BFC1C1 !important;
+}
+.homeBgDrk .mr_sel .css-yk16xz-control, .homeBgDrk .profileInfoDate .react-date-picker__wrapper,
+.homeBgDrk .cntryDrop .css-yk16xz-control, .homeBgDrk .profileInfoIner .css-yk16xz-control,
+.homeBgDrk .genPass input[type="password"], .homeBgDrk .vsblAllTim input,
+.homeBgDrk .dateFormat .react-date-picker, .homeBgDrk .timeFormat .react-time-picker,
+.homeBgDrk .donarForm input, .homeBgDrk .donarLang .css-yk16xz-control, 
+.homeBgDrk .kycForms input[type="text"], .homeBgDrk .browsInput, .homeBgDrk .cntryDropKyc .css-yk16xz-control,
+.homeBgDrk .cntryDropKyc .css-g1d714-ValueContainer {
+    background-color: #404646 !important;
+    color: #BFC1C1 !important;
+}
+.homeBgDrk .profileInfoIner label, .homeBgDrk .genPass label, 
+.homeBgDrk .dateFormat label, .homeBgDrk .timeFormat label, .homeBgDrk .donarForm label,
+.homeBgDrk .kycForms label, .homeBgDrk .chatVoice label, .homeBgDrk .prescSick label, .homeBgDrk .prescSickVdo label,
+.homeBgDrk .wrkHour label, .homeBgDrk .setSchedule label, .homeBgDrk .apontBook label, .homeBgDrk span.holdyPeriod,
+.homeBgDrk .setSchedule div:last-child, .homeBgDrk .daySchedule label, .homeBgDrk .daySchedule span,
+.homeBgDrk .profileIdLft label, .homeBgDrk .setSchedule span,
+.homeBgDrk .profileInfoDate label {
+    color: #FAFAFA !important;
+}
+.homeBgDrk .mr_sel .css-yk16xz-control div {
+    color: #BFC1C1 !important;
+}
+.homeBgDrk .profileInfoDate .react-date-picker__inputGroup__input, 
+.homeBgDrk .dateFormat input, .homeBgDrk .timeFormat input , .homeBgDrk .timeFormat select {
+    color: #BFC1C1 !important;
+}
+.homeBgDrk .insrnceTbl .table th {
+    color: #BFC1C1 !important;
+}
+.homeBgDrk .insrnceTbl .table td {
+    color: #BFC1C1 !important;
+}
+.homeBgDrk .insrnceTbl h3 {
+    color: #FAFAFA !important;
+}
+.homeBgDrk .profileInfoIner .css-1uccc91-singleValue {
+    color: #BFC1C1 !important;
+}
+.homeBgDrk .organDeclare span.MuiIconButton-label, .homeBgDrk .organDecide span.MuiIconButton-label,
+.homeBgDrk .aceptTermsPlcy span.MuiIconButton-label, .homeBgDrk .apointSchdule label, 
+.homeBgDrk .onlinSickVdo span, .homeBgDrk .profileIdLft span {
+    color: #00ABAF !important;
+}
+.homeBgDrk .onlineCoursesList {
+    background: #192020 !important;
+}
+.homeBgDrk .courseList {
+    background-color: #404646 !important;
+}
+.homeBgDrk .courseListLbl label {
+    color: #D9DADA !important;
+}
+.homeBgDrk .courseListPara p, .homeBgDrk .courseListTime a, .homeBgDrk .coursePrice label {
+    color: #BFC1C1 !important;
+}
+.homeBgDrk .coursesTab, .homeBgDrk .onlineTabs {
+    background-color: #404646 !important;
+}
+.homeBgDrk .onlineTabs button {
+    color: #D9DADA !important;
+}
+.homeBgDrk .welAimedis {
+    background-color: #404646 !important;
+}
+.homeBgDrk .welAimedis h1, .homeBgDrk .welAimedis p, .homeBgDrk .welAimedis h2,
+.homeBgDrk .icd_num2 label, .homeBgDrk .icd_num2 a, .homeBgDrk .markCntntImg2 span,
+.homeBgDrk .detailCntnt2 p {
+    color: #D9DADA !important;
+}
+.homeBgDrk .descpInerRght2, .homeBgDrk .profileDescp2, .homeBgDrk .bldPrsrMesur,
+.homeBgDrk .lstdrVisit, .homeBgDrk .descpCntntLft2 a {
+    background-color: #404646 !important;
+}
+.homeBgDrk .diagTimeBY, .homeBgDrk .descpCntntLft2 a, .homeBgDrk .descpCntntLft2 a span {
+    color: #D9DADA !important;
+}
+.homeBgDrk .presurMeter {
+    background-color: #404646 !important;
+}
+.homeBgDrk .presurGraph {
+    background: #192020 !important;
+}
+.homeBgDrk .presurLabl h1, .homeBgDrk .latest10_rec h2 {
+    color: #FAFAFA !important;
+}
+.homeBgDrk .latest10_rec td.pivoted {
+    color: #D9DADA;
+}
+.homeBgDrk .phrmOpinionIner {
+    background-color: #404646 !important;
+}
+.homeBgDrk .phrmOpinionIner td.pivoted {
+    color: #D9DADA !important;
+}
+.homeBgDrk td.phrImg p {
+    color: #BFC1C1 !important;
+}
+.homeBgDrk .phrmOpinionIner thead th {
+    color: #BFC1C1 !important;
+}
+.homeBgDrk .patientSrch input {
+    background-color: #404646 !important;
+    color: #D9DADA !important;
+}
+.homeBgDrk .trckSection {
+    background-color: #4C5252!important;
+}
+.homeBgDrk .trckCntnt p {
+    color: #BFC1C1 !important;
+}
+.homeBgDrk .noDevices h1 {
+    color: #D9DADA !important;
+}
+.homeBgDrk .apointAdd h1 {
+    color: #FAFAFA !important;
+}
+.homeBgDrk .todaySrch {
+    background-color: #404646 !important;
+}
+.homeBgDrk .crntMonth {
+    color: #D9DADA !important;
+}
+.homeBgDrk .schdulTimRght {
+    background-color: #404646 !important;
+}
+.homeBgDrk .schdulTimLeft {
+    background-color: #404646 !important;
+}
+.homeBgDrk .schdulTimLeft label, .homeBgDrk .schdulTimLeft p, .homeBgDrk .schdulTimLeft span{
+    color: #D9DADA !important;
+}
+.homeBgDrk .docOpinionIner {
+    background-color: #404646 !important;
+}
+.homeBgDrk .docOpinionIner td.pivoted {
+    color: #D9DADA !important;
+}
+.homeBgDrk .docOpinionIner thead th {
+    color: #BFC1C1 !important;
+}
+.homeBgDrk .docPatPagLft p, .homeBgDrk .docPatPagRght a {
+    color: #D9DADA !important;
+}
+.homeBgDrk .findpatient input {
+    color: #D9DADA !important;
+    background-color: #404646 !important;
+}
+.homeBgDrk .docOpinLbl label {
+    color: #FAFAFA !important;
+}
+.homeBgDrk .findpatientReq a {
+    background-color: #404646 !important;
+}
+.homeBgDrk a.patntListCstm2 {
+    background-color: #404646 !important;
+    color: #F2F2F2 !important;
+}
+.homeBgDrk a.patntListCstm1 {
+    color: #D9DADA !important;
+}
+.homeBgDrk .newRequest {
+    background-color: #404646 !important;
+}
+.homeBgDrk .newReqInfo a {
+    color: #D9DADA !important;
+}
+.homeBgDrk .newReqInfo label {
+    color: #D9DADA !important;
+}
+.homeBgDrk .newRequestMain h4 {
+    color: #D9DADA !important;
+}
+.homeBgDrk .apointUpcom {
+    background-color: #303535 !important;
+}
+.homeBgDrk .apointUpcom h4 {
+    color: #FAFAFA !important;
+}
+.homeBgDrk .officeVst {
+    background-color: #404646 !important;
+}
+.homeBgDrk .officeVstLft label, .homeBgDrk .officeVstRght a, .homeBgDrk .showSubject a {
+    color: #BFC1C1 !important;
+}
+.homeBgDrk .showSubject h3 {
+    color: #D9DADA !important;
+}
+.homeBgDrk .onlinSickCer span {
+    color: #7F8383 !important;
+}
+.homeBgDrk .emrgncyFrmInpt input {
+    background: transparent !important;
+    color: #BFC1C1 !important;
+}
+.homeBgDrk .mkFmlyDoc .css-yk16xz-control {
+    background: transparent;
+}
+
+.homeBgDrk .loginSite {
+    background: #192020;
+}
+.homeBgDrk .loginSite .logData h1, .homeBgDrk .loginSite .regData h1 {
+    color: #00ABAF !important;
+}
+.homeBgDrk .loginSite .logForm, .homeBgDrk .loginSite .registerForm {
+    background: #404646;
+    background-color: #404646;
+}
+.homeBgDrk .loginSite .logForm label, .homeBgDrk .loginSite p.regOnlog, .homeBgDrk .loginSite .registerForm label,
+.homeBgDrk .loginSite .regMob span, .homeBgDrk .loginSite .havAC p {
+    color: #BFC1C1 !important;
+}
+.homeBgDrk .loginSite .logFrgtpass label {
+    color: #00ABAF !important;
 }
 /* End of dark screen css */
 
@@ -7664,7 +8171,6 @@ a.vsblDots2 img {
     margin-top: 32px;
     margin-bottom: 22px;
 }
-
 .videoTitle ul li a label {
     opacity: 0.5;
     color: #404646;
@@ -7751,7 +8257,7 @@ a.vsblDots2 img {
     margin-left: 35px;
 }
 .prevLesson a, .nxtLesson a {
-    color: #00ABAF;
+    color: #00ABAF !important;
     font-family: Muli;
     font-size: 12px;
     font-weight: bold;
@@ -7890,7 +8396,7 @@ a.vsblDots2 img {
     color: #000808;
     font-family: Muli;
     font-size: 14px;
-    font-weight: 600;
+    font-weight: 300;
     letter-spacing: 0;
     line-height: 18px;
 }
@@ -8165,6 +8671,7 @@ a.painAreasTxt img {
     align-items: center;
 }
   .painPointer a {
+    margin: 0px 4px;
     color: #7F8383;
     font-family: Muli;
     font-size: 12px;
@@ -8175,6 +8682,7 @@ a.painAreasTxt img {
     width: 17%;
     display: inline-block;
     justify-content: center;
+    word-wrap: break-word !important;
 }
 .visibleAll {
     position: absolute;
@@ -8342,12 +8850,9 @@ a.presurInnerActv label {
 .presurInner a:hover label {
     color: #00B0DB !important;
 }
-
-/* ---------------- */
-
 .phrmOpinion {
-    margin-left: 70px;
-    margin-top: 41px;
+    margin-left: 25px;
+    margin-top: 35px;
 }
 .phrmOpinLbl {
     margin-bottom: 30px;
@@ -8402,6 +8907,7 @@ a.presurInnerActv label {
     height: 15px;
     width: 15px;
     cursor: pointer;
+    border-radius: 4px;
 }
 td.phrImg p {
     color: #7F8383;
@@ -8450,7 +8956,7 @@ td.phrImg p {
     background-color: #FFFFFF;
     -webkit-box-shadow: 0 24px 32px 0 rgba(0,8,8,0.08);
     box-shadow: 0 24px 32px 0 rgba(0,8,8,0.08);
-    margin-top: 35px;
+    margin-top: 10px;
 }
 .presCourse {
     padding: 12px 24px 18px 24px;
@@ -8458,7 +8964,7 @@ td.phrImg p {
 }
 .presCloseBtn {
     text-align: right;
-    margin-bottom: 4px;
+    margin-bottom: 0px;
 }
 .presCloseBtn img {
     width: 26px;
@@ -8471,6 +8977,7 @@ td.phrImg p {
     font-weight: 500;
     letter-spacing: 0;
     line-height: 18px;
+    margin-bottom: 0px;
 }
 .presCourse label {
     color: #000808;
@@ -8521,16 +9028,17 @@ td.phrImg p {
     margin-bottom: 0px !important;
 }
 .prescripList img {
-    width: 100%;
+    width: 416px;
+    height: auto;
+    max-width: 92%;
+    display: table;
+    margin: 0 auto;
     box-shadow: 10px 10px 5px -9px rgba(0,0,0,0.75);
 }
 .medicInqUpr {
-    height: 482px;
-    overflow-y: scroll;
+    /* height: 482px; */
+    /* overflow-y: scroll; */
     margin-right: 1px;
-}
-.prescripList {
-    margin-top: 25px;
 }
 .prescripList input {
     color: #FFFFFF;
@@ -8547,8 +9055,8 @@ td.phrImg p {
     width: 100%;
     padding: 14px 10px;
     display: block;
-    margin-top: 30px;
-    margin-bottom: 10px;
+    margin-top: 18px;
+    margin-bottom: 16px;
 }
 .openParamadic {
     margin-top: 62px;
@@ -8597,6 +9105,7 @@ td.phrImg p {
     height: 24px;
     width: 24px;
     cursor: pointer;
+    border-radius: 6px;
 }
 .imptNotic h2 {
     text-align: center;
@@ -8755,9 +9264,6 @@ a.menuActv img {
 .findpatient input:-moz-placeholder { 
     color: #BFC1C1;
 }
-.findpatientReq a:first-child {
-    margin-right: 12px;
-}
 .findpatientReq a {
     border: 1px solid #F2F2F2;
     border-radius: 8px;
@@ -8784,7 +9290,7 @@ a.menuActv img {
     background-color: #FFFFFF;
     -webkit-box-shadow: 0 1px 8px 0 rgba(0,8,8,0.04);
     box-shadow: 0 1px 8px 0 rgba(0,8,8,0.04);
-    min-height: 150vh;
+    min-height: 135vh;
 }
 .docOpinionIner thead {
     border-bottom: 1px solid #D9DADA;
@@ -8812,11 +9318,13 @@ a.menuActv img {
 }
 .docOpinionIner tr .docphrImg img {
     width: 16px;
+    height: 16px;
     border-radius: 12px;
     vertical-align: middle;
     margin-right: 10px;
 }
 .docEditDot img {
+    border-radius: 5px;
     height: 26px;
     width: 26px;
     cursor: pointer;
@@ -8859,7 +9367,7 @@ a.menuActv img {
 }
 .infoCourse {
     padding: 12px 24px 18px 24px;
-    border-bottom: 1px solid #F2F2F2;
+    /* border-bottom: 1px solid #F2F2F2; */
 }
 .infoCloseBtn {
     text-align: right;
@@ -8924,10 +9432,11 @@ a.menuActv img {
     font-weight: 600;
     letter-spacing: 0;
     line-height: 23px;
+    margin-bottom: 0px !important;
 }
-.userAdresInfo {
+/* .userAdresInfo {
     padding: 12px 24px 18px 24px;
-}
+} */
 .userAdres .MuiGrid-root {
     min-width: 24px;
 }
@@ -8945,7 +9454,8 @@ a.menuActv img {
     font-size: 14px;
     font-weight: 600;
     letter-spacing: 0;
-    line-height: 14px;
+    line-height: 17px;
+    margin-bottom: 0px;
 }
 .insureMe {
     margin: 24px 0px 24px;
@@ -8966,9 +9476,10 @@ a.menuActv img {
     padding: 14px 8px;
 }
 .openJourMenu img {
-    height: 50px;
-    width: 50px;
+    height: 24px;
+    width: 24px;
     cursor: pointer;
+    border-radius: 5px;
 }
 .openJourMenu {
     text-align: right;
@@ -8984,9 +9495,11 @@ a.menuActv img {
     box-shadow: 0 8px 16px 0 rgba(0,8,8,0.08);
     padding: 14px 18px;
     position: absolute;
-    right: 0;
+    right: -6px;
 }
 .openJourMenu a ul li {
+    display: flex;
+    align-items: flex-start;
     list-style-type: none;
     color: #404646;
     font-family: Muli;
@@ -8995,6 +9508,7 @@ a.menuActv img {
     letter-spacing: 0;
     line-height: 14px;
     margin: 10px 0px;
+    word-break: break-all !important;
 }
 .openJourMenu a ul li img {
     height: 16px;
@@ -9003,6 +9517,7 @@ a.menuActv img {
 }
 .openJourMenu a {
     position: relative;
+    display: block;
 }
 .openJourMenu a:hover ul {
     display: block !important;
@@ -9055,6 +9570,7 @@ a.menuActv img {
 }
 .dataBoxUpr {
     padding: 15px 24px 24px 24px;
+    margin-right: 2px;
 }
 .dataBoxInput label {
     color: #404646;
@@ -10230,6 +10746,9 @@ img.editPendata {
     letter-spacing: 0;
     line-height: 12px;
 }
+.upScanInput {
+    position: relative;
+}
 .upScanInput a {
     color: #00ABAF !important;
     margin: 0px 4px;
@@ -10778,17 +11297,23 @@ a.calViewnw img {
     border-radius: initial !important;
 }
 a.barViewnw img {
-    width: 15px;
+    width: 17px;
     border-radius: initial !important;
 }
 a.calViewnw {
     border-radius: 8px;
-    background-color: #E1F7F7;
+    /* background-color: #E1F7F7; */
     padding: 7px 8px;
     display: inline-flex;
     justify-content: center;
     align-items: center;
+    margin-left: 8px;
 }
+/* .newReqInfo label {
+    color: #404646;
+    font-family: Muli;
+    font-size: 12px;
+} */
 a.barViewnw {
     border-radius: 8px;
     padding: 7px 8px;
@@ -10797,9 +11322,6 @@ a.barViewnw {
     display: inline-flex;
     justify-content: center;
     align-items: center;
-}
-.getCalBnr img {
-    width: 100%;
 }
 .newReqInfo img {
     height: 16px;
@@ -10851,7 +11373,7 @@ a.barViewnw {
 
 .slotBoxCntnt {
     position: relative;
-    width: 420px;
+    width: 450px;
     background: #fff;
     margin: 0 auto;
     border: none;
@@ -10862,7 +11384,7 @@ a.barViewnw {
     margin-top: 35px;
 }
 .slotCourse {
-    padding: 16px 24px 18px 24px;
+    padding: 28px 24px 18px 24px;
 }
 .slotCloseBtn {
     text-align: right;
@@ -10979,7 +11501,7 @@ a.barViewnw {
     background: #fff;
 }
 .slotTimDat {
-    padding: 20px 24px 20px 24px;
+    padding: 20px 21px 20px 21px;
 }
 
 .addBirthSlot label {
@@ -11075,10 +11597,10 @@ a.clsSltCal img {
 }
 a.clsSltCal{
     position: absolute;
-    right: -6px;
-    top: -12px;
+    right: -23px;
+    top: -20px;
+    border-radius: 21px !important;
 }
-
 .comonSelnw {
     font-size: 12px !important;
     min-width: 107px;
@@ -11091,7 +11613,7 @@ a.clsSltCal{
     background-color: #F2F2F2 !important;
     border-color: transparent !important;
     font-family: Muli !important;
-    height: 32px !important;
+    /* height: 32px !important; */
     min-height: auto;
 }
 .allTimeSelnw span {
@@ -11204,13 +11726,13 @@ a.patntListCstm2 {
     line-height: 16px;
     text-align: center;
 }
-.schdulTimCntnt {
+.schdulTimCntnt{
     border-radius: 6px;
     background-color: #FAFAFA;
     padding: 5px 12px;
     margin-bottom: 15px;
 }
-.schdulTimCntnt label {
+.schdulTimCntnt label{
     color: #BFC1C1;
     font-family: Muli;
     font-size: 12px;
@@ -11219,7 +11741,7 @@ a.patntListCstm2 {
     line-height: 14px;
     margin-bottom: 0px;
 }
-.schdulTimCntnt p {
+.schdulTimCntnt p{
     color: #BFC1C1;
     font-family: Muli;
     font-size: 12px;
@@ -11462,7 +11984,7 @@ span.srchMobIcon img {
   .descpCntntMain {
     padding-left: 0px;
   }
-  .MenuLeftUpr, .srchFilter {
+  .MenuLeftUpr {
     display: none;
   }
   .MenuMob, .filterMob {
@@ -11472,7 +11994,9 @@ span.srchMobIcon img {
     text-align: left !important;
   }
   .menuItems ul li a span {
+    vertical-align: middle !important;
     display: inline-block !important;
+    margin-top: 0px !important;
   }
   .profilMenuList {
     min-width: 130px !important;
@@ -11505,10 +12029,8 @@ span.srchMobIcon img {
     padding: 38px 0px 38px 0px !important;
   }
   .menuItems ul li a img {
-    width: 42px;
-    border-radius: 8px;
-    background-color: #FFFFFF;
-}
+    margin-right: 12px !important;
+   }
    .contactListing a span {
     width: 100% !important;
    }
@@ -11527,8 +12049,7 @@ span.srchMobIcon img {
     text-align: center;
   }
   .journalAdd h1 {
-    text-align: center;
-    margin-bottom: 24px;
+    font-size: 22px;
   }
   .diagnosImg a {
     padding-right: 5px;
@@ -11546,7 +12067,12 @@ span.srchMobIcon img {
     margin: 0px !important;
  }
 }
-
+@media (max-width: 640px){ 
+ .presOpinionIner tbody tr {
+    border-bottom: 1px solid #252525 !important;
+    margin-bottom: 14px;
+  }
+}
 .fltrModelCntnt {
     width: 420px;
     background: #fff;
@@ -11845,7 +12371,7 @@ img.MenuImg {
     letter-spacing: 0;
     line-height: 12px;
 }
-.selTimeSlot a {
+.selTimeSlot a, .suggent-time a {
     border-radius: 8px;
     background-color: #F2F2F2;
     color: #7F8383;
@@ -11859,7 +12385,7 @@ img.MenuImg {
     margin-bottom: 5px;
     cursor: pointer;
 }
-.selTimeSlot a:hover {
+.selTimeSlot a:hover, .suggent-time a:hover , .suggent-time a.current_selected{
     background-color: #00ABAF;
     color: #ffffff;
 }
@@ -12581,19 +13107,776 @@ a.academy_ul ul li img {
 
 
 /*Added By ankita*/
+.sortBySec .react-toggle{
+    margin: 0px 12px 0px 10px;
+}
+.sortBySec label{
+    vertical-align: middle;
+}
+.more10entries{
+    text-align: center;
+    cursor: pointer;
+    color: #4fb8b8;
+    font-weight: 700;
+}
+
+.flag-select .filterBox input {
+    width: 90% !important;
+}
+.darkTheme > div:nth-child(3) .sel_specialty .css-yk16xz-control input{
+    color: #BFC1C1 !important;
+}
+iframe.stripe_checkout_app {
+    overflow: scroll!important;
+}
+.setVaccination{
+    padding : 0px 5px;
+}
+.blockChainUpr h2 {
+    margin-bottom: 0px !important;
+    color: #7F8383;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 2.5;
+}
+.blockChainDtail1 {
+    margin-top: 15px;
+}
+/* Start For Hospital addition in user side */
+.ulpoad_icon img {
+    width: 65px;
+    padding-top:5px;
+}
+.showflags{
+    position: relative;
+}
+.adminmenuItems .menuActv a img{
+    background-color: #fff !important;
+}
+.HospitalAdd .passInst {
+    position: relative!important;
+    top: unset !important;
+    right: 0px !important;
+}
+.ulpoad_btm h3 {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 600;
+    color: #00abaf;
+    font-size: 22px;
+    margin-top: 11px;
+    position: relative;
+    margin-bottom: 12px;
+    text-align: center;
+}
+.ulpoad_btm  {
+    margin-top: 0px;
+    text-align: center;
+}
+/* End For Hospital addition in user side  */
+
+.deletepointer{
+    width: 22px !important;
+    cursor: pointer;
+}
+.updatedfileuploader img{
+    width: 100%;
+    padding: 3px;
+    border-radius: 15px;
+}
+.homeBgDrk .cc1-chat-win-sndr-row .cc1-chat-win-msg-block .cc1-chat-win-sndr-msg-action-wrap .trigger{
+    color: #fff!important;
+}
+.tooltip-container{
+    color: red!important;
+}
+.SetWidthPopup1{
+    width: 400px !important;
+    height : 85% !important;
+}
+.iiz__img {
+    max-width: 100%;
+    height: auto;
+    max-height: 500px !important;
+}
+.ImageSec{
+    height: 200px;
+}
+.image-zoom-settings {
+    max-width: 130px; 
+}
+.image-zoom-settings__button {
+    display: block;
+    width: 120px;
+    margin-bottom: 5px; 
+}
+.darkTheme > .invtBoxCntnt .invitLinkInfo .css-yk16xz-control {
+    border: 1px solid #BFC1C1 !important;
+    border-radius: 4px;
+    background: #404646 !important;
+    color: #BFC1C1 !important;
+    font-family: Muli;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 12px;
+    box-shadow: none !important;
+    outline: none !important;
+}
+.darkTheme > .phrmBoxCntnt .scanInputs input,
+.darkTheme > .phrmBoxCntnt .upScanInput,
+.darkTheme > .phrmBoxCntnt .scanInputs textarea,
+.darkTheme> .invtBoxCntnt textarea{
+    background: #404646 !important;
+    color: #BFC1C1 !important;
+}
+.painQualityDrop .css-yk16xz-control .css-2613qy-menu{
+    max-height: 30px;
+    overflow: auto;
+}
+.homeBgDrk .condIntencty p {
+    color: #bfc1c1!important;
+}
+.languageBox label img {
+    margin-top: -3% !important;
+}
+.presurInner a{
+    margin-top: 15px;
+}
+.darkTheme .cnfrmDiaLft label span{
+    color: #D9DADA !important;
+}
+span.ccl-dtls-section-listitem-link {
+    background: #009688;
+    color: #fff !important;
+    padding: 12px !important;
+}
+.Pwrdby{
+    text-align: center;
+    font-size:15px;
+}
+.Pwrdby1{
+    text-align: center;
+    font-size:30px;
+}
+/* .drawDiv {
+    position: static !important;
+} */
+.drawDiv {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+}
+.darkTheme> .fancyBoxCntnt, .darkTheme> .phrmBoxCntnt,.darkTheme> .invtBoxCntnt{
+    background-color: #404646 !important;
+}
+.homeBgDrk .rbc-event-content {
+    color: #bbb;
+}
+a.calViewnw {
+    border: 1px solid #dfdfdf;
+}
+a.barViewnw.nowactive,  a.calViewnw.nowactive{
+    background-color: #E1F7F7; 
+}
+.homeBgDrk a.activePageDocutmet{
+    color: #fff !important;
+    font-weight: 800 !important;
+}
+.homeBgDrk .ant-picker-input input {
+    background: #404646 !important;
+}
+.darkTheme .jurnlTatent label span{
+    color: #fff!important;
+}
+a.profilePic2 span,a.profilePic2 img {
+    cursor: pointer;
+}
+.neuroSection h3, .officeVstLft h3 {
+    line-break: normal;
+}
+.homeBgDrk .addSpc.conPainGraph span p, .homeBgDrk .addSpc.conPainGraph span {
+    color: #BFC1C1 !important;
+}
+.homeBgDrk .blockChainDtail1, .homeBgDrk .blockChainDtail1 h2{
+    background-color: #404646!important;
+    color: #D9DADA !important;
+}
+.blockChainDtail1 {
+    border-radius: 12px;
+    background-color: #FFFFFF;
+    box-shadow: 0 1px 8px 0 rgba(0,8,8,0.04);
+    min-height: 50px;
+    padding:10px;
+}
+g.highcharts-axis.highcharts-yaxis text {
+    color: #000!important;
+    fill: #000!important;
+}
+.darkTheme> .apontBoxCntnt{
+    background-color: #404646!important;
+}
+.darkTheme> .travelDia label span {
+    color: #dcdcdc !important;
+}
+.darkTheme > .opinBoxCntnt .yrProfes input, .darkTheme > .opinBoxCntnt .yrProfes textarea,
+.darkTheme > .opinBoxCntnt .css-yk16xz-control, .darkTheme > .opinBoxCntnt .drsplestQues input[type="text"]{
+    background: #404646 !important;
+    color: #BFC1C1 !important;
+}
+.darkTheme > .nwPresCntnt .medicnSub textarea,.darkTheme > .nwPresCntnt .medicnSub input[type="text"],
+.darkTheme > .nwPresCntnt .docHlth h2,.darkTheme > .nwPresCntnt .drsplestQues input[type="text"],.darkTheme > .nwPresCntnt .drsplestQues .css-yk16xz-control,
+.darkTheme > .nwPresCntnt .drsplestQues .css-1pahdxg-control, .darkTheme > .findDoctor input[type="text"]
+{
+    background-color: #404646 !important;
+    color: #BFC1C1 !important;
+}
+
+.tooltip-container{
+    box-shadow: none!important;
+}
+.darktheme.meetBoxCntnt{
+    background: #404646 !important;
+    color: #fff !important;
+}
+.darktheme.tooltip-arrow[data-placement*='left']::after, .darktheme.tooltip-arrow[data-placement*='left']::before {
+    border-color: transparent transparent transparent #404646 !important;
+}
+.tooltip-arrow[data-placement*='left']::after, .tooltip-arrow[data-placement*='left']::before {
+    border-color: transparent transparent transparent #fff !important;
+}
+.darktheme.meetBoxCntnt .meetDetail h1{
+    color: #fff !important;
+}
+.homeBgDrk .rbc-overlay {
+    background: #404646 !important;
+    color: #fff !important;
+}
+.homeBgDrk .rbc-overlay .rbc-event {
+    color: #fff!important;
+}
+.extraSrvcUpr {
+    min-height: 100% !important;
+}
+.allTimeSel1.comonSel {
+    background: #fff !important;
+    border: 1px solid #BFC1C1 !important;
+    margin-bottom: 12px;
+    border-radius: 4px !important;
+}
+.clear_filterRght a img, .trstCloseBtn a img, .toolSearch img, .topicSrch img{
+    width: 20px !important;
+}
+.clear_filterRght a{
+    padding: 2px 7px !important;
+}
+.clear_filterRght a, .topicSrch {
+    border: 1px solid #bfc1c1;
+    display: inline-flex;
+    padding: 9px 8px;
+    border-radius: 8px;
+    align-items: center;
+    justify-content: center;
+}
+.homeBgDrk h4.ccl-right-panel-head-ttl {
+    color: #ffff;
+}
+.homeBgDrk .registerRow.regMobNum .flag-select ul.flag-select__options{
+    background-color: #0c1010;
+    color: #BFC1C1 !important;
+}
+.homeBgDrk .registerRow.regMobNum .flag-select__option:not(.flag-select__option--placeholder):hover, 
+.homeBgDrk .registerRow.regMobNum .flag-select__option:not(.flag-select__option--placeholder):focus{
+    outline: none;
+    background: #404646 !important;
+}
+.homeBgDrk .registerRow.regMobNum .flag-select__btn:after {
+    border-top: 3px solid #e8f0fe !important;
+}
+.darkTheme > div:nth-child(3) .wshCorList{
+    background-color: #0c1010;
+}
+.darkTheme > div:nth-child(3) .wshCorListLbl label, 
+.darkTheme > div:nth-child(3) .wshCorListPara p,
+.darkTheme > div:nth-child(3) .wshCorListTime a{
+    color: #BFC1C1 !important;
+}
+.imptNotic {
+    height: 530px;
+    padding: 24px 24px 24px 24px;
+    overflow: auto;
+}
+.addmores, .minus_span_medication, .noBpData h3, .consumeAt p {
+    cursor: pointer;
+}
+.nwDiaCntntIner, .nwPresCntntIner, .opinBoxCntntIner {
+    height: 580px !important; 
+}
+.phrmLinkUpr, .detailPrescp {
+    height: 550px !important;
+}
+.cancelAppoint img {
+    width: 20px !important;
+    height: 20px !important;
+    margin-right: 5px !important;
+    border: none !important;
+    border-radius: 0px !important;
+}
+.showDetail img, .openScnd{
+    width: 35px;
+    height: 33px;
+    border-radius: 6px;
+    cursor: pointer;
+    border: 1px solid #bfc1c1;
+    padding: 3px 3px;
+    }
+.sendtotimelinenew{
+    border-radius: 8px;
+    background-color: #00ABAF;
+    outline: none;
+    color: #FFFFFF;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 16px;
+    text-align: center;
+    border: none;
+    width: 100%;
+    margin-right: 3%;
+    padding: 12px 10px;
+}
+.menuActv .profilMenu .profilMenuList img {
+    background: none !important;
+}
+.oficVisit img {
+    width: 13px !important;
+}
+.dataCloseBtn a img, .editCloseBtn a img, .entryCloseBtn a img, .wshLstHaiRght a img,
+.crtLstHaiRght a img,.handleCloseBtn a img, .nwPresCloseBtn a img,
+.presurCloseFncy a img, .dashCloseBtn a img, .invtCloseBtn a img, .paraCloseBtn a img,
+ .prespCloseBtn a img, .rejectCloseBtn a img, .opinCloseBtn a img, .nwDiaCloseBtn a img, 
+ .phrmCloseBtn a img, .qrCloseBtn a img, .infoCloseBtn a img, .slotCourse a img, .slotBoxCourse a img,
+ .apontCloseBtn a img, .handleAccessBtn a img, .srvcCloseBtn a img,.presCloseBtn a img{
+    width: 17px;
+}
+.dataCloseBtn a, .editCloseBtn a, .entryCloseBtn a , .wshLstHaiRght a,
+.crtLstHaiRght a, .handleCloseBtn a, .nwPresCloseBtn a,
+.presurCloseFncy a, .dashCloseBtn a, .invtCloseBtn a, .paraCloseBtn a,
+.prespCloseBtn a, .rejectCloseBtn a, .opinCloseBtn a, .nwDiaCloseBtn a,
+.phrmCloseBtn a, .qrCloseBtn a, .infoCloseBtn a, .slotCourse a, .slotBoxCourse a,
+.apontCloseBtn a, .handleAccessBtn a, .trstCloseBtn a, .srvcCloseBtn a,.presCloseBtn a{
+    border: 1px solid #9fa2a2;
+    display: inline-flex;
+    padding: 5px 5px;
+    border-radius: 8px;
+    align-items: center;
+    justify-content: center;
+}
+.dataCloseBtn a:hover, .editCloseBtn a:hover, .entryCloseBtn a:hover, .wshLstHaiRght a:hover,
+.crtLstHaiRght a:hover, .handleCloseBtn a:hover, .nwPresCloseBtn a:hover,
+.presurCloseFncy a:hover, .dashCloseBtn a:hover, .invtCloseBtn a:hover, .paraCloseBtn a:hover,
+.prespCloseBtn a:hover, .rejectCloseBtn a:hover, .opinCloseBtn a:hover, .nwDiaCloseBtn a:hover,
+.phrmCloseBtn a:hover, .qrCloseBtn a:hover, .infoCloseBtn a:hover, .slotCourse a:hover, .slotBoxCourse a:hover,
+.apontCloseBtn a:hover, .handleAccessBtn a:hover, .trstCloseBtn a:hover, .srvcCloseBtn a:hover,
+.presCloseBtn a:hover{
+    background: #e2e2e2e0 !important;
+}
+.darkTheme > .nwPresCntnt ,.darkTheme > .opinBoxCntnt, .darkTheme > .invtCourse {
+    background-color: #404646!important;
+}
+.timeIconClas_crested img{
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+}
+.timeIconClas_crested p{
+    text-align: center;
+    color:#000;
+    font-size: 16px;
+}
+.moreMenuList li a img {
+    margin-right: 6px !important;
+}
+
+.canvases img {
+    height: 150px !important;
+    width: 100px !important;
+    margin: 0px !important;
+}
+.scndOptionIner1 ul li img {
+    /* margin-right: 12px; */
+    /* height: 17px; */
+    width: auto;
+    padding-right: 10px;
+}
+.MenuLeftDrkUpr .profilMenuList img, .MenuLeftDrkUpr .moreMenuList img,
+.MenuLeftDrkUpr .moreMenuList img:first-child{
+    width: 15px !important;
+}
+.homeBgDrk .loading-text, .homeBgDrk .metroPro div {
+    color: #fff!important;
+}
+.contact-listitem-dtls .__react_component_tooltip {
+    color: #000 !important;
+    font-size: 16px;
+}
+.locat_srvc input {
+    width: 100%;
+    border: 1px solid #BFC1C1;
+    border-radius: 4px;
+    background-color: #FFFFFF;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 18px;
+    min-height: 40px;
+    padding: 0px 14px;
+    /* outline: none; */
+}
+.homeBgDrk .OrganMobile .flag-select {
+    height: 37px !important;
+}
+.homeBgDrk .OrganMobile .flag-select__btn:after {
+    margin-top: 6% !important;
+}
+.homeBgDrk .OrganMobile span.flag-select__option.flag-select__option--placeholder .flag-select__option__icon {
+    top: 0px !important;
+}
+.homeBgDrk .OrganMobile button#select_flag_button,.homeBgDrk{
+    background: #b1b1b180;
+    height: 37px;
+    min-height: 33px;
+    border-radius: 5px 0px 0px 5px;
+}
+.homeBgDrk .profileInfoIner button#select_flag_button {
+    background: #b1b1b180;
+    height: 33px;
+    min-height: 33px;
+    border-radius: 5px 0px 0px 5px;
+}
+.homeBgDrk .contact-listitem-dtls .__react_component_tooltip {
+    color: #fff!important;
+    font-size: 16px;
+}
+
+.homeBgDrk .profileInfoIner .flag-select {
+    height: 33PX !important;
+}
+
+.homeBgDrk .profileInfoIner .flag-select__btn:after {
+    margin-top: 4% !important;
+}
+.homeBgDrk .profileInfoIner span.flag-select__option.flag-select__option--placeholder .flag-select__option__icon {
+    top: 0px !important;
+}
+.DownloadFile{
+    cursor: pointer;
+    color: red;
+}
+.downloadButton {
+    float: right;
+    padding: 15px;
+}
+.homeBgDrk .downloadButton{
+    color:#fff!important;
+}
+.darkTheme ul.insuranceHint3 {
+    color:#fff!important;
+    background: #404646!important;
+}
+ul.insuranceHint3 {
+    z-index: 9;
+    position: relative;
+    padding-left: 0px;
+    border-radius: 7px;
+    box-shadow: 0 0px 0px 0 rgba(0, 0, 0, 0.2), 0 0px 13px 0 rgba(0, 0, 0, 0.19);
+    overflow: auto;
+    background: #fff;
+    margin-top: 5px;
+    padding: 3px 0px;
+}
+
+ul.insuranceHint3 li {
+    padding: 8px 5px 8px 12px;
+}
+.unreadsec{
+    background: #00abafb8;
+    text-align: center;
+    width: 50%;
+    z-index: 9999;
+    position: fixed;
+    padding: 20px;
+    left: 27%;
+    top: 6px;
+    color: #fff;
+    font-weight: 600;
+    border-radius: 10px;
+}
+span.unread_msg_notifyspan {
+    cursor: pointer;
+    position: absolute;
+    top: 2px;
+    right: 3px;
+}
+.vaccinationAdd{
+    margin-bottom: 10px;
+}
+.addmores {
+    color: #00ABAF;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 12px;
+    margin: 12px !important;
+    text-align: right;
+}
+.nuroDr p{
+    line-height: 20px !important;
+}
+.searchbyText{
+    width: 99%;
+    padding: 5px;
+    border: none;
+    border-radius: 5px;
+    border: 1px solid #BFC1C1;
+}
+.drVisit, .comeAppoint, .lstDocs, .persBlodMesur{
+    margin-bottom: 32px;
+}
+.SetWidthPopup{
+    width: 600px !important;
+}
+.daySchedule input{
+    border: none !important;
+}
+.homeBgDrk .latstInfo label, .homeBgDrk .apontBook p span, .homeBgDrk .apontBook p {
+    color: #fff;
+}
+.unread_msg_notify{
+    cursor: pointer;
+}
+/* .unread_msg_notify span {
+    position: absolute;
+    right: 3px;
+    top: 3px;
+ }
+    .unread_msg_notify {
+        background: #00abafb8;
+        text-align: center;
+        width: 40%;
+        z-index: 9999;
+        position: fixed;
+        padding: 5px;
+        top: 6px;
+        color: #fff;
+        font-weight: 600;
+        left: 32%;
+        border-radius: 10px;
+    } */
+    .homeBgDrk .emrgncyFrmInpt label, .darkTheme .spclistDr a{
+        color: #BFC1C1 !important;
+    }
+.darkTheme .painIntencty a, .darkTheme .condIntencty a,.homeBgDrk .rbc-label, .homeBgDrk input#chatSearch{
+    color: #BFC1C1 !important;
+}
+.dataDarkLoader .dataLoader {
+    background: #000000c9 !important;
+}
+.dataLoader {
+    background: #0000002e;
+}
+.cc1-chat-win-inpt-ext-wrap {
+    width: 99% !important;
+}
+.changeLang li {
+    display: inline-flex;
+    margin-right: 15px;
+}
+.changeLang li span{
+    padding-right: 10px;
+}
+.webLogo img, .MenuMobRght img, .LogoForms img{
+    width: 50px!important;
+}
+button.CutomStripeButton{
+    opacity: 0 !important;
+}
+.homeBgDrk .NotFoundContent {
+    color: #BFC1C1 !important;
+    background-color: #404646 !important;
+}
+.homeBgDrk .NotFound h1 {
+    color: #fff !important;
+}
+.homeBgDrk .ThemeModeSet1 {
+    color : #fff!important;
+}
+.ThemeModeSet1{
+    vertical-align: top;
+    font-weight: 700;
+}
+.chat-ppl-listitem-msg-cnt{
+    top: -5px !important;
+    background-color: red !important;
+    right: 0px !important;
+}
+.contact-listitem .contact-listitem-dtls{
+    position : relative !important;
+}
+.allTimeSelnw.comonSelnw div:last-child {
+    /* z-index: 99999999999!important; */
+    z-index: 999 !important;
+}
+.rlativeDiv .passInst {
+    position: relative!important;
+    top: 11px !important;
+    right: 0px !important;
+}
+ul.insuranceHint1 {
+    z-index: 9;
+    padding-left: 0px;
+    border-radius: 7px;
+    box-shadow: 0 0px 0px 0 rgba(0, 0, 0, 0.2), 0 0px 13px 0 rgba(0, 0, 0, 0.19);
+    overflow: auto;
+    background: #fff;
+    margin-top: 5px;
+    padding: 3px 0px;
+}
+ul.insuranceHint1 li {
+    padding: 8px 5px 8px 12px;
+}
+.rlativeDiv{
+    position : relative;
+}
+.darkTheme .painIntencty input[type=range] {
+    background: #404646!important;
+}
+.darkTheme .condIntencty input[type=range] {
+    background: #404646!important;
+}
+.darkTheme .trigerAction{
+    background-color: #705a29 !important;
+}
+.darkTheme .delQuesBook a {
+    color:#fff!important;
+}
+.darkTheme .react-calendar {
+    background: none !important;
+}
+.darkTheme h3,.darkTheme h4,  .css-1uccc91-singleValue, .darkTheme .srvcTagsLoc a {
+    color: #BFC1C1 !important;
+}
+.darkTheme .trigerAction ul li {
+    color: #D9DADA !important;
+}
+.quill {
+    background: #fff!important;
+}
+.darkTheme .dragDashLft a, .darkTheme .moreCards a,.darkTheme .stndrdQues h3,
+.darkTheme .shrHlth h2,.darkTheme .drstndrdQues h3 {
+    color: #BFC1C1 !important;
+}
+.darkTheme.nwDiaModel select, .darkTheme .nwDiaSel select,.darkTheme .nwDiaSel1  {
+    background: #404646!important;
+    color: #BFC1C1 !important;
+}
+.homeBgDrk .courseStar span {
+    color: #BFC1C1;
+}
+.darkTheme .wshCorListPara p {
+    color: #7F8383 !important;
+}
+.darkTheme .wshCorListLbl label {
+    color: #000808 !important;
+} 
+.darkTheme .crtCorListPara  p {
+    color: #7F8383 !important;
+}
+.darkTheme .crtCorListLbl label {
+    color: #000808 !important;
+} 
+.darkTheme .checkHelth span {
+    background-color: #333 ;
+}
+/*For popup*/
+.darkTheme .checkHelth a {
+    color: #D9DADA;
+}
+.darkTheme .checkHelth a p {
+    width: 77%;
+    float: right;
+    margin-top: 7px;
+    margin-bottom: 0px;
+    padding-right: 4px;
+}
+.darkTheme .checkHelthLbl a:hover {
+    color: #00ABAF;
+}
+.RelativeatSecurity{
+    position: relative;
+}
+/* Appointment page */
+.srvcTags .currentTab {
+    color: #00ABAF;
+    background-color: #E1F7F7;
+}
+.current_selected{
+    background-color: #00ABAF !important;
+    color: #ffffff !important;
+}
+.pac-logo {
+    z-index: 9999999999999999 !important;
+}
+.MapStyle {
+    position: relative !important;
+    width: 100% !important;
+    height: 300px !important;
+}
+/* for the tracker scroll */
+.disCnctContent {   
+    overflow: auto !important;
+    height: 500px !important;
+}
+.withingsData img{ width: 160px; }
+.homeBgDrk .EmergencyOpenPopup {
+    color: #fafafa !important;
+}
+/*For menu*/
+.homeBgDrk td.presEditDot.scndOptionIner.pivoted {
+    background-color: #404646 !important;
+}
+.menuActv a img{
+    background-color: #00abaf !important;
+}
+.MenuLeftDrkUpr .bm-menu {
+    background-color: #373a47!important;
+}
+.profilMenu img, .menuActv .profilMenu img  {
+    background-color: #E1F7F7 !important;
+}
 /*image Preview*/
 .ViewImage img{
-    width: 60px;
+    width: 060px;
     margin-top: 29px;
     margin-left:10px;
 }
 /*Graph CSS*/
 .presureDataGrph {
+    margin-top: 24px !important;
     text-align: center !important;
     color: #00ABAF!important;
     font-weight: 600;
 }
 /* Filter Css*/
+.homeBgDrk .typeSel1{
+    background-color: #4C5252 !important;
+}
+.homeBgDrk .allTimeSel1{
+    background-color: #4C5252 !important;
+}
 .typeSel1{
     border-radius: 8px !important;
     background-color: #E1F7F7 !important;
@@ -12604,7 +13887,7 @@ a.academy_ul ul li img {
     padding: 7px !important;
 }
 .allTimeSel1{
-    border-radius: 8px !important;
+    border-radius: 2px !important;
     background-color: #F2F2F2 !important;
     border-color: transparent !important;
     font-family: Muli !important;
@@ -12668,6 +13951,8 @@ img.openScnd1 {
     cursor: pointer;
 }
 .scndOptionIner1 ul li a {
+    display: flex;
+    align-items: flex-start;
     color: #404646;
     font-family: Muli;
     font-size: 14px;
@@ -12676,7 +13961,7 @@ img.openScnd1 {
     line-height: 14px;
     list-style-type: none;
     cursor: pointer;
-    padding: 8px 12px;
+    padding: 4px 8px;
 }
 .scndOptionIner1 ul li a:hover {
     border-radius: 8px;
@@ -12698,11 +13983,12 @@ img.openScnd1 {
     box-shadow: 0 8px 16px 0 rgba(0,8,8,0.08);
     padding-left: 0px;
     margin-bottom: 0px;
-    padding: 12px 16px;
+    padding: 12px 12px;
     position: absolute;
-    right: 0;
+    right: -8px;
     text-align: left;
     z-index: 111;
+    min-width: 223px;
 }
 a.openScndhrf1:hover ul {
     display: block !important;
@@ -12776,6 +14062,7 @@ a.painAreasTxt {
     font-weight: 600;
     letter-spacing: 0;
     line-height: 18px;
+    margin-bottom: 12px;
 }
 /*For LMS*/
 button.CutomStripeButton {
@@ -12820,7 +14107,8 @@ button.CutomStripeButton span {
 /*For LMS End*/
 /* For emergency */
 input.Mobile_extra.Emergency_number {
-    height: 45px !important;
+    height: 38px !important;
+    padding-left: 52px !important;
 }
 /*For emergency End*/
 /* For Second Opinion*/
@@ -12837,7 +14125,7 @@ h4.Inquirypaddingtop {
     padding-top: 25px;
 }
 .scndOptionIner ul {
-    margin-top: -8px !important;
+    margin-top: -9px !important;
 }
 .scndOptionIner ul li a img {
     height: 15px !important;
@@ -12867,9 +14155,10 @@ a.activePageDocutmet {
 /* For Profile Page */
 .profilMenuList ul li:last-child {
     margin-top: 10px !important;
+    padding-top: 10px;
 }
 .Mobile_extra{
-    padding-left: 16% !important; 
+    padding-left: 20% !important; 
 }
 .SelectedGender{
     background-color: #00ABAF !important;
@@ -12900,7 +14189,8 @@ a.activePageDocutmet {
     border-radius: 12px;
     background-color: #FFFFFF;
     box-shadow: 0 1px 8px 0 rgba(0,8,8,0.04);
-    padding: 12px 12px;
+    text-align: center;
+    padding: 32px 12px;
     margin-bottom: 26px;
     margin-top: 40px;
 }
@@ -12908,9 +14198,8 @@ a.activePageDocutmet {
     font-weight: 800;
     padding-bottom: 10px;
 }
-.BackHomeBtn
-{
-    color: #fff!important;
+.BackHomeBtn{
+    color: #fff !important;
     font-family: Muli;
     font-size: 14px;
     font-weight: 700;
@@ -12947,7 +14236,6 @@ ul.insuranceHint li {
 /*KYC Pages end*/
 
 /*Stop the outline comes from Comet Chat*/
-
 input:focus {
     outline: unset !important;
   }
@@ -12998,19 +14286,16 @@ input:focus {
      right: 0px !important;
    }
   }
-
   .patietnRegister {
     max-height: calc(100vh - 200px);
     overflow: hidden;
     overflow-y: auto;
     position: relative;
   }
-
   .wrkHour a.seleted-days {
       color: #ffffff;
       background-color:#00abaf;
   }
-  
   .appointment .ant-picker{
     border: none;
     outline: none;
@@ -13020,17 +14305,14 @@ input:focus {
   .appointment .nameSchedule .ant-picker {
       width: 70%;
   }
-
   .appointment .ant-picker-suffix{
       display: none;
   }
 
   /* added by satish */
-
   .languageBox {
-      margin: 2px 8px 10px 40px ;
+    margin: 22px 28px 15px 44px;
   }
-
   .LanguageBoxMain {
     width: 40% !important;
     background: #fff;
@@ -13043,78 +14325,1426 @@ input:focus {
     margin-top: 35px;
     position: absolute !important;
 }
-
 .LanguageBoxMain label{
     margin-left: 10px !important;
-    font-size: 15px;
+    font-size: 13px;
+    vertical-align: middle;
 }
-
-.languageHead {
+.languageBox .col-xl-6{
+    padding: 0px;
+}
+.languageHead{
     padding: 15px;
     text-align: center;
     color: #00abaf !important;
     font-weight: 500;
     font-size: 18px
   }
-
-  .lng_blank{
+.lng_blank{
     padding-bottom: 15px;
     text-align: center;
     color: #862d2d !important;
     font-weight: 900;
-  }
-
-  .dropbtn {
+ }
+.dropbtn{
     background-color: #4CAF50;
     color: white;
     padding: 16px;
     font-size: 16px;
     border: none;
   }
-  
-  .dropdown-main {
+.dropdown-main{
     position: relative;
     display: inline-block;
     width: 100%;
-  }
-  
-  .dropdown-content {
+}
+.dropdown-content{
     display: none;
     position: absolute;
     background-color: #f1f1f1;
     min-width: 160px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
-  }
-  
-  .dropdown-content a {
+}  
+  .dropdown-content a{
     color: black;
     padding: 12px 16px;
     text-decoration: none;
     display: block;
   }
-
   .dropdown-content a:hover {background-color: #ddd;}
-  .show-content {
+  .show-content{
     display: block;
     width: 100%;
     max-height: 150px;
     overflow: hidden;
     overflow-y: auto;
    }
-
-   label.or-label {
+   label.or-label{
     width: 100%;
     text-align: center;
     font-size: 15px;
     font-weight: 800;
    }
-
-   .rbc-event {
+   .rbc-event{
+    background-color: transparent !important;
+    color: black !important;
+   }
+   .getCalBnr .movMnth img{
+       width: auto !important;
+   }
+   .margin-remove{
+       margin-top: 0px;
+   }
+  .rbc-event{
+    height: 30px;
+  }
+  .rbc-time-column{
+    height: 100% !important;
+    min-height: 900px !important;
+  }
+  .rbc-day-slot .rbc-event-label{
+    display: none;
+  }
+  .rbc-day-slot .rbc-event{
+    width: 50% !important;
+  }
+  .scroll-hidden {
+    overflow: hidden;
+    height: 86%;
+    overflow-y: auto;
+  }
+  .custom-text{
+    margin-left: 40px;
+    min-width: 43px;
+    color: #000808;
+    font-family: Muli;
+    text-align: center;
+    border: 1px solid #BFC1C1;
+    border-radius: 4px;
+    background-color: #FFFFFF;
+    padding: 6px 12px;
+    display: inline-block;
+    width: 110px;
+    outline: none;
+    margin-bottom: 5px;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 18px;
+  }
+  .officVisit button{
+    color: #404646;
+    font-size: 14px;
+    height: 34px;
+    width: 90px;
+    border: 1px solid #F2F2F2;
+    border-radius: 8px;
+    background-color: #FFFFFF;
+    margin-left: 8px;
+    align-items: center;
+    cursor: pointer;
+  }
+  .officVisit button.save {
+    color: #fff;
+    background-color: #00abaf;
+  }
+  .officVisit.display-cls{
+      display: flex;
+  }
+  .darkTheme > div:nth-child(3), .homeBgDrk .tooltip-container {
+      background-color: #404646!important;
+  }
+  .darkTheme label, .darkTheme p, .darkTheme h3, .darkTheme h1 {
+      color: #D9DADA !important;
+  }
+  .dark-confirm{
+    background-color: #404646!important;
+  }
+  .dark-confirm h1, .dark-confirm span, .dark-confirm p, .dark-confirm h3, .dark-confirm h1 {
+    color: #D9DADA !important;
+}
+.homeBgDrk .rbc-date-cell,.homeBgDrk .calendar-cont,.homeBgDrk .calendar-date {
+    color: #9b9b9b!important;
+}
+.homeBgDrk .rbc-header span {
+    color: #fff!important;
+}
+.homeBgDrk .rbc-today {
+    background-color: #404646 !important;
+}
+.calendar-cont {
+    font-size: 11px; 
+    margin: 0px; 
+    font-weight: 700;
+}
+.calendar-date {
+    font-size: 11px; 
+    margin: 0px; 
+    line-height: 12px;
+}
+.homeBgDrk .movMnth{
+    color: #9b9b9b!important;
+}
+.movMnth{
+    color: #D9DADA;
+}
+.darkTheme.meetBoxCntnt {
+    background-color: #404646;
+}
+.tooltip-container{
     background-color: transparent!important;
-    color: black!important;
-   }
+    border: none!important;
+    padding:0px!important;
+    border-radius:0px!important;
+}
+.darkTheme .react-date-picker__calendar .react-calendar, .darkTheme .detailQuesSub span{
+    background-color: #464646!important;
+}
+.homeBgDrk .ql-toolbar.ql-snow{
+    background-color: #c0c1c1!important;
+}
+.homeBgDrk .ql-editor {
+    color: #c0c0c0;
+}
+@media (max-width: 599px){
+.LanguageBoxMain {
+    width: 94% !important;
+  }
+}
+.homeBgDrk .profileId{
+    background-color: #606565;
+}
+.scndOptionIner1 ul li img {
+    margin-right: 12px;
+    width: 25px;
+}
+td.docphrImg {
+    display: flex;
+    align-items: center;
+}
+.profilMenuList ul li .react-toggle-track {
+    width: 37px;
+    height: 18px;
+}
+.profilMenuList ul li .react-toggle-thumb {
+    width: 16px;
+    height: 16px;
+}
+.profilMenuList ul li .react-toggle--checked .react-toggle-thumb {
+    left: 20px;
+}
+.MuiGrid-root.donarLang {
+    width: 100% !important;
+    max-width: 100%;
+    margin: 12px 0px;
+}
+.typeSel.comonSel .css-g1d714-ValueContainer {
+    display: block !important;
+    width: 100% !important;
+    overflow: initial !important;
+}
+.insureMe .MuiGrid-grid-xs-4:nth-child(2) {
+  text-align: center;
+}
+.insureMe .MuiGrid-grid-xs-4:last-child {
+    text-align: right;
+}
+.daySchedule .ant-picker, .nameSchedule .ant-picker {
+    margin-bottom: 0px !important;
+    width: 125px !important;
+    border: 1px solid #dfdfdf;
+    padding: 4px 2px 1px;
+}
+.daySchedule .ant-picker-clear {
+    position: absolute;
+    top: 36%;
+    right: -10px;
+}
+.nameSchedule .ant-picker-clear {
+    position: absolute;
+    top: 36%;
+    right: -43px;
+}
+.enableTogle .enblDate span {
+    padding: 0px !important;
+}
+label.attached_file a {
+    line-height: 18px;
+}
+.homeBgDrk .latestGrph rect.highcharts-background {
+    fill: #dadada !important;
+}
+.srchFilter .css-yk16xz-control {
+    background-color: transparent !important;
+    background: transparent !important;
+}
+.homeBgDrk {
+    min-height: 100vh;
+}
+.darkTheme .rrShwHidMain{
+    background-color: #404646 !important; 
+    border: 1px solid #F2F2F2 !important; 
+}
+.darkTheme a.visibleAllShw{
+    color: #BFC1C1 !important; 
+}
+.darkTheme .browsInput{
+    background-color: #404646 !important;
+    color: #BFC1C1 !important;
+}
+.darkTheme .ql-toolbar.ql-snow {
+    background-color: #949494 !important;
+}
+.darkTheme .quill {
+    background-color: #404646 !important;
+    color: #BFC1C1 !important;
+}
+.darkTheme .rrSysto .ant-picker {
+    background-color: #404646 !important;
+    color: #BFC1C1 !important;
+}
+.darkTheme .rrSysto .ant-picker input, .darkTheme .jmInfo a {
+    color: #BFC1C1 !important;
+}
+.darkTheme .shwAfter {
+    background-color: #202323;
+}
+.darkTheme .visibleAll {
+    background-color: #404646 !important;
+}
+.darkTheme .afterDate .ant-picker {
+    background-color: #404646 !important;
+    color: #BFC1C1 !important;
+}
+.darkTheme .afterDate .ant-picker input {
+    color: #BFC1C1 !important;
+}
+.MenuLeftDrkUpr .profilMenuList, .MenuLeftDrkUpr .moreMenuList {
+    border: 1px solid #dfdfdf !important;
+    background-color: #404646 !important;
+}
+.MenuLeftDrkUpr .profilMenuList li a,
+.MenuLeftDrkUpr .moreMenuList li a {
+    color: #BFC1C1 !important;
+}
+.MenuLeftDrkUpr .profilMenuList li a:hover {
+    color: #BFC1C1 !important;
+}
+@media screen and (min-width: 640px) and (max-width: 1200px){
+    .scndOpinionIner td.pivoted {
+        padding: 14px 9px !important;
+    }
+}
+.homeBgDrk .logForm input[type="text"], 
+.homeBgDrk .logForm input[type="password"],
+.homeBgDrk .registerRow input[type="text"], 
+.homeBgDrk .registerRow input[type="password"],
+.homeBgDrk .regMobNum input {
+    background-color: #404646 !important;
+    color: #BFC1C1 !important;
+    border: 1px solid #dfdfdf !important;
+}
+.homeBgDrk button#select_flag_button{
+    background: #b1b1b180;
+    min-height: 43px;
+    border-radius: 5px 0px 0px 5px;
+}
+.homeBgDrk .onProfessional a {
+    background-color: #404646!important;
+    color: #BFC1C1 !important;
+    font-weight: 400!important;
+    border: 1px solid #BFC1C1;
+}
+.wrkHourUpr .ant-picker-input {
+    width: 100% !important;
+}
+.MenuLeftUpr .MenuLeftUpr {
+    display: none;
+}
+.lessonTitleVdo iframe, .lessonTitleVdo video.VideoPlay {
+    width: 100% !important;
+}
+input#totalGpa {
+    border-radius: 4px !important;
+    border: solid 1px #f1f1f5 !important;
+    background-color: #fafafb !important;
+}
+input#graduationYear {
+    border-radius: 4px !important;
+    border: solid 1px #f1f1f5 !important;
+    background-color: #fafafb !important;
+}
 
-   .getCalBnr .movMnth img {
-       width: auto!important;
+/* ------------------------ */
+.chat-contact-list-ext-wrap .contact-thumbnail-wrap img {
+    width: 32px !important;
+    height: 32px !important;
+    border-color: #e8e8e8 !important;
+}
+.ccl-left-panel-srch-inpt-wrap {
+    padding: 0px 12px;
+}
+.ccl-left-panel-srch-wrap .ccl-left-panel-srch-inpt-wrap .search-btn {
+    left: 20px !important;
+    top: 9px !important;
+}
+.ccl-left-panel-srch-inpt-wrap input#chatSearch {
+    border-radius: 8px;
+    background-color: #F2F2F2;
+    border: none !important;
+    box-shadow: none !important;
+}
+.cc1-chat-win-user .cc1-chat-win-user-thumb img {
+    width: 36px !important;
+    height: 36px !important;
+}
+.cc1-chat-win-action-msg-wrap p.chat-txt-msg {
+    color: #00ABAF !important;
+}
+.ccl-center-panel.ccl-chat-center-panel .cc1-chat-win-conver-wrap {
+    padding: 5px 35px 5px 20px !important;
+}
+.inner.CreatChatInner {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.unified .ccl-center-panel .CreatChatInner p {
+    color: #BFC1C1 !important;
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 28px;
+    text-align: center;
+    margin-bottom: 0px !important;
+}
+.contact-listitem .contact-listitem-dtls {
+    padding: 0 3px 6px !important;
+}
+.homeBgDrk .ccl-left-panel.active {
+    background-color: #404646 !important;
+}
+.homeBgDrk .ccl-left-panel.active {
+    background-color: #404646 !important;
+    border-color: transparent !important;
+}
+.homeBgDrk .chat-contact-list-ext-wrap div {
+    background-color: #404646 !important;
+}
+.homeBgDrk .timeIconClas.place-top::before, 
+.homeBgDrk .timeIconClas.place-top::after{
+    border-top-color: #404646 !important;
+}
+.homeBgDrk .contact-listitem .contact-listitem-dtls .contact-listitem-name {
+    color: #D9DADA !important;
+}
+.homeBgDrk .chat-contact-list-ext-wrap .contact-thumbnail-wrap img {
+    border-color: #192020 !important;
+}
+.homeBgDrk .cc1-chat-win-header.clearfix, 
+.homeBgDrk .cc1-chat-win-conver-wrap, 
+.homeBgDrk .cc1-chat-win-inpt-ext-wrap {
+    background-color: #192020 !important;
+    background: #192020 !important;
+}
+.homeBgDrk .unified .ccl-left-panel {
+    background-color: #404646 !important;
+    border-right: #404646 !important;
+}
+.homeBgDrk .cc1-chat-win-inpt-int-wrap .cc1-chat-win-inpt-wrap .cc1-chat-win-inpt-box {
+    background-color: #404646 !important;
+    color: #D9DADA !important;
+}
+.homeBgDrk .cc1-chat-win-inpt-int-wrap span {
+    background-color: #404646 !important;
+}
+.homeBgDrk h6.cc1-chat-win-user-name {
+    color: #D9DADA !important;
+}
+.homeBgDrk .cc1-chat-win-inpt-attach span {
+    border-radius: 9px;
+}
+.homeBgDrk span.cc1-chat-win-inpt-send-btn {
+    background: transparent !important;
+    background-color: transparent !important;
+}
+.homeBgDrk span.cc1-chat-win-timestamp, 
+.homeBgDrk span.cc1-chat-win-timestamp {
+    color: #D9DADA !important;
+}
+.homeBgDrk .cc1-chat-win-header {
+    border-bottom: 1px solid #404646 !important;
+}
+.MenuLeftUpr {
+    min-height: 100vh;
+}
+.menuItems {
+    padding-bottom: 95px;
+}
+.unified .ccl-center-panel .CreatChatInner img {
+    margin: initial !important;
+}
+.entryBoxCntnt.SetWidthPopup iframe {
+    width: 100% !important;
+}
+.editBoxModel {
+    z-index: 99999999999 !important;
+}
+.selCalenderUpr .selTimeSlot .selTimeAM {
+    height: 328px;
+    overflow-y: scroll;
+}
+@media (min-width: 1466px){
+    .ccl-center-panel.ccl-chat-center-panel .cc1-chat-win-conver-wrap {
+        padding: 0px 5% !important;
+    }
+    .cc1-chat-win-inpt-ext-wrap{
+        padding: 0px 4% !important;
+    }
+}
+.srchdoseMg input::-webkit-input-placeholder { 
+    color: #676969;
+  }
+.srchdoseMg input::-moz-placeholder {
+    color: #676969;
+  }
+.srchdoseMg input:-ms-input-placeholder { 
+    color: #676969;
+  }
+.srchdoseMg input:-moz-placeholder { 
+    color: #676969;
+  }
+  .darkTheme .paraPatient input {
+    background: #404646 !important;
+    color: #BFC1C1 !important;
+}
+.rbc-day-slot .rbc-event {
+    width: 100% !important;
+    height: initial !important;
+}
+.homeBgDrk .presureDataGrph rect.highcharts-background {
+    fill: #404646 !important;
+}
+.homeBgDrk .presureDataGrph tspan {
+    color: #f2f2f2 !important;
+    fill: #f2f2f2 !important;
+}
+.neuroSection a img {
+    display: none;
+}
+.quill .ql-editor {
+    font-weight: 400 !important;
+    font-family: Muli !important;
+}
+.quill .ql-editor p {
+    font-weight: 400 !important;
+    font-family: Muli !important;
+}
+.homeBgDrk .scndOptionIner ul {
+    border: 1px solid #f2f2f2 !important;
+    background-color: #192020 !important;
+}
+.homeBgDrk .scndOptionIner ul li{
+    color: #bfc1c1 !important;
+    background-color: transparent !important;
+}
+.homeBgDrk .scndOptionIner ul li a {
+    color: #bfc1c1 !important;
+    background-color: transparent !important;
+}
+.homeBgDrk .profileInfoIner .css-1pahdxg-control{
+    color: #bfc1c1 !important;
+    background-color: transparent !important;
+}
+@media (max-width: 960px){
+  .cc1-chat-win-inpt-ext-wrap {
+    z-index: 999999 !important;
+    position: fixed !important;
+    bottom: 0;
+  }
+  .cc1-chat-win-header {
+    margin-top: 20px !important;
+  }
+}
+@media  screen and (min-width:768px) and (max-width:960px){
+    .cc1-chat-win-inpt-ext-wrap {
+        width: 67% !important;
+    }
+}
+.timeIconClas_crested {
+    background: #e1f7f7 !important;
+    opacity: initial !important;
+    z-index: 1 !important;
+}
+.timeIconClas_crested::after, 
+.timeIconClas_crested::before{
+    border-top-color: #e1f7f7 !important;
+    border-bottom-color: #e1f7f7 !important;
+}
+.passInstIner:after {
+    content: '';
+    position: absolute;
+    left: -22px;
+    top: 42px;
+    width: 0;
+    height: 0;
+    border-top: 13px solid transparent;
+    border-bottom: 13px solid transparent;
+    border-right: 13px solid #ffffff;
+}
+.passInstIner img.passArow {
+    display: none;
+}
+.homeBgDrk .passInst {
+    background-color: #192020;
+}
+.homeBgDrk .passInstIner:after {
+    border-right: 13px solid #192020;
+}
+.homeBgDrk .passInst p {
+    color: #BFC1C1 !important;
+}
+.homeBgDrk .passInst a {
+    color: #BFC1C1 !important;
+}
+.homeBgDrk .ant-picker {
+    border-radius: 4px !important;
+    background: transparent;
+    color: #BFC1C1 !important;
+    border: 1px solid #BFC1C1 !important;
+}
+.homeBgDrk .ant-picker input {
+    color: #bfc1c1!important;
+    background: transparent !important;
+    border: none !important;
+}
+.profileInfoDate a {
+    background: transparent !important;
+    border: 1px solid #d9d9d9 !important;
+}
+a.SelectedGender{
+    background-color: #00ABAF !important;
+    background: #00ABAF !important;
+    color: #FFFFFF !important;
+}
+.homeBgDrk .mkFmlyDoc .css-yk16xz-control {
+    background-color: #404646 !important;
+    color: #BFC1C1 !important;
+}
+.homeBgDrk .trstaddDocUpr {
+    background-color: #404646 !important;
+    border: 1px solid #d9d9d9 !important;
+}
+.homeBgDrk .css-yk16xz-control {
+    background-color: #404646 !important;
+    color: #BFC1C1 !important;
+}
+.homeBgDrk .neuroSection p {
+    color: #D9DADA !important;
+}
+.homeBgDrk .scndOptionIner1 ul {
+    border: 1px solid #696969 !important;
+    background-color: #192020 !important;
+}
+.homeBgDrk .scndOptionIner1 ul li a:hover {
+    background: transparent !important;
+    background-color: transparent !important;
+}
+.homeBgDrk .scndOptionIner1 ul li a {
+    color: #BFC1C1 !important;
+}
+.homeBgDrk .trstmkFmlyDoc label, .homeBgDrk .trstmkFmlyDoc p{
+    color: #BFC1C1 !important;
+}
+.homeBgDrk .inner.CreatChatInner {
+    background: #192020 !important;
+}
+.darkTheme > div:nth-child(3) .cntryLiv{
+    background: #202323 !important;
+}
+.darkTheme > div:nth-child(3) .cntryLiv p{
+    background: #202323 !important;
+    color: #D9DADA !important;
+}
+.darkTheme > div:nth-child(3) .cntryLiv::after {
+    border-right-color: #202323 !important;
+}
+.darkTheme > div:nth-child(3) .docHlth h2 {
+    color: #d1d2d2 !important;
+}
+.darkTheme > div:nth-child(3) .drsplestQues .css-yk16xz-control,
+.darkTheme > div:nth-child(3) .drsplestQues .css-1pahdxg-control,
+.darkTheme > div:nth-child(3) .medicnSub input[type="text"],
+.darkTheme > div:nth-child(3) .medicnSub textarea,
+.darkTheme > div:nth-child(3) .findDoctor input[type="text"]{
+    background-color: #404646 !important;
+    color: #BFC1C1 !important;
+}
+.openJourMenu a ul li:first-child {
+    margin-top: 0px;
+}
+.cnfrmDiaMain .fillDia div {
+    color: #000808;
+    font-family: Muli;
+}
+.slotTimDat .selTimeAM.suggent-time {
+    height: 130px;
+}
+.darkTheme > div:nth-child(3) .dataBoxInput input,
+.darkTheme > div:nth-child(3) .cntryDrop .css-yk16xz-control,
+.darkTheme > div:nth-child(3) .editPinform input[type="text"],
+.darkTheme > div:nth-child(3) .srchSrvc input {
+    background-color: #404646 !important;
+    color: #BFC1C1 !important;
+}
+.homeBgDrk .profileInfoIner input#react-select-3-input {
+    background-color: transparent !important;
+    background: transparent !important;
+}
+/* Start close button css */
+.dataCloseBtn a img {
+    width: 17px;
+}
+.dataCloseBtn a {
+    border: 1px solid #9fa2a2;
+    display: inline-flex;
+    padding: 5px 5px;
+    border-radius: 8px;
+    align-items: center;
+    justify-content: center;
+}
+/* End of close button css */
+.presureDataGrph g.highcharts-axis.highcharts-yaxis{
+    font-size: 15px !important;
+}
+.cntryLiv{
+    opacity: initial !important;
+    border: 1px solid #dfdfdf26;
+}
+.homeBgDrk .topicAll{
+    border: 1px solid #BFC1C1;
+    border-radius: 4px;
+}
+.darkTheme > div:nth-child(3) .crtCorList{
+    background-color: #0c1010;
+}
+.darkTheme > div:nth-child(3) .crtCorListLbl label, 
+.darkTheme > div:nth-child(3) .crtCorListPara p,
+.darkTheme > div:nth-child(3) .crtCorListTime a{
+    color: #BFC1C1 !important;
+}
+.darkTheme > div:nth-child(3) .locat_srvc input{
+    background-color: #0c10104a !important;
+    color: #D9DADA !important;
+}
+.darkTheme > div:nth-child(3) .dataBoxInput input::-webkit-input-placeholder{
+    color: #bfc1c1 !important;   
+}
+.darkTheme > div:nth-child(3) .dataBoxInput input::-moz-placeholder{
+    color: #bfc1c1 !important;   
+}
+.darkTheme > div:nth-child(3) .dataBoxInput input:-ms-input-placeholder{
+    color: #bfc1c1 !important;   
+}
+.darkTheme > div:nth-child(3) .dataBoxInput input:-moz-placeholder{ 
+    color: #bfc1c1 !important;   
+}
+.darkTheme > div:nth-child(3) .diaCD a{
+    background-color: #0c10104a !important;
+    color: #D9DADA !important;
+}
+.darkTheme > div:nth-child(3) .diaCD a:hover {
+    background-color: #00ABAF !important;
+    color: #fff !important;
+}
+.darkTheme > div:nth-child(3) a.diaCDActv {
+    background-color: #00ABAF !important;
+    color: #fff !important;
+}
+.homeBgDrk .topicAll .css-1pahdxg-control{
+    color: #bfc1c1 !important;
+    background-color: transparent !important;
+}
+.homeBgDrk .quill .ql-editor{
+    background: #404646 !important;
+    color: #BFC1C1 !important;
+}
+.homeBgDrk .timeIconClas_crested{
+    background-color: #192020 !important;
+    opacity: initial !important;
+}
+.homeBgDrk .timeIconClas_crested::after, 
+.homeBgDrk .timeIconClas_crested::before{
+    border-top-color: #192020 !important;
+    border-bottom-color: #192020 !important;
+}
+.homeBgDrk .timeIconClas_crested p{
+    color: #D9DADA !important;
+    margin-bottom: 5px !important;
+}
+.homeBgDrk input#chatSearch{
+    background: #a0a0a00d !important;
+    color: #BFC1C1 !important;
+    border: 1px solid #00adb8 !important;
+}
+.homeBgDrk .searchbyText{
+    background: #a0a0a00d !important;
+    color: #BFC1C1 !important;
+    border: 1px solid #BFC1C1 !important;
+}
+.passInst {
+    width: 210px !important;
+}
+.menuActv .profilMenu .profilMenuList img{
+    background: none !important;
+}
+.otherInfo .MuiGrid-spacing-xs-3{
+    margin-bottom: initial !important;
+}
+.darkTheme > div:nth-child(3) .srchdoseMg input,
+.darkTheme > div:nth-child(3) .srchKm input,
+.darkTheme > div:nth-child(3) .sel_specialty .css-yk16xz-control,
+.darkTheme > div:nth-child(3) .sel_specialty .css-1pahdxg-control,
+.darkTheme > div:nth-child(3) .delQues textarea{
+    background: #303737 !important;
+    color: #BFC1C1 !important; 
+}
+.darkTheme > div:nth-child(3) .srvcTags a{
+    background-color: #303737;
+    color: #D9DADA !important;
+}
+.darkTheme > div:nth-child(3) .srvcTags a.currentTab{
+    background-color: #E1F7F7 !important;
+    color: #00abaf !important;
+}
+.darkTheme > div:nth-child(3) .selTimeSlot a{
+    background: #303737 !important;
+    color: #BFC1C1 !important;
+}
+.darkTheme > div:nth-child(3) .invitLinkInfo .css-yk16xz-control,
+.darkTheme > div:nth-child(3) .invitLinkInfo .css-1pahdxg-control,
+.darkTheme > div:nth-child(3) .invitLinkInfo .css-b8ldur-Input,
+.darkTheme > div:nth-child(3) .invitLinkArea textarea{
+    background: #404646 !important;
+    color: #BFC1C1 !important;
+}
+.darkTheme > div:nth-child(3) .registerRow input[type="text"], 
+.darkTheme > div:nth-child(3) .registerRow input[type="password"],
+.darkTheme > div:nth-child(3) .regMobNum input{
+    background: #404646 !important;
+    color: #BFC1C1 !important;
+    border: 1px solid #BFC1C1 !important;
+}
+.darkTheme > div:nth-child(3) .invtBoxCntnt{
+    background: #404646 !important;
+    background-color: #404646 !important;
+}
+.delQuesBook a:last-child{
+    min-height: 48px;
+}
+.darkTheme > div:nth-child(3) .fitBitSection {
+    background-color: #4C5252 !important;
+}
+.darkTheme > div:nth-child(3) .mainLogoAdd a{
+    color: #d9dada !important;
+}
+.darkTheme > div:nth-child(3) .scanInputs input,
+.darkTheme > div:nth-child(3) .upScanInput,
+.darkTheme > div:nth-child(3) .scanInputs textarea{
+    background: #404646 !important;
+    color: #BFC1C1 !important;
+}
+.darkTheme > div:nth-child(3) .scamUPInput{
+    background: #404646 !important;
+    background-color: #404646 !important;
+}
+.darkTheme > div:nth-child(3) .shrtRejctMsg textarea{
+    background-color: #404646 !important;
+    background: #404646 !important;
+    color: #BFC1C1 !important;
+}
+/* .darkTheme > div:nth-child(3) .splestQues,  */
+.darkTheme > div:nth-child(3) .recevPrescp, 
+.darkTheme > div:nth-child(3) .yrProfes, 
+.darkTheme > div:nth-child(3) .attchForms{
+    color: #BFC1C1 !important;
+}
+.darkTheme > div:nth-child(3) .passInst{
+    background: #192020 !important;
+}
+.darkTheme > div:nth-child(3) .passInstIner:after{
+    border-right: 13px solid #192020 !important;
+}
+.darkTheme > div:nth-child(3) .passInst a{
+    color: #D9DADA !important;
+}
+.darkTheme > div:nth-child(3) .selTimeSlot a, 
+.darkTheme > div:nth-child(3) .suggent-time a{
+    border: 1px solid #BFC1C1 !important;
+    background-color: transparent !important;
+    color: #D9DADA !important;
+}
+.darkTheme > div:nth-child(3) .addBirthSlot .react-date-picker__wrapper{
+    background: #404646 !important;
+    color: #BFC1C1 !important;
+}
+.darkTheme > div:nth-child(3) .selTimeSlot a:hover, 
+.darkTheme > div:nth-child(3) .suggent-time a:hover, 
+.darkTheme > div:nth-child(3) .suggent-time a.current_selected{
+    background-color: #00ABAF !important;
+}
+.checkHelth a p{
+    width: 77%;
+    float: right;
+    margin-top: 7px;
+    margin-bottom: 0px;
+    padding-right: 4px;
+}
+.checkHelth span{
+    width: 18%;
+    float: left;
+}
+.homeBgDrk .cancelAppoint, .homeBgDrk .cancelAppoint a{
+    background-color: #323333 !important;
+}
+.homeBgDrk .cancelAppoint{
+    border: 1px solid #bfc1c1 !important;
+}
+.homeBgDrk .setSchedule input{
+    border-radius: 2px !important;
+    background: transparent;
+    color: #BFC1C1 !important;
+}
+.homeBgDrk .wrkHour a,
+.homeBgDrk .apontBook input{
+    background-color: #404646;
+    color: #FAFAFA !important;
+}
+.homeBgDrk .wrkHour a.seleted-days{
+    background-color: #00abaf !important;
+}
+.homeBgDrk a.prevpag{
+    color: #00ABAF !important;
+}
+.homeBgDrk .sortBySec label{
+    color: #FAFAFA !important;
+}
+.homeBgDrk .place-top.type-custom.timeIconClas, 
+.homeBgDrk .place-bottom.type-custom.timeIconClas{
+    background-color: #404646;
+}
+.homeBgDrk .place-top.type-custom.timeIconClas label, 
+.homeBgDrk .place-bottom.type-custom.timeIconClas label{
+    color: #D9DADA !important;
+}
+.homeBgDrk .place-top.type-custom.timeIconClas p, 
+.homeBgDrk .place-bottom.type-custom.timeIconClas p{
+    color: #BFC1C1 !important;
+}
+.homeBgDrk .place-bottom.type-custom.timeIconClas::after{
+    border-bottom-color: #404646 !important;
+}
+a.clsSltCal img {
+    width: 12px;
+}
+a.clsSltCal {
+    padding: 2px 2px;
+    right: 3px;
+    top: 3px;
+}
+.darkTheme > div:nth-child(3) .registerRow.regMobNum .flag-select ul.flag-select__options {
+    background-color: #202323;
+}
+.darkTheme > div:nth-child(3) .registerRow.regMobNum .flag-select__option:not(.flag-select__option--placeholder):hover, 
+.darkTheme > div:nth-child(3) .registerRow.regMobNum .flag-select__option:not(.flag-select__option--placeholder):focus{
+    outline: none;
+    background: #404646 !important;
+}
+.darkTheme > div:nth-child(3) .registerRow.regMobNum .flag-select__btn:after {
+    border-top: 3px solid #e8f0fe !important;
+}
+.cancelAppoint img{
+    width: 22px;
+    height: 22px;
+    border: none !important;
+}
+.homeBgDrk .unified .ccl-right-panel{
+    background: #192020 !important;
+}
+.MenuLeftDrkUpr .moreMenuList li a,
+.MenuLeftDrkUpr .profilMenuList li a{
+    display: flex;
+    align-items: flex-start;
+}
+.MenuLeftDrkUpr .moreMenuList li,
+.MenuLeftDrkUpr .profilMenuList li{
+    margin-bottom: 10px !important;
+}
+.MenuLeftDrkUpr .moreMenuList li:last-child,
+.MenuLeftDrkUpr .profilMenuList li:last-child{
+    margin-bottom: 0px ;
+}
+.MenuLeftDrkUpr .profilMenuList li:nth-child(3) a{
+    display: block !important;
+    align-items: initial !important;
+}
+.darkTheme > div:nth-child(3) .yrProfes input,
+.darkTheme > div:nth-child(3) .yrProfes textarea,
+.darkTheme > div:nth-child(3) .drsplestQues input[type="text"]{
+    background: #404646 !important;
+    color: #BFC1C1 !important;
+}
+.darkTheme > div:nth-child(3) .sncWhen a{
+    color: #D9DADA !important;
+    background-color: #202323;
+}
+.darkTheme > div:nth-child(3) .current_since_when{
+    background-color: #00ABAF !important;
+}
+.darkTheme span{
+    color: #D9DADA;
+}
+.darkTheme > div:nth-child(3) .hereConfirm .MuiFormControlLabel-label{
+    color: #D9DADA !important;
+}
+.homeBgDrk .cc1-chat-win-msg-block span.cc1-chat-win-timestamp img{
+    background: transparent !important;
+    border-radius: 18px !important;
+}
+
+/* Added by Satish for Float arrow */
+.floatArrowUp{
+    position:fixed;
+	width:50px;
+	height:50px;
+	bottom:20px;
+	right:20px;
+	background-color:rgb(79, 184, 184);
+	color:#FFF;
+	border-radius:20px;
+	text-align:center;
+    box-shadow: 2px 2px 3px #999;
+    padding-top: 10px;
+}
+.arrowIcon{
+    height: 18px;
+    color: rgb(31, 27, 27) !important;
+    z-index: 9999999999; 
+}
+.cancelAppoint a{
+    text-align: left;
+    display: flex;
+    line-height: 17px;
+}
+.ccl-call-ong-max-wrap .ccl-call-ong-max-header h6.ccl-call-ong-max-name{
+    margin-top: 18px;
+}
+.homeBgDrk .ccl-call-ong-max-wrap .ccl-call-ong-max-header h6.ccl-call-ong-max-name{
+    color: #D9DADA !important;
+}
+.homeBgDrk .cc1-chat-win-user-status{
+    color: #D9DADA !important;
+}
+.homeBgIner .wrkHourUpr .ant-picker span.ant-picker-clear{
+    background: transparent !important;
+}
+.homeBgDrk .ccl-center-panel.ccl-chat-center-panel{
+    background: #192020 !important;
+}
+.homeBgDrk h4.ccl-right-panel-head-ttl{
+    color: #D9DADA !important;
+}
+.docCntctMain p{
+    padding: 8px 16px 0;
+}
+.homeBgDrk .docCntctMain p{
+    color: #bfc1c1 !important;
+}
+.homeBgDrk .blockChainDtail1{
+    background-color: #404646 !important;
+}
+.homeBgDrk .blockChainUpr h2{
+    color: #D9DADA !important;
+}
+.homeBgDrk .blockChainUpr h2, .homeBgDrk .blockChainUpr div{
+    color: #D9DADA !important;
+}
+.darkTheme > div:nth-child(3) .MuiGrid-root.selTimeAM a.current_selected{
+    background-color: #00ABAF !important;
+}
+@media (max-width: 960px){
+  .journalAdd .MuiGrid-grid-xs-11.MuiGrid-grid-md-11{
+    margin: 0 auto;
+  }
+  .onlineCoursesList{
+    padding-left: 0px !important;
+  }
+}
+.getCalBnr .rbc-day-slot .rbc-event{
+    width: 100% !important;
+    height: initial !important;
+    padding: 1px 2px 0px;
+    flex-flow: initial !important;
+    min-height: initial !important;
+}
+.getCalBnr .rbc-event-content span.trigger{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.getCalBnr .rbc-event-content p.calendar-cont{
+    margin-right: 2px;
+}
+.trstmkFmlyDoc .MuiGrid-grid-md-5{
+    display: flex;
+}
+@media (max-width: 468px){
+    .ant-picker-dropdown .ant-picker-range-wrapper.ant-picker-date-range-wrapper{
+        min-width: initial !important;
+    }
+    .ant-picker-dropdown .ant-picker-panel-container{
+        width: 100% !important;
+    }
+    .ant-picker-dropdown .ant-picker-panel-container .ant-picker-panels{
+        display: inline-block !important;
+    }
+}
+.homeBgDrk .persBlodMesur path.highcharts-label-box.highcharts-tooltip-box{
+    fill: #192020 !important;
+}
+.darkTheme > div:nth-child(3) .rrSysto .css-1pahdxg-control{
+    color: #BFC1C1 !important;
+    background-color: transparent !important;
+}
+.darkTheme > div:nth-child(3) .rrSysto svg{
+    color: #dfdfdf;
+}
+.darkTheme .rrSysto input[type="text"],
+.darkTheme .rrSysto .css-yk16xz-control,
+.darkTheme .relexStressRght a{
+    background-color: #404646 !important;
+    color: #BFC1C1 !important;
+}
+.nwPresModel, .darkTheme, .opinBoxModel, .editBoxModel, .addScrollBar{
+    overflow-y: auto !important;
+}
+td.dotsImgColor span.revwRed{
+    float: left;
+}
+td.dotsImgColor.pivoted{
+    padding: 0px;
+}
+.profilMenuList ul li a .react-toggle{
+    margin-top: 12px !important;
+}
+.presOpinionIner .responsiveTable td:nth-child(2){
+    display: flex;
+    align-items: center;
+    padding: 17px 14px;
+}
+.presOpinionIner .responsiveTable td:nth-child(2) p{
+    margin-bottom: 0px;
+    padding-left: 6px;
+}
+.emrgncyFrmInpt button#select_flag_button{
+    min-height: 38px !important;
+}
+@media screen and (min-width: 960px) and (max-width: 1200px){
+  .docsOpinion{
+     margin-left: 25px !important;
+  }
+}
+@media (max-width: 959px){
+  .docsOpinRght{
+    text-align: left !important;
+  }
+  .AddEntrynw a{
+    min-width: initial !important;
+    margin-left: 0px !important;
+  }
+  .AddEntrynw{
+    text-align: left !important;
+  }
+  .journalAdd .MuiGrid-grid-xs-6{
+    max-width: 100% !important;
+    flex-basis: 100% !important;
+  }
+  .addBirthSlot .MuiGrid-root.MuiGrid-item.MuiGrid-grid-xs-6.MuiGrid-grid-md-6:first-child{
+    max-width: 55% !important;
+    flex-basis: 55% !important;
+  }
+ .addBirthSlot .MuiGrid-root.MuiGrid-item.MuiGrid-grid-xs-6.MuiGrid-grid-md-6:last-child{
+    max-width: 45% !important;
+    flex-basis: 45% !important;
+  }
+}
+.homeBgDrk .allTimeSel1 svg{
+    color: #dfdfdf !important;
+}
+.darkTheme > div:nth-child(3) .splestQues .css-1pahdxg-control:focus,
+.darkTheme > div:nth-child(3) .splestQues .css-1pahdxg-control{
+    background-color: #404646 !important;
+}
+.rbc-overlay{
+    background: #e0e0e0 !important;
+}
+.languageBox label img{
+    height: 14px;
+    width: 20px;
+    vertical-align: middle;
+    margin-right: 6px;
+}
+.languageBox input[type="radio"]{
+    cursor: pointer;
+}
+.dashBoxCntntScrol{
+    height: 475px;
+    overflow-y: scroll;
+    margin-right: 2px;
+}
+.homeBgDrk .docArund label{
+    color: #dadada !important;
+}
+.addBirthSlot .react-date-picker__inputGroup__month{
+    min-width: 33px !important;
+    font-size: 10px !important;
+}
+.addBirthSlot .react-date-picker__inputGroup__day{
+    min-width: 17px !important;
+    font-size: 10px !important;
+}
+.addBirthSlot .react-date-picker__inputGroup__year{
+    min-width: 45px !important;
+    font-size: 10px !important;
+}
+.addBirthSlot .react-date-picker__wrapper{
+    padding: 6px 0px !important;
+}
+.addBirthSlot .react-date-picker{
+    display: block !important;
+    width: 92% !important;
+}
+.addBirthSlot .react-date-picker__button{
+    padding: 0px 2px;
+}
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0px 1000px #ff000000 inset !important;
+}
+.homeBgDrk input:-webkit-autofill,
+.homeBgDrk input:-webkit-autofill:hover, 
+.homeBgDrk input:-webkit-autofill:focus,
+.homeBgDrk textarea:-webkit-autofill,
+.homeBgDrk textarea:-webkit-autofill:hover,
+.homeBgDrk textarea:-webkit-autofill:focus,
+.homeBgDrk select:-webkit-autofill,
+.homeBgDrk select:-webkit-autofill:hover,
+.homeBgDrk select:-webkit-autofill:focus {
+  -webkit-text-fill-color: #BFC1C1 !important;
+  -webkit-box-shadow: 0 0 0px 1000px #ff000000 inset !important;
+  transition: background-color 5000s ease-in-out 0s !important;
+}
+@media screen and (min-width: 641px) and (max-width: 768px){
+  .presOpinionIner td.pivoted{
+     padding: 14px 5px !important;
    }
+  .docOpinionIner td.pivoted{
+     padding: 14px 9px !important;
+     font-size: 11px !important;
+   }
+}
+@media (max-width: 599px){
+  .presSrch{
+    text-align: left !important;
+   }  
+  .presSrch a{
+    margin-top: 17px !important;
+    margin-bottom: 12px !important;
+  }
+}
+@media (max-width: 959px){
+   .presSrch a{
+     margin-top: 17px !important;
+     margin-bottom: 12px !important;
+   }
+   .showSubject h3{
+     font-size: 13px !important;
+     line-height: 20px !important;
+   }
+   .apointUpcom{
+     min-height: initial !important;
+   }
+   .clear_filterRght{
+     width: 30%;
+     padding-right: 8px;
+     text-align: right;
+   }
+   .clear_filterUpr{
+     padding-top: 12px;
+   }
+   .descpCntntRght, .descpCntntRght2{
+     width: 100% !important;
+     max-width: 100% !important;
+     flex-basis: 100% !important;
+   }
+   .descpCntnt2{
+     display: block !important;
+   }
+   .descpCntntLft2{
+     width: 100% !important;
+     max-width: 100% !important;
+     flex-basis: 100% !important;
+    }
+    .descpCntntLft2 a{
+     width: 130px !important;
+     margin: 0 auto !important;
+     margin-bottom: 18px !important;
+     display: block !important;
+    }
+    .descpCntntLft2 a span{
+     display: inline-block;
+     margin-top: -2px;
+     vertical-align: middle;
+     margin-left: 10px;
+    }
+    .emrgncyDataUpr{
+     padding-left: 0px !important;
+     padding-top: 0px !important;
+     padding: 30px 24px !important;
+    }
+    .journalAdd .MuiGrid-grid-xs-11.MuiGrid-grid-md-11{
+     max-width: 100% !important;
+     flex-basis: 100% !important;
+    }
+    .journalAdd{
+     margin-top: 0px !important;
+     margin-bottom: 15px !important;
+    }
+    .profilePkg{
+     margin-left: 8px !important;
+     margin-right: 8px !important;
+     margin-top: 14px !important;
+   }
+}
+@media screen and (min-width: 460px) and (max-width: 959px){
+ .srchFilter .ant-picker-range.allTimeSel1.comonSel{
+    width: 98.7% !important;
+  }
+}
+@media (max-width: 459px){
+  .srchFilter .ant-picker-range.allTimeSel1.comonSel{
+    width: 98.3% !important;
+  }
+  .slotBoxCntnt{
+    width: 98% !important;
+  }
+  .slotTimDat{
+    padding: 18px 2px !important;
+  }
+}
+@media (min-width: 960px){
+.rghtSideSpc{
+    padding-right: 10px;
+  }
+}
+@media (max-width: 960px){
+ .selCalender{
+   width: 100% !important;
+  }
+  .selCalenderUpr{
+    display: block !important;
+  }
+  .selCalenderUpr .selTimeSlot .selTimeAM{
+    height: 110px !important;
+  }
+  .selTimeSlot{
+    margin-left: 0px !important;
+    margin-right: 0px !important;
+    width: 98% !important;
+    margin: 0 auto !important;
+    border: 1px solid #F2F2F2;
+    padding: 0px !important;
+  }
+  .delQues{
+    padding: 8px 8px 8px 8px !important;
+    width: 100% !important;
+  }
+  .delQuesBook{
+    margin-top: 5px !important;
+  }
+  .delQues textarea{
+    height: 135px !important;
+  }
+  .slotBoxMain{
+    margin-top: 10px !important;
+  }
+  .delQuesBook a:first-child{
+    margin-right: 3px;
+  }
+  .delQuesBook a:last-child{
+    margin-left: 3px;
+  }
+  .extraSrvcUpr{
+    padding-left: 24px !important;
+  }
+  .presBoxCntnt{
+    width: 98% !important;
+    margin-top: 8px !important;
+  }
+  .medicInqUpr{
+    /* height: 440px !important; */
+    padding: 8px !important;
+  }
+  .prescripList input{
+    margin-bottom: 0px !important;
+  }
+  .presCourse{
+    padding: 8px 12px 8px 12px !important;
+  }
+  .meetBoxCntnt{
+    width: 100% !important;
+  }
+}
+@media (min-width: 641px){
+ .presOpinionIner td.pivoted{
+    padding: 12px 8px !important;
+  }
+  a.openScndhrf{
+    text-align: left !important;
+  }
+}
+@media screen and (min-width: 768px) and (max-width: 959px){
+  .cc1-chat-win-conver-wrap{
+    height: calc(92vh - 132px) !important;
+  }
+}
+.updatedfileuploader{
+    align-items: center;
+    margin-top: 8px;
+}
+.updatedfileMid{
+    padding-left: 6px;
+}
+.updatedfileRght{
+    text-align: right;
+}
+.findpatientReq a{
+    margin-left: 12px;
+}
+.darktheme .meetDetail p{
+    color: #e6e6e6 !important;
+}
+.profileInfoDate .ant-picker {
+    margin-bottom: 0px !important;
+}
+

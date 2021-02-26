@@ -28,6 +28,7 @@ import {
   getDate,
   getImage,
   getSpec,
+  timeDiffCalc
 } from "Screens/Components/BasicMethod/index";
 import { Redirect, Route } from "react-router-dom";
 import LeftMenu from "../../Components/Menus/PatientLeftMenu/index";
@@ -550,7 +551,8 @@ class Index extends Component {
     {
       if(this.state.cancelappoint.start_time)
       {
-        var timedifference1 = parseInt((this.state.cancelappoint.start_time.split(":"))[0]) - currentDate.getHours();
+        timedifference = timedifference.setHours(parseInt((this.state.cancelappoint.start_time.split(":"))[0]), parseInt((this.state.cancelappoint.start_time.split(":"))[1]))
+        var timedifference1 = timeDiffCalc(currentDate, new Date(timedifference))
         this.setState({ loaderImage: true });
         axios
         .post(
