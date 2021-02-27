@@ -42,3 +42,7 @@ export const GET_OptionList_FAIL = "GET_OptionList_FAIL";
 export const GET_OptionList_SUCCESS = "GET_OptionList_SUCCESS";
 
 export const SET_AUTH_REDIRECT_PATH = "SET_AUTH_REDIRECT_PATH";
+
+export const GET_JOURNAL_REQUEST = "GET_JOURNAL_REQUEST";
+export const GET_JOURNAL_FAIL  = "GET_JOURNAL_FAIL";
+export const GET_JOURNAL_SUCCESS  = "GET_JOURNAL_SUCCESS";

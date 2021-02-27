@@ -13107,6 +13107,20 @@ a.academy_ul ul li img {
 
 
 /*Added By ankita*/
+.conPain_num, .bp_hg, .icd_num{
+    min-height: 30px;
+}
+.timelineGap .Collapsible{
+    position: relative;
+}
+.timelineGap .Collapsible__trigger svg{
+    position: absolute;
+    right: 4%;
+    top: -30px;
+}
+.homeBgDrk .Collapsible__trigger svg{
+    color : #D9DADA !important
+}
 .sortBySec .react-toggle{
     margin: 0px 30px 0px 12px;
 }

@@ -2,12 +2,13 @@ import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
 import Collapsible from "react-collapsible";
 import ReactTooltip from "react-tooltip";
-import { getDate, newdate, getTime, getImage } from "Screens/Components/BasicMethod/index";
+import { getDate, newdate, getImage } from "Screens/Components/BasicMethod/index";
 import DownloadFullTrack from "Screens/Components/DownloadFullTrack/index.js";
 import FileViews from "./../FileViews/index";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import { Settings } from "Screens/Login/setting";
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import { LanguageFetchReducer } from "Screens/actions";
 import {
   translationAR,
@@ -33,9 +34,7 @@ class Index extends Component {
       loggedinUser: this.props.loggedinUser,
       images: this.props.images,
       TrackRecord: this.props.TrackRecord,
-      onlyOverview: this.props.settings?.setting?.onlyOverview
-      ? this.props.settings?.setting?.onlyOverview
-      : false,
+      onlyOverview: this.props.onlyOverview
     };
   }
 
@@ -55,7 +54,11 @@ class Index extends Component {
     if (prevProps.TrackRecord !== this.props.TrackRecord) {
       this.setState({ TrackRecord: this.props.TrackRecord });
     }
+    if (prevProps.onlyOverview !== this.props.onlyOverview) {
+      this.setState({ onlyOverview: this.props.onlyOverview});
+    }
   };
+
 
   render() {
     var item = this.state.item;
@@ -321,7 +324,6 @@ class Index extends Component {
               </Grid>
               <Grid className="clear"></Grid>
             </Grid>
-
             <Grid className="bp_hg addSpc">
               <label>
                 {item.file_content && item.file_content}
@@ -330,89 +332,93 @@ class Index extends Component {
               {/* <p>Normal</p> */}
             </Grid>
 
-           
-            {!this.state.onlyOverview && <Grid>
-              <Grid container direction="row" className="addSpc bpJohnMain">
-                <Grid item xs={12} md={12}>
-                  <Grid className="bpJohnImg">
-                    <a data-tip data-for={item.track_id + "created"}>
-                      <img
-                        src={getImage(item.created_by_image, this.state.images)}
-                        alt=""
-                        title=""
-                      />
-                      <span>{item.created_by_temp}</span>
-                    </a>
-                    <ReactTooltip
-                      className="timeIconClas_crested"
-                      id={item.track_id + "created"}
-                      place="top"
-                      effect="solid"
-                      backgroundColor="#ffffff"
-                    >
-                      <p>{item.created_by_temp}</p>
-                      <p>{item.created_by_profile}</p>
-                      <p>
+            <Collapsible trigger={<ExpandMoreIcon />} 
+              triggerWhenOpen ={<ExpandLessIcon />}    
+              open={!this.state.onlyOverview}>
+              {<Grid>
+                <Grid container direction="row" className="addSpc bpJohnMain">
+                  <Grid item xs={12} md={12}>
+                    <Grid className="bpJohnImg">
+                      <a data-tip data-for={item.track_id + "created"}>
                         <img
                           src={getImage(item.created_by_image, this.state.images)}
                           alt=""
                           title=""
                         />
-                      </p>
-                    </ReactTooltip>
+                        <span>{item.created_by_temp}</span>
+                      </a>
+                      <ReactTooltip
+                        className="timeIconClas_crested"
+                        id={item.track_id + "created"}
+                        place="top"
+                        effect="solid"
+                        backgroundColor="#ffffff"
+                      >
+                        <p>{item.created_by_temp}</p>
+                        <p>{item.created_by_profile}</p>
+                        <p>
+                          <img
+                            src={getImage(item.created_by_image, this.state.images)}
+                            alt=""
+                            title=""
+                          />
+                        </p>
+                      </ReactTooltip>
+                    </Grid>
                   </Grid>
+                  <Grid className="clear"></Grid>
                 </Grid>
-                <Grid className="clear"></Grid>
-              </Grid>
-              <Grid className="addSpc detailMark">
-                <Collapsible trigger={details} open="true">
-                  <Grid className="detailCntnt">
-                    <Grid container direction="row">
-                      <Grid item xs={12} md={6} className="bloodPreBy">
-                        <Grid container direction="row">
-                          <Grid item xs={5} md={5}>
-                            <label>{title}</label>
+                <Grid className="addSpc detailMark">
+                  <Collapsible trigger={details} open="true">
+                    <Grid className="detailCntnt">
+                      <Grid container direction="row">
+                        <Grid item xs={12} md={6} className="bloodPreBy">
+                          <Grid container direction="row">
+                            <Grid item xs={5} md={5}>
+                              <label>{title}</label>
+                            </Grid>
+                            <Grid item xs={7} md={7}>
+                              <span>{item.file_content && item.file_content}</span>
+                            </Grid>
+                            <Grid className="clear"></Grid>
                           </Grid>
-                          <Grid item xs={7} md={7}>
-                            <span>{item.file_content && item.file_content}</span>
-                          </Grid>
-                          <Grid className="clear"></Grid>
                         </Grid>
-                      </Grid>
-                      <Grid item xs={12} md={6} className="painTypeBy">
-                        <Grid container direction="row">
-                          <Grid item xs={5} md={5}>
-                            <label>{Date_of_event}</label>
+                        <Grid item xs={12} md={6} className="painTypeBy">
+                          <Grid container direction="row">
+                            <Grid item xs={5} md={5}>
+                              <label>{Date_of_event}</label>
+                            </Grid>
+                            <Grid item xs={7} md={7}>
+                              <span>
+                                {item.event_date &&
+                                  getDate(item.event_date, this.state.date_format)}
+                              </span>
+                            </Grid>
+                            <Grid className="clear"></Grid>
                           </Grid>
-                          <Grid item xs={7} md={7}>
-                            <span>
-                              {item.event_date &&
-                                getDate(item.event_date, this.state.date_format)}
-                            </span>
-                          </Grid>
-                          <Grid className="clear"></Grid>
                         </Grid>
                       </Grid>
                     </Grid>
-                  </Grid>
+                  </Collapsible>
+                </Grid>
+                <Grid className="addSpc detailMark">
+                  <Collapsible trigger={notes} open="true">
+                    <Grid className="detailCntnt">
+                      <p dangerouslySetInnerHTML={{ __html: item.remarks }} />
+                    </Grid>
+                  </Collapsible>
+                </Grid>
+                <Grid className="addSpc detailMark">
+                <Collapsible trigger={img_files} open="true">
+                  <FileViews
+                    images={this.state.images}
+                    attachfile={item.attachfile}
+                  />.
                 </Collapsible>
               </Grid>
-              <Grid className="addSpc detailMark">
-                <Collapsible trigger={notes} open="true">
-                  <Grid className="detailCntnt">
-                    <p dangerouslySetInnerHTML={{ __html: item.remarks }} />
-                  </Grid>
-                </Collapsible>
-              </Grid>
-              <Grid className="addSpc detailMark">
-              <Collapsible trigger={img_files} open="true">
-                <FileViews
-                  images={this.state.images}
-                  attachfile={item.attachfile}
-                />.
-              </Collapsible>
-            </Grid>
-          </Grid>}
+            </Grid>}                     
+          </Collapsible>
+           
           </Grid>
         </Grid>
       </Grid>
@@ -422,12 +428,10 @@ class Index extends Component {
 
 const mapStateToProps = (state) => {
   const { stateLanguageType } = state.LanguageReducer;
-  const { settings } = state.Settings;
   return {
     stateLanguageType,
-    settings
   };
 };
 export default pure(withRouter(
-  connect(mapStateToProps, { LanguageFetchReducer, Settings })(Index)
+  connect(mapStateToProps, { LanguageFetchReducer })(Index)
 ));

@@ -12,6 +12,8 @@ import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { GetShowLabel1 } from "../../GetMetaData/index.js";
 import { LanguageFetchReducer } from "Screens/actions";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import ExpandLessIcon from "@material-ui/icons/ExpandLess";
 import {
   translationAR,
   translationSW,
@@ -37,6 +39,7 @@ class Index extends Component {
       images: this.props.images,
       gender: this.props.gender,
       TrackRecord: this.props.TrackRecord,
+      onlyOverview: this.props.onlyOverview,
     };
   }
 
@@ -55,6 +58,9 @@ class Index extends Component {
     }
     if (prevProps.TrackRecord !== this.props.TrackRecord) {
       this.setState({ TrackRecord: this.props.TrackRecord });
+    }
+    if (prevProps.onlyOverview !== this.props.onlyOverview) {
+      this.setState({ onlyOverview: this.props.onlyOverview });
     }
   };
 
@@ -99,20 +105,14 @@ class Index extends Component {
     }
     let {
       visible,
-      feeling,
       show,
-      date,
-      time,
       hide,
       until,
       archive,
-      temparture,
       pain_type,
       pain_quality,
       edit,
       Delete,
-      RR_diastolic,
-      heart_rate,
       always,
       Download,
       img_files,
@@ -120,10 +120,8 @@ class Index extends Component {
       details,
       Date_of_event,
       Change,
-      Location,
       visibility,
       de_archive,
-      covid_diary,
       pain_areas,
       not_mentioned,
       condition_pain,
@@ -350,6 +348,13 @@ class Index extends Component {
               </p>
             </Grid>
 
+            <Collapsible
+              trigger={<ExpandMoreIcon />}
+              triggerWhenOpen={<ExpandLessIcon />}
+              open={!this.state.onlyOverview}
+            >
+              {
+                <Grid>
             <Grid container direction="row" className="addSpc conPain_Cntnt">
               <Grid item xs={12} md={5}>
                 <Grid className="conPain_Img">
@@ -512,6 +517,8 @@ class Index extends Component {
                 />
               </Collapsible>
             </Grid>
+            </Grid>}
+            </Collapsible>
           </Grid>
         </Grid>
       </Grid>

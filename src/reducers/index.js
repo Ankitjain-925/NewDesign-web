@@ -12,6 +12,7 @@ import Fitbit from "./fitbit";
 import Withings from "./withing";
 import Doctorarrays from "./doctorarray";
 import OptionList from "./optionList";
+import overView from "./journalView";
 
 const allReducers = combineReducers({
   //signupReducer: signupReducer,
@@ -29,6 +30,7 @@ const allReducers = combineReducers({
   Fitbit: Fitbit,
   Withings: Withings,
   OptionList: OptionList,
+  overView:overView,
 });
 
 export default allReducers;

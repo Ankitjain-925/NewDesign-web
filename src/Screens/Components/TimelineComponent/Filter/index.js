@@ -7,7 +7,7 @@ import { connect } from "react-redux";
 import axios from "axios";
 import sitedata from "sitedata";
 import { LoginReducerAim } from "Screens/Login/actions";
-import { Settings } from "Screens/Login/setting";
+import { overView } from "Screens/Login/journalviewaction";
 import { LanguageFetchReducer } from "Screens/actions";
 import {
   translationAR,
@@ -35,9 +35,7 @@ class FilterSec extends Component {
       selectFacility: [],
       time_range: [],
       isTest: false,
-      onlyOverview: this.props.settings?.setting?.onlyOverview
-        ? this.props.settings?.setting?.onlyOverview
-        : false,
+      onlyOverview: this.props.Overview
     };
   }
 
@@ -108,7 +106,12 @@ class FilterSec extends Component {
         if(responce.data.hassuccessed && responce.data.data)
         {
             this.setState({onlyOverview : responce.data.data.onlyOverview})
-            this.props.Settings(responce.data.data); 
+            if(responce?.data?.data?.onlyOverview){
+              this.props.overView(responce?.data?.data?.onlyOverview);
+            }
+            else{
+              this.props.overView(false);
+            }
         }
         else{
             this.props.Settings({user_id : this.props.stateLoginValueAim.user._id}); 
@@ -500,7 +503,7 @@ const mapStateToProps = (state) => {
     stateLoginValueAim,
     loadingaIndicatoranswerdetail,
   } = state.LoginReducerAim;
-  const { settings } = state.Settings;
+  const { Overview } = state.overView;
 
   return {
     stateLanguageType,
@@ -508,11 +511,11 @@ const mapStateToProps = (state) => {
     loadingaIndicatoranswerdetail,
     stateLoginValueAim,
     loadingaIndicatoranswerdetail,
-    settings,
+    Overview,
   };
 };
 export default withRouter(
-  connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer, Settings })(
+  connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer, overView })(
     FilterSec
   )
 );

@@ -21,6 +21,8 @@ import {
   translationPT,
   translationFR
 } from "translations/index"
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import ExpandLessIcon from "@material-ui/icons/ExpandLess";
 import { pure } from "recompose";
 class Index extends Component {
   constructor(props) {
@@ -33,6 +35,7 @@ class Index extends Component {
       loggedinUser: this.props.loggedinUser,
       images: this.props.images,
       TrackRecord: this.props.TrackRecord,
+      onlyOverview: this.props.onlyOverview,
     };
   }
 
@@ -51,6 +54,9 @@ class Index extends Component {
     }
     if (prevProps.TrackRecord !== this.props.TrackRecord) {
       this.setState({ TrackRecord: this.props.TrackRecord });
+    }
+    if (prevProps.onlyOverview !== this.props.onlyOverview) {
+      this.setState({ onlyOverview: this.props.onlyOverview });
     }
   };
 
@@ -100,7 +106,6 @@ class Index extends Component {
       hide,
       show,
       Date_of_event,
-      doc_visit,
       details,
       img_files,
       always,
@@ -108,42 +113,14 @@ class Index extends Component {
       date_of_death,
       date_of_dieses_patient,
       dob,
-      day_doc_visit,
       gender_of_relatives,
       relation_of_relative,
       Change,
-      speciality,
-      traveled,
-      slct_ICD_serch_code,
-      when,
-      to,
-      allergy,
-      enter_code_serch_by_keyword,
-      dignose,
-      of,
       until,
       archive,
-      rr_systolic,
-      attachments,
-      time_measure,
-      date_measure,
-      date,
-      time,
-      confirm_diag,
-      emergancy_dignosis,
-      trvl_diagnosis,
-      disease_name,
-      doc_name,
-      doc_id,
       family_anmnies,
-      diagnosed,
-      by,
+      disease_name,
       notes,
-      save_entry,
-      emergency,
-      diagnosis,
-      review,
-      on,
       not_mentioned,
       de_archive,
     } = translate;
@@ -361,6 +338,13 @@ class Index extends Component {
               {/* <p>Normal</p> */}
             </Grid>
 
+            <Collapsible
+              trigger={<ExpandMoreIcon />}
+              triggerWhenOpen={<ExpandLessIcon />}
+              open={!this.state.onlyOverview}
+            >
+              {
+                <Grid>
             <Grid container direction="row" className="addSpc bpJohnMain">
               <Grid item xs={12} md={12}>
                 <Grid className="bpJohnImg">
@@ -522,6 +506,8 @@ class Index extends Component {
                 />
               </Collapsible>
             </Grid>
+            </Grid>}
+            </Collapsible>
           </Grid>
         </Grid>
       </Grid>

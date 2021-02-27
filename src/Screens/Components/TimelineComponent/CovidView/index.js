@@ -6,11 +6,18 @@ import FileViews from "./../FileViews/index";
 import Condition from "Screens/Components/Condition/index";
 import PainPoint from "Screens/Components/PointPain/index";
 import PainIntensity from "Screens/Components/PainIntansity/index";
-import { getDate, newdate, getTime, getImage } from "Screens/Components/BasicMethod/index";
+import {
+  getDate,
+  newdate,
+  getTime,
+  getImage,
+} from "Screens/Components/BasicMethod/index";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import DownloadFullTrack from "Screens/Components/DownloadFullTrack/index.js";
 import { LanguageFetchReducer } from "Screens/actions";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import ExpandLessIcon from "@material-ui/icons/ExpandLess";
 import {
   translationAR,
   translationSW,
@@ -21,8 +28,8 @@ import {
   translationDE,
   translationCH,
   translationPT,
-  translationFR
-} from "translations/index"
+  translationFR,
+} from "translations/index";
 import { pure } from "recompose";
 class Index extends Component {
   constructor(props) {
@@ -36,6 +43,7 @@ class Index extends Component {
       images: this.props.images,
       gender: this.props.gender,
       TrackRecord: this.props.TrackRecord,
+      onlyOverview: this.props.onlyOverview,
     };
   }
 
@@ -54,6 +62,9 @@ class Index extends Component {
     }
     if (prevProps.TrackRecord !== this.props.TrackRecord) {
       this.setState({ TrackRecord: this.props.TrackRecord });
+    }
+    if (prevProps.onlyOverview !== this.props.onlyOverview) {
+      this.setState({ onlyOverview: this.props.onlyOverview });
     }
   };
 
@@ -94,17 +105,10 @@ class Index extends Component {
         translate = translationEN.text;
     }
     let {
-      selct_pain_area,
-      attachments,
       O2Saturation,
-      Whereyouarelocated,
-      symp_notes,
       notes,
       visible,
-      feeling,
       show,
-      date,
-      time,
       hide,
       until,
       archive,
@@ -112,8 +116,6 @@ class Index extends Component {
       Date_of_event,
       edit,
       Delete,
-      RR_diastolic,
-      heart_rate,
       always,
       Download,
       details,
@@ -340,158 +342,190 @@ class Index extends Component {
               </label>
             </Grid>
 
-            <Grid container direction="row" className="addSpc conPain_Cntnt">
-              <Grid item xs={12} md={5}>
-                <Grid className="conPain_Img">
-                  <a data-tip data-for={item.track_id + "created"}>
-                    <img
-                      src={getImage(item.created_by_image, this.state.images)}
-                      alt=""
-                      title=""
-                    />
-                    <span>{item.created_by_temp}</span>
-                  </a>
-                  <ReactTooltip
-                    className="timeIconClas_crested"
-                    id={item.track_id + "created"}
-                    place="top"
-                    effect="solid"
-                    backgroundColor="#ffffff"
+            <Collapsible
+              trigger={<ExpandMoreIcon />}
+              triggerWhenOpen={<ExpandLessIcon />}
+              open={!this.state.onlyOverview}
+            >
+              {
+                <Grid>
+                  <Grid
+                    container
+                    direction="row"
+                    className="addSpc conPain_Cntnt"
                   >
-                    <p>{item.created_by_temp}</p>
-                    <p>{item.created_by_profile}</p>
-                    <p>
-                      <img
-                        src={getImage(item.created_by_image, this.state.images)}
-                        alt=""
-                        title=""
-                      />
-                    </p>
-                  </ReactTooltip>
-                </Grid>
-              </Grid>
-              <Grid item xs={12} md={7}>
-                {/* <Grid className="conPain_MDCImg">
+                    <Grid item xs={12} md={5}>
+                      <Grid className="conPain_Img">
+                        <a data-tip data-for={item.track_id + "created"}>
+                          <img
+                            src={getImage(
+                              item.created_by_image,
+                              this.state.images
+                            )}
+                            alt=""
+                            title=""
+                          />
+                          <span>{item.created_by_temp}</span>
+                        </a>
+                        <ReactTooltip
+                          className="timeIconClas_crested"
+                          id={item.track_id + "created"}
+                          place="top"
+                          effect="solid"
+                          backgroundColor="#ffffff"
+                        >
+                          <p>{item.created_by_temp}</p>
+                          <p>{item.created_by_profile}</p>
+                          <p>
+                            <img
+                              src={getImage(
+                                item.created_by_image,
+                                this.state.images
+                              )}
+                              alt=""
+                              title=""
+                            />
+                          </p>
+                        </ReactTooltip>
+                      </Grid>
+                    </Grid>
+                    <Grid item xs={12} md={7}>
+                      {/* <Grid className="conPain_MDCImg">
                                             <a><img src={require('assets/images/hLogo.jpg')} alt="" title="" />
                                                 <span>Illinois Masonic Medical Center</span>
                                             </a>
                                         </Grid> */}
-              </Grid>
-              <Grid className="clear"></Grid>
-            </Grid>
-
-            <Grid container direction="row" className="addSpc conPainGraph">
-              <Grid item xs={12} md={5}>
-                <Grid className="conPainLft">
-                  <Grid className="conPainArea">
-                    <label>{pain_areas}</label>
-                  </Grid>
-                  <PainPoint
-                    id={item.track_id}
-                    gender={this.state.gender}
-                    painPoint={item.painPoint}
-                    isView={true}
-                  />
-                </Grid>
-              </Grid>
-              <Grid item xs={12} md={7}>
-                <Grid className="conPainRght">
-                  <Grid className="painIntencty">
-                    <PainIntensity
-                      name="pains"
-                      Forview={true}
-                      onChange={(e) => this.props.updateEntryState(e)}
-                      value={Math.round(item.pains)}
-                    />
+                    </Grid>
+                    <Grid className="clear"></Grid>
                   </Grid>
 
-                  <Grid className="condIntencty">
-                    <Condition
-                      name="conditions"
-                      Forview={true}
-                      onChange={(e) => this.props.updateEntryState(e)}
-                      value={Math.round(item.conditions)}
-                    />
-                  </Grid>
-                </Grid>
-              </Grid>
-              <Grid className="clear"></Grid>
-            </Grid>
+                  <Grid
+                    container
+                    direction="row"
+                    className="addSpc conPainGraph"
+                  >
+                    <Grid item xs={12} md={5}>
+                      <Grid className="conPainLft">
+                        <Grid className="conPainArea">
+                          <label>{pain_areas}</label>
+                        </Grid>
+                        <PainPoint
+                          id={item.track_id}
+                          gender={this.state.gender}
+                          painPoint={item.painPoint}
+                          isView={true}
+                        />
+                      </Grid>
+                    </Grid>
+                    <Grid item xs={12} md={7}>
+                      <Grid className="conPainRght">
+                        <Grid className="painIntencty">
+                          <PainIntensity
+                            name="pains"
+                            Forview={true}
+                            onChange={(e) => this.props.updateEntryState(e)}
+                            value={Math.round(item.pains)}
+                          />
+                        </Grid>
 
-            <Grid className="addSpc detailMark">
-              <Collapsible trigger={details} open="true">
-                <Grid>
-                  <Grid container direction="row">
-                    <Grid item xs={12} md={6} className="painTypeBy">
-                      <Grid container direction="row">
-                        <Grid item xs={5} md={5}>
-                          <label>{temparture}</label>
+                        <Grid className="condIntencty">
+                          <Condition
+                            name="conditions"
+                            Forview={true}
+                            onChange={(e) => this.props.updateEntryState(e)}
+                            value={Math.round(item.conditions)}
+                          />
                         </Grid>
-                        <Grid item xs={7} md={7}>
-                          <span>
-                            {item.temprature && item.temprature}{" "}
-                            {item.temprature_type && item.temprature_type.label}
-                          </span>
-                        </Grid>
-                        <Grid className="clear"></Grid>
-                      </Grid>
-                    </Grid>
-                    <Grid item xs={12} md={6} className="painTypeBy">
-                      <Grid container direction="row">
-                        <Grid item xs={5} md={5}>
-                          <label>{O2Saturation}</label>
-                        </Grid>
-                        <Grid item xs={7} md={7}>
-                          <span>{item.saturaion && item.saturaion}</span>
-                        </Grid>
-                        <Grid className="clear"></Grid>
-                      </Grid>
-                    </Grid>
-                    <Grid item xs={12} md={6} className="painTypeBy">
-                      <Grid container direction="row">
-                        <Grid item xs={5} md={5}>
-                          <label>{Location}</label>
-                        </Grid>
-                        <Grid item xs={7} md={7}>
-                          <span>{item.country && item.country.label}</span>
-                        </Grid>
-                        <Grid className="clear"></Grid>
-                      </Grid>
-                    </Grid>
-                    <Grid item xs={12} md={6} className="painTypeBy">
-                      <Grid container direction="row">
-                        <Grid item xs={5} md={5}>
-                          <label>{Date_of_event}</label>
-                        </Grid>
-                        <Grid item xs={7} md={7}>
-                          <span>
-                            {item.event_date &&
-                              getDate(item.event_date, this.state.date_format)}
-                          </span>
-                        </Grid>
-                        <Grid className="clear"></Grid>
                       </Grid>
                     </Grid>
                     <Grid className="clear"></Grid>
                   </Grid>
+
+                  <Grid className="addSpc detailMark">
+                    <Collapsible trigger={details} open="true">
+                      <Grid>
+                        <Grid container direction="row">
+                          <Grid item xs={12} md={6} className="painTypeBy">
+                            <Grid container direction="row">
+                              <Grid item xs={5} md={5}>
+                                <label>{temparture}</label>
+                              </Grid>
+                              <Grid item xs={7} md={7}>
+                                <span>
+                                  {item.temprature && item.temprature}{" "}
+                                  {item.temprature_type &&
+                                    item.temprature_type.label}
+                                </span>
+                              </Grid>
+                              <Grid className="clear"></Grid>
+                            </Grid>
+                          </Grid>
+                          <Grid item xs={12} md={6} className="painTypeBy">
+                            <Grid container direction="row">
+                              <Grid item xs={5} md={5}>
+                                <label>{O2Saturation}</label>
+                              </Grid>
+                              <Grid item xs={7} md={7}>
+                                <span>{item.saturaion && item.saturaion}</span>
+                              </Grid>
+                              <Grid className="clear"></Grid>
+                            </Grid>
+                          </Grid>
+                          <Grid item xs={12} md={6} className="painTypeBy">
+                            <Grid container direction="row">
+                              <Grid item xs={5} md={5}>
+                                <label>{Location}</label>
+                              </Grid>
+                              <Grid item xs={7} md={7}>
+                                <span>
+                                  {item.country && item.country.label}
+                                </span>
+                              </Grid>
+                              <Grid className="clear"></Grid>
+                            </Grid>
+                          </Grid>
+                          <Grid item xs={12} md={6} className="painTypeBy">
+                            <Grid container direction="row">
+                              <Grid item xs={5} md={5}>
+                                <label>{Date_of_event}</label>
+                              </Grid>
+                              <Grid item xs={7} md={7}>
+                                <span>
+                                  {item.event_date &&
+                                    getDate(
+                                      item.event_date,
+                                      this.state.date_format
+                                    )}
+                                </span>
+                              </Grid>
+                              <Grid className="clear"></Grid>
+                            </Grid>
+                          </Grid>
+                          <Grid className="clear"></Grid>
+                        </Grid>
+                      </Grid>
+                    </Collapsible>
+                  </Grid>
+                  <Grid className="addSpc detailMark">
+                    <Collapsible trigger={notes} open="true">
+                      <Grid className="detailCntnt">
+                        <p
+                          dangerouslySetInnerHTML={{ __html: item.symptoms }}
+                        />
+                      </Grid>
+                    </Collapsible>
+                  </Grid>
+                  <Grid className="addSpc detailMark">
+                    <Collapsible trigger={img_files} open="true">
+                      <FileViews
+                        images={this.state.images}
+                        attachfile={item.attachfile}
+                      />
+                    </Collapsible>
+                  </Grid>
                 </Grid>
-              </Collapsible>
-            </Grid>
-            <Grid className="addSpc detailMark">
-              <Collapsible trigger={notes} open="true">
-                <Grid className="detailCntnt">
-                  <p dangerouslySetInnerHTML={{ __html: item.symptoms }} />
-                </Grid>
-              </Collapsible>
-            </Grid>
-            <Grid className="addSpc detailMark">
-              <Collapsible trigger={img_files} open="true">
-                <FileViews
-                  images={this.state.images}
-                  attachfile={item.attachfile}
-                />
-              </Collapsible>
-            </Grid>
+              }
+            </Collapsible>
           </Grid>
         </Grid>
       </Grid>
@@ -504,6 +538,6 @@ const mapStateToProps = (state) => {
     stateLanguageType,
   };
 };
-export default pure(withRouter(
-  connect(mapStateToProps, { LanguageFetchReducer })(Index)
-));
+export default pure(
+  withRouter(connect(mapStateToProps, { LanguageFetchReducer })(Index))
+);

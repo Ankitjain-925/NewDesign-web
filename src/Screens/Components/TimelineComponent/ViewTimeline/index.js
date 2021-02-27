@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import Grid from "@material-ui/core/Grid";
+import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
 import BPView from "../BPView/index";
 import BSView from "../BSView/index";
 import CPView from "../CPView/index";
@@ -21,8 +22,9 @@ import PrescriptionView from "../PrescriptionView/index";
 import VaccinationTrialView from "../VaccinationTrialView/index";
 import SOView from "../SOView/index";
 import SCView from "../SCView/index";
-import RespirationView from "../respirationView/index"
-
+import RespirationView from "../respirationView/index";
+import { overView } from "Screens/Login/journalviewaction";
+import { pure } from "recompose";
 class Index extends Component {
   constructor(props) {
     super(props);
@@ -37,7 +39,7 @@ class Index extends Component {
     };
   }
 
-  componentDidMount = () => { };
+  componentDidMount = () => {};
   //on adding new data
   componentDidUpdate = (prevProps) => {
     if (prevProps.Track !== this.props.Track) {
@@ -63,6 +65,7 @@ class Index extends Component {
       <div className="timelineGap">
         {item.type === "blood_pressure" && (
           <BPView
+            onlyOverview={this.props.Overview}
             list={this.props.Pressuresituation}
             TrackRecord={this.state.TrackRecord}
             OpenGraph={(current_graph) => this.props.OpenGraph(current_graph)}
@@ -83,6 +86,7 @@ class Index extends Component {
         )}
         {item.type === "blood_sugar" && (
           <BSView
+            onlyOverview={this.props.Overview}
             list={this.props.Allsituation}
             TrackRecord={this.state.TrackRecord}
             OpenGraph={(current_graph) => this.props.OpenGraph(current_graph)}
@@ -103,6 +107,7 @@ class Index extends Component {
         )}
         {item.type === "weight_bmi" && (
           <WBMIView
+            onlyOverview={this.props.Overview}
             TrackRecord={this.state.TrackRecord}
             OpenGraph={(current_graph) => this.props.OpenGraph(current_graph)}
             comesfrom={this.state.comesfrom}
@@ -122,6 +127,7 @@ class Index extends Component {
         )}
         {item.type === "marcumar_pass" && (
           <MPView
+            onlyOverview={this.props.Overview}
             TrackRecord={this.state.TrackRecord}
             comesfrom={this.state.comesfrom}
             downloadTrack={(data) => this.props.downloadTrack(data)}
@@ -140,6 +146,7 @@ class Index extends Component {
         )}
         {item.type === "smoking_status" && (
           <SSView
+            onlyOverview={this.props.Overview}
             Allsmoking_status={this.props.Allsmoking_status}
             TrackRecord={this.state.TrackRecord}
             comesfrom={this.state.comesfrom}
@@ -159,6 +166,7 @@ class Index extends Component {
         )}
         {item.type === "vaccination" && (
           <VaccinationView
+            onlyOverview={this.props.Overview}
             TrackRecord={this.state.TrackRecord}
             comesfrom={this.state.comesfrom}
             downloadTrack={(data) => this.props.downloadTrack(data)}
@@ -177,6 +185,7 @@ class Index extends Component {
         )}
         {item.type === "hospitalization" && (
           <HVView
+            onlyOverview={this.props.Overview}
             AllSpecialty={this.props.AllSpecialty}
             TrackRecord={this.state.TrackRecord}
             comesfrom={this.state.comesfrom}
@@ -196,6 +205,7 @@ class Index extends Component {
         )}
         {item.type === "doctor_visit" && (
           <DVView
+            onlyOverview={this.props.Overview}
             AllSpecialty={this.props.AllSpecialty}
             TrackRecord={this.state.TrackRecord}
             comesfrom={this.state.comesfrom}
@@ -215,6 +225,7 @@ class Index extends Component {
         )}
         {item.type === "condition_pain" && (
           <CPView
+            onlyOverview={this.props.Overview}
             paintype={this.props.Allpain_type}
             painquality={this.props.Allpain_quality}
             TrackRecord={this.state.TrackRecord}
@@ -236,6 +247,7 @@ class Index extends Component {
         )}
         {item.type === "diary" && (
           <DiaryView
+            onlyOverview={this.props.Overview}
             TrackRecord={this.state.TrackRecord}
             comesfrom={this.state.comesfrom}
             downloadTrack={(data) => this.props.downloadTrack(data)}
@@ -254,6 +266,7 @@ class Index extends Component {
         )}
         {item.type === "medication" && (
           <MedicationView
+            onlyOverview={this.props.Overview}
             Allreminder={this.props.Allreminder}
             TrackRecord={this.state.TrackRecord}
             comesfrom={this.state.comesfrom}
@@ -273,6 +286,7 @@ class Index extends Component {
         )}
         {item.type === "laboratory_result" && (
           <LRView
+            onlyOverview={this.props.Overview}
             lrp={this.props.lrp}
             TrackRecord={this.state.TrackRecord}
             OpenGraph={(current_graph) => this.props.OpenGraph(current_graph)}
@@ -293,6 +307,7 @@ class Index extends Component {
         )}
         {item.type === "file_upload" && (
           <FUView
+            onlyOverview={this.props.Overview}
             TrackRecord={this.state.TrackRecord}
             comesfrom={this.state.comesfrom}
             downloadTrack={(data) => this.props.downloadTrack(data)}
@@ -311,6 +326,7 @@ class Index extends Component {
         )}
         {item.type === "family_anamnesis" && (
           <FAView
+            onlyOverview={this.props.Overview}
             Allgender={this.props.Allgender}
             Allrelation={this.props.Allrelation}
             TrackRecord={this.state.TrackRecord}
@@ -331,6 +347,7 @@ class Index extends Component {
         )}
         {item.type === "covid_19" && (
           <CovidView
+            onlyOverview={this.props.Overview}
             TrackRecord={this.state.TrackRecord}
             comesfrom={this.state.comesfrom}
             downloadTrack={(data) => this.props.downloadTrack(data)}
@@ -350,6 +367,7 @@ class Index extends Component {
         )}
         {item.type === "diagnosis" && (
           <DianosisView
+            onlyOverview={this.props.Overview}
             TrackRecord={this.state.TrackRecord}
             comesfrom={this.state.comesfrom}
             downloadTrack={(data) => this.props.downloadTrack(data)}
@@ -369,6 +387,7 @@ class Index extends Component {
         )}
         {item.type === "second_opinion" && (
           <SOView
+            onlyOverview={this.props.Overview}
             TrackRecord={this.state.TrackRecord}
             comesfrom={this.state.comesfrom}
             downloadTrack={(data) => this.props.downloadTrack(data)}
@@ -388,6 +407,7 @@ class Index extends Component {
         )}
         {item.type === "prescription" && (
           <PrescriptionView
+            onlyOverview={this.props.Overview}
             TrackRecord={this.state.TrackRecord}
             comesfrom={this.state.comesfrom}
             downloadTrack={(data) => this.props.downloadTrack(data)}
@@ -407,6 +427,7 @@ class Index extends Component {
         )}
         {item.type === "sick_certificate" && (
           <SCView
+            onlyOverview={this.props.Overview}
             TrackRecord={this.state.TrackRecord}
             comesfrom={this.state.comesfrom}
             downloadTrack={(data) => this.props.downloadTrack(data)}
@@ -426,6 +447,7 @@ class Index extends Component {
         )}
         {item.type === "anamnesis" && (
           <AnamnesisView
+            onlyOverview={this.props.Overview}
             list={this.props.Anamnesis}
             TrackRecord={this.state.TrackRecord}
             comesfrom={this.state.comesfrom}
@@ -446,6 +468,7 @@ class Index extends Component {
         )}
         {item.type === "vaccination_trial" && (
           <VaccinationTrialView
+            onlyOverview={this.props.Overview}
             paintype={this.props.Allpain_type}
             painquality={this.props.Allpain_quality}
             TrackRecord={this.state.TrackRecord}
@@ -467,6 +490,7 @@ class Index extends Component {
         )}
         {item.type === "respiration" && (
           <RespirationView
+            onlyOverview={this.props.Overview}
             list={this.props.Pressuresituation}
             TrackRecord={this.state.TrackRecord}
             OpenGraph={(current_graph) => this.props.OpenGraph(current_graph)}
@@ -485,29 +509,16 @@ class Index extends Component {
             time_format={this.props.time_format}
           />
         )}
-        {/* {item.type === 'blood_sugar' && <BSView data={item} />}
-                                {item.type === 'condition_pain' && <CPView data={item} />}
-                                {item.type === 'covid_19' && <CovidView data={item} />}
-                               
-                                {item.type === 'diary' && <DiaryView data={item} />}
-                                {item.type === 'doctor_visit' && <DVView data={item} />}
-                                {item.type === 'family_anamnesis' && <FAView data={item} />}
-                                {item.type === 'file_upload' && <FUView data={item} />}
-                                {item.type === 'hospitalization' && <HVView data={item} />}
-                                {item.type === 'laboratory_result' && <LRView data={item} />}
-                                {item.type === 'marcumar_pass' && <MPView data={item} />}
-                                {item.type === 'medication' && <MedicationView data={item} />}
-                                {item.type === 'smoking_status' && <SSView data={item} />}
-                               
-                                {item.type === 'weight_bmi' && <WBMIView data={item} />} */}
-
-        {/* */}
-        {/* {item.type === 'prescription' && <PrescriptionView data={item} />}
-                             
-                                {item.type === 'sick_certificate' && <SCView data={item} />} */}
       </div>
     );
   }
 }
 
-export default Index;
+const mapStateToProps = (state) => {
+  const { Overview } = state.overView;
+
+  return {
+    Overview,
+  };
+};
+export default pure(withRouter(connect(mapStateToProps, { overView })(Index)));

@@ -4,11 +4,18 @@ import Collapsible from "react-collapsible";
 import FileViews from "./../FileViews/index";
 import ReactTooltip from "react-tooltip";
 import DownloadFullTrack from "Screens/Components/DownloadFullTrack/index.js";
-import { getDate, newdate, getTime, getImage } from "Screens/Components/BasicMethod/index";
+import {
+  getDate,
+  newdate,
+  getTime,
+  getImage,
+} from "Screens/Components/BasicMethod/index";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { LanguageFetchReducer } from "Screens/actions";
 import { pure } from "recompose";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import ExpandLessIcon from "@material-ui/icons/ExpandLess";
 import {
   translationAR,
   translationSW,
@@ -19,8 +26,8 @@ import {
   translationDE,
   translationCH,
   translationPT,
-  translationFR
-} from "translations/index"
+  translationFR,
+} from "translations/index";
 class Index extends Component {
   constructor(props) {
     super(props);
@@ -32,6 +39,7 @@ class Index extends Component {
       loggedinUser: this.props.loggedinUser,
       images: this.props.images,
       TrackRecord: this.props.TrackRecord,
+      onlyOverview: this.props.onlyOverview,
     };
   }
 
@@ -50,6 +58,9 @@ class Index extends Component {
     }
     if (prevProps.TrackRecord !== this.props.TrackRecord) {
       this.setState({ TrackRecord: this.props.TrackRecord });
+    }
+    if (prevProps.onlyOverview !== this.props.onlyOverview) {
+      this.setState({ onlyOverview: this.props.onlyOverview });
     }
   };
 
@@ -103,53 +114,14 @@ class Index extends Component {
       Delete,
       visible,
       hide,
-      title,
       show,
-      first_day_visit,
       always,
       edit,
-      date_of_death,
-      date_of_dieses_patient,
-      dob,
-      day_doc_visit,
-      gender_of_relatives,
-      relation_of_relative,
       Change,
-      speciality,
-      hosp_id,
-      hosp_name,
-      doc_id,
-      traveled,
-      slct_ICD_serch_code,
-      when,
-      to,
-      allergy,
-      enter_code_serch_by_keyword,
-      dignose,
-      of,
       until,
       archive,
-      rr_systolic,
-      attachments,
-      time_measure,
-      date_measure,
       date,
       time,
-      confirm_diag,
-      emergancy_dignosis,
-      trvl_diagnosis,
-      disease_name,
-      doc_name,
-      first_visit_day,
-      last_visit_day,
-      diagnosed,
-      by,
-      notes,
-      save_entry,
-      emergency,
-      diagnosis,
-      review,
-      on,
       not_mentioned,
       de_archive,
     } = translate;
@@ -367,136 +339,160 @@ class Index extends Component {
               {/* <p>Normal</p> */}
             </Grid>
 
-            <Grid container direction="row" className="addSpc bpJohnMain">
-              <Grid item xs={12} md={12}>
-                <Grid className="bpJohnImg">
-                  <a data-tip data-for={item.track_id + "created"}>
-                    <img
-                      src={getImage(item.created_by_image, this.state.images)}
-                      alt=""
-                      title=""
-                    />
-                    <span>{item.created_by_temp}</span>
-                  </a>
-                  <ReactTooltip
-                    className="timeIconClas_crested"
-                    id={item.track_id + "created"}
-                    place="top"
-                    effect="solid"
-                    backgroundColor="#ffffff"
-                  >
-                    <p>{item.created_by_temp}</p>
-                    <p>{item.created_by_profile}</p>
-                    <p>
-                      <img
-                        src={getImage(item.created_by_image, this.state.images)}
-                        alt=""
-                        title=""
-                      />
-                    </p>
-                  </ReactTooltip>
-                </Grid>
-              </Grid>
-              <Grid className="clear"></Grid>
-            </Grid>
-
-            <Grid className="addSpc detailMark">
-              <Collapsible trigger={details} open="true">
-                <Grid className="detailCntnt">
-                  <Grid container direction="row">
-                    <Grid item xs={12} md={6} className="bloodPreBy">
-                      <Grid container direction="row">
-                        <Grid item xs={5} md={5}>
-                          <label>{quik_value}</label>
-                        </Grid>
-                        <Grid item xs={7} md={7}>
-                          <span>{item.quick_value && item.quick_value}</span>
-                        </Grid>
-                        <Grid className="clear"></Grid>
-                      </Grid>
-                    </Grid>
-                    <Grid item xs={12} md={6} className="bloodPreBy">
-                      <Grid container direction="row">
-                        <Grid item xs={5} md={5}>
-                          <label>INR</label>
-                        </Grid>
-                        <Grid item xs={7} md={7}>
-                          <span>{item.INR && item.INR}</span>
-                        </Grid>
-                        <Grid className="clear"></Grid>
-                      </Grid>
-                    </Grid>
-                    <Grid item xs={12} md={6} className="bloodPreBy">
-                      <Grid container direction="row">
-                        <Grid item xs={5} md={5}>
-                          <label>{upr_limit}</label>
-                        </Grid>
-                        <Grid item xs={7} md={7}>
-                          <span>{item.upper_limit && item.upper_limit} </span>
-                        </Grid>
-                        <Grid className="clear"></Grid>
-                      </Grid>
-                    </Grid>
-                    <Grid item xs={12} md={6} className="bloodPreBy">
-                      <Grid container direction="row">
-                        <Grid item xs={5} md={5}>
-                          <label>{lwr_limit}</label>
-                        </Grid>
-                        <Grid item xs={7} md={7}>
-                          <span>{item.lower_limit && item.lower_limit} </span>
-                        </Grid>
-                        <Grid className="clear"></Grid>
-                      </Grid>
-                    </Grid>
-                    <Grid item xs={12} md={6} className="bloodPreBy">
-                      <Grid container direction="row">
-                        <Grid item xs={5} md={5}>
-                          <label>
-                            {date} & {time}
-                          </label>
-                        </Grid>
-                        <Grid item xs={7} md={7}>
-                          <span>
-                            {item.date_measured &&
-                              getDate(
-                                item.date_measured,
-                                this.state.date_format
-                              )}{" "}
-                            {item.time_measured &&
-                              ", " +
-                                getTime(
-                                  new Date(item.time_measured),
-                                  this.state.time_foramt
-                                )}
-                          </span>
-                        </Grid>
-                        <Grid className="clear"></Grid>
-                      </Grid>
-                    </Grid>
-                    <Grid item xs={12} md={6} className="bloodPreBy">
-                      <Grid container direction="row">
-                        <Grid item xs={5} md={5}>
-                          <label>{pill_taken}</label>
-                        </Grid>
-                        <Grid item xs={7} md={7}>
-                          <span>{item.pills_taken && item.pills_taken} </span>
-                        </Grid>
-                        <Grid className="clear"></Grid>
+            <Collapsible
+              trigger={<ExpandMoreIcon />}
+              triggerWhenOpen={<ExpandLessIcon />}
+              open={!this.state.onlyOverview}
+            >
+              {
+                <Grid>
+                  <Grid container direction="row" className="addSpc bpJohnMain">
+                    <Grid item xs={12} md={12}>
+                      <Grid className="bpJohnImg">
+                        <a data-tip data-for={item.track_id + "created"}>
+                          <img
+                            src={getImage(
+                              item.created_by_image,
+                              this.state.images
+                            )}
+                            alt=""
+                            title=""
+                          />
+                          <span>{item.created_by_temp}</span>
+                        </a>
+                        <ReactTooltip
+                          className="timeIconClas_crested"
+                          id={item.track_id + "created"}
+                          place="top"
+                          effect="solid"
+                          backgroundColor="#ffffff"
+                        >
+                          <p>{item.created_by_temp}</p>
+                          <p>{item.created_by_profile}</p>
+                          <p>
+                            <img
+                              src={getImage(
+                                item.created_by_image,
+                                this.state.images
+                              )}
+                              alt=""
+                              title=""
+                            />
+                          </p>
+                        </ReactTooltip>
                       </Grid>
                     </Grid>
                     <Grid className="clear"></Grid>
                   </Grid>
+
+                  <Grid className="addSpc detailMark">
+                    <Collapsible trigger={details} open="true">
+                      <Grid className="detailCntnt">
+                        <Grid container direction="row">
+                          <Grid item xs={12} md={6} className="bloodPreBy">
+                            <Grid container direction="row">
+                              <Grid item xs={5} md={5}>
+                                <label>{quik_value}</label>
+                              </Grid>
+                              <Grid item xs={7} md={7}>
+                                <span>
+                                  {item.quick_value && item.quick_value}
+                                </span>
+                              </Grid>
+                              <Grid className="clear"></Grid>
+                            </Grid>
+                          </Grid>
+                          <Grid item xs={12} md={6} className="bloodPreBy">
+                            <Grid container direction="row">
+                              <Grid item xs={5} md={5}>
+                                <label>INR</label>
+                              </Grid>
+                              <Grid item xs={7} md={7}>
+                                <span>{item.INR && item.INR}</span>
+                              </Grid>
+                              <Grid className="clear"></Grid>
+                            </Grid>
+                          </Grid>
+                          <Grid item xs={12} md={6} className="bloodPreBy">
+                            <Grid container direction="row">
+                              <Grid item xs={5} md={5}>
+                                <label>{upr_limit}</label>
+                              </Grid>
+                              <Grid item xs={7} md={7}>
+                                <span>
+                                  {item.upper_limit && item.upper_limit}{" "}
+                                </span>
+                              </Grid>
+                              <Grid className="clear"></Grid>
+                            </Grid>
+                          </Grid>
+                          <Grid item xs={12} md={6} className="bloodPreBy">
+                            <Grid container direction="row">
+                              <Grid item xs={5} md={5}>
+                                <label>{lwr_limit}</label>
+                              </Grid>
+                              <Grid item xs={7} md={7}>
+                                <span>
+                                  {item.lower_limit && item.lower_limit}{" "}
+                                </span>
+                              </Grid>
+                              <Grid className="clear"></Grid>
+                            </Grid>
+                          </Grid>
+                          <Grid item xs={12} md={6} className="bloodPreBy">
+                            <Grid container direction="row">
+                              <Grid item xs={5} md={5}>
+                                <label>
+                                  {date} & {time}
+                                </label>
+                              </Grid>
+                              <Grid item xs={7} md={7}>
+                                <span>
+                                  {item.date_measured &&
+                                    getDate(
+                                      item.date_measured,
+                                      this.state.date_format
+                                    )}{" "}
+                                  {item.time_measured &&
+                                    ", " +
+                                      getTime(
+                                        new Date(item.time_measured),
+                                        this.state.time_foramt
+                                      )}
+                                </span>
+                              </Grid>
+                              <Grid className="clear"></Grid>
+                            </Grid>
+                          </Grid>
+                          <Grid item xs={12} md={6} className="bloodPreBy">
+                            <Grid container direction="row">
+                              <Grid item xs={5} md={5}>
+                                <label>{pill_taken}</label>
+                              </Grid>
+                              <Grid item xs={7} md={7}>
+                                <span>
+                                  {item.pills_taken && item.pills_taken}{" "}
+                                </span>
+                              </Grid>
+                              <Grid className="clear"></Grid>
+                            </Grid>
+                          </Grid>
+                          <Grid className="clear"></Grid>
+                        </Grid>
+                      </Grid>
+                    </Collapsible>
+                  </Grid>
+                  <Grid className="addSpc detailMark">
+                    <Collapsible trigger={img_files} open="true">
+                      <FileViews
+                        images={this.state.images}
+                        attachfile={item.attachfile}
+                      />
+                    </Collapsible>
+                  </Grid>
                 </Grid>
-              </Collapsible>
-            </Grid>
-            <Grid className="addSpc detailMark">
-              <Collapsible trigger={img_files} open="true">
-                <FileViews
-                  images={this.state.images}
-                  attachfile={item.attachfile}
-                />
-              </Collapsible>
-            </Grid>
+              }
+            </Collapsible>
           </Grid>
         </Grid>
       </Grid>
@@ -510,6 +506,6 @@ const mapStateToProps = (state) => {
     stateLanguageType,
   };
 };
-export default pure(withRouter(
-  connect(mapStateToProps, { LanguageFetchReducer })(Index)
-));
+export default pure(
+  withRouter(connect(mapStateToProps, { LanguageFetchReducer })(Index))
+);

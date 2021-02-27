@@ -3,8 +3,7 @@ import {
   GET_SETTING_SUCCESS,
   GET_SETTING_ERROR,
 } from "actiontypes";
-import sitedata from "sitedata.js";
-import axios from "axios";
+
 
 export const Settings = (data, mode) => {
   return (dispatch) => {

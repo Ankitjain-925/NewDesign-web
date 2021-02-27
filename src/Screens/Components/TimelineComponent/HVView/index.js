@@ -9,6 +9,8 @@ import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { LanguageFetchReducer } from "Screens/actions";
 import { GetShowLabel1 } from "Screens/Components/GetMetaData/index.js";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import ExpandLessIcon from "@material-ui/icons/ExpandLess";
 import {
   translationAR,
   translationSW,
@@ -33,6 +35,7 @@ class Index extends Component {
       loggedinUser: this.props.loggedinUser,
       images: this.props.images,
       TrackRecord: this.props.TrackRecord,
+      onlyOverview: this.props.onlyOverview,
     };
   }
 
@@ -51,6 +54,9 @@ class Index extends Component {
     }
     if (prevProps.TrackRecord !== this.props.TrackRecord) {
       this.setState({ TrackRecord: this.props.TrackRecord });
+    }
+    if (prevProps.onlyOverview !== this.props.onlyOverview) {
+      this.setState({ onlyOverview: this.props.onlyOverview });
     }
   };
 
@@ -100,53 +106,19 @@ class Index extends Component {
       hide,
       details,
       img_files,
-      title,
       show,
-      first_day_visit,
       always,
       edit,
-      date_of_death,
-      date_of_dieses_patient,
-      dob,
-      day_doc_visit,
-      gender_of_relatives,
-      relation_of_relative,
       Change,
       speciality,
       hosp_id,
       hosp_name,
       doc_id,
-      traveled,
-      slct_ICD_serch_code,
-      when,
-      to,
-      allergy,
-      enter_code_serch_by_keyword,
-      dignose,
-      of,
       until,
       archive,
-      rr_systolic,
-      attachments,
-      time_measure,
-      date_measure,
-      date,
-      time,
-      confirm_diag,
-      emergancy_dignosis,
-      trvl_diagnosis,
-      disease_name,
-      doc_name,
       first_visit_day,
       last_visit_day,
-      diagnosed,
-      by,
       notes,
-      save_entry,
-      emergency,
-      diagnosis,
-      review,
-      on,
       not_mentioned,
       de_archive,
     } = translate;
@@ -364,6 +336,13 @@ class Index extends Component {
               {/* <p>Normal</p> */}
             </Grid>
 
+            <Collapsible
+              trigger={<ExpandMoreIcon />}
+              triggerWhenOpen={<ExpandLessIcon />}
+              open={!this.state.onlyOverview}
+            >
+              {
+                <Grid>
             <Grid container direction="row" className="addSpc bpJohnMain">
               <Grid item xs={12} md={12}>
                 <Grid className="bpJohnImg">
@@ -511,6 +490,8 @@ class Index extends Component {
                 />
               </Collapsible>
             </Grid>
+            </Grid>}
+            </Collapsible>
           </Grid>
         </Grid>
       </Grid>

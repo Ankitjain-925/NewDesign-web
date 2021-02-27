@@ -10,6 +10,8 @@ import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { GetShowLabel1 } from "../../GetMetaData/index.js";
 import { LanguageFetchReducer } from "Screens/actions";
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import {
   translationAR,
   translationSW,
@@ -35,6 +37,7 @@ class Index extends Component {
       images: this.props.images,
       gender: this.props.gender,
       TrackRecord: this.props.TrackRecord,
+      onlyOverview: this.props.onlyOverview
     };
   }
 
@@ -53,6 +56,9 @@ class Index extends Component {
     }
     if (prevProps.TrackRecord !== this.props.TrackRecord) {
       this.setState({ TrackRecord: this.props.TrackRecord });
+    }
+    if (prevProps.onlyOverview !== this.props.onlyOverview) {
+      this.setState({ onlyOverview: this.props.onlyOverview});
     }
   };
 
@@ -321,6 +327,10 @@ class Index extends Component {
               {/* <p>Normal</p> */}
             </Grid>
 
+            <Collapsible trigger={<ExpandMoreIcon />} 
+              triggerWhenOpen ={<ExpandLessIcon />}    
+              open={!this.state.onlyOverview}>
+              {<Grid>
             <Grid container direction="row" className="addSpc bpJohnMain">
               <Grid item xs={12} md={12}>
                 <Grid className="bpJohnImg">
@@ -427,6 +437,9 @@ class Index extends Component {
                 />
               </Collapsible>
             </Grid>
+          
+            </Grid>}                     
+          </Collapsible>
           </Grid>
         </Grid>
       </Grid>
