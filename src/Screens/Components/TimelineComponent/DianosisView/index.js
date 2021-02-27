@@ -7,7 +7,6 @@ import DownloadFullTrack from "Screens/Components/DownloadFullTrack/index.js";
 import {
   getDate,
   newdate,
-  getTime,
   getImage,
 } from "Screens/Components/BasicMethod/index";
 import { withRouter } from "react-router-dom";
@@ -15,6 +14,7 @@ import { connect } from "react-redux";
 import { LanguageFetchReducer } from "Screens/actions";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import ExpandLessIcon from "@material-ui/icons/ExpandLess";
+import CreatedBySec from "Screens/Components/TimelineComponent/CreatedBysec";
 import {
   translationAR,
   translationSW,
@@ -452,7 +452,7 @@ class Index extends Component {
                     className="addSpc markCntntMain"
                   >
                     <Grid item xs={12} md={5}>
-                      <Grid className="markCntntImg">
+                      {/* <Grid className="markCntntImg">
                         <a data-tip data-for={item.track_id + "created"}>
                           <img
                             src={getImage(
@@ -484,7 +484,8 @@ class Index extends Component {
                             />
                           </p>
                         </ReactTooltip>
-                      </Grid>
+                      </Grid> */}
+                         <CreatedBySec data={item} />
                     </Grid>
                     {/* <Grid item xs={12} md={7}>
                                 <Grid className="markMDCntntImg">

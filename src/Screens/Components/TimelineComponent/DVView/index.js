@@ -4,7 +4,11 @@ import Collapsible from "react-collapsible";
 import FileViews from "./../FileViews/index";
 import ReactTooltip from "react-tooltip";
 import DownloadFullTrack from "Screens/Components/DownloadFullTrack/index.js";
-import { getDate, newdate, getTime, getImage } from "Screens/Components/BasicMethod/index";
+import {
+  getDate,
+  newdate,
+  getImage,
+} from "Screens/Components/BasicMethod/index";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { LanguageFetchReducer } from "Screens/actions";
@@ -19,8 +23,9 @@ import {
   translationDE,
   translationCH,
   translationPT,
-  translationFR
-} from "translations/index"
+  translationFR,
+} from "translations/index";
+import CreatedBySec from "Screens/Components/TimelineComponent/CreatedBysec";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import ExpandLessIcon from "@material-ui/icons/ExpandLess";
 import { pure } from "recompose";
@@ -341,122 +346,132 @@ class Index extends Component {
             >
               {
                 <Grid>
-            <Grid container direction="row" className="addSpc bpJohnMain">
-              <Grid item xs={12} md={12}>
-                <Grid className="bpJohnImg">
-                  <a data-tip data-for={item.track_id + "created"}>
-                    <img
-                      src={getImage(item.created_by_image, this.state.images)}
-                      alt=""
-                      title=""
-                    />
-                    <span>{item.created_by_temp}</span>
-                  </a>
-                  <ReactTooltip
-                    className="timeIconClas_crested"
-                    id={item.track_id + "created"}
-                    place="top"
-                    effect="solid"
-                    backgroundColor="#ffffff"
-                  >
-                    <p>{item.created_by_temp}</p>
-                    <p>{item.created_by_profile}</p>
-                    <p>
-                      <img
-                        src={getImage(item.created_by_image, this.state.images)}
-                        alt=""
-                        title=""
-                      />
-                    </p>
-                  </ReactTooltip>
-                </Grid>
-              </Grid>
-              <Grid className="clear"></Grid>
-            </Grid>
-
-            <Grid className="addSpc detailMark">
-              <Collapsible trigger={details} open="true">
-                <Grid className="detailCntnt">
-                  <Grid container direction="row">
-                    <Grid item xs={12} md={6} className="bloodPreBy">
-                      <Grid container direction="row">
-                        <Grid item xs={5} md={5}>
-                          <label>{doc_name}</label>
-                        </Grid>
-                        <Grid item xs={7} md={7}>
-                          <span>{item.doctor_name && item.doctor_name}</span>
-                        </Grid>
-                        <Grid className="clear"></Grid>
-                      </Grid>
-                    </Grid>
-                    <Grid item xs={12} md={6} className="bloodPreBy">
-                      <Grid container direction="row">
-                        <Grid item xs={5} md={5}>
-                          <label>{doc_id}</label>
-                        </Grid>
-                        <Grid item xs={7} md={7}>
-                          <span>{item.doctor_id && item.doctor_id}</span>
-                        </Grid>
-                        <Grid className="clear"></Grid>
-                      </Grid>
-                    </Grid>
-                    <Grid item xs={12} md={6} className="bloodPreBy">
-                      <Grid container direction="row">
-                        <Grid item xs={5} md={5}>
-                          <label>{speciality}</label>
-                        </Grid>
-                        <Grid item xs={7} md={7}>
-                          <span>
-                            {item.specialty &&
-                              GetShowLabel1(
-                                this.props.AllSpecialty,
-                                item.specialty.value,
-                                this.props.stateLanguageType,
-                                true,
-                                "specialty"
+                  <Grid container direction="row" className="addSpc bpJohnMain">
+                    <Grid item xs={12} md={12}>
+                      {/* <Grid className="bpJohnImg">
+                        <a data-tip data-for={item.track_id + "created"}>
+                          <img
+                            src={getImage(
+                              item.created_by_image,
+                              this.state.images
+                            )}
+                            alt=""
+                            title=""
+                          />
+                          <span>{item.created_by_temp}</span>
+                        </a>
+                        <ReactTooltip
+                          className="timeIconClas_crested"
+                          id={item.track_id + "created"}
+                          place="top"
+                          effect="solid"
+                          backgroundColor="#ffffff"
+                        >
+                          <p>{item.created_by_temp}</p>
+                          <p>{item.created_by_profile}</p>
+                          <p>
+                            <img
+                              src={getImage(
+                                item.created_by_image,
+                                this.state.images
                               )}
-                          </span>
-                        </Grid>
-                        <Grid className="clear"></Grid>
-                      </Grid>
+                              alt=""
+                              title=""
+                            />
+                          </p>
+                        </ReactTooltip>
+                      </Grid> */}
+                       <CreatedBySec data={item} />
                     </Grid>
-                    <Grid item xs={12} md={6} className="bloodPreBy">
-                      <Grid container direction="row">
-                        <Grid item xs={5} md={5}>
-                          <label>{day_doc_visit}</label>
+                    <Grid className="clear"></Grid>
+                  </Grid>
+
+                  <Grid className="addSpc detailMark">
+                    <Collapsible trigger={details} open="true">
+                      <Grid className="detailCntnt">
+                        <Grid container direction="row">
+                          <Grid item xs={12} md={6} className="bloodPreBy">
+                            <Grid container direction="row">
+                              <Grid item xs={5} md={5}>
+                                <label>{doc_name}</label>
+                              </Grid>
+                              <Grid item xs={7} md={7}>
+                                <span>
+                                  {item.doctor_name && item.doctor_name}
+                                </span>
+                              </Grid>
+                              <Grid className="clear"></Grid>
+                            </Grid>
+                          </Grid>
+                          <Grid item xs={12} md={6} className="bloodPreBy">
+                            <Grid container direction="row">
+                              <Grid item xs={5} md={5}>
+                                <label>{doc_id}</label>
+                              </Grid>
+                              <Grid item xs={7} md={7}>
+                                <span>{item.doctor_id && item.doctor_id}</span>
+                              </Grid>
+                              <Grid className="clear"></Grid>
+                            </Grid>
+                          </Grid>
+                          <Grid item xs={12} md={6} className="bloodPreBy">
+                            <Grid container direction="row">
+                              <Grid item xs={5} md={5}>
+                                <label>{speciality}</label>
+                              </Grid>
+                              <Grid item xs={7} md={7}>
+                                <span>
+                                  {item.specialty &&
+                                    GetShowLabel1(
+                                      this.props.AllSpecialty,
+                                      item.specialty.value,
+                                      this.props.stateLanguageType,
+                                      true,
+                                      "specialty"
+                                    )}
+                                </span>
+                              </Grid>
+                              <Grid className="clear"></Grid>
+                            </Grid>
+                          </Grid>
+                          <Grid item xs={12} md={6} className="bloodPreBy">
+                            <Grid container direction="row">
+                              <Grid item xs={5} md={5}>
+                                <label>{day_doc_visit}</label>
+                              </Grid>
+                              <Grid item xs={7} md={7}>
+                                <span>
+                                  {item.date_doctor_visit &&
+                                    getDate(
+                                      item.date_doctor_visit,
+                                      this.state.date_format
+                                    )}{" "}
+                                </span>
+                              </Grid>
+                              <Grid className="clear"></Grid>
+                            </Grid>
+                          </Grid>
                         </Grid>
-                        <Grid item xs={7} md={7}>
-                          <span>
-                            {item.date_doctor_visit &&
-                              getDate(
-                                item.date_doctor_visit,
-                                this.state.date_format
-                              )}{" "}
-                          </span>
-                        </Grid>
-                        <Grid className="clear"></Grid>
                       </Grid>
-                    </Grid>
+                    </Collapsible>
+                  </Grid>
+                  <Grid className="addSpc detailMark">
+                    <Collapsible trigger={notes} open="true">
+                      <Grid className="detailCntnt">
+                        <p dangerouslySetInnerHTML={{ __html: item.remarks }} />
+                      </Grid>
+                    </Collapsible>
+                  </Grid>
+                  <Grid className="addSpc detailMark">
+                    <Collapsible trigger={img_files} open="true">
+                      <FileViews
+                        images={this.state.images}
+                        attachfile={item.attachfile}
+                      />
+                    </Collapsible>
                   </Grid>
                 </Grid>
-              </Collapsible>
-            </Grid>
-            <Grid className="addSpc detailMark">
-              <Collapsible trigger={notes} open="true">
-                <Grid className="detailCntnt">
-                  <p dangerouslySetInnerHTML={{ __html: item.remarks }} />
-                </Grid>
-              </Collapsible>
-            </Grid>
-            <Grid className="addSpc detailMark">
-              <Collapsible trigger={img_files} open="true">
-                <FileViews
-                  images={this.state.images}
-                  attachfile={item.attachfile}
-                />
-              </Collapsible>
-            </Grid>
-            </Grid>}
+              }
             </Collapsible>
           </Grid>
         </Grid>
@@ -471,6 +486,6 @@ const mapStateToProps = (state) => {
     stateLanguageType,
   };
 };
-export default pure(withRouter(
-  connect(mapStateToProps, { LanguageFetchReducer })(Index)
-));
+export default pure(
+  withRouter(connect(mapStateToProps, { LanguageFetchReducer })(Index))
+);

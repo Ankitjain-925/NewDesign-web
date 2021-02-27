@@ -9,6 +9,7 @@ import sitedata from "sitedata";
 import { LoginReducerAim } from "Screens/Login/actions";
 import { overView } from "Screens/Login/journalviewaction";
 import { LanguageFetchReducer } from "Screens/actions";
+import Loader from "Screens/Components/Loader/index.js";
 import {
   translationAR,
   translationSW,
@@ -35,7 +36,8 @@ class FilterSec extends Component {
       selectFacility: [],
       time_range: [],
       isTest: false,
-      onlyOverview: this.props.Overview
+      onlyOverview: this.props.Overview,
+      loaderImage: false
     };
   }
 
@@ -141,7 +143,7 @@ class FilterSec extends Component {
           }
         )
         .then((responce) => {
-          this.setState({ loaderImage: false });
+          setTimeout(()=>{this.setState({ loaderImage: false });}, 3000) 
           this.getSetting();
         });
     });
@@ -305,6 +307,7 @@ class FilterSec extends Component {
 
     return (
       <Grid container direction="row">
+           {this.state.loaderImage && <Loader />}
         <Grid item xs={12} md={11}>
           <Grid className="srchFilter 11">
             {!this.state.isTest && (
@@ -323,15 +326,15 @@ class FilterSec extends Component {
                     value={this.state.time_range}
                   />
                   {/* <Select
-                                    value={this.state.selectedOption}
-                                    onChange={this.handleChange}
-                                    options={options}
-                                    placeholder="All time"
-                                    className="allTimeSel comonSel"
-                                    isMulti= {true}
-                                    isSearchable={false}
-                                    closeMenuOnSelect={false}
-                                /> */}
+                          value={this.state.selectedOption}
+                          onChange={this.handleChange}
+                          options={options}
+                          placeholder="All time"
+                          className="allTimeSel comonSel"
+                          isMulti= {true}
+                          isSearchable={false}
+                          closeMenuOnSelect={false}
+                      /> */}
                 </Grid>
                 <Grid item xs={12} md={4} lg={3}>
                   <Select
@@ -377,19 +380,19 @@ class FilterSec extends Component {
                   />
                 </Grid>
                 {/* <Grid item xs={12} md={1}
-                            // className="faclity_all"
-                            >
-                                <Select
-                                    value={this.state.selectFacility}
-                                     onChange={(value)=>this.FilterAccordigly("selectFacility", value)}
-                                    options={options}
-                                    placeholder="Facility: All"
-                                    className="allTimeSel comonSel"
-                                    isMulti= {true}
-                                    closeMenuOnSelect={false}
-                                   // isSearchable = {false}
-                                />
-                            </Grid> */}
+                    // className="faclity_all"
+                    >
+                        <Select
+                            value={this.state.selectFacility}
+                              onChange={(value)=>this.FilterAccordigly("selectFacility", value)}
+                            options={options}
+                            placeholder="Facility: All"
+                            className="allTimeSel comonSel"
+                            isMulti= {true}
+                            closeMenuOnSelect={false}
+                            // isSearchable = {false}
+                        />
+                    </Grid> */}
                 <Grid
                   item
                   xs={12}

@@ -8,6 +8,7 @@ import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import DownloadFullTrack from "Screens/Components/DownloadFullTrack/index.js";
 import { LanguageFetchReducer } from "Screens/actions";
+import CreatedBySec from "Screens/Components/TimelineComponent/CreatedBysec";
 import {
   translationAR,
   translationSW,
@@ -340,7 +341,8 @@ class Index extends Component {
                 <Grid>
             <Grid container direction="row" className="addSpc bpJohnMain">
               <Grid item xs={12} md={12}>
-                <Grid className="bpJohnImg">
+              <CreatedBySec data={item} />
+                {/* <Grid className="bpJohnImg">
                   <a data-tip data-for={item.track_id + "created"}>
                     <img
                       src={getImage(item.created_by_image, this.state.images)}
@@ -366,7 +368,7 @@ class Index extends Component {
                       />
                     </p>
                   </ReactTooltip>
-                </Grid>
+                </Grid> */}
               </Grid>
               <Grid className="clear"></Grid>
             </Grid>

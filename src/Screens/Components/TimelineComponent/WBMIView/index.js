@@ -4,6 +4,7 @@ import Collapsible from "react-collapsible";
 import FileViews from "./../FileViews/index";
 import ReactTooltip from "react-tooltip";
 import DownloadFullTrack from "Screens/Components/DownloadFullTrack/index.js";
+import CreatedBySec from "Screens/Components/TimelineComponent/CreatedBysec";
 import {
   getDate,
   newdate,
@@ -354,7 +355,8 @@ class Index extends Component {
                 <Grid>
                   <Grid container direction="row" className="addSpc bpJohnMain">
                     <Grid item xs={12} md={12}>
-                      <Grid className="bpJohnImg">
+                    <CreatedBySec data={item} />
+                      {/* <Grid className="bpJohnImg">
                         <a data-tip data-for={item.track_id + "created"}>
                           <img
                             src={getImage(
@@ -386,7 +388,7 @@ class Index extends Component {
                             />
                           </p>
                         </ReactTooltip>
-                      </Grid>
+                      </Grid> */}
                     </Grid>
                     <Grid className="clear"></Grid>
                   </Grid>

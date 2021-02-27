@@ -135,7 +135,7 @@ class Index extends Component {
   LoadMore=(allTrack)=>{
     this.setState({loading: true, defaultValue : this.state.defaultValue+10}, 
       ()=>{ this.Showdefaults(allTrack, this.state.defaultValue)
-        this.setState({loading: false})
+        setTimeout(()=>{this.setState({loading: false})}, 2000)
       })
   }
   //For render 10 entries at one time 
@@ -781,24 +781,24 @@ class Index extends Component {
           this.rightInfo();
           var images = [];
           // response.data.data = response.data.data.filter((e) => e != null);
-          response.data.data &&
-            response.data.data.length > 0 &&
-            response.data.data.map((data1, index) => {
-              var find2 = data1 && data1.created_by_image;
-              if (find2) {
-                var find3 = find2.split(".com/")[1];
-                axios
-                  .get(sitedata.data.path + "/aws/sign_s3?find=" + find3)
-                  .then((response2) => {
-                    if (response2.data.hassuccessed) {
-                      images.push({
-                        image: find2,
-                        new_image: response2.data.data,
-                      });
-                      this.setState({ images: images });
-                    }
-                  });
-              }
+          // response.data.data &&
+          //   response.data.data.length > 0 &&
+          //   response.data.data.map((data1, index) => {
+          //     var find2 = data1 && data1.created_by_image;
+          //     if (find2) {
+          //       var find3 = find2.split(".com/")[1];
+          //       axios
+          //         .get(sitedata.data.path + "/aws/sign_s3?find=" + find3)
+          //         .then((response2) => {
+          //           if (response2.data.hassuccessed) {
+          //             images.push({
+          //               image: find2,
+          //               new_image: response2.data.data,
+          //             });
+          //             this.setState({ images: images });
+          //           }
+          //         });
+          //     }
               // data1.attachfile &&
               //   data1.attachfile.length > 0 &&
               //   data1.attachfile.map((data, index) => {
@@ -818,7 +818,7 @@ class Index extends Component {
               //         });
               //     }
               //   });
-            });
+            // });
           // axios.post(sitedata.data.path + '/blockchain/dataManager', {
           //     path: "dataManager/getDetails/patient",
           //     data: { "_selfId": this.props.stateLoginValueAim.user.profile_id, "_patientId": this.props.stateLoginValueAim.user.profile_id }

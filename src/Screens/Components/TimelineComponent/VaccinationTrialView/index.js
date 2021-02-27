@@ -7,6 +7,7 @@ import FileViews from "./../FileViews/index";
 import PainPoint from "Screens/Components/PointPain/index";
 import PainIntensity from "Screens/Components/PainIntansity/index";
 import DownloadFullTrack from "Screens/Components/DownloadFullTrack/index.js";
+import CreatedBySec from "Screens/Components/TimelineComponent/CreatedBysec";
 import {
   getDate,
   newdate,
@@ -383,7 +384,8 @@ class Index extends Component {
                     className="addSpc conPain_Cntnt"
                   >
                     <Grid item xs={12} md={5}>
-                      <Grid className="conPain_Img">
+                    <CreatedBySec data={item} />
+                      {/* <Grid className="conPain_Img">
                         <a data-tip data-for={item.track_id + "created"}>
                           <img
                             src={getImage(
@@ -415,7 +417,7 @@ class Index extends Component {
                             />
                           </p>
                         </ReactTooltip>
-                      </Grid>
+                      </Grid> */}
                     </Grid>
                     <Grid item xs={12} md={7}>
                       {/* <Grid className="conPain_MDCImg">

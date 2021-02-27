@@ -8,6 +8,7 @@ import {
   getImage,
 } from "Screens/Components/BasicMethod/index";
 import DownloadFullTrack from "Screens/Components/DownloadFullTrack/index.js";
+import CreatedBySec from "Screens/Components/TimelineComponent/CreatedBysec";
 import FileViews from "./../FileViews/index";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
@@ -352,7 +353,7 @@ class Index extends Component {
                 <Grid>
                   <Grid container direction="row" className="addSpc bpJohnMain">
                     <Grid item xs={12} md={12}>
-                      <Grid className="bpJohnImg">
+                      {/* <Grid className="bpJohnImg">
                         <a data-tip data-for={item.track_id + "created"}>
                           <img
                             src={getImage(
@@ -384,7 +385,8 @@ class Index extends Component {
                             />
                           </p>
                         </ReactTooltip>
-                      </Grid>
+                      </Grid> */}
+                      <CreatedBySec data={item} />
                     </Grid>
                     <Grid className="clear"></Grid>
                   </Grid>

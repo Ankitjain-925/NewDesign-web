@@ -26,6 +26,7 @@ import {
   translationPT,
   translationFR,
 } from "translations/index";
+import CreatedBySec from "Screens/Components/TimelineComponent/CreatedBysec";
 class Index extends Component {
   constructor(props) {
     super(props);
@@ -344,7 +345,7 @@ class Index extends Component {
                 <Grid>
                   <Grid container direction="row" className="addSpc bpJohnMain">
                     <Grid item xs={12} md={12}>
-                      <Grid className="bpJohnImg">
+                      {/* <Grid className="bpJohnImg">
                         <a data-tip data-for={item.track_id + "created"}>
                           <img
                             src={getImage(
@@ -376,7 +377,8 @@ class Index extends Component {
                             />
                           </p>
                         </ReactTooltip>
-                      </Grid>
+                      </Grid> */}
+                         <CreatedBySec data={item} />
                     </Grid>
                     <Grid className="clear"></Grid>
                   </Grid>

@@ -7,13 +7,14 @@ import FileViews from "./../FileViews/index";
 import PainPoint from "Screens/Components/PointPain/index";
 import PainIntensity from "Screens/Components/PainIntansity/index";
 import DownloadFullTrack from "Screens/Components/DownloadFullTrack/index.js";
-import { getDate, newdate, getTime, getImage } from "Screens/Components/BasicMethod/index";
+import { getDate, newdate, getImage } from "Screens/Components/BasicMethod/index";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { GetShowLabel1 } from "../../GetMetaData/index.js";
 import { LanguageFetchReducer } from "Screens/actions";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import ExpandLessIcon from "@material-ui/icons/ExpandLess";
+import CreatedBySec from "Screens/Components/TimelineComponent/CreatedBysec";
 import {
   translationAR,
   translationSW,
@@ -357,7 +358,8 @@ class Index extends Component {
                 <Grid>
             <Grid container direction="row" className="addSpc conPain_Cntnt">
               <Grid item xs={12} md={5}>
-                <Grid className="conPain_Img">
+              <CreatedBySec data={item} />
+                {/* <Grid className="conPain_Img">
                   <a data-tip data-for={item.track_id + "created"}>
                     <img
                       src={getImage(item.created_by_image, this.state.images)}
@@ -383,7 +385,7 @@ class Index extends Component {
                       />
                     </p>
                   </ReactTooltip>
-                </Grid>
+                </Grid> */}
               </Grid>
               <Grid item xs={12} md={7}>
                 {/* <Grid className="conPain_MDCImg">

@@ -7,12 +7,12 @@ import DownloadFullTrack from "Screens/Components/DownloadFullTrack/index.js";
 import {
   getDate,
   newdate,
-  getTime,
   getImage,
 } from "Screens/Components/BasicMethod/index";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { LanguageFetchReducer } from "Screens/actions";
+import CreatedBySec from "Screens/Components/TimelineComponent/CreatedBysec";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import ExpandLessIcon from "@material-ui/icons/ExpandLess";
 import {
@@ -345,7 +345,8 @@ class Index extends Component {
                 <Grid>
                   <Grid container direction="row" className="addSpc bpJohnMain">
                     <Grid item xs={12} md={12}>
-                      <Grid className="bpJohnImg">
+                    <CreatedBySec data={item} />
+                      {/* <Grid className="bpJohnImg">
                         <a data-tip data-for={item.track_id + "created"}>
                           <img
                             src={getImage(
@@ -377,7 +378,7 @@ class Index extends Component {
                             />
                           </p>
                         </ReactTooltip>
-                      </Grid>
+                      </Grid> */}
                     </Grid>
                     <Grid className="clear"></Grid>
                   </Grid>

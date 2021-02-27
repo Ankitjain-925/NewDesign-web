@@ -9,6 +9,7 @@ import {
   getImage,
 } from "Screens/Components/BasicMethod/index";
 import DownloadFullTrack from "Screens/Components/DownloadFullTrack/index.js";
+import CreatedBySec from "Screens/Components/TimelineComponent/CreatedBysec";
 import FileViews from "./../FileViews/index";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
@@ -344,7 +345,8 @@ class Index extends Component {
                 <Grid>
                   <Grid container direction="row" className="addSpc bpJohnMain">
                     <Grid item xs={12} md={12}>
-                      <Grid className="bpJohnImg">
+                    <CreatedBySec data={item} />
+                      {/* <Grid className="bpJohnImg">
                         <a>
                           <img
                             src={getImage(
@@ -357,7 +359,7 @@ class Index extends Component {
 
                           <span>{item.created_by_temp}</span>
                         </a>
-                      </Grid>
+                      </Grid> */}
                     </Grid>
                     <Grid className="clear"></Grid>
                   </Grid>
