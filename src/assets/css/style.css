@@ -13107,9 +13107,6 @@ a.academy_ul ul li img {
 
 
 /*Added By ankita*/
-a {
-    color: initial !important;
-}
 .conPain_num, .bp_hg, .icd_num{
     min-height: 30px;
 }
@@ -13142,6 +13139,12 @@ a {
 }
 .darkTheme > div:nth-child(3) .sel_specialty .css-yk16xz-control input{
     color: #BFC1C1 !important;
+}
+.homeBgDrk .trackView a {
+    color: #bfc1c1;
+}
+.trackView:hover a{
+    color: #fff !important;
 }
 iframe.stripe_checkout_app {
     overflow: scroll!important;

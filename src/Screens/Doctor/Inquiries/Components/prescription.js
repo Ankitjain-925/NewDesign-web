@@ -277,11 +277,9 @@ class Index extends Component {
     let user_token = this.props.stateLoginValueAim.token;
     const { message } = this.state;
     sendPharmacy = false;
-    console.log('this.state.newEntry?.pharmacy_id', this.state.newEntry?.pharmacy_id)
     if(this.state.newEntry?.pharmacy_id){
       var sendPharmacy= this.state.newEntry?.pharmacy_id
     }
-    console.log('sendPharmacy', sendPharmacy)
     axios
       .put(
         sitedata.data.path + "/UserProfile/GetPrescription/" + id,
