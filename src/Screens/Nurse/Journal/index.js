@@ -14,20 +14,17 @@ import { LoginReducerAim } from "Screens/Login/actions";
 import LeftMenuMobile from "Screens/Components/Menus/NurseLeftMenu/mobile";
 import { Doctorset } from "Screens/Doctor/actions";
 import { Settings } from "Screens/Login/setting";
-import { Redirect, Route } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import LeftMenu from "Screens/Components/Menus/NurseLeftMenu/index";
 import { LanguageFetchReducer } from "Screens/actions";
 import AddEntry from "Screens/Components/AddEntry/index";
-import PersonalizedData from "Screens/Components/TimelineComponent/PersonalizedData/index";
 import FilterSec from "Screens/Components/TimelineComponent/Filter/index";
 import ProfileSection from "Screens/Components/TimelineComponent/ProfileSection/index";
 import RightManage from "Screens/Components/TimelineComponent/RightMenuManage/index";
+import VideoDemo from "Screens/Components/VideoDemo/index";
 import {
   SortByEntry,
   SortByDiagnose,
-  ConsoleCustom,
-  getTime,
-  getDate,
   mySorter,
 } from "Screens/Components/BasicMethod/index";
 import ViewTimeline from "Screens/Components/TimelineComponent/ViewTimeline/index";
@@ -68,8 +65,6 @@ import {
   translationPT,
   translationFR
 } from "translations/index"
-import { FormatListBulleted } from "@material-ui/icons";
-import { updateBlockchain } from "Screens/Components/BlockchainEntry/index.js";
 import PFields from "Screens/Components/TimelineComponent/PFields/index.js";
 import AnamnesisFields from "Screens/Components/TimelineComponent/AnamnesisFields/index.js";
 import SCFields from "Screens/Components/TimelineComponent/SCFields/index.js";
@@ -140,7 +135,7 @@ class Index extends Component {
   }
   //For render 10 entries at one time 
   Showdefaults = (allTrack, defaultValue )=>{
-    allTrack = allTrack.slice(0, defaultValue);
+    allTrack = allTrack?.length>0 && allTrack?.slice(0, defaultValue);
     this.setState({ allTrack : allTrack })
   }
   //For Close the Graph
@@ -1427,6 +1422,9 @@ class Index extends Component {
                                       />
                                     </Grid>
                                   )}
+                                 <Grid className="downloadButton">
+                                    <VideoDemo />
+                                </Grid>
                               </Grid>
                             </Grid>
                           </Grid>

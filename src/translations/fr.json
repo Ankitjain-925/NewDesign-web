@@ -1190,6 +1190,8 @@
 		"appointment_can_be_cancelled" : "Le rendez-vous peut être annulé:",
 		"notmore24": "Veuillez saisir moins de 24 heures",
 		"NotAvailable":"Pas disponible",
-		"Seemore10entries" : "Voir plus de 10 entrées"
+		"Seemore10entries" : "Voir plus de 10 entrées",
+		"showOnlyOverview" : "Afficher seulement l'aperçu",
+		"view_demo":"Voir la démo"
 	}
 }

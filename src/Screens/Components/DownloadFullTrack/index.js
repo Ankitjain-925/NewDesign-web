@@ -200,7 +200,8 @@ class Date extends Component {
   shouldComponentUpdate(nextProps, nextState) {
     return (
       nextProps.TrackRecord !== this.props.TrackRecord ||
-      nextState.TrackRecord !== this.state.TrackRecord
+      nextState.TrackRecord !== this.state.TrackRecord || 
+      nextProps.stateLanguageType !==  this.props.stateLanguageType
     );
   }
 

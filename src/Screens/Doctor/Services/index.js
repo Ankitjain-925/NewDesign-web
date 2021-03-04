@@ -1721,6 +1721,7 @@ class Index extends Component {
                               </Grid>
                               <Grid>
                                 <ReactFlagsSelect
+                                  searchable={true}
                                   placeholder={country_code}
                                   name="country_code"
                                   onSelect={this.onSelectFlag}

@@ -13,6 +13,7 @@ import Loader from "Screens/Components/Loader/index";
 import { Redirect, Route } from "react-router-dom";
 import Collapsible from "react-collapsible";
 import sitedata from "sitedata";
+import { OptionList } from "Screens/Login/metadataaction";
 import "react-toggle/style.css";
 import { authy } from "Screens/Login/authy.js";
 import {
@@ -33,6 +34,11 @@ import {
   translationPT,
   translationFR
 } from "translations/index"
+import {
+  GetShowLabel1,
+  GetLanguageDropdown
+} from "Screens/Components/GetMetaData/index.js";
+import {organDonorLang, KeyLang} from 'Screens/Components/BlockchainEntry/manageLanguage';
 import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 class Index extends Component {
   constructor(props) {
@@ -158,12 +164,32 @@ class Index extends Component {
     } else if (
       current_select === "symptoms" ||
       current_select === "remarks" ||
-      current_select === "tree_text"
+      current_select === "free_text" ||
+      current_select === "explanation" 
     ) {
       return <p dangerouslySetInnerHTML={{ __html: value }} />;
     } else {
       return value;
     }
+  };
+
+  getOrgans = (optionData) => {
+    var rhesus = [];
+    optionData = optionData.split(",");
+    rhesus = optionData.map((item) => {
+      var Alltissues = GetLanguageDropdown(
+        this.props?.metadata?.tissue,
+        this.props.stateLanguageType
+      );
+      return GetShowLabel1(
+        Alltissues,
+        item,
+        this.props.stateLanguageType,
+        true,
+        "organ"
+      );
+    });
+    return rhesus.join(", ");
   };
 
   render() {
@@ -262,39 +288,44 @@ class Index extends Component {
                                       <div>
                                         {v === "yes_to_all" && (
                                           <div>
-                                            Transplantation of one or more organ
+                                            {/* Transplantation of one or more organ
                                             / tissues of mine after doctors have
-                                            pronounced me dead
+                                            pronounced me dead */}
+                                            {organDonorLang('yes_to_all', this.props.stateLanguageType)}
                                           </div>
                                         )}
                                         {v === "exclude_some" && (
                                           <div>
-                                            Transplantation of organ / tissues
+                                            {/* Transplantation of organ / tissues
                                             of mine after doctors have
                                             pronounced me dead except for
-                                            following organ / tissues
+                                            following organ / tissues */}
+                                            {organDonorLang('exclude_some', this.props.stateLanguageType)}
                                           </div>
                                         )}
                                         {v === "include_some" && (
                                           <div>
-                                            Transplantation of organ / tissues
+                                            {/* Transplantation of organ / tissues
                                             of mine after doctors have
                                             pronounced me dead only for
-                                            following organ / tissues
+                                            following organ / tissues */}
+                                            {organDonorLang('include_some', this.props.stateLanguageType)}
                                           </div>
                                         )}
                                         {v === "not_allowed" && (
                                           <div>
-                                            NOT allow a transplantation of any
-                                            of my organs or tissues
+                                            {/* NOT allow a transplantation of any
+                                            of my organs or tissues */}
+                                            {organDonorLang('not_allowed', this.props.stateLanguageType)}
                                           </div>
                                         )}
                                         {v === "decided_by_following" && (
                                           <div>
-                                            Transplantation of one or more organ
+                                            {/* Transplantation of one or more organ
                                             / tissues of mine after doctors have
                                             pronounced me dead YES or NO shall
-                                            be decided by the following person
+                                            be decided by the following person */}
+                                            {organDonorLang('decided_by_following', this.props.stateLanguageType)}
                                           </div>
                                         )}
                                       </div>
@@ -303,17 +334,18 @@ class Index extends Component {
                                     {k === "OptionData" && (
                                       <div>
                                         {typeof v === "string" && (
-                                          <div>{v}</div>
+                                          <div>{this.getOrgans(v)}</div>
                                         )}
                                         {typeof v !== "string" &&
                                           Object.entries(v).map(([k1, v1]) => (
                                             <Grid container direction="row">
                                               <Grid item xs={5} md={5}>
                                                 <span>
-                                                  {k1.charAt(0).toUpperCase() +
+                                                {KeyLang(k1, this.props.stateLanguageType)}
+                                                  {/* {k1.charAt(0).toUpperCase() +
                                                     k1
                                                       .slice(1)
-                                                      .replace("_", " ")}
+                                                      .replace("_", " ")} */}
                                                 </span>
                                               </Grid>
                                               <Grid item xs={7} md={7}>
@@ -388,13 +420,14 @@ class Index extends Component {
                                           <Grid className="blochChainIner">
                                             <Grid>
                                               <label>
-                                                {v.type &&
+                                              {KeyLang(v.type, this.props.stateLanguageType)}
+                                                {/* {v.type &&
                                                   v.type
                                                     .charAt(0)
                                                     .toUpperCase() +
                                                     v.type
                                                       .slice(1)
-                                                      .replace("_", " ")}
+                                                      .replaceAll("_", " ")} */}
                                               </label>
                                             </Grid>
                                             <Grid>
@@ -464,9 +497,16 @@ class Index extends Component {
                                                         k1 !== "created_by" &&
                                                         k1 !== "public" &&
                                                         k1 !== "emergency_on" &&
+                                                        k1 !== "visible" &&
                                                         k1 !== "emergency_by" &&
                                                         k1 !==
                                                           "created_by_temp" &&
+                                                        k1 !==
+                                                          "created_on" &&
+                                                        k1 !==
+                                                          "patient_profile_id" &&
+                                                        k1 !==
+                                                          "pharmacy_id" &&
                                                         k1 !== "datetime_on" &&
                                                         k1 !== "type" &&
                                                         k1 !==
@@ -483,15 +523,16 @@ class Index extends Component {
                                                               md={5}
                                                             >
                                                               <span>
-                                                                {k1
+                                                              {KeyLang(k1, this.props.stateLanguageType)}
+                                                                {/* {k1
                                                                   .charAt(0)
                                                                   .toUpperCase() +
                                                                   k1
                                                                     .slice(1)
-                                                                    .replace(
+                                                                    .replaceAll(
                                                                       "_",
                                                                       " "
-                                                                    )}
+                                                                    )} */}
                                                               </span>
                                                             </Grid>
                                                             <label>
@@ -536,6 +577,7 @@ const mapStateToProps = (state) => {
   const { stateLanguageType } = state.LanguageReducer;
   const { settings } = state.Settings;
   const { verifyCode } = state.authy;
+  const { metadata } = state.OptionList;
   // const {Doctorsetget} = state.Doctorset;
   // const {catfil} = state.filterate;
   return {
@@ -544,6 +586,7 @@ const mapStateToProps = (state) => {
     loadingaIndicatoranswerdetail,
     settings,
     verifyCode,
+    metadata,
     //   Doctorsetget,
     //   catfil
   };
@@ -554,5 +597,6 @@ export default withRouter(
     LanguageFetchReducer,
     Settings,
     authy,
+    OptionList
   })(Index)
 );

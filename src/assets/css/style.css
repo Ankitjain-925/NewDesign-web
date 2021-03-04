@@ -13107,6 +13107,9 @@ a.academy_ul ul li img {
 
 
 /*Added By ankita*/
+.SetWidthPopup3 {
+    width: 55%;
+}
 .conPain_num, .bp_hg, .icd_num{
     min-height: 30px;
 }

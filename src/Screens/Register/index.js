@@ -950,6 +950,7 @@ class Index extends Component {
                                     //enableSearch={true}
                                     /> */}
                       <ReactFlagsSelect
+                      searchable={true}
                         placeholder={country_code}
                         name="country_code"
                         onSelect={this.onSelectFlag}

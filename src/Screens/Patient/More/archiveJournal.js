@@ -1,16 +1,10 @@
 import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
-import { Redirect, Route } from "react-router-dom";
-import Modal from "@material-ui/core/Modal";
-import Checkbox from "@material-ui/core/Checkbox";
-import { Editor } from "react-draft-wysiwyg";
-import sitedata, { data } from "sitedata";
+import { Redirect } from "react-router-dom";
+import sitedata from "sitedata";
 import axios from "axios";
 import { confirmAlert } from "react-confirm-alert"; // Import
 import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
-import Radio from "@material-ui/core/Radio";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import DatePicker from "react-date-picker";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { LoginReducerAim } from "Screens/Login/actions";
@@ -21,16 +15,8 @@ import { LanguageFetchReducer } from "Screens/actions";
 import {
   SortByEntry,
   SortByDiagnose,
-  ConsoleCustom,
-  getTime,
-  getDate,
-  mySorter,
 } from "Screens/Components/BasicMethod/index";
-import AddEntry from "Screens/Components/AddEntry/index";
-import PersonalizedData from "Screens/Components/TimelineComponent/PersonalizedData/index";
 import FilterSec from "Screens/Components/TimelineComponent/Filter/index";
-import ProfileSection from "Screens/Components/TimelineComponent/ProfileSection/index";
-import RightManage from "Screens/Components/TimelineComponent/RightMenuManage/index";
 import ViewTimeline from "Screens/Components/TimelineComponent/ViewTimeline/index";
 import Loader from "Screens/Components/Loader/index.js";
 import {
@@ -54,6 +40,9 @@ class Index extends Component {
     this.state = {
       loaderImage: false,
       images: [],
+      allTrack2: [],
+      allTrack: [],
+      defaultValue : 10,
     };
     // new Timer(this.logOutClick.bind(this))
   }
@@ -64,6 +53,17 @@ class Index extends Component {
     this.cur_one();
   }
 
+  LoadMore=(allTrack)=>{
+    this.setState({loading: true, defaultValue : this.state.defaultValue+10}, 
+      ()=>{ this.Showdefaults(allTrack, this.state.defaultValue)
+        setTimeout(()=>{this.setState({loading: false})}, 1000)
+      })
+  }
+  //For render 10 entries at one time 
+  Showdefaults = (allTrack, defaultValue )=>{
+    allTrack = allTrack?.length>0 && allTrack?.slice(0, defaultValue);
+    this.setState({ allTrack : allTrack })
+  }
   //Get the Current User Profile
   cur_one = () => {
     var user_token = this.props.stateLoginValueAim.token;
@@ -90,14 +90,14 @@ class Index extends Component {
     }
     this.setState({ Sort: data });
   };
-
-  //For clear the filter
-  ClearData = () => {
-    this.setState(
-      { Sort: "diagnosed_time", allTrack: this.state.allTrack1 },
-      this.SortData()
-    );
-  };
+    //For clear the filter
+    ClearData = () => {
+      this.setState(
+        { Sort: "diagnosed_time", allTrack2: this.state.allTrack1, allTrack: this.state.allTrack1, defaultValue: 10 },
+        ()=>{this.SortData()
+          this.Showdefaults(this.state.allTrack2, this.state.defaultValue) }
+      ); 
+    };
 
   FilterText = (text) => {
     let track = this.state.allTrack1;
@@ -107,7 +107,8 @@ class Index extends Component {
       track.filter((obj) => {
         return this.isThisAvilabel(obj, text && text.toLowerCase());
       });
-    this.setState({ allTrack: FilterFromSearch });
+      this.setState({ allTrack2: FilterFromSearch, defaultValue: 10  },
+        ()=>{ this.Showdefaults(FilterFromSearch, this.state.defaultValue) } );
   };
 
   //For filter the Data
@@ -129,7 +130,8 @@ class Index extends Component {
       FilterFromUserType = this.state.allTrack1;
     }
     FilterFromUserType = [...new Set(FilterFromUserType)];
-    this.setState({ allTrack: FilterFromUserType });
+    this.setState({ allTrack2: FilterFromUserType,  defaultValue: 10 },
+      ()=>{ this.Showdefaults(FilterFromUserType, this.state.defaultValue) } );
   };
 
   //Filter according to date range
@@ -246,9 +248,10 @@ class Index extends Component {
           //       });
           //   });
 
-          this.setState({ allTrack: response.data.data, loaderImage: false });
+          this.setState({ allTrack1: response.data.data,  allTrack2 : response.data.data, allTrack: response.data.data, loaderImage: false },
+            ()=>{this.Showdefaults(this.state.allTrack2, this.state.defaultValue)});
         } else {
-          this.setState({ allTrack: [], loaderImage: false });
+          this.setState({ allTrack1: [], allTrack2 : [], allTrack: [], loaderImage: false });
         }
       });
   };
@@ -517,7 +520,7 @@ class Index extends Component {
       default:
         translate = translationEN.text;
     }
-    let { archive_journal } = translate;
+    let { archive_journal, Seemore10entries, loadingref} = translate;
     const { stateLoginValueAim, Doctorsetget } = this.props;
     if (
       stateLoginValueAim.user === "undefined" ||
@@ -609,6 +612,12 @@ class Index extends Component {
                           patient_gender={this.state.patient_gender}
                         />
                       ))}
+                       {this.state.allTrack2 > this.state.allTrack && <div className="more10entries" onClick={()=>this.LoadMore(this.state.allTrack2)}>
+                        {Seemore10entries}
+                      </div>}
+                      {this.state.loading && <div className="more10entries">
+                        {loadingref}
+                      </div>}
                   </div>
                 </Grid>
               </Grid>

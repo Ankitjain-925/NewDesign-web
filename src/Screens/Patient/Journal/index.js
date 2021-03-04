@@ -20,13 +20,11 @@ import PersonalizedData from "Screens/Components/TimelineComponent/PersonalizedD
 import FilterSec from "Screens/Components/TimelineComponent/Filter/index";
 import ProfileSection from "Screens/Components/TimelineComponent/ProfileSection/index";
 import RightManage from "Screens/Components/TimelineComponent/RightMenuManage/index";
+import VideoDemo from "Screens/Components/VideoDemo/index";
 import {
   mySorter,
   SortByEntry,
   SortByDiagnose,
-  ConsoleCustom,
-  getTime,
-  getDate,
 } from "Screens/Components/BasicMethod/index";
 import ViewTimeline from "Screens/Components/TimelineComponent/ViewTimeline/index";
 import GraphView from "Screens/Components/TimelineComponent/GraphView/index";
@@ -126,15 +124,23 @@ class Index extends Component {
     };
   }
 
+  viewDemos =()=>{
+    this.setState({ viewDemo: true });
+  }
+  CloseFile =()=>{
+      console.log('dssdfsd')
+    this.setState({ viewDemo: false });
+  }
+  
   LoadMore=(allTrack)=>{
     this.setState({loading: true, defaultValue : this.state.defaultValue+10}, 
       ()=>{ this.Showdefaults(allTrack, this.state.defaultValue)
-        setTimeout(()=>{this.setState({loading: false})}, 2000)
+        setTimeout(()=>{this.setState({loading: false})}, 1000)
       })
   }
   //For render 10 entries at one time 
   Showdefaults = (allTrack, defaultValue )=>{
-    allTrack = allTrack.slice(0, defaultValue);
+    allTrack = allTrack?.length>0 && allTrack?.slice(0, defaultValue);
     this.setState({ allTrack : allTrack })
   }
   //For Close the Graphs
@@ -1277,6 +1283,9 @@ class Index extends Component {
                                   <DownloadFullTrack
                                     TrackRecord={this.state.allTrack1}
                                   />
+                                </Grid>
+                                <Grid className="downloadButton">
+                                    <VideoDemo />
                                 </Grid>
                               </Grid>
                             </Grid>

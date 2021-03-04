@@ -90,7 +90,7 @@
 		"postal_code": "Postal code",
 		"country": "Country",
 		"home_telephone": "Home telephone number",
-		"phone": "phone",
+		"phone": "Phone",
 		"country_code": "Country Code",
 		"mobile_number": "Mobile phone number",
 		"mobile": "mobile",
@@ -1191,6 +1191,8 @@
 		"appointment_can_be_cancelled" : "Appointment can be cancelled:",
 		"notmore24": "Please enter less than 24 hours",
 		"NotAvailable":"Not available",
-		"Seemore10entries" : "See more 10 entries"
+		"Seemore10entries" : "See more 10 entries",
+		"showOnlyOverview" : "Show Only Overview",
+		"view_demo":"View demo"
 	}
 }

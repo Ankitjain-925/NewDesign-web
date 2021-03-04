@@ -70,6 +70,7 @@ import AnamnesisFields from "Screens/Components/TimelineComponent/AnamnesisField
 import SCFields from "Screens/Components/TimelineComponent/SCFields/index.js";
 import SOFields from "Screens/Components/TimelineComponent/SOFields/index.js";
 import DownloadFullTrack from "Screens/Components/DownloadFullTrack/index";
+import VideoDemo from "Screens/Components/VideoDemo/index";
 
 import SPECIALITY from "speciality";
 import { GetLanguageDropdown } from "Screens/Components/GetMetaData/index.js";
@@ -132,7 +133,7 @@ class Index extends Component {
   }
   //For render 10 entries at one time 
   Showdefaults = (allTrack, defaultValue )=>{
-    allTrack = allTrack.slice(0, defaultValue);
+    allTrack = allTrack?.length>0 && allTrack?.slice(0, defaultValue);
     this.setState({ allTrack : allTrack })
   }
   //For Close the Graph
@@ -1350,6 +1351,9 @@ class Index extends Component {
                                   <DownloadFullTrack
                                     TrackRecord={this.state.allTrack1}
                                   />
+                                </Grid>
+                                <Grid className="downloadButton">
+                                  <VideoDemo />
                                 </Grid>
                               </Grid>
                             </Grid>

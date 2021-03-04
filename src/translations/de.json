@@ -1189,6 +1189,8 @@
 		"appointment_can_be_cancelled" : "Termin kann abgesagt werden:",
 		"notmore24": "Bitte geben Sie weniger als 24 Stunden ein",
 		"NotAvailable":"Nicht verfügbar",
-		"Seemore10entries" : "Weitere 10 Einträge anzeigen"
+		"Seemore10entries" : "Weitere 10 Einträge anzeigen",
+		"showOnlyOverview" : "Nur Übersicht anzeigen",
+		"view_demo":"Demo anzeigen"
 	}
 }

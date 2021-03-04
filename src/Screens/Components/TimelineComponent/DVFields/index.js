@@ -136,7 +136,7 @@ class Index extends Component {
 
             <Grid className="fillDia">
               <Grid className="rrSysto">
-                <Grid>
+                <Grid> 
                   <label>{date_doc_visit}</label>
                 </Grid>
                 <DateFormat

@@ -132,7 +132,7 @@ class Index extends Component {
   }
   //For render 10 entries at one time 
   Showdefaults = (allTrack, defaultValue )=>{
-    allTrack = allTrack.slice(0, defaultValue);
+    allTrack = allTrack?.length>0 && allTrack?.slice(0, defaultValue);
     this.setState({ allTrack : allTrack })
   }
   //For Close the Graph
