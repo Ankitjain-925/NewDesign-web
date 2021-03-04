@@ -1225,6 +1225,7 @@
 		"NotAvailable":"Haipatikani",
 		"Seemore10entries" : "Angalia wasilisho 10 zaidi",
 		"showOnlyOverview" : "Onyesha Muhtasari tu",
-		"view_demo":"Angalia onyesho"
+		"view_demo":"Angalia onyesho",
+		"SMSEmailLanguage" :"Lugha ya SMS / Barua pepe"
 	}
 }

@@ -1193,6 +1193,7 @@
 		"NotAvailable":"Not available",
 		"Seemore10entries" : "See more 10 entries",
 		"showOnlyOverview" : "Show Only Overview",
-		"view_demo":"View demo"
+		"view_demo":"View demo",
+		"SMSEmailLanguage" :"SMS / Email Language"
 	}
 }

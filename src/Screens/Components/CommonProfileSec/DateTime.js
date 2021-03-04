@@ -21,7 +21,19 @@ import {
     translationPT,
     translationFR
   } from "translations/index"
-class Index extends Component {
+
+  var languages = [{value : 'ar', label : 'arabian'},
+  {value : 'ch', label : 'Chinese'},
+  {value : 'nl', label : 'Dutch'},
+  {value : 'en', label : 'English'},
+  {value : 'fr', label : 'French'},
+  {value : 'de', label : 'German'},
+  {value : 'pt', label : 'Portuguese'},
+  {value : 'rs', label : 'Russian'},
+  {value : 'sp', label : 'Spanish'},
+  {value : 'sw', label : 'Swahili'}]
+
+  class Index extends Component {
     constructor(props) {
        super(props);
         this.state = {
@@ -56,6 +68,13 @@ class Index extends Component {
         }).then((responce) => {
             if(responce.data.hassuccessed && responce.data.data)
             {
+                if(responce.data?.data?.msg_language){
+                    let msg_language = responce.data.data.msg_language;
+                    let filterData = languages && languages.length>0 && languages.filter((data)=> data.value === msg_language)
+                    if(filterData && filterData.length>0){
+                        this.setState({msg_language : filterData[0]})
+                    }
+                }
                 this.setState({timezone : responce.data.data.timezone, timeF : {label : responce.data.data.time_format, value :  responce.data.data.time_format}, dateF : {label : responce.data.data.date_format, value :  responce.data.data.date_format},})
                 this.props.Settings(responce.data.data); 
             }
@@ -70,6 +89,7 @@ class Index extends Component {
     ChangeFormat=(event, name)=>{
         if(name==='date_format') { this.setState({dateF : event}) }
         else if(name==='timezone') { this.setState({timezone : event}) }
+        else if(name==='msg_language') {this.setState({msg_language : event}) }
         else { this.setState({timeF : event}) }
         const state = this.state.Format;
         if(name==='timezone') { state[name] = event }
@@ -84,6 +104,7 @@ class Index extends Component {
             date_format: this.state.Format.date_format,
             time_format: this.state.Format.time_format,
             timezone :  this.state.Format.timezone,
+            msg_language: this.state.Format.msg_language,
             user_id: this.props.LoggedInUser._id,
             user_profile_id : this.props.LoggedInUser.profile_id,   
         }, {
@@ -135,7 +156,7 @@ class Index extends Component {
             default:
                 translate = translationEN.text
         }
-        let {date, time, format, set_the_default, the, is, updated,save_change, Timezone, time_format, time_zone, date_format }=translate
+        let {date, time, format,SMSEmailLanguage, set_the_default, the, is, updated,save_change, Timezone, time_format, time_zone, date_format }=translate
 
         return (
             <div>
@@ -187,6 +208,20 @@ class Index extends Component {
                                         options={this.state.timezones}
                                         placeholder={time_zone}
                                         name="timezone"
+                                        isSearchable={true}
+                                        className="mr_sel"
+                                    />
+                                </Grid>
+                            </Grid>
+                            <Grid className="timeFormat">
+                                <Grid><label>{SMSEmailLanguage}</label></Grid>
+                                <Grid>
+                                    <Select
+                                        value={this.state.msg_language}
+                                        onChange={(e) => this.ChangeFormat(e, 'msg_language')}
+                                        options={languages}
+                                        placeholder={SMSEmailLanguage}
+                                        name="msg_language"
                                         isSearchable={true}
                                         className="mr_sel"
                                     />

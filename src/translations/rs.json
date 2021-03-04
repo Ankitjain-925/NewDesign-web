@@ -1192,6 +1192,7 @@
     "NotAvailable":"Нет в наличии",
     "Seemore10entries" : "Посмотреть еще 10 записей",
     "showOnlyOverview" : "Показать только обзор",
-    "view_demo":"Посмотреть демо"
+    "view_demo":"Посмотреть демо",
+    "SMSEmailLanguage" :"Язык SMS / электронной почты"
   }
 }

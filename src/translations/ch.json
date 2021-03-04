@@ -1212,6 +1212,7 @@
 		"NotAvailable":"无法使用",
 		"Seemore10entries" : "查看更多10条目",
 		"showOnlyOverview" : "仅显示概述",
-		"view_demo":"观看演示"
+		"view_demo":"观看演示",
+		"SMSEmailLanguage" :"短信/电子邮件语言"
 	}
 }
