@@ -527,6 +527,7 @@ class Index extends Component {
     if (currentSelected !== -1) {
       let timeslot = suggestTime;
       let user_token = this.props.stateLoginValueAim.token;
+      // console.log('appoinmentSelected', appoinmentSelected)
       axios
         .put(
           sitedata.data.path + "/UserProfile/SuggestTimeSlot",
@@ -534,6 +535,7 @@ class Index extends Component {
             email: appoinmentSelected.patient_info.email,
             lan: this.props.stateLanguageType,
             _id: appoinmentSelected._id,
+            patient_id: appoinmentSelected.patient,
             oldSchedule:
               moment(new Date(appoinmentSelected.date)).format("MM-DD-YYYY") +
               " " +
