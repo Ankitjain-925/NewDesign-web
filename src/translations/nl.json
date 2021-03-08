@@ -1817,6 +1817,7 @@
 		"Seemore10entries" : "Zie meer 10 inzendingen",
 		"showOnlyOverview" : "Alleen overzicht weergeven",
 		"view_demo":"Bekijk demo",
-		"SMSEmailLanguage" :"SMS / e-mailtaal"
+		"SMSEmailLanguage" :"SMS / e-mailtaal",
+		"Noimageavailable" : "Geen afbeelding beschikbaar"
 	}
 }

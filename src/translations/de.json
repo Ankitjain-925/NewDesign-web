@@ -1192,6 +1192,7 @@
 		"Seemore10entries" : "Weitere 10 Einträge anzeigen",
 		"showOnlyOverview" : "Nur Übersicht anzeigen",
 		"view_demo":"Demo anzeigen",
-		"SMSEmailLanguage" :"SMS / E-Mail-Sprache"
+		"SMSEmailLanguage" :"SMS / E-Mail-Sprache",
+		"Noimageavailable" : "Kein Bild verfügbar"
 	}
 }

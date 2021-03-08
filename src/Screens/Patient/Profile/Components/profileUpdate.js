@@ -488,6 +488,14 @@ class Index extends Component {
     }
     //Save the User profile
     saveUserData = () => {
+        // console.log('Mobile', this.state.UpDataDetails.mobile.includes("-"))
+        if(!this.state.UpDataDetails.mobile.includes("-")){
+            const state2= this.state.UpDataDetails
+            state2['mobile'] = 'DE-'+ this.state.UpDataDetails.mobile;
+         
+            this.setState({UpDataDetails : state2})
+        }
+        // console.log('Mobile', this.state.UpDataDetails.mobile)
         if (this.state.insuranceDetails.insurance !== "" && this.state.insuranceDetails.insurance_country !== "") {
             if (datas.some(data => data.insurance === this.state.insuranceDetails.insurance)) {
 
@@ -515,6 +523,7 @@ class Index extends Component {
         const user_token = this.props.stateLoginValueAim.token;
         this.setState({ insuranceDetails: { insurance: '', insurance_number: '', insurance_country: '' } })
         var parent_id = this.state.UpDataDetails.parent_id ? this.state.UpDataDetails.parent_id : '0';
+    
         axios.put(sitedata.data.path + '/UserProfile/Users/update', {
             type: 'patient',
             pin: this.state.UpDataDetails.pin,
@@ -734,6 +743,7 @@ class Index extends Component {
                 title = { label: titlefromD, value: titlefromD }
             }
 
+            console.log('response.data.data.mobile', response.data.data.mobile)
             if (response.data.data.mobile && response.data.data.mobile !== '') {
                 let mob = response.data.data.mobile.split("-");
                 if (mob && mob.length > 0) {

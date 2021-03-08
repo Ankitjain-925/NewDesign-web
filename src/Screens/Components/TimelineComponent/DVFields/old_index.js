@@ -1,7 +1,5 @@
 import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
-import sitedata from "sitedata";
-import axios from "axios";
 import MMHG from "Screens/Components/mmHgField/index";
 import DateFormat from "Screens/Components/DateFormat/index";
 import SelectField from "Screens/Components/Select/index";
@@ -12,7 +10,6 @@ import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { GetShowLabel1 } from "Screens/Components/GetMetaData/index.js";
 import { LanguageFetchReducer } from "Screens/actions";
-import { LoginReducerAim } from "Screens/Login/actions";
 import {
   translationAR,
   translationSW,
@@ -26,8 +23,6 @@ import {
   translationFR
 } from "translations/index"
 import { pure } from "recompose";
-
-var doctorArray = [];
 class Index extends Component {
   constructor(props) {
     super(props);
@@ -36,15 +31,10 @@ class Index extends Component {
       date_format: this.props.date_format,
       time_format: this.props.time_format,
       options: this.props.options,
-      DocSug: [],
-      hint: [],
-      shown: true,
     };
   }
 
-  componentDidMount = () => {
-    this.alldoctor();
-  };
+  componentDidMount = () => {};
 
   updateEntryState1 = (value, name) => {
     var state = this.state.updateTrack;
@@ -59,83 +49,7 @@ class Index extends Component {
     }
   };
 
-  
-  //User list will be show/hide
-  toggle = () => {
-    this.setState({
-      shown: !this.state.shown,
-    });
-  };
-  filterDoc = (name) => {
-    var filterDta =
-      this.state.DocSug &&
-      this.state.DocSug.length > 0 &&
-      this.state.DocSug.filter((data) =>
-        data.label.toLowerCase().includes(name)
-      );
-    this.setState({ hint: filterDta });
-  };
-  alldoctor = () => {
-    var FamilyList = [];
-    doctorArray = [];
-    const user_token = this.props.stateLoginValueAim.token;
-    axios
-      .get(sitedata.data.path + "/UserProfile/DoctorUsers", {
-        headers: {
-          token: user_token,
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      })
-      .then((response) => {
-        this.setState({ allDocData: response.data.data }, () => {
-          for (let i = 0; i < this.state.allDocData.length; i++) {
-            var name = "";
-            if (
-              this.state.allDocData[i].first_name &&
-              this.state.allDocData[i].last_name
-            ) {
-              name =
-                this.state.allDocData[i].first_name +
-                " " +
-                this.state.allDocData[i].last_name;
-            } else if (this.state.allDocData[i].first_name) {
-              name = this.state.allDocData[i].first_name;
-            }
-            doctorArray.push({
-              label: name,
-              alies_id :  this.state.allDocData[i].alies_id 
-            });
-          }
-          this.setState({ DocSug: doctorArray });
-        });
-      });
-  };
   render() {
-    const userList =
-    this.state.hint &&
-    this.state.hint.length > 0 &&
-    this.state.hint.map((user) => {
-      return (
-        <li
-          key={user.label}
-          value={user.label}
-          onClick={() => {
-            this.updateEntryState1(user.label, "doctor_name");
-            this.updateEntryState1(user.alies_id, "doctor_id");
-            this.toggle();
-            this.setState({ hint: [] });
-          }}
-        >
-          {user.label}
-        </li>
-      );
-    });
-  var shown = {
-    display: this.state.shown ? "none" : "block",
-    width: "100%",
-  };
-
     let translate = {};
     switch (this.props.stateLanguageType) {
       case "en":
@@ -189,18 +103,9 @@ class Index extends Component {
               <MMHG
                 name="doctor_name"
                 label={doc_name}
-                onChange={(e) => {
-                  this.filterDoc(e.target.value);
-                  this.props.updateEntryState(e);
-                }}
+                onChange={(e) => this.props.updateEntryState(e)}
                 value={this.state.updateTrack.doctor_name}
               />
-                <ul
-                className="insuranceHint3"
-                style={{ height: userList != "" ? "150px" : "" }}
-              >
-                {userList}
-              </ul>
             </Grid>
             <Grid className="fillDia">
               <MMHG
@@ -272,7 +177,7 @@ class Index extends Component {
                 isMulti={true}
                 fileUpload={this.props.FileAttachMulti}
               />
-            </Grid> 
+            </Grid>
           </Grid>
         )}
 
@@ -295,15 +200,12 @@ class Index extends Component {
   }
 }
 
-
 const mapStateToProps = (state) => {
   const { stateLanguageType } = state.LanguageReducer;
-  const { stateLoginValueAim } = state.LoginReducerAim;
   return {
     stateLanguageType,
-    stateLoginValueAim,
   };
 };
 export default pure(withRouter(
-  connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer })(Index)
+  connect(mapStateToProps, { LanguageFetchReducer })(Index)
 ));

@@ -775,7 +775,7 @@ class Index extends Component {
           //This is for Aimedis Blockchain Section
           this.rightInfo();
           var images = [];
-          // response.data.data = response.data.data.filter((e) => e != null);
+          response.data.data = response.data.data.filter((e) => e != null);
           // response.data.data &&
           //   response.data.data.length > 0 &&
           //   response.data.data.map((data1, index) => {
@@ -875,7 +875,7 @@ class Index extends Component {
             allTrack1: response.data.data,
             allTrack2 : response.data.data,
             loaderImage: false,
-            defaultValue : 10,
+            // defaultValue : 10,
           },
           ()=>{this.Showdefaults(this.state.allTrack2, this.state.defaultValue)});
         } else {

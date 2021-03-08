@@ -1193,6 +1193,7 @@
 		"Seemore10entries" : "Voir plus de 10 entrées",
 		"showOnlyOverview" : "Afficher seulement l'aperçu",
 		"view_demo":"Voir la démo",
-		"SMSEmailLanguage" :"Langue SMS / Email"
+		"SMSEmailLanguage" :"Langue SMS / Email",
+		"Noimageavailable" : "Pas d'image disponible"
 	}
 }

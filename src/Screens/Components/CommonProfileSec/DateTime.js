@@ -22,7 +22,7 @@ import {
     translationFR
   } from "translations/index"
 
-  var languages = [{value : 'ar', label : 'arabian'},
+  var languages = [{value : 'ar', label : 'Arabian'},
   {value : 'ch', label : 'Chinese'},
   {value : 'nl', label : 'Dutch'},
   {value : 'en', label : 'English'},
@@ -213,7 +213,7 @@ import {
                                     />
                                 </Grid>
                             </Grid>
-                            <Grid className="timeFormat">
+                            {/* <Grid className="timeFormat">
                                 <Grid><label>{SMSEmailLanguage}</label></Grid>
                                 <Grid>
                                     <Select
@@ -226,7 +226,7 @@ import {
                                         className="mr_sel"
                                     />
                                 </Grid>
-                            </Grid>
+                            </Grid> */}
 
                             <Grid className="timDatSubmit">
                                 <input type="submit" onClick={this.SetFormat} value={save_change} />

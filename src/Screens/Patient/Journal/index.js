@@ -128,7 +128,6 @@ class Index extends Component {
     this.setState({ viewDemo: true });
   }
   CloseFile =()=>{
-      console.log('dssdfsd')
     this.setState({ viewDemo: false });
   }
   
@@ -856,7 +855,7 @@ class Index extends Component {
             allTrack1: response.data.data,
             allTrack2 : response.data.data,
             loaderImage: false,
-            defaultValue : 10,
+            // defaultValue : 10,
           },
           ()=>{this.Showdefaults(this.state.allTrack2, this.state.defaultValue)});
         } else {

@@ -1193,6 +1193,7 @@
     "Seemore10entries" : "Посмотреть еще 10 записей",
     "showOnlyOverview" : "Показать только обзор",
     "view_demo":"Посмотреть демо",
-    "SMSEmailLanguage" :"Язык SMS / электронной почты"
+    "SMSEmailLanguage" :"Язык SMS / электронной почты",
+    "Noimageavailable" : "Изображение отсутствует"
   }
 }

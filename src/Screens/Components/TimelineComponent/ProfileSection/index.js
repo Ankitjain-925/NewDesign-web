@@ -22,7 +22,7 @@ import {
   translationFR
 } from "translations/index"
 import { pure } from "recompose";
-import { find } from "highcharts";
+
 class PointPain extends Component {
   constructor(props) {
     super(props);
@@ -269,6 +269,7 @@ class PointPain extends Component {
       height,
       BMI,
       blood,
+      Noimageavailable
     } = translate;
 
     return (
@@ -318,9 +319,10 @@ class PointPain extends Component {
             ) : (
               <Grid className="myProfile2">
                 <a className="profilePic2">
-                  <span>
+                  {this.props.comesFrom && this.props.comesFrom === "patient" ? <span>
                     {add_profile} <br /> {picture}
-                  </span>
+                  </span>:
+                  <span>{Noimageavailable}</span> }
                   <img
                     src={require("assets/images/user2.jpg")}
                     alt=""
@@ -344,11 +346,15 @@ class PointPain extends Component {
               )}{" "}
             </p>
           ) : (
-            <p onClick={this.props.MoveProfile}>{cmplt_ur_profile}</p>
+            this.props.comesFrom && this.props.comesFrom === "patient" && <p onClick={this.props.MoveProfile}>{cmplt_ur_profile}</p>
           )}
-          <Grid className="profileBtn">
-            <a onClick={this.props.MoveProfile}>{my_profile}</a>
-          </Grid>
+           <Grid className="profileBtn">
+          {this.props.comesFrom && this.props.comesFrom === "patient" && 
+           
+              <a onClick={this.props.MoveProfile}>{my_profile}</a>
+          
+          }
+            </Grid>
           <Grid>
             <Grid className="prfilHght">
               <Grid className="prfilHghtLft">

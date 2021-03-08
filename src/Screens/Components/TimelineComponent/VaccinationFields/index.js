@@ -246,14 +246,12 @@ class Index extends Component {
                 <DateFormat
                   name="data_of_vaccination"
                   value={
-                    this.state.updateTrack.date_measured
-                      ? new Date(this.state.updateTrack.date_measured)
+                    this.state.updateTrack.data_of_vaccination
+                      ? new Date(this.state.updateTrack.data_of_vaccination)
                       : new Date()
                   }
                   date_format={this.state.date_format}
-                  onChange={(e) =>
-                    this.updateEntryState1(e, "data_of_vaccination")
-                  }
+                  onChange={(e) => this.updateEntryState1(e, "data_of_vaccination")}
                 />
               </Grid>
             </Grid>

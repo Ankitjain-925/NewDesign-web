@@ -1213,6 +1213,7 @@
 		"Seemore10entries" : "查看更多10条目",
 		"showOnlyOverview" : "仅显示概述",
 		"view_demo":"观看演示",
-		"SMSEmailLanguage" :"短信/电子邮件语言"
+		"SMSEmailLanguage" :"短信/电子邮件语言",
+		"Noimageavailable" : "没有可用的图像"
 	}
 }

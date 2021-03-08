@@ -1196,6 +1196,7 @@
 		"Seemore10entries" : "Ver más 10 entradas",
 		"showOnlyOverview" : "Mostrar solo descripción general",
 		"view_demo":"Ver demo",
-		"SMSEmailLanguage" :"Idioma de SMS / correo electrónico"
+		"SMSEmailLanguage" :"Idioma de SMS / correo electrónico",
+		"Noimageavailable" : "No hay imagen disponible"
 	}
 }
