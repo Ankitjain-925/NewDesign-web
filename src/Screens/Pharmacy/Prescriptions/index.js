@@ -54,7 +54,30 @@ class Index extends Component {
   }
   // fancybox open
   handleOpenPres = (data) => {
+    this.setState({loaderImage: true})
+    var images = [];
+        data.attachfile?.length > 0 &&
+          data.attachfile.map((data, index) => {
+            var find = data && data.filename && data.filename;
+            if (find) {
+              var find1 = find.split(".com/")[1];
+              axios
+                .get(sitedata.data.path + "/aws/sign_s3?find=" + find1)
+                .then((response2) => {
+                  if (response2.data.hassuccessed) {
+                    images.push({
+                      image: find,
+                      new_image: response2.data.data,
+                    });
+                    this.setState({ images: images });
+                  }
+                });
+            }
+          });
+         
     this.setState({ openPres: true, openDetail: data });
+    setInterval(()=>{this.setState({loaderImage: false})}, 3000)
+    // this.setState({ openPres: true, openDetail: data });
   };
   handleClosePres = () => {
     this.setState({ openPres: false, openDetail: {} });
@@ -85,29 +108,29 @@ class Index extends Component {
         if (response.data.hassuccessed === true) {
           var images = [];
           response.data.data = response.data.data.filter((e) => e != null);
-          response.data.data &&
-            response.data.data.length > 0 &&
-            response.data.data.map((data1, index) => {
-              data1.attachfile &&
-                data1.attachfile.length > 0 &&
-                data1.attachfile.map((data, index) => {
-                  var find = data && data.filename && data.filename;
-                  if (find) {
-                    var find1 = find.split(".com/")[1];
-                    axios
-                      .get(sitedata.data.path + "/aws/sign_s3?find=" + find1)
-                      .then((response2) => {
-                        if (response2.data.hassuccessed) {
-                          images.push({
-                            image: find,
-                            new_image: response2.data.data,
-                          });
-                          this.setState({ images: images });
-                        }
-                      });
-                  }
-                });
-            });
+          // response.data.data &&
+          //   response.data.data.length > 0 &&
+          //   response.data.data.map((data1, index) => {
+          //     data1.attachfile &&
+          //       data1.attachfile.length > 0 &&
+          //       data1.attachfile.map((data, index) => {
+          //         var find = data && data.filename && data.filename;
+          //         if (find) {
+          //           var find1 = find.split(".com/")[1];
+          //           axios
+          //             .get(sitedata.data.path + "/aws/sign_s3?find=" + find1)
+          //             .then((response2) => {
+          //               if (response2.data.hassuccessed) {
+          //                 images.push({
+          //                   image: find,
+          //                   new_image: response2.data.data,
+          //                 });
+          //                 this.setState({ images: images });
+          //               }
+          //             });
+          //         }
+          //       });
+          //   });
           this.setState({
             Allpre: response.data.data,
             Allpre1: response.data.data,
@@ -120,21 +143,6 @@ class Index extends Component {
       .catch((error) => {
         this.setState({ loaderImage: false });
       });
-  };
-
-  //For open the file of prescription
-  openFile = (attachfile) => {
-    var find = attachfile && attachfile;
-    if (find) {
-      var find1 = find.split(".com/")[1];
-      axios
-        .get(sitedata.data.path + "/aws/sign_s3?find=" + find1)
-        .then((res) => {
-          if (res.data.hassuccessed) {
-            window.open(res.data.data);
-          }
-        });
-    }
   };
 
   //Confirm popup for Delete

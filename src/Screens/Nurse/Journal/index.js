@@ -97,6 +97,7 @@ class Index extends Component {
       Allpain_quality: [],
       Pressuresituation: [],
       Allsituation: [],
+      medication_unit:[],
       Allsmoking_status: [],
       Allreminder: [],
       AllreminderV: [],
@@ -1019,7 +1020,7 @@ class Index extends Component {
         Allgender: Allgender,
         Alltime_taken: Alltime_taken,
         personalised_card: personalised_card,
-        // AllL_P: AllL_Ps.AllL_Ps,
+        medication_unit: this.state.allMetadata?.medication_unit,
       });
     }
   };
@@ -2132,7 +2133,7 @@ class Index extends Component {
                               {this.state.current_select === "medication" && (
                                 <MedicationFields
                                   cur_one={this.state.cur_one2}
-                                  lrpUnit={AllL_Ps.AllL_Ps.units}
+                                  lrpUnit={this.state.medication_unit}
                                   FileAttachMulti={this.FileAttachMulti}
                                   visibility={this.state.visibility}
                                   comesfrom="nurse"
