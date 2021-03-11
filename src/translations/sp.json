@@ -198,7 +198,7 @@
 		"share_health_status": "Compartir estado de salud",
 		"share_health_status_info_from_journal": "Esto compartirá la información de su estado de salud de su diario, ya que esto es necesario para que el médico pueda aprobar su solicitud de prescripción.",
 		"see_list_shared_info": "Ver lista de información compartida",
-		"share_ur_jounral_status": "Comparta el estado de salud del diario con el médico",
+		"share_ur_jounral_status": "Añadir esta/este doctora a mi lista de médicos privados",
 		"country_u_live": "País en el que vive",
 		"dieseases_etc": "Enfermedades (cardíacas, malignas, pulmonares, musculoesqueléticas...)",
 		"allergies": "Alergias",
@@ -1197,6 +1197,7 @@
 		"showOnlyOverview" : "Mostrar solo descripción general",
 		"view_demo":"Ver demo",
 		"SMSEmailLanguage" :"Idioma de SMS / correo electrónico",
-		"Noimageavailable" : "No hay imagen disponible"
+		"Noimageavailable" : "No hay imagen disponible",
+		"Prescriptionsuccessfullysent" :"Receta enviada con éxito"
 	}
 }

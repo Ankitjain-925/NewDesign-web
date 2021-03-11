@@ -1873,8 +1873,11 @@ a.profilMenu {
         margin-left: 0px !important;
     }
     .presOpinionIner td {
-        font-size: 11px !important;
+        font-size: 13px !important;
     }    
+    .scndOpinionIner td {
+        font-size: 13px !important;
+    } 
 }
 @media (max-width: 599px){ 
     .chatContact {
@@ -4929,14 +4932,14 @@ body {
     line-height: 12px;
 }
 .scndOpinionIner td.pivoted {
-    padding: 14px 25px;
+    padding: 14px 20px;
     color: #000808;
     font-family: Muli;
     font-size: 14px;
     font-weight: 600;
     letter-spacing: 0;
     line-height: 18px;
-    min-width: 178px;
+    /* min-width: 178px; */
 }
 .scndOpinionIner tbody tr {
     border-bottom: 1px solid #F2F2F2;
@@ -4955,7 +4958,7 @@ body {
     height: 15px;
     width: 15px;
     cursor: pointer;
-    border-radius: 4px;
+    border-radius: 5px;
 }
 span.revwYelow, span.revwGry, span.revwGren, span.revwRed {
     width: 10px;
@@ -5620,7 +5623,7 @@ button.presTabsIner {
     padding: 14px 20px;
     color: #000808;
     font-family: Muli;
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 600;
     letter-spacing: 0;
     line-height: 18px;

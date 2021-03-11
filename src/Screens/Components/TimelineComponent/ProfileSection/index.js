@@ -4,7 +4,8 @@ import { confirmAlert } from "react-confirm-alert"; // Import
 import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
 import sitedata from "sitedata";
 import axios from "axios";
-import { ConsoleCustom, getDate } from "Screens/Components/BasicMethod/index";
+import Resizer from 'react-image-file-resizer';
+import { ConsoleCustom, getDate, blobToFile, resizeFile } from "Screens/Components/BasicMethod/index";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { LanguageFetchReducer } from "Screens/actions";
@@ -109,9 +110,8 @@ class PointPain extends Component {
           .then((res) => {});
       });
   }
-
   //For Upload the User Image
-  UploadFile = (event) => {
+  UploadFile = async (event) => {
     if (
       event.target.files[0].type === "image/jpeg" ||
       event.target.files[0].type === "image/png"
@@ -125,9 +125,13 @@ class PointPain extends Component {
       let fileParts = event.target.files[0].name.split(".");
       let fileName = fileParts[0];
       let fileType = fileParts[1];
+      
+      const compressedFile = await resizeFile(file);
+
+      var data = blobToFile(compressedFile, file.name)
       axios
         .post(sitedata.data.path + "/aws/sign_s3", {
-          fileName: fileName,
+          fileName: data.name,
           fileType: fileType,
           folders: this.state.user.profile_id + "/",
           bucket: this.state.user.bucket,
@@ -146,7 +150,7 @@ class PointPain extends Component {
             },
           };
           axios
-            .put(signedRequest, file, options)
+            .put(signedRequest, data, options)
             .then((result) => {
               this.setState(
                 {

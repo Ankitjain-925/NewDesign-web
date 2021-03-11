@@ -407,7 +407,7 @@ class Index extends Component {
                 <Grid className="regHead">
                   <Grid container direction="row" justify="center">
                     <Grid item xs={6} sm={6} className="LogoForms">
-                      <a>
+                      <a href={sitedata.data.live_site}>
                         <img
                           src={require("assets/images/LogoPNG.png")}
                           alt=""

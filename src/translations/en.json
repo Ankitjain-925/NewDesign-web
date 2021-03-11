@@ -197,7 +197,7 @@
 		"share_health_status": "Share Health Status",
 		"share_health_status_info_from_journal": "This will share your health status info from your journal, as this is needed for the doctor to be able to approve your prescription request.",
 		"see_list_shared_info": "See list of shared information",
-		"share_ur_jounral_status": "Share journal health status with Doctor",
+		"share_ur_jounral_status": "Add this doctor to my private doctor list",
 		"country_u_live": "Country you live in",
 		"dieseases_etc": "Diseases (Heart, Malignant, Pulmonary, Musculosceletal ...)",
 		"allergies": "Allergies",
@@ -1195,6 +1195,7 @@
 		"showOnlyOverview" : "Show Only Overview",
 		"view_demo":"View demo",
 		"SMSEmailLanguage" :"SMS / Email Language",
-		"Noimageavailable" : "No image available"
+		"Noimageavailable" : "No image available",
+		"Prescriptionsuccessfullysent" :"Prescription successfully sent"
 	}
 }

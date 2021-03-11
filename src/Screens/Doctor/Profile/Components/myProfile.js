@@ -4,6 +4,7 @@ import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
 import Select from "react-select";
 import DatePicker from "react-date-picker";
+import Resizer from 'react-image-file-resizer';
 // import PhoneInput from 'react-phone-input-2';
 // import 'react-phone-input-2/lib/style.css';
 import ReactFlagsSelect from "react-flags-select";
@@ -17,7 +18,7 @@ import { LoginReducerAim } from "Screens/Login/actions";
 import { Settings } from "Screens/Login/setting";
 import npmCountryList from "react-select-country-list";
 import FileUploader from "Screens/Components/FileUploader/index";
-import { GetUrlImage1 } from "Screens/Components/BasicMethod/index";
+import { GetUrlImage1, blobToFile, resizeFile } from "Screens/Components/BasicMethod/index";
 import { Table } from "reactstrap";
 import * as AustraliaC from "Screens/Components/insuranceCompanies/australia.json";
 import * as AustriaC from "Screens/Components/insuranceCompanies/austria.json";
@@ -164,26 +165,33 @@ class Index extends Component {
   }
 
   //For upload the Profile pic
-  fileUpload = (event, filed_name) => {
+  fileUpload = async (event, filed_name) => {
     if (event[0].type === "image/jpeg" || event[0].type === "image/png") {
       this.setState({ loaderImage: true });
-      let reader = new FileReader();
+      // let reader = new FileReader();
       let file = event[0];
-      reader.onloadend = () => {
-        this.setState({
-          file: file,
-          imagePreviewUrl1: reader.result,
-        });
-      };
-      let user_token = this.props.stateLoginValueAim.token;
-      reader.readAsDataURL(file);
-      const data = new FormData();
+      this.setState({
+        loaderImage: true,
+        imagePreviewUrl1: URL.createObjectURL(file),
+      });
+      // reader.onloadend = () => {
+      //   this.setState({
+      //     file: file,
+      //     imagePreviewUrl1: reader.result,
+      //   });
+      // };
+      // let user_token = this.props.stateLoginValueAim.token;
+      // reader.readAsDataURL(file);
       let fileParts = event[0].name.split(".");
       let fileName = fileParts[0];
       let fileType = fileParts[1];
+      const compressedFile = await resizeFile(file);
+
+      var data = blobToFile(compressedFile, file.name)
+      console.log('Get ComFile', data)
       axios
         .post(sitedata.data.path + "/aws/sign_s3", {
-          fileName: fileName,
+          fileName: data.name,
           fileType: fileType,
           folders: this.props.stateLoginValueAim.user.profile_id + "/",
           bucket: this.props.stateLoginValueAim.user.bucket,
@@ -202,7 +210,7 @@ class Index extends Component {
             },
           };
           axios
-            .put(signedRequest, file, options)
+            .put(signedRequest, data, options)
             .then((result) => {
               this.setState(
                 {

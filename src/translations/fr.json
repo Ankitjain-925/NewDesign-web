@@ -197,7 +197,7 @@
 		"share_health_status": "Partager l'état de santé",
 		"share_health_status_info_from_journal": "Les informations relatives à votre état de santé figurant dans votre journal seront ainsi partagées, car elles sont nécessaires pour que le médecin puisse approuver votre demande de prescription.",
 		"see_list_shared_info": "Voir la liste des informations partagées",
-		"share_ur_jounral_status": "Partager l'état de santé du journal avec le médecin",
+		"share_ur_jounral_status": "Ajouter ce médecin à ma liste de médecins privés",
 		"country_u_live": "Pays dans lequel vous vivez",
 		"dieseases_etc": "Maladies (cardiaques, malignes, pulmonaires, musculo-squelettiques ...)",
 		"allergies": "Allergies",
@@ -1194,6 +1194,7 @@
 		"showOnlyOverview" : "Afficher seulement l'aperçu",
 		"view_demo":"Voir la démo",
 		"SMSEmailLanguage" :"Langue SMS / Email",
-		"Noimageavailable" : "Pas d'image disponible"
+		"Noimageavailable" : "Pas d'image disponible",
+		"Prescriptionsuccessfullysent" :"Ordonnance envoyée avec succès"
 	}
 }

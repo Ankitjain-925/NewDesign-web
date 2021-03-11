@@ -197,7 +197,7 @@
 		"share_health_status": "Share Hali ya Afya",
 		"share_health_status_info_from_journal": "Hii itakuwa kushiriki hali yako ya afya info kutoka jarida yako, kama hii ni zinahitajika kwa ajili ya daktari kuwa na uwezo wa kupitisha dawa yako ya ombi.",
 		"see_list_shared_info": "Angalia orodha ya pamoja ya habari",
-		"share_ur_jounral_status": "Share journal hali ya afya na Daktari",
+		"share_ur_jounral_status": "Ongeza daktari huyu kwenye orodha yangu ya daktari wa kibinafsi",
 		"country_u_live": "Nchi ya kuishi katika",
 		"dieseases_etc": "Magonjwa (Moyo, Malignant, Mapafu, Musculosceletal ...)",
 		"health_issue": "masuala ya Afya (ugonjwa wa Kisukari, shinikizo la damu ...)",
@@ -1227,6 +1227,7 @@
 		"showOnlyOverview" : "Onyesha Muhtasari tu",
 		"view_demo":"Angalia onyesho",
 		"SMSEmailLanguage" :"Lugha ya SMS / Barua pepe",
-		"Noimageavailable" : "Hakuna picha inayopatikana"
+		"Noimageavailable" : "Hakuna picha inayopatikana",
+		"Prescriptionsuccessfullysent" :"Dawa imefanikiwa kutumwa"
 	}
 }

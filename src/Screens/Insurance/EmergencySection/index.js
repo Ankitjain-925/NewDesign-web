@@ -169,7 +169,7 @@ class Index extends Component {
       for_geting_emrgancy_data_on_a_click,
       emrgncy_data_access,
       emrgancy_access_for_non_connected,
-      patient_profile_not_crrect,
+      patient_profile_is_not_correct,
       view_emrgncy_data,
       plz_accept_term_condition,
       imp_notice_b,
@@ -279,10 +279,10 @@ class Index extends Component {
                         </Grid>
                         <p>{emrgancy_access_for_non_connected}</p>
                       </Grid>
-
+                      
                       {this.state.error_msg && (
                         <div className="err_message">
-                          {patient_profile_not_crrect}
+                          {patient_profile_is_not_correct}
                         </div>
                       )}
                       {this.state.error_msg1 && (

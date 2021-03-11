@@ -49,6 +49,7 @@ class Index extends Component {
   toggle = () => {
     this.setState({
       shown: !this.state.shown,
+      
     });
   };
 
@@ -93,7 +94,7 @@ class Index extends Component {
       this.state.DocSug &&
       this.state.DocSug.length > 0 &&
       this.state.DocSug.filter((data) =>
-        data.label.toLowerCase().includes(name)
+        data.label.toLowerCase().includes(name.toLowerCase())
       );
 
     this.setState({ hint: filterDta });
@@ -118,11 +119,11 @@ class Index extends Component {
       this.state.hint.map((user) => {
         return (
           <li
-            key={user.label}
+            key={user.alies_id}
             value={user.label}
             onClick={() => {
               this.updateEntryState1(user.label, "vaccinated_by");
-              this.toggle(user.id);
+              this.toggle();
               this.setState({ hint: [] });
             }}
           >

@@ -742,8 +742,6 @@ class Index extends Component {
             if (titlefromD && titlefromD !== "") {
                 title = { label: titlefromD, value: titlefromD }
             }
-
-            console.log('response.data.data.mobile', response.data.data.mobile)
             if (response.data.data.mobile && response.data.data.mobile !== '') {
                 let mob = response.data.data.mobile.split("-");
                 if (mob && mob.length > 0) {
@@ -991,6 +989,8 @@ class Index extends Component {
 
         return (
             <div>
+                {/* {console.log('this.props.stateLanguageType',  this.props.stateLanguageType)}
+                {console.log('this.props.settings',  this.props.settings)} */}
                 {this.state.loaderImage && <Loader />}
                 <Grid className="profileMy">
                     <Grid className="profileInfo">

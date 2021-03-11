@@ -202,7 +202,7 @@
 		"share_health_status": "共享运行状况",
 		"share_health_status_info_from_journal": "这将分享你的日记中的健康状况信息，因为这是医生批准你的处方请求所需要的。",
 		"see_list_shared_info": "查看共享信息列表",
-		"share_ur_jounral_status": "与医生分享日记健康状况",
+		"share_ur_jounral_status": "将此医生添加到我的私人医生名单中",
 		"country_u_live": "你居住的国家",
 		"dieseases_etc": "疾病（心脏，恶性，肺，肌腰。..)",
 		"allergies": "过敏",
@@ -1214,6 +1214,7 @@
 		"showOnlyOverview" : "仅显示概述",
 		"view_demo":"观看演示",
 		"SMSEmailLanguage" :"短信/电子邮件语言",
-		"Noimageavailable" : "没有可用的图像"
+		"Noimageavailable" : "没有可用的图像",
+		"Prescriptionsuccessfullysent" :"处方发送成功"
 	}
 }

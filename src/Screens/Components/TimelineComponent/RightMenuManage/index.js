@@ -46,6 +46,7 @@ class RightManage extends Component {
       time_format: this.props.time_format,
       date_format: this.props.date_format,
       loggedinUser: this.props.loggedinUser,
+      last_dv: this.props.personalinfo?.last_dv|| [],
       doc_image: "",
       images: [],
       resprisationLast : -1,
@@ -116,7 +117,9 @@ class RightManage extends Component {
       nextState.ggtLast !== this.state.ggtLast ||
       nextState.astLast !== this.state.astLast ||
       nextState.altLast !== this.state.altLast ||
-      nextState.LRLast !== this.state.LRLast
+      nextState.LRLast !== this.state.LRLast ||
+      nextState.images !== this.state.images
+
     );
   }
 
@@ -130,25 +133,16 @@ class RightManage extends Component {
       prevProps.stateLanguageType !== this.props.stateLanguageType
     ) {
       this.setState({ personalinfo: this.props.personalinfo }, () => {
-        // var find = this.state.personalinfo && this.state.personalinfo.upcoming_appointment && this.state.personalinfo.upcoming_appointment.length > 0 && this.state.personalinfo.upcoming_appointment[0] && this.state.personalinfo.upcoming_appointment[0].docProfile && this.state.personalinfo.upcoming_appointment[0].docProfile.profile_image
-        // if (find) {
-        //     var find1 = find.split('.com/')[1]
-        //     axios.get(sitedata.data.path + '/aws/sign_s3?find=' + find1,)
-        //         .then((response) => {
-        //             if (response.data.hassuccessed) {
-        //                 this.setState({ doc_image: response.data.data })
-        //             }
-        //         })
-        // }
         var images = [];
         this.state.personalinfo &&
           this.state.personalinfo.last_dv &&
           this.state.personalinfo.last_dv.length > 0 &&
-          this.state.personalinfo.last_dv.map((item) => {
+          this.state.personalinfo.last_dv.map((item, index) => {
             if (item.image) {
               var find = item && item.image;
               if (find) {
                 var find1 = find.split(".com/")[1];
+            
                 axios
                   .get(sitedata.data.path + "/aws/sign_s3?find=" + find1)
                   .then((response) => {
@@ -157,9 +151,15 @@ class RightManage extends Component {
                         image: find,
                         new_image: response.data.data,
                       });
-                      this.setState({ images: images });
+                      this.setState({ images: images },()=>{
+                        if(this.state.personalinfo.last_dv.length-1 === index){
+                          var newData = this.state.images;
+                          newData.push({image: 'last_image', new_image: 'last_image_resolve'})
+                          setTimeout(()=>{this.setState({images : newData})}, 2000)
+                        }
+                      });
                     }
-                  });
+                  })
               }
             }
           });
@@ -275,6 +275,7 @@ class RightManage extends Component {
           AST: AST,
           ALT: ALT,
         });
+       
         this.setState({
           laboratory_result: laboratory_result,
           blood_pressure: blood_pressure,
@@ -292,6 +293,7 @@ class RightManage extends Component {
           ggt1: ggt1,
           ast1: ast1,
           alt1: alt1,
+          last_dv: this.props.personalinfo?.last_dv
         });
       });
     }
@@ -2223,6 +2225,7 @@ class RightManage extends Component {
     var item = this.state.item;
     return (
       <div>
+
         {this.state.added_data &&
           this.state.added_data.length > 0 &&
           this.state.added_data.map((item, index) => (
@@ -5521,15 +5524,16 @@ class RightManage extends Component {
               {item === "last_doctor_visit" && (
                 <Grid className="drVisit">
                   <h3>{last_doc_visit}</h3>
-                  {this.state.personalinfo &&
-                  this.state.personalinfo.last_dv &&
-                  this.state.personalinfo.last_dv.length > 0 ? (
+                  {
+                  this.state.last_dv &&
+                  this.state.last_dv.length > 0 ? (
                     <div>
-                      {this.state.personalinfo.last_dv.map((data, index) => (
-                        <Grid container direction="row" alignItems="center">
+                      {this.state.last_dv.map((data, index) => (
+                        <Grid container key={data.datetime_on} direction="row" alignItems="center">
                           <Grid item xs={2} md={2}>
+                        
                             <Grid className="drVisitImg">
-                              <img
+                              <img key={data.image}
                                 src={
                                   data && data.image
                                     ? getImage(data.image, this.state.images)

@@ -1149,7 +1149,7 @@
 		"share_health_status": "Deel Gezondheidsstatus",
 		"share_health_status_info_from_journal": "Hierdoor zal jouw gezondheidsstatus uit je dagboek worden gedeeld, aangezien dit nodig is voor je dokter om je recept-aanvraag goed te keuren.",
 		"see_list_shared_info": "Bekijk de lijst van gedeelde informatie",
-		"share_ur_jounral_status": "Deel gezondheidsstatus uit dagboek met Dokter",
+		"share_ur_jounral_status": "Voeg deze dokter toe aan mijn privé dokterslijst",
 		"country_u_live": "Land waarin je leeft",
 		"dieseases_etc": "Aandoeningen (Hart, Kwaadaardig, Long, Musculoskeletaal ...)",
 		"allergies": "Allergiën",
@@ -1818,6 +1818,7 @@
 		"showOnlyOverview" : "Alleen overzicht weergeven",
 		"view_demo":"Bekijk demo",
 		"SMSEmailLanguage" :"SMS / e-mailtaal",
-		"Noimageavailable" : "Geen afbeelding beschikbaar"
+		"Noimageavailable" : "Geen afbeelding beschikbaar",
+		"Prescriptionsuccessfullysent" :"Recept succesvol verzonden"
 	}
 }

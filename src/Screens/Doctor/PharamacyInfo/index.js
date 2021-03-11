@@ -475,7 +475,7 @@ class Index extends Component {
         translate = translationEN.text;
     }
     let {
-      Successfullyaddedtheinformation,
+      Prescriptionsuccessfullysent,
       plz_upload_png_jpg,
       PleaseEnterallthefield,
       Pleaseenterthepatientidfirst,
@@ -529,7 +529,7 @@ class Index extends Component {
               )}
               {this.state.isadded && (
                 <div className="success_message">
-                  {Successfullyaddedtheinformation}
+                  {Prescriptionsuccessfullysent}
                 </div>
               )}
               {this.state.compulsary && (

@@ -2,7 +2,7 @@ import axios from "axios";
 import sitedata from "sitedata";
 import React, { Component } from "react";
 import { speciality } from "speciality";
-
+import Resizer from 'react-image-file-resizer';
 //Custom Console So comment only One console works on whole website
 export function ConsoleCustom(msg, value) {
   // console.log(msg , value)
@@ -361,4 +361,20 @@ export function timeDiffCalc(dateFuture, dateNow) {
   let difference  = parseFloat(hours+'.'+minutes);
 
   return difference;
+}
+
+export const resizeFile = (file) => new Promise(resolve => {
+  Resizer.imageFileResizer(file, 300, 300, 'JPEG', 100, 0,
+  uri => {
+    resolve(uri);
+  },
+  'blob'
+  );
+});
+
+export const blobToFile= (theBlob, fileName)=>{
+//A Blob() is almost a File() - it's just missing the two properties below which we will add
+theBlob.lastModifiedDate = new Date();
+theBlob.name = fileName;
+return new File([theBlob], fileName);
 }

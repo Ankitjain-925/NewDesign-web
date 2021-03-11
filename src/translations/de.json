@@ -198,7 +198,7 @@
 		"share_health_status": "Gesundheitsstatus teilen",
 		"share_health_status_info_from_journal": "Hiermit werden Ihre Gesundheitsstatusinformationen aus Ihrem Gesundheitsjournal an den das Rezept ausstellenden Arzt weitergegeben.",
 		"see_list_shared_info": "Liste der geteilten Informationen einsehen",
-		"share_ur_jounral_status": "Aktuelles Gesundheitsjournal mit dem Arzt teilen",
+		"share_ur_jounral_status": "Fügen Sie diesen Arzt meiner privaten Arztliste hinzu",
 		"country_u_live": "Land in dem Sie leben",
 		"dieseases_etc": "Vorerkrankungen",
 		"allergies": "Allergien",
@@ -1193,6 +1193,7 @@
 		"showOnlyOverview" : "Nur Übersicht anzeigen",
 		"view_demo":"Demo anzeigen",
 		"SMSEmailLanguage" :"SMS / E-Mail-Sprache",
-		"Noimageavailable" : "Kein Bild verfügbar"
+		"Noimageavailable" : "Kein Bild verfügbar",
+		"Prescriptionsuccessfullysent" :"Rezept erfolgreich gesendet"
 	}
 }

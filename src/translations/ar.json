@@ -197,7 +197,7 @@
 		"share_health_status": "مشاركة الحالة الصحية",
 		"share_health_status_info_from_journal": "سيؤدي هذا إلى مشاركة معلومات حالتك الصحية من دفترك، حيث أن هذا ضروري حتى يتمكن الطبيب من الموافقة على طلب الروشتة الخاصة بك.",
 		"see_list_shared_info": "انظر قائمة المعلومات المشتركة",
-		"share_ur_jounral_status": "مشاركة حالتك الصحية مع دكتور",
+		"share_ur_jounral_status": "أضف هذا الطبيب إلى قائمة أطبائي الخاص",
 		"country_u_live": "بلد تعيش فيها",
 		"dieseases_etc": "أمراض (القلب، الأورام، الصدر، الجهاز العضلي الهيكلي ...)",
 		"allergies": "الحساسية",
@@ -1188,6 +1188,7 @@
 		"showOnlyOverview" : "عرض نظرة عامة فقط",
 		"view_demo":"مشاهدة العرض",
 		"SMSEmailLanguage" :"لغة الرسائل القصيرة / البريد الإلكتروني",
-		"Noimageavailable" : "لا توجد صور متاحة"
+		"Noimageavailable" : "لا توجد صور متاحة",
+		"Prescriptionsuccessfullysent" :"تم إرسال الوصفة الطبية بنجاح"
 		}
 }

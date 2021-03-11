@@ -13,7 +13,6 @@ export default class index {
       })
       .then((response) => {
         if (response.data.hassuccessed) {
-          console.log('I am running')
         } else {
           this.logOutClick();
         }
