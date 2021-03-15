@@ -13110,6 +13110,14 @@ a.academy_ul ul li img {
 
 
 /*Added By ankita*/
+.DownloadButton{
+    text-align: center;
+    margin: 10px;
+    font-weight: 700;
+}
+.DownloadButton a{
+    color:#00ABAF;
+}
 .profileBtn {
     margin: 10px;
 }

@@ -23,7 +23,7 @@ import {
   getTime,
   getImage,
 } from "Screens/Components/BasicMethod/index";
-
+import ImgaeSec from "Screens/Components/TimelineComponent/ImageSec";
 import {
   translationAR,
   translationSW,
@@ -550,23 +550,25 @@ class Index extends Component {
                               <Tr>
                                 <Td>{getDate(item.datetime_on)}</Td>
                                 <Td className="presImg">
-                                  <img
+                                <ImgaeSec data={item.patient_image} />
+                                  {/* <img
                                     src={require("assets/images/dr1.jpg")}
                                     alt=""
                                     title=""
-                                  />
+                                  /> */}
                                   {item.patient_name && item.patient_name}
                                   <p>
-                                    {item.patient_alies_id &&
-                                      item.patient_alies_id}
+                                  - ( {item.patient_alies_id &&
+                                      item.patient_alies_id} )
                                   </p>
                                 </Td>
                                 <Td className="presImg">
-                                  <img
+                                  {/* <img
                                     src={require("assets/images/dr1.jpg")}
                                     alt=""
                                     title=""
-                                  />
+                                  /> */}
+                                   <ImgaeSec data={item.created_by_image} />
                                   {item.created_by_temp && item.created_by_temp}
                                 </Td>
                                 <Td className="presEditDot scndOptionIner">

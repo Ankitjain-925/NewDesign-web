@@ -22,6 +22,7 @@ import {
   getDate,
   getImage,
 } from "Screens/Components/BasicMethod/index";
+import ImgaeSec from "Screens/Components/TimelineComponent/ImageSec";
 import { 
   translationAR,
   translationSW,
@@ -500,6 +501,7 @@ class Index extends Component {
       capab_Doctors,
       medicine_handed_to_patient,
       status,
+      Download,
       search_by_patient_id_name_doc,
     } = translate;
 
@@ -579,23 +581,26 @@ class Index extends Component {
                                   )}
                                 </Td>
                                 <Td className="presImg">
-                                  <img
+                                
+                                  {/* <img
                                     src={require("assets/images/dr1.jpg")}
                                     alt=""
                                     title=""
-                                  />
+                                  /> */}
+                                  <ImgaeSec data={item.patient_image} />
                                   {item.patient_name && item.patient_name}
                                   <p>
-                                    {item.patient_alies_id &&
-                                      item.patient_alies_id}
+                                    - ( {item.patient_alies_id &&
+                                      item.patient_alies_id} )
                                   </p>
                                 </Td>
                                 <Td className="presImg">
-                                  <img
+                                  {/* <img
                                     src={require("assets/images/dr1.jpg")}
                                     alt=""
                                     title=""
-                                  />
+                                  /> */}
+                                  <ImgaeSec data={item.created_by_image} />
                                   {item.created_by_temp && item.created_by_temp}
                                 </Td>
                                 <Td className="presImg">
@@ -701,6 +706,7 @@ class Index extends Component {
                                     {this.state.openDetail.patient_name &&
                                       this.state.openDetail.patient_name}
                                   </label>
+                                  
                                 </Grid>
                               </Grid>
 
@@ -714,6 +720,14 @@ class Index extends Component {
                                       this.state.openDetail.attachfile.map(
                                         (file) => (
                                           <div>
+                                            <div className="DownloadButton">
+                                              <a href={getImage(
+                                                      file.filename,
+                                                      this.state.images
+                                                    )} download target="_blank">
+                                                      {Download} {prescriptions}
+                                              </a>
+                                            </div>
                                             {file.filetype === "pdf" && (
                                               <iframe
                                                 className="FramesetHeightWidth"
