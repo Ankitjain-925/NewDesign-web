@@ -19,8 +19,11 @@ import sitedata from "sitedata";
 import { pure } from "recompose";
 import Loader from "../Loader/index.js";
 import axios from "axios";
+import {
+  getReminder, getDate, getTime
+} from "Screens/Components/BasicMethod/index";
 
-class Date extends Component {
+class Index extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -28,6 +31,25 @@ class Date extends Component {
     };
   }
 
+  getFamilyDoc = async (user_token, user_id) => {
+    var data = '';
+    if(user_id)
+    {
+      await axios
+      .get(sitedata.data.path + "/UserProfile/Users/"+user_id, {
+        headers: {
+          token: user_token,
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      })
+      .then((response) => {
+        data = response.data.data
+        return data;
+      });
+    }
+    return data;
+  };
   //This is for the Download the Track
   downloadTrack = () => {
     var medication = [],
@@ -48,52 +70,59 @@ class Date extends Component {
       smoking_status = [],
       anamnesis = [],
       respiration = [];
+      var time1 = '';
     if (this.state.TrackRecord && this.state.TrackRecord.length > 0) {
       this.state.TrackRecord.map((data) => {
         switch (data.type) {
           case "medication":
-            medication.push(data.substance);
+            // medication.push(data.substance);
+             medication.push(data.substance + ', '+ data?.dosage + data?.unit?.label + ' ('+ getReminder(data.time_taken,  this.props?.settings?.setting.time_format)+') since '+ getDate(data.prescribed_on, this.props?.settings?.setting.date_format ));
             break;
           case "blood_pressure":
+            time1 = data.time_measured ? getTime(new Date(data.time_measured), 12) : '';
             blood_pressure.push(
-              data.rr_systolic + "/" + data.rr_diastolic + " mmHg"
+              data.rr_systolic + "/" + data.rr_diastolic + " mmHg on "+  getDate( data.date_measured, 'mm/dd/yyyy' )+' at '+ time1
             );
             break;
           case "blood_sugar":
-            blood_sugar.push(data.blood_sugar + " mgdl");
+            time1 = data.time_measured ? getTime(new Date(data.time_measured), 12) : '';
+            blood_sugar.push(data.blood_sugar + " mgdl on "+  getDate( data.date_measured, 'mm/dd/yyyy' )+' at '+ time1) ;
             break;
           case "condition_pain":
-            condition_pain.push(data.problem);
+            condition_pain.push(data.problem +' on '+ getDate( data.event_date, 'mm/dd/yyyy' ));
             break;
           case "diagnosis":
             diagnosis.push(data.diagnosis);
             break;
           case "doctor_visit":
-            doctor_visit.push(data.doctor_name);
+            doctor_visit.push(data.doctor_name +' on '+ getDate( data.date_doctor_visit, 'mm/dd/yyyy' ));
             break;
           case "hospitalization":
-            hospitalization.push(data.hospital_name);
+            hospitalization.push(data.hospital_name+' from '+ getDate( data.first_visit_date, 'mm/dd/yyyy' ) + ' until '+  getDate( data.last_visit_date, 'mm/dd/yyyy' ));
             break;
           case "laboratory_result":
+            time1 = data.time_measured ? getTime(new Date(data.time_measured), 12) : '';
             laboratory_result.push(
               data.lab_parameter &&
                 data.lab_parameter.label +
                   " " +
                   data.value +
                   " " +
-                  data.unit.label
+                  data.unit.label +" on "+  getDate( data.date_measured, 'mm/dd/yyyy' )+' at '+ time1
             );
             break;
           case "marcumar_pass":
-            marcumar_pass.push(data.quick_value + " mg/dl");
+            time1 = data.time_measured ? getTime(new Date(data.time_measured), 12) : '';
+            marcumar_pass.push(data.quick_value + " mg/dl on "+  getDate( data.date_measured, 'mm/dd/yyyy' )+' at '+ time1) ;
             break;
           case "vaccination":
-            vaccination.push(data.vaccination);
+            vaccination.push(data.vaccination + ' on '+ getDate(data.data_of_vaccination, 'mm/dd/yyyy' ));
             break;
           case "weight_bmi":
+            time1 = data.time_measured ? getTime(new Date(data.time_measured), 12) : '';
             weight_bmi.push(
               ((data.weight / (data.height * data.height)) * 10000).toFixed(2) +
-                " BMI"
+                " BMI on "+  getDate( data.date_measured, 'mm/dd/yyyy' )+' at '+ time1
             );
             break;
           case "anamnesis":
@@ -125,7 +154,7 @@ class Date extends Component {
         }
       });
     }
-
+ 
     var TrackRecord = {
       medication: medication.filter((e) => e != null),
       blood_pressure: blood_pressure.filter((e) => e != null),
@@ -146,12 +175,13 @@ class Date extends Component {
       covid_19_vaccination_trial: VTrial.filter((e) => e != null),
       respiration: respiration.filter((e)=> e != null)
     };
-
+    var user_id =  this.props.stateLoginValueAim?.user?.family_doc?.[0];
+    var user_token = this.props.stateLoginValueAim.token;
     this.setState({ loaderImage: true });
+    this.getFamilyDoc(user_token, user_id).then((result) => {
+      console.log('docArray', result)
     axios
-      .post(
-        sitedata.data.path + "/UserProfile/downloadfullPdf",
-        {
+    .post(sitedata.data.path + "/UserProfile/downloadfullPdf", {
           Dieseases: TrackRecord,
           patientData: {
             name:
@@ -166,6 +196,7 @@ class Date extends Component {
             emergency_email: this.props.stateLoginValueAim.user.emergency_email,
             emergency_relation: this.props.stateLoginValueAim.user
               .emergency_relation,
+            family_doctor: result?.first_name+' '+ result?.last_name + '- ('+ result?.alies_id +')'
           },
         },
         { responseType: "blob" }
@@ -188,6 +219,10 @@ class Date extends Component {
       .catch((err) => {
         this.setState({ loaderImage: false });
       });
+    })
+    .catch((err) => {
+      this.setState({ loaderImage: false });
+    });
   };
 
   //on adding new data
@@ -270,6 +305,6 @@ const mapStateToProps = (state) => {
 };
 export default pure(
   withRouter(
-    connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer })(Date)
+    connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer })(Index)
   )
 );

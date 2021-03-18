@@ -123,13 +123,13 @@ class Index extends Component {
       SARS: [],
       Positive_SARS: [],
       vaccinations: [],
-      defaultValue : 10,
+      defaultValue : 20,
       loading: false,
     };
   }
 
   LoadMore=(allTrack)=>{
-    this.setState({loading: true, defaultValue : this.state.defaultValue+10}, 
+    this.setState({loading: true, defaultValue : this.state.defaultValue+20}, 
       ()=>{ this.Showdefaults(allTrack, this.state.defaultValue)
         setTimeout(()=>{this.setState({loading: false})}, 2000)
       })
@@ -153,7 +153,7 @@ class Index extends Component {
   //For clear the filter
   ClearData = () => {
     this.setState(
-      { Sort: "diagnosed_time", allTrack2: this.state.allTrack1, allTrack: this.state.allTrack1, defaultValue : 10, },
+      { Sort: "diagnosed_time", allTrack2: this.state.allTrack1, allTrack: this.state.allTrack1, defaultValue : 20, },
       ()=>{this.SortData()
         this.Showdefaults(this.state.allTrack2, this.state.defaultValue) }
     ); 
@@ -187,7 +187,7 @@ class Index extends Component {
       track.filter((obj) => {
         return this.isThisAvilabel(obj, text && text.toLowerCase());
       });
-      this.setState({ allTrack2: FilterFromSearch,  defaultValue: 10  },
+      this.setState({ allTrack2: FilterFromSearch,  defaultValue: 20  },
         ()=>{ this.Showdefaults(FilterFromSearch, this.state.defaultValue) } );
      };
 
@@ -210,7 +210,7 @@ class Index extends Component {
       FilterFromUserType = this.state.allTrack1;
     }
     FilterFromUserType = [...new Set(FilterFromUserType)];
-    this.setState({ allTrack2: FilterFromUserType, defaultValue: 10 },
+    this.setState({ allTrack2: FilterFromUserType, defaultValue: 20 },
       ()=>{ this.Showdefaults(FilterFromUserType, this.state.defaultValue) } );
   };
 
