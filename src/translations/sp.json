@@ -1193,7 +1193,7 @@
 		"appointment_can_be_cancelled" : "La cita se puede cancelar:",
 		"notmore24": "Ingrese menos de 24 horas",
 		"NotAvailable":"No disponible",
-		"Seemore10entries" : "Ver más 10 entradas",
+		"Seemore10entries" : "Ver más 20 entradas",
 		"showOnlyOverview" : "Mostrar solo descripción general",
 		"view_demo":"Ver demo",
 		"SMSEmailLanguage" :"Idioma de SMS / correo electrónico",

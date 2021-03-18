@@ -72,6 +72,7 @@ export function newdate(date) {
 
 //For getting the time
 export function getTime(date, timeFormat) {
+
   if (timeFormat === "12") {
     var hours = date.getHours();
     var minutes = date.getMinutes();
