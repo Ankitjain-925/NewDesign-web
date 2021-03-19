@@ -12894,7 +12894,7 @@ a.timSlotClose {
     font-weight: 400;
 }
 .adminmenuItems ul li a img {
-    margin-right: 0px !important;
+    margin-right: 10px !important;
 }
 @media (max-width: 959px){
 .adminmenuItems ul li a img {

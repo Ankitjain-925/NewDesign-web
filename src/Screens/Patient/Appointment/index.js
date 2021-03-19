@@ -293,7 +293,7 @@ class Index extends Component {
       appointmentData: {},
       currentSelected: null,
     });
-    Object.keys(this.state.allDocData).map((index, i) => {});
+    Object.keys(this.state.allDocData).map((index, i) => { });
   };
 
   //For patient Info..
@@ -363,9 +363,9 @@ class Index extends Component {
   bookAppointment = () => {
     var insurance_no =
       this.state.personalinfo.insurance &&
-      this.state.personalinfo.insurance.length > 0 &&
-      this.state.personalinfo.insurance[0] &&
-      this.state.personalinfo.insurance[0].insurance_number
+        this.state.personalinfo.insurance.length > 0 &&
+        this.state.personalinfo.insurance[0] &&
+        this.state.personalinfo.insurance[0].insurance_number
         ? this.state.personalinfo.insurance[0].insurance_number
         : "";
     // this.setState({ loaderImage: true });
@@ -539,44 +539,41 @@ class Index extends Component {
   }
 
   handleOpenApoint = (apoint) => {
-    this.setState({ openApoint: true, cancelappoint: apoint , });
+    this.setState({ openApoint: true, cancelappoint: apoint, });
   };
 
   // for cancel Appointment
   CancelAppoint = () => {
     let user_token = this.props.stateLoginValueAim.token;
     let timedifference = new Date(this.state.cancelappoint.date);
-    let currentDate =new Date();
-    if(currentDate.getDate() === timedifference.getDate())
-    {
-      if(this.state.cancelappoint.start_time)
-      {
+    let currentDate = new Date();
+    if (currentDate.getDate() === timedifference.getDate()) {
+      if (this.state.cancelappoint.start_time) {
         timedifference = timedifference.setHours(parseInt((this.state.cancelappoint.start_time.split(":"))[0]), parseInt((this.state.cancelappoint.start_time.split(":"))[1]))
         var timedifference1 = timeDiffCalc(currentDate, new Date(timedifference))
         this.setState({ loaderImage: true });
         axios
-        .post(
-          sitedata.data.path +
+          .post(
+            sitedata.data.path +
             "/UserProfile/abletocancel/" +
             this.state.cancelappoint.doctor_id,
-          {
-            appointment_type : this.state.cancelappoint.appointment_type,
-            timedifference : timedifference1,
-          },
-          {
-            headers: {
-              token: user_token,
-              Accept: "application/json",
-              "Content-Type": "application/json",
-            },
-          }
-        )
-        .then((response) => {
-            if(response.data.hassuccessed)
             {
-               this.CancelAppointsments() 
+              appointment_type: this.state.cancelappoint.appointment_type,
+              timedifference: timedifference1,
+            },
+            {
+              headers: {
+                token: user_token,
+                Accept: "application/json",
+                "Content-Type": "application/json",
+              },
             }
-            else{
+          )
+          .then((response) => {
+            if (response.data.hassuccessed) {
+              this.CancelAppointsments()
+            }
+            else {
               this.setState({
                 cancelNable: true,
                 openApoint: false,
@@ -592,10 +589,10 @@ class Index extends Component {
             this.setState({
               loaderImage: false,
             });
-        })
-        .catch((error) => {});
+          })
+          .catch((error) => { });
       }
-     else{
+      else {
         this.setState({
           cancelNable: true,
           openApoint: false,
@@ -607,21 +604,21 @@ class Index extends Component {
         setTimeout(() => {
           this.setState({ cancelNable: false });
         }, 5000);
-     }
-     
+      }
+
     }
-    else{
-      this.CancelAppointsments() 
+    else {
+      this.CancelAppointsments()
     }
   };
 
-  CancelAppointsments = ()=>{
+  CancelAppointsments = () => {
     let user_token = this.props.stateLoginValueAim.token;
     axios
       .put(
         sitedata.data.path +
-          "/UserProfile/GetAppointment/" +
-          this.state.cancelappoint._id,
+        "/UserProfile/GetAppointment/" +
+        this.state.cancelappoint._id,
         {
           status: "cancel",
           message: this.state.message,
@@ -649,9 +646,9 @@ class Index extends Component {
         }, 5000);
         this.getUpcomingAppointment();
       })
-      .catch((error) => {});
-    }
-  
+      .catch((error) => { });
+  }
+
 
   handleCloseApoint = () => {
     this.setState({ openApoint: false });
@@ -782,7 +779,7 @@ class Index extends Component {
               className: "trigger",
               /* your props here */
             })}
-            // onClick={() => this.CallEvents(data.event)}
+          // onClick={() => this.CallEvents(data.event)}
           >
             <p className="calendar-cont"> {data.event.title} </p>
             <p className="calendar-date">
@@ -898,8 +895,8 @@ class Index extends Component {
             "data-placement": placement,
             className:
               this.props.settings &&
-              this.props.settings.setting &&
-              this.props.settings.setting.mode === "dark"
+                this.props.settings.setting &&
+                this.props.settings.setting.mode === "dark"
                 ? "darktheme tooltip-arrow "
                 : "tooltip-arrow ",
           })}
@@ -911,8 +908,8 @@ class Index extends Component {
             <Grid
               className={
                 this.props.settings &&
-                this.props.settings.setting &&
-                this.props.settings.setting.mode === "dark"
+                  this.props.settings.setting &&
+                  this.props.settings.setting.mode === "dark"
                   ? "darktheme meetBoxCntnt"
                   : "meetBoxCntnt"
               }
@@ -949,8 +946,8 @@ class Index extends Component {
                       {data.appointment_type == "practice_appointment"
                         ? consultancy_appintment
                         : data.appointment_type == "online_appointment"
-                        ? vdo_call
-                        : data.custom_text ? data.custom_text :office_visit}
+                          ? vdo_call
+                          : data.custom_text ? data.custom_text : office_visit}
                     </span>
                   </Grid>
                   <Grid className="meetVdoRght">
@@ -993,29 +990,29 @@ class Index extends Component {
       parseInt(this._getHourMinut(currentTime)[0]) * 60 +
       parseInt(this._getHourMinut(currentTime)[1]);
     smint = parseInt(this._getHourMinut(currentTime)[1]);
-   
-  
+
+
     if (current_time >= b_start_time && current_time < b_end_time) {
       return true;
     } else {
       return false;
     }
   };
-  
+
   Availabledays = (date, days_upto) => {
     let current_date = new Date();
     let Newdate = new Date();
-    if(date && days_upto){
+    if (date && days_upto) {
       current_date = new Date(current_date).setHours(0, 0, 0, 0);
-      Newdate= Newdate.setDate(Newdate.getDate() + parseInt(days_upto))
-      return (new Date(Date.parse(date.replace(/-/gm, '/'))) < current_date || new Date(Date.parse(date.replace(/-/gm, '/')))>= Newdate);
+      Newdate = Newdate.setDate(Newdate.getDate() + parseInt(days_upto))
+      return (new Date(Date.parse(date.replace(/-/gm, '/'))) < current_date || new Date(Date.parse(date.replace(/-/gm, '/'))) >= Newdate);
     }
-    else{
+    else {
       return false;
     }
   }
 
-   ExitinHoliday = (date, h_start, h_end) => {
+  ExitinHoliday = (date, h_start, h_end) => {
     if (h_start && h_end && date) {
       let start_date = new Date(h_start);
       let end_date = new Date(h_end);
@@ -1153,9 +1150,9 @@ class Index extends Component {
       <Grid
         className={
           this.props.settings &&
-          this.props.settings.setting &&
-          this.props.settings.setting.mode &&
-          this.props.settings.setting.mode === "dark"
+            this.props.settings.setting &&
+            this.props.settings.setting.mode &&
+            this.props.settings.setting.mode === "dark"
             ? "homeBg homeBgDrk"
             : "homeBg"
         }
@@ -1176,8 +1173,8 @@ class Index extends Component {
                   onClose={this.handleCloseFancyVdo}
                   className={
                     this.props.settings &&
-                    this.props.settings.setting &&
-                    this.props.settings.setting.mode === "dark"
+                      this.props.settings.setting &&
+                      this.props.settings.setting.mode === "dark"
                       ? "darkTheme editBoxModel"
                       : "editBoxModel"
                   }
@@ -1205,105 +1202,105 @@ class Index extends Component {
                           <Grid>
                             <label>{slct_time_slot}</label>
                           </Grid>
-                          
+
                           <Grid className="selTimeAM">
                             {this.state.appointDate &&
-                            this.state.appointDate.length > 0 ? 
-                            (
-                              this.Availabledays(this.state.selectedDate, this.state.appointmentData.appointment_days)
-                              ?
-                              <Grid>
-                                <span>{NotAvailable}!</span>
-                              </Grid>
+                              this.state.appointDate.length > 0 ?
+                              (
+                                this.Availabledays(this.state.selectedDate, this.state.appointmentData.appointment_days)
+                                  ?
+                                  <Grid>
+                                    <span>{NotAvailable}!</span>
+                                  </Grid>
 
-                              : this.ExitinHoliday(this.state.selectedDate, this.state.appointmentData.holidays_start,
-                                this.state.appointmentData.holidays_end)
-                              ?  
-                            <Grid>
-                              <span>{holiday}!</span>
-                            </Grid> : 
-                            
-                            (this.state.appointDate.map((data, iA) => {
-                              if (
-                                this.Isintime(
-                                  this.state.appointDate[iA],
-                                  this.state.appointmentData.breakslot_start,
-                                  this.state.appointmentData.breakslot_end,
-                                  this.state.appointmentData.holidays_start,
-                                  this.state.appointmentData.holidays_end,
-                                )
-                              )
-                                return;
-                          
-                              return (
-                                <Grid>
-                                  {this.state.appointDate[iA + 1] &&
-                                  this.state.appointDate[iA + 1] !==
-                                    "undefined" &&
-                                  iA === 0 ? (
-                                    <a
-                                      className={
-                                        this.state.currentSelected === 0 &&
-                                        "current_selected"
-                                      }
-                                      onClick={() => {
-                                        this.findAppointment(
-                                          "tab3",
-                                          doc_select,
-                                          appointType,
-                                          apointDay,
-                                          iA
-                                        );
-                                      }}
-                                    >
-                                      {this.state.appointDate[iA] +
-                                        " - " +
-                                        this.state.appointDate[iA + 1]}
-                                    </a>
-                                  ) : (
-                                    this.state.appointDate[iA + 1] &&
-                                    this.state.appointDate[iA + 1] !==
-                                      "undefined" && (
-                                      <a
-                                        className={
-                                          this.state.currentSelected &&
-                                          this.state.currentSelected === iA
-                                            ? "current_selected"
-                                            : ""
-                                        }
-                                        onClick={() => {
-                                          this.findAppointment(
-                                            "tab3",
-                                            doc_select,
-                                            appointType,
-                                            apointDay,
-                                            iA
-                                          );
-                                        }}
-                                      >
-                                        {this.state.appointDate[iA] +
-                                          " - " +
-                                          this.state.appointDate[iA + 1]}
-                                      </a>
+                                  : this.ExitinHoliday(this.state.selectedDate, this.state.appointmentData.holidays_start,
+                                    this.state.appointmentData.holidays_end)
+                                    ?
+                                    <Grid>
+                                      <span>{holiday}!</span>
+                                    </Grid> :
+
+                                    (this.state.appointDate.map((data, iA) => {
+                                      if (
+                                        this.Isintime(
+                                          this.state.appointDate[iA],
+                                          this.state.appointmentData.breakslot_start,
+                                          this.state.appointmentData.breakslot_end,
+                                          this.state.appointmentData.holidays_start,
+                                          this.state.appointmentData.holidays_end,
+                                        )
+                                      )
+                                        return;
+
+                                      return (
+                                        <Grid>
+                                          {this.state.appointDate[iA + 1] &&
+                                            this.state.appointDate[iA + 1] !==
+                                            "undefined" &&
+                                            iA === 0 ? (
+                                            <a
+                                              className={
+                                                this.state.currentSelected === 0 &&
+                                                "current_selected"
+                                              }
+                                              onClick={() => {
+                                                this.findAppointment(
+                                                  "tab3",
+                                                  doc_select,
+                                                  appointType,
+                                                  apointDay,
+                                                  iA
+                                                );
+                                              }}
+                                            >
+                                              {this.state.appointDate[iA] +
+                                                " - " +
+                                                this.state.appointDate[iA + 1]}
+                                            </a>
+                                          ) : (
+                                            this.state.appointDate[iA + 1] &&
+                                            this.state.appointDate[iA + 1] !==
+                                            "undefined" && (
+                                              <a
+                                                className={
+                                                  this.state.currentSelected &&
+                                                    this.state.currentSelected === iA
+                                                    ? "current_selected"
+                                                    : ""
+                                                }
+                                                onClick={() => {
+                                                  this.findAppointment(
+                                                    "tab3",
+                                                    doc_select,
+                                                    appointType,
+                                                    apointDay,
+                                                    iA
+                                                  );
+                                                }}
+                                              >
+                                                {this.state.appointDate[iA] +
+                                                  " - " +
+                                                  this.state.appointDate[iA + 1]}
+                                              </a>
+                                            )
+                                          )}
+                                        </Grid>
+                                      );
+                                    })
                                     )
-                                  )}
+
+
+                              )
+                              :
+                              this.state.appointDate !== undefined ? (
+                                <Grid>
+                                  <span>{NotAvailable}!</span>
                                 </Grid>
-                              );
-                            })
-                          )
-
-
-                            )
-                            : 
-                            this.state.appointDate !== undefined ? (
-                              <Grid>
-                                <span>{NotAvailable}!</span>
-                              </Grid>
-                            ) : (
-                              <Grid>
-                                <span>{NotAvailable}!</span>
-                              </Grid>
-                            )}
+                              ) : (
+                                <Grid>
+                                  <span>{NotAvailable}!</span>
+                                </Grid>
+                              )}
                           </Grid>
                         </Grid>
                         <Grid className="delQues">
@@ -1323,10 +1320,7 @@ class Index extends Component {
                           <Grid className="delQuesBook">
                             <a onClick={this.bookAppointment}>{book}</a>
                             <a
-                              onClick={() => {
-                                this.setState({ openFancyVdo: false });
-                              }}
-                            >
+                              onClick={this.handleCloseFancyVdo}>
                               {cancel}
                             </a>
                           </Grid>
@@ -1342,8 +1336,8 @@ class Index extends Component {
                   onClose={this.handleCloseApoint}
                   className={
                     this.props.settings &&
-                    this.props.settings.setting &&
-                    this.props.settings.setting.mode === "dark"
+                      this.props.settings.setting &&
+                      this.props.settings.setting.mode === "dark"
                       ? "darkTheme editBoxModel"
                       : "editBoxModel"
                   }
@@ -1396,8 +1390,8 @@ class Index extends Component {
                   onClose={this.handleCloseAllowLoc}
                   className={
                     this.props.settings &&
-                    this.props.settings.setting &&
-                    this.props.settings.setting.mode === "dark"
+                      this.props.settings.setting &&
+                      this.props.settings.setting.mode === "dark"
                       ? "darkTheme editBoxModel"
                       : "editBoxModel"
                   }
@@ -1454,7 +1448,7 @@ class Index extends Component {
                             name="range"
                             value={
                               this.state.searchDetails &&
-                              this.state.searchDetails.radius
+                                this.state.searchDetails.radius
                                 ? this.state.searchDetails.radius
                                 : ""
                             }
@@ -1618,7 +1612,7 @@ class Index extends Component {
                                     <a
                                       className={
                                         this.state.show_type ===
-                                          "information" && "currentTab"
+                                        "information" && "currentTab"
                                       }
                                       onClick={() => {
                                         this.setState({
@@ -1736,8 +1730,8 @@ class Index extends Component {
                                           title=""
                                         />
                                         {doc.appointments &&
-                                        doc.appointments.length > 0 &&
-                                        doc.appointments[0].custom_text
+                                          doc.appointments.length > 0 &&
+                                          doc.appointments[0].custom_text
                                           ? doc.appointments[0].custom_text
                                           : office_visit}
                                       </a>
@@ -1785,8 +1779,8 @@ class Index extends Component {
                                     getDate(
                                       apoint.date,
                                       this.props.settings &&
-                                        this.props.settings.setting &&
-                                        this.props.settings.setting.date_format
+                                      this.props.settings.setting &&
+                                      this.props.settings.setting.date_format
                                     )}
                                   , {this.GetTime(apoint.start_time)}
                                 </label>
@@ -1891,8 +1885,8 @@ class Index extends Component {
                                     getDate(
                                       apoint.date,
                                       this.props.settings &&
-                                        this.props.settings.setting &&
-                                        this.props.settings.setting.date_format
+                                      this.props.settings.setting &&
+                                      this.props.settings.setting.date_format
                                     )}
                                   , {this.GetTime(apoint.start_time)}
                                 </label>
@@ -1910,7 +1904,7 @@ class Index extends Component {
                                       alt=""
                                       title=""
                                     />{" "}
-                                    {apoint.custom_text ? apoint.custom_text :office_visit}{" "}
+                                    {apoint.custom_text ? apoint.custom_text : office_visit}{" "}
                                   </a>
                                 ) : apoint.appointment_type ==
                                   "online_appointment" ? (
@@ -2059,9 +2053,9 @@ class Index extends Component {
                               {Appointmentiscanceled}
                             </div>
                           )}
-                            {this.state.cancelNable && (
+                          {this.state.cancelNable && (
                             <div className="err_message">
-                             {UnableCancel}
+                              {UnableCancel}
                             </div>
                           )}
                           <Grid container direction="row">
@@ -2086,8 +2080,8 @@ class Index extends Component {
                       onClose={this.handleCloseAllowAccess}
                       className={
                         this.props.settings &&
-                        this.props.settings.setting &&
-                        this.props.settings.setting.mode === "dark"
+                          this.props.settings.setting &&
+                          this.props.settings.setting.mode === "dark"
                           ? "darkTheme editBoxModel"
                           : "editBoxModel"
                       }
@@ -2149,7 +2143,7 @@ class Index extends Component {
                                 onChange={this.setRadius}
                                 value={
                                   this.state.searchDetails &&
-                                  this.state.searchDetails.radius
+                                    this.state.searchDetails.radius
                                     ? this.state.searchDetails.radius
                                     : ""
                                 }
@@ -2216,13 +2210,13 @@ class Index extends Component {
                               center={
                                 this.state.mLatitude
                                   ? {
-                                      lat: this.state.mLatitude,
-                                      lng: this.state.mlongitude,
-                                    }
+                                    lat: this.state.mLatitude,
+                                    lng: this.state.mlongitude,
+                                  }
                                   : {
-                                      lat: this.state.clat,
-                                      lng: this.state.clng,
-                                    }
+                                    lat: this.state.clat,
+                                    lng: this.state.clng,
+                                  }
                               }
                               initialCenter={{
                                 lat: this.state.clat,
@@ -2237,13 +2231,13 @@ class Index extends Component {
                                 position={
                                   this.state.mLatitude
                                     ? {
-                                        lat: this.state.mLatitude,
-                                        lng: this.state.mlongitude,
-                                      }
+                                      lat: this.state.mLatitude,
+                                      lng: this.state.mlongitude,
+                                    }
                                     : {
-                                        lat: this.state.clat,
-                                        lng: this.state.clng,
-                                      }
+                                      lat: this.state.clat,
+                                      lng: this.state.clng,
+                                    }
                                 }
                               />
                             </Map>
