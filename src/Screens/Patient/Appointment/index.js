@@ -327,7 +327,7 @@ class Index extends Component {
         this.props.stateLanguageType
       ),
       subspecialityData: GetLanguageDropdown(
-        subspeciality.english,
+        subspeciality,
         this.props.stateLanguageType
       ),
     });
@@ -415,6 +415,8 @@ class Index extends Component {
             this.state.selectedDoc.data && this.state.selectedDoc.data.birthday,
           profile_image:
             this.state.selectedDoc.data && this.state.selectedDoc.data.image,
+          new_image:
+            this.state.selectedDoc.data && this.state.selectedDoc.data.new_image,
           speciality:
             this.state.selectedDoc.data &&
             this.state.selectedDoc.data.speciality,
@@ -547,69 +549,69 @@ class Index extends Component {
     let user_token = this.props.stateLoginValueAim.token;
     let timedifference = new Date(this.state.cancelappoint.date);
     let currentDate = new Date();
-    if (currentDate.getDate() === timedifference.getDate()) {
-      if (this.state.cancelappoint.start_time) {
-        timedifference = timedifference.setHours(parseInt((this.state.cancelappoint.start_time.split(":"))[0]), parseInt((this.state.cancelappoint.start_time.split(":"))[1]))
-        var timedifference1 = timeDiffCalc(currentDate, new Date(timedifference))
-        this.setState({ loaderImage: true });
-        axios
-          .post(
-            sitedata.data.path +
-            "/UserProfile/abletocancel/" +
-            this.state.cancelappoint.doctor_id,
-            {
-              appointment_type: this.state.cancelappoint.appointment_type,
-              timedifference: timedifference1,
+    // if (currentDate.getDate() === timedifference.getDate()) {
+    if (this.state.cancelappoint.start_time) {
+      timedifference = timedifference.setHours(parseInt((this.state.cancelappoint.start_time.split(":"))[0]), parseInt((this.state.cancelappoint.start_time.split(":"))[1]))
+      var timedifference1 = timeDiffCalc(currentDate, new Date(timedifference))
+      this.setState({ loaderImage: true });
+      axios
+        .post(
+          sitedata.data.path +
+          "/UserProfile/abletocancel/" +
+          this.state.cancelappoint.doctor_id,
+          {
+            appointment_type: this.state.cancelappoint.appointment_type,
+            timedifference: timedifference1,
+          },
+          {
+            headers: {
+              token: user_token,
+              Accept: "application/json",
+              "Content-Type": "application/json",
             },
-            {
-              headers: {
-                token: user_token,
-                Accept: "application/json",
-                "Content-Type": "application/json",
-              },
-            }
-          )
-          .then((response) => {
-            if (response.data.hassuccessed) {
-              this.CancelAppointsments()
-            }
-            else {
-              this.setState({
-                cancelNable: true,
-                openApoint: false,
-              });
-              window.scroll({
-                top: 0,
-                behavior: "smooth",
-              })
-              setTimeout(() => {
-                this.setState({ cancelNable: false });
-              }, 5000);
-            }
+          }
+        )
+        .then((response) => {
+          if (response.data.hassuccessed) {
+            this.CancelAppointsments()
+          }
+          else {
             this.setState({
-              loaderImage: false,
+              cancelNable: true,
+              openApoint: false,
             });
-          })
-          .catch((error) => { });
-      }
-      else {
-        this.setState({
-          cancelNable: true,
-          openApoint: false,
-        });
-        window.scroll({
-          top: 0,
-          behavior: "smooth",
+            window.scroll({
+              top: 0,
+              behavior: "smooth",
+            })
+            setTimeout(() => {
+              this.setState({ cancelNable: false });
+            }, 5000);
+          }
+          this.setState({
+            loaderImage: false,
+          });
         })
-        setTimeout(() => {
-          this.setState({ cancelNable: false });
-        }, 5000);
-      }
-
+        .catch((error) => { });
     }
     else {
-      this.CancelAppointsments()
+      this.setState({
+        cancelNable: true,
+        openApoint: false,
+      });
+      window.scroll({
+        top: 0,
+        behavior: "smooth",
+      })
+      setTimeout(() => {
+        this.setState({ cancelNable: false });
+      }, 5000);
     }
+
+    // }
+    // else {
+    //   this.CancelAppointsments()
+    // }
   };
 
   CancelAppointsments = () => {
@@ -1989,7 +1991,8 @@ class Index extends Component {
                               <Grid>
                                 <a>
                                   <img
-                                    src={require("assets/images/dr1.jpg")}
+                                    src={apoint.docProfile.new_image ? apoint.docProfile.new_image : require("assets/images/dr1.jpg")}
+                                    // src={require("assets/images/dr1.jpg")}
                                     alt=""
                                     title=""
                                   />

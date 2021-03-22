@@ -225,9 +225,9 @@ class Index extends Component {
                 }
               );
             })
-            .catch((error) => {});
+            .catch((error) => { });
         })
-        .catch((error) => {});
+        .catch((error) => { });
     } else {
       let translate = {};
       switch (this.props.stateLanguageType) {
@@ -271,8 +271,8 @@ class Index extends Component {
             <div
               className={
                 this.props.settings &&
-                this.props.settings.setting &&
-                this.props.settings.setting.mode === "dark"
+                  this.props.settings.setting &&
+                  this.props.settings.setting.mode === "dark"
                   ? "dark-confirm react-confirm-alert-body"
                   : "react-confirm-alert-body"
               }
@@ -316,7 +316,7 @@ class Index extends Component {
         axios
           .put(
             "https://api-eu.cometchat.io/v2.0/users/" +
-              this.props.stateLoginValueAim.user.profile_id.toLowerCase(),
+            this.props.stateLoginValueAim.user.profile_id.toLowerCase(),
             {
               avatar: this.state.uploadedimage,
             },
@@ -329,7 +329,7 @@ class Index extends Component {
               },
             }
           )
-          .then((res) => {});
+          .then((res) => { });
         var find1 = this.state.uploadedimage;
         this.SettingImage(find1);
       });
@@ -498,9 +498,9 @@ class Index extends Component {
 
   //For getting the dropdowns from the database
   getMetadata() {
-    this.setState({ allMetadata: this.props.metadata},
-      ()=>{
-          this.GetLanguageMetadata();
+    this.setState({ allMetadata: this.props.metadata },
+      () => {
+        this.GetLanguageMetadata();
       })
     // axios.get(sitedata.data.path + "/UserProfile/Metadata").then((responce) => {
     //   if (responce && responce.data && responce.data.length > 0) {
@@ -513,9 +513,9 @@ class Index extends Component {
   GetLanguageMetadata = () => {
     var Allgender = GetLanguageDropdown(
       this.state.allMetadata &&
-        this.state.allMetadata.gender &&
-        this.state.allMetadata.gender.length > 0 &&
-        this.state.allMetadata.gender,
+      this.state.allMetadata.gender &&
+      this.state.allMetadata.gender.length > 0 &&
+      this.state.allMetadata.gender,
       this.props.stateLanguageType
     );
     this.setState(
@@ -536,7 +536,7 @@ class Index extends Component {
           this.state.allMetadata.title_degreeData.length > 0 &&
           this.state.allMetadata.title_degreeData,
         subspecialityData: GetLanguageDropdown(
-          subspeciality.english,
+          subspeciality,
           this.props.stateLanguageType
         ),
       },
@@ -732,7 +732,7 @@ class Index extends Component {
           axios
             .put(
               "https://api-eu.cometchat.io/v2.0/users/" +
-                this.state.profile_id.toLowerCase(),
+              this.state.profile_id.toLowerCase(),
               {
                 name: UpDataDetails.first_name + " " + UpDataDetails.last_name,
               },
@@ -745,7 +745,7 @@ class Index extends Component {
                 },
               }
             )
-            .then((res) => {});
+            .then((res) => { });
         } else {
           this.setState({ loaderImage: false });
           if (responce.data.message === "Phone is not verified") {
@@ -820,8 +820,8 @@ class Index extends Component {
       axios
         .get(
           sitedata.data.path +
-            "/UserProfile/checkAlies?alies_id=" +
-            e.target.value,
+          "/UserProfile/checkAlies?alies_id=" +
+          e.target.value,
           {
             headers: {
               token: user_token,
@@ -1117,7 +1117,7 @@ class Index extends Component {
 
   render() {
     const { stateLoginValueAim, Doctorsetget, selectedOption } = this.props;
-    const {
+    let {
       value,
       editInsuData,
       insurancefull,
@@ -1326,9 +1326,9 @@ class Index extends Component {
             onClose={() => this.handlePinClose("chngPinOpen")}
             className={
               this.props.settings &&
-              this.props.settings.setting &&
-              this.props.settings.setting.mode &&
-              this.props.settings.setting.mode === "dark"
+                this.props.settings.setting &&
+                this.props.settings.setting.mode &&
+                this.props.settings.setting.mode === "dark"
                 ? "darkTheme editBoxModel"
                 : "editBoxModel"
             }
@@ -1574,7 +1574,7 @@ class Index extends Component {
                     <label>{country}</label>
                     <Grid>
                       <Select
-                      isSearchable={true}
+                        isSearchable={true}
                         value={UpDataDetails.country}
                         onChange={(e) => this.EntryValueName(e, "country")}
                         options={this.state.selectCountry}
@@ -1597,7 +1597,7 @@ class Index extends Component {
                       {this.updateFLAG(UpDataDetails.phone) &&
                         this.updateFLAG(UpDataDetails.phone) !== "" && (
                           <ReactFlagsSelect
-                          searchable={true}
+                            searchable={true}
                             placeholder={country_code}
                             onSelect={(e) => {
                               this.updateFlags(e, "flag_phone");
@@ -1635,7 +1635,7 @@ class Index extends Component {
                       {this.updateFLAG(UpDataDetails.mobile) &&
                         this.updateFLAG(UpDataDetails.mobile) !== "" && (
                           <ReactFlagsSelect
-                          searchable={true}
+                            searchable={true}
                             placeholder={country_code}
                             onSelect={(e) => {
                               this.updateFlags(e, "flag_mobile");
@@ -1674,7 +1674,7 @@ class Index extends Component {
                       {this.updateFLAG(UpDataDetails.fax) &&
                         this.updateFLAG(UpDataDetails.fax) !== "" && (
                           <ReactFlagsSelect
-                          searchable={true}
+                            searchable={true}
                             placeholder={country_code}
                             onSelect={(e) => {
                               this.updateFlags(e, "flag_fax");
@@ -1742,7 +1742,7 @@ class Index extends Component {
                         onChange={(e) => {
                           this.handleChange_multi(e, "speciality");
                         }}
-                        options={this.state.specialityData}
+                        options={this.state.specialityData.sort()}
                         placeholder=""
                         isSearchable={true}
                         className="profile-language"
@@ -1838,9 +1838,9 @@ class Index extends Component {
             onClose={this.handleQrClose}
             className={
               this.props.settings &&
-              this.props.settings.setting &&
-              this.props.settings.setting.mode &&
-              this.props.settings.setting.mode === "dark"
+                this.props.settings.setting &&
+                this.props.settings.setting.mode &&
+                this.props.settings.setting.mode === "dark"
                 ? "darkTheme qrBoxModel"
                 : "qrBoxModel"
             }
@@ -1911,7 +1911,7 @@ const mapStateToProps = (state) => {
   };
 };
 export default withRouter(
-  connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer, Settings,OptionList })(
+  connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer, Settings, OptionList })(
     Index
   )
 );

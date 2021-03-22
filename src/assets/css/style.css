@@ -3027,8 +3027,8 @@ a.profilMenu {
     line-height: 12px;
 }
 .showSubject img {
-    height: 16px;
-    width: 16px;
+    height: 25px;
+    width: 25px;
     border-radius: 10px;
     margin-right: 8px;
     vertical-align: middle;
@@ -4919,9 +4919,9 @@ body {
 .ScndOpinLbl {
     margin-bottom: 30px;
 }
-.scndOpinionIner thead {
+/* .scndOpinionIner thead {
     border-bottom: 1px solid #D9DADA;
-}
+} */
 .scndOpinionIner thead th {
     padding: 16px 25px;
     color: #7F8383;

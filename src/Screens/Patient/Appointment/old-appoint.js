@@ -184,8 +184,8 @@ class Index extends Component {
         specialityData.push(speciality);
       });
     SUBSPECIALITY.subspeciality &&
-      SUBSPECIALITY.subspeciality.english &&
-      SUBSPECIALITY.subspeciality.english.map((subspeciality) => {
+      SUBSPECIALITY.subspeciality &&
+      SUBSPECIALITY.subspeciality.map((subspeciality) => {
         subspecialityData.push(subspeciality);
       });
     this.setState({

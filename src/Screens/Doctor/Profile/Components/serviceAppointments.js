@@ -73,8 +73,8 @@ class Index extends Component {
       weoffer: {},
       holidayAppointment: {},
       updateService: false,
-      val1: false, 
-      val2: false, 
+      val1: false,
+      val2: false,
       val3: false
     };
   }
@@ -955,8 +955,8 @@ class Index extends Component {
         statechange == "firstServiceData"
           ? "videochat"
           : statechange == "sencondSeviceData"
-          ? "prescription"
-          : "appointment";
+            ? "prescription"
+            : "appointment";
       state.created = moment(new Date()).format("MM/DD/YYYY");
     } else {
       state = {};
@@ -990,25 +990,25 @@ class Index extends Component {
 
   onChangebook = (event, key, statechange) => {
     console.log('event', event, 'key', key, 'statechange', statechange)
-    if(key === "appointment_hours" && event.target.value >= 24){
-      if(statechange === "DaysforPractices"){
-        this.setState({val3: true})
-      }
-      else if(statechange === "UpDataDetails"){
-        this.setState({val2: true})
-      }
-      else{
-        this.setState({val1: true})
-      }
-      setTimeout(()=>{
-        this.setState({ val1: false, val2: false, val3: false  });
-      }, 3000);
-    }
-    else{
-      let state = this.state[statechange];
-      state[key] = event.target.value;
-      this.setState({ [statechange]: state });
-    }
+    // if(key === "appointment_hours" && event.target.value >= 24){
+    //   if(statechange === "DaysforPractices"){
+    //     this.setState({val3: true})
+    //   }
+    //   else if(statechange === "UpDataDetails"){
+    //     this.setState({val2: true})
+    //   }
+    //   else{
+    //     this.setState({val1: true})
+    //   }
+    //   setTimeout(()=>{
+    //     this.setState({ val1: false, val2: false, val3: false  });
+    //   }, 3000);
+    // }
+    // else{
+    let state = this.state[statechange];
+    state[key] = event.target.value;
+    this.setState({ [statechange]: state });
+    // }
   };
 
   changeCustomtext = (event) => {
@@ -1490,8 +1490,8 @@ class Index extends Component {
                               value={
                                 onlineAppointments.monday_start
                                   ? this.getTime(
-                                      onlineAppointments.monday_start
-                                    )
+                                    onlineAppointments.monday_start
+                                  )
                                   : new Date()
                               }
                               time_format={
@@ -1559,8 +1559,8 @@ class Index extends Component {
                               value={
                                 onlineAppointments.tuesday_start
                                   ? this.getTime(
-                                      onlineAppointments.tuesday_start
-                                    )
+                                    onlineAppointments.tuesday_start
+                                  )
                                   : new Date()
                               }
                               time_format={
@@ -1633,8 +1633,8 @@ class Index extends Component {
                               value={
                                 onlineAppointments.wednesday_start
                                   ? this.getTime(
-                                      onlineAppointments.wednesday_start
-                                    )
+                                    onlineAppointments.wednesday_start
+                                  )
                                   : new Date()
                               }
                               time_format={
@@ -1657,8 +1657,8 @@ class Index extends Component {
                               value={
                                 onlineAppointments.wednesday_end
                                   ? this.getTime(
-                                      onlineAppointments.wednesday_end
-                                    )
+                                    onlineAppointments.wednesday_end
+                                  )
                                   : new Date()
                               }
                               time_format={
@@ -1710,8 +1710,8 @@ class Index extends Component {
                               value={
                                 onlineAppointments.thursday_start
                                   ? this.getTime(
-                                      onlineAppointments.thursday_start
-                                    )
+                                    onlineAppointments.thursday_start
+                                  )
                                   : new Date()
                               }
                               time_format={
@@ -1734,8 +1734,8 @@ class Index extends Component {
                               value={
                                 onlineAppointments.thursday_end
                                   ? this.getTime(
-                                      onlineAppointments.thursday_end
-                                    )
+                                    onlineAppointments.thursday_end
+                                  )
                                   : new Date()
                               }
                               time_format={
@@ -1788,8 +1788,8 @@ class Index extends Component {
                               value={
                                 onlineAppointments.friday_start
                                   ? this.getTime(
-                                      onlineAppointments.friday_start
-                                    )
+                                    onlineAppointments.friday_start
+                                  )
                                   : new Date()
                               }
                               time_format={
@@ -1865,8 +1865,8 @@ class Index extends Component {
                               value={
                                 onlineAppointments.saturday_start
                                   ? this.getTime(
-                                      onlineAppointments.saturday_start
-                                    )
+                                    onlineAppointments.saturday_start
+                                  )
                                   : new Date()
                               }
                               time_format={
@@ -1889,8 +1889,8 @@ class Index extends Component {
                               value={
                                 onlineAppointments.saturday_end
                                   ? this.getTime(
-                                      onlineAppointments.saturday_end
-                                    )
+                                    onlineAppointments.saturday_end
+                                  )
                                   : new Date()
                               }
                               time_format={
@@ -1945,8 +1945,8 @@ class Index extends Component {
                               value={
                                 onlineAppointments.sunday_start
                                   ? this.getTime(
-                                      onlineAppointments.sunday_start
-                                    )
+                                    onlineAppointments.sunday_start
+                                  )
                                   : new Date()
                               }
                               time_format={
@@ -2043,7 +2043,7 @@ class Index extends Component {
                           name="time"
                           value={
                             onlineAppointments.breakslot_start ||
-                            onlineAppointments.breakslot_start == ""
+                              onlineAppointments.breakslot_start == ""
                               ? this.getTime(onlineAppointments.breakslot_start)
                               : new Date()
                           }
@@ -2066,7 +2066,7 @@ class Index extends Component {
                           name="time"
                           value={
                             onlineAppointments.breakslot_end ||
-                            onlineAppointments.breakslot_end == ""
+                              onlineAppointments.breakslot_end == ""
                               ? this.getTime(onlineAppointments.breakslot_end)
                               : new Date()
                           }
@@ -2127,9 +2127,9 @@ class Index extends Component {
                         />{" "}
                         {hourse_before_time_appointment}
                         {this.state.val1 && (
-                            <div className="err_message">
-                             {notmore24}
-                            </div>
+                          <div className="err_message">
+                            {notmore24}
+                          </div>
                         )}
                       </p>
                     </Grid>
@@ -2832,7 +2832,7 @@ class Index extends Component {
                           name="time"
                           value={
                             UpDataDetails.breakslot_start ||
-                            UpDataDetails.breakslot_start == ""
+                              UpDataDetails.breakslot_start == ""
                               ? this.getTime(UpDataDetails.breakslot_start)
                               : new Date()
                           }
@@ -2855,7 +2855,7 @@ class Index extends Component {
                           name="time"
                           value={
                             UpDataDetails.breakslot_end ||
-                            UpDataDetails.breakslot_end == ""
+                              UpDataDetails.breakslot_end == ""
                               ? this.getTime(UpDataDetails.breakslot_end)
                               : new Date()
                           }
@@ -2916,9 +2916,9 @@ class Index extends Component {
                         />{" "}
                         {hourse_before_time_appointment}
                         {this.state.val2 && (
-                            <div className="err_message">
-                             {notmore24}
-                            </div>
+                          <div className="err_message">
+                            {notmore24}
+                          </div>
                         )}
                       </p>
                     </Grid>
@@ -3194,8 +3194,8 @@ class Index extends Component {
                               value={
                                 DaysforPractices.wednesday_start
                                   ? this.getTime(
-                                      DaysforPractices.wednesday_start
-                                    )
+                                    DaysforPractices.wednesday_start
+                                  )
                                   : new Date()
                               }
                               time_format={
@@ -3269,8 +3269,8 @@ class Index extends Component {
                               value={
                                 DaysforPractices.thursday_start
                                   ? this.getTime(
-                                      DaysforPractices.thursday_start
-                                    )
+                                    DaysforPractices.thursday_start
+                                  )
                                   : new Date()
                               }
                               time_format={
@@ -3417,8 +3417,8 @@ class Index extends Component {
                               value={
                                 DaysforPractices.saturday_start
                                   ? this.getTime(
-                                      DaysforPractices.saturday_start
-                                    )
+                                    DaysforPractices.saturday_start
+                                  )
                                   : new Date()
                               }
                               time_format={
@@ -3588,7 +3588,7 @@ class Index extends Component {
                           name="time"
                           value={
                             DaysforPractices.breakslot_start ||
-                            DaysforPractices.breakslot_start === ""
+                              DaysforPractices.breakslot_start === ""
                               ? this.getTime(DaysforPractices.breakslot_start)
                               : new Date()
                           }
@@ -3611,7 +3611,7 @@ class Index extends Component {
                           name="time"
                           value={
                             DaysforPractices.breakslot_end ||
-                            DaysforPractices.breakslot_end === ""
+                              DaysforPractices.breakslot_end === ""
                               ? this.getTime(DaysforPractices.breakslot_end)
                               : new Date()
                           }
@@ -3672,9 +3672,9 @@ class Index extends Component {
                         />{" "}
                         {hourse_before_time_appointment}
                         {this.state.val3 && (
-                            <div className="err_message">
-                             {notmore24}
-                            </div>
+                          <div className="err_message">
+                            {notmore24}
+                          </div>
                         )}
                       </p>
                     </Grid>

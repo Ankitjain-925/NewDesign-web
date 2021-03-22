@@ -307,21 +307,21 @@ export function blockClick(deletekey, userblock, user_token) {
 
 export function sortCometUser(userList) {
   let users = userList.sort(function (a, b) {
-    if(a.name.includes('undefined') && b.name.includes('undefined')){
+    if (a.name.includes('undefined') && b.name.includes('undefined')) {
       if (a.uid < b.uid) { return -1; }
       if (a.uid > b.uid) { return 1; }
     }
-    else if(a.name.includes('undefined') || b.name.includes('undefined')){
-     if(a.name.includes('undefined')) {
+    else if (a.name.includes('undefined') || b.name.includes('undefined')) {
+      if (a.name.includes('undefined')) {
         if (a.uid < b.name) { return -1; }
         if (a.uid > b.name) { return 1; }
       }
-     if(a.name.includes('undefined')) {
+      if (a.name.includes('undefined')) {
         if (a.name < b.uid) { return -1; }
         if (a.name > b.uid) { return 1; }
       }
     }
-    else{
+    else {
       if (a.name < b.name) { return -1; }
       if (a.name > b.name) { return 1; }
     }
@@ -330,52 +330,56 @@ export function sortCometUser(userList) {
   return users
 }
 
-export function unreadAtLast(userList, unread){
+export function unreadAtLast(userList, unread) {
   let users = userList.filter(function (usersa) {
-      if(unread && unread.users && unread.users.hasOwnProperty(usersa.uid)){
-         return false;
-      }
-      else{
-          return true; 
-      }
-    })
-    return users
+    if (unread && unread.users && unread.users.hasOwnProperty(usersa.uid)) {
+      return false;
+    }
+    else {
+      return true;
+    }
+  })
+  return users
 }
 
 //For find difference
 export function timeDiffCalc(dateFuture, dateNow) {
   let diffInMilliSeconds = Math.abs(dateFuture - dateNow) / 1000;
 
-  // // calculate days
-  // const days = Math.floor(diffInMilliSeconds / 86400);
-  // diffInMilliSeconds -= days * 86400;
-  // console.log('calculated days', days);
+  // calculate days
+  const days = Math.floor(diffInMilliSeconds / 86400);
+  diffInMilliSeconds -= days * 86400;
+  console.log('calculated days', days);
 
   // calculate hours
-  const hours = Math.floor(diffInMilliSeconds / 3600) % 24;
+  let hours = Math.floor(diffInMilliSeconds / 3600) % 24;
   diffInMilliSeconds -= hours * 3600;
 
   // calculate minutes
   const minutes = Math.floor(diffInMilliSeconds / 60) % 60;
   diffInMilliSeconds -= minutes * 60;
 
-  let difference  = parseFloat(hours+'.'+minutes);
+  if (days >= 1) {
+    hours = (days * 24) + hours
+  }
+
+  let difference = parseFloat(hours + '.' + minutes);
 
   return difference;
 }
 
 export const resizeFile = (file) => new Promise(resolve => {
   Resizer.imageFileResizer(file, 300, 300, 'JPEG', 100, 0,
-  uri => {
-    resolve(uri);
-  },
-  'blob'
+    uri => {
+      resolve(uri);
+    },
+    'blob'
   );
 });
 
-export const blobToFile= (theBlob, fileName)=>{
-//A Blob() is almost a File() - it's just missing the two properties below which we will add
-theBlob.lastModifiedDate = new Date();
-theBlob.name = fileName;
-return new File([theBlob], fileName);
+export const blobToFile = (theBlob, fileName) => {
+  //A Blob() is almost a File() - it's just missing the two properties below which we will add
+  theBlob.lastModifiedDate = new Date();
+  theBlob.name = fileName;
+  return new File([theBlob], fileName);
 }
