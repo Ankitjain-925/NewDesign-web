@@ -24,6 +24,7 @@ import { pure } from "recompose";
 import "react-popper-tooltip/dist/styles.css";
 import CalendarToolbar from "Screens/Components/CalendarToolbar/index.js";
 import DatePicker from "react-date-picker";
+import { S3Image } from "Screens/Components/GetS3Images/index"
 import {
   getDate,
   getImage,
@@ -221,13 +222,14 @@ class Index extends Component {
           "Content-Type": "application/json",
         },
       })
-      .then((response) => {
+      .then(async (response) => {
         var upcomingData =
           response.data.data &&
           response.data.data.length > 0 &&
           response.data.data.filter(
             (data) => data.status !== "cancel" && data.status !== "remove"
           );
+
         this.setState({
           upcomingAppointment: upcomingData,
           loaderImage: false,
@@ -415,8 +417,6 @@ class Index extends Component {
             this.state.selectedDoc.data && this.state.selectedDoc.data.birthday,
           profile_image:
             this.state.selectedDoc.data && this.state.selectedDoc.data.image,
-          new_image:
-            this.state.selectedDoc.data && this.state.selectedDoc.data.new_image,
           speciality:
             this.state.selectedDoc.data &&
             this.state.selectedDoc.data.speciality,
@@ -1990,17 +1990,18 @@ class Index extends Component {
                               </Grid>
                               <Grid>
                                 <a>
-                                  <img
-                                    src={apoint.docProfile.new_image ? apoint.docProfile.new_image : require("assets/images/dr1.jpg")}
+                                  <S3Image imgUrl={apoint.docProfile.profile_image} />
+                                  {/* <img
+                                    src={apoint.docProfile.image ? apoint.docProfile.image : require("assets/images/avatar.png")}
                                     // src={require("assets/images/dr1.jpg")}
                                     alt=""
                                     title=""
-                                  />
+                                  /> */}
                                   {apoint.docProfile &&
                                     `${apoint.docProfile.first_name} ${apoint.docProfile.last_name}`}
                                 </a>
                               </Grid>
-                              {/* <Grid><a><img src={require('assets/images/office-visit.svg')} alt="" title="" />Illinois Masonic Medical Center</a></Grid> */}
+                              {/* <Grid><a><img  src={require('assets/images/office-visit.svg')} alt="" title="" />Illinois Masonic Medical Center</a></Grid> */}
                             </Grid>
                           </Grid>
                         ))}
