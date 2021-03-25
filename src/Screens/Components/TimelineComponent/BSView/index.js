@@ -6,6 +6,7 @@ import FileViews from "./../FileViews/index";
 import { getDate, newdate, getTime, getImage } from "Screens/Components/BasicMethod/index";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
+import { GetShowLabel1 } from "../../GetMetaData/index.js";
 import DownloadFullTrack from "Screens/Components/DownloadFullTrack/index.js";
 import { LanguageFetchReducer } from "Screens/actions";
 import CreatedBySec from "Screens/Components/TimelineComponent/CreatedBysec";
@@ -215,7 +216,7 @@ class Index extends Component {
                         {this.props.comesfrom === "patient" && (
                           <li>
                             {item.created_by === this.state.loggedinUser._id &&
-                            (!item.updated_by || item.updated_by === "") ? (
+                              (!item.updated_by || item.updated_by === "") ? (
                               <a
                                 onClick={() =>
                                   this.props.EidtOption(item.type, item)
@@ -339,10 +340,10 @@ class Index extends Component {
             >
               {
                 <Grid>
-            <Grid container direction="row" className="addSpc bpJohnMain">
-              <Grid item xs={12} md={12}>
-              <CreatedBySec data={item} />
-                {/* <Grid className="bpJohnImg">
+                  <Grid container direction="row" className="addSpc bpJohnMain">
+                    <Grid item xs={12} md={12}>
+                      <CreatedBySec data={item} />
+                      {/* <Grid className="bpJohnImg">
                   <a data-tip data-for={item.track_id + "created"}>
                     <img
                       src={getImage(item.created_by_image, this.state.images)}
@@ -369,94 +370,101 @@ class Index extends Component {
                     </p>
                   </ReactTooltip>
                 </Grid> */}
-              </Grid>
-              <Grid className="clear"></Grid>
-            </Grid>
-
-            <Grid className="addSpc detailMark">
-              <Collapsible trigger={details} open="true">
-                <Grid className="detailCntnt">
-                  <Grid container direction="row">
-                    <Grid item xs={12} md={6} className="bloodPreBy">
-                      <Grid container direction="row">
-                        <Grid item xs={5} md={5}>
-                          <label>{blood_sugar}</label>
-                        </Grid>
-                        <Grid item xs={7} md={7}>
-                          <span>{item.blood_sugar && item.blood_sugar}</span>
-                        </Grid>
-                        <Grid className="clear"></Grid>
-                      </Grid>
-                    </Grid>
-                    <Grid item xs={12} md={6} className="bloodPreBy">
-                      <Grid container direction="row">
-                        <Grid item xs={5} md={5}>
-                          <label>{situation}</label>
-                        </Grid>
-                        <Grid item xs={7} md={7}>
-                          <span>{item.situation && item.situation.label}</span>
-                        </Grid>
-                        <Grid className="clear"></Grid>
-                      </Grid>
-                    </Grid>
-                    <Grid item xs={12} md={6} className="bloodPreBy">
-                      <Grid container direction="row">
-                        <Grid item xs={5} md={5}>
-                          <label>{Hba1c}</label>
-                        </Grid>
-                        <Grid item xs={7} md={7}>
-                          <span>{item.Hba1c && item.Hba1c}</span>
-                        </Grid>
-                        <Grid className="clear"></Grid>
-                      </Grid>
-                    </Grid>
-                    <Grid item xs={12} md={6} className="bloodPreBy">
-                      <Grid container direction="row">
-                        <Grid item xs={5} md={5}>
-                          <label>
-                            {date} & {time}
-                          </label>
-                        </Grid>
-                        <Grid item xs={7} md={7}>
-                          <span>
-                            {item.date_measured &&
-                              getDate(
-                                item.date_measured,
-                                this.state.date_format
-                              )}{" "}
-                            {item.time_measured &&
-                              ", " +
-                                getTime(
-                                  new Date(item.time_measured),
-                                  this.state.time_foramt
-                                )}
-                          </span>
-                        </Grid>
-                        <Grid className="clear"></Grid>
-                      </Grid>
                     </Grid>
                     <Grid className="clear"></Grid>
                   </Grid>
-                  <Grid className="bp_graph">
-                    {/* <Grid><img src={require('assets/images/gp.png')} alt="" title="" /></Grid> */}
-                    <Grid>
-                      <a onClick={() => this.props.OpenGraph("blood_sugar")}>
-                        {VeiwGraph}
-                      </a>
-                    </Grid>
+
+                  <Grid className="addSpc detailMark">
+                    <Collapsible trigger={details} open="true">
+                      <Grid className="detailCntnt">
+                        <Grid container direction="row">
+                          <Grid item xs={12} md={6} className="bloodPreBy">
+                            <Grid container direction="row">
+                              <Grid item xs={5} md={5}>
+                                <label>{blood_sugar}</label>
+                              </Grid>
+                              <Grid item xs={7} md={7}>
+                                <span>{item.blood_sugar && item.blood_sugar}</span>
+                              </Grid>
+                              <Grid className="clear"></Grid>
+                            </Grid>
+                          </Grid>
+                          <Grid item xs={12} md={6} className="bloodPreBy">
+                            <Grid container direction="row">
+                              <Grid item xs={5} md={5}>
+                                <label>{situation}</label>
+                              </Grid>
+                              <Grid item xs={7} md={7}>
+                                <span>
+                                  {item.situation &&
+                                    GetShowLabel1(
+                                      this.props.list,
+                                      item.situation.value,
+                                      this.props.stateLanguageType,
+                                      true
+                                    )}</span>
+                              </Grid>
+                              <Grid className="clear"></Grid>
+                            </Grid>
+                          </Grid>
+                          <Grid item xs={12} md={6} className="bloodPreBy">
+                            <Grid container direction="row">
+                              <Grid item xs={5} md={5}>
+                                <label>{Hba1c}</label>
+                              </Grid>
+                              <Grid item xs={7} md={7}>
+                                <span>{item.Hba1c && item.Hba1c}</span>
+                              </Grid>
+                              <Grid className="clear"></Grid>
+                            </Grid>
+                          </Grid>
+                          <Grid item xs={12} md={6} className="bloodPreBy">
+                            <Grid container direction="row">
+                              <Grid item xs={5} md={5}>
+                                <label>
+                                  {date} & {time}
+                                </label>
+                              </Grid>
+                              <Grid item xs={7} md={7}>
+                                <span>
+                                  {item.date_measured &&
+                                    getDate(
+                                      item.date_measured,
+                                      this.state.date_format
+                                    )}{" "}
+                                  {item.time_measured &&
+                                    ", " +
+                                    getTime(
+                                      new Date(item.time_measured),
+                                      this.state.time_foramt
+                                    )}
+                                </span>
+                              </Grid>
+                              <Grid className="clear"></Grid>
+                            </Grid>
+                          </Grid>
+                          <Grid className="clear"></Grid>
+                        </Grid>
+                        <Grid className="bp_graph">
+                          {/* <Grid><img src={require('assets/images/gp.png')} alt="" title="" /></Grid> */}
+                          <Grid>
+                            <a onClick={() => this.props.OpenGraph("blood_sugar")}>
+                              {VeiwGraph}
+                            </a>
+                          </Grid>
+                        </Grid>
+                      </Grid>
+                    </Collapsible>
                   </Grid>
-                </Grid>
-              </Collapsible>
-            </Grid>
-            <Grid className="addSpc detailMark">
-              <Collapsible trigger={img_files} open="true">
-                <FileViews
-                  images={this.state.images}
-                  attachfile={item.attachfile}
-                />
-              </Collapsible>
-            </Grid>
-            </Grid>}
+                  <Grid className="addSpc detailMark">
+                    <Collapsible trigger={img_files} open="true">
+                      <FileViews
+                        images={this.state.images}
+                        attachfile={item.attachfile}
+                      />
+                    </Collapsible>
+                  </Grid>
+                </Grid>}
             </Collapsible>
           </Grid>
         </Grid>

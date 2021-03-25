@@ -536,8 +536,9 @@ class Index extends Component {
           this.state.allMetadata.title_degreeData.length > 0 &&
           this.state.allMetadata.title_degreeData,
         subspecialityData: GetLanguageDropdown(
-          subspeciality,
-          this.props.stateLanguageType
+          subspeciality.english,
+          this.props.stateLanguageType,
+          "subspeciality"
         ),
       },
       () => {

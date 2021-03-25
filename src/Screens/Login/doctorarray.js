@@ -6,6 +6,14 @@ import {
 import sitedata from "sitedata.js";
 import axios from "axios";
 
+
+const PLATFORM_SPECIFIC_USER = [
+  'd_4hdazbj2e',
+  'd_67s6lwzgo',
+  'd_oocuio4z4',
+  'd_j1njxe1n7',
+  'admin',
+];
 const getDoctorArray = async (doctorArray = new Set(), user_token) => {
   await axios
     .get(sitedata.data.path + "/UserProfile/DoctorUsersChat", {
@@ -64,7 +72,7 @@ const getNusePharma = async (
             doctorArray.push(data.profile_id.toLowerCase());
           });
       })
-      .catch(() => {});
+      .catch(() => { });
     return doctorArray;
   } else {
     return doctorArray;
@@ -99,12 +107,41 @@ const getPatientUserChat = async (
   }
 };
 
-export const Doctorarrays = (type, user, token, CB = () => {}) => {
-  return (dispatch) => {
+
+
+const checkIfAllPatient = async (doctorArray, user_token) => {
+  return new Promise((resolve, reject) => {
+    getAllUserProfileId(user_token).then(res => {
+      if (res.data && res.data.hassuccessed) {
+        res.data.data.map(id => {
+          doctorArray.push(id);
+        });
+        resolve(doctorArray);
+      } else {
+        resolve(doctorArray);
+      }
+    }).catch(() => {
+      resolve(doctorArray);
+    });
+  })
+};
+const getAllUserProfileId = async (user_token) => {
+  return axios.get(sitedata.data.path + "/User/getAllUserProfileId", {
+    headers: {
+      token: user_token,
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+  })
+};
+
+export const Doctorarrays = (type, user, token, CB = () => { }) => {
+  return async (dispatch) => {
     var doctorArray = ["admin"];
     let user_token = token;
     dispatch({ type: GET_DoctorArray_REQUEST });
 
+    let c_user_profile = PLATFORM_SPECIFIC_USER.includes(user?.profile_id.toLowerCase())
     if (type === "patient") {
       axios
         .get(sitedata.data.path + "/UserProfile/DoctorUsersChat", {
@@ -165,9 +202,15 @@ export const Doctorarrays = (type, user, token, CB = () => {}) => {
           let tmp = { doctorarray: [] };
           dispatch({ type: GET_DoctorArray_SUCCESS, payload: tmp });
         });
-    } else if (type === "doctor") {
-      const hasPaidservice =
-        user && user.paid_services && user.paid_services.length > 0;
+    } else if (c_user_profile) {
+      checkIfAllPatient(doctorArray, user_token).then(res => {
+        CB();
+        let tmp = { doctorarray: [...new Set(res)] };
+        dispatch({ type: GET_DoctorArray_SUCCESS, payload: tmp });
+      })
+    }
+    else if (type === "doctor") {
+      const hasPaidservice = user && user.paid_services && user.paid_services.length > 0;
       axios
         .get(sitedata.data.path + "/UserProfile/Mypatients", {
           headers: {
@@ -231,6 +274,7 @@ export const Doctorarrays = (type, user, token, CB = () => {}) => {
           let tmp = { doctorarray: [] };
           dispatch({ type: GET_DoctorArray_SUCCESS, payload: tmp });
         });
+
     } else if (
       type === "paramedic" ||
       type === "insurance" ||
@@ -276,10 +320,13 @@ export const Doctorarrays = (type, user, token, CB = () => {}) => {
           let tmp = { doctorarray: [] };
           dispatch({ type: GET_DoctorArray_SUCCESS, payload: tmp });
         });
-    } else if (type === "logout") {
+    }
+    else if (type === "logout") {
       dispatch({ type: GET_DoctorArray_ERROR });
     } else {
       dispatch({ type: GET_DoctorArray_ERROR });
     }
   };
 };
+
+

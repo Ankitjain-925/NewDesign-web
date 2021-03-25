@@ -329,7 +329,7 @@ class Index extends Component {
         this.props.stateLanguageType
       ),
       subspecialityData: GetLanguageDropdown(
-        subspeciality,
+        subspeciality.english,
         this.props.stateLanguageType
       ),
     });

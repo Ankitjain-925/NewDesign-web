@@ -1,3 +1,6 @@
+
+import {SortSubSpeciality } from "../SortSpeciality/index"
+
 export function GetLanguageDropdown(Metadatas, language, name = "") {
   if (Metadatas && Metadatas.length > 0 && language) {
     Metadatas.forEach(function (e, index) {
@@ -14,6 +17,11 @@ export function GetLanguageDropdown(Metadatas, language, name = "") {
         }
       }
     });
+
+    if (name == "subspeciality") {
+      var lan = SortSubSpeciality(Metadatas, language)
+      Metadatas = lan
+    }
     return Metadatas;
   } else return;
 }
