@@ -333,7 +333,8 @@ class Index extends Component {
   updateHandleTrack = (data) => {
     let pharma = {
       name: this.props.stateLoginValueAim.user.first_name + " " + this.props.stateLoginValueAim.user.last_name,
-      email: this.props.stateLoginValueAim.user.email
+      email: this.props.stateLoginValueAim.user.email,
+      alies_id: this.props.stateLoginValueAim.user.alies_id
     }
     data.status = "handled";
     data.lan = this.props.stateLanguageType
