@@ -13453,7 +13453,38 @@ g.highcharts-axis.highcharts-yaxis text {
     height: 580px !important; 
 }
 .phrmLinkUpr, .detailPrescp {
-    height: 550px !important;
+    height: 520px !important;
+}
+@media screen and (min-height:700px) {
+    .phrmLinkUpr, .detailPrescp {
+        height: 600px !important;
+    }
+}
+@media screen and (min-height:800px) {
+    .phrmLinkUpr, .detailPrescp {
+        height: 700px !important;
+    }
+}
+@media screen and (min-height:900px) {
+    .phrmLinkUpr, .detailPrescp {
+        height: 800px !important;
+    }
+}
+
+@media screen and (min-height:1000px) {
+    .phrmLinkUpr, .detailPrescp {
+        height: 900px !important;
+    }
+}
+@media screen and (min-height:1100px) {
+    .phrmLinkUpr, .detailPrescp {
+        height: 1000px !important;
+    }
+}
+@media screen and (min-height:1200px) {
+    .phrmLinkUpr, .detailPrescp {
+        height: 60% !important;
+    }
 }
 .cancelAppoint img {
     width: 20px !important;

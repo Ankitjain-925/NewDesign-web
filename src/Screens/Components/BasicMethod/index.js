@@ -99,6 +99,21 @@ export function getImage(image, images) {
     return myFilterData[0].new_image;
   }
 }
+
+const handleDownload = async (event) => {
+  const response = await fetch(event);
+  if (response.status === 200) {
+    const blob = await response.blob();
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "image";
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    return { success: true };
+  }
+};
 //Sort the time taken
 export function mySorter(a, b) {
   var x = a.value.toLowerCase();
