@@ -93,7 +93,7 @@ class Index extends Component {
                                         }
                                     });
                             }
-
+                            track.track_record = track.track_record.filter((e) => e != null);
                             track.track_record &&
                                 track.track_record.length > 0 &&
                                 track.track_record.map((item) => {
@@ -138,7 +138,7 @@ class Index extends Component {
                                     sentPres.push(item)
                                 });
                         })
-
+                        console.log('sentPres', sentPres)
                     var totalPage = Math.ceil(sentPres.length / 10);
                     this.setState(
                         {

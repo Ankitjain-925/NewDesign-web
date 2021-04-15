@@ -1930,7 +1930,7 @@ a.profilMenu {
         text-align: left !important;
     }
     .opinBoxCntnt {
-        width: 96% !important;
+        /* width: 96% !important; */
         margin-top: 14px !important;
     }
     .docCntctMain {
@@ -13110,6 +13110,40 @@ a.academy_ul ul li img {
 
 
 /*Added By ankita*/
+ .nwPresCntntIner, .opinBoxCntntIner {
+    height: 520px !important;
+}
+@media screen and (min-height:700px) {
+     .nwPresCntntIner, .opinBoxCntntIner {
+        height: 600px !important;
+    }
+}
+@media screen and (min-height:800px) {
+    .nwPresCntntIner, .opinBoxCntntIner {
+        height: 700px !important;
+    }
+}
+@media screen and (min-height:900px) {
+     .nwPresCntntIner, .opinBoxCntntIner {
+        height: 800px !important;
+    }
+}
+
+@media screen and (min-height:1000px) {
+    .nwPresCntntIner, .opinBoxCntntIner {
+        height: 900px !important;
+    }
+}
+@media screen and (min-height:1100px) {
+ .nwPresCntntIner, .opinBoxCntntIner {
+        height: 1000px !important;
+    }
+}
+@media screen and (min-height:1200px) {
+      .nwPresCntntIner, .opinBoxCntntIner {
+        height: 60% !important;
+    }
+}
 .DownloadButton{
     text-align: center;
     margin: 10px;
@@ -13449,7 +13483,7 @@ g.highcharts-axis.highcharts-yaxis text {
 .addmores, .minus_span_medication, .noBpData h3, .consumeAt p {
     cursor: pointer;
 }
-.nwDiaCntntIner, .nwPresCntntIner, .opinBoxCntntIner {
+.nwDiaCntntIner {
     height: 580px !important; 
 }
 .phrmLinkUpr, .detailPrescp {
@@ -14184,7 +14218,7 @@ input.Mobile_extra.Emergency_number {
 /*For emergency End*/
 /* For Second Opinion*/
 .opinBoxCntntIner {
-    height: 564px;
+    /* height: 564px; */
     overflow-y: scroll;
 }
 .click_document
