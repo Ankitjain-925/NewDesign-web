@@ -26,6 +26,7 @@ import {
   SortByEntry,
   SortByDiagnose,
   mySorter,
+  getReminder,
 } from "Screens/Components/BasicMethod/index";
 import ViewTimeline from "Screens/Components/TimelineComponent/ViewTimeline/index";
 import Loader from "Screens/Components/Loader/index.js";
@@ -1227,6 +1228,34 @@ class Index extends Component {
 
   //This is for the Download the Track
   downloadTrack = (data) => {
+    if (data.review_by_temp) {
+      data["review_by"] = data.review_by_temp
+      delete data.review_by_temp;
+    }
+    if (data.emergency_by_temp) {
+      data["emergency_by"] = data.emergency_by_temp
+      delete data.emergency_by_temp;
+    }
+    if (data?.reminder_time_taken && data?.reminder_time_taken[0]?.value) {
+      let time = moment(data.reminder_time_taken[0].value)
+      let time_taken = time.format("HH:MM")
+      data["reminder_time_taken"] = [
+        { value: time_taken },
+        { title: time_taken },
+        { label: time_taken }
+      ]
+    }
+    if(data?.data_of_vaccination){
+      data["date_of_vaccination"] =data.data_of_vaccination
+      delete data.data_of_vaccination;
+    }
+    if(data?.date_of_vaccination){
+      let dateOBJ = moment(data?.date_of_vaccination)
+      let time = dateOBJ.format("HH:MM")
+      let date = dateOBJ.format("DD-MM-YYYY")
+      data["time_of_vaccination"] = time
+      data["date_of_vaccination"] =date
+    }
     this.setState({ loaderImage: true });
     axios
       .post(

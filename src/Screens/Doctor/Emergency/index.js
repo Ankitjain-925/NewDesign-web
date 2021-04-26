@@ -66,6 +66,7 @@ class Index extends Component {
               first_name: this.props.stateLoginValueAim.user.first_name,
               last_name: this.props.stateLoginValueAim.user.last_name,
               email: this.props.stateLoginValueAim.user.email,
+              alies_id: this.props.stateLoginValueAim.user.alies_id,
             },
             lan: this.props.stateLanguageType,
           },

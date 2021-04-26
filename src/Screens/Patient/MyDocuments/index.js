@@ -236,6 +236,7 @@ class Index extends Component {
                 birthday: this.state.personalinfo.birthday,
                 profile_image: this.state.personalinfo.image,
                 bucket: this.props.stateLoginValueAim.user.bucket,
+                phone: this.props.stateLoginValueAim.user.phone,
             };
             data.status = "free";
             data.view_status = "free";
@@ -286,7 +287,8 @@ class Index extends Component {
                 email: this.props.stateLoginValueAim.user.email,
                 birthday: this.state.personalinfo.birthday,
                 profile_image: this.state.personalinfo.image,
-                bucket: this.props.stateLoginValueAim.user.bucket
+                bucket: this.props.stateLoginValueAim.user.bucket,
+                phone: this.props.stateLoginValueAim.user.phone,
             };
             data.view_status = "free";
             data.lan = this.props.stateLanguageType;
@@ -445,7 +447,8 @@ class Index extends Component {
                 last_name: this.props.stateLoginValueAim.user.last_name,
                 email: this.props.stateLoginValueAim.user.email,
                 birthday: this.props.stateLoginValueAim.user.birthday,
-                profile_image: this.props.stateLoginValueAim.user.image
+                profile_image: this.props.stateLoginValueAim.user.image,
+                phone: this.props.stateLoginValueAim.user.phone,
             };
             data.status = "free";
             data.view_status = "free";

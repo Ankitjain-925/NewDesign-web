@@ -22,10 +22,18 @@ import {
   getDate,
   getImage,
 } from "Screens/Components/BasicMethod/index";
-import imageToBase64 from "image-to-base64"
 import ImgaeSec from "Screens/Components/TimelineComponent/ImageSec";
-import {
-  getLanguage,
+import { 
+  translationAR,
+  translationSW,
+  translationSP,
+  translationRS,
+  translationEN,
+  translationNL,
+  translationDE,
+  translationCH,
+  translationPT,
+  translationFR
 } from "translations/index"
 import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 
@@ -34,7 +42,6 @@ class Index extends Component {
     super(props);
     this.state = {
       openPres: false,
-      errDownload: false,
       Allpre: [],
       Allpre1: [],
       loaderImage: false,
@@ -48,81 +55,31 @@ class Index extends Component {
   }
   // fancybox open
   handleOpenPres = (data) => {
-    this.setState({ loaderImage: true })
+    this.setState({loaderImage: true})
     var images = [];
-    data.attachfile?.length > 0 &&
-      data.attachfile.map((data, index) => {
-        var find = data && data.filename && data.filename;
-        if (find) {
-          var find1 = find.split(".com/")[1];
-          axios
-            .get(sitedata.data.path + "/aws/sign_s3?find=" + find1)
-            .then((response2) => {
-              if (response2.data.hassuccessed) {
-                images.push({
-                  image: find,
-                  new_image: response2.data.data,
+        data.attachfile?.length > 0 &&
+          data.attachfile.map((data, index) => {
+            var find = data && data.filename && data.filename;
+            if (find) {
+              var find1 = find.split(".com/")[1];
+              axios
+                .get(sitedata.data.path + "/aws/sign_s3?find=" + find1)
+                .then((response2) => {
+                  if (response2.data.hassuccessed) {
+                    images.push({
+                      image: find,
+                      new_image: response2.data.data,
+                    });
+                    this.setState({ images: images });
+                  }
                 });
-                this.setState({ images: images });
-              }
-            });
-        }
-      });
-
+            }
+          });
+         
     this.setState({ openPres: true, openDetail: data });
-    setInterval(() => { this.setState({ loaderImage: false }) }, 3000)
+    setInterval(()=>{this.setState({loaderImage: false})}, 3000)
     // this.setState({ openPres: true, openDetail: data });
   };
-
-  // Function for download an image
-
-  generateFile = (image, images) => {
-    const myFilterData =
-      images &&
-      images.length > 0 &&
-      images.filter((value, key) => value.image === image.filename);
-
-    console.log("MYFILterDatra", myFilterData)
-    return myFilterData[0]?.new_image
-  }
-
-  generateFileName = (image) => {
-    let name = "prescription_" + Date.now() + "." + image.filetype
-    return name
-  }
-
-  handleDownload = async (image, images) => {
-    this.setState({ loaderImage: true });
-    const myFilterData =
-      images &&
-      images.length > 0 &&
-      images.filter((value, key) => value.image === image.filename);
-    if (myFilterData && myFilterData.length > 0) {
-      let data = myFilterData[0].new_image
-      const response = await fetch(data);
-      console.log("RSPONSE", response)
-      if (response.status === 200) {
-        const blob = await response.blob();
-        const url = URL.createObjectURL(blob);
-        const link = document.createElement("a");
-        link.href = url;
-        link.download = "prescription_" + Date.now() + "." + image.filetype;
-        document.body.appendChild(link);
-        link.click();
-        link.remove();
-        this.setState({ loaderImage: false });
-        return { success: true };
-      }
-      else {
-        this.setState({ loaderImage: false, errDownload: "Unable to download" });
-      }
-      setTimeout(() => {
-        this.setState({ errDownload: false, loaderImage: false })
-      }, 3000);
-    }
-  };
-
-
   handleClosePres = () => {
     this.setState({ openPres: false, openDetail: {} });
   };
@@ -191,8 +148,41 @@ class Index extends Component {
 
   //Confirm popup for Delete
   DeleteTrack = (deletekey) => {
-    let translate = getLanguage(this.props.stateLanguageType)
-
+    let translate = {};
+    switch (this.props.stateLanguageType) {
+      case "en":
+        translate = translationEN.text;
+        break;
+      case "de":
+        translate = translationDE.text;
+        break;
+      case "pt":
+        translate = translationPT.text;
+        break;
+      case "sp":
+        translate = translationSP.text;
+        break;
+      case "rs":
+        translate = translationRS.text;
+        break;
+      case "nl":
+        translate = translationNL.text;
+        break;
+      case "ch":
+        translate = translationCH.text;
+        break;
+      case "sw":
+        translate = translationSW.text;
+        break;
+      case "fr":
+        translate = translationFR.text;
+        break;
+      case "ar":
+        translate = translationAR.text;
+        break;
+      default:
+        translate = translationEN.text;
+    }
     let {
       delete_item,
       do_u_really_want_delete_item,
@@ -237,8 +227,41 @@ class Index extends Component {
   };
   //Confirm popup for archive
   ArchiveTrack = (data) => {
-    let translate = getLanguage(this.props.stateLanguageType)
-
+    let translate = {};
+    switch (this.props.stateLanguageType) {
+      case "en":
+        translate = translationEN.text;
+        break;
+      case "de":
+        translate = translationDE.text;
+        break;
+      case "pt":
+        translate = translationPT.text;
+        break;
+      case "sp":
+        translate = translationSP.text;
+        break;
+      case "rs":
+        translate = translationRS.text;
+        break;
+      case "nl":
+        translate = translationNL.text;
+        break;
+      case "ch":
+        translate = translationCH.text;
+        break;
+      case "sw":
+        translate = translationSW.text;
+        break;
+      case "fr":
+        translate = translationFR.text;
+        break;
+      case "ar":
+        translate = translationAR.text;
+        break;
+      default:
+        translate = translationEN.text;
+    }
     let {
       archive_item,
       do_u_really_want_archive_item,
@@ -250,8 +273,8 @@ class Index extends Component {
         return (
           <div
             className={this.props?.settings?.setting.mode === "dark"
-              ? "dark-confirm react-confirm-alert-body"
-              : "react-confirm-alert-body"
+                ? "dark-confirm react-confirm-alert-body"
+                : "react-confirm-alert-body"
             }
           >
             <h1>{archive_item}</h1>
@@ -310,7 +333,8 @@ class Index extends Component {
   updateHandleTrack = (data) => {
     let pharma = {
       name: this.props.stateLoginValueAim.user.first_name + " " + this.props.stateLoginValueAim.user.last_name,
-      email: this.props.stateLoginValueAim.user.email
+      email: this.props.stateLoginValueAim.user.email,
+      alies_id: this.props.stateLoginValueAim.user.alies_id
     }
     data.status = "handled";
     data.lan = this.props.stateLanguageType
@@ -414,7 +438,6 @@ class Index extends Component {
   }
 
   render() {
-    const { errDownload } = this.state
     const { stateLoginValueAim, Doctorsetget } = this.props;
     if (
       stateLoginValueAim.user === "undefined" ||
@@ -426,7 +449,41 @@ class Index extends Component {
     ) {
       return <Redirect to={"/"} />;
     }
-    let translate = getLanguage(this.props.stateLanguageType)
+    let translate = {};
+    switch (this.props.stateLanguageType) {
+      case "en":
+        translate = translationEN.text;
+        break;
+      case "de":
+        translate = translationDE.text;
+        break;
+      case "pt":
+        translate = translationPT.text;
+        break;
+      case "sp":
+        translate = translationSP.text;
+        break;
+      case "rs":
+        translate = translationRS.text;
+        break;
+      case "nl":
+        translate = translationNL.text;
+        break;
+      case "ch":
+        translate = translationCH.text;
+        break;
+      case "sw":
+        translate = translationSW.text;
+        break;
+      case "fr":
+        translate = translationFR.text;
+        break;
+      case "ar":
+        translate = translationAR.text;
+        break;
+      default:
+        translate = translationEN.text;
+    }
     let {
       prescriptions,
       Prescriptionisarchived,
@@ -511,7 +568,7 @@ class Index extends Component {
                           </Tr>
                         </Thead>
                         <Tbody>
-
+               
                           {this.state.Allpre &&
                             this.state.Allpre.length > 0 &&
                             this.state.Allpre.map((item) => (
@@ -525,7 +582,7 @@ class Index extends Component {
                                   )}
                                 </Td>
                                 <Td className="presImg">
-
+                                
                                   {/* <img
                                     src={require("assets/images/dr1.jpg")}
                                     alt=""
@@ -556,11 +613,11 @@ class Index extends Component {
                                     {handled}{" "}
                                   </Td>
                                 ) : (
-                                  <Td>
-                                    <span className="revwYelow"></span>
-                                    {rcvd_from_doctor}{" "}
-                                  </Td>
-                                )}
+                                    <Td>
+                                      <span className="revwYelow"></span>
+                                      {rcvd_from_doctor}{" "}
+                                    </Td>
+                                  )}
                                 <Td className="presEditDot scndOptionIner">
                                   <a className="openScndhrf">
                                     <img
@@ -650,7 +707,7 @@ class Index extends Component {
                                     {this.state.openDetail.patient_name &&
                                       this.state.openDetail.patient_name}
                                   </label>
-
+                                  
                                 </Grid>
                               </Grid>
 
@@ -665,18 +722,11 @@ class Index extends Component {
                                         (file) => (
                                           <div>
                                             <div className="DownloadButton">
-                                              {errDownload && <p style={{ color: "#D62D1C" }}>
-                                                {errDownload}
-                                              </p>}
-                                              <a
-                                                // onClick={() => this.handleDownload(file, this.state.images)}
-                                                href={getImage(
-                                                  file.filename,
-                                                  this.state.images,
-                                                  "download"
-                                                )}
-                                                download={getImage(file.filename, this.state.images)} target="_blank">
-                                                {Download} {prescriptions}
+                                              <a href={getImage(
+                                                      file.filename,
+                                                      this.state.images
+                                                    )} download target="_blank">
+                                                      {Download} {prescriptions}
                                               </a>
                                             </div>
                                             {file.filetype === "pdf" && (
@@ -714,20 +764,20 @@ class Index extends Component {
                                   </Grid>
                                   {this.state.openDetail.status &&
                                     this.state.openDetail.status === "handled" ? (
-                                    ""
-                                  ) : (
-                                    <Grid>
-                                      <input
-                                        type="submit"
-                                        value={medicine_handed_to_patient}
-                                        onClick={() => {
-                                          this.updateHandleTrack(
-                                            this.state.openDetail
-                                          );
-                                        }}
-                                      />
-                                    </Grid>
-                                  )}
+                                      ""
+                                    ) : (
+                                      <Grid>
+                                        <input
+                                          type="submit"
+                                          value={medicine_handed_to_patient}
+                                          onClick={() => {
+                                            this.updateHandleTrack(
+                                              this.state.openDetail
+                                            );
+                                          }}
+                                        />
+                                      </Grid>
+                                    )}
                                 </Grid>
                               </Grid>
                             </Grid>

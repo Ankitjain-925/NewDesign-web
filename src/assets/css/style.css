@@ -9039,8 +9039,8 @@ td.phrImg p {
     box-shadow: 10px 10px 5px -9px rgba(0,0,0,0.75);
 }
 .medicInqUpr {
-    /* height: 482px; */
-    /* overflow-y: scroll; */
+    height: 500px;
+    overflow: auto;
     margin-right: 1px;
 }
 .prescripList input {
@@ -13110,6 +13110,40 @@ a.academy_ul ul li img {
 
 
 /*Added By ankita*/
+.nwPresCntntIner, .opinBoxCntntIner {
+    height: 520px !important;
+}
+@media screen and (min-height:700px) {
+     .nwPresCntntIner, .opinBoxCntntIner {
+        height: 600px !important;
+    }
+}
+@media screen and (min-height:800px) {
+    .nwPresCntntIner, .opinBoxCntntIner {
+        height: 700px !important;
+    }
+}
+@media screen and (min-height:900px) {
+     .nwPresCntntIner, .opinBoxCntntIner {
+        height: 800px !important;
+    }
+}
+
+@media screen and (min-height:1000px) {
+    .nwPresCntntIner, .opinBoxCntntIner {
+        height: 900px !important;
+    }
+}
+@media screen and (min-height:1100px) {
+ .nwPresCntntIner, .opinBoxCntntIner {
+        height: 1000px !important;
+    }
+}
+@media screen and (min-height:1200px) {
+      .nwPresCntntIner, .opinBoxCntntIner {
+        height: 60% !important;
+    }
+}
 .DownloadButton{
     text-align: center;
     margin: 10px;
@@ -13449,43 +13483,44 @@ g.highcharts-axis.highcharts-yaxis text {
 .addmores, .minus_span_medication, .noBpData h3, .consumeAt p {
     cursor: pointer;
 }
-.nwDiaCntntIner, .nwPresCntntIner, .opinBoxCntntIner {
+.nwDiaCntntIner {
     height: 580px !important; 
 }
-.phrmLinkUpr, .detailPrescp {
-    height: 520px !important;
-}
-@media screen and (min-height:700px) {
-    .phrmLinkUpr, .detailPrescp {
-        height: 600px !important;
-    }
-}
-@media screen and (min-height:800px) {
-    .phrmLinkUpr, .detailPrescp {
-        height: 700px !important;
-    }
-}
-@media screen and (min-height:900px) {
-    .phrmLinkUpr, .detailPrescp {
-        height: 800px !important;
+.phrmLinkUpr, .detailPrescp {	
+    height: 520px !important;	
+}	
+@media screen and (min-height:700px) {	
+    .phrmLinkUpr, .detailPrescp {	
+        height: 600px !important;	
+    }	
+}	
+@media screen and (min-height:800px) {	
+    .phrmLinkUpr, .detailPrescp {	
+        height: 700px !important;	
+    }	
+}	
+@media screen and (min-height:900px) {	
+    .phrmLinkUpr, .detailPrescp {	
+        height: 800px !important;	
+    }	
+}	
+    
+@media screen and (min-height:1000px) {	
+    .phrmLinkUpr, .detailPrescp {	
+        height: 900px !important;	
+    }	
+}	
+@media screen and (min-height:1100px) {	
+    .phrmLinkUpr, .detailPrescp {	
+        height: 1000px !important;	
+    }	
+}	
+@media screen and (min-height:1200px) {	
+    .phrmLinkUpr, .detailPrescp {	
+        height: 60% !important;	
     }
 }
 
-@media screen and (min-height:1000px) {
-    .phrmLinkUpr, .detailPrescp {
-        height: 900px !important;
-    }
-}
-@media screen and (min-height:1100px) {
-    .phrmLinkUpr, .detailPrescp {
-        height: 1000px !important;
-    }
-}
-@media screen and (min-height:1200px) {
-    .phrmLinkUpr, .detailPrescp {
-        height: 60% !important;
-    }
-}
 .cancelAppoint img {
     width: 20px !important;
     height: 20px !important;
@@ -13798,8 +13833,7 @@ button.CutomStripeButton{
     position : relative !important;
 }
 .allTimeSelnw.comonSelnw div:last-child {
-    /* z-index: 99999999999!important; */
-    z-index: 999 !important;
+    z-index: 99 !important;
 }
 .rlativeDiv .passInst {
     position: relative!important;
@@ -14184,7 +14218,7 @@ input.Mobile_extra.Emergency_number {
 /*For emergency End*/
 /* For Second Opinion*/
 .opinBoxCntntIner {
-    height: 564px;
+    /* height: 564px; */
     overflow-y: scroll;
 }
 .click_document
@@ -15775,6 +15809,8 @@ select:-webkit-autofill:focus {
     margin-top: 8px !important;
   }
   .medicInqUpr{
+    height: 500px;
+    overflow: auto;
     /* height: 440px !important; */
     padding: 8px !important;
   }

@@ -423,6 +423,8 @@ class Index extends Component {
           subspeciality:
             this.state.selectedDoc.data &&
             this.state.selectedDoc.data.subspeciality,
+          phone:
+            this.state.selectedDoc.data && this.state.selectedDoc.data.phone,
         },
       })
       .then((responce) => {
