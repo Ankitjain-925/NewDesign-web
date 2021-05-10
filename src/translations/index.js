@@ -48,7 +48,6 @@ const getLanguage = (languageType) => {
 }
 
 export {
-    getLanguage,
     translationAR,
     translationSW,
     translationSP,
