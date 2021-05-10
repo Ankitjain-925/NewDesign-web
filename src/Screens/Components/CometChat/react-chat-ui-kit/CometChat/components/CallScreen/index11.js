@@ -20,8 +20,7 @@ import {
 } from "translations/index"
 import { CallScreenManager } from "./controller";
 import * as enums from "../../util/enums.js";
-import FullscreenIcon from '@material-ui/icons/Fullscreen';
-import FullscreenExitIcon from '@material-ui/icons/FullscreenExit';
+
 import { SvgAvatar } from "../../util/svgavatar";
 
 import Avatar from "../Avatar";
@@ -122,9 +121,6 @@ class CallScreen extends React.PureComponent {
             el,
             new CometChat.OngoingCallListener({
               onUserJoined: (user) => {
-                const el1 = document.getElementsByClassName("react-resizable");
-                el1[1].parentNode.removeChild(el1[1]);
-                // el1[1].style.display= "none";
                 /* Notification received here if another user joins the call. */
                 //// console.log("[CallScreen] onCallAccepted User joined call:", user);
                 /* this method can be use to display message or perform any actions if someone joining the call */
@@ -177,9 +173,6 @@ class CallScreen extends React.PureComponent {
           el,
           new CometChat.OngoingCallListener({
             onUserJoined: (user) => {
-              const el1 = document.getElementsByClassName("react-resizable");
-              el1[1].parentNode.removeChild(el1[1]);
-              // el1[1].style.display= "none";
               /* Notification received here if another user joins the call. */
               //// console.log("User joined call:", enums.USER_JOINED, user);
               /* this method can be use to display message or perform any actions if someone joining the call */
@@ -217,10 +210,10 @@ class CallScreen extends React.PureComponent {
       .then((call) => {
         this.setState({
           showCallScreen: false,
-                showIncomingScreen: false,
-                showOutgoingScreen: false,
-                showIframeScreen: false,
-                callIProgress: undefined,
+          showIncomingScreen: false,
+          showOutgoingScreen: false,
+          showIframeScreen: false,
+          callIProgress: undefined,
         });
 
         this.props.actionGenerated("callEnded", call);
@@ -237,18 +230,18 @@ class CallScreen extends React.PureComponent {
         this.props.actionGenerated("callEnded", error);
       });
   };
-  setFullSCreen=(e)=>{
+  setFullSCreen=()=>{
     const el = document.getElementById("cp-call-screen-container");
-    this.setState({ onMax: el.style.transform})
     el.style.transform = "translate(0px, 0px)"
     this.setState({isFull: true, myWidth:window.innerWidth, myHeight:window.innerHeight})
   }
-  
-  setWindowedSCreen=(e)=>{
+
+  setWindowedSCreen=()=>{
     const el = document.getElementById("cp-call-screen-container");
-    el.style.transform = this.state.onMax;
-    this.setState({isFull: false, myWidth:350, myHeight:350})
+    el.style.transform = "translate(0px, 0px)"
+    this.setState({isFull: false, myWidth:400, myHeight:400})
   }
+ 
   render() {
     let callScreen = null,
       incomingCallScreen,
@@ -475,29 +468,27 @@ class CallScreen extends React.PureComponent {
 
     if (this.state.showCallScreen) {
       callScreen = (
-        <div className={this.state.showIframeScreen && !this.state.isFull ? "ifIframeButn": ""}>
-            {this.state.showIframeScreen && <span> {!this.state.isFull ? 
-              <FullscreenIcon className={this.state.showIframeScreen && !this.state.isFull ? "mnMxBtn1": "mnMxBtn2"} onClick={(e)=>{this.setFullSCreen(e)}}/>
-              : <FullscreenExitIcon className={this.state.showIframeScreen && !this.state.isFull ? "mnMxBtn1": "mnMxBtn2"} onClick={(e)=>{this.setWindowedSCreen(e)}} />}
-              </span>}
-          <Draggable
-              defaultPosition={{ x: 0, y: 0 }}
-              onDrag={() =>{}}
-              cancel={".react-resizable-handle"}
-          >
-            <ResizableBox width={this.state.myWidth} height={this.state.myHeight}
-              minConstraints={[300, 300]} maxConstraints={[window.innerWidth-50, window.innerHeight-100]}
-              resizeHandles={['ne' ]}
-              className={this.state.showIframeScreen && !this.state.isFull ? "ifIframethan" : ""}
-              id={this.props.comeFrom ==='notify' && "cp-call-screen-container"}>
-              {this.state.showIframeScreen && !this.state.isFull ? 
-              <FullscreenIcon className="mnMxBtn" onClick={(e)=>{this.setFullSCreen(e)}}/>
-              : <FullscreenExitIcon className="mnMxBtn" onClick={(e)=>{this.setWindowedSCreen(e)}} />}
-            </ResizableBox>
-          </Draggable>
+        <div>
+          {/* {this.state.showIframeScreen && <div>{!this.state.isFull? 
+                <span onClick={()=>{this.setFullSCreen()}}>Full Screen</span>
+                : <span onClick={()=>{this.setWindowedSCreen()}}>Small Screen</span>}</div>} */}
+            <Draggable
+                defaultPosition={{ x: 0, y: 0 }}
+                onDrag={() =>{}}
+                cancel={".react-resizable-handle"}
+            >
+                <ResizableBox width={this.state.myWidth} height={this.state.myHeight}
+                  minConstraints={[300, 300]} maxConstraints={[window.innerWidth-50, window.innerHeight-50]}
+                  resizeHandles={['ne' ]}
+                  className={this.state.showIframeScreen && !this.state.isFull ? "ifIframethan" : ""}
+                  id={this.props.comeFrom ==='notify' && "cp-call-screen-container"}>
+                </ResizableBox>
+            </Draggable>
           {incomingCallScreen}
           {outgoingCallScreen}
+        
         </div>
+       
       );
     }
     

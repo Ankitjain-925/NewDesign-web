@@ -1228,6 +1228,8 @@
 		"view_demo":"Angalia onyesho",
 		"SMSEmailLanguage" :"Lugha ya SMS / Barua pepe",
 		"Noimageavailable" : "Hakuna picha inayopatikana",
-		"Prescriptionsuccessfullysent" :"Dawa imefanikiwa kutumwa"
+		"Prescriptionsuccessfullysent" :"Dawa imefanikiwa kutumwa",
+		"currencyLang":"Sarafu",
+		"choose_currency":"Chagua Sarafu"
 	}
 }

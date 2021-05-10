@@ -471,9 +471,9 @@ class Index extends Component {
                                         ) {
                                           return `${getDate(
                                             new Date(
-                                              item.reminder_date_taken[
+                                              item?.reminder_date_taken[
                                                 index
-                                              ].title
+                                              ]?.title
                                             ),
                                             this.state.date_format
                                           )} ${getTime(

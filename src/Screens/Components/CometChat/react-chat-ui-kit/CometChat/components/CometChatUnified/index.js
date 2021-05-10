@@ -58,27 +58,27 @@ class CometChatUnified extends React.Component {
     }
   }
 
-  audioCall = () => {
-    let receiverId, receiverType;
-    if (this.props.type === "user") {
-      receiverId = this.props.item.uid;
-      receiverType = CometChat.RECEIVER_TYPE.USER;
-    } else if (this.props.type === "group") {
-      receiverId = this.props.item.guid;
-      receiverType = CometChat.RECEIVER_TYPE.GROUP;
-    }
+  // audioCall = () => {
+  //   let receiverId, receiverType;
+  //   if (this.props.type === "user") {
+  //     receiverId = this.props.item.uid;
+  //     receiverType = CometChat.RECEIVER_TYPE.USER;
+  //   } else if (this.props.type === "group") {
+  //     receiverId = this.props.item.guid;
+  //     receiverType = CometChat.RECEIVER_TYPE.GROUP;
+  //   }
 
-    let callType = CometChat.CALL_TYPE.AUDIO;
+  //   let callType = CometChat.CALL_TYPE.AUDIO;
 
-    CometChatManager.audioCall(receiverId, receiverType, callType)
-      .then((call) => {
-        this.callScreenAction("callStarted", call);
-        this.setState({ outgoingCall: call });
-      })
-      .catch((error) => {
-        // console.log("Call initialization failed with exception:", error);
-      });
-  };
+  //   CometChatManager.audioCall(receiverId, receiverType, callType)
+  //     .then((call) => {
+  //       this.callScreenAction("callStarted", call);
+  //       this.setState({ outgoingCall: call });
+  //     })
+  //     .catch((error) => {
+  //       // console.log("Call initialization failed with exception:", error);
+  //     });
+  // };
 
   callScreenAction = (action, call) => {
     switch (action) {
@@ -92,27 +92,27 @@ class CometChatUnified extends React.Component {
     }
   };
 
-  videoCall = () => {
-    let receiverId, receiverType;
-    if (this.props.type === "user") {
-      receiverId = this.props.item.uid;
-      receiverType = CometChat.RECEIVER_TYPE.USER;
-    } else if (this.props.type === "group") {
-      receiverId = this.props.item.guid;
-      receiverType = CometChat.RECEIVER_TYPE.GROUP;
-    }
+  // videoCall = () => {
+  //   let receiverId, receiverType;
+  //   if (this.props.type === "user") {
+  //     receiverId = this.props.item.uid;
+  //     receiverType = CometChat.RECEIVER_TYPE.USER;
+  //   } else if (this.props.type === "group") {
+  //     receiverId = this.props.item.guid;
+  //     receiverType = CometChat.RECEIVER_TYPE.GROUP;
+  //   }
 
-    let callType = CometChat.CALL_TYPE.VIDEO;
+  //   let callType = CometChat.CALL_TYPE.VIDEO;
 
-    CometChatManager.videoCall(receiverId, receiverType, callType)
-      .then((call) => {
-        this.callScreenAction("callStarted", call);
-        this.setState({ outgoingCall: call });
-      })
-      .catch((error) => {
-        // console.log("Call initialization failed with exception:", error);
-      });
-  };
+  //   CometChatManager.videoCall(receiverId, receiverType, callType)
+  //     .then((call) => {
+  //       this.callScreenAction("callStarted", call);
+  //       this.setState({ outgoingCall: call });
+  //     })
+  //     .catch((error) => {
+  //       // console.log("Call initialization failed with exception:", error);
+  //     });
+  // };
 
   changeTheme = (e) => {
     this.setState({
@@ -388,14 +388,14 @@ class CometChatUnified extends React.Component {
             )}
 
 
-            <CallScreen
+            {/* <CallScreen
               className="callscreen"
               item={this.state.item}
               type={this.state.type}
               lan={this.props.lan}
               actionGenerated={this.callScreenAction}
               outgoingCall={this.state.outgoingCall}
-            />
+            /> */}
             {/* <CallScreen className="callscreen"
           item={this.props.item} 
           type={this.props.type}

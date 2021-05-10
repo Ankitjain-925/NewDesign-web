@@ -1930,7 +1930,7 @@ a.profilMenu {
         text-align: left !important;
     }
     .opinBoxCntnt {
-        /* width: 96% !important; */
+        width: 96% !important;
         margin-top: 14px !important;
     }
     .docCntctMain {
@@ -9039,8 +9039,8 @@ td.phrImg p {
     box-shadow: 10px 10px 5px -9px rgba(0,0,0,0.75);
 }
 .medicInqUpr {
-    /* height: 482px; */
-    /* overflow-y: scroll; */
+    height: 500px;
+    overflow: auto;
     margin-right: 1px;
 }
 .prescripList input {
@@ -13110,7 +13110,160 @@ a.academy_ul ul li img {
 
 
 /*Added By ankita*/
- .nwPresCntntIner, .opinBoxCntntIner {
+@media (max-width: 768px){
+    .menuItems {
+        padding-bottom: 170px;
+    }
+    .menuItems ul li:last-child:not(.doctor-menu) {
+        margin-top: 63px !important; 
+    }
+    .menuItems ul li .profilMenuList ul li:last-child:not(.doctor-menu) {
+        margin-top: 0px !important; 
+    }
+    }
+.mnMxBtn1{
+    display: none !important;
+    left: 45%;
+    right: 45%;
+    margin: 0 auto;
+    color: #009688;
+    position: absolute;
+    top: 20px;
+    z-index: 9999999999!important;
+    height: 30px !important;
+    width: 30px !important;
+    cursor: pointer;
+    background-color: #33333359;
+    border-radius: 50%;
+}
+@media only screen and (max-width: 768px) and (min-width: 469px){
+    .mnMxBtn{
+        display: none!important;
+    }
+    .mnMxBtn1{
+        display:block !important;
+        height: 50px !important;
+        width: 50px !important;
+    }
+    #cp-call-screen-container {
+        position: absolute;
+        left: 0px;
+        bottom: 0px;
+        transform: initial;
+    }
+    .ifIframeButn {
+        z-index: 1 !important;
+        position: fixed !important;
+        min-height: 325px;
+        width: 100%;
+    }
+}
+@media (max-width:468px) {
+.mnMxBtn{
+    display: none!important;
+}
+.mnMxBtn1{
+    display:block !important;
+}
+#cp-call-screen-container {
+    position: absolute;
+    left: 0px;
+    bottom: 0px;
+    transform: initial;
+}
+.ifIframeButn {
+    z-index: 1 !important;
+    position: fixed !important;
+    min-height: 325px;
+    width: 100%;
+}
+}
+@media screen and (max-width:959px) {
+    .journalAdd .MuiGrid-grid-xs-6{
+        margin: 0px 10px !important;
+    }
+}
+#cp-call-screen-container iframe #fullscreen .main-container{
+    padding-top: 30px !important;
+}
+.react-resizable-handle {
+    margin: -3px !important;
+    width: 30px;
+    height: 30px;
+    padding: 0 3px 3px 0 !important;
+    background-size: contain !important;
+}
+.tile-main-video-container {
+    margin-top: 3% !important;
+}
+#cp-call-screen-container
+{
+    z-index:1!important;  
+    position:fixed !important;
+}
+#cp-call-screen-container iframe{
+    border: none !important;
+    background-color: #009688;
+}
+.mnMxBtn{
+    display:block ;
+    color: #fff;
+    position: absolute;
+    z-index: 9999999999!important;
+    height: 30px !important;
+    width: 30px !important;
+    left: 0px;
+    cursor: pointer;
+}
+.mnMxBtn2{
+    display:block ;
+    color: #fff;
+    position: absolute;
+    z-index: 9999999999!important;
+    height: 30px !important;
+    width: 30px !important;
+    left: 0px;
+    top: 0px;
+    cursor: pointer;
+}
+.ifIframethan::before{
+    content: "Drag and Pull";
+    font-size: 10px;
+    font-weight: bold;
+    text-align: center;
+    background-color: #009688;
+    width: 100%;
+    display: block;
+    color: #fff;
+    padding: 14px;
+    cursor: all-scroll;
+    margin-bottom: -4px;
+}
+.ifIframethan::after {
+    content: "Drag and Pull";
+    font-size: 10px;
+    font-weight: bold;
+    text-align: center;
+    background-color: #009688;
+    width: 100%;
+    display: block;
+    color: #fff;
+    padding: 22px 0px 12px 0px;
+    cursor: all-scroll;
+    margin-top: -17px;
+}
+/* .ifIframethan iframe{
+    border-radius: 15px;
+} */
+.ifIframeButn{
+    position: relative;
+}
+.ifIframethan{
+    position: fixed !important;
+    bottom: 70px !important;
+    /* background-color: #009688; */
+}
+.nwPresCntntIner, .opinBoxCntntIner {
     height: 520px !important;
 }
 @media screen and (min-height:700px) {
@@ -13486,40 +13639,41 @@ g.highcharts-axis.highcharts-yaxis text {
 .nwDiaCntntIner {
     height: 580px !important; 
 }
-.phrmLinkUpr, .detailPrescp {
-    height: 520px !important;
-}
-@media screen and (min-height:700px) {
-    .phrmLinkUpr, .detailPrescp {
-        height: 600px !important;
-    }
-}
-@media screen and (min-height:800px) {
-    .phrmLinkUpr, .detailPrescp {
-        height: 700px !important;
-    }
-}
-@media screen and (min-height:900px) {
-    .phrmLinkUpr, .detailPrescp {
-        height: 800px !important;
+.phrmLinkUpr, .detailPrescp {	
+    height: 520px !important;	
+}	
+@media screen and (min-height:700px) {	
+    .phrmLinkUpr, .detailPrescp {	
+        height: 600px !important;	
+    }	
+}	
+@media screen and (min-height:800px) {	
+    .phrmLinkUpr, .detailPrescp {	
+        height: 700px !important;	
+    }	
+}	
+@media screen and (min-height:900px) {	
+    .phrmLinkUpr, .detailPrescp {	
+        height: 800px !important;	
+    }	
+}	
+    
+@media screen and (min-height:1000px) {	
+    .phrmLinkUpr, .detailPrescp {	
+        height: 900px !important;	
+    }	
+}	
+@media screen and (min-height:1100px) {	
+    .phrmLinkUpr, .detailPrescp {	
+        height: 1000px !important;	
+    }	
+}	
+@media screen and (min-height:1200px) {	
+    .phrmLinkUpr, .detailPrescp {	
+        height: 60% !important;	
     }
 }
 
-@media screen and (min-height:1000px) {
-    .phrmLinkUpr, .detailPrescp {
-        height: 900px !important;
-    }
-}
-@media screen and (min-height:1100px) {
-    .phrmLinkUpr, .detailPrescp {
-        height: 1000px !important;
-    }
-}
-@media screen and (min-height:1200px) {
-    .phrmLinkUpr, .detailPrescp {
-        height: 60% !important;
-    }
-}
 .cancelAppoint img {
     width: 20px !important;
     height: 20px !important;
@@ -13832,8 +13986,7 @@ button.CutomStripeButton{
     position : relative !important;
 }
 .allTimeSelnw.comonSelnw div:last-child {
-    /* z-index: 99999999999!important; */
-    z-index: 999 !important;
+    z-index: 99 !important;
 }
 .rlativeDiv .passInst {
     position: relative!important;
@@ -15743,15 +15896,24 @@ select:-webkit-autofill:focus {
      margin-top: 14px !important;
    }
 }
-@media screen and (min-width: 460px) and (max-width: 959px){
+@media screen and (min-width: 700px) and (max-width: 959px){
  .srchFilter .ant-picker-range.allTimeSel1.comonSel{
-    width: 98.7% !important;
+    width: 99% !important;
   }
 }
+@media screen and (min-width: 501px) and (max-width: 700px){
+    .srchFilter .ant-picker-range.allTimeSel1.comonSel{
+        width: 98.7% !important;
+    }
+}
+@media screen and (max-width: 501px) {
+    .srchFilter .ant-picker-range.allTimeSel1.comonSel{
+        width: 98% !important;
+    }
+}
+  
 @media (max-width: 459px){
-  .srchFilter .ant-picker-range.allTimeSel1.comonSel{
-    width: 98.3% !important;
-  }
+ 
   .slotBoxCntnt{
     width: 98% !important;
   }
@@ -15809,6 +15971,8 @@ select:-webkit-autofill:focus {
     margin-top: 8px !important;
   }
   .medicInqUpr{
+    height: 500px;
+    overflow: auto;
     /* height: 440px !important; */
     padding: 8px !important;
   }

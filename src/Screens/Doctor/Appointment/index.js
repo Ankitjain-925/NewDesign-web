@@ -24,16 +24,7 @@ import { getImage } from "Screens/Components/BasicMethod/index";
 import { Redirect } from "react-router-dom";
 import { confirmAlert } from "react-confirm-alert";
 import {
-  translationAR,
-  translationSW,
-  translationSP,
-  translationRS,
-  translationEN,
-  translationNL,
-  translationDE,
-  translationCH,
-  translationPT,
-  translationFR
+  getLanguage
 } from "translations/index"
 import Loader from "Screens/Components/Loader/index.js";
 import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
@@ -423,41 +414,8 @@ class Index extends Component {
   };
 
   updateAppointment(status, id, data) {
-    let translate = {};
-    switch (this.props.stateLanguageType) {
-      case "en":
-        translate = translationEN.text;
-        break;
-      case "de":
-        translate = translationDE.text;
-        break;
-      case "pt":
-        translate = translationPT.text;
-        break;
-      case "sp":
-        translate = translationSP.text;
-        break;
-      case "rs":
-        translate = translationRS.text;
-        break;
-      case "nl":
-        translate = translationNL.text;
-        break;
-      case "ch":
-        translate = translationCH.text;
-        break;
-      case "sw":
-        translate = translationSW.text;
-        break;
-      case "fr":
-        translate = translationFR.text;
-        break;
-      case "ar":
-        translate = translationAR.text;
-        break;
-      default:
-        translate = translationEN.text;
-    }
+    let translate = getLanguage(this.props.stateLanguageType);
+
     let { r_u_sure_want_book_appointment, yes, no } = translate;
 
     this.setState({ openSlot: false });
@@ -514,7 +472,7 @@ class Index extends Component {
         this.getAppoinment();
         this.getEvent();
       })
-      .catch((error) => {});
+      .catch((error) => { });
   }
 
   suggestingTime = () => {
@@ -701,7 +659,7 @@ class Index extends Component {
               className: "trigger",
               /* your props here */
             })}
-            // onClick={() => this.CallEvents(data.event)}
+          // onClick={() => this.CallEvents(data.event)}
           >
             <p className="calendar-cont"> {data.event.title} </p>
             <p className="calendar-date">
@@ -740,7 +698,7 @@ class Index extends Component {
               className: "trigger",
               /* your props here */
             })}
-            // onClick={() => this.CallEvents(data.event)}
+          // onClick={() => this.CallEvents(data.event)}
           >
             <p
               style={{
@@ -812,41 +770,8 @@ class Index extends Component {
     placement,
     event,
   }) => {
-    let translate = {};
-    switch (this.props.stateLanguageType) {
-      case "en":
-        translate = translationEN.text;
-        break;
-      case "de":
-        translate = translationDE.text;
-        break;
-      case "pt":
-        translate = translationPT.text;
-        break;
-      case "sp":
-        translate = translationSP.text;
-        break;
-      case "rs":
-        translate = translationRS.text;
-        break;
-      case "nl":
-        translate = translationNL.text;
-        break;
-      case "ch":
-        translate = translationCH.text;
-        break;
-      case "sw":
-        translate = translationSW.text;
-        break;
-      case "fr":
-        translate = translationFR.text;
-        break;
-      case "ar":
-        translate = translationAR.text;
-        break;
-      default:
-        translate = translationEN.text;
-    }
+    let translate = getLanguage(this.props.stateLanguageType)
+  
     let {
       DetailsQuestions,
       vdo_call,
@@ -867,8 +792,8 @@ class Index extends Component {
             "data-placement": placement,
             className:
               this.props.settings &&
-              this.props.settings.setting &&
-              this.props.settings.setting.mode === "dark"
+                this.props.settings.setting &&
+                this.props.settings.setting.mode === "dark"
                 ? "darktheme tooltip-arrow "
                 : "tooltip-arrow ",
           })}
@@ -880,8 +805,8 @@ class Index extends Component {
             <Grid
               className={
                 this.props.settings &&
-                this.props.settings.setting &&
-                this.props.settings.setting.mode === "dark"
+                  this.props.settings.setting &&
+                  this.props.settings.setting.mode === "dark"
                   ? "darktheme meetBoxCntnt"
                   : "meetBoxCntnt"
               }
@@ -915,13 +840,13 @@ class Index extends Component {
                       />
                     )}
                     <span>
-                     
+
                       {data.appointment_type == "practice_days"
                         ? consultancy_appintment
                         : data.appointment_type == "online_appointment"
-                        ? vdo_call
-                        : this.state.appointmentDatas && this.state.appointmentDatas.appointments && this.state.appointmentDatas.appointments.length>0  && this.state.appointmentDatas.appointments[0].custom_text
-                        ? this.state.appointmentDatas.appointments[0].custom_text :office_visit
+                          ? vdo_call
+                          : this.state.appointmentDatas && this.state.appointmentDatas.appointments && this.state.appointmentDatas.appointments.length > 0 && this.state.appointmentDatas.appointments[0].custom_text
+                            ? this.state.appointmentDatas.appointments[0].custom_text : office_visit
                       }
                     </span>
                   </Grid>
@@ -1047,41 +972,8 @@ class Index extends Component {
       clashtime,
     } = this.state;
     const { stateLoginValueAim, Doctorsetget } = this.props;
-    let translate = {};
-    switch (this.props.stateLanguageType) {
-      case "en":
-        translate = translationEN.text;
-        break;
-      case "de":
-        translate = translationDE.text;
-        break;
-      case "pt":
-        translate = translationPT.text;
-        break;
-      case "sp":
-        translate = translationSP.text;
-        break;
-      case "rs":
-        translate = translationRS.text;
-        break;
-      case "nl":
-        translate = translationNL.text;
-        break;
-      case "ch":
-        translate = translationCH.text;
-        break;
-      case "sw":
-        translate = translationSW.text;
-        break;
-      case "fr":
-        translate = translationFR.text;
-        break;
-      case "ar":
-        translate = translationAR.text;
-        break;
-      default:
-        translate = translationEN.text;
-    }
+    let translate = getLanguage(this.props.stateLanguageType);
+
     let {
       holiday,
       appointments,
@@ -1112,9 +1004,9 @@ class Index extends Component {
       <Grid
         className={
           this.props.settings &&
-          this.props.settings.setting &&
-          this.props.settings.setting.mode &&
-          this.props.settings.setting.mode === "dark"
+            this.props.settings.setting &&
+            this.props.settings.setting.mode &&
+            this.props.settings.setting.mode === "dark"
             ? "homeBg homeBgDrk"
             : "homeBg"
         }
@@ -1158,11 +1050,11 @@ class Index extends Component {
                                     <img
                                       src={
                                         data.patient_info &&
-                                        data.patient_info.profile_image
+                                          data.patient_info.profile_image
                                           ? getImage(
-                                              data.patient_info.profile_image,
-                                              this.state.images
-                                            )
+                                            data.patient_info.profile_image,
+                                            this.state.images
+                                          )
                                           : require("assets/images/dr1.jpg")
                                       }
                                       alt=""
@@ -1177,28 +1069,28 @@ class Index extends Component {
                                   <a>
                                     {data.appointment_type ==
                                       "online_appointment" && (
-                                      <img
-                                        src={require("assets/images/video-call.svg")}
-                                        alt=""
-                                        title=""
-                                      />
-                                    )}
+                                        <img
+                                          src={require("assets/images/video-call.svg")}
+                                          alt=""
+                                          title=""
+                                        />
+                                      )}
                                     {data.appointment_type ==
                                       "practice_days" && (
-                                      <img
-                                        src={require("assets/images/cal.png")}
-                                        alt=""
-                                        title=""
-                                      />
-                                    )}
+                                        <img
+                                          src={require("assets/images/cal.png")}
+                                          alt=""
+                                          title=""
+                                        />
+                                      )}
                                     {data.appointment_type ==
                                       "appointments" && (
-                                      <img
-                                        src={require("assets/images/office-visit.svg")}
-                                        alt=""
-                                        title=""
-                                      />
-                                    )}
+                                        <img
+                                          src={require("assets/images/office-visit.svg")}
+                                          alt=""
+                                          title=""
+                                        />
+                                      )}
                                     <label>
                                       {moment(
                                         new Date(data.date),
@@ -1223,9 +1115,9 @@ class Index extends Component {
                       onClose={this.handleCloseSlot}
                       className={
                         this.props.settings &&
-                        this.props.settings.setting &&
-                        this.props.settings.setting.mode &&
-                        this.props.settings.setting.mode === "dark"
+                          this.props.settings.setting &&
+                          this.props.settings.setting.mode &&
+                          this.props.settings.setting.mode === "dark"
                           ? "darkTheme"
                           : ""
                       }
@@ -1268,13 +1160,13 @@ class Index extends Component {
                                   <img
                                     src={
                                       appoinmentSelected.patient_info &&
-                                      appoinmentSelected.patient_info
-                                        .profile_image
+                                        appoinmentSelected.patient_info
+                                          .profile_image
                                         ? getImage(
-                                            appoinmentSelected.patient_info
-                                              .profile_image,
-                                            this.state.images
-                                          )
+                                          appoinmentSelected.patient_info
+                                            .profile_image,
+                                          this.state.images
+                                        )
                                         : require("assets/images/dr1.jpg")
                                     }
                                     alt=""
@@ -1282,9 +1174,9 @@ class Index extends Component {
                                   />
                                   {appoinmentSelected.patient_info
                                     ? appoinmentSelected.patient_info
-                                        .first_name +
-                                      " " +
-                                      appoinmentSelected.patient_info.last_name
+                                      .first_name +
+                                    " " +
+                                    appoinmentSelected.patient_info.last_name
                                     : ""}
                                 </a>
                               </Grid>
@@ -1296,41 +1188,41 @@ class Index extends Component {
                               alignItems="center"
                               justify="center"
                             >
-                              
+
                               <Grid className="jmInfoVdo">
                                 <a>
                                   {appoinmentSelected.appointment_type ==
                                     "online_appointment" && (
-                                    <img
-                                      src={require("assets/images/video-call.svg")}
-                                      alt=""
-                                      title=""
-                                    />
-                                  )}
+                                      <img
+                                        src={require("assets/images/video-call.svg")}
+                                        alt=""
+                                        title=""
+                                      />
+                                    )}
                                   {appoinmentSelected.appointment_type ==
                                     "practice_days" && (
-                                    <img
-                                      src={require("assets/images/cal.png")}
-                                      alt=""
-                                      title=""
-                                    />
-                                  )}
+                                      <img
+                                        src={require("assets/images/cal.png")}
+                                        alt=""
+                                        title=""
+                                      />
+                                    )}
                                   {appoinmentSelected.appointment_type ==
                                     "appointments" && (
-                                    <img
-                                      src={require("assets/images/office-visit.svg")}
-                                      alt=""
-                                      title=""
-                                    />
-                                  )}
+                                      <img
+                                        src={require("assets/images/office-visit.svg")}
+                                        alt=""
+                                        title=""
+                                      />
+                                    )}
                                   {appoinmentSelected.appointment_type ==
-                                  "practice_days"
+                                    "practice_days"
                                     ? "Consultancy Appointment"
                                     : appoinmentSelected.appointment_type ==
                                       "online_appointment"
-                                    ? vdo_call
-                                    : this.state.appointmentDatas && this.state.appointmentDatas.appointments && this.state.appointmentDatas.appointments.length>0  && this.state.appointmentDatas.appointments[0].custom_text
-                                    ? this.state.appointmentDatas.appointments[0].custom_text :office_visit}
+                                      ? vdo_call
+                                      : this.state.appointmentDatas && this.state.appointmentDatas.appointments && this.state.appointmentDatas.appointments.length > 0 && this.state.appointmentDatas.appointments[0].custom_text
+                                        ? this.state.appointmentDatas.appointments[0].custom_text : office_visit}
                                 </a>
                               </Grid>
                             </Grid>
@@ -1406,7 +1298,7 @@ class Index extends Component {
                                                                         <Grid><span>{holiday}!</span></Grid> : ''
                                                                 } */}
                                   {this.state.appointDate &&
-                                  this.state.appointDate.length > 0 ? (
+                                    this.state.appointDate.length > 0 ? (
                                     this.state.appointDate.map((data, iA) => {
                                       if (
                                         this.Isintime(
@@ -1422,13 +1314,13 @@ class Index extends Component {
                                       return (
                                         <Grid>
                                           {this.state.appointDate[iA + 1] &&
-                                          this.state.appointDate[iA + 1] !==
+                                            this.state.appointDate[iA + 1] !==
                                             "undefined" &&
-                                          iA === 0 ? (
+                                            iA === 0 ? (
                                             <a
                                               className={
                                                 this.state.currentSelected ===
-                                                  0 && "current_selected"
+                                                0 && "current_selected"
                                               }
                                               onClick={() => {
                                                 this.findAppointment(iA);
@@ -1441,11 +1333,11 @@ class Index extends Component {
                                           ) : (
                                             this.state.appointDate[iA + 1] &&
                                             this.state.appointDate[iA + 1] !==
-                                              "undefined" && (
+                                            "undefined" && (
                                               <a
                                                 className={
                                                   this.state.currentSelected &&
-                                                  this.state.currentSelected ===
+                                                    this.state.currentSelected ===
                                                     iA
                                                     ? "current_selected"
                                                     : ""
@@ -1457,7 +1349,7 @@ class Index extends Component {
                                                 {this.state.appointDate[iA] +
                                                   " - " +
                                                   this.state.appointDate[
-                                                    iA + 1
+                                                  iA + 1
                                                   ]}
                                               </a>
                                             )
@@ -1479,7 +1371,7 @@ class Index extends Component {
                           <Grid
                             className={
                               this.state.currentSelected !== undefined &&
-                              this.state.currentSelected !== -1
+                                this.state.currentSelected !== -1
                                 ? "detailQuesSub"
                                 : "SuggNwTim"
                             }
@@ -1504,7 +1396,7 @@ class Index extends Component {
                           endAccessor="end"
                           popup
                           style={{ minHeight: 900 }}
-                          onShowMore={(events, date) => {}}
+                          onShowMore={(events, date) => { }}
                           messages={{
                             showMore: (total) => (
                               <div

@@ -1215,6 +1215,8 @@
 		"view_demo":"观看演示",
 		"SMSEmailLanguage" :"短信/电子邮件语言",
 		"Noimageavailable" : "没有可用的图像",
-		"Prescriptionsuccessfullysent" :"处方发送成功"
+		"Prescriptionsuccessfullysent" :"处方发送成功",
+		"currencyLang":"货币",
+		"choose_currency":"选择货币"
 	}
 }

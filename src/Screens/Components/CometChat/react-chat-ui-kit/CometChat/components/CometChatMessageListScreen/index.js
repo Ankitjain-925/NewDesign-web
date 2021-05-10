@@ -243,7 +243,8 @@ class CometChatMessageListScreen extends React.PureComponent {
           item={this.props.item} 
           type={this.props.type}
           actionGenerated={this.callScreenAction} 
-          outgoingCall={this.state.outgoingCall} />
+          outgoingCall={this.state.outgoingCall} 
+          comeFrom="message"/>
       </React.Fragment>
     )
   }

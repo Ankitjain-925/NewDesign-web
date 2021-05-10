@@ -1195,6 +1195,8 @@
     "view_demo":"Посмотреть демо",
     "SMSEmailLanguage" :"Язык SMS / электронной почты",
     "Noimageavailable" : "Изображение отсутствует",
-    "Prescriptionsuccessfullysent" :"Рецепт успешно отправлен"
+    "Prescriptionsuccessfullysent" :"Рецепт успешно отправлен",
+    "currencyLang":"Валюта",
+		"choose_currency":"Выберите Валюту"
   }
 }

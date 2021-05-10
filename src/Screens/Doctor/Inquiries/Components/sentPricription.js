@@ -138,7 +138,7 @@ class Index extends Component {
                                     sentPres.push(item)
                                 });
                         })
-                        console.log('sentPres', sentPres)
+
                     var totalPage = Math.ceil(sentPres.length / 10);
                     this.setState(
                         {

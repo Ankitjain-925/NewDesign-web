@@ -1196,6 +1196,8 @@
 		"view_demo":"View demo",
 		"SMSEmailLanguage" :"SMS / Email Language",
 		"Noimageavailable" : "No image available",
-		"Prescriptionsuccessfullysent" :"Prescription successfully sent"
+		"Prescriptionsuccessfullysent" :"Prescription successfully sent",
+		"currencyLang":"Currency",
+		"choose_currency":"Choose Currency"
 	}
 }

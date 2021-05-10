@@ -1819,6 +1819,8 @@
 		"view_demo":"Bekijk demo",
 		"SMSEmailLanguage" :"SMS / e-mailtaal",
 		"Noimageavailable" : "Geen afbeelding beschikbaar",
-		"Prescriptionsuccessfullysent" :"Recept succesvol verzonden"
+		"Prescriptionsuccessfullysent" :"Recept succesvol verzonden",
+		"currencyLang":"Valuta",
+		"choose_currency":"Kies valuta"
 	}
 }

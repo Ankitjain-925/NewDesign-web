@@ -99,69 +99,69 @@ class Notification extends React.Component {
         return sum;
       }
 
-    // audioCall = () => {
+    audioCall = () => {
 
-    //     let receiverId, receiverType;
-    //     if(this.props.type === "user") {
-    //       receiverId = this.props.item.uid;
-    //       receiverType = CometChat.RECEIVER_TYPE.USER;
-    //     } else if(this.props.type === "group") {
-    //       receiverId = this.props.item.guid;
-    //       receiverType = CometChat.RECEIVER_TYPE.GROUP;
-    //     }
+        let receiverId, receiverType;
+        if(this.props.type === "user") {
+          receiverId = this.props.item.uid;
+          receiverType = CometChat.RECEIVER_TYPE.USER;
+        } else if(this.props.type === "group") {
+          receiverId = this.props.item.guid;
+          receiverType = CometChat.RECEIVER_TYPE.GROUP;
+        }
     
-    //     let callType = CometChat.CALL_TYPE.AUDIO;
-    //     CometChatManager.audioCall(receiverId, receiverType, callType).then(call => {
+        let callType = CometChat.CALL_TYPE.AUDIO;
+        CometChatManager.audioCall(receiverId, receiverType, callType).then(call => {
     
-    //       this.callScreenAction("callStarted", call);
-    //       this.setState({ outgoingCall: call });
+          this.callScreenAction("callStarted", call);
+          this.setState({ outgoingCall: call });
     
-    //     }).catch(error => {
-    //       // console.log("Call initialization failed with exception:", error);
-    //     });
+        }).catch(error => {
+          // console.log("Call initialization failed with exception:", error);
+        });
     
-    //   }
+      }
     
-    //   callScreenAction = (action, call) => {
+      callScreenAction = (action, call) => {
     
-    //     switch(action) {
-    //       case "callStarted":
-    //       case "callEnded":
-    //         if(!call) return;
-    //         // this.appendMessage(call);
-    //       break;
-    //       default:
-    //       break;
-    //     }
+        switch(action) {
+          case "callStarted":
+          case "callEnded":
+            if(!call) return;
+            // this.appendMessage(call);
+          break;
+          default:
+          break;
+        }
     
-    //   }
+      }
     
     
-    //   videoCall = () => {
+      videoCall = () => {
     
-    //     let receiverId, receiverType;
-    //     if(this.props.type === "user") {
+        let receiverId, receiverType;
+        if(this.props.type === "user") {
     
-    //       receiverId = this.props.item.uid;
-    //       receiverType = CometChat.RECEIVER_TYPE.USER;
+          receiverId = this.props.item.uid;
+          receiverType = CometChat.RECEIVER_TYPE.USER;
     
-    //     } else if(this.props.type === "group") {
-    //       receiverId = this.props.item.guid;
-    //       receiverType = CometChat.RECEIVER_TYPE.GROUP;
-    //     }
+        } else if(this.props.type === "group") {
+          receiverId = this.props.item.guid;
+          receiverType = CometChat.RECEIVER_TYPE.GROUP;
+        }
        
-    //     let callType = CometChat.CALL_TYPE.VIDEO;
+        let callType = CometChat.CALL_TYPE.VIDEO;
     
-    //     CometChatManager.videoCall(receiverId, receiverType, callType).then(call => {
+        CometChatManager.videoCall(receiverId, receiverType, callType).then(call => {
     
-    //       this.callScreenAction("callStarted", call);
-    //       this.setState({ outgoingCall: call });
+          this.callScreenAction("callStarted", call);
+          this.setState({ outgoingCall: call });
     
-    //     }).catch(error => {
-    //       // console.log("Call initialization failed with exception:", error);
-    //     });
+        }).catch(error => {
+          // console.log("Call initialization failed with exception:", error);
+        });
     
-    //   }
+      }
       messageUpdated = (key, message, ...otherProps) => {
 
         switch(key) {
@@ -230,31 +230,17 @@ class Notification extends React.Component {
           default:
               translate = translationEN.text
       }
-      let { there_r_the, plz_check_unread_message_in_chat, new_message_in_chat_plz_check } = translate;
+
         return (
             <div>
    
-                {/* <CallScreen className="callscreen"
+                <CallScreen className="callscreen"
                 item={this.state.item} 
                 type={this.state.type}
                 lan={this.props.stateLanguageType.stateLanguageType}
                 actionGenerated={this.callScreenAction} 
                 outgoingCall={this.state.outgoingCall} 
-                comeFrom="notify"/> */}
-                {this.state.Unread > 0 && this.state.ShowTime===true &&
-                 <div className="unreadsec">
-                    <div className="unread_msg_notify" onClick={()=>{this.redirectPage()}}>{there_r_the} {this.state.Unread} {plz_check_unread_message_in_chat}</div>
-                    <span className="unread_msg_notifyspan" onClick={(e)=>{this.CloseNotification1(e)}}><CancelIcon/></span>
-                  </div>
-                }
-                {this.state.NewM===true && this.state.ShowTime1===true &&
-                   <div className="unreadsec">
-                      <div className="unread_msg_notify" onClick={()=>{this.redirectPage()}}>{new_message_in_chat_plz_check}</div>
-                      <span className="unread_msg_notifyspan" onClick={(e)=>{this.CloseNotification(e)}}><CancelIcon /></span>
-                      
-                  </div>
-                   
-                }
+                comeFrom="notify"/>
             </div>
         );
     }

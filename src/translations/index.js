@@ -10,41 +10,40 @@ import * as translationFR from "./fr.json";
 import * as translationAR from "./ar.json";
 
 
-const getLanguage =(lang)=>{
-    let translate = {};
-    switch (lang) {
-      case "en":
-        return translate = translationEN.text;
-        break;
-      case "de":
-        return translate = translationDE.text;
-        break;
-      case "pt":
-        return translate = translationPT.text;
-        break;
-      case "sp":
-        return translate = translationSP.text;
-        break;
-      case "rs":
-        return translate = translationRS.text;
-        break;
-      case "nl":
-        return translate = translationNL.text;
-        break;
-      case "ch":
-        return translate = translationCH.text;
-        break;
-      case "sw":
-        return translate = translationSW.text;
-        break;
-      case "fr":
-        return translate = translationFR.text;
-        break;
-      case "ar":
-        return translate = translationAR.text;
-        break;
-      default:
-        return translate = translationEN.text;
+const getLanguage = (languageType) => {
+    switch (languageType) {
+        case "en":
+            return translationEN.text
+            break;
+        case "de":
+            return translationDE.text
+            break;
+        case "pt":
+            return translationPT.text
+            break;
+        case "sp":
+            return translationSP.text
+            break;
+        case "rs":
+            return translationRS.text
+            break;
+        case "nl":
+            return translationNL.text
+            break;
+        case "ch":
+            return translationCH.text
+            break;
+        case "sw":
+            return translationSW.text
+            break;
+        case "fr":
+            return translationFR.text
+            break;
+        case "ar":
+            return translationAR.text
+            break;
+        default:
+            return translationEN.text
     }
 }
 
@@ -60,4 +59,4 @@ export {
     translationCH,
     translationPT,
     translationFR
-} 
+}

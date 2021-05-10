@@ -1198,6 +1198,8 @@
 		"view_demo":"Ver demo",
 		"SMSEmailLanguage" :"Idioma de SMS / correo electrónico",
 		"Noimageavailable" : "No hay imagen disponible",
-		"Prescriptionsuccessfullysent" :"Receta enviada con éxito"
+		"Prescriptionsuccessfullysent" :"Receta enviada con éxito",
+		"currencyLang":"Divisa",
+		"choose_currency":"Elegir Moneda"
 	}
 }

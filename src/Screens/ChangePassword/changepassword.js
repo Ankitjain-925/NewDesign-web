@@ -13,7 +13,7 @@ import Toggle from "react-toggle";
 import {
   NavLink,
   UncontrolledDropdown,
-  DropdownToggle,
+  DropdownToggle, 
   DropdownMenu,
   DropdownItem,
 } from "reactstrap";
@@ -59,8 +59,8 @@ class Index extends Component {
       loaderImage: false,
       mode:
         this.props.settings &&
-          this.props.settings.setting &&
-          this.props.settings.setting.mode
+        this.props.settings.setting &&
+        this.props.settings.setting.mode
           ? this.props.settings.setting.mode
           : "normal",
     };
@@ -76,7 +76,7 @@ class Index extends Component {
     this.setState({ dropDownValue: language });
     this.props.LanguageFetchReducer(languageType);
   }
-  componentDidMount = () => { };
+  componentDidMount = () => {};
   redirectPage() {
     this.props.history.push("/");
   }
@@ -206,7 +206,6 @@ class Index extends Component {
     }
     let {
       email,
-      reset_passwrd,
       forget_password,
       password_reset,
       login_Password,
@@ -223,9 +222,9 @@ class Index extends Component {
       <Grid
         className={
           this.props.settings &&
-            this.props.settings.setting &&
-            this.props.settings.setting.mode &&
-            this.props.settings.setting.mode === "dark"
+          this.props.settings.setting &&
+          this.props.settings.setting.mode &&
+          this.props.settings.setting.mode === "dark"
             ? "loginSiteUpr homeBgDrk"
             : "loginSiteUpr"
         }
@@ -239,7 +238,7 @@ class Index extends Component {
                   <Grid item xs={6} sm={6} className="LogoForms">
                     <a>
                       <img
-                        src={require("assets/images/LogoPNG.png")} s
+                        src={require("assets/images/LogoPNG.png")}s
                         alt=""
                         title=""
                       />
@@ -557,7 +556,7 @@ class Index extends Component {
                     <Grid className="regCrtAc">
                       <input
                         type="submit"
-                        value={reset_passwrd}
+                        value={forget_password}
                         onClick={this.BtnSubmit.bind(this)}
                       />
                     </Grid>

@@ -1189,6 +1189,8 @@
 		"view_demo":"مشاهدة العرض",
 		"SMSEmailLanguage" :"لغة الرسائل القصيرة / البريد الإلكتروني",
 		"Noimageavailable" : "لا توجد صور متاحة",
-		"Prescriptionsuccessfullysent" :"تم إرسال الوصفة الطبية بنجاح"
+		"Prescriptionsuccessfullysent" :"تم إرسال الوصفة الطبية بنجاح",
+		"currencyLang":"عملة",
+		"choose_currency":"اختر العملة"
 		}
 }

@@ -8,6 +8,7 @@ import { Settings } from "./setting";
 import { Doctorarrays } from "./doctorarray";
 import Grid from "@material-ui/core/Grid";
 import { authy } from "./authy.js";
+import { CometChat } from '@cometchat-pro/chat';
 import { OptionList } from "./metadataaction.js";
 import {
   NavLink,
@@ -77,7 +78,6 @@ class Index extends Component {
   //     }
   // }
   componentDidMount = () => {
-   
     actions.logout();
     this.logoutUser();
     this.props.Doctorarrays("logout");
@@ -93,7 +93,9 @@ class Index extends Component {
   };
 
   logoutUser = () => {
-
+    CometChat.logout().then(
+      console.log('loggedout from cometchat11')
+    )
     this.props.OptionList(false);
     this.props.authy(false);
     let languageType =

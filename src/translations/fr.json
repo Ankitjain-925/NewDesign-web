@@ -1195,6 +1195,8 @@
 		"view_demo":"Voir la démo",
 		"SMSEmailLanguage" :"Langue SMS / Email",
 		"Noimageavailable" : "Pas d'image disponible",
-		"Prescriptionsuccessfullysent" :"Ordonnance envoyée avec succès"
+		"Prescriptionsuccessfullysent" :"Ordonnance envoyée avec succès",
+		"currencyLang":"Devise",
+		"choose_currency":"Choisir la devise"
 	}
 }

@@ -1194,6 +1194,8 @@
 		"view_demo":"Demo anzeigen",
 		"SMSEmailLanguage" :"SMS / E-Mail-Sprache",
 		"Noimageavailable" : "Kein Bild verfügbar",
-		"Prescriptionsuccessfullysent" :"Rezept erfolgreich gesendet"
+		"Prescriptionsuccessfullysent" :"Rezept erfolgreich gesendet",
+		"currencyLang":"Währung",
+		"choose_currency":"Währung wählen"
 	}
 }

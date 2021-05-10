@@ -1209,6 +1209,8 @@
 		"view_demo":"Ver demonstração",
 		"SMSEmailLanguage" :"Idioma de SMS / Email",
 		"Noimageavailable" : "Nenhuma imagem disponível",
-		"Prescriptionsuccessfullysent" :"Receita enviada com sucesso"
+		"Prescriptionsuccessfullysent" :"Receita enviada com sucesso",
+		"currencyLang":"Moeda",
+		"choose_currency":"Escolha a moeda"
 	}
 }
