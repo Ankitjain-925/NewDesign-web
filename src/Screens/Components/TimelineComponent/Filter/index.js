@@ -303,7 +303,6 @@ class FilterSec extends Component {
       sort_by,
       dig_time,
       entry_time,
-      showOnlyOverview
     } = translate;
 
     return (
@@ -459,7 +458,7 @@ class FilterSec extends Component {
             )}
 
             <Grid className="sortBySec acvtTogle">
-              <label>{showOnlyOverview} :</label>
+              <label>Show Only Overview :</label>
               <label>
                 <Toggle
                   icons={false}
@@ -468,7 +467,7 @@ class FilterSec extends Component {
                   onClick={(e) => this.SetonlyOverview(e)}
                 />
               </label>
-              <label>{sort_by} :</label>
+              <label>{sort_by}:</label>
               <input
                 type="button"
                 value={entry_time}
