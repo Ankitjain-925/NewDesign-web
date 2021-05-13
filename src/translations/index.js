@@ -57,5 +57,6 @@ export {
     translationDE,
     translationCH,
     translationPT,
-    translationFR
+    translationFR,
+    getLanguage
 }

@@ -253,7 +253,7 @@ class Index extends Component {
                                             <span>{my_profile}</span>
                                             <div className="profilMenuList">
                                                 <ul>
-                                                    <li><a><img src={require('assets/images/menudocs.jpg')} alt="" title="" />{profile_setting}</a></li>
+                                                    <li><a onClick={()=>this.props.history.push("/h-profile")}><img src={require('assets/images/menudocs.jpg')} alt="" title="" />{profile_setting}</a></li>
                                                     <li><a onClick={this.openLanguageModel}><img src={require('assets/images/menudocs.jpg')} alt="" title="" />{Language}</a></li>
                                                     <li><a onClick={this.logOutClick}><img src={require('assets/images/menudocs.jpg')} alt="" title="" />{logout}</a></li>
                                                 </ul>
