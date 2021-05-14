@@ -29,7 +29,7 @@ class Index extends Component {
         this.state = {
             Current_state: this.props.LoggedInUser,
             Format: {},
-            currency: { value: this.props.settings?.setting?.currency?.country, label: this.props.settings?.setting?.currency?.currency },
+            currency: {},
             dates: this.props.dates,
             times: this.props.times,
             timezones: this.props.timezones,
@@ -63,6 +63,13 @@ class Index extends Component {
                         let filterData = languages && languages.length > 0 && languages.filter((data) => data.value === msg_language)
                         if (filterData && filterData.length > 0) {
                             this.setState({ msg_language: filterData[0] })
+                        }
+                    }
+                    if (responce.data?.data?.currency) {
+                        let currency = responce.data.data.currency;
+                        let filterData = Currency && Currency.length > 0 && Currency.filter((data) => data.value === currency.country)
+                        if (filterData && filterData.length > 0) {
+                            this.setState({ currency: filterData[0] })
                         }
                     }
                     this.setState({ timezone: responce.data.data.timezone, timeF: { label: responce.data.data.time_format, value: responce.data.data.time_format }, dateF: { label: responce.data.data.date_format, value: responce.data.data.date_format }, })

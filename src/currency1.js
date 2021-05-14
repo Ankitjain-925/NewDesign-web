@@ -13,5 +13,5 @@ export const Currency = [
     { "value": "KE", "label": "KES (Kenyan Shilling)" },
     { "value": "ZW", "label": "ZWL (Zimbabwe Dollor)"},
     { "value": "MA", "label": "MAD (Moroccan Dirham)"},
-    { "value": "TR", "label": "Turkish Lira"},
+    { "value": "TR", "label": "TRY (Turkish Lira)"},
 ]

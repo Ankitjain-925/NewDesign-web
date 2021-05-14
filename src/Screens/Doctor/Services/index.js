@@ -837,10 +837,10 @@ class Index extends Component {
                 <Grid item xs={12} md={11} lg={9}>
                   <Grid className="docOpinion">
                     <Grid container direction="row" className="docAddUpr">
-                      <Grid item xs={12} md={6} className="docOpinLbl">
+                      <Grid item xs={12} sm={6} md={6} className="docOpinLbl">
                         <label>{capab_Patients}</label>
                       </Grid>
-                      <Grid item xs={12} md={6} className="docAddPatient">
+                      <Grid item xs={12} sm={6} md={6} className="docAddPatient">
                         <a onClick={this.handleOpenNewPatient}>
                           + {add_new_patient}
                         </a>
