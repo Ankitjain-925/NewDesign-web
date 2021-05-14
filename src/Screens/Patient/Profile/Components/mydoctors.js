@@ -14,16 +14,7 @@ import Select from 'react-select';
 import Loader from 'Screens/Components/Loader/index';
 import { getImage, AddFavDoc } from 'Screens/Components/BasicMethod/index';
 import {
-    translationAR,
-    translationSW,
-    translationSP,
-    translationRS,
-    translationEN,
-    translationNL,
-    translationDE,
-    translationCH,
-    translationPT,
-    translationFR
+    getLanguage
   } from "translations/index"
 var doctorArray = [];
 
@@ -223,41 +214,7 @@ class Index extends Component {
 
     //For remove the doctor in the trusted Doctor
     removeDoctor = (doctor) => {
-        let translate={};
-        switch (this.props.stateLanguageType) {
-            case "en":
-                translate = translationEN.text
-                break;
-            case "de":
-                translate = translationDE.text
-                break;
-            case "pt":
-                translate = translationPT.text
-                break;
-            case "sp":
-                translate = translationSP.text
-                break;
-            case "rs":
-                translate = translationRS.text
-                break;
-            case "nl":
-                translate = translationNL.text
-                break;
-            case "ch":
-                translate = translationCH.text
-                break;
-            case "sw":
-                translate = translationSW.text
-                break;
-            case "fr":
-                translate = translationFR.text
-                break;
-            case "ar":
-                translate = translationAR.text
-                break;
-            default:
-                translate = translationEN.text
-        }
+        let translate = getLanguage(this.props.stateLanguageType)
         let { remove, capab_Doctors, r_u_sure_remove_doctor, yes, no}= translate
         confirmAlert({
             customUI: ({ onClose }) => {
@@ -478,41 +435,7 @@ class Index extends Component {
             width: '100%'
         };
 
-        let translate={};
-        switch (this.props.stateLanguageType) {
-            case "en":
-                translate = translationEN.text
-                break;
-            case "de":
-                translate = translationDE.text
-                break;
-            case "pt":
-                translate = translationPT.text
-                break;
-            case "sp":
-                translate = translationSP.text
-                break;
-            case "rs":
-                translate = translationRS.text
-                break;
-            case "nl":
-                translate = translationNL.text
-                break;
-            case "ch":
-                translate = translationCH.text
-                break;
-            case "sw":
-                translate = translationSW.text
-                break;
-            case "fr":
-                translate = translationFR.text
-                break;
-            case "ar":
-                translate = translationAR.text
-                break;
-            default:
-                translate = translationEN.text
-        }
+        let translate = getLanguage(this.props.stateLanguageType)
         let { select_family_doc, family_doc, visible_emergancy, doc_added_succefully, New, make_sure_family_doc, add_a_family_doc, trusted_doc,
             doc_have_access_ur_journal, doc_already_exit_in_list, doc_removed_trusted_list, remove, add_trusted_doc, select_doctor,
             find_doc, serch_by_name_id, add_to_trusted_doc, recmonded_doc, doc_who_part_of_aimedis } = translate;

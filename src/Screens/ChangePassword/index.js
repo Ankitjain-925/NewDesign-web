@@ -7,19 +7,8 @@ import { LoginReducerAim } from "Screens/Login/actions";
 import Grid from "@material-ui/core/Grid";
 import { authy } from "Screens/Login/authy.js";
 import Toggle from "react-toggle";
-// import * as translationEN from '../../translations/en.json';
-
 import {
-  translationAR,
-  translationSW,
-  translationSP,
-  translationRS,
-  translationEN,
-  translationNL,
-  translationDE,
-  translationCH,
-  translationPT,
-  translationFR
+  getLanguage
 } from "translations/index"
 import { Settings } from "Screens/Login/setting";
 import {
@@ -131,41 +120,7 @@ class Index extends Component {
       return <Redirect to={"/"} />;
     }
 
-    let translate = {};
-    switch (this.props.stateLanguageType) {
-      case "en":
-        translate = translationEN.text;
-        break;
-      case "de":
-        translate = translationDE.text;
-        break;
-      case "pt":
-        translate = translationPT.text;
-        break;
-      case "sp":
-        translate = translationSP.text;
-        break;
-      case "rs":
-        translate = translationRS.text;
-        break;
-      case "nl":
-        translate = translationNL.text;
-        break;
-      case "ch":
-        translate = translationCH.text;
-        break;
-      case "sw":
-        translate = translationSW.text;
-        break;
-      case "fr":
-        translate = translationFR.text;
-        break;
-      case "ar":
-        translate = translationAR.text;
-        break;
-      default:
-        translate = translationEN.text;
-    }
+    let translate = getLanguage(this.props.stateLanguageType)
     let {
       Register_email,
       forget_password,

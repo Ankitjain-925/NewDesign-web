@@ -8,16 +8,7 @@ import CancelIcon from '@material-ui/icons/Cancel';
 import * as enums from '../../util/enums.js';
 import { withRouter } from "react-router-dom";
 import {
-  translationAR,
-  translationSW,
-  translationSP,
-  translationRS,
-  translationEN,
-  translationNL,
-  translationDE,
-  translationCH,
-  translationPT,
-  translationFR
+  getLanguage
 } from "translations/index"
 // import { CometChatUnified } from '../react-chat-ui-kit/CometChat'; 
 var NewM = false
@@ -195,41 +186,7 @@ class Notification extends React.Component {
         } 
     }
     render() {
-      let translate={};
-    switch (this.props.stateLanguageType.stateLanguageType) {
-          case "en":
-              translate = translationEN.text
-              break;
-          case "de":
-              translate = translationDE.text
-              break;
-          case "pt":
-              translate = translationPT.text
-              break;
-          case "sp":
-              translate = translationSP.text
-              break;
-          case "rs":
-              translate = translationRS.text
-              break;
-          case "nl":
-              translate = translationNL.text
-              break;
-          case "ch":
-              translate = translationCH.text
-              break;
-          case "sw":
-              translate = translationSW.text
-              break;
-          case "fr":
-              translate = translationFR.text
-              break;
-          case "ar":
-              translate = translationAR.text
-              break;
-          default:
-              translate = translationEN.text
-      }
+      let translate = getLanguage(this.props.stateLanguageType)
       let { there_r_the, plz_check_unread_message_in_chat, new_message_in_chat_plz_check } = translate;
         return (
             <div>

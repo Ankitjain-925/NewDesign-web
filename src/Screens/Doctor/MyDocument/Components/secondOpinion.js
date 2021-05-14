@@ -15,16 +15,7 @@ import { confirmAlert } from 'react-confirm-alert'; // Import
 import { LanguageFetchReducer } from 'Screens/actions';
 import { getDate, getImage } from 'Screens/Components/BasicMethod/index';
 import {
-    translationAR,
-    translationSW,
-    translationSP,
-    translationRS,
-    translationEN,
-    translationNL,
-    translationDE,
-    translationCH,
-    translationPT,
-    translationFR
+    getLanguage
   } from "translations/index"
 // import * as translationDE from '../../../translations/de_json_proofread_13072020.json';
 function TabContainer(props) {
@@ -232,41 +223,7 @@ class Index extends Component {
                     })
             }
             else {
-                let translate={};
-                switch (this.props.stateLanguageType) {
-                    case "en":
-                        translate = translationEN.text
-                        break;
-                    case "de":
-                        translate = translationDE.text
-                        break;
-                    case "pt":
-                        translate = translationPT.text
-                        break;
-                    case "sp":
-                        translate = translationSP.text
-                        break;
-                    case "rs":
-                        translate = translationRS.text
-                        break;
-                    case "nl":
-                        translate = translationNL.text
-                        break;
-                    case "ch":
-                        translate = translationCH.text
-                        break;
-                    case "sw":
-                        translate = translationSW.text
-                        break;
-                        case "fr":
-                            translate = translationFR.text
-                            break;
-                        case "ar":
-                            translate = translationAR.text
-                            break;
-                    default:
-                        translate = translationEN.text
-                }
+                let translate = getLanguage(this.props.stateLanguageType)
                 let { UploadMust, yes } = translate;
                 this.setState({ loaderImage: false });
                 confirmAlert({
@@ -284,41 +241,7 @@ class Index extends Component {
     }
 
     removePrsecription = (status, id) => {
-        let translate={};
-                switch (this.props.stateLanguageType) {
-                    case "en":
-                        translate = translationEN.text
-                        break;
-                    case "de":
-                        translate = translationDE.text
-                        break;
-                    case "pt":
-                        translate = translationPT.text
-                        break;
-                    case "sp":
-                        translate = translationSP.text
-                        break;
-                    case "rs":
-                        translate = translationRS.text
-                        break;
-                    case "nl":
-                        translate = translationNL.text
-                        break;
-                    case "ch":
-                        translate = translationCH.text
-                        break;
-                    case "sw":
-                        translate = translationSW.text
-                        break;
-                        case "fr":
-                            translate = translationFR.text
-                            break;
-                        case "ar":
-                            translate = translationAR.text
-                            break;
-                    default:
-                        translate = translationEN.text
-                }
+        let translate = getLanguage(this.props.stateLanguageType)
                 let { remove_inquiry, yes, no,update_inquiry , are_u_sure_remove_inquiry} = translate;
         this.setState({ message: null });
         confirmAlert({
@@ -370,41 +293,7 @@ class Index extends Component {
         if (imagePreviewUrl) {
             $imagePreview = (<img style={{ borderRadius: "10%", maxWidth: 350, marginBottom: 10 }} src={imagePreviewUrl} />);
         }
-        let translate={};
-        switch (this.props.stateLanguageType) {
-            case "en":
-                translate = translationEN.text
-                break;
-            case "de":
-                translate = translationDE.text
-                break;
-            case "pt":
-                translate = translationPT.text
-                break;
-            case "sp":
-                translate = translationSP.text
-                break;
-            case "rs":
-                translate = translationRS.text
-                break;
-            case "nl":
-                translate = translationNL.text
-                break;
-            case "ch":
-                translate = translationCH.text
-                break;
-            case "sw":
-                translate = translationSW.text
-                break;
-            case "fr":
-                translate = translationFR.text
-                break;
-            case "ar":
-                translate = translationAR.text
-                break;
-            default:
-                translate = translationEN.text
-        }
+        let translate = getLanguage(this.props.stateLanguageType)
         let { capab_Doctors, see_details, remove, decline, accept, status, sent, on, sent_on, Case, Patient, what_ur_profession, accept, decline, remove, Pending, request, edit, not_mentioned, Rejected, Answered, Cancelled, req_updated_successfully, sick_cert, my_doc, New, inquiry,
             short_msg, previous, next, doc_aimedis_private, Annotations, details, questions, how_u_feeling, is_ur_temp_high_to_38, which_symptoms_do_u_hav, show, since_when, have_u_already_been_sick, how_long_do_u_unable_to_work, it_is_known_dieseas, r_u_tracking_medi, do_u_hv_allergies, } = translate
 

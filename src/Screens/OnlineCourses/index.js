@@ -8,17 +8,9 @@ import Typography from '@material-ui/core/Typography';
 import Select from 'react-select';
 import Modal from '@material-ui/core/Modal';
 import {
-    translationAR,
-    translationSW,
-    translationSP,
-    translationRS,
-    translationEN,
-    translationNL,
-    translationDE,
-    translationCH,
-    translationPT,
-    translationFR
+    getLanguage
   } from "translations/index"
+
 function TabContainer(props) {
     return (
         <Typography component="div" style={{ paddingTop: 24 }}>
@@ -78,41 +70,7 @@ class Index extends Component {
     render() {
         const { value } = this.state;
         const { selectedOption } = this.state;
-        let translate={};
-      switch (this.props.stateLanguageType) {
-            case "en":
-                translate = translationEN.text
-                break;
-            case "de":
-                translate = translationDE.text
-                break;
-            case "pt":
-                translate = translationPT.text
-                break;
-            case "sp":
-                translate = translationSP.text
-                break;
-            case "rs":
-                translate = translationRS.text
-                break;
-            case "nl":
-                translate = translationNL.text
-                break;
-            case "ch":
-                translate = translationCH.text
-                break;
-            case "sw":
-                translate = translationSW.text
-                break; 
-            case "fr":
-                translate = translationFR.text
-                break;
-            case "ar":
-                translate = translationAR.text
-                break;   
-            default:
-                translate = translationEN.text
-        }
+        let translate = getLanguage(this.props.stateLanguageType);
         let { journal, appointments, vdo_calls, my_profile, my_doc, trackers, what_diabetes, online_course, jrnl_archive, extra_srvc, secnd_openion, emrgancy_patient_data, blockchain_access_log,
             profile_setting, dark_mode, Language, logout, all_course, my_course, language_eng, topic_all, here_u_see_diabetes, new_course, add_to_cart } = translate;
         return (

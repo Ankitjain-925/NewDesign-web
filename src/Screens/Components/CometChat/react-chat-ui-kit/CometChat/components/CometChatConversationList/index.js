@@ -14,16 +14,7 @@ import * as actions from '../../../../store/action';
 import { withRouter } from "react-router-dom";
 import { LanguageFetchReducer } from './../../../../../../actions';
 import {
-  translationAR,
-  translationSW,
-  translationSP,
-  translationRS,
-  translationEN,
-  translationNL,
-  translationDE,
-  translationCH,
-  translationPT,
-  translationFR
+  getLanguage
 } from "translations/index"
 class CometChatConversationList extends React.Component {
 
@@ -162,41 +153,7 @@ class CometChatConversationList extends React.Component {
   }
 
   render() {
-    let translate={};
-        switch (this.props.stateLanguageType) {
-            case "en":
-                translate = translationEN.text
-                break;
-            case "de":
-                translate = translationDE.text
-                break;
-            case "pt":
-                translate = translationPT.text
-                break;
-            case "sp":
-                translate = translationSP.text
-                break;
-            case "rs":
-                translate = translationRS.text
-                break;
-            case "nl":
-                translate = translationNL.text
-                break;
-            case "ch":
-                translate = translationCH.text
-                break;
-            case "sw":
-                translate = translationSW.text
-                break;
-            case "fr":
-              translate = translationFR.text
-              break;
-            case "ar":
-              translate = translationAR.text
-              break;
-            default:
-                translate = translationEN.text
-        }
+    let translate = getLanguage(this.props.stateLanguageType)
         let {Loading}= translate
 
     let loading = null;
