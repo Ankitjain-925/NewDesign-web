@@ -461,6 +461,13 @@ class Index extends Component {
                               >
                                 <NavLink>Arabic</NavLink>
                               </DropdownItem>
+                              <DropdownItem
+                              onClick={() => {
+                                this.changeValue("tr", "Turkish");
+                              }}
+                            >
+                              <NavLink>Turkish</NavLink>
+                            </DropdownItem>
                             </DropdownMenu>
                           </UncontrolledDropdown>
                         </Grid>

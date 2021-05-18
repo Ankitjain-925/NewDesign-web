@@ -162,7 +162,7 @@ class Index extends Component {
                         </li>
                         <li className={this.props.currentPage === 'nurse_List' ? "menuActv" : ""}>
                             <a onClick={() => this.props.history.push("/h-nurses")}>
-                                <img src={require('assets/images/therapist_green.svg')} alt="" title="" />
+                                <img src={require('assets/images/nurse_n1.png')} alt="" title="" />
                                 <span>{srvc_Nurses}</span>
                             </a>
                         </li>
@@ -231,7 +231,7 @@ class Index extends Component {
                             <Grid><label>{SelectLanguage}</label></Grid>
                         </Grid>
                         {this.state.PassDone && <div className="success_message">{LanUpdated}</div>}
-        {this.state.languageBlank && <div className="err_message">{LanSel}</div>}
+                        {this.state.languageBlank && <div className="err_message">{LanSel}</div>}
                         <div className="languageHead"></div>
                         <Grid className="languageBox SetLanguage">
                             <Grid className="row">

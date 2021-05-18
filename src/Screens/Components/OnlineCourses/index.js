@@ -89,6 +89,8 @@ class Index extends Component {
       { value: "pt", label: "Portuguese" },
       { value: "sw", label: "Swahili" },
       { value: "ch", label: "Chainese" },
+      { value: "ar", label: "Arabic" },
+      { value: "tr", label: "Turkish" },
     ];
     this.setState({ Languages });
   }
