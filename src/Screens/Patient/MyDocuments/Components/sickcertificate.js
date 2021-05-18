@@ -16,16 +16,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import sitedata from 'sitedata';
 import { getDate, getImage } from 'Screens/Components/BasicMethod/index';
 import {
-    translationAR,
-    translationSW,
-    translationSP,
-    translationRS,
-    translationEN,
-    translationNL,
-    translationDE,
-    translationCH,
-    translationPT,
-    translationFR
+    getLanguage
   } from "translations/index"
 class Index extends Component {
     constructor(props) {
@@ -48,41 +39,7 @@ class Index extends Component {
 
     // Delete the Sick certificate confirmation
     updateCertificate(status, id) {
-        let translate={};
-        switch (this.props.stateLanguageType) {
-            case "en":
-                translate = translationEN.text
-                break;
-            case "de":
-                translate = translationDE.text
-                break;
-            case "pt":
-                translate = translationPT.text
-                break;
-            case "sp":
-                translate = translationSP.text
-                break;
-            case "rs":
-                translate = translationRS.text
-                break;
-            case "nl":
-                translate = translationNL.text
-                break;
-            case "ch":
-                translate = translationCH.text
-                break;
-            case "sw":
-                translate = translationSW.text
-                break;
-            case "fr":
-                translate = translationFR.text
-                break;
-            case "ar":
-                translate = translationAR.text
-                break;
-            default:
-                translate = translationEN.text
-        }
+        let translate = getLanguage(this.props.stateLanguageType)
         let { Yes, No , update_inquiry, r_u_sure_update_inquiry, r_u_sure_cancel_inquiry, cancel_inquiry} = translate;
 
         confirmAlert({
@@ -229,41 +186,7 @@ class Index extends Component {
     }
 
     render() {
-        let translate={};
-      switch (this.props.stateLanguageType) {
-            case "en":
-                translate = translationEN.text
-                break;
-            case "de":
-                translate = translationDE.text
-                break;
-            case "pt":
-                translate = translationPT.text
-                break;
-            case "sp":
-                translate = translationSP.text
-                break;
-            case "rs":
-                translate = translationRS.text
-                break;
-            case "nl":
-                translate = translationNL.text
-                break;
-            case "ch":
-                translate = translationCH.text
-                break;
-            case "sw":
-                translate = translationSW.text
-                break;
-            case "fr":
-                translate = translationFR.text
-                break;
-            case "ar":
-                translate = translationAR.text
-                break;
-            default:
-                translate = translationEN.text
-        }
+        let translate = getLanguage(this.props.stateLanguageType)
         let { Case, capab_Doctors, status, sent, on, which_symptoms_do_u_hav, cancel_details, update_entry, not_mentioned,days, since_when, prescription, how_u_feeling, Pending, request, edit, Rejected, Answered, Cancelled, see, sick_cert, my_doc, New, inquiry, again, modify, cancel,
             doc_and_statnderd_ques, doc_aimedis_private, it_is_known_dieseas, r_u_tracking_medi, do_u_hv_allergies, what_ur_profession,Week_or_more,today, yesterday, ago, show, Yes, No, next, previous,
             how_long_do_u_unable_to_work, have_u_already_been_sick, Annotations, is_ur_temp_high_to_38, req_updated_successfully, details, questions } = translate

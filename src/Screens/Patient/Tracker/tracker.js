@@ -26,16 +26,7 @@ import HighchartsReact from "highcharts-react-official";
 import { getDesc } from "Screens/Components/BasicMethod/index"
 import LeftMenuMobile from 'Screens/Components/Menus/PatientLeftMenu/mobile';
 import {
-    translationAR,
-    translationSW,
-    translationSP,
-    translationRS,
-    translationEN,
-    translationNL,
-    translationDE,
-    translationCH,
-    translationPT,
-    translationFR
+    getLanguage
   } from "translations/index"
 import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 
@@ -592,41 +583,7 @@ class Index extends Component {
     render() {
         const { fitbitDevice, withingsDevice, value, fitbitloggedIn, apidata, withingsloggedIn, garminloggedIn, Devices_id, deviceid } = this.state;
 
-        let translate={};
-      switch (this.props.stateLanguageType) {
-            case "en":
-                translate = translationEN.text
-                break;
-            case "de":
-                translate = translationDE.text
-                break;
-            case "pt":
-                translate = translationPT.text
-                break;
-            case "sp":
-                translate = translationSP.text
-                break;
-            case "rs":
-                translate = translationRS.text
-                break;
-            case "nl":
-                translate = translationNL.text
-                break;
-            case "ch":
-                translate = translationCH.text
-                break;
-            case "sw":
-                translate = translationSW.text
-                break;
-            case "fr":
-                translate = translationFR.text
-                break;
-            case "ar":
-                translate = translationAR.text
-                break;
-            default:
-                translate = translationEN.text
-        }
+        let translate = getLanguage(this.props.stateLanguageType)
         let { trackers, TrackersDevices, self_data, connect, search_for_device_palce, devices, services, view_data,
             view_details, logout, disconect_device, distance, total, best, steps, badges, earned, on, last,user,
             model, type, timezone, session, ur_connected_device_appear, no_device_connctd, connct_a_device } = translate

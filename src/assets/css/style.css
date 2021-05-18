@@ -91,6 +91,7 @@ h1,h2,h3,h4,h5,h6,h7,p{ margin:0; padding:0; font-size: inherit; font-weight: in
 }
 .menuItems ul {
     padding-left: 0px;
+    margin-bottom: 0px;
 }
 .menuItems ul li {
     list-style-type: none;
@@ -9206,8 +9207,6 @@ td.phrImg p {
 a.menuActv img {
     background-color: #00ABAF !important;
 }
-
-/* -------------- */
 .docOpinion {
     margin-left: 70px;
     margin-top: 41px;
@@ -12037,6 +12036,10 @@ span.srchMobIcon img {
    .contactListing a span {
     width: 100% !important;
    }
+   .docAddUpr {
+    padding-left: 12px;
+    padding-right: 12px;
+   }
 }
 @media (max-width: 599px){ 
  .descpInerRght {
@@ -13179,8 +13182,11 @@ a.academy_ul ul li img {
 }
 }
 @media screen and (max-width:959px) {
-    .journalAdd .MuiGrid-grid-xs-6{
+    .journalAdd .MuiGrid-grid-xs-6 {
         margin: 0px 10px !important;
+    }
+    .docsOpinion label {
+        margin-left: 20px;
     }
 }
 #cp-call-screen-container iframe #fullscreen .main-container{
@@ -16018,4 +16024,45 @@ select:-webkit-autofill:focus {
 .profileInfoDate .ant-picker {
     margin-bottom: 0px !important;
 }
-
+@media (max-width: 468px){
+    .meetCourse {
+        position: absolute;
+        left: -51px;
+        top: 11px;
+        background-color: #ffffff;
+        padding: 8px 12px;
+    }
+    .meetDetail h1 {
+        line-height: 21px !important;
+        font-size: 18px;
+    }
+    .meetVdoLft, .meetVdoRght {
+        width: 100% !important;
+    }
+    .meetVdo {
+        display: block !important;
+        margin-top: 0px !important;
+    }
+    .meetVdoRght {
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+    .tooltip-arrow[data-placement*='right']{
+        transform: rotate(90deg) !important;
+    }
+    .meetVdoLft span {
+        line-height: 16px;
+        display: inline-block;
+    }
+    .dataLoader img {
+        width: 300px !important;
+        left: 4% !important;
+        right: 4% !important;
+    }
+}
+@media screen and (min-width: 960px) and (max-width: 1280px){
+    .docAddUpr {
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+}

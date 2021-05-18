@@ -11,17 +11,8 @@ import { overView } from "Screens/Login/journalviewaction";
 import { LanguageFetchReducer } from "Screens/actions";
 import Loader from "Screens/Components/Loader/index.js";
 import {
-  translationAR,
-  translationSW,
-  translationSP,
-  translationRS,
-  translationEN,
-  translationNL,
-  translationDE,
-  translationCH,
-  translationPT,
-  translationFR,
-} from "translations/index";
+  getLanguage
+} from "translations/index"
 import Toggle from "react-toggle";
 const { RangePicker } = DatePicker;
 
@@ -162,41 +153,7 @@ class FilterSec extends Component {
   };
 
   languageChangeState() {
-    let translate = {};
-    switch (this.props.stateLanguageType) {
-      case "en":
-        translate = translationEN.text;
-        break;
-      case "de":
-        translate = translationDE.text;
-        break;
-      case "pt":
-        translate = translationPT.text;
-        break;
-      case "sp":
-        translate = translationSP.text;
-        break;
-      case "rs":
-        translate = translationRS.text;
-        break;
-      case "nl":
-        translate = translationNL.text;
-        break;
-      case "ch":
-        translate = translationCH.text;
-        break;
-      case "sw":
-        translate = translationSW.text;
-        break;
-      case "fr":
-        translate = translationFR.text;
-        break;
-      case "ar":
-        translate = translationAR.text;
-        break;
-      default:
-        translate = translationEN.text;
-    }
+    let translate = getLanguage(this.props.stateLanguageType)
     let {
       diary,
       diagnosis,
@@ -258,41 +215,7 @@ class FilterSec extends Component {
   }
 
   render() {
-    let translate = {};
-    switch (this.props.stateLanguageType) {
-      case "en":
-        translate = translationEN.text;
-        break;
-      case "de":
-        translate = translationDE.text;
-        break;
-      case "pt":
-        translate = translationPT.text;
-        break;
-      case "sp":
-        translate = translationSP.text;
-        break;
-      case "rs":
-        translate = translationRS.text;
-        break;
-      case "nl":
-        translate = translationNL.text;
-        break;
-      case "ch":
-        translate = translationCH.text;
-        break;
-      case "sw":
-        translate = translationSW.text;
-        break;
-      case "fr":
-        translate = translationFR.text;
-        break;
-      case "ar":
-        translate = translationAR.text;
-        break;
-      default:
-        translate = translationEN.text;
-    }
+    let translate = getLanguage(this.props.stateLanguageType)
     let {
       type,
       user_type_all,
@@ -301,6 +224,7 @@ class FilterSec extends Component {
       EndDate,
       search_timeline,
       sort_by,
+      showOnlyOverview,
       dig_time,
       entry_time,
     } = translate;
@@ -458,7 +382,7 @@ class FilterSec extends Component {
             )}
 
             <Grid className="sortBySec acvtTogle">
-              <label>Show Only Overview :</label>
+              <label>{showOnlyOverview} :</label>
               <label>
                 <Toggle
                   icons={false}
@@ -467,7 +391,7 @@ class FilterSec extends Component {
                   onClick={(e) => this.SetonlyOverview(e)}
                 />
               </label>
-              <label>{sort_by}:</label>
+              <label>{sort_by} :</label>
               <input
                 type="button"
                 value={entry_time}

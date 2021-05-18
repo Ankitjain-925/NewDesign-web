@@ -28,16 +28,7 @@ import "react-flags-select/css/react-flags-select.css";
 import "react-flags-select/scss/react-flags-select.scss";
 import npmCountryList from "react-select-country-list";
 import {
-  translationAR,
-  translationSW,
-  translationSP,
-  translationRS,
-  translationEN,
-  translationNL,
-  translationDE,
-  translationCH,
-  translationPT,
-  translationFR
+  getLanguage
 } from "translations/index"
 import {
   AddFavDoc2,
@@ -224,41 +215,7 @@ class Index extends Component {
 
   //Sent mail for asking personal doctor to patient
   sentmail = () => {
-    let translate = {};
-    switch (this.props.stateLanguageType) {
-      case "en":
-        translate = translationEN.text;
-        break;
-      case "de":
-        translate = translationDE.text;
-        break;
-      case "pt":
-        translate = translationPT.text;
-        break;
-      case "sp":
-        translate = translationSP.text;
-        break;
-      case "rs":
-        translate = translationRS.text;
-        break;
-      case "nl":
-        translate = translationNL.text;
-        break;
-      case "ch":
-        translate = translationCH.text;
-        break;
-      case "sw":
-        translate = translationSW.text;
-        break;
-      case "fr":
-        translate = translationFR.text;
-        break;
-      case "ar":
-        translate = translationAR.text;
-        break;
-      default:
-        translate = translationEN.text;
-    }
+    let translate = getLanguage(this.props.stateLanguageType)
     let { plz_enter_email_id_patient } = translate;
     const AskPatient = this.state.AskPatient;
     if (!AskPatient || AskPatient === "") {
@@ -355,41 +312,7 @@ class Index extends Component {
 
   //For save data of user
   saveUserData() {
-    let translate = {};
-    switch (this.props.stateLanguageType) {
-      case "en":
-        translate = translationEN.text;
-        break;
-      case "de":
-        translate = translationDE.text;
-        break;
-      case "pt":
-        translate = translationPT.text;
-        break;
-      case "sp":
-        translate = translationSP.text;
-        break;
-      case "rs":
-        translate = translationRS.text;
-        break;
-      case "nl":
-        translate = translationNL.text;
-        break;
-      case "ch":
-        translate = translationCH.text;
-        break;
-      case "sw":
-        translate = translationSW.text;
-        break;
-      case "fr":
-        translate = translationFR.text;
-        break;
-      case "ar":
-        translate = translationAR.text;
-        break;
-      default:
-        translate = translationEN.text;
-    }
+    let translate = getLanguage(this.props.stateLanguageType)
     let {
       plz_fill_mob_number,
       pswd_not_valid,
@@ -700,41 +623,7 @@ class Index extends Component {
   }
 
   removePatient = (patientData) => {
-    let translate = {};
-    switch (this.props.stateLanguageType) {
-      case "en":
-        translate = translationEN.text;
-        break;
-      case "de":
-        translate = translationDE.text;
-        break;
-      case "pt":
-        translate = translationPT.text;
-        break;
-      case "sp":
-        translate = translationSP.text;
-        break;
-      case "rs":
-        translate = translationRS.text;
-        break;
-      case "nl":
-        translate = translationNL.text;
-        break;
-      case "ch":
-        translate = translationCH.text;
-        break;
-      case "sw":
-        translate = translationSW.text;
-        break;
-      case "fr":
-        translate = translationFR.text;
-        break;
-      case "ar":
-        translate = translationAR.text;
-        break;
-      default:
-        translate = translationEN.text;
-    }
+    let translate = getLanguage(this.props.stateLanguageType)
     let { remove_patient, yes, r_u_sure_remove_patient, no } = translate;
     this.setState({ profileDetail: patientData });
     this.handleCloseShowPatient();
@@ -862,41 +751,7 @@ class Index extends Component {
   render() {
     const { profileDetail, userDetails } = this.state;
     const { stateLoginValueAim, stateLanguageType } = this.props;
-    let translate = {};
-    switch (this.props.stateLanguageType) {
-      case "en":
-        translate = translationEN.text;
-        break;
-      case "de":
-        translate = translationDE.text;
-        break;
-      case "pt":
-        translate = translationPT.text;
-        break;
-      case "sp":
-        translate = translationSP.text;
-        break;
-      case "rs":
-        translate = translationRS.text;
-        break;
-      case "nl":
-        translate = translationNL.text;
-        break;
-      case "ch":
-        translate = translationCH.text;
-        break;
-      case "sw":
-        translate = translationSW.text;
-        break;
-      case "fr":
-        translate = translationFR.text;
-        break;
-      case "ar":
-        translate = translationAR.text;
-        break;
-      default:
-        translate = translationEN.text;
-    }
+    let translate = getLanguage(this.props.stateLanguageType)
     let {
       succ1,
       Register_email,
@@ -982,10 +837,10 @@ class Index extends Component {
                 <Grid item xs={12} md={11} lg={9}>
                   <Grid className="docOpinion">
                     <Grid container direction="row" className="docAddUpr">
-                      <Grid item xs={12} md={6} className="docOpinLbl">
+                      <Grid item xs={12} sm={6} md={6} className="docOpinLbl">
                         <label>{capab_Patients}</label>
                       </Grid>
-                      <Grid item xs={12} md={6} className="docAddPatient">
+                      <Grid item xs={12} sm={6} md={6} className="docAddPatient">
                         <a onClick={this.handleOpenNewPatient}>
                           + {add_new_patient}
                         </a>

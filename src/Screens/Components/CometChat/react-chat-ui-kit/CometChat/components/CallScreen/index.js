@@ -7,16 +7,7 @@ import { CometChatManager } from "../../util/controller";
 import { Resizable, ResizableBox } from 'react-resizable';
 import "react-resizable/css/styles.css";
 import {
-  translationAR,
-  translationSW,
-  translationSP,
-  translationRS,
-  translationEN,
-  translationNL,
-  translationDE,
-  translationCH,
-  translationPT,
-  translationFR
+  getLanguage
 } from "translations/index"
 import { CallScreenManager } from "./controller";
 import * as enums from "../../util/enums.js";
@@ -124,6 +115,7 @@ class CallScreen extends React.PureComponent {
               onUserJoined: (user) => {
                 const el1 = document.getElementsByClassName("react-resizable");
                 el1[1].parentNode.removeChild(el1[1]);
+                // el2.src=require('assets/images/LogoPNG.png')
                 // el1[1].style.display= "none";
                 /* Notification received here if another user joins the call. */
                 //// console.log("[CallScreen] onCallAccepted User joined call:", user);
@@ -179,6 +171,11 @@ class CallScreen extends React.PureComponent {
             onUserJoined: (user) => {
               const el1 = document.getElementsByClassName("react-resizable");
               el1[1].parentNode.removeChild(el1[1]);
+              console.log(el1[0].getElementsByClassName("aspect-ratio-1"));
+              // const el2 = document.getElementsByClassName("main-video-avatar");
+              // console.log('sdf33', el2)
+              // el2.src=require('assets/images/LogoPNG.png')
+              
               // el1[1].style.display= "none";
               /* Notification received here if another user joins the call. */
               //// console.log("User joined call:", enums.USER_JOINED, user);
@@ -250,6 +247,8 @@ class CallScreen extends React.PureComponent {
     this.setState({isFull: false, myWidth:350, myHeight:350})
   }
   render() {
+    let translate = getLanguage(this.props.lan)
+    let {incomingcall, Calling} = translate;
     let callScreen = null,
       incomingCallScreen,
       outgoingCallScreen;
@@ -304,37 +303,7 @@ class CallScreen extends React.PureComponent {
           </div> */}
           <Grid className="inCallUpr">
             <Grid>
-            {this.props.lan === "en" && (
-              <h4>{translationEN.text.incomingcall}</h4>
-            )}
-            {this.props.lan === "de" && (
-              <h4>{translationDE.text.incomingcall}</h4>
-            )}
-            {this.props.lan === "ch" && (
-               <h4>{translationCH.text.incomingcall}</h4>
-            )}
-            {this.props.lan === "nl" && (
-              <h4>{translationNL.text.incomingcall}</h4>
-            )}
-            {this.props.lan === "sp" && (
-               <h4>{translationSP.text.incomingcall}</h4>
-            )}
-            {this.props.lan === "pt" && (
-               <h4>{translationPT.text.incomingcall}</h4>
-            )}
-            {this.props.lan === "rs" && (
-               <h4>{translationRS.text.incomingcall}</h4>
-            )}
-            {this.props.lan === "sw" && (
-               <h4>{translationSW.text.incomingcall}</h4>
-            )}
-            {this.props.lan === "fr" && (
-               <h4>{translationFR.text.incomingcall}</h4>
-            )}
-            {this.props.lan === "ar" && (
-               <h4>{translationAR.text.incomingcall}</h4>
-            )}
-              
+               <h4>{incomingcall}</h4>
             </Grid>
             <Grid className="inCallPic">
               <img
@@ -422,36 +391,7 @@ class CallScreen extends React.PureComponent {
         <div className="ccl-call-ong-max-wrap audio-video-call" id="autgoingCall"> 
         <React.Fragment>
           <div className="ccl-call-ong-max-header">
-          {this.props.lan === "en" && (
-              <span className="ccl-call-ong-max-dur">{translationEN.text.Calling}</span>
-            )}
-            {this.props.lan === "de" && (
-             <span className="ccl-call-ong-max-dur">{translationDE.text.Calling}</span>
-            )}
-            {this.props.lan === "ch" && (
-              <span className="ccl-call-ong-max-dur">{translationCH.text.Calling}</span>
-            )}
-            {this.props.lan === "nl" && (
-             <span className="ccl-call-ong-max-dur">{translationNL.text.Calling}</span>
-            )}
-            {this.props.lan === "sp" && (
-              <span className="ccl-call-ong-max-dur">{translationSP.text.Calling}</span>
-            )}
-            {this.props.lan === "pt" && (
-              <span className="ccl-call-ong-max-dur">{translationPT.text.Calling}</span>
-            )}
-            {this.props.lan === "rs" && (
-              <span className="ccl-call-ong-max-dur">{translationRS.text.Calling}</span>
-            )}
-            {this.props.lan === "sw" && (
-               <span className="ccl-call-ong-max-dur">{translationSW.text.Calling}</span>
-            )}
-             {this.props.lan === "fr" && (
-               <span className="ccl-call-ong-max-dur">{translationFR.text.Calling}</span>
-            )}
-             {this.props.lan === "ar" && (
-               <span className="ccl-call-ong-max-dur">{translationAR.text.Calling}</span>
-            )}
+              <span className="ccl-call-ong-max-dur">{Calling}</span>
            
             <h6 className="ccl-call-ong-max-name">
               {this.state.callIProgress.receiver.name}

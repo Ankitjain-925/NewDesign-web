@@ -62,17 +62,8 @@ import { updateBlockchain } from "Screens/Components/BlockchainEntry/index.js";
 import { GetLanguageDropdown } from "Screens/Components/GetMetaData/index.js";
 import Notification from "../../Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 import {
-  translationAR,
-  translationSW,
-  translationSP,
-  translationRS,
-  translationEN,
-  translationNL,
-  translationDE,
-  translationCH,
-  translationPT,
-  translationFR,
-} from "translations/index";
+  getLanguage
+} from "translations/index"
 import SPECIALITY from "speciality";
 
 import DownloadFullTrack from "../../Components/DownloadFullTrack/index";
@@ -288,41 +279,7 @@ class Index extends Component {
 
   //Modal Open on Archive the Journal
   ArchiveTrack = (data) => {
-    let translate = {};
-    switch (this.props.stateLanguageType) {
-      case "en":
-        translate = translationEN.text;
-        break;
-      case "de":
-        translate = translationDE.text;
-        break;
-      case "pt":
-        translate = translationPT.text;
-        break;
-      case "sp":
-        translate = translationSP.text;
-        break;
-      case "rs":
-        translate = translationRS.text;
-        break;
-      case "nl":
-        translate = translationNL.text;
-        break;
-      case "ch":
-        translate = translationCH.text;
-        break;
-      case "sw":
-        translate = translationSW.text;
-        break;
-      case "fr":
-        translate = translationFR.text;
-        break;
-      case "ar":
-        translate = translationAR.text;
-        break;
-      default:
-        translate = translationEN.text;
-    }
+    let translate = getLanguage(this.props.stateLanguageType)
     let {
       archive_item,
       ok,
@@ -369,41 +326,7 @@ class Index extends Component {
   };
   //Delete the perticular track confirmation box
   DeleteTrack = (deletekey) => {
-    let translate = {};
-    switch (this.props.stateLanguageType) {
-      case "en":
-        translate = translationEN.text;
-        break;
-      case "de":
-        translate = translationDE.text;
-        break;
-      case "pt":
-        translate = translationPT.text;
-        break;
-      case "sp":
-        translate = translationSP.text;
-        break;
-      case "rs":
-        translate = translationRS.text;
-        break;
-      case "nl":
-        translate = translationNL.text;
-        break;
-      case "ch":
-        translate = translationCH.text;
-        break;
-      case "sw":
-        translate = translationSW.text;
-        break;
-      case "fr":
-        translate = translationFR.text;
-        break;
-      case "ar":
-        translate = translationAR.text;
-        break;
-      default:
-        translate = translationEN.text;
-    }
+    let translate = getLanguage(this.props.stateLanguageType)
     let { delete_item, ok, do_u_really_want_delete_item, yes, no } = translate;
     confirmAlert({
       customUI: ({ onClose }) => {
@@ -1137,41 +1060,7 @@ class Index extends Component {
     ) {
       return <Redirect to={"/"} />;
     }
-    let translate = {};
-    switch (this.props.stateLanguageType) {
-      case "en":
-        translate = translationEN.text;
-        break;
-      case "de":
-        translate = translationDE.text;
-        break;
-      case "pt":
-        translate = translationPT.text;
-        break;
-      case "sp":
-        translate = translationSP.text;
-        break;
-      case "rs":
-        translate = translationRS.text;
-        break;
-      case "nl":
-        translate = translationNL.text;
-        break;
-      case "ch":
-        translate = translationCH.text;
-        break;
-      case "sw":
-        translate = translationSW.text;
-        break;
-      case "fr":
-        translate = translationFR.text;
-        break;
-      case "ar":
-        translate = translationAR.text;
-        break;
-      default:
-        translate = translationEN.text;
-    }
+    let translate = getLanguage(this.props.stateLanguageType)
     let {
       add_new_entry,
       new_entry,

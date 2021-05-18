@@ -22,22 +22,13 @@ import { withRouter } from "react-router-dom";
 import Rating from "../Rating";
 import { LanguageFetchReducer } from "Screens/actions";
 import {
-  translationAR,
-  translationSW,
-  translationSP,
-  translationRS,
-  translationEN,
-  translationNL,
-  translationDE,
-  translationCH,
-  translationPT,
-  translationFR
+  getLanguage
 } from "translations/index"
 import StripeCheckout from "react-stripe-checkout";
 import $ from "jquery"
 const CURRENCY = "USD";
- const STRIPE_PUBLISHABLE = "pk_live_SUaxHsAUa2ebLQXAa7NoMwPQ";
-// const STRIPE_PUBLISHABLE = "pk_test_qoJaLAHMXbv3fzci2AEcmkYX";
+//  const STRIPE_PUBLISHABLE = "pk_live_SUaxHsAUa2ebLQXAa7NoMwPQ";
+const STRIPE_PUBLISHABLE = "pk_test_qoJaLAHMXbv3fzci2AEcmkYX";
 
 function TabContainer(props) {
   return (
@@ -73,41 +64,7 @@ class Index extends Component {
     };
   }
   handleChange = (event, value) => {
-    let translate = {};
-    switch (this.props.stateLanguageType) {
-      case "en":
-        translate = translationEN.text;
-        break;
-      case "de":
-        translate = translationDE.text;
-        break;
-      case "pt":
-        translate = translationPT.text;
-        break;
-      case "sp":
-        translate = translationSP.text;
-        break;
-      case "rs":
-        translate = translationRS.text;
-        break;
-      case "nl":
-        translate = translationNL.text;
-        break;
-      case "ch":
-        translate = translationCH.text;
-        break;
-      case "sw":
-        translate = translationSW.text;
-        break;
-      case "fr":
-        translate = translationFR.text;
-        break;
-      case "ar":
-        translate = translationAR.text;
-        break;
-      default:
-        translate = translationEN.text;
-    }
+    let translate = getLanguage(this.props.stateLanguageType)
     let { language_all, topic_all } = translate;
     this.setState({
       value: value,
@@ -120,41 +77,7 @@ class Index extends Component {
   };
 
   changeLanguageState() {
-    let translate = {};
-    switch (this.props.stateLanguageType) {
-      case "en":
-        translate = translationEN.text;
-        break;
-      case "de":
-        translate = translationDE.text;
-        break;
-      case "pt":
-        translate = translationPT.text;
-        break;
-      case "sp":
-        translate = translationSP.text;
-        break;
-      case "rs":
-        translate = translationRS.text;
-        break;
-      case "nl":
-        translate = translationNL.text;
-        break;
-      case "ch":
-        translate = translationCH.text;
-        break;
-      case "sw":
-        translate = translationSW.text;
-        break;
-      case "fr":
-        translate = translationFR.text;
-        break;
-      case "ar":
-        translate = translationAR.text;
-        break;
-      default:
-        translate = translationEN.text;
-    }
+    let translate = getLanguage(this.props.stateLanguageType)
     let { all } = translate;
     const Languages = [
       { value: "All", label: all },
@@ -186,41 +109,7 @@ class Index extends Component {
 
   //for getting the all Topic
   getAlltopic = () => {
-    let translate = {};
-    switch (this.props.stateLanguageType) {
-      case "en":
-        translate = translationEN.text;
-        break;
-      case "de":
-        translate = translationDE.text;
-        break;
-      case "pt":
-        translate = translationPT.text;
-        break;
-      case "sp":
-        translate = translationSP.text;
-        break;
-      case "rs":
-        translate = translationRS.text;
-        break;
-      case "nl":
-        translate = translationNL.text;
-        break;
-      case "ch":
-        translate = translationCH.text;
-        break;
-      case "sw":
-        translate = translationSW.text;
-        break;
-      case "fr":
-        translate = translationFR.text;
-        break;
-      case "ar":
-        translate = translationAR.text;
-        break;
-      default:
-        translate = translationEN.text;
-    }
+    let translate = getLanguage(this.props.stateLanguageType)
     let { all } = translate;
     var user_token = this.props.stateLoginValueAim.token;
     axios
@@ -369,41 +258,7 @@ class Index extends Component {
         .then((res) => {
           this.setState({ loaderImage: false });
           if(res.data.hassuccessed){
-            let translate = {};
-            switch (this.props.stateLanguageType) {
-              case "en":
-                translate = translationEN.text;
-                break;
-              case "de":
-                translate = translationDE.text;
-                break;
-              case "pt":
-                translate = translationPT.text;
-                break;
-              case "sp":
-                translate = translationSP.text;
-                break;
-              case "rs":
-                translate = translationRS.text;
-                break;
-              case "nl":
-                translate = translationNL.text;
-                break;
-              case "ch":
-                translate = translationCH.text;
-                break;
-              case "sw":
-                translate = translationSW.text;
-                break;
-              case "fr":
-                translate = translationFR.text;
-                break;
-              case "ar":
-                translate = translationAR.text;
-                break;
-              default:
-                translate = translationEN.text;
-            }
+            let translate = getLanguage(this.props.stateLanguageType)
             let {
               CourseAddedMyCourses, ok} = translate;
             confirmAlert({
@@ -589,41 +444,7 @@ class Index extends Component {
  }
 
   render() {
-    let translate = {};
-    switch (this.props.stateLanguageType) {
-      case "en":
-        translate = translationEN.text;
-        break;
-      case "de":
-        translate = translationDE.text;
-        break;
-      case "pt":
-        translate = translationPT.text;
-        break;
-      case "sp":
-        translate = translationSP.text;
-        break;
-      case "rs":
-        translate = translationRS.text;
-        break;
-      case "nl":
-        translate = translationNL.text;
-        break;
-      case "ch":
-        translate = translationCH.text;
-        break;
-      case "sw":
-        translate = translationSW.text;
-        break;
-      case "fr":
-        translate = translationFR.text;
-        break;
-      case "ar":
-        translate = translationAR.text;
-        break;
-      default:
-        translate = translationEN.text;
-    }
+    let translate = getLanguage(this.props.stateLanguageType)
     let {
       all_course,
       ok,

@@ -14,16 +14,7 @@ import ReactFlagsSelect from 'react-flags-select';
 import { GetShowLabel1} from 'Screens/Components/GetMetaData/index.js';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import {
-    translationAR,
-    translationSW,
-    translationSP,
-    translationRS,
-    translationEN,
-    translationNL,
-    translationDE,
-    translationCH,
-    translationPT,
-    translationFR
+    getLanguage
   } from "translations/index"
 import {updateBlockchain} from 'Screens/Components/BlockchainEntry/index';
 
@@ -281,41 +272,7 @@ class Index extends Component {
 
     render() {
 
-        let translate={};
-      switch (this.props.stateLanguageType) {
-            case "en":
-                translate = translationEN.text
-                break;
-            case "de":
-                translate = translationDE.text
-                break;
-            case "pt":
-                translate = translationPT.text
-                break;
-            case "sp":
-                translate = translationSP.text
-                break;
-            case "rs":
-                translate = translationRS.text
-                break;
-            case "nl":
-                translate = translationNL.text
-                break;
-            case "ch":
-                translate = translationCH.text
-                break;
-            case "sw":
-                translate = translationSW.text
-                break;
-            case "fr":
-                translate = translationFR.text
-                break;
-            case "ar":
-                translate = translationAR.text
-                break;
-            default:
-                translate = translationEN.text
-        }
+        let translate = getLanguage(this.props.stateLanguageType)
         let {free_text, format_updated, YesIherewithagreewitha, followingorgantissues, profile, information, ID, pin, QR_code, done, Change, edit_id_pin, edit, and, is, changed, profile_id_taken, profile_id_greater_then_5,
             save_change, email, title, degree, first, last, name, dob, gender, street, add, city, postal_code, country, home_telephone, phone, country_code, Delete,
             mobile_number, number, mobile, Languages, spoken, insurance,allowthisonlyforfollowing, yes_shall_not_decided_by_person,  company, of, organ_transplant_declaration, blockchain_secure_organ_donar_Pass, 

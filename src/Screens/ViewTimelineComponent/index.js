@@ -21,16 +21,7 @@ import ShowHide from "Screens/Components/ShowHide/index";
 import PainPoint from "Screens/Components/PointPain/index";
 import FileUploader from "Screens/Components/FileUploader/index.js";
 import {
-  translationAR,
-  translationSW,
-  translationSP,
-  translationRS,
-  translationEN,
-  translationNL,
-  translationDE,
-  translationCH,
-  translationPT,
-  translationFR
+  getLanguage
 } from "translations/index"
 import moment from "moment";
 
@@ -184,41 +175,7 @@ class Index extends Component {
     // );
   };
   render() {
-    let translate;
-    switch (this.props.stateLanguageType) {
-      case "en":
-        translate = translationEN.text;
-        break;
-      case "de":
-        translate = translationDE.text;
-        break;
-      case "pt":
-        translate = translationPT.text;
-        break;
-      case "sp":
-        translate = translationSP.text;
-        break;
-      case "rs":
-        translate = translationRS.text;
-        break;
-      case "nl":
-        translate = translationNL.text;
-        break;
-      case "ch":
-        translate = translationCH.text;
-        break;
-      case "sw":
-        translate = translationSW.text;
-        break;
-      case "fr":
-        translate = translationFR.text;
-        break;
-      case "ar":
-        translate = translationAR.text;
-        break;
-      default:
-        translate = translationEN.text;
-    }
+    let translate = getLanguage(this.props.stateLanguageType)
     let {
       reminder_time,
       notes,

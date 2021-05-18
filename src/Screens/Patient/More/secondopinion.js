@@ -21,17 +21,9 @@ import FileUploader from "Screens/Components/FileUploader/index";
 import { AddFavDoc, ConsoleCustom } from "Screens/Components/BasicMethod/index";
 import { authy } from "Screens/Login/authy.js";
 import {
-  translationAR,
-  translationSW,
-  translationSP,
-  translationRS,
-  translationEN,
-  translationNL,
-  translationDE,
-  translationCH,
-  translationPT,
-  translationFR
+  getLanguage
 } from "translations/index"
+
 import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 
 const specialistOptions = [
@@ -304,41 +296,7 @@ class Index extends Component {
       return <Redirect to={"/"} />;
     }
 
-    let translate;
-    switch (this.props.stateLanguageType) {
-      case "en":
-        translate = translationEN.text;
-        break;
-      case "de":
-        translate = translationDE.text;
-        break;
-      case "pt":
-        translate = translationPT.text;
-        break;
-      case "sp":
-        translate = translationSP.text;
-        break;
-      case "rs":
-        translate = translationRS.text;
-        break;
-      case "nl":
-        translate = translationNL.text;
-        break;
-      case "ch":
-        translate = translationCH.text;
-        break;
-      case "sw":
-        translate = translationSW.text;
-        break;
-      case "fr":
-        translate = translationFR.text;
-        break;
-      case "ar":
-        translate = translationAR.text;
-        break;
-      default:
-        translate = translationEN.text;
-    }
+    let translate = getLanguage(this.props.stateLanguageType)
     let {
       secnd_openion,
       New,

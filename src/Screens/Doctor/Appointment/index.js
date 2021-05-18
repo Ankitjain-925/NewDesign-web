@@ -415,7 +415,6 @@ class Index extends Component {
 
   updateAppointment(status, id, data) {
     let translate = getLanguage(this.props.stateLanguageType);
-
     let { r_u_sure_want_book_appointment, yes, no } = translate;
 
     this.setState({ openSlot: false });

@@ -13,7 +13,8 @@ import {
   translationDE,
   translationCH,
   translationPT,
-  translationFR
+  translationFR,
+  translationTR
 } from "translations/index"
 
 const actionHandler = (props) => {
@@ -104,6 +105,11 @@ const Tooltip = ({ tooltip, children, ...props }) => (
              {props.lan === "ar" && (
                 <li className="delete"  onClick={() =>  DeleteMessage(props.message.id, props)}>
                   {translationAR.text.DeleteMessages} 
+                </li>
+            )}
+             {props.lan === "tr" && (
+                <li className="delete"  onClick={() =>  DeleteMessage(props.message.id, props)}>
+                  {translationTR.text.DeleteMessages} 
                 </li>
             )}
         

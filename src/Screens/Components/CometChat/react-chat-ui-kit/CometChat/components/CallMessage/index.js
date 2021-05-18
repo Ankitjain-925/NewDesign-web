@@ -6,56 +6,13 @@ import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { LanguageFetchReducer } from "../../../../../../actions";
 import {
-    translationAR,
-    translationSW,
-    translationSP,
-    translationRS,
-    translationEN,
-    translationNL,
-    translationDE,
-    translationCH,
-    translationPT,
-    translationFR
+    getLanguage
   } from "translations/index"
 
 const callmessage = (props) => {
     
     const getMessage = () => {
-        let translate={};
-        switch (props.stateLanguageType) {
-            case "en":
-                translate = translationEN.text
-                break;
-            case "de":
-                translate = translationDE.text
-                break;
-            case "pt":
-                translate = translationPT.text
-                break;
-            case "sp":
-                translate = translationSP.text
-                break;
-            case "rs":
-                translate = translationRS.text
-                break;
-            case "nl":
-                translate = translationNL.text
-                break;
-            case "ch":
-                translate = translationCH.text
-                break;
-            case "sw":
-                translate = translationSW.text
-                break;
-            case "fr":
-                translate = translationFR.text
-                break;
-            case "ar":
-                translate = translationAR.text
-                break;
-            default:
-                translate = translationEN.text
-        }
+        let translate = getLanguage(props.stateLanguageType)
         let { had_miss_call_from, had_rejected_call, had_joined_call_with, had_initiated_call_with, ended_call_with, cancelled_call_with } = translate
 
         switch (props.message.action) {

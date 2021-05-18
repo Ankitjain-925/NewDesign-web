@@ -2,17 +2,9 @@
 import React from "react";
 import { LanguageFetchReducer } from "Screens/actions";
 import {
-  translationAR,
-  translationSW,
-  translationSP,
-  translationRS,
-  translationEN,
-  translationNL,
-  translationDE,
-  translationCH,
-  translationPT,
-  translationFR
+  getLanguage
 } from "translations/index"
+
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 class Autocomplete extends React.Component {
@@ -50,28 +42,10 @@ class Autocomplete extends React.Component {
   };
 
   render() {
-    let search_city = "search";
-    if (this.props.stateLanguageType === "de") {
-      search_city = translationDE.text.search_city;
-    } else if (this.props.stateLanguageType === "pt") {
-      search_city = translationPT.text.search_city;
-    } else if (this.props.stateLanguageType === "nl") {
-      search_city = translationNL.text.search_city;
-    } else if (this.props.stateLanguageType === "ch") {
-      search_city = translationCH.text.search_city;
-    } else if (this.props.stateLanguageType === "rs") {
-      search_city = translationRS.text.search_city;
-    } else if (this.props.stateLanguageType === "sp") {
-      search_city = translationSP.text.search_city;
-    } else if (this.props.stateLanguageType === "sw") {
-      search_city = translationSW.text.search_city;
-    } else if (this.props.stateLanguageType === "fr") {
-      search_city = translationFR.text.search_city;
-    } else if (this.props.stateLanguageType === "ar") {
-      search_city = translationAR.text.search_city;
-    } else {
-      search_city = translationEN.text.search_city;
-    }
+    let translate = getLanguage(this.props.stateLanguageType)
+    let {
+      search_city
+    } = translate;
     return (
       <div>
         <input

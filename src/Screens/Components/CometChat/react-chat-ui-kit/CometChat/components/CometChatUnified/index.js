@@ -10,16 +10,7 @@ import CometChatGroupDetail from "../CometChatGroupDetail";
 import MessageThread from "../MessageThread";
 import CallScreen from "../CallScreen";
 import {
-  translationAR,
-  translationSW,
-  translationSP,
-  translationRS,
-  translationEN,
-  translationNL,
-  translationDE,
-  translationCH,
-  translationPT,
-  translationFR
+  getLanguage
 } from "translations/index"
 class CometChatUnified extends React.Component {
   constructor(props) {
@@ -303,6 +294,9 @@ class CometChatUnified extends React.Component {
   };
 
   render() {
+
+    let translate = getLanguage(this.props.lan)
+    let { Select_chat } = translate
     let threadMessageView = null;
     if (this.state.threadmessageview) {
       threadMessageView = (
@@ -356,36 +350,9 @@ class CometChatUnified extends React.Component {
               title="Aimedis Logo"
             /><br/>
 
-            {this.props.lan === "en" && (
-              <p className="chatScreenText">{translationEN.text.Select_chat}</p>
-            )}
-            {this.props.lan === "de" && (
-             <p className="chatScreenText">{translationDE.text.Select_chat}</p>
-            )}
-            {this.props.lan === "ch" && (
-              <p className="chatScreenText">{translationCH.text.Select_chat}</p>
-            )}
-            {this.props.lan === "nl" && (
-             <p className="chatScreenText">{translationNL.text.Select_chat}</p>
-            )}
-            {this.props.lan === "sp" && (
-             <p className="chatScreenText">{translationSP.text.Select_chat}</p>
-            )}
-            {this.props.lan === "pt" && (
-            <p className="chatScreenText">{translationPT.text.Select_chat}</p>
-            )}
-            {this.props.lan === "rs" && (
-              <p className="chatScreenText">{translationRS.text.Select_chat}</p>
-            )}
-            {this.props.lan === "sw" && (
-              <p className="chatScreenText">{translationSW.text.Select_chat}</p>
-            )}
-             {this.props.lan === "fr" && (
-              <p className="chatScreenText">{translationFR.text.Select_chat}</p>
-            )}
-             {this.props.lan === "ar" && (
-              <p className="chatScreenText">{translationAR.text.Select_chat}</p>
-            )}
+           
+            <p className="chatScreenText">{Select_chat}</p>
+           
 
 
             {/* <CallScreen

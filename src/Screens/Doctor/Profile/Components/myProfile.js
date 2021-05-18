@@ -30,16 +30,7 @@ import * as AmericaC from "Screens/Components/insuranceCompanies/us.json";
 import * as ThailandC from "Screens/Components/insuranceCompanies/thailand.json";
 import { LanguageFetchReducer } from "Screens/actions";
 import {
-  translationAR,
-  translationSW,
-  translationSP,
-  translationRS,
-  translationEN,
-  translationNL,
-  translationDE,
-  translationCH,
-  translationPT,
-  translationFR
+  getLanguage
 } from "translations/index"
 import Loader from "Screens/Components/Loader/index";
 import DateFormat from "Screens/Components/DateFormat/index";
@@ -229,41 +220,7 @@ class Index extends Component {
         })
         .catch((error) => { });
     } else {
-      let translate = {};
-      switch (this.props.stateLanguageType) {
-        case "en":
-          translate = translationEN.text;
-          break;
-        case "de":
-          translate = translationDE.text;
-          break;
-        case "pt":
-          translate = translationPT.text;
-          break;
-        case "sp":
-          translate = translationSP.text;
-          break;
-        case "rs":
-          translate = translationRS.text;
-          break;
-        case "nl":
-          translate = translationNL.text;
-          break;
-        case "ch":
-          translate = translationCH.text;
-          break;
-        case "sw":
-          translate = translationSW.text;
-          break;
-        case "fr":
-          translate = translationFR.text;
-          break;
-        case "ar":
-          translate = translationAR.text;
-          break;
-        default:
-          translate = translationEN.text;
-      }
+      let translate = getLanguage(this.props.stateLanguageType)
       let { plz_upload_png_jpeg, ok } = translate;
       confirmAlert({
         customUI: ({ onClose }) => {
@@ -1144,41 +1101,7 @@ class Index extends Component {
         );
       });
 
-    let translate = {};
-    switch (this.props.stateLanguageType) {
-      case "en":
-        translate = translationEN.text;
-        break;
-      case "de":
-        translate = translationDE.text;
-        break;
-      case "pt":
-        translate = translationPT.text;
-        break;
-      case "sp":
-        translate = translationSP.text;
-        break;
-      case "rs":
-        translate = translationRS.text;
-        break;
-      case "nl":
-        translate = translationNL.text;
-        break;
-      case "ch":
-        translate = translationCH.text;
-        break;
-      case "sw":
-        translate = translationSW.text;
-        break;
-      case "fr":
-        translate = translationFR.text;
-        break;
-      case "ar":
-        translate = translationAR.text;
-        break;
-      default:
-        translate = translationEN.text;
-    }
+      let translate = getLanguage(this.props.stateLanguageType)
     let {
       profile_info,
       profile,
