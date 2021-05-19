@@ -232,8 +232,6 @@ class Index extends Component {
                       French (Francais)
                     </label>
                   </Grid>
-                </Grid>
-                <Grid className="col-xl-6">
                   <Grid>
                     <input
                       value="de"
@@ -253,6 +251,8 @@ class Index extends Component {
                       German (Deutsch)
                     </label>
                   </Grid>
+                </Grid>
+                <Grid className="col-xl-6">
                   <Grid>
                     <input
                       value="pt"
@@ -327,6 +327,25 @@ class Index extends Component {
                         title="Swahili"
                       />
                       Swahili (Kiswahili)
+                    </label>
+                  </Grid>
+                  <Grid>
+                    <input
+                      value="tr"
+                      onChange={this.changeLanguage}
+                      name="language"
+                      type="radio"
+                      checked={
+                        this.state.languageValue == "tr" ? "checked" : ""
+                      }
+                    />
+                    <label>
+                      <img
+                        src={require("assets/images/Turkish.png")}
+                        alt="Turkish"
+                        title="Turkish"
+                      />
+                      Turkish (Türk)
                     </label>
                   </Grid>
                 </Grid>

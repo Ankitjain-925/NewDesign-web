@@ -8,6 +8,7 @@ import * as translationCH from "./ch.json";
 import * as translationSW from "./sw.json";
 import * as translationFR from "./fr.json";
 import * as translationAR from "./ar.json";
+import * as translationTR from "./tr.json"; 
 
 
 const getLanguage = (languageType) => {
@@ -42,6 +43,9 @@ const getLanguage = (languageType) => {
         case "ar":
             return translationAR.text
             break;
+        case "tr":
+            return translationTR.text
+            break;
         default:
             return translationEN.text
     }
@@ -58,5 +62,6 @@ export {
     translationDE,
     translationCH,
     translationPT,
-    translationFR
+    translationFR,
+    translationTR
 }

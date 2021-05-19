@@ -207,7 +207,7 @@ class Index extends Component {
                                     </li>
                                     <li className={this.props.currentPage === 'nurse_List' ? "menuActv" : ""}>
                                         <a onClick={() => this.props.history.push("/h-nurses")}>
-                                            <img src={require('assets/images/therapist_green.svg')} alt="" title="" />
+                                            <img src={require('assets/images/nurse_n1.png')} alt="" title="" />
                                             <span>{srvc_Nurses}</span>
                                         </a>
                                     </li>

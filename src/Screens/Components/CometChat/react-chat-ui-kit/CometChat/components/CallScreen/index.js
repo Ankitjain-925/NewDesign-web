@@ -115,8 +115,6 @@ class CallScreen extends React.PureComponent {
               onUserJoined: (user) => {
                 const el1 = document.getElementsByClassName("react-resizable");
                 el1[1].parentNode.removeChild(el1[1]);
-                // const el2 = document.getElementsByClassName("main-video-avatar");
-                // console.log('sdf22', el2)
                 // el2.src=require('assets/images/LogoPNG.png')
                 // el1[1].style.display= "none";
                 /* Notification received here if another user joins the call. */
@@ -173,6 +171,7 @@ class CallScreen extends React.PureComponent {
             onUserJoined: (user) => {
               const el1 = document.getElementsByClassName("react-resizable");
               el1[1].parentNode.removeChild(el1[1]);
+              console.log(el1[0].getElementsByClassName("aspect-ratio-1"));
               // const el2 = document.getElementsByClassName("main-video-avatar");
               // console.log('sdf33', el2)
               // el2.src=require('assets/images/LogoPNG.png')

@@ -2,6 +2,7 @@ var speciality = {
     "english":[
         {
             "label_en": "ALLERGY & IMMUNOLOGY",
+            "label_tr": "ALERJİ VE İMMÜNOLOJİ",
             "label_de": "Allergologie & Immunologie",
             "label_nl": "ALLERGIE & IMMUNOLOGIE",
             "label_rs": "АЛЛЕРГИЯ И ИММУНОЛОГИЯ",
@@ -15,6 +16,7 @@ var speciality = {
         },
         {
             "label_en": "ANESTHESIOLOGY",
+            "label_tr": "ANESTEZİYOLOJİ",
             "label_de": "Anästhesie",
             "label_nl": "ANESTHESIOLOGIE",
             "label_rs": "АНЕСТЕЗИОЛОГИЯ",
@@ -28,6 +30,7 @@ var speciality = {
         },
         {
             "label_en": "DERMATOLOGY",
+            "label_tr": "DERMATOLOJİ",
             "label_de": "Dermatologie",
             "label_nl": "DERMATOLOGIE",
             "label_rs": "ДЕРМАТОЛОГИЯ",
@@ -41,6 +44,7 @@ var speciality = {
         },
         {
             "label_en": "DIAGNOSTIC RADIOLOGY",
+            "label_tr": "TANI RADYOLOJİSİ",
             "label_de": "Diagnostische Radiologie",
             "label_nl": "DIAGNOSTISCHE RADIOLOGIE",
             "label_rs": "ДИАГНОСТИЧЕСКАЯ РАДИОЛОГИЯ",
@@ -54,6 +58,7 @@ var speciality = {
         },
         {
             "label_en": "EMERGENCY MEDICINE",
+            "label_tr": "ACİL TIP",
             "label_de": "Notfallmedizin",
             "label_nl": "NOODGEVAL MEDICIJN",
             "label_rs": "НЕОТЛОЖНАЯ МЕДИЦИНСКАЯ ПОМОЩЬ",
@@ -67,6 +72,7 @@ var speciality = {
         },
         {
             "label_en": "FAMILY MEDICINE",
+            "label_tr": "AİLE HEKİMLİĞİ",
             "label_de": "Familienmedizin",
             "label_nl": "FAMILIE MEDICIJN",
             "label_rs": "СЕМЕЙНАЯ МЕДИЦИНА",
@@ -80,6 +86,7 @@ var speciality = {
         },
         {
             "label_en": "INTERNAL MEDICINE",
+            "label_tr": "DAHİLİYE",
             "label_de": "Innere Medizin",
             "label_nl": "INWENDIG MEDICIJN",
             "label_rs": "МЕДИЦИНА ВНУТРЕННИХ ОРГАНОВ",
@@ -93,6 +100,7 @@ var speciality = {
         },
         {
             "label_en": "MEDICAL GENETICS AND GENOMICS",
+            "label_tr": "TIBBİ GENETİK VE GENOMİK",
             "label_de": "Medizinische Genetik",
             "label_nl": "MEDISCHE GENETICA EN GENOMIE",
             "label_rs": "МЕДИЦИНСКАЯ ГЕНЕТИКА И ГЕНОМИКА",
@@ -106,6 +114,7 @@ var speciality = {
         },
         {
             "label_en": "NEUROLOGY",
+            "label_tr": "NÖROLOJİ",
             "label_de": "Neurologie",
             "label_nl": "NEUROLOGIE",
             "label_rs": "НЕВРОЛОГИЯ",
@@ -119,6 +128,7 @@ var speciality = {
         },
         {
             "label_en": "NUCLEAR MEDICINE",
+            "label_tr": "NÜKLEER TIP",
             "label_de": "Nuklearmedizin",
             "label_nl": "NUCLEAIR MEDICIJN",
             "label_rs": "ЯДЕРНАЯ МЕДИЦИНА",
@@ -132,6 +142,7 @@ var speciality = {
         },
         {
             "label_en": "OBSTETRICS AND GYNECOLOGY",
+            "label_tr": "OBSTETRİK VE JİNEKOLOJİ",
             "label_de": "Geburtshilfe und Gynäkologie",
             "label_nl": "OBSTETRICS AND GYNECOLOGY",
             "label_rs": "АКУШЕРСТВО И ГИНЕКОЛОГИЯ",
@@ -145,6 +156,7 @@ var speciality = {
         },
         {
             "label_en": "OPHTHALMOLOGY",
+            "label_tr": "OFTALMOLOJİ",
             "label_de": "Augenheilkunde",
             "label_nl": "OOGHEELKUNDE",
             "label_rs": "ОФТАЛЬМОЛОГИЯ",
@@ -158,6 +170,7 @@ var speciality = {
         },
         {
             "label_en": "OTOLANRYNGOLOGY",
+            "label_tr": "OTOLARENGOLOJİ",
             "label_de": "Hals-, Nasen- und Ohrenheilkunde (HNO)",
             "label_nl": "KNO-GENEESKUNDE",
             "label_rs": "ОТОЛАРИНГОЛОГИЯ",
@@ -171,6 +184,7 @@ var speciality = {
         },
         {
             "label_en": "PATHOLOGY",
+            "label_tr": "PATOLOJİ",
             "label_de": "Pathologie",
             "label_nl": "PATHOLOGIE",
             "label_rs": "ПАТОЛОГИЯ",
@@ -184,6 +198,7 @@ var speciality = {
         },
         {
             "label_en": "PEDIATRICS",
+            "label_tr": "PEDİATRİ",
             "label_de": "Pädiatrie",
             "label_nl": "KINDERGENEESKUNDE",
             "label_rs": "ПЕДИАТРИЯ",
@@ -197,6 +212,7 @@ var speciality = {
         },
         {
             "label_en": "PHYSICAL MEDICINE & REHABILITATION",
+            "label_tr": "FİZİKSEL TIP & REHABİLİTASYON",
             "label_de": "Physikalische Medizin & Rehabilitation",
             "label_nl": "FYSIEKE GENEESKUNDE & REVALIDATIE",
             "label_rs": "ФИЗИЧЕСКАЯ МЕДИЦИНА И РЕАБИЛИТАЦИЯ",
@@ -210,6 +226,7 @@ var speciality = {
         },
         {
             "label_en": "PREVENTIVE MEDICINE",
+            "label_tr": "ÖNLEYİCİ İLAÇ",
             "label_de": "Präventivmedizin",
             "label_nl": "PREVENTIEVE GENEESKUNDE",
             "label_rs": "ПРОФИЛАКТИЧЕСКАЯ МЕДИЦИНА",
@@ -223,6 +240,7 @@ var speciality = {
         },
         {
             "label_en": "PSYCHIATRY",
+            "label_tr": "PSİKİYATRİ",
             "label_de": "Psychiatrie",
             "label_nl": "PSYCHIATRIE",
             "label_rs": "ПСИХИАТРИЯ",
@@ -236,6 +254,7 @@ var speciality = {
         },
         {
             "label_en": "RADIATION",
+            "label_tr": "RADYASYON",
             "label_de": "Nuklearmedizin",
             "label_nl": "RADIATIE",
             "label_rs": "РАДИОЛОГИЯ",
@@ -249,6 +268,7 @@ var speciality = {
         },
         {
             "label_en": "ONCOLOGY",
+            "label_tr": "ONKOLOJİ",
             "label_de": "Hämatoonkologie",
             "label_nl": "ONCOLOGIE",
             "label_rs": "ONCOLOGY",
@@ -262,6 +282,7 @@ var speciality = {
         },
         {
             "label_en": "SURGERY",
+            "label_tr": "AMELİYAT",
             "label_de": "Chirurgie",
             "label_nl": "CHIRURGIE",
             "label_rs": "ХИРУРГИЯ",
@@ -275,6 +296,7 @@ var speciality = {
         },
         {
             "label_en": "UROLOGY",
+            "label_tr": "ÜROLOJİ",
             "label_de": "Urologie",
             "label_nl": "UROLOGIE",
             "label_rs": "УРОЛОГИЯ",

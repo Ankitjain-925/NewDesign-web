@@ -21,7 +21,8 @@ var languages = [{ value: 'ar', label: 'Arabian' },
 { value: 'pt', label: 'Portuguese' },
 { value: 'rs', label: 'Russian' },
 { value: 'sp', label: 'Spanish' },
-{ value: 'sw', label: 'Swahili' }]
+{ value: 'sw', label: 'Swahili' },
+{ value: 'tr', label: 'Turkish' }]
 
 class Index extends Component {
     constructor(props) {

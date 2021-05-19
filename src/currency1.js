@@ -11,7 +11,7 @@ export const Currency = [
     { "value": "Aimedis", "label": "AIMX (Aimedis)" },
     { "value": "ETH", "label": "ETH (Ethereum)" },
     { "value": "KE", "label": "KES (Kenyan Shilling)" },
-    { "value": "ZW", "label": "ZWL (Zimbabwe Dollor)"},
+    { "value": "ZW", "label": "ZWL (Zimbabwe Dollar)"},
     { "value": "MA", "label": "MAD (Moroccan Dirham)"},
     { "value": "TR", "label": "TRY (Turkish Lira)"},
 ]
