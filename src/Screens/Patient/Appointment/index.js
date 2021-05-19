@@ -37,16 +37,6 @@ import LeftMenuMobile from "Screens/Components/Menus/PatientLeftMenu/mobile";
 import sitedata from "sitedata";
 import Autocomplete from "./Autocomplete";
 import {
-  translationAR,
-  translationSW,
-  translationSP,
-  translationRS,
-  translationEN,
-  translationNL,
-  translationDE,
-  translationCH,
-  translationPT,
-  translationFR,
   getLanguage
 } from "translations/index"
 import SPECIALITY from "speciality";
