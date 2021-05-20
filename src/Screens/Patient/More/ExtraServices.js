@@ -203,6 +203,7 @@ class Index extends Component {
     let translate = getLanguage(this.props.stateLanguageType)
     let {
       extra,
+      recEmp_SUBSCRIBE,
       srvc,
       is,
       activated,
@@ -404,7 +405,7 @@ class Index extends Component {
                   <Grid className="actvMain">
                     <h2>{available}</h2>
                     <Elements stripe={stripePromise}>
-                      <HomePage show1={this.state.show1} show2={this.state.show2} CancelClick={this.CancelClick} onToken={this.onToken}/>
+                      <HomePage languageType={this.props.stateLanguageType} show1={this.state.show1} show2={this.state.show2} CancelClick={this.CancelClick} onToken={this.onToken}/>
                     </Elements>
                     <Grid container direction="row" spacing="3">
                       {!this.state.firstServiceData ||
@@ -447,7 +448,7 @@ class Index extends Component {
                                             this.setState({show1: true, show2: false})
                                           }}
                                         >
-                                          Subscribe
+                                          {recEmp_SUBSCRIBE}
                                         </button>
                                       </div>}
                                       
@@ -505,7 +506,7 @@ class Index extends Component {
                                             this.setState({show2: true, show1: false})
                                           }}
                                         >
-                                          Subscribe
+                                          {recEmp_SUBSCRIBE}
                                         </button>}
                                         </div>
                                         {/* <Toggle
