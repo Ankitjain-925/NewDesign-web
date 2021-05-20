@@ -11,6 +11,7 @@ import {makeStyles} from '@material-ui/core/styles';
 import CardInput from './CardInput';
 import sitedata from "sitedata";
 import { getPriceId } from "./getPriceId";
+import { getLanguage } from "translations/index"
 
 const useStyles = makeStyles({
   root: {
@@ -37,6 +38,8 @@ function HomePage(props) {
     console.log('props', props)
   const classes = useStyles();
   // State
+  let translate = getLanguage(props.languageType)
+  let { done, cancel, recEmp_Emailaddress} = translate;
   const [email, setEmail] = useState('');
   const [showError, setshowError] = useState('');
   const stripe = useStripe();
@@ -94,7 +97,7 @@ function HomePage(props) {
     <Grid item xs={12} md={6}>
         {(props.show1 || props.show2 ) && <div>
         <TextField
-          label='Email'
+          label={recEmp_Emailaddress}
           id='outlined-email-input'
           helperText={`Email you'll recive updates and receipts on`}
           margin='normal'
@@ -113,7 +116,7 @@ function HomePage(props) {
               handleSubmitSub(e, "Doc Around The Clock")
               }}
             >
-              Done
+              {done}
             </button>}
           {props.show2 && 
           <button
@@ -121,14 +124,14 @@ function HomePage(props) {
               handleSubmitSub(e, "Data services")
             }}
           >
-            Done
+            {done}
           </button>}
             <button
               onClick={() => {
                 props.CancelClick()
               }}
             >
-              Cancel
+              {cancel}
             </button>
           </div>
         </ div>}
