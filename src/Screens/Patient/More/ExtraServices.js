@@ -14,10 +14,14 @@ import { Redirect, Route } from "react-router-dom";
 import sitedata from "sitedata";
 import "react-toggle/style.css";
 import { authy } from "Screens/Login/authy.js";
+import HomePage from 'Screens/Components/CardInput/PayforSubscription';
+import {Elements} from '@stripe/react-stripe-js';
+import {loadStripe} from '@stripe/stripe-js';
 import {
   getLanguage
 } from "translations/index"
 import Notification from "../../Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
+const stripePromise = loadStripe('pk_test_qoJaLAHMXbv3fzci2AEcmkYX');
 class Index extends Component {
   constructor(props) {
     super(props);
@@ -31,6 +35,8 @@ class Index extends Component {
       activated: false,
       deactivated: false,
       error3: false,
+      show2: false,
+      show1: false,
     };
     // new Timer(this.logOutClick.bind(this))
   }
@@ -47,7 +53,7 @@ class Index extends Component {
     return parseInt(amount * 100);
   };
   successPayment = (data) => {
-    this.setState({ activated: true });
+    this.setState({ activated: true, show1 : false, show2: false });
     setTimeout(() => {
       this.setState({ activated: false });
     }, 5000);
@@ -56,38 +62,31 @@ class Index extends Component {
 
   //If error comes from the API
   errorPayment = (data) => {
-    this.setState({ error3: true });
+    this.setState({ error3: true , show1 : false, show2: false});
     setTimeout(() => {
       this.setState({ error3: false });
     }, 5000);
     this.getUserData();
   };
 
-  // onToken = (amount, description  )=> token =>{
-  //     const user_token = this.props.stateLoginValueAim.token;
-  //     axios.post(sitedata.data.path+'/stripeCheckout',{
-  //         description,
-  //         source: token.id,
-  //         currency: CURRENCY,
-  //         amount: this.fromEuroToCent(amount)
-  //     },{headers:{
-  //         'token': user_token,
-  //         'Accept': 'application/json',
-  //         'Content-Type': 'application/json'
-  //     }})
-  //     .then(this.successPayment)
-  //     .catch(this.errorPayment);
-  // };
-
   //Other API with no payment setting for Activate services
-  onToken = (description) => {
+  onToken = (description, subscription) => {
+    console.log('subscription', subscription)
     this.setState({ loaderImage: true, activated: false, deactivated: false });
     const user_token = this.props.stateLoginValueAim.token;
+    var payment_info = subscription;
+    var sb=  subscription?.created ? subscription?.created: new Date();
+    var subscription_info= {
+      subscribed_on: new Date(sb),
+      subscribed_from: 'web',
+    } 
     axios
       .put(
         sitedata.data.path + "/UserProfile/Bookservice",
         {
           description,
+          payment_info,
+          subscription_info,
         },
         {
           headers: {
@@ -176,6 +175,9 @@ class Index extends Component {
       .catch((error) => {
         this.setState({ loaderImage: false });
       });
+  }
+  CancelClick=()=>{
+    this.setState({show1 : false, show2: false})
   }
   render() {
     const { stateLoginValueAim } = this.props;
@@ -284,7 +286,7 @@ class Index extends Component {
                                   justify="center"
                                   alignItems="center"
                                 >
-                                  <Grid item xs={12} md={9}>
+                                  <Grid item xs={12} md={6}>
                                     <p>
                                       {srvc} {activated} {on}{" "}
                                       <span>
@@ -292,11 +294,22 @@ class Index extends Component {
                                       </span>
                                     </p>
                                   </Grid>
-                                  <Grid item xs={12} md={3}>
+                                  <Grid item xs={12} md={6}>
                                     <Grid className="acvtTogle">
-                                      <label>
-                                        <Toggle
-                                         disabled={true}
+                                      <div className="sbu_button">
+                                        <button
+                                          onClick={() => {
+                                            this.Deactivate(
+                                              "Doc Around The Clock"
+                                            )
+                                          }}
+                                          className="cancel"
+                                        >
+                                          Cancel
+                                        </button>
+                                      </div>
+                                        {/* <Toggle
+                                         
                                           icons={false}
                                           checked={this.state.firstActive}
                                           onClick={() =>
@@ -304,8 +317,7 @@ class Index extends Component {
                                               "Doc Around The Clock"
                                             )
                                           }
-                                        />
-                                      </label>
+                                        /> */}
                                     </Grid>
                                   </Grid>
                                 </Grid>
@@ -340,7 +352,7 @@ class Index extends Component {
                                   justify="center"
                                   alignItems="center"
                                 >
-                                  <Grid item xs={12} md={9}>
+                                  <Grid item xs={12} md={6}>
                                     <p>
                                       {srvc} {activated} {on}{" "}
                                       <span>
@@ -348,18 +360,26 @@ class Index extends Component {
                                       </span>
                                     </p>
                                   </Grid>
-                                  <Grid item xs={12} md={3}>
+                                  <Grid item xs={12} md={6}>
                                     <Grid className="acvtTogle">
-                                      <label>
-                                        <Toggle
-                                        disabled={true}
+                                      <div className="sbu_button">
+                                        <button
+                                          onClick={() => {
+                                            this.Deactivate("Data services")
+                                          }}
+                                          className="cancel"
+                                        >
+                                          Cancel
+                                        </button>
+                                      </div>
+                                        {/* <Toggle
+                                        
                                           icons={false}
                                           checked={this.state.secondActive}
                                           onClick={() =>
                                             this.Deactivate("Data services")
                                           }
-                                        />
-                                      </label>
+                                        /> */}
                                     </Grid>
                                   </Grid>
                                 </Grid>
@@ -372,6 +392,9 @@ class Index extends Component {
 
                   <Grid className="actvMain">
                     <h2>{available}</h2>
+                    <Elements stripe={stripePromise}>
+                      <HomePage show1={this.state.show1} show2={this.state.show2} CancelClick={this.CancelClick} onToken={this.onToken}/>
+                    </Elements>
                     <Grid container direction="row" spacing="3">
                       {!this.state.firstServiceData ||
                         (!this.state.firstServiceData.created && (
@@ -399,22 +422,31 @@ class Index extends Component {
                                   justify="center"
                                   alignItems="center"
                                 >
-                                  <Grid item xs={12} md={9}>
+                                  <Grid item xs={12} md={6}>
                                     <p>
                                       {activate} {srvc}{" "}
                                     </p>
                                   </Grid>
-                                  <Grid item xs={12} md={3}>
+                                  <Grid item xs={12} md={6}>
                                     <Grid className="acvtTogle">
-                                      <label>
-                                        <Toggle
-                                        disabled={true}
+                                      {!this.state.show1 &&
+                                      <div className="sbu_button">
+                                      <button
+                                          onClick={() => {
+                                            this.setState({show1: true, show2: false})
+                                          }}
+                                        >
+                                          Subscribe
+                                        </button>
+                                      </div>}
+                                      
+                                        {/* <Toggle
+                                        
                                           icons={false}
                                           onClick={() =>
                                             this.onToken("Doc Around The Clock")
                                           }
-                                        />
-                                      </label>
+                                        /> */}
                                     </Grid>
                                   </Grid>
                                 </Grid>
@@ -449,22 +481,29 @@ class Index extends Component {
                                   justify="center"
                                   alignItems="center"
                                 >
-                                  <Grid item xs={12} md={9}>
+                                  <Grid item xs={12} md={6}>
                                     <p>
                                       {activate} {srvc}
                                     </p>
                                   </Grid>
-                                  <Grid item xs={12} md={3}>
+                                  <Grid item xs={12} md={6}>
                                     <Grid className="acvtTogle">
-                                      <label>
-                                        <Toggle
-                                        disabled={true}
+                                      <div className="sbu_button">
+                                      {!this.state.show2 && <button
+                                          onClick={() => {
+                                            this.setState({show2: true, show1: false})
+                                          }}
+                                        >
+                                          Subscribe
+                                        </button>}
+                                        </div>
+                                        {/* <Toggle
+                                        
                                           icons={false}
                                           onClick={() =>
                                             this.onToken("Data services")
                                           }
-                                        />
-                                      </label>
+                                        /> */}
                                     </Grid>
                                   </Grid>
                                 </Grid>

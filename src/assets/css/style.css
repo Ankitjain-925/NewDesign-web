@@ -13113,6 +13113,30 @@ a.academy_ul ul li img {
 
 
 /*Added By ankita*/
+.__PrivateStripeElement iframe {
+    min-width: 500px !important;
+}
+.srvcActiv p{
+    line-height: 20px;
+}
+.sbu_button .cancel {
+    background: red;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 5px 10px;
+    font-weight:600;
+    margin: 10px;
+}
+.sbu_button button {
+    background: #00abaf;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 5px 10px;
+    font-weight:600;
+    margin: 10px;
+}
 @media (max-width: 768px){
     .menuItems {
         padding-bottom: 170px;
