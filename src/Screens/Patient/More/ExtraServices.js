@@ -37,6 +37,8 @@ class Index extends Component {
       error3: false,
       show2: false,
       show1: false,
+      first_sub: false,
+      second_sub: false,
     };
     // new Timer(this.logOutClick.bind(this))
   }
@@ -71,7 +73,6 @@ class Index extends Component {
 
   //Other API with no payment setting for Activate services
   onToken = (description, subscription) => {
-    console.log('subscription', subscription)
     this.setState({ loaderImage: true, activated: false, deactivated: false });
     const user_token = this.props.stateLoginValueAim.token;
     var payment_info = subscription;
@@ -101,36 +102,42 @@ class Index extends Component {
   };
 
   //For deactivate the services
-  Deactivate = (desc) => {
+  Deactivate = async (desc, sub_id) => {
+    console.log('second_sub', sub_id)
     this.setState({ loaderImage: true, activated: false, deactivated: false });
+    const res = await axios.delete(sitedata.data.path + "/stripeCheckout/sub/"+sub_id );
+    console.log('res.data.hassuccessed', res.data.hassuccessed)
+  if(res.data.hassuccessed){
     axios
-      .delete(sitedata.data.path + "/UserProfile/Bookservice/" + desc, {
-        headers: {
-          token: this.props.stateLoginValueAim.token,
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      })
-      .then((responce) => {
-        if (responce.data.hassuccessed) {
-          if (desc === "Doc Around The Clock") {
-            this.setState({ firstActive: false, deactivated: true });
-          }
-          if (desc === "Data services") {
-            this.setState({ secondActive: false, deactivated: true });
-          }
-          setTimeout(() => {
-            this.setState({ deactivated: false });
-          }, 5000);
-        } else {
-          this.setState({ error3: true });
-          setTimeout(() => {
-            this.setState({ error3: false });
-          }, 5000);
+    .delete(sitedata.data.path + "/UserProfile/Bookservice/" + desc, {
+      headers: {
+        token: this.props.stateLoginValueAim.token,
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    })
+    .then((responce) => {
+      this.setState({ loaderImage: false});
+      if (responce.data.hassuccessed) {
+        if (desc === "Doc Around The Clock") {
+          this.setState({ firstActive: false, deactivated: true });
         }
-        this.setState({ loaderImage: false });
-        this.getUserData();
-      });
+        if (desc === "Data services") {
+          this.setState({ secondActive: false, deactivated: true });
+        }
+        setTimeout(() => {
+          this.setState({ deactivated: false });
+        }, 5000);
+      } else {
+        this.setState({ error3: true });
+        setTimeout(() => {
+          this.setState({ error3: false });
+        }, 5000);
+      }
+      this.getUserData();
+    });
+  }
+    
   };
 
   //Get the current user data
@@ -160,12 +167,14 @@ class Index extends Component {
               this.setState({
                 firstServiceData: this.state.paid_services[i],
                 firstActive: true,
+                first_sub: this.state.paid_services[i]?.payment_info.id
               });
             }
             if (this.state.paid_services[i].description == "Data services") {
               this.setState({
                 secondServiceData: this.state.paid_services[i],
                 secondActive: true,
+                second_sub: this.state.paid_services[i]?.payment_info.id 
               });
             }
           }
@@ -300,7 +309,8 @@ class Index extends Component {
                                         <button
                                           onClick={() => {
                                             this.Deactivate(
-                                              "Doc Around The Clock"
+                                              "Doc Around The Clock",
+                                              this.state.first_sub
                                             )
                                           }}
                                           className="cancel"
@@ -365,7 +375,8 @@ class Index extends Component {
                                       <div className="sbu_button">
                                         <button
                                           onClick={() => {
-                                            this.Deactivate("Data services")
+                                            this.Deactivate("Data services",
+                                            this.state.second_sub)
                                           }}
                                           className="cancel"
                                         >
