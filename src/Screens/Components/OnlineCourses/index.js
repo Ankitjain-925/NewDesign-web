@@ -88,7 +88,7 @@ class Index extends Component {
       { value: "rs", label: "Russian" },
       { value: "pt", label: "Portuguese" },
       { value: "sw", label: "Swahili" },
-      { value: "ch", label: "Chainese" },
+      { value: "ch", label: "Chinese" },
       { value: "ar", label: "Arabic" },
       { value: "tr", label: "Turkish" },
     ];
