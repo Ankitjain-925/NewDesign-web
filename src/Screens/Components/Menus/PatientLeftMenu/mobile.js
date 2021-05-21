@@ -108,6 +108,16 @@ class Index extends Component {
     this.props.LoginReducerAim(email, password);
     let languageType = "en";
     this.props.LanguageFetchReducer(languageType);
+    this.props.Fitbit({
+      lifetimeStats: {},
+      device: [],
+      distance: {},
+      steps: {},
+      user: {},
+      badges: {},
+    });
+    this.props.Withings([]);
+    this.props.history.push("/");
   };
 
   //For My Profile link

@@ -383,3 +383,11 @@ export const blobToFile = (theBlob, fileName) => {
   theBlob.name = fileName;
   return new File([theBlob], fileName);
 }
+
+export const isToday = (someDate) => {
+  const today = new Date()
+  someDate = new Date(someDate)
+  return someDate.getDate() == today.getDate() &&
+    someDate.getMonth() == today.getMonth() &&
+    someDate.getFullYear() == today.getFullYear()
+}

@@ -61,7 +61,7 @@ function HomePage(props) {
     });
 
     if (result.error) {
-      console.log(result.error.message);
+    
     } else {
     var price_id = getPriceId(type);
     // var price_id = 'price_1IiFEJH4UyTD79BwEEdzAZe1'

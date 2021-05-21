@@ -74,7 +74,8 @@ class Index extends Component {
     this.props.Doctorarrays("logout");
     // this.movedashboard();
     this.unsetCategory();
-
+    localStorage.removeItem("token");
+    localStorage.removeItem("SUBSCRIPTION_CHECKED_ON");
     let url = this.props.location.search;
     let params = queryString.parse(url);
     this.setState({ logintoken: params.token });

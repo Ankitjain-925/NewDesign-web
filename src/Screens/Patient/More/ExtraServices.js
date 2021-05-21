@@ -104,10 +104,8 @@ class Index extends Component {
 
   //For deactivate the services
   DeactivateSub = async (desc, sub_id) => {
-    console.log('second_sub', sub_id)
     this.setState({ loaderImage: true, activated: false, deactivated: false });
     const res = await axios.delete(sitedata.data.path + "/stripeCheckout/sub/"+sub_id );
-    console.log('res.data.hassuccessed', res.data.hassuccessed)
   if(res.data.hassuccessed){
     axios
     .delete(sitedata.data.path + "/UserProfile/Bookservice/" + desc, {
@@ -239,6 +237,7 @@ class Index extends Component {
     let translate = getLanguage(this.props.stateLanguageType)
     let {
       extra,
+      cancel,
       recEmp_SUBSCRIBE,
       srvc,
       is,
@@ -341,6 +340,7 @@ class Index extends Component {
                                     </p>
                                   </Grid>
                                   <Grid item xs={12} md={6}>
+                                    {this.state.firstServiceData?.subscription_info?.subscribed_from === 'web' && 
                                     <Grid className="acvtTogle">
                                       <div className="sbu_button">
                                         <button
@@ -352,20 +352,10 @@ class Index extends Component {
                                           }}
                                           className="cancel"
                                         >
-                                          Cancel
+                                          {cancel}
                                         </button>
                                       </div>
-                                        {/* <Toggle
-                                         
-                                          icons={false}
-                                          checked={this.state.firstActive}
-                                          onClick={() =>
-                                            this.Deactivate(
-                                              "Doc Around The Clock"
-                                            )
-                                          }
-                                        /> */}
-                                    </Grid>
+                                    </Grid>}
                                   </Grid>
                                 </Grid>
                               </Grid>
@@ -403,12 +393,12 @@ class Index extends Component {
                                     <p>
                                       {srvc} {activated} {on}{" "}
                                       <span>
-                                        {this.state.firstServiceData.created}
+                                        {this.state.secondServiceData.created}
                                       </span>
                                     </p>
                                   </Grid>
                                   <Grid item xs={12} md={6}>
-                                    <Grid className="acvtTogle">
+                                      {this.state.secondServiceData?.subscription_info?.subscribed_from === 'web' && <Grid className="acvtTogle">
                                       <div className="sbu_button">
                                         <button
                                           onClick={() => {
@@ -417,18 +407,10 @@ class Index extends Component {
                                           }}
                                           className="cancel"
                                         >
-                                          Cancel
+                                          {cancel}
                                         </button>
                                       </div>
-                                        {/* <Toggle
-                                        
-                                          icons={false}
-                                          checked={this.state.secondActive}
-                                          onClick={() =>
-                                            this.Deactivate("Data services")
-                                          }
-                                        /> */}
-                                    </Grid>
+                                    </Grid>}
                                   </Grid>
                                 </Grid>
                               </Grid>
