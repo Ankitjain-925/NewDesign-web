@@ -1211,6 +1211,9 @@
 		"Noimageavailable" : "Nenhuma imagem disponível",
 		"Prescriptionsuccessfullysent" :"Receita enviada com sucesso",
 		"currencyLang":"Moeda",
-		"choose_currency":"Escolha a moeda"
+		"choose_currency":"Escolha a moeda",
+		"cancel_subscription":"Cancelar a assinatura",
+		"r_u_want_cancel_sub":"Tem certeza de que deseja cancelar a assinatura?",
+		"email_rcv_update_reciept":"E-mail em que você receberá atualizações e recibos"
 	}
 }

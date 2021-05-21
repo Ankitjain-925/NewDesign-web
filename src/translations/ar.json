@@ -1191,6 +1191,9 @@
 		"Noimageavailable" : "لا توجد صور متاحة",
 		"Prescriptionsuccessfullysent" :"تم إرسال الوصفة الطبية بنجاح",
 		"currencyLang":"عملة",
-		"choose_currency":"اختر العملة"
+		"choose_currency":"اختر العملة",
+		"cancel_subscription":"إلغاء الاشتراك",
+		"r_u_want_cancel_sub":"هل تريد حقًا إلغاء الاشتراك؟",
+		"email_rcv_update_reciept":"البريد الإلكتروني الذي ستتلقى فيه التحديثات والإيصالات"
 		}
 }

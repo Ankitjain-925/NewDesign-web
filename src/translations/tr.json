@@ -1198,6 +1198,9 @@
 		"Noimageavailable" : "Resim bulunamadı",
 		"Prescriptionsuccessfullysent" :"Reçete başarılı bir şekilde gönderildi",
         "currencyLang":"Para birimi",
-		"choose_currency":"Para Birimini Seç"
+		"choose_currency":"Para Birimini Seç",
+		"cancel_subscription":"Aboneliği iptal et",
+		"r_u_want_cancel_sub":"Aboneliği gerçekten iptal etmek istiyor musunuz?",
+		"email_rcv_update_reciept":"Güncellemeleri ve makbuzları alacağınız e-posta"
 	}
 }   

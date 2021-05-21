@@ -1230,6 +1230,9 @@
 		"Noimageavailable" : "Hakuna picha inayopatikana",
 		"Prescriptionsuccessfullysent" :"Dawa imefanikiwa kutumwa",
 		"currencyLang":"Sarafu",
-		"choose_currency":"Chagua Sarafu"
+		"choose_currency":"Chagua Sarafu",
+		"cancel_subscription":"Ghairi usajili",
+		"r_u_want_cancel_sub":"Je! Kweli unataka kughairi usajili?",
+		"email_rcv_update_reciept":"Barua pepe utasikia sasisho na risiti kwenye"
 	}
 }

@@ -1197,6 +1197,9 @@
     "Noimageavailable" : "Изображение отсутствует",
     "Prescriptionsuccessfullysent" :"Рецепт успешно отправлен",
     "currencyLang":"Валюта",
-		"choose_currency":"Выберите Валюту"
+		"choose_currency":"Выберите Валюту",
+    "cancel_subscription":"Отменить подписку",
+		"r_u_want_cancel_sub":"Вы действительно хотите отменить подписку?",
+    "email_rcv_update_reciept":"По электронной почте вы будете получать обновления и квитанции на"
   }
 }
