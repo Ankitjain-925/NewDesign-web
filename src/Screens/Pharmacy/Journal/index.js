@@ -1099,34 +1099,69 @@ class Index extends Component {
   }
 
   //This is for the Download the Track
-  downloadTrack = (data) => {
+   //This is for the Download the Track
+   downloadTrack = (data) => {
     if (data.review_by_temp) {
       data["review_by"] = data.review_by_temp
-      delete data.review_by_temp;
     }
     if (data.emergency_by_temp) {
-      data["emergency_by"] = data.emergency_by_temp
-      delete data.emergency_by_temp;
+      data["emergency_by"] = data.emergency_by_temp;
     }
-    if (data?.reminder_time_taken && data?.reminder_time_taken[0]?.value) {
-      let time = moment(data.reminder_time_taken[0].value)
-      let time_taken = time.format("HH:MM")
-      data["reminder_time_taken"] = [
-        { value: time_taken },
-        { title: time_taken },
-        { label: time_taken }
-      ]
+    if((data?.type == "medication")) {
+      let timeArray = [], timeArray1 = [];
+      if(data?.reminder_time_taken && data?.reminder_time_taken.length > 0){
+        data.reminder_time_taken.map((time_taken, i) => {
+          let dateTime = moment(time_taken.value)
+          let time = dateTime.format("HH:MM")
+          let date = dateTime.format("DD-MM-YYYY")
+          let data1 = `${time}`
+          timeArray.push(data1)
+        })
+      }
+      if(data?.time_taken && data?.time_taken.length > 0){
+        data.time_taken.map((time_taken, i) => {
+          let dateTime = moment(time_taken.value)
+          let time = dateTime.format("HH:MM")
+          let date = dateTime.format("DD-MM-YYYY")
+          let data1 = `${time}`
+          timeArray1.push(data1)
+        })
+      }
+     
+      let indexTime = '', indexTime1 = '';
+      for (let i = 0; i < timeArray.length; i++) {
+        indexTime += timeArray[i] + ", "
+      }
+      for (let i = 0; i < timeArray1.length; i++) {
+        indexTime1 += timeArray[i] + ", "
+      }
+      data["reminder_time"] = indexTime
+      data["consumed_at"] = indexTime1
     }
-    if(data?.data_of_vaccination){
-      data["date_of_vaccination"] =data.data_of_vaccination
-      delete data.data_of_vaccination;
+    if ((data?.type == "vaccination") && data?.reminder_time_taken && data?.reminder_time_taken.length > 0) {
+      let timeArray = []
+      data.reminder_time_taken.map((time_taken, i) => {
+        let dateTime = moment(time_taken.value)
+        let time = dateTime.format("HH:MM")
+        let date = dateTime.format("DD-MM-YYYY")
+        let data1 = `${date} (${time})`
+        timeArray.push(data1)
+      })
+      let indexTime = ''
+      for (let i = 0; i < timeArray.length; i++) {
+        indexTime += timeArray[i] + ", "
+      }
+      data["reminder"] = indexTime
     }
-    if(data?.date_of_vaccination){
+    if (data?.data_of_vaccination) {
+      data["date_of_vaccination"] = data.data_of_vaccination
+    }
+    if (data?.date_of_vaccination) {
       let dateOBJ = moment(data?.date_of_vaccination)
       let time = dateOBJ.format("HH:MM")
       let date = dateOBJ.format("DD-MM-YYYY")
       data["time_of_vaccination"] = time
-      data["date_of_vaccination"] =date
+      data["date_of_vaccination"] = date
     }
     this.setState({ loaderImage: true });
     axios
@@ -1136,12 +1171,12 @@ class Index extends Component {
           Dieseases: data,
           patientData: {
             name:
-              this.state.cur_one2.first_name +
+              this.props.stateLoginValueAim.user.first_name +
               " " +
-              this.state.cur_one2.last_name,
-            email: this.state.cur_one2.email,
-            DOB: this.state.cur_one2.birthday,
-            Mobile: this.state.cur_one2.mobile,
+              this.props.stateLoginValueAim.user.last_name,
+            email: this.props.stateLoginValueAim.user.email,
+            DOB: this.props.stateLoginValueAim.user.birthday,
+            Mobile: this.props.stateLoginValueAim.user.mobile,
           },
         },
         { responseType: "blob" }
@@ -1161,7 +1196,7 @@ class Index extends Component {
           link.click(); // create an <a> element and simulate the click operation.
         }
       })
-      .catch((err) => {});
+      .catch((err) => { });
   };
 
   render() {

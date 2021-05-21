@@ -140,15 +140,7 @@ export const Doctorarrays = (type, user, token, CB = () => { }) => {
     dispatch({ type: GET_DoctorArray_REQUEST });
 
     let c_user_profile = PLATFORM_SPECIFIC_USER.includes(user?.profile_id.toLowerCase())
-    const hasDocAroundClock =
-      user?.paid_services?.filter(it => {
-        return it.description == 'Doc Around The Clock';
-      })?.length > 0;
-      console.log(hasDocAroundClock, 'hass');
     if (type === "patient") {
-      if (hasDocAroundClock) {
-        doctorArray.push(doctor8);
-      }
       axios
         .get(sitedata.data.path + "/UserProfile/DoctorUsersChat", {
           headers: {
@@ -189,6 +181,15 @@ export const Doctorarrays = (type, user, token, CB = () => { }) => {
               },
             })
             .then((response) => {
+              const hasDocAroundClock =
+              response.data?.data?.paid_services?.filter(it => {
+                return it.description == 'Doc Around The Clock';
+              })?.length > 0;
+              if (type === "patient") {
+                if (hasDocAroundClock) {
+                  doctorArray.push(doctor8);
+                }
+              }
               response.data.data &&
                 response.data.data.fav_doctor &&
                 response.data.data.fav_doctor.map((value, i) => {

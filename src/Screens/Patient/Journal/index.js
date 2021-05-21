@@ -495,7 +495,6 @@ class Index extends Component {
   }
 
   verifyRecipet = () => {
-    console.log('this.props.stateLoginValueAim.user', this.props.stateLoginValueAim.user)
     let {paid_services} = this.props?.stateLoginValueAim?.user ?? {};
     if (paid_services && paid_services.length > 0) {
       paid_services.map(item => {
@@ -593,7 +592,7 @@ class Index extends Component {
   };
 
   isSubscriptionCheckupNeeded = (last_checked_on) => {
-    console.log('last_checked_on', last_checked_on, isToday(last_checked_on))
+    
     if (isToday(last_checked_on)) {
       return false;
     } else {
@@ -1100,13 +1099,42 @@ class Index extends Component {
   downloadTrack = (data) => {
     if (data.review_by_temp) {
       data["review_by"] = data.review_by_temp
-      delete data.review_by_temp;
     }
     if (data.emergency_by_temp) {
-      data["emergency_by"] = data.emergency_by_temp
-      delete data.emergency_by_temp;
+      data["emergency_by"] = data.emergency_by_temp;
     }
-    if ((data?.type == "vaccination" || data?.type == "medication") && data?.reminder_time_taken && data?.reminder_time_taken.length > 0) {
+    if((data?.type == "medication")) {
+      let timeArray = [], timeArray1 = [];
+      if(data?.reminder_time_taken && data?.reminder_time_taken.length > 0){
+        data.reminder_time_taken.map((time_taken, i) => {
+          let dateTime = moment(time_taken.value)
+          let time = dateTime.format("HH:MM")
+          let date = dateTime.format("DD-MM-YYYY")
+          let data1 = `${time}`
+          timeArray.push(data1)
+        })
+      }
+      if(data?.time_taken && data?.time_taken.length > 0){
+        data.time_taken.map((time_taken, i) => {
+          let dateTime = moment(time_taken.value)
+          let time = dateTime.format("HH:MM")
+          let date = dateTime.format("DD-MM-YYYY")
+          let data1 = `${time}`
+          timeArray1.push(data1)
+        })
+      }
+     
+      let indexTime = '', indexTime1 = '';
+      for (let i = 0; i < timeArray.length; i++) {
+        indexTime += timeArray[i] + ", "
+      }
+      for (let i = 0; i < timeArray1.length; i++) {
+        indexTime1 += timeArray[i] + ", "
+      }
+      data["reminder_time"] = indexTime
+      data["consumed_at"] = indexTime1
+    }
+    if ((data?.type == "vaccination") && data?.reminder_time_taken && data?.reminder_time_taken.length > 0) {
       let timeArray = []
       data.reminder_time_taken.map((time_taken, i) => {
         let dateTime = moment(time_taken.value)
@@ -1119,13 +1147,10 @@ class Index extends Component {
       for (let i = 0; i < timeArray.length; i++) {
         indexTime += timeArray[i] + ", "
       }
-      data["reminder_"] = indexTime
-      delete data.reminder_time_taken
-      delete data.reminder_date_taken
+      data["reminder"] = indexTime
     }
     if (data?.data_of_vaccination) {
       data["date_of_vaccination"] = data.data_of_vaccination
-      delete data.data_of_vaccination;
     }
     if (data?.date_of_vaccination) {
       let dateOBJ = moment(data?.date_of_vaccination)
