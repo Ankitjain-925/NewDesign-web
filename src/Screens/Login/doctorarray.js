@@ -5,7 +5,7 @@ import {
 } from "actiontypes";
 import sitedata from "sitedata.js";
 import axios from "axios";
-
+const doctor8 = 'D_TZqvF67rO'.toLowerCase();
 
 const PLATFORM_SPECIFIC_USER = [
   'd_4hdazbj2e',
@@ -107,8 +107,6 @@ const getPatientUserChat = async (
   }
 };
 
-
-
 const checkIfAllPatient = async (doctorArray, user_token) => {
   return new Promise((resolve, reject) => {
     getAllUserProfileId(user_token).then(res => {
@@ -142,7 +140,15 @@ export const Doctorarrays = (type, user, token, CB = () => { }) => {
     dispatch({ type: GET_DoctorArray_REQUEST });
 
     let c_user_profile = PLATFORM_SPECIFIC_USER.includes(user?.profile_id.toLowerCase())
+    const hasDocAroundClock =
+      user?.paid_services?.filter(it => {
+        return it.description == 'Doc Around The Clock';
+      })?.length > 0;
+      console.log(hasDocAroundClock, 'hass');
     if (type === "patient") {
+      if (hasDocAroundClock) {
+        doctorArray.push(doctor8);
+      }
       axios
         .get(sitedata.data.path + "/UserProfile/DoctorUsersChat", {
           headers: {

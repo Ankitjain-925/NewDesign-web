@@ -11,6 +11,7 @@ import LeftMenuMobile from "Screens/Components/Menus/PatientLeftMenu/mobile";
 import { LanguageFetchReducer } from "Screens/actions";
 import Loader from "Screens/Components/Loader/index";
 import { Redirect, Route } from "react-router-dom";
+import { confirmAlert } from "react-confirm-alert";
 import sitedata from "sitedata";
 import "react-toggle/style.css";
 import { authy } from "Screens/Login/authy.js";
@@ -102,7 +103,7 @@ class Index extends Component {
   };
 
   //For deactivate the services
-  Deactivate = async (desc, sub_id) => {
+  DeactivateSub = async (desc, sub_id) => {
     console.log('second_sub', sub_id)
     this.setState({ loaderImage: true, activated: false, deactivated: false });
     const res = await axios.delete(sitedata.data.path + "/stripeCheckout/sub/"+sub_id );
@@ -139,6 +140,41 @@ class Index extends Component {
   }
     
   };
+
+  Deactivate= (desc, sub_id)=>{
+    let translate = getLanguage(this.props.stateLanguageType)
+    let { yes, no} = translate;
+    confirmAlert({
+      customUI: ({ onClose }) => {
+        return (
+          <div
+            className={
+              this.props.settings &&
+              this.props.settings.setting &&
+              this.props.settings.setting.mode &&
+              this.props.settings.setting.mode === "dark"
+                ? "dark-confirm react-confirm-alert-body"
+                : "react-confirm-alert-body"
+            }
+          >
+            <h1>Cancel the subscription</h1>
+            <p>Are you really want to cancel the subscription?</p>
+            <div className="react-confirm-alert-button-group">
+              <button onClick={onClose}>{no}</button>
+              <button
+                onClick={() => {
+                  this.DeactivateSub(desc, sub_id);
+                  onClose();
+                }}
+              >
+                {yes}
+              </button>
+            </div>
+          </div>
+        );
+      },
+    });
+  }
 
   //Get the current user data
   getUserData() {
