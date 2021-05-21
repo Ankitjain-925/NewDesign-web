@@ -35,7 +35,6 @@ const useStyles = makeStyles({
 });
 
 function HomePage(props) {
-    console.log('props', props)
   const classes = useStyles();
   // State
   let translate = getLanguage(props.languageType)
@@ -62,7 +61,7 @@ function HomePage(props) {
     });
 
     if (result.error) {
-      console.log(result.error.message);
+    
     } else {
     var price_id = getPriceId(type);
     // var price_id = 'price_1IiFEJH4UyTD79BwEEdzAZe1'

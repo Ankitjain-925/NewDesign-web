@@ -26,6 +26,7 @@ import {
   SortByEntry,
   SortByDiagnose,
   getReminder,
+  isToday
 } from "Screens/Components/BasicMethod/index";
 import ViewTimeline from "Screens/Components/TimelineComponent/ViewTimeline/index";
 import GraphView from "Screens/Components/TimelineComponent/GraphView/index";
@@ -490,7 +491,128 @@ class Index extends Component {
     this.getTrack();
     this.getMetadata();
     this.getPesonalized();
+    this.verifyRecipet();
   }
+
+  verifyRecipet = () => {
+    console.log('this.props.stateLoginValueAim.user', this.props.stateLoginValueAim.user)
+    let {paid_services} = this.props?.stateLoginValueAim?.user ?? {};
+    if (paid_services && paid_services.length > 0) {
+      paid_services.map(item => {
+        const {payment_info, subscription_info} =
+          typeof item == 'object' ? item : {};
+        if (payment_info && subscription_info) {
+          this.handleServiceStatus(item);
+        } else {
+          this.canclePaidService(item?.description);
+        }
+      });
+    }
+  };
+
+  handleServiceStatus = async service => {
+    const {subscription_info, payment_info, description} =
+      typeof service == 'object' ? service : {};
+    const {subscribed_from, subscribed_on} =
+      typeof subscription_info == 'object' ? subscription_info : {};
+
+    if (!description || typeof description !== 'string') return;
+    const last_checked_on = await localStorage.getItem(
+        'SUBSCRIPTION_CHECKED_ON'
+    );
+    const {productId, transactionReceipt, transactionId, purchaseToken} =
+      typeof payment_info == 'object' ? payment_info : {};
+    if (subscribed_from == 'ios') {
+      if (
+        this.isSubscriptionCheckupNeeded(last_checked_on)
+      ) {
+        axios
+          .post(sitedata.data.path+'/v3/UserProfile/verifyStripe', {
+            from: 'ios',
+            env: 'production',
+            receipt: transactionReceipt,
+          })
+          .then(responce => {
+            let _data = responce.data;
+            let {success, product} = typeof _data == 'object' ? _data : {};
+            if (Array.isArray(product) && product.length > 0) {
+            } else {
+              this.canclePaidService(description);
+            }
+            localStorage.setItem(
+              'SUBSCRIPTION_CHECKED_ON',
+              new Date().toString(),
+            );
+          });
+      }
+    } else if (subscribed_from == 'android') {
+      if (
+        this.isSubscriptionCheckupNeeded(last_checked_on)
+      ) {
+        axios
+          .post(sitedata.data.path+'/UserProfile/verifyStripe', {
+            from: 'android',
+            prodcutId: productId,
+            purchaseToken: purchaseToken,
+          })
+          .then(responce => {
+            let {product, success} =
+              typeof responce.data == 'object' ? responce.data : {};
+
+            if (product && success) {
+              let {payload} = product ?? {};
+              let {autoRenewing, expiryTimeMillis} = payload;
+              if (!autoRenewing) {
+                this.canclePaidService(description);
+              }
+            }
+            localStorage.setItem(
+              'SUBSCRIPTION_CHECKED_ON',
+              new Date().toString(),
+            );
+          })
+          .catch(e => {});
+      }
+    } else {
+      if (this.isSubscriptionCheckupNeeded(last_checked_on)) {
+        axios
+          .get(sitedata.data.path +'/stripeCheckout/sub/'+payment_info.id)
+          .then(responce => {
+            if (responce.data.sub_status) {
+            } else {
+              this.canclePaidService(description);
+            }
+            localStorage.setItem(
+              'SUBSCRIPTION_CHECKED_ON',
+              new Date().toString(),
+            );
+          })
+          .catch(e => {});;
+      }
+    }
+  };
+
+  isSubscriptionCheckupNeeded = (last_checked_on) => {
+    console.log('last_checked_on', last_checked_on, isToday(last_checked_on))
+    if (isToday(last_checked_on)) {
+      return false;
+    } else {
+      return true;
+    }
+  };
+  canclePaidService = async description => {
+    axios
+    .delete(sitedata.data.path + "/UserProfile/Bookservice/" + description, {
+      headers: {
+        token: this.props.stateLoginValueAim.token,
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    })
+    .then((responce) => {})
+    .catch(() => {});
+  };
+  
   componentDidUpdate = (prevProps) => {
     if (prevProps.stateLanguageType !== this.props.stateLanguageType) {
       this.GetLanguageMetadata();
