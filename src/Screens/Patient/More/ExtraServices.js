@@ -237,6 +237,7 @@ class Index extends Component {
     let translate = getLanguage(this.props.stateLanguageType)
     let {
       extra,
+      cancel,
       recEmp_SUBSCRIBE,
       srvc,
       is,
@@ -351,7 +352,7 @@ class Index extends Component {
                                           }}
                                           className="cancel"
                                         >
-                                          Cancel
+                                          {cancel}
                                         </button>
                                       </div>
                                     </Grid>}
@@ -406,7 +407,7 @@ class Index extends Component {
                                           }}
                                           className="cancel"
                                         >
-                                          Cancel
+                                          {cancel}
                                         </button>
                                       </div>
                                     </Grid>}
