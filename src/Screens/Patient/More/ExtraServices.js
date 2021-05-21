@@ -470,7 +470,7 @@ class Index extends Component {
                                   justify="center"
                                   alignItems="center"
                                 >
-                                  <Grid item xs={12} md={6}>
+                                  <Grid item xs={12} md={5}>
                                     <p>
                                       {activate} {srvc}{" "}
                                     </p>
@@ -529,7 +529,7 @@ class Index extends Component {
                                   justify="center"
                                   alignItems="center"
                                 >
-                                  <Grid item xs={12} md={6}>
+                                  <Grid item xs={12} md={5}>
                                     <p>
                                       {activate} {srvc}
                                     </p>
