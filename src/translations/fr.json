@@ -1197,6 +1197,9 @@
 		"Noimageavailable" : "Pas d'image disponible",
 		"Prescriptionsuccessfullysent" :"Ordonnance envoyée avec succès",
 		"currencyLang":"Devise",
-		"choose_currency":"Choisir la devise"
+		"choose_currency":"Choisir la devise",
+		"cancel_subscription":"Annuler l'abonnement",
+		"r_u_want_cancel_sub":"Voulez-vous vraiment annuler l'abonnement?",
+		"email_rcv_update_reciept":"E-mail sur lequel vous recevrez des mises à jour et des reçus"
 	}
 }

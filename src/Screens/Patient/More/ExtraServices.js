@@ -141,7 +141,7 @@ class Index extends Component {
 
   Deactivate= (desc, sub_id)=>{
     let translate = getLanguage(this.props.stateLanguageType)
-    let { yes, no} = translate;
+    let { yes, no, r_u_want_cancel_sub, cancel_subscription} = translate;
     confirmAlert({
       customUI: ({ onClose }) => {
         return (
@@ -155,8 +155,8 @@ class Index extends Component {
                 : "react-confirm-alert-body"
             }
           >
-            <h1>Cancel the subscription</h1>
-            <p>Are you really want to cancel the subscription?</p>
+            <h1>{cancel_subscription}</h1>
+            <p>{r_u_want_cancel_sub}</p>
             <div className="react-confirm-alert-button-group">
               <button onClick={onClose}>{no}</button>
               <button

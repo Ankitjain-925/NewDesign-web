@@ -1196,6 +1196,9 @@
 		"Noimageavailable" : "Kein Bild verfügbar",
 		"Prescriptionsuccessfullysent" :"Rezept erfolgreich gesendet",
 		"currencyLang":"Währung",
-		"choose_currency":"Währung wählen"
+		"choose_currency":"Währung wählen",
+		"cancel_subscription":"Kündigen Sie das Abonnement",
+		"r_u_want_cancel_sub":"Möchten Sie das Abonnement wirklich kündigen?",
+		"email_rcv_update_reciept":"E-Mail erhalten Sie Updates und Quittungen auf"
 	}
 }

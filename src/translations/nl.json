@@ -1821,6 +1821,9 @@
 		"Noimageavailable" : "Geen afbeelding beschikbaar",
 		"Prescriptionsuccessfullysent" :"Recept succesvol verzonden",
 		"currencyLang":"Valuta",
-		"choose_currency":"Kies valuta"
+		"choose_currency":"Kies valuta",
+		"cancel_subscription":"Annuleer het abonnement",
+		"r_u_want_cancel_sub":"Wil je het abonnement echt opzeggen?",
+		"email_rcv_update_reciept":"E-mail waarop u updates en ontvangstbewijzen ontvangt"
 	}
 }

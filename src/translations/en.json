@@ -1198,6 +1198,9 @@
 		"Noimageavailable" : "No image available",
 		"Prescriptionsuccessfullysent" :"Prescription successfully sent",
 		"currencyLang":"Currency",
-		"choose_currency":"Choose Currency"
+		"choose_currency":"Choose Currency",
+		"cancel_subscription":"Cancel the subscription",
+		"r_u_want_cancel_sub":"Are you really want to cancel the subscription?",
+		"email_rcv_update_reciept":"Email you'll recive updates and receipts on"
 	}
 }

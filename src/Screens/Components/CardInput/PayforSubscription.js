@@ -38,7 +38,7 @@ function HomePage(props) {
   const classes = useStyles();
   // State
   let translate = getLanguage(props.languageType)
-  let { done, cancel, recEmp_Emailaddress} = translate;
+  let { done, cancel, recEmp_Emailaddress, email_rcv_update_reciept, something_wrong} = translate;
   const [email, setEmail] = useState('');
   const [showError, setshowError] = useState('');
   const stripe = useStripe();
@@ -74,7 +74,7 @@ function HomePage(props) {
       if (status === 'requires_action') {
         stripe.confirmCardPayment(client_secret).then(function(result1) {
           if (result1.error) {
-            setshowError('Something went wrong');
+            setshowError(something_wrong);
             // Display error message in your UI.
             // The card was declined (i.e. insufficient funds, card has expired, etc)
           } else {
@@ -98,7 +98,7 @@ function HomePage(props) {
         <TextField
           label={recEmp_Emailaddress}
           id='outlined-email-input'
-          helperText={`Email you'll recive updates and receipts on`}
+          helperText={email_rcv_update_reciept}
           margin='normal'
           variant='outlined'
           type='email'
