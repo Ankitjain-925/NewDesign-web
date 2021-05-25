@@ -478,10 +478,9 @@ class Index extends Component {
                                     title=""
                                   /> */}
                                   <ImgaeSec data={item.patient_image} />
-                                  {item.patient_name && item.patient_name}
+                                  {item?.patient_name}
                                   <p>
-                                    - ( {item.patient_alies_id &&
-                                      item.patient_alies_id} )
+                                   {` - ( ${item?.patient_alies_id} )`}
                                   </p>
                                 </Td>
                                 <Td className="presImg">
