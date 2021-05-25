@@ -15169,7 +15169,7 @@ input#graduationYear {
 }
 @media (max-width: 960px){
   .cc1-chat-win-inpt-ext-wrap {
-    z-index: 999999 !important;
+    z-index: 111 !important;
     position: fixed !important;
     bottom: 0;
   }
