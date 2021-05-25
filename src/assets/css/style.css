@@ -13997,7 +13997,14 @@ span.unread_msg_notifyspan {
     display: inline-flex;
     margin-right: 15px;
 }
+.changeLang1 li {
+    display: inline-flex;
+    margin-right: 15px;
+}
 .changeLang li span{
+    padding-right: 10px;
+}
+.changeLang1 li span{
     padding-right: 10px;
 }
 .webLogo img, .MenuMobRght img, .LogoForms img{
@@ -15928,6 +15935,7 @@ select:-webkit-autofill:focus {
     .journalAdd .MuiGrid-grid-xs-11.MuiGrid-grid-md-11{
      max-width: 100% !important;
      flex-basis: 100% !important;
+     padding-left: 24px !important;
     }
     .journalAdd{
      margin-top: 0px !important;
@@ -16101,5 +16109,33 @@ select:-webkit-autofill:focus {
     .docAddUpr {
         padding-left: 12px;
         padding-right: 12px;
+    }
+}
+.homeBgDrk .MuiInputBase-root {
+    color: #b9bfbd !important;
+}
+
+.changeLang1 a.dropdown-toggle.nav-link {
+    border: 1px solid #BFC1C1;
+    border-radius: 20px;
+    background-color: #383838;
+    color: #F2F2F2;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 15px;
+    width: 113px;
+    padding: 12px 0px 12px 21px;
+    outline: none !important;
+    margin-bottom: 15px;
+}
+.MuiGrid-root.changeLang1 {
+    float: right;
+}
+
+@media screen and (max-height: 625px) {
+    .phrmLinkUpr {
+        height: 480px !important;
     }
 }

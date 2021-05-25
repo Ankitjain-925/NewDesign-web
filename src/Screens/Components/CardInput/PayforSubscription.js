@@ -124,7 +124,7 @@ function HomePage(props) {
             }}
           >
             {done}
-          </button>}
+          </button>}&nbsp;&nbsp;
             <button
               onClick={() => {
                 props.CancelClick()

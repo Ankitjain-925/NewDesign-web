@@ -377,7 +377,7 @@ class Index extends Component {
                     </Grid>
                     <Grid item xs={6} sm={6}>
                       <Grid className="regSelectTop">
-                        <Grid className="changeLang">
+                        <Grid className={this.props.stateLanguageType !== "pt" ?"changeLang" : "changeLang1"}>
                           <li>
                             <span className="ThemeModeSet1"> {DarkMode} </span>
                             <span className="ThemeModeSet">
