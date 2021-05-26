@@ -24,6 +24,7 @@ import {
 } from "translations/index"
 import { authy } from "Screens/Login/authy.js";
 import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
+import { get_gender, get_cur_one, delete_click_track } from "Screens/Components/CommonApi/index";
 
 class Index extends Component {
   constructor(props) {
@@ -33,7 +34,7 @@ class Index extends Component {
       images: [],
       allTrack2: [],
       allTrack: [],
-      defaultValue : 20,
+      defaultValue: 20,
     };
     // new Timer(this.logOutClick.bind(this))
   }
@@ -44,32 +45,24 @@ class Index extends Component {
     this.cur_one();
   }
 
-  LoadMore=(allTrack)=>{
-    this.setState({loading: true, defaultValue : this.state.defaultValue+20}, 
-      ()=>{ this.Showdefaults(allTrack, this.state.defaultValue)
-        setTimeout(()=>{this.setState({loading: false})}, 1000)
+  LoadMore = (allTrack) => {
+    this.setState({ loading: true, defaultValue: this.state.defaultValue + 20 },
+      () => {
+        this.Showdefaults(allTrack, this.state.defaultValue)
+        setTimeout(() => { this.setState({ loading: false }) }, 1000)
       })
   }
   //For render 10 entries at one time 
-  Showdefaults = (allTrack, defaultValue )=>{
-    allTrack = allTrack?.length>0 && allTrack?.slice(0, defaultValue);
-    this.setState({ allTrack : allTrack })
+  Showdefaults = (allTrack, defaultValue) => {
+    allTrack = allTrack?.length > 0 && allTrack?.slice(0, defaultValue);
+    this.setState({ allTrack: allTrack })
   }
   //Get the Current User Profile
-  cur_one = () => {
+  cur_one = async () => {
     var user_token = this.props.stateLoginValueAim.token;
     let user_id = this.props.stateLoginValueAim.user._id;
-    axios
-      .get(sitedata.data.path + "/UserProfile/Users/" + user_id, {
-        headers: {
-          token: user_token,
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      })
-      .then((response) => {
-        this.setState({ cur_one: response.data.data });
-      });
+    let response = await get_cur_one(user_token, user_id)
+    this.setState({ cur_one: response.data.data });
   };
 
   //For Sort the Data
@@ -81,14 +74,16 @@ class Index extends Component {
     }
     this.setState({ Sort: data });
   };
-    //For clear the filter
-    ClearData = () => {
-      this.setState(
-        { Sort: "diagnosed_time", allTrack2: this.state.allTrack1, allTrack: this.state.allTrack1, defaultValue: 20 },
-        ()=>{this.SortData()
-          this.Showdefaults(this.state.allTrack2, this.state.defaultValue) }
-      ); 
-    };
+  //For clear the filter
+  ClearData = () => {
+    this.setState(
+      { Sort: "diagnosed_time", allTrack2: this.state.allTrack1, allTrack: this.state.allTrack1, defaultValue: 20 },
+      () => {
+        this.SortData()
+        this.Showdefaults(this.state.allTrack2, this.state.defaultValue)
+      }
+    );
+  };
 
   FilterText = (text) => {
     let track = this.state.allTrack1;
@@ -98,8 +93,8 @@ class Index extends Component {
       track.filter((obj) => {
         return this.isThisAvilabel(obj, text && text.toLowerCase());
       });
-      this.setState({ allTrack2: FilterFromSearch, defaultValue: 20  },
-        ()=>{ this.Showdefaults(FilterFromSearch, this.state.defaultValue) } );
+    this.setState({ allTrack2: FilterFromSearch, defaultValue: 20 },
+      () => { this.Showdefaults(FilterFromSearch, this.state.defaultValue) });
   };
 
   //For filter the Data
@@ -121,8 +116,8 @@ class Index extends Component {
       FilterFromUserType = this.state.allTrack1;
     }
     FilterFromUserType = [...new Set(FilterFromUserType)];
-    this.setState({ allTrack2: FilterFromUserType,  defaultValue: 20 },
-      ()=>{ this.Showdefaults(FilterFromUserType, this.state.defaultValue) } );
+    this.setState({ allTrack2: FilterFromUserType, defaultValue: 20 },
+      () => { this.Showdefaults(FilterFromUserType, this.state.defaultValue) });
   };
 
   //Filter according to date range
@@ -184,10 +179,11 @@ class Index extends Component {
 
   //For get the Track
   getTrack = () => {
-    var user_id = this.props.stateLoginValueAim.user._id;
-    var user_token = this.props.stateLoginValueAim.token;
+    const user_id = this.props.stateLoginValueAim.user._id;
+    const user_token = this.props.stateLoginValueAim.token;
 
     this.setState({ loaderImage: true });
+
     axios
       .get(sitedata.data.path + "/User/ArchivedTrack/" + user_id, {
         headers: {
@@ -199,7 +195,7 @@ class Index extends Component {
       .then((response) => {
         if (response.data.hassuccessed === true) {
           var images = [];
-           response.data.data = response.data.data.filter((e) => e != null);
+          response.data.data = response.data.data.filter((e) => e != null);
           // response.data.data &&
           //   response.data.data.length > 0 &&
           //   response.data.data.map((data1, index) => {
@@ -239,31 +235,19 @@ class Index extends Component {
           //       });
           //   });
 
-          this.setState({ allTrack1: response.data.data,  allTrack2 : response.data.data, allTrack: response.data.data, loaderImage: false },
-            ()=>{this.Showdefaults(this.state.allTrack2, this.state.defaultValue)});
+          this.setState({ allTrack1: response.data.data, allTrack2: response.data.data, allTrack: response.data.data, loaderImage: false },
+            () => { this.Showdefaults(this.state.allTrack2, this.state.defaultValue) });
         } else {
-          this.setState({ allTrack1: [], allTrack2 : [], allTrack: [], loaderImage: false });
+          this.setState({ allTrack1: [], allTrack2: [], allTrack: [], loaderImage: false });
         }
       });
   };
 
   //For getting the information of the Patient Gender
-  getGender() {
-    var user_token = this.props.stateLoginValueAim.token;
-    var user_id = this.props.stateLoginValueAim.user._id;
-    axios
-      .get(sitedata.data.path + "/User/Get_patient_gender/" + user_id, {
-        headers: {
-          token: user_token,
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      })
-      .then((response) => {
-        if (response.data.hassuccessed === true) {
-          this.setState({ patient_gender: response.data.data });
-        }
-      });
+  getGender = async () => {
+    const { stateLoginValueAim } = this.props
+    let response = await get_gender(stateLoginValueAim.token, stateLoginValueAim.user._id)
+    this.setState({ patient_gender: response });
   }
 
   //Modal Open on Archive the Journal
@@ -282,8 +266,8 @@ class Index extends Component {
           <div
             className={
               this.props.settings &&
-              this.props.settings.setting &&
-              this.props.settings.setting.mode === "dark"
+                this.props.settings.setting &&
+                this.props.settings.setting.mode === "dark"
                 ? "dark-confirm react-confirm-alert-body"
                 : "react-confirm-alert-body"
             }
@@ -322,8 +306,8 @@ class Index extends Component {
           <div
             className={
               this.props.settings &&
-              this.props.settings.setting &&
-              this.props.settings.setting.mode === "dark"
+                this.props.settings.setting &&
+                this.props.settings.setting.mode === "dark"
                 ? "dark-confirm react-confirm-alert-body"
                 : "react-confirm-alert-body"
             }
@@ -354,27 +338,18 @@ class Index extends Component {
   };
 
   //Delete the track
-  deleteClickTrack = (deletekey) => {
+  deleteClickTrack = async(deletekey) => {
     var user_id = this.props.stateLoginValueAim.user._id;
     var user_token = this.props.stateLoginValueAim.token;
     this.setState({ loaderImage: true });
-    axios
-      .delete(
-        sitedata.data.path + "/User/AddTrack/" + user_id + "/" + deletekey,
-        {
-          headers: {
-            token: user_token,
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-        }
-      )
-      .then((response) => {
-        this.setState({ loaderImage: false });
-        this.getTrack();
-      })
-      .catch((error) => {});
+    let response = await delete_click_track(user_token, user_id, deletekey)
+    if (response) {
+      this.setState({ loaderImage: false });
+      this.getTrack();
+    }
   };
+
+
   //Update Archive Track State
   updateArchiveTrack = (data) => {
     data.archive = false;
@@ -409,7 +384,7 @@ class Index extends Component {
 
   render() {
     let translate = getLanguage(this.props.stateLanguageType)
-    let { archive_journal, Seemore10entries, loadingref} = translate;
+    let { archive_journal, Seemore10entries, loadingref } = translate;
     const { stateLoginValueAim, Doctorsetget } = this.props;
     if (
       stateLoginValueAim.user === "undefined" ||
@@ -425,9 +400,9 @@ class Index extends Component {
       <Grid
         className={
           this.props.settings &&
-          this.props.settings.setting &&
-          this.props.settings.setting.mode &&
-          this.props.settings.setting.mode === "dark"
+            this.props.settings.setting &&
+            this.props.settings.setting.mode &&
+            this.props.settings.setting.mode === "dark"
             ? "homeBg homeBgDrk"
             : "homeBg"
         }
@@ -501,12 +476,12 @@ class Index extends Component {
                           patient_gender={this.state.patient_gender}
                         />
                       ))}
-                       {this.state.allTrack2 > this.state.allTrack && <div className="more10entries" onClick={()=>this.LoadMore(this.state.allTrack2)}>
-                        {Seemore10entries}
-                      </div>}
-                      {this.state.loading && <div className="more10entries">
-                        {loadingref}
-                      </div>}
+                    {this.state.allTrack2 > this.state.allTrack && <div className="more10entries" onClick={() => this.LoadMore(this.state.allTrack2)}>
+                      {Seemore10entries}
+                    </div>}
+                    {this.state.loading && <div className="more10entries">
+                      {loadingref}
+                    </div>}
                   </div>
                 </Grid>
               </Grid>

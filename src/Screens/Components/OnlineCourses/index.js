@@ -26,9 +26,11 @@ import {
 } from "translations/index"
 import StripeCheckout from "react-stripe-checkout";
 import $ from "jquery"
+import { getPublishableKey } from "Screens/Components/CardInput/getPriceId"
 const CURRENCY = "USD";
 //  const STRIPE_PUBLISHABLE = "pk_live_SUaxHsAUa2ebLQXAa7NoMwPQ";
-const STRIPE_PUBLISHABLE = "pk_test_qoJaLAHMXbv3fzci2AEcmkYX";
+// const STRIPE_PUBLISHABLE = "pk_test_qoJaLAHMXbv3fzci2AEcmkYX";
+const STRIPE_PUBLISHABLE = getPublishableKey()
 
 function TabContainer(props) {
   return (
@@ -156,7 +158,7 @@ class Index extends Component {
         }
         this.setState({ loaderImage: false });
       })
-      .catch((err) => {});
+      .catch((err) => { });
   };
 
   //For remove wishlist
@@ -173,7 +175,7 @@ class Index extends Component {
       .then((res) => {
         this.getAllwishlist();
       })
-      .catch((err) => {});
+      .catch((err) => { });
   };
   //Get current User Information
   patientinfo() {
@@ -222,8 +224,7 @@ class Index extends Component {
     if (!data._id) {
       data._id = data.courseId;
     }
-    if(data.price === 0)
-    {
+    if (data.price === 0) {
       if (!data.courseId) {
         data.courseId = data._id;
       }
@@ -231,7 +232,7 @@ class Index extends Component {
       data.user_id = this.props.stateLoginValueAim.user._id;
       data.user_profile_id = this.props.stateLoginValueAim.user.profile_id;
       data.userName =
-        this.props.stateLoginValueAim.user.first_name +' '+
+        this.props.stateLoginValueAim.user.first_name + ' ' +
         this.props.stateLoginValueAim.user.last_name;
       data.userType = this.props.stateLoginValueAim.user.type;
       data.email = this.props.stateLoginValueAim.user.email;
@@ -244,7 +245,7 @@ class Index extends Component {
           {
             user_id: this.props.stateLoginValueAim.user._id,
             userName:
-              this.props.stateLoginValueAim.user.first_name +' '+
+              this.props.stateLoginValueAim.user.first_name + ' ' +
               this.props.stateLoginValueAim.user.last_name,
             userType: this.props.stateLoginValueAim.user.type,
             orderlist: [data],
@@ -259,18 +260,18 @@ class Index extends Component {
         )
         .then((res) => {
           this.setState({ loaderImage: false });
-          if(res.data.hassuccessed){
+          if (res.data.hassuccessed) {
             let translate = getLanguage(this.props.stateLanguageType)
             let {
-              CourseAddedMyCourses, ok} = translate;
+              CourseAddedMyCourses, ok } = translate;
             confirmAlert({
               customUI: ({ onClose }) => {
                 return (
                   <div
                     className={
                       this.props.settings &&
-                      this.props.settings.setting &&
-                      this.props.settings.setting.mode === "dark"
+                        this.props.settings.setting &&
+                        this.props.settings.setting.mode === "dark"
                         ? "dark-confirm react-confirm-alert-body"
                         : "react-confirm-alert-body"
                     }
@@ -290,8 +291,8 @@ class Index extends Component {
               },
             });
           }
-          else{
-            this.setState({someIssue: true})
+          else {
+            this.setState({ someIssue: true })
             setTimeout(() => {
               this.setState({ someIssue: false });
             }, 3000);
@@ -300,13 +301,13 @@ class Index extends Component {
         })
         .catch((err) => {
           this.setState({ loaderImage: false });
-          this.setState({someIssue: true})
+          this.setState({ someIssue: true })
           setTimeout(() => {
             this.setState({ someIssue: false });
           }, 3000);
         });
     }
-    else{
+    else {
       var GetAllCart = this.state.AllCart;
       var GetCart =
         GetAllCart &&
@@ -334,7 +335,7 @@ class Index extends Component {
         data.user_id = this.props.stateLoginValueAim.user._id;
         data.user_profile_id = this.props.stateLoginValueAim.user.profile_id;
         data.userName =
-          this.props.stateLoginValueAim.user.first_name +' '+
+          this.props.stateLoginValueAim.user.first_name + ' ' +
           this.props.stateLoginValueAim.user.last_name;
         data.userType = this.props.stateLoginValueAim.user.type;
         data.email = this.props.stateLoginValueAim.user.email;
@@ -363,10 +364,10 @@ class Index extends Component {
             }, 3000);
             this.getAllCart();
           })
-          .catch((err) => {});
+          .catch((err) => { });
       }
     }
-  
+
   };
 
   //For remove the Cart
@@ -376,10 +377,10 @@ class Index extends Component {
     axios
       .delete(
         sitedata.data.path +
-          "/lms/removeCart/" +
-          data.user_id +
-          "/" +
-          data.courseId,
+        "/lms/removeCart/" +
+        data.user_id +
+        "/" +
+        data.courseId,
         {
           headers: {
             token: user_token,
@@ -395,7 +396,7 @@ class Index extends Component {
         }, 3000);
         this.getAllCart();
       })
-      .catch((err) => {});
+      .catch((err) => { });
   };
 
   //For get the Cart
@@ -429,7 +430,7 @@ class Index extends Component {
         }
         this.setState({ loaderImage: false });
       })
-      .catch((err) => {});
+      .catch((err) => { });
   };
   //Using to convert the currency
   fromDollarToCent = (amount) => {
@@ -441,9 +442,9 @@ class Index extends Component {
     this.StripeClick.onClick();
   };
 
-  onClosed = ()=>{
+  onClosed = () => {
     $("body").css("overflow", "auto");
- }
+  }
 
   render() {
     let translate = getLanguage(this.props.stateLanguageType)
@@ -475,8 +476,8 @@ class Index extends Component {
             <div
               className={
                 this.props.settings &&
-                this.props.settings.setting &&
-                this.props.settings.setting.mode === "dark"
+                  this.props.settings.setting &&
+                  this.props.settings.setting.mode === "dark"
                   ? "dark-confirm react-confirm-alert-body"
                   : "react-confirm-alert-body"
               }
@@ -503,7 +504,7 @@ class Index extends Component {
           {
             user_id: this.props.stateLoginValueAim.user._id,
             userName:
-              this.props.stateLoginValueAim.user.first_name +' '+
+              this.props.stateLoginValueAim.user.first_name + ' ' +
               this.props.stateLoginValueAim.user.last_name,
             userType: this.props.stateLoginValueAim.user.type,
             paymentData: data,
@@ -520,7 +521,7 @@ class Index extends Component {
         .then((res) => {
           this.getAllCart();
         })
-        .catch((err) => {});
+        .catch((err) => { });
     };
 
     //Alert of the Error payment
@@ -531,8 +532,8 @@ class Index extends Component {
             <div
               className={
                 this.props.settings &&
-                this.props.settings.setting &&
-                this.props.settings.setting.mode === "dark"
+                  this.props.settings.setting &&
+                  this.props.settings.setting.mode === "dark"
                   ? "dark-confirm react-confirm-alert-body"
                   : "react-confirm-alert-body"
               }
@@ -587,7 +588,7 @@ class Index extends Component {
         stripeKey={STRIPE_PUBLISHABLE}
         label={pay_with_stripe}
         className="CutomStripeButton"
-        closed = {this.onClosed}
+        closed={this.onClosed}
       />
     );
     return (
@@ -629,8 +630,8 @@ class Index extends Component {
                 onClose={this.handleCloseWish}
                 className={
                   this.props.settings &&
-                  this.props.settings.setting &&
-                  this.props.settings.setting.mode === "dark"
+                    this.props.settings.setting &&
+                    this.props.settings.setting.mode === "dark"
                     ? "wishListModel darkTheme"
                     : "wishListModel"
                 }
@@ -683,7 +684,7 @@ class Index extends Component {
                                 item.courseContent && item.courseContent.average
                               }
                             />
-                           
+
                             <span>
                               {item.courseContent && item.courseContent.average}
                               <a>
@@ -738,8 +739,8 @@ class Index extends Component {
                 onClose={this.handleCloseCart}
                 className={
                   this.props.settings &&
-                  this.props.settings.setting &&
-                  this.props.settings.setting.mode === "dark"
+                    this.props.settings.setting &&
+                    this.props.settings.setting.mode === "dark"
                     ? "crtListModel darkTheme"
                     : "crtListModel"
                 }
@@ -792,7 +793,7 @@ class Index extends Component {
                                 item.courseContent && item.courseContent.average
                               }
                             />
-                            
+
                             <span>
                               {item.courseContent && item.courseContent.average}
                               <a>

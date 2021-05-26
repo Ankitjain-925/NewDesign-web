@@ -27,6 +27,7 @@ import {
   getLanguage
 } from "translations/index"
 import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
+import { delete_click_track } from "Screens/Components/CommonApi/index";
 
 class Index extends Component {
   constructor(props) {
@@ -46,29 +47,29 @@ class Index extends Component {
   }
   // fancybox open
   handleOpenPres = (data) => {
-    this.setState({loaderImage: true})
+    this.setState({ loaderImage: true })
     var images = [];
-        data.attachfile?.length > 0 &&
-          data.attachfile.map((data, index) => {
-            var find = data && data.filename && data.filename;
-            if (find) {
-              var find1 = find.split(".com/")[1];
-              axios
-                .get(sitedata.data.path + "/aws/sign_s3?find=" + find1)
-                .then((response2) => {
-                  if (response2.data.hassuccessed) {
-                    images.push({
-                      image: find,
-                      new_image: response2.data.data,
-                    });
-                    this.setState({ images: images });
-                  }
+    data.attachfile?.length > 0 &&
+      data.attachfile.map((data, index) => {
+        var find = data && data.filename && data.filename;
+        if (find) {
+          var find1 = find.split(".com/")[1];
+          axios
+            .get(sitedata.data.path + "/aws/sign_s3?find=" + find1)
+            .then((response2) => {
+              if (response2.data.hassuccessed) {
+                images.push({
+                  image: find,
+                  new_image: response2.data.data,
                 });
-            }
-          });
-         
+                this.setState({ images: images });
+              }
+            });
+        }
+      });
+
     this.setState({ openPres: true, openDetail: data });
-    setInterval(()=>{this.setState({loaderImage: false})}, 3000)
+    setInterval(() => { this.setState({ loaderImage: false }) }, 3000)
     // this.setState({ openPres: true, openDetail: data });
   };
   handleClosePres = () => {
@@ -196,8 +197,8 @@ class Index extends Component {
         return (
           <div
             className={this.props?.settings?.setting.mode === "dark"
-                ? "dark-confirm react-confirm-alert-body"
-                : "react-confirm-alert-body"
+              ? "dark-confirm react-confirm-alert-body"
+              : "react-confirm-alert-body"
             }
           >
             <h1>{archive_item}</h1>
@@ -288,29 +289,18 @@ class Index extends Component {
       });
   };
   //Delete the track
-  deleteClickTrack = (deletekey) => {
+  deleteClickTrack = async (deletekey) => {
     var user_id = this.props.stateLoginValueAim.user._id;
     var user_token = this.props.stateLoginValueAim.token;
     this.setState({ loaderImage: true });
-    axios
-      .delete(
-        sitedata.data.path + "/User/AddTrack/" + user_id + "/" + deletekey,
-        {
-          headers: {
-            token: user_token,
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-        }
-      )
-      .then((response) => {
-        this.setState({ isDeleted: true, loaderImage: false });
-        this.getAllPres();
-        setTimeout(() => {
-          this.setState({ isDeleted: false });
-        }, 3000);
-      })
-      .catch((error) => { });
+    let response = await delete_click_track(user_token, user_id, deletekey)
+    if (response) {
+      this.setState({ isDeleted: true, loaderImage: false });
+      this.getAllPres();
+      setTimeout(() => {
+        this.setState({ isDeleted: false });
+      }, 3000);
+    }
   };
 
   ResetData = () => {
@@ -457,7 +447,7 @@ class Index extends Component {
                           </Tr>
                         </Thead>
                         <Tbody>
-               
+
                           {this.state.Allpre &&
                             this.state.Allpre.length > 0 &&
                             this.state.Allpre.map((item) => (
@@ -471,7 +461,7 @@ class Index extends Component {
                                   )}
                                 </Td>
                                 <Td className="presImg">
-                                
+
                                   {/* <img
                                     src={require("assets/images/dr1.jpg")}
                                     alt=""
@@ -480,7 +470,7 @@ class Index extends Component {
                                   <ImgaeSec data={item.patient_image} />
                                   {item?.patient_name}
                                   <p>
-                                   {` - ( ${item?.patient_alies_id} )`}
+                                    {` - ( ${item?.patient_alies_id} )`}
                                   </p>
                                 </Td>
                                 <Td className="presImg">
@@ -501,11 +491,11 @@ class Index extends Component {
                                     {handled}{" "}
                                   </Td>
                                 ) : (
-                                    <Td>
-                                      <span className="revwYelow"></span>
-                                      {rcvd_from_doctor}{" "}
-                                    </Td>
-                                  )}
+                                  <Td>
+                                    <span className="revwYelow"></span>
+                                    {rcvd_from_doctor}{" "}
+                                  </Td>
+                                )}
                                 <Td className="presEditDot scndOptionIner">
                                   <a className="openScndhrf">
                                     <img
@@ -595,7 +585,7 @@ class Index extends Component {
                                     {this.state.openDetail.patient_name &&
                                       this.state.openDetail.patient_name}
                                   </label>
-                                  
+
                                 </Grid>
                               </Grid>
 
@@ -611,10 +601,10 @@ class Index extends Component {
                                           <div>
                                             <div className="DownloadButton">
                                               <a href={getImage(
-                                                      file.filename,
-                                                      this.state.images
-                                                    )} download target="_blank">
-                                                      {Download} {prescriptions}
+                                                file.filename,
+                                                this.state.images
+                                              )} download target="_blank">
+                                                {Download} {prescriptions}
                                               </a>
                                             </div>
                                             {file.filetype === "pdf" && (
@@ -652,20 +642,20 @@ class Index extends Component {
                                   </Grid>
                                   {this.state.openDetail.status &&
                                     this.state.openDetail.status === "handled" ? (
-                                      ""
-                                    ) : (
-                                      <Grid>
-                                        <input
-                                          type="submit"
-                                          value={medicine_handed_to_patient}
-                                          onClick={() => {
-                                            this.updateHandleTrack(
-                                              this.state.openDetail
-                                            );
-                                          }}
-                                        />
-                                      </Grid>
-                                    )}
+                                    ""
+                                  ) : (
+                                    <Grid>
+                                      <input
+                                        type="submit"
+                                        value={medicine_handed_to_patient}
+                                        onClick={() => {
+                                          this.updateHandleTrack(
+                                            this.state.openDetail
+                                          );
+                                        }}
+                                      />
+                                    </Grid>
+                                  )}
                                 </Grid>
                               </Grid>
                             </Grid>
