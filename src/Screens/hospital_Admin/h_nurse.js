@@ -24,6 +24,7 @@ import { SearchUser } from 'Screens/Components/Search';
 import CreateAdminUser from "Screens/Components/CreateHospitalUser/index";
 import ViewDetail from "Screens/Components/ViewInformation/index";
 import "./style.css";
+import { commonHeader } from 'component/CommonHeader/index';
 
 const specialistOptions = [
     { value: 'Specialist1', label: 'Specialist1' },
@@ -82,13 +83,7 @@ class Index extends Component {
     {
         var user_token = this.props.stateLoginValueAim.token;
         axios.get(sitedata.data.path + '/User/getAllKyc',
-            {
-                headers: {
-                    'token': user_token,
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                }
-            }
+           commonHeader(user_token)
         )
             .then((response) => {
                 this.setState({ getAllkyc: response.data.data });
@@ -99,13 +94,7 @@ class Index extends Component {
     getNurses() {
         var user_token = this.props.stateLoginValueAim.token;
         axios.get(sitedata.data.path + '/admin/allHospitalusers/' + this.props.stateLoginValueAim.user.institute_id,
-            {
-                headers: {
-                    'token': user_token,
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                }
-            }
+            commonHeader(user_token)
         )
             .then((response) => {
                 if (response.data.data) {
@@ -182,13 +171,7 @@ class Index extends Component {
     deleteClick=(deletekey, profile_id, bucket) =>{
         this.setState({ loaderImage: true });
         const user_token = this.props.stateLoginValueAim.token;
-        axios.delete(sitedata.data.path + '/admin/deleteUser/' + deletekey+'?bucket='+bucket, {
-            headers: {
-                'token': user_token,
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            }
-        })
+        axios.delete(sitedata.data.path + '/admin/deleteUser/' + deletekey+'?bucket='+bucket, commonHeader(user_token))
             .then((response) => {
                 this.setState({ loaderImage: false });
                 var data = JSON.stringify({"permanent":true});

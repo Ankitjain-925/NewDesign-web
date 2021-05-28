@@ -15,7 +15,8 @@ import Loader from 'Screens/Components/Loader/index';
 import { getImage, AddFavDoc } from 'Screens/Components/BasicMethod/index';
 import {
     getLanguage
-  } from "translations/index"
+} from "translations/index"
+import { commonHeader } from 'component/CommonHeader/index';
 var doctorArray = [];
 
 class Index extends Component {
@@ -77,30 +78,25 @@ class Index extends Component {
     //Get the all doctor 
     alldocs = () => {
         const user_token = this.props.stateLoginValueAim.token;
-        axios.get(sitedata.data.path + '/UserProfile/DoctorUsersChat', {
-            headers: {
-                'token': user_token,
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            }
-        }).then((response) => {
-            var images = [], Reccimages = [];
-            response.data.data && response.data.data.length > 0 && response.data.data.map((datas) => {
-                var find = datas && datas.image && datas.image
-                if (find) {
-                    var find1 = find.split('.com/')[1]
-                    axios.get(sitedata.data.path + '/aws/sign_s3?find=' + find1,)
-                        .then((response2) => {
-                            if (response2.data.hassuccessed) {
-                                images.push({ image: find, new_image: response2.data.data })
-                                this.setState({ images: images })
-                            }
-                        })
-                }
+        axios.get(sitedata.data.path + '/UserProfile/DoctorUsersChat',
+            commonHeader(user_token)).then((response) => {
+                var images = [], Reccimages = [];
+                response.data.data && response.data.data.length > 0 && response.data.data.map((datas) => {
+                    var find = datas && datas.image && datas.image
+                    if (find) {
+                        var find1 = find.split('.com/')[1]
+                        axios.get(sitedata.data.path + '/aws/sign_s3?find=' + find1,)
+                            .then((response2) => {
+                                if (response2.data.hassuccessed) {
+                                    images.push({ image: find, new_image: response2.data.data })
+                                    this.setState({ images: images })
+                                }
+                            })
+                    }
+                })
+                this.setState({ allDocData1: response.data.data })
+                this.getUserData();
             })
-            this.setState({ allDocData1: response.data.data })
-            this.getUserData();
-        })
     }
 
     //Get the current User Data
@@ -110,45 +106,40 @@ class Index extends Component {
         var reccomend = [];
         let user_token = this.props.stateLoginValueAim.token
         let user_id = this.props.stateLoginValueAim.user._id
-        axios.get(sitedata.data.path + '/UserProfile/Users/' + user_id, {
-            headers: {
-                'token': user_token,
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            }
-        }).then((response) => {
-            var myFilterData = [];
-            if (response.data.data.family_doc && response.data.data.family_doc.length > 0) {
-                response.data.data.family_doc.map((item) => {
-                    myFilterData = this.state.family_doc_list && this.state.family_doc_list.length > 0 && this.state.family_doc_list.filter((ind) =>
-                        ind.value === item);
-                })
-            }
-            this.setState({ family_doc: myFilterData, family_doc1: response.data.data.family_doc })
-            if (response.data.data.fav_doctor) {
-                for (let i = 0; i < response.data.data.fav_doctor.length; i++) {
-                    if (response.data.data.fav_doctor[i].doctor) {
-                        var datas = this.state.allDocData1 && this.state.allDocData1.length > 0 && this.state.allDocData1.filter(data => data.profile_id === response.data.data.fav_doctor[i].doctor)
-                        if (datas && datas.length > 0) {
-                            if (response.data.data.fav_doctor[i].type && response.data.data.fav_doctor[i].type === 'recommended') {
-                                reccomend.push(datas[0])
+        axios.get(sitedata.data.path + '/UserProfile/Users/' + user_id,
+            commonHeader(user_token)).then((response) => {
+                var myFilterData = [];
+                if (response.data.data.family_doc && response.data.data.family_doc.length > 0) {
+                    response.data.data.family_doc.map((item) => {
+                        myFilterData = this.state.family_doc_list && this.state.family_doc_list.length > 0 && this.state.family_doc_list.filter((ind) =>
+                            ind.value === item);
+                    })
+                }
+                this.setState({ family_doc: myFilterData, family_doc1: response.data.data.family_doc })
+                if (response.data.data.fav_doctor) {
+                    for (let i = 0; i < response.data.data.fav_doctor.length; i++) {
+                        if (response.data.data.fav_doctor[i].doctor) {
+                            var datas = this.state.allDocData1 && this.state.allDocData1.length > 0 && this.state.allDocData1.filter(data => data.profile_id === response.data.data.fav_doctor[i].doctor)
+                            if (datas && datas.length > 0) {
+                                if (response.data.data.fav_doctor[i].type && response.data.data.fav_doctor[i].type === 'recommended') {
+                                    reccomend.push(datas[0])
+                                }
+                                else {
+                                    myfavDoctors.push(datas[0])
+                                }
                             }
-                            else {
-                                myfavDoctors.push(datas[0])
-                            }
+                            this.setState({ loaderImage: false });
                         }
+                    }
+
+                    if (response.data.data.fav_doctor.length == 0) {
                         this.setState({ loaderImage: false });
                     }
+                    this.setState({ myfavDoctors: myfavDoctors, reccomend: reccomend })
                 }
-
-                if (response.data.data.fav_doctor.length == 0) {
-                    this.setState({ loaderImage: false });
-                }
-                this.setState({ myfavDoctors: myfavDoctors, reccomend: reccomend })
-            }
-        }).catch((error) => {
-            this.setState({ loaderImage: false });
-        });
+            }).catch((error) => {
+                this.setState({ loaderImage: false });
+            });
     }
 
     //User list will be show/hide
@@ -183,39 +174,34 @@ class Index extends Component {
         var FamilyList = [], FamilyList1 = [];
         doctorArray = [];
         const user_token = this.props.stateLoginValueAim.token;
-        axios.get(sitedata.data.path + '/UserProfile/DoctorUsers', {
-            headers: {
-                'token': user_token,
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            }
-        }).then((response) => {
-            this.setState({ allDocData: response.data.data })
-            for (let i = 0; i < this.state.allDocData.length; i++) {
-                var name = '';
-                if (this.state.allDocData[i].first_name && this.state.allDocData[i].last_name) {
-                    name = this.state.allDocData[i].first_name + ' ' + this.state.allDocData[i].last_name
+        axios.get(sitedata.data.path + '/UserProfile/DoctorUsers',
+            commonHeader(user_token)).then((response) => {
+                this.setState({ allDocData: response.data.data })
+                for (let i = 0; i < this.state.allDocData.length; i++) {
+                    var name = '';
+                    if (this.state.allDocData[i].first_name && this.state.allDocData[i].last_name) {
+                        name = this.state.allDocData[i].first_name + ' ' + this.state.allDocData[i].last_name
+                    }
+                    else if (this.state.allDocData[i].first_name) {
+                        name = this.state.allDocData[i].first_name
+                    }
+                    doctorArray.push({
+                        name: name,
+                        id: this.state.allDocData[i]._id,
+                        profile_id: this.state.allDocData[i].profile_id,
+                        alies_id: this.state.allDocData[i].alies_id
+                    })
+                    FamilyList.push({ value: this.state.allDocData[i]._id, label: name })
+                    FamilyList1.push({ profile_id: this.state.allDocData[i].profile_id, value: this.state.allDocData[i]._id, label: name })
                 }
-                else if (this.state.allDocData[i].first_name) {
-                    name = this.state.allDocData[i].first_name
-                }
-                doctorArray.push({
-                    name: name,
-                    id: this.state.allDocData[i]._id,
-                    profile_id: this.state.allDocData[i].profile_id,
-                    alies_id: this.state.allDocData[i].alies_id
-                })
-                FamilyList.push({ value: this.state.allDocData[i]._id, label: name })
-                FamilyList1.push({ profile_id: this.state.allDocData[i].profile_id, value: this.state.allDocData[i]._id, label: name })
-            }
-            this.setState({ users: doctorArray, family_doc_list: FamilyList, family_doc_list1: FamilyList1 })
-        })
+                this.setState({ users: doctorArray, family_doc_list: FamilyList, family_doc_list1: FamilyList1 })
+            })
     }
 
     //For remove the doctor in the trusted Doctor
     removeDoctor = (doctor) => {
         let translate = getLanguage(this.props.stateLanguageType)
-        let { remove, capab_Doctors, r_u_sure_remove_doctor, yes, no}= translate
+        let { remove, capab_Doctors, r_u_sure_remove_doctor, yes, no } = translate
         confirmAlert({
             customUI: ({ onClose }) => {
                 return (
@@ -227,12 +213,12 @@ class Index extends Component {
                                 onClick={() => { this.deleteClickDoctor(doctor); onClose() }}
                             >
                                 {yes}
-            </button>
+                            </button>
                             <button
                                 onClick={() => { onClose(); }}
                             >
                                 {no}
-            </button>
+                            </button>
                         </div>
                     </div>
                 );
@@ -266,26 +252,15 @@ class Index extends Component {
                 axios.put(sitedata.data.path + '/UserProfile/AddFavDoc', {
                     doctor: doctor_id,
                     profile_id: this.state.selectedprofile,
-                }, {
-                    headers: {
-                        'token': user_token,
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json'
-                    }
-                }).then((responce) => {
+                }, commonHeader(user_token)).then((responce) => {
                     this.setState({ loaderImage: false, q: '', filteredUsers: [] })
                     if (responce.data.hassuccessed == true) {
                         this.setState({ succset: true });
                         setTimeout(() => { this.setState({ succset: false }) }, 5000)
                         axios.post(sitedata.data.path + '/UserProfile/AddtoPatientList/' + doctor_id, {
                             profile_id: this.props.stateLoginValueAim.user.profile_id
-                        }, {
-                            headers: {
-                                'token': user_token,
-                                'Accept': 'application/json',
-                                'Content-Type': 'application/json'
-                            }
-                        }).then((responce) => { })
+                        }, 
+                        commonHeader(user_token)).then((responce) => { })
                         this.setState({ selectedUser: '', })
                         this.getUserData();
                     } else {
@@ -309,13 +284,7 @@ class Index extends Component {
             }
             axios.put(sitedata.data.path + '/UserProfile/Users/update', {
                 family_doc: this.state.family_doc1
-            }, {
-                headers: {
-                    'token': this.props.stateLoginValueAim.token,
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                }
-            }).then((responce) => {
+            }, commonHeader(this.props.stateLoginValueAim.token)).then((responce) => {
                 if (this.props.comesFrom) {
                     this.props.EditFamilyDoc();
                 }
@@ -336,26 +305,14 @@ class Index extends Component {
         axios.put(sitedata.data.path + '/UserProfile/AddRecDoc', {
             doctor: id,
             profile_id: id,
-        }, {
-            headers: {
-                'token': user_token,
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            }
-        }).then((responce) => {
+        }, commonHeader(user_token)).then((responce) => {
             this.setState({ loaderImage: false, q: '', filteredUsers: [] });
             if (responce.data.hassuccessed == true) {
                 this.setState({ recAdd: true })
                 setTimeout(() => { this.setState({ recAdd: false }) }, 5000)
                 axios.post(sitedata.data.path + '/UserProfile/AddtoPatientList/' + id, {
                     profile_id: this.props.stateLoginValueAim.user.profile_id
-                }, {
-                    headers: {
-                        'token': user_token,
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json'
-                    }
-                }).then((responce) => { })
+                }, commonHeader(user_token)).then((responce) => { })
                 this.setState({ selectedUser: '', })
                 this.getUserData();
             } else {
@@ -401,13 +358,8 @@ class Index extends Component {
     deleteClickDoctor = (doctor) => {
         this.setState({ loaderImage: true });
         const user_token = this.props.stateLoginValueAim.token;
-        axios.delete(sitedata.data.path + '/UserProfile/favDocs/' + doctor + '/' + this.props.stateLoginValueAim.user.profile_id, {
-            headers: {
-                'token': user_token,
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            }
-        }).then((response) => {
+        axios.delete(sitedata.data.path + '/UserProfile/favDocs/' + doctor + '/' + this.props.stateLoginValueAim.user.profile_id, 
+        commonHeader(user_token)).then((response) => {
             this.setState({ loaderImage: false, removes: true });
             setTimeout(() => { this.setState({ removes: false }) }, 5000)
             this.getUserData();

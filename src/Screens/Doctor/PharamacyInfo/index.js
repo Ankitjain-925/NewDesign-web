@@ -16,6 +16,7 @@ import Geocode from "react-geocode";
 import {
   getLanguage
 } from "translations/index"
+import { commonHeader } from "component/CommonHeader/index";
 
 class Index extends Component {
   constructor(props) {
@@ -89,13 +90,7 @@ class Index extends Component {
     let user_token = this.props.stateLoginValueAim.token;
     let user_id = this.props.stateLoginValueAim.user._id;
     axios
-      .get(sitedata.data.path + "/UserProfile/Users/" + user_id, {
-        headers: {
-          token: user_token,
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      })
+      .get(sitedata.data.path + "/UserProfile/Users/" + user_id,commonHeader(user_token))
       .then((response) => {
         this.setState({ loaderImage: false });
 
@@ -136,13 +131,7 @@ class Index extends Component {
           sitedata.data.path +
             "/emergency_record/getPharmacy/search/" +
             this.state.name,
-          {
-            headers: {
-              token: user_token,
-              Accept: "application/json",
-              "Content-Type": "application/json",
-            },
-          }
+          commonHeader(user_token)
         )
         .then((response) => {
           this.setState({ searchName: response.data.data });
@@ -346,13 +335,7 @@ class Index extends Component {
             "addtopatient=" +
             this.state.addtopatientlist,
           { data },
-          {
-            headers: {
-              token: user_token,
-              Accept: "application/json",
-              "Content-Type": "application/json",
-            },
-          }
+          commonHeader(user_token)
         )
         .then((response) => {
           this.setState({

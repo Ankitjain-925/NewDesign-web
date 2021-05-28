@@ -36,6 +36,8 @@ import SPECIALITY from "Screens/../speciality";
 import SUBSPECIALITY from "Screens/../subspeciality";
 
 import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
+import { commonHeader } from "component/CommonHeader/index";
+import { get_cur_one } from "Screens/Components/CommonApi/index";
 
 const options = [
   { value: "data1", label: "Data1" },
@@ -81,13 +83,7 @@ class Index extends Component {
   getUpcomingAppointment() {
     var user_token = this.props.stateLoginValueAim.token;
     axios
-      .get(sitedata.data.path + "/UserProfile/UpcomingAppintmentPat", {
-        headers: {
-          token: user_token,
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      })
+      .get(sitedata.data.path + "/UserProfile/UpcomingAppintmentPat", commonHeader(user_token))
       .then((response) => {
         this.setState({
           upcomingAppointment: response.data.data,
@@ -99,13 +95,7 @@ class Index extends Component {
   getPastAppointment = () => {
     var user_token = this.props.stateLoginValueAim.token;
     axios
-      .get(sitedata.data.path + "/UserProfile/PastAppintmentPat", {
-        headers: {
-          token: user_token,
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      })
+      .get(sitedata.data.path + "/UserProfile/PastAppintmentPat", commonHeader(user_token))
       .then((response) => {
         this.setState({
           pastAppointment: response.data.data,
@@ -158,20 +148,13 @@ class Index extends Component {
   };
 
   //For patient Info..
-  patientinfo() {
+  patientinfo=async()=> {
     var user_id = this.props.stateLoginValueAim.user._id;
     var user_token = this.props.stateLoginValueAim.token;
-    axios
-      .get(sitedata.data.path + "/UserProfile/Users/" + user_id, {
-        headers: {
-          token: user_token,
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      })
-      .then((response) => {
-        this.setState({ personalinfo: response.data.data, loaderImage: false });
-      });
+    let response = await get_cur_one(user_token, user_id)
+    if(response){
+      this.setState({ personalinfo: response.data.data, loaderImage: false });
+    }
   }
 
   // Get Speciality DATA

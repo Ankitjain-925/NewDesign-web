@@ -25,6 +25,7 @@ import {
 import { authy } from "Screens/Login/authy.js";
 import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 import { get_gender, get_cur_one, delete_click_track } from "Screens/Components/CommonApi/index";
+import { commonHeader } from "component/CommonHeader/index";
 
 class Index extends Component {
   constructor(props) {
@@ -185,13 +186,7 @@ class Index extends Component {
     this.setState({ loaderImage: true });
 
     axios
-      .get(sitedata.data.path + "/User/ArchivedTrack/" + user_id, {
-        headers: {
-          token: user_token,
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      })
+      .get(sitedata.data.path + "/User/ArchivedTrack/" + user_id, commonHeader(user_token))
       .then((response) => {
         if (response.data.hassuccessed === true) {
           var images = [];
@@ -361,13 +356,7 @@ class Index extends Component {
       .put(
         sitedata.data.path + "/User/AddTrack/" + user_id + "/" + track_id,
         { data },
-        {
-          headers: {
-            token: user_token,
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-        }
+        commonHeader(user_token)
       )
       .then((response) => {
         this.setState({

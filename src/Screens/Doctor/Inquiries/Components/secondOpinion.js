@@ -21,6 +21,7 @@ import {
   getLanguage
 } from "translations/index"
 import Loader from "Screens/Components/Loader/index.js";
+import { commonHeader } from "component/CommonHeader/index";
 
 function TabContainer(props) {
   return (
@@ -60,13 +61,7 @@ class Index extends Component {
     this.setState({ loaderImage: true });
     let user_token = this.props.stateLoginValueAim.token;
     axios
-      .get(sitedata.data.path + "/UserProfile/GetSecondOpinion/", {
-        headers: {
-          token: user_token,
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      })
+      .get(sitedata.data.path + "/UserProfile/GetSecondOpinion/",commonHeader(user_token))
       .then((response) => {
         if (response.data.hassuccessed) {
           var images = [];
@@ -141,13 +136,7 @@ class Index extends Component {
             this.props.myData.first_name + " " + this.state.props.last_name,
           type: "sick_certificate",
         },
-        {
-          headers: {
-            token: user_token,
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-        }
+        commonHeader(user_token)
       )
       .then((response) => {
         this.getMypatientsData();
@@ -181,13 +170,7 @@ class Index extends Component {
           {
             attachfile: [this.state.uploadedimage],
           },
-          {
-            headers: {
-              token: user_token,
-              Accept: "application/json",
-              "Content-Type": "application/json",
-            },
-          }
+          commonHeader(user_token)
         )
         .then((responce) => {
           send();
@@ -369,13 +352,7 @@ class Index extends Component {
           type: "second_opinion",
           send_to_timeline: true,
         },
-        {
-          headers: {
-            token: user_token,
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-        }
+        commonHeader(user_token)
       )
       .then((response) => {
         this.setState({

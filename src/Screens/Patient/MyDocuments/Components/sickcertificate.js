@@ -17,7 +17,8 @@ import sitedata from 'sitedata';
 import { getDate, getImage } from 'Screens/Components/BasicMethod/index';
 import {
     getLanguage
-  } from "translations/index"
+} from "translations/index"
+import { commonHeader } from 'component/CommonHeader/index';
 class Index extends Component {
     constructor(props) {
         super(props);
@@ -40,30 +41,30 @@ class Index extends Component {
     // Delete the Sick certificate confirmation
     updateCertificate(status, id) {
         let translate = getLanguage(this.props.stateLanguageType)
-        let { Yes, No , update_inquiry, r_u_sure_update_inquiry, r_u_sure_cancel_inquiry, cancel_inquiry} = translate;
+        let { Yes, No, update_inquiry, r_u_sure_update_inquiry, r_u_sure_cancel_inquiry, cancel_inquiry } = translate;
 
         confirmAlert({
             customUI: ({ onClose }) => {
-            return (
-            <div className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode === 'dark' ? "dark-confirm react-confirm-alert-body" : "react-confirm-alert-body"} >
-              {status && status === 'cancel' ? <h1>{cancel_inquiry}</h1> : <h1>{update_inquiry}</h1>}
-              <p>{status && status === 'cancel' ? r_u_sure_cancel_inquiry : r_u_sure_update_inquiry} </p>
-            <div className="react-confirm-alert-button-group">
-            <button
-            onClick= {() => {this.updateCertificateDetails(status, id); onClose()}}
-            >
-            {Yes}
-            </button>
-            <button
-            onClick={() => {onClose();}}
-            >
-            {No}
-            </button>
-            </div>
-            </div>
-            );
+                return (
+                    <div className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode === 'dark' ? "dark-confirm react-confirm-alert-body" : "react-confirm-alert-body"} >
+                        {status && status === 'cancel' ? <h1>{cancel_inquiry}</h1> : <h1>{update_inquiry}</h1>}
+                        <p>{status && status === 'cancel' ? r_u_sure_cancel_inquiry : r_u_sure_update_inquiry} </p>
+                        <div className="react-confirm-alert-button-group">
+                            <button
+                                onClick={() => { this.updateCertificateDetails(status, id); onClose() }}
+                            >
+                                {Yes}
+                            </button>
+                            <button
+                                onClick={() => { onClose(); }}
+                            >
+                                {No}
+                            </button>
+                        </div>
+                    </div>
+                );
             }
-            })
+        })
     }
 
     // Delete the Sick certificate 
@@ -71,13 +72,7 @@ class Index extends Component {
         let user_token = this.props.stateLoginValueAim.token
         axios.put(sitedata.data.path + '/UserProfile/GetSickCertificate/' + id, {
             status: status
-        }, {
-            headers: {
-                'token': user_token,
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            }
-        }).then((response) => {
+        }, commonHeader(user_token)).then((response) => {
             this.getSick();
         }).catch((error) => {
         })
@@ -127,57 +122,47 @@ class Index extends Component {
     Submitcertificate = () => {
         var user_token = this.props.stateLoginValueAim.token;
         var data = this.state.AddSickCertificate;
-        axios.put(sitedata.data.path + '/UserProfile/UpdateSickcertificate/' + this.state.AddSickCertificate._id, data, {
-            headers: {
-                'token': user_token,
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            }
-        }).then((response) => {
-            this.setState({ successfullsent1: true, addSick: false })
-            setTimeout(() => { this.setState({ successfullsent1: false }) }, 5000)
-            this.getSick();
-        }).catch((error) => {
-        })
+        axios.put(sitedata.data.path + '/UserProfile/UpdateSickcertificate/' + this.state.AddSickCertificate._id, data,
+            commonHeader(user_token)).then((response) => {
+                this.setState({ successfullsent1: true, addSick: false })
+                setTimeout(() => { this.setState({ successfullsent1: false }) }, 5000)
+                this.getSick();
+            }).catch((error) => {
+            })
     }
     //Get all the sick certificates
     getSick = () => {
         this.setState({ loaderImage: true })
         var user_token = this.props.stateLoginValueAim.token;
-        axios.get(sitedata.data.path + '/UserProfile/RequestedSickCertificate', {
-            headers: {
-                'token': user_token,
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            }
-        }).then((response) => {
-            var images = []
-            response.data.data && response.data.data.length > 0 && response.data.data.map((datas) => {
-                var find = datas && datas.docProfile && datas.docProfile.profile_image
-                if (find) {
-                    var find1 = find.split('.com/')[1]
-                    axios.get(sitedata.data.path + '/aws/sign_s3?find=' + find1,)
-                        .then((response2) => {
-                            if (response2.data.hassuccessed) {
-                                images.push({ image: find, new_image: response2.data.data })
-                                this.setState({ images: images })
-                            }
-                        })
-                }
-            })
-            var totalPage = Math.ceil(response.data.data.length / 10);
-            this.setState({ AllSick: response.data.data, loaderImage: false, currentPage: 1, totalPage: totalPage },
-                () => {
-                    if (totalPage > 1) {
-                        var pages = [];
-                        for (var i = 1; i <= this.state.totalPage; i++) {
-                            pages.push(i)
-                        }
-                        this.setState({ currentList: this.state.AllSick.slice(0, 10) })
+        axios.get(sitedata.data.path + '/UserProfile/RequestedSickCertificate',
+            commonHeader(user_token)).then((response) => {
+                var images = []
+                response.data.data && response.data.data.length > 0 && response.data.data.map((datas) => {
+                    var find = datas && datas.docProfile && datas.docProfile.profile_image
+                    if (find) {
+                        var find1 = find.split('.com/')[1]
+                        axios.get(sitedata.data.path + '/aws/sign_s3?find=' + find1,)
+                            .then((response2) => {
+                                if (response2.data.hassuccessed) {
+                                    images.push({ image: find, new_image: response2.data.data })
+                                    this.setState({ images: images })
+                                }
+                            })
                     }
-                    else { this.setState({ currentList: this.state.AllSick }) }
                 })
-        })
+                var totalPage = Math.ceil(response.data.data.length / 10);
+                this.setState({ AllSick: response.data.data, loaderImage: false, currentPage: 1, totalPage: totalPage },
+                    () => {
+                        if (totalPage > 1) {
+                            var pages = [];
+                            for (var i = 1; i <= this.state.totalPage; i++) {
+                                pages.push(i)
+                            }
+                            this.setState({ currentList: this.state.AllSick.slice(0, 10) })
+                        }
+                        else { this.setState({ currentList: this.state.AllSick }) }
+                    })
+            })
     }
 
     //For chnage the Page
@@ -187,8 +172,8 @@ class Index extends Component {
 
     render() {
         let translate = getLanguage(this.props.stateLanguageType)
-        let { Case, capab_Doctors, status, sent, on, which_symptoms_do_u_hav, cancel_details, update_entry, not_mentioned,days, since_when, prescription, how_u_feeling, Pending, request, edit, Rejected, Answered, Cancelled, see, sick_cert, my_doc, New, inquiry, again, modify, cancel,
-            doc_and_statnderd_ques, doc_aimedis_private, it_is_known_dieseas, r_u_tracking_medi, do_u_hv_allergies, what_ur_profession,Week_or_more,today, yesterday, ago, show, Yes, No, next, previous,
+        let { Case, capab_Doctors, status, sent, on, which_symptoms_do_u_hav, cancel_details, update_entry, not_mentioned, days, since_when, prescription, how_u_feeling, Pending, request, edit, Rejected, Answered, Cancelled, see, sick_cert, my_doc, New, inquiry, again, modify, cancel,
+            doc_and_statnderd_ques, doc_aimedis_private, it_is_known_dieseas, r_u_tracking_medi, do_u_hv_allergies, what_ur_profession, Week_or_more, today, yesterday, ago, show, Yes, No, next, previous,
             how_long_do_u_unable_to_work, have_u_already_been_sick, Annotations, is_ur_temp_high_to_38, req_updated_successfully, details, questions } = translate
 
         return (
@@ -240,7 +225,7 @@ class Index extends Component {
                     <Modal
                         open={this.state.addSick}
                         onClose={this.handleCloseSick}
-                        className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode === 'dark' ?"darkTheme nwPresModel":"nwPresModel"}>
+                        className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode === 'dark' ? "darkTheme nwPresModel" : "nwPresModel"}>
                         <Grid className="nwPresCntnt">
                             <Grid className="nwPresCntntIner">
                                 <Grid className="nwPresCourse">
@@ -344,7 +329,7 @@ class Index extends Component {
                     <Modal
                         open={this.state.showSick}
                         onClose={this.handleCloseShowSick}
-                        className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode === 'dark' ?"darkTheme nwPresModel":"nwPresModel"}>
+                        className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode === 'dark' ? "darkTheme nwPresModel" : "nwPresModel"}>
                         <Grid className="nwPresCntnt">
                             <Grid className="nwPresCntntIner">
                                 <Grid className="nwPresCourse">

@@ -4,7 +4,6 @@ import {
   GET_EMERGENCY_SUCCESS,
 } from "actiontypes";
 import sitedata from "sitedata.js";
-import axios from "axios";
 
 const path = sitedata.data.path + "/UserProfile";
 export const EmergencySet = (user_id) => {

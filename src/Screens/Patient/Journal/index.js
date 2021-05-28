@@ -70,6 +70,7 @@ import SPECIALITY from "speciality";
 import DownloadFullTrack from "../../Components/DownloadFullTrack/index";
 import index from "Screens/Components/LogOut/index.js";
 import { get_cur_one, get_gender, get_track, delete_click_track, download_track } from "Screens/Components/CommonApi/index.js";
+import { commonHeader } from "component/CommonHeader/index.js";
 var Datas = [];
 class Index extends Component {
   constructor(props) {
@@ -391,13 +392,7 @@ class Index extends Component {
       .put(
         sitedata.data.path + "/User/AddTrack/" + user_id + "/" + track_id,
         { data },
-        {
-          headers: {
-            token: user_token,
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-        }
+        commonHeader(user_token)
       )
       .then((response) => {
         this.setState({
@@ -593,13 +588,8 @@ class Index extends Component {
   };
   canclePaidService = async description => {
     axios
-      .delete(sitedata.data.path + "/UserProfile/Bookservice/" + description, {
-        headers: {
-          token: this.props.stateLoginValueAim.token,
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      })
+      .delete(sitedata.data.path + "/UserProfile/Bookservice/" + description,
+        commonHeader(this.props.stateLoginValueAim.token))
       .then((responce) => { })
       .catch(() => { });
   };
@@ -612,13 +602,7 @@ class Index extends Component {
   getUpcomingAppointment() {
     var user_token = this.props.stateLoginValueAim.token;
     axios
-      .get(sitedata.data.path + "/UserProfile/UpcomingAppintmentPat", {
-        headers: {
-          token: user_token,
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      })
+      .get(sitedata.data.path + "/UserProfile/UpcomingAppintmentPat", commonHeader(user_token))
       .then((response) => {
         var upcomingData =
           response.data.data &&
@@ -736,13 +720,7 @@ class Index extends Component {
         .put(
           sitedata.data.path + "/User/AddTrack/" + user_id + "/" + track_id,
           { data },
-          {
-            headers: {
-              token: user_token,
-              Accept: "application/json",
-              "Content-Type": "application/json",
-            },
-          }
+         commonHeader(user_token)
         )
         .then((response) => {
           this.setState({
@@ -766,13 +744,7 @@ class Index extends Component {
         .put(
           sitedata.data.path + "/User/AddTrack/" + user_id,
           { data },
-          {
-            headers: {
-              token: user_token,
-              Accept: "application/json",
-              "Content-Type": "application/json",
-            },
-          }
+          commonHeader(user_token)
         )
         .then((response) => {
           this.setState({
@@ -967,13 +939,7 @@ class Index extends Component {
   getPesonalized = () => {
     this.setState({ loaderImage: true });
     axios
-      .get(sitedata.data.path + "/UserProfile/updateSetting", {
-        headers: {
-          token: this.props.stateLoginValueAim.token,
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      })
+      .get(sitedata.data.path + "/UserProfile/updateSetting", commonHeader(this.props.stateLoginValueAim.token))
       .then((responce) => {
         if (
           responce.data.hassuccessed &&
@@ -1000,13 +966,7 @@ class Index extends Component {
           user_id: this.props.stateLoginValueAim.user._id,
           user_profile_id: this.props.stateLoginValueAim.user.profile_id,
         },
-        {
-          headers: {
-            token: this.props.stateLoginValueAim.token,
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-        }
+        commonHeader(this.props.stateLoginValueAim.token)
       )
       .then((responce) => {
         this.setState({ loaderImage: false });
@@ -1018,13 +978,8 @@ class Index extends Component {
   rightInfo() {
     var user_token = this.props.stateLoginValueAim.token;
     axios
-      .get(sitedata.data.path + "/rightinfo/patient", {
-        headers: {
-          token: user_token,
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      })
+      .get(sitedata.data.path + "/rightinfo/patient", 
+        commonHeader(user_token))
       .then((response) => {
         this.setState({ personalinfo: response.data.data });
       });
@@ -1061,7 +1016,7 @@ class Index extends Component {
   downloadTrack = async (data) => {
     this.setState({ loaderImage: true });
     let response = await download_track(data, this.props.stateLoginValueAim)
-    setTimeout(()=>{
+    setTimeout(() => {
       this.setState({ loaderImage: false });
     }, 5000)
   };

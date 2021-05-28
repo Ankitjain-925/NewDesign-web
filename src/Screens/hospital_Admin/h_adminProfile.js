@@ -13,6 +13,7 @@ import Loader from 'Screens/Components/Loader/index';
 import translationEN from "./translations/en_json_proofread_13072020.json"
 import translationDE from "./translations/de.json"
 import "./style.css";
+import { commonHeader } from 'component/CommonHeader/index';
 class Index extends Component {
     constructor(props) {
         super(props);
@@ -109,13 +110,7 @@ class Index extends Component {
         axios.put(sitedata.data.path + '/UserProfile/Users/update', {
             first_name: this.state.UpDataDetails.first_name,
             last_name: this.state.UpDataDetails.last_name,
-        }, {
-            headers: {
-                'token': user_token,
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            }
-        }).then((responce) => {
+        }, commonHeader(user_token)).then((responce) => {
             if (responce.data.hassuccessed) {
                 this.setState({ succUpdate: true })
                 this.setState({ loaderImage: false });
@@ -150,13 +145,7 @@ class Index extends Component {
         this.setState({ loaderImage: true });
         let user_token = this.props.stateLoginValueAim.token
         let user_id = this.props.stateLoginValueAim.user._id
-        axios.get(sitedata.data.path + '/UserProfile/Users/' + user_id, {
-            headers: {
-                'token': user_token,
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            }
-        }).then((response) => {
+        axios.get(sitedata.data.path + '/UserProfile/Users/' + user_id, commonHeader(user_token)).then((response) => {
             this.setState({ UpDataDetails: response.data.data});
             this.setState({ loaderImage: false });
         }).catch((error) => {

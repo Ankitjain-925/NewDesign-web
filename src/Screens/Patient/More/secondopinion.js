@@ -25,6 +25,7 @@ import {
 } from "translations/index"
 
 import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
+import { commonHeader } from "component/CommonHeader/index";
 
 const specialistOptions = [
   { value: "Specialist1", label: "Specialist1" },
@@ -62,13 +63,7 @@ class Index extends Component {
     var user_id = this.props.stateLoginValueAim.user._id;
     var user_token = this.props.stateLoginValueAim.token;
     axios
-      .get(sitedata.data.path + "/UserProfile/Users/" + user_id, {
-        headers: {
-          token: user_token,
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      })
+      .get(sitedata.data.path + "/UserProfile/Users/" + user_id, commonHeader(user_token))
       .then((response) => {
         this.setState({ personalinfo: response.data.data, loaderImage: false });
       });
@@ -165,13 +160,7 @@ class Index extends Component {
   alldoctor() {
     var user_token = this.props.stateLoginValueAim.token;
     axios
-      .get(sitedata.data.path + "/UserProfile/DoctorUsers", {
-        headers: {
-          token: user_token,
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      })
+      .get(sitedata.data.path + "/UserProfile/DoctorUsers",commonHeader(user_token))
       .then((response) => {
         if (response.data.data && response.data.data.length > 0) {
           var data = [];
@@ -197,12 +186,7 @@ class Index extends Component {
       if (this.state.AddSecond.doctor_id) {
         let doctor_id = this.state.AddSecond.doctor_id;
         axios
-          .get(sitedata.data.path + "/UserProfile/DoctorProfile/" + doctor_id, {
-            headers: {
-              Accept: "application/json",
-              "Content-Type": "application/json",
-            },
-          })
+          .get(sitedata.data.path + "/UserProfile/DoctorProfile/" + doctor_id, commonHeader())
           .then((response) => {
             const found =
               this.state.personalinfo.fav_doctor &&

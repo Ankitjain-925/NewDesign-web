@@ -23,6 +23,7 @@ import * as translationEN from './translations/en_json_proofread_13072020.json';
 import * as translationDE from "./translations/de.json"
 import { SearchUser } from "Screens/Components/Search"
 import $ from "jquery";
+import { commonHeader } from 'component/CommonHeader/index';
 class Index extends Component {
     constructor(props) {
         super(props);
@@ -50,13 +51,7 @@ class Index extends Component {
     getAlldocument() {
         var user_token = this.props.stateLoginValueAim.token;
         axios.get(sitedata.data.path + '/admin/Document',
-            {
-                headers: {
-                    'token': user_token,
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                }
-            }
+            commonHeader(user_token)
         )
             .then((response) => {
                 const archive = [];
@@ -185,13 +180,7 @@ class Index extends Component {
         this.setState({ loaderImage: true });
         axios.put(sitedata.data.path + '/admin/ChangeStatus/' + deletekey,
             { status: true},
-            {
-                headers: {
-                    'token': user_token,
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                }
-            })
+           commonHeader(user_token))
             .then((response) => {
                 this.setState({ loaderImage: false, document_is_archive: response.data.status });
                 this.getAlldocument();
@@ -238,13 +227,7 @@ class Index extends Component {
     deleteClickDocument=(deletekey)=> {
         this.setState({ loaderImage: true });
         const user_token = this.props.stateLoginValueAim.token;
-        axios.delete(sitedata.data.path + '/admin/Document/' + deletekey, {
-            headers: {
-                'token': user_token,
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            }
-        })
+        axios.delete(sitedata.data.path + '/admin/Document/' + deletekey,commonHeader(user_token))
             .then((response) => {
                 this.setState({ loaderImage: false });
                 this.getAlldocument();

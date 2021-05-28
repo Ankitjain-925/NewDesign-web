@@ -44,6 +44,7 @@ import {
   GetShowLabel12,
 } from "Screens/Components/GetMetaData/index.js";
 import QRCode from "qrcode.react";
+import { commonHeader } from "component/CommonHeader/index";
 
 const options = [
   { value: "Mr", label: "Mr." },
@@ -483,11 +484,11 @@ class Index extends Component {
           this.state.allMetadata.languages &&
           this.state.allMetadata.languages.length > 0 &&
           this.state.allMetadata.languages,
-          specialityData: GetLanguageDropdown(	
-	          SPECIALITY.speciality.english,	
-	          this.props.stateLanguageType,	
-	          "speciality"	
-	        ),
+        specialityData: GetLanguageDropdown(
+          SPECIALITY.speciality.english,
+          this.props.stateLanguageType,
+          "speciality"
+        ),
         title_degreeData:
           this.state.allMetadata &&
           this.state.allMetadata.title_degreeData &&
@@ -522,13 +523,7 @@ class Index extends Component {
   alldoctor() {
     const user_token = this.props.stateLoginValueAim.token;
     axios
-      .get(sitedata.data.path + "/UserProfile/DoctorUsers", {
-        headers: {
-          token: user_token,
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      })
+      .get(sitedata.data.path + "/UserProfile/DoctorUsers", commonHeader(user_token))
       .then((response) => {
         this.setState({ allDocData: response.data.data });
       });
@@ -663,13 +658,7 @@ class Index extends Component {
           country: UpDataDetails.country,
           pastal_code: UpDataDetails.pastal_code,
         },
-        {
-          headers: {
-            token: user_token,
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-        }
+        commonHeader(user_token)
       )
       .then((responce) => {
         if (responce.data.hassuccessed) {
@@ -746,13 +735,7 @@ class Index extends Component {
             pin: this.state.UpDataDetails.pin,
             alies_id: this.state.UpDataDetails.alies_id,
           },
-          {
-            headers: {
-              token: user_token,
-              Accept: "application/json",
-              "Content-Type": "application/json",
-            },
-          }
+          commonHeader(user_token)
         )
         .then((responce) => {
           if (responce.data.hassuccessed) {
@@ -781,13 +764,7 @@ class Index extends Component {
           sitedata.data.path +
           "/UserProfile/checkAlies?alies_id=" +
           e.target.value,
-          {
-            headers: {
-              token: user_token,
-              Accept: "application/json",
-              "Content-Type": "application/json",
-            },
-          }
+          commonHeader(user_token)
         )
         .then((responce) => {
           if (responce.data.hassuccessed) {
@@ -848,13 +825,7 @@ class Index extends Component {
     let user_token = this.props.stateLoginValueAim.token;
     let user_id = this.props.stateLoginValueAim.user._id;
     axios
-      .get(sitedata.data.path + "/UserProfile/Users/" + user_id, {
-        headers: {
-          token: user_token,
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      })
+      .get(sitedata.data.path + "/UserProfile/Users/" + user_id, commonHeader(user_token))
       .then((response) => {
         var title = {},
           titlefromD = response.data.data.title;
@@ -1101,7 +1072,7 @@ class Index extends Component {
         );
       });
 
-      let translate = getLanguage(this.props.stateLanguageType)
+    let translate = getLanguage(this.props.stateLanguageType)
     let {
       profile_info,
       profile,

@@ -63,7 +63,7 @@ import SCFields from "Screens/Components/TimelineComponent/SCFields/index.js";
 import SOFields from "Screens/Components/TimelineComponent/SOFields/index.js";
 import DownloadFullTrack from "Screens/Components/DownloadFullTrack/index";
 import VideoDemo from "Screens/Components/VideoDemo/index";
-
+import { commonHeader } from "component/CommonHeader/index"
 import SPECIALITY from "speciality";
 import { GetLanguageDropdown } from "Screens/Components/GetMetaData/index.js";
 import { get_gender, get_cur_one, get_personalized, get_track, update_entry_state, delete_click_track, download_track } from "Screens/Components/CommonApi/index";
@@ -393,13 +393,7 @@ class Index extends Component {
       .put(
         sitedata.data.path + "/User/AddTrack/" + user_id + "/" + track_id,
         { data },
-        {
-          headers: {
-            token: user_token,
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-        }
+        commonHeader(user_token)
       )
       .then((response) => {
         this.setState({
@@ -589,13 +583,7 @@ class Index extends Component {
         .put(
           sitedata.data.path + "/User/AddTrack/" + user_id + "/" + track_id,
           { data },
-          {
-            headers: {
-              token: user_token,
-              Accept: "application/json",
-              "Content-Type": "application/json",
-            },
-          }
+          commonHeader(user_token)
         )
         .then((response) => {
           this.setState({
@@ -617,13 +605,7 @@ class Index extends Component {
         .put(
           sitedata.data.path + "/User/AddTrack/" + user_id,
           { data },
-          {
-            headers: {
-              token: user_token,
-              Accept: "application/json",
-              "Content-Type": "application/json",
-            },
-          }
+          commonHeader(user_token)
         )
         .then((response) => {
           this.setState({
@@ -856,13 +838,7 @@ class Index extends Component {
         sitedata.data.path +
         "/rightinfo/patient/" +
         this.props.Doctorsetget.p_id,
-        {
-          headers: {
-            token: user_token,
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-        }
+        commonHeader(user_token)
       )
       .then((response) => {
         this.setState({ personalinfo: response.data.data });
@@ -915,13 +891,7 @@ class Index extends Component {
           "?pin=" +
           pin +
           "&&comefrom=healthdata",
-          {
-            headers: {
-              token: user_token,
-              Accept: "application/json",
-              "Content-Type": "application/json",
-            },
-          }
+          commonHeader(user_token)
         )
         .then((response) => {
           if (response.data.hassuccessed === true) {
@@ -952,13 +922,7 @@ class Index extends Component {
     axios
       .get(
         sitedata.data.path + "/UserProfile/UpcomingAppintmentPat/" + user_id,
-        {
-          headers: {
-            token: user_token,
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-        }
+        commonHeader(user_token)
       )
       .then((response) => {
         var upcomingData =
@@ -977,15 +941,7 @@ class Index extends Component {
     var user_id = this.props.Doctorsetget.p_id;
     let user_token = this.props.stateLoginValueAim.token
     let responce = await get_personalized(user_token, user_id)
-    // axios
-    //   .get(sitedata.data.path + "/UserProfile/updateSetting/" + user_id, {
-    //     headers: {
-    //       token: this.props.stateLoginValueAim.token,
-    //       Accept: "application/json",
-    //       "Content-Type": "application/json",
-    //     },
-    //   })
-    //   .then((responce) => {
+
     if (
       responce.data.hassuccessed &&
       responce.data.data &&
@@ -997,7 +953,6 @@ class Index extends Component {
       this.setState({ added_data: [] });
     }
     this.setState({ loaderImage: false });
-    // });
   };
 
   //for get the track data on the bases of pateint
@@ -1028,6 +983,8 @@ class Index extends Component {
   };
 
   render() {
+    console.log("RENDERRRR", commonHeader("Token"))
+
     let translate = getLanguage(this.props.stateLanguageType)
     let {
       respiration,

@@ -17,6 +17,7 @@ import { getDate, getImage } from 'Screens/Components/BasicMethod/index';
 import {
     getLanguage
   } from "translations/index"
+import { commonHeader } from 'component/CommonHeader/index';
 // import * as translationDE from '../../../translations/de_json_proofread_13072020.json';
 function TabContainer(props) {
     return (
@@ -51,13 +52,7 @@ class Index extends Component {
     getMypatientsData() {
         this.setState({ loaderImage: true });
         let user_token = this.props.stateLoginValueAim.token
-        axios.get(sitedata.data.path + '/UserProfile/GetSecondOpinion/', {
-            headers: {
-                'token': user_token,
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            }
-        }).then((response) => {
+        axios.get(sitedata.data.path + '/UserProfile/GetSecondOpinion/',commonHeader(user_token)).then((response) => {
             if (response.data.hassuccessed) {
                 var images = [];
                 response.data.data && response.data.data.length > 0 && response.data.data.map((item) => {
@@ -111,13 +106,7 @@ class Index extends Component {
             status: status,
             doctor_name: this.props.myData.first_name + ' ' + this.state.props.last_name,
             type: "sick_certificate"
-        }, {
-            headers: {
-                'token': user_token,
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            }
-        }).then((response) => {
+        }, commonHeader(user_token)).then((response) => {
             this.getMypatientsData();
         }).catch((error) => {
         });
@@ -140,13 +129,7 @@ class Index extends Component {
             const user_token = this.props.stateLoginValueAim.token;
             axios.put(sitedata.data.path + '/UserProfile/UpdateSickCertificate/' + id, {
                 docs: this.state.uploadedimage,
-            }, {
-                headers: {
-                    'token': user_token,
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                }
-            })
+            }, commonHeader(user_token))
                 .then((responce) => {
                     this.setState({ serverMsg: responce.data.message })
                     this.setState({ loaderImage: false });

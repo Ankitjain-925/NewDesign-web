@@ -68,6 +68,7 @@ import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometCh
 import SPECIALITY from "speciality";
 import { GetLanguageDropdown } from "Screens/Components/GetMetaData/index.js";
 import { get_gender, get_cur_one, get_personalized, download_track, delete_click_track } from "Screens/Components/CommonApi/index";
+import { commonHeader } from "component/CommonHeader/index";
 class Index extends Component {
   constructor(props) {
     super(props);
@@ -394,13 +395,7 @@ class Index extends Component {
       .put(
         sitedata.data.path + "/User/AddTrack/" + user_id + "/" + track_id,
         { data },
-        {
-          headers: {
-            token: user_token,
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-        }
+        commonHeader(user_token)
       )
       .then((response) => {
         this.setState({
@@ -661,13 +656,7 @@ class Index extends Component {
         .put(
           sitedata.data.path + "/User/AddTrack/" + user_id + "/" + track_id,
           { data },
-          {
-            headers: {
-              token: user_token,
-              Accept: "application/json",
-              "Content-Type": "application/json",
-            },
-          }
+          commonHeader(user_token)
         )
         .then((response) => {
           this.setState({
@@ -689,13 +678,7 @@ class Index extends Component {
         .put(
           sitedata.data.path + "/User/AddTrack/" + user_id,
           { data },
-          {
-            headers: {
-              token: user_token,
-              Accept: "application/json",
-              "Content-Type": "application/json",
-            },
-          }
+          commonHeader(user_token)
         )
         .then((response) => {
           this.setState({
@@ -727,13 +710,7 @@ class Index extends Component {
         sitedata.data.path +
         "/emergency_record/pharmacyPrescription/" +
         user_id,
-        {
-          headers: {
-            token: user_token,
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-        }
+        commonHeader(user_token)
       )
       .then((response) => {
         if (response.data.hassuccessed === true) {
@@ -899,13 +876,7 @@ class Index extends Component {
         sitedata.data.path +
         "/rightinfo/patient/" +
         this.props.Doctorsetget.p_id,
-        {
-          headers: {
-            token: user_token,
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-        }
+        commonHeader(user_token)
       )
       .then((response) => {
         this.setState({ personalinfo: response.data.data });
@@ -958,13 +929,7 @@ class Index extends Component {
           "?pin=" +
           pin +
           "&&comefrom=healthdata",
-          {
-            headers: {
-              token: user_token,
-              Accept: "application/json",
-              "Content-Type": "application/json",
-            },
-          }
+          commonHeader(user_token)
         )
         .then((response) => {
           if (response.data.hassuccessed === true) {

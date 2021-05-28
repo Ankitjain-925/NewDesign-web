@@ -33,7 +33,8 @@ import { GetLanguageDropdown, GetShowLabel1, GetShowLabel } from 'Screens/Compon
 import DateFormat from 'Screens/Components/DateFormat/index'
 import {
     getLanguage
-  } from "translations/index"
+} from "translations/index"
+import { commonHeader } from 'component/CommonHeader/index';
 var datas = [];
 var insurances = [];
 
@@ -160,13 +161,7 @@ class Index extends Component {
         const user_token = this.props.stateLoginValueAim.token;
         axios.put(sitedata.data.path + '/UserProfile/Users/update', {
             firstlogin: true,
-        }, {
-            headers: {
-                'token': user_token,
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            }
-        }).then((responce) => { })
+        }, commonHeader(user_token)).then((responce) => { })
     }
 
     // Copy the Profile id and PIN
@@ -293,7 +288,7 @@ class Index extends Component {
             this.setState({ flag_phone: e });
         }
         if (name === 'flag_emergency_number') {
-      
+
             const state = this.state.contact_partner;
             state['number'] = e + '-' + this.state.emergency_number;
             this.setState({ flag_emergency_number: e });
@@ -327,9 +322,9 @@ class Index extends Component {
 
     //For getting the dropdowns from the database
     getMetadata() {
- 
-        this.setState({ allMetadata: this.props.metadata},
-            ()=>{
+
+        this.setState({ allMetadata: this.props.metadata },
+            () => {
                 this.GetLanguageMetadata();
             })
         // axios.get(sitedata.data.path + '/UserProfile/Metadata')
@@ -458,13 +453,7 @@ class Index extends Component {
             this.setState({ insu1: false, loaderImage: true })
             axios.put(sitedata.data.path + '/UserProfile/Users/update', {
                 insurance: datas
-            }, {
-                headers: {
-                    'token': user_token,
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                }
-            }).then((responce) => {
+            }, commonHeader(user_token)).then((responce) => {
                 if (responce.data.hassuccessed) {
                     this.setState({ editInsuranceOpen: false, addInsuranceOpen: false, succUpdate: true, insuranceDetails: { insurance: '', insurance_number: '', insurance_country: '' } })
                     this.setState({ loaderImage: false });
@@ -480,11 +469,11 @@ class Index extends Component {
     //Save the User profile
     saveUserData = () => {
         // console.log('Mobile', this.state.UpDataDetails.mobile.includes("-"))
-        if(!this.state.UpDataDetails.mobile.includes("-")){
-            const state2= this.state.UpDataDetails
-            state2['mobile'] = 'DE-'+ this.state.UpDataDetails.mobile;
-         
-            this.setState({UpDataDetails : state2})
+        if (!this.state.UpDataDetails.mobile.includes("-")) {
+            const state2 = this.state.UpDataDetails
+            state2['mobile'] = 'DE-' + this.state.UpDataDetails.mobile;
+
+            this.setState({ UpDataDetails: state2 })
         }
         // console.log('Mobile', this.state.UpDataDetails.mobile)
         if (this.state.insuranceDetails.insurance !== "" && this.state.insuranceDetails.insurance_country !== "") {
@@ -514,7 +503,7 @@ class Index extends Component {
         const user_token = this.props.stateLoginValueAim.token;
         this.setState({ insuranceDetails: { insurance: '', insurance_number: '', insurance_country: '' } })
         var parent_id = this.state.UpDataDetails.parent_id ? this.state.UpDataDetails.parent_id : '0';
-    
+
         axios.put(sitedata.data.path + '/UserProfile/Users/update', {
             type: 'patient',
             pin: this.state.UpDataDetails.pin,
@@ -548,13 +537,7 @@ class Index extends Component {
             pastal_code: this.state.UpDataDetails.pastal_code,
             blood_group: this.state.UpDataDetails.blood_group,
             rhesus: this.state.UpDataDetails.rhesus,
-        }, {
-            headers: {
-                'token': user_token,
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            }
-        }).then((responce) => {
+        }, commonHeader(user_token)).then((responce) => {
             if (responce.data.hassuccessed) {
                 this.setState({ editInsuranceOpen: false, addInsuranceOpen: false, succUpdate: true, insuranceDetails: { insurance: '', insurance_number: '', insurance_country: '' } })
                 this.setState({ loaderImage: false });
@@ -604,13 +587,7 @@ class Index extends Component {
             axios.put(sitedata.data.path + '/UserProfile/Users/update', {
                 pin: this.state.UpDataDetails.pin,
                 alies_id: this.state.UpDataDetails.alies_id,
-            }, {
-                headers: {
-                    'token': user_token,
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                }
-            }).then((responce) => {
+            }, commonHeader(user_token)).then((responce) => {
                 if (responce.data.hassuccessed) {
                     this.setState({ ChangedPIN: true })
                     setTimeout(() => { this.setState({ ChangedPIN: false }) }, 5000)
@@ -692,85 +669,80 @@ class Index extends Component {
         this.setState({ loaderImage: true });
         let user_token = this.props.stateLoginValueAim.token
         let user_id = this.props.stateLoginValueAim.user._id
-        axios.get(sitedata.data.path + '/UserProfile/Users/' + user_id, {
-            headers: {
-                'token': user_token,
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            }
-        }).then((response) => {
-            var state1 = this.state.contact_partner;
-            state1['relation'] = response.data.data && response.data.data.emergency_relation
-            state1['email'] = response.data.data && response.data.data.emergency_email
-            state1['name'] = response.data.data && response.data.data.emergency_contact_name
-            state1['number'] = response.data.data && response.data.data.emergency_number
-            this.setState({ contact_partner: state1 },
-                () => {
-                    if (response.data.data && response.data.data.emergency_number && response.data.data.emergency_number !== '') {
-                        let fen = response.data.data.emergency_number.split("-");
-                        if (fen && fen.length > 0) {
-                            this.setState({ flag_emergency_number: fen[0] })
+        axios.get(sitedata.data.path + '/UserProfile/Users/' + user_id,
+            commonHeader(user_token)).then((response) => {
+                var state1 = this.state.contact_partner;
+                state1['relation'] = response.data.data && response.data.data.emergency_relation
+                state1['email'] = response.data.data && response.data.data.emergency_email
+                state1['name'] = response.data.data && response.data.data.emergency_contact_name
+                state1['number'] = response.data.data && response.data.data.emergency_number
+                this.setState({ contact_partner: state1 },
+                    () => {
+                        if (response.data.data && response.data.data.emergency_number && response.data.data.emergency_number !== '') {
+                            let fen = response.data.data.emergency_number.split("-");
+                            if (fen && fen.length > 0) {
+                                this.setState({ flag_emergency_number: fen[0] })
+                            }
                         }
+                    })
+                var title = {}, titlefromD = response.data.data.title;
+                var bloodfromD = response.data.data.blood_group, rhesusfromD = response.data.data.rhesus,
+                    bloods = {};
+                var language = [], languagefromD = response.data.data.language;
+                if (languagefromD && languagefromD.length > 0) {
+                    languagefromD.map((item) => {
+                        language.push({ value: item, label: item.replace(/_/g, " ") });
+                    })
+
+                }
+
+                if (bloodfromD && bloodfromD !== "") {
+                    bloods = { label: bloodfromD, value: bloodfromD }
+                }
+                if (rhesusfromD && rhesusfromD !== "") {
+                    this.Upsaterhesus(rhesusfromD)
+                }
+                if (titlefromD && titlefromD !== "") {
+                    title = { label: titlefromD, value: titlefromD }
+                }
+                if (response.data.data.mobile && response.data.data.mobile !== '') {
+                    let mob = response.data.data.mobile.split("-");
+                    if (mob && mob.length > 0) {
+                        this.setState({ flag_mobile: mob[0] })
                     }
+                }
+                if (response.data.data.phone && response.data.data.phone !== '') {
+                    let pho = response.data.data.phone.split("-");
+                    if (pho && pho.length > 0) {
+                        this.setState({ flag_phone: pho[0] })
+                    }
+                }
+                if (response.data.data.fax && response.data.data.fax !== '') {
+                    let fx = response.data.data.fax.split("-");
+                    if (fx && fx.length > 0) {
+                        this.setState({ flag_fax: fx[0] })
+                    }
+                }
+                // if (response.data.data.emergency_number && response.data.data.emergency_number !== '') {
+                //     let fen = response.data.data.emergency_number.split("-");
+                //     if (fen && fen.length > 0) {
+                //         this.setState({ flag_emergency_number: fen[0] })
+                //     }
+                // }
+
+                this.setState({ UpDataDetails: response.data.data, city: response.data.data.city, area: response.data.data.area, profile_id: response.data.data.profile_id });
+                this.setState({ speciality_multi: this.state.UpDataDetails.speciality })
+                this.setState({ name_multi: language, title: title, bloods: bloods })
+                this.setState({
+                    insurancefull: this.state.UpDataDetails.insurance,
+                    insuranceDetails: { insurance: '', insurance_number: '', insurance_type: '' }
                 })
-            var title = {}, titlefromD = response.data.data.title;
-            var bloodfromD = response.data.data.blood_group, rhesusfromD = response.data.data.rhesus,
-                bloods = {};
-            var language = [], languagefromD = response.data.data.language;
-            if (languagefromD && languagefromD.length > 0) {
-                languagefromD.map((item) => {
-                    language.push({ value: item, label: item.replace(/_/g, " ") });
-                })
+                datas = this.state.UpDataDetails.insurance;
 
-            }
-
-            if (bloodfromD && bloodfromD !== "") {
-                bloods = { label: bloodfromD, value: bloodfromD }
-            }
-            if (rhesusfromD && rhesusfromD !== "") {
-                this.Upsaterhesus(rhesusfromD)
-            }
-            if (titlefromD && titlefromD !== "") {
-                title = { label: titlefromD, value: titlefromD }
-            }
-            if (response.data.data.mobile && response.data.data.mobile !== '') {
-                let mob = response.data.data.mobile.split("-");
-                if (mob && mob.length > 0) {
-                    this.setState({ flag_mobile: mob[0] })
-                }
-            }
-            if (response.data.data.phone && response.data.data.phone !== '') {
-                let pho = response.data.data.phone.split("-");
-                if (pho && pho.length > 0) {
-                    this.setState({ flag_phone: pho[0] })
-                }
-            }
-            if (response.data.data.fax && response.data.data.fax !== '') {
-                let fx = response.data.data.fax.split("-");
-                if (fx && fx.length > 0) {
-                    this.setState({ flag_fax: fx[0] })
-                }
-            }
-            // if (response.data.data.emergency_number && response.data.data.emergency_number !== '') {
-            //     let fen = response.data.data.emergency_number.split("-");
-            //     if (fen && fen.length > 0) {
-            //         this.setState({ flag_emergency_number: fen[0] })
-            //     }
-            // }
-
-            this.setState({ UpDataDetails: response.data.data, city: response.data.data.city, area: response.data.data.area, profile_id: response.data.data.profile_id });
-            this.setState({ speciality_multi: this.state.UpDataDetails.speciality })
-            this.setState({ name_multi: language, title: title, bloods: bloods })
-            this.setState({
-                insurancefull: this.state.UpDataDetails.insurance,
-                insuranceDetails: { insurance: '', insurance_number: '', insurance_type: '' }
-            })
-            datas = this.state.UpDataDetails.insurance;
-
-            this.setState({ loaderImage: false });
-        }).catch((error) => {
-            this.setState({ loaderImage: false });
-        });
+                this.setState({ loaderImage: false });
+            }).catch((error) => {
+                this.setState({ loaderImage: false });
+            });
     }
 
     //Update the State
@@ -1114,11 +1086,11 @@ class Index extends Component {
                                             <Select
                                                 placeholder={select_marital_status}
                                                 options={this.state.AllMaritalOption}
-                                                value = {this.state.UpDataDetails && this.state.UpDataDetails.marital_status && GetShowLabel1(
+                                                value={this.state.UpDataDetails && this.state.UpDataDetails.marital_status && GetShowLabel1(
                                                     this.state.handleMaritalStatus,
                                                     this.state.UpDataDetails.marital_status.value,
                                                     this.props.stateLanguageType
-                                                  )}
+                                                )}
                                                 // value ={this.state.UpDataDetails && this.state.UpDataDetails.marital_status && GetShowLabel(this.state.UpDataDetails.marital_status, this.props.stateLanguageType)}
                                                 onChange={this.handleMaritalStatus} />
                                         </Grid>

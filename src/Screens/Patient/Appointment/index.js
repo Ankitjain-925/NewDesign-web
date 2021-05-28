@@ -44,6 +44,7 @@ import { subspeciality } from "subspeciality.js";
 import Loader from "Screens/Components/Loader/index";
 import { GetLanguageDropdown } from "Screens/Components/GetMetaData/index.js";
 import Notification from "../../Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
+import { commonHeader } from "component/CommonHeader/index";
 
 const CURRENT_DATE = moment().toDate();
 const localizer = momentLocalizer(moment);
@@ -105,13 +106,7 @@ class Index extends Component {
     var user_token = this.props.stateLoginValueAim.token;
     this.setState({ loaderImage: true });
     axios
-      .get(sitedata.data.path + "/User/AppointmentByDate1", {
-        headers: {
-          token: user_token,
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      })
+      .get(sitedata.data.path + "/User/AppointmentByDate1", commonHeader(user_token))
       .then((response) => {
         if (response.data.hassuccessed) {
           let indexout = 0;
@@ -119,13 +114,7 @@ class Index extends Component {
             response.data.data.length > 0 &&
             response.data.data.map((data, index) => {
               axios
-                .get(sitedata.data.path + "/User/AppointOfDate1/" + data._id, {
-                  headers: {
-                    token: user_token,
-                    Accept: "application/json",
-                    "Content-Type": "application/json",
-                  },
-                })
+                .get(sitedata.data.path + "/User/AppointOfDate1/" + data._id, commonHeader(user_token))
                 .then((response) => {
                   if (response.data.hassuccessed) {
                     response.data.data &&
@@ -206,13 +195,7 @@ class Index extends Component {
   getUpcomingAppointment() {
     var user_token = this.props.stateLoginValueAim.token;
     axios
-      .get(sitedata.data.path + "/UserProfile/UpcomingAppintmentPat", {
-        headers: {
-          token: user_token,
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      })
+      .get(sitedata.data.path + "/UserProfile/UpcomingAppintmentPat",commonHeader(user_token))
       .then(async (response) => {
         var upcomingData =
           response.data.data &&
@@ -231,13 +214,7 @@ class Index extends Component {
   getPastAppointment = () => {
     var user_token = this.props.stateLoginValueAim.token;
     axios
-      .get(sitedata.data.path + "/UserProfile/PastAppintmentPat", {
-        headers: {
-          token: user_token,
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      })
+      .get(sitedata.data.path + "/UserProfile/PastAppintmentPat", commonHeader(user_token))
       .then((response) => {
         this.setState({
           pastAppointment: response.data.data,
@@ -294,13 +271,7 @@ class Index extends Component {
     var user_id = this.props.stateLoginValueAim.user._id;
     var user_token = this.props.stateLoginValueAim.token;
     axios
-      .get(sitedata.data.path + "/UserProfile/Users/" + user_id, {
-        headers: {
-          token: user_token,
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      })
+      .get(sitedata.data.path + "/UserProfile/Users/" + user_id, commonHeader(user_token))
       .then((response) => {
         this.setState({ personalinfo: response.data.data, loaderImage: false });
       });
@@ -556,13 +527,7 @@ class Index extends Component {
             appointment_type: this.state.cancelappoint.appointment_type,
             timedifference: timedifference1,
           },
-          {
-            headers: {
-              token: user_token,
-              Accept: "application/json",
-              "Content-Type": "application/json",
-            },
-          }
+          commonHeader(user_token)
         )
         .then((response) => {
           if (response.data.hassuccessed) {
@@ -618,13 +583,7 @@ class Index extends Component {
           status: "cancel",
           message: this.state.message,
         },
-        {
-          headers: {
-            token: user_token,
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-        }
+        commonHeader(user_token)
       )
       .then((response) => {
         this.setState({
@@ -805,13 +764,7 @@ class Index extends Component {
       Month + "-" + event.start.getDate() + "-" + event.start.getFullYear();
     this.setState({ loaderImage: true });
     axios
-      .get(sitedata.data.path + "/User/AppointOfDate/" + date, {
-        headers: {
-          token: user_token,
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      })
+      .get(sitedata.data.path + "/User/AppointOfDate/" + date, commonHeader(user_token))
       .then((response) => {
         if (response.data.hassuccessed) {
           this.setState({ SelectDate: date, DetialData: response.data.data });

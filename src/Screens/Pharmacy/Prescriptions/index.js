@@ -28,6 +28,7 @@ import {
 } from "translations/index"
 import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 import { delete_click_track } from "Screens/Components/CommonApi/index";
+import { commonHeader } from "component/CommonHeader/index";
 
 class Index extends Component {
   constructor(props) {
@@ -89,13 +90,7 @@ class Index extends Component {
         sitedata.data.path +
         "/emergency_record/getTrack/" +
         this.props.stateLoginValueAim.user._id,
-        {
-          headers: {
-            token: user_token,
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-        }
+        commonHeader(user_token)
       )
       .then((response) => {
         if (response.data.hassuccessed === true) {
@@ -236,13 +231,7 @@ class Index extends Component {
       .put(
         sitedata.data.path + "/User/AddTrack/" + user_id + "/" + track_id,
         { data },
-        {
-          headers: {
-            token: user_token,
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-        }
+        commonHeader(user_token)
       )
       .then((response) => {
         this.setState({ isArchived: true, loaderImage: false });
@@ -271,13 +260,7 @@ class Index extends Component {
       .put(
         sitedata.data.path + "/User/HandlePrescriptions/" + user_id + "/" + track_id,
         { data },
-        {
-          headers: {
-            token: user_token,
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-        }
+        commonHeader(user_token)
       )
       .then((response) => {
         this.setState({ ishandled: true, loaderImage: false });

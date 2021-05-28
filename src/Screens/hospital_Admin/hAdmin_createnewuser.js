@@ -13,8 +13,6 @@ import { connect } from "react-redux";
 import { LoginReducerAim } from 'Screens/Login/actions';
 import { Settings } from 'Screens/Login/setting';
 import { LanguageFetchReducer } from "Screens/actions";
-import axios from "axios"
-import sitedata from "sitedata"
 
 const specialistOptions = [
     { value: 'Specialist1', label: 'Specialist1' },

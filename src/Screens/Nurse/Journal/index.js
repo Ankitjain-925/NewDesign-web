@@ -68,6 +68,7 @@ import DownloadFullTrack from "Screens/Components/DownloadFullTrack/index";
 import SPECIALITY from "speciality";
 import { GetLanguageDropdown } from "Screens/Components/GetMetaData/index.js";
 import { get_gender, get_cur_one, get_personalized, get_track, update_entry_state, delete_click_track, download_track } from "Screens/Components/CommonApi/index";
+import { commonHeader } from "component/CommonHeader/index";
 
 class Index extends Component {
   constructor(props) {
@@ -395,13 +396,7 @@ class Index extends Component {
       .put(
         sitedata.data.path + "/User/AddTrack/" + user_id + "/" + track_id,
         { data },
-        {
-          headers: {
-            token: user_token,
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-        }
+        commonHeader(user_token)
       )
       .then((response) => {
         this.setState({
@@ -591,13 +586,7 @@ class Index extends Component {
         .put(
           sitedata.data.path + "/User/AddTrack/" + user_id + "/" + track_id,
           { data },
-          {
-            headers: {
-              token: user_token,
-              Accept: "application/json",
-              "Content-Type": "application/json",
-            },
-          }
+          commonHeader(user_token)
         )
         .then((response) => {
           this.setState({
@@ -619,13 +608,7 @@ class Index extends Component {
         .put(
           sitedata.data.path + "/User/AddTrack/" + user_id,
           { data },
-          {
-            headers: {
-              token: user_token,
-              Accept: "application/json",
-              "Content-Type": "application/json",
-            },
-          }
+          commonHeader(user_token)
         )
         .then((response) => {
           this.setState({
@@ -914,13 +897,7 @@ class Index extends Component {
         sitedata.data.path +
         "/rightinfo/patient/" +
         this.props.Doctorsetget.p_id,
-        {
-          headers: {
-            token: user_token,
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-        }
+        commonHeader(user_token)
       )
       .then((response) => {
         this.setState({ personalinfo: response.data.data });
@@ -973,13 +950,7 @@ class Index extends Component {
           "?pin=" +
           pin +
           "&&comefrom=healthdata",
-          {
-            headers: {
-              token: user_token,
-              Accept: "application/json",
-              "Content-Type": "application/json",
-            },
-          }
+         commonHeader(user_token)
         )
         .then((response) => {
           if (response.data.hassuccessed === true) {

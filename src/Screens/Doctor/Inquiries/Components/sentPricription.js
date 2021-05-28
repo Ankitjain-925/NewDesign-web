@@ -16,7 +16,8 @@ import { LanguageFetchReducer } from "Screens/actions";
 import { getDate, getImage } from "Screens/Components/BasicMethod/index";
 import {
     getLanguage
-  } from "translations/index"
+} from "translations/index"
+import { commonHeader } from "component/CommonHeader/index";
 function TabContainer(props) {
     return (
         <Typography component="div" className="tabsCntnts">
@@ -54,17 +55,12 @@ class Index extends Component {
         this.setState({ loaderImage: true });
         let user_token = this.props.stateLoginValueAim.token;
         axios
-            .get(sitedata.data.path + "/emergency_record/getSentPrescription/" + this.props.stateLoginValueAim.user._id, {
-                headers: {
-                    token: user_token,
-                    Accept: "application/json",
-                    "Content-Type": "application/json",
-                },
-            })
+            .get(sitedata.data.path + "/emergency_record/getSentPrescription/" + this.props.stateLoginValueAim.user._id,
+                commonHeader(user_token))
             .then((response) => {
                 if (response.data.hassuccessed) {
                     var images = [];
-                    let image1=[]
+                    let image1 = []
                     let sentPres = []
                     response.data.data &&
                         response.data.data.length > 0 &&
@@ -93,37 +89,37 @@ class Index extends Component {
                                     if (find) {
                                         var find1 = find.split(".com/")[1];
                                         axios
-                                        .get(sitedata.data.path + "/aws/sign_s3?find=" + find1)
-                                        .then((response2) => {
-                                            if (response2.data.hassuccessed) {
-                                                item.new_image = response2.data.data;
-                                                images.push({
-                                                    image: find,
-                                                    new_image: response2.data.data,
-                                                });
-                                                this.setState({ images: images });
-                                            }
-                                        });
+                                            .get(sitedata.data.path + "/aws/sign_s3?find=" + find1)
+                                            .then((response2) => {
+                                                if (response2.data.hassuccessed) {
+                                                    item.new_image = response2.data.data;
+                                                    images.push({
+                                                        image: find,
+                                                        new_image: response2.data.data,
+                                                    });
+                                                    this.setState({ images: images });
+                                                }
+                                            });
                                     }
                                     item.attachfile &&
-                                    item.attachfile.length > 0 &&
-                                    item.attachfile.map((data, index) => {
-                                      var find = data && data.filename && data.filename;
-                                      if (find) {
-                                        var find1 = find.split(".com/")[1];
-                                        axios
-                                          .get(sitedata.data.path + "/aws/sign_s3?find=" + find1)
-                                          .then((response2) => {
-                                            if (response2.data.hassuccessed) {
-                                              images.push({
-                                                image: find,
-                                                new_image: response2.data.data,
-                                              });
-                                              this.setState({ images: images });
+                                        item.attachfile.length > 0 &&
+                                        item.attachfile.map((data, index) => {
+                                            var find = data && data.filename && data.filename;
+                                            if (find) {
+                                                var find1 = find.split(".com/")[1];
+                                                axios
+                                                    .get(sitedata.data.path + "/aws/sign_s3?find=" + find1)
+                                                    .then((response2) => {
+                                                        if (response2.data.hassuccessed) {
+                                                            images.push({
+                                                                image: find,
+                                                                new_image: response2.data.data,
+                                                            });
+                                                            this.setState({ images: images });
+                                                        }
+                                                    });
                                             }
-                                          });
-                                      }
-                                    });
+                                        });
                                     item["image"] = track.image
                                     item["pharmacist"] = track.first_name + " " + track.last_name
                                     sentPres.push(item)
@@ -171,7 +167,7 @@ class Index extends Component {
         }
     };
 
-    
+
     //For chnage the page
     onChangePage = (pageNumber) => {
         this.setState({
@@ -183,13 +179,13 @@ class Index extends Component {
         });
     };
 
-     // fancybox open
-  handleOpenPres = (data) => {
-    this.setState({ openPres: true, openDetail: data });
-  };
-  handleClosePres = () => {
-    this.setState({ openPres: false, openDetail: {} });
-  };
+    // fancybox open
+    handleOpenPres = (data) => {
+        this.setState({ openPres: true, openDetail: data });
+    };
+    handleClosePres = () => {
+        this.setState({ openPres: false, openDetail: {} });
+    };
 
     render() {
         const { inqstatus, sickData, MypatientsData, imagePreviewUrl } = this.state;
@@ -283,41 +279,41 @@ class Index extends Component {
                                                 <span className="revwGren"></span> {handled}
                                             </Td>
                                         ) : (
-                                                <Td>
-                                                    <span className="revwGry"></span> {RBPharmacy}
-                                                </Td>
-                                            )}
+                                            <Td>
+                                                <span className="revwGry"></span> {RBPharmacy}
+                                            </Td>
+                                        )}
                                         <Td className="presEditDot scndOptionIner">
-                                        <a className="openScndhrf">
-                                            <img
-                                            src={require("assets/images/three_dots_t.png")}
-                                            alt=""
-                                            title=""
-                                            className="openScnd"
-                                            />
-                                            <ul>
-                                                <li>
-                                                    <a
-                                                    onClick={() => {
-                                                        this.handleOpenPres(data);
-                                                    }}
-                                                    >
-                                                    <img
-                                                        src={require("assets/images/details.svg")}
-                                                        alt=""
-                                                        title=""
-                                                    />
-                                                    {see_details}
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </a>
+                                            <a className="openScndhrf">
+                                                <img
+                                                    src={require("assets/images/three_dots_t.png")}
+                                                    alt=""
+                                                    title=""
+                                                    className="openScnd"
+                                                />
+                                                <ul>
+                                                    <li>
+                                                        <a
+                                                            onClick={() => {
+                                                                this.handleOpenPres(data);
+                                                            }}
+                                                        >
+                                                            <img
+                                                                src={require("assets/images/details.svg")}
+                                                                alt=""
+                                                                title=""
+                                                            />
+                                                            {see_details}
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </a>
                                         </Td>
                                     </Tr>
                                 ))}
                         </Tbody>
                     </Table>
-                    
+
                     {/* End of Reject Model setup */}
                     <Grid className="tablePagNum">
                         <Grid container direction="row">
@@ -373,84 +369,84 @@ class Index extends Component {
                     </Grid>
                 </Grid>
                 <Modal
-                open={this.state.openPres}
-                onClose={this.handleClosePres}
-                className={
-                    this.props.settings &&
-                    this.props.settings.setting &&
-                    this.props.settings.setting.mode === "dark"
-                    ? "darkTheme presBoxModel"
-                    : "presBoxModel"
-                }
+                    open={this.state.openPres}
+                    onClose={this.handleClosePres}
+                    className={
+                        this.props.settings &&
+                            this.props.settings.setting &&
+                            this.props.settings.setting.mode === "dark"
+                            ? "darkTheme presBoxModel"
+                            : "presBoxModel"
+                    }
                 >
-                <Grid className="presBoxCntnt">
-                    <Grid className="presCourse">
-                    <Grid className="presCloseBtn">
-                        <a onClick={this.handleClosePres}>
-                        <img
-                            src={require("assets/images/close-search.svg")}
-                            alt=""
-                            title=""
-                        />
-                        </a>
-                    </Grid>
-                    <p>
-                        {prescription} {fors}
-                    </p>
-                    <Grid>
-                        <label>
-                        {" "}
-                       { console.log('this.state.openDetail', this.state.openDetail)}
-                        {this.state.openDetail.patient_name &&
-                            this.state.openDetail.patient_name}
-                        </label>
-                    </Grid>
-                    </Grid>
-
-                    <Grid className="medicInqUpr">
-                    <Grid className="prescripList">
-                        <Grid>
-                        {this.state.openDetail &&
-                            this.state.openDetail.attachfile &&
-                            this.state.openDetail.attachfile.length >
-                            0 &&
-                            this.state.openDetail.attachfile.map(
-                            (file) => (
-                                <div>
-                                {file.filetype === "pdf" && (
-                                    <iframe
-                                    className="FramesetHeightWidth"
-                                    width={700}
-                                    height="500"
-                                    src={getImage(
-                                        file.filename,
-                                        this.state.images
-                                    )}
-                                    frameborder="0"
-                                    allowtransparency="true"
-                                    allowfullscreen
-                                    ></iframe>
-                                )}
-                                {(file.filetype === "png" ||
-                                    file.filetype === "jpeg" ||
-                                    file.filetype === "jpg" ||
-                                    file.filetype === "svg") && (
+                    <Grid className="presBoxCntnt">
+                        <Grid className="presCourse">
+                            <Grid className="presCloseBtn">
+                                <a onClick={this.handleClosePres}>
                                     <img
-                                        src={getImage(
-                                        file.filename,
-                                        this.state.images
-                                        )}
+                                        src={require("assets/images/close-search.svg")}
                                         alt=""
                                         title=""
                                     />
-                                    )}
-                                </div>
-                            )
-                            )}
+                                </a>
+                            </Grid>
+                            <p>
+                                {prescription} {fors}
+                            </p>
+                            <Grid>
+                                <label>
+                                    {" "}
+                                    {console.log('this.state.openDetail', this.state.openDetail)}
+                                    {this.state.openDetail.patient_name &&
+                                        this.state.openDetail.patient_name}
+                                </label>
+                            </Grid>
+                        </Grid>
+
+                        <Grid className="medicInqUpr">
+                            <Grid className="prescripList">
+                                <Grid>
+                                    {this.state.openDetail &&
+                                        this.state.openDetail.attachfile &&
+                                        this.state.openDetail.attachfile.length >
+                                        0 &&
+                                        this.state.openDetail.attachfile.map(
+                                            (file) => (
+                                                <div>
+                                                    {file.filetype === "pdf" && (
+                                                        <iframe
+                                                            className="FramesetHeightWidth"
+                                                            width={700}
+                                                            height="500"
+                                                            src={getImage(
+                                                                file.filename,
+                                                                this.state.images
+                                                            )}
+                                                            frameborder="0"
+                                                            allowtransparency="true"
+                                                            allowfullscreen
+                                                        ></iframe>
+                                                    )}
+                                                    {(file.filetype === "png" ||
+                                                        file.filetype === "jpeg" ||
+                                                        file.filetype === "jpg" ||
+                                                        file.filetype === "svg") && (
+                                                            <img
+                                                                src={getImage(
+                                                                    file.filename,
+                                                                    this.state.images
+                                                                )}
+                                                                alt=""
+                                                                title=""
+                                                            />
+                                                        )}
+                                                </div>
+                                            )
+                                        )}
+                                </Grid>
+                            </Grid>
                         </Grid>
                     </Grid>
-                    </Grid>
-                </Grid>
                 </Modal>
             </div>
         );

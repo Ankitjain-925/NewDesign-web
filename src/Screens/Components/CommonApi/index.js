@@ -1,15 +1,11 @@
 import axios from "axios";
 import sitedata from "sitedata";
 import moment from "moment"
+import { commonHeader } from "component/CommonHeader/index"
 
 export const get_gender = async (user_token, user_id) => {
-    let response = await axios.get(sitedata.data.path + "/User/Get_patient_gender/" + user_id, {
-        headers: {
-            token: user_token,
-            Accept: "application/json",
-            "Content-Type": "application/json",
-        },
-    })
+    let response = await axios.get(sitedata.data.path + "/User/Get_patient_gender/" + user_id,
+        commonHeader(user_token))
     if (response.data.hassuccessed === true) {
         return response.data.data
     } else {
@@ -18,13 +14,9 @@ export const get_gender = async (user_token, user_id) => {
 }
 
 export const get_cur_one = async (user_token, user_id) => {
-    let response = await axios.get(sitedata.data.path + "/UserProfile/Users/" + user_id, {
-        headers: {
-            token: user_token,
-            Accept: "application/json",
-            "Content-Type": "application/json",
-        },
-    })
+    let response = await axios.get(sitedata.data.path + "/UserProfile/Users/" + user_id,
+        commonHeader(user_token)
+    )
     if (response.data.hassuccessed) {
         return response
     } else {
@@ -33,13 +25,9 @@ export const get_cur_one = async (user_token, user_id) => {
 }
 
 export const get_personalized = async (user_token, user_id) => {
-    let response = await axios.get(sitedata.data.path + "/UserProfile/updateSetting/" + user_id, {
-        headers: {
-            token: user_token,
-            Accept: "application/json",
-            "Content-Type": "application/json",
-        },
-    })
+    let response = await axios.get(sitedata.data.path + "/UserProfile/updateSetting/" + user_id,       
+    commonHeader(user_token)
+    )
     if (response.data.hassuccessed) {
         return response
     } else {
@@ -48,13 +36,9 @@ export const get_personalized = async (user_token, user_id) => {
 }
 
 export const get_track = async (user_token, user_id) => {
-    let response = await axios.get(sitedata.data.path + "/User/AddTrack/" + user_id, {
-        headers: {
-            token: user_token,
-            Accept: "application/json",
-            "Content-Type": "application/json",
-        },
-    })
+    let response = await axios.get(sitedata.data.path + "/User/AddTrack/" + user_id,        
+    commonHeader(user_token))
+
     if (response.data.hassuccessed) {
         return response
     } else {
@@ -96,13 +80,8 @@ export const update_entry_state = async (e, state, stateLoginValueAim) => {
 
 export const delete_click_track = async (user_token, user_id, deletekey) => {
     let response = await axios.delete(sitedata.data.path + "/User/AddTrack/" + user_id + "/" + deletekey,
-        {
-            headers: {
-                token: user_token,
-                Accept: "application/json",
-                "Content-Type": "application/json",
-            },
-        })
+    commonHeader(user_token))
+
 
     if (response) {
         return response

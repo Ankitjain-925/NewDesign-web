@@ -5,6 +5,7 @@ import {
 } from "actiontypes";
 import sitedata from "sitedata.js";
 import axios from "axios";
+import { commonHeader } from "component/CommonHeader/index";
 const doctor8 = 'D_TZqvF67rO'.toLowerCase();
 
 const PLATFORM_SPECIFIC_USER = [
@@ -16,13 +17,7 @@ const PLATFORM_SPECIFIC_USER = [
 ];
 const getDoctorArray = async (doctorArray = new Set(), user_token) => {
   await axios
-    .get(sitedata.data.path + "/UserProfile/DoctorUsersChat", {
-      headers: {
-        token: user_token,
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-    })
+    .get(sitedata.data.path + "/UserProfile/DoctorUsersChat", commonHeader(user_token))
     .then((response) => {
       response.data.data &&
         response.data.data.length > 0 &&
@@ -58,13 +53,7 @@ const getNusePharma = async (
 ) => {
   if (isInDoctorList(userInfo)) {
     await axios
-      .get(sitedata.data.path + "/UserProfile/NursePharmaChat", {
-        headers: {
-          token: user_token,
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      })
+      .get(sitedata.data.path + "/UserProfile/NursePharmaChat", commonHeader(user_token))
       .then((response) => {
         response.data.data &&
           response.data.data.length > 0 &&
@@ -87,13 +76,7 @@ const getPatientUserChat = async (
 ) => {
   if (isInDoctorList(userInfo)) {
     await axios
-      .get(sitedata.data.path + "/UserProfile/PatientUsersChat", {
-        headers: {
-          token: user_token,
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      })
+      .get(sitedata.data.path + "/UserProfile/PatientUsersChat", commonHeader(user_token))
       .then((response) => {
         response.data.data &&
           response.data.data.length > 0 &&
@@ -124,13 +107,7 @@ const checkIfAllPatient = async (doctorArray, user_token) => {
   })
 };
 const getAllUserProfileId = async (user_token) => {
-  return axios.get(sitedata.data.path + "/User/getAllUserProfileId", {
-    headers: {
-      token: user_token,
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    },
-  })
+  return axios.get(sitedata.data.path + "/User/getAllUserProfileId", commonHeader(user_token))
 };
 
 export const Doctorarrays = (type, user, token, CB = () => { }) => {
@@ -142,13 +119,7 @@ export const Doctorarrays = (type, user, token, CB = () => { }) => {
     let c_user_profile = PLATFORM_SPECIFIC_USER.includes(user?.profile_id.toLowerCase())
     if (type === "patient") {
       axios
-        .get(sitedata.data.path + "/UserProfile/DoctorUsersChat", {
-          headers: {
-            token: user_token,
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-        })
+        .get(sitedata.data.path + "/UserProfile/DoctorUsersChat", commonHeader(user_token))
         .then((response) => {
           response.data.data &&
             response.data.data.length > 0 &&
@@ -173,13 +144,7 @@ export const Doctorarrays = (type, user, token, CB = () => { }) => {
         .then(() => {
           let user_id = user._id;
           axios
-            .get(sitedata.data.path + "/UserProfile/Users/" + user_id, {
-              headers: {
-                token: user_token,
-                Accept: "application/json",
-                "Content-Type": "application/json",
-              },
-            })
+            .get(sitedata.data.path + "/UserProfile/Users/" + user_id, commonHeader(user_token))
             .then((response) => {
               const hasDocAroundClock =
               response.data?.data?.paid_services?.filter(it => {
@@ -219,13 +184,7 @@ export const Doctorarrays = (type, user, token, CB = () => { }) => {
     else if (type === "doctor") {
       const hasPaidservice = user && user.paid_services && user.paid_services.length > 0;
       axios
-        .get(sitedata.data.path + "/UserProfile/Mypatients", {
-          headers: {
-            token: user_token,
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-        })
+        .get(sitedata.data.path + "/UserProfile/Mypatients", commonHeader(user_token))
         .then((response) => {
           response.data.data &&
             response.data.data.length > 0 &&
@@ -238,13 +197,7 @@ export const Doctorarrays = (type, user, token, CB = () => { }) => {
             doctorArray = responce;
 
             axios
-              .get(sitedata.data.path + "/UserProfile/Users/" + user._id, {
-                headers: {
-                  token: user_token,
-                  Accept: "application/json",
-                  "Content-Type": "application/json",
-                },
-              })
+              .get(sitedata.data.path + "/UserProfile/Users/" + user._id, commonHeader(user_token))
               .then((response3) => {
                 response3.data.data &&
                   response3.data.data.fav_doctor &&
@@ -290,13 +243,7 @@ export const Doctorarrays = (type, user, token, CB = () => { }) => {
       type === "pharmacy"
     ) {
       axios
-        .get(sitedata.data.path + "/UserProfile/DoctorUsersChat", {
-          headers: {
-            token: token,
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-        })
+        .get(sitedata.data.path + "/UserProfile/DoctorUsersChat", commonHeader(user_token))
         .then((response) => {
           response.data.data &&
             response.data.data.length > 0 &&

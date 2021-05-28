@@ -28,6 +28,7 @@ import { GetLanguageDropdown } from "Screens/Components/GetMetaData/index.js";
 import {
   getLanguage
 } from "translations/index"
+import { commonHeader } from "component/CommonHeader/index";
 
 
 var datas = [];
@@ -411,13 +412,7 @@ class Index extends Component {
           country: this.state.UpDataDetails.country,
           pastal_code: this.state.UpDataDetails.pastal_code,
         },
-        {
-          headers: {
-            token: user_token,
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-        }
+        commonHeader(user_token)
       )
       .then((responce) => {
         if (responce.data.hassuccessed) {
@@ -485,13 +480,7 @@ class Index extends Component {
             pin: this.state.UpDataDetails.pin,
             alies_id: this.state.UpDataDetails.alies_id,
           },
-          {
-            headers: {
-              token: user_token,
-              Accept: "application/json",
-              "Content-Type": "application/json",
-            },
-          }
+          commonHeader(user_token)
         )
         .then((responce) => {
           if (responce.data.hassuccessed) {
@@ -520,13 +509,7 @@ class Index extends Component {
           sitedata.data.path +
             "/UserProfile/checkAlies?alies_id=" +
             e.target.value,
-          {
-            headers: {
-              token: user_token,
-              Accept: "application/json",
-              "Content-Type": "application/json",
-            },
-          }
+          commonHeader(user_token)
         )
         .then((responce) => {
           if (responce.data.hassuccessed) {
@@ -573,13 +556,7 @@ class Index extends Component {
     let user_token = this.props.stateLoginValueAim.token;
     let user_id = this.props.stateLoginValueAim.user._id;
     axios
-      .get(sitedata.data.path + "/UserProfile/Users/" + user_id, {
-        headers: {
-          token: user_token,
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      })
+      .get(sitedata.data.path + "/UserProfile/Users/" + user_id, commonHeader(user_token))
       .then((response) => {
         var title = {},
           titlefromD = response.data.data.title;
@@ -690,13 +667,7 @@ class Index extends Component {
         {
           image: this.state.uploadedimage,
         },
-        {
-          headers: {
-            token: user_token,
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-        }
+        commonHeader(user_token)
       )
       .then((responce) => {
         axios
