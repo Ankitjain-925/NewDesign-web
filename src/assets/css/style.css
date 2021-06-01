@@ -13516,10 +13516,39 @@ iframe.stripe_checkout_app {
 .darkTheme .cnfrmDiaLft label span{
     color: #D9DADA !important;
 }
+.homeBgDrk .payment_sec_extra_ser label {
+    color: #BFC1C1 !important;
+}
+.homeBgDrk .payment_sec_extra_ser input {
+    color: #BFC1C1 !important;
+}
+.homeBgDrk .payment_sec_extra_ser g.Icon-fill {
+    fill: #ffffff;
+}
+.sbu_button button:first-child {
+    margin-right: 12px;
+}
+p#outlined-email-input-helper-text {
+    margin-left: 0px;
+    margin-top: 18px;
+    margin-bottom: 5px;
+}
 span.ccl-dtls-section-listitem-link {
     background: #009688;
     color: #fff !important;
     padding: 12px !important;
+}
+.sbu_button {
+    margin-top: 10px;
+}
+.homeBgDrk .payment_sec_extra_ser .StripeElement {
+    border-bottom: 1px solid #BFC1C1 !important;
+}
+.homeBgDrk .payment_sec_extra_ser fieldset {
+    border: 1px solid rgb(191, 193, 193) !important;
+}
+.homeBgDrk .payment_sec_extra_ser g.Icon-fill {
+    fill: #ffffff !important;
 }
 .Pwrdby{
     text-align: center;

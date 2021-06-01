@@ -15,6 +15,7 @@ import CreatableSelect from "react-select/creatable";
 import {
   getLanguage
 } from "translations/index"
+import { commonHeader } from "component/CommonHeader/index";
 
 
 const createOption = (label) => ({
@@ -54,13 +55,7 @@ class Index extends Component {
     let user_token = this.props.stateLoginValueAim.token;
     let user_id = this.props.stateLoginValueAim.user._id;
     axios
-      .get(sitedata.data.path + "/UserProfile/Users/" + user_id, {
-        headers: {
-          token: user_token,
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      })
+      .get(sitedata.data.path + "/UserProfile/Users/" + user_id, commonHeader(user_token))
       .then((response) => {
         this.setState({ loaderImage: false });
 
@@ -104,13 +99,7 @@ class Index extends Component {
               : "",
             lan: this.props.stateLanguageType,
           },
-          {
-            headers: {
-              token: user_token,
-              Accept: "application/json",
-              "Content-Type": "application/json",
-            },
-          }
+          commonHeader(user_token)
         )
         .then((response) => {
           this.setState({ loaderImage: false });

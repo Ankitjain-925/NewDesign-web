@@ -18,6 +18,7 @@ import { getDate, getImage } from "Screens/Components/BasicMethod/index";
 import {
   getLanguage
 } from "translations/index"
+import { commonHeader } from "component/CommonHeader/index";
 
 class Index extends Component {
   constructor(props) {
@@ -92,18 +93,12 @@ class Index extends Component {
         {
           status: status,
         },
-        {
-          headers: {
-            token: user_token,
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-        }
+        commonHeader(user_token)
       )
       .then((response) => {
         this.getPrescription();
       })
-      .catch((error) => {});
+      .catch((error) => { });
   }
 
   //Delete for the Prescriptions confirmation
@@ -123,8 +118,8 @@ class Index extends Component {
           <div
             className={
               this.props.settings &&
-              this.props.settings.setting &&
-              this.props.settings.setting.mode === "dark"
+                this.props.settings.setting &&
+                this.props.settings.setting.mode === "dark"
                 ? "dark-confirm react-confirm-alert-body"
                 : "react-confirm-alert-body"
             }
@@ -182,16 +177,10 @@ class Index extends Component {
     axios
       .put(
         sitedata.data.path +
-          "/UserProfile/UpdatePrescription/" +
-          this.state.AddPrescription._id,
+        "/UserProfile/UpdatePrescription/" +
+        this.state.AddPrescription._id,
         data,
-        {
-          headers: {
-            token: user_token,
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-        }
+        commonHeader(user_token)
       )
       .then((response) => {
         this.setState({ successfullsent: true, addInqry: false });
@@ -200,20 +189,14 @@ class Index extends Component {
         }, 5000);
         this.getPrescription();
       })
-      .catch((error) => {});
+      .catch((error) => { });
   };
   //Get all the sick Prescriptions
   getPrescription = () => {
     var user_token = this.props.stateLoginValueAim.token;
     this.setState({ loaderImage: true });
     axios
-      .get(sitedata.data.path + "/UserProfile/RequestedPrescription", {
-        headers: {
-          token: user_token,
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      })
+      .get(sitedata.data.path + "/UserProfile/RequestedPrescription", commonHeader(user_token))
       .then((response) => {
         var images = [];
         response.data.data &&
@@ -334,9 +317,9 @@ class Index extends Component {
                     <Td>
                       {data.send_on
                         ? getDate(
-                            data.send_on,
-                            this.props.settings.setting.date_format
-                          )
+                          data.send_on,
+                          this.props.settings.setting.date_format
+                        )
                         : "Not mentioned"}
                     </Td>
                     <Td className="presImg">
@@ -344,9 +327,9 @@ class Index extends Component {
                         src={
                           data.docProfile && data.docProfile.profile_image
                             ? getImage(
-                                data.docProfile.profile_image,
-                                this.state.images
-                              )
+                              data.docProfile.profile_image,
+                              this.state.images
+                            )
                             : require("assets/images/dr1.jpg")
                         }
                         alt=""
@@ -484,8 +467,8 @@ class Index extends Component {
             onClose={this.handleCloseInqry}
             className={
               this.props.settings &&
-              this.props.settings.setting &&
-              this.props.settings.setting.mode === "dark"
+                this.props.settings.setting &&
+                this.props.settings.setting.mode === "dark"
                 ? "darkTheme nwPresModel"
                 : "nwPresModel"
             }
@@ -738,8 +721,8 @@ class Index extends Component {
             onClose={this.handleCloseShowSick}
             className={
               this.props.settings &&
-              this.props.settings.setting &&
-              this.props.settings.setting.mode === "dark"
+                this.props.settings.setting &&
+                this.props.settings.setting.mode === "dark"
                 ? "darkTheme nwPresModel"
                 : "nwPresModel"
             }
@@ -805,8 +788,8 @@ class Index extends Component {
                     <Grid>
                       <h3>
                         {this.state.AddPrescription &&
-                        this.state.AddPrescription.prescription_type &&
-                        this.state.AddPrescription.prescription_type ===
+                          this.state.AddPrescription.prescription_type &&
+                          this.state.AddPrescription.prescription_type ===
                           "offline"
                           ? home_add_mailbox
                           : online}

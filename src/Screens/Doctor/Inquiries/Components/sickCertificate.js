@@ -20,6 +20,7 @@ import { getDate, getImage } from "Screens/Components/BasicMethod/index";
 import {
   getLanguage
 } from "translations/index"
+import { commonHeader } from "component/CommonHeader/index";
 // import * as translationDE from '../../../translations/de_json_proofread_13072020.json';
 function TabContainer(props) {
   return (
@@ -57,13 +58,7 @@ class Index extends Component {
     this.setState({ loaderImage: true });
     let user_token = this.props.stateLoginValueAim.token;
     axios
-      .get(sitedata.data.path + "/UserProfile/GetSickCertificate/", {
-        headers: {
-          token: user_token,
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      })
+      .get(sitedata.data.path + "/UserProfile/GetSickCertificate/", commonHeader(user_token))
       .then((response) => {
         if (response.data.hassuccessed) {
           var images = [];
@@ -152,13 +147,7 @@ class Index extends Component {
           {
             attachfile: this.state.uploadedimage,
           },
-          {
-            headers: {
-              token: user_token,
-              Accept: "application/json",
-              "Content-Type": "application/json",
-            },
-          }
+          commonHeader(user_token)
         )
         .then((responce) => {
           send();
@@ -340,14 +329,7 @@ class Index extends Component {
           short_msg: message,
           send_to_timeline: true,
         },
-        {
-          headers: {
-            token: user_token,
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-        }
-      )
+        commonHeader(user_token))
       .then((response) => {
         this.setState({
           send_to_timeline: false,

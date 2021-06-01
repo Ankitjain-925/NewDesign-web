@@ -15,6 +15,7 @@ import DateFormat from 'Screens/Components/DateFormat/index'
 import {
     getLanguage
   } from "translations/index"
+import { commonHeader } from 'component/CommonHeader/index';
 class Index extends Component {
     constructor(props) {
         super(props);
@@ -83,13 +84,7 @@ class Index extends Component {
             opt: this.state.opt,
             opt_set: this.state.opt_set,
             opt_until: this.state.opt_until
-        }, {
-            headers: {
-                'token': user_token,
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            }
-        })
+        }, commonHeader(user_token))
             .then((responce) => {
                 this.setState({ loaderImage: false });
             })
@@ -105,13 +100,7 @@ class Index extends Component {
         this.setState({ loaderImage: true });
         let user_token = this.props.stateLoginValueAim.token
         let user_id = this.props.stateLoginValueAim.user._id
-        axios.get(sitedata.data.path + '/UserProfile/Users/' + user_id, {
-            headers: {
-                'token': user_token,
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            }
-        }).then((response) => {
+        axios.get(sitedata.data.path + '/UserProfile/Users/' + user_id, commonHeader(user_token)).then((response) => {
             this.setState({ loaderImage: false });
             if (response) {
                 if (response.data.data.Rigt_management[0].activated_general_right) {

@@ -35,6 +35,7 @@ import {
   getLanguage
 } from "translations/index"
 import { pure } from "recompose";
+import { commonHeader } from "component/CommonHeader/index";
 function TabContainer(props) {
   return (
     <Typography component="div" className="tabsCntnts">
@@ -127,13 +128,7 @@ class Index extends Component {
       this.props.stateLoginValueAim.user &&
       this.props.stateLoginValueAim.user._id;
     axios
-      .get(sitedata.data.path + "/UserProfile/Users/" + user_id, {
-        headers: {
-          token: user_token,
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      })
+      .get(sitedata.data.path + "/UserProfile/Users/" + user_id, commonHeader(user_token))
       .then((response) => {
         this.setState({ loaderImage: false, LoggedInUser: response.data.data });
       })

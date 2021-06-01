@@ -23,6 +23,7 @@ import {
 import {
   getLanguage
 } from "translations/index"
+import { commonHeader } from "component/CommonHeader/index";
 
 
 
@@ -90,13 +91,7 @@ class Index extends Component {
         {
           status: status,
         },
-        {
-          headers: {
-            token: user_token,
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-        }
+        commonHeader(user_token)
       )
       .then((response) => {
         this.getPrescription();
@@ -250,13 +245,7 @@ class Index extends Component {
           "/UserProfile/UpdateSecondOpinion/" +
           this.state.AddSecond._id,
         data,
-        {
-          headers: {
-            token: user_token,
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-        }
+        commonHeader(user_token)
       )
       .then((response) => {
         this.setState({
@@ -276,13 +265,7 @@ class Index extends Component {
     var user_token = this.props.stateLoginValueAim.token;
     this.setState({ loaderImage: true });
     axios
-      .get(sitedata.data.path + "/UserProfile/RequestedSecond", {
-        headers: {
-          token: user_token,
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      })
+      .get(sitedata.data.path + "/UserProfile/RequestedSecond", commonHeader(user_token))
       .then((response) => {
         var images = [];
         response.data.data &&

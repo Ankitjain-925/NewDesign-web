@@ -11,16 +11,17 @@ import Select from 'react-select';
 import Loader from 'Screens/Components/Loader/index';
 import Radio from '@material-ui/core/Radio';
 import ReactFlagsSelect from 'react-flags-select';
-import { GetShowLabel1} from 'Screens/Components/GetMetaData/index.js';
+import { GetShowLabel1 } from 'Screens/Components/GetMetaData/index.js';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import {
     getLanguage
-  } from "translations/index"
-import {updateBlockchain} from 'Screens/Components/BlockchainEntry/index';
+} from "translations/index"
+import { updateBlockchain } from 'Screens/Components/BlockchainEntry/index';
+import { commonHeader } from 'component/CommonHeader/index';
 
 class Index extends Component {
     constructor(props) {
-       super(props);
+        super(props);
         this.state = {
             tissue: this.props.tissue,
             loaderImage: false,
@@ -29,10 +30,10 @@ class Index extends Component {
             DonorFamily: [],
             OptionData: {},
             flag_phone: 'DE',
-            phone : '',
-            include_some : [],
-            exclude_some : [],
-            PassDone : false,
+            phone: '',
+            include_some: [],
+            exclude_some: [],
+            PassDone: false,
         };
         // new Timer(this.logOutClick.bind(this)) 
     }
@@ -42,30 +43,30 @@ class Index extends Component {
         this.getUserData();
     }
 
-    componentDidUpdate=(prevProps)=>{
+    componentDidUpdate = (prevProps) => {
         if (prevProps.stateLanguageType !== this.props.stateLanguageType) {
-            this.Upsaterhesus(this.state.exclude_some,'exclude_some');
-            this.Upsaterhesus(this.state.include_some,'include_some');
+            this.Upsaterhesus(this.state.exclude_some, 'exclude_some');
+            this.Upsaterhesus(this.state.include_some, 'include_some');
         }
     }
-    Upsaterhesus=(optionData, name)=>{
+    Upsaterhesus = (optionData, name) => {
         var rhesus = [];
-        if(optionData && typeof optionData === 'string'){
+        if (optionData && typeof optionData === 'string') {
             optionData = optionData.split(", ")
-            rhesus = optionData && optionData.length>0 && optionData.map((item) => {
-                return GetShowLabel1(this.state.tissue, item, this.props.stateLanguageType,false,'organ')
-            }) 
+            rhesus = optionData && optionData.length > 0 && optionData.map((item) => {
+                return GetShowLabel1(this.state.tissue, item, this.props.stateLanguageType, false, 'organ')
+            })
         }
-        else{
+        else {
             rhesus = optionData;
         }
-       
-        if(name==='include_some') {this.setState({include_some: rhesus})}
-        else{this.setState({exclude_some: rhesus})}
-        
+
+        if (name === 'include_some') { this.setState({ include_some: rhesus }) }
+        else { this.setState({ exclude_some: rhesus }) }
+
     }
     // For Select one option 
-    handleOptionChange=(changeEvent) =>{
+    handleOptionChange = (changeEvent) => {
         this.setState({
             selectedOption: changeEvent.target.value
         }, () => {
@@ -113,7 +114,7 @@ class Index extends Component {
     }
 
     //Save the User Data of Orgen Donor
-    saveUserData = () =>{
+    saveUserData = () => {
         this.setState({ loaderImage: true });
         var OptionData
         if (this.state.selectedOption == 'exclude_some') {
@@ -129,7 +130,7 @@ class Index extends Component {
                 phone: this.state.OptionData.phone,
                 city: this.state.OptionData.city,
                 address: this.state.OptionData.address,
-                postal_code : this.state.OptionData.postal_code,
+                postal_code: this.state.OptionData.postal_code,
             }
         }
         const user_token = this.props.stateLoginValueAim.token;
@@ -137,126 +138,113 @@ class Index extends Component {
             selectedOption: this.state.selectedOption,
             OptionData: OptionData,
             free_remarks: this.state.OptionData.free_remarks,
-        }, {
-            headers: {
-                'token': user_token,
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            }
-        })
+        }, commonHeader(user_token))
             .then((responce) => {
                 this.getUserData();
-                if(this.props.comesFrom)
-                {
+                if (this.props.comesFrom) {
                     this.props.EditOrganDonar();
                 }
-                this.setState({PassDone : true, loaderImage : false})
-                setTimeout(()=>{ this.setState({PassDone: false}) }, 5000)
-                
+                this.setState({ PassDone: true, loaderImage: false })
+                setTimeout(() => { this.setState({ PassDone: false }) }, 5000)
+
             })
     }
 
     //For change the Organ / Tissue
     handleChange_multi = (event, name) => {
         const state = this.state.OptionData;
-        if(name==='include_some')
-        {  this.setState({ include_some: event })}
-        else {this.setState({ exclude_some: event })}
+        if (name === 'include_some') { this.setState({ include_some: event }) }
+        else { this.setState({ exclude_some: event }) }
         state[name] = event && (Array.prototype.map.call(event, s => s.value).toString()).split(/[,]+/).join(',  ');
         this.setState({ OptionData: state })
     };
 
     //Get all the information of the current User
-    getUserData =()=> {
+    getUserData = () => {
         this.setState({ loaderImage: true });
         let user_token = this.props.stateLoginValueAim.token
         let user_id = this.props.stateLoginValueAim.user._id
-        axios.get(sitedata.data.path + '/UserProfile/Users/' + user_id, {
-            headers: {
-                'token': user_token,
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            }
-        }).then((response) => {
-            this.setState({ loaderImage: false });
-            if (response) {
-                updateBlockchain(this.props.stateLoginValueAim.user, [], response.data.data.organ_donor[0], 'organ_data')
-                if (response.data.data.organ_donor[0].selectedOption) {
-                    this.setState({ selectedOption: response.data.data.organ_donor[0].selectedOption })
-                }
-                if (response.data.data.organ_donor[0].free_remarks) {
-                    this.setState({ OptionData: { free_remarks: response.data.data.organ_donor[0].free_remarks } })
-                }
-                if (response.data.data.organ_donor[0].selectedOption == "yes_to_all" && response.data.data.organ_donor[0].OptionData ) {
-                    this.setState({ OptionData: { yes_to_all: response.data.data.organ_donor[0].OptionData } },
-                        ()=>{
-                            if (response.data.data.organ_donor[0].free_remarks) {
-                                var state = this.state.OptionData;
-                                state['free_remarks'] = response.data.data.organ_donor[0].free_remarks
-                                this.setState({ OptionData: state } )
-                            }
-                        })
-                }
-                if (response.data.data.organ_donor[0].selectedOption == "exclude_some" && response.data.data.organ_donor[0].OptionData ) {
-                    let title, titlefromD = response.data.data.organ_donor[0].OptionData, titles =[];
-                    if (titlefromD && titlefromD !== "") {
-                        title = response.data.data.organ_donor[0].OptionData.split(", ");
+        axios.get(sitedata.data.path + '/UserProfile/Users/' + user_id,
+            commonHeader(user_token)).then((response) => {
+                this.setState({ loaderImage: false });
+                if (response) {
+                    updateBlockchain(this.props.stateLoginValueAim.user, [], response.data.data.organ_donor[0], 'organ_data')
+                    if (response.data.data.organ_donor[0].selectedOption) {
+                        this.setState({ selectedOption: response.data.data.organ_donor[0].selectedOption })
                     }
-                    else {
-                        title = [];
+                    if (response.data.data.organ_donor[0].free_remarks) {
+                        this.setState({ OptionData: { free_remarks: response.data.data.organ_donor[0].free_remarks } })
                     }
-                    this.Upsaterhesus(response.data.data.organ_donor[0].OptionData, 'exclude_some')
-                    // title.map((item) => {
-                    //     titles.push({ value: item, label: item });
-                    // })
-                    this.setState({ OptionData: { exclude_some: response.data.data.organ_donor[0].OptionData } },
-                        ()=>{
-                            if (response.data.data.organ_donor[0].free_remarks) {
-                                var state = this.state.OptionData;
-                                state['free_remarks'] = response.data.data.organ_donor[0].free_remarks
-                                this.setState({ OptionData: state } )
-                            }
-                        })
+                    if (response.data.data.organ_donor[0].selectedOption == "yes_to_all" && response.data.data.organ_donor[0].OptionData) {
+                        this.setState({ OptionData: { yes_to_all: response.data.data.organ_donor[0].OptionData } },
+                            () => {
+                                if (response.data.data.organ_donor[0].free_remarks) {
+                                    var state = this.state.OptionData;
+                                    state['free_remarks'] = response.data.data.organ_donor[0].free_remarks
+                                    this.setState({ OptionData: state })
+                                }
+                            })
+                    }
+                    if (response.data.data.organ_donor[0].selectedOption == "exclude_some" && response.data.data.organ_donor[0].OptionData) {
+                        let title, titlefromD = response.data.data.organ_donor[0].OptionData, titles = [];
+                        if (titlefromD && titlefromD !== "") {
+                            title = response.data.data.organ_donor[0].OptionData.split(", ");
+                        }
+                        else {
+                            title = [];
+                        }
+                        this.Upsaterhesus(response.data.data.organ_donor[0].OptionData, 'exclude_some')
+                        // title.map((item) => {
+                        //     titles.push({ value: item, label: item });
+                        // })
+                        this.setState({ OptionData: { exclude_some: response.data.data.organ_donor[0].OptionData } },
+                            () => {
+                                if (response.data.data.organ_donor[0].free_remarks) {
+                                    var state = this.state.OptionData;
+                                    state['free_remarks'] = response.data.data.organ_donor[0].free_remarks
+                                    this.setState({ OptionData: state })
+                                }
+                            })
+                    }
+                    if (response.data.data.organ_donor[0].selectedOption == "include_some" && response.data.data.organ_donor[0].OptionData) {
+                        let title1, titlefromD1 = response.data.data.organ_donor[0].OptionData, titles1 = [];
+                        if (titlefromD1 && titlefromD1 !== "") {
+                            title1 = response.data.data.organ_donor[0].OptionData.split(", ");
+                        }
+                        else {
+                            title1 = [];
+                        }
+                        this.Upsaterhesus(response.data.data.organ_donor[0].OptionData, 'include_some')
+                        // title1.map((item) => {
+                        //     titles1.push({ value: item, label: item });
+                        // })
+                        this.setState({ OptionData: { include_some: response.data.data.organ_donor[0].OptionData } },
+                            () => {
+                                if (response.data.data.organ_donor[0].free_remarks) {
+                                    var state = this.state.OptionData;
+                                    state['free_remarks'] = response.data.data.organ_donor[0].free_remarks
+                                    this.setState({ OptionData: state })
+                                }
+                            })
+                    }
+                    if (response.data.data.organ_donor[0].selectedOption == "decided_by_following" && response.data.data.organ_donor[0].OptionData) {
+                        let pho = response.data.data.organ_donor[0].OptionData.phone.split("-");
+                        if (pho && pho.length > 0) {
+                            this.setState({ flag_phone: pho[0] })
+                        }
+                        this.setState({ OptionData: response.data.data.organ_donor[0].OptionData },
+                            () => {
+                                if (response.data.data.organ_donor[0].free_remarks) {
+                                    var state = this.state.OptionData;
+                                    state['free_remarks'] = response.data.data.organ_donor[0].free_remarks
+                                    this.setState({ OptionData: state })
+                                }
+                            })
+                    }
                 }
-                if (response.data.data.organ_donor[0].selectedOption == "include_some" && response.data.data.organ_donor[0].OptionData ) { 
-                    let title1, titlefromD1 = response.data.data.organ_donor[0].OptionData, titles1 =[];
-                    if (titlefromD1 && titlefromD1 !== "") {
-                        title1 = response.data.data.organ_donor[0].OptionData.split(", ");
-                    }
-                    else {
-                        title1 = [];
-                    }
-                    this.Upsaterhesus(response.data.data.organ_donor[0].OptionData, 'include_some')
-                    // title1.map((item) => {
-                    //     titles1.push({ value: item, label: item });
-                    // })
-                    this.setState({OptionData: { include_some: response.data.data.organ_donor[0].OptionData } },
-                        ()=>{
-                            if (response.data.data.organ_donor[0].free_remarks) {
-                                var state = this.state.OptionData;
-                                state['free_remarks'] = response.data.data.organ_donor[0].free_remarks
-                                this.setState({ OptionData: state } )
-                            }
-                        })
-                }
-                if (response.data.data.organ_donor[0].selectedOption == "decided_by_following" && response.data.data.organ_donor[0].OptionData ) {
-                    let pho = response.data.data.organ_donor[0].OptionData.phone.split("-");
-                    if (pho && pho.length > 0) {
-                        this.setState({ flag_phone: pho[0] })
-                    }
-                    this.setState({ OptionData: response.data.data.organ_donor[0].OptionData },
-                        ()=>{
-                            if (response.data.data.organ_donor[0].free_remarks) {
-                                var state = this.state.OptionData;
-                                state['free_remarks'] = response.data.data.organ_donor[0].free_remarks
-                                this.setState({ OptionData: state } )
-                            }
-                        })
-                }
-            }
-        }).catch((error) => {
-            this.setState({ loaderImage: false });
-        });
+            }).catch((error) => {
+                this.setState({ loaderImage: false });
+            });
     }
 
     // fOR update the flag of mobile
@@ -273,9 +261,9 @@ class Index extends Component {
     render() {
 
         let translate = getLanguage(this.props.stateLanguageType)
-        let {free_text, format_updated, YesIherewithagreewitha, followingorgantissues, profile, information, ID, pin, QR_code, done, Change, edit_id_pin, edit, and, is, changed, profile_id_taken, profile_id_greater_then_5,
+        let { free_text, format_updated, YesIherewithagreewitha, followingorgantissues, profile, information, ID, pin, QR_code, done, Change, edit_id_pin, edit, and, is, changed, profile_id_taken, profile_id_greater_then_5,
             save_change, email, title, degree, first, last, name, dob, gender, street, add, city, postal_code, country, home_telephone, phone, country_code, Delete,
-            mobile_number, number, mobile, Languages, spoken, insurance,allowthisonlyforfollowing, yes_shall_not_decided_by_person,  company, of, organ_transplant_declaration, blockchain_secure_organ_donar_Pass, 
+            mobile_number, number, mobile, Languages, spoken, insurance, allowthisonlyforfollowing, yes_shall_not_decided_by_person, company, of, organ_transplant_declaration, blockchain_secure_organ_donar_Pass,
             easily_select_donar, organ_tissue, dont_allow_transplantation } = translate;
 
         return (
@@ -287,46 +275,46 @@ class Index extends Component {
                         <h4>{blockchain_secure_organ_donar_Pass}</h4>
                         <p>{easily_select_donar}</p>
                     </Grid>
-                   
+
                     <Grid className="organDeclare">
                         <h5>{organ_transplant_declaration}</h5>
                         <Grid><FormControlLabel value="yes_to_all" name="my_choice" checked={this.state.selectedOption === 'yes_to_all'} onChange={this.handleOptionChange.bind(this)} control={<Radio />} label={YesIherewithagreewitha} /></Grid>
                         <Grid><FormControlLabel value="exclude_some" name="my_choice" checked={this.state.selectedOption === 'exclude_some'} onChange={this.handleOptionChange.bind(this)} control={<Radio />} label={followingorgantissues} /></Grid>
                         <Grid item xs={12} md={5} className="donarLang">
-                        <label>{organ_tissue}</label>
-                        <Grid>
-                            <Select
-                                name="exclude_some"
-                                value={this.state.exclude_some}
-                                onChange={(e) => this.handleChange_multi(e, 'exclude_some')}
-                                options={this.state.tissue}
-                                placeholder=""
-                                isSearchable={true}
-                                className=""
-                                isMulti={true}
-                                closeMenuOnSelect={false}
-                            />
+                            <label>{organ_tissue}</label>
+                            <Grid>
+                                <Select
+                                    name="exclude_some"
+                                    value={this.state.exclude_some}
+                                    onChange={(e) => this.handleChange_multi(e, 'exclude_some')}
+                                    options={this.state.tissue}
+                                    placeholder=""
+                                    isSearchable={true}
+                                    className=""
+                                    isMulti={true}
+                                    closeMenuOnSelect={false}
+                                />
+                            </Grid>
                         </Grid>
-                    </Grid>                     
                         <Grid><FormControlLabel value="yes" value="include_some" name="my_choice" checked={this.state.selectedOption === 'include_some'} onChange={this.handleOptionChange.bind(this)} control={<Radio />} label={allowthisonlyforfollowing} /></Grid>
                         <Grid item xs={12} md={5} className="donarLang">
-                        <label>{organ_tissue}</label>
-                        <Grid>
-                            <Select
-                                name="include_some"
-                                value={this.state.include_some}
-                                onChange={(e) => this.handleChange_multi(e, 'include_some')}
-                                options={this.state.tissue}
-                                placeholder=""
-                                isSearchable={true}
-                                className=""
-                                isMulti={true}
-                                closeMenuOnSelect={false}
-                            />
+                            <label>{organ_tissue}</label>
+                            <Grid>
+                                <Select
+                                    name="include_some"
+                                    value={this.state.include_some}
+                                    onChange={(e) => this.handleChange_multi(e, 'include_some')}
+                                    options={this.state.tissue}
+                                    placeholder=""
+                                    isSearchable={true}
+                                    className=""
+                                    isMulti={true}
+                                    closeMenuOnSelect={false}
+                                />
+                            </Grid>
                         </Grid>
                     </Grid>
-                    </Grid>
-                    
+
                     <Grid className="organDecide">
                         <Grid><FormControlLabel value="yes" value="not_allowed" name="my_choice" checked={this.state.selectedOption === 'not_allowed'} onChange={this.handleOptionChange.bind(this)} control={<Radio />} label={dont_allow_transplantation} /></Grid>
                         <Grid><FormControlLabel value="yes" value="decided_by_following" color="primary" name="my_choice" checked={this.state.selectedOption === 'decided_by_following'} onChange={this.handleOptionChange.bind(this)} control={<Radio />} label={yes_shall_not_decided_by_person} /></Grid>
@@ -339,13 +327,13 @@ class Index extends Component {
                                     <Grid item xs={12} md={this.props.comesFrom ? 12 : 6}>
                                         <Grid>
                                             <Grid><label>{first} {name}</label></Grid>
-                                            <Grid><input type="text" name="first_name" onChange={this.updateEntryState} value={this.state.OptionData && this.state.OptionData.first_name}/></Grid>
+                                            <Grid><input type="text" name="first_name" onChange={this.updateEntryState} value={this.state.OptionData && this.state.OptionData.first_name} /></Grid>
                                         </Grid>
                                     </Grid>
                                     <Grid item xs={12} md={this.props.comesFrom ? 12 : 6}>
                                         <Grid>
                                             <Grid><label>{last} {name}</label></Grid>
-                                            <Grid><input type="text"  name="last_name" onChange={this.updateEntryState} value={this.state.OptionData && this.state.OptionData.last_name}/></Grid>
+                                            <Grid><input type="text" name="last_name" onChange={this.updateEntryState} value={this.state.OptionData && this.state.OptionData.last_name} /></Grid>
                                         </Grid>
                                     </Grid>
                                 </Grid>
@@ -353,7 +341,7 @@ class Index extends Component {
                                     <Grid item xs={12} md={12}>
                                         <Grid>
                                             <Grid><label>{street} {add} </label></Grid>
-                                            <Grid><input type="text" name="address" onChange={this.updateEntryState} value={this.state.OptionData && this.state.OptionData.address}/></Grid>
+                                            <Grid><input type="text" name="address" onChange={this.updateEntryState} value={this.state.OptionData && this.state.OptionData.address} /></Grid>
                                         </Grid>
                                     </Grid>
                                 </Grid>
@@ -361,13 +349,13 @@ class Index extends Component {
                                     <Grid item xs={12} md={this.props.comesFrom ? 12 : 7}>
                                         <Grid>
                                             <Grid><label>{city}</label></Grid>
-                                            <Grid><input type="text" name="city" onChange={this.updateEntryState} value={this.state.OptionData && this.state.OptionData.city}/></Grid>
+                                            <Grid><input type="text" name="city" onChange={this.updateEntryState} value={this.state.OptionData && this.state.OptionData.city} /></Grid>
                                         </Grid>
                                     </Grid>
                                     <Grid item xs={12} md={this.props.comesFrom ? 12 : 5}>
                                         <Grid>
                                             <Grid><label>{postal_code}</label></Grid>
-                                            <Grid><input type="text" name="postal_code" onChange={this.updateEntryState} value={this.state.OptionData && this.state.OptionData.postal_code}/></Grid>
+                                            <Grid><input type="text" name="postal_code" onChange={this.updateEntryState} value={this.state.OptionData && this.state.OptionData.postal_code} /></Grid>
                                         </Grid>
                                     </Grid>
                                 </Grid>
@@ -376,15 +364,15 @@ class Index extends Component {
                                         <Grid className="OrganMobile">
                                             <Grid><label>{mobile_number}</label></Grid>
                                             <Grid>
-                                            {this.updateFLAG(this.state.OptionData.phone) && this.updateFLAG(this.state.OptionData.phone) !== '' &&
-                                                <ReactFlagsSelect searchable={true} placeholder={country_code} onSelect={(e) => { this.updateFlags(e, 'flag_phone') }} name="flag_phone" showSelectedLabel={false} defaultCountry={this.updateFLAG(this.state.OptionData.phone)} />}
-                                            <input type="text"
-                                                className="Mobile_extra"
-                                                placeholder={phone}
-                                                name="phone"
-                                                onChange={this.updateEntryState1}
-                                                value={this.state.OptionData.phone && this.updateMOBILE(this.state.OptionData.phone)}
-                                            />
+                                                {this.updateFLAG(this.state.OptionData.phone) && this.updateFLAG(this.state.OptionData.phone) !== '' &&
+                                                    <ReactFlagsSelect searchable={true} placeholder={country_code} onSelect={(e) => { this.updateFlags(e, 'flag_phone') }} name="flag_phone" showSelectedLabel={false} defaultCountry={this.updateFLAG(this.state.OptionData.phone)} />}
+                                                <input type="text"
+                                                    className="Mobile_extra"
+                                                    placeholder={phone}
+                                                    name="phone"
+                                                    onChange={this.updateEntryState1}
+                                                    value={this.state.OptionData.phone && this.updateMOBILE(this.state.OptionData.phone)}
+                                                />
                                             </Grid>
                                         </Grid>
                                     </Grid>
@@ -415,7 +403,7 @@ class Index extends Component {
 const mapStateToProps = (state) => {
     const { stateLoginValueAim, loadingaIndicatoranswerdetail } = state.LoginReducerAim;
     const { stateLanguageType } = state.LanguageReducer;
-    const {settings} = state.Settings;
+    const { settings } = state.Settings;
     // const { Doctorsetget } = state.Doctorset;
     // const { catfil } = state.filterate;
     return {

@@ -18,6 +18,7 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import TimeFormat from "Screens/Components/TimeFormat/index";
 import { DatePicker } from "antd";
+import { commonHeader } from "component/CommonHeader/index";
 const { RangePicker } = DatePicker;
 const dateFormat = "DD/MM/YYYY";
 const apoinmentdata = {
@@ -95,13 +96,7 @@ class Index extends Component {
     let user_token = this.props.stateLoginValueAim.token;
     let user_id = this.props.stateLoginValueAim.user._id;
     axios
-      .get(sitedata.data.path + "/UserProfile/Users/" + user_id, {
-        headers: {
-          token: user_token,
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      })
+      .get(sitedata.data.path + "/UserProfile/Users/" + user_id, commonHeader(user_token))
       .then((response) => {
         this.setState({ loaderImage: false });
         this.setState({ paid_services: response.data.data.paid_services });
@@ -407,13 +402,7 @@ class Index extends Component {
       this.setState({ loaderImage: true, PrivateErr: false });
       // // console.log("dataSave", dataSave)
       axios
-        .put(sitedata.data.path + "/UserProfile/Users/update", dataSave, {
-          headers: {
-            token: user_token,
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-        })
+        .put(sitedata.data.path + "/UserProfile/Users/update", dataSave, commonHeader(user_token))
         .then((responce) => {
           this.setState({ loaderImage: false, updateService: true });
           setTimeout(() => {
@@ -692,13 +681,7 @@ class Index extends Component {
             holidays: this.state.PracticesSetting.holidays,
             custom_text: "offline",
           },
-          {
-            headers: {
-              token: user_token,
-              Accept: "application/json",
-              "Content-Type": "application/json",
-            },
-          }
+          commonHeader(user_token)
         )
         .then((responce) => {
           this.setState({ loaderImage: false });
@@ -852,13 +835,7 @@ class Index extends Component {
             holidays: this.state.OnlineSetting.holidays,
             custom_text: "online",
           },
-          {
-            headers: {
-              token: user_token,
-              Accept: "application/json",
-              "Content-Type": "application/json",
-            },
-          }
+          commonHeader(user_token)
         )
         .then((responce) => {
           this.setState({ loaderImage: false });

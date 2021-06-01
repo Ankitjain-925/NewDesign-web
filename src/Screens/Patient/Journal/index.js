@@ -69,6 +69,8 @@ import SPECIALITY from "speciality";
 
 import DownloadFullTrack from "../../Components/DownloadFullTrack/index";
 import index from "Screens/Components/LogOut/index.js";
+import { get_cur_one, get_gender, get_track, delete_click_track, download_track } from "Screens/Components/CommonApi/index.js";
+import { commonHeader } from "component/CommonHeader/index.js";
 var Datas = [];
 class Index extends Component {
   constructor(props) {
@@ -366,28 +368,19 @@ class Index extends Component {
     });
   };
   //Delete the track
-  deleteClickTrack = (deletekey) => {
+  deleteClickTrack = async (deletekey) => {
     var user_id = this.props.stateLoginValueAim.user._id;
     var user_token = this.props.stateLoginValueAim.token;
     this.setState({ loaderImage: true });
-    axios
-      .delete(
-        sitedata.data.path + "/User/AddTrack/" + user_id + "/" + deletekey,
-        {
-          headers: {
-            token: user_token,
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-        }
-      )
-      .then((response) => {
-        this.setState({ loaderImage: false });
-        this.getTrack();
-        this.rightInfo();
-      })
-      .catch((error) => { });
+    let response = await delete_click_track(user_token, user_id, deletekey)
+    if (response) {
+      this.setState({ loaderImage: false });
+      this.getTrack();
+      this.rightInfo();
+    }
   };
+
+
   //Update Archive Track State
   updateArchiveTrack = (data) => {
     data.archive = true;
@@ -399,13 +392,7 @@ class Index extends Component {
       .put(
         sitedata.data.path + "/User/AddTrack/" + user_id + "/" + track_id,
         { data },
-        {
-          headers: {
-            token: user_token,
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-        }
+        commonHeader(user_token)
       )
       .then((response) => {
         this.setState({
@@ -495,10 +482,10 @@ class Index extends Component {
   }
 
   verifyRecipet = () => {
-    let {paid_services} = this.props?.stateLoginValueAim?.user ?? {};
+    let { paid_services } = this.props?.stateLoginValueAim?.user ?? {};
     if (paid_services && paid_services.length > 0) {
       paid_services.map(item => {
-        const {payment_info, subscription_info} =
+        const { payment_info, subscription_info } =
           typeof item == 'object' ? item : {};
         if (payment_info && subscription_info) {
           this.handleServiceStatus(item);
@@ -510,30 +497,30 @@ class Index extends Component {
   };
 
   handleServiceStatus = async service => {
-    const {subscription_info, payment_info, description} =
+    const { subscription_info, payment_info, description } =
       typeof service == 'object' ? service : {};
-    const {subscribed_from, subscribed_on} =
+    const { subscribed_from, subscribed_on } =
       typeof subscription_info == 'object' ? subscription_info : {};
 
     if (!description || typeof description !== 'string') return;
     const last_checked_on = await localStorage.getItem(
-        'SUBSCRIPTION_CHECKED_ON'
+      'SUBSCRIPTION_CHECKED_ON'
     );
-    const {productId, transactionReceipt, transactionId, purchaseToken} =
+    const { productId, transactionReceipt, transactionId, purchaseToken } =
       typeof payment_info == 'object' ? payment_info : {};
     if (subscribed_from == 'ios') {
       if (
         this.isSubscriptionCheckupNeeded(last_checked_on)
       ) {
         axios
-          .post(sitedata.data.path+'/v3/UserProfile/verifyStripe', {
+          .post(sitedata.data.path + '/v3/UserProfile/verifyStripe', {
             from: 'ios',
             env: 'production',
             receipt: transactionReceipt,
           })
           .then(responce => {
             let _data = responce.data;
-            let {success, product} = typeof _data == 'object' ? _data : {};
+            let { success, product } = typeof _data == 'object' ? _data : {};
             if (Array.isArray(product) && product.length > 0) {
             } else {
               this.canclePaidService(description);
@@ -549,18 +536,18 @@ class Index extends Component {
         this.isSubscriptionCheckupNeeded(last_checked_on)
       ) {
         axios
-          .post(sitedata.data.path+'/UserProfile/verifyStripe', {
+          .post(sitedata.data.path + '/UserProfile/verifyStripe', {
             from: 'android',
             prodcutId: productId,
             purchaseToken: purchaseToken,
           })
           .then(responce => {
-            let {product, success} =
+            let { product, success } =
               typeof responce.data == 'object' ? responce.data : {};
 
             if (product && success) {
-              let {payload} = product ?? {};
-              let {autoRenewing, expiryTimeMillis} = payload;
+              let { payload } = product ?? {};
+              let { autoRenewing, expiryTimeMillis } = payload;
               if (!autoRenewing) {
                 this.canclePaidService(description);
               }
@@ -570,12 +557,12 @@ class Index extends Component {
               new Date().toString(),
             );
           })
-          .catch(e => {});
+          .catch(e => { });
       }
     } else {
       if (this.isSubscriptionCheckupNeeded(last_checked_on)) {
         axios
-          .get(sitedata.data.path +'/stripeCheckout/sub/'+payment_info.id)
+          .get(sitedata.data.path + '/stripeCheckout/sub/' + payment_info.id)
           .then(responce => {
             if (responce.data.sub_status) {
             } else {
@@ -586,13 +573,13 @@ class Index extends Component {
               new Date().toString(),
             );
           })
-          .catch(e => {});;
+          .catch(e => { });;
       }
     }
   };
 
   isSubscriptionCheckupNeeded = (last_checked_on) => {
-    
+
     if (isToday(last_checked_on)) {
       return false;
     } else {
@@ -601,17 +588,12 @@ class Index extends Component {
   };
   canclePaidService = async description => {
     axios
-    .delete(sitedata.data.path + "/UserProfile/Bookservice/" + description, {
-      headers: {
-        token: this.props.stateLoginValueAim.token,
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-    })
-    .then((responce) => {})
-    .catch(() => {});
+      .delete(sitedata.data.path + "/UserProfile/Bookservice/" + description,
+        commonHeader(this.props.stateLoginValueAim.token))
+      .then((responce) => { })
+      .catch(() => { });
   };
-  
+
   componentDidUpdate = (prevProps) => {
     if (prevProps.stateLanguageType !== this.props.stateLanguageType) {
       this.GetLanguageMetadata();
@@ -620,13 +602,7 @@ class Index extends Component {
   getUpcomingAppointment() {
     var user_token = this.props.stateLoginValueAim.token;
     axios
-      .get(sitedata.data.path + "/UserProfile/UpcomingAppintmentPat", {
-        headers: {
-          token: user_token,
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      })
+      .get(sitedata.data.path + "/UserProfile/UpcomingAppintmentPat", commonHeader(user_token))
       .then((response) => {
         var upcomingData =
           response.data.data &&
@@ -744,13 +720,7 @@ class Index extends Component {
         .put(
           sitedata.data.path + "/User/AddTrack/" + user_id + "/" + track_id,
           { data },
-          {
-            headers: {
-              token: user_token,
-              Accept: "application/json",
-              "Content-Type": "application/json",
-            },
-          }
+         commonHeader(user_token)
         )
         .then((response) => {
           this.setState({
@@ -774,13 +744,7 @@ class Index extends Component {
         .put(
           sitedata.data.path + "/User/AddTrack/" + user_id,
           { data },
-          {
-            headers: {
-              token: user_token,
-              Accept: "application/json",
-              "Content-Type": "application/json",
-            },
-          }
+          commonHeader(user_token)
         )
         .then((response) => {
           this.setState({
@@ -805,40 +769,31 @@ class Index extends Component {
   };
 
   //For get the Track
-  getTrack = () => {
+  getTrack = async () => {
     var user_id = this.props.stateLoginValueAim.user._id;
     var user_token = this.props.stateLoginValueAim.token;
     this.setState({ loaderImage: true });
-    axios
-      .get(sitedata.data.path + "/User/AddTrack/" + user_id, {
-        headers: {
-          token: user_token,
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      })
-      .then((response) => {
-        if (response.data.hassuccessed === true) {
-          //This is for Aimedis Blockchain Section
-          updateBlockchain(
-            this.props.stateLoginValueAim.user,
-            response.data.data
-          );
-          var images = [];
-          response.data.data = response.data.data.filter((e) => e != null);
+    let response = await get_track(user_token, user_id)
+    if (response.data.hassuccessed === true) {
+      //This is for Aimedis Blockchain Section
+      updateBlockchain(
+        this.props.stateLoginValueAim.user,
+        response.data.data
+      );
+      var images = [];
+      response.data.data = response.data.data.filter((e) => e != null);
 
-          this.rightInfo();
-          this.setState({
-            allTrack1: response.data.data,
-            allTrack2: response.data.data,
-            loaderImage: false,
-            // defaultValue : 10,
-          },
-            () => { this.Showdefaults(this.state.allTrack2, this.state.defaultValue) });
-        } else {
-          this.setState({ allTrack1: [], allTrack2: [], allTrack: [], loaderImage: false });
-        }
-      });
+      this.rightInfo();
+      this.setState({
+        allTrack1: response.data.data,
+        allTrack2: response.data.data,
+        loaderImage: false,
+        // defaultValue : 10,
+      },
+        () => { this.Showdefaults(this.state.allTrack2, this.state.defaultValue) });
+    } else {
+      this.setState({ allTrack1: [], allTrack2: [], allTrack: [], loaderImage: false });
+    }
   };
 
   //Get All information Related to Metadata
@@ -984,13 +939,7 @@ class Index extends Component {
   getPesonalized = () => {
     this.setState({ loaderImage: true });
     axios
-      .get(sitedata.data.path + "/UserProfile/updateSetting", {
-        headers: {
-          token: this.props.stateLoginValueAim.token,
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      })
+      .get(sitedata.data.path + "/UserProfile/updateSetting", commonHeader(this.props.stateLoginValueAim.token))
       .then((responce) => {
         if (
           responce.data.hassuccessed &&
@@ -1017,13 +966,7 @@ class Index extends Component {
           user_id: this.props.stateLoginValueAim.user._id,
           user_profile_id: this.props.stateLoginValueAim.user.profile_id,
         },
-        {
-          headers: {
-            token: this.props.stateLoginValueAim.token,
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-        }
+        commonHeader(this.props.stateLoginValueAim.token)
       )
       .then((responce) => {
         this.setState({ loaderImage: false });
@@ -1035,33 +978,19 @@ class Index extends Component {
   rightInfo() {
     var user_token = this.props.stateLoginValueAim.token;
     axios
-      .get(sitedata.data.path + "/rightinfo/patient", {
-        headers: {
-          token: user_token,
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      })
+      .get(sitedata.data.path + "/rightinfo/patient", 
+        commonHeader(user_token))
       .then((response) => {
         this.setState({ personalinfo: response.data.data });
       });
   }
 
   //Get the Current User Profile
-  cur_one = () => {
+  cur_one = async () => {
     var user_token = this.props.stateLoginValueAim.token;
     let user_id = this.props.stateLoginValueAim.user._id;
-    axios
-      .get(sitedata.data.path + "/UserProfile/Users/" + user_id, {
-        headers: {
-          token: user_token,
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      })
-      .then((response) => {
-        this.setState({ cur_one: response.data.data });
-      });
+    let response = await get_cur_one(user_token, user_id)
+    this.setState({ cur_one: response.data.data });
   };
 
   //Move to Profile page
@@ -1077,122 +1006,19 @@ class Index extends Component {
     this.props.history.push("/patient/documents");
   };
   //For getting the information of the Patient Gender
-  getGender() {
-    var user_token = this.props.stateLoginValueAim.token;
-    var user_id = this.props.stateLoginValueAim.user._id;
-    axios
-      .get(sitedata.data.path + "/User/Get_patient_gender/" + user_id, {
-        headers: {
-          token: user_token,
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      })
-      .then((response) => {
-        if (response.data.hassuccessed === true) {
-          this.setState({ patient_gender: response.data.data });
-        }
-      });
+  getGender = async () => {
+    const { stateLoginValueAim } = this.props
+    let response = await get_gender(stateLoginValueAim.token, stateLoginValueAim.user._id)
+    this.setState({ patient_gender: response });
   }
 
   //This is for the Download the Track
-  downloadTrack = (data) => {
-    if (data.review_by_temp) {
-      data["review_by"] = data.review_by_temp
-    }
-    if (data.emergency_by_temp) {
-      data["emergency_by"] = data.emergency_by_temp;
-    }
-    if((data?.type == "medication")) {
-      let timeArray = [], timeArray1 = [];
-      if(data?.reminder_time_taken && data?.reminder_time_taken.length > 0){
-        data.reminder_time_taken.map((time_taken, i) => {
-          let dateTime = moment(time_taken.value)
-          let time = dateTime.format("HH:MM")
-          let date = dateTime.format("DD-MM-YYYY")
-          let data1 = `${time}`
-          timeArray.push(data1)
-        })
-      }
-      if(data?.time_taken && data?.time_taken.length > 0){
-        data.time_taken.map((time_taken, i) => {
-          let dateTime = moment(time_taken.value)
-          let time = dateTime.format("HH:MM")
-          let date = dateTime.format("DD-MM-YYYY")
-          let data1 = `${time}`
-          timeArray1.push(data1)
-        })
-      }
-     
-      let indexTime = '', indexTime1 = '';
-      for (let i = 0; i < timeArray.length; i++) {
-        indexTime += timeArray[i] + ", "
-      }
-      for (let i = 0; i < timeArray1.length; i++) {
-        indexTime1 += timeArray[i] + ", "
-      }
-      data["reminder_time"] = indexTime
-      data["consumed_at"] = indexTime1
-    }
-    if ((data?.type == "vaccination") && data?.reminder_time_taken && data?.reminder_time_taken.length > 0) {
-      let timeArray = []
-      data.reminder_time_taken.map((time_taken, i) => {
-        let dateTime = moment(time_taken.value)
-        let time = dateTime.format("HH:MM")
-        let date = dateTime.format("DD-MM-YYYY")
-        let data1 = `${date} (${time})`
-        timeArray.push(data1)
-      })
-      let indexTime = ''
-      for (let i = 0; i < timeArray.length; i++) {
-        indexTime += timeArray[i] + ", "
-      }
-      data["reminder"] = indexTime
-    }
-    if (data?.data_of_vaccination) {
-      data["date_of_vaccination"] = data.data_of_vaccination
-    }
-    if (data?.date_of_vaccination) {
-      let dateOBJ = moment(data?.date_of_vaccination)
-      let time = dateOBJ.format("HH:MM")
-      let date = dateOBJ.format("DD-MM-YYYY")
-      data["time_of_vaccination"] = time
-      data["date_of_vaccination"] = date
-    }
+  downloadTrack = async (data) => {
     this.setState({ loaderImage: true });
-    axios
-      .post(
-        sitedata.data.path + "/UserProfile/downloadPdf",
-        {
-          Dieseases: data,
-          patientData: {
-            name:
-              this.props.stateLoginValueAim.user.first_name +
-              " " +
-              this.props.stateLoginValueAim.user.last_name,
-            email: this.props.stateLoginValueAim.user.email,
-            DOB: this.props.stateLoginValueAim.user.birthday,
-            Mobile: this.props.stateLoginValueAim.user.mobile,
-          },
-        },
-        { responseType: "blob" }
-      )
-      .then((res) => {
-        this.setState({ loaderImage: false });
-        var data = new Blob([res.data]);
-        if (typeof window.navigator.msSaveBlob === "function") {
-          // If it is IE that support download blob directly.
-          window.navigator.msSaveBlob(data, "report.pdf");
-        } else {
-          var blob = data;
-          var link = document.createElement("a");
-          link.href = window.URL.createObjectURL(blob);
-          link.download = "report.pdf";
-          document.body.appendChild(link);
-          link.click(); // create an <a> element and simulate the click operation.
-        }
-      })
-      .catch((err) => { });
+    let response = await download_track(data, this.props.stateLoginValueAim)
+    setTimeout(() => {
+      this.setState({ loaderImage: false });
+    }, 5000)
   };
 
   render() {

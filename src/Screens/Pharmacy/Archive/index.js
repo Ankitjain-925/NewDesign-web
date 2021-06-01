@@ -28,6 +28,8 @@ import {
   getLanguage
 } from "translations/index"
 import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
+import { delete_click_track } from "Screens/Components/CommonApi/index.js";
+import { commonHeader } from "component/CommonHeader/index.js";
 class Index extends Component {
   constructor(props) {
     super(props);
@@ -45,28 +47,28 @@ class Index extends Component {
   }
   // fancybox open
   handleOpenPres = (data) => {
-    this.setState({loaderImage: true})
+    this.setState({ loaderImage: true })
     var images = [];
-        data.attachfile?.length > 0 &&
-          data.attachfile.map((data, index) => {
-            var find = data && data.filename && data.filename;
-            if (find) {
-              var find1 = find.split(".com/")[1];
-              axios
-                .get(sitedata.data.path + "/aws/sign_s3?find=" + find1)
-                .then((response2) => {
-                  if (response2.data.hassuccessed) {
-                    images.push({
-                      image: find,
-                      new_image: response2.data.data,
-                    });
-                    this.setState({ images: images });
-                  }
+    data.attachfile?.length > 0 &&
+      data.attachfile.map((data, index) => {
+        var find = data && data.filename && data.filename;
+        if (find) {
+          var find1 = find.split(".com/")[1];
+          axios
+            .get(sitedata.data.path + "/aws/sign_s3?find=" + find1)
+            .then((response2) => {
+              if (response2.data.hassuccessed) {
+                images.push({
+                  image: find,
+                  new_image: response2.data.data,
                 });
-            }
-          });
-         
-    this.setState({ openPres: true, openDetail: data,  loaderImage: false });
+                this.setState({ images: images });
+              }
+            });
+        }
+      });
+
+    this.setState({ openPres: true, openDetail: data, loaderImage: false });
   };
   handleClosePres = () => {
     this.setState({ openPres: false, openDetail: {} });
@@ -83,15 +85,9 @@ class Index extends Component {
     axios
       .get(
         sitedata.data.path +
-          "/emergency_record/ArchivegetTrack/" +
-          this.props.stateLoginValueAim.user._id,
-        {
-          headers: {
-            token: user_token,
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-        }
+        "/emergency_record/ArchivegetTrack/" +
+        this.props.stateLoginValueAim.user._id,
+        commonHeader(user_token)
       )
       .then((response) => {
         if (response.data.hassuccessed === true) {
@@ -170,8 +166,8 @@ class Index extends Component {
           <div
             className={
               this.props.settings &&
-              this.props.settings.setting &&
-              this.props.settings.setting.mode === "dark"
+                this.props.settings.setting &&
+                this.props.settings.setting.mode === "dark"
                 ? "dark-confirm react-confirm-alert-body"
                 : "react-confirm-alert-body"
             }
@@ -216,8 +212,8 @@ class Index extends Component {
           <div
             className={
               this.props.settings &&
-              this.props.settings.setting &&
-              this.props.settings.setting.mode === "dark"
+                this.props.settings.setting &&
+                this.props.settings.setting.mode === "dark"
                 ? "dark-confirm react-confirm-alert-body"
                 : "react-confirm-alert-body"
             }
@@ -257,13 +253,7 @@ class Index extends Component {
       .put(
         sitedata.data.path + "/User/AddTrack/" + user_id + "/" + track_id,
         { data },
-        {
-          headers: {
-            token: user_token,
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-        }
+        commonHeader(user_token)
       )
       .then((response) => {
         this.setState({ isArchived: true, loaderImage: false });
@@ -273,30 +263,20 @@ class Index extends Component {
         }, 3000);
       });
   };
+  
   //Delete the track
-  deleteClickTrack = (deletekey) => {
+  deleteClickTrack = async (deletekey) => {
     var user_id = this.props.stateLoginValueAim.user._id;
     var user_token = this.props.stateLoginValueAim.token;
     this.setState({ loaderImage: true });
-    axios
-      .delete(
-        sitedata.data.path + "/User/AddTrack/" + user_id + "/" + deletekey,
-        {
-          headers: {
-            token: user_token,
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-        }
-      )
-      .then((response) => {
-        this.setState({ isDeleted: true, loaderImage: false });
-        this.getAllPres();
-        setTimeout(() => {
-          this.setState({ isDeleted: false });
-        }, 3000);
-      })
-      .catch((error) => {});
+    let response = await delete_click_track(user_token, user_id, deletekey)
+    if (response) {
+      this.setState({ isDeleted: true, loaderImage: false });
+      this.getAllPres();
+      setTimeout(() => {
+        this.setState({ isDeleted: false });
+      }, 3000);
+    }
   };
 
   ResetData = () => {
@@ -377,9 +357,9 @@ class Index extends Component {
       <Grid
         className={
           this.props.settings &&
-          this.props.settings.setting &&
-          this.props.settings.setting.mode &&
-          this.props.settings.setting.mode === "dark"
+            this.props.settings.setting &&
+            this.props.settings.setting.mode &&
+            this.props.settings.setting.mode === "dark"
             ? "homeBg homeBgDrk"
             : "homeBg"
         }
@@ -439,7 +419,7 @@ class Index extends Component {
                               <Tr>
                                 <Td>{getDate(item.datetime_on)}</Td>
                                 <Td className="presImg">
-                                <ImgaeSec data={item.patient_image} />
+                                  <ImgaeSec data={item.patient_image} />
                                   {/* <img
                                     src={require("assets/images/dr1.jpg")}
                                     alt=""
@@ -447,7 +427,7 @@ class Index extends Component {
                                   /> */}
                                   {item.patient_name && item.patient_name}
                                   <p>
-                                  - ( {item.patient_alies_id &&
+                                    - ( {item.patient_alies_id &&
                                       item.patient_alies_id} )
                                   </p>
                                 </Td>
@@ -457,7 +437,7 @@ class Index extends Component {
                                     alt=""
                                     title=""
                                   /> */}
-                                   <ImgaeSec data={item.created_by_image} />
+                                  <ImgaeSec data={item.created_by_image} />
                                   {item.created_by_temp && item.created_by_temp}
                                 </Td>
                                 <Td className="presEditDot scndOptionIner">
@@ -509,8 +489,8 @@ class Index extends Component {
                             onClose={this.handleClosePres}
                             className={
                               this.props.settings &&
-                              this.props.settings.setting &&
-                              this.props.settings.setting.mode === "dark"
+                                this.props.settings.setting &&
+                                this.props.settings.setting.mode === "dark"
                                 ? "darkTheme presBoxModel"
                                 : "presBoxModel"
                             }
@@ -544,7 +524,7 @@ class Index extends Component {
                                     {this.state.openDetail &&
                                       this.state.openDetail.attachfile &&
                                       this.state.openDetail.attachfile.length >
-                                        0 &&
+                                      0 &&
                                       this.state.openDetail.attachfile.map(
                                         (file) => (
                                           <div>
@@ -566,15 +546,15 @@ class Index extends Component {
                                               file.filetype === "jpeg" ||
                                               file.filetype === "jpg" ||
                                               file.filetype === "svg") && (
-                                              <img
-                                                src={getImage(
-                                                  file.filename,
-                                                  this.state.images
-                                                )}
-                                                alt=""
-                                                title=""
-                                              />
-                                            )}
+                                                <img
+                                                  src={getImage(
+                                                    file.filename,
+                                                    this.state.images
+                                                  )}
+                                                  alt=""
+                                                  title=""
+                                                />
+                                              )}
                                           </div>
                                         )
                                       )}

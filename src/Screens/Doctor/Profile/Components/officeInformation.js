@@ -15,6 +15,7 @@ import {
 
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css"; // ES6
+import { commonHeader } from "component/CommonHeader/index";
 
 const weOfferOptions = [
   { value: "Service name", label: "Service name" },
@@ -48,13 +49,7 @@ class Index extends Component {
   getSetting = () => {
     this.setState({ loaderImage: true });
     axios
-      .get(sitedata.data.path + "/UserProfile/updateSetting", {
-        headers: {
-          token: this.props.user_token,
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      })
+      .get(sitedata.data.path + "/UserProfile/updateSetting", commonHeader(this.props.user_token))
       .then((responce) => {
         if (responce.data.hassuccessed && responce.data.data) {
           this.setState({
@@ -77,13 +72,7 @@ class Index extends Component {
     let user_token = this.props.stateLoginValueAim.token;
     let user_id = this.props.stateLoginValueAim.user._id;
     axios
-      .get(sitedata.data.path + "/UserProfile/Users/" + user_id, {
-        headers: {
-          token: user_token,
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      })
+      .get(sitedata.data.path + "/UserProfile/Users/" + user_id, commonHeader(user_token))
       .then((response) => {
         this.setState({ loaderImage: false });
 
@@ -105,13 +94,7 @@ class Index extends Component {
       latest_info: UpDataDetails.latest_info,
     };
     axios
-      .put(sitedata.data.path + "/UserProfile/Users/update", updatedata, {
-        headers: {
-          token: user_token,
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      })
+      .put(sitedata.data.path + "/UserProfile/Users/update", updatedata, commonHeader(user_token))
       .then((response) => {
         if (response && response.data.hassuccessed) {
           this.setState({ PassDone: true });

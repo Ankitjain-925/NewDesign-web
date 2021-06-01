@@ -65,7 +65,7 @@ import {
     translationCH,
     translationPT,
     translationFR
-  } from "translations/index"
+} from "translations/index"
 import DownloadFullTrack from "Screens/Components/DownloadFullTrack/index";
 var Datas = [];
 class Index extends Component {
@@ -111,10 +111,10 @@ class Index extends Component {
     }
 
     //For Close the Graph 
-    CloseGraph=()=>{
+    CloseGraph = () => {
         this.rightInfo();
         this.getTrack();
-        this.setState({isGraph : false})
+        this.setState({ isGraph: false })
     }
 
     OpenGraph = (current_Graph) => {
@@ -129,26 +129,26 @@ class Index extends Component {
 
     isThisAvilabel = (object, text) => {
         if (object && typeof object == 'object') {
-        if (object.type.replace('_', ' ') && object.type.replace('_', ' ').includes(text)) {
-        return true;
-        } else if (object.created_by_temp && object.created_by_temp.includes(text)) {
-        return true;
+            if (object.type.replace('_', ' ') && object.type.replace('_', ' ').includes(text)) {
+                return true;
+            } else if (object.created_by_temp && object.created_by_temp.includes(text)) {
+                return true;
+            } else {
+                return JSON.stringify(object).toLowerCase().includes(text);
+            }
         } else {
-        return JSON.stringify(object).toLowerCase().includes(text);
+            return false;
         }
-        } else {
-        return false;
-        }
-        };
+    };
 
-    FilterText = (text) =>{
-            let track = this.state.allTrack1;
-            let FilterFromSearch = track && track.length>0 && track.filter((obj) => {
+    FilterText = (text) => {
+        let track = this.state.allTrack1;
+        let FilterFromSearch = track && track.length > 0 && track.filter((obj) => {
             return this.isThisAvilabel(obj, text && text.toLowerCase());
-            });
+        });
         this.setState({ allTrack: FilterFromSearch })
     }
-    
+
     //For filter the Data
     FilterData = (time_range, user_type, type, facility_type) => {
         var Datas1 = this.state.allTrack1;
@@ -180,7 +180,7 @@ class Index extends Component {
     //Filter according to the type 
     FilerFromType = (Datas, type) => {
         var Datas1 = [];
-        if(Datas && Datas.length>0){
+        if (Datas && Datas.length > 0) {
             if (type && type.length > 0) {
                 type.map((ob) => {
                     var dts = Datas.filter((obj) => obj.type === ob.value);
@@ -190,7 +190,7 @@ class Index extends Component {
             }
             else { return null; }
         }
-        else{
+        else {
             return null;
         }
     }
@@ -198,7 +198,7 @@ class Index extends Component {
     //Filter according to User type
     FilterFromUserType = (Datas, user_type) => {
         var Datas1 = [];
-        if(Datas && Datas.length>0){
+        if (Datas && Datas.length > 0) {
             if (user_type && user_type.length > 0) {
                 user_type.map((ob) => {
                     var dts = Datas.filter((obj) => obj.created_by_temp.indexOf(ob.value) > -1);
@@ -221,115 +221,115 @@ class Index extends Component {
     }
 
     //Modal Open on Archive the Journal
-    ArchiveTrack=(data)=>{
-        let translate={};
-    switch (this.props.stateLanguageType) {
-        case "en":
-            translate = translationEN.text
-            break;
-        case "de":
-            translate = translationDE.text
-            break;
-        case "pt":
-            translate = translationPT.text
-            break;
-        case "sp":
-            translate = translationSP.text
-            break;
-        case "rs":
-            translate = translationRS.text
-            break;
-        case "nl":
-            translate = translationNL.text
-            break;
-        case "ch":
-            translate = translationCH.text
-            break;
-        case "sw":
-            translate = translationSW.text
-            break;
-        default:
-            translate = translationEN.text
-    }
-    let { archive_item, ok, do_u_really_want_archive_item, yes, no } = translate;
+    ArchiveTrack = (data) => {
+        let translate = {};
+        switch (this.props.stateLanguageType) {
+            case "en":
+                translate = translationEN.text
+                break;
+            case "de":
+                translate = translationDE.text
+                break;
+            case "pt":
+                translate = translationPT.text
+                break;
+            case "sp":
+                translate = translationSP.text
+                break;
+            case "rs":
+                translate = translationRS.text
+                break;
+            case "nl":
+                translate = translationNL.text
+                break;
+            case "ch":
+                translate = translationCH.text
+                break;
+            case "sw":
+                translate = translationSW.text
+                break;
+            default:
+                translate = translationEN.text
+        }
+        let { archive_item, ok, do_u_really_want_archive_item, yes, no } = translate;
 
         confirmAlert({
             customUI: ({ onClose }) => {
-            return (
-            <div className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode === 'dark' ? "dark-confirm react-confirm-alert-body" : "react-confirm-alert-body"} >
-            <h1>{archive_item}</h1>
-            <p>{do_u_really_want_archive_item}</p>
-            <div className="react-confirm-alert-button-group">
-            <button
-            onClick= {() => {this.updateArchiveTrack(data); onClose()}}
-            >
-            {yes}
-            </button>
-            <button
-            onClick={() => {onClose();}}
-            >
-            {no}
-            </button>
-            </div>
-            </div>
-            );
+                return (
+                    <div className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode === 'dark' ? "dark-confirm react-confirm-alert-body" : "react-confirm-alert-body"} >
+                        <h1>{archive_item}</h1>
+                        <p>{do_u_really_want_archive_item}</p>
+                        <div className="react-confirm-alert-button-group">
+                            <button
+                                onClick={() => { this.updateArchiveTrack(data); onClose() }}
+                            >
+                                {yes}
+                            </button>
+                            <button
+                                onClick={() => { onClose(); }}
+                            >
+                                {no}
+                            </button>
+                        </div>
+                    </div>
+                );
             }
-            })
+        })
     }
     //Delete the perticular track confirmation box
     DeleteTrack = (deletekey) => {
-        let translate={};
-    switch (this.props.stateLanguageType) {
-        case "en":
-            translate = translationEN.text
-            break;
-        case "de":
-            translate = translationDE.text
-            break;
-        case "pt":
-            translate = translationPT.text
-            break;
-        case "sp":
-            translate = translationSP.text
-            break;
-        case "rs":
-            translate = translationRS.text
-            break;
-        case "nl":
-            translate = translationNL.text
-            break;
-        case "ch":
-            translate = translationCH.text
-            break;
-        case "sw":
-            translate = translationSW.text
-            break;
-        default:
-            translate = translationEN.text
-    }
-    let { delete_item, ok, do_u_really_want_delete_item, yes, no } = translate;
+        let translate = {};
+        switch (this.props.stateLanguageType) {
+            case "en":
+                translate = translationEN.text
+                break;
+            case "de":
+                translate = translationDE.text
+                break;
+            case "pt":
+                translate = translationPT.text
+                break;
+            case "sp":
+                translate = translationSP.text
+                break;
+            case "rs":
+                translate = translationRS.text
+                break;
+            case "nl":
+                translate = translationNL.text
+                break;
+            case "ch":
+                translate = translationCH.text
+                break;
+            case "sw":
+                translate = translationSW.text
+                break;
+            default:
+                translate = translationEN.text
+        }
+        let { delete_item, ok, do_u_really_want_delete_item, yes, no } = translate;
         confirmAlert({
             customUI: ({ onClose }) => {
-            return (
-            <div className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode === 'dark' ? "dark-confirm react-confirm-alert-body" : "react-confirm-alert-body"} >
-            <h1>{delete_item}</h1>
-            <p>{do_u_really_want_delete_item}</p>
-            <div className="react-confirm-alert-button-group">
-            <button
-            onClick= {() => {this.deleteClickTrack(deletekey); onClose()}}
-            >
-            {yes}
-            </button>
-            <button
-            onClick={() => {onClose();}}
-            >
-            {no}
-            </button>
-            </div>
-            </div>
-            );
+                return (
+                    <div className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode === 'dark' ? "dark-confirm react-confirm-alert-body" : "react-confirm-alert-body"} >
+                        <h1>{delete_item}</h1>
+                        <p>{do_u_really_want_delete_item}</p>
+                        <div className="react-confirm-alert-button-group">
+                            <button
+                                onClick={() => { this.deleteClickTrack(deletekey); onClose() }}
+                            >
+                                {yes}
+                            </button>
+                            <button
+                                onClick={() => { onClose(); }}
+                            >
+                                {no}
+                            </button>
+                        </div>
+                    </div>
+                );
             }
-            })
+        })
     }
     //Delete the track
     deleteClickTrack = (deletekey) => {
@@ -441,7 +441,7 @@ class Index extends Component {
                 'Content-Type': 'application/json'
             }
         }).then((response) => {
-            var upcomingData= response.data.data && response.data.data.length>0 && response.data.data.filter((data)=>data.status!=='cancel' && data.status!=='remove')
+            var upcomingData = response.data.data && response.data.data.length > 0 && response.data.data.filter((data) => data.status !== 'cancel' && data.status !== 'remove')
             this.setState({ upcoming_appointment: upcomingData })
         })
     }
@@ -480,7 +480,7 @@ class Index extends Component {
                         let returnData = response.data.data.returnData;
                         let signedRequest = returnData.signedRequest;
                         let url = returnData.url;
-                          if(fileType ==='pdf'){
+                        if (fileType === 'pdf') {
                             fileType = 'application/pdf'
                         }
                         // Put the fileType in the headers for the upload
@@ -489,7 +489,7 @@ class Index extends Component {
                                 'Content-Type': fileType
                             }
                         };
-                        axios.put( signedRequest, file, options)
+                        axios.put(signedRequest, file, options)
                             .then(result => { })
                             .catch(error => { })
                     }).catch(error => { })
@@ -578,7 +578,7 @@ class Index extends Component {
             if (data.event_date && data.event_date !== '') {
                 data.datetime_on = new Date(data.event_date);
             }
-            else{
+            else {
                 data.event_date = new Date();
             }
         }
@@ -635,86 +635,93 @@ class Index extends Component {
             .then((response) => {
                 if (response.data.hassuccessed === true) {
                     //This is for Aimedis Blockchain Section
-                    axios.post(sitedata.data.path  + '/blockchain/dataManager', {
-                        path:"dataManager/getDetails/patient",
-                        data:{ "_selfId": this.props.stateLoginValueAim && this.props.stateLoginValueAim.user && this.props.stateLoginValueAim.user.profile_id, "_patientId": this.props.stateLoginValueAim && this.props.stateLoginValueAim.user && this.props.stateLoginValueAim.user.profile_id }})
-                    .then(response3 => {
-                        if(response3 && response3.data && response3.data.name==='Error'){
-                            axios.post(sitedata.data.path  + '/blockchain/dataManager', {
-                                path:"dataManager/generate/token/patient",
-                                data:{  "_password": '123456'}})
-                            .then(response5 => {
-                                axios.post(sitedata.data.path  + '/blockchain/dataManager', {
-                                    path:"dataManager/add/patient",
-                                    data: {  
-                                        "_patientId":this.props.stateLoginValueAim.user.profile_id,
-                                        "_publicKey":response5.data.address,
-                                        "_patientData":{  
-                                           "email":this.props.stateLoginValueAim.user.email,
-                                           "First Name":this.props.stateLoginValueAim.user.first_name,
-                                           "Last Name":this.props.stateLoginValueAim.user.last_name,
-                                           "DOB" :this.props.stateLoginValueAim.user.birthday,
-                                           "Sex" :this.props.stateLoginValueAim.user.sex,
-                                           "Address" :this.props.stateLoginValueAim.user.city,
-                                           "Contact Email" :this.props.stateLoginValueAim.user.email,
-                                           "Language": this.props.stateLoginValueAim.user.language,
-                                           "Track Record": response.data.data 
-                                        }
-                                        }})
-                            .then(response6 => {})
-                     })
-                        }
-                        else{
-                            axios.post(sitedata.data.path  + '/blockchain/dataManager', {
-                                path:"dataManager/generate/token/patient",
-                                data:{ "_password": '123456' }})
-                                .then(response5 => {
-                                  
-                                    var dataHeightWegiht = response.data.data.filter((value, key) =>
-                                        value.type === 'weight_bmi');
-                                    var datas = {};
-                                    if (dataHeightWegiht && dataHeightWegiht.length > 0) {
-                                        response3.data['Weight'] = dataHeightWegiht[0].weight;
-                                        response3.data['Height'] = dataHeightWegiht[0].height;
-                                    }
-                                    response3.data['Track Record'] = response.data.data;
-                                    datas['_patientData'] = response3.data;
-                                    datas['_publicKey'] = response5.data.address;
-                                    datas['_patientId'] = this.props.stateLoginValueAim.user.profile_id;
-                                    axios.post(sitedata.data.path  + '/blockchain/dataManager', {
-                                        path:"dataManager/update/patient",
-                                        data: datas})
-                                   .then(response6 => { 
-                                   
-                                   })
-                                })
-                        }
+                    axios.post(sitedata.data.path + '/blockchain/dataManager', {
+                        path: "dataManager/getDetails/patient",
+                        data: { "_selfId": this.props.stateLoginValueAim && this.props.stateLoginValueAim.user && this.props.stateLoginValueAim.user.profile_id, "_patientId": this.props.stateLoginValueAim && this.props.stateLoginValueAim.user && this.props.stateLoginValueAim.user.profile_id }
                     })
-                    .catch(err => {
-                        axios.post(sitedata.data.path  + '/blockchain/dataManager', {
-                            path:"dataManager/generate/token/patient",
-                            data:{  "_password": '123456'}})
-                        .then(response5 => {
-                            axios.post(sitedata.data.path  + '/blockchain/dataManager', {
-                                path:"dataManager/add/patient",
-                                data: {  
-                                    "_patientId":this.props.stateLoginValueAim.user.profile_id,
-                                    "_publicKey":response5.data.address,
-                                    "_patientData":{  
-                                       "email":this.props.stateLoginValueAim.user.email,
-                                       "First Name":this.props.stateLoginValueAim.user.first_name,
-                                       "Last Name":this.props.stateLoginValueAim.user.last_name,
-                                       "DOB" :this.props.stateLoginValueAim.user.birthday,
-                                       "Sex" :this.props.stateLoginValueAim.user.sex,
-                                       "Address" :this.props.stateLoginValueAim.user.city,
-                                       "Contact Email" :this.props.stateLoginValueAim.user.email,
-                                       "Language": this.props.stateLoginValueAim.user.language,
-                                       "Track Record": response.data.data 
-                                    }
-                                    }})
-                        .then(response6 => {})
-                 })
-                })
+                        .then(response3 => {
+                            if (response3 && response3.data && response3.data.name === 'Error') {
+                                axios.post(sitedata.data.path + '/blockchain/dataManager', {
+                                    path: "dataManager/generate/token/patient",
+                                    data: { "_password": '123456' }
+                                })
+                                    .then(response5 => {
+                                        axios.post(sitedata.data.path + '/blockchain/dataManager', {
+                                            path: "dataManager/add/patient",
+                                            data: {
+                                                "_patientId": this.props.stateLoginValueAim.user.profile_id,
+                                                "_publicKey": response5.data.address,
+                                                "_patientData": {
+                                                    "email": this.props.stateLoginValueAim.user.email,
+                                                    "First Name": this.props.stateLoginValueAim.user.first_name,
+                                                    "Last Name": this.props.stateLoginValueAim.user.last_name,
+                                                    "DOB": this.props.stateLoginValueAim.user.birthday,
+                                                    "Sex": this.props.stateLoginValueAim.user.sex,
+                                                    "Address": this.props.stateLoginValueAim.user.city,
+                                                    "Contact Email": this.props.stateLoginValueAim.user.email,
+                                                    "Language": this.props.stateLoginValueAim.user.language,
+                                                    "Track Record": response.data.data
+                                                }
+                                            }
+                                        })
+                                            .then(response6 => { })
+                                    })
+                            }
+                            else {
+                                axios.post(sitedata.data.path + '/blockchain/dataManager', {
+                                    path: "dataManager/generate/token/patient",
+                                    data: { "_password": '123456' }
+                                })
+                                    .then(response5 => {
+
+                                        var dataHeightWegiht = response.data.data.filter((value, key) =>
+                                            value.type === 'weight_bmi');
+                                        var datas = {};
+                                        if (dataHeightWegiht && dataHeightWegiht.length > 0) {
+                                            response3.data['Weight'] = dataHeightWegiht[0].weight;
+                                            response3.data['Height'] = dataHeightWegiht[0].height;
+                                        }
+                                        response3.data['Track Record'] = response.data.data;
+                                        datas['_patientData'] = response3.data;
+                                        datas['_publicKey'] = response5.data.address;
+                                        datas['_patientId'] = this.props.stateLoginValueAim.user.profile_id;
+                                        axios.post(sitedata.data.path + '/blockchain/dataManager', {
+                                            path: "dataManager/update/patient",
+                                            data: datas
+                                        })
+                                            .then(response6 => {
+
+                                            })
+                                    })
+                            }
+                        })
+                        .catch(err => {
+                            axios.post(sitedata.data.path + '/blockchain/dataManager', {
+                                path: "dataManager/generate/token/patient",
+                                data: { "_password": '123456' }
+                            })
+                                .then(response5 => {
+                                    axios.post(sitedata.data.path + '/blockchain/dataManager', {
+                                        path: "dataManager/add/patient",
+                                        data: {
+                                            "_patientId": this.props.stateLoginValueAim.user.profile_id,
+                                            "_publicKey": response5.data.address,
+                                            "_patientData": {
+                                                "email": this.props.stateLoginValueAim.user.email,
+                                                "First Name": this.props.stateLoginValueAim.user.first_name,
+                                                "Last Name": this.props.stateLoginValueAim.user.last_name,
+                                                "DOB": this.props.stateLoginValueAim.user.birthday,
+                                                "Sex": this.props.stateLoginValueAim.user.sex,
+                                                "Address": this.props.stateLoginValueAim.user.city,
+                                                "Contact Email": this.props.stateLoginValueAim.user.email,
+                                                "Language": this.props.stateLoginValueAim.user.language,
+                                                "Track Record": response.data.data
+                                            }
+                                        }
+                                    })
+                                        .then(response6 => { })
+                                })
+                        })
                     this.rightInfo();
                     var images = [];
                     response.data.data && response.data.data.length > 0 && response.data.data.map((data1, index) => {
@@ -810,9 +817,9 @@ class Index extends Component {
                         Allgender.push({ label: item.title, value: item.value })
                     ))
 
-                    if(Alltime_taken && Alltime_taken.length>0){
-        Alltime_taken.sort(mySorter);
-      } 
+                    if (Alltime_taken && Alltime_taken.length > 0) {
+                        Alltime_taken.sort(mySorter);
+                    }
                     this.setState({
                         Alltemprature: Alltemprature,
                         AllATC_code: AllATC_code, Allpain_type: Allpain_type, Allpain_quality: Allpain_quality, Pressuresituation: Pressuresituation, Allsituation: Allsituation,
@@ -876,20 +883,11 @@ class Index extends Component {
     }
 
     //Get the Current User Profile
-    cur_one = () => {
+    cur_one = async () => {
         var user_token = this.props.stateLoginValueAim.token;
         let user_id = this.props.stateLoginValueAim.user._id;
-        axios.get(sitedata.data.path + '/UserProfile/Users/' + user_id,
-            {
-                headers: {
-                    'token': user_token,
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                }
-            })
-            .then((response) => {
-                this.setState({ cur_one: response.data.data })
-            })
+        let response = await get_cur_one(user_token, user_id)
+        this.setState({ cur_one: response.data.data });
     }
 
     //Move to Profile page
@@ -959,8 +957,8 @@ class Index extends Component {
         if (stateLoginValueAim.user === 'undefined' || stateLoginValueAim.token === 450 || stateLoginValueAim.token === 'undefined' || stateLoginValueAim.user.type !== 'patient' || !this.props.verifyCode || !this.props.verifyCode.code) {
             return (<Redirect to={'/'} />);
         }
-        let translate={};
-      switch (this.props.stateLanguageType) {
+        let translate = {};
+        switch (this.props.stateLanguageType) {
             case "en":
                 translate = translationEN.text
                 break;
@@ -1001,7 +999,7 @@ class Index extends Component {
             <Grid className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode && this.props.settings.setting.mode === 'dark' ? "homeBg homeBgDrk" : "homeBg"}>
                 {this.state.loaderImage && <Loader />}
                 <Notification />
-               
+
                 <Grid className="homeBgIner">
                     <Grid container direction="row" justify="center">
                         <Grid item xs={12} md={12}>
@@ -1030,7 +1028,7 @@ class Index extends Component {
                                                                     <a onClick={this.handleOpenEntry}>+ {add_new_entry}</a>
                                                                 </Grid>
                                                                 <Grid className="downloadButton">
-                                                                    <DownloadFullTrack TrackRecord={this.state.allTrack1}/>
+                                                                    <DownloadFullTrack TrackRecord={this.state.allTrack1} />
                                                                 </Grid>
                                                             </Grid>
                                                         </Grid>
@@ -1038,12 +1036,12 @@ class Index extends Component {
                                                 </Grid>
                                             </Grid>
 
-                                        {/* Model setup */}
-                                        <PersonalizedData settings={this.props.settings} SetPersonalized={this.SetPesonalized} added_data={this.state.added_data} personalised_card={this.state.personalised_card} openDash={this.state.openDash} onChange={this.UpdatePersonalized} handleCloseDash={this.handleCloseDash} />
-                                        {/* End of Model setup */}
+                                            {/* Model setup */}
+                                            <PersonalizedData settings={this.props.settings} SetPersonalized={this.SetPesonalized} added_data={this.state.added_data} personalised_card={this.state.personalised_card} openDash={this.state.openDash} onChange={this.UpdatePersonalized} handleCloseDash={this.handleCloseDash} />
+                                            {/* End of Model setup */}
 
-                                        {/* For the filter section */}
-                                        <FilterSec FilterText={this.FilterText} settings={this.props.settings} FilterData={this.FilterData} SortData={this.SortData} ClearData={this.ClearData} sortBy={this.state.Sort}/>
+                                            {/* For the filter section */}
+                                            <FilterSec FilterText={this.FilterText} settings={this.props.settings} FilterData={this.FilterData} SortData={this.SortData} ClearData={this.ClearData} sortBy={this.state.Sort} />
 
                                             {/* For Empty Entry */}
                                             <div>
@@ -1062,12 +1060,12 @@ class Index extends Component {
 
                                     {/* Website Right Content */}
                                     <Grid item xs={12} md={3}>
-                                    <ProfileSection settings={this.props.settings} comesFrom="patient" personalinfo={this.state.personalinfo} user={this.state.cur_one} user_token={this.props.stateLoginValueAim.token} getData={this.cur_one} MoveProfile={this.MoveProfile} />
+                                        <ProfileSection settings={this.props.settings} comesFrom="patient" personalinfo={this.state.personalinfo} user={this.state.cur_one} user_token={this.props.stateLoginValueAim.token} getData={this.cur_one} MoveProfile={this.MoveProfile} />
                                         {/* Model setup */}
                                         <Modal
                                             open={this.state.addInqryNw}
                                             onClose={this.handleCloseInqryNw}
-                                            className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode === 'dark' ?"darkTheme":""}>
+                                            className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode === 'dark' ? "darkTheme" : ""}>
                                             <Grid className="nwDiaCntnt">
                                                 <Grid className="nwDiaCntntIner">
                                                     <Grid className="nwDiaCourse">
@@ -1166,7 +1164,7 @@ class Index extends Component {
                                             </a>
                                         </Grid>
 
-                                        <RightManage upcoming_appointment={this.state.upcoming_appointment} OpenGraph={this.OpenGraph} EidtOption={(value, updateTrack, visibility) => this.EidtOption(value, updateTrack, visibility)} date_format={this.props.settings && this.props.settings.setting && this.props.settings.setting.date_format} time_format={this.props.settings && this.props.settings.setting && this.props.settings.setting.time_format} from="patient" added_data={this.state.added_data} MoveDocument={this.MoveDocument} MoveAppoint={this.MoveAppoint} SelectOption={this.SelectOption} personalinfo={this.state.personalinfo} loggedinUser={this.state.cur_one} downloadTrack={(data) => this.downloadTrack(data)} DeleteTrack={(deleteKey) => this.DeleteTrack(deleteKey)}/>
+                                        <RightManage upcoming_appointment={this.state.upcoming_appointment} OpenGraph={this.OpenGraph} EidtOption={(value, updateTrack, visibility) => this.EidtOption(value, updateTrack, visibility)} date_format={this.props.settings && this.props.settings.setting && this.props.settings.setting.date_format} time_format={this.props.settings && this.props.settings.setting && this.props.settings.setting.time_format} from="patient" added_data={this.state.added_data} MoveDocument={this.MoveDocument} MoveAppoint={this.MoveAppoint} SelectOption={this.SelectOption} personalinfo={this.state.personalinfo} loggedinUser={this.state.cur_one} downloadTrack={(data) => this.downloadTrack(data)} DeleteTrack={(deleteKey) => this.DeleteTrack(deleteKey)} />
 
                                     </Grid>
                                     {/* End of Website Right Content */}

@@ -20,6 +20,7 @@ import { getDate, getImage } from "Screens/Components/BasicMethod/index";
 import {
   getLanguage
 } from "translations/index"
+import { commonHeader } from "component/CommonHeader/index";
 // import * as translationDE from '../../../../../translations/de_json_proofread_13072020.json';
 function TabContainer(props) {
   return (
@@ -75,13 +76,7 @@ class Index extends Component {
           sitedata.data.path +
             "/emergency_record/getPharmacy/search/" +
             this.state.name,
-          {
-            headers: {
-              token: user_token,
-              Accept: "application/json",
-              "Content-Type": "application/json",
-            },
-          }
+          commonHeader(user_token)
         )
         .then((response) => {
           this.setState({ searchName: response.data.data });
@@ -109,13 +104,7 @@ class Index extends Component {
   getMyprescriptionssData = () => {
     let user_token = this.props.stateLoginValueAim.token;
     axios
-      .get(sitedata.data.path + "/UserProfile/GetPrescription/", {
-        headers: {
-          token: user_token,
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      })
+      .get(sitedata.data.path + "/UserProfile/GetPrescription/", commonHeader(user_token))
       .then((response) => {
         if (response.data.hassuccessed) {
           var images = [];
@@ -249,13 +238,7 @@ class Index extends Component {
           send_to_timeline: true,
           sendPharmacy: sendPharmacy,
         },
-        {
-          headers: {
-            token: user_token,
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-        }
+        commonHeader(user_token)
       )
       .then((response) => {
      
@@ -285,13 +268,7 @@ class Index extends Component {
           {
             attachfile: this.state.uploadedimage,
           },
-          {
-            headers: {
-              token: user_token,
-              Accept: "application/json",
-              "Content-Type": "application/json",
-            },
-          }
+         commonHeader(user_token)
         )
         .then((responce) => {
           send();

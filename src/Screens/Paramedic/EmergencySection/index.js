@@ -23,6 +23,7 @@ import {
 
 import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 import { Settings } from "Screens/Login/setting";
+import { commonHeader } from "component/CommonHeader/index";
 
 class Index extends Component {
   constructor(props) {
@@ -61,13 +62,7 @@ class Index extends Component {
             },
             lan: this.props.stateLanguageType,
           },
-          {
-            headers: {
-              token: user_token,
-              Accept: "application/json",
-              "Content-Type": "application/json",
-            },
-          }
+          commonHeader(user_token)
         )
         .then((response) => {
           if (response.data.hassuccessed === true) {

@@ -22,6 +22,7 @@ import {
   getLanguage
 } from "translations/index"
 import Notification from "../../Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
+import { commonHeader } from "component/CommonHeader/index";
 const stripePromise = loadStripe('pk_test_qoJaLAHMXbv3fzci2AEcmkYX');
 class Index extends Component {
   constructor(props) {
@@ -90,13 +91,7 @@ class Index extends Component {
           payment_info,
           subscription_info,
         },
-        {
-          headers: {
-            token: user_token,
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-        }
+        commonHeader(user_token)
       )
       .then(this.successPayment)
       .catch(this.errorPayment);
@@ -108,13 +103,7 @@ class Index extends Component {
     const res = await axios.delete(sitedata.data.path + "/stripeCheckout/sub/"+sub_id );
   if(res.data.hassuccessed){
     axios
-    .delete(sitedata.data.path + "/UserProfile/Bookservice/" + desc, {
-      headers: {
-        token: this.props.stateLoginValueAim.token,
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-    })
+    .delete(sitedata.data.path + "/UserProfile/Bookservice/" + desc, commonHeader(this.props.stateLoginValueAim.token))
     .then((responce) => {
       this.setState({ loaderImage: false});
       if (responce.data.hassuccessed) {
@@ -180,13 +169,7 @@ class Index extends Component {
     let user_token = this.props.stateLoginValueAim.token;
     let user_id = this.props.stateLoginValueAim.user._id;
     axios
-      .get(sitedata.data.path + "/UserProfile/Users/" + user_id, {
-        headers: {
-          token: user_token,
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      })
+      .get(sitedata.data.path + "/UserProfile/Users/" + user_id, commonHeader(user_token))
       .then((response) => {
         if (response.data.data.paid_services) {
           this.setState({

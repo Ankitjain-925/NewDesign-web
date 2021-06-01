@@ -33,8 +33,9 @@ import PrecriptionList from './Components/prescription';
 import { AddFavDoc, ConsoleCustom } from 'Screens/Components/BasicMethod/index';
 import {
     getLanguage
-  } from "translations/index"
+} from "translations/index"
 import Notification from "../../Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
+import { commonHeader } from 'component/CommonHeader/index';
 
 const specialistOptions = [
     { value: 'Specialist1', label: 'Specialist1' },
@@ -116,7 +117,7 @@ class Index extends Component {
     //For change the Tab
     handleChangeTabs = (event, value) => {
         this.setState({ value },
-            ()=>{
+            () => {
                 this.allSdoctors();
                 this.alldoctor();
             })
@@ -145,63 +146,57 @@ class Index extends Component {
         this.setState({ AddSecond: state })
     }
 
-      // fancybox open
-      handleaddSecond = () => {
+    // fancybox open
+    handleaddSecond = () => {
         this.setState({ addSec: true });
     };
     handleCloseDash = () => {
         this.setState({ addSec: false });
     };
 
- //For upload File related the second Opinion
- fileUpload = (event) => {
-    if (event && event[0] && (event[0].type === "application/pdf" || event[0].type === "image/jpeg" || event[0].type === "image/png")) {
-        this.setState({ isfileuploadmulti: true, loaderImage: true, err_pdf: false })
-        var fileattach = [];
-        for (var i = 0; i < event.length; i++) {
-            var file = event[i];
-            let fileParts = event[i].name.split('.');
-            let fileName = fileParts[0];
-            let fileType = fileParts[1];
-            axios.post(sitedata.data.path + '/aws/sign_s3', {
-                fileName: fileName,
-                fileType: fileType,
-                folders: this.props.stateLoginValueAim.user.profile_id + '/second_opinion/',
-                bucket: this.props.stateLoginValueAim.user.bucket
-            }).then(response => {
-                fileattach.push({ filename: response.data.data.returnData.url + '&bucket=' + this.props.stateLoginValueAim.user.bucket })
-                this.setState({ fileupods: true });
-                setTimeout(() => { this.setState({ fileupods: false }); }, 5000);
-                var returnData = response.data.data.returnData;
-                var signedRequest = returnData.signedRequest;
-                var url = returnData.url;
-                if(fileType ==='pdf'){
-                    fileType = 'application/pdf'
-                }
-                // Put the fileType in the headers for the upload
-                var options = { headers: { 'Content-Type': fileType } };
-                axios.put( signedRequest, file, options)
-                    .then(result => {
-                        this.setState({ success: true, loaderImage: false, fileattach: fileattach });
-                    }).catch(error => { })
-            }).catch(error => { })
+    //For upload File related the second Opinion
+    fileUpload = (event) => {
+        if (event && event[0] && (event[0].type === "application/pdf" || event[0].type === "image/jpeg" || event[0].type === "image/png")) {
+            this.setState({ isfileuploadmulti: true, loaderImage: true, err_pdf: false })
+            var fileattach = [];
+            for (var i = 0; i < event.length; i++) {
+                var file = event[i];
+                let fileParts = event[i].name.split('.');
+                let fileName = fileParts[0];
+                let fileType = fileParts[1];
+                axios.post(sitedata.data.path + '/aws/sign_s3', {
+                    fileName: fileName,
+                    fileType: fileType,
+                    folders: this.props.stateLoginValueAim.user.profile_id + '/second_opinion/',
+                    bucket: this.props.stateLoginValueAim.user.bucket
+                }).then(response => {
+                    fileattach.push({ filename: response.data.data.returnData.url + '&bucket=' + this.props.stateLoginValueAim.user.bucket })
+                    this.setState({ fileupods: true });
+                    setTimeout(() => { this.setState({ fileupods: false }); }, 5000);
+                    var returnData = response.data.data.returnData;
+                    var signedRequest = returnData.signedRequest;
+                    var url = returnData.url;
+                    if (fileType === 'pdf') {
+                        fileType = 'application/pdf'
+                    }
+                    // Put the fileType in the headers for the upload
+                    var options = { headers: { 'Content-Type': fileType } };
+                    axios.put(signedRequest, file, options)
+                        .then(result => {
+                            this.setState({ success: true, loaderImage: false, fileattach: fileattach });
+                        }).catch(error => { })
+                }).catch(error => { })
+            }
         }
+        else { this.setState({ err_pdf: true }) }
     }
-    else { this.setState({ err_pdf: true }) }
-}
 
     //Get current User Information
     patientinfo() {
         var user_id = this.props.stateLoginValueAim.user._id;
         var user_token = this.props.stateLoginValueAim.token;
         axios.get(sitedata.data.path + '/UserProfile/Users/' + user_id,
-            {
-                headers: {
-                    'token': user_token,
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                }
-            }).then((response) => {
+            commonHeader(user_token)).then((response) => {
                 this.setState({ personalinfo: response.data.data, loaderImage: false })
             })
     }
@@ -307,22 +302,18 @@ class Index extends Component {
         }
     }
 
-     //Add doctor for Second Opinion
-     AddDoctorSS = (e, name) => {
+    //Add doctor for Second Opinion
+    AddDoctorSS = (e, name) => {
         const state = this.state.AddSecond;
         state[name] = e.value;
         this.setState({ AddSecond: state, selectedPdoc: e }, () => {
             if (this.state.AddSecond.doctor_id) {
                 let doctor_id = this.state.AddSecond.doctor_id
-                axios.get(sitedata.data.path + '/UserProfile/DoctorProfile/' + doctor_id, {
-                    headers: {
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json'
-                    }
-                }).then((response) => {
-                    const found = this.state.personalinfo.fav_doctor && this.state.personalinfo.fav_doctor.length > 0 && this.state.personalinfo.fav_doctor.some(el => el.doctor === response.data.data.profile_id);
-                    this.setState({ docProfile: response.data.data, found: found })
-                })
+                axios.get(sitedata.data.path + '/UserProfile/DoctorProfile/' + doctor_id,
+                    commonHeader(this.props.stateLoginValueAim.token)).then((response) => {
+                        const found = this.state.personalinfo.fav_doctor && this.state.personalinfo.fav_doctor.length > 0 && this.state.personalinfo.fav_doctor.some(el => el.doctor === response.data.data.profile_id);
+                        this.setState({ docProfile: response.data.data, found: found })
+                    })
             }
         })
     }
@@ -333,15 +324,11 @@ class Index extends Component {
         this.setState({ AddPrescription: state, selectedPdoc: e }, () => {
             if (this.state.AddPrescription.doctor_id) {
                 let doctor_id = this.state.AddPrescription.doctor_id
-                axios.get(sitedata.data.path + '/UserProfile/DoctorProfile/' + doctor_id, {
-                    headers: {
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json'
-                    }
-                }).then((response) => {
-                    const found = this.state.personalinfo.fav_doctor && this.state.personalinfo.fav_doctor.length > 0 && this.state.personalinfo.fav_doctor.some(el => el.doctor === response.data.data.profile_id);
-                    this.setState({ docProfile: response.data.data, found: found })
-                })
+                axios.get(sitedata.data.path + '/UserProfile/DoctorProfile/' + doctor_id,
+                    commonHeader()).then((response) => {
+                        const found = this.state.personalinfo.fav_doctor && this.state.personalinfo.fav_doctor.length > 0 && this.state.personalinfo.fav_doctor.some(el => el.doctor === response.data.data.profile_id);
+                        this.setState({ docProfile: response.data.data, found: found })
+                    })
             }
         })
     }
@@ -352,15 +339,11 @@ class Index extends Component {
         this.setState({ AddSickCertificate: state, selectedSdoc: e }, () => {
             if (this.state.AddSickCertificate.doctor_id) {
                 let doctor_id = this.state.AddSickCertificate.doctor_id
-                axios.get(sitedata.data.path + '/UserProfile/DoctorProfile/' + doctor_id, {
-                    headers: {
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json'
-                    }
-                }).then((response) => {
-                    const found = this.state.personalinfo.fav_doctor && this.state.personalinfo.fav_doctor.length > 0 && this.state.personalinfo.fav_doctor.some(el => el.doctor === response.data.data.profile_id);
-                    this.setState({ docProfile1: response.data.data, found1: found })
-                })
+                axios.get(sitedata.data.path + '/UserProfile/DoctorProfile/' + doctor_id,
+                    commonHeader()).then((response) => {
+                        const found = this.state.personalinfo.fav_doctor && this.state.personalinfo.fav_doctor.length > 0 && this.state.personalinfo.fav_doctor.some(el => el.doctor === response.data.data.profile_id);
+                        this.setState({ docProfile1: response.data.data, found1: found })
+                    })
             }
         })
     }
@@ -396,14 +379,7 @@ class Index extends Component {
     alldoctor() {
         var user_token = this.props.stateLoginValueAim.token;
         axios.get(sitedata.data.path + '/certificate/DoctorUsersP',
-            {
-                headers: {
-                    'token': user_token,
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json',
-
-                }
-            }).then((response) => {
+            commonHeader(user_token)).then((response) => {
                 if (response.data.data && response.data.data.length > 0) {
                     var data = [];
                     response.data.data.map((item) => {
@@ -480,13 +456,7 @@ class Index extends Component {
     allSdoctors() {
         var user_token = this.props.stateLoginValueAim.token;
         axios.get(sitedata.data.path + '/certificate/DoctorUsersSc',
-            {
-                headers: {
-                    'token': user_token,
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                }
-            }).then((response) => {
+            commonHeader(user_token)).then((response) => {
                 if (response.data.data && response.data.data.length > 0) {
                     var data = [];
                     response.data.data.map((item) => {
@@ -513,13 +483,13 @@ class Index extends Component {
         }
 
         let translate = getLanguage(this.props.stateLanguageType)
-        let { secnd_openion, plz_upload_png_jpg,doc_require_for_second_openion, rqst_sent_succefully, specilist_and_secnd_openion,specialist, how_wuld_u_like_rcv_scnd_openion, online, home_add_mailbox, ur_profesion, questions, attachments, save_entry, sick_cert,prescriptions, sickcsrtificates, my_doc, prescription, New, r_u_tracking_medi, inquiry, select, for_sick_cert_req_doc, share_health_status_info_from_journal, share_health_status, see_list_shared_info, share_ur_jounral_status,
-            country_u_live, dieseases_etc, allergies, health_issue, doc_and_statnderd_ques, doc_aimedis_private, how_u_feeling, is_ur_temp_high_to_38, which_symptoms_do_u_hav, since_when, Yes,No, today, yesterday, two_days_ago, three_to_6_days_ago, Week_or_more,
+        let { secnd_openion, plz_upload_png_jpg, doc_require_for_second_openion, rqst_sent_succefully, specilist_and_secnd_openion, specialist, how_wuld_u_like_rcv_scnd_openion, online, home_add_mailbox, ur_profesion, questions, attachments, save_entry, sick_cert, prescriptions, sickcsrtificates, my_doc, prescription, New, r_u_tracking_medi, inquiry, select, for_sick_cert_req_doc, share_health_status_info_from_journal, share_health_status, see_list_shared_info, share_ur_jounral_status,
+            country_u_live, dieseases_etc, allergies, health_issue, doc_and_statnderd_ques, doc_aimedis_private, how_u_feeling, is_ur_temp_high_to_38, which_symptoms_do_u_hav, since_when, Yes, No, today, yesterday, two_days_ago, three_to_6_days_ago, Week_or_more,
             have_u_already_been_sick, how_long_do_u_unable_to_work, days, it_is_known_dieseas, do_u_hv_allergies, what_ur_profession, Annotations, details, for_pres_req_doc_require,
-            is_this_follow_pres, how_u_like_rcv_pres, Medicine, Substance, Dose, mg, trade_name, atc_if_applicable, manufacturer, pack_size,  } = translate
+            is_this_follow_pres, how_u_like_rcv_pres, Medicine, Substance, Dose, mg, trade_name, atc_if_applicable, manufacturer, pack_size, } = translate
 
         return (
-            <Grid className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode && this.props.settings.setting.mode==='dark' ? "homeBg homeBgDrk" : "homeBg"}>
+            <Grid className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode && this.props.settings.setting.mode === 'dark' ? "homeBg homeBgDrk" : "homeBg"}>
                 {this.state.loaderImage && <Loader />}
                 <Grid className="homeBgIner">
                     <Grid container direction="row" justify="center">
@@ -527,8 +497,8 @@ class Index extends Component {
                             <Grid container direction="row">
 
                                 {/* Website Menu */}
-                                <LeftMenu  isNotShow ={true} currentPage="documents" />
-                                  <LeftMenuMobile isNotShow ={true}  currentPage ="documents"/>
+                                <LeftMenu isNotShow={true} currentPage="documents" />
+                                <LeftMenuMobile isNotShow={true} currentPage="documents" />
                                 <Notification />
                                 {/* End of Website Menu */}
 
@@ -546,11 +516,11 @@ class Index extends Component {
                                         </Grid>
 
 
-                                      {/* For second opinion */}
+                                        {/* For second opinion */}
                                         <Modal
                                             open={this.state.addSec}
                                             onClose={this.handleCloseDash}
-                                            className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode === 'dark' ?"darkTheme opinBoxModel":"opinBoxModel"}>
+                                            className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode === 'dark' ? "darkTheme opinBoxModel" : "opinBoxModel"}>
                                             <Grid className="opinBoxCntnt">
                                                 <Grid className="opinBoxCntntIner">
                                                     <Grid className="opinCourse">
@@ -615,7 +585,7 @@ class Index extends Component {
                                                             </Grid>
                                                             <Grid className="attchForms attchImg">
                                                                 <Grid><label>{attachments}</label></Grid>
-                                                                <FileUploader  comesFrom="journal" name="UploadDocument" fileUpload={this.fileUpload} />
+                                                                <FileUploader comesFrom="journal" name="UploadDocument" fileUpload={this.fileUpload} />
                                                                 {/* <Grid className="attchbrowsInput">
                                                                     <a><img src={require('assets/images/upload-file.svg')} alt="" title="" /></a>
                                                                     <a>Browse <input type="file" id="UploadDocument" name="UploadDocument" onChange={(e) => this.UploadFile(e)} /></a> or drag here
@@ -650,7 +620,7 @@ class Index extends Component {
                                         <Modal
                                             open={this.state.addSick}
                                             onClose={this.handleCloseSick}
-                                            className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode === 'dark' ?"darkTheme nwPresModel":"nwPresModel"}>
+                                            className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode === 'dark' ? "darkTheme nwPresModel" : "nwPresModel"}>
                                             <Grid className="nwPresCntnt">
                                                 <Grid className="nwPresCntntIner">
                                                     <Grid className="nwPresCourse">
@@ -792,7 +762,7 @@ class Index extends Component {
                                         <Modal
                                             open={this.state.addInqry}
                                             onClose={this.handleCloseInqry}
-                                            className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode === 'dark' ?"darkTheme nwPresModel":"nwPresModel"}>
+                                            className={this.props.settings && this.props.settings.setting && this.props.settings.setting.mode === 'dark' ? "darkTheme nwPresModel" : "nwPresModel"}>
                                             <Grid className="nwPresCntnt">
                                                 <Grid className="nwPresCntntIner">
 
@@ -838,7 +808,7 @@ class Index extends Component {
                                                         </Grid>}
 
                                                         <Grid className="drstndrdQues">
-                                                                <h3>{doc_and_statnderd_ques}</h3>
+                                                            <h3>{doc_and_statnderd_ques}</h3>
                                                             <Grid className="drsplestQues">
                                                                 <Grid><label>{doc_aimedis_private}</label></Grid>
                                                                 <Grid>
@@ -886,7 +856,7 @@ class Index extends Component {
                                                             <h4>{Medicine} {inquiry}</h4>
                                                             <Grid><label>{Medicine} / {Substance}</label></Grid>
                                                             <Grid>
-                                                            <input type="text" name="medication" value={this.state.AddPrescription.medication} onChange={this.AddState} />
+                                                                <input type="text" name="medication" value={this.state.AddPrescription.medication} onChange={this.AddState} />
                                                                 {/* <Select
                                                                     value={this.state.selectedSub}
                                                                     onChange={(e) => this.eventnameSetP('medication', e)}
@@ -990,7 +960,7 @@ class Index extends Component {
                                                 {this.state.successfullsent3 && <div className="success_message">{rqst_sent_succefully}</div>}
                                                 <ListingSecond newItem={this.state.newItemp2} />
                                             </TabContainer>}
-                                            
+
                                         </Grid>
 
                                     </Grid>

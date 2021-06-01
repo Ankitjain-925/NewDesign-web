@@ -36,6 +36,7 @@ import {
 } from "Screens/Components/BasicMethod/index";
 import { Doctorset } from "Screens/Doctor/actions";
 import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
+import { commonHeader } from "component/CommonHeader/index";
 
 var letter = /([a-zA-Z])+([ -~])*/,
   number = /\d+/,
@@ -134,13 +135,7 @@ class Index extends Component {
     let user_token = this.props.stateLoginValueAim.token;
     let user_id = this.props.stateLoginValueAim.user._id;
     axios
-      .get(sitedata.data.path + "/UserProfile/Users/" + user_id, {
-        headers: {
-          token: user_token,
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      })
+      .get(sitedata.data.path + "/UserProfile/Users/" + user_id, commonHeader(user_token))
       .then((response) => {
         this.setState({ loaderImage: false });
         this.setState({ UpDataDetails: response.data.data });
@@ -155,13 +150,7 @@ class Index extends Component {
     this.setState({ loaderImage: true });
     let user_token = this.props.stateLoginValueAim.token;
     axios
-      .get(sitedata.data.path + "/UserProfile/Mypatients", {
-        headers: {
-          token: user_token,
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      })
+      .get(sitedata.data.path + "/UserProfile/Mypatients", commonHeader(user_token))
       .then((response) => {
         this.setState({ loaderImage: false });
         if (response.data.hassuccessed) {
@@ -234,13 +223,7 @@ class Index extends Component {
     axios
       .get(
         sitedata.data.path + "/UserProfile/AskPatientProfile/" + AskPatient,
-        {
-          headers: {
-            token: user_token,
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-        }
+        commonHeader(user_token)
       )
       .then((responce) => {
         if (responce.data.hassuccessed) {
@@ -249,13 +232,7 @@ class Index extends Component {
             .put(
               sitedata.data.path + "/UserProfile/AddFavTDoc/" + user_id,
               {},
-              {
-                headers: {
-                  token: user_token,
-                  Accept: "application/json",
-                  "Content-Type": "application/json",
-                },
-              }
+              commonHeader(user_token)
             )
             .then((responce) => {
               if (responce.data.hassuccessed) {
@@ -377,7 +354,7 @@ class Index extends Component {
                         },
                       }
                     )
-                    .then((res) => {});
+                    .then((res) => { });
                   AddFavDoc2(
                     this.props.stateLoginValueAim.user.profile_id,
                     this.props.stateLoginValueAim.user.profile_id,
@@ -427,7 +404,7 @@ class Index extends Component {
                   });
                 }
               })
-              .catch((err) => {});
+              .catch((err) => { });
           } else {
             this.setState({ regisError: plz_fill_mob_number });
           }
@@ -535,17 +512,11 @@ class Index extends Component {
     axios
       .delete(
         sitedata.data.path +
-          "/UserProfile/favPatients/" +
-          profileDetail.profile_id +
-          "/" +
-          this.props.stateLoginValueAim.user.alies_id,
-        {
-          headers: {
-            token: user_token,
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-        }
+        "/UserProfile/favPatients/" +
+        profileDetail.profile_id +
+        "/" +
+        this.props.stateLoginValueAim.user.alies_id,
+        commonHeader(user_token)
       )
       .then((response) => {
         this.setState({ loaderImage: false });
@@ -678,18 +649,12 @@ class Index extends Component {
       axios
         .get(
           sitedata.data.path +
-            "/User/getUser/" +
-            user_id +
-            "?pin=" +
-            pin +
-            "&&comefrom=healthdata",
-          {
-            headers: {
-              token: user_token,
-              Accept: "application/json",
-              "Content-Type": "application/json",
-            },
-          }
+          "/User/getUser/" +
+          user_id +
+          "?pin=" +
+          pin +
+          "&&comefrom=healthdata",
+          commonHeader(user_token)
         )
         .then((response) => {
           if (response.data.hassuccessed === true) {
@@ -715,7 +680,7 @@ class Index extends Component {
           e.first_name.toLowerCase().indexOf(searchWord) > -1 ||
           e.last_name.toLowerCase().indexOf(searchWord) > -1 ||
           (e.first_name + " " + e.last_name).toLowerCase().indexOf(searchWord) >
-            -1
+          -1
       );
       this.setState({
         MypatientsData: searchdta.slice((pageNumber - 1) * 10, pageNumber * 10),
@@ -816,9 +781,9 @@ class Index extends Component {
       <Grid
         className={
           this.props.settings &&
-          this.props.settings.setting &&
-          this.props.settings.setting.mode &&
-          this.props.settings.setting.mode === "dark"
+            this.props.settings.setting &&
+            this.props.settings.setting.mode &&
+            this.props.settings.setting.mode === "dark"
             ? "homeBg homeBgDrk"
             : "homeBg"
         }
@@ -885,7 +850,7 @@ class Index extends Component {
                                     src={
                                       this.state.MypatientsData[index].new_image
                                         ? this.state.MypatientsData[index]
-                                            .new_image
+                                          .new_image
                                         : require("assets/images/dr1.jpg")
                                     }
                                     alt=""
@@ -967,9 +932,9 @@ class Index extends Component {
                       <Modal
                         className={
                           this.props.settings &&
-                          this.props.settings.setting &&
-                          this.props.settings.setting.mode &&
-                          this.props.settings.setting.mode === "dark"
+                            this.props.settings.setting &&
+                            this.props.settings.setting.mode &&
+                            this.props.settings.setting.mode === "dark"
                             ? "darkTheme"
                             : ""
                         }
@@ -1081,8 +1046,8 @@ class Index extends Component {
                                         <p>
                                           {data
                                             ? this.filterCountry(
-                                                data.insurance_country
-                                              )
+                                              data.insurance_country
+                                            )
                                             : ""}
                                         </p>
                                       </Grid>
@@ -1126,9 +1091,9 @@ class Index extends Component {
                         onClose={this.handleCloseData}
                         className={
                           this.props.settings &&
-                          this.props.settings.setting &&
-                          this.props.settings.setting.mode &&
-                          this.props.settings.setting.mode === "dark"
+                            this.props.settings.setting &&
+                            this.props.settings.setting.mode &&
+                            this.props.settings.setting.mode === "dark"
                             ? "darkTheme"
                             : ""
                         }
@@ -1205,9 +1170,9 @@ class Index extends Component {
                         onClose={this.handleCloseReq}
                         className={
                           this.props.settings &&
-                          this.props.settings.setting &&
-                          this.props.settings.setting.mode &&
-                          this.props.settings.setting.mode === "dark"
+                            this.props.settings.setting &&
+                            this.props.settings.setting.mode &&
+                            this.props.settings.setting.mode === "dark"
                             ? "darkTheme"
                             : ""
                         }
@@ -1239,7 +1204,7 @@ class Index extends Component {
                               {this.state.error_message_1 &&
                                 this.state.error_message_1 !== "" &&
                                 this.state.error_message_1 ===
-                                  "User does not exist" && (
+                                "User does not exist" && (
                                   <div className="err_message">
                                     {user_not_exist}
                                   </div>
@@ -1247,7 +1212,7 @@ class Index extends Component {
                               {this.state.error_message_1 &&
                                 this.state.error_message_1 !== "" &&
                                 this.state.error_message_1 ===
-                                  "Doctor already exists" && (
+                                "Doctor already exists" && (
                                   <div className="err_message">
                                     {alredypatientFav}
                                   </div>
@@ -1291,9 +1256,9 @@ class Index extends Component {
                         onClose={this.handleCloseNewPatient}
                         className={
                           this.props.settings &&
-                          this.props.settings.setting &&
-                          this.props.settings.setting.mode &&
-                          this.props.settings.setting.mode === "dark"
+                            this.props.settings.setting &&
+                            this.props.settings.setting.mode &&
+                            this.props.settings.setting.mode === "dark"
                             ? "darkTheme nwPresModel"
                             : "nwPresModel"
                         }
@@ -1664,17 +1629,17 @@ class Index extends Component {
                                   ))}
                                 {this.state.currentPage !=
                                   this.state.totalPage && (
-                                  <a
-                                    className="nxtpag"
-                                    onClick={() => {
-                                      this.onChangePage(
-                                        this.state.currentPage + 1
-                                      );
-                                    }}
-                                  >
-                                    {next}
-                                  </a>
-                                )}
+                                    <a
+                                      className="nxtpag"
+                                      onClick={() => {
+                                        this.onChangePage(
+                                          this.state.currentPage + 1
+                                        );
+                                      }}
+                                    >
+                                      {next}
+                                    </a>
+                                  )}
                               </Grid>
                             )}
                           </Grid>

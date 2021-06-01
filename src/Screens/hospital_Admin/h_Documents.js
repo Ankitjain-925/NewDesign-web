@@ -22,6 +22,7 @@ import LeftMenu from "Screens/Components/Menus/H_leftMenu/index"
 import LeftMenuMobile from "Screens/Components/Menus/H_leftMenu/mobile"
 import { SearchUser } from "Screens/Components/Search"
 import $ from "jquery";
+import { commonHeader } from 'component/CommonHeader/index';
 
 class Index extends Component {
     constructor(props) {
@@ -63,13 +64,7 @@ class Index extends Component {
     getAlldocument() {
         var user_token = this.props.stateLoginValueAim.token;
         axios.get(sitedata.data.path + '/admin/Document',
-            {
-                headers: {
-                    'token': user_token,
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                }
-            }
+            commonHeader(user_token)
         )
             .then((response) => {
                 const archive = [];
@@ -201,13 +196,7 @@ class Index extends Component {
         this.setState({ loaderImage: true });
         axios.put(sitedata.data.path + '/admin/ChangeStatus/' + deletekey,
             { status: false},
-            {
-                headers: {
-                    'token': user_token,
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                }
-            })
+            commonHeader(user_token))
             .then((response) => {
                 this.setState({ loaderImage: false, document_is_archive: response.data.status });
                 this.getAlldocument();

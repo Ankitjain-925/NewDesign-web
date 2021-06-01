@@ -28,6 +28,7 @@ import {
 import Timezone from "timezon.json";
 import { GetLanguageDropdown } from "Screens/Components/GetMetaData/index.js";
 import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
+import { commonHeader } from "component/CommonHeader/index";
 function TabContainer(props) {
   return (
     <Typography component="div" className="tabsCntnts">
@@ -118,13 +119,7 @@ class Index extends Component {
     let user_token = this.props.stateLoginValueAim.token;
     let user_id = this.props.stateLoginValueAim.user._id;
     axios
-      .get(sitedata.data.path + "/UserProfile/Users/" + user_id, {
-        headers: {
-          token: user_token,
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      })
+      .get(sitedata.data.path + "/UserProfile/Users/" + user_id, commonHeader(user_token))
       .then((response) => {
         this.setState({ loaderImage: false, LoggedInUser: response.data.data });
       })
