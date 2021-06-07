@@ -20,6 +20,7 @@ import { getDate, getImage } from "Screens/Components/BasicMethod/index";
 import {
   getLanguage
 } from "translations/index"
+import Pagination from "Screens/Components/Pagination/index";
 import { commonHeader } from "component/CommonHeader/index";
 // import * as translationDE from '../../../../../translations/de_json_proofread_13072020.json';
 function TabContainer(props) {
@@ -74,8 +75,8 @@ class Index extends Component {
       axios
         .get(
           sitedata.data.path +
-            "/emergency_record/getPharmacy/search/" +
-            this.state.name,
+          "/emergency_record/getPharmacy/search/" +
+          this.state.name,
           commonHeader(user_token)
         )
         .then((response) => {
@@ -100,7 +101,7 @@ class Index extends Component {
       searchName: [],
     });
   };
-  
+
   getMyprescriptionssData = () => {
     let user_token = this.props.stateLoginValueAim.token;
     axios
@@ -155,7 +156,7 @@ class Index extends Component {
           // this.setState({ MypatientsData: response.data.data });
         }
       })
-      .catch((error) => {});
+      .catch((error) => { });
   };
 
   updatePrescription = (status, id) => {
@@ -179,9 +180,9 @@ class Index extends Component {
           <div
             className={
               this.props.settings &&
-              this.props.settings.setting &&
-              this.props.settings.setting.mode &&
-              this.props.settings.setting.mode === "dark"
+                this.props.settings.setting &&
+                this.props.settings.setting.mode &&
+                this.props.settings.setting.mode === "dark"
                 ? "dark-confirm react-confirm-alert-body"
                 : "react-confirm-alert-body"
             }
@@ -223,8 +224,8 @@ class Index extends Component {
     let user_token = this.props.stateLoginValueAim.token;
     const { message } = this.state;
     sendPharmacy = false;
-    if(this.state.newEntry?.pharmacy_id){
-      var sendPharmacy= this.state.newEntry?.pharmacy_id
+    if (this.state.newEntry?.pharmacy_id) {
+      var sendPharmacy = this.state.newEntry?.pharmacy_id
     }
     axios
       .put(
@@ -241,7 +242,7 @@ class Index extends Component {
         commonHeader(user_token)
       )
       .then((response) => {
-     
+
         this.setState({
           send_to_timeline: false,
           openPrescp: false,
@@ -249,10 +250,10 @@ class Index extends Component {
         });
         this.getMyprescriptionssData();
       })
-      .catch((error) => {});
+      .catch((error) => { });
   };
 
-  saveUserData = (id, timeline, send = () => {}) => {
+  saveUserData = (id, timeline, send = () => { }) => {
     if (timeline) {
       this.setState({ send_to_timeline: true });
     }
@@ -268,7 +269,7 @@ class Index extends Component {
           {
             attachfile: this.state.uploadedimage,
           },
-         commonHeader(user_token)
+          commonHeader(user_token)
         )
         .then((responce) => {
           send();
@@ -403,9 +404,9 @@ class Index extends Component {
               .then((result) => {
                 this.setState({ success: true });
               })
-              .catch((error) => {});
+              .catch((error) => { });
           })
-          .catch((error) => {});
+          .catch((error) => { });
       } else {
         let translate = getLanguage(this.props.stateLanguageType)
         let { UploadMust, yes } = translate;
@@ -655,11 +656,11 @@ class Index extends Component {
                     <Td>
                       {data.send_on
                         ? getDate(
-                            data.send_on,
-                            this.props.settings.setting
-                              ? this.props.settings.setting.date_format
-                              : "DD/MM/YYYY"
-                          )
+                          data.send_on,
+                          this.props.settings.setting
+                            ? this.props.settings.setting.date_format
+                            : "DD/MM/YYYY"
+                        )
                         : not_mentioned}
                     </Td>
                     <Td className="presImg">
@@ -667,9 +668,9 @@ class Index extends Component {
                         src={
                           data.patient_info && data.patient_info.profile_image
                             ? getImage(
-                                data.patient_info.profile_image,
-                                this.state.images
-                              )
+                              data.patient_info.profile_image,
+                              this.state.images
+                            )
                             : require("assets/images/dr1.jpg")
                         }
                         alt=""
@@ -735,38 +736,38 @@ class Index extends Component {
                           </li>
                           {(data.status == "free" ||
                             data.status == "pending") && (
-                            <li
-                              onClick={() => {
-                                this.handleOpenPrescp(data);
-                              }}
-                            >
-                              <a>
-                                <img
-                                  src={require("assets/images/edit.svg")}
-                                  alt=""
-                                  title=""
-                                />
-                                {approve}
-                              </a>
-                            </li>
-                          )}
+                              <li
+                                onClick={() => {
+                                  this.handleOpenPrescp(data);
+                                }}
+                              >
+                                <a>
+                                  <img
+                                    src={require("assets/images/edit.svg")}
+                                    alt=""
+                                    title=""
+                                  />
+                                  {approve}
+                                </a>
+                              </li>
+                            )}
                           {(data.status == "free" ||
                             data.status == "pending") && (
-                            <li
-                              onClick={() => {
-                                this.updatePrescription("decline", data._id);
-                              }}
-                            >
-                              <a>
-                                <img
-                                  src={require("assets/images/plus.png")}
-                                  alt=""
-                                  title=""
-                                />
-                                {decline}
-                              </a>
-                            </li>
-                          )}
+                              <li
+                                onClick={() => {
+                                  this.updatePrescription("decline", data._id);
+                                }}
+                              >
+                                <a>
+                                  <img
+                                    src={require("assets/images/plus.png")}
+                                    alt=""
+                                    title=""
+                                  />
+                                  {decline}
+                                </a>
+                              </li>
+                            )}
                           {data.status !== "remove" && (
                             <li
                               onClick={() => {
@@ -796,9 +797,9 @@ class Index extends Component {
             onClose={this.handleClosePrescp}
             className={
               this.props.settings &&
-              this.props.settings.setting &&
-              this.props.settings.setting.mode &&
-              this.props.settings.setting.mode === "dark"
+                this.props.settings.setting &&
+                this.props.settings.setting.mode &&
+                this.props.settings.setting.mode === "dark"
                 ? "darkTheme prespBoxModel"
                 : "prespBoxModel"
             }
@@ -843,7 +844,7 @@ class Index extends Component {
                     </Grid>
                     <p>
                       {prescData.prescription_type &&
-                      prescData.prescription_type === "offline"
+                        prescData.prescription_type === "offline"
                         ? home_add_mailbox
                         : online}
                     </p>
@@ -917,43 +918,43 @@ class Index extends Component {
                 </Grid>
                 {prescData.status !== "accept" &&
                   prescData.status !== "decline" && (
-                  <Grid className="scanInputs">
-                  <Grid>
-                    <label>{Pharmacy}</label>
-                  </Grid>
-                  <Grid className="scanInputPhrm dropdown-main">
-                    <input
-                      type="text"
-                      placeholder={search_pharmacy_by_name_id}
-                      onChange={this.findByName}
-                      value={
-                        this.state.newEntry.pharmacy_id
-                          ? this.state.name +
-                          "- " +
-                          this.state.newEntry.pharmacy_id
-                          : this.state.name
-                      }
-                    />
-                    <img
-                      src={require("../../../../assets/images/srchInputField.svg")}
-                      alt=""
-                      title=""
-                    />
-                    <div
-                      className={
-                        this.state.searchName && this.state.searchName.length > 0
-                          ? "show-content dropdown-content"
-                          : "dropdown-content"
-                      }
-                    >
-                       {this.state.searchName?.length>0 && this.state.searchName.map((data) => (
-                      <a onClick={() => this.SetIds(data)}>
-                        {data.first_name + " " + data.last_name}
-                      </a>
-                    ))}
-                    </div>
-                  </Grid>
-                </Grid>)}
+                    <Grid className="scanInputs">
+                      <Grid>
+                        <label>{Pharmacy}</label>
+                      </Grid>
+                      <Grid className="scanInputPhrm dropdown-main">
+                        <input
+                          type="text"
+                          placeholder={search_pharmacy_by_name_id}
+                          onChange={this.findByName}
+                          value={
+                            this.state.newEntry.pharmacy_id
+                              ? this.state.name +
+                              "- " +
+                              this.state.newEntry.pharmacy_id
+                              : this.state.name
+                          }
+                        />
+                        <img
+                          src={require("../../../../assets/images/srchInputField.svg")}
+                          alt=""
+                          title=""
+                        />
+                        <div
+                          className={
+                            this.state.searchName && this.state.searchName.length > 0
+                              ? "show-content dropdown-content"
+                              : "dropdown-content"
+                          }
+                        >
+                          {this.state.searchName?.length > 0 && this.state.searchName.map((data) => (
+                            <a onClick={() => this.SetIds(data)}>
+                              {data.first_name + " " + data.last_name}
+                            </a>
+                          ))}
+                        </div>
+                      </Grid>
+                    </Grid>)}
                 {prescData.status !== "decline" && (
                   <Grid className="scamUPForms scamUPImg">
                     <Grid>
@@ -1078,9 +1079,9 @@ class Index extends Component {
             onClose={this.handleCloseReject}
             className={
               this.props.settings &&
-              this.props.settings.setting &&
-              this.props.settings.setting.mode &&
-              this.props.settings.setting.mode === "dark"
+                this.props.settings.setting &&
+                this.props.settings.setting.mode &&
+                this.props.settings.setting.mode === "dark"
                 ? "darkTheme "
                 : ""
             }
@@ -1138,7 +1139,7 @@ class Index extends Component {
               <Grid item xs={12} md={6}>
                 {this.state.totalPage > 1 && (
                   <Grid className="prevNxtpag">
-                    {this.state.currentPage != 1 && (
+                    {/* {this.state.currentPage != 1 && (
                       <a
                         className="prevpag"
                         onClick={() => {
@@ -1172,7 +1173,8 @@ class Index extends Component {
                       >
                         {next}
                       </a>
-                    )}
+                    )} */}
+                    <Pagination totalPage={this.state.totalPage} currentPage={this.state.currentPage} pages={this.state.pages} onChangePage={(page) => { this.onChangePage(page) }} />
                   </Grid>
                 )}
               </Grid>

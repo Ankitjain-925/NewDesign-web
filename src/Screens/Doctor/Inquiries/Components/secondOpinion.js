@@ -20,6 +20,7 @@ import { getDate, getImage } from "Screens/Components/BasicMethod/index";
 import {
   getLanguage
 } from "translations/index"
+import Pagination from "Screens/Components/Pagination/index";
 import Loader from "Screens/Components/Loader/index.js";
 import { commonHeader } from "component/CommonHeader/index";
 
@@ -1089,7 +1090,7 @@ class Index extends Component {
               <Grid item xs={12} md={6}>
                 {this.state.totalPage > 1 && (
                   <Grid className="prevNxtpag">
-                    {this.state.currentPage != 1 && (
+                    {/* {this.state.currentPage != 1 && (
                       <a
                         className="prevpag"
                         onClick={() => {
@@ -1123,7 +1124,8 @@ class Index extends Component {
                       >
                         {next}
                       </a>
-                    )}
+                    )} */}
+                    <Pagination totalPage={this.state.totalPage} currentPage={this.state.currentPage} pages={this.state.pages} onChangePage={(page) => { this.onChangePage(page) }} />
                   </Grid>
                 )}
               </Grid>

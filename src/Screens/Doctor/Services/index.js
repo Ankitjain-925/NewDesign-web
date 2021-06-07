@@ -37,6 +37,7 @@ import {
 import { Doctorset } from "Screens/Doctor/actions";
 import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 import { commonHeader } from "component/CommonHeader/index";
+import Pagination from "Screens/Components/Pagination/index";
 
 var letter = /([a-zA-Z])+([ -~])*/,
   number = /\d+/,
@@ -1600,7 +1601,7 @@ class Index extends Component {
                           <Grid item xs={12} md={6}>
                             {this.state.totalPage > 1 && (
                               <Grid className="prevNxtpag">
-                                {this.state.currentPage != 1 && (
+                                {/* {this.state.currentPage != 1 && (
                                   <a
                                     className="prevpag"
                                     onClick={() => {
@@ -1639,7 +1640,8 @@ class Index extends Component {
                                     >
                                       {next}
                                     </a>
-                                  )}
+                                  )} */}
+                                  <Pagination totalPage={this.state.totalPage} currentPage={this.state.currentPage} pages={this.state.pages} onChangePage={(page)=>{this.onChangePage(page)}}/>
                               </Grid>
                             )}
                           </Grid>

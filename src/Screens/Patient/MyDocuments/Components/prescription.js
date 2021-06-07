@@ -19,6 +19,7 @@ import {
   getLanguage
 } from "translations/index"
 import { commonHeader } from "component/CommonHeader/index";
+import Pagination from "Screens/Components/Pagination/index";
 
 class Index extends Component {
   constructor(props) {
@@ -937,7 +938,7 @@ class Index extends Component {
               <Grid item xs={12} md={6}>
                 {this.state.totalPage > 1 && (
                   <Grid className="prevNxtpag">
-                    {this.state.currentPage !== 1 && (
+                    {/* {this.state.currentPage !== 1 && (
                       <a
                         className="prevpag"
                         onClick={() => {
@@ -971,7 +972,8 @@ class Index extends Component {
                       >
                         Next
                       </a>
-                    )}
+                    )} */}
+                    <Pagination totalPage={this.state.totalPage} currentPage={this.state.currentPage} pages={this.state.pages} onChangePage={(page)=>{this.onChangePage(page)}}/>
                   </Grid>
                 )}
               </Grid>

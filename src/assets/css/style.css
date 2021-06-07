@@ -5671,7 +5671,7 @@ a.prevpag {
     line-height: 12px;
 } */
 a.nxtpag {
-    color: #00ABAF !important;
+    /* color: #00ABAF !important; */
     font-family: Muli;
     font-size: 12px;
     font-weight: 600;
@@ -13113,6 +13113,21 @@ a.academy_ul ul li img {
 
 
 /*Added By ankita*/
+.prevNxtpag a {
+    margin: 0px 0px 0px 15px !important;
+}
+.movetoPage{
+    font-family: 'Muli';
+    font-size: 14px;
+    font-weight: 600;
+}
+.movetoPage input{
+    width: 8%;
+    padding: 4px;
+    margin: 6px 6px 6px 10px;
+    font-family: inherit;  
+}
+
 .homeBgDrk .payment_sec_extra_ser p{
     color: #BFC1C1 !important;
 }
