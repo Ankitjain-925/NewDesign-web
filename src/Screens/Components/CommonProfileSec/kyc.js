@@ -25,6 +25,7 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import {
   getLanguage
 } from "translations/index"
+import { commonHeader } from "component/CommonHeader/index";
 class Index extends Component {
   constructor(props) {
     super(props);
@@ -46,6 +47,10 @@ class Index extends Component {
       selectedCountry: null,
       CurrentCountry: {},
       allField: false,
+      uploadLicence: false,
+      FilesUp: [],
+      fileattach: [],
+      UpDataDetails:{}
     };
     // new Timer(this.logOutClick.bind(this))
   }
@@ -55,8 +60,26 @@ class Index extends Component {
     var npmCountry = npmCountryList().getData();
     this.setState({ selectCountry: npmCountry });
     this.getKYC();
+    this.getUserData();
   }
 
+   //For getting User Data
+   getUserData() {
+    this.setState({ loaderImage: true });
+    let user_token = this.props.stateLoginValueAim.token;
+    let user_id = this.props.stateLoginValueAim.user._id;
+    axios
+      .get(sitedata.data.path + "/UserProfile/Users/" + user_id, commonHeader(user_token))
+      .then((response) => {
+        this.setState({ loaderImage: false });
+        this.setState({
+          UpDataDetails: response.data.data,
+        });
+      })
+      .catch((error) => {
+        this.setState({ loaderImage: false });
+      });
+  }
   //Get the Exist KYC
   getKYC() {
     var user_id = this.props.stateLoginValueAim.user._id;
@@ -277,6 +300,27 @@ class Index extends Component {
       this.setState({ err_pdf: true, err_document: false, err1: false });
     }
   };
+ //Save the User profile
+ saveUserData = () => {
+  var Licence=  this.state.UpDataDetails.licence
+  if(this.state.uploadLicence){
+    Licence=  this.state.uploadLicence
+  }
+  const user_token = this.props.stateLoginValueAim.token;
+  axios
+    .put(
+      sitedata.data.path + "/UserProfile/Users/update",
+      {
+        licence : Licence
+      },
+      commonHeader(user_token)
+    )
+    .then((responce) => {
+      if (responce.data.hassuccessed) {
+         this.getUserData();  
+    }
+  });
+};
 
   //Save KYC Data
   saveKYC = () => {
@@ -354,6 +398,8 @@ class Index extends Component {
                   fileattach1: false,
                   fileattach2: false,
                   loaderImage: false,
+                }, ()=>{
+                  this.saveUserData();
                 });
                 setTimeout(() => {
                   this.setState({ success: false });
@@ -380,6 +426,8 @@ class Index extends Component {
                   fileattach1: false,
                   fileattach2: false,
                   loaderImage: false,
+                },()=>{
+                  this.saveUserData();
                 });
                 setTimeout(() => {
                   this.setState({ success: false });
@@ -414,6 +462,91 @@ class Index extends Component {
     this.getKYC();
   };
 
+     //For upload the Doctor Liscence
+     UploadFile(e) {
+      this.setState({ FilesUp: e.target.files, loaderImage: true },()=>{
+        if (this.state.FilesUp && this.state.FilesUp.length > 0) {
+          for (var i = 0; i < this.state.FilesUp.length; i++) {
+            var file = this.state.FilesUp[i];
+            let fileParts = this.state.FilesUp[i].name.split(".");
+            let fileName = fileParts[0];
+            let fileType = fileParts[1];
+            axios
+              .post(sitedata.data.path + "/aws/sign_s3", {
+                fileName: fileName,
+                fileType: fileType,
+                folders: "registration/",
+                bucket: this.props.stateLoginValueAim.user.bucket,
+              })
+              .then((response) => {
+                this.setState(
+                  {
+                    uploadLicence: {
+                      url:
+                        response.data.data.returnData.url +
+                        "&bucket=" +
+                        this.props.stateLoginValueAim.user.bucket,
+                    },
+                  }
+                );
+                var returnData = response.data.data.returnData;
+                var signedRequest = returnData.signedRequest;
+                var url = returnData.url;
+                if (fileType === "pdf") {
+                  fileType = "application/pdf";
+                }
+                // Put the fileType in the headers for the upload
+                var options = { headers: { "Content-Type": fileType } };
+                axios
+                  .put(signedRequest, file, options)
+                  .then((result) => {
+                    this.setState({ success: true, loaderImage: false });
+                  })
+                  .catch((error) => {});
+              })
+              .catch((error) => {});
+          }
+        } 
+      });
+      // setTimeout(() => {
+      //   this.setState({ loaderImage: false });
+      // }, 3000);
+      var Preview = [];
+      for (var i = 0; i < e.target.files.length; i++) {
+        if (e.target.files[i].name.split(".").pop() === "mp4") {
+          Preview.push(require("assets/images/videoIcon.png"));
+        }
+        if (e.target.files[i].name.split(".").pop() === "pdf") {
+          Preview.push(require("assets/images/pdfimg.png"));
+        } else if (
+          e.target.files[i].name.split(".").pop() === "doc" ||
+          e.target.files[i].name.split(".").pop() === "docx" ||
+          e.target.files[i].name.split(".").pop() === "xml" ||
+          e.target.files[i].name.split(".").pop() === "txt"
+        ) {
+          Preview.push(require("assets/images/txt1.png"));
+        } else if (
+          e.target.files[i].name.split(".").pop() === "xls" ||
+          e.target.files[i].name.split(".").pop() === "xlsx" ||
+          e.target.files[i].name.split(".").pop() === "xml"
+        ) {
+          Preview.push(require("assets/images/xls1.svg"));
+        } else if (e.target.files[i].name.split(".").pop() === "csv") {
+          Preview.push(require("assets/images/csv1.png"));
+        } else if (
+          e.target.files[i].name.split(".").pop() === "dcm" ||
+          e.target.files[i].name.split(".").pop() === "DCM" ||
+          e.target.files[i].name.split(".").pop() === "DICOM" ||
+          e.target.files[i].name.split(".").pop() === "dicom"
+        ) {
+          Preview.push(require("assets/images/dcm1.png"));
+        } else {
+          Preview.push(URL.createObjectURL(e.target.files[i]));
+        }
+      }
+      this.setState({ fileattach: Preview });
+    }
+
   render() {
     //company list generate from here
     const companyList =
@@ -436,6 +569,8 @@ class Index extends Component {
       let translate = getLanguage(this.props.stateLanguageType)
     let {
       Pharmacy,
+      upload_license_is,
+      click_here_uplod_license,
       ID,
       kyc,
       reg_number_if_aplicble,
@@ -765,7 +900,50 @@ class Index extends Component {
               label={by_clicking_accept_aimedis_term}
             />
           </Grid>
-
+          {(this.props.comesFrom==='pharmacy' || this.props.comesFrom==='nurse' || this.props.comesFrom==='doctor') && <>
+          {this.state.UpDataDetails.licence && this.state.UpDataDetails.licence.length>0 && this.state.UpDataDetails.licence[0].url && this.state.UpDataDetails.licence[0].url.split('registration/')[1] ? 
+            <Grid item xs={12} sm={12} className="common_name_v2_reg profileInfoIner">
+              <label htmlFor="UploadDocument" onClick={()=>GetUrlImage(this.state.UpDataDetails.licence && this.state.UpDataDetails.licence && this.state.UpDataDetails.licence.length>0 && this.state.UpDataDetails.licence[0].url && this.state.UpDataDetails.licence[0].url)}>
+                {" "}
+                {upload_license_is}{" "}
+                <img
+                  src={require("assets/images/links.png")}
+                  alt=""
+                  title=""
+                  className="link_docs"
+                />
+              </label>
+            </Grid>:
+            <Grid item xs={12} sm={12} className="common_name_v2_reg profileInfoIner">
+              <label htmlFor="UploadDocument">
+                {" "}
+                {click_here_uplod_license}{" "}
+                <img
+                  src={require("assets/images/links.png")}
+                  alt=""
+                  title=""
+                  className="link_docs"
+                />
+              </label>
+              <input
+                type="file"
+                style={{ display: "none" }}
+                id="UploadDocument"
+                name="UploadDocument"
+                onChange={(e) => this.UploadFile(e)}
+                multiple
+              />
+              <div>
+                {this.state.fileattach &&
+                  this.state.fileattach.length > 0 &&
+                  this.state.fileattach.map((data) => (
+                    <span className="ViewImage">
+                      <img src={data} />
+                    </span>
+                  ))}
+              </div>
+            </Grid>}
+            </>}
           <Grid container direction="row" alignItems="center">
             <Grid item xs={12} md={4} className="kycSaveChng">
               <input type="submit" onClick={this.saveKYC} value={save_change} />

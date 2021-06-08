@@ -4765,6 +4765,7 @@ button.aboutTabsIner {
     color: #00ABAF !important;
 }
 .kycSaveChng input[type="submit"] {
+    margin-top: 30px;
     border-radius: 8px;
     background-color: #00ABAF;
     border: none;

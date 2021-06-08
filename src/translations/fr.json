@@ -1200,6 +1200,7 @@
 		"choose_currency":"Choisir la devise",
 		"cancel_subscription":"Annuler l'abonnement",
 		"r_u_want_cancel_sub":"Voulez-vous vraiment annuler l'abonnement?",
-		"email_rcv_update_reciept":"E-mail sur lequel vous recevrez des mises à jour et des reçus"
+		"email_rcv_update_reciept":"E-mail sur lequel vous recevrez des mises à jour et des reçus",
+		"upload_license_is" :"La licence téléchargée est"
 	}
 }

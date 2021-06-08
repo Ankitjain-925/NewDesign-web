@@ -261,12 +261,6 @@ class Index extends Component {
       ()=>{
           this.GetLanguageMetadata();
       })
-    // axios.get(sitedata.data.path + "/UserProfile/Metadata").then((responce) => {
-    //   if (responce && responce.data && responce.data.length > 0) {
-    //     this.setState({ allMetadata: responce.data[0] });
-    //     this.GetLanguageMetadata();
-    //   }
-    // });
   }
 
   GetLanguageMetadata = () => {

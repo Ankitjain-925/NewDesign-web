@@ -169,7 +169,7 @@
 		"make_all_item_hide_now_untill": "现在隐藏所有项目（直到更改) ",
 		"make_all_item_hide_untill": "隐藏所有项目，直到",
 		"patient_id": "患者ID",
-		"kyc": "KYC ",
+		"kyc": "KYC",
 		"enter_healthcare_and_upload_data": "请输入您的医疗保健药业/研究/保险数据，然后将您的身份证和健康保健药业/研究/保险卡的副本上传到您的帐户中",
 		"plz_upload_png_jpg": "请上传PDF、PNG和JPEG文件",
 		"plz_uplod_doc": "请上传文档",
@@ -1220,6 +1220,7 @@
 		"choose_currency":"选择货币",
 		"cancel_subscription":"取消订阅",
 		"r_u_want_cancel_sub":"您真的要取消订阅吗？",
-		"email_rcv_update_reciept":"通过电子邮件发送您的最新动态和收据"
+		"email_rcv_update_reciept":"通过电子邮件发送您的最新动态和收据",
+		"upload_license_is" :"上传的许可证是"
 	}
 }

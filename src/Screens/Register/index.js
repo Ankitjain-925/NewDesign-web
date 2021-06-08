@@ -196,7 +196,7 @@ class Index extends Component {
                     contry.filter(
                       (value, key) => value.code === country_code.toUpperCase()
                     );
-                  if (this.state.selectedOption == "doctor") {
+                  if (this.state.selectedOption == "doctor" || this.state.selectedOption == "nurse" || this.state.selectedOption == "pharmacy") {
                     this.saveDoctor(country_code);
                   } else {
                     axios
@@ -933,7 +933,7 @@ class Index extends Component {
                       label={Register_activate_auth}
                     />
                   </Grid>
-                  {this.state.selectedOption == "doctor" && (
+                  {(this.state.selectedOption == "doctor" || this.state.selectedOption == "nurse" || this.state.selectedOption == "pharmacy") && (
                     <Grid item xs={12} sm={12} className="common_name_v2_reg">
                       <label htmlFor="UploadDocument">
                         {" "}

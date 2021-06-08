@@ -167,7 +167,7 @@
 		"make_all_item_hide_now_untill": "Make all items HIDE now (Until changed) ",
 		"make_all_item_hide_untill": "Make all items HIDE until",
 		"patient_id": "Patient ID",
-		"kyc": "KYC ",
+		"kyc": "KYC & license",
 		"enter_healthcare_and_upload_data": "Please enter your healthcare Pharma / Research / Insurance data and upload a copy of your ID and heathcare Pharma / Research / Insurance card into your account",
 		"plz_upload_png_jpg": "Please upload PDF, PNG and JPEG file",
 		"plz_uplod_doc": "Please Upload Documents",
@@ -1201,6 +1201,7 @@
 		"choose_currency":"Choose Currency",
 		"cancel_subscription":"Cancel the subscription",
 		"r_u_want_cancel_sub":"Are you really want to cancel the subscription?",
-		"email_rcv_update_reciept":"Email you'll recive updates and receipts on"
+		"email_rcv_update_reciept":"Email you'll recive updates and receipts on",
+		"upload_license_is" :"Uploaded license is"
 	}
 }

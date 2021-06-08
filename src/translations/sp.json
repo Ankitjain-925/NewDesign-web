@@ -1203,6 +1203,7 @@
 		"choose_currency":"Elegir Moneda",
 		"cancel_subscription":"Cancelar la suscripción",
 		"r_u_want_cancel_sub":"¿Realmente quieres cancelar la suscripción?",
-		"email_rcv_update_reciept":"Correo electrónico en el que recibirá actualizaciones y recibos"
+		"email_rcv_update_reciept":"Correo electrónico en el que recibirá actualizaciones y recibos",
+		"upload_license_is" :"La licencia cargada es"
 	}
 }
