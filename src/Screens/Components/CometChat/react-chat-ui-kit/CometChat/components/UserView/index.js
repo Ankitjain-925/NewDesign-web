@@ -14,7 +14,6 @@ function Userview(props) {
     let user = props.user;
     if (user.avatar) {
       const uid = user.uid;
-      console.log('turi4s2')
       var char = user.avatar;
       char = char.split(".com/")[1];
       axios
@@ -26,15 +25,12 @@ function Userview(props) {
         });
     }
     else{
-      console.log('turi4s')
-      
       const uid = user.uid;
       const char = user.name.charAt(0).toUpperCase();
       setImage(SvgAvatar.getAvatar(uid, char));
     } 
   }, [props.user]);
   return ((
-    // // console.log('csfsdf', props.Userlist, props.user.uid),
     // props.Userlist && props.Userlist.includes(props.user.uid) ?
     <div className="contact-listitem" >
       <div className="contact-thumbnail-wrap">

@@ -349,7 +349,6 @@ export function timeDiffCalc(dateFuture, dateNow) {
   // calculate days
   const days = Math.floor(diffInMilliSeconds / 86400);
   diffInMilliSeconds -= days * 86400;
-  console.log('calculated days', days);
 
   // calculate hours
   let hours = Math.floor(diffInMilliSeconds / 3600) % 24;

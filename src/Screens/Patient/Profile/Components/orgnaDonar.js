@@ -39,7 +39,6 @@ class Index extends Component {
     }
 
     componentDidMount() {
-        console.log('organdonor')
         this.getUserData();
     }
 

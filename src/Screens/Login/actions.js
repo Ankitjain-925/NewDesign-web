@@ -14,14 +14,12 @@ const path = sitedata.data.path + "/UserProfile";
 const path1 = sitedata.data.path + "/User";
 
 export const createUser = ({ uid, name }) => {
-  // console.log('create user')
   let user = new CometChat.User(uid);
   user.setName(name);
   return CometChat.createUser(user, COMETCHAT_CONSTANTS.AUTH_KEY);
 };
 //login user
 export const cometLogin = async (uid) => {
-  // console.log(uid, 'uid');
   return CometChat.login(uid, COMETCHAT_CONSTANTS.AUTH_KEY);
 };
 export const updateCometUser = async (data)=>{
@@ -84,7 +82,6 @@ export const LoginReducerAim = (email, password, SendCallback = () => {}) => {
                 SendCallback();
               },
               (error) => {
-                // console.log(error, 'error in login');
                 if (error && error.code == "ERR_UID_NOT_FOUND") {
                   createUser({
                     uid: response.data.user.profile_id,
@@ -101,7 +98,6 @@ export const LoginReducerAim = (email, password, SendCallback = () => {}) => {
                           SendCallback();
                         },
                         (error) => {
-                          // console.log('after create login error')
                           let tmp = "error";
                           dispatch({ type: GET_LOGIN_ERROR, payload: tmp });
                           SendCallback();

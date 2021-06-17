@@ -8,7 +8,6 @@ import CometChatUserInfoScreen from "../../CometChatUserInfoScreen";
 
 const navbar = (props) => {
   const switchComponent = () => {
-    console.log('tab', props.tab)
     switch (props.tab) {
       case "contacts":
         return (

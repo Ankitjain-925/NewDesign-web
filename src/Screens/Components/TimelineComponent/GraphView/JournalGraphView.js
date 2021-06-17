@@ -257,7 +257,6 @@ class Index extends Component {
             }
             oldthree = data;
             })}
-            // console.log('heightbmi', heightbmi)
             options ={
                 title: {
                     text: 'Weight and BMI'

@@ -398,7 +398,6 @@ class Index extends Component {
                             <Grid>
                                 <label>
                                     {" "}
-                                    {console.log('this.state.openDetail', this.state.openDetail)}
                                     {this.state.openDetail.patient_name &&
                                         this.state.openDetail.patient_name}
                                 </label>

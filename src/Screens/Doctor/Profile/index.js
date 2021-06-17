@@ -138,7 +138,6 @@ class Index extends Component {
   onChange = (time) => this.setState({ time });
   handleChange = (selectedOption) => {
     this.setState({ selectedOption });
-    //// console.log(`Option selected:`, selectedOption);
   };
   handleChangeCountry = (selectedCountry) => {
     this.setState({ selectedCountry });

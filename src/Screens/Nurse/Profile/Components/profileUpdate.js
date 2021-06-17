@@ -734,7 +734,6 @@ class Index extends Component {
       const compressedFile = await resizeFile(file);
 
       var data = blobToFile(compressedFile, file.name)
-      console.log('Get ComFile', data)
       axios
         .post(sitedata.data.path + "/aws/sign_s3", {
           fileName: data.name,

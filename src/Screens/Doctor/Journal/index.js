@@ -983,8 +983,6 @@ class Index extends Component {
   };
 
   render() {
-    console.log("RENDERRRR", commonHeader("Token"))
-
     let translate = getLanguage(this.props.stateLanguageType)
     let {
       respiration,

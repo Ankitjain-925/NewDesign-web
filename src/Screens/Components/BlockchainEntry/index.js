@@ -77,7 +77,6 @@ export const updateBlockchain = async (
       }
     })
     .catch((err) => {
-      console.log('err', err)
       axios
         .post(sitedata.data.path + "/blockchain/dataManager", {
           path: "dataManager/generate/token/patient",

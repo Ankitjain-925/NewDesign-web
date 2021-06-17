@@ -53,7 +53,6 @@ class Index extends Component {
       },
       () => {
         var find = this.state.CurrentAttach.filename;
-        console.log('find1', find)
         if(find){
           var find1 = find?.split(".com/")[1];
           axios

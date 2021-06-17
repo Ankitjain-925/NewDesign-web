@@ -170,7 +170,6 @@ class Index extends Component {
     var user_token = this.props.stateLoginValueAim.token;
     this.setState({ loaderImage: true });
     this.getFamilyDoc(user_token, user_id).then((result) => {
-      console.log('docArray', result)
     axios
     .post(sitedata.data.path + "/UserProfile/downloadfullPdf", {
           Dieseases: TrackRecord,

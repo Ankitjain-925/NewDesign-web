@@ -469,14 +469,12 @@ class Index extends Component {
     }
     //Save the User profile
     saveUserData = () => {
-        // console.log('Mobile', this.state.UpDataDetails.mobile.includes("-"))
         if (!this.state.UpDataDetails.mobile.includes("-")) {
             const state2 = this.state.UpDataDetails
             state2['mobile'] = 'DE-' + this.state.UpDataDetails.mobile;
 
             this.setState({ UpDataDetails: state2 })
         }
-        // console.log('Mobile', this.state.UpDataDetails.mobile)
         if (this.state.insuranceDetails.insurance !== "" && this.state.insuranceDetails.insurance_country !== "") {
             if (datas.some(data => data.insurance === this.state.insuranceDetails.insurance)) {
 
@@ -921,8 +919,6 @@ class Index extends Component {
 
         return (
             <div>
-                {/* {console.log('this.props.stateLanguageType',  this.props.stateLanguageType)}
-                {console.log('this.props.settings',  this.props.settings)} */}
                 {this.state.loaderImage && <Loader />}
                 <Grid className="profileMy">
                     <Grid className="profileInfo">

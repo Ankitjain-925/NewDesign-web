@@ -255,7 +255,6 @@ class CometChatUserList extends React.PureComponent {
           }
         )
         .then((response) => {
-          console.log('response', response)
           this.setState({ userlist1: response.data.data, userlist: response.data.data })
         })
         // u.map((id, index) => {
