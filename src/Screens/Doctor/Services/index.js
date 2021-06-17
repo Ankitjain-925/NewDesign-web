@@ -38,6 +38,7 @@ import { Doctorset } from "Screens/Doctor/actions";
 import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 import { commonHeader } from "component/CommonHeader/index";
 import Pagination from "Screens/Components/Pagination/index";
+import {updateCometUser} from "Screens/Components/CommonApi/index";
 
 var letter = /([a-zA-Z])+([ -~])*/,
   number = /\d+/,
@@ -355,7 +356,14 @@ class Index extends Component {
                         },
                       }
                     )
-                    .then((res) => { });
+                    .then((res) => { 
+                      updateCometUser({
+                        uid: responce.data.data.profile_id.toLowerCase(),
+                        name:
+                        userDetails.first_name + " " + userDetails.last_name,
+                        role: "default"
+                      })
+                    });
                   AddFavDoc2(
                     this.props.stateLoginValueAim.user.profile_id,
                     this.props.stateLoginValueAim.user.profile_id,

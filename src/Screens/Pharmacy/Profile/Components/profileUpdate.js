@@ -20,6 +20,7 @@ import { LanguageFetchReducer } from "Screens/actions";
 import Modal from "@material-ui/core/Modal";
 import Loader from "Screens/Components/Loader/index";
 import DateFormat from "Screens/Components/DateFormat/index";
+import { update_CometUser } from "Screens/Components/CommonApi/index";
 import { GetUrlImage1, blobToFile, resizeFile } from "Screens/Components/BasicMethod/index";
 import {
   getLanguage
@@ -442,7 +443,9 @@ class Index extends Component {
                 },
               }
             )
-            .then((res) => {});
+            .then((res) => {
+              var data = update_CometUser(this.props?.stateLoginValueAim?.user?.profile_id.toLowerCase() , res.data.data)
+            });
         } else {
           this.setState({ loaderImage: false });
           if (responce.data.message === "Phone is not verified") {
@@ -691,7 +694,9 @@ class Index extends Component {
               },
             }
           )
-          .then((res) => {});
+          .then((res) => {
+            var data = update_CometUser(this.props?.stateLoginValueAim?.user?.profile_id.toLowerCase() , res.data.data)
+          });
         var find1 = this.state.uploadedimage;
         this.SettingImage(find1);
       });

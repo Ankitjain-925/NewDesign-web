@@ -19,6 +19,7 @@ import DoctorInviteModal from "Screens/Doctor/DoctorInvite/index.js";
 import {
   getLanguage
 } from "translations/index"
+import { update_CometUser } from "Screens/Components/CommonApi/index";
 import SetLanguage from "Screens/Components/SetLanguage/index.js";
 
 class Index extends Component {
@@ -147,12 +148,15 @@ class Index extends Component {
   };
 
   //For logout the User
-  logOutClick = () => {
-    let email = "";
-    let password = "";
-    this.props.LoginReducerAim(email, password);
-    let languageType = "en";
-    this.props.LanguageFetchReducer(languageType);
+  logOutClick = async () => {
+    var data = await update_CometUser(this.props?.stateLoginValueAim?.user?.profile_id.toLowerCase() , {lastActiveAt : Date.now()})
+    if(data){
+      let email = "";
+      let password = "";
+      this.props.LoginReducerAim(email, password);
+      let languageType = "en";
+      this.props.LanguageFetchReducer(languageType);
+    } 
   };
 
   //For Patient

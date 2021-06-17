@@ -14,6 +14,7 @@ import LogOut from "Screens/Components/LogOut/index";
 import Timer from "Screens/Components/TimeLogOut/index";
 import Mode from "Screens/Components/ThemeMode/index.js";
 import SetLanguage from "Screens/Components/SetLanguage/index.js";
+import { update_CometUser } from "Screens/Components/CommonApi/index";
 import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 import {
   getLanguage
@@ -106,12 +107,15 @@ class Index extends Component {
   };
 
   //For logout the User
-  logOutClick = () => {
-    let email = "";
-    let password = "";
-    this.props.LoginReducerAim(email, password);
-    let languageType = "en";
-    this.props.LanguageFetchReducer(languageType);
+  logOutClick = async () => {
+    var data = await update_CometUser(this.props?.stateLoginValueAim?.user?.profile_id.toLowerCase() , {lastActiveAt : Date.now()})
+    if(data){
+      let email = "";
+      let password = "";
+      this.props.LoginReducerAim(email, password);
+      let languageType = "en";
+      this.props.LanguageFetchReducer(languageType);
+    }
   };
 
   //For My Profile link

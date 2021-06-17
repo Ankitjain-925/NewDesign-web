@@ -3,6 +3,25 @@ import sitedata from "sitedata";
 import moment from "moment"
 import { commonHeader } from "component/CommonHeader/index"
 
+export const updateCometUser = async (data)=>{
+    let response = await axios.post(sitedata.data.path + "/cometUserList",
+    data)
+     if (response.data.hassuccessed) {
+        return response
+    } else {
+        return false
+    }
+  }
+
+export const update_CometUser = async (uid, data) => {
+    let response = await axios.put(sitedata.data.path + "/cometUserList/" + uid, data)        
+    if (response.data.hassuccessed) {
+        return response
+    } else {
+        return false
+    }
+}
+
 export const get_gender = async (user_token, user_id) => {
     let response = await axios.get(sitedata.data.path + "/User/Get_patient_gender/" + user_id,
         commonHeader(user_token))

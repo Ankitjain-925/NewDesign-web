@@ -15,6 +15,7 @@ import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometCh
 import Modal from '@material-ui/core/Modal';
 import axios from "axios"
 import sitedata from "sitedata"
+import { update_CometUser } from "Screens/Components/CommonApi/index";
 import * as translationEN from '../../../hospital_Admin/translations/en_json_proofread_13072020.json';
 import * as translationDE from "../../../hospital_Admin/translations/de.json"
 import CreateAdminUser from "Screens/Components/CreateHospitalUser/index"
@@ -112,12 +113,15 @@ class Index extends Component {
 
 
     //For logout the User
-    logOutClick = () => {
-        let email = "";
-        let password = "";
-        this.props.LoginReducerAim(email, password);
-        let languageType = 'en';
-        this.props.LanguageFetchReducer(languageType);
+    logOutClick = async () => {
+        var data = await update_CometUser(this.props?.stateLoginValueAim?.user?.profile_id.toLowerCase() , {lastActiveAt : Date.now()})
+        if(data){
+          let email = "";
+          let password = "";
+          this.props.LoginReducerAim(email, password);
+          let languageType = "en";
+          this.props.LanguageFetchReducer(languageType);
+        }
         this.props.history.push('/')
     }
 

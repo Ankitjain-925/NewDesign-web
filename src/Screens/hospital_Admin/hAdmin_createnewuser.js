@@ -13,6 +13,7 @@ import { connect } from "react-redux";
 import { LoginReducerAim } from 'Screens/Login/actions';
 import { Settings } from 'Screens/Login/setting';
 import { LanguageFetchReducer } from "Screens/actions";
+import { update_CometUser } from "Screens/Components/CommonApi/index";
 
 const specialistOptions = [
     { value: 'Specialist1', label: 'Specialist1' },
@@ -34,12 +35,15 @@ class Index extends Component {
     handleCloseCreate = () => {
         this.setState({ addCreate: false });
     };
-    logOutClick = () => {
-        let email = "";
-        let password = "";
-        this.props.LoginReducerAim(email, password);
-        let languageType = 'en';
-        this.props.LanguageFetchReducer(languageType);
+    logOutClick = async () => {
+        var data = await update_CometUser(this.props?.stateLoginValueAim?.user?.profile_id.toLowerCase() , {lastActiveAt : Date.now()})
+        if(data){
+            let email = "";
+            let password = "";
+            this.props.LoginReducerAim(email, password);
+            let languageType = 'en';
+            this.props.LanguageFetchReducer(languageType);
+        }
         localStorage.removeItem("token")
         this.props.history.push('/')
     }

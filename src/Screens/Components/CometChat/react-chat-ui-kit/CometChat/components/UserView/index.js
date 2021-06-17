@@ -12,28 +12,26 @@ function Userview(props) {
   const [_image, setImage] = React.useState(null);
   useEffect(() => {
     let user = props.user;
-    if (!user.getAvatar()) {
-      const uid = user.getUid();
-      const char = user
-        .getName()
-        .charAt(0)
-        .toUpperCase();
-      setImage(SvgAvatar.getAvatar(uid, char));
-      // user.setAvatar(SvgAvatar.getAvatar(uid, char));
-    } else {
-      const uid = user.getUid();
-      var char = user.getAvatar();
+    if (user.avatar) {
+      const uid = user.uid;
+      console.log('turi4s2')
+      var char = user.avatar;
       char = char.split(".com/")[1];
       axios
         .get(sitedata.data.path + "/aws/sign_s3?find=" + char)
         .then((response) => {
           if (response.data.hassuccessed) {
-            console.log('response.data.data', response.data.data)
             setImage(response.data.data);
-            // user.setAvatar(response.data.data);
           }
         });
     }
+    else{
+      console.log('turi4s')
+      
+      const uid = user.uid;
+      const char = user.name.charAt(0).toUpperCase();
+      setImage(SvgAvatar.getAvatar(uid, char));
+    } 
   }, [props.user]);
   return ((
     // // console.log('csfsdf', props.Userlist, props.user.uid),

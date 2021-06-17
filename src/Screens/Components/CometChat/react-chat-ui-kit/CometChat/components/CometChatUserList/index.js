@@ -6,8 +6,11 @@ import { SvgAvatar } from "../../util/svgavatar";
 import { UserListManager } from "./controller";
 import { sortCometUser, unreadAtLast } from "Screens/Components/BasicMethod/index"// "../../../../../BasicMethod/index"
 import UserView from "../UserView";
+import axios from "axios";
 import * as enums from '../../util/enums.js';
-
+import { connect } from "react-redux";
+import sitedata from "sitedata";
+import { LoginReducerAim } from "Screens/Login/actions";
 import {
   getLanguage
 } from "translations/index"
@@ -127,8 +130,8 @@ class CometChatUserList extends React.PureComponent {
       }
       this.setState({ userlist });
     } else {
-      if (this.state.preUserList.length != prevProps.Userlist.length) {
-        this.setState({ preUserList: prevProps.Userlist });
+      if (this.state.preUserList.length != this.props.Userlist.length) {
+        this.setState({ preUserList: this.props.Userlist });
         setTimeout(this.getUsers, 500);
       }
     }
@@ -239,24 +242,41 @@ class CometChatUserList extends React.PureComponent {
       .getLoggedInUser()
       .then((user) => {
         let u = this.state.preUserList;
+        axios
+        .post(
+          sitedata.data.path + "/cometUserList/GetAllUser",
+          {list : u},
+          {
+            headers: {
+              token: this.props.stateLoginValueAim.token,
+              Accept: "application/json",
+              "Content-Type": "application/json",
+            },
+          }
+        )
+        .then((response) => {
+          console.log('response', response)
+          this.setState({ userlist1: response.data.data, userlist: response.data.data })
+        })
+        // u.map((id, index) => {
+        //   CometChat.getUser(id)
+        //     .then(
+        //       (us) => {
+        //         users.push(us);
+        //       },
+        //       (error) => {
+        //         er++;
+        //         // console.log("User details fetching failed with error:", error);
+        //       })
+        //     .then(() => {
+        //       if (users.length + er == u.length) {
+        //         this.setState({ userlist1: users, userlist: users }
+        //         );
+        //       }
+        //     });
+        // });
 
-        u.map((id, index) => {
-          CometChat.getUser(id)
-            .then(
-              (us) => {
-                users.push(us);
-              },
-              (error) => {
-                er++;
-                // console.log("User details fetching failed with error:", error);
-              })
-            .then(() => {
-              if (users.length + er == u.length) {
-                this.setState({ userlist1: users, userlist: users }
-                );
-              }
-            });
-        });
+
         // this.UserListManager.fetchNextUsers()
         //   .then((userList) => {
         //     userList.forEach((user) => (user = this.setAvatar(user)));
@@ -298,7 +318,7 @@ class CometChatUserList extends React.PureComponent {
     let { Search, Loading } = translate;
     let loading = null;
     if (this.state.loading) {
-      loading = <div className="loading-text">{Loading}</div>;
+      loading = <div className="lo8ading-text">{Loading}</div>;
     }
 
     let userList1 = this.state.userlist, TopUsers=[];
@@ -339,9 +359,6 @@ class CometChatUserList extends React.PureComponent {
       }
     });
 
-
-
-
     return (
       <React.Fragment>
         <div className="ccl-left-panel-head-wrap">
@@ -375,5 +392,18 @@ class CometChatUserList extends React.PureComponent {
     );
   }
 }
+const mapStateToProps = (state) => {
+  const {
+    stateLoginValueAim,
+    loadingaIndicatoranswerdetail,
+  } = state.LoginReducerAim;
+  return {
+    stateLoginValueAim,
+    loadingaIndicatoranswerdetail,
+  };
+};
 
-export default CometChatUserList;
+export default connect(mapStateToProps, {
+  LoginReducerAim,
+})(CometChatUserList);
+

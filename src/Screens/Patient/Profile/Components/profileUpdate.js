@@ -34,6 +34,7 @@ import DateFormat from 'Screens/Components/DateFormat/index'
 import {
     getLanguage
 } from "translations/index"
+import { update_CometUser } from "Screens/Components/CommonApi/index";
 import { commonHeader } from 'component/CommonHeader/index';
 var datas = [];
 var insurances = [];
@@ -554,7 +555,9 @@ class Index extends Component {
                             'Content-Type': 'application/json'
                         }
                     })
-                    .then((res) => { })
+                    .then((res) => {
+                        var data = update_CometUser(this.props?.stateLoginValueAim?.user?.profile_id.toLowerCase() , res.data.data)
+                     })
             }
             else {
                 this.setState({ loaderImage: false });

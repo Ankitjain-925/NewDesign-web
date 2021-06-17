@@ -13,6 +13,7 @@ import Loader from 'Screens/Components/Loader/index';
 import translationEN from "./translations/en_json_proofread_13072020.json"
 import translationDE from "./translations/de.json"
 import "./style.css";
+import { update_CometUser } from "Screens/Components/CommonApi/index";
 import { commonHeader } from 'component/CommonHeader/index';
 class Index extends Component {
     constructor(props) {
@@ -127,7 +128,9 @@ class Index extends Component {
                             'Content-Type': 'application/json'
                         }
                     })
-                    .then((res) => { })
+                    .then((res) => {
+                        var data = update_CometUser(this.props?.stateLoginValueAim?.user?.profile_id.toLowerCase() , res.data.data)
+                     })
             }
             else {
                 this.setState({ loaderImage: false });

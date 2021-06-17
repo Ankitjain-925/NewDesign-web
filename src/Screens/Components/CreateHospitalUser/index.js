@@ -16,6 +16,7 @@ import axios from "axios"
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import contry from '../countryBucket/countries.json';
 import Loader from '../Loader/index';
+import {updateCometUser} from "Screens/Components/CommonApi/index";
 import * as translationEN from '../../hospital_Admin/translations/en_json_proofread_13072020.json';
 import * as translationDE from "../../hospital_Admin/translations/de.json"
 
@@ -52,17 +53,17 @@ class Index extends Component {
 
     getAllinst=()=>{
         var user_token = this.props.stateLoginValueAim.token;
-           axios.get(sitedata.data.path + '/admin/GetHintinstitute',
-                    {
-                        headers: {
-                            'token': user_token,
-                            'Accept': 'application/json',
-                            'Content-Type': 'application/json'
-                        }
-                    })
-                    .then((response) => {
-                        this.setState({getHintInstitute: response.data.data, getHintInstitute1 : response.data.data})
-                    }).catch((error) => {});
+        axios.get(sitedata.data.path + '/admin/GetHintinstitute',
+        {
+            headers: {
+                'token': user_token,
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        })
+        .then((response) => {
+            this.setState({getHintInstitute: response.data.data, getHintInstitute1 : response.data.data})
+        }).catch((error) => {});
     }
     //For close the pop up
     handleCloseCreate=()=>{
@@ -203,7 +204,13 @@ class Index extends Component {
                                                     'Content-Type': 'application/json'
                                                 }
                                             })
-                                            .then((res)=>{})
+                                            .then((res)=>{
+                                                updateCometUser({
+                                                    uid        :   response.data.data.profile_id.toLowerCase(),
+                                                    name       :   response.data.data.first_name+' '+response.data.data.last_name,
+                                                    role: "default"
+                                                  })
+                                            })
                                             setTimeout(
                                                  () =>{
                                                     this.setState({ loaderImage: false });

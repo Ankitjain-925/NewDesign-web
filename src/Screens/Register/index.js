@@ -26,11 +26,12 @@ import {
   getLanguage
 } from "translations/index"
 import contry from "Screens/Components/countryBucket/countries.json";
+import {updateCometUser} from "Screens/Components/CommonApi/index"
 //Values for the validate Password
 var letter = /([a-zA-Z])+([ -~])*/,
   number = /\d+/,
   specialchar = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
-
+  
 class Index extends Component {
   constructor(props) {
     super(props);
@@ -165,7 +166,16 @@ class Index extends Component {
                               },
                             }
                           )
-                          .then((res) => {});
+                          .then((res) => {
+                            updateCometUser({
+                              uid: responce.data.data.profile_id.toLowerCase(),
+                              name:
+                                responce.data.data.first_name +
+                                " " +
+                                responce.data.data.last_name,
+                                role: "default"
+                            })
+                          });
 
                         this.setState({ successfull: true });
                         this.setState({
@@ -235,7 +245,16 @@ class Index extends Component {
                                   },
                                 }
                               )
-                              .then((res) => {});
+                              .then((res) => {
+                                updateCometUser({
+                                  uid: responce.data.data.profile_id.toLowerCase(),
+                                  name:
+                                    responce.data.data.first_name +
+                                    " " +
+                                    responce.data.data.last_name,
+                                    role: "default"
+                                })
+                              });
                           }
 
                           this.setState({ successfull: true });
@@ -385,6 +404,7 @@ class Index extends Component {
       this.getUpdate(country_code, getBucket);
     }
   };
+
   getUpdate = (country_code, getBucket) => {
     axios
       .post(sitedata.data.path + "/UserProfile/AddUser/", {
@@ -423,7 +443,16 @@ class Index extends Component {
                 },
               }
             )
-            .then((res) => {});
+            .then((res) => {
+              updateCometUser({
+                uid: responce.data.data.profile_id.toLowerCase(),
+                name:
+                  responce.data.data.first_name +
+                  " " +
+                  responce.data.data.last_name,
+                role: "default"
+              })
+            });
           this.setState({ successfull: true });
           this.setState({
             registerMessage:

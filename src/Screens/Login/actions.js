@@ -8,6 +8,7 @@ import axios from "axios";
 import { CometChat } from "@cometchat-pro/chat";
 import { COMETCHAT_CONSTANTS } from "../Components//CometChat/consts";
 import * as Docarray from "./doctorarray";
+import { commonHeader } from "component/CommonHeader/index"
 
 const path = sitedata.data.path + "/UserProfile";
 const path1 = sitedata.data.path + "/User";
@@ -23,6 +24,21 @@ export const cometLogin = async (uid) => {
   // console.log(uid, 'uid');
   return CometChat.login(uid, COMETCHAT_CONSTANTS.AUTH_KEY);
 };
+export const updateCometUser = async (data)=>{
+  axios
+  .post(sitedata.data.path + "/cometUserList",
+  {
+    "uid": data.uid,
+    "name": data.name,
+    "avatar": data.avatar,
+    "status": data.status,
+    "role": data.role,
+    "lastActiveAt": data.lastActiveAt,
+    "conversationId": data.conversationId
+   })
+  .then((response) => {})
+  .catch((err)=>{})
+}
 
 export const LoginReducerAim = (email, password, SendCallback = () => {}) => {
   return (dispatch) => {
@@ -63,6 +79,7 @@ export const LoginReducerAim = (email, password, SendCallback = () => {}) => {
           )
             .then(
               (user) => {
+                updateCometUser(user);
                 dispatch({ type: GET_LOGIN_SUCCESS, payload: tmp });
                 SendCallback();
               },
@@ -79,7 +96,7 @@ export const LoginReducerAim = (email, password, SendCallback = () => {}) => {
                         COMETCHAT_CONSTANTS.AUTH_KEY
                       ).then(
                         (user) => {
-                          // console.log('heres2', user);
+                          updateCometUser(user);
                           dispatch({ type: GET_LOGIN_SUCCESS, payload: tmp });
                           SendCallback();
                         },

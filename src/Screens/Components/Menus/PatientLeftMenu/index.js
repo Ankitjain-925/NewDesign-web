@@ -14,6 +14,7 @@ import { Withings } from "Screens/Patient/Tracker/withing.js";
 // import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 import DocSuggetion from "Screens/Components/DocSuggetion/index.js";
 import sitedata from "sitedata";
+import { update_CometUser } from "Screens/Components/CommonApi/index";
 import axios from "axios";
 import Mode from "Screens/Components/ThemeMode/index.js";
 import SetLanguage from "Screens/Components/SetLanguage/index.js";
@@ -107,22 +108,25 @@ class Index extends Component {
   };
 
   //For logout the User
-  logOutClick = () => {
-    let email = "";
-    let password = "";
-    this.props.LoginReducerAim(email, password);
-    let languageType = "en";
-    this.props.LanguageFetchReducer(languageType);
-  
-    this.props.Fitbit({
-      lifetimeStats: {},
-      device: [],
-      distance: {},
-      steps: {},
-      user: {},
-      badges: {},
-    });
-    this.props.Withings([]);
+  logOutClick = async () => {
+    var data = await update_CometUser(this.props?.stateLoginValueAim?.user?.profile_id.toLowerCase() , {lastActiveAt : Date.now()})
+    if(data){
+      let email = "";
+      let password = "";
+      this.props.LoginReducerAim(email, password);
+      let languageType = "en";
+      this.props.LanguageFetchReducer(languageType);
+    
+      this.props.Fitbit({
+        lifetimeStats: {},
+        device: [],
+        distance: {},
+        steps: {},
+        user: {},
+        badges: {},
+      });
+      this.props.Withings([]);
+    }
     this.props.history.push("/");
   };
 

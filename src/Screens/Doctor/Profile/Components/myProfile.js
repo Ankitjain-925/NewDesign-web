@@ -32,6 +32,7 @@ import { LanguageFetchReducer } from "Screens/actions";
 import {
   getLanguage
 } from "translations/index"
+import {update_CometUser} from "Screens/Components/CommonApi/index";
 import Loader from "Screens/Components/Loader/index";
 import DateFormat from "Screens/Components/DateFormat/index";
 import Autocomplete from "Screens/Components/Autocomplete/index.js";
@@ -287,7 +288,9 @@ class Index extends Component {
               },
             }
           )
-          .then((res) => { });
+          .then((res) => {
+            var data = update_CometUser(this.props?.stateLoginValueAim?.user?.profile_id.toLowerCase() , res.data.data)
+           });
         var find1 = this.state.uploadedimage;
         this.SettingImage(find1);
       });
@@ -693,7 +696,9 @@ class Index extends Component {
                 },
               }
             )
-            .then((res) => { });
+            .then((res) => { 
+              var data = update_CometUser(this.props?.stateLoginValueAim?.user?.profile_id.toLowerCase() , res.data.data)
+            });
         } else {
           this.setState({ loaderImage: false });
           if (responce.data.message === "Phone is not verified") {
