@@ -1194,10 +1194,6 @@
 		"cancel_subscription":"إلغاء الاشتراك",
 		"r_u_want_cancel_sub":"هل تريد حقًا إلغاء الاشتراك؟",
 		"email_rcv_update_reciept":"البريد الإلكتروني الذي ستتلقى فيه التحديثات والإيصالات",
-<<<<<<< Updated upstream
-		"upload_license_is" :"الرخصة التي تم تحميلها هي"
-		}
-=======
 		"upload_license_is" :"الرخصة التي تم تحميلها هي",
 		"capab_Doctors1": "طبيب",
 		"capab_Patients1": "مريض",
@@ -1207,5 +1203,4 @@
 		"less_than_err":"يرجى تحميل الصور أقل من 6",
 		"err_file_formart": "النظام غير متوافق مع تنسيق الملف هذا"
 	}
->>>>>>> Stashed changes
 }
