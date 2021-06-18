@@ -5,6 +5,7 @@
 		"login_LOGIN_btn": "INGIA KATIKA",
 		"login_an_account": "je, si kuwa na akaunti?",
 		"login_Registerhere": "Kujiandikisha hapa",
+		"reg_content": "Sajili yaliyomo",
 		"Register_for_Aimedis": "Kujiandikisha kwa ajili ya Aimedis V2",
 		"Register_Name": "Jina",
 		"Register_email": "anwani",
@@ -56,15 +57,18 @@
 		"I_agree_to_our": "Kwa kubonyeza sanduku mimi kukubaliana na masharti yetu ya matumizi na kukubali ukusanyaji wa takwimu, data usindikaji na matumizi ya yangu binafsi data. Zaidi katika sera yetu ya faragha.",
 		"Staff_SENDREC": "KUTUMA FOMU ya AJIRA",
 		"profile": "Profaili",
+		"informmation": "Habari",
 		"profile_info": "Hii ni yako profile habari, ambayo ni kupatikana kwa yako kuaminiwa Madaktari na wale wewe kushiriki maelezo yako ID nad SIRI na.",
 		"ID": "ID",
 		"speciality": "umaalum",
 		"pin": "SIRI",
+		"kufanyika": "Kosa",
 		"browse": "Vinjari",
 		"or_drag_here": "au drag hapa",
 		"suported_file_type": "Mkono faili aina",
 		"QR_code": "Nambari ya QR",
 		"Change": "Kubadili",
+		"Visibilty": "Kujulikana",
 		"edit_id_pin": "unaweza kubadili ID yako na PIN kama mara nyingi kama unataka.",
 		"edit": "Hariri",
 		"and": "na",
@@ -132,6 +136,7 @@
 		"remove": "Kuondoa",
 		"add_trusted_doc": "Kuongeza kuaminiwa daktari",
 		"select_doctor": "Tafadhali chagua Daktari",
+		"new": "Mpya",
 		"find_doc": "Kupata Daktari",
 		"serch_by_name_id": "Kutafuta kwa jina au ID",
 		"add_to_trusted_doc": "Kuongeza kwa Kuaminiwa Madaktari",
@@ -175,6 +180,7 @@
 		"attached_doc": "Masharti ya Hati",
 		"u_r_nvr_obligate_to_upload_doc": "Wewe ni kamwe wajibu wa kupakia leseni yako au nyingine yoyote ya ushahidi ya ID.",
 		"in_critical_enviroment_id": "Katika muhimu ya mazingira inafanya kipekee kitambulisho na kulinganisha na zilizopo helthcare data rahisi sana, wakati wewe kufanya. Pia unafuu wa huduma za afya na kampuni ya bima yako ni rahisi sana kwa njia hiyo.",
+		"tarehe": "Tarehe",
 		"edit_entry": "Hariri kuingia",
 		"heart_rate": "Kiwango cha Moyo",
 		"time": "Wakati",
@@ -203,11 +209,14 @@
 		"since_when": "Tangu wakati",
 		"have_u_already_been_sick": "Je, wewe tayari wagonjwa nyumbani kwa hiyo tatizo",
 		"how_long_do_u_unable_to_work": "Jinsi muda mrefu je, unafikiri utakuwa na uwezo wa kufanya kazi",
+		"siku": "siku",
 		"it_is_known_dieseas": "Ni maalumu kwa ugonjwa huo",
 		"r_u_tracking_medi": "je, wewe Ni kuchukua dawa yoyote",
 		"do_u_hv_allergies": "Je, una mizio yoyote",
 		"ur_profession": "Taaluma Yako",
 		"Annotations": "Maelezo",
+		"maelezo": "maelezo",
+		"maswali": "maswali",
 		"is_this_follow_pres": "Ni hii na kufuata-up ya dawa",
 		"how_u_like_rcv_pres": "Jinsi gani ungependa kupokea dawa",
 		"Medicine": "Dawa",
@@ -223,7 +232,12 @@
 		"sent": "tuma",
 		"on": "katika",
 		"request": "ombi",
+		"pending": "Inasubiri",
+		"rejected": "Kukataliwa",
+		"answered": "jibiwa",
+		"cancelled": "Kufutwa",
 		"req_updated_successfully": "Ombi updated Mafanikio",
+		"case": "Kesi",
 		"again": "tena",
 		"modify": "Kurekebisha",
 		"see": "Kuona",
@@ -312,7 +326,9 @@
 		"blood_sugar": "Damu Sukari",
 		"condition_pain": "Hali na Maumivu",
 		"covid_diary": "Shajara ya COVID-19",
-	    "travel": "Kusafiri",
+		"utambuzi": "Utambuzi",
+		"travel": "Kusafiri",
+		"travelled": "usafiri",
 		"diary": "Shajara",
 		"diary_note": "Vidokezo vya Diary",
 		"doc_visit": "Daktari Ziara",
@@ -332,6 +348,7 @@
 		"time_measure": "Wakati Kipimo",
 		"visible": "Inayoonekana",
 		"always": "Daima",
+		"wakati": "Wakati",
 		"from": "Kutoka",
 		"rr_systolic": "RR Systolic",
 		"feeling": "Hisia",
@@ -342,6 +359,7 @@
 		"pain_areas": "Maumivu ya maeneo",
 		"temparture": "hali ya joto",
 		"saturation": "kueneza",
+		"location": "eneo",
 		"pain_type": "Maumivu ya aina",
 		"pain_quality": "Maumivu ubora",
 		"slct_ICD_serch_code": "Kuchagua ICD catalog na utafutaji kwa ajili ya kanuni",
@@ -394,6 +412,7 @@
 		"atc_code": "ATC Kanuni",
 		"ur_trade_name": "Biashara Yako Jina",
 		"enter_dosage": "Kuingia kipimo",
+		"eda": "Eda",
 		"specific_date": "Tarehe Maalum",
 		"interval": "Muda",
 		"to_be_consume": "Kwa kuwa zinazotumiwa katika",
@@ -422,6 +441,7 @@
 		"no_data_avlbl": "Hakuna data inapatikana",
 		"last_doc_visit": "Mwisho daktari ziara",
 		"upcming_appointment": "uteuzi Ujao",
+		"Neurology": "Neurologia",
 		"Office": "Ofisi",
 		"Video": "Video",
 		"last_document": "Mwisho Nyaraka",
@@ -433,6 +453,7 @@
 		"hide_entry": "Kujificha kuingia hii",
 		"show_after": "Onyesha baada ya",
 		"slct_time_slot": "Kuchagua wakati yanayopangwa",
+		"likizo": "Likizo",
 		"appointment_booked": "Uteuzi kadi mafanikio",
 		"upcming_apointment": "uteuzi Ujao",
 		"office_visit": "Ofisi tembelea",
@@ -440,9 +461,11 @@
 		"show_past_apointment": "Onyesha kipindi cha uteuzi",
 		"plz_write_short_explnation": "Tafadhali kuandika maelezo mafupi ya nini una kufuta uteuzi. Asante.",
 		"short_msg": "ujumbe Mfupi",
+		"uteuzi": "Uteuzi",
 		"arrng_apointmnt": "Kupanga miadi",
 		"sync_ur_calander": "Sync kwa kalenda yako",
 		"search_within": "Tafuta ndani ya",
+		"mbalimbali": "mbalimbali",
 		"see_avlbl_date": "KUONA INAPATIKANA kwa AJILI ya TAREHE",
 		"vdo_call": "Video wito",
 		"consultancy_cstm_calnder": "Ushauri wa uteuzi",
@@ -489,11 +512,13 @@
 		"who_would_u_like_invite": "Nani ungependa kukaribisha?",
 		"patient_profile_is_not_correct": "Mgonjwa Profile si sahihi",
 		"recved_on": "Kupokea juu",
+		"patient": "Mgonjwa",
 		"approve": "Kupitisha",
 		"decline": "Kushuka",
 		"prescription_inquiry": "Dawa Uchunguzi",
 		"standerd_ques": "maswali ya kawaida",
 		"patient_health_status": "Wagonjwa wa Hali ya Afya",
+		"medications": "Dawa",
 		"dignoses": "Diagnoser",
 		"suported_file_type_jpg_png": "Mkono faili aina: .jpg, .png, .pdf",
 		"suported_file_type_jpg_png_dcm": "Aina za faili zinazoungwa mkono: .jpg, .png, .pdf, .doc, .dcm nk",
@@ -648,6 +673,7 @@
 		"Whereyouarelocated": "Ulipo",
 		"timeline": "Kalenda ya matukio",
 		"user": "User",
+		"kituo": "Kituo",
 		"ICD_11": "ICD-11",
 		"ICD_10_Who": "ICD-10 AMBAO",
 		"ICD_10_CM": "ICD-10 CM",
@@ -674,6 +700,7 @@
 		"Hba1c": "Hba1c(%)",
 		"warst_p_p": "Warst Maumivu Iwezekanavyo",
 		"very_severy": "Sana Severy",
+		"wastani": "Wastani",
 		"no_pain": "Hakuna Maumivu",
 		"condition_h_r_u": "Hali (Jinsi ni wewe?)",
 		"how_are_you": "jinsi ni wewe?",
@@ -761,9 +788,11 @@
 		"relation": "Uhusiano",
 		"nurology": "Neurolojia",
 		"no_data_yet": "Hakuna Data bado",
+		"alithibitisha": "Alithibitisha",
 		"emergency_cont": "Dharura ya Mawasiliano",
 		"ent_medicat": "Ndani ya Dawa",
 		"heart_frequency": "Moyo Frequency",
+		"grafu": "Grafu",
 		"consultancy": "Ushauri",
 		"online_appo": " Uteuzi wa mkondoni",
 		"cancel_my_app": "Kufuta uteuzi wangu",
@@ -805,6 +834,7 @@
 		"select_time_from": "Chagua muda(kutoka)",
 		"select_time_to": "Chagua Muda(kwa)",
 		"detail_ques": "Undani/Swali",
+		"All": "Wote",
 		"char_8": "8 Wahusika",
 		"lettr_1": "1 barua",
 		"number_1": "1 idadi",
@@ -821,10 +851,13 @@
 		"wishlist": "Wishlist",
 		"excellent": "Bora",
 		"very_good": "nzuri Sana",
+		"Good": "Vizuri",
 		"fair": "Haki",
+		"Poor": "Vibaya",
 		"audio": "Sauti",
 		"blocked_users": "Blocked Watumiaji",
 		"actions": "Matendo",
+		"Sending": "Kutuma",
 		"unblock": "Kufungulia",
 		"contacts": "Mawasiliano",
 		"has_file": " alimtuma faili. Kushusha ni hapa: ",
@@ -852,7 +885,10 @@
 		"you_just_sent": "Tu wewe alimtuma ",
 		"you_recieve": "Wewe kupokea ",
 		"call_is": "Wito ni",
+		"hati": "Hati",
 		"image": "Picha",
+		"nk": "nk.",
+		"maadili": "Maadili",
 		"added_in_cart": "Aliongeza kwa gari.",
 		"already_in_cart": "bila Shaka Tayari katika gari yako.",
 		"click_here_upload": "Bonyeza hapa kwa upload leseni yako",
@@ -866,6 +902,7 @@
 		"select_acc_type": "Kuchagua aina ya akaunti",
 		"i_m_a": "mimi ni",
 		"update_entry": "Mwisho Kuingia",
+		"notisi": "Kuarifiwa",
 		"something_wrong": "Kitu potoka",
 		"added_to_plist": "Aliongeza kwa patientlist",
 		"please_select_rating": "Tafadhali chagua rating.",
@@ -1197,90 +1234,9 @@
 		"cancel_subscription":"Ghairi usajili",
 		"r_u_want_cancel_sub":"Je! Kweli unataka kughairi usajili?",
 		"email_rcv_update_reciept":"Barua pepe utasikia sasisho na risiti kwenye",
-		"upload_license_is" :"Leseni iliyopakiwa ni"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-		
-	
-	
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-		
-		
-	
-
+		"upload_license_is" :"Leseni iliyopakiwa ni",
+		"less_than_err":"Tafadhali pakia picha chini ya 6",
+		"err_file_formart": "Mfumo hauhimili muundo wa faili",
+		"done": "Imefanywa"
 	}
 }

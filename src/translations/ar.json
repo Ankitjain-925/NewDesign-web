@@ -968,7 +968,6 @@
 		"dearchive_entry_q": "هل تريد حقًا فك أرشفة هذا الإدخال؟",
 		"delete_for_msg": "هل تريد حقًا حذف هذا الإدخال؟ هذا يعني أنه سيتم حذفه إلى الأبد.",
 		"make_personilized_acc": "لتخصيص حسابك، أضف صورة ملفك الشخصي. سيكون مرئيًا لك ولأشخاص في مجموعتك من الأشخاص الموثوقين.",
-
 		"rmv_entry": "إزالة الإدخال",
 		"download_journal_report": "تحميل تقرير المجلة",
 		"ur_emrgancy_access": "وصولك في حالات الطوارئ",
@@ -1195,12 +1194,18 @@
 		"cancel_subscription":"إلغاء الاشتراك",
 		"r_u_want_cancel_sub":"هل تريد حقًا إلغاء الاشتراك؟",
 		"email_rcv_update_reciept":"البريد الإلكتروني الذي ستتلقى فيه التحديثات والإيصالات",
+<<<<<<< Updated upstream
+		"upload_license_is" :"الرخصة التي تم تحميلها هي"
+		}
+=======
 		"upload_license_is" :"الرخصة التي تم تحميلها هي",
 		"capab_Doctors1": "طبيب",
 		"capab_Patients1": "مريض",
 		"Nurse1": "ممرضة",
 		"enabled":"ممكن",
 		"disabled":"معاق",
-		
+		"less_than_err":"يرجى تحميل الصور أقل من 6",
+		"err_file_formart": "النظام غير متوافق مع تنسيق الملف هذا"
 	}
+>>>>>>> Stashed changes
 }
