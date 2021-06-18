@@ -1562,6 +1562,13 @@
 		"cancel_subscription":"Annuleer het abonnement",
 		"r_u_want_cancel_sub":"Wil je het abonnement echt opzeggen?",
 		"email_rcv_update_reciept":"E-mail waarop u updates en ontvangstbewijzen ontvangt",
+<<<<<<< Updated upstream
 		"upload_license_is" :"Geüploade licentie is"
+=======
+		"upload_license_is" :"Geüploade licentie is",
+		"less_than_err":"Пожалуйста, загрузите изображения менее 6",
+		"err_file_formart": "Systeem wordt niet ondersteund door deze bestandsindeling",
+		"done": "Gedaan"
+>>>>>>> Stashed changes
 	}
 }

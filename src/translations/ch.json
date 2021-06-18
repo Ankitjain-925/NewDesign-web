@@ -1221,6 +1221,8 @@
 		"cancel_subscription":"取消订阅",
 		"r_u_want_cancel_sub":"您真的要取消订阅吗？",
 		"email_rcv_update_reciept":"通过电子邮件发送您的最新动态和收据",
-		"upload_license_is" :"上传的许可证是"
+		"upload_license_is" :"上传的许可证是",
+		"less_than_err":"请上传少于 6 张图片",
+		"err_file_formart": "系统不支持此文件格式"
 	}
 }
