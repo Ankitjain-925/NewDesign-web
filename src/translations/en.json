@@ -61,7 +61,6 @@
 		"ID": "ID",
 		"speciality": "Speciality",
 		"pin": "PIN",
-		"done": "Done",
 		"browse": "Browse",
 		"or_drag_here": "or drag here",
 		"suported_file_type": "Supported file types",
@@ -210,7 +209,6 @@
 		"since_when": "Since when",
 		"have_u_already_been_sick": "Have you already been sick at home for the same problem",
 		"how_long_do_u_unable_to_work": "How long do you think you will be unable to work",
-		"days": "days",
 		"it_is_known_dieseas": "Is it a known disease",
 		"r_u_tracking_medi": "Are you taking any medication",
 		"do_u_hv_allergies": "Do you have any allergies",
@@ -1177,8 +1175,6 @@
 		"Submit":"Submit",
 		"select_Language":"Select Language",
 		"DeleteMessages" :"Delete Message",
-		"less_than_err":"Please upload images less than 6",
-		"err_file_formart": "System is not supported this file format",
 		"marital_status":"Marital Status",
 		"select_marital_status":"Selcet Marital Status",
 		"respiration":"Respiration",
@@ -1203,5 +1199,8 @@
 		"r_u_want_cancel_sub":"Are you really want to cancel the subscription?",
 		"email_rcv_update_reciept":"Email you'll recive updates and receipts on",
 		"upload_license_is" :"Uploaded license is"
+		
+
+		
 	}
 }

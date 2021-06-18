@@ -1195,6 +1195,12 @@
 		"cancel_subscription":"إلغاء الاشتراك",
 		"r_u_want_cancel_sub":"هل تريد حقًا إلغاء الاشتراك؟",
 		"email_rcv_update_reciept":"البريد الإلكتروني الذي ستتلقى فيه التحديثات والإيصالات",
-		"upload_license_is" :"الرخصة التي تم تحميلها هي"
-		}
+		"upload_license_is" :"الرخصة التي تم تحميلها هي",
+		"capab_Doctors1": "طبيب",
+		"capab_Patients1": "مريض",
+		"Nurse1": "ممرضة",
+		"enabled":"ممكن",
+		"disabled":"معاق",
+		
+	}
 }
