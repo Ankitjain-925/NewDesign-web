@@ -1,5 +1,6 @@
+require('dotenv').config()
 export const COMETCHAT_CONSTANTS = {
-    APP_ID: '220824e717b58ac',
+    APP_ID: process.env.REACT_APP_APPID,
     REGION: 'eu',
-    AUTH_KEY: 'fc177a4e50f38129dca144f6270b91bfc9444736'
+    AUTH_KEY: process.env.REACT_APP_APIKEY
 }

@@ -27,7 +27,7 @@ import {
 import { update_CometUser } from "Screens/Components/CommonApi/index";
 import SPECIALITY from "speciality";
 import { GetLanguageDropdown } from "Screens/Components/GetMetaData/index.js";
-import { commonHeader } from "component/CommonHeader/index.js";
+import { commonHeader, commonCometHeader } from "component/CommonHeader/index.js";
 
 var datas = [];
 var insurances = [];
@@ -435,14 +435,7 @@ class Index extends Component {
                   " " +
                   this.state.UpDataDetails.last_name,
               },
-              {
-                headers: {
-                  appId: "220824e717b58ac",
-                  apiKey: "fc177a4e50f38129dca144f6270b91bfc9444736",
-                  Accept: "application/json",
-                  "Content-Type": "application/json",
-                },
-              }
+              commonCometHeader()
             )
             .then((res) => {
               var data = update_CometUser(this.props?.stateLoginValueAim?.user?.profile_id.toLowerCase() , res.data.data)
@@ -684,14 +677,7 @@ class Index extends Component {
             {
               avatar: this.state.uploadedimage,
             },
-            {
-              headers: {
-                appId: "220824e717b58ac",
-                apiKey: "fc177a4e50f38129dca144f6270b91bfc9444736",
-                Accept: "application/json",
-                "Content-Type": "application/json",
-              },
-            }
+            commonCometHeader()
           )
           .then((res) => {
             var data = update_CometUser(this.props?.stateLoginValueAim?.user?.profile_id.toLowerCase() , res.data.data)

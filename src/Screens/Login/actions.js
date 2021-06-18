@@ -8,7 +8,6 @@ import axios from "axios";
 import { CometChat } from "@cometchat-pro/chat";
 import { COMETCHAT_CONSTANTS } from "../Components//CometChat/consts";
 import * as Docarray from "./doctorarray";
-import { commonHeader } from "component/CommonHeader/index"
 
 const path = sitedata.data.path + "/UserProfile";
 const path1 = sitedata.data.path + "/User";

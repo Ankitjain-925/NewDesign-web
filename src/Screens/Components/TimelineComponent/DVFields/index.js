@@ -15,7 +15,8 @@ import { LanguageFetchReducer } from "Screens/actions";
 import { LoginReducerAim } from "Screens/Login/actions";
 import {
   getLanguage
-} from "translations/index"
+} from "translations/index";
+import { commonHeader } from "component/CommonHeader/index";
 import { pure } from "recompose";
 
 var doctorArray = [];
@@ -71,13 +72,7 @@ class Index extends Component {
     doctorArray = [];
     const user_token = this.props.stateLoginValueAim.token;
     axios
-      .get(sitedata.data.path + "/UserProfile/DoctorUsers", {
-        headers: {
-          token: user_token,
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      })
+      .get(sitedata.data.path + "/UserProfile/DoctorUsers",commonHeader(user_token))
       .then((response) => {
         this.setState({ allDocData: response.data.data }, () => {
           for (let i = 0; i < this.state.allDocData.length; i++) {

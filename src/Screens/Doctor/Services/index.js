@@ -36,7 +36,7 @@ import {
 } from "Screens/Components/BasicMethod/index";
 import { Doctorset } from "Screens/Doctor/actions";
 import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
-import { commonHeader } from "component/CommonHeader/index";
+import { commonHeader, commonCometHeader } from "component/CommonHeader/index";
 import Pagination from "Screens/Components/Pagination/index";
 import {updateCometUser} from "Screens/Components/CommonApi/index";
 
@@ -246,13 +246,7 @@ class Index extends Component {
                       first_name: this.state.UpDataDetails.first_name,
                       last_name: this.state.UpDataDetails.last_name,
                     },
-                    {
-                      headers: {
-                        token: user_token,
-                        Accept: "application/json",
-                        "Content-Type": "application/json",
-                      },
-                    }
+                    commonHeader(user_token)
                   )
                   .then((response) => {
                     this.setState({ loaderImage: false });
@@ -347,14 +341,7 @@ class Index extends Component {
                         name:
                           userDetails.first_name + " " + userDetails.last_name,
                       },
-                      {
-                        headers: {
-                          appId: "220824e717b58ac",
-                          apiKey: "fc177a4e50f38129dca144f6270b91bfc9444736",
-                          Accept: "application/json",
-                          "Content-Type": "application/json",
-                        },
-                      }
+                      commonCometHeader()
                     )
                     .then((res) => { 
                       updateCometUser({

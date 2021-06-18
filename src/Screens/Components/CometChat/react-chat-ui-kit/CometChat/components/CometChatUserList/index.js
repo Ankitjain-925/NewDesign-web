@@ -13,7 +13,8 @@ import sitedata from "sitedata";
 import { LoginReducerAim } from "Screens/Login/actions";
 import {
   getLanguage
-} from "translations/index"
+} from "translations/index";
+import { commonHeader } from "component/CommonHeader/index";
 class CometChatUserList extends React.PureComponent {
   timeout;
   friendsOnly = false;
@@ -246,14 +247,7 @@ class CometChatUserList extends React.PureComponent {
         .post(
           sitedata.data.path + "/cometUserList/GetAllUser",
           {list : u},
-          {
-            headers: {
-              token: this.props.stateLoginValueAim.token,
-              Accept: "application/json",
-              "Content-Type": "application/json",
-            },
-          }
-        )
+          commonHeader(this.props.stateLoginValueAim.token))
         .then((response) => {
           this.setState({ userlist1: response.data.data, userlist: response.data.data })
         })

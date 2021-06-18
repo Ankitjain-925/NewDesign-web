@@ -85,13 +85,7 @@ class Index extends Component {
     var user_id = this.props.stateLoginValueAim.user._id;
     var user_token = this.props.stateLoginValueAim.token;
     axios
-      .get(sitedata.data.path + "/User/getKyc/" + user_id, {
-        headers: {
-          token: user_token,
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      })
+      .get(sitedata.data.path + "/User/getKyc/" + user_id, commonHeader(user_token))
       .then((response) => {
         if (response.data.data) {
           this.setState(
@@ -381,13 +375,7 @@ class Index extends Component {
         });
         if (data._id) {
           axios
-            .put(sitedata.data.path + "/User/updateKyc/" + data._id, data, {
-              headers: {
-                token: user_token,
-                Accept: "application/json",
-                "Content-Type": "application/json",
-              },
-            })
+            .put(sitedata.data.path + "/User/updateKyc/" + data._id, data, commonHeader(user_token))
             .then((response) => {
               if (response.data.hassuccessed) {
                 this.setState({
@@ -409,13 +397,7 @@ class Index extends Component {
             });
         } else {
           axios
-            .post(sitedata.data.path + "/User/Addkyc", data, {
-              headers: {
-                token: user_token,
-                Accept: "application/json",
-                "Content-Type": "application/json",
-              },
-            })
+            .post(sitedata.data.path + "/User/Addkyc", data, commonHeader(user_token))
             .then((response) => {
               if (response.data.hassuccessed) {
                 this.setState({

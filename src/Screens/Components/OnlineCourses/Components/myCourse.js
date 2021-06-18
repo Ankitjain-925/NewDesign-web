@@ -14,7 +14,8 @@ import Rating from "../../Rating";
 import Loader from "Screens/Components/Loader/index.js";
 import {
   getLanguage
-} from "translations/index"
+} from "translations/index";
+import { commonHeader } from "component/CommonHeader/index"
 function TabContainer(props) {
   return (
     <Typography component="div" style={{ paddingTop: 24 }}>
@@ -75,13 +76,7 @@ class Index extends Component {
     var user_token = this.props.stateLoginValueAim.token;
     this.setState({ loaderImage: true });
     axios
-      .get(sitedata.data.path + "/lms/myRating", {
-        headers: {
-          token: user_token,
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      })
+      .get(sitedata.data.path + "/lms/myRating", commonHeader(user_token))
       .then((res) => {
         if (res.data && res.data.hassuccessed) {
           this.setState({ MyRating: res.data.data }, () =>
@@ -102,13 +97,7 @@ class Index extends Component {
         {
           user_id: this.props.stateLoginValueAim.user._id,
         },
-        {
-          headers: {
-            token: user_token,
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-        }
+        commonHeader(user_token)
       )
       .then((res) => {
         if (res.data && res.data.hassuccessed) {
@@ -171,13 +160,8 @@ class Index extends Component {
             short_message: this.state.ratings.short_message,
             addedDate: new Date(),
           },
-          {
-            headers: {
-              token: user_token,
-              Accept: "application/json",
-              "Content-Type": "application/json",
-            },
-          }
+          commonHeader(user_token)
+         
         )
         .then((res) => {
           if (res.data && res.data.hassuccessed) {

@@ -7,7 +7,6 @@ import { Settings } from "Screens/Login/setting";
 // import { filterate } from '../../Doctor/filteraction';
 import { withRouter } from "react-router-dom";
 import { LanguageFetchReducer } from "Screens/actions";
-import LogOut from "Screens/Components/LogOut/index";
 import Timer from "Screens/Components/TimeLogOut/index";
 import { slide as Menu } from "react-burger-menu";
 import Mode from "Screens/Components/ThemeMode/index.js";
@@ -15,10 +14,10 @@ import sitedata from "sitedata";
 import axios from "axios";
 import SetLanguage from "Screens/Components/SetLanguage/index.js";
 import { update_CometUser } from "Screens/Components/CommonApi/index";
-import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 import {
   getLanguage
 } from "translations/index"
+import { commonHeader } from "component/CommonHeader/index"
 class Index extends Component {
   constructor(props) {
     super(props);
@@ -55,13 +54,7 @@ class Index extends Component {
   getSetting = () => {
     this.setState({ loaderImage: true });
     axios
-      .get(sitedata.data.path + "/UserProfile/updateSetting", {
-        headers: {
-          token: this.props.stateLoginValueAim.token,
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      })
+      .get(sitedata.data.path + "/UserProfile/updateSetting",  commonHeader(this.props.stateLoginValueAim.token))
       .then((responce) => {
         if (responce.data.hassuccessed && responce.data.data) {
           this.setState({

@@ -21,6 +21,7 @@ import sitedata from "sitedata";
 import {
   getLanguage
 } from "translations/index"
+import {commonNoTokentHeader} from "component/CommonHeader/index";
 import { EmergencySet } from "Screens/Doctor/emergencyaction.js";
 import { Doctorset } from "Screens/Doctor/actions";
 import * as actions from "Screens/Components/CometChat/store/action";
@@ -186,12 +187,7 @@ class Index extends Component {
           mob_token: this.state.mob_token,
           authyId: this.props.stateLoginValueAim.user.authyId,
         },
-        {
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-        }
+        commonNoTokentHeader()
       )
       .then((response) => {
         this.setState({ loaderImage: false });

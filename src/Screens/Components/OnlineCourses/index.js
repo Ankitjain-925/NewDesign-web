@@ -27,6 +27,7 @@ import {
 import StripeCheckout from "react-stripe-checkout";
 import $ from "jquery"
 import { getPublishableKey } from "Screens/Components/CardInput/getPriceId"
+import { commonHeader } from "component/CommonHeader/index"
 const CURRENCY = "USD";
 //  const STRIPE_PUBLISHABLE = "pk_live_SUaxHsAUa2ebLQXAa7NoMwPQ";
 // const STRIPE_PUBLISHABLE = "pk_test_qoJaLAHMXbv3fzci2AEcmkYX";
@@ -117,13 +118,7 @@ class Index extends Component {
     let { all } = translate;
     var user_token = this.props.stateLoginValueAim.token;
     axios
-      .get(sitedata.data.path + "/admin/topic", {
-        headers: {
-          token: user_token,
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      })
+      .get(sitedata.data.path + "/admin/topic", commonHeader(user_token))
       .then((res) => {
         var topics = [{ label: all, value: all }];
         res.data.data &&
@@ -144,13 +139,7 @@ class Index extends Component {
         {
           user_id: this.props.stateLoginValueAim.user._id,
         },
-        {
-          headers: {
-            token: this.props.stateLoginValueAim.token,
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-        }
+        commonHeader(this.props.stateLoginValueAim.token)
       )
       .then((res) => {
         if (res.data.hassuccessed) {
@@ -165,13 +154,7 @@ class Index extends Component {
   removeWishlist = (event) => {
     var user_token = this.props.stateLoginValueAim.token;
     axios
-      .delete(sitedata.data.path + "/admin/removeWishlist/" + event._id, {
-        headers: {
-          token: user_token,
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      })
+      .delete(sitedata.data.path + "/admin/removeWishlist/" + event._id, commonHeader(user_token))
       .then((res) => {
         this.getAllwishlist();
       })
@@ -182,13 +165,7 @@ class Index extends Component {
     var user_id = this.props.stateLoginValueAim.user._id;
     var user_token = this.props.stateLoginValueAim.token;
     axios
-      .get(sitedata.data.path + "/UserProfile/Users/" + user_id, {
-        headers: {
-          token: user_token,
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      })
+      .get(sitedata.data.path + "/UserProfile/Users/" + user_id, commonHeader(user_token))
       .then((response) => {
         this.setState({ personalinfo: response.data.data, loaderImage: false });
       });
@@ -250,13 +227,7 @@ class Index extends Component {
             userType: this.props.stateLoginValueAim.user.type,
             orderlist: [data],
           },
-          {
-            headers: {
-              token: user_token,
-              Accept: "application/json",
-              "Content-Type": "application/json",
-            },
-          }
+          commonHeader(user_token)
         )
         .then((res) => {
           this.setState({ loaderImage: false });
@@ -349,13 +320,7 @@ class Index extends Component {
               user_id: this.props.stateLoginValueAim.user._id,
               cartList: GetAllCart,
             },
-            {
-              headers: {
-                token: user_token,
-                Accept: "application/json",
-                "Content-Type": "application/json",
-              },
-            }
+            commonHeader(user_token)
           )
           .then((res) => {
             this.setState({ addedCart: true, loaderImage: false });
@@ -381,13 +346,7 @@ class Index extends Component {
         data.user_id +
         "/" +
         data.courseId,
-        {
-          headers: {
-            token: user_token,
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-        }
+        commonHeader(user_token)
       )
       .then((res) => {
         this.setState({ removeTrue: true, loaderImage: false });
@@ -408,13 +367,7 @@ class Index extends Component {
         {
           user_id: this.props.stateLoginValueAim.user._id,
         },
-        {
-          headers: {
-            token: this.props.stateLoginValueAim.token,
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-        }
+        commonHeader(this.props.stateLoginValueAim.token)
       )
       .then((res) => {
         if (res.data.hassuccessed) {
@@ -510,13 +463,7 @@ class Index extends Component {
             paymentData: data,
             orderlist: this.state.AllCart,
           },
-          {
-            headers: {
-              token: user_token,
-              Accept: "application/json",
-              "Content-Type": "application/json",
-            },
-          }
+          commonHeader(user_token)
         )
         .then((res) => {
           this.getAllCart();

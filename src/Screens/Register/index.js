@@ -26,7 +26,8 @@ import {
   getLanguage
 } from "translations/index"
 import contry from "Screens/Components/countryBucket/countries.json";
-import {updateCometUser} from "Screens/Components/CommonApi/index"
+import {updateCometUser} from "Screens/Components/CommonApi/index";
+import {commonCometHeader} from "component/CommonHeader/index"
 //Values for the validate Password
 var letter = /([a-zA-Z])+([ -~])*/,
   number = /\d+/,
@@ -157,14 +158,7 @@ class Index extends Component {
                                 " " +
                                 responce.data.data.last_name,
                             },
-                            {
-                              headers: {
-                                'appId': '220824e717b58ac',
-                                'apiKey': 'fc177a4e50f38129dca144f6270b91bfc9444736',
-                                'Accept': 'application/json',
-                                'Content-Type': 'application/json'
-                              },
-                            }
+                            commonCometHeader()
                           )
                           .then((res) => {
                             updateCometUser({
@@ -236,14 +230,7 @@ class Index extends Component {
                                     " " +
                                     responce.data.data.last_name,
                                 },
-                                {
-                                  headers: {
-                                    'appId': '220824e717b58ac',
-                                    'apiKey': 'fc177a4e50f38129dca144f6270b91bfc9444736',
-                                    'Accept': 'application/json',
-                                    'Content-Type': 'application/json'
-                                  },
-                                }
+                                commonCometHeader()
                               )
                               .then((res) => {
                                 updateCometUser({
@@ -434,14 +421,7 @@ class Index extends Component {
                   " " +
                   responce.data.data.last_name,
               },
-              {
-                headers: {
-                  appId: "220824e717b58ac",
-                  apiKey: "fc177a4e50f38129dca144f6270b91bfc9444736",
-                  Accept: "application/json",
-                  "Content-Type": "application/json",
-                },
-              }
+              commonCometHeader()
             )
             .then((res) => {
               updateCometUser({

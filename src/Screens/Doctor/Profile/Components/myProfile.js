@@ -45,7 +45,7 @@ import {
   GetShowLabel12,
 } from "Screens/Components/GetMetaData/index.js";
 import QRCode from "qrcode.react";
-import { commonHeader } from "component/CommonHeader/index";
+import { commonHeader, commonCometHeader } from "component/CommonHeader/index";
 
 const options = [
   { value: "Mr", label: "Mr." },
@@ -262,13 +262,7 @@ class Index extends Component {
         {
           image: this.state.uploadedimage,
         },
-        {
-          headers: {
-            token: user_token,
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-        }
+        commonHeader(user_token)
       )
       .then((responce) => {
         axios
@@ -278,14 +272,7 @@ class Index extends Component {
             {
               avatar: this.state.uploadedimage,
             },
-            {
-              headers: {
-                appId: "220824e717b58ac",
-                apiKey: "fc177a4e50f38129dca144f6270b91bfc9444736",
-                Accept: "application/json",
-                "Content-Type": "application/json",
-              },
-            }
+            commonCometHeader()
           )
           .then((res) => {
             var data = update_CometUser(this.props?.stateLoginValueAim?.user?.profile_id.toLowerCase() , res.data.data)
@@ -686,14 +673,7 @@ class Index extends Component {
               {
                 name: UpDataDetails.first_name + " " + UpDataDetails.last_name,
               },
-              {
-                headers: {
-                  appId: "220824e717b58ac",
-                  apiKey: "fc177a4e50f38129dca144f6270b91bfc9444736",
-                  Accept: "application/json",
-                  "Content-Type": "application/json",
-                },
-              }
+              commonCometHeader()
             )
             .then((res) => { 
               var data = update_CometUser(this.props?.stateLoginValueAim?.user?.profile_id.toLowerCase() , res.data.data)

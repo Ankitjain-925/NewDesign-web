@@ -22,6 +22,7 @@ import {
   GetShowLabel1,
   GetShowLabel,
 } from "Screens/Components/GetMetaData/index.js";
+import { commonHeader } from "component/CommonHeader/index"
 
 const path = sitedata.data.path + "/emergency_record";
 
@@ -186,13 +187,7 @@ class Index extends Component {
     }
     var user_token = this.props.stateLoginValueAim.token;
     axios
-      .get(sitedata.data.path + "/UserProfile/Users/" + user_id, {
-        headers: {
-          token: user_token,
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      })
+      .get(sitedata.data.path + "/UserProfile/Users/" + user_id,  commonHeader(this.props.stateLoginValueAim.token))
       .then((response) => {
         this.setState({ personalinfo: response.data.data, loaderImage: false });
       });
@@ -230,13 +225,7 @@ class Index extends Component {
     var user_token = this.props.stateLoginValueAim.token;
     this.setState({ loaderImage: true });
     axios
-      .get(path + "/" + user_id, {
-        headers: {
-          token: user_token,
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      })
+      .get(path + "/" + user_id,  commonHeader(user_token))
       .then((response) => {
         this.setState(
           {
@@ -306,13 +295,7 @@ class Index extends Component {
           emergency_email: this.state.contact_partner.email,
           emergency_number: this.state.contact_partner.number,
         },
-        {
-          headers: {
-            token: user_token,
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-        }
+        commonHeader(user_token)
       )
       .then((responce) => {
         if (responce.data.hassuccessed) {

@@ -11,7 +11,6 @@ import LogOut from "Screens/Components/LogOut/index";
 import Timer from "Screens/Components/TimeLogOut/index";
 import { Fitbit } from "Screens/Patient/Tracker/fitbit";
 import { Withings } from "Screens/Patient/Tracker/withing.js";
-// import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 import DocSuggetion from "Screens/Components/DocSuggetion/index.js";
 import sitedata from "sitedata";
 import { update_CometUser } from "Screens/Components/CommonApi/index";
@@ -22,6 +21,7 @@ import Loader from "Screens/Components/Loader/index";
 import {
   getLanguage
 } from "translations/index"
+import { commonHeader } from "component/CommonHeader/index"
 class Index extends Component {
   constructor(props) {
     super(props);
@@ -53,13 +53,7 @@ class Index extends Component {
   getSetting = () => {
     this.setState({ loaderImage: true });
     axios
-      .get(sitedata.data.path + "/UserProfile/updateSetting", {
-        headers: {
-          token: this.props.stateLoginValueAim.token,
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      })
+      .get(sitedata.data.path + "/UserProfile/updateSetting",  commonHeader(this.props.stateLoginValueAim.token))
       .then((responce) => {
         if (responce.data.hassuccessed && responce.data.data) {
           this.setState({
@@ -109,7 +103,7 @@ class Index extends Component {
 
   //For logout the User
   logOutClick = async () => {
-    var data = await update_CometUser(this.props?.stateLoginValueAim?.user?.profile_id.toLowerCase() , {lastActiveAt : Date.now()})
+   var data = await update_CometUser(this.props?.stateLoginValueAim?.user?.profile_id.toLowerCase() , {lastActiveAt : Date.now()})
     if(data){
       let email = "";
       let password = "";
