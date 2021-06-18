@@ -6,16 +6,12 @@ import { connect } from "react-redux";
 import { LoginReducerAim } from 'Screens/Login/actions';
 import { Settings } from 'Screens/Login/setting';
 import axios from 'axios';
-import Select from 'react-select';
 import { LanguageFetchReducer } from 'Screens/actions';
 import sitedata from 'sitedata';
-import Modal from '@material-ui/core/Modal';
-import Radio from '@material-ui/core/Radio';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
 import Loader from 'Screens/Components/Loader/index';
-import { getDate, getImage, blockClick } from 'Screens/Components/BasicMethod/index'
+import { getImage, blockClick } from 'Screens/Components/BasicMethod/index'
 import * as translationEN from './translations/en_json_proofread_13072020.json';
 import * as translationDE from "./translations/de.json"
 import H_LeftMenu from "Screens/Components/Menus/H_leftMenu/index"
@@ -226,6 +222,7 @@ class Index extends Component {
             recEmp_LastName, imprint_Email, restore, Delete, see_detail, previous, next } = translate
         return (
             <Grid className="homeBg">
+                {this.state.loaderImage && <Loader />}
                 <Grid className="homeBgIner">
                     <Grid container direction="row" justify="center">
                         <Grid item xs={12} md={12}>

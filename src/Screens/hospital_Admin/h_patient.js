@@ -6,15 +6,10 @@ import { connect } from "react-redux";
 import { LoginReducerAim } from 'Screens/Login/actions';
 import { Settings } from 'Screens/Login/setting';
 import axios from 'axios';
-import Select from 'react-select';
 import { LanguageFetchReducer } from 'Screens/actions';
 import sitedata from 'sitedata';
-import Modal from '@material-ui/core/Modal';
-import Radio from '@material-ui/core/Radio';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
-import Loader from 'Screens/Components/Loader/index';
 import { getDate, getImage, blockClick } from 'Screens/Components/BasicMethod/index'
 import * as translationEN from './translations/en_json_proofread_13072020.json';
 import * as translationDE from "./translations/de.json"
@@ -26,6 +21,7 @@ import ViewDetail from "Screens/Components/ViewInformation/index";
 import "./style.css";
 import { commonHeader } from 'component/CommonHeader/index';
 import Pagination from "Screens/Components/Pagination/index";
+import Loader from "Screens/Components/Loader/index";
 
 const specialistOptions = [
     { value: 'Specialist1', label: 'Specialist1' },
@@ -222,6 +218,7 @@ class Index extends Component {
 
         return (
             <Grid className="homeBg">
+                {this.state.loaderImage && <Loader />}
                 <Grid className="homeBgIner">
                     <Grid container direction="row" justify="center">
                         <Grid item xs={12} md={12}>
@@ -298,11 +295,6 @@ class Index extends Component {
                                                 <Grid item xs={12} md={6}>
                                                     {this.state.totalPage > 1 && <Grid className="prevNxtpag">
                                                     <Pagination totalPage={this.state.totalPage} currentPage={this.state.currentPage} pages={this.state.pages} onChangePage={(page)=>{this.onChangePage(page)}}/>
-                                                        {/* {this.state.currentPage != 1 && <a className="prevpag" onClick={() => { this.onChangePage(this.state.currentPage - 1) }}>{previous}</a>}
-                                                        {this.state.pages && this.state.pages.length > 0 && this.state.pages.map((item, index) => (
-                                                            <a className={this.state.currentPage == item && "activePageDocutmet"} onClick={() => { this.onChangePage(item) }}>{item}</a>
-                                                        ))}
-                                                        {this.state.currentPage != this.state.totalPage && <a className="nxtpag" onClick={() => { this.onChangePage(this.state.currentPage + 1) }}>{next}</a>} */}
                                                     </Grid>}
                                                 </Grid>
                                             </Grid>
