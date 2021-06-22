@@ -1201,6 +1201,10 @@
 		"email_rcv_update_reciept":"E-mail sur lequel vous recevrez des mises à jour et des reçus",
 		"upload_license_is" :"La licence téléchargée est",
 		"less_than_err":"Veuillez télécharger des images inférieures à 6",
-		"err_file_formart": "Le système n'est pas pris en charge par ce format de fichier"
+		"err_file_formart": "Le système n'est pas pris en charge par ce format de fichier",
+		"reallyWantDelete" : "Voulez-vous vraiment supprimer votre compte ?",
+		"looseAllData" :"Vous perdrez toutes vos données et plus personne ne pourra plus y accéder ! De plus, les informations stockées dans la blockchain Aimedis sont perdues à jamais car vous êtes le seul à pouvoir les voir.",
+		"delete_your_account":"Supprimer votre compte",
+      	"delete_account":"Supprimer le compte"
 	}
 }

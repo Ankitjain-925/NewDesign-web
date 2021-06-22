@@ -1201,6 +1201,10 @@
 		"cancel_subscription":"Cancel the subscription",
 		"r_u_want_cancel_sub":"Are you really want to cancel the subscription?",
 		"email_rcv_update_reciept":"Email you'll recive updates and receipts on",
-		"upload_license_is" :"Uploaded license is"
+		"upload_license_is" :"Uploaded license is",
+		"reallyWantDelete" : "Do you really want to delete your Account?",
+		"looseAllData" :"You will lose all your data and no one can ever access it again! Also the information stored inside the Aimedis blockchain is lost forever as you are the only one to be able to see it.",
+		"delete_your_account":"Delete Your Account",
+      	"delete_account":"Delete Account"  
 	}
 }

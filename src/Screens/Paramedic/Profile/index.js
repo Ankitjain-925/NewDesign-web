@@ -29,6 +29,7 @@ import Timezone from "timezon.json";
 import { GetLanguageDropdown } from "Screens/Components/GetMetaData/index.js";
 import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 import { commonHeader } from "component/CommonHeader/index";
+import DeleteAccountSection from "Screens/Components/CommonProfileSec/DeleteAccount";
 function TabContainer(props) {
   return (
     <Typography component="div" className="tabsCntnts">
@@ -142,7 +143,7 @@ class Index extends Component {
       return <Redirect to={"/"} />;
     }
     let translate = getLanguage(this.props.stateLanguageType);
-    let { my_profile, Security, date_time } = translate;
+    let { my_profile, Security, date_time, delete_account } = translate;
     return (
       <Grid
         className={
@@ -176,6 +177,7 @@ class Index extends Component {
                           <Tab label={my_profile} className="aboutTabsIner" />
                           <Tab label={Security} className="aboutTabsIner" />
                           <Tab label={date_time} className="aboutTabsIner" />
+                          <Tab label={delete_account} className="aboutTabsIner" />
                         </Tabs>
                       </AppBar>
                     </Grid>
@@ -214,6 +216,17 @@ class Index extends Component {
                         </TabContainer>
                       )}
                       {/* End of DateTime */}
+                      {/* Start of Delete */}
+                      {value === 3 && (
+                        <TabContainer>
+                          <DeleteAccountSection
+                            user_token={this.props.stateLoginValueAim.token}
+                            LoggedInUser={this.state.LoggedInUser}
+                            getUserData={this.getUserData}
+                          />
+                        </TabContainer>
+                      )}
+                      {/* End of Delete */}
                     </Grid>
                     {/* End of Tabs */}
                   </Grid>
