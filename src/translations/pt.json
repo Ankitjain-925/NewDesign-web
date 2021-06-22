@@ -1215,6 +1215,8 @@
 		"cancel_subscription":"Cancelar a assinatura",
 		"r_u_want_cancel_sub":"Tem certeza de que deseja cancelar a assinatura?",
 		"email_rcv_update_reciept":"E-mail em que você receberá atualizações e recibos",
-		"upload_license_is" :"Licença carregada é"
+		"upload_license_is" :"Licença carregada é",
+		"less_than_err":"Faça upload de imagens com menos de 6",
+		"err_file_formart": "O sistema não é compatível com este formato de arquivo"
 	}
 }

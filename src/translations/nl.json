@@ -382,6 +382,7 @@
 		"ID": "ID",
 		"speciality": "Specialiteit",
 		"pin": "PIN",
+		"done": "Klaar",
 		"browse": "Zoek",
 		"or_drag_here": "of sleep hiernaartoe",
 		"suported_file_type": "Ondersteunde bestandssoorten",
@@ -530,6 +531,7 @@
 		"since_when": "Sinds wanneer?",
 		"have_u_already_been_sick": "Ben je al ziek thuis gebleven voor hetzelfde probleem?",
 		"how_long_do_u_unable_to_work": "Hoe lang denk je dat je niet zult kunnen werken?",
+		"days": "dagen",
 		"it_is_known_dieseas": "Is het een bekende ziekte?",
 		"r_u_tracking_medi": "Neem je medicijnen?",
 		"do_u_hv_allergies": "Heb je allergieën?",
@@ -1193,19 +1195,5 @@
 		"r_u_want_cancel_sub":"Wil je het abonnement echt opzeggen?",
 		"email_rcv_update_reciept":"E-mail waarop u updates en ontvangstbewijzen ontvangt",
 		"upload_license_is" :"Geüploade licentie is"
-
-
-
-
-
-
-
-
-
-
-
-		
-
-	
 	}
 }

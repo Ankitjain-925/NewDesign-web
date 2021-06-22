@@ -5,6 +5,7 @@
 		"login_LOGIN_btn": "INGIA KATIKA",
 		"login_an_account": "je, si kuwa na akaunti?",
 		"login_Registerhere": "Kujiandikisha hapa",
+		"reg_content": "Sajili yaliyomo",
 		"Register_for_Aimedis": "Kujiandikisha kwa ajili ya Aimedis V2",
 		"Register_Name": "Jina",
 		"Register_email": "anwani",
@@ -56,6 +57,7 @@
 		"I_agree_to_our": "Kwa kubonyeza sanduku mimi kukubaliana na masharti yetu ya matumizi na kukubali ukusanyaji wa takwimu, data usindikaji na matumizi ya yangu binafsi data. Zaidi katika sera yetu ya faragha.",
 		"Staff_SENDREC": "KUTUMA FOMU ya AJIRA",
 		"profile": "Profaili",
+		"informmation": "Habari",
 		"profile_info": "Hii ni yako profile habari, ambayo ni kupatikana kwa yako kuaminiwa Madaktari na wale wewe kushiriki maelezo yako ID nad SIRI na.",
 		"ID": "ID",
 		"speciality": "umaalum",
@@ -65,6 +67,7 @@
 		"suported_file_type": "Mkono faili aina",
 		"QR_code": "Nambari ya QR",
 		"Change": "Kubadili",
+		"Visibilty": "Kujulikana",
 		"edit_id_pin": "unaweza kubadili ID yako na PIN kama mara nyingi kama unataka.",
 		"edit": "Hariri",
 		"and": "na",
@@ -132,6 +135,7 @@
 		"remove": "Kuondoa",
 		"add_trusted_doc": "Kuongeza kuaminiwa daktari",
 		"select_doctor": "Tafadhali chagua Daktari",
+		"new": "Mpya",
 		"find_doc": "Kupata Daktari",
 		"serch_by_name_id": "Kutafuta kwa jina au ID",
 		"add_to_trusted_doc": "Kuongeza kwa Kuaminiwa Madaktari",
@@ -223,7 +227,12 @@
 		"sent": "tuma",
 		"on": "katika",
 		"request": "ombi",
+		"pending": "Inasubiri",
+		"rejected": "Kukataliwa",
+		"answered": "jibiwa",
+		"cancelled": "Kufutwa",
 		"req_updated_successfully": "Ombi updated Mafanikio",
+		"case": "Kesi",
 		"again": "tena",
 		"modify": "Kurekebisha",
 		"see": "Kuona",
@@ -312,7 +321,8 @@
 		"blood_sugar": "Damu Sukari",
 		"condition_pain": "Hali na Maumivu",
 		"covid_diary": "Shajara ya COVID-19",
-	    "travel": "Kusafiri",
+		"travel": "Kusafiri",
+		"travelled": "usafiri",
 		"diary": "Shajara",
 		"diary_note": "Vidokezo vya Diary",
 		"doc_visit": "Daktari Ziara",
@@ -332,6 +342,7 @@
 		"time_measure": "Wakati Kipimo",
 		"visible": "Inayoonekana",
 		"always": "Daima",
+		"wakati": "Wakati",
 		"from": "Kutoka",
 		"rr_systolic": "RR Systolic",
 		"feeling": "Hisia",
@@ -342,6 +353,7 @@
 		"pain_areas": "Maumivu ya maeneo",
 		"temparture": "hali ya joto",
 		"saturation": "kueneza",
+		"location": "eneo",
 		"pain_type": "Maumivu ya aina",
 		"pain_quality": "Maumivu ubora",
 		"slct_ICD_serch_code": "Kuchagua ICD catalog na utafutaji kwa ajili ya kanuni",
@@ -422,6 +434,7 @@
 		"no_data_avlbl": "Hakuna data inapatikana",
 		"last_doc_visit": "Mwisho daktari ziara",
 		"upcming_appointment": "uteuzi Ujao",
+		"Neurology": "Neurologia",
 		"Office": "Ofisi",
 		"Video": "Video",
 		"last_document": "Mwisho Nyaraka",
@@ -489,11 +502,13 @@
 		"who_would_u_like_invite": "Nani ungependa kukaribisha?",
 		"patient_profile_is_not_correct": "Mgonjwa Profile si sahihi",
 		"recved_on": "Kupokea juu",
+		"patient": "Mgonjwa",
 		"approve": "Kupitisha",
 		"decline": "Kushuka",
 		"prescription_inquiry": "Dawa Uchunguzi",
 		"standerd_ques": "maswali ya kawaida",
 		"patient_health_status": "Wagonjwa wa Hali ya Afya",
+		"medications": "Dawa",
 		"dignoses": "Diagnoser",
 		"suported_file_type_jpg_png": "Mkono faili aina: .jpg, .png, .pdf",
 		"suported_file_type_jpg_png_dcm": "Aina za faili zinazoungwa mkono: .jpg, .png, .pdf, .doc, .dcm nk",
@@ -805,6 +820,7 @@
 		"select_time_from": "Chagua muda(kutoka)",
 		"select_time_to": "Chagua Muda(kwa)",
 		"detail_ques": "Undani/Swali",
+		"All": "Wote",
 		"char_8": "8 Wahusika",
 		"lettr_1": "1 barua",
 		"number_1": "1 idadi",
@@ -821,10 +837,13 @@
 		"wishlist": "Wishlist",
 		"excellent": "Bora",
 		"very_good": "nzuri Sana",
+		"Good": "Vizuri",
 		"fair": "Haki",
+		"Poor": "Vibaya",
 		"audio": "Sauti",
 		"blocked_users": "Blocked Watumiaji",
 		"actions": "Matendo",
+		"Sending": "Kutuma",
 		"unblock": "Kufungulia",
 		"contacts": "Mawasiliano",
 		"has_file": " alimtuma faili. Kushusha ni hapa: ",
@@ -1026,7 +1045,6 @@
 		"all": "Wote",
 		"good": "Nzuri",
 		"poor": "Maskini",
-		"sending": "Inatuma",
 		"document": "Hati",
 		"etc": "na kadhalika.",
 		"values": "Maadili",
@@ -1197,90 +1215,9 @@
 		"cancel_subscription":"Ghairi usajili",
 		"r_u_want_cancel_sub":"Je! Kweli unataka kughairi usajili?",
 		"email_rcv_update_reciept":"Barua pepe utasikia sasisho na risiti kwenye",
-		"upload_license_is" :"Leseni iliyopakiwa ni"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-		
-	
-	
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-		
-		
-	
-
+		"upload_license_is" :"Leseni iliyopakiwa ni",
+		"less_than_err":"Tafadhali pakia picha chini ya 6",
+		"err_file_formart": "Mfumo hauhimili muundo wa faili",
+		"done": "Imefanywa"
 	}
 }
