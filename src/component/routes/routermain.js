@@ -74,6 +74,8 @@ import H_document from "Screens/hospital_Admin/h_Documents";
 import H_profile from "Screens/hospital_Admin/h_adminProfile";
 import CallatAllPages from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/CallatAllPages";
 
+import H_Staff from "Screens/hospital_Admin/h_staffs";
+
 class Routermain extends Component {
   render() {
     return (
@@ -391,7 +393,11 @@ class Routermain extends Component {
               path="/h-profile"
               render={(props) => <H_profile {...props} />}
             />
-
+              <Route
+              exact={true}
+              path="/h-staff"
+              render={(props) => <H_Staff {...props} />}
+            />
             <Route
               path="*"
               exact={true}

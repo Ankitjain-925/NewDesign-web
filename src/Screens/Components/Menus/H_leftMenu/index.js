@@ -157,6 +157,12 @@ class Index extends Component {
                                 <span>{srvc_Nurses}</span>
                             </a>
                         </li>
+                        <li className={this.props.currentPage === 'staff_List' ? "menuActv" : ""}>
+                            <a onClick={() => this.props.history.push("/h-staff")}>
+                                <img src={require('assets/images/patientinfo.png')} alt="" title="" />
+                                <span>{"Admin Staff"}</span>
+                            </a>
+                        </li>
                         <li className={this.props.currentPage === "h_document" ? "menuActv" : ''}>
                             <a onClick={() => this.props.history.push("/h-documents")}>
                                 <img src={require('assets/images/admin/docsIcon.png')} alt="" title="" />
