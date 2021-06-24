@@ -19,7 +19,7 @@ import { SearchUser } from 'Screens/Components/Search';
 import CreateAdminUser from "Screens/Components/CreateHospitalUser/index"
 import ViewDetail from "Screens/Components/ViewInformation/index";
 import "./style.css";
-import { commonHeader } from 'component/CommonHeader/index';
+import { commonHeader, commonCometDelHeader } from 'component/CommonHeader/index';
 import Pagination from "Screens/Components/Pagination/index";
 import Loader from "Screens/Components/Loader/index";
 
@@ -118,11 +118,7 @@ class Index extends Component {
                 var config = {
                   method: 'delete',
                   url: 'https://api-eu.cometchat.io/v2.0/users/'+profile_id.toLowerCase(),
-                  headers: { 
-                    'appId': '220824e717b58ac', 
-                    'apiKey': 'f2ff1ef787367e0bcf00befdb9dc871e1c9a54e2', 
-                    'Content-Type': 'application/json'
-                  },
+                  headers: commonCometDelHeader(),
                   data : data
                 };
                 

@@ -18,6 +18,7 @@ import {
   DropdownItem,
 } from "reactstrap";
 import sitedata from "sitedata";
+import { commonHeader } from "component/CommonHeader/index"
 
 import {
   getLanguage
@@ -94,14 +95,7 @@ class Index extends Component {
           .put(
             path + "/setpassword?password=" + password,
             {},
-            {
-              headers: {
-                token: user_token,
-                Accept: "application/json",
-                "Content-Type": "application/json",
-              },
-            }
-          )
+            commonHeader(user_token))
           .then((response) => {
             if (response.data.msg === "Password is updated") {
               this.setState({
@@ -162,7 +156,7 @@ class Index extends Component {
     let translate = getLanguage(this.props.stateLanguageType)
     let {
       email,
-      forget_password,
+      change_password,
       password_reset,
       login_Password,
       password_must_have_its_condition,
@@ -526,8 +520,8 @@ class Index extends Component {
                     <Grid className="regCrtAc">
                       <input
                         type="submit"
-                        value={forget_password}
-                        onClick={this.BtnSubmit.bind(this)}
+                        value={change_password}
+                        onClick={()=>this.BtnSubmit()}
                       />
                     </Grid>
                   </Grid>

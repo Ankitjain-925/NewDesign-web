@@ -9,6 +9,7 @@ import { LanguageFetchReducer } from "Screens/actions";
 import sitedata from "sitedata";
 import axios from "axios";
 import Loader from "Screens/Components/Loader/index";
+import { commonHeader } from "component/CommonHeader/index"
 
 class Index extends Component {
   constructor(props) {
@@ -39,13 +40,7 @@ class Index extends Component {
             user_id: this.props.stateLoginValueAim.user._id,
             user_profile_id: this.props.stateLoginValueAim.user.profile_id,
           },
-          {
-            headers: {
-              token: this.props.stateLoginValueAim.token,
-              Accept: "application/json",
-              "Content-Type": "application/json",
-            },
-          }
+          commonHeader(this.props.stateLoginValueAim.token)
         )
         .then((responce) => {
           this.setState({ loaderImage: false });

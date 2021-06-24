@@ -17,6 +17,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import contry from '../countryBucket/countries.json';
 import Loader from '../Loader/index';
 import {updateCometUser} from "Screens/Components/CommonApi/index";
+import { commonHeader, commonCometHeader } from "component/CommonHeader/index"
 import * as translationEN from '../../hospital_Admin/translations/en_json_proofread_13072020.json';
 import * as translationDE from "../../hospital_Admin/translations/de.json"
 
@@ -54,13 +55,7 @@ class Index extends Component {
     getAllinst=()=>{
         var user_token = this.props.stateLoginValueAim.token;
         axios.get(sitedata.data.path + '/admin/GetHintinstitute',
-        {
-            headers: {
-                'token': user_token,
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            }
-        })
+        commonHeader(user_token))
         .then((response) => {
             this.setState({getHintInstitute: response.data.data, getHintInstitute1 : response.data.data})
         }).catch((error) => {});
@@ -183,27 +178,14 @@ class Index extends Component {
                                     department : this.state.CreateUsers.department, 
                                     institute_id : institute_id
                                 }
-                                , {
-                                    headers: {
-                                        'token': user_token,
-                                        'Accept': 'application/json',
-                                        'Content-Type': 'application/json'
-                                    }
-                                })
+                                ,  commonHeader(user_token))
                                 .then((response) => {
                                     if (response.data.hassuccessed) {
                                             axios.post('https://api-eu.cometchat.io/v2.0/users',{
                                                 uid        :   response.data.data.profile_id,
                                                 name       :   response.data.data.first_name+' '+response.data.data.last_name
                                             },
-                                            {
-                                                headers: {
-                                                    'appId': '220824e717b58ac',
-                                                    'apiKey':'2f6b4a6b99868d7af0a2964d5f292abbb68e05a7',
-                                                    'Accept': 'application/json',
-                                                    'Content-Type': 'application/json'
-                                                }
-                                            })
+                                            commonCometHeader())
                                             .then((res)=>{
                                                 updateCometUser({
                                                     uid        :   response.data.data.profile_id.toLowerCase(),

@@ -12,6 +12,7 @@ import { LanguageFetchReducer } from "Screens/actions";
 import {
   getLanguage
 } from "translations/index"
+import { commonHeader } from "component/CommonHeader/index"
 class Index extends Component {
   constructor(props) {
     super(props);
@@ -55,13 +56,7 @@ class Index extends Component {
           sitedata.data.path +
             "/emergency_record/getPharmacy/search/" +
             this.state.name,
-          {
-            headers: {
-              token: user_token,
-              Accept: "application/json",
-              "Content-Type": "application/json",
-            },
-          }
+           commonHeader(user_token)
         )
         .then((response) => {
           this.setState({ searchName: response.data.data });

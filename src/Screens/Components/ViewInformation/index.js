@@ -11,7 +11,7 @@ import sitedata from 'sitedata';
 import axios from "axios"
 import translationEN from "Screens/hospital_Admin/translations/en_json_proofread_13072020.json"
 import translationDE from "Screens/hospital_Admin/translations/de.json"
-
+import { commonHeader } from "component/CommonHeader/index"
 
 class Index extends Component {
     constructor(props) {
@@ -44,13 +44,7 @@ class Index extends Component {
     getKyc = () => {
         var user_token = this.props.stateLoginValueAim.token;
         axios.get(sitedata.data.path + '/User/getKyc/' + this.props.patient_info._id,
-            {
-                headers: {
-                    'token': user_token,
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                }
-            }).then((response) => {
+        commonHeader(user_token)).then((response) => {
                 if (response.data.data) {
                     this.setState({ kycs: response.data.fulldata, loaderImage: false }, () => {
                         

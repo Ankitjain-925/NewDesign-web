@@ -774,7 +774,7 @@ class Index extends Component {
     var user_token = this.props.stateLoginValueAim.token;
     this.setState({ loaderImage: true });
     let response = await get_track(user_token, user_id)
-    if (response.data.hassuccessed === true) {
+    if (response?.data?.hassuccessed === true) {
       //This is for Aimedis Blockchain Section
       updateBlockchain(
         this.props.stateLoginValueAim.user,
@@ -990,7 +990,7 @@ class Index extends Component {
     var user_token = this.props.stateLoginValueAim.token;
     let user_id = this.props.stateLoginValueAim.user._id;
     let response = await get_cur_one(user_token, user_id)
-    this.setState({ cur_one: response.data.data });
+    this.setState({ cur_one: response?.data?.data });
   };
 
   //Move to Profile page

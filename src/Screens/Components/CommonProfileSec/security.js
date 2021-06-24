@@ -5,7 +5,7 @@ import { LoginReducerAim } from "Screens/Login/actions";
 import { LanguageFetchReducer } from "Screens/actions";
 import { Settings } from "Screens/Login/setting";
 import { withRouter } from "react-router-dom";
-
+import { commonHeader } from "component/CommonHeader/index"
 import sitedata from "sitedata";
 import axios from "axios";
 import Loader from "Screens/Components/Loader/index";
@@ -123,13 +123,7 @@ class Index extends Component {
           {
             password: this.state.Password.current_pass,
           },
-          {
-            headers: {
-              token: this.props.user_token,
-              Accept: "application/json",
-              "Content-Type": "application/json",
-            },
-          }
+          commonHeader(this.props.user_token)
         )
         .then((responce) => {
           if (responce.data.data) {
@@ -172,13 +166,7 @@ class Index extends Component {
                 {
                   password: this.state.Password.new_pass,
                 },
-                {
-                  headers: {
-                    token: this.props.user_token,
-                    Accept: "application/json",
-                    "Content-Type": "application/json",
-                  },
-                }
+                commonHeader(this.props.user_token)
               )
               .then((responce) => {
                 this.setState({ PassDone: true, loaderImage: false });
@@ -213,13 +201,7 @@ class Index extends Component {
           {
             is2fa: this.state.is2fa,
           },
-          {
-            headers: {
-              token: this.props.user_token,
-              Accept: "application/json",
-              "Content-Type": "application/json",
-            },
-          }
+          commonHeader(this.props.user_token)
         )
         .then((responce) => {
           this.setState({ is2faDone: true, loaderImage: false });

@@ -3,6 +3,7 @@ import sitedata from "sitedata";
 import React, { Component } from "react";
 import { speciality } from "speciality";
 import Resizer from 'react-image-file-resizer';
+import { commonHeader } from "component/CommonHeader/index"
 //Custom Console So comment only One console works on whole website
 export function ConsoleCustom(msg, value) {
   // console.log(msg , value)
@@ -128,14 +129,7 @@ export function AddFavDoc(doctor_id, profile_id, user_token, user_profile_id) {
         doctor: doctor_id,
         profile_id: profile_id,
       },
-      {
-        headers: {
-          token: user_token,
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      }
-    )
+      commonHeader(user_token))
     .then((responce) => {
       if (responce.data.hassuccessed == true) {
         axios
@@ -144,14 +138,7 @@ export function AddFavDoc(doctor_id, profile_id, user_token, user_profile_id) {
             {
               profile_id: user_profile_id,
             },
-            {
-              headers: {
-                token: user_token,
-                Accept: "application/json",
-                "Content-Type": "application/json",
-              },
-            }
-          )
+            commonHeader(user_token))
           .then((responce) => { });
       }
     });
@@ -165,14 +152,7 @@ export function AddFavDoc2(doctor_id, profile_id, user_token, user_profile_id) {
         doctor: doctor_id,
         profile_id: profile_id,
       },
-      {
-        headers: {
-          token: user_token,
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      }
-    )
+      commonHeader(user_token))
     .then((responce) => {
       if (responce.data.hassuccessed == true) {
         axios
@@ -181,14 +161,7 @@ export function AddFavDoc2(doctor_id, profile_id, user_token, user_profile_id) {
             {
               profile_id: user_profile_id,
             },
-            {
-              headers: {
-                token: user_token,
-                Accept: "application/json",
-                "Content-Type": "application/json",
-              },
-            }
-          )
+            commonHeader(user_token))
           .then((responce) => { });
       }
     });
@@ -293,13 +266,7 @@ export function SortByGraphView(a, b) {
 export function blockClick(deletekey, userblock, user_token) {
   axios.put(sitedata.data.path + '/admin/BlockUser/' + deletekey,
     { isblock: !userblock },
-    {
-      headers: {
-        'token': user_token,
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      }
-    })
+    commonHeader(user_token))
     .then((response) => {
       return response;
     })

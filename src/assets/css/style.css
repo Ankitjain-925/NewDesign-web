@@ -13114,6 +13114,18 @@ a.academy_ul ul li img {
 
 
 /*Added By ankita*/
+.current_pass_sec{
+    margin-top:20px;
+}
+.deletewarninghead{
+    color: red;
+    font-weight: bold;
+}
+.deletewarning{
+    color: red;
+    font-weight: 500;
+    padding:15px 0px;
+}
 .prevNxtpag a {
     margin: 0px 0px 0px 15px !important;
 }

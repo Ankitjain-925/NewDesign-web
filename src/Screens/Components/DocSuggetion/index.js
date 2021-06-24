@@ -10,6 +10,7 @@ import axios from "axios";
 import {
   getLanguage
 } from "translations/index"
+import { commonHeader } from "component/CommonHeader/index"
 // import { CometChatUnified } from '../react-chat-ui-kit/CometChat';
 var NewM = false;
 class Index extends React.Component {
@@ -31,13 +32,8 @@ class Index extends React.Component {
   alldocs = () => {
     const user_token = this.props.stateLoginValueAim.token;
     axios
-      .get(sitedata.data.path + "/UserProfile/DoctorUsersChat", {
-        headers: {
-          token: user_token,
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      })
+      .get(sitedata.data.path + "/UserProfile/DoctorUsersChat", 
+        commonHeader(user_token))
       .then((response) => {
         this.setState({ allDocData1: response.data.data });
         this.getUserData();
@@ -55,13 +51,7 @@ class Index extends React.Component {
     let user_token = this.props.stateLoginValueAim.token;
     let user_id = this.props.stateLoginValueAim.user._id;
     axios
-      .get(sitedata.data.path + "/UserProfile/Users/" + user_id, {
-        headers: {
-          token: user_token,
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      })
+      .get(sitedata.data.path + "/UserProfile/Users/" + user_id,  commonHeader(user_token))
       .then((response) => {
         var myFilterData = [];
         if (

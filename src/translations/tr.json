@@ -637,8 +637,8 @@
 		"Enteremailfirst": "Ilk olarak emayi yaz",
 		"Entermessage": "Mesajı yaz",
 		"Invitationsuccessfully": "Davetiye başarılı bir şekilde gönderildi",
-		"Inquiries": "Başvurular",
-		"UploadMust": "Please upload the file",
+		"Inquiries": "Araştırma",
+		"UploadMust": "Lütfen dosyayı yükleyin",
 		"Pleaseenterthepatientidfirst": "Lütfen ilk olarak hasta kimligini kayıt et",
 		"Successfullyaddedtheinformation": "Bilgiler başarılı bir şekilde kayıt edildi",
 		"PleaseEnterallthefield": "Lütfen bütün boşlukları doldur",
@@ -1064,7 +1064,6 @@
 		"Nurse1": "Hemşire", 
 		"enabled":"aktifleştirilmiş",
 		"disabled":"devre dışı", 
-		
 		"Select_chat": "Mesajlaşmak için bir chat seç",
 		"Search": "Ara",
 		"Date_of_event": "Etkinliğin tarihi",
@@ -1085,7 +1084,6 @@
 		"medicine_inquiry": "Tıbbi yara",
 		"Approve": "Onayla",
 		"decline_inquiry": "Yarayı kabul etme",
-		"Inquiries": "Yaralar",
 		"Prescriptions": "Reçeteler",
 		"Sick_Certificates": "Hasta raporları",
 		"Second_Opinions": "Ikinci fikirler",
@@ -1202,6 +1200,10 @@
 		"cancel_subscription":"Aboneliği iptal et",
 		"r_u_want_cancel_sub":"Aboneliği gerçekten iptal etmek istiyor musunuz?",
 		"email_rcv_update_reciept":"Güncellemeleri ve makbuzları alacağınız e-posta",
-		"upload_license_is" :"Yüklenen lisans"
+		"upload_license_is" :"Yüklenen lisans",
+		"reallyWantDelete" : "Hesabınızı gerçekten silmek istiyor musunuz?",
+		"looseAllData" :"Tüm verilerinizi kaybedeceksiniz ve bir daha hiç kimse ona erişemeyecek! Ayrıca Aimedis blok zincirinde saklanan bilgiler, onu görebilecek tek kişi siz olduğunuz için sonsuza kadar kaybolur.",
+		"delete_your_account":"Hesabını sil",
+      	"delete_account":"Hesabı sil"
 	}
 }   

@@ -1,3 +1,4 @@
+require('dotenv').config()
 export function getPriceId(type) {
   let env = "DEV";
   let url = "";
@@ -23,9 +24,9 @@ export function getPublishableKey() {
   }
   let STRIPE_PUBLISHABLE
   if (env === "DEV") {
-    STRIPE_PUBLISHABLE = "pk_test_qoJaLAHMXbv3fzci2AEcmkYX";
+    STRIPE_PUBLISHABLE = process.env.REACT_APP_STRIPE_TEST;
   } else {
-    STRIPE_PUBLISHABLE = "pk_live_SUaxHsAUa2ebLQXAa7NoMwPQ";
+    STRIPE_PUBLISHABLE = process.env.REACT_APP_STRIPE;
   }
   return STRIPE_PUBLISHABLE;
 }

@@ -5,7 +5,6 @@
 		"login_LOGIN_btn": "INICIAR SESIÓN",
 		"login_an_account": "¿no tiene una cuenta?",
 		"login_Registerhere": "Regístrese aquí",
-		"reg_content": "Contenido del la página Registro",
 		"Register_for_Aimedis": "Registrarse en Aimedis V2",
 		"Register_Name": "Nombre",
 		"Register_email": "Dirección de correo electrónico",
@@ -130,7 +129,6 @@
 		"select_family_doc": "Por favor, seleccione un médico de familia",
 		"make_sure_family_doc": "Por favor, asegúrese de agregar su médico de familia",
 		"add_a_family_doc": "Agregar un médico de familia",
-		"trust_doc": "Médicos de Confianza",
 		"doc_have_access_ur_journal": "Estos Médicos tienen acceso a su Diario. Puede agregar tantos Médicos de Confianza como desee.",
 		"doc_already_exit_in_list": "El Médico ya existe en su lista",
 		"doc_removed_trusted_list": "El Médico fue eliminado de su lista de Confianza",
@@ -144,7 +142,6 @@
 		"recmonded_doc": "Médicos Recomendados",
 		"doc_who_part_of_aimedis": "Médicos que forman parte de la plataforma Aimedis.",
 		"free_text": "Texto Libre",
-		"Forget_password": "Olvidé Contraseña",
 		"plz_enter_valid_email": "Por favor, ingrese un correo electrónico válido",
 		"format_updated": "El formato es actualizado",
 		"blockchain_secure_organ_donar_Pass": "Pase de donante de órganos asegurado por Blockchain",
@@ -529,7 +526,6 @@
 		"back": "Volver",
 		"how_would_patient_like_to_rcv_secon_openion": "¿Cómo le gustaría al paciente recibir la Segunda Opinión?",
 		"patient_profession": "Profesión del paciente",
-		"Patient_access_data": "Datos de Acceso del Paciente",
 		"another_patient_data": "Datos de otro paciente",
 		"patient_access_data": "Datos de acceso del paciente",
 		"get_patient_access_data": "Obtener Datos de Acceso del Paciente",
@@ -1053,7 +1049,6 @@
 		"plz_check_unread_message_in_chat":"Mensajes no leídos en el chat. Por favor, chequee esto.",
 		"new_message_in_chat_plz_check":"Nuevo mensaje (s) en el módulo de chat. Vaya a CHAT (enlace) para comprobar sus mensajes.",
 		"remove_inquiry":"¿Eliminar la consulta?",
-
 		"archive_item":"Elemento de archivo",
 		"do_u_really_want_archive_item":"¿Realmente quieres archivar el artículo?",
 		"delete_item":"Eliminar elemento",
@@ -1206,6 +1201,10 @@
 		"email_rcv_update_reciept":"Correo electrónico en el que recibirá actualizaciones y recibos",
 		"upload_license_is" :"La licencia cargada es",
 		"less_than_err":"Sube imágenes de menos de 6",
-		"err_file_formart": "El sistema no es compatible con este formato de archivo"
+		"err_file_formart": "El sistema no es compatible con este formato de archivo",
+		"reallyWantDelete" : "¿Realmente desea eliminar su cuenta?",
+		"looseAllData" :"Вы потеряете все свои данные, и никто больше не сможет получить к ним доступ! Кроме того, информация, хранящаяся в блокчейне Aimedis, теряется навсегда, поскольку вы единственный, кто может ее увидеть.",
+		"delete_your_account":"Eliminar su cuenta",
+      	"delete_account":"Borrar cuenta"
 	}
 }

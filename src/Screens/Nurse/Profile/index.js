@@ -28,10 +28,9 @@ import Timezone from "timezon.json";
 import { authy } from "Screens/Login/authy.js";
 import { GetLanguageDropdown } from "Screens/Components/GetMetaData/index.js";
 import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
-import {
-  getLanguage
-} from "translations/index"
+import { getLanguage } from "translations/index"
 import { commonHeader } from "component/CommonHeader/index";
+import DeleteAccountSection from "Screens/Components/CommonProfileSec/DeleteAccount";
 function TabContainer(props) {
   return (
     <Typography component="div" className="tabsCntnts">
@@ -122,13 +121,13 @@ class Index extends Component {
     let user_token = this.props.stateLoginValueAim.token;
     let user_id = this.props.stateLoginValueAim.user._id;
     axios
-      .get(sitedata.data.path + "/UserProfile/Users/" + user_id, commonHeader(user_token))
-      .then((response) => {
-        this.setState({ loaderImage: false, LoggedInUser: response.data.data });
-      })
-      .catch((error) => {
-        this.setState({ loaderImage: false });
-      });
+    .get(sitedata.data.path + "/UserProfile/Users/" + user_id, commonHeader(user_token))
+    .then((response) => {
+      this.setState({ loaderImage: false, LoggedInUser: response.data.data });
+    })
+    .catch((error) => {
+      this.setState({ loaderImage: false });
+    });
   }
 
   render() {
@@ -154,7 +153,7 @@ class Index extends Component {
       }
     }
     let translate = getLanguage(this.props.stateLanguageType)
-    let { my_profile, kyc, Security, date_time } = translate;
+    let { my_profile, kyc, Security, date_time , delete_account } = translate;
     return (
       <Grid
         className={
@@ -189,6 +188,7 @@ class Index extends Component {
                           <Tab label={Security} className="aboutTabsIner" />
                           <Tab label={kyc} className="aboutTabsIner" />
                           <Tab label={date_time} className="aboutTabsIner" />
+                          <Tab label={delete_account} className="aboutTabsIner" />
                         </Tabs>
                       </AppBar>
                     </Grid>
@@ -234,6 +234,17 @@ class Index extends Component {
                         </TabContainer>
                       )}
                       {/* End of DateTime */}
+                       {/* Start of Delete */}
+                       {value === 4 && (
+                        <TabContainer>
+                          <DeleteAccountSection
+                            user_token={this.props.stateLoginValueAim.token}
+                            LoggedInUser={this.state.LoggedInUser}
+                            getUserData={this.getUserData}
+                          />
+                        </TabContainer>
+                      )}
+                      {/* End of Delete */}
                     </Grid>
                     {/* End of Tabs */}
                   </Grid>

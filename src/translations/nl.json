@@ -1194,6 +1194,17 @@
 		"cancel_subscription":"Annuleer het abonnement",
 		"r_u_want_cancel_sub":"Wil je het abonnement echt opzeggen?",
 		"email_rcv_update_reciept":"E-mail waarop u updates en ontvangstbewijzen ontvangt",
-		"upload_license_is" :"Geüploade licentie is"
+		"upload_license_is" :"Geüploade licentie is",
+		"reallyWantDelete" : "Wil je echt je account verwijderen?",
+		"looseAllData" :"U verliest al uw gegevens en niemand heeft er ooit nog toegang toe! Ook de informatie die is opgeslagen in de Aimedis-blockchain gaat voor altijd verloren, omdat u de enige bent die deze kan zien.",
+		"delete_your_account":"Verwijder je account",
+      	"delete_account":"Account verwijderen",
+		"Contact": "Contact",
+		"Services": "Diensten",
+		"latest_info": "Laatste informatie",
+		"date_time":"Datum Tijd",
+		"we_r_showing_speciality":"We tonen u specialisten in de buurt",
+		"less_than_err":"Upload afbeeldingen van minder dan 6",
+		"err_file_formart": "Systeem wordt niet ondersteund door deze bestandsindeling"
 	}
 }

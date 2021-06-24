@@ -17,7 +17,8 @@ import Loader from 'Screens/Components/Loader/index';
 import { update_CometUser } from "Screens/Components/CommonApi/index";
 import * as translationEN from '../../../hospital_Admin/translations/en_json_proofread_13072020.json';
 import * as translationDE from "../../../hospital_Admin/translations/de.json"
-import CreateAdminUser from "Screens/Components/CreateHospitalUser/index"
+import CreateAdminUser from "Screens/Components/CreateHospitalUser/index";
+import { commonHeader } from "component/CommonHeader/index"
 class Index extends Component {
     constructor(props) {
         super(props)
@@ -47,13 +48,7 @@ class Index extends Component {
     getSetting = () => {
         this.setState({ loaderImage: true })
         axios.get(sitedata.data.path + '/UserProfile/updateSetting',
-            {
-                headers: {
-                    'token': this.props.stateLoginValueAim.token,
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                }
-            }).then((responce) => {
+        commonHeader(this.props.stateLoginValueAim.token)).then((responce) => {
                 if (responce.data.hassuccessed && responce.data.data) {
                     this.setState({ timeF: { label: responce.data.data.time_format, value: responce.data.data.time_format }, dateF: { label: responce.data.data.date_format, value: responce.data.data.date_format }, })
                 }
@@ -94,13 +89,7 @@ class Index extends Component {
                 language: this.state.languageValue,
                 user_id: this.props.stateLoginValueAim.user._id,
                 user_profile_id:  this.props.stateLoginValueAim.user.profile_id
-            }, {
-                headers: {
-                    'token': this.props.stateLoginValueAim.token,
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                }
-            }).then((responce) => {
+            },  commonHeader(this.props.stateLoginValueAim.token)).then((responce) => {
                 this.setState({ PassDone: true,  loaderImage: false })
                 this.props.Settings(this.props.stateLoginValueAim.token);
                 this.getSetting();
