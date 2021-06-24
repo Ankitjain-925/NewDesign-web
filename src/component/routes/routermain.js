@@ -74,6 +74,10 @@ import H_document from "Screens/hospital_Admin/h_Documents";
 import H_profile from "Screens/hospital_Admin/h_adminProfile";
 import CallatAllPages from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/CallatAllPages";
 
+//virtualhospital
+import Virtualindex from "Screens/VirtualHospital/Statistics/index";
+
+
 class Routermain extends Component {
   render() {
     return (
@@ -390,6 +394,13 @@ class Routermain extends Component {
               exact={true}
               path="/h-profile"
               render={(props) => <H_profile {...props} />}
+            />
+
+          {/*   Virtualhospital page */}
+            <Route
+              path="/virtualhospital/statistics"
+              exact={true}
+              render={(props) => <Virtualindex {...props} />}
             />
 
             <Route

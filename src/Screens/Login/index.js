@@ -27,7 +27,9 @@ import * as actions from "Screens/Components/CometChat/store/action";
 import Toggle from "react-toggle";
 import queryString from "query-string";
 import Loader from "Screens/Components/Loader/index";
+import Virtualindex from "Screens/VirtualHospital/Statistics/index";
 const path = sitedata.data.path + "/UserProfile";
+
 
 class Index extends Component {
   constructor(props) {
@@ -284,6 +286,20 @@ class Index extends Component {
         return <Redirect to={"/doctor"} />;
       } else {
         return <Redirect to={"/doctor"} />;
+      }
+    }
+
+
+
+    if (
+      stateLoginValueAim.token !== 450 &&
+      stateLoginValueAim.user.type === "adminstaff" &&
+      this.props.verifyCode.code
+    ) {
+      if (stateLoginValueAim.kyc) {
+        return <Redirect to={"/VirtualHospital/Statistics"} />;
+      } else {
+        return <Redirect to={"/VirtualHospital/Statistics"} />;
       }
     }
     if (
@@ -662,4 +678,4 @@ export default connect(mapStateToProps, {
   OptionList
 })(Index);
 
-// export default Index;
+// / export default Index;
