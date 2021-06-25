@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import Routermain from "./routes/routermain";
-
 class App extends Component {
   constructor(props) {
     let tempname = window.location.search;

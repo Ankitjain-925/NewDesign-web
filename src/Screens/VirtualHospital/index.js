@@ -1,1 +1,0 @@
-import 'assets/css/virtual_hospital.css';
