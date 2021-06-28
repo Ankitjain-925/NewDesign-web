@@ -1,14 +1,41 @@
-import React from "react";
-
+import React, { useState, useEffect } from "react";
 import { CometChat } from '@cometchat-pro/chat';
-
 import "./style.scss";
-
-import Avatar from "../Avatar";
+import sitedata from "sitedata";
 import BadgeCount from "../BadgeCount";
+import ReactTooltip from "react-tooltip";
+import Avatar from "../Avatar";
 import StatusIndicator from "../StatusIndicator";
+import { SvgAvatar } from "../../util/svgavatar";
+import axios from "axios";
 
-const conversationview = (props) => {
+function ConversationView (props) {
+  const [_image, setImage] = React.useState(null);
+  useEffect(() => {
+    {console.log('image1')}
+    let user = props?.conversation?.conversationWith;
+    if (user.avatar) {
+      const uid = user.uid;
+      var char = user.avatar;
+      char = char.split(".com/")[1];
+      axios
+        .get(sitedata.data.path + "/aws/sign_s3?find=" + char)
+        .then((response) => {
+          if (response.data.hassuccessed) {
+            setImage(response.data.data);
+          }
+        });
+    }
+    else{
+      const uid = user.uid;
+      const char = user.name.charAt(0).toUpperCase();
+      if(uid && char){
+        setImage(SvgAvatar.getAvatar(uid, char));
+        console.log(SvgAvatar.getAvatar(uid, char))
+      }
+    } 
+  }, [props.user]);
+
 
   const getMessage = () => {
 
@@ -146,11 +173,12 @@ const conversationview = (props) => {
   }
     
   return (
-
+    props.Userlist.includes(props.conversation.conversationWith.uid) &&
     <div className="chat-listitem">
+      {/* {console.log('_image', _image)} */}
       <div className="chat-thumbnail-wrap">
         <Avatar 
-        image={getAvatar()}
+        image={_image}
         cornerRadius="18px" 
         borderColor="#CCC"
         borderWidth="1px" />
@@ -166,4 +194,4 @@ const conversationview = (props) => {
   )
 }
 
-export default conversationview;
+export default ConversationView;

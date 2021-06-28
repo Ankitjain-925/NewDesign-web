@@ -10,9 +10,13 @@ class avatar extends React.Component {
       image : ''
     }
   }
-
+  shouldComponentUpdate(nextProps, nextState) {
+    return (
+      (nextState.image !== this.state.image) ||
+      (nextProps.image !== this.props.image)
+    );
+  }
   componentDidUpdate(prevProps, prevState) {
-
     if (prevProps.image !== this.props.image) {
       this.setState({image : this.props.image})
   }

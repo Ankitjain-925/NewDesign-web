@@ -40,6 +40,17 @@ class CometChatConversationList extends React.Component {
     this.ConversationListManager = null;
   }
 
+  // shouldComponentUpdate (nextProps, nextState) {
+  //   return (
+  //     nextState.conversationlist !== this.state.conversationlist ||
+  //     nextState.selectedConversation !== this.state.selectedConversation||
+  //     nextState.onItemClick !==this.state.onItemClick ||
+  //     nextProps.Userlist !== this.props.Userlist ||
+  //     nextProps.lan !== this.props.lan
+      
+  //   );
+  // }
+
   conversationUpdated = (message) => {
 
     CometChat.CometChatHelper.getConversationFromMessage(message).then((conversation) => {
@@ -66,7 +77,7 @@ class CometChatConversationList extends React.Component {
 
       } else {
 
-        this.setAvatar(conversation);
+        // this.setAvatar(conversation);
         conversation.lastMessage = message;
         conversation.setUnreadMessageCount(1);
         conversationlist.unshift(conversation);
@@ -120,7 +131,7 @@ class CometChatConversationList extends React.Component {
 
         this.ConversationListManager.fetchNextConversation().then(conversationList => {
 
-          conversationList.forEach(conv => conv = this.setAvatar(conv));
+          // conversationList.forEach(conv => conv = this.setAvatar(conv));
           this.setState({ conversationlist: [...this.state.conversationlist, ...conversationList], loading: false });
 
         }).catch(error => {
@@ -141,14 +152,14 @@ class CometChatConversationList extends React.Component {
         const uid = conversation.getConversationWith().getUid();
         const char = conversation.getConversationWith().getName().charAt(0).toUpperCase();
 
-        conversation.getConversationWith().setAvatar(SvgAvatar.getAvatar(uid, char));
+        // conversation.getConversationWith().setAvatar(SvgAvatar.getAvatar(uid, char));
 
     } else if(conversation.getConversationType() === "group" && !conversation.getConversationWith().getIcon()) {
 
         const guid = conversation.getConversationWith().getGuid();
         const char = conversation.getConversationWith().getName().charAt(0).toUpperCase();
 
-        conversation.getConversationWith().setIcon(SvgAvatar.getAvatar(guid, char))
+        // conversation.getConversationWith().setIcon(SvgAvatar.getAvatar(guid, char))
     }
   }
 
@@ -166,10 +177,14 @@ class CometChatConversationList extends React.Component {
     const conversationList = this.state.conversationlist.map((conversation, key) => {
       return (
         <div id={key} onClick={() => this.handleClick(conversation)} key={key} className="clearfix">
-          <ConversationView 
-          config={this.props.config}
-          key={conversation.conversationId} 
-          conversation={conversation} />
+          <ConversationView
+            lan={this.props.lan}
+            Userlist={this.props.Userlist}
+            item={this.props.item}
+            actionGenerated={this.props.actionGenerated} 
+            config={this.props.config}
+            key={conversation.conversationId} 
+            conversation={conversation} />
         </div>
       );
 

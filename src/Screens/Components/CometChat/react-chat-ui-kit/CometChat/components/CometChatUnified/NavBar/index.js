@@ -7,6 +7,7 @@ import CometChatConversationList from "../../CometChatConversationList";
 import CometChatUserInfoScreen from "../../CometChatUserInfoScreen";
 
 const navbar = (props) => {
+  console.log('sdasda', props)
   const switchComponent = () => {
     switch (props.tab) {
       case "contacts":
@@ -29,7 +30,13 @@ const navbar = (props) => {
       case "conversations":
         return (
           <CometChatConversationList
+            lan={props.lan}
+            Userlist={props.Userlist}
+            item={props.item}
             actionGenerated={props.actionGenerated}
+            userStatusChanged={(item) =>
+              props.actionGenerated("userStatusChanged", "user", item)
+            }
             onItemClick={(item, type) =>
               props.actionGenerated("itemClicked", type, item)
             }
@@ -96,23 +103,25 @@ const navbar = (props) => {
       {switchComponent()}
       <div className="ccl-left-panel-footer-wrap">
         <div className="ccl-left-panel-nav-list clearfix">
+          <div className="ccl-left-panel-nav-listitem" onClick={() => props.actionGenerated('tabChanged', 'conversations')}>
+            <span className={convClassName}></span>
+          </div>
           <div
             className="ccl-left-panel-nav-listitem"
             onClick={() => props.actionGenerated("tabChanged", "contacts")}
           >
-            {/* <span className={contactClassName} /> */}
+            <span className={contactClassName} />
           </div>
+          
           {/* <div className="ccl-left-panel-nav-listitem" onClick={() => props.actionGenerated('tabChanged', 'calls')}>
                 <span className={callClassName}></span>
               </div>  */}
-          {/* <div className="ccl-left-panel-nav-listitem" onClick={() => props.actionGenerated('tabChanged', 'conversations')}>
-                <span className={convClassName}></span>
-              </div>
-              <div className="ccl-left-panel-nav-listitem" onClick={() => props.actionGenerated('tabChanged', 'groups')}>
+             
+              {/* <div className="ccl-left-panel-nav-listitem" onClick={() => props.actionGenerated('tabChanged', 'groups')}>
                 <span className={groupClassName}></span>
-                </div>
-              <div className="ccl-left-panel-nav-listitem" onClick={() => props.actionGenerated('tabChanged', 'info')}>
-                <span className={infoClassName}></span>
+                </div> */}
+              {/* <div className="ccl-left-panel-nav-listitem" onClick={() => props.actionGenerated('tabChanged', 'info')}>
+                <span className={infoClasssName}></span>
               </div>  */}
         </div>
       </div>

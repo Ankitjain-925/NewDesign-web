@@ -13114,6 +13114,48 @@ a.academy_ul ul li img {
 
 
 /*Added By ankita*/
+.chat-listitem .chat-listitem-dtls .chat-listitem-name {
+    font-size: 1.0rem !important;
+    font-weight: 600 !important;
+    font-family: Muli !important;
+    color: #353333 !important;
+    letter-spacing: -.1px !important;
+    display: block !important;
+    max-width: 70% !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+    margin-bottom: 5px !important;
+    margin-top: 5px !important;
+}
+.chat-listitem .chat-listitem-dtls {
+    display: inline-block;
+    flex: 1 1;
+    padding-top: 0px;
+    width: calc(100% - 50px);
+    border-bottom: 1px solid #eaeaea;
+}
+.chat-listitem .chat-listitem-dtls {
+    padding: 0 3px 6px !important;
+}
+.chat-listitem .chat-thumbnail-wrap {
+    display: inline-block;
+    width: 36px;
+    height: 36px;
+}
+.chat-listitem .chat-listitem-dtls {
+    position: relative !important;
+}
+.chat-listitem .chat-thumbnail-wrap img {
+    display: inline-block;
+    overflow: hidden;
+    width: 32px;
+}
+.chat-ppl-list-ext-wrap .chat-thumbnail-wrap img {
+    width: 32px !important;
+    height: 32px !important;
+    border-color: #e8e8e8 !important;
+}
 .current_pass_sec{
     margin-top:20px;
 }

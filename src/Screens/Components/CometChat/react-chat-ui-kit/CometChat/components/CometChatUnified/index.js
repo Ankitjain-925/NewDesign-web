@@ -24,7 +24,7 @@ class CometChatUnified extends React.Component {
     viewdetailscreen: false,
     item: {},
     type: "user",
-    tab: "contacts",
+    tab: "",
     groupToDelete: {},
     groupToLeave: {},
     groupToUpdate: {},
@@ -43,7 +43,8 @@ class CometChatUnified extends React.Component {
     // }, error => {
     //     // console.log("Error in getting message count", error);
     // });
-
+    console.log('hrtr')
+    this.setState({tab : "conversations"})
     if (!Object.keys(this.state.item).length) {
       this.toggleSideBar();
     }
