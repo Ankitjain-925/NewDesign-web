@@ -6,7 +6,10 @@ import Modal from '@material-ui/core/Modal';
 import TextField from '@material-ui/core/TextField';
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 import Button from '@material-ui/core/Button';
+import ColorSelection from "Screens/Components/ColorSelection/index"
+import VHfield from "Screens/Components/VHfield/index"
 import 'assets/css/virtual_hospital.css';
+
 
 class Index extends Component {
     constructor(props) {
@@ -16,7 +19,8 @@ class Index extends Component {
             openSpecl2: false,
             openSpecl3: false,
             specialityColor: false,
-            openSpecl4: false
+            openSpecl4: false,
+            speciality: {},
         }
     }
     handleOpenSpecl = () => {
@@ -46,15 +50,31 @@ class Index extends Component {
     handleSpecialityColor = () => {
         this.setState({ specialityColor: !this.state.specialityColor });
     }
+    updateEntryState = (e) => {
+        var state = this.state.speciality;
+        state[e.target.name] = e.target.value;
+        this.setState({ speciality: state },
+            () => { console.log('trt', this.state.speciality) })
+    }
+
+    // updateEntryState(e) {
+    //  console.log("data")
+    // //  this.props.updateEntryState(e);
+    //   };
+
+
     render() {
         return (
             <Grid className="homeBg">
                 <Grid className="homeBgIner">
                     <Grid container direction="row">
                         <Grid item xs={12} md={12}>
-                        
-                        <LeftMenuMobile isNotShow={true} currentPage="chat" />
+
+                            <LeftMenuMobile isNotShow={true} currentPage="chat" />
                             <Grid container direction="row">
+                                {/* <ColorSelection name="ANkit" Onclick2={(name, value)=>{this.myclick(name , value)}}/> */}
+
+
                                 {/* Start of Menu */}
                                 <Grid item xs={12} md={1} className="MenuLeftUpr">
                                     <LeftMenu isNotShow={true} currentPage="chat" />
@@ -127,18 +147,29 @@ class Index extends Component {
                                                 <Grid className="enterSpcl">
                                                     <Grid container direction="row">
                                                         <Grid item xs={10} md={11}>
-                                                            <Grid><label>Speciality</label></Grid>
-                                                            <TextField placeholder="Enter Speciality name" />
+                                                            {/* <Grid><label>Speciality</label></Grid> */}
+                                                            {/* <TextField placeholder="Enter Speciality name" /> */}
+                                                            <VHfield
+                                                                label="Speciality"
+                                                                name="speciality_name"
+                                                                // specialitycolor="mmHg"
+                                                                // label={rr_syst}
+                                                                onChange={(e) => this.updateEntryState(e)}
+                                                            // value={this.state.updateTrack.rr_systolic}
+                                                            />
+
                                                         </Grid>
                                                         <Grid item xs={2} md={1}>
                                                             <Grid className="colorBtnUpr">
-                                                                <Grid className="actvColorBtn">
-                                                                    <Grid><label>Color</label></Grid>
-                                                                    <a className="actBtn" onClick={this.handleSpecialityColor}><FiberManualRecordIcon />
+                                                                <Grid >
+                                                                    <ColorSelection
+                                                                        label="Color"
+                                                                    />
+                                                                    {/* <a className="actBtn" onClick={this.handleSpecialityColor}><FiberManualRecordIcon />
                                                                         {this.state.specialityColor &&
                                                                             <ul className="subSpclList">
                                                                                 <label>Speciality color</label>
-                                                                                <li><a className="recodRed"><FiberManualRecordIcon /></a></li>
+                                                                                <li><a className="recodRed"><FiberManualRecordIcon onClick={() => { }} /></a></li>
                                                                                 <li><a className="recodLghtRed"><FiberManualRecordIcon /></a></li>
                                                                                 <li><a className="recodYelow"><FiberManualRecordIcon /></a></li>
                                                                                 <li><a className="recodGren"><FiberManualRecordIcon /></a></li>
@@ -152,7 +183,7 @@ class Index extends Component {
                                                                                 <li><a className="recodBlck"><FiberManualRecordIcon /></a></li>
                                                                             </ul>
                                                                         }
-                                                                    </a>
+                                                                    </a> */}
                                                                 </Grid>
                                                             </Grid>
                                                         </Grid>
@@ -307,8 +338,8 @@ class Index extends Component {
                                 {/* End space Management Settings 2.2 Model */}
 
                                 {/* Start Space Management Settings 2.3 */}
-                                <Modal 
-                                    open={this.state.openSpecl4} 
+                                <Modal
+                                    open={this.state.openSpecl4}
                                     onClose={this.handleCloseSpecl4}
                                     className="addSpeclModel">
                                     <Grid className="addSpeclContnt">
@@ -411,7 +442,7 @@ class Index extends Component {
                                                         <Grid className="addNwWard"><label>+ Add a Ward</label></Grid>
                                                     </Grid>
                                                     <Grid className="spclSaveBtn saveNclose">
-                                                      <Button>Save & Close</Button>
+                                                        <Button>Save & Close</Button>
                                                     </Grid>
                                                 </Grid>
                                             </Grid>

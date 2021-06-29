@@ -404,7 +404,7 @@ class Routermain extends Component {
             />
             <Route
               exact={true}
-              path="/virtualhosptal/space"
+              path="/virtualhospital/space"
               render={(props) => <SpaceManagement {...props} />}
             />
 
