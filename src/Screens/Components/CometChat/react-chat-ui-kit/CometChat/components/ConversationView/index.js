@@ -214,9 +214,14 @@ class ConversationView extends React.Component {
             {presence}
           </div>
           <div className="chat-listitem-dtls">
-            <div className="chat-listitem-name">
+          <div className="chat-listitem-name" data-tip data-for={this.props.conversation.conversationWith.name}>{this.props.conversation.conversationWith.name.includes('undefined') ? this.props.conversation.conversationWith.uid :this.props.conversation.conversationWith.name}</div>
+              <ReactTooltip className="timeIconClas" id={this.props.conversation.conversationWith.name} place="top" effect="solid" backgroundColor="#ffffff">
+                  {this.props.conversation.conversationWith.name?.includes('undefined') ? this.props.conversation.conversationWith.uid :this.props.conversation.conversationWith.name}
+              </ReactTooltip>
+        
+            {/* <div className="chat-listitem-name">
               {this.props.conversation.conversationWith.name}
-            </div>
+            </div> */}
             <p className="chat-listitem-txt">{this.getLastMessage()} </p>
           </div>
           {lastMessageTimeStamp}

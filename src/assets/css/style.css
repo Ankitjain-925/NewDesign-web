@@ -14128,10 +14128,15 @@ button.CutomStripeButton{
     vertical-align: top;
     font-weight: 700;
 }
-.chat-ppl-listitem-msg-cnt{
+.chat-contact-list-ext-wrap .chat-ppl-listitem-msg-cnt{
     top: -5px !important;
     background-color: red !important;
     right: 0px !important;
+}
+.chat-ppl-listitem-msg-cnt{
+    top: 33px !important;
+    background-color: red !important;
+    right: 16px !important;
 }
 .contact-listitem .contact-listitem-dtls{
     position : relative !important;

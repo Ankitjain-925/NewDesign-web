@@ -29,7 +29,9 @@ class avatar extends React.Component {
       const borderColor = this.props.borderColor || '#AAA';
       const cornerRadius = this.props.cornerRadius || '50%';
     return (
-          <img src={this.state.image ? this.state.image :SvgAvatar.getAvatar('', this.props?.name?.charAt(0)?.toUpperCase()) } style={{borderWidth:borderWidth, borderStyle:'solid',borderColor:borderColor ,'borderRadius': cornerRadius, float:"left"}} />
+          <img src={(this.state.image) ? this.state.image : 
+          SvgAvatar.getAvatar('', this.props?.name?.charAt(0)?.toUpperCase()) } 
+          style={{borderWidth:borderWidth, borderStyle:'solid',borderColor:borderColor ,'borderRadius': cornerRadius, float:"left"}} />
           );
         }
       }
