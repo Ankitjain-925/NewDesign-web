@@ -27,7 +27,6 @@ class Index extends Component {
 
   //FOR DELETING THE USER
   DeleteUser=(deletekey, profile_id, bucket)=>{
-    console.log('dsfsdffsdf', deletekey, profile_id, bucket)
     this.setState({ loaderImage: true });
     const user_token = this.props.stateLoginValueAim.token;
     axios.delete(sitedata.data.path + '/admin/deleteUser/' + deletekey+'?bucket='+bucket, commonHeader(user_token))

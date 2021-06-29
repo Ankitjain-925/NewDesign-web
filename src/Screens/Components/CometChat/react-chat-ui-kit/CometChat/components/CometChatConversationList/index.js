@@ -40,17 +40,6 @@ class CometChatConversationList extends React.Component {
     this.ConversationListManager = null;
   }
 
-  // shouldComponentUpdate (nextProps, nextState) {
-  //   return (
-  //     nextState.conversationlist !== this.state.conversationlist ||
-  //     nextState.selectedConversation !== this.state.selectedConversation||
-  //     nextState.onItemClick !==this.state.onItemClick ||
-  //     nextProps.Userlist !== this.props.Userlist ||
-  //     nextProps.lan !== this.props.lan
-      
-  //   );
-  // }
-
   conversationUpdated = (message) => {
 
     CometChat.CometChatHelper.getConversationFromMessage(message).then((conversation) => {
@@ -159,7 +148,7 @@ class CometChatConversationList extends React.Component {
         const guid = conversation.getConversationWith().getGuid();
         const char = conversation.getConversationWith().getName().charAt(0).toUpperCase();
 
-        // conversation.getConversationWith().setIcon(SvgAvatar.getAvatar(guid, char))
+        conversation.getConversationWith().setIcon(SvgAvatar.getAvatar(guid, char))
     }
   }
 
@@ -177,6 +166,7 @@ class CometChatConversationList extends React.Component {
     const conversationList = this.state.conversationlist.map((conversation, key) => {
       return (
         <div id={key} onClick={() => this.handleClick(conversation)} key={key} className="clearfix">
+          
           <ConversationView
             lan={this.props.lan}
             Userlist={this.props.Userlist}

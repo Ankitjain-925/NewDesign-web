@@ -39,7 +39,7 @@ function Userview(props) {
           cornerRadius="50%"
           borderColor="#CCC"
           borderWidth="1px"
-
+          name={props.user?.name}
         />
         <StatusIndicator
           status={props.user.status}

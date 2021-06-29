@@ -1,5 +1,6 @@
 import React from "react";
 import "./style.scss";
+import { SvgAvatar } from "../../util/svgavatar";
 
 class avatar extends React.Component {
 
@@ -13,11 +14,12 @@ class avatar extends React.Component {
   shouldComponentUpdate(nextProps, nextState) {
     return (
       (nextState.image !== this.state.image) ||
-      (nextProps.image !== this.props.image)
+      (nextProps.image !== this.props.image) ||
+      (nextProps.name !== this.props.name )
     );
   }
   componentDidUpdate(prevProps, prevState) {
-    if (prevProps.image !== this.props.image) {
+    if (prevProps.image !== this.props.image || prevState.image !== this.state.image || prevProps.name !== this.props.name ) {
       this.setState({image : this.props.image})
   }
 }
@@ -27,7 +29,7 @@ class avatar extends React.Component {
       const borderColor = this.props.borderColor || '#AAA';
       const cornerRadius = this.props.cornerRadius || '50%';
     return (
-          <img src={this.state.image} style={{borderWidth:borderWidth, borderStyle:'solid',borderColor:borderColor ,'borderRadius': cornerRadius, float:"left"}} />
+          <img src={this.state.image ? this.state.image :SvgAvatar.getAvatar('', this.props?.name?.charAt(0)?.toUpperCase()) } style={{borderWidth:borderWidth, borderStyle:'solid',borderColor:borderColor ,'borderRadius': cornerRadius, float:"left"}} />
           );
         }
       }

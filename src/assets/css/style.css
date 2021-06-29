@@ -13131,6 +13131,8 @@ a.academy_ul ul li img {
 .chat-listitem .chat-listitem-dtls {
     display: inline-block;
     flex: 1 1;
+    margin: 0 0 0 12px;
+    padding: 3px;
     padding-top: 0px;
     width: calc(100% - 50px);
     border-bottom: 1px solid #eaeaea;

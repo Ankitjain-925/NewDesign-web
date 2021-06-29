@@ -4,6 +4,7 @@ import "assets/css/style.css"
 import { CometChat } from "@cometchat-pro/chat";
 import { CometChatManager } from "../../util/controller";
 import NavBar from "./NavBar";
+import Loader from "Screens/Components/Loader/index";
 import CometChatMessageListScreen from "../CometChatMessageListScreen";
 import CometChatUserDetail from "../CometChatUserDetail";
 import CometChatGroupDetail from "../CometChatGroupDetail";
@@ -35,6 +36,7 @@ class CometChatUnified extends React.Component {
     threadmessageparent: {},
     composedthreadmessage: {},
     outgoingCall: null,
+    loaderImage: false
   };
 
   componentDidMount() {
@@ -42,8 +44,7 @@ class CometChatUnified extends React.Component {
     //     // console.log("Message count fetched", array);
     // }, error => {
     //     // console.log("Error in getting message count", error);
-    // });
-    console.log('hrtr')
+    // })
     this.setState({tab : "conversations"})
     if (!Object.keys(this.state.item).length) {
       this.toggleSideBar();
@@ -142,7 +143,10 @@ class CometChatUnified extends React.Component {
 
   tabChanged = (tab) => {
     this.setState({ tab });
-    this.setState({ viewdetailscreen: false });
+    this.setState({ viewdetailscreen: false, loaderImage: true });
+    setTimeout(()=>{
+      this.setState({loaderImage: false})
+    }, 5000)
   };
 
   actionHandler = (action, item, count, ...otherProps) => {
@@ -390,8 +394,8 @@ class CometChatUnified extends React.Component {
 
     return (
       <div className="unified">
+        {this.state.loaderImage && <Loader />}
         <div className="ccl-left-panel" ref={this.leftPanelRef}>
-      
           <NavBar
             Userlist={this.props.Userlist}
             lan={this.props.lan}
