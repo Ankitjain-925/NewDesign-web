@@ -1205,6 +1205,8 @@
 		"reallyWantDelete" : "Do you really want to delete your Account?",
 		"looseAllData" :"You will lose all your data and no one can ever access it again! Also the information stored inside the Aimedis blockchain is lost forever as you are the only one to be able to see it.",
 		"delete_your_account":"Delete Your Account",
-      	"delete_account":"Delete Account"  
+      	"delete_account":"Delete Account",
+		"ConversationList" :"Conversation List",
+		"ContactList" :"Contact List"
 	}
 }

@@ -182,7 +182,7 @@ class CometChatConversationList extends React.Component {
 
     return (
       <React.Fragment>
-        <div className="ccl-left-panel-head-wrap">
+        <div className="ccl-left-panel-head-wrap newheadheight">
           <h4 className="ccl-left-panel-head-ttl"></h4>
           <div className="cc1-left-panel-close" onClick={this.handleMenuClose}></div>
         </div>

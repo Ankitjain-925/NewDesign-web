@@ -13114,6 +13114,35 @@ a.academy_ul ul li img {
 
 
 /*Added By ankita*/
+.homeBg .chat-contact-list-ext-wrap, .homeBg .chat-ppl-list-ext-wrap {
+    height: 72vh !important;
+    margin-bottom: 24px;
+}
+.newheadheight {
+    min-height: 92px;
+}
+.viewListactive {
+    cursor: pointer;
+    color: #00abaf;
+}
+.viewList{
+    cursor: pointer;
+}
+.ccl-left-panel-footer-wrap {
+    font-size: 13px !important;
+    font-weight: 600;
+}
+.ccl-left-panel-nav-listitem {
+    display: grid !important;
+    text-align: center !important;
+}
+.ccl-left-panel-nav-listitem span{
+    margin: 0 auto;
+} 
+.homeBgDrk .chat-listitem .chat-listitem-dtls .chat-listitem-name, .homeBgDrk .chat-listitem .chat-listitem-time,
+.homeBgDrk .chat-listitem .chat-listitem-dtls .chat-listitem-txt,.homeBgDrk .viewList {
+    color: #D9DADA !important;
+}
 .chat-listitem .chat-listitem-dtls .chat-listitem-name {
     font-size: 1.0rem !important;
     font-weight: 600 !important;

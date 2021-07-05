@@ -1206,6 +1206,8 @@
 		"reallyWantDelete" : "Você realmente deseja deletar sua conta?",
 		"looseAllData" :"Você perderá todos os seus dados e ninguém poderá acessá-los novamente! Além disso, as informações armazenadas dentro do blockchain Aimedis são perdidas para sempre, pois você é o único a ser capaz de vê-las.",
 		"delete_your_account":"Deletar sua conta",
-      	"delete_account":"Deletar conta"
+      	"delete_account":"Deletar conta",
+		"ConversationList" :"Lista de conversas",
+		"ContactList" :"Contact List"
 	}
 }
