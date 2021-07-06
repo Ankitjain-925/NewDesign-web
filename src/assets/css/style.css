@@ -1379,7 +1379,7 @@ a.conPainTime img {
 }
 .allTimeSel .css-yk16xz-control{
     border-radius: 8px !important;
-    background-color: #F2F2F2 !important;
+    /* background-color: #F2F2F2 !important; */
     border-color: transparent !important;
     font-family: Muli !important;
 }
@@ -8831,10 +8831,10 @@ a.pluspresur {
     line-height: 18px;
     padding-bottom: 14px;
 }
-.latestGrph img {
+.presurGraph .latestGrph img {
     width: 100%;
 }
-.latestGrph {
+.presurGraph .latestGrph {
     padding: 38px 75px 38px 0px;
 }
 .presurCloseFncy {
@@ -12028,7 +12028,7 @@ span.srchMobIcon img {
    .presurGraph {
     padding: 45px 15px !important;
   }
-  .latestGrph {
+  .presurGraph .latestGrph {
     padding: 38px 0px 38px 0px !important;
   }
   .menuItems ul li a img {
@@ -14937,7 +14937,7 @@ td.docphrImg {
 label.attached_file a {
     line-height: 18px;
 }
-.homeBgDrk .latestGrph rect.highcharts-background {
+.homeBgDrk .presurGraph .latestGrph rect.highcharts-background {
     fill: #dadada !important;
 }
 .srchFilter .css-yk16xz-control {
