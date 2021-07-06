@@ -4984,7 +4984,7 @@ a.recodBlck:hover {
     min-height: 262px;
     width: 100%;
     border-radius: 12px;
-    background-color: #F2F2F2;
+    background-color:#F2F2F2;
     margin-top: 32px;
     padding: 14px;
 }
@@ -4997,6 +4997,7 @@ a.recodBlck:hover {
     border-radius: 8px;
     box-shadow: 0 1px 8px 0 rgb(0 8 8 / 4%);
 }
+
 .addWardsIner input {
     border: 1px solid #BFC1C1;
     border-radius: 4px;
@@ -9845,4 +9846,9 @@ button.crdoLghtBlu2 {
 }
 .darkTheme .descpCntntLft a span {
     color: #bfc1c1 !important;
+}
+
+/* by ankit */
+.new{
+    width:96.5%
 }

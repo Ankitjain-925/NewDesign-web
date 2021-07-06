@@ -6,8 +6,10 @@ import Modal from '@material-ui/core/Modal';
 import TextField from '@material-ui/core/TextField';
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 import Button from '@material-ui/core/Button';
-import ColorSelection from "Screens/Components/ColorSelection/index"
-import VHfield from "Screens/Components/VHfield/index"
+import ColorSelection from "Screens/Components/ColorSelection/index";
+import VHfield from "Screens/Components/VHfield/index";
+// import AddWard from "Screens/Components/AddWard/index";
+import AddRoom from "Screens/Components/AddRoom/index";
 import 'assets/css/virtual_hospital.css';
 
 
@@ -18,9 +20,12 @@ class Index extends Component {
             openSpecl: false,
             openSpecl2: false,
             openSpecl3: false,
+            openWard: false,
             specialityColor: false,
             openSpecl4: false,
             speciality: {},
+            ward: {},
+            roomArray: [],
         }
     }
     handleOpenSpecl = () => {
@@ -50,6 +55,18 @@ class Index extends Component {
     handleSpecialityColor = () => {
         this.setState({ specialityColor: !this.state.specialityColor });
     }
+    handleOpenWard = () => {
+        this.setState({ openWard: true });
+    }
+    handleCloseWard = () => {
+        this.setState({ openWard: false });
+    }
+
+    message = () => {
+        alert("Save ward Successfully");
+    }
+
+
     updateEntryState = (e) => {
         var state = this.state.speciality;
         state[e.target.name] = e.target.value;
@@ -57,14 +74,53 @@ class Index extends Component {
             () => { console.log('trt', this.state.speciality) })
     }
 
-    // updateEntryState(e) {
-    //  console.log("data")
-    // //  this.props.updateEntryState(e);
-    //   };
+    updateEntryState1 = (name, value) => {
+        var state = this.state.speciality;
+        state[name] = value;
+        this.setState({ speciality: state },
+            () => { console.log('trt34', this.state.speciality) })
+
+    }
+
+    updateEntryState2 = (e) => {
+        var state = this.state.ward;
+        state[e.target.name] = e.target.value;
+        this.setState({ ward: state },
+            () => { console.log('trt', this.state.ward) })
+    }
+
+    updateEntryState3 = (e) => {
+        var state = this.state.room;
+        state[e.target.name] = e.target.value;
+        this.setState({ room: state },
+            () => { console.log('trt', this.state.room) })
+    }
+
+
+    
+    // addARoom = () => {
+    //     let tArray = this.state.timeArr;
+    //     if (tArray && tArray.length > 0) {
+    //         tArray.push({ label: "", value: "", title: "" });
+    //     } else {
+    //         tArray.push(
+    //             { label: "", value: "", title: "" },
+    //             { label: "", value: "", title: "" }
+    //         );
+    //     }
+    //     this.setState({ timeArr: tArray });
+    // };
+
+
+
+
+
+
 
 
     render() {
         return (
+
             <Grid className="homeBg">
                 <Grid className="homeBgIner">
                     <Grid container direction="row">
@@ -72,7 +128,7 @@ class Index extends Component {
 
                             <LeftMenuMobile isNotShow={true} currentPage="chat" />
                             <Grid container direction="row">
-                                {/* <ColorSelection name="ANkit" Onclick2={(name, value)=>{this.myclick(name , value)}}/> */}
+                                {/* <VHfield name="ANkit" Onclick2={(name, value)=>{this.myclick(name , value)}}/> */}
 
 
                                 {/* Start of Menu */}
@@ -152,10 +208,8 @@ class Index extends Component {
                                                             <VHfield
                                                                 label="Speciality"
                                                                 name="speciality_name"
-                                                                // specialitycolor="mmHg"
-                                                                // label={rr_syst}
+                                                                placeholder="Enter Speciality name"
                                                                 onChange={(e) => this.updateEntryState(e)}
-                                                            // value={this.state.updateTrack.rr_systolic}
                                                             />
 
                                                         </Grid>
@@ -164,7 +218,10 @@ class Index extends Component {
                                                                 <Grid >
                                                                     <ColorSelection
                                                                         label="Color"
+                                                                        updateEntryState1={(name, value) => this.updateEntryState1(name, value)}
+
                                                                     />
+
                                                                     {/* <a className="actBtn" onClick={this.handleSpecialityColor}><FiberManualRecordIcon />
                                                                         {this.state.specialityColor &&
                                                                             <ul className="subSpclList">
@@ -184,17 +241,61 @@ class Index extends Component {
                                                                             </ul>
                                                                         }
                                                                     </a> */}
-                                                                </Grid>
+                                                                    {/* </Grid>
                                                             </Grid>
                                                         </Grid>
                                                     </Grid>
-                                                    <Grid className="plusWards"><p>+ Add a Ward</p></Grid>
+                                                    <Grid className="plusWards"><p onClick={() => add()}>+ Add a Ward</p></Grid>
                                                     <Grid className="spclSaveBtn"><Button>Save & Close</Button></Grid>
                                                 </Grid>
                                             </Grid>
                                         </Grid>
                                     </Grid>
+                                </Modal> */}
+
+
+
+
+
+                                                                </Grid>
+                                                            </Grid>
+                                                        </Grid>
+                                                    </Grid>
+                                                    {!this.state.openWard ? <Grid className="plusWards">
+                                                        <p onClick={this.handleOpenWard}>+ Add a Ward</p>
+
+                                                    </Grid> :
+                                                        <Grid className="wrdsBtn" className="addWardsRoom" className="addWardsUpr"
+                                                            className="addWardsIner" item xs={12} md={12}>
+                                                            <VHfield
+                                                                label="Ward"
+                                                                name="Wardname"
+                                                                placeholder="Adults Ward"
+                                                                onChange={(e) => this.updateEntryState2(e)}
+                                                            />
+
+                                                                    <AddRoom
+                                                                        label="room"
+                                                                        name="roomname"
+                                                                
+                                                                        onChange={(e) => this.updateEntryState3(e)}
+                                                                    />
+
+                                                                
+
+                                                            <Grid className="wrdsBtn">
+                                                                <Button onClick={this.handleCloseWard}>Cancel</Button>
+                                                                <Button onClick={this.message} className="wrdsBtnActv">Save Ward</Button>
+                                                            </Grid>
+                                                        </Grid>}
+                                                    <Grid className="spclSaveBtn"><Button onClick={this.handleCloseSpecl}>Save & Close</Button></Grid>
+                                                </Grid>
+                                            </Grid>
+                                        </Grid>
+                                    </Grid>
                                 </Modal>
+
+
                                 {/* End of Model setup */}
                                 {/* Start space Management Settings 2.2 Model */}
                                 <Modal
@@ -455,7 +556,7 @@ class Index extends Component {
                         </Grid>
                     </Grid>
                 </Grid>
-            </Grid>
+            </Grid >
         );
     }
 }

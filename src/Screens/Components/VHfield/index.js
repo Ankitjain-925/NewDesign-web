@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
+import Button from '@material-ui/core/Button';
 // import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 
 class Index extends Component {
@@ -8,7 +9,7 @@ class Index extends Component {
     this.state = {
       specialityname: this.props.name,
       label: this.props.label,
-      color: this.props.color
+      placeholder: this.props.placeholder
     };
   }
 
@@ -17,8 +18,8 @@ class Index extends Component {
   //     this.props.Onclick2('background-color', "#453443");
   // }
 
-  
-  
+
+
   onDataChange = (e) => {
     // console.log("Data")
     this.props.onChange(e)
@@ -28,23 +29,28 @@ class Index extends Component {
 
   render() {
     return (
-      // <p onClick={()=>{this.Onclick2('1')}}> hii {this.props.name}</p>
-
       <Grid>
+
+
+
         <Grid className="rrSysto">
-          <Grid className="rrInput">
+          <Grid className="rrInput " className="new">
+
             <Grid><label>{this.state.label}</label></Grid>
             <input
-              type="text" placeholder="Enter Speciality name"
+              type="text" placeholder={this.state.placeholder}
               onChange={this.onDataChange}
               name={this.state.specialityname}
               value={this.state.value}
             />
+
           </Grid>
+
         </Grid>
 
-
       </Grid>
+
+
     )
   }
 }
