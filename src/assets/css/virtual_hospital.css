@@ -9843,3 +9843,36 @@ button.crdoLghtBlu2 {
 .darkTheme .descpCntntLft a span {
     color: #bfc1c1 !important;
 }
+
+/* Added by Ankita */
+/* drag drop */
+.dragdrop-vertical ul li{
+    list-style: none;
+    width: 25%;
+    display: inline-grid;
+
+}
+.dragdrop-vertical ul{
+    padding-left: 0px;
+    padding-right: 0px;
+}
+.dragdrop-horizontal ul li{
+    list-style: none;
+}
+.dragdrop-horizontal ul{
+    padding-left: 15px;
+    padding-right: 15px;
+}
+.dragdrop-horizontal .detailInfo{
+    min-height: 200px;
+}
+.list-z-index
+{
+    z-index: 9999!important;
+}
+.dragdrop-horizontal ul{
+    padding-left: 15px;
+    padding-right: 15px;
+    background: #f2f2f2;
+    border-radius: 12px;
+}

@@ -78,6 +78,7 @@ import H_Staff from "Screens/hospital_Admin/h_staffs";
 
 //virtualhospital
 import Virtualindex from "Screens/VirtualHospital/Statistics/index";
+import PatientFlow from "Screens/VirtualHospital/PatientFlow/index";
 import SpaceManagement from "Screens/VirtualHospital/SpaceManagement/index.js"
 
 class Routermain extends Component {
@@ -402,19 +403,23 @@ class Routermain extends Component {
               path="/h-staff"
               render={(props) => <H_Staff {...props} />}
             />
+
+          {/*   Virtualhospital page */}
             <Route
               exact={true}
               path="/virtualhosptal/space"
               render={(props) => <SpaceManagement {...props} />}
             />
-
-          {/*   Virtualhospital page */}
             <Route
               path="/virtualhospital/statistics"
               exact={true}
               render={(props) => <Virtualindex {...props} />}
             />
-
+            <Route
+              path="/virtualhospital/patient-flow"
+              exact={true}
+              render={(props) => <PatientFlow {...props} />}
+            />
             <Route
               path="*"
               exact={true}
