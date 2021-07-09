@@ -8,8 +8,8 @@ import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 import Button from '@material-ui/core/Button';
 import ColorSelection from "Screens/Components/ColorSelection/index";
 import VHfield from "Screens/Components/VHfield/index";
-// import AddWard from "Screens/Components/AddWard/index";
 import AddRoom from "Screens/Components/AddRoom/index";
+import RoomView from "Screens/Components/RoomView/index";
 import 'assets/css/virtual_hospital.css';
 
 
@@ -21,11 +21,12 @@ class Index extends Component {
             openSpecl2: false,
             openSpecl3: false,
             openWard: false,
+            openRoom: false,
             specialityColor: false,
             openSpecl4: false,
             speciality: {},
             ward: {},
-            roomArray: [],
+
         }
     }
     handleOpenSpecl = () => {
@@ -61,10 +62,18 @@ class Index extends Component {
     handleCloseWard = () => {
         this.setState({ openWard: false });
     }
-
-    message = () => {
-        alert("Save ward Successfully");
+    handleOpenRoom = () => {
+        var state = this.state.speciality;
+        var ward = state['wards'] || [];
+        ward.push(this.state.ward);
+        state['wards'] = ward;
+        this.setState({ speciality: state }, () => {
+            console.log('final speciality', this.state.speciality)
+        })
+        this.setState({ openRoom: true });
     }
+
+
 
 
     updateEntryState = (e) => {
@@ -85,37 +94,18 @@ class Index extends Component {
     updateEntryState2 = (e) => {
         var state = this.state.ward;
         state[e.target.name] = e.target.value;
+        this.setState({ ward: state })
+    }
+
+    updateEntryState3 = (ward) => {
+        var state = this.state.ward;
+        state['rooms'] = ward;
         this.setState({ ward: state },
-            () => { console.log('trt', this.state.ward) })
+            () => {
+                console.log('final first ward', this.state.ward)
+            })
+
     }
-
-    updateEntryState3 = (e) => {
-        var state = this.state.room;
-        state[e.target.name] = e.target.value;
-        this.setState({ room: state },
-            () => { console.log('trt', this.state.room) })
-    }
-
-
-    
-    // addARoom = () => {
-    //     let tArray = this.state.timeArr;
-    //     if (tArray && tArray.length > 0) {
-    //         tArray.push({ label: "", value: "", title: "" });
-    //     } else {
-    //         tArray.push(
-    //             { label: "", value: "", title: "" },
-    //             { label: "", value: "", title: "" }
-    //         );
-    //     }
-    //     this.setState({ timeArr: tArray });
-    // };
-
-
-
-
-
-
 
 
     render() {
@@ -261,6 +251,7 @@ class Index extends Component {
                                                             </Grid>
                                                         </Grid>
                                                     </Grid>
+                                                    {/* {console.log('wards', this.state.ward)} */}
                                                     {!this.state.openWard ? <Grid className="plusWards">
                                                         <p onClick={this.handleOpenWard}>+ Add a Ward</p>
 
@@ -269,23 +260,36 @@ class Index extends Component {
                                                             className="addWardsIner" item xs={12} md={12}>
                                                             <VHfield
                                                                 label="Ward"
-                                                                name="Wardname"
+                                                                name="ward_name"
                                                                 placeholder="Adults Ward"
                                                                 onChange={(e) => this.updateEntryState2(e)}
                                                             />
 
-                                                                    <AddRoom
-                                                                        label="room"
-                                                                        name="roomname"
-                                                                
-                                                                        onChange={(e) => this.updateEntryState3(e)}
-                                                                    />
-
-                                                                
+                                                            <AddRoom
+                                                                label="room"
+                                                                name="roomname"
+                                                                onChange={(e) => this.updateEntryState3(e)}
+                                                            />
 
                                                             <Grid className="wrdsBtn">
                                                                 <Button onClick={this.handleCloseWard}>Cancel</Button>
-                                                                <Button onClick={this.message} className="wrdsBtnActv">Save Ward</Button>
+                                                                {!this.state.openRoom ? <Grid>
+                                                                    <Button onClick={this.handleOpenRoom} className="wrdsBtnActv">Save Ward</Button>
+                                                                </Grid> : <Grid>
+                                                                    <RoomView
+                                                                        label="Adults Ward"
+                                                                        name="Adults Ward"
+                                                                        onChange={(e) => this.props.updateEntryState4(e)}
+                                                                        value={this.state.updateTrack.room_name}
+                                                                    />
+                                                                    <Grid>
+                                                                        <RoomView
+                                                                            onChange={(e) => this.props.updateEntryState4(e)}
+                                                                            value={this.state.updateTrack.bed_number}
+                                                                        /></Grid>
+                                                                </Grid>
+
+                                                                }
                                                             </Grid>
                                                         </Grid>}
                                                     <Grid className="spclSaveBtn"><Button onClick={this.handleCloseSpecl}>Save & Close</Button></Grid>

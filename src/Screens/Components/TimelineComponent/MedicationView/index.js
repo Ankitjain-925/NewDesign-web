@@ -189,7 +189,7 @@ class Index extends Component {
                         {this.props.comesfrom === "patient" && (
                           <li>
                             {item.created_by === this.state.loggedinUser._id &&
-                            (!item.updated_by || item.updated_by === "") ? (
+                              (!item.updated_by || item.updated_by === "") ? (
                               <a
                                 onClick={() =>
                                   this.props.EidtOption(item.type, item)
@@ -312,10 +312,10 @@ class Index extends Component {
             >
               {
                 <Grid>
-            <Grid container direction="row" className="addSpc bpJohnMain">
-              <Grid item xs={12} md={12}>
-              <CreatedBySec data={item} />
-                {/* <Grid className="bpJohnImg">
+                  <Grid container direction="row" className="addSpc bpJohnMain">
+                    <Grid item xs={12} md={12}>
+                      <CreatedBySec data={item} />
+                      {/* <Grid className="bpJohnImg">
                   <a data-tip data-for={item.track_id + "created"}>
                     <img
                       src={getImage(item.created_by_image, this.state.images)}
@@ -342,216 +342,216 @@ class Index extends Component {
                     </p>
                   </ReactTooltip>
                 </Grid> */}
-              </Grid>
-              <Grid className="clear"></Grid>
-            </Grid>
-
-            <Grid className="addSpc detailMark">
-              <Collapsible trigger={details} open="true">
-                <Grid className="detailCntnt">
-                  <Grid container direction="row">
-                    <Grid item xs={12} md={6} className="bloodPreBy">
-                      <Grid container direction="row">
-                        <Grid item xs={5} md={5}>
-                          <label>{atc_code}</label>
-                        </Grid>
-                        <Grid item xs={7} md={7}>
-                          <span>{item.ATC_code && item.ATC_code.label}</span>
-                        </Grid>
-                        <Grid className="clear"></Grid>
-                      </Grid>
-                    </Grid>
-                    <Grid item xs={12} md={6} className="bloodPreBy">
-                      <Grid container direction="row">
-                        <Grid item xs={5} md={5}>
-                          <label>{Substance}</label>
-                        </Grid>
-                        <Grid item xs={7} md={7}>
-                          <span>{item.substance && item.substance}</span>
-                        </Grid>
-                        <Grid className="clear"></Grid>
-                      </Grid>
-                    </Grid>
-                    <Grid item xs={12} md={6} className="bloodPreBy">
-                      <Grid container direction="row">
-                        <Grid item xs={5} md={5}>
-                          <label>{trade_name}</label>
-                        </Grid>
-                        <Grid item xs={7} md={7}>
-                          <span>{item.trade_name && item.trade_name}</span>
-                        </Grid>
-                        <Grid className="clear"></Grid>
-                      </Grid>
-                    </Grid>
-                    <Grid item xs={12} md={6} className="bloodPreBy">
-                      <Grid container direction="row">
-                        <Grid item xs={5} md={5}>
-                          <label>
-                            {prescribed} {on}
-                          </label>
-                        </Grid>
-                        <Grid item xs={7} md={7}>
-                          <span>
-                            {item.prescribed_on &&
-                              getDate(
-                                item.prescribed_on,
-                                this.state.date_format
-                              )}
-                          </span>
-                        </Grid>
-                        <Grid className="clear"></Grid>
-                      </Grid>
-                    </Grid>
-                    <Grid item xs={12} md={6} className="bloodPreBy">
-                      <Grid container direction="row">
-                        <Grid item xs={5} md={5}>
-                          <label>{until}</label>
-                        </Grid>
-                        <Grid item xs={7} md={7}>
-                          {item.lifelong ? (
-                            <span>{ongoing}</span>
-                          ) : (
-                            <span>
-                              {item.until &&
-                                getDate(
-                                  item.until,
-                                  this.state.date_format
-                                )}{" "}
-                            </span>
-                          )}
-                        </Grid>
-                        <Grid className="clear"></Grid>
-                      </Grid>
-                    </Grid>
-                    <Grid item xs={12} md={6} className="bloodPreBy">
-                      <Grid container direction="row">
-                        <Grid item xs={5} md={5}>
-                          <label>{on_demand}</label>
-                        </Grid>
-                        <Grid item xs={7} md={7}>
-                          {item.ondemand ? <span>Yes</span> : <span>No </span>}
-                        </Grid>
-                        <Grid className="clear"></Grid>
-                      </Grid>
-                    </Grid>
-                    <Grid item xs={12} md={6} className="bloodPreBy">
-                      <Grid container direction="row">
-                        <Grid item xs={5} md={5}>
-                          <label>{dosage}</label>
-                        </Grid>
-                        <Grid item xs={7} md={7}>
-                          <span>{item.dosage && item.dosage}</span>
-                        </Grid>
-                        <Grid className="clear"></Grid>
-                      </Grid>
-                    </Grid>
-                    <Grid item xs={12} md={6} className="bloodPreBy">
-                      <Grid container direction="row">
-                        <Grid item xs={5} md={5}>
-                          <label>{unit}</label>
-                        </Grid>
-                        <Grid item xs={7} md={7}>
-                          <span>
-                            {item.unit && item.unit.label && item.unit.label}
-                          </span>
-                        </Grid>
-                        <Grid className="clear"></Grid>
-                      </Grid>
-                    </Grid>
-                    <Grid item xs={12} md={6} className="bloodPreBy">
-                      <Grid container direction="row">
-                        <Grid item xs={5} md={5}>
-                          <label>{time_taken}</label>
-                        </Grid>
-                        <Grid item xs={7} md={7}>
-                          <span>
-                            {getReminder(
-                              item.time_taken,
-                              this.state.time_foramt
-                            )}{" "}
-                            {item.interval &&
-                              Array.prototype.map
-                                .call(item.interval, (s) =>
-                                  GetShowLabel1(
-                                    this.props.Allreminder,
-                                    s.value,
-                                    this.props.stateLanguageType,
-                                    true
-                                  )
-                                )
-                                .toString()
-                                .split(/[,]+/)
-                                .join(",  ")}
-                          </span>
-                        </Grid>
-                        <Grid className="clear"></Grid>
-                      </Grid>
-                    </Grid>
-
-                    <Grid item xs={12} md={6} className="bloodPreBy">
-                      <Grid container direction="row">
-                        <Grid item xs={5} md={5}>
-                          <label>{reminder}</label>
-                        </Grid>
-                        <Grid item xs={7} md={7}>
-                          <span>
-                            {getReminder(
-                              item.reminder_time_taken,
-                              this.state.time_foramt
-                            )}{" "}
-                            {item.reminders &&
-                              Array.prototype.map
-                                .call(item.reminders, (s) =>
-                                  GetShowLabel1(
-                                    this.props.Allreminder,
-                                    s.value,
-                                    this.props.stateLanguageType,
-                                    true
-                                  )
-                                )
-                                .toString()
-                                .split(/[,]+/)
-                                .join(",  ")}
-                          </span>
-                        </Grid>
-                        <Grid className="clear"></Grid>
-                      </Grid>
-                    </Grid>
-                    <Grid item xs={12} md={6} className="bloodPreBy">
-                      <Grid container direction="row">
-                        <Grid item xs={5} md={5}>
-                          <label>{Date_of_event}</label>
-                        </Grid>
-                        <Grid item xs={7} md={7}>
-                          <span>
-                            {item.event_date &&
-                              getDate(item.event_date, this.state.date_format)}
-                          </span>
-                        </Grid>
-                        <Grid className="clear"></Grid>
-                      </Grid>
                     </Grid>
                     <Grid className="clear"></Grid>
                   </Grid>
-                </Grid>
-              </Collapsible>
-            </Grid>
-            <Grid className="addSpc detailMark">
-              <Collapsible trigger={notes} open="true">
-                <Grid className="detailCntnt">
-                  <p dangerouslySetInnerHTML={{ __html: item.remarks }} />
-                </Grid>
-              </Collapsible>
-            </Grid>
-            <Grid className="addSpc detailMark">
-              <Collapsible trigger={img_files} open="true">
-                <FileViews
-                  images={this.state.images}
-                  attachfile={item.attachfile}
-                />
-              </Collapsible>
-            </Grid>
-            </Grid>}
+
+                  <Grid className="addSpc detailMark">
+                    <Collapsible trigger={details} open="true">
+                      <Grid className="detailCntnt">
+                        <Grid container direction="row">
+                          <Grid item xs={12} md={6} className="bloodPreBy">
+                            <Grid container direction="row">
+                              <Grid item xs={5} md={5}>
+                                <label>{atc_code}</label>
+                              </Grid>
+                              <Grid item xs={7} md={7}>
+                                <span>{item.ATC_code && item.ATC_code.label}</span>
+                              </Grid>
+                              <Grid className="clear"></Grid>
+                            </Grid>
+                          </Grid>
+                          <Grid item xs={12} md={6} className="bloodPreBy">
+                            <Grid container direction="row">
+                              <Grid item xs={5} md={5}>
+                                <label>{Substance}</label>
+                              </Grid>
+                              <Grid item xs={7} md={7}>
+                                <span>{item.substance && item.substance}</span>
+                              </Grid>
+                              <Grid className="clear"></Grid>
+                            </Grid>
+                          </Grid>
+                          <Grid item xs={12} md={6} className="bloodPreBy">
+                            <Grid container direction="row">
+                              <Grid item xs={5} md={5}>
+                                <label>{trade_name}</label>
+                              </Grid>
+                              <Grid item xs={7} md={7}>
+                                <span>{item.trade_name && item.trade_name}</span>
+                              </Grid>
+                              <Grid className="clear"></Grid>
+                            </Grid>
+                          </Grid>
+                          <Grid item xs={12} md={6} className="bloodPreBy">
+                            <Grid container direction="row">
+                              <Grid item xs={5} md={5}>
+                                <label>
+                                  {prescribed} {on}
+                                </label>
+                              </Grid>
+                              <Grid item xs={7} md={7}>
+                                <span>
+                                  {item.prescribed_on &&
+                                    getDate(
+                                      item.prescribed_on,
+                                      this.state.date_format
+                                    )}
+                                </span>
+                              </Grid>
+                              <Grid className="clear"></Grid>
+                            </Grid>
+                          </Grid>
+                          <Grid item xs={12} md={6} className="bloodPreBy">
+                            <Grid container direction="row">
+                              <Grid item xs={5} md={5}>
+                                <label>{until}</label>
+                              </Grid>
+                              <Grid item xs={7} md={7}>
+                                {item.lifelong ? (
+                                  <span>{ongoing}</span>
+                                ) : (
+                                  <span>
+                                    {item.until &&
+                                      getDate(
+                                        item.until,
+                                        this.state.date_format
+                                      )}{" "}
+                                  </span>
+                                )}
+                              </Grid>
+                              <Grid className="clear"></Grid>
+                            </Grid>
+                          </Grid>
+                          <Grid item xs={12} md={6} className="bloodPreBy">
+                            <Grid container direction="row">
+                              <Grid item xs={5} md={5}>
+                                <label>{on_demand}</label>
+                              </Grid>
+                              <Grid item xs={7} md={7}>
+                                {item.ondemand ? <span>Yes</span> : <span>No </span>}
+                              </Grid>
+                              <Grid className="clear"></Grid>
+                            </Grid>
+                          </Grid>
+                          <Grid item xs={12} md={6} className="bloodPreBy">
+                            <Grid container direction="row">
+                              <Grid item xs={5} md={5}>
+                                <label>{dosage}</label>
+                              </Grid>
+                              <Grid item xs={7} md={7}>
+                                <span>{item.dosage && item.dosage}</span>
+                              </Grid>
+                              <Grid className="clear"></Grid>
+                            </Grid>
+                          </Grid>
+                          <Grid item xs={12} md={6} className="bloodPreBy">
+                            <Grid container direction="row">
+                              <Grid item xs={5} md={5}>
+                                <label>{unit}</label>
+                              </Grid>
+                              <Grid item xs={7} md={7}>
+                                <span>
+                                  {item.unit && item.unit.label && item.unit.label}
+                                </span>
+                              </Grid>
+                              <Grid className="clear"></Grid>
+                            </Grid>
+                          </Grid>
+                          <Grid item xs={12} md={6} className="bloodPreBy">
+                            <Grid container direction="row">
+                              <Grid item xs={5} md={5}>
+                                <label>{time_taken}</label>
+                              </Grid>
+                              <Grid item xs={7} md={7}>
+                                <span>
+                                  {getReminder(
+                                    item.time_taken,
+                                    this.state.time_foramt
+                                  )}{" "}
+                                  {item.interval &&
+                                    Array.prototype.map
+                                      .call(item.interval, (s) =>
+                                        GetShowLabel1(
+                                          this.props.Allreminder,
+                                          s.value,
+                                          this.props.stateLanguageType,
+                                          true
+                                        )
+                                      )
+                                      .toString()
+                                      .split(/[,]+/)
+                                      .join(",  ")}
+                                </span>
+                              </Grid>
+                              <Grid className="clear"></Grid>
+                            </Grid>
+                          </Grid>
+
+                          <Grid item xs={12} md={6} className="bloodPreBy">
+                            <Grid container direction="row">
+                              <Grid item xs={5} md={5}>
+                                <label>{reminder}</label>
+                              </Grid>
+                              <Grid item xs={7} md={7}>
+                                <span>
+                                  {getReminder(
+                                    item.reminder_time_taken,
+                                    this.state.time_foramt
+                                  )}{" "}
+                                  {item.reminders &&
+                                    Array.prototype.map
+                                      .call(item.reminders, (s) =>
+                                        GetShowLabel1(
+                                          this.props.Allreminder,
+                                          s.value,
+                                          this.props.stateLanguageType,
+                                          true
+                                        )
+                                      )
+                                      .toString()
+                                      .split(/[,]+/)
+                                      .join(",  ")}
+                                </span>
+                              </Grid>
+                              <Grid className="clear"></Grid>
+                            </Grid>
+                          </Grid>
+                          <Grid item xs={12} md={6} className="bloodPreBy">
+                            <Grid container direction="row">
+                              <Grid item xs={5} md={5}>
+                                <label>{Date_of_event}</label>
+                              </Grid>
+                              <Grid item xs={7} md={7}>
+                                <span>
+                                  {item.event_date &&
+                                    getDate(item.event_date, this.state.date_format)}
+                                </span>
+                              </Grid>
+                              <Grid className="clear"></Grid>
+                            </Grid>
+                          </Grid>
+                          <Grid className="clear"></Grid>
+                        </Grid>
+                      </Grid>
+                    </Collapsible>
+                  </Grid>
+                  <Grid className="addSpc detailMark">
+                    <Collapsible trigger={notes} open="true">
+                      <Grid className="detailCntnt">
+                        <p dangerouslySetInnerHTML={{ __html: item.remarks }} />
+                      </Grid>
+                    </Collapsible>
+                  </Grid>
+                  <Grid className="addSpc detailMark">
+                    <Collapsible trigger={img_files} open="true">
+                      <FileViews
+                        images={this.state.images}
+                        attachfile={item.attachfile}
+                      />
+                    </Collapsible>
+                  </Grid>
+                </Grid>}
             </Collapsible>
           </Grid>
         </Grid>
