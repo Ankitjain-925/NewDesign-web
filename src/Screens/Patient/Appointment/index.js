@@ -326,11 +326,11 @@ class Index extends Component {
 
   bookAppointment = () => {
     var insurance_no =
-      this.state.personalinfo.insurance &&
-        this.state.personalinfo.insurance.length > 0 &&
-        this.state.personalinfo.insurance[0] &&
-        this.state.personalinfo.insurance[0].insurance_number
-        ? this.state.personalinfo.insurance[0].insurance_number
+      this.state.personalinfo?.insurance &&
+        this.state.personalinfo?.insurance.length > 0 &&
+        this.state.personalinfo?.insurance[0] &&
+        this.state.personalinfo?.insurance[0].insurance_number
+        ? this.state.personalinfo?.insurance[0].insurance_number
         : "";
     // this.setState({ loaderImage: true });
     const user_token = this.props.stateLoginValueAim.token;
@@ -341,11 +341,11 @@ class Index extends Component {
           this.state.selectedDoc.data && this.state.selectedDoc.data._id,
         insurance:
           this.state.personalinfo &&
-          this.state.personalinfo.insurance &&
-          this.state.personalinfo.insurance.length > 0 &&
-          this.state.personalinfo.insurance[0] &&
-          this.state.personalinfo.insurance[0].insurance_number &&
-          this.state.personalinfo.insurance[0].insurance_number,
+          this.state.personalinfo?.insurance &&
+          this.state.personalinfo?.insurance?.length > 0 &&
+          this.state.personalinfo?.insurance[0] &&
+          this.state.personalinfo?.insurance[0]?.insurance_number &&
+          this.state.personalinfo?.insurance[0]?.insurance_number,
         date: this.state.selectedDate,
         start_time: this.state.mypoint.start,
         end_time: this.state.mypoint.end,
