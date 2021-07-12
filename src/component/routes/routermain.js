@@ -79,6 +79,7 @@ import H_Staff from "Screens/hospital_Admin/h_staffs";
 //virtualhospital
 import Virtualindex from "Screens/VirtualHospital/Statistics/index";
 import SpaceManagement from "Screens/VirtualHospital/SpaceManagement/index.js"
+import SpecialityView from "Screens/VirtualHospital/MobileRoomsBedSpecialities/index"
 
 class Routermain extends Component {
   render() {
@@ -414,7 +415,20 @@ class Routermain extends Component {
               exact={true}
               render={(props) => <Virtualindex {...props} />}
             />
+<<<<<<< Updated upstream
 
+=======
+            <Route
+              path="/virtualhospital/patient-flow"
+              exact={true}
+              render={(props) => <PatientFlow {...props} />}
+            />
+             <Route
+              path="/virtualhospital/speciality"
+              exact={true}
+              render={(props) => <SpecialityView {...props} />}
+            />
+>>>>>>> Stashed changes
             <Route
               path="*"
               exact={true}
