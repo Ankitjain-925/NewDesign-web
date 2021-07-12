@@ -415,20 +415,16 @@ class Routermain extends Component {
               exact={true}
               render={(props) => <Virtualindex {...props} />}
             />
-<<<<<<< Updated upstream
-
-=======
-            <Route
+            {/* <Route
               path="/virtualhospital/patient-flow"
               exact={true}
               render={(props) => <PatientFlow {...props} />}
-            />
+            /> */}
              <Route
               path="/virtualhospital/speciality"
               exact={true}
               render={(props) => <SpecialityView {...props} />}
             />
->>>>>>> Stashed changes
             <Route
               path="*"
               exact={true}
