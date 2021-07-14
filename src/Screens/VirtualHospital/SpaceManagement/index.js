@@ -61,6 +61,7 @@ class Index extends Component {
     }
     handleCloseWard = () => {
         this.setState({ openWard: false });
+
     }
     handleOpenRoom = () => {
         var state = this.state.speciality;
@@ -71,6 +72,9 @@ class Index extends Component {
             console.log('final speciality', this.state.speciality)
         })
         this.setState({ openRoom: true });
+    }
+    handleCloseRoom = () => {
+        this.setState({ openRoom: false });
     }
 
 
@@ -244,17 +248,15 @@ class Index extends Component {
                                 </Modal> */}
 
 
-
-
-
                                                                 </Grid>
                                                             </Grid>
                                                         </Grid>
                                                     </Grid>
                                                     {/* {console.log('wards', this.state.ward)} */}
+
+
                                                     {!this.state.openWard ? <Grid className="plusWards">
                                                         <p onClick={this.handleOpenWard}>+ Add a Ward</p>
-
                                                     </Grid> :
                                                         <Grid className="wrdsBtn" className="addWardsRoom" className="addWardsUpr"
                                                             className="addWardsIner" item xs={12} md={12}>
@@ -272,24 +274,26 @@ class Index extends Component {
                                                             />
 
                                                             <Grid className="wrdsBtn">
-                                                                <Button onClick={this.handleCloseWard}>Cancel</Button>
-                                                                {!this.state.openRoom ? <Grid>
-                                                                    <Button onClick={this.handleOpenRoom} className="wrdsBtnActv">Save Ward</Button>
-                                                                </Grid> : <Grid>
-                                                                    <RoomView
-                                                                        label="Adults Ward"
-                                                                        name="Adults Ward"
-                                                                        onChange={(e) => this.props.updateEntryState4(e)}
-                                                                        value={this.state.updateTrack.room_name}
-                                                                    />
+                                                                {!this.state.openRoom &&
                                                                     <Grid>
-                                                                        <RoomView
-                                                                            onChange={(e) => this.props.updateEntryState4(e)}
-                                                                            value={this.state.updateTrack.bed_number}
-                                                                        /></Grid>
+                                                                        <Button onClick={this.handleCloseWard}>Cancel</Button>
+                                                                        <Button onClick={this.handleOpenRoom} className="wrdsBtnActv">Save Ward</Button>
+                                                                    </Grid>}
+
+                                                                <Grid>
+                                                                    {console.log(this.state.speciality, 'newone')}
+                                                                    {this.state.speciality?.wards?.length > 0 &&
+                                                                        this.state.speciality?.wards.map((data, index) => (
+                                                                            <RoomView
+                                                                                label="Adults Ward"
+                                                                                name="Adults Ward"
+                                                                            />
+                                                                        ))}
+
+
                                                                 </Grid>
 
-                                                                }
+
                                                             </Grid>
                                                         </Grid>}
                                                     <Grid className="spclSaveBtn"><Button onClick={this.handleCloseSpecl}>Save & Close</Button></Grid>

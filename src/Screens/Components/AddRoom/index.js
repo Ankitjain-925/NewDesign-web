@@ -13,16 +13,22 @@ class Index extends React.Component {
         }
     }
 
-
-
     onDataChange = (e, index) => {
         console.log('index', index);
         var RoomAy = this.state.roomArray;
         RoomAy[index][e.target.name] = e.target.value;
         this.setState({ roomArray: RoomAy },
             this.props.onChange(this.state.roomArray))
-       
+
+
     }
+
+
+    componentDidUpdate = (prevProps) => {
+        if (prevProps.roomArray !== this.props.roomArray) {
+            this.setState({ roomArray: this.props.roomArray });
+        }
+    };
 
 
 
@@ -39,25 +45,13 @@ class Index extends React.Component {
         this.setState({ roomArray: RoomAy });
     };
 
-    // deleteRooms = (data,index) => {
-    //     var roomArray = [...this.state.data]; // make a separate copy of the array
-    //     var RoomAy = roomArray.indexOf(data)
-    //     if (index !== -1) {
-    //         roomArray.splice(index, 1);
-    //       this.setState({ roomArray: RoomAy });
-    //     }}
-
-
 
     deleteRooms = (index) => {
         console.log('index', index)
         var RoomAy = this.state.roomArray;
-        // newData.splice(index, 1);
         RoomAy.splice(index, 1);
         this.setState({ roomArray: RoomAy });
     };
-
-
 
 
     render() {
@@ -69,17 +63,21 @@ class Index extends React.Component {
                         <Grid item xs={7} md={7}>
                             <input
                                 type="text" placeholder={this.state.placeholder}
-                                onChange={(e) => { this.onDataChange(e, index) }}
                                 name="room_name"
-                                value={this.state.value}
+                                // onChange={(e) => { this.onDataChange(e, index) }}
+                                // value={this.state.value}
+                                onChange={(e) => this.onDataChange(e, index)}
+                                value={this.state.roomArray.room_name}
                             />
                         </Grid>
                         <Grid item xs={3} md={3}>
                             <input
                                 type="number" placeholder={this.state.placeholder}
-                                onChange={(e) => { this.onDataChange(e, index) }}
                                 name="bed_number"
-                                value={this.state.value}
+                                // onChange={(e) => { this.onDataChange(e, index) }}
+                                // value={this.state.value}
+                                onChange={(e) => this.onDataChange(e, index)}
+                                value={this.state.roomArray.bed_number}
                             />
                         </Grid>
                         <Grid item xs={2} md={2} className="roomRmv">

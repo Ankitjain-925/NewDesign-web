@@ -1,23 +1,59 @@
 import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Grid";
+import VHfield from "Screens/Components/VHfield/index";
 
 class Index extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            item: this.props.data || {},
+            RoomAy: this.props.roomArray || {},
             adultsward: this.props.name,
             label: this.props.label,
             name: this.props.name,
+            openWard: false,
         }
     }
 
 
+    // deleteWard = (index) => {
+    //     console.log('index', index)
+    //     var RoomAy = this.state.roomArray;
+    //     RoomAy.splice(index, 1);
+    //     this.setState({ roomArray: RoomAy });
+    // };
+
+
+
+    componentDidUpdate = (prevProps) => {
+        if (
+            prevProps.roomArray !== this.props.roomArray) {
+            this.setState({
+                RoomAy: this.props.roomArray,
+            });
+        }
+    }
+
+    handleOpenWard = () => {
+        this.setState({ openWard: true });
+      
+    }
+
+
+    // onDataChange = (e, index) => {
+    //     console.log('index', index);
+    //     var RoomAy = this.state.roomArray;
+    //     RoomAy[index][e.target.name] = e.target.value;
+    //     this.setState({ roomArray: RoomAy },
+    //         this.props.onChange(this.state.roomArray))
+
+
+    // }
 
 
     render() {
-        var item = this.state.item;
+        var RoomAy = this.state.roomArray;
+        var index = this.state.index;
         return (
 
             <Grid>
@@ -30,11 +66,15 @@ class Index extends React.Component {
                                     <Grid className="wrdEdtDel">
                                         <Grid>
                                             <img src={require('assets/virtual_images/room.svg')} alt="" title="" />
-                                            <span>{item.room_name}</span>
+                                            {/* <span>{ RoomAy.room_name}</span> */}
+                                            {/* <span>{ RoomAy.room_name.label}</span> */}
+
                                         </Grid>
                                         <Grid>
                                             <img src={require('assets/virtual_images/room.svg')} alt="" title="" />
-                                            <span>{item.bed_number}</span>
+                                            {/* <span>{ RoomAy.bed_number}</span> */}
+                                            {/* <span>{ RoomAy.bed_number.label}</span> */}
+
                                         </Grid>
                                     </Grid>
                                 </Grid>
@@ -48,7 +88,18 @@ class Index extends React.Component {
                         </Grid>
                     </Grid>
                 </Grid>
-                <Grid className="addNwWard"><label>+ Add a Ward</label></Grid>
+                {!this.state.openWard ?
+                <Grid className="addNwWard"><label  onClick={this.handleOpenWard}>+ Add a Ward</label></Grid>
+
+                :<Grid className="wrdsBtn" className="addWardsRoom" className="addWardsUpr"
+                    className="addWardsIner" item xs={12} md={12}>
+                    <VHfield
+                        label="Ward"
+                        name="ward_name"
+                        placeholder="Adults Ward"
+                        onChange={(e) => this.updateEntryState2(e)}
+                    />
+                </Grid>}
             </Grid>
 
 
