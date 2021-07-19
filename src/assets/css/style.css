@@ -13949,7 +13949,7 @@ g.highcharts-axis.highcharts-yaxis text {
 .homeBgDrk .loading-text, .homeBgDrk .metroPro div {
     color: #fff!important;
 }
-.contact-listitem-dtls .__react_component_tooltip {
+.chat-ppl-list-ext-wrap .__react_component_tooltip , .contact-listitem-dtls .__react_component_tooltip {
     color: #000 !important;
     font-size: 16px;
 }
@@ -13988,7 +13988,7 @@ g.highcharts-axis.highcharts-yaxis text {
     min-height: 33px;
     border-radius: 5px 0px 0px 5px;
 }
-.homeBgDrk .contact-listitem-dtls .__react_component_tooltip {
+.homeBgDrk .contact-listitem-dtls .__react_component_tooltip,.homeBgDrk .chat-ppl-list-ext-wrap .__react_component_tooltip {
     color: #fff!important;
     font-size: 16px;
 }
