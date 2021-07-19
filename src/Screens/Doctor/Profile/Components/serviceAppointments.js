@@ -316,11 +316,7 @@ class Index extends Component {
     this.setState({ updateService: false, appoinmentError: false });
     dataSave["paid_services"] = [];
 
-    // if (weoffer &&  weoffer.Offer_office_prescription && (!UpDataDetails.duratin_of_timeslots || UpDataDetails.duration_of_timeslots === 0 )){
-    //     // console.log('hereee')
-    //     this.setState({ appoinmentError: true })
-    // }
-    // else
+ 
     if (
       weoffer &&
       weoffer.Offer_office_prescription &&
@@ -400,7 +396,7 @@ class Index extends Component {
       dataSave["online_appointment"] = [dataSave["online_appointment"]];
       dataSave["private_appointments"] = [dataSave["private_appointments"]];
       this.setState({ loaderImage: true, PrivateErr: false });
-      // // console.log("dataSave", dataSave)
+    
       axios
         .put(sitedata.data.path + "/UserProfile/Users/update", dataSave, commonHeader(user_token))
         .then((responce) => {
@@ -958,7 +954,7 @@ class Index extends Component {
   };
 
   onChangebook = (event, key, statechange) => {
-    console.log('event', event, 'key', key, 'statechange', statechange)
+ 
     // if(key === "appointment_hours" && event.target.value >= 24){
     //   if(statechange === "DaysforPractices"){
     //     this.setState({val3: true})

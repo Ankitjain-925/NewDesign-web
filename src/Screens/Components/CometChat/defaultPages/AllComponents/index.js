@@ -18,7 +18,6 @@ class AllComponents extends React.Component {
       }
 
     }).catch(error => {
-      // console.log(error);
       window.location.href = '/login';
     });
 

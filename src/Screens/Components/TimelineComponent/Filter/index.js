@@ -14,6 +14,7 @@ import {
   getLanguage
 } from "translations/index"
 import Toggle from "react-toggle";
+import { commonHeader } from "component/CommonHeader/index"
 const { RangePicker } = DatePicker;
 
 class FilterSec extends Component {
@@ -89,13 +90,8 @@ class FilterSec extends Component {
    getSetting =()=>{
     this.setState({ loaderImage : true})
     axios.get(sitedata.data.path + '/UserProfile/updateSetting',
-        {
-        headers: {
-            'token': this.props.stateLoginValueAim.token,
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        }
-    }).then((responce) => {
+    commonHeader(this.props.stateLoginValueAim.token)   
+    ).then((responce) => {
         if(responce.data.hassuccessed && responce.data.data)
         {
             this.setState({onlyOverview : responce.data.data.onlyOverview})
@@ -125,13 +121,7 @@ class FilterSec extends Component {
             user_id: this.props.stateLoginValueAim.user._id,
             user_profile_id: this.props.stateLoginValueAim.user.profile_id,
           },
-          {
-            headers: {
-              token: this.props.stateLoginValueAim.token,
-              Accept: "application/json",
-              "Content-Type": "application/json",
-            },
-          }
+          commonHeader(this.props.stateLoginValueAim.token)
         )
         .then((responce) => {
           setTimeout(()=>{this.setState({ loaderImage: false });}, 3000) 

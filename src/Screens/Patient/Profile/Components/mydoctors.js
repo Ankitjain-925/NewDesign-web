@@ -65,7 +65,6 @@ class Index extends Component {
 
 
     componentDidMount() {
-        console.log('mydoc')
         this.alldoctor();
         this.alldocs();
     }

@@ -13114,6 +13114,91 @@ a.academy_ul ul li img {
 
 
 /*Added By ankita*/
+.homeBg .chat-contact-list-ext-wrap, .homeBg .chat-ppl-list-ext-wrap {
+    height: 72vh !important;
+    margin-bottom: 24px;
+}
+.newheadheight {
+    min-height: 92px;
+}
+.viewListactive {
+    cursor: pointer;
+    color: #00abaf;
+}
+.viewList{
+    cursor: pointer;
+}
+.ccl-left-panel-footer-wrap {
+    font-size: 13px !important;
+    font-weight: 600;
+}
+.ccl-left-panel-nav-listitem {
+    display: grid !important;
+    text-align: center !important;
+}
+.ccl-left-panel-nav-listitem span{
+    margin: 0 auto;
+} 
+.homeBgDrk .chat-listitem .chat-listitem-dtls .chat-listitem-name, .homeBgDrk .chat-listitem .chat-listitem-time,
+.homeBgDrk .chat-listitem .chat-listitem-dtls .chat-listitem-txt,.homeBgDrk .viewList {
+    color: #D9DADA !important;
+}
+.chat-listitem .chat-listitem-dtls .chat-listitem-name {
+    font-size: 1.0rem !important;
+    font-weight: 600 !important;
+    font-family: Muli !important;
+    color: #353333 !important;
+    letter-spacing: -.1px !important;
+    display: block !important;
+    max-width: 70% !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+    margin-bottom: 5px !important;
+    margin-top: 5px !important;
+}
+.chat-listitem .chat-listitem-dtls {
+    display: inline-block;
+    flex: 1 1;
+    margin: 0 0 0 12px;
+    padding: 3px;
+    padding-top: 0px;
+    width: calc(100% - 50px);
+    border-bottom: 1px solid #eaeaea;
+}
+.chat-listitem .chat-listitem-dtls {
+    padding: 0 3px 6px !important;
+}
+.chat-listitem .chat-thumbnail-wrap {
+    display: inline-block;
+    width: 36px;
+    height: 36px;
+}
+.chat-listitem .chat-listitem-dtls {
+    position: relative !important;
+}
+.chat-listitem .chat-thumbnail-wrap img {
+    display: inline-block;
+    overflow: hidden;
+    width: 32px;
+}
+.chat-ppl-list-ext-wrap .chat-thumbnail-wrap img {
+    width: 32px !important;
+    height: 32px !important;
+    border-color: #e8e8e8 !important;
+}
+.current_pass_sec{
+    margin-top:20px;
+}
+.deletewarninghead{
+    color: red;
+    font-weight: bold;
+}
+.deletewarning{
+    color: red;
+    font-weight: 500;
+    padding:15px 0px;
+}
 .prevNxtpag a {
     margin: 0px 0px 0px 15px !important;
 }
@@ -13864,7 +13949,7 @@ g.highcharts-axis.highcharts-yaxis text {
 .homeBgDrk .loading-text, .homeBgDrk .metroPro div {
     color: #fff!important;
 }
-.contact-listitem-dtls .__react_component_tooltip {
+.chat-ppl-list-ext-wrap .__react_component_tooltip , .contact-listitem-dtls .__react_component_tooltip {
     color: #000 !important;
     font-size: 16px;
 }
@@ -13903,7 +13988,7 @@ g.highcharts-axis.highcharts-yaxis text {
     min-height: 33px;
     border-radius: 5px 0px 0px 5px;
 }
-.homeBgDrk .contact-listitem-dtls .__react_component_tooltip {
+.homeBgDrk .contact-listitem-dtls .__react_component_tooltip,.homeBgDrk .chat-ppl-list-ext-wrap .__react_component_tooltip {
     color: #fff!important;
     font-size: 16px;
 }
@@ -14072,10 +14157,15 @@ button.CutomStripeButton{
     vertical-align: top;
     font-weight: 700;
 }
-.chat-ppl-listitem-msg-cnt{
+.chat-contact-list-ext-wrap .chat-ppl-listitem-msg-cnt{
     top: -5px !important;
     background-color: red !important;
     right: 0px !important;
+}
+.chat-ppl-listitem-msg-cnt{
+    top: 33px !important;
+    background-color: red !important;
+    right: 16px !important;
 }
 .contact-listitem .contact-listitem-dtls{
     position : relative !important;

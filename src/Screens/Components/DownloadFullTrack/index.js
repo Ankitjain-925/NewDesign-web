@@ -13,7 +13,7 @@ import axios from "axios";
 import {
   getReminder, getDate, getTime
 } from "Screens/Components/BasicMethod/index";
-
+import { commonHeader } from "component/CommonHeader/index"
 class Index extends Component {
   constructor(props) {
     super(props);
@@ -27,13 +27,7 @@ class Index extends Component {
     if(user_id)
     {
       await axios
-      .get(sitedata.data.path + "/UserProfile/Users/"+user_id, {
-        headers: {
-          token: user_token,
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      })
+      .get(sitedata.data.path + "/UserProfile/Users/"+user_id,  commonHeader(user_token))
       .then((response) => {
         data = response.data.data
         return data;
@@ -170,7 +164,6 @@ class Index extends Component {
     var user_token = this.props.stateLoginValueAim.token;
     this.setState({ loaderImage: true });
     this.getFamilyDoc(user_token, user_id).then((result) => {
-      console.log('docArray', result)
     axios
     .post(sitedata.data.path + "/UserProfile/downloadfullPdf", {
           Dieseases: TrackRecord,

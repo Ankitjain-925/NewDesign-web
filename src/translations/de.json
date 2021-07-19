@@ -1200,6 +1200,14 @@
 		"cancel_subscription":"Kündigen Sie das Abonnement",
 		"r_u_want_cancel_sub":"Möchten Sie das Abonnement wirklich kündigen?",
 		"email_rcv_update_reciept":"E-Mail erhalten Sie Updates und Quittungen auf",
-		"upload_license_is" :"Hochgeladene Lizenz ist"
+		"upload_license_is" :"Hochgeladene Lizenz ist",
+		"less_than_err":"Bitte laden Sie Bilder mit weniger als 6 . hoch",
+		"err_file_formart": "System wird dieses Dateiformat nicht unterstützt",
+		"reallyWantDelete" : "Möchten Sie Ihr Konto wirklich löschen?",
+		"looseAllData" :"Sie werden alle Ihre Daten verlieren und niemand kann jemals wieder darauf zugreifen! Auch die in der Aimedis-Blockchain gespeicherten Informationen sind für immer verloren, da Sie der einzige sind, der sie sehen kann.",
+		"delete_your_account":"Lösche deinen Account",
+      	"delete_account":"Konto löschen",
+		"ConversationList" :"Gesprächsliste",
+		"ContactList" :"Kontaktliste"
 	}
 }

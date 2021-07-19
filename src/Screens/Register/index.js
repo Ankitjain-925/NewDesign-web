@@ -26,11 +26,13 @@ import {
   getLanguage
 } from "translations/index"
 import contry from "Screens/Components/countryBucket/countries.json";
+import {updateCometUser} from "Screens/Components/CommonApi/index";
+import {commonCometHeader} from "component/CommonHeader/index"
 //Values for the validate Password
 var letter = /([a-zA-Z])+([ -~])*/,
   number = /\d+/,
   specialchar = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
-
+  
 class Index extends Component {
   constructor(props) {
     super(props);
@@ -156,16 +158,18 @@ class Index extends Component {
                                 " " +
                                 responce.data.data.last_name,
                             },
-                            {
-                              headers: {
-                                'appId': '220824e717b58ac',
-                                'apiKey': 'fc177a4e50f38129dca144f6270b91bfc9444736',
-                                'Accept': 'application/json',
-                                'Content-Type': 'application/json'
-                              },
-                            }
+                            commonCometHeader()
                           )
-                          .then((res) => {});
+                          .then((res) => {
+                            updateCometUser({
+                              uid: responce.data.data.profile_id.toLowerCase(),
+                              name:
+                                responce.data.data.first_name +
+                                " " +
+                                responce.data.data.last_name,
+                                role: "default"
+                            })
+                          });
 
                         this.setState({ successfull: true });
                         this.setState({
@@ -226,16 +230,18 @@ class Index extends Component {
                                     " " +
                                     responce.data.data.last_name,
                                 },
-                                {
-                                  headers: {
-                                    'appId': '220824e717b58ac',
-                                    'apiKey': 'fc177a4e50f38129dca144f6270b91bfc9444736',
-                                    'Accept': 'application/json',
-                                    'Content-Type': 'application/json'
-                                  },
-                                }
+                                commonCometHeader()
                               )
-                              .then((res) => {});
+                              .then((res) => {
+                                updateCometUser({
+                                  uid: responce.data.data.profile_id.toLowerCase(),
+                                  name:
+                                    responce.data.data.first_name +
+                                    " " +
+                                    responce.data.data.last_name,
+                                    role: "default"
+                                })
+                              });
                           }
 
                           this.setState({ successfull: true });
@@ -385,6 +391,7 @@ class Index extends Component {
       this.getUpdate(country_code, getBucket);
     }
   };
+
   getUpdate = (country_code, getBucket) => {
     axios
       .post(sitedata.data.path + "/UserProfile/AddUser/", {
@@ -414,16 +421,18 @@ class Index extends Component {
                   " " +
                   responce.data.data.last_name,
               },
-              {
-                headers: {
-                  appId: "220824e717b58ac",
-                  apiKey: "fc177a4e50f38129dca144f6270b91bfc9444736",
-                  Accept: "application/json",
-                  "Content-Type": "application/json",
-                },
-              }
+              commonCometHeader()
             )
-            .then((res) => {});
+            .then((res) => {
+              updateCometUser({
+                uid: responce.data.data.profile_id.toLowerCase(),
+                name:
+                  responce.data.data.first_name +
+                  " " +
+                  responce.data.data.last_name,
+                role: "default"
+              })
+            });
           this.setState({ successfull: true });
           this.setState({
             registerMessage:

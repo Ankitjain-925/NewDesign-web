@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
+import Modal from '@material-ui/core/Modal';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
-import { slide as Menu } from "react-burger-menu";
 import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
 import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 import LeftMenu from "Screens/Components/Menus/H_leftMenu/index"
 import LeftMenuMobile from "Screens/Components/Menus/H_leftMenu/mobile"
 import axios from 'axios';
-import Select from 'react-select';
-import Modal from '@material-ui/core/Modal';
 import { LanguageFetchReducer } from 'Screens/actions';
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
@@ -21,10 +19,9 @@ import Loader from 'Screens/Components/Loader/index';
 import { getDate, getImage } from 'Screens/Components/BasicMethod/index'
 import * as translationEN from './translations/en_json_proofread_13072020.json';
 import * as translationDE from "./translations/de.json"
-import { SearchUser } from "Screens/Components/Search"
-import $ from "jquery";
 import { commonHeader } from 'component/CommonHeader/index';
 import Pagination from "Screens/Components/Pagination/index";
+
 class Index extends Component {
     constructor(props) {
         super(props);

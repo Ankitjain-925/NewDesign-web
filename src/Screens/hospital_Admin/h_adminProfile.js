@@ -13,7 +13,8 @@ import Loader from 'Screens/Components/Loader/index';
 import translationEN from "./translations/en_json_proofread_13072020.json"
 import translationDE from "./translations/de.json"
 import "./style.css";
-import { commonHeader } from 'component/CommonHeader/index';
+import { update_CometUser } from "Screens/Components/CommonApi/index";
+import { commonHeader,commonCometHeader } from 'component/CommonHeader/index';
 class Index extends Component {
     constructor(props) {
         super(props);
@@ -119,15 +120,10 @@ class Index extends Component {
                 axios.put('https://api-eu.cometchat.io/v2.0/users/' + this.state.profile_id.toLowerCase(), {
                     name: this.state.UpDataDetails.first_name + ' ' + this.state.UpDataDetails.last_name
                 },
-                    {
-                        headers: {
-                            'appId': '220824e717b58ac',
-                            'apiKey': 'fc177a4e50f38129dca144f6270b91bfc9444736',
-                            'Accept': 'application/json',
-                            'Content-Type': 'application/json'
-                        }
-                    })
-                    .then((res) => { })
+                commonCometHeader())
+                    .then((res) => {
+                        var data = update_CometUser(this.props?.stateLoginValueAim?.user?.profile_id.toLowerCase() , res.data.data)
+                     })
             }
             else {
                 this.setState({ loaderImage: false });

@@ -14,6 +14,7 @@ import Loader from "Screens/Components/Loader/index.js";
 import {
   getLanguage
 } from "translations/index"
+import { commonHeader } from "component/CommonHeader/index"
 function TabContainer(props) {
   return (
     <Typography component="div" style={{ paddingTop: 24 }}>
@@ -66,13 +67,7 @@ class Index extends Component {
         {
           user_id: this.props.stateLoginValueAim.user._id,
         },
-        {
-          headers: {
-            token: user_token,
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-        }
+        commonHeader(user_token)
       )
       .then((res) => {
         if (res.data && res.data.hassuccessed) {
@@ -99,13 +94,7 @@ class Index extends Component {
       .post(
         sitedata.data.path + "/lms/getVideoList",
         { user_type: this.props.stateLoginValueAim.user.type },
-        {
-          headers: {
-            token: this.props.stateLoginValueAim.token,
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-        }
+        commonHeader(this.props.stateLoginValueAim.token)
       )
       .then((response) => {
         var NewVideo = response.data.data.slice(0, 3);
@@ -143,13 +132,7 @@ class Index extends Component {
 
     this.setState({ loaderImage: true });
     axios
-      .post(sitedata.data.path + "/lms/addtowishlist", data, {
-        headers: {
-          token: user_token,
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      })
+      .post(sitedata.data.path + "/lms/addtowishlist", data, commonHeader(user_token))
       .then((res) => {
         this.setState({ addedWish: true, loaderImage: false });
         setTimeout(() => {

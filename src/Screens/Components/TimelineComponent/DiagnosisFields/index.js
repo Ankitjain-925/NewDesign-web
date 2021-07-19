@@ -17,6 +17,7 @@ import {
   getLanguage
 } from "translations/index"
 import { pure } from "recompose";
+import { commonHeader } from "component/CommonHeader/index"
 class Index extends Component {
   constructor(props) {
     super(props);
@@ -39,13 +40,7 @@ class Index extends Component {
   getAllDoc = () => {
     const user_token = this.props.stateLoginValueAim.token;
     axios
-      .get(sitedata.data.path + "/UserProfile/DoctorUsersChat", {
-        headers: {
-          token: user_token,
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      })
+      .get(sitedata.data.path + "/UserProfile/DoctorUsersChat", commonHeader(user_token))
       .then((response) => {
         var images = [],
           Reccimages = [];

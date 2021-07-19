@@ -12,31 +12,25 @@ function Userview(props) {
   const [_image, setImage] = React.useState(null);
   useEffect(() => {
     let user = props.user;
-    if (!user.getAvatar()) {
-      const uid = user.getUid();
-      const char = user
-        .getName()
-        .charAt(0)
-        .toUpperCase();
-      setImage(SvgAvatar.getAvatar(uid, char));
-      // user.setAvatar(SvgAvatar.getAvatar(uid, char));
-    } else {
-      const uid = user.getUid();
-      var char = user.getAvatar();
+    if (user.avatar) {
+      const uid = user.uid;
+      var char = user.avatar;
       char = char.split(".com/")[1];
       axios
         .get(sitedata.data.path + "/aws/sign_s3?find=" + char)
         .then((response) => {
           if (response.data.hassuccessed) {
-            console.log('response.data.data', response.data.data)
             setImage(response.data.data);
-            // user.setAvatar(response.data.data);
           }
         });
     }
+    else{
+      const uid = user.uid;
+      const char = user.name.charAt(0).toUpperCase();
+      setImage(SvgAvatar.getAvatar(uid, char));
+    } 
   }, [props.user]);
   return ((
-    // // console.log('csfsdf', props.Userlist, props.user.uid),
     // props.Userlist && props.Userlist.includes(props.user.uid) ?
     <div className="contact-listitem" >
       <div className="contact-thumbnail-wrap">
@@ -45,7 +39,7 @@ function Userview(props) {
           cornerRadius="50%"
           borderColor="#CCC"
           borderWidth="1px"
-
+          name={props.user?.name}
         />
         <StatusIndicator
           status={props.user.status}
@@ -55,9 +49,9 @@ function Userview(props) {
         />
       </div>
       <div className="contact-listitem-dtls">
-        <div className="contact-listitem-name" data-tip data-for={props.user.name}>{props.user.name.includes('undefined') ? props.user.uid :props.user.name}</div>
-        <ReactTooltip className="timeIconClas" id={props.user.name} place="top" effect="solid" backgroundColor="#ffffff">
-            {props.user.name.includes('undefined') ? props.user.uid :props.user.name}
+        <div className="contact-listitem-name" data-tip data-for={props?.user?.name}>{props?.user?.name?.includes('undefined') ? props?.user?.uid :props?.user?.name}</div>
+        <ReactTooltip className="timeIconClas" id={props?.user?.name} place="top" effect="solid" backgroundColor="#ffffff">
+            {props.user.name.includes('undefined') ? props?.user?.uid :props?.user?.name}
         </ReactTooltip>
         {props &&
           props.UnreadCount &&

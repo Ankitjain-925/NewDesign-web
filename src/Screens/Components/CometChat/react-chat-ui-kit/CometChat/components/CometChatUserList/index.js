@@ -6,11 +6,15 @@ import { SvgAvatar } from "../../util/svgavatar";
 import { UserListManager } from "./controller";
 import { sortCometUser, unreadAtLast } from "Screens/Components/BasicMethod/index"// "../../../../../BasicMethod/index"
 import UserView from "../UserView";
+import axios from "axios";
 import * as enums from '../../util/enums.js';
-
+import { connect } from "react-redux";
+import sitedata from "sitedata";
+import { LoginReducerAim } from "Screens/Login/actions";
 import {
   getLanguage
-} from "translations/index"
+} from "translations/index";
+import { commonHeader } from "component/CommonHeader/index";
 class CometChatUserList extends React.PureComponent {
   timeout;
   friendsOnly = false;
@@ -23,6 +27,7 @@ class CometChatUserList extends React.PureComponent {
       preUserList: [],
       loading: false,
       Unread: 0,
+      onSearh: false
     };
   }
 
@@ -41,6 +46,7 @@ class CometChatUserList extends React.PureComponent {
 
   messageUpdated = (key, message, ...otherProps) => {
     switch(key) {
+      case enums.MESSAGE_READ:
       case enums.TEXT_MESSAGE_RECEIVED:
       case enums.MEDIA_MESSAGE_RECEIVED:
       case enums.CUSTOM_MESSAGE_RECEIVED:
@@ -54,7 +60,10 @@ class CometChatUserList extends React.PureComponent {
   {
     new CometChatManager().getLoggedInUser().then((user) => {
       CometChat.getUnreadMessageCount().then((users) => {
-        this.setState({ Unread: users });
+        this.setState({ Unread: users },
+          ()=>{
+            this.newAtTop(this.state.userlist1)
+          });
       });
     });
   }
@@ -127,8 +136,8 @@ class CometChatUserList extends React.PureComponent {
       }
       this.setState({ userlist });
     } else {
-      if (this.state.preUserList.length != prevProps.Userlist.length) {
-        this.setState({ preUserList: prevProps.Userlist });
+      if (this.state.preUserList.length != this.props.Userlist.length) {
+        this.setState({ preUserList: this.props.Userlist });
         setTimeout(this.getUsers, 500);
       }
     }
@@ -151,9 +160,7 @@ class CometChatUserList extends React.PureComponent {
     if (userObj) {
       userObj = Object.assign(userObj, user);
       userlist.splice(index, 1, userObj);
-
       this.setState({ userlist: userlist });
-
       if (this.props.userStatusChanged && this.props.item.uid === user.uid) {
         this.props.userStatusChanged(userObj);
       }
@@ -164,13 +171,12 @@ class CometChatUserList extends React.PureComponent {
     const bottom =
       Math.round(e.currentTarget.scrollHeight - e.currentTarget.scrollTop) ===
       Math.round(e.currentTarget.clientHeight);
-    // if (bottom) this.getUsers();
+    if (bottom) this.onScroll(this.state.userlist1);
   };
 
   handleClick = (user) => {
     this.setState({ selectedUser: user.uid })
     if (!this.props.onItemClick) return;
-
     this.props.onItemClick(user, "user");
   };
 
@@ -202,17 +208,19 @@ class CometChatUserList extends React.PureComponent {
     }
 
     let val = e.target.value;
-    if (val === '') {
-      this.setState({ userlist: this.state.userlist1 })
+  
+    if (val.length<=3) 
+    {
+      this.setState({ onSearh: false, userlist: [] },
+      ()=>{this.onScroll(this.state.userlist1, 'first')})
     }
     else {
-      if (this.state.userlist1 && this.state.userlist1.length > 0) {
-        let FilterFromSearch = this.state.userlist1 && this.state.userlist1.length > 0 && this.state.userlist1.filter((data) => {
-          return this.isThisAvilabel(data, val && val.toLowerCase());
-        });
-        this.setState({ userlist: FilterFromSearch })
+        if (this.state.userlist1 && this.state.userlist1.length > 0) {
+          let FilterFromSearch = this.state.userlist1 && this.state.userlist1.length > 0 && this.state.userlist1.filter((data) => {
+            return this.isThisAvilabel(data, val && val.toLowerCase());
+          });
+          this.setState({ userlist: FilterFromSearch, onSearh : true })
       }
-
     }
 
     // this.timeout = setTimeout(() => {
@@ -221,16 +229,30 @@ class CometChatUserList extends React.PureComponent {
     // }, 500);
   };
 
-  //   async GetData(users) {
-  //     try {
-  //         // console.log('I am also here')
-  //         await this.setState({userlist : users})
+  onScroll=(users , calling ='')=>{
+    var count =  calling ==='first'? 20 : this.state.userlist?.length + 20;
+    var newlist = [];
+    if(this.state.userlist?.length < users.length){
+      newlist = users.slice(this.state.userlist?.length, count)
+    }
+      this.setState({userlist: [...this.state.userlist, ...newlist]})
+      // this.setState({userlist: users})
+  }
+  newAtTop=(userList1)=>{
+    var TopUsers = [];
+    userList1 = sortCometUser(userList1)
+    if(this.state.Unread)
+    {
+      TopUsers = userList1 && userList1.filter((data)=>this.state.Unread.users.hasOwnProperty(data.uid))
+    }
+    userList1 = unreadAtLast(userList1, this.state.Unread)
+    var userList = [...TopUsers, ...userList1];
 
-  //     } catch (error) {
-
-  //         // console.log(error);
-  //     }
-  // }
+    this.setState({ userlist1: userList,  userlist: [] },
+      ()=>{
+        this.onScroll(this.state.userlist1, 'first')
+      })
+  }
   getUsers = () => {
     let users = [];
     let er = 0;
@@ -239,24 +261,39 @@ class CometChatUserList extends React.PureComponent {
       .getLoggedInUser()
       .then((user) => {
         let u = this.state.preUserList;
+        axios
+        .post(
+          sitedata.data.path + "/cometUserList/GetAllUser",
+          {list : u},
+          commonHeader(this.props.stateLoginValueAim.token))
+        .then((response) => {
+          // change when add scrolling
+          let userList1 = response.data.data
+          this.newAtTop(userList1)
+        })
+      })
+      .catch((error) => {
+        this.setState({ loading: false });
+      });
+        // u.map((id, index) => {
+        //   CometChat.getUser(id)
+        //     .then(
+        //       (us) => {
+        //         users.push(us);
+        //       },
+        //       (error) => {
+        //         er++;
+        //         // console.log("User details fetching failed with error:", error);
+        //       })
+        //     .then(() => {
+        //       if (users.length + er == u.length) {
+        //         this.setState({ userlist1: users, userlist: users }
+        //         );
+        //       }
+        //     });
+        // });
 
-        u.map((id, index) => {
-          CometChat.getUser(id)
-            .then(
-              (us) => {
-                users.push(us);
-              },
-              (error) => {
-                er++;
-                // console.log("User details fetching failed with error:", error);
-              })
-            .then(() => {
-              if (users.length + er == u.length) {
-                this.setState({ userlist1: users, userlist: users }
-                );
-              }
-            });
-        });
+
         // this.UserListManager.fetchNextUsers()
         //   .then((userList) => {
         //     userList.forEach((user) => (user = this.setAvatar(user)));
@@ -272,14 +309,7 @@ class CometChatUserList extends React.PureComponent {
         //     );
         //     this.setState({ loading: false });
         //   });
-      })
-      .catch((error) => {
-        // console.log(
-        //   "[CometChatUserList] getUsers getLoggedInUser error",
-        //   error
-        // );
-        this.setState({ loading: false });
-      });
+    
   };
 
   setAvatar(user) {
@@ -298,20 +328,20 @@ class CometChatUserList extends React.PureComponent {
     let { Search, Loading } = translate;
     let loading = null;
     if (this.state.loading) {
-      loading = <div className="loading-text">{Loading}</div>;
+      loading = <div className="lo8ading-text">{Loading}</div>;
     }
-
-    let userList1 = this.state.userlist, TopUsers=[];
-    userList1 = sortCometUser(userList1)
-    if(this.state.Unread)
-    {
-      TopUsers = userList1 && userList1.filter((data)=>this.state.Unread.users.hasOwnProperty(data.uid))
-    }
-    userList1 = unreadAtLast(userList1, this.state.Unread)
-    let userList = [...TopUsers, ...userList1];
+// console.log('this.state.userlist1', this.state.userlist1)
+    let userList1 = this.state.userlist;
+    // userList1 = sortCometUser(userList1)
+    // if(this.state.Unread)
+    // {
+    //   TopUsers = userList1 && userList1.filter((data)=>this.state.Unread.users.hasOwnProperty(data.uid))
+    // }
+    // userList1 = unreadAtLast(userList1, this.state.Unread)
+    // let userList = [...TopUsers, ...userList1];
     
     let currentLetter = "";
-    const users = userList.map((user, key) => {
+    const users = userList1?.length>0 && userList1.map((user, key) => {
       const chr = user.name[0].toUpperCase();
       if (chr !== currentLetter) {
         currentLetter = chr;
@@ -338,9 +368,6 @@ class CometChatUserList extends React.PureComponent {
         );
       }
     });
-
-
-
 
     return (
       <React.Fragment>
@@ -375,5 +402,18 @@ class CometChatUserList extends React.PureComponent {
     );
   }
 }
+const mapStateToProps = (state) => {
+  const {
+    stateLoginValueAim,
+    loadingaIndicatoranswerdetail,
+  } = state.LoginReducerAim;
+  return {
+    stateLoginValueAim,
+    loadingaIndicatoranswerdetail,
+  };
+};
 
-export default CometChatUserList;
+export default connect(mapStateToProps, {
+  LoginReducerAim,
+})(CometChatUserList);
+

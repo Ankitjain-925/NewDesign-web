@@ -34,7 +34,8 @@ import DateFormat from 'Screens/Components/DateFormat/index'
 import {
     getLanguage
 } from "translations/index"
-import { commonHeader } from 'component/CommonHeader/index';
+import { update_CometUser } from "Screens/Components/CommonApi/index";
+import { commonHeader, commonCometHeader } from 'component/CommonHeader/index';
 var datas = [];
 var insurances = [];
 
@@ -468,14 +469,12 @@ class Index extends Component {
     }
     //Save the User profile
     saveUserData = () => {
-        // console.log('Mobile', this.state.UpDataDetails.mobile.includes("-"))
         if (!this.state.UpDataDetails.mobile.includes("-")) {
             const state2 = this.state.UpDataDetails
             state2['mobile'] = 'DE-' + this.state.UpDataDetails.mobile;
 
             this.setState({ UpDataDetails: state2 })
         }
-        // console.log('Mobile', this.state.UpDataDetails.mobile)
         if (this.state.insuranceDetails.insurance !== "" && this.state.insuranceDetails.insurance_country !== "") {
             if (datas.some(data => data.insurance === this.state.insuranceDetails.insurance)) {
 
@@ -546,15 +545,10 @@ class Index extends Component {
                 axios.put('https://api-eu.cometchat.io/v2.0/users/' + this.state.profile_id.toLowerCase(), {
                     name: this.state.UpDataDetails.first_name + ' ' + this.state.UpDataDetails.last_name
                 },
-                    {
-                        headers: {
-                            'appId': '220824e717b58ac',
-                            'apiKey': 'fc177a4e50f38129dca144f6270b91bfc9444736',
-                            'Accept': 'application/json',
-                            'Content-Type': 'application/json'
-                        }
-                    })
-                    .then((res) => { })
+                commonCometHeader())
+                    .then((res) => {
+                        var data = update_CometUser(this.props?.stateLoginValueAim?.user?.profile_id.toLowerCase() , res.data.data)
+                     })
             }
             else {
                 this.setState({ loaderImage: false });
@@ -607,13 +601,7 @@ class Index extends Component {
         if (e.target.value.length > 5 && e.target.value !== '') {
             this.setState({ loaderImage: true, toSmall: false });
             const user_token = this.props.stateLoginValueAim.token;
-            axios.get(sitedata.data.path + '/UserProfile/checkAlies?alies_id=' + e.target.value, {
-                headers: {
-                    'token': user_token,
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                }
-            }).then((responce) => {
+            axios.get(sitedata.data.path + '/UserProfile/checkAlies?alies_id=' + e.target.value,  commonHeader(user_token)).then((responce) => {
                 if (responce.data.hassuccessed) { this.setState({ DuplicateAlies: true }) }
                 else { this.setState({ DuplicateAlies: false }) }
                 this.setState({ loaderImage: false });
@@ -918,8 +906,6 @@ class Index extends Component {
 
         return (
             <div>
-                {/* {console.log('this.props.stateLanguageType',  this.props.stateLanguageType)}
-                {console.log('this.props.settings',  this.props.settings)} */}
                 {this.state.loaderImage && <Loader />}
                 <Grid className="profileMy">
                     <Grid className="profileInfo">

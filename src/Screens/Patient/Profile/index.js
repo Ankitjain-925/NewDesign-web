@@ -28,6 +28,7 @@ import OrganSection from "./Components/orgnaDonar";
 import ManagementSection from "./Components/rightManagement";
 import KycSection from "Screens/Components/CommonProfileSec/kyc";
 import DateTimeSection from "Screens/Components/CommonProfileSec/DateTime";
+import DeleteAccountSection from "Screens/Components/CommonProfileSec/DeleteAccount";
 import Timezone from "timezon.json";
 import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 import { GetLanguageDropdown } from "Screens/Components/GetMetaData/index.js";
@@ -159,6 +160,7 @@ class Index extends Component {
       right_management,
       date_time,
       kyc,
+      delete_account
     } = translate;
 
     return (
@@ -201,6 +203,7 @@ class Index extends Component {
                           />
                           <Tab label={kyc} className="aboutTabsIner" />
                           <Tab label={date_time} className="aboutTabsIner" />
+                          <Tab label={delete_account} className="aboutTabsIner" />
                         </Tabs>
                       </AppBar>
                     </Grid>
@@ -273,6 +276,17 @@ class Index extends Component {
                         </TabContainer>
                       )}
                       {/* End of DateTime */}
+                      {/* Start of Delete */}
+                      {value === 7 && (
+                        <TabContainer>
+                          <DeleteAccountSection
+                            user_token={this.props.stateLoginValueAim.token}
+                            LoggedInUser={this.state.LoggedInUser}
+                            getUserData={this.getUserData}
+                          />
+                        </TabContainer>
+                      )}
+                      {/* End of Delete */}
                     </Grid>
                     {/* End of Tabs */}
                   </Grid>

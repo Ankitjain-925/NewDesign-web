@@ -31,7 +31,6 @@ export const logoutSuccess = () => {
 }
 
 export const logout = () => {
-    console.log('logout from cometchat')
     return dispatch => {
         CometChat.logout().then(dispatch(logoutSuccess()));
     }

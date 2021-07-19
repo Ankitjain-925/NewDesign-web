@@ -33,6 +33,7 @@ import OfficeInformation from "./Components/officeInformation.js";
 import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/Notifications";
 import { Redirect, Route } from "react-router-dom";
 import { commonHeader } from "component/CommonHeader/index.js";
+import DeleteAccountSection from "Screens/Components/CommonProfileSec/DeleteAccount";
 
 function TabContainer(props) {
   return (
@@ -138,7 +139,6 @@ class Index extends Component {
   onChange = (time) => this.setState({ time });
   handleChange = (selectedOption) => {
     this.setState({ selectedOption });
-    //// console.log(`Option selected:`, selectedOption);
   };
   handleChangeCountry = (selectedCountry) => {
     this.setState({ selectedCountry });
@@ -171,6 +171,7 @@ class Index extends Component {
       date,
       time,
       kyc,
+      delete_account
     } = translate;
     const date_time = date + " & " + time;
     const { selectedOption, selectedCountry } = this.state;
@@ -226,6 +227,7 @@ class Index extends Component {
                           <Tab label={Security} className="aboutTabsIner" />
                           <Tab label={kyc} className="aboutTabsIner" />
                           <Tab label={date_time} className="aboutTabsIner" />
+                          <Tab label={delete_account} className="aboutTabsIner" />
                         </Tabs>
                       </AppBar>
                     </Grid>
@@ -289,7 +291,17 @@ class Index extends Component {
                         </TabContainer>
                       )}
                       {/* End of Date & Time */}
-
+                       {/* Start of Delete */}
+                       {value === 6 && (
+                        <TabContainer>
+                          <DeleteAccountSection
+                            user_token={this.props.stateLoginValueAim.token}
+                            LoggedInUser={this.state.LoggedInUser}
+                            getUserData={this.getUserData}
+                          />
+                        </TabContainer>
+                      )}
+                      {/* End of Delete */}
                       {/* End of Tabs */}
                     </Grid>
                   </Grid>

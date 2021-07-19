@@ -20,13 +20,14 @@ import { LanguageFetchReducer } from "Screens/actions";
 import Modal from "@material-ui/core/Modal";
 import Loader from "Screens/Components/Loader/index";
 import DateFormat from "Screens/Components/DateFormat/index";
+import { update_CometUser } from "Screens/Components/CommonApi/index";
 import { GetUrlImage1, blobToFile, resizeFile } from "Screens/Components/BasicMethod/index";
 import {
   getLanguage
 } from "translations/index"
 import SPECIALITY from "speciality";
 import { GetLanguageDropdown } from "Screens/Components/GetMetaData/index.js";
-import { commonHeader } from "component/CommonHeader/index";
+import { commonHeader , commonCometHeader} from "component/CommonHeader/index";
 
 var datas = [];
 var insurances = [];
@@ -433,16 +434,11 @@ class Index extends Component {
                   " " +
                   this.state.UpDataDetails.last_name,
               },
-              {
-                headers: {
-                  appId: "220824e717b58ac",
-                  apiKey: "fc177a4e50f38129dca144f6270b91bfc9444736",
-                  Accept: "application/json",
-                  "Content-Type": "application/json",
-                },
-              }
+              commonCometHeader()
             )
-            .then((res) => {});
+            .then((res) => {
+              var data = update_CometUser(this.props?.stateLoginValueAim?.user?.profile_id.toLowerCase() , res.data.data)
+            });
         } else {
           this.setState({ loaderImage: false });
           if (responce.data.message === "Phone is not verified") {
@@ -682,16 +678,11 @@ class Index extends Component {
             {
               avatar: this.state.uploadedimage,
             },
-            {
-              headers: {
-                appId: "220824e717b58ac",
-                apiKey: "fc177a4e50f38129dca144f6270b91bfc9444736",
-                Accept: "application/json",
-                "Content-Type": "application/json",
-              },
-            }
+            commonCometHeader()
           )
-          .then((res) => {});
+          .then((res) => {
+            var data = update_CometUser(this.props?.stateLoginValueAim?.user?.profile_id.toLowerCase() , res.data.data)
+          });
         var find1 = this.state.uploadedimage;
         this.SettingImage(find1);
       });
@@ -721,7 +712,6 @@ class Index extends Component {
       const compressedFile = await resizeFile(file);
 
       var data = blobToFile(compressedFile, file.name)
-      console.log('Get ComFile', data)
       axios
         .post(sitedata.data.path + "/aws/sign_s3", {
           fileName: data.name,

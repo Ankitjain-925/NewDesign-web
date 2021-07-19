@@ -6,7 +6,7 @@ export class ConversationListManager {
     conversationListenerId = new Date().getTime();
 
     constructor() {
-        this.conversationRequest = new CometChat.ConversationsRequestBuilder().setLimit(30).build();
+        this.conversationRequest = new CometChat.ConversationsRequestBuilder().setLimit(50).build();
     }
 
     fetchNextConversation() {

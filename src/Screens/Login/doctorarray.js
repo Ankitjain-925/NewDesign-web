@@ -95,7 +95,7 @@ const checkIfAllPatient = async (doctorArray, user_token) => {
     getAllUserProfileId(user_token).then(res => {
       if (res.data && res.data.hassuccessed) {
         res.data.data.map(id => {
-          doctorArray.push(id);
+          doctorArray.push(id.toLowerCase());
         });
         resolve(doctorArray);
       } else {
@@ -152,7 +152,7 @@ export const Doctorarrays = (type, user, token, CB = () => { }) => {
               })?.length > 0;
               if (type === "patient") {
                 if (hasDocAroundClock) {
-                  doctorArray.push(doctor8);
+                  doctorArray.push(doctor8.toLowerCase());
                 }
               }
               response.data.data &&

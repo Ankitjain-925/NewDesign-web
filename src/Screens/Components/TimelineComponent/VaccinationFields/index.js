@@ -16,6 +16,7 @@ import {
   getLanguage
 } from "translations/index"
 import { pure } from "recompose";
+import { commonHeader } from "component/CommonHeader/index"
 
 var doctorArray = [];
 class Index extends Component {
@@ -49,13 +50,7 @@ class Index extends Component {
     doctorArray = [];
     const user_token = this.props.stateLoginValueAim.token;
     axios
-      .get(sitedata.data.path + "/UserProfile/DoctorUsers", {
-        headers: {
-          token: user_token,
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      })
+      .get(sitedata.data.path + "/UserProfile/DoctorUsers", commonHeader(user_token))
       .then((response) => {
         this.setState({ allDocData: response.data.data }, () => {
           for (let i = 0; i < this.state.allDocData.length; i++) {

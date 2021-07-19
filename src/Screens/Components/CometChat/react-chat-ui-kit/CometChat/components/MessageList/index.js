@@ -218,7 +218,6 @@ class MessageList extends React.PureComponent {
   }
 
   messageReceived = (message) => {
-    console.log('I am here45')
     //new messages
     if (this.props.type === 'group' 
     && message.getReceiverType() === 'group'

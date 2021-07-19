@@ -14,6 +14,7 @@ import {
   getLanguage
 } from "translations/index"
 import { pure } from "recompose";
+import { commonHeader , commonCometHeader} from "component/CommonHeader/index";
 
 class PointPain extends Component {
   constructor(props) {
@@ -71,13 +72,7 @@ class PointPain extends Component {
         {
           image: this.state.uploadedimage,
         },
-        {
-          headers: {
-            token: user_token,
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-        }
+        commonHeader(user_token)
       )
       .then((responce) => {
         this.props.getData();
@@ -89,14 +84,7 @@ class PointPain extends Component {
             {
               avatar: this.state.uploadedimage,
             },
-            {
-              headers: {
-                appId: "220824e717b58ac",
-                apiKey: "fc177a4e50f38129dca144f6270b91bfc9444736",
-                Accept: "application/json",
-                "Content-Type": "application/json",
-              },
-            }
+            commonCometHeader()
           )
           .then((res) => {});
       });
