@@ -626,7 +626,8 @@
 		"cancel": "Cancel",
 		"Doctor": "Doctor",
 		"two_fac_auth_enable":"The 2-factor authentication is activated",
-		"Status" :"Status"
+		"Status" :"Status",
+		"more" :"more"
 	}
 }
 

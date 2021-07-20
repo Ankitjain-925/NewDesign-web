@@ -73,7 +73,7 @@ import H_archive from "Screens/hospital_Admin/hadmin_archivechoose";
 import H_document from "Screens/hospital_Admin/h_Documents";
 import H_profile from "Screens/hospital_Admin/h_adminProfile";
 import CallatAllPages from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/CallatAllPages";
-
+import H_Group from "Screens/hospital_Admin/h_add_group"
 import H_Staff from "Screens/hospital_Admin/h_staffs";
 
 //virtualhospital
@@ -86,6 +86,7 @@ import VHTasks from "Screens/VirtualHospital/Tasks/index";
 import VHInvoices from "Screens/VirtualHospital/Invoices/index";
 import VHServices from "Screens/VirtualHospital/Services/index";
 import VHAppointTask from "Screens/VirtualHospital/AppointTask/index";
+
 class Routermain extends Component {
   render() {
     return (
@@ -408,6 +409,11 @@ class Routermain extends Component {
               path="/h-staff"
               render={(props) => <H_Staff {...props} />}
             />
+            <Route
+              exact={true}
+              path="/h-groups"
+              render={(props) => <H_Group {...props} />}
+            />
 
           {/*   Virtualhospital page */}
             <Route
@@ -435,12 +441,12 @@ class Routermain extends Component {
               exact={true}
               render={(props) => <VHTasks {...props} />}
               />
-               <Route
+              <Route
               path="/virtualhospital/invoices"
               exact={true}
               render={(props) => <VHInvoices {...props} />}
               />
-               <Route
+              <Route
               path="/virtualhospital/space"
               exact={true}
               render={(props) => <VHSpaceManagement {...props} />}

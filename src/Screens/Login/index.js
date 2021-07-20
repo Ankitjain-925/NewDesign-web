@@ -293,9 +293,9 @@ class Index extends Component {
       this.props.verifyCode.code
     ) {
       if (stateLoginValueAim.kyc) {
-        return <Redirect to={"/VirtualHospital/Statistics"} />;
+        return <Redirect to={"/VirtualHospital/space"} />;
       } else {
-        return <Redirect to={"/VirtualHospital/Statistics"} />;
+        return <Redirect to={"/VirtualHospital/space"} />;
       }
     }
     if (
