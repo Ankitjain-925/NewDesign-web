@@ -19,6 +19,10 @@ class Index extends Component {
         return (
             <Grid>
                 <Grid className="roomsNum2">
+                <Grid className="wardsGrup">
+                <Grid className="spcMgntUpr">
+                    {/* <Grid container direction="row"> */}
+                    <Grid item xs={6} md={6} className="specialitybutton-parent">
                     <ul>
                         <li><img src={require('assets/virtual_images/square.png')} alt="" title="" />{this.state.label}</li>
                         <li><img src={require('assets/virtual_images/room.svg')} alt="" title="" />{this.state.rooms} rooms</li>
@@ -28,6 +32,10 @@ class Index extends Component {
                     </ul>
                 </Grid>
 
+            {/* </Grid> */}
+            </Grid>
+            </Grid>
+            </Grid>
             </Grid>
         )
     }

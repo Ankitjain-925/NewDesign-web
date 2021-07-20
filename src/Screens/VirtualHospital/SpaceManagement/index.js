@@ -6,10 +6,10 @@ import Modal from '@material-ui/core/Modal';
 import TextField from '@material-ui/core/TextField';
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 import Button from '@material-ui/core/Button';
-import ColorSelection from "Screens/Components/ColorSelection/index";
-import VHfield from "Screens/Components/VHfield/index";
-import AddRoom from "Screens/Components/AddRoom/index";
-import RoomView from "Screens/Components/RoomView/index";
+import ColorSelection from "Screens/Components/VirtualHospitalComponents/ColorSelection/index";
+import VHfield from "Screens/Components/VirtualHospitalComponents/VHfield/index";
+import AddRoom from "Screens/Components/VirtualHospitalComponents/AddRoom/index";
+import RoomView from "Screens/Components/VirtualHospitalComponents/RoomView/index";
 import 'assets/css/virtual_hospital.css';
 
 
@@ -76,9 +76,6 @@ class Index extends Component {
     handleCloseRoom = () => {
         this.setState({ openRoom: false });
     }
-
-
-
 
     updateEntryState = (e) => {
         var state = this.state.speciality;

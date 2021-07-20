@@ -77,10 +77,15 @@ import CallatAllPages from "Screens/Components/CometChat/react-chat-ui-kit/Comet
 import H_Staff from "Screens/hospital_Admin/h_staffs";
 
 //virtualhospital
-import Virtualindex from "Screens/VirtualHospital/Statistics/index";
-import SpaceManagement from "Screens/VirtualHospital/SpaceManagement/index.js"
-import SpecialityView from "Screens/VirtualHospital/MobileRoomsBedSpecialities/index"
-
+import VHStatistics from "Screens/VirtualHospital/Statistics/index";
+import VHPatientFlow from "Screens/VirtualHospital/PatientFlow/index";
+import VHSpaceManagement from "Screens/VirtualHospital/SpaceManagement/index.js";
+import VHSpecialityView from "Screens/VirtualHospital/MobileRoomsBedSpecialities/index";
+import VHBills from "Screens/VirtualHospital/Bills/index";
+import VHTasks from "Screens/VirtualHospital/Tasks/index";
+import VHInvoices from "Screens/VirtualHospital/Invoices/index";
+import VHServices from "Screens/VirtualHospital/Services/index";
+import VHAppointTask from "Screens/VirtualHospital/AppointTask/index";
 class Routermain extends Component {
   render() {
     return (
@@ -403,28 +408,53 @@ class Routermain extends Component {
               path="/h-staff"
               render={(props) => <H_Staff {...props} />}
             />
-            <Route
-              exact={true}
-              path="/virtualhospital/space"
-              render={(props) => <SpaceManagement {...props} />}
-            />
 
           {/*   Virtualhospital page */}
             <Route
               path="/virtualhospital/statistics"
               exact={true}
-              render={(props) => <Virtualindex {...props} />}
+              render={(props) => <VHStatistics {...props} />}
             />
-            {/* <Route
+            <Route
               path="/virtualhospital/patient-flow"
               exact={true}
-              render={(props) => <PatientFlow {...props} />}
-            /> */}
+              render={(props) => <VHPatientFlow {...props} />}
+              />
              <Route
               path="/virtualhospital/speciality"
               exact={true}
-              render={(props) => <SpecialityView {...props} />}
-            />
+              render={(props) => <VHSpecialityView {...props} />}
+              />
+              <Route
+              path="/virtualhospital/bills"
+              exact={true}
+              render={(props) => <VHBills {...props} />}
+              />
+              <Route
+              path="/virtualhospital/tasks"
+              exact={true}
+              render={(props) => <VHTasks {...props} />}
+              />
+               <Route
+              path="/virtualhospital/invoices"
+              exact={true}
+              render={(props) => <VHInvoices {...props} />}
+              />
+               <Route
+              path="/virtualhospital/space"
+              exact={true}
+              render={(props) => <VHSpaceManagement {...props} />}
+              />
+              <Route
+              path="/virtualhospital/services"
+              exact={true}
+              render={(props) => <VHServices {...props} />}
+              />
+              <Route
+              path="/virtualhospital/appointment-task"
+              exact={true}
+              render={(props) => <VHAppointTask {...props} />}
+              />
             <Route
               path="*"
               exact={true}

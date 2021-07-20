@@ -5,14 +5,14 @@ import LeftMenuMobile from "Screens/Components/Menus/VirtualHospitalMenu/mobile"
 import Button from '@material-ui/core/Button';
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { Pagination } from 'swiper/core';
-import SpecialityList from "Screens/Components/SpecialityList/index";
-import SpecialityButton from "Screens/Components/SpecialityButton/index";
+import SpecialityList from "Screens/Components/VirtualHospitalComponents/SpecialityList/index";
+import SpecialityButton from "Screens/Components/VirtualHospitalComponents/SpecialityButton/index";
 import { data } from 'sitedata';
 SwiperCore.use([Pagination]);
 var new_data = [{
     speciality_name: 'Cardiology', color: "#EE5253", backgroundColor: "#FBD4D4",
     total_wards: [
-        { room: 8, bed_number: 53, available: 32, ward_name: "Adults Ward" }
+        { ward_name: "Adults Ward", room: 8, bed_number: 53, available: 32 }
     ]
 }]
 
@@ -94,21 +94,25 @@ class Index extends Component {
                                                     <SwiperSlide>
 
                                                         {new_data?.length > 0 && new_data.map((data) => (
+                                                           <>
                                                             < SpecialityButton
                                                                 label={data.speciality_name}
                                                                 color={data.color}
                                                                 backgroundColor={data.backgroundColor}
-                                                            />,
-                                                           new_data.total_wards?.length > 0 && new_data.total_wards.map((data) => (
+                                                            />
+                                                            {data?.total_wards?.length > 0 && data?.total_wards?.map((data3) => (
                                                                 < SpecialityList
-                                                                    label={data.ward_name}
-                                                                    rooms={data.room}
-                                                                    beds={data.bed_number}
-                                                                    available={data.available}
+                                                                    label={data3.ward_name}
+                                                                    rooms={data3.room}
+                                                                    beds={data3.bed_number}
+                                                                    available={data3.available}
                                                                 />
-                                                            ))
-                                                        ))
-                                                        }
+                                                            ))}
+                                                             {console.log("data", data.total_wards)}
+
+                                                           </>
+                                                        ) )}
+
 
                                                         {/* <Grid className="wardsGrup">
                                                             <Grid className="spcMgntUpr">

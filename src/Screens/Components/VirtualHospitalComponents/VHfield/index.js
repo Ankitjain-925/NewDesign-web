@@ -30,12 +30,8 @@ class Index extends Component {
   render() {
     return (
       <Grid>
-
-
-
         <Grid className="rrSysto">
-          <Grid className="rrInput " className="new">
-
+          <Grid className="rrInput vhfield-add">
             <Grid><label>{this.state.label}</label></Grid>
             <input
               type="text" placeholder={this.state.placeholder}
@@ -43,14 +39,9 @@ class Index extends Component {
               name={this.state.specialityname}
               value={this.state.value}
             />
-
           </Grid>
-
         </Grid>
-
       </Grid>
-
-
     )
   }
 }
