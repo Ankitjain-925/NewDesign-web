@@ -17,7 +17,8 @@ class Index extends React.Component {
         RoomAy[index][e.target.name] = e.target.value;
         this.setState({ roomArray: RoomAy },
             this.props.onChange(this.state.roomArray))
-       
+
+
     }
 
     onAddFiled = () => {
@@ -70,7 +71,6 @@ class Index extends React.Component {
                         <Grid item xs={7} md={7}>
                             <input
                                 type="text" placeholder={this.state.placeholder}
-                                onChange={(e) => { this.onDataChange(e, index) }}
                                 name="room_name"
                                 value={data.room_name}
                             />
@@ -78,7 +78,6 @@ class Index extends React.Component {
                         <Grid item xs={3} md={3}>
                             <input
                                 type="number" placeholder={this.state.placeholder}
-                                onChange={(e) => { this.onDataChange(e, index) }}
                                 name="bed_number"
                                 value={data.bed_number}
                             />

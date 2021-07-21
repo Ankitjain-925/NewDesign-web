@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Grid";
+import VHfield from "Screens/Components/VirtualHospitalComponents/VHfield/index";
 
 class Index extends React.Component {
     constructor(props) {

@@ -5,7 +5,24 @@ import LeftMenuMobile from "Screens/Components/Menus/VirtualHospitalMenu/mobile"
 import Button from '@material-ui/core/Button';
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { Pagination } from 'swiper/core';
+import SpecialityList from "Screens/Components/VirtualHospitalComponents/SpecialityList/index";
+import SpecialityButton from "Screens/Components/VirtualHospitalComponents/SpecialityButton/index";
+import { data } from 'sitedata';
 SwiperCore.use([Pagination]);
+var new_data = [{
+    speciality_name: 'Cardiology', color: "#EE5253", backgroundColor: "#FBD4D4",
+    total_wards: [
+        { ward_name: "Adults Ward", room: 8, bed_number: 53, available: 32 }
+    ]
+}]
+
+var new_data1 = [{
+    speciality_name: 'Radiology', color: "#EE5253", backgroundColor: "#FBD4D4",
+    total_wards: [
+        { room: 8, bed_number: 53, available: 32, ward_name: "Adults Ward" }
+    ]
+}]
+
 
 class Index extends Component {
     render() {
@@ -70,53 +87,87 @@ class Index extends Component {
                                         </Grid>
                                         <Grid container direction="row" justify="center">
                                             <Grid item xs={11} sm={12} md={12}>
-                                                <Swiper spaceBetween={20} slidesPerView={1} 
-                                                        pagination={{ "dynamicBullets": true }}
-                                                        onSlideChange={() => console.log('slide change')} 
-                                                        onSwiper={(swiper) => console.log(swiper)}>
+                                                <Swiper spaceBetween={20} slidesPerView={1}
+                                                    pagination={{ "dynamicBullets": true }}
+                                                    onSlideChange={() => console.log('slide change')}
+                                                    onSwiper={(swiper) => console.log(swiper)}>
                                                     <SwiperSlide>
-                                                        <Grid className="wardsGrup">
+
+                                                        {new_data?.length > 0 && new_data.map((data) => (
+                                                           <>
+                                                            < SpecialityButton
+                                                                label={data.speciality_name}
+                                                                color={data.color}
+                                                                backgroundColor={data.backgroundColor}
+                                                            />
+                                                            {data?.total_wards?.length > 0 && data?.total_wards?.map((data3) => (
+                                                                < SpecialityList
+                                                                    label={data3.ward_name}
+                                                                    rooms={data3.room}
+                                                                    beds={data3.bed_number}
+                                                                    available={data3.available}
+                                                                />
+                                                            ))}
+                                                             {console.log("data", data.total_wards)}
+
+                                                           </>
+                                                        ) )}
+
+
+                                                        {/* <Grid className="wardsGrup">
                                                             <Grid className="spcMgntUpr">
                                                                 <Grid container direction="row">
                                                                     <Grid item xs={6} md={6}>
                                                                         <Button variant="contained">Cardiology</Button>
-                                                                    </Grid>
-                                                                    {/* <Grid item xs={6} md={6} className="spcMgntRght">
+                                                                    </Grid> */}
+                                                        {/* 
+                                                        < SpecialityButton
+                                                            label="Cardiology"
+                                                            color="#EE5253"
+                                                            backgroundColor="#FBD4D4"
+
+                                                        /> */}
+
+
+                                                        {/* <Grid item xs={6} md={6} className="spcMgntRght">
                                                                     <a><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></a>
                                                                 </Grid> */}
-                                                                </Grid>
-                                                            </Grid>
-                                                            <Grid className="roomsNum2">
-                                                                <ul>
-                                                                    <li><img src={require('assets/virtual_images/square.png')} alt="" title="" />Adults Ward</li>
-                                                                    <li><img src={require('assets/virtual_images/room.svg')} alt="" title="" />8 rooms</li>
-                                                                    <li><img src={require('assets/virtual_images/bedNumber.png')} alt="" title="" />
-                                                                        53 beds<span>32 available</span>
-                                                                    </li>
-                                                                </ul>
-                                                            </Grid>
-                                                            <Grid className="roomsNum2">
-                                                                <ul>
-                                                                    <li><img src={require('assets/virtual_images/square.png')} alt="" title="" />Childrens Ward</li>
-                                                                    <li><img src={require('assets/virtual_images/room.svg')} alt="" title="" />8 rooms</li>
-                                                                    <li><img src={require('assets/virtual_images/bedNumber.png')} alt="" title="" />
-                                                                        53 beds<span>32 available</span>
-                                                                    </li>
-                                                                </ul>
-                                                            </Grid>
-                                                        </Grid>
+                                                        {/* </Grid>
+                                                            </Grid> */}
+                                                        {/* 
+                                                        < SpecialityList
+                                                            label="Adults Ward"
+                                                            rooms="8"
+                                                            beds="53"
+                                                            available="32"
+                                                        /> */}
+
+
+                                                        {/* 
+
+                                                        <Grid className="roomsNum2">
+                                                            <ul>
+                                                                <li><img src={require('assets/virtual_images/square.png')} alt="" title="" />Childrens Ward</li>
+                                                                <li><img src={require('assets/virtual_images/room.svg')} alt="" title="" />8 rooms</li>
+                                                                <li><img src={require('assets/virtual_images/bedNumber.png')} alt="" title="" />
+                                                                    53 beds<span>32 available</span>
+                                                                </li>
+                                                            </ul>
+                                                        </Grid> */}
+
+
                                                     </SwiperSlide>
-                                                    <SwiperSlide>
+                                                    {/* <SwiperSlide>
                                                         <Grid className="wardsGrup">
                                                             <Grid className="spcMgntUpr">
                                                                 <Grid container direction="row">
                                                                     <Grid item xs={6} md={6}>
                                                                         <Button variant="contained">Cardiology</Button>
-                                                                    </Grid>
-                                                                    {/* <Grid item xs={6} md={6} className="spcMgntRght">
+                                                                    </Grid> */}
+                                                    {/* <Grid item xs={6} md={6} className="spcMgntRght">
                                                                          <a><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></a>
                                                                     </Grid> */}
-                                                                </Grid>
+                                                    {/* </Grid>
                                                             </Grid>
                                                             <Grid className="roomsNum2">
                                                                 <ul>
@@ -173,6 +224,7 @@ class Index extends Component {
                                                                     </Grid>
                                                                 </Grid>
                                                             </Grid>
+                                                            <sefg ward_name={"adult ward"} total_bed={53} total_room={8} available={29} />
                                                             <Grid className="roomsNum2">
                                                                 <ul>
                                                                     <li><img src={require('assets/virtual_images/square.png')} alt="" title="" />Adults Ward</li>
@@ -199,11 +251,11 @@ class Index extends Component {
                                                                 <Grid container direction="row">
                                                                     <Grid item xs={6} md={6}>
                                                                         <Button variant="contained" className="onlogyBtn">Oncology</Button>
-                                                                    </Grid>
-                                                                    {/* <Grid item xs={6} md={6} className="spcMgntRght">
+                                                                    </Grid> */}
+                                                    {/* <Grid item xs={6} md={6} className="spcMgntRght">
                                                                     <a><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></a>
                                                                 </Grid> */}
-                                                                </Grid>
+                                                    {/* </Grid>
                                                             </Grid>
                                                             <Grid className="roomsNum2">
                                                                 <ul>
@@ -233,7 +285,7 @@ class Index extends Component {
                                                                 </ul>
                                                             </Grid>
                                                         </Grid>
-                                                    </SwiperSlide>
+                                                    </SwiperSlide> */}
                                                 </Swiper>
                                             </Grid>
                                         </Grid>
@@ -244,7 +296,7 @@ class Index extends Component {
                         </Grid>
                     </Grid>
                 </Grid>
-            </Grid>
+            </Grid >
         );
     }
 }

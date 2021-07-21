@@ -112,7 +112,7 @@ class Index extends Component {
                                                             <Button><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></Button>
                                                         </Td>
                                                     </Tr>
-                                                    <Tr>
+                                                    <Tr> 
                                                         <Td>
                                                             <label>Carotid Ultrasound</label>
                                                         </Td>

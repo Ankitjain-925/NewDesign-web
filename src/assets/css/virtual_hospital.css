@@ -9881,3 +9881,18 @@ button.crdoLghtBlu2 {
 .vhfield-add{
     width:96.5%
 }
+
+.specialitybutton{
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 16px;
+    box-shadow: initial !important;
+    font-family: 'Mulish', sans-serif;
+    text-transform: capitalize;
+    padding: 8px 11px;
+}
+.specialitybutton-parent{
+    flex-basis: auto !important;
+}

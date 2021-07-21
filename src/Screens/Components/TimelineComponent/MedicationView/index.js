@@ -308,8 +308,8 @@ class Index extends Component {
             <Collapsible
               trigger={<ExpandMoreIcon />}
               triggerWhenOpen={<ExpandLessIcon />}
-              open={!this.state.onlyOverview}
-            >
+              open={!this.state.onlyOverview} >
+
               {
                 <Grid>
                   <Grid container direction="row" className="addSpc bpJohnMain">

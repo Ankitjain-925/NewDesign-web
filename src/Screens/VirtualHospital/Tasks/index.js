@@ -7,10 +7,29 @@ import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import LeftMenu from "Screens/Components/Menus/VirtualHospitalMenu/index";
 import LeftMenuMobile from "Screens/Components/Menus/VirtualHospitalMenu/mobile";
+import Assigned from "Screens/Components/VirtualHospitalComponents/Assigned/index";
+import FlowPatientView from "Screens/Components/VirtualHospitalComponents/FlowPatientView/index";
+import CommentsView from "Screens/Components/VirtualHospitalComponents/CommentsView/index";
 import { Button } from '@material-ui/core';
 import Link from '@material-ui/core/Link';
 import Modal from '@material-ui/core/Modal';
 
+var new_data = [
+    'https://images.unsplash.com/photo-1541963463532-d68292c34b19?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8Mnx8fGVufDB8fHx8&w=1000&q=80',
+    'https://images.unsplash.com/photo-1626634913593-e5b88fd85627?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80',
+    'https://images.unsplash.com/photo-1626649216179-938ba30eca07?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80',
+    'https://images.unsplash.com/photo-1626619633396-1769230c1342?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80',
+]
+
+
+var allcomments = [{
+    comments_data: [{
+        url: "https://images.unsplash.com/photo-1541963463532-d68292c34b19?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8Mnx8fGVufDB8fHx8&w=1000&q=80",
+        text: "thirdone try comment",
+        comment_by: "D_1Q1J4SSCm",
+        comment_id: "60ae03a79d9ebe17f0a92858_D_1Q1J4SSCm_1622636888816"
+    }]
+}]
 function TabContainer(props) {
     return (
         <Typography component="div">
@@ -49,7 +68,7 @@ class Index extends Component {
                 <Grid className="homeBgIner">
                     <Grid container direction="row">
                         <Grid item xs={12} md={12}>
-                        <LeftMenuMobile isNotShow={true} currentPage="chat" />
+                            <LeftMenuMobile isNotShow={true} currentPage="chat" />
                             <Grid container direction="row">
                                 {/* <VHfield name="ANkit" Onclick2={(name, value)=>{this.myclick(name , value)}}/> */}
 
@@ -116,20 +135,39 @@ class Index extends Component {
                                                                     <Grid item xs={12} md={12}>
                                                                         <Grid className="asignUpr">
                                                                             <Grid className="asignLft">
-                                                                                <Grid><label>Assigned to</label></Grid>
+
+
+                                                                                <Assigned
+                                                                                    totalurl={new_data}
+                                                                                />
+
+
+
+
+
+
+                                                                                {/* <Grid><label>Assigned to</label></Grid>
                                                                                 <Grid>
                                                                                     <a><img src={require('assets/virtual_images/dr1.jpg')} alt="" title="" /></a>
                                                                                     <a><img src={require('assets/virtual_images/dr2.jpg')} alt="" title="" /></a>
                                                                                     <a>+1</a>
-                                                                                </Grid>
+                                                                                </Grid> */}
                                                                             </Grid>
-                                                                            <Grid className="asignRghtUpr">
+                                                                            {/* <Grid className="asignRghtUpr">
                                                                                 <Grid><label>Patient</label></Grid>
                                                                                 <Grid className="asignRght">
                                                                                     <Grid><a><img src={require('assets/virtual_images/dr1.jpg')} alt="" title="" /></a></Grid>
                                                                                     <Grid><span>Benito Noboa</span><p>P_ukd832kd2</p></Grid>
                                                                                 </Grid>
-                                                                            </Grid>
+                                                                            </Grid> */}
+
+                                                                            < FlowPatientView
+                                                                                label="Patient"
+                                                                                url='https://images.unsplash.com/photo-1541963463532-d68292c34b19?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8Mnx8fGVufDB8fHx8&w=1000&q=80'
+                                                                                first_name="Benito"
+                                                                                last_name="Noboa"
+                                                                                profile_id="P_ukd832kd2"
+                                                                            />
                                                                         </Grid>
                                                                     </Grid>
                                                                 </Grid>
@@ -154,8 +192,8 @@ class Index extends Component {
                                                                         <Grid item xs={12} sm={12} md={12}>
                                                                             <Grid><label>Description</label>
                                                                                 <p>Multiple lesions again suggest chronic demyelination. Mild atrophy greatest in the frontal region
-                                                                                   may be associated with multiple sclerosis. Findings appear stable when compared with the prior study.
-                                                                               There is no abnormal enhancement.</p>
+                                                                                    may be associated with multiple sclerosis. Findings appear stable when compared with the prior study.
+                                                                                    There is no abnormal enhancement.</p>
                                                                             </Grid>
                                                                         </Grid>
                                                                     </Grid>
@@ -213,19 +251,34 @@ class Index extends Component {
                                                                     </Grid>
                                                                 </Grid>
 
+
+
                                                                 <Grid className="cmntUpr">
                                                                     <Grid container direction="row" alignItems="center">
                                                                         <Grid item xs={12} sm={12} md={12}>
                                                                             <Grid className="cmntIner">
                                                                                 <Grid><label>Comments</label></Grid>
-                                                                                <Grid className="cmntMsgs">
+
+                                                                                {allcomments?.length > 0 && allcomments.map((data) => (
+                                                                                    <>
+                                                                                        {data?.comments_data?.length > 0 && data?.comments_data?.map((data1) => (
+                                                                                            < CommentsView
+                                                                                                label={data1.comment_by}
+                                                                                                text={data1.text}
+                                                                                                url={data1.url}
+                                                                                            />
+                                                                                        ))}
+                                                                                    </>
+                                                                                ))}
+
+                                                                                {/* <Grid className="cmntMsgs">
                                                                                     <Grid><img src={require('assets/virtual_images/dr1.jpg')} alt="" title="" /></Grid>
                                                                                     <Grid>
                                                                                         <Grid><label>Mark Anderson M.D.</label><span>7 Feb at 12:38</span></Grid>
                                                                                         <Grid className="cmntMsgsCntnt"><p>I’m leaving a short comment right here</p></Grid>
                                                                                         <Grid><Button>Edit</Button><Button>Delete</Button></Grid>
                                                                                     </Grid>
-                                                                                </Grid>
+                                                                                </Grid> */}
                                                                             </Grid>
                                                                             <Grid className="cmntIner cmntInerBrdr">
                                                                                 <Grid className="cmntMsgs">
@@ -233,8 +286,8 @@ class Index extends Component {
                                                                                     <Grid>
                                                                                         <Grid><label>Gregory House M.D.</label><span>7 Feb at 12:38</span></Grid>
                                                                                         <Grid className="cmntMsgsCntnt"><p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                                                                                        Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a
-                                                                                        galley of type and scrambled it to make a type specimen book.</p></Grid>
+                                                                                            Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a
+                                                                                            galley of type and scrambled it to make a type specimen book.</p></Grid>
                                                                                     </Grid>
                                                                                 </Grid>
                                                                             </Grid>
@@ -544,14 +597,14 @@ class Index extends Component {
                                                         </TabContainer>}
                                                         {tabvalue2 === 1 && <TabContainer>
                                                             Done tab content
-                                                    </TabContainer>}
+                                                        </TabContainer>}
                                                         {tabvalue2 === 2 && <TabContainer>
                                                             Open tab content
-                                                    </TabContainer>}
+                                                        </TabContainer>}
                                                     </TabContainer>}
                                                     {tabvalue === 1 && <TabContainer>
                                                         All Tasks
-                                                </TabContainer>}
+                                                    </TabContainer>}
                                                     {tabvalue === 2 && <TabContainer>
                                                         <Grid className="tskOverView tskOverMob">
                                                             <Grid className="taskNum taskYelow">
@@ -583,7 +636,7 @@ class Index extends Component {
                         </Grid>
                     </Grid>
                 </Grid>
-            </Grid>
+            </Grid >
         );
     }
 }
