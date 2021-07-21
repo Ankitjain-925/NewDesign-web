@@ -26,7 +26,7 @@ class Index extends React.Component {
                                         <span>{this.state.room_number}</span>
                                     </Grid>
                                     <Grid>
-                                        <img src={require('assets/virtual_images/room.svg')} alt="" title="" />
+                                        <img src={require('assets/virtual_images/bedNumber.png')} alt="" title="" />
                                         <span>{this.state.bed_number}</span>
                                     </Grid>
                                 </Grid>
@@ -35,7 +35,7 @@ class Index extends React.Component {
                         <Grid item xs={4} md={6}>
                             <Grid className="wrdEdtDelBtn">
                                 <Button><img src={require('assets/virtual_images/pencil-1.svg')} alt="" title="" /></Button>
-                                <Button><img src={require('assets/virtual_images/bin.svg')} alt="" title="" /></Button>
+                                <Button onClick={()=>this.props.removeWard(this.props.index)}><img src={require('assets/virtual_images/bin.svg')} alt="" title="" /></Button>
                             </Grid>
                         </Grid>
                     </Grid>
