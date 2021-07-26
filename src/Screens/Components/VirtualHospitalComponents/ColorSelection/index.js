@@ -24,31 +24,25 @@ class Index extends React.Component {
     this.state = {
       specialitycolor: this.props.color,
       label: this.props.label,
-      button: this.props.button,
       className: this.props.name,
       iscolor: 'recodRed'
 
     };
   }
 
+  componentDidUpdate = (prevProps) => {
+    
+  };
+
 
   handleSpecialityColor = () => {
     this.setState({ specialityColor: !this.state.specialityColor });
   }
-
-
-
-  colorChoice(index) {
   
-    console.log('rt', ColorOption[index]?.color);
-    console.log('rtyy', ColorOption[index]?.backgroundcolor);
-    console.log('rtyy', ColorOption[index]?.className);
+  colorChoice(index) {
     this.setState({iscolor: ColorOption[index]?.className})
     this.props.updateEntryState1('color', ColorOption[index]?.color)
     this.props.updateEntryState1('background_color', ColorOption[index]?.backgroundcolor)
-    // this.props.updateEntryState1('className', ColorOption[index]?.className)
-  
-
   }
 
   

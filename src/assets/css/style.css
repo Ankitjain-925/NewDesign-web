@@ -13114,6 +13114,11 @@ a.academy_ul ul li img {
 
 
 /*Added By ankita*/
+.delet-house{
+    color: red !important;
+    font-weight: bold;
+    cursor: pointer;
+}
 .current_pass_sec{
     margin-top:20px;
 }

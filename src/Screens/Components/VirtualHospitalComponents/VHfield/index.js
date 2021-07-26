@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
-import Button from '@material-ui/core/Button';
-// import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
+import { pure } from "recompose";
 
 class Index extends Component {
   constructor(props) {
@@ -9,24 +8,28 @@ class Index extends Component {
     this.state = {
       specialityname: this.props.name,
       label: this.props.label,
-      placeholder: this.props.placeholder
+      placeholder: this.props.placeholder,
+      value: this.props.value
     };
   }
 
-  // Onclick2=(name, value)=>{
-  //     this.props.Onclick2('color', '#344544');
-  //     this.props.Onclick2('background-color', "#453443");
-  // }
-
-
-
   onDataChange = (e) => {
-    // console.log("Data")
     this.props.onChange(e)
   };
+  componentDidUpdate = (prevProps) => {
+    if (prevProps.value !== this.props.value) {
+      this.setState({ value: this.props.value });
+    }
+  };
 
-
-
+  shouldComponentUpdate(nextProps, nextState) {
+    return (
+      nextState.value !== this.state.value || nextState.specialityname !== this.state.specialityname ||
+      nextProps.value !== this.props.value || nextProps.specialityname !== this.props.specialityname ||
+      nextState.label !== this.state.label || nextState.placeholder !== this.state.placeholder ||
+      nextProps.label !== this.props.label || nextProps.placeholder !== this.props.placeholder 
+    );
+  }
   render() {
     return (
       <Grid>
@@ -45,4 +48,5 @@ class Index extends Component {
     )
   }
 }
-export default Index;
+
+export default pure(Index);

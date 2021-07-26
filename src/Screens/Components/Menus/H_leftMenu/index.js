@@ -124,7 +124,7 @@ class Index extends Component {
             default :
                 translate = translationEN.text
         }
-        let { capab_Patients, capab_Doctors, LanUpdated, LanSel, capab_Hospitals, SelectLanguage, documents, admin_panel, my_profile, paramedic, srvc_Nurses, insurance, pharmacy, online_course, add_new, user, dark_mode, profile_setting, Language, logout, Patient, find_patient, ID, Status, no_, recEmp_FirstName,
+        let { capab_Patients, more, capab_Doctors, LanUpdated, LanSel, capab_Hospitals, SelectLanguage, documents, admin_panel, my_profile, paramedic, srvc_Nurses, insurance, pharmacy, online_course, add_new, user, dark_mode, profile_setting, Language, logout, Patient, find_patient, ID, Status, no_, recEmp_FirstName,
             previous, next, Normal, Blocked, recEmp_LastName, Savechanges, archive, restore, Delete, see_detail, course_topic } = translate
 
         if (!this.props.stateLoginValueAim.token || this.props.stateLoginValueAim.token == 450) {
@@ -175,6 +175,53 @@ class Index extends Component {
                                 <span>{archive}</span>
                             </a>
                         </li>
+                        <li className={this.props.currentPage === "more" ? "menuActv" : ""}>
+              <a className="moreMenu">
+                {/* {this.props.settings &&
+                this.props.settings.setting &&
+                this.props.settings.setting.mode &&
+                this.props.settings.setting.mode === "dark" ? (
+                  <img
+                    src={require("assets/images/nav-more-white.svg")}
+                    alt=""
+                    title=""
+                  />
+                ) : ( */}
+                  <img
+                    src={require("assets/images/nav-more.svg")}
+                    alt=""
+                    title=""
+                  />
+                {/* )} */}
+                <span>{more}</span>
+
+                <div className="moreMenuList">
+                  <ul>
+                    <li>
+                      <a onClick={() => this.props.history.push("/h-groups")}>
+                        {/* {this.props.settings &&
+                        this.props.settings.setting &&
+                        this.props.settings.setting.mode &&
+                        this.props.settings.setting.mode === "dark" ? (
+                          <img
+                            src={require("assets/images/menudocs-white.jpg")}
+                            alt=""
+                            title=""
+                          />
+                        ) : ( */}
+                          <img
+                            src={require("assets/images/menudocs.jpg")}
+                            alt=""
+                            title=""
+                          />
+                        {/* )} */}
+                        Institute Groups
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </a>
+            </li>
                         {/* <li>
                             <a className="moreMenu">
                                 <img src={require('assets/images/nav-more.svg')} alt="" title="" />

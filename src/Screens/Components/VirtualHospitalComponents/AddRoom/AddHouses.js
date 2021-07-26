@@ -5,7 +5,9 @@ class Index extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            roomArray: this.props.roomArray || [],  
+            roomArray: this.props.roomArray || [],
+            label: this.props.label,
+            name: this.props.name,
         }
     }
 
@@ -15,16 +17,17 @@ class Index extends React.Component {
         this.setState({ roomArray: RoomAy },
             this.props.onChange(this.state.roomArray))
     }
-
+    
     componentDidUpdate = (prevProps) => {
         if (prevProps.roomArray !== this.props.roomArray) {
             this.setState({ roomArray: this.props.roomArray });
         }
     };
-
+ 
     onAddFiled = () => {
         let RoomAy = this.state.roomArray;
-        RoomAy.push({ room_name: "", bed_number: "" });
+        var date = new Date();
+        RoomAy.push({ house_name: "", house_id: `600c15c2c983431790f904c3-${date.getTime()}` });
         this.setState({ roomArray: RoomAy });
     };
 
@@ -38,20 +41,12 @@ class Index extends React.Component {
             <Grid className="roomName">
                 {this.state.timeArr && this.state.timeArr.length == 0 && (
                     <Grid container direction="row" alignItems="center" spacing={2}>
-                        <Grid item xs={7} md={7}>
+                        <Grid item xs={10} md={10}>
                             <input
                                 type="text" placeholder={this.state.placeholder}
                                 onChange={(e) => { this.onDataChange(e, 0) }}
-                                name="room_name"
-                                value={this.state.roomArray[0]?.room_name}
-                            />
-                        </Grid>
-                        <Grid item xs={3} md={3}>
-                            <input
-                                type="number" placeholder={this.state.placeholder}
-                                onChange={(e) => { this.onDataChange(e, 0) }}
-                                name="bed_number"
-                                value={this.state.roomArray[0]?.bed_number}
+                                name="house_name"
+                                value={this.state.roomArray[0]?.house_name}
                             />
                         </Grid>
                         <Grid item xs={2} md={2} className="roomRmv">
@@ -61,22 +56,15 @@ class Index extends React.Component {
                 )}
                 {this.state.roomArray && this.state.roomArray.length > 0 && this.state.roomArray.map((data, index) => (
                     <Grid container direction="row" alignItems="center" spacing={2}>
-                        <Grid item xs={7} md={7}>
+                        <Grid item xs={10} md={10}>
                             <input
                                 type="text" placeholder={this.state.placeholder}
-                                name="room_name"
+                                name="house_name"
                                 onChange={(e) => this.onDataChange(e, index)}
-                                value={data.room_name}
+                                value={data.house_name}
                             />
                         </Grid>
-                        <Grid item xs={3} md={3}>
-                            <input
-                                type="number" placeholder={this.state.placeholder}
-                                name="bed_number"
-                                value={data.bed_number}
-                                onChange={(e) => this.onDataChange(e, index)}
-                            />
-                        </Grid>
+                        
                         <Grid item xs={2} md={2} className="roomRmv">
                             <a onClick={() => this.deleteRooms(index)}><img src={require('assets/virtual_images/bin.svg')} alt="" title="" /></a>
                         </Grid>
