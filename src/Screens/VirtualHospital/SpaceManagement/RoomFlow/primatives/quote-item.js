@@ -22,10 +22,10 @@ export default class QuoteItem extends React.Component {
         {...provided.draggableProps}
         {...provided.dragHandleProps}
       >
-          {/* {this.props.view ==='vertical' ? 
+          {this.props.view ==='vertical' ? 
           <Grid className="flowInfo">
               <Grid className="flowInfoInr">
-                  <Grid className="flowInfoBtn RadiologyClr"><Button>Radiology</Button></Grid>
+                  {/* <Grid className="flowInfoBtn RadiologyClr"><Button>Radiology</Button></Grid> */}
                   <Grid className="flowProfil">
                       <Grid><img src={require('assets/virtual_images/102.png')} alt="" title="" /></Grid>
                       <Grid className="flowProfilRght">
@@ -33,8 +33,8 @@ export default class QuoteItem extends React.Component {
                           <p>{quote.profile_id}</p>
                       </Grid>
                   </Grid>
-              </Grid>
-              <Grid className="flowInfoInr2">
+              </Grid> 
+              {/* <Grid className="flowInfoInr2">
                   <Grid className="dtlCntUpr">
                       <Grid className="dtlCntLft">
                           <Grid className="dtlCount dtlCountRm">
@@ -57,7 +57,7 @@ export default class QuoteItem extends React.Component {
                           <a>+1</a>
                       </Grid>
                   </Grid>
-              </Grid>
+              </Grid> */}
         </Grid>:
         <Grid className="cardioAreaUpr">
         <Grid container direction="row" justify="center" alignItems="center">
@@ -105,7 +105,7 @@ export default class QuoteItem extends React.Component {
                 </Grid>
             </Grid>
         </Grid>
-    </Grid>} */}
+    </Grid>}
       </div>
     );
   }

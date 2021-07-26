@@ -10,6 +10,7 @@ import LeftMenuMobile from "Screens/Components/Menus/VirtualHospitalMenu/mobile"
 import Assigned from "Screens/Components/VirtualHospitalComponents/Assigned/index";
 import FlowPatientView from "Screens/Components/VirtualHospitalComponents/FlowPatientView/index";
 import CommentsView from "Screens/Components/VirtualHospitalComponents/CommentsView/index";
+import AssignedToData from "Screens/Components/VirtualHospitalComponents/AssignedToData/index";
 import { Button } from '@material-ui/core';
 import Link from '@material-ui/core/Link';
 import Modal from '@material-ui/core/Modal';
@@ -24,10 +25,10 @@ var new_data = [
 
 var allcomments = [{
     comments_data: [{
-        url: "https://images.unsplash.com/photo-1541963463532-d68292c34b19?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8Mnx8fGVufDB8fHx8&w=1000&q=80",
-        text: "thirdone try comment",
-        comment_by: "D_1Q1J4SSCm",
-        comment_id: "60ae03a79d9ebe17f0a92858_D_1Q1J4SSCm_1622636888816"
+        // url: "https://images.unsplash.com/photo-1541963463532-d68292c34b19?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8Mnx8fGVufDB8fHx8&w=1000&q=80",
+        // text: "thirdone try comment",
+        // comment_by: "D_1Q1J4SSCm",
+        // comment_id: "60ae03a79d9ebe17f0a92858_D_1Q1J4SSCm_1622636888816"
     }]
 }]
 function TabContainer(props) {
@@ -46,7 +47,10 @@ class Index extends Component {
         this.state = {
             openRvw: false,
             tabvalue: 0,
-            tabvalue2: 0
+            tabvalue2: 0,
+            text: '',
+            comments_data: [],
+            openEntry: false,
         };
     }
     handleOpenRvw = () => {
@@ -61,8 +65,37 @@ class Index extends Component {
     handleChangeTab2 = (event, tabvalue2) => {
         this.setState({ tabvalue2 });
     };
+    updateCommemtState = (e) => {
+        this.setState({
+            text: e.target.value,
+        })
+    }
+    handleComment = (e) => {
+        console.log("comment", this.state.text)
+
+        e.preventDefault();
+        let comments_data = [...this.state.comments_data];
+        comments_data.push({
+            text: this.state.text,
+        });
+        this.setState({
+            comments_data,
+            text: '',
+        });
+    };
+
+    handleOpenAssign = () => {
+        this.setState({ openEntry: true });
+
+    };
+
+    handleCloseAssign = () => {
+        this.setState({ openEntry: false });
+    };
+
     render() {
-        const { tabvalue, tabvalue2 } = this.state;
+        const { tabvalue, tabvalue2, comments_data } = this.state;
+        // console.log("commment_data", comments_data);
         return (
             <Grid className="homeBg">
                 <Grid className="homeBgIner">
@@ -71,7 +104,6 @@ class Index extends Component {
                             <LeftMenuMobile isNotShow={true} currentPage="chat" />
                             <Grid container direction="row">
                                 {/* <VHfield name="ANkit" Onclick2={(name, value)=>{this.myclick(name , value)}}/> */}
-
 
                                 {/* Start of Menu */}
                                 <Grid item xs={12} md={1} className="MenuLeftUpr">
@@ -144,8 +176,6 @@ class Index extends Component {
 
 
 
-
-
                                                                                 {/* <Grid><label>Assigned to</label></Grid>
                                                                                 <Grid>
                                                                                     <a><img src={require('assets/virtual_images/dr1.jpg')} alt="" title="" /></a>
@@ -204,7 +234,17 @@ class Index extends Component {
                                                                             <Grid className="assignSec">
                                                                                 <Grid>
                                                                                     <img src={require('assets/virtual_images/assign-to.svg')} alt="" title="" />
-                                                                                    <label>+ Assign to</label>
+                                                                                    <label onClick={this.handleOpenAssign}>+ Assign to</label>
+                                                                                </Grid>
+
+                                                                                <Grid>
+                                                                                    <AssignedToData
+                                                                                        openEntry={this.state.openEntry}
+                                                                                        handleCloseAssign={this.handleCloseAssign}
+                                                                                        handleOpenAssign={this.handleOpenAssign}
+                                                                                        onChange={(e) => this.updateEntryState(e)}
+                                                                                        value={this.state.value}
+                                                                                    />
                                                                                 </Grid>
                                                                                 <Grid>
                                                                                     <img src={require('assets/virtual_images/assign-to.svg')} alt="" title="" />
@@ -259,15 +299,13 @@ class Index extends Component {
                                                                             <Grid className="cmntIner">
                                                                                 <Grid><label>Comments</label></Grid>
 
-                                                                                {allcomments?.length > 0 && allcomments.map((data) => (
+                                                                                {this.state.comments_data?.length > 0 && this.state.comments_data.map((data) => (
                                                                                     <>
-                                                                                        {data?.comments_data?.length > 0 && data?.comments_data?.map((data1) => (
-                                                                                            < CommentsView
-                                                                                                label={data1.comment_by}
-                                                                                                text={data1.text}
-                                                                                                url={data1.url}
-                                                                                            />
-                                                                                        ))}
+                                                                                        < CommentsView
+                                                                                            label={data.comment_by}
+                                                                                            text={data.text}
+                                                                                            url={data.url}
+                                                                                        />
                                                                                     </>
                                                                                 ))}
 
@@ -280,7 +318,7 @@ class Index extends Component {
                                                                                     </Grid>
                                                                                 </Grid> */}
                                                                             </Grid>
-                                                                            <Grid className="cmntIner cmntInerBrdr">
+                                                                            {/* <Grid className="cmntIner cmntInerBrdr">
                                                                                 <Grid className="cmntMsgs">
                                                                                     <Grid><img src={require('assets/virtual_images/dr2.jpg')} alt="" title="" /></Grid>
                                                                                     <Grid>
@@ -290,10 +328,14 @@ class Index extends Component {
                                                                                             galley of type and scrambled it to make a type specimen book.</p></Grid>
                                                                                     </Grid>
                                                                                 </Grid>
-                                                                            </Grid>
+                                                                            </Grid> */}
                                                                             <Grid className="addComit">
-                                                                                <textarea>When I started typing the “Add Comment” button showed up.</textarea>
-                                                                                <Button>Add Comment</Button>
+                                                                                <textarea
+                                                                                    onChange={(e) => this.updateCommemtState(e)}
+                                                                                    value={this.state.text}>
+                                                                                </textarea>
+
+                                                                                <Button onClick={(e) => this.handleComment(e)}>Add Comment</Button>
                                                                             </Grid>
                                                                             <Grid className="saveTask">
                                                                                 <Button>Save Task & Close</Button>

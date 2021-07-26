@@ -8984,7 +8984,7 @@ button.crdoLghtBlu2 {
 .flowInfo {
     margin-top: 8px;
     margin-bottom: 12px;
-    min-height: 127px;
+    /* min-height: 127px; */
     border-radius: 8px;
     background-color: #FFFFFF;
     box-shadow: 0 8px 16px 0 rgb(0 8 8 / 8%);

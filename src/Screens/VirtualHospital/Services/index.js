@@ -7,13 +7,11 @@ import LeftMenuMobile from "Screens/Components/Menus/VirtualHospitalMenu/mobile"
 import VHfield from "Screens/Components/VirtualHospitalComponents/VHfield/index";
 import Modal from '@material-ui/core/Modal';
 
-
 var services_data = [
     // { title: "X-ray", description: "This can be a short description of this service.", price: "200,00 €" },
     // { title: "CT-Scan", description: "This can be a short description of this service.", price: "240,00 €" },
     // { title: "MRI", description: "This can be a short description of this service.", price: "260,00 €" },
 ]
-
 
 class Index extends Component {
     constructor(props) {
@@ -49,16 +47,15 @@ class Index extends Component {
         })
     }
     handleSubmit = (e) => {
-        console.log("title", this.state.title)
-        console.log("des", this.state.description)
-        console.log("price", this.state.price)
-
+        // console.log("title", this.state.title)
+        // console.log("des", this.state.description)
+        // console.log("price", this.state.price)
         e.preventDefault();
         let services_data = [...this.state.services_data];
         services_data.push({
             title: this.state.title,
             description: this.state.description,
-            price: this.state.price
+            price: this.state.price 
         });
         this.setState({
             services_data,
@@ -80,22 +77,20 @@ class Index extends Component {
                             {/* Mobile menu */}
                             <LeftMenuMobile isNotShow={true} currentPage="chat" />
                             <Grid container direction="row">
-                                {/* <VHfield name="ANkit" Onclick2={(name, value)=>{this.myclick(name , value)}}/> */}
-
 
                                 {/* Start of Menu */}
                                 <Grid item xs={12} md={1} className="MenuLeftUpr">
                                     <LeftMenu isNotShow={true} currentPage="chat" />
                                 </Grid>
-                                {/* End of Menu */}
+                                {/* End of Menu */}                                                
 
                                 {/* Start of Right Section */}
                                 <Grid item xs={12} md={10}>
                                     <Grid className="topLeftSpc">
-                                        <Grid container direction="row">
+                                        <Grid container direction="row">                    
                                             <Grid item xs={6} md={6}>
                                                 {/* Back common button */}
-                                                <Grid className="extSetting">
+                                            <Grid className="extSetting">
                                                     <a><img src={require('assets/virtual_images/rightArrow.png')} alt="" title="" />
                                                         Back to Billing</a>
                                                 </Grid>
@@ -145,7 +140,7 @@ class Index extends Component {
                                                                 </Grid>
                                                                 <Grid item xs={6} md={6}>
                                                                     <Grid className="newServc">
-                                                                      <a onClick={this.handleCloseServ}><Button onClick={(e) => this.handleSubmit(e)}>Submit</Button></a>
+                                                                        <a onClick={this.handleCloseServ}><Button onClick={(e) => this.handleSubmit(e)}>Submit</Button></a>
                                                                     </Grid>
                                                                 </Grid>
                                                             </Grid>
