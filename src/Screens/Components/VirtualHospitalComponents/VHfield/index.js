@@ -8,7 +8,8 @@ class Index extends Component {
     this.state = {
       specialityname: this.props.name,
       label: this.props.label,
-      placeholder: this.props.placeholder
+      placeholder: this.props.placeholder,
+      value: this.props.value
     };
   }
 

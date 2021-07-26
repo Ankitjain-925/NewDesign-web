@@ -26,6 +26,11 @@ class Index extends Component {
                                         backgroundColor: this.state.backgroundColor
                                  }} variant="contained">{this.state.label}</Button>
                         </Grid>
+                        {this.props.viewImage &&
+                            <Grid item xs={6} md={6} className="spcMgntRght3">
+                                <a><img src={require('assets/virtual_images/setting.png')} alt="" title="" /></a>
+                            </Grid>
+                        }
                     </Grid>
                 </Grid>
             </Grid>

@@ -86,6 +86,7 @@ import VHTasks from "Screens/VirtualHospital/Tasks/index";
 import VHInvoices from "Screens/VirtualHospital/Invoices/index";
 import VHServices from "Screens/VirtualHospital/Services/index";
 import VHAppointTask from "Screens/VirtualHospital/AppointTask/index";
+import ManageBeds from "Screens/VirtualHospital/SpaceManagement/manageBeds"
 
 class Routermain extends Component {
   render() {
@@ -460,6 +461,11 @@ class Routermain extends Component {
               path="/virtualhospital/appointment-task"
               exact={true}
               render={(props) => <VHAppointTask {...props} />}
+              />
+              <Route
+              path="/virtualhospital/manage-beds"
+              exact={true}
+              render={(props) => <ManageBeds {...props} />}
               />
             <Route
               path="*"

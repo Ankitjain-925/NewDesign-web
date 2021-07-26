@@ -21,6 +21,7 @@ import { LanguageFetchReducer } from 'Screens/actions';
 import { LoginReducerAim } from 'Screens/Login/actions';
 import { Settings } from 'Screens/Login/setting';
 import { commonHeader } from "component/CommonHeader/index";
+import SpecialityButton from "Screens/Components/VirtualHospitalComponents/SpecialityButton";
 class Index extends Component {
   constructor(props) {
     super(props);
@@ -50,7 +51,7 @@ class Index extends Component {
     var data = this.state.speciality;
     data.house_id = this.props.house_id;
     this.setState({ loaderImage: true })
-    axios.post(sitedata.data.path + '/specilty/AddSpecialty',
+    axios.post(sitedata.data.path + '/vh/AddSpecialty',
       data,
       commonHeader(this.props.stateLoginValueAim.token))
       .then((responce) => {
@@ -64,7 +65,7 @@ class Index extends Component {
   //for getting all speciality
   getSpeciality = () => {
     this.setState({ loaderImage: true })
-    axios.get(sitedata.data.path + '/specilty/AddSpecialty/' + this.props.house_id,
+    axios.get(sitedata.data.path + '/vh/AddSpecialty/' + this.props.house_id,
       commonHeader(this.props.stateLoginValueAim.token))
       .then((responce) => {
         if (responce.data.hassuccessed && responce.data.data) {
@@ -170,7 +171,7 @@ class Index extends Component {
                 {/* Start of Right Section */}
                 <Grid item xs={12} md={11}>
                   <Grid className="topLeftSpc">
-                    <Grid className="extSetting">
+                    {/* <Grid className="extSetting">
                       <a>
                         <img
                           src={require("assets/virtual_images/rightArrow.png")}
@@ -179,7 +180,7 @@ class Index extends Component {
                         />
                         Exit Settings
                       </a>
-                    </Grid>
+                    </Grid> */}
                     {/* Start of Bread Crumb */}
                     <Grid className="breadCrumbUpr">
                       <Grid container direction="row" alignItems="center">
@@ -208,7 +209,8 @@ class Index extends Component {
                       {this.state.specialityData?.length>0 && this.state.specialityData.map((data)=>(
                           <Grid item xs={12} md={3}>
                           <Grid className="wardsGrup3">
-                              <Grid className="spcMgntUpr3">
+                          <SpecialityButton viewImage={true} label={data.speciality_name} backgroundColor={data.background_color} color={data.color}/>
+                              {/* <Grid className="spcMgntUpr3">
                                   <Grid container direction="row">
                                       <Grid item xs={6} md={6}>
                                           <Button variant="contained">Cardiology</Button>
@@ -217,17 +219,20 @@ class Index extends Component {
                                           <a><img src={require('assets/virtual_images/setting.png')} alt="" title="" /></a>
                                       </Grid>
                                   </Grid>
-                              </Grid>
-                              <Grid className="roomsNum3">
-                                  <ul>
-                                      <li><img src={require('assets/virtual_images/square.png')} alt="" title="" />Adults Ward</li>
-                                      <li><img src={require('assets/virtual_images/room.svg')} alt="" title="" />8 rooms</li>
-                                      <li><img src={require('assets/virtual_images/bedNumber.png')} alt="" title="" />
-                                          53 beds<span>32 available</span>
-                                      </li>
-                                  </ul>
-                              </Grid>
-                              <Grid className="roomsNum3">
+                              </Grid> */}
+                              {data.wards?.length>0 && data.wards.map((item)=>(
+                                <Grid className="roomsNum3">
+                                   <ul>
+                                       <li><img src={require('assets/virtual_images/square.png')} alt="" title="" />{item.ward_name}</li>
+                                       <li><img src={require('assets/virtual_images/room.svg')} alt="" title="" />{item?.rooms?.length ? item?.rooms?.length : 0 } rooms</li>
+                                       <li><img src={require('assets/virtual_images/bedNumber.png')} alt="" title="" />
+                                           {this.bednumbers(item.rooms)} beds<span>32 available</span>
+                                       </li>
+                                   </ul>
+                                </Grid>
+                              ))}
+                             
+                              {/* <Grid className="roomsNum3">
                                   <ul>
                                       <li><img src={require('assets/virtual_images/square.png')} alt="" title="" />Childrens Ward</li>
                                       <li><img src={require('assets/virtual_images/room.svg')} alt="" title="" />8 rooms</li>
@@ -235,7 +240,7 @@ class Index extends Component {
                                           53 beds<span>32 available</span>
                                       </li>
                                   </ul>
-                              </Grid>
+                              </Grid> */}
                           </Grid>
                       </Grid>
                       ))}
