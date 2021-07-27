@@ -1,4 +1,4 @@
-export const authors = [{ name: "Step2" }, { name: "Step3" }, {name: "Step1"}];
+export const authors = [{ name: "Room1" }, { name: "Room2" }, {name: "Room3"}, {name: "Room4"}];
 
 export const quotes = [
   {
@@ -35,6 +35,12 @@ export const quotes = [
     profile_id: "N_e8UMTIOxT",
     name: "Ankita",
     author: authors[0],
+    url: "http://adventuretime.wikia.com/wiki/Jake",
+  },
+  {
+    profile_id: "N_e8UMTIOxT",
+    name: "ggfdgdfgf",
+    author: authors[3],
     url: "http://adventuretime.wikia.com/wiki/Jake",
   },
 ];

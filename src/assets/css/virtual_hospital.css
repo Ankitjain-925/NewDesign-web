@@ -8989,6 +8989,15 @@ button.crdoLghtBlu2 {
     background-color: #FFFFFF;
     box-shadow: 0 8px 16px 0 rgb(0 8 8 / 8%);
 }
+  /* Adding by ankit */
+    .flowInfo1 {
+        margin-top: 8px;
+        margin-bottom: 12px;
+        /* min-height: 127px; */
+        border-radius: 8px;
+        background-color: #FFFFFF;
+        /* box-shadow: 0 8px 16px 0 rgb(0 8 8 / 8%); */
+}
 .ptntFlowSpc {
     padding-left: 4%;
     padding-right: 4%;
@@ -9024,7 +9033,7 @@ button.crdoLghtBlu2 {
 }
 .flowInfoInr {
     border-bottom: 1px solid #F2F2F2;
-    padding: 12px 12px;
+    /* padding: 12px 12px; */
 }
 .flowInfoInr2 {
     padding: 8px 12px 12px;

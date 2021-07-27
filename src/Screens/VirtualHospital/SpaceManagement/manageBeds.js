@@ -21,7 +21,7 @@ TabContainer.propTypes = {
 };
 class Index extends Component {
     constructor(props) {
-      super(props);
+        super(props);
         this.state = {
             value: 0
         };
@@ -36,8 +36,8 @@ class Index extends Component {
                 <Grid className="homeBgIner">
                     <Grid container direction="row">
                         <Grid item xs={12} md={12}>
-                           {/* Mobile menu */}
-                           <LeftMenuMobile isNotShow={true} currentPage="chat" />
+                            {/* Mobile menu */}
+                            <LeftMenuMobile isNotShow={true} currentPage="chat" />
                             <Grid container direction="row">
                                 {/* <VHfield name="ANkit" Onclick2={(name, value)=>{this.myclick(name , value)}}/> */}
 
@@ -102,8 +102,7 @@ class Index extends Component {
                                                                         <Grid item xs={6} md={6} className="bedArnge">
                                                                             <a><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></a>
                                                                         </Grid>
-                                                                    </Grid>
-                                                                </Grid>
+                                                                    </Grid>                                                               </Grid>
                                                                 <Grid className="drListMain2">
                                                                     <Grid className="drListLft2">
                                                                         <img src={require('assets/virtual_images/bed2.png')} alt="" title="" />
@@ -571,6 +570,7 @@ class Index extends Component {
                                                         </Grid>
                                                     </Grid>
                                                 </Grid>
+
                                             }
                                             {value === 1 && <Grid>
                                                 Childrens Ward Content

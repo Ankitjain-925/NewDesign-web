@@ -22,7 +22,7 @@ export default class QuoteItem extends React.Component {
         {...provided.draggableProps}
         {...provided.dragHandleProps}
       >
-          {/* {this.props.view ==='vertical' ? 
+          {this.props.view ==='vertical' ? 
           <Grid className="flowInfo">
               <Grid className="flowInfoInr">
                   <Grid className="flowInfoBtn RadiologyClr"><Button>Radiology</Button></Grid>
@@ -105,7 +105,7 @@ export default class QuoteItem extends React.Component {
                 </Grid>
             </Grid>
         </Grid>
-    </Grid>} */}
+    </Grid>}
       </div>
     );
   }
