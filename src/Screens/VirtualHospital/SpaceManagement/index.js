@@ -21,7 +21,9 @@ import { LanguageFetchReducer } from 'Screens/actions';
 import { LoginReducerAim } from 'Screens/Login/actions';
 import { Settings } from 'Screens/Login/setting';
 import { commonHeader } from "component/CommonHeader/index";
+import { houseSelect } from "../Institutes/selecthouseaction";
 import SpecialityButton from "Screens/Components/VirtualHospitalComponents/SpecialityButton";
+import { speciality } from "speciality";
 class Index extends Component {
   constructor(props) {
     super(props);
@@ -36,7 +38,8 @@ class Index extends Component {
       openSpecl4: false,
       speciality: {},
       ward: {},
-      specialityData: []
+      specialityData: [],
+      isEditWrd: false
     };
   }
   handleOpenSpecl = () => {
@@ -49,23 +52,27 @@ class Index extends Component {
   //to save the speciality
   SaveSpeciality = () => {
     var data = this.state.speciality;
-    data.house_id = this.props.house_id;
+    data.house_id = this.props?.House?.value;
     this.setState({ loaderImage: true })
     axios.post(sitedata.data.path + '/vh/AddSpecialty',
       data,
       commonHeader(this.props.stateLoginValueAim.token))
       .then((responce) => {
-        if (responce.data.hassuccessed && responce.data.data) {
+        if (responce.data.hassuccessed) {
           this.getSpeciality();
         }
         this.setState({ loaderImage: false, openSpecl: false })
       })
   };
 
+  componentDidMount(){
+    this.getSpeciality();
+  }
+
   //for getting all speciality
   getSpeciality = () => {
     this.setState({ loaderImage: true })
-    axios.get(sitedata.data.path + '/vh/AddSpecialty/' + this.props.house_id,
+    axios.get(sitedata.data.path + '/vh/AddSpecialty/' + this.props?.House?.value,
       commonHeader(this.props.stateLoginValueAim.token))
       .then((responce) => {
         if (responce.data.hassuccessed && responce.data.data) {
@@ -93,12 +100,21 @@ class Index extends Component {
   handleCloseWard = () => {
     this.setState({ openWard: false });
   };
-
-  //update the ward of the speciality
+  // update the ward of the speciality
+  editWard=(data)=>{
+    this.setState({ openWard: true , ward : data, isEditWrd: true});
+  }
+  //add the ward of the speciality
   handleOpenRoom = () => {
     var state = this.state.speciality;
     var ward = state["wards"] || [];
-    ward.push(this.state.ward);
+    if(this.state.isEditWrd) {
+      ward[this.state.isEditWrd] = this.state.ward;
+      this.setState({isEditWrd : false})
+    }
+    else{
+      ward.push(this.state.ward);
+    }
     state["wards"] = ward;
     this.setState({ speciality: state }, () => {
       this.setState({ openWard: false, ward: {} })
@@ -128,14 +144,13 @@ class Index extends Component {
 
   //remove Wards
   removeWard=(index)=>{
-    console.log('indexx', index);
     var state = this.state.speciality;
     var ward = state["wards"] || [];
-    var ward1 = ward?.length>0 && ward.filter((data , index1)=>index1 !== index);
-    console.log('ward', ward1)
-    state['wards'] = ward1;
+    console.log('wards', index);
+    state["wards"].splice(index, 1);
+    console.log('ward', ward)
+    // state['wards'] = ward;
     this.setState({ speciality: state });
-    
   }
   //for update the rooms in the wards
   updateEntryState3 = (ward) => {
@@ -145,20 +160,26 @@ class Index extends Component {
   };
 
   bednumbers = (rooms) => {
-    return rooms.reduce((a, v) => a = a + parseInt(v.bed_number), 0)
+    if(rooms && Array.isArray(rooms)){
+      return rooms.reduce((a, v) => a = a + parseInt(v.bed_number), 0)
+    }
+    return '';
   }
 
   render() {
-    const { stateLoginValueAim } = this.props;
+    const { stateLoginValueAim, House } = this.props;
     if (stateLoginValueAim.user === 'undefined' || stateLoginValueAim.token === 450 || stateLoginValueAim.token === 'undefined' || stateLoginValueAim.user.type !== 'adminstaff' || !this.props.verifyCode || !this.props.verifyCode.code) {
       return (<Redirect to={'/'} />);
+    }
+    if(!House && !House?.value){
+        return (<Redirect to={'/VirtualHospital/space'} />);
     }
     return (
       <Grid className="homeBg">
         {this.state.loaderImage && <Loader />}
         <Grid className="homeBgIner">
           <Grid container direction="row">
-            <Grid item xs={12} md={12}>
+            <Grid item xs={12} md={12}> 
               <LeftMenuMobile isNotShow={true} currentPage="chat" />
               <Grid container direction="row">
                 {/* <VHfield name="ANkit" Onclick2={(name, value)=>{this.myclick(name , value)}}/> */}
@@ -190,7 +211,7 @@ class Index extends Component {
                               <li>
                                 <a>
                                   <span>Institution</span>
-                                  <label>German Medical Center FZ-LLC</label>
+                                  <label>{this.props?.House?.label}</label>
                                 </a>
                               </li>
                               <li>
@@ -209,7 +230,7 @@ class Index extends Component {
                       {this.state.specialityData?.length>0 && this.state.specialityData.map((data)=>(
                           <Grid item xs={12} md={3}>
                           <Grid className="wardsGrup3">
-                          <SpecialityButton viewImage={true} label={data.speciality_name} backgroundColor={data.background_color} color={data.color}/>
+                          <SpecialityButton viewImage={true} label={data.specialty_name} backgroundColor={data.background_color} color={data.color}/>
                               {/* <Grid className="spcMgntUpr3">
                                   <Grid container direction="row">
                                       <Grid item xs={6} md={6}>
@@ -287,7 +308,7 @@ class Index extends Component {
                               {/* <TextField placeholder="Enter Speciality name" /> */}
                               <VHfield
                                 label="Speciality"
-                                name="speciality_name"
+                                name="specialty_name"
                                 placeholder="Enter Speciality name"
                                 onChange={(e) => this.updateEntryState(e)}
                               />
@@ -312,7 +333,8 @@ class Index extends Component {
                                     room_number={data.rooms?.length > 0 ? data.rooms?.length : 0}
                                     bed_number={this.bednumbers(data.rooms)}
                                     index={index}
-                                    removeWard={(index)=>this.removeWard(index)}
+                                    removeWard={()=>this.removeWard(index)}
+                                    onEdit={()=>{this.editWard(data)}}
                                   />
                                 ))}
                               </>}
@@ -328,6 +350,7 @@ class Index extends Component {
                                         <Grid item xs={12} md={12}>
                                           <VHfield
                                             label="Ward"
+                                            value={this.state.ward?.ward_name}
                                             name="ward_name"
                                             placeholder="Adults Ward"
                                             onChange={(e) => this.updateEntryState2(e)}
@@ -336,17 +359,21 @@ class Index extends Component {
                                           <AddRoom
                                             label="room"
                                             name="roomname"
+                                            roomArray={this.state.ward?.rooms}
                                             onChange={(e) => this.updateEntryState3(e)}
                                           />
                                         </Grid>
                                         <Grid className="wrdsBtn">
                                           <Button onClick={(e) => { this.setState({ openWard: false, ward: {} }) }}>Cancel</Button>
-                                          <Button className="wrdsBtnActv" onClick={() => { this.handleOpenRoom() }}>Save Ward</Button>
+                                          {this.state.isEditWrd? 
+                                          <Button className="wrdsBtnActv" onClick={() => { this.handleOpenRoom() }}>Update Ward</Button>
+                                          : <Button className="wrdsBtnActv" onClick={() => { this.handleOpenRoom() }}>Add Ward</Button>}
                                         </Grid>
                                       </Grid>
                                     </Grid>
                                   </Grid>
                                 }
+
                               </Grid>
                             </Grid>
                           </Grid>
@@ -374,6 +401,7 @@ class Index extends Component {
 const mapStateToProps = (state) => {
   const { stateLoginValueAim, loadingaIndicatoranswerdetail } = state.LoginReducerAim;
   const { stateLanguageType } = state.LanguageReducer;
+  const { House } = state.houseSelect
   const { settings } = state.Settings;
   const { verifyCode } = state.authy;
   // const { Doctorsetget } = state.Doctorset;
@@ -384,8 +412,9 @@ const mapStateToProps = (state) => {
     loadingaIndicatoranswerdetail,
     settings,
     verifyCode,
+    House,
     //   Doctorsetget,
     //   catfil
   }
 };
-export default withRouter(connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer, Settings, authy })(Index));
+export default withRouter(connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer, Settings, authy, houseSelect })(Index));

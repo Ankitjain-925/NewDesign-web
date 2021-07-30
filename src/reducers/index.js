@@ -13,6 +13,7 @@ import Withings from "./withing";
 import Doctorarrays from "./doctorarray";
 import OptionList from "./optionList";
 import overView from "./journalView";
+import houseSelect from "./house";
 
 const allReducers = combineReducers({
   //signupReducer: signupReducer,
@@ -31,6 +32,7 @@ const allReducers = combineReducers({
   Withings: Withings,
   OptionList: OptionList,
   overView:overView,
+  houseSelect: houseSelect
 });
 
 export default allReducers;

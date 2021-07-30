@@ -35,7 +35,7 @@ class Index extends React.Component {
                         </Grid>
                         <Grid item xs={4} md={6}>
                             <Grid className="wrdEdtDelBtn">
-                                <Button><img src={require('assets/virtual_images/pencil-1.svg')} alt="" title="" /></Button>
+                                <Button onClick={()=>this.props.onEdit()}><img src={require('assets/virtual_images/pencil-1.svg')} alt="" title="" /></Button>
                                 <Button onClick={()=>this.props.removeWard(this.props.index)}><img src={require('assets/virtual_images/bin.svg')} alt="" title="" /></Button>
                             </Grid>
                         </Grid>
