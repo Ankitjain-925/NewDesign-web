@@ -112,7 +112,8 @@ class Index extends Component {
       current_Graph: "",
       upcoming_appointment: [],
       SARS: [],
-      Positive_SARS: [],
+      
+      itive_SARS: [],
       vaccinations: [],
       defaultValue: 20,
       loading: false,
@@ -489,7 +490,7 @@ class Index extends Component {
       this.setState({ SARS: Fileadd, fileupods: true });
     } else {
       this.setState({ Positive_SARS: Fileadd, fileupods: true });
-    }
+    }           
   };
 
   //For getting full data of hide Show
