@@ -12,12 +12,6 @@ import sitedata from "sitedata";
 import { confirmAlert } from "react-confirm-alert";
 import Pagination from "Screens/Components/Pagination/index";
 
-// var services_data = [
-//     // { title: "X-ray", description: "This can be a short description of this service.", price: "200,00 €" },
-//     // { title: "CT-Scan", description: "This can be a short description of this service.", price: "240,00 €" },
-//     // { title: "MRI", description: "This can be a short description of this service.", price: "260,00 €" },
-// ]
-
 class Index extends Component {
     constructor(props) {
         super(props)
@@ -55,22 +49,6 @@ class Index extends Component {
         })
     }
     handleSubmit = (e) => {
-        console.log("title", this.state.title)
-        console.log("des", this.state.description)
-        console.log("price", this.state.price)
-        // e.preventDefault();
-        // let services_data = [...this.state.services_data];
-        // services_data.push({
-        //     title: this.state.title,
-        //     description: this.state.description,
-        //     price: this.state.price
-        // });
-        // this.setState({
-        //     services_data,
-        //     title: '',
-        //     description: '',
-        //     price: ''
-        // });
         axios
             .post(
                 sitedata.data.path + "/vh/AddService",
@@ -96,19 +74,6 @@ class Index extends Component {
     componentDidMount() {
         this.getAllServices();
     }
-
-    // getAllServices() {
-    //     axios
-    //         .get(sitedata.data.path + "/vh/GetService/600c15c2c983431790f904c3-1627046889451",
-    //             commonHeaderToken()
-    //         )
-    //         .then((response) => {
-    //             this.setState({ services_data: response.data.data });
-    //             console.log("response", response)
-    //             console.log("price", this.props.price)
-    //         });
-    // }
-
 
     getAllServices = () => {
         this.setState({ loaderImage: true });
@@ -203,30 +168,6 @@ class Index extends Component {
             })
             .catch((error) => { });
     }
-
-
-    // UpdateAllServices(data) {
-    //     axios
-    //     .PUT(
-    //         sitedata.data.path + "/vh/AddService/service_id" + id,
-    //         {
-    //             id: id,
-    //             status: status,
-    //             title: this.title,
-    //             description: this.description,
-    //             price: this.price
-    //         },
-    //         commonHeaderToken()),
-    //         body:JSON.stringify(arr)
-
-    //         .then((result) => {
-    //             result.json().then((resp) => {
-    //                 //  console.warn(resp)
-    //                 getUsers()
-    //             })
-    //         })
-    // } 
-
 
     render() {
         const { services_data } = this.state;
@@ -410,157 +351,11 @@ class Index extends Component {
                                                                 {/* </Td> */}
                                                             </Tr>
 
-                                                            {/* <Tr>
-                                                                <Td>
-                                                                    <label>MRI</label>
-                                                                    <p>This can be a short description of this service.</p>
-                                                                </Td>
-                                                                <Td>260,00 €</Td>
-                                                                <Td className="srvcDots">
-                                                                    <Button><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></Button>
-                                                                </Td>
-                                                            </Tr> */}
-                                                            {/* <Tr>
-                                                                <Td>
-                                                                    <label>Carotid Ultrasound</label>
-                                                                </Td>
-                                                                <Td>90,00 €</Td>
-                                                                <Td className="srvcDots">
-                                                                    <Button><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></Button>
-                                                                </Td>
-                                                            </Tr>
-                                                            <Tr>
-                                                                <Td>
-                                                                    <label>Angiography</label>
-                                                                </Td>
-                                                                <Td>120,00 €</Td>
-                                                                <Td className="srvcDots">
-                                                                    <Button><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></Button>
-                                                                </Td>
-                                                            </Tr>
-                                                            <Tr>
-                                                                <Td>
-                                                                    <label>Electroencephalogram</label>
-                                                                    <p>This can be a short description of this service.</p>
-                                                                </Td>
-                                                                <Td>170,00 €</Td>
-                                                                <Td className="srvcDots">
-                                                                    <Button><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></Button>
-                                                                </Td>
-                                                            </Tr>
-                                                            <Tr>
-                                                                <Td>
-                                                                    <label>Single Photon Emission Computed Tomography (SPECT) Scan</label>
-                                                                </Td>
-                                                                <Td>170,00 €</Td>
-                                                                <Td className="srvcDots">
-                                                                    <Button><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></Button>
-                                                                </Td>
-                                                            </Tr>
-                                                            <Tr>
-                                                                <Td>
-                                                                    <label>X-ray</label>
-                                                                    <p>This can be a short description of this service.</p>
-                                                                </Td>
-                                                                <Td>200,00 €</Td>
-                                                                <Td className="srvcDots">
-                                                                    <Button><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></Button>
-                                                                </Td>
-                                                            </Tr>
-                                                            <Tr>
-                                                                <Td>
-                                                                    <label>X-ray</label>
-                                                                    <p>This can be a short description of this service.</p>
-                                                                </Td>
-                                                                <Td>200,00 €</Td>
-                                                                <Td className="srvcDots">
-                                                                    <Button><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></Button>
-                                                                </Td>
-                                                            </Tr>
-                                                            <Tr>
-                                                                <Td>
-                                                                    <label>CT Scan</label>
-                                                                    <p>This can be a short description of this service.</p>
-                                                                </Td>
-                                                                <Td>240,00 €</Td>
-                                                                <Td className="srvcDots">
-                                                                    <Button><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></Button>
-                                                                </Td>
-                                                            </Tr>
-                                                            <Tr>
-                                                                <Td>
-                                                                    <label>MRI</label>
-                                                                    <p>This can be a short description of this service.</p>
-                                                                </Td>
-                                                                <Td>260,00 €</Td>
-                                                                <Td className="srvcDots">
-                                                                    <Button><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></Button>
-                                                                </Td>
-                                                            </Tr>
-                                                            <Tr>
-                                                                <Td>
-                                                                    <label>Carotid Ultrasound</label>
-                                                                </Td>
-                                                                <Td>90,00 €</Td>
-                                                                <Td className="srvcDots">
-                                                                    <Button><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></Button>
-                                                                </Td>
-                                                            </Tr>
-                                                            <Tr>
-                                                                <Td>
-                                                                    <label>Angiography</label>
-                                                                </Td>
-                                                                <Td>120,00 €</Td>
-                                                                <Td className="srvcDots">
-                                                                    <Button><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></Button>
-                                                                </Td>
-                                                            </Tr>
-                                                            <Tr>
-                                                                <Td>
-                                                                    <label>Electroencephalogram</label>
-                                                                    <p>This can be a short description of this service.</p>
-                                                                </Td>
-                                                                <Td>170,00 €</Td>
-                                                                <Td className="srvcDots">
-                                                                    <Button><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></Button>
-                                                                </Td>
-                                                            </Tr>
-                                                            <Tr>
-                                                                <Td>
-                                                                    <label>Single Photon Emission Computed Tomography (SPECT) Scan</label>
-                                                                </Td>
-                                                                <Td>170,00 €</Td>
-                                                                <Td className="srvcDots">
-                                                                    <Button><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></Button>
-                                                                </Td>
-                                                            </Tr>
-                                                            <Tr>
-                                                                <Td>
-                                                                    <label>X-ray</label>
-                                                                    <p>This can be a short description of this service.</p>
-                                                                </Td>
-                                                                <Td>200,00 €</Td>
-                                                                <Td className="srvcDots">
-                                                                    <Button><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></Button>
-                                                                </Td>
-                                                            </Tr> */}
-
                                                         </>
                                                     ))}
                                                 </Tbody>
                                             </Table>
-                                            {/* <Grid className="dataPagination">
-                                                <Grid container direction="row">
-                                                    <Grid item xs={6} md={6}>
-                                                        <Grid className="dataPaginationLft"><p>25 of 36</p></Grid>
-                                                    </Grid>
-                                                    <Grid item xs={6} md={6}>
-                                                        <Grid className="dataPaginationRght">
-                                                            <p><a>Previous</a><span>1</span><span>2</span><span>3</span><a>Next</a></p>
-                                                        </Grid>
-                                                    </Grid>
-                                                </Grid>
-                                            </Grid> */}
+                                         
                                             <Grid className="tablePagNum">
                                                 <Grid container direction="row">
                                                     <Grid item xs={12} md={6}>

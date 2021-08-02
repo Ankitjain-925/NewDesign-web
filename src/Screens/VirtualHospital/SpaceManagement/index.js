@@ -21,6 +21,7 @@ import { Settings } from 'Screens/Login/setting';
 import { commonHeader } from "component/CommonHeader/index";
 import { houseSelect } from "../Institutes/selecthouseaction";
 import SpecialityButton from "Screens/Components/VirtualHospitalComponents/SpecialityButton";
+import secondOpinion from "Screens/Doctor/Inquiries/Components/secondOpinion";
 class Index extends Component {
   constructor(props) {
     super(props);
@@ -172,9 +173,16 @@ class Index extends Component {
     this.setState({ ward: state })
   };
 
+  manageBeds=(data, selectedspec, selectedward)=>{
+    this.props.history.push({
+      pathname: '/virtualHospital/room-flow',
+      state: { data, selectedspec, selectedward }
+    })
+  }
+
   bednumbers = (rooms) => {
     if(rooms && Array.isArray(rooms)){
-      return rooms.reduce((a, v) => a = a + parseInt(v.bed_number), 0)
+      return rooms.reduce((a, v) => a = a + parseInt(v.no_of_bed), 0)
     }
     return '';
   }
@@ -199,8 +207,7 @@ class Index extends Component {
             <Grid item xs={12} md={12}> 
               <LeftMenuMobile isNotShow={true} currentPage="chat" />
               <Grid container direction="row">
-                {/* <VHfield name="ANkit" Onclick2={(name, value)=>{this.myclick(name , value)}}/> */}
-
+                
                 {/* Start of Menu */}
                 <Grid item xs={12} md={1} className="MenuLeftUpr">
                   <LeftMenu isNotShow={true} currentPage="chat" />
@@ -239,20 +246,10 @@ class Index extends Component {
                           <Grid item xs={12} md={3}>
                           <Grid className="wardsGrup3">
                           <SpecialityButton viewImage={true} label={data.specialty_name} backgroundColor={data.background_color} color={data.color} onClick={()=>{this.onEditspec(data)}}/>
-                              {/* <Grid className="spcMgntUpr3">
-                                  <Grid container direction="row">
-                                      <Grid item xs={6} md={6}>
-                                          <Button variant="contained">Cardiology</Button>
-                                      </Grid>
-                                      <Grid item xs={6} md={6} className="spcMgntRght3">
-                                          <a><img src={require('assets/virtual_images/setting.png')} alt="" title="" /></a>
-                                      </Grid>
-                                  </Grid>
-                              </Grid> */}
                               {data.wards?.length>0 && data.wards.map((item)=>(
                                 <Grid className="roomsNum3">
                                    <ul>
-                                       <li><img src={require('assets/virtual_images/square.png')} alt="" title="" />{item.ward_name}</li>
+                                       <li onClick={()=>{this.manageBeds(this.state.specialityData, data, item.ward_name)}}><img src={require('assets/virtual_images/square.png')} alt="" title="" />{item.ward_name}</li>
                                        <li><img src={require('assets/virtual_images/room.svg')} alt="" title="" />{item?.rooms?.length ? item?.rooms?.length : 0 } rooms</li>
                                        <li><img src={require('assets/virtual_images/bedNumber.png')} alt="" title="" />
                                            {this.bednumbers(item.rooms)} beds<span>32 available</span>
@@ -331,7 +328,7 @@ class Index extends Component {
                                   <RoomView
                                     label={data.ward_name}
                                     room_number={data.rooms?.length > 0 ? data.rooms?.length : 0}
-                                    bed_number={this.bednumbers(data.rooms)}
+                                    no_of_bed={this.bednumbers(data.rooms)}
                                     index={index}
                                     removeWard={()=>this.removeWard(index)}
                                     onEdit={()=>{this.editWard(data)}}

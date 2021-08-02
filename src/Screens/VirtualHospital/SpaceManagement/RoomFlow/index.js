@@ -1,10 +1,19 @@
 import React, { Component } from "react";
 import reorder, { reorderQuoteMap } from "./reorder";
 import Grid from '@material-ui/core/Grid';
+import LeftMenu from "Screens/Components/Menus/VirtualHospitalMenu/index";
+import LeftMenuMobile from "Screens/Components/Menus/VirtualHospitalMenu/mobile";
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import { slide as Menu } from "react-burger-menu";
-import Input from '@material-ui/core/Input';
-import Select from 'react-select';
+import { withRouter } from "react-router-dom";
+import { Redirect, Route } from 'react-router-dom';
+import { authy } from 'Screens/Login/authy.js';
+import { connect } from "react-redux";
+import { LanguageFetchReducer } from 'Screens/actions';
+import { LoginReducerAim } from 'Screens/Login/actions';
+import { Settings } from 'Screens/Login/setting';
+import { commonHeader } from "component/CommonHeader/index";
+import { houseSelect } from "../../Institutes/selecthouseaction";
 import { authorQuoteMap } from "./data";
 import Drags from "./drags.js";
 import Tabs from '@material-ui/core/Tabs';
@@ -30,7 +39,10 @@ class Index extends Component {
       ordered: ['step2', 'step1', 'step3'],
       selectedOption: null,
       view: 'vertical',
-      value: 0
+      value: 0,
+      selectedward: false,
+      selectedSpeciality : {},
+      allSpecialty: []
     };
   }
   static defaultProps = {
@@ -38,6 +50,33 @@ class Index extends Component {
   };
   boardRef;
 
+  handleChangeTab = (event, value) => {
+    this.setState({ value });
+  };
+
+  componentDidMount=()=>{
+    if(this.props.history?.location?.state?.selectedward){
+      this.setState({allSpecialty : this.props.history?.location?.state?.data, 
+        selectedward: this.props.history?.location?.state?.selectedward, 
+        selectedSpeciality: this.props.history?.location?.state?.selectedspec},
+        ()=>{
+          this.state.selectedSpeciality?.wards?.length>0 && this.state.selectedSpeciality.wards.map((item, index)=>{
+            if(item.ward_name === this.props.history?.location?.state?.selectedward){
+                this.setState({value: index})
+            }
+          })
+        })
+    }
+    else{
+      this.props.history.push('/virtualHospital/space')
+    }
+  }
+
+  moveAnotherSpeciality = (data)=>{
+    console.log('I am here', data)
+    this.setState({selectedSpeciality: data, selectedward: data.wards?.length>0 ? data.wards[0]?.ward_name: false, value: 0})
+  }
+  
   onDragEnd = result => {
     if (result.combine) {
       if (result.type === "COLUMN") {
@@ -110,56 +149,16 @@ class Index extends Component {
       <Grid className="homeBg">
         <Grid className="homeBgIner">
           <Grid container direction="row" justify="center">
-            <Grid item xs={12} md={12}>
-
-              {/* Mobile menu */}
-              <Grid className="MenuMob">
-                <Grid container direction="row" alignItems="center">
-                  <Grid item xs={6} md={6} sm={6} className="MenuMobLeft">
-                    <a><img src={require('assets/virtual_images/navigation-drawer.svg')} alt="" title="" className="MenuImg" /></a>
-                    <Menu className="addCstmMenu">
-                      <Grid className="menuItems">
-                        <ul>
-                          <li><a className="menuActv"><img src={require('assets/virtual_images/barMenu.png')} alt="" title="" /></a></li>
-                          <li><a><img src={require('assets/virtual_images/calender.png')} alt="" title="" /></a></li>
-                          <li><a><img src={require('assets/virtual_images/rightpng.png')} alt="" title="" /></a></li>
-                          <li><a><img src={require('assets/virtual_images/bed.png')} alt="" title="" /></a></li>
-                          <li><a className="moreMenu"><img src={require('assets/virtual_images/nav-more.svg')} alt="" title="" /></a></li>
-                          <li><a className="profilMenu" href=""><img src={require('assets/virtual_images/nav-my-profile.svg')} alt="" title="" /></a></li>
-                        </ul>
-                      </Grid>
-                    </Menu>
-                  </Grid>
-                  <Grid item xs={6} md={6} sm={6} className="MenuMobRght">
-                    <a href=""><img src={require('assets/virtual_images/logo_new.png')} alt="" title="" /></a>
-                  </Grid>
-                </Grid>
-              </Grid>
-              {/* End of mobile menu */}
-
-              <Grid container direction="row" justify="center">
+          <Grid item xs={12} md={12}> 
+              <LeftMenuMobile isNotShow={true} currentPage="chat" />
+              <Grid container direction="row">
+                
+                {/* Start of Menu */}
                 <Grid item xs={12} md={1} className="MenuLeftUpr">
-                  <Grid className="MenuWeb">
-                    <Grid className="webLogo">
-                      <a href=""><img src={require('assets/virtual_images/logo_new.png')} alt="" title="" /></a>
-                    </Grid>
-                    <Grid className="menuItems">
-                      <ul>
-                        <li><a className="menuActv"><img src={require('assets/virtual_images/barMenu.png')} alt="" title="" /></a></li>
-                        <li><a><img src={require('assets/virtual_images/calender.png')} alt="" title="" /></a></li>
-                        <li><a><img src={require('assets/virtual_images/rightpng.png')} alt="" title="" /></a></li>
-                        <li><a><img src={require('assets/virtual_images/bed.png')} alt="" title="" /></a></li>
-                        <li><a className="moreMenu"><img src={require('assets/virtual_images/nav-more.svg')} alt="" title="" /></a></li>
-                        <li>
-                          <a className="profilMenu" href="">
-                            <img src={require('assets/virtual_images/nav-my-profile.svg')} alt="" title="" />
-                          </a>
-                        </li>
-                      </ul>
-                    </Grid>
-                  </Grid>
+                  <LeftMenu isNotShow={true} currentPage="chat" />
                 </Grid>
-                {/* End of Website Menu */}
+                {/* End of Menu */}
+                {/* Start of Right Section */}                
                 <Grid item xs={11} md={11}>
                   <Grid className="cmnLftSpc ptntFlowSpc">
                     <Grid className="addFlow">
@@ -175,9 +174,9 @@ class Index extends Component {
                         <Grid item xs={12} md={9}>
                           <Grid className="roomBreadCrumb">
                             <ul>
-                              <li><a><span>Institution</span><label>German Medical Center FZ-LLC</label></a></li>
-                              <li><a><span>Speciality</span><label>Neurology</label></a></li>
-                              <li><a><span>Ward</span><label>Adults Ward</label></a></li>
+                              <li><a><span>Institution</span><label>{this.props?.House?.label}</label></a></li>
+                              <li><a><span>Speciality</span><label>{this.state.selectedSpeciality?.specialty_name}</label></a></li>
+                              <li><a><span>Ward</span><label>{this.state?.selectedward}</label></a></li>
                             </ul>
                           </Grid>
                         </Grid>
@@ -194,16 +193,20 @@ class Index extends Component {
                     <Grid className="wardsGrupUpr">
                       <Grid className="cardioGrup">
                         <Grid className="cardioGrupBtn">
-                          <Button variant="contained">Cardiology</Button>
-                          <Button variant="contained">Radiology</Button>
-                          <Button variant="contained" className="cardioActv">Neurology</Button>
-                          <Button variant="contained">Oncology</Button>
+                          {this.state.allSpecialty?.length>0 && this.state.allSpecialty.map((item)=>(
+                            <Button onClick={()=> {this.moveAnotherSpeciality(item)}} variant="contained" className={this.state.selectedSpeciality?.specialty_name === item.specialty_name?
+                               "cardioActv" : ""}>{item.specialty_name}</Button>
+                          ))}
+                    
                         </Grid>
                         <Grid className="cardioTabUpr">
                           <AppBar position="static" className="cardioTabs">
                             <Tabs value={value} onChange={this.handleChangeTab}>
-                              <Tab label="Adults Ward" className="cardiotabIner" />
-                              <Tab label="Childrens Ward" className="cardiotabIner" />
+                              {this.state.selectedSpeciality?.wards?.length>0 && this.state.selectedSpeciality?.wards.map((items)=>(
+                                <Tab label={items.ward_name} className="cardiotabIner" />
+                              ))}
+                              
+                              {/* <Tab label="Childrens Ward" className="cardiotabIner" /> */}
                             </Tabs>
                           </AppBar>
                         </Grid>
@@ -224,4 +227,23 @@ class Index extends Component {
   }
 }
 
-export default Index;
+const mapStateToProps = (state) => {
+  const { stateLoginValueAim, loadingaIndicatoranswerdetail } = state.LoginReducerAim;
+  const { stateLanguageType } = state.LanguageReducer;
+  const { House } = state.houseSelect
+  const { settings } = state.Settings;
+  const { verifyCode } = state.authy;
+  // const { Doctorsetget } = state.Doctorset;
+  // const { catfil } = state.filterate;
+  return {
+    stateLanguageType,
+    stateLoginValueAim,
+    loadingaIndicatoranswerdetail,
+    settings,
+    verifyCode,
+    House,
+    //   Doctorsetget,
+    //   catfil
+  }
+};
+export default withRouter(connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer, Settings, authy, houseSelect })(Index));
