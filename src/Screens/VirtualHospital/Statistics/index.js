@@ -7,6 +7,9 @@ import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import LeftMenu from "Screens/Components/Menus/VirtualHospitalMenu/index";
 import LeftMenuMobile from "Screens/Components/Menus/VirtualHospitalMenu/mobile";
+import TotalPatientView from "Screens/Components/VirtualHospitalComponents/TotalPatientView/index";
+import StatisticsPatientFlow from "Screens/Components/VirtualHospitalComponents/StatisticsPatientFlow/index";
+
 
 function TabContainer(props) {
     return (
@@ -26,9 +29,22 @@ class Index extends Component {
             value: 0,
             selectedCountry: null,
             date: new Date(),
-            tabvalue: 0
-        };
-    }
+            tabvalue: 0,
+            patient_data: [
+                {
+                    heading: 'Patients in Flow',
+                    data:
+                        [
+                            { label: "Reception", value: "2" },
+                            { label: "Waiting Rooms", value: "16" },
+                            { label: "Waiting Rooms", value: "16" },
+                            { label: "Billing", value: "0" }
+                        ]
+                }
+            ]
+
+        }
+    };
     handleChangeTab = (event, tabvalue) => {
         this.setState({ tabvalue });
     };
@@ -60,12 +76,15 @@ class Index extends Component {
                                             <Grid container direction="row" spacing={3}>
                                                 <Grid item xs={12} md={9}>
                                                     <Grid container direction="row" className="staticsAmtUpr" spacing={3}>
-                                                        <Grid item xs={12} md={3}>
+                                                        {/* <Grid item xs={12} md={3}>
                                                             <Grid className="staticsAmt">
                                                                 <Grid><a><img src={require('assets/virtual_images/hotel-bed-2.svg')} alt="" title="" /></a></Grid>
                                                                 <Grid><label>1,845</label><p>Total Patients</p></Grid>
                                                             </Grid>
-                                                        </Grid>
+                                                        </Grid> */}
+
+                                                        <TotalPatientView />
+
                                                         <Grid item xs={12} md={4}>
                                                             <Grid className="staticsAmt">
                                                                 <Grid><a><img src={require('assets/virtual_images/user-group-conversation.svg')} alt="" title="" /></a></Grid>
@@ -133,7 +152,7 @@ class Index extends Component {
                                                                 </Grid>
                                                                 <Grid item xs={12} md={6}>
                                                                     <Grid className="invoicLastMnth">
-                                                                      <label>Last month</label><a>3m</a><a>6m</a><a>1y</a><a>All</a>
+                                                                        <label>Last month</label><a>3m</a><a>6m</a><a>1y</a><a>All</a>
                                                                     </Grid>
                                                                 </Grid>
                                                             </Grid>
@@ -149,7 +168,7 @@ class Index extends Component {
                                                 </Grid>
 
                                                 <Grid item xs={12} md={3}>
-                                                    <Grid className="patntFlow">
+                                                    {/* <Grid className="patntFlow">
                                                         <p>Patients in Flow</p>
                                                         <Grid className="patntFlowIner">
                                                             <Grid container direction="row" alignItems="center">
@@ -166,10 +185,21 @@ class Index extends Component {
                                                             </Grid>
                                                             <Grid container direction="row" alignItems="center" className="patntFlowLast">
                                                                 <Grid item xs={8} md={8}><label>Billing</label></Grid>
-                                                                <Grid item xs={4} md={4}><span>0</span></Grid>
+                                                              <Grid item xs={4} md={4}><span>0</span></Grid>
                                                             </Grid>
                                                         </Grid>
-                                                    </Grid>
+                                                    </Grid> */}
+
+                                                    {this.state.patient_data?.length > 0 && this.state.patient_data?.map((data, index) => (
+                                                        <>
+                                                            <StatisticsPatientFlow
+                                                                label={data.heading}
+                                                                value={data.data}
+                                                            />,
+                                                            {/* {console.log("label", data.label, data.value)} */}
+                                                        </>
+                                                    ))}
+
                                                     <Grid className="patntFlow">
                                                         <p>Activity Counter</p>
                                                         <Grid className="actvtyFilter">

@@ -82,44 +82,44 @@ class Index extends Component {
     const columns = this.state.columns;
     const ordered = this.state.ordered;
     const board = (
-      <div className={this.props.view === 'vertical' ? "dragdrop-vertical" : "dragdrop-horizontal"}>
-        <Droppable
-          droppableId="board"
-          type="COLUMN"
-          direction="horizontal"
-          isCombineEnabled="false"
-        >
-
-          {provided => (
-            <div ref={provided.innerRef} {...provided.droppableProps}>
-              <ul>
-                {ordered.map((key, index) => (
-                  <li>
-                    <div className="detailInfo">
-                      <Column
-                        key={key}
-                        index={index}
-                        title={key}
-                        quotes={columns[key]}
-                        isCombineEnabled={this.props.isCombineEnabled}
-                        view={this.props.view}
-                      />
-                    </div>
-                  </li>
-
-                ))}
-              </ul>
-              {provided.placeholder}
-            </div>
-          )}
-        </Droppable>
+      <div className={this.props.view === 'vertical' ? "dragdrop-vertical":"dragdrop-horizontal"}>
+      <Droppable
+        droppableId="board"
+        type="COLUMN"
+        direction="horizontal"
+        isCombineEnabled="false"
+      >
+        
+        {provided => (
+          <div ref={provided.innerRef} {...provided.droppableProps}>
+            <ul>
+            {ordered.map((key, index) => (
+              <li>
+                <div className="detailInfo">
+                  <Column
+                    key={key}
+                    index={index}
+                    title={key}
+                    quotes={columns[key]}
+                    isCombineEnabled={this.props.isCombineEnabled}
+                    view={this.props.view}
+                  />
+                </div>
+              </li>
+              
+            ))}
+            </ul>
+            {provided.placeholder}
+          </div>
+        )}
+      </Droppable>
       </div>
     );
 
     return (
       <React.Fragment>
         <DragDropContext onDragEnd={this.onDragEnd}>
-          {board}
+            {board}
         </DragDropContext>
       </React.Fragment>
     );

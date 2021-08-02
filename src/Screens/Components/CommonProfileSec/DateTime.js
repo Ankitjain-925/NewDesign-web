@@ -52,8 +52,8 @@ class Index extends Component {
     getSetting = () => {
         this.setState({ loaderImage: true })
         axios.get(sitedata.data.path + '/UserProfile/updateSetting',
-        commonHeader(this.props.stateLoginValueAim.token))
-        .then((responce) => {
+            commonHeader(this.props.stateLoginValueAim.token))
+            .then((responce) => {
                 if (responce.data.hassuccessed && responce.data.data) {
                     if (responce.data?.data?.msg_language) {
                         let msg_language = responce.data.data.msg_language;
@@ -110,7 +110,7 @@ class Index extends Component {
             user_id: this.props.LoggedInUser._id,
             user_profile_id: this.props.LoggedInUser.profile_id,
             currency: data
-        },   commonHeader(this.props.stateLoginValueAim.token)
+        }, commonHeader(this.props.stateLoginValueAim.token)
         ).then((responce) => {
             this.setState({ PassDone: true, loaderImage: false })
             this.getSetting();

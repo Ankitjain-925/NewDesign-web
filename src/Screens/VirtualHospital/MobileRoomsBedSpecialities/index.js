@@ -41,7 +41,7 @@ class Index extends Component {
                                     <LeftMenu isNotShow={true} currentPage="chat" />
                                 </Grid>
                                 {/* End of Menu */}
-                                {/* Start of Right Section */}
+                             {/* Start of Right Section */}
                                 <Grid item xs={12} md={11}>
                                     <Grid className="topLeftSpc">
                                         <Grid className="breadCrumbUpr breadCrumbUprMob">
@@ -50,7 +50,7 @@ class Index extends Component {
                                                     <Grid className="roomBreadCrumb roomBreadCrumbMob">
                                                         <ul>
                                                             <li><a><span>Institution</span><label>German Medical Center FZ-LLC</label></a></li>
-                                                            <li><a><span>Speciality</span><label>Neurology</label></a></li>
+                                       t                     <li><a><span>Speciality</span><label>Neurology</label></a></li>
                                                             <li><a><span>Ward</span><label>Adults Ward</label></a></li>
                                                         </ul>
                                                     </Grid>

@@ -88,14 +88,15 @@ import VHServices from "Screens/VirtualHospital/Services/index";
 import VHAppointTask from "Screens/VirtualHospital/AppointTask/index";
 import ManageBeds from "Screens/VirtualHospital/SpaceManagement/manageBeds";
 import VHInstitutes from "Screens/VirtualHospital/Institutes/index";
+import RoomFlow from "Screens/VirtualHospital/SpaceManagement/RoomFlow";
 
 class Routermain extends Component {
   render() {
     return (
       <Router basename={"/"}>
-       
+
         <CallatAllPages />
-        
+
         <Grid>
           <Switch>
             {/* Added by Ankita */}
@@ -406,7 +407,7 @@ class Routermain extends Component {
               path="/h-profile"
               render={(props) => <H_profile {...props} />}
             />
-              <Route
+            <Route
               exact={true}
               path="/h-staff"
               render={(props) => <H_Staff {...props} />}
@@ -417,7 +418,7 @@ class Routermain extends Component {
               render={(props) => <H_Group {...props} />}
             />
 
-          {/*   Virtualhospital page */}
+            {/*   Virtualhospital page */}
             <Route
               path="/virtualhospital/statistics"
               exact={true}
@@ -427,43 +428,43 @@ class Routermain extends Component {
               path="/virtualhospital/patient-flow"
               exact={true}
               render={(props) => <VHPatientFlow {...props} />}
-              />
-             <Route
+            />
+            <Route
               path="/virtualhospital/speciality"
               exact={true}
               render={(props) => <VHSpecialityView {...props} />}
-              />
-              <Route
+            />
+            <Route
               path="/virtualhospital/bills"
               exact={true}
               render={(props) => <VHBills {...props} />}
-              />
-              <Route
+            />
+            <Route
               path="/virtualhospital/tasks"
               exact={true}
               render={(props) => <VHTasks {...props} />}
-              />
-              <Route
+            />
+            <Route
               path="/virtualhospital/invoices"
               exact={true}
               render={(props) => <VHInvoices {...props} />}
-              />
-              <Route
+            />
+            <Route
               path="/virtualhospital/space"
               exact={true}
               render={(props) => <VHSpaceManagement {...props} />}
-              />
-              <Route
+            />
+            <Route
               path="/virtualhospital/services"
               exact={true}
               render={(props) => <VHServices {...props} />}
-              />
-              <Route
+            />
+            <Route
               path="/virtualhospital/appointment-task"
               exact={true}
               render={(props) => <VHAppointTask {...props} />}
-              />
-              <Route
+            />
+            <Route
               path="/virtualhospital/manage-beds"
               exact={true}
               render={(props) => <ManageBeds {...props} />}
@@ -473,6 +474,13 @@ class Routermain extends Component {
               exact={true}
               render={(props) => <VHInstitutes {...props} />}
               />
+          
+            {/* Adding by Ankit */}
+            <Route
+              path="/virtualhospital/room-flow"
+              exact={true}
+              render={(props) => <RoomFlow {...props} />}
+            />
             <Route
               path="*"
               exact={true}
