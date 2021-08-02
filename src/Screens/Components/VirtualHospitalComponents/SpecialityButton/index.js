@@ -28,7 +28,7 @@ class Index extends Component {
                         </Grid>
                         {this.props.viewImage &&
                             <Grid item xs={6} md={6} className="spcMgntRght3">
-                                <a><img src={require('assets/virtual_images/setting.png')} alt="" title="" /></a>
+                                <a onClick={()=>{this.props.onClick()}}><img src={require('assets/virtual_images/setting.png')} alt="" title="" /></a>
                             </Grid>
                         }
                     </Grid>

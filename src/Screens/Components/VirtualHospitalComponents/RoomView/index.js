@@ -1,18 +1,29 @@
 import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Grid";
-import VHfield from "Screens/Components/VirtualHospitalComponents/VHfield/index";
 
 class Index extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            label: this.props.label,
-            room_number: this.props.room_number,
-            bed_number: this.props.bed_number
+            // label: this.props.label,
+            // room_number: this.props.room_number,
+            // bed_number: this.props.bed_number
         }
     }
-
+    // componentDidUpdate = (prevProps) => {
+    //     if (prevProps.label !== this.props.label || prevProps.room_number !== this.props.room_number 
+    //         || prevProps.bed_number !== this.props.bed_number) {
+    //       this.setState({ label: this.props.label, bed_number: this.props.bed_number, room_number: this.props.room_number });
+    //     }
+    //   };
+    //   shouldComponentUpdate(nextProps, nextState) {
+    //     return (
+    //       nextProps.label !== this.props.label ||
+    //       nextProps.room_number !== this.props.room_number ||
+    //       nextProps.bed_number !== this.props.bed_number
+    //     );
+    //   }
     render() {
         return (
             <>
@@ -20,15 +31,15 @@ class Index extends React.Component {
                     <Grid container direction="row" alignItems="center">
                         <Grid item xs={8} md={6}>
                             <Grid className="wrdCollect">
-                                <Grid><label>{this.state.label}</label></Grid>
+                                <Grid><label>{this.props.label}</label></Grid>
                                 <Grid className="wrdEdtDel">
                                     <Grid>
                                         <img src={require('assets/virtual_images/room.svg')} alt="" title="" />
-                                        <span>{this.state.room_number}</span>
+                                        <span>{this.props.room_number}</span>
                                     </Grid>
                                     <Grid>
                                         <img src={require('assets/virtual_images/bedNumber.png')} alt="" title="" />
-                                        <span>{this.state.bed_number}</span>
+                                        <span>{this.props.bed_number}</span>
                                     </Grid>
                                 </Grid>
                             </Grid>

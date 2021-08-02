@@ -3,8 +3,6 @@ import Grid from "@material-ui/core/Grid";
 import LeftMenu from "Screens/Components/Menus/VirtualHospitalMenu/index";
 import LeftMenuMobile from "Screens/Components/Menus/VirtualHospitalMenu/mobile";
 import Modal from "@material-ui/core/Modal";
-import TextField from "@material-ui/core/TextField";
-import FiberManualRecordIcon from "@material-ui/icons/FiberManualRecord";
 import Button from "@material-ui/core/Button";
 import ColorSelection from "Screens/Components/VirtualHospitalComponents/ColorSelection/index";
 import VHfield from "Screens/Components/VirtualHospitalComponents/VHfield/index";
@@ -23,7 +21,6 @@ import { Settings } from 'Screens/Login/setting';
 import { commonHeader } from "component/CommonHeader/index";
 import { houseSelect } from "../Institutes/selecthouseaction";
 import SpecialityButton from "Screens/Components/VirtualHospitalComponents/SpecialityButton";
-import { speciality } from "speciality";
 class Index extends Component {
   constructor(props) {
     super(props);
@@ -49,11 +46,24 @@ class Index extends Component {
     this.setState({ openSpecl: false });
   }
 
-  //to save the speciality
+  //to save and edit the speciality
   SaveSpeciality = () => {
     var data = this.state.speciality;
-    data.house_id = this.props?.House?.value;
-    this.setState({ loaderImage: true })
+    console.log('data._id', data._id)
+    if(data._id){
+      this.setState({ loaderImage: true })
+      axios.put(sitedata.data.path + '/vh/AddSpecialty/'+data._id,
+      data,
+      commonHeader(this.props.stateLoginValueAim.token))
+      .then((responce) => {
+        if (responce.data.hassuccessed) {
+          this.getSpeciality();
+        }
+        this.setState({ ward: {}, speciality: {}, loaderImage: false, openSpecl: false })
+      })
+    }else{
+      this.setState({ loaderImage: true })
+      data.house_id = this.props?.House?.value;
     axios.post(sitedata.data.path + '/vh/AddSpecialty',
       data,
       commonHeader(this.props.stateLoginValueAim.token))
@@ -61,8 +71,9 @@ class Index extends Component {
         if (responce.data.hassuccessed) {
           this.getSpeciality();
         }
-        this.setState({ loaderImage: false, openSpecl: false })
+        this.setState({ ward: {}, speciality: {}, loaderImage: false, openSpecl: false })
       })
+    }
   };
 
   componentDidMount(){
@@ -150,7 +161,9 @@ class Index extends Component {
     state["wards"].splice(index, 1);
     console.log('ward', ward)
     // state['wards'] = ward;
-    this.setState({ speciality: state });
+    this.setState({ speciality: state }, ()=>{
+      console.log('sdsd', this.state.speciality)
+    });
   }
   //for update the rooms in the wards
   updateEntryState3 = (ward) => {
@@ -164,6 +177,10 @@ class Index extends Component {
       return rooms.reduce((a, v) => a = a + parseInt(v.bed_number), 0)
     }
     return '';
+  }
+
+  onEditspec=(data)=>{
+    this.setState({speciality: data, openSpecl: true})
   }
 
   render() {
@@ -192,16 +209,7 @@ class Index extends Component {
                 {/* Start of Right Section */}
                 <Grid item xs={12} md={11}>
                   <Grid className="topLeftSpc">
-                    {/* <Grid className="extSetting">
-                      <a>
-                        <img
-                          src={require("assets/virtual_images/rightArrow.png")}
-                          alt=""
-                          title=""
-                        />
-                        Exit Settings
-                      </a>
-                    </Grid> */}
+                 
                     {/* Start of Bread Crumb */}
                     <Grid className="breadCrumbUpr">
                       <Grid container direction="row" alignItems="center">
@@ -230,7 +238,7 @@ class Index extends Component {
                       {this.state.specialityData?.length>0 && this.state.specialityData.map((data)=>(
                           <Grid item xs={12} md={3}>
                           <Grid className="wardsGrup3">
-                          <SpecialityButton viewImage={true} label={data.specialty_name} backgroundColor={data.background_color} color={data.color}/>
+                          <SpecialityButton viewImage={true} label={data.specialty_name} backgroundColor={data.background_color} color={data.color} onClick={()=>{this.onEditspec(data)}}/>
                               {/* <Grid className="spcMgntUpr3">
                                   <Grid container direction="row">
                                       <Grid item xs={6} md={6}>
@@ -253,15 +261,6 @@ class Index extends Component {
                                 </Grid>
                               ))}
                              
-                              {/* <Grid className="roomsNum3">
-                                  <ul>
-                                      <li><img src={require('assets/virtual_images/square.png')} alt="" title="" />Childrens Ward</li>
-                                      <li><img src={require('assets/virtual_images/room.svg')} alt="" title="" />8 rooms</li>
-                                      <li><img src={require('assets/virtual_images/bedNumber.png')} alt="" title="" />
-                                          53 beds<span>32 available</span>
-                                      </li>
-                                  </ul>
-                              </Grid> */}
                           </Grid>
                       </Grid>
                       ))}
@@ -309,6 +308,7 @@ class Index extends Component {
                               <VHfield
                                 label="Speciality"
                                 name="specialty_name"
+                                value={this.state.speciality.specialty_name}
                                 placeholder="Enter Speciality name"
                                 onChange={(e) => this.updateEntryState(e)}
                               />
