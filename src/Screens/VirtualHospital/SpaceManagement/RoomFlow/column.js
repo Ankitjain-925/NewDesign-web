@@ -8,7 +8,7 @@ export default class Column extends Component {
   render() {
     const title = this.props.title;
     const quotes = this.props.quotes;
-    const index = this.props.index;
+    const index = this.props.index;                                
 
     return (
 
@@ -49,9 +49,6 @@ export default class Column extends Component {
                         </Grid>
                       </Grid>
                     </Grid>
-
-
-
                   }
                 </Grid>
               </div>

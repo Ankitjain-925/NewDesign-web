@@ -68,7 +68,7 @@ class Index extends Component {
     this.setState({ mode: mode }, () => {
       this.props.Settings("loggedOut", mode);
     });
-  };
+  };                                        
 
   //send the email on email id for the reset password
   BtnSubmit = () => {

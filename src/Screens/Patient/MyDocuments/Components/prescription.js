@@ -396,7 +396,7 @@ class Index extends Component {
                           <li>
                             <a
                               onClick={() => {
-                                this.handleshowSick(data);
+                                this.c(data);
                               }}
                             >
                               <img
