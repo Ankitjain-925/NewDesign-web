@@ -11,6 +11,15 @@ import { commonHeaderToken } from "component/CommonHeader/index"
 import sitedata from "sitedata";
 import { confirmAlert } from "react-confirm-alert";
 import Pagination from "Screens/Components/Pagination/index";
+import { withRouter } from "react-router-dom";
+import { Redirect, Route } from "react-router-dom";
+import { authy } from "Screens/Login/authy.js";
+import { connect } from "react-redux";
+import { LanguageFetchReducer } from "Screens/actions";
+import { LoginReducerAim } from "Screens/Login/actions";
+import { Settings } from "Screens/Login/setting";
+import { commonHeader } from "component/CommonHeader/index";
+import { houseSelect } from "../Institutes/selecthouseaction";
 
 class Index extends Component {
     constructor(props) {
@@ -56,8 +65,7 @@ class Index extends Component {
                     title: this.state.title,
                     description: this.state.description,
                     price: this.state.price,
-                    house_id: "600c15c2c983431790f904c3-1627046889451",
-                    service_id: "aaaa"
+                    house_id: this.props?.House?.value,
                     // speciality_id: this.state.speciality_id
                 },
                 commonHeaderToken()
@@ -78,7 +86,7 @@ class Index extends Component {
     getAllServices = () => {
         this.setState({ loaderImage: true });
         axios
-            .get(sitedata.data.path + "/vh/GetService/600c15c2c983431790f904c3-1627046889451",
+            .get(sitedata.data.path + "/vh/GetService/"+this.props?.House?.value,
                 commonHeaderToken()
             )
             .then((response) => {
@@ -171,7 +179,6 @@ class Index extends Component {
 
     render() {
         const { services_data } = this.state;
-        console.log("services_data", this.state.services_data)
         return (
             <Grid className="homeBg">
                 <Grid className="homeBgIner">
@@ -388,4 +395,32 @@ class Index extends Component {
         );
     }
 }
-export default Index
+const mapStateToProps = (state) => {
+    const { stateLoginValueAim, loadingaIndicatoranswerdetail } =
+      state.LoginReducerAim;
+    const { stateLanguageType } = state.LanguageReducer;
+    const { House } = state.houseSelect;
+    const { settings } = state.Settings;
+    const { verifyCode } = state.authy;
+    // const { Doctorsetget } = state.Doctorset;
+    // const { catfil } = state.filterate;
+    return {
+      stateLanguageType,
+      stateLoginValueAim,
+      loadingaIndicatoranswerdetail,
+      settings,
+      verifyCode,
+      House,
+      //   Doctorsetget,
+      //   catfil
+    };
+  };
+  export default withRouter(
+    connect(mapStateToProps, {
+      LoginReducerAim,
+      LanguageFetchReducer,
+      Settings,
+      authy,
+      houseSelect,
+    })(Index)
+  );

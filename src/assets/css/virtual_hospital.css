@@ -9855,6 +9855,9 @@ button.crdoLghtBlu2 {
 }
 
 /* Added by Ankita */
+.spcMgntRght7 {
+    text-align: right;
+}
 /* drag drop */
 .dragdrop-vertical ul li{
     list-style: none;

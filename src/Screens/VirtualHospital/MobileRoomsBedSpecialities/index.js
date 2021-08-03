@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
 import LeftMenu from "Screens/Components/Menus/VirtualHospitalMenu/index";
 import LeftMenuMobile from "Screens/Components/Menus/VirtualHospitalMenu/mobile";
-import Button from '@material-ui/core/Button';
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { Pagination } from 'swiper/core';
 import SpecialityList from "Screens/Components/VirtualHospitalComponents/SpecialityList/index";
@@ -12,14 +11,14 @@ SwiperCore.use([Pagination]);
 var new_data = [{
     speciality_name: 'Cardiology', color: "#EE5253", backgroundColor: "#FBD4D4",
     total_wards: [
-        { ward_name: "Adults Ward", room: 8, bed_number: 53, available: 32 }
+        { ward_name: "Adults Ward", room: 8, no_of_bed: 53, available: 32 }
     ]
 }]
 
 var new_data1 = [{
     speciality_name: 'Radiology', color: "#EE5253", backgroundColor: "#FBD4D4",
     total_wards: [
-        { room: 8, bed_number: 53, available: 32, ward_name: "Adults Ward" }
+        { room: 8, no_of_bed: 53, available: 32, ward_name: "Adults Ward" }
     ]
 }]
 
@@ -104,7 +103,7 @@ class Index extends Component {
                                                                 < SpecialityList
                                                                     label={data3.ward_name}
                                                                     rooms={data3.room}
-                                                                    beds={data3.bed_number}
+                                                                    beds={data3.no_of_bed}
                                                                     available={data3.available}
                                                                 />
                                                             ))}
