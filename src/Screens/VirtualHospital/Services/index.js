@@ -12,12 +12,6 @@ import sitedata from "sitedata";
 import { confirmAlert } from "react-confirm-alert";
 import Pagination from "Screens/Components/Pagination/index";
 
-// var services_data = [
-//     // { title: "X-ray", description: "This can be a short description of this service.", price: "200,00 €" },
-//     // { title: "CT-Scan", description: "This can be a short description of this service.", price: "240,00 €" },
-//     // { title: "MRI", description: "This can be a short description of this service.", price: "260,00 €" },
-// ]
-
 class Index extends Component {
     constructor(props) {
         super(props)
@@ -29,87 +23,77 @@ class Index extends Component {
             house_id: '',
             speciality_id: '',
             services_data: [],
-            AllServices: []
+            AllServices: [],
+            updateTrack: {},
         }
-    }
-
-    handleOpenServ = () => {
-        this.setState({ openServ: true });
-    }
-    handleCloseServ = () => {
-        this.setState({ openServ: false });
-    }
-    updateEntryState = (e) => {
-        this.setState({
-            title: e.target.value,
-        })
-    }
-    updateEntryState1 = (e) => {
-        this.setState({
-            description: e.target.value
-        })
-    }
-    updateEntryState2 = (e) => {
-        this.setState({
-            price: e.target.value
-        })
-    }
-    handleSubmit = (e) => {
-        console.log("title", this.state.title)
-        console.log("des", this.state.description)
-        console.log("price", this.state.price)
-        // e.preventDefault();
-        // let services_data = [...this.state.services_data];
-        // services_data.push({
-        //     title: this.state.title,
-        //     description: this.state.description,
-        //     price: this.state.price
-        // });
-        // this.setState({
-        //     services_data,
-        //     title: '',
-        //     description: '',
-        //     price: ''
-        // });
-        axios
-            .post(
-                sitedata.data.path + "/vh/AddService",
-                {
-                    title: this.state.title,
-                    description: this.state.description,
-                    price: this.state.price,
-                    house_id: "600c15c2c983431790f904c3-1627046889451",
-                    service_id: "aaaa"
-                    // speciality_id: this.state.speciality_id
-                },
-                commonHeaderToken()
-            )
-            .then((responce) => {
-                console.log('gh', responce)
-                this.getAllServices();
-            })
-            .catch(function (error) {
-                console.log(error);
-            });;
     }
 
     componentDidMount() {
         this.getAllServices();
     }
 
-    // getAllServices() {
-    //     axios
-    //         .get(sitedata.data.path + "/vh/GetService/600c15c2c983431790f904c3-1627046889451",
-    //             commonHeaderToken()
-    //         )
-    //         .then((response) => {
-    //             this.setState({ services_data: response.data.data });
-    //             console.log("response", response)
-    //             console.log("price", this.props.price)
-    //         });
-    // }
+    //Modal Open 
+    handleOpenServ = () => {
+        this.setState({ openServ: true });
+    }
 
+    //Modal Close
+    handleCloseServ = () => {
+        this.setState({ openServ: false });
+    }
+    updateEntryState1 = (e) => {
+        const state = this.state.updateTrack;
+        state[e.target.name] = e.target.value;
+        this.setState({ updateTrack: state });
+    };
 
+    //For adding the New Service and Update Service
+    handleSubmit = () => {
+        if (this.state.updateTrack._id) {
+            axios
+                .put(
+                    sitedata.data.path + "/vh/AddService/" + this.state.updateTrack._id,
+                    {
+                        title: this.state.updateTrack.title,
+                        description: this.state.updateTrack.description,
+                        price: this.state.updateTrack.price,
+                    },
+                    commonHeaderToken()
+                )
+                .then((responce) => {
+                    this.setState({
+                        updateTrack: {},
+                    });
+                    this.getAllServices();
+                })
+        }
+        else {
+            axios
+                .post(
+                    sitedata.data.path + "/vh/AddService",
+                    {
+                        title: this.state.updateTrack.title,
+                        description: this.state.updateTrack.description,
+                        price: this.state.updateTrack.price,
+                        house_id: "600c15c2c983431790f904c3-1627046889451",
+                        service_id: "aaaa"
+                    },
+                    commonHeaderToken()
+                )
+                .then((responce) => {
+                    this.getAllServices();
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        }
+    }
+    // Open Edit Model
+    editService = (data) => {
+        this.setState({ updateTrack: data, openServ: true })
+    }
+
+    // For getting the Service and implement Pagination
     getAllServices = () => {
         this.setState({ loaderImage: true });
         axios
@@ -143,17 +127,7 @@ class Index extends Component {
             });
     };
 
-    onChangePage = (pageNumber) => {
-        this.setState({
-            services_data: this.state.AllServices.slice(
-                (pageNumber - 1) * 10,
-                pageNumber * 10
-            ),
-            currentPage: pageNumber,
-        });
-    };
-
-
+    //Delete the perticular service confirmation box
     removeServices = (status, id) => {
         this.setState({ message: null });
         confirmAlert({
@@ -172,7 +146,7 @@ class Index extends Component {
                         {status && status === "remove" ? (
                             <h1>Remove the Service ?</h1>
                         ) : (
-                            <h1>hello</h1>
+                            <h1>Remove the Service ?</h1>
                         )}
                         <p>Are you sure to remove this Service?</p>
                         <div className="react-confirm-alert-button-group">
@@ -191,7 +165,6 @@ class Index extends Component {
             },
         });
     };
-
     deleteClickService(status, id) {
         axios
             .delete(
@@ -204,29 +177,15 @@ class Index extends Component {
             .catch((error) => { });
     }
 
-
-    // UpdateAllServices(data) {
-    //     axios
-    //     .PUT(
-    //         sitedata.data.path + "/vh/AddService/service_id" + id,
-    //         {
-    //             id: id,
-    //             status: status,
-    //             title: this.title,
-    //             description: this.description,
-    //             price: this.price
-    //         },
-    //         commonHeaderToken()),
-    //         body:JSON.stringify(arr)
-
-    //         .then((result) => {
-    //             result.json().then((resp) => {
-    //                 //  console.warn(resp)
-    //                 getUsers()
-    //             })
-    //         })
-    // } 
-
+    onChangePage = (pageNumber) => {
+        this.setState({
+            services_data: this.state.AllServices.slice(
+                (pageNumber - 1) * 10,
+                pageNumber * 10
+            ),
+            currentPage: pageNumber,
+        });
+    };
 
     render() {
         const { services_data } = this.state;
@@ -278,32 +237,35 @@ class Index extends Component {
                                                                 <Grid>
                                                                     <VHfield
                                                                         label="Title"
+                                                                        name="title"
                                                                         placeholder="Enter title name"
-                                                                        onChange={(e) => this.updateEntryState(e)}
-                                                                        value={this.state.title}
+                                                                        onChange={(e) => this.updateEntryState1(e)}
+                                                                        value={this.state.updateTrack.title}
                                                                     />
                                                                 </Grid>
 
                                                                 <Grid>
                                                                     <VHfield
                                                                         label="Description"
+                                                                        name="description"
                                                                         placeholder="Enter description"
                                                                         onChange={(e) => this.updateEntryState1(e)}
-                                                                        value={this.state.description}
+                                                                        value={this.state.updateTrack.description}
                                                                     />
                                                                 </Grid>
 
                                                                 <Grid>
                                                                     <VHfield
                                                                         label="Price"
+                                                                        name="price"
                                                                         placeholder="Enter price"
-                                                                        onChange={(e) => this.updateEntryState2(e)}
-                                                                        value={this.state.price}
+                                                                        onChange={(e) => this.updateEntryState1(e)}
+                                                                        value={this.state.updateTrack.price}
                                                                     />
                                                                 </Grid>
                                                                 <Grid item xs={6} md={6}>
                                                                     <Grid className="newServc">
-                                                                        <a onClick={this.handleCloseServ}><Button onClick={(e) => this.handleSubmit(e)}>Submit</Button></a>
+                                                                        <a onClick={this.handleCloseServ}><Button onClick={() => this.handleSubmit()}>Submit</Button></a>
                                                                     </Grid>
                                                                 </Grid>
                                                             </Grid>
@@ -376,7 +338,7 @@ class Index extends Component {
                                                                             <li>
                                                                                 <a
                                                                                     onClick={() => {
-                                                                                        this.handleOpenServ();
+                                                                                        this.editService(data);
                                                                                     }}
                                                                                 >
                                                                                     <img
