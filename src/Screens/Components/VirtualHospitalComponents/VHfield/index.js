@@ -6,6 +6,7 @@ class Index extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      updateTrack: this.props.updateTrack,
       specialityname: this.props.name,
       label: this.props.label,
       placeholder: this.props.placeholder,
@@ -14,6 +15,7 @@ class Index extends Component {
   }
 
   onDataChange = (e) => {
+    this.setState({ value: e.target.value });
     this.props.onChange(e)
   };
   componentDidUpdate = (prevProps) => {
@@ -21,13 +23,13 @@ class Index extends Component {
       this.setState({ value: this.props.value });
     }
   };
-
+  
   shouldComponentUpdate(nextProps, nextState) {
     return (
       nextState.value !== this.state.value || nextState.specialityname !== this.state.specialityname ||
       nextProps.value !== this.props.value || nextProps.specialityname !== this.props.specialityname ||
       nextState.label !== this.state.label || nextState.placeholder !== this.state.placeholder ||
-      nextProps.label !== this.props.label || nextProps.placeholder !== this.props.placeholder 
+      nextProps.label !== this.props.label || nextProps.placeholder !== this.props.placeholder
     );
   }
   render() {
@@ -37,7 +39,8 @@ class Index extends Component {
           <Grid className="rrInput vhfield-add">
             <Grid><label>{this.state.label}</label></Grid>
             <input
-              type="text" placeholder={this.state.placeholder}
+              type="text"
+              placeholder={this.state.placeholder}
               onChange={this.onDataChange}
               name={this.state.specialityname}
               value={this.state.value}

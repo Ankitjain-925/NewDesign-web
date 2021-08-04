@@ -39,7 +39,6 @@ class Index extends React.Component {
         else{
             RoomAy.push('');
         }
-        
         this.setState({ roomArray: RoomAy });
     };
 
