@@ -4815,11 +4815,11 @@ a.actBtn {
     height: 42px;
     width: 42px;
     border-radius: 8px;
-    background-color: #FBD4D4;
+    /* background-color: #FBD4D4; */
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    color: #EE5253;
+    /* color: #EE5253; */
     position: relative;
 }
 a.actBtn svg {

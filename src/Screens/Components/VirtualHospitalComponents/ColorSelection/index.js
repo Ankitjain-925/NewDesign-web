@@ -4,18 +4,18 @@ import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 // import Switch, { Case, Default } from 'react-switch-case';
 
 var ColorOption = [
-  { color: "#EE5253;", backgroundcolor: "#FBD4D4", className:"recodRed" },
-  { color: "#DB5600", backgroundcolor: "#F8DDCC", className:"recodLghtRed" },
-  { color: "#DB9B00", backgroundcolor: "#F8EBCC", className:"recodYelow" },
-  { color: "#BFDB00", backgroundcolor: "#F2F8CC", className:"recodGren" },
-  { color: "#64DB00", backgroundcolor: " #E0F8CC", className:"recodDrkGren" },
-  { color: "#00DBA4", backgroundcolor: "#CCF8ED", className:"recodBlue1" },
-  { color: "#00B0DB", backgroundcolor: "#B4ECF8", className:"recodBlue2" },
-  { color: "#00B0DB", backgroundcolor: "#B4ECF8", className:"recodBlue3" },
-  { color: "#2000DB", backgroundcolor: " #D2CCF8", className:"recodBlue4" },
-  { color: "#8C00DB", backgroundcolor: "#ECCAFF", className:"recodViolet" },
-  { color: "#DB00C6", backgroundcolor: "#F8CCF4", className:"recodLghtViolet" },
-  { color: "#1F2121", backgroundcolor: "#C7C7C7", className:"recodBlck" },
+  { color: "#EE5253;", background_color: "#FBD4D4", className:"recodRed" },
+  { color: "#DB5600", background_color: "#F8DDCC", className:"recodLghtRed" },
+  { color: "#DB9B00", background_color: "#F8EBCC", className:"recodYelow" },
+  { color: "#BFDB00", background_color: "#F2F8CC", className:"recodGren" },
+  { color: "#64DB00", background_color: " #E0F8CC", className:"recodDrkGren" },
+  { color: "#00DBA4", background_color: "#CCF8ED", className:"recodBlue1" },
+  { color: "#00B0DB", background_color: "#B4ECF8", className:"recodBlue2" },
+  { color: "#00B0DB", background_color: "#B4ECF8", className:"recodBlue3" },
+  { color: "#2000DB", background_color: " #D2CCF8", className:"recodBlue4" },
+  { color: "#8C00DB", background_color: "#ECCAFF", className:"recodViolet" },
+  { color: "#DB00C6", background_color: "#F8CCF4", className:"recodLghtViolet" },
+  { color: "#1F2121", background_color: "#C7C7C7", className:"recodBlck" },
 ];
 
 class Index extends React.Component {
@@ -25,13 +25,17 @@ class Index extends React.Component {
       specialitycolor: this.props.color,
       label: this.props.label,
       className: this.props.name,
-      iscolor: 'recodRed'
+      color: this.props.color || '#EE5253',
+      background_color : this.props.background_color || '#FBD4D4',
 
     };
   }
 
   componentDidUpdate = (prevProps) => {
-    
+      if(prevProps.color !== this.props.color || prevProps.background_color !== this.props.background_color)
+      {
+        this.setState({color : this.props.color, background_color : this.props.background_color})
+      }
   };
 
 
@@ -40,9 +44,9 @@ class Index extends React.Component {
   }
   
   colorChoice(index) {
-    this.setState({iscolor: ColorOption[index]?.className})
+    this.setState({color : ColorOption[index]?.color, background_color : ColorOption[index]?.background_color})
     this.props.updateEntryState1('color', ColorOption[index]?.color)
-    this.props.updateEntryState1('background_color', ColorOption[index]?.backgroundcolor)
+    this.props.updateEntryState1('background_color', ColorOption[index]?.background_color)
   }
 
   
@@ -55,7 +59,6 @@ class Index extends React.Component {
   render() {
     return (
       <>
-
         <Grid>
           <Grid item xs={2} md={1}>
             <Grid className="colorBtnUpr">
@@ -63,11 +66,11 @@ class Index extends React.Component {
                 <Grid><label>{this.state.label}</label></Grid>
                 <a 
                 // className=""
-                 className={"actBtn " +this.state.iscolor} 
+                 className={"actBtn"}
+                 style={{color: this.state.color, backgroundColor: this.state.background_color}} 
                  onClick={this.handleSpecialityColor}><FiberManualRecordIcon 
                  onChange={this.onDataChange}
-                 
-                 value={this.state.value}/>
+                 />
                   {this.state.specialityColor &&
                     <ul className="subSpclList">
                       <label>Speciality color</label>

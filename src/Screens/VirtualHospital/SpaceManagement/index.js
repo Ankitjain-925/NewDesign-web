@@ -46,13 +46,13 @@ class Index extends Component {
     this.setState({ openSpecl: true });
   };
   handleCloseSpecl = () => {
-    this.setState({ openSpecl: false });
+    this.setState({ openSpecl: false,  ward: {},
+      speciality: {}, });
   };
 
   //to save and edit the speciality
   SaveSpeciality = () => {
     var data = this.state.speciality;
-    console.log("data._id", data._id);
     if (data._id) {
       this.setState({ loaderImage: true });
       axios
@@ -488,6 +488,8 @@ class Index extends Component {
                                     updateEntryState1={(name, value) =>
                                       this.updateEntryState1(name, value)
                                     }
+                                    background_color={this.state.speciality.background_color}
+                                    color={this.state.speciality.color}
                                   />
                                 </Grid>
                               </Grid>

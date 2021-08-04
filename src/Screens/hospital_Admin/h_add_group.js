@@ -336,8 +336,8 @@ class Index extends Component {
                                 <AddHouses
                                   roomArray={this.state?.institute_groups?.houses}
                                   label="Enter Houses"
-                                  name="houses"
-
+                                  name="house_name"
+                                  comesFrom="admin"
                                   onChange={(e) => this.updateEntryState3(e)}
                                 />
                               </Grid>
