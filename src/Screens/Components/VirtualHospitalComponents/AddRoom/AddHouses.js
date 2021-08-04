@@ -27,7 +27,12 @@ class Index extends React.Component {
     onAddFiled = () => {
         let RoomAy = this.state.roomArray;
         var date = new Date();
-        RoomAy.push({ house_name: "", house_id: `600c15c2c983431790f904c3-${date.getTime()}` });
+        if(this.props.comesFrom==="admin"){
+            RoomAy.push({ house_name: "", house_id: `600c15c2c983431790f904c3-${date.getTime()}` });
+        }
+        else{
+            RoomAy.push('');
+        }
         this.setState({ roomArray: RoomAy });
     };
 

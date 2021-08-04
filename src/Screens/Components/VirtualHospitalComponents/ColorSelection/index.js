@@ -45,7 +45,6 @@ class Index extends React.Component {
     this.props.updateEntryState1('background_color', ColorOption[index]?.backgroundcolor)
   }
 
-  
   onDataChange = (className, value) => {
     // console.log("Data")
     this.props.onChange(className, value)
