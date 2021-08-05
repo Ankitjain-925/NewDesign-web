@@ -324,7 +324,6 @@ class Index extends Component {
                             <Grid className="enterSpcl">
                               <Grid container direction="row">
                                 <Grid item xs={10} md={12}>
-                                  {console.log('institute_groups', this.state.institute_groups)}
                                   <VHfield
                                     label="Institute Name"
                                     name="group_name"
@@ -332,6 +331,11 @@ class Index extends Component {
                                     placeholder="Enter institute group name"
                                     onChange={(e) => this.updateEntryState(e)}
                                   />
+                                </Grid>
+                                <Grid container direction="row" alignItems="center" spacing={2}>
+                                    <Grid item xs={12} md={12}>
+                                        <Grid><label>Houses</label></Grid>
+                                    </Grid>
                                 </Grid>
                                 <AddHouses
                                   roomArray={this.state?.institute_groups?.houses}

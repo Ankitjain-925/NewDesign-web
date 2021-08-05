@@ -12,11 +12,16 @@ class Index extends Component {
         };
     }
 
+    componentDidUpdate = (prevProps) => {
+      if (prevProps.label !== this.props.label || prevProps.color !== this.props.color|| prevProps.backgroundColor !== this.props.backgroundColor) {
+          this.setState({color: this.props.color, backgroundColor: this.props.backgroundColor, label: this.props.label})
+      }
+  };
 
     render() {
 
         return (
-            <Grid className="wardsGrup">
+            <Grid className="">
                 <Grid className="spcMgntUpr">
                     <Grid container direction="row">
                         <Grid item xs={6} md={6} className="specialitybutton-parent">
@@ -33,7 +38,7 @@ class Index extends Component {
                           src={require("assets/images/three_dots_t.png")}
                           alt=""
                           title=""
-                          className="openScnd"
+                          className="openScnd specialuty-more"
                         />
                         <ul>
                           <li>

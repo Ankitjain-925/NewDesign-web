@@ -175,7 +175,7 @@ class Index extends Component {
   };
 
   handleOpenWarn = (id) => {
-    this.setState({ openWarn: true, deleteId: id });
+    this.setState({ openSpecl: false, openWarn: true, deleteId: id });
   }
   handleCloseWarn = () => {
       this.setState({ openWarn: false })
@@ -185,13 +185,9 @@ class Index extends Component {
   removeWard = (index) => {
     var state = this.state.speciality;
     var ward = state["wards"] || [];
-    console.log("wards", index);
     state["wards"].splice(index, 1);
-    console.log("ward", ward);
     // state['wards'] = ward;
-    this.setState({ speciality: state }, () => {
-      console.log("sdsd", this.state.speciality);
-    });
+    this.setState({ speciality: state });
   };
   //for update the rooms in the wards
   updateEntryState3 = (ward) => {
@@ -216,7 +212,6 @@ class Index extends Component {
 
   deleteClick = () => {
     if(this.state.wardDel && this.state.roomDel && this.state.patDel && this.state.deleteId){
-      console.log("id", this.state.deleteId);
       this.setState({ loaderImage: true });
     axios
       .delete(
@@ -257,16 +252,24 @@ class Index extends Component {
       return <Redirect to={"/VirtualHospital/space"} />;
     }
     return (
-      <Grid className="homeBg">
+      <Grid  className={
+        this.props.settings &&
+        this.props.settings.setting &&
+        this.props.settings.setting.mode &&
+        this.props.settings.setting.mode === "dark"
+          ? "homeBg darkTheme"
+          : "homeBg"
+      }
+      >
         {this.state.loaderImage && <Loader />}
         <Grid className="homeBgIner">
           <Grid container direction="row">
             <Grid item xs={12} md={12}>
-              <LeftMenuMobile isNotShow={true} currentPage="chat" />
+              <LeftMenuMobile isNotShow={true} currentPage="space" />
               <Grid container direction="row">
                 {/* Start of Menu */}
                 <Grid item xs={12} md={1} className="MenuLeftUpr">
-                  <LeftMenu isNotShow={true} currentPage="chat" />
+                  <LeftMenu isNotShow={true} currentPage="space" />
                 </Grid>
                 {/* End of Menu */}
                 {/* Start of Right Section */}
@@ -312,7 +315,7 @@ class Index extends Component {
                                   />
                                 </a>
                               </Grid>
-                              <label>Delete Speciality (Cardiology)</label>
+                              <label>Delete Speciality</label>
                               
                               {this.state.showError && (
                                 <div className="err_message">
@@ -390,6 +393,7 @@ class Index extends Component {
                                     <Grid className="roomsNum3">
                                       <ul>
                                         <li
+                                          className="c-pointer"
                                           onClick={() => {
                                             this.manageBeds(
                                               this.state.specialityData,
@@ -462,7 +466,8 @@ class Index extends Component {
                         </a>
                       </Grid>
                       <Grid>
-                        <label>Add Speciality</label>
+                        {this.state.speciality._id? <label>Edit <span className="spacemanageDel" onClick={()=>{this.handleOpenWarn(this.state.speciality._id)}}><img src={require('assets/virtual_images/bin.svg')} alt="" title="" /> Delete Speciality</span></label>: 
+                        <label>Add Speciality</label>}
                       </Grid>
                     </Grid>
                     <Grid className="enterSpclUpr">
@@ -544,7 +549,7 @@ class Index extends Component {
                                             label="Ward"
                                             value={this.state.ward?.ward_name}
                                             name="ward_name"
-                                            placeholder="Adults Ward"
+                                            placeholder="Enter Ward"
                                             onChange={(e) =>
                                               this.updateEntryState2(e)
                                             }

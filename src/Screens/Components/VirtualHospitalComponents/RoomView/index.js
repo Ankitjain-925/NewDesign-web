@@ -31,15 +31,15 @@ class Index extends React.Component {
                     <Grid container direction="row" alignItems="center">
                         <Grid item xs={8} md={6}>
                             <Grid className="wrdCollect">
-                                <Grid><label>{this.props.label}</label></Grid>
+                                
                                 <Grid className="wrdEdtDel">
                                     <Grid>
                                         <img src={require('assets/virtual_images/room.svg')} alt="" title="" />
-                                        <span>{this.props.room_number}</span>
+                                        <span>{this.props.room_number}</span> rooms
                                     </Grid>
                                     <Grid>
                                         <img src={require('assets/virtual_images/bedNumber.png')} alt="" title="" />
-                                        <span>{this.props.bed_number}</span>
+                                        <span>{this.props.no_of_bed}</span> beds
                                     </Grid>
                                 </Grid>
                             </Grid>

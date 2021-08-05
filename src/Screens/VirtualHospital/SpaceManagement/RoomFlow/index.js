@@ -73,7 +73,6 @@ class Index extends Component {
   }
 
   moveAnotherSpeciality = (data)=>{
-    console.log('I am here', data)
     this.setState({selectedSpeciality: data, selectedward: data.wards?.length>0 ? data.wards[0]?.ward_name: false, value: 0})
   }
   
@@ -146,16 +145,23 @@ class Index extends Component {
     const { selectedOption } = this.state;
     const { value } = this.state;
     return (
-      <Grid className="homeBg">
+      <Grid className={
+        this.props.settings &&
+        this.props.settings.setting &&
+        this.props.settings.setting.mode &&
+        this.props.settings.setting.mode === "dark"
+          ? "homeBg darkTheme"
+          : "homeBg"
+      }>
         <Grid className="homeBgIner">
           <Grid container direction="row" justify="center">
           <Grid item xs={12} md={12}> 
-              <LeftMenuMobile isNotShow={true} currentPage="chat" />
+              <LeftMenuMobile isNotShow={true} currentPage="space" />
               <Grid container direction="row">
                 
                 {/* Start of Menu */}
                 <Grid item xs={12} md={1} className="MenuLeftUpr">
-                  <LeftMenu isNotShow={true} currentPage="chat" />
+                  <LeftMenu isNotShow={true} currentPage="space" />
                 </Grid>
                 {/* End of Menu */}
                 {/* Start of Right Section */}                
@@ -174,7 +180,7 @@ class Index extends Component {
                         <Grid item xs={12} md={9}>
                           <Grid className="roomBreadCrumb">
                             <ul>
-                              <li><a><span>Institution</span><label>{this.props?.House?.label}</label></a></li>
+                              <li><a onClick={()=>{this.props.history.push('/virtualHospital/space')}}><span>Institution</span><label className="c-pointer">{this.props?.House?.label}</label></a></li>
                               <li><a><span>Speciality</span><label>{this.state.selectedSpeciality?.specialty_name}</label></a></li>
                               <li><a><span>Ward</span><label>{this.state?.selectedward}</label></a></li>
                             </ul>

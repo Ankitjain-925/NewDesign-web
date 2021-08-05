@@ -60,41 +60,41 @@ class Index extends Component {
     handleSubmit = () => {
         if (this.state.updateTrack._id) {
             axios
-                .put(
-                    sitedata.data.path + "/vh/AddService/" + this.state.updateTrack._id,
-                    {
-                        title: this.state.updateTrack.title,
-                        description: this.state.updateTrack.description,
-                        price: this.state.updateTrack.price,
-                    },
-                    commonHeaderToken()
-                )
-                .then((responce) => {
-                    this.setState({
-                        updateTrack: {},
-                    });
-                    this.getAllServices();
-                })
+            .put(
+                sitedata.data.path + "/vh/AddService/" + this.state.updateTrack._id,
+                {
+                    title: this.state.updateTrack.title,
+                    description: this.state.updateTrack.description,
+                    price: this.state.updateTrack.price,
+                },
+                commonHeaderToken()
+            )
+            .then((responce) => {
+                this.setState({
+                    updateTrack: {},
+                });
+                this.getAllServices();
+            })
         }
         else {
             axios
-                .post(
-                    sitedata.data.path + "/vh/AddService",
-                    {
-                        title: this.state.updateTrack.title,
-                        description: this.state.updateTrack.description,
-                        price: this.state.updateTrack.price,
-                        house_id: "600c15c2c983431790f904c3-1627046889451",
-                        service_id: "aaaa"
-                    },
-                    commonHeaderToken()
-                )
-                .then((responce) => {
-                    this.getAllServices();
-                })
-                .catch(function (error) {
-                    console.log(error);
-                });
+            .post(
+                sitedata.data.path + "/vh/AddService",
+                {
+                    title: this.state.updateTrack.title,
+                    description: this.state.updateTrack.description,
+                    price: this.state.updateTrack.price,
+                    house_id: "600c15c2c983431790f904c3-1627046889451",
+                    service_id: "aaaa"
+                },
+                commonHeaderToken()
+            )
+            .then((responce) => {
+                this.getAllServices();
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
         }
     }
     // Open Edit Model
@@ -104,36 +104,36 @@ class Index extends Component {
 
     // For getting the Service and implement Pagination
     getAllServices = () => {
-        this.setState({ loaderImage: true });
-        axios
-            .get(sitedata.data.path + "/vh/GetService/"+this.props?.House?.value,
-                commonHeaderToken()
-            )
-            .then((response) => {
-                var totalPage = Math.ceil(response.data.data.length / 10);
-                this.setState(
-                    {
-                        AllServices: response.data.data,
-                        loaderImage: false,
-                        totalPage: totalPage,
-                        currentPage: 1,
-                    },
-                    () => {
-                        if (totalPage > 1) {
-                            var pages = [];
-                            for (var i = 1; i <= this.state.totalPage; i++) {
-                                pages.push(i);
-                            }
-                            this.setState({
-                                services_data: this.state.AllServices.slice(0, 10),
-                                pages: pages,
-                            });
-                        } else {
-                            this.setState({ services_data: this.state.AllServices });
+    this.setState({ loaderImage: true });
+    axios
+        .get(sitedata.data.path + "/vh/GetService/"+this.props?.House?.value,
+            commonHeaderToken()
+        )
+        .then((response) => {
+            var totalPage = Math.ceil(response.data.data.length / 10);
+            this.setState(
+                {
+                    AllServices: response.data.data,
+                    loaderImage: false,
+                    totalPage: totalPage,
+                    currentPage: 1,
+                },
+                () => {
+                    if (totalPage > 1) {
+                        var pages = [];
+                        for (var i = 1; i <= this.state.totalPage; i++) {
+                            pages.push(i);
                         }
+                        this.setState({
+                            services_data: this.state.AllServices.slice(0, 10),
+                            pages: pages,
+                        });
+                    } else {
+                        this.setState({ services_data: this.state.AllServices });
                     }
-                );
-            });
+                }
+            );
+        });
     };
 
     //Delete the perticular service confirmation box
@@ -199,18 +199,25 @@ class Index extends Component {
     render() {
         const { services_data } = this.state;
         return (
-            <Grid className="homeBg">
+            <Grid className={
+                this.props.settings &&
+                this.props.settings.setting &&
+                this.props.settings.setting.mode &&
+                this.props.settings.setting.mode === "dark"
+                  ? "homeBg darkTheme"
+                  : "homeBg"
+              }>
                 <Grid className="homeBgIner">
                     <Grid container direction="row">
                         <Grid item xs={12} md={12}>
 
                             {/* Mobile menu */}
-                            <LeftMenuMobile isNotShow={true} currentPage="chat" />
+                            <LeftMenuMobile isNotShow={true} currentPage="more" />
                             <Grid container direction="row">
 
                                 {/* Start of Menu */}
                                 <Grid item xs={12} md={1} className="MenuLeftUpr">
-                                    <LeftMenu isNotShow={true} currentPage="chat" />
+                                    <LeftMenu isNotShow={true} currentPage="more" />
                                 </Grid>
                                 {/* End of Menu */}
 
