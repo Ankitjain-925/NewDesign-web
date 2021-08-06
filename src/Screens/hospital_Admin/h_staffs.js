@@ -97,19 +97,6 @@ class Index extends Component {
       });
   };
 
-  // //For getting User Data
-  // getUserData() {
-  //   this.setState({ loaderImage: true });
-  //   let user_token = this.props.stateLoginValueAim.token
-  //   let user_id = this.props.stateLoginValueAim.user._id
-  //   axios.get(sitedata.data.path + '/UserProfile/Users/' + user_id, commonHeader(user_token)).then((response) => {
-  //       this.setState({ UpDataDetails: response.data.data});
-  //       this.setState({ loaderImage: false });
-  //   }).catch((error) => {
-  //       this.setState({ loaderImage: false });
-  //   });
-  // }
-
   componentDidMount = () => {
     // this.getUserData();
     this.getAllkyc();
@@ -320,9 +307,18 @@ class Index extends Component {
         commonHeader(this.props.stateLoginValueAim.token)
       )
       .then((responce) => {
-        if (responce.data.hassuccessed && responce.data.data) {
-            // this.getUserData();
+        if (responce.data.hassuccessed) {
+            this.setState({assignedhouse: true})
+            setTimeout(()=>{
+              this.setState({assignedhouse: false, openHouse: false,})
+            }, 3000)
             this.getAdminstaff();
+        }
+        else{
+          this.setState({alredyExist: true})
+          setTimeout(()=>{
+            this.setState({alredyExist: false})
+          }, 3000)
         }
         this.setState({ loaderImage: false });
       });
@@ -330,7 +326,6 @@ class Index extends Component {
   }
   deleteHouse=(deleteId)=>{
     var userid = this.state.current_user._id;
-    console.log('house',userid, deleteId)
     this.setState({ loaderImage: true });
     axios
       .delete(
@@ -339,8 +334,11 @@ class Index extends Component {
         commonHeader(this.props.stateLoginValueAim.token)
       )
       .then((responce) => {
-        if (responce.data.hassuccessed && responce.data.data) {
-            // this.getUserData();
+        if (responce.data.hassuccessed) {
+            this.setState({ deleteHouse: true})
+            setTimeout(()=>{
+              this.setState({deleteHouse: false, openHouse: false})
+            }, 30000)
             this.getAdminstaff();
         }
         this.setState({ loaderImage: false });
@@ -614,8 +612,22 @@ class Index extends Component {
                         <Grid className="enterSpclMain">
                           <Grid className="enterSpcl">
                             <Grid container direction="row">
+                              {this.state.alredyExist && (
+                                <div className="err_message">
+                                  House is already exist to admin staff
+                                </div>
+                              )}
+                              {this.state.assignedhouse && (
+                                <div className="success_message">
+                                  House is assigned to admin staff
+                                </div>
+                              )}
+                                {this.state.deleteHouse && (
+                                <div className="success_message">
+                                  House id deleted from the admin staff
+                                </div>
+                              )}
                                 <Grid item xs={10} md={12}>
-                                  {console.log('Housesoptions', this.state.Housesoptions)}
                                 <SelectField
                                     isSearchable={true}
                                     name="houses"

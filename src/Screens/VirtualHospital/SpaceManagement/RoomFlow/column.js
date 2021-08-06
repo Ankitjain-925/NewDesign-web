@@ -31,7 +31,6 @@ export default class Column extends Component {
                           <Grid item xs={6} md={6}>
                             <Button variant="contained">{title}</Button>
                           </Grid>
-                          {console.log("title", title)}
                           {/* <Grid className="checkDotsRght"><img src={require('assets/virtual_images/threeDots.png')} alt="" title="" /></Grid> */}
                           <Grid item xs={6} md={6} className="bedArnge">
                             <a><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></a>
