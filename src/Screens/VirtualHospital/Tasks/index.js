@@ -97,17 +97,24 @@ class Index extends Component {
         const { tabvalue, tabvalue2, comments_data } = this.state;
         // console.log("commment_data", comments_data);
         return (
-            <Grid className="homeBg">
+            <Grid className={
+                this.props.settings &&
+                this.props.settings.setting &&
+                this.props.settings.setting.mode &&
+                this.props.settings.setting.mode === "dark"
+                  ? "homeBg darkTheme"
+                  : "homeBg"
+              }>
                 <Grid className="homeBgIner">
                     <Grid container direction="row">
                         <Grid item xs={12} md={12}>
-                            <LeftMenuMobile isNotShow={true} currentPage="chat" />
+                            <LeftMenuMobile isNotShow={true} currentPage="task" />
                             <Grid container direction="row">
                                 {/* <VHfield name="ANkit" Onclick2={(name, value)=>{this.myclick(name , value)}}/> */}
 
                                 {/* Start of Menu */}
                                 <Grid item xs={12} md={1} className="MenuLeftUpr">
-                                    <LeftMenu isNotShow={true} currentPage="chat" />
+                                    <LeftMenu isNotShow={true} currentPage="task" />
                                 </Grid>
                                 {/* End of Menu */}
                                 {/* Start of Right Section */}

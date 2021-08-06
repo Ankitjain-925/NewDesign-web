@@ -12,11 +12,16 @@ class Index extends Component {
         };
     }
 
+    componentDidUpdate = (prevProps) => {
+      if (prevProps.label !== this.props.label || prevProps.color !== this.props.color|| prevProps.backgroundColor !== this.props.backgroundColor) {
+          this.setState({color: this.props.color, backgroundColor: this.props.backgroundColor, label: this.props.label})
+      }
+  };
 
     render() {
 
         return (
-            <Grid className="wardsGrup">
+            <Grid className="">
                 <Grid className="spcMgntUpr">
                     <Grid container direction="row">
                         <Grid item xs={6} md={6} className="specialitybutton-parent">
@@ -27,8 +32,42 @@ class Index extends Component {
                                  }} variant="contained">{this.state.label}</Button>
                         </Grid>
                         {this.props.viewImage &&
-                            <Grid item xs={6} md={6} className="spcMgntRght3">
-                                <a><img src={require('assets/virtual_images/setting.png')} alt="" title="" /></a>
+                            <Grid item xs={6} md={6} className="spcMgntRght7 presEditDot scndOptionIner">
+                        <a className="openScndhrf">
+                        <img
+                          src={require("assets/images/three_dots_t.png")}
+                          alt=""
+                          title=""
+                          className="openScnd specialuty-more"
+                        />
+                        <ul>
+                          <li>
+                            <a
+                              onClick={()=>{this.props.onClick()}}
+                            >
+                              <img
+                                src={require("assets/images/details.svg")}
+                                alt=""
+                                title=""
+                              />
+                              Edit
+                            </a>
+                            <a
+                             onClick={()=>{this.props.deleteClick()}} 
+                            >
+                              <img
+                                src={require("assets/images/details.svg")}
+                                alt=""
+                                title=""
+                              />
+                              Delete
+                            </a>
+                          </li>
+                        </ul>
+                    </a>
+                    
+                            {/* <Grid item xs={6} md={6} className="spcMgntRght3"> */}
+                                {/* <a onClick={()=>{this.props.onClick()}}><img src={require('assets/virtual_images/setting.png')} alt="" title="" /></a> */}
                             </Grid>
                         }
                     </Grid>

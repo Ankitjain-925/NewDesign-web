@@ -4479,7 +4479,7 @@ button.onlogyBtn {
 }
 .nwSpclSec p {
     font-family: Muli;
-    color: #7F8383;
+    color: #7F8383 !important;
     font-size: 12px;
     font-weight: 600;
     letter-spacing: 0;
@@ -4584,7 +4584,7 @@ button.onlogyBtn {
     background-color: #F2F2F2;
 }
 .roomsNum3 {
-    border-bottom: 1px solid #F2F2F2;
+    border-top: 1px solid #F2F2F2;
     padding-bottom: 20px;
 }
 .roomsNum3 ul {
@@ -4815,11 +4815,11 @@ a.actBtn {
     height: 42px;
     width: 42px;
     border-radius: 8px;
-    background-color: #FBD4D4;
+    /* background-color: #FBD4D4; */
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    color: #EE5253;
+    /* color: #EE5253; */
     position: relative;
 }
 a.actBtn svg {
@@ -4867,6 +4867,7 @@ a.recodRed {
 }
 a.recodRed:hover{
     border: 1px solid #EE5253;
+    color: #EE5253;
 }
 a.recodLghtRed {
     background-color: #F8DDCC;
@@ -4874,6 +4875,7 @@ a.recodLghtRed {
 }
 a.recodLghtRed:hover {
     border: 1px solid #DB5600;
+    color: #DB5600;
 }
 a.recodYelow {
     background-color: #F8EBCC;
@@ -4881,6 +4883,7 @@ a.recodYelow {
 }
 a.recodYelow:hover {
     border: 1px solid #DB9B00;
+    color: #DB9B00;
 }
 a.recodGren {
     background-color: #F2F8CC;
@@ -4888,6 +4891,7 @@ a.recodGren {
 }
 a.recodGren:hover {
     border: 1px solid #BFDB00;
+    color: #BFDB00;
 }
 a.recodDrkGren {
     background-color: #E0F8CC;
@@ -4895,6 +4899,7 @@ a.recodDrkGren {
 }
 a.recodDrkGren:hover {
     border: 1px solid #64DB00;
+    color: #64DB00;
 }
 a.recodBlue1 {
     background-color: #CCF8ED;
@@ -4902,6 +4907,7 @@ a.recodBlue1 {
 }
 a.recodBlue1:hover {
     border: 1px solid #00DBA4;
+    color: #00DBA4;
 }
 a.recodBlue2 {
     background-color: #B4ECF8;
@@ -4909,6 +4915,7 @@ a.recodBlue2 {
 }
 a.recodBlue2:hover {
     border: 1px solid #00B0DB;
+    color: #00B0DB;
 }
 a.recodBlue3 {
     background-color: #CCE8FF;
@@ -4916,6 +4923,7 @@ a.recodBlue3 {
 }
 a.recodBlue3:hover {
     border: 1px solid #0076DB;
+    color: #0076DB;
 }
 a.recodBlue4 {
     background-color: #D2CCF8;
@@ -4923,6 +4931,7 @@ a.recodBlue4 {
 }
 a.recodBlue4:hover {
     border: 1px solid #2000DB;
+    color: #2000DB;
 }
 a.recodViolet {
     background-color: #ECCAFF;
@@ -4930,6 +4939,7 @@ a.recodViolet {
 }
 a.recodViolet:hover {
     border: 1px solid #8C00DB;
+    color: #8C00DB;
 }
 a.recodLghtViolet {
     background-color: #F8CCF4;
@@ -4937,6 +4947,7 @@ a.recodLghtViolet {
 }
 a.recodLghtViolet:hover {
     border: 1px solid #DB00C6;
+    color: #DB00C6;
 }
 a.recodBlck {
     background-color: #C7C7C7;
@@ -4944,6 +4955,7 @@ a.recodBlck {
 }
 a.recodBlck:hover {
     border: 1px solid #1F2121;
+    color: #1F2121;
 }
 .plusWards {
     height: 144px;
@@ -9855,6 +9867,34 @@ button.crdoLghtBlu2 {
 }
 
 /* Added by Ankita */
+.spacemanageDel img {
+    height: 17px;
+}
+.spacemanageDel {
+    font-size: 12px;
+    padding: 8px;
+    border: 1px solid #333;
+    border-radius: 5px;
+    margin-left: 20px;
+}
+.vh-menu .menuItems ul li:last-child {
+    margin-top: 0px !important;
+}
+.c-pointer{
+    cursor:pointer;
+}
+.active-menu img{
+   background-color: #00ABAF !important;
+}
+.specialuty-more{
+    float: right;
+}
+.openScndhrf a{
+    color : inherit;
+}
+.spcMgntRght7 {
+    text-align: right;
+}
 /* drag drop */
 .dragdrop-vertical ul li{
     list-style: none;

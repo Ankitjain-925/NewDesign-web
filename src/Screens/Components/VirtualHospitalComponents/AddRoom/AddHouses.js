@@ -13,14 +13,20 @@ class Index extends React.Component {
 
     onDataChange = (e, index) => {
         var RoomAy = this.state.roomArray;
-        RoomAy[index][e.target.name] = e.target.value;
+        if(this.props.comesFrom==="admin"){
+            RoomAy[index][e.target.name] = e.target.value;
+        }
+        else{
+            RoomAy[index] = e.target.value;
+        }
         this.setState({ roomArray: RoomAy },
-            this.props.onChange(this.state.roomArray))
+        this.props.onChange(this.state.roomArray))
     }
     
     componentDidUpdate = (prevProps) => {
-        if (prevProps.roomArray !== this.props.roomArray) {
-            this.setState({ roomArray: this.props.roomArray });
+        if (prevProps.roomArray !== this.props.roomArray || prevProps.label !== this.props.label|| prevProps.name !== this.props.name) {
+            this.setState({ roomArray: this.props.roomArray,  label: this.props.label,
+                name: this.props.name,});
         }
     };
  
@@ -50,7 +56,7 @@ class Index extends React.Component {
                             <input
                                 type="text" placeholder={this.state.placeholder}
                                 onChange={(e) => { this.onDataChange(e, 0) }}
-                                name="house_name"
+                                name={this.state.name}
                                 value={this.state.roomArray[0]?.house_name}
                             />
                         </Grid>
@@ -64,7 +70,7 @@ class Index extends React.Component {
                         <Grid item xs={10} md={10}>
                             <input
                                 type="text" placeholder={this.state.placeholder}
-                                name="house_name"
+                                name={this.state.name}
                                 onChange={(e) => this.onDataChange(e, index)}
                                 value={data.house_name}
                             />
@@ -74,7 +80,7 @@ class Index extends React.Component {
                             <a onClick={() => this.deleteRooms(index)}><img src={require('assets/virtual_images/bin.svg')} alt="" title="" /></a>
                         </Grid>
                     </Grid>))}
-                <Grid className="add_a_room"><a onClick={this.onAddFiled}>+ add a Room</a></Grid>
+                <Grid className="add_a_room"><a onClick={this.onAddFiled}>+ {this.state.label}</a></Grid>
             </Grid>
         );
     }

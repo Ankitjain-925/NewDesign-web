@@ -97,7 +97,30 @@ class Index extends Component {
   handleCloseFancyLanguage = () => {
     this.setState({ openFancyLanguage: false });
   };
-  
+
+  //For logout the User
+  logOutClick = async () => {
+   var data = await update_CometUser(this.props?.stateLoginValueAim?.user?.profile_id.toLowerCase() , {lastActiveAt : Date.now()})
+    if(data){
+      let email = "";
+      let password = "";
+      this.props.LoginReducerAim(email, password);
+      let languageType = "en";
+      this.props.LanguageFetchReducer(languageType);
+    
+      this.props.Fitbit({
+        lifetimeStats: {},
+        device: [],
+        distance: {},
+        steps: {},
+        user: {},
+        badges: {},
+      });
+      this.props.Withings([]);
+    }
+    this.props.history.push("/");
+  };
+
   //For online Course
   Spaces = () => {
     this.props.history.push('/virtualHospital/space')
@@ -120,8 +143,7 @@ class Index extends Component {
     this.props.history.push('/virtualHospital/institutes')
   };
 
-   //For block chain Access
-   PatientFlow = () => {
+  PatientFlow = () => {
     this.props.history.push("/virtualHospital/patient-flow")
   };
 

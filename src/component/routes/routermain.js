@@ -86,8 +86,9 @@ import VHTasks from "Screens/VirtualHospital/Tasks/index";
 import VHInvoices from "Screens/VirtualHospital/Invoices/index";
 import VHServices from "Screens/VirtualHospital/Services/index";
 import VHAppointTask from "Screens/VirtualHospital/AppointTask/index";
-import ManageBeds from "Screens/VirtualHospital/SpaceManagement/manageBeds"
-import RoomFlow from "Screens/VirtualHospital/SpaceManagement/RoomFlow"
+import ManageBeds from "Screens/VirtualHospital/SpaceManagement/manageBeds";
+import VHInstitutes from "Screens/VirtualHospital/Institutes/index";
+import RoomFlow from "Screens/VirtualHospital/SpaceManagement/RoomFlow";
 
 class Routermain extends Component {
   render() {
@@ -467,8 +468,13 @@ class Routermain extends Component {
               path="/virtualhospital/manage-beds"
               exact={true}
               render={(props) => <ManageBeds {...props} />}
-            />
-
+              />
+              <Route
+              path="/virtualhospital/institutes"
+              exact={true}
+              render={(props) => <VHInstitutes {...props} />}
+              />
+          
             {/* Adding by Ankit */}
             <Route
               path="/virtualhospital/room-flow"
