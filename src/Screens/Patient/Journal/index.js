@@ -720,7 +720,7 @@ class Index extends Component {
         .put(
           sitedata.data.path + "/User/AddTrack/" + user_id + "/" + track_id,
           { data },
-         commonHeader(user_token)
+          commonHeader(user_token)
         )
         .then((response) => {
           this.setState({
@@ -978,7 +978,7 @@ class Index extends Component {
   rightInfo() {
     var user_token = this.props.stateLoginValueAim.token;
     axios
-      .get(sitedata.data.path + "/rightinfo/patient", 
+      .get(sitedata.data.path + "/rightinfo/patient",
         commonHeader(user_token))
       .then((response) => {
         this.setState({ personalinfo: response.data.data });

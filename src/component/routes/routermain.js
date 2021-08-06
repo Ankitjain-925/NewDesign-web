@@ -88,6 +88,7 @@ import VHServices from "Screens/VirtualHospital/Services/index";
 import VHAppointTask from "Screens/VirtualHospital/AppointTask/index";
 import ManageBeds from "Screens/VirtualHospital/SpaceManagement/manageBeds"
 import RoomFlow from "Screens/VirtualHospital/SpaceManagement/RoomFlow"
+import Questionnaire from "Screens/VirtualHospital/Questionnaire"
 
 class Routermain extends Component {
   render() {
@@ -474,6 +475,11 @@ class Routermain extends Component {
               path="/virtualhospital/room-flow"
               exact={true}
               render={(props) => <RoomFlow {...props} />}
+            />
+            <Route
+              path="/virtualhospital/questionnaire"
+              exact={true}
+              render={(props) => <Questionnaire {...props} />}
             />
             <Route
               path="*"
