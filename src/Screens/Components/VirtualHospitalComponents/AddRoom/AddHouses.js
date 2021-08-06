@@ -33,7 +33,7 @@ class Index extends React.Component {
     onAddFiled = () => {
         let RoomAy = this.state.roomArray;
         var date = new Date();
-        if(this.props.comesFrom==="admin"){
+        if(this.props.comesFrom==="questionneire"){
             RoomAy.push({ house_name: "", house_id: `600c15c2c983431790f904c3-${date.getTime()}` });
         }
         else{
@@ -44,15 +44,18 @@ class Index extends React.Component {
 
     deleteRooms = (index) => {
         var RoomAy = this.state.roomArray?.length>0 && this.state.roomArray.filter((data , index1)=>index1 !== index);
-        this.setState({ roomArray: RoomAy });
+        this.setState({ roomArray: RoomAy });  
     };
+  
 
     render() {
         return (
             <Grid className="roomName">
                 {this.state.timeArr && this.state.timeArr.length == 0 && (
                     <Grid container direction="row" alignItems="center" spacing={2}>
+                        
                         <Grid item xs={10} md={10}>
+                        <Grid><label>{this.state.label}</label></Grid>
                             <input
                                 type="text" placeholder={this.state.placeholder}
                                 onChange={(e) => { this.onDataChange(e, 0) }}

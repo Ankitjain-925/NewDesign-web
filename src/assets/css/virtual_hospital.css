@@ -3391,6 +3391,22 @@ span.css-1okebmr-indicatorSeparator {
     margin-top: 32px;
     margin-bottom: 28px;
 }
+ .infoSub1 {
+    border-radius: 8px;
+    background-color: #00ABAF;
+    border: none;
+    color: #FFFFFF;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 16px;
+    text-align: center;
+    width: 100%;
+    /* padding: 10px 10px; */
+    outline: none;
+}
+
 /* .infoSub input {
     border-radius: 8px;
     background-color: #00ABAF;
@@ -4718,6 +4734,7 @@ button.onlogyBtn {
     letter-spacing: 0;
     line-height: 12px;
     text-align: center;
+   
 }
 .addSpeclContnt {
     width: 580px;
