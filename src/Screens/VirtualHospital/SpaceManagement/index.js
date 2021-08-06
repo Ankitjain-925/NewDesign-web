@@ -248,9 +248,9 @@ class Index extends Component {
     ) {
       return <Redirect to={"/"} />;
     }
-    if (!House && !House?.value) {
-      return <Redirect to={"/VirtualHospital/space"} />;
-    }
+    if (House && House?.value === null) {
+      return <Redirect to={"/VirtualHospital/institutes"} />;
+  }
     return (
       <Grid  className={
         this.props.settings &&

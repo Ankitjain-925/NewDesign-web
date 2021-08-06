@@ -55,7 +55,6 @@ export const auth = (uid, authKey) => {
         }
       })
       .catch((error) => {
-        // console.log('CometChatLogin Failed', error);
         dispatch(authFail(error));
       });
   };

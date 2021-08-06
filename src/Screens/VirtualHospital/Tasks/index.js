@@ -71,8 +71,6 @@ class Index extends Component {
         })
     }
     handleComment = (e) => {
-        console.log("comment", this.state.text)
-
         e.preventDefault();
         let comments_data = [...this.state.comments_data];
         comments_data.push({
@@ -95,7 +93,6 @@ class Index extends Component {
 
     render() {
         const { tabvalue, tabvalue2, comments_data } = this.state;
-        // console.log("commment_data", comments_data);
         return (
             <Grid className={
                 this.props.settings &&

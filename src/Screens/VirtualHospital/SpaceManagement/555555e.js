@@ -68,24 +68,20 @@ class Index extends Component {
         var ward = state['wards'] || [];
         ward.push(this.state.ward);
         state['wards'] = ward;
-        this.setState({ speciality: state }, () => {
-            console.log('final speciality', this.state.speciality)
-        })
+        this.setState({ speciality: state })
         this.setState({ openRoom: true });
     }
 
     updateEntryState = (e) => {
         var state = this.state.speciality;
         state[e.target.name] = e.target.value;
-        this.setState({ speciality: state },
-            () => { console.log('trt', this.state.speciality) })
+        this.setState({ speciality: state })
     }
 
     updateEntryState1 = (name, value) => {
         var state = this.state.speciality;
         state[name] = value;
-        this.setState({ speciality: state },
-            () => { console.log('trt34', this.state.speciality) })
+        this.setState({ speciality: state })
 
     }
 
@@ -98,10 +94,7 @@ class Index extends Component {
     updateEntryState3 = (ward) => {
         var state = this.state.ward;
         state['rooms'] = ward;
-        this.setState({ ward: state },
-            () => {
-                console.log('final first ward', this.state.ward)
-            })
+        this.setState({ ward: state })
 
     }
 

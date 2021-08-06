@@ -53,7 +53,6 @@ class Index extends Component {
   
     render() {
         const { stateLoginValueAim, House } = this.props;
-        console.log('this.props.stateLoginValueAim', this.props.stateLoginValueAim)
         if (stateLoginValueAim.user === 'undefined' || stateLoginValueAim.token === 450 || stateLoginValueAim.token === 'undefined' || stateLoginValueAim.user.type !== 'adminstaff') {
            return (<Redirect to={'/'} />);
         }

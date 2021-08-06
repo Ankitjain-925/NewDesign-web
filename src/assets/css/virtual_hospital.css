@@ -9884,6 +9884,13 @@ button.crdoLghtBlu2 {
 }
 
 /* Added by Ankita */
+.sevicessection {
+    width: 97%;
+}
+.sevicessection .mr_sel .css-yk16xz-control {
+    height: 50px !important;
+    min-height: initial;
+}
 .spacemanageDel img {
     height: 17px;
 }
