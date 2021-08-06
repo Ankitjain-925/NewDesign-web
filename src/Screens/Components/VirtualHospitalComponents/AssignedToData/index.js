@@ -28,9 +28,6 @@ class Index extends React.Component {
         })
     }
     handleSubmit = (e) => {
-        console.log("value", this.state.value);
-
-
         e.preventDefault();
         let selectField_data = [...this.state.selectField_data];
         selectField_data.push({

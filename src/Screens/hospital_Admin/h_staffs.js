@@ -297,7 +297,6 @@ class Index extends Component {
 
   SaveAssignHouse =()=>{
     var userid = this.state.current_user._id;
-    console.log('house', this.state.house,)
     this.setState({ loaderImage: true });
     axios
       .put(

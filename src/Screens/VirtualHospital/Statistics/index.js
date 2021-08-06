@@ -196,7 +196,7 @@ class Index extends Component {
                                                                 label={data.heading}
                                                                 value={data.data}
                                                             />,
-                                                            {/* {console.log("label", data.label, data.value)} */}
+
                                                         </>
                                                     ))}
 
