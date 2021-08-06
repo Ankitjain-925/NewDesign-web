@@ -150,7 +150,6 @@ h1,h2,h3,h4,h5,h6,h7,p{ margin:0; padding:0; font-size: inherit; font-weight: in
     margin-left: 36px;
     padding-top: 30px;
     padding-bottom: 30px;
-    /* min-height: 683px; */
     border-radius: 12px;
     background-color: #FFFFFF;
     box-shadow: 0 1px 8px 0 rgba(0,8,8,0.04);
@@ -2200,7 +2199,7 @@ a.profilMenu {
 }
 .menuItems ul li:last-child:not(.doctor-menu) {
     margin-bottom: 0px !important;
-    margin-top: 145px;
+    margin-top: 90px;
 }
 .chatclient {
     padding: 12px 20px;
@@ -3412,10 +3411,10 @@ a.profilMenu {
     letter-spacing: 0;
     line-height: 14px;
 }
-.apointType input{
+.apointType input {
     color: #00ABAF !important;
 }
-.apointType span.MuiIconButton-label{
+.apointType span.MuiIconButton-label {
     color: #00ABAF !important;
 }
 .locat_srvc img {
@@ -3645,6 +3644,7 @@ a.profilMenu {
 }
 .profileIdRght {
     text-align: right;
+    margin-bottom: 14px;
 }
 .profileInfoIner label {
     color: #404646;
@@ -3736,10 +3736,6 @@ span.css-1okebmr-indicatorSeparator {
     min-width: 26%;
     display: inline-block;
 }
-/* .profileInfoDate a:first-child {
-    background-color: #00ABAF;
-    color: #FFFFFF;
-} */
 .profileInfoDate a:hover {
     background-color: #00ABAF !important;
     color: #FFFFFF;
@@ -3766,18 +3762,21 @@ span.css-1okebmr-indicatorSeparator {
     line-height: 32px;
 }
 .insrnceTbl .table th {
+    padding-left: 4px;
+    padding-right: 4px;
     border-top: none;
-    width: 25%;
+    width: 30%;
     color: #7F8383;
     font-family: Muli;
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 600;
     letter-spacing: 0;
     line-height: 12px;
     border-bottom: 2px solid #f3f3f3;
+    vertical-align: sub;
 }
 .insrnceTbl .table th:last-child {
-    width: 35%;
+    width: 10%;
     text-align: right;
 }
 .table td:last-child {
@@ -13187,14 +13186,14 @@ a.academy_ul ul li img {
     height: 32px !important;
     border-color: #e8e8e8 !important;
 }
-.current_pass_sec{
+.current_pass_sec {
     margin-top:20px;
 }
-.deletewarninghead{
+.deletewarninghead {
     color: red;
     font-weight: bold;
 }
-.deletewarning{
+.deletewarning {
     color: red;
     font-weight: 500;
     padding:15px 0px;
@@ -13202,12 +13201,12 @@ a.academy_ul ul li img {
 .prevNxtpag a {
     margin: 0px 0px 0px 15px !important;
 }
-.movetoPage{
+.movetoPage {
     font-family: 'Muli';
     font-size: 14px;
     font-weight: 600;
 }
-.movetoPage input{
+.movetoPage input {
     width: 8%;
     padding: 4px;
     margin: 6px 6px 6px 10px;
@@ -14559,8 +14558,7 @@ input.Mobile_extra.Emergency_number {
     /* height: 564px; */
     overflow-y: scroll;
 }
-.click_document
-{
+.click_document {
     cursor: pointer;
 }
 /*For Documents*/ 
@@ -16160,7 +16158,6 @@ select:-webkit-autofill:focus {
   .medicInqUpr{
     height: 500px;
     overflow: auto;
-    /* height: 440px !important; */
     padding: 8px !important;
   }
   .prescripList input{
@@ -16177,9 +16174,9 @@ select:-webkit-autofill:focus {
  .presOpinionIner td.pivoted{
     padding: 12px 8px !important;
   }
-  a.openScndhrf{
+  /* a.openScndhrf{
     text-align: left !important;
-  }
+  } */
 }
 @media screen and (min-width: 768px) and (max-width: 959px){
   .cc1-chat-win-conver-wrap{
@@ -16250,7 +16247,6 @@ select:-webkit-autofill:focus {
 .homeBgDrk .MuiInputBase-root {
     color: #b9bfbd !important;
 }
-
 .changeLang1 a.dropdown-toggle.nav-link {
     border: 1px solid #BFC1C1;
     border-radius: 20px;
@@ -16269,23 +16265,46 @@ select:-webkit-autofill:focus {
 .MuiGrid-root.changeLang1 {
     float: right;
 }
-
+.ccl-left-panel-head-wrap.newheadheight {
+    display: none;
+}
 @media screen and (max-height: 625px) {
     .phrmLinkUpr {
         height: 480px !important;
     }
 }
-
 @media (max-height:300px) {
     .imptNotic {
         height: 480px !important;
     }
 }
-
 @media screen and (max-width: 40em){
     .responsiveTable tbody tr {
         border: 1px solid #000;
         padding: 0.25em;
         margin-bottom: 14px;
     }
+}
+@media screen and (min-width: 960px) and (max-width: 1092px){
+ .MenuLeftUpr {
+    padding: 0px 3px;
+ }
+ .menuItems ul li a span {
+    font-size: 10px;
+ }
+ .profileIdLft label, .profileIdLft span {
+    font-size: 12px;
+ }
+ .profileIdLft img {
+    width: 20px;
+  }
+}
+@media screen and (max-width: 467px){
+.sortBySec label, .sortBySec input {
+    margin-top: 4px;
+    margin-bottom: 4px;
+  }
+  .downloadButton {
+    float: left;
+  }
 }

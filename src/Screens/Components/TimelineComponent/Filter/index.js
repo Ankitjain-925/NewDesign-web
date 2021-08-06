@@ -223,10 +223,10 @@ class FilterSec extends Component {
       <Grid container direction="row">
            {this.state.loaderImage && <Loader />}
         <Grid item xs={12} md={11}>
-          <Grid className="srchFilter 11">
+          <Grid className="srchFilter 22">
             {!this.state.isTest && (
               <Grid container direction="row">
-                <Grid item xs={12} md={4}>
+                <Grid item xs={12} md={6} lg={4}>
                   <RangePicker
                     placeholder={[StartDate, EndDate]}
                     className={
@@ -250,12 +250,10 @@ class FilterSec extends Component {
                           closeMenuOnSelect={false}
                       /> */}
                 </Grid>
-                <Grid item xs={12} md={4} lg={3}>
+                <Grid item xs={12} md={6} lg={3}>
                   <Select
                     value={this.state.selectType}
-                    onChange={(value) =>
-                      this.FilterAccordigly("selectType", value)
-                    }
+                    onChange={(value) => this.FilterAccordigly("selectType", value) }
                     options={this.state.Typeoptions}
                     placeholder={type}
                     name=""
@@ -269,13 +267,7 @@ class FilterSec extends Component {
                     //isSearchable = {false}
                   />
                 </Grid>
-                <Grid
-                  item
-                  xs={12}
-                  md={4}
-                  lg={3}
-                  // className="faclity_all"
-                >
+                <Grid item xs={12} md={6} lg={3}>
                   <Select
                     value={this.state.selectUser}
                     onChange={(value) =>
@@ -310,7 +302,7 @@ class FilterSec extends Component {
                 <Grid
                   item
                   xs={12}
-                  md={4}
+                  md={6}
                   lg={2}
                   // className="clear_filter"
                 >
@@ -352,25 +344,14 @@ class FilterSec extends Component {
                   <Grid className="clear_filterUpr">
                     <Grid
                       className="trstCloseBtn"
-                      onClick={() => {
-                        this.setState({ isTest: false });
-                        this.props.ClearData();
-                      }}
-                    >
-                      <a>
-                        <img
-                          src={require("assets/images/close-search.svg")}
-                          alt=""
-                          title=""
-                        />
-                      </a>
+                      onClick={() => { this.setState({ isTest: false }); this.props.ClearData(); }}>
+                      <a><img src={require("assets/images/close-search.svg")} alt="" title="" /></a>
                     </Grid>
                   </Grid>
                 </Grid>
                 <Grid className="clear"></Grid>
               </Grid>
             )}
-
             <Grid className="sortBySec acvtTogle">
               <label>{showOnlyOverview} :</label>
               <label>
