@@ -297,6 +297,7 @@ class Index extends Component {
 
   SaveAssignHouse =()=>{
     var userid = this.state.current_user._id;
+    console.log('house', this.state.house,)
     this.setState({ loaderImage: true });
     axios
       .put(
@@ -379,7 +380,14 @@ class Index extends Component {
     } = translate;
 
     return (
-      <Grid className="homeBg">
+      <Grid  className={
+        this.props.settings &&
+          this.props.settings.setting &&
+          this.props.settings.setting.mode &&
+          this.props.settings.setting.mode === "dark"
+          ? "homeBg darkTheme"
+          : "homeBg"
+      }>
         {this.state.loaderImage && <Loader />}
         <Grid className="homeBgIner">
           <Grid container direction="row" justify="center">
@@ -680,10 +688,12 @@ const mapStateToProps = (state) => {
   const { stateLoginValueAim, loadingaIndicatoranswerdetail } =
     state.LoginReducerAim;
   const { stateLanguageType } = state.LanguageReducer;
+  const { settings } = state.Settings;
   return {
     stateLanguageType,
     stateLoginValueAim,
     loadingaIndicatoranswerdetail,
+    settings,
   };
 };
 export default withRouter(

@@ -251,7 +251,14 @@ class Index extends Component {
         let { documents, document, add_new, date_last_opened, find_document, ID, Status, no_, file_name, Normal, Blocked,
             type, imprint_Email, restore, Delete, see_detail, previous, next, upload_documents } = translate
         return (
-            <Grid className="homeBg">
+            <Grid  className={
+                this.props.settings &&
+                  this.props.settings.setting &&
+                  this.props.settings.setting.mode &&
+                  this.props.settings.setting.mode === "dark"
+                  ? "homeBg darkTheme"
+                  : "homeBg"
+              }>
                 <Grid className="homeBgIner">
                     <Grid container direction="row" justify="center">
                         {this.state.loaderImage && <Loader />}
@@ -339,7 +346,15 @@ class Index extends Component {
                   <Modal
                     open={this.state.openPres}
                     onClose={this.handleClosePres}
-                    className="presBoxModel">
+                    className={
+                        this.props.settings &&
+                          this.props.settings.setting &&
+                          this.props.settings.setting.mode &&
+                          this.props.settings.setting.mode === "dark"
+                          ? "presBoxModel darkTheme"
+                          : "presBoxModel"
+                      }
+                    >
                     <Grid className="presBoxCntnt">
                         <Grid className="presCourse">
                             <Grid className="presCloseBtn nwEntrCloseBtnAdd">
@@ -376,14 +391,14 @@ class Index extends Component {
 const mapStateToProps = (state) => {
     const { stateLoginValueAim, loadingaIndicatoranswerdetail } = state.LoginReducerAim;
     const { stateLanguageType } = state.LanguageReducer;
-    // const { settings } = state.Settings;
+    const { settings } = state.Settings;
     // const { Doctorsetget } = state.Doctorset;
     // const { catfil } = state.filterate;
     return {
         stateLanguageType,
         stateLoginValueAim,
         loadingaIndicatoranswerdetail,
-        // settings,
+        settings,
         //   Doctorsetget,
         //   catfil
     }

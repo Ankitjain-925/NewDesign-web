@@ -168,7 +168,15 @@ class Index extends Component {
     let {} = translate;
 
     return (
-      <Grid className="homeBg">
+      <Grid 
+      className={
+        this.props.settings &&
+          this.props.settings.setting &&
+          this.props.settings.setting.mode &&
+          this.props.settings.setting.mode === "dark"
+          ? "homeBg darkTheme"
+          : "homeBg"
+      }>
         {this.state.loaderImage && <Loader />}
         <Grid className="homeBgIner">
           <Grid container direction="row" justify="center">
@@ -302,7 +310,7 @@ class Index extends Component {
                     <Modal
                       open={this.state.openGroup}
                       onClose={this.closeInstitute}
-                      className="addSpeclModel"
+                      className="addSpeclModel darkTheme"
                     >
                       <Grid className="addSpeclContnt">
                         <Grid className="addSpeclLbl">
@@ -367,10 +375,12 @@ const mapStateToProps = (state) => {
   const { stateLoginValueAim, loadingaIndicatoranswerdetail } =
     state.LoginReducerAim;
   const { stateLanguageType } = state.LanguageReducer;
+  const { settings } = state.Settings;
   return {
     stateLanguageType,
     stateLoginValueAim,
     loadingaIndicatoranswerdetail,
+    settings,
   };
 };
 export default withRouter(

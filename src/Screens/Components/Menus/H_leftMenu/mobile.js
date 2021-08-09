@@ -15,6 +15,7 @@ import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometCh
 import Modal from '@material-ui/core/Modal';
 import axios from "axios"
 import sitedata from "sitedata";
+import Mode from "Screens/Components/ThemeMode/index.js";
 import { commonHeader } from "component/CommonHeader/index";
 import { update_CometUser } from "Screens/Components/CommonApi/index";
 import * as translationEN from '../../../hospital_Admin/translations/en_json_proofread_13072020.json';
@@ -33,7 +34,8 @@ class Index extends Component {
             contact_partner: {},
             loaderImage: false,
             openFancyLanguage: false,
-            addCreate: false
+            addCreate: false,
+            mode: "normal",
         };
         new Timer(this.logOutClick.bind(this))
         this.openLanguageModel = this.openLanguageModel.bind(this)
@@ -50,17 +52,46 @@ class Index extends Component {
         }
 
     }
-
     getSetting = () => {
-        this.setState({ loaderImage: true })
-        axios.get(sitedata.data.path + '/UserProfile/updateSetting',
-        commonHeader(this.props.stateLoginValueAim.token)).then((responce) => {
-                if (responce.data.hassuccessed && responce.data.data) {
-                    this.setState({ timeF: { label: responce.data.data.time_format, value: responce.data.data.time_format }, dateF: { label: responce.data.data.date_format, value: responce.data.data.date_format }, })
-                }
-                this.setState({ loaderImage: false, languageValue: responce.data.data && responce.data.data.language != null ? responce.data.data.language : "en" })
-            })
-    }
+        this.setState({ loaderImage: true });
+        axios
+          .get(sitedata.data.path + "/UserProfile/updateSetting",  commonHeader(this.props.stateLoginValueAim.token))
+          .then((responce) => {
+            if (responce.data.hassuccessed && responce.data.data) {
+              this.setState({
+                timeF: {
+                  label: responce.data.data.time_format,
+                  value: responce.data.data.time_format,
+                },
+                dateF: {
+                  label: responce.data.data.date_format,
+                  value: responce.data.data.date_format,
+                },
+              });
+              this.props.Settings(responce.data.data);
+            } else {
+              this.props.Settings({
+                user_id: this.props.stateLoginValueAim.user._id,
+              });
+            }
+            this.setState(
+              {
+                loaderImage: false,
+                languageValue:
+                  responce.data.data && responce.data.data.language
+                    ? responce.data.data.language
+                    : "en",
+                mode:
+                  responce.data.data && responce.data.data.mode
+                    ? responce.data.data.mode
+                    : "normal",
+              },
+              () => {
+                this.props.LanguageFetchReducer(this.state.languageValue);
+              }
+            );
+          });
+      };
 
     openLanguageModel() {
         this.setState({ openFancyLanguage: true })
@@ -175,10 +206,19 @@ class Index extends Component {
                 translate = translationEN.text
         }
         let { capab_Patients, capab_Doctors, archive, SelectLanguage, More, Savechanges, LanUpdated, LanSel, capab_Hospitals, documents, paramedic, srvc_Nurses, insurance, online_course, add_new, user, my_profile, dark_mode, profile_setting, Language, logout, Patient, find_patient, ID, Status, no_, recEmp_FirstName,
-            previous, next, Normal, Blocked, recEmp_LastName, imprint_Email, restore, Delete, see_detail } = translate
+            DarkMode, previous, next, Normal, Blocked, recEmp_LastName, imprint_Email, restore, Delete, see_detail } = translate
 
         return (
-            <Grid className="MenuMob">
+            <Grid 
+            className={
+                this.props.settings &&
+                  this.props.settings.setting &&
+                  this.props.settings.setting.mode &&
+                  this.props.settings.setting.mode === "dark"
+                  ? "MenuMob darkTheme"
+                  : "MenuMob"
+              }
+              >
                 <Grid container direction="row" alignItems="center">
                     {this.state.loaderImage && <Loader />}
                     <Grid item xs={6} md={6} sm={6} className="MenuMobLeft">
@@ -254,6 +294,32 @@ class Index extends Component {
                                                 <ul>
                                                 <li><a onClick={()=>this.props.history.push("/h-profile")}><img src={require('assets/images/menudocs.jpg')} alt="" title="" />{profile_setting}</a></li>
                                                     <li><a onClick={this.openLanguageModel}><img src={require('assets/images/menudocs.jpg')} alt="" title="" />{Language}</a></li>
+                                                    <li>
+                      <a>
+                        {this.props.settings &&
+                        this.props.settings.setting &&
+                        this.props.settings.setting.mode &&
+                        this.props.settings.setting.mode === "dark" ? (
+                          <img
+                            src={require("assets/images/menudocs-white.jpg")}
+                            alt=""
+                            title=""
+                          />
+                        ) : (
+                          <img
+                            src={require("assets/images/menudocs.jpg")}
+                            alt=""
+                            title=""
+                          />
+                        )}
+                        {DarkMode}{" "}
+                        <Mode
+                          mode={this.state.mode}
+                          name="mode"
+                          getSetting={this.getSetting}
+                        />
+                      </a>
+                    </li>
                                                     <li><a onClick={this.logOutClick}><img src={require('assets/images/menudocs.jpg')} alt="" title="" />{logout}</a></li>
                                                 </ul>
                                             </div>
@@ -315,14 +381,14 @@ class Index extends Component {
 const mapStateToProps = (state) => {
     const { stateLoginValueAim, loadingaIndicatoranswerdetail } = state.LoginReducerAim;
     const { stateLanguageType } = state.LanguageReducer;
-    // const { settings } = state.Settings;
+    const { settings } = state.Settings;
     // const { Doctorsetget } = state.Doctorset;
     // const { catfil } = state.filterate;
     return {
         stateLanguageType,
         stateLoginValueAim,
         loadingaIndicatoranswerdetail,
-        // settings,
+         settings,
         //   Doctorsetget,
         //   catfil
     }

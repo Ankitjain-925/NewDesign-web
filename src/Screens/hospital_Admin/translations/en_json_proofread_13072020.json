@@ -627,7 +627,8 @@
 		"Doctor": "Doctor",
 		"two_fac_auth_enable":"The 2-factor authentication is activated",
 		"Status" :"Status",
-		"more" :"more"
+		"more" :"more",
+		"DarkMode": "Dark Mode"
 	}
 }
 
