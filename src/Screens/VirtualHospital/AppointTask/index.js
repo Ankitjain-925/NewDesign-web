@@ -11,7 +11,20 @@ import Typography from '@material-ui/core/Typography';
 import Select from 'react-select';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
-
+import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
+import { LoginReducerAim } from "Screens/Login/actions";
+import { Settings } from "Screens/Login/setting";
+import axios from "axios";
+import { LanguageFetchReducer } from "Screens/actions";
+import sitedata from "sitedata";
+import {
+    commonHeader,
+    commonCometDelHeader,
+  } from "component/CommonHeader/index";
+import { authy } from 'Screens/Login/authy.js';
+import { houseSelect } from "../Institutes/selecthouseaction";
+import { Redirect, Route } from 'react-router-dom';
 const options = [
     { value: 'data1', label: 'Data1' },
     { value: 'data2', label: 'Data2' },
@@ -45,7 +58,14 @@ class Index extends Component {
     render() {
         const { tabvalue, selectedOption } = this.state;
         return (
-            <Grid className="homeBg">
+            <Grid className={
+                this.props.settings &&
+                this.props.settings.setting &&
+                this.props.settings.setting.mode &&
+                this.props.settings.setting.mode === "dark"
+                  ? "homeBg darkTheme"
+                  : "homeBg"
+              }>
                 <Grid className="homeBgIner">
                     <Grid container direction="row">
                         <Grid item xs={12} md={12}>
@@ -142,4 +162,24 @@ class Index extends Component {
         );
     }
 }
-export default Index
+const mapStateToProps = (state) => {
+    const { stateLoginValueAim, loadingaIndicatoranswerdetail } =
+      state.LoginReducerAim;
+    const { stateLanguageType } = state.LanguageReducer;
+    const { House } = state.houseSelect
+    const { settings } = state.Settings;
+    const { verifyCode } = state.authy;
+    return {
+      stateLanguageType,
+      stateLoginValueAim,
+      loadingaIndicatoranswerdetail,
+      House,
+      settings,
+      verifyCode,
+    };
+  };
+  export default withRouter(
+    connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer, Settings,authy, houseSelect })(
+      Index
+    )
+  );

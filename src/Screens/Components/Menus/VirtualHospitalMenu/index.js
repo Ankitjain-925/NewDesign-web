@@ -157,7 +157,7 @@ class Index extends Component {
       logout,
     } = translate;
     return (
-        <Grid>
+        <Grid className="MenuWeb">
         <Grid className="webLogo">
         {/* {this.state.loaderImage && <Loader />} */}
           <a>

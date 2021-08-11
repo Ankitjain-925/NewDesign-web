@@ -60,7 +60,14 @@ class Index extends Component {
             return (<Redirect to={'/VirtualHospital/space'} />);
         }
         return (
-            <Grid className="homeBg">
+            <Grid className={
+                this.props.settings &&
+                this.props.settings.setting &&
+                this.props.settings.setting.mode &&
+                this.props.settings.setting.mode === "dark"
+                  ? "homeBg darkTheme"
+                  : "homeBg"
+              }>
                 <Grid className="homeBgIner">
                     <Grid container direction="row">
                         <Grid item xs={12} md={12}>

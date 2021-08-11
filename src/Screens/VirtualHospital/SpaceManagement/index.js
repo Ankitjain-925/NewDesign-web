@@ -301,7 +301,15 @@ class Index extends Component {
                       <Modal
                         open={this.state.openWarn}
                         onClose={this.handleCloseWarn}
-                        className="addWrnModel"
+                        className={
+                          this.props.settings &&
+                          this.props.settings.setting &&
+                          this.props.settings.setting.mode &&
+                          this.props.settings.setting.mode === "dark"
+                            ? "darkTheme addWrnModel"
+                            : "addWrnModel"
+                        }
+            
                       >
                         <Grid className="addWrnContnt">
                           <Grid className="addWrnIner">
@@ -452,7 +460,14 @@ class Index extends Component {
                 <Modal
                   open={this.state.openSpecl}
                   onClose={this.handleCloseSpecl}
-                  className="addSpeclModel"
+                  className={
+                    this.props.settings &&
+                    this.props.settings.setting &&
+                    this.props.settings.setting.mode &&
+                    this.props.settings.setting.mode === "dark"
+                      ? "darkTheme addSpeclModel"
+                      : "addSpeclModel"
+                  }
                 >
                   <Grid className="addSpeclContnt">
                     <Grid className="addSpeclLbl">

@@ -9,8 +9,6 @@ import axios from "axios";
 import { LanguageFetchReducer } from "Screens/actions";
 import sitedata from "sitedata";
 import Button from "@material-ui/core/Button";
-import { confirmAlert } from "react-confirm-alert"; // Import
-import "react-confirm-alert/src/react-confirm-alert.css"; // Import csss
 import * as translationEN from "./translations/en_json_proofread_13072020.json";
 import * as translationDE from "./translations/de.json";
 import H_LeftMenu from "Screens/Components/Menus/H_leftMenu/index";

@@ -166,8 +166,8 @@ class Index extends Component {
                 this.props.settings.setting &&
                 this.props.settings.setting.mode &&
                 this.props.settings.setting.mode === "dark"
-                ? "MenuLeftUpr adminMenuLeftUpr darkTheme"
-                : "MenuLeftUpr adminMenuLeftUpr"
+                ? " MenuLeftUpr adminMenuLeftUpr darkTheme"
+                : " MenuLeftUpr adminMenuLeftUpr"
             }
             >
                 {this.state.loaderImage && <Loader />}
@@ -176,7 +176,7 @@ class Index extends Component {
                     <Grid><label>{admin_panel}</label></Grid>
                 </Grid>
                 <Grid className="menuItems adminmenuItems">
-                    <ul>
+                <ul>
                         <li className={this.props.currentPage === 'patient_List' ? "menuActv" : ""}>
                             <a onClick={() => this.props.history.push("/h-patients")}>
                                 <img src={require('assets/images/admin/patintIcon.png')} alt="" title="" />
@@ -324,6 +324,7 @@ class Index extends Component {
                             </a>
                         </li>
                     </ul>
+                    
                 </Grid>
                 <Modal
                     style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
