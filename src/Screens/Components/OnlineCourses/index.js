@@ -549,22 +549,8 @@ class Index extends Component {
                 </Grid>
                 <Grid item xs={12} md={6}>
                   <Grid className="onlinRght">
-                    <a>
-                      <img
-                        src={require("assets/images/wishFill.png")}
-                        onClick={this.handleOpenWish}
-                        alt=""
-                        title=""
-                      />
-                    </a>
-                    <a>
-                      <img
-                        src={require("assets/images/cart.png")}
-                        onClick={this.handleOpenCart}
-                        alt=""
-                        title=""
-                      />
-                    </a>
+                    <a><img src={require("assets/images/wishFill.png")} onClick={this.handleOpenWish} alt="" title="" /></a>
+                    <a><img src={require("assets/images/cart.png")} onClick={this.handleOpenCart} alt="" title="" /></a>
                   </Grid>
                 </Grid>
               </Grid>
@@ -581,24 +567,14 @@ class Index extends Component {
                     this.props.settings.setting.mode === "dark"
                     ? "wishListModel darkTheme"
                     : "wishListModel"
-                }
-              >
+                }>
                 <div className="wishListCntnt">
                   <div className="wshLstHai">
-                    <div className="wshLstHaiLft">
-                      <label>{wishlist}</label>
-                    </div>
+                    <div className="wshLstHaiLft"><label>{wishlist}</label></div>
                     <div className="wshLstHaiRght">
-                      <a onClick={this.handleCloseWish}>
-                        <img
-                          src={require("assets/images/close-search.svg")}
-                          alt=""
-                          title=""
-                        />
-                      </a>
+                      <a onClick={this.handleCloseWish}><img src={require("assets/images/close-search.svg")} alt="" title="" /> </a>
                     </div>
                   </div>
-
                   {/* WishList Content */}
                   {this.state.Allwishlist &&
                     this.state.Allwishlist.length > 0 &&
@@ -787,31 +763,21 @@ class Index extends Component {
             {/* End of online cart design */}
 
             {/* Tabs  */}
-            <Grid className="coursesTab">
+            <Grid className="coursesTab 11">
               <Grid container direction="row">
-                <Grid item xs={12} md={4}>
+                <Grid item xs={12} md={12} lg={4}>
                   <AppBar position="static">
-                    <Tabs
-                      value={value}
-                      onChange={this.handleChange}
-                      className="onlineTabs"
-                    >
+                    <Tabs value={value} onChange={this.handleChange} className="onlineTabs">
                       <Tab label={all_course} className="onlineTabsIner" />
                       <Tab label={my_course} className="onlineTabsIner" />
                     </Tabs>
                   </AppBar>
                 </Grid>
-                <Grid item xs={12} md={8}>
-                  <Grid
-                    container
-                    direction="row"
-                    justify="center"
-                    alignItems="center"
-                    spacing={2}
-                    className="topicLang"
-                  >
-                    <Grid item xs={12} md={4}></Grid>
-                    <Grid item xs={12} md={3}>
+                <Grid item xs={12} md={12} lg={8}>
+                  <Grid container direction="row"
+                    justify="center" alignItems="center" spacing={2} className="topicLang">
+                    <Grid item xs={12} lg={4}></Grid>
+                    <Grid item xs={12} md={5} lg={3}>
                       <Select
                         // value={this.state.SelectedTopic}
                         onChange={(e) => this.setState({ SelectedTopic: e })}
@@ -821,7 +787,7 @@ class Index extends Component {
                         isSearchable={true}
                       />
                     </Grid>
-                    <Grid item xs={12} md={4}>
+                    <Grid item xs={12} md={5} lg={4}>
                       <Select
                         // value={this.state.SelectedLanguage}
                         onChange={(e) => this.setState({ SelectedLanguage: e })}
@@ -831,13 +797,9 @@ class Index extends Component {
                         isSearchable={true}
                       />
                     </Grid>
-                    <Grid item xs={12} md={1}>
+                    <Grid item xs={12} md={2} lg={1}>
                       <Grid className="topicSrch">
-                        <img
-                          src={require("assets/images/search-entries.svg")}
-                          alt=""
-                          title=""
-                        />
+                        <img src={require("assets/images/search-entries.svg")} alt="" title="" />
                       </Grid>
                     </Grid>
                   </Grid>

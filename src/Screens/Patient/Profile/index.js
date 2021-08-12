@@ -172,8 +172,7 @@ class Index extends Component {
           this.props.settings.setting.mode === "dark"
             ? "homeBg homeBgDrk"
             : "homeBg"
-        }
-      >
+        } >
         <Grid className="homeBgIner">
           <Grid container direction="row" justify="center">
             <Grid item xs={12} md={12}>
@@ -183,7 +182,7 @@ class Index extends Component {
                 <LeftMenuMobile isNotShow={true} currentPage="profile" />
                 <Notification />
                 {/* Website Mid Content */}
-                <Grid item xs={12} md={8}>
+                <Grid item xs={12} md={10} lg={8}>
                   <Grid className="profilePkg ">
                     <Grid className="profilePkgIner1">
                       {/* Tabs  */}
@@ -191,8 +190,7 @@ class Index extends Component {
                         <Tabs
                           value={value}
                           onChange={this.handleChangeTabs}
-                          className="profileTabs"
-                        >
+                          className="profileTabs">
                           <Tab label={my_profile} className="aboutTabsIner" />
                           <Tab label={Security} className="aboutTabsIner" />
                           <Tab label={my_drs} className="aboutTabsIner" />

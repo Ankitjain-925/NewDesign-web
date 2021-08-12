@@ -66,7 +66,7 @@ class CometChatConversationList extends React.Component {
 
       } else {
 
-        this.setAvatar(conversation);
+        // this.setAvatar(conversation);
         conversation.lastMessage = message;
         conversation.setUnreadMessageCount(1);
         conversationlist.unshift(conversation);
@@ -120,7 +120,7 @@ class CometChatConversationList extends React.Component {
 
         this.ConversationListManager.fetchNextConversation().then(conversationList => {
 
-          conversationList.forEach(conv => conv = this.setAvatar(conv));
+          // conversationList.forEach(conv => conv = this.setAvatar(conv));
           this.setState({ conversationlist: [...this.state.conversationlist, ...conversationList], loading: false });
 
         }).catch(error => {
@@ -141,7 +141,7 @@ class CometChatConversationList extends React.Component {
         const uid = conversation.getConversationWith().getUid();
         const char = conversation.getConversationWith().getName().charAt(0).toUpperCase();
 
-        conversation.getConversationWith().setAvatar(SvgAvatar.getAvatar(uid, char));
+        // conversation.getConversationWith().setAvatar(SvgAvatar.getAvatar(uid, char));
 
     } else if(conversation.getConversationType() === "group" && !conversation.getConversationWith().getIcon()) {
 
@@ -166,10 +166,15 @@ class CometChatConversationList extends React.Component {
     const conversationList = this.state.conversationlist.map((conversation, key) => {
       return (
         <div id={key} onClick={() => this.handleClick(conversation)} key={key} className="clearfix">
-          <ConversationView 
-          config={this.props.config}
-          key={conversation.conversationId} 
-          conversation={conversation} />
+          
+          <ConversationView
+            lan={this.props.lan}
+            Userlist={this.props.Userlist}
+            item={this.props.item}
+            actionGenerated={this.props.actionGenerated} 
+            config={this.props.config}
+            key={conversation.conversationId} 
+            conversation={conversation} />
         </div>
       );
 
@@ -177,7 +182,7 @@ class CometChatConversationList extends React.Component {
 
     return (
       <React.Fragment>
-        <div className="ccl-left-panel-head-wrap">
+        <div className="ccl-left-panel-head-wrap newheadheight">
           <h4 className="ccl-left-panel-head-ttl"></h4>
           <div className="cc1-left-panel-close" onClick={this.handleMenuClose}></div>
         </div>

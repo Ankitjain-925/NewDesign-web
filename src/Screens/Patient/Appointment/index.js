@@ -203,7 +203,6 @@ class Index extends Component {
           response.data.data.filter(
             (data) => data.status !== "cancel" && data.status !== "remove"
           );
-
         this.setState({
           upcomingAppointment: upcomingData,
           loaderImage: false,
@@ -326,11 +325,11 @@ class Index extends Component {
 
   bookAppointment = () => {
     var insurance_no =
-      this.state.personalinfo.insurance &&
-        this.state.personalinfo.insurance.length > 0 &&
-        this.state.personalinfo.insurance[0] &&
-        this.state.personalinfo.insurance[0].insurance_number
-        ? this.state.personalinfo.insurance[0].insurance_number
+      this.state.personalinfo?.insurance &&
+        this.state.personalinfo?.insurance.length > 0 &&
+        this.state.personalinfo?.insurance[0] &&
+        this.state.personalinfo?.insurance[0].insurance_number
+        ? this.state.personalinfo?.insurance[0].insurance_number
         : "";
     // this.setState({ loaderImage: true });
     const user_token = this.props.stateLoginValueAim.token;
@@ -341,11 +340,11 @@ class Index extends Component {
           this.state.selectedDoc.data && this.state.selectedDoc.data._id,
         insurance:
           this.state.personalinfo &&
-          this.state.personalinfo.insurance &&
-          this.state.personalinfo.insurance.length > 0 &&
-          this.state.personalinfo.insurance[0] &&
-          this.state.personalinfo.insurance[0].insurance_number &&
-          this.state.personalinfo.insurance[0].insurance_number,
+          this.state.personalinfo?.insurance &&
+          this.state.personalinfo?.insurance?.length > 0 &&
+          this.state.personalinfo?.insurance[0] &&
+          this.state.personalinfo?.insurance[0]?.insurance_number &&
+          this.state.personalinfo?.insurance[0]?.insurance_number,
         date: this.state.selectedDate,
         start_time: this.state.mypoint.start,
         end_time: this.state.mypoint.end,
@@ -1277,7 +1276,7 @@ class Index extends Component {
                       : "editBoxModel"
                   }
                 >
-                  <div className="alowLocAces">
+                  <div className="alowLocAces 11">
                     <div className="accessCourse">
                       <div className="handleAccessBtn">
                         <a onClick={this.handleCloseAllowLoc}>
@@ -1969,27 +1968,16 @@ class Index extends Component {
                           : "editBoxModel"
                       }
                     >
-                      <div className="alowLocAces">
+                      <div className="alowLocAces 22">
                         <div className="accessCourse">
                           <div className="handleAccessBtn">
                             <a onClick={this.handleCloseAllowAccess}>
-                              <img
-                                src={require("assets/images/close-search.svg")}
-                                alt=""
-                                title=""
-                              />
+                              <img src={require("assets/images/close-search.svg")} alt="" title="" />
                             </a>
                           </div>
-                          <Grid
-                            container
-                            direction="row"
-                            spacing={2}
-                            className="srchAccessLoc"
-                          >
+                          <Grid container direction="row" spacing={2} className="srchAccessLoc">
                             <Grid item xs={12} md={3}>
-                              <Grid>
-                                <label>{speciality}</label>
-                              </Grid>
+                              <Grid><label>{speciality}</label></Grid>
                               <Select
                                 value={selectedOption}
                                 onChange={this.handleChangeSelect}
@@ -1998,7 +1986,7 @@ class Index extends Component {
                                 className="sel_specialty"
                               />
                             </Grid>
-                            <Grid item xs={12} md={3} className="locat_srvc">
+                            <Grid item xs={12} md={4} className="locat_srvc">
                               <Grid>
                                 <label>{location_of_srvc}</label>
                               </Grid>
@@ -2032,7 +2020,7 @@ class Index extends Component {
                                 }
                               />
                             </Grid>
-                            <Grid item xs={12} md={4} className="apointType">
+                            <Grid item xs={12} md={3} className="apointType">
                               <Grid>
                                 <label>
                                   {appointment} {type}
@@ -2140,13 +2128,12 @@ class Index extends Component {
                             </div>
                           )}
                           {/* <div><a><img src={require('assets/images/location.png')} alt="" title="" /></a></div>
-                                                                            <h1>{allow_location_access}</h1>
-                                                                            <p>{this_way_can_instntly_list_of_specility}</p> */}
+                                                          <h1>{allow_location_access}</h1>
+                                                          <p>{this_way_can_instntly_list_of_specility}</p> */}
                         </div>
                         <div
                           style={{ textAlign: "center" }}
-                          className="arng_addEntrynw"
-                        >
+                          className="arng_addEntrynw">
                           <a onClick={this.handleAllowLoc}>{find_apointment}</a>
                         </div>
                       </div>
@@ -2156,15 +2143,10 @@ class Index extends Component {
                       <Grid className="getCalBnr">
                         {this.state.myEventsList &&
                           this.state.myEventsList.length > 0 && (
-                            <Calendar
-                              localizer={localizer}
-                              events={myEventsList}
-                              startAccessor="start"
-                              endAccessor="end"
-                              popup
-                              popupOffset={{ x: 30, y: 20 }}
-                              style={{ minHeight: 900 }}
-                              step={60}
+                            <Calendar localizer={localizer} events={myEventsList}
+                              startAccessor="start" endAccessor="end"
+                              popup popupOffset={{ x: 30, y: 20 }}
+                              style={{ minHeight: 900 }} step={60}
                               messages={{
                                 showMore: (total) => (
                                   <div
@@ -2187,9 +2169,9 @@ class Index extends Component {
                           )}
 
                         {/* <div ref={setPopperElement} style={styles.popper} {...attributes.popper}>
-                                                    Popper element
-                                                    <div ref={setArrowElement} style={styles.arrow} />
-                                                </div> */}
+                                Popper element
+                                <div ref={setArrowElement} style={styles.arrow} />
+                            </div> */}
                         {/* <img src={require('assets/images/uidoc.jpg')} alt="" title="" /> */}
                       </Grid>
                     </Grid>
