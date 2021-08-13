@@ -44,7 +44,7 @@ class Index extends React.Component {
                         <Grid><label>Beds in room</label></Grid>
                     </Grid>
                 </Grid>
-                {this.state.timeArr && this.state.timeArr.length == 0 && (
+                {/* {this.state.roomArray && this.state.roomArray.length == 0 && (
                     <Grid container direction="row" alignItems="center" spacing={2}>
                         <Grid item xs={7} md={7}>
                             <input
@@ -68,7 +68,7 @@ class Index extends React.Component {
                             <a onClick={() => this.deleteRooms(0)}><img src={require('assets/virtual_images/bin.svg')} alt="" title="" /></a>
                         </Grid>
                     </Grid>
-                )}
+                )} */}
                 {this.state.roomArray && this.state.roomArray.length > 0 && this.state.roomArray.map((data, index) => (
                     <Grid container direction="row" alignItems="center" spacing={2}>
                         <Grid item xs={7} md={7}>

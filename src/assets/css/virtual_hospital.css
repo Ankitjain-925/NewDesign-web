@@ -3402,9 +3402,10 @@ span.css-1okebmr-indicatorSeparator {
     letter-spacing: 0;
     line-height: 16px;
     text-align: center;
-    width: 100%;
-    /* padding: 10px 10px; */
+    /* width: 100%; */
     outline: none;
+    margin-left: 10px;
+    margin-right: 10px;
 }
 
 /* .infoSub input {
@@ -9968,4 +9969,36 @@ button.crdoLghtBlu2 {
 }
 .specialitybutton-parent{
     flex-basis: auto !important;
+}
+
+.questionborder {
+    border-style: ridge;
+    border-width: 2px;
+    margin-top: 0px;
+    margin-bottom: 20px;
+    margin-right: 10px;
+    margin-left: 10px;
+    border-radius: 5px;
+  }
+
+  .add_a_question a {
+    color: #00ABAF !important;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 16px;
+    text-align: center;
+    margin-left: 10px;
+}
+
+.remove_a_question a {
+    color: #ff0000 !important;
+    font-family: Muli;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 16px;
+    text-align: center;
+    margin-left: 10px;
 }

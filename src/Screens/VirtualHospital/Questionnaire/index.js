@@ -24,17 +24,16 @@ class Index extends Component {
         super(props)
         this.state = {
             openQues: false,
-            question: '',
-            options: '',
+            openOpti: false,
+            opeInp: false,
             house_name: '',
             house_id: '',
-            speciality_id: '',
-            AllQuestions: [],
-            updateTrack: {},
-            questions_data: {},
+            question: '',
+            options: '',
+            type: '',
+            myQuestions: [{}],
             option: this.props.option,
-            openOpti: true,
-            opeInp: true,
+            questions: [],
         }
     }
 
@@ -51,64 +50,60 @@ class Index extends Component {
     handleCloseQues = () => {
         this.setState({ openQues: false });
     }
-    updateEntryState1 = (e) => {
-        const state = this.state.updateTrack;
-        state[e.target.name] = e.target.value;
-        this.setState({ updateTrack: state });
-    };
 
-    updateEntryState2 = (e, name) => {
-        // console.log('e', e)
+    //for choosing select field value 
+    updateEntryState = (e, index) => {
+        console.log("e", e)
+        var QuesAy = this.state.myQuestions;
+        QuesAy[index]['type'] = e.value;
+        this.setState({ myQuestions: QuesAy }, () => {
+        });
         if (e.value == "input") {
-            console.log("value", e.value)
-            this.setState({ openInp: false, openOpti: true });
-        }
-        else {
             this.setState({ openInp: true, openOpti: false });
         }
-        const state = this.state.updateTrack;
-        state[name] = e.value;
-        this.setState({ updateTrack: state });
+        else if (e.value == "options") {
+            this.setState({ openOpti: true, openInp: false });
+        }
     }
 
-    //for adding/updating the options
-    updateEntryState = (array) => {
-        const state = this.state.updateTrack;
-        state['options'] = array;
-        this.setState({ updateTrack: state });
+    //for adding/updating the questions
+    updateEntryState1 = (e, index) => {
+        var QuesAy = this.state.myQuestions;
+        QuesAy[index][e.target.name] = e.target.value;
+        console.log("QuesAy", QuesAy)
+        this.setState({ myQuestions: QuesAy }, () => {
+        });
+    }
+
+    //for adding/updating the option
+    updateEntryState2 = (array, index) => {
+        var QuesAy = this.state.myQuestions;
+        QuesAy[index]["options"] = array;
+        this.setState({ myQuestions: QuesAy }, () => {
+        });
     };
 
-    //For adding the New Question and Update Question
+    // Add multiiple select fields
+    onAddFiled = () => {
+        let QuesAy = this.state.myQuestions;
+        QuesAy.push({ type: "" });
+        this.setState({ myQuestions: QuesAy });
+    };
+
+    deleteQuestions = (index) => {
+        var QuesAy = this.state.myQuestions?.length > 0 && this.state.myQuestions.filter((data, index1) => index1 !== index);
+        this.setState({ myQuestions: QuesAy });
+    };
+
     handleSubmit = () => {
-        console.log("question", this.state.updateTrack);
-        // if (this.state.updateTrack._id) {
-        //     axios
-        //         .put(
-        //             sitedata.data.path + "/vh/AddService/" + this.state.updateTrack._id,
-        //             {
-        //                 question: this.state.updateTrack.question,
-        //                 description: this.state.updateTrack.description,
-        //                 price: this.state.updateTrack.price,
-        //             },
-        //             commonHeaderToken()
-        //         )
-        //         .then((responce) => {
-        //             this.setState({
-        //                 updateTrack: {},
-        //             });
-        //             this.getAllQuestions();
-        //         })
-        // }
-        // else {
+        console.log("myQuestions", this.state.myQuestions);
         axios
             .post(
                 sitedata.data.path + "/questionaire/AddQuestionaire",
                 {
-                    question: this.state.updateTrack.question,
-                    options: this.state.updateTrack.options,
                     house_id: "600c15c2c983431790f904c3-1627046889451",
                     house_name: "House-2",
-                    questionaire_id:"1234"
+                    questions: this.state.myQuestions
                 },
                 commonHeaderToken()
             )
@@ -118,11 +113,6 @@ class Index extends Component {
             .catch(function (error) {
                 console.log(error);
             });
-    }
-    // }
-    // Open Edit Model
-    editQuestion = (data) => {
-        this.setState({ updateTrack: data, openQues: true })
     }
 
     // For getting the Question and implement Pagination
@@ -141,7 +131,6 @@ class Index extends Component {
                         totalPage: totalPage,
                         currentPage: 1,
                     },
-
                     () => {
                         if (totalPage > 1) {
                             var pages = [];
@@ -149,70 +138,21 @@ class Index extends Component {
                                 pages.push(i);
                             }
                             this.setState({
-                                questions_data: this.state.AllQuestions.slice(0, 10),
+                                questions: this.state.AllQuestions.slice(0, 10),
                                 pages: pages,
                             });
                         } else {
-                            this.setState({ questions_data: this.state.AllQuestions });
+                            this.setState({ questions: this.state.AllQuestions });
                         }
                     }
                 );
             });
     };
 
-    //Delete the perticular question confirmation box
-    removeQuestions = (status, id) => {
-        this.setState({ message: null });
-        confirmAlert({
-            customUI: ({ onClose }) => {
-                return (
-                    <div
-                        className={
-                            this.props.settings &&
-                                this.props.settings.setting &&
-                                this.props.settings.setting.mode &&
-                                this.props.settings.setting.mode === "dark"
-                                ? "dark-confirm react-confirm-alert-body"
-                                : "react-confirm-alert-body"
-                        }
-                    >
-                        {status && status === "remove" ? (
-                            <h1>Remove the Question ?</h1>
-                        ) : (
-                            <h1>Remove the Question ?</h1>
-                        )}
-                        <p>Are you sure to remove this Question?</p>
-                        <div className="react-confirm-alert-button-group">
-                            <button onClick={onClose}>No</button>
-                            <button
-                                onClick={() => {
-                                    this.deleteClickQuestion(status, id);
-                                    onClose();
-                                }}
-                            >
-                                Yes
-                            </button>
-                        </div>
-                    </div>
-                );
-            },
-        });
-    };
-    deleteClickQuestion(status, id) {
-        axios
-            .delete(
-                sitedata.data.path + "/questionaire/Question" + id,
-                commonHeaderToken()
-            )
-            .then((response) => {
-                this.getAllQuestions();
-            })
-            .catch((error) => { });
-    }
-
+    // For changing pages
     onChangePage = (pageNumber) => {
         this.setState({
-            questions_data: this.state.AllQuestions.slice(
+            questions: this.state.AllQuestions.slice(
                 (pageNumber - 1) * 10,
                 pageNumber * 10
             ),
@@ -221,8 +161,7 @@ class Index extends Component {
     };
 
     render() {
-        const { questions_data } = this.state;
-        console.log("questions_data", this.state.updateTrack)
+        const { questions } = this.state;
         return (
             <Grid className="homeBg">
                 <Grid className="homeBgIner">
@@ -267,60 +206,178 @@ class Index extends Component {
                                                                 </Grid>
                                                                 <Grid><label>Add Questionnaire</label></Grid>
                                                             </Grid>
-                                                            <Grid className="cnfrmDiaMain">
-                                                                <Grid className="fillDia">
+                                                            {this.state.myQuestions && this.state.myQuestions.length == 1 && (
+                                                                <Grid>
+                                                                    <Grid className="cnfrmDiaMain questionborder">
+                                                                        <Grid className="fillDia">
 
-                                                                    <Grid>
-                                                                        <SelectField
-                                                                            isSearchable={true}
-                                                                            label="Question Type"
-                                                                            option={options}
-                                                                            onChange={(e) => this.updateEntryState2(e, "type")}
-                                                                            value="Input"
+                                                                            <Grid>
+                                                                                <SelectField
+                                                                                    isSearchable={true}
+                                                                                    name="type"
+                                                                                    label="Question Type"
+                                                                                    option={options}
+                                                                                    onChange={(e) => this.updateEntryState(e, 0)}
+                                                                                    value={this.state.type}
+                                                                                />
+                                                                            </Grid>
+                                                                            {this.state.openOpti && (
+                                                                                <>
+                                                                                    <Grid>
+                                                                                        <VHfield
+                                                                                            label="Question"
+                                                                                            name="question"
+                                                                                            placeholder="Enter question"
+                                                                                            onChange={(e) => this.updateEntryState1(e, 0)}
+                                                                                        // value={this.state.myQuestion.question}
+                                                                                        />
+                                                                                    </Grid>
 
-                                                                        />
+                                                                                    <Grid>
+                                                                                        <AddHouses
+                                                                                            label="Options"
+                                                                                            name="options"
+                                                                                            placeholder="Enter option"
+                                                                                            onChange={(e) => this.updateEntryState2(e, 0)}
+                                                                                            value={this.state.options}
+                                                                                        />
+                                                                                    </Grid>
+                                                                                </>
+                                                                            )}
+                                                                            {this.state.openInp && (
+                                                                                <>
+                                                                                    <Grid>
+                                                                                        <VHfield
+                                                                                            label="Question"
+                                                                                            name="question"
+                                                                                            placeholder="Enter question"
+                                                                                            onChange={(e) => this.updateEntryState1(e, 0)}
+                                                                                            value={this.state.question}
+                                                                                        />
+                                                                                    </Grid>
+                                                                                </>
+                                                                            )}
+                                                                        </Grid>
                                                                     </Grid>
-                                                                    {!this.state.openOpti && (
-                                                                        <>
-                                                                            <Grid>
-                                                                                <VHfield
-                                                                                    label="Question"
-                                                                                    name="question"
-                                                                                    placeholder="Enter question"
-                                                                                    onChange={(e) => this.updateEntryState1(e)}
-                                                                                    value={this.state.updateTrack.question}
-                                                                                />
-                                                                            </Grid>
-
-                                                                            <Grid>
-                                                                                <AddHouses
-                                                                                    label="Options"
-                                                                                    name="options"
-                                                                                    placeholder="Enter option"
-                                                                                    onChange={(e) => this.updateEntryState(e)}
-                                                                                    value={this.state.updateTrack.options}
-                                                                                />
-                                                                            </Grid>
-                                                                        </>
-                                                                    )}
-
-                                                                    {!this.state.openInp && (
-                                                                        <>
-                                                                            <Grid>
-                                                                                <VHfield
-                                                                                    label="Question"
-                                                                                    name="question"
-                                                                                    placeholder="Enter question"
-                                                                                    onChange={(e) => this.updateEntryState1(e)}
-                                                                                    value={this.state.updateTrack.question}
-                                                                                />
-                                                                            </Grid>
-                                                                        </>
-                                                                    )}
-                                                                    <Grid className="infoSub1">
-                                                                        <a onClick={this.handleCloseQues}><Button onClick={() => this.handleSubmit()}>Submit</Button></a>
-                                                                    </Grid>
+                                                                    <Grid className="add_a_question"><a onClick={this.onAddFiled}>+ add a question</a></Grid>
                                                                 </Grid>
+                                                            )}
+
+                                                            {this.state.myQuestions && this.state.myQuestions.length > 1 && this.state.myQuestions.map((data, index) => index == 0 ? (
+                                                                <Grid>
+                                                                    <Grid className="cnfrmDiaMain questionborder">
+                                                                        <Grid className="fillDia">
+
+                                                                            <Grid>
+                                                                                <SelectField
+                                                                                    isSearchable={true}
+                                                                                    name="type"
+                                                                                    label="Question Type"
+                                                                                    option={options}
+                                                                                    onChange={(e) => this.updateEntryState(e, index)}
+                                                                                    value={this.type}
+                                                                                />
+                                                                            </Grid>
+                                                                            {this.state.openOpti && (
+                                                                                <>
+                                                                                    <Grid>
+                                                                                        <VHfield
+                                                                                            label="Question"
+                                                                                            name="question"
+                                                                                            placeholder="Enter question"
+                                                                                            onChange={(e) => this.updateEntryState1(e, index)}
+                                                                                            value={this.state.updateTrack.question}
+                                                                                            value={data.question}
+                                                                                        />
+                                                                                    </Grid>
+
+                                                                                    <Grid>
+                                                                                        <AddHouses
+                                                                                            label="Options"
+                                                                                            name="options"
+                                                                                            placeholder="Enter option"
+                                                                                            onChange={(e) => this.updateEntryState2(e, index)}
+                                                                                            value={data.options}
+                                                                                        />
+                                                                                    </Grid>
+                                                                                </>
+                                                                            )}
+                                                                            {this.state.openInp && (
+                                                                                <>
+                                                                                    <Grid>
+                                                                                        <VHfield
+                                                                                            label="Question"
+                                                                                            name="question"
+                                                                                            placeholder="Enter question"
+                                                                                            onChange={(e) => this.updateEntryState1(e, index)}
+                                                                                            value={data.question}
+                                                                                        />
+                                                                                    </Grid>
+                                                                                </>
+                                                                            )}
+                                                                        </Grid>
+                                                                    </Grid>
+                                                                    <Grid className="add_a_question"><a onClick={this.onAddFiled}>+ add a question</a></Grid>
+                                                                </Grid>
+                                                            ) :
+                                                                (
+                                                                    <Grid>
+                                                                        <Grid className="cnfrmDiaMain questionborder">
+                                                                            <Grid className="fillDia">
+
+                                                                                <Grid>
+                                                                                    <SelectField
+                                                                                        isSearchable={true}
+                                                                                        name="type"
+                                                                                        label="Question Type"
+                                                                                        option={options}
+                                                                                        onChange={(e) => this.updateEntryState(e, index)}
+                                                                                    // value={data.type}
+                                                                                    />
+                                                                                </Grid>
+                                                                                {this.state.openOpti && (
+                                                                                    <>
+                                                                                        <Grid>
+                                                                                            <VHfield
+                                                                                                label="Question"
+                                                                                                name="question"
+                                                                                                placeholder="Enter question"
+                                                                                                onChange={(e) => this.updateEntryState1(e, index)}
+                                                                                                value={data.question}
+                                                                                            />
+                                                                                        </Grid>
+
+                                                                                        <Grid>
+                                                                                            <AddHouses
+                                                                                                label="Options"
+                                                                                                name="options"
+                                                                                                placeholder="Enter option"
+                                                                                                onChange={(e) => this.updateEntryState2(e, index)}
+                                                                                                value={data.options}
+                                                                                            />
+                                                                                        </Grid>
+                                                                                    </>
+                                                                                )}
+                                                                                {this.state.openInp && (
+                                                                                    <>
+                                                                                        <Grid>
+                                                                                            <VHfield
+                                                                                                label="Question"
+                                                                                                name="question"
+                                                                                                placeholder="Enter question"
+                                                                                                onChange={(e) => this.updateEntryState1(e, index)}
+                                                                                                value={data.question}
+                                                                                            />
+                                                                                        </Grid>
+                                                                                    </>
+                                                                                )}
+                                                                            </Grid>
+                                                                        </Grid>
+                                                                        <Grid className="remove_a_question"><a onClick={() => this.deleteQuestions(index)}>- remove question</a></Grid>
+                                                                    </Grid>
+                                                                ))}
+                                                            <Grid className="infoSub1">
+                                                                <a onClick={this.handleCloseQues}><Button onClick={() => this.handleSubmit()}>Submit</Button></a>
                                                             </Grid>
                                                         </Grid>
                                                     </Modal>
@@ -360,6 +417,7 @@ class Index extends Component {
                                             <Table>
                                                 <Thead>
                                                     <Tr>
+                                                        <Th>Type</Th>
                                                         <Th>Question</Th>
                                                         <Th>Options</Th>
                                                         <Th></Th>
@@ -367,9 +425,14 @@ class Index extends Component {
                                                 </Thead>
                                                 <Tbody>
 
-                                                    {questions_data?.length > 0 && questions_data.map((data) => (
+                                                    {this.state.questions?.length > 0 && this.state.questions.map((data) => (
+
                                                         <>
+                                                            {console.log("data", data)}
                                                             <Tr>
+                                                                <Td>
+                                                                    <label>{data.type}</label>
+                                                                </Td>
                                                                 <Td>
                                                                     <label>{data.question}</label>
                                                                 </Td>
@@ -419,161 +482,11 @@ class Index extends Component {
                                                                         </ul>
                                                                     </a>
                                                                 </Td>
-                                                                {/* <Button onclick = {(index) => {this.message(index)}}><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></Button> */}
-                                                                {/* </Td> */}
                                                             </Tr>
-
-                                                            {/* <Tr>
-                                                                <Td>
-                                                                    <label>MRI</label>
-                                                                    <p>This can be a short description of this service.</p>
-                                                                </Td>
-                                                                <Td>260,00 €</Td>
-                                                                <Td className="srvcDots">
-                                                                    <Button><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></Button>
-                                                                </Td>
-                                                            </Tr> */}
-                                                            {/* <Tr>
-                                                                <Td>
-                                                                    <label>Carotid Ultrasound</label>
-                                                                </Td>
-                                                                <Td>90,00 €</Td>
-                                                                <Td className="srvcDots">
-                                                                    <Button><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></Button>
-                                                                </Td>
-                                                            </Tr>
-                                                            <Tr>
-                                                                <Td>
-                                                                    <label>Angiography</label>
-                                                                </Td>
-                                                                <Td>120,00 €</Td>
-                                                                <Td className="srvcDots">
-                                                                    <Button><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></Button>
-                                                                </Td>
-                                                            </Tr>
-                                                            <Tr>
-                                                                <Td>
-                                                                    <label>Electroencephalogram</label>
-                                                                    <p>This can be a short description of this service.</p>
-                                                                </Td>
-                                                                <Td>170,00 €</Td>
-                                                                <Td className="srvcDots">
-                                                                    <Button><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></Button>
-                                                                </Td>
-                                                            </Tr>
-                                                            <Tr>
-                                                                <Td>
-                                                                    <label>Single Photon Emission Computed Tomography (SPECT) Scan</label>
-                                                                </Td>
-                                                                <Td>170,00 €</Td>
-                                                                <Td className="srvcDots">
-                                                                    <Button><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></Button>
-                                                                </Td>
-                                                            </Tr>
-                                                            <Tr>
-                                                                <Td>
-                                                                    <label>X-ray</label>
-                                                                    <p>This can be a short description of this service.</p>
-                                                                </Td>
-                                                                <Td>200,00 €</Td>
-                                                                <Td className="srvcDots">
-                                                                    <Button><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></Button>
-                                                                </Td>
-                                                            </Tr>
-                                                            <Tr>
-                                                                <Td>
-                                                                    <label>X-ray</label>
-                                                                    <p>This can be a short description of this service.</p>
-                                                                </Td>
-                                                                <Td>200,00 €</Td>
-                                                                <Td className="srvcDots">
-                                                                    <Button><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></Button>
-                                                                </Td>
-                                                            </Tr>
-                                                            <Tr>
-                                                                <Td>
-                                                                    <label>CT Scan</label>
-                                                                    <p>This can be a short description of this service.</p>
-                                                                </Td>
-                                                                <Td>240,00 €</Td>
-                                                                <Td className="srvcDots">
-                                                                    <Button><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></Button>
-                                                                </Td>
-                                                            </Tr>
-                                                            <Tr>
-                                                                <Td>
-                                                                    <label>MRI</label>
-                                                                    <p>This can be a short description of this service.</p>
-                                                                </Td>
-                                                                <Td>260,00 €</Td>
-                                                                <Td className="srvcDots">
-                                                                    <Button><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></Button>
-                                                                </Td>
-                                                            </Tr>
-                                                            <Tr>
-                                                                <Td>
-                                                                    <label>Carotid Ultrasound</label>
-                                                                </Td>
-                                                                <Td>90,00 €</Td>
-                                                                <Td className="srvcDots">
-                                                                    <Button><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></Button>
-                                                                </Td>
-                                                            </Tr>
-                                                            <Tr>
-                                                                <Td>
-                                                                    <label>Angiography</label>
-                                                                </Td>
-                                                                <Td>120,00 €</Td>
-                                                                <Td className="srvcDots">
-                                                                    <Button><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></Button>
-                                                                </Td>
-                                                            </Tr>
-                                                            <Tr>
-                                                                <Td>
-                                                                    <label>Electroencephalogram</label>
-                                                                    <p>This can be a short description of this service.</p>
-                                                                </Td>
-                                                                <Td>170,00 €</Td>
-                                                                <Td className="srvcDots">
-                                                                    <Button><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></Button>
-                                                                </Td>
-                                                            </Tr>
-                                                            <Tr>
-                                                                <Td>
-                                                                    <label>Single Photon Emission Computed Tomography (SPECT) Scan</label>
-                                                                </Td>
-                                                                <Td>170,00 €</Td>
-                                                                <Td className="srvcDots">
-                                                                    <Button><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></Button>
-                                                                </Td>
-                                                            </Tr>
-                                                            <Tr>
-                                                                <Td>
-                                                                    <label>X-ray</label>
-                                                                    <p>This can be a short description of this service.</p>
-                                                                </Td>
-                                                                <Td>200,00 €</Td>
-                                                                <Td className="srvcDots">
-                                                                    <Button><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></Button>
-                                                                </Td>
-                                                            </Tr> */}
-
                                                         </>
                                                     ))}
                                                 </Tbody>
                                             </Table>
-                                            {/* <Grid className="dataPagination">
-                                                <Grid container direction="row">
-                                                    <Grid item xs={6} md={6}>
-                                                        <Grid className="dataPaginationLft"><p>25 of 36</p></Grid>
-                                                    </Grid>
-                                                    <Grid item xs={6} md={6}>
-                                                        <Grid className="dataPaginationRght">
-                                                            <p><a>Previous</a><span>1</span><span>2</span><span>3</span><a>Next</a></p>
-                                                        </Grid>
-                                                    </Grid>
-                                                </Grid>
-                                            </Grid> */}
                                             <Grid className="tablePagNum">
                                                 <Grid container direction="row">
                                                     <Grid item xs={12} md={6}>
