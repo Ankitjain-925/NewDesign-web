@@ -35,7 +35,7 @@ class Index extends Component {
   render() {
     return (
       <Grid>
-        <Grid className="rrSysto">
+        <Grid className="enterSpcl">
           <Grid className="rrInput vhfield-add">
             <Grid><label>{this.state.label}</label></Grid>
             <input

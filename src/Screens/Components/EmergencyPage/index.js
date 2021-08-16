@@ -413,11 +413,11 @@ class Index extends Component {
         <Grid item xs={12} md={9}>
           {/* Health Status */}
           <Grid className="healthStatus">
-            <Grid className="journalAdd">
+            <Grid className="">
               <Grid container direction="row">
-                <Grid item xs={11} md={11}>
+                <Grid item xs={11} md={11} className="emergency-head">
                   <Grid container direction="row">
-                    <Grid item xs={6} md={6}>
+                    <Grid item xs={6} md={6} >
                       {this.props.byUser === "patient" ? (
                         <h1>{ur_emrgancy_access}</h1>
                       ) : (
@@ -575,7 +575,7 @@ class Index extends Component {
                                 {item.email}
                               </a>
                             </Grid>
-                            <Grid>
+                            {item.language && item.language.length>0 && <Grid>
                               <a>
                                 <img
                                   src={require("assets//images/language.svg")}
@@ -584,7 +584,7 @@ class Index extends Component {
                                 />
                                 {item.language && item.language.join(", ")}
                               </a>
-                            </Grid>
+                            </Grid>}
                           </Grid>
                           <Grid className="neuroDises">
                             <Grid className="neuroGen">

@@ -7,7 +7,7 @@ import LeftMenuMobile from "Screens/Components/Menus/VirtualHospitalMenu/mobile"
 import VHfield from "Screens/Components/VirtualHospitalComponents/VHfield/index";
 import Modal from '@material-ui/core/Modal';
 import axios from "axios";
-import { commonHeaderToken } from "component/CommonHeader/index"
+import { commonHeader } from "component/CommonHeader/index"
 import sitedata from "sitedata";
 import { confirmAlert } from "react-confirm-alert";
 import Pagination from "Screens/Components/Pagination/index";
@@ -97,7 +97,26 @@ class Index extends Component {
     };
 
     handleSubmit = () => {
-        console.log("myQuestions", this.state.myQuestions);
+        console.log("question", this.state.updateTrack);
+        // if (this.state.updateTrack._id) {
+        //     axios
+        //         .put(
+        //             sitedata.data.path + "/vh/AddService/" + this.state.updateTrack._id,
+        //             {
+        //                 question: this.state.updateTrack.question,
+        //                 description: this.state.updateTrack.description,
+        //                 price: this.state.updateTrack.price,
+        //             },
+        //            commonHeader(this.props.stateLoginValueAim.token)
+        //         )
+        //         .then((responce) => {
+        //             this.setState({
+        //                 updateTrack: {},
+        //             });
+        //             this.getAllQuestions();
+        //         })
+        // }
+        // else {
         axios
             .post(
                 sitedata.data.path + "/questionaire/AddQuestionaire",
@@ -106,7 +125,7 @@ class Index extends Component {
                     house_name: "House-2",
                     questions: this.state.myQuestions
                 },
-                commonHeaderToken()
+               commonHeader(this.props.stateLoginValueAim.token)
             )
             .then((responce) => {
                 this.getAllQuestions();
@@ -121,7 +140,7 @@ class Index extends Component {
         axios
             .get(
                 sitedata.data.path + "/questionaire/GetQuestionaire/600c15c2c983431790f904c3-1627046889451",
-                commonHeaderToken()
+               commonHeader(this.props.stateLoginValueAim.token)
             )
             .then((response) => {
                 var totalPage = Math.ceil(response.data.data.length / 10);
@@ -150,7 +169,56 @@ class Index extends Component {
             });
     };
 
-    // For changing pages
+    //Delete the perticular question confirmation box
+    removeQuestions = (status, id) => {
+        this.setState({ message: null });
+        confirmAlert({
+            customUI: ({ onClose }) => {
+                return (
+                    <div
+                        className={
+                            this.props.settings &&
+                                this.props.settings.setting &&
+                                this.props.settings.setting.mode &&
+                                this.props.settings.setting.mode === "dark"
+                                ? "dark-confirm react-confirm-alert-body"
+                                : "react-confirm-alert-body"
+                        }
+                    >
+                        {status && status === "remove" ? (
+                            <h1>Remove the Question ?</h1>
+                        ) : (
+                            <h1>Remove the Question ?</h1>
+                        )}
+                        <p>Are you sure to remove this Question?</p>
+                        <div className="react-confirm-alert-button-group">
+                            <button onClick={onClose}>No</button>
+                            <button
+                                onClick={() => {
+                                    this.deleteClickQuestion(status, id);
+                                    onClose();
+                                }}
+                            >
+                                Yes
+                            </button>
+                        </div>
+                    </div>
+                );
+            },
+        });
+    };
+    deleteClickQuestion(status, id) {
+        axios
+            .delete(
+                sitedata.data.path + "/vh/AddService/" + id,
+               commonHeader(this.props.stateLoginValueAim.token)
+            )
+            .then((response) => {
+                this.getAllQuestions();
+            })
+            .catch((error) => { });
+    }
+
     onChangePage = (pageNumber) => {
         this.setState({
             questions_data: this.state.AllQuestions.slice(

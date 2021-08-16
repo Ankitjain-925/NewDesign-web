@@ -54,11 +54,10 @@ class Index extends Component {
         }
         const { specialistOption } = this.state;
         return (
-            <Grid className="homeBg">
+            <Grid className="homeBg darkTheme">
                 <Grid className="homeBgIner">
                     <Grid container direction="row" justify="center">
                         <Grid item xs={12} md={12}>
-
                             <Grid container direction="row">
                                 {/* Mobile menu */}
                                 <H_LeftMenuMobile isNotShow={true} currentPage="createnewuser"/>
@@ -74,7 +73,8 @@ class Index extends Component {
                                     {/* Model setup */}
                                     <Modal
                                         open={this.state.addCreate}
-                                        onClose={this.handleCloseCreate}>
+                                        onClose={this.handleCloseCreate}
+                                        className="darkTheme">
                                         <Grid className="nwEntrCntnt">
                                             <Grid className="nwEntrCntntIner">
 
@@ -211,13 +211,13 @@ class Index extends Component {
 const mapStateToProps = (state) => {
     const { stateLoginValueAim, loadingaIndicatoranswerdetail } = state.LoginReducerAim?state.LoginReducerAim:{};
     const { stateLanguageType } = state.LanguageReducer;
-    // const { settings } = state.Settings;
+    const { settings } = state.Settings;
     return {
         stateLanguageType,
         stateLoginValueAim,
         loadingaIndicatoranswerdetail,
         // verifyCode,
-        // settings
+        settings
     }
 };
 

@@ -1205,6 +1205,8 @@
 		"date_time":"Datum Tijd",
 		"we_r_showing_speciality":"We tonen u specialisten in de buurt",
 		"less_than_err":"Upload afbeeldingen van minder dan 6",
-		"err_file_formart": "Systeem wordt niet ondersteund door deze bestandsindeling"
+		"err_file_formart": "Systeem wordt niet ondersteund door deze bestandsindeling",
+		"ConversationList" :"Gesprekslijst",
+		"ContactList" :"Contact List"
 	}
 }

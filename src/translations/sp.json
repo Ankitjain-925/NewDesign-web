@@ -1205,6 +1205,8 @@
 		"reallyWantDelete" : "¿Realmente desea eliminar su cuenta?",
 		"looseAllData" :"Вы потеряете все свои данные, и никто больше не сможет получить к ним доступ! Кроме того, информация, хранящаяся в блокчейне Aimedis, теряется навсегда, поскольку вы единственный, кто может ее увидеть.",
 		"delete_your_account":"Eliminar su cuenta",
-      	"delete_account":"Borrar cuenta"
+      	"delete_account":"Borrar cuenta",
+		"ConversationList" :"Lista de conversaciones",
+		"ContactList" :"Contact List"
 	}
 }

@@ -14,6 +14,20 @@ import AssignedToData from "Screens/Components/VirtualHospitalComponents/Assigne
 import { Button } from '@material-ui/core';
 import Link from '@material-ui/core/Link';
 import Modal from '@material-ui/core/Modal';
+import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
+import { LoginReducerAim } from "Screens/Login/actions";
+import { Settings } from "Screens/Login/setting";
+import axios from "axios";
+import { LanguageFetchReducer } from "Screens/actions";
+import sitedata from "sitedata";
+import {
+    commonHeader,
+    commonCometDelHeader,
+  } from "component/CommonHeader/index";
+import { authy } from 'Screens/Login/authy.js';
+import { houseSelect } from "../Institutes/selecthouseaction";
+import { Redirect, Route } from 'react-router-dom';
 
 var new_data = [
     'https://images.unsplash.com/photo-1541963463532-d68292c34b19?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8Mnx8fGVufDB8fHx8&w=1000&q=80',
@@ -157,7 +171,16 @@ class Index extends Component {
                                                         </Grid>
                                                     </Grid>
                                                     {/* Model setup */}
-                                                    <Modal open={this.state.openRvw} onClose={this.handleCloseRvw}>
+                                                    <Modal 
+                                                    className={
+                                                        this.props.settings &&
+                                                        this.props.settings.setting &&
+                                                        this.props.settings.setting.mode &&
+                                                        this.props.settings.setting.mode === "dark"
+                                                          ? "darkTheme"
+                                                          : ""
+                                                      }
+                                                    open={this.state.openRvw} onClose={this.handleCloseRvw}>
                                                         <Grid className="rvewFiles">
                                                             <Grid className="rvewFilesinner">
                                                                 <Grid container direction="row">
@@ -686,4 +709,24 @@ class Index extends Component {
         );
     }
 }
-export default Index
+const mapStateToProps = (state) => {
+    const { stateLoginValueAim, loadingaIndicatoranswerdetail } =
+      state.LoginReducerAim;
+    const { stateLanguageType } = state.LanguageReducer;
+    const { House } = state.houseSelect
+    const { settings } = state.Settings;
+    const { verifyCode } = state.authy;
+    return {
+      stateLanguageType,
+      stateLoginValueAim,
+      loadingaIndicatoranswerdetail,
+      House,
+      settings,
+      verifyCode,
+    };
+  };
+  export default withRouter(
+    connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer, Settings,authy, houseSelect })(
+      Index
+    )
+  );

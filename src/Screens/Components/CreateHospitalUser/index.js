@@ -263,7 +263,7 @@ class Index extends Component {
             <Modal
             open={this.state.addCreate}
             onClose={this.handleCloseCreate}>
-            <Grid className="nwEntrCntnt HospitalAdd">
+            <Grid className="nwEntrCntnt HospitalAdd darkTheme">
 
                 <Grid className="nwEntrCntntIner">
                     <Grid className="nwEntrCourse">
@@ -427,14 +427,14 @@ class Index extends Component {
 const mapStateToProps = (state) => {
     const { stateLoginValueAim, loadingaIndicatoranswerdetail } = state.LoginReducerAim ? state.LoginReducerAim : {};
     const { stateLanguageType } = state.LanguageReducer;
-    // const { settings } = state.Settings;
+     const { settings } = state.Settings;
     // const {Doctorsetget} = state.Doctorset;
     // const {catfil} = state.filterate;
     return {
         stateLanguageType,
         stateLoginValueAim,
         loadingaIndicatoranswerdetail,
-        // settings,
+        settings,
         //   Doctorsetget,
         //   catfil
     }

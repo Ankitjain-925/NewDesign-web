@@ -4808,6 +4808,7 @@ button.onlogyBtn {
     padding: 12px 12px;
     box-sizing: border-box !important;
     min-height: 44px;
+    margin-bottom: 20px;
 }
 .enterSpcl .MuiInput-underline::before,
 .enterSpcl .MuiInput-underline::after{
@@ -6345,7 +6346,7 @@ button.downloadPDF:hover {
     margin-bottom: 0px;
 }
 .revwFiles button {
-    color: #EE5253;
+    color: #EE5253 !important;
     font-size: 12px;
     font-weight: bold;
     letter-spacing: 0;
@@ -7067,7 +7068,7 @@ a.horzSort2 {
     width: 59px;
     border-radius: 8px;
     background-color: #F2F2F2 !important;
-    color: #404646;
+    color: #404646 !important;
     font-family: Muli;
     font-size: 12px;
     font-weight: bold;
@@ -9063,7 +9064,7 @@ button.crdoLghtBlu2 {
 }
 .flowInfoInr {
     border-bottom: 1px solid #F2F2F2;
-    /* padding: 12px 12px; */
+    padding: 12px 12px;
 }
 .flowInfoInr2 {
     padding: 8px 12px 12px;
@@ -9578,8 +9579,139 @@ button.crdoLghtBlu2 {
 .wardsGrup .roomsNum2:last-child {
     border-bottom: none;
 }
-.darkTheme .homeBgIner {
-    background: #192020;
+
+
+/* Added by Ankita */
+/* .flowInfo {
+    padding: 10px;
+} */
+.sevicessection {
+    width: 97%;
+}
+.sevicessection .mr_sel .css-yk16xz-control {
+    height: 50px !important;
+    min-height: initial;
+}
+.spacemanageDel img {
+    height: 17px;
+}
+.spacemanageDel {
+    font-size: 12px;
+    padding: 8px;
+    border: 1px solid #333;
+    border-radius: 5px;
+    margin-left: 20px;
+}
+.vh-menu .menuItems ul li:last-child {
+    margin-top: 0px !important;
+}
+.c-pointer{
+    cursor:pointer;
+}
+.active-menu img{
+   background-color: #00ABAF !important;
+}
+.specialuty-more{
+    float: right;
+}
+.openScndhrf a{
+    color : inherit;
+}
+.spcMgntRght7 {
+    text-align: right;
+}
+/* drag drop */
+.dragdrop-vertical ul li{
+    list-style: none;
+    width: 25%;
+    display: inline-grid;
+
+}
+.dragdrop-vertical ul{
+    padding-left: 0px;
+    padding-right: 0px;
+}
+.dragdrop-horizontal ul li{
+    list-style: none;
+}
+.dragdrop-horizontal ul{
+    padding-left: 15px;
+    padding-right: 15px;
+}
+.dragdrop-horizontal .detailInfo{
+    min-height: 200px;
+}
+.list-z-index
+{
+    z-index: 9999!important;
+}
+.dragdrop-horizontal ul{
+    padding-left: 15px;
+    padding-right: 15px;
+    background: #f2f2f2;
+    border-radius: 12px;
+}
+/* by ankit */
+.vhfield-add{
+    width:96.5%
+}
+
+.specialitybutton{
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 16px;
+    box-shadow: initial !important;
+    font-family: 'Mulish', sans-serif;
+    text-transform: capitalize;
+    padding: 8px 11px;
+}
+.specialitybutton-parent{
+    flex-basis: auto !important;
+}
+
+
+/* Dark theme css */
+.MenuWeb .menuItems ul {
+    padding-left: 0px;
+}
+.MenuWeb .menuItems ul li {
+    list-style-type: none;
+    margin-bottom: 35px;
+}
+.MenuWeb .menuItems ul li a img {
+    background: transparent;
+    width: 42px;
+    border: 1px solid #eceaea;
+    border-radius: 8px !important;
+    padding: 8px 8px;
+}
+.MenuWeb .menuActv img {
+    border: none !important;
+}
+.MenuWeb .menuItems ul li:nth-child(4) a img{
+    padding: 10px 8px !important;
+}
+.MenuWeb .menuItems ul li a {
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    border-radius: 8px;
+}
+.MenuWeb .menuItems ul li a span {
+    display: block;
+    color: #7F8383;
+    font-family: 'Mulish', sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 16px;
+    margin-top: 12px;
+}
+.MenuWeb .menuItems ul li:last-child {
+    margin-bottom: 0px !important;
+    margin-top: 132px;
 }
 .darkTheme .MenuLeftUpr {
     background: #404646;
@@ -9704,7 +9836,7 @@ button.crdoLghtBlu2 {
 .darkTheme .medcalFZCntnt label {
     color: #00abaf;
 }
-.darkTheme .vh-section .journalAdd h1 {
+.darkTheme .journalAdd h1 {
     color: #fafafa;
 }
 .darkTheme .newStaffUpr {
@@ -9770,6 +9902,15 @@ button.crdoLghtBlu2 {
 .darkTheme .drVisitData label {
     color: #bfc1c1;  
 }
+.darkTheme .cardioCount a {
+    color: #00abaf !important;
+}
+.darkTheme .neuroCntLft a {
+    color: #00abaf !important;
+}
+.darkTheme  .cardioInfo {
+    border-bottom: 1px solid #757575;
+}
 .darkTheme .drVisitData p {
     color: #bfc1c1;  
 }
@@ -9806,30 +9947,34 @@ button.crdoLghtBlu2 {
 .darkTheme a.presSecAncr:hover {
     background-color: #192020;
 }
-.darkTheme .vh-section .srchFilter {
+.darkTheme .srchFilter {
     background-color: #404646;
 }
 .darkTheme .descpInerRght {
     background-color: #404646;
 }
-.darkTheme .icd_num label, .darkTheme .bp_hg label, .darkTheme .diryNotes_hedng label {
+.darkTheme .icd_num label, .darkTheme .bp_hg label, 
+.darkTheme .diryNotes_hedng label {
     color: #bfc1c1;
 }
 .darkTheme .icd_num a, .darkTheme .bp_hg p {
     color: #bfc1c1 !important;
 }
-.darkTheme .markCntntImg span, .darkTheme .markMDCntntImg span {
+.darkTheme .markCntntImg span, 
+.darkTheme .markMDCntntImg span {
     color: #bfc1c1;
 }
 .darkTheme .detailMark span.Collapsible__trigger {
     background: #192020;
     color: #bfc1c1;
 }
-.darkTheme .diagnoBy label, .darkTheme .painTypeBy label,
+.darkTheme .diagnoBy label, 
+.darkTheme .painTypeBy label,
 .darkTheme .bloodPreBy label {
     color: #efefef;
 }
-.darkTheme .diagnoBy span, .darkTheme .painTypeBy span,
+.darkTheme .diagnoBy span, 
+.darkTheme .painTypeBy span,
 .darkTheme .bloodPreBy span {
     color: #bfc1c1;
 }
@@ -9845,26 +9990,31 @@ button.crdoLghtBlu2 {
 .darkTheme .conPain_num p {
     color: #bfc1c1;
 }
-.darkTheme .conPain_Img span, .darkTheme .conPain_MDCImg span,
+.darkTheme .conPain_Img span, 
+.darkTheme .conPain_MDCImg span,
 .darkTheme .bpJohnImg span {
     color: #bfc1c1;
 }
 .darkTheme .conPainArea label {
     color: #bfc1c1;
 }
-.darkTheme .painIntencty label, .darkTheme .condIntencty label {
+.darkTheme .painIntencty label, 
+.darkTheme .condIntencty label {
     color: #bfc1c1;
 }
-.darkTheme .painIntencty a, .darkTheme .condIntencty a {
+.darkTheme .painIntencty a, 
+.darkTheme .condIntencty a {
     color: #bfc1c1;
 }
-.darkTheme .painIntencty input[type=range], .darkTheme .condIntencty input[type=range] {
+.darkTheme .painIntencty input[type=range], 
+.darkTheme .condIntencty input[type=range] {
     background: transparent;
 }
 .darkTheme .painTypeCntnt p {
     color: #bfc1c1;
 }
-.darkTheme .diryCntntImg span, .darkTheme .diryMDCntntImg span {
+.darkTheme .diryCntntImg span, 
+.darkTheme .diryMDCntntImg span {
     color: #bfc1c1;   
 }
 .darkTheme .diryCntntSec p {
@@ -9873,7 +10023,8 @@ button.crdoLghtBlu2 {
 .darkTheme .diryCntntSec h3 {
     color: #bfc1c1;   
 }
-.darkTheme .diryCntntSec ul li, .darkTheme .diryCntntSec ul li a {
+.darkTheme .diryCntntSec ul li, 
+.darkTheme .diryCntntSec ul li a {
     color: #bfc1c1 !important;   
 }
 .darkTheme .descpCntntLft a {
@@ -9883,92 +10034,127 @@ button.crdoLghtBlu2 {
 .darkTheme .descpCntntLft a span {
     color: #bfc1c1 !important;
 }
-
-/* Added by Ankita */
-.sevicessection {
-    width: 97%;
+.darkTheme .roomBreadCrumb3 ul li label {
+    color: #bfc1c1;
 }
-.sevicessection .mr_sel .css-yk16xz-control {
-    height: 50px !important;
-    min-height: initial;
+.darkTheme .roomBreadCrumb3 span {
+    color: #bfc1c1;
 }
-.spacemanageDel img {
-    height: 17px;
+.darkTheme .nwSpclSec {
+    background: #192020;
 }
-.spacemanageDel {
-    font-size: 12px;
-    padding: 8px;
-    border: 1px solid #333;
-    border-radius: 5px;
-    margin-left: 20px;
+.darkTheme .nwSpclSec p {
+    color: #bfc1c1;
 }
-.vh-menu .menuItems ul li:last-child {
-    margin-top: 0px !important;
+.darkTheme .addSpclSec {
+    background: #192020;
 }
-.c-pointer{
-    cursor:pointer;
+.darkTheme .addSpclSec p {
+    color: #bfc1c1;
 }
-.active-menu img{
-   background-color: #00ABAF !important;
+.darkTheme .wardsGrup3 {
+    background: #192020;
 }
-.specialuty-more{
-    float: right;
+.darkTheme .tskTabs button {
+    background-color: #404646 !important;
+    color: #fafafa !important;
+    /* border: 1px solid #00686bad !important; */
 }
-.openScndhrf a{
-    color : inherit;
+.darkTheme .presPkgIner1 header.presTabsUpr, .darkTheme .presTabs {
+    background-color: #404646 !important;
 }
-.spcMgntRght7 {
-    text-align: right;
+.darkTheme .presTabs button span {
+    color: #bfc1c1 !important;
 }
-/* drag drop */
-.dragdrop-vertical ul li{
-    list-style: none;
-    width: 25%;
-    display: inline-grid;
-
+.darkTheme .taskAllTab {
+    background-color: #404646;
 }
-.dragdrop-vertical ul{
-    padding-left: 0px;
-    padding-right: 0px;
+.darkTheme .neuroList {
+    background-color: #192020;
+    border: 1px solid #585858;
 }
-.dragdrop-horizontal ul li{
-    list-style: none;
+.darkTheme .nuroTask p {
+    color: #bfc1c1;
 }
-.dragdrop-horizontal ul{
-    padding-left: 15px;
-    padding-right: 15px;
+.darkTheme .noteLink a {
+    color: #bfc1c1 !important;
 }
-.dragdrop-horizontal .detailInfo{
-    min-height: 200px;
+.darkTheme .roomsNum3 ul li {
+    color: #bfc1c1;
 }
-.list-z-index
-{
-    z-index: 9999!important;
+.darkTheme .roomsNum3 ul li span {
+    color: #bfc1c1;
 }
-.dragdrop-horizontal ul{
-    padding-left: 15px;
-    padding-right: 15px;
-    background: #f2f2f2;
-    border-radius: 12px;
+/* For dark theme model css */
+.darkTheme .addSpeclContnt {
+    background: #404646;
 }
-/* by ankit */
-.vhfield-add{
-    width:96.5%
+.darkTheme .addSpeclLbl label {
+    color: #bfc1c1;
 }
-
-.specialitybutton{
-    border-radius: 4px;
-    font-size: 12px;
-    font-weight: bold;
-    letter-spacing: 0;
-    line-height: 16px;
-    box-shadow: initial !important;
-    font-family: 'Mulish', sans-serif;
-    text-transform: capitalize;
-    padding: 8px 11px;
+.darkTheme .enterSpcl input::-webkit-input-placeholder { 
+    color: #bfc1c1;
 }
-.specialitybutton-parent{
-    flex-basis: auto !important;
+.darkTheme .enterSpcl input::-moz-placeholder { 
+    color: #bfc1c1;
+}
+.darkTheme .enterSpcl input:-ms-input-placeholder { 
+    color: #bfc1c1;
+}
+.darkTheme .enterSpcl input:-moz-placeholder { 
+    color: #bfc1c1;
+}
+.darkTheme .enterSpcl input {
+    background: #192020;
+    color: #bfc1c1;
+    border: 1px solid #8e8e8e8a;
+}
+.darkTheme .plusWards {
+    background: #192020;
+}
+.darkTheme .addWardsRoom {
+    background-color: #192020;
+}
+.darkTheme .addWardsUpr {
+    background-color: #404646;
+}
+.darkTheme .addWardsIner label, .roomName label {
+    color: #bfc1c1;
+}
+.darkTheme ul.subSpclList {
+    border: 1px solid #7d7d7d;
+    background-color: #192020;
+}
+.darkTheme .addWardsIner input {
+    background-color: #192020;
+    color: #fafafa;
+    border: 1px solid #7b7b7b;
+}
+.darkTheme .wrdsBtn {
+    background: #192020;
+}
+.darkTheme .wrdsBtn {
+    border-top: 1px solid #00abaf;
+}
+.darkTheme .roomRmv a {
+    border: 1px solid #7b7b7b;
+    background-color: #192020;
+}
+.darkTheme ul.subSpclList label {
+    color: #bfc1c1;
+}
+.darkTheme .wardListSec {
+    background-color: #404646;
+}
+.darkTheme .wrdCollect label, .wrdEdtDel span {
+    color: #bfc1c1;
+}
+.darkTheme .enterSpcl input {
+    color: #fafafa; 
+}
+.darkTheme .wrdEdtDelBtn button {
+    border: 1px solid #656565;
+    background-color: #192020;
 }
 
 .questionborder {
@@ -10001,4 +10187,857 @@ button.crdoLghtBlu2 {
     line-height: 16px;
     text-align: center;
     margin-left: 10px;
+}
+.darkTheme .rvewFiles {
+    background-color: #404646;
+}
+.darkTheme .rvwCadio h3 {
+    color: #fafafa;
+}
+.darkTheme .rvwCadio p {
+    color: #bfc1c1;
+}
+.darkTheme .asignLft label, .asignRghtUpr label {
+    color: #bfc1c1;
+}
+.darkTheme .asignRght span {
+    color: #fafafa;
+}
+.darkTheme .asignRght p {
+    color: #bfc1c1;
+}
+.darkTheme .addDue button {
+    background: #192020 !important;
+    border: 1px solid #676767 !important;
+}
+.darkTheme .addDue label {
+    color: #bfc1c1;
+}
+.darkTheme .multiDescp p {
+    color: #bfc1c1;
+}
+.darkTheme .multiDescp label {
+    color: #fafafa;
+}
+.darkTheme .assignSec img {
+    border: 1px solid #676767;
+    background-color: #192020;
+}
+.darkTheme .assignSec label {
+    color: #bfc1c1;
+}
+.darkTheme .browseHere {
+    border: 2px dashed #676767;
+    background-color: #0c1010;
+}
+.darkTheme .browseHere a {
+    color: #fafafa !important;
+}
+.darkTheme .attchFile p {
+    color: #bfc1c1;
+}
+.darkTheme .updateInfo p {
+    color: #fafafa;
+}
+.darkTheme .comentLbl label {
+    color: hsl(0, 0%, 98%);
+}
+.darkTheme .cmntMsgs label {
+    color: #fafafa;
+}
+.darkTheme .cmntMsgs span {
+    color: #bfc1c1;
+}
+.darkTheme .cmntMsgs p {
+    color: #bfc1c1;
+}
+.darkTheme .cmntMsgsCntnt {
+    background-color: #0c1010;
+}
+.darkTheme .addComit textarea {
+    color: #bfc1c1;
+    background-color: #0c1010;
+}
+.darkTheme .attchFile label {
+    color: #fafafa;
+}
+.darkTheme .asignLft div a:last-child {
+    background-color: #0c1010;
+    color: #fafafa;
+}
+.darkTheme .movPtnt {
+    background: #404646;
+}
+.darkTheme .movPtntLbl label {
+    color: #fafafa;
+}
+.darkTheme .moveClient label {
+    color: #e0e0e0;
+}
+.darkTheme .moveClient p {
+    color: #fafafa;
+}
+.darkTheme .spclSelect div, .darkTheme .spclSelect2 div {
+    background: #0c1010;
+    color: #dfdfdf;
+    border-color: #676565;
+}
+.darkTheme .spcldropdown label, .spcldropdown2 label {
+    color: #e0e0e0;
+}
+.darkTheme .addStaff {
+    background: #404646;
+}
+.darkTheme .stafRght a {
+    background-color: #192020;
+    border: 1px solid #696969;
+}
+.darkTheme .addStaffLbl label {
+    color: #fafafa;
+}
+.darkTheme .addStafClient p, .stafLft span {
+    color: #fafafa;
+}
+.darkTheme .addStafClient label {
+    color: #e0e0e0;
+}
+.darkTheme .addStafSelect div {
+    background: #0c1010;
+    color: #dfdfdf;
+    border-color: #676565;
+}
+.darkTheme .fltrClear {
+    background: #404646;
+}
+.darkTheme .clspopup {
+    text-align: right;
+}
+.darkTheme .clspopup a {
+    border: 1px solid #909090;
+    padding: 8px 8px;
+    border-radius: 11px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+.darkTheme .clspopup img {
+    height: 15px;
+    width: initial;
+}
+.darkTheme header.fltrTabs {
+    background-color: #0c1010 !important;
+}
+.darkTheme .fltrLbl label {
+    color: #fafafa;
+}
+.darkTheme .fltrInput label, .pantNames label, .spclDropMain .spclDropLbl {
+    color: #bfc1c1;
+}
+.darkTheme .fltrTabs button, .fltrtabIner.Mui-selected {
+    background-color: #333333 !important;
+}
+.darkTheme .addInput span.MuiTypography-root.MuiFormControlLabel-label, 
+.darkTheme .addInput span {
+    color: #00abaf;
+}
+.darkTheme .fltrInput input {
+    border: 1px solid #676767;
+    color: #dfdfdf;
+    background-color: #0c1010;
+}
+.darkTheme .fltrForm .search-wrapper {
+    border: 1px solid #676767;
+    color: #dfdfdf;
+    background-color: #0c1010;
+}
+.darkTheme .aplyFltr {
+    border-top: 1px solid #989898;
+}
+.darkTheme .spclDropDwn {
+    background-color: #0c1010;
+}
+.darkTheme .spclDropUpr {
+    border: 1px solid #676767;
+}
+.darkTheme .spclDropDwn label {
+    color: #fafafa;
+}
+.darkTheme .spclDropDwn p {
+    color: #bfc1c1;
+}
+.darkTheme .addWrnContnt {
+    background: #404646;
+}
+.darkTheme .profileMain {
+    background-color: #0c1010;
+    border: 1px solid #737272;
+}
+.darkTheme .addFlowLbl img {
+    border-radius: 6px;
+}
+.darkTheme .addFlowLbl {
+    border-bottom: 1px solid #bfc1c1;
+}
+.darkTheme .patentInfo label {
+    color: #bfc1c1;
+}
+.darkTheme .addFlowContnt {
+    background: #404646;
+}
+.darkTheme .patentInfo input {
+    border: 1px solid #8e8e8e8a;
+    background-color: #192020;
+    color: #fafafa;
+}
+.darkTheme .addFlowLbl label {
+    color: #c5c5c5;
+}
+.darkTheme .presOpinionIner {
+    background-color: #404646;
+}
+.darkTheme .presOpinionIner thead th {
+    color: #fafafa;
+}
+.darkTheme .presOpinionIner td.pivoted {
+    color: #bfc1c1;
+}
+.darkTheme .roomMgntLft h1 {
+    color: #bfc1c1;
+}
+.darkTheme .neuroRoom {
+    background-color: #404646;
+}
+.darkTheme .neuroRoom ul li {
+    color: #bfc1c1;
+}
+.darkTheme .roomsList {
+    background-color: #404646;
+}
+.darkTheme .drList {
+    background-color: #192020;
+}
+.darkTheme .drListRght label {
+    color: #fafafa;
+}
+.darkTheme .drListRght p {
+    color: #bfc1c1;
+}
+.darkTheme .drListLft span {
+    color: #00ABAF;
+}
+.darkTheme .drListRght:hover {
+    background-color: #404646;
+}
+.darkTheme .profilePkgIner2 {
+    background-color: #404646;
+}
+.darkTheme .profileId {
+    background-color: #192020;
+}
+.darkTheme .profileIdLft label {
+    color: #fafafa;
+}
+.darkTheme .profileIdLft span {
+    color: #bfc1c1;
+}
+.darkTheme .profileInfoIner input {
+    background-color: #192020;
+    border: none;
+    color: #fafafa;
+    min-height: 36px !important;
+}
+.darkTheme .mr_sel div:first-child, .darkTheme .cntryDrop div:first-child, 
+.darkTheme .languageSpk div:first-child {
+    background-color: #192020;
+    border: none;
+    height: initial !important;
+    color: #fafafa;
+}
+.darkTheme .profileInfoDate .react-date-picker__wrapper {
+    background-color: #192020;
+    color: #fafafa;
+    border: none;
+}
+.darkTheme .profileInfoDate .react-date-picker__wrapper svg {
+    stroke: #ffffff;
+}
+.darkTheme .profileInfoDate .react-date-picker__inputGroup__input {
+    color: #fafafa;
+}
+.darkTheme .profileInfo input::-webkit-input-placeholder { 
+    color: #484848;
+}
+.darkTheme .profileInfo input::-moz-placeholder { 
+    color: #484848;
+}
+.darkTheme .profileInfo input:-ms-input-placeholder { 
+    color: #484848;
+}
+.darkTheme .profileInfo input:-moz-placeholder { 
+    color: #484848;
+}
+.darkTheme .react-tel-input .flag-dropdown {
+    background-color: #242b2b;
+    border: 1px solid #676767;
+}
+.darkTheme .profileInfoDate a {
+    background-color: #192020;
+}
+.darkTheme .profileInfoIner label {
+    color: #00ABAF;
+}
+.darkTheme .insrnceTbl h3 {
+    color: #fafafa;
+}
+.darkTheme .insrnceTbl table th {
+    color: #00ABAF;
+    font-size: 15px;
+}
+.darkTheme .insrnceTbl table td {
+    color: #bfc1c1;
+}
+.darkTheme .QuesMrktUpr {
+    background-color: #404646;
+}
+.darkTheme .QuesMrktUpr h1 {
+    color: #bfc1c1;
+}
+.darkTheme .onlineBox span {
+    color: #bfc1c1;
+}
+.darkTheme .QuesMrktUpr p {
+    color: #bfc1c1;
+}
+.darkTheme .rateExp h3 {
+    color: #bfc1c1;
+}
+.darkTheme .hintsLbl h2 {
+    color: #bfc1c1;
+}
+.darkTheme .rateExp ul li {
+    border: 1px solid #828282;
+    background-color: #192020;
+}
+.darkTheme .rateExp ul li:hover {
+    background-color: #00ABAF;
+}
+.darkTheme .drftDwnload {
+    background-color: #404646;
+}
+.darkTheme .draftDateLft label {
+    color: #bfc1c1;
+}
+.darkTheme .draftDateLft span {
+    color: #bfc1c1;
+}
+.darkTheme button.downloadDots {
+    border: 1px solid #949494;
+    background-color: transparent;
+}
+.darkTheme .srvcContent {
+    background-color: #404646;
+}
+.darkTheme .invoiceForm input[type="text"] {
+    background-color: #192020;
+    color: #bfc1c1;
+}
+.darkTheme .patntDropDwn {
+    background-color: #192020;
+    border: 1px solid #01696b;
+}
+.darkTheme .patntDropDwn label {
+    color: #bfc1c1;
+}
+.darkTheme .invoiceForm label {
+    color: #fafafa;
+}
+.darkTheme .cstmSelect div:first-child {
+    background-color: #192020 !important;
+    color: #bfc1c1;
+}
+.darkTheme .srvcTable h3 {
+    color: #fafafa;
+}
+.darkTheme .srvcTable td p {
+    color: #bfc1c1;
+}
+.darkTheme .srvcTable th {
+    color: #fafafa;
+}
+.darkTheme .srvcTable td {
+    color: #bfc1c1;
+}
+.darkTheme .srvcTable td label {
+    color: #fafafa;
+}
+.darkTheme .xRay-edit button {
+    border: 1px solid #949494;
+    background-color: transparent;
+}
+.darkTheme .addCstmField input[type="text"] {
+    background-color: #192020;
+    color: #bfc1c1;
+}
+.darkTheme .addCstmField input[type="text"]::-webkit-input-placeholder {
+    color: #bfc1c1;
+}
+.darkTheme .addCstmField input[type="text"]::-moz-placeholder {
+    color: #bfc1c1;
+}
+.darkTheme .addCstmField input[type="text"]:-ms-input-placeholder {
+    color: #bfc1c1;
+}
+.darkTheme .addCstmField input[type="text"]:-moz-placeholder { 
+    color: #bfc1c1;
+}
+.darkTheme .invoiceAmnt p {
+    color: #bfc1c1;
+}
+.darkTheme .invoiceAmnt label {
+    color: #fafafa;
+}
+.darkTheme .invoiceAmnt div button:last-child {
+    color: #00abaf;
+}
+.darkTheme .staticHeading h1 {
+    color: #fafafa;
+}
+.darkTheme .staticsAmt {
+    background-color: #404646;
+}
+.darkTheme .staticsAmt label {
+    color: #bfc1c1;
+}
+.darkTheme .staticsAmt p {
+    color: #bfc1c1;
+}
+.darkTheme .patntFlow {
+    background-color: #404646;
+}
+.darkTheme .patntFlow p {
+    color: #fafafa;
+}
+.darkTheme .patntFlowIner label {
+    color: #bfc1c1;
+}
+.darkTheme .modeChngUpr {
+    background-color: #404646;
+}
+.darkTheme .staffLastMnth a, .darkTheme .invoicLastMnth a {
+    color: #fafafa !important;
+}
+.darkTheme .patntFlowIner .MuiGrid-grid-md-4 {
+    color: #00ABAF;
+}
+.darkTheme .modeChng label {
+    color: #bfc1c1;
+}
+.darkTheme .modeChng p {
+    color: #bfc1c1;
+}
+.darkTheme .staffGraphUpr {
+    background-color: #404646;
+}
+.darkTheme .invoicHsptalIner.Mui-selected {
+    background-color: transparent !important;
+}
+.darkTheme button.invoicHsptalIner span {
+    color: #fafafa;
+}
+.darkTheme button.Mui-selected span {
+    color: #00ABAF !important;
+}
+.darkTheme .cardioGrupBg {
+    background: #404646;
+}
+.darkTheme .srvcTable3 {
+    background-color: #404646;
+}
+.darkTheme .srvcTable3 th, .darkTheme .srvcTable3 td {
+    color: #fafafa;
+}
+.darkTheme .srvcTable3 td label {
+    color: #fafafa;
+}
+.darkTheme .srvcTable3 td p {
+    color: #bfc1c1;
+}
+.darkTheme .settingInfo a {
+    background-color: #192020;
+}
+.darkTheme .dataPaginationLft p {
+    color: #fafafa;
+}
+.darkTheme .srvcTable3 tbody tr {
+    border-bottom: 1px solid #6b6b6b;
+}
+.darkTheme .dataPaginationRght p span, 
+.darkTheme .dataPaginationRght p a {
+    color: #fafafa !important;
+}
+.darkTheme .dataPaginationRght p a:last-child {
+    color: #00ABAF !important;
+}
+.darkTheme .srvcTable3 thead tr {
+    border-bottom: 1px solid #989898;
+}
+.darkTheme .srvcDots button {
+    border: 1px solid #6b6b6b;
+    background-color: transparent;
+}
+.darkTheme .actionList {
+    background-color: #192020;
+}
+.darkTheme .actionList li {
+    color: #bfc1c1;
+}
+.darkTheme .actionList {
+    border: 1px solid #777777;
+}
+.darkTheme .setStatus li:first-child {
+    border: 1px solid #777777;
+}
+.darkTheme .addPatient h1 {
+    color: #bfc1c1;
+}
+.darkTheme .adPatntTabMain {
+    background-color: #404646;
+}
+.darkTheme .profileInfoDate label {
+    color: #00ABAF;
+}
+.darkTheme .adPatnttabIner.Mui-selected {
+    background-color: transparent !important;
+}
+.darkTheme .userInfo h2 {
+    color: #fafafa;
+}
+.darkTheme .adPatntTabs button, .darkTheme .userInfo h3, 
+.darkTheme .profileInfoIner h5 {
+    color: #bfc1c1 !important;
+}
+.darkTheme .extSetting h1 {
+    color: #fafafa;
+}
+.darkTheme .bilingTabUpr {
+    background-color: #404646;
+}
+.darkTheme .billTabs button {
+    color: #fafafa !important;
+}
+.darkTheme .billtabIner.Mui-selected {
+    background-color: transparent !important;
+}
+.darkTheme .billInfoData {
+    background-color: #404646;
+}
+.darkTheme .billInfoData th {
+    color: #fafafa;
+}
+.darkTheme .billInfoData td {
+    color: #bfc1c1;
+}
+.darkTheme .billSeting a {
+    background-color: #192020;
+}
+.darkTheme .billDots button {
+    border: 1px solid #737373;
+    background-color: #192020;
+}
+.darkTheme .billPaginationLft p, .darkTheme .billPaginationRght p {
+    color: #fafafa;
+}
+.darkTheme .tskOverView {
+    background-color: #4046467a;
+}
+.darkTheme .tskOverView h1 { 
+    color: #00ABAF;
+}
+.darkTheme .taskNum {
+    background-color: #404646;
+}
+.darkTheme .taskNum p {
+    color: #fafafa;
+}
+.darkTheme .taskNum label {
+    color: #bfc1c1;
+}
+.darkTheme .taskTabs button {
+    background-color: #efefef;
+    opacity: initial;
+}
+.darkTheme .taskCntntMng {
+    background-color: #404646;
+}
+.darkTheme .allInerTabs {
+    background-color: #404646;
+}
+.darkTheme .taskSort a {
+    background-color: #404646;
+}
+.darkTheme .taskSort a {
+    background-color: transparent;
+    border: 1px solid #c3c3c3;
+}
+.darkTheme .allInfo img {
+    border-radius: 22px;
+}
+.darkTheme .revwFiles label {
+    color: #bfc1c1;
+}
+.darkTheme .allInfo p {
+    color: #bfc1c1;
+}
+.darkTheme .allInfo label {
+    color: #fafafa;
+}
+.darkTheme .attchOpen button:hover {
+    background: transparent;
+}
+.darkTheme .attchNote label {
+    color: #bfc1c1;
+}
+.darkTheme .allTabCntnt {
+    border: 1px solid #8e8e8e;
+}
+.darkTheme .userDots button {
+    border: 1px solid #808080;
+    background-color: #192020;
+}
+.darkTheme .detailInfo {
+    background-color: #404646;
+}
+.darkTheme .flowInfo {
+    background-color: #192020;
+}
+.darkTheme .flowProfil label {
+    color: #fafafa;
+}
+.darkTheme .flowProfil p {
+    color: #bfc1c1;
+}
+.darkTheme .dtlCount a, .darkTheme .dtlCount span {
+    color: #bfc1c1 !important;
+}
+.darkTheme .nwPatentAdd button {
+    color: #00ABAF;
+    background-color: #192020 !important;
+}
+.darkTheme a.lineSort {
+    border: 1px solid #8c8c8c;
+}
+.darkTheme .flowInfoInr {
+    border-bottom: 1px solid #4e4e4e;
+}
+.darkTheme .bgGreyTxt label {
+    color: #bfc1c1;
+}
+.darkTheme .appTabs button {
+    background-color: #404646;
+    color: #e0e0e0 !important;
+}
+.darkTheme .appTabIner.Mui-selected {
+    background-color: #404646 !important;
+}
+.darkTheme .srchPatient2 {
+    background-color: #404646;
+}
+.darkTheme .receptn {
+    background: #404646;
+}
+.darkTheme .showOnly p {
+    color: #e0e0e0;
+}
+.darkTheme .receptnLink label {
+    color: #c5c5c5;
+}
+.darkTheme .movPopup {
+    background-color: #404646;
+    border: 1px solid #6b6a6a;
+}
+.darkTheme .movHead {
+    border: 1px solid #6b6a6a;
+}
+.darkTheme .allTimeSel div {
+    background: #192020 !important;
+    background-color: #192020 !important;
+    color: #c5c5c5;
+}
+.darkTheme .dischargeSec {
+    background-color: #404646;
+}
+.darkTheme .dischargeHead h5 {
+    color: #bfc1c1;
+}
+.darkTheme .dischargeInfo p {
+    color: #bfc1c1;
+}
+.darkTheme .dischargeInfo label {
+    color: #bfc1c1;
+}
+.darkTheme .dischargeInfo div button:last-child {
+    color: #00abaf;
+}
+.darkTheme .movHeadMid label {
+    color: #bfc1c1;
+}
+.darkTheme .dischargeInfo p {
+    color: #bfc1c1;
+}
+.darkTheme .cardioUpr {
+    background-color: #192020;
+}
+.darkTheme .cardioNumRght label {
+    color: #c5c5c5;
+}
+.darkTheme .cardioNumRght p {
+    color: #c5c5c5;
+}
+.darkTheme .showOnly label span {
+    color: #e0e0e0;
+}
+.darkTheme .deleteStepInfo label {
+    color: #bfc1c1;
+}
+.darkTheme .deleteStepInfo p {
+    color: #bfc1c1;
+}
+.darkTheme .deleteStepInfo button:last-child {
+    color: #00abaf;
+}
+.darkTheme .deleteStep {
+    background-color: #404646;
+}
+.darkTheme .setDate p {
+    color: #e0e0e0;
+}
+.darkTheme a.lineSort2 {
+    border: 1px solid #808080;
+}
+.darkTheme .movPopup2 {
+    background-color: #192020;
+    border: 1px solid #565656;
+}
+.darkTheme .receptn2 {
+    background-color: #404646;
+}
+.darkTheme .movHeadMid2 label {
+    color: #bfc1c1;
+}
+.darkTheme .roomWardSel div, .darkTheme .bedNumberSel div {
+    background-color: #404646;
+    border-color: #848484;
+    color: #bfc1c1;
+}
+.darkTheme .receptnLink2 label {
+    color: #bfc1c1;
+}
+.darkTheme .adultWardSel div {
+    background-color: #404646;
+    border-color: #848484;
+    color: #bfc1c1;
+}
+.darkTheme .movHead2 {
+    border-bottom: 1px solid #3c3c3c;
+}
+.darkTheme .usrAction {
+    background-color: #192020;
+    border: 1px solid #565656;
+}
+.darkTheme .usrAction li {
+    color: #bfc1c1;
+}
+.darkTheme .dupAction {
+    background-color: #192020;
+    border: 1px solid #565656;
+}
+.darkTheme .dupAction li {
+    color: #bfc1c1;
+}
+.darkTheme .statsDrft {
+    border: 1px solid #6b6767;
+    background-color: #404646;
+}
+.darkTheme .statsDrftHead {
+    border-bottom: 1px solid #404646;
+}
+.darkTheme .colorDots li {
+    color: #bfc1c1;
+}
+
+@media (max-width: 468px) {
+  .darkTheme .allTabCntnt {
+    background: #192020;
+    border: 1px solid #696969;
+  }
+  .darkTheme .taskTabs {
+    background-color: #192020 !important;
+  }
+  .darkTheme .taskTabs button {
+    background-color: transparent;
+    opacity: initial;
+    color: #fafafa !important;
+  }
+  .darkTheme .userDots button {
+    border: 1px solid #828282;
+    background-color: #404646;
+  }
+}
+.darkTheme .darkTheme .enterSpcl input {
+    background: #192020;
+}
+.darkTheme .homeBgIner {
+    background: #192020;
+}
+.darkTheme .cardioGrupBtn button span {
+   color: #7F8383 !important;
+}
+.darkTheme .cardioGrupBtn button:hover{
+    background-color: #ECCAFF !important;
+    color: #8C00DB !important;
+}
+.darkTheme .spacemanageDel {
+    border: 1px solid #afb1b1;
+}
+.darkTheme .scndOptionIner ul {
+    border: 1px solid #f2f2f2 !important;
+    background-color: #192020 !important;
+}
+.darkTheme .scndOptionIner ul li{
+    color: #bfc1c1 !important;
+    background-color: transparent !important;
+}
+.darkTheme .scndOptionIner ul li a {
+    color: #bfc1c1 !important;
+    background-color: transparent !important;
+}
+.darkTheme .profilMenuList, .darkTheme .moreMenuList {
+    border: 1px solid #dfdfdf !important;
+    background-color: #404646 !important;
+}
+.darkTheme .profilMenuList li a,
+.darkTheme .moreMenuList li a {
+    color: #BFC1C1 !important;
+}
+.darkTheme .attchOpen button span {
+    color: #C58904 !important;
+}
+.darkTheme .taskTabs button span{
+    color : #7F8383;
+}
+.darkTheme .revwFiles button span, .darkTheme .rvwCadio button {
+    color: #EE5253 !important;
+}
+.darkTheme .RadiologyClr button span{
+    color: #0076DB;
+}
+.darkTheme .dragdrop-horizontal ul , .darkTheme .setDate button {
+    background: #404646 !important;
+}
+/* .darkTheme .tskTabs button span{
+    background-color: #404646 !important;;
+    border: 1px solid #00686bad;
+} */
+.darkTheme .tskTabs button span{
+    color: #fafafa ;
 }
