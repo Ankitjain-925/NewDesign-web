@@ -15,6 +15,7 @@ import {
   getImage,
   blockClick,
 } from "Screens/Components/BasicMethod/index";
+import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import SelectField from "Screens/Components/Select/index";
 import * as translationEN from "./translations/en_json_proofread_13072020.json";
 import * as translationDE from "./translations/de.json";
@@ -297,6 +298,7 @@ class Index extends Component {
 
   SaveAssignHouse =()=>{
     var userid = this.state.current_user._id;
+    console.log('house', this.state.house,)
     this.setState({ loaderImage: true });
     axios
       .put(
@@ -379,7 +381,14 @@ class Index extends Component {
     } = translate;
 
     return (
-      <Grid className="homeBg">
+      <Grid  className={
+        this.props.settings &&
+          this.props.settings.setting &&
+          this.props.settings.setting.mode &&
+          this.props.settings.setting.mode === "dark"
+          ? "homeBg darkTheme"
+          : "homeBg"
+      }>
         {this.state.loaderImage && <Loader />}
         <Grid className="homeBgIner">
           <Grid container direction="row" justify="center">
@@ -640,14 +649,14 @@ class Index extends Component {
                                   <b>Assigned Houses -</b>
                                   <Grid container direction="row">
                                 {this.state.current_user?.houses?.length>0 && this.state.current_user?.houses.map((item)=>(
-                                       <>
+                                      <>
                                        <Grid item xs={10} md={10}>
                                             {item.group_name} - {item.label} ({item.value})
                                         </Grid>
                                         <Grid item xs={2} md={2}>
                                             <a className="delet-house" onClick={()=>{this.deleteHouse(item.value)}}>Delete</a>
                                         </Grid>
-                                        </>
+                                      </>
                                 ))}
                                 </Grid>
                               </Grid>
@@ -680,10 +689,12 @@ const mapStateToProps = (state) => {
   const { stateLoginValueAim, loadingaIndicatoranswerdetail } =
     state.LoginReducerAim;
   const { stateLanguageType } = state.LanguageReducer;
+  const { settings } = state.Settings;
   return {
     stateLanguageType,
     stateLoginValueAim,
     loadingaIndicatoranswerdetail,
+    settings,
   };
 };
 export default withRouter(

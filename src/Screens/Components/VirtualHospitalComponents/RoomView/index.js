@@ -35,11 +35,11 @@ class Index extends React.Component {
                                 <Grid className="wrdEdtDel">
                                     <Grid>
                                         <img src={require('assets/virtual_images/room.svg')} alt="" title="" />
-                                        <span>{this.props.room_number}</span> rooms
+                                        <span>{this.props.room_number} rooms</span> 
                                     </Grid>
                                     <Grid>
                                         <img src={require('assets/virtual_images/bedNumber.png')} alt="" title="" />
-                                        <span>{this.props.no_of_bed}</span> beds
+                                        <span>{this.props.no_of_bed} beds</span> 
                                     </Grid>
                                 </Grid>
                             </Grid>

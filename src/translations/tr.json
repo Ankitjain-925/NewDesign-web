@@ -1204,6 +1204,8 @@
 		"reallyWantDelete" : "Hesabınızı gerçekten silmek istiyor musunuz?",
 		"looseAllData" :"Tüm verilerinizi kaybedeceksiniz ve bir daha hiç kimse ona erişemeyecek! Ayrıca Aimedis blok zincirinde saklanan bilgiler, onu görebilecek tek kişi siz olduğunuz için sonsuza kadar kaybolur.",
 		"delete_your_account":"Hesabını sil",
-      	"delete_account":"Hesabı sil"
+      	"delete_account":"Hesabı sil",
+		"ConversationList" :"konuşma listesi",
+		"ContactList" :"Kişi listesi"
 	}
 }   

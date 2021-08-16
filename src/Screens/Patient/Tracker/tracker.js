@@ -637,12 +637,10 @@ class Index extends Component {
                                                         </a>
                                                     </Grid>
                                                     <Grid><label>{connect} {devices} & {services}</label></Grid>
-
                                                     <Grid className="srchSrvc">
                                                         <input type="text" placeholder={search_for_device_palce} />
                                                         <img src={require('assets/images/InputField.svg')} alt="" title="" />
                                                     </Grid>
-
                                                     <Grid container direction="row" spacing={3}>
                                                         <Grid item xs={12} md={3}>
                                                             <Grid className="fitBitSection">
@@ -670,18 +668,15 @@ class Index extends Component {
                                             </Grid>
                                         </Modal>
                                         {/* End of Model setup */}
-
                                         <Grid className="presPkgIner1">
-                                            {/* Tabs  */}
                                             <AppBar position="static" className="presTabsUpr">
                                                 <Grid container direction="row">
-                                                    <Grid item xs={12} md={8}>
+                                                    <Grid item xs={8} md={8}>
                                                         <Tabs value={value} onChange={this.handleChangeTabs} className="presTabs">
                                                             <Tab label={TrackersDevices} className="presTabsIner" />
-                                                            {/* <Tab label="Self Data Services" className="presTabsIner" /> */}
                                                         </Tabs>
                                                     </Grid>
-                                                    <Grid item xs={12} md={4} className="presSrch">
+                                                    <Grid item xs={4} md={4} className="presSrch">
                                                         <a><img src={require('assets/images/search-entries.svg')} alt="" title="" /></a>
                                                     </Grid>
                                                 </Grid>
@@ -718,7 +713,8 @@ class Index extends Component {
                                                                     <Grid className="trckSection">
                                                                         <Grid className="trckSecIner">
                                                                             <Grid className="trckDots presEditDot scndOptionIner">
-                                                                                <a className="openScndhrf"><img src={require('assets/images/three_dots_t.png')} alt="" title="" className="openScnd" />
+                                                                                <a className="openScndhrf">
+                                                                                  <img src={require('assets/images/three_dots_t.png')} alt="" title="" className="openScnd" />
                                                                                     <ul>
                                                                                         <li><a onClick={() => this.handleOpenvData(devicedata ,'fitbit')} className="trackView" >{view_details}</a></li>
                                                                                         <li><a onClick={()=>{this.logoutfromall('fitbit')}} className="trackView" >{logout}</a></li>

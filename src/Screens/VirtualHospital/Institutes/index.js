@@ -26,13 +26,55 @@ class Index extends Component {
         }
     }
     componentDidMount = () => {
-        this.allHouses()
+        this.allHouses();
+        this.getSetting();
     };
 
     redirectSpace=(data)=>{
          this.props.houseSelect(data);
          this.props.history.push('/VirtualHospital/space')   
     };
+
+    getSetting = () => {
+        this.setState({ loaderImage: true });
+        axios
+          .get(sitedata.data.path + "/UserProfile/updateSetting",  commonHeader(this.props.stateLoginValueAim.token))
+          .then((responce) => {
+            if (responce.data.hassuccessed && responce.data.data) {
+              this.setState({
+                timeF: {
+                  label: responce.data.data.time_format,
+                  value: responce.data.data.time_format,
+                },
+                dateF: {
+                  label: responce.data.data.date_format,
+                  value: responce.data.data.date_format,
+                },
+              });
+              this.props.Settings(responce.data.data);
+            } else {
+              this.props.Settings({
+                user_id: this.props.stateLoginValueAim.user._id,
+              });
+            }
+            this.setState(
+              {
+                loaderImage: false,
+                languageValue:
+                  responce.data.data && responce.data.data.language
+                    ? responce.data.data.language
+                    : "en",
+                mode:
+                  responce.data.data && responce.data.data.mode
+                    ? responce.data.data.mode
+                    : "normal",
+              },
+              () => {
+                this.props.LanguageFetchReducer(this.state.languageValue);
+              }
+            );
+          });
+      };
 
     allHouses = () => {
         this.setState({ loaderImage: true })
@@ -60,7 +102,14 @@ class Index extends Component {
             return (<Redirect to={'/VirtualHospital/space'} />);
         }
         return (
-            <Grid className="homeBg">
+            <Grid className={
+                this.props.settings &&
+                this.props.settings.setting &&
+                this.props.settings.setting.mode &&
+                this.props.settings.setting.mode === "dark"
+                  ? "homeBg darkTheme"
+                  : "homeBg"
+              }>
                 <Grid className="homeBgIner">
                     <Grid container direction="row">
                         <Grid item xs={12} md={12}>

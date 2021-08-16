@@ -5,6 +5,10 @@ import CometChatUserList from "../../CometChatUserList";
 import CometChatGroupList from "../../CometChatGroupList";
 import CometChatConversationList from "../../CometChatConversationList";
 import CometChatUserInfoScreen from "../../CometChatUserInfoScreen";
+import {
+  getLanguage
+} from "translations/index"
+
 
 const navbar = (props) => {
   const switchComponent = () => {
@@ -29,7 +33,13 @@ const navbar = (props) => {
       case "conversations":
         return (
           <CometChatConversationList
+            lan={props.lan}
+            Userlist={props.Userlist}
+            item={props.item}
             actionGenerated={props.actionGenerated}
+            userStatusChanged={(item) =>
+              props.actionGenerated("userStatusChanged", "user", item)
+            }
             onItemClick={(item, type) =>
               props.actionGenerated("itemClicked", type, item)
             }
@@ -90,29 +100,37 @@ const navbar = (props) => {
     more: true,
     active: props.tab === "info",
   });
-
+  let translate = getLanguage(props.lan)
+  let {ConversationList, ContactList} = translate;
   return (
     <React.Fragment>
       {switchComponent()}
       <div className="ccl-left-panel-footer-wrap">
         <div className="ccl-left-panel-nav-list clearfix">
+          {/* <div className="ccl-left-panel-nav-listitem" onClick={() => props.actionGenerated('tabChanged', 'conversations')}>
+            <span className={convClassName}></span>
+          </div> */}
+          <div className="ccl-left-panel-nav-listitem" onClick={() => props.actionGenerated('tabChanged', 'conversations')}>
+            <span className={convClassName}></span>
+            <span className={props.tab === "conversations"?"viewListactive": "viewList"}>{ConversationList}</span>
+          </div>
           <div
             className="ccl-left-panel-nav-listitem"
             onClick={() => props.actionGenerated("tabChanged", "contacts")}
           >
-            {/* <span className={contactClassName} /> */}
+            <span className={contactClassName} />
+            <span className={props.tab === "contacts"?"viewListactive": "viewList"}>{ContactList}</span>
           </div>
+          
           {/* <div className="ccl-left-panel-nav-listitem" onClick={() => props.actionGenerated('tabChanged', 'calls')}>
                 <span className={callClassName}></span>
               </div>  */}
-          {/* <div className="ccl-left-panel-nav-listitem" onClick={() => props.actionGenerated('tabChanged', 'conversations')}>
-                <span className={convClassName}></span>
-              </div>
-              <div className="ccl-left-panel-nav-listitem" onClick={() => props.actionGenerated('tabChanged', 'groups')}>
+             
+              {/* <div className="ccl-left-panel-nav-listitem" onClick={() => props.actionGenerated('tabChanged', 'groups')}>
                 <span className={groupClassName}></span>
-                </div>
-              <div className="ccl-left-panel-nav-listitem" onClick={() => props.actionGenerated('tabChanged', 'info')}>
-                <span className={infoClassName}></span>
+                </div> */}
+              {/* <div className="ccl-left-panel-nav-listitem" onClick={() => props.actionGenerated('tabChanged', 'info')}>
+                <span className={infoClasssName}></span>
               </div>  */}
         </div>
       </div>

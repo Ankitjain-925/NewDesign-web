@@ -273,7 +273,7 @@ export function blockClick(deletekey, userblock, user_token) {
 }
 
 export function sortCometUser(userList) {
-  let users = userList.sort(function (a, b) {
+  let users = userList && userList.length>0 && userList.sort(function (a, b) {
     if (a.name.includes('undefined') && b.name.includes('undefined')) {
       if (a.uid < b.uid) { return -1; }
       if (a.uid > b.uid) { return 1; }
@@ -298,7 +298,7 @@ export function sortCometUser(userList) {
 }
 
 export function unreadAtLast(userList, unread) {
-  let users = userList.filter(function (usersa) {
+  let users = userList && userList.length>0 && userList.filter(function (usersa) {
     if (unread && unread.users && unread.users.hasOwnProperty(usersa.uid)) {
       return false;
     }

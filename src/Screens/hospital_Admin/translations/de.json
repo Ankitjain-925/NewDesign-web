@@ -627,6 +627,7 @@
 		"incomingcall": "Eingehender Anruf",
 		"Status" :"Status",
 		"Liscence" :"Lizenz",
-		"more" :"Mehr"
+		"more" :"Mehr",
+		"DarkMode": "Dunkler Modus"
 	}
 }

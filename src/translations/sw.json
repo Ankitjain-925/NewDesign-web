@@ -1204,6 +1204,8 @@
 		"reallyWantDelete" : "Je! Kweli unataka kufuta Akaunti yako?",
 		"looseAllData" :"Utapoteza data zako zote na hakuna mtu anayeweza kuifikia tena! Pia habari iliyohifadhiwa ndani ya kizuizi cha Aimedis imepotea milele kwani wewe ndiye wa pekee kuweza kuiona.",
 		"delete_your_account":"Futa Akaunti Yako",
-      	"delete_account":"Futa Akaunti"
+      	"delete_account":"Futa Akaunti",
+		"ConversationList" :"Orodha ya Mazungumzo",
+		"ContactList" :"Contact List"
 	}
 }

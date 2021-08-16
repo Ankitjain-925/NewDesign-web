@@ -22,6 +22,9 @@ import ViewDetail from "Screens/Components/ViewInformation/index";
 import "./style.css";
 import { commonHeader, commonCometDelHeader } from 'component/CommonHeader/index';
 import Pagination from "Screens/Components/Pagination/index";
+import SelectField from "Screens/Components/Select/index";
+import Button from "@material-ui/core/Button";
+import Modal from "@material-ui/core/Modal";
 
 const specialistOptions = [
     { value: 'Specialist1', label: 'Specialist1' },
@@ -217,7 +220,14 @@ class Index extends Component {
         let { capab_Doctors, add_new, srvc_Doctors, find_doctor, ID, Status, no_, recEmp_FirstName, Normal, Blocked,
             recEmp_LastName, imprint_Email, restore, Delete, see_detail, previous, next } = translate
         return (
-            <Grid className="homeBg">
+            <Grid className={
+                this.props.settings &&
+                  this.props.settings.setting &&
+                  this.props.settings.setting.mode &&
+                  this.props.settings.setting.mode === "dark"
+                  ? "homeBg darkTheme"
+                  : "homeBg"
+              }>
                 {this.state.loaderImage && <Loader />}
                 <Grid className="homeBgIner">
                     <Grid container direction="row" justify="center">
@@ -259,7 +269,7 @@ class Index extends Component {
                                             <Tbody>
                                             {this.state.MypatientsData && this.state.MypatientsData.length>0 && this.state.MypatientsData.map((doctor, i) => (
                                                     <Tr>
-                                                          <Td>{((this.state.currentPage-1)*10) + i+1}</Td>
+                                                        <Td>{((this.state.currentPage-1)*10) + i+1}</Td>
                                                         <Td><img className="doctor_pic" src={doctor && doctor.image ? getImage(doctor.image, this.state.images) : require('assets/images/dr1.jpg')} alt="" title="" />
                                                             {doctor.first_name && doctor.first_name}</Td>
                                                         <Td>{doctor.last_name && doctor.last_name}</Td>
@@ -304,6 +314,81 @@ class Index extends Component {
                                             </Grid>
                                         </Grid>
                                     </Grid>
+                                    <Modal
+                    open={this.state.openHouse}
+                    onClose={this.closeHouse}
+                    className="addSpeclModel"
+                  >
+                    <Grid className="addSpeclContnt">
+                      <Grid className="addSpeclLbl">
+                        <Grid className="addSpeclClose">
+                          <a onClick={this.closeHouse}>
+                            <img
+                              src={require("assets/virtual_images/closefancy.png")}
+                              alt=""
+                              title=""
+                            />
+                          </a>
+                        </Grid>
+                        <Grid>
+                          <label>Assign House</label>
+                        </Grid>
+                      </Grid>
+                      <Grid className="enterSpclUpr">
+                        <Grid className="enterSpclMain">
+                          <Grid className="enterSpcl">
+                            <Grid container direction="row">
+                              {this.state.alredyExist && (
+                                <div className="err_message">
+                                  House is already exist to doctor
+                                </div>
+                              )}
+                              {this.state.assignedhouse && (
+                                <div className="success_message">
+                                  House is assigned to doctor
+                                </div>
+                              )}
+                                {this.state.deleteHouse && (
+                                <div className="success_message">
+                                  House id deleted from the doctor
+                                </div>
+                              )}
+                                <Grid item xs={10} md={12}>
+                                <SelectField
+                                    isSearchable={true}
+                                    name="houses"
+                                    option={this.state.Housesoptions}
+                                    onChange={(e) => this.updateEntryState1(e, "houses")}
+                                    value={this.state.currentHouses}
+                                    // isMulti={true}
+                                />
+                              </Grid>
+                              <Grid item xs={10} md={12}>
+                                  <b>Assigned Houses -</b>
+                                  <Grid container direction="row">
+                                {this.state.current_user?.houses?.length>0 && this.state.current_user?.houses.map((item)=>(
+                                       <>
+                                       <Grid item xs={10} md={10}>
+                                            {item.group_name} - {item.label} ({item.value})
+                                        </Grid>
+                                        <Grid item xs={2} md={2}>
+                                            <a className="delet-house" onClick={()=>{this.deleteHouse(item.value)}}>Delete</a>
+                                        </Grid>
+                                        </>
+                                ))}
+                                </Grid>
+                              </Grid>
+                                
+                            
+                            <Grid className="spclSaveBtn saveNclose">
+                              <Button onClick={()=>this.SaveAssignHouse()}>Save</Button>
+                            </Grid>
+                          </Grid>
+                        </Grid>
+                      </Grid>
+                    </Grid>
+                    </Grid>
+                  </Modal>
                                     <ViewDetail openDetial={this.state.openDetial} CloseDetail={this.CloseDetail} patient_info={this.state.current_user}/>
                                 </Grid>
                             </Grid>
@@ -317,14 +402,14 @@ class Index extends Component {
 const mapStateToProps = (state) => {
     const { stateLoginValueAim, loadingaIndicatoranswerdetail } = state.LoginReducerAim;
     const { stateLanguageType } = state.LanguageReducer;
-    // const { settings } = state.Settings;
+    const { settings } = state.Settings;
     // const { Doctorsetget } = state.Doctorset;
     // const { catfil } = state.filterate;
     return {
         stateLanguageType,
         stateLoginValueAim,
         loadingaIndicatoranswerdetail,
-        // settings,
+        settings,
         //   Doctorsetget,
         //   catfil
     }

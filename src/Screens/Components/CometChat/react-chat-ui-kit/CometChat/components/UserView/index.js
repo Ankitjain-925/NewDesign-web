@@ -39,7 +39,7 @@ function Userview(props) {
           cornerRadius="50%"
           borderColor="#CCC"
           borderWidth="1px"
-
+          name={props.user?.name}
         />
         <StatusIndicator
           status={props.user.status}
@@ -49,9 +49,9 @@ function Userview(props) {
         />
       </div>
       <div className="contact-listitem-dtls">
-        <div className="contact-listitem-name" data-tip data-for={props.user.name}>{props.user.name.includes('undefined') ? props.user.uid :props.user.name}</div>
-        <ReactTooltip className="timeIconClas" id={props.user.name} place="top" effect="solid" backgroundColor="#ffffff">
-            {props.user.name.includes('undefined') ? props.user.uid :props.user.name}
+        <div className="contact-listitem-name" data-tip data-for={props?.user?.name}>{props?.user?.name?.includes('undefined') ? props?.user?.uid :props?.user?.name}</div>
+        <ReactTooltip className="timeIconClas" id={props?.user?.name} place="top" effect="solid" backgroundColor="#ffffff">
+            {props.user.name.includes('undefined') ? props?.user?.uid :props?.user?.name}
         </ReactTooltip>
         {props &&
           props.UnreadCount &&

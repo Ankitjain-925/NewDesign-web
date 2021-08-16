@@ -131,7 +131,7 @@ class Index extends Component {
   };
 
   handleCloseWard = () => {
-    this.setState({ openWard: false });
+    this.setState({ openWard: false,  isEditWrd: false });
   };
   // update the ward of the speciality
   editWard = (data) => {
@@ -148,7 +148,7 @@ class Index extends Component {
       ward.push(this.state.ward);
     }
     state["wards"] = ward;
-    this.setState({ speciality: state }, () => {
+    this.setState({ speciality: state,  isEditWrd: false }, () => {
       this.setState({ openWard: false, ward: {} });
     });
   };
@@ -301,7 +301,15 @@ class Index extends Component {
                       <Modal
                         open={this.state.openWarn}
                         onClose={this.handleCloseWarn}
-                        className="addWrnModel"
+                        className={
+                          this.props.settings &&
+                          this.props.settings.setting &&
+                          this.props.settings.setting.mode &&
+                          this.props.settings.setting.mode === "dark"
+                            ? "darkTheme addWrnModel"
+                            : "addWrnModel"
+                        }
+            
                       >
                         <Grid className="addWrnContnt">
                           <Grid className="addWrnIner">
@@ -452,7 +460,14 @@ class Index extends Component {
                 <Modal
                   open={this.state.openSpecl}
                   onClose={this.handleCloseSpecl}
-                  className="addSpeclModel"
+                  className={
+                    this.props.settings &&
+                    this.props.settings.setting &&
+                    this.props.settings.setting.mode &&
+                    this.props.settings.setting.mode === "dark"
+                      ? "darkTheme addSpeclModel"
+                      : "addSpeclModel"
+                  }
                 >
                   <Grid className="addSpeclContnt">
                     <Grid className="addSpeclLbl">
@@ -568,6 +583,7 @@ class Index extends Component {
                                           <Button
                                             onClick={(e) => {
                                               this.setState({
+                                                isEditWrd: false,
                                                 openWard: false,
                                                 ward: {},
                                               });

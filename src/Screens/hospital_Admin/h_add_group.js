@@ -9,8 +9,6 @@ import axios from "axios";
 import { LanguageFetchReducer } from "Screens/actions";
 import sitedata from "sitedata";
 import Button from "@material-ui/core/Button";
-import { confirmAlert } from "react-confirm-alert"; // Import
-import "react-confirm-alert/src/react-confirm-alert.css"; // Import csss
 import * as translationEN from "./translations/en_json_proofread_13072020.json";
 import * as translationDE from "./translations/de.json";
 import H_LeftMenu from "Screens/Components/Menus/H_leftMenu/index";
@@ -168,7 +166,15 @@ class Index extends Component {
     let {} = translate;
 
     return (
-      <Grid className="homeBg">
+      <Grid 
+      className={
+        this.props.settings &&
+          this.props.settings.setting &&
+          this.props.settings.setting.mode &&
+          this.props.settings.setting.mode === "dark"
+          ? "homeBg darkTheme"
+          : "homeBg"
+      }>
         {this.state.loaderImage && <Loader />}
         <Grid className="homeBgIner">
           <Grid container direction="row" justify="center">
@@ -302,7 +308,7 @@ class Index extends Component {
                     <Modal
                       open={this.state.openGroup}
                       onClose={this.closeInstitute}
-                      className="addSpeclModel"
+                      className="addSpeclModel darkTheme"
                     >
                       <Grid className="addSpeclContnt">
                         <Grid className="addSpeclLbl">
@@ -367,10 +373,12 @@ const mapStateToProps = (state) => {
   const { stateLoginValueAim, loadingaIndicatoranswerdetail } =
     state.LoginReducerAim;
   const { stateLanguageType } = state.LanguageReducer;
+  const { settings } = state.Settings;
   return {
     stateLanguageType,
     stateLoginValueAim,
     loadingaIndicatoranswerdetail,
+    settings,
   };
 };
 export default withRouter(
