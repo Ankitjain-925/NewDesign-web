@@ -131,7 +131,7 @@ class Index extends Component {
   };
 
   handleCloseWard = () => {
-    this.setState({ openWard: false });
+    this.setState({ openWard: false,  isEditWrd: false });
   };
   // update the ward of the speciality
   editWard = (data) => {
@@ -148,7 +148,7 @@ class Index extends Component {
       ward.push(this.state.ward);
     }
     state["wards"] = ward;
-    this.setState({ speciality: state }, () => {
+    this.setState({ speciality: state,  isEditWrd: false }, () => {
       this.setState({ openWard: false, ward: {} });
     });
   };
@@ -583,6 +583,7 @@ class Index extends Component {
                                           <Button
                                             onClick={(e) => {
                                               this.setState({
+                                                isEditWrd: false,
                                                 openWard: false,
                                                 ward: {},
                                               });

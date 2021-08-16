@@ -71,14 +71,14 @@ class Index extends Component {
                         <Grid item xs={12} md={12}>
 
                            {/* Mobile menu */}
-                           <LeftMenuMobile isNotShow={true} currentPage="chat" />
+                           <LeftMenuMobile isNotShow={true} currentPage="calendar" />
                             <Grid container direction="row">
                                 {/* <VHfield name="ANkit" Onclick2={(name, value)=>{this.myclick(name , value)}}/> */}
 
 
                                 {/* Start of Menu */}
                                 <Grid item xs={12} md={1} className="MenuLeftUpr">
-                                    <LeftMenu isNotShow={true} currentPage="chat" />
+                                    <LeftMenu isNotShow={true} currentPage="calendar" />
                                 </Grid>
                                 {/* End of Menu */}
 

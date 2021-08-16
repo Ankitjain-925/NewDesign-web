@@ -85,7 +85,7 @@ class Index extends Component {
         .put(
           sitedata.data.path + "/vh/AddService/" + this.state.updateTrack._id,
           data,
-          commonHeaderToken()
+         commonHeader(this.props.stateLoginValueAim.token)
         )
         .then((responce) => {
           this.setState({
@@ -96,7 +96,7 @@ class Index extends Component {
     } else {
       data.house_id = this.props?.House?.value;
       axios
-        .post(sitedata.data.path + "/vh/AddService", data, commonHeaderToken())
+        .post(sitedata.data.path + "/vh/AddService", data,commonHeader(this.props.stateLoginValueAim.token))
         .then((responce) => {
           this.getAllServices();
         })
@@ -116,7 +116,7 @@ class Index extends Component {
     axios
       .get(
         sitedata.data.path + "/vh/GetService/" + this.props?.House?.value,
-        commonHeaderToken()
+       commonHeader(this.props.stateLoginValueAim.token)
       )
       .then((response) => {
         var totalPage = Math.ceil(response.data.data.length / 10);
@@ -184,7 +184,7 @@ class Index extends Component {
   };
   deleteClickService(id) {
     axios
-      .delete(sitedata.data.path + "/vh/AddService/" + id, commonHeaderToken())
+      .delete(sitedata.data.path + "/vh/AddService/" + id,commonHeader(this.props.stateLoginValueAim.token))
       .then((response) => {
         this.getAllServices();
       })

@@ -7067,7 +7067,7 @@ a.horzSort2 {
     width: 59px;
     border-radius: 8px;
     background-color: #F2F2F2 !important;
-    color: #404646;
+    color: #404646 !important;
     font-family: Muli;
     font-size: 12px;
     font-weight: bold;
@@ -10056,8 +10056,8 @@ button.crdoLghtBlu2 {
 }
 .darkTheme .tskTabs button {
     background-color: #404646 !important;
-    color: #fafafa;
-    border: 1px solid #00686bad;
+    color: #fafafa !important;
+    /* border: 1px solid #00686bad !important; */
 }
 .darkTheme .presPkgIner1 header.presTabsUpr, .darkTheme .presTabs {
     background-color: #404646 !important;
@@ -10992,9 +10992,19 @@ button.crdoLghtBlu2 {
 .darkTheme .taskTabs button span{
     color : #7F8383;
 }
-.darkTheme .revwFiles button span{
+.darkTheme .revwFiles button span, .darkTheme .rvwCadio button {
     color: #EE5253 !important;
 }
 .darkTheme .RadiologyClr button span{
     color: #0076DB;
+}
+.darkTheme .dragdrop-horizontal ul , .darkTheme .setDate button {
+    background: #404646 !important;
+}
+/* .darkTheme .tskTabs button span{
+    background-color: #404646 !important;;
+    border: 1px solid #00686bad;
+} */
+.darkTheme .tskTabs button span{
+    color: #fafafa ;
 }

@@ -171,7 +171,16 @@ class Index extends Component {
                                                         </Grid>
                                                     </Grid>
                                                     {/* Model setup */}
-                                                    <Modal open={this.state.openRvw} onClose={this.handleCloseRvw}>
+                                                    <Modal 
+                                                    className={
+                                                        this.props.settings &&
+                                                        this.props.settings.setting &&
+                                                        this.props.settings.setting.mode &&
+                                                        this.props.settings.setting.mode === "dark"
+                                                          ? "darkTheme"
+                                                          : ""
+                                                      }
+                                                    open={this.state.openRvw} onClose={this.handleCloseRvw}>
                                                         <Grid className="rvewFiles">
                                                             <Grid className="rvewFilesinner">
                                                                 <Grid container direction="row">

@@ -9,7 +9,20 @@ import LeftMenu from "Screens/Components/Menus/VirtualHospitalMenu/index";
 import LeftMenuMobile from "Screens/Components/Menus/VirtualHospitalMenu/mobile";
 import TotalPatientView from "Screens/Components/VirtualHospitalComponents/TotalPatientView/index";
 import StatisticsPatientFlow from "Screens/Components/VirtualHospitalComponents/StatisticsPatientFlow/index";
-
+import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
+import { LoginReducerAim } from "Screens/Login/actions";
+import { Settings } from "Screens/Login/setting";
+import axios from "axios";
+import { LanguageFetchReducer } from "Screens/actions";
+import sitedata from "sitedata";
+import {
+    commonHeader,
+    commonCometDelHeader,
+  } from "component/CommonHeader/index";
+import { authy } from 'Screens/Login/authy.js';
+import { houseSelect } from "../Institutes/selecthouseaction";
+import { Redirect, Route } from 'react-router-dom';
 
 function TabContainer(props) {
     return (
@@ -51,7 +64,14 @@ class Index extends Component {
     render() {
         const { tabvalue } = this.state;
         return (
-            <Grid className="homeBg">
+            <Grid className={
+                this.props.settings &&
+                this.props.settings.setting &&
+                this.props.settings.setting.mode &&
+                this.props.settings.setting.mode === "dark"
+                  ? "homeBg darkTheme"
+                  : "homeBg"
+              }>
                 <Grid className="homeBgIner">
                     <Grid container direction="row">
                         <Grid item xs={12} md={12}>
@@ -258,4 +278,24 @@ class Index extends Component {
         );
     }
 }
-export default Index
+const mapStateToProps = (state) => {
+    const { stateLoginValueAim, loadingaIndicatoranswerdetail } =
+      state.LoginReducerAim;
+    const { stateLanguageType } = state.LanguageReducer;
+    const { House } = state.houseSelect
+    const { settings } = state.Settings;
+    const { verifyCode } = state.authy;
+    return {
+      stateLanguageType,
+      stateLoginValueAim,
+      loadingaIndicatoranswerdetail,
+      House,
+      settings,
+      verifyCode,
+    };
+  };
+  export default withRouter(
+    connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer, Settings,authy, houseSelect })(
+      Index
+    )
+  );

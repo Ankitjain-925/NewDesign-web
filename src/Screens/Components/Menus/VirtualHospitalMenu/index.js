@@ -121,11 +121,11 @@ class Index extends Component {
     this.props.history.push("/");
   };
 
-  //For online Course
+  //For Spaces
   Spaces = () => {
     this.props.history.push('/virtualHospital/space')
   };
-  //For Tracker / Withings
+  //For Services
   Services = () => {
     this.props.history.push('/virtualHospital/services')
   };
@@ -137,7 +137,7 @@ class Index extends Component {
   Calendar = () => {
     this.props.history.push('/virtualHospital/calendar')
   };
-  //For block chain Access
+  //For change Institutes
   MoveInstitute = () => {
     this.props.houseSelect({value: null});
     this.props.history.push('/virtualHospital/institutes')
@@ -145,6 +145,22 @@ class Index extends Component {
 
   PatientFlow = () => {
     this.props.history.push("/virtualHospital/patient-flow")
+  };
+
+  Statistics = () => {
+    this.props.history.push("/virtualHospital/statistics")
+  };
+
+  Billing = () => {
+    this.props.history.push("/virtualHospital/bills")
+  };
+
+  Invoice = () => {
+    this.props.history.push("/virtualHospital/invoices")
+  };
+
+  PatientDetail = () => {
+    this.props.history.push("/virtualHospital/patient-detail")
   };
 
   render() {
@@ -253,6 +269,50 @@ class Index extends Component {
                           />
                     
                         {"Services"}
+                      </a>
+                    </li>
+                    <li>
+                      <a onClick={this.Statistics}>
+                          <img
+                            src={require("assets/images/menudocs-white.jpg")}
+                            alt=""
+                            title=""
+                          />
+                    
+                        {"Statistics"}
+                      </a>
+                    </li>
+                    <li>
+                      <a onClick={this.Billing}>
+                          <img
+                            src={require("assets/images/menudocs-white.jpg")}
+                            alt=""
+                            title=""
+                          />
+                    
+                        {"Billing"}
+                      </a>
+                    </li>
+                    <li>
+                      <a onClick={this.Invoice}>
+                          <img
+                            src={require("assets/images/menudocs-white.jpg")}
+                            alt=""
+                            title=""
+                          />
+                    
+                        {"Invoices"}
+                      </a>
+                    </li>
+                    <li>
+                      <a onClick={this.PatientDetail}>
+                          <img
+                            src={require("assets/images/menudocs-white.jpg")}
+                            alt=""
+                            title=""
+                          />
+                    
+                        {"Patient Detail"}
                       </a>
                     </li>
                   </ul>

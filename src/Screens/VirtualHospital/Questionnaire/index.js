@@ -7,7 +7,7 @@ import LeftMenuMobile from "Screens/Components/Menus/VirtualHospitalMenu/mobile"
 import VHfield from "Screens/Components/VirtualHospitalComponents/VHfield/index";
 import Modal from '@material-ui/core/Modal';
 import axios from "axios";
-import { commonHeaderToken } from "component/CommonHeader/index"
+import { commonHeader } from "component/CommonHeader/index"
 import sitedata from "sitedata";
 import { confirmAlert } from "react-confirm-alert";
 import Pagination from "Screens/Components/Pagination/index";
@@ -79,7 +79,7 @@ class Index extends Component {
         //                 description: this.state.updateTrack.description,
         //                 price: this.state.updateTrack.price,
         //             },
-        //             commonHeaderToken()
+        //            commonHeader(this.props.stateLoginValueAim.token)
         //         )
         //         .then((responce) => {
         //             this.setState({
@@ -98,7 +98,7 @@ class Index extends Component {
                     house_id: "600c15c2c983431790f904c3-1627046889451",
                     house_name: "House-2"
                 },
-                commonHeaderToken()
+               commonHeader(this.props.stateLoginValueAim.token)
             )
             .then((responce) => {
                 this.getAllQuestions();
@@ -118,7 +118,7 @@ class Index extends Component {
         axios
             .get(
                 sitedata.data.path + "/questionaire/GetQuestionaire/600c15c2c983431790f904c3-1627046889451",
-                commonHeaderToken()
+               commonHeader(this.props.stateLoginValueAim.token)
             )
             .then((response) => {
                 var totalPage = Math.ceil(response.data.data.length / 10);
@@ -190,7 +190,7 @@ class Index extends Component {
         axios
             .delete(
                 sitedata.data.path + "/vh/AddService/" + id,
-                commonHeaderToken()
+               commonHeader(this.props.stateLoginValueAim.token)
             )
             .then((response) => {
                 this.getAllQuestions();

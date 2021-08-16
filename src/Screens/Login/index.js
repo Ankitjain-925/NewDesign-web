@@ -142,7 +142,7 @@ class Index extends Component {
     return emailPattern.test(elementValue);
   };
 
-  //Send email and Password to login
+  //Send email and Password to login`
   BtnSubmit = () => {
     this.setState({
       loginError: false,
