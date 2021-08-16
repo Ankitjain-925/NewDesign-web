@@ -33,7 +33,8 @@ class Index extends Component {
             type: '',
             myQuestions: [{}],
             option: this.props.option,
-            questions: [],
+            questions_data: [],
+            AllQuestions: []
         }
     }
 
@@ -138,11 +139,11 @@ class Index extends Component {
                                 pages.push(i);
                             }
                             this.setState({
-                                questions: this.state.AllQuestions.slice(0, 10),
+                                questions_data: this.state.AllQuestions.slice(0, 10),
                                 pages: pages,
                             });
                         } else {
-                            this.setState({ questions: this.state.AllQuestions });
+                            this.setState({ questions_data: this.state.AllQuestions });
                         }
                     }
                 );
@@ -152,7 +153,7 @@ class Index extends Component {
     // For changing pages
     onChangePage = (pageNumber) => {
         this.setState({
-            questions: this.state.AllQuestions.slice(
+            questions_data: this.state.AllQuestions.slice(
                 (pageNumber - 1) * 10,
                 pageNumber * 10
             ),
@@ -161,7 +162,8 @@ class Index extends Component {
     };
 
     render() {
-        const { questions } = this.state;
+        const { questions_data } = this.state;
+        console.log("questions", questions_data);
         return (
             <Grid className="homeBg">
                 <Grid className="homeBgIner">
@@ -218,7 +220,7 @@ class Index extends Component {
                                                                                     label="Question Type"
                                                                                     option={options}
                                                                                     onChange={(e) => this.updateEntryState(e, 0)}
-                                                                                    value={this.state.type}
+                                                                                    value={this.state.myQuestions[1]?.type}
                                                                                 />
                                                                             </Grid>
                                                                             {this.state.openOpti && (
@@ -229,7 +231,7 @@ class Index extends Component {
                                                                                             name="question"
                                                                                             placeholder="Enter question"
                                                                                             onChange={(e) => this.updateEntryState1(e, 0)}
-                                                                                        // value={this.state.myQuestion.question}
+                                                                                            value={this.state.myQuestions[0]?.question}
                                                                                         />
                                                                                     </Grid>
 
@@ -239,7 +241,7 @@ class Index extends Component {
                                                                                             name="options"
                                                                                             placeholder="Enter option"
                                                                                             onChange={(e) => this.updateEntryState2(e, 0)}
-                                                                                            value={this.state.options}
+                                                                                            value={this.state.myQuestions[0]?.options}
                                                                                         />
                                                                                     </Grid>
                                                                                 </>
@@ -252,7 +254,7 @@ class Index extends Component {
                                                                                             name="question"
                                                                                             placeholder="Enter question"
                                                                                             onChange={(e) => this.updateEntryState1(e, 0)}
-                                                                                            value={this.state.question}
+                                                                                            value={this.state.myQuestions[0]?.question}
                                                                                         />
                                                                                     </Grid>
                                                                                 </>
@@ -275,7 +277,7 @@ class Index extends Component {
                                                                                     label="Question Type"
                                                                                     option={options}
                                                                                     onChange={(e) => this.updateEntryState(e, index)}
-                                                                                    value={this.type}
+                                                                                    value={data.type}
                                                                                 />
                                                                             </Grid>
                                                                             {this.state.openOpti && (
@@ -286,7 +288,6 @@ class Index extends Component {
                                                                                             name="question"
                                                                                             placeholder="Enter question"
                                                                                             onChange={(e) => this.updateEntryState1(e, index)}
-                                                                                            value={this.state.updateTrack.question}
                                                                                             value={data.question}
                                                                                         />
                                                                                     </Grid>
@@ -332,7 +333,7 @@ class Index extends Component {
                                                                                         label="Question Type"
                                                                                         option={options}
                                                                                         onChange={(e) => this.updateEntryState(e, index)}
-                                                                                    // value={data.type}
+                                                                                        value={data.type}
                                                                                     />
                                                                                 </Grid>
                                                                                 {this.state.openOpti && (
@@ -425,10 +426,11 @@ class Index extends Component {
                                                 </Thead>
                                                 <Tbody>
 
-                                                    {this.state.questions?.length > 0 && this.state.questions.map((data) => (
+                                                    {questions_data?.length > 0 && questions_data.map((data, index) => (
 
                                                         <>
                                                             {console.log("data", data)}
+                                                            {console.log("datatype", data.type)}
                                                             <Tr>
                                                                 <Td>
                                                                     <label>{data.type}</label>
