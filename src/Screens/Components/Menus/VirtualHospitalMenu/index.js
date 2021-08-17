@@ -163,6 +163,11 @@ class Index extends Component {
     this.props.history.push("/virtualHospital/patient-detail")
   };
 
+  Questionaires = () => {
+    this.props.history.push("/virtualHospital/questionnaire")
+  };
+
+
   render() {
     let translate = getLanguage(this.props.stateLanguageType)
     let {
@@ -262,55 +267,131 @@ class Index extends Component {
                     
                     <li>
                       <a onClick={this.Services}>
+                      {this.props.settings &&
+                        this.props.settings.setting &&
+                        this.props.settings.setting.mode &&
+                        this.props.settings.setting.mode === "dark" ? (
                           <img
                             src={require("assets/images/menudocs-white.jpg")}
                             alt=""
                             title=""
                           />
-                    
+                        ) : (
+                          <img
+                            src={require("assets/images/menudocs.jpg")}
+                            alt=""
+                            title=""
+                          />
+                        )}
                         {"Services"}
                       </a>
                     </li>
                     <li>
                       <a onClick={this.Statistics}>
+                      {this.props.settings &&
+                        this.props.settings.setting &&
+                        this.props.settings.setting.mode &&
+                        this.props.settings.setting.mode === "dark" ? (
                           <img
                             src={require("assets/images/menudocs-white.jpg")}
                             alt=""
                             title=""
                           />
+                        ) : (
+                          <img
+                            src={require("assets/images/menudocs.jpg")}
+                            alt=""
+                            title=""
+                          />
+                        )}
                     
                         {"Statistics"}
                       </a>
                     </li>
                     <li>
                       <a onClick={this.Billing}>
+                      {this.props.settings &&
+                        this.props.settings.setting &&
+                        this.props.settings.setting.mode &&
+                        this.props.settings.setting.mode === "dark" ? (
                           <img
                             src={require("assets/images/menudocs-white.jpg")}
                             alt=""
                             title=""
                           />
+                        ) : (
+                          <img
+                            src={require("assets/images/menudocs.jpg")}
+                            alt=""
+                            title=""
+                          />
+                        )}
                     
                         {"Billing"}
                       </a>
                     </li>
                     <li>
                       <a onClick={this.Invoice}>
+                      {this.props.settings &&
+                        this.props.settings.setting &&
+                        this.props.settings.setting.mode &&
+                        this.props.settings.setting.mode === "dark" ? (
                           <img
                             src={require("assets/images/menudocs-white.jpg")}
                             alt=""
                             title=""
                           />
+                        ) : (
+                          <img
+                            src={require("assets/images/menudocs.jpg")}
+                            alt=""
+                            title=""
+                          />
+                        )}
                     
                         {"Invoices"}
                       </a>
                     </li>
                     <li>
-                      <a onClick={this.PatientDetail}>
+                      <a onClick={this.Questionaires}>
+                      {this.props.settings &&
+                        this.props.settings.setting &&
+                        this.props.settings.setting.mode &&
+                        this.props.settings.setting.mode === "dark" ? (
                           <img
                             src={require("assets/images/menudocs-white.jpg")}
                             alt=""
                             title=""
                           />
+                        ) : (
+                          <img
+                            src={require("assets/images/menudocs.jpg")}
+                            alt=""
+                            title=""
+                          />
+                        )}
+                    
+                        {"Questionnaire"}
+                      </a>
+                    </li>
+                    <li>
+                      <a onClick={this.PatientDetail}>
+                      {this.props.settings &&
+                        this.props.settings.setting &&
+                        this.props.settings.setting.mode &&
+                        this.props.settings.setting.mode === "dark" ? (
+                          <img
+                            src={require("assets/images/menudocs-white.jpg")}
+                            alt=""
+                            title=""
+                          />
+                        ) : (
+                          <img
+                            src={require("assets/images/menudocs.jpg")}
+                            alt=""
+                            title=""
+                          />
+                        )}
                     
                         {"Patient Detail"}
                       </a>

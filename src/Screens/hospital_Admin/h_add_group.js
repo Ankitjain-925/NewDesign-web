@@ -308,7 +308,14 @@ class Index extends Component {
                     <Modal
                       open={this.state.openGroup}
                       onClose={this.closeInstitute}
-                      className="addSpeclModel darkTheme"
+                      className={
+                        this.props.settings &&
+                        this.props.settings.setting &&
+                        this.props.settings.setting.mode &&
+                        this.props.settings.setting.mode === "dark"
+                          ? "addSpeclModel darkTheme"
+                          : "addSpeclModel"
+                      }
                     >
                       <Grid className="addSpeclContnt">
                         <Grid className="addSpeclLbl">

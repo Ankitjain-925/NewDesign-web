@@ -607,7 +607,7 @@ class Index extends Component {
                                                 this.handleOpenRoom();
                                               }}
                                             >
-                                              Add Ward
+                                              Save Ward
                                             </Button>
                                           )}
                                         </Grid>

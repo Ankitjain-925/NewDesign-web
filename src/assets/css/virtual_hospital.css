@@ -7810,13 +7810,13 @@ img.spclDropImg {
     min-width: 38px;
     display: inline-block;
 }
-.enterWrnMain .MuiFormControlLabel-label {
+/* .enterWrnMain .MuiFormControlLabel-label {
     color: #404646;
     font-family: Muli;
     font-size: 14px;
     font-weight: 600;
     letter-spacing: 0;
-}
+} */
 .enterWrnMain .MuiCheckbox-colorSecondary {
     margin-right: 14px;
     margin-left: 10px;
@@ -9598,9 +9598,11 @@ button.crdoLghtBlu2 {
 .spacemanageDel {
     font-size: 12px;
     padding: 8px;
-    border: 1px solid #333;
+    border: 1px solid #d0d1d1;
     border-radius: 5px;
     margin-left: 20px;
+    color: #d0d1d1;
+    cursor: pointer;
 }
 .vh-menu .menuItems ul li:last-child {
     margin-top: 0px !important;
@@ -9690,9 +9692,9 @@ button.crdoLghtBlu2 {
 .MenuWeb .menuActv img {
     border: none !important;
 }
-.MenuWeb .menuItems ul li:nth-child(4) a img{
+/* .MenuWeb .menuItems ul li:nth-child(4) a img{
     padding: 10px 8px !important;
-}
+} */
 .MenuWeb .menuItems ul li a {
     cursor: pointer;
     text-decoration: none;
@@ -10118,7 +10120,7 @@ button.crdoLghtBlu2 {
 .darkTheme .addWardsUpr {
     background-color: #404646;
 }
-.darkTheme .addWardsIner label, .roomName label {
+.darkTheme .addWardsIner label,.darkTheme .roomName label {
     color: #bfc1c1;
 }
 .darkTheme ul.subSpclList {
@@ -10137,8 +10139,8 @@ button.crdoLghtBlu2 {
     border-top: 1px solid #00abaf;
 }
 .darkTheme .roomRmv a {
-    border: 1px solid #7b7b7b;
-    background-color: #192020;
+    border: 1px solid #BFC1C1 !important;
+    background-color: #404646 !important;
 }
 .darkTheme ul.subSpclList label {
     color: #bfc1c1;
@@ -11040,4 +11042,260 @@ button.crdoLghtBlu2 {
 } */
 .darkTheme .tskTabs button span{
     color: #fafafa ;
+}
+
+
+
+.nwEntrCntnt.darkTheme {
+    background-color: #404646;
+}
+.darkTheme .nwEntrCourse {
+    border-bottom: 1px solid #6d6d6d;
+}
+.darkTheme .nwEntrCourse label {
+    color: #f7f7f7;
+}
+.darkTheme .nwEntrCourse p {
+    color: #c3c3c3;
+}
+.darkTheme .spclQuesIner label {
+    color: #c3c3c3;
+}
+.darkTheme .spclQuesIner .css-yk16xz-control {
+    background-color: #202323 !important;
+    border: 1px solid #7d7d7d !important;
+}
+.darkTheme .emlCreatSub input {
+    border: 1px solid #7d7d7d !important;
+    background-color: #202323 !important;
+    color: #f7f7f7;
+}
+.darkTheme .HospitalAdd .passInst {
+    background-color: #202323;
+}
+.darkTheme .passInstIner:after {
+    border-right: 13px solid #202323;
+}
+.darkTheme .passInst {
+    background-color: #202323;
+}
+.darkTheme .passInst a {
+    color: #c3c3c3;
+}
+.darkTheme .emlCreatSub label {
+    color: #c3c3c3;
+}
+.darkTheme .passInst p {
+    color: #f7f7f7;
+}
+.darkTheme .twoWayAuth h2 {
+    color: #f7f7f7;
+}
+.darkTheme .twoWayAuthChk span {
+    color: #c3c3c3;
+}
+.darkTheme .twoWayAuth p {
+    color: #c3c3c3;
+}
+/* model css */
+.darkTheme .LanguageBoxMain {
+    background: #404646;
+}
+.darkTheme .LanguageBoxMain label {
+    color: #f7f7f7;
+}
+.darkTheme .nwPresCourse {
+    border-bottom: 1px solid #797979;
+}
+.darkTheme .infoShwHidBrdr2 {
+    border-top: 1px solid #797979;
+}
+.darkTheme .presBoxCntnt {
+    background: #404646;
+}
+.darkTheme .presCourse {
+    border-bottom: 1px solid #868484;
+}
+.darkTheme .presCourse p {
+    color: #f7f7f7;
+}
+.darkTheme .prespBoxCntnt {
+    background: #404646;
+}
+.darkTheme .prespCourse p {
+    color: #00ABAF;
+}
+.darkTheme .stndQues p, .darkTheme .pointThis {
+    color: #e0e0e0;
+}
+.darkTheme .stndQues label {
+    color: #00ABAF;
+}
+.darkTheme .stndQues span {
+    color: #00ABAF;
+}
+.darkTheme .prespCourse label {
+    color: #f7f7f7;
+}
+.darkTheme .prespCourse {
+    border-bottom: 1px solid #8e8e8e;
+}
+.darkTheme .react-confirm-alert-body {
+    background: #404646;
+    color: #c3c3c3;
+}
+.darkTheme .react-confirm-alert-body > h1 {
+    color: #f7f7f7;
+}
+.darkTheme .rrSysto div {
+    background-color: #192020;
+}
+.darkTheme .rrSysto div:last-child div {
+    border-color: transparent;
+}
+.darkTheme .rrSysto {
+    color: #f7f7f7;
+}
+/* .addSpeclContnt {
+    background: #404646 !important;
+    background-color: #404646 !important;
+} */
+.darkTheme .addSpeclLbl {
+    border-bottom: 1px solid #696969 !important;
+}
+/* .addSpeclLbl label {
+    color: #f7f7f7 !important;
+} */
+.darkTheme .enterSpcl .MuiGrid-root.MuiGrid-item {
+    color: #c3c3c3;
+}
+.darkTheme .rrInput, .darkTheme .rrInput div {
+    background-color: transparent !important;
+}
+/* .enterSpcl input {
+    border: 1px solid #BFC1C1 !important;
+    background-color: #404646 !important;
+} */
+/* .roomRmv a {
+    border: 1px solid #BFC1C1 !important;
+    background-color: #404646 !important;
+} */
+.darkTheme .adminMenuLeftUpr {
+    background: #404646;
+}
+.darkTheme .archvOpinionIner {
+    background: #404646;
+}
+.darkTheme .archvSrchInput input {
+    background-color: #404646;
+    color: #c3c3c3;
+}
+.darkTheme .archvOpinionIner thead {
+    border-bottom: 1px solid #888888;
+}
+.darkTheme .archvOpinionIner tbody tr {
+    border-bottom: 1px solid #888888;
+}
+.darkTheme .archvOpinionIner thead th {
+    color: #f7f7f7;
+}
+.darkTheme .archvOpinionIner td.pivoted {
+    color: #c3c3c3;
+}
+.darkTheme .menuItems ul li a img {
+    background-color: #404646;
+    border: 1px solid #828282;
+}
+.darkTheme a.addNewPlus {
+    background-color: #404646;
+    border: 1px solid #abaeae;
+}
+.darkTheme .adminmenuItems .menuActv a img {
+    background-color: #00abaf !important;
+}
+.darkTheme .archvOpinLbl label {
+    color: #f7f7f7;
+}
+.darkTheme .homeBgIner {
+    background: #192020 !important;
+}
+.darkTheme .MenuMob {
+    background: #404646;
+}
+.darkTheme .bm-menu nav {
+    background: #404646;
+}
+.darkTheme .profilMenuList {
+    border: 1px solid #464646;
+    background-color: #192020;
+}
+.darkTheme .bm-menu {
+    background-color: #404646 !important;
+}
+.darkTheme .menuItems ul li a span {
+    color: #dadada;
+}
+.darkTheme .profilMenuList li a {
+    color: #dadada !important;
+}
+.darkTheme .MenuLeftUpr {
+    border-right: 2px solid #8a8a8a;
+}
+.darkTheme a.academy_ul ul {
+    border: 1px solid #5d5d5d;
+    background-color: #192020;
+}
+.darkTheme a.academy_ul ul li a {
+    color: #c3c3c3;
+}
+.darkTheme .profilMenuList ul li:last-child {
+    border-top: 1px solid #6f6f6f;
+}
+.darkTheme .profilePkg {
+    background-color: #404646;
+}
+.darkTheme .profileInfo {
+    margin-bottom: 24px;
+}
+.darkTheme .profileInfoIner input {
+    color: #c3c3c3 !important;
+    border: 1px solid #5d5d5d;
+    background-color: #192020;
+}
+.darkTheme .presOpinionIner {
+    background: #404646;
+}
+.darkTheme .presOpinionIner thead th {
+    color: #f7f7f7;
+}
+.darkTheme .presOpinionIner td.pivoted {
+    color: #c3c3c3;
+}
+.darkTheme .scndOptionIner ul {
+    border: 1px solid #505050;
+    background-color: #192020;
+}
+.darkTheme .scndOptionIner ul li a {
+    color: #c3c3c3;
+}
+.darkTheme .scndOptionIner ul li a:hover {
+    background-color: #404646;
+}
+.darkTheme .presOpinionIner tbody tr {
+    border-bottom: 1px solid #888888;
+}
+.darkTheme .enterWrnMain label{
+    color: #D9DADA !important
+}
+.darkTheme .confirmActn p {
+    color: #976901 !important;
+}
+.darkTheme .drListRght2 button span {
+    color: #00ABAF !important;
+}
+.darkTheme .roomNum2 button span {
+    color: #8C00DB!important;
+}
+.darkTheme .flowProfil p, .darkTheme .flowProfil label {
+    color: #7F8383 !important;
 }

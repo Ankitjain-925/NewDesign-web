@@ -263,7 +263,15 @@ class Index extends Component {
             <Modal
             open={this.state.addCreate}
             onClose={this.handleCloseCreate}>
-            <Grid className="nwEntrCntnt HospitalAdd darkTheme">
+                 <Grid  className={
+        this.props.settings &&
+        this.props.settings.setting &&
+        this.props.settings.setting.mode &&
+        this.props.settings.setting.mode === "dark"
+          ? "nwEntrCntnt HospitalAdd darkTheme"
+          : "nwEntrCntnt HospitalAdd"
+      }
+      >
 
                 <Grid className="nwEntrCntntIner">
                     <Grid className="nwEntrCourse">

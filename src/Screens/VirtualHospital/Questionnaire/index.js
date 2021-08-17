@@ -10,6 +10,14 @@ import axios from "axios";
 import { commonHeader } from "component/CommonHeader/index"
 import sitedata from "sitedata";
 import { confirmAlert } from "react-confirm-alert";
+import { withRouter } from "react-router-dom";
+import { Redirect, Route } from "react-router-dom";
+import { authy } from "Screens/Login/authy.js";
+import { connect } from "react-redux";
+import { LanguageFetchReducer } from "Screens/actions";
+import { LoginReducerAim } from "Screens/Login/actions";
+import { Settings } from "Screens/Login/setting";
+import { houseSelect } from "../Institutes/selecthouseaction";
 import Pagination from "Screens/Components/Pagination/index";
 import AddHouses from "Screens/Components/VirtualHospitalComponents/AddRoom/AddHouses.js";
 import SelectField from "Screens/Components/Select/index";
@@ -587,4 +595,33 @@ class Index extends Component {
         );
     }
 }
-export default Index
+const mapStateToProps = (state) => {
+    const { stateLoginValueAim, loadingaIndicatoranswerdetail } =
+      state.LoginReducerAim;
+    const { stateLanguageType } = state.LanguageReducer;
+    const { House } = state.houseSelect;
+    const { settings } = state.Settings;
+    const { verifyCode } = state.authy;
+    // const { Doctorsetget } = state.Doctorset;
+    // const { catfil } = state.filterate;
+    return {
+      stateLanguageType,
+      stateLoginValueAim,
+      loadingaIndicatoranswerdetail,
+      settings,
+      verifyCode,
+      House,
+      //   Doctorsetget,
+      //   catfil
+    };
+  };
+  export default withRouter(
+    connect(mapStateToProps, {
+      LoginReducerAim,
+      LanguageFetchReducer,
+      Settings,
+      authy,
+      houseSelect,
+    })(Index)
+  );
+  
