@@ -71,7 +71,7 @@ class Index extends Component {
     updateEntryState1 = (e, index) => {
         var QuesAy = this.state.myQuestions;
         QuesAy[index][e.target.name] = e.target.value;
-        console.log("QuesAy", QuesAy)
+        // console.log("QuesAy", QuesAy)
         this.setState({ myQuestions: QuesAy }, () => {
         });
     }
@@ -98,10 +98,9 @@ class Index extends Component {
 
     handleSubmit = () => {
         var myQuestions = this.state.AllQuestions;
-        console.log('myQuestions', this.state.perticular_id)
         myQuestions = [...myQuestions, ...this.state.myQuestions]
         if (this.state.perticular_id) {
-            console.log('on second time add')
+            // console.log('on second time add')
             axios
                 .put(
                     sitedata.data.path + "/questionaire/Question/" + this.state.perticular_id,
@@ -110,16 +109,15 @@ class Index extends Component {
                     },
                     commonHeaderToken()
                 )
+               
                 .then((responce) => {
-                    // this.setState({
-                    //     // myQuestions: {},
-                    //   });
+                    this.setState({
+                        myQuestions: {},
+                      });
                     this.getAllQuestions();
                 })
         }
-
         else {
-            console.log('heeerrrrrrr')
             axios
                 .post(
                     sitedata.data.path + "/questionaire/AddQuestionaire",
@@ -161,7 +159,7 @@ class Index extends Component {
                         perticular_id: response.data.data?.[0]?._id ? response.data.data?.[0]?._id : false
                     },
                     () => {
-                        console.log('perticular_id', this.state.perticular_id)
+                        // console.log('perticular_id', this.state.perticular_id)
                         if (totalPage > 1) {
                             var pages = [];
                             for (var i = 1; i <= this.state.totalPage; i++) {
@@ -219,8 +217,7 @@ class Index extends Component {
     };
 
     editQuestion = (data, _id) => {
-        console.log("id",_id)
-        this.setState({ myQuestions: this.state.questions_data, openQues: true });
+        this.setState({ myQuestions: this.state.data, openQues: true });
     };
 
     deleteClickQuestion(status, perticular_id) {
@@ -253,7 +250,7 @@ class Index extends Component {
 
     render() {
         const { questions_data } = this.state;
-        console.log("questions", questions_data);
+        // console.log("questions", questions_data);
         return (
             <Grid className="homeBg">
                 <Grid className="homeBgIner">
@@ -541,7 +538,7 @@ class Index extends Component {
                                                                         </Button>
                                                                         <ul>
                                                                             <li>
-                                                                                {console.log('data._id', data._id, data)}
+                                                                                {/* {console.log('data._id', data._id, data)} */}
                                                                                 <a
                                                                                     onClick={() => {
                                                                                         this.editQuestion(data, data._id);
