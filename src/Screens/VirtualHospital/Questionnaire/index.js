@@ -28,120 +28,200 @@ const options = [
 ];
 
 class Index extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      openQues: false,
-      openOpti: false,
-      opeInp: false,
-      house_name: "",
-      house_id: "",
-      question: "",
-      options: "",
-      type: "",
-      myQuestions: [{}],
-      option: this.props.option,
-      questions_data: [],
-      AllQuestions: [],
-      perticular_id: false,
+    constructor(props) {
+        super(props)
+        this.state = {
+            openQues: false,
+            openOpti: false,
+            opeInp: false,
+            house_name: '',
+            house_id: '',
+            question: '',
+            options: '',
+            type: '',
+            myQuestions: [{}],
+            option: this.props.option,
+            questions_data: [],
+            AllQuestions: [],
+            perticular_id: false
+        }
+    }
+
+    componentDidMount() {
+        this.getAllQuestions();
+    }
+
+    //Modal Open 
+    handleOpenQues = () => {
+        this.setState({ openQues: true });
+    }
+
+    //Modal Close
+    handleCloseQues = () => {
+        this.setState({ openQues: false });
+    }
+
+    //for choosing select field value 
+    updateEntryState = (e, index) => {
+        var QuesAy = this.state.myQuestions;
+        QuesAy[index]['type'] = e.value;
+        this.setState({ myQuestions: QuesAy }, () => {
+        });
+        if (e.value == "input") {
+            this.setState({ openInp: true, openOpti: false });
+        }
+        else if (e.value == "options") {
+            this.setState({ openOpti: true, openInp: false });
+        }
+    }
+
+    //for adding/updating the questions
+    updateEntryState1 = (e, index) => {
+        var QuesAy = this.state.myQuestions;
+        QuesAy[index][e.target.name] = e.target.value;
+        this.setState({ myQuestions: QuesAy }, () => {
+        });
+    }
+
+    //for adding/updating the option
+    updateEntryState2 = (array, index) => {
+        var QuesAy = this.state.myQuestions;
+        QuesAy[index]["options"] = array;
+        this.setState({ myQuestions: QuesAy }, () => {
+        });
     };
-  }
 
-  componentDidMount() {
-    this.getAllQuestions();
-  }
+    // Add multiiple select fields
+    onAddFiled = () => {
+        let QuesAy = this.state.myQuestions;
+        QuesAy.push({ type: "" });
+        this.setState({ myQuestions: QuesAy });
+    };
 
-  //Modal Open
-  handleOpenQues = () => {
-    this.setState({ openQues: true });
-  };
+    deleteQuestions = (index) => {
+        var QuesAy = this.state.myQuestions?.length > 0 && this.state.myQuestions.filter((data, index1) => index1 !== index);
+        this.setState({ myQuestions: QuesAy });
+    };
 
-  //Modal Close
-  handleCloseQues = () => {
-    this.setState({ openQues: false });
-  };
+    handleSubmit = () => {
+        var myQuestions = this.state.AllQuestions;
+        myQuestions = [...myQuestions, ...this.state.myQuestions]
+        if (this.state.perticular_id) {
+            // console.log('on second time add')
+            axios
+                .put(
+                    sitedata.data.path + "/questionaire/Question/" + this.state.perticular_id,
+                    {
+                        questions: [...myQuestions]
+                    },
+                    commonHeaderToken()
+                )
+               
+                .then((responce) => {
+                    this.setState({
+                        myQuestions: {},
+                      });
+                    this.getAllQuestions();
+                })
+        }
+        else {
+            axios
+                .post(
+                    sitedata.data.path + "/questionaire/AddQuestionaire",
+                    {
+                        house_id: "600c15c2c983431790f904c3-1627046889451",
+                        house_name: "House-2",
+                        questions: myQuestions
+                    },
+                    // commonHeader(this.props.stateLoginValueAim.token)
+                    commonHeaderToken()
+                )
+                .then((responce) => {
+                    this.setState({ myQuestions: [{}] })
+                    this.getAllQuestions();
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
 
-  //for choosing select field value
-  updateEntryState = (e, index) => {
-    var QuesAy = this.state.myQuestions;
-    QuesAy[index]["type"] = e.value;
-    this.setState({ myQuestions: QuesAy }, () => {});
-    if (e.value == "input") {
-      this.setState({ openInp: true, openOpti: false });
-    } else if (e.value == "options") {
-      this.setState({ openOpti: true, openInp: false });
+        }
     }
-  };
 
-  //for adding/updating the questions
-  updateEntryState1 = (e, index) => {
-    var QuesAy = this.state.myQuestions;
-    QuesAy[index][e.target.name] = e.target.value;
-    this.setState({ myQuestions: QuesAy }, () => {});
-  };
+    // For getting the Question and implement Pagination
+    getAllQuestions = () => {
+        axios
+            .get(
+                sitedata.data.path + "/questionaire/GetQuestionaire/600c15c2c983431790f904c3-1627046889451",
+                // commonHeader(this.props.stateLoginValueAim.token)
+                commonHeaderToken()
+            )
+            .then((response) => {
+                var totalPage = Math.ceil(response.data.data?.[0]?.questions?.length / 10);
+                this.setState(
+                    {
+                        AllQuestions: response.data.data?.[0]?.questions || [],
+                        loaderImage: false,
+                        totalPage: totalPage,
+                        currentPage: 1,
+                        perticular_id: response.data.data?.[0]?._id ? response.data.data?.[0]?._id : false
+                    },
+                    () => {
+                        // console.log('perticular_id', this.state.perticular_id)
+                        if (totalPage > 1) {
+                            var pages = [];
+                            for (var i = 1; i <= this.state.totalPage; i++) {
+                                pages.push(i);
+                            }
+                            this.setState({
+                                questions_data: this.state.AllQuestions.slice(0, 10),
+                                pages: pages,
+                            });
+                        } else {
+                            this.setState({ questions_data: this.state.AllQuestions });
+                        }
+                    }
+                );
+            });
+    };
 
-  //for adding/updating the option
-  updateEntryState2 = (array, index) => {
-    var QuesAy = this.state.myQuestions;
-    QuesAy[index]["options"] = array;
-    this.setState({ myQuestions: QuesAy }, () => {});
-  };
-
-  // Add multiiple select fields
-  onAddFiled = () => {
-    let QuesAy = this.state.myQuestions;
-    QuesAy.push({ type: "" });
-    this.setState({ myQuestions: QuesAy });
-  };
-
-  deleteQuestions = (index) => {
-    var QuesAy =
-      this.state.myQuestions?.length > 0 &&
-      this.state.myQuestions.filter((data, index1) => index1 !== index);
-    this.setState({ myQuestions: QuesAy });
-  };
-
-  handleSubmit = () => {
-    var myQuestions = this.state.AllQuestions;
-    myQuestions = [...myQuestions, ...this.state.myQuestions];
-    if (this.state.perticular_id) {
-      axios
-        .put(
-          sitedata.data.path +
-            "/questionaire/Question/" +
-            this.state.perticular_id,
-          {
-            questions: [...myQuestions],
-          },
-          commonHeaderToken()
-        )
-        .then((responce) => {
-          // this.setState({
-          //     // myQuestions: {},
-          //   });
-          this.getAllQuestions();
+    //Delete the perticular question confirmation box
+    removeQuestions = (status, perticular_id) => {
+        this.setState({ message: null });
+        confirmAlert({
+            customUI: ({ onClose }) => {
+                return (
+                    <div
+                        className={
+                            this.props.settings &&
+                                this.props.settings.setting &&
+                                this.props.settings.setting.mode &&
+                                this.props.settings.setting.mode === "dark"
+                                ? "dark-confirm react-confirm-alert-body"
+                                : "react-confirm-alert-body"
+                        }
+                    >
+                        {status && status === "remove" ? (
+                            <h1>Remove the Question ?</h1>
+                        ) : (
+                            <h1>Remove the Question ?</h1>
+                        )}
+                        <p>Are you sure to remove this Question?</p>
+                        <div className="react-confirm-alert-button-group">
+                            <button onClick={onClose}>No</button>
+                            <button
+                                onClick={() => {
+                                    this.deleteClickQuestion(status, perticular_id);
+                                    onClose();
+                                }}
+                            >
+                                Yes
+                            </button>
+                        </div>
+                    </div>
+                );
+            },
         });
-    } else {
-      axios
-        .post(
-          sitedata.data.path + "/questionaire/AddQuestionaire",
-          {
-            house_id: this.props?.House?.value,
-            house_name: this.props?.House?.label,
-            questions: myQuestions,
-          },
-          // commonHeader(this.props.stateLoginValueAim.token)
-          commonHeaderToken()
-        )
-        .then((responce) => {
-          this.setState({ myQuestions: [{}] });
-          this.getAllQuestions();
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-    }
-  };
+    };
 
   // For getting the Question and implement Pagination
   getAllQuestions = () => {
@@ -275,7 +355,7 @@ class Index extends Component {
         <Grid className="homeBgIner">
           <Grid container direction="row">
             <Grid item xs={12} md={12}>
-                {console.log('this.props?.House?.label', this.props?.House?.label)}
+                
               {/* Mobile menu */}
               <LeftMenuMobile isNotShow={true} currentPage="chat" />
               <Grid container direction="row">
@@ -608,95 +688,106 @@ class Index extends Component {
                                             </Grid>
                                         </Grid> */}
 
-                    {/* service price content */}
-                    <Grid className="srvcTable3">
-                      <Table>
-                        <Thead>
-                          <Tr>
-                            <Th>Type</Th>
-                            <Th>Question</Th>
-                            <Th>Options</Th>
-                            <Th></Th>
-                          </Tr>
-                        </Thead>
-                        <Tbody>
-                          {questions_data?.length > 0 &&
-                            questions_data.map((data, index) => (
-                              <>
-                                <Tr>
-                                  <Td>
-                                    <label>{data.type}</label>
-                                  </Td>
-                                  <Td>
-                                    <label>{data.question}</label>
-                                  </Td>
-                                  {/* <Td>{data.options?.join(', ') }</Td> */}
-                                  <Td>
-                                    {data.options
-                                      ? data.options?.join(", ")
-                                      : "-"}
-                                  </Td>
-                                  {/* <Td className="srvcDots"> */}
-                                  <Td className="presEditDot scndOptionIner">
-                                    <a className="openScndhrf">
-                                      <Button>
-                                        <img
-                                          src={require("assets/images/three_dots_t.png")}
-                                          alt=""
-                                          title=""
-                                          className="openScnd"
-                                        />
-                                      </Button>
-                                      <ul>
-                                        <li>
-                                          <a
-                                            onClick={() => {
-                                              this.editQuestion(data, data._id);
-                                            }}
-                                          >
-                                            <img
-                                              src={require("assets/images/details.svg")}
-                                              alt=""
-                                              title=""
-                                            />
-                                            Edit Question
-                                          </a>
-                                        </li>
-                                        {data.status !== "remove" && (
-                                          <li
-                                            onClick={() => {
-                                              this.removeQuestions(
-                                                "remove",
-                                                data._id
-                                              );
-                                            }}
-                                          >
-                                            <a>
-                                              <img
-                                                src={require("assets/images/cancel-request.svg")}
-                                                alt=""
-                                                title=""
-                                              />
-                                              Delete Question
-                                            </a>
-                                          </li>
-                                        )}
-                                      </ul>
-                                    </a>
-                                  </Td>
-                                </Tr>
-                              </>
-                            ))}
-                        </Tbody>
-                      </Table>
-                      <Grid className="tablePagNum">
-                        <Grid container direction="row">
-                          <Grid item xs={12} md={6}>
-                            <Grid className="totalOutOff">
-                              <a>
-                                {this.state.currentPage} of{" "}
-                                {this.state.totalPage}
-                              </a>
+                                        {/* service price content */}
+                                        <Grid className="srvcTable3">
+                                            <Table>
+                                                <Thead>
+                                                    <Tr>
+                                                        <Th>Type</Th>
+                                                        <Th>Question</Th>
+                                                        <Th>Options</Th>
+                                                        <Th></Th>
+                                                    </Tr>
+                                                </Thead>
+                                                <Tbody>
+
+                                                    {questions_data?.length > 0 && questions_data.map((data, index) => (
+
+                                                        <>
+                                                            <Tr>
+                                                                <Td>
+                                                                    <label>{data.type}</label>
+                                                                </Td>
+                                                                <Td>
+                                                                    <label>{data.question}</label>
+                                                                </Td>
+                                                                {/* <Td>{data.options?.join(', ') }</Td> */}
+                                                                <Td>{data.options ? data.options?.join(', ') : '-'}</Td>
+                                                                {/* <Td className="srvcDots"> */}
+                                                                <Td className="presEditDot scndOptionIner">
+                                                                    <a className="openScndhrf">
+                                                                        <Button>
+                                                                            <img
+                                                                                src={require("assets/images/three_dots_t.png")}
+                                                                                alt=""
+                                                                                title=""
+                                                                                className="openScnd"
+                                                                            />
+                                                                        </Button>
+                                                                        <ul>
+                                                                            <li>
+                                                                                {/* {console.log('data._id', data._id, data)} */}
+                                                                                <a
+                                                                                    onClick={() => {
+                                                                                        this.editQuestion(data, data._id);
+                                                                                    }}
+                                                                                >
+                                                                                    <img
+                                                                                        src={require("assets/images/details.svg")}
+                                                                                        alt=""
+                                                                                        title=""
+                                                                                    />
+                                                                                    Edit Question
+                                                                                </a>
+                                                                            </li>
+                                                                            {data.status !== "remove" && (
+                                                                                <li
+                                                                                    onClick={() => {
+                                                                                        this.removeQuestions("remove", data._id);
+                                                                                    }}
+                                                                                >
+                                                                                    <a>
+                                                                                        <img
+                                                                                            src={require("assets/images/cancel-request.svg")}
+                                                                                            alt=""
+                                                                                            title=""
+                                                                                        />
+                                                                                        Delete Question
+                                                                                    </a>
+                                                                                </li>
+                                                                            )}
+                                                                        </ul>
+                                                                    </a>
+                                                                </Td>
+                                                            </Tr>
+                                                        </>
+                                                    ))}
+                                                </Tbody>
+                                            </Table>
+                                            <Grid className="tablePagNum">
+                                                <Grid container direction="row">
+                                                    <Grid item xs={12} md={6}>
+                                                        <Grid className="totalOutOff">
+                                                            <a>
+                                                                {this.state.currentPage} of {this.state.totalPage}
+                                                            </a>
+                                                        </Grid>
+                                                    </Grid>
+                                                    <Grid item xs={12} md={6}>
+                                                        {this.state.totalPage > 1 && (
+                                                            <Grid className="prevNxtpag">
+
+                                                                <Pagination totalPage={this.state.totalPage} currentPage={this.state.currentPage} pages={this.state.pages} onChangePage={(page) => { this.onChangePage(page) }} />
+                                                            </Grid>
+                                                        )}
+                                                    </Grid>
+                                                </Grid>
+                                            </Grid>
+                                        </Grid>
+                                        {/* end of service price content */}
+                                    </Grid>
+                                </Grid>
+                                {/* End of Right Section */}
                             </Grid>
                           </Grid>
                           <Grid item xs={12} md={6}>
@@ -716,15 +807,8 @@ class Index extends Component {
                         </Grid>
                       </Grid>
                     </Grid>
-                    {/* end of service price content */}
-                  </Grid>
-                </Grid>
-                {/* End of Right Section */}
-              </Grid>
-            </Grid>
-          </Grid>
-        </Grid>
-      </Grid>
+                   
+               
     );
   }
 }
