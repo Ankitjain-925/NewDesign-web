@@ -7,7 +7,7 @@ import LeftMenuMobile from "Screens/Components/Menus/VirtualHospitalMenu/mobile"
 import VHfield from "Screens/Components/VirtualHospitalComponents/VHfield/index";
 import Modal from '@material-ui/core/Modal';
 import axios from "axios";
-import { commonHeader } from "component/CommonHeader/index"
+import { commonHeaderToken } from "component/CommonHeader/index"
 import sitedata from "sitedata";
 import { confirmAlert } from "react-confirm-alert";
 import Pagination from "Screens/Components/Pagination/index";
@@ -34,7 +34,8 @@ class Index extends Component {
             myQuestions: [{}],
             option: this.props.option,
             questions_data: [],
-            AllQuestions: []
+            AllQuestions: [],
+            perticular_id: false
         }
     }
 
@@ -54,7 +55,6 @@ class Index extends Component {
 
     //for choosing select field value 
     updateEntryState = (e, index) => {
-        console.log("e", e)
         var QuesAy = this.state.myQuestions;
         QuesAy[index]['type'] = e.value;
         this.setState({ myQuestions: QuesAy }, () => {
@@ -97,42 +97,49 @@ class Index extends Component {
     };
 
     handleSubmit = () => {
-        console.log("question", this.state.updateTrack);
-        // if (this.state.updateTrack._id) {
-        //     axios
-        //         .put(
-        //             sitedata.data.path + "/vh/AddService/" + this.state.updateTrack._id,
-        //             {
-        //                 question: this.state.updateTrack.question,
-        //                 description: this.state.updateTrack.description,
-        //                 price: this.state.updateTrack.price,
-        //             },
-        //            commonHeader(this.props.stateLoginValueAim.token)
-        //         )
-        //         .then((responce) => {
-        //             this.setState({
-        //                 updateTrack: {},
-        //             });
-        //             this.getAllQuestions();
-        //         })
-        // }
-        // else {
-        axios
-            .post(
-                sitedata.data.path + "/questionaire/AddQuestionaire",
-                {
-                    house_id: "600c15c2c983431790f904c3-1627046889451",
-                    house_name: "House-2",
-                    questions: this.state.myQuestions
-                },
-               commonHeader(this.props.stateLoginValueAim.token)
-            )
-            .then((responce) => {
-                this.getAllQuestions();
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
+        var myQuestions = this.state.AllQuestions;
+        console.log('myQuestions', this.state.perticular_id)
+        myQuestions = [...myQuestions, ...this.state.myQuestions]
+        if (this.state.perticular_id) {
+            console.log('on second time add')
+            axios
+                .put(
+                    sitedata.data.path + "/questionaire/Question/" + this.state.perticular_id,
+                    {
+                        questions: [...myQuestions]
+                    },
+                    commonHeaderToken()
+                )
+                .then((responce) => {
+                    // this.setState({
+                    //     // myQuestions: {},
+                    //   });
+                    this.getAllQuestions();
+                })
+        }
+
+        else {
+            console.log('heeerrrrrrr')
+            axios
+                .post(
+                    sitedata.data.path + "/questionaire/AddQuestionaire",
+                    {
+                        house_id: "600c15c2c983431790f904c3-1627046889451",
+                        house_name: "House-2",
+                        questions: myQuestions
+                    },
+                    // commonHeader(this.props.stateLoginValueAim.token)
+                    commonHeaderToken()
+                )
+                .then((responce) => {
+                    this.setState({ myQuestions: [{}] })
+                    this.getAllQuestions();
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+
+        }
     }
 
     // For getting the Question and implement Pagination
@@ -140,18 +147,21 @@ class Index extends Component {
         axios
             .get(
                 sitedata.data.path + "/questionaire/GetQuestionaire/600c15c2c983431790f904c3-1627046889451",
-               commonHeader(this.props.stateLoginValueAim.token)
+                // commonHeader(this.props.stateLoginValueAim.token)
+                commonHeaderToken()
             )
             .then((response) => {
-                var totalPage = Math.ceil(response.data.data.length / 10);
+                var totalPage = Math.ceil(response.data.data?.[0]?.questions?.length / 10);
                 this.setState(
                     {
-                        AllQuestions: response.data.data,
+                        AllQuestions: response.data.data?.[0]?.questions || [],
                         loaderImage: false,
                         totalPage: totalPage,
                         currentPage: 1,
+                        perticular_id: response.data.data?.[0]?._id ? response.data.data?.[0]?._id : false
                     },
                     () => {
+                        console.log('perticular_id', this.state.perticular_id)
                         if (totalPage > 1) {
                             var pages = [];
                             for (var i = 1; i <= this.state.totalPage; i++) {
@@ -170,7 +180,7 @@ class Index extends Component {
     };
 
     //Delete the perticular question confirmation box
-    removeQuestions = (status, id) => {
+    removeQuestions = (status, perticular_id) => {
         this.setState({ message: null });
         confirmAlert({
             customUI: ({ onClose }) => {
@@ -195,7 +205,7 @@ class Index extends Component {
                             <button onClick={onClose}>No</button>
                             <button
                                 onClick={() => {
-                                    this.deleteClickQuestion(status, id);
+                                    this.deleteClickQuestion(status, perticular_id);
                                     onClose();
                                 }}
                             >
@@ -207,16 +217,28 @@ class Index extends Component {
             },
         });
     };
-    deleteClickQuestion(status, id) {
+
+    editQuestion = (data, _id) => {
+        console.log("id",_id)
+        this.setState({ myQuestions: this.state.questions_data, openQues: true });
+    };
+
+    deleteClickQuestion(status, perticular_id) {
+        const newQuestion = [...this.state.questions_data];
+        var QuesAy = newQuestion?.length > 0 && newQuestion.filter((data) => data._id !== perticular_id);
+
+        // this.state.AllQuestions.split(perticular_id)
         axios
-            .delete(
-                sitedata.data.path + "/vh/AddService/" + id,
-               commonHeader(this.props.stateLoginValueAim.token)
-            )
-            .then((response) => {
-                this.getAllQuestions();
-            })
-            .catch((error) => { });
+        .put(
+            sitedata.data.path + "/questionaire/Question/" + this.state.perticular_id,
+            {
+                questions: QuesAy
+            },
+            commonHeaderToken()
+        )
+        .then((responce) => {
+            this.getAllQuestions();
+        })
     }
 
     onChangePage = (pageNumber) => {
@@ -497,8 +519,6 @@ class Index extends Component {
                                                     {questions_data?.length > 0 && questions_data.map((data, index) => (
 
                                                         <>
-                                                            {console.log("data", data)}
-                                                            {console.log("datatype", data.type)}
                                                             <Tr>
                                                                 <Td>
                                                                     <label>{data.type}</label>
@@ -506,7 +526,8 @@ class Index extends Component {
                                                                 <Td>
                                                                     <label>{data.question}</label>
                                                                 </Td>
-                                                                <Td>{data.options}</Td>
+                                                                {/* <Td>{data.options?.join(', ') }</Td> */}
+                                                                <Td>{data.options ? data.options?.join(', ') : '-'}</Td>
                                                                 {/* <Td className="srvcDots"> */}
                                                                 <Td className="presEditDot scndOptionIner">
                                                                     <a className="openScndhrf">
@@ -520,9 +541,10 @@ class Index extends Component {
                                                                         </Button>
                                                                         <ul>
                                                                             <li>
+                                                                                {console.log('data._id', data._id, data)}
                                                                                 <a
                                                                                     onClick={() => {
-                                                                                        this.editQuestion(data);
+                                                                                        this.editQuestion(data, data._id);
                                                                                     }}
                                                                                 >
                                                                                     <img
