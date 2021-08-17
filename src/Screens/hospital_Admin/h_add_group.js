@@ -355,6 +355,7 @@ class Index extends Component {
                                   label="Enter Houses"
                                   name="house_name"
                                   comesFrom="admin"
+                                  institute_id={this.props.stateLoginValueAim?.user?.institute_id?.length>0 ?  this.props.stateLoginValueAim?.user?.institute_id[0]:''}
                                   onChange={(e) => this.updateEntryState3(e)}
                                 />
                               </Grid>

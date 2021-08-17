@@ -5061,6 +5061,9 @@ a.recodBlck:hover {
 .roomName label {
     margin-bottom: 0px;
 }
+.roomName-h label {
+    margin-bottom: 0px;
+}
 .roomRmv {
     text-align: right;
 }
@@ -5078,6 +5081,9 @@ a.recodBlck:hover {
     cursor: pointer;
 }
 .roomName .MuiGrid-container {
+    margin-bottom: 5px;
+}
+.roomName-h .MuiGrid-container {
     margin-bottom: 5px;
 }
 .add_a_room a {
@@ -5586,6 +5592,7 @@ button.downloadPDF:hover {
 }
 .newServc {
     text-align: right;
+    margin-bottom: 15px;
 }
 .newServc button {
     color: #FFFFFF !important;
@@ -11148,11 +11155,12 @@ button.crdoLghtBlu2 {
     color: #f7f7f7;
 }
 .darkTheme .rrSysto div {
+    color: #babbbb;
     background-color: #192020;
 }
-.darkTheme .rrSysto div:last-child div {
+/* .darkTheme .rrSysto div:last-child div {
     border-color: transparent;
-}
+} */
 .darkTheme .rrSysto {
     color: #f7f7f7;
 }
@@ -11298,4 +11306,7 @@ button.crdoLghtBlu2 {
 }
 .darkTheme .flowProfil p, .darkTheme .flowProfil label {
     color: #7F8383 !important;
+}
+.darkTheme .rrSysto div .css-2613qy-menu{
+    background: #0c1010 !important;
 }
