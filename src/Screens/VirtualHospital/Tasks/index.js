@@ -20,14 +20,17 @@ import { LoginReducerAim } from "Screens/Login/actions";
 import { Settings } from "Screens/Login/setting";
 import axios from "axios";
 import { LanguageFetchReducer } from "Screens/actions";
+import FileUploader from "Screens/Components/JournalFileUploader/index";
 import sitedata from "sitedata";
 import {
     commonHeader,
     commonCometDelHeader,
-  } from "component/CommonHeader/index";
+} from "component/CommonHeader/index";
 import { authy } from 'Screens/Login/authy.js';
 import { houseSelect } from "../Institutes/selecthouseaction";
 import { Redirect, Route } from 'react-router-dom';
+import VHfield from "Screens/Components/VirtualHospitalComponents/VHfield/index";
+import TextField from '@material-ui/core/TextField';
 
 var new_data = [
     'https://images.unsplash.com/photo-1541963463532-d68292c34b19?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8Mnx8fGVufDB8fHx8&w=1000&q=80',
@@ -110,12 +113,12 @@ class Index extends Component {
         return (
             <Grid className={
                 this.props.settings &&
-                this.props.settings.setting &&
-                this.props.settings.setting.mode &&
-                this.props.settings.setting.mode === "dark"
-                  ? "homeBg darkTheme"
-                  : "homeBg"
-              }>
+                    this.props.settings.setting &&
+                    this.props.settings.setting.mode &&
+                    this.props.settings.setting.mode === "dark"
+                    ? "homeBg darkTheme"
+                    : "homeBg"
+            }>
                 <Grid className="homeBgIner">
                     <Grid container direction="row">
                         <Grid item xs={12} md={12}>
@@ -171,16 +174,16 @@ class Index extends Component {
                                                         </Grid>
                                                     </Grid>
                                                     {/* Model setup */}
-                                                    <Modal 
-                                                    className={
-                                                        this.props.settings &&
-                                                        this.props.settings.setting &&
-                                                        this.props.settings.setting.mode &&
-                                                        this.props.settings.setting.mode === "dark"
-                                                          ? "darkTheme"
-                                                          : ""
-                                                      }
-                                                    open={this.state.openRvw} onClose={this.handleCloseRvw}>
+                                                    <Modal
+                                                        className={
+                                                            this.props.settings &&
+                                                                this.props.settings.setting &&
+                                                                this.props.settings.setting.mode &&
+                                                                this.props.settings.setting.mode === "dark"
+                                                                ? "darkTheme"
+                                                                : ""
+                                                        }
+                                                        open={this.state.openRvw} onClose={this.handleCloseRvw}>
                                                         <Grid className="rvewFiles">
                                                             <Grid className="rvewFilesinner">
                                                                 <Grid container direction="row">
@@ -192,40 +195,87 @@ class Index extends Component {
                                                                 </Grid>
                                                                 <Grid container direction="row">
                                                                     <Grid item xs={12} md={12}>
-                                                                        <Grid className="asignUpr">
-                                                                            <Grid className="asignLft">
+                                                                        {/* <Grid className="asignUpr">
+                                                                            <Grid className="asignLft"> */}
 
+                                                                        <Grid className="enterSpclUpr">
+                                                                            <Grid className="enterSpclMain">
+                                                                                <Grid className="enterSpcl">
 
-                                                                                <Assigned
-                                                                                    totalurl={new_data}
-                                                                                />
+                                                                                    <Grid>
+                                                                                        <VHfield
+                                                                                            label="Task name"
+                                                                                            name="task_name"
+                                                                                            placeholder="Enter task name"
+                                                                                            onChange={(e) =>
+                                                                                                this.updateEntryState1(e)
+                                                                                            }
+                                                                                        // value={this.state.updateTrack.title}
+                                                                                        />
+                                                                                    </Grid>
 
+                                                                                    <Grid>
+                                                                                        <VHfield
+                                                                                            label="Case id"
+                                                                                            name="case_id"
+                                                                                            placeholder="Enter case id"
+                                                                                            onChange={(e) =>
+                                                                                                this.updateEntryState1(e)
+                                                                                            }
+                                                                                        // value={this.state.updateTrack.title}
+                                                                                        />
+                                                                                    </Grid>
 
-
-
-                                                                                {/* <Grid><label>Assigned to</label></Grid>
-                                                                                <Grid>
-                                                                                    <a><img src={require('assets/virtual_images/dr1.jpg')} alt="" title="" /></a>
-                                                                                    <a><img src={require('assets/virtual_images/dr2.jpg')} alt="" title="" /></a>
-                                                                                    <a>+1</a>
-                                                                                </Grid> */}
-                                                                            </Grid>
-                                                                            {/* <Grid className="asignRghtUpr">
-                                                                                <Grid><label>Patient</label></Grid>
-                                                                                <Grid className="asignRght">
-                                                                                    <Grid><a><img src={require('assets/virtual_images/dr1.jpg')} alt="" title="" /></a></Grid>
-                                                                                    <Grid><span>Benito Noboa</span><p>P_ukd832kd2</p></Grid>
+                                                                                    <Grid>
+                                                                                        <TextField
+                                                                                            label="Description"
+                                                                                            // id='outlined-email-input'
+                                                                                            // helperText="Description"
+                                                                                            // margin='normal'
+                                                                                            variant='outlined'
+                                                                                            type='email'
+                                                                                            required
+                                                                                            // value="{email}"
+                                                                                            //    onChange={(e) => setEmail(e.target.value)}
+                                                                                            fullWidth
+                                                                                        />
+                                                                                    </Grid>
+                                                                                    <Grid className="attchFile">
+                                                                                        <Grid>
+                                                                                            <label>Attachments</label>
+                                                                                        </Grid>
+                                                                                        <FileUploader
+                                                                                            cur_one={this.props.cur_one}
+                                                                                            attachfile={
+                                                                                                this.state.updateTrack && this.state.updateTrack.attachfile
+                                                                                                    ? this.state.updateTrack.attachfile
+                                                                                                    : []
+                                                                                            }
+                                                                                            name="UploadTrackImageMulti"
+                                                                                            comesFrom="journal"
+                                                                                            isMulti={true}
+                                                                                            fileUpload={this.props.FileAttachMulti}
+                                                                                        />
+                                                                                    </Grid>
                                                                                 </Grid>
-                                                                            </Grid> */}
+                                                                            </Grid>
+                                                                        </Grid>
 
-                                                                            < FlowPatientView
+
+
+                                                                        {/* <Assigned
+                                                                                    totalurl={new_data}
+                                                                        /> */}
+                                                                        {/* </Grid> */}
+                                                                        {/*  < FlowPatientView
                                                                                 label="Patient"
                                                                                 url='https://images.unsplash.com/photo-1541963463532-d68292c34b19?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8Mnx8fGVufDB8fHx8&w=1000&q=80'
                                                                                 first_name="Benito"
                                                                                 last_name="Noboa"
                                                                                 profile_id="P_ukd832kd2"
-                                                                            />
-                                                                        </Grid>
+                                                                            /> */}
+
+                                                                        {/* </Grid> */}
                                                                     </Grid>
                                                                 </Grid>
                                                                 <Grid className="makeCmpt">
@@ -336,14 +386,7 @@ class Index extends Component {
                                                                                     </>
                                                                                 ))}
 
-                                                                                {/* <Grid className="cmntMsgs">
-                                                                                    <Grid><img src={require('assets/virtual_images/dr1.jpg')} alt="" title="" /></Grid>
-                                                                                    <Grid>
-                                                                                        <Grid><label>Mark Anderson M.D.</label><span>7 Feb at 12:38</span></Grid>
-                                                                                        <Grid className="cmntMsgsCntnt"><p>I’m leaving a short comment right here</p></Grid>
-                                                                                        <Grid><Button>Edit</Button><Button>Delete</Button></Grid>
-                                                                                    </Grid>
-                                                                                </Grid> */}
+
                                                                             </Grid>
                                                                             {/* <Grid className="cmntIner cmntInerBrdr">
                                                                                 <Grid className="cmntMsgs">
@@ -711,22 +754,22 @@ class Index extends Component {
 }
 const mapStateToProps = (state) => {
     const { stateLoginValueAim, loadingaIndicatoranswerdetail } =
-      state.LoginReducerAim;
+        state.LoginReducerAim;
     const { stateLanguageType } = state.LanguageReducer;
     const { House } = state.houseSelect
     const { settings } = state.Settings;
     const { verifyCode } = state.authy;
     return {
-      stateLanguageType,
-      stateLoginValueAim,
-      loadingaIndicatoranswerdetail,
-      House,
-      settings,
-      verifyCode,
+        stateLanguageType,
+        stateLoginValueAim,
+        loadingaIndicatoranswerdetail,
+        House,
+        settings,
+        verifyCode,
     };
-  };
-  export default withRouter(
-    connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer, Settings,authy, houseSelect })(
-      Index
+};
+export default withRouter(
+    connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer, Settings, authy, houseSelect })(
+        Index
     )
-  );
+);
