@@ -308,7 +308,14 @@ class Index extends Component {
                     <Modal
                       open={this.state.openGroup}
                       onClose={this.closeInstitute}
-                      className="addSpeclModel darkTheme"
+                      className={
+                        this.props.settings &&
+                        this.props.settings.setting &&
+                        this.props.settings.setting.mode &&
+                        this.props.settings.setting.mode === "dark"
+                          ? "addSpeclModel darkTheme"
+                          : "addSpeclModel"
+                      }
                     >
                       <Grid className="addSpeclContnt">
                         <Grid className="addSpeclLbl">
@@ -348,6 +355,7 @@ class Index extends Component {
                                   label="Enter Houses"
                                   name="house_name"
                                   comesFrom="admin"
+                                  institute_id={this.props.stateLoginValueAim?.user?.institute_id?.length>0 ?  this.props.stateLoginValueAim?.user?.institute_id[0]:''}
                                   onChange={(e) => this.updateEntryState3(e)}
                                 />
                               </Grid>
