@@ -43,7 +43,9 @@ class Index extends Component {
             option: this.props.option,
             questions_data: [],
             AllQuestions: [],
-            perticular_id: false
+            perticular_id: false,
+            editQuestions:{},
+            editQues: false
         }
     }
 
@@ -61,6 +63,9 @@ class Index extends Component {
         this.setState({ openQues: false });
     }
 
+    handleEditCloseQues = () => {
+      this.setState({ editQues: false });
+  }
     //for choosing select field value 
     updateEntryState = (e, index) => {
         var QuesAy = this.state.myQuestions;
@@ -112,14 +117,14 @@ class Index extends Component {
                 .put(
                     sitedata.data.path + "/questionaire/Question/" + this.state.perticular_id,
                     {
-                        questions: [...myQuestions]
+                        questions: myQuestions
                     },
                     commonHeaderToken()
                 )
                
                 .then((responce) => {
                     this.setState({
-                        myQuestions: {},
+                        myQuestions: [{}],
                       });
                     this.getAllQuestions();
                 })
@@ -129,8 +134,8 @@ class Index extends Component {
                 .post(
                     sitedata.data.path + "/questionaire/AddQuestionaire",
                     {
-                        house_id: "600c15c2c983431790f904c3-1627046889451",
-                        house_name: "House-2",
+                        house_id: this.props?.House?.value,
+                        house_name: this.props?.House?.label,
                         questions: myQuestions
                     },
                     // commonHeader(this.props.stateLoginValueAim.token)
@@ -147,82 +152,6 @@ class Index extends Component {
         }
     }
 
-    // For getting the Question and implement Pagination
-    getAllQuestions = () => {
-        axios
-            .get(
-                sitedata.data.path + "/questionaire/GetQuestionaire/600c15c2c983431790f904c3-1627046889451",
-                // commonHeader(this.props.stateLoginValueAim.token)
-                commonHeaderToken()
-            )
-            .then((response) => {
-                var totalPage = Math.ceil(response.data.data?.[0]?.questions?.length / 10);
-                this.setState(
-                    {
-                        AllQuestions: response.data.data?.[0]?.questions || [],
-                        loaderImage: false,
-                        totalPage: totalPage,
-                        currentPage: 1,
-                        perticular_id: response.data.data?.[0]?._id ? response.data.data?.[0]?._id : false
-                    },
-                    () => {
-                        // console.log('perticular_id', this.state.perticular_id)
-                        if (totalPage > 1) {
-                            var pages = [];
-                            for (var i = 1; i <= this.state.totalPage; i++) {
-                                pages.push(i);
-                            }
-                            this.setState({
-                                questions_data: this.state.AllQuestions.slice(0, 10),
-                                pages: pages,
-                            });
-                        } else {
-                            this.setState({ questions_data: this.state.AllQuestions });
-                        }
-                    }
-                );
-            });
-    };
-
-    //Delete the perticular question confirmation box
-    removeQuestions = (status, perticular_id) => {
-        this.setState({ message: null });
-        confirmAlert({
-            customUI: ({ onClose }) => {
-                return (
-                    <div
-                        className={
-                            this.props.settings &&
-                                this.props.settings.setting &&
-                                this.props.settings.setting.mode &&
-                                this.props.settings.setting.mode === "dark"
-                                ? "dark-confirm react-confirm-alert-body"
-                                : "react-confirm-alert-body"
-                        }
-                    >
-                        {status && status === "remove" ? (
-                            <h1>Remove the Question ?</h1>
-                        ) : (
-                            <h1>Remove the Question ?</h1>
-                        )}
-                        <p>Are you sure to remove this Question?</p>
-                        <div className="react-confirm-alert-button-group">
-                            <button onClick={onClose}>No</button>
-                            <button
-                                onClick={() => {
-                                    this.deleteClickQuestion(status, perticular_id);
-                                    onClose();
-                                }}
-                            >
-                                Yes
-                            </button>
-                        </div>
-                    </div>
-                );
-            },
-        });
-    };
-
   // For getting the Question and implement Pagination
   getAllQuestions = () => {
     axios
@@ -238,6 +167,7 @@ class Index extends Component {
         );
         this.setState(
           {
+            myQuestions: [{}],
             AllQuestions: response.data.data?.[0]?.questions || [],
             loaderImage: false,
             totalPage: totalPage,
@@ -304,13 +234,12 @@ class Index extends Component {
   };
 
   editQuestion = (data, _id) => {
-    this.setState({ myQuestions: this.state.questions_data, openQues: true });
+    this.setState({ editQuestions: data, editQues: true });
   };
 
   deleteClickQuestion(status, perticular_id) {
     const newQuestion = [...this.state.questions_data];
-    var QuesAy =
-      newQuestion?.length > 0 &&
+    var QuesAy = newQuestion?.length > 0 &&
       newQuestion.filter((data) => data._id !== perticular_id);
 
     // this.state.AllQuestions.split(perticular_id)
@@ -325,6 +254,7 @@ class Index extends Component {
         commonHeaderToken()
       )
       .then((responce) => {
+        
         this.getAllQuestions();
       });
   }
@@ -651,6 +581,105 @@ class Index extends Component {
                               <Grid className="infoSub1">
                                 <a onClick={this.handleCloseQues}>
                                   <Button onClick={() => this.handleSubmit()}>
+                                    Submit
+                                  </Button>
+                                </a>
+                              </Grid>
+                            </Grid>
+                          </Modal>
+
+                          <Modal
+                            open={this.state.editQues}
+                            onClose={this.handleEditCloseQues}
+                            className={
+                              this.props.settings &&
+                              this.props.settings.setting &&
+                              this.props.settings.setting.mode &&
+                              this.props.settings.setting.mode === "dark"
+                                ? "addSpeclModel darkTheme"
+                                : "addSpeclModel"
+                            }
+                          >
+                            <Grid className="addSpeclContnt">
+                              <Grid className="addSpeclLbl">
+                                <Grid className="nwDiaCloseBtn">
+                                  <a onClick={this.handleEditCloseQues}>
+                                    <img
+                                      src={require("assets/images/close-search.svg")}
+                                      alt=""
+                                      title=""
+                                    />
+                                  </a>
+                                </Grid>
+                                <Grid>
+                                  <label>Edit Questionnaire</label>
+                                </Grid>
+                              </Grid>
+                            
+                                    <Grid>
+                                      <Grid className="cnfrmDiaMain questionborder">
+                                        <Grid className="fillDia">
+                                          <Grid>
+                                            <SelectField
+                                              isSearchable={true}
+                                              name="type"
+                                              label="Question Type"
+                                              option={options}
+                                              onChange={(e) =>
+                                                this.editQuestionState(e)
+                                              }
+                                              value={options.filter((data)=> data.value === this.state.editQuestions?.type)?.[0]}
+                                            />
+                                          </Grid>
+                                          {this.state.editQuestions?.type ==='options' && (
+                                            <>
+                                              <Grid>
+                                                <VHfield
+                                                  label="Question"
+                                                  name="question"
+                                                  placeholder="Enter question"
+                                                  onChange={(e) =>
+                                                    this.editQuestionState(e)
+                                                  }
+                                                  value={this.state.editQuestions?.question}
+                                                />
+                                              </Grid>
+
+                                              <Grid>
+                                                <AddHouses
+                                                  label="Options"
+                                                  name="options"
+                                                  placeholder="Enter option"
+                                                  onChange={(e) =>
+                                                    this.editQuestionState(e)
+                                                  }
+                                                  roomArray={this.state.editQuestions.options && this.state.editQuestions.options}
+                                                />
+                                                {console.log('editQuestions', this.state.editQuestions.options)}
+                                              </Grid>
+                                            </>
+                                          )}
+                                          {this.state.editQuestions?.type ==='input' && (
+                                            <>
+                                              <Grid>
+                                                <VHfield
+                                                  label="Question"
+                                                  name="question"
+                                                  placeholder="Enter question"
+                                                  onChange={(e) =>
+                                                    this.editQuestionState(e)
+                                                  }
+                                                  roomArray={this.state.editQuestions?.question}
+                                                />
+                                              </Grid>
+                                            </>
+                                          )}
+                                        </Grid>
+                                      </Grid>
+                                    </Grid>
+                              <Grid className="infoSub1">
+                                <a onClick={this.handleEditCloseQues}>
+                                  <Button onClick={() => this.handleeditSubmit()}>
                                     Submit
                                   </Button>
                                 </a>

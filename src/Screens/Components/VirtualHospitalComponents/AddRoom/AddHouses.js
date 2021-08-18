@@ -53,17 +53,26 @@ class Index extends React.Component {
     render() {
         return (
             <Grid className="roomName-h">
+                {console.log('roomArray', this.props.roomArray)}
                 {this.state.timeArr && this.state.timeArr.length == 0 && (
                     <Grid container direction="row" alignItems="center" spacing={2}>
                         
                         <Grid item xs={10} md={10}>
                         <Grid><label>{this.state.label}</label></Grid>
+                        {this.props.comesFrom==="admin"? 
                             <input
                                 type="text" placeholder={this.state.placeholder}
                                 onChange={(e) => { this.onDataChange(e, 0) }}
                                 name={this.state.name}
                                 value={this.state.roomArray[0]?.house_name}
                             />
+                            : <input
+                                type="text" placeholder={this.state.placeholder}
+                                onChange={(e) => { this.onDataChange(e, 0) }}
+                                name={this.state.name}
+                                value={this.state.roomArray[0]}
+                            />
+                        }
                         </Grid>
                         <Grid item xs={2} md={2} className="roomRmv">
                             <a onClick={() => this.deleteRooms(0)}><img src={require('assets/virtual_images/bin.svg')} alt="" title="" /></a>
@@ -73,12 +82,20 @@ class Index extends React.Component {
                 {this.state.roomArray && this.state.roomArray.length > 0 && this.state.roomArray.map((data, index) => (
                     <Grid container direction="row" alignItems="center" spacing={2}>
                         <Grid item xs={10} md={10}>
+                        {this.props.comesFrom==="admin"?
                             <input
                                 type="text" placeholder={this.state.placeholder}
                                 name={this.state.name}
                                 onChange={(e) => this.onDataChange(e, index)}
                                 value={data.house_name}
                             />
+                            : <input
+                                type="text" placeholder={this.state.placeholder}
+                                onChange={(e) => { this.onDataChange(e, index) }}
+                                name={this.state.name}
+                                value={this.state.roomArray[index]}
+                            />
+                        }
                         </Grid>
                         
                         <Grid item xs={2} md={2} className="roomRmv">
