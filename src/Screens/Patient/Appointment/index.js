@@ -203,7 +203,6 @@ class Index extends Component {
           response.data.data.filter(
             (data) => data.status !== "cancel" && data.status !== "remove"
           );
-
         this.setState({
           upcomingAppointment: upcomingData,
           loaderImage: false,
@@ -1277,7 +1276,7 @@ class Index extends Component {
                       : "editBoxModel"
                   }
                 >
-                  <div className="alowLocAces">
+                  <div className="alowLocAces 11">
                     <div className="accessCourse">
                       <div className="handleAccessBtn">
                         <a onClick={this.handleCloseAllowLoc}>
@@ -1647,14 +1646,14 @@ class Index extends Component {
                 {/* End of Allow Location Access */}
                 <Grid item xs={12} md={3}>
                   {pastappointment && pastappointment == true ? (
-                    <Grid className="apointUpcom">
+                    <Grid className="apointUpcom 111">
                       <h4>{past_apointment}</h4>
                       {this.state.pastAppointment &&
                         this.state.pastAppointment.length > 0 &&
                         this.state.pastAppointment.map((apoint) => (
                           <Grid className="officeVst">
                             <Grid container direction="row">
-                              <Grid item xs={6} md={6} className="officeVstLft">
+                              <Grid item md={12} lg={6} className="officeVstLft">
                                 <label>
                                   {apoint.date &&
                                     getDate(
@@ -1666,19 +1665,10 @@ class Index extends Component {
                                   , {this.GetTime(apoint.start_time)}
                                 </label>
                               </Grid>
-                              <Grid
-                                item
-                                xs={6}
-                                md={6}
-                                className="officeVstRght"
-                              >
+                              <Grid item md={12} lg={6} className="officeVstRght">
                                 {apoint.appointment_type == "appointments" ? (
                                   <a>
-                                    <img
-                                      src={require("assets/images/office-visit.svg")}
-                                      alt=""
-                                      title=""
-                                    />{" "}
+                                    <img src={require("assets/images/office-visit.svg")} alt="" title="" />{" "}
                                     {apoint.custom_text ? apoint.custom_text : office_visit}{" "}
                                   </a>
                                 ) : apoint.appointment_type ==
@@ -1705,12 +1695,7 @@ class Index extends Component {
                             </Grid>
                             <Grid className="showSubject">
                               <Grid container direction="row">
-                                <Grid
-                                  item
-                                  xs={6}
-                                  md={6}
-                                  className="officeVstLft nuroDr"
-                                >
+                                <Grid item xs={12} md={12} lg={6} className="officeVstLft nuroDr">
                                   <h3>
                                     {apoint.docProfile &&
                                       apoint.docProfile.speciality &&
@@ -1753,7 +1738,7 @@ class Index extends Component {
                       </Grid>
                     </Grid>
                   ) : (
-                    <Grid className="apointUpcom">
+                    <Grid className="apointUpcom 222">
                       <h4>{upcming_apointment}</h4>
                       {this.state.upcomingAppointment &&
                         this.state.upcomingAppointment.length > 0 &&
@@ -1969,27 +1954,16 @@ class Index extends Component {
                           : "editBoxModel"
                       }
                     >
-                      <div className="alowLocAces">
+                      <div className="alowLocAces 22">
                         <div className="accessCourse">
                           <div className="handleAccessBtn">
                             <a onClick={this.handleCloseAllowAccess}>
-                              <img
-                                src={require("assets/images/close-search.svg")}
-                                alt=""
-                                title=""
-                              />
+                              <img src={require("assets/images/close-search.svg")} alt="" title="" />
                             </a>
                           </div>
-                          <Grid
-                            container
-                            direction="row"
-                            spacing={2}
-                            className="srchAccessLoc"
-                          >
+                          <Grid container direction="row" spacing={2} className="srchAccessLoc">
                             <Grid item xs={12} md={3}>
-                              <Grid>
-                                <label>{speciality}</label>
-                              </Grid>
+                              <Grid><label>{speciality}</label></Grid>
                               <Select
                                 value={selectedOption}
                                 onChange={this.handleChangeSelect}
@@ -1998,7 +1972,7 @@ class Index extends Component {
                                 className="sel_specialty"
                               />
                             </Grid>
-                            <Grid item xs={12} md={3} className="locat_srvc">
+                            <Grid item xs={12} md={4} className="locat_srvc">
                               <Grid>
                                 <label>{location_of_srvc}</label>
                               </Grid>
@@ -2032,7 +2006,7 @@ class Index extends Component {
                                 }
                               />
                             </Grid>
-                            <Grid item xs={12} md={4} className="apointType">
+                            <Grid item xs={12} md={3} className="apointType">
                               <Grid>
                                 <label>
                                   {appointment} {type}
@@ -2140,13 +2114,12 @@ class Index extends Component {
                             </div>
                           )}
                           {/* <div><a><img src={require('assets/images/location.png')} alt="" title="" /></a></div>
-                                                                            <h1>{allow_location_access}</h1>
-                                                                            <p>{this_way_can_instntly_list_of_specility}</p> */}
+                                                          <h1>{allow_location_access}</h1>
+                                                          <p>{this_way_can_instntly_list_of_specility}</p> */}
                         </div>
                         <div
                           style={{ textAlign: "center" }}
-                          className="arng_addEntrynw"
-                        >
+                          className="arng_addEntrynw">
                           <a onClick={this.handleAllowLoc}>{find_apointment}</a>
                         </div>
                       </div>
@@ -2156,15 +2129,10 @@ class Index extends Component {
                       <Grid className="getCalBnr">
                         {this.state.myEventsList &&
                           this.state.myEventsList.length > 0 && (
-                            <Calendar
-                              localizer={localizer}
-                              events={myEventsList}
-                              startAccessor="start"
-                              endAccessor="end"
-                              popup
-                              popupOffset={{ x: 30, y: 20 }}
-                              style={{ minHeight: 900 }}
-                              step={60}
+                            <Calendar localizer={localizer} events={myEventsList}
+                              startAccessor="start" endAccessor="end"
+                              popup popupOffset={{ x: 30, y: 20 }}
+                              style={{ minHeight: 900 }} step={60}
                               messages={{
                                 showMore: (total) => (
                                   <div
@@ -2187,9 +2155,9 @@ class Index extends Component {
                           )}
 
                         {/* <div ref={setPopperElement} style={styles.popper} {...attributes.popper}>
-                                                    Popper element
-                                                    <div ref={setArrowElement} style={styles.arrow} />
-                                                </div> */}
+                                Popper element
+                                <div ref={setArrowElement} style={styles.arrow} />
+                            </div> */}
                         {/* <img src={require('assets/images/uidoc.jpg')} alt="" title="" /> */}
                       </Grid>
                     </Grid>

@@ -410,14 +410,14 @@ class Index extends Component {
     return (
       <Grid container direction="row">
         {this.state.loaderImage && <Loader />}
-        <Grid item xs={12} md={9}>
+        <Grid item xs={12} md={11}>
           {/* Health Status */}
           <Grid className="healthStatus">
-            <Grid className="journalAdd">
+            <Grid className="">
               <Grid container direction="row">
-                <Grid item xs={11} md={11}>
+                <Grid item xs={11} md={11} className="emergency-head">
                   <Grid container direction="row">
-                    <Grid item xs={6} md={6}>
+                    <Grid item xs={6} md={6} >
                       {this.props.byUser === "patient" ? (
                         <h1>{ur_emrgancy_access}</h1>
                       ) : (
@@ -575,7 +575,7 @@ class Index extends Component {
                                 {item.email}
                               </a>
                             </Grid>
-                            <Grid>
+                            {item.language && item.language.length>0 && <Grid>
                               <a>
                                 <img
                                   src={require("assets//images/language.svg")}
@@ -584,7 +584,7 @@ class Index extends Component {
                                 />
                                 {item.language && item.language.join(", ")}
                               </a>
-                            </Grid>
+                            </Grid>}
                           </Grid>
                           <Grid className="neuroDises">
                             <Grid className="neuroGen">
@@ -622,28 +622,17 @@ class Index extends Component {
                   )}
                 </Grid>
               </Grid>
-
               <Grid item xs={12} md={4}>
                 <Grid className="docCntctMain">
                   <Grid className="docCntct">
                     <Grid container direction="row">
                       <Grid item xs={6} md={7} className="docCntctLft">
-                        <label>
-                          {emergency} {Contact}
-                        </label>
+                        <label>{emergency} {Contact}</label>
                       </Grid>
                       <Grid item xs={6} md={5} className="docCntctRght">
                         {this.props.byUser === "patient" && (
-                          <a
-                            onClick={() =>
-                              this.setState({ edit_contact: true })
-                            }
-                          >
-                            <img
-                              src={require("assets/images/edit.svg")}
-                              alt=""
-                              title=""
-                            />
+                          <a onClick={() => this.setState({ edit_contact: true }) }>
+                            <img src={require("assets/images/edit.svg")} alt="" title="" />
                           </a>
                         )}
                       </Grid>
