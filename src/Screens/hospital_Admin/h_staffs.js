@@ -26,7 +26,7 @@ import CreateAdminUser from "Screens/Components/CreateHospitalUser/index";
 import ViewDetail from "Screens/Components/ViewInformation/index";
 import Button from "@material-ui/core/Button";
 import Modal from "@material-ui/core/Modal";
-
+import AssignedHouse from "Screens/Components/VirtualHospitalComponents/AssignedHouse/index";
 import "./style.css";
 import {
   commonHeader,
@@ -298,7 +298,6 @@ class Index extends Component {
 
   SaveAssignHouse =()=>{
     var userid = this.state.current_user._id;
-    console.log('house', this.state.house,)
     this.setState({ loaderImage: true });
     axios
       .put(
@@ -431,6 +430,16 @@ class Index extends Component {
                     className="archvSrchInput"
                   >
                     <Grid item xs={12} md={12}>
+                    {this.state.assignedhouse && (
+                    <div className="success_message">
+                      House is assigned to admin staff
+                    </div>
+                  )}
+                    {this.state.deleteHouse && (
+                    <div className="success_message">
+                      House id deleted from the admin staff
+                    </div>
+                  )}
                       {" "}
                       <input
                         onChange={this.search_user}
@@ -596,7 +605,18 @@ class Index extends Component {
                       </Grid>
                     </Grid>
                   </Grid>
-                  <Modal
+                  <AssignedHouse
+                    openHouse={this.state.openHouse}
+                    currentHouses={this.state.currentHouses}
+                    Housesoptions={this.state.Housesoptions}
+                    current_user={this.state.current_user}
+                    alredyExist={this.state.alredyExist}
+                    closeHouse={this.closeHouse}
+                    SaveAssignHouse={this.SaveAssignHouse}
+                    deleteHouse={this.deleteHouse}
+                    updateEntryState1={this.updateEntryState1}
+                  />
+                  {/* <Modal
                     open={this.state.openHouse}
                     onClose={this.closeHouse}
                     className="addSpeclModel"
@@ -670,7 +690,7 @@ class Index extends Component {
                       </Grid>
                     </Grid>
                     </Grid>
-                  </Modal>
+                  </Modal> */}
                   <ViewDetail
                     openDetial={this.state.openDetial}
                     CloseDetail={this.CloseDetail}
