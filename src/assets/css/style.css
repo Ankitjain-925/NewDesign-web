@@ -199,7 +199,7 @@ h1,h2,h3,h4,h5,h6,h7,p{ margin:0; padding:0; font-size: inherit; font-weight: in
     padding-right: 12px;
 }
 .descpCntntMain {
-    padding-left: 70px;
+    padding-left: 50px;
     margin-bottom: 45px;
 }
 .addSpc {
@@ -2091,6 +2091,13 @@ a.profilMenu {
     .actvMain .MuiGrid-spacing-xs-3 {
         margin: 0px !important;
     }
+    .LanguageBoxMain {
+        height: 395px;
+        overflow-y: scroll;
+    }
+    .tablePagNum {
+        margin-top: 10px !important;
+    }
 }
 @media (max-width: 992px){ 
     .srvcBoxCntnt {
@@ -2633,7 +2640,6 @@ a.profilMenu {
 .wshLstHaiRght {
     text-align: right;
 }
-
 .wshCorList {
     border-radius: 12px;
     background-color: #FAFAFA;
@@ -5346,6 +5352,7 @@ span.revwRed{
     font-weight: 600;
     letter-spacing: 0;
     line-height: 18px;
+    padding-left: 22px;
 }
 .docInfo img {
     margin-right: 6px;
@@ -5360,7 +5367,7 @@ span.revwRed{
     font-size: 14px;
     font-weight: 600;
     letter-spacing: 0;
-    line-height: 14px;
+    line-height: 20px;
     margin-bottom: 13px;
     display: flex !important;
 }
@@ -5913,7 +5920,7 @@ a.nxtpag {
     text-align: center;
     border: none;
     padding: 12px 8px;
-    margin-top: 22px;
+    margin-top: 0px;
     margin-bottom: 2px;
     outline: none;
 }
@@ -7332,6 +7339,9 @@ a.vsblDots, a.conPainDots, a.bp_vsblDots, a.hideDots {
 .homeBgDrk .emrgncyData h1 {
     color: #FAFAFA !important;
 }
+.homeBgDrk .emergency-head h1 { 
+    color: #FAFAFA !important;
+}
 .homeBgDrk .healthStatus h2, .homeBgDrk .otherInfo h2 {
     color: #FAFAFA !important;
 }
@@ -7377,7 +7387,7 @@ a.vsblDots, a.conPainDots, a.bp_vsblDots, a.hideDots {
     color: #BFC1C1 !important;
 }
 .homeBgDrk .docsOpinion label {
-    color: #bfc1c1!important;
+    color: #FAFAFA !important;
 }
 .homeBgDrk .presOpinionIner td.pivoted {
     color: #D9DADA !important;
@@ -7538,7 +7548,7 @@ a.vsblDots, a.conPainDots, a.bp_vsblDots, a.hideDots {
     color: #D9DADA !important;
 }
 .homeBgDrk .trckSection {
-    background-color: #4C5252!important;
+    background-color: #c3c3c3 !important;
 }
 .homeBgDrk .trckCntnt p {
     color: #BFC1C1 !important;
@@ -7630,7 +7640,6 @@ a.vsblDots, a.conPainDots, a.bp_vsblDots, a.hideDots {
 .homeBgDrk .mkFmlyDoc .css-yk16xz-control {
     background: transparent;
 }
-
 .homeBgDrk .loginSite {
     background: #192020;
 }
@@ -7648,8 +7657,37 @@ a.vsblDots, a.conPainDots, a.bp_vsblDots, a.hideDots {
 .homeBgDrk .loginSite .logFrgtpass label {
     color: #00ABAF !important;
 }
+.homeBgDrk .medicalLabl, .homeBgDrk .docCntct {
+    border-bottom: 1px solid #9c9c9c;
+}
+.homeBgDrk .docInfo {
+    border-bottom: 1px solid #9c9c9c;
+}
+.homeBgDrk .donarLang div {
+    background-color: #192020 !important;
+    color: #bfc1c1 !important;
+}
+.homeBgDrk .donarLang div {
+    background-color: #404646 !important;
+    color: #bfc1c1 !important;
+    outline: none !important;
+    border: none !important;
+}
+.homeBgDrk .donarLang div.MuiGrid-root {
+    border: 1px solid #BFC1C1 !important;
+    border-radius: 2px;
+}
+.homeBgDrk ul.flag-select__options {
+    background-color: #404646 !important;
+    color: #bfc1c1 !important;
+}
+.homeBgDrk ul.flag-select__options li:hover {
+    background-color: transparent;
+}
+.homeBgDrk .mkFmlyDoc div {
+    color: #BFC1C1 !important;
+}
 /* End of dark screen css */
-
 .welAimedis {
     border-radius: 8px;
     background-color: #FFFFFF;
@@ -13829,7 +13867,7 @@ g.highcharts-axis.highcharts-yaxis text {
     cursor: pointer;
 }
 .nwDiaCntntIner {
-    height: 496px !important; 
+    height: 455px !important; 
 }
 .phrmLinkUpr, .detailPrescp {	
     height: 520px !important;	
@@ -14768,7 +14806,6 @@ input:focus {
   .appointment .ant-picker-suffix{
       display: none;
   }
-
   /* added by satish */
   .languageBox {
     margin: 22px 28px 15px 44px;
@@ -14782,7 +14819,6 @@ input:focus {
     border-radius: 12px;
     background-color: #FFFFFF;
     box-shadow: 0 24px 32px 0 rgba(0,8,8,0.08);
-    margin-top: 35px;
     position: absolute !important;
 }
 .LanguageBoxMain label{
@@ -16027,9 +16063,9 @@ select:-webkit-autofill:focus {
    }
 }
 @media (max-width: 599px){
-  .presSrch{
+  /* .presSrch{
     text-align: left !important;
-   }  
+   }   */
   .presSrch a{
     margin-top: 17px !important;
     margin-bottom: 12px !important;
@@ -16314,6 +16350,9 @@ select:-webkit-autofill:focus {
  .profileIdLft img {
     width: 20px;
   }
+  .emrgncyDataUpr {
+    padding-left: 35px !important;
+  }
 }
 @media screen and (max-width: 467px) {
 .sortBySec label, .sortBySec input {
@@ -16342,9 +16381,23 @@ select:-webkit-autofill:focus {
 .react-confirm-alert-overlay {
     z-index: 999;
 }
-@media (max-width: 568px) {
-  .homeBg .cc1-chat-win-user {
+@media (max-width: 568px){
+  .homeBg .cc1-chat-win-user{
     width: 100% !important;
     margin: 14px 0px;
   }
+}
+@media screen and (max-width: 40em){
+    a.openScndhrf{
+      text-align: left !important;
+    }
+    .scndOptionIner ul{
+      right: initial !important;
+      left: 0px !important;
+    }
+}
+@media (max-width: 1280px){
+    .officeVstRght {
+        text-align: left !important;
+    }
 }

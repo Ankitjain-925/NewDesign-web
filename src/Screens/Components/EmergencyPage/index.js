@@ -410,7 +410,7 @@ class Index extends Component {
     return (
       <Grid container direction="row">
         {this.state.loaderImage && <Loader />}
-        <Grid item xs={12} md={9}>
+        <Grid item xs={12} md={11}>
           {/* Health Status */}
           <Grid className="healthStatus">
             <Grid className="">
@@ -622,28 +622,17 @@ class Index extends Component {
                   )}
                 </Grid>
               </Grid>
-
               <Grid item xs={12} md={4}>
                 <Grid className="docCntctMain">
                   <Grid className="docCntct">
                     <Grid container direction="row">
                       <Grid item xs={6} md={7} className="docCntctLft">
-                        <label>
-                          {emergency} {Contact}
-                        </label>
+                        <label>{emergency} {Contact}</label>
                       </Grid>
                       <Grid item xs={6} md={5} className="docCntctRght">
                         {this.props.byUser === "patient" && (
-                          <a
-                            onClick={() =>
-                              this.setState({ edit_contact: true })
-                            }
-                          >
-                            <img
-                              src={require("assets/images/edit.svg")}
-                              alt=""
-                              title=""
-                            />
+                          <a onClick={() => this.setState({ edit_contact: true }) }>
+                            <img src={require("assets/images/edit.svg")} alt="" title="" />
                           </a>
                         )}
                       </Grid>

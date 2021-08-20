@@ -1646,14 +1646,14 @@ class Index extends Component {
                 {/* End of Allow Location Access */}
                 <Grid item xs={12} md={3}>
                   {pastappointment && pastappointment == true ? (
-                    <Grid className="apointUpcom">
+                    <Grid className="apointUpcom 111">
                       <h4>{past_apointment}</h4>
                       {this.state.pastAppointment &&
                         this.state.pastAppointment.length > 0 &&
                         this.state.pastAppointment.map((apoint) => (
                           <Grid className="officeVst">
                             <Grid container direction="row">
-                              <Grid item xs={6} md={6} className="officeVstLft">
+                              <Grid item md={12} lg={6} className="officeVstLft">
                                 <label>
                                   {apoint.date &&
                                     getDate(
@@ -1665,19 +1665,10 @@ class Index extends Component {
                                   , {this.GetTime(apoint.start_time)}
                                 </label>
                               </Grid>
-                              <Grid
-                                item
-                                xs={6}
-                                md={6}
-                                className="officeVstRght"
-                              >
+                              <Grid item md={12} lg={6} className="officeVstRght">
                                 {apoint.appointment_type == "appointments" ? (
                                   <a>
-                                    <img
-                                      src={require("assets/images/office-visit.svg")}
-                                      alt=""
-                                      title=""
-                                    />{" "}
+                                    <img src={require("assets/images/office-visit.svg")} alt="" title="" />{" "}
                                     {apoint.custom_text ? apoint.custom_text : office_visit}{" "}
                                   </a>
                                 ) : apoint.appointment_type ==
@@ -1704,12 +1695,7 @@ class Index extends Component {
                             </Grid>
                             <Grid className="showSubject">
                               <Grid container direction="row">
-                                <Grid
-                                  item
-                                  xs={6}
-                                  md={6}
-                                  className="officeVstLft nuroDr"
-                                >
+                                <Grid item xs={12} md={12} lg={6} className="officeVstLft nuroDr">
                                   <h3>
                                     {apoint.docProfile &&
                                       apoint.docProfile.speciality &&
@@ -1752,7 +1738,7 @@ class Index extends Component {
                       </Grid>
                     </Grid>
                   ) : (
-                    <Grid className="apointUpcom">
+                    <Grid className="apointUpcom 222">
                       <h4>{upcming_apointment}</h4>
                       {this.state.upcomingAppointment &&
                         this.state.upcomingAppointment.length > 0 &&
