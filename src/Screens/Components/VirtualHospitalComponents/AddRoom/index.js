@@ -13,7 +13,7 @@ class Index extends React.Component {
         var RoomAy = this.state.roomArray;
         RoomAy[index][e.target.name] = e.target.value;
         this.setState({ roomArray: RoomAy },
-            this.props.onChange(this.state.roomArray))
+           ()=> this.props.onChange(this.state.roomArray))
     }
 
     componentDidUpdate = (prevProps) => {
@@ -24,13 +24,16 @@ class Index extends React.Component {
 
     onAddFiled = () => {
         let RoomAy = this.state.roomArray;
-        RoomAy.push({ room_name: "Enter room name", no_of_bed: 0 });
+        RoomAy.push({ room_name: "", no_of_bed: false });
         this.setState({ roomArray: RoomAy });
     };
 
     deleteRooms = (index) => {
         var RoomAy = this.state.roomArray?.length>0 && this.state.roomArray.filter((data , index1)=>index1 !== index);
-        this.setState({ roomArray: RoomAy });
+        this.setState({ roomArray: RoomAy },
+            ()=>{
+                this.props.onChange(this.state.roomArray)
+            });
     };
 
     render() {
@@ -73,7 +76,7 @@ class Index extends React.Component {
                     <Grid container direction="row" alignItems="center" spacing={2}>
                         <Grid item xs={7} md={7}>
                             <input
-                                type="text" placeholder={this.state.placeholder}
+                                type="text" placeholder={"Enter room name"}
                                 name="room_name"
                                 onChange={(e) => this.onDataChange(e, index)}
                                 value={data.room_name}
@@ -81,7 +84,7 @@ class Index extends React.Component {
                         </Grid>
                         <Grid item xs={3} md={3}>
                             <input
-                                type="number" placeholder={this.state.placeholder}
+                                type="number" placeholder={0}
                                 name="no_of_bed"
                                 value={data.no_of_bed}
                                 onChange={(e) => this.onDataChange(e, index)}

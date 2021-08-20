@@ -124,6 +124,7 @@ class Index extends Component {
               )
               
               .then((responce) => {
+                  this.handleCloseQues8();
                   this.setState({
                       myQuestions: [{}],
                     });
@@ -615,9 +616,9 @@ class Index extends Component {
                                     </Grid>
                                   )
                                 )}
-                              <Grid className="infoSub1">
-                                <a onClick={this.handleCloseQues}>
-                                  <Button onClick={() => this.handleSubmit()}>
+                              <Grid  className="infoSub1">
+                                <a onClick={() => this.handleSubmit()}>
+                                  <Button>
                                     Submit
                                   </Button>
                                 </a>

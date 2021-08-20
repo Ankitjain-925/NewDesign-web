@@ -354,7 +354,14 @@ class Index extends Component {
                 <Modal
                     open={this.state.openPres}
                     onClose={this.handleClosePres}
-                    className="presBoxModel">
+                    className={
+                        this.props.settings &&
+                        this.props.settings.setting &&
+                        this.props.settings.setting.mode &&
+                        this.props.settings.setting.mode === "dark"
+                          ? "darkTheme presBoxModel"
+                          : "presBoxModel"
+                      }>
                     <Grid className="presBoxCntnt">
                         <Grid className="presCourse">
                             <Grid className="presCloseBtn nwEntrCloseBtnAdd">

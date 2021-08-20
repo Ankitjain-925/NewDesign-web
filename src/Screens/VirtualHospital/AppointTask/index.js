@@ -112,7 +112,7 @@ class Index extends Component {
                                                                     <span className="SelLeft"><img src={require('assets/virtual_images/arw1.png')} alt="" title="" /></span>
                                                                     <span className="SelRght"><img src={require('assets/virtual_images/arw1.png')} alt="" title="" /></span>
                                                                 </a>
-                                                                <p>Februar 2021</p>
+                                                                <p>February 2021</p>
                                                             </Grid>
                                                         </Grid>
                                                         <Grid item xs={12} md={7}>

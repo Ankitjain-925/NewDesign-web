@@ -145,54 +145,6 @@ class Index extends Component {
         this.props.history.push('/')
     }
 
-    //For My Profile link
-    ProfileLink = () => {
-        this.props.history.push('/patient');
-    }
-    //For Emergency Access link
-    EmergencyLink = () => {
-        this.props.history.push('/patient/emergency');
-    }
-    //For Second opinion link
-    SecondLink = () => {
-        this.props.history.push('/patient/second-opinion');
-    }
-    //For Extra service link
-    ExtraLink = () => {
-        this.props.history.push('/patient/extra-services');
-    }
-    // For ournal Archive Link
-    JournalArchiveLink = () => {
-        this.props.history.push('/patient/archiveJournal');
-    }
-    //For Document link
-    DocumentLink = () => {
-        this.props.history.push('/patient/documents');
-    }
-    //For online Course
-    OnlineCourse = () => {
-        this.props.history.push('/patient/online-course');
-    }
-    //For Tracker / Withings
-    Tracker = () => {
-        this.props.history.push('/patient/tracker');
-    }
-    // For Appointment Link
-    AppointmentLink = () => {
-        this.props.history.push('/patient/appointment');
-    }
-    //For Timeline / Journal
-    Journal = () => {
-        this.props.history.push('/patient/journal');
-    }
-    //For chat
-    Chats = () => {
-        this.props.history.push('/patient/chats');
-    }
-    //For block chain Access 
-    BlockChain = () => {
-        this.props.history.push('/patient/blockchain');
-    }
     render() {
         let translate={};
         switch (this.props.stateLanguageType) {
@@ -205,8 +157,8 @@ class Index extends Component {
             default :
                 translate = translationEN.text
         }
-        let { capab_Patients, capab_Doctors, archive, SelectLanguage, More, Savechanges, LanUpdated, LanSel, capab_Hospitals, documents, paramedic, srvc_Nurses, insurance, online_course, add_new, user, my_profile, dark_mode, profile_setting, Language, logout, Patient, find_patient, ID, Status, no_, recEmp_FirstName,
-            DarkMode, previous, next, Normal, Blocked, recEmp_LastName, imprint_Email, restore, Delete, see_detail } = translate
+        let { capab_Patients, capab_Doctors, archive, SelectLanguage, More, Savechanges, LanUpdated, LanSel, documents, paramedic, srvc_Nurses, insurance, online_course, add_new, user, my_profile, dark_mode, profile_setting, Language, logout, Patient, find_patient, ID, Status, no_, recEmp_FirstName,
+            DarkMode, more } = translate
 
         return (
             <Grid 
@@ -225,44 +177,91 @@ class Index extends Component {
                         <a><img src={require('assets/images/navigation-drawer.svg')} alt="" title="" className="MenuImg" /></a>
                         <Menu className="addCstmMenu">
                             <Grid className="menuItems adminmenuItems">
-                                <ul>
-                                    <li className={this.props.currentPage === 'patient_List' ? "menuActv" : ""}>
-                                        <a onClick={() => this.props.history.push("/h-patients")}>
-                                            <img src={require('assets/images/admin/patintIcon.png')} alt="" title="" />
-                                            <span>{capab_Patients}</span>
-                                        </a>
-                                    </li>
-                                    <li className={this.props.currentPage === 'doctor_List' ? "menuActv" : ""}>
-                                        <a onClick={() => this.props.history.push("/h-doctors")} >
-                                            <img src={require('assets/images/admin/DoctorsIcon.png')} alt="" title="" />
-                                            <span>{capab_Doctors}</span>
-                                        </a>
-                                    </li>
-                                    <li className={this.props.currentPage === 'nurse_List' ? "menuActv" : ""}>
-                                        <a onClick={() => this.props.history.push("/h-nurses")}>
-                                            <img src={require('assets/images/nurse_n1.png')} alt="" title="" />
-                                            <span>{srvc_Nurses}</span>
-                                        </a>
-                                    </li>
-                                    <li className={this.props.currentPage === 'staff_List' ? "menuActv" : ""}>
-                                        <a onClick={() => this.props.history.push("/h-staff")}>
-                                            <img src={require('assets/images/patientinfo.png')} alt="" title="" />
-                                            <span>{"Admin Staff"}</span>
-                                        </a>
-                                    </li>
-                                    <li className={this.props.currentPage === "h_document" ? "menuActv" : ''}>
-                                        <a onClick={() => this.props.history.push("/h-documents")}>
-                                            <img src={require('assets/images/admin/docsIcon.png')} alt="" title="" />
-                                            <span>{documents}</span>
-                                        </a>
-                                    </li>
-                                    <li className={this.props.currentPage === 'archive_choose' ? "menuActv" : ""}>
-                                        <a onClick={() => this.props.history.push("/h-archivechoose")}>
-                                            <img src={require('assets/images/admin/ParamedicIcon.png')} alt="" title="" />
-                                            <span>{archive}</span>
-                                        </a>
-                                    </li>
-                                    {/* <li>
+                            <ul>
+                        <li className={this.props.currentPage === 'patient_List' ? "menuActv" : ""}>
+                            <a onClick={() => this.props.history.push("/h-patients")}>
+                                <img src={require('assets/images/admin/patintIcon.png')} alt="" title="" />
+                                <span>{capab_Patients}</span>
+                            </a>
+                        </li>
+                        <li className={this.props.currentPage === 'doctor_List' ? "menuActv" : ""}>
+                            <a onClick={() => this.props.history.push("/h-doctors")} >
+                                <img src={require('assets/images/admin/DoctorsIcon.png')} alt="" title="" />
+                                <span>{capab_Doctors}</span>
+                            </a>
+                        </li>
+                        <li className={this.props.currentPage === 'nurse_List' ? "menuActv" : ""}>
+                            <a onClick={() => this.props.history.push("/h-nurses")}>
+                                <img src={require('assets/images/nurse_n1.png')} alt="" title="" />
+                                <span>{srvc_Nurses}</span>
+                            </a>
+                        </li>
+                        <li className={this.props.currentPage === 'staff_List' ? "menuActv" : ""}>
+                            <a onClick={() => this.props.history.push("/h-staff")}>
+                                <img src={require('assets/images/patientinfo.png')} alt="" title="" />
+                                <span>{"Admin Staff"}</span>
+                            </a>
+                        </li>
+                        <li className={this.props.currentPage === "h_document" ? "menuActv" : ''}>
+                            <a onClick={() => this.props.history.push("/h-documents")}>
+                                <img src={require('assets/images/admin/docsIcon.png')} alt="" title="" />
+                                <span>{documents}</span>
+                            </a>
+                        </li>
+                        <li className={this.props.currentPage === 'archive_choose' ? "menuActv" : ""}>
+                            <a onClick={() => this.props.history.push("/h-archivechoose")}>
+                                <img src={require('assets/images/admin/ParamedicIcon.png')} alt="" title="" />
+                                <span>{archive}</span>
+                            </a>
+                        </li>
+                        <li className={this.props.currentPage === "more" ? "menuActv" : ""}>
+              <a className="moreMenu">
+                {/* {this.props.settings &&
+                this.props.settings.setting &&
+                this.props.settings.setting.mode &&
+                this.props.settings.setting.mode === "dark" ? (
+                  <img
+                    src={require("assets/images/nav-more-white.svg")}
+                    alt=""
+                    title=""
+                  />
+                ) : ( */}
+                  <img
+                    src={require("assets/images/nav-more.svg")}
+                    alt=""
+                    title=""
+                  />
+                {/* )} */}
+                <span>{more}</span>
+
+                <div className="moreMenuList">
+                  <ul>
+                    <li>
+                      <a onClick={() => this.props.history.push("/h-groups")}>
+                        {/* {this.props.settings &&
+                        this.props.settings.setting &&
+                        this.props.settings.setting.mode &&
+                        this.props.settings.setting.mode === "dark" ? (
+                          <img
+                            src={require("assets/images/menudocs-white.jpg")}
+                            alt=""
+                            title=""
+                          />
+                        ) : ( */}
+                          <img
+                            src={require("assets/images/menudocs.jpg")}
+                            alt=""
+                            title=""
+                          />
+                        {/* )} */}
+                        Institute Groups
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </a>
+            </li>
+                        {/* <li>
                             <a className="moreMenu">
                                 <img src={require('assets/images/nav-more.svg')} alt="" title="" />
                                 <span>More</span>
@@ -279,22 +278,22 @@ class Index extends Component {
                                 </div>
                             </a>
                         </li> */}
-                                    <li className={this.props.currentPage === 'createnewuser' ? "menuActv" : ""}>
-                                        <a className="addNewPlus" onClick={this.handleOpenCreate}>
-                                            <img src={require('assets/images/admin/plusnew.png')} alt="" title="" />
-                                            <span>{add_new} <br /> {user}</span>
-                                        </a>
-                                    </li>
+                        <li className={this.props.currentPage === 'createnewuser' ? "menuActv" : ""}>
+                            <a className="addNewPlus" onClick={this.handleOpenCreate}>
+                                <img src={require('assets/images/admin/plusnew.png')} alt="" title="" />
+                                <span>{add_new} <br /> {user}</span>
+                            </a>
+                        </li>
 
-                                    <li>
-                                        <a className="profilMenu">
-                                            <img src={require('assets/images/nav-my-profile.svg')} alt="" title="" />
-                                            <span>{my_profile}</span>
-                                            <div className="profilMenuList">
-                                                <ul>
-                                                <li><a onClick={()=>this.props.history.push("/h-profile")}><img src={require('assets/images/menudocs.jpg')} alt="" title="" />{profile_setting}</a></li>
-                                                    <li><a onClick={this.openLanguageModel}><img src={require('assets/images/menudocs.jpg')} alt="" title="" />{Language}</a></li>
-                                                    <li>
+                        <li>
+                            <a className="profilMenu">
+                                <img src={require('assets/images/nav-my-profile.svg')} alt="" title="" />
+                                <span>{my_profile}</span>
+                                <div className="profilMenuList">
+                                    <ul>
+                                        <li><a onClick={()=>this.props.history.push("/h-profile")}><img src={require('assets/images/menudocs.jpg')} alt="" title="" />{profile_setting}</a></li>
+                                        <li><a onClick={this.openLanguageModel}><img src={require('assets/images/menudocs.jpg')} alt="" title="" />{Language}</a></li>
+                                        <li>
                       <a>
                         {this.props.settings &&
                         this.props.settings.setting &&
@@ -314,18 +313,19 @@ class Index extends Component {
                         )}
                         {DarkMode}{" "}
                         <Mode
-                          mode={this.state.mode}
+                          mode={this.props.settings?.setting?.mode ? this.props.settings?.setting?.mode : 'normal'}
                           name="mode"
                           getSetting={this.getSetting}
                         />
                       </a>
                     </li>
-                                                    <li><a onClick={this.logOutClick}><img src={require('assets/images/menudocs.jpg')} alt="" title="" />{logout}</a></li>
-                                                </ul>
-                                            </div>
-                                        </a>
-                                    </li>
-                                </ul>
+                                        <li><a onClick={this.logOutClick}><img src={require('assets/images/menudocs.jpg')} alt="" title="" />{logout}</a></li>
+                                    </ul>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                    
                             </Grid>
                         </Menu>
                     </Grid>
