@@ -11310,3 +11310,27 @@ button.crdoLghtBlu2 {
 .darkTheme .rrSysto div .css-2613qy-menu{
     background: #0c1010 !important;
 }
+.addComit1 {
+    /* margin-top: 32px; */
+    margin-bottom: 25px;
+    position: relative;
+    margin-right: 30px;
+    padding: 18px 20px;
+}
+
+.addComit1 textarea {
+    border: 1px solid #BFC1C1;
+    border-radius: 4px;
+    background-color: #FFFFFF;
+    width: 100%;
+    min-height: 102px;
+    resize: none;
+    outline: none;
+    color: #000808;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 18px;
+    padding: 12px;
+}

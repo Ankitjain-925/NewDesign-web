@@ -30,7 +30,8 @@ import { authy } from 'Screens/Login/authy.js';
 import { houseSelect } from "../Institutes/selecthouseaction";
 import { Redirect, Route } from 'react-router-dom';
 import VHfield from "Screens/Components/VirtualHospitalComponents/VHfield/index";
-import TextField from '@material-ui/core/TextField';
+import DateFormat from "Screens/Components/DateFormat/index";
+import TimeFormat from "Screens/Components/TimeFormat/index";
 
 var new_data = [
     'https://images.unsplash.com/photo-1541963463532-d68292c34b19?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8Mnx8fGVufDB8fHx8&w=1000&q=80',
@@ -68,7 +69,15 @@ class Index extends Component {
             text: '',
             comments_data: [],
             openEntry: false,
+            newTask: {},
+            date_format: this.props.date_format,
+            time_format: this.props.time_format,
+            patient_doc: [],
         };
+    }
+
+    componentDidMount() {
+        this.getPatientData();
     }
     handleOpenRvw = () => {
         this.setState({ openRvw: true });
@@ -82,34 +91,104 @@ class Index extends Component {
     handleChangeTab2 = (event, tabvalue2) => {
         this.setState({ tabvalue2 });
     };
-    updateCommemtState = (e) => {
-        this.setState({
-            text: e.target.value,
-        })
-    }
-    handleComment = (e) => {
-        e.preventDefault();
-        let comments_data = [...this.state.comments_data];
-        comments_data.push({
-            text: this.state.text,
-        });
-        this.setState({
-            comments_data,
-            text: '',
-        });
-    };
+    // updateCommemtState = (e) => {
+    //     this.setState({
+    //         text: e.target.value,
+    //     })
+    // }
+    // handleComment = (e) => {
+    //     e.preventDefault();
+    //     let comments_data = [...this.state.comments_data];
+    //     comments_data.push({
+    //         text: this.state.text,
+    //     });
+    //     this.setState({
+    //         comments_data,
+    //         text: '',
+    //     });
+    // };
 
     handleOpenAssign = () => {
         this.setState({ openEntry: true });
-
     };
 
     handleCloseAssign = () => {
         this.setState({ openEntry: false });
     };
 
+    updateEntryState1 = (e, name) => {
+        if (name === 'date_measured') {
+            const state = this.state.newTask;
+            state[name] = e
+            this.setState({ newTask: state });
+            console.log("date", e);
+        }
+        else if (name === 'time_measured') {
+            const state = this.state.newTask;
+            state[name] = e
+            this.setState({ newTask: state });
+            console.log("time", e);
+        }
+        else {
+            console.log("e", e.target.value)
+            const state = this.state.newTask;
+            state[e.target.name] = e.target.value;
+            this.setState({ newTask: state });
+        }
+    };
+
+    handleSubmit() {
+        console.log("newTask", this.state.newTask);
+    }
+
+    getPatientData = () => {
+        this.setState({ loaderImage: true });
+        axios
+            .get(
+                sitedata.data.path + "/vh/getPatientFromVH/600c15c2c983431790f904c3-1627046889451",
+                commonHeader(this.props.stateLoginValueAim.token)
+            )
+            .then((response) => {
+                var myFilterData = [];
+                if (response.data.data.patient_doc && response.data.data.patient_doc.length > 0) {
+                    response.data.data.patient_doc.map((item) => {
+                        myFilterData = this.state.patient_doc_list && this.state.patient_doc_list.length > 0 && this.state.patient_doc_list.filter((ind) =>
+                            ind.value === item);
+                            
+                    })
+               
+                }
+            
+                console.log("response", this.state.patient_doc)
+            });
+    };
+
+    componentWillReceiveProps(nextProps) {
+        this.setState({ users: nextProps.users, filteredUsers: nextProps.users }, () => this.filterList());
+    }
+
+    filterList = () => {
+        let users = this.state.users;
+        let q = this.state.q;
+        users = users && users.length > 0 && users.filter(function (user) {
+            return (user.name.toLowerCase().indexOf(q) != -1 || user.alies_id.toLowerCase().indexOf(q) != -1);
+            // return  // returns true or false
+        });
+        this.setState({ filteredUsers: users });
+        if (this.state.q == '') {
+            this.setState({ filteredUsers: [] });
+        }
+    }
+
     render() {
-        const { tabvalue, tabvalue2, comments_data } = this.state;
+        const { tabvalue, tabvalue2, comments_data, newTask } = this.state;
+        const userList = this.state.filteredUsers && this.state.filteredUsers.map(user => {
+        return (
+            <li key={user.id} style={{ background: this.myColor(user.id), color: this.color(user.id) }} value={user.profile_id}
+                onClick={() => { this.setState({ q: user.name, selectedUser: user.profile_id, selectedprofile: user.profile_id }); this.toggle(user.id); this.setState({ filteredUsers: [] }) }}
+            >{user.name} ( {user.profile_id} )</li>
+        )});
+        
         return (
             <Grid className={
                 this.props.settings &&
@@ -186,13 +265,13 @@ class Index extends Component {
                                                         open={this.state.openRvw} onClose={this.handleCloseRvw}>
                                                         <Grid className="rvewFiles">
                                                             <Grid className="rvewFilesinner">
-                                                                <Grid container direction="row">
+                                                                {/* <Grid container direction="row">
                                                                     <Grid item xs={12} md={12}>
                                                                         <Grid className="rvwCadio">
                                                                             <Button>Cardiology</Button><h3>Review patient files</h3><p>07/02/2021, 9:03 AM</p>
                                                                         </Grid>
                                                                     </Grid>
-                                                                </Grid>
+                                                                </Grid> */}
                                                                 <Grid container direction="row">
                                                                     <Grid item xs={12} md={12}>
                                                                         {/* <Grid className="asignUpr">
@@ -216,9 +295,21 @@ class Index extends Component {
 
                                                                                     <Grid>
                                                                                         <VHfield
-                                                                                            label="Case id"
-                                                                                            name="case_id"
-                                                                                            placeholder="Enter case id"
+                                                                                            label="Patient"
+                                                                                            name="patient"
+                                                                                            placeholder="Enter patient"
+                                                                                            onChange={(e) =>
+                                                                                                this.updateEntryState1(e)}
+                                                                                            // value={this.state.myData.patient}
+                                                                                        />
+                                                                                    </Grid>
+
+
+                                                                                    <Grid >
+                                                                                        <VHfield
+                                                                                            label="Description"
+                                                                                            name="description"
+                                                                                            placeholder="Enter description"
                                                                                             onChange={(e) =>
                                                                                                 this.updateEntryState1(e)
                                                                                             }
@@ -226,20 +317,44 @@ class Index extends Component {
                                                                                         />
                                                                                     </Grid>
 
-                                                                                    <Grid>
-                                                                                        <TextField
-                                                                                            label="Description"
-                                                                                            // id='outlined-email-input'
-                                                                                            // helperText="Description"
-                                                                                            // margin='normal'
-                                                                                            variant='outlined'
-                                                                                            type='email'
-                                                                                            required
-                                                                                            // value="{email}"
-                                                                                            //    onChange={(e) => setEmail(e.target.value)}
-                                                                                            fullWidth
-                                                                                        />
+                                                                                    <Grid className="makeCmpt">
+                                                                                        <Grid container direction="row" alignItems="center">
+                                                                                            <Grid item xs={12} sm={6} md={6}>
+
+                                                                                            </Grid>
+                                                                                            <Grid item xs={12} sm={6} md={6}>
+                                                                                                <Grid className="addDue">
+                                                                                                    <Grid><label>Due on</label></Grid>
+                                                                                                    <Grid>
+                                                                                                        <DateFormat
+                                                                                                            name="date_measured"
+                                                                                                            value={
+                                                                                                                this.state.newTask.date_measured
+                                                                                                                    ? new Date(this.state.newTask.date_measured)
+                                                                                                                    : new Date()
+                                                                                                            }
+                                                                                                            notFullBorder
+                                                                                                            date_format={this.state.date_format}
+                                                                                                            onChange={(e) => this.updateEntryState1(e, "date_measured")}
+                                                                                                        />
+
+                                                                                                        <Grid>
+                                                                                                            <label>Add time</label></Grid>
+                                                                                                        <TimeFormat
+                                                                                                            name="time_measured"
+                                                                                                            value={
+                                                                                                                this.state.newTask.time_measured
+                                                                                                                    ? new Date(this.state.newTask.time_measured)
+                                                                                                                    : new Date()
+                                                                                                            }
+                                                                                                            time_format={this.state.time_format}
+                                                                                                            onChange={(e) => this.updateEntryState1(e, "time_measured")}
+                                                                                                        /></Grid>
+                                                                                                </Grid>
+                                                                                            </Grid>
+                                                                                        </Grid>
                                                                                     </Grid>
+
                                                                                     <Grid className="attchFile">
                                                                                         <Grid>
                                                                                             <label>Attachments</label>
@@ -257,158 +372,17 @@ class Index extends Component {
                                                                                             fileUpload={this.props.FileAttachMulti}
                                                                                         />
                                                                                     </Grid>
-                                                                                </Grid>
-                                                                            </Grid>
-                                                                        </Grid>
 
-
-
-                                                                        {/* <Assigned
-                                                                                    totalurl={new_data}
-                                                                        /> */}
-                                                                        {/* </Grid> */}
-                                                                        {/*  < FlowPatientView
-                                                                                label="Patient"
-                                                                                url='https://images.unsplash.com/photo-1541963463532-d68292c34b19?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8Mnx8fGVufDB8fHx8&w=1000&q=80'
-                                                                                first_name="Benito"
-                                                                                last_name="Noboa"
-                                                                                profile_id="P_ukd832kd2"
-                                                                            /> */}
-
-                                                                        {/* </Grid> */}
-                                                                    </Grid>
-                                                                </Grid>
-                                                                <Grid className="makeCmpt">
-                                                                    <Grid container direction="row" alignItems="center">
-                                                                        <Grid item xs={12} sm={6} md={6}>
-                                                                            <Grid className="markDone">
-                                                                                <Grid><img src={require('assets/virtual_images/rightTick.png')} alt="" title="" /></Grid>
-                                                                                <label>Mark as done</label>
-                                                                            </Grid>
-                                                                        </Grid>
-                                                                        <Grid item xs={12} sm={6} md={6}>
-                                                                            <Grid className="addDue">
-                                                                                <Grid><label>Due on</label></Grid>
-                                                                                <Grid><Button className="addDueDate">09/02/2021</Button><Button>Add time</Button></Grid>
-                                                                            </Grid>
-                                                                        </Grid>
-                                                                    </Grid>
-                                                                </Grid>
-                                                                <Grid className="multiDescp">
-                                                                    <Grid container direction="row" alignItems="center">
-                                                                        <Grid item xs={12} sm={12} md={12}>
-                                                                            <Grid><label>Description</label>
-                                                                                <p>Multiple lesions again suggest chronic demyelination. Mild atrophy greatest in the frontal region
-                                                                                    may be associated with multiple sclerosis. Findings appear stable when compared with the prior study.
-                                                                                    There is no abnormal enhancement.</p>
-                                                                            </Grid>
-                                                                        </Grid>
-                                                                    </Grid>
-                                                                </Grid>
-                                                                <Grid className="assignSecUpr">
-                                                                    <Grid container direction="row" alignItems="center">
-                                                                        <Grid item xs={12} sm={12} md={12}>
-                                                                            <Grid className="assignSec">
-                                                                                <Grid>
-                                                                                    <img src={require('assets/virtual_images/assign-to.svg')} alt="" title="" />
-                                                                                    <label onClick={this.handleOpenAssign}>+ Assign to</label>
-                                                                                </Grid>
-
-                                                                                <Grid>
-                                                                                    <AssignedToData
-                                                                                        openEntry={this.state.openEntry}
-                                                                                        handleCloseAssign={this.handleCloseAssign}
-                                                                                        handleOpenAssign={this.handleOpenAssign}
-                                                                                        onChange={(e) => this.updateEntryState(e)}
-                                                                                        value={this.state.value}
-                                                                                    />
-                                                                                </Grid>
-                                                                                <Grid>
-                                                                                    <img src={require('assets/virtual_images/assign-to.svg')} alt="" title="" />
-                                                                                    <label>Duplicate</label>
-                                                                                </Grid>
-                                                                                <Grid>
-                                                                                    <img src={require('assets/virtual_images/assign-to.svg')} alt="" title="" />
-                                                                                    <label>Archive</label>
-                                                                                </Grid>
-                                                                                <Grid>
-                                                                                    <img src={require('assets/virtual_images/assign-to.svg')} alt="" title="" />
-                                                                                    <label>Delete</label>
                                                                                 </Grid>
                                                                             </Grid>
                                                                         </Grid>
                                                                     </Grid>
                                                                 </Grid>
-                                                                <Grid className="assignSecUpr">
-                                                                    <Grid container direction="row" alignItems="center">
-                                                                        <Grid item xs={12} sm={12} md={12}>
-                                                                            <Grid className="attchFile">
-                                                                                <Grid><label>Attachments</label></Grid>
-                                                                                <Grid className="browseHere">
-                                                                                    <a><img src={require('assets/virtual_images/upload-file.svg')} alt="" title="" />
-                                                                                        <span>Browse</span> or drag here
-                                                                                    </a>
-                                                                                </Grid>
-                                                                                <p>Supported file types: .jpg, .png, .pdf</p>
-                                                                            </Grid>
-                                                                            <Grid className="updateDoc">
-                                                                                <Grid><label>Uploaded</label></Grid>
-                                                                                <Grid className="updateInfo">
-                                                                                    <Grid className="updateImg"><img src={require('assets/virtual_images/james.jpg')} alt="" title="" /></Grid>
-                                                                                    <p>IMG_23_6_2020_09_18.jpg</p>
-                                                                                    <a className="updateRmv"><img src={require('assets/virtual_images/remove-1.svg')} alt="" title="" /></a>
-                                                                                </Grid>
-                                                                                <Grid className="updateInfo">
-                                                                                    <Grid className="updateImg"><img src={require('assets/virtual_images/pdfimg.png')} alt="" title="" /></Grid>
-                                                                                    <p>IMG_23_6_2020_09_18.jpg</p>
-                                                                                    <a className="updateRmv"><img src={require('assets/virtual_images/remove-1.svg')} alt="" title="" /></a>
-                                                                                </Grid>
-                                                                            </Grid>
-                                                                        </Grid>
-                                                                    </Grid>
-                                                                </Grid>
-
-
-
                                                                 <Grid className="cmntUpr">
                                                                     <Grid container direction="row" alignItems="center">
                                                                         <Grid item xs={12} sm={12} md={12}>
-                                                                            <Grid className="cmntIner">
-                                                                                <Grid><label>Comments</label></Grid>
-
-                                                                                {this.state.comments_data?.length > 0 && this.state.comments_data.map((data) => (
-                                                                                    <>
-                                                                                        < CommentsView
-                                                                                            label={data.comment_by}
-                                                                                            text={data.text}
-                                                                                            url={data.url}
-                                                                                        />
-                                                                                    </>
-                                                                                ))}
-
-
-                                                                            </Grid>
-                                                                            {/* <Grid className="cmntIner cmntInerBrdr">
-                                                                                <Grid className="cmntMsgs">
-                                                                                    <Grid><img src={require('assets/virtual_images/dr2.jpg')} alt="" title="" /></Grid>
-                                                                                    <Grid>
-                                                                                        <Grid><label>Gregory House M.D.</label><span>7 Feb at 12:38</span></Grid>
-                                                                                        <Grid className="cmntMsgsCntnt"><p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                                                                                            Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a
-                                                                                            galley of type and scrambled it to make a type specimen book.</p></Grid>
-                                                                                    </Grid>
-                                                                                </Grid>
-                                                                            </Grid> */}
-                                                                            <Grid className="addComit">
-                                                                                <textarea
-                                                                                    onChange={(e) => this.updateCommemtState(e)}
-                                                                                    value={this.state.text}>
-                                                                                </textarea>
-
-                                                                                <Button onClick={(e) => this.handleComment(e)}>Add Comment</Button>
-                                                                            </Grid>
                                                                             <Grid className="saveTask">
-                                                                                <Button>Save Task & Close</Button>
+                                                                                <a onClick={() => this.handleCloseRvw()}><Button onClick={() => this.handleSubmit()}>Save Task & Close</Button></a>
                                                                             </Grid>
                                                                         </Grid>
                                                                     </Grid>
