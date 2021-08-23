@@ -262,19 +262,20 @@ class Index extends Component {
                 this.setState({assignedhouse: true})
                 setTimeout(()=>{
                   this.setState({assignedhouse: false, openHouse: false,})
-                }, 3000)
-                this.getNurses();
+                }, 5000)
+                this.getallGroups();
             }
             else{
               this.setState({alredyExist: true})
               setTimeout(()=>{
                 this.setState({alredyExist: false})
-              }, 3000)
+              }, 5000)
             }
             this.setState({ loaderImage: false });
           });
         // /assignedHouse/:
       }
+
       deleteHouse=(deleteId)=>{
         var userid = this.state.current_user._id;
         this.setState({ loaderImage: true });
@@ -286,11 +287,11 @@ class Index extends Component {
           )
           .then((responce) => {
             if (responce.data.hassuccessed) {
-                this.setState({ deleteHouse: true})
+                this.setState({ deleteHouses: true})
                 setTimeout(()=>{
-                  this.setState({deleteHouse: false, openHouse: false})
-                }, 30000)
-                this.getNurses();
+                  this.setState({deleteHouses: false, openHouse: false})
+                }, 5000)
+                this.getallGroups();
             }
             this.setState({ loaderImage: false });
           });
@@ -350,7 +351,7 @@ class Index extends Component {
                                         <Grid item xs={12} md={12}> <input onChange={this.search_user} type="text" placeholder={find_nurse} /></Grid>
                                         <img src={require('assets/images/InputField.svg')} alt="" title="" />
                                     </Grid>
-                                    {this.state.assignedhouse && (
+                                    {/* {this.state.assignedhouse && (
                                         <div className="success_message">
                                         House is assigned to nurse
                                         </div>
@@ -359,7 +360,7 @@ class Index extends Component {
                                         <div className="success_message">
                                         House id deleted from the nurse
                                         </div>
-                                    )}
+                                    )} */}
                                     <Grid className="archvOpinionIner">
                                         <Table>
                                             <Thead>
@@ -432,17 +433,19 @@ class Index extends Component {
                                             </Grid>
                                         </Grid>
                                     </Grid>
-                                <AssignedHouse
-                                    openHouse={this.state.openHouse}
-                                    currentHouses={this.state.currentHouses}
-                                    Housesoptions={this.state.Housesoptions}
-                                    current_user={this.state.current_user}
-                                    alredyExist={this.state.alredyExist}
-                                    closeHouse={this.closeHouse}
-                                    SaveAssignHouse={this.SaveAssignHouse}
-                                    deleteHouse={this.deleteHouse}
-                                    updateEntryState1={this.updateEntryState1}
-                                />
+                                    <AssignedHouse
+                                        assignedhouse={this.state.assignedhouse}
+                                        deleteHouses={this.state.deleteHouses}
+                                        openHouse={this.state.openHouse}
+                                        currentHouses={this.state.currentHouses}
+                                        Housesoptions={this.state.Housesoptions}
+                                        current_user={this.state.current_user}
+                                        alredyExist={this.state.alredyExist}
+                                        closeHouse={this.closeHouse}
+                                        SaveAssignHouse={this.SaveAssignHouse}
+                                        deleteHouse={this.deleteHouse}
+                                        updateEntryState1={this.updateEntryState1}
+                                    />
                                     <ViewDetail openDetial={this.state.openDetial} CloseDetail={this.CloseDetail} patient_info={this.state.current_user}/>
                                 </Grid>
                             </Grid>

@@ -105,6 +105,7 @@ class Index extends Component {
       this.props.LoginReducerAim(email, password);
       let languageType = "en";
       this.props.LanguageFetchReducer(languageType);
+      this.props.houseSelect({value: null});
       this.props.Fitbit({
         lifetimeStats: {},
         device: [],

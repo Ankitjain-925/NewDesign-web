@@ -124,7 +124,7 @@ class Index extends Component {
               )
               
               .then((responce) => {
-                  this.handleCloseQues8();
+                  this.handleCloseQues();
                   this.setState({
                       myQuestions: [{}],
                     });

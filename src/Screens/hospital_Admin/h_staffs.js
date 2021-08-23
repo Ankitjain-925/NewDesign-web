@@ -154,7 +154,7 @@ class Index extends Component {
         commonHeader(user_token)
       )
       .then((response) => {
-        this.setState({openHouse: false})
+        // this.setState({openHouse: false})
         if (response.data.data) {
           var images = [];
           this.setState({ AllUsers: response.data.data });
@@ -311,8 +311,8 @@ class Index extends Component {
             this.setState({assignedhouse: true})
             setTimeout(()=>{
               this.setState({assignedhouse: false, openHouse: false,})
-            }, 3000)
-            this.getAdminstaff();
+            }, 5000)
+            this.getallGroups();
         }
         else{
           this.setState({alredyExist: true})
@@ -335,11 +335,11 @@ class Index extends Component {
       )
       .then((responce) => {
         if (responce.data.hassuccessed) {
-            this.setState({ deleteHouse: true})
+            this.setState({ deleteHouses: true})
             setTimeout(()=>{
-              this.setState({deleteHouse: false, openHouse: false})
-            }, 30000)
-            this.getAdminstaff();
+              this.setState({deleteHouses: false, openHouse: false})
+            }, 5000)
+            this.getallGroups();
         }
         this.setState({ loaderImage: false });
       });
@@ -430,16 +430,7 @@ class Index extends Component {
                     className="archvSrchInput"
                   >
                     <Grid item xs={12} md={12}>
-                    {this.state.assignedhouse && (
-                    <div className="success_message">
-                      House is assigned to admin staff
-                    </div>
-                  )}
-                    {this.state.deleteHouse && (
-                    <div className="success_message">
-                      House id deleted from the admin staff
-                    </div>
-                  )}
+                
                       {" "}
                       <input
                         onChange={this.search_user}
@@ -606,6 +597,8 @@ class Index extends Component {
                     </Grid>
                   </Grid>
                   <AssignedHouse
+                    assignedhouse={this.state.assignedhouse}
+                    deleteHouses={this.state.deleteHouses}
                     openHouse={this.state.openHouse}
                     currentHouses={this.state.currentHouses}
                     Housesoptions={this.state.Housesoptions}

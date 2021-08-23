@@ -19,7 +19,9 @@ class PointPain extends Component {
       alredyExist: this.props.alredyExist,
       current_user: this.props.current_user,
       Housesoptions: this.props.Housesoptions,
-      currentHouses: this.props.currentHouses
+      currentHouses: this.props.currentHouses,
+      deleteHouses: this.props.deleteHouses,
+      assignedhouse: this.props.assignedhouse, 
     };
   }
 
@@ -29,9 +31,9 @@ class PointPain extends Component {
   //on adding new data
   componentDidUpdate = (prevProps) => {
     if (prevProps.openHouse !== this.props.openHouse || prevProps.alredyExist !== this.props.alredyExist || prevProps.current_user !== this.props.current_user || 
-        prevProps.Housesoptions !== this.props.Housesoptions) {
+        prevProps.Housesoptions !== this.props.Housesoptions || prevProps.deleteHouses !== this.props.deleteHouses || prevProps.assignedhouse !== this.props.assignedhouse) {
       this.setState({ openHouse: this.props.openHouse, alreadyExist : this.props.alredyExist, currentHouses: this.props.currentHouses,
-        current_user : this.props.current_user, Housesoptions : this.props.Housesoptions});
+        current_user : this.props.current_user, Housesoptions : this.props.Housesoptions, deleteHouses: this.props.deleteHouses, assignedhouse: this.props.assignedhouse});
     }
   };
 //   shouldComponentUpdate(nextProps, nextState) {
@@ -83,9 +85,19 @@ class PointPain extends Component {
             <Grid className="enterSpclMain">
               <Grid className="enterSpcl">
                 <Grid container direction="row">
+                {this.state.assignedhouse && (
+                    <div className="success_message">
+                      House is assigned to User
+                    </div>
+                  )}
+                    {this.state.deleteHouses && (
+                    <div className="success_message">
+                      House id deleted from the User
+                    </div>
+                  )}
                   {this.state.alredyExist && (
                     <div className="err_message">
-                      House is already exist to admin staff
+                      House is already exist to User
                     </div>
                   )}
                     <Grid item xs={10} md={12}>
@@ -101,7 +113,7 @@ class PointPain extends Component {
                   <Grid item xs={10} md={12}>
                       <b>Assigned Houses -</b>
                       <Grid container direction="row">
-                          {console.log('this.state.current_user', this.state.current_user)}
+                        
                           {this.state.current_user?.houses?.length>0 && this.state.current_user?.houses.map((item)=>(
                           <>
                            <Grid item xs={10} md={10}>
