@@ -9596,6 +9596,13 @@ button.crdoLghtBlu2 {
 /* .flowInfo {
     padding: 10px;
 } */
+.stepTdotupper ul li{
+    width: 100% !important;
+}
+.stepTdot{
+    width:27px;
+    border-radius: 7px;
+}
 .sevicessection {
     width: 97%;
 }

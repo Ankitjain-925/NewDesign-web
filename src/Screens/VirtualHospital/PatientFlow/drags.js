@@ -3,6 +3,7 @@ import Column from "./column";
 import reorder, { reorderQuoteMap } from "./reorder";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import Grid from '@material-ui/core/Grid';
+import Button from "@material-ui/core/Button";
 
 class Index extends Component {
   static defaultProps = {
@@ -15,6 +16,13 @@ class Index extends Component {
   };
 
   boardRef;
+
+  componentDidUpdate = (prevProps) => {
+    if (prevProps.initial !== this.props.initial) {
+      this.setState({columns: this.props.initial,
+        ordered: Object.keys(this.props.initial)});
+    }
+  };
 
   onDragEnd = result => {
     if (result.combine) {
@@ -78,6 +86,13 @@ class Index extends Component {
     });
   };
 
+  onChange=(e, index)=>{
+    this.props.onChange(e, index)
+  }
+  AddMoreStep = ()=>{
+    this.props.AddStep();
+  }
+
   render() {
     const columns = this.state.columns;
     const ordered = this.state.ordered;
@@ -89,7 +104,6 @@ class Index extends Component {
           direction="horizontal"
           isCombineEnabled="false"
         >
-
           {provided => (
             <div ref={provided.innerRef} {...provided.droppableProps}>
               <ul>
@@ -99,6 +113,12 @@ class Index extends Component {
                       <Column
                         key={key}
                         index={index}
+                        edit={this.props.edit}
+                        editName={this.props.editName}
+                        onKeyDownlogin={this.props.onKeyDownlogin}
+                        onChange={(e)=>{this.onChange(e, index)}}
+                        DeleteStep={(index)=> this.props.DeleteStep(index)}
+                        openAddPatient={this.props.openAddPatient}
                         title={key}
                         quotes={columns[key]}
                         isCombineEnabled={this.props.isCombineEnabled}
@@ -108,6 +128,9 @@ class Index extends Component {
                   </li>
 
                 ))}
+                 <li>
+                 <Grid className="nwPatentAdd"><Button onClick={this.AddMoreStep}>+ Add Step</Button></Grid>
+                 </li>
               </ul>
               {provided.placeholder}
             </div>
