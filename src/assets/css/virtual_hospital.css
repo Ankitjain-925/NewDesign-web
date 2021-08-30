@@ -7391,7 +7391,7 @@ a.horzSort2 {
     border-radius: 24px;
 }
 .stafLft span {
-    color: #000808;
+    /* color: #000808; */
     font-size: 14px;
     font-weight: 600;
     letter-spacing: 0;
@@ -10344,7 +10344,8 @@ button.crdoLghtBlu2 {
     color: #fafafa;
 }
 .darkTheme .addStafClient p, .stafLft span {
-    color: #fafafa;
+    /* color: #fafafa; */
+    color: #000000;
 }
 .darkTheme .addStafClient label {
     color: #e0e0e0;
@@ -11374,3 +11375,10 @@ button.crdoLghtBlu2 {
     line-height: 18px;
     padding: 12px;
 }
+
+.patientTask {
+    padding-top: 5px;
+    padding-right: 30px;
+    padding-bottom: 10px;
+    padding-left: 0px;
+  }

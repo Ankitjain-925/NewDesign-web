@@ -91,6 +91,7 @@ import Questionnaire from "Screens/VirtualHospital/Questionnaire"
 import ManageBeds from "Screens/VirtualHospital/SpaceManagement/manageBeds";
 import VHInstitutes from "Screens/VirtualHospital/Institutes/index";
 import PatientDetail from "Screens/VirtualHospital/PatientDetails/index";
+import AssignModelTask from "Screens/VirtualHospital/Tasks/AssignModelTask.js";
 
 class Routermain extends Component {
   render() {
@@ -446,6 +447,7 @@ class Routermain extends Component {
               exact={true}
               render={(props) => <VHTasks {...props} />}
             />
+
             <Route
               path="/virtualhospital/invoices"
               exact={true}
@@ -470,13 +472,13 @@ class Routermain extends Component {
               path="/virtualhospital/manage-beds"
               exact={true}
               render={(props) => <ManageBeds {...props} />}
-              />
-              <Route
+            />
+            <Route
               path="/virtualhospital/institutes"
               exact={true}
               render={(props) => <VHInstitutes {...props} />}
-              />
-          
+            />
+
             {/* Adding by Ankit */}
             <Route
               path="/virtualhospital/room-flow"
@@ -488,12 +490,18 @@ class Routermain extends Component {
               exact={true}
               render={(props) => <Questionnaire {...props} />}
             />
-             <Route
+            <Route
               path="/virtualHospital/patient-detail"
               exact={true}
               render={(props) => <PatientDetail {...props} />}
             />
-           
+
+            <Route
+              path="/virtualhospital/assign"
+              exact={true}
+              render={(props) => <AssignModelTask {...props} />}
+            />
+
             <Route
               path="*"
               exact={true}
