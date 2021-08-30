@@ -32,6 +32,8 @@ import { Redirect, Route } from 'react-router-dom';
 import VHfield from "Screens/Components/VirtualHospitalComponents/VHfield/index";
 import DateFormat from "Screens/Components/DateFormat/index";
 import TimeFormat from "Screens/Components/TimeFormat/index";
+import Select from 'react-select';
+
 
 var new_data = [
     'https://images.unsplash.com/photo-1541963463532-d68292c34b19?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8Mnx8fGVufDB8fHx8&w=1000&q=80',
@@ -41,14 +43,23 @@ var new_data = [
 ]
 
 
-var allcomments = [{
-    comments_data: [{
-        // url: "https://images.unsplash.com/photo-1541963463532-d68292c34b19?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8Mnx8fGVufDB8fHx8&w=1000&q=80",
-        // text: "thirdone try comment",
-        // comment_by: "D_1Q1J4SSCm",
-        // comment_id: "60ae03a79d9ebe17f0a92858_D_1Q1J4SSCm_1622636888816"
-    }]
-}]
+// var allcomments = [{
+//     professional_data: [{
+//         // url: "https://images.unsplash.com/photo-1541963463532-d68292c34b19?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8Mnx8fGVufDB8fHx8&w=1000&q=80",
+//         // text: "thirdone try comment",
+//         // comment_by: "D_1Q1J4SSCm",
+//         // comment_id: "60ae03a79d9ebe17f0a92858_D_1Q1J4SSCm_1622636888816"
+//     }]
+// }]
+
+const options = [
+    { value: 'data1', label: 'Data1' },
+    { value: 'data2', label: 'Data2' },
+    { value: 'data3', label: 'Data3' },
+];
+
+var patientArray = [];
+
 function TabContainer(props) {
     return (
         <Typography component="div">
@@ -67,17 +78,28 @@ class Index extends Component {
             tabvalue: 0,
             tabvalue2: 0,
             text: '',
-            comments_data: [],
+            professional_data: [],
             openEntry: false,
             newTask: {},
             date_format: this.props.date_format,
             time_format: this.props.time_format,
             patient_doc: [],
+            patient_doc1: [],
+            patient_id_list: [],
+            patient_id_list1: [],
+            allPatData: [],
+            allPatData1: [],
+            users: [],
+            noWards: false,
+            newStaff: {},
+            professional_data: [],
+            ProfMessage: false
         };
     }
 
     componentDidMount() {
         this.getPatientData();
+        this.getProfessionalData();
     }
     handleOpenRvw = () => {
         this.setState({ openRvw: true });
@@ -91,21 +113,28 @@ class Index extends Component {
     handleChangeTab2 = (event, tabvalue2) => {
         this.setState({ tabvalue2 });
     };
+    handleNoWard = () => {
+        this.setState({ noWards: true });
+    }
+    handleCloseRvw = () => {
+        this.setState({ noWards: false });
+    }
     // updateCommemtState = (e) => {
     //     this.setState({
     //         text: e.target.value,
     //     })
     // }
-    // handleComment = (e) => {
+    // handleSubmit = (e) => {
     //     e.preventDefault();
-    //     let comments_data = [...this.state.comments_data];
-    //     comments_data.push({
-    //         text: this.state.text,
+    //     let professional_data = [...this.state.professional_data];
+    //     professional_data.push({
+    //         newTask: this.state.newTask
     //     });
     //     this.setState({
-    //         comments_data,
-    //         text: '',
+    //         professional_data,
+    //         newTask: '',
     //     });
+
     // };
 
     handleOpenAssign = () => {
@@ -121,27 +150,132 @@ class Index extends Component {
             const state = this.state.newTask;
             state[name] = e
             this.setState({ newTask: state });
-            console.log("date", e);
         }
         else if (name === 'time_measured') {
             const state = this.state.newTask;
             state[name] = e
             this.setState({ newTask: state });
-            console.log("time", e);
         }
         else {
-            console.log("e", e.target.value)
             const state = this.state.newTask;
             state[e.target.name] = e.target.value;
             this.setState({ newTask: state });
         }
     };
 
-    handleSubmit() {
-        console.log("newTask", this.state.newTask);
+    updateEntryState2 = (e) => {
+        const state = this.state.newTask;
+        state["name"] = e.label
+        this.setState({ newTask: state });
     }
 
+    updateEntryState3 = (e) => {
+        console.log('e', e)
+        let professional_data = [...this.state.professional_data];
+        console.log("e.value", e.label)
+        var ProfAy = this.state.professional_data?.length > 0 && this.state.professional_data.filter((data, index) => data.value === e.value);
+            console.log(ProfAy)
+            if(ProfAy && ProfAy.length>0){
+                this.setState({ ProfMessage: "Already Exist!" });
+            }
+            else{
+                professional_data.push(e);
+                this.setState({ ProfMessage: false });
+            }     
+            console.log("data",ProfAy)
+            this.setState({
+                professional_data
+         });
+        console.log("professional_data", professional_data)
+    }
+
+    // updateEntryState3 = (e) => {
+    //     console.log('e', e)
+    //     let professional_data = [...this.state.professional_data];
+    //     console.log("e.value", e.label)
+    //     professional_data.push(e);
+    //         this.setState({
+    //             professional_data
+    //         });    
+    // }
+
+    deleteProf = (index) => {
+        var ProfAy = this.state.professional_data?.length > 0 && this.state.professional_data.filter((data, index1) => index1 !== index);
+        this.setState({ professional_data: ProfAy });
+        this.setState({ ProfMessage: false });
+    };
+
+    // getPatientData = () => {
+    //     var PatientList = [], PatientList1 = [];
+    //     patientArray = [];
+    //     this.setState({ loaderImage: true });
+    //     axios
+    //         .get(
+    //             sitedata.data.path + "/vh/getPatientFromVH/600c15c2c983431790f904c3-1627046889451",
+    //             commonHeader(this.props.stateLoginValueAim.token)
+    //         )
+    //         .then((response) => {
+    //             this.setState({ allPatData: response.data.data })
+    //             for (let i = 0; i < this.state.allPatData.length; i++) {
+    //                 var name = '';
+    //                 if (this.state.allPatData[i]?.patient?.first_name && this.state.allPatData[i]?.patient?.last_name) {
+    //                     name = this.state.allPatData[i]?.patient?.first_name + ' ' + this.state.allPatData[i]?.patient?.last_name
+    //                 }
+    //                 else if (this.state.allPatData[i].patient?.first_name) {
+    //                     name = this.state.allPatData[i].patient?.first_name
+    //                 }
+    //                 patientArray.push({
+    //                     name: name,
+    //                     id: this.state.allPatData[i]._id,
+    //                     // profile_id: this.state.allPatData[i].profile_id,
+    //                     alies_id: this.state.allPatData[i].alies_id
+    //                 })
+    //                 PatientList.push({ value: this.state.allPatData[i]._id, label: name })
+    //                 PatientList1.push({ profile_id: this.state.allPatData[i].profile_id, value: this.state.allPatData[i]._id, label: name })
+    //             }
+    //             this.setState({ users: patientArray, patient_id_list: PatientList, patient_id_list1: PatientList1 })
+    //             console.log("image",this.state.allPatData)
+    //         });
+
+    // };
+
+
+    getProfessionalData = () => {
+        var professionalList = [], professionalList1 = [],
+            professionalArray = [];
+        this.setState({ loaderImage: true });
+        axios
+            .get(
+                sitedata.data.path + "/hospitaladmin/GetProfessional/60fabfe5b3394533f7f9a6dc-1629349858559",
+                commonHeader(this.props.stateLoginValueAim.token)
+            )
+            .then((response) => {
+                this.setState({ allProfData: response.data.data })
+                for (let i = 0; i < this.state.allProfData.length; i++) {
+                    var name = '';
+                    if (this.state.allProfData[i]?.first_name && this.state.allProfData[i]?.last_name) {
+                        name = this.state.allProfData[i]?.first_name + ' ' + this.state.allProfData[i]?.last_name
+                    }
+                    else if (this.state.allProfData[i]?.first_name) {
+                        name = this.state.allProfData[i]?.first_name
+                    }
+                    professionalArray.push({
+                        name: name,
+                        id: this.state.allProfData[i]._id,
+                        // profile_id: this.state.allProfData[i].profile_id,
+                        alies_id: this.state.allProfData[i].alies_id
+                    })
+                    professionalList.push({ value: this.state.allProfData[i]._id, label: name })
+                    professionalList1.push({ profile_id: this.state.allProfData[i].profile_id, value: this.state.allProfData[i]._id, label: name })
+                }
+                this.setState({ users: professionalArray, professional_id_list: professionalList, professional_id_list1: professionalList1 })
+            });
+
+    };
+
     getPatientData = () => {
+        var PatientList = [], PatientList1 = [];
+        patientArray = [];
         this.setState({ loaderImage: true });
         axios
             .get(
@@ -149,19 +283,45 @@ class Index extends Component {
                 commonHeader(this.props.stateLoginValueAim.token)
             )
             .then((response) => {
-                var myFilterData = [];
-                if (response.data.data.patient_doc && response.data.data.patient_doc.length > 0) {
-                    response.data.data.patient_doc.map((item) => {
-                        myFilterData = this.state.patient_doc_list && this.state.patient_doc_list.length > 0 && this.state.patient_doc_list.filter((ind) =>
-                            ind.value === item);
-                            
+                this.setState({ allPatData: response.data.data })
+                var images = [];
+                for (let i = 0; i < this.state.allPatData.length; i++) {
+                    var find = this.state.allPatData[i]?.patient?.image;
+                    // console.log('find', find)
+                    if (find) {
+                        var find1 = find.split(".com/")[1];
+                        axios
+                            .get(sitedata.data.path + "/aws/sign_s3?find=" + find1)
+                            .then((response2) => {
+                                if (response2.data.hassuccessed) {
+                                    images.push({
+                                        image: find,
+                                        new_image: response2.data.data,
+                                    });
+                                    this.setState({ images: images });
+                                }
+                            });
+                    }
+                    var name = '';
+                    if (this.state.allPatData[i]?.patient?.first_name && this.state.allPatData[i]?.patient?.last_name) {
+                        name = this.state.allPatData[i]?.patient?.first_name + ' ' + this.state.allPatData[i]?.patient?.last_name
+                    }
+                    else if (this.state.allPatData[i].patient?.first_name) {
+                        name = this.state.allPatData[i].patient?.first_name
+                    }
+                    patientArray.push({
+                        name: name,
+                        id: this.state.allPatData[i]._id,
+                        alies_id: this.state.allPatData[i].alies_id
                     })
-               
+                    PatientList.push({ value: this.state.allPatData[i]._id, label: name })
+                    PatientList1.push({ profile_id: this.state.allPatData[i].profile_id, value: this.state.allPatData[i]._id, label: name })
                 }
-            
-                console.log("response", this.state.patient_doc)
+                this.setState({ users: patientArray, patient_id_list: PatientList, patient_id_list1: PatientList1 })
+                // console.log("image", this.state.images)
             });
-    };
+
+    }
 
     componentWillReceiveProps(nextProps) {
         this.setState({ users: nextProps.users, filteredUsers: nextProps.users }, () => this.filterList());
@@ -181,14 +341,15 @@ class Index extends Component {
     }
 
     render() {
-        const { tabvalue, tabvalue2, comments_data, newTask } = this.state;
+        const { tabvalue, tabvalue2, professional_data, newTask } = this.state;
         const userList = this.state.filteredUsers && this.state.filteredUsers.map(user => {
-        return (
-            <li key={user.id} style={{ background: this.myColor(user.id), color: this.color(user.id) }} value={user.profile_id}
-                onClick={() => { this.setState({ q: user.name, selectedUser: user.profile_id, selectedprofile: user.profile_id }); this.toggle(user.id); this.setState({ filteredUsers: [] }) }}
-            >{user.name} ( {user.profile_id} )</li>
-        )});
-        
+            return (
+                <li key={user.id} style={{ background: this.myColor(user.id), color: this.color(user.id) }} value={user.profile_id}
+                    onClick={() => { this.setState({ q: user.name, selectedUser: user.profile_id, selectedprofile: user.profile_id }); this.toggle(user.id); this.setState({ filteredUsers: [] }) }}
+                >{user.name} ( {user.profile_id} )</li>
+            )
+        });
+
         return (
             <Grid className={
                 this.props.settings &&
@@ -295,25 +456,26 @@ class Index extends Component {
 
                                                                                     <Grid>
                                                                                         <VHfield
-                                                                                            label="Patient"
-                                                                                            name="patient"
-                                                                                            placeholder="Enter patient"
-                                                                                            onChange={(e) =>
-                                                                                                this.updateEntryState1(e)}
-                                                                                            // value={this.state.myData.patient}
-                                                                                        />
-                                                                                    </Grid>
-
-
-                                                                                    <Grid >
-                                                                                        <VHfield
                                                                                             label="Description"
                                                                                             name="description"
                                                                                             placeholder="Enter description"
                                                                                             onChange={(e) =>
-                                                                                                this.updateEntryState1(e)
-                                                                                            }
-                                                                                        // value={this.state.updateTrack.title}
+                                                                                                this.updateEntryState1(e)}
+                                                                                        // value={this.state.myData.patient}
+                                                                                        />
+                                                                                    </Grid>
+
+                                                                                    <Grid className="patientTask">
+                                                                                        <Grid>Patient</Grid>
+
+                                                                                        <Select
+                                                                                            label="Patient"
+                                                                                            name="patient"
+                                                                                            onChange={(e) =>
+                                                                                                this.updateEntryState2(e)}
+                                                                                            value={this.state.newTask.patient}
+                                                                                            options={this.state.patient_id_list}
+                                                                                            isSearchable={true}
                                                                                         />
                                                                                     </Grid>
 
@@ -354,6 +516,160 @@ class Index extends Component {
                                                                                             </Grid>
                                                                                         </Grid>
                                                                                     </Grid>
+
+                                                                                    <Grid className="assignSecUpr">
+                                                                                        <Grid container direction="row" alignItems="center">
+                                                                                            <Grid item xs={12} sm={12} md={12}>
+                                                                                                <Grid className="assignSec">
+                                                                                                    <Grid>
+                                                                                                        <img src={require('assets/virtual_images/assign-to.svg')} alt="" title="" />
+                                                                                                        <a onClick={this.handleNoWard}><label onClick={this.handleSubmit}>+ Assign to</label></a>
+                                                                                                    </Grid>
+                                                                                                    <Grid>
+                                                                                                        <img src={require('assets/virtual_images/assign-to.svg')} alt="" title="" />
+                                                                                                        <label>Duplicate</label>
+                                                                                                    </Grid>
+                                                                                                    <Grid>
+                                                                                                        <img src={require('assets/virtual_images/assign-to.svg')} alt="" title="" />
+                                                                                                        <label>Archive</label>
+                                                                                                    </Grid>
+                                                                                                    <Grid>
+                                                                                                        <img src={require('assets/virtual_images/assign-to.svg')} alt="" title="" />
+                                                                                                        <label>Delete</label>
+                                                                                                    </Grid>
+                                                                                                </Grid>
+                                                                                            </Grid>
+                                                                                        </Grid>
+                                                                                    </Grid>
+
+                                                                                    <Modal open={this.state.noWards}
+                                                                                        onClose={this.handleCloseRvw}>
+                                                                                        <Grid className="addStaff">
+                                                                                            <Grid className="addStaffIner">
+                                                                                                <Grid container direction="row">
+                                                                                                    <Grid item xs={12} md={12}>
+                                                                                                        <Grid className="movPtntCntnt">
+                                                                                                            <Grid className="addStaffLbl">
+                                                                                                                <Grid className="addStaffClose closeMove">
+                                                                                                                    <a onClick={this.handleCloseRvw}>
+                                                                                                                        <img src={require('assets/virtual_images/closebtn.png')} alt="" title="" />
+                                                                                                                    </a>
+                                                                                                                </Grid>
+                                                                                                                <label>Staff on patient</label>
+                                                                                                            </Grid>
+                                                                                                        </Grid>
+                                                                                                        <Grid className="addStafClient">
+                                                                                                            <Grid className="addStafClientLft">
+                                                                                                                <img src={require('assets/virtual_images/james.jpg')} alt="" title="" />
+                                                                                                            </Grid>
+                                                                                                            <Grid>
+                                                                                                                <label>{this.state.newTask?.name}</label> <p>P_mDnkbR30d</p>
+                                                                                                            </Grid>
+                                                                                                        </Grid>
+                                                                                                        <Grid className="addStafMgnt">
+                                                                                                            <Grid className="addStafdrop">
+                                                                                                            <Grid className="err_message"><label>{this.state.ProfMessage}</label></Grid>
+                                                                                                                <Grid><label>Add staff</label></Grid>
+                                                                                                                <Select
+                                                                                                                    name="professional"
+                                                                                                                    onChange={(e) =>
+                                                                                                                        this.updateEntryState3(e)}
+                                                                                                                    value={this.state.newStaff.professional}
+                                                                                                                    options={this.state.professional_id_list}
+                                                                                                                    placeholder="Search & Select"
+                                                                                                                    className="addStafSelect"
+                                                                                                                    isSearchable={true} />
+                                                                                                            </Grid>
+                                                                                                        </Grid>
+
+                                                                                                        <Grid className="stafLstCntnt">
+
+                                                                                                            {this.state.professional_data?.length > 0 && this.state.professional_data.map((data, index) => (
+                                                                                                                <Grid className="stafLst">
+                                                                                                                    <Grid className="stafLft">
+                                                                                                                        <a><img src={require('assets/virtual_images/dr2.jpg')} alt="" title="" /></a>
+                                                                                                                        <span>{data.label}</span>
+                                                                                                                    </Grid>
+                                                                                                                    <Grid className="stafRght">
+                                                                                                                        <a onClick={() => this.deleteProf(index)}><img src={require('assets/virtual_images/bin.svg')} alt="" title="" /></a>
+                                                                                                                    </Grid>
+                                                                                                                </Grid>
+                                                                                                            ))}
+
+                                                                                                            {/* </Grid>
+                                                                                                            <Grid className="stafLst">
+                                                                                                                <Grid className="stafLft">
+                                                                                                                    <a><img src={require('assets/virtual_images/dr1.jpg')} alt="" title="" /></a>
+                                                                                                                    <span>Mark Anderson M.D.</span>
+                                                                                                                </Grid>
+                                                                                                                <Grid className="stafRght">
+                                                                                                                    <a><img src={require('assets/virtual_images/bin.svg')} alt="" title="" /></a>
+                                                                                                                </Grid>
+                                                                                                            </Grid>
+                                                                                                            <Grid className="stafLst">
+                                                                                                                <Grid className="stafLft">
+                                                                                                                    <a><img src={require('assets/virtual_images/BernhardBreil.png')} alt="" title="" /></a>
+                                                                                                                    <span>Ahmad Nazeri</span>
+                                                                                                                </Grid>
+                                                                                                                <Grid className="stafRght">
+                                                                                                                    <a><img src={require('assets/virtual_images/bin.svg')} alt="" title="" /></a>
+                                                                                                                </Grid>
+                                                                                                            </Grid>
+                                                                                                            <Grid className="stafLst">
+                                                                                                                <Grid className="stafLft">
+                                                                                                                    <a><img src={require('assets/virtual_images/YehoushuaWestover.png')} alt="" title="" /></a>
+                                                                                                                    <span>Angela Longoria</span>
+                                                                                                                </Grid>
+                                                                                                                <Grid className="stafRght">
+                                                                                                                    <a><img src={require('assets/virtual_images/bin.svg')} alt="" title="" /></a>
+                                                                                                                </Grid>
+                                                                                                            </Grid>
+                                                                                                            <Grid className="stafLst">
+                                                                                                                <Grid className="stafLft">
+                                                                                                                    <a><img src={require('assets/virtual_images/102.png')} alt="" title="" /></a>
+                                                                                                                    <span>Conan Matusov</span>
+                                                                                                                </Grid>
+                                                                                                                <Grid className="stafRght">
+                                                                                                                    <a><img src={require('assets/virtual_images/bin.svg')} alt="" title="" /></a>
+                                                                                                                </Grid>
+                                                                                                            </Grid>
+                                                                                                            <Grid className="stafLst">
+                                                                                                                <Grid className="stafLft">
+                                                                                                                    <a><img src={require('assets/virtual_images/101.png')} alt="" title="" /></a>
+                                                                                                                    <span>Ezequiel Dengra</span>
+                                                                                                                </Grid>
+                                                                                                                <Grid className="stafRght">
+                                                                                                                    <a><img src={require('assets/virtual_images/bin.svg')} alt="" title="" /></a>
+                                                                                                                </Grid>
+                                                                                                            </Grid>
+                                                                                                            <Grid className="stafLst">
+                                                                                                                <Grid className="stafLft">
+                                                                                                                    <a><img src={require('assets/virtual_images/YehoushuaWestover.png')} alt="" title="" /></a>
+                                                                                                                    <span>Angela Longoria</span>
+                                                                                                                </Grid>
+                                                                                                                <Grid className="stafRght">
+                                                                                                                    <a><img src={require('assets/virtual_images/bin.svg')} alt="" title="" /></a>
+                                                                                                                </Grid>
+                                                                                                            </Grid>
+                                                                                                            <Grid className="stafLst">
+                                                                                                                <Grid className="stafLft">
+                                                                                                                    <a><img src={require('assets/virtual_images/102.png')} alt="" title="" /></a>
+                                                                                                                    <span>Conan Matusov</span>
+                                                                                                                </Grid>
+                                                                                                                <Grid className="stafRght">
+                                                                                                                    <a><img src={require('assets/virtual_images/bin.svg')} alt="" title="" /></a>
+                                                                                                                </Grid> */}
+                                                                                                        </Grid>
+                                                                                                    </Grid>
+                                                                                                </Grid>
+
+                                                                                                <Grid className="addStafClos"><Button onClick={this.handleCloseRvw}>Save & Close</Button></Grid>
+                                                                                            </Grid>
+
+
+                                                                                        </Grid>
+                                                                                    </Modal>
+
 
                                                                                     <Grid className="attchFile">
                                                                                         <Grid>
