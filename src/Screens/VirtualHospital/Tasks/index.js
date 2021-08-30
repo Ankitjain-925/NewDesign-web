@@ -124,18 +124,10 @@ class Index extends Component {
     //         text: e.target.value,
     //     })
     // }
-    // handleSubmit = (e) => {
-    //     e.preventDefault();
-    //     let professional_data = [...this.state.professional_data];
-    //     professional_data.push({
-    //         newTask: this.state.newTask
-    //     });
-    //     this.setState({
-    //         professional_data,
-    //         newTask: '',
-    //     });
+    handleSubmit = () => {
+     console.log("newTask",this.state.newTask)
 
-    // };
+    };
 
     handleOpenAssign = () => {
         this.setState({ openEntry: true });
@@ -174,18 +166,18 @@ class Index extends Component {
         let professional_data = [...this.state.professional_data];
         console.log("e.value", e.label)
         var ProfAy = this.state.professional_data?.length > 0 && this.state.professional_data.filter((data, index) => data.value === e.value);
-            console.log(ProfAy)
-            if(ProfAy && ProfAy.length>0){
-                this.setState({ ProfMessage: "Already Exist!" });
-            }
-            else{
-                professional_data.push(e);
-                this.setState({ ProfMessage: false });
-            }     
-            console.log("data",ProfAy)
-            this.setState({
-                professional_data
-         });
+        console.log(ProfAy)
+        if (ProfAy && ProfAy.length > 0) {
+            this.setState({ ProfMessage: "Already Exist!" });
+        }
+        else {
+            professional_data.push(e);
+            this.setState({ ProfMessage: false });
+        }
+        console.log("data", ProfAy)
+        this.setState({
+            professional_data
+        });
         console.log("professional_data", professional_data)
     }
 
@@ -340,6 +332,16 @@ class Index extends Component {
         }
     }
 
+    FileAttachMulti = (Fileadd) => {
+        this.setState({
+          isfileuploadmulti: true,
+          fileattach: Fileadd,
+          fileupods: true,
+         
+        });
+        console.log("FileAttach",this.state.newTask)
+      };
+
     render() {
         const { tabvalue, tabvalue2, professional_data, newTask } = this.state;
         const userList = this.state.filteredUsers && this.state.filteredUsers.map(user => {
@@ -409,6 +411,7 @@ class Index extends Component {
                                                         </AppBar>
                                                     </Grid>
                                                     <Grid item xs={12} md={6}>
+
                                                         <Grid className="addTaskBtn">
                                                             <Button onClick={this.handleOpenRvw}>+ Add Task</Button>
                                                         </Grid>
@@ -568,7 +571,7 @@ class Index extends Component {
                                                                                                         </Grid>
                                                                                                         <Grid className="addStafMgnt">
                                                                                                             <Grid className="addStafdrop">
-                                                                                                            <Grid className="err_message"><label>{this.state.ProfMessage}</label></Grid>
+                                                                                                                <Grid className="err_message"><label>{this.state.ProfMessage}</label></Grid>
                                                                                                                 <Grid><label>Add staff</label></Grid>
                                                                                                                 <Select
                                                                                                                     name="professional"
@@ -678,14 +681,15 @@ class Index extends Component {
                                                                                         <FileUploader
                                                                                             cur_one={this.props.cur_one}
                                                                                             attachfile={
-                                                                                                this.state.updateTrack && this.state.updateTrack.attachfile
-                                                                                                    ? this.state.updateTrack.attachfile
+                                                                                                this.state.newTask && this.state.newTask.attachfile
+                                                                                                    ? this.state.newTask.attachfile
                                                                                                     : []
                                                                                             }
                                                                                             name="UploadTrackImageMulti"
-                                                                                            comesFrom="journal"
-                                                                                            isMulti={true}
-                                                                                            fileUpload={this.props.FileAttachMulti}
+                                                                                            isMulti="true"
+                                                                                            fileUpload={(event) => {
+                                                                                                this.FileAttachMulti(event);
+                                                                                            }}
                                                                                         />
                                                                                     </Grid>
 
