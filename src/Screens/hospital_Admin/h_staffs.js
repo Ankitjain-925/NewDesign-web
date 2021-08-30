@@ -26,7 +26,7 @@ import CreateAdminUser from "Screens/Components/CreateHospitalUser/index";
 import ViewDetail from "Screens/Components/ViewInformation/index";
 import Button from "@material-ui/core/Button";
 import Modal from "@material-ui/core/Modal";
-
+import AssignedHouse from "Screens/Components/VirtualHospitalComponents/AssignedHouse/index";
 import "./style.css";
 import {
   commonHeader,
@@ -154,7 +154,7 @@ class Index extends Component {
         commonHeader(user_token)
       )
       .then((response) => {
-        this.setState({openHouse: false})
+        // this.setState({openHouse: false})
         if (response.data.data) {
           var images = [];
           this.setState({ AllUsers: response.data.data });
@@ -298,7 +298,6 @@ class Index extends Component {
 
   SaveAssignHouse =()=>{
     var userid = this.state.current_user._id;
-    console.log('house', this.state.house,)
     this.setState({ loaderImage: true });
     axios
       .put(
@@ -312,8 +311,8 @@ class Index extends Component {
             this.setState({assignedhouse: true})
             setTimeout(()=>{
               this.setState({assignedhouse: false, openHouse: false,})
-            }, 3000)
-            this.getAdminstaff();
+            }, 5000)
+            this.getallGroups();
         }
         else{
           this.setState({alredyExist: true})
@@ -336,11 +335,11 @@ class Index extends Component {
       )
       .then((responce) => {
         if (responce.data.hassuccessed) {
-            this.setState({ deleteHouse: true})
+            this.setState({ deleteHouses: true})
             setTimeout(()=>{
-              this.setState({deleteHouse: false, openHouse: false})
-            }, 30000)
-            this.getAdminstaff();
+              this.setState({deleteHouses: false, openHouse: false})
+            }, 5000)
+            this.getallGroups();
         }
         this.setState({ loaderImage: false });
       });
@@ -431,6 +430,7 @@ class Index extends Component {
                     className="archvSrchInput"
                   >
                     <Grid item xs={12} md={12}>
+                
                       {" "}
                       <input
                         onChange={this.search_user}
@@ -596,7 +596,20 @@ class Index extends Component {
                       </Grid>
                     </Grid>
                   </Grid>
-                  <Modal
+                  <AssignedHouse
+                    assignedhouse={this.state.assignedhouse}
+                    deleteHouses={this.state.deleteHouses}
+                    openHouse={this.state.openHouse}
+                    currentHouses={this.state.currentHouses}
+                    Housesoptions={this.state.Housesoptions}
+                    current_user={this.state.current_user}
+                    alredyExist={this.state.alredyExist}
+                    closeHouse={this.closeHouse}
+                    SaveAssignHouse={this.SaveAssignHouse}
+                    deleteHouse={this.deleteHouse}
+                    updateEntryState1={this.updateEntryState1}
+                  />
+                  {/* <Modal
                     open={this.state.openHouse}
                     onClose={this.closeHouse}
                     className="addSpeclModel"
@@ -670,7 +683,7 @@ class Index extends Component {
                       </Grid>
                     </Grid>
                     </Grid>
-                  </Modal>
+                  </Modal> */}
                   <ViewDetail
                     openDetial={this.state.openDetial}
                     CloseDetail={this.CloseDetail}

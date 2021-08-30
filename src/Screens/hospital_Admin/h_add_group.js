@@ -35,7 +35,8 @@ class Index extends Component {
     this.state = {
       openGroup: false,
       houses: [],
-      institute_groups: {}
+      institute_groups: {},
+      AllGroupList: []
     };
   }
   //open the institute group
@@ -93,13 +94,30 @@ class Index extends Component {
         commonHeader(this.props.stateLoginValueAim.token)
       )
       .then((responce) => {
+        var totalPage = Math.ceil(
+          responce.data?.data?.institute_groups?.length/ 10
+        );
         if (responce.data.hassuccessed && responce.data.data) {
-          this.setState({ GroupList: responce.data?.data?.institute_groups });
+          this.setState({  totalPage: totalPage,
+            currentPage: 1, AllGroupList: responce.data?.data?.institute_groups },
+            () => {
+              if (totalPage > 1) {
+                var pages = [];
+                for (var i = 1; i <= this.state.totalPage; i++) {
+                  pages.push(i);
+                }
+                this.setState({
+                  GroupList: this.state.AllGroupList.slice(0, 10),
+                  pages: pages,
+                });
+              } else {
+                this.setState({ GroupList: this.state.AllGroupList });
+              }
+            })
+            this.setState({ loaderImage: false });
+        }});
         }
-        this.setState({ loaderImage: false });
-      });
-  };
-
+      
   SaveGroup = () => {
     var data = this.state.institute_groups;
     var institute_id = this.props.stateLoginValueAim?.user?.institute_id?.length>0 ?  this.props.stateLoginValueAim?.user?.institute_id[0]:''
@@ -181,11 +199,11 @@ class Index extends Component {
             <Grid item xs={12} md={12}>
               <Grid container direction="row">
                 {/* Mobile menu */}
-                <H_LeftMenuMobile isNotShow={true} currentPage="staff_List" />
+                <H_LeftMenuMobile isNotShow={true} currentPage="more" />
                 {/* End of mobile menu */}
 
                 {/* Website Menu */}
-                <H_LeftMenu isNotShow={true} currentPage="staff_List" />
+                <H_LeftMenu isNotShow={true} currentPage="more" />
                 {/* End of Website Menu */}
 
                 <Grid item xs={12} md={10} className="adminMenuRghtUpr">

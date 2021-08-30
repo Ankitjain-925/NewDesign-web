@@ -46,7 +46,10 @@ class Index extends React.Component {
 
     deleteRooms = (index) => {
         var RoomAy = this.state.roomArray?.length>0 && this.state.roomArray.filter((data , index1)=>index1 !== index);
-        this.setState({ roomArray: RoomAy });  
+        this.setState({ roomArray: RoomAy }, ()=>{
+            this.props.onChange(this.state.roomArray)
+        });  
+        
     };
   
 

@@ -25,6 +25,7 @@ import Pagination from "Screens/Components/Pagination/index";
 import SelectField from "Screens/Components/Select/index";
 import Button from "@material-ui/core/Button";
 import Modal from "@material-ui/core/Modal";
+import AssignedHouse from "Screens/Components/VirtualHospitalComponents/AssignedHouse/index";
 
 const specialistOptions = [
     { value: 'Specialist1', label: 'Specialist1' },
@@ -47,17 +48,53 @@ class Index extends Component {
             successfullsent: false,
             addCreate: false,
             current_user : {},
+            Housesoptions :[],
+            currentHouses: [],
+            openHouse : false,
+            house:{},
             openDetial : false,
             MypatientsData : [],
+            UpDataDetails: {},
+            deleteHouses: {}
 
         };
         // new Timer(this.logOutClick.bind(this)) 
         this.search_user = this.search_user.bind(this)
     }
 
+      getallGroups = () => {
+    var institute_id = this.props.stateLoginValueAim?.user?.institute_id?.length>0 ?  this.props.stateLoginValueAim?.user?.institute_id[0]:''
+    this.setState({ loaderImage: true });
+    axios
+      .get(
+        sitedata.data.path +
+          `/hospitaladmin/institute/${institute_id}`,
+        commonHeader(this.props.stateLoginValueAim.token)
+      )
+      .then((responce) => {
+        if (responce.data.hassuccessed && responce.data.data) {
+            var Housesoptions = [];
+            if(responce.data?.data?.institute_groups && responce.data?.data?.institute_groups.length>0){
+                responce.data.data.institute_groups.map((data)=>{
+                    data?.houses && data.houses.length>0 && data.houses.map((item)=>{
+                        Housesoptions.push({
+                            group_name : data.group_name,
+                            label: item.house_name,
+                            value: item.house_id
+                        })
+                        this.setState({ Housesoptions:  Housesoptions});
+                    })
+                })
+            }
+        }
+        this.setState({ loaderImage: false });
+      });
+  };
+
     componentDidMount = () => {
         this.getAllkyc()
         this.getDoctors();
+        this.getallGroups();
     }
 
     handleOpenCreate = () => {
@@ -202,6 +239,68 @@ class Index extends Component {
         this.setState({ MypatientsData: this.state.AllDoctor.slice((pageNumber - 1) * 10, pageNumber * 10), currentPage: pageNumber })
     }
 
+    assignHouse = (patient) => {
+        this.setState({openHouse: true, current_user: patient})
+      };
+    
+      closeHouse = () => {
+        this.setState({openHouse: false})
+      };
+    
+      updateEntryState1 = (value, name)=>{
+        this.setState({ house: value });
+      }
+    
+      SaveAssignHouse =()=>{
+        var userid = this.state.current_user._id;
+        this.setState({ loaderImage: true });
+        axios
+          .put(
+            sitedata.data.path +
+              `/hospitaladmin/assignedHouse/${userid}`,
+              this.state.house,
+            commonHeader(this.props.stateLoginValueAim.token)
+          )
+          .then((responce) => {
+            if (responce.data.hassuccessed) {
+                this.setState({assignedhouse: true})
+                setTimeout(()=>{
+                  this.setState({assignedhouse: false, openHouse: false,})
+                }, 5000)
+                this.getallGroups();
+            }
+            else{
+              this.setState({alredyExist: true})
+              setTimeout(()=>{
+                this.setState({alredyExist: false})
+              }, 5000)
+            }
+            this.setState({ loaderImage: false });
+          });
+        // /assignedHouse/:
+      }
+
+      deleteHouse=(deleteId)=>{
+        var userid = this.state.current_user._id;
+        this.setState({ loaderImage: true });
+        axios
+          .delete(
+            sitedata.data.path +
+              `/hospitaladmin/assignedHouse/${userid}/${deleteId}`,
+            commonHeader(this.props.stateLoginValueAim.token)
+          )
+          .then((responce) => {
+            if (responce.data.hassuccessed) {
+                this.setState({ deleteHouses: true})
+                setTimeout(()=>{
+                  this.setState({deleteHouses: false, openHouse: false})
+                }, 5000)
+                this.getallGroups();
+            }
+            this.setState({ loaderImage: false });
+          });
+      }
+
     render() {
         if (this.props.stateLoginValueAim.user.type != "hospitaladmin") {
             this.props.history.push("/")
@@ -254,6 +353,16 @@ class Index extends Component {
                                         <Grid item xs={12} md={12}> <input onChange={this.search_user.bind(this)} type="text" placeholder={find_doctor} /></Grid>
                                         <img src={require('assets/images/InputField.svg')} alt="" title="" />
                                     </Grid>
+                                    {/* {this.state.assignedhouse && (
+                                        <div className="success_message">
+                                        House is assigned to doctor
+                                        </div>
+                                    )}
+                                        {this.state.deleteHouse && (
+                                        <div className="success_message">
+                                        House id deleted from the doctor
+                                        </div>
+                                    )} */}
                                     <Grid className="archvOpinionIner">
                                         <Table>
                                             <Thead>
@@ -285,6 +394,18 @@ class Index extends Component {
                                                                 <ul>
                                                                     <li onClick={()=>this.openDetail(doctor)}><a><span><img src={require('assets/images/admin/details1.svg')} alt="" title="" /></span>{see_detail}</a></li>
                                                                     <li onClick={()=>this.BlockUser(doctor._id, doctor.isblock)}><a><span><img src={require('assets/images/admin/restoreIcon.png')} alt="" title="" /></span>{doctor.isblock && doctor.isblock == true ?'Unblock': 'Block'}</a></li>
+                                                                    <li onClick={() => this.assignHouse(doctor)}>
+                                                                        <a>
+                                                                            <span>
+                                                                            <img
+                                                                                src={require("assets/images/admin/details1.svg")}
+                                                                                alt=""
+                                                                                title=""
+                                                                            />
+                                                                            </span>
+                                                                            Assign House
+                                                                        </a>
+                                                                        </li>
                                                                     <li onClick={()=>this.submitDelete(doctor._id, doctor.profile_id, doctor.bucket)}><a><span><img src={require('assets/images/admin/delIcon.png')} alt="" title="" /></span>{Delete}</a></li>
                                                                 </ul>
                                                             </a>
@@ -314,81 +435,19 @@ class Index extends Component {
                                             </Grid>
                                         </Grid>
                                     </Grid>
-                                    <Modal
-                    open={this.state.openHouse}
-                    onClose={this.closeHouse}
-                    className="addSpeclModel"
-                  >
-                    <Grid className="addSpeclContnt">
-                      <Grid className="addSpeclLbl">
-                        <Grid className="addSpeclClose">
-                          <a onClick={this.closeHouse}>
-                            <img
-                              src={require("assets/virtual_images/closefancy.png")}
-                              alt=""
-                              title=""
-                            />
-                          </a>
-                        </Grid>
-                        <Grid>
-                          <label>Assign House</label>
-                        </Grid>
-                      </Grid>
-                      <Grid className="enterSpclUpr">
-                        <Grid className="enterSpclMain">
-                          <Grid className="enterSpcl">
-                            <Grid container direction="row">
-                              {this.state.alredyExist && (
-                                <div className="err_message">
-                                  House is already exist to doctor
-                                </div>
-                              )}
-                              {this.state.assignedhouse && (
-                                <div className="success_message">
-                                  House is assigned to doctor
-                                </div>
-                              )}
-                                {this.state.deleteHouse && (
-                                <div className="success_message">
-                                  House id deleted from the doctor
-                                </div>
-                              )}
-                                <Grid item xs={10} md={12}>
-                                <SelectField
-                                    isSearchable={true}
-                                    name="houses"
-                                    option={this.state.Housesoptions}
-                                    onChange={(e) => this.updateEntryState1(e, "houses")}
-                                    value={this.state.currentHouses}
-                                    // isMulti={true}
-                                />
-                              </Grid>
-                              <Grid item xs={10} md={12}>
-                                  <b>Assigned Houses -</b>
-                                  <Grid container direction="row">
-                                {this.state.current_user?.houses?.length>0 && this.state.current_user?.houses.map((item)=>(
-                                       <>
-                                       <Grid item xs={10} md={10}>
-                                            {item.group_name} - {item.label} ({item.value})
-                                        </Grid>
-                                        <Grid item xs={2} md={2}>
-                                            <a className="delet-house" onClick={()=>{this.deleteHouse(item.value)}}>Delete</a>
-                                        </Grid>
-                                        </>
-                                ))}
-                                </Grid>
-                              </Grid>
-                                
-                            
-                            <Grid className="spclSaveBtn saveNclose">
-                              <Button onClick={()=>this.SaveAssignHouse()}>Save</Button>
-                            </Grid>
-                          </Grid>
-                        </Grid>
-                      </Grid>
-                    </Grid>
-                    </Grid>
-                  </Modal>
+                                    <AssignedHouse
+                                        assignedhouse={this.state.assignedhouse}
+                                        deleteHouses={this.state.deleteHouses}
+                                        openHouse={this.state.openHouse}
+                                        currentHouses={this.state.currentHouses}
+                                        Housesoptions={this.state.Housesoptions}
+                                        current_user={this.state.current_user}
+                                        alredyExist={this.state.alredyExist}
+                                        closeHouse={this.closeHouse}
+                                        SaveAssignHouse={this.SaveAssignHouse}
+                                        deleteHouse={this.deleteHouse}
+                                        updateEntryState1={this.updateEntryState1}
+                                    />
                                     <ViewDetail openDetial={this.state.openDetial} CloseDetail={this.CloseDetail} patient_info={this.state.current_user}/>
                                 </Grid>
                             </Grid>

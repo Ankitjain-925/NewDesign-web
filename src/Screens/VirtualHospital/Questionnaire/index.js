@@ -18,6 +18,7 @@ import { LanguageFetchReducer } from "Screens/actions";
 import { LoginReducerAim } from "Screens/Login/actions";
 import { Settings } from "Screens/Login/setting";
 import { houseSelect } from "../Institutes/selecthouseaction";
+import Loader from "Screens/Components/Loader/index";
 import Pagination from "Screens/Components/Pagination/index";
 import AddHouses from "Screens/Components/VirtualHospitalComponents/AddRoom/AddHouses.js";
 import SelectField from "Screens/Components/Select/index";
@@ -28,132 +29,153 @@ const options = [
 ];
 
 class Index extends Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            openQues: false,
-            openOpti: false,
-            opeInp: false,
-            house_name: '',
-            house_id: '',
-            question: '',
-            options: '',
-            type: '',
-            myQuestions: [{}],
-            option: this.props.option,
-            questions_data: [],
-            AllQuestions: [],
-            perticular_id: false,
-            editQuestions:{},
-            editQues: false
-        }
-    }
-
-    componentDidMount() {
-        this.getAllQuestions();
-    }
-
-    //Modal Open 
-    handleOpenQues = () => {
-        this.setState({ openQues: true });
-    }
-
-    //Modal Close
-    handleCloseQues = () => {
-        this.setState({ openQues: false });
-    }
-
-    handleEditCloseQues = () => {
-      this.setState({ editQues: false });
+  constructor(props) {
+      super(props)
+      this.state = {
+          openQues: false,
+          openOpti: false,
+          opeInp: false,
+          house_name: '',
+          house_id: '',
+          question: '',
+          options: '',
+          type: '',
+          myQuestions: [{}],
+          option: this.props.option,
+          questions_data: [],
+          AllQuestions: [],
+          perticular_id: false,
+          editQuestions:{},
+          editQues: false,
+          loaderImage: false
+      }
   }
-    //for choosing select field value 
-    updateEntryState = (e, index) => {
-        var QuesAy = this.state.myQuestions;
-        QuesAy[index]['type'] = e.value;
-        this.setState({ myQuestions: QuesAy }, () => {
-        });
-        if (e.value == "input") {
-            this.setState({ openInp: true, openOpti: false });
-        }
-        else if (e.value == "options") {
-            this.setState({ openOpti: true, openInp: false });
-        }
-    }
 
-    //for adding/updating the questions
-    updateEntryState1 = (e, index) => {
-        var QuesAy = this.state.myQuestions;
-        QuesAy[index][e.target.name] = e.target.value;
-        this.setState({ myQuestions: QuesAy }, () => {
-        });
-    }
+  componentDidMount() {
+      this.getAllQuestions();
+  }
 
-    //for adding/updating the option
-    updateEntryState2 = (array, index) => {
-        var QuesAy = this.state.myQuestions;
-        QuesAy[index]["options"] = array;
-        this.setState({ myQuestions: QuesAy }, () => {
-        });
-    };
+  //Modal Open 
+  handleOpenQues = () => {
+      this.setState({ openQues: true });
+  }
 
-    // Add multiiple select fields
-    onAddFiled = () => {
-        let QuesAy = this.state.myQuestions;
-        QuesAy.push({ type: "" });
-        this.setState({ myQuestions: QuesAy });
-    };
+  //Modal Close
+  handleCloseQues = () => {
+      this.setState({ openQues: false });
+  }
 
-    deleteQuestions = (index) => {
-        var QuesAy = this.state.myQuestions?.length > 0 && this.state.myQuestions.filter((data, index1) => index1 !== index);
-        this.setState({ myQuestions: QuesAy });
-    };
+  handleEditCloseQues = () => {
+    this.setState({ editQues: false });
+}
+  //for choosing select field value 
+  updateEntryState = (e, index) => {
+      var QuesAy = this.state.myQuestions;
+      QuesAy[index]['type'] = e.value;
+      this.setState({ myQuestions: QuesAy }, () => {
+      });
+      if (e.value == "input") {
+          this.setState({ openInp: true, openOpti: false });
+      }
+      else if (e.value == "options") {
+          this.setState({ openOpti: true, openInp: false });
+      }
+  }
 
-    handleSubmit = () => {
-        var myQuestions = this.state.AllQuestions;
-        myQuestions = [...myQuestions, ...this.state.myQuestions]
-        if (this.state.perticular_id) {
-            // console.log('on second time add')
-            axios
-                .put(
-                    sitedata.data.path + "/questionaire/Question/" + this.state.perticular_id,
-                    {
-                        questions: myQuestions
-                    },
-                    commonHeaderToken()
-                )
-               
-                .then((responce) => {
-                    this.setState({
-                        myQuestions: [{}],
-                      });
-                    this.getAllQuestions();
-                })
-        }
-        else {
-            axios
-                .post(
-                    sitedata.data.path + "/questionaire/AddQuestionaire",
-                    {
-                        house_id: this.props?.House?.value,
-                        house_name: this.props?.House?.label,
-                        questions: myQuestions
-                    },
-                    // commonHeader(this.props.stateLoginValueAim.token)
-                    commonHeaderToken()
-                )
-                .then((responce) => {
-                    this.setState({ myQuestions: [{}] })
-                    this.getAllQuestions();
-                })
-                .catch(function (error) {
-                    console.log(error);
-                });
+  //for adding/updating the questions
+  updateEntryState1 = (e, index) => {
+      var QuesAy = this.state.myQuestions;
+      QuesAy[index][e.target.name] = e.target.value;
+      this.setState({ myQuestions: QuesAy }, () => {
+      });
+  }
 
-        }
-    }
+  //for adding/updating the option
+  updateEntryState2 = (array, index) => {
+      var QuesAy = this.state.myQuestions;
+      QuesAy[index]["options"] = array;
+      this.setState({ myQuestions: QuesAy });
+  };
 
+  // Add multiiple select fields
+  onAddFiled = () => {
+      let QuesAy = this.state.myQuestions;
+      QuesAy.push({ type: "" });
+      this.setState({ myQuestions: QuesAy });
+  };
+
+  deleteQuestions = (index) => {
+      var QuesAy = this.state.myQuestions?.length > 0 && this.state.myQuestions.filter((data, index1) => index1 !== index);
+      this.setState({ myQuestions: QuesAy });
+  };
+
+  handleSubmit = () => {
+      var myQuestions = this.state.AllQuestions;
+      myQuestions = [...myQuestions, ...this.state.myQuestions]
+      if (this.state.perticular_id) {
+          // console.log('on second time add')
+          axios
+              .put(
+                  sitedata.data.path + "/questionaire/Question/" + this.state.perticular_id,
+                  {
+                      questions: myQuestions
+                  },
+                  commonHeaderToken()
+              )
+              
+              .then((responce) => {
+                  this.handleCloseQues();
+                  this.setState({
+                      myQuestions: [{}],
+                    });
+                  this.getAllQuestions();
+              })
+      }
+      else {
+          axios
+              .post(
+                  sitedata.data.path + "/questionaire/AddQuestionaire",
+                  {
+                      house_id: this.props?.House?.value,
+                      house_name: this.props?.House?.label,
+                      questions: myQuestions
+                  },
+                  // commonHeader(this.props.stateLoginValueAim.token)
+                  commonHeaderToken()
+              )
+              .then((responce) => {
+                  this.setState({ myQuestions: [{}] })
+                  this.getAllQuestions();
+              })
+              .catch(function (error) {
+                  console.log(error);
+              });
+
+      }
+  }
+
+  handleeditSubmit = ()=>{
+    this.setState({ loaderImage: true });
+    axios
+    .put(
+        sitedata.data.path + "/questionaire/Question/" + this.state.perticular_id,
+        {
+            questions: this.state.AllQuestions
+        },
+        commonHeaderToken()
+    )
+    
+    .then((responce) => {
+        this.setState({
+          editQuestions : {},
+          loaderImage: false
+          });
+        this.getAllQuestions();
+    })
+  }
   // For getting the Question and implement Pagination
   getAllQuestions = () => {
+    this.setState({ loaderImage: true });
     axios
       .get(
         sitedata.data.path +
@@ -243,6 +265,7 @@ class Index extends Component {
       newQuestion.filter((data) => data._id !== perticular_id);
 
     // this.state.AllQuestions.split(perticular_id)
+    this.setState({ loaderImage: true });
     axios
       .put(
         sitedata.data.path +
@@ -254,9 +277,23 @@ class Index extends Component {
         commonHeaderToken()
       )
       .then((responce) => {
-        
+        this.setState({ loaderImage: false });
         this.getAllQuestions();
       });
+  }
+
+  editQuestionState=(e, name)=>{
+      var QuesAy = this.state.editQuestions;
+      if(name === 'options'){
+        QuesAy["options"] = e;
+      }
+      else if(name === 'type'){
+        QuesAy["type"] = e.value;
+      }
+      else {
+        QuesAy["question"] = e.target.value;
+      }
+      this.setState({ editQuestions: QuesAy });
   }
 
   onChangePage = (pageNumber) => {
@@ -282,6 +319,7 @@ class Index extends Component {
             : "homeBg"
         }
       >
+         {this.state.loaderImage && <Loader />}
         <Grid className="homeBgIner">
           <Grid container direction="row">
             <Grid item xs={12} md={12}>
@@ -578,9 +616,9 @@ class Index extends Component {
                                     </Grid>
                                   )
                                 )}
-                              <Grid className="infoSub1">
-                                <a onClick={this.handleCloseQues}>
-                                  <Button onClick={() => this.handleSubmit()}>
+                              <Grid  className="infoSub1">
+                                <a onClick={() => this.handleSubmit()}>
+                                  <Button>
                                     Submit
                                   </Button>
                                 </a>
@@ -626,7 +664,7 @@ class Index extends Component {
                                               label="Question Type"
                                               option={options}
                                               onChange={(e) =>
-                                                this.editQuestionState(e)
+                                                this.editQuestionState(e, 'type')
                                               }
                                               value={options.filter((data)=> data.value === this.state.editQuestions?.type)?.[0]}
                                             />
@@ -639,7 +677,7 @@ class Index extends Component {
                                                   name="question"
                                                   placeholder="Enter question"
                                                   onChange={(e) =>
-                                                    this.editQuestionState(e)
+                                                    this.editQuestionState(e, 'question')
                                                   }
                                                   value={this.state.editQuestions?.question}
                                                 />
@@ -651,7 +689,7 @@ class Index extends Component {
                                                   name="options"
                                                   placeholder="Enter option"
                                                   onChange={(e) =>
-                                                    this.editQuestionState(e)
+                                                    this.editQuestionState(e, 'options')
                                                   }
                                                   roomArray={this.state.editQuestions.options && this.state.editQuestions.options}
                                                 />
@@ -667,9 +705,9 @@ class Index extends Component {
                                                   name="question"
                                                   placeholder="Enter question"
                                                   onChange={(e) =>
-                                                    this.editQuestionState(e)
+                                                    this.editQuestionState(e, 'question')
                                                   }
-                                                  roomArray={this.state.editQuestions?.question}
+                                                  value={this.state.editQuestions?.question}
                                                 />
                                               </Grid>
                                             </>
@@ -680,7 +718,7 @@ class Index extends Component {
                               <Grid className="infoSub1">
                                 <a onClick={this.handleEditCloseQues}>
                                   <Button onClick={() => this.handleeditSubmit()}>
-                                    Submit
+                                    Edit
                                   </Button>
                                 </a>
                               </Grid>

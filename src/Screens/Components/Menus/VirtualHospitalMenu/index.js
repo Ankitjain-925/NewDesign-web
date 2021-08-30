@@ -107,7 +107,7 @@ class Index extends Component {
       this.props.LoginReducerAim(email, password);
       let languageType = "en";
       this.props.LanguageFetchReducer(languageType);
-    
+      this.props.houseSelect({value: null});
       this.props.Fitbit({
         lifetimeStats: {},
         device: [],
@@ -479,7 +479,7 @@ class Index extends Component {
                         )}
                         {DarkMode}{" "}
                         <Mode
-                          mode={this.state.mode}
+                          mode={this.props.settings?.setting?.mode ? this.props.settings?.setting?.mode : 'normal'}
                           name="mode"
                           getSetting={this.getSetting}
                         />

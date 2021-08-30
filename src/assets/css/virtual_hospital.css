@@ -4421,9 +4421,6 @@ button.onlogyBtn {
 .medcalCntr ul li:last-child label::after {
     bottom: -21px;
 }
-/* .medcalCntr ul li label {
-    color: #00ABAF;
-} */
 .medcalFZCntnt img {
     height: 56px;
 }
@@ -4454,6 +4451,7 @@ button.onlogyBtn {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    margin-bottom: 20px;
 }
 .medcalFZCntnt a {
     display: block;
@@ -4735,7 +4733,6 @@ button.onlogyBtn {
     letter-spacing: 0;
     line-height: 12px;
     text-align: center;
-   
 }
 .addSpeclContnt {
     width: 580px;
@@ -4749,6 +4746,8 @@ button.onlogyBtn {
     margin-top: 35px;
     padding-top: 6px;
     padding-bottom: 6px;
+    height: 472px;
+    overflow-y: auto;
 }
 .addSpecIner {
     margin-right: 2px;
@@ -4768,6 +4767,7 @@ button.onlogyBtn {
 .addSpeclLbl img {
     width: 24px;
     cursor: pointer;
+    border-radius: 6px;
 }
 .addSpeclLbl label {
     color: #000808;
@@ -4787,7 +4787,10 @@ button.onlogyBtn {
     display: block;
 }
 @media (max-width: 599px) {
-.addSpeclContnt {
+  .addSpeclContnt {
+    width: 96% !important;
+  }
+  .addWrnContnt{
     width: 96% !important;
   }
 }
@@ -5064,6 +5067,9 @@ a.recodBlck:hover {
 .roomName-h label {
     margin-bottom: 0px;
 }
+.roomName-h .MuiGrid-container {
+    margin-bottom: 5px;
+}
 .roomRmv {
     text-align: right;
 }
@@ -5081,9 +5087,6 @@ a.recodBlck:hover {
     cursor: pointer;
 }
 .roomName .MuiGrid-container {
-    margin-bottom: 5px;
-}
-.roomName-h .MuiGrid-container {
     margin-bottom: 5px;
 }
 .add_a_room a {
@@ -5159,7 +5162,11 @@ a.recodBlck:hover {
     margin-left: 7px;
 }
 .wrdEdtDelBtn {
-    text-align: right;
+    display: flex;
+    justify-content: flex-end;
+}
+.wrdEdtDelBtn div:last-child {
+    margin-left: 10px;
 }
 .wrdEdtDelBtn button {
     height: 34px;
@@ -5592,7 +5599,6 @@ button.downloadPDF:hover {
 }
 .newServc {
     text-align: right;
-    margin-bottom: 15px;
 }
 .newServc button {
     color: #FFFFFF !important;
@@ -9586,8 +9592,6 @@ button.crdoLghtBlu2 {
 .wardsGrup .roomsNum2:last-child {
     border-bottom: none;
 }
-
-
 /* Added by Ankita */
 /* .flowInfo {
     padding: 10px;
@@ -9610,6 +9614,10 @@ button.crdoLghtBlu2 {
     margin-left: 20px;
     color: #d0d1d1;
     cursor: pointer;
+}
+.sevicessection .mr_sel input {
+    min-height: initial !important;
+    height: initial !important;
 }
 .vh-menu .menuItems ul li:last-child {
     margin-top: 0px !important;
@@ -9650,8 +9658,7 @@ button.crdoLghtBlu2 {
 .dragdrop-horizontal .detailInfo{
     min-height: 200px;
 }
-.list-z-index
-{
+.list-z-index{
     z-index: 9999!important;
 }
 .dragdrop-horizontal ul{
@@ -9660,27 +9667,23 @@ button.crdoLghtBlu2 {
     background: #f2f2f2;
     border-radius: 12px;
 }
-/* by ankit */
-.vhfield-add{
-    width:96.5%
+.vhfield-add {
+    width: 100%
 }
-
-.specialitybutton{
+.specialitybutton {
     border-radius: 4px;
-    font-size: 12px;
+    font-size: 11px;
     font-weight: bold;
     letter-spacing: 0;
-    line-height: 16px;
+    line-height: 15px;
     box-shadow: initial !important;
     font-family: 'Mulish', sans-serif;
     text-transform: capitalize;
-    padding: 8px 11px;
+    padding: 8px 4px;
 }
-.specialitybutton-parent{
-    flex-basis: auto !important;
+.specialitybutton-parent {
+    text-align: center;
 }
-
-
 /* Dark theme css */
 .MenuWeb .menuItems ul {
     padding-left: 0px;
@@ -9721,6 +9724,32 @@ button.crdoLghtBlu2 {
 .MenuWeb .menuItems ul li:last-child {
     margin-bottom: 0px !important;
     margin-top: 132px;
+}
+.flag-select__option:not(.flag-select__option--placeholder):hover, 
+.flag-select__option:not(.flag-select__option--placeholder):focus {
+    background: transparent !important;
+}
+.wrdEdtDel div:last-child img {
+    height: 13px;
+}
+.wrdCollect img {
+    vertical-align: text-bottom;
+}
+@media (max-width: 568px){
+  .roomName .MuiGrid-root.MuiGrid-container div {
+    width: 100% !important;
+    max-width: 100% !important;
+    flex-basis: 100% !important;
+  }
+  .roomName .MuiGrid-root.MuiGrid-container input {
+    margin-bottom: 0px !important;
+  }
+  .roomName .MuiGrid-container {
+    margin-bottom: 22px !important;
+  }
+  .addSpeclClose {
+    margin-bottom: 10px;
+  }
 }
 .darkTheme .MenuLeftUpr {
     background: #404646;
@@ -10140,7 +10169,7 @@ button.crdoLghtBlu2 {
     border: 1px solid #7b7b7b;
 }
 .darkTheme .wrdsBtn {
-    background: #192020;
+    background: #404646;
 }
 .darkTheme .wrdsBtn {
     border-top: 1px solid #00abaf;
@@ -10171,8 +10200,8 @@ button.crdoLghtBlu2 {
     border-width: 2px;
     margin-top: 0px;
     margin-bottom: 20px;
-    margin-right: 15px;
-    margin-left: 15px;
+    margin-right: 10px;
+    margin-left: 10px;
     border-radius: 5px;
   }
 
@@ -10196,6 +10225,9 @@ button.crdoLghtBlu2 {
     line-height: 16px;
     text-align: center;
     margin-left: 10px;
+}
+.colorBtnUpr div:first-child {
+    float: right;
 }
 .darkTheme .rvewFiles {
     background-color: #404646;
@@ -10458,9 +10490,11 @@ button.crdoLghtBlu2 {
 }
 .darkTheme .mr_sel div:first-child, .darkTheme .cntryDrop div:first-child, 
 .darkTheme .languageSpk div:first-child {
-    background-color: #192020;
+    background-color: #192020 !important;
+    background: #192020 !important;
     border: none;
     height: initial !important;
+    min-height: initial !important;
     color: #fafafa;
 }
 .darkTheme .profileInfoDate .react-date-picker__wrapper {
@@ -11051,9 +11085,6 @@ button.crdoLghtBlu2 {
 .darkTheme .tskTabs button span{
     color: #fafafa ;
 }
-
-
-
 .nwEntrCntnt.darkTheme {
     background-color: #404646;
 }
@@ -11077,6 +11108,9 @@ button.crdoLghtBlu2 {
     border: 1px solid #7d7d7d !important;
     background-color: #202323 !important;
     color: #f7f7f7;
+}
+.darkTheme .flag-select ul.flag-select__options {
+    background-color: #202323 !important;
 }
 .darkTheme .HospitalAdd .passInst {
     background-color: #202323;
@@ -11156,12 +11190,11 @@ button.crdoLghtBlu2 {
     color: #f7f7f7;
 }
 .darkTheme .rrSysto div {
-    color: #babbbb;
     background-color: #192020;
 }
-/* .darkTheme .rrSysto div:last-child div {
+.darkTheme .rrSysto div:last-child div {
     border-color: transparent;
-} */
+}
 .darkTheme .rrSysto {
     color: #f7f7f7;
 }

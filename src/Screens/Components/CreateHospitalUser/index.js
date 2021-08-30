@@ -238,7 +238,7 @@ class Index extends Component {
     }
 
     //For cancel the User
-    CreateUserCancel() {
+    CreateUserCancel=() =>{
         this.setState({ CreateUsers: {} });
         this.props.handleCloseCreate();
     }

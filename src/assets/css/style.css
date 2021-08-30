@@ -12964,6 +12964,10 @@ a.addNewPlus img {
     height: 24px;
     width: 24px;
     cursor: pointer;
+    border-radius: 8px;
+}
+img.academyDots {
+    border: 1px solid #96969685;
 }
 .archvSrchInput input {
     border-radius: 12px;
@@ -13052,7 +13056,7 @@ a.academy_ul ul {
     padding-left: 0px;
     padding: 14px 15px;
     position: absolute;
-    left: 0px;
+    right: 0px;
     top: 23px;
     min-width: 140px;
     z-index: 111;
@@ -13832,7 +13836,7 @@ g.highcharts-axis.highcharts-yaxis text {
     height: 496px !important; 
 }
 .phrmLinkUpr, .detailPrescp {	
-    height: 520px !important;	
+    height: 382px !important;	
 }	
 @media screen and (min-height:700px) {	
     .phrmLinkUpr, .detailPrescp {	
