@@ -59,9 +59,9 @@ class index extends React.Component {
     }
   }
   removeLoader = () => {
-    // setTimeout(() => {
+    setTimeout(() => {
       this.setState({ loaderImage: false });
-    // }, 4000);
+    }, 4000);
   };
 
   render() {

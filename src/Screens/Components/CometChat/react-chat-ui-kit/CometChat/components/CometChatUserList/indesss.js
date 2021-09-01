@@ -14,7 +14,6 @@ import { LoginReducerAim } from "Screens/Login/actions";
 import {
   getLanguage
 } from "translations/index";
-import {DebounceInput} from 'react-debounce-input';
 import { commonHeader } from "component/CommonHeader/index";
 class CometChatUserList extends React.PureComponent {
   timeout;
@@ -30,7 +29,6 @@ class CometChatUserList extends React.PureComponent {
       Unread: 0,
       onSearh: false
     };
-   
   }
 
   componentDidMount() {
@@ -204,34 +202,24 @@ class CometChatUserList extends React.PureComponent {
   };
 
 
- 
   searchUsers = (e) => {
-    // if (this.timeout) {
-    //   clearTimeout(this.timeout);
-    // }
+    if (this.timeout) {
+      clearTimeout(this.timeout);
+    }
 
     let val = e.target.value;
   
-    if (val.length<=2) 
+    if (val.length<=3) 
     {
       this.setState({ onSearh: false, userlist: [] },
       ()=>{this.onScroll(this.state.userlist1, 'first')})
     }
     else {
         if (this.state.userlist1 && this.state.userlist1.length > 0) {
-          new CometChat.UsersRequestBuilder()
-          .setLimit(50)
-          .setSearchKeyword(val)
-          .build().fetchNext().then(usersRequest=>{
-
-            let FilterFromSearch = usersRequest && usersRequest.length > 0 && usersRequest.filter((data) => {
-             return (this.state.preUserList.indexOf(data.uid)>-1)
+          let FilterFromSearch = this.state.userlist1 && this.state.userlist1.length > 0 && this.state.userlist1.filter((data) => {
+            return this.isThisAvilabel(data, val && val.toLowerCase());
           });
-            this.setState({ userlist: FilterFromSearch, onSearh : true }, ()=>{
-              // console.log('userlist---search', this.state.userlist )
-            })
-          });
-          
+          this.setState({ userlist: FilterFromSearch, onSearh : true })
       }
     }
 
@@ -247,15 +235,11 @@ class CometChatUserList extends React.PureComponent {
     if(this.state.userlist?.length < users.length){
       newlist = users.slice(this.state.userlist?.length, count)
     }
-    if(this.state.userlist && Array.isArray(this.state.userlist)){
       this.setState({userlist: [...this.state.userlist, ...newlist]})
-    }
-      
       // this.setState({userlist: users})
   }
 
-  newAtTop=(userList1, Noscroll)=>{
-    
+  newAtTop=(userList1)=>{
     var TopUsers = [];
     userList1 = sortCometUser(userList1)
     if(this.state.Unread)
@@ -265,51 +249,49 @@ class CometChatUserList extends React.PureComponent {
     userList1 = unreadAtLast(userList1, this.state.Unread)
     var userList = [...TopUsers, ...userList1];
 
-    this.setState({ userlist1: userList },
+    this.setState({ userlist1: userList,  userlist: [] },
       ()=>{
-        if(!Noscroll){
-          this.onScroll(this.state.userlist1, 'first')
-        }
+        this.onScroll(this.state.userlist1, 'first')
       })
   }
 
   resolveUserList = (ccuser = [])=> {
-     let usersRequest = [];
-    // let listlength = ccuser.length;
-    // let numberOfTimes = 0,
-    //   remainLimit = 0;
-    // if (listlength > 25) {
-    //   numberOfTimes = listlength / 25;
-    //   remainLimit = listlength % 25;
-    // } else {
-    //   remainLimit = listlength;
-    // }
-    // if (numberOfTimes > 0) {
-    //   for (var i = 0; i <= numberOfTimes; i++) {
-    //       let lowerLimit = i * 25;
-    //       let userItem = ccuser.slice(lowerLimit, lowerLimit + 25);
-    //       usersRequest.push(
-    //         new CometChat.UsersRequestBuilder()
-    //           .setLimit(25)
-    //           .setUIDs(userItem)
-    //           .build(),
-    //       );
-    //   }
-    //   if (remainLimit > 0) {
-    //     let lowerLimit = 25 * numberOfTimes;
-    //     let userItem = ccuser.slice(lowerLimit, lowerLimit + remainLimit);
-    //     usersRequest.push(
-    //       new CometChat.UsersRequestBuilder()
-    //         .setLimit(25)
-    //         .setUIDs(userItem)
-    //         .build(),
-    //     );
-    //   }
-    // } else {
+    let usersRequest = [];
+    let listlength = ccuser.length;
+    let numberOfTimes = 0,
+      remainLimit = 0;
+    if (listlength > 25) {
+      numberOfTimes = listlength / 25;
+      remainLimit = listlength % 25;
+    } else {
+      remainLimit = listlength;
+    }
+    if (numberOfTimes > 0) {
+      for (var i = 0; i <= numberOfTimes; i++) {
+          let lowerLimit = i * 25;
+          let userItem = ccuser.slice(lowerLimit, lowerLimit + 25);
+          usersRequest.push(
+            new CometChat.UsersRequestBuilder()
+              .setLimit(25)
+              .setUIDs(userItem)
+              .build(),
+          );
+      }
+      if (remainLimit > 0) {
+        let lowerLimit = 25 * numberOfTimes;
+        let userItem = ccuser.slice(lowerLimit, lowerLimit + remainLimit);
+        usersRequest.push(
+          new CometChat.UsersRequestBuilder()
+            .setLimit(25)
+            .setUIDs(userItem)
+            .build(),
+        );
+      }
+    } else {
       usersRequest.push(
         new CometChat.UsersRequestBuilder().setLimit(25).setUIDs(ccuser).build(),
       );
-    // }
+    }
     return Promise.all(
       usersRequest.map(async req => {
         return new Promise((resolve, reject) => {
@@ -331,119 +313,47 @@ class CometChatUserList extends React.PureComponent {
       .getLoggedInUser()
       .then((user) => {
         let u = this.state.preUserList;
-        let ccuser = this.state.preUserList;
+        console.log('u', u)
         const isIncluded = [];
         var userForlist = [];
         if (u && u.length > 0) {
-          
-          // let u1 =  u.filter((data,index)=> index<=50);
-          // let u2 =  u.filter((data,index)=> index>50);
-                  // let usersRequest = [];
-            let listlength = ccuser.length;
-            let numberOfTimes = 0,
-              remainLimit = 0;
-            if (listlength > 25) {
-              numberOfTimes = listlength / 25;
-              remainLimit = listlength % 25;
-            } else {
-              remainLimit = listlength;
-            }
-            if (numberOfTimes > 0) {
-              for (var i = 0; i <= numberOfTimes; i++) {
-                  let lowerLimit = i * 25;
-                  let userItem = ccuser.slice(lowerLimit, lowerLimit + 25);
-                  this.resolveUserList(userItem)
-                  .then((result, i) => {
-                    result.map(item => {
-                      item.map(_itm => {
-                        if (isIncluded.includes(_itm.uid)) {
-                          return;
-                        } else {
-                          userForlist.push(_itm);
-                          isIncluded.push(_itm.uid);
-                        }
-                      });
-                    });
-                    if(userForlist.length<=50){
-                        this.newAtTop(userForlist)
-                      }
-                      else{
-                        this.newAtTop(userForlist, true)
-                      }
-                  })
-                  //
-                  // usersRequest.push(
-                  //   new CometChat.UsersRequestBuilder()
-                  //     .setLimit(25)
-                  //     .setUIDs(userItem)
-                  //     .build(),
-                  // );
-              }
-              if (remainLimit > 0) {
-                let lowerLimit = 25 * numberOfTimes;
-                let userItem = ccuser.slice(lowerLimit, lowerLimit + remainLimit);
-                this.resolveUserList(userItem)
-                  .then(result => {
-                    result.map(item => {
-                      item.map(_itm => {
-                        if (isIncluded.includes(_itm.uid)) {
-                          return;
-                        } else {
-                          userForlist.push(_itm);
-                          isIncluded.push(_itm.uid);
-                        }
-                      });
-                    });
-                    this.newAtTop(userForlist)
-                  })
-              }
-            } else {
-              this.resolveUserList(ccuser)
-              .then(result => {
-                result.map(item => {
-                  item.map(_itm => {
-                    if (isIncluded.includes(_itm.uid)) {
-                      return;
-                    } else {
-                      userForlist.push(_itm);
-                      isIncluded.push(_itm.uid);
-                    }
-                  });
+          let u1 =  u.filter((data,index)=> index<=50);
+          let u2 =  u.filter((data,index)=> index>50);
+          console.log('u1', u1) 
+          console.log('u2', u2)
+          this.resolveUserList(u1)
+            .then(result => {
+              result.map(item => {
+                item.map(_itm => {
+                  if (isIncluded.includes(_itm.uid)) {
+                    return;
+                  } else {
+                    userForlist.push(_itm);
+                    isIncluded.push(_itm.uid);
+                  }
                 });
-                this.newAtTop(userForlist)
-              })
-            }
-          // this.resolveUserList(u1)
-          //   .then(result => {
-          //     result.map(item => {
-          //       item.map(_itm => {
-          //         if (isIncluded.includes(_itm.uid)) {
-          //           return;
-          //         } else {
-          //           userForlist.push(_itm);
-          //           isIncluded.push(_itm.uid);
-          //         }
-          //       });
-          //     });
-          //     this.newAtTop(userForlist)
-          //   })
+              });
+              console.log('Its first', userForlist)
+              this.newAtTop(userForlist)
+            })
           
-          // if(u2 && u2.length>0){
-          //   this.resolveUserList(u2)
-          //   .then(result => {
-          //     result.map(item => {
-          //       item.map(_itm => {
-          //         if (isIncluded.includes(_itm.uid)) {
-          //           return;
-          //         } else {
-          //           userForlist.push(_itm);
-          //           isIncluded.push(_itm.uid);
-          //         }
-          //       });
-          //     });
-          //     this.newAtTop(userForlist)
-          //   })
-          // }
+          if(u2 && u2.length>0){
+            this.resolveUserList(u2)
+            .then(result => {
+              result.map(item => {
+                item.map(_itm => {
+                  if (isIncluded.includes(_itm.uid)) {
+                    return;
+                  } else {
+                    userForlist.push(_itm);
+                    isIncluded.push(_itm.uid);
+                  }
+                });
+              });
+              console.log('Its last',userForlist )
+              this.newAtTop(userForlist)
+            })
+          }
         }
         
         // axios
@@ -508,9 +418,7 @@ class CometChatUserList extends React.PureComponent {
     }
   }
 
-
   render() {
-    
     let translate = getLanguage(this.props.stateLanguageType)
     let { Search, Loading } = translate;
     let loading = null;
@@ -568,24 +476,14 @@ class CometChatUserList extends React.PureComponent {
         <div className="ccl-left-panel-srch-wrap">
           <div className="ccl-left-panel-srch-inpt-wrap ">
 
-            {/* <input
+            <input
               type="text"
               autoComplete="off"
-             
-             
+              className="ccl-left-panel-srch"
+              id="chatSearch"
               placeholder={Search}
-              onChange={this.onChange}
-            /> */}
-             <DebounceInput
-                id="chatSearch"
-                className="ccl-left-panel-srch"
-                placeholder={Search}
-                forceNotifyByEnter={true}
-                forceNotifyOnBlur={true}
-                minLength={0}
-                debounceTimeout={300}
-                onChange={e => this.searchUsers(e)}
-              />
+              onChange={this.searchUsers}
+            />
             <input id="searchButton" type="button" className="search-btn " />
           </div>
         </div>
