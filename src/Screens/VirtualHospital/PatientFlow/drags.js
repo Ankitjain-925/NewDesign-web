@@ -132,6 +132,7 @@ class Index extends Component {
                  <Grid className="nwPatentAdd"><Button onClick={this.AddMoreStep}>+ Add Step</Button></Grid>
                  </li>
               </ul>
+              {console.log('provided',provided)}
               {provided.placeholder}
             </div>
           )}

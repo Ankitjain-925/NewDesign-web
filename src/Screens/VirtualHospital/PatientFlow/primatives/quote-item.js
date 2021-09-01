@@ -14,10 +14,10 @@ export default class QuoteItem extends React.Component {
    
     return (
       <div
-        // href={quote.author.url}
+        href={quote.author.url}
         isDragging={isDragging}
         isGroupedOver={isGroupedOver}
-        // colors={quote.author.colors}
+        colors={quote.author.colors}
         ref={provided.innerRef}
         {...provided.draggableProps}
         {...provided.dragHandleProps}
@@ -25,7 +25,7 @@ export default class QuoteItem extends React.Component {
           {this.props.view ==='vertical' ? 
           <Grid className="flowInfo">
               <Grid className="flowInfoInr">
-                  {console.log('quote', quote)}
+                  {console.log('quote123', quote)}
                   <Grid className="flowInfoBtn RadiologyClr"><Button>Radiology</Button></Grid>
                   <Grid className="flowProfil">
                       <Grid><img src={require('assets/virtual_images/102.png')} alt="" title="" /></Grid>

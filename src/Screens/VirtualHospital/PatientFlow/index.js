@@ -7,7 +7,8 @@ import axios from "axios";
 import Input from "@material-ui/core/Input";
 import Select from "react-select";
 import Loader from "Screens/Components/Loader/index";
-import { authorQuoteMap, getSteps } from "./data";
+// import { authorQuoteMap, getSteps, authors } from "./data";
+import { getSteps, getAuthor } from "./data";
 import Drags from "./drags.js";
 import sitedata from "sitedata";
 import { withRouter } from "react-router-dom";
@@ -112,16 +113,21 @@ class Index extends Component {
     this.CallApi();
   };
 
+  // getCurrentAuth=(author, index1)=>{
+  //   console.log('index1', index1, 'author', author)
+  //   return 
+  // }
+
   //Set data according to package
   setDta = (stepData) => {
-    console.log('stepData', stepData)
-    var finalData = stepData.map((item)=>{
-      console.log('item', item)
-      item?.case_numbers?.length>0 && item.case_numbers.map((data)=>{
-        data.author = { step_name: item.step_name }
+    var author = getAuthor(stepData);
+    stepData.map((item, index1)=>{
+      item?.case_numbers?.length>0 && item.case_numbers.map((data, index)=>{
+        console.log('index', index, 'index1', index1, 'author', author)
+        data['author'] = author[index1];
       })
     })
-    
+    console.log('stepData', stepData)
     this.setState({ actualData: stepData });
     const authorQuoteMap = stepData.reduce(
       (previous, author) => ({
@@ -330,6 +336,7 @@ class Index extends Component {
                       AddStep={this.AddStep}
                       openAddPatient={this.openAddPatient}
                       initial={this.state.fullData}
+                      // initial={authorQuoteMap}
                       view={this.state.view}
                     />
                   </Grid>

@@ -15,14 +15,14 @@ class InnerQuoteList extends React.Component {
   render() {
     return this.props.quotes.map((quote, index) => (
       <Draggable
-        key={quote.profile_id}
-        draggableId={quote.profile_id}
+        key={quote.patient_id}
+        draggableId={quote.patient_id}
         index={index}
         shouldRespectForceTouch={false}
       >
         {(dragProvided, dragSnapshot) => (
           <QuoteItem
-            key={quote.profile_id}
+            key={quote.patient_id}
             quote={quote}
             isDragging={dragSnapshot.isDragging}
             isGroupedOver={Boolean(dragSnapshot.combineTargetFor)}
