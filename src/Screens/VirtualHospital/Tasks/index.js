@@ -74,13 +74,11 @@ class Index extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            openRvw: false,
+            openTask: false,
             tabvalue: 0,
             tabvalue2: 0,
             text: '',
             professional_data: [],
-            openEntry: false,
-            newTask: {},
             date_format: this.props.date_format,
             time_format: this.props.time_format,
             patient_doc: [],
@@ -90,22 +88,27 @@ class Index extends Component {
             allPatData: [],
             allPatData1: [],
             users: [],
-            noWards: false,
+            openAssign: false,
             newStaff: {},
-            professional_data: [],
-            ProfMessage: false
+            ProfMessage: false,
+            newTask: {},
+            Fileadd: '',
+            tasks: {}
         };
     }
 
     componentDidMount() {
         this.getPatientData();
         this.getProfessionalData();
+        this.getAddTaskData();
     }
-    handleOpenRvw = () => {
-        this.setState({ openRvw: true });
+    // open model Add Task
+    handleOpenTask = () => {
+        this.setState({ openTask: true });
     }
-    handleCloseRvw = () => {
-        this.setState({ openRvw: false });
+    // close model Add Task
+    handleCloseTask = () => {
+        this.setState({ openTask: false });
     }
     handleChangeTab = (event, tabvalue) => {
         this.setState({ tabvalue });
@@ -113,39 +116,82 @@ class Index extends Component {
     handleChangeTab2 = (event, tabvalue2) => {
         this.setState({ tabvalue2 });
     };
-    handleNoWard = () => {
-        this.setState({ noWards: true });
-    }
-    handleCloseRvw = () => {
-        this.setState({ noWards: false });
-    }
-    // updateCommemtState = (e) => {
-    //     this.setState({
-    //         text: e.target.value,
-    //     })
-    // }
-    handleSubmit = () => {
-     console.log("newTask",this.state.newTask)
-
-    };
-
+    // open model Assign
     handleOpenAssign = () => {
-        this.setState({ openEntry: true });
-    };
-
+        this.setState({ openAssign: true });
+    }
+    // close model Assign
     handleCloseAssign = () => {
-        this.setState({ openEntry: false });
+        this.setState({ openAssign: false });
+    }
+    // submit Assign model
+    handleAssignSubmit = () => {
+        console.log("professional_data", this.state.professional_data)
+        const state = this.state.newTask;
+        state['assigned_to'] = this.state.professional_data;
+        this.setState({ newTask: state });
+        // this.setState({
+        //     newTask: this.state.professional_data
+        // });
     };
 
+    FileAttachMulti = (Fileadd) => {
+        this.setState({
+            isfileuploadmulti: true,
+            fileattach: Fileadd,
+            fileupods: true,
+            // newTask : Fileadd
+
+        });
+        console.log("FileAttach", Fileadd)
+    };
+    // submit Task model
+    handleTaskSubmit = () => {
+        var data = this.state.newTask
+        data.attachment = this.state.fileattach
+        data.house_id = '600c15c2c983431790f904c3-1627046889451'
+        data.status = 'open'
+        data.priority = 0
+        data.done_on = ''
+        console.log("data", data)
+        axios
+            .post(
+                sitedata.data.path + "/vh/AddTask",
+                data,
+                commonHeader(this.props.stateLoginValueAim.token)
+            )
+            .then((responce) => {
+                this.setState({ newTask: {}, fileattach: {} })
+
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
+    // get Add task data
+    getAddTaskData = () => {
+        this.setState({ loaderImage: true });
+        axios
+            .get(
+                sitedata.data.path + "/vh/GetAllTask/600c15c2c983431790f904c3-1627046889451",
+                commonHeader(this.props.stateLoginValueAim.token)
+            )
+            .then((response) => {
+                this.setState({ tasks: response.data.data })
+                console.log("response", this.state.tasks)
+            });
+    };
+
+    // For adding a date,time
     updateEntryState1 = (e, name) => {
         if (name === 'date_measured') {
             const state = this.state.newTask;
-            state[name] = e
+            state['due_on'] = e
             this.setState({ newTask: state });
         }
         else if (name === 'time_measured') {
             const state = this.state.newTask;
-            state[name] = e
+            state['due_on'] = e
             this.setState({ newTask: state });
         }
         else {
@@ -154,19 +200,16 @@ class Index extends Component {
             this.setState({ newTask: state });
         }
     };
-
+    //Select the patient name
     updateEntryState2 = (e) => {
         const state = this.state.newTask;
         state["name"] = e.label
         this.setState({ newTask: state });
     }
-
+    //Select the professional name
     updateEntryState3 = (e) => {
-        console.log('e', e)
         let professional_data = [...this.state.professional_data];
-        console.log("e.value", e.label)
         var ProfAy = this.state.professional_data?.length > 0 && this.state.professional_data.filter((data, index) => data.value === e.value);
-        console.log(ProfAy)
         if (ProfAy && ProfAy.length > 0) {
             this.setState({ ProfMessage: "Already Exist!" });
         }
@@ -174,23 +217,11 @@ class Index extends Component {
             professional_data.push(e);
             this.setState({ ProfMessage: false });
         }
-        console.log("data", ProfAy)
         this.setState({
             professional_data
         });
-        console.log("professional_data", professional_data)
     }
-
-    // updateEntryState3 = (e) => {
-    //     console.log('e', e)
-    //     let professional_data = [...this.state.professional_data];
-    //     console.log("e.value", e.label)
-    //     professional_data.push(e);
-    //         this.setState({
-    //             professional_data
-    //         });    
-    // }
-
+    // Delete Professional from the
     deleteProf = (index) => {
         var ProfAy = this.state.professional_data?.length > 0 && this.state.professional_data.filter((data, index1) => index1 !== index);
         this.setState({ professional_data: ProfAy });
@@ -231,7 +262,7 @@ class Index extends Component {
 
     // };
 
-
+    // Get the Professional data
     getProfessionalData = () => {
         var professionalList = [], professionalList1 = [],
             professionalArray = [];
@@ -265,6 +296,7 @@ class Index extends Component {
 
     };
 
+    // Get the Patient data
     getPatientData = () => {
         var PatientList = [], PatientList1 = [];
         patientArray = [];
@@ -332,15 +364,7 @@ class Index extends Component {
         }
     }
 
-    FileAttachMulti = (Fileadd) => {
-        this.setState({
-          isfileuploadmulti: true,
-          fileattach: Fileadd,
-          fileupods: true,
-         
-        });
-        console.log("FileAttach",this.state.newTask)
-      };
+
 
     render() {
         const { tabvalue, tabvalue2, professional_data, newTask } = this.state;
@@ -413,7 +437,7 @@ class Index extends Component {
                                                     <Grid item xs={12} md={6}>
 
                                                         <Grid className="addTaskBtn">
-                                                            <Button onClick={this.handleOpenRvw}>+ Add Task</Button>
+                                                            <Button onClick={this.handleOpenTask}>+ Add Task</Button>
                                                         </Grid>
                                                     </Grid>
                                                     {/* Model setup */}
@@ -426,7 +450,7 @@ class Index extends Component {
                                                                 ? "darkTheme"
                                                                 : ""
                                                         }
-                                                        open={this.state.openRvw} onClose={this.handleCloseRvw}>
+                                                        open={this.state.openTask} onClose={this.handleCloseTask}>
                                                         <Grid className="rvewFiles">
                                                             <Grid className="rvewFilesinner">
                                                                 {/* <Grid container direction="row">
@@ -525,8 +549,8 @@ class Index extends Component {
                                                                                             <Grid item xs={12} sm={12} md={12}>
                                                                                                 <Grid className="assignSec">
                                                                                                     <Grid>
-                                                                                                        <img src={require('assets/virtual_images/assign-to.svg')} alt="" title="" />
-                                                                                                        <a onClick={this.handleNoWard}><label onClick={this.handleSubmit}>+ Assign to</label></a>
+                                                                                                        <img onClick={this.handleOpenAssign} src={require('assets/virtual_images/assign-to.svg')} alt="" title="" />
+                                                                                                        <a onClick={this.handleOpenAssign}><label>+ Assign to</label></a>
                                                                                                     </Grid>
                                                                                                     <Grid>
                                                                                                         <img src={require('assets/virtual_images/assign-to.svg')} alt="" title="" />
@@ -545,8 +569,8 @@ class Index extends Component {
                                                                                         </Grid>
                                                                                     </Grid>
 
-                                                                                    <Modal open={this.state.noWards}
-                                                                                        onClose={this.handleCloseRvw}>
+                                                                                    <Modal open={this.state.openAssign}
+                                                                                        onClose={this.handleCloseAssign}>
                                                                                         <Grid className="addStaff">
                                                                                             <Grid className="addStaffIner">
                                                                                                 <Grid container direction="row">
@@ -554,7 +578,7 @@ class Index extends Component {
                                                                                                         <Grid className="movPtntCntnt">
                                                                                                             <Grid className="addStaffLbl">
                                                                                                                 <Grid className="addStaffClose closeMove">
-                                                                                                                    <a onClick={this.handleCloseRvw}>
+                                                                                                                    <a onClick={this.handleCloseAssign}>
                                                                                                                         <img src={require('assets/virtual_images/closebtn.png')} alt="" title="" />
                                                                                                                     </a>
                                                                                                                 </Grid>
@@ -665,11 +689,10 @@ class Index extends Component {
                                                                                                         </Grid>
                                                                                                     </Grid>
                                                                                                 </Grid>
-
-                                                                                                <Grid className="addStafClos"><Button onClick={this.handleCloseRvw}>Save & Close</Button></Grid>
+                                                                                                <Grid className="addStafClos">
+                                                                                                    <a onClick={this.handleCloseAssign}><Button onClick={() => this.handleAssignSubmit()}>Save & Close</Button></a>
+                                                                                                </Grid>
                                                                                             </Grid>
-
-
                                                                                         </Grid>
                                                                                     </Modal>
 
@@ -679,7 +702,7 @@ class Index extends Component {
                                                                                             <label>Attachments</label>
                                                                                         </Grid>
                                                                                         <FileUploader
-                                                                                            cur_one={this.props.cur_one}
+                                                                                            // cur_one={this.props.cur_one}
                                                                                             attachfile={
                                                                                                 this.state.newTask && this.state.newTask.attachfile
                                                                                                     ? this.state.newTask.attachfile
@@ -702,7 +725,7 @@ class Index extends Component {
                                                                     <Grid container direction="row" alignItems="center">
                                                                         <Grid item xs={12} sm={12} md={12}>
                                                                             <Grid className="saveTask">
-                                                                                <a onClick={() => this.handleCloseRvw()}><Button onClick={() => this.handleSubmit()}>Save Task & Close</Button></a>
+                                                                                <a onClick={() => this.handleCloseTask()}><Button onClick={() => this.handleTaskSubmit()}>Save Task & Close</Button></a>
                                                                             </Grid>
                                                                         </Grid>
                                                                     </Grid>
@@ -735,52 +758,60 @@ class Index extends Component {
                                                         </Grid>
                                                         {tabvalue2 === 0 && <TabContainer>
                                                             <Grid className="allInerTabs">
-                                                                <Grid className="allTabCntnt">
-                                                                    <Grid container direction="row" alignItems="center">
-                                                                        <Grid item xs={12} sm={8} md={6}>
-                                                                            <Grid className="revwFiles">
-                                                                                <Grid><img src={require('assets/virtual_images/greyImg.jpg')} alt="" title="" /></Grid>
-                                                                                <Grid className="revwFilesRght cardioColor">
-                                                                                    <Grid><Button>Cardiology</Button></Grid>
-                                                                                    <Grid><label>Review patient files</label></Grid>
-                                                                                </Grid>
-                                                                            </Grid>
-                                                                            <Grid className="allInfo">
-                                                                                <Grid><img src={require('assets/virtual_images/person1.jpg')} alt="" title="" /></Grid>
-                                                                                <Grid className="allInfoRght">
-                                                                                    <Grid><label>Benito Noboa</label></Grid>
-                                                                                    <p>P_ukd832kd2</p>
-                                                                                </Grid>
-                                                                            </Grid>
-                                                                        </Grid>
-                                                                        <Grid item xs={12} sm={8} md={6}>
-                                                                            <Grid className="attchNoteMain">
-                                                                                <Grid className="attchNoteUpr">
-                                                                                    <Grid className="attchNote">
-                                                                                        <img src={require('assets/virtual_images/paragraph-normal.svg')} alt="" title="" />
-                                                                                        <label>1</label>
-                                                                                    </Grid>
-                                                                                    <Grid className="attchNote attchImg">
-                                                                                        <img src={require('assets/virtual_images/attatchment.png')} alt="" title="" />
-                                                                                        <label>1</label>
+
+                                                                {this.state.tasks?.length > 0 && this.state.tasks.map((data) => (
+
+
+
+
+                                                                    <Grid className="allTabCntnt">
+                                                                        <Grid container direction="row" alignItems="center">
+                                                                            <Grid item xs={12} sm={8} md={6}>
+                                                                                <Grid className="revwFiles">
+                                                                                    <Grid><img src={require('assets/virtual_images/greyImg.jpg')} alt="" title="" /></Grid>
+                                                                                    <Grid className="revwFilesRght cardioColor">
+                                                                                        <Grid><Button>Cardiology</Button></Grid>
+                                                                                        <Grid><label>Review patient files</label></Grid>
                                                                                     </Grid>
                                                                                 </Grid>
-                                                                                <Grid className="attchOpen">
-                                                                                    <Button><label></label>Open</Button>
+                                                                                <Grid className="allInfo">
+                                                                                    <Grid><img src={require('assets/virtual_images/person1.jpg')} alt="" title="" /></Grid>
+                                                                                    <Grid className="allInfoRght">
+                                                                                        <Grid><label>{data.name}</label></Grid>
+                                                                                        <p>{data.profile_id}</p>
+                                                                                    </Grid>
                                                                                 </Grid>
-                                                                                <Grid className="userPics">
-                                                                                    <Link><img src={require('assets/virtual_images/dr1.jpg')} alt="" title="" /></Link>
-                                                                                    <Link><img src={require('assets/virtual_images/james.jpg')} alt="" title="" /></Link>
-                                                                                    <Link><span>+1</span></Link>
-                                                                                </Grid>
-                                                                                <Grid className="userDots">
-                                                                                    <Button><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></Button>
+                                                                            </Grid>
+                                                                            <Grid item xs={12} sm={8} md={6}>
+                                                                                <Grid className="attchNoteMain">
+                                                                                    <Grid className="attchNoteUpr">
+                                                                                        <Grid className="attchNote">
+                                                                                            <img src={require('assets/virtual_images/paragraph-normal.svg')} alt="" title="" />
+                                                                                            <label>1</label>
+                                                                                        </Grid>
+                                                                                        <Grid className="attchNote attchImg">
+                                                                                            <img src={require('assets/virtual_images/attatchment.png')} alt="" title="" />
+                                                                                            <label>1</label>
+                                                                                        </Grid>
+                                                                                    </Grid>
+                                                                                    <Grid className="attchOpen">
+                                                                                        <Button><label></label>{data.status}</Button>
+                                                                                    </Grid>
+                                                                                    <Grid className="userPics">
+                                                                                        <Link><img src={require('assets/virtual_images/dr1.jpg')} alt="" title="" /></Link>
+                                                                                        <Link><img src={require('assets/virtual_images/james.jpg')} alt="" title="" /></Link>
+                                                                                        <Link><span>+1</span></Link>
+                                                                                    </Grid>
+                                                                                    <Grid className="userDots">
+                                                                                        <Button><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></Button>
+                                                                                    </Grid>
                                                                                 </Grid>
                                                                             </Grid>
                                                                         </Grid>
                                                                     </Grid>
-                                                                </Grid>
-                                                                <Grid className="allTabCntnt">
+
+                                                                ))}
+                                                                {/* <Grid className="allTabCntnt">
                                                                     <Grid container direction="row" alignItems="center">
                                                                         <Grid item xs={12} sm={8} md={6}>
                                                                             <Grid className="revwFiles">
@@ -998,7 +1029,7 @@ class Index extends Component {
                                                                             </Grid>
                                                                         </Grid>
                                                                     </Grid>
-                                                                </Grid>
+                                                                </Grid> */}
                                                             </Grid>
                                                         </TabContainer>}
                                                         {tabvalue2 === 1 && <TabContainer>
