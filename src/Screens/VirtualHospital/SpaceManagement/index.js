@@ -139,7 +139,6 @@ class Index extends Component {
   };
   //add the ward of the speciality
   handleOpenRoom = () => {
-    console.log('this.state.speciality', this.state.speciality)
     var state = this.state.speciality;
     var ward = state["wards"] || [];
     if (this.state.isEditWrd) {
@@ -193,7 +192,6 @@ class Index extends Component {
 
   //for update the rooms in the wards
   updateEntryState3 = (ward) => {
-    console.log('this.state.ward', this.state.ward)
     var state = this.state.ward;
     state["rooms"] = ward;
     this.setState({ ward: state });

@@ -14,9 +14,7 @@ class Index extends React.Component {
     onDataChange = (e, index) => {
         var RoomAy = this.state.roomArray;
         if(this.props.comesFrom==="admin"){
-            console.log('RoomAy',RoomAy)
              RoomAy[index][e.target.name] = e.target.value;
-             console.log('RoomAy',RoomAy)
         }
         else{
             RoomAy[index] = e.target.value;
@@ -56,7 +54,6 @@ class Index extends React.Component {
     render() {
         return (
             <Grid className="roomName-h">
-                {console.log('roomArray', this.props.roomArray)}
                 {this.state.timeArr && this.state.timeArr.length == 0 && (
                     <Grid container direction="row" alignItems="center" spacing={2}>
                         

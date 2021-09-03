@@ -8,7 +8,7 @@ import Input from "@material-ui/core/Input";
 import Select from "react-select";
 import Loader from "Screens/Components/Loader/index";
 // import { authorQuoteMap, getSteps, authors } from "./data";
-import { getSteps, getAuthor } from "./data";
+import { getSteps, getAuthor, updateInActualData, MoveAllCases } from "./data";
 import Drags from "./drags.js";
 import sitedata from "sitedata";
 import { withRouter } from "react-router-dom";
@@ -24,6 +24,7 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import LeftMenu from "Screens/Components/Menus/VirtualHospitalMenu/index";
 import LeftMenuMobile from "Screens/Components/Menus/VirtualHospitalMenu/mobile";
+import _ from 'lodash';
 
 const options = [
   { value: "data1", label: "Data1" },
@@ -63,13 +64,22 @@ class Index extends Component {
 
   //For calling the API
   CallApi = () => {
+    var deep = _.cloneDeep(this.state.actualData);
+    deep.map((item)=>{
+      item.case_numbers = item.case_numbers.map((element)=>{
+        let case_id = element._id
+        element={};
+        element.case_id=  case_id;
+        return element;
+      })
+    })
     this.setState({ loaderImage: true });
     axios
       .post(
         sitedata.data.path + "/step/AddStep",
         {
           house_id: this.props?.House?.value,
-          steps: this.state.actualData,
+          steps: deep,
         },
         commonHeader(this.props.stateLoginValueAim.token)
       )
@@ -91,13 +101,13 @@ class Index extends Component {
 
   //Change the value of the step_name
   onChange = (e, index) => {
+    var state = this.state.actualData;
+    state[index][e.target.name] = e.target.value;
+    this.setDta(state);
     if (e.key === "Enter") {
       this.setState({ edit: false });
       this.CallApi();
     }
-    var state = this.state.actualData;
-    state[index][e.target.name] = e.target.value;
-    this.setDta(state);
   };
 
   //Edit the name of step
@@ -109,6 +119,7 @@ class Index extends Component {
   AddStep = () => {
     var state = this.state.actualData;
     state.push({ step_name: "Step" + state?.length, case_numbers: [] });
+    console.log('step1111', state)
     this.setDta(state);
     this.CallApi();
   };
@@ -123,11 +134,9 @@ class Index extends Component {
     var author = getAuthor(stepData);
     stepData.map((item, index1)=>{
       item?.case_numbers?.length>0 && item.case_numbers.map((data, index)=>{
-        console.log('index', index, 'index1', index1, 'author', author)
         data['author'] = author[index1];
       })
     })
-    console.log('stepData', stepData)
     this.setState({ actualData: stepData });
     const authorQuoteMap = stepData.reduce(
       (previous, author) => ({
@@ -193,7 +202,6 @@ class Index extends Component {
                   this.setState({idpinerror: false, openAddP: false, case: {},  addp: {}})
                   var state = this.state.actualData;
                   state[0].case_numbers.push({case_id: responce1.data.data })
-                  console.log('state+nuw', state)
                   this.setDta(state);
                   this.CallApi();
                 }
@@ -226,6 +234,35 @@ class Index extends Component {
   handleChange = (selectedOption) => {
     this.setState({ selectedOption });
   };
+
+  moveStep=(to, from, item)=>{
+    var result= {type: 'COLUMN', draggableId: item, source: {droppableId: "board", index: from}, destination: {droppableId: "board", index: to}};
+    var actualData = updateInActualData(this.state.actualData, result)
+    actualData.then((result)=>{
+      this.setState({actualData: result},()=>{
+        this.CallApi();
+      })
+    })
+  }
+
+  dragDropFlow=(result)=>{
+    var actualData = updateInActualData(this.state.actualData, result)
+    actualData.then((result)=>{
+      this.setState({actualData: result},()=>{
+        this.CallApi();
+      })
+    })
+  }
+
+  moveAllPatient = (to, from, data)=>{
+    var to32 = this.state.actualData.length>0 && this.state.actualData.map(function(e) { return e.step_name; }).indexOf(to);
+    var actualData = MoveAllCases(this.state.actualData, from, to32, data)
+    actualData.then((result)=>{
+      this.setState({actualData: result},()=>{
+        this.CallApi();
+      })
+    })
+  }
 
   render() {
     const { selectedOption } = this.state;
@@ -336,8 +373,10 @@ class Index extends Component {
                       AddStep={this.AddStep}
                       openAddPatient={this.openAddPatient}
                       initial={this.state.fullData}
-                      // initial={authorQuoteMap}
+                      dragDropFlow={this.dragDropFlow}
+                      moveAllPatient={(to, from, data) => this.moveAllPatient(to, from , data)}
                       view={this.state.view}
+                      moveStep={(to, from, item)=>{this.moveStep(to, from, item)}}
                     />
                   </Grid>
                 </Grid>

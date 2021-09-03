@@ -25,6 +25,9 @@ class Index extends Component {
   };
 
   onDragEnd = result => {
+    console.log('result', result)
+    // console.log('this is on end', result)
+    this.props.dragDropFlow(result);
     if (result.combine) {
       if (result.type === "COLUMN") {
         const shallow = [...this.state.ordered];
@@ -83,6 +86,8 @@ class Index extends Component {
 
     this.setState({
       columns: data.quoteMap
+    }, ()=>{
+      // console.log('columns state', this.state.columns)
     });
   };
 
@@ -102,7 +107,7 @@ class Index extends Component {
           droppableId="board"
           type="COLUMN"
           direction="horizontal"
-          isCombineEnabled="false"
+          isCombineEnabled={false}
         >
           {provided => (
             <div ref={provided.innerRef} {...provided.droppableProps}>
@@ -123,6 +128,9 @@ class Index extends Component {
                         quotes={columns[key]}
                         isCombineEnabled={this.props.isCombineEnabled}
                         view={this.props.view}
+                        ordered={ordered}
+                        moveAllPatient={(to, from, data)=>{this.props.moveAllPatient(to, from, data)}}
+                        moveStep={(to, from, item)=>{this.props.moveStep(to, from, item)}}
                       />
                     </div>
                   </li>
@@ -132,7 +140,6 @@ class Index extends Component {
                  <Grid className="nwPatentAdd"><Button onClick={this.AddMoreStep}>+ Add Step</Button></Grid>
                  </li>
               </ul>
-              {console.log('provided',provided)}
               {provided.placeholder}
             </div>
           )}

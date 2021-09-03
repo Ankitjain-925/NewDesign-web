@@ -8988,7 +8988,7 @@ button.crdoLghtBlu2 {
 }
 .checkDots label {
     color: #404646;
-    font-size: 16px;
+    /* font-size: 16px; */
     font-weight: bold;
     letter-spacing: 0;
     line-height: 16px;
@@ -9596,8 +9596,16 @@ button.crdoLghtBlu2 {
 /* .flowInfo {
     padding: 10px;
 } */
+
+.checkDots ul div{
+    width:300px !important;
+}
+
 .stepTdotupper ul li{
     width: 100% !important;
+}
+.stepTdotupper ul{
+    min-width: 300px!important;
 }
 .stepTdot{
     width:27px;

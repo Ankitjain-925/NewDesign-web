@@ -43,4 +43,3 @@ const reorder = (list, startIndex, endIndex) => {
       quoteMap: result
     };
   };
-  

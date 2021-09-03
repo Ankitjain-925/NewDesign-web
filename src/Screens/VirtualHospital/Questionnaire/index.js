@@ -693,7 +693,7 @@ class Index extends Component {
                                                   }
                                                   roomArray={this.state.editQuestions.options && this.state.editQuestions.options}
                                                 />
-                                                {console.log('editQuestions', this.state.editQuestions.options)}
+                                             
                                               </Grid>
                                             </>
                                           )}

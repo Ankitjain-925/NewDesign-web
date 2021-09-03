@@ -81,7 +81,6 @@ class Index extends Component {
     };
 
     handleSubmit = () => {
-        console.log("queion", this.state.updateTrack);
         const myQuestions = [...this.state.myQuestions];
         myQuestions.push(
             this.state.updateTrack
@@ -92,7 +91,7 @@ class Index extends Component {
             question: '',
             options: ''
         });
-        console.log("myQuestion", myQuestions)
+        // console.log("myQuestion", myQuestions)
     };
 
 

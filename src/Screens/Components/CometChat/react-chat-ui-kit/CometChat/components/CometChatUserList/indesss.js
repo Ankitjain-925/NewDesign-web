@@ -313,14 +313,14 @@ class CometChatUserList extends React.PureComponent {
       .getLoggedInUser()
       .then((user) => {
         let u = this.state.preUserList;
-        console.log('u', u)
+       //  console.log('u', u)
         const isIncluded = [];
         var userForlist = [];
         if (u && u.length > 0) {
           let u1 =  u.filter((data,index)=> index<=50);
           let u2 =  u.filter((data,index)=> index>50);
-          console.log('u1', u1) 
-          console.log('u2', u2)
+         //  console.log('u1', u1) 
+         //  console.log('u2', u2)
           this.resolveUserList(u1)
             .then(result => {
               result.map(item => {
@@ -333,7 +333,7 @@ class CometChatUserList extends React.PureComponent {
                   }
                 });
               });
-              console.log('Its first', userForlist)
+             //  console.log('Its first', userForlist)
               this.newAtTop(userForlist)
             })
           
@@ -350,7 +350,7 @@ class CometChatUserList extends React.PureComponent {
                   }
                 });
               });
-              console.log('Its last',userForlist )
+             //  console.log('Its last',userForlist )
               this.newAtTop(userForlist)
             })
           }
@@ -378,7 +378,7 @@ class CometChatUserList extends React.PureComponent {
         //       },
         //       (error) => {
         //         er++;
-        //         // console.log("User details fetching failed with error:", error);
+        //         ////  console.log("User details fetching failed with error:", error);
         //       })
         //     .then(() => {
         //       if (users.length + er == u.length) {
@@ -425,7 +425,7 @@ class CometChatUserList extends React.PureComponent {
     if (this.state.loading) {
       loading = <div className="lo8ading-text">{Loading}</div>;
     }
-// console.log('this.state.userlist1', this.state.userlist1)
+////  console.log('this.state.userlist1', this.state.userlist1)
     let userList1 = this.state.userlist;
     // userList1 = sortCometUser(userList1)
     // if(this.state.Unread)
