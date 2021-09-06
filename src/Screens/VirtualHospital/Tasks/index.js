@@ -33,6 +33,7 @@ import VHfield from "Screens/Components/VirtualHospitalComponents/VHfield/index"
 import DateFormat from "Screens/Components/DateFormat/index";
 import TimeFormat from "Screens/Components/TimeFormat/index";
 import Select from 'react-select';
+import { confirmAlert } from "react-confirm-alert";
 
 
 var new_data = [
@@ -93,7 +94,7 @@ class Index extends Component {
             ProfMessage: false,
             newTask: {},
             Fileadd: '',
-            tasks: {}
+            AllTasks: {},
         };
     }
 
@@ -153,21 +154,39 @@ class Index extends Component {
         data.status = 'open'
         data.priority = 0
         data.done_on = ''
-        console.log("data", data)
-        axios
-            .post(
-                sitedata.data.path + "/vh/AddTask",
-                data,
-                commonHeader(this.props.stateLoginValueAim.token)
-            )
-            .then((responce) => {
-                this.setState({ newTask: {}, fileattach: {} })
+        console.log("status", this.state.newTask.status)
+        if (this.state.newTask._id) {
+            axios
+                .put(
+                    sitedata.data.path + "/vh/AddTask/" + this.state.newTask._id,
+                    data,
+                    commonHeader(this.props.stateLoginValueAim.token)
+                )
+                .then((responce) => {
+                    this.setState({
+                        newTask: {},
+                    });
+                    this.getAddTaskData();
+                });
+        }
+        else {
+            axios
+                .post(
+                    sitedata.data.path + "/vh/AddTask",
+                    data,
+                    commonHeader(this.props.stateLoginValueAim.token)
+                )
+                .then((responce) => {
+                    this.setState({ newTask: {}, fileattach: {} })
+                    this.getAddTaskData();
 
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        }
     }
+
     // get Add task data
     getAddTaskData = () => {
         this.setState({ loaderImage: true });
@@ -177,8 +196,8 @@ class Index extends Component {
                 commonHeader(this.props.stateLoginValueAim.token)
             )
             .then((response) => {
-                this.setState({ tasks: response.data.data })
-                console.log("response", this.state.tasks)
+                this.setState({AllTasks: response.data.data})
+                console.log("response", response)
             });
     };
 
@@ -186,12 +205,12 @@ class Index extends Component {
     updateEntryState1 = (e, name) => {
         if (name === 'date_measured') {
             const state = this.state.newTask;
-            state['due_on'] = e
+            state['date_measured'] = e
             this.setState({ newTask: state });
         }
         else if (name === 'time_measured') {
             const state = this.state.newTask;
-            state['due_on'] = e
+            state['time_measured'] = e
             this.setState({ newTask: state });
         }
         else {
@@ -203,7 +222,7 @@ class Index extends Component {
     //Select the patient name
     updateEntryState2 = (e) => {
         const state = this.state.newTask;
-        state["name"] = e.label
+        state['patient'] = e.label
         this.setState({ newTask: state });
     }
     //Select the professional name
@@ -364,10 +383,59 @@ class Index extends Component {
         }
     }
 
+    //Delete the perticular service confirmation box
+    removeTask = (id) => {
+        console.log("id", id)
+        this.setState({ message: null });
+        confirmAlert({
+            customUI: ({ onClose }) => {
+                return (
+                    <div
+                        className={
+                            this.props.settings &&
+                                this.props.settings.setting &&
+                                this.props.settings.setting.mode &&
+                                this.props.settings.setting.mode === "dark"
+                                ? "dark-confirm react-confirm-alert-body"
+                                : "react-confirm-alert-body"
+                        }
+                    >
+
+                        <h1>Remove the Task ?</h1>
+                        <p>Are you sure to remove this Task?</p>
+                        <div className="react-confirm-alert-button-group">
+                            <button onClick={onClose}>No</button>
+                            <button
+                                onClick={() => {
+                                    this.deleteClickTask(id);
+                                    onClose();
+                                }}
+                            >
+                                Yes
+                            </button>
+                        </div>
+                    </div>
+                );
+            },
+        });
+    };
+    deleteClickTask(id) {
+        axios
+            .delete(sitedata.data.path + "/vh/AddTask/" + id, commonHeader(this.props.stateLoginValueAim.token))
+            .then((response) => {
+                this.getAddTaskData();
+            })
+            .catch((error) => { });
+    }
+    // open Edit model
+    editTask = (data) => {
+        console.log("data", data.task_name);
+        this.setState({ newTask: data, openTask: true });
+    };
 
 
     render() {
-        const { tabvalue, tabvalue2, professional_data, newTask } = this.state;
+        const { tabvalue, tabvalue2, professional_data, newTask, AllTasks} = this.state;
         const userList = this.state.filteredUsers && this.state.filteredUsers.map(user => {
             return (
                 <li key={user.id} style={{ background: this.myColor(user.id), color: this.color(user.id) }} value={user.profile_id}
@@ -376,6 +444,9 @@ class Index extends Component {
             )
         });
 
+        // var viewComments = this.state.tasks?.comments.length > 0 && this.state.tasks.comments.filter((data, index) => index <= 1)
+        // var count = this.state.tasks?.comments.length - 2 > 0 ? this.state.tasks?.comments.length - 2 : 0;
+        // console.log("viewComments", viewComments)
         return (
             <Grid className={
                 this.props.settings &&
@@ -467,7 +538,12 @@ class Index extends Component {
 
                                                                         <Grid className="enterSpclUpr">
                                                                             <Grid className="enterSpclMain">
+                                                                                <Grid className="nwDiaCloseBtn">
+                                                                                    <a onClick={this.handleCloseTask}><img src={require("assets/images/close-search.svg")} alt="" title="" />
+                                                                                    </a>
+                                                                                </Grid>
                                                                                 <Grid className="enterSpcl">
+
 
                                                                                     <Grid>
                                                                                         <VHfield
@@ -477,7 +553,7 @@ class Index extends Component {
                                                                                             onChange={(e) =>
                                                                                                 this.updateEntryState1(e)
                                                                                             }
-                                                                                        // value={this.state.updateTrack.title}
+                                                                                            value={this.state.newTask.task_name}
                                                                                         />
                                                                                     </Grid>
 
@@ -488,7 +564,7 @@ class Index extends Component {
                                                                                             placeholder="Enter description"
                                                                                             onChange={(e) =>
                                                                                                 this.updateEntryState1(e)}
-                                                                                        // value={this.state.myData.patient}
+                                                                                            value={this.state.newTask.description}
                                                                                         />
                                                                                     </Grid>
 
@@ -552,17 +628,19 @@ class Index extends Component {
                                                                                                         <img onClick={this.handleOpenAssign} src={require('assets/virtual_images/assign-to.svg')} alt="" title="" />
                                                                                                         <a onClick={this.handleOpenAssign}><label>+ Assign to</label></a>
                                                                                                     </Grid>
-                                                                                                    <Grid>
+                                                                                                    {/* <Grid>
                                                                                                         <img src={require('assets/virtual_images/assign-to.svg')} alt="" title="" />
                                                                                                         <label>Duplicate</label>
                                                                                                     </Grid>
                                                                                                     <Grid>
                                                                                                         <img src={require('assets/virtual_images/assign-to.svg')} alt="" title="" />
                                                                                                         <label>Archive</label>
-                                                                                                    </Grid>
+                                                                                                    </Grid> */}
                                                                                                     <Grid>
-                                                                                                        <img src={require('assets/virtual_images/assign-to.svg')} alt="" title="" />
-                                                                                                        <label>Delete</label>
+                                                                                                        <img onClick={(id) => {
+                                                                                                            this.removeTask(id);
+                                                                                                        }} src={require('assets/virtual_images/assign-to.svg')} alt="" title="" />
+                                                                                                        <label onclick={(id) => { this.removeTask(id) }}>Delete</label>
                                                                                                     </Grid>
                                                                                                 </Grid>
                                                                                             </Grid>
@@ -759,51 +837,92 @@ class Index extends Component {
                                                         {tabvalue2 === 0 && <TabContainer>
                                                             <Grid className="allInerTabs">
 
-                                                                {this.state.tasks?.length > 0 && this.state.tasks.map((data) => (
+                                                                {this.state.AllTasks.length > 0 && this.state.AllTasks.map((data) => (
 
 
 
-
-                                                                    <Grid className="allTabCntnt">
-                                                                        <Grid container direction="row" alignItems="center">
-                                                                            <Grid item xs={12} sm={8} md={6}>
-                                                                                <Grid className="revwFiles">
-                                                                                    <Grid><img src={require('assets/virtual_images/greyImg.jpg')} alt="" title="" /></Grid>
-                                                                                    <Grid className="revwFilesRght cardioColor">
-                                                                                        <Grid><Button>Cardiology</Button></Grid>
-                                                                                        <Grid><label>Review patient files</label></Grid>
-                                                                                    </Grid>
-                                                                                </Grid>
-                                                                                <Grid className="allInfo">
-                                                                                    <Grid><img src={require('assets/virtual_images/person1.jpg')} alt="" title="" /></Grid>
-                                                                                    <Grid className="allInfoRght">
-                                                                                        <Grid><label>{data.name}</label></Grid>
-                                                                                        <p>{data.profile_id}</p>
-                                                                                    </Grid>
-                                                                                </Grid>
-                                                                            </Grid>
-                                                                            <Grid item xs={12} sm={8} md={6}>
-                                                                                <Grid className="attchNoteMain">
-                                                                                    <Grid className="attchNoteUpr">
-                                                                                        <Grid className="attchNote">
-                                                                                            <img src={require('assets/virtual_images/paragraph-normal.svg')} alt="" title="" />
-                                                                                            <label>1</label>
-                                                                                        </Grid>
-                                                                                        <Grid className="attchNote attchImg">
-                                                                                            <img src={require('assets/virtual_images/attatchment.png')} alt="" title="" />
-                                                                                            <label>1</label>
+                                                                    <Grid>
+                                                                        <Grid className="allTabCntnt">
+                                                                            <Grid container direction="row" alignItems="center">
+                                                                                <Grid item xs={12} sm={8} md={6}>
+                                                                                    <Grid className="revwFiles">
+                                                                                        <Grid><img src={require('assets/virtual_images/greyImg.jpg')} alt="" title="" /></Grid>
+                                                                                        <Grid className="revwFilesRght cardioColor">
+                                                                                            <Grid><Button>Cardiology</Button></Grid>
+                                                                                            <Grid><label>{data.task_name}</label></Grid>
                                                                                         </Grid>
                                                                                     </Grid>
-                                                                                    <Grid className="attchOpen">
-                                                                                        <Button><label></label>{data.status}</Button>
+                                                                                    <Grid className="allInfo">
+                                                                                        <Grid><img src={require('assets/virtual_images/person1.jpg')} alt="" title="" /></Grid>
+                                                                                        <Grid className="allInfoRght">
+                                                                                            <Grid><label>{data.name}</label></Grid>
+                                                                                            <p>{data.profile_id}</p>
+                                                                                        </Grid>
                                                                                     </Grid>
-                                                                                    <Grid className="userPics">
-                                                                                        <Link><img src={require('assets/virtual_images/dr1.jpg')} alt="" title="" /></Link>
-                                                                                        <Link><img src={require('assets/virtual_images/james.jpg')} alt="" title="" /></Link>
-                                                                                        <Link><span>+1</span></Link>
-                                                                                    </Grid>
-                                                                                    <Grid className="userDots">
-                                                                                        <Button><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></Button>
+                                                                                </Grid>
+                                                                                <Grid item xs={12} sm={8} md={6}>
+                                                                                    <Grid className="attchNoteMain">
+                                                                                        <Grid className="attchNoteUpr">
+                                                                                            <Grid className="attchNote">
+                                                                                                <img src={require('assets/virtual_images/paragraph-normal.svg')} alt="" title="" />
+                                                                                                <label>1</label>
+                                                                                            </Grid>
+                                                                                            <Grid className="attchNote attchImg">
+                                                                                                <img src={require('assets/virtual_images/attatchment.png')} alt="" title="" />
+                                                                                                <label>1</label>
+                                                                                            </Grid>
+                                                                                        </Grid>
+                                                                                        <Grid className="attchOpen">
+                                                                                            <Button><label></label>{data.status}</Button>
+                                                                                        </Grid>
+                                                                                        <Grid className="userPics">
+                                                                                            <Link><img src={require('assets/virtual_images/dr1.jpg')} alt="" title="" /></Link>
+                                                                                            <Link><img src={require('assets/virtual_images/james.jpg')} alt="" title="" /></Link>
+                                                                                            <Link><span>+1</span></Link>
+                                                                                        </Grid>
+                                                                                        {/* <Grid className="userDots"> */}
+                                                                                        {/* <Button><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></Button> */}
+                                                                                        <Grid item xs={6} md={6} className="spcMgntRght7 presEditDot scndOptionIner">
+                                                                                            <a className="openScndhrf">
+                                                                                                <img
+                                                                                                    src={require("assets/images/three_dots_t.png")}
+                                                                                                    alt=""
+                                                                                                    title=""
+                                                                                                    className="openScnd specialuty-more"
+                                                                                                />
+                                                                                                <ul>
+                                                                                                    <li>
+                                                                                                        <a
+                                                                                                            onClick={() => {
+                                                                                                                this.editTask(data);
+                                                                                                            }}
+                                                                                                        >
+                                                                                                            <img
+                                                                                                                src={require("assets/images/details.svg")}
+                                                                                                                alt=""
+                                                                                                                title=""
+                                                                                                            />
+                                                                                                            Edit Task
+                                                                                                        </a>
+                                                                                                    </li>
+
+                                                                                                    <li
+                                                                                                        onClick={() => {
+                                                                                                            this.removeTask(data._id);
+                                                                                                        }}
+                                                                                                    >
+                                                                                                        <a>
+                                                                                                            <img
+                                                                                                                src={require("assets/images/cancel-request.svg")}
+                                                                                                                alt=""
+                                                                                                                title=""
+                                                                                                            />
+                                                                                                            Delete Task
+                                                                                                        </a>
+                                                                                                    </li>
+                                                                                                </ul>
+                                                                                            </a>
+                                                                                        </Grid>
                                                                                     </Grid>
                                                                                 </Grid>
                                                                             </Grid>
@@ -1033,7 +1152,8 @@ class Index extends Component {
                                                             </Grid>
                                                         </TabContainer>}
                                                         {tabvalue2 === 1 && <TabContainer>
-                                                            Done tab content
+                                                            {/* Done tab content */}
+                                                            if(status=="open")
                                                         </TabContainer>}
                                                         {tabvalue2 === 2 && <TabContainer>
                                                             Open tab content
