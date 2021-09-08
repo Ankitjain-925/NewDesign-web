@@ -3,6 +3,7 @@ import Column from "./column";
 import reorder, { reorderQuoteMap } from "./reorder";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import Grid from '@material-ui/core/Grid';
+import Button from "@material-ui/core/Button";
 
 class Index extends Component {
   static defaultProps = {
@@ -16,7 +17,17 @@ class Index extends Component {
 
   boardRef;
 
+  componentDidUpdate = (prevProps) => {
+    if (prevProps.initial !== this.props.initial) {
+      this.setState({columns: this.props.initial,
+        ordered: Object.keys(this.props.initial)});
+    }
+  };
+
   onDragEnd = result => {
+    console.log('result', result)
+    // console.log('this is on end', result)
+    this.props.dragDropFlow(result);
     if (result.combine) {
       if (result.type === "COLUMN") {
         const shallow = [...this.state.ordered];
@@ -75,8 +86,17 @@ class Index extends Component {
 
     this.setState({
       columns: data.quoteMap
+    }, ()=>{
+      // console.log('columns state', this.state.columns)
     });
   };
+
+  onChange=(e, index)=>{
+    this.props.onChange(e, index)
+  }
+  AddMoreStep = ()=>{
+    this.props.AddStep();
+  }
 
   render() {
     const columns = this.state.columns;
@@ -87,9 +107,8 @@ class Index extends Component {
           droppableId="board"
           type="COLUMN"
           direction="horizontal"
-          isCombineEnabled="false"
+          isCombineEnabled={false}
         >
-
           {provided => (
             <div ref={provided.innerRef} {...provided.droppableProps}>
               <ul>
@@ -99,15 +118,27 @@ class Index extends Component {
                       <Column
                         key={key}
                         index={index}
+                        edit={this.props.edit}
+                        editName={this.props.editName}
+                        onKeyDownlogin={this.props.onKeyDownlogin}
+                        onChange={(e)=>{this.onChange(e, index)}}
+                        DeleteStep={(index)=> this.props.DeleteStep(index)}
+                        openAddPatient={this.props.openAddPatient}
                         title={key}
                         quotes={columns[key]}
                         isCombineEnabled={this.props.isCombineEnabled}
                         view={this.props.view}
+                        ordered={ordered}
+                        moveAllPatient={(to, from, data)=>{this.props.moveAllPatient(to, from, data)}}
+                        moveStep={(to, from, item)=>{this.props.moveStep(to, from, item)}}
                       />
                     </div>
                   </li>
 
                 ))}
+                 <li>
+                 <Grid className="nwPatentAdd"><Button onClick={this.AddMoreStep}>+ Add Step</Button></Grid>
+                 </li>
               </ul>
               {provided.placeholder}
             </div>

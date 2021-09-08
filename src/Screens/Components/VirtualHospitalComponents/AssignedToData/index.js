@@ -43,7 +43,6 @@ class Index extends React.Component {
 
     render() {
         const { selectField_data } = this.state;
-        console.log("selectField_data", selectField_data);
         return (
             <Modal
                 open={this.state.openEntry}

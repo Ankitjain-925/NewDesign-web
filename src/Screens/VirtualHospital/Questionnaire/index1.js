@@ -102,7 +102,7 @@ class Index extends Component {
 
     //for adding the question
     onFieldChange2 = (question, i) => {
-        console.log("question", question);
+        //  console.log("question", question);
         let qArray = this.state.questionArr;
         if (qArray && qArray.length == 0) {
             qArray.push({ type: "", question: question, options: "" });
@@ -129,7 +129,7 @@ class Index extends Component {
 
     //For adding the New Question and Update Question
     handleSubmit = () => {
-        console.log("question", this.state.updateTrack);
+        //  console.log("question", this.state.updateTrack);
         if (this.state.updateTrack._id) {
             axios
                 .put(
@@ -173,7 +173,7 @@ class Index extends Component {
                     this.getAllQuestions();
                 })
                 .catch(function (error) {
-                    console.log(error);
+                    //  console.log(error);
                 });
         }
     }
@@ -281,7 +281,7 @@ class Index extends Component {
 
     render() {
         const { questions } = this.state;
-        console.log("questions", this.state.updateTrack)
+        //  console.log("questions", this.state.updateTrack)
         return (
             <Grid className="homeBg">
                 <Grid className="homeBgIner">
@@ -440,7 +440,7 @@ class Index extends Component {
                                                     {this.state.questions?.length > 0 && this.state.questions.map((data) => (
 
                                                         <>
-                                                            {console.log("data", data)}
+                                                            {//  console.log("data", data)}
                                                             <Tr>
                                                                 <Td>
                                                                     <label>{data.type}</label>

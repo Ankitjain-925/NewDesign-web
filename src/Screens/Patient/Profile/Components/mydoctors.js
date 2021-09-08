@@ -194,7 +194,6 @@ class Index extends Component {
                     FamilyList1.push({ profile_id: this.state.allDocData[i].profile_id, value: this.state.allDocData[i]._id, label: name })
                 }
                 this.setState({ users: doctorArray, family_doc_list: FamilyList, family_doc_list1: FamilyList1 })
-                console.log("doctorArray",doctorArray);
             })
     }
 

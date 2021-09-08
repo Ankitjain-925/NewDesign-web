@@ -13,6 +13,7 @@ const PLATFORM_SPECIFIC_USER = [
   'd_67s6lwzgo',
   'd_oocuio4z4',
   'd_j1njxe1n7',
+  'd_1q1j4sscm',
   'admin',
 ];
 const getDoctorArray = async (doctorArray = new Set(), user_token) => {

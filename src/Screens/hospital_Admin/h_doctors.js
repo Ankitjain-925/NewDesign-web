@@ -8,6 +8,7 @@ import { Settings } from 'Screens/Login/setting';
 import axios from 'axios';
 import { LanguageFetchReducer } from 'Screens/actions';
 import sitedata from 'sitedata';
+
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
 import Loader from 'Screens/Components/Loader/index';

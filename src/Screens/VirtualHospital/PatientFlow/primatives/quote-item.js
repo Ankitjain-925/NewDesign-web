@@ -25,12 +25,12 @@ export default class QuoteItem extends React.Component {
           {this.props.view ==='vertical' ? 
           <Grid className="flowInfo">
               <Grid className="flowInfoInr">
-                  <Grid className="flowInfoBtn RadiologyClr"><Button>Radiology</Button></Grid>
+                  <Grid className="flowInfoBtn RadiologyClr"><Button>{"Radiology"}</Button></Grid>
                   <Grid className="flowProfil">
                       <Grid><img src={require('assets/virtual_images/102.png')} alt="" title="" /></Grid>
                       <Grid className="flowProfilRght">
-                          <label>{quote.name}</label>
-                          <p>{quote.profile_id}</p>
+                          <label>{quote.patient.first_name} {quote.patient.last_name}</label>
+                          <p>{quote.patient.alies_id}</p>
                       </Grid>
                   </Grid>
               </Grid>
@@ -69,11 +69,12 @@ export default class QuoteItem extends React.Component {
                     <Grid item xs={12} md={5} lg={4}>
                         <Grid className="cardioArea">
                             <Grid>
-                                <label>{quote.name}</label>
-                                <p>{quote.profile_id}</p>
+                            <label>{quote.patient.first_name} {quote.patient.last_name}</label>
+                          <p>{quote.patient.alies_id}</p>
                             </Grid>
                         </Grid>
                     </Grid>
+                    
                     <Grid item xs={12} md={3} lg={2} className="cardoLblWeb">
                         <Grid className="cardoLbl cardoPink"><a>Cardiology</a></Grid>
                     </Grid>
