@@ -196,7 +196,7 @@ class Index extends Component {
                 commonHeader(this.props.stateLoginValueAim.token)
             )
             .then((response) => {
-                this.setState({AllTasks: response.data.data})
+                this.setState({ AllTasks: response.data.data })
                 console.log("response", response)
             });
     };
@@ -435,7 +435,7 @@ class Index extends Component {
 
 
     render() {
-        const { tabvalue, tabvalue2, professional_data, newTask, AllTasks} = this.state;
+        const { tabvalue, tabvalue2, professional_data, newTask, AllTasks } = this.state;
         const userList = this.state.filteredUsers && this.state.filteredUsers.map(user => {
             return (
                 <li key={user.id} style={{ background: this.myColor(user.id), color: this.color(user.id) }} value={user.profile_id}
@@ -838,9 +838,7 @@ class Index extends Component {
                                                             <Grid className="allInerTabs">
 
                                                                 {this.state.AllTasks.length > 0 && this.state.AllTasks.map((data) => (
-
-
-
+                                                                    
                                                                     <Grid>
                                                                         <Grid className="allTabCntnt">
                                                                             <Grid container direction="row" alignItems="center">
@@ -852,7 +850,7 @@ class Index extends Component {
                                                                                             <Grid><label>{data.task_name}</label></Grid>
                                                                                         </Grid>
                                                                                     </Grid>
-                                                                                    <Grid className="allInfo">
+                                                                                   <Grid className="allInfo">
                                                                                         <Grid><img src={require('assets/virtual_images/person1.jpg')} alt="" title="" /></Grid>
                                                                                         <Grid className="allInfoRght">
                                                                                             <Grid><label>{data.name}</label></Grid>

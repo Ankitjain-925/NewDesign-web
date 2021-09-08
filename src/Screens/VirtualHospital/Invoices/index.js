@@ -16,10 +16,13 @@ import sitedata from "sitedata";
 import {
     commonHeader,
     commonCometDelHeader,
-  } from "component/CommonHeader/index";
+} from "component/CommonHeader/index";
 import { authy } from 'Screens/Login/authy.js';
 import { houseSelect } from "../Institutes/selecthouseaction";
 import { Redirect, Route } from 'react-router-dom';
+import InvoicesDownloadPdf from "Screens/Components/VirtualHospitalComponents/InvoicesDownloadPdf/index";
+import InvoicesPatientStatus from "Screens/Components/VirtualHospitalComponents/InvoicesPatientStatus/index";
+import InvoicesShowServices from "Screens/Components/VirtualHospitalComponents/InvoicesShowServices/index";
 
 const options = [
     { value: 'data1', label: 'Data1' },
@@ -34,13 +37,54 @@ const customStyles = {
     })
 };
 
+
+
 class Index extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            selectedOption: null
+            Serivce_data: {},
+            serviceList: []
         };
     }
+
+    componentDidMount() {
+
+        this.getAllServices();
+    }
+
+    getAllServices = () => {
+        var serviceList = [], serviceList1 = [],
+            serviceArray = [];
+        this.setState({ loaderImage: true });
+        axios
+            .get(
+                sitedata.data.path + "/vh/GetService/" + this.props?.House?.value,
+                commonHeader(this.props.stateLoginValueAim.token)
+            )
+            .then((response) => {
+                console.log("response", response)
+                this.setState({ allServData: response.data.data })
+                for (let i = 0; i < this.state.allServData.length; i++) {
+                    var service = '';
+                    if (this.state.allServData[i]?.title && this.state.allServData[i]?.price) {
+                        service = this.state.allServData[i]?.title + ' ' + this.state.allServData[i]?.price
+                    }
+                    else if (this.state.allServData[i]?.title) {
+                        service = this.state.allServData[i]?.title
+                    }
+                    serviceArray.push({
+                        service: service,
+                    })
+                    serviceList.push({ value: this.state.allServData[i]._id, label: service })
+                    serviceList1.push({ profile_id: this.state.allServData[i].profile_id, value: this.state.allServData[i]._id, label: service })
+                }
+                this.setState({ users: serviceArray, service_id_list: serviceList, service_id_list1: serviceList1 })
+                console.log("serviceList", serviceList);
+            });
+    }
+
+
     handleChange = selectedOption => {
         this.setState({ selectedOption });
     };
@@ -49,19 +93,19 @@ class Index extends Component {
         return (
             <Grid className={
                 this.props.settings &&
-                this.props.settings.setting &&
-                this.props.settings.setting.mode &&
-                this.props.settings.setting.mode === "dark"
-                  ? "homeBg darkTheme"
-                  : "homeBg"
-              }>
+                    this.props.settings.setting &&
+                    this.props.settings.setting.mode &&
+                    this.props.settings.setting.mode === "dark"
+                    ? "homeBg darkTheme"
+                    : "homeBg"
+            }>
                 <Grid className="homeBgIner">
                     <Grid container direction="row">
                         <Grid item xs={12} md={12}>
 
-                        <LeftMenuMobile isNotShow={true} currentPage="chat" />
+                            <LeftMenuMobile isNotShow={true} currentPage="chat" />
                             <Grid container direction="row">
-                                {/* <VHfield name="ANkit" Onclick2={(name, value)=>{this.myclick(name , value)}}/> */}
+                                {/* <VHfield service="ANkit" Onclick2={(service, value)=>{this.myclick(service , value)}}/> */}
 
 
                                 {/* Start of Menu */}
@@ -82,7 +126,7 @@ class Index extends Component {
                                         {/* End of Back common button */}
 
                                         {/* Billing New Invoice */}
-                                        <Grid className="drftDwnload">
+                                        {/* <Grid className="drftDwnload">
 
                                             <Grid container direction="row" alignItems="center">
                                                 <Grid item xs={12} md={6}>
@@ -114,10 +158,15 @@ class Index extends Component {
                                                     </Grid>
                                                 </Grid>
                                             </Grid>
-                                        </Grid>
+                                        </Grid> */}
+
+                                        <InvoicesDownloadPdf
+                                            label="2021-00246"
+                                            status="Draft"
+                                        />
 
                                         <Grid className="srvcContent">
-                                            <Grid className="invoiceForm">
+                                            {/* <Grid className="invoiceForm">
                                                 <Grid container direction="row" alignItems="center" spacing={3}>
                                                     <Grid item xs={12} md={3} className="invoiceID">
                                                         <label>Invoice ID</label>
@@ -149,10 +198,17 @@ class Index extends Component {
                                                         />
                                                     </Grid>
                                                 </Grid>
-                                            </Grid>
+                                            </Grid> */}
+
+                                            <InvoicesPatientStatus
+                                                label="James Morrison"
+                                                case_id="P_mDnkbR30d"
+                                                options={options}
+                                            />
+
 
                                             <Grid className="srvcTable">
-                                                <h3>Services</h3>
+                                                {/* <h3>Services</h3>
                                                 <Table>
                                                     <Thead>
                                                         <Tr>
@@ -221,17 +277,21 @@ class Index extends Component {
                                                             </Td>
                                                         </Tr>
                                                     </Tbody>
-                                                </Table>
+                                                </Table> */}
+
+                                                <InvoicesShowServices />
+
                                             </Grid>
 
                                             <Grid className="addCstmField">
                                                 <Grid container direction="row" alignItems="center" spacing={3}>
                                                     <Grid item xs={12} md={4}>
                                                         <label>Add service</label>
+                                                        {console.log("servicefdfdss", this.state.service_id_list)}
                                                         <Select
-                                                            value={selectedOption}
+                                                            // value={this.state.serviceList}
                                                             onChange={this.handleChange}
-                                                            options={options}
+                                                            options={this.state.service_id_list}
                                                             placeholder="Search service or add custom input"
                                                             className="cstmSelect"
                                                             isSearchable={false}
@@ -287,22 +347,22 @@ class Index extends Component {
 }
 const mapStateToProps = (state) => {
     const { stateLoginValueAim, loadingaIndicatoranswerdetail } =
-      state.LoginReducerAim;
+        state.LoginReducerAim;
     const { stateLanguageType } = state.LanguageReducer;
     const { House } = state.houseSelect
     const { settings } = state.Settings;
     const { verifyCode } = state.authy;
     return {
-      stateLanguageType,
-      stateLoginValueAim,
-      loadingaIndicatoranswerdetail,
-      House,
-      settings,
-      verifyCode,
+        stateLanguageType,
+        stateLoginValueAim,
+        loadingaIndicatoranswerdetail,
+        House,
+        settings,
+        verifyCode,
     };
-  };
-  export default withRouter(
-    connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer, Settings,authy, houseSelect })(
-      Index
+};
+export default withRouter(
+    connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer, Settings, authy, houseSelect })(
+        Index
     )
-  );
+);
