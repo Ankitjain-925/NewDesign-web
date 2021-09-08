@@ -10,13 +10,15 @@ export const S3Image = ({ imgUrl }) => {
     }, [imgUrl])
 
     function getDocImage  (profile_image) {
-        let find = profile_image.split(".com/")[1];
-        axios.get(sitedata.data.path + "/aws/sign_s3?find=" + find)
-            .then((response) => {
-                if (response.data.hassuccessed) {
-                    setimage(response.data.data)
-                }
-            });
+        if(profile_image){
+            let find = profile_image.split(".com/")[1];
+            axios.get(sitedata.data.path + "/aws/sign_s3?find=" + find)
+                .then((response) => {
+                    if (response.data.hassuccessed) {
+                        setimage(response.data.data)
+                    }
+                });
+        }
     }
 
     return (

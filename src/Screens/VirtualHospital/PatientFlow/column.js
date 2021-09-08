@@ -52,7 +52,7 @@ export default class Column extends Component {
                         <img src={require('assets/images/threedots.jpg')} alt="" title="" className="academyDots stepTdot" />
                           <ul>
                             {!this.state.inneerSec && <Grid>
-                            <li><a><span><img src={require('assets/images/admin/details1.svg')} alt="" title="" /></span>{}</a></li>
+                            <li><a onClick={()=>{}}><span><img src={require('assets/images/admin/details1.svg')} alt="" title="" /></span>{"Add patient to this step"}</a></li>
                             <li><a onClick={()=>{this.setState({inneerSec: "step_move"})}}><span><img src={require('assets/images/admin/restoreIcon.png')} alt="" title="" /></span>{"Move Step"}</a></li>
                             <li><a onClick={()=>{this.setState({inneerSec: "move_all"})}}><span><img src={require("assets/images/admin/details1.svg")} alt="" title="" /></span>{"Move All patient in this Step >"} </a></li>
                             <li><a onClick={()=>{this.props.DeleteStep(index)}}><span><img src={require('assets/images/admin/delIcon.png')} alt="" title="" /></span>{"Delete step"}</a></li>
@@ -80,7 +80,6 @@ export default class Column extends Component {
                                 </Grid>
                                 <Grid className="positionDrop">
                                 {this.props.ordered?.length>0 &&  this.props.ordered.map((item, index1)=>(
-                                  console.log('dfsdf', item),
                                     <Grid><label onClick={()=>{this.props.moveStep(index1, index, item)}}>{index1}</label></Grid>
                                 ))}
                                 </Grid>

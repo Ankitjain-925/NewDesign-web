@@ -6359,7 +6359,7 @@ button.downloadPDF:hover {
     margin-bottom: 0px;
 }
 .revwFiles button {
-    color: #EE5253 !important;
+    /* color: #EE5253 !important; */
     font-size: 12px;
     font-weight: bold;
     letter-spacing: 0;
@@ -6367,7 +6367,7 @@ button.downloadPDF:hover {
     font-family: Muli;
     text-transform: capitalize;
     border-radius: 4px;
-    background-color: #FBD4D4;
+    /* background-color: #FBD4D4; */
     line-height: initial;
     padding: 3px 6px;
     margin-bottom: 2px;
@@ -9593,6 +9593,29 @@ button.crdoLghtBlu2 {
     border-bottom: none;
 }
 /* Added by Ankita */
+.assignSec img{
+    cursor: pointer;
+}
+.tasklistName img{
+    width: 37px;
+    height: 37px;
+    border-radius: 50%;
+}
+
+ul.patientHint {
+    z-index: 9;
+    position: relative;
+    padding-left: 0px;
+    border-radius: 7px;
+    box-shadow: 0 0px 0px 0 rgba(0, 0, 0, 0.2), 0 0px 13px 0 rgba(0, 0, 0, 0.19);
+    overflow: auto;
+    background: #fff;
+    margin-top: 5px;
+    padding: 3px 0px;
+}
+ul.patientHint li {
+    padding: 8px 5px 8px 12px;
+}
 /* .flowInfo {
     padding: 10px;
 } */

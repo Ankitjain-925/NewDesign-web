@@ -201,6 +201,9 @@ class Index extends Component {
                 if (responce1.data.hassuccessed) {
                   this.setState({idpinerror: false, openAddP: false, case: {},  addp: {}})
                   var state = this.state.actualData;
+                  if(this.state.AddstpId){
+                    
+                  }
                   state[0].case_numbers.push({case_id: responce1.data.data })
                   this.setDta(state);
                   this.CallApi();
@@ -328,7 +331,7 @@ class Index extends Component {
                                 title=""
                               />
                             </a>
-                            <Select
+                            <Select 
                               value={selectedOption}
                               onChange={this.handleChange}
                               options={options}

@@ -1,19 +1,20 @@
 import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
-
+import { pure } from "recompose";
+import { S3Image } from "Screens/Components/GetS3Images/index";
 
 class Index extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            totalurl: this.props.totalurl,
+            assigned_to: this.props.assigned_to,
         }
     }
 
 
     render() {
-        var viewImage = this.state.totalurl?.length>0 && this.state.totalurl.filter((data, index)=>index<=1)
-        var count = this.state.totalurl?.length-2 >0 ? this.state.totalurl?.length-2 : 0;
+        var viewImage = this.props.assigned_to?.length>0 && this.props.assigned_to.filter((data, index)=>index<=1)
+        var count = this.props.assigned_to?.length-2 >0 ? this.props.assigned_to?.length-2 : 0;
         return (
             <Grid container direction="row">
                 <Grid item xs={12} md={12}>
@@ -21,9 +22,8 @@ class Index extends React.Component {
                         <Grid className="asignLft">
                             <Grid><label>Assigned to</label></Grid>
                             <Grid>
-                                
                                 {viewImage?.length>0 &&  viewImage.map((data, index) => (
-                                        <img key={index} src={data} />    
+                                        <S3Image imgUrl={data.image} />  
                                 ))}
                                 {count>0 && <a>+{count}</a>}
                             </Grid>
@@ -34,4 +34,4 @@ class Index extends React.Component {
         );
     }
 }
-export default Index;
+export default pure(Index);
