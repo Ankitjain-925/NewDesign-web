@@ -242,6 +242,12 @@ class Index extends Component {
         this.setState({ newTask: state });
     };
     
+    //Switch status done / open 
+    switchStatus =()=>{
+        const state = this.state.newTask;
+        state['status'] = state.status ==='done' ? 'open': 'done';
+        this.setState({ newTask: state });
+    }
     //Select the patient name
     updateEntryState2 = (user) => {
         var user1 = this.state.users?.length>0 && this.state.users.filter((data)=>data.user_id === user.value)
@@ -604,7 +610,10 @@ class Index extends Component {
                                                                                     <Grid className="makeCmpt">
                                                                                         <Grid container direction="row" alignItems="center">
                                                                                             <Grid item xs={12} sm={6} md={6}>
-
+                                                                                            {this.state.newTask._id && <Grid onClick={()=>{this.switchStatus()}} className="markDone">
+                                                                                                    {this.state.newTask.status==='done' && <Grid><img src={require('assets/virtual_images/rightTick.png')} alt="" title="" /></Grid>}
+                                                                                                    <label>Mark as done</label>
+                                                                                                </Grid>}
                                                                                             </Grid>
                                                                                             <Grid item xs={12} sm={6} md={6}>
                                                                                                 <Grid className="addDue">
@@ -797,25 +806,25 @@ class Index extends Component {
                                                             <Grid className="allInerTabs">
                                                                 {this.state.AllTasks.length > 0 && this.state.AllTasks.map((data) => (
                                                                     <Grid>
-                                                                       <TaskView data={data}/>
+                                                                       <TaskView data={data} removeTask={(id)=> this.removeTask(id)} editTask={(data)=>this.editTask(data)}/>
                                                                     </Grid>
                                                                 ))}
                                                             </Grid>
                                                         </TabContainer>}
                                                         {tabvalue2 === 1 && <TabContainer>
                                                             <Grid className="allInerTabs">
-                                                            {this.state.DoneTask.length > 0 && this.state.AllTasks.map((data) => (
+                                                            {this.state.DoneTask.length > 0 && this.state.DoneTask.map((data) => (
                                                                 <Grid>
-                                                                    <TaskView data={data}/>
+                                                                   <TaskView data={data} removeTask={(id)=> this.removeTask(id)} editTask={(data)=>this.editTask(data)}/>
                                                                 </Grid>
                                                             ))}
                                                             </Grid>
                                                         </TabContainer>}
                                                         {tabvalue2 === 2 && <TabContainer>
                                                             <Grid className="allInerTabs">
-                                                            {this.state.OpenTask.length > 0 && this.state.AllTasks.map((data) => (
+                                                            {this.state.OpenTask.length > 0 && this.state.OpenTask.map((data) => (
                                                                 <Grid>
-                                                                    <TaskView data={data}/>
+                                                                    <TaskView data={data} removeTask={(id)=> this.removeTask(id)} editTask={(data)=>this.editTask(data)}/>
                                                                 </Grid>
                                                             ))}
                                                             </Grid>
@@ -824,7 +833,7 @@ class Index extends Component {
                                                             <Grid className="allInerTabs">
                                                             {this.state.ArchivedTasks.length > 0 && this.state.ArchivedTasks.map((data) => (
                                                                 <Grid>
-                                                                    <TaskView data={data}/>
+                                                                    <TaskView data={data} removeTask={(id)=> this.removeTask(id)} editTask={(data)=>this.editTask(data)}/>
                                                                 </Grid>
                                                             ))}
                                                             </Grid>

@@ -6672,6 +6672,7 @@ button.downloadPDF:hover {
     margin-left: 12px;
     margin-bottom: 0px;
     font-family: Muli;
+    cursor:pointer;
 }
 .markDone img {
     height: 30px;
