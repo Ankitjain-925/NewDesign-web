@@ -137,7 +137,8 @@ class MessageThread extends React.Component {
             <div className="cc1-chat-win-parent-msg-wrap">{messageComponent}</div>
             <div className="cc1-chat-win-parent-time-wrap">
               <span className="cc1-chat-win-timestamp">
-                {new Date(message.sentAt * 1000).toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })}
+              {new Date(message.sentAt * 1000).toLocaleDateString()} ({new Date(message.sentAt * 1000).toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })})
+                {/* {new Date(message.sentAt * 1000).toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })} */}
               </span>
             </div>
           </div>                            
