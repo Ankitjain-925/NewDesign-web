@@ -1207,6 +1207,7 @@
 		"delete_your_account":"حذف حسابك",
       	"delete_account":"حذف الحساب",
 		"ConversationList" :"قائمة المحادثة",
-		"ContactList" :"قائمة الإتصال"
+		"ContactList" :"قائمة الإتصال",
+		"searchingLoading" : "جاري تحميل البحث ..."
 	}
 }

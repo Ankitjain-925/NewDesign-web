@@ -1207,6 +1207,7 @@
 		"delete_your_account":"Supprimer votre compte",
       	"delete_account":"Supprimer le compte",
 		"ConversationList" :"Liste des conversations",
-		"ContactList" :"Contact List"
+		"ContactList" :"Contact List",
+		"searchingLoading" : "La recherche est en cours de chargement..."
 	}
 }

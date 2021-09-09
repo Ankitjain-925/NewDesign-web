@@ -1208,6 +1208,7 @@
 		"delete_your_account":"Lösche deinen Account",
       	"delete_account":"Konto löschen",
 		"ConversationList" :"Gesprächsliste",
-		"ContactList" :"Kontaktliste"
+		"ContactList" :"Kontaktliste",
+		"searchingLoading" : "Suche wird geladen..."
 	}
 }
