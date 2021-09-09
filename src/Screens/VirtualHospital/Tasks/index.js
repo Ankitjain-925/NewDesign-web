@@ -218,6 +218,10 @@ class Index extends Component {
                 commonHeader(this.props.stateLoginValueAim.token)
             )
             .then((response) => {
+
+                this.setState({ AllTasks: response.data.data })
+                console.log("response", response)
+
                 if(response.data.hassuccessed){
                     var Done = response.data.data?.length>0 && response.data.data.filter((item) => item.status==="done")
                     var Open = response.data.data?.length>0 && response.data.data.filter((item) => item.status==="open")
@@ -225,7 +229,7 @@ class Index extends Component {
                 }
                 this.setState({loaderImage: false });
                
-            });
+           });
     };
 
     // For adding a date,time
@@ -454,7 +458,7 @@ class Index extends Component {
     }
 
     render() {
-        const { tabvalue, tabvalue2, professional_data, newTask, AllTasks} = this.state;
+        const { tabvalue, tabvalue2, professional_data, newTask, AllTasks } = this.state;
         const userList = this.state.filteredUsers && this.state.filteredUsers.map(user => {
             return (
                 <li key={user.id} style={{ background: this.myColor(user.id), color: this.color(user.id) }} value={user.profile_id}
