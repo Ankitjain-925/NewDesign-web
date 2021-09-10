@@ -1208,6 +1208,7 @@
 		"delete_your_account":"Удалить учетную запись",
     "delete_account":"Удалить аккаунт",
     "ConversationList" :"Список разговоров",
-		"ContactList" :"Contact List"
+		"ContactList" :"Contact List",
+    "searchingLoading" : "Поиск загружается ..."
   }
 }

@@ -76,7 +76,7 @@ const receiveraudiobubble = (props) => {
             {/* {tooltip} */}
           </div>
           <div className="cc1-chat-win-msg-time-wrap">
-            <span className="cc1-chat-win-timestamp">{new Date(props.message.sentAt * 1000).toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })}</span>
+            <span className="cc1-chat-win-timestamp">{new Date(props.message.sentAt * 1000).toLocaleDateString()} ({new Date(props.message.sentAt * 1000).toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })})</span>
             {replies}
           </div>
         </div>

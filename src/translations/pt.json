@@ -1208,6 +1208,7 @@
 		"delete_your_account":"Deletar sua conta",
       	"delete_account":"Deletar conta",
 		"ConversationList" :"Lista de conversas",
-		"ContactList" :"Contact List"
+		"ContactList" :"Contact List",
+		"searchingLoading" : "A pesquisa está carregando ..."
 	}
 }
