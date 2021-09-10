@@ -9,6 +9,7 @@ import LeftMenu from "Screens/Components/Menus/VirtualHospitalMenu/index";
 import LeftMenuMobile from "Screens/Components/Menus/VirtualHospitalMenu/mobile";
 import TotalPatientView from "Screens/Components/VirtualHospitalComponents/TotalPatientView/index";
 import StatisticsPatientFlow from "Screens/Components/VirtualHospitalComponents/StatisticsPatientFlow/index";
+import StatisticsStaffAction from "Screens/Components/VirtualHospitalComponents/StatisticsStaffAction/index";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { LoginReducerAim } from "Screens/Login/actions";
@@ -19,7 +20,7 @@ import sitedata from "sitedata";
 import {
     commonHeader,
     commonCometDelHeader,
-  } from "component/CommonHeader/index";
+} from "component/CommonHeader/index";
 import { authy } from 'Screens/Login/authy.js';
 import { houseSelect } from "../Institutes/selecthouseaction";
 import { Redirect, Route } from 'react-router-dom';
@@ -66,12 +67,12 @@ class Index extends Component {
         return (
             <Grid className={
                 this.props.settings &&
-                this.props.settings.setting &&
-                this.props.settings.setting.mode &&
-                this.props.settings.setting.mode === "dark"
-                  ? "homeBg darkTheme"
-                  : "homeBg"
-              }>
+                    this.props.settings.setting &&
+                    this.props.settings.setting.mode &&
+                    this.props.settings.setting.mode === "dark"
+                    ? "homeBg darkTheme"
+                    : "homeBg"
+            }>
                 <Grid className="homeBgIner">
                     <Grid container direction="row">
                         <Grid item xs={12} md={12}>
@@ -119,7 +120,7 @@ class Index extends Component {
                                                             </Grid>
                                                         </Grid>
                                                     </Grid>
-                                                    <Grid className="modeChngUpr">
+                                                    {/* <Grid className="modeChngUpr">
                                                         <Grid className="staffAction">
                                                             <Grid container direction="row" alignItems="center">
                                                                 <Grid item xs={12} md={5}><h3>Staff actions</h3></Grid>
@@ -157,7 +158,9 @@ class Index extends Component {
                                                                 </Grid>
                                                             </Grid>
                                                         </Grid>
-                                                    </Grid>
+                                                    </Grid> */}
+
+                                                    <StatisticsStaffAction />
 
                                                     <Grid className="staffGraphUpr">
                                                         <Grid className="staffGraph">
@@ -280,22 +283,22 @@ class Index extends Component {
 }
 const mapStateToProps = (state) => {
     const { stateLoginValueAim, loadingaIndicatoranswerdetail } =
-      state.LoginReducerAim;
+        state.LoginReducerAim;
     const { stateLanguageType } = state.LanguageReducer;
     const { House } = state.houseSelect
     const { settings } = state.Settings;
     const { verifyCode } = state.authy;
     return {
-      stateLanguageType,
-      stateLoginValueAim,
-      loadingaIndicatoranswerdetail,
-      House,
-      settings,
-      verifyCode,
+        stateLanguageType,
+        stateLoginValueAim,
+        loadingaIndicatoranswerdetail,
+        House,
+        settings,
+        verifyCode,
     };
-  };
-  export default withRouter(
-    connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer, Settings,authy, houseSelect })(
-      Index
+};
+export default withRouter(
+    connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer, Settings, authy, houseSelect })(
+        Index
     )
-  );
+);

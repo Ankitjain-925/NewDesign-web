@@ -85,7 +85,7 @@ class Index extends Component {
     }
 
 
-    handleChange = selectedOption => {
+    handleChange = selectedOption => {              
         this.setState({ selectedOption });
     };
     render() {

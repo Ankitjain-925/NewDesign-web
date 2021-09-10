@@ -568,7 +568,7 @@ class Index extends Component {
                                                                                         <VHfield
                                                                                             label="Task name"
                                                                                             name="task_name"
-                                                                                            placeholder="Enter task name"
+                                                                                            placeholder="Enter task name"                            
                                                                                             onChange={(e) =>
                                                                                                 this.updateEntryState1(e.target.value, e.target.name)
                                                                                             }
@@ -778,7 +778,7 @@ class Index extends Component {
                                                 <Grid className="taskDetailMob">
                                                     {/* {tabvalue === 0 && <TabContainer> */}
                                                         <Grid className="taskCntntMng">
-                                                            <Grid container direction="row" alignItems="center">
+                                                            <Grid container direction="row" alignItems="center">                                                                                                                                                    
                                                                 <Grid item xs={8} sm={8} md={8}>
                                                                     <AppBar position="static" className="billTabs">
                                                                         <Tabs value={tabvalue2} onChange={this.handleChangeTab2}>
