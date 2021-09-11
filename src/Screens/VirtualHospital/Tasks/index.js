@@ -101,7 +101,7 @@ class Index extends Component {
         this.setState({ tabvalue });
     };
     handleChangeTab2 = (event, tabvalue2) => {
-        if(tabvalue2==3){
+        if (tabvalue2 == 3) {
             this.getArchived();
         }
         this.setState({ tabvalue2 });
@@ -122,11 +122,11 @@ class Index extends Component {
         this.setState({ newTask: state });
     };
 
-    createDuplicate=(data)=>{
+    createDuplicate = (data) => {
         delete data._id;
         console.log('data', data)
         data.archived = false;
-        this.setState({newTask: data})
+        this.setState({ newTask: data })
 
     }
     FileAttachMulti = (Fileadd) => {
@@ -139,8 +139,8 @@ class Index extends Component {
         });
     };
 
-     //User list will be show/hide
-     toggle = () => {
+    //User list will be show/hide
+    toggle = () => {
         this.setState({
             shown: !this.state.shown
         });
@@ -149,25 +149,25 @@ class Index extends Component {
     // submit Task model
     handleTaskSubmit = () => {
         var data = this.state.newTask
-        if(this.state.fileupods){
+        if (this.state.fileupods) {
             data.attachments = this.state.fileattach
         }
         data.house_id = this.props?.House?.value
-        this.setState({loaderImage: true})
+        this.setState({ loaderImage: true })
         if (this.state.newTask._id) {
             axios
-            .put(
-                sitedata.data.path + "/vh/AddTask/" + this.state.newTask._id,
-                data,
-                commonHeader(this.props.stateLoginValueAim.token)
-            )
-            .then((responce) => {
-                this.setState({loaderImage: false})
-                if(responce.data.hassuccessed){
-                    this.setState({ newTask: {}, fileattach: {}, professional_data: [], fileupods : false });
-                    this.getAddTaskData();
-                }
-            });
+                .put(
+                    sitedata.data.path + "/vh/AddTask/" + this.state.newTask._id,
+                    data,
+                    commonHeader(this.props.stateLoginValueAim.token)
+                )
+                .then((responce) => {
+                    this.setState({ loaderImage: false })
+                    if (responce.data.hassuccessed) {
+                        this.setState({ newTask: {}, fileattach: {}, professional_data: [], fileupods: false });
+                        this.getAddTaskData();
+                    }
+                });
         }
         else {
             data.done_on = ''
@@ -175,37 +175,37 @@ class Index extends Component {
             data.archived = false
             data.status = 'open'
             axios
-            .post(
-                sitedata.data.path + "/vh/AddTask",
-                data,
-                commonHeader(this.props.stateLoginValueAim.token)
-            )
-            .then((responce) => {
-                this.setState({loaderImage: false})
-                if(responce.data.hassuccessed){
-                    this.setState({ newTask: {}, fileattach: {}, professional_data: [], fileupods : false })
-                    this.getAddTaskData();
-                }
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
+                .post(
+                    sitedata.data.path + "/vh/AddTask",
+                    data,
+                    commonHeader(this.props.stateLoginValueAim.token)
+                )
+                .then((responce) => {
+                    this.setState({ loaderImage: false })
+                    if (responce.data.hassuccessed) {
+                        this.setState({ newTask: {}, fileattach: {}, professional_data: [], fileupods: false })
+                        this.getAddTaskData();
+                    }
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
         }
     }
 
     //Get Archived
-    getArchived=()=>{
+    getArchived = () => {
         this.setState({ loaderImage: true });
         axios
             .get(
-                sitedata.data.path + "/vh/GetAllArchivedTask/"+ this.props?.House?.value,
+                sitedata.data.path + "/vh/GetAllArchivedTask/" + this.props?.House?.value,
                 commonHeader(this.props.stateLoginValueAim.token)
             )
             .then((response) => {
-                if(response.data.hassuccessed){
-                    this.setState({ArchivedTasks:  response.data.data,  tabvalue2: 3 });
+                if (response.data.hassuccessed) {
+                    this.setState({ ArchivedTasks: response.data.data, tabvalue2: 3 });
                 }
-                this.setState({loaderImage: false });
+                this.setState({ loaderImage: false });
             });
     }
 
@@ -214,7 +214,7 @@ class Index extends Component {
         this.setState({ loaderImage: true });
         axios
             .get(
-                sitedata.data.path + "/vh/GetAllTask/"+ this.props?.House?.value,
+                sitedata.data.path + "/vh/GetAllTask/" + this.props?.House?.value,
                 commonHeader(this.props.stateLoginValueAim.token)
             )
             .then((response) => {
@@ -222,40 +222,34 @@ class Index extends Component {
                 this.setState({ AllTasks: response.data.data })
                 console.log("response", response)
 
-                if(response.data.hassuccessed){
-                    var Done = response.data.data?.length>0 && response.data.data.filter((item) => item.status==="done")
-                    var Open = response.data.data?.length>0 && response.data.data.filter((item) => item.status==="open")
-                    this.setState({AllTasks:  response.data.data, DoneTask : Done, OpenTask: Open})
+                if (response.data.hassuccessed) {
+                    var Done = response.data.data?.length > 0 && response.data.data.filter((item) => item.status === "done")
+                    var Open = response.data.data?.length > 0 && response.data.data.filter((item) => item.status === "open")
+                    this.setState({ AllTasks: response.data.data, DoneTask: Done, OpenTask: Open })
                 }
-                this.setState({loaderImage: false });
-               
-           });
+                this.setState({ loaderImage: false });
+
+            });
     };
 
     // For adding a date,time
     updateEntryState1 = (value, name) => {
-        var due_on = this.state.newTask?.due_on ? this.state.newTask?.due_on :{};
+        var due_on = this.state.newTask?.due_on ? this.state.newTask?.due_on : {};
         const state = this.state.newTask;
         if (name === 'date' || name === 'time') {
             due_on[name] = value;
             state['due_on'] = due_on;
         }
         else {
-            state[name] = value;   
+            state[name] = value;
         }
         this.setState({ newTask: state });
     };
-    
-    //Switch status done / open 
-    switchStatus =()=>{
-        const state = this.state.newTask;
-        state['status'] = state.status ==='done' ? 'open': 'done';
-        this.setState({ newTask: state });
-    }
+
     //Select the patient name
     updateEntryState2 = (user) => {
-        var user1 = this.state.users?.length>0 && this.state.users.filter((data)=>data.user_id === user.value)
-        if(user1 && user1.length>0)  {
+        var user1 = this.state.users?.length > 0 && this.state.users.filter((data) => data.user_id === user.value)
+        if (user1 && user1.length > 0) {
             const state = this.state.newTask;
             state['patient'] = user1[0]
             state['patient_id'] = user1[0].user_id
@@ -276,7 +270,7 @@ class Index extends Component {
             professional_data.push(GetProf);
             this.setState({ ProfMessage: false });
         }
-        this.setState({ professional_data : professional_data[0] });
+        this.setState({ professional_data: professional_data[0] });
     }
 
     // Delete Professional from the
@@ -294,15 +288,15 @@ class Index extends Component {
 
     // Get the Patient data
     getPatientData = () => {
-        var patientArray = [], PatientList1=[];
+        var patientArray = [], PatientList1 = [];
         this.setState({ loaderImage: true });
         axios
             .get(
-                sitedata.data.path + "/vh/getPatientFromVH/"+this.props?.House?.value,
+                sitedata.data.path + "/vh/getPatientFromVH/" + this.props?.House?.value,
                 commonHeader(this.props.stateLoginValueAim.token)
             )
             .then((response) => {
-                if(response.data.hassuccessed){
+                if (response.data.hassuccessed) {
                     this.setState({ allPatData: response.data.data })
                     // var images = [];
                     for (let i = 0; i < this.state.allPatData.length; i++) {
@@ -314,7 +308,7 @@ class Index extends Component {
                         else if (this.state.allPatData[i].patient?.first_name) {
                             name = this.state.allPatData[i].patient?.first_name
                         }
-                       
+
                         patientArray.push({
                             last_name: this.state.allPatData[i].patient?.last_name,
                             user_id: this.state.allPatData[i].patient?.patient_id,
@@ -324,14 +318,14 @@ class Index extends Component {
                             type: this.state.allPatData[i].patient?.type,
                         })
                         // PatientList.push({ value: this.state.allPatData[i]._id, label: name })
-                        
+
                         PatientList1.push({ profile_id: this.state.allPatData[i].patient?.profile_id, value: this.state.allPatData[i].patient?.patient_id, name: name })
                     }
-                    this.setState({ users1 : PatientList1, users: patientArray })
+                    this.setState({ users1: PatientList1, users: patientArray })
                 }
-                this.setState({loaderImage: false });
-               
-               
+                this.setState({ loaderImage: false });
+
+
                 // console.log("image", this.state.images)
             });
 
@@ -390,15 +384,15 @@ class Index extends Component {
         });
     };
     deleteClickTask(id) {
-        this.setState({loaderImage: true });
+        this.setState({ loaderImage: true });
         axios
             .delete(sitedata.data.path + "/vh/AddTask/" + id, commonHeader(this.props.stateLoginValueAim.token))
             .then((response) => {
-                if(response.data.hassuccessed){
+                if (response.data.hassuccessed) {
                     this.getAddTaskData();
                 }
-                this.setState({loaderImage: false });
-                
+                this.setState({ loaderImage: false });
+
             })
             .catch((error) => { });
     }
@@ -414,11 +408,11 @@ class Index extends Component {
         this.setState({ loaderImage: true });
         axios
             .get(
-                sitedata.data.path + "/hospitaladmin/GetProfessional/"+ this.props?.House?.value,
+                sitedata.data.path + "/hospitaladmin/GetProfessional/" + this.props?.House?.value,
                 commonHeader(this.props.stateLoginValueAim.token)
             )
             .then((response) => {
-                if(response.data.hassuccessed){
+                if (response.data.hassuccessed) {
                     this.setState({ allProfData: response.data.data })
                     // var images = [];
                     for (let i = 0; i < this.state.allProfData.length; i++) {
@@ -442,8 +436,8 @@ class Index extends Component {
                     }
                     this.setState({ loaderImage: false, professionalArray: professionalArray, professional_id_list: professionalList })
                 }
-                else{
-                    this.setState({ loaderImage: false})
+                else {
+                    this.setState({ loaderImage: false })
                 }
             });
 
@@ -482,7 +476,7 @@ class Index extends Component {
                     ? "homeBg darkTheme"
                     : "homeBg"
             }>
-                 {this.state.loaderImage && <Loader />}
+                {this.state.loaderImage && <Loader />}
                 <Grid className="homeBgIner">
                     <Grid container direction="row">
                         <Grid item xs={12} md={12}>
@@ -517,7 +511,7 @@ class Index extends Component {
                                                     <label><span></span>Done today</label>
                                                     <p>63</p>
                                                 </Grid>
-                                                <Grid className="showArchiv"><p onClick={()=>{this.getArchived()}}><a>Show archived tasks</a></p></Grid>
+                                                <Grid className="showArchiv"><p onClick={() => { this.getArchived() }}><a>Show archived tasks</a></p></Grid>
                                             </Grid>
                                         </Grid>
                                         <Grid item xs={12} md={10}>
@@ -574,7 +568,7 @@ class Index extends Component {
                                                                                         <VHfield
                                                                                             label="Task name"
                                                                                             name="task_name"
-                                                                                            placeholder="Enter task name"                            
+                                                                                            placeholder="Enter task name"
                                                                                             onChange={(e) =>
                                                                                                 this.updateEntryState1(e.target.value, e.target.name)
                                                                                             }
@@ -614,10 +608,7 @@ class Index extends Component {
                                                                                     <Grid className="makeCmpt">
                                                                                         <Grid container direction="row" alignItems="center">
                                                                                             <Grid item xs={12} sm={6} md={6}>
-                                                                                            {this.state.newTask._id && <Grid onClick={()=>{this.switchStatus()}} className="markDone">
-                                                                                                    {this.state.newTask.status==='done' && <Grid><img src={require('assets/virtual_images/rightTick.png')} alt="" title="" /></Grid>}
-                                                                                                    <label>Mark as done</label>
-                                                                                                </Grid>}
+
                                                                                             </Grid>
                                                                                             <Grid item xs={12} sm={6} md={6}>
                                                                                                 <Grid className="addDue">
@@ -660,20 +651,20 @@ class Index extends Component {
                                                                                                         <img onClick={this.handleOpenAssign} src={require('assets/virtual_images/assign-to.svg')} alt="" title="" />
                                                                                                         <a onClick={this.handleOpenAssign}><label>+ Assign to</label></a>
                                                                                                     </Grid>
-                                                                                                    {this.state.newTask._id && <><Grid onClick={()=>{this.createDuplicate(this.state.newTask)}}>
+                                                                                                    {this.state.newTask._id && <><Grid onClick={() => { this.createDuplicate(this.state.newTask) }}>
                                                                                                         <img src={require('assets/virtual_images/assign-to.svg')} alt="" title="" />
                                                                                                         <label>Duplicate</label>
                                                                                                     </Grid>
-                                                                                                    <Grid onClick={()=>{this.updateEntryState1(true, 'archived')}}>
-                                                                                                        <img src={require('assets/virtual_images/assign-to.svg')} alt="" title="" />
-                                                                                                        <label>Archive</label>
-                                                                                                    </Grid>
-                                                                                                    <Grid>
-                                                                                                        <img onClick={(id) => {
-                                                                                                            this.removeTask(id);
-                                                                                                        }} src={require('assets/virtual_images/assign-to.svg')} alt="" title="" />
-                                                                                                        <label onclick={(id) => { this.removeTask(id) }}>Delete</label>
-                                                                                                    </Grid></>}
+                                                                                                        <Grid onClick={() => { this.updateEntryState1(true, 'archived') }}>
+                                                                                                            <img src={require('assets/virtual_images/assign-to.svg')} alt="" title="" />
+                                                                                                            <label>Archive</label>
+                                                                                                        </Grid>
+                                                                                                        <Grid>
+                                                                                                            <img onClick={(id) => {
+                                                                                                                this.removeTask(id);
+                                                                                                            }} src={require('assets/virtual_images/assign-to.svg')} alt="" title="" />
+                                                                                                            <label onclick={(id) => { this.removeTask(id) }}>Delete</label>
+                                                                                                        </Grid></>}
                                                                                                 </Grid>
                                                                                             </Grid>
                                                                                         </Grid>
@@ -697,7 +688,7 @@ class Index extends Component {
                                                                                                         </Grid>
                                                                                                         <Grid className="addStafClient">
                                                                                                             <Grid className="addStafClientLft">
-                                                                                                            <Grid><S3Image imgUrl={this.state.newTask?.patient?.image} /></Grid>
+                                                                                                                <Grid><S3Image imgUrl={this.state.newTask?.patient?.image} /></Grid>
                                                                                                                 {/* <img src={getImage(this.state.newTask?.patient?.image, this.state.images)} alt="" title="" /> */}
                                                                                                             </Grid>
                                                                                                             <Grid>
@@ -725,7 +716,7 @@ class Index extends Component {
                                                                                                             {this.state.professional_data?.length > 0 && this.state.professional_data.map((data, index) => (
                                                                                                                 <Grid className="stafLst">
                                                                                                                     <Grid className="stafLft">
-                                                                                                                    <a><Grid><S3Image imgUrl={data.image} /></Grid></a>
+                                                                                                                        <a><Grid><S3Image imgUrl={data.image} /></Grid></a>
                                                                                                                         {/* <img src={getImage(data.image, this.state.images)} alt="" title="" /></a> */}
                                                                                                                         <span>{data.first_name} {data.last_name}</span>
                                                                                                                     </Grid>
@@ -786,62 +777,62 @@ class Index extends Component {
                                                 </Grid>
                                                 <Grid className="taskDetailMob">
                                                     {/* {tabvalue === 0 && <TabContainer> */}
-                                                        <Grid className="taskCntntMng">
-                                                            <Grid container direction="row" alignItems="center">                                                                                                                                                    
-                                                                <Grid item xs={8} sm={8} md={8}>
-                                                                    <AppBar position="static" className="billTabs">
-                                                                        <Tabs value={tabvalue2} onChange={this.handleChangeTab2}>
-                                                                            <Tab label="ALL" className="billtabIner" />
-                                                                            <Tab label="Done" className="billtabIner" />
-                                                                            <Tab label="Open" className="billtabIner" />
-                                                                            <Tab label="Archived" className="billtabIner" />
-                                                                        </Tabs>
-                                                                    </AppBar>
-                                                                </Grid>
-                                                                <Grid item xs={4} sm={4} md={4}>
-                                                                    <Grid className="taskSort">
-                                                                        <a><img src={require('assets/virtual_images/sort.png')} alt="" title="" /></a>
-                                                                        <a><img src={require('assets/virtual_images/search-entries.svg')} alt="" title="" /></a>
-                                                                    </Grid>
+                                                    <Grid className="taskCntntMng">
+                                                        <Grid container direction="row" alignItems="center">
+                                                            <Grid item xs={8} sm={8} md={8}>
+                                                                <AppBar position="static" className="billTabs">
+                                                                    <Tabs value={tabvalue2} onChange={this.handleChangeTab2}>
+                                                                        <Tab label="ALL" className="billtabIner" />
+                                                                        <Tab label="Done" className="billtabIner" />
+                                                                        <Tab label="Open" className="billtabIner" />
+                                                                        <Tab label="Archived" className="billtabIner" />
+                                                                    </Tabs>
+                                                                </AppBar>
+                                                            </Grid>
+                                                            <Grid item xs={4} sm={4} md={4}>
+                                                                <Grid className="taskSort">
+                                                                    <a><img src={require('assets/virtual_images/sort.png')} alt="" title="" /></a>
+                                                                    <a><img src={require('assets/virtual_images/search-entries.svg')} alt="" title="" /></a>
                                                                 </Grid>
                                                             </Grid>
                                                         </Grid>
-                                                        {tabvalue2 === 0 && <TabContainer>
-                                                            <Grid className="allInerTabs">
-                                                                {this.state.AllTasks.length > 0 && this.state.AllTasks.map((data) => (
-                                                                    <Grid>
-                                                                       <TaskView data={data} removeTask={(id)=> this.removeTask(id)} editTask={(data)=>this.editTask(data)}/>
-                                                                    </Grid>
-                                                                ))}
-                                                            </Grid>
-                                                        </TabContainer>}
-                                                        {tabvalue2 === 1 && <TabContainer>
-                                                            <Grid className="allInerTabs">
-                                                            {this.state.DoneTask.length > 0 && this.state.DoneTask.map((data) => (
+                                                    </Grid>
+                                                    {tabvalue2 === 0 && <TabContainer>
+                                                        <Grid className="allInerTabs">
+                                                            {this.state.AllTasks.length > 0 && this.state.AllTasks.map((data) => (
                                                                 <Grid>
-                                                                   <TaskView data={data} removeTask={(id)=> this.removeTask(id)} editTask={(data)=>this.editTask(data)}/>
+                                                                    <TaskView data={data} />
                                                                 </Grid>
                                                             ))}
-                                                            </Grid>
-                                                        </TabContainer>}
-                                                        {tabvalue2 === 2 && <TabContainer>
-                                                            <Grid className="allInerTabs">
-                                                            {this.state.OpenTask.length > 0 && this.state.OpenTask.map((data) => (
+                                                        </Grid>
+                                                    </TabContainer>}
+                                                    {tabvalue2 === 1 && <TabContainer>
+                                                        <Grid className="allInerTabs">
+                                                            {this.state.DoneTask.length > 0 && this.state.AllTasks.map((data) => (
                                                                 <Grid>
-                                                                    <TaskView data={data} removeTask={(id)=> this.removeTask(id)} editTask={(data)=>this.editTask(data)}/>
+                                                                    <TaskView data={data} />
                                                                 </Grid>
                                                             ))}
-                                                            </Grid>
-                                                        </TabContainer>}
-                                                        {tabvalue2 === 3 && <TabContainer>
-                                                            <Grid className="allInerTabs">
+                                                        </Grid>
+                                                    </TabContainer>}
+                                                    {tabvalue2 === 2 && <TabContainer>
+                                                        <Grid className="allInerTabs">
+                                                            {this.state.OpenTask.length > 0 && this.state.AllTasks.map((data) => (
+                                                                <Grid>
+                                                                    <TaskView data={data} />
+                                                                </Grid>
+                                                            ))}
+                                                        </Grid>
+                                                    </TabContainer>}
+                                                    {tabvalue2 === 3 && <TabContainer>
+                                                        <Grid className="allInerTabs">
                                                             {this.state.ArchivedTasks.length > 0 && this.state.ArchivedTasks.map((data) => (
                                                                 <Grid>
-                                                                    <TaskView data={data} removeTask={(id)=> this.removeTask(id)} editTask={(data)=>this.editTask(data)}/>
+                                                                    <TaskView data={data} />
                                                                 </Grid>
                                                             ))}
-                                                            </Grid>
-                                                        </TabContainer>}
+                                                        </Grid>
+                                                    </TabContainer>}
                                                     {/* </TabContainer>} */}
                                                     {/* {tabvalue === 1 && <TabContainer>
                                                         All Tasks

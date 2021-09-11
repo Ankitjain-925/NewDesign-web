@@ -49,7 +49,6 @@ class Index extends Component {
     }
 
     componentDidMount() {
-
         this.getAllServices();
     }
 
