@@ -47,3 +47,19 @@ export const MoveAllCases = async (actualData, from, to, data)=>{
   deep[to].case_numbers= elm;
   return deep;
 }
+
+export const checkTheIndex = (array, attr, value) => {
+  var mydata = array.map((data, i)=>{
+    if (data['patient_id'] === value) {
+        return i;
+    }
+  }).filter(function( element ) {
+    return element !== undefined;
+  });
+  if(mydata && mydata.length>0){
+    return mydata[0];
+  }
+  else{
+    return -1;
+  }
+}

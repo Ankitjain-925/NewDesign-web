@@ -2,6 +2,8 @@ import React from "react";
 import Grid from '@material-ui/core/Grid';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import Button from '@material-ui/core/Button';
+import CasesMoreButton from "Screens/Components/VirtualHospitalComponents/CasesMoreButton/index";
+import {checkTheIndex} from "../data";
 
 const getBorderColor = (isDragging, authorColors) =>
   isDragging ? "#333": "transparent";
@@ -10,7 +12,8 @@ export default class QuoteItem extends React.Component {
 
   
   render() {
-    const { quote, isDragging, isGroupedOver, provided } = this.props;
+
+    const { quote, isDragging, isGroupedOver, provided, onDragEnd } = this.props;
    
     return (
       <div
@@ -25,15 +28,20 @@ export default class QuoteItem extends React.Component {
           {this.props.view ==='vertical' ? 
           <Grid className="flowInfo">
               <Grid className="flowInfoInr">
-                  <Grid className="flowInfoBtn RadiologyClr"><Button>{"Radiology"}</Button></Grid>
+                  <Grid className="flowInfoBtn RadiologyClr"><Button>{quote.speciality?.speciality_name}</Button></Grid>
                   <Grid className="flowProfil">
                       <Grid><img src={require('assets/virtual_images/102.png')} alt="" title="" /></Grid>
                       <Grid className="flowProfilRght">
                           <label>{quote.patient.first_name} {quote.patient.last_name}</label>
                           <p>{quote.patient.alies_id}</p>
                       </Grid>
+                      <Grid className="checkDotsRght">
+                          {/* {console.log('quote456', quote?.author?.step_name)} */}
+                       <CasesMoreButton currentStep={quote?.author?.step_name} currentIndex={checkTheIndex(this.props.columns[quote?.author?.step_name], 'patient_id', quote.patient_id)} columns={this.props.columns} quote={quote} onDragEnd={(data)=>onDragEnd(data)} ordered={this.props.ordered}/>
+                    </Grid>
                   </Grid>
               </Grid>
+             {/* {console.log('dfsdfdfd', this.props)} */}
               <Grid className="flowInfoInr2">
                   <Grid className="dtlCntUpr">
                       <Grid className="dtlCntLft">
@@ -64,19 +72,19 @@ export default class QuoteItem extends React.Component {
             <Grid item xs={12} md={7}>
                 <Grid container direction="row" alignItems="center" className="cardioAreaMob">
                     <Grid item xs={12} md={3} lg={2} className="cardoLblMob">
-                        <Grid className="cardoLbl cardoPink"><a>Cardiology</a></Grid>
+                        <Grid className="cardoLbl cardoPink"><a>{quote.speciality?.speciality_name}</a></Grid>
                     </Grid>
                     <Grid item xs={12} md={5} lg={4}>
                         <Grid className="cardioArea">
                             <Grid>
                             <label>{quote.patient.first_name} {quote.patient.last_name}</label>
-                          <p>{quote.patient.alies_id}</p>
+                            <p>{quote.patient.alies_id}</p>
                             </Grid>
                         </Grid>
                     </Grid>
                     
                     <Grid item xs={12} md={3} lg={2} className="cardoLblWeb">
-                        <Grid className="cardoLbl cardoPink"><a>Cardiology</a></Grid>
+                        <Grid className="cardoLbl cardoPink"><a>{quote.speciality?.speciality_name}</a></Grid>
                     </Grid>
                 </Grid>
             </Grid>

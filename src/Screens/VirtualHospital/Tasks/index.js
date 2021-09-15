@@ -124,7 +124,6 @@ class Index extends Component {
 
     createDuplicate=(data)=>{
         delete data._id;
-        console.log('data', data)
         data.archived = false;
         this.setState({newTask: data})
 
@@ -197,39 +196,35 @@ class Index extends Component {
     getArchived=()=>{
         this.setState({ loaderImage: true });
         axios
-            .get(
-                sitedata.data.path + "/vh/GetAllArchivedTask/"+ this.props?.House?.value,
-                commonHeader(this.props.stateLoginValueAim.token)
-            )
-            .then((response) => {
-                if(response.data.hassuccessed){
-                    this.setState({ArchivedTasks:  response.data.data,  tabvalue2: 3 });
-                }
-                this.setState({loaderImage: false });
-            });
+        .get(
+            sitedata.data.path + "/vh/GetAllArchivedTask/"+ this.props?.House?.value,
+            commonHeader(this.props.stateLoginValueAim.token)
+        )
+        .then((response) => {
+            if(response.data.hassuccessed){
+                this.setState({ArchivedTasks:  response.data.data,  tabvalue2: 3 });
+            }
+            this.setState({loaderImage: false });
+        });
     }
 
     // get Add task data
     getAddTaskData = () => {
         this.setState({ loaderImage: true });
         axios
-            .get(
-                sitedata.data.path + "/vh/GetAllTask/"+ this.props?.House?.value,
-                commonHeader(this.props.stateLoginValueAim.token)
-            )
-            .then((response) => {
-
-                this.setState({ AllTasks: response.data.data })
-                console.log("response", response)
-
-                if(response.data.hassuccessed){
-                    var Done = response.data.data?.length>0 && response.data.data.filter((item) => item.status==="done")
-                    var Open = response.data.data?.length>0 && response.data.data.filter((item) => item.status==="open")
-                    this.setState({AllTasks:  response.data.data, DoneTask : Done, OpenTask: Open})
-                }
-                this.setState({loaderImage: false });
-               
-           });
+        .get(
+            sitedata.data.path + "/vh/GetAllTask/"+ this.props?.House?.value,
+            commonHeader(this.props.stateLoginValueAim.token)
+        )
+        .then((response) => {
+            this.setState({ AllTasks: response.data.data })
+            if(response.data.hassuccessed){
+                var Done = response.data.data?.length>0 && response.data.data.filter((item) => item.status==="done")
+                var Open = response.data.data?.length>0 && response.data.data.filter((item) => item.status==="open")
+                this.setState({AllTasks:  response.data.data, DoneTask : Done, OpenTask: Open})
+            }
+            this.setState({loaderImage: false });
+        });
     };
 
     // For adding a date,time
@@ -259,24 +254,25 @@ class Index extends Component {
             const state = this.state.newTask;
             state['patient'] = user1[0]
             state['patient_id'] = user1[0].user_id
+            state['case_id'] = user1[0].case_id
             this.setState({ newTask: state })
         }
     }
 
     //Select the professional name
     updateEntryState3 = (e) => {
-        console.log('e4', e)
-        let professional_data = [...this.state.professional_data];
+        var professional_data = this.state.professional_data;
         var ProfAy = this.state.professional_data?.length > 0 && this.state.professional_data.filter((data, index) => data.user_id === e.value);
         if (ProfAy && ProfAy.length > 0) {
             this.setState({ ProfMessage: "Already Exist!" });
         }
         else {
             var GetProf = this.state.professionalArray?.length > 0 && this.state.professionalArray.filter((data, index) => data.user_id === e.value);
-            professional_data.push(GetProf);
+            console.log('professional_data', professional_data, GetProf)
+            professional_data.push(GetProf[0]);
             this.setState({ ProfMessage: false });
         }
-        this.setState({ professional_data : professional_data[0] });
+         this.setState({ professional_data : professional_data});
     }
 
     // Delete Professional from the
@@ -322,6 +318,7 @@ class Index extends Component {
                             first_name: this.state.allPatData[i].patient?.first_name,
                             profile_id: this.state.allPatData[i].patient?.profile_id,
                             type: this.state.allPatData[i].patient?.type,
+                            case_id: this.state.allPatData[i]._id
                         })
                         // PatientList.push({ value: this.state.allPatData[i]._id, label: name })
                         
@@ -331,8 +328,6 @@ class Index extends Component {
                 }
                 this.setState({loaderImage: false });
                
-               
-                // console.log("image", this.state.images)
             });
 
     }
@@ -363,11 +358,11 @@ class Index extends Component {
                     <div
                         className={
                             this.props.settings &&
-                                this.props.settings.setting &&
-                                this.props.settings.setting.mode &&
-                                this.props.settings.setting.mode === "dark"
-                                ? "dark-confirm react-confirm-alert-body"
-                                : "react-confirm-alert-body"
+                            this.props.settings.setting &&
+                            this.props.settings.setting.mode &&
+                            this.props.settings.setting.mode === "dark"
+                            ? "dark-confirm react-confirm-alert-body"
+                            : "react-confirm-alert-body"
                         }
                     >
 
@@ -627,12 +622,12 @@ class Index extends Component {
                                                                                                             name="date"
                                                                                                             value={
                                                                                                                 this.state.newTask?.due_on?.date
-                                                                                                                    ? new Date(this.state.newTask.date_measured)
+                                                                                                                    ? new Date(this.state.newTask?.due_on?.date)
                                                                                                                     : new Date()
                                                                                                             }
                                                                                                             notFullBorder
                                                                                                             date_format={this.state.date_format}
-                                                                                                            onChange={(e) => this.updateEntryState1(e, "date_measured")}
+                                                                                                            onChange={(e) => this.updateEntryState1(e, "date")}
                                                                                                         />
 
                                                                                                         <Grid>
@@ -641,11 +636,11 @@ class Index extends Component {
                                                                                                             name="time"
                                                                                                             value={
                                                                                                                 this.state.newTask?.due_on?.time
-                                                                                                                    ? new Date(this.state.newTask.time_measured)
+                                                                                                                    ? new Date(this.state.newTask?.due_on?.time)
                                                                                                                     : new Date()
                                                                                                             }
                                                                                                             time_format={this.state.time_format}
-                                                                                                            onChange={(e) => this.updateEntryState1(e, "time_measured")}
+                                                                                                            onChange={(e) => this.updateEntryState1(e, "time")}
                                                                                                         /></Grid>
                                                                                                 </Grid>
                                                                                             </Grid>
@@ -660,7 +655,8 @@ class Index extends Component {
                                                                                                         <img onClick={this.handleOpenAssign} src={require('assets/virtual_images/assign-to.svg')} alt="" title="" />
                                                                                                         <a onClick={this.handleOpenAssign}><label>+ Assign to</label></a>
                                                                                                     </Grid>
-                                                                                                    {this.state.newTask._id && <><Grid onClick={()=>{this.createDuplicate(this.state.newTask)}}>
+                                                                                                    {this.state.newTask._id && 
+                                                                                                    <><Grid onClick={()=>{this.createDuplicate(this.state.newTask)}}>
                                                                                                         <img src={require('assets/virtual_images/assign-to.svg')} alt="" title="" />
                                                                                                         <label>Duplicate</label>
                                                                                                     </Grid>
@@ -685,14 +681,14 @@ class Index extends Component {
                                                                                             <Grid className="addStaffIner">
                                                                                                 <Grid container direction="row">
                                                                                                     <Grid item xs={12} md={12}>
-                                                                                                        <Grid className="movPtntCntnt">
+                                                                                                        <Grid className="movPtntCntnt"> 
                                                                                                             <Grid className="addStaffLbl">
                                                                                                                 <Grid className="addStaffClose closeMove">
                                                                                                                     <a onClick={this.handleCloseAssign}>
                                                                                                                         <img src={require('assets/virtual_images/closebtn.png')} alt="" title="" />
                                                                                                                     </a>
                                                                                                                 </Grid>
-                                                                                                                <label>Staff on patient</label>
+                                                                                                                <label>Staff on patient</ label>
                                                                                                             </Grid>
                                                                                                         </Grid>
                                                                                                         <Grid className="addStafClient">

@@ -415,7 +415,7 @@ class Index extends Component {
                     className="archvOpinLbl"
                   >
                     <Grid item xs={12} md={6}>
-                      <label>{"Admin staffs"}</label>
+                      <label>{"Admin staff"}</label>
                     </Grid>
                     <Grid item xs={12} md={6} className="archvOpinRght">
                       <a onClick={this.handleOpenCreate}>
