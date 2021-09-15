@@ -24,7 +24,7 @@ const getDoctorArray = async (doctorArray = new Set(), user_token) => {
         response.data.data.length > 0 &&
         response.data.data.map((data, index) => {
           if (isInDoctorList(data)) {
-            doctorArray.push(data.profile_id.toLowerCase());
+            doctorArray.push(data.profile_id.toLowerCase());         
           }
         });
     });
