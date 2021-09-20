@@ -18,6 +18,7 @@ import { LanguageFetchReducer } from "Screens/actions";
 import { LoginReducerAim } from "Screens/Login/actions";
 import { Settings } from "Screens/Login/setting";
 import { houseSelect } from "../Institutes/selecthouseaction";
+import { Question } from "Screens/Login/question.js";
 import Loader from "Screens/Components/Loader/index";
 import Pagination from "Screens/Components/Pagination/index";
 import AddHouses from "Screens/Components/VirtualHospitalComponents/AddRoom/AddHouses.js";
@@ -886,6 +887,7 @@ const mapStateToProps = (state) => {
   const { House } = state.houseSelect;
   const { settings } = state.Settings;
   const { verifyCode } = state.authy;
+  const { question } = state.Question;
   // const { Doctorsetget } = state.Doctorset;
   // const { catfil } = state.filterate;
   return {
@@ -895,6 +897,7 @@ const mapStateToProps = (state) => {
     settings,
     verifyCode,
     House,
+    question,
     //   Doctorsetget,
     //   catfil
   };

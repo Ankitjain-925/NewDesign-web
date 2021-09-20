@@ -291,7 +291,7 @@ class Index extends Component {
                                                     </Thead>
 
                                                     {this.state.items?.length > 0 && this.state.items.map((data, id) => (
-                                                        <Tbody>
+                                                    <Tbody>
                                                             <Tr>
                                                                 <Td>
                                                                     <label>{data.updateTrack.service.label}</label>

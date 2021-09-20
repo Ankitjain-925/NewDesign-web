@@ -19,7 +19,8 @@ import { LanguageFetchReducer } from "Screens/actions";
 import { LoginReducerAim } from "Screens/Login/actions";
 import { Settings } from "Screens/Login/setting";
 import { commonHeader } from "component/CommonHeader/index";
-import { houseSelect } from "../Institutes/selecthouseaction";
+import { houseSelect } from "../Institutes/selecthouseaction"; 
+import { Speciality } from "Screens/Login/speciality.js";
 import SpecialityButton from "Screens/Components/VirtualHospitalComponents/SpecialityButton";
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
@@ -110,6 +111,8 @@ class Index extends Component {
   };
 
   componentDidMount() {
+    console.log('compoentne Did mount1 ')
+    this.props.Speciality(true, this.props?.House?.value, this.props.stateLoginValueAim.token);
     this.getSpeciality();
   }
 
@@ -682,5 +685,6 @@ export default withRouter(
     Settings,
     authy,
     houseSelect,
+    Speciality
   })(Index)
 );

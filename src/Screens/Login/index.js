@@ -177,7 +177,7 @@ class Index extends Component {
     } else {
       this.setState({ loginError9: true });
     }
-  };
+  }
 
   //For verify the code of Authy
   Verifycode = () => {

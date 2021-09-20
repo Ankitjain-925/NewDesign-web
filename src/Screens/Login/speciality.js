@@ -1,33 +1,35 @@
 import {
-  GET_SPECAILITY_REQUEST,
-  GET_SPECAILITY_SUCCESS,
-  GET_SPECAILITY_FAIL,
+  GET_SPECIALITY_REQUEST,
+  GET_SPECIALITY_SUCCESS,
+  GET_SPECIALITY_FAIL,
 } from "actiontypes";
 import sitedata from "sitedata.js";
 import axios from "axios";
+import { commonHeader } from "component/CommonHeader/index";
 
-
-export const Speciality = (getting, callBack= ()=>{}) => {
+export const Speciality = (getting, house_id, user_token, callBack = () => { }) => {
   return (dispatch) => {
-      if(getting){
-          dispatch({ type: GET_SPECAILITY_REQUEST });
-          axios
-          .get(sitedata.data.path + "/vh/AddSpecialty/" + this.props?.House?.value)
-            .then((responce) => {
-              console.log("data",responce)
-              if (responce && responce.data && responce.data.length > 0) {
-                dispatch({ type: GET_SPECAILITY_SUCCESS, payload: responce.data[0] });
-                callBack();
-              }
-            })
-            .catch((error) => {
-              dispatch({ type: GET_SPECAILITY_FAIL });
-              Speciality();
-            });
+    console.log('getting , house_id', getting, house_id, user_token)
+    if (getting && house_id) {
+      dispatch({ type: GET_SPECIALITY_REQUEST });
+      axios
+        .get(sitedata.data.path + "/vh/AddSpecialty/"+house_id,
+        commonHeader(user_token))
+        .then((responce) => {
+          console.log("data", responce)
+          if (responce && responce?.data?.data && responce?.data?.data?.length > 0) {
+            dispatch({ type: GET_SPECIALITY_SUCCESS, payload: responce.data.data });
+            callBack();
           }
-          else{
-              dispatch({ type: GET_SPECIALITY_FAIL }); 
-              callBack();
-          }
-      };
+        })
+        .catch((error) => {
+          dispatch({ type: GET_SPECIALITY_FAIL });
+          Speciality();
+        });
+    }
+    else {
+      dispatch({ type: GET_SPECIALITY_FAIL });
+      callBack();
+    }
+  };
 };
