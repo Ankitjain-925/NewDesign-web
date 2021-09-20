@@ -37,7 +37,7 @@ class PointPain extends Component {
     } = translate;
     var data = this.state.data;
     return (
-        <Grid className="allTabCntnt">
+        <Grid className="allTabCntnt">                                                                             
         <Grid container direction="row" alignItems="center">
             <Grid item xs={12} sm={8} md={6}>
                 <Grid className="revwFiles">

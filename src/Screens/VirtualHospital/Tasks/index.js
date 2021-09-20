@@ -234,6 +234,7 @@ class Index extends Component {
         if (name === 'date' || name === 'time') {
             due_on[name] = value;
             state['due_on'] = due_on;
+            console.log('asda asd', state)
         }
         else {
             state[name] = value;   
@@ -632,6 +633,7 @@ class Index extends Component {
 
                                                                                                         <Grid>
                                                                                                             <label>Add time</label></Grid>
+                                                                                                            {console.log('this.state.newTask?.due_on?.time',  this.state.newTask?.due_on?.time)}
                                                                                                         <TimeFormat
                                                                                                             name="time"
                                                                                                             value={

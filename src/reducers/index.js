@@ -14,6 +14,8 @@ import Doctorarrays from "./doctorarray";
 import OptionList from "./optionList";
 import overView from "./journalView";
 import houseSelect from "./house";
+import speciality from "./speciality";
+import SpaceManagement from "Screens/VirtualHospital/SpaceManagement/index";
 
 const allReducers = combineReducers({
   //signupReducer: signupReducer,
@@ -32,7 +34,9 @@ const allReducers = combineReducers({
   Withings: Withings,
   OptionList: OptionList,
   overView:overView,
-  houseSelect: houseSelect
+  houseSelect: houseSelect,
+  Speciality: speciality
+  
 });
 
 export default allReducers;
