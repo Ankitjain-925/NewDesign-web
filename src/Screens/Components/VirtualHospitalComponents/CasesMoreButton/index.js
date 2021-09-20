@@ -73,13 +73,52 @@ class Index extends React.Component {
                             <li><a><span><img src={require('assets/images/admin/delIcon.png')} alt="" title="" /></span>{"Remove Patient from flow"}</a></li>
                         </>}
                         {this.state.specialitysec &&
-                            <>Spec</>
+                            <div>
+                            <Grid className="movHead">
+                               <Grid onClick={()=>this.setState({firstsec: true, specialitysec : false })} className="movHeadLft"><a><img src={require('assets/virtual_images/arw1.png')} alt="" title="" /></a></Grid>
+                               <Grid  className="movHeadMid"><label>Add Specialty</label></Grid>
+                               <Grid className="movHeadRght"><a onClick={()=>this.setState({firstsec: true, movepatsec : true })}><img src={require('assets/virtual_images/closefancy.png')} alt="" title="" /></a></Grid>
+                           </Grid>
+                           <Grid className="positionDrop">
+                           {this.props.ordered?.length>0 && this.props.ordered.map((item)=>(
+                               <Grid><label onClick={()=>{ this.props.onDragEnd(
+                                   {type: "QUOTE" , draggableId: this.props.quote.patient_id, source: {droppableId: this.props.currentStep, index: this.props.currentIndex} , destination: {droppableId: item, index: this.props.columns[item]?.length}}
+                               )}}>{item}</label></Grid>
+                           ))}
+                           </Grid>
+                       </div> 
                         }
                         {this.state.changeStaffsec &&
-                            <>Staff sec</>
+                            <div>
+                            <Grid className="movHead">
+                               <Grid onClick={()=>this.setState({firstsec: true, movepatsec : true })} className="movHeadLft"><a><img src={require('assets/virtual_images/arw1.png')} alt="" title="" /></a></Grid>
+                               <Grid  className="movHeadMid"><label>Change Staff</label></Grid>
+                               <Grid className="movHeadRght"><a onClick={()=>this.setState({firstsec: true, movepatsec : true })}><img src={require('assets/virtual_images/closefancy.png')} alt="" title="" /></a></Grid>
+                           </Grid>
+                           <Grid className="positionDrop">
+                           {this.props.ordered?.length>0 &&  this.props.ordered.map((item)=>(
+                               <Grid><label onClick={()=>{ this.props.onDragEnd(
+                                   {type: "QUOTE" , draggableId: this.props.quote.patient_id, source: {droppableId: this.props.currentStep, index: this.props.currentIndex} , destination: {droppableId: item, index: this.props.columns[item]?.length}}
+                               )}}>{item}</label></Grid>
+                           ))}
+                           </Grid>
+                       </div> 
                         }
                         {this.state.assignroom &&
-                            <>assignroom</>
+                            <div>
+                            <Grid className="movHead">
+                               <Grid onClick={()=>this.setState({firstsec: true, movepatsec : true })} className="movHeadLft"><a><img src={require('assets/virtual_images/arw1.png')} alt="" title="" /></a></Grid>
+                               <Grid  className="movHeadMid"><label>Assign Ward/Room</label></Grid>
+                               <Grid className="movHeadRght"><a onClick={()=>this.setState({firstsec: true, movepatsec : true })}><img src={require('assets/virtual_images/closefancy.png')} alt="" title="" /></a></Grid>
+                           </Grid>
+                           <Grid className="positionDrop">
+                           {this.props.ordered?.length>0 &&  this.props.ordered.map((item)=>(
+                               <Grid><label onClick={()=>{ this.props.onDragEnd(
+                                   {type: "QUOTE" , draggableId: this.props.quote.patient_id, source: {droppableId: this.props.currentStep, index: this.props.currentIndex} , destination: {droppableId: item, index: this.props.columns[item]?.length}}
+                               )}}>{item}</label></Grid>
+                           ))}
+                           </Grid>
+                       </div> 
                         }
                         {this.state.movepatsec &&
                              <div>
