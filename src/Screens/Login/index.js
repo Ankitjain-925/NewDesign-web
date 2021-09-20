@@ -71,6 +71,7 @@ class Index extends Component {
   //         this.setState({ dropDownValue: this.props.stateLanguageType })
   //     }
   // }
+  
   componentDidMount = () => {
     actions.logout();
     this.logoutUser();
