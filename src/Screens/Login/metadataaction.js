@@ -21,7 +21,7 @@ export const OptionList = (getting, callBack= ()=>{}) => {
             })
             .catch((error) => {
               dispatch({ type: GET_OptionList_FAIL });
-              OptionList();
+              OptionList();  
             });
           }
           else{

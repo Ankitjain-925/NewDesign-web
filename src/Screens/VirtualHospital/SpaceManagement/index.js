@@ -19,7 +19,8 @@ import { LanguageFetchReducer } from "Screens/actions";
 import { LoginReducerAim } from "Screens/Login/actions";
 import { Settings } from "Screens/Login/setting";
 import { commonHeader } from "component/CommonHeader/index";
-import { houseSelect } from "../Institutes/selecthouseaction";
+import { houseSelect } from "../Institutes/selecthouseaction"; 
+import { Speciality } from "Screens/Login/speciality.js";
 import SpecialityButton from "Screens/Components/VirtualHospitalComponents/SpecialityButton";
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
@@ -46,9 +47,23 @@ class Index extends Component {
     this.setState({ openSpecl: true });
   };
   handleCloseSpecl = () => {
-    this.setState({ openSpecl: false,  ward: {},
-      speciality: {}, });
+    this.setState({
+      openSpecl: false, ward: {},
+      speciality: {},
+    });
   };
+
+  // logoutUser = () => {
+  //   this.props.speciality(false);
+    
+  //   let languageType =
+  //     this.props.stateLanguageType && this.props.stateLanguageType !== ""
+  //       ? this.props.stateLanguageType
+  //       : "en";
+  //   this.props.LanguageFetchReducer(languageType);
+  //   this.anotherPatient();
+  // };
+  
 
   //to save and edit the speciality
   SaveSpeciality = () => {
@@ -96,6 +111,8 @@ class Index extends Component {
   };
 
   componentDidMount() {
+    console.log('compoentne Did mount1 ')
+    this.props.Speciality(true, this.props?.House?.value, this.props.stateLoginValueAim.token);
     this.getSpeciality();
   }
 
@@ -131,7 +148,7 @@ class Index extends Component {
   };
 
   handleCloseWard = () => {
-    this.setState({ openWard: false,  isEditWrd: false });
+    this.setState({ openWard: false, isEditWrd: false });
   };
   // update the ward of the speciality
   editWard = (data) => {
@@ -148,7 +165,7 @@ class Index extends Component {
       ward.push(this.state.ward);
     }
     state["wards"] = ward;
-    this.setState({ speciality: state,  isEditWrd: false }, () => {
+    this.setState({ speciality: state, isEditWrd: false }, () => {
       this.setState({ openWard: false, ward: {} });
     });
   };
@@ -178,7 +195,7 @@ class Index extends Component {
     this.setState({ openSpecl: false, openWarn: true, deleteId: id });
   }
   handleCloseWarn = () => {
-      this.setState({ openWarn: false })
+    this.setState({ openWarn: false })
   }
 
   //remove Wards
@@ -190,7 +207,7 @@ class Index extends Component {
     this.setState({ speciality: state });
   };
 
-  //for update the rooms in the wards
+  //for update the rooms in the wards                                                                                                                                                       
   updateEntryState3 = (ward) => {
     var state = this.state.ward;
     state["rooms"] = ward;
@@ -212,24 +229,24 @@ class Index extends Component {
   };
 
   deleteClick = () => {
-    if(this.state.wardDel && this.state.roomDel && this.state.patDel && this.state.deleteId){
+    if (this.state.wardDel && this.state.roomDel && this.state.patDel && this.state.deleteId) {
       this.setState({ loaderImage: true });
-    axios
-      .delete(
-        sitedata.data.path + "/vh/AddSpecialty/" + this.state.deleteId,
-        commonHeader(this.props.stateLoginValueAim.token)
-      )
-      .then((responce) => {
-        if (responce.data.hassuccessed) {
-          this.setState({ deleteId: false });
-          this.getSpeciality();
-        }
-        this.setState({ loaderImage: false, openWarn: false });
-      });
-      this.setState({showError: false})
+      axios
+        .delete(
+          sitedata.data.path + "/vh/AddSpecialty/" + this.state.deleteId,
+          commonHeader(this.props.stateLoginValueAim.token)
+        )
+        .then((responce) => {
+          if (responce.data.hassuccessed) {
+            this.setState({ deleteId: false });
+            this.getSpeciality();
+          }
+          this.setState({ loaderImage: false, openWarn: false });
+        });
+      this.setState({ showError: false })
     }
-    else{
-      this.setState({showError: true})
+    else {
+      this.setState({ showError: true })
     }
   };
 
@@ -251,13 +268,13 @@ class Index extends Component {
     }
     if (House && House?.value === null) {
       return <Redirect to={"/VirtualHospital/institutes"} />;
-  }
+    }
     return (
-      <Grid  className={
+      <Grid className={
         this.props.settings &&
-        this.props.settings.setting &&
-        this.props.settings.setting.mode &&
-        this.props.settings.setting.mode === "dark"
+          this.props.settings.setting &&
+          this.props.settings.setting.mode &&
+          this.props.settings.setting.mode === "dark"
           ? "homeBg darkTheme"
           : "homeBg"
       }
@@ -298,88 +315,88 @@ class Index extends Component {
                         </Grid>
                       </Grid>
                     </Grid>
-                   
-                      <Modal
-                        open={this.state.openWarn}
-                        onClose={this.handleCloseWarn}
-                        className={
-                          this.props.settings &&
+
+                    <Modal
+                      open={this.state.openWarn}
+                      onClose={this.handleCloseWarn}
+                      className={
+                        this.props.settings &&
                           this.props.settings.setting &&
                           this.props.settings.setting.mode &&
                           this.props.settings.setting.mode === "dark"
-                            ? "darkTheme addWrnModel"
-                            : "addWrnModel"
-                        }
-            
-                      >
-                        <Grid className="addWrnContnt">
-                          <Grid className="addWrnIner">
-                            <Grid className="addWrnLbl">
-                              <Grid className="addWrnClose">
-                                <a onClick={this.handleCloseWarn}>
+                          ? "darkTheme addWrnModel"
+                          : "addWrnModel"
+                      }
+
+                    >
+                      <Grid className="addWrnContnt">
+                        <Grid className="addWrnIner">
+                          <Grid className="addWrnLbl">
+                            <Grid className="addWrnClose">
+                              <a onClick={this.handleCloseWarn}>
+                                <img
+                                  src={require("assets/virtual_images/closefancy.png")}
+                                  alt=""
+                                  title=""
+                                />
+                              </a>
+                            </Grid>
+                            <label>Delete Speciality</label>
+
+                            {this.state.showError && (
+                              <div className="err_message">
+                                Please select the all condition for delete the speciality
+                              </div>
+                            )}
+                          </Grid>
+                          <Grid className="enterWrnUpr">
+                            <Grid className="enterWrnMain">
+                              <Grid className="wrnUndr">
+                                <span className="warnImg">
                                   <img
-                                    src={require("assets/virtual_images/closefancy.png")}
+                                    src={require("assets/virtual_images/important-notice.svg")}
                                     alt=""
                                     title=""
                                   />
-                                </a>
+                                </span>
+                                <label>I understand that:</label>
                               </Grid>
-                              <label>Delete Speciality</label>
-                              
-                              {this.state.showError && (
-                                <div className="err_message">
-                                  Please select the all condition for delete the speciality
-                                </div> 
-                              )}
-                            </Grid>
-                            <Grid className="enterWrnUpr">
-                              <Grid className="enterWrnMain">
-                                <Grid className="wrnUndr">
-                                  <span className="warnImg">
-                                    <img
-                                      src={require("assets/virtual_images/important-notice.svg")}
-                                      alt=""
-                                      title=""
-                                    />
-                                  </span>
-                                  <label>I understand that:</label>
-                                </Grid>
-                                <Grid className="wardLine">
-                                  <FormControlLabel
-                                    control={<Checkbox onChange={(e)=>{this.setState({wardDel: e.target.checked})}}/>}
-                                    label="All Wards will be deleted"
-                                  />
-                                </Grid>
-                                <Grid className="wardLine">
-                                  <FormControlLabel
-                                    control={<Checkbox onChange={(e)=>{this.setState({roomDel: e.target.checked})}}/>}
-                                    label="All Rooms & Beds will be deleted"
-                                  />
-                                </Grid>
-                                <Grid className="wardLine">
-                                  <FormControlLabel
-                                    control={<Checkbox onChange={(e)=>{this.setState({patDel: e.target.checked})}}/>}
-                                    label="All Patients will be removed from their beds"
-                                  />
-                                </Grid>
-                                <Grid className="confirmActn">
-                                  <p>
-                                    Please confirm that you understand the
-                                    consequences of your action.
-                                  </p>
-                                </Grid>
-                                <Grid className="selectWarn">
-                                  <Button className="selWarnBtn" onClick={()=>{this.deleteClick()}}>
-                                    Yes, Delete Speciality
-                                  </Button>
-                                  <Button onClick={this.handleCloseWarn}>Cancel, Keep Speciality</Button>
-                                </Grid>
+                              <Grid className="wardLine">
+                                <FormControlLabel
+                                  control={<Checkbox onChange={(e) => { this.setState({ wardDel: e.target.checked }) }} />}
+                                  label="All Wards will be deleted"
+                                />
+                              </Grid>
+                              <Grid className="wardLine">
+                                <FormControlLabel
+                                  control={<Checkbox onChange={(e) => { this.setState({ roomDel: e.target.checked }) }} />}
+                                  label="All Rooms & Beds will be deleted"
+                                />
+                              </Grid>
+                              <Grid className="wardLine">
+                                <FormControlLabel
+                                  control={<Checkbox onChange={(e) => { this.setState({ patDel: e.target.checked }) }} />}
+                                  label="All Patients will be removed from their beds"
+                                />
+                              </Grid>
+                              <Grid className="confirmActn">
+                                <p>
+                                  Please confirm that you understand the
+                                  consequences of your action.
+                                </p>
+                              </Grid>
+                              <Grid className="selectWarn">
+                                <Button className="selWarnBtn" onClick={() => { this.deleteClick() }}>
+                                  Yes, Delete Speciality
+                                </Button>
+                                <Button onClick={this.handleCloseWarn}>Cancel, Keep Speciality</Button>
                               </Grid>
                             </Grid>
                           </Grid>
                         </Grid>
-                      </Modal>
-                    
+                      </Grid>
+                    </Modal>
+
                     {/* End of Bread Crumb */}
                     <Grid className="wardsGrupUpr">
                       <Grid container direction="row" spacing={2}>
@@ -463,9 +480,9 @@ class Index extends Component {
                   onClose={this.handleCloseSpecl}
                   className={
                     this.props.settings &&
-                    this.props.settings.setting &&
-                    this.props.settings.setting.mode &&
-                    this.props.settings.setting.mode === "dark"
+                      this.props.settings.setting &&
+                      this.props.settings.setting.mode &&
+                      this.props.settings.setting.mode === "dark"
                       ? "darkTheme addSpeclModel"
                       : "addSpeclModel"
                   }
@@ -482,8 +499,8 @@ class Index extends Component {
                         </a>
                       </Grid>
                       <Grid>
-                        {this.state.speciality._id? <label>Edit <span className="spacemanageDel" onClick={()=>{this.handleOpenWarn(this.state.speciality._id)}}><img src={require('assets/virtual_images/bin.svg')} alt="" title="" /> Delete Speciality</span></label>: 
-                        <label>Add Speciality</label>}
+                        {this.state.speciality._id ? <label>Edit <span className="spacemanageDel" onClick={() => { this.handleOpenWarn(this.state.speciality._id) }}><img src={require('assets/virtual_images/bin.svg')} alt="" title="" /> Delete Speciality</span></label> :
+                          <label>Add Speciality</label>}
                       </Grid>
                     </Grid>
                     <Grid className="enterSpclUpr">
@@ -646,6 +663,7 @@ const mapStateToProps = (state) => {
   const { House } = state.houseSelect;
   const { settings } = state.Settings;
   const { verifyCode } = state.authy;
+  const { speciality } = state.Speciality;
   // const { Doctorsetget } = state.Doctorset;
   // const { catfil } = state.filterate;
   return {
@@ -655,6 +673,7 @@ const mapStateToProps = (state) => {
     settings,
     verifyCode,
     House,
+    speciality
     //   Doctorsetget,
     //   catfil
   };
@@ -666,5 +685,6 @@ export default withRouter(
     Settings,
     authy,
     houseSelect,
+    Speciality
   })(Index)
 );

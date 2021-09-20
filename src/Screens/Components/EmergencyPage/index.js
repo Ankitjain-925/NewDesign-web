@@ -369,6 +369,7 @@ class Index extends Component {
     rhesus = optionData.map((item) => {
       return GetShowLabel1(
         this.state.tissue,
+        
         item,
         this.props.stateLanguageType,
         true,

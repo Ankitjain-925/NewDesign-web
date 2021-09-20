@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
+import { confirmAlert } from "react-confirm-alert";
 import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
 import Select from 'react-select';
 import TextField from '@material-ui/core/TextField';
@@ -23,6 +24,7 @@ import { Redirect, Route } from 'react-router-dom';
 import InvoicesDownloadPdf from "Screens/Components/VirtualHospitalComponents/InvoicesDownloadPdf/index";
 import InvoicesPatientStatus from "Screens/Components/VirtualHospitalComponents/InvoicesPatientStatus/index";
 import InvoicesShowServices from "Screens/Components/VirtualHospitalComponents/InvoicesShowServices/index";
+import VHfield from "Screens/Components/VirtualHospitalComponents/VHfield/index";
 
 const options = [
     { value: 'data1', label: 'Data1' },
@@ -44,12 +46,13 @@ class Index extends Component {
         super(props);
         this.state = {
             Serivce_data: {},
-            serviceList: []
+            serviceList: [],
+            updateTrack: {},
+            items: []
         };
     }
 
     componentDidMount() {
-
         this.getAllServices();
     }
 
@@ -63,12 +66,11 @@ class Index extends Component {
                 commonHeader(this.props.stateLoginValueAim.token)
             )
             .then((response) => {
-                console.log("response", response)
                 this.setState({ allServData: response.data.data })
                 for (let i = 0; i < this.state.allServData.length; i++) {
                     var service = '';
-                    if (this.state.allServData[i]?.title && this.state.allServData[i]?.price) {
-                        service = this.state.allServData[i]?.title + ' ' + this.state.allServData[i]?.price
+                    if (this.state.allServData[i]?.title) {
+                        service = this.state.allServData[i]?.title
                     }
                     else if (this.state.allServData[i]?.title) {
                         service = this.state.allServData[i]?.title
@@ -76,18 +78,89 @@ class Index extends Component {
                     serviceArray.push({
                         service: service,
                     })
-                    serviceList.push({ value: this.state.allServData[i]._id, label: service })
+                    serviceList.push({ price: this.state.allServData[i].price, description: this.state.allServData[i].description, value: this.state.allServData[i]._id, label: service })
                     serviceList1.push({ profile_id: this.state.allServData[i].profile_id, value: this.state.allServData[i]._id, label: service })
                 }
                 this.setState({ users: serviceArray, service_id_list: serviceList, service_id_list1: serviceList1 })
-                console.log("serviceList", serviceList);
             });
     }
 
+    // Set the select data
+    onFieldChange = (e, name) => {
+        const state = this.state.updateTrack;
+        state[name] = e;
+        this.setState({ updateTrack: state });
+        this.setState({ price_per_quantity: this.state.updateTrack.service.price });
+    }
 
-    handleChange = selectedOption => {
-        this.setState({ selectedOption });
+    // Set the state of quantity and price_per_quantity
+    updateEntryState1 = (e, name) => {
+        e.preventDefault();
+        const state = this.state.updateTrack;
+        state[name] = e.target.value;
+        this.setState({ updateTrack: state });
     };
+
+    //Add the services  
+    handleAddSubmit = () => {
+        console.log("updateTrack",this.state.updateTrack)
+        let items = [...this.state.items];
+        items.push({
+            updateTrack: this.state.updateTrack
+        });
+        this.setState({
+            items,
+            updateTrack: {},
+        });
+    };
+
+    // For edit service
+    editService = (data) => {
+        console.log("data",data)
+        this.setState({ updateTrack: data });
+    };
+
+    //Delete the perticular service confirmation box
+    removeServices = (id) => {
+        this.setState({ message: null });
+        confirmAlert({
+            customUI: ({ onClose }) => {
+                return (
+                    <div
+                        className={
+                            this.props.settings &&
+                                this.props.settings.setting &&
+                                this.props.settings.setting.mode &&
+                                this.props.settings.setting.mode === "dark"
+                                ? "dark-confirm react-confirm-alert-body"
+                                : "react-confirm-alert-body"
+                        }
+                    >
+                        <h1>Remove the Service ?</h1>
+
+                        <p>Are you sure to remove this Service?</p>
+                        <div className="react-confirm-alert-button-group">
+                            <button onClick={onClose}>No</button>
+                            <button
+                                onClick={() => {
+                                    this.deleteClickService(id);
+                                    onClose();
+                                }}
+                            >
+                                Yes
+                            </button>
+                        </div>
+                    </div>
+                );
+            },
+        });
+    };
+
+    deleteClickService(id) {
+        delete this.state.items[id]
+        this.setState({ items: this.state.items })
+    }
+
     render() {
         const { selectedOption } = this.state;
         return (
@@ -208,106 +281,141 @@ class Index extends Component {
 
 
                                             <Grid className="srvcTable">
-                                                {/* <h3>Services</h3>
+
+                                                <h3>Services</h3>
                                                 <Table>
                                                     <Thead>
                                                         <Tr>
                                                             <Th>Service</Th><Th>Qty</Th><Th>Price</Th><Th></Th>
                                                         </Tr>
                                                     </Thead>
-                                                    <Tbody>
-                                                        <Tr>
-                                                            <Td>
-                                                                <label>X-ray</label>
-                                                                <p>This can be a short description of this service.</p>
-                                                            </Td>
-                                                            <Td>1</Td>
-                                                            <Td>200,00 €</Td>
-                                                            <Td className="xRay-edit">
-                                                                <Button><img src={require('assets/virtual_images/pencil-1.svg')} alt="" title="" /></Button>
-                                                                <Button><img src={require('assets/virtual_images/bin.svg')} alt="" title="" /></Button>
-                                                            </Td>
-                                                        </Tr>
-                                                        <Tr>
-                                                            <Td>
-                                                                <label>CT Scan</label>
-                                                                <p>This can be a short description of this service.</p>
-                                                            </Td>
-                                                            <Td>15</Td>
-                                                            <Td>200,00 €</Td>
-                                                            <Td className="xRay-edit">
-                                                                <Button><img src={require('assets/virtual_images/pencil-1.svg')} alt="" title="" /></Button>
-                                                                <Button><img src={require('assets/virtual_images/bin.svg')} alt="" title="" /></Button>
-                                                            </Td>
-                                                        </Tr>
-                                                        <Tr>
-                                                            <Td>
-                                                                <label>X-ray</label>
-                                                                <p>This can be a short description of this service.</p>
-                                                            </Td>
-                                                            <Td>20</Td>
-                                                            <Td>200,00 €</Td>
-                                                            <Td className="xRay-edit">
-                                                                <Button><img src={require('assets/virtual_images/pencil-1.svg')} alt="" title="" /></Button>
-                                                                <Button><img src={require('assets/virtual_images/bin.svg')} alt="" title="" /></Button>
-                                                            </Td>
-                                                        </Tr>
-                                                        <Tr>
-                                                            <Td>
-                                                                <label>CT Scan</label>
-                                                                <p>This can be a short description of this service.</p>
-                                                            </Td>
-                                                            <Td>15</Td>
-                                                            <Td>200,00 €</Td>
-                                                            <Td className="xRay-edit">
-                                                                <Button><img src={require('assets/virtual_images/pencil-1.svg')} alt="" title="" /></Button>
-                                                                <Button><img src={require('assets/virtual_images/bin.svg')} alt="" title="" /></Button>
-                                                            </Td>
-                                                        </Tr>
-                                                        <Tr>
-                                                            <Td>
-                                                                <label>X-ray</label>
-                                                                <p>This can be a short description of this service.</p>
-                                                            </Td>
-                                                            <Td>20</Td>
-                                                            <Td>200,00 €</Td>
-                                                            <Td className="xRay-edit">
-                                                                <Button><img src={require('assets/virtual_images/pencil-1.svg')} alt="" title="" /></Button>
-                                                                <Button><img src={require('assets/virtual_images/bin.svg')} alt="" title="" /></Button>
-                                                            </Td>
-                                                        </Tr>
-                                                    </Tbody>
-                                                </Table> */}
 
-                                                <InvoicesShowServices />
+                                                    {this.state.items?.length > 0 && this.state.items.map((data, id) => (
+                                                    <Tbody>
+                                                            <Tr>
+                                                                <Td>
+                                                                    <label>{data.updateTrack.service.label}</label>
+                                                                    <p>{data.updateTrack.service.description}</p>
+                                                                </Td>
+                                                                <Td>{data.updateTrack.quantity}</Td>
+                                                                <Td>{data.updateTrack.service.price} €</Td>
+                                                                <Td className="xRay-edit">
+                                                                    <Button onClick={() => { this.editService(data) }}><img src={require('assets/virtual_images/pencil-1.svg')} alt="" title="" /></Button>
+                                                                    <Button onClick={() => { this.removeServices(id) }}><img src={require('assets/virtual_images/bin.svg')} alt="" title="" /></Button>
+                                                                </Td>
+                                                            </Tr>
+                                                            {/* <Tr>
+                                                            <Td>
+                                                                <label>CT Scan</label>
+                                                                <p>This can be a short description of this service.</p>
+                                                            </Td>
+                                                            <Td>15</Td>
+                                                            <Td>200,00 €</Td>
+                                                            <Td className="xRay-edit">
+                                                                <Button><img src={require('assets/virtual_images/pencil-1.svg')} alt="" title="" /></Button>
+                                                                <Button><img src={require('assets/virtual_images/bin.svg')} alt="" title="" /></Button>
+                                                            </Td>
+                                                        </Tr>
+                                                        <Tr>
+                                                            <Td>
+                                                                <label>X-ray</label>
+                                                                <p>This can be a short description of this service.</p>
+                                                            </Td>
+                                                            <Td>20</Td>
+                                                            <Td>200,00 €</Td>
+                                                            <Td className="xRay-edit">
+                                                                <Button><img src={require('assets/virtual_images/pencil-1.svg')} alt="" title="" /></Button>
+                                                                <Button><img src={require('assets/virtual_images/bin.svg')} alt="" title="" /></Button>
+                                                            </Td>
+                                                        </Tr>
+                                                        <Tr>
+                                                            <Td>
+                                                                <label>CT Scan</label>
+                                                                <p>This can be a short description of this service.</p>
+                                                            </Td>
+                                                            <Td>15</Td>
+                                                            <Td>200,00 €</Td>
+                                                            <Td className="xRay-edit">
+                                                                <Button><img src={require('assets/virtual_images/pencil-1.svg')} alt="" title="" /></Button>
+                                                                <Button><img src={require('assets/virtual_images/bin.svg')} alt="" title="" /></Button>
+                                                            </Td>
+                                                        </Tr>
+                                                        <Tr>
+                                                            <Td>
+                                                                <label>X-ray</label>
+                                                                <p>This can be a short description of this service.</p>
+                                                            </Td>
+                                                            <Td>20</Td>
+                                                            <Td>200,00 €</Td>
+                                                            <Td className="xRay-edit">
+                                                                <Button><img src={require('assets/virtual_images/pencil-1.svg')} alt="" title="" /></Button>
+                                                                <Button><img src={require('assets/virtual_images/bin.svg')} alt="" title="" /></Button>
+                                                            </Td>
+                                                        </Tr> */}
+                                                        </Tbody>
+                                                    ))}
+                                                </Table>
+
+                                                {/* <InvoicesShowServices 
+                                                /> */}
 
                                             </Grid>
+
 
                                             <Grid className="addCstmField">
                                                 <Grid container direction="row" alignItems="center" spacing={3}>
                                                     <Grid item xs={12} md={4}>
                                                         <label>Add service</label>
-                                                        {console.log("servicefdfdss", this.state.service_id_list)}
+
                                                         <Select
                                                             // value={this.state.serviceList}
-                                                            onChange={this.handleChange}
+                                                            name="service"
+                                                            onChange={(e) => this.onFieldChange(e,"service")}
                                                             options={this.state.service_id_list}
                                                             placeholder="Search service or add custom input"
                                                             className="cstmSelect"
-                                                            isSearchable={false}
+                                                            isSearchable={true}
                                                             styles={customStyles}
                                                         />
                                                     </Grid>
                                                     <Grid item xs={12} md={2}>
-                                                        <label>Quantity</label>
-                                                        <TextField placeholder="Enter quantity" />
+                                                        {/* <label>Quantity</label> */}
+                                                        {/* <TextField
+                                                        name="quantity" 
+                                                        placeholder="Enter quantity" 
+                                                        onChange={(e) => this.updateEntryState1(e,"quantity")}
+                                                         // value={this.state.serviceList}
+                                                        /> */}
+
+                                                        <VHfield
+                                                            label="Quantity"
+                                                            name="quantity"
+                                                            placeholder="Enter quantity"
+                                                            onChange={(e) =>
+                                                                this.updateEntryState1(e, "quantity")
+                                                            }
+                                                        value={this.state.updateTrack.quantity}
+                                                        />
                                                     </Grid>
                                                     <Grid item xs={12} md={2}>
-                                                        <label>Price per quantity</label>
-                                                        <TextField placeholder="Enter price €" />
+                                                        {/* <label>Price per quantity</label>
+                                                        <TextField placeholder="Enter price €" 
+                                                        onChange={(e) => this.updateEntryState1(e)}
+                                                        //  value={this.state.serviceList}
+                                                          /> */}
+
+                                                        <VHfield
+                                                            label="Price per quantity"
+                                                            name="per_quantity"
+                                                            placeholder="Enter price €"
+                                                            onChange={(e) =>
+                                                                this.updateEntryState1(e, "price_per_quantity")
+                                                            }
+                                                            value={this.state.price_per_quantity}
+                                                        />
                                                     </Grid>
                                                     <Grid item xs={12} md={2} className="addSrvcBtn">
-                                                        <Button>Add</Button>
+                                                        <Button onClick={this.handleAddSubmit}>Add</Button>
                                                     </Grid>
                                                 </Grid>
                                             </Grid>

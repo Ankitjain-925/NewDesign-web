@@ -8,10 +8,9 @@ class Index extends React.Component {
         super(props);
         this.state = {
             // label: this.props.label,
-            // name: this.props.name,
-        }
+            // name: this.props.name,   }
     }
-
+    }
     render() {
         return (
             <>
