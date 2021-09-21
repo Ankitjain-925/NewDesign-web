@@ -204,7 +204,7 @@ class Index extends Component {
 
   //On Changing the specialty id 
   onFieldChange = (e) => {
-    console.log("data111",e)
+    console.log("data111", e)
     const state = this.state.updateTrack;
     state['speciality_id'] = e.value;
     this.setState({ updateTrack: state });
@@ -331,74 +331,65 @@ class Index extends Component {
                                   <label>Add new service</label>
                                 </Grid>
                               </Grid>
-                              <Grid className="enterSpclUpr">
-                                <Grid className="enterSpclMain">
-                                  <Grid className="enterSpcl">
-                                    <Grid>
-                                      <VHfield
-                                        label="Service name"
-                                        name="title"
-                                        placeholder="Enter Service name"
-                                        onChange={(e) =>
-                                          this.updateEntryState1(e)
-                                        }
-                                        value={this.state.updateTrack.title}
-                                      />
-                                    </Grid>
 
-                                    <Grid>
-                                      <VHfield
-                                        label="Service short description"
-                                        name="description"
-                                        placeholder="Enter service short description"
-                                        onChange={(e) =>
-                                          this.updateEntryState1(e)
-                                        }
-                                        value={
-                                          this.state.updateTrack.description
-                                        }
-                                      />
-                                    </Grid>
-
-
-
-                                    <label className="specbutton1">Specialty</label>
-                                    <Grid className="sevicessection">
-                                      <Select
-                                        onChange={(e) => this.onFieldChange(e)}
-                                        options={this.state.AllSpeciality}
-                                        name="specialty_name"
-                                        isSearchable={true}
-                                        className="mr_sel"
-                                        value={this.selectedID(this.state.updateTrack.speciality_id)}
-                                        isMulti={true}
-                                      />
-                                      
-                                    
-                                    </Grid>
-
-                                    <Grid>
-                                      <VHfield
-                                        label="Price"
-                                        name="price"
-                                        placeholder="Enter service sprice"
-                                        onChange={(e) =>
-                                          this.updateEntryState1(e)
-                                        }
-                                        value={this.state.updateTrack.price}
-                                      />
-                                    </Grid>
-
-
+                              <Grid className="enterServMain">
+                                <Grid className="enterSpcl">
+                                  <Grid>
+                                    <VHfield
+                                      label="Service name"
+                                      name="title"
+                                      placeholder="Enter Service name"
+                                      onChange={(e) =>
+                                        this.updateEntryState1(e)
+                                      }
+                                      value={this.state.updateTrack.title}
+                                    />
                                   </Grid>
-                                  
+
+                                  <Grid>
+                                    <VHfield
+                                      label="Service short description"
+                                      name="description"
+                                      placeholder="Enter service short description"
+                                      onChange={(e) =>
+                                        this.updateEntryState1(e)
+                                      }
+                                      value={
+                                        this.state.updateTrack.description
+                                      }
+                                    />
+                                  </Grid>
+
+                                  <label className="specbutton1">Specialty</label>
+                                  <Grid className="sevicessection">
+                                    <Select
+                                      onChange={(e) => this.onFieldChange(e)}
+                                      options={this.state.AllSpeciality}
+                                      name="specialty_name"
+                                      isSearchable={true}
+                                      className="mr_sel"
+                                      value={this.selectedID(this.state.updateTrack.speciality_id)}
+                                    />
+                                  </Grid>
+
+                                  <Grid>
+                                    <VHfield
+                                      label="Price"
+                                      name="price"
+                                      placeholder="Enter service sprice"
+                                      onChange={(e) =>
+                                        this.updateEntryState1(e)
+                                      }
+                                      value={this.state.updateTrack.price}
+                                    />
+                                  </Grid>
                                 </Grid>
-                                <Grid className="servSaveBtn">
-                                    <a onClick={this.handleCloseServ}>
-                                      <Button
-                                        onClick={() => this.handleSubmit()}>Save & Close</Button>
-                                    </a>
-                                  </Grid>
+                              </Grid>
+                              <Grid className="servSaveBtn">
+                                <a onClick={this.handleCloseServ}>
+                                  <Button
+                                    onClick={() => this.handleSubmit()}>Save & Close</Button>
+                                </a>
                               </Grid>
                             </Grid>
                           </Modal>

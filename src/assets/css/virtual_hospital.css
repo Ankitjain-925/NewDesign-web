@@ -11413,7 +11413,7 @@ ul.patientHint li {
 .patientTask {
     padding-top: 5px;
     padding-right: 30px;
-    padding-bottom: 10px;
+    padding-bottom: 0px;
     padding-left: 0px;
   }
 
@@ -11454,3 +11454,12 @@ ul.patientHint li {
    
     text-transform: capitalize;
 }
+.enterServMain {
+    padding: 38px 12px 12px 28px;
+}
+.nwModCloseBtn {
+    text-align: right;
+    margin-bottom: 4px;
+    /* margin-right: 4px; */
+}
+
