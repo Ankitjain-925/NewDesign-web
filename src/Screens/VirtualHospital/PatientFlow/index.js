@@ -394,6 +394,7 @@ class Index extends Component {
                       moveAllPatient={(to, from, data) => this.moveAllPatient(to, from , data)}
                       view={this.state.view}
                       moveStep={(to, from, item)=>{this.moveStep(to, from, item)}}
+                      setDta={(item)=>this.setDta(item)}
                     />
                   </Grid>
                 </Grid>

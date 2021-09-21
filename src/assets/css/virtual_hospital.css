@@ -9047,7 +9047,7 @@ button.crdoLghtBlu2 {
     padding-left: 4%;
     padding-right: 4%;
 }
-.flowProfil img {
+.flowProfil .imgProfile {
     height: 35px;
     width: 35px;
     border-radius: 28px;
@@ -9594,6 +9594,17 @@ button.crdoLghtBlu2 {
     border-bottom: none;
 }
 /* Added by Ankita */
+.acitveButton{
+    color: #7F8383 !important;
+    background-color: #F2F2F2 !important;
+}
+.positionDrop .spcMgntUpr {
+    padding: 3px 3px !important;
+}
+.flowProfilRght {
+    padding-left: 10px;
+    width: 75%;
+}
 .assignSec img{
     cursor: pointer;
 }

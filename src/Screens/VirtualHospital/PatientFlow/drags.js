@@ -133,6 +133,7 @@ class Index extends Component {
                         moveAllPatient={(to, from, data)=>{this.props.moveAllPatient(to, from, data)}}
                         moveStep={(to, from, item)=>{this.props.moveStep(to, from, item)}}
                         columns={this.state.columns}
+                        setDta={(item)=>this.props.setDta(item)}
                       />
                     </div>
                   </li>

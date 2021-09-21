@@ -28,7 +28,7 @@ export default class QuoteItem extends React.Component {
                             {/* <Grid className="flowInfoInr">   */}
                             {/* <Grid className="flowInfoBtn RadiologyClr"><Button>Radiology</Button></Grid> */}
                             <Grid className="flowProfil">
-                                <Grid><img src={require('assets/virtual_images/102.png')} alt="" title="" /></Grid>
+                                <Grid><img className="imgProfile"  src={require('assets/virtual_images/102.png')} alt="" title="" /></Grid>
                                 <Grid className="flowProfilRght" >
                                     <label>{quote.name}</label>
                                     <p>{quote.profile_id}</p>

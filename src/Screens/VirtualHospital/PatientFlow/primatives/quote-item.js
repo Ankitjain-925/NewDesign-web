@@ -30,14 +30,14 @@ export default class QuoteItem extends React.Component {
               <Grid className="flowInfoInr">
                   <Grid className="flowInfoBtn RadiologyClr"><Button>{quote.speciality?.speciality_name}</Button></Grid>
                   <Grid className="flowProfil">
-                      <Grid><img src={require('assets/virtual_images/102.png')} alt="" title="" /></Grid>
+                      <Grid><img className="imgProfile" src={require('assets/virtual_images/102.png')} alt="" title="" /></Grid>
                       <Grid className="flowProfilRght">
                           <label>{quote.patient.first_name} {quote.patient.last_name}</label>
                           <p>{quote.patient.alies_id}</p>
                       </Grid>
                       <Grid className="checkDotsRght">
                           {/* {console.log('quote456', quote?.author?.step_name)} */}
-                       <CasesMoreButton currentStep={quote?.author?.step_name} currentIndex={checkTheIndex(this.props.columns[quote?.author?.step_name], 'patient_id', quote.patient_id)} columns={this.props.columns} quote={quote} onDragEnd={(data)=>onDragEnd(data)} ordered={this.props.ordered}/>
+                       <CasesMoreButton setDta={(item)=>this.props.setDta(item)} currentStep={quote?.author?.step_name} currentIndex={checkTheIndex(this.props.columns[quote?.author?.step_name], 'patient_id', quote.patient_id)} columns={this.props.columns} quote={quote} onDragEnd={(data)=>onDragEnd(data)} ordered={this.props.ordered}/>
                     </Grid>
                   </Grid>
               </Grid>
@@ -53,10 +53,10 @@ export default class QuoteItem extends React.Component {
                   </Grid>
                   <Grid className="dtlCntUpr dtlCntUprNw">
                       <Grid className="dtlCntLft">
-                          <Grid className="dtlCount">
-                              <a><img src={require('assets/virtual_images/rightIcon.png')} alt="" title="" />1/2</a>
+                          <Grid className="dtlCount">                              
+                            <a><img src={require('assets/virtual_images/rightIcon.png')} alt="" title="" />1/2</a>
                               <span><img src={require('assets/virtual_images/plusIcon.jpg')} alt="" title="" /></span>
-                              <a><img src={require('assets/virtual_images/note1.png')} alt="" title="" />3</a>
+                            <a><img src={require('assets/virtual_images/note1.png')} alt="" title="" />3</a>
                           </Grid>
                       </Grid>
                       <Grid className="dtlCntRght">

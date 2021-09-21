@@ -117,6 +117,7 @@ export default class Column extends Component {
                 internalScroll={this.props.isScrollable}
                 isCombineEnabled={Boolean(this.props.isCombineEnabled)}
                 onDragEnd={(data)=>{this.props.onDragEnd(data)}}
+                setDta={(item)=>this.props.setDta(item)}
               />
              {this.props.view==='vertical' && <Grid className="nwPatentAdd"><Button onClick={()=>{this.props.openAddPatient(index)}}>+ Add a new patient</Button></Grid>}
           </div>
