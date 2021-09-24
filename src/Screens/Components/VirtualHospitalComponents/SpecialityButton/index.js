@@ -29,7 +29,7 @@ class Index extends Component {
   render() {
     return (
       <Grid className="">
-        <Grid className="spcMgntUpr">
+        {this.state.label && <Grid className="spcMgntUpr">
           <Grid container direction="row">
             <Grid item xs={6} md={6} className="specialitybutton-parent">
               {this.props.viewImage ? (
@@ -114,7 +114,7 @@ class Index extends Component {
               </Grid>
             )}
           </Grid>
-        </Grid>
+        </Grid>}
       </Grid>
     );
   }

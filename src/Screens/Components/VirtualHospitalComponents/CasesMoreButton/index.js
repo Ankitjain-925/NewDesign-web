@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
 import { withRouter } from "react-router-dom";
-import { Redirect, Route } from "react-router-dom";
+import Loader from "Screens/Components/Loader/index";
 import { authy } from "Screens/Login/authy.js";
 import { connect } from "react-redux";
 import { LanguageFetchReducer } from "Screens/actions";
@@ -13,7 +13,8 @@ import { Speciality } from "Screens/Login/speciality.js";
 import SpecialityButton from "Screens/Components/VirtualHospitalComponents/SpecialityButton";
 import axios from "axios";
 import sitedata from "sitedata";
-import { getSteps } from "Screens/VirtualHospital/PatientFlow/data"; 
+import { getSteps, AllWards, setWard, CurrentWard, AllRoom, CurrentRoom, setRoom, AllBed, CurrentBed } from "Screens/VirtualHospital/PatientFlow/data"; 
+import SelectField from "Screens/Components/Select/index";
 class Index extends React.Component {
     constructor(props) {
         super(props);
@@ -22,81 +23,96 @@ class Index extends React.Component {
            changeStaffsec: false,
            assignroom : false,
            firstsec: true,
-           movepatsec: false
+           movepatsec: false,
+           loaderImage: false
         }
     }
 
-    // componentDidMount=()=>{
-    //     console.log('componentDidMount', this.props)
-    // }
-    // onDataChange = (e, index) => {
-    //     var RoomAy = this.state.roomArray;
-    //     if(this.props.comesFrom==="admin"){
-    //          RoomAy[index][e.target.name] = e.target.value;
-    //     }
-    //     else{
-    //         RoomAy[index] = e.target.value;
-    //     }
-    //     this.setState({ roomArray: RoomAy },
-    //     this.props.onChange(this.state.roomArray))
-    // }
-    
-    // componentDidUpdate = (prevProps) => {
-    //     if (prevProps.roomArray !== this.props.roomArray || prevProps.label !== this.props.label|| prevProps.name !== this.props.name) {
-    //         this.setState({ roomArray: this.props.roomArray,  label: this.props.label,
-    //             name: this.props.name,});
-    //     }
-    // };
- 
-    // onAddFiled = () => {
-    //     let RoomAy = this.state.roomArray;
-    //     var date = new Date();
-    //     if(this.props.comesFrom==="admin"){
-    //         RoomAy.push({ house_name: "", house_id: `${this.props.institute_id}-${date.getTime()}` });
-    //     }
-    //     else{
-    //         RoomAy.push('');
-    //     }
-    //     this.setState({ roomArray: RoomAy });
-    // };
-
-    // deleteRooms = (index) => {
-    //     var RoomAy = this.state.roomArray?.length>0 && this.state.roomArray.filter((data , index1)=>index1 !== index);
-    //     this.setState({ roomArray: RoomAy }, ()=>{
-    //         this.props.onChange(this.state.roomArray)
-    //     });  
-        
-    // };
-  
     setSpeciality=(data)=>{
+      this.setState({ loaderImage: true });
         axios.put(
-                sitedata.data.path + "/cases/AddCase/"+ this.props.quote._id,
-                {speciality: {
-                    background_color: data.background_color,
-                    color: data.color,
-                    specialty_name: data.specialty_name,
-                    _id: data._id
-                }},
-                commonHeader(this.props.stateLoginValueAim.token)
-              )
-              .then((responce1) => {
-                if (responce1.data.hassuccessed) {
-                    var steps = getSteps(
-                        this.props?.House?.value,
-                        this.props.stateLoginValueAim.token
-                      );
-                      steps.then((data) => {
-                        var stepData = data ? data : [];
-                        this.props.setDta(stepData);
-                      });
-
-                }
-              })
+        sitedata.data.path + "/cases/AddCase/"+ this.props.quote._id,
+        {speciality: {
+            background_color: data.background_color,
+            color: data.color,
+            specialty_name: data.specialty_name,
+            _id: data._id
+        },
+        wards: {}, rooms: {}, bed: ""},
+        commonHeader(this.props.stateLoginValueAim.token)
+      )
+      .then((responce1) => {
+        if (responce1.data.hassuccessed) {
+            var steps = getSteps(
+                this.props?.House?.value,
+                this.props.stateLoginValueAim.token
+              );
+              steps.then((data) => {
+                var stepData = data ? data : [];
+                this.props.setDta(stepData);
+              });
+              this.setState({ loaderImage: false });
+        }
+      })
        
     }
+    setsWard = (e)=>{
+      this.setState({ loaderImage: true });
+      var response = setWard(e, this.props.quote?.speciality?._id, this.props.speciality?.SPECIALITY, this.props.quote._id, this.props.stateLoginValueAim.token)
+      console.log('response', response)
+      response.then((responce1) => {
+      if (responce1.data.hassuccessed) {
+        var steps = getSteps(
+            this.props?.House?.value,
+            this.props.stateLoginValueAim.token
+          );
+          steps.then((data) => {
+            var stepData = data ? data : [];
+            this.props.setDta(stepData);
+          });
+          this.setState({ loaderImage: false });
+        }
+      })
+    }
+
+    setsRoom = (e)=>{
+      this.setState({ loaderImage: true });
+      var response = setRoom(e, this.props.quote?.speciality?._id, this.props.speciality?.SPECIALITY, this.props.quote._id, this.props.stateLoginValueAim.token, this.props.quote?.wards?._id)
+      response.then((responce1) => {
+      if (responce1.data.hassuccessed) {
+        var steps = getSteps(
+            this.props?.House?.value,
+            this.props.stateLoginValueAim.token
+          );
+          steps.then((data) => {
+            var stepData = data ? data : [];
+            this.props.setDta(stepData);
+          });
+          this.setState({ loaderImage: false });
+        }
+      })
+    }
+
+    GetAllBed=()=>{
+      console.log('here',)
+      this.setState({ loaderImage: true });
+      var response = AllBed(this.props.quote?.speciality?._id, this.props.quote?.wards._id, this.props.quote?.room._id, this.props?.House?.value,
+        this.props.stateLoginValueAim.token)
+      response.then((responce1) => {
+        if (responce1.data.hassuccessed) {
+          return responce1?.data?.data.length>0 &&responce1?.data?.data.map((bed)=>{
+            return {value: bed, label: bed}
+          });
+          }
+          this.setState({ loaderImage: false });
+          return [];
+        })
+    }
+
     render() {
         return (
            <>
+            {this.state.loaderImage && <Loader />}
            <a className="academy_ul stepTdotupper">
                    <img src={require('assets/images/threedots.jpg')} alt="" title="" className="academyDots stepTdot" />
                    <ul>
@@ -130,16 +146,7 @@ class Index extends React.Component {
                                   showActive={this.props.quote?.speciality?._id == data._id ? true : false}
                                 /> 
                            ))}
-                           {/* <SpecialityButton
-                                  viewImage={true}
-                                  deleteClick={() => this.handleOpenWarn(data._id)}
-                                  label={data.specialty_name}
-                                  backgroundColor={data.background_color}
-                                  color={data.color}
-                                  onClick={() => {
-                                    this.onEditspec(data);
-                                  }}
-                                /> */}
+                          
                            </Grid>
                        </div> 
                         }
@@ -168,7 +175,42 @@ class Index extends React.Component {
                            </Grid>
                            <Grid className="positionDrop">
                            {this.props.quote?.speciality?._id ? 
-                           <>Select Wrads</>
+                           <Grid className="cnfrmDiaMain">
+                             <Grid className="fillDia">
+                               <Grid>
+                                 <SelectField
+                                   isSearchable={true}
+                                   name="type"
+                                   label="Wards"
+                                   option={AllWards(this.props.quote?.speciality?._id, this.props.speciality?.SPECIALITY, )}
+                                   onChange={(e) =>
+                                    this.setsWard(e)
+                                   }
+                                   value={CurrentWard(this.props.quote?.wards)}
+                                 />
+                               </Grid>
+                               {this.props.quote?.wards?._id && <Grid>
+                                 <SelectField
+                                   isSearchable={true}
+                                   name="type"
+                                   label="Room"
+                                   option={AllRoom(this.props.quote?.speciality?._id, this.props.speciality?.SPECIALITY, this.props.quote?.wards?._id)}
+                                   onChange={(e) => this.setsRoom(e)}
+                                   value={CurrentRoom(this.props.quote?.rooms)}
+                                 />
+                               </Grid>}
+                               {this.props.quote?.rooms?._id && <Grid>
+                                 <SelectField
+                                   isSearchable={true}
+                                   name="type"
+                                   label="Bed"
+                                   option={this.GetAllBed}
+                                   onChange={(e) => this.setsBed(e)}
+                                   value={CurrentBed(this.props.quote?.bed)}
+                                 />
+                               </Grid>}
+                             </Grid>
+                         </Grid>
                            : <div className="err_message">Please assign a speciality first</div>}
                            </Grid>
                        </div> 
