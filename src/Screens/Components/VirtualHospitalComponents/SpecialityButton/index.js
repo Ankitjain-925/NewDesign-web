@@ -29,10 +29,11 @@ class Index extends Component {
   render() {
     return (
       <Grid className="">
-        {this.state.label && <Grid className="spcMgntUpr">
-          <Grid container direction="row">
-            <Grid item xs={6} md={6} className="specialitybutton-parent">
+        {this.state.label && <Grid className={this.props.viewImage ? "spcMgntUpr" : "otherPageSpc"}>
+         
               {this.props.viewImage ? (
+                 <Grid container direction="row">
+                <Grid item xs={6} md={6} className="specialitybutton-parent">
                 <Button
                   className={
                     this.props.showActive
@@ -47,26 +48,8 @@ class Index extends Component {
                 >
                   {this.state.label}
                 </Button>
-              ) : (
-                <Button
-                className={
-                  this.props.showActive
-                    ? "specialitybutton acitveButton"
-                    : "specialitybutton"
-                }
-                  onClick={this.props.onClick}
-                  style={{
-                    color: this.state.color,
-                    backgroundColor: this.state.backgroundColor,
-                  }}
-                  variant="contained"
-                >
-                  {this.state.label}{" "}
-                </Button>
-              )}
-            </Grid>
-            {this.props.viewImage && (
-              <Grid
+                </Grid>
+                <Grid
                 item
                 xs={6}
                 md={6}
@@ -112,8 +95,30 @@ class Index extends Component {
                 {/* <Grid item xs={6} md={6} className="spcMgntRght3"> */}
                 {/* <a onClick={()=>{this.props.onClick()}}><img src={require('assets/virtual_images/setting.png')} alt="" title="" /></a> */}
               </Grid>
-            )}
-          </Grid>
+              </Grid>
+                
+              ) : (
+                <Grid container direction="row">
+                <Grid>
+                <Button
+                className={
+                  this.props.showActive
+                    ? "specialitybutton acitveButton"
+                    : "specialitybutton"
+                }
+                  onClick={this.props.onClick}
+                  style={{
+                    color: this.state.color,
+                    backgroundColor: this.state.backgroundColor,
+                  }}
+                  variant="contained"
+                >
+                  {this.state.label}{" "}
+                </Button>
+                </Grid>
+                </Grid>
+              )}
+           
         </Grid>}
       </Grid>
     );

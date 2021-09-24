@@ -138,12 +138,12 @@ class Index extends React.Component {
                              
                            {this.props.speciality?.SPECIALITY && this.props?.speciality?.SPECIALITY.length>0 && this.props?.speciality?.SPECIALITY.map((data)=>(
                             <SpecialityButton
-                                  label={data.specialty_name}
-                                  backgroundColor={data.background_color}
-                                  viewImage= {false}
-                                  color={data.color}
-                                  onClick={()=> this.setSpeciality(data)}
-                                  showActive={this.props.quote?.speciality?._id == data._id ? true : false}
+                            label={this.props.quote?.speciality?.specialty_name}
+                            backgroundColor={this.props.quote?.speciality?.background_color}
+                            viewImage={false}
+                            color={this.props.quote?.speciality?.color}
+                            onClick={() => this.setSpeciality()}
+                            showActive={false}
                                 /> 
                            ))}
                           

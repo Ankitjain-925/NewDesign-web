@@ -6675,8 +6675,8 @@ button.downloadPDF:hover {
     cursor:pointer;
 }
 .markDone img {
-    height: 30px;
-    width: 30px;
+    height: 45px;
+    width: 45px;
 }
 .markDone {
     display: flex;
@@ -9657,6 +9657,237 @@ button.crdoLghtBlu2 {
     border-bottom: none;
 }
 /* Added by Ankita */
+
+/* Start of Create a Task */
+.createTask {
+    margin-left: 12px !important;
+}
+.creatTaskModel {
+    width: 580px;
+    background: #fff;
+    margin: 0 auto;
+    border: none;
+    outline: none;
+    background-color: #FFFFFF;
+    box-shadow: 0 24px 32px 0 rgb(0 8 8 / 8%);
+    margin-top: 35px;
+    padding-right: 2px;
+    padding-top: 18px;
+    padding-bottom: 16px;
+    border-radius: 12px;
+}
+.creatTaskCntnt {
+    height: 537px;
+    overflow-y: scroll;
+    padding: 20px 0px;
+}
+.creatLbl {
+    padding: 0px 20px;
+    border-bottom: 1px solid #dedcdc;
+}
+.creatLblClose {
+    text-align: right;
+}
+.creatLblClose img {
+    height: 26px;
+    width: initial;
+    cursor: pointer;
+    border-radius: 6px;
+}
+.creatLbl label {
+    color: #000808;
+    font-size: 20px;
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: 32px;
+    font-family: 'Mulish', sans-serif;
+    margin-bottom: 12px;
+}
+.creatDetail {
+    padding: 18px 24px 0px;
+}
+.creatInfoIner label {
+    color: #404646;
+    font-family: 'Mulish', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: 12px;
+}
+.creatInfoIner input {
+    border: 1px solid #BFC1C1;
+    border-radius: 4px;
+    background-color: #FFFFFF;
+    padding: 7px 6px;
+    outline: none;
+    width: 100%;
+    color: #000808;
+    font-family: 'Mulish', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: 18px;
+    min-height: 44px;
+}
+.dueOn{
+    padding: 8px;
+}
+.dueOn .react-date-picker {
+    width: 100%;
+}
+.dueOn .ant-picker {
+    margin: 0px !important;
+    padding: 14px;
+}
+.dueOn .react-date-picker__wrapper {
+    border: 1px solid #BFC1C1;
+    border-radius: 4px;
+    background-color: #FFFFFF;
+    padding: 7px 6px;
+    outline: none;
+    color: #000808;
+    font-family: 'Mulish', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: 18px;
+    min-height: 44px;
+    width: 100%;
+}
+.creatInfoIner input::-webkit-input-placeholder { 
+    color: #BFC1C1;
+}
+.creatInfoIner input::-moz-placeholder { 
+    color: #BFC1C1;
+}
+.creatInfoIner input:-ms-input-placeholder { 
+    color: #BFC1C1;
+}
+.creatInfoIner input:-moz-placeholder { 
+    color: #BFC1C1;
+}
+.createDegre {
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: 18px;
+    font-family: 'Mulish', sans-serif;
+}
+.taskDescp textarea {
+    border: 1px solid #BFC1C1;
+    border-radius: 4px;
+    background-color: #FFFFFF;
+    padding: 7px 6px;
+    outline: none;
+    width: 100%;
+    color: #000808;
+    font-family: 'Mulish', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: 18px;
+    min-height: 121px;
+}
+.specialFor {
+    position: relative;
+}
+.specialFor img {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+}
+.hideTask label {
+    margin-bottom: 0px;
+    margin-right: 0px;
+}
+.hideTask .MuiCheckbox-colorSecondary {
+    padding: 0px 8px;
+}
+.hideTask {
+    border-radius: 4px;
+    background-color: #F2F2F2;
+    padding: 9px 12px;
+}
+.hideTask .MuiFormControlLabel-label {
+    font-family: 'Mulish', sans-serif;
+    color: #404646;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: 14px;
+}
+.hideTask span.MuiIconButton-label {
+    color: #00abaf;
+}
+.dueOn input {
+    min-height: initial !important;
+    padding: 0px !important;
+    border: none !important;
+}
+.attachmentDrag div {
+    justify-content: center;
+    min-height: 116px;
+    width: 100%;
+    border: 2px dashed #BFC1C1;
+    border-radius: 4px;
+    background-color: #FFFFFF;
+    display: flex;
+    align-items: center;
+}
+.attachmentDrag p {
+    color: #7F8383;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: 18px;
+    margin: 0px;
+}
+.attachmentDrag span {
+    color: #00abaf;
+    margin-left: 9px;
+    text-decoration: underline;
+}
+.attachmentDrag h4 {
+    color: #7F8383;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: 12px;
+    text-align: center;
+    margin-top: 8px;
+}
+.saveTasks button {
+    background-color: rgb(0 171 175);
+    color: #ffffff;
+    font-family: 'Mulish', sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: 12px;
+    width: 100%;
+    text-transform: inherit;
+    min-height: 40px;
+    margin-top: 32px;
+}
+.addTime button {
+    height: 44px;
+    width: 78px;
+    border: 1px solid #BFC1C1;
+    border-radius: 4px;
+    background-color: #FFFFFF;
+    margin-top: 28px;
+    margin-left: 6px;
+    color: #7F8383;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: 18px;
+    font-family: 'Mulish', sans-serif;
+    text-transform: initial;
+    padding: 0px;
+}
+
 .acitveButton{
     color: #7F8383 !important;
     background-color: #F2F2F2 !important;
