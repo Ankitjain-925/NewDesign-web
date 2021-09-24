@@ -13,8 +13,8 @@ export const Speciality = (getting, house_id, user_token, callBack = () => { }) 
     if (getting && house_id) {
       dispatch({ type: GET_SPECIALITY_REQUEST });
       axios
-        .get(sitedata.data.path + "/vh/AddSpecialty/"+house_id,
-        commonHeader(user_token))
+        .get(sitedata.data.path + "/vh/AddSpecialty/" + house_id,
+          commonHeader(user_token))
         .then((responce) => {
           if (responce && responce?.data?.data && responce?.data?.data?.length > 0) {
             dispatch({ type: GET_SPECIALITY_SUCCESS, payload: responce.data.data });

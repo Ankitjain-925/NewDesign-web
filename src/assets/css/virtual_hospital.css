@@ -6660,7 +6660,7 @@ button.downloadPDF:hover {
     line-height: 12px;
 }
 .rvwCadio, .asignUpr, .makeCmpt, .multiDescp, .assignSecUpr, .assignSecUpr {
-    padding-left: 30px;
+    padding-left: 10px;
     padding-right: 30px;
 }
 .markDone label {
@@ -6684,9 +6684,9 @@ button.downloadPDF:hover {
 }
 .makeCmpt, .multiDescp, .assignSecUpr{
     margin-top: 18px;
-    border-bottom: 1px solid #F2F2F2;
+    /* border-bottom: 1px solid #F2F2F2;
     padding-bottom: 24px;
-    margin-bottom: 18px;
+    margin-bottom: 18px; */
 }
 .cmntUpr{
     margin-top: 18px;
@@ -6711,7 +6711,7 @@ button.downloadPDF:hover {
     font-family: Muli;
     text-transform: initial;
 }
-.addDueDate {
+.addDueDate .makeCmpt {
     margin-right: 12px !important;
     min-width: 128px !important;
 }
@@ -9035,6 +9035,69 @@ button.crdoLghtBlu2 {
     box-shadow: 0 8px 16px 0 rgb(0 8 8 / 8%);
 }
   /* Adding by ankit */
+
+  .addServContnt {
+    width: 580px;
+    background: #fff;
+    margin: 0 auto;
+    border: none;
+    outline: none;
+    border-radius: 12px;
+    background-color: #FFFFFF;
+    box-shadow: 0 24px 32px 0 rgb(0 8 8 / 8%);
+    margin-top: 35px;
+    padding-top: 6px;
+    padding-bottom: 30px;
+  }
+
+  .specbutton1 {
+    font-size: 20px  !important;
+    font-weight: bold !important;
+    margin-bottom: 20px !important; 
+  }
+
+  .servSaveBtn button {
+    border-radius: 8px;
+    background-color: #00ABAF !important;
+    color: #FFFFFF;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 16px;
+    text-align: center;
+    font-family: Muli;
+    width: 90%;
+    padding: 14px 12px;
+    margin-left: 30px;
+    text-transform: capitalize;
+}
+.enterServMain {
+    padding: 38px 12px 12px 28px;
+}
+.nwModCloseBtn {
+    text-align: right;
+    margin-bottom: 4px;
+    /* margin-right: 4px; */
+}
+
+.tasksection {
+    width: 97%;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.checkboxprop
+{
+    background-color: #D3D3D3;
+    margin-right: 20px;
+}
+  .checkboxprop label {
+    margin-left: 0px!important;
+}
+  .checkboxprop .MuiCheckbox-root {
+    color: #808080  !important;
+   
+}
     .flowInfo1 {
         margin-top: 8px;
         margin-bottom: 12px;
@@ -9648,6 +9711,8 @@ ul.patientHint li {
 }
 .sevicessection {
     width: 97%;
+    margin-bottom: 20px;
+    font-weight: bold;
 }
 .sevicessection .mr_sel .css-yk16xz-control {
     height: 50px !important;
@@ -11422,6 +11487,9 @@ ul.patientHint li {
 .patientTask {
     padding-top: 5px;
     padding-right: 30px;
-    padding-bottom: 10px;
+    padding-bottom: 0px;
     padding-left: 0px;
   }
+  
+
+  

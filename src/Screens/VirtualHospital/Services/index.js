@@ -22,6 +22,7 @@ import { commonHeader } from "component/CommonHeader/index";
 import { houseSelect } from "../Institutes/selecthouseaction";
 import Loader from "Screens/Components/Loader/index";
 import Select from "react-select";
+import makeAnimated from 'react-select/animated'
 
 class Index extends Component {
   constructor(props) {
@@ -54,10 +55,10 @@ class Index extends Component {
       )
       .then((responce) => {
         if (responce.data.hassuccessed && responce.data.data) {
-            var newArray = responce.data?.data?.length>0 && responce.data.data.map((item)=>{
-                return ({label : item.specialty_name, value : item._id})
-            })
-          this.setState({ AllSpeciality: newArray});
+          var newArray = responce.data?.data?.length > 0 && responce.data.data.map((item) => {
+            return ({ label: item.specialty_name, value: item._id })
+          })
+          this.setState({ AllSpeciality: newArray });
         }
         this.setState({ loaderImage: false });
       });
@@ -66,7 +67,7 @@ class Index extends Component {
   handleOpenServ = () => {
     this.setState({ openServ: true });
   };
-  
+
   //Modal Close
   handleCloseServ = () => {
     this.setState({ openServ: false });
@@ -85,7 +86,7 @@ class Index extends Component {
         .put(
           sitedata.data.path + "/vh/AddService/" + this.state.updateTrack._id,
           data,
-         commonHeader(this.props.stateLoginValueAim.token)
+          commonHeader(this.props.stateLoginValueAim.token)
         )
         .then((responce) => {
           this.setState({
@@ -96,7 +97,7 @@ class Index extends Component {
     } else {
       data.house_id = this.props?.House?.value;
       axios
-        .post(sitedata.data.path + "/vh/AddService", data,commonHeader(this.props.stateLoginValueAim.token))
+        .post(sitedata.data.path + "/vh/AddService", data, commonHeader(this.props.stateLoginValueAim.token))
         .then((responce) => {
           this.getAllServices();
         })
@@ -116,7 +117,7 @@ class Index extends Component {
     axios
       .get(
         sitedata.data.path + "/vh/GetService/" + this.props?.House?.value,
-       commonHeader(this.props.stateLoginValueAim.token)
+        commonHeader(this.props.stateLoginValueAim.token)
       )
       .then((response) => {
         var totalPage = Math.ceil(response.data.data.length / 10);
@@ -155,16 +156,16 @@ class Index extends Component {
           <div
             className={
               this.props.settings &&
-              this.props.settings.setting &&
-              this.props.settings.setting.mode &&
-              this.props.settings.setting.mode === "dark"
+                this.props.settings.setting &&
+                this.props.settings.setting.mode &&
+                this.props.settings.setting.mode === "dark"
                 ? "dark-confirm react-confirm-alert-body"
                 : "react-confirm-alert-body"
             }
           >
-           
-              <h1>Remove the Service ?</h1>
-           
+
+            <h1>Remove the Service ?</h1>
+
             <p>Are you sure to remove this Service?</p>
             <div className="react-confirm-alert-button-group">
               <button onClick={onClose}>No</button>
@@ -184,11 +185,11 @@ class Index extends Component {
   };
   deleteClickService(id) {
     axios
-      .delete(sitedata.data.path + "/vh/AddService/" + id,commonHeader(this.props.stateLoginValueAim.token))
+      .delete(sitedata.data.path + "/vh/AddService/" + id, commonHeader(this.props.stateLoginValueAim.token))
       .then((response) => {
         this.getAllServices();
       })
-      .catch((error) => {});
+      .catch((error) => { });
   }
 
   onChangePage = (pageNumber) => {
@@ -202,48 +203,49 @@ class Index extends Component {
   };
 
   //On Changing the specialty id 
-  onFieldChange=(e)=>{
+  onFieldChange = (e) => {
+    console.log("data111", e)
     const state = this.state.updateTrack;
     state['speciality_id'] = e.value;
     this.setState({ updateTrack: state });
   }
 
-  selectedID=(id)=>{
-    var data = this.state.AllSpeciality.length>0 && this.state.AllSpeciality.filter((item)=>item.value === id)
-    if(data && data.length>0){
-        return data[0];
+  selectedID = (id) => {
+    var data = this.state.AllSpeciality.length > 0 && this.state.AllSpeciality.filter((item) => item.value === id)
+    if (data && data.length > 0) {
+      return data[0];
     }
     return {};
-   }
+  }
 
-   getSpecialtyData = (id)=>{
-    if(id){
-        this.setState({speciality_id : id })
-        if(id === 'general'){
-            var filterData= this.state.AllServices?.length>0 && this.state.AllServices.filter((data)=>data.speciality_id === undefined || data.speciality_id === null)    
-        }
-        else{
-            var filterData= this.state.AllServices?.length>0 && this.state.AllServices.filter((data)=>data.speciality_id === id)
-        }
+  getSpecialtyData = (id) => {
+    if (id) {
+      this.setState({ speciality_id: id })
+      if (id === 'general') {
+        var filterData = this.state.AllServices?.length > 0 && this.state.AllServices.filter((data) => data.speciality_id === undefined || data.speciality_id === null)
+      }
+      else {
+        var filterData = this.state.AllServices?.length > 0 && this.state.AllServices.filter((data) => data.speciality_id === id)
+      }
     }
-    else{
-        this.setState({speciality_id : false })
-        var filterData= this.state.AllServices;
+    else {
+      this.setState({ speciality_id: false })
+      var filterData = this.state.AllServices;
     }
     var totalPage = Math.ceil(filterData.length / 10);
     if (totalPage > 1) {
-        var pages = [];
-        for (var i = 1; i <= this.state.totalPage; i++) {
-            pages.push(i);
-        }
-        this.setState({
-            services_data:filterData.slice(0, 10),
-            pages: pages,
-        });
-        } else {
-            this.setState({ services_data: filterData });
-        }
-   }
+      var pages = [];
+      for (var i = 1; i <= this.state.totalPage; i++) {
+        pages.push(i);
+      }
+      this.setState({
+        services_data: filterData.slice(0, 10),
+        pages: pages,
+      });
+    } else {
+      this.setState({ services_data: filterData });
+    }
+  }
 
   render() {
     const { services_data } = this.state;
@@ -265,9 +267,9 @@ class Index extends Component {
       <Grid
         className={
           this.props.settings &&
-          this.props.settings.setting &&
-          this.props.settings.setting.mode &&
-          this.props.settings.setting.mode === "dark"
+            this.props.settings.setting &&
+            this.props.settings.setting.mode &&
+            this.props.settings.setting.mode === "dark"
             ? "homeBg darkTheme"
             : "homeBg"
         }
@@ -307,14 +309,14 @@ class Index extends Component {
                             onClose={this.handleCloseServ}
                             className={
                               this.props.settings &&
-                              this.props.settings.setting &&
-                              this.props.settings.setting.mode &&
-                              this.props.settings.setting.mode === "dark"
+                                this.props.settings.setting &&
+                                this.props.settings.setting.mode &&
+                                this.props.settings.setting.mode === "dark"
                                 ? "darkTheme addSpeclModel"
                                 : "addSpeclModel"
                             }
                           >
-                            <Grid className="addSpeclContnt">
+                            <Grid className="addServContnt">
                               <Grid className="addSpeclLbl">
                                 <Grid className="addSpeclClose">
                                   <a onClick={this.handleCloseServ}>
@@ -326,74 +328,68 @@ class Index extends Component {
                                   </a>
                                 </Grid>
                                 <Grid>
-                                  <label>Add Services</label>
+                                  <label>Add new service</label>
                                 </Grid>
                               </Grid>
-                              <Grid className="enterSpclUpr">
-                                <Grid className="enterSpclMain">
-                                  <Grid className="enterSpcl">
-                                    <Grid>
-                                      <VHfield
-                                        label="Title"
-                                        name="title"
-                                        placeholder="Enter title name"
-                                        onChange={(e) =>
-                                          this.updateEntryState1(e)
-                                        }
-                                        value={this.state.updateTrack.title}
-                                      />
-                                    </Grid>
 
-                                    <Grid>
-                                      <VHfield
-                                        label="Description"
-                                        name="description"
-                                        placeholder="Enter description"
-                                        onChange={(e) =>
-                                          this.updateEntryState1(e)
-                                        }
-                                        value={
-                                          this.state.updateTrack.description
-                                        }
-                                      />
-                                    </Grid>
-
-                                    <Grid>
-                                      <VHfield
-                                        label="Price"
-                                        name="price"
-                                        placeholder="Enter price"
-                                        onChange={(e) =>
-                                          this.updateEntryState1(e)
-                                        }
-                                        value={this.state.updateTrack.price}
-                                      />
-                                    </Grid>
-
-                                    <Grid className="sevicessection">
-                                    <label>Specialty</label>
-                                    <Select
-                                        onChange={(e) => this.onFieldChange(e)}
-                                        options={this.state.AllSpeciality}
-                                        name="specialty_name"
-                                        isSearchable={true}
-                                        className="mr_sel"
-                                        value={this.selectedID(this.state.updateTrack.speciality_id)}
+                              <Grid className="enterServMain">
+                                <Grid className="enterSpcl">
+                                  <Grid>
+                                    <VHfield
+                                      label="Service name"
+                                      name="title"
+                                      placeholder="Enter Service name"
+                                      onChange={(e) =>
+                                        this.updateEntryState1(e)
+                                      }
+                                      value={this.state.updateTrack.title}
                                     />
-                                    </Grid>
-                                    <Grid item xs={6} md={6}>
-                                      <Grid className="spclSaveBtn saveNclose">
-                                        <a onClick={this.handleCloseServ}>
-                                          <Button
-                                            onClick={() => this.handleSubmit()}
-                                          >
-                                            Submit
-                                          </Button>
-                                        </a>
-                                      </Grid>
-                                    </Grid>
+                                  </Grid>
+
+                                  <Grid>
+                                    <VHfield
+                                      label="Service short description"
+                                      name="description"
+                                      placeholder="Enter service short description"
+                                      onChange={(e) =>
+                                        this.updateEntryState1(e)
+                                      }
+                                      value={
+                                        this.state.updateTrack.description
+                                      }
+                                    />
+                                  </Grid>
+
+                                  <label className="specbutton1">Specialty</label>
+                                  <Grid className="sevicessection">
+                                    <Select
+                                      onChange={(e) => this.onFieldChange(e)}
+                                      options={this.state.AllSpeciality}
+                                      name="specialty_name"
+                                      isSearchable={true}
+                                      className="mr_sel"
+                                      value={this.selectedID(this.state.updateTrack.speciality_id)}
+                                    />
+                                  </Grid>
+
+                                  <Grid>
+                                    <VHfield
+                                      label="Price"
+                                      name="price"
+                                      placeholder="Enter service sprice"
+                                      onChange={(e) =>
+                                        this.updateEntryState1(e)
+                                      }
+                                      value={this.state.updateTrack.price}
+                                    />
                                   </Grid>
                                 </Grid>
+                              </Grid>
+                              <Grid className="servSaveBtn">
+                                <a onClick={this.handleCloseServ}>
+                                  <Button
+                                    onClick={() => this.handleSubmit()}>Save & Close</Button>
+                                </a>
                               </Grid>
                             </Grid>
                           </Modal>
@@ -435,12 +431,12 @@ class Index extends Component {
                     {/* End of Bread Crumb */}
                     <Grid className="cardioGrup">
                       <Grid className="cardioGrupBtn">
-                        <Button onClick={()=>{this.getSpecialtyData(false)}} className={!this.state.speciality_id ? "cardioActv" : ""} variant="contained">{"All"}</Button>
-                        <Button onClick={()=>{this.getSpecialtyData('general')}} className={this.state.speciality_id === 'general' ? "cardioActv" : ""} variant="contained">{"General"}</Button>
-                          {this.state.AllSpeciality?.length>0 && this.state.AllSpeciality.map((item)=>(
-                              <Button onClick={()=>{this.getSpecialtyData(item.value)}} className={this.state.speciality_id === item.value ? "cardioActv" : ""} variant="contained">{item.label}</Button>
-                          ))}
-                       
+                        <Button onClick={() => { this.getSpecialtyData(false) }} className={!this.state.speciality_id ? "cardioActv" : ""} variant="contained">{"All"}</Button>
+                        <Button onClick={() => { this.getSpecialtyData('general') }} className={this.state.speciality_id === 'general' ? "cardioActv" : ""} variant="contained">{"General"}</Button>
+                        {this.state.AllSpeciality?.length > 0 && this.state.AllSpeciality.map((item) => (
+                          <Button onClick={() => { this.getSpecialtyData(item.value) }} className={this.state.speciality_id === item.value ? "cardioActv" : ""} variant="contained">{item.label}</Button>
+                        ))}
+
                       </Grid>
                     </Grid>
 
@@ -497,7 +493,7 @@ class Index extends Component {
 
                                           <li
                                             onClick={() => {
-                                              this.removeServices( data._id );
+                                              this.removeServices(data._id);
                                             }}
                                           >
                                             <a>
