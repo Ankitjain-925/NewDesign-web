@@ -30,7 +30,7 @@ class Index extends Component {
     };
   }
 
-  componentDidMount = () => {};
+  componentDidMount = () => { };
 
   //on adding new data
   componentDidUpdate = (prevProps) => {
@@ -102,7 +102,7 @@ class Index extends Component {
             </Grid>
             <Grid className="fillDia">
               <SelectField
-              isSearchable={true}
+                isSearchable={true}
                 name="ATC_code"
                 label={atc_code}
                 option={this.state.options}
@@ -128,7 +128,7 @@ class Index extends Component {
             </Grid>
             <Grid className="fillDia">
               <SelectField
-              isSearchable={true}
+                isSearchable={true}
                 name="unit"
                 label={unit}
                 option={this.state.lrpUnit}
@@ -212,7 +212,7 @@ class Index extends Component {
 
             <Grid className="fillDia">
               <SelectField
-              isSearchable={true}
+                isSearchable={true}
                 name="interval"
                 isMulti={true}
                 closeMenuOnSelect={false}
@@ -238,7 +238,7 @@ class Index extends Component {
 
             <Grid className="fillDia">
               <SelectField
-              isSearchable={true}
+                isSearchable={true}
                 name="reminders"
                 isMulti={true}
                 closeMenuOnSelect={false}

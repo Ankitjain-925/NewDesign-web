@@ -12,6 +12,7 @@
     "axios": "^0.19.2",
     "bootstrap": "^4.4.1",
     "browser-image-compression": "^1.0.14",
+    "chroma-js": "^2.1.2",
     "dotenv": "^10.0.0",
     "draft-js": "^0.11.7",
     "draftjs-to-html": "^0.9.1",
@@ -21,10 +22,13 @@
     "highcharts": "^8.2.0",
     "highcharts-react-official": "^3.0.0",
     "html-to-draftjs": "^1.5.0",
+    "index.js": "0.0.3",
     "jquery": "^3.5.1",
     "node-sass": "^4.14.1",
     "qrcode.react": "^1.0.0",
     "react": "^17.0.1",
+    "react-axios": "^2.0.5",
+    "react-beautiful-dnd": "^13.1.0",
     "react-big-calendar": "^0.28.1",
     "react-burger-menu": "^2.7.1",
     "react-calendar": "^3.1.0",
@@ -49,11 +53,17 @@
     "react-resizable": "^1.11.1",
     "react-resizable-custom": "^1.8.5",
     "react-router-dom": "^5.1.2",
+<<<<<<< HEAD
     "react-scripts": "^3.4.4",
+=======
+    "react-scripts": "^3.4.1",
+    "react-scrollbar": "^0.5.6",
+>>>>>>> 0c0b83c63c7d7e874c4896a69f94f80075918e31
     "react-select": "^3.1.0",
     "react-select-country-list": "^2.2.1",
     "react-stripe-checkout": "^2.6.3",
     "react-super-responsive-table": "^5.1.1",
+    "react-switch-case": "^1.5.1",
     "react-toggle": "^4.1.1",
     "react-tooltip": "^4.2.7",
     "reactstrap": "^8.4.1",
@@ -61,7 +71,8 @@
     "redux": "^4.0.5",
     "redux-localstorage-simple": "^2.1.6",
     "redux-state-sync": "^3.1.1",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "swiper": "^6.7.5"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -86,5 +97,6 @@
   },
   "devDependencies": {
     "@babel/plugin-proposal-optional-chaining": "^7.13.8"
-  }
+  },
+  "homepage": "https://virtualhospital.aimedis.io"
 }

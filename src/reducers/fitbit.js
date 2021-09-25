@@ -14,7 +14,6 @@ const INITIAL_STATE = {
     badges: {},
   },
 };
-
 const Fitbit = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case GET_fitbit_REQUEST:

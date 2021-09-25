@@ -258,8 +258,8 @@ class Index extends Component {
                         setTimeout(() => { this.setState({ succset: false }) }, 5000)
                         axios.post(sitedata.data.path + '/UserProfile/AddtoPatientList/' + doctor_id, {
                             profile_id: this.props.stateLoginValueAim.user.profile_id
-                        }, 
-                        commonHeader(user_token)).then((responce) => { })
+                        },
+                            commonHeader(user_token)).then((responce) => { })
                         this.setState({ selectedUser: '', })
                         this.getUserData();
                     } else {
@@ -357,20 +357,21 @@ class Index extends Component {
     deleteClickDoctor = (doctor) => {
         this.setState({ loaderImage: true });
         const user_token = this.props.stateLoginValueAim.token;
-        axios.delete(sitedata.data.path + '/UserProfile/favDocs/' + doctor + '/' + this.props.stateLoginValueAim.user.profile_id, 
-        commonHeader(user_token)).then((response) => {
-            this.setState({ loaderImage: false, removes: true });
-            setTimeout(() => { this.setState({ removes: false }) }, 5000)
-            this.getUserData();
-        }).catch((error) => {
-            this.setState({ loaderImage: false });
-        });
+        axios.delete(sitedata.data.path + '/UserProfile/favDocs/' + doctor + '/' + this.props.stateLoginValueAim.user.profile_id,
+            commonHeader(user_token)).then((response) => {
+                this.setState({ loaderImage: false, removes: true });
+                setTimeout(() => { this.setState({ removes: false }) }, 5000)
+                this.getUserData();
+            }).catch((error) => {
+                this.setState({ loaderImage: false });
+            });
     }
 
     // On Select Family Docotor
     onSelectFamilyDoc(event) {
         var family_doc = [event.value];
         this.setState({ family_doc: event, family_doc1: family_doc });
+     
     }
 
     render() {

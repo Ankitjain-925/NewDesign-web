@@ -1208,6 +1208,7 @@
 		"multiple_lesions_again_suggest": "多处病变再次表明慢性脱髓鞘。额叶区最大的轻度萎缩可能与多发性硬化有关。与先前的研究相比，结果似乎稳定。无异常增强。",
 		"where_r_u_l": "你现在在哪里",
 		"ConversationList" :"对话列表",
-		"ContactList" :"联系人列表"
+		"ContactList" :"联系人列表",
+		"searchingLoading" : "正在加载搜索..."
 	}
 }

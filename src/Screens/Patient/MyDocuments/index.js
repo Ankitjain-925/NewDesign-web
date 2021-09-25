@@ -21,7 +21,6 @@ import FileUploader from 'Screens/Components/FileUploader/index';
 import ListingSecond from '../More/Components/ListingSecond';
 import { LoginReducerAim } from 'Screens/Login/actions';
 import { Settings } from 'Screens/Login/setting';
-import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
 import LeftMenu from 'Screens/Components/Menus/PatientLeftMenu/index';
 import LeftMenuMobile from 'Screens/Components/Menus/PatientLeftMenu/mobile';

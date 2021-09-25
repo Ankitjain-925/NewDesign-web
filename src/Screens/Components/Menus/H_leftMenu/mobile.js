@@ -15,6 +15,7 @@ import Notification from "Screens/Components/CometChat/react-chat-ui-kit/CometCh
 import Modal from '@material-ui/core/Modal';
 import axios from "axios"
 import sitedata from "sitedata";
+import Mode from "Screens/Components/ThemeMode/index.js";
 import { commonHeader } from "component/CommonHeader/index";
 import { update_CometUser } from "Screens/Components/CommonApi/index";
 import * as translationEN from '../../../hospital_Admin/translations/en_json_proofread_13072020.json';
@@ -33,7 +34,8 @@ class Index extends Component {
             contact_partner: {},
             loaderImage: false,
             openFancyLanguage: false,
-            addCreate: false
+            addCreate: false,
+            mode: "normal",
         };
         new Timer(this.logOutClick.bind(this))
         this.openLanguageModel = this.openLanguageModel.bind(this)
@@ -50,17 +52,46 @@ class Index extends Component {
         }
 
     }
-
     getSetting = () => {
-        this.setState({ loaderImage: true })
-        axios.get(sitedata.data.path + '/UserProfile/updateSetting',
-        commonHeader(this.props.stateLoginValueAim.token)).then((responce) => {
-                if (responce.data.hassuccessed && responce.data.data) {
-                    this.setState({ timeF: { label: responce.data.data.time_format, value: responce.data.data.time_format }, dateF: { label: responce.data.data.date_format, value: responce.data.data.date_format }, })
-                }
-                this.setState({ loaderImage: false, languageValue: responce.data.data && responce.data.data.language != null ? responce.data.data.language : "en" })
-            })
-    }
+        this.setState({ loaderImage: true });
+        axios
+          .get(sitedata.data.path + "/UserProfile/updateSetting",  commonHeader(this.props.stateLoginValueAim.token))
+          .then((responce) => {
+            if (responce.data.hassuccessed && responce.data.data) {
+              this.setState({
+                timeF: {
+                  label: responce.data.data.time_format,
+                  value: responce.data.data.time_format,
+                },
+                dateF: {
+                  label: responce.data.data.date_format,
+                  value: responce.data.data.date_format,
+                },
+              });
+              this.props.Settings(responce.data.data);
+            } else {
+              this.props.Settings({
+                user_id: this.props.stateLoginValueAim.user._id,
+              });
+            }
+            this.setState(
+              {
+                loaderImage: false,
+                languageValue:
+                  responce.data.data && responce.data.data.language
+                    ? responce.data.data.language
+                    : "en",
+                mode:
+                  responce.data.data && responce.data.data.mode
+                    ? responce.data.data.mode
+                    : "normal",
+              },
+              () => {
+                this.props.LanguageFetchReducer(this.state.languageValue);
+              }
+            );
+          });
+      };
 
     openLanguageModel() {
         this.setState({ openFancyLanguage: true })
@@ -114,54 +145,6 @@ class Index extends Component {
         this.props.history.push('/')
     }
 
-    //For My Profile link
-    ProfileLink = () => {
-        this.props.history.push('/patient');
-    }
-    //For Emergency Access link
-    EmergencyLink = () => {
-        this.props.history.push('/patient/emergency');
-    }
-    //For Second opinion link
-    SecondLink = () => {
-        this.props.history.push('/patient/second-opinion');
-    }
-    //For Extra service link
-    ExtraLink = () => {
-        this.props.history.push('/patient/extra-services');
-    }
-    // For ournal Archive Link
-    JournalArchiveLink = () => {
-        this.props.history.push('/patient/archiveJournal');
-    }
-    //For Document link
-    DocumentLink = () => {
-        this.props.history.push('/patient/documents');
-    }
-    //For online Course
-    OnlineCourse = () => {
-        this.props.history.push('/patient/online-course');
-    }
-    //For Tracker / Withings
-    Tracker = () => {
-        this.props.history.push('/patient/tracker');
-    }
-    // For Appointment Link
-    AppointmentLink = () => {
-        this.props.history.push('/patient/appointment');
-    }
-    //For Timeline / Journal
-    Journal = () => {
-        this.props.history.push('/patient/journal');
-    }
-    //For chat
-    Chats = () => {
-        this.props.history.push('/patient/chats');
-    }
-    //For block chain Access 
-    BlockChain = () => {
-        this.props.history.push('/patient/blockchain');
-    }
     render() {
         let translate={};
         switch (this.props.stateLanguageType) {
@@ -174,49 +157,111 @@ class Index extends Component {
             default :
                 translate = translationEN.text
         }
-        let { capab_Patients, capab_Doctors, archive, SelectLanguage, More, Savechanges, LanUpdated, LanSel, capab_Hospitals, documents, paramedic, srvc_Nurses, insurance, online_course, add_new, user, my_profile, dark_mode, profile_setting, Language, logout, Patient, find_patient, ID, Status, no_, recEmp_FirstName,
-            previous, next, Normal, Blocked, recEmp_LastName, imprint_Email, restore, Delete, see_detail } = translate
+        let { capab_Patients, capab_Doctors, archive, SelectLanguage, More, Savechanges, LanUpdated, LanSel, documents, paramedic, srvc_Nurses, insurance, online_course, add_new, user, my_profile, dark_mode, profile_setting, Language, logout, Patient, find_patient, ID, Status, no_, recEmp_FirstName,
+            DarkMode, more } = translate
 
         return (
-            <Grid className="MenuMob">
+            <Grid 
+            className={
+                this.props.settings &&
+                  this.props.settings.setting &&
+                  this.props.settings.setting.mode &&
+                  this.props.settings.setting.mode === "dark"
+                  ? "MenuMob darkTheme"
+                  : "MenuMob"
+              }
+              >
                 <Grid container direction="row" alignItems="center">
                     {this.state.loaderImage && <Loader />}
                     <Grid item xs={6} md={6} sm={6} className="MenuMobLeft">
                         <a><img src={require('assets/images/navigation-drawer.svg')} alt="" title="" className="MenuImg" /></a>
                         <Menu className="addCstmMenu">
                             <Grid className="menuItems adminmenuItems">
-                                <ul>
-                                    <li className={this.props.currentPage === 'patient_List' ? "menuActv" : ""}>
-                                        <a onClick={() => this.props.history.push("/h-patients")}>
-                                            <img src={require('assets/images/admin/patintIcon.png')} alt="" title="" />
-                                            <span>{capab_Patients}</span>
-                                        </a>
-                                    </li>
-                                    <li className={this.props.currentPage === 'doctor_List' ? "menuActv" : ""}>
-                                        <a onClick={() => this.props.history.push("/h-doctors")} >
-                                            <img src={require('assets/images/admin/DoctorsIcon.png')} alt="" title="" />
-                                            <span>{capab_Doctors}</span>
-                                        </a>
-                                    </li>
-                                    <li className={this.props.currentPage === 'nurse_List' ? "menuActv" : ""}>
-                                        <a onClick={() => this.props.history.push("/h-nurses")}>
-                                            <img src={require('assets/images/nurse_n1.png')} alt="" title="" />
-                                            <span>{srvc_Nurses}</span>
-                                        </a>
-                                    </li>
-                                    <li className={this.props.currentPage === "h_document" ? "menuActv" : ''}>
-                                        <a onClick={() => this.props.history.push("/h-documents")}>
-                                            <img src={require('assets/images/admin/docsIcon.png')} alt="" title="" />
-                                            <span>{documents}</span>
-                                        </a>
-                                    </li>
-                                    <li className={this.props.currentPage === 'archive_choose' ? "menuActv" : ""}>
-                                        <a onClick={() => this.props.history.push("/h-archivechoose")}>
-                                            <img src={require('assets/images/admin/ParamedicIcon.png')} alt="" title="" />
-                                            <span>{archive}</span>
-                                        </a>
-                                    </li>
-                                    {/* <li>
+                            <ul>
+                        <li className={this.props.currentPage === 'patient_List' ? "menuActv" : ""}>
+                            <a onClick={() => this.props.history.push("/h-patients")}>
+                                <img src={require('assets/images/admin/patintIcon.png')} alt="" title="" />
+                                <span>{capab_Patients}</span>
+                            </a>
+                        </li>
+                        <li className={this.props.currentPage === 'doctor_List' ? "menuActv" : ""}>
+                            <a onClick={() => this.props.history.push("/h-doctors")} >
+                                <img src={require('assets/images/admin/DoctorsIcon.png')} alt="" title="" />
+                                <span>{capab_Doctors}</span>
+                            </a>
+                        </li>
+                        <li className={this.props.currentPage === 'nurse_List' ? "menuActv" : ""}>
+                            <a onClick={() => this.props.history.push("/h-nurses")}>
+                                <img src={require('assets/images/nurse_n1.png')} alt="" title="" />
+                                <span>{srvc_Nurses}</span>
+                            </a>
+                        </li>
+                        <li className={this.props.currentPage === 'staff_List' ? "menuActv" : ""}>
+                            <a onClick={() => this.props.history.push("/h-staff")}>
+                                <img src={require('assets/images/patientinfo.png')} alt="" title="" />
+                                <span>{"Admin Staff"}</span>
+                            </a>
+                        </li>
+                        <li className={this.props.currentPage === "h_document" ? "menuActv" : ''}>
+                            <a onClick={() => this.props.history.push("/h-documents")}>
+                                <img src={require('assets/images/admin/docsIcon.png')} alt="" title="" />
+                                <span>{documents}</span>
+                            </a>
+                        </li>
+                        <li className={this.props.currentPage === 'archive_choose' ? "menuActv" : ""}>
+                            <a onClick={() => this.props.history.push("/h-archivechoose")}>
+                                <img src={require('assets/images/admin/ParamedicIcon.png')} alt="" title="" />
+                                <span>{archive}</span>
+                            </a>
+                        </li>
+                        <li className={this.props.currentPage === "more" ? "menuActv" : ""}>
+              <a className="moreMenu">
+                {/* {this.props.settings &&
+                this.props.settings.setting &&
+                this.props.settings.setting.mode &&
+                this.props.settings.setting.mode === "dark" ? (
+                  <img
+                    src={require("assets/images/nav-more-white.svg")}
+                    alt=""
+                    title=""
+                  />
+                ) : ( */}
+                  <img
+                    src={require("assets/images/nav-more.svg")}
+                    alt=""
+                    title=""
+                  />
+                {/* )} */}
+                <span>{more}</span>
+
+                <div className="moreMenuList">
+                  <ul>
+                    <li>
+                      <a onClick={() => this.props.history.push("/h-groups")}>
+                        {/* {this.props.settings &&
+                        this.props.settings.setting &&
+                        this.props.settings.setting.mode &&
+                        this.props.settings.setting.mode === "dark" ? (
+                          <img
+                            src={require("assets/images/menudocs-white.jpg")}
+                            alt=""
+                            title=""
+                          />
+                        ) : ( */}
+                          <img
+                            src={require("assets/images/menudocs.jpg")}
+                            alt=""
+                            title=""
+                          />
+                        {/* )} */}
+                        Institute Groups
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </a>
+            </li>
+                        {/* <li>
                             <a className="moreMenu">
                                 <img src={require('assets/images/nav-more.svg')} alt="" title="" />
                                 <span>More</span>
@@ -233,27 +278,54 @@ class Index extends Component {
                                 </div>
                             </a>
                         </li> */}
-                                    <li className={this.props.currentPage === 'createnewuser' ? "menuActv" : ""}>
-                                        <a className="addNewPlus" onClick={this.handleOpenCreate}>
-                                            <img src={require('assets/images/admin/plusnew.png')} alt="" title="" />
-                                            <span>{add_new} <br /> {user}</span>
-                                        </a>
-                                    </li>
+                        <li className={this.props.currentPage === 'createnewuser' ? "menuActv" : ""}>
+                            <a className="addNewPlus" onClick={this.handleOpenCreate}>
+                                <img src={require('assets/images/admin/plusnew.png')} alt="" title="" />
+                                <span>{add_new} <br /> {user}</span>
+                            </a>
+                        </li>
 
-                                    <li>
-                                        <a className="profilMenu">
-                                            <img src={require('assets/images/nav-my-profile.svg')} alt="" title="" />
-                                            <span>{my_profile}</span>
-                                            <div className="profilMenuList">
-                                                <ul>
-                                                <li><a onClick={()=>this.props.history.push("/h-profile")}><img src={require('assets/images/menudocs.jpg')} alt="" title="" />{profile_setting}</a></li>
-                                                    <li><a onClick={this.openLanguageModel}><img src={require('assets/images/menudocs.jpg')} alt="" title="" />{Language}</a></li>
-                                                    <li><a onClick={this.logOutClick}><img src={require('assets/images/menudocs.jpg')} alt="" title="" />{logout}</a></li>
-                                                </ul>
-                                            </div>
-                                        </a>
-                                    </li>
-                                </ul>
+                        <li>
+                            <a className="profilMenu">
+                                <img src={require('assets/images/nav-my-profile.svg')} alt="" title="" />
+                                <span>{my_profile}</span>
+                                <div className="profilMenuList">
+                                    <ul>
+                                        <li><a onClick={()=>this.props.history.push("/h-profile")}><img src={require('assets/images/menudocs.jpg')} alt="" title="" />{profile_setting}</a></li>
+                                        <li><a onClick={this.openLanguageModel}><img src={require('assets/images/menudocs.jpg')} alt="" title="" />{Language}</a></li>
+                                        <li>
+                      <a>
+                        {this.props.settings &&
+                        this.props.settings.setting &&
+                        this.props.settings.setting.mode &&
+                        this.props.settings.setting.mode === "dark" ? (
+                          <img
+                            src={require("assets/images/menudocs-white.jpg")}
+                            alt=""
+                            title=""
+                          />
+                        ) : (
+                          <img
+                            src={require("assets/images/menudocs.jpg")}
+                            alt=""
+                            title=""
+                          />
+                        )}
+                        {DarkMode}{" "}
+                        <Mode
+                          mode={this.props.settings?.setting?.mode ? this.props.settings?.setting?.mode : 'normal'}
+                          name="mode"
+                          getSetting={this.getSetting}
+                        />
+                      </a>
+                    </li>
+                                        <li><a onClick={this.logOutClick}><img src={require('assets/images/menudocs.jpg')} alt="" title="" />{logout}</a></li>
+                                    </ul>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                    
                             </Grid>
                         </Menu>
                     </Grid>
@@ -309,14 +381,14 @@ class Index extends Component {
 const mapStateToProps = (state) => {
     const { stateLoginValueAim, loadingaIndicatoranswerdetail } = state.LoginReducerAim;
     const { stateLanguageType } = state.LanguageReducer;
-    // const { settings } = state.Settings;
+    const { settings } = state.Settings;
     // const { Doctorsetget } = state.Doctorset;
     // const { catfil } = state.filterate;
     return {
         stateLanguageType,
         stateLoginValueAim,
         loadingaIndicatoranswerdetail,
-        // settings,
+         settings,
         //   Doctorsetget,
         //   catfil
     }

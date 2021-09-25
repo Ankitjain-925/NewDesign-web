@@ -862,7 +862,7 @@ class Index extends Component {
                                                             >{`+${total} more`}
                                                             </div>
                                                         ),
-                                                    }}
+                                                          }}
                                                     components={{
                                                         month: { event: this.EventComponent },
                                                         week: { event: this.EventComponent },

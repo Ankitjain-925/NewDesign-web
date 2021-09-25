@@ -90,7 +90,14 @@ class Index extends Component {
                 <Modal
                     open={this.state.openDetial}
                     onClose={this.handleCloseCreate}
-                    className="prespBoxModel">
+                    className={
+                        this.props.settings &&
+                        this.props.settings.setting &&
+                        this.props.settings.setting.mode &&
+                        this.props.settings.setting.mode === "dark"
+                          ? "prespBoxModel darkTheme"
+                          : "prespBoxModel"
+                      }>
                     <Grid className="prespBoxCntnt">
                         <Grid className="prespCourse">
                             <Grid className="prespCloseBtn nwEntrCloseBtnAdd">
@@ -150,14 +157,14 @@ class Index extends Component {
 const mapStateToProps = (state) => {
     const { stateLoginValueAim, loadingaIndicatoranswerdetail } = state.LoginReducerAim ? state.LoginReducerAim : {};
     const { stateLanguageType } = state.LanguageReducer;
-    // const { settings } = state.Settings;
+    const { settings } = state.Settings;
     // const {Doctorsetget} = state.Doctorset;
     // const {catfil} = state.filterate;
     return {
         stateLanguageType,
         stateLoginValueAim,
         loadingaIndicatoranswerdetail,
-        // settings,
+        settings,
         //   Doctorsetget,
         //   catfil
     }

@@ -7,6 +7,7 @@ import * as serviceWorker from "./serviceWorker";
 import { Provider } from "react-redux";
 import store from "./store/index";
 import "assets/css/style.css";
+import "assets/css/virtual_hospital.css";
 import { CometChat } from "@cometchat-pro/chat";
 import { COMETCHAT_CONSTANTS } from "Screens/Components/CometChat/consts";
 

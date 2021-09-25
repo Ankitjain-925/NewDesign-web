@@ -123,7 +123,7 @@
 		"AIMEDIS_Imprint": "AIMEDIS Imprint",
 		"imprint_Representation": "Representation",
 		"Represented_managing_directors": "Represented by the managing directors Michael J. KALDASCH, MD (CEOs) and Ben O. El Idrissi, MD (COO)",
-		"imprint_Email": "Email:",
+		"imprint_Email": "Email",
 		"imprint_EmailAdd": "contact@aimedis.com",
 		"imprint_tele": "Telephone: +31 (0) 77 208 60 07",
 		"imprint_Web": "Web:",
@@ -626,7 +626,9 @@
 		"cancel": "Cancel",
 		"Doctor": "Doctor",
 		"two_fac_auth_enable":"The 2-factor authentication is activated",
-		"Status" :"Status"
+		"Status" :"Status",
+		"more" :"more",
+		"DarkMode": "Dark Mode"
 	}
 }
 

@@ -22,6 +22,7 @@ import "./style.css";
 import { commonHeader, commonCometDelHeader } from 'component/CommonHeader/index';
 import Pagination from "Screens/Components/Pagination/index";
 import Loader from "Screens/Components/Loader/index";
+import AssignedHouse from "Screens/Components/VirtualHospitalComponents/AssignedHouse/index";
 
 const specialistOptions = [
     { value: 'Specialist1', label: 'Specialist1' },
@@ -46,14 +47,49 @@ class Index extends Component {
             current_user : {},
             openDetial : false,
             MypatientsData : [],
+            UpDataDetails: {},
+            current_user : {},
+            Housesoptions :[],
+            currentHouses: [],
+            openHouse : false,
+            house:{},
         };
         // new Timer(this.logOutClick.bind(this)) 
         this.search_user = this.search_user.bind(this)
     }
-
+    getallGroups = () => {
+        var institute_id = this.props.stateLoginValueAim?.user?.institute_id?.length>0 ?  this.props.stateLoginValueAim?.user?.institute_id[0]:''
+        this.setState({ loaderImage: true });
+        axios
+          .get(
+            sitedata.data.path +
+              `/hospitaladmin/institute/${institute_id}`,
+            commonHeader(this.props.stateLoginValueAim.token)
+          )
+          .then((responce) => {
+            if (responce.data.hassuccessed && responce.data.data) {
+                var Housesoptions = [];
+                if(responce.data?.data?.institute_groups && responce.data?.data?.institute_groups.length>0){
+                    responce.data.data.institute_groups.map((data)=>{
+                        data?.houses && data.houses.length>0 && data.houses.map((item)=>{
+                            Housesoptions.push({
+                                group_name : data.group_name,
+                                label: item.house_name,
+                                value: item.house_id
+                            })
+                            this.setState({ Housesoptions:  Housesoptions});
+                        })
+                    })
+                }
+            }
+            this.setState({ loaderImage: false });
+          });
+      };
+    
     componentDidMount = () => {
         this.getAllkyc()
         this.getNurses();
+        this.getallGroups();
     }
 
     search_user = (event)=> {
@@ -199,6 +235,67 @@ class Index extends Component {
         this.setState({openDetial : false})
     }
 
+    assignHouse = (patient) => {
+        this.setState({openHouse: true, current_user: patient})
+      };
+    
+      closeHouse = () => {
+        this.setState({openHouse: false})
+      };
+    
+      updateEntryState1 = (value, name)=>{
+        this.setState({ house: value });
+      }
+    
+      SaveAssignHouse =()=>{
+        var userid = this.state.current_user._id;
+        this.setState({ loaderImage: true });
+        axios
+          .put(
+            sitedata.data.path +
+              `/hospitaladmin/assignedHouse/${userid}`,
+              this.state.house,
+            commonHeader(this.props.stateLoginValueAim.token)
+          )
+          .then((responce) => {
+            if (responce.data.hassuccessed) {
+                this.setState({assignedhouse: true})
+                setTimeout(()=>{
+                  this.setState({assignedhouse: false, openHouse: false,})
+                }, 5000)
+                this.getallGroups();
+            }
+            else{
+              this.setState({alredyExist: true})
+              setTimeout(()=>{
+                this.setState({alredyExist: false})
+              }, 5000)
+            }
+            this.setState({ loaderImage: false });
+          });
+        // /assignedHouse/:
+      }
+
+      deleteHouse=(deleteId)=>{
+        var userid = this.state.current_user._id;
+        this.setState({ loaderImage: true });
+        axios
+          .delete(
+            sitedata.data.path +
+              `/hospitaladmin/assignedHouse/${userid}/${deleteId}`,
+            commonHeader(this.props.stateLoginValueAim.token)
+          )
+          .then((responce) => {
+            if (responce.data.hassuccessed) {
+                this.setState({ deleteHouses: true})
+                setTimeout(()=>{
+                  this.setState({deleteHouses: false, openHouse: false})
+                }, 5000)
+                this.getallGroups();
+            }
+            this.setState({ loaderImage: false });
+          });
+      }
 
     render() {
         if(this.props.stateLoginValueAim.user.type != "hospitaladmin"){
@@ -219,7 +316,14 @@ class Index extends Component {
             recEmp_FirstName, Normal, Blocked, recEmp_LastName, imprint_Email, restore, Delete, see_detail } = translate
 
         return (
-            <Grid className="homeBg">
+            <Grid className={
+                this.props.settings &&
+                  this.props.settings.setting &&
+                  this.props.settings.setting.mode &&
+                  this.props.settings.setting.mode === "dark"
+                  ? "homeBg darkTheme"
+                  : "homeBg"
+              }>
                  {this.state.loaderImage && <Loader />}
                 <Grid className="homeBgIner">
                     <Grid container direction="row" justify="center">
@@ -247,6 +351,16 @@ class Index extends Component {
                                         <Grid item xs={12} md={12}> <input onChange={this.search_user} type="text" placeholder={find_nurse} /></Grid>
                                         <img src={require('assets/images/InputField.svg')} alt="" title="" />
                                     </Grid>
+                                    {/* {this.state.assignedhouse && (
+                                        <div className="success_message">
+                                        House is assigned to nurse
+                                        </div>
+                                    )}
+                                        {this.state.deleteHouse && (
+                                        <div className="success_message">
+                                        House id deleted from the nurse
+                                        </div>
+                                    )} */}
                                     <Grid className="archvOpinionIner">
                                         <Table>
                                             <Thead>
@@ -278,6 +392,18 @@ class Index extends Component {
                                                                 <ul>
                                                                 <li onClick={()=>this.openDetail(nurse)}><a><span><img src={require('assets/images/admin/details1.svg')} alt="" title="" /></span>{see_detail}</a></li>
                                                                     <li onClick={()=>this.BlockUser(nurse._id, nurse.isblock)}><a><span><img src={require('assets/images/admin/restoreIcon.png')} alt="" title="" /></span>{nurse.isblock && nurse.isblock == true ?'Unblock': 'Block'}</a></li>
+                                                                    <li onClick={() => this.assignHouse(nurse)}>
+                                                                    <a>
+                                                                        <span>
+                                                                        <img
+                                                                            src={require("assets/images/admin/details1.svg")}
+                                                                            alt=""
+                                                                            title=""
+                                                                        />
+                                                                        </span>
+                                                                        Assign House
+                                                                    </a>
+                                                                    </li>
                                                                     <li onClick={()=>this.submitDelete(nurse._id, nurse.profile_id, nurse.bucket)}><a><span><img src={require('assets/images/admin/delIcon.png')} alt="" title="" /></span>{Delete}</a></li>
                                                                 </ul>
                                                             </a>
@@ -307,6 +433,19 @@ class Index extends Component {
                                             </Grid>
                                         </Grid>
                                     </Grid>
+                                    <AssignedHouse
+                                        assignedhouse={this.state.assignedhouse}
+                                        deleteHouses={this.state.deleteHouses}
+                                        openHouse={this.state.openHouse}
+                                        currentHouses={this.state.currentHouses}
+                                        Housesoptions={this.state.Housesoptions}
+                                        current_user={this.state.current_user}
+                                        alredyExist={this.state.alredyExist}
+                                        closeHouse={this.closeHouse}
+                                        SaveAssignHouse={this.SaveAssignHouse}
+                                        deleteHouse={this.deleteHouse}
+                                        updateEntryState1={this.updateEntryState1}
+                                    />
                                     <ViewDetail openDetial={this.state.openDetial} CloseDetail={this.CloseDetail} patient_info={this.state.current_user}/>
                                 </Grid>
                             </Grid>
@@ -320,14 +459,14 @@ class Index extends Component {
 const mapStateToProps = (state) => {
     const { stateLoginValueAim, loadingaIndicatoranswerdetail } = state.LoginReducerAim;
     const { stateLanguageType } = state.LanguageReducer;
-    // const { settings } = state.Settings;
+    const { settings } = state.Settings;
     // const { Doctorsetget } = state.Doctorset;
     // const { catfil } = state.filterate;
     return {
         stateLanguageType,
         stateLoginValueAim,
         loadingaIndicatoranswerdetail,
-        // settings,
+        settings,
         //   Doctorsetget,
         //   catfil
     }

@@ -1207,6 +1207,7 @@
 		"delete_your_account":"Delete Your Account",
       	"delete_account":"Delete Account",
 		"ConversationList" :"Conversation List",
-		"ContactList" :"Contact List"
+		"ContactList" :"Contact List",
+		"searchingLoading" : "Search is loading..."
 	}
 }

@@ -1207,6 +1207,7 @@
 		"less_than_err":"Upload afbeeldingen van minder dan 6",
 		"err_file_formart": "Systeem wordt niet ondersteund door deze bestandsindeling",
 		"ConversationList" :"Gesprekslijst",
-		"ContactList" :"Contact List"
+		"ContactList" :"Contact List",
+		"searchingLoading" : "Zoeken wordt geladen..."
 	}
 }

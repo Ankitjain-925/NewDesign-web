@@ -73,14 +73,33 @@ import H_archive from "Screens/hospital_Admin/hadmin_archivechoose";
 import H_document from "Screens/hospital_Admin/h_Documents";
 import H_profile from "Screens/hospital_Admin/h_adminProfile";
 import CallatAllPages from "Screens/Components/CometChat/react-chat-ui-kit/CometChat/components/CallatAllPages";
+import H_Group from "Screens/hospital_Admin/h_add_group"
+import H_Staff from "Screens/hospital_Admin/h_staffs";
+
+//virtualhospital
+import VHStatistics from "Screens/VirtualHospital/Statistics/index";
+import VHPatientFlow from "Screens/VirtualHospital/PatientFlow/index";
+import VHSpaceManagement from "Screens/VirtualHospital/SpaceManagement/index.js";
+import VHSpecialityView from "Screens/VirtualHospital/MobileRoomsBedSpecialities/index";
+import VHBills from "Screens/VirtualHospital/Bills/index";
+import VHTasks from "Screens/VirtualHospital/Tasks/index";
+import VHInvoices from "Screens/VirtualHospital/Invoices/index";
+import VHServices from "Screens/VirtualHospital/Services/index";
+import VHAppointTask from "Screens/VirtualHospital/AppointTask/index";
+import RoomFlow from "Screens/VirtualHospital/SpaceManagement/RoomFlow"
+import Questionnaire from "Screens/VirtualHospital/Questionnaire"
+import ManageBeds from "Screens/VirtualHospital/SpaceManagement/manageBeds";
+import VHInstitutes from "Screens/VirtualHospital/Institutes/index";
+import PatientDetail from "Screens/VirtualHospital/PatientDetails/index";
+import AssignModelTask from "Screens/VirtualHospital/Tasks/AssignModelTask.js";
 
 class Routermain extends Component {
   render() {
     return (
       <Router basename={"/"}>
-       
+
         <CallatAllPages />
-        
+
         <Grid>
           <Switch>
             {/* Added by Ankita */}
@@ -390,6 +409,97 @@ class Routermain extends Component {
               exact={true}
               path="/h-profile"
               render={(props) => <H_profile {...props} />}
+            />
+            <Route
+              exact={true}
+              path="/h-staff"
+              render={(props) => <H_Staff {...props} />}
+            />
+            <Route
+              exact={true}
+              path="/h-groups"
+              render={(props) => <H_Group {...props} />}
+            />
+
+            {/*   Virtualhospital page */}
+            <Route
+              path="/virtualhospital/statistics"
+              exact={true}
+              render={(props) => <VHStatistics {...props} />}
+            />
+            <Route
+              path="/virtualhospital/patient-flow"
+              exact={true}
+              render={(props) => <VHPatientFlow {...props} />}
+            />
+            <Route
+              path="/virtualhospital/speciality"
+              exact={true}
+              render={(props) => <VHSpecialityView {...props} />}
+            />
+            <Route
+              path="/virtualhospital/bills"
+              exact={true}
+              render={(props) => <VHBills {...props} />}
+            />
+            <Route
+              path="/virtualhospital/tasks"
+              exact={true}
+              render={(props) => <VHTasks {...props} />}
+            />
+
+            <Route
+              path="/virtualhospital/invoices"
+              exact={true}
+              render={(props) => <VHInvoices {...props} />}
+            />
+            <Route
+              path="/virtualhospital/space"
+              exact={true}
+              render={(props) => <VHSpaceManagement {...props} />}
+            />
+            <Route
+              path="/virtualhospital/services"
+              exact={true}
+              render={(props) => <VHServices {...props} />}
+            />
+            <Route
+              path="/virtualhospital/calendar"
+              exact={true}
+              render={(props) => <VHAppointTask {...props} />}
+            />
+            <Route
+              path="/virtualhospital/manage-beds"
+              exact={true}
+              render={(props) => <ManageBeds {...props} />}
+            />
+            <Route
+              path="/virtualhospital/institutes"
+              exact={true}
+              render={(props) => <VHInstitutes {...props} />}
+            />
+
+            {/* Adding by Ankit */}
+            <Route
+              path="/virtualhospital/room-flow"
+              exact={true}
+              render={(props) => <RoomFlow {...props} />}
+            />
+            <Route
+              path="/virtualhospital/questionnaire"
+              exact={true}
+              render={(props) => <Questionnaire {...props} />}
+            />
+            <Route
+              path="/virtualHospital/patient-detail"
+              exact={true}
+              render={(props) => <PatientDetail {...props} />}
+            />
+
+            <Route
+              path="/virtualhospital/assign"
+              exact={true}
+              render={(props) => <AssignModelTask {...props} />}
             />
 
             <Route

@@ -8,6 +8,7 @@ import { Settings } from 'Screens/Login/setting';
 import axios from 'axios';
 import { LanguageFetchReducer } from 'Screens/actions';
 import sitedata from 'sitedata';
+
 import { confirmAlert } from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
 import Loader from 'Screens/Components/Loader/index';
@@ -22,6 +23,10 @@ import ViewDetail from "Screens/Components/ViewInformation/index";
 import "./style.css";
 import { commonHeader, commonCometDelHeader } from 'component/CommonHeader/index';
 import Pagination from "Screens/Components/Pagination/index";
+import SelectField from "Screens/Components/Select/index";
+import Button from "@material-ui/core/Button";
+import Modal from "@material-ui/core/Modal";
+import AssignedHouse from "Screens/Components/VirtualHospitalComponents/AssignedHouse/index";
 
 const specialistOptions = [
     { value: 'Specialist1', label: 'Specialist1' },
@@ -44,17 +49,53 @@ class Index extends Component {
             successfullsent: false,
             addCreate: false,
             current_user : {},
+            Housesoptions :[],
+            currentHouses: [],
+            openHouse : false,
+            house:{},
             openDetial : false,
             MypatientsData : [],
+            UpDataDetails: {},
+            deleteHouses: {}
 
         };
         // new Timer(this.logOutClick.bind(this)) 
         this.search_user = this.search_user.bind(this)
     }
 
+      getallGroups = () => {
+    var institute_id = this.props.stateLoginValueAim?.user?.institute_id?.length>0 ?  this.props.stateLoginValueAim?.user?.institute_id[0]:''
+    this.setState({ loaderImage: true });
+    axios
+      .get(
+        sitedata.data.path +
+          `/hospitaladmin/institute/${institute_id}`,
+        commonHeader(this.props.stateLoginValueAim.token)
+      )
+      .then((responce) => {
+        if (responce.data.hassuccessed && responce.data.data) {
+            var Housesoptions = [];
+            if(responce.data?.data?.institute_groups && responce.data?.data?.institute_groups.length>0){
+                responce.data.data.institute_groups.map((data)=>{
+                    data?.houses && data.houses.length>0 && data.houses.map((item)=>{
+                        Housesoptions.push({
+                            group_name : data.group_name,
+                            label: item.house_name,
+                            value: item.house_id
+                        })
+                        this.setState({ Housesoptions:  Housesoptions});
+                    })
+                })
+            }
+        }
+        this.setState({ loaderImage: false });
+      });
+  };
+
     componentDidMount = () => {
         this.getAllkyc()
         this.getDoctors();
+        this.getallGroups();
     }
 
     handleOpenCreate = () => {
@@ -199,6 +240,68 @@ class Index extends Component {
         this.setState({ MypatientsData: this.state.AllDoctor.slice((pageNumber - 1) * 10, pageNumber * 10), currentPage: pageNumber })
     }
 
+    assignHouse = (patient) => {
+        this.setState({openHouse: true, current_user: patient})
+      };
+    
+      closeHouse = () => {
+        this.setState({openHouse: false})
+      };
+    
+      updateEntryState1 = (value, name)=>{
+        this.setState({ house: value });
+      }
+    
+      SaveAssignHouse =()=>{
+        var userid = this.state.current_user._id;
+        this.setState({ loaderImage: true });
+        axios
+          .put(
+            sitedata.data.path +
+              `/hospitaladmin/assignedHouse/${userid}`,
+              this.state.house,
+            commonHeader(this.props.stateLoginValueAim.token)
+          )
+          .then((responce) => {
+            if (responce.data.hassuccessed) {
+                this.setState({assignedhouse: true})
+                setTimeout(()=>{
+                  this.setState({assignedhouse: false, openHouse: false,})
+                }, 5000)
+                this.getallGroups();
+            }
+            else{
+              this.setState({alredyExist: true})
+              setTimeout(()=>{
+                this.setState({alredyExist: false})
+              }, 5000)
+            }
+            this.setState({ loaderImage: false });
+          });
+        // /assignedHouse/:
+      }
+
+      deleteHouse=(deleteId)=>{
+        var userid = this.state.current_user._id;
+        this.setState({ loaderImage: true });
+        axios
+          .delete(
+            sitedata.data.path +
+              `/hospitaladmin/assignedHouse/${userid}/${deleteId}`,
+            commonHeader(this.props.stateLoginValueAim.token)
+          )
+          .then((responce) => {
+            if (responce.data.hassuccessed) {
+                this.setState({ deleteHouses: true})
+                setTimeout(()=>{
+                  this.setState({deleteHouses: false, openHouse: false})
+                }, 5000)
+                this.getallGroups();
+            }
+            this.setState({ loaderImage: false });
+          });
+      }
+
     render() {
         if (this.props.stateLoginValueAim.user.type != "hospitaladmin") {
             this.props.history.push("/")
@@ -217,7 +320,14 @@ class Index extends Component {
         let { capab_Doctors, add_new, srvc_Doctors, find_doctor, ID, Status, no_, recEmp_FirstName, Normal, Blocked,
             recEmp_LastName, imprint_Email, restore, Delete, see_detail, previous, next } = translate
         return (
-            <Grid className="homeBg">
+            <Grid className={
+                this.props.settings &&
+                  this.props.settings.setting &&
+                  this.props.settings.setting.mode &&
+                  this.props.settings.setting.mode === "dark"
+                  ? "homeBg darkTheme"
+                  : "homeBg"
+              }>
                 {this.state.loaderImage && <Loader />}
                 <Grid className="homeBgIner">
                     <Grid container direction="row" justify="center">
@@ -244,6 +354,16 @@ class Index extends Component {
                                         <Grid item xs={12} md={12}> <input onChange={this.search_user.bind(this)} type="text" placeholder={find_doctor} /></Grid>
                                         <img src={require('assets/images/InputField.svg')} alt="" title="" />
                                     </Grid>
+                                    {/* {this.state.assignedhouse && (
+                                        <div className="success_message">
+                                        House is assigned to doctor
+                                        </div>
+                                    )}
+                                        {this.state.deleteHouse && (
+                                        <div className="success_message">
+                                        House id deleted from the doctor
+                                        </div>
+                                    )} */}
                                     <Grid className="archvOpinionIner">
                                         <Table>
                                             <Thead>
@@ -259,7 +379,7 @@ class Index extends Component {
                                             <Tbody>
                                             {this.state.MypatientsData && this.state.MypatientsData.length>0 && this.state.MypatientsData.map((doctor, i) => (
                                                     <Tr>
-                                                          <Td>{((this.state.currentPage-1)*10) + i+1}</Td>
+                                                        <Td>{((this.state.currentPage-1)*10) + i+1}</Td>
                                                         <Td><img className="doctor_pic" src={doctor && doctor.image ? getImage(doctor.image, this.state.images) : require('assets/images/dr1.jpg')} alt="" title="" />
                                                             {doctor.first_name && doctor.first_name}</Td>
                                                         <Td>{doctor.last_name && doctor.last_name}</Td>
@@ -275,6 +395,18 @@ class Index extends Component {
                                                                 <ul>
                                                                     <li onClick={()=>this.openDetail(doctor)}><a><span><img src={require('assets/images/admin/details1.svg')} alt="" title="" /></span>{see_detail}</a></li>
                                                                     <li onClick={()=>this.BlockUser(doctor._id, doctor.isblock)}><a><span><img src={require('assets/images/admin/restoreIcon.png')} alt="" title="" /></span>{doctor.isblock && doctor.isblock == true ?'Unblock': 'Block'}</a></li>
+                                                                    <li onClick={() => this.assignHouse(doctor)}>
+                                                                        <a>
+                                                                            <span>
+                                                                            <img
+                                                                                src={require("assets/images/admin/details1.svg")}
+                                                                                alt=""
+                                                                                title=""
+                                                                            />
+                                                                            </span>
+                                                                            Assign House
+                                                                        </a>
+                                                                        </li>
                                                                     <li onClick={()=>this.submitDelete(doctor._id, doctor.profile_id, doctor.bucket)}><a><span><img src={require('assets/images/admin/delIcon.png')} alt="" title="" /></span>{Delete}</a></li>
                                                                 </ul>
                                                             </a>
@@ -304,6 +436,19 @@ class Index extends Component {
                                             </Grid>
                                         </Grid>
                                     </Grid>
+                                    <AssignedHouse
+                                        assignedhouse={this.state.assignedhouse}
+                                        deleteHouses={this.state.deleteHouses}
+                                        openHouse={this.state.openHouse}
+                                        currentHouses={this.state.currentHouses}
+                                        Housesoptions={this.state.Housesoptions}
+                                        current_user={this.state.current_user}
+                                        alredyExist={this.state.alredyExist}
+                                        closeHouse={this.closeHouse}
+                                        SaveAssignHouse={this.SaveAssignHouse}
+                                        deleteHouse={this.deleteHouse}
+                                        updateEntryState1={this.updateEntryState1}
+                                    />
                                     <ViewDetail openDetial={this.state.openDetial} CloseDetail={this.CloseDetail} patient_info={this.state.current_user}/>
                                 </Grid>
                             </Grid>
@@ -317,14 +462,14 @@ class Index extends Component {
 const mapStateToProps = (state) => {
     const { stateLoginValueAim, loadingaIndicatoranswerdetail } = state.LoginReducerAim;
     const { stateLanguageType } = state.LanguageReducer;
-    // const { settings } = state.Settings;
+    const { settings } = state.Settings;
     // const { Doctorsetget } = state.Doctorset;
     // const { catfil } = state.filterate;
     return {
         stateLanguageType,
         stateLoginValueAim,
         loadingaIndicatoranswerdetail,
-        // settings,
+        settings,
         //   Doctorsetget,
         //   catfil
     }

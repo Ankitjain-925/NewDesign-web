@@ -217,7 +217,14 @@ class Index extends Component {
             type, imprint_Email, restore, Delete, see_detail, previous, next, upload_documents, upload_a_doc, doc_successfully_uploaded, no_doc_selected } = translate
 
         return (
-            <Grid className="homeBg">
+            <Grid className={
+                this.props.settings &&
+                  this.props.settings.setting &&
+                  this.props.settings.setting.mode &&
+                  this.props.settings.setting.mode === "dark"
+                  ? "homeBg darkTheme"
+                  : "homeBg"
+              }>
                 {this.state.loaderImage && <Loader />}
                 <Grid className="homeBgIner">
                     <Grid container direction="row" justify="center">
@@ -302,7 +309,15 @@ class Index extends Component {
                         <Modal
                             style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
                             open={this.state.openDocUploadModel}
-                            onClose={() => this.setState({ openDocUploadModel: false })}>
+                            onClose={() => this.setState({ openDocUploadModel: false })}
+                            className={
+                                this.props.settings &&
+                                  this.props.settings.setting &&
+                                  this.props.settings.setting.mode &&
+                                  this.props.settings.setting.mode === "dark"
+                                  ? "darkTheme"
+                                  : ""
+                              }>
                             <Grid className="LanguageBoxMain">
                                 <Grid className="nwPresCourse">
                                     <Grid className="nwPresCloseBtn nwEntrCloseBtnAdd">
@@ -339,7 +354,14 @@ class Index extends Component {
                 <Modal
                     open={this.state.openPres}
                     onClose={this.handleClosePres}
-                    className="presBoxModel">
+                    className={
+                        this.props.settings &&
+                        this.props.settings.setting &&
+                        this.props.settings.setting.mode &&
+                        this.props.settings.setting.mode === "dark"
+                          ? "darkTheme presBoxModel"
+                          : "presBoxModel"
+                      }>
                     <Grid className="presBoxCntnt">
                         <Grid className="presCourse">
                             <Grid className="presCloseBtn nwEntrCloseBtnAdd">
@@ -373,14 +395,14 @@ class Index extends Component {
 const mapStateToProps = (state) => {
     const { stateLoginValueAim, loadingaIndicatoranswerdetail } = state.LoginReducerAim;
     const { stateLanguageType } = state.LanguageReducer;
-    // const { settings } = state.Settings;
+    const { settings } = state.Settings;
     // const { Doctorsetget } = state.Doctorset;
     // const { catfil } = state.filterate;
     return {
         stateLanguageType,
         stateLoginValueAim,
         loadingaIndicatoranswerdetail,
-        // settings,
+        settings,
         //   Doctorsetget,
         //   catfil
     }

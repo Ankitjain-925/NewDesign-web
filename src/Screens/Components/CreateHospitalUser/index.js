@@ -25,11 +25,13 @@ const specialistOptions = [
     {label : 'Patient', value : 'patient'},
     {label : 'Doctor', value : 'doctor'},
     {label : 'Nurse', value : 'nurse'},
+    {label : 'Admin staff', value : 'adminstaff'},
 ]
 const specialistOptionsGerman = [
     {label : 'Geduldig', value : 'patient'},
     {label : 'Ärztin', value : 'doctor'},
     {label : 'Krankenschwester', value : 'nurse'},
+    {label : 'Verwaltungspersonal', value : 'adminstaff'},
 ]
 //Values for the validate Password
 var letter = /([a-zA-Z])+([ -~])*/, number = /\d+/, specialchar = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
@@ -122,6 +124,10 @@ class Index extends Component {
         {
             this.setState({specialistOption :  {label : this.props.stateLanguageType==='en' ?'Nurse':'Krankenschwester', value : 'nurse'}, CreateUsers : {type: 'nurse'}})
         }
+        if(this.props.openBy ==='adminstaff')
+        {
+            this.setState({specialistOption :  {label : this.props.stateLanguageType==='en' ?'Admin staff':'Verwaltungspersonal', value : 'adminstaff'}, CreateUsers : {type: 'adminstaff'}})
+        }
         this.getAllinst();
     }
 
@@ -200,6 +206,7 @@ class Index extends Component {
                                                     if(UserType ==='patient'){this.props.history.push("/h-patients")}
                                                     else if(UserType ==='doctor'){this.props.history.push("/h-doctors")}
                                                     else if(UserType ==='nurse'){this.props.history.push("/h-nurses")}
+                                                    else if(UserType ==='adminstaff'){this.props.history.push("/h-staff")}
                                                 },2000
                                             )
                                         }
@@ -231,7 +238,7 @@ class Index extends Component {
     }
 
     //For cancel the User
-    CreateUserCancel() {
+    CreateUserCancel=() =>{
         this.setState({ CreateUsers: {} });
         this.props.handleCloseCreate();
     }
@@ -256,7 +263,15 @@ class Index extends Component {
             <Modal
             open={this.state.addCreate}
             onClose={this.handleCloseCreate}>
-            <Grid className="nwEntrCntnt HospitalAdd">
+                 <Grid  className={
+        this.props.settings &&
+        this.props.settings.setting &&
+        this.props.settings.setting.mode &&
+        this.props.settings.setting.mode === "dark"
+          ? "nwEntrCntnt HospitalAdd darkTheme"
+          : "nwEntrCntnt HospitalAdd"
+      }
+      >
 
                 <Grid className="nwEntrCntntIner">
                     <Grid className="nwEntrCourse">
@@ -420,14 +435,14 @@ class Index extends Component {
 const mapStateToProps = (state) => {
     const { stateLoginValueAim, loadingaIndicatoranswerdetail } = state.LoginReducerAim ? state.LoginReducerAim : {};
     const { stateLanguageType } = state.LanguageReducer;
-    // const { settings } = state.Settings;
+     const { settings } = state.Settings;
     // const {Doctorsetget} = state.Doctorset;
     // const {catfil} = state.filterate;
     return {
         stateLanguageType,
         stateLoginValueAim,
         loadingaIndicatoranswerdetail,
-        // settings,
+        settings,
         //   Doctorsetget,
         //   catfil
     }

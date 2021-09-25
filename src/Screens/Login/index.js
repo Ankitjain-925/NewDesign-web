@@ -28,7 +28,9 @@ import * as actions from "Screens/Components/CometChat/store/action";
 import Toggle from "react-toggle";
 import queryString from "query-string";
 import Loader from "Screens/Components/Loader/index";
+import Virtualindex from "Screens/VirtualHospital/Statistics/index";
 const path = sitedata.data.path + "/UserProfile";
+
 
 class Index extends Component {
   constructor(props) {
@@ -69,6 +71,7 @@ class Index extends Component {
   //         this.setState({ dropDownValue: this.props.stateLanguageType })
   //     }
   // }
+  
   componentDidMount = () => {
     actions.logout();
     this.logoutUser();
@@ -140,7 +143,7 @@ class Index extends Component {
     return emailPattern.test(elementValue);
   };
 
-  //Send email and Password to login
+  //Send email and Password to login`
   BtnSubmit = () => {
     this.setState({
       loginError: false,
@@ -175,7 +178,7 @@ class Index extends Component {
     } else {
       this.setState({ loginError9: true });
     }
-  };
+  }
 
   //For verify the code of Authy
   Verifycode = () => {
@@ -280,6 +283,20 @@ class Index extends Component {
         return <Redirect to={"/doctor"} />;
       } else {
         return <Redirect to={"/doctor"} />;
+      }
+    }
+
+
+
+    if (
+      stateLoginValueAim.token !== 450 &&
+      stateLoginValueAim.user.type === "adminstaff" &&
+      this.props.verifyCode.code
+    ) {
+      if (stateLoginValueAim.kyc) {
+        return <Redirect to={"/VirtualHospital/institutes"} />;
+      } else {
+        return <Redirect to={"/VirtualHospital/institutes"} />;
       }
     }
     if (
@@ -658,4 +675,4 @@ export default connect(mapStateToProps, {
   OptionList
 })(Index);
 
-// export default Index;
+// / export default Index;

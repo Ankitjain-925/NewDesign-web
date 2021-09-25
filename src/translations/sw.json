@@ -1206,6 +1206,7 @@
 		"delete_your_account":"Futa Akaunti Yako",
       	"delete_account":"Futa Akaunti",
 		"ConversationList" :"Orodha ya Mazungumzo",
-		"ContactList" :"Contact List"
+		"ContactList" :"Orodha ya Mawasiliano",
+		"searchingLoading" : "Utafutaji unapakia ..."
 	}
 }
