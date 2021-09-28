@@ -6548,7 +6548,7 @@ button.downloadPDF:hover {
 .rvewFilesinner {
     height: 537px;
     overflow-y: scroll;
-    padding: 20px 0px;
+    /* padding: 20px 0px; */
 }
 .rvewFilesiner {
     padding: 38px 28px 12px 28px;
@@ -9036,6 +9036,93 @@ button.crdoLghtBlu2 {
 }
   /* Adding by ankit */
 
+  .labelChoice{
+      text-align: left;
+  }
+
+  .taskDescp textarea {
+    border: 1px solid #BFC1C1;
+    border-radius: 4px;
+    background-color: #FFFFFF;
+    padding: 7px 6px;
+    outline: none;
+    width: 100%;
+    color: #000808;
+    font-family: 'Mulish', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: 18px;
+    min-height: 121px;
+}
+
+  .MuiCheckbox-colorSecondary.Mui-checked{
+      color: #006400!important;
+  }
+
+  .cnfrmDiaMain{
+    padding: 22px 25px 0px 24px!important;
+  }
+
+  .questionnairedesc{
+
+        box-sizing: border-box;
+        height: 121px;
+        width: 518px;
+        border: 1px solid #BFC1C1;
+        border-radius: 4px;
+        background-color: #FFFFFF;
+        }
+  
+
+   .questionfieldprop{
+       margin-top:20px;
+   }
+
+  .infoSub2 {
+    border-radius: 8px;
+    background-color: #00ABAF;
+    border: none;
+    color: #FFFFFF;
+    font-family: Muli;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 0;
+    line-height: 16px;
+    text-align: center;
+    /* width: 100%; */
+    outline: none;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 0px;
+}
+
+
+  .add_a_choice
+  {
+      text-align: center;
+  }
+
+  .checkboxquestion
+  {
+    border-radius: 4px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 100%;
+  }
+
+  .checkboxques
+  {
+    background-color: #D3D3D3;
+    border-radius: 4px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 100%;
+  }
+  .MuiFormControlLabel-root{
+      margin-left:0px!important;
+  }
+
   .addServContnt {
     width: 580px;
     background: #fff;
@@ -9071,6 +9158,7 @@ button.crdoLghtBlu2 {
     margin-left: 30px;
     text-transform: capitalize;
 }
+
 .enterServMain {
     padding: 38px 12px 12px 28px;
 }
@@ -9086,16 +9174,18 @@ button.crdoLghtBlu2 {
     font-weight: bold;
 }
 
-.checkboxprop
-{
+.checkboxprop {
     background-color: #D3D3D3;
-    margin-right: 20px;
+    margin-right: 20px; 
+    border-radius: 4px;
 }
+
   .checkboxprop label {
     margin-left: 0px!important;
 }
   .checkboxprop .MuiCheckbox-root {
     color: #808080  !important;
+    margin-top: 0px !important;
    
 }
     .flowInfo1 {
@@ -9657,6 +9747,14 @@ button.crdoLghtBlu2 {
     border-bottom: none;
 }
 /* Added by Ankita */
+
+.nwModelCloseBtn {
+    text-align: right;
+    /* margin-bottom: 4px; */
+    margin-right: 20px;
+    margin-top: 20px
+
+}
 .assignSec img{
     cursor: pointer;
 }
@@ -10299,7 +10397,7 @@ ul.patientHint li {
     background-color: #192020;
 }
 
-.questionborder {
+/* .questionborder {
     border-style: ridge;
     border-width: 2px;
     margin-top: 0px;
@@ -10307,9 +10405,9 @@ ul.patientHint li {
     margin-right: 10px;
     margin-left: 10px;
     border-radius: 5px;
-  }
+  } */
 
-  .add_a_question a {
+  /* .add_a_question a {
     color: #00ABAF !important;
     font-family: Muli;
     font-size: 12px;
@@ -10318,7 +10416,7 @@ ul.patientHint li {
     line-height: 16px;
     text-align: center;
     margin-left: 10px;
-}
+} */
 
 .remove_a_question a {
     color: #ff0000 !important;

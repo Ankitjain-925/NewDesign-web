@@ -591,7 +591,7 @@ class Index extends Component {
                                                                         {/* <Grid className="asignUpr">
                                                                             <Grid className="asignLft"> */}
 
-                                                                        <Grid className="nwModCloseBtn">
+                                                                        <Grid className="nwModelCloseBtn">
                                                                             <a onClick={this.handleCloseTask}><img src={require("assets/images/close-search.svg")} alt="" title="" />
                                                                             </a>
                                                                         </Grid>
