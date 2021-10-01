@@ -25,6 +25,9 @@ import Button from "@material-ui/core/Button";
 import LeftMenu from "Screens/Components/Menus/VirtualHospitalMenu/index";
 import LeftMenuMobile from "Screens/Components/Menus/VirtualHospitalMenu/mobile";
 import _ from 'lodash';
+import {
+  getLanguage
+}from "translations/index"
 
 const options = [
   { value: "data1", label: "Data1" },
@@ -282,6 +285,8 @@ class Index extends Component {
   }
 
   render() {
+    let translate = getLanguage(this.props.stateLanguageType);
+    let {PatientFlow, AddPatienttoFlow, PatientID, PatientPIN, CaseNumber} = translate;
     const { selectedOption } = this.state;
     return (
       <Grid
@@ -311,7 +316,7 @@ class Index extends Component {
                     <Grid className="addFlow">
                       <Grid container direction="row" justify="center">
                         <Grid item xs={12} sm={6} md={6}>
-                          <h1>Patient Flow</h1>
+                          <h1>{PatientFlow}</h1>
                         </Grid>
                         <Grid
                           item
@@ -423,7 +428,7 @@ class Index extends Component {
                     />
                   </a>
                 </Grid>
-                <label>Add Patient to Flow</label>
+                <label>{AddPatienttoFlow}</label>
               </Grid>
               <Grid className="patentInfo">
                 {this.state.caseAlready &&
@@ -436,19 +441,19 @@ class Index extends Component {
                 </div>}
                 <Grid className="patentInfoTxt">
                   <Grid>
-                    <label>Patient ID</label>
+                    <label>{PatientID}</label>
                   </Grid>
                   <TextField name="patient_id" value={this.state.addp.patient_id} onChange={this.changeAddp}/>
                 </Grid>
                 <Grid className="patentInfoTxt">
                   <Grid>
-                    <label>Patient PIN</label>
+                    <label>{PatientPIN}</label>
                   </Grid>
                   <TextField name="pin" value={this.state.addp.pin} onChange={this.changeAddp}/>
                 </Grid>
                 <Grid className="patentInfoTxt">
                   <Grid>
-                    <label>Case Number</label>
+                    <label>{CaseNumber}</label>
                   </Grid>
                   <TextField name="case_number" value={this.state.case.case_number} onChange={this.onChangeCase}/>
                 </Grid>

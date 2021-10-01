@@ -7,6 +7,10 @@ import SwiperCore, { Pagination } from 'swiper/core';
 import SpecialityList from "Screens/Components/VirtualHospitalComponents/SpecialityList/index";
 import SpecialityButton from "Screens/Components/VirtualHospitalComponents/SpecialityButton/index";
 import { data } from 'sitedata';
+import {
+    getLanguage
+  }from "translations/index"
+  
 SwiperCore.use([Pagination]);
 var new_data = [{
     speciality_name: 'Cardiology', color: "#EE5253", backgroundColor: "#FBD4D4",
@@ -25,6 +29,8 @@ var new_data1 = [{
 
 class Index extends Component {
     render() {
+        let translate = getLanguage(this.props.stateLanguageType);
+        let {GermanMedicalCenterFZLLC, Neurology, AdultsWard, SpaceManagement} = translate;
         return (
             <Grid className="homeBg">
                 <Grid className="homeBgIner">
@@ -48,9 +54,9 @@ class Index extends Component {
                                                 <Grid item xs={9} md={9}>
                                                     <Grid className="roomBreadCrumb roomBreadCrumbMob">
                                                         <ul>
-                                                            <li><a><span>Institution</span><label>German Medical Center FZ-LLC</label></a></li>
-                                       t                     <li><a><span>Speciality</span><label>Neurology</label></a></li>
-                                                            <li><a><span>Ward</span><label>Adults Ward</label></a></li>
+                                                            <li><a><span>Institution</span><label>{GermanMedicalCenterFZLLC}</label></a></li>
+                                       t                     <li><a><span>Speciality</span><label>{Neurology}</label></a></li>
+                                                            <li><a><span>Ward</span><label>{AdultsWard}</label></a></li>
                                                         </ul>
                                                     </Grid>
                                                 </Grid>
@@ -63,16 +69,16 @@ class Index extends Component {
                                             </Grid>
                                         </Grid>
                                         <Grid className="spcMgnt">
-                                            <h1>Space Management</h1>
+                                            <h1>{SpaceManagement}</h1>
                                         </Grid>
                                         <Grid className="breadCrumbUpr breadCrumbUprWeb">
                                             <Grid container direction="row" alignItems="center">
                                                 <Grid item xs={9} md={9}>
                                                     <Grid className="roomBreadCrumb">
                                                         <ul>
-                                                            <li><a><span>Institution</span><label>German Medical Center FZ-LLC</label></a></li>
-                                                            <li><a><span>Speciality</span><label>Neurology</label></a></li>
-                                                            <li><a><span>Ward</span><label>Adults Ward</label></a></li>
+                                                            <li><a><span>Institution</span><label>{GermanMedicalCenterFZLLC}</label></a></li>
+                                                            <li><a><span>Speciality</span><label>{Neurology}</label></a></li>
+                                                            <li><a><span>Ward</span><label>{AdultsWard}</label></a></li>
                                                         </ul>
                                                     </Grid>
                                                 </Grid>

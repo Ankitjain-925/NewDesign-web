@@ -53,12 +53,8 @@
     "react-resizable": "^1.11.1",
     "react-resizable-custom": "^1.8.5",
     "react-router-dom": "^5.1.2",
-<<<<<<< HEAD
-    "react-scripts": "^3.4.4",
-=======
     "react-scripts": "^3.4.1",
     "react-scrollbar": "^0.5.6",
->>>>>>> 0c0b83c63c7d7e874c4896a69f94f80075918e31
     "react-select": "^3.1.0",
     "react-select-country-list": "^2.2.1",
     "react-stripe-checkout": "^2.6.3",

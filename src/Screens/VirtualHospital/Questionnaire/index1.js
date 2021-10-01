@@ -498,7 +498,7 @@ class Index extends Component {
                                                                 {/* </Td> */}
                                                             </Tr>
 
-                                                            {/* <Tr>
+                                                            /* <Tr>
                                                                 <Td>
                                                                     <label>MRI</label>
                                                                     <p>This can be a short description of this service.</p>
