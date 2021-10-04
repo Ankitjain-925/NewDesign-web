@@ -23,6 +23,7 @@ import VaccinationTrialView from "../VaccinationTrialView/index";
 import SOView from "../SOView/index";
 import SCView from "../SCView/index";
 import RespirationView from "../respirationView/index";
+import CovidSymptomsView from "../CovidSymptomsView/index";
 import { overView } from "Screens/Login/journalviewaction";
 import { pure } from "recompose";
 class Index extends Component {
@@ -490,6 +491,27 @@ class Index extends Component {
         )}
         {item.type === "respiration" && (
           <RespirationView
+            onlyOverview={this.props.Overview}
+            list={this.props.Pressuresituation}
+            TrackRecord={this.state.TrackRecord}
+            OpenGraph={(current_graph) => this.props.OpenGraph(current_graph)}
+            comesfrom={this.state.comesfrom}
+            downloadTrack={(data) => this.props.downloadTrack(data)}
+            images={this.state.images}
+            Archive={this.state.Archive}
+            DeleteTrack={(deleteKey) => this.props.DeleteTrack(deleteKey)}
+            ArchiveTrack={(data) => this.props.ArchiveTrack(data)}
+            EidtOption={(value, updateTrack, visibility) =>
+              this.props.EidtOption(value, updateTrack, visibility)
+            }
+            data={item}
+            loggedinUser={this.state.loggedinUser}
+            date_format={this.props.date_format}
+            time_format={this.props.time_format}
+          />
+        )}
+        {item.type === "long_covid" && (
+          <CovidSymptomsView
             onlyOverview={this.props.Overview}
             list={this.props.Pressuresituation}
             TrackRecord={this.state.TrackRecord}

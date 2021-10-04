@@ -214,42 +214,18 @@ class PointPain extends Component {
                     </a>
                   </Grid>
                   <Grid className="clear"></Grid>
-                  {this.state.openBy !== "patient" && (
-                    <Grid>
-                      <a onClick={() => this.handleChangeEntry("file_upload")}>
-                        {this.state.openBy !== "patient" ? (
-                          <span>11</span>
-                        ) : (
-                          <span>10</span>
-                        )}
-                        <p>{file_uplod}</p>
-                      </a>
-                    </Grid>
-                  )}
-                  {this.state.openBy !== "patient" && (
-                    <Grid className="clear"></Grid>
-                  )}
-                  {/* {this.state.openBy !=='patient' && <Grid><a onClick={()=>this.handleChangeEntry('hospitalization')}>{this.state.openBy !=='patient' ? <span>11</span>: <span>10</span> }<p>{hosp_visit}</p></a></Grid>}
-                                    {this.state.openBy !=='patient' && <Grid className="clear"></Grid>} */}
-                </Grid>
-              </Grid>
-              <Grid item xs={12} sm={6} md={6}>
-                <Grid className="checkHelthLbl">
-                  {this.state.openBy === "patient" && (
-                    <Grid>
-                      <a onClick={() => this.handleChangeEntry("file_upload")}>
-                        {this.state.openBy !== "patient" ? (
-                          <span>11</span>
-                        ) : (
-                          <span>10</span>
-                        )}
-                        <p>{file_uplod}</p>
-                      </a>
-                    </Grid>
-                  )}
-                  {this.state.openBy === "patient" && (
-                    <Grid className="clear"></Grid>
-                  )}
+                  <Grid>
+                    <a onClick={() => this.handleChangeEntry("file_upload")}>
+                      {this.state.openBy !== "patient" ? (
+                        <span>11</span>
+                      ) : (
+                        <span>10</span>
+                      )}
+                      <p>{file_uplod}</p>
+                    </a>
+                  </Grid>
+                  <Grid className="clear"></Grid>
+                  {this.state.openBy !== "patient" &&
                   <Grid>
                     <a
                       onClick={() => this.handleChangeEntry("hospitalization")}
@@ -262,7 +238,33 @@ class PointPain extends Component {
                       <p>{hosp_visit}</p>
                     </a>
                   </Grid>
-                  <Grid className="clear"></Grid>
+                  }
+                  {this.state.openBy !== "patient" &&
+                    <Grid className="clear"></Grid>
+                  }
+                  {/* {this.state.openBy !=='patient' && <Grid><a onClick={()=>this.handleChangeEntry('hospitalization')}>{this.state.openBy !=='patient' ? <span>11</span>: <span>10</span> }<p>{hosp_visit}</p></a></Grid>}
+                                    {this.state.openBy !=='patient' && <Grid className="clear"></Grid>} */}
+                </Grid>
+              </Grid>
+              <Grid item xs={12} sm={6} md={6}>
+                <Grid className="checkHelthLbl">
+                {this.state.openBy === "patient" &&
+                  <Grid>
+                    <a
+                      onClick={() => this.handleChangeEntry("hospitalization")}
+                    >
+                      {this.state.openBy !== "patient" ? (
+                        <span>12</span>
+                      ) : (
+                        <span>11</span>
+                      )}
+                      <p>{hosp_visit}</p>
+                    </a>
+                  </Grid>
+                  }
+                  {this.state.openBy === "patient" &&
+                    <Grid className="clear"></Grid>
+                  }
                   <Grid>
                     <a
                       onClick={() =>
@@ -279,11 +281,26 @@ class PointPain extends Component {
                   </Grid>
                   <Grid className="clear"></Grid>
                   <Grid>
-                    <a onClick={() => this.handleChangeEntry("marcumar_pass")}>
+                    <a
+                      onClick={() =>
+                        this.handleChangeEntry("long_covid")
+                      }
+                    >
                       {this.state.openBy !== "patient" ? (
                         <span>14</span>
                       ) : (
                         <span>13</span>
+                      )}
+                      <p>{"Long-Covid observation"}</p>
+                    </a>
+                  </Grid>
+                  <Grid className="clear"></Grid>
+                  <Grid>
+                    <a onClick={() => this.handleChangeEntry("marcumar_pass")}>
+                      {this.state.openBy !== "patient" ? (
+                        <span>15</span>
+                      ) : (
+                        <span>14</span>
                       )}
                       <p>{marcumar_pass}</p>
                     </a>
@@ -292,9 +309,9 @@ class PointPain extends Component {
                   <Grid>
                     <a onClick={() => this.handleChangeEntry("medication")}>
                       {this.state.openBy !== "patient" ? (
-                        <span>15</span>
+                        <span>16</span>
                       ) : (
-                        <span>14</span>
+                        <span>15</span>
                       )}
                       <p>{medication}</p>
                     </a>
@@ -314,9 +331,9 @@ class PointPain extends Component {
                   <Grid>
                     <a onClick={() => this.handleChangeEntry("respiration")}>
                       {this.state.openBy !== "patient" ? (
-                        <span>17</span>
+                        <span>18</span>
                       ) : (
-                        <span>15</span>
+                        <span>16</span>
                       )}
                       <p>{respiration}</p>
                     </a>
@@ -353,9 +370,9 @@ class PointPain extends Component {
                   <Grid>
                     <a onClick={() => this.handleChangeEntry("smoking_status")}>
                       {this.state.openBy !== "patient" ? (
-                        <span>20</span>
+                        <span>21</span>
                       ) : (
-                        <span>16</span>
+                        <span>17</span>
                       )}
                       <p>{smoking_status}</p>
                     </a>
@@ -364,9 +381,9 @@ class PointPain extends Component {
                   <Grid>
                     <a onClick={() => this.handleChangeEntry("vaccination")}>
                       {this.state.openBy !== "patient" ? (
-                        <span>21</span>
+                        <span>22</span>
                       ) : (
-                        <span>17</span>
+                        <span>18</span>
                       )}
                       <p>{vaccination}</p>
                     </a>
@@ -375,9 +392,9 @@ class PointPain extends Component {
                   <Grid>
                     <a onClick={() => this.handleChangeEntry("weight_bmi")}>
                       {this.state.openBy !== "patient" ? (
-                        <span>22</span>
+                        <span>23</span>
                       ) : (
-                        <span>18</span>
+                        <span>19</span>
                       )}
                       <p>{weight_bmi}</p>
                     </a>

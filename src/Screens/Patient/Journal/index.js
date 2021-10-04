@@ -45,6 +45,7 @@ import DiaryFields from "Screens/Components/TimelineComponent/DiaryFields/index"
 import VaccinationTrialFields from "Screens/Components/TimelineComponent/VaccinationTrialFields/index";
 import AllL_Ps from "../../Components/Parameters/parameter.js";
 import LRFields from "Screens/Components/TimelineComponent/LRFields/index";
+import CovidSymptomsField from "Screens/Components/TimelineComponent/CovidSymptomsField/index";
 import FUFields from "Screens/Components/TimelineComponent/FUFields/index";
 import FAFields from "Screens/Components/TimelineComponent/FAFields/index";
 import npmCountryList from "react-select-country-list";
@@ -1035,6 +1036,7 @@ class Index extends Component {
     }
     let translate = getLanguage(this.props.stateLanguageType)
     let {
+      long_covid,
       add_new_entry,
       new_entry,
       blood_pressure,
@@ -1286,6 +1288,9 @@ class Index extends Component {
                                     <option value="laboratory_result">
                                       {lab_result}
                                     </option>
+                                    <option value="long_covid">
+                                     {long_covid}
+                                    </option>
                                     <option value="marcumar_pass">
                                       {marcumar_pass}
                                     </option>
@@ -1370,6 +1375,12 @@ class Index extends Component {
                                   "laboratory_result" && (
                                     <Grid className="nwDiaSel1">
                                       {lab_result}
+                                    </Grid>
+                                  )}
+                                  {this.state.current_select ===
+                                  "long_covid" && (
+                                    <Grid className="nwDiaSel1">
+                                     {long_covid}
                                     </Grid>
                                   )}
                                 {this.state.current_select ===
@@ -1653,6 +1664,32 @@ class Index extends Component {
                                   FileAttachMulti={this.FileAttachMulti}
                                   visibility={this.state.visibility}
                                   comesfrom="patient"
+                                  GetHideShow={this.GetHideShow}
+                                  AddTrack={this.AddTrack}
+                                  options={this.state.AllSpecialty}
+                                  date_format={
+                                    this.props.settings.setting.date_format
+                                  }
+                                  time_format={
+                                    this.props.settings.setting.time_format
+                                  }
+                                  updateEntryState={this.updateEntryState}
+                                  updateEntryState1={this.updateEntryState1}
+                                  updateTrack={this.state.updateTrack}
+                                />
+                              )}
+                              {this.state.current_select ===
+                              "long_covid" && (
+                                <CovidSymptomsField
+                                  cur_one={this.state.cur_one}
+                                  FileAttachMulti={this.FileAttachMulti}
+                                  visibility={this.state.visibility}
+                                  comesfrom="patient"
+                                  lrpUnit={AllL_Ps.AllL_Ps.units}
+                                  lrpEnglish={GetLanguageDropdown(
+                                    AllL_Ps.AllL_Ps.english,
+                                    this.props.stateLanguageType
+                                  )}
                                   GetHideShow={this.GetHideShow}
                                   AddTrack={this.AddTrack}
                                   options={this.state.AllSpecialty}
