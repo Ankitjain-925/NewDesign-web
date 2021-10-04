@@ -1268,7 +1268,25 @@
 		"InvoiceID":"Invoice ID",
 		"Status":"Status",
 		"Xray":"X-ray",
-		"CTScan":"CT Scan"
+		"CTScan":"CT Scan",
+		"BacktoPatientFlow":"Back to PatientFlow",
+		"NewEntry":"+ New Entry",
+		"NewTask":" + New Task",
+		"Editinfo":"Edit info",
+		"More":"More",
+		"MedicalStaff":"Medical Staff",
+		"CompletedTasks":"Completed Tasks",
+		"DocumentsFiles":"Documents / Files",
+		"Issued":"Issued",
+		"Weight":"Weight",
+		"Height":"Height",
+		"BloodPressure":"BloodPressure",
+		"Lastdoctorvisits":"Last doctor visits",
+		"Upcomingappointment":"Upcoming appointment",
+		"LastDocuments":"Last Documents",
+		"Prescription":"Prescription"
+		
+
 
 
 

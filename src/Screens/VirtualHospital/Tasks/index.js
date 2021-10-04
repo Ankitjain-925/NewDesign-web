@@ -223,7 +223,7 @@ class Index extends Component {
             });
     }
 
-    // get Add task data
+    //get Add task data
     getAddTaskData = () => {
         this.setState({ loaderImage: true });
         axios
@@ -242,6 +242,25 @@ class Index extends Component {
 
             });
     };
+
+    // getAddTaskData = () => {
+    //     this.setState({ loaderImage: true });
+    //     axios
+    //         .get(
+    //             sitedata.data.path + "/vh/PatientsTask/60113e84b488aa271effa411",
+    //             commonHeader(this.props.stateLoginValueAim.token)
+    //         )
+    //         .then((response) => {
+    //             this.setState({ AllTasks: response.data.data })
+    //             if (response.data.hassuccessed) {
+    //                 var Done = response.data.data?.length > 0 && response.data.data.filter((item) => item.status === "done")
+    //                 var Open = response.data.data?.length > 0 && response.data.data.filter((item) => item.status === "open")
+    //                 this.setState({ AllTasks: response.data.data, DoneTask: Done, OpenTask: Open })
+    //             }
+    //             this.setState({ loaderImage: false });
+
+    //         });
+    // };
 
     // For adding a date,time
     updateEntryState1 = (value, name) => {
