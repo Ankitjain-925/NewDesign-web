@@ -24,6 +24,10 @@ import { Speciality } from "Screens/Login/speciality.js";
 import SpecialityButton from "Screens/Components/VirtualHospitalComponents/SpecialityButton";
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
+import {
+  getLanguage
+}from "translations/index"
+
 class Index extends Component {
   constructor(props) {
     super(props);
@@ -255,6 +259,8 @@ class Index extends Component {
   };
 
   render() {
+    let translate = getLanguage(this.props.stateLanguageType);
+    let {Specialities, DeleteSpeciality, Iunderstandthat, AddSpeciality } = translate;
     const { stateLoginValueAim, House } = this.props;
     if (
       stateLoginValueAim.user === "undefined" ||
@@ -307,7 +313,7 @@ class Index extends Component {
                               </li>
                               <li>
                                 <a>
-                                  <label>Specialities</label>
+                                  <label>{Specialities}</label>
                                 </a>
                               </li>
                             </ul>
@@ -341,7 +347,7 @@ class Index extends Component {
                                 />
                               </a>
                             </Grid>
-                            <label>Delete Speciality</label>
+                            <label>{DeleteSpeciality}</label>
 
                             {this.state.showError && (
                               <div className="err_message">
@@ -359,7 +365,7 @@ class Index extends Component {
                                     title=""
                                   />
                                 </span>
-                                <label>I understand that:</label>
+                                <label>{Iunderstandthat}</label>
                               </Grid>
                               <Grid className="wardLine">
                                 <FormControlLabel
@@ -500,7 +506,7 @@ class Index extends Component {
                       </Grid>
                       <Grid>
                         {this.state.speciality._id ? <label>Edit <span className="spacemanageDel" onClick={() => { this.handleOpenWarn(this.state.speciality._id) }}><img src={require('assets/virtual_images/bin.svg')} alt="" title="" /> Delete Speciality</span></label> :
-                          <label>Add Speciality</label>}
+                          <label>{AddSpeciality}</label>}
                       </Grid>
                     </Grid>
                     <Grid className="enterSpclUpr">

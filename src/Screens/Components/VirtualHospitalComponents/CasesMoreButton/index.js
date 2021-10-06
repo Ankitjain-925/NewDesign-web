@@ -15,6 +15,10 @@ import axios from "axios";
 import sitedata from "sitedata";
 import { getSteps, AllWards, setWard, CurrentWard, AllRoom, CurrentRoom, setRoom, AllBed, CurrentBed } from "Screens/VirtualHospital/PatientFlow/data"; 
 import SelectField from "Screens/Components/Select/index";
+import {
+  getLanguage
+} from "translations/index"
+
 class Index extends React.Component {
     constructor(props) {
         super(props);
@@ -110,6 +114,8 @@ class Index extends React.Component {
     }
 
     render() {
+      let translate = getLanguage(this.props.stateLanguageType)
+      let {AddSpecialty, ChangeStaff, AssignWardRoom, MovePatient} = translate;
         return (
            <>
             {this.state.loaderImage && <Loader />}
@@ -131,7 +137,7 @@ class Index extends React.Component {
                             <div>
                             <Grid className="movHead">
                                <Grid onClick={()=>this.setState({firstsec: true, specialitysec : false })} className="movHeadLft"><a><img src={require('assets/virtual_images/arw1.png')} alt="" title="" /></a></Grid>
-                               <Grid  className="movHeadMid"><label>Add Specialty</label></Grid>
+                               <Grid  className="movHeadMid"><label>{AddSpecialty}</label></Grid>
                                <Grid className="movHeadRght"><a onClick={()=>this.setState({firstsec: true, specialitysec : false })}><img src={require('assets/virtual_images/closefancy.png')} alt="" title="" /></a></Grid>
                            </Grid>
                            <Grid className="positionDrop">
@@ -155,7 +161,7 @@ class Index extends React.Component {
                          <div>
                             <Grid className="movHead">
                                <Grid onClick={()=>this.setState({firstsec: true, changeStaffsec : false })} className="movHeadLft"><a><img src={require('assets/virtual_images/arw1.png')} alt="" title="" /></a></Grid>
-                               <Grid  className="movHeadMid"><label>Change Staff</label></Grid>
+                               <Grid  className="movHeadMid"><label>{ChangeStaff}</label></Grid>
                                <Grid className="movHeadRght"><a onClick={()=>this.setState({firstsec: true, changeStaffsec : false })}><img src={require('assets/virtual_images/closefancy.png')} alt="" title="" /></a></Grid>
                            </Grid>
                            <Grid className="positionDrop">
@@ -171,7 +177,7 @@ class Index extends React.Component {
                           <div>
                             <Grid className="movHead">
                                <Grid onClick={()=>this.setState({firstsec: true, assignroom : false })} className="movHeadLft"><a><img src={require('assets/virtual_images/arw1.png')} alt="" title="" /></a></Grid>
-                               <Grid  className="movHeadMid"><label>Assign Ward / Room</label></Grid>
+                               <Grid  className="movHeadMid"><label>{AssignWardRoom}</label></Grid>
                                <Grid className="movHeadRght"><a onClick={()=>this.setState({firstsec: true, assignroom : false })}><img src={require('assets/virtual_images/closefancy.png')} alt="" title="" /></a></Grid>
                            </Grid>
                            <Grid className="positionDrop">
@@ -220,7 +226,7 @@ class Index extends React.Component {
                              <div>
                                 <Grid className="movHead">
                                    <Grid onClick={()=>this.setState({firstsec: true, movepatsec : false })} className="movHeadLft"><a><img src={require('assets/virtual_images/arw1.png')} alt="" title="" /></a></Grid>
-                                   <Grid  className="movHeadMid"><label>Move Patient</label></Grid>
+                                   <Grid  className="movHeadMid"><label>{MovePatient}</label></Grid>
                                    <Grid className="movHeadRght"><a onClick={()=>this.setState({firstsec: true, movepatsec : false })}><img src={require('assets/virtual_images/closefancy.png')} alt="" title="" /></a></Grid>
                                </Grid>
                                <Grid className="positionDrop">

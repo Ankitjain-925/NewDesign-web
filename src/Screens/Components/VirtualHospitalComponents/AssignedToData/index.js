@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
 import Modal from "@material-ui/core/Modal";
 import Button from '@material-ui/core/Button';
+import {
+    getLanguage
+  } from "translations/index"
 
 var selectField_data = []
 
@@ -42,6 +45,8 @@ class Index extends React.Component {
 
 
     render() {
+        let translate = getLanguage(this.props.stateLanguageType)
+        let {AddTask} = translate;
         const { selectField_data } = this.state;
         return (
             <Modal
@@ -55,7 +60,7 @@ class Index extends React.Component {
                                 <img src={require('assets/virtual_images/closefancy.png')} alt="" title="" />
                             </a>
                         </Grid>
-                        <Grid><label>Add Task</label></Grid>
+                        <Grid><label>{AddTask}</label></Grid>
                         <Grid item xs={10} md={10}>
                             <select value={this.state.value} onChange={(e) => this.updateCommemtState(e)}>
                                 <option value="grapefruit">Grapefruit</option>

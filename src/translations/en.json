@@ -1208,6 +1208,97 @@
       	"delete_account":"Delete Account",
 		"ConversationList" :"Conversation List",
 		"ContactList" :"Contact List",
-		"searchingLoading" : "Search is loading..."
+		"searchingLoading" : "Search is loading...",
+
+
+
+
+		
+		
+		"Billing":"Billing",
+		"Institution":"Institution",
+		"Addservice":"Add service",
+		"Customservicetitle":"Custom service title",
+		"Customservicedescription":"Custom service description",
+		"GermanMedicalCenterFZ-LLC":"German Medical Center FZ-LLC",
+		"Neurology":"Neurology",
+		"AdultsWard":"Adults Ward",
+		"SpaceManagement":"Space Management",
+		"PatientFlow":"PatientFlow",
+		"AddPatienttoFlow":"Add Patient to Flow",
+		"PatientID":"Patient ID",
+		"PatientPIN":"Patient PIN",
+		"CaseNumber":"Case Number",
+		"AddQuestionnaire":"Add Questionnaire",
+		"EditQuestionnaire":"Edit Questionnaire",
+		"Addnewservice":"Add new service",
+		"Specialities":"Specialities",
+		"DeleteSpeciality":"Delete Speciality",
+		"Iunderstandthat:":"I understand that:",
+		"AddSpeciality":"Add Speciality",
+		"Lastmonth":"Last month",
+		"Examinations":"Examinations",
+		"Procedures":"Procedures",
+		"Appointments":"Appointments",
+		"WaitingRoom":"WaitingRoom",
+		"EmergencyRoom":"EmergencyRoom",
+		"Observation":"Observation",
+        "Tasks_overview" : "Tasks Overview",
+		"Open": "Open",
+		"Donetoday": "Done today",
+		"CreateaTask": "Create a Task",
+		"ForPatient": "For Patient",
+		"Taskdescription":"Task description",
+		"Assignedto":"Assigned to",
+		"Speciallity":"Speciallity",
+		"Dueon":"Due on",
+		"Duplicate":"Duplicate",
+		"Archive":"Archive",
+		"Markasdone":"Mark as done",
+		"Attachments":"Attachments",
+		"Roomname":"Roomname",              
+		"Bedsinroom":"Beds in room",
+		"AssignHouse":"Assign House",
+		"AddTask":"Add Task",
+		"AddSpecialty":"Add Specialty",
+		"ChangeStaff":"Change Staff",
+		"AssignWardRoom":"Assign Ward / Room",
+		"MovePatient":"Move Patient",
+		"Specialitycolor":"Speciality color",
+		"InvoiceID":"Invoice ID",
+		"Status":"Status",
+		"Xray":"X-ray",
+		"CTScan":"CT Scan",
+		"BacktoPatientFlow":"Back to PatientFlow",
+		"NewEntry":"+ New Entry",
+		"NewTask":" + New Task",
+		"Editinfo":"Edit info",
+		"More":"More",
+		"MedicalStaff":"Medical Staff",
+		"CompletedTasks":"Completed Tasks",
+		"DocumentsFiles":"Documents / Files",
+		"Issued":"Issued",
+		"Weight":"Weight",
+		"Height":"Height",
+		"BloodPressure":"BloodPressure",
+		"Lastdoctorvisits":"Last doctor visits",
+		"Upcomingappointment":"Upcoming appointment",
+		"LastDocuments":"Last Documents",
+		"Prescription":"Prescription"
+		
+
+
+
+
+
+				
+		
+		
+		
+
+	        
+		
+		
+
 	}
 }

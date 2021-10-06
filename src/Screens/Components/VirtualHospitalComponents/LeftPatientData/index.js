@@ -1,13 +1,19 @@
 import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
+import {
+    getLanguage
+  } from "translations/index"
+
 
 class Index extends Component {
     render() {
+        let translate = getLanguage(this.props.stateLanguageType);
+        let { BacktoPatientFlow, NewEntry, NewTask, Editinfo, More, MedicalStaff, CompletedTasks, DocumentsFiles, Assignedto, Entries, Billing, Issued, Weight,Height, BMI, Blood, BloodPressure, Lastdoctorvisits, Upcomingappointment, Neurology, LastDocuments, Prescription } = translate;
         return (
             <Grid className="asignStaf">
                 <Grid className="backFlow">
-                    <a><img src={require('assets/virtual_images/rightArrow.png')} alt="" title="" />Back to Patient Flow</a>
+                    <a><img src={require('assets/virtual_images/rightArrow.png')} alt="" title="" />{BacktoPatientFlow}</a>
                 </Grid>
                 <Grid className="asignStafInr">
                     <Grid className="newStaffUpr">
@@ -19,10 +25,10 @@ class Index extends Component {
                         </Grid>
                         <Grid className="entryInfo">
                           <ul>
-                            <li className="entryInfoActv"><img src={require('assets/virtual_images/newEntry.png')} alt="" title="" /><label>+ New Entry</label></li>
-                            <li><img src={require('assets/virtual_images/11.jpg')} alt="" title="" /><label>+ New Task</label></li>
-                            <li><img src={require('assets/virtual_images/pencil.jpg')} alt="" title="" /><label>Edit info</label></li>
-                            <li><img src={require('assets/virtual_images/dotBrdr.jpg')} alt="" title="" /><label>More</label></li>
+                            <li className="entryInfoActv"><img src={require('assets/virtual_images/newEntry.png')} alt="" title="" /><label>{+NewEntry}</label></li>
+                            <li><img src={require('assets/virtual_images/11.jpg')} alt="" title="" /><label>{+NewTask}</label></li>
+                            <li><img src={require('assets/virtual_images/pencil.jpg')} alt="" title="" /><label>{Editinfo}</label></li>
+                            <li><img src={require('assets/virtual_images/dotBrdr.jpg')} alt="" title="" /><label>{More}</label></li>
                           </ul>    
                         </Grid>
                        </Grid> 
@@ -34,7 +40,7 @@ class Index extends Component {
                                             <Grid container direction="row" alignItems="center">
                                                 <Grid item xs={6} md={8}>
                                                     <Grid className="mdclStaffLft">
-                                                        <Grid><label>Medical Staff</label></Grid>
+                                                        <Grid><label>{MedicalStaff}</label></Grid>
                                                     </Grid>
                                                 </Grid>
                                                 <Grid item xs={6} md={4}>
@@ -53,13 +59,13 @@ class Index extends Component {
                                     </Grid>
                                     <Grid item xs={12} md={12}>
                                         <Grid className="cmpleteTask">
-                                            <Grid><label>Completed Tasks</label></Grid>
+                                            <Grid><label>{CompletedTasks}</label></Grid>
                                             <p><span>1</span>/2</p>
                                         </Grid>
                                     </Grid>
                                     <Grid item xs={12} md={12}>
                                         <Grid className="cmpleteTask docsFile">
-                                            <Grid><label>Documents / Files</label></Grid>
+                                            <Grid><label>{DocumentsFiles}</label></Grid>
                                             <p>16</p>
                                         </Grid>
                                     </Grid>
@@ -70,7 +76,7 @@ class Index extends Component {
                                     <Grid className="assignTo">
                                         <Grid container direction="row">
                                             <Grid item xs={6} md={8}>
-                                                <Grid><label>Assigned to</label></Grid>
+                                                <Grid><label>{Assignedto}</label></Grid>
                                             </Grid>
                                             <Grid item xs={6} md={4}>
                                                 <Grid className="assignRght"><a><img src={require('assets/virtual_images/nav-more.svg')} alt="" title="" /></a></Grid>
@@ -94,7 +100,7 @@ class Index extends Component {
                                     </Grid>
                                     <Grid item xs={12} md={12}>
                                         <Grid className="cmpleteTask docsFile entrsSec">
-                                          <Grid><label>Entries</label></Grid><p>26</p>
+                                          <Grid><label>{Entries}</label></Grid><p>26</p>
                                         </Grid>
                                     </Grid>
                                 </Grid>
@@ -104,7 +110,7 @@ class Index extends Component {
                     <Grid className="bilingDocs">
                         <Grid container direction="row" alignItems="center">
                             <Grid item xs={6} md={6} className="billLbl">
-                                <label>Billing</label>
+                                <label>{Billing}</label>
                             </Grid>
                             <Grid item xs={6} md={6}>
                                 <Grid className="billImg">
@@ -120,7 +126,7 @@ class Index extends Component {
                                         <label>16/03/2020</label>
                                     </Grid>
                                     <Grid className="issuePrice">
-                                        <label className="isuLbl">Issued</label>
+                                        <label className="isuLbl">{Issued}</label>
                                         <label>240,00 €</label>
                                     </Grid>
                                 </Grid>
@@ -133,21 +139,21 @@ class Index extends Component {
                     <Grid className="profileDescp">
                         <Grid className="prfilHght">
                             <Grid className="prfilHghtLft">
-                                <label>Weight</label>
+                                <label>{Weight}</label>
                                 <p>60<span>kg</span></p>
                             </Grid>
                             <Grid className="prfilHghtRght">
-                                <label>Height</label>
+                                <label>{Height}</label>
                                 <p>177<span>cm</span></p>
                             </Grid>
                         </Grid>
                         <Grid className="prfilHght">
                             <Grid className="prfilHghtLft">
-                                <label>BMI</label>
+                                <label>{BMI}</label>
                                 <p>26.57</p>
                             </Grid>
                             <Grid className="prfilHghtRght">
-                                <label>Blood</label>
+                                <label>{Blood}</label>
                                 <p>-AB</p>
                             </Grid>
                         </Grid>
@@ -155,7 +161,7 @@ class Index extends Component {
                     <Grid className="persBlodMesur">
                         <Grid container direction="row" alignItems="center">
                             <Grid item xs={6} md={6} className="persBlod">
-                                <label>Blood Pressure</label>
+                                <label>{BloodPressure}</label>
                             </Grid>
                             <Grid item xs={6} md={6}>
                                 <Grid className="persBlodImg">
@@ -171,7 +177,7 @@ class Index extends Component {
                         </Grid>
                     </Grid>
                     <Grid className="drVisit">
-                        <h3>Last doctor visits</h3>
+                        <h3>{Lastdoctorvisits}</h3>
                         <Grid container direction="row" alignItems="center">
                             <Grid item xs={2} md={2}>
                                 <Grid className="drVisitImg">
@@ -202,7 +208,7 @@ class Index extends Component {
                     <Grid className="comeAppoint">
                         <Grid container direction="row" alignItems="center">
                             <Grid item xs={10} md={10}>
-                                <Grid className="upcomView"><label>Upcoming appointment</label> <a>View all</a></Grid>
+                                <Grid className="upcomView"><label>{Upcomingappointment}</label> <a>View all</a></Grid>
                             </Grid>
                             <Grid item xs={2} md={2}>
                                 <Grid className="allViewDots">
@@ -215,7 +221,7 @@ class Index extends Component {
                             <label>06/08/2020, 9:00 AM</label> <a><img src={require('assets/virtual_images/h2Logo.jpg')} alt="" title="" /> Office visit</a>
                         </Grid>
                         <Grid className="neuroSection">
-                            <h3>Neurology</h3>
+                            <h3>{Neurology}</h3>
                             <Grid><a><img src={require('assets/virtual_images/dr1.jpg')} alt="" title="" />Mark Anderson M.D. (Doctor)</a></Grid>
                             <Grid><a><img src={require('assets/virtual_images/h2Logo.jpg')} alt="" title="" />Illinois Masonic Medical Center</a></Grid>
                         </Grid>
@@ -224,7 +230,7 @@ class Index extends Component {
                         <Grid container direction="row" alignItems="center">
                             <Grid item xs={10} md={10}>
                                 <Grid className="lstView">
-                                    <label>Last Documents</label> <a>View all</a>
+                                    <label>{LastDocuments}</label> <a>View all</a>
                                 </Grid>
                             </Grid>
                             <Grid item xs={2} md={2}>
@@ -236,7 +242,7 @@ class Index extends Component {
                         </Grid>
                         <Grid className="presSec">
                             <a className="presSecAncr">
-                                <h4>Prescription</h4>
+                                <h4>{Prescription}</h4>
                                 <Grid container direction="row" alignItems="center" className="metroPro">
                                     <Grid item xs={6} md={6}><h5>Metoprolol</h5></Grid>
                                     <Grid item xs={6} md={6} className="metroPrOpen"><a>Open</a></Grid>

@@ -22,6 +22,10 @@ import Loader from "Screens/Components/Loader/index";
 import Pagination from "Screens/Components/Pagination/index";
 import AddHouses from "Screens/Components/VirtualHospitalComponents/AddRoom/AddHouses.js";
 import SelectField from "Screens/Components/Select/index";
+import {
+  getLanguage
+}from "translations/index"
+
 
 const options = [
   { value: "input", label: "Input" },
@@ -307,6 +311,8 @@ class Index extends Component {
   };
 
   render() {
+    let translate = getLanguage(this.props.stateLanguageType);
+    let {AddQuestionnaire, EditQuestionnaire } = translate;
     const { questions_data } = this.state;
     return (
       <Grid
@@ -374,7 +380,7 @@ class Index extends Component {
                                   </a>
                                 </Grid>
                                 <Grid>
-                                  <label>Add Questionnaire</label>
+                                  <label>{AddQuestionnaire}</label>
                                 </Grid>
                               </Grid>
                               {this.state.myQuestions &&
@@ -650,7 +656,7 @@ class Index extends Component {
                                   </a>
                                 </Grid>
                                 <Grid>
-                                  <label>Edit Questionnaire</label>
+                                  <label>{EditQuestionnaire}</label>
                                 </Grid>
                               </Grid>
                             

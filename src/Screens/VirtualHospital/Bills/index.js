@@ -23,6 +23,9 @@ import {
 import { authy } from 'Screens/Login/authy.js';
 import { houseSelect } from "../Institutes/selecthouseaction";
 import { Redirect, Route } from 'react-router-dom';
+import {
+    getLanguage
+  }from "translations/index"
 
 function TabContainer(props) {
     return (
@@ -45,6 +48,8 @@ class Index extends Component {
         this.setState({ value });
     };
     render() {
+        let translate = getLanguage(this.props.stateLanguageType);
+        let {Billing } = translate;
         const { value } = this.state;
         return (
             <Grid className={
@@ -71,7 +76,7 @@ class Index extends Component {
                                         <Grid container direction="row">
                                             <Grid item xs={6} md={6}>
                                                 <Grid className="extSetting">
-                                                    <h1>Billing</h1>
+                                                    <h1>{Billing}</h1>
                                                 </Grid>
                                             </Grid>
                                             <Grid item xs={6} md={6}>

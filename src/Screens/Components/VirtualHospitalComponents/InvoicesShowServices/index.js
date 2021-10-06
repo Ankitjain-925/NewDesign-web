@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
 import Button from '@material-ui/core/Button';
 import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
+import {
+    getLanguage
+  } from "translations/index"
 
 class Index extends React.Component {
     constructor(props) {
@@ -12,10 +15,12 @@ class Index extends React.Component {
     }
     }
     render() {
+        let translate = getLanguage(this.props.stateLanguageType)
+        let {Services, Xray, CTScan } = translate;
         return (
             <>
                 <Grid className="srvcTable">
-                    <h3>Services</h3>
+                    <h3>{Services}</h3>
                     <Table>
                         <Thead>
                             <Tr>
@@ -25,7 +30,7 @@ class Index extends React.Component {
                         <Tbody>
                             <Tr>
                                 <Td>
-                                    <label>X-ray</label>
+                                    <label>{Xray}</label>
                                     <p>This can be a short description of this service.</p>
                                 </Td>
                                 <Td>1</Td>
@@ -37,7 +42,7 @@ class Index extends React.Component {
                             </Tr>
                             <Tr>
                                 <Td>
-                                    <label>CT Scan</label>
+                                    <label>{CTScan}</label>
                                     <p>This can be a short description of this service.</p>
                                 </Td>
                                 <Td>15</Td>
@@ -49,7 +54,7 @@ class Index extends React.Component {
                             </Tr>
                             <Tr>
                                 <Td>
-                                    <label>X-ray</label>
+                                    <label>{Xray}</label>
                                     <p>This can be a short description of this service.</p>
                                 </Td>
                                 <Td>20</Td>
@@ -61,7 +66,7 @@ class Index extends React.Component {
                             </Tr>
                             <Tr>
                                 <Td>
-                                    <label>CT Scan</label>
+                                    <label>{CTScan}</label>
                                     <p>This can be a short description of this service.</p>
                                 </Td>
                                 <Td>15</Td>
@@ -73,7 +78,7 @@ class Index extends React.Component {
                             </Tr>
                             <Tr>
                                 <Td>
-                                    <label>X-ray</label>
+                                    <label>{Xray}</label>
                                     <p>This can be a short description of this service.</p>
                                 </Td>
                                 <Td>20</Td>

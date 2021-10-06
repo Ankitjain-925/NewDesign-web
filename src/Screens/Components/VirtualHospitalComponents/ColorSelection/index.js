@@ -2,6 +2,10 @@ import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 // import Switch, { Case, Default } from 'react-switch-case';
+import {
+  getLanguage
+} from "translations/index"
+
 
 var ColorOption = [
   { color: "#EE5253;", background_color: "#FBD4D4", className:"recodRed" },
@@ -56,6 +60,8 @@ class Index extends React.Component {
 
 
   render() {
+      let translate = getLanguage(this.props.stateLanguageType)
+      let {Specialitycolor} = translate;
     return (
       <>
         <Grid>
@@ -72,7 +78,7 @@ class Index extends React.Component {
                  />
                   {this.state.specialityColor &&
                     <ul className="subSpclList">
-                      <label>Speciality color</label>
+                      <label>{Specialitycolor}</label>
                       <li><a className="recodRed"><FiberManualRecordIcon onClick={() => this.colorChoice(0)} /></a></li>
                       <li><a className="recodLghtRed"><FiberManualRecordIcon onClick={() => this.colorChoice(1)} /></a></li>
                       <li><a className="recodYelow"><FiberManualRecordIcon onClick={() => this.colorChoice(2)} /></a></li>

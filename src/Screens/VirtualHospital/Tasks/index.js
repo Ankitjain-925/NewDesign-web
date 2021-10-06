@@ -36,6 +36,10 @@ import { confirmAlert } from "react-confirm-alert";
 import { S3Image } from "Screens/Components/GetS3Images/index";
 import TaskView from 'Screens/Components/VirtualHospitalComponents/TaskView/index';
 import Loader from "Screens/Components/Loader/index";
+import { translationRS } from 'translations/index';
+import {
+    getLanguage
+  }from "translations/index"
 
 var patientArray = [];
 
@@ -219,7 +223,7 @@ class Index extends Component {
             });
     }
 
-    // get Add task data
+    //get Add task data
     getAddTaskData = () => {
         this.setState({ loaderImage: true });
         axios
@@ -238,6 +242,25 @@ class Index extends Component {
 
             });
     };
+
+    // getAddTaskData = () => {
+    //     this.setState({ loaderImage: true });
+    //     axios
+    //         .get(
+    //             sitedata.data.path + "/vh/PatientsTask/60113e84b488aa271effa411",
+    //             commonHeader(this.props.stateLoginValueAim.token)
+    //         )
+    //         .then((response) => {
+    //             this.setState({ AllTasks: response.data.data })
+    //             if (response.data.hassuccessed) {
+    //                 var Done = response.data.data?.length > 0 && response.data.data.filter((item) => item.status === "done")
+    //                 var Open = response.data.data?.length > 0 && response.data.data.filter((item) => item.status === "open")
+    //                 this.setState({ AllTasks: response.data.data, DoneTask: Done, OpenTask: Open })
+    //             }
+    //             this.setState({ loaderImage: false });
+
+    //         });
+    // };
 
     // For adding a date,time
     updateEntryState1 = (value, name) => {
@@ -510,6 +533,8 @@ class Index extends Component {
   }
 
     render() {
+        let translate = getLanguage(this.props.stateLanguageType);
+        let {Tasks_overview, Open, Donetoday, CreateaTask , ForPatient, Taskdescription, Assignedto, Speciallity , Dueon , Duplicate , Archive , Markasdone , Attachments } = translate;      
         const { tabvalue, tabvalue2, professional_data, newTask, AllTasks } = this.state;
         const userList = this.state.filteredUsers && this.state.filteredUsers.map(user => {
             return (
@@ -546,21 +571,21 @@ class Index extends Component {
                                     <Grid container direction="row">
                                         <Grid item xs={12} md={2} className="tskOverWeb">
                                             <Grid className="tskOverView">
-                                                <h1>Tasks overview</h1>
+                                                <h1>{Tasks_overview}</h1>
                                                 <Grid className="taskNum taskYelow">
-                                                    <label><span></span>Open</label>
+                                                    <label><span></span>{Open}</label>
                                                     <p>13</p>
                                                 </Grid>
                                                 <Grid className="taskNum taskGren">
-                                                    <label><span></span>Done today</label>
+                                                    <label><span></span>{Donetoday}</label>
                                                     <p>63</p>
                                                 </Grid>
                                                 <Grid className="taskNum taskYelow">
-                                                    <label><span></span>Open</label>
+                                                    <label><span></span>{Open}</label>
                                                     <p>13</p>
                                                 </Grid>
                                                 <Grid className="taskNum taskGren">
-                                                    <label><span></span>Done today</label>
+                                                    <label><span></span>Donetoday</label>
                                                     <p>63</p>
                                                 </Grid>
                                                 <Grid className="showArchiv"><p onClick={() => { this.getArchived() }}><a>Show archived tasks</a></p></Grid>
@@ -603,7 +628,7 @@ class Index extends Component {
                                                                         <Grid className="creatLblClose">
                                                                             <a onClick={this.handleCloseTask}><img src={require('assets/virtual_images/closefancy.png')} alt="" title="" /></a>
                                                                         </Grid>
-                                                                        <label>Create a Task</label>
+                                                                        <label>{CreateaTask}</label>
                                                                       </Grid>
                                                                     </Grid>
                                                                     <Grid item xs={12} md={12} lg={12}>
@@ -624,7 +649,7 @@ class Index extends Component {
                                                                                     />
                                                                                     </Grid>
                                                                                     <Grid item xs={12} md={12}>
-                                                                                        <label>For Patient</label>
+                                                                                        <label>{ForPatient}</label>
                                                                                         <Grid><input type="text" placeholder={"Search & Select"} value={this.state.q} onChange={this.onChange} />
                                                                                             <ul className={this.state.shown && "patientHint"}>
                                                                                                 {userList}
@@ -637,14 +662,14 @@ class Index extends Component {
                                                                                      </Grid>  
                                                                                     </Grid>}
                                                                                     <Grid item xs={12} md={12} className="taskDescp">
-                                                                                        <label>Task description</label>
+                                                                                        <label>{Taskdescription}</label>
                                                                                         <Grid>
                                                                                             <textarea placeholder="Enter description" name="description" onChange={(e) => this.updateEntryState1(e.target.value, e.target.name)}
                                                                                         value={this.state.newTask.description}></textarea>
                                                                                         </Grid>
                                                                                     </Grid>
                                                                                     <Grid item xs={12} md={12}>
-                                                                                        <label>Assigned to</label>
+                                                                                        <label>{Assignedto}</label>
                                                                                         <Grid>
                                                                                         <Select
                                                                                         name="professional"
@@ -660,7 +685,7 @@ class Index extends Component {
                                                                                         </Grid>
                                                                                     </Grid>
                                                                                     <Grid item xs={12} md={12}>
-                                                                                        <label>Speciallity</label>
+                                                                                        <label>{Speciallity}</label>
                                                                                         <Grid className="specialFor">
                                                                                              <Select
                                                                                                 onChange={(e) => this.onFieldChange(e)}
@@ -673,7 +698,7 @@ class Index extends Component {
                                                                                     </Grid>
                                                                                     <Grid container direction="row" alignItems="center">
                                                                                       <Grid item xs={10} md={10} className="dueOn">
-                                                                                        <label>Due on</label>
+                                                                                        <label>{Dueon}</label>
                                                                                         <Grid>
                                                                                         {this.state.openDate ?
                                                                                             <DateFormat
@@ -693,7 +718,7 @@ class Index extends Component {
                                                                                                     this.state.newTask?.due_on?.time
                                                                                                         ? new Date(this.state.newTask?.due_on?.time)
                                                                                                         : new Date()
-                                                                                                }
+                                                                                                }_
                                                                                                 time_format={this.state.time_format}
                                                                                                 onChange={(e) => this.updateEntryState1(e, "time")}
                                                                                             />}
@@ -713,11 +738,11 @@ class Index extends Component {
                                                                                                 <>
                                                                                                     <Grid onClick={() => { this.createDuplicate(this.state.newTask) }}>
                                                                                                         <img src={require('assets/virtual_images/assign-to.svg')} alt="" title="" />
-                                                                                                        <label>Duplicate</label>
+                                                                                                        <label>{Duplicate}</label>
                                                                                                     </Grid>
                                                                                                     <Grid onClick={() => { this.updateEntryState1(true, 'archived') }}>
                                                                                                         <img src={require('assets/virtual_images/assign-to.svg')} alt="" title="" />
-                                                                                                        <label>Archive</label>
+                                                                                                        <label>{Archive}</label>
                                                                                                     </Grid>
                                                                                                     <Grid>
                                                                                                         <img onClick={(id) => {
@@ -729,7 +754,7 @@ class Index extends Component {
                                                                                                         {this.state.newTask.status === 'done' ? <Grid><img src={require('assets/virtual_images/rightTick.png')} alt="" title="" /></Grid>:
                                                                                                         <Grid><img src={require('assets/virtual_images/greyImg.jpg')} alt="" title="" /></Grid>
                                                                                                         }
-                                                                                                        <label>Mark as done</label>
+                                                                                                        <label>{Markasdone}</label>
                                                                                                     </Grid>
                                                                                                 </>}
                                                                                             </Grid>
@@ -738,7 +763,7 @@ class Index extends Component {
                                                                                 </Grid>
 
                                                                                     <Grid item xs={12} md={12}>
-                                                                                        <label>Attachments</label>
+                                                                                        <label>{Attachments}</label>
                                                                                         <FileUploader
                                                                                         // cur_one={this.props.cur_one}
                                                                                         attachfile={

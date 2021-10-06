@@ -2,7 +2,10 @@ import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
 import Select from 'react-select';
 import TextField from '@material-ui/core/TextField';
-
+import {
+    getLanguage
+  } from "translations/index"
+  
 class Index extends React.Component {
     constructor(props) {
         super(props);
@@ -19,16 +22,18 @@ class Index extends React.Component {
     };
 
     render() {
+        let translate = getLanguage(this.props.stateLanguageType)
+        let {InvoiceID, Patient, Status } = translate;
         return (
             <>
                 <Grid className="invoiceForm">
                     <Grid container direction="row" alignItems="center" spacing={3}>
                         <Grid item xs={12} md={3} className="invoiceID">
-                            <label>Invoice ID</label>
+                            <label>{InvoiceID}</label>
                             <TextField placeholder="Invoice ID" value="548756" />
                         </Grid>
                         <Grid item xs={12} md={4}>
-                            <label>Patient</label>
+                            <label>{Patient}</label>
                             <Grid className="patntDropUpr">
                                 <Grid className="patntDropDwn">
                                     <Grid className="patntImg"><img src={require('assets/virtual_images/james.jpg')} alt="" title="" /></Grid>
@@ -41,7 +46,7 @@ class Index extends React.Component {
                             </Grid>
                         </Grid>
                         <Grid item xs={12} md={3}>
-                            <label>Status</label>
+                            <label>{Status}</label>
                             <Select
                                 value={this.state.selectedOption}
                                 onChange={this.handleChange}

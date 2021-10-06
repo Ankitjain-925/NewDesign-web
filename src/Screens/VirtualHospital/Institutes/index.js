@@ -16,6 +16,10 @@ import { houseSelect } from "./selecthouseaction";
 import { Redirect, Route } from 'react-router-dom';
 import { confirmAlert } from "react-confirm-alert"; // Import
 import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
+import {
+  getLanguage
+}from "translations/index"
+
 
 class Index extends Component {
     
@@ -94,6 +98,8 @@ class Index extends Component {
 
   
     render() {
+        let translate = getLanguage(this.props.stateLanguageType);
+        let {Institution} = translate;
         const { stateLoginValueAim, House } = this.props;
         if (stateLoginValueAim.user === 'undefined' || stateLoginValueAim.token === 450 || stateLoginValueAim.token === 'undefined' || stateLoginValueAim.user.type !== 'adminstaff') {
            return (<Redirect to={'/'} />);
@@ -124,7 +130,7 @@ class Index extends Component {
                                                 <Grid item xs={12} md={9}>
                                                     <Grid className="roomBreadCrumb medcalCntr">
                                                         <ul>
-                                                            <li><a><label>Institution</label></a></li>
+                                                            <li><a><label>{Institution}</label></a></li>
                                                         </ul> 
                                                     </Grid>
                                                 </Grid>
