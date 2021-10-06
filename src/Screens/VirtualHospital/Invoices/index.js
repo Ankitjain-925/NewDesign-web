@@ -25,6 +25,10 @@ import InvoicesDownloadPdf from "Screens/Components/VirtualHospitalComponents/In
 import InvoicesPatientStatus from "Screens/Components/VirtualHospitalComponents/InvoicesPatientStatus/index";
 import InvoicesShowServices from "Screens/Components/VirtualHospitalComponents/InvoicesShowServices/index";
 import VHfield from "Screens/Components/VirtualHospitalComponents/VHfield/index";
+import {
+    getLanguage
+  }from "translations/index"
+  
 
 const options = [
     { value: 'data1', label: 'Data1' },
@@ -162,6 +166,8 @@ class Index extends Component {
     }
 
     render() {
+        let translate = getLanguage(this.props.stateLanguageType);
+        let {Services, Addservice, Customservicetitle, Customservicedescription} = translate;
         const { selectedOption } = this.state;
         return (
             <Grid className={
@@ -282,7 +288,7 @@ class Index extends Component {
 
                                             <Grid className="srvcTable">
 
-                                                <h3>Services</h3>
+                                                <h3>{Services}</h3>
                                                 <Table>
                                                     <Thead>
                                                         <Tr>
@@ -365,7 +371,7 @@ class Index extends Component {
                                             <Grid className="addCstmField">
                                                 <Grid container direction="row" alignItems="center" spacing={3}>
                                                     <Grid item xs={12} md={4}>
-                                                        <label>Add service</label>
+                                                        <label>{Addservice}</label>
 
                                                         <Select
                                                             // value={this.state.serviceList}
@@ -422,11 +428,11 @@ class Index extends Component {
                                             <Grid className="addCstmField">
                                                 <Grid container direction="row" alignItems="center" spacing={3}>
                                                     <Grid item xs={12} md={4}>
-                                                        <label>Custom service title</label>
+                                                        <label>{Customservicetitle}</label>
                                                         <TextField placeholder="Custom service title" />
                                                     </Grid>
                                                     <Grid item xs={12} md={4}>
-                                                        <label>Custom service description</label>
+                                                        <label>{Customservicedescription}</label>
                                                         <TextField placeholder="Custom service description" />
                                                     </Grid>
                                                 </Grid>

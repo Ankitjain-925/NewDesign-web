@@ -24,6 +24,10 @@ import {
 import { authy } from 'Screens/Login/authy.js';
 import { houseSelect } from "../Institutes/selecthouseaction";
 import { Redirect, Route } from 'react-router-dom';
+import {
+    getLanguage
+  }from "translations/index"
+  
 
 function TabContainer(props) {
     return (
@@ -63,6 +67,8 @@ class Index extends Component {
         this.setState({ tabvalue });
     };
     render() {
+       let translate = getLanguage(this.props.stateLanguageType);
+       let {Lastmonth, Examinations, Procedures, Appointments, WaitingRoom, EmergencyRoom, Observation } = translate;
         const { tabvalue } = this.state;
         return (
             <Grid className={
@@ -175,7 +181,7 @@ class Index extends Component {
                                                                 </Grid>
                                                                 <Grid item xs={12} md={6}>
                                                                     <Grid className="invoicLastMnth">
-                                                                        <label>Last month</label><a>3m</a><a>6m</a><a>1y</a><a>All</a>
+                                                                        <label>{Lastmonth}</label><a>3m</a><a>6m</a><a>1y</a><a>All</a>
                                                                     </Grid>
                                                                 </Grid>
                                                             </Grid>
@@ -230,15 +236,15 @@ class Index extends Component {
                                                         </Grid>
                                                         <Grid className="patntFlowIner">
                                                             <Grid container direction="row" alignItems="center">
-                                                                <Grid item xs={8} md={8}><label>Examinations</label></Grid>
+                                                                <Grid item xs={8} md={8}><label>{Examinations}</label></Grid>
                                                                 <Grid item xs={4} md={4}><span>16</span></Grid>
                                                             </Grid>
                                                             <Grid container direction="row" alignItems="center">
-                                                                <Grid item xs={8} md={8}><label>Procedures</label></Grid>
+                                                                <Grid item xs={8} md={8}><label>{Procedures}</label></Grid>
                                                                 <Grid item xs={4} md={4}><span>28</span></Grid>
                                                             </Grid>
                                                             <Grid container direction="row" alignItems="center" className="patntFlowLast">
-                                                                <Grid item xs={8} md={8}><label>Appointments</label></Grid>
+                                                                <Grid item xs={8} md={8}><label>{Appointments}</label></Grid>
                                                                 <Grid item xs={4} md={4}><span>71</span></Grid>
                                                             </Grid>
                                                         </Grid>
@@ -247,19 +253,19 @@ class Index extends Component {
                                                         <p>Avg. Time of stay</p>
                                                         <Grid className="patntFlowIner">
                                                             <Grid container direction="row" alignItems="center">
-                                                                <Grid item xs={8} md={8}><label>Waiting Room</label></Grid>
+                                                                <Grid item xs={8} md={8}><label>{WaitingRoom}</label></Grid>
                                                                 <Grid item xs={4} md={4}><span>0 h 43 min</span></Grid>
                                                             </Grid>
                                                             <Grid container direction="row" alignItems="center">
-                                                                <Grid item xs={8} md={8}><label>Emergency Room</label></Grid>
+                                                                <Grid item xs={8} md={8}><label>{EmergencyRoom}</label></Grid>
                                                                 <Grid item xs={4} md={4}><span>0 h 18 min</span></Grid>
                                                             </Grid>
                                                             <Grid container direction="row" alignItems="center">
-                                                                <Grid item xs={8} md={8}><label>Examinations</label></Grid>
+                                                                <Grid item xs={8} md={8}><label>{Examinations}</label></Grid>
                                                                 <Grid item xs={4} md={4}><span>0 h 24 min</span></Grid>
                                                             </Grid>
                                                             <Grid container direction="row" alignItems="center" className="patntFlowLast">
-                                                                <Grid item xs={8} md={8}><label>Observation</label></Grid>
+                                                                <Grid item xs={8} md={8}><label>{Observation}</label></Grid>
                                                                 <Grid item xs={4} md={4}><span>12 days</span></Grid>
                                                             </Grid>
                                                         </Grid>

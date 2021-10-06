@@ -23,6 +23,10 @@ import { houseSelect } from "../Institutes/selecthouseaction";
 import Loader from "Screens/Components/Loader/index";
 import Select from "react-select";
 import makeAnimated from 'react-select/animated'
+import {
+  getLanguage
+}from "translations/index"
+
 
 class Index extends Component {
   constructor(props) {
@@ -248,6 +252,8 @@ class Index extends Component {
   }
 
   render() {
+    let translate = getLanguage(this.props.stateLanguageType);
+    let {Addnewservice, Services  } = translate;
     const { services_data } = this.state;
     const { stateLoginValueAim, House } = this.props;
     if (
@@ -328,7 +334,7 @@ class Index extends Component {
                                   </a>
                                 </Grid>
                                 <Grid>
-                                  <label>Add new service</label>
+                                  <label>{Addnewservice}</label>
                                 </Grid>
                               </Grid>
 
@@ -404,7 +410,7 @@ class Index extends Component {
                             <ul>
                               <li>
                                 <a>
-                                  <label>Services</label>
+                                  <label>{Services}</label>
                                 </a>
                               </li>
                               {/* <li>
