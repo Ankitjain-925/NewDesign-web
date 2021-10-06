@@ -6,6 +6,7 @@ import DatePicker from 'react-date-picker';
 // import 'react-phone-input-2/lib/style.css';
 import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
 import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
+import Temprature from 'Screens/Components/Temprature/index';
 
 const options = [
     { value: 'Mr', label: 'Mr.' },
@@ -23,6 +24,8 @@ class Index extends Component {
         this.setState({ selectedOption });
     };
     render() {
+        var required = true;
+        var disabled = true;
         const { selectedOption } = this.state;
         return (
             <Grid>
@@ -59,9 +62,9 @@ class Index extends Component {
                                         </Grid>
                                     </Grid>
                                     <Grid item xs={12} md={3}>
-                                        <Grid className="profileIdRght">
+                                        {/* <Grid className="profileIdRght">
                                             <a>Change ID / PIN</a>
-                                        </Grid>
+                                        </Grid> */}
                                     </Grid>
                                 </Grid>
                             </Grid>
@@ -72,20 +75,20 @@ class Index extends Component {
                                             <Grid container direction="row" alignItems="center" spacing={2}>
                                                 <Grid item xs={12} md={12}>
                                                     <label>Email address</label>
-                                                    <Grid><input type="text" /></Grid>
+                                                    <Grid><input type="text"  disabled={disabled} required={required} /></Grid>
                                                 </Grid>
                                             </Grid>
                                         </Grid>
                                         <Grid className="profileInfoIner titleDegre">
                                             <Grid container direction="row" alignItems="center" spacing={2}>
-                                                <Grid item xs={12} md={3}>
-                                                    <label>Title / Degree</label>
+                                                <Grid item xs={12} md={3} >
+                                                    <label>Title / Degree </label>
                                                     <Grid>
-                                                        <Select
-                                                            value={selectedOption}
+                                                        <Select isDisabled={true}
+                                                            value={selectedOption} 
                                                             onChange={this.handleChange}
                                                             options={options}
-                                                            placeholder="Mr."
+                                                            placeholder="Mr." 
                                                             isSearchable={false}
                                                             className="mr_sel"
                                                         />
@@ -93,11 +96,11 @@ class Index extends Component {
                                                 </Grid>
                                                 <Grid item xs={12} md={4}>
                                                     <label>First name</label>
-                                                    <Grid><input type="text" /></Grid>
+                                                    <Grid><input type="text" disabled={true} required={required}/></Grid>
                                                 </Grid>
                                                 <Grid item xs={12} md={4}>
                                                     <label>Last name</label>
-                                                    <Grid><input type="text" /></Grid>
+                                                    <Grid><input type="text" disabled={true} required={required} /></Grid>
                                                 </Grid>
                                             </Grid>
                                         </Grid>
@@ -106,18 +109,21 @@ class Index extends Component {
                                                 <Grid item xs={12} md={5} lg={4}>
                                                     <label>Date of birth</label>
                                                     <Grid>
-                                                        <DatePicker
+                                                        <DatePicker 
                                                             onChange={this.onChange}
                                                             value={this.state.date}
+                                                            disabled={true}
+                                                           
                                                         />
                                                     </Grid>
                                                 </Grid>
-                                                <Grid item xs={12} md={7} lg={8}>
+                                                <Grid item  xs={12} md={7} lg={8}>
                                                     <label>Gender</label>
                                                     <Grid>
-                                                        <a>Male</a>
+                                                        <a>Male  </a>
                                                         <a>Female</a>
-                                                        <a>Other</a>
+                                                        <a>Other </a>
+                                                        
                                                     </Grid>
                                                 </Grid>
                                             </Grid>
@@ -126,7 +132,7 @@ class Index extends Component {
                                             <Grid container direction="row" alignItems="center" spacing={2}>
                                                 <Grid item xs={12} md={8}>
                                                     <label>Street address</label>
-                                                    <Grid><input type="text" /></Grid>
+                                                    <Grid><input type="text" disabled={true} required={required} /></Grid>
                                                 </Grid>
                                             </Grid>
                                         </Grid>
@@ -134,11 +140,11 @@ class Index extends Component {
                                             <Grid container direction="row" alignItems="center" spacing={2}>
                                                 <Grid item xs={12} md={8}>
                                                     <label>City</label>
-                                                    <Grid><input type="text" /></Grid>
+                                                    <Grid><input type="text" disabled={true} required={required}/></Grid>
                                                 </Grid>
                                                 <Grid item xs={12} md={4}>
                                                     <label>Postal code</label>
-                                                    <Grid><input type="text" /></Grid>
+                                                    <Grid><input type="text" disabled={true} required={required} /></Grid>
                                                 </Grid>
                                             </Grid>
                                         </Grid>
@@ -147,7 +153,7 @@ class Index extends Component {
                                                 <Grid item xs={12} md={8}>
                                                     <label>Country</label>
                                                     <Grid>
-                                                        <Select
+                                                        <Select isDisabled={true}
                                                             value={selectedOption}
                                                             onChange={this.handleChange}
                                                             options={options}
@@ -195,9 +201,9 @@ class Index extends Component {
                                                 <Grid item xs={12} md={8}>
                                                     <label>Languages spoken</label>
                                                     <Grid>
-                                                        <Select
+                                                        <Select isDisabled={true}
                                                             value={selectedOption} onChange={this.handleChange} options={options}
-                                                            placeholder="" isSearchable={false} className="languageSpk" isMulti={true}
+                                                            placeholder="" isSearchable={false}  className="languageSpk" isMulti={true}
                                                         />
                                                     </Grid>
                                                 </Grid>

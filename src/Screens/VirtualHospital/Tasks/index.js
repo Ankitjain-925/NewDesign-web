@@ -585,7 +585,7 @@ class Index extends Component {
                                                     <p>13</p>
                                                 </Grid>
                                                 <Grid className="taskNum taskGren">
-                                                    <label><span></span>Donetoday</label>
+                                                    <label><span></span>Done today</label>
                                                     <p>63</p>
                                                 </Grid>
                                                 <Grid className="showArchiv"><p onClick={() => { this.getArchived() }}><a>Show archived tasks</a></p></Grid>
@@ -718,7 +718,7 @@ class Index extends Component {
                                                                                                     this.state.newTask?.due_on?.time
                                                                                                         ? new Date(this.state.newTask?.due_on?.time)
                                                                                                         : new Date()
-                                                                                                }_
+                                                                                                }
                                                                                                 time_format={this.state.time_format}
                                                                                                 onChange={(e) => this.updateEntryState1(e, "time")}
                                                                                             />}
