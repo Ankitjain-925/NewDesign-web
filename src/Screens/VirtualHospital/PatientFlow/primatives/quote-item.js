@@ -103,7 +103,7 @@ export default class QuoteItem extends React.Component {
                         alt=""
                         title=""
                       />
-                      1/2
+                      {quote.done_task}/{quote.total_task}
                     </a>
                     <span>
                       <img

@@ -40,7 +40,7 @@ class Index extends Component {
       view: "vertical",
       openAddP: false,
       fullData: {},
-      actualData: {},
+      actualData:[],
       edit: false,
       addp:{},
       case: {},

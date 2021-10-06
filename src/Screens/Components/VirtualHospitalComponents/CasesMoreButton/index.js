@@ -135,23 +135,24 @@ class Index extends React.Component {
                                <Grid className="movHeadRght"><a onClick={()=>this.setState({firstsec: true, specialitysec : false })}><img src={require('assets/virtual_images/closefancy.png')} alt="" title="" /></a></Grid>
                            </Grid>
                            <Grid className="positionDrop">
-                             
                            {this.props.speciality?.SPECIALITY && this.props?.speciality?.SPECIALITY.length>0 && this.props?.speciality?.SPECIALITY.map((data)=>(
-                            <SpecialityButton
-                            label={this.props.quote?.speciality?.specialty_name}
-                            backgroundColor={this.props.quote?.speciality?.background_color}
-                            viewImage={false}
-                            color={this.props.quote?.speciality?.color}
-                            onClick={() => this.setSpeciality()}
-                            showActive={false}
-                                /> 
+                            <div className="setSpcSpecList">
+                                <SpecialityButton
+                                  label={data?.specialty_name}
+                                  backgroundColor={data?.background_color}
+                                  viewImage={false}
+                                  color={data?.color}
+                                  onClick={() => this.setSpeciality(data)}
+                                  showActive={this.props.quote?.speciality?._id===data._id ? true :false}
+                                />
+                                </div>
                            ))}
-                          
+                           
                            </Grid>
                        </div> 
                         }
                         {this.state.changeStaffsec &&
-                            <div>
+                         <div>
                             <Grid className="movHead">
                                <Grid onClick={()=>this.setState({firstsec: true, changeStaffsec : false })} className="movHeadLft"><a><img src={require('assets/virtual_images/arw1.png')} alt="" title="" /></a></Grid>
                                <Grid  className="movHeadMid"><label>Change Staff</label></Grid>
@@ -164,10 +165,10 @@ class Index extends React.Component {
                                )}}>{item}</label></Grid>
                            ))}
                            </Grid>
-                       </div> 
+                        </div> 
                         }
                         {this.state.assignroom &&
-                            <div>
+                          <div>
                             <Grid className="movHead">
                                <Grid onClick={()=>this.setState({firstsec: true, assignroom : false })} className="movHeadLft"><a><img src={require('assets/virtual_images/arw1.png')} alt="" title="" /></a></Grid>
                                <Grid  className="movHeadMid"><label>Assign Ward / Room</label></Grid>

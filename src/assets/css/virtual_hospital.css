@@ -9657,7 +9657,9 @@ button.crdoLghtBlu2 {
     border-bottom: none;
 }
 /* Added by Ankita */
-
+.setSpcSpecList{
+    margin: 10px
+}
 /* Start of Create a Task */
 .createTask {
     margin-left: 12px !important;
