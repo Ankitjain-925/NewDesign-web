@@ -26,6 +26,9 @@ import {
   getLanguage
 }from "translations/index"
 
+import Checkbox from '@material-ui/core/Checkbox';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import SelectByTwo from "Screens/Components/SelectbyTwo/index";
 
 const options = [
   { value: "input", label: "Input" },
@@ -34,302 +37,329 @@ const options = [
 
 class Index extends Component {
   constructor(props) {
-      super(props)
-      this.state = {
-          openQues: false,
-          openOpti: false,
-          opeInp: false,
-          house_name: '',
-          house_id: '',
-          question: '',
-          options: '',
-          type: '',
-          myQuestions: [{}],
-          option: this.props.option,
-          questions_data: [],
-          AllQuestions: [],
-          perticular_id: false,
-          editQuestions:{},
-          editQues: false,
-          loaderImage: false
-      }
+    super(props)
+    this.state = {
+      openQues: false,
+      openOpti: true,
+      opeInp: false,
+      house_name: '',
+      house_id: '',
+      question: '',
+      options: '',
+      type: '',
+      myQuestions: [{}],
+      option: this.props.option,
+      questions_data: [],
+      AllQuestions: [],
+      perticular_id: false,
+      editQuestions: {},
+      editQues: false,
+      loaderImage: false,
+      option: { value: "Classic", value: "Ratingscale" }
+    }
   }
 
-  componentDidMount() {
-      this.getAllQuestions();
-  }
+  // componentDidMount() {
+  //   this.getAllQuestions();
+  // }
 
   //Modal Open 
   handleOpenQues = () => {
-      this.setState({ openQues: true });
+    this.setState({ openQues: true });
   }
 
   //Modal Close
   handleCloseQues = () => {
-      this.setState({ openQues: false });
+    this.setState({ openQues: false, openOpti: true, openInp: false });
+  }
+
+  //New change
+  handleOpenClass = () => {
+    this.setState({ openOpti: true, openInp: false });
+  }
+
+  handleOpenRat = () => {
+    this.setState({ openInp: true, openOpti: false, });
   }
 
   handleEditCloseQues = () => {
-    this.setState({ editQues: false });
-}
-  //for choosing select field value 
-  updateEntryState = (e, index) => {
-      var QuesAy = this.state.myQuestions;
-      QuesAy[index]['type'] = e.value;
-      this.setState({ myQuestions: QuesAy }, () => {
-      });
-      if (e.value == "input") {
-          this.setState({ openInp: true, openOpti: false });
-      }
-      else if (e.value == "options") {
-          this.setState({ openOpti: true, openInp: false });
-      }
+    this.setState({ editQues: false, });
   }
+
+  //for choosing select field value 
+  // updateEntryState = (e, index) => {
+  //   var QuesAy = this.state.myQuestions;
+  //   QuesAy[index]['type'] = e.value;
+  //   this.setState({ myQuestions: QuesAy }, () => {
+  //   });
+  //   if (e.value == "input") {
+  //     this.setState({ openInp: true, openOpti: false });
+  //   }
+  //   else if (e.value == "options") {
+  //     this.setState({ openOpti: true, openInp: false });
+  //   }
+  // }
 
   //for adding/updating the questions
+  // updateEntryState1 = (e, index) => {
+  //   var QuesAy = this.state.myQuestions;
+  //   QuesAy[index][e.target.name] = e.target.value;
+  //   this.setState({ myQuestions: QuesAy }, () => {
+  //   });
+  // }
+
   updateEntryState1 = (e, index) => {
-      var QuesAy = this.state.myQuestions;
-      QuesAy[index][e.target.name] = e.target.value;
-      this.setState({ myQuestions: QuesAy }, () => {
-      });
+    var state = this.state.myQuestions;
+    state[e.target.name] = e.target.value;
+    this.setState({ myQuestions: state });
+    // console.log("question", this.state.myQuestions)
   }
 
-  //for adding/updating the option
-  updateEntryState2 = (array, index) => {
-      var QuesAy = this.state.myQuestions;
-      QuesAy[index]["options"] = array;
-      this.setState({ myQuestions: QuesAy });
+
+  //for adding/updating the choice
+  updateEntryState2 = (e, name) => {
+    var QuesAy = this.state.myQuestions;
+    QuesAy[name] = e;
+    this.setState({ myQuestions: QuesAy });
+    // console.log("myQuestions", this.state.myQuestions)
   };
 
-  // Add multiiple select fields
-  onAddFiled = () => {
-      let QuesAy = this.state.myQuestions;
-      QuesAy.push({ type: "" });
-      this.setState({ myQuestions: QuesAy });
+  //for multiple questionnaire checkbox 
+  updateEntryState3 = (value, name) => {
+    var state = this.state.myQuestions;
+    state[name] = value;
+    this.setState({ myQuestions: state });
   };
 
+  // for delete choice fields
   deleteQuestions = (index) => {
-      var QuesAy = this.state.myQuestions?.length > 0 && this.state.myQuestions.filter((data, index1) => index1 !== index);
-      this.setState({ myQuestions: QuesAy });
+    var QuesAy = this.state.myQuestions?.length > 0 && this.state.myQuestions.filter((data, index1) => index1 !== index);
+    this.setState({ myQuestions: QuesAy });
   };
 
   handleSubmit = () => {
-      var myQuestions = this.state.AllQuestions;
-      myQuestions = [...myQuestions, ...this.state.myQuestions]
-      if (this.state.perticular_id) {
-          // console.log('on second time add')
-          axios
-              .put(
-                  sitedata.data.path + "/questionaire/Question/" + this.state.perticular_id,
-                  {
-                      questions: myQuestions
-                  },
-                  commonHeaderToken()
-              )
-              
-              .then((responce) => {
-                  this.handleCloseQues();
-                  this.setState({
-                      myQuestions: [{}],
-                    });
-                  this.getAllQuestions();
-              })
-      }
-      else {
-          axios
-              .post(
-                  sitedata.data.path + "/questionaire/AddQuestionaire",
-                  {
-                      house_id: this.props?.House?.value,
-                      house_name: this.props?.House?.label,
-                      questions: myQuestions
-                  },
-                  // commonHeader(this.props.stateLoginValueAim.token)
-                  commonHeaderToken()
-              )
-              .then((responce) => {
-                  this.setState({ myQuestions: [{}] })
-                  this.getAllQuestions();
-              })
-              .catch(function (error) {
-                  console.log(error);
-              });
+    console.log("myQuestions", this.state.myQuestions)
+    // this.setState({myQuestions: {} ,openOpti: true})
+    // var myQuestions = this.state.AllQuestions;
+    // myQuestions = [...myQuestions, ...this.state.myQuestions]
+    // if (this.state.perticular_id) {
+    //   // console.log('on second time add')
+    //   axios
+    //     .put(
+    //       sitedata.data.path + "/questionaire/Question/" + this.state.perticular_id,
+    //       {
+    //         questions: myQuestions
+    //       },
+    //       commonHeaderToken()
+    //     )
 
-      }
+    //     .then((responce) => {
+    //       this.handleCloseQues();
+    //       this.setState({
+    //         myQuestions: [{}],
+    //       });
+    //       this.getAllQuestions();
+    //     })
+    // }
+    // else {
+    //   axios
+    //     .post(
+    //       sitedata.data.path + "/questionaire/AddQuestionaire",
+    //       {
+    //         house_id: this.props?.House?.value,
+    //         house_name: this.props?.House?.label,
+    //         questions: myQuestions
+    //       },
+    //       // commonHeader(this.props.stateLoginValueAim.token)
+    //       commonHeaderToken()
+    //     )
+    //     .then((responce) => {
+    //       this.setState({ myQuestions: [{}] })
+    //       this.getAllQuestions();
+    //     })
+    //     .catch(function (error) {
+    //       console.log(error);
+    //     });
+
+    // }
   }
 
-  handleeditSubmit = ()=>{
-    this.setState({ loaderImage: true });
-    axios
-    .put(
-        sitedata.data.path + "/questionaire/Question/" + this.state.perticular_id,
-        {
-            questions: this.state.AllQuestions
-        },
-        commonHeaderToken()
-    )
-    
-    .then((responce) => {
-        this.setState({
-          editQuestions : {},
-          loaderImage: false
-          });
-        this.getAllQuestions();
-    })
-  }
+  // handleeditSubmit = () => {
+  //   this.setState({ loaderImage: true });
+  //   axios
+  //     .put(
+  //       sitedata.data.path + "/questionaire/Question/" + this.state.perticular_id,
+  //       {
+  //         questions: this.state.AllQuestions
+  //       },
+  //       commonHeaderToken()
+  //     )
+
+  //     .then((responce) => {
+  //       this.setState({
+  //         editQuestions: {},
+  //         loaderImage: false
+  //       });
+  //       this.getAllQuestions();
+  //     })
+  // }
   // For getting the Question and implement Pagination
-  getAllQuestions = () => {
-    this.setState({ loaderImage: true });
-    axios
-      .get(
-        sitedata.data.path +
-          `/questionaire/GetQuestionaire/${this.props?.House?.value}`,
-        // commonHeader(this.props.stateLoginValueAim.token)
-        commonHeaderToken()
-      )
-      .then((response) => {
-        var totalPage = Math.ceil(
-          response.data.data?.[0]?.questions?.length / 10
-        );
-        this.setState(
-          {
-            myQuestions: [{}],
-            AllQuestions: response.data.data?.[0]?.questions || [],
-            loaderImage: false,
-            totalPage: totalPage,
-            currentPage: 1,
-            perticular_id: response.data.data?.[0]?._id
-              ? response.data.data?.[0]?._id
-              : false,
-          },
-          () => {
-            if (totalPage > 1) {
-              var pages = [];
-              for (var i = 1; i <= this.state.totalPage; i++) {
-                pages.push(i);
-              }
-              this.setState({
-                questions_data: this.state.AllQuestions.slice(0, 10),
-                pages: pages,
-              });
-            } else {
-              this.setState({ questions_data: this.state.AllQuestions });
-            }
-          }
-        );
-      });
-  };
+
+  // getAllQuestions = () => {
+  //   this.setState({ loaderImage: true });
+  //   axios
+  //     .get(
+  //       sitedata.data.path +
+  //       `/questionaire/GetQuestionaire/${this.props?.House?.value}`,
+  //       // commonHeader(this.props.stateLoginValueAim.token)
+  //       commonHeaderToken()
+  //     )
+  //     .then((response) => {
+  //       var totalPage = Math.ceil(
+  //         response.data.data?.[0]?.questions?.length / 10
+  //       );
+  //       this.setState(
+  //         {
+  //           myQuestions: [{}],
+  //           AllQuestions: response.data.data?.[0]?.questions || [],
+  //           loaderImage: false,
+  //           totalPage: totalPage,
+  //           currentPage: 1,
+  //           perticular_id: response.data.data?.[0]?._id
+  //             ? response.data.data?.[0]?._id
+  //             : false,
+  //         },
+  //         () => {
+  //           if (totalPage > 1) {
+  //             var pages = [];
+  //             for (var i = 1; i <= this.state.totalPage; i++) {
+  //               pages.push(i);
+  //             }
+  //             this.setState({
+  //               questions_data: this.state.AllQuestions.slice(0, 10),
+  //               pages: pages,
+  //             });
+  //           } else {
+  //             this.setState({ questions_data: this.state.AllQuestions });
+  //           }
+  //         }
+  //       );
+  //     });
+  // };
 
   //Delete the perticular question confirmation box
-  removeQuestions = (status, perticular_id) => {
-    this.setState({ message: null });
-    confirmAlert({
-      customUI: ({ onClose }) => {
-        return (
-          <div
-            className={
-              this.props.settings &&
-              this.props.settings.setting &&
-              this.props.settings.setting.mode &&
-              this.props.settings.setting.mode === "dark"
-                ? "dark-confirm react-confirm-alert-body"
-                : "react-confirm-alert-body"
-            }
-          >
-            {status && status === "remove" ? (
-              <h1>Remove the Question ?</h1>
-            ) : (
-              <h1>Remove the Question ?</h1>
-            )}
-            <p>Are you sure to remove this Question?</p>
-            <div className="react-confirm-alert-button-group">
-              <button onClick={onClose}>No</button>
-              <button
-                onClick={() => {
-                  this.deleteClickQuestion(status, perticular_id);
-                  onClose();
-                }}
-              >
-                Yes
-              </button>
-            </div>
-          </div>
-        );
-      },
-    });
-  };
+  // removeQuestions = (status, perticular_id) => {
+  //   this.setState({ message: null });
+  //   confirmAlert({
+  //     customUI: ({ onClose }) => {
+  //       return (
+  //         <div
+  //           className={
+  //             this.props.settings &&
+  //               this.props.settings.setting &&
+  //               this.props.settings.setting.mode &&
+  //               this.props.settings.setting.mode === "dark"
+  //               ? "dark-confirm react-confirm-alert-body"
+  //               : "react-confirm-alert-body"
+  //           }
+  //         >
+  //           {status && status === "remove" ? (
+  //             <h1>Remove the Question ?</h1>
+  //           ) : (
+  //             <h1>Remove the Question ?</h1>
+  //           )}
+  //           <p>Are you sure to remove this Question?</p>
+  //           <div className="react-confirm-alert-button-group">
+  //             <button onClick={onClose}>No</button>
+  //             <button
+  //               onClick={() => {
+  //                 this.deleteClickQuestion(status, perticular_id);
+  //                 onClose();
+  //               }}
+  //             >
+  //               Yes
+  //             </button>
+  //           </div>
+  //         </div>
+  //       );
+  //     },
+  //   });
+  // };
 
-  editQuestion = (data, _id) => {
-    this.setState({ editQuestions: data, editQues: true });
-  };
+  // editQuestion = (data, _id) => {
+  //   this.setState({ editQuestions: data, editQues: true });
+  // };
 
-  deleteClickQuestion(status, perticular_id) {
-    const newQuestion = [...this.state.questions_data];
-    var QuesAy = newQuestion?.length > 0 &&
-      newQuestion.filter((data) => data._id !== perticular_id);
+  // deleteClickQuestion(status, perticular_id) {
+  //   const newQuestion = [...this.state.questions_data];
+  //   var QuesAy = newQuestion?.length > 0 &&
+  //     newQuestion.filter((data) => data._id !== perticular_id);
 
-    // this.state.AllQuestions.split(perticular_id)
-    this.setState({ loaderImage: true });
-    axios
-      .put(
-        sitedata.data.path +
-          "/questionaire/Question/" +
-          this.state.perticular_id,
-        {
-          questions: QuesAy,
-        },
-        commonHeaderToken()
-      )
-      .then((responce) => {
-        this.setState({ loaderImage: false });
-        this.getAllQuestions();
-      });
-  }
+  //   // this.state.AllQuestions.split(perticular_id)
+  //   this.setState({ loaderImage: true });
+  //   axios
+  //     .put(
+  //       sitedata.data.path +
+  //       "/questionaire/Question/" +
+  //       this.state.perticular_id,
+  //       {
+  //         questions: QuesAy,
+  //       },
+  //       commonHeaderToken()
+  //     )
+  //     .then((responce) => {
+  //       this.setState({ loaderImage: false });
+  //       this.getAllQuestions();
+  //     });
+  // }
 
-  editQuestionState=(e, name)=>{
-      var QuesAy = this.state.editQuestions;
-      if(name === 'options'){
-        QuesAy["options"] = e;
-      }
-      else if(name === 'type'){
-        QuesAy["type"] = e.value;
-      }
-      else {
-        QuesAy["question"] = e.target.value;
-      }
-      this.setState({ editQuestions: QuesAy });
-  }
+  // editQuestionState = (e, name) => {
+  //   var QuesAy = this.state.editQuestions;
+  //   if (name === 'options') {
+  //     QuesAy["options"] = e;
+  //   }
+  //   else if (name === 'type') {
+  //     QuesAy["type"] = e.value;
+  //   }
+  //   else {
+  //     QuesAy["question"] = e.target.value;
+  //   }
+  //   this.setState({ editQuestions: QuesAy });
+  // }
 
-  onChangePage = (pageNumber) => {
-    this.setState({
-      questions_data: this.state.AllQuestions.slice(
-        (pageNumber - 1) * 10,
-        pageNumber * 10
-      ),
-      currentPage: pageNumber,
-    });
-  };
+  // onChangePage = (pageNumber) => {
+  //   this.setState({
+  //     questions_data: this.state.AllQuestions.slice(
+  //       (pageNumber - 1) * 10,
+  //       pageNumber * 10
+  //     ),
+  //     currentPage: pageNumber,
+  //   });
+  // };
+
+
 
   render() {
     let translate = getLanguage(this.props.stateLanguageType);
     let {AddQuestionnaire, EditQuestionnaire } = translate;
     const { questions_data } = this.state;
+    var placeholders = "Enter choice 1" 
     return (
       <Grid
         className={
           this.props.settings &&
-          this.props.settings.setting &&
-          this.props.settings.setting.mode &&
-          this.props.settings.setting.mode === "dark"
+            this.props.settings.setting &&
+            this.props.settings.setting.mode &&
+            this.props.settings.setting.mode === "dark"
             ? "homeBg darkTheme"
             : "homeBg"
         }
       >
-         {this.state.loaderImage && <Loader />}
+        {this.state.loaderImage && <Loader />}
         <Grid className="homeBgIner">
           <Grid container direction="row">
             <Grid item xs={12} md={12}>
-                
+
               {/* Mobile menu */}
               <LeftMenuMobile isNotShow={true} currentPage="chat" />
               <Grid container direction="row">
@@ -361,9 +391,9 @@ class Index extends Component {
                             onClose={this.handleCloseQues}
                             className={
                               this.props.settings &&
-                              this.props.settings.setting &&
-                              this.props.settings.setting.mode &&
-                              this.props.settings.setting.mode === "dark"
+                                this.props.settings.setting &&
+                                this.props.settings.setting.mode &&
+                                this.props.settings.setting.mode === "dark"
                                 ? "addSpeclModel darkTheme"
                                 : "addSpeclModel"
                             }
@@ -383,87 +413,167 @@ class Index extends Component {
                                   <label>{AddQuestionnaire}</label>
                                 </Grid>
                               </Grid>
-                              {this.state.myQuestions &&
-                                this.state.myQuestions.length == 1 && (
-                                  <Grid>
-                                    <Grid className="cnfrmDiaMain questionborder">
-                                      <Grid className="fillDia">
-                                        <Grid>
-                                          <SelectField
-                                            isSearchable={true}
-                                            name="type"
-                                            label="Question Type"
-                                            option={options}
-                                            onChange={(e) =>
-                                              this.updateEntryState(e, 0)
-                                            }
-                                            value={
-                                              this.state.myQuestions[1]?.type
-                                            }
-                                          />
-                                        </Grid>
-                                        {this.state.openOpti && (
-                                          <>
-                                            <Grid>
-                                              <VHfield
-                                                label="Question"
-                                                name="question"
-                                                placeholder="Enter question"
-                                                onChange={(e) =>
-                                                  this.updateEntryState1(e, 0)
-                                                }
-                                                value={
-                                                  this.state.myQuestions[0]
-                                                    ?.question
-                                                }
-                                              />
-                                            </Grid>
+                              {this.state.myQuestions && (
+                                <Grid>
+                                  <Grid className="cnfrmDiaMain">
+                                    <Grid className="fillDia">
+                                      <Grid>
+                                        <label>Choose questionnaire type </label>
+                                        <Table border="1">
+                                          <Tr>
+                                            <Td><Button onClick={this.handleOpenClass}>Classic</Button></Td>
+                                            <Td><Button onClick={this.handleOpenRat}>Rating scale</Button></Td>
+                                          </Tr>
+                                        </Table>
 
-                                            <Grid>
-                                              <AddHouses
-                                                label="Options"
-                                                name="options"
-                                                placeholder="Enter option"
-                                                onChange={(e) =>
-                                                  this.updateEntryState2(e, 0)
-                                                }
-                                                value={
-                                                  this.state.myQuestions[0]
-                                                    ?.options
-                                                }
-                                              />
-                                            </Grid>
-                                          </>
-                                        )}
-                                        {this.state.openInp && (
-                                          <>
-                                            <Grid>
-                                              <VHfield
-                                                label="Question"
-                                                name="question"
-                                                placeholder="Enter question"
-                                                onChange={(e) =>
-                                                  this.updateEntryState1(e, 0)
-                                                }
-                                                value={
-                                                  this.state.myQuestions[0]
-                                                    ?.question
-                                                }
-                                              />
-                                            </Grid>
-                                          </>
-                                        )}
+                                        {/* <Grid className="fillDia">
+                                            <SelectByTwo
+                                              name="situation"
+                                              label="Choose questionnaire type"
+                                              options={this.state.option}
+                                              // onChange={(e) => this.updateEntryState1(e, "situation")}
+                                              // value={GetShowLabel1(
+                                              //   this.state.options,
+                                              //   this.state.updateTrack &&
+                                              //   this.state.updateTrack.situation &&
+                                              //   this.state.updateTrack.situation.value,
+                                              //   this.props.stateLanguageType
+                                              // )}
+                                            />
+                                          </Grid> */}
+
                                       </Grid>
+                                      {this.state.openOpti && (
+                                        <>
+                                          <Grid>
+                                            <FormControlLabel
+                                              className="checkboxques"
+                                              control={
+                                                <Checkbox name="multiple_questionnaire"
+                                                  checked={this.state.myQuestions.multiple_questionnaire === true}
+                                                  onChange={(e) =>
+                                                    this.updateEntryState3(
+                                                      e.target.checked,
+                                                      "multiple_questionnaire",
+                                                    )
+                                                  }
+                                                />
+                                              }
+                                              label="Make it a multiple questionnaire"
+                                            />
+                                          </Grid>
+
+                                          <Grid>
+                                            <VHfield
+                                              label="Question"
+                                              name="question"
+                                              placeholder="Enter a question"
+                                              onChange={(e) =>
+                                                this.updateEntryState1(e, "question")
+                                              }
+                                            // value={
+                                            //   this.state.myQuestions[0]
+                                            //     ?.question
+                                            // }
+                                            />
+                                          </Grid>
+
+                                          <Grid className="add_a_choice">
+                                            <AddHouses
+                                              label="Add a Choice"
+                                              name="choice"
+                                              placeholder="Enter choice"
+                                              onChange={(e) =>
+                                                this.updateEntryState2(e, "choice")
+                                              }
+                                              comesFrom={'questionaire'}
+                                            // value={
+                                            //   this.state.myQuestions[0]
+                                            //     ?.options
+                                            // }
+                                            />
+                                          </Grid>
+
+                                          <Grid>
+                                            <FormControlLabel
+                                              className="checkboxquestion"
+                                              control={
+                                                <Checkbox name="add_othertext_field"
+                                                  checked={this.state.myQuestions.add_othertext_field === true}
+                                                  onChange={(e) =>
+                                                    this.updateEntryState3(
+                                                      e.target.checked,
+                                                      "add_othertext_field"
+                                                    )
+                                                  }
+                                                />
+                                              }
+                                              label="Add ''other'' text field"
+                                            />
+
+                                          </Grid>
+                                        </>
+                                      )}
+                                      {this.state.openInp && (
+                                        <>
+                                          <Grid className="questionfieldprop">
+                                            <VHfield
+                                              label="Questionnaire title"
+                                              name="title"
+                                              placeholder="Enter title"
+                                              onChange={(e) =>
+                                                this.updateEntryState1(e, "title")
+                                              }
+                                            // value={
+                                            //   this.state.myQuestions[0]
+                                            //     ?.question
+                                            // }
+                                            />
+                                          </Grid>
+
+                                          <Grid item xs={12} md={12} className="taskDescp">
+                                            <label>Questionnaire description</label>
+                                            <Grid>
+                                              <textarea
+                                                placeholder="Enter description"
+                                                name="description"
+                                                onChange={(e) =>
+                                                  this.updateEntryState1(e, "description")
+                                                }
+                                              //   value={this.state.newTask.description}
+                                              >
+                                              </textarea>
+                                            </Grid>
+                                          </Grid>
+
+                                          <Grid>
+                                            <VHfield
+                                              label="Question"
+                                              name="question"
+                                              placeholder="Enter question"
+                                              onChange={(e) =>
+                                                this.updateEntryState1(e, "question")
+                                              }
+                                            // value={
+                                            //   this.state.myQuestions[0]
+                                            //     ?.question
+                                            // }
+                                            />
+                                          </Grid>
+
+                                        </>
+                                      )}
                                     </Grid>
-                                    <Grid className="add_a_question">
+                                  </Grid>
+                                  {/* <Grid className="add_a_question">
                                       <a onClick={this.onAddFiled}>
                                         + add a question
                                       </a>
-                                    </Grid>
-                                  </Grid>
-                                )}
+                                    </Grid> */}
+                                </Grid>
+                              )}
 
-                              {this.state.myQuestions &&
+                              {/* {this.state.myQuestions &&
                                 this.state.myQuestions.length > 1 &&
                                 this.state.myQuestions.map((data, index) =>
                                   index == 0 ? (
@@ -621,11 +731,11 @@ class Index extends Component {
                                       </Grid>
                                     </Grid>
                                   )
-                                )}
-                              <Grid  className="infoSub1">
-                                <a onClick={() => this.handleSubmit()}>
-                                  <Button>
-                                    Submit
+                                )} */}
+                              <Grid className="infoSub2">
+                                <a onClick={this.handleCloseQues}>
+                                  <Button onClick={() => this.handleSubmit()}>
+                                    Save & Close
                                   </Button>
                                 </a>
                               </Grid>
@@ -637,9 +747,9 @@ class Index extends Component {
                             onClose={this.handleEditCloseQues}
                             className={
                               this.props.settings &&
-                              this.props.settings.setting &&
-                              this.props.settings.setting.mode &&
-                              this.props.settings.setting.mode === "dark"
+                                this.props.settings.setting &&
+                                this.props.settings.setting.mode &&
+                                this.props.settings.setting.mode === "dark"
                                 ? "addSpeclModel darkTheme"
                                 : "addSpeclModel"
                             }
@@ -659,68 +769,68 @@ class Index extends Component {
                                   <label>{EditQuestionnaire}</label>
                                 </Grid>
                               </Grid>
-                            
-                                    <Grid>
-                                      <Grid className="cnfrmDiaMain questionborder">
-                                        <Grid className="fillDia">
-                                          <Grid>
-                                            <SelectField
-                                              isSearchable={true}
-                                              name="type"
-                                              label="Question Type"
-                                              option={options}
-                                              onChange={(e) =>
-                                                this.editQuestionState(e, 'type')
-                                              }
-                                              value={options.filter((data)=> data.value === this.state.editQuestions?.type)?.[0]}
-                                            />
-                                          </Grid>
-                                          {this.state.editQuestions?.type ==='options' && (
-                                            <>
-                                              <Grid>
-                                                <VHfield
-                                                  label="Question"
-                                                  name="question"
-                                                  placeholder="Enter question"
-                                                  onChange={(e) =>
-                                                    this.editQuestionState(e, 'question')
-                                                  }
-                                                  value={this.state.editQuestions?.question}
-                                                />
-                                              </Grid>
 
-                                              <Grid>
-                                                <AddHouses
-                                                  label="Options"
-                                                  name="options"
-                                                  placeholder="Enter option"
-                                                  onChange={(e) =>
-                                                    this.editQuestionState(e, 'options')
-                                                  }
-                                                  roomArray={this.state.editQuestions.options && this.state.editQuestions.options}
-                                                />
-                                             
-                                              </Grid>
-                                            </>
-                                          )}
-                                          {this.state.editQuestions?.type ==='input' && (
-                                            <>
-                                              <Grid>
-                                                <VHfield
-                                                  label="Question"
-                                                  name="question"
-                                                  placeholder="Enter question"
-                                                  onChange={(e) =>
-                                                    this.editQuestionState(e, 'question')
-                                                  }
-                                                  value={this.state.editQuestions?.question}
-                                                />
-                                              </Grid>
-                                            </>
-                                          )}
-                                        </Grid>
-                                      </Grid>
+                              <Grid>
+                                <Grid className="cnfrmDiaMain questionborder">
+                                  <Grid className="fillDia">
+                                    <Grid>
+                                      <SelectField
+                                        isSearchable={true}
+                                        name="type"
+                                        label="Question Type"
+                                        option={options}
+                                        onChange={(e) =>
+                                          this.editQuestionState(e, 'type')
+                                        }
+                                        value={options.filter((data) => data.value === this.state.editQuestions?.type)?.[0]}
+                                      />
                                     </Grid>
+                                    {this.state.editQuestions?.type === 'options' && (
+                                      <>
+                                        <Grid>
+                                          <VHfield
+                                            label="Question"
+                                            name="question"
+                                            placeholder="Enter question"
+                                            onChange={(e) =>
+                                              this.editQuestionState(e, 'question')
+                                            }
+                                            value={this.state.editQuestions?.question}
+                                          />
+                                        </Grid>
+
+                                        <Grid>
+                                          <AddHouses
+                                            label="Options"
+                                            name="options"
+                                            placeholder={placeholders}
+                                            onChange={(e) =>
+                                              this.editQuestionState(e, 'options')
+                                            }
+                                            roomArray={this.state.editQuestions.options && this.state.editQuestions.options}
+                                          />
+
+                                        </Grid>
+                                      </>
+                                    )}
+                                    {this.state.editQuestions?.type === 'input' && (
+                                      <>
+                                        <Grid>
+                                          <VHfield
+                                            label="Question"
+                                            name="question"
+                                            placeholder="Enter question"
+                                            onChange={(e) =>
+                                              this.editQuestionState(e, 'question')
+                                            }
+                                            value={this.state.editQuestions?.question}
+                                          />
+                                        </Grid>
+                                      </>
+                                    )}
+                                  </Grid>
+                                </Grid>
+                              </Grid>
                               <Grid className="infoSub1">
                                 <a onClick={this.handleEditCloseQues}>
                                   <Button onClick={() => this.handleeditSubmit()}>
@@ -761,127 +871,127 @@ class Index extends Component {
                                             </Grid>
                                         </Grid> */}
 
-                                        {/* service price content */}
-                                        <Grid className="srvcTable3">
-                                            <Table>
-                                                <Thead>
-                                                    <Tr>
-                                                        <Th>Type</Th>
-                                                        <Th>Question</Th>
-                                                        <Th>Options</Th>
-                                                        <Th></Th>
-                                                    </Tr>
-                                                </Thead>
-                                                <Tbody>
+                    {/* service price content */}
+                    <Grid className="srvcTable3">
+                      <Table>
+                        <Thead>
+                          <Tr>
+                            <Th>Type</Th>
+                            <Th>Question</Th>
+                            <Th>Options</Th>
+                            <Th></Th>
+                          </Tr>
+                        </Thead>
+                        <Tbody>
 
-                                                    {questions_data?.length > 0 && questions_data.map((data, index) => (
+                          {questions_data?.length > 0 && questions_data.map((data, index) => (
 
-                                                        <>
-                                                            <Tr>
-                                                                <Td>
-                                                                    <label>{data.type}</label>
-                                                                </Td>
-                                                                <Td>
-                                                                    <label>{data.question}</label>
-                                                                </Td>
-                                                                {/* <Td>{data.options?.join(', ') }</Td> */}
-                                                                <Td>{data.options ? data.options?.join(', ') : '-'}</Td>
-                                                                {/* <Td className="srvcDots"> */}
-                                                                <Td className="presEditDot scndOptionIner">
-                                                                    <a className="openScndhrf">
-                                                                        <Button>
-                                                                            <img
-                                                                                src={require("assets/images/three_dots_t.png")}
-                                                                                alt=""
-                                                                                title=""
-                                                                                className="openScnd"
-                                                                            />
-                                                                        </Button>
-                                                                        <ul>
-                                                                            <li>
-                                                                                {/* {console.log('data._id', data._id, data)} */}
-                                                                                <a
-                                                                                    onClick={() => {
-                                                                                        this.editQuestion(data, data._id);
-                                                                                    }}
-                                                                                >
-                                                                                    <img
-                                                                                        src={require("assets/images/details.svg")}
-                                                                                        alt=""
-                                                                                        title=""
-                                                                                    />
-                                                                                    Edit Question
-                                                                                </a>
-                                                                            </li>
-                                                                            {data.status !== "remove" && (
-                                                                                <li
-                                                                                    onClick={() => {
-                                                                                        this.removeQuestions("remove", data._id);
-                                                                                    }}
-                                                                                >
-                                                                                    <a>
-                                                                                        <img
-                                                                                            src={require("assets/images/cancel-request.svg")}
-                                                                                            alt=""
-                                                                                            title=""
-                                                                                        />
-                                                                                        Delete Question
-                                                                                    </a>
-                                                                                </li>
-                                                                            )}
-                                                                        </ul>
-                                                                    </a>
-                                                                </Td>
-                                                            </Tr>
-                                                        </>
-                                                    ))}
-                                                </Tbody>
-                                            </Table>
-                                            <Grid className="tablePagNum">
-                                                <Grid container direction="row">
-                                                    <Grid item xs={12} md={6}>
-                                                        <Grid className="totalOutOff">
-                                                            <a>
-                                                                {this.state.currentPage} of {this.state.totalPage}
-                                                            </a>
-                                                        </Grid>
-                                                    </Grid>
-                                                    <Grid item xs={12} md={6}>
-                                                        {this.state.totalPage > 1 && (
-                                                            <Grid className="prevNxtpag">
-
-                                                                <Pagination totalPage={this.state.totalPage} currentPage={this.state.currentPage} pages={this.state.pages} onChangePage={(page) => { this.onChangePage(page) }} />
-                                                            </Grid>
-                                                        )}
-                                                    </Grid>
-                                                </Grid>
-                                            </Grid>
-                                        </Grid>
-                                        {/* end of service price content */}
-                                    </Grid>
-                                </Grid>
-                                {/* End of Right Section */}
+                            <>
+                              <Tr>
+                                <Td>
+                                  <label>{data.type}</label>
+                                </Td>
+                                <Td>
+                                  <label>{data.question}</label>
+                                </Td>
+                                {/* <Td>{data.options?.join(', ') }</Td> */}
+                                <Td>{data.options ? data.options?.join(', ') : '-'}</Td>
+                                {/* <Td className="srvcDots"> */}
+                                <Td className="presEditDot scndOptionIner">
+                                  <a className="openScndhrf">
+                                    <Button>
+                                      <img
+                                        src={require("assets/images/three_dots_t.png")}
+                                        alt=""
+                                        title=""
+                                        className="openScnd"
+                                      />
+                                    </Button>
+                                    <ul>
+                                      <li>
+                                        {/* {console.log('data._id', data._id, data)} */}
+                                        <a
+                                          onClick={() => {
+                                            this.editQuestion(data, data._id);
+                                          }}
+                                        >
+                                          <img
+                                            src={require("assets/images/details.svg")}
+                                            alt=""
+                                            title=""
+                                          />
+                                          Edit Question
+                                        </a>
+                                      </li>
+                                      {data.status !== "remove" && (
+                                        <li
+                                          onClick={() => {
+                                            this.removeQuestions("remove", data._id);
+                                          }}
+                                        >
+                                          <a>
+                                            <img
+                                              src={require("assets/images/cancel-request.svg")}
+                                              alt=""
+                                              title=""
+                                            />
+                                            Delete Question
+                                          </a>
+                                        </li>
+                                      )}
+                                    </ul>
+                                  </a>
+                                </Td>
+                              </Tr>
+                            </>
+                          ))}
+                        </Tbody>
+                      </Table>
+                      <Grid className="tablePagNum">
+                        <Grid container direction="row">
+                          <Grid item xs={12} md={6}>
+                            <Grid className="totalOutOff">
+                              <a>
+                                {this.state.currentPage} of {this.state.totalPage}
+                              </a>
                             </Grid>
                           </Grid>
                           <Grid item xs={12} md={6}>
                             {this.state.totalPage > 1 && (
                               <Grid className="prevNxtpag">
-                                <Pagination
-                                  totalPage={this.state.totalPage}
-                                  currentPage={this.state.currentPage}
-                                  pages={this.state.pages}
-                                  onChangePage={(page) => {
-                                    this.onChangePage(page);
-                                  }}
-                                />
+
+                                <Pagination totalPage={this.state.totalPage} currentPage={this.state.currentPage} pages={this.state.pages} onChangePage={(page) => { this.onChangePage(page) }} />
                               </Grid>
                             )}
                           </Grid>
                         </Grid>
                       </Grid>
                     </Grid>
-                   
-               
+                    {/* end of service price content */}
+                  </Grid>
+                </Grid>
+                {/* End of Right Section */}
+              </Grid>
+            </Grid>
+            <Grid item xs={12} md={6}>
+              {this.state.totalPage > 1 && (
+                <Grid className="prevNxtpag">
+                  <Pagination
+                    totalPage={this.state.totalPage}
+                    currentPage={this.state.currentPage}
+                    pages={this.state.pages}
+                    onChangePage={(page) => {
+                      this.onChangePage(page);
+                    }}
+                  />
+                </Grid>
+              )}
+            </Grid>
+          </Grid>
+        </Grid>
+      </Grid>
+
+
     );
   }
 }

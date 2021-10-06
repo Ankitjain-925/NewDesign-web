@@ -243,25 +243,6 @@ class Index extends Component {
             });
     };
 
-    // getAddTaskData = () => {
-    //     this.setState({ loaderImage: true });
-    //     axios
-    //         .get(
-    //             sitedata.data.path + "/vh/PatientsTask/60113e84b488aa271effa411",
-    //             commonHeader(this.props.stateLoginValueAim.token)
-    //         )
-    //         .then((response) => {
-    //             this.setState({ AllTasks: response.data.data })
-    //             if (response.data.hassuccessed) {
-    //                 var Done = response.data.data?.length > 0 && response.data.data.filter((item) => item.status === "done")
-    //                 var Open = response.data.data?.length > 0 && response.data.data.filter((item) => item.status === "open")
-    //                 this.setState({ AllTasks: response.data.data, DoneTask: Done, OpenTask: Open })
-    //             }
-    //             this.setState({ loaderImage: false });
-
-    //         });
-    // };
-
     // For adding a date,time
     updateEntryState1 = (value, name) => {
         var due_on = this.state.newTask?.due_on ? this.state.newTask?.due_on : {};
@@ -849,31 +830,7 @@ class Index extends Component {
                                                             ))}
                                                         </Grid>
                                                     </TabContainer>}
-                                                    {/* </TabContainer>} */}
-                                                    {/* {tabvalue === 1 && <TabContainer>
-                                                        All Tasks
-                                                    </TabContainer>}
-                                                    {tabvalue === 2 && <TabContainer>
-                                                        <Grid className="tskOverView tskOverMob">
-                                                            <Grid className="taskNum taskYelow">
-                                                                <label><span></span>Open</label>
-                                                                <p>13</p>
-                                                            </Grid>
-                                                            <Grid className="taskNum taskGren">
-                                                                <label><span></span>Done today</label>
-                                                                <p>63</p>
-                                                            </Grid>
-                                                            <Grid className="taskNum taskYelow">
-                                                                <label><span></span>Open</label>
-                                                                <p>13</p>
-                                                            </Grid>
-                                                            <Grid className="taskNum taskGren">
-                                                                <label><span></span>Done today</label>
-                                                                <p>63</p>
-                                                            </Grid>
-                                                            <Grid className="showArchiv"><p><a>Show archived tasks</a></p></Grid>
-                                                        </Grid>
-                                                    </TabContainer>} */}
+                                                  
                                                 </Grid>
                                             </Grid>
                                         </Grid>
