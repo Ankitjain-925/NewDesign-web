@@ -1248,6 +1248,7 @@
 		"EnergyManagement":"Energiebeheer",
 		"CovidElearning":"Covid e-learning",
 		"Exercise":"Oefening",
-		"ChatwithCovidconsultant":"Chat met Covid-consulent"
+		"ChatwithCovidconsultant":"Chat met Covid-consulent",
+		"Currentpaincondition":"Huidige pijntoestand"
 	}
 }

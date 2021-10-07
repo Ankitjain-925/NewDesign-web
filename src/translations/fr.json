@@ -1242,12 +1242,13 @@
 		"Sepsis":"État septique",
 		"Multiorgan_failure":"Défaillance multiviscérale",
 		"past_date": "Date passée",
-		"how_memory":"Comment est ta mémoire ?",
+		"how_memory":"Vous avez des problèmes de mémoire ?",
 		"long_covid":"Observation Long-Covid",
 		"energy_lavel_determine":"Veuillez déterminer votre niveau d'énergie",
 		"EnergyManagement":"Gestion de l'énergie",
 		"CovidElearning":"E-learning sur le Covid",
 		"Exercise":"Exercer",
-		"ChatwithCovidconsultant":"Discuter avec un consultant Covid"
+		"ChatwithCovidconsultant":"Discuter avec un consultant Covid",
+		"Currentpaincondition":"État actuel de la douleur"
 	}
 }

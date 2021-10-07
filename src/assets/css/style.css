@@ -13140,6 +13140,12 @@ a.academy_ul ul li img {
 
 
 /*Added By ankita*/
+.nwDiaCntntIner {
+    height: 75vh !important;
+}
+.darkTheme h2 {
+    color: #D9DADA !important;
+}
 @media screen and (max-width:959px) {
     .emergency-head h1 {
         font-size: 22px;
@@ -13863,9 +13869,9 @@ g.highcharts-axis.highcharts-yaxis text {
 .addmores, .minus_span_medication, .noBpData h3, .consumeAt p {
     cursor: pointer;
 }
-.nwDiaCntntIner {
+/* .nwDiaCntntIner {
     height: 455px !important; 
-}
+} */
 .phrmLinkUpr, .detailPrescp {	
     height: 520px !important;	
 }	
@@ -16839,7 +16845,6 @@ select:-webkit-autofill:focus {
     border-bottom: 1px solid #F2F2F2;
 }
 .fatiqueQues h2 {
-    color: #000808;
     font-size: 20px;
     font-weight: bold;
     letter-spacing: 0;
@@ -17107,7 +17112,7 @@ ul.duringCovid li:last-child {
     color: #bfc1c1;
 }
 .homeBgDrk .fatiqueQues h2 {
-    color: #bfc1c1;
+    color: #bfc1c1 !important;
 }
 .homeBgDrk .fatiqueQues label {
     color: #bfc1c1;
@@ -17208,8 +17213,14 @@ ul.duringCovid li:last-child {
     margin-top: 16px;
     width: 100%;
 }
-.disavleViewLong, .disavleViewLong span, .disavleViewLong label, .disavleViewLong h1, .disavleViewLong a, .disavleViewLong img {
-    cursor: not-allowed !important;
+.homeBgDrk .fatiqueQues h2{
+    color: #D9DADA !important;
+}
+.covid-fat{
+    margin-top:20px;
+}
+.darkTheme .enrgyLbl a,.darkTheme .fatiqueQues a, .darkTheme .symptomsType a {
+    background-color: #363636;
 }
 
 

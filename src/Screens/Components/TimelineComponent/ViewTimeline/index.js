@@ -529,6 +529,7 @@ class Index extends Component {
             loggedinUser={this.state.loggedinUser}
             date_format={this.props.date_format}
             time_format={this.props.time_format}
+            gender={this.state.patient_gender}
           />
         )}
       </div>

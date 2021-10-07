@@ -1243,12 +1243,13 @@
 		"Sepsis":"Sepse",
 		"Multiorgan_failure":"Falha de múltiplos órgãos",
 		"past_date": "Data Anterior",
-		"how_memory":"Como está sua memória?",
+		"how_memory":"Você tem problemas de memória?",
 		"long_covid":"Observação Long-Covid",
 		"energy_lavel_determine":"Por favor, determine seu nível de energia",
 		"EnergyManagement":"Gerenciamento de energia",
 		"CovidElearning":"Covid Elearning",
 		"Exercise":"Exercício",
-		"ChatwithCovidconsultant":"Converse com o consultor da Covid"
+		"ChatwithCovidconsultant":"Converse com o consultor da Covid",
+		"Currentpaincondition":"Condição de dor atual"
 	}
 }

@@ -1243,12 +1243,13 @@
 		"Sepsis":"Sepsis",
 		"Multiorgan_failure":"Multiorganversagen",
 		"past_date": "Vergangenes Datum",
-		"how_memory":"Wie ist Ihr Gedächtnis?",
+		"how_memory":"Haben Sie Gedächtnisprobleme?",
 		"long_covid":"Langzeit-Covid-Beobachtung",
 		"energy_lavel_determine":"Bitte bestimmen Sie Ihr Energieniveau",
 		"EnergyManagement":"Energiemanagement",
 		"CovidElearning":"Covid-E-Learning",
 		"Exercise":"Übung",
-		"ChatwithCovidconsultant":"Chat mit Covid-Berater"
+		"ChatwithCovidconsultant":"Chat mit Covid-Berater",
+		"Currentpaincondition":"Aktueller Schmerzzustand"
 	}
 }

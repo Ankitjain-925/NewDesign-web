@@ -1241,12 +1241,13 @@
 		"Sepsis":"Sepsis",
 		"Multiorgan_failure":"çoklu organ yetmezliği",
 		"past_date": "Geçmiş Tarih",
-		"how_memory":"Hafızan nasıl?",
+		"how_memory":"Hafıza sorunlarınız mı var?",
 		"long_covid":"Uzun-Covid gözlemi",
 		"energy_lavel_determine":"Lütfen enerji seviyenizi belirleyin",
 		"EnergyManagement":"Enerji yönetimi",
 		"CovidElearning":"Covid e-öğrenme",
 		"Exercise":"Egzersiz yapmak",
-		"ChatwithCovidconsultant":"Covid danışmanıyla sohbet et"
+		"ChatwithCovidconsultant":"Covid danışmanıyla sohbet et",
+		"Currentpaincondition":"Mevcut ağrı durumu"
 	}
 }   

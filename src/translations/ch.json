@@ -1243,12 +1243,13 @@
 		"Sepsis":"败血症",
 		"Multiorgan_failure":"多器官衰竭",
 		"past_date": "过去日期",
-		"how_memory":"你的记忆力怎么样？",
+		"how_memory":"你有记忆问题吗？",
 		"long_covid":"长期观察",
 		"energy_lavel_determine":"请确定您的能量水平",
 		"EnergyManagement":"能源管理",
 		"CovidElearning":"Covid在线学习",
 		"Exercise":"锻炼",
-		"ChatwithCovidconsultant":"与 Covid 顾问聊天"
+		"ChatwithCovidconsultant":"与 Covid 顾问聊天",
+		"Currentpaincondition":"目前的疼痛状况"
 	}
 }

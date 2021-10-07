@@ -1243,12 +1243,13 @@
 		"Sepsis":"Сепсис",
 		"Multiorgan_failure":"Полиорганная недостаточность",
 		"past_date": "Прошлая дата",
-		"how_memory":"Как твоя память?",
+		"how_memory":"У вас проблемы с памятью?",
 		"long_covid":"Наблюдение за Long-Covid",
 		"energy_lavel_determine":"Пожалуйста, определите свой уровень энергии",
 		"EnergyManagement":"Управление энергией",
 		"CovidElearning":"Covid Электронное обучение",
 		"Exercise":"Упражнение",
-		"ChatwithCovidconsultant":"Чат с консультантом Covid"
+		"ChatwithCovidconsultant":"Чат с консультантом Covid",
+    "Currentpaincondition":"Текущее состояние боли"
   }
 }

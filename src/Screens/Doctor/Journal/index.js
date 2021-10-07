@@ -1816,11 +1816,7 @@ class Index extends Component {
                                   FileAttachMulti={this.FileAttachMulti}
                                   visibility={this.state.visibility}
                                   comesfrom="patient"
-                                  lrpUnit={AllL_Ps.AllL_Ps.units}
-                                  lrpEnglish={GetLanguageDropdown(
-                                    AllL_Ps.AllL_Ps.english,
-                                    this.props.stateLanguageType
-                                  )}
+                                  gender={this.state.patient_gender}
                                   GetHideShow={this.GetHideShow}
                                   AddTrack={this.AddTrack}
                                   options={this.state.AllSpecialty}

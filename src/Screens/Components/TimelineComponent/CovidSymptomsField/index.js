@@ -6,18 +6,21 @@ import FatiqueQuestion from "./FatiqueQuestions";
 import DateFormat from "Screens/Components/DateFormat/index";
 import SymptomQuestions from "./SymptomQuestions";
 import Button from "@material-ui/core/Button";
+import PainPoint from "Screens/Components/PointPain/index";
 import { pure } from "recompose";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { LanguageFetchReducer } from "Screens/actions";
 import { getLanguage } from "translations/index";
-
+import PainIntensity from "Screens/Components/PainIntansity/index";
+import Condition from "Screens/Components/Condition/index";
 class Index extends Component {
   constructor(props) {
     super(props);
     this.state = {
       updateTrack: this.props.updateTrack,
       date_format: this.props.date_format,
+      gender: this.props.gender,
   }
   }
   componentDidMount = () => {};
@@ -41,11 +44,11 @@ class Index extends Component {
   render() {
     let translate = getLanguage(this.props.stateLanguageType);
     let {
-        Symptoms, starting_things, energy_lavel_determine, how_memory, difficulties_concentrating, tongue_when_speaking,
+        Symptoms, Diaryentry, starting_things, energy_lavel_determine, how_memory, difficulties_concentrating, tongue_when_speaking,
         lack_energy, your_muscles, feel_week, Fatique, Headache, Shortness_of_breath, loss_smell, Diarrhea,
         Better_experience, Persistent_cough,Sore_throat, Fever, muscle_pain, Skipped_meals, Chest_pain,
         Fatique_questions, Hoarse_voice, Abdominal_pain, Delirium, Oxygen_therapy, ECMOtherapy, Sepsis, 
-        Multiorgan_failure, problem_with_tiredness, rest_more, save_entry, sleepy_drowsy, past_date, right_word  } = translate;
+        Multiorgan_failure, Currentpaincondition, problem_with_tiredness,selct_pain_area, rest_more, save_entry, sleepy_drowsy, past_date, right_word  } = translate;
 
     return (
       <div>
@@ -168,16 +171,57 @@ class Index extends Component {
                 <FatiqueQuestion updateEntryState1={(e)=>this.updateEntryState1(e, 'slips_tongue')} label={tongue_when_speaking} value={this.state.updateTrack?.slips_tongue}/>
                 <FatiqueQuestion updateEntryState1={(e)=>this.updateEntryState1(e, 'right_word')} label={right_word} value={this.state.updateTrack?.right_word}/>
                 <FatiqueQuestion updateEntryState1={(e)=>this.updateEntryState1(e, 'how_memory')} label={how_memory} value={this.state.updateTrack?.how_memory}/>
+                <FatiqueQuestion updateEntryState1={(e)=>this.updateEntryState1(e, 'delirium')} label={Delirium} value={this.state.updateTrack?.delirium}/>
+                <FatiqueQuestion updateEntryState1={(e)=>this.updateEntryState1(e, 'oxygen_therapy')} label={Oxygen_therapy} value={this.state.updateTrack?.oxygen_therapy}/>
+                <FatiqueQuestion updateEntryState1={(e)=>this.updateEntryState1(e, 'ecmo_therapy')} label={ECMOtherapy} value={this.state.updateTrack?.ecmo_therapy}/>
+                <FatiqueQuestion updateEntryState1={(e)=>this.updateEntryState1(e, 'sepsis')} label={Sepsis} value={this.state.updateTrack?.sepsis}/>
+                <FatiqueQuestion updateEntryState1={(e)=>this.updateEntryState1(e, 'multiorgan_failure')} label={Multiorgan_failure} value={this.state.updateTrack?.multiorgan_failure}/>               
+            </Grid>
+            <Grid className="symptomSec">
+                <h3>{Currentpaincondition}</h3>
+            </Grid>
+            <Grid className="fillDia">
+                    <Grid>
+                      <label>{selct_pain_area}</label>
+                    </Grid>
+                    <PainPoint
+                      id="New_id1"
+                      gender={this.state.gender}
+                      painPoint={
+                        this.state.updateTrack && this.state.updateTrack.painPoint
+                          ? this.state.updateTrack.painPoint
+                          : []
+                      }
+                      onChange={(e) => this.updateEntryState1(e, "painPoint")}
+                    />
+                  </Grid>
+                  <Grid className="fillDia">
+                    <PainIntensity
+                      name="pain_intensity"
+                      onChange={(e) => this.props.updateEntryState(e)}
+                      value={Math.round(this.state.updateTrack.pain_intensity)}
+                    />
+                  </Grid>
+                  <Grid className="fillDia">
+                    <Condition
+                      name="feeling"
+                      onChange={(e) => this.props.updateEntryState(e)}
+                      value={Math.round(this.state.updateTrack.feeling)}
+                    />
+                </Grid>
+
+                <Grid className="symptomSec">
+                  <h3>{Diaryentry}</h3>
+                </Grid>
                 <Grid className="fillDia">
                     <NotesEditor
                         name="memory_txt"
-                        label={how_memory}
+                        label={""}
+                        comesFrom="long_covid"
                         onChange={(e) => this.updateEntryState1(e, "memory_txt")}
                         value={this.state.updateTrack.memory_txt}
                     />
                 </Grid>
-            </Grid>
-        
               <Grid className="symptomSec">
                 <h3>{Symptoms}</h3>
                 <SymptomQuestions  updateEntryState1={(e)=>this.updateEntryState1(e, 'fatique')} label={Fatique} value={this.state.updateTrack?.fatique}/>
@@ -193,14 +237,6 @@ class Index extends Component {
                 <SymptomQuestions  updateEntryState1={(e)=>this.updateEntryState1(e, 'diarrhea')} label={Diarrhea} value={this.state.updateTrack?.diarrhea}/>
                 <SymptomQuestions  updateEntryState1={(e)=>this.updateEntryState1(e, 'hoarse_voice')} label={Hoarse_voice} value={this.state.updateTrack?.hoarse_voice}/>
                 <SymptomQuestions  updateEntryState1={(e)=>this.updateEntryState1(e, 'abdominal_pain')} label={Abdominal_pain} value={this.state.updateTrack?.abdominal_pain}/>
-                
-                <Grid className="fatiqueQues">
-                    <FatiqueQuestion updateEntryState1={(e)=>this.updateEntryState1(e, 'delirium')} label={Delirium} value={this.state.updateTrack?.delirium}/>
-                    <FatiqueQuestion updateEntryState1={(e)=>this.updateEntryState1(e, 'oxygen_therapy')} label={Oxygen_therapy} value={this.state.updateTrack?.oxygen_therapy}/>
-                    <FatiqueQuestion updateEntryState1={(e)=>this.updateEntryState1(e, 'ecmo_therapy')} label={ECMOtherapy} value={this.state.updateTrack?.ecmo_therapy}/>
-                    <FatiqueQuestion updateEntryState1={(e)=>this.updateEntryState1(e, 'sepsis')} label={Sepsis} value={this.state.updateTrack?.sepsis}/>
-                    <FatiqueQuestion updateEntryState1={(e)=>this.updateEntryState1(e, 'multiorgan_failure')} label={Multiorgan_failure} value={this.state.updateTrack?.multiorgan_failure}/>
-                </Grid>
               </Grid>
              
             </Grid>

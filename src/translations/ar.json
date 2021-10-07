@@ -1242,12 +1242,13 @@
 		"Sepsis":"الإنتان",
 		"Multiorgan_failure":"فشل متعدد الأعضاء",
 		"past_date": "التاريخ الماضي",
-		"how_memory":"كيف هي ذاكرتك",
+		"how_memory":"هل لديك مشاكل في الذاكرة؟",
 		"long_covid":"مراقبة طويلة كوفيد",
 		"energy_lavel_determine":"الرجاء تحديد مستوى الطاقة الخاص بك",
 		"EnergyManagement":"إدارة الطاقة",
 		"CovidElearning":"كوفيد التعلم الإلكتروني",
 		"Exercise":"يمارس",
-		"ChatwithCovidconsultant":"تحدث مع مستشار كوفيد"
+		"ChatwithCovidconsultant":"تحدث مع مستشار كوفيد",
+		"Currentpaincondition":"حالة الألم الحالية"
 	}
 }

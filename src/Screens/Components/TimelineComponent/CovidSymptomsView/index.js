@@ -18,6 +18,9 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import ExpandLessIcon from "@material-ui/icons/ExpandLess";
 import { getLanguage } from "translations/index";
 import { pure } from "recompose";
+import PainIntensity from "Screens/Components/PainIntansity/index";
+import Condition from "Screens/Components/Condition/index";
+import PainPoint from "Screens/Components/PointPain/index";
 class Index extends Component {
   constructor(props) {
     super(props);
@@ -58,31 +61,24 @@ class Index extends Component {
   render() {
     let translate = getLanguage(this.props.stateLanguageType);
     let {
-      O2Saturation,
-      notes,
+      Diaryentry,
       visible,
       ChatwithCovidconsultant,
       Exercise,
       CovidElearning,
       EnergyManagement,
       show,
+      pain_areas,
       hide,
       until,
       archive,
-      temparture,
-      Date_of_event,
       edit,
       Delete,
       always,
-      Download,
-      details,
-      img_files,
       Change,
       Location,
       visibility,
       de_archive,
-      covid_diary,
-      pain_areas,
       not_mentioned,
       long_covid,
       Symptoms,
@@ -118,6 +114,7 @@ class Index extends Component {
       rest_more,
       save_entry,
       sleepy_drowsy,
+      Currentpaincondition, 
       past_date,
       right_word,
     } = translate;
@@ -143,7 +140,7 @@ class Index extends Component {
                 </Grid>
               </Grid>
               <Grid item xs={12} md={6}>
-                {(new Date(item.past_date) > new Date()) && <Grid className="bp_vsblSec scndOptionIner1">
+                <Grid className="bp_vsblSec scndOptionIner1">
                   <a
                     onClick={() => this.props.EidtOption(item.type, item, true)}
                     className="bp_vsblEye"
@@ -306,7 +303,7 @@ class Index extends Component {
                       </ul>
                     )}
                   </a>
-                </Grid>}
+                </Grid>
               </Grid>
               <Grid className="clear"></Grid>
             </Grid>
@@ -509,15 +506,88 @@ class Index extends Component {
                         label={how_memory}
                         value={item?.how_memory}
                       />
+                      <FatiqueQuestion
+                          notchangeble={true}
+                          label={Delirium}
+                          value={item?.delirium}
+                        />
+                        <FatiqueQuestion
+                          notchangeble={true}
+                          label={Oxygen_therapy}
+                          value={item?.oxygen_therapy}
+                        />
+                        <FatiqueQuestion
+                          notchangeble={true}
+                          label={ECMOtherapy}
+                          value={item?.ecmo_therapy}
+                        />
+                        <FatiqueQuestion
+                          notchangeble={true}
+                          label={Sepsis}
+                          value={item?.sepsis}
+                        />
+                        <FatiqueQuestion
+                          notchangeble={true}
+                          label={Multiorgan_failure}
+                          value={item?.multiorgan_failure}
+                        />
                     </Grid>
-                    <Grid className="detailMark">
-                        <Collapsible trigger={how_memory} open="true">
+                    <Grid className="symptomSec">
+                      <h3>{Currentpaincondition}</h3>
+                    </Grid>
+                    <Grid container direction="row" className="conPainGraph">
+                      <Grid item xs={12} md={5}>
+                        <Grid className="conPainLft">
+                          <Grid className="conPainArea">
+                            <label>{pain_areas}</label>
+                          </Grid>
+                          <PainPoint
+                            id={item.track_id}
+                            gender={this.state.gender}
+                            painPoint={item.painPoint}
+                            isView={true}
+                          />
+                        </Grid>
+                      </Grid>
+                      <Grid item xs={12} md={7}>
+                        <Grid className="conPainRght">
+                          <Grid className="painIntencty">
+                            <PainIntensity
+                              name="pain_intensity"
+                              Forview={true}
+                              onChange={(e) => this.props.updateEntryState(e)}
+                              value={Math.round(item.pain_intensity)}
+                            />
+                          </Grid>
+
+                          <Grid className="condIntencty">
+                            <Condition
+                              name="feeling"
+                              Forview={true}
+                              onChange={(e) => this.props.updateEntryState(e)}
+                              value={Math.round(item.feeling)}
+                            />
+                          </Grid>
+                        </Grid>
+                      </Grid>
+                      <Grid className="clear"></Grid>
+                    </Grid>
+
+                    {/* <Grid className="detailMark">
+                        <Collapsible trigger={Diaryentry} open="true">
                           <Grid className="detailCntnt">
                             <p dangerouslySetInnerHTML={{ __html: item.memory_txt }} />
                           </Grid>
                         </Collapsible>
-                      </Grid>
-
+                      </Grid> */}
+                  <Grid className="symptomSec maxWidthSet">
+                      
+                    <h3>{Diaryentry}</h3>
+                  
+                    <Grid className="detailCntnt">
+                            <p dangerouslySetInnerHTML={{ __html: item.memory_txt }} />
+                          </Grid>
+                          </Grid>
                     <Grid className="symptomSec maxWidthSet">
                       <h3>{Symptoms}</h3>
                       <SymptomQuestions
@@ -585,34 +655,6 @@ class Index extends Component {
                         label={Abdominal_pain}
                         value={item?.abdominal_pain}
                       />
-
-                      <Grid className="fatiqueQues">
-                        <FatiqueQuestion
-                          notchangeble={true}
-                          label={Delirium}
-                          value={item?.delirium}
-                        />
-                        <FatiqueQuestion
-                          notchangeble={true}
-                          label={Oxygen_therapy}
-                          value={item?.oxygen_therapy}
-                        />
-                        <FatiqueQuestion
-                          notchangeble={true}
-                          label={ECMOtherapy}
-                          value={item?.ecmo_therapy}
-                        />
-                        <FatiqueQuestion
-                          notchangeble={true}
-                          label={Sepsis}
-                          value={item?.sepsis}
-                        />
-                        <FatiqueQuestion
-                          notchangeble={true}
-                          label={Multiorgan_failure}
-                          value={item?.multiorgan_failure}
-                        />
-                      </Grid>
                     </Grid>
                     <Grid className="clear"></Grid>
                   </Grid>

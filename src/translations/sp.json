@@ -1242,12 +1242,13 @@
 		"Sepsis":"Septicemia",
 		"Multiorgan_failure":"Fallo multiorgánico",
 		"past_date": "Fecha pasada",
-		"how_memory":"Como esta tu memoria",
+		"how_memory":"¿Tiene problemas de memoria?",
 		"long_covid":"Observación Long-Covid",
 		"energy_lavel_determine":"Por favor, determine su nivel de energía.",
 		"EnergyManagement":"Gestión energética",
 		"CovidElearning":"Covid Elearning",
 		"Exercise":"Ejercicio",
-		"ChatwithCovidconsultant":"Chatear con el consultor de Covid"
+		"ChatwithCovidconsultant":"Chatear con el consultor de Covid",
+		"Currentpaincondition":"Condición de dolor actual"
 	}
 }
