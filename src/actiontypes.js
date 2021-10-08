@@ -33,6 +33,7 @@ export const GET_Withing_REQUEST = "GET_Withing_REQUEST";
 export const GET_Withing_SUCCESS = "GET_Withing_SUCCESS";
 export const GET_Withing_ERROR = "GET_Withing_ERROR";
 
+
 export const GET_fitbit_REQUEST = "GET_fitbit_REQUEST";
 export const GET_fitbit_SUCCESS = "GET_fitbit_SUCCESS";
 export const GET_fitbit_ERROR = "GET_fitbit_ERROR";
@@ -55,9 +56,6 @@ export const GET_SPECIALITY_REQUEST = 'GET_SPECIALITY_REQUEST';
 export const GET_SPECIALITY_SUCCESS = 'GET_SPECIALITY_SUCCESS';
 export const GET_SPECIALITY_FAIL = 'GET_SPECIALITY_FAIL';
 
-export const GET_QUESTION_REQUEST = 'GET_QUESTION_REQUEST';
-export const GET_QUESTION_SUCCESS = 'GET_QUESTION_SUCCESS';
-export const GET_QUESTION_FAIL = 'GET_QUESTION_FAIL';
 
 
 
