@@ -15,6 +15,7 @@ import {
   getLanguage
 } from "translations/index";
 import {DebounceInput} from 'react-debounce-input';
+import { LanguageFetchReducer } from "Screens/actions";
 import { commonHeader } from "component/CommonHeader/index";
 class CometChatUserList extends React.PureComponent {
   timeout;
@@ -28,12 +29,14 @@ class CometChatUserList extends React.PureComponent {
       preUserList: [],
       loading: false,
       Unread: 0,
-      onSearh: false
+      onSearh: false,
+      stillLoading: false
     };
    
   }
 
   componentDidMount() {
+    this.setState({ stillLoading: true })
     new CometChatManager().getLoggedInUser().then((user) => {
       CometChat.getUnreadMessageCount().then((users) => {
         this.setState({ Unread: users });
@@ -370,6 +373,9 @@ class CometChatUserList extends React.PureComponent {
                       else{
                         this.newAtTop(userForlist, true)
                       }
+                    if(i==numberOfTimes && remainLimit ==0){
+                      this.setState({stillLoading: false})
+                    }
                   })
                   //
                   // usersRequest.push(
@@ -395,6 +401,7 @@ class CometChatUserList extends React.PureComponent {
                       });
                     });
                     this.newAtTop(userForlist)
+                    this.setState({stillLoading: false})
                   })
               }
             } else {
@@ -411,6 +418,7 @@ class CometChatUserList extends React.PureComponent {
                   });
                 });
                 this.newAtTop(userForlist)
+                this.setState({stillLoading: false})
               })
             }
           // this.resolveUserList(u1)
@@ -460,6 +468,7 @@ class CometChatUserList extends React.PureComponent {
       .catch((error) => {
         this.setState({ loading: false });
       });
+     
         // u.map((id, index) => {
         //   CometChat.getUser(id)
         //     .then(
@@ -512,7 +521,7 @@ class CometChatUserList extends React.PureComponent {
   render() {
     
     let translate = getLanguage(this.props.stateLanguageType)
-    let { Search, Loading } = translate;
+    let { Search, Loading, searchingLoading } = translate;
     let loading = null;
     if (this.state.loading) {
       loading = <div className="lo8ading-text">{Loading}</div>;
@@ -571,11 +580,15 @@ class CometChatUserList extends React.PureComponent {
             {/* <input
               type="text"
               autoComplete="off"
-             
-             
               placeholder={Search}
               onChange={this.onChange}
             /> */}
+             {this.state.stillLoading ? 
+              <div className="fiterisLoading">
+              {searchingLoading}
+              </div>
+            :
+            <>
              <DebounceInput
                 id="chatSearch"
                 className="ccl-left-panel-srch"
@@ -587,6 +600,7 @@ class CometChatUserList extends React.PureComponent {
                 onChange={e => this.searchUsers(e)}
               />
             <input id="searchButton" type="button" className="search-btn " />
+            </>}
           </div>
         </div>
         <div
@@ -604,13 +618,15 @@ const mapStateToProps = (state) => {
     stateLoginValueAim,
     loadingaIndicatoranswerdetail,
   } = state.LoginReducerAim;
+  const { stateLanguageType } = state.LanguageReducer;
   return {
+    stateLanguageType,
     stateLoginValueAim,
     loadingaIndicatoranswerdetail,
   };
 };
 
 export default connect(mapStateToProps, {
-  LoginReducerAim,
+  LoginReducerAim, LanguageFetchReducer,
 })(CometChatUserList);
 
