@@ -64,6 +64,7 @@ class PointPain extends Component {
       secnd_openion,
       sick_cert,
       smoking_status,
+      long_covid,
       vaccination,
       weight_bmi,
       respiration
@@ -291,7 +292,7 @@ class PointPain extends Component {
                       ) : (
                         <span>13</span>
                       )}
-                      <p>{"Long-Covid observation"}</p>
+                      <p>{long_covid}</p>
                     </a>
                   </Grid>
                   <Grid className="clear"></Grid>

@@ -16821,7 +16821,7 @@ select:-webkit-autofill:focus {
 }
 .enrgyLbl a:hover {
     cursor: pointer;
-    background-color: #00ABAF;
+    background-color: #00ABAF !important;
     box-shadow: 0 8px 24px 0 rgb(0 171 175 / 32%);
 }
 .enrgyLbl .enrgyWht {
@@ -16863,7 +16863,8 @@ select:-webkit-autofill:focus {
     text-align: center;
     font-family: 'Mulish', sans-serif;
     height: 34px;
-    width: 42px;
+    padding: 0px 4px;
+    min-width: 42px;
     border: 1px solid #F2F2F2;
     border-radius: 8px;
     background-color: #FFFFFF;
@@ -17121,7 +17122,7 @@ ul.duringCovid li:last-child {
     background-color: #363636;
     border: 1px solid #00abaf;
 }
-.homeBgDrk .enrgyLbl .activeButton {
+.homeBgDrk .enrgyLbl .activeButton,.darkTheme .enrgyLbl .activeButton  {
     background-color: #00abaf !important;
 }
 .homeBgDrk .fatiqueQues a {
