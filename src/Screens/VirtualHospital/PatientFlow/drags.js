@@ -117,6 +117,7 @@ class Index extends Component {
                     <div className="detailInfo">
                       <Column
                         key={key}
+                        onDragEnd={(data)=>{this.onDragEnd(data)}}
                         index={index}
                         edit={this.props.edit}
                         editName={this.props.editName}
@@ -131,6 +132,8 @@ class Index extends Component {
                         ordered={ordered}
                         moveAllPatient={(to, from, data)=>{this.props.moveAllPatient(to, from, data)}}
                         moveStep={(to, from, item)=>{this.props.moveStep(to, from, item)}}
+                        columns={this.state.columns}
+                        setDta={(item)=>this.props.setDta(item)}
                       />
                     </div>
                   </li>
@@ -139,6 +142,7 @@ class Index extends Component {
                  <li>
                  <Grid className="nwPatentAdd"><Button onClick={this.AddMoreStep}>+ Add Step</Button></Grid>
                  </li>
+                 {/* {console.log('this.state.columns', this.state.columns)} */}
               </ul>
               {provided.placeholder}
             </div>

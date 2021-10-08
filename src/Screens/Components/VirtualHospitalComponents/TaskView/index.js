@@ -13,6 +13,7 @@ import {
 } from "translations/index"
 import { S3Image } from "Screens/Components/GetS3Images/index";
 import Assigned from "Screens/Components/VirtualHospitalComponents/Assigned/index"
+import SpecialityButton from "Screens/Components/VirtualHospitalComponents/SpecialityButton";
 
 class PointPain extends Component {
   constructor(props) {
@@ -28,6 +29,7 @@ class PointPain extends Component {
       this.setState({ data: this.props.data, });
     }
   };
+  setSpeciality = () => {};
 
   componentDidMount = () => {};
   render() {
@@ -41,9 +43,16 @@ class PointPain extends Component {
         <Grid container direction="row" alignItems="center">
             <Grid item xs={12} sm={8} md={6}>
                 <Grid className="revwFiles">
-                    <Grid><img src={require('assets/virtual_images/greyImg.jpg')} alt="" title="" /></Grid>
-                    <Grid className="revwFilesRght cardioColor">
-                        <Grid><Button>{data?.specialty?.specialty_name}</Button></Grid>
+                    {data.status === 'done' ? <Grid><img src={require('assets/virtual_images/rightTick.png')} alt="" title="" /></Grid>:
+                    <Grid><img src={require('assets/virtual_images/greyImg.jpg')} alt="" title="" /></Grid>}
+                    <Grid className="revwFilesRght">
+                        <Grid> <SpecialityButton
+                                  label={data?.speciality?.specialty_name}
+                                  backgroundColor={data?.speciality?.background_color}
+                                  viewImage={false}
+                                  color={data?.speciality?.color}
+                                  showActive={false}
+                                /> </Grid>
                         <Grid><label>{data.task_name}</label></Grid>
                     </Grid>
                 </Grid>

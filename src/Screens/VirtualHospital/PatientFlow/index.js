@@ -25,6 +25,9 @@ import Button from "@material-ui/core/Button";
 import LeftMenu from "Screens/Components/Menus/VirtualHospitalMenu/index";
 import LeftMenuMobile from "Screens/Components/Menus/VirtualHospitalMenu/mobile";
 import _ from 'lodash';
+import {
+  getLanguage
+}from "translations/index"
 
 const options = [
   { value: "data1", label: "Data1" },
@@ -40,10 +43,12 @@ class Index extends Component {
       view: "vertical",
       openAddP: false,
       fullData: {},
-      actualData: {},
+      actualData:[],
       edit: false,
       addp:{},
       case: {},
+      caseAlready: false,
+      AddstpId: false
     };
   }
   static defaultProps = {
@@ -67,10 +72,15 @@ class Index extends Component {
     var deep = _.cloneDeep(this.state.actualData);
     deep.map((item)=>{
       item.case_numbers = item.case_numbers.map((element)=>{
-        let case_id = element._id
-        element={};
-        element.case_id=  case_id;
-        return element;
+        if(element._id){
+          let case_id = element._id
+          element={};
+          element.case_id=  case_id;
+          return element;
+        }
+        else{
+          return element;
+        }
       })
     })
     this.setState({ loaderImage: true });
@@ -119,7 +129,6 @@ class Index extends Component {
   AddStep = () => {
     var state = this.state.actualData;
     state.push({ step_name: "Step" + state?.length, case_numbers: [] });
-    console.log('step1111', state)
     this.setDta(state);
     this.CallApi();
   };
@@ -149,8 +158,8 @@ class Index extends Component {
   };
 
   //Open case model
-  openAddPatient = () => {
-    this.setState({ openAddP: true });
+  openAddPatient = (index = 0) => {
+    this.setState({ openAddP: true, AddstpId: index });
   };
 
   //Close case model
@@ -202,11 +211,19 @@ class Index extends Component {
                   this.setState({idpinerror: false, openAddP: false, case: {},  addp: {}})
                   var state = this.state.actualData;
                   if(this.state.AddstpId){
-                    
+                    state[this.state.AddstpId].case_numbers.push({case_id: responce1.data.data })
                   }
-                  state[0].case_numbers.push({case_id: responce1.data.data })
+                  else{
+                    state[0].case_numbers.push({case_id: responce1.data.data })
+                  }
+                  this.setState({AddstpId: false})
+                  // console.log('state', state, responce1.data.data )
                   this.setDta(state);
                   this.CallApi();
+                }
+                else{
+                  this.setState({caseAlready: true, loaderImage: false})
+                  setTimeout(()=>{ this.setState({caseAlready: false})}, 3000)
                 }
               })
               this.setState({ loaderImage: false });
@@ -218,7 +235,7 @@ class Index extends Component {
           }
          
         });
-    } 
+  } 
 
   //On change the case
   onChangeCase=(e)=>{
@@ -268,6 +285,8 @@ class Index extends Component {
   }
 
   render() {
+    let translate = getLanguage(this.props.stateLanguageType);
+    let {PatientFlow, AddPatienttoFlow, PatientID, PatientPIN, CaseNumber} = translate;
     const { selectedOption } = this.state;
     return (
       <Grid
@@ -297,7 +316,7 @@ class Index extends Component {
                     <Grid className="addFlow">
                       <Grid container direction="row" justify="center">
                         <Grid item xs={12} sm={6} md={6}>
-                          <h1>Patient Flow</h1>
+                          <h1>{PatientFlow}</h1>
                         </Grid>
                         <Grid
                           item
@@ -306,7 +325,7 @@ class Index extends Component {
                           md={6}
                           className="addFlowRght"
                         >
-                          <a onClick={this.openAddPatient}>+ Add patient</a>
+                          <a onClick={()=>this.openAddPatient(0)}>+ Add patient</a>
                         </Grid>
                       </Grid>
                     </Grid>
@@ -380,6 +399,7 @@ class Index extends Component {
                       moveAllPatient={(to, from, data) => this.moveAllPatient(to, from , data)}
                       view={this.state.view}
                       moveStep={(to, from, item)=>{this.moveStep(to, from, item)}}
+                      setDta={(item)=>this.setDta(item)}
                     />
                   </Grid>
                 </Grid>
@@ -408,28 +428,32 @@ class Index extends Component {
                     />
                   </a>
                 </Grid>
-                <label>Add Patient to Flow</label>
+                <label>{AddPatienttoFlow}</label>
               </Grid>
               <Grid className="patentInfo">
+                {this.state.caseAlready &&
+                <div className="err_message">
+                  Case Already exists in hospital
+                </div>}
                 {this.state.idpinerror &&
                 <div className="err_message">
                   ID and PIN is not correct 
                 </div>}
                 <Grid className="patentInfoTxt">
                   <Grid>
-                    <label>Patient ID</label>
+                    <label>{PatientID}</label>
                   </Grid>
                   <TextField name="patient_id" value={this.state.addp.patient_id} onChange={this.changeAddp}/>
                 </Grid>
                 <Grid className="patentInfoTxt">
                   <Grid>
-                    <label>Patient PIN</label>
+                    <label>{PatientPIN}</label>
                   </Grid>
                   <TextField name="pin" value={this.state.addp.pin} onChange={this.changeAddp}/>
                 </Grid>
                 <Grid className="patentInfoTxt">
                   <Grid>
-                    <label>Case Number</label>
+                    <label>{CaseNumber}</label>
                   </Grid>
                   <TextField name="case_number" value={this.state.case.case_number} onChange={this.onChangeCase}/>
                 </Grid>

@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
 import Button from '@material-ui/core/Button';
 import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
+import {
+    getLanguage
+  } from "translations/index"
 
 class Index extends React.Component {
     constructor(props) {
@@ -13,6 +16,8 @@ class Index extends React.Component {
     }
     
     render() {
+        let translate = getLanguage(this.props.stateLanguageType)
+        let {Lastmonth } = translate;
         return (
             <>
                 <Grid className="modeChngUpr">
@@ -21,7 +26,7 @@ class Index extends React.Component {
                             <Grid item xs={12} md={5}><h3>Staff actions</h3></Grid>
                             <Grid item xs={12} md={7}>
                                 <Grid className="staffLastMnth">
-                                    <label>Last month</label>
+                                    <label>{Lastmonth}</label>
                                     <a>3m</a>
                                     <a>6m</a>
                                     <a>1y</a>

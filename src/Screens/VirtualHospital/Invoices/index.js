@@ -115,14 +115,15 @@ class Index extends Component {
     //Add the services  
     handleAddSubmit = () => {
         console.log("updateTrack", this.state.updateTrack)
-        var newService = this.state.updateTrack;
-        newService.price = newService?.service?.price * newService?.quantity
+    var newService = this.state.updateTrack;
+        newService.price = newService?.service?.price*newService?.quantity 
         console.log('new Sevice', newService)
         let items = [...this.state.items];
         items.push({
             updateTrack: newService
         });
-        this.setState({ items, updateTrack: {} })
+        this.setState({
+        items,updateTrack: {}})
         this.finishInvoice();
         // var calculatePrice = 0;
         // {

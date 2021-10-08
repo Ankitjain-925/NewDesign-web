@@ -11,6 +11,7 @@ import { Settings } from 'Screens/Login/setting';
 import {
   getLanguage
 } from "translations/index"
+
 class PointPain extends Component {
   constructor(props) {
     super(props);
@@ -50,9 +51,7 @@ class PointPain extends Component {
   componentDidMount = () => {};
   render() {
     let translate = getLanguage(this.props.stateLanguageType)
-    let {
-      
-    } = translate;
+    let {AssignHouse} = translate;
     return (
         <Modal
         open={this.state.openHouse}
@@ -78,7 +77,7 @@ class PointPain extends Component {
               </a>
             </Grid>
             <Grid>
-              <label>Assign House</label>
+              <label>{AssignHouse}</label>
             </Grid>
           </Grid>
           <Grid className="enterSpclUpr">

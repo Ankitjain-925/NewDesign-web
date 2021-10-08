@@ -13,7 +13,7 @@ const Speciality = (state = data, action) => {
         case GET_SPECIALITY_REQUEST:
             return { speciality: { SPECIALITY: false } };
         case GET_SPECIALITY_SUCCESS:{
-            return { speciality: { ...action.payload } };
+            return { speciality: { SPECIALITY: [...action.payload] } };
         }
         case GET_SPECIALITY_FAIL:
             return { speciality: { SPECIALITY: false } };

@@ -52,7 +52,7 @@ export default class Column extends Component {
                         <img src={require('assets/images/threedots.jpg')} alt="" title="" className="academyDots stepTdot" />
                           <ul>
                             {!this.state.inneerSec && <Grid>
-                            <li><a onClick={()=>{}}><span><img src={require('assets/images/admin/details1.svg')} alt="" title="" /></span>{"Add patient to this step"}</a></li>
+                            <li><a onClick={()=>{this.props.openAddPatient(index)}}><span><img src={require('assets/images/admin/details1.svg')} alt="" title="" /></span>{"Add patient to this step"}</a></li>
                             <li><a onClick={()=>{this.setState({inneerSec: "step_move"})}}><span><img src={require('assets/images/admin/restoreIcon.png')} alt="" title="" /></span>{"Move Step"}</a></li>
                             <li><a onClick={()=>{this.setState({inneerSec: "move_all"})}}><span><img src={require("assets/images/admin/details1.svg")} alt="" title="" /></span>{"Move All patient in this Step >"} </a></li>
                             <li><a onClick={()=>{this.props.DeleteStep(index)}}><span><img src={require('assets/images/admin/delIcon.png')} alt="" title="" /></span>{"Delete step"}</a></li>
@@ -61,7 +61,7 @@ export default class Column extends Component {
                             <div>
                               <Grid className="movHead">
                                     <Grid onClick={()=>this.setState({inneerSec: false})} className="movHeadLft"><a><img src={require('assets/virtual_images/arw1.png')} alt="" title="" /></a></Grid>
-                                    <Grid className="movHeadMid"><label>Move All Patient</label></Grid>
+                                    <Grid  className="movHeadMid"><label>Move All Patient</label></Grid>
                                     <Grid className="movHeadRght"><a onClick={()=>this.setState({inneerSec: false})}><img src={require('assets/virtual_images/closefancy.png')} alt="" title="" /></a></Grid>
                                 </Grid>
                                 <Grid className="positionDrop">
@@ -73,7 +73,7 @@ export default class Column extends Component {
                             }
                             {this.state.inneerSec==='step_move' &&
                             <div>
-                              <Grid className="movHead">
+                                <Grid className="movHead">
                                     <Grid onClick={()=>this.setState({inneerSec: false})} className="movHeadLft"><a><img src={require('assets/virtual_images/arw1.png')} alt="" title="" /></a></Grid>
                                     <Grid className="movHeadMid"><label>Move Step</label></Grid>
                                     <Grid className="movHeadRght"><a onClick={()=>this.setState({inneerSec: false})}><img src={require('assets/virtual_images/closefancy.png')} alt="" title="" /></a></Grid>
@@ -95,7 +95,7 @@ export default class Column extends Component {
                   <Grid container direction="row" justify="center" alignItems="center">
                       <Grid item xs={12} sm={6} md={6}><label>{title}</label></Grid>
                       <Grid item xs={12} sm={6} md={6} className="addPatent">
-                          <a className="addNwPatnt" onClick={()=>{this.props.openAddPatient()}}>+ Add a new patient</a>
+                          <a className="addNwPatnt" onClick={()=>{this.props.openAddPatient(index)}}>+ Add a new patient</a>
                           <a><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></a>
                       </Grid>
                   </Grid>
@@ -104,6 +104,7 @@ export default class Column extends Component {
               </Grid>
             </div>
               <QuoteList
+                ordered={this.props.ordered}
                 listId={title}
                 listType="QUOTE"
                 style={{
@@ -112,10 +113,13 @@ export default class Column extends Component {
                 }}
                 view={this.props.view}
                 quotes={quotes}
+                columns={this.props.columns}
                 internalScroll={this.props.isScrollable}
                 isCombineEnabled={Boolean(this.props.isCombineEnabled)}
+                onDragEnd={(data)=>{this.props.onDragEnd(data)}}
+                setDta={(item)=>this.props.setDta(item)}
               />
-             {this.props.view==='vertical' && <Grid className="nwPatentAdd"><Button onClick={()=>{this.props.openAddPatient()}}>+ Add a new patient</Button></Grid>}
+             {this.props.view==='vertical' && <Grid className="nwPatentAdd"><Button onClick={()=>{this.props.openAddPatient(index)}}>+ Add a new patient</Button></Grid>}
           </div>
         )}
       </Draggable>

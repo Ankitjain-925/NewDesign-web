@@ -22,12 +22,16 @@ class InnerQuoteList extends React.Component {
       >
         {(dragProvided, dragSnapshot) => (
           <QuoteItem
+            columns={this.props.columns}
+            ordered={this.props.ordered}
             key={quote.patient_id}
             quote={quote}
             isDragging={dragSnapshot.isDragging}
             isGroupedOver={Boolean(dragSnapshot.combineTargetFor)}
             provided={dragProvided}
             view={this.props.view}
+            onDragEnd={(data)=>{this.props.onDragEnd(data)}}
+            setDta={(item)=>this.props.setDta(item)}
           />
 
         )}
@@ -42,7 +46,7 @@ class InnerList extends React.Component {
     return (
       <div>
         <div ref={dropProvided.innerRef}>
-          <InnerQuoteList quotes={quotes}  view={this.props.view}/>
+          <InnerQuoteList  setDta={(item)=>this.props.setDta(item)} columns={this.props.columns} onDragEnd={(data)=>{this.props.onDragEnd(data)}} ordered={this.props.ordered} quotes={quotes}  view={this.props.view}/>
         </div>
       </div>
     );
@@ -87,19 +91,27 @@ export default class QuoteList extends React.Component {
             {internalScroll ? (
               <div style={scrollContainerStyle}>
                 <InnerList
+                  columns={this.props.columns}
+                  ordered={this.props.ordered}
                   quotes={quotes}
-                  title={title}
+                  title={title} 
                   dropProvided={dropProvided}
                   view={this.props.view}
+                  onDragEnd={(data)=>{this.props.onDragEnd(data)}}
+                  setDta={(item)=>this.props.setDta(item)}
                   
                 />
               </div>
             ) : (
               <InnerList
+                ordered={this.props.ordered}
+                columns={this.props.columns}
                 quotes={quotes}
                 title={title}
                 dropProvided={dropProvided}
                 view={this.props.view}
+                onDragEnd={(data)=>{this.props.onDragEnd(data)}}
+                setDta={(item)=>this.props.setDta(item)}
               />
             )}
           </div>

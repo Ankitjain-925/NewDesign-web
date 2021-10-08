@@ -19,6 +19,7 @@ import { Settings } from "Screens/Login/setting";
 import axios from "axios";
 import { LanguageFetchReducer } from "Screens/actions";
 import FileUploader from "Screens/Components/JournalFileUploader/index";
+import { Speciality } from "Screens/Login/speciality.js";
 import sitedata from "sitedata";
 import {
     commonHeader,
@@ -35,12 +36,10 @@ import { confirmAlert } from "react-confirm-alert";
 import { S3Image } from "Screens/Components/GetS3Images/index";
 import TaskView from 'Screens/Components/VirtualHospitalComponents/TaskView/index';
 import Loader from "Screens/Components/Loader/index";
-
-const options = [
-    { value: 'data1', label: 'Data1' },
-    { value: 'data2', label: 'Data2' },
-    { value: 'data3', label: 'Data3' },
-];
+import { translationRS } from 'translations/index';
+import {
+    getLanguage
+  }from "translations/index"
 
 var patientArray = [];
 
@@ -86,23 +85,29 @@ class Index extends Component {
             loaderImage: false,
             hope: false,
             openDate: true,
-            openTime: false,
-            button: 'Add time',
-            options:[
-                { value: 'data1', label: 'Data1' },
-                { value: 'data2', label: 'Data2' },
-                { value: 'data3', label: 'Data3' },
-            ]
+            specilaityList:[],
+            assignedTo:[],
+            selectSpec: {}
         };
     }
 
     componentDidMount() {
         this.getAddTaskData();
+        this.getPatientData();
+        this.getProfessionalData();
+        this.specailityList();
+    }
+
+    //to get the speciality list 
+    specailityList =()=>{
+        var spec = this.props.speciality?.SPECIALITY && this.props?.speciality?.SPECIALITY.length>0 && this.props?.speciality?.SPECIALITY.map((data)=>{
+            return {label: data.specialty_name, value: data._id}
+        })
+        this.setState({specilaityList: spec})
     }
     // open model Add Task
     handleOpenTask = () => {
-        this.getPatientData();
-        this.setState({ openTask: true, newTask: {} });
+        this.setState({ openTask: true, newTask: {} , assignedTo: [], q : '', selectSpec:{}});
     }
     // close model Add Task
     handleCloseTask = () => {
@@ -119,7 +124,6 @@ class Index extends Component {
     };
     // open model Assign
     handleOpenAssign = () => {
-        this.getProfessionalData();
         this.setState({ openAssign: true });
     }
     // close model Assign
@@ -129,13 +133,12 @@ class Index extends Component {
     // submit Assign model
     handleAssignSubmit = () => {
         const state = this.state.newTask;
-        state['assigned_to'] = this.state.professional_data;
+        state['assinged_to'] = this.state.professional_data;
         this.setState({ newTask: state });
     };
 
     createDuplicate = (data) => {
         delete data._id;
-        console.log('data', data)
         data.archived = false;
         this.setState({ newTask: data })
 
@@ -175,7 +178,7 @@ class Index extends Component {
                 .then((responce) => {
                     this.setState({ loaderImage: false })
                     if (responce.data.hassuccessed) {
-                        this.setState({ newTask: {}, fileattach: {}, professional_data: [], fileupods: false });
+                        this.setState({ newTask: {}, fileattach: {}, professional_data: [], fileupods: false, assignedTo: [], q : '', selectSpec:{} });
                         this.getAddTaskData();
                     }
                 });
@@ -194,7 +197,7 @@ class Index extends Component {
                 .then((responce) => {
                     this.setState({ loaderImage: false })
                     if (responce.data.hassuccessed) {
-                        this.setState({ newTask: {}, fileattach: {}, professional_data: [], fileupods: false })
+                        this.setState({ newTask: {}, fileattach: {}, professional_data: [], fileupods: false, assignedTo: [], q : '', selectSpec:{} });
                         this.getAddTaskData();
                     }
                 })
@@ -220,7 +223,7 @@ class Index extends Component {
             });
     }
 
-    // get Add task data
+    //get Add task data
     getAddTaskData = () => {
         this.setState({ loaderImage: true });
         axios
@@ -229,10 +232,7 @@ class Index extends Component {
                 commonHeader(this.props.stateLoginValueAim.token)
             )
             .then((response) => {
-
                 this.setState({ AllTasks: response.data.data })
-                console.log("response", response)
-
                 if (response.data.hassuccessed) {
                     var Done = response.data.data?.length > 0 && response.data.data.filter((item) => item.status === "done")
                     var Open = response.data.data?.length > 0 && response.data.data.filter((item) => item.status === "open")
@@ -250,7 +250,6 @@ class Index extends Component {
         if (name === 'date' || name === 'time') {
             due_on[name] = value;
             state['due_on'] = due_on;
-            console.log('asda asd', state)
         }
         else {
             state[name] = value;
@@ -258,7 +257,7 @@ class Index extends Component {
         this.setState({ newTask: state });
     };
 
-    //Switch status done / open 
+    //Switch status done / open
     switchStatus = () => {
         const state = this.state.newTask;
         state['status'] = state.status === 'done' ? 'open' : 'done';
@@ -278,19 +277,20 @@ class Index extends Component {
 
     //Select the professional name
     updateEntryState3 = (e) => {
-        console.log('e4', e)
-        let professional_data = [...this.state.professional_data];
-        var ProfAy = this.state.professional_data?.length > 0 && this.state.professional_data.filter((data, index) => data.user_id === e.value);
-        if (ProfAy && ProfAy.length > 0) {
-            this.setState({ ProfMessage: "Already Exist!" });
-        }
-        else {
-            var GetProf = this.state.professionalArray?.length > 0 && this.state.professionalArray.filter((data, index) => data.user_id === e.value);
-            professional_data.push(GetProf);
-            this.setState({ ProfMessage: false });
-        }
-        this.setState({ professional_data: professional_data[0] });
-    }
+         this.setState({assignedTo: e}, 
+            ()=>{
+                var data = e?.length>0 && e.reduce(( last, current, index )=> {
+                    let isProf = this.state.professionalArray?.length > 0 && this.state.professionalArray.filter((data, index) => data.user_id === current.value);
+                    if(isProf && isProf.length>0){
+                        last.push(isProf[0]);
+                    }
+                    return last;
+                  }, []);
+                const state = this.state.newTask;
+                state['assinged_to'] = data;
+                this.setState({ newTask: state });
+            })
+    } 
 
     // Delete Professional from the
     deleteProf = (index) => {
@@ -344,9 +344,6 @@ class Index extends Component {
                     this.setState({ users1: PatientList1, users: patientArray })
                 }
                 this.setState({ loaderImage: false });
-
-
-                // console.log("image", this.state.images)
             });
 
     }
@@ -418,7 +415,24 @@ class Index extends Component {
     }
     // open Edit model
     editTask = (data) => {
-        this.setState({ newTask: data, openTask: true });
+        var assignedTo = data?.assinged_to?.length>0 && data?.assinged_to.map((data)=>{
+            var name = '';
+            if (data?.first_name && data?.last_name) {
+                name = data?.first_name + ' ' + data?.last_name
+            }
+            else if (data?.first_name) {
+                name = data?.first_name
+            }
+            return {label: name, value: data._id}
+        })
+        var pat1name = '';
+        if (data?.patient?.first_name && data?.patient?.last_name) {
+            pat1name = data?.patient?.first_name + ' ' + data?.patient?.last_name
+        }
+        else if (data?.first_name) {
+            pat1name = data?.patient?.first_name
+        }
+        this.setState({ newTask: data, openTask: true, assignedTo: assignedTo, q : pat1name, selectSpec: {label: data?.speciality?.specialty_name, value: data?.speciality?._id}});
     };
 
     // Get the Professional data
@@ -481,17 +495,27 @@ class Index extends Component {
         this.setState({ hope: true });
     }
 
-
-    openTaskTime = () => {
-        if (this.state.button == "Add time") {
-            this.setState({ openDate: false, openTime: true, button: "close"})
-        }
-        else {
-            this.setState({ openDate: true, openTime: false, button: "Add time" })
-        }
+     //On Changing the specialty id 
+  onFieldChange = (e) => {
+    const state = this.state.newTask;
+    this.setState({ selectSpec: e})
+    var speciality = this.props.speciality?.SPECIALITY && this.props?.speciality?.SPECIALITY.length>0 && this.props?.speciality?.SPECIALITY.filter((data)=> data._id === e.value)
+    if(speciality &&  speciality.length>0){
+        state['speciality'] = {  background_color: speciality[0]?.background_color,
+            color: speciality[0]?.color,
+            specialty_name: speciality[0]?.specialty_name,
+            _id: speciality[0]?._id };
+        this.setState({ newTask: state});
     }
+  }
+
+  openTaskTime = () => {
+    this.setState({ openDate: !this.state.openDate })
+  }
 
     render() {
+        let translate = getLanguage(this.props.stateLanguageType);
+        let {Tasks_overview, Open, Donetoday, CreateaTask , ForPatient, Taskdescription, Assignedto, Speciallity , Dueon , Duplicate , Archive , Markasdone , Attachments } = translate;      
         const { tabvalue, tabvalue2, professional_data, newTask, AllTasks } = this.state;
         const userList = this.state.filteredUsers && this.state.filteredUsers.map(user => {
             return (
@@ -528,21 +552,21 @@ class Index extends Component {
                                     <Grid container direction="row">
                                         <Grid item xs={12} md={2} className="tskOverWeb">
                                             <Grid className="tskOverView">
-                                                <h1>Tasks overview</h1>
+                                                <h1>{Tasks_overview}</h1>
                                                 <Grid className="taskNum taskYelow">
-                                                    <label><span></span>Open</label>
+                                                    <label><span></span>{Open}</label>
                                                     <p>13</p>
                                                 </Grid>
                                                 <Grid className="taskNum taskGren">
-                                                    <label><span></span>Done today</label>
+                                                    <label><span></span>{Donetoday}</label>
                                                     <p>63</p>
                                                 </Grid>
                                                 <Grid className="taskNum taskYelow">
-                                                    <label><span></span>Open</label>
+                                                    <label><span></span>{Open}</label>
                                                     <p>13</p>
                                                 </Grid>
                                                 <Grid className="taskNum taskGren">
-                                                    <label><span></span>Done today</label>
+                                                    <label><span></span>Donetoday</label>
                                                     <p>63</p>
                                                 </Grid>
                                                 <Grid className="showArchiv"><p onClick={() => { this.getArchived() }}><a>Show archived tasks</a></p></Grid>
@@ -577,35 +601,25 @@ class Index extends Component {
                                                                 : ""
                                                         }
                                                         open={this.state.openTask} onClose={this.handleCloseTask}>
-                                                        <Grid className="rvewFiles">
-                                                            <Grid className="rvewFilesinner">
-                                                                {/* <Grid container direction="row">
-                                                                    <Grid item xs={12} md={12}>
-                                                                        <Grid className="rvwCadio">
-                                                                            <Button>Cardiology</Button><h3>Review patient files</h3><p>07/02/2021, 9:03 AM</p>
-                                                                        </Grid>
-                                                                    </Grid>
-                                                                </Grid> */}
+                                                      <Grid className="creatTaskModel">
+                                                            <Grid className="creatTaskCntnt">
                                                                 <Grid container direction="row">
                                                                     <Grid item xs={12} md={12}>
-                                                                        {/* <Grid className="asignUpr">
-                                                                            <Grid className="asignLft"> */}
-
-                                                                        <Grid className="nwModelCloseBtn">
-                                                                            <a onClick={this.handleCloseTask}><img src={require("assets/images/close-search.svg")} alt="" title="" />
-                                                                            </a>
+                                                                      <Grid className="creatLbl">
+                                                                        <Grid className="creatLblClose">
+                                                                            <a onClick={this.handleCloseTask}><img src={require('assets/virtual_images/closefancy.png')} alt="" title="" /></a>
                                                                         </Grid>
-
-                                                                        <Grid className="addSpeclLbl">
-
-                                                                            <label>Create a Task</label>
-                                                                        </Grid>
-                                                                        {/* <Grid className="enterSpclUpr"> */}
-                                                                        <Grid className="enterSpclMain">
-
-                                                                            <Grid className="enterSpcl">
-                                                                                <Grid>
-                                                                                    <VHfield
+                                                                        <label>{CreateaTask}</label>
+                                                                      </Grid>
+                                                                    </Grid>
+                                                                    <Grid item xs={12} md={12} lg={12}>
+                                                                        <Grid className="creatDetail">
+                                                                            <Grid className="creatInfoIner">
+                                                                                <Grid container direction="row" alignItems="center" spacing={2}>
+                                                                                    <Grid item xs={12} md={12}>
+                                                                                        {/* <label>Task title</label>
+                                                                                        <Grid><input type="text" placeholder="Enter title" /></Grid> */}
+                                                                                         <VHfield
                                                                                         label="Task title"
                                                                                         name="task_name"
                                                                                         placeholder="Enter title"
@@ -614,214 +628,124 @@ class Index extends Component {
                                                                                         }
                                                                                         value={this.state.newTask.task_name}
                                                                                     />
-                                                                                </Grid>
-
-                                                                                {/*  <Grid className="patientTask">
-                                                                                        { <Grid>Patient</Grid>
-                                                                                        <Grid><input type="text" placeholder={"Search Patient"} value={this.state.q} onChange={this.onChange} />
-                                                                                            <ul className={this.state.shown && "patientHint"} style={{ height: userList != '' ? '150px' : '' }}>
+                                                                                    </Grid>
+                                                                                    <Grid item xs={12} md={12}>
+                                                                                        <label>{ForPatient}</label>
+                                                                                        <Grid><input type="text" placeholder={"Search & Select"} value={this.state.q} onChange={this.onChange} />
+                                                                                            <ul className={this.state.shown && "patientHint"}>
                                                                                                 {userList}
-                                                                                            </ul>  */}
-
-                                                                                <Grid>For Patient</Grid>
-                                                                                <Grid><input type="text" placeholder={"Search & Select"} value={this.state.q} onChange={this.onChange} />
-                                                                                    <ul className={this.state.shown && "patientHint"}>
-                                                                                        {userList}
-                                                                                    </ul>
-
-                                                                                    {/* </Grid> */}
-                                                                                    {/* <Select
-                                                                                            label="Patient"
-                                                                                            name="patient"
-                                                                                            onChange={(e) =>
-                                                                                                this.updateEntryState2(e)}
-                                                                                            value={this.state.newTask.patient}
-                                                                                            options={this.state.patient_id_list}
-                                                                                            isSearchable={true}
-                                                                                        /> */}
-                                                                                </Grid>
-
-                                                                                <Grid className="checkboxprop">
-                                                                                    <FormControlLabel control={<Checkbox name="hope" />} label="Hide task from patient" onClick={this.onClick} />
-                                                                                </Grid>
-
-
-                                                                                <Grid>
-                                                                                    <VHfield
-                                                                                        label="Task description"
-                                                                                        name="description"
-                                                                                        placeholder="Enter description"
-                                                                                        onChange={(e) =>
-                                                                                            this.updateEntryState1(e.target.value, e.target.name)}
-                                                                                        value={this.state.newTask.description}
-                                                                                    />
-                                                                                </Grid>
-
-                                                                                <Grid className="tasksection">
-                                                                                    <label>Assigned to</label>
-                                                                                    <Select
-                                                                                        name="patient"
-                                                                                        onChange={(e) =>
-                                                                                            this.updateEntryState2(e)}
-                                                                                        value={this.state.newTask.patient}
-                                                                                        options={this.state.options}
-                                                                                        isSearchable={true}
-                                                                                    />
-                                                                                </Grid>
-                                                                                <Grid className="tasksection">
-                                                                                    <label>Specialty</label>
-                                                                                    <Select
-                                                                                        onChange={(e) => this.onFieldChange(e)}
-                                                                                        options={this.state.options}
-                                                                                        name="specialty_name"
-                                                                                        isSearchable={true}
-                                                                                    // value={this.selectedID(this.state.updateTrack.speciality_id)}
-                                                                                    />
-                                                                                </Grid>
-
-                                                                                <Grid className="makeCmpt">
-                                                                                    <Grid container direction="row" alignItems="center">
-                                                                                        <Grid item xs={12} sm={6} md={6}>
-                                                                                            {this.state.newTask._id && <Grid onClick={() => { this.switchStatus() }} className="markDone">
-                                                                                                {this.state.newTask.status === 'done' && <Grid><img src={require('assets/virtual_images/rightTick.png')} alt="" title="" /></Grid>}
-                                                                                                <label>Mark as done</label>
-                                                                                            </Grid>}
-                                                                                        </Grid>
-                                                                                        <Grid item xs={12} sm={6} md={6}>
-                                                                                            <Grid className="addDue">
-                                                                                                <Grid><label>Due on</label></Grid>
-                                                                                                <Grid className="addDueDate">
-                                                                                                    {this.state.openDate &&
-                                                                                                        <DateFormat
-                                                                                                            name="date"
-                                                                                                            value={
-                                                                                                                this.state.newTask?.due_on?.date
-                                                                                                                    ? new Date(this.state.newTask?.due_on?.date)
-                                                                                                                    : new Date()
-                                                                                                            }
-                                                                                                            notFullBorder
-                                                                                                            date_format={this.state.date_format}
-                                                                                                            onChange={(e) => this.updateEntryState1(e, "date_measured")}
-                                                                                                        />}
-
-                                                                                                    {this.state.openTime &&
-                                                                                                        <TimeFormat
-                                                                                                            name="time"
-                                                                                                            value={
-                                                                                                                this.state.newTask?.due_on?.time
-                                                                                                                    ? new Date(this.state.newTask?.due_on?.time)
-                                                                                                                    : new Date()
-                                                                                                            }
-                                                                                                            time_format={this.state.time_format}
-                                                                                                            onChange={(e) => this.updateEntryState1(e, "time_measured")}
-                                                                                                        />}
-
-                                                                                                    <Button onClick={() => { this.openTaskTime() }}>{this.state.button}</Button></Grid>
-                                                                                            </Grid>
+                                                                                            </ul>
                                                                                         </Grid>
                                                                                     </Grid>
-                                                                                </Grid>
+                                                                                    {!this.state.newTask._id && <Grid item xs={12} md={12}>
+                                                                                     <Grid className="hideTask">
+                                                                                      <FormControlLabel  control={<Checkbox name="checkedC" checked={this.state.newTask?.hidePatient} onChange={(e) => this.updateEntryState1(e.target.checked, 'hidePatient')}/>} label="Hide task from patient" />
+                                                                                     </Grid>  
+                                                                                    </Grid>}
+                                                                                    <Grid item xs={12} md={12} className="taskDescp">
+                                                                                        <label>{Taskdescription}</label>
+                                                                                        <Grid>
+                                                                                            <textarea placeholder="Enter description" name="description" onChange={(e) => this.updateEntryState1(e.target.value, e.target.name)}
+                                                                                        value={this.state.newTask.description}></textarea>
+                                                                                        </Grid>
+                                                                                    </Grid>
+                                                                                    <Grid item xs={12} md={12}>
+                                                                                        <label>{Assignedto}</label>
+                                                                                        <Grid>
+                                                                                        <Select
+                                                                                        name="professional"
+                                                                                        onChange={(e) =>
+                                                                                            this.updateEntryState3(e)}
+                                                                                        value={this.state.assignedTo}
+                                                                                        options={this.state.professional_id_list}
+                                                                                        placeholder="Search & Select"
+                                                                                        className="addStafSelect"
+                                                                                        isMulti={true}
+                                                                                        isSearchable={true} />
 
+                                                                                        </Grid>
+                                                                                    </Grid>
+                                                                                    <Grid item xs={12} md={12}>
+                                                                                        <label>{Speciallity}</label>
+                                                                                        <Grid className="specialFor">
+                                                                                             <Select
+                                                                                                onChange={(e) => this.onFieldChange(e)}
+                                                                                                options={this.state.specilaityList}
+                                                                                                name="specialty_name"
+                                                                                                isSearchable={true}
+                                                                                                value={this.state.selectSpec}
+                                                                                            />
+                                                                                        </Grid>
+                                                                                    </Grid>
+                                                                                    <Grid container direction="row" alignItems="center">
+                                                                                      <Grid item xs={10} md={10} className="dueOn">
+                                                                                        <label>{Dueon}</label>
+                                                                                        <Grid>
+                                                                                        {this.state.openDate ?
+                                                                                            <DateFormat
+                                                                                                name="date"
+                                                                                                value={
+                                                                                                    this.state.newTask?.due_on?.date
+                                                                                                        ? new Date(this.state.newTask?.due_on?.date)
+                                                                                                        : new Date()
+                                                                                                }
+                                                                                                notFullBorder
+                                                                                                date_format={this.state.date_format}
+                                                                                                onChange={(e) => this.updateEntryState1(e, "date")}
+                                                                                            /> : 
+                                                                                            <TimeFormat
+                                                                                                name="time"
+                                                                                                value={
+                                                                                                    this.state.newTask?.due_on?.time
+                                                                                                        ? new Date(this.state.newTask?.due_on?.time)
+                                                                                                        : new Date()
+                                                                                                }_
+                                                                                                time_format={this.state.time_format}
+                                                                                                onChange={(e) => this.updateEntryState1(e, "time")}
+                                                                                            />}
 
-                                                                                <Grid className="assignSecUpr">
+                                                                                        </Grid>
+                                                                                      </Grid>
+                                                                                      <Grid item xs={2} md={2} className="addTime">
+                                                                                        <Button onClick={() => { this.openTaskTime() }}>{this.state.openDate ? 'Add time' : 'Add date' }</Button>
+                                                                                      </Grid>
+                                                                                    </Grid>
+
+                                                                                    <Grid className="assignSecUpr">
                                                                                     <Grid container direction="row" alignItems="center">
                                                                                         <Grid item xs={12} sm={12} md={12}>
                                                                                             <Grid className="assignSec">
-                                                                                                {/* <Grid>
-                                                                                                        <img onClick={this.handleOpenAssign} src={require('assets/virtual_images/assign-to.svg')} alt="" title="" />
-                                                                                                        <a onClick={this.handleOpenAssign}><label>+ Assign to</label></a>
-                                                                                                    </Grid> */}
-                                                                                                {this.state.newTask._id && <><Grid onClick={() => { this.createDuplicate(this.state.newTask) }}>
-                                                                                                    <img src={require('assets/virtual_images/assign-to.svg')} alt="" title="" />
-                                                                                                    <label>Duplicate</label>
-                                                                                                </Grid>
+                                                                                                {this.state.newTask._id && 
+                                                                                                <>
+                                                                                                    <Grid onClick={() => { this.createDuplicate(this.state.newTask) }}>
+                                                                                                        <img src={require('assets/virtual_images/assign-to.svg')} alt="" title="" />
+                                                                                                        <label>{Duplicate}</label>
+                                                                                                    </Grid>
                                                                                                     <Grid onClick={() => { this.updateEntryState1(true, 'archived') }}>
                                                                                                         <img src={require('assets/virtual_images/assign-to.svg')} alt="" title="" />
-                                                                                                        <label>Archive</label>
+                                                                                                        <label>{Archive}</label>
                                                                                                     </Grid>
                                                                                                     <Grid>
                                                                                                         <img onClick={(id) => {
                                                                                                             this.removeTask(id);
                                                                                                         }} src={require('assets/virtual_images/assign-to.svg')} alt="" title="" />
                                                                                                         <label onclick={(id) => { this.removeTask(id) }}>Delete</label>
-                                                                                                    </Grid></>}
+                                                                                                    </Grid>
+                                                                                                    <Grid onClick={() => { this.switchStatus() }} className="markDone">
+                                                                                                        {this.state.newTask.status === 'done' ? <Grid><img src={require('assets/virtual_images/rightTick.png')} alt="" title="" /></Grid>:
+                                                                                                        <Grid><img src={require('assets/virtual_images/greyImg.jpg')} alt="" title="" /></Grid>
+                                                                                                        }
+                                                                                                        <label>{Markasdone}</label>
+                                                                                                    </Grid>
+                                                                                                </>}
                                                                                             </Grid>
                                                                                         </Grid>
                                                                                     </Grid>
                                                                                 </Grid>
 
-                                                                                <Modal open={this.state.openAssign}
-                                                                                    onClose={this.handleCloseAssign}>
-                                                                                    <Grid className="addStaff">
-                                                                                        <Grid className="addStaffIner">
-                                                                                            <Grid container direction="row">
-                                                                                                <Grid item xs={12} md={12}>
-                                                                                                    <Grid className="movPtntCntnt">
-                                                                                                        <Grid className="addStaffLbl">
-                                                                                                            <Grid className="addStaffClose closeMove">
-                                                                                                                <a onClick={this.handleCloseAssign}>
-                                                                                                                    <img src={require('assets/virtual_images/closebtn.png')} alt="" title="" />
-                                                                                                                </a>
-                                                                                                            </Grid>
-                                                                                                            <label>Staff on patient</label>
-                                                                                                        </Grid>
-                                                                                                    </Grid>
-                                                                                                    <Grid className="addStafClient">
-                                                                                                        <Grid className="addStafClientLft">
-                                                                                                            <Grid><S3Image imgUrl={this.state.newTask?.patient?.image} /></Grid>
-                                                                                                            {/* <img src={getImage(this.state.newTask?.patient?.image, this.state.images)} alt="" title="" /> */}
-                                                                                                        </Grid>
-                                                                                                        <Grid>
-                                                                                                            <label>{this.state.newTask?.patient?.first_name} {this.state.newTask?.patient?.last_name}</label> <p>{this.state.newTask?.patient?.profile_id}</p>
-                                                                                                        </Grid>
-                                                                                                    </Grid>
-                                                                                                    <Grid className="addStafMgnt">
-                                                                                                        <Grid className="addStafdrop">
-                                                                                                            <Grid className="err_message">{this.state.ProfMessage}</Grid>
-                                                                                                            <Grid><label>Add staff</label></Grid>
-                                                                                                            <Select
-                                                                                                                name="professional"
-                                                                                                                onChange={(e) =>
-                                                                                                                    this.updateEntryState3(e)}
-                                                                                                                value={this.state.newStaff.professional}
-                                                                                                                options={this.state.professional_id_list}
-                                                                                                                placeholder="Search & Select"
-                                                                                                                className="addStafSelect"
-                                                                                                                isSearchable={true} />
-                                                                                                        </Grid>
-                                                                                                    </Grid>
-
-                                                                                                    <Grid className="stafLstCntnt">
-
-                                                                                                        {this.state.professional_data?.length > 0 && this.state.professional_data.map((data, index) => (
-                                                                                                            <Grid className="stafLst">
-                                                                                                                <Grid className="stafLft">
-                                                                                                                    <a><Grid><S3Image imgUrl={data.image} /></Grid></a>
-                                                                                                                    {/* <img src={getImage(data.image, this.state.images)} alt="" title="" /></a> */}
-                                                                                                                    <span>{data.first_name} {data.last_name}</span>
-                                                                                                                </Grid>
-                                                                                                                <Grid className="stafRght">
-                                                                                                                    <a onClick={() => this.deleteProf(index)}><img src={require('assets/virtual_images/bin.svg')} alt="" title="" /></a>
-                                                                                                                </Grid>
-                                                                                                            </Grid>
-                                                                                                        ))}
-
-                                                                                                    </Grid>
-                                                                                                </Grid>
-                                                                                            </Grid>
-                                                                                            <Grid className="addStafClos">
-                                                                                                <a onClick={this.handleCloseAssign}><Button onClick={() => this.handleAssignSubmit()}>Save & Close</Button></a>
-                                                                                            </Grid>
-                                                                                        </Grid>
-                                                                                    </Grid>
-                                                                                </Modal>
-
-
-                                                                                <Grid className="attchFile">
-                                                                                    <Grid>
-                                                                                        <label>Attachments</label>
-                                                                                    </Grid>
-                                                                                    <FileUploader
+                                                                                    <Grid item xs={12} md={12}>
+                                                                                        <label>{Attachments}</label>
+                                                                                        <FileUploader
                                                                                         // cur_one={this.props.cur_one}
                                                                                         attachfile={
                                                                                             this.state.newTask && this.state.newTask.attachfile
@@ -834,20 +758,13 @@ class Index extends Component {
                                                                                             this.FileAttachMulti(event);
                                                                                         }}
                                                                                     />
+                                                                                    </Grid>
+                                                                                    <Grid item xs={12} md={12} className="saveTasks">
+                                                                                        <a onClick={() => this.handleCloseTask()}><Button onClick={() => this.handleTaskSubmit()}>Save Task & Close</Button></a>
+                                                                                    </Grid> 
                                                                                 </Grid>
-
-                                                                                {/* </Grid> */}
                                                                             </Grid>
-                                                                        </Grid>
-                                                                    </Grid>
-                                                                </Grid>
-                                                                <Grid className="cmntUpr">
-                                                                    <Grid container direction="row" alignItems="center">
-                                                                        <Grid item xs={12} sm={12} md={12}>
-                                                                            <Grid className="saveTask">
-                                                                                <a onClick={() => this.handleCloseTask()}><Button onClick={() => this.handleTaskSubmit()}>Save Task & Close</Button></a>
-                                                                            </Grid>
-                                                                        </Grid>
+                                                                        </Grid>    
                                                                     </Grid>
                                                                 </Grid>
                                                             </Grid>
@@ -913,31 +830,7 @@ class Index extends Component {
                                                             ))}
                                                         </Grid>
                                                     </TabContainer>}
-                                                    {/* </TabContainer>} */}
-                                                    {/* {tabvalue === 1 && <TabContainer>
-                                                        All Tasks
-                                                    </TabContainer>}
-                                                    {tabvalue === 2 && <TabContainer>
-                                                        <Grid className="tskOverView tskOverMob">
-                                                            <Grid className="taskNum taskYelow">
-                                                                <label><span></span>Open</label>
-                                                                <p>13</p>
-                                                            </Grid>
-                                                            <Grid className="taskNum taskGren">
-                                                                <label><span></span>Done today</label>
-                                                                <p>63</p>
-                                                            </Grid>
-                                                            <Grid className="taskNum taskYelow">
-                                                                <label><span></span>Open</label>
-                                                                <p>13</p>
-                                                            </Grid>
-                                                            <Grid className="taskNum taskGren">
-                                                                <label><span></span>Done today</label>
-                                                                <p>63</p>
-                                                            </Grid>
-                                                            <Grid className="showArchiv"><p><a>Show archived tasks</a></p></Grid>
-                                                        </Grid>
-                                                    </TabContainer>} */}
+                                                  
                                                 </Grid>
                                             </Grid>
                                         </Grid>
@@ -959,6 +852,7 @@ const mapStateToProps = (state) => {
     const { House } = state.houseSelect
     const { settings } = state.Settings;
     const { verifyCode } = state.authy;
+    const { speciality } = state.Speciality;
     return {
         stateLanguageType,
         stateLoginValueAim,
@@ -966,10 +860,11 @@ const mapStateToProps = (state) => {
         House,
         settings,
         verifyCode,
+        speciality
     };
 };
 export default withRouter(
-    connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer, Settings, authy, houseSelect })(
+    connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer, Settings, authy, houseSelect,  Speciality })(
         Index
     )
 );
