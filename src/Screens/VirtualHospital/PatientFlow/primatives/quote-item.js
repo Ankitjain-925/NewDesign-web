@@ -158,7 +158,7 @@ export default class QuoteItem extends React.Component {
                   className="cardioAreaMob"
                 >
                   <Grid item xs={12} md={3} lg={2} className="cardoLblMob">
-                    <SpecialityButton
+                  <SpecialityButton
                       label={quote?.speciality?.specialty_name}
                       backgroundColor={quote?.speciality?.background_color}
                       viewImage={false}
@@ -180,9 +180,14 @@ export default class QuoteItem extends React.Component {
                   </Grid>
 
                   <Grid item xs={12} md={3} lg={2} className="cardoLblWeb">
-                    <Grid className="cardoLbl cardoPink">
-                      <a>{quote?.speciality?.specialty_name}</a>
-                    </Grid>
+                  <SpecialityButton
+                      label={quote?.speciality?.specialty_name}
+                      backgroundColor={quote?.speciality?.background_color}
+                      viewImage={false}
+                      color={quote?.speciality?.color}
+                      onClick={() => this.setSpeciality()}
+                      showActive={false}
+                    />
                   </Grid>
                 </Grid>
               </Grid>
@@ -195,7 +200,7 @@ export default class QuoteItem extends React.Component {
                         alt=""
                         title=""
                       />
-                      <span>1/2</span>
+                     {quote.done_task}/{quote.total_task}
                     </a>
                     <a className="addSec">
                       <img
@@ -232,14 +237,27 @@ export default class QuoteItem extends React.Component {
                       <span>+1</span>
                     </a>
                   </Grid>
-                  <Grid className="cardioDots">
-                    <a>
+                  <Grid>
+                    <CasesMoreButton
+                      setDta={(item) => this.props.setDta(item)}
+                      currentStep={quote?.author?.step_name}
+                      currentIndex={checkTheIndex(
+                        this.props.columns[quote?.author?.step_name],
+                        "patient_id",
+                        quote.patient_id
+                      )}
+                      columns={this.props.columns}
+                      quote={quote}
+                      onDragEnd={(data) => onDragEnd(data)}
+                      ordered={this.props.ordered}
+                    />
+                    {/* <a>
                       <img
                         src={require("assets/virtual_images/threeDots2.png")}
                         alt=""
                         title=""
                       />
-                    </a>
+                    </a> */}
                   </Grid>
                 </Grid>
               </Grid>
