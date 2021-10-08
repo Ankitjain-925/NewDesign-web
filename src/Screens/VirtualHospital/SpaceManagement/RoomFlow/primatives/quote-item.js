@@ -16,12 +16,12 @@ export default class QuoteItem extends React.Component {
             <div
                 href={quote.author.url}
                 isDragging={isDragging}
-                isGroupedOver={isGroupedOver}                                                         
+                isGroupedOver={isGroupedOver}
                 colors={quote.author.colors}
                 ref={provided.innerRef}
                 {...provided.draggableProps}
-                {...provided.dragHandleProps}                  
-            >                                                                                                                  
+                {...provided.dragHandleProps}
+            >
                 {this.props.view === 'vertical' ?
                     <Grid className="drListRght2">
                         <Grid className="flowInfo1">
@@ -29,7 +29,7 @@ export default class QuoteItem extends React.Component {
                             {/* <Grid className="flowInfoBtn RadiologyClr"><Button>Radiology</Button></Grid> */}
                             <Grid className="flowProfil">
                                 <Grid><img src={require('assets/virtual_images/102.png')} alt="" title="" /></Grid>
-                                <Grid className="flowProfilRght" >
+                                <Grid className="flowProfilRght">
                                     <label>{quote.name}</label>
                                     <p>{quote.profile_id}</p>
                                 </Grid>
@@ -62,7 +62,7 @@ export default class QuoteItem extends React.Component {
               </Grid> */}
                     </Grid>
                     :
-                    
+
                     <Grid className="cardioAreaUpr">
                         <Grid container direction="row" justify="center" alignItems="center">
                             <Grid item xs={12} md={7}>

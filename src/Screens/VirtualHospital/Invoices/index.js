@@ -25,11 +25,13 @@ import InvoicesDownloadPdf from "Screens/Components/VirtualHospitalComponents/In
 import InvoicesPatientStatus from "Screens/Components/VirtualHospitalComponents/InvoicesPatientStatus/index";
 import InvoicesShowServices from "Screens/Components/VirtualHospitalComponents/InvoicesShowServices/index";
 import VHfield from "Screens/Components/VirtualHospitalComponents/VHfield/index";
+import Modal from "@material-ui/core/Modal";
 
 const options = [
-    { value: 'data1', label: 'Data1' },
-    { value: 'data2', label: 'Data2' },
-    { value: 'data3', label: 'Data3' },
+    { value: 'paid', label: 'Paid' },
+    { value: 'draft', label: 'Draft' },
+    { value: 'issued', label: 'Issued' },
+    { value: 'overdue', label: 'Overdue' },
 ];
 const customStyles = {
     control: base => ({
@@ -48,7 +50,9 @@ class Index extends Component {
             Serivce_data: {},
             serviceList: [],
             updateTrack: {},
-            items: []
+            items: [],
+            totalPrice: [],
+            editServ: false,
         };
     }
 
@@ -101,24 +105,57 @@ class Index extends Component {
         this.setState({ updateTrack: state });
     };
 
+    updateEntryState2 = (e, name) => {
+        e.preventDefault();
+        const state = this.state.updateTrack;
+        state[name] = e.target.value;
+        this.setState({ updateTrack: state });
+    };
+
     //Add the services  
     handleAddSubmit = () => {
-        console.log("updateTrack",this.state.updateTrack)
+        console.log("updateTrack", this.state.updateTrack)
+        var newService = this.state.updateTrack;
+        newService.price = newService?.service?.price * newService?.quantity
+        console.log('new Sevice', newService)
         let items = [...this.state.items];
         items.push({
-            updateTrack: this.state.updateTrack
+            updateTrack: newService
         });
-        this.setState({
-            items,
-            updateTrack: {},
-        });
+        this.setState({ items, updateTrack: {} })
+        this.finishInvoice();
+        // var calculatePrice = 0;
+        // {
+        //     this.state.items?.length >= 0 && this.state.items.map((data, id) => {
+        //         console.log("index", id)
+        //         calculatePrice = data?.updateTrack?.quantity * data?.updateTrack?.service?.price
+        //         console.log("calculate", calculatePrice)
+        //     })
+        // }
     };
 
     // For edit service
-    editService = (data) => {
-        console.log("data",data)
-        this.setState({ updateTrack: data });
+    handleEditService = (data) => {
+        console.log("data", data)
+        this.setState({ updateTrack: data, editServ: true });
+        console.log("updateTrack", this.state.updateTrack)
     };
+
+    handleCloseServ = () => {
+        this.setState({ editServ: false })
+    }
+
+    // For calculate value of finish invoice
+    finishInvoice = () => {
+        {
+            var total = 0;
+            this.state.items?.length > 0 && this.state.items.map((data, index) => {
+                total = total + data?.updateTrack?.price
+                console.log("total", total)
+                this.setState({ totalPrice: total })
+            })
+        }
+    }
 
     //Delete the perticular service confirmation box
     removeServices = (id) => {
@@ -158,11 +195,13 @@ class Index extends Component {
 
     deleteClickService(id) {
         delete this.state.items[id]
-        this.setState({ items: this.state.items })
+        this.setState({ items: this.state.items });
+        this.finishInvoice();
     }
 
     render() {
         const { selectedOption } = this.state;
+        const { updateTrack } = this.state;
         return (
             <Grid className={
                 this.props.settings &&
@@ -291,16 +330,17 @@ class Index extends Component {
                                                     </Thead>
 
                                                     {this.state.items?.length > 0 && this.state.items.map((data, id) => (
-                                                    <Tbody>
+                                                        <Tbody>
                                                             <Tr>
                                                                 <Td>
-                                                                    <label>{data.updateTrack.service.label}</label>
-                                                                    <p>{data.updateTrack.service.description}</p>
+                                                                    <label>{data?.updateTrack?.service?.label}</label>
+                                                                    <p>{data?.updateTrack?.service?.description}</p>
                                                                 </Td>
-                                                                <Td>{data.updateTrack.quantity}</Td>
-                                                                <Td>{data.updateTrack.service.price} €</Td>
+                                                                <Td>{data?.updateTrack?.quantity}</Td>
+
+                                                                <Td>{data?.updateTrack?.price} €</Td>
                                                                 <Td className="xRay-edit">
-                                                                    <Button onClick={() => { this.editService(data) }}><img src={require('assets/virtual_images/pencil-1.svg')} alt="" title="" /></Button>
+                                                                    <Button onClick={() => { this.handleEditService(data) }}><img src={require('assets/virtual_images/pencil-1.svg')} alt="" title="" /></Button>
                                                                     <Button onClick={() => { this.removeServices(id) }}><img src={require('assets/virtual_images/bin.svg')} alt="" title="" /></Button>
                                                                 </Td>
                                                             </Tr>
@@ -370,7 +410,7 @@ class Index extends Component {
                                                         <Select
                                                             // value={this.state.serviceList}
                                                             name="service"
-                                                            onChange={(e) => this.onFieldChange(e,"service")}
+                                                            onChange={(e) => this.onFieldChange(e, "service")}
                                                             options={this.state.service_id_list}
                                                             placeholder="Search service or add custom input"
                                                             className="cstmSelect"
@@ -392,9 +432,9 @@ class Index extends Component {
                                                             name="quantity"
                                                             placeholder="Enter quantity"
                                                             onChange={(e) =>
-                                                                this.updateEntryState1(e, "quantity")
+                                                                this.updateEntryState2(e, "quantity")
                                                             }
-                                                        value={this.state.updateTrack.quantity}
+                                                            value={this.state.updateTrack.quantity}
                                                         />
                                                     </Grid>
                                                     <Grid item xs={12} md={2}>
@@ -433,14 +473,90 @@ class Index extends Component {
                                             </Grid>
                                             <Grid className="invoiceAmnt">
                                                 <p>Invoice amount</p>
-                                                <label>480,00 €</label>
+                                                <label>{this.state.totalPrice} €</label>
                                                 <Grid>
-                                                    <Button>Finish Invoice</Button>
+                                                    <Button onClick={() => { this.finishInvoice() }}>Finish Invoice</Button>
                                                     <Button>Save Draft</Button>
                                                 </Grid>
                                             </Grid>
                                         </Grid>
                                         {/* End of Billing New Invoice */}
+
+                                        <Modal
+                                            open={this.state.editServ}
+                                            onClose={this.handleCloseServ}
+                                            className={
+                                                this.props.settings &&
+                                                    this.props.settings.setting &&
+                                                    this.props.settings.setting.mode &&
+                                                    this.props.settings.setting.mode === "dark"
+                                                    ? "darkTheme addSpeclModel"
+                                                    : "addSpeclModel"
+                                            }
+                                        >
+                                            <Grid className="addServContnt">
+                                                <Grid className="addSpeclLbl">
+                                                    <Grid className="addSpeclClose">
+                                                        <a onClick={this.handleCloseServ}>
+                                                            <img
+                                                                src={require("assets/virtual_images/closefancy.png")}
+                                                                alt=""
+                                                                title=""
+                                                            />
+                                                        </a>
+                                                    </Grid>
+                                                    <Grid>
+                                                        <label>Edit service</label>
+                                                    </Grid>
+                                                </Grid>
+
+                                                <Grid className="enterServMain">
+                                                    <Grid className="enterSpcl">
+                                                        <Grid>
+                                                            <VHfield
+                                                                label="Service name"
+                                                                name="label"
+                                                                placeholder="Enter Title name"
+                                                                // onChange={(e) =>
+                                                                //     this.updateEntryState1(e)
+                                                                // }
+                                                                value={this.state.updateTrack.service?.label}
+                                                            />
+                                                        </Grid>
+
+                                                        <Grid>
+                                                            <VHfield
+                                                                label="Quantity"
+                                                                name="quantity"
+                                                                placeholder="Enter quantity"
+                                                                onChange={(e) =>
+                                                                    this.updateEntryState1(e)
+                                                                }
+                                                                value={this.state.updateTrack.service?.quantity}
+                                                            />
+                                                        </Grid>
+
+                                                        <Grid>
+                                                            <VHfield
+                                                                label="Price"
+                                                                name="price"
+                                                                placeholder="Enter service price"
+                                                                onChange={(e) =>
+                                                                    this.updateEntryState1(e)
+                                                                }
+                                                                value={this.state.updateTrack?.price}
+                                                            />
+                                                        </Grid>
+                                                    </Grid>
+                                                </Grid>
+                                                <Grid className="servSaveBtn">
+                                                    <a onClick={this.handleCloseServ}>
+                                                        <Button
+                                                            onClick={() => this.handleSubmit()}>Save & Close</Button>
+                                                    </a>
+                                                </Grid>
+                                            </Grid>
+                                        </Modal>
 
                                     </Grid>
                                 </Grid>
