@@ -1249,6 +1249,8 @@
 		"CovidElearning":"Covid e-learning",
 		"Exercise":"Oefening",
 		"ChatwithCovidconsultant":"Chat met Covid-consulent",
-		"Currentpaincondition":"Huidige pijntoestand"
+		"Currentpaincondition":"Huidige pijntoestand",
+		"verifyAccount":"Uw account is niet geverifieerd, controleer uw e-mailaccount.",
+		"needUnblock": " Uw account is nog niet ontgrendeld. Geef uw professionele ID op of geef ons, als u het onlangs heeft ingediend, maximaal 24 uur de tijd om het te ontgrendelen."
 	}
 }

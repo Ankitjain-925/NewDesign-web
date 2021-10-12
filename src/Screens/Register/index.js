@@ -22,12 +22,13 @@ import {
   DropdownMenu,
   DropdownItem,
 } from "reactstrap";
+import ReCAPTCHA from "react-google-recaptcha";
 import {
   getLanguage
 } from "translations/index"
 import contry from "Screens/Components/countryBucket/countries.json";
 import {updateCometUser} from "Screens/Components/CommonApi/index";
-import {commonCometHeader} from "component/CommonHeader/index"
+import {commonCometHeader,} from "component/CommonHeader/index"
 //Values for the validate Password
 var letter = /([a-zA-Z])+([ -~])*/,
   number = /\d+/,
@@ -61,6 +62,7 @@ class Index extends Component {
       fileupods: false,
       FilesUp: [],
       fileattach: [],
+      recaptcha: false,
       mode:
         this.props.settings &&
         this.props.settings.setting &&
@@ -89,6 +91,10 @@ class Index extends Component {
     this.props.history.push("/");
   };
 
+  onChangeRec= (value) =>{
+    this.setState({recaptcha: value})
+  }
+
   //For save data of user
   saveUserData() {
     this.setState({
@@ -99,6 +105,8 @@ class Index extends Component {
       regisError0: "",
       error_msg: "",
     });
+    if(this.state.recaptcha)
+    {
     if (
       this.state.userDetails.first_name &&
       this.state.userDetails.last_name &&
@@ -144,6 +152,7 @@ class Index extends Component {
                       first_name: this.state.userDetails.first_name,
                       last_name: this.state.userDetails.last_name,
                       bucket: getBucket[0].bucket,
+                      token: this.state.recaptcha
                     })
                     .then((responce) => {
                       this.setState({ loaderImage: false });
@@ -215,6 +224,7 @@ class Index extends Component {
                         first_name: this.state.userDetails.first_name,
                         last_name: this.state.userDetails.last_name,
                         bucket: getBucket[0].bucket,
+                        token: this.state.recaptcha
                       })
                       .then((responce) => {
                         this.setState({ loaderImage: false });
@@ -275,6 +285,10 @@ class Index extends Component {
       }
     } else {
       this.setState({ regisError0: "Please fill the full name of user" });
+    }
+    }
+    else{
+      this.setState({ regisError0: "Please fill the RECAPTCHA" });
     }
   }
 
@@ -407,6 +421,7 @@ class Index extends Component {
         first_name: this.state.userDetails.first_name,
         last_name: this.state.userDetails.last_name,
         bucket: getBucket[0].bucket,
+        token: this.state.recaptcha
       })
       .then((responce) => {
         this.setState({ loaderImage: false, FilesUp: [] });
@@ -1102,6 +1117,11 @@ class Index extends Component {
                       />
                     </Grid>
                   )}
+                   <ReCAPTCHA
+                      sitekey={"6Lfgib4cAAAAAKWDXLFxlUQ8o4zb529nqkP0k1b3"}
+                      onChange={this.onChangeRec}
+                    />
+
                   <Grid className="registerRow">
                     <Grid className="regCrtAc">
                       <input

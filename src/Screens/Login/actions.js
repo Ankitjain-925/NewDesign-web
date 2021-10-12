@@ -8,7 +8,7 @@ import axios from "axios";
 import { CometChat } from "@cometchat-pro/chat";
 import { COMETCHAT_CONSTANTS } from "../Components//CometChat/consts";
 import * as Docarray from "./doctorarray";
-
+import { commonNoTokentHeader } from "component/CommonHeader/index";
 const path = sitedata.data.path + "/UserProfile";
 const path1 = sitedata.data.path + "/User";
 
@@ -37,17 +37,22 @@ export const updateCometUser = async (data)=>{
   .catch((err)=>{})
 }
 
-export const LoginReducerAim = (email, password, SendCallback = () => {}) => {
+export const LoginReducerAim = (email, password, logintoken, SendCallback = () => {}) => {
   return (dispatch) => {
     dispatch({ type: GET_LOGIN_REQUEST });
     axios
-      .post(path + "/UserLogin", { email, password })
+      .post(path + "/UserLogin", { email, password, logintoken },
+      commonNoTokentHeader()
+      )
       .then((response) => {
         let tmp;
         if (response.data.hassuccessed === false) {
           let tmp = {
             token: response.data.status,
             message: response.data.message,
+            isVerified: response.data.isVerified,
+            isBlocked: response.data.isBlocked,
+            type: response.data.type,
           };
           dispatch({ type: GET_LOGIN_SUCCESS, payload: tmp });
           SendCallback();

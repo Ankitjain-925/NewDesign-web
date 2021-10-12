@@ -71,23 +71,23 @@ class Index extends Component {
             <Grid item xs={12} md={12}>
               <Grid container direction="row">
                 {/* Website Menu */}
-                {this.props.stateLoginValueAim.user.type === 'patient' && <LeftMenuPatient isNotShow={true} currentPage="more" />}
-                {this.props.stateLoginValueAim.user.type === 'patient' && <LeftMenuMobilePatient isNotShow={true} currentPage="more" />}
+                {this.props.stateLoginValueAim?.user?.type === 'patient' && <LeftMenuPatient isNotShow={true} currentPage="more" />}
+                {this.props.stateLoginValueAim?.user?.type === 'patient' && <LeftMenuMobilePatient isNotShow={true} currentPage="more" />}
 
-                {this.props.stateLoginValueAim.user.type === 'doctor' && <LeftMenuDoctor isNotShow={true} currentPage="more" />}
-                {this.props.stateLoginValueAim.user.type === 'doctor' && <LeftMenuMobileDoctor isNotShow={true} currentPage="more" />}
+                {this.props.stateLoginValueAim?.user?.type === 'doctor' && <LeftMenuDoctor isNotShow={true} currentPage="more" />}
+                {this.props.stateLoginValueAim?.user?.type === 'doctor' && <LeftMenuMobileDoctor isNotShow={true} currentPage="more" />}
 
-                {this.props.stateLoginValueAim.user.type === 'pharmacy' && <LeftMenuPharma isNotShow={true} currentPage="course" />}
-                {this.props.stateLoginValueAim.user.type === 'pharmacy' && <LeftMenuMobilePharma isNotShow={true} currentPage="course" />}
+                {this.props.stateLoginValueAim?.user?.type === 'pharmacy' && <LeftMenuPharma isNotShow={true} currentPage="course" />}
+                {this.props.stateLoginValueAim?.user?.type === 'pharmacy' && <LeftMenuMobilePharma isNotShow={true} currentPage="course" />}
 
-                {this.props.stateLoginValueAim.user.type === 'insurance' && <LeftMenuIns isNotShow={true} currentPage="course" />}
-                {this.props.stateLoginValueAim.user.type === 'insurance' && <LeftMenuMobileIns isNotShow={true} currentPage="course" />}
+                {this.props.stateLoginValueAim?.user?.type === 'insurance' && <LeftMenuIns isNotShow={true} currentPage="course" />}
+                {this.props.stateLoginValueAim?.user?.type === 'insurance' && <LeftMenuMobileIns isNotShow={true} currentPage="course" />}
 
-                {this.props.stateLoginValueAim.user.type === 'paramedic' && <LeftMenuParam isNotShow={true} currentPage="course" />}
-                {this.props.stateLoginValueAim.user.type === 'paramedic' && <LeftMenuMobileParam isNotShow={true} currentPage="course" />}
+                {this.props.stateLoginValueAim?.user?.type === 'paramedic' && <LeftMenuParam isNotShow={true} currentPage="course" />}
+                {this.props.stateLoginValueAim?.user?.type === 'paramedic' && <LeftMenuMobileParam isNotShow={true} currentPage="course" />}
 
-                {this.props.stateLoginValueAim.user.type === 'nurse' && <LeftMenuNurse isNotShow={true} currentPage="course" />}
-                {this.props.stateLoginValueAim.user.type === 'nurse' && <LeftMenuMobileNurse isNotShow={true} currentPage="course" />}
+                {this.props.stateLoginValueAim?.user?.type === 'nurse' && <LeftMenuNurse isNotShow={true} currentPage="course" />}
+                {this.props.stateLoginValueAim?.user?.type === 'nurse' && <LeftMenuMobileNurse isNotShow={true} currentPage="course" />}
                 <Notification />
                 {/* End of Website Menu */}
                 <Grid item xs={12} md={11}>
