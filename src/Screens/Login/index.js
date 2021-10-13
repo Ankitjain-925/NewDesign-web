@@ -155,18 +155,22 @@ class Index extends Component {
         let email = this.state.inputEmail;
         let password = this.state.inputPass;
         this.setState({ loaderImage: true });
-        this.props.LoginReducerAim(email, password, () => {
+        var logintoken= false;
+        if(this.state.logintoken != '' && this.state.logintoken != undefined){
+          logintoken = this.state.logintoken
+        }
+        this.props.LoginReducerAim(email, password,logintoken, () => {
           this.setState({ myLogin: true });
           this.setState({ loaderImage: false });
           if (
             this.props.stateLoginValueAim &&
-            this.props.stateLoginValueAim.user &&
-            !this.props.stateLoginValueAim.user.is2fa
+            this.props.stateLoginValueAim?.user &&
+            !this.props.stateLoginValueAim?.user?.is2fa
           ) {
             this.props.OptionList(true, ()=>{
               this.props.authy(true);
             });
-          } else if (this.props.stateLoginValueAim.token === 450) {
+          } else if (this.props.stateLoginValueAim.token === 450 || this.props.stateLoginValueAim.token === 401) {
             this.setState({ thisverify: false });
           } else {
             this.setState({ thisverify: true });
@@ -253,11 +257,14 @@ class Index extends Component {
       user_not_exist,
       wrong_password,
       user_is_blocked,
+      verifyAccount,
+      needUnblock
     } = translate;
 
     if (
+      stateLoginValueAim.token !== 401 &&
       stateLoginValueAim.token !== 450 &&
-      stateLoginValueAim.user.type === "patient" &&
+      stateLoginValueAim?.user?.type === "patient" &&
       this.props.verifyCode.code
     ) {
       if (stateLoginValueAim.user.firstlogin) {
@@ -275,8 +282,9 @@ class Index extends Component {
       }
     }
     if (
+      stateLoginValueAim.token !== 401 &&
       stateLoginValueAim.token !== 450 &&
-      stateLoginValueAim.user.type === "doctor" &&
+      stateLoginValueAim?.user?.type === "doctor" &&
       this.props.verifyCode.code
     ) {
       if (stateLoginValueAim.kyc) {
@@ -300,8 +308,9 @@ class Index extends Component {
       }
     }
     if (
+      stateLoginValueAim.token !== 401 &&
       stateLoginValueAim.token !== 450 &&
-      stateLoginValueAim.user.type === "pharmacy" &&
+      stateLoginValueAim?.user?.type === "pharmacy" &&
       this.props.verifyCode.code
     ) {
       if (stateLoginValueAim.kyc) {
@@ -311,22 +320,25 @@ class Index extends Component {
       }
     }
     if (
+      stateLoginValueAim.token !== 401 &&
       stateLoginValueAim.token !== 450 &&
-      stateLoginValueAim.user.type === "paramedic" &&
+      stateLoginValueAim?.user?.type === "paramedic" &&
       this.props.verifyCode.code
     ) {
       return <Redirect to={"/paramedic"} />;
     }
     if (
+      stateLoginValueAim.token !== 401 &&
       stateLoginValueAim.token !== 450 &&
-      stateLoginValueAim.user.type === "insurance" &&
+      stateLoginValueAim?.user?.type === "insurance" &&
       this.props.verifyCode.code
     ) {
       return <Redirect to={"/insurance"} />;
     }
     if (
+      stateLoginValueAim.token !== 401 &&
       stateLoginValueAim.token !== 450 &&
-      stateLoginValueAim.user.type === "nurse" &&
+      stateLoginValueAim?.user?.type === "nurse" &&
       this.props.verifyCode.code
     ) {
       if (stateLoginValueAim.kyc) {
@@ -336,8 +348,9 @@ class Index extends Component {
       }
     }
     if (
+      stateLoginValueAim.token !== 401 &&
       stateLoginValueAim.token !== 450 &&
-      stateLoginValueAim.user.type === "therapist" &&
+      stateLoginValueAim?.user?.type === "therapist" &&
       this.props.verifyCode.code
     ) {
       if (stateLoginValueAim.kyc) {
@@ -347,8 +360,9 @@ class Index extends Component {
       }
     }  
     if (
+      stateLoginValueAim.token !== 401 &&
       stateLoginValueAim.token !== 450 &&
-      stateLoginValueAim.user.type === "hospitaladmin" &&
+      stateLoginValueAim?.user?.type === "hospitaladmin" &&
       this.props.verifyCode.code
     ) {
       if (stateLoginValueAim.kyc) {
@@ -510,19 +524,24 @@ class Index extends Component {
                         : this.state.loginError2
                         ? email_not_valid
                         : this.state.loginError9
-                        ? password_cant_empty
+                        ? password_cant_empty 
+                        : stateLoginValueAim.isVerified == false 
+                        ? verifyAccount
+                        : stateLoginValueAim.isBlocked == true 
+                        ? stateLoginValueAim.type === 'patient' ? user_is_blocked : needUnblock
                         : this.state.loginError === false &&
                           stateLoginValueAim.token === 450 &&
                           myLogin &&
                           stateLoginValueAim.message
                         ? stateLoginValueAim.message === "User does not exist"
                           ? user_not_exist
-                          : stateLoginValueAim.message === "User is blocked"
-                          ? user_is_blocked
                           : stateLoginValueAim.message === "Wrong password"
-                          ? wrong_password
+                          ? wrong_password 
                           : false
                         : false}
+                      {
+
+                      }
                     </div>
                     <Grid className="logRow">
                       <Grid>

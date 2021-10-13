@@ -1249,6 +1249,8 @@
 		"CovidElearning":"E-learning sur le Covid",
 		"Exercise":"Exercer",
 		"ChatwithCovidconsultant":"Discuter avec un consultant Covid",
-		"Currentpaincondition":"État actuel de la douleur"
+		"Currentpaincondition":"État actuel de la douleur",
+		"verifyAccount":"Votre compte n'est pas vérifié, veuillez vérifier votre compte de messagerie.",
+		"needUnblock": "Votre compte n'est pas encore déverrouillé, veuillez fournir votre identifiant professionnel ou si vous l'avez soumis récemment, veuillez nous donner jusqu'à 24 heures pour le déverrouiller."
 	}
 }
