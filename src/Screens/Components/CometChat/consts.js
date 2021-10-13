@@ -1,4 +1,3 @@
-require('dotenv').config()
 export const COMETCHAT_CONSTANTS = {
     APP_ID: process.env.REACT_APP_APPID,
     REGION: 'eu',

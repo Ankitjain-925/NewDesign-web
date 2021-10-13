@@ -175,7 +175,7 @@ class Notification extends React.Component {
         e.preventDefault(); this.setState({ ShowTime1 : false, NewM : false})
       }
       redirectPage=()=> {
-        if(this.props.stateLoginValueAim.stateLoginValueAim.user.type === 'nurse' || this.props.stateLoginValueAim.stateLoginValueAim.user.type === 'pharmacy'){
+        if(this.props.stateLoginValueAim.stateLoginValueAim?.user?.type === 'nurse' || this.props.stateLoginValueAim.stateLoginValueAim?.user?.type === 'pharmacy'){
             this.props.history.push(`/${this.props.stateLoginValueAim.stateLoginValueAim.user.type}`)
         }
         else{

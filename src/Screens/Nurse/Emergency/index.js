@@ -146,8 +146,8 @@ class Index extends Component {
     ) {
       if (stateLoginValueAim.user) {
         if (
-          stateLoginValueAim.user.type === "nurse" ||
-          stateLoginValueAim.user.type === "therapist"
+          stateLoginValueAim?.user?.type === "nurse" ||
+          stateLoginValueAim?.user?.type === "therapist"
         ) {
         } else {
           return <Redirect to={"/"} />;

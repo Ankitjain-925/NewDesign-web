@@ -1250,6 +1250,8 @@
 		"CovidElearning":"Covid Elearning",
 		"Exercise":"Exercício",
 		"ChatwithCovidconsultant":"Converse com o consultor da Covid",
-		"Currentpaincondition":"Condição de dor atual"
+		"Currentpaincondition":"Condição de dor atual",
+		"verifyAccount":"Sua conta não foi verificada, por favor, verifique sua conta de e-mail.",
+		"needUnblock": "Sua conta ainda não está desbloqueada, forneça sua identificação profissional ou, se você a enviou recentemente, dê-nos até 24 horas para desbloqueá-la."
 	}
 }

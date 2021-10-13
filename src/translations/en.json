@@ -1249,6 +1249,8 @@
 		"CovidElearning":"Covid Elearning",
 		"Exercise":"Exercise",
 		"ChatwithCovidconsultant":"Chat with Covid consultant",
-		"Currentpaincondition":"Current pain condition"
+		"Currentpaincondition":"Current pain condition",
+		"verifyAccount":"Your Account is not verified, please check your email account.",
+		"needUnblock": "Your account is not unlocked yet, please provide your professional ID or if you have submitted it recently, please give us up to 24 hours to unlock it."
 	}
 }
