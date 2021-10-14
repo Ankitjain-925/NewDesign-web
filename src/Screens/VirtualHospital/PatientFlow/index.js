@@ -67,6 +67,11 @@ class Index extends Component {
     });
   }
 
+  moveDetial=(id)=>{
+    alert('Hello', id)
+    this.props.history.push(`/virtualhospital/patient-detail/${id}`)
+  }
+
   //For calling the API
   CallApi = () => {
     var deep = _.cloneDeep(this.state.actualData);
@@ -114,10 +119,8 @@ class Index extends Component {
     var state = this.state.actualData;
     state[index][e.target.name] = e.target.value;
     this.setDta(state);
-    if (e.key === "Enter") {
-      this.setState({ edit: false });
-      this.CallApi();
-    }
+    this.setState({ edit: false });
+    this.CallApi();
   };
 
   //Edit the name of step
@@ -387,6 +390,7 @@ class Index extends Component {
                       </Grid>
                     </Grid>
                     <Drags
+                      moveDetial={(id)=>this.moveDetial(id)}
                       DeleteStep={(index) => this.DeleteStep(index)}
                       onKeyDownlogin={this.onKeyDownlogin}
                       editName={this.editName}

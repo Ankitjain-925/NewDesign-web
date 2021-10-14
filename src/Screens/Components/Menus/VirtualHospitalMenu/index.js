@@ -102,6 +102,7 @@ class Index extends Component {
   logOutClick = async () => {
    var data = await update_CometUser(this.props?.stateLoginValueAim?.user?.profile_id.toLowerCase() , {lastActiveAt : Date.now()})
     if(data){
+      
       let email = "";
       let password = "";
       this.props.LoginReducerAim(email, password);
@@ -374,7 +375,7 @@ class Index extends Component {
                         {"Questionnaire"}
                       </a>
                     </li>
-                    <li>
+                    {/* <li>
                       <a onClick={this.PatientDetail}>
                       {this.props.settings &&
                         this.props.settings.setting &&
@@ -395,7 +396,7 @@ class Index extends Component {
                     
                         {"Patient Detail"}
                       </a>
-                    </li>
+                    </li> */}
                   </ul>
                 </div>
               </a>

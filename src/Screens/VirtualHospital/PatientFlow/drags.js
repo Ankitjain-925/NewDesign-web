@@ -94,6 +94,7 @@ class Index extends Component {
   onChange=(e, index)=>{
     this.props.onChange(e, index)
   }
+
   AddMoreStep = ()=>{
     this.props.AddStep();
   }
@@ -116,6 +117,7 @@ class Index extends Component {
                   <li>
                     <div className="detailInfo">
                       <Column
+                        moveDetial={(id)=>this.props.moveDetial(id)}
                         key={key}
                         onDragEnd={(data)=>{this.onDragEnd(data)}}
                         index={index}

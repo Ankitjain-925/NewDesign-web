@@ -46,14 +46,13 @@ export default class QuoteItem extends React.Component {
                     title=""
                   />
                 </Grid>
-                <Grid className="flowProfilRght">
+                <Grid className="flowProfilRght" onClick={()=>this.props.moveDetial(quote.patient_id)}>
                   <label>
                     {quote.patient.first_name} {quote.patient.last_name}
                   </label>
                   <p>{quote.patient.alies_id}</p>
                 </Grid>
                 <Grid className="checkDotsRght">
-                  {/* {console.log('quote456', quote?.author?.step_name)} */}
                   <CasesMoreButton
                     setDta={(item) => this.props.setDta(item)}
                     currentStep={quote?.author?.step_name}
@@ -70,7 +69,6 @@ export default class QuoteItem extends React.Component {
                 </Grid>
               </Grid>
             </Grid>
-            {/* {console.log('dfsdfdfd', this.props)} */}
             <Grid className="flowInfoInr2">
               <Grid className="dtlCntUpr">
                 <Grid className="dtlCntLft">
@@ -166,11 +164,10 @@ export default class QuoteItem extends React.Component {
                       onClick={() => this.setSpeciality()}
                       showActive={false}
                     />
-                    {/* <Grid className="cardoLbl cardoPink"><a>{quote?.speciality?.specialty_name}</a></Grid> */}
                   </Grid>
                   <Grid item xs={12} md={5} lg={4}>
-                    <Grid className="cardioArea">
-                      <Grid>
+                    <Grid className="cardioArea" >
+                      <Grid onClick={(id)=>this.props.moveDetial(id)}>
                         <label>
                           {quote.patient.first_name} {quote.patient.last_name}
                         </label>
@@ -251,13 +248,6 @@ export default class QuoteItem extends React.Component {
                       onDragEnd={(data) => onDragEnd(data)}
                       ordered={this.props.ordered}
                     />
-                    {/* <a>
-                      <img
-                        src={require("assets/virtual_images/threeDots2.png")}
-                        alt=""
-                        title=""
-                      />
-                    </a> */}
                   </Grid>
                 </Grid>
               </Grid>

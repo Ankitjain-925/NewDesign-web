@@ -9,7 +9,6 @@ import { commonHeader } from "component/CommonHeader/index";
 
 export const Speciality = (getting, house_id, user_token, callBack = () => { }) => {
   return (dispatch) => {
-    console.log('getting , house_id', getting, house_id, user_token)
     if (getting && house_id) {
       dispatch({ type: GET_SPECIALITY_REQUEST });
       axios

@@ -65,7 +65,7 @@ export const checkTheIndex = (array, attr, value) => {
 }
 
 export const AllWards = (Specilaity_id, AllSpecaility) => {
-  var mydata = AllSpecaility.filter((element)=>element._id !== Specilaity_id)
+  var mydata = AllSpecaility.filter((element)=>element._id === Specilaity_id)
  if(mydata && mydata.length>0){
     return mydata[0]?.wards?.length>0 && mydata[0]?.wards.map((data, i)=>{
       return {value: data._id, label: data.ward_name}
@@ -77,14 +77,14 @@ export const AllWards = (Specilaity_id, AllSpecaility) => {
 }
 
 export const setWard = async (value, Specilaity_id, AllSpecaility, case_id, user_token) => {
-  var mydata = AllSpecaility.filter((element)=>element._id !== Specilaity_id)
+  var mydata = AllSpecaility.filter((element)=>element._id === Specilaity_id)
   if(mydata && mydata.length>0){
-     var setData = mydata[0]?.wards?.length>0 && mydata[0]?.wards.filter((data, i)=>data._id == value.value)?.[0];
+     var setData = mydata[0]?.wards?.length>0 && mydata[0]?.wards.filter((data, i)=>data._id === value.value)?.[0];
      let response = await axios.put(
       sitedata.data.path + "/cases/AddCase/"+ case_id,
       {wards: {
-          _id: setData._id,
-          ward_name: setData.ward_name,
+          _id: setData?._id,
+          ward_name: setData?.ward_name,
       },
       rooms: {}, bed: ""},
       commonHeader(user_token))
@@ -103,11 +103,11 @@ export const CurrentWard = (wards) => {
   return {}
 }
 
-export const AllRoom = (Specilaity_id, AllSpecaility, ward_id) => {
+export const AllRoomList = (Specilaity_id, AllSpecaility, ward_id) => {
   if(ward_id){
-    var mydata1 = AllSpecaility.filter((element)=>element._id !== Specilaity_id)
-    var mydata = mydata1[0]?.wards.length>0 && mydata1[0]?.wards.filter((element)=>element._id !== ward_id)
-   if(mydata && mydata.length>0){
+    var mydata1 = AllSpecaility.filter((element)=>element._id === Specilaity_id)
+    var mydata = mydata1[0]?.wards.length>0 && mydata1[0]?.wards.filter((element)=>element._id === ward_id)
+    if(mydata && mydata.length>0){
       return mydata[0]?.rooms?.length>0 && mydata[0]?.rooms.map((data, i)=>{
         return {value: data._id, label: data.room_name}
     });
@@ -121,10 +121,10 @@ export const AllRoom = (Specilaity_id, AllSpecaility, ward_id) => {
 
 export const setRoom = async (value, Specilaity_id, AllSpecaility, case_id, user_token, ward_id) => {
   if(ward_id){
-    var mydata1 = AllSpecaility.filter((element)=>element._id !== Specilaity_id)
-    var mydata = mydata1[0]?.wards.length>0 && mydata1[0]?.wards.filter((element)=>element._id !== ward_id)
+    var mydata1 = AllSpecaility.filter((element)=>element._id === Specilaity_id)
+    var mydata = mydata1[0]?.wards.length>0 && mydata1[0]?.wards.filter((element)=>element._id === ward_id)
    if(mydata && mydata.length>0){
-     var setData = mydata[0]?.rooms?.length>0 && mydata[0]?.rooms.filter((data, i)=>data._id == value.value)?.[0];
+     var setData = mydata[0]?.rooms?.length>0 && mydata[0]?.rooms.filter((data, i)=>data._id === value.value)?.[0];
       let response = await axios.put(
       sitedata.data.path + "/cases/AddCase/"+ case_id,
       {rooms: {
@@ -155,32 +155,25 @@ export const AllBed = async (Specilaity_id, ward_id, room_id, house_id, user_tok
       {"house_id": house_id, "room_id": room_id, "specialty_id": Specilaity_id, "ward_id": ward_id},
       commonHeader(user_token))
       if (response) {
+        console.log('here2', response)
           return response
       } else {
           return false
       }   
 }
 
-export const setBed = async (value, Specilaity_id, AllSpecaility, case_id, user_token, ward_id) => {
-  if(ward_id){
-    var mydata1 = AllSpecaility.filter((element)=>element._id !== Specilaity_id)
-    var mydata = mydata1[0]?.wards.length>0 && mydata1[0]?.wards.filter((element)=>element._id !== ward_id)
-   if(mydata && mydata.length>0){
-     var setData = mydata[0]?.rooms?.length>0 && mydata[0]?.rooms.filter((data, i)=>data._id == value.value)?.[0];
+export const setBed = async (value, case_id, user_token) => {
+  if(value){
       let response = await axios.put(
       sitedata.data.path + "/cases/AddCase/"+ case_id,
-      {rooms: {
-          _id: setData?._id,
-          room_name: setData?.room_name,
-      }, bed: ""},
+      { bed: value.label},
       commonHeader(user_token))
       if (response) {
           return response
       } else {
           return false
       }
-   }
-  }
+    }
 }
 
 export const CurrentBed = (bed) => {

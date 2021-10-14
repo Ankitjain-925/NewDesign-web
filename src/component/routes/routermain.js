@@ -497,7 +497,7 @@ class Routermain extends Component {
               render={(props) => <Questionnaire {...props} />}
             />
             <Route
-              path="/virtualHospital/patient-detail"
+              path="/virtualHospital/patient-detail/:id"
               exact={true}
               render={(props) => <PatientDetail {...props} />}
             />

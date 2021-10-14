@@ -47,10 +47,11 @@ class Index extends Component {
 
     //get professional info
     getProfessionalInfo = () => {
+        console.log('this.props.match.params.id', this.props.match.params.id, this.props)
         this.setState({ loaderImage: true });
         axios
             .get(
-                sitedata.data.path + "/UserProfile/Users/60113e84b488aa271effa411",
+                sitedata.data.path + `/UserProfile/Users/${this.props.match.params.id}`,
                 commonHeader(this.props.stateLoginValueAim.token)
             )
             .then((response) => {
@@ -122,7 +123,8 @@ class Index extends Component {
                                             <Grid container direction="row" alignItems="center" spacing={2}>
                                                 <Grid item xs={12} md={12}>
                                                     <label>Email address</label>
-                                                    <Grid><input type="text"  disabled={disabled} required={required} value={this.state.updateTrack.email} /></Grid>
+                                                    {console.log('updateTrack', this.state.updateTrack)}
+                                                    <Grid><input type="text"  disabled={disabled} required={required} value={this.state.updateTrack?.email} /></Grid>
                                                 </Grid>
                                             </Grid>
                                         </Grid>
@@ -143,11 +145,11 @@ class Index extends Component {
                                                 </Grid>
                                                 <Grid item xs={12} md={4}>
                                                     <label>First name</label>
-                                                    <Grid><input type="text" disabled={true} required={required} value={this.state.updateTrack.first_name}/></Grid>
+                                                    <Grid><input type="text" disabled={true} required={required} value={this.state.updateTrack?.first_name}/></Grid>
                                                 </Grid>
                                                 <Grid item xs={12} md={4}>
                                                     <label>Last name</label>
-                                                    <Grid><input type="text" disabled={true} required={required} value={this.state.updateTrack.last_name} /></Grid>
+                                                    <Grid><input type="text" disabled={true} required={required} value={this.state.updateTrack?.last_name} /></Grid>
                                                 </Grid>
                                             </Grid>
                                         </Grid>
@@ -158,7 +160,7 @@ class Index extends Component {
                                                     <Grid>
                                                         <DatePicker 
                                                             onChange={this.onChange}
-                                                            value={this.state.updateTrack.birthday}
+                                                            value={this.state.updateTrack?.birthday}
                                                             disabled={true}
                                                            
                                                         />
@@ -179,7 +181,7 @@ class Index extends Component {
                                             <Grid container direction="row" alignItems="center" spacing={2}>
                                                 <Grid item xs={12} md={8}>
                                                     <label>Street address</label>
-                                                    <Grid><input type="text" disabled={true} required={required} value={this.state.updateTrack.address} /></Grid>
+                                                    <Grid><input type="text" disabled={true} required={required} value={this.state.updateTrack?.address} /></Grid>
                                                 </Grid>
                                             </Grid>
                                         </Grid>
@@ -187,11 +189,11 @@ class Index extends Component {
                                             <Grid container direction="row" alignItems="center" spacing={2}>
                                                 <Grid item xs={12} md={8}>
                                                     <label>City</label>
-                                                    <Grid><input type="text" disabled={true} required={required} value={this.state.updateTrack.city}/></Grid>
+                                                    <Grid><input type="text" disabled={true} required={required} value={this.state.updateTrack?.city}/></Grid>
                                                 </Grid>
                                                 <Grid item xs={12} md={4}>
                                                     <label>Postal code</label>
-                                                    <Grid><input type="text" disabled={true} required={required} value={this.state.updateTrack.country_code} /></Grid>
+                                                    <Grid><input type="text" disabled={true} required={required} value={this.state.updateTrack?.country_code} /></Grid>
                                                 </Grid>
                                             </Grid>
                                         </Grid>
@@ -201,7 +203,7 @@ class Index extends Component {
                                                     <label>Country</label>
                                                     <Grid>
                                                         <Select isDisabled={true}
-                                                            value={this.state.updateTrack.country}
+                                                            value={this.state.updateTrack?.country}
                                                             onChange={this.handleChange}
                                                             options={options}
                                                             placeholder=""

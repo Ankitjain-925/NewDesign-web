@@ -400,7 +400,7 @@ Questionaires = () => {
                         {"Questionnaire"}
                       </a>
                     </li>
-                    <li>
+                    {/* <li>
                       <a onClick={this.PatientDetail}>
                       {this.props.settings &&
                         this.props.settings.setting &&
@@ -421,7 +421,7 @@ Questionaires = () => {
                     
                         {"Patient Detail"}
                       </a>
-                    </li>
+                    </li> */}
                   </ul>
                 </div>
               </a>

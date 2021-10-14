@@ -64,7 +64,8 @@ class Index extends Component {
                   ? "homeBg darkTheme"
                   : "homeBg"
               }>
-                <Grid className="homeBgIner">
+                <Grid className="homeBgIner vh-section">
+                    {console.log('this.props.match.params.id', this.props.match.params.id)}
                     <Grid container direction="row" justify="center">
                         <Grid item xs={12} md={12}>
                             
@@ -131,7 +132,7 @@ class Index extends Component {
                                             <PatientRoom />
                                         </TabContainer>}
                                         {valueMob === 5 && <TabContainer>
-                                            <PatientPersonalInfo />
+                                            <PatientPersonalInfo patient_id={this.props.match.params.id}/>
                                         </TabContainer>}
                                     </div>
                                     {/* End of Tabs Content */}
