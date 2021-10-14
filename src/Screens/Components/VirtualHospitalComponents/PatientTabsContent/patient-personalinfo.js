@@ -6,6 +6,19 @@ import DatePicker from 'react-date-picker';
 // import 'react-phone-input-2/lib/style.css';
 import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
 import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
+import Temprature from 'Screens/Components/Temprature/index';
+import axios from "axios";
+import sitedata from "sitedata";
+import {
+    commonHeader,
+} from "component/CommonHeader/index";
+import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
+import { LoginReducerAim } from "Screens/Login/actions";
+import { Settings } from "Screens/Login/setting";
+import { LanguageFetchReducer } from "Screens/actions";
+import { authy } from 'Screens/Login/authy.js';
+import { houseSelect } from "Screens/VirtualHospital/Institutes/selecthouseaction";
 
 const options = [
     { value: 'Mr', label: 'Mr.' },
@@ -16,13 +29,50 @@ class Index extends Component {
         super(props);
         this.state = {
             selectedCountry: null,
-            date: new Date()
+            date: new Date(),
+            updateTrack: {}
         };
     }
+
+    componentDidMount() {
+        this.getProfessionalInfo();
+     }
+
     handleChange = selectedOption => {
         this.setState({ selectedOption });
     };
+
+
+
+
+    //get professional info
+    getProfessionalInfo = () => {
+        this.setState({ loaderImage: true });
+        axios
+            .get(
+                sitedata.data.path + "/UserProfile/Users/60113e84b488aa271effa411",
+                commonHeader(this.props.stateLoginValueAim.token)
+            )
+            .then((response) => {
+                this.setState({ updateTrack: response.data.data })
+             
+                // if (response.data.hassuccessed) {
+                //     var Done = response.data.data?.length > 0 && response.data.data.filter((item) => item.status === "done")
+                //     var Open = response.data.data?.length > 0 && response.data.data.filter((item) => item.status === "open")
+                //     this.setState({ AllTasks: response.data.data, DoneTask: Done, OpenTask: Open })
+                // }
+                this.setState({ loaderImage: false });
+            console.log("dara",this.state.updateTrack)
+
+            });
+    };
+
+
+
+
     render() {
+        var required = true;
+        var disabled = true;
         const { selectedOption } = this.state;
         return (
             <Grid>
@@ -59,9 +109,9 @@ class Index extends Component {
                                         </Grid>
                                     </Grid>
                                     <Grid item xs={12} md={3}>
-                                        <Grid className="profileIdRght">
+                                        {/* <Grid className="profileIdRght">
                                             <a>Change ID / PIN</a>
-                                        </Grid>
+                                        </Grid> */}
                                     </Grid>
                                 </Grid>
                             </Grid>
@@ -72,20 +122,20 @@ class Index extends Component {
                                             <Grid container direction="row" alignItems="center" spacing={2}>
                                                 <Grid item xs={12} md={12}>
                                                     <label>Email address</label>
-                                                    <Grid><input type="text" /></Grid>
+                                                    <Grid><input type="text"  disabled={disabled} required={required} value={this.state.updateTrack.email} /></Grid>
                                                 </Grid>
                                             </Grid>
                                         </Grid>
                                         <Grid className="profileInfoIner titleDegre">
                                             <Grid container direction="row" alignItems="center" spacing={2}>
-                                                <Grid item xs={12} md={3}>
-                                                    <label>Title / Degree</label>
+                                                <Grid item xs={12} md={3} >
+                                                    <label>Title / Degree </label>
                                                     <Grid>
-                                                        <Select
-                                                            value={selectedOption}
+                                                        <Select isDisabled={true}
+                                                            value={selectedOption} 
                                                             onChange={this.handleChange}
                                                             options={options}
-                                                            placeholder="Mr."
+                                                            placeholder="Mr." 
                                                             isSearchable={false}
                                                             className="mr_sel"
                                                         />
@@ -93,11 +143,11 @@ class Index extends Component {
                                                 </Grid>
                                                 <Grid item xs={12} md={4}>
                                                     <label>First name</label>
-                                                    <Grid><input type="text" /></Grid>
+                                                    <Grid><input type="text" disabled={true} required={required} value={this.state.updateTrack.first_name}/></Grid>
                                                 </Grid>
                                                 <Grid item xs={12} md={4}>
                                                     <label>Last name</label>
-                                                    <Grid><input type="text" /></Grid>
+                                                    <Grid><input type="text" disabled={true} required={required} value={this.state.updateTrack.last_name} /></Grid>
                                                 </Grid>
                                             </Grid>
                                         </Grid>
@@ -106,18 +156,21 @@ class Index extends Component {
                                                 <Grid item xs={12} md={5} lg={4}>
                                                     <label>Date of birth</label>
                                                     <Grid>
-                                                        <DatePicker
+                                                        <DatePicker 
                                                             onChange={this.onChange}
-                                                            value={this.state.date}
+                                                            value={this.state.updateTrack.birthday}
+                                                            disabled={true}
+                                                           
                                                         />
                                                     </Grid>
                                                 </Grid>
-                                                <Grid item xs={12} md={7} lg={8}>
+                                                <Grid item  xs={12} md={7} lg={8}>
                                                     <label>Gender</label>
                                                     <Grid>
-                                                        <a>Male</a>
+                                                        <a value="male">Male</a>
                                                         <a>Female</a>
-                                                        <a>Other</a>
+                                                        <a>Other </a>
+                                                        
                                                     </Grid>
                                                 </Grid>
                                             </Grid>
@@ -126,7 +179,7 @@ class Index extends Component {
                                             <Grid container direction="row" alignItems="center" spacing={2}>
                                                 <Grid item xs={12} md={8}>
                                                     <label>Street address</label>
-                                                    <Grid><input type="text" /></Grid>
+                                                    <Grid><input type="text" disabled={true} required={required} value={this.state.updateTrack.address} /></Grid>
                                                 </Grid>
                                             </Grid>
                                         </Grid>
@@ -134,11 +187,11 @@ class Index extends Component {
                                             <Grid container direction="row" alignItems="center" spacing={2}>
                                                 <Grid item xs={12} md={8}>
                                                     <label>City</label>
-                                                    <Grid><input type="text" /></Grid>
+                                                    <Grid><input type="text" disabled={true} required={required} value={this.state.updateTrack.city}/></Grid>
                                                 </Grid>
                                                 <Grid item xs={12} md={4}>
                                                     <label>Postal code</label>
-                                                    <Grid><input type="text" /></Grid>
+                                                    <Grid><input type="text" disabled={true} required={required} value={this.state.updateTrack.country_code} /></Grid>
                                                 </Grid>
                                             </Grid>
                                         </Grid>
@@ -147,8 +200,8 @@ class Index extends Component {
                                                 <Grid item xs={12} md={8}>
                                                     <label>Country</label>
                                                     <Grid>
-                                                        <Select
-                                                            value={selectedOption}
+                                                        <Select isDisabled={true}
+                                                            value={this.state.updateTrack.country}
                                                             onChange={this.handleChange}
                                                             options={options}
                                                             placeholder=""
@@ -195,9 +248,9 @@ class Index extends Component {
                                                 <Grid item xs={12} md={8}>
                                                     <label>Languages spoken</label>
                                                     <Grid>
-                                                        <Select
+                                                        <Select isDisabled={true}
                                                             value={selectedOption} onChange={this.handleChange} options={options}
-                                                            placeholder="" isSearchable={false} className="languageSpk" isMulti={true}
+                                                            placeholder="" isSearchable={false}  className="languageSpk" isMulti={true}
                                                         />
                                                     </Grid>
                                                 </Grid>
@@ -248,4 +301,24 @@ class Index extends Component {
         );
     }
 }
-export default Index
+const mapStateToProps = (state) => {
+    const { stateLoginValueAim, loadingaIndicatoranswerdetail } =
+      state.LoginReducerAim;
+    const { stateLanguageType } = state.LanguageReducer;
+    const { House } = state.houseSelect
+    const { settings } = state.Settings;
+    const { verifyCode } = state.authy;
+    return {
+      stateLanguageType,
+      stateLoginValueAim,
+      loadingaIndicatoranswerdetail,
+      House,
+      settings,
+      verifyCode,
+    };
+  };
+  export default withRouter(
+    connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer, Settings,authy, houseSelect })(
+      Index
+    )
+  );

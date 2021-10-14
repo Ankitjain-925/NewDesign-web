@@ -7,8 +7,8 @@ import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
-import LeftMenu from "Screens/Components/Menus/VirtualHospitalMenu/index";
-import LeftMenuMobile from "Screens/Components/Menus/VirtualHospitalMenu/mobile";
+import LeftMenu from "Screens/Components/Menus/DoctorLeftMenu/index";
+import LeftMenuMobile from "Screens/Components/Menus/DoctorLeftMenu/mobile";
 import Assigned from "Screens/Components/VirtualHospitalComponents/Assigned/index";
 import { Button } from '@material-ui/core';
 import Modal from '@material-ui/core/Modal';
@@ -26,7 +26,7 @@ import {
     commonCometDelHeader,
 } from "component/CommonHeader/index";
 import { authy } from 'Screens/Login/authy.js';
-import { houseSelect } from "../Institutes/selecthouseaction";
+// import { houseSelect } from "../Institutes/selecthouseaction";
 import { Redirect, Route } from 'react-router-dom';
 import VHfield from "Screens/Components/VirtualHospitalComponents/VHfield/index";
 import DateFormat from "Screens/Components/DateFormat/index";
@@ -228,7 +228,7 @@ class Index extends Component {
         this.setState({ loaderImage: true });
         axios
             .get(
-                sitedata.data.path + "/vh/GetAllTask/" + this.props?.House?.value,
+                sitedata.data.path + "/vh/ProfessionalTask/60113fa1b488aa271effa419",
                 commonHeader(this.props.stateLoginValueAim.token)
             )
             .then((response) => {
@@ -242,6 +242,25 @@ class Index extends Component {
 
             });
     };
+
+    // getAddTaskData = () => {
+    //     this.setState({ loaderImage: true });
+    //     axios
+    //         .get(
+    //             sitedata.data.path + "/vh/PatientsTask/60113e84b488aa271effa411",
+    //             commonHeader(this.props.stateLoginValueAim.token)
+    //         )
+    //         .then((response) => {
+    //             this.setState({ AllTasks: response.data.data })
+    //             if (response.data.hassuccessed) {
+    //                 var Done = response.data.data?.length > 0 && response.data.data.filter((item) => item.status === "done")
+    //                 var Open = response.data.data?.length > 0 && response.data.data.filter((item) => item.status === "open")
+    //                 this.setState({ AllTasks: response.data.data, DoneTask: Done, OpenTask: Open })
+    //             }
+    //             this.setState({ loaderImage: false });
+
+    //         });
+    // };
 
     // For adding a date,time
     updateEntryState1 = (value, name) => {
@@ -523,7 +542,8 @@ class Index extends Component {
                     onClick={() => { this.setState({ q: user.name, selectedUser: user }); this.updateEntryState2(user); this.toggle(user.id); this.setState({ filteredUsers: [] }) }}
                 >{user.name} ( {user.profile_id} )</li>
             )
-        });
+           
+            });
 
         return (
             <Grid className={
@@ -537,18 +557,19 @@ class Index extends Component {
                 {this.state.loaderImage && <Loader />}
                 <Grid className="homeBgIner">
                     <Grid container direction="row">
-                        <Grid item xs={12} md={12}>
-                            <LeftMenuMobile isNotShow={true} currentPage="task" />
+                        <Grid item xs={11} md={11}>
+                            <LeftMenuMobile isNotShow={true} currentPage="professionaltask" />
+                            <LeftMenu isNotShow={true} currentPage="professionaltask" />
                             <Grid container direction="row">
                                 {/* <VHfield name="ANkit" Onclick2={(name, value)=>{this.myclick(name , value)}}/> */}
 
                                 {/* Start of Menu */}
-                                <Grid item xs={12} md={1} className="MenuLeftUpr">
+                                {/* <Grid item xs={12} md={1} className="MenuLeftUpr">
                                     <LeftMenu isNotShow={true} currentPage="task" />
-                                </Grid>
+                                </Grid> */}
                                 {/* End of Menu */}
                                 {/* Start of Right Section */}
-                                <Grid item xs={12} md={11}>
+                                <Grid item xs={6} md={10}>
                                     <Grid container direction="row">
                                         <Grid item xs={12} md={2} className="tskOverWeb">
                                             <Grid className="tskOverView">
@@ -830,7 +851,31 @@ class Index extends Component {
                                                             ))}
                                                         </Grid>
                                                     </TabContainer>}
-                                                  
+                                                    {/* </TabContainer>} */}
+                                                    {/* {tabvalue === 1 && <TabContainer>
+                                                        All Tasks
+                                                    </TabContainer>}
+                                                    {tabvalue === 2 && <TabContainer>
+                                                        <Grid className="tskOverView tskOverMob">
+                                                            <Grid className="taskNum taskYelow">
+                                                                <label><span></span>Open</label>
+                                                                <p>13</p>
+                                                            </Grid>
+                                                            <Grid className="taskNum taskGren">
+                                                                <label><span></span>Done today</label>
+                                                                <p>63</p>
+                                                            </Grid>
+                                                            <Grid className="taskNum taskYelow">
+                                                                <label><span></span>Open</label>
+                                                                <p>13</p>
+                                                            </Grid>
+                                                            <Grid className="taskNum taskGren">
+                                                                <label><span></span>Done today</label>
+                                                                <p>63</p>
+                                                            </Grid>
+                                                            <Grid className="showArchiv"><p><a>Show archived tasks</a></p></Grid>
+                                                        </Grid>
+                                                    </TabContainer>} */}
                                                 </Grid>
                                             </Grid>
                                         </Grid>
@@ -864,7 +909,7 @@ const mapStateToProps = (state) => {
     };
 };
 export default withRouter(
-    connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer, Settings, authy, houseSelect,  Speciality })(
+    connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer, Settings, authy,  Speciality })(
         Index
     )
 );
