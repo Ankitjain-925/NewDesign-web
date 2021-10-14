@@ -228,7 +228,7 @@ class Index extends Component {
         this.setState({ loaderImage: true });
         axios
             .get(
-                sitedata.data.path + "/vh/GetAllTask/" + this.props?.House?.value,
+                sitedata.data.path + "/vh/ProfessionalTask/60113fa1b488aa271effa419",
                 commonHeader(this.props.stateLoginValueAim.token)
             )
             .then((response) => {
@@ -542,7 +542,8 @@ class Index extends Component {
                     onClick={() => { this.setState({ q: user.name, selectedUser: user }); this.updateEntryState2(user); this.toggle(user.id); this.setState({ filteredUsers: [] }) }}
                 >{user.name} ( {user.profile_id} )</li>
             )
-        });
+           
+            });
 
         return (
             <Grid className={
@@ -556,7 +557,7 @@ class Index extends Component {
                 {this.state.loaderImage && <Loader />}
                 <Grid className="homeBgIner">
                     <Grid container direction="row">
-                        <Grid item xs={12} md={12}>
+                        <Grid item xs={11} md={11}>
                             <LeftMenuMobile isNotShow={true} currentPage="professionaltask" />
                             <LeftMenu isNotShow={true} currentPage="professionaltask" />
                             <Grid container direction="row">
@@ -568,7 +569,7 @@ class Index extends Component {
                                 </Grid> */}
                                 {/* End of Menu */}
                                 {/* Start of Right Section */}
-                                <Grid item xs={12} md={11}>
+                                <Grid item xs={6} md={10}>
                                     <Grid container direction="row">
                                         <Grid item xs={12} md={2} className="tskOverWeb">
                                             <Grid className="tskOverView">
