@@ -76,13 +76,21 @@ export default class QuoteItem extends React.Component {
               <Grid className="dtlCntUpr">
                 <Grid className="dtlCntLft">
                   <Grid className="dtlCount dtlCountRm">
+                  <a>
+                      <img
+                        src={require("assets/virtual_images/square.png")}
+                        alt=""
+                        title=""
+                      />
+                      {quote.wards.ward_name}
+                    </a>
                     <a>
                       <img
                         src={require("assets/virtual_images/room.svg")}
                         alt=""
                         title=""
                       />
-                      Room 1
+                      {quote.rooms.room_name}
                     </a>
                     <a>
                       <img
@@ -90,7 +98,7 @@ export default class QuoteItem extends React.Component {
                         alt=""
                         title=""
                       />
-                      2
+                      {quote.bed}
                     </a>
                   </Grid>
                 </Grid>
@@ -124,7 +132,6 @@ export default class QuoteItem extends React.Component {
                   </Grid>
                 </Grid>
                 <Grid className="dtlCntRght">
-                  {console.log('quote', quote)}
                 <Assigned assigned_to ={quote.assinged_to}/>
                 </Grid>
               </Grid>
@@ -176,6 +183,16 @@ export default class QuoteItem extends React.Component {
                       showActive={false}
                     />
                   </Grid>
+                  <Grid item xs={12} md={4} lg={6}>
+                      <Grid className="wardInfo">
+                          <a className="wardNum"><img src={require('assets/virtual_images/square.png')} alt="" title="" /><span>{quote.wards.ward_name}</span></a>
+                          <a className="roomNum"><img src={require('assets/virtual_images/room.svg')} alt="" title="" /><span>{quote.rooms.room_name}</span></a>
+                          <a className="bedNum"><img src={require('assets/virtual_images/bed2.png')} alt="" title="" /><span>{quote.bed}</span></a>
+                      </Grid>
+                  </Grid>
+                  <Grid item xs={12} md={3} lg={2} className="cardoLblWeb">
+                
+                  </Grid>
                 </Grid>
               </Grid>
               <Grid item xs={12} md={5}>
@@ -209,19 +226,21 @@ export default class QuoteItem extends React.Component {
                   <Assigned assigned_to ={quote.assinged_to}/>
                   </Grid>
                   <Grid>
-                    <CasesMoreButton
-                      setDta={(item) => this.props.setDta(item)}
-                      currentStep={quote?.author?.step_name}
-                      currentIndex={checkTheIndex(
-                        this.props.columns[quote?.author?.step_name],
-                        "patient_id",
-                        quote.patient_id
-                      )}
-                      columns={this.props.columns}
-                      quote={quote}
-                      onDragEnd={(data) => onDragEnd(data)}
-                      ordered={this.props.ordered}
-                    />
+                  <CasesMoreButton
+                    setDta={(item) => this.props.setDta(item)}
+                    currentStep={quote?.author?.step_name}
+                    currentIndex={checkTheIndex(
+                      this.props.columns[quote?.author?.step_name],
+                      "patient_id",
+                      quote.patient_id
+                    )}
+                    columns={this.props.columns}
+                    quote={quote}
+                    onDragEnd={(data) => onDragEnd(data)}
+                    ordered={this.props.ordered}
+                    professional_id_list={this.props.professional_id_list}
+                    updateEntryState3={(e, case_id)=>{this.props.updateEntryState3(e, case_id)}}
+                  />
                   </Grid>
                 </Grid>
               </Grid>

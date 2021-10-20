@@ -208,7 +208,6 @@ class Index extends Component {
 
   //On Changing the specialty id 
   onFieldChange = (e) => {
-    console.log("data111", e)
     const state = this.state.updateTrack;
     state['speciality_id'] = e.value;
     this.setState({ updateTrack: state });

@@ -7,6 +7,8 @@ import axios from "axios";
 import Input from "@material-ui/core/Input";
 import Select from "react-select";
 import Loader from "Screens/Components/Loader/index";
+import { confirmAlert } from "react-confirm-alert"; // Import
+import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
 // import { authorQuoteMap, getSteps, authors } from "./data";
 import {
   getSteps,
@@ -233,9 +235,45 @@ class Index extends Component {
   //Delete the Step
   DeleteStep = (index) => {
     var state = this.state.actualData;
-    state.splice(index, 1);
-    this.setDta(state);
-    this.CallApi();
+    if(state[index]?.case_numbers?.length>0){
+      let translate = getLanguage(this.props.stateLanguageType)
+      let {
+        ok,
+      } = translate;
+      confirmAlert({
+        customUI: ({ onClose }) => {
+          return (
+            <div
+              className={
+                this.props.settings &&
+                  this.props.settings.setting &&
+                  this.props.settings.setting.mode === "dark"
+                  ? "dark-confirm react-confirm-alert-body"
+                  : "react-confirm-alert-body"
+              }
+            >
+              <h1>{"Please remove the patients from step before deleting"}</h1>
+              <div className="react-confirm-alert-button-group">
+                <button
+                  onClick={() => {
+                    onClose();
+                  }}
+                >
+                  {ok}
+                </button>
+              </div>
+            </div>
+          );
+        },
+      }); 
+    }
+    else{
+      alert('Here')
+      state.splice(index, 1);
+      this.setDta(state);
+      this.CallApi();
+    }
+    
   };
 
   //On Add case

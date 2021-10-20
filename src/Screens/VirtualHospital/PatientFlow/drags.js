@@ -26,7 +26,10 @@ class Index extends Component {
 
   onDragEnd = result => {
     // console.log('this is on end', result)
-    this.props.dragDropFlow(result);
+    if(result.destination){
+      this.props.dragDropFlow(result);
+    }
+    
     if (result.combine) {
       if (result.type === "COLUMN") {
         const shallow = [...this.state.ordered];

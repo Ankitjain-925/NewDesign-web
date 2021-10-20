@@ -99,7 +99,6 @@ class Index extends Component {
   };
 
   handleSubmit = () => {
-    console.log("myQuestions", this.state.myQuestions)
     // this.setState({myQuestions: {} ,openOpti: true})
     var myQuestions = this.state.AllQuestions;
     myQuestions = [...myQuestions, ...this.state.myQuestions]

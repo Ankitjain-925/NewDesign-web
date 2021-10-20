@@ -9756,6 +9756,9 @@ button.crdoLghtBlu2 {
     border-bottom: none;
 }
 /* Added by Ankita */
+.dtlCountRm a:last-child {
+    margin-left: 14px;
+}
 .setSpcSpecList{
     margin: 10px
 }

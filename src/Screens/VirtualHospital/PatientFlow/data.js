@@ -44,7 +44,12 @@ export const MoveAllCases = async (actualData, from, to, data)=>{
   var deep = _.cloneDeep(actualData);
   const elm = deep[from].case_numbers;
   deep[from].case_numbers = [];
-  deep[to].case_numbers= elm;
+  if(deep[to].case_numbers?.length>0){
+    deep[to].case_numbers= [...deep[to].case_numbers, ...elm];
+  }
+  else{
+    deep[to].case_numbers= elm;
+  }
   return deep;
 }
 
@@ -125,7 +130,7 @@ export const setRoom = async (value, Specilaity_id, AllSpecaility, case_id, user
     var mydata = mydata1[0]?.wards.length>0 && mydata1[0]?.wards.filter((element)=>element._id === ward_id)
    if(mydata && mydata.length>0){
      var setData = mydata[0]?.rooms?.length>0 && mydata[0]?.rooms.filter((data, i)=>data._id === value.value)?.[0];
-      let response = await axios.put(
+     let response = await axios.put(
       sitedata.data.path + "/cases/AddCase/"+ case_id,
       {rooms: {
           _id: setData?._id,
