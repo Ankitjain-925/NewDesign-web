@@ -19,6 +19,9 @@ export const S3Image = ({ imgUrl }) => {
                     }
                 });
         }
+        else{
+            setimage(require('assets/images/avatar.png')) 
+        }
     }
 
     return (

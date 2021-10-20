@@ -170,6 +170,7 @@ class FilterSec extends Component {
       blood_sugar,
       condition_pain,
       respiration,
+      long_covid
     } = translate;
 
     const Useroptions = [
@@ -191,6 +192,7 @@ class FilterSec extends Component {
       { value: "file_upload", label: file_uplod },
       { value: "hospitalization", label: hosp_visit },
       { value: "laboratory_result", label: lab_result },
+      { value: "long_covid", label: long_covid },
       { value: "marcumar_pass", label: marcumar_pass },
       { value: "medication", label: medication },
       { value: "prescription", label: prescription },

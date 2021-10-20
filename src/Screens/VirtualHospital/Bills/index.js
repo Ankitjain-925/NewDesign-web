@@ -149,7 +149,7 @@ class Index extends Component {
                                                                 <Td>{data.updateTrack.invoice_id}</Td>
                                                                 <Td className="patentPic"><img src={require('assets/virtual_images/james.jpg')} alt="" title="" /></Td>
                                                                 <Td>16/03/2020</Td>
-                                                                <Td className="greyDot"><span></span>{data.updateTrack.status.label}</Td>
+                                                                <Td className="greyDot"><span></span>{data.updateTrack.status?.label}</Td>
                                                                 <Td>{data.updateTrack.price} €</Td>
                                                                 <Td className="billDots"><Button><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></Button></Td>
                                                             </Tr>

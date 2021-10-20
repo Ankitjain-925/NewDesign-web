@@ -115,7 +115,6 @@ class Index extends Component {
   };
 
   componentDidMount() {
-    console.log('compoentne Did mount1 ')
     this.props.Speciality(true, this.props?.House?.value, this.props.stateLoginValueAim.token);
     this.getSpeciality();
   }

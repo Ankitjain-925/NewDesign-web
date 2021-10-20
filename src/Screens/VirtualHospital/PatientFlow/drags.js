@@ -25,7 +25,6 @@ class Index extends Component {
   };
 
   onDragEnd = result => {
-    console.log('result', result)
     // console.log('this is on end', result)
     this.props.dragDropFlow(result);
     if (result.combine) {
@@ -94,6 +93,7 @@ class Index extends Component {
   onChange=(e, index)=>{
     this.props.onChange(e, index)
   }
+
   AddMoreStep = ()=>{
     this.props.AddStep();
   }
@@ -116,6 +116,7 @@ class Index extends Component {
                   <li>
                     <div className="detailInfo">
                       <Column
+                        moveDetial={(id)=>this.props.moveDetial(id)}
                         key={key}
                         onDragEnd={(data)=>{this.onDragEnd(data)}}
                         index={index}
@@ -134,6 +135,8 @@ class Index extends Component {
                         moveStep={(to, from, item)=>{this.props.moveStep(to, from, item)}}
                         columns={this.state.columns}
                         setDta={(item)=>this.props.setDta(item)}
+                        professional_id_list={this.props.professional_id_list}
+                        updateEntryState3={(e, case_id)=>{this.props.updateEntryState3(e, case_id)}}
                       />
                     </div>
                   </li>

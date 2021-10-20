@@ -16,6 +16,7 @@ import { LanguageFetchReducer } from "Screens/actions";
 import {
   getLanguage
 } from "translations/index"
+import FatiqueQuestion from "../CovidSymptomsField/FatiqueQuestions";
 
 class Index extends Component {
   constructor(props) {
@@ -55,6 +56,12 @@ class Index extends Component {
       Whereyouarelocated,
       symp_notes,
       save_entry,
+      Delirium,
+      Oxygen_therapy,
+      ECMOtherapy,
+      Sepsis,
+      Multiorgan_failure,
+      Fatique_questions
     } = translate;
 
     return (
@@ -130,6 +137,15 @@ class Index extends Component {
                 onChange={(e) => this.updateEntryState1(e, "symptoms")}
                 value={this.state.updateTrack.symptoms}
               />
+            </Grid>
+
+            <Grid className="fatiqueQues">
+                <h2>{Fatique_questions}</h2>
+                    <FatiqueQuestion updateEntryState1={(e)=>this.updateEntryState1(e, 'delirium')} label={Delirium} value={this.state.updateTrack?.delirium}/>
+                    <FatiqueQuestion updateEntryState1={(e)=>this.updateEntryState1(e, 'oxygen_therapy')} label={Oxygen_therapy} value={this.state.updateTrack?.oxygen_therapy}/>
+                    <FatiqueQuestion updateEntryState1={(e)=>this.updateEntryState1(e, 'ecmo_therapy')} label={ECMOtherapy} value={this.state.updateTrack?.ecmo_therapy}/>
+                    <FatiqueQuestion updateEntryState1={(e)=>this.updateEntryState1(e, 'sepsis')} label={Sepsis} value={this.state.updateTrack?.sepsis}/>
+                    <FatiqueQuestion updateEntryState1={(e)=>this.updateEntryState1(e, 'multiorgan_failure')} label={Multiorgan_failure} value={this.state.updateTrack?.multiorgan_failure}/>
             </Grid>
 
             <Grid className="attchForms attchImg">

@@ -217,6 +217,8 @@ Questionaires = () => {
             <Menu className="addCstmMenu">
               <Grid className="menuItems">
               <ul>
+            {this.props?.House?.value && 
+            <>
             <li
               className={this.props.currentPage === "flow" ? "menuActv" : ""}
             >
@@ -268,6 +270,7 @@ Questionaires = () => {
                 <span>{"Space Management"}</span>
               </a>
             </li>
+            </>}
             <li
             >
               <a onClick={this.MoveInstitute}>
@@ -279,6 +282,8 @@ Questionaires = () => {
                 <span>{"Change House"}</span>
               </a>
             </li>
+            {this.props?.House?.value && 
+            <>
             <li className={this.props.currentPage === "more" ? "menuActv" : ""}>
               <a className="moreMenu">
                   <img
@@ -400,32 +405,12 @@ Questionaires = () => {
                         {"Questionnaire"}
                       </a>
                     </li>
-                    <li>
-                      <a onClick={this.PatientDetail}>
-                      {this.props.settings &&
-                        this.props.settings.setting &&
-                        this.props.settings.setting.mode &&
-                        this.props.settings.setting.mode === "dark" ? (
-                          <img
-                            src={require("assets/images/menudocs-white.jpg")}
-                            alt=""
-                            title=""
-                          />
-                        ) : (
-                          <img
-                            src={require("assets/images/menudocs.jpg")}
-                            alt=""
-                            title=""
-                          />
-                        )}
-                    
-                        {"Patient Detail"}
-                      </a>
-                    </li>
                   </ul>
                 </div>
               </a>
             </li>
+            </>
+            }
             <li
               className={this.props.currentPage === "profile" ? "menuActv" : ""}
             >

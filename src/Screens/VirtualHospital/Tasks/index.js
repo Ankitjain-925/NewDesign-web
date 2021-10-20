@@ -9,7 +9,6 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import LeftMenu from "Screens/Components/Menus/VirtualHospitalMenu/index";
 import LeftMenuMobile from "Screens/Components/Menus/VirtualHospitalMenu/mobile";
-import Assigned from "Screens/Components/VirtualHospitalComponents/Assigned/index";
 import { Button } from '@material-ui/core';
 import Modal from '@material-ui/core/Modal';
 import { withRouter } from "react-router-dom";
@@ -18,13 +17,11 @@ import { LoginReducerAim } from "Screens/Login/actions";
 import { Settings } from "Screens/Login/setting";
 import axios from "axios";
 import { LanguageFetchReducer } from "Screens/actions";
+import {getProfessionalData } from "Screens/VirtualHospital/PatientFlow/data"; 
 import FileUploader from "Screens/Components/JournalFileUploader/index";
 import { Speciality } from "Screens/Login/speciality.js";
 import sitedata from "sitedata";
-import {
-    commonHeader,
-    commonCometDelHeader,
-} from "component/CommonHeader/index";
+import { commonHeader } from "component/CommonHeader/index";
 import { authy } from 'Screens/Login/authy.js';
 import { houseSelect } from "../Institutes/selecthouseaction";
 import { Redirect, Route } from 'react-router-dom';
@@ -36,7 +33,6 @@ import { confirmAlert } from "react-confirm-alert";
 import { S3Image } from "Screens/Components/GetS3Images/index";
 import TaskView from 'Screens/Components/VirtualHospitalComponents/TaskView/index';
 import Loader from "Screens/Components/Loader/index";
-import { translationRS } from 'translations/index';
 import {
     getLanguage
   }from "translations/index"
@@ -348,10 +344,6 @@ class Index extends Component {
 
     }
 
-    // componentWillReceiveProps(nextProps) {
-    //     this.setState({ users: nextProps.users, filteredUsers: nextProps.users }, () => this.filterList());
-    // }
-
     filterList = () => {
         let users = this.state.users1;
         let q = this.state.q;
@@ -436,45 +428,15 @@ class Index extends Component {
     };
 
     // Get the Professional data
-    getProfessionalData = () => {
-        var professionalList = [], professionalList1 = [],
-            professionalArray = [];
+    getProfessionalData = async () => {
         this.setState({ loaderImage: true });
-        axios
-            .get(
-                sitedata.data.path + "/hospitaladmin/GetProfessional/" + this.props?.House?.value,
-                commonHeader(this.props.stateLoginValueAim.token)
-            )
-            .then((response) => {
-                if (response.data.hassuccessed) {
-                    this.setState({ allProfData: response.data.data })
-                    // var images = [];
-                    for (let i = 0; i < this.state.allProfData.length; i++) {
-                        var name = '';
-                        if (this.state.allProfData[i]?.first_name && this.state.allProfData[i]?.last_name) {
-                            name = this.state.allProfData[i]?.first_name + ' ' + this.state.allProfData[i]?.last_name
-                        }
-                        else if (this.state.allProfData[i]?.first_name) {
-                            name = this.state.allProfData[i]?.first_name
-                        }
-                        professionalArray.push({
-                            first_name: this.state.allProfData[i].first_name,
-                            last_name: this.state.allProfData[i].last_name,
-                            user_id: this.state.allProfData[i]._id,
-                            profile_id: this.state.allProfData[i].profile_id,
-                            alies_id: this.state.allProfData[i].alies_id,
-                            image: this.state.allProfData[i].image
-                        })
-                        professionalList.push({ value: this.state.allProfData[i]._id, label: name })
-                        // professionalList1.push({ profile_id: this.state.allProfData[i].profile_id, value: this.state.allProfData[i]._id, label: name })
-                    }
-                    this.setState({ loaderImage: false, professionalArray: professionalArray, professional_id_list: professionalList })
-                }
-                else {
-                    this.setState({ loaderImage: false })
-                }
-            });
-
+        var data = await getProfessionalData(this.props?.House?.value, this.props.stateLoginValueAim.token);
+        if(data){
+            this.setState({ loaderImage: false, professionalArray: data.professionalArray, professional_id_list: data.professionalList  })
+        }
+        else{
+            this.setState({ loaderImage: false })
+        }
     };
 
     myColor(position) {
@@ -566,7 +528,7 @@ class Index extends Component {
                                                     <p>13</p>
                                                 </Grid>
                                                 <Grid className="taskNum taskGren">
-                                                    <label><span></span>Donetoday</label>
+                                                    <label><span></span>Done today</label>
                                                     <p>63</p>
                                                 </Grid>
                                                 <Grid className="showArchiv"><p onClick={() => { this.getArchived() }}><a>Show archived tasks</a></p></Grid>
@@ -576,13 +538,7 @@ class Index extends Component {
                                             <Grid className="topLeftSpc taskViewMob">
                                                 <Grid container direction="row">
                                                     <Grid item xs={12} md={6}>
-                                                        {/* <AppBar position="static" className="taskTabs">
-                                                            <Tabs value={tabvalue} onChange={this.handleChangeTab}>
-                                                                <Tab label="My Tasks" className="taskTabsIner" />
-                                                                <Tab label="All Tasks" className="taskTabsIner" />
-                                                                <Tab label="Tasks overview" className="taskTabsIner taskTabsMob" />
-                                                            </Tabs>
-                                                        </AppBar> */}
+
                                                     </Grid>
                                                     <Grid item xs={12} md={6}>
 
@@ -699,7 +655,7 @@ class Index extends Component {
                                                                                                     this.state.newTask?.due_on?.time
                                                                                                         ? new Date(this.state.newTask?.due_on?.time)
                                                                                                         : new Date()
-                                                                                                }_
+                                                                                                }
                                                                                                 time_format={this.state.time_format}
                                                                                                 onChange={(e) => this.updateEntryState1(e, "time")}
                                                                                             />}

@@ -21,9 +21,9 @@ class Editor extends React.Component {
   render() {
     return (
       <Grid className="rrSysto">
-        <Grid>
+        {this.props.comesFrom !== "long_covid" &&<Grid>
           <label>{this.state.label}</label>
-        </Grid>
+        </Grid>}
         <ReactQuill
           name={this.state.name}
           value={this.state.value}

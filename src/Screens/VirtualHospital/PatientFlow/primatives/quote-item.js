@@ -5,6 +5,7 @@ import Button from "@material-ui/core/Button";
 import CasesMoreButton from "Screens/Components/VirtualHospitalComponents/CasesMoreButton/index";
 import { checkTheIndex } from "../data";
 import SpecialityButton from "Screens/Components/VirtualHospitalComponents/SpecialityButton";
+import Assigned from "Screens/Components/VirtualHospitalComponents/Assigned/index"
 
 const getBorderColor = (isDragging, authorColors) =>
   isDragging ? "#333" : "transparent";
@@ -46,14 +47,13 @@ export default class QuoteItem extends React.Component {
                     title=""
                   />
                 </Grid>
-                <Grid className="flowProfilRght">
+                <Grid className="flowProfilRght" onClick={()=>this.props.moveDetial(quote.patient_id)}>
                   <label>
                     {quote.patient.first_name} {quote.patient.last_name}
                   </label>
                   <p>{quote.patient.alies_id}</p>
                 </Grid>
                 <Grid className="checkDotsRght">
-                  {/* {console.log('quote456', quote?.author?.step_name)} */}
                   <CasesMoreButton
                     setDta={(item) => this.props.setDta(item)}
                     currentStep={quote?.author?.step_name}
@@ -66,11 +66,12 @@ export default class QuoteItem extends React.Component {
                     quote={quote}
                     onDragEnd={(data) => onDragEnd(data)}
                     ordered={this.props.ordered}
+                    professional_id_list={this.props.professional_id_list}
+                    updateEntryState3={(e, case_id)=>{this.props.updateEntryState3(e, case_id)}}
                   />
                 </Grid>
               </Grid>
             </Grid>
-            {/* {console.log('dfsdfdfd', this.props)} */}
             <Grid className="flowInfoInr2">
               <Grid className="dtlCntUpr">
                 <Grid className="dtlCntLft">
@@ -123,21 +124,8 @@ export default class QuoteItem extends React.Component {
                   </Grid>
                 </Grid>
                 <Grid className="dtlCntRght">
-                  <a>
-                    <img
-                      src={require("assets/virtual_images/101.png")}
-                      alt=""
-                      title=""
-                    />
-                  </a>
-                  <a>
-                    <img
-                      src={require("assets/virtual_images/102.png")}
-                      alt=""
-                      title=""
-                    />
-                  </a>
-                  <a>+1</a>
+                  {console.log('quote', quote)}
+                <Assigned assigned_to ={quote.assinged_to}/>
                 </Grid>
               </Grid>
             </Grid>
@@ -166,11 +154,10 @@ export default class QuoteItem extends React.Component {
                       onClick={() => this.setSpeciality()}
                       showActive={false}
                     />
-                    {/* <Grid className="cardoLbl cardoPink"><a>{quote?.speciality?.specialty_name}</a></Grid> */}
                   </Grid>
                   <Grid item xs={12} md={5} lg={4}>
-                    <Grid className="cardioArea">
-                      <Grid>
+                    <Grid className="cardioArea" >
+                      <Grid onClick={(id)=>this.props.moveDetial(id)}>
                         <label>
                           {quote.patient.first_name} {quote.patient.last_name}
                         </label>
@@ -219,23 +206,7 @@ export default class QuoteItem extends React.Component {
                     </a>
                   </Grid>
                   <Grid className="cardioList">
-                    <a>
-                      <img
-                        src={require("assets/virtual_images/dr1.jpg")}
-                        alt=""
-                        title=""
-                      />
-                    </a>
-                    <a>
-                      <img
-                        src={require("assets/virtual_images/dr1.jpg")}
-                        alt=""
-                        title=""
-                      />
-                    </a>
-                    <a className="cardioCount">
-                      <span>+1</span>
-                    </a>
+                  <Assigned assigned_to ={quote.assinged_to}/>
                   </Grid>
                   <Grid>
                     <CasesMoreButton
@@ -251,13 +222,6 @@ export default class QuoteItem extends React.Component {
                       onDragEnd={(data) => onDragEnd(data)}
                       ordered={this.props.ordered}
                     />
-                    {/* <a>
-                      <img
-                        src={require("assets/virtual_images/threeDots2.png")}
-                        alt=""
-                        title=""
-                      />
-                    </a> */}
                   </Grid>
                 </Grid>
               </Grid>

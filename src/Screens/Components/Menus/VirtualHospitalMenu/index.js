@@ -102,6 +102,7 @@ class Index extends Component {
   logOutClick = async () => {
    var data = await update_CometUser(this.props?.stateLoginValueAim?.user?.profile_id.toLowerCase() , {lastActiveAt : Date.now()})
     if(data){
+      
       let email = "";
       let password = "";
       this.props.LoginReducerAim(email, password);
@@ -137,6 +138,12 @@ class Index extends Component {
   Calendar = () => {
     this.props.history.push('/virtualHospital/calendar')
   };
+
+   //For calendar
+   ProfileLink = () => {
+    this.props.history.push('/virtualHospital/profile')
+  };
+
   //For change Institutes
   MoveInstitute = () => {
     this.props.houseSelect({value: null});
@@ -191,6 +198,8 @@ class Index extends Component {
         </Grid>
         <Grid className="menuItems">
           <ul>
+            {this.props?.House?.value && 
+            <>
             <li
               className={this.props.currentPage === "flow" ? "menuActv" : ""}
             >
@@ -242,6 +251,7 @@ class Index extends Component {
                 <span>{"Space Management"}</span>
               </a>
             </li>
+            </>}
             <li
             >
               <a onClick={this.MoveInstitute}>
@@ -253,6 +263,8 @@ class Index extends Component {
                 <span>{"Change House"}</span>
               </a>
             </li>
+            {this.props?.House?.value && 
+            <>
             <li className={this.props.currentPage === "more" ? "menuActv" : ""}>
               <a className="moreMenu">
                   <img
@@ -374,32 +386,12 @@ class Index extends Component {
                         {"Questionnaire"}
                       </a>
                     </li>
-                    <li>
-                      <a onClick={this.PatientDetail}>
-                      {this.props.settings &&
-                        this.props.settings.setting &&
-                        this.props.settings.setting.mode &&
-                        this.props.settings.setting.mode === "dark" ? (
-                          <img
-                            src={require("assets/images/menudocs-white.jpg")}
-                            alt=""
-                            title=""
-                          />
-                        ) : (
-                          <img
-                            src={require("assets/images/menudocs.jpg")}
-                            alt=""
-                            title=""
-                          />
-                        )}
-                    
-                        {"Patient Detail"}
-                      </a>
-                    </li>
                   </ul>
                 </div>
               </a>
             </li>
+            </>
+            }
             <li
               className={this.props.currentPage === "profile" ? "menuActv" : ""}
             >

@@ -164,7 +164,6 @@ class Index extends Component {
 
     //Add the services  
     handleAddSubmit = () => {
-
         var newService = this.state.updateTrack;
         newService.price = newService?.service?.price * newService?.quantity
         console.log('new Sevice', newService)

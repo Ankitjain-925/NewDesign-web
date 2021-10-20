@@ -708,6 +708,10 @@ a.hideDots img {
     width: 100%;
     border-radius: 6px;
 } */
+.vh-section input:disabled {
+    background: #f2f2f2 !important;
+    color: #ccc !important;
+}
 .vh-section .newStaffUpr {
     background-color: #FFFFFF;
     box-shadow: 0 1px 8px 0 rgb(0 8 8 / 4%);
@@ -2403,7 +2407,7 @@ a.cardioCount {
     margin-bottom: 42px;
 }
 .addPatent a img, .cardioDots img {
-    height: 5px;
+    height: 28px;
 }
 .wardInfo a {
     color: #404646;
@@ -6584,6 +6588,11 @@ button.downloadPDF:hover {
     letter-spacing: 0;
     line-height: 12px;
 }
+.newassignLft img{
+    height: 32px;
+    width: 32px;
+    border-radius: 27px;
+}
 .asignLft img, .asignRght img {
     height: 32px;
     width: 32px;
@@ -10031,9 +10040,10 @@ ul.patientHint li {
 
 .stepTdotupper ul li{
     width: 100% !important;
+    min-width: 100% !important;
 }
 .stepTdotupper ul{
-    min-width: 300px!important;
+    min-width: 270px!important;
 }
 .stepTdot{
     width:27px;
@@ -10085,13 +10095,16 @@ ul.patientHint li {
 /* drag drop */
 .dragdrop-vertical ul li{
     list-style: none;
-    width: 25%;
+    min-width: 320px;
     display: inline-grid;
-
+    margin-bottom: 15px;
 }
 .dragdrop-vertical ul{
     padding-left: 0px;
     padding-right: 0px;
+    overflow-x: auto;
+    overflow-y: auto;
+    display: flex;
 }
 .dragdrop-horizontal ul li{
     list-style: none;

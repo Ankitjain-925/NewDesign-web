@@ -1,10 +1,17 @@
 import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
-import {
-    getLanguage
-  } from "translations/index"
-
+import { getLanguage } from "translations/index"
+import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
+import { LoginReducerAim } from "Screens/Login/actions";
+import { Settings } from "Screens/Login/setting";
+import axios from "axios";
+import { LanguageFetchReducer } from "Screens/actions";
+import sitedata from "sitedata";
+import { authy } from 'Screens/Login/authy.js';
+import { houseSelect } from "Screens/VirtualHospital/Institutes/selecthouseaction";
+import { Redirect, Route } from 'react-router-dom';
 
 class Index extends Component {
     render() {
@@ -12,7 +19,7 @@ class Index extends Component {
         let { BacktoPatientFlow, NewEntry, NewTask, Editinfo, More, MedicalStaff, CompletedTasks, DocumentsFiles, Assignedto, Entries, Billing, Issued, Weight,Height, BMI, Blood, BloodPressure, Lastdoctorvisits, Upcomingappointment, Neurology, LastDocuments, Prescription } = translate;
         return (
             <Grid className="asignStaf">
-                <Grid className="backFlow">
+                <Grid className="backFlow" onClick={()=>{this.props.history.push('/virtualHospital/patient-flow')}}>
                     <a><img src={require('assets/virtual_images/rightArrow.png')} alt="" title="" />{BacktoPatientFlow}</a>
                 </Grid>
                 <Grid className="asignStafInr">
@@ -273,4 +280,24 @@ class Index extends Component {
         );
     }
 }
-export default Index
+const mapStateToProps = (state) => {
+    const { stateLoginValueAim, loadingaIndicatoranswerdetail } =
+      state.LoginReducerAim;
+    const { stateLanguageType } = state.LanguageReducer;
+    const { House } = state.houseSelect
+    const { settings } = state.Settings;
+    const { verifyCode } = state.authy;
+    return {
+      stateLanguageType,
+      stateLoginValueAim,
+      loadingaIndicatoranswerdetail,
+      House,
+      settings,
+      verifyCode,
+    };
+  };
+  export default withRouter(
+    connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer, Settings,authy, houseSelect })(
+      Index
+    )
+  );

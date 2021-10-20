@@ -10,10 +10,12 @@ import { Settings } from "Screens/Login/setting";
 import { commonHeader } from "component/CommonHeader/index";
 import { houseSelect } from "Screens/VirtualHospital/Institutes/selecthouseaction"; 
 import { Speciality } from "Screens/Login/speciality.js";
+import Assigned from "Screens/Components/VirtualHospitalComponents/Assigned/index"
 import SpecialityButton from "Screens/Components/VirtualHospitalComponents/SpecialityButton";
 import axios from "axios";
+import Select from 'react-select';
 import sitedata from "sitedata";
-import { getSteps, AllWards, setWard, CurrentWard, AllRoom, CurrentRoom, setRoom, AllBed, CurrentBed } from "Screens/VirtualHospital/PatientFlow/data"; 
+import {AllRoomList, getSteps, AllWards, setWard, CurrentWard, CurrentRoom, setRoom, AllBed, CurrentBed, setBed } from "Screens/VirtualHospital/PatientFlow/data"; 
 import SelectField from "Screens/Components/Select/index";
 import {
   getLanguage
@@ -28,10 +30,18 @@ class Index extends React.Component {
            assignroom : false,
            firstsec: true,
            movepatsec: false,
-           loaderImage: false
+           loaderImage: false,
+           AllRoom: [],
+           AllBeds: [],
+           assignedTo:[],
         }
     }
 
+    componentDidMount=()=>{
+      var AllRoom = AllRoomList(this.props.quote?.speciality?._id, this.props.speciality?.SPECIALITY, this.props.quote?.wards?._id);
+      this.setState({ AllRoom: AllRoom });
+      this.GetAllBed();
+    }
     setSpeciality=(data)=>{
       this.setState({ loaderImage: true });
         axios.put(
@@ -63,7 +73,6 @@ class Index extends React.Component {
     setsWard = (e)=>{
       this.setState({ loaderImage: true });
       var response = setWard(e, this.props.quote?.speciality?._id, this.props.speciality?.SPECIALITY, this.props.quote._id, this.props.stateLoginValueAim.token)
-      console.log('response', response)
       response.then((responce1) => {
       if (responce1.data.hassuccessed) {
         var steps = getSteps(
@@ -74,11 +83,11 @@ class Index extends React.Component {
             var stepData = data ? data : [];
             this.props.setDta(stepData);
           });
-          this.setState({ loaderImage: false });
+          var AllRoom = AllRoomList(this.props.quote?.speciality?._id, this.props.speciality?.SPECIALITY, this.props.quote?.wards?._id);
+          this.setState({ loaderImage: false, AllRoom: AllRoom });
         }
       })
     }
-
     setsRoom = (e)=>{
       this.setState({ loaderImage: true });
       var response = setRoom(e, this.props.quote?.speciality?._id, this.props.speciality?.SPECIALITY, this.props.quote._id, this.props.stateLoginValueAim.token, this.props.quote?.wards?._id)
@@ -93,25 +102,54 @@ class Index extends React.Component {
             this.props.setDta(stepData);
           });
           this.setState({ loaderImage: false });
+          this.GetAllBed();
         }
       })
     }
 
-    GetAllBed=()=>{
-      console.log('here',)
+    setsBed = (e)=>{
       this.setState({ loaderImage: true });
-      var response = AllBed(this.props.quote?.speciality?._id, this.props.quote?.wards._id, this.props.quote?.room._id, this.props?.House?.value,
-        this.props.stateLoginValueAim.token)
+      var response = setBed(e, this.props.quote._id, this.props.stateLoginValueAim.token)
       response.then((responce1) => {
-        if (responce1.data.hassuccessed) {
-          return responce1?.data?.data.length>0 &&responce1?.data?.data.map((bed)=>{
-            return {value: bed, label: bed}
+      if (responce1.data.hassuccessed) {
+        var steps = getSteps(
+            this.props?.House?.value,
+            this.props.stateLoginValueAim.token
+          );
+          steps.then((data) => {
+            var stepData = data ? data : [];
+            this.props.setDta(stepData);
           });
-          }
           this.setState({ loaderImage: false });
-          return [];
-        })
+        }
+      })
     }
+
+
+    GetAllBed= async ()=>{
+      if(this.props.quote?.speciality?._id && this.props.quote?.wards?._id && this.props.quote?.rooms?._id && this.props?.House?.value){
+        var response = await AllBed(this.props.quote?.speciality?._id, this.props.quote?.wards?._id, this.props.quote?.rooms?._id, this.props?.House?.value,
+          this.props.stateLoginValueAim.token);
+          var finalBed = [];
+          if (response.data.hassuccessed) {
+            var finalBed = response?.data?.data.length>0 && response?.data?.data.map((bed)=>{
+              return {value: bed, label: bed}
+            });
+            this.setState({AllBeds: finalBed})    
+      }
+      else{
+        this.setState({AllBeds: []})  
+      }
+    }
+  }
+
+   //Select the professional name
+   updateEntryState3 = (e) => {
+    this.setState({assignedTo: e}, 
+       ()=>{
+          this.props.updateEntryState3(e, this.props.quote._id)
+       })
+} 
 
     render() {
       let translate = getLanguage(this.props.stateLanguageType)
@@ -165,11 +203,16 @@ class Index extends React.Component {
                                <Grid className="movHeadRght"><a onClick={()=>this.setState({firstsec: true, changeStaffsec : false })}><img src={require('assets/virtual_images/closefancy.png')} alt="" title="" /></a></Grid>
                            </Grid>
                            <Grid className="positionDrop">
-                           {this.props.ordered?.length>0 &&  this.props.ordered.map((item)=>(
-                               <Grid><label onClick={()=>{ this.props.onDragEnd(
-                                   {type: "QUOTE" , draggableId: this.props.quote.patient_id, source: {droppableId: this.props.currentStep, index: this.props.currentIndex} , destination: {droppableId: item, index: this.props.columns[item]?.length}}
-                               )}}>{item}</label></Grid>
-                           ))}
+                           <Select
+                              name="professional"
+                              onChange={(e) =>
+                                  this.updateEntryState3(e)}
+                              value={this.state.assignedTo}
+                              options={this.props.professional_id_list}
+                              placeholder="Search & Select"
+                              className="addStafSelect"
+                              isMulti={true}
+                              isSearchable={true} />
                            </Grid>
                         </div> 
                         }
@@ -201,7 +244,7 @@ class Index extends React.Component {
                                    isSearchable={true}
                                    name="type"
                                    label="Room"
-                                   option={AllRoom(this.props.quote?.speciality?._id, this.props.speciality?.SPECIALITY, this.props.quote?.wards?._id)}
+                                   option={this.state.AllRoom}
                                    onChange={(e) => this.setsRoom(e)}
                                    value={CurrentRoom(this.props.quote?.rooms)}
                                  />
@@ -211,7 +254,7 @@ class Index extends React.Component {
                                    isSearchable={true}
                                    name="type"
                                    label="Bed"
-                                   option={this.GetAllBed}
+                                   option={this.state.AllBeds}
                                    onChange={(e) => this.setsBed(e)}
                                    value={CurrentBed(this.props.quote?.bed)}
                                  />

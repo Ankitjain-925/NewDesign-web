@@ -62,6 +62,7 @@ import DoctorChats from "Screens/Doctor/Chat/index.js";
 import DoctorEmergency from "Screens/Doctor/Emergency/index.js";
 import DoctorOnline from "Screens/Doctor/onlineCourse/index.js";
 import DoctorJournal from "Screens/Doctor/Journal/index.js";
+import DoctorProfessionalTask from "Screens/Doctor/ProfessionalTask/index.js";
 
 import DicomView from "Screens/Components/DicomView/ImageViewer";
 
@@ -92,6 +93,8 @@ import ManageBeds from "Screens/VirtualHospital/SpaceManagement/manageBeds";
 import VHInstitutes from "Screens/VirtualHospital/Institutes/index";
 import PatientDetail from "Screens/VirtualHospital/PatientDetails/index";
 import AssignModelTask from "Screens/VirtualHospital/Tasks/AssignModelTask.js";
+import VHProfile from "Screens/VirtualHospital/Profile/index";
+
 
 class Routermain extends Component {
   render() {
@@ -367,6 +370,11 @@ class Routermain extends Component {
               path="/doctor/journal"
               render={(props) => <DoctorJournal {...props} />}
             />
+             <Route
+              exact
+              path="/doctor/professional-task"
+              render={(props) => <DoctorProfessionalTask {...props} />}
+            />
 
             {/* Doctor Router End*/}
             <Route
@@ -464,6 +472,11 @@ class Routermain extends Component {
               render={(props) => <VHServices {...props} />}
             />
             <Route
+              path="/virtualhospital/profile"
+              exact={true}
+              render={(props) => <VHProfile {...props} />}
+            />
+            <Route
               path="/virtualhospital/calendar"
               exact={true}
               render={(props) => <VHAppointTask {...props} />}
@@ -491,7 +504,7 @@ class Routermain extends Component {
               render={(props) => <Questionnaire {...props} />}
             />
             <Route
-              path="/virtualHospital/patient-detail"
+              path="/virtualHospital/patient-detail/:id"
               exact={true}
               render={(props) => <PatientDetail {...props} />}
             />
