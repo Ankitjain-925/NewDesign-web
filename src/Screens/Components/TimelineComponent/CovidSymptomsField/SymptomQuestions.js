@@ -19,7 +19,6 @@ class Index extends Component {
 
   updateEntryState1=(value)=>{
     if(!this.props.notchangeble) {
-      console.log('notchangeble')
       this.props.updateEntryState1(value)
     }
   }

@@ -35,9 +35,7 @@ class Index extends Component {
   updateEntryState1 = (value, name) => {
     var state = this.state.updateTrack;
     state[name] = value;
-    this.setState({ updateTrack: state },()=>{
-        console.log('updated_data', this.state.updateTrack)
-    });
+    this.setState({ updateTrack: state });
     this.props.updateEntryState1(value, name);
   };
 

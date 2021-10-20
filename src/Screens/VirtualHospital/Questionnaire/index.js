@@ -286,7 +286,7 @@ class Index extends Component {
       this.setState({editopenOpti : setView})
     }
     else {
-      QuesAy["question"] = e.target.value;
+      QuesAy[name] = e.target.value;
     }
     this.setState({ editQuestions: QuesAy });
   }
@@ -311,6 +311,20 @@ class Index extends Component {
     let translate = getLanguage(this.props.stateLanguageType);
     let {AddQuestionnaire, EditQuestionnaire } = translate;
     const { questions_data } = this.state;
+    const { stateLoginValueAim, House } = this.props;
+    if (
+      stateLoginValueAim.user === "undefined" ||
+      stateLoginValueAim.token === 450 ||
+      stateLoginValueAim.token === "undefined" ||
+      stateLoginValueAim.user.type !== "adminstaff" ||
+      !this.props.verifyCode ||
+      !this.props.verifyCode.code
+    ) {
+      return <Redirect to={"/"} />;
+    }
+    if (House && House?.value === null) {
+      return <Redirect to={"/VirtualHospital/institutes"} />;
+    }
     var placeholders = "Enter choice 1" 
     return (
       <Grid
@@ -558,13 +572,7 @@ class Index extends Component {
                                   <Grid className="cnfrmDiaMain">
                                     <Grid className="fillDia">
                                         <Grid className="fillDia">
-                                          {/* <SelectByTwo
-                                            name="situation"
-                                            label={"Choose questionnaire type"}
-                                            options={options}
-                                            onChange={(e) => this.editQuestionState(e, "type")}
-                                            value={this.SelectedValue(this.state.editQuestions?.type) }
-                                          /> */}
+                                        
                                         </Grid>
                                       {this.state.editopenOpti ? (
                                         <>

@@ -113,7 +113,6 @@ class Index extends Component {
                                                                     available={data3.available}
                                                                 />
                                                             ))}
-                                                             {console.log("data", data.total_wards)}
 
                                                            </>
                                                         ) )}

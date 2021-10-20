@@ -93,6 +93,8 @@ import ManageBeds from "Screens/VirtualHospital/SpaceManagement/manageBeds";
 import VHInstitutes from "Screens/VirtualHospital/Institutes/index";
 import PatientDetail from "Screens/VirtualHospital/PatientDetails/index";
 import AssignModelTask from "Screens/VirtualHospital/Tasks/AssignModelTask.js";
+import VHProfile from "Screens/VirtualHospital/Profile/index";
+
 
 class Routermain extends Component {
   render() {
@@ -468,6 +470,11 @@ class Routermain extends Component {
               path="/virtualhospital/services"
               exact={true}
               render={(props) => <VHServices {...props} />}
+            />
+            <Route
+              path="/virtualhospital/profile"
+              exact={true}
+              render={(props) => <VHProfile {...props} />}
             />
             <Route
               path="/virtualhospital/calendar"

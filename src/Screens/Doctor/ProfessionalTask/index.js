@@ -454,48 +454,7 @@ class Index extends Component {
         this.setState({ newTask: data, openTask: true, assignedTo: assignedTo, q : pat1name, selectSpec: {label: data?.speciality?.specialty_name, value: data?.speciality?._id}});
     };
 
-    // Get the Professional data
-    getProfessionalData = () => {
-        var professionalList = [], professionalList1 = [],
-            professionalArray = [];
-        this.setState({ loaderImage: true });
-        axios
-            .get(
-                sitedata.data.path + "/hospitaladmin/GetProfessional/" + this.props?.House?.value,
-                commonHeader(this.props.stateLoginValueAim.token)
-            )
-            .then((response) => {
-                if (response.data.hassuccessed) {
-                    this.setState({ allProfData: response.data.data })
-                    // var images = [];
-                    for (let i = 0; i < this.state.allProfData.length; i++) {
-                        var name = '';
-                        if (this.state.allProfData[i]?.first_name && this.state.allProfData[i]?.last_name) {
-                            name = this.state.allProfData[i]?.first_name + ' ' + this.state.allProfData[i]?.last_name
-                        }
-                        else if (this.state.allProfData[i]?.first_name) {
-                            name = this.state.allProfData[i]?.first_name
-                        }
-                        professionalArray.push({
-                            first_name: this.state.allProfData[i].first_name,
-                            last_name: this.state.allProfData[i].last_name,
-                            user_id: this.state.allProfData[i]._id,
-                            profile_id: this.state.allProfData[i].profile_id,
-                            alies_id: this.state.allProfData[i].alies_id,
-                            image: this.state.allProfData[i].image
-                        })
-                        professionalList.push({ value: this.state.allProfData[i]._id, label: name })
-                        // professionalList1.push({ profile_id: this.state.allProfData[i].profile_id, value: this.state.allProfData[i]._id, label: name })
-                    }
-                    this.setState({ loaderImage: false, professionalArray: professionalArray, professional_id_list: professionalList })
-                }
-                else {
-                    this.setState({ loaderImage: false })
-                }
-            });
-
-    };
-
+  
     myColor(position) {
         if (this.state.active === position) {
             return "#00a891";

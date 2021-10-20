@@ -65,7 +65,6 @@ class Index extends Component {
                   : "homeBg"
               }>
                 <Grid className="homeBgIner vh-section">
-                    {console.log('this.props.match.params.id', this.props.match.params.id)}
                     <Grid container direction="row" justify="center">
                         <Grid item xs={12} md={12}>
                             
@@ -93,7 +92,6 @@ class Index extends Component {
                                                 <Tab label="Journal" className="tsktabIner" />
                                                 <Tab label="Tasks" className="tsktabIner" />
                                                 <Tab label="Documents / Files" className="tsktabIner" />
-                                                <Tab label="Room" className="tsktabIner" />
                                                 <Tab label="Personal info" className="tsktabIner" />
                                             </Tabs>
                                         </AppBar>
@@ -108,10 +106,10 @@ class Index extends Component {
                                         {value === 2 && <TabContainer>
                                             <PatientDocuments />
                                         </TabContainer>}
-                                        {value === 3 && <TabContainer>
+                                        {/* {value === 3 && <TabContainer>
                                             <PatientRoom />
-                                        </TabContainer>}
-                                        {value === 4 && <TabContainer>
+                                        </TabContainer>} */}
+                                        {value === 3 && <TabContainer>
                                             <PatientPersonalInfo />
                                         </TabContainer>}
                                     </div>
@@ -128,11 +126,11 @@ class Index extends Component {
                                         {valueMob === 3 && <TabContainer>
                                             <PatientDocuments />
                                         </TabContainer>}
-                                        {valueMob === 4 && <TabContainer>
+                                        {/* {valueMob === 4 && <TabContainer>
                                             <PatientRoom />
-                                        </TabContainer>}
-                                        {valueMob === 5 && <TabContainer>
-                                            <PatientPersonalInfo patient_id={this.props.match.params.id}/>
+                                        </TabContainer>} */}
+                                        {valueMob === 4 && <TabContainer>
+                                            <PatientPersonalInfo />
                                         </TabContainer>}
                                     </div>
                                     {/* End of Tabs Content */}

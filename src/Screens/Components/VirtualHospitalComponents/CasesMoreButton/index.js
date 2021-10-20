@@ -10,8 +10,10 @@ import { Settings } from "Screens/Login/setting";
 import { commonHeader } from "component/CommonHeader/index";
 import { houseSelect } from "Screens/VirtualHospital/Institutes/selecthouseaction"; 
 import { Speciality } from "Screens/Login/speciality.js";
+import Assigned from "Screens/Components/VirtualHospitalComponents/Assigned/index"
 import SpecialityButton from "Screens/Components/VirtualHospitalComponents/SpecialityButton";
 import axios from "axios";
+import Select from 'react-select';
 import sitedata from "sitedata";
 import {AllRoomList, getSteps, AllWards, setWard, CurrentWard, CurrentRoom, setRoom, AllBed, CurrentBed, setBed } from "Screens/VirtualHospital/PatientFlow/data"; 
 import SelectField from "Screens/Components/Select/index";
@@ -30,7 +32,8 @@ class Index extends React.Component {
            movepatsec: false,
            loaderImage: false,
            AllRoom: [],
-           AllBeds: []
+           AllBeds: [],
+           assignedTo:[],
         }
     }
 
@@ -81,14 +84,10 @@ class Index extends React.Component {
             this.props.setDta(stepData);
           });
           var AllRoom = AllRoomList(this.props.quote?.speciality?._id, this.props.speciality?.SPECIALITY, this.props.quote?.wards?._id);
-          this.setState({ loaderImage: false, AllRoom: AllRoom },
-            ()=>{
-              console.log('AllRoom', this.state.AllRoom)
-            });
+          this.setState({ loaderImage: false, AllRoom: AllRoom });
         }
       })
     }
-
     setsRoom = (e)=>{
       this.setState({ loaderImage: true });
       var response = setRoom(e, this.props.quote?.speciality?._id, this.props.speciality?.SPECIALITY, this.props.quote._id, this.props.stateLoginValueAim.token, this.props.quote?.wards?._id)
@@ -144,6 +143,14 @@ class Index extends React.Component {
     }
   }
 
+   //Select the professional name
+   updateEntryState3 = (e) => {
+    this.setState({assignedTo: e}, 
+       ()=>{
+          this.props.updateEntryState3(e, this.props.quote._id)
+       })
+} 
+
     render() {
       let translate = getLanguage(this.props.stateLanguageType)
       let {AddSpecialty, ChangeStaff, AssignWardRoom, MovePatient} = translate;
@@ -196,11 +203,16 @@ class Index extends React.Component {
                                <Grid className="movHeadRght"><a onClick={()=>this.setState({firstsec: true, changeStaffsec : false })}><img src={require('assets/virtual_images/closefancy.png')} alt="" title="" /></a></Grid>
                            </Grid>
                            <Grid className="positionDrop">
-                           {this.props.ordered?.length>0 &&  this.props.ordered.map((item)=>(
-                               <Grid><label onClick={()=>{ this.props.onDragEnd(
-                                   {type: "QUOTE" , draggableId: this.props.quote.patient_id, source: {droppableId: this.props.currentStep, index: this.props.currentIndex} , destination: {droppableId: item, index: this.props.columns[item]?.length}}
-                               )}}>{item}</label></Grid>
-                           ))}
+                           <Select
+                              name="professional"
+                              onChange={(e) =>
+                                  this.updateEntryState3(e)}
+                              value={this.state.assignedTo}
+                              options={this.props.professional_id_list}
+                              placeholder="Search & Select"
+                              className="addStafSelect"
+                              isMulti={true}
+                              isSearchable={true} />
                            </Grid>
                         </div> 
                         }

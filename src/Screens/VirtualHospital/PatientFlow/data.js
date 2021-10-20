@@ -155,7 +155,6 @@ export const AllBed = async (Specilaity_id, ward_id, room_id, house_id, user_tok
       {"house_id": house_id, "room_id": room_id, "specialty_id": Specilaity_id, "ward_id": ward_id},
       commonHeader(user_token))
       if (response) {
-        console.log('here2', response)
           return response
       } else {
           return false
@@ -176,6 +175,20 @@ export const setBed = async (value, case_id, user_token) => {
     }
 }
 
+export const setAssignedTo = async (value, case_id, user_token) => {
+  if(value){
+      let response = await axios.put(
+      sitedata.data.path + "/cases/AddCase/"+ case_id,
+      { assinged_to: value},
+      commonHeader(user_token))
+      if (response) {
+          return response
+      } else {
+          return false
+      }
+    }
+}
+
 export const CurrentBed = (bed) => {
   if(bed){
     return {value : bed, label: bed}
@@ -183,3 +196,44 @@ export const CurrentBed = (bed) => {
   return {}
   
 }
+
+  // Get the Professional data
+  export const getProfessionalData  = async (house_id, user_token) => {
+    var professionalList = [], professionalList1 = [],
+    professionalArray = [];
+    var response = await axios
+        .get(
+            sitedata.data.path + "/hospitaladmin/GetProfessional/" + house_id,
+            commonHeader(user_token)
+        );
+        
+        // data.then((response) => {
+            if (response.data.hassuccessed) {
+                for (let i = 0; i < response.data?.data.length; i++) {
+                    var name = '';
+                    if (response.data?.data[i]?.first_name && response.data?.data[i]?.last_name) {
+                        name = response.data?.data[i]?.first_name + ' ' + response.data?.data[i]?.last_name
+                    }
+                    else if (response.data?.data[i]?.first_name) {
+                        name = response.data?.data[i]?.first_name
+                    }
+                    professionalArray.push({
+                        first_name: response.data?.data[i].first_name,
+                        last_name: response.data?.data[i].last_name,
+                        user_id: response.data?.data[i]._id,
+                        profile_id: response.data?.data[i].profile_id,
+                        alies_id: response.data?.data[i].alies_id,
+                        image: response.data?.data[i].image
+                    })
+                    professionalList.push({ value: response.data?.data[i]._id, label: name })
+                    // professionalList1.push({ profile_id: response.data?.data[i].profile_id, value: response.data?.data[i]._id, label: name })
+                }
+                  return {professionalArray: professionalArray, professionalList: professionalList}
+            }
+            else{
+              return false
+            }
+          
+        // });
+
+};

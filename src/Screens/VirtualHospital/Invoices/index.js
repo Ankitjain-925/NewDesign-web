@@ -107,7 +107,6 @@ class Index extends Component {
 
     //Add the services  
     handleAddSubmit = () => {
-        console.log("updateTrack",this.state.updateTrack)
         let items = [...this.state.items];
         items.push({
             updateTrack: this.state.updateTrack
@@ -120,7 +119,6 @@ class Index extends Component {
 
     // For edit service
     editService = (data) => {
-        console.log("data",data)
         this.setState({ updateTrack: data });
     };
 
