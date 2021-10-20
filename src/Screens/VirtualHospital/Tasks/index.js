@@ -657,7 +657,7 @@ class Index extends Component {
                                                                                         onChange={(e) =>
                                                                                             this.updateEntryState3(e)}
                                                                                         value={this.state.assignedTo}
-                                                                                        options={this.state.professional_id_list}
+                                                                                        options={this.state.professional_id_list?.label}
                                                                                         placeholder="Search & Select"
                                                                                         className="addStafSelect"
                                                                                         isMulti={true}

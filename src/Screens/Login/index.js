@@ -10,6 +10,8 @@ import Grid from "@material-ui/core/Grid";
 import { authy } from "./authy.js";
 import { CometChat } from '@cometchat-pro/chat';
 import { OptionList } from "./metadataaction.js";
+import { Invoices } from "./invoices";
+
 import {
   NavLink,
   UncontrolledDropdown,
@@ -21,7 +23,7 @@ import sitedata from "sitedata";
 import {
   getLanguage
 } from "translations/index"
-import {commonNoTokentHeader} from "component/CommonHeader/index";
+import { commonNoTokentHeader } from "component/CommonHeader/index";
 import { EmergencySet } from "Screens/Doctor/emergencyaction.js";
 import { Doctorset } from "Screens/Doctor/actions";
 import * as actions from "Screens/Components/CometChat/store/action";
@@ -52,8 +54,8 @@ class Index extends Component {
       loginError9: false,
       mode:
         this.props.settings &&
-        this.props.settings.setting &&
-        this.props.settings.setting.mode
+          this.props.settings.setting &&
+          this.props.settings.setting.mode
           ? this.props.settings.setting.mode
           : "normal",
     };
@@ -71,11 +73,12 @@ class Index extends Component {
   //         this.setState({ dropDownValue: this.props.stateLanguageType })
   //     }
   // }
-  
+
   componentDidMount = () => {
     actions.logout();
     this.logoutUser();
     this.props.Doctorarrays("logout");
+    this.props.Invoices("logout");
     // this.movedashboard();
     this.unsetCategory();
     localStorage.removeItem("token");
@@ -94,6 +97,7 @@ class Index extends Component {
     )
     this.props.OptionList(false);
     this.props.authy(false);
+    this.props.Invoices(false);
     let languageType =
       this.props.stateLanguageType && this.props.stateLanguageType !== ""
         ? this.props.stateLanguageType
@@ -163,7 +167,7 @@ class Index extends Component {
             this.props.stateLoginValueAim.user &&
             !this.props.stateLoginValueAim.user.is2fa
           ) {
-            this.props.OptionList(true, ()=>{
+            this.props.OptionList(true, () => {
               this.props.authy(true);
             });
           } else if (this.props.stateLoginValueAim.token === 450) {
@@ -195,7 +199,7 @@ class Index extends Component {
       .then((response) => {
         this.setState({ loaderImage: false });
         if (response.data.hassuccessed === true) {
-          this.props.OptionList(true, ()=>{
+          this.props.OptionList(true, () => {
             this.props.authy(true);
           });
         } else {
@@ -345,7 +349,7 @@ class Index extends Component {
       } else {
         return <Redirect to={"/nurse"} />;
       }
-    }  
+    }
     if (
       stateLoginValueAim.token !== 450 &&
       stateLoginValueAim.user.type === "hospitaladmin" &&
@@ -356,14 +360,14 @@ class Index extends Component {
       } else {
         return <Redirect to={"/h-patients"} />;
       }
-    }  else {
+    } else {
       return (
         <Grid
           className={
             this.props.settings &&
-            this.props.settings.setting &&
-            this.props.settings.setting.mode &&
-            this.props.settings.setting.mode === "dark"
+              this.props.settings.setting &&
+              this.props.settings.setting.mode &&
+              this.props.settings.setting.mode === "dark"
               ? "loginSiteUpr homeBgDrk"
               : "loginSiteUpr"
           }
@@ -390,7 +394,7 @@ class Index extends Component {
                     </Grid>
                     <Grid item xs={6} sm={6}>
                       <Grid className="regSelectTop">
-                        <Grid className={this.props.stateLanguageType !== "pt" ?"changeLang" : "changeLang1"}>
+                        <Grid className={this.props.stateLanguageType !== "pt" ? "changeLang" : "changeLang1"}>
                           <li>
                             <span className="ThemeModeSet1"> {DarkMode} </span>
                             <span className="ThemeModeSet">
@@ -476,12 +480,12 @@ class Index extends Component {
                                 <NavLink>Arabic</NavLink>
                               </DropdownItem>
                               <DropdownItem
-                              onClick={() => {
-                                this.changeValue("tr", "Turkish");
-                              }}
-                            >
-                              <NavLink>Turkish</NavLink>
-                            </DropdownItem>
+                                onClick={() => {
+                                  this.changeValue("tr", "Turkish");
+                                }}
+                              >
+                                <NavLink>Turkish</NavLink>
+                              </DropdownItem>
                             </DropdownMenu>
                           </UncontrolledDropdown>
                         </Grid>
@@ -508,21 +512,21 @@ class Index extends Component {
                       {this.state.loginError1
                         ? code_not_verified
                         : this.state.loginError2
-                        ? email_not_valid
-                        : this.state.loginError9
-                        ? password_cant_empty
-                        : this.state.loginError === false &&
-                          stateLoginValueAim.token === 450 &&
-                          myLogin &&
-                          stateLoginValueAim.message
-                        ? stateLoginValueAim.message === "User does not exist"
-                          ? user_not_exist
-                          : stateLoginValueAim.message === "User is blocked"
-                          ? user_is_blocked
-                          : stateLoginValueAim.message === "Wrong password"
-                          ? wrong_password
-                          : false
-                        : false}
+                          ? email_not_valid
+                          : this.state.loginError9
+                            ? password_cant_empty
+                            : this.state.loginError === false &&
+                              stateLoginValueAim.token === 450 &&
+                              myLogin &&
+                              stateLoginValueAim.message
+                              ? stateLoginValueAim.message === "User does not exist"
+                                ? user_not_exist
+                                : stateLoginValueAim.message === "User is blocked"
+                                  ? user_is_blocked
+                                  : stateLoginValueAim.message === "Wrong password"
+                                    ? wrong_password
+                                    : false
+                              : false}
                     </div>
                     <Grid className="logRow">
                       <Grid>
@@ -651,6 +655,7 @@ const mapStateToProps = (state) => {
   const { doctorarray } = state.Doctorarrays;
   const { Emergencysetget } = state.EmergencySet;
   const { Doctorsetget } = state.Doctorset;
+  const { invoices } = state.Invoices;
   return {
     stateLanguageType,
     stateLoginValueAim,
@@ -660,7 +665,8 @@ const mapStateToProps = (state) => {
     Doctorsetget,
     Emergencysetget,
     doctorarray,
-    metadata
+    metadata,
+    invoices
   };
 };
 
@@ -672,7 +678,8 @@ export default connect(mapStateToProps, {
   LanguageFetchReducer,
   authy,
   Settings,
-  OptionList
+  OptionList,
+  Invoices,
 })(Index);
 
 // / export default Index;

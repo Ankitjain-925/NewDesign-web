@@ -19,6 +19,7 @@ import {
     commonCometDelHeader,
 } from "component/CommonHeader/index";
 import { authy } from 'Screens/Login/authy.js';
+import { Invoices } from 'Screens/Login/invoices.js';
 import { houseSelect } from "../Institutes/selecthouseaction";
 import { Redirect, Route } from 'react-router-dom';
 import InvoicesDownloadPdf from "Screens/Components/VirtualHospitalComponents/InvoicesDownloadPdf/index";
@@ -27,12 +28,7 @@ import InvoicesShowServices from "Screens/Components/VirtualHospitalComponents/I
 import VHfield from "Screens/Components/VirtualHospitalComponents/VHfield/index";
 import Modal from "@material-ui/core/Modal";
 
-const options = [
-    { value: 'paid', label: 'Paid' },
-    { value: 'draft', label: 'Draft' },
-    { value: 'issued', label: 'Issued' },
-    { value: 'overdue', label: 'Overdue' },
-];
+
 const customStyles = {
     control: base => ({
         ...base,
@@ -41,7 +37,12 @@ const customStyles = {
     })
 };
 
-
+const options = [
+    { value: 'paid', label: 'Paid' },
+    { value: 'draft', label: 'Draft' },
+    { value: 'issued', label: 'Issued' },
+    { value: 'overdue', label: 'Overdue' },
+];
 
 class Index extends Component {
     constructor(props) {
@@ -53,11 +54,54 @@ class Index extends Component {
             items: [],
             totalPrice: [],
             editServ: false,
+            users1: [],
+            invoices: {}
         };
     }
 
     componentDidMount() {
         this.getAllServices();
+        this.getPatientData();
+    }
+
+    getPatientData = () => {
+        var patientArray = [], PatientList1 = [];
+        this.setState({ loaderImage: true });
+        axios
+            .get(
+                sitedata.data.path + "/vh/getPatientFromVH/" + this.props?.House?.value,
+                commonHeader(this.props.stateLoginValueAim.token)
+            )
+            .then((response) => {
+                if (response.data.hassuccessed) {
+                    this.setState({ allPatData: response.data.data })
+                    // var images = [];
+                    for (let i = 0; i < this.state.allPatData.length; i++) {
+                        var find = this.state.allPatData[i].patient?.image;
+                        var name = '';
+                        if (this.state.allPatData[i]?.patient?.first_name && this.state.allPatData[i]?.patient?.last_name) {
+                            name = this.state.allPatData[i]?.patient?.first_name + ' ' + this.state.allPatData[i]?.patient?.last_name
+                        }
+                        else if (this.state.allPatData[i].patient?.first_name) {
+                            name = this.state.allPatData[i].patient?.first_name
+                        }
+
+                        patientArray.push({
+                            last_name: this.state.allPatData[i].patient?.last_name,
+                            first_name: this.state.allPatData[i].patient?.first_name,
+                            image: this.state.allPatData[i].patient?.image,
+                            profile_id: this.state.allPatData[i].patient?.profile_id,
+                        })
+                        // PatientList.push({ value: this.state.allPatData[i]._id, label: name })
+
+                        PatientList1.push({ profile_id: this.state.allPatData[i].patient?.profile_id, value: this.state.allPatData[i].patient?.patient_id, name: name })
+                    }
+                    this.setState({ users1: PatientList1, users: patientArray })
+                    // console.log("patientlist", this.state.users1)
+                }
+                this.setState({ loaderImage: false });
+            });
+
     }
 
     getAllServices = () => {
@@ -97,6 +141,12 @@ class Index extends Component {
         this.setState({ price_per_quantity: this.state.updateTrack.service.price });
     }
 
+    onFieldChange1 = (e, name) => {
+        const state = this.state.updateTrack;
+        state[name] = e;
+        this.setState({ updateTrack: state });
+    }
+
     // Set the state of quantity and price_per_quantity
     updateEntryState1 = (e, name) => {
         e.preventDefault();
@@ -114,25 +164,22 @@ class Index extends Component {
 
     //Add the services  
     handleAddSubmit = () => {
-        console.log("updateTrack", this.state.updateTrack)
-    var newService = this.state.updateTrack;
-        newService.price = newService?.service?.price*newService?.quantity 
+
+        var newService = this.state.updateTrack;
+        newService.price = newService?.service?.price * newService?.quantity
         console.log('new Sevice', newService)
         let items = [...this.state.items];
         items.push({
             updateTrack: newService
         });
         this.setState({
-        items,updateTrack: {}})
+            items, updateTrack: {}
+        })
+
+        console.log('items', items)
         this.finishInvoice();
-        // var calculatePrice = 0;
-        // {
-        //     this.state.items?.length >= 0 && this.state.items.map((data, id) => {
-        //         console.log("index", id)
-        //         calculatePrice = data?.updateTrack?.quantity * data?.updateTrack?.service?.price
-        //         console.log("calculate", calculatePrice)
-        //     })
-        // }
+
+        this.props.Invoices('', true, this.props?.House?.value, this.props.stateLoginValueAim.token, items);
     };
 
     // For edit service
@@ -279,15 +326,28 @@ class Index extends Component {
                                         />
 
                                         <Grid className="srvcContent">
-                                            {/* <Grid className="invoiceForm">
+                                            <Grid className="invoiceForm">
                                                 <Grid container direction="row" alignItems="center" spacing={3}>
+
+                                                    <label>Invoice ID</label>
                                                     <Grid item xs={12} md={3} className="invoiceID">
-                                                        <label>Invoice ID</label>
-                                                        <TextField placeholder="Invoice ID" value="548756" />
+                                                        {/* <TextField placeholder="Invoice ID" value="548756" /> */}
+
+
+                                                        <VHfield
+                                                            name="invoice_id"
+                                                            placeholder="Invoice ID"
+                                                            onChange={(e) =>
+                                                                this.updateEntryState2(e, "invoice_id")
+                                                            }
+                                                            value={this.state.invoice_id}
+                                                        />
                                                     </Grid>
+
+
                                                     <Grid item xs={12} md={4}>
                                                         <label>Patient</label>
-                                                        <Grid className="patntDropUpr">
+                                                        {/* <Grid className="patntDropUpr">
                                                             <Grid className="patntDropDwn">
                                                                 <Grid className="patntImg"><img src={require('assets/virtual_images/james.jpg')} alt="" title="" /></Grid>
                                                                 <Grid>
@@ -296,28 +356,43 @@ class Index extends Component {
                                                                 </Grid>
                                                                 <Grid className="patntRmv"><img src={require('assets/virtual_images/remove-3.svg')} alt="" title="" /></Grid>
                                                             </Grid>
-                                                        </Grid>
+                                                        </Grid> */}
+
+
+                                                        <Select
+                                                            name="patient"
+                                                            options={this.state.users1}
+                                                            placeholder="Search & Select"
+                                                            onChange={(e) =>
+                                                                this.onFieldChange1(e, "patient")}
+                                                            value={this.state.patient}
+                                                            className="addStafSelect"
+                                                            isMulti={true}
+                                                            isSearchable={true} />
                                                     </Grid>
+
                                                     <Grid item xs={12} md={3}>
                                                         <label>Status</label>
                                                         <Select
-                                                            value={selectedOption}
-                                                            onChange={this.handleChange}
-                                                            options={options}
+                                                            name="status"
                                                             placeholder="Draft"
+                                                            onChange={(e) =>
+                                                                this.onFieldChange1(e, "status")}
+                                                            value={this.state.status}
+                                                            options={options}
                                                             className="cstmSelect"
                                                             isSearchable={false}
                                                             styles={customStyles}
                                                         />
                                                     </Grid>
                                                 </Grid>
-                                            </Grid> */}
+                                            </Grid>
 
-                                            <InvoicesPatientStatus
+                                            {/* <InvoicesPatientStatus
                                                 label="James Morrison"
                                                 case_id="P_mDnkbR30d"
-                                                options={options}
-                                            />
+                                                options={this.state.users1}
+                                            /> */}
 
 
                                             <Grid className="srvcTable">
@@ -577,6 +652,7 @@ const mapStateToProps = (state) => {
     const { House } = state.houseSelect
     const { settings } = state.Settings;
     const { verifyCode } = state.authy;
+    const { invoices } = state.Invoices;
     return {
         stateLanguageType,
         stateLoginValueAim,
@@ -587,7 +663,7 @@ const mapStateToProps = (state) => {
     };
 };
 export default withRouter(
-    connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer, Settings, authy, houseSelect })(
+    connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer, Settings, authy, houseSelect, Invoices })(
         Index
     )
 );

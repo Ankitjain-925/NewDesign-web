@@ -22,7 +22,7 @@ import Modal from "@material-ui/core/Modal";
 import Loader from "Screens/Components/Loader/index";
 import QRCode from "qrcode.react";
 import DateFormat from "Screens/Components/DateFormat/index";
-import { GetUrlImage1, blobToFile, resizeFile} from "Screens/Components/BasicMethod/index";
+import { GetUrlImage1, blobToFile, resizeFile } from "Screens/Components/BasicMethod/index";
 import { OptionList } from "Screens/Login/metadataaction";
 import {
   getLanguage
@@ -30,7 +30,7 @@ import {
 import { update_CometUser } from "Screens/Components/CommonApi/index";
 import SPECIALITY from "speciality";
 import { GetLanguageDropdown } from "Screens/Components/GetMetaData/index.js";
-import { commonHeader,commonCometHeader } from "component/CommonHeader/index.js";
+import { commonHeader, commonCometHeader } from "component/CommonHeader/index.js";
 
 var datas = [];
 var insurances = [];
@@ -258,9 +258,9 @@ class Index extends Component {
 
   //For getting the dropdowns from the database
   getMetadata() {
-    this.setState({ allMetadata: this.props.metadata},
-      ()=>{
-          this.GetLanguageMetadata();
+    this.setState({ allMetadata: this.props.metadata },
+      () => {
+        this.GetLanguageMetadata();
       })
     // axios.get(sitedata.data.path + "/UserProfile/Metadata").then((responce) => {
     //   if (responce && responce.data && responce.data.length > 0) {
@@ -273,9 +273,9 @@ class Index extends Component {
   GetLanguageMetadata = () => {
     var Allgender = GetLanguageDropdown(
       this.state.allMetadata &&
-        this.state.allMetadata.gender &&
-        this.state.allMetadata.gender.length > 0 &&
-        this.state.allMetadata.gender,
+      this.state.allMetadata.gender &&
+      this.state.allMetadata.gender.length > 0 &&
+      this.state.allMetadata.gender,
       this.props.stateLanguageType
     );
     this.setState({
@@ -434,7 +434,7 @@ class Index extends Component {
           axios
             .put(
               "https://api-eu.cometchat.io/v2.0/users/" +
-                this.state.profile_id.toLowerCase(),
+              this.state.profile_id.toLowerCase(),
               {
                 name:
                   this.state.UpDataDetails.first_name +
@@ -444,7 +444,7 @@ class Index extends Component {
               commonCometHeader()
             )
             .then((res) => {
-              var data = update_CometUser(this.props?.stateLoginValueAim?.user?.profile_id.toLowerCase() , res.data.data)
+              var data = update_CometUser(this.props?.stateLoginValueAim?.user?.profile_id.toLowerCase(), res.data.data)
             });
         } else {
           this.setState({ loaderImage: false });
@@ -502,8 +502,8 @@ class Index extends Component {
       axios
         .get(
           sitedata.data.path +
-            "/UserProfile/checkAlies?alies_id=" +
-            e.target.value,
+          "/UserProfile/checkAlies?alies_id=" +
+          e.target.value,
           commonHeader(user_token)
         )
         .then((responce) => {
@@ -678,14 +678,14 @@ class Index extends Component {
         axios
           .put(
             "https://api-eu.cometchat.io/v2.0/users/" +
-              this.props.stateLoginValueAim.user.profile_id.toLowerCase(),
+            this.props.stateLoginValueAim.user.profile_id.toLowerCase(),
             {
               avatar: this.state.uploadedimage,
             },
             commonCometHeader()
           )
           .then((res) => {
-            var data = update_CometUser(this.props?.stateLoginValueAim?.user?.profile_id.toLowerCase() , res.data.data)
+            var data = update_CometUser(this.props?.stateLoginValueAim?.user?.profile_id.toLowerCase(), res.data.data)
           });
         var find1 = this.state.uploadedimage;
         this.SettingImage(find1);
@@ -752,9 +752,9 @@ class Index extends Component {
                 }
               );
             })
-            .catch((error) => {});
+            .catch((error) => { });
         })
-        .catch((error) => {});
+        .catch((error) => { });
     } else {
       let translate = getLanguage(this.props.stateLanguageType)
       let { plz_upload_png_jpeg, ok } = translate;
@@ -1248,9 +1248,9 @@ class Index extends Component {
                     <Grid>
                       {this.updateFLAG(this.state.UpDataDetails.phone) &&
                         this.updateFLAG(this.state.UpDataDetails.phone) !==
-                          "" && (
+                        "" && (
                           <ReactFlagsSelect
-                          searchable={true}
+                            searchable={true}
                             placeholder={country_code}
                             onSelect={(e) => {
                               this.updateFlags(e, "flag_phone");
@@ -1287,9 +1287,9 @@ class Index extends Component {
                     <Grid>
                       {this.updateFLAG(this.state.UpDataDetails.mobile) &&
                         this.updateFLAG(this.state.UpDataDetails.mobile) !==
-                          "" && (
+                        "" && (
                           <ReactFlagsSelect
-                          searchable={true}
+                            searchable={true}
                             placeholder="Country Code"
                             onSelect={(e) => {
                               this.updateFlags(e, "flag_mobile");

@@ -16,17 +16,16 @@ import { Settings } from "Screens/Login/setting";
 import axios from "axios";
 import { LanguageFetchReducer } from "Screens/actions";
 import sitedata from "sitedata";
-import { Invoices } from 'Screens/Login/invoices.js';
 import {
     commonHeader,
     commonCometDelHeader,
-} from "component/CommonHeader/index";
+  } from "component/CommonHeader/index";
 import { authy } from 'Screens/Login/authy.js';
 import { houseSelect } from "../Institutes/selecthouseaction";
 import { Redirect, Route } from 'react-router-dom';
 import {
     getLanguage
-} from "translations/index"
+  }from "translations/index"
 
 function TabContainer(props) {
     return (
@@ -42,47 +41,25 @@ class Index extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            value: 0,
-            AllBills: {},
-            PaidBills: {},
-            OverDueBills: {},
-            DraftBills: {},
-            IssuedBills: {}
-        }
-    };
-
-
-    componentDidMount() {
-        this.fetchbillsdata();
+            value: 0
+        };
     }
-
-
-    fetchbillsdata() {
-        console.log("databills", this.props.invoices?.INVOICES)
-        var Issued = this.props.invoices?.INVOICES && this.props.invoices?.INVOICES.filter((item) => item.updateTrack?.status?.value === "issued")
-        var Draft = this.props.invoices?.INVOICES && this.props.invoices?.INVOICES.filter((item) => item.updateTrack?.status?.value === "draft")
-        var OverDue = this.props.invoices?.INVOICES && this.props.invoices?.INVOICES.filter((item) => item.updateTrack?.status?.value === "overdue")
-        var Paid = this.props.invoices?.INVOICES && this.props.invoices?.INVOICES.filter((item) => item.updateTrack?.status?.value === "paid")
-        this.setState({ AllBills: this.props?.invoices?.INVOICES, IssuedBills: Issued, OverDueBills: OverDue, PaidBills: Paid, DraftBills: Draft })
-        this.setState({})
-    }
-
     handleChangeTab = (event, value) => {
         this.setState({ value });
     };
     render() {
         let translate = getLanguage(this.props.stateLanguageType);
-        let { Billing } = translate;
-        const { value, DraftBills, IssuedBills, OverDueBills, PaidBills } = this.state;
+        let {Billing } = translate;
+        const { value } = this.state;
         return (
             <Grid className={
                 this.props.settings &&
-                    this.props.settings.setting &&
-                    this.props.settings.setting.mode &&
-                    this.props.settings.setting.mode === "dark"
-                    ? "homeBg darkTheme"
-                    : "homeBg"
-            }>
+                this.props.settings.setting &&
+                this.props.settings.setting.mode &&
+                this.props.settings.setting.mode === "dark"
+                  ? "homeBg darkTheme"
+                  : "homeBg"
+              }>
                 <Grid className="homeBgIner">
                     <Grid container direction="row">
                         <Grid item xs={12} md={12}>
@@ -143,19 +120,16 @@ class Index extends Component {
                                                             <Th></Th>
                                                         </Tr>
                                                     </Thead>
-                                                    {this.state.AllBills.length > 0 && this.state.AllBills.map((data) => (
-                                                        <Tbody>
-                                                            <Tr>
-                                                                <Td>{data.updateTrack.invoice_id}</Td>
-                                                                <Td className="patentPic"><img src={require('assets/virtual_images/james.jpg')} alt="" title="" /></Td>
-                                                                <Td>16/03/2020</Td>
-                                                                <Td className="greyDot"><span></span>{data.updateTrack.status.label}</Td>
-                                                                <Td>{data.updateTrack.price} €</Td>
-                                                                <Td className="billDots"><Button><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></Button></Td>
-                                                            </Tr>
-
-
-                                                            {/* <Tr>
+                                                    <Tbody>
+                                                        <Tr>
+                                                            <Td>2021-000246</Td>
+                                                            <Td className="patentPic"><img src={require('assets/virtual_images/james.jpg')} alt="" title="" />James Morrison</Td>
+                                                            <Td>16/03/2020</Td>
+                                                            <Td className="greyDot"><span></span>Draft</Td>
+                                                            <Td>390,00 €</Td>
+                                                            <Td className="billDots"><Button><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></Button></Td>
+                                                        </Tr>
+                                                        <Tr>
                                                             <Td>2021-000246</Td>
                                                             <Td className="patentPic"><img src={require('assets/virtual_images/james.jpg')} alt="" title="" />James Morrison</Td>
                                                             <Td>16/03/2020</Td>
@@ -226,9 +200,8 @@ class Index extends Component {
                                                             <Td className="greenDot"><span></span>Paid</Td>
                                                             <Td>390,00 €</Td>
                                                             <Td className="billDots"><Button><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></Button></Td>
-                                                        </Tr> */}
-                                                        </Tbody>
-                                                    ))}
+                                                        </Tr>
+                                                    </Tbody>
                                                 </Table>
                                                 <Grid className="billPagination">
                                                     <Grid container direction="row">
@@ -257,24 +230,7 @@ class Index extends Component {
                                                             <Th></Th>
                                                         </Tr>
                                                     </Thead>
-                                                    {this.state.IssuedBills.length > 0 && this.state.IssuedBills.map((data) => (
-                                                        <Tbody>
-                                                            <Tr>
-                                                                <Td>{data.updateTrack.invoice_id}</Td>
-                                                                <Td className="patentPic"><img src={require('assets/virtual_images/james.jpg')} alt="" title="" /></Td>
-                                                                <Td>16/03/2020</Td>
-                                                                <Td className="greyDot"><span></span>{data.updateTrack.status.label}</Td>
-                                                                <Td>{data.updateTrack.price} €</Td>
-                                                                <Td className="billDots"><Button><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></Button></Td>
-                                                            </Tr>
-                                                            {/* <Tr>
-                                                            <Td>2021-000246</Td>
-                                                            <Td className="patentPic"><img src={require('assets/virtual_images/james.jpg')} alt="" title="" />James Morrison</Td>
-                                                            <Td>16/03/2020</Td>
-                                                            <Td className="yelowDot"><span></span>Issued</Td>
-                                                            <Td>390,00 €</Td>
-                                                            <Td className="billDots"><Button><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></Button></Td>
-                                                        </Tr>
+                                                    <Tbody>
                                                         <Tr>
                                                             <Td>2021-000246</Td>
                                                             <Td className="patentPic"><img src={require('assets/virtual_images/james.jpg')} alt="" title="" />James Morrison</Td>
@@ -314,9 +270,24 @@ class Index extends Component {
                                                             <Td className="yelowDot"><span></span>Issued</Td>
                                                             <Td>390,00 €</Td>
                                                             <Td className="billDots"><Button><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></Button></Td>
-                                                        </Tr> */}
-                                                        </Tbody>
-                                                    ))}
+                                                        </Tr>
+                                                        <Tr>
+                                                            <Td>2021-000246</Td>
+                                                            <Td className="patentPic"><img src={require('assets/virtual_images/james.jpg')} alt="" title="" />James Morrison</Td>
+                                                            <Td>16/03/2020</Td>
+                                                            <Td className="yelowDot"><span></span>Issued</Td>
+                                                            <Td>390,00 €</Td>
+                                                            <Td className="billDots"><Button><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></Button></Td>
+                                                        </Tr>
+                                                        <Tr>
+                                                            <Td>2021-000246</Td>
+                                                            <Td className="patentPic"><img src={require('assets/virtual_images/james.jpg')} alt="" title="" />James Morrison</Td>
+                                                            <Td>16/03/2020</Td>
+                                                            <Td className="yelowDot"><span></span>Issued</Td>
+                                                            <Td>390,00 €</Td>
+                                                            <Td className="billDots"><Button><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></Button></Td>
+                                                        </Tr>
+                                                    </Tbody>
                                                 </Table>
                                                 <Grid className="billPagination">
                                                     <Grid container direction="row">
@@ -345,24 +316,7 @@ class Index extends Component {
                                                             <Th></Th>
                                                         </Tr>
                                                     </Thead>
-                                                    {this.state.OverDueBills.length > 0 && this.state.OverDueBills.map((data) => (
-                                                        <Tbody>
-                                                            <Tr>
-                                                                <Td>{data.updateTrack.invoice_id}</Td>
-                                                                <Td className="patentPic"><img src={require('assets/virtual_images/james.jpg')} alt="" title="" /></Td>
-                                                                <Td>16/03/2020</Td>
-                                                                <Td className="greyDot"><span></span>{data.updateTrack.status.label}</Td>
-                                                                <Td>{data.updateTrack.price} €</Td>
-                                                                <Td className="billDots"><Button><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></Button></Td>
-                                                            </Tr>
-                                                            {/* <Tr>
-                                                            <Td>2021-000246</Td>
-                                                            <Td className="patentPic"><img src={require('assets/virtual_images/james.jpg')} alt="" title="" />James Morrison</Td>
-                                                            <Td>16/03/2020</Td>
-                                                            <Td className="yelowDot"><span></span>Issued</Td>
-                                                            <Td>390,00 €</Td>
-                                                            <Td className="billDots"><Button><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></Button></Td>
-                                                        </Tr>
+                                                    <Tbody>
                                                         <Tr>
                                                             <Td>2021-000246</Td>
                                                             <Td className="patentPic"><img src={require('assets/virtual_images/james.jpg')} alt="" title="" />James Morrison</Td>
@@ -402,9 +356,24 @@ class Index extends Component {
                                                             <Td className="yelowDot"><span></span>Issued</Td>
                                                             <Td>390,00 €</Td>
                                                             <Td className="billDots"><Button><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></Button></Td>
-                                                        </Tr> */}
-                                                        </Tbody>
-                                                    ))}
+                                                        </Tr>
+                                                        <Tr>
+                                                            <Td>2021-000246</Td>
+                                                            <Td className="patentPic"><img src={require('assets/virtual_images/james.jpg')} alt="" title="" />James Morrison</Td>
+                                                            <Td>16/03/2020</Td>
+                                                            <Td className="yelowDot"><span></span>Issued</Td>
+                                                            <Td>390,00 €</Td>
+                                                            <Td className="billDots"><Button><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></Button></Td>
+                                                        </Tr>
+                                                        <Tr>
+                                                            <Td>2021-000246</Td>
+                                                            <Td className="patentPic"><img src={require('assets/virtual_images/james.jpg')} alt="" title="" />James Morrison</Td>
+                                                            <Td>16/03/2020</Td>
+                                                            <Td className="yelowDot"><span></span>Issued</Td>
+                                                            <Td>390,00 €</Td>
+                                                            <Td className="billDots"><Button><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></Button></Td>
+                                                        </Tr>
+                                                    </Tbody>
                                                 </Table>
                                                 <Grid className="billPagination">
                                                     <Grid container direction="row">
@@ -433,24 +402,7 @@ class Index extends Component {
                                                             <Th></Th>
                                                         </Tr>
                                                     </Thead>
-                                                    {this.state.PaidBills.length > 0 && this.state.PaidBills.map((data) => (
-                                                        <Tbody>
-                                                            <Tr>
-                                                                <Td>{data.updateTrack.invoice_id}</Td>
-                                                                <Td className="patentPic"><img src={require('assets/virtual_images/james.jpg')} alt="" title="" /></Td>
-                                                                <Td>16/03/2020</Td>
-                                                                <Td className="greyDot"><span></span>{data.updateTrack.status.label}</Td>
-                                                                <Td>{data.updateTrack.price} €</Td>
-                                                                <Td className="billDots"><Button><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></Button></Td>
-                                                            </Tr>
-                                                            {/* <Tr>
-                                                            <Td>2021-000246</Td>
-                                                            <Td className="patentPic"><img src={require('assets/virtual_images/james.jpg')} alt="" title="" />James Morrison</Td>         <Td>16/03/2020</Td>
-                                                            <Td className="greenDot"><span></span>Paid</Td>
-                                                            <Td>390,00 €</Td>
-                                                            <Td className="billDots"><Button><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></Button></Td>
-                                                  
-                                                         </Tr>
+                                                    <Tbody>
                                                         <Tr>
                                                             <Td>2021-000246</Td>
                                                             <Td className="patentPic"><img src={require('assets/virtual_images/james.jpg')} alt="" title="" />James Morrison</Td>
@@ -490,9 +442,24 @@ class Index extends Component {
                                                             <Td className="greenDot"><span></span>Paid</Td>
                                                             <Td>390,00 €</Td>
                                                             <Td className="billDots"><Button><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></Button></Td>
-                                                        </Tr> */}
-                                                        </Tbody>
-                                                    ))}
+                                                        </Tr>
+                                                        <Tr>
+                                                            <Td>2021-000246</Td>
+                                                            <Td className="patentPic"><img src={require('assets/virtual_images/james.jpg')} alt="" title="" />James Morrison</Td>
+                                                            <Td>16/03/2020</Td>
+                                                            <Td className="greenDot"><span></span>Paid</Td>
+                                                            <Td>390,00 €</Td>
+                                                            <Td className="billDots"><Button><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></Button></Td>
+                                                        </Tr>
+                                                        <Tr>
+                                                            <Td>2021-000246</Td>
+                                                            <Td className="patentPic"><img src={require('assets/virtual_images/james.jpg')} alt="" title="" />James Morrison</Td>
+                                                            <Td>16/03/2020</Td>
+                                                            <Td className="greenDot"><span></span>Paid</Td>
+                                                            <Td>390,00 €</Td>
+                                                            <Td className="billDots"><Button><img src={require('assets/virtual_images/threeDots2.png')} alt="" title="" /></Button></Td>
+                                                        </Tr>
+                                                    </Tbody>
                                                 </Table>
                                                 <Grid className="billPagination">
                                                     <Grid container direction="row">
@@ -521,24 +488,22 @@ class Index extends Component {
 }
 const mapStateToProps = (state) => {
     const { stateLoginValueAim, loadingaIndicatoranswerdetail } =
-        state.LoginReducerAim;
+      state.LoginReducerAim;
     const { stateLanguageType } = state.LanguageReducer;
     const { House } = state.houseSelect
     const { settings } = state.Settings;
     const { verifyCode } = state.authy;
-    const { invoices } = state.Invoices;
     return {
-        stateLanguageType,
-        stateLoginValueAim,
-        loadingaIndicatoranswerdetail,
-        House,
-        settings,
-        verifyCode,
-        invoices
+      stateLanguageType,
+      stateLoginValueAim,
+      loadingaIndicatoranswerdetail,
+      House,
+      settings,
+      verifyCode,
     };
-};
-export default withRouter(
-    connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer, Settings, authy, houseSelect, Invoices })(
-        Index
+  };
+  export default withRouter(
+    connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer, Settings,authy, houseSelect })(
+      Index
     )
-);
+  );
