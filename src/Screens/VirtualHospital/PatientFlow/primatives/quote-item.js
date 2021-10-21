@@ -38,6 +38,7 @@ export default class QuoteItem extends React.Component {
                 onClick={() => this.setSpeciality()}
                 showActive={false}
               />
+              {this.props.quote?.status ===1 && <span className="err_message">Patient In invoice</span>}
               <Grid className="flowProfil">
                 <Grid>
                   <img
@@ -76,7 +77,8 @@ export default class QuoteItem extends React.Component {
               <Grid className="dtlCntUpr">
                 <Grid className="dtlCntLft">
                   <Grid className="dtlCount dtlCountRm">
-                  <a>
+                  <a className="taskHover">
+                  <span>Ward</span>
                       <img
                         src={require("assets/virtual_images/square.png")}
                         alt=""
@@ -84,7 +86,8 @@ export default class QuoteItem extends React.Component {
                       />
                       {quote.wards.ward_name}
                     </a>
-                    <a>
+                    <a className="taskHover">
+                    <span>Room</span>
                       <img
                         src={require("assets/virtual_images/room.svg")}
                         alt=""
@@ -92,7 +95,8 @@ export default class QuoteItem extends React.Component {
                       />
                       {quote.rooms.room_name}
                     </a>
-                    <a>
+                    <a className="taskHover">
+                    <span>Bed</span>
                       <img
                         src={require("assets/virtual_images/bed2.png")}
                         alt=""
@@ -106,22 +110,25 @@ export default class QuoteItem extends React.Component {
               <Grid className="dtlCntUpr dtlCntUprNw">
                 <Grid className="dtlCntLft">
                   <Grid className="dtlCount">
-                    <a>
+                    <a className="taskHover">
+                      <span>Tasks</span>
                       <img
                         src={require("assets/virtual_images/rightIcon.png")}
                         alt=""
                         title=""
                       />
-                      {quote.done_task}/{quote.total_task}
+                      {quote.done_task ? quote.done_task : 0}/{quote.total_task ?quote.total_task : 0}
                     </a>
-                    <span>
+                    <a className="addSec taskHover" onClick={()=>{this.props.MovetoTask(quote.speciality, quote?.patient_id) }}>
+                      <span>Add Task</span>
                       <img
-                        src={require("assets/virtual_images/plusIcon.jpg")}
+                        src={require("assets/virtual_images/plusIcon.png")}
                         alt=""
                         title=""
                       />
-                    </span>
-                    <a>
+                    </a>
+                    <a className="taskHover">
+                      <span>Comments</span>
                       <img
                         src={require("assets/virtual_images/note1.png")}
                         alt=""
@@ -161,10 +168,11 @@ export default class QuoteItem extends React.Component {
                       onClick={() => this.setSpeciality()}
                       showActive={false}
                     />
+                    {this.props.quote?.status ===1 && <span className="err_message">Patient In invoice</span>}
                   </Grid>
                   <Grid item xs={12} md={5} lg={4}>
                     <Grid className="cardioArea" >
-                      <Grid onClick={(id)=>this.props.moveDetial(id)}>
+                      <Grid onClick={()=>this.props.moveDetial(quote.patient_id)}>
                         <label>
                           {quote.patient.first_name} {quote.patient.last_name}
                         </label>
@@ -182,12 +190,13 @@ export default class QuoteItem extends React.Component {
                       onClick={() => this.setSpeciality()}
                       showActive={false}
                     />
+                    {this.props.quote?.status ===1 && <span className="err_message">Patient In invoice</span>}
                   </Grid>
                   <Grid item xs={12} md={4} lg={6}>
                       <Grid className="wardInfo">
-                          <a className="wardNum"><img src={require('assets/virtual_images/square.png')} alt="" title="" /><span>{quote.wards.ward_name}</span></a>
-                          <a className="roomNum"><img src={require('assets/virtual_images/room.svg')} alt="" title="" /><span>{quote.rooms.room_name}</span></a>
-                          <a className="bedNum"><img src={require('assets/virtual_images/bed2.png')} alt="" title="" /><span>{quote.bed}</span></a>
+                          <a className="wardNum taskHover"><span>Ward</span><img src={require('assets/virtual_images/square.png')} alt="" title="" /><label>{quote.wards.ward_name}</label></a>
+                          <a className="roomNum taskHover"><span>Room</span><img src={require('assets/virtual_images/room.svg')} alt="" title="" /><label>{quote.rooms.room_name}</label></a>
+                          <a className="bedNum taskHover"><span>Bed</span><img src={require('assets/virtual_images/bed2.png')} alt="" title="" /><label>{quote.bed}</label></a>
                       </Grid>
                   </Grid>
                   <Grid item xs={12} md={3} lg={2} className="cardoLblWeb">
@@ -198,28 +207,31 @@ export default class QuoteItem extends React.Component {
               <Grid item xs={12} md={5}>
                 <Grid className="cardioData">
                   <Grid className="infoDoc">
-                    <a className="rghtHalf">
+                    <a className="rghtHalf taskHover">
+                      <span>Tasks</span>
                       <img
                         src={require("assets/virtual_images/rightIcon.png")}
                         alt=""
                         title=""
                       />
-                     {quote.done_task}/{quote.total_task}
+                     {quote.done_task ? quote.done_task : 0}/{quote.total_task ?quote.total_task : 0}
                     </a>
-                    <a className="addSec">
+                    <a className="addSec taskHover" onClick={()=>{this.props.MovetoTask(quote.speciality, quote?.patient_id) }}>
+                      <span>Add Task</span>
                       <img
                         src={require("assets/virtual_images/plusIcon.png")}
                         alt=""
                         title=""
                       />
                     </a>
-                    <a className="notePoint">
+                    <a className="notePoint taskHover">
+                      <span>Comments</span>
                       <img
                         src={require("assets/virtual_images/note.png")}
                         alt=""
                         title=""
                       />
-                      <span>1</span>
+                      1
                     </a>
                   </Grid>
                   <Grid className="cardioList">

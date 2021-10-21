@@ -173,6 +173,7 @@ export default class Column extends Component {
                 setDta={(item)=>this.props.setDta(item)}
                 professional_id_list={this.props.professional_id_list}
                 updateEntryState3={(e, case_id)=>{this.props.updateEntryState3(e, case_id)}}
+                MovetoTask={(speciality, patient_id)=>{ this.props.MovetoTask(speciality, patient_id) }}
               />
              {this.props.view==='vertical' && <Grid className="nwPatentAdd"><Button onClick={()=>{this.props.openAddPatient(index)}}>+ Add a new patient</Button></Grid>}
           </div>

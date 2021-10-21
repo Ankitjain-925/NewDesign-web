@@ -9751,6 +9751,9 @@ button.crdoLghtBlu2 {
     .detailInfo {
         min-height: initial;
     }
+    .dragdrop-vertical ul li {
+        width: 100% !important;
+    }
 }
 .wardsGrup .roomsNum2:last-child {
     border-bottom: none;
@@ -11837,5 +11840,73 @@ ul.patientHint li {
     padding-left: 0px;
   }
   
-
-  
+  @media (max-width: 452px) {
+    .attchOpen {
+        margin: 25px 0px 10px;
+    }
+    .specialuty-more {
+        float: initial !important;
+    }
+    a.openScndhrf {
+        margin-top: 20px;
+    }
+    .attchNoteMain {
+        display: block !important;
+        align-items: initial !important;
+    }
+}
+@media (max-width: 768px) {
+ .creatTaskModel {
+    width: 98% !important;
+ }
+}
+@media screen and (min-width: 961px) and (max-width: 1270px){
+    .topLeftSpc {
+       padding-left: 5px;
+       padding-right: 5px;
+    }
+    .revwFilesRght, .allInfoRght {
+        margin-left: 5px;
+    }
+    .revwFiles {
+        margin-right: 18px;
+    }
+    .allTabCntnt {
+        padding: 12px 7px;
+    }
+    .allInfo label {
+        font-size: 12px;
+    }
+    .tasklistName img {
+        width: 22px !important;
+        height: 22px !important;
+    }
+    .revwFiles img {
+        height: 18px !important;
+        width: 18px !important;
+    }
+}
+a.taskHover span {
+    font-weight: 700 !important;
+    text-align: center;
+    width: 75px;
+    top:-25px;
+    position: absolute;
+    left: -30px;
+    display: none;
+    padding: 6px 7px;
+    color: #E5E6E6;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 12px;
+    border-radius: 8px;
+    background-color: rgba(0,8,8,0.9);
+    box-shadow: 0 8px 24px 0 rgb(0 8 8 / 8%);
+}
+a.taskHover{
+    position: relative;
+}
+a.taskHover:hover span {
+    display: block;
+}

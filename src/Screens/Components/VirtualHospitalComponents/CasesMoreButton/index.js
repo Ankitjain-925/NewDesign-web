@@ -10,12 +10,14 @@ import { Settings } from "Screens/Login/setting";
 import { commonHeader } from "component/CommonHeader/index";
 import { houseSelect } from "Screens/VirtualHospital/Institutes/selecthouseaction"; 
 import { Speciality } from "Screens/Login/speciality.js";
-import Assigned from "Screens/Components/VirtualHospitalComponents/Assigned/index"
+import Button from "@material-ui/core/Button";
 import SpecialityButton from "Screens/Components/VirtualHospitalComponents/SpecialityButton";
 import axios from "axios";
 import Select from 'react-select';
 import sitedata from "sitedata";
-import {AllRoomList, getSteps, AllWards, setWard, CurrentWard, CurrentRoom, setRoom, AllBed, CurrentBed, setBed } from "Screens/VirtualHospital/PatientFlow/data"; 
+import { confirmAlert } from "react-confirm-alert"; // Import
+import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
+import {AllRoomList, getSteps, AllWards, PatientMoveFromHouse, setWard, CurrentWard, CurrentRoom, setRoom, AllBed, CurrentBed, setBed } from "Screens/VirtualHospital/PatientFlow/data"; 
 import SelectField from "Screens/Components/Select/index";
 import {
   getLanguage
@@ -42,6 +44,54 @@ class Index extends React.Component {
       this.setState({ AllRoom: AllRoom });
       this.GetAllBed();
     }
+    
+    //Remove the Step
+    RemoveDirectPatient = () => {
+      confirmAlert({
+        customUI: ({ onClose }) => {
+          return (
+            <Grid className={this.props.settings &&
+            this.props.settings.setting &&
+            this.props.settings.setting.mode === "dark"
+            ? "dark-confirm deleteStep"
+            : "deleteStep"}>
+                <Grid className="deleteStepLbl">
+                    <Grid><a onClick={() => { onClose(); }}><img src={require('assets/virtual_images/closefancy.png')} alt="" title="" /></a></Grid>
+                    <label>Remove Patient from Flow</label>
+                </Grid>
+                <Grid className="deleteStepInfo">
+                    <p>This patient will be removed from the flow. This action can not be reversed.</p>
+                    <Grid><label>Are you sure you want to do this?</label></Grid>
+                    <Grid>
+                        <Button  onClick={() => {this.RemoveDirectPatientOk(5 ,false); onClose();}}>Yes, Remove Patient</Button>
+                        <Button onClick={() => { onClose(); }}>Cancel, Keep Patient</Button>
+                    </Grid>
+                </Grid>
+            </Grid>
+          );
+        },
+      }); 
+    }
+  
+  RemoveDirectPatientOk=(status, inhospital)=>{
+    this.setState({ loaderImage: true });
+      var response = PatientMoveFromHouse(this.props.quote._id, this.props.stateLoginValueAim.token, status, inhospital)
+      response.then((responce1) => {
+      if (responce1.data.hassuccessed) {
+        this.setState({ loaderImage: false });
+        var steps = getSteps(
+            this.props?.House?.value,
+            this.props.stateLoginValueAim.token
+          );
+          steps.then((data) => {
+            var stepData = data ? data : [];
+            this.props.setDta(stepData);
+          });
+        }
+        this.setState({ loaderImage: false });
+      })
+  }
+
     setSpeciality=(data)=>{
       this.setState({ loaderImage: true });
         axios.put(
@@ -126,7 +176,6 @@ class Index extends React.Component {
       })
     }
 
-
     GetAllBed= async ()=>{
       if(this.props.quote?.speciality?._id && this.props.quote?.wards?._id && this.props.quote?.rooms?._id && this.props?.House?.value){
         var response = await AllBed(this.props.quote?.speciality?._id, this.props.quote?.wards?._id, this.props.quote?.rooms?._id, this.props?.House?.value,
@@ -152,6 +201,41 @@ class Index extends React.Component {
        })
 } 
 
+Discharge=()=>{
+  confirmAlert({
+    customUI: ({ onClose }) => {
+      return (
+        <Grid className={this.props.settings &&
+        this.props.settings.setting &&
+        this.props.settings.setting.mode === "dark"
+        ? "dark-confirm deleteStep"
+        : "deleteStep"}>
+          <Grid className="dischargeHead">
+              <Grid><a onClick={() => { onClose(); }}><img src={require('assets/virtual_images/closefancy.png')} alt="" title="" /></a></Grid>
+              <h5>Discharge All Patients in This Step</h5>
+          </Grid>
+          <Grid className="dischargeInfo">
+              <p>All Patients in this Step will be discharged from the flow.</p>
+              <Grid><label>What would you like to do?</label></Grid>
+              <Grid>
+                  <Button className="creatInvoic" onClick={() => { this.RemoveDirectPatientOk(1 , true); onClose(); }} >Create Invoices</Button>
+                  <Button className="dischrgInvoic" onClick={() => { this.RemoveDirectPatientOk(4 , false);  onClose(); }} >Discharge without Invoices</Button>
+                  <Button className="dischrgCncl" onClick={() => { onClose(); }} >Cancel</Button>
+              </Grid>
+          </Grid>
+        </Grid>
+      );
+    },
+  }); 
+}
+
+MovetoTask=()=>{
+  this.props.history.push({
+    pathname: '/virtualhospital/tasks',
+    state: { speciality: this.props.quote?.speciality, user: {value: this.props.quote?.patient_id}}
+  })
+}
+
     render() {
       let translate = getLanguage(this.props.stateLanguageType)
       let {AddSpecialty, ChangeStaff, AssignWardRoom, MovePatient} = translate;
@@ -164,13 +248,13 @@ class Index extends React.Component {
                         {this.state.firstsec && <>
                             <li><a onClick={()=>{this.props.history.push(`/virtualHospital/patient-detail/${this.props.quote.patient_id}?view=4`)}}><span><img src={require('assets/images/admin/details1.svg')} alt="" title="" /></span>{"Open details"}</a></li>
                             <li><a onClick={()=>{this.props.history.push(`/virtualHospital/patient-detail/${this.props.quote.patient_id}`)}}><span><img src={require('assets/images/admin/restoreIcon.png')} alt="" title="" /></span>{"Add new entry"}</a></li>
-                            <li><a><span><img src={require("assets/images/admin/details1.svg")} alt="" title="" /></span>{"Add Task"} </a></li>
+                            <li><a onClick={()=>{this.MovetoTask()}}><span><img src={require("assets/images/admin/details1.svg")} alt="" title="" /></span>{"Add Task"} </a></li>
                             <li><a onClick={()=>{this.setState({changeStaffsec : true,specialitysec : false, assignroom: false, movepatsec : false, firstsec: false})}}><span><img src={require('assets/images/admin/delIcon.png')} alt="" title="" /></span>{"Change Staff >"}</a></li>
                             <li><a onClick={()=>{this.setState({specialitysec: false, assignroom: false, changeStaffsec: false, movepatsec : true, firstsec: false})}}><span><img src={require('assets/images/admin/details1.svg')} alt="" title="" /></span>{"Move patient to >"}</a></li>
                             <li><a onClick={()=>{this.setState({specialitysec : true, assignroom: false, changeStaffsec: false, movepatsec : false, firstsec: false})}}><span><img src={require('assets/images/admin/restoreIcon.png')} alt="" title="" /></span>{"Assign to Speciality >"}</a></li>
                             <li><a onClick={()=>{this.setState({assignroom : true,  specialitysec: false, changeStaffsec: false, movepatsec : false, firstsec: false})}}><span><img src={require("assets/images/admin/details1.svg")} alt="" title="" /></span>{"Assign to room >"} </a></li>
-                            <li><a><span><img src={require('assets/images/admin/delIcon.png')} alt="" title="" /></span>{"Discharge Patient"}</a></li>
-                            <li><a><span><img src={require('assets/images/admin/delIcon.png')} alt="" title="" /></span>{"Remove Patient from flow"}</a></li>
+                            {this.props.quote?.status !==1 && <li><a onClick={()=>{this.Discharge()}}><span><img src={require('assets/images/admin/delIcon.png')} alt="" title="" /></span>{"Discharge Patient"}</a></li>}
+                            {this.props.quote?.status !==1 && <li><a onClick={()=>{this.RemoveDirectPatient()}}><span><img src={require('assets/images/admin/delIcon.png')} alt="" title="" /></span>{"Remove Patient from flow"}</a></li>}
                         </>}
                         {this.state.specialitysec &&
                             <div>

@@ -75,6 +75,13 @@ class Index extends Component {
     });
   }
 
+  MovetoTask=(speciality, patient_id)=>{
+    this.props.history.push({
+      pathname: '/virtualhospital/tasks',
+      state: { speciality: speciality, user: {value: patient_id}}
+    })
+  }
+
   moveDetial = (id) => {
     this.props.history.push(`/virtualhospital/patient-detail/${id}`);
   };
@@ -236,45 +243,42 @@ class Index extends Component {
   DeleteStep = (index) => {
     var state = this.state.actualData;
     if(state[index]?.case_numbers?.length>0){
-      let translate = getLanguage(this.props.stateLanguageType)
-      let {
-        ok,
-      } = translate;
       confirmAlert({
         customUI: ({ onClose }) => {
           return (
-            <div
-              className={
-                this.props.settings &&
-                  this.props.settings.setting &&
-                  this.props.settings.setting.mode === "dark"
-                  ? "dark-confirm react-confirm-alert-body"
-                  : "react-confirm-alert-body"
-              }
-            >
-              <h1>{"Please remove the patients from step before deleting"}</h1>
-              <div className="react-confirm-alert-button-group">
-                <button
-                  onClick={() => {
-                    onClose();
-                  }}
-                >
-                  {ok}
-                </button>
-              </div>
-            </div>
+            <Grid className={this.props.settings &&
+            this.props.settings.setting &&
+            this.props.settings.setting.mode === "dark"
+            ? "dark-confirm deleteStep"
+            : "deleteStep"}>
+                <Grid className="deleteStepLbl">
+                    <Grid><a onClick={() => { onClose(); }}><img src={require('assets/virtual_images/closefancy.png')} alt="" title="" /></a></Grid>
+                    <label>Delete Step</label>
+                </Grid>
+                <Grid className="deleteStepInfo">
+                    <p>All Patients in this Step will be removed from the flow. This action can not be reversed.</p>
+                    <Grid><label>Are you sure you want to do this?</label></Grid>
+                    <Grid>
+                        <Button  onClick={() => {this.DeleteStepOk(state, index)}}>Yes, Delete Step</Button>
+                        <Button onClick={() => { onClose(); }}>Cancel, Keep Step</Button>
+                    </Grid>
+                </Grid>
+            </Grid>
           );
         },
       }); 
     }
     else{
-      alert('Here')
-      state.splice(index, 1);
-      this.setDta(state);
-      this.CallApi();
+      this.DeleteStepOk(state, index)
     }
     
   };
+  
+  DeleteStepOk=(state, index)=>{
+    state.splice(index, 1);
+    this.setDta(state);
+    this.CallApi();
+  }
 
   //On Add case
   AddCase = () => {
@@ -533,6 +537,9 @@ class Index extends Component {
                       professional_id_list={this.state.professional_id_list}
                       updateEntryState3={(e, case_id) => {
                         this.updateEntryState3(e, case_id);
+                      }}
+                      MovetoTask={(speciality, patient_id)=>{
+                        this.MovetoTask(speciality, patient_id)
                       }}
                     />
                   </Grid>

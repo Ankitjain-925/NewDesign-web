@@ -92,6 +92,18 @@ class Index extends Component {
         this.getPatientData();
         this.getProfessionalData();
         this.specailityList();
+
+        if(this.props.location?.state?.speciality && this.props.location?.state?.user){
+            if(this.props.location?.state?.speciality){
+                const state = this.state.newTask;
+                this.setState({ selectSpec: {label: this.props.location?.state?.speciality?.specialty_name, value:this.props.location?.state?.speciality?._id }})
+                state['speciality'] =  this.props.location?.state?.speciality;
+                this.setState({ newTask: state});
+            }
+            
+            this.setState({openTask: true})
+            console.log('Holding both')
+        }
     }
 
     //to get the speciality list 
@@ -326,7 +338,7 @@ class Index extends Component {
 
                         patientArray.push({
                             last_name: this.state.allPatData[i].patient?.last_name,
-                            user_id: this.state.allPatData[i].patient?.patient_id,
+                            user_id: this.state.allPatData[i]?.patient_id,
                             image: this.state.allPatData[i].patient?.image,
                             first_name: this.state.allPatData[i].patient?.first_name,
                             profile_id: this.state.allPatData[i].patient?.profile_id,
@@ -335,9 +347,18 @@ class Index extends Component {
                         })
                         // PatientList.push({ value: this.state.allPatData[i]._id, label: name })
 
-                        PatientList1.push({ profile_id: this.state.allPatData[i].patient?.profile_id, value: this.state.allPatData[i].patient?.patient_id, name: name })
+                        PatientList1.push({ profile_id: this.state.allPatData[i].patient?.profile_id, value: this.state.allPatData[i]?.patient_id, name: name })
                     }
-                    this.setState({ users1: PatientList1, users: patientArray })
+                    this.setState({ users1: PatientList1, users: patientArray },
+                        ()=>{
+                            if(this.props.location?.state?.user){
+                                let user = this.state.users1.length>0 && this.state.users1.filter((user)=>user.value === this.props.location?.state?.user.value)
+                                if(user?.length>0) {
+                                    this.setState({q: user[0]?.name, selectedUser: user[0]})
+                                }
+                                this.updateEntryState2(this.props.location?.state?.user)
+                            }
+                        })
                 }
                 this.setState({ loaderImage: false });
             });

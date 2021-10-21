@@ -242,3 +242,15 @@ export const CurrentBed = (bed) => {
         // });
 
 };
+
+export const PatientMoveFromHouse  = async (case_id, user_token, status, inhospital) => {
+  let response = await axios.put(
+    sitedata.data.path + "/cases/AddCase/"+ case_id,
+    { status: status, inhospital: inhospital},
+    commonHeader(user_token))
+    if (response) {
+        return response
+    } else {
+        return false
+    }
+}

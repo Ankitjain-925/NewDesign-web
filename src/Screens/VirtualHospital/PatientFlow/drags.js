@@ -140,6 +140,7 @@ class Index extends Component {
                         setDta={(item)=>this.props.setDta(item)}
                         professional_id_list={this.props.professional_id_list}
                         updateEntryState3={(e, case_id)=>{this.props.updateEntryState3(e, case_id)}}
+                        MovetoTask={(speciality, patient_id)=>{ this.props.MovetoTask(speciality, patient_id) }}
                       />
                     </div>
                   </li>

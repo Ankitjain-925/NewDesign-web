@@ -240,6 +240,13 @@ class Index extends Component {
       });
   };
 
+  // MovetoTask=()=>{
+  //   this.props.history.push({
+  //     pathname: '/virtualhospital/tasks',
+  //     state: { speciality: this.props.quote?.speciality, user: {value: this.props.quote?.patient_id}}
+  //   })
+  // }
+
   //get Add task data
   getAddTaskData = () => {
     this.setState({ loaderImage: true });
