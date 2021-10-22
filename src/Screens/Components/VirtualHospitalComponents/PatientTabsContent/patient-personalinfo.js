@@ -67,9 +67,6 @@ class Index extends Component {
             });
     };
 
-
-
-
     render() {
         var required = true;
         var disabled = true;
@@ -167,9 +164,9 @@ class Index extends Component {
                                                 <Grid item  xs={12} md={7} lg={8}>
                                                     <label>Gender</label>
                                                     <Grid>
-                                                        <a value="male">Male</a>
-                                                        <a>Female</a>
-                                                        <a>Other </a>
+                                                        <a >Male</a>
+                                                        <a >Female</a>
+                                                        <a >Other </a>
                                                         
                                                     </Grid>
                                                 </Grid>

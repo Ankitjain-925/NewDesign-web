@@ -13,6 +13,8 @@ import * as translationEN from "./translations/en_json_proofread_13072020.json";
 import * as translationDE from "./translations/de.json";
 import H_LeftMenu from "Screens/Components/Menus/H_leftMenu/index";
 import H_LeftMenuMobile from "Screens/Components/Menus/H_leftMenu/mobile";
+// import { houseSelect } from "Screens/hospital_Admin/selecthouseaction"; 
+import { Speciality } from "Screens/Login/speciality.js";
 import "./style.css";
 import Modal from "@material-ui/core/Modal";
 import VHfield from "Screens/Components/VirtualHospitalComponents/VHfield/index";
@@ -23,7 +25,11 @@ import {
 import Pagination from "Screens/Components/Pagination/index";
 import Loader from "Screens/Components/Loader/index";
 import AddHouses from "Screens/Components/VirtualHospitalComponents/AddRoom/AddHouses.js";
-
+import Checkbox from '@material-ui/core/Checkbox';
+import SpecialityButton from "Screens/Components/VirtualHospitalComponents/SpecialityButton";
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FileUploader from "Screens/Components/JournalFileUploader/index";
+import Select from 'react-select';
 const specialistOptions = [
   { value: "Specialist1", label: "Specialist1" },
   { value: "Specialist2", label: "Specialist2" },
@@ -36,10 +42,13 @@ class Index extends Component {
       openGroup: false,
       houses: [],
       institute_groups: {},
-      AllGroupList: []
+      AllGroupList: [],
+      openTask: false,
+      newTask: {},
+      newData: {}
     };
   }
-  //open the institute group
+  // open the institute group
   openInstitute = () => {
     this.setState({ openGroup: true });
   };
@@ -50,26 +59,26 @@ class Index extends Component {
   EditInstitute = (editData) => {
     this.setState({ openGroup: true, institute_groups: editData });
   };
-  //add houses
-  updateEntryState3 = (house) => {
-    var state = this.state.institute_groups;
-    state["houses"] = house;
-    this.setState({ institute_groups: state });
-  };
+  // //add houses
+  // updateEntryState3 = (house) => {
+  //   var state = this.state.institute_groups;
+  //   state["houses"] = house;
+  //   this.setState({ institute_groups: state });
+  // };
 
-  updateEntryState = (e) => {
-    var state = this.state.institute_groups;
-    state[e.target.name] = e.target.value;
-    this.setState({ institute_groups: state });
-  };
+  // updateEntryState = (e) => {
+  //   var state = this.state.institute_groups;
+  //   state[e.target.name] = e.target.value;
+  //   this.setState({ institute_groups: state });
+  // };
 
-  deleteGroup=(id)=>{
-    var institute_id = this.props.stateLoginValueAim?.user?.institute_id?.length>0 ?  this.props.stateLoginValueAim?.user?.institute_id[0]:''
-      this.setState({ loaderImage: true });
+  deleteGroup = (id) => {
+    var institute_id = this.props.stateLoginValueAim?.user?.institute_id?.length > 0 ? this.props.stateLoginValueAim?.user?.institute_id[0] : ''
+    this.setState({ loaderImage: true });
     axios
       .delete(
         sitedata.data.path +
-          `/hospitaladmin/AddGroup/${institute_id}/${id}`,
+        `/hospitaladmin/AddGroup/${institute_id}/${id}`,
         commonHeader(this.props.stateLoginValueAim.token)
       )
       .then((responce) => {
@@ -85,21 +94,25 @@ class Index extends Component {
   }
 
   getallGroups = () => {
-    var institute_id = this.props.stateLoginValueAim?.user?.institute_id?.length>0 ?  this.props.stateLoginValueAim?.user?.institute_id[0]:''
+    var institute_id = this.props.stateLoginValueAim?.user?.institute_id?.length > 0 ? this.props.stateLoginValueAim?.user?.institute_id[0] : ''
     this.setState({ loaderImage: true });
     axios
       .get(
         sitedata.data.path +
-          `/hospitaladmin/institute/${institute_id}`,
+        `/hospitaladmin/institute/${institute_id}`,
         commonHeader(this.props.stateLoginValueAim.token)
       )
       .then((responce) => {
+        console.log("data", responce)
         var totalPage = Math.ceil(
-          responce.data?.data?.institute_groups?.length/ 10
+          responce.data?.data?.institute_groups?.length / 10
         );
         if (responce.data.hassuccessed && responce.data.data) {
-          this.setState({  totalPage: totalPage,
-            currentPage: 1, AllGroupList: responce.data?.data?.institute_groups },
+
+          this.setState({
+            totalPage: totalPage,
+            currentPage: 1, AllGroupList: responce.data?.data?.institute_groups
+          },
             () => {
               if (totalPage > 1) {
                 var pages = [];
@@ -114,45 +127,46 @@ class Index extends Component {
                 this.setState({ GroupList: this.state.AllGroupList });
               }
             })
-            this.setState({ loaderImage: false });
-        }});
+          this.setState({ loaderImage: false });
         }
-      
+      });
+  }
+
   SaveGroup = () => {
     var data = this.state.institute_groups;
-    var institute_id = this.props.stateLoginValueAim?.user?.institute_id?.length>0 ?  this.props.stateLoginValueAim?.user?.institute_id[0]:''
+    var institute_id = this.props.stateLoginValueAim?.user?.institute_id?.length > 0 ? this.props.stateLoginValueAim?.user?.institute_id[0] : ''
     this.setState({ loaderImage: true });
-    if(data._id){
+    if (data._id) {
       axios
-      .put(
-        sitedata.data.path +
+        .put(
+          sitedata.data.path +
           `/hospitaladmin/AddGroup/${institute_id}/${data._id}`,
-        data,
-        commonHeader(this.props.stateLoginValueAim.token)
-      )
-      .then((responce) => {
-        if (responce.data.hassuccessed) {
-          this.getallGroups();
-          this.setState({institute_groups: {},})
-        }
-        this.setState({ loaderImage: false, openGroup: false});
-      });
+          data,
+          commonHeader(this.props.stateLoginValueAim.token)
+        )
+        .then((responce) => {
+          if (responce.data.hassuccessed) {
+            this.getallGroups();
+            this.setState({ institute_groups: {}, })
+          }
+          this.setState({ loaderImage: false, openGroup: false });
+        });
     }
-    else{
+    else {
       axios
-      .put(
-        sitedata.data.path +
-        `/hospitaladmin/AddGroup/${institute_id}`,
-        data,
-        commonHeader(this.props.stateLoginValueAim.token)
-      )
-      .then((responce) => {
-        if (responce.data.hassuccessed) {
-          this.getallGroups();
-          this.setState({institute_groups: {},})
-        }
-        this.setState({ loaderImage: false, openGroup: false});
-      });
+        .put(
+          sitedata.data.path +
+          `/hospitaladmin/AddGroup/${institute_id}`,
+          data,
+          commonHeader(this.props.stateLoginValueAim.token)
+        )
+        .then((responce) => {
+          if (responce.data.hassuccessed) {
+            this.getallGroups();
+            this.setState({ institute_groups: {}, })
+          }
+          this.setState({ loaderImage: false, openGroup: false });
+        });
     }
   };
 
@@ -165,6 +179,38 @@ class Index extends Component {
       });
     return houses.join(", ");
   };
+
+  FileAttachMulti = (Fileadd) => {
+    console.log("fileupload", Fileadd)
+    this.setState({
+      isfileuploadmulti: true,
+      fileattach: Fileadd,
+      fileupods: true,
+    });
+
+  };
+
+  handleOpenTask = () => {
+
+    this.setState({ openTask: true })
+  }
+
+  handleCloseTask = () => {
+
+    this.setState({ openTask: false })
+  }
+
+  updateEntryState1 = (e) => {
+    // console.log("institute", e.target.value)
+    const state = this.state.newTask
+    state[e.target.name] = e.target.value
+    this.setState({ newTask: state })
+
+  }
+  handleTaskSubmit = () => {
+    console.log("newtaskk", this.state.newTask)
+
+  }
 
   render() {
     if (this.props.stateLoginValueAim.user.type != "hospitaladmin") {
@@ -181,18 +227,18 @@ class Index extends Component {
       default:
         translate = translationEN.text;
     }
-    let {} = translate;
+    let { } = translate;
 
     return (
-      <Grid 
-      className={
-        this.props.settings &&
-          this.props.settings.setting &&
-          this.props.settings.setting.mode &&
-          this.props.settings.setting.mode === "dark"
-          ? "homeBg darkTheme"
-          : "homeBg"
-      }>
+      <Grid
+        className={
+          this.props.settings &&
+            this.props.settings.setting &&
+            this.props.settings.setting.mode &&
+            this.props.settings.setting.mode === "dark"
+            ? "homeBg darkTheme"
+            : "homeBg"
+        }>
         {this.state.loaderImage && <Loader />}
         <Grid className="homeBgIner">
           <Grid container direction="row" justify="center">
@@ -203,33 +249,305 @@ class Index extends Component {
                 {/* End of mobile menu */}
 
                 {/* Website Menu */}
+
                 <H_LeftMenu isNotShow={true} currentPage="more" />
                 {/* End of Website Menu */}
 
-                <Grid item xs={12} md={10} className="adminMenuRghtUpr">
-                  <Grid
+                <Grid item xs={12} md={11}>
+                  {/* <Grid className="topLeftSpc"> */}
+                  {/* Start of Bread Crumb */}
+                  <Grid className="breadCrumbUpr">
+                    <Grid container direction="row" alignItems="center">
+                      <Grid item xs={12} md={12}>
+                        <Grid className="roomBreadCrumb3">
+                          <ul>
+                            <li>
+                              <a>
+                                <span>Institution</span>
+                                {/* <label>{this.props?.House?.label}</label> */}
+
+                                <label>Demo-Group-House-2</label>
+                              </a>
+                            </li>
+                            <li>
+                              <a>
+                                <label>Institutes</label>
+                              </a>
+                            </li>
+                          </ul>
+                        </Grid>
+                      </Grid>
+                    </Grid>
+                  </Grid>
+                  <Grid className="wardsGrupUpr">
+                    <Grid container direction="row" spacing={2}>
+                       {this.state.GroupList?.length > 0 &&
+                        this.state.GroupList.map((data) => ( 
+                          <Grid item xs={12} md={3}>
+                            <Grid className="wardsGrup3">
+                              <SpecialityButton
+                                viewImage={true}
+                                deleteClick={() => this.handleOpenWarn(data._id)}
+                                label={data.institute_name}
+                                
+                                // backgroundColor={data.background_color}
+                                // color={data.color}
+                                onClick={() => {
+                                  this.EditInstitute(data);
+                                }}
+                              />
+                                   <Grid className="addWrnClose">
+                                <img
+                                      src={require("assets/images/three_dots_t.png")}
+                                      alt=""
+                                      title=""
+                                      className="openScnd"
+                                    /> 
+                                     </Grid>
+                              {/* {data.wards?.length > 0 &&
+                                data.wards.map((item) => ( */}
+                                  <Grid className="roomsNum3">
+                                    <ul>
+                                      <li
+                                        className="c-pointer"
+                                        onClick={() => {
+                                          this.EditInstitute(data);
+                                        }}
+                                      >
+                                        <img
+                                            src={require("assets/virtual_images/square.png")}
+                                            alt=""
+                                            title=""
+                                          />
+                                       Institute
+                                      </li>
+                                      <li>
+                                         {/* {item?.rooms?.length
+                                          ? item?.rooms?.length
+                                          : 0}{" "} */}
+                                     Group Institute
+                                      </li>
+                                      <li>
+                                      Houses
+                                        {/* {this.bednumbers(item.rooms)} beds */}
+                                        {/* <span>32 available</span> */}
+                                      </li>
+                                      
+                                    </ul>
+                                  </Grid>
+                                {/* ))} */}
+                            </Grid>
+                          </Grid>
+                        ))} 
+                    </Grid>
+                  </Grid>
+
+                  {/* {this.state.GroupList &&
+                    this.state.GroupList.length > 0 &&
+                    this.state.GroupList.map((data) => (
+
+                      <Tr>
+                        <Td>
+                          {console.log("data1", data)}
+                          {data.institute_name
+                            ? data.institute_name
+                            : "Not mentioned"}
+                        </Td>
+                        <Td>
+                          {data?.houses?.length > 0
+                            ? this.getHouses(data?.houses)
+                            : ""}
+                        </Td>
+                        <Td className="presEditDot scndOptionIner">
+                          <a className="openScndhrf">
+                            <img
+                              src={require("assets/images/three_dots_t.png")}
+                              alt=""
+                              title=""
+                              className="openScnd"
+                            />
+                            <ul>
+                              <li>
+                                <a
+                                  onClick={() => {
+                                    this.EditInstitute(data);
+                                  }}
+                                >
+                                  <img
+                                    src={require("assets/images/details.svg")}
+                                    alt=""
+                                    title=""
+                                  />
+                                  Edit Group
+                                </a>
+                              </li>
+                              <li>
+                                <a
+                                  onClick={() => {
+                                    this.deleteGroup(data._id);
+                                  }}
+                                >
+                                  <img
+                                    src={require("assets/images/edit.svg")}
+                                    alt=""
+                                    title=""
+                                  />
+                                  Delete
+                                </a>
+                              </li>
+                            </ul>
+                          </a>
+                        </Td>
+                      </Tr>
+                    ))} */}
+
+                  <Grid item xs={12} md={3}>
+                    <Grid className="nwSpclSec">
+                      <p onClick={this.handleOpenTask}>
+                        + Add a new Institution
+                      </p>
+                    </Grid>
+                  </Grid>
+                  {/* Model setup */}
+                  <Modal
+                    // className={
+                    //   this.props.settings &&
+                    //     this.props.settings.setting &&
+                    //     this.props.settings.setting.mode &&
+                    //     this.props.settings.setting.mode === "dark"
+                    //     ? "darkTheme"
+                    //     : ""
+                    // }
+                    open={this.state.openTask}
+                    onClose={this.handleCloseTask}>
+
+                    <Grid className="creatTaskModel">
+                      <Grid className="creatTaskCntnt">
+                        <Grid container direction="row">
+                          <Grid item xs={12} md={12}>
+                            <Grid className="creatLbl">
+                              <Grid className="creatLblClose">
+                                <a onClick={this.handleCloseTask}><img src={require('assets/virtual_images/closefancy.png')} alt="" title="" /></a>
+                              </Grid>
+                              <label>Add Institution</label>
+                            </Grid>
+                          </Grid>
+                          <Grid item xs={12} md={12} lg={12}>
+                            <Grid className="creatDetail">
+                              <Grid className="creatInfoIner">
+                                <Grid container direction="row" alignItems="center" spacing={2}>
+                                  <Grid item xs={12} md={12}>
+                                    <VHfield
+                                      label="Institution name"
+                                      name="institution_name"
+                                      placeholder="Enter Institution name"
+                                      onChange={(e) =>
+                                        this.updateEntryState1(e)
+                                      }
+                                    // value={this.state.newTask.task_name}
+                                    />
+                                  </Grid>
+                                  <Grid item xs={12} md={12}>
+                                    <label>Institution description note</label>
+                                    <Grid><input type="text"
+                                      placeholder={"Search & Select"}
+                                      name="institution_description_note"
+                                      value={this.state.q}
+                                      onChange={(e) =>
+                                        this.updateEntryState1(e)
+                                      }
+                                    />
+                                      <ul className={this.state.shown && "patientHint"}>
+                                        {/* {userList} */}
+                                      </ul>
+                                    </Grid>
+                                  </Grid>
+                                  <Grid item xs={12} md={12}>
+                                    <label>Upload institution logo</label>
+                                    <FileUploader
+                                      // cur_one={this.props.cur_one}
+                                      attachfile={
+                                        this.state.newTask && this.state.newTask.attachfile
+                                          ? this.state.newTask.attachfile
+                                          : []
+                                      }
+                                      name="UploadTrackImageMulti"
+                                      isMulti="true"
+
+                                      // onChange={(e) =>
+                                      //   this.updateEntryState2(e)
+                                      // }
+                                      fileUpload={(event) => {
+                                        this.FileAttachMulti(event);
+                                      }}
+                                    />
+                                  </Grid>
+                                  <Grid item xs={12} md={12}>
+                                    <label>Hospital</label>
+                                    <Grid>
+                                      <Select
+                                        name="professional"
+                                        onChange={(e) =>
+                                          this.updateEntryState1(e)}
+                                        value={this.state.q}
+                                        options={this.state.professional_id_list}
+                                        placeholder="Search & Select"
+                                        className="addStafSelect"
+                                        isMulti={true}
+                                        isSearchable={true} />
+
+                                    </Grid>
+                                    <Grid item xs={12} md={12} className="saveTasks">
+                                      <a onClick={() => this.handleCloseTask()}><Button onClick={() => this.handleTaskSubmit()}>Save & Close</Button></a>
+                                    </Grid>
+                                  </Grid>
+                                </Grid>
+                              </Grid>
+                            </Grid>
+                          </Grid>
+
+                        </Grid>
+                      </Grid>
+                    </Grid>
+                  </Modal>
+                  {/* End of Model setup */}
+
+
+
+
+
+
+
+
+
+
+
+                  {/* <Grid item xs={12} md={10} className="adminMenuRghtUpr"> */}
+                  {/* <Grid
                     container
                     direction="row"
                     justifyContent="center"
                     className="archvOpinLbl"
-                  >
-                    <Grid item xs={12} md={6}>
+                    > */}
+
+
+                  {/* <Grid item xs={12} md={6}>
                       <label>Institute Groups</label>
-                    </Grid>
-                    <Grid item xs={12} md={6} className="archvOpinRght">
-                      <a
-                        onClick={() => {
-                          this.openInstitute();
-                        }}
-                      >
-                        + Add Institute Group
-                      </a>
-                    </Grid>
-                  </Grid>
-                  <Grid>
-                    <Grid className="presOpinionIner">
-                      {this.state.loaderImage && <Loader />}
-                      <Table>
+                    </Grid> */}
+                  {/* <Grid item xs={12} md={6} className="archvOpinRght"> */}
+                  <a
+                  // onClick={() => {
+                  //   this.openInstitute();
+                  // }}
+                  >
+                    {/* + Add Institute Group */}
+                  </a>
+                </Grid>
+              </Grid>
+              <Grid>
+                {/* <Grid className="presOpinionIner"> */}
+                {/* {this.state.loaderImage && <Loader />} */}
+                {/* <Table>
                         <Thead>
                           <Tr>
                             <Th>Group Institute</Th>
@@ -386,13 +704,13 @@ class Index extends Component {
                       </Grid>
                     </Modal>
                   </Grid>
-                </Grid>
+                </Grid> */}
               </Grid>
             </Grid>
           </Grid>
         </Grid>
       </Grid>
-    );
+    )
   }
 }
 const mapStateToProps = (state) => {
@@ -400,15 +718,21 @@ const mapStateToProps = (state) => {
     state.LoginReducerAim;
   const { stateLanguageType } = state.LanguageReducer;
   const { settings } = state.Settings;
+
+  const { speciality } = state.Speciality;
   return {
     stateLanguageType,
     stateLoginValueAim,
     loadingaIndicatoranswerdetail,
     settings,
+    speciality
   };
 };
 export default withRouter(
-  connect(mapStateToProps, { LoginReducerAim, LanguageFetchReducer, Settings })(
+  connect(mapStateToProps, {
+    LoginReducerAim, LanguageFetchReducer, Settings,
+    Speciality
+  })(
     Index
   )
 );

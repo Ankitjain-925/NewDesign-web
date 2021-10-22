@@ -741,7 +741,7 @@ class Index extends Component {
                                                                                                     <Grid onClick={() => { this.createDuplicate(this.state.newTask) }}>
                                                                                                         <img src={require('assets/virtual_images/assign-to.svg')} alt="" title="" />
                                                                                                         <label>{Duplicate}</label>
-                                                                                                    </Grid>
+                                                                                                 </Grid>
                                                                                                     <Grid onClick={() => { this.updateEntryState1(true, 'archived') }}>
                                                                                                         <img src={require('assets/virtual_images/assign-to.svg')} alt="" title="" />
                                                                                                         <label>{Archive}</label>
