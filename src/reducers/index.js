@@ -15,7 +15,9 @@ import OptionList from "./optionList";
 import overView from "./journalView";
 import houseSelect from "./house";
 import speciality from "./speciality";
-import SpaceManagement from "Screens/VirtualHospital/SpaceManagement/index";
+import invoices from "./invoices";
+
+
 
 const allReducers = combineReducers({
   //signupReducer: signupReducer,
@@ -35,7 +37,8 @@ const allReducers = combineReducers({
   OptionList: OptionList,
   overView:overView,
   houseSelect: houseSelect,
-  Speciality: speciality
+  Speciality: speciality,
+  Invoices: invoices
   
 });
 

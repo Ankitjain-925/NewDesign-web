@@ -4,8 +4,10 @@ import Select from 'react-select';
 import TextField from '@material-ui/core/TextField';
 import {
     getLanguage
-  } from "translations/index"
-  
+} from "translations/index"
+import OptionList from "reducers/optionList";
+
+
 class Index extends React.Component {
     constructor(props) {
         super(props);
@@ -13,7 +15,8 @@ class Index extends React.Component {
             options: this.props.options,
             label: this.props.label,
             case_id: this.props.case_id,
-            selectedOption: null
+            selectedOption: null,
+            updateTrack: {}
         }
     }
 
@@ -21,9 +24,16 @@ class Index extends React.Component {
         this.setState({ selectedOption });
     };
 
+    updateEntryState1 = (e, name) => {
+        console.log("updateTrack", this.state.updateTrack)
+        const state = this.state.updateTrack;
+        state[name] = e.target.value;
+        this.setState({ updateTrack: state });
+    };
+
     render() {
         let translate = getLanguage(this.props.stateLanguageType)
-        let {InvoiceID, Patient, Status } = translate;
+        let { InvoiceID, Patient, Status } = translate;
         return (
             <>
                 <Grid className="invoiceForm">
@@ -32,9 +42,20 @@ class Index extends React.Component {
                             <label>{InvoiceID}</label>
                             <TextField placeholder="Invoice ID" value="548756" />
                         </Grid>
+
                         <Grid item xs={12} md={4}>
                             <label>{Patient}</label>
-                            <Grid className="patntDropUpr">
+                            <Select
+                                name="patient"
+                                // onChange={(e) =>
+                                //     this.updateEntryState3(e)}
+                                // value={this.state.assignedTo}
+                                options={this.state.options}
+                                placeholder="Search & Select"
+                                className="addStafSelect"
+                                isMulti={true}
+                                isSearchable={true} />
+                            {/* <Grid className="patntDropUpr">
                                 <Grid className="patntDropDwn">
                                     <Grid className="patntImg"><img src={require('assets/virtual_images/james.jpg')} alt="" title="" /></Grid>
                                     <Grid>
@@ -43,14 +64,14 @@ class Index extends React.Component {
                                     </Grid>
                                     <Grid className="patntRmv"><img src={require('assets/virtual_images/remove-3.svg')} alt="" title="" /></Grid>
                                 </Grid>
-                            </Grid>
+                            </Grid> */}
                         </Grid>
                         <Grid item xs={12} md={3}>
                             <label>{Status}</label>
                             <Select
                                 value={this.state.selectedOption}
                                 onChange={this.handleChange}
-                                options={this.state.options}
+                                // options={option}
                                 placeholder="Draft"
                                 className="cstmSelect"
                                 isSearchable={false}
