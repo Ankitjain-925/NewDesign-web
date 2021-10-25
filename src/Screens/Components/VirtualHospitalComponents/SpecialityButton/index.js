@@ -30,7 +30,6 @@ class Index extends Component {
     return (
       <Grid className="">
         {this.state.label && <Grid className={this.props.viewImage ? "spcMgntUpr" : "otherPageSpc"}>
-         
               {this.props.viewImage ? (
                  <Grid container direction="row">
                 <Grid item xs={6} md={6} className="specialitybutton-parent">
@@ -48,6 +47,7 @@ class Index extends Component {
                 >
                   {this.state.label}
                 </Button>
+                {this.props.showActive && <span>(current)</span> }
                 </Grid>
                 <Grid
                 item
@@ -91,9 +91,6 @@ class Index extends Component {
                     </li>
                   </ul>
                 </a>
-
-                {/* <Grid item xs={6} md={6} className="spcMgntRght3"> */}
-                {/* <a onClick={()=>{this.props.onClick()}}><img src={require('assets/virtual_images/setting.png')} alt="" title="" /></a> */}
               </Grid>
               </Grid>
                 
@@ -115,6 +112,7 @@ class Index extends Component {
                 >
                   {this.state.label}{" "}
                 </Button>
+                {this.props.showActive && <span>(current)</span> }
                 </Grid>
                 </Grid>
               )}

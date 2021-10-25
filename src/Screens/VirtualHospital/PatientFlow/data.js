@@ -110,9 +110,11 @@ export const CurrentWard = (wards) => {
 
 export const AllRoomList = (Specilaity_id, AllSpecaility, ward_id) => {
   if(ward_id){
+    console.log('here')
     var mydata1 = AllSpecaility.filter((element)=>element._id === Specilaity_id)
     var mydata = mydata1[0]?.wards.length>0 && mydata1[0]?.wards.filter((element)=>element._id === ward_id)
     if(mydata && mydata.length>0){
+      console.log('here2')
       return mydata[0]?.rooms?.length>0 && mydata[0]?.rooms.map((data, i)=>{
         return {value: data._id, label: data.room_name}
     });
@@ -128,7 +130,7 @@ export const setRoom = async (value, Specilaity_id, AllSpecaility, case_id, user
   if(ward_id){
     var mydata1 = AllSpecaility.filter((element)=>element._id === Specilaity_id)
     var mydata = mydata1[0]?.wards.length>0 && mydata1[0]?.wards.filter((element)=>element._id === ward_id)
-   if(mydata && mydata.length>0){
+    if(mydata && mydata.length>0){
      var setData = mydata[0]?.rooms?.length>0 && mydata[0]?.rooms.filter((data, i)=>data._id === value.value)?.[0];
      let response = await axios.put(
       sitedata.data.path + "/cases/AddCase/"+ case_id,
@@ -213,33 +215,31 @@ export const CurrentBed = (bed) => {
         );
         
         // data.then((response) => {
-            if (response.data.hassuccessed) {
-                for (let i = 0; i < response.data?.data.length; i++) {
-                    var name = '';
-                    if (response.data?.data[i]?.first_name && response.data?.data[i]?.last_name) {
-                        name = response.data?.data[i]?.first_name + ' ' + response.data?.data[i]?.last_name
-                    }
-                    else if (response.data?.data[i]?.first_name) {
-                        name = response.data?.data[i]?.first_name
-                    }
-                    professionalArray.push({
-                        first_name: response.data?.data[i].first_name,
-                        last_name: response.data?.data[i].last_name,
-                        user_id: response.data?.data[i]._id,
-                        profile_id: response.data?.data[i].profile_id,
-                        alies_id: response.data?.data[i].alies_id,
-                        image: response.data?.data[i].image
-                    })
-                    professionalList.push({ value: response.data?.data[i]._id, label: name })
-                    // professionalList1.push({ profile_id: response.data?.data[i].profile_id, value: response.data?.data[i]._id, label: name })
+        if (response.data.hassuccessed) {
+            for (let i = 0; i < response.data?.data.length; i++) {
+                var name = '';
+                if (response.data?.data[i]?.first_name && response.data?.data[i]?.last_name) {
+                    name = response.data?.data[i]?.first_name + ' ' + response.data?.data[i]?.last_name
                 }
-                  return {professionalArray: professionalArray, professionalList: professionalList}
+                else if (response.data?.data[i]?.first_name) {
+                    name = response.data?.data[i]?.first_name
+                }
+                professionalArray.push({
+                    first_name: response.data?.data[i].first_name,
+                    last_name: response.data?.data[i].last_name,
+                    user_id: response.data?.data[i]._id,
+                    profile_id: response.data?.data[i].profile_id,
+                    alies_id: response.data?.data[i].alies_id,
+                    image: response.data?.data[i].image
+                })
+                professionalList.push({ value: response.data?.data[i]._id, label: name })
+                // professionalList1.push({ profile_id: response.data?.data[i].profile_id, value: response.data?.data[i]._id, label: name })
             }
-            else{
-              return false
-            }
-          
-        // });
+              return {professionalArray: professionalArray, professionalList: professionalList}
+        }
+        else{
+          return false
+        }
 
 };
 

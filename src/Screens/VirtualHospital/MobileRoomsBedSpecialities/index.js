@@ -6,11 +6,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { Pagination } from 'swiper/core';
 import SpecialityList from "Screens/Components/VirtualHospitalComponents/SpecialityList/index";
 import SpecialityButton from "Screens/Components/VirtualHospitalComponents/SpecialityButton/index";
-import { data } from 'sitedata';
-import {
-    getLanguage
-  }from "translations/index"
-  
+import { getLanguage }from "translations/index";
 SwiperCore.use([Pagination]);
 var new_data = [{
     speciality_name: 'Cardiology', color: "#EE5253", backgroundColor: "#FBD4D4",
@@ -18,15 +14,12 @@ var new_data = [{
         { ward_name: "Adults Ward", room: 8, no_of_bed: 53, available: 32 }
     ]
 }]
-
 var new_data1 = [{
     speciality_name: 'Radiology', color: "#EE5253", backgroundColor: "#FBD4D4",
     total_wards: [
         { room: 8, no_of_bed: 53, available: 32, ward_name: "Adults Ward" }
     ]
 }]
-
-
 class Index extends Component {
     render() {
         let translate = getLanguage(this.props.stateLanguageType);
@@ -38,9 +31,6 @@ class Index extends Component {
                         <Grid item xs={12} md={12}>
                             <LeftMenuMobile isNotShow={true} currentPage="chat" />
                             <Grid container direction="row">
-                                {/* <VHfield name="ANkit" Onclick2={(name, value)=>{this.myclick(name , value)}}/> */}
-
-
                                 {/* Start of Menu */}
                                 <Grid item xs={12} md={1} className="MenuLeftUpr">
                                     <LeftMenu isNotShow={true} currentPage="chat" />

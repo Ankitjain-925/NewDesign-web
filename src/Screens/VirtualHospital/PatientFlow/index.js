@@ -17,6 +17,7 @@ import {
   MoveAllCases,
   setAssignedTo,
   getProfessionalData,
+  PatientMoveFromHouse
 } from "./data";
 import Drags from "./drags.js";
 import sitedata from "sitedata";
@@ -82,8 +83,8 @@ class Index extends Component {
     })
   }
 
-  moveDetial = (id) => {
-    this.props.history.push(`/virtualhospital/patient-detail/${id}`);
+  moveDetial = (id, case_id) => {
+    this.props.history.push(`/virtualhospital/patient-detail/${id}/${case_id}`);
   };
 
   //For calling the API
@@ -275,6 +276,11 @@ class Index extends Component {
   };
   
   DeleteStepOk=(state, index)=>{
+    if(state[index]?.case_numbers?.length>0){
+      var yt = state[index]?.case_numbers.map((item)=>{
+        var response = PatientMoveFromHouse(item._id, this.props.stateLoginValueAim.token, 5, false)
+      })
+    }
     state.splice(index, 1);
     this.setDta(state);
     this.CallApi();
@@ -516,7 +522,7 @@ class Index extends Component {
                       </Grid>
                     </Grid>
                     <Drags
-                      moveDetial={(id) => this.moveDetial(id)}
+                      moveDetial={(id, case_id) => this.moveDetial(id, case_id)}
                       DeleteStep={(index) => this.DeleteStep(index)}
                       onKeyDownlogin={this.onKeyDownlogin}
                       editName={this.editName}
@@ -557,7 +563,15 @@ class Index extends Component {
           open={this.state.openAddP}
           onClose={this.closeAddP}
         >
-          <Grid className="addFlowContnt">
+          <Grid  className={
+        this.props.settings &&
+        this.props.settings.setting &&
+        this.props.settings.setting.mode &&
+        this.props.settings.setting.mode === "dark"
+          ? "addFlowContnt darkTheme"
+          : "addFlowContnt"
+      }
+      >
             <Grid className="addFlowIner">
               <Grid className="addFlowLbl">
                 <Grid className="addFlowClose">

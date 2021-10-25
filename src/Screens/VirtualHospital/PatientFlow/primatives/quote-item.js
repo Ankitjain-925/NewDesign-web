@@ -5,7 +5,8 @@ import Button from "@material-ui/core/Button";
 import CasesMoreButton from "Screens/Components/VirtualHospitalComponents/CasesMoreButton/index";
 import { checkTheIndex } from "../data";
 import SpecialityButton from "Screens/Components/VirtualHospitalComponents/SpecialityButton";
-import Assigned from "Screens/Components/VirtualHospitalComponents/Assigned/index"
+import Assigned from "Screens/Components/VirtualHospitalComponents/Assigned/index";
+import { S3Image } from "Screens/Components/GetS3Images/index";
 
 const getBorderColor = (isDragging, authorColors) =>
   isDragging ? "#333" : "transparent";
@@ -41,14 +42,15 @@ export default class QuoteItem extends React.Component {
               {this.props.quote?.status ===1 && <span className="err_message">Patient In invoice</span>}
               <Grid className="flowProfil">
                 <Grid>
-                  <img
+                <Grid className="tasklistName"><S3Image imgUrl={this.props.quote?.patient?.image} /></Grid>
+                  {/* <img
                     className="imgProfile"
                     src={require("assets/virtual_images/102.png")}
                     alt=""
                     title=""
-                  />
+                  /> */}
                 </Grid>
-                <Grid className="flowProfilRght" onClick={()=>this.props.moveDetial(quote.patient_id)}>
+                <Grid className="flowProfilRght" onClick={()=>this.props.moveDetial(quote.patient_id , quote._id)}>
                   <label>
                     {quote.patient.first_name} {quote.patient.last_name}
                   </label>
@@ -84,7 +86,7 @@ export default class QuoteItem extends React.Component {
                         alt=""
                         title=""
                       />
-                      {quote.wards.ward_name}
+                      {quote.wards?.ward_name}
                     </a>
                     <a className="taskHover">
                     <span>Room</span>
@@ -93,7 +95,7 @@ export default class QuoteItem extends React.Component {
                         alt=""
                         title=""
                       />
-                      {quote.rooms.room_name}
+                      {quote.rooms?.room_name}
                     </a>
                     <a className="taskHover">
                     <span>Bed</span>
@@ -172,7 +174,8 @@ export default class QuoteItem extends React.Component {
                   </Grid>
                   <Grid item xs={12} md={5} lg={4}>
                     <Grid className="cardioArea" >
-                      <Grid onClick={()=>this.props.moveDetial(quote.patient_id)}>
+                    <Grid className="tasklistName"><S3Image imgUrl={this.props.quote?.patient?.image} /></Grid>
+                      <Grid onClick={()=>this.props.moveDetial(quote.patient_id , quote._id)}>
                         <label>
                           {quote.patient.first_name} {quote.patient.last_name}
                         </label>
@@ -194,8 +197,8 @@ export default class QuoteItem extends React.Component {
                   </Grid>
                   <Grid item xs={12} md={4} lg={6}>
                       <Grid className="wardInfo">
-                          <a className="wardNum taskHover"><span>Ward</span><img src={require('assets/virtual_images/square.png')} alt="" title="" /><label>{quote.wards.ward_name}</label></a>
-                          <a className="roomNum taskHover"><span>Room</span><img src={require('assets/virtual_images/room.svg')} alt="" title="" /><label>{quote.rooms.room_name}</label></a>
+                          <a className="wardNum taskHover"><span>Ward</span><img src={require('assets/virtual_images/square.png')} alt="" title="" /><label>{quote.wards?.ward_name}</label></a>
+                          <a className="roomNum taskHover"><span>Room</span><img src={require('assets/virtual_images/room.svg')} alt="" title="" /><label>{quote.rooms?.room_name}</label></a>
                           <a className="bedNum taskHover"><span>Bed</span><img src={require('assets/virtual_images/bed2.png')} alt="" title="" /><label>{quote.bed}</label></a>
                       </Grid>
                   </Grid>

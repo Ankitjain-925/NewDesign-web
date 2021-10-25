@@ -22,7 +22,7 @@ class InnerQuoteList extends React.Component {
       >
         {(dragProvided, dragSnapshot) => (
           <QuoteItem
-            moveDetial={(id)=>this.props.moveDetial(id)}
+            moveDetial={(id, case_id)=>this.props.moveDetial(id, case_id)}
             columns={this.props.columns}
             ordered={this.props.ordered}
             key={quote.patient_id}
@@ -50,7 +50,7 @@ class InnerList extends React.Component {
     return (
       <div>
         <div ref={dropProvided.innerRef}>
-          <InnerQuoteList  MovetoTask={(speciality, patient_id)=>{ this.props.MovetoTask(speciality, patient_id) }} updateEntryState3={(e, case_id)=>{this.props.updateEntryState3(e, case_id)}} professional_id_list={this.props.professional_id_list} moveDetial={(id)=>this.props.moveDetial(id)} setDta={(item)=>this.props.setDta(item)} columns={this.props.columns} onDragEnd={(data)=>{this.props.onDragEnd(data)}} ordered={this.props.ordered} quotes={quotes}  view={this.props.view}/>
+          <InnerQuoteList  MovetoTask={(speciality, patient_id)=>{ this.props.MovetoTask(speciality, patient_id) }} updateEntryState3={(e, case_id)=>{this.props.updateEntryState3(e, case_id)}} professional_id_list={this.props.professional_id_list} moveDetial={(id, case_id)=>this.props.moveDetial(id, case_id)} setDta={(item)=>this.props.setDta(item)} columns={this.props.columns} onDragEnd={(data)=>{this.props.onDragEnd(data)}} ordered={this.props.ordered} quotes={quotes}  view={this.props.view}/>
         </div>
       </div>
     );
@@ -95,7 +95,7 @@ export default class QuoteList extends React.Component {
             {internalScroll ? (
               <div style={scrollContainerStyle}>
                 <InnerList
-                  moveDetial={(id)=>this.props.moveDetial(id)}
+                  moveDetial={(id, case_id)=>this.props.moveDetial(id, case_id)}
                   columns={this.props.columns}
                   ordered={this.props.ordered}
                   quotes={quotes}
@@ -112,7 +112,7 @@ export default class QuoteList extends React.Component {
               </div>
             ) : (
               <InnerList
-                moveDetial={(id)=>this.props.moveDetial(id)}
+                moveDetial={(id, case_id)=>this.props.moveDetial(id, case_id)}
                 ordered={this.props.ordered}
                 columns={this.props.columns}
                 quotes={quotes}

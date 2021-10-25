@@ -36,10 +36,22 @@ class Index extends React.Component {
            AllRoom: [],
            AllBeds: [],
            assignedTo:[],
+           AllSpec: this.props.speciality?.SPECIALITY
         }
     }
 
+ SpecSorter = (a, b)=> {
+      return this.props.quote?.speciality?._id === a._id ? -1 :  1;
+    }
+
     componentDidMount=()=>{
+        this.getListOption();
+        if(this.props.quote?.speciality?._id){
+          this.setState({ AllSpec:  this.props.speciality?.SPECIALITY.sort(this.SpecSorter)})
+        }
+    }
+
+    getListOption=()=>{
       var AllRoom = AllRoomList(this.props.quote?.speciality?._id, this.props.speciality?.SPECIALITY, this.props.quote?.wards?._id);
       this.setState({ AllRoom: AllRoom });
       this.GetAllBed();
@@ -114,6 +126,7 @@ class Index extends React.Component {
               steps.then((data) => {
                 var stepData = data ? data : [];
                 this.props.setDta(stepData);
+                this.setState({ loaderImage: false });
               });
               this.setState({ loaderImage: false });
         }
@@ -132,9 +145,10 @@ class Index extends React.Component {
           steps.then((data) => {
             var stepData = data ? data : [];
             this.props.setDta(stepData);
+            this.getListOption();
+            this.setState({ loaderImage: false });
           });
-          var AllRoom = AllRoomList(this.props.quote?.speciality?._id, this.props.speciality?.SPECIALITY, this.props.quote?.wards?._id);
-          this.setState({ loaderImage: false, AllRoom: AllRoom });
+          this.setState({ loaderImage: false });
         }
       })
     }
@@ -151,9 +165,10 @@ class Index extends React.Component {
           steps.then((data) => {
             var stepData = data ? data : [];
             this.props.setDta(stepData);
+            this.getListOption();
+            this.setState({ loaderImage: false });
           });
           this.setState({ loaderImage: false });
-          this.GetAllBed();
         }
       })
     }
@@ -194,12 +209,12 @@ class Index extends React.Component {
   }
 
    //Select the professional name
-   updateEntryState3 = (e) => {
+  updateEntryState3 = (e) => {
     this.setState({assignedTo: e}, 
        ()=>{
           this.props.updateEntryState3(e, this.props.quote._id)
        })
-} 
+  } 
 
 Discharge=()=>{
   confirmAlert({
@@ -246,8 +261,8 @@ MovetoTask=()=>{
                    <img src={require('assets/images/threedots.jpg')} alt="" title="" className="academyDots stepTdot" />
                    <ul>
                         {this.state.firstsec && <>
-                            <li><a onClick={()=>{this.props.history.push(`/virtualHospital/patient-detail/${this.props.quote.patient_id}?view=4`)}}><span><img src={require('assets/images/admin/details1.svg')} alt="" title="" /></span>{"Open details"}</a></li>
-                            <li><a onClick={()=>{this.props.history.push(`/virtualHospital/patient-detail/${this.props.quote.patient_id}`)}}><span><img src={require('assets/images/admin/restoreIcon.png')} alt="" title="" /></span>{"Add new entry"}</a></li>
+                            <li><a onClick={()=>{this.props.history.push(`/virtualHospital/patient-detail/${this.props.quote.patient_id}/${this.props.quote._id}/?view=4`)}}><span><img src={require('assets/images/admin/details1.svg')} alt="" title="" /></span>{"Open details"}</a></li>
+                            <li><a onClick={()=>{this.props.history.push(`/virtualHospital/patient-detail/${this.props.quote.patient_id}/${this.props.quote._id}`)}}><span><img src={require('assets/images/admin/restoreIcon.png')} alt="" title="" /></span>{"Add new entry"}</a></li>
                             <li><a onClick={()=>{this.MovetoTask()}}><span><img src={require("assets/images/admin/details1.svg")} alt="" title="" /></span>{"Add Task"} </a></li>
                             <li><a onClick={()=>{this.setState({changeStaffsec : true,specialitysec : false, assignroom: false, movepatsec : false, firstsec: false})}}><span><img src={require('assets/images/admin/delIcon.png')} alt="" title="" /></span>{"Change Staff >"}</a></li>
                             <li><a onClick={()=>{this.setState({specialitysec: false, assignroom: false, changeStaffsec: false, movepatsec : true, firstsec: false})}}><span><img src={require('assets/images/admin/details1.svg')} alt="" title="" /></span>{"Move patient to >"}</a></li>
@@ -276,7 +291,6 @@ MovetoTask=()=>{
                                 />
                                 </div>
                            ))}
-                           
                            </Grid>
                        </div> 
                         }
@@ -290,8 +304,7 @@ MovetoTask=()=>{
                            <Grid className="positionDrop">
                            <Select
                               name="professional"
-                              onChange={(e) =>
-                                  this.updateEntryState3(e)}
+                              onChange={(e) => this.updateEntryState3(e)}
                               value={this.state.assignedTo}
                               options={this.props.professional_id_list}
                               placeholder="Search & Select"
@@ -380,8 +393,6 @@ const mapStateToProps = (state) => {
     const { settings } = state.Settings;
     const { verifyCode } = state.authy;
     const { speciality } = state.Speciality;
-    // const { Doctorsetget } = state.Doctorset;
-    // const { catfil } = state.filterate;
     return {
       stateLanguageType,
       stateLoginValueAim,
@@ -390,8 +401,6 @@ const mapStateToProps = (state) => {
       verifyCode,
       House,
       speciality
-      //   Doctorsetget,
-      //   catfil
     };
   };
 export default withRouter(

@@ -4319,7 +4319,7 @@ button.onlogyBtn {
     font-family: Muli;
     text-transform: capitalize;
     padding: 9px 11px;
-    margin-right: 18px;
+    margin: 5px 5px;
 }
 .cardioGrupBtn button:last-child {
     margin-right: 0px !important;
@@ -5089,6 +5089,7 @@ a.recodBlck:hover {
     text-align: center;
     justify-content: center;
     cursor: pointer;
+    margin-top: 20px;
 }
 .roomName .MuiGrid-container {
     margin-bottom: 5px;
@@ -5104,6 +5105,7 @@ a.recodBlck:hover {
 }
 .wrdsBtn {
     text-align: right;
+    margin-bottom: 32px;
 }
 .wrdsBtn button {
     font-size: 14px;
@@ -9759,6 +9761,9 @@ button.crdoLghtBlu2 {
     border-bottom: none;
 }
 /* Added by Ankita */
+.que-mbottom button{
+    margin-bottom: 10px;
+}
 .dtlCountRm a:last-child {
     margin-left: 14px;
 }
@@ -10020,6 +10025,7 @@ button.crdoLghtBlu2 {
     width: 37px;
     height: 37px;
     border-radius: 50%;
+    margin-right:15px;
 }
 
 ul.patientHint {
@@ -10108,9 +10114,6 @@ ul.patientHint li {
 .dragdrop-vertical ul{
     padding-left: 0px;
     padding-right: 0px;
-    overflow-x: auto;
-    overflow-y: auto;
-    display: flex;
 }
 .dragdrop-horizontal ul li{
     list-style: none;
@@ -10606,7 +10609,7 @@ ul.patientHint li {
 .darkTheme .enterSpcl input:-moz-placeholder { 
     color: #bfc1c1;
 }
-.darkTheme .enterSpcl input {
+.darkTheme .enterSpcl input, .darkTheme .taskDescp textarea {
     background: #192020;
     color: #bfc1c1;
     border: 1px solid #8e8e8e8a;
@@ -10887,7 +10890,7 @@ ul.patientHint li {
 .darkTheme .patentInfo label {
     color: #bfc1c1;
 }
-.darkTheme .addFlowContnt {
+.darkTheme.addFlowContnt {
     background: #404646;
 }
 .darkTheme .patentInfo input {
@@ -11909,4 +11912,50 @@ a.taskHover{
 }
 a.taskHover:hover span {
     display: block;
+}
+.cardioGrupBtn button:first-child {
+    margin-left: 0px;
+}
+@media (max-width: 452px) {
+    .attchOpen {
+        margin: 25px 0px 10px;
+    }
+    .specialuty-more {
+        float: initial !important;
+    }
+    a.openScndhrf {
+        margin-top: 20px;
+    }
+    .attchNoteMain {
+        display: block !important;
+        align-items: initial !important;
+    }
+}
+@media (max-width: 768px) {
+ .creatTaskModel {
+    width: 98% !important;
+ }
+}
+.darkTheme .fillDia div {
+    background: transparent !important;
+}
+.darkTheme .addPatent a  {
+    background-color: #2f3535;
+    border: 1px solid #9b9b9b;
+    color: #c3c3c3 !important;
+}
+.darkTheme .taskDescp textarea::-webkit-input-placeholder { 
+    color: #bfc1c1;
+}
+.darkTheme .taskDescp textarea::-moz-placeholder { 
+    color: #bfc1c1;
+}
+.darkTheme .taskDescp textarea:-ms-input-placeholder { 
+    color: #bfc1c1;
+}
+.darkTheme .taskDescp textarea:-moz-placeholder { 
+    color: #bfc1c1;
+}
+.addPatent a  {
+    margin-bottom: 15px;
 }

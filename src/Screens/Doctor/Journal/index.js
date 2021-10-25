@@ -943,7 +943,6 @@ class Index extends Component {
     var user_id = this.props.Doctorsetget.p_id;
     let user_token = this.props.stateLoginValueAim.token
     let responce = await get_personalized(user_token, user_id)
-
     if (
       responce.data.hassuccessed &&
       responce.data.data &&

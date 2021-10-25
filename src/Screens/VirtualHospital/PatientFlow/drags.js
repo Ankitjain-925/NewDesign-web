@@ -119,7 +119,7 @@ class Index extends Component {
                   <li>
                     <div className="detailInfo">
                       <Column
-                        moveDetial={(id)=>this.props.moveDetial(id)}
+                        moveDetial={(id, case_id)=>this.props.moveDetial(id, case_id)}
                         key={key}
                         onDragEnd={(data)=>{this.onDragEnd(data)}}
                         index={index}

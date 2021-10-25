@@ -15,29 +15,19 @@ import Loader from "Screens/Components/Loader/index";
 import { Settings } from "Screens/Login/setting";
 import Toggle from "react-toggle";
 import "assets/css/style_log.css";
-import {
-  NavLink,
-  UncontrolledDropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
-} from "reactstrap";
+import { NavLink, UncontrolledDropdown,  DropdownToggle,  DropdownMenu, DropdownItem, } from "reactstrap";
 import ReCAPTCHA from "react-google-recaptcha";
-import {
-  getLanguage
-} from "translations/index"
+import { getLanguage } from "translations/index";
 import contry from "Screens/Components/countryBucket/countries.json";
-import {updateCometUser} from "Screens/Components/CommonApi/index";
-import {commonCometHeader,} from "component/CommonHeader/index"
+import { updateCometUser } from "Screens/Components/CommonApi/index";
+import { commonCometHeader } from "component/CommonHeader/index";
 //Values for the validate Password
 var letter = /([a-zA-Z])+([ -~])*/,
   number = /\d+/,
   specialchar = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
-  
 class Index extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       hidden: true,
       password: "",
@@ -63,155 +53,64 @@ class Index extends Component {
       FilesUp: [],
       fileattach: [],
       recaptcha: false,
-      mode:
-        this.props.settings &&
-        this.props.settings.setting &&
-        this.props.settings.setting.mode
-          ? this.props.settings.setting.mode
-          : "normal",
+      mode: this.props.settings && this.props.settings.setting && this.props.settings.setting.mode ? this.props.settings.setting.mode : "normal",
     };
-
-    this.handlePasswordChange = this.handlePasswordChange.bind(this);
-    this.toggleShow = this.toggleShow.bind(this);
-    this.changeValue = this.changeValue.bind(this);
   }
-
-  handlePasswordChange(e) {
+  //On change password
+  handlePasswordChange = (e) => {
     this.setState({ password: e.target.value });
   }
-
   //For validate the email is correct or not
   validateEmail = (elementValue) => {
     var emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
     return emailPattern.test(elementValue);
   };
-
   //For login link
   login = () => {
     this.props.history.push("/");
   };
-
-  onChangeRec= (value) =>{
-    this.setState({recaptcha: value})
-  }
-
+  //on recaptcha click
+  onChangeRec = (value) => {
+    this.setState({ recaptcha: value });
+  };
   //For save data of user
   saveUserData() {
-    this.setState({
-      regisError: "",
-      regisError1: "",
-      regisError2: "",
-      regisError3: "",
-      regisError0: "",
-      error_msg: "",
-    });
-    if(this.state.recaptcha)
-    {
-    if (
-      this.state.userDetails.first_name &&
-      this.state.userDetails.last_name &&
-      this.state.userDetails.first_name !== "" &&
-      this.state.userDetails.last_name !== ""
-    ) {
-      if (this.validateEmail(this.state.userDetails.email)) {
-        if (
-          this.state.userDetails &&
-          this.state.userDetails.password &&
-          this.state.userDetails.password.match(letter) &&
-          this.state.userDetails.password.match(number) &&
-          this.state.userDetails.password.match(specialchar)
-        ) {
+    this.setState({ regisError: "", regisError1: "", regisError2: "", regisError3: "", regisError0: "", error_msg: "", });
+    if (this.state.recaptcha) {
+      if (
+        this.state.userDetails.first_name &&
+        this.state.userDetails.last_name &&
+        this.state.userDetails.first_name !== "" &&
+        this.state.userDetails.last_name !== ""
+      ) {
+        if (this.validateEmail(this.state.userDetails.email)) {
           if (
-            this.state.userDetails.mobile &&
-            this.state.userDetails.mobile !== ""
+            this.state.userDetails &&
+            this.state.userDetails.password &&
+            this.state.userDetails.password.match(letter) &&
+            this.state.userDetails.password.match(number) &&
+            this.state.userDetails.password.match(specialchar)
           ) {
-            if (this.state.selectedOption !== "") {
-              if (this.state.userDetails.terms_and_conditions) {
-                if (this.state.selectedOption == "patient") {
-                  this.setState({ loaderImage: true });
-                  if (this.state.userDetails.country_code) {
-                    var country_code = this.state.userDetails.country_code;
-                  } else {
-                    var country_code = "de";
-                  }
-                  var getBucket =
-                    contry &&
-                    contry.length > 0 &&
-                    contry.filter(
-                      (value, key) => value.code === country_code.toUpperCase()
-                    );
-                  axios
-                    .post(sitedata.data.path + "/UserProfile/AddUser/", {
-                      type: this.state.selectedOption,
-                      email: this.state.userDetails.email,
-                      password: this.state.userDetails.password,
-                      country_code: country_code,
-                      mobile: this.state.userDetails.mobile,
-                      is2fa: this.state.userDetails.is2fa,
-                      lan: this.props.stateLanguageType,
-                      first_name: this.state.userDetails.first_name,
-                      last_name: this.state.userDetails.last_name,
-                      bucket: getBucket[0].bucket,
-                      token: this.state.recaptcha
-                    })
-                    .then((responce) => {
-                      this.setState({ loaderImage: false });
-                      if (responce.data.hassuccessed === true) {
-                        axios
-                          .post(
-                            "https://api-eu.cometchat.io/v2.0/users",
-                            {
-                              uid: responce.data.data.profile_id,
-                              name:
-                                responce.data.data.first_name +
-                                " " +
-                                responce.data.data.last_name,
-                            },
-                            commonCometHeader()
-                          )
-                          .then((res) => {
-                            updateCometUser({
-                              uid: responce.data.data.profile_id.toLowerCase(),
-                              name:
-                                responce.data.data.first_name +
-                                " " +
-                                responce.data.data.last_name,
-                                role: "default"
-                            })
-                          });
-
-                        this.setState({ successfull: true });
-                        this.setState({
-                          registerMessage:
-                            "You are registered successfully, Please check your email for verification.",
-                        });
-                      } else {
-                        this.setState({ successfull: false });
-                        this.setState({ error_msg: responce.data.message });
-                      }
-                    })
-                    .catch((err) => {});
-                }
-                if (
-                  this.state.selectedOption == "pharmacy" ||
-                  this.state.selectedOption == "nurse" ||
-                  this.state.selectedOption == "doctor"
-                ) {
-                  this.setState({ loaderImage: true });
-                  if (this.state.userDetails.country_code) {
-                    var country_code = this.state.userDetails.country_code;
-                  } else {
-                    var country_code = "de";
-                  }
-                  var getBucket =
-                    contry &&
-                    contry.length > 0 &&
-                    contry.filter(
-                      (value, key) => value.code === country_code.toUpperCase()
-                    );
-                  if (this.state.selectedOption == "doctor" || this.state.selectedOption == "nurse" || this.state.selectedOption == "pharmacy") {
-                    this.saveDoctor(country_code);
-                  } else {
+            if (
+              this.state.userDetails.mobile &&
+              this.state.userDetails.mobile !== ""
+            ) {
+              if (this.state.selectedOption !== "") {
+                if (this.state.userDetails.terms_and_conditions) {
+                  if (this.state.selectedOption == "patient") {
+                    this.setState({ loaderImage: true });
+                    if (this.state.userDetails.country_code) {
+                      var country_code = this.state.userDetails.country_code;
+                    } else {
+                      var country_code = "de";
+                    }
+                    var getBucket =
+                      contry &&
+                      contry.length > 0 &&
+                      contry.filter(
+                        (value, key) =>
+                          value.code === country_code.toUpperCase()
+                      );
                     axios
                       .post(sitedata.data.path + "/UserProfile/AddUser/", {
                         type: this.state.selectedOption,
@@ -224,35 +123,33 @@ class Index extends Component {
                         first_name: this.state.userDetails.first_name,
                         last_name: this.state.userDetails.last_name,
                         bucket: getBucket[0].bucket,
-                        token: this.state.recaptcha
+                        token: this.state.recaptcha,
                       })
                       .then((responce) => {
                         this.setState({ loaderImage: false });
                         if (responce.data.hassuccessed === true) {
-                          if (this.state.selectedOption == "nurse") {
-                            axios
-                              .post(
-                                "https://api-eu.cometchat.io/v2.0/users",
-                                {
-                                  uid: responce.data.data.profile_id,
-                                  name:
-                                    responce.data.data.first_name +
-                                    " " +
-                                    responce.data.data.last_name,
-                                },
-                                commonCometHeader()
-                              )
-                              .then((res) => {
-                                updateCometUser({
-                                  uid: responce.data.data.profile_id.toLowerCase(),
-                                  name:
-                                    responce.data.data.first_name +
-                                    " " +
-                                    responce.data.data.last_name,
-                                    role: "default"
-                                })
+                          axios
+                            .post(
+                              "https://api-eu.cometchat.io/v2.0/users",
+                              {
+                                uid: responce.data.data.profile_id,
+                                name:
+                                  responce.data.data.first_name +
+                                  " " +
+                                  responce.data.data.last_name,
+                              },
+                              commonCometHeader()
+                            )
+                            .then((res) => {
+                              updateCometUser({
+                                uid: responce.data.data.profile_id.toLowerCase(),
+                                name:
+                                  responce.data.data.first_name +
+                                  " " +
+                                  responce.data.data.last_name,
+                                role: "default",
                               });
-                          }
+                            });
 
                           this.setState({ successfull: true });
                           this.setState({
@@ -263,31 +160,108 @@ class Index extends Component {
                           this.setState({ successfull: false });
                           this.setState({ error_msg: responce.data.message });
                         }
-                      });
+                      })
+                      .catch((err) => {});
                   }
+                  if (
+                    this.state.selectedOption == "pharmacy" ||
+                    this.state.selectedOption == "nurse" ||
+                    this.state.selectedOption == "doctor"
+                  ) {
+                    this.setState({ loaderImage: true });
+                    if (this.state.userDetails.country_code) {
+                      var country_code = this.state.userDetails.country_code;
+                    } else {
+                      var country_code = "de";
+                    }
+                    var getBucket =
+                      contry &&
+                      contry.length > 0 &&
+                      contry.filter(
+                        (value, key) =>
+                          value.code === country_code.toUpperCase()
+                      );
+                    if (
+                      this.state.selectedOption == "doctor" ||
+                      this.state.selectedOption == "nurse" ||
+                      this.state.selectedOption == "pharmacy"
+                    ) {
+                      this.saveDoctor(country_code);
+                    } else {
+                      axios
+                        .post(sitedata.data.path + "/UserProfile/AddUser/", {
+                          type: this.state.selectedOption,
+                          email: this.state.userDetails.email,
+                          password: this.state.userDetails.password,
+                          country_code: country_code,
+                          mobile: this.state.userDetails.mobile,
+                          is2fa: this.state.userDetails.is2fa,
+                          lan: this.props.stateLanguageType,
+                          first_name: this.state.userDetails.first_name,
+                          last_name: this.state.userDetails.last_name,
+                          bucket: getBucket[0].bucket,
+                          token: this.state.recaptcha,
+                        })
+                        .then((responce) => {
+                          this.setState({ loaderImage: false });
+                          if (responce.data.hassuccessed === true) {
+                            if (this.state.selectedOption == "nurse") {
+                              axios
+                                .post(
+                                  "https://api-eu.cometchat.io/v2.0/users",
+                                  {
+                                    uid: responce.data.data.profile_id,
+                                    name:
+                                      responce.data.data.first_name +
+                                      " " +
+                                      responce.data.data.last_name,
+                                  },
+                                  commonCometHeader()
+                                )
+                                .then((res) => {
+                                  updateCometUser({
+                                    uid: responce.data.data.profile_id.toLowerCase(),
+                                    name:
+                                      responce.data.data.first_name +
+                                      " " +
+                                      responce.data.data.last_name,
+                                    role: "default",
+                                  });
+                                });
+                            }
+                            this.setState({ successfull: true });
+                            this.setState({
+                              registerMessage:
+                                "You are registered successfully, Please check your email for verification.",
+                            });
+                          } else {
+                            this.setState({ successfull: false });
+                            this.setState({ error_msg: responce.data.message });
+                          }
+                        });
+                    }
+                  }
+                } else {
+                  this.setState({
+                    regisError0: "Please agree to our terms and conditions",
+                  });
                 }
               } else {
-                this.setState({
-                  regisError0: "Please agree to our terms and conditions",
-                });
+                this.setState({ regisError0: "Please select user type" });
               }
             } else {
-              this.setState({ regisError0: "Please select user type" });
+              this.setState({ regisError0: "Please fill mobile number" });
             }
           } else {
-            this.setState({ regisError0: "Please fill mobile number" });
+            this.setState({ regisError0: "Password is not valid" });
           }
         } else {
-          this.setState({ regisError0: "Password is not valid" });
+          this.setState({ regisError0: "E-mail is not valid" });
         }
       } else {
-        this.setState({ regisError0: "E-mail is not valid" });
+        this.setState({ regisError0: "Please fill the full name of user" });
       }
     } else {
-      this.setState({ regisError0: "Please fill the full name of user" });
-    }
-    }
-    else{
       this.setState({ regisError0: "Please fill the RECAPTCHA" });
     }
   }
@@ -406,6 +380,7 @@ class Index extends Component {
     }
   };
 
+  //final add the user
   getUpdate = (country_code, getBucket) => {
     axios
       .post(sitedata.data.path + "/UserProfile/AddUser/", {
@@ -421,7 +396,7 @@ class Index extends Component {
         first_name: this.state.userDetails.first_name,
         last_name: this.state.userDetails.last_name,
         bucket: getBucket[0].bucket,
-        token: this.state.recaptcha
+        token: this.state.recaptcha,
       })
       .then((responce) => {
         this.setState({ loaderImage: false, FilesUp: [] });
@@ -445,8 +420,8 @@ class Index extends Component {
                   responce.data.data.first_name +
                   " " +
                   responce.data.data.last_name,
-                role: "default"
-              })
+                role: "default",
+              });
             });
           this.setState({ successfull: true });
           this.setState({
@@ -467,16 +442,14 @@ class Index extends Component {
   };
 
   //For show or hide the Password
-  toggleShow() {
+  toggleShow =()=> {
     this.setState({ hidden: !this.state.hidden });
   }
-
-  changeValue(languageType, language) {
+  //On changing the languages
+  changeValue = (languageType, language) =>{
     this.setState({ dropDownValue: language });
     this.props.LanguageFetchReducer(languageType);
   }
-
-  componentDidMount() {}
   //For set the language
   SetMode = () => {
     var mode = this.state.mode === "normal" ? "dark" : "normal";
@@ -486,40 +459,14 @@ class Index extends Component {
   };
 
   render() {
-    let translate = getLanguage(this.props.stateLanguageType)
-
+    let translate = getLanguage(this.props.stateLanguageType);
     let {
-      Register_for_Aimedis,
-      Register_Name,
-      Register_email,
-      login_Password,
-      recEmp_FirstName,
-      recEmp_LastName,
-      Register_Mobilenumber,
-      Register_activate_auth,
-      Register_Accounttype,
-      click_here_uplod_license,
-      capab_Patients,
-      Register_want_register,
-      Register_Clicking_box,
-      Register_clickingbox,
-      Professional,
-      capab_Doctors,
-      Nurse,
-      Pharmacist,
-      Register_CREATE,
-      Register_havAC,
-      Register_lohinher,
-      Register_Passwordshould,
-      DarkMode,
-      file_uploaded,
-      Register_characters,
-      Register_letter,
-      Register_number,
-      Register_special,
-      country_code,
+      Register_for_Aimedis, Register_email, login_Password, recEmp_FirstName, recEmp_LastName,
+      Register_Mobilenumber, Register_activate_auth, Register_Accounttype, click_here_uplod_license,
+      capab_Patients, Register_want_register, Register_Clicking_box, Register_clickingbox, Professional,
+      capab_Doctors,  Nurse, Pharmacist, Register_CREATE, Register_havAC, Register_lohinher, Register_Passwordshould,
+      DarkMode, file_uploaded, Register_characters, Register_letter, Register_number, Register_special, country_code,
     } = translate;
-
     if (this.state.successfull) {
       return <Redirect to={"/register-successfull"} />;
     }
@@ -567,11 +514,6 @@ class Index extends Component {
                           <DropdownToggle nav caret>
                             {this.state.dropDownValue}
                           </DropdownToggle>
-                          {/* 
-                                                    en => English
-                                                    de => German  
-
-                                                */}
                           <DropdownMenu className="langInerFooter">
                             <DropdownItem
                               onClick={() => {
@@ -643,7 +585,6 @@ class Index extends Component {
               <Grid className="regData">
                 <h1>{Register_for_Aimedis}</h1>
               </Grid>
-
               <Grid className="registerFormMain">
                 <Grid className="registerForm">
                   <div className="err_message">
@@ -655,9 +596,6 @@ class Index extends Component {
                     {this.state.error_msg}
                     {this.state.namevald}
                   </div>
-                  {/* <div className="success_message">
-                                    {this.state.registerMessage}
-                                </div> */}
                   {this.state.fileupods && (
                     <div className="success_message">{file_uploaded}</div>
                   )}
@@ -673,7 +611,6 @@ class Index extends Component {
                       />
                     </Grid>
                   </Grid>
-
                   <Grid className="registerRow">
                     <Grid>
                       <label>{recEmp_LastName}</label>
@@ -686,7 +623,6 @@ class Index extends Component {
                       />
                     </Grid>
                   </Grid>
-
                   <Grid className="registerRow">
                     <Grid>
                       <label>{Register_email}</label>
@@ -699,7 +635,6 @@ class Index extends Component {
                       />
                     </Grid>
                   </Grid>
-
                   <Grid className="registerRow passInstMain">
                     <Grid>
                       <label>{login_Password}</label>
@@ -916,21 +851,13 @@ class Index extends Component {
                       </div>
                     )}
                   </Grid>
-
                   <Grid className="registerRow regMobNum">
                     <Grid>
                       <label>{Register_Mobilenumber}</label>
                     </Grid>
                     <Grid>
-                      {/* <PhoneInput
-                                        enableAreaCodes={true}
-                                        country={'us'}
-                                        value={this.state.phone}
-                                        onChange={phone => this.setState({ phone })}
-                                    //enableSearch={true}
-                                    /> */}
                       <ReactFlagsSelect
-                      searchable={true}
+                        searchable={true}
                         placeholder={country_code}
                         name="country_code"
                         onSelect={this.onSelectFlag}
@@ -957,7 +884,9 @@ class Index extends Component {
                       label={Register_activate_auth}
                     />
                   </Grid>
-                  {(this.state.selectedOption == "doctor" || this.state.selectedOption == "nurse" || this.state.selectedOption == "pharmacy") && (
+                  {(this.state.selectedOption == "doctor" ||
+                    this.state.selectedOption == "nurse" ||
+                    this.state.selectedOption == "pharmacy") && (
                     <Grid item xs={12} sm={12} className="common_name_v2_reg">
                       <label htmlFor="UploadDocument">
                         {" "}
@@ -1074,7 +1003,6 @@ class Index extends Component {
                       </Grid>
                     </Grid>
                   </Grid>
-
                   <Grid className="registerRow">
                     <FormControlLabel
                       className="regMob"
@@ -1088,7 +1016,6 @@ class Index extends Component {
                       label={Register_want_register}
                     />
                   </Grid>
-
                   <Grid className="registerRow">
                     <FormControlLabel
                       className="regMob"
@@ -1117,11 +1044,10 @@ class Index extends Component {
                       />
                     </Grid>
                   )}
-                   <ReCAPTCHA
-                      sitekey={"6Lfgib4cAAAAAKWDXLFxlUQ8o4zb529nqkP0k1b3"}
-                      onChange={this.onChangeRec}
-                    />
-
+                  <ReCAPTCHA
+                    sitekey={"6Lfgib4cAAAAAKWDXLFxlUQ8o4zb529nqkP0k1b3"}
+                    onChange={this.onChangeRec}
+                  />
                   <Grid className="registerRow">
                     <Grid className="regCrtAc">
                       <input
@@ -1131,7 +1057,6 @@ class Index extends Component {
                       />
                     </Grid>
                   </Grid>
-
                   <Grid className="havAC">
                     <p>
                       {Register_havAC}{" "}
@@ -1142,17 +1067,14 @@ class Index extends Component {
               </Grid>
             </Grid>
           </Grid>
-          {/* <Grid className="regFooter"><Footer /></Grid>   */}
         </Grid>
       </Grid>
     );
   }
 }
 const mapStateToProps = (state) => {
-  const {
-    stateLoginValueAim,
-    loadingaIndicatoranswerdetail,
-  } = state.LoginReducerAim;
+  const { stateLoginValueAim, loadingaIndicatoranswerdetail } =
+    state.LoginReducerAim;
   const { stateLanguageType } = state.LanguageReducer;
   const { settings } = state.Settings;
   return {
@@ -1168,4 +1090,3 @@ export default connect(mapStateToProps, {
   LanguageFetchReducer,
   Settings,
 })(Index);
-// export default Index;

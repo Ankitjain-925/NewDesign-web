@@ -87,7 +87,9 @@ class Index extends Component {
             openDate: true,
             specilaityList:[],
             assignedTo:[],
-            selectSpec: {}
+            selectSpec: {},
+            open: 0,
+            doneToday: 0
         };
     }
 
@@ -280,6 +282,9 @@ class Index extends Component {
     switchStatus = () => {
         const state = this.state.newTask;
         state['status'] = state.status === 'done' ? 'open' : 'done';
+        if(state.status === 'done'){
+            state['done_on'] = new Date();
+        }
         this.setState({ newTask: state });
     }
     //Select the patient name
@@ -535,19 +540,11 @@ class Index extends Component {
                                                 <h1>{Tasks_overview}</h1>
                                                 <Grid className="taskNum taskYelow">
                                                     <label><span></span>{Open}</label>
-                                                    <p>13</p>
+                                                    <p>{this.state.open}</p>
                                                 </Grid>
                                                 <Grid className="taskNum taskGren">
                                                     <label><span></span>{Donetoday}</label>
-                                                    <p>63</p>
-                                                </Grid>
-                                                <Grid className="taskNum taskYelow">
-                                                    <label><span></span>{Open}</label>
-                                                    <p>13</p>
-                                                </Grid>
-                                                <Grid className="taskNum taskGren">
-                                                    <label><span></span>Done today</label>
-                                                    <p>63</p>
+                                                    <p>{this.state.doneToday}</p>
                                                 </Grid>
                                                 <Grid className="showArchiv"><p onClick={() => { this.getArchived() }}><a>Show archived tasks</a></p></Grid>
                                             </Grid>

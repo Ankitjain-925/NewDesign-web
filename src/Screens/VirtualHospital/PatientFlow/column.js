@@ -7,11 +7,18 @@ import {DebounceInput} from 'react-debounce-input';
  
 export default class Column extends Component {
 
+  constructor(props) {
+    super(props);
+  
+    // Creating a reference
+    this.box = React.createRef();
+  }
   state = {
     title : this.props.title,
     quotes : this.props.quotes,
     index : this.props.index,
-    inneerSec: false
+    inneerSec: false,
+    edit: this.props.edit
   };
 
   boardRef;
@@ -21,6 +28,21 @@ export default class Column extends Component {
       this.setState({title: this.props.title, quotes: this.props.quotes, index: this.props.index});
     }
   };
+
+  componentDidMount() {
+    // Adding a click event listener
+    document.addEventListener('click', this.handleOutsideClick);
+  }
+
+  handleOutsideClick = (event) => {
+    if (this?.box && !this.box?.current?.contains(event.target)) {
+      this.setState({edit: false})
+    }
+  }
+
+  onChange=(e)=>{
+    this.props.onChange(e)
+  }
 
   render() {
     const title = this.props.title;
@@ -36,16 +58,19 @@ export default class Column extends Component {
                 {...provided.dragHandleProps}>
                 {this.props.view ==='vertical' ? 
                 <div className="checkDots" >
-                  <Grid>{this.props.edit===index ? 
+                  <Grid>
+                    {this.state.edit===index ? 
+                    <div ref={this.box}>
                     <DebounceInput
                       name="step_name"
                       forceNotifyByEnter={true}
                       forceNotifyOnBlur={true}
                       minLength={0}
-                      debounceTimeout={5000}
-                      onChange={e => this.props.onChange(e)}
+                      debounceTimeout={3000}
+                      onChange={e => this.onChange(e)}
                     />
-                    : <label onDoubleClick={()=>this.props.editName(index)}>{title}</label>}
+                    </div>
+                    : <label onDoubleClick={()=>{this.setState({edit: index})}}>{title}</label>}
                   </Grid>
                   <Grid className="checkDotsRght">
                     <a className="academy_ul stepTdotupper">
@@ -95,6 +120,7 @@ export default class Column extends Component {
                   <Grid container direction="row" justify="center" alignItems="center">
                       <Grid item xs={12} sm={6} md={6}><label>
                       <Grid>{this.props.edit===index ? 
+                      <div ref={this.box}>
                     <DebounceInput
                       name="step_name"
                       forceNotifyByEnter={true}
@@ -103,6 +129,7 @@ export default class Column extends Component {
                       debounceTimeout={5000}
                       onChange={e => this.props.onChange(e)}
                     />
+                    </div>
                     : <label onDoubleClick={()=>this.props.editName(index)}>{title}</label>}
                   </Grid></label></Grid>
                       <Grid item xs={12} sm={6} md={6} className="addPatent">
@@ -163,7 +190,7 @@ export default class Column extends Component {
                   backgroundColor: snapshot.isDragging ? 
                   "#baf": null
                 }}
-                moveDetial={(id)=>this.props.moveDetial(id)}
+                moveDetial={(id, case_id)=>this.props.moveDetial(id, case_id)}
                 view={this.props.view}
                 quotes={quotes}
                 columns={this.props.columns}
